@@ -1,8 +1,8 @@
 # Find
 
-Hitting `cmd-f` intuitively brings up a find view which you can use to search regex across the terminal (scoped by tab). The biggest differences you will notice are:
+Hitting `CMD+f` opens the find view which searches across the terminal (scoped within the current pane).
 
-* Find is **bottom-up**. The search starts from the bottom of the terminal. The first match is the _most recent one_. In Warp, unlike most other apps, you will not be scrolled away to the very top of your days-old terminal every time you open the search bar.
-* Find explicitly shows you the index of the match you are focused on and the total number of matches found.
+* Find is bottom-up: the search starts from the bottom of the terminal. The first match is the most recent one.
+* Since command outputs are contained within Blocks, you can still use the input editor when invoking find.
 
-![Find in Warp is bottom-up](../.gitbook/assets/7\_find.png)
+![Find](../.gitbook/assets/find.gif)

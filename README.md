@@ -1,19 +1,20 @@
 # Introduction
 
-Welcome to Warp!&#x20;
+Welcome to Warp!
 
-Warp is a terminal built to make you and your team more productive at running, debugging, and deploying code and infrastructure. It is a fully-native app built in Rust that does all rendering on the GPU. Our goal is that using Warp every developer should be as productive as a CLI veteran.&#x20;
+Warp is a blazingly fast, Rust-based terminal that makes you and your team more productive at running, debugging, and deploying code and infrastructure.
+It is a fully-native app built in Rust that renders on the GPU. Our mission is to elevate developer productivity.
 
-We are just getting going on the product, so please stay tuned as we make updates to the experience.
+Note (Nov 2021):
+Currently Mac-only. Support for other platforms (WASM, Linux, Windows) coming soon.
 
-This user manual is intended to guide you through the fundamentals of Warp, as well as some of the underlying design decisions.
+Follow our [Twitter](https://twitter.com/warpdotdev) for the latest updates.
+Join our [Discord](https://www.warp.dev/community) to interact directly with other developers and our engineers.
 
-Here’s a short video by Aloke - one of our engineers - demoing what Warp looks like today.
+This user manual is intended to guide you through how to use Warp and share insights into some of our design decisions.
 
+Here’s a short demo by one of our [engineers](https://www.warp.dev/about-us), [Aloke Desai](https://blog.warp.dev/whos-behind-warp-meet-the-team/) (July 2021).
+
+```sh
 {% embed url="https://www.youtube.com/watch?v=X0LzWAVlOC0" %}
-
-
-
-
-
-\
+```

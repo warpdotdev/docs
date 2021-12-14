@@ -1,0 +1,23 @@
+{
+  "name": "warp-gitbook",
+  "version": "1.0.0",
+  "description": "Welcome to Warp!&#x20;",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/warpdotdev/gitbook.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/warpdotdev/gitbook/issues"
+  },
+  "homepage": "https://github.com/warpdotdev/gitbook#readme",
+  "devDependencies": {
+    "honkit": "^3.6.23"
+  }
+}

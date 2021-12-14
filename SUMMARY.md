@@ -2,28 +2,29 @@
 
 * [Introduction](README.md)
 
-## Getting Started <a href="#getting-started-2" id="getting-started-2"></a>
+## Getting Started
 
-* [Getting Started](getting-started-2/getting-started.md)
-* [Privacy](getting-started-2/privacy.md)
+* [Getting Started with Warp](getting_started/getting_started_with_warp.md)
+* [Privacy](getting_started/privacy.md)
 
 ## Features
 
+* [Command Palette](features/command_palette.md)
+* [The Input / Text Editor](features/input_text_editor.md)
 * [Blocks](features/blocks.md)
-* [The Input Editor](features/the-input-editor.md)
-* [Full-screen Apps](features/full-screen-apps.md)
-* [Tab Completions](features/tab-completions.md)
-* [History—Viewing Past Commands and Search](features/history-viewing-past-commands-and-search.md)
+* [Split Panes](features/split_panes.md)
+* [Full-screen Apps](features/full_screen_apps.md)
+* [Completions](features/completions.md)
+* [Command History](features/command_history.md)
 * [SSH](features/ssh.md)
 * [Find](features/find.md)
 * [Themes](features/themes.md)
-* [Compact Mode](features/compact-mode.md)
-* [The command palette](features/the-command-palette.md)
-* [Keyboard Shortcuts](features/keyboard-shortcuts.md)
+* [Compact Mode](features/compact_mode.md)
+* [Keyboard Shortcuts](features/keyboard_shortcuts.md)
 
 ## Help
 
-* [Updating Warp](help/update.md)
-* [Refer a friend](help/refer-a-friend.md)
-* [Sending us Feedback](help/sending-us-feedback.md)
-* [Known Issues](help/known-issues.md)
+* [Updating Warp](help/updating_warp.md)
+* [Refer a Friend](help/refer_a_friend.md)
+* [Sending us Feedback](help/sending_us_feedback.md)
+* [Known Issues](help/known_issues.md)
