@@ -22,9 +22,9 @@ If your default shell is zsh, your aliases typically do not transfer over.
 Other shells are unsupported for now.
 
 * When you open a subshell (a shell within a shell), we do not set it up for Warp - instead it works like a normal terminal session.
-* You’ll need a Github account to [log in](getting-started.md#logging-into-warp).
+* You’ll need a Github account to log in.
 
-Our [known issues](https://docs.warp.dev/help/known-issues) section includes a compatibility table for tools e.g. [Vi / Vim / NeoVim](https://github.com/warpdotdev/warp/discussions/451), tmux, and Oh-My-Zsh.
+Our [known issues](https://docs.warp.dev/help/known-issues) section includes a compatibility table for tools e.g. [Vi / Vim / NeoVim](https://github.com/warpdotdev/warp/discussions/451), [tmux](https://github.com/warpdotdev/warp/discussions/501), and [Oh-My-Zsh](https://github.com/warpdotdev/warp/discussions/532).
 
 ## Logging into Warp
 
