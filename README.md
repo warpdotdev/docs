@@ -6,7 +6,7 @@ Warp is a blazingly fast, Rust-based terminal that makes you and your team more 
 It is a fully-native app built in Rust that renders on the GPU. Our mission is to elevate developer productivity.
 
 Note (Nov 2021):
-Currently Mac-only. Support for other platforms (WASM, [Linux](https://github.com/warpdotdev/warp/issues/120), [Windows](https://github.com/warpdotdev/warp/issues/204) coming soon.
+Currently Mac-only. Support for other platforms (WASM, [Linux](https://github.com/warpdotdev/warp/issues/120), [Windows](https://github.com/warpdotdev/warp/issues/204) coming soon).
 
 Follow our [Twitter](https://twitter.com/warpdotdev) for the latest updates.
 Join our [Discord](https://www.warp.dev/community) to interact directly with other developers and our engineers.
