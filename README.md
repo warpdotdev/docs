@@ -15,6 +15,4 @@ This user manual is intended to guide you through how to use Warp and share insi
 
 Here’s a short demo by one of our [engineers](https://www.warp.dev/about-us), [Aloke Desai](https://blog.warp.dev/whos-behind-warp-meet-the-team/) (July 2021).
 
-```sh
 {% embed url="https://www.youtube.com/watch?v=X0LzWAVlOC0" %}
-```
