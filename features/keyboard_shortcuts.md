@@ -25,7 +25,7 @@ These are all the shortcuts Warp currently supports:
 | `shift-up` / `shift-down`                            | Select everything above / below the cursor                                                                 |
 | `cmd-a`                                              | Select the entire editor buffer                                                                            |
 | `shift-enter` `ctrl-enter` `option-enter`            | Insert newline                                                                                             |
-| `ctrl-r`                                             | [Command History](command-history.md)                                              |
+| `ctrl-r`                                             | [Command History](command_history.md)                                              |
 | `cmd-d`                                              | Select all occurrences of the word(s) that has a cursor in it                                              |
 
 ## Block Shortcuts
@@ -52,4 +52,4 @@ These are all the shortcuts Warp currently supports:
 | `cmd-w`          | Close current tab         |
 | `cmd-k`          | Clears the terminal       |
 
-Want us to support a keyboard shortcut? [File a feature request here](../help/sending-us-feedback.md)!
+Want us to support a keyboard shortcut? [File a feature request here](../help/sending_us_feedback.md)!

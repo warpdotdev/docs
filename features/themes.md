@@ -12,7 +12,7 @@ By default, Warp ships with seven themes:
 * Gruvbox Dark
 * Gruvbox Light
 
-The Theme Changer can be accessed through the [Command Palette](https://docs.warp.dev/features/command-palettea) or:
+The Theme Changer can be accessed through the [Command Palette](https://docs.warp.dev/features/command_palette) or:
 
 1. navigating to the top-right section of the Warp window
 2. clicking the kebab-menu to open the drop down menu
