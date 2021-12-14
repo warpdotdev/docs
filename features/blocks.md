@@ -9,7 +9,7 @@ Blocks enable us to easily:
 * copy a command’s output
 * scroll directly to the start of a command’s output
 * re-input commands
-* share both a command and its output (with formatting!)
+* [share](https://app.warp.dev/block/TxBPzaJ56fQyXYI4TI4Ia2) both a command and its output (with formatting!)
 
 Interested in how we differentiate input and output, or how we implement blocks?
 Check out our blog post: [How Warp Works.](https://blog.warp.dev/how-warp-works/#implementing-blocks)
@@ -58,8 +58,9 @@ Right clicking a block will also open up the Block’s dropdown menu.
 The dropdown menu supports: (Dec 2021):  
 
 * Copying the input and/or output of a Block to the clipboard (`CMD+SHIFT+C`) to copy with the keyboard).
-* Sharing a Block (with formatting) by creating a web permalink.
-  * To unshare a Block, open the settings dialog.
+* Sharing a Block (with formatting) by creating a [web permalink](https://app.warp.dev/block/TxBPzaJ56fQyXYI4TI4Ia2).
+  * To unshare a Block: settings -> shared blocks
   * Currently the link is viewable to anyone who has it, but in the future, you will be able to restrict viewing permissions to specific Warp users or email domains.
 
 ![Block actions](../.gitbook/assets/blocks-actions.gif)
+
