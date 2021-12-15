@@ -5,7 +5,7 @@ This means that in general any data sharing is opt-in and under the control of t
 
 Terminal sessions obviously contain a bunch of potentially sensitive information and we want the absolute minimum sent to our servers necessary in order to provide you with the best possible experience.
 
-See our [privacy page](<ttps://www.warp.dev/privacy for an explanation) (in layman’s terms) or read our [full privacy policy.](https://assets-global.website-files.com/60352b1db5736ada4741b380/60b7f8d410ec2b9fc2a45af9_privacy-notice.pdf)
+See our [privacy page](https://www.warp.dev/privacy) for an explanation (in layman’s terms) or read our [full privacy policy.](https://assets-global.website-files.com/60352b1db5736ada4741b380/60b7f8d410ec2b9fc2a45af9_privacy-notice.pdf)
 
 If you have any questions about any of this, please don’t hesitate to reach out at [privacy@warp.dev](mailto:privacy@warp.dev)
 
