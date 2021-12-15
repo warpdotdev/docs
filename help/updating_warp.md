@@ -7,7 +7,7 @@ A notification will appear in the top right corner of the Warp window when a new
 
 To check for updates, simply click on the same update menu -> Check for Update
 
-![Update Check Manually](../.gitbook/assets/updating_warp-check.png)
+![Update Check Manually](../.gitbook/assets/updating_warp-check.gif)
 
 If nothing happens, it means you already have the latest stable build.
 
