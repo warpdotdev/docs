@@ -51,5 +51,9 @@ These are all the shortcuts Warp currently supports:
 | `cmd-t`          | Open a new tab            |
 | `cmd-w`          | Close current tab         |
 | `cmd-k`          | Clears the terminal       |
+| `cmd-opt-left`   | Switch panes left         |
+| `cmd-opt-right`  | Switch panes right        |
+| `cmd-opt-up`     | Switch panes up           |
+| `cmd-opt-down`   | Switch panes down         |
 
 Want us to support a keyboard shortcut? [File a feature request here](../help/sending_us_feedback.md)!
