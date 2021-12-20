@@ -8,6 +8,9 @@ Try disabling Oh-My-Tmux.
 
 In your [vimrc](https://github.com/warpdotdev/warp/discussions/451) set:
 
+Comment out `colorscheme` from your vimrc
+
+If this does not work add this to the bottom of your vimrc:
 `hi Normal guifg=#bbbbbb guibg=#333333 gui=NONE`
 
 ## Soft wrapping
