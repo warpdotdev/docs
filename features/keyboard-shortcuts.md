@@ -9,6 +9,7 @@ These are all the shortcuts Warp currently supports:
 | Keyboard binding                                     | Shortcut description                                                                                       |
 | ---------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
 | `escape`                                             | Closes the input suggestions or history menu                                                               |
+| `ctrl-l`                                             | Clears the terminal                                                                                                  |
 | `ctrl-h`                                             | Backspace                                                                                                  |
 | `ctrl-c`                                             | Clear the entire editor buffer                                                                             |
 | `ctrl-u` `cmd-shift-K`                               | Clear the current line                                                                                     |
