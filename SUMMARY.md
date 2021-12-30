@@ -28,4 +28,3 @@
 * [Refer a Friend](help/refer-a-friend.md)
 * [Sending us Feedback](help/sending-us-feedback.md)
 * [Known Issues](help/known-issues.md)
-* [Open Source Licenses](help/licenses.md)
