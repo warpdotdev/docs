@@ -1,15 +1,38 @@
 # all directories should have a trailing forward slash /
-input_directory = "../data/"
-output_directory = "../output/"
-output_filename = "licenses.md"
-filename_delimiter = ""
+error_directory = "../logs/"
+data_directory = "../data/"
 
 
-[models]
-[models.cargo]
+[tasks]
+
+[tasks.changelog]
+model_output_filename = "changelog.md"
+model_output_directory = "../help/"
+models = ["changelog"]
+markdown_header = """\
+# Changelog\n\n
+These are our release changelogs. We try to release an update every week on Warp Wednesday!\n\n
+"""
+
+
+[tasks.changelog.changelog]
+model_module_name = "model_channel_versions"
+data_filter_conditions = ["channel_versions"]
+
+[tasks.license]
+model_output_filename = "licenses.md"
+models = ["cargo", "scancode"]
+markdown_header = """\
+        # Open Source License Dependencies\n\n
+        These are the licenses of third-party libraries that Warp depends on.\n\n
+        """
+
+[tasks.license.cargo]
 model_module_name = "model_cargo"
-filter_conditions = ["raw", "cargo"]
+data_filter_conditions = ["raw", "cargo"]
+model_output_directory = "../help/"
 
-[models.scancode]
+[tasks.license.scancode]
 model_module_name = "model_scancode"
-filter_conditions = ["raw", "scancode"]
+data_filter_conditions = ["raw", "scancode"]
+model_output_directory = "../help/"

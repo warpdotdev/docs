@@ -2,8 +2,7 @@ import os
 from collections import namedtuple
 from datetime import datetime
 from itertools import accumulate
-from re import compile
-from re import match
+import re
 from typing import Any
 from typing import Callable
 from typing import Dict
@@ -148,9 +147,9 @@ def import_paths_from_folder(
 
         if check_paths:
             if ignore_hidden:
-                pattern_to_ignore: Pattern[str] = compile(r"^\.[A-Za-z]")
+                pattern_to_ignore: Pattern[str] = re.compile(r"^\.[A-Za-z]")
                 is_not_hidden_file_function: Callable[[str], bool] = lambda x: not bool(
-                    match(pattern_to_ignore, x)
+                    re.match(pattern_to_ignore, x)
                 )
                 list_function_checks_all_true.append(is_not_hidden_file_function)
             if include_files:

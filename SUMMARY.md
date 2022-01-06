@@ -24,6 +24,7 @@
 
 ## Help
 
+* [Changelog](help/changelog.md)
 * [Updating Warp](help/updating-warp.md)
 * [Refer a Friend](help/refer-a-friend.md)
 * [Sending us Feedback](help/sending-us-feedback.md)
