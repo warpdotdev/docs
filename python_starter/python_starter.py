@@ -107,7 +107,10 @@ def generate_filename(
 def generate_sub_paths_for_folder(
     folder: str,
 ) -> None:
-    directories: List[str] = folder.split("/")
+    try:
+        directories: List[str] = folder.split("/")
+    except AttributeError:
+        return
     recursive_sub_directories: Iterator[str] = accumulate(
         directories, lambda x, y: "/".join([x, y])
     )
