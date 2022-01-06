@@ -1,0 +1,15 @@
+# all directories should have a trailing forward slash /
+input_directory = "../data/"
+output_directory = "../output/"
+output_filename = "licenses.md"
+filename_delimiter = ""
+
+
+[models]
+[models.cargo]
+model_module_name = "model_cargo"
+filter_conditions = ["raw", "cargo"]
+
+[models.scancode]
+model_module_name = "model_scancode"
+filter_conditions = ["raw", "scancode"]
