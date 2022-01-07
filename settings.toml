@@ -23,7 +23,7 @@ data_filter_conditions = ["channel_versions"]
 
 [tasks.license]
 model_output_filename = "licenses.md"
-model_output_directory = "../help/"
+model_output_directory = "./help/"
 models = ["cargo", "scancode"]
 markdown_header = """\
 # Open Source License Dependencies
@@ -35,9 +35,7 @@ These are the licenses of third-party libraries that Warp depends on.
 [tasks.license.cargo]
 model_module_name = "model_cargo"
 data_filter_conditions = ["raw", "cargo"]
-model_output_directory = "../help/"
 
 [tasks.license.scancode]
 model_module_name = "model_scancode"
 data_filter_conditions = ["raw", "scancode"]
-model_output_directory = "../help/"
