@@ -109,7 +109,11 @@ class Model(BaseModel):
                     already_added_changelog_key_list.append(key_md)
                     markdown.append(f"### {changelog.get_date()} ({key_md})\n")
                     markdown.extend(
-                        [section.as_message() for section in changelog.sections]
+                        [
+                            section.as_message()
+                            for section in changelog.sections
+                            if section.title != "Coming soon"
+                        ]
                     )
                     markdown.append("\n")
 
