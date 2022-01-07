@@ -1,13 +1,13 @@
 # all directories should have a trailing forward slash /
-error_directory = "../logs/"
-data_directory = "../data/"
+error_directory = "./logs/"
+data_directory = "./data/"
 
 
 [tasks]
 
 [tasks.changelog]
 model_output_filename = "changelog.md"
-model_output_directory = "../help/"
+model_output_directory = "./help/"
 models = ["changelog"]
 markdown_header = """\
 # Changelog
