@@ -10,8 +10,10 @@ model_output_filename = "changelog.md"
 model_output_directory = "../help/"
 models = ["changelog"]
 markdown_header = """\
-# Changelog\n\n
-These are our release changelogs. We try to release an update every week on Warp Wednesday!\n\n
+# Changelog
+
+These are our release changelogs. We try to release an update every week on Warp Wednesday!
+
 """
 
 
@@ -21,11 +23,14 @@ data_filter_conditions = ["channel_versions"]
 
 [tasks.license]
 model_output_filename = "licenses.md"
+model_output_directory = "../help/"
 models = ["cargo", "scancode"]
 markdown_header = """\
-        # Open Source License Dependencies\n\n
-        These are the licenses of third-party libraries that Warp depends on.\n\n
-        """
+# Open Source License Dependencies
+
+These are the licenses of third-party libraries that Warp depends on.
+
+"""
 
 [tasks.license.cargo]
 model_module_name = "model_cargo"

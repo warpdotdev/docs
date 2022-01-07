@@ -1,8 +1,6 @@
 # Changelog
 
-
 These are our release changelogs. We try to release an update every week on Warp Wednesday!
-
 
 ### 2022-01-05 (v0.2022.01.03.09.07)
 
