@@ -79,25 +79,3 @@ $ZDOTDIR/.zlogout
 
 You can quickly set up clean configs by putting `ZDOTDIR=/` in a `~/.zshenv` file.
 This forces zsh to run with zero configs.
-
-### Is this an interactive session? (bash)
-
-To determine within a startup script whether or not Bash is running interactively, test the value of the ‘-’ special parameter.
-It contains i when the shell is [interactive](https://www.gnu.org/software/bash/manual/html_node/Is-this-Shell-Interactive_003f.html).
-
-```sh
-case "$-" in
-*i*) echo This shell is interactive ;;
-*) echo This shell is not interactive ;;
-esac
-```
-
-Alternatively, startup scripts may examine the variable PS1; it is unset in non-interactive shells, and set in interactive shells.
-
-```sh
-if [ -z "$PS1" ]; then
-        echo This shell is not interactive
-else
-        echo This shell is interactive
-fi
-```
