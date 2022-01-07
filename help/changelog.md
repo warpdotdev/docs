@@ -2,7 +2,7 @@
 
 These are our release changelogs. We try to release an update every week on Warp Wednesday!
 
-### 2022-01-05 (v0.2022.01.03.09.07)
+### 2022.01.05 (v0.2022.01.03.09.07)
 
 **New features**
 
@@ -16,13 +16,13 @@ These are our release changelogs. We try to release an update every week on Warp
 - [499](https://github.com/warpdotdev/warp/issues/499) - Ctrl-Space is now properly passed to Emacs and other terminal apps
 - Copy on select setting persists across sessions and does not reset after updates
 
-### 2021-12-29 (v0.2021.12.27.09.04)
+### 2021.12.29 (v0.2021.12.27.09.04)
 
 **New features**
 
 - Find in block (+ other find improvements)
 
-### 2021-12-22 (v0.2021.12.20.09.04)
+### 2021.12.22 (v0.2021.12.20.09.04)
 
 **New features**
 
@@ -51,7 +51,7 @@ These are our release changelogs. We try to release an update every week on Warp
 - Enter Full Screen (Default)
 - Bring All to Front
 
-### 2021-12-15 (v0.2021.12.13.08.40)
+### 2021.12.15 (v0.2021.12.13.08.40)
 
 **New features**
 
@@ -64,7 +64,7 @@ These are our release changelogs. We try to release an update every week on Warp
 - More prominent highlights in ctrl-r, command palette, tab completion
 - Vim bug fixes and performance improvements - please let us know what else you see
 
-### 2021-12-08 (v0.2021.12.06.19.09)
+### 2021.12.08 (v0.2021.12.06.19.09)
 
 **New features**
 
@@ -76,7 +76,7 @@ These are our release changelogs. We try to release an update every week on Warp
 - Copy on select persistence bug
 - [439](https://github.com/warpdotdev/warp/issues/439) - UI Bug when trying to un-share a block
 
-### 2021-12-01 (v0.2021.11.29.18.59)
+### 2021.12.01 (v0.2021.11.29.18.59)
 
 **New features**
 
@@ -88,7 +88,7 @@ These are our release changelogs. We try to release an update every week on Warp
 
 - [138](https://github.com/warpdotdev/warp/issues/138) - Can now highlight and copy sections of a URL without it automatically opening
 
-### 2021-11-24 (v0.2021.11.23.17.55)
+### 2021.11.24 (v0.2021.11.23.17.55)
 
 **New features**
 
@@ -102,13 +102,13 @@ These are our release changelogs. We try to release an update every week on Warp
 
 - Properly escapes whitespace when you drag and drop files.
 
-### 2021-11-17 (v0.2021.11.16.20.05)
+### 2021.11.17 (v0.2021.11.16.20.05)
 
 **New features**
 
 - [069](https://github.com/warpdotdev/warp/issues/069) - Drag and drop files & directories from finder
 
-### 2021-11-10 (v0.2021.11.09.19.46)
+### 2021.11.10 (v0.2021.11.09.19.46)
 
 **New features**
 
@@ -123,7 +123,7 @@ These are our release changelogs. We try to release an update every week on Warp
 - [337](https://github.com/warpdotdev/warp/issues/337) - History now preserved across sessions
 - [330](https://github.com/warpdotdev/warp/issues/330) - Enter (numpad) was inputting as CTRL+C
 
-### 2021-11-03 (v0.2021.11.02.00.38)
+### 2021.11.03 (v0.2021.11.02.00.38)
 
 **New features**
 
@@ -138,7 +138,7 @@ These are our release changelogs. We try to release an update every week on Warp
 - App crashes from missing current working directory
 - [242](https://github.com/warpdotdev/warp/issues/242) - Pure Prompt being inserted as a typehead into editor
 
-### 2021-10-27 (v0.2021.10.25.22.47)
+### 2021.10.27 (v0.2021.10.25.22.47)
 
 **New features**
 
@@ -149,7 +149,7 @@ These are our release changelogs. We try to release an update every week on Warp
 
 - Double character entry after input editor loses focus
 
-### 2021-10-20 (v0.2021.10.19.21.38)
+### 2021.10.20 (v0.2021.10.19.21.38)
 
 **New features**
 
@@ -163,7 +163,7 @@ These are our release changelogs. We try to release an update every week on Warp
 - Show a banner instead of a popup when app startup takes longer than expected
 - git log (and similar commands) no longer treated as a failed block
 
-### 2021-10-13 (v0.2021.10.12.19.34)
+### 2021.10.13 (v0.2021.10.12.19.34)
 
 **Bug fixes**
 
@@ -173,14 +173,14 @@ These are our release changelogs. We try to release an update every week on Warp
 - Prevent block completion from stealing focus
 - Fix broken click handling for showing and hiding overflow menu
 
-### 2021-10-06 (v0.2021.10.05.20.07)
+### 2021.10.06 (v0.2021.10.05.20.07)
 
 **Bug fixes**
 
 - Split pane navigation when 'Left / Right Option is Meta' settings are enabled
 - Crash when opening a new window
 
-### 2021-09-29 (v0.2021.09.29.13.26)
+### 2021.09.29 (v0.2021.09.29.13.26)
 
 **New features**
 
@@ -192,7 +192,7 @@ These are our release changelogs. We try to release an update every week on Warp
 - Add better messaging when Warp does not have permission to autoupdate
 - Crash if a tab completion result was accepted after the cursor was moved to the beginning of the editor
 
-### 2021-09-22 (v0.2021.09.21.20.54)
+### 2021.09.22 (v0.2021.09.21.20.54)
 
 **New features**
 
@@ -204,7 +204,7 @@ These are our release changelogs. We try to release an update every week on Warp
 - Font selection dropdown didn't respect theme choice
 - Issues with padding and hover detection when toggling Compact Mode on or off
 
-### 2021-09-15 (v0.2021.09.14.21.25)
+### 2021.09.15 (v0.2021.09.14.21.25)
 
 **Bug fixes**
 
@@ -212,7 +212,7 @@ These are our release changelogs. We try to release an update every week on Warp
 - Executables in path were not appearing for completions in Bash
 - Completions menu overlaps theme picker
 
-### 2021-09-09 (v0.2021.09.09.0.0)
+### 2021.09.09 (v0.2021.09.09.0.0)
 
 **New features**
 
@@ -225,7 +225,7 @@ These are our release changelogs. We try to release an update every week on Warp
 - Fixed visual artifacts around windows and modals jumping
 - Fixed crash that occurs when you Cmd-F while selecting an already selected text
 
-### 2021-08-31 (v0.2021.08.31.0.0)
+### 2021.08.31 (v0.2021.08.31.0.0)
 
 **New features**
 
@@ -243,7 +243,7 @@ These are our release changelogs. We try to release an update every week on Warp
 - Login is broken for some users using Chrome
 - Make it more prominent in onboarding that we are collecting telemetry during the beta
 
-### 2021-08-25 (v0.2021.08.25.0.0)
+### 2021.08.25 (v0.2021.08.25.0.0)
 
 **New features**
 
@@ -258,7 +258,7 @@ These are our release changelogs. We try to release an update every week on Warp
 - Regression that caused URLs to not be highlighted
 - Opening a new window required Internet connection
 
-### 2021-08-18 (v0.2021.08.18.0.0)
+### 2021.08.18 (v0.2021.08.18.0.0)
 
 **New features**
 
@@ -272,7 +272,7 @@ These are our release changelogs. We try to release an update every week on Warp
 - [084](https://github.com/warpdotdev/warp/issues/084) - Rendering of colors correctly in diffs
 - Selection showing after closing and re-opening alt-screen
 
-### 2021-08-09 (v0.2021.08.09.0.0)
+### 2021.08.09 (v0.2021.08.09.0.0)
 
 **New features**
 
@@ -288,7 +288,7 @@ These are our release changelogs. We try to release an update every week on Warp
 - Dotfile path completions + Completions improvements for more commands
 - Artifacts when rendering svgs, especially on low res monitors. Overflow menu looks a lot better now!
 
-### 2021-07-28 (v0.2021.07.28.0.0)
+### 2021.07.28 (v0.2021.07.28.0.0)
 
 **New features**
 
@@ -304,7 +304,7 @@ These are our release changelogs. We try to release an update every week on Warp
 - Context Menu not closing when clicking outside of the menu
 - Crashes after executing multi-line commands and on older versions of macOS
 
-### 2021-07-21 (v0.2021.07.21.0.0)
+### 2021.07.21 (v0.2021.07.21.0.0)
 
 **New features**
 
@@ -318,7 +318,7 @@ These are our release changelogs. We try to release an update every week on Warp
 - Crash when closing a tab when there are multiple tabs
 - File-only completion signatures should also show directories
 
-### 2021-07-13 (v0.2021.07.13.0.0)
+### 2021.07.13 (v0.2021.07.13.0.0)
 
 **New features**
 
@@ -332,7 +332,7 @@ These are our release changelogs. We try to release an update every week on Warp
 - Find box is populated with the user's text selection
 - 3 second latency when changing the prompt upon first SSHing
 
-### 2021-07-07 (v0.2021.07.07.0.0)
+### 2021.07.07 (v0.2021.07.07.0.0)
 
 **New features**
 
@@ -346,7 +346,7 @@ These are our release changelogs. We try to release an update every week on Warp
 - Always fall back to path suggestions for completions
 - Various bugs related to completions
 
-### 2021-06-29 (v0.2021.06.29.0.0)
+### 2021.06.29 (v0.2021.06.29.0.0)
 
 **New features**
 
@@ -360,7 +360,7 @@ These are our release changelogs. We try to release an update every week on Warp
 - Crash when bootstrapping from detecting incorrect shell name
 - Various bugs related to completions
 
-### 2021-06-15 (v0.2021.06.15.19.04)
+### 2021.06.15 (v0.2021.06.15.19.04)
 
 **New features**
 
@@ -384,7 +384,7 @@ These are our release changelogs. We try to release an update every week on Warp
 - Paste is not working for full screen apps
 - Underline does not render with Hack font
 
-### 2021-06-09 (v0.2021.06.09.15.14)
+### 2021.06.09 (v0.2021.06.09.15.14)
 
 **New features**
 

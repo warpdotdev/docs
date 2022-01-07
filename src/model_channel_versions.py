@@ -6,9 +6,7 @@ from typing import List
 from pydantic import BaseModel
 
 CHANNEL_VERSIONS_FILE_NAME: str = "channel_versions.json"
-OUTPUT_DATE_TIME_FORMAT: str = "%Y-%m-%d"
 STABLE: str = "stable"
-GITHUB_ISSUE_LINK: str = "https://github.com/warpdotdev/warp/issues/"
 RE_GITHUB_ISSUE: str = r"#(\d\d\d)"
 RE_GITHUB_ISSUE_PATTERN = re.compile(RE_GITHUB_ISSUE)
 
@@ -45,8 +43,11 @@ class Changelog(BaseModel):
     date: datetime
     sections: List[Section]
 
-    def get_date(self):
-        return f"{self.date.strftime(OUTPUT_DATE_TIME_FORMAT)}"
+    def get_date_discord(self):
+        return f"{self.date.strftime('%Y-%m-%d')}"
+
+    def get_date_gitbook(self):
+        return f"{self.date.strftime('%Y.%m.%d')}"
 
 
 # noinspection PyPep8Naming
@@ -107,7 +108,7 @@ class Model(BaseModel):
                 changelog = stable_changelogs.get(key, {})
                 if changelog:
                     already_added_changelog_key_list.append(key_md)
-                    markdown.append(f"### {changelog.get_date()} ({key_md})\n")
+                    markdown.append(f"### {changelog.get_date_gitbook()} ({key_md})\n")
                     markdown.extend(
                         [
                             section.as_message()
