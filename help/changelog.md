@@ -2,18 +2,48 @@
 
 These are our release changelogs. We try to release an update every week on Warp Wednesday!
 
+### 2022.01.19 (v0.2022.01.17.08.48)
+
+**New features**
+
+- Restore block contents
+- [479](https://github.com/warpdotdev/warp/issues/479) - The longest common prefix in the completions menu auto-fills the Input Editor
+- [103](https://github.com/warpdotdev/warp/issues/103) - Add description for paths in completion results
+- [346](https://github.com/warpdotdev/warp/issues/346) - Can right click the prompt and copy: git branch, prompt, cwd
+
+**Bug fixes**
+
+- [599](https://github.com/warpdotdev/warp/issues/599) - Fixed bug where venv was inserted into input editor
+- Improved url detection
+
+### 2022.01.12 (v0.2022.01.10.17.24)
+
+**New features**
+
+- Added a Changelog page to our documentation
+
+**Bug fixes**
+
+- [508](https://github.com/warpdotdev/warp/issues/508) - Double clicking text in a url now highlights the word instead of the whole url
+- Double clicking a string with underscores now selects the whole string and not just the subword
+- Selection updates correctly when a block hit its max line length
+- [184](https://github.com/warpdotdev/warp/issues/184) - Can now also close the Command Palette using CMD-P
+- [070](https://github.com/warpdotdev/warp/issues/070) - Moved check for update button to settings dialog
+- Fixes tabs not opening in new windows when autoupdate is pending
+- Fix regression with input box not being focused on app relaunch
+
 ### 2022.01.05 (v0.2022.01.03.09.07)
 
 **New features**
 
 - [113](https://github.com/warpdotdev/warp/issues/113) - Native undo and redo in the text editor using CMD-Z
-- [107](https://github.com/warpdotdev/warp/issues/107) - Added Cmd-M to minimize the Window
+- [107](https://github.com/warpdotdev/warp/issues/107) - Added CMD-M to minimize the Window
 - Added our open source licenses to the Warp Documentation
 - Split pane focus indicator - a triangle in the top left corner of the pane in focus
 
 **Bug fixes**
 
-- [499](https://github.com/warpdotdev/warp/issues/499) - Ctrl-Space is now properly passed to Emacs and other terminal apps
+- [499](https://github.com/warpdotdev/warp/issues/499) - CTRL-SPACE is now properly passed to Emacs and other terminal apps
 - Copy on select setting persists across sessions and does not reset after updates
 
 ### 2021.12.29 (v0.2021.12.27.09.04)
@@ -38,7 +68,7 @@ These are our release changelogs. We try to release an update every week on Warp
 **Bug fixes**
 
 - [504](https://github.com/warpdotdev/warp/issues/504) - Copying selected text to clipboard creates a new entry for each selected character
-- [427](https://github.com/warpdotdev/warp/issues/427) - Needed an extra backspace to escape CTRL-r / history menu
+- [427](https://github.com/warpdotdev/warp/issues/427) - Needed an extra backspace to escape CTRL-R / history menu
 - VIM performance improvements - we’ve made progress but would love more sample cases of slowness
 
 **Updates to Mac Menu Bar (Window)**
@@ -55,13 +85,13 @@ These are our release changelogs. We try to release an update every week on Warp
 
 **New features**
 
-- Fuzzy search in ctrl-r and command palette
+- Fuzzy search in CTRL-R and command palette
 - When you share a link to a block, up to 5 recipients may now download Warp’s beta via the link
 
 **Bug fixes**
 
 - [426](https://github.com/warpdotdev/warp/issues/426) - Fix bug where opening file:// urls would not include query params like '?foo=bar'
-- More prominent highlights in ctrl-r, command palette, tab completion
+- More prominent highlights in CTRL-R, command palette, tab completion
 - Vim bug fixes and performance improvements - please let us know what else you see
 
 ### 2021.12.08 (v0.2021.12.06.19.09)
@@ -82,7 +112,7 @@ These are our release changelogs. We try to release an update every week on Warp
 
 - Added 15 extra invites for everyone!
 - [077](https://github.com/warpdotdev/warp/issues/077) - Copy on select (highlighting text will automatically copy to clipboard). This can be turned off in the settings dialog.
-- [049](https://github.com/warpdotdev/warp/issues/049) - CTRL-l shortcut to clear the screen
+- [049](https://github.com/warpdotdev/warp/issues/049) - CTRL-L shortcut to clear the screen
 
 **Bug fixes**
 
@@ -119,9 +149,9 @@ These are our release changelogs. We try to release an update every week on Warp
 **Bug fixes**
 
 - Conda info (prompt) locking input editor
-- CTRL+D now deletes forward one character
+- CTRL-D now deletes forward one character
 - [337](https://github.com/warpdotdev/warp/issues/337) - History now preserved across sessions
-- [330](https://github.com/warpdotdev/warp/issues/330) - Enter (numpad) was inputting as CTRL+C
+- [330](https://github.com/warpdotdev/warp/issues/330) - Enter (numpad) was inputting as CTRL-C
 
 ### 2021.11.03 (v0.2021.11.02.00.38)
 
@@ -184,7 +214,7 @@ These are our release changelogs. We try to release an update every week on Warp
 
 **New features**
 
-- Split pane. Create multiple panes in the same tab via shortcuts (cmd-e/cmd-shift-e), the command palette, or by right clicking in any pane.
+- Split pane. Create multiple panes in the same tab via shortcuts (CMD-E/SHIFT-CMD-E), the command palette, or by right clicking in any pane.
 - Custom themes via files.  You can now define your own theme as a yaml file in ~/.warp/themes. For more information on the file format and to see ~100 of the most popular themes already implemented in this format, see https://github.com/warpdotdev/themes. The ability to add and share themes directly within Warp is coming soon!
 
 **Bug fixes**
@@ -217,13 +247,13 @@ These are our release changelogs. We try to release an update every week on Warp
 **New features**
 
 - New themes for Warp!!! (Access them via Settings on the overflow menu. We have Dracula, Solarized, & Gruvbox)
-- Cmd comma opens the Settings menu
+- CMD-, opens the Settings menu
 
 **Bug fixes**
 
 - Fixed crash when we fail to load a font or when we scroll through fonts
 - Fixed visual artifacts around windows and modals jumping
-- Fixed crash that occurs when you Cmd-F while selecting an already selected text
+- Fixed crash that occurs when you CMD-F while selecting an already selected text
 
 ### 2021.08.31 (v0.2021.08.31.0.0)
 
@@ -236,7 +266,7 @@ These are our release changelogs. We try to release an update every week on Warp
 
 - Warp not rendering after executing long-running command
 - Stop powerlevel10k instant prompt from hanging on bootstrap
-- Changing “font-size” via ctrl-[- + 0] should stay in sync with font size in settings menu
+- Changing “font-size” via CTRL-- and CTRL-0 should stay in sync with font size in settings menu
 - Bracketed paste mode bug: 0~ ~1 on every command when ssh-ing
 - Crash when tab completing with multibyte characters
 - Download page doesn’t render correctly on safari
@@ -266,7 +296,7 @@ These are our release changelogs. We try to release an update every week on Warp
 
 **Bug fixes**
 
-- Crash caused by pressing Cmd-K
+- Crash caused by pressing CMD-K
 - Completion not working when cursor is mid-line
 - Re-input of multi-line commands
 - [084](https://github.com/warpdotdev/warp/issues/084) - Rendering of colors correctly in diffs
@@ -277,7 +307,7 @@ These are our release changelogs. We try to release an update every week on Warp
 **New features**
 
 - New settings modal (accessible from the top right overflow button) to set font size, toggle between light mode and dark mode, compact mode and normal mode
-- Ctrl + U/K now cuts to clipboard
+- CTRL-U and CTRL-K now cut to clipboard
 - Typeahead: characters you type in a long-running command will now show up in the input box when the command completes
 
 **Bug fixes**
@@ -308,13 +338,13 @@ These are our release changelogs. We try to release an update every week on Warp
 
 **New features**
 
-- Support for numpad enter
+- Support for numpad ENTER
 - More npm & yarn completions
 
 **Bug fixes**
 
 - Down arrow sends unrecognized escape sequence to Github CLI
-- Can’t use up arrow if item in history is multiple lines
+- Can’t use UP arrow if item in history is multiple lines
 - Crash when closing a tab when there are multiple tabs
 - File-only completion signatures should also show directories
 
@@ -336,9 +366,9 @@ These are our release changelogs. We try to release an update every week on Warp
 
 **New features**
 
-- Command Palette for most keyboard shortcuts (Cmd-P)
+- Command Palette for most keyboard shortcuts (CMD-P)
 - Previously, tab completion descriptions were cut off. Now we display them in a floating box
-- You can now switch tabs using ctrl-tab and ctrl-shift-tab
+- You can now switch tabs using CTRL-TAB and CTRL-SHIFT-TAB
 
 **Bug fixes**
 
@@ -369,9 +399,9 @@ These are our release changelogs. We try to release an update every week on Warp
 **Bug fixes**
 
 - Crash when closing last window
-- Cmd-f: when there are no matches, display 0/0
-- Cmd-f should not scroll away if navigating to a match on the same row
-- Cmd-f: render the yellow rectangle at the layer of rendering the cell
+- CMD-F: when there are no matches, display 0/0
+- CMD-F should not scroll away if navigating to a match on the same row
+- CMD-F: render the yellow rectangle at the layer of rendering the cell
 - Unable to move cursor upwards on multi-line previous command
 - Warp bootstrap commands showing up in history over ssh
 - Accept input via input box before terminal has bootstrapped
@@ -390,7 +420,7 @@ These are our release changelogs. We try to release an update every week on Warp
 
 - SSH support (Warp now works the same when you SSH as it does locally!)
 - Improved completions: we’ve built out new completions support that are snappier and have more intelligent suggestions for options and arguments for some of the most used commands.
-- Find: Pressing cmd-f now brings up a find view to search for text in the terminal
+- Find: Pressing CMD-F now brings up a find view to search for text in the terminal
 
 **Bug fixes**
 
