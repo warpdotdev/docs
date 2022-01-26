@@ -20,6 +20,7 @@
 * [Find](features/find.md)
 * [Themes](features/themes.md)
 * [Compact Mode](features/compact-mode.md)
+* [Session Management and Restoration](features/session-management-and-restoration.md)
 * [Keyboard Shortcuts](features/keyboard-shortcuts.md)
 
 ## Help
