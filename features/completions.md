@@ -4,7 +4,7 @@ Tab completions for common commands are built-in and work regardless of machine 
 As with standard shell autocomplete, you activate completions by pressing `TAB`.
 
 * Navigate to a local git directory
-* Type `git checkout` and press `TAB`
+* Type `git checkout ` (note the space) and then press `TAB`
   * A menu will show all of your local branches.
   You can select one using your mouse or the `UP ↑`/`DOWN ↓` arrow keys.
 
