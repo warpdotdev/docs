@@ -18,7 +18,10 @@ We authenticate normally, but bootstrap the remote shell to work with Warp Block
 * Warp takes over the prompt which enables us to build a modern input editor.
 * Warp configures histcontrol to ignore commands with leading spaces. We do this so our bootstrapping code does not clutter the history.
 
-`function warp_ssh_helper() { command ssh -o ControlMaster=yes -o ControlPath=/.ssh/%C -o PermitLocalCommand=yes
--o LocalCommand="printf '$DCS_START{"hook": "SSH", "value": {"socket_path": "/.ssh/%C", "user": "%r", "machine": "%h"}}$DCS_END'"
--t ${*:1} "exec -a bash bash --rcfile <(echo 'unset PS1; unset PS2; set -o vi; set +o vi; HISTCONTROL=ignorespace; printf '''$DCS_START{"hook": "InitShell", "value": {"shell": "bash"}}$DCS_END'''')"
-}`
+```sh
+function warp_ssh_helper() {
+    command ssh -o ControlMaster=yes -o ControlPath=/.ssh/%C -o PermitLocalCommand=yes
+    -o LocalCommand="printf '$DCS_START{"hook": "SSH", "value": {"socket_path": "/.ssh/%C", "user": "%r", "machine": "%h"}}$DCS_END'"
+    -t ${*:1} "exec -a bash bash --rcfile <(echo 'unset PS1; unset PS2; set -o vi; set +o vi; HISTCONTROL=ignorespace; printf '''$DCS_START{"hook": "InitShell", "value": {"shell": "bash"}}$DCS_END'''')"
+}
+```
