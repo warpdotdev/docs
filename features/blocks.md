@@ -1,7 +1,6 @@
 # Blocks
 
-In other terminals, the atomic unit is a character. But most developers think in commands and outputs.
-We designed Warp to reflect this mental model by grouping commands and outputs into Blocks.
+In other terminals, the atomic unit is a character. But most developers think in commands and outputs. We designed Warp to reflect this mental model by grouping commands and outputs into Blocks.
 
 Blocks enable us to easily:
 
@@ -11,8 +10,7 @@ Blocks enable us to easily:
 * re-input commands
 * [share](https://app.warp.dev/block/TxBPzaJ56fQyXYI4TI4Ia2) both a command and its output (with formatting!)
 
-Interested in how we differentiate input and output, or how we implement blocks?
-Check out our blog post: [How Warp Works.](https://blog.warp.dev/how-warp-works/#implementing-blocks)
+Interested in how we differentiate input and output, or how we implement blocks? Check out our blog post: [How Warp Works.](https://blog.warp.dev/how-warp-works/#implementing-blocks)
 
 ![Blocks](../.gitbook/assets/blocks-annotated.png)
 
@@ -45,22 +43,20 @@ To select a Block:
 
 To navigate between Blocks, you can either scroll using your mouse or the scrollbar, or you can [select a Block](https://docs.warp.dev/features/blocks#selecting-a-block) and use the `UP ↑` and `DOWN ↓` arrow keys.
 
-When the output of a command is cut-off, Warp creates a “snack bar” that displays the command the Block corresponds to.
-Clicking the snackbar will scroll the screen to the start of the Block.
+When the output of a command is cut-off, Warp creates a “snack bar” that displays the command the Block corresponds to. Clicking the snackbar will scroll the screen to the start of the Block.
 
 ![Navigating Blocks](../.gitbook/assets/blocks-navigation.gif)
 
 ## Actions on a Block
 
-To access a Block's dropdown menu, hover over a Block and click the kebab (three dots) button on the right hand side.
-Right clicking a block will also open up the Block’s dropdown menu.
+To access a Block's dropdown menu, hover over a Block and click the kebab (three dots) button on the right hand side. Right clicking a block will also open up the Block’s dropdown menu.
 
-The dropdown menu supports: (Dec 2021):  
+The dropdown menu supports: (Dec 2021):
 
 * Copying the input and/or output of a Block to the clipboard (`CMD+SHIFT+C`) to copy with the keyboard).
 * Sharing a Block (with formatting) by creating a [web permalink](https://app.warp.dev/block/TxBPzaJ56fQyXYI4TI4Ia2).
-  * To unshare a Block: settings -> shared blocks
+  * You can always unshare the Block after. To unshare the Block: Go to Settings -> Shared Blocks
   * Currently the link is viewable to anyone who has it, but in the future, you will be able to restrict viewing permissions to specific Warp users or email domains.
+  * This is the only action in the app that sends command information to our server. It is explicitly opt-in. Our privacy principle is that any data sharing is opt-in and under the control of the user, and you should be able to remove or export that data from our servers at any time. Read our privacy policy here for [more information](https://www.warp.dev/privacy).
 
 ![Block actions](../.gitbook/assets/blocks-actions.gif)
-
