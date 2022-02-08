@@ -54,7 +54,7 @@ To access a Block's dropdown menu, hover over a Block and click the kebab (three
 The dropdown menu supports: (Dec 2021):
 
 * Copying the input and/or output of a Block to the clipboard (`CMD+SHIFT+C`) to copy with the keyboard).
-* Sharing a Block (with formatting) by creating a [web permalink](https://app.warp.dev/block/TxBPzaJ56fQyXYI4TI4Ia2).
+* Sharing a Block (with formatting) by creating a web link. (See [example here](https://app.warp.dev/block/TxBPzaJ56fQyXYI4TI4Ia2).)
   * You can always unshare the Block after. To unshare the Block: Go to Settings -> Shared Blocks
   * Currently the link is viewable to anyone who has it, but in the future, you will be able to restrict viewing permissions to specific Warp users or email domains.
   * This is the only action in the app that sends command information to our server. It is explicitly opt-in. Our privacy principle is that any data sharing is opt-in and under the control of the user, and you should be able to remove or export that data from our servers at any time. Read our privacy policy here for [more information](https://www.warp.dev/privacy).
