@@ -37,7 +37,7 @@ We designed visual cues to help with quickly identifying what’s going on in a 
 To select a Block:
 
 * Using your mouse: click on a Block.
-* Or using your keyboard: hit `CMD+UP` to select the most recently executed Block and use the `UP ↑` and `DOWN ↓` arrow keys to navigate to the desired Block.
+* Or using your keyboard: hit `CMD-UP` to select the most recently executed Block and use the `UP ↑` and `DOWN ↓` arrow keys to navigate to the desired Block.
 
 ## Navigating between Blocks
 
@@ -53,9 +53,9 @@ To access a Block's dropdown menu, hover over a Block and click the kebab (three
 
 The dropdown menu supports: (Dec 2021):
 
-* Copying the input and/or output of a Block to the clipboard (`CMD+SHIFT+C`) to copy with the keyboard).
-* Sharing a Block (with formatting) by creating a web link. (See [example here](https://app.warp.dev/block/TxBPzaJ56fQyXYI4TI4Ia2).)
-  * You can always unshare the Block after. To unshare the Block: Go to Settings -> Shared Blocks
+* Copying the input and/or output of a Block to the clipboard (`SHIFT-CMD-C`) to copy with the keyboard).
+* Sharing a Block (with formatting) by creating a [web permalink](https://app.warp.dev/block/TxBPzaJ56fQyXYI4TI4Ia2).
+  * To unshare a Block: settings -> shared blocks
   * Currently the link is viewable to anyone who has it, but in the future, you will be able to restrict viewing permissions to specific Warp users or email domains.
   * This is the only action in the app that sends command information to our server. It is explicitly opt-in. Our privacy principle is that any data sharing is opt-in and under the control of the user, and you should be able to remove or export that data from our servers at any time. Read our privacy policy here for [more information](https://www.warp.dev/privacy).
 
