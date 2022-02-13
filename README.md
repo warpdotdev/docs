@@ -11,7 +11,8 @@ Currently Mac-only. Support for other platforms (WASM, [Linux](https://github.co
 Follow our [Twitter](https://twitter.com/warpdotdev) for the latest updates.
 Join our [Discord](https://www.warp.dev/community) to interact directly with other developers and our engineers.
 
-This user manual is intended to guide you through how to use Warp and share insights into some of our design decisions.
+This user manual is intended to guide you through how to use Warp.
+Jump to our [known issues](https://docs.warp.dev/help/known-issues) section for the workarounds and insight into our frequently asked questions!
 
 Here’s a short demo by one of our [engineers](https://www.warp.dev/about-us), [Aloke Desai](https://blog.warp.dev/whos-behind-warp-meet-the-team/) (July 2021).
 
