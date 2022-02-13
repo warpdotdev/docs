@@ -13,7 +13,7 @@ markdown_header = """\
 # Changelog
 
 These are our release changelogs. We try to release an update every week on Warp Wednesday!
-
+Submit issues and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 """
 
 

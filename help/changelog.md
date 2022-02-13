@@ -1,7 +1,7 @@
 # Changelog
 
 These are our release changelogs. We try to release an update every week on Warp Wednesday!
-
+Submit issues and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 ### 2022.01.19 (v0.2022.01.17.08.48)
 
 **New features**
