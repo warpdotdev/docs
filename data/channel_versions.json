@@ -6,7 +6,7 @@
     "version": "latest"
   },
   "stable": {
-    "version": "v0.2022.01.17.08.48.stable_01"
+    "version": "v0.2022.01.31.09.03.stable_00"
   },
   "changelogs": {
     "dev": {
@@ -25,22 +25,22 @@
     },
     "beta": {
       "latest": {
-        "date": "2022-01-19T12:47:47-06:00",
+        "date": "2022-01-26T12:47:47-06:00",
         "sections": [
           {
             "title": "New features",
             "items": [
-              "Restore block contents",
-              "#479 - The longest common prefix in the completions menu auto-fills the Input Editor",
-              "#103 - Add description for paths in completion results",
-              "#346 - Can right click the prompt and copy: git branch, prompt, cwd"
+              "#374 - Multi-cursor keybindings for adding cursors above and below current selections with OPT-CMD-UP/DOWN"
             ]
           },
           {
             "title": "Bug fixes",
             "items": [
-              "#599 - Fixed bug where venv was inserted into input editor",
-              "Improved url detection"
+              "#097 - Double clicking the top of the window maximizes the app",
+              "Icon, cursor and selection contrast fixes",
+              "Scrolling performance improvements with bg image themes",
+              "Changelog visual glitch",
+              "Resize bug - losing scroll position when viewing blocks with long output"
             ]
           },
           {
@@ -307,6 +307,64 @@
             "items": [
               "#599 - Fixed bug where venv was inserted into input editor",
               "Improved url detection"
+            ]
+          },
+          {
+            "title": "Coming soon",
+            "items": [
+              "Customizable key bindings",
+              "Support for PS1 (custom prompts)",
+              "Workflows"
+            ]
+          }
+        ]
+      },
+      "v0.2022.01.24.08.53.beta_01": {
+        "date": "2022-01-26T12:47:47-06:00",
+        "sections": [
+          {
+            "title": "New features",
+            "items": [
+              "Auto-close symbols (parenthesis, quotes, and brackets) like VSCode"
+            ]
+          },
+          {
+            "title": "Bug fixes",
+            "items": [
+              "#660 - Block sharing link no longer cuts off",
+              "Right clicking a Block now focuses that Block",
+              "Mouse dragging in vim",
+              "Restoring history bug on session restore",
+              "Automatically focus the last active window on session restore"
+            ]
+          },
+          {
+            "title": "Coming soon",
+            "items": [
+              "Customizable key bindings",
+              "Support for PS1 (custom prompts)",
+              "Workflows"
+            ]
+          }
+        ]
+      },
+      "v0.2022.01.31.09.06.beta_00": {
+        "date": "2022-01-26T12:47:47-06:00",
+        "sections": [
+          {
+            "title": "New features",
+            "items": [
+              "#374 - Multi-cursor keybindings for adding cursors above and below current selections with OPT-CMD-UP/DOWN"
+            ]
+          },
+          {
+            "title": "Bug fixes",
+            "items": [
+              "#097 - Double clicking the top of the window maximizes the app",
+              "Icon, cursor and selection contrast fixes",
+              "Scrolling performance improvements with bg image themes",
+              "Changelog visual glitch",
+              "Resize bug - losing scroll position when viewing blocks with long output"
             ]
           },
           {
@@ -1257,6 +1315,93 @@
             "items": [
               "#599 - Fixed bug where venv was inserted into input editor",
               "Improved url detection"
+            ]
+          },
+          {
+            "title": "Coming soon",
+            "items": [
+              "Customizable key bindings",
+              "Support for PS1 (custom prompts)",
+              "Workflows"
+            ]
+          }
+        ]
+      },
+      "v0.2022.01.24.08.55.stable_01": {
+        "date": "2022-01-26T12:47:47-06:00",
+        "sections": [
+          {
+            "title": "New features",
+            "items": [
+              "Auto-close symbols (parenthesis, quotes, and brackets) like VSCode"
+            ]
+          },
+          {
+            "title": "Bug fixes",
+            "items": [
+              "#660 - Block sharing link no longer cuts off",
+              "Right clicking a Block now focuses that Block",
+              "Mouse dragging in vim",
+              "Restoring history bug on session restore",
+              "Automatically focus the last active window on session restore"
+            ]
+          },
+          {
+            "title": "Coming soon",
+            "items": [
+              "Customizable key bindings",
+              "Support for PS1 (custom prompts)",
+              "Workflows"
+            ]
+          }
+        ]
+      },
+      "v0.2022.01.24.08.55.stable_02": {
+        "date": "2022-01-26T12:47:47-06:00",
+        "sections": [
+          {
+            "title": "New features",
+            "items": [
+              "Auto-close symbols (parenthesis, quotes, and brackets) like VSCode"
+            ]
+          },
+          {
+            "title": "Bug fixes",
+            "items": [
+              "#660 - Block sharing link no longer cuts off",
+              "Right clicking a Block now focuses that Block",
+              "Mouse dragging in vim",
+              "Restoring history bug on session restore",
+              "Automatically focus the last active window on session restore"
+            ]
+          },
+          {
+            "title": "Coming soon",
+            "items": [
+              "Customizable key bindings",
+              "Support for PS1 (custom prompts)",
+              "Workflows"
+            ]
+          }
+        ]
+      },
+      "v0.2022.01.31.09.03.stable_00": {
+        "date": "2022-01-26T12:47:47-06:00",
+        "sections": [
+          {
+            "title": "New features",
+            "items": [
+              "#374 - Multi-cursor keybindings for adding cursors above and below current selections with OPT-CMD-UP/DOWN"
+            ]
+          },
+          {
+            "title": "Bug fixes",
+            "items": [
+              "#097 - Double clicking the top of the window maximizes the app",
+              "Icon, cursor and selection contrast fixes",
+              "Scrolling performance improvements with bg image themes",
+              "Changelog visual glitch",
+              "Resize bug - losing scroll position when viewing blocks with long output"
             ]
           },
           {

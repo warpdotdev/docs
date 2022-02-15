@@ -2,6 +2,34 @@
 
 These are our release changelogs. We try to release an update every week on Warp Wednesday!
 Submit issues and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
+### 2022.01.26 (v0.2022.01.31.09.03)
+
+**New features**
+
+- [374](https://github.com/warpdotdev/warp/issues/374) - Multi-cursor keybindings for adding cursors above and below current selections with OPT-CMD-UP/DOWN
+
+**Bug fixes**
+
+- [097](https://github.com/warpdotdev/warp/issues/097) - Double clicking the top of the window maximizes the app
+- Icon, cursor and selection contrast fixes
+- Scrolling performance improvements with bg image themes
+- Changelog visual glitch
+- Resize bug - losing scroll position when viewing blocks with long output
+
+### 2022.01.26 (v0.2022.01.24.08.55)
+
+**New features**
+
+- Auto-close symbols (parenthesis, quotes, and brackets) like VSCode
+
+**Bug fixes**
+
+- [660](https://github.com/warpdotdev/warp/issues/660) - Block sharing link no longer cuts off
+- Right clicking a Block now focuses that Block
+- Mouse dragging in vim
+- Restoring history bug on session restore
+- Automatically focus the last active window on session restore
+
 ### 2022.01.19 (v0.2022.01.17.08.48)
 
 **New features**
