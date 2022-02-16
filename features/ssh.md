@@ -15,7 +15,7 @@ If you're using zsh on the remote host, we create a temp folder to act as the ZD
 
 ## Implementation
 
-We create a wrapper (around `/usr/bin/ssh`) that sends a message to the Warp terminal. We authenticate normally using `/usr/bin/ssh`, and bootstrap the remote shell to work with Warp Blocks and the Input Editor. You can opt-out of this functionality by invoking `/usr/bin/ssh` directly.
+We create a wrapper (around `/usr/bin/ssh`) to setup the shell for Warp's feature set. We authenticate normally using `/usr/bin/ssh`, and bootstrap the remote shell to work with Warp Blocks and the Input Editor. You can opt-out of this functionality by invoking `/usr/bin/ssh` directly.
 
 * Warp takes over the prompt which enables us to build a modern input editor.
 * Warp configures histcontrol to ignore commands with leading spaces. We do this so our bootstrapping code does not clutter the history.
