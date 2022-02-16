@@ -1,6 +1,7 @@
 # Keyboard Shortcuts
 
-Warp opens with a shortcut screen showing some of the most commonly used keyboard shortcuts. You can opt to hide this shortcut screen by clicking the menu button below it. This setting is sticky.
+Warp opens with a shortcut screen showing some of the most commonly used keyboard shortcuts.
+You can opt to hide this shortcut screen by clicking the menu button below it. This setting is sticky.
 
 These are all the shortcuts Warp currently supports:
 
