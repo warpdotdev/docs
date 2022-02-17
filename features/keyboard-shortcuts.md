@@ -1,11 +1,17 @@
 # Keyboard Shortcuts
 
 Warp opens with a shortcut screen showing some of the most commonly used keyboard shortcuts.
-You can opt to hide this shortcut screen by clicking the menu button below it. This setting is sticky.
+Hide the shortcut screen by clicking the menu button below it.
 
-These are all the shortcuts Warp currently supports:
+## Custom Keyboard Shortcuts
+
+Set custom or change current keyboard shortcuts by navigating to Settings > Keyboard Shortcuts.
+Search through the remappable actions using the search bar.
+
+![Custom Keybindings](../.gitbook/assets/keyboard-custom.gif)
 
 ## Input Editor Shortcuts
+
 
 | Keyboard binding                                     | Shortcut description                                                                                       |
 | ---------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
