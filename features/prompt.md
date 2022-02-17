@@ -1,6 +1,9 @@
 # Prompt
 
 Warp has a built in prompt that shows your current working directory (cwd) and also git branch information when in a git directory.
+
+## Custom prompts
+
 Enable custom prompt support by navigating to Settings > Features and toggling on "Honor user's custom prompt (PS1) setting."
 
 ![Honor PS1](../.gitbook/assets/prompt-custom_prompt.gif)
