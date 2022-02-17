@@ -17,6 +17,7 @@
 * [Autosuggestions](features/autosuggestions.md)
 * [Completions](features/completions.md)
 * [Themes](features/themes.md)
+* [Prompt](features/prompt.md)
 * [Compact Mode](features/compact-mode.md)
 * [Split Panes](features/split-panes.md)
 * [Session Management and Restoration](features/session-management-and-restoration.md)
