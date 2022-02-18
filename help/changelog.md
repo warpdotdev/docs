@@ -2,6 +2,28 @@
 
 These are our release changelogs. We try to release an update every week on Warp Wednesday!
 Submit issues and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
+### 2022.02.16 (v0.2022.02.14.08.44)
+
+**New features**
+
+- [579](https://github.com/warpdotdev/warp/issues/579) - Customizable key bindings (accessible via the settings menu)
+- [580](https://github.com/warpdotdev/warp/issues/580) - Users can opt in to use their shell’s prompt rather than Warp’s default (select the Honor PS1 toggle under the settings menu)  
+- [178](https://github.com/warpdotdev/warp/issues/178) - Added a timestamp showing Block runtime duration; hover to see start and end date + time
+- [403](https://github.com/warpdotdev/warp/issues/403) - CTRL-F now accepts autosuggestions
+- [403](https://github.com/warpdotdev/warp/issues/403) - CTRL-E and CMD-RIGHT accept autosuggestions when at the end of the buffer
+- [621](https://github.com/warpdotdev/warp/issues/621) - Allow input height to expand to half the pane height
+
+**Bug fixes**
+
+- [294](https://github.com/warpdotdev/warp/issues/294) - Arrow key presses now (up and down now) cycle themes in the theme picker
+- ESC keypress now exits the theme picker
+- CMD-Down when on most recent block to focus input now clears Block selection
+- Fixed a bug where resizing a pane while a command was running made it impossible to scroll to the bottom of the pane
+- Fixed a bug where resizing a pane could cause Warp to show a blank screen
+- Parentheses, quotes, and brackets now also auto-close after typing an alphanumeric character
+- [374](https://github.com/warpdotdev/warp/issues/374) - Remapped multi-cursor key bindings to CTRL-SHIFT-UP and CTRL-SHIFT-DOWN
+- [730](https://github.com/warpdotdev/warp/issues/730) - Restored OPT-CMD-UP and OPT-CMD-DOWN for switching panes up and down
+
 ### 2022.01.26 (v0.2022.01.31.09.03)
 
 **New features**
@@ -20,7 +42,7 @@ Submit issues and feature request on our [GitHub board!](https://github.com/warp
 
 **New features**
 
-- Auto-close symbols (parenthesis, quotes, and brackets) like VSCode
+- Auto-close symbols (parentheses, quotes, and brackets) like VSCode
 
 **Bug fixes**
 
@@ -113,13 +135,13 @@ Submit issues and feature request on our [GitHub board!](https://github.com/warp
 
 **New features**
 
-- Fuzzy search in CTRL-R and command palette
+- Fuzzy search in CTRL-R and Command Palette
 - When you share a link to a block, up to 5 recipients may now download Warp’s beta via the link
 
 **Bug fixes**
 
 - [426](https://github.com/warpdotdev/warp/issues/426) - Fix bug where opening file:// urls would not include query params like '?foo=bar'
-- More prominent highlights in CTRL-R, command palette, tab completion
+- More prominent highlights in CTRL-R, Command Palette, tab completion
 - Vim bug fixes and performance improvements - please let us know what else you see
 
 ### 2021.12.08 (v0.2021.12.06.19.09)
@@ -242,7 +264,7 @@ Submit issues and feature request on our [GitHub board!](https://github.com/warp
 
 **New features**
 
-- Split pane. Create multiple panes in the same tab via shortcuts (CMD-E/SHIFT-CMD-E), the command palette, or by right clicking in any pane.
+- Split pane. Create multiple panes in the same tab via shortcuts (CMD-E/SHIFT-CMD-E), the Command Palette, or by right clicking in any pane.
 - Custom themes via files.  You can now define your own theme as a yaml file in ~/.warp/themes. For more information on the file format and to see ~100 of the most popular themes already implemented in this format, see https://github.com/warpdotdev/themes. The ability to add and share themes directly within Warp is coming soon!
 
 **Bug fixes**
@@ -254,7 +276,7 @@ Submit issues and feature request on our [GitHub board!](https://github.com/warp
 
 **New features**
 
-- Theme picker available from the command palette
+- Theme picker available from the Command Palette
 
 **Bug fixes**
 
@@ -342,7 +364,7 @@ Submit issues and feature request on our [GitHub board!](https://github.com/warp
 
 - Handle arrow keys with modifiers (option and command) in CLIs and full-screen apps (Previously, users were unable to navigate with option and command keys in - Postgres CLI)
 - Straightening the text baseline
-- Translucent colors (e.g. for diff-so-fancy)are now correct (We now support the full range of opacity)
+- Translucent colors (e.g. for diff-so-fancy) are now correct (We now support the full range of opacity)
 - Dotfile path completions + Completions improvements for more commands
 - Artifacts when rendering svgs, especially on low res monitors. Overflow menu looks a lot better now!
 
@@ -386,7 +408,7 @@ Submit issues and feature request on our [GitHub board!](https://github.com/warp
 
 **Bug fixes**
 
-- Various command palette bugs
+- Various Command Palette bugs
 - Find box is populated with the user's text selection
 - 3 second latency when changing the prompt upon first SSHing
 

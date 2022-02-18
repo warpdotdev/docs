@@ -6,7 +6,7 @@
     "version": "latest"
   },
   "stable": {
-    "version": "v0.2022.01.31.09.03.stable_00"
+    "version": "v0.2022.02.14.08.44.stable_01"
   },
   "changelogs": {
     "dev": {
@@ -25,30 +25,36 @@
     },
     "beta": {
       "latest": {
-        "date": "2022-01-26T12:47:47-06:00",
+        "date": "2022-02-16T12:47:47-06:00",
         "sections": [
           {
             "title": "New features",
             "items": [
-              "#374 - Multi-cursor keybindings for adding cursors above and below current selections with OPT-CMD-UP/DOWN"
+              "#579 - Customizable key bindings (accessible via the settings menu)",
+              "#580 - Users can opt in to use their shell\u2019s prompt rather than Warp\u2019s default (select the Honor PS1 toggle under the settings menu)  ",
+              "#178 - Added a timestamp showing Block runtime duration; hover to see start and end date + time",
+              "#403 - CTRL-F now accepts autosuggestions",
+              "#403 - CTRL-E and CMD-RIGHT accept autosuggestions when at the end of the buffer",
+              "#621 - Allow input height to expand to half the pane height"
             ]
           },
           {
             "title": "Bug fixes",
             "items": [
-              "#097 - Double clicking the top of the window maximizes the app",
-              "Icon, cursor and selection contrast fixes",
-              "Scrolling performance improvements with bg image themes",
-              "Changelog visual glitch",
-              "Resize bug - losing scroll position when viewing blocks with long output"
+              "#294 - Arrow key presses now (up and down now) cycle themes in the theme picker",
+              "ESC keypress now exits the theme picker",
+              "CMD-Down when on most recent block to focus input now clears Block selection",
+              "Fixed a bug where resizing a pane while a command was running made it impossible to scroll to the bottom of the pane",
+              "Fixed a bug where resizing a pane could cause Warp to show a blank screen",
+              "Parentheses, quotes, and brackets now also auto-close after typing an alphanumeric character",
+              "#374 - Remapped multi-cursor key bindings to CTRL-SHIFT-UP and CTRL-SHIFT-DOWN",
+              "#730 - Restored OPT-CMD-UP and OPT-CMD-DOWN for switching panes up and down"
             ]
           },
           {
             "title": "Coming soon",
             "items": [
-              "Customizable key bindings",
-              "Support for PS1 (custom prompts)",
-              "Workflows"
+              "Workflows v1"
             ]
           }
         ]
@@ -142,7 +148,7 @@
           {
             "title": "New features",
             "items": [
-              "Fuzzy search in CTRL-R and command palette",
+              "Fuzzy search in CTRL-R and Command Palette",
               "When you share a link to a block, up to 5 recipients may now download Warp\u2019s beta via the link"
             ]
           },
@@ -150,7 +156,7 @@
             "title": "Bug fixes",
             "items": [
               "Fix bug where opening file:// urls would not include query params like '?foo=bar'",
-              "More prominent highlights in CTRL-R, command palette, tab completion",
+              "More prominent highlights in CTRL-R, Command Palette, tab completion",
               "Vim bug fixes and performance improvements - please let us know what else you see"
             ]
           },
@@ -325,7 +331,7 @@
           {
             "title": "New features",
             "items": [
-              "Auto-close symbols (parenthesis, quotes, and brackets) like VSCode"
+              "Auto-close symbols (parentheses, quotes, and brackets) like VSCode"
             ]
           },
           {
@@ -373,6 +379,41 @@
               "Customizable key bindings",
               "Support for PS1 (custom prompts)",
               "Workflows"
+            ]
+          }
+        ]
+      },
+      "v0.2022.02.14.08.47.beta_01": {
+        "date": "2022-02-16T12:47:47-06:00",
+        "sections": [
+          {
+            "title": "New features",
+            "items": [
+              "#579 - Customizable key bindings (accessible via the settings menu)",
+              "#580 - Users can opt in to use their shell\u2019s prompt rather than Warp\u2019s default (select the Honor PS1 toggle under the settings menu)  ",
+              "#178 - Added a timestamp showing Block runtime duration; hover to see start and end date + time",
+              "#403 - CTRL-F now accepts autosuggestions",
+              "#403 - CTRL-E and CMD-RIGHT accept autosuggestions when at the end of the buffer",
+              "#621 - Allow input height to expand to half the pane height"
+            ]
+          },
+          {
+            "title": "Bug fixes",
+            "items": [
+              "#294 - Arrow key presses now (up and down now) cycle themes in the theme picker",
+              "ESC keypress now exits the theme picker",
+              "CMD-Down when on most recent block to focus input now clears Block selection",
+              "Fixed a bug where resizing a pane while a command was running made it impossible to scroll to the bottom of the pane",
+              "Fixed a bug where resizing a pane could cause Warp to show a blank screen",
+              "Parentheses, quotes, and brackets now also auto-close after typing an alphanumeric character",
+              "#374 - Remapped multi-cursor key bindings to CTRL-SHIFT-UP and CTRL-SHIFT-DOWN",
+              "#730 - Restored OPT-CMD-UP and OPT-CMD-DOWN for switching panes up and down"
+            ]
+          },
+          {
+            "title": "Coming soon",
+            "items": [
+              "Workflows v1"
             ]
           }
         ]
@@ -466,7 +507,7 @@
             "title": "Coming soon",
             "items": [
               "Fish support",
-              "Command palette",
+              "Command Palette",
               "Expanded completions UI for longer descriptions",
               "Notifications"
             ]
@@ -516,7 +557,7 @@
           {
             "title": "Bug fixes",
             "items": [
-              "Various command palette bugs",
+              "Various Command Palette bugs",
               "Find box is populated with the user's text selection",
               "3 second latency when changing the prompt upon first SSHing"
             ]
@@ -612,7 +653,7 @@
             "items": [
               "Handle arrow keys with modifiers (option and command) in CLIs and full-screen apps (Previously, users were unable to navigate with option and command keys in - Postgres CLI)",
               "Straightening the text baseline",
-              "Translucent colors (e.g. for diff-so-fancy)are now correct (We now support the full range of opacity)",
+              "Translucent colors (e.g. for diff-so-fancy) are now correct (We now support the full range of opacity)",
               "Dotfile path completions + Completions improvements for more commands",
               "Artifacts when rendering svgs, especially on low res monitors. Overflow menu looks a lot better now!"
             ]
@@ -781,7 +822,7 @@
           {
             "title": "New features",
             "items": [
-              "Theme picker available from the command palette"
+              "Theme picker available from the Command Palette"
             ]
           },
           {
@@ -809,7 +850,7 @@
           {
             "title": "New features",
             "items": [
-              "Split pane. Create multiple panes in the same tab via shortcuts (CMD-E/SHIFT-CMD-E), the command palette, or by right clicking in any pane.",
+              "Split pane. Create multiple panes in the same tab via shortcuts (CMD-E/SHIFT-CMD-E), the Command Palette, or by right clicking in any pane.",
               "Custom themes via files.  You can now define your own theme as a yaml file in ~/.warp/themes. For more information on the file format and to see ~100 of the most popular themes already implemented in this format, see https://github.com/warpdotdev/themes. The ability to add and share themes directly within Warp is coming soon!"
             ]
           },
@@ -1100,7 +1141,7 @@
           {
             "title": "New features",
             "items": [
-              "Fuzzy search in CTRL-R and command palette",
+              "Fuzzy search in CTRL-R and Command Palette",
               "When you share a link to a block, up to 5 recipients may now download Warp\u2019s beta via the link"
             ]
           },
@@ -1108,7 +1149,7 @@
             "title": "Bug fixes",
             "items": [
               "#426 - Fix bug where opening file:// urls would not include query params like '?foo=bar'",
-              "More prominent highlights in CTRL-R, command palette, tab completion",
+              "More prominent highlights in CTRL-R, Command Palette, tab completion",
               "Vim bug fixes and performance improvements - please let us know what else you see"
             ]
           },
@@ -1261,7 +1302,7 @@
               "Customizable key bindings",
               "Session restoration - block contents",
               "General completions UX improvements",
-              "Workflows"
+              "Workflows v1"
             ]
           }
         ]
@@ -1293,7 +1334,7 @@
               "Customizable key bindings",
               "Session restoration - block contents",
               "General completions UX improvements",
-              "Workflows"
+              "Workflows v1"
             ]
           }
         ]
@@ -1322,7 +1363,7 @@
             "items": [
               "Customizable key bindings",
               "Support for PS1 (custom prompts)",
-              "Workflows"
+              "Workflows v1"
             ]
           }
         ]
@@ -1333,7 +1374,7 @@
           {
             "title": "New features",
             "items": [
-              "Auto-close symbols (parenthesis, quotes, and brackets) like VSCode"
+              "Auto-close symbols (parentheses, quotes, and brackets) like VSCode"
             ]
           },
           {
@@ -1351,7 +1392,7 @@
             "items": [
               "Customizable key bindings",
               "Support for PS1 (custom prompts)",
-              "Workflows"
+              "Workflows v1"
             ]
           }
         ]
@@ -1362,7 +1403,7 @@
           {
             "title": "New features",
             "items": [
-              "Auto-close symbols (parenthesis, quotes, and brackets) like VSCode"
+              "Auto-close symbols (parentheses, quotes, and brackets) like VSCode"
             ]
           },
           {
@@ -1410,6 +1451,41 @@
               "Customizable key bindings",
               "Support for PS1 (custom prompts)",
               "Workflows"
+            ]
+          }
+        ]
+      },
+      "v0.2022.02.14.08.44.stable_01": {
+        "date": "2022-02-16T12:47:47-06:00",
+        "sections": [
+          {
+            "title": "New features",
+            "items": [
+              "#579 - Customizable key bindings (accessible via the settings menu)",
+              "#580 - Users can opt in to use their shell\u2019s prompt rather than Warp\u2019s default (select the Honor PS1 toggle under the settings menu)  ",
+              "#178 - Added a timestamp showing Block runtime duration; hover to see start and end date + time",
+              "#403 - CTRL-F now accepts autosuggestions",
+              "#403 - CTRL-E and CMD-RIGHT accept autosuggestions when at the end of the buffer",
+              "#621 - Allow input height to expand to half the pane height"
+            ]
+          },
+          {
+            "title": "Bug fixes",
+            "items": [
+              "#294 - Arrow key presses now (up and down now) cycle themes in the theme picker",
+              "ESC keypress now exits the theme picker",
+              "CMD-Down when on most recent block to focus input now clears Block selection",
+              "Fixed a bug where resizing a pane while a command was running made it impossible to scroll to the bottom of the pane",
+              "Fixed a bug where resizing a pane could cause Warp to show a blank screen",
+              "Parentheses, quotes, and brackets now also auto-close after typing an alphanumeric character",
+              "#374 - Remapped multi-cursor key bindings to CTRL-SHIFT-UP and CTRL-SHIFT-DOWN",
+              "#730 - Restored OPT-CMD-UP and OPT-CMD-DOWN for switching panes up and down"
+            ]
+          },
+          {
+            "title": "Coming soon",
+            "items": [
+              "Workflows v1"
             ]
           }
         ]
