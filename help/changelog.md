@@ -2,37 +2,53 @@
 
 These are our release changelogs. We try to release an update every week on Warp Wednesday!
 Submit issues and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
+### 2022.02.23 (v0.2022.02.21.08.55)
+
+**New features**
+
+- ZSH support over SSH
+- Partially complete autosuggestion (by word) using CTRL-RIGHT and ALT-RIGHT - [488](https://github.com/warpdotdev/warp/issues/488)
+- Added a Copy URL menu item after right-clicking a URL - [154](https://github.com/warpdotdev/warp/issues/154)
+- Indicator for conflicting keybindings in keyboard customization UI
+
+**Bug fixes**
+
+- Able to fill-in longest common prefix after filtering tab completions - [618](https://github.com/warpdotdev/warp/issues/618)
+- Block completion causes Input Editor to steal focus from find bar - [452](https://github.com/warpdotdev/warp/issues/452)
+- UP-arrow in history menu sometimes scrolls more than one item
+- CMD-F opens a no-op find bar in alt screen
+
 ### 2022.02.16 (v0.2022.02.14.08.44)
 
 **New features**
 
-- [579](https://github.com/warpdotdev/warp/issues/579) - Customizable key bindings (accessible via the settings menu)
-- [580](https://github.com/warpdotdev/warp/issues/580) - Users can opt in to use their shell’s prompt rather than Warp’s default (select the Honor PS1 toggle under the settings menu)  
-- [178](https://github.com/warpdotdev/warp/issues/178) - Added a timestamp showing Block runtime duration; hover to see start and end date + time
-- [403](https://github.com/warpdotdev/warp/issues/403) - CTRL-F now accepts autosuggestions
-- [403](https://github.com/warpdotdev/warp/issues/403) - CTRL-E and CMD-RIGHT accept autosuggestions when at the end of the buffer
-- [621](https://github.com/warpdotdev/warp/issues/621) - Allow input height to expand to half the pane height
+- Customizable key bindings (accessible via the settings menu) - [579](https://github.com/warpdotdev/warp/issues/579)
+- Users can opt in to use their shell’s prompt rather than Warp’s default (select the Honor PS1 toggle under the settings menu) - [580](https://github.com/warpdotdev/warp/issues/580)
+- Added a timestamp showing Block runtime duration; hover to see start and end date + time - [178](https://github.com/warpdotdev/warp/issues/178)
+- CTRL-F now accepts autosuggestions - [403](https://github.com/warpdotdev/warp/issues/403)
+- CTRL-E and CMD-RIGHT accept autosuggestions when at the end of the buffer - [403](https://github.com/warpdotdev/warp/issues/403)
+- Allow input height to expand to half the pane height - [621](https://github.com/warpdotdev/warp/issues/621)
 
 **Bug fixes**
 
-- [294](https://github.com/warpdotdev/warp/issues/294) - Arrow key presses now (up and down now) cycle themes in the theme picker
+- Arrow key presses now (up and down now) cycle themes in the theme picker - [294](https://github.com/warpdotdev/warp/issues/294)
 - ESC keypress now exits the theme picker
 - CMD-Down when on most recent block to focus input now clears Block selection
 - Fixed a bug where resizing a pane while a command was running made it impossible to scroll to the bottom of the pane
 - Fixed a bug where resizing a pane could cause Warp to show a blank screen
 - Parentheses, quotes, and brackets now also auto-close after typing an alphanumeric character
-- [374](https://github.com/warpdotdev/warp/issues/374) - Remapped multi-cursor key bindings to CTRL-SHIFT-UP and CTRL-SHIFT-DOWN
-- [730](https://github.com/warpdotdev/warp/issues/730) - Restored OPT-CMD-UP and OPT-CMD-DOWN for switching panes up and down
+- Remapped multi-cursor key bindings to CTRL-SHIFT-UP and CTRL-SHIFT-DOWN - [374](https://github.com/warpdotdev/warp/issues/374)
+- Restored OPT-CMD-UP and OPT-CMD-DOWN for switching panes up and down - [730](https://github.com/warpdotdev/warp/issues/730) 
 
 ### 2022.01.26 (v0.2022.01.31.09.03)
 
 **New features**
 
-- [374](https://github.com/warpdotdev/warp/issues/374) - Multi-cursor keybindings for adding cursors above and below current selections with OPT-CMD-UP/DOWN
+- Multi-cursor keybindings for adding cursors above and below current selections with OPT-CMD-UP/DOWN - [374](https://github.com/warpdotdev/warp/issues/374)
 
 **Bug fixes**
 
-- [097](https://github.com/warpdotdev/warp/issues/097) - Double clicking the top of the window maximizes the app
+- Double clicking the top of the window maximizes the app - [097](https://github.com/warpdotdev/warp/issues/097)
 - Icon, cursor and selection contrast fixes
 - Scrolling performance improvements with bg image themes
 - Changelog visual glitch
@@ -46,7 +62,7 @@ Submit issues and feature request on our [GitHub board!](https://github.com/warp
 
 **Bug fixes**
 
-- [660](https://github.com/warpdotdev/warp/issues/660) - Block sharing link no longer cuts off
+- Block sharing link no longer cuts off - [660](https://github.com/warpdotdev/warp/issues/660)
 - Right clicking a Block now focuses that Block
 - Mouse dragging in vim
 - Restoring history bug on session restore
@@ -57,13 +73,13 @@ Submit issues and feature request on our [GitHub board!](https://github.com/warp
 **New features**
 
 - Restore block contents
-- [479](https://github.com/warpdotdev/warp/issues/479) - The longest common prefix in the completions menu auto-fills the Input Editor
-- [103](https://github.com/warpdotdev/warp/issues/103) - Add description for paths in completion results
-- [346](https://github.com/warpdotdev/warp/issues/346) - Can right click the prompt and copy: git branch, prompt, cwd
+- The longest common prefix in the completions menu auto-fills the Input Editor - [479](https://github.com/warpdotdev/warp/issues/479)
+- Add description for paths in completion results - [103](https://github.com/warpdotdev/warp/issues/103)
+- Can right click the prompt and copy: git branch, prompt, cwd - [346](https://github.com/warpdotdev/warp/issues/346)
 
 **Bug fixes**
 
-- [599](https://github.com/warpdotdev/warp/issues/599) - Fixed bug where venv was inserted into input editor
+- Fixed bug where venv was inserted into input editor - [599](https://github.com/warpdotdev/warp/issues/599)
 - Improved url detection
 
 ### 2022.01.12 (v0.2022.01.10.17.24)
@@ -74,11 +90,11 @@ Submit issues and feature request on our [GitHub board!](https://github.com/warp
 
 **Bug fixes**
 
-- [508](https://github.com/warpdotdev/warp/issues/508) - Double clicking text in a url now highlights the word instead of the whole url
+- Double clicking text in a url now highlights the word instead of the whole url - [508](https://github.com/warpdotdev/warp/issues/508)
 - Double clicking a string with underscores now selects the whole string and not just the subword
 - Selection updates correctly when a block hit its max line length
-- [184](https://github.com/warpdotdev/warp/issues/184) - Can now also close the Command Palette using CMD-P
-- [070](https://github.com/warpdotdev/warp/issues/070) - Moved check for update button to settings dialog
+- Can now also close the Command Palette using CMD-P - [184](https://github.com/warpdotdev/warp/issues/184)
+- Moved check for update button to settings dialog - [070](https://github.com/warpdotdev/warp/issues/070)
 - Fixes tabs not opening in new windows when autoupdate is pending
 - Fix regression with input box not being focused on app relaunch
 
@@ -86,14 +102,14 @@ Submit issues and feature request on our [GitHub board!](https://github.com/warp
 
 **New features**
 
-- [113](https://github.com/warpdotdev/warp/issues/113) - Native undo and redo in the text editor using CMD-Z
-- [107](https://github.com/warpdotdev/warp/issues/107) - Added CMD-M to minimize the Window
+- Native undo and redo in the text editor using CMD-Z - [113](https://github.com/warpdotdev/warp/issues/113)
+- Added CMD-M to minimize the Window - [107](https://github.com/warpdotdev/warp/issues/107)
 - Added our open source licenses to the Warp Documentation
 - Split pane focus indicator - a triangle in the top left corner of the pane in focus
 
 **Bug fixes**
 
-- [499](https://github.com/warpdotdev/warp/issues/499) - CTRL-SPACE is now properly passed to Emacs and other terminal apps
+- CTRL-SPACE is now properly passed to Emacs and other terminal apps - [499](https://github.com/warpdotdev/warp/issues/499)
 - Copy on select setting persists across sessions and does not reset after updates
 
 ### 2021.12.29 (v0.2021.12.27.09.04)
@@ -108,17 +124,17 @@ Submit issues and feature request on our [GitHub board!](https://github.com/warp
 
 - Windows, tabs, and panes are restored whenever you reopen Warp. Restoring block content is on its way!
 - Warp now supports completions for over 300 commands and more information about existing commands by using Fig’s completion specs
-- [210](https://github.com/warpdotdev/warp/issues/210) - Git aliases are now included in completions menu
-- [392](https://github.com/warpdotdev/warp/issues/392) - Switch to next pane and previous pane with CMD-[ and CMD-]
-- [370](https://github.com/warpdotdev/warp/issues/370) - Scrolling the Block list with PG-UP and PG-DOWN
-- [514](https://github.com/warpdotdev/warp/issues/514) - Copy and paste the file directory into Warp from Finder
+- Git aliases are now included in completions menu - [210](https://github.com/warpdotdev/warp/issues/210)
+- Switch to next pane and previous pane with CMD-[ and CMD-] - [392](https://github.com/warpdotdev/warp/issues/392)
+- Scrolling the Block list with PG-UP and PG-DOWN - [370](https://github.com/warpdotdev/warp/issues/370)
+- Copy and paste the file directory into Warp from Finder - [514](https://github.com/warpdotdev/warp/issues/514)
 - When the last Block is selected, can re-focus the input editor using CMD-DOWN key
 - Arrow down scrolls to bottom of last block
 
 **Bug fixes**
 
-- [504](https://github.com/warpdotdev/warp/issues/504) - Copying selected text to clipboard creates a new entry for each selected character
-- [427](https://github.com/warpdotdev/warp/issues/427) - Needed an extra backspace to escape CTRL-R / history menu
+- Copying selected text to clipboard creates a new entry for each selected character - [504](https://github.com/warpdotdev/warp/issues/504)
+- Needed an extra backspace to escape CTRL-R / history menu - [427](https://github.com/warpdotdev/warp/issues/427)
 - VIM performance improvements - we’ve made progress but would love more sample cases of slowness
 
 **Updates to Mac Menu Bar (Window)**
@@ -140,7 +156,7 @@ Submit issues and feature request on our [GitHub board!](https://github.com/warp
 
 **Bug fixes**
 
-- [426](https://github.com/warpdotdev/warp/issues/426) - Fix bug where opening file:// urls would not include query params like '?foo=bar'
+- Fix bug where opening file:// urls would not include query params like '?foo=bar' - [426](https://github.com/warpdotdev/warp/issues/426)
 - More prominent highlights in CTRL-R, Command Palette, tab completion
 - Vim bug fixes and performance improvements - please let us know what else you see
 
@@ -154,29 +170,29 @@ Submit issues and feature request on our [GitHub board!](https://github.com/warp
 **Bug fixes**
 
 - Copy on select persistence bug
-- [439](https://github.com/warpdotdev/warp/issues/439) - UI Bug when trying to un-share a block
+- UI Bug when trying to un-share a block - [439](https://github.com/warpdotdev/warp/issues/439)
 
 ### 2021.12.01 (v0.2021.11.29.18.59)
 
 **New features**
 
 - Added 15 extra invites for everyone!
-- [077](https://github.com/warpdotdev/warp/issues/077) - Copy on select (highlighting text will automatically copy to clipboard). This can be turned off in the settings dialog.
-- [049](https://github.com/warpdotdev/warp/issues/049) - CTRL-L shortcut to clear the screen
+- Copy on select (highlighting text will automatically copy to clipboard). This can be turned off in the settings dialog - [077](https://github.com/warpdotdev/warp/issues/077)
+- CTRL-L shortcut to clear the screen - [049](https://github.com/warpdotdev/warp/issues/049)
 
 **Bug fixes**
 
-- [138](https://github.com/warpdotdev/warp/issues/138) - Can now highlight and copy sections of a URL without it automatically opening
+- Can now highlight and copy sections of a URL without it automatically opening - [138](https://github.com/warpdotdev/warp/issues/138)
 
 ### 2021.11.24 (v0.2021.11.23.17.55)
 
 **New features**
 
-- [032](https://github.com/warpdotdev/warp/issues/032) - Background images + gradients in themes: You can now set a background image or gradient as your theme background. Warp ships with a few of these already or you can create your own via a yaml file.
+- Background images + gradients in themes: You can now set a background image or gradient as your theme background. Warp ships with a few of these already or you can create your own via a yaml file. - [032](https://github.com/warpdotdev/warp/issues/032)
 - Changelog dialog
-- [075](https://github.com/warpdotdev/warp/issues/075) - Emoji rendering: 😂, 😃, 🌍, 🍞, 🚗, 📞, 🎉, ❤️
+- Emoji rendering: 😂, 😃, 🌍, 🍞, 🚗, 📞, 🎉, ❤️ - [075](https://github.com/warpdotdev/warp/issues/075)
 - Improved settings dialog
-- [237](https://github.com/warpdotdev/warp/issues/237) - Theme search
+- Theme search - [237](https://github.com/warpdotdev/warp/issues/237) 
 
 **Bug fixes**
 
@@ -186,37 +202,37 @@ Submit issues and feature request on our [GitHub board!](https://github.com/warp
 
 **New features**
 
-- [069](https://github.com/warpdotdev/warp/issues/069) - Drag and drop files & directories from finder
+- Drag and drop files & directories from finder - [069](https://github.com/warpdotdev/warp/issues/069)
 
 ### 2021.11.10 (v0.2021.11.09.19.46)
 
 **New features**
 
-- [052](https://github.com/warpdotdev/warp/issues/052) - Autosuggestions: Warp now suggests commands as you type, similar to Fish or Gmail
-- [106](https://github.com/warpdotdev/warp/issues/106) - Button to copy the app/version
-- [235](https://github.com/warpdotdev/warp/issues/235) - Conda context to the prompt
+- Autosuggestions: Warp now suggests commands as you type, similar to Fish or Gmail - [052](https://github.com/warpdotdev/warp/issues/052)
+- Button to copy the app/version - [106](https://github.com/warpdotdev/warp/issues/106)
+- Conda context to the prompt - [235](https://github.com/warpdotdev/warp/issues/235)
 
 **Bug fixes**
 
 - Conda info (prompt) locking input editor
 - CTRL-D now deletes forward one character
-- [337](https://github.com/warpdotdev/warp/issues/337) - History now preserved across sessions
-- [330](https://github.com/warpdotdev/warp/issues/330) - Enter (numpad) was inputting as CTRL-C
+- History now preserved across sessions - [337](https://github.com/warpdotdev/warp/issues/337)
+- Enter (numpad) was inputting as CTRL-C - [330](https://github.com/warpdotdev/warp/issues/330)
 
 ### 2021.11.03 (v0.2021.11.02.00.38)
 
 **New features**
 
-- [327](https://github.com/warpdotdev/warp/issues/327) - CJK (Chinese, Japanese, and Korean) character support
+- CJK (Chinese, Japanese, and Korean) character support - [327](https://github.com/warpdotdev/warp/issues/327)
 - Autocompletions for missing tar commands
-- [249](https://github.com/warpdotdev/warp/issues/249) - Enforcement of minimum contrasts in grid
+- Enforcement of minimum contrasts in grid - [249](https://github.com/warpdotdev/warp/issues/249)
 
 **Bug fixes**
 
-- [232](https://github.com/warpdotdev/warp/issues/232) - Runaway memory usage (from font loading on initial run)
-- [309](https://github.com/warpdotdev/warp/issues/309) - Directories with non-english filenames not rendering on screen
+- Runaway memory usage (from font loading on initial run) - [232](https://github.com/warpdotdev/warp/issues/232)
+- Directories with non-english filenames not rendering on screen - [309](https://github.com/warpdotdev/warp/issues/309)
 - App crashes from missing current working directory
-- [242](https://github.com/warpdotdev/warp/issues/242) - Pure Prompt being inserted as a typehead into editor
+- Pure Prompt being inserted as a typehead into editor - [242](https://github.com/warpdotdev/warp/issues/242)
 
 ### 2021.10.27 (v0.2021.10.25.22.47)
 
@@ -233,7 +249,7 @@ Submit issues and feature request on our [GitHub board!](https://github.com/warp
 
 **New features**
 
-- [068](https://github.com/warpdotdev/warp/issues/068) - Switch theme based on OS appearance
+- Switch theme based on OS appearance - [068](https://github.com/warpdotdev/warp/issues/068)
 - Toggles instead of buttons in the setttings!
 - Link to Custom themes documentation in the settings
 
@@ -288,7 +304,7 @@ Submit issues and feature request on our [GitHub board!](https://github.com/warp
 
 **Bug fixes**
 
-- Crash when closing fullscreen window
+- Crash when closing full-screen window
 - Executables in path were not appearing for completions in Bash
 - Completions menu overlaps theme picker
 
