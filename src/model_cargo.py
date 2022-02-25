@@ -54,3 +54,8 @@ class Model(BaseModel):
         markdown.extend(sorted(crate_markdown))
         markdown.append("\n")
         return markdown
+
+
+def run(input_filename: str) -> None:
+    model = Model.parse_file(input_filename)
+    return model.as_markdown()

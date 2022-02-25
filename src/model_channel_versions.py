@@ -1,3 +1,4 @@
+import urllib.request
 import re
 from datetime import datetime
 from typing import Dict
@@ -9,6 +10,9 @@ CHANNEL_VERSIONS_FILE_NAME: str = "channel_versions.json"
 STABLE: str = "stable"
 RE_GITHUB_ISSUE: str = r"#(\d\d\d)"
 RE_GITHUB_ISSUE_PATTERN = re.compile(RE_GITHUB_ISSUE)
+GCP_CHANNEL_VERSIONS_JSON_URL: str = (
+    "https://storage.googleapis.com/warp-releases/channel_versions.json"
+)
 
 
 class Section(BaseModel):
@@ -119,3 +123,11 @@ class Model(BaseModel):
                     markdown.append("\n")
 
         return markdown
+
+
+def run(*arguments):
+    channel_versions_json: str = ""
+    with urllib.request.urlopen(GCP_CHANNEL_VERSIONS_JSON_URL) as url:
+        channel_versions_json = url.read().decode()
+    model = Model.parse_raw(channel_versions_json)
+    return model.as_markdown()

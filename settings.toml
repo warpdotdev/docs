@@ -16,10 +16,8 @@ These are our release changelogs. We try to release an update every week on Warp
 Submit issues and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 """
 
-
 [tasks.changelog.changelog]
 model_module_name = "model_channel_versions"
-data_filter_conditions = ["channel_versions"]
 
 [tasks.license]
 model_output_filename = "licenses.md"
@@ -34,8 +32,8 @@ These are the licenses of third-party libraries that Warp depends on.
 
 [tasks.license.cargo]
 model_module_name = "model_cargo"
-data_filter_conditions = ["raw", "cargo"]
+model_input_filename = "2021_12_29-cargo-raw.json"
 
 [tasks.license.scancode]
 model_module_name = "model_scancode"
-data_filter_conditions = ["raw", "scancode"]
+model_input_filename = "2021_12_29-scancode-raw.json"

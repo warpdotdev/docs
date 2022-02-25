@@ -3,6 +3,9 @@ import importlib
 
 from python_starter.python_starter import *
 
+CHANNEL_VERSIONS_URL: str = (
+    "https://storage.googleapis.com/warp-releases/channel_versions.json"
+)
 DATA: str = "data"
 DATA_FILTER_CONDITIONS: str = "data_filter_conditions"
 MODEL_MODULE_NAME: str = "model_module_name"
@@ -36,18 +39,13 @@ def main():
             model_module_name: str = model.model_module_name
             module = importlib.import_module(model_module_name)
 
-            model_filter_conditions: list[str] = model.get(DATA_FILTER_CONDITIONS)
-            data_filename: str = import_single_file(
-                folder=data_directory,
-                list_filename_filter_conditions=tuple(model_filter_conditions),
-            )
-            model = module.Model.parse_file(
+            input_filename: str = model.get("model_input_filename", "")
+            model_markdown = module.run(
                 os.path.join(
                     data_directory,
-                    data_filename,
+                    input_filename,
                 )
             )
-            model_markdown = model.as_markdown()
             del model
             markdown.extend(model_markdown)
 

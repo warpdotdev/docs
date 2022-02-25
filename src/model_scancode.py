@@ -72,3 +72,8 @@ class Model(BaseModel):
                 )
         markdown.extend(sorted(markdown_conclusion))
         return markdown
+
+
+def run(input_filename: str) -> None:
+    model = Model.parse_file(input_filename)
+    return model.as_markdown()
