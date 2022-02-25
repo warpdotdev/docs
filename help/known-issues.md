@@ -57,6 +57,7 @@ if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
     # OH-MY-ZSH-THEMES
     # OH-MY-ZSH-PLUGINS
     # FIG
+    # FZF
     # BIND keys like:
     # bindkey "^j" down-line-or-beginning-search
     # [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && 
