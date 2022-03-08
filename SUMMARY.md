@@ -10,7 +10,7 @@
 ## Features
 
 * [Command Palette](features/command-palette.md)
-* [The Input / Text Editor](features/input-text-editor.md)
+* [The Input / Text Editor](features/the-input-editor.md)
 * [Blocks](features/blocks.md)
 * [Find](features/find.md)
 * [Command History](features/command-history.md)
