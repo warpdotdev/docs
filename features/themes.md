@@ -86,8 +86,8 @@ The main difference between "standard" and "base16" themes is that "standard" th
 
 To install a theme from this repo you can:
 
-- download just a single file and follow the steps from (1)
-- clone the entire repo into `~/.warp/themes/`
+* download just a single file and follow the steps from (1)
+* clone the entire repo into `~/.warp/themes/`
 
 ### 3. How do I write my own custom theme?
 
@@ -178,6 +178,7 @@ terminal_colors:
 ```
 
 To set up a gradient, create a sub-level under accent with two key-value pairs:
+
 * "left" and "right" or
 * "top" and "bottom".
 
@@ -216,9 +217,10 @@ Contributions to this repo are greatly appreciated!
 4. Commit and open a pull request.
 
 Run this script to generate the thumbnails.
+
 ```sh
 # assuming you're adding the theme to `standard` directory:
-python3 ./scripts/gen_theme_previews.py standard/ standard/ ./scripts/preview.svg ./standard/README.md-intro
+python3 ./scripts/gen_theme_previews.py . . scripts/preview.svg readme.md-intro
 ```
 
 ## 5. Contact & more Warp information
@@ -229,11 +231,10 @@ All other Warp-related things can be discussed in our [Warp official repo](https
 
 We'd like to call out a few of the open source themes and repositories that helped bootstrap the set of themes for Warp:
 
-- [iTerm colors pencil](https://github.com/mattly/iterm-colors-pencil)
-- [Alacritty-theme](https://github.com/eendroroy/alacritty-theme)
-- [base16-Alacritty](https://github.com/aarowill/base16-alacritty)
-- [base16](https://github.com/chriskempson/base16)
-- [Solarized](https://ethanschoonover.com/solarized/)
-- [Dracula](https://draculatheme.com/)
-- [Gruvbox](https://github.com/morhetz/gruvbox)
-
+* [iTerm colors pencil](https://github.com/mattly/iterm-colors-pencil)
+* [Alacritty-theme](https://github.com/eendroroy/alacritty-theme)
+* [base16-Alacritty](https://github.com/aarowill/base16-alacritty)
+* [base16](https://github.com/chriskempson/base16)
+* [Solarized](https://ethanschoonover.com/solarized/)
+* [Dracula](https://draculatheme.com/)
+* [Gruvbox](https://github.com/morhetz/gruvbox)
