@@ -19,7 +19,7 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 
 We do not store any data from the command input or output itself as part of our telemetry.
 
-## Exhaustive Telemetry table
+## Exhaustive Telemetry Table
 
 * Account logged in
 * Account signed up
