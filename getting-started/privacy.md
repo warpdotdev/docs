@@ -28,6 +28,8 @@ We do not store any data from the command input or output itself as part of our 
 * Block copied
 * Block created
 * Block selected
+  - Cardinality (One, Many)
+  - Any modifiers used (`CMD`/`SHIFT`)
 * Block sharing link generated
 * Block sharing link copied
 * Bootstrapping failed
@@ -35,6 +37,7 @@ We do not store any data from the command input or output itself as part of our 
 * Bootstrapping succeeded
 * Context menu copy
 * Context menu copy selected text
+* Context menu find within block
 * Context menu insert selected text into input
 * Context menu initiate block sharing
 * Context menu reinput command
@@ -44,10 +47,11 @@ We do not store any data from the command input or output itself as part of our 
 * Loaded a page
 * Onboarding survey finished
 * Onboarding survey skipped
-* Onboarding survey question completed - company
-* Onboarding survey question completed - engineering
-* Onboarding survey question completed - purpose
-* Onboarding survey question completed - role
+* Onboarding survey question completed
+  - Company
+  - Engineering
+  - Purpose
+  - Role
 * Opened channel download
 * Opened invite-only download with invalid code
 * Opened invite-only download with valid code

@@ -32,12 +32,17 @@ We designed visual cues to help with quickly identifying what’s going on in a 
 * Blocks that quit with a non-zero exit code have a red background and red side bar.
 * Try it: type `xyz` (or some other command that doesn’t exist) and hit `ENTER`
 
-## Selecting a Block
+## Selecting Blocks
 
-To select a Block:
+To select a single Block:
 
 * Using your mouse: click on a Block.
 * Or using your keyboard: hit `CMD-UP` to select the most recently executed Block and use the `UP ↑` and `DOWN ↓` arrow keys to navigate to the desired Block.
+
+To select multiple Blocks, first select a single block and then:
+* click another block while holding `CMD` to toggle the selection of that block, or
+* click another block while holding `SHIFT` to select a range of blocks, or
+* use `SHIFT-UP ↑` or `SHIFT-DOWN ↓` to expand the active selection (the block with the thicker border) up or down, respectively
 
 ## Navigating between Blocks
 
@@ -58,5 +63,7 @@ The dropdown menu supports: (Dec 2021):
   * To unshare a Block: settings -> shared blocks
   * Currently the link is viewable to anyone who has it, but in the future, you will be able to restrict viewing permissions to specific Warp users or email domains.
   * This is the only action in the app that sends command information to our server. It is explicitly opt-in. Our privacy principle is that any data sharing is opt-in and under the control of the user, and you should be able to remove or export that data from our servers at any time. Read our privacy policy here for [more information](https://www.warp.dev/privacy).
+
+Similar actions are also supported when multiple blocks are selected.
 
 ![Block actions](../.gitbook/assets/blocks-actions.gif)
