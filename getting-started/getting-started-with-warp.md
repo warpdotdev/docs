@@ -36,6 +36,6 @@ Opening the app is the only time you need an active Internet connection. Otherwi
 
 As part of our beta, we ask a few questions within the app after you sign up. The survey is completely optional—you can skip all questions if you’d like.
 
-Why do we ask these? Understanding how you use the terminal helps us improve the product and prioritize the right features. For example, we might find that backend engineers spend more time with multiple terminal tabs open, less experienced developers copy output from blocks more often, or engineers at large companies spend more time using CLIs.
+Why do we ask these? Understanding how you use the terminal helps us improve the product and prioritize the right features. For example, we might find that backend engineers spend more time with multiple terminal tabs open, or engineers at large companies spend more time using CLIs.
 
 Thanks for joining our beta and helping us improve Warp!
