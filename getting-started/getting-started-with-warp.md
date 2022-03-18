@@ -13,7 +13,7 @@ We have been granting access to people every week. You can also join our [Discor
 For now, there are a few known limitations that we are actively working on:
 
 * Mac-only
-* Locally, the terminal integrates with only Bash and Zsh (fish support is coming soon).
+* Locally, the terminal integrates with Bash, Zsh, or Fish.
   * We do not support `PROMPT_COMMAND` in Bash right now (working on this!).
 * When you [SSH](https://docs.warp.dev/features/ssh), we start a Bash shell on the remote host.
   * We built a [wrapper](https://docs.warp.dev/features/ssh#how-it-works) around SSH to make Warp features possible.
