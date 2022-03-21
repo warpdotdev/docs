@@ -1,9 +1,19 @@
-# Open Source Licenses
+# Documentation
+
+Test the documentation locally by installing honkit from npm.
+
+[https://github.com/honkit/honkit#installation](https://github.com/honkit/honkit#installation)
+
+The youtube embed in the introduction (getting_started) does not work with honkit. So comment that section out.
+
+You can also rebase the honkit branch ontop of whatever changes you've made and then run honkit from there.
+
+## Open Source Licenses
 
 Note: The script is in python version 3.10.0. 
 Python 3.10 is really nice, check out the [structural pattern matching (622)](https://www.python.org/dev/peps/pep-0622/)
 
-## Installation
+### Installation
 
 Install poetry (pip)
 
@@ -17,7 +27,7 @@ Run poetry install to get all the dependencies
 poetry install
 ```
 
-## Running pipeline
+### Running pipeline
 
 Open up the settings.toml file to change the script configuration settings.
 
@@ -25,7 +35,7 @@ Open up the settings.toml file to change the script configuration settings.
 python3 ./src/main.py
 ```
 
-## Data
+### Data
 
 Store the outputted .json files from running ScanCode and or Cargo License into the data folder.
 This is where the script looks for the raw files to parse into markdown. The location and files to use can be changed in settings.toml.
