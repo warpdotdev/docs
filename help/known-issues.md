@@ -84,3 +84,18 @@ This forces zsh to run with zero configs.
 ## Fish shell `read` command
 
 There is an issue in Fish shell version 3.4.0 and below that causes the `read` built-in command to break Warp's integration with Fish. This means that using `read` directly or any Fish scripts that call `read` will not work as expected in Warp. That issue is resolved in the Fish repository and so should be fixed in the next release of Fish itself.
+
+## Fish shell and Fig
+
+Some older installations of Fig (most notably prior to September 2021) include startup scripts that are incompatible with Warp's bootstrap process. As described above in [Configuring and debugging your RC files](#configuring-and-debugging-your-rc-files), those scripts should be gated on a check of the `TERM_PROGRAM` environment variable. The two important files in this case are:
+
+- `~/.config/fish/conf.d/00_fig_pre.fish`
+- `~/.config/fish/conf.d/99_fig_post.fish`
+
+To allow Warp to properly bootstrap, edit those files and wrap all of the contents in a check of the environment variable:
+
+```sh
+if test "$TERM_PROGRAM" != "WarpTerminal"
+    # Existing bootstrap script here
+end
+```
