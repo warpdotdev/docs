@@ -7,7 +7,6 @@ Limitations of SSH (as of February 2022):
 * Warp specific features like Blocks are currently supported only for bash or zsh.
 * If you're using a different shell, you'll want to use `/usr/bin/ssh` directly (see below for more details).
 * For zsh, xxd is required to bootstrap warp.
-* For zsh, if locales are not set, it currently won't work (e.g. run `locale-gen en_US.UTF-8`).
 
 If you're using zsh on the remote host, we create a temp folder to act as the ZDOTDIR during the bootstrapping process and remove it when the shell is setup.
 
@@ -41,3 +40,19 @@ WARP_SSH_RCFILES="'${ZDOTDIR:-$HOME}'" ZDOTDIR="'$WARP_TMP_DIR'" WARP_FEATURE_FL
 esac"
 }
 ```
+
+## Troubleshooting
+### channel 2: open failed: connect failed: open failed
+If you're seeing these errors, you likely have some config on your server (usually in `/etc/ssh/sshd_config`) preventing Warp's ControlMaster connection from working. In this state, completions that require information from your remote host won't work and your history also won't work.
+
+The following options are known to interfere:
+* `AllowTcpForwarding no`
+* `PermitOpen`
+* `MaxSessions`
+
+You should ensure that:
+1. `AllowTcpForwarding` is `yes`, commented out, or not present.
+2. `PermitOpen` is `any`, commented out, or not present.
+3. `MaxSessions` is sufficiently high for your usage.
+
+Write access in `/etc/ssh/` typically requires sudo access. After any edits, you'd also need to restart the `sshd` daemon. 
