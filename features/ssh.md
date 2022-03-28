@@ -43,16 +43,8 @@ esac"
 
 ## Troubleshooting
 ### channel 2: open failed: connect failed: open failed
-If you're seeing these errors, you likely have some config on your server (usually in `/etc/ssh/sshd_config`) preventing Warp's ControlMaster connection from working. In this state, completions that require information from your remote host won't work and your history also won't work.
+If you're seeing these errors, you may have some config on your server (usually in `/etc/ssh/sshd_config`) preventing Warp's ControlMaster connection from working. In this state, completions that require information from your remote host won't work and your history also won't work.
 
-The following options are known to interfere:
-* `AllowTcpForwarding no`
-* `PermitOpen`
-* `MaxSessions`
-
-You should ensure that:
-1. `AllowTcpForwarding` is `yes`, commented out, or not present.
-2. `PermitOpen` is `any`, commented out, or not present.
-3. `MaxSessions` is sufficiently high for your usage.
+You should ensure that `MaxSessions` is either commented out or is at least `2`.
 
 Write access in `/etc/ssh/` typically requires sudo access. After any edits, you'd also need to restart the `sshd` daemon. 
