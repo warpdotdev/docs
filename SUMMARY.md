@@ -24,6 +24,7 @@
 * [Full-screen Apps](features/full-screen-apps.md)
 * [SSH](features/ssh.md)
 * [Keyboard Shortcuts](features/keyboard-shortcuts.md)
+* [Workflows](features/workflows.md)
 
 ## Help
 
