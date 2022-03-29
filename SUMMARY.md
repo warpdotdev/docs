@@ -25,6 +25,7 @@
 * [SSH](features/ssh.md)
 * [Keyboard Shortcuts](features/keyboard-shortcuts.md)
 * [Workflows](features/workflows.md)
+* [Global Hotkey Window](features/hotkey-window.md)
 
 ## Help
 
