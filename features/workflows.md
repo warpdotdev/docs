@@ -15,7 +15,7 @@ Local Workflows: `~/.warp/workflows`
 Project Workflows `{{path_to_project}}/.warp/workflows`
 
 ### Workflows File Format
-The existing workflows specs within the [Workflows repo](https://github.com/warpdotdev/workflows/tree/main/specs) should serve as an example for the format. Additionally, a more comprehensive file format is available in [FORMAT.md](https://github.com/warpdotdev/workflows/blob/main/FORMAT.md).
+The existing workflows specs within the [Workflows repo](https://github.com/warpdotdev/workflows) should serve as an example for the format. Additionally, a more comprehensive file format is available in [FORMAT.md](https://github.com/warpdotdev/workflows/blob/main/FORMAT.md).
 
 
 ### Adding a Local Workflow
@@ -37,7 +37,7 @@ cp ~/path/to/my_awesome_workflow.yaml .warp/workflows
 ```
 
 ## Contributing to Global Workflows
-You can add workflows that all Warp users can use by contributing directly to the [Workflows repo](https://github.com/warpdotdev/workflows/tree/main/specs). See the [Contributing](https://github.com/warpdotdev/workflows#contributing) section for more details.
+You can add workflows that all Warp users can use by contributing directly to the [Workflows repo](https://github.com/warpdotdev/workflows). See the [Contributing](https://github.com/warpdotdev/workflows#contributing) section for more details.
 
 
 
