@@ -11,9 +11,9 @@ If you have any questions about any of this, please don’t hesitate to reach ou
 
 ## Telemetry
 
-When we do launch publicly, telemetry will be opt-in and anonymous.
+When Warp comes out of beta, telemetry will be opt-in and anonymous.
 
-But for our closed beta, we do send telemetry by default and we do associate it with the logged in user because it makes it much easier to reach out and get feedback when something goes wrong.
+However, for our beta phase, we do send telemetry by default and we do associate it with the logged in user because it makes it much easier to reach out and get feedback when something goes wrong.
 
 We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](https://segment.com/docs/guides/) for telemetry.
 
