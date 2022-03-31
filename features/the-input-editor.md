@@ -8,6 +8,6 @@ To see all the editor shortcuts head to [Keyboard Shortcuts](https://docs.warp.d
 
 * To type in a multi-line command use `SHIFT-ENTER` or `OPT-ENTER` to insert newlines.
 * For multi-cursor selection click into a word on the first line and while holding the `CMD` key down, and click into anywhere else in the text.
-* You can also select a string and click `CMD-D` to select the next occurrence of the string
+* You can also select a string and click `CTRL-G` to select the next occurrence of the string
 
 ![Input Editor](../.gitbook/assets/input_editor.gif)
