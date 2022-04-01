@@ -12,14 +12,13 @@ Power users tend to save aliases, create shell functions, and leverage CLI tools
 Aliases, however, have major pain points:
 
 1. need to context switch
-	1. leave vim, source dotfiles, or reset shell
+    1. leave vim, source dotfiles, or reset shell
 2. it’s difficult to attach documentation
 3. are not easily searchable or sharable
 4. are not easily parameterized
 
 Getting aliases and functions to a productive state requires an upfront investment that’s justifiable for devs who
 spend most of their workday in the terminal but less so for beginners and casual users.
-pend most of their workday in the terminal but less so for beginners and casual users.
 
 ## Creating Custom Workflows
 
