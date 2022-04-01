@@ -6,6 +6,21 @@ The in app Workflows menu can be accessed through the Command Palette or by pres
 
 ![Press SHIFT-CTRL-R to open the Workflows menu.](../.gitbook/assets/workflows-original.gif)
 
+## How is this Different from Aliases?
+
+Power users tend to save aliases, create shell functions, and leverage CLI tools that streamline this.
+Aliases, however, have major pain points:
+
+1. need to context switch
+	1. leave vim, source dotfiles, or reset shell
+2. it’s difficult to attach documentation
+3. are not easily searchable or sharable
+4. are not easily parameterized
+
+Getting aliases and functions to a productive state requires an upfront investment that’s justifiable for devs who
+spend most of their workday in the terminal but less so for beginners and casual users.
+pend most of their workday in the terminal but less so for beginners and casual users.
+
 ## Creating Custom Workflows
 
 In addition to the globally sourced commands, Workflows supports the ability to save commonly used commands specific to you or your team by adding workflows defined in YAML files directly to the `~/.warp/workflows` directory or the `.warp/workflows` in the top level of a repository. Local and project workflows can be accessed under the "My Workflows" and "Project Workflows" tab of the workflows menu, respectively.
