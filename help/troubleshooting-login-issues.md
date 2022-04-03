@@ -4,7 +4,18 @@ description: Instructions on how to troubleshoot login issues
 
 # Troubleshooting Login Issues
 
-## Nothing happens when I click "Sign Up with GitHub" on Safari
+## Nothing happens when I click "Sign Up with GitHub"
+
+Clicking it should open a GitHub login pop-up.
+
+### All browsers
+
+This error could occur if you installed an ad blocker and the ad blocker blocks all pop-ups, including our Firebase GitHub auth pop-up. **To fix it:**
+
+1. Disable your ad blocker just for app.warp.dev
+2. Refresh and try again
+
+### Safari
 
 You are on Safari and you might notice in your console that you get the following messages:
 
