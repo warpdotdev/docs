@@ -1,12 +1,95 @@
 # Changelog
 
 These are our release changelogs. We try to release an update every week on Warp Wednesday!
-Submit issues and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
+Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
+
+### 2022.04.01 (v0.2022.04.01.01.37)
+
+**New features**
+
+- Warm welcome!
+
+**Bug fixes**
+
+- Warp now properly registers SPACE and SHIFT modifier keys for Global Hotkey Windows
+- Page Up and Page Down keys now work correctly in vim and other fullscreen apps - [560](https://github.com/warpdotdev/warp/issues/560)
+- SSH now supports bootstrapping if bash-preexec is included in a Debian VM’s system rcfiles (eg by default at Google) - [578](https://github.com/warpdotdev/warp/issues/578)
+
+### 2022.03.30 (v0.2022.03.29.02.23)
+
+**New features**
+
+- Workflows: an easier way to share, parameterize, and execute commands - [625](https://github.com/warpdotdev/warp/issues/625)
+- Quake mode / Focus Warp with a Global Hotkey - [091](https://github.com/warpdotdev/warp/issues/091)
+
+**Bug fixes**
+
+- Magnet, Swish and ALT-Tab window managers now work with Warp - [776](https://github.com/warpdotdev/warp/issues/776)
+- SSH now handles control master connection errors - [578](https://github.com/warpdotdev/warp/issues/578)
+- SSH now handles verbose mode, no longer leaks into the Input Editor as a typeahead - [578](https://github.com/warpdotdev/warp/issues/578)
+- SSH now boots normally for POSIX shells that aren’t supported by Warp’s wrapper - [578](https://github.com/warpdotdev/warp/issues/578)
+
+### 2022.03.24 (v0.2022.03.23.22.10)
+
+**New features**
+
+- Fish support - [190](https://github.com/warpdotdev/warp/issues/190)
+- Basic screenreader support (Voiceover) - Warp is now an accessible terminal!
+- Added a toggle in the settings to disable the SSH wrapper - [821](https://github.com/warpdotdev/warp/issues/821)
+
+**Bug fixes**
+
+- Hitting tab with a text selection shows tab completions instead of indenting
+- SSH no longer hangs when /tmp is not writable for Zsh - [578](https://github.com/warpdotdev/warp/issues/578)
+- SSH no longer bootstrap the shell if it’s not meant to be an interactive session (e.g. if -T or a command is passed) - [578](https://github.com/warpdotdev/warp/issues/578)
+- SSH now supports Starship and Zsh's $PROMPT variable - [803](https://github.com/warpdotdev/warp/issues/803)
+- Also import themes in subdirectories e.g. `~/.warp/themes/subdirectory/theme.yaml`
+
+### 2022.03.16 (v0.2022.03.14.08.49)
+
+**New features**
+
+- Multi-block selections and corresponding actions
+- Case-sensitive search
+
+**Bug fixes**
+
+- SSH no longer returns 0~ and 1~ after executing commands for Zsh 5.0.8 or older - [578](https://github.com/warpdotdev/warp/issues/578)
+- SSH now supports LocalCommand / RemoteCommand - [578](https://github.com/warpdotdev/warp/issues/578)
+- SSH over Zsh no longer depends on configuring locales on the remote machine - [578](https://github.com/warpdotdev/warp/issues/578)
+- SSH sources /etc/bash.bashrc which is an extra rcfile in Debian and other Linux distributions - [578](https://github.com/warpdotdev/warp/issues/578)
+- Improved completions stability when there are multiple panes on the same remote machine
+- Vim and other alt-screen apps properly expand to take up the full window - [552](https://github.com/warpdotdev/warp/issues/552)
+- Clicking into Warp from other foreground window focuses the clicked pane - [739](https://github.com/warpdotdev/warp/issues/739)
+- Warp now respects ignore-space history options for Zsh and Bash - [044](https://github.com/warpdotdev/warp/issues/044)
+- Warp now creates a ~/.warp folder to persist custom keybindings - [801](https://github.com/warpdotdev/warp/issues/801)
+
+### 2022.03.09 (v0.2022.03.07.08.51)
+
+**Bug fixes**
+
+- Added missing actions to Command Palette
+- Option is meta is now in the settings menu
+- Fix for SSH hanging when Zsh is the remote login shell
+- Fix for SSH with Zsh that would break with certain rcfiles because of incorrectly set ZDOTDIR
+
+### 2022.03.02 (v0.2022.02.28.08.45)
+
+**New features**
+
+- Can now edit the keybindings for arrow navigation (Up/Down/Left/Right)
+- Can now edit the keybindings for activating specific tabs (by number CMD-1, CMD-2, …)
+
+**Bug fixes**
+
+- Crash in theme chooser
+- Fix for tab completion sometimes deleting characters
+
 ### 2022.02.23 (v0.2022.02.21.08.55)
 
 **New features**
 
-- ZSH support over SSH
+- Zsh support over SSH
 - Partially complete autosuggestion (by word) using CTRL-RIGHT and ALT-RIGHT - [488](https://github.com/warpdotdev/warp/issues/488)
 - Added a Copy URL menu item after right-clicking a URL - [154](https://github.com/warpdotdev/warp/issues/154)
 - Indicator for conflicting keybindings in keyboard customization UI
@@ -438,7 +521,7 @@ Submit issues and feature request on our [GitHub board!](https://github.com/warp
 
 **Bug fixes**
 
-- Intermittent crashes with zsh sessions and switching tabs
+- Intermittent crashes with Zsh sessions and switching tabs
 - Always fall back to path suggestions for completions
 - Various bugs related to completions
 
