@@ -7,4 +7,4 @@ To start, you could hit `` CTRL-` `` to open the AI Command Search panel. Type a
 ![AI Command Search Demo](https://user-images.githubusercontent.com/30107576/161656518-cbed1bbf-8a46-4ec0-90f3-21952c8d2386.gif)
 
 ## Privacy
-Warp does not keep any of the command or prompt users send. All inputs are sent directly to the OpenAI server. We only keep track of telemetry around opening and closing the AI command search panel. See OpenAI’s privacy policy [here](https://openai.com/api/policies/privacy/).
+Warp does not keep any of the command or prompt user send. All inputs are sent directly to the OpenAI server. We only keep track of telemetry around opening and closing the AI command search panel. See OpenAI’s privacy policy [here](https://openai.com/api/policies/privacy/).
