@@ -16,4 +16,4 @@ Jump to our [known issues](https://docs.warp.dev/help/known-issues) section for 
 
 Here’s a short demo by one of our [engineers](https://www.warp.dev/about-us), [Aloke Desai](https://blog.warp.dev/whos-behind-warp-meet-the-team/) (July 2021).
 
-{% embed url="https://www.youtube.com/watch?v=X0LzWAVlOC0" %}
+{% embed url="https://www.youtube.com/watch?v=T7R8lvvBgOI" %}
