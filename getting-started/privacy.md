@@ -24,43 +24,70 @@ We do not store any data from the command input or output itself as part of our 
 * Account logged in
 * Account signed up
 * App focus duration
+* App focused
 * App active usage
+* Autosuggestion Inserted
+* BaselineCommand Latency
 * Block copied
 * Block created
 * Block selected
-  - Cardinality (One, Many)
-  - Any modifiers used (`CMD`/`SHIFT`)
+  * Cardinality (One, Many)
+  * Any modifiers used (`CMD`/`SHIFT`)
 * Block sharing link generated
 * Block sharing link copied
 * Bootstrapping failed
 * Bootstrapping slow
 * Bootstrapping succeeded
+* Confirm Suggestion
 * Context menu copy
 * Context menu copy selected text
 * Context menu find within block
 * Context menu insert selected text into input
 * Context menu initiate block sharing
-* Context menu reinput command
+* Context menu reinput command(s)
+* Complete Welcome Tip
+* Database Startup Error
+* Dismiss Welcome Tips
+* Features Page Action
 * Invite received
 * Invite requested more
 * Jumped to previous command
+* Keybinding Changed
+* Keybinding Reset to Default
 * Loaded a page
+* Natural Language Search Generated
+* Natural Language Search Initiated
+* Natural Language Search Request Failed
+* Natural Language Search Result Accepted
+* Natural Language Search Quit
 * Onboarding survey finished
 * Onboarding survey skipped
 * Onboarding survey question completed
-  - Company
-  - Engineering
-  - Purpose
-  - Role
+  * Company
+  * Engineering
+  * Purpose
+  * Role
 * Opened channel download
 * Opened invite-only download with invalid code
 * Opened invite-only download with valid code
+* Opened Quake Mode Window
+* Opened Suggestions Menu
+* Opened Theme Chooser
+* Opened Welcome Tips
 * Sessions tab created
+* Session Abandoned Before Bootstrap
+* Split Pane
+* SSH Bootstrap Attempt
 * Suggestions autosuggestion inserted
 * Suggestions single autosuggestion inserted
 * Suggestion confirmed / completed
 * Suggestions menu opened
+* Tab Created
+* Tab Single Result Autocompletion
 * Theme selected
+* Unable to Update To New Version
 * Unhandled editor modifier key
 * Viewed login page
 * Viewed share view
+* Workflow Executed
+* Workflow Selected
