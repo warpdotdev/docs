@@ -8,12 +8,14 @@ Submit bugs and feature request on our [GitHub board!](https://github.com/warpdo
 **New features**
 
 - Warm welcome!
+- AI Command Search
 
 **Bug fixes**
 
 - Warp now properly registers SPACE and SHIFT modifier keys for Global Hotkey Windows
 - Page Up and Page Down keys now work correctly in vim and other fullscreen apps - [560](https://github.com/warpdotdev/warp/issues/560)
 - SSH now supports bootstrapping if bash-preexec is included in a Debian VM’s system rcfiles (eg by default at Google) - [578](https://github.com/warpdotdev/warp/issues/578)
+- Corrected keyboard shortcut for split pane in context menu
 
 ### 2022.03.30 (v0.2022.03.29.02.23)
 
