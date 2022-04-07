@@ -14,6 +14,6 @@ Join our [Discord](https://www.warp.dev/community) to interact directly with oth
 This user manual is intended to guide you through how to use Warp.
 Jump to our [known issues](https://docs.warp.dev/help/known-issues) section for workarounds and our frequently asked questions!
 
-Here’s a short demo by one of our [engineers](https://www.warp.dev/about-us), [Aloke Desai](https://blog.warp.dev/whos-behind-warp-meet-the-team/) (July 2021).
+Here’s a short demo by one of our [engineers](https://www.warp.dev/about-us), [Aloke Desai](https://blog.warp.dev/whos-behind-warp-meet-the-team/) (April 2022).
 
 {% embed url="https://www.youtube.com/watch?v=T7R8lvvBgOI" %}
