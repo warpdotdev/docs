@@ -27,3 +27,9 @@ This error occurs likely because you are blocking all cookies in Safari's securi
 1. Go to Safari Preferences > Privacy
 2. Uncheck the "Block all cookies" checkbox
 
+## Nothing happens when I click "Take me to Warp"
+
+If this happens to you, use the link provided on the web login page to copy the authentication token, then paste it into the app as shown below.
+
+![Pasting an Authentication Token](../.gitbook/assets/paste-auth-token.png)
+
