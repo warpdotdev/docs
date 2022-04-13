@@ -32,6 +32,8 @@ During our closed beta, we require a login so we can interact with you, get your
 
 Opening the app is the only time you need an active Internet connection. Otherwise, Warp is a fully-native, local app and runs fine with no internet connection whatsoever (although you will lose access to some of our cooler features).
 
+Issues with login?  Check out our [troubleshooting page](https://docs.warp.dev/help/troubleshooting-login-issues).
+
 ### Onboarding survey
 
 As part of our beta, we ask a few questions within the app after you sign up. The survey is completely optional—you can skip all questions if you’d like.
@@ -39,9 +41,3 @@ As part of our beta, we ask a few questions within the app after you sign up. Th
 Why do we ask these? Understanding how you use the terminal helps us improve the product and prioritize the right features. For example, we might find that backend engineers spend more time with multiple terminal tabs open, or engineers at large companies spend more time using CLIs.
 
 Thanks for joining our beta and helping us improve Warp!
-
-### Troubleshooting login issues
-
-Some users encounter an issue where the "Take me to Warp" button does nothing.  If this happens to you, use the link provided on the web login page to copy the authentication token, then paste it into the app as shown below.
-
-![Pasting an Authentication Token](../.gitbook/assets/paste-auth-token.png)
