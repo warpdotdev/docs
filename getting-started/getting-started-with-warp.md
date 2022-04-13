@@ -32,6 +32,8 @@ During our closed beta, we require a login so we can interact with you, get your
 
 Opening the app is the only time you need an active Internet connection. Otherwise, Warp is a fully-native, local app and runs fine with no internet connection whatsoever (although you will lose access to some of our cooler features).
 
+Issues with login?  Check out our [troubleshooting page](https://docs.warp.dev/help/troubleshooting-login-issues).
+
 ### Onboarding survey
 
 As part of our beta, we ask a few questions within the app after you sign up. The survey is completely optional—you can skip all questions if you’d like.
