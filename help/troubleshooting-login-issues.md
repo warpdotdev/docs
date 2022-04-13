@@ -29,7 +29,7 @@ This error occurs likely because you are blocking all cookies in Safari's securi
 
 ## Nothing happens when I click "Take me to Warp"
 
-If this happens to you, use the link provided on the web login page to copy the authentication token, then paste it into the app as shown below.
+If this happens to you, use the link provided on the web logged-in page (https://app.warp.dev/logged_in) to copy the authentication token, then paste it into the app as shown below.
 
-![Pasting an Authentication Token](../.gitbook/assets/paste-auth-token.png)
+![Copy and Pasting an Authentication Token](../.gitbook/assets/auth-token-flow.png)
 
