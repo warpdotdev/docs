@@ -3,16 +3,31 @@
 These are our release changelogs. We try to release an update every week on Warp Wednesday!
 Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2022.04.13 (v0.2022.04.11.09.09)
+
+**Bug fixes**
+
+- Support parsing PS1’s exit codes (bash’s $?) and improved PS1 parsing for newer bash versions (4.4+)
+- Fixed prompt showing up as exit in bash - [793](https://github.com/warpdotdev/warp/issues/793)
+- Improved parsing of Zsh default prompts
+- Opening the find bar will automatically select any existing text - [831](https://github.com/warpdotdev/warp/issues/831)
+
+### 2022.04.08 (v0.2022.04.04.09.07)
+
+**Bug fixes**
+
+- Block sharing dialog now scrolls properly
+
 ### 2022.04.01 (v0.2022.04.01.01.37)
 
 **New features**
 
 - Warm welcome!
-- AI Command Search
+- A.I. Command Search
 
 **Bug fixes**
 
-- Warp now properly registers SPACE and SHIFT modifier keys for Global Hotkey Windows
+- Warp now properly registers `SPACE` and `SHIFT` modifier keys for Global Hotkey Windows
 - Page Up and Page Down keys now work correctly in vim and other fullscreen apps - [560](https://github.com/warpdotdev/warp/issues/560)
 - SSH now supports bootstrapping if bash-preexec is included in a Debian VM’s system rcfiles (eg by default at Google) - [578](https://github.com/warpdotdev/warp/issues/578)
 - Corrected keyboard shortcut for split pane in context menu
@@ -51,7 +66,7 @@ Submit bugs and feature request on our [GitHub board!](https://github.com/warpdo
 
 **New features**
 
-- Multi-block selections and corresponding actions
+- Multi-block selections and corresponding actions - [146](https://github.com/warpdotdev/warp/issues/146)
 - Case-sensitive search
 
 **Bug fixes**
