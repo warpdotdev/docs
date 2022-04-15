@@ -20,7 +20,7 @@ Please send us feedback about this policy in our [Typeform.](https://zachlloyd.t
 
 ## I don't have a GitHub account or I don't want to login with my GitHub?
 
-Currently we only support OAuth with GitHub, fill out [this Typeform](https://zachlloyd.typeform.com/to/UnZu0akR#question=github) if you're **interested in Warp providing other providers.** 
+Currently we only support OAuth with GitHub, fill out our [Typeform](https://zachlloyd.typeform.com/to/UnZu0akR#question=github) if you're **interested in Warp providing other providers.** 
 
 ## Telemetry: What usage data are you collecting and why?
 
