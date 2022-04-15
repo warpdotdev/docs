@@ -30,7 +30,7 @@ When Warp comes out of beta and enters General Availability, telemetry will be o
 
 We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](https://segment.com/docs/guides/) for telemetry.
 
-Please send us feedback about this policy in our [Typeform](https://zachlloyd.typeform.com/to/UnZu0akR#question=telemetry) and or sign up to be automatically notified when Warp becomes Generally Available (GA): [https://zachlloyd.typeform.com/to/UnZu0akR#question=telemetry](https://zachlloyd.typeform.com/to/UnZu0akR#question=telemetry)
+Please send us feedback about this policy in our [Typeform](https://zachlloyd.typeform.com/to/UnZu0akR#question=telemetry) and or sign up to be automatically **notified when Warp becomes Generally Available (GA):** [https://zachlloyd.typeform.com/to/UnZu0akR#question=telemetry](https://zachlloyd.typeform.com/to/UnZu0akR#question=telemetry)
 
 ### Exhaustive Telemetry Table
 
