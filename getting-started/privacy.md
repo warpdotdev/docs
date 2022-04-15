@@ -11,13 +11,17 @@ If you have any questions about any of this, please don’t hesitate to reach ou
 
 ## Why is login required for a terminal app?
 
-Login serves two functions now. One is that we think there are features that require login in order to create a better user experience. The other is to improve our product during beta.
+Login serves two functions now. One is that we think there are features that require login in order to create a better user experience.
+We believe that the terminal is more powerful when you can share commands with teammates, generate commands using Open AI Codex, or run shared wikis directly in the terminal.
+These are not possible if users do not have an account with us.
+We've already begun building team features and we want to be able to ship them to our users without friction.
 
-We believe that the terminal is more powerful when you can share commands with teammates, generate commands using Open AI Codex, or run shared wikis directly in the terminal. These are not possible if users do not have an account with us. We've already begun building team features and we want to be able to ship them to our users without friction.
+The other is to improve our product during beta because it makes it much easier to reach out and get feedback when something goes wrong.
 
-## Telemetry: What usage data does Warp collect?
+## Telemetry: What usage data are you collecting and why?
 
-For our public beta, we do send telemetry and we do associate it with the logged in user because it makes it much easier to reach out and get feedback when something goes wrong. But we only track metadata, never console output.
+For our public beta, we do send telemetry and we do associate it with the logged in user but we only track metadata, never console output.
+Telemetry helps us measure feature usage, discover product friction, and improve Warp by guiding what we prioritize.
 
 When Warp comes out of beta and enters General Availability, telemetry will be opt-in and anonymous.
 
