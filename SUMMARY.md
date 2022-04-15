@@ -27,7 +27,7 @@
 * [Workflows](features/workflows.md)
 * [Global Hotkey Window](features/hotkey-window.md)
 * [A.I. Command Search](features/ai-command-search.md)
-* [Warp vs Other Terminals](features/warp-vs-other-terminals.md)
+* [Performance](features/warp-performance-and-features.md)
 
 ## Help
 
