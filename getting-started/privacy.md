@@ -14,18 +14,23 @@ If you have any questions about any of this, please don’t hesitate to reach ou
 Login serves two functions now. One is that we think there are features that require login in order to create a better user experience.
 We believe that the terminal is more powerful when you can share commands with teammates, generate commands using Open AI Codex, or run shared wikis directly in the terminal.
 
-This is not possible if users do not have an account with us; currently we only support OAuth with GitHub, fill out this typeform if you're interested in Warp providing other SSO providers.
-
 The other is to improve our product during beta because it makes it much easier to reach out and get feedback when something goes wrong.
+
+Please send us feedback about this policy in our [Typeform:](https://zachlloyd.typeform.com/to/UnZu0akR#question=login_required) [https://zachlloyd.typeform.com/to/UnZu0akR#question=login_required](https://zachlloyd.typeform.com/to/UnZu0akR#question=login_required)
+
+## I don't have a GitHub account or I don't want to login with my GitHub?
+
+Currently we only support OAuth with GitHub, fill out [this Typeform](https://zachlloyd.typeform.com/to/UnZu0akR#question=github) if you're **interested in Warp providing other providers:** [https://zachlloyd.typeform.com/to/UnZu0akR#question=github](https://zachlloyd.typeform.com/to/UnZu0akR#question=github)
 
 ## Telemetry: What usage data are you collecting and why?
 
-For our public beta, we do send telemetry and we do associate it with the logged in user but we only track metadata, never console output.
-Telemetry helps us measure feature usage, discover product friction, and improve Warp by guiding what we prioritize.
+For our public beta, we collect usage data (only metadata never console input or output) to measure feature usage, discover product friction, and improve Warp by guiding what we prioritize. See below for an exhaustive list of the metadata we collect.
 
 When Warp comes out of beta and enters General Availability, telemetry will be opt-in and anonymous.
 
 We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](https://segment.com/docs/guides/) for telemetry.
+
+Please send us feedback about this policy in our [Typeform](https://zachlloyd.typeform.com/to/UnZu0akR#question=telemetry) and or sign up to be automatically notified when Warp becomes Generally Available (GA): [https://zachlloyd.typeform.com/to/UnZu0akR#question=telemetry](https://zachlloyd.typeform.com/to/UnZu0akR#question=telemetry)
 
 ### Exhaustive Telemetry Table
 
