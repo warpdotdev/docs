@@ -15,15 +15,15 @@ Login serves two functions now. One is that we think there are features that req
 
 We believe that the terminal is more powerful when you can share commands with teammates, generate commands using Open AI Codex, or run shared wikis directly in the terminal. These are not possible if users do not have an account with us. We've already begun building team features and we want to be able to ship them to our users without friction.
 
-For our public beta, we do send telemetry and we do associate it with the logged in user because it makes it much easier to reach out and get feedback when something goes wrong. But we only track metadata, never console output.
+## Telemetry: What usage data does Warp collect?
 
-## Telemetry
+For our public beta, we do send telemetry and we do associate it with the logged in user because it makes it much easier to reach out and get feedback when something goes wrong. But we only track metadata, never console output.
 
 When Warp comes out of beta and enters General Availability, telemetry will be opt-in and anonymous.
 
 We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](https://segment.com/docs/guides/) for telemetry.
 
-## Exhaustive Telemetry Table
+### Exhaustive Telemetry Table
 
 * Account logged in
 * Account signed up
