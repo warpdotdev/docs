@@ -16,11 +16,11 @@ We believe that the terminal is more powerful when you can share commands with t
 
 The other is to improve our product during beta because it makes it much easier to reach out and get feedback when something goes wrong.
 
-Please send us feedback about this policy in our [Typeform.](https://zachlloyd.typeform.com/to/UnZu0akR#question=login_required)
+Please send us feedback about this policy in our [Typeform.](https://zachlloyd.typeform.com/to/UnZu0akR#question=login_required?utm_source=docs)
 
 ## I don't have a GitHub account or I don't want to login with my GitHub?
 
-Currently we only support OAuth with GitHub, fill out our [Typeform](https://zachlloyd.typeform.com/to/UnZu0akR#question=github) if you're **interested in Warp supporting other providers.**
+Currently we only support OAuth with GitHub, fill out our [Typeform](https://zachlloyd.typeform.com/to/UnZu0akR#question=github?utm_source=docs) if you're **interested in Warp supporting other providers.**
 
 ## Telemetry: What usage data are you collecting and why?
 
@@ -30,7 +30,7 @@ When Warp comes out of beta and enters General Availability, telemetry will be o
 
 We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](https://segment.com/docs/guides/) for telemetry.
 
-Please send us feedback about this policy and or sign up to be automatically **notified when Warp becomes Generally Available (GA)** in our [Typeform](https://zachlloyd.typeform.com/to/UnZu0akR#question=telemetry).
+Please send us feedback about this policy and or sign up to be automatically **notified when Warp becomes Generally Available (GA)** in our [Typeform](https://zachlloyd.typeform.com/to/UnZu0akR#question=telemetry?utm_source=docs).
 
 ### Exhaustive Telemetry Table
 
