@@ -1,5 +1,5 @@
 # Terminal Performance & Benchmarks: How does Warp compare?
-This is a short comparison of the terminal features supported in Warp and other terminal emulators. You'll also find results from few performance benchmarks.
+This is a short comparison of different terminals and their performance.
 
 ## Terminal apps selected for these benchmarks
 We chose to benchmark Warp against 4 other terminal emulator applications, based on their popularity as well as language and principles.
@@ -19,35 +19,9 @@ Here is the list of the applications we chose for this comparison together with 
 
 ### About benchmarks
 We link the source code of each benchmark used, so you can easily reproduce the tests with other terminal apps.
-Please, note that those benchmarks are not exhaustive. Comparing terminal emulators with each other is not an easy task - right now we're checking for terminal features, as well as how each of the apps behaves when dealing with lots of input and/or output. 
+Please, note that those benchmarks are not exhaustive. Comparing terminal emulators with each other is not an easy task - right now we're checking how each of the apps behaves when dealing with lots of input and/or output. 
 
 Ideally, the benchmarks would also cover the latency (time between pressing a key and the character showing on screen, but also a delay between user's input and communication with the shell). We may include tests that account for that in the future.
-
-
-## Supported features
-| Feature                                                   | Warp | Terminal.app | Iterm | Alacritty | Wezterm |
-| --------------------------------------------------------- | ---- | ------------ | ----- | --------- | ------- |
-| 24-bit (true color)                                       | YES  | NO           | YES   | YES       | YES     |
-| Bold                                                      | YES  | YES          | YES   | YES       | YES     |
-| Dim                                                       | NO   | YES          | YES   | YES       | YES     |
-| Italic                                                    | NO   | YES          | YES   | YES       | YES     |
-| Underline                                                 | YES  | YES          | YES   | YES       | YES     |
-| Underline (alt)                                           | YES  | NO           | YES   | YES       | YES     |
-| Double underline                                          | NO   | NO           | NO    | NO        | YES     |
-| Double underline (alt)                                    | YES  | NO           | YES   | YES       | YES     |
-| Curly underline                                           | NO   | NO           | YES   | NO        | YES     |
-| Colored underline                                         | NO   | NO           | NO    | NO        | YES     |
-| Blink                                                     | NO   | YES          | NO    | NO        | NO      |
-| Reverse                                                   | YES  | YES          | YES   | YES       | YES     |
-| Invisible (but copy-pasteable)                            | NO   | YES          | NO    | YES       | NO      |
-| Strikethrough                                             | YES  | NO           | YES   | YES       | YES     |
-| Overline                                                  | NO   | NO           | NO    | NO        | YES     |
-| [Magic string](https://en.wikipedia.org/wiki/Unicode#Web) | YES  | YES          | YES   | YES       | YES     |
-| Emojis                                                    | YES  | YES          | YES   | YES       | YES     |
-| Right-to-left                                             | NO   | YES          | NO    | NO        | NO      |
-| Sixel graphics                                            | NO   | NO           | YES   | NO        | NO      |
-
-Based on the [terminal-testdrive.sh](https://gist.github.com/hellricer/e514d9615d02838244d8de74d0ab18b3).
 
 ## VTE benchmark
 Benchmark code can be found [here](https://github.com/alacritty/vtebench) with the specific commit we used in our comparison: `93bcc32b6e0f7560e9b1a5a8b0998c04fbf9b50d`.
@@ -64,6 +38,8 @@ Benchmark code can be found [here](https://github.com/alacritty/vtebench) with t
 | scrolling\_top\_small\_region    | 114.64   | 205.59           | 1216.33   | 21.91         | 663.44      |
 | unicode                          | 66.47    | 34.45            | 93.01     | 16.78         | 1279.25     |
 
+![VTEbench average results (logarithmic scale )](../.gitbook/assets/vtebench_avg.png)
+
 **P90 of the results**
 |                                  | Warp p90 | Terminal.app p90 | iTerm p90 | Alacritty p90 | WezTerm p90 |
 | -------------------------------- | -------- | ---------------- | --------- | ------------- | ----------- |
@@ -75,13 +51,14 @@ Benchmark code can be found [here](https://github.com/alacritty/vtebench) with t
 | scrolling\_top\_region           | 178      | 222              | 2243      | 85            | 686         |
 | scrolling\_top\_small\_region    | 167      | 222              | 1314      | 30            | 666         |
 | unicode                          | 77       | 39               | 90        | 20            | 3883        |
+![VTEbench p90 results (logarithmic scale )](../.gitbook/assets/vtebench_p90.png)
 
 ## Termbench
 Benchmark code can be found [here](https://github.com/cmuratori/termbench) with the specific commit we used in our comparison: `82afbc69256b4e22de913f0f02f82e0480f3dac5`.
 
 Below you'll find results for `small` and default test sizes. Note that Terminal.app only participated in the `small` test.
 
-**Default test sizes**
+**Small test sizes**
 |                | Warp small | Terminal.app small | iTerm small | Alacritty small | WezTerm small |
 | -------------- | ---------- | ------------------ | ----------- | --------------- | ------------- |
 | ManyLine       | 6.7854     | 2.6789             | 8.7057      | 1.2532          | 8.9436        |
@@ -89,6 +66,8 @@ Below you'll find results for `small` and default test sizes. Note that Terminal
 | FGPerChar      | 1.3716     | 453.9888           | 2.6625      | 0.2788          | 0.6487        |
 | FGBGPerChar    | 2.8403     | 908.894            | 4.5881      | 0.5931          | 0.7283        |
 | overall result | 20.0006    | 1367.209           | 25.0413     | 2.943           | 21.7793       |
+
+![Termbench small results (logarithmic scale )](../.gitbook/assets/termbench_small.png)
 
 **Regular test size**
 |                | Warp regular | iTerm regular | Alacritty regular | WezTerm regular |
@@ -98,3 +77,4 @@ Below you'll find results for `small` and default test sizes. Note that Terminal
 | FGPerChar      | 21.8928      | 39.3352       | 4.2925            | 9.4265          |
 | FGBGPerChar    | 46.312       | 50.5369       | 8.418             | 13.5142         |
 | overall result | 337.0585     | 349.1258      | 45.3767           | 381.1229        |
+![Termbench results (logarithmic scale )](../.gitbook/assets/termbench_regular.png)
