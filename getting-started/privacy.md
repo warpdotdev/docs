@@ -13,7 +13,7 @@ If you have any questions about any of this, please don’t hesitate to reach ou
 
 Login serves two functions now. One is that we think there are features that require login in order to create a better user experience.
 We believe that the terminal is more powerful when you can share commands with teammates, generate commands using Open AI Codex, or run shared wikis directly in the terminal.
-These are not possible if users do not have an account with us.
+These are not possible if users do not have an account with us; currently we OAuth with GitHub, fill out this typeform if you're interested in us providing other SSO providers.
 We've already begun building team features and we want to be able to ship them to our users without friction.
 
 The other is to improve our product during beta because it makes it much easier to reach out and get feedback when something goes wrong.
