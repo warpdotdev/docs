@@ -51,7 +51,7 @@ By default, Warp ships with these themes:
 
 ## Custom themes
 
-Custom themes can be added to your Warp config directory: `~/.warp/themes`.
+Custom themes can be added to your Warp config directory: `~/.warp/themes/`.
 Once the themes are added to the config directory, they're available through the theme picker described above.
 
 A more thorough explanation about the theme format, together with examples and a collection of themes can be found in the [Warp themes repository](https://github.com/warpdotdev/themes).
@@ -61,7 +61,7 @@ A more thorough explanation about the theme format, together with examples and a
 To start, create a config directory in your home directory:
 
 ```sh
-mkdir -p ~/.warp/themes
+mkdir -p ~/.warp/themes/
 ```
 
 Note that it may take several minutes for Warp to initially discover the new config directory.
@@ -71,7 +71,7 @@ After that step, all future changes to `~/.warp/themes` directory will be reflec
 Add your new custom theme yaml theme file to this directory:
 
 ```sh
-cp ~/Downloads/my_awesome_theme.yaml ~/.warp/themes
+cp ~/Downloads/my_awesome_theme.yaml ~/.warp/themes/
 ```
 
 Your new theme should now be visible on the list of available themes.
@@ -87,7 +87,7 @@ The main difference between "standard" and "base16" themes is that "standard" th
 To install a theme from this repo you can:
 
 * download just a single file and follow the steps from (1)
-* clone the entire repo into `~/.warp/themes/`
+* clone the entire repo into `~/.warp/`
 
 ### 3. How do I write my own custom theme?
 
@@ -220,12 +220,13 @@ Run this script to generate the thumbnails.
 
 ```sh
 # assuming you're adding the theme to `standard` directory:
-python3 ./scripts/gen_theme_previews.py . . scripts/preview.svg readme.md-intro
+python3 ./scripts/gen_theme_previews.py standard
 ```
 
-## 5. Contact & more Warp information
+## 5. Community
 
-All other Warp-related things can be discussed in our [Warp official repo](https://github.com/warpdotdev/warp) or our [Discord server](https://discord.gg/warpdotdev).
+All other Warp-related things can be discussed in our [Warp official repo](https://github.com/warpdotdev/Warp/discussions?discussions_q=label%3ARoadmap+sort%3Atop) or our [Discord server](https://discord.gg/warpdotdev).
+
 
 ## 6. Open source dependencies
 
