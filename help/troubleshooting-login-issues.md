@@ -6,7 +6,7 @@ description: Instructions on how to troubleshoot login issues
 
 ## Nothing happens when I click "Sign Up with GitHub"
 
-Clicking it should open a GitHub login pop-up.
+Clicking it should open a GitHub login pop-up. If Sign Up with GitHub does not work after trying the steps below, fill out [this Typeform](https://zachlloyd.typeform.com/to/UnZu0akR#&question=sign_up) and our team will reach out to you: [https://zachlloyd.typeform.com/to/UnZu0akR#&question=sign_up](https://zachlloyd.typeform.com/to/UnZu0akR#&question=sign_up)
 
 ### All browsers
 
@@ -33,3 +33,4 @@ If this happens to you, use the link provided on the web logged-in page (https:/
 
 ![Copy and Pasting an Authentication Token](../.gitbook/assets/auth-token-flow.png)
 
+If Take me to Warp is still not working, please fill out [this Typeform](https://zachlloyd.typeform.com/to/UnZu0akR#&question=take_me_to_warp) and our team will reach out to you:  [https://zachlloyd.typeform.com/to/UnZu0akR#&question=take_me_to_warp](https://zachlloyd.typeform.com/to/UnZu0akR#&question=take_me_to_warp)
