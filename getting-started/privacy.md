@@ -9,15 +9,19 @@ See our [privacy page](https://www.warp.dev/privacy) for an explanation (in laym
 
 If you have any questions about any of this, please don’t hesitate to reach out at [privacy@warp.dev](mailto:privacy@warp.dev)
 
+## Why is login required for a terminal app?
+
+Login serves two functions now. One is that we think there are features that require login in order to create a better user experience. The other is to improve our product during beta.
+
+We believe that the terminal is more powerful when you can share commands with teammates, generate commands using Open AI Codex, or run shared wikis directly in the terminal. These are not possible if users do not have an account with us. We've already begun building team features and we want to be able to ship them to our users without friction.
+
+For our public beta, we do send telemetry and we do associate it with the logged in user because it makes it much easier to reach out and get feedback when something goes wrong. But we only track metadata, never console output.
+
 ## Telemetry
 
-When Warp comes out of beta, telemetry will be opt-in and anonymous.
-
-However, for our beta phase, we do send telemetry by default and we do associate it with the logged in user because it makes it much easier to reach out and get feedback when something goes wrong.
+When Warp comes out of beta and enters General Availability, telemetry will be opt-in and anonymous.
 
 We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](https://segment.com/docs/guides/) for telemetry.
-
-We do not store any data from the command input or output itself as part of our telemetry.
 
 ## Exhaustive Telemetry Table
 
