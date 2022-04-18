@@ -1,0 +1,11 @@
+---
+name: Build Gitbook locally
+command: npx honkit build
+tags:
+  - npm
+description: "Builds the gitbook locally"
+arguments: []
+source_url: ""
+author: elvis kahoro
+author_url: https://warp.dev/about-us
+shells: []

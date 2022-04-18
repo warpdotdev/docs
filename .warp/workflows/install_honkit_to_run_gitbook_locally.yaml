@@ -1,0 +1,11 @@
+---
+name: Install honkit to run gitbook locally
+command: npm install honkit
+tags:
+  - npm
+description: "Install honkit"
+arguments: []
+source_url: ""
+author: elvis kahoro
+author_url: https://warp.dev/about-us
+shells: []

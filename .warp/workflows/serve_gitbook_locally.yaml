@@ -1,0 +1,11 @@
+---
+name: Serve Gitbook locally
+command: npx honkit serve
+tags:
+  - npm
+description: "Serves honkit locally"
+arguments: []
+source_url: ""
+author: elvis kahoro
+author_url: https://warp.dev/about-us
+shells: []
