@@ -2,6 +2,28 @@
 
 To see a complete list of issues and feature requests, please visit our [GitHub issues page](https://github.com/warpdotdev/warp/issues).
 
+## Bash and Fig
+
+A recent version of Fig (happens as of 1.0.56 - and may also happen on earlier versions) updated the bash rcfiles in a way that prevents Warp from bootstrapping.
+
+In order to work around this, you can disable this logic for Warp. Note that you might have to do this for `.bash_profile` _and_ `.bashrc`. Also, Fig has a tendency to re-write these lines in these files when it updates - so you might have to do this multiple times or remove Fig.
+
+.bash_profile
+```sh
+# Fig post block. Keep at the bottom of this file.
+if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
+    . "$HOME/.fig/shell/bash_profile.post.bash"
+fi
+```
+
+.bashrc
+```sh
+# Fig post block. Keep at the bottom of this file.
+if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
+    . "$HOME/.fig/shell/bashrc.post.bash"
+fi
+```
+
 ## Configuring and debugging your RC files
 
 The TLDR; is that in order to build Blocks and create an IDE-like input / text editor experience, we set up [custom hooks](https://blog.warp.dev/how-warp-works/#implementing-blocks) and intercept the prompt so we can render it natively.
