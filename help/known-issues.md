@@ -6,7 +6,9 @@ To see a complete list of issues and feature requests, please visit our [GitHub 
 
 A recent version of Fig (happens as of 1.0.56 - and may also happen on earlier versions) updated the bash rcfiles in a way that prevents Warp from bootstrapping.
 
-In order to work around this, you can disable this logic for Warp. Note that you might have to do this for `.bash_profile` _and_ `.bashrc`. Also, Fig has a tendency to re-write these lines in these files when it updates - so you might have to do this multiple times or remove Fig.
+In order to work around this, you can disable this logic for Warp. Note that you might have to do this for `.bash_profile` _and_ `.bashrc`.
+
+Also, Fig has a tendency to re-write these lines in these files when it updates - so you might have to do this multiple times if you are using Fig actively.
 
 .bash_profile
 ```sh
