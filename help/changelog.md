@@ -3,7 +3,20 @@
 These are our release changelogs. We try to release an update every week on Warp Wednesday!
 Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
-### 2022.04.13 (v0.2022.04.11.09.09)
+### 2022.04.20 (v0.2022.04.18.09.08)
+
+**New features**
+
+- Support logging into Warp by pasting the auth url when "Take me to Warp" fails in browser
+
+**Bug fixes**
+
+- Buttons within the find bar are now properly shaded for gradient themes
+- Workflows with default values are now registered by Warp
+- Fixed bootstrapping bug that affected Fish versions older than 3.2.0
+- Fixed a memory leak that occurred when new tabs were opened or panes were split
+
+### 2022.04.15 (v0.2022.04.11.09.09)
 
 **Bug fixes**
 
