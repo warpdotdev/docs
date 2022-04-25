@@ -22,15 +22,15 @@ spend most of their workday in the terminal but less so for beginners and casual
 
 ## Creating Custom Workflows
 
-In addition to the globally sourced commands, Workflows supports the ability to save commonly used commands specific to you or your team by adding workflows defined in YAML files directly to the `~/.warp/workflows` directory or the `.warp/workflows` in the top level of a repository. Local and project workflows can be accessed under the "My Workflows" and "Project Workflows" tab of the workflows menu, respectively.
+In addition to the globally sourced commands, Workflows supports the ability to save commonly used commands specific to you or your team by adding workflows defined in YAML files directly to the `~/.warp/workflows` directory or the `.warp/workflows` in the top level of a repository. Local and Repository workflows can be accessed under the "My Workflows" and "Repository Workflows" tab of the workflows menu, respectively.
 
 ### Local vs Repository Workflows
 
-Local workflows are specific to a single developer. Repository workflows are instead associated with a specific git repository and can be accessed by anyone who has cloned the repo. **Currently, project workflows will not appear if you are SSH’d into a remote machine**.
+Local workflows are specific to a single developer. Repository workflows are instead associated with a specific git repository and can be accessed by anyone who has cloned the repo. **Currently, Repository workflows will not appear if you are SSH’d into a remote machine**.
 
 Local Workflows: `~/.warp/workflows`
 
-Project Workflows `{{path_to_git_repo}}/.warp/workflows`
+Repository Workflows `{{path_to_git_repo}}/.warp/workflows`
 
 ### Workflows File Format
 
