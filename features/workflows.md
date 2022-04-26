@@ -58,4 +58,4 @@ cp ~/path/to/my_awesome_workflow.yaml .warp/workflows
 
 ## Contributing to Global Workflows
 
-You can add workflows that all Warp users can use by contributing directly to the [Workflows repo](https://github.com/warpdotdev/workflows). See the [Contributing](https://github.com/warpdotdev/workflows#contributing) section for more details.
+You can add workflows that all Warp users can use by contributing directly to the [Workflows repo](https://github.com/warpdotdev/workflows/tree/main/specs). See the [Contributing](https://github.com/warpdotdev/workflows#contributing) section for more details.

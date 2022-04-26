@@ -80,6 +80,7 @@ end
   - bindkey "^j" down-line-or-beginning-search
 - [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && "/usr/local/etc/profile.d/bash_completion.sh"
 - eval "$(rbenv init -)"
+- grml-zsh-config
 - FIG
 
 ## Fig
@@ -93,6 +94,7 @@ In order to work around this, you can disable this logic for Warp. Note that you
 Also, Fig has a tendency to re-write these lines in these files when it updates - so you might have to do this multiple times if you are using Fig actively.
 
 .bash_profile
+
 ```sh
 # Fig post block. Keep at the bottom of this file.
 if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
@@ -101,6 +103,7 @@ fi
 ```
 
 .bashrc
+
 ```sh
 # Fig post block. Keep at the bottom of this file.
 if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
