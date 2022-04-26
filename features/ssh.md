@@ -3,12 +3,15 @@
 When you SSH into a remote box, you get all the features of Warp without any configuration on your part.
 The input editor, autocompletions, and history search work the same, regardless of machine.
 
-Limitations of SSH (as of February 2022):
+[Limitations of SSH](https://github.com/warpdotdev/Warp/issues/578) (as of February 2022):
+
 * Warp specific features like Blocks are currently supported only for bash or zsh.
 * If you're using a different shell, you'll want to use `/usr/bin/ssh` directly (see below for more details).
 * For zsh, xxd is required to bootstrap warp.
 
 If you're using zsh on the remote host, we create a temp folder to act as the ZDOTDIR during the bootstrapping process and remove it when the shell is setup.
+
+[Tmux is not currently supported.](https://github.com/warpdotdev/Warp/discussions/501)
 
 ![SSH](../.gitbook/assets/ssh.png)
 
