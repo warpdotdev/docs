@@ -223,10 +223,16 @@ Run this script to generate the thumbnails.
 python3 ./scripts/gen_theme_previews.py standard
 ```
 
+Note: We cannot accept pull request that include custom background images because:
+
+* of licensing restrictions
+* we are trying to keep the binary size of the repo as small as possible (just the yaml files)
+
+If your theme has an intended custom background image, include a comment in the yaml with a link to where people should download it.
+
 ## 5. Community
 
 All other Warp-related things can be discussed in our [Warp official repo](https://github.com/warpdotdev/Warp/discussions?discussions_q=label%3ARoadmap+sort%3Atop) or our [Discord server](https://discord.gg/warpdotdev).
-
 
 ## 6. Open source dependencies
 
