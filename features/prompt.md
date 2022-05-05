@@ -26,7 +26,7 @@ Enable custom prompt support by navigating to Settings > Features and toggling o
 
 If you're prompt isn't working please check out our ["Configuring and debugging your RC files"](https://docs.warp.dev/help/known-issues#configuring-and-debugging-your-rc-files) section of our Known Issues section.
 
-### Powerlevel10K (P10K)o
+### Powerlevel10K (P10K)
 
 We don't currently support P10K chances are we won't be able to. The tldr; it's tricky because of how we also use the prompt_command in Warp and because P10K can be installed standalone or as an Oh-My-Zsh plugin, each of which results in different problems and requires special handling.
 
