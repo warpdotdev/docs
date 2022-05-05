@@ -29,6 +29,7 @@
 * [A.I. Command Search](features/ai-command-search.md)
 * [Performance](features/performance.md)
 * [Terminal features](features/terminal-features.md)
+* [Accessibility](features/accessibility.md)
 
 ## Help
 
