@@ -31,7 +31,7 @@ Last step before you can start enjoying our new terminal app is filling up the o
 
 The main terminal window is not that different from other terminals - there's a place to type commands (Command Input) and the list of the previously executed commands and their outputs. 
 Warp groups those together - each command and output create a Block.
-You can navigate blocks with your keyboard to easily check what was the command, learn whether it was successufl or not, and what was the output, as well as more easily copy the command, output, or both for further processing.
+You can navigate blocks with your keyboard to easily check what was the command, learn whether it was successful or not, and what was the output, as well as more easily copy the command, output, or both for further processing.
 
 A main entry point for discovering new features and actions is our Command Palette, which you can access by executing the cmd-p shortcut.
 
@@ -59,4 +59,4 @@ While not all Warp features are accessible yet, we've implemented a process arou
 
 This is definitely not the ideal and final implementation. We're happy to hear your thoughts and ideas on how we can improve. 
 The biggest milestone for this work is to add support for navigating the UI elements using the keyboard.
-Give Warp a try, and please, do not hesitate to share your feedback: you can reach us via [email](mailto:hello@warp.dev), chat with us on [Discord](https://discord.com/invite/warpdotdev) or file a ticket in our [Github repo](https://github.com/warpdotdev/warp).
+Give Warp a try, and please, do not hesitate to share your feedback: you can reach us via [email](mailto:feedback@warp.dev), chat with us on [Discord](https://discord.com/invite/warpdotdev) or file a ticket in our [Github repo](https://github.com/warpdotdev/warp).
