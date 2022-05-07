@@ -71,6 +71,7 @@ end
 ### List of incompatible tools
 
 - iterm shell integration
+  - usually looks like `test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true`
 - Oh-My-Tmux.
 - OH-MY-ZSH-THEMES
   - avit
