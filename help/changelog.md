@@ -3,6 +3,22 @@
 These are our release changelogs. We try to release an update every week on Warp Wednesday!
 Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2022.05.04 (v0.2022.05.02.09.00)
+
+**New features**
+
+- Added default tab titles for Bash
+- Improved default tab title in Zsh
+- Maximize a split pane
+- Support rcfiles that check PS1 to determine if it's an interactive shell; this may explain missing aliases or commands in Warp!
+
+**Bug fixes**
+
+- History now correctly shows results after hitting ESC when a Block is focused
+- Fixed crash when quitting AI Command Search while a command was being generated.
+- Global keybindings with function keys and numeric keys are now properly registered.
+- Warp no longer jumps up and down for single-line commands that take more than 50ms
+
 ### 2022.05.02 (v0.2022.04.25.09.59)
 
 **New features**
@@ -622,20 +638,4 @@ Submit bugs and feature request on our [GitHub board!](https://github.com/warpdo
 **Bug fixes**
 
 - Text rendering was faded on certain monitors
-
-### 2022.05.04 (v0.2022.05.02.09.00)
-
-**New features**
-
-- Added default tab titles for Bash
-- Improved default tab title in Zsh
-- Maximize a split pane
-- Support rcfiles that check PS1 to determine if it's an interactive shell; this may explain missing aliases or commands in Warp!
-
-**Bug fixes**
-
-- History now correctly shows results after hitting ESC when a Block is focused
-- Fixed crash when quitting AI Command Search while a command was being generated.
-- Global keybindings with function keys and numeric keys are now properly registered.
-- Warp no longer jumps up and down for single-line commands that take more than 50ms
 
