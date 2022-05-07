@@ -1,0 +1,11 @@
+---
+name: "Create honkit branch and run server"
+command: "./scripts/set_up_honkit_branch_and_run_server.sh"
+tags:
+  - warpdotdev
+  - warpdotdev-dx
+description: "Creates and checks out a honkit branch and runs the server."
+source_url: ""
+author: elviskahoro
+author_url: "https://elvis.ai"
+shells: []
