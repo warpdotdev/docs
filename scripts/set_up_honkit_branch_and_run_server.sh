@@ -4,7 +4,5 @@ echo "Note: Please commit or stash any changes before running; also make sure th
 current_git_branch=$(git symbolic-ref --short HEAD)
 git checkout honkit &&
 git pull &&
-git rebase main &&
-git push &&
 git rebase $current_git_branch &&
 npx honkit serve
