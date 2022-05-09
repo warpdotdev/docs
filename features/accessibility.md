@@ -21,7 +21,7 @@ From there, Warp should seamlessly work with Voice Over and start announcing wha
 This may be a major difference from other apps - as Warp announces stuff on its own, letting you know what's going on. 
 There's currently no way to navigate between different UI elements using VO key combinations.
 
-Once installed, it will ask you to log in using your GitHub credentials. 
+Once installed, it will ask you to log in.
 We require the log in during our Beta state.
 Note that during the Beta as of now, Warp also sends telemetry that we use to improve the overall user experience. 
 You can find out more about that in the [privacy section](getting-started/privacy.md).

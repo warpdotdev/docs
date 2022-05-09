@@ -4,13 +4,13 @@ description: Instructions on how to troubleshoot login issues
 
 # Troubleshooting Login Issues
 
-## Nothing happens when I click "Sign Up with GitHub"
+## Nothing happens when I click "Sign Up"
 
-Clicking it should open a GitHub login pop-up. If Sign Up with GitHub does not work after trying the steps below, fill out [this Typeform](https://zachlloyd.typeform.com/to/UnZu0akR#&question=sign_up?utm_source=docs) and our team will reach out to you. If clicking the signup buttons opens a blank pop-up window, try using a proxy. It is possible that your ISP is blocking the app's call to googleapis.
+Clicking it should open a login pop-up. If signing up does not work after trying the steps below, fill out [this Typeform](https://zachlloyd.typeform.com/to/UnZu0akR#&question=sign_up?utm_source=docs) and our team will reach out to you. If clicking the signup buttons opens a blank pop-up window, try using a proxy. It is possible that your ISP is blocking the app's call to googleapis.
 
 ### All browsers
 
-This error could occur if you installed an ad blocker and the ad blocker blocks all pop-ups, including our Firebase GitHub auth pop-up. **To fix it:**
+This error could occur if you installed an ad blocker and the ad blocker blocks all pop-ups, including our Firebase auth pop-up. **To fix it:**
 
 1. Disable your ad blocker just for app.warp.dev
 2. Refresh and try again

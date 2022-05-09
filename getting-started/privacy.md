@@ -18,9 +18,9 @@ The other is to improve our product during beta because it makes it much easier 
 
 Please send us feedback about this policy in our [Typeform.](https://zachlloyd.typeform.com/to/UnZu0akR#question=login_required?utm_source=docs)
 
-## I don't have a GitHub account or I don't want to login with my GitHub?
+## Looking for another way to login?
 
-Currently we only support OAuth with GitHub, fill out our [Typeform](https://zachlloyd.typeform.com/to/UnZu0akR#question=github?utm_source=docs) if you're **interested in Warp supporting other providers.**
+Currently we only support logging in with GitHub, Google, and email links. Fill out our [Typeform](https://zachlloyd.typeform.com/to/UnZu0akR#question=github?utm_source=docs) if you're **interested in Warp supporting other providers.**
 
 ## Telemetry: What usage data are you collecting and why?
 
