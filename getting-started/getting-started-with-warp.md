@@ -21,14 +21,13 @@ For now, there are a few known limitations that we are actively working on:
 If your default shell is zsh, your aliases typically do not transfer over. Other shells are unsupported for now.
 
 * When you open a subshell (a shell within a shell), we do not set it up for Warp - instead it works like a normal terminal session.
-* You’ll need a Github account to log in.
 
 Our [known issues](https://docs.warp.dev/help/known-issues) section elaborates how to set up common tools:\
 [Vi / Vim / NeoVim](https://github.com/warpdotdev/warp/discussions/451), [tmux](https://github.com/warpdotdev/warp/discussions/501), and Oh-My-Zsh.
 
 ## Logging into Warp
 
-During our closed beta, we require a login so we can interact with you, get your feedback, and focus on improving the app. After installing Warp for the first time, you will be prompted to log in using your GitHub account (we only get access to the associated email address - [read our approach to privacy](https://www.warp.dev/privacy)).
+During our closed beta, we require a login so we can interact with you, get your feedback, and focus on improving the app. After installing Warp for the first time, you will be prompted to log in with GitHub, Google, or via an email link (we only get access to the associated email address - [read our approach to privacy](https://www.warp.dev/privacy)).
 
 Opening the app is the only time you need an active Internet connection. Otherwise, Warp is a fully-native, local app and runs fine with no internet connection whatsoever (although you will lose access to some of our cooler features).
 
