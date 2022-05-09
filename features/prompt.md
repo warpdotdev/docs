@@ -26,6 +26,20 @@ Enable custom prompt support by navigating to Settings > Features and toggling o
 
 If you're prompt isn't working please check out our ["Configuring and debugging your RC files"](https://docs.warp.dev/help/known-issues#configuring-and-debugging-your-rc-files) section of our Known Issues section.
 
+### iTerm2
+
+The iTerm2 shell integration breaks Warp and you're custom prompt will not be able to be visible with this on. If you're coming from iTerm please check your dotfiles for it. We advice disabling the integration just for Warp like so:
+
+```sh
+if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
+##### WHAT YOU WANT TO DISABLE FOR WARP - BELOW
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+##### WHAT YOU WANT TO DISABLE FOR WARP - ABOVE
+fi
+```
+
 ### Powerlevel10K (P10K)
 
 We don't currently support P10K chances are we won't be able to. The tldr; it's tricky because of how we also use the prompt_command in Warp and because P10K can be installed standalone or as an Oh-My-Zsh plugin, each of which results in different problems and requires special handling.
