@@ -18,6 +18,10 @@ The other is to improve our product during beta because it makes it much easier 
 
 Please send us feedback about this policy in our [Typeform.](https://zachlloyd.typeform.com/to/UnZu0akR#question=login_required?utm_source=docs)
 
+## Looking for another way to login?
+
+Currently we only support logging in with GitHub, Google, and email links. Fill out our [Typeform](https://zachlloyd.typeform.com/to/UnZu0akR#question=github?utm_source=docs) if you're **interested in Warp supporting other providers.**
+
 ## Telemetry: What usage data are you collecting and why?
 
 For our public beta, we collect usage data (only metadata never console input or output) to measure feature usage, discover product friction, and improve Warp by guiding what we prioritize. See below for an exhaustive list of the metadata we collect.
