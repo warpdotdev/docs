@@ -27,12 +27,12 @@
 * [Workflows](features/workflows.md)
 * [Global Hotkey Window](features/hotkey-window.md)
 * [A.I. Command Search](features/ai-command-search.md)
-* [Terminal features](features/terminal-features.md)
 * [Accessibility](features/accessibility.md)
 
 ## Performance
 
 * [Performance](performance/performance.md)
+* [Terminal features](performance/terminal-features.md)
 
 ## Help
 
