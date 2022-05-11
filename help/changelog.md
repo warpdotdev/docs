@@ -639,3 +639,17 @@ Submit bugs and feature request on our [GitHub board!](https://github.com/warpdo
 
 - Text rendering was faded on certain monitors
 
+### 2022.05.11 (v0.2022.05.09.09.06)
+
+**New features**
+
+- Filepath completions without needing to cd
+- Support for any font (not just monospaced)
+
+**Bug fixes**
+
+- Tab completions (cd) with international characters are now properly escaped (edited)
+- Improve rendering performance when many tabs are open (fixes non-responsiveness when searching history)
+- Fixed a race condition with autoupdate a11y announcements and other a11y messaging
+- Fixed a regression that would cut off the output of some long-running Blocks
+
