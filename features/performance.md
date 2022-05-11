@@ -1,14 +1,18 @@
 # Terminal Performance & Benchmarks: How does Warp compare?
+
 This is a short comparison of different terminals and their performance.
 
 ## Terminal apps selected for these benchmarks
+
 We chose to benchmark Warp against 4 other terminal emulator applications, based on their popularity as well as language and principles.
 Here is the list of the applications we chose for this comparison together with the explanation as to why we decided to include it in our comparison:
+
 - Terminal.app - the default terminal app available on the MacOS;
 - ITerm2 - one of the most popular terminal emulator used by MacOS users;
 - Alacritty & WezTerm - both of those terminals are written in Rust and are well-known for their speed and overall performance, things that Warp is aiming for.
 
 ### Versions & settings used during the comparison
+
 | Terminal     | Version                        | Terminal size (cols / rows, window is identical pixel-wise) |
 | ------------ | ------------------------------ | ----------------------------------------------------------- |
 | Warp         | v0.2022.04.01.01.37.stable\_03 | 208 cols / 54 rows                                          |
@@ -18,15 +22,18 @@ Here is the list of the applications we chose for this comparison together with 
 | Wezterm      | 20220319-142410-0fcdea07       | 243 cols / 80 rows                                          |
 
 ### About benchmarks
+
 We link the source code of each benchmark used, so you can easily reproduce the tests with other terminal apps.
 Please, note that those benchmarks are not exhaustive. Comparing terminal emulators with each other is not an easy task - right now we're checking how each of the apps behaves when dealing with lots of input and/or output. 
 
 Ideally, the benchmarks would also cover the latency (time between pressing a key and the character showing on screen, but also a delay between user's input and communication with the shell). We may include tests that account for that in the future.
 
 ## VTE benchmark
+
 Benchmark code can be found [here](https://github.com/alacritty/vtebench) with the specific commit we used in our comparison: `93bcc32b6e0f7560e9b1a5a8b0998c04fbf9b50d`.
 
-**Average time for each of the benchmark tests**
+### Average time for each of the benchmark tests
+
 |                                  | Warp avg | Terminal.app avg | iTerm avg | Alacritty avg | WezTerm avg |
 | -------------------------------- | -------- | ---------------- | --------- | ------------- | ----------- |
 | dense\_cells                     | 43.88    | 24.91            | 144.84    | 7.25          | 28.15       |
@@ -40,7 +47,8 @@ Benchmark code can be found [here](https://github.com/alacritty/vtebench) with t
 
 ![VTEbench average results (logarithmic scale )](../.gitbook/assets/vtebench_avg.png)
 
-**P90 of the results**
+### P90 of the results
+
 |                                  | Warp p90 | Terminal.app p90 | iTerm p90 | Alacritty p90 | WezTerm p90 |
 | -------------------------------- | -------- | ---------------- | --------- | ------------- | ----------- |
 | dense\_cells                     | 52       | 28               | 189       | 8             | 32          |
@@ -55,11 +63,13 @@ Benchmark code can be found [here](https://github.com/alacritty/vtebench) with t
 ![VTEbench p90 results (logarithmic scale )](../.gitbook/assets/vtebench_p90.png)
 
 ## Termbench
+
 Benchmark code can be found [here](https://github.com/cmuratori/termbench) with the specific commit we used in our comparison: `82afbc69256b4e22de913f0f02f82e0480f3dac5`.
 
 Below you'll find results for `small` and default test sizes. Note that Terminal.app only participated in the `small` test.
 
-**Small test sizes**
+### Small test sizes
+
 |                | Warp small | Terminal.app small | iTerm small | Alacritty small | WezTerm small |
 | -------------- | ---------- | ------------------ | ----------- | --------------- | ------------- |
 | ManyLine       | 6.7854     | 2.6789             | 8.7057      | 1.2532          | 8.9436        |
@@ -70,7 +80,8 @@ Below you'll find results for `small` and default test sizes. Note that Terminal
 
 ![Termbench small results (logarithmic scale )](../.gitbook/assets/termbench_small.png)
 
-**Regular test size**
+### Regular test size
+
 |                | Warp regular | iTerm regular | Alacritty regular | WezTerm regular |
 | -------------- | ------------ | ------------- | ----------------- | --------------- |
 | ManyLine       | 113.76       | 132.4975      | 19.8802           | 150.8175        |
