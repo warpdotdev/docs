@@ -1,4 +1,4 @@
-# Terminal Performance & Benchmarks: How does Warp compare?
+# Terminal Performance: How does Warp compare?
 
 This is a short comparison of different terminals and their performance.
 
