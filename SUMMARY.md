@@ -28,6 +28,7 @@
 * [Global Hotkey Window](features/hotkey-window.md)
 * [A.I. Command Search](features/ai-command-search.md)
 * [Accessibility](features/accessibility.md)
+* [Notifications](features/notifications.md)
 
 ## Performance
 
