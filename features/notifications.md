@@ -9,6 +9,8 @@ To get started with notifications,
     - If you accidentally denied it or would like to enable notifications later, check the troubleshooting guide below. 
 1. Once accepted, you're ready to receive notifications! If you'd like a zero-config setup, then you're all done! But, if you'd like to manually configure *which types* of notifications you receive, keep on reading!
 
+![Notifications Demo](../.gitbook/assets/notifications-demo.gif)
+
 ## Configuring Notifications
 To configure notifications, go to Settings->Features and scroll to Notifications. Once there, you can configure the different notification triggers to your liking. 
 
