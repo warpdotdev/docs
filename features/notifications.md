@@ -1,5 +1,5 @@
 # Notifications
-Warp can send you desktop notifications when you are away from the app and something meaningful happens in your terminal sessions!
+Have you ever ran a program on the terminal and started doing something else, only to find out a long time later that the program was waiting for a password to continue? No longer! Warp can now send you desktop notifications when you are away from the app and something meaningful happens in your terminal sessions, like when a command completes or when you're prompted to enter a password!
 
 ## Getting Started
 To get started with notifications,
