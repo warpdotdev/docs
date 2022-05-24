@@ -1,4 +1,3 @@
-features/notifications.md
 # Notifications
 Warp can send you desktop notifications when you are away from the app and something meaningful happens in your terminal sessions!
 
@@ -12,6 +11,7 @@ To get started with notifications,
 
 ## Configuring Notifications
 To configure notifications, go to Settings->Features and scroll to Notifications. Once there, you can configure the different notification triggers to your liking. 
+
 ### Notification Triggers
 A notification trigger is a reason for which Warp can send you a notification. Currently, we support two different triggers:
 1. **Long-running commands.** Warp can send you a notification when a command completes after a configurable number of seconds.
@@ -20,7 +20,8 @@ A notification trigger is a reason for which Warp can send you a notification. C
 For either of these triggers, Warp will only send you a desktop notification if you are using a different app at the time the trigger is fired.
 
 ## Troubleshooting Warp Notifications
-### I want to receive notifications!
+
+### I'm not receiving notifications when I expect them!
 If you have notifications enabled in Warp (under Settings->Features) but you still aren't receiving desktop notifications, try the following:
 1. Make sure that you are navigated away from Warp when you expect to receive the notification.
 1. Make sure 'Do not Disturb' mode is turned off.
@@ -28,9 +29,7 @@ If you have notifications enabled in Warp (under Settings->Features) but you sti
 1. Quit and restart Warp.
 
 ### I don't want to receive notifications!
-The easiest way to disable notifications is within Warp itself. Go to Settings->Features and toggle off Notifications. After that, Warp won't try to send you anymore notifications! 
-
-But we're sad to see you turn them off! If notifications didn't work the way you expected them, please let us know on Discord or GitHub and we'll try to improve the experience!
+The easiest way to disable notifications is within Warp itself. Go to Settings->Features and toggle off Notifications. After that, Warp won't try to send you notifications anymore! 
 
 ### I have another problem!
-We're sorry that notifications aren't working the way you expect them to! Read on to try a few different debugging steps. If these steps still don't work, please reach out to us on Discord and we can help you debug further!
+We're sorry that notifications aren't working the way you expect them to! Please reach out to us on [Discord](https://warp.dev/discord) or [GitHub](https://github.com/warpdotdev/Warp/issues) and we can help you debug further!
