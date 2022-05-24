@@ -3,7 +3,7 @@ Have you ever ran a program on the terminal and started doing something else, on
 
 ## Getting Started
 To get started with notifications,
-1. Go to Settings->Features in Warp and toggle Notifications on (ignore this step if you came here from the banner).
+1. Go to Settings->Features in Warp and toggle Notifications on. You can also toggle notifications on via the command palette. Note: if you got to this page using the notifications banner, feel free to skip this step.
 1. The first time you enable notifications in Warp, a MacOS request for permissions will appear. 
     - Depending on your MacOS version, this request will look slightly different. In any case, you will want to 'Allow'/'Accept' the request so that Warp is allowed to send you desktop notifications. 
     - If you accidentally denied it or would like to enable notifications later, check the troubleshooting guide below. 
