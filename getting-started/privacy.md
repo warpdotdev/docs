@@ -73,6 +73,13 @@ Please send us feedback about this policy and or sign up to be automatically **n
 * Natural Language Search Request Failed
 * Natural Language Search Result Accepted
 * Natural Language Search Quit
+* Notification Banner Usage
+* Notification Clicked
+* Notification Failed to Send
+* Notification Permissions Request Responded to
+* Notification Permissions Requested
+* Notification Sent
+* Notifications Toggled
 * Onboarding survey finished
 * Onboarding survey skipped
 * Onboarding survey question completed
