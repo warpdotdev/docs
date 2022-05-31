@@ -3,6 +3,49 @@
 These are our release changelogs. We try to release an update every week on Warp Wednesday!
 Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2022.05.26 (v0.2022.05.23.09.07)
+
+**New features**
+
+- Warp can now send you desktop notifications for long-running commands and password prompts (discussions[628](https://github.com/warpdotdev/warp/issues/628))
+- Added keybinding to toggle fullscreen mode
+
+**Bug fixes**
+
+- Stopped prepending \ before ~ in tab titles for older versions of bash
+- Added support for Cmd-G and Cmd-Shift-G to tab between results in the find bar
+
+### 2022.05.18 (v0.2022.05.16.09.01)
+
+**New features**
+
+- Added exclusive theme available to anyone who has referred someone to Warp. (Open Theme Picker > Warp Referral to use it)
+
+**Bug fixes**
+
+- Improved rendering of rounded corners throughout the app.
+- Fixed cell dimension computation for some fonts.
+- Fixed labels rendering incorrectly in the font selector dropdown in settings.
+- Fixed bash remote sessions missing tab titles.
+- Reduced UI flickering after executing commands.
+- Fixed errors when sshing into remote machines which do not have xxd available.
+- Fixed some anti-aliased glyphs getting clipped during rasterization.
+- Fixed search bar stealing focus after command execution.
+
+### 2022.05.11 (v0.2022.05.09.09.06)
+
+**New features**
+
+- Filepath completions without needing to cd
+- Support for any font (not just monospaced)
+
+**Bug fixes**
+
+- Tab completions (cd) with international characters are now properly escaped (edited)
+- Improve rendering performance when many tabs are open (fixes non-responsiveness when searching history)
+- Fixed a race condition with autoupdate a11y announcements and other a11y messaging
+- Fixed a regression that would cut off the output of some long-running Blocks
+
 ### 2022.05.04 (v0.2022.05.02.09.00)
 
 **New features**
@@ -638,18 +681,4 @@ Submit bugs and feature request on our [GitHub board!](https://github.com/warpdo
 **Bug fixes**
 
 - Text rendering was faded on certain monitors
-
-### 2022.05.11 (v0.2022.05.09.09.06)
-
-**New features**
-
-- Filepath completions without needing to cd
-- Support for any font (not just monospaced)
-
-**Bug fixes**
-
-- Tab completions (cd) with international characters are now properly escaped (edited)
-- Improve rendering performance when many tabs are open (fixes non-responsiveness when searching history)
-- Fixed a race condition with autoupdate a11y announcements and other a11y messaging
-- Fixed a regression that would cut off the output of some long-running Blocks
 
