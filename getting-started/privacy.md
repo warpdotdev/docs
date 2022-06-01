@@ -73,6 +73,7 @@ Please send us feedback about this policy and or sign up to be automatically **n
 * Natural Language Search Request Failed
 * Natural Language Search Result Accepted
 * Natural Language Search Quit
+* Notification Banner Opened
 * Notification Banner Usage
 * Notification Clicked
 * Notification Failed to Send
@@ -94,6 +95,7 @@ Please send us feedback about this policy and or sign up to be automatically **n
 * Opened Suggestions Menu
 * Opened Theme Chooser
 * Opened Welcome Tips
+* Search Bar Option Toggled
 * Sessions tab created
 * Session Abandoned Before Bootstrap
 * Split Pane
