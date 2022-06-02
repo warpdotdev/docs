@@ -7,13 +7,13 @@ Submit bugs and feature request on our [GitHub board!](https://github.com/warpdo
 
 **New features**
 
-- Warp can now send you desktop notifications for long-running commands and password prompts (discussions[628](https://github.com/warpdotdev/warp/issues/628))
+- Warp can now send you desktop notifications for long-running commands and password prompts - [628](https://github.com/warpdotdev/warp/issues/628)
 - Added keybinding to toggle fullscreen mode
 
 **Bug fixes**
 
-- Stopped prepending \ before ~ in tab titles for older versions of bash
-- Added support for Cmd-G and Cmd-Shift-G to tab between results in the find bar
+- Stopped prepending \ before ~ in tab titles for older versions of Bash
+- Added support for CMD-G and SHIFT-CMD-G to tab between results in the Find Bar
 
 ### 2022.05.18 (v0.2022.05.16.09.01)
 
@@ -23,14 +23,14 @@ Submit bugs and feature request on our [GitHub board!](https://github.com/warpdo
 
 **Bug fixes**
 
-- Improved rendering of rounded corners throughout the app.
-- Fixed cell dimension computation for some fonts.
-- Fixed labels rendering incorrectly in the font selector dropdown in settings.
-- Fixed bash remote sessions missing tab titles.
-- Reduced UI flickering after executing commands.
-- Fixed errors when sshing into remote machines which do not have xxd available.
-- Fixed some anti-aliased glyphs getting clipped during rasterization.
-- Fixed search bar stealing focus after command execution.
+- Improved rendering of rounded corners throughout the app
+- Fixed cell dimension computation for some fonts
+- Fixed labels rendering incorrectly in the font selector dropdown in settings
+- Fixed Bash remote sessions missing tab titles
+- Reduced UI flickering after executing commands
+- Fixed errors when sshing into remote machines which do not have xxd available
+- Fixed some anti-aliased glyphs getting clipped during rasterization
+- Fixed search bar stealing focus after command execution
 
 ### 2022.05.11 (v0.2022.05.09.09.06)
 
@@ -58,8 +58,8 @@ Submit bugs and feature request on our [GitHub board!](https://github.com/warpdo
 **Bug fixes**
 
 - History now correctly shows results after hitting ESC when a Block is focused
-- Fixed crash when quitting AI Command Search while a command was being generated.
-- Global keybindings with function keys and numeric keys are now properly registered.
+- Fixed crash when quitting AI Command Search while a command was being generated
+- Global keybindings with function keys and numeric keys are now properly registered
 - Warp no longer jumps up and down for single-line commands that take more than 50ms
 
 ### 2022.05.02 (v0.2022.04.25.09.59)
@@ -87,7 +87,7 @@ Submit bugs and feature request on our [GitHub board!](https://github.com/warpdo
 
 **Bug fixes**
 
-- Improved reliability of login and auth within the app.
+- Improved reliability of login and auth within the app
 - Buttons within the find bar are now properly shaded for gradient themes
 - Workflows with default values are now registered by Warp
 - Fixed bootstrapping bug that affected Fish versions older than 3.2.0
@@ -97,8 +97,8 @@ Submit bugs and feature request on our [GitHub board!](https://github.com/warpdo
 
 **Bug fixes**
 
-- Support parsing PS1’s exit codes (bash’s $?) and improved PS1 parsing for newer bash versions (4.4+)
-- Fixed prompt showing up as exit in bash - [793](https://github.com/warpdotdev/warp/issues/793)
+- Support parsing PS1’s exit codes (Bash’s $?) and improved PS1 parsing for newer Bash versions (4.4+)
+- Fixed prompt showing up as exit in Bash - [793](https://github.com/warpdotdev/warp/issues/793)
 - Improved parsing of Zsh default prompts
 - Opening the find bar will automatically select any existing text - [831](https://github.com/warpdotdev/warp/issues/831)
 
@@ -354,8 +354,8 @@ Submit bugs and feature request on our [GitHub board!](https://github.com/warpdo
 
 **New features**
 
-- Added a send invite button in account section of the settings dialog.
-- You can now request more invites in the invite modal.
+- Added a send invite button in account section of the settings dialog
+- You can now request more invites in the invite modal
 
 **Bug fixes**
 
@@ -386,7 +386,7 @@ Submit bugs and feature request on our [GitHub board!](https://github.com/warpdo
 
 **Bug fixes**
 
-- Properly escapes whitespace when you drag and drop files.
+- Properly escapes whitespace when you drag and drop files
 
 ### 2021.11.17 (v0.2021.11.16.20.05)
 
@@ -470,7 +470,7 @@ Submit bugs and feature request on our [GitHub board!](https://github.com/warpdo
 
 **New features**
 
-- Split pane. Create multiple panes in the same tab via shortcuts (CMD-E/SHIFT-CMD-E), the Command Palette, or by right clicking in any pane.
+- Split panes: create multiple panes in the same tab via shortcuts (CMD-E/SHIFT-CMD-E), the Command Palette, or by right clicking in any pane.
 - Custom themes via files.  You can now define your own theme as a yaml file in ~/.warp/themes. For more information on the file format and to see ~100 of the most popular themes already implemented in this format, see https://github.com/warpdotdev/themes. The ability to add and share themes directly within Warp is coming soon!
 
 **Bug fixes**
@@ -675,10 +675,24 @@ Submit bugs and feature request on our [GitHub board!](https://github.com/warpdo
 **New features**
 
 - SSH support (Warp now works the same when you SSH as it does locally!)
-- Improved completions: we’ve built out new completions support that are snappier and have more intelligent suggestions for options and arguments for some of the most used commands.
+- Improved completions: we’ve built out new completions support that are snappier and have more intelligent suggestions for options and arguments for some of the most used commands
 - Find: Pressing CMD-F now brings up a find view to search for text in the terminal
 
 **Bug fixes**
 
 - Text rendering was faded on certain monitors
+
+### 2022.06.01 (v0.2022.05.30.09.10)
+
+**New features**
+
+- Added information about rewards to the referral screen
+- Added a button that toggles regex search in the Find Bar
+- Added completion support for shell functions
+
+**Bug fixes**
+
+- Improved kerning (font rendering) throughout the app
+- Added a hyperlink (to our changelog history) in the Changelog modal
+- Multiline commands that don't have any output are no longer cut off
 
