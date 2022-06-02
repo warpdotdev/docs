@@ -72,10 +72,13 @@ end
 
 - iterm shell integration
   - usually looks like `test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true`
-- Oh-My-Tmux.
+- Powerlevel10K
 - OH-MY-ZSH-THEMES
-  - avit
+  - e.g. avit
+  - maybe more
 - OH-MY-ZSH-PLUGINS
+
+- Oh-My-Tmux.
 - FZF
 - BIND keys like:
   - bindkey "^j" down-line-or-beginning-search
