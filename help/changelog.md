@@ -3,6 +3,35 @@
 These are our release changelogs. We try to release an update every week on Warp Wednesday!
 Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2022.06.08 (v0.2022.06.06.09.05)
+
+**New features**
+
+- Now support renaming tabs (right click on your tab title!)
+- Now support enabling custom prompt from prompt context menu (right-click on prompt)
+- Now support splitting panes (left and right) from the context menu (right click) and through the Command Palette
+- Now support CTRL-Click as an alternative to right-clicking
+
+**Bug fixes**
+
+- Improved completions support for arguments nested under options (e.g. git branch -D <branch_name...>)
+- Modified files are now included (in addition to commit SHAs) for `git diff`
+
+### 2022.06.01 (v0.2022.05.30.09.10)
+
+**New features**
+
+- Added information about rewards to the referral screen
+- Added a button that toggles regex search in the Find Bar
+- Added completion support for shell functions
+
+**Bug fixes**
+
+- Hotfix - a regression that caused Warp to stall when using nano
+- Improved kerning (font rendering) throughout the app
+- Added a hyperlink (to our changelog history) in the Changelog modal
+- Multiline commands that don't have any output are no longer cut off
+
 ### 2022.05.26 (v0.2022.05.23.09.07)
 
 **New features**
@@ -682,17 +711,15 @@ Submit bugs and feature request on our [GitHub board!](https://github.com/warpdo
 
 - Text rendering was faded on certain monitors
 
-### 2022.06.01 (v0.2022.05.30.09.10)
+### 2022.06.15 (v0.2022.06.13.09.15)
 
 **New features**
 
-- Added information about rewards to the referral screen
-- Added a button that toggles regex search in the Find Bar
-- Added completion support for shell functions
+- Added keyboard shortcuts to reorder tabs (CTRL-SHIFT-LEFT and CTRL-SHIFT-RIGHT)
 
 **Bug fixes**
 
-- Improved kerning (font rendering) throughout the app
-- Added a hyperlink (to our changelog history) in the Changelog modal
-- Multiline commands that don't have any output are no longer cut off
+- Global Hotkey Window (Quake Mode) no longer overlaps Spotlight, Raycast, Alfred, and the Mac Dock
+- Now correctly display the user and hostname in the Prompt after exiting an SSH session
+- Fixed a memory leak on window close.
 
