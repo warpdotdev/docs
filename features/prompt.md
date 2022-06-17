@@ -55,3 +55,7 @@ if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
 ##### WHAT YOU WANT TO DISABLE FOR WARP - ABOVE
 fi
 ```
+
+### Context Chips
+
+Context Chips is an idea we have for how the future of terminal prompts could like, i.e. prompts that support dynamic refreshing, mouse interactions, and extends customizability via an open spec that developers can build on. Learn more via our Twitter thread, where we also shared some Figma mocks.
