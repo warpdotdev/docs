@@ -3,6 +3,19 @@
 These are our release changelogs. We try to release an update every week on Warp Wednesday!
 Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2022.06.17 (v0.2022.06.13.09.15)
+
+**New features**
+
+- Added keyboard shortcuts to reorder tabs (CTRL-SHIFT-LEFT and CTRL-SHIFT-RIGHT)
+
+**Bug fixes**
+
+- Warp no longer crashes on MacOS 13 (Ventura)
+- Global Hotkey Window (Quake Mode) no longer overlaps Spotlight, Raycast, Alfred, and the Mac Dock
+- Now correctly display the user and hostname in the Prompt after exiting an SSH session
+- Fixed a memory leak on window close.
+
 ### 2022.06.08 (v0.2022.06.06.09.05)
 
 **New features**
@@ -711,15 +724,21 @@ Submit bugs and feature request on our [GitHub board!](https://github.com/warpdo
 
 - Text rendering was faded on certain monitors
 
-### 2022.06.15 (v0.2022.06.13.09.15)
+### 2022.06.22 (v0.2022.06.20.09.15)
 
 **New features**
 
-- Added keyboard shortcuts to reorder tabs (CTRL-SHIFT-LEFT and CTRL-SHIFT-RIGHT)
+- Improved auto-focus behavior when closing panes by keeping track of history when navigating or clicking around panes
+- Performance improvements when executing Blocks: Warp no longer flashes on every command!
 
 **Bug fixes**
 
-- Global Hotkey Window (Quake Mode) no longer overlaps Spotlight, Raycast, Alfred, and the Mac Dock
-- Now correctly display the user and hostname in the Prompt after exiting an SSH session
-- Fixed a memory leak on window close.
+- Input Editor re-focuses after renaming a tab
+- Reduced visual weight of the active tab title to improve legibility.
+- Improved blending along the inside edge of rounded corners
+- Global Hotkey Windows (Quake Mode) now correctly respect the active screen setting
+- Completions for flag arguments now support absolute and relative file paths (when applicable)
+- Git checkout <`TAB`> now also completes branches with the remote prefixed.
+- Pressing Arrow-up (`UP`) when the Input Editor is non-empty opens the command history with prefix filtering
+- Button to copy app version moved to main settings page
 
