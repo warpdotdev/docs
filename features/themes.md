@@ -184,14 +184,14 @@ To set up a gradient, create a sub-level under accent with two key-value pairs:
 
 ```yaml
 accent:
-  top: #abcdef
-  bottom: #fedcba
+  top: '#abcdef'
+  bottom: '#fedcba'
 ```
 
 ```yaml
 accent:
-   left: #abcdef
-   right: #fedcba
+   left: '#abcdef'
+   right: '#fedcba'
 ```
 
 Warp also supports setting a gradient for the background.
