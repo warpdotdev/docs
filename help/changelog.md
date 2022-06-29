@@ -3,6 +3,24 @@
 These are our release changelogs. We try to release an update every week on Warp Wednesday!
 Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2022.06.27 (v0.2022.06.20.09.15)
+
+**New features**
+
+- Improved auto-focus behavior when closing panes by keeping track of history when navigating or clicking around panes
+- Performance improvements when executing Blocks: Warp no longer flashes on every command!
+
+**Bug fixes**
+
+- Input Editor re-focuses after renaming a tab
+- Reduced visual weight of the active tab title to improve legibility.
+- Improved blending along the inside edge of rounded corners
+- Global Hotkey Windows (Quake Mode) now correctly respect the active screen setting
+- Completions for flag arguments now support absolute and relative file paths (when applicable)
+- Git checkout <`TAB`> now also completes branches with the remote prefixed.
+- Pressing Arrow-up (`UP`) when the Input Editor is non-empty opens the command history with prefix filtering
+- Button to copy app version moved to main settings page
+
 ### 2022.06.17 (v0.2022.06.13.09.15)
 
 **New features**
@@ -724,21 +742,10 @@ Submit bugs and feature request on our [GitHub board!](https://github.com/warpdo
 
 - Text rendering was faded on certain monitors
 
-### 2022.06.22 (v0.2022.06.20.09.15)
-
-**New features**
-
-- Improved auto-focus behavior when closing panes by keeping track of history when navigating or clicking around panes
-- Performance improvements when executing Blocks: Warp no longer flashes on every command!
+### 2022.06.29 (v0.2022.06.27.09.14)
 
 **Bug fixes**
 
-- Input Editor re-focuses after renaming a tab
-- Reduced visual weight of the active tab title to improve legibility.
-- Improved blending along the inside edge of rounded corners
-- Global Hotkey Windows (Quake Mode) now correctly respect the active screen setting
-- Completions for flag arguments now support absolute and relative file paths (when applicable)
-- Git checkout <`TAB`> now also completes branches with the remote prefixed.
-- Pressing Arrow-up (`UP`) when the Input Editor is non-empty opens the command history with prefix filtering
-- Button to copy app version moved to main settings page
+- Cursor changes when hovering over clickable UI elements and the Input Editor
+- Dim colors now render correctly
 
