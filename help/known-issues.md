@@ -77,8 +77,8 @@ end
   - e.g. avit
   - maybe more
 - OH-MY-ZSH-PLUGINS
-
 - Oh-My-Tmux.
+- zsh4h (ZSH for Humans)
 - FZF
 - BIND keys like:
   - bindkey "^j" down-line-or-beginning-search
