@@ -107,6 +107,7 @@ Please send us feedback about this policy and or sign up to be automatically **n
 * Tab Created
 * Tab Single Result Autocompletion
 * Theme selected
+* Thin Strokes Setting Changed
 * Unable to Update To New Version
 * Unhandled editor modifier key
 * Viewed login page
