@@ -29,6 +29,7 @@
 * [Split Panes](features/split-panes.md)
 * [SSH](features/ssh.md)
 * [Workflows](features/workflows.md)
+* [Integrations](features/integrations.md)
 
 ## Performance
 
