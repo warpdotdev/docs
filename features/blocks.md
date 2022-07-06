@@ -9,6 +9,7 @@ Blocks enable us to easily:
 * scroll directly to the start of a command’s output
 * re-input commands
 * [share](https://app.warp.dev/block/TxBPzaJ56fQyXYI4TI4Ia2) both a command and its output (with formatting!)
+* bookmark them
 
 Interested in how we differentiate input and output, or how we implement blocks? Check out our blog post: [How Warp Works.](https://blog.warp.dev/how-warp-works/#implementing-blocks)
 
@@ -67,3 +68,19 @@ The dropdown menu supports: (Dec 2021):
 Similar actions are also supported when multiple blocks are selected.
 
 ![Block actions](../.gitbook/assets/blocks-actions.gif)
+
+## Bookmarking a Block
+
+Bookmark a Block to easily and quickly navigate to important Blocks despite where they are in the Block history.
+Bookmark a Block by:
+
+* Click on the bookmark icon on the top right corner of a Block
+* Select `Toggle bookmark` in the block context menu
+* Use `Cmd-B` keybinding to bookmark a selected block
+
+Once bookmarked, an indicator will appear in the scrollbar on the right-hand side of the screen. The indicator position reflects the approximate position of the Block in the Block history. Hovering over the indicator will give a snapshot of the Block including its prompt, command, and the last two lines of output.
+
+Navigate to a bookmarked Block, by:
+
+* Clicking on the indicator
+* Pressing `OPTION-UP` and `OPTION-DOWN`
