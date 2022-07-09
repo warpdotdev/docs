@@ -72,7 +72,7 @@ end
 
 - iterm shell integration
   - usually looks like `test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true`
-- Powerlevel10K
+- [Powerlevel10K](https://docs.warp.dev/features/prompt#powerlevel10k-p10k)
 - OH-MY-ZSH-THEMES
   - e.g. avit
   - maybe more
