@@ -3,6 +3,31 @@
 These are our release changelogs. We try to release an update every week on Warp Wednesday!
 Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2022.07.06 (v0.2022.07.04.09.08)
+
+**New features**
+
+- Bookmark a Block (or multiple) for quick access via the scroll-bar
+- Added a referral counter to the Settings > Account screen and the referral screen
+- Added support for rendering text with a lower visual weight; enable the thin strokes option in Settings > Appearance (enabled by default for low-DPI displays)
+- Togglable settings, overflow menu items, and settings pages are now accessible through the Command Palette
+- CLI options are now surfaced by default without needing to type '-'
+- Press SHIFT-CMD-C while in VSCode (Visual Studio Code) to open a new Warp session
+
+**Bug fixes**
+
+- Fixed a hang that would sometimes occur when connecting with SSH
+- Now support requesting media permissions (camera, audio, etc)
+- Correctly parse Git commit SHAs in completion menus
+- Improved tab completion support for command line arguments that are behind flags
+
+### 2022.06.29 (v0.2022.06.27.09.14)
+
+**Bug fixes**
+
+- Cursor changes when hovering over clickable UI elements and the Input Editor
+- Dim colors now render correctly
+
 ### 2022.06.27 (v0.2022.06.20.09.15)
 
 **New features**
@@ -741,11 +766,4 @@ Submit bugs and feature request on our [GitHub board!](https://github.com/warpdo
 **Bug fixes**
 
 - Text rendering was faded on certain monitors
-
-### 2022.06.29 (v0.2022.06.27.09.14)
-
-**Bug fixes**
-
-- Cursor changes when hovering over clickable UI elements and the Input Editor
-- Dim colors now render correctly
 
