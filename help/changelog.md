@@ -3,7 +3,7 @@
 These are our release changelogs. We try to release an update every week on Warp Wednesday!
 Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
-### 2022.07.06 (v0.2022.07.04.09.08)
+### 2022.07.07 (v0.2022.07.04.09.08)
 
 **New features**
 
@@ -16,6 +16,7 @@ Submit bugs and feature request on our [GitHub board!](https://github.com/warpdo
 
 **Bug fixes**
 
+- Fixed referal links and share by email
 - Fixed a hang that would sometimes occur when connecting with SSH
 - Now support requesting media permissions (camera, audio, etc)
 - Correctly parse Git commit SHAs in completion menus
@@ -766,4 +767,13 @@ Submit bugs and feature request on our [GitHub board!](https://github.com/warpdo
 **Bug fixes**
 
 - Text rendering was faded on certain monitors
+
+### 2022.07.13 (v0.2022.07.11.09.11)
+
+**Bug fixes**
+
+- Improved startup time for Fish shells
+- Find Bar no longer crashes on selected text
+- Scrollbar now supports jumping to where you mouse click 
+- Fixed a problem with the referral link for sharing Warp not loading
 
