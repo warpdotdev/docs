@@ -22,7 +22,7 @@
 - [Themes](features/themes/README.md)
   - [Custom Themes](features/themes/custom-themes.md)
 - [Completions](features/completions.md)
-- [Command Inspector](features/command_inspector.md)
+- [Command Inspector](features/command-inspector.md)
 - [Autosuggestions](features/autosuggestions.md)
 - [Accessibility](features/accessibility.md)
 - [Command History](features/command-history.md)
