@@ -1,19 +1,26 @@
 # Table of contents
 
-* [Introduction](README.md)
+## 🚀 Getting Started
 
-## Getting Started
-
-* [Getting Started with Warp](getting-started/getting-started-with-warp.md)
+* [What is Warp?](README.md)
+* [Before Getting Started](getting-started/getting-started-with-warp.md)
+* [Downloading Warp](getting-started/downloading-warp.md)
+* [Onboarding](getting-started/onboarding.md)
 * [Privacy](getting-started/privacy.md)
+* [Refer a Friend](getting-started/refer-a-friend.md)
+* [Changelog](getting-started/changelog.md)
+* [Learn More](getting-started/learn-more.md)
 
-## Features
+## 📕 Features
 
-* [Command Palette](features/command-palette.md)
-* [Blocks](features/blocks.md)
-* [The Input / Text Editor](features/the-input-editor.md)
 * [A.I. Command Search](features/ai-command-search.md)
-* [Themes](features/themes.md)
+* [Blocks](features/blocks/README.md)
+  * [Block Basics](features/blocks/block-basics.md)
+  * [Block Actions](features/blocks/block-actions.md)
+* [Command Palette](features/command-palette.md)
+* [Text Editor Input](features/the-input-editor.md)
+* [Themes](features/themes/README.md)
+  * [Custom Themes](features/themes/custom-themes.md)
 * [Completions](features/completions.md)
 * [Autosuggestions](features/autosuggestions.md)
 * [Accessibility](features/accessibility.md)
@@ -31,16 +38,14 @@
 * [Workflows](features/workflows.md)
 * [Integrations](features/integrations-and-plugins.md)
 
-## Performance
+## 📊 How Does Warp Compare?
 
-* [Performance](performance/performance.md)
-* [Terminal features](performance/terminal-features.md)
+* [Performance](how-does-warp-compare/performance.md)
+* [Terminal features](how-does-warp-compare/terminal-features.md)
 
-## Help
+## ❓ Help
 
-* [Changelog](help/changelog.md)
 * [Updating Warp](help/updating-warp.md)
-* [Refer a Friend](help/refer-a-friend.md)
 * [Sending us Feedback](help/sending-us-feedback.md)
 * [Troubleshooting Login Issues](help/troubleshooting-login-issues.md)
 * [Known Issues](help/known-issues.md)

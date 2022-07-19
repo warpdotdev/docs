@@ -1,13 +1,42 @@
-# Input / Text Editor
+# Text Editor Input
 
-Unlike other terminals, Warp’s input editor operates out-of-the-box like a modern IDE and the text editors we’re used to, even for [SSH sessions.](https://docs.warp.dev/features/ssh)
+## What is it
 
-Warp supports modern keyboard and mouse bindings like multiple cursors and clicking and dragging text.
-Warp is also backwards-compatible to the normal terminal bindings (emacs), e.g. we support `CTRL-A` and `CTRL-E` to move to the start and end of a line respectively.
-To see all the editor shortcuts head to [Keyboard Shortcuts](https://docs.warp.dev/features/keyboard_shortcuts) or click `CMD-P` to open the [Command Palette](https://docs.warp.dev/features/command_palette).
+Unlike other terminals, Warp’s input editor operates out-of-the-box like a modern IDE and the text editors we’re used to.
 
-* To type in a multi-line command use `SHIFT-ENTER` or `OPT-ENTER` to insert newlines.
-* For multi-cursor selection click into a word on the first line and while holding the `CMD` key down, and click into anywhere else in the text.
-* You can also select a string and click `CTRL-G` to select the next occurrence of the string
+{% hint style="info" %}
+Text Editor Input also works for [SSH sessions](https://docs.warp.dev/features/ssh).
+{% endhint %}
 
-![Input Editor](../.gitbook/assets/input_editor.gif)
+## How to access it
+
+| Keyboard binding                                     | Shortcut description                                                                                       |
+| ---------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `escape`                                             | Closes the input suggestions or history menu                                                               |
+| `ctrl-l`                                             | Clears the terminal                                                                                        |
+| `ctrl-h`                                             | Backspace                                                                                                  |
+| `ctrl-c`                                             | Clear the entire editor buffer                                                                             |
+| `ctrl-u` `cmd-shift-K`                               | Clear the current line                                                                                     |
+| `cmd-c` `ctrl-y`, `cmd-x`, `cmd-v`                   | Copy, cut, paste                                                                                           |
+| `ctrl-w` / `option-d`                                | Cut the word to the left / right of the cursor                                                             |
+| `option-backspace` / `option-d`                      | Delete the word to the left / right of the cursor                                                          |
+| `ctrl-k cmd-delete`                                  | Delete everything to the right of the cursor                                                               |
+| `option-left` / `option-right`                       | Move to the beginning of the previous / next word                                                          |
+| `cmd-left` `ctrl-a`/ `ctrl-e` `cmd-down` `cmd-right` | Move the cursor to the start / end of the line                                                             |
+| `cmd-up`                                             | Move the cursor to the beginning of the editor buffer. If it's already there, select the most recent block |
+| `shift-left` / `shift-right`                         | Select the character to the left / right of the cursor                                                     |
+| `option-shift-left` / `option-shift-right`           | Select the word to the left / right of the cursor                                                          |
+| `cmd-shift-left` / `cmd-shift-right`                 | Select everything to the left / right of the cursor                                                        |
+| `shift-up` / `shift-down`                            | Select everything above / below the cursor                                                                 |
+| `cmd-a`                                              | Select the entire editor buffer                                                                            |
+| `shift-enter` `ctrl-enter` `option-enter`            | Insert newline                                                                                             |
+| `ctrl-r`                                             | [Command History](command\_history.md)                                                                     |
+| `cmd-d`                                              | Select all occurrences of the word(s) that has a cursor in it                                              |
+
+## How it Works
+
+Refer to the demo below.
+
+{% embed url="https://loom.com/share/1517049fefc34227bf1abaf19cc7e6ea" %}
+Text Editor Input demo
+{% endembed %}

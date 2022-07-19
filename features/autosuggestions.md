@@ -1,9 +1,25 @@
 # Autosuggestions
 
-Warp has an autosuggestions feature similar to Fish (shell).  
-Autosuggestions are enabled by default, but can be toggled using the Command Palette (`CMD-P`).
+## What is it
 
-Complete an autosuggestion using the `RIGHT` arrow or `CTRL-F`. 
+Autosuggestion will suggest commands as you type based on history and completions.&#x20;
+
+## How to access it
+
+Complete an autosuggestion using the `RIGHT` arrow or `CTRL-F`.&#x20;
+
 `CTRL-E` and `CMD-RIGHT` also completes the autosuggestion when your cursor is at the end of the buffer (last character in the Input Editor).
 
-![Autosuggestions](../.gitbook/assets/autosuggestions.gif)
+## How to disable it
+
+1. Press `CMD-P` to open up the Command Palette
+2. Type in "Autosuggestions"
+3. Press the option to "Toggle Autosuggestions"
+
+## How it works
+
+Refer to the demo below.
+
+{% embed url="https://www.loom.com/share/5e87c52ae855486ab88ffb2f89aeaf73" %}
+Autosuggestion demo
+{% endembed %}

@@ -1,15 +1,16 @@
-# Terminal Performance - How does Warp compare?
+---
+description: This is a short comparison of different terminals and their performance.
+---
 
-This is a short comparison of different terminals and their performance.
+# Performance
 
 ## Terminal apps selected for these benchmarks
 
-We chose to benchmark Warp against 4 other terminal emulator applications, based on their popularity as well as language and principles.
-Here is the list of the applications we chose for this comparison together with the explanation as to why we decided to include it in our comparison:
+We chose to benchmark Warp against 4 other terminal emulator applications, based on their popularity as well as language and principles. Here is the list of the applications we chose for this comparison together with the explanation as to why we decided to include it in our comparison:
 
-- Terminal.app - the default terminal app available on the MacOS;
-- ITerm2 - one of the most popular terminal emulator used by MacOS users;
-- Alacritty & WezTerm - both of those terminals are written in Rust and are well-known for their speed and overall performance, things that Warp is aiming for.
+* Terminal.app - the default terminal app available on the MacOS;
+* ITerm2 - one of the most popular terminal emulator used by MacOS users;
+* Alacritty & WezTerm - both of those terminals are written in Rust and are well-known for their speed and overall performance, things that Warp is aiming for.
 
 ### Versions & settings used during the comparison
 
@@ -23,8 +24,7 @@ Here is the list of the applications we chose for this comparison together with 
 
 ### About benchmarks
 
-We link the source code of each benchmark used, so you can easily reproduce the tests with other terminal apps.
-Please, note that those benchmarks are not exhaustive. Comparing terminal emulators with each other is not an easy task - right now we're checking how each of the apps behaves when dealing with lots of input and/or output. 
+We link the source code of each benchmark used, so you can easily reproduce the tests with other terminal apps. Please, note that those benchmarks are not exhaustive. Comparing terminal emulators with each other is not an easy task - right now we're checking how each of the apps behaves when dealing with lots of input and/or output.
 
 Ideally, the benchmarks would also cover the latency (time between pressing a key and the character showing on screen, but also a delay between user's input and communication with the shell). We may include tests that account for that in the future.
 
@@ -45,7 +45,7 @@ Benchmark code can be found [here](https://github.com/alacritty/vtebench) with t
 | scrolling\_top\_small\_region    | 114.64   | 205.59           | 1216.33   | 21.91         | 663.44      |
 | unicode                          | 66.47    | 34.45            | 93.01     | 16.78         | 1279.25     |
 
-![VTEbench average results (logarithmic scale )](../.gitbook/assets/vtebench_avg.png)
+![VTEbench average results (logarithmic scale )](../.gitbook/assets/vtebench\_avg.png)
 
 ### P90 of the results
 
@@ -60,7 +60,7 @@ Benchmark code can be found [here](https://github.com/alacritty/vtebench) with t
 | scrolling\_top\_small\_region    | 167      | 222              | 1314      | 30            | 666         |
 | unicode                          | 77       | 39               | 90        | 20            | 3883        |
 
-![VTEbench p90 results (logarithmic scale )](../.gitbook/assets/vtebench_p90.png)
+![VTEbench p90 results (logarithmic scale )](../.gitbook/assets/vtebench\_p90.png)
 
 ## Termbench
 
@@ -78,7 +78,7 @@ Below you'll find results for `small` and default test sizes. Note that Terminal
 | FGBGPerChar    | 2.8403     | 908.894            | 4.5881      | 0.5931          | 0.7283        |
 | overall result | 20.0006    | 1367.209           | 25.0413     | 2.943           | 21.7793       |
 
-![Termbench small results (logarithmic scale )](../.gitbook/assets/termbench_small.png)
+![Termbench small results (logarithmic scale )](../.gitbook/assets/termbench\_small.png)
 
 ### Regular test size
 
@@ -90,4 +90,4 @@ Below you'll find results for `small` and default test sizes. Note that Terminal
 | FGBGPerChar    | 46.312       | 50.5369       | 8.418             | 13.5142         |
 | overall result | 337.0585     | 349.1258      | 45.3767           | 381.1229        |
 
-![Termbench results (logarithmic scale )](../.gitbook/assets/termbench_regular.png)
+![Termbench results (logarithmic scale )](../.gitbook/assets/termbench\_regular.png)
