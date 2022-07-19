@@ -6,4 +6,4 @@ Command Inspector surfaces documentation for sub-parts of your command, directly
 Command Inspector Demo
 {% endembed %}
 
-Disable Command Inspector’s on hover trigger by navigating to our settings dialog: `Settings > Features`. Which can also be accessed through the `Command Palette > Open Settings: Features`.
+Disable Command Inspector’s on hover trigger by navigating to our settings dialog: `Settings > Features` which can also be accessed through the `Command Palette > Open Settings: Features`.
