@@ -1,7 +1,6 @@
 # SSH
 
-When you SSH into a remote box, you get all the features of Warp without any configuration on your part.
-The input editor, autocompletions, and history search work the same, regardless of machine.
+When you SSH into a remote box, you get all the features of Warp without any configuration on your part. The input editor, autocompletions, and history search work the same, regardless of machine.
 
 [Limitations of SSH](https://github.com/warpdotdev/Warp/issues/578) (as of February 2022):
 
@@ -13,7 +12,7 @@ If you're using zsh on the remote host, we create a temp folder to act as the ZD
 
 [Tmux is not currently supported.](https://github.com/warpdotdev/Warp/discussions/501)
 
-![SSH](../.gitbook/assets/ssh.png)
+![SSH](../.gitbook/assets/6\_ssh.png)
 
 ## Implementation
 
@@ -32,4 +31,4 @@ If you're seeing these errors, you may have some config on your server (usually 
 
 You should ensure that `MaxSessions` is either commented out or is at least `2`.
 
-Write access in `/etc/ssh/` typically requires sudo access. After any edits, you'd also need to restart the `sshd` daemon. 
+Write access in `/etc/ssh/` typically requires sudo access. After any edits, you'd also need to restart the `sshd` daemon.

@@ -6,7 +6,7 @@ description: >-
 
 # Known Issues
 
-##
+
 
 * We do not support `PROMPT_COMMAND` in Bash right now (working on this!).
 * When you [SSH](https://docs.warp.dev/features/ssh), we start a Bash shell on the remote host. We built a wrapper around SSH to make Warp features possible.
