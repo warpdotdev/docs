@@ -13,11 +13,11 @@ description: >-
 * If your default shell is zsh, your aliases typically do not transfer over. Other shells are unsupported for now.
 * When you open a subshell (a shell within a shell), we do not set it up for Warp - instead it works like a normal terminal session.
 
-Our [known issues](https://docs.warp.dev/help/known-issues) section elaborates how to set up common tools.
+Links to popular GitHub issues:
 
 * [Vi / Vim / NeoVim](https://github.com/warpdotdev/warp/discussions/451)
 * [tmux](https://github.com/warpdotdev/warp/discussions/501)
-* Oh-My-Zsh
+* [Oh-My-Zsh Prompts](https://github.com/warpdotdev/Warp/issues/936)
 
 ## SSH
 
