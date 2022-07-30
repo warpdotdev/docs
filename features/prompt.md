@@ -24,7 +24,7 @@ Enable custom prompt support by navigating to Settings > Features and toggling o
 
 ## Prompt not working?
 
-If you're prompt isn't working please check out our ["Configuring and debugging your RC files"](https://docs.warp.dev/help/known-issues#configuring-and-debugging-your-rc-files) section of our Known Issues section.
+If your prompt isn't working please check out our ["Configuring and debugging your RC files"](https://docs.warp.dev/help/known-issues#configuring-and-debugging-your-rc-files) section of our Known Issues section.
 
 ### iTerm2
 
