@@ -4,8 +4,6 @@ Warp supports opening file and url links; after hovering over a link, open it di
 \
 Right clicking a link will open a context menu that supports copying the absolute file path to the clipboard.
 
-
-
 ### File Path
 
 Warp parses relative and absolute file paths. Warp also tries to capture line and column numbers attached to the file path, supported formats include:&#x20;
