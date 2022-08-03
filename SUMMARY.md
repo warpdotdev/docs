@@ -28,6 +28,7 @@
 * [Command History](features/command-history.md)
 * [Compact Mode](features/compact-mode.md)
 * [Find](features/find.md)
+* [Files and Links](features/files-and-links.md)
 * [Full-screen Apps](features/full-screen-apps.md)
 * [Global Hotkey Window](features/hotkey-window.md)
 * [Keyboard Shortcuts](features/keyboard-shortcuts.md)
