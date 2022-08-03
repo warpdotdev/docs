@@ -3,6 +3,15 @@
 These are our release changelogs. We try to release an update every week on Warp Wednesday!
 Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2022.07.27 (v0.2022.07.25.09.05)
+
+**Bug fixes**
+
+- Closing and re-opening the Command Palette now resets the selected item
+- The cursor’s position is now restored after exiting the Command History Search (`CTRL-R`) menu.
+- Shorthand and longhand flags are now correctly surfaced (based on the number of dashes) in tab completions
+- Added voiceover support for `BACKSPACE` and `DELETE` keystrokes within the Input Editor
+
 ### 2022.07.20 (v0.2022.07.18.09.06)
 
 **New features**
@@ -793,16 +802,17 @@ Submit bugs and feature request on our [GitHub board!](https://github.com/warpdo
 
 - Text rendering was faded on certain monitors
 
-### 2022.07.27 (v0.2022.07.25.09.05)
+### 2022.08.03 (v0.2022.08.01.09.12)
 
 **New features**
 
-- Warp now supports opening file links and urls via `CMD-CLICK`! - [177](https://github.com/warpdotdev/warp/issues/177)
+- Updated Mac menus to make Warp actions more discoverable - [101](https://github.com/warpdotdev/warp/issues/101)
+- Warp now supports opening file links and urls via CMD-CLICK! - [177](https://github.com/warpdotdev/warp/issues/177)
 
 **Bug fixes**
 
-- Closing and re-opening the Command Palette now resets the selected item
-- The cursor’s position is now restored after exiting the Command History Search (`CTRL-R`) menu.
-- Shorthand and longhand flags are now correctly surfaced (based on the number of dashes) in tab completions
-- Added voiceover support for `BACKSPACE` and `DELETE` keystrokes within the Input Editor
+- Various CLI tools no longer hang e.g. Bazel and Maven
+- Command Inspector hover no longer crashes with UTF-8 encoded strings
+- Opening the find / search bar (`CMD-F`) now automatically selects the text
+- Tab titles are no longer reset when changing panes
 
