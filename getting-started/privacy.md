@@ -103,6 +103,11 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
   * Engineering
   * Purpose
   * Role
+* Opened Command Palette
+* Opened Navigation Palette
+* Opened Launch Configuration Palette
+* Opened Palette From Prefix Change
+* Selected Navigation Palette Item
 * Opened channel download
 * Opened invite-only download with invalid code
 * Opened invite-only download with valid code
