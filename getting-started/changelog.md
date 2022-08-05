@@ -3,6 +3,20 @@
 These are our release changelogs. We try to release an update every week on Warp Wednesday!
 Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2022.08.03 (v0.2022.08.01.09.12)
+
+**New features**
+
+- Updated Mac menus to make Warp actions more discoverable - [101](https://github.com/warpdotdev/warp/issues/101)
+- Warp now supports opening file links and urls via CMD-CLICK! - [177](https://github.com/warpdotdev/warp/issues/177)
+
+**Bug fixes**
+
+- Various CLI tools no longer hang e.g. Bazel and Maven
+- Command Inspector hover no longer crashes with UTF-8 encoded strings
+- Opening the find / search bar (`CMD-F`) now automatically selects the text
+- Tab titles are no longer reset when changing panes
+
 ### 2022.07.27 (v0.2022.07.25.09.05)
 
 **Bug fixes**
@@ -801,18 +815,4 @@ Submit bugs and feature request on our [GitHub board!](https://github.com/warpdo
 **Bug fixes**
 
 - Text rendering was faded on certain monitors
-
-### 2022.08.03 (v0.2022.08.01.09.12)
-
-**New features**
-
-- Updated Mac menus to make Warp actions more discoverable - [101](https://github.com/warpdotdev/warp/issues/101)
-- Warp now supports opening file links and urls via CMD-CLICK! - [177](https://github.com/warpdotdev/warp/issues/177)
-
-**Bug fixes**
-
-- Various CLI tools no longer hang e.g. Bazel and Maven
-- Command Inspector hover no longer crashes with UTF-8 encoded strings
-- Opening the find / search bar (`CMD-F`) now automatically selects the text
-- Tab titles are no longer reset when changing panes
 
