@@ -120,6 +120,9 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 * Suggestion confirmed / completed
 * Suggestions menu opened
 * Tab Created
+* Tab Closed
+* Tabs Closed (other tabs)
+* Tabs to the Right Closed
 * Tab Single Result Autocompletion
 * Theme selected
 * Thin Strokes Setting Changed
