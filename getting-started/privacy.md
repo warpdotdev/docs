@@ -82,6 +82,9 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 * Jumped to previous command
 * Keybinding Changed
 * Keybinding Reset to Default
+* Launch Configuration File Opened
+* Launch Configuration Opened
+* Launch Configuration Saved
 * Loaded a page
 * Natural Language Search Generated
 * Natural Language Search Initiated
