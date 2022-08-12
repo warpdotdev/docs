@@ -33,7 +33,7 @@ Search through the remappable actions using the search bar.
 | `shift-up` / `shift-down`                            | Select everything above / below the cursor                                                                 |
 | `cmd-a`                                              | Select the entire editor buffer                                                                            |
 | `shift-enter` `ctrl-enter` `option-enter`            | Insert newline                                                                                             |
-| `ctrl-r`                                             | [Command History](command_history.md)                                              |
+| `ctrl-r`                                             | [Command History](command-history.md)                                              |
 | `cmd-d`                                              | Select all occurrences of the word(s) that has a cursor in it                                              |
 
 ## Block Shortcuts
