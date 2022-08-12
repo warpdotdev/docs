@@ -17,7 +17,7 @@ We plan on adding support for Web (WASM), [Linux](https://github.com/warpdotdev/
 ## Compatibility
 
 Locally, the terminal integrates with Bash, Zsh, or Fish.\
-****\
+
 **Please visit our known issues to get more details on setting up common tools.**
 
-{% embed url="../help/known-issues" %}
+{% embed url="../help/known-issues.md" %}
