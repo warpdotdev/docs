@@ -64,4 +64,4 @@ Search through the remappable actions using the search bar.
 | `cmd-opt-up`     | Switch panes up           |
 | `cmd-opt-down`   | Switch panes down         |
 
-Want us to support a keyboard shortcut? [File a feature request here](../help/sending_us_feedback.md)!
+Want us to support a keyboard shortcut? [File a feature request here](../help/sending-us-feedback.md)!
