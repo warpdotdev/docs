@@ -20,4 +20,4 @@ Locally, the terminal integrates with Bash, Zsh, or Fish.\
 ****\
 **Please visit our known issues to get more details on setting up common tools.**
 
-{% embed url="https://docs.warp.dev/help/known-issues" %}
+{% embed url="../help/known-issues" %}
