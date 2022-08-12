@@ -30,7 +30,7 @@ Text Editor Input also works for [SSH sessions](https://docs.warp.dev/features/s
 | `shift-up` / `shift-down`                            | Select everything above / below the cursor                                                                 |
 | `cmd-a`                                              | Select the entire editor buffer                                                                            |
 | `shift-enter` `ctrl-enter` `option-enter`            | Insert newline                                                                                             |
-| `ctrl-r`                                             | [Command History](command\_history.md)                                                                     |
+| `ctrl-r`                                             | [Command History](command\-history.md)                                                                     |
 | `cmd-d`                                              | Select all occurrences of the word(s) that has a cursor in it                                              |
 
 ## How it Works
