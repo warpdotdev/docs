@@ -24,7 +24,7 @@ There's currently no way to navigate between different UI elements using VO key 
 Once installed, it will ask you to log in.
 We require the log in during our Beta state.
 Note that during the Beta as of now, Warp also sends telemetry that we use to improve the overall user experience. 
-You can find out more about that in the [privacy section](getting-started/privacy.md).
+You can find out more about that in the [privacy section](./getting-started/privacy.md).
 
 The log in flow will require you to navigate between the app and your browser.
 Last step before you can start enjoying our new terminal app is filling up the onboarding survey.
