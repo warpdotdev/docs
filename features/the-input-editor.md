@@ -5,7 +5,7 @@
 Unlike other terminals, Warp’s input editor operates out-of-the-box like a modern IDE and the text editors we’re used to.
 
 {% hint style="info" %}
-Text Editor Input also works for [SSH sessions](https://docs.warp.dev/features/ssh).
+Text Editor Input also works for [SSH sessions](ssh.md).
 {% endhint %}
 
 ## How to access it
