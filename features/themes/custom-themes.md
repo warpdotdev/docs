@@ -1,6 +1,6 @@
 # Custom Themes
 
-## What is it?
+## What is it
 
 You can add custom themes to Warp.
 
