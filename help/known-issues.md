@@ -9,7 +9,7 @@ description: >-
 
 
 * We do not support `PROMPT_COMMAND` in Bash right now (working on this!).
-* When you [SSH](../features/ssh), we start a Bash shell on the remote host. We built a wrapper around SSH to make Warp features possible.
+* When you [SSH](../features/ssh.md), we start a Bash shell on the remote host. We built a wrapper around SSH to make Warp features possible.
 * If your default shell is zsh, your aliases typically do not transfer over. Other shells are unsupported for now.
 * When you open a subshell (a shell within a shell), we do not set it up for Warp - instead it works like a normal terminal session.
 
