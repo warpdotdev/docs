@@ -816,3 +816,19 @@ Submit bugs and feature request on our [GitHub board!](https://github.com/warpdo
 
 - Text rendering was faded on certain monitors
 
+### 2022.08.10 (v0.2022.08.08.09.21)
+
+**New features**
+
+- Can now Middle-click a tab to close it
+- Added additional tab reordering options (Close: tab, other tabs, and tabs to the right) via the Mac Menu, the Command Palette, and a tab’s context menu (right click)
+
+**Bug fixes**
+
+- Added a toggle to the Mac Menu for maximizing panes
+- Can now switch panes using keyboard shortcuts even when a pane is maximized
+- Add support for opening file paths with RubyMine, PhpStorm, and WebStorm
+- Fixed crash when highlighting links
+- Fixed issue where the HISTCONTROL environment variable was ignored in bash
+- Pressing `CTRL-R` to open history search no longer crashes Warp when you have multiple cursors
+
