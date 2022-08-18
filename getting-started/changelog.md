@@ -1,6 +1,6 @@
 # Changelog
 
-These are our release changelogs. We try to release an update every week on Warp Wednesday!
+These are our release changelogs. We try to release an update every week on Thursdays!
 Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
 ### 2022.08.10 (v0.2022.08.08.09.21)
