@@ -1,7 +1,23 @@
 # Changelog
 
-These are our release changelogs. We try to release an update every week on Warp Wednesday!
+These are our release changelogs. We try to release an update every week on Thursdays!
 Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
+
+### 2022.08.10 (v0.2022.08.08.09.21)
+
+**New features**
+
+- Can now Middle-click a tab to close it
+- Added additional tab reordering options (Close: tab, other tabs, and tabs to the right) via the Mac Menu, the Command Palette, and a tab’s context menu (right click)
+
+**Bug fixes**
+
+- Added a toggle to the Mac Menu for maximizing panes
+- Can now switch panes using keyboard shortcuts even when a pane is maximized
+- Add support for opening file paths with RubyMine, PhpStorm, and WebStorm
+- Fixed crash when highlighting links
+- Fixed issue where the HISTCONTROL environment variable was ignored in bash
+- Pressing `CTRL-R` to open history search no longer crashes Warp when you have multiple cursors
 
 ### 2022.08.03 (v0.2022.08.01.09.12)
 
@@ -816,19 +832,22 @@ Submit bugs and feature request on our [GitHub board!](https://github.com/warpdo
 
 - Text rendering was faded on certain monitors
 
-### 2022.08.10 (v0.2022.08.08.09.21)
+### 2022.08.18 (v0.2022.08.16.10.16)
 
 **New features**
 
-- Can now Middle-click a tab to close it
-- Added additional tab reordering options (Close: tab, other tabs, and tabs to the right) via the Mac Menu, the Command Palette, and a tab’s context menu (right click)
+- Launch Configurations - Save a configuration of windows, tabs, and panes to open later with `CTRL-CMD-L`
+- Session Navigation - Navigate to any session in Warp with `CTRL-CMD-P`
+- Added exclusive theme for users who joined Warp through a referral
 
 **Bug fixes**
 
-- Added a toggle to the Mac Menu for maximizing panes
-- Can now switch panes using keyboard shortcuts even when a pane is maximized
-- Add support for opening file paths with RubyMine, PhpStorm, and WebStorm
-- Fixed crash when highlighting links
-- Fixed issue where the HISTCONTROL environment variable was ignored in bash
-- Pressing `CTRL-R` to open history search no longer crashes Warp when you have multiple cursors
+- Prompt now shows Git SHA instead of HEAD when you’re not on a branch
+- Filepath completions now include current directory ('.') and parent directory ('..')
+- Support `SHIFT-HOME` and `SHIFT-END` keybindings to select text to line start and end.
+- Items in the Command Palette now highlight when you hover over them with your mouse
+- Improved how Warp cleans up the warptmp directory for Zsh SSH sessions
+- Already open dropdown menus are now properly closed when clicked
+- Warp no longer crashes when dragging a window that’s running htop
+- Warp no longer crashes when the find bar is open
 
