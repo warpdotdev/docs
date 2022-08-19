@@ -3,6 +3,25 @@
 These are our release changelogs. We try to release an update every week on Thursdays!
 Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2022.08.18 (v0.2022.08.16.10.16)
+
+**New features**
+
+- Launch Configurations - Save a configuration of windows, tabs, and panes to open later with `CTRL-CMD-L`
+- Session Navigation - Navigate to any session in Warp with `CTRL-CMD-P`
+- Added exclusive theme for users who joined Warp through a referral
+
+**Bug fixes**
+
+- Prompt now shows Git SHA instead of HEAD when you’re not on a branch
+- Filepath completions now include current directory ('.') and parent directory ('..')
+- Support `SHIFT-HOME` and `SHIFT-END` keybindings to select text to line start and end.
+- Items in the Command Palette now highlight when you hover over them with your mouse
+- Improved how Warp cleans up the warptmp directory for Zsh SSH sessions
+- Already open dropdown menus are now properly closed when clicked
+- Warp no longer crashes when dragging a window that’s running htop
+- Warp no longer crashes when the find bar is open
+
 ### 2022.08.10 (v0.2022.08.08.09.21)
 
 **New features**
@@ -831,23 +850,3 @@ Submit bugs and feature request on our [GitHub board!](https://github.com/warpdo
 **Bug fixes**
 
 - Text rendering was faded on certain monitors
-
-### 2022.08.18 (v0.2022.08.16.10.16)
-
-**New features**
-
-- Launch Configurations - Save a configuration of windows, tabs, and panes to open later with `CTRL-CMD-L`
-- Session Navigation - Navigate to any session in Warp with `CTRL-CMD-P`
-- Added exclusive theme for users who joined Warp through a referral
-
-**Bug fixes**
-
-- Prompt now shows Git SHA instead of HEAD when you’re not on a branch
-- Filepath completions now include current directory ('.') and parent directory ('..')
-- Support `SHIFT-HOME` and `SHIFT-END` keybindings to select text to line start and end.
-- Items in the Command Palette now highlight when you hover over them with your mouse
-- Improved how Warp cleans up the warptmp directory for Zsh SSH sessions
-- Already open dropdown menus are now properly closed when clicked
-- Warp no longer crashes when dragging a window that’s running htop
-- Warp no longer crashes when the find bar is open
-
