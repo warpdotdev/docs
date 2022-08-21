@@ -1,16 +1,16 @@
 # Session Navigation
 
-Navigation Palette allows you to quickly navigate to the terminal session you are looking for!
+The Navigation Palette (`CMD-SHIFT-P`) allows you to quickly navigate to the terminal session you are looking for!
 
 ## How to Access It
 
-To access, press `CMD-SHIFT-P` or type “@” into the command palette to open the navigation palette. You can easily switch between the command palette and the navigation palette by using this prefix.
+To access, press `CMD-SHIFT-P` or type `@` into the Command Palette to open the Navigation Palette. You can easily switch between the Command Palette and the Navigation Palette using `@` prefix.
 
 ## How it Works
 
-You can select a session using your mouse or the `UP ↑`/`DOWN ↓` arrow keys. Warp will take you directly to that session, with the cursor ready in the input editor. You can refine the session results by searching for sessions by prompt, running command, last run command, and command status (ex: “Running…”, “Completed 10 minutes ago”, “Empty Session”). See the demo below to see it in action.
+You can jump directoy to a session using your mouse or the `UP ↑`/`DOWN ↓` arrow keys. You can refine the session results by searching for sessions by prompt, the currently running command, last run command, and command status (ex: “Running…”, “Completed 10 minutes ago”, “Empty Session”). See the demo below to see it in action.
 
-By default, the items are ordered by recency, so the most recent sessions focused will show up first.
+By default, the items are ordered by recency i.e. the most recently focused sessions show up first.
 
 ## Demo
 
@@ -18,4 +18,4 @@ By default, the items are ordered by recency, so the most recent sessions focuse
 Session Navigation Demo
 {% endembed %}
 
-Note: Navigation Palette does not have PS1 support yet, and will show Warp's native prompt.
+Note: Navigation Palette does not have PS1 support yet and can only show Warp's native prompt.
