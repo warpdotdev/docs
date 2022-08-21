@@ -31,7 +31,7 @@ Text Editor Input also works for [SSH sessions](ssh.md).
 | `cmd-a`                                              | Select the entire editor buffer                                                                            |
 | `shift-enter` `ctrl-enter` `option-enter`            | Insert newline                                                                                             |
 | `ctrl-r`                                             | [Command History](command\-history.md)                                                                     |
-| `cmd-d`                                              | Select all occurrences of the word(s) that has a cursor in it                                              |
+| `cmd-d`                                              | Split pane                                              |
 
 ## How it Works
 

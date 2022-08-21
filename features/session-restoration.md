@@ -6,7 +6,7 @@ When Warp opens, it restores your session history, specifically windows, tabs, p
 
 Warp saves data to a sqlite database on your computer. You can open the database directly and inspect its full contents like so:
 
-```
+```sh
 sqlite3 "$HOME/Library/Application Support/dev.warp.Warp-Stable/warp.sqlite"
 ```
 
