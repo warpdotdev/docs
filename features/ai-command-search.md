@@ -14,7 +14,7 @@ AI Command Search converts natural language descriptions into shell commands tha
 
 Refer to the demo below.
 
-{% embed url="https://www.loom.com/share/cd2c77718a664c5eaa7a6c202c761746" %}
+{% embed url="https://www.loom.com/share/0bcc93f5389b4bed915fa002ca0adf12" %}
 AI Command Search Demo
 {% endembed %}
 
