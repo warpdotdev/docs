@@ -12,7 +12,7 @@ If you think you've referred people but have not received an email, contact us a
 
 Open the invite modal from the top-right menu.
 
-{% embed url="https://www.loom.com/share/e8bca57d5d8d46d3ba822247192f8315" %}
+{% embed url="https://www.loom.com/share/d4acc97406c9496ab9fff673f975a081" %}
 Refer a friend
 {% endembed %}
 
