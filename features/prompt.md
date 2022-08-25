@@ -26,7 +26,7 @@ Enable custom prompt support by navigating to Settings > Features and toggling o
 
 We don’t currently support multi-line or right sided prompts. The Input Editor is a separate UI element from our Prompt and this is what enables our modern text editor experience. Our goal is to continue to improve the Input Editor experience and add further customizations in the future.
 
-If you’re having issues with prompts, please see our ["Known Issues"](../help/known-issues.md#configuring-and-debugging-your-rc-files) for more information on supported tools and troubleshooting steps.
+If you’re having issues with prompts, please see our [Known Issues](../help/known-issues.md#configuring-and-debugging-your-rc-files) for more information on supported tools and troubleshooting steps.
 
 ### iTerm2
 
