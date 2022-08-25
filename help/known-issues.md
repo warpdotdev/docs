@@ -43,6 +43,8 @@ In order to support Blocks ([custom hooks](https://blog.warp.dev/how-warp-works/
 
 You can however, **disable the conflicting settings for just Warp** using this flag: `$TERM_PROGRAM != "WarpTerminal"`, see below for a full example.
 
+We currently don't have support for multi-line or right sided prompts because our Input Editor is a separate UI element from the prompt. This is what enables the modern text editor experience. Please see our ["Prompts"](../features/prompts.md) page for more information on custom prompts.
+
 ### Debugging
 
 If Warp is not working with your dotfile configuration,
