@@ -4,7 +4,7 @@ Warp manages sessions in three different ways:
 
 1. Through [Launch Configurations](/features/launch-configurations.md) that (`CTRL-CMD-L`) support saving a configuration of windows, tabs, and panes to open later.
 2. Through [Session Navigation](/features/session-navigation.md) that (`SHIFT-CMD-P`) enables you to easily navigate to any session in Warp.
-3. Through automatic [Session Restoration](features/session-restoration), which automatically restores the window and tabs from your previous session (Settings > Features > Restore windows, tabs, and panes on startup).
+3. Through automatic [Session Restoration](/features/session-restoration.md), which automatically restores the window and tabs from your previous session (Settings > Features > Restore windows, tabs, and panes on startup).
 
 ## Launch Configuration Palette
 
