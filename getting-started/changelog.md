@@ -1,6 +1,6 @@
 # Changelog
 
-These are our release changelogs. We try to release an update every week on Thursdays!
+These are our release changelogs. We try to release an update every week on Thursday!
 Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
 ### 2022.08.18 (v0.2022.08.16.10.16)
@@ -8,7 +8,7 @@ Submit bugs and feature request on our [GitHub board!](https://github.com/warpdo
 **New features**
 
 - Launch Configurations - Save a configuration of windows, tabs, and panes to open later with `CTRL-CMD-L`
-- Session Navigation - Navigate to any session in Warp with `CTRL-CMD-P`
+- Session Navigation - Navigate to any session in Warp with `SHIFT-CMD-P`
 - Added exclusive theme for users who joined Warp through a referral
 
 **Bug fixes**
@@ -850,3 +850,20 @@ Submit bugs and feature request on our [GitHub board!](https://github.com/warpdo
 **Bug fixes**
 
 - Text rendering was faded on certain monitors
+
+### 2022.08.25 (v0.2022.08.23.08.06)
+
+**New features**
+
+- Experimental feature: support for always-on completions — the completions menu can now open automatically while typing (enable via Settings -> Features)
+
+**Bug fixes**
+
+- Custom tab titles no longer get overwritten when using multiple panes
+- A Block’s execution duration is now formatted in hours, minutes, and seconds
+- Improved rendering of the ‘Current session’ text in the Navigation Palette
+- Warp properly hides the cursor when a CLI sends the respective escape sequence
+- Warp stays focused (keyboard-interactive) after closing the Share Block menu and the context menu
+- Warp no longer lags when the Ctrl-R menu is opened
+- Confirming a tab suggestion appends a space to the buffer
+
