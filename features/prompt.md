@@ -24,7 +24,7 @@ Enable custom prompt support by navigating to Settings > Features and toggling o
 
 ## Prompt not working?
 
-We don’t currently support multi-line or right sided prompts. The Input Editor is a separate UI element from our Prompt and this is what enables our modern text editor experience. Our goal is to continue to improve the Input Editor experience and add further customizations in the future.
+We don’t currently support multi-line or right sided prompts. The Input Editor is a separate UI element from the Prompt; this is actually what enables a modern text editor experience. Improving the native Prompt is on the roadmap.
 
 If you’re having issues with prompts, please see our [Known Issues](../help/known-issues.md#configuring-and-debugging-your-rc-files) for more information on supported tools and troubleshooting steps.
 

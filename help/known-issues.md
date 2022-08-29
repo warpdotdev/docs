@@ -43,7 +43,7 @@ In order to support Blocks ([custom hooks](https://blog.warp.dev/how-warp-works/
 
 You can however, **disable the conflicting settings for just Warp** using this flag: `$TERM_PROGRAM != "WarpTerminal"`, see below for a full example.
 
-We currently don't have support for multi-line or right sided prompts because our Input Editor is a separate UI element from the prompt. This is what enables the modern text editor experience. Please see our [Prompt](../features/prompt.md) page for more information on custom prompts.
+We currently don't have support for multi-line prompts, unlike typical terminals which are essentially continuous character grids, each section of Warp is its own (separate) UI element. The native Prompt does not support multi-line at this time and does not support right sided prompts. Improving the native Prompt is on the roadmap however. Please see our [Prompt](../features/prompt.md) page for more information on custom prompts.
 
 ### Debugging
 
