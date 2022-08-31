@@ -1,8 +1,15 @@
 # Compact mode
 
-Warp offers the option to enable compact mode, which condenses the spacing between blocks enabling more content to be in view.
+## What is it
 
-Compact mode can be toggled through the app menu -> Warp -> Compact Mode.
-Like theme settings, this selection will persist across sessions.
+Warp offers the option to enable Compact mode, which condenses the spacing between Blocks, enabling more content to be in view.
+
+## How to access it
+
+1. Compact mode can be toggled through `Settings > Appearance > Compact Mode`.
+
+Note: Like theme settings, this selection will persist across sessions.
+
+## How it works
 
 ![Compact Mode](../.gitbook/assets/compact_mode.gif)
