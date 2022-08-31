@@ -8,7 +8,7 @@ Command Inspector surfaces documentation for sub-parts of your command, directly
 
 1. Hover over the part of the command you want to inspect with your mouse or press `CMD-I` to inspect at the cursor's current location.
 
-Note: You can disable Command Inspector’s on hover trigger, by navigating to our settings dialog (`Settings > Features`)--which can also be accessed through the `Command Palette > Open Settings: Features`.
+Note: You can disable Trigger Command Inspector on hover by navigating to the settings dialog `Settings > Features`, or through the `Command Palette > Open Settings: Features`.
 
 ## How it works
 
