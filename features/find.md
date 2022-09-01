@@ -8,7 +8,7 @@ Find works just like what you would expect in a modern text editor. It searches 
 
 1. Hitting `CMD-F` opens the find view which searches across the terminal (scoped within the current pane).
 
-Note: Within Find modal, you can also Regex toggle, Find in selected Block, or toggle Case sensitive search.
+Note: Within Find modal, you can also enable the Regex toggle, Find in one or multiple selected Blocks, and or toggle Case sensitive search.
 
 ## How it works
 
