@@ -24,39 +24,50 @@ Enable custom prompt support by navigating to Settings > Features and toggling o
 
 ## Prompt not working?
 
-We don’t currently support multi-line or right sided prompts. The Input Editor is a separate UI element from the Prompt; this is actually what enables a modern text editor experience. Improving the native Prompt is on the roadmap.
+Here we outline the underlying cause of some common pain points regarding prompts. tldr; if your prompt is not working consider disabling it just for Warp like so:
 
-If you’re having issues with prompts, please see our [Known Issues](../help/known-issues.md#configuring-and-debugging-your-rc-files) for more information on supported tools and troubleshooting steps.
-
-### iTerm2
-
-The iTerm2 shell integration breaks Warp and you're custom prompt will not be able to be visible with this on. If you're coming from iTerm please check your dotfiles for it. We advice disabling the integration just for Warp like so:
+### Workaround
 
 ```sh
+# Bash and Zsh
 if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
-##### WHAT YOU WANT TO DISABLE FOR WARP - BELOW
-
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
-##### WHAT YOU WANT TO DISABLE FOR WARP - ABOVE
-fi
-```
-
-### Powerlevel10K (P10K)
-
-We don't currently support P10K chances are we won't be able to. The tldr; it's tricky because of how we also use the prompt_command in Warp and because P10K can be installed standalone or as an Oh-My-Zsh plugin, each of which results in different problems and requires special handling.
-
-You can also disable P10K just for Warp like so:
-
-```sh
-if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
-##### WHAT YOU WANT TO DISABLE FOR WARP - BELOW
-
+    # OMZ
     # POWERLEVEL10K
-
-##### WHAT YOU WANT TO DISABLE FOR WARP - ABOVE
+    # RPS1
 fi
 ```
+
+See [Known Issues](./../help/known-issues.md) for more info.
+
+### Why some custom prompts are not supported
+
+In order to enable Blocks and other features, we've built uses custom wrappers that parse the data the shell outputs (read [How Warp Works](https://www.warp.dev/blog/how-warp-works) or our [blog post on PS1](https://www.warp.dev/blog/whats-so-special-about-ps1) for more details). Warp's prompt section is a UI element that's generated after parsing information from your prompt setup and unfortunately we're not able to parse multiline prompts or right sided prompts at this time.
+
+Improving our native prompt by adding support for [Git status indicators](https://github.com/warpdotdev/Warp/issues/67), among other things is on our roadmap!
+
+### Known bug: prompt appears within the Input Editor or autosuggestion
+
+If the right-handed side of your custom prompt ends up in the Input Editor, it's because Warp does not currently support right-handed custom prompts. As a stop-gap you can disable the `RPS1` variable or your custom prompt entirely just for Warp.
+
+## Known bug: multi-line prompt is compressed into a single line
+
+If you have custom PS1 turned on, you might realize that the contents of the prompt have been concatenated into a single line; Warp does not currently support multiline prompts.  
+As a stopgap, consider disabling your custom prompt just for Warp using the Warp conditional flag like above:
+`[[ $TERM_PROGRAM != "WarpTerminal" ]];`
+
+### iTerm2's Shell Integration
+
+The iTerm2 shell integration breaks Warp and you're custom prompt will not be able to be visible with this on. If you're coming from iTerm please check your dotfiles for it. We advise disabling the integration just for Warp like so:
+
+```sh
+if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+fi
+```
+
+### Powerlevel (P10K and P9K)
+
+Powerlevel prompts are also not supported; these are particulary tricky because powerlevel can be installed standalone or as an Oh-My-Zsh plugin, each of which results in different problems and requires special handling.
 
 ### Context Chips
 

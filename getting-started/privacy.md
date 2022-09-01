@@ -53,6 +53,7 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 * Account signed up
 * App focus duration
 * App focused
+* App hang / beachball detected
 * App active usage
 * Autosuggestion Inserted
 * BaselineCommand Latency
