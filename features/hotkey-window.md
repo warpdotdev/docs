@@ -1,5 +1,9 @@
 # Global Hotkey Window
 
+## What is it
+
+A Hotkey is a shortcut that Warp responds to even if another application is active.
+
 Enable Quake Mode, by navigating to the Features section in the Settings Dialog.
 
 ![Enable Quake Mode through the Settings Dialog.](../.gitbook/assets/hotkey-original.gif)
