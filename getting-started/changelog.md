@@ -3,6 +3,40 @@
 These are our release changelogs. We try to release an update every week on Thursday!
 Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2022.09.01 (v0.2022.08.31.18.11)
+
+**New features**
+
+- Tab completions now support fuzzy string matching
+- Improve completions for over 450 commands, including docker, kubernetes, cargo, node, and git.
+
+**Bug fixes**
+
+- Properly send C0 control codes for <ctrl-[2-8]> keystrokes
+- Session restoration now also persists bold, underline, italic, and strikethrough formatting
+- Inspect mode now works for the changelog modal
+- Hidden tab suggestions are only shown on an exact match.
+- Fixed a crash when highlighting a link
+- Fixed Find occasionally returning only partial results
+- Fixed occasional crash when loading images
+- Fixed display issue in the Mac Menu for keyboard shortcuts with special keys
+
+### 2022.08.25 (v0.2022.08.23.08.06)
+
+**New features**
+
+- Experimental feature: support for always-on completions — the completions menu can now open automatically while typing (enable via Settings -> Features)
+
+**Bug fixes**
+
+- Custom tab titles no longer get overwritten when using multiple panes
+- A Block’s execution duration is now formatted in hours, minutes, and seconds
+- Improved rendering of the ‘Current session’ text in the Navigation Palette
+- Warp properly hides the cursor when a CLI sends the respective escape sequence
+- Warp stays focused (keyboard-interactive) after closing the Share Block menu and the context menu
+- Warp no longer lags when the Ctrl-R menu is opened
+- Confirming a tab suggestion appends a space to the buffer
+
 ### 2022.08.18 (v0.2022.08.16.10.16)
 
 **New features**
@@ -850,20 +884,3 @@ Submit bugs and feature request on our [GitHub board!](https://github.com/warpdo
 **Bug fixes**
 
 - Text rendering was faded on certain monitors
-
-### 2022.08.25 (v0.2022.08.23.08.06)
-
-**New features**
-
-- Experimental feature: support for always-on completions — the completions menu can now open automatically while typing (enable via Settings -> Features)
-
-**Bug fixes**
-
-- Custom tab titles no longer get overwritten when using multiple panes
-- A Block’s execution duration is now formatted in hours, minutes, and seconds
-- Improved rendering of the ‘Current session’ text in the Navigation Palette
-- Warp properly hides the cursor when a CLI sends the respective escape sequence
-- Warp stays focused (keyboard-interactive) after closing the Share Block menu and the context menu
-- Warp no longer lags when the Ctrl-R menu is opened
-- Confirming a tab suggestion appends a space to the buffer
-
