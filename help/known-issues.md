@@ -117,7 +117,7 @@ Also, Fig has a tendency to re-write these lines in these files when it updates 
 
 .bash\_profile
 
-```
+```sh
 # Fig post block. Keep at the bottom of this file.
 if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
     . "$HOME/.fig/shell/bash_profile.post.bash"
@@ -126,7 +126,7 @@ fi
 
 .bashrc
 
-```
+```sh
 # Fig post block. Keep at the bottom of this file.
 if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
     . "$HOME/.fig/shell/bashrc.post.bash"
