@@ -6,8 +6,6 @@ description: >-
 
 # Known Issues
 
-
-
 * We do not support `PROMPT_COMMAND` in Bash right now (working on this!).
 * When you [SSH](../features/ssh.md), we start a Bash shell on the remote host. We built a wrapper around SSH to make Warp features possible.
 * If your default shell is zsh, your aliases typically do not transfer over. Other shells are unsupported for now.
@@ -100,6 +98,13 @@ end
 * grml-zsh-config
 * FIG
 
+## Some settings from Starship
+
+```toml
+[custom]
+disabled = true
+```
+
 ## Fig
 
 ### Bash and Fig
@@ -112,7 +117,7 @@ Also, Fig has a tendency to re-write these lines in these files when it updates 
 
 .bash\_profile
 
-```
+```sh
 # Fig post block. Keep at the bottom of this file.
 if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
     . "$HOME/.fig/shell/bash_profile.post.bash"
@@ -121,7 +126,7 @@ fi
 
 .bashrc
 
-```
+```sh
 # Fig post block. Keep at the bottom of this file.
 if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
     . "$HOME/.fig/shell/bashrc.post.bash"
