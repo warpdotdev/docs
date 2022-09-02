@@ -2,13 +2,12 @@
 
 ## What is it
 
-Find works just like what you would expect in a modern text editor. It searches for matches in your Blocks from the bottom-up, with the first match being the most recent one. Since command outputs are contained within Blocks, you can still use the input editor when invoking find.
+Find in Warp works unlike how you may have seen in other terminals. Instead of searching from the lowest point in view as with text editors or from the top as with terminals. It searches for matches in all your Blocks from the bottom-up and can even be isolated to a specific Block. _Note:_ Since command outputs are contained within Blocks, you can still use the input editor when invoking find.
 
 ## How to access it
 
 1. Hitting `CMD-F` opens the find view which searches across the terminal (scoped within the current pane).
-
-Note: Within Find modal, you can also enable the Regex toggle, Find in one or multiple selected Blocks, and or toggle Case sensitive search.
+2. Within Find modal, you can also enable the Regex toggle, Find on a selected Block, and or toggle Case sensitive search.
 
 ## How it works
 
