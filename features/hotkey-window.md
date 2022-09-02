@@ -2,7 +2,7 @@
 
 ## What is it
 
-The Hotkey Window shortcut can show and hide Warp regardless of whether the app is focused. You could customize the window’s pinned position and it's width and height ratio relative to your active screen size. _Note:_ Your new customization will apply the **next** time the a hotkey window is created and not the currently opened one.
+The Hotkey Window shortcut can show and hide Warp on your focused desktop regardless of whether the app is focused. You could customize the window’s pinned position and its width and height ratio relative to your active screen size. _Note:_ Your new customization will apply the **next** time the a hotkey window is created and not the currently opened one.
 
 ## How to access it
 
