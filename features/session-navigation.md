@@ -2,7 +2,7 @@
 
 ## What is it
 
-The Session Navigation Palette allows you to quickly navigate to the terminal sessions you are looking for across panes, tabs, and windows!
+The Session Navigation Palette helps you speed up your workflow by allowing you to quickly navigate via the keyboard or mouse to the terminal sessions you are looking for across panes, tabs, and windows.
 
 ## How to Access It
 
