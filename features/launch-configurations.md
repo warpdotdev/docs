@@ -65,6 +65,28 @@ windows:
 
 ```
 
+You can also set the custom tab title and color:
+
+```yaml
+# Warp Launch Configuration
+#
+# This configuration has one tab with custom title and color
+
+---
+name: Example Configuration With One Tab
+windows:
+  - tabs:
+      - layout:
+        cwd: /Users/warp-user/Documents
+        title: "Test tab title"
+        color: blue
+
+```
+
+Note that we currently support using the terminal colors (ANSI colors) in your configuration: [black, red, green, yellow, blue, magenta, cyan, white]. 
+The colors will be automaitcally derived from your Warp theme.
+
+
 ### Panes
 
 Launch Configurations support setting split panes in each tab. Note that Warp also supports nesting split panes.
