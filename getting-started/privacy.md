@@ -128,8 +128,10 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 * Suggestions single autosuggestion inserted
 * Suggestion confirmed / completed
 * Suggestions menu opened
+* Tab color (set or reset)
 * Tab Created
 * Tab Closed
+* Tab name changed
 * Tabs Closed (other tabs)
 * Tabs to the Right Closed
 * Tab Single Result Autocompletion
