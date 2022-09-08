@@ -84,7 +84,7 @@ windows:
 ```
 
 Note that we currently support using the terminal colors (ANSI colors) in your configuration: [black, red, green, yellow, blue, magenta, cyan, white]. 
-The colors will be automaitcally derived from your Warp theme.
+The actual color values will be automatically derived from your Warp theme.
 
 
 ### Panes
