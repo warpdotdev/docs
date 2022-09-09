@@ -1,0 +1,4 @@
+root: ./
+
+redirects:  
+    features/session-management-and-restoration: features/session-management.md
