@@ -59,7 +59,7 @@ Here's a sample configuration that shows how tabs are structured.
   
     `Red | Green | Yellow | Blue | Magenta | Cyan`
   
-    The actual color values will be automatically derived from your Warp theme.
+    The actual color values will be automatically derived from your Warp theme
 
 ```yaml
 # Warp Launch Configuration
@@ -80,28 +80,6 @@ windows:
         color: green
 
 ```
-
-You can also set the custom tab title and color:
-
-```yaml
-# Warp Launch Configuration
-#
-# This configuration has one tab with custom title and color
-
----
-name: Example Configuration With One Tab
-windows:
-  - tabs:
-      - layout:
-        cwd: /Users/warp-user/Documents
-        title: "Test tab title"
-        color: blue
-
-```
-
-Note that we currently support using the terminal colors (ANSI colors) in your configuration: [black, red, green, yellow, blue, magenta, cyan, white]. 
-The actual color values will be automatically derived from your Warp theme.
-
 
 ### Panes
 
