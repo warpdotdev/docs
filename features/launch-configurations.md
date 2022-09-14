@@ -17,7 +17,7 @@ Press `CTRL-CMD-L` to open the Launch Configuration Palette, where you can earch
 
 ## YAML Format
 
-All yaml files are stored in `~/.warp/launch_configurations/`.
+All yaml files are stored in `~/.warp/launch_configurations/`.  _Note:_ The `cwd:` value in your yaml code must contain an absolute path. `~` or ` ` empty paths will result in the file not being visible on the list of options for Launch Configurations.
 
 ### Windows
 
