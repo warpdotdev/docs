@@ -1,8 +1,18 @@
 # Split Panes
 
-The split panes feature allows you to divide a tab into multiple rectangular "panes", each of which is a unique terminal session.
-The shortcuts `CMD-D` and `SHIFT-CMD-D` split a pane to the right or down, respectively.
-You can split in any direction using the Command Palette or right-clicking on any pane.
-You can navigate among split panes with `OPT-CMD-ARROW`.
+## What is it
+
+The Split Panes feature allows you to divide a tab into multiple rectangular _panes_, each of which is a unique terminal session.
+
+## How to use it
+
+* Split panes to the right with `CMD-D` and down with `SHIFT-CMD-D` or in any direction by right-clicking on any pane.
+* Navigate among split panes with `OPT-CMD-ARROW`, the active pane will be marked with a triangle in the top corner.
+* Toggle Maximize pane with `CMD-SHIFT-ENTER`.
+* Close the active pane with `CMD-W`.
+
+_Note:_ You can quickly find all the **pane** shortcuts by using the Command Palette `CMD-P`. You can also remap the shortcuts to your liking. See [Custom Keyboard Shortcuts](../features/keyboard-shortcuts.md#custom-keyboard-shortcuts) for more details.
+
+## How it works
 
 ![Split Panes](../.gitbook/assets/split_panes.gif)
