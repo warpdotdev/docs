@@ -17,7 +17,7 @@ Press `CTRL-CMD-L` to open the Launch Configuration Palette, where you can earch
 
 ## YAML Format
 
-All yaml files are stored in `~/.warp/launch_configurations/`.
+All yaml files are stored in `~/.warp/launch_configurations/`.  _Note:_ The `cwd:` value in your yaml code must contain an absolute path. `~` or ` ` empty paths will result in the file not being visible on the list of options for Launch Configurations.
 
 ### Windows
 
@@ -37,17 +37,29 @@ Here's a sample configuration that shows how windows are structured.
 name: Example Configuration With Two Windows
 windows:
   - tabs:
-      - layout:
+      - title: documents
+        layout:
           cwd: /Users/warp-user/Documents
+        color: blue
   - tabs:
-      - layout:
+      - title: warp user
+        layout:
           cwd: /Users/warp-user
+        color: green
 
 ```
 
 ### Tabs
 
 Here's a sample configuration that shows how tabs are structured.
+- Use `title` field to set custom tab name
+- Use `color` field to set tab color
+  
+  - We currently support using the terminal colors (ANSI colors): 
+  
+    `Red | Green | Yellow | Blue | Magenta | Cyan`
+  
+    The actual color values will be automatically derived from your Warp theme
 
 ```yaml
 # Warp Launch Configuration
@@ -58,34 +70,16 @@ Here's a sample configuration that shows how tabs are structured.
 name: Example Configuration With Two Tabs
 windows:
   - tabs:
-      - layout:
+      - title: documents 
+        layout:
           cwd: /Users/warp-user/Documents
-      - layout:
-          cwd: /Users/warp-user
-
-```
-
-You can also set the custom tab title and color:
-
-```yaml
-# Warp Launch Configuration
-#
-# This configuration has one tab with custom title and color
-
----
-name: Example Configuration With One Tab
-windows:
-  - tabs:
-      - layout:
-        cwd: /Users/warp-user/Documents
-        title: "Test tab title"
         color: blue
+      - title: warp user
+        layout:
+          cwd: /Users/warp-user
+        color: green
 
 ```
-
-Note that we currently support using the terminal colors (ANSI colors) in your configuration: [black, red, green, yellow, blue, magenta, cyan, white]. 
-The actual color values will be automatically derived from your Warp theme.
-
 
 ### Panes
 
@@ -103,13 +97,16 @@ Launch Configurations support setting split panes in each tab. Note that Warp al
 name: Example Configuration With Split Panes
 windows:
   - tabs:
-      - layout:
+      - title: downloads and warp user
+        layout:
           split_direction: vertical
           panes:
             - cwd: /Users/warp-user/Downloads
             - cwd: /Users/warp-user
+        color: blue
   - tabs:
-      - layout:
+      - title: desktop, documents and warp uesr
+        layout:
           split_direction: horizontal
           panes:
             - cwd: /Users/warp-user/Desktop
@@ -117,6 +114,7 @@ windows:
               panes:
                 - cwd: /Users/warp-user/Documents
                 - cwd: /Users/warp-user
+        color: green
 
 ```
 
@@ -135,17 +133,21 @@ Use the `commands` field to define a set of commands to run when a configuration
 name: Example Configuration With Starting Commands
 windows:
   - tabs:
-      - layout:
+      - title: documents
+        layout:
           cwd: /Users/warp-user/Documents
           commands:
             - exec: ls
             - exec: code .
+        color: blue
   - tabs:
-      - layout:
+      - title: downloads
+        layout:
           split_direction: vertical
           panes:
             - cwd: /Users/warp-user/Downloads
               commands:
                 - exec: ls -a
             - cwd: /Users/warp-user
+        color: green
 ```
