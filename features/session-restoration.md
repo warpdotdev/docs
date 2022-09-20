@@ -1,15 +1,35 @@
 # Session Restoration
 
-When Warp opens, it restores your session history, specifically windows, tabs, panes, and also the last few Blocks in each pane.
+## What is it
 
-![](../.gitbook/assets/sessions-block\_restoration.gif)
+The Session Restoration feature enables Warp to restore your session history, specifically windows, tabs, and panes, along with the last few Blocks in each pane. This allows you to quickly pick up where you left off in your previous terminal session.
 
-Warp saves data to a sqlite database on your computer. You can open the database directly and inspect its full contents like so:
+## How to access it
+
+* Session Restoration comes enabled by default in Warp.
+* You can disable Session Restoration by going to `Settings > Features`, then toggle off `Restore windows, tabs, and panes on startup`. _Note:_ Toggling off the feature will not [clear the SQLite database](../features/session-restoration.md#session-restoration-data); however, Warp will stop recording new output.
+
+## How it works
+
+![Session Restoration Demo](../.gitbook/assets/sessions-block\_restoration.gif)
+
+#### Session Restoration database
+
+Warp saves the data from your previous session's windows, tabs, and panes to a SQLite database on your computer, and every time you quit the app, this data is overwritten by your latest session. You can open the database directly and inspect its full contents like so:
 
 ```sh
 sqlite3 "$HOME/Library/Application Support/dev.warp.Warp-Stable/warp.sqlite"
 ```
 
-Press `CMD-K` for Clear Lines (also in the Mac menu under Edit), to clear the database, which deletes the Blocks in the focused pane. You can also clear the database by deleting the sqlite file. Note that this might interfere with the running session’s ability to save content.
+##### How to clear the database
 
-Toggle Block content restoration from the Settings dialog under the Features section (`Restore windows, tabs, and panes on startup`). Toggling it off will not clear the sqlite database; however, Warp will stop recording new output.
+Sometimes, you may want to prevent a sensitive block from being saved on your computer or you may want to clear blocks from a machine entirely.
+
+There are two ways to do this.
+
+* Clear the blocks from your running Warp session with `Cmd-K`.
+* Delete the SQLite file entirely via:
+```sh
+rm "$HOME/Library/Application Support/dev.warp.Warp-Stable/warp.sqlite"
+```
+_Note:_ This interferes with the running session's ability to save content and may require you to restart Warp.

@@ -3,6 +3,15 @@
 These are our release changelogs. We try to release an update every week on Thursday!
 Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+
+### 2022.09.08 (v0.2022.09.07.14.56)
+
+**New features**
+
+- Global hotkey window can now float above full-screen apps
+- Tabs can now have their color customized (via right-clicking on a tab)
+- Terminal line height is now configurable (via Settings > Appearance)
+
 ### 2022.09.01 (v0.2022.08.31.18.11)
 
 **New features**
