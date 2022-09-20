@@ -6,7 +6,9 @@ Warp has a built in prompt that shows your current working directory (cwd) and a
 
 Enable custom prompt support by navigating to Settings > Features and toggling on "Honor user's custom prompt (PS1) setting."
 
-![Honor PS1](../.gitbook/assets/prompt-custom_prompt.gif)
+{% embed url="https://www.loom.com/share/199b49a8045f4380805fb02b93e874e6" %}
+Custom Prompt Demo
+{% endembed %}
 
 ## PS1 Compatibility Table
 
