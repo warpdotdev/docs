@@ -6,9 +6,7 @@ Warp has a native Prompt that shows your current working directory (cwd) and als
 
 ## How to access it
 
-* Enable custom prompt going to `Settings > Features` and toggling on "Honor user's custom prompt (PS1) setting" or you can right-click on the prompt area above the input and select "Use my own prompt".
-
- If you’re having issues with prompts, please see our [Known Issues](../help/known-issues.md#) for more information on supported tools and troubleshooting steps.
+* Enable custom prompt by right-clicking on the prompt area above the input and select "Use my own prompt" or go to `Settings > Features` and toggle on "Honor user's custom prompt (PS1)".
 
 ## How it works
 
@@ -17,6 +15,8 @@ Custom Prompt Demo
 {% endembed %}
 
 ## Known Incompatibilities
+
+If you’re having issues with prompts, please see below or our [Known Issues](../help/known-issues.md#configuring-and-debugging-your-rc-files) for more troubleshooting steps.
 
 ### Custom Prompt Compatibility Table
 
