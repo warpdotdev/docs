@@ -15,3 +15,8 @@ Note: Mouse reporting must be enabled in order to also toggle scroll reporting.
 * From the Command Palette (`CMD-P`) > `Toggle Mouse Reporting`
 * From the Mac Menu: `View > Toggle Mouse Reporting`
 * With the keyboard shortcut: `CMD-R`
+
+### How it works
+{% embed url="https://www.loom.com/share/671a9d60d27d4d5ab630ae083a0bad78" %}
+Mouse and Scroll Reporting Demo
+{% endembed %}
