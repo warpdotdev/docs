@@ -2,32 +2,37 @@
 
 ## What is it
 
-Warp has a native Prompt that shows your current working directory (cwd) and also git branch information when in a git directory, but you can also enable a custom prompt **PS1**.
-_Note:_ We don’t currently support multi-line or right sided prompts. The Input Editor is a separate UI element from the Prompt; this is actually what enables a modern text editor experience. See [PS1 Compatibility Table](../features/prompt.md#ps1-compatibility-table) for more details on supported prompts. Improving the native Prompt is on the [roadmap](../features/prompt.md#context-chips).
+Warp has a native Prompt that shows your current working directory (cwd) and also git branch information when in a git directory. You can also enable a custom prompt by configuring the **PS1** or by installing a supported shell prompt plugin, see [Compatibility Table](../features/prompt.md#custom-prompt-compatibility-table). PS1 is a variable used by the shell to generate the prompt, it represents the primary prompt string (hence the “PS”) - which is what you see most of the time before typing a new command in your terminal.
 
 ## How to access it
 
 * Enable custom prompt going to `Settings > Features` and toggling on "Honor user's custom prompt (PS1) setting" or you can right-click on the prompt area above the input and select "Use my own prompt".
 
- If you’re having issues with prompts, please see our [Known Issues](../help/known-issues.md#configuring-and-debugging-your-rc-files) for more information on supported tools and troubleshooting steps.
+ If you’re having issues with prompts, please see our [Known Issues](../help/known-issues.md#) for more information on supported tools and troubleshooting steps.
 
 ## How it works
 
 ![Honor PS1](../.gitbook/assets/prompt-custom_prompt.gif)
 
-## PS1 Compatibility Table
+## Known Incompatibilities
 
-| Shell    | Tool            | Does it work? |
+### Custom Prompt Compatibility Table
+
+| Shell    | Tool            | Does it work?  |
 | -------- | --------------  | -------------- |
-| Bash/zsh | PS1             |  Working       |
+| Bash/zsh | [PS1](https://www.warp.dev/blog/whats-so-special-about-ps1)             |  Working       |
 | Bash     | SBP             |  Coming soon   |
-| Bash/zsh | Starship        |  Working       |
-| zsh      | oh-my-zsh       |  Working       |
-| zsh      | prezto          |  Working       |
+| Bash/zsh | [Starship](https://github.com/starship/starship)        |  Working       |
+| zsh      | [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh)       |  Working       |
+| zsh      | [prezto](https://github.com/sorin-ionescu/prezto)          |  Working       |
 | zsh      | powerlvel10k    |  Not supported |
 | zsh      | zplug           |  Not supported |
 | Bash/zsh | powerline-shell |  Coming soon   |
 | SSH      |                 |  Working       |
+
+#### Multi-Line and Right-Sided Prompts
+
+We don’t currently support multi-line or right-sided prompts. The Input Editor is a separate UI element from the Prompt; this is actually what enables a modern text editor experience. Improving the native Prompt is on the [roadmap](../features/prompt.md#context-chips).
 
 #### iTerm2
 
