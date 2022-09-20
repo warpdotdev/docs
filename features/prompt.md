@@ -13,7 +13,9 @@ _Note:_ We don’t currently support multi-line or right sided prompts. The Inpu
 
 ## How it works
 
-![Honor PS1](../.gitbook/assets/prompt-custom_prompt.gif)
+{% embed url="https://www.loom.com/share/199b49a8045f4380805fb02b93e874e6" %}
+Custom Prompt Demo
+{% endembed %}
 
 ## PS1 Compatibility Table
 
