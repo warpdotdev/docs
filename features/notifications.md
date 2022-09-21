@@ -16,7 +16,7 @@ Have you ever run a program on the terminal and started doing something else, on
 
 ## Troubleshooting Warp Notifications
 
-Warp requires two different notifications settings in order to work. Mac system settings found in `Mac > System Preferences > Notifications & Focus > Notifications` and Warp app settings found in `Settings > Features > Notifications` must both be enabled in order for Notifications to work. If you have Notifications enabled in the system and Warp but you still aren't receiving desktop notifications, try the following:
+Warp requires two different notification settings in order to work. Mac system settings found in `Mac > System Preferences > Notifications & Focus` and Warp app settings found in `Settings > Features` must both be enabled in order for Notifications to work. If you have Notifications enabled in the system and Warp but you still aren't receiving desktop notifications, try the following:
 * Make sure that you are navigated away from Warp when you expect to receive the notification.
 * Make sure the **Do not Disturb** mode is turned off in `Mac > System Preferences > Notifications > Notifications & Focus > Focus`.
 * Go to `Mac > System Preferences > Notifications & Focus > Notifications` and select Warp in the list. Make sure either banner style or alert style notifications are selected, then quit and restart Warp.
