@@ -5,7 +5,7 @@
 You can add custom themes to Warp.
 
 {% hint style="info" %}
-A more thorough explanation about the theme format, together with examples and a collection of themes can be found in the [Warp themes repository](https://github.com/warpdotdev/themes).
+A more thorough explanation of the theme format, together with examples and a collection of themes can be found in the [Warp themes repository](https://github.com/warpdotdev/themes).
 {% endhint %}
 
 ## Warp's Custom Theme Repository
@@ -36,7 +36,7 @@ mkdir -p ~/.warp/themes/
 ```
 
 {% hint style="info" %}
-Note that it may take several minutes for Warp to initially discover the new config directory. You can either wait, or just restart the application. After that step, all future changes to `~/.warp/themes` directory will be reflected in Warp within seconds.
+Note that it may take several minutes for Warp to initially discover the new config directory. You can either wait or just restart the application. After that step, all future changes to `~/.warp/themes` directory will be reflected in Warp within seconds.
 {% endhint %}
 
 2\.  Add your new custom theme yaml theme file to this directory:
@@ -81,7 +81,7 @@ terminal_colors: # Ansi escape colors.
     yellow: '#b58900'
 ```
 
-Each color is represented in hex and must start with with `#`.
+Each color is represented in hex and must start with `#`.
 
 * `accent`: Color used for highlights in Warp's UI
 * `background`: Color of background
@@ -183,12 +183,12 @@ Contributions to this repo are greatly appreciated!
 Run this script to generate the thumbnails.
 
 ```
-# assuming you're adding the theme to `standard` directory:
+# assuming you're adding the theme to the `standard` directory:
 python3 ./scripts/gen_theme_previews.py standard
 ```
 
 {% hint style="info" %}
-Note: We cannot accept pull request that include custom background images because:
+Note: We cannot accept pull requests that include custom background images because:
 
 * Licensing restrictions
 * Trying to keep the binary size of the repo as small as possible (just the yaml files)
@@ -198,7 +198,7 @@ If your theme has an intended custom background image, include a comment in the 
 
 ## Create your own theme with Warp-Themes.com
 
-[Warp-Themes.com](https://warp-themes.com/) is a web app built entirely by community member  [Torben Haack](https://twitter.com/torben_haack). The tool allows you to visually customize your own terminal theme with a few simple color selections, then download that theme file and have Warp load it into its theme picker. Please see more on how to use the app in our [Warp-Themes blog post](https://www.warp.dev/blog/create-custom-terminal-theme).
+[Warp-Themes.com](https://warp-themes.com/) is a web app built entirely by community member [Torben Haack](https://twitter.com/torben_haack). The tool allows you to visually customize your own terminal theme with a few simple color selections, then download that theme file and have Warp load it into its theme picker. Please see more on how to use the app in our [Warp-Themes blog post](https://www.warp.dev/blog/create-custom-terminal-theme).
 
 ## Community
 
