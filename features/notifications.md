@@ -2,7 +2,7 @@
 
 ## What is it?
 
-Warp can send you customizable desktop notifications when you are away from the app and quickly re-focus when something meaningful happens in your terminal sessions. Notifications can be sent when a command completes after a number of seconds or when a running command needs you to enter a password to proceed. For either of these triggers, Warp will only send you a desktop notification if you are using a different app at the time the trigger is fired.
+Warp can send you customizable desktop notifications when you are away from the app and quickly re-focus when something meaningful happens in your terminal sessions. Notifications can be sent when a command completes after a configurable number of seconds or when a running command needs you to enter a password to proceed. For either of these triggers, Warp will only send you a desktop notification if you are using a different app at the time the trigger is fired.
 
 ## How to access it
 
@@ -16,7 +16,7 @@ Warp can send you customizable desktop notifications when you are away from the 
 
 ## Troubleshooting Warp Notifications
 
-Warp requires two different notification settings in order to work. Mac system settings found in `Mac > System Preferences > Notifications & Focus` and Warp app settings found in `Settings > Features` must both be enabled in order for Notifications to work. If you have Notifications enabled in the system and Warp but you still aren't receiving desktop notifications, try the following:
+Warp requires two distinct notification settings to work. Mac system settings found in `Mac > System Preferences > Notifications & Focus` and Warp app settings found in `Settings > Features` must both be enabled for Notifications to show. If you have Notifications enabled in the system and Warp but you still aren't receiving desktop notifications, try the following:
 * Make sure that you are navigated away from Warp when you expect to receive the notification.
 * Make sure the **Do not Disturb** mode is turned off in `Mac > System Preferences > Notifications > Notifications & Focus > Focus`.
 * Go to `Mac > System Preferences > Notifications & Focus > Notifications` and select Warp in the list. Make sure either banner style or alert style notifications are selected, then quit and restart Warp.
