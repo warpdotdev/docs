@@ -2,7 +2,7 @@
 
 ## What is it?
 
-Have you ever run a program on the terminal and started doing something else, only to find out a long time later that the program was waiting for a password to continue? No longer! Warp can send you customizable desktop notifications when you are away from the app and something meaningful happens in your terminal sessions. Warp can send you a notification when a command completes after a configurable number of seconds or when a running command needs you to enter a password to proceed. For either of these triggers, Warp will only send you a desktop notification if you are using a different app at the time the trigger is fired.
+Warp can send you customizable desktop notifications when you are away from the app and quickly re-focus when something meaningful happens in your terminal sessions. Notifications can be sent when a command completes after a number of seconds or when a running command needs you to enter a password to proceed. For either of these triggers, Warp will only send you a desktop notification if you are using a different app at the time the trigger is fired.
 
 ## How to access it
 
