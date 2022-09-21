@@ -12,7 +12,7 @@ Warp can send you customizable desktop notifications when you are away from the 
 
 ## How it works
 
-![Notifications Demo](../.gitbook/assets/notifications-demo.gif)
+{% embed url="LOOM_URL" %} Notifications Demo {% endembed %}
 
 ## Troubleshooting Warp Notifications
 
