@@ -1,11 +1,11 @@
-# Summary
+# Table of contents
 
 ## 🚀 Getting Started
 
 * [What is Warp?](README.md)
-* [Before Getting Started](getting-started/getting-started-with-warp.md)
+* [Getting Started](getting-started/getting-started-with-warp.md)
 * [Downloading Warp](getting-started/downloading-warp.md)
-* [Using Warp with [bash|zsh|fish]](getting-started/using-warp-with-shells.md)
+* [Using Warp with \[bash|zsh|fish\]](getting-started/using-warp-with-shells.md)
 * [Onboarding](getting-started/onboarding.md)
 * [Privacy](getting-started/privacy.md)
 * [Refer a Friend](getting-started/refer-a-friend.md)

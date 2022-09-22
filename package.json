@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/warpdotdev/gitbook#readme",
   "devDependencies": {
-    "honkit": "^3.7.1"
+    "honkit": "^3.7.5"
   },
   "dependencies": {
     "npm": "^8.3.2"
