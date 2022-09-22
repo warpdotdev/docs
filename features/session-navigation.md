@@ -7,8 +7,8 @@ The Session Navigation Palette helps you speed up your workflow by allowing you 
 ## How to Access It
 
 1. Open the Navigation Palette with `CMD-SHIFT-P` or switch between the Command Palette `CMD-P` and the Navigation Palette using `@` prefix.
-3. Jump to a session by using your mouse or the `UP ↑`/`DOWN ↓` arrow keys and `Enter`. 
-4. Refine the session results by searching for sessions by prompt, the currently running command, last run command, and command status (ex: “Running…”, “Completed 10 minutes ago”, “Empty Session”). 
+1. Jump to a session by using your mouse or the `UP ↑`/`DOWN ↓` arrow keys and `Enter`.
+1. Refine the session results by searching for sessions by prompt, the currently running command, last run command, and command status (ex: “Running…”, “Completed 10 minutes ago”, “Empty Session”).
 
 _Note:_ Sessions are ordered by recency i.e. the most recently focused sessions show up first. The Navigation Palette does not have **PS1** support and can only show Warp's native prompt.
 

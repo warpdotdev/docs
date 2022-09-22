@@ -31,7 +31,7 @@ Adding a Custom Theme to Warp
 
 1. To start, create a config directory in your home directory:
 
-```
+```sh
 mkdir -p ~/.warp/themes/
 ```
 
@@ -41,7 +41,7 @@ Note that it may take several minutes for Warp to initially discover the new con
 
 2\.  Add your new custom theme yaml theme file to this directory:
 
-```
+```sh
 cp ~/Downloads/my_awesome_theme.yaml ~/.warp/themes/
 ```
 
