@@ -2,7 +2,7 @@
 
 ## What is it?
 
-Warp's Launch Configurations allow you to save your configuration of windows, tabs, and panes to a yaml file. This allows you to quickly get up and running for different tasks. 
+Launch Configurations enables a quick way to save your configuration of windows, tabs, and panes to a yaml file. It allows you to quickly get back up and running with different tasks.
 
 ## How to access it
 
@@ -10,18 +10,18 @@ Warp's Launch Configurations allow you to save your configuration of windows, ta
 
 ## How it works
 
-1. Set up the configuration of windows, tabs and panes that you would like to save.
+1. Set up the configuration of windows, tabs, and panes that you would like to save.
 1. Press `CTRL-CMD-L` to open the Launch Configuration Palette and click the plus button.
 1. Name the configuration file.
 1. Click the save configuration button (plus sign).
 
-Press `CTRL-CMD-L` to open the Launch Configuration Palette, where you can earch through and open your saved configurations.
+Press `CTRL-CMD-L` to open the Launch Configuration Palette, where you can search through and open your saved configurations.
 
 ![Launch Configurations Demo](../.gitbook/assets/launch-config-demo.gif)
 
 ## YAML Format
 
-All yaml files are stored in `~/.warp/launch_configurations/`.  _Note:_ The `cwd:` value in your yaml code must contain an absolute path. `~` or ` ` empty paths will result in the file not being visible on the list of options for Launch Configurations.
+All yaml files are stored in `~/.warp/launch_configurations/`.  _Note:_ The `cwd:` value in your yaml code must contain an absolute path or `""`, `~` or ` ` empty paths will result in the file not being visible on the list of options for Launch Configurations.
 
 ### Windows
 
@@ -56,8 +56,9 @@ windows:
 ### Tabs
 
 Here's a sample configuration that shows how tabs are structured.
-- Use `title` field to set custom tab name
-- Use `color` field to set tab color
+
+- Use the `title` field to set a custom tab name
+- Use the `color` field to set the tab color
   
   - We currently support using the terminal colors (ANSI colors): 
   
@@ -109,7 +110,7 @@ windows:
             - cwd: /Users/warp-user
         color: blue
   - tabs:
-      - title: desktop, documents and warp uesr
+      - title: desktop, documents, and warp user
         layout:
           split_direction: horizontal
           panes:
