@@ -1,10 +1,14 @@
 # Launch Configurations
 
-Save your configuration of windows, tabs, and panes to a file! Open a saved configuration through the Command Palette > Toggle Launch Configuration Palette (`CTRL-CMD-L`).
+## What is it?
 
-## Getting Started
+Warp's Launch Configurations allow you to save your configuration of windows, tabs, and panes to a yaml file. This allows you to quickly get up and running for different tasks. 
 
-To get started with Launch Configurations,
+## How to access it
+
+* Toggle the Launch Configuration Palette via shortcut `CTRL-CMD-L` or through typing `#` into the Command Palette `CMD-P`.
+
+## How it works
 
 1. Set up the configuration of windows, tabs and panes that you would like to save.
 1. Press `CTRL-CMD-L` to open the Launch Configuration Palette and click the plus button.
