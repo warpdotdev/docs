@@ -14,8 +14,7 @@ Launch Configurations enables a quick way to save your configuration of windows,
 1. Press `CTRL-CMD-L` to open the Launch Configuration Palette and click the plus button.
 1. Name the configuration file.
 1. Click the save configuration button (plus sign).
-
-Press `CTRL-CMD-L` to open the Launch Configuration Palette, where you can search through and open your saved configurations.
+1. Then, press `CTRL-CMD-L` where you can search through and open your saved configurations.
 
 ![Launch Configurations Demo](../.gitbook/assets/launch-config-demo.gif)
 
