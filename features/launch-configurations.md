@@ -152,7 +152,9 @@ windows:
           panes:
             - cwd: /Users/warp-user/Downloads
               commands:
-                - exec: ls -a
+                - exec: curl http://example.com -o my.file
             - cwd: /Users/warp-user
+              commands:
+                - exec: ssh user@remote.server.com
         color: green
 ```
