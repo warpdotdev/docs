@@ -2,7 +2,7 @@
 
 ## What is it?
 
-Launch Configurations enables a quick way to save your configuration of windows, tabs, and panes to a yaml file. It allows you to quickly get back up and running with different tasks.
+Launch Configurations enables a quick way to save your configuration of windows, tabs, and panes to a yaml file. It allows you to get back up and running with different tasks quickly.
 
 ## How to access it
 
@@ -10,7 +10,7 @@ Launch Configurations enables a quick way to save your configuration of windows,
 
 ## How it works
 
-1. Set up the configuration of windows, tabs, and panes that you would like to save.
+1. Set up the configuration of windows, tabs, and panes you would like to save.
 1. Press `CTRL-CMD-L` to open the Launch Configuration Palette and click the plus button.
 1. Name the configuration file.
 1. Click the save configuration button (plus sign).
@@ -131,7 +131,7 @@ Use the `commands` field to define a set of commands to run when a configuration
 #
 # This configuration has two windows.
 # The first window executes two commands on start.
-# The second window has a split pane which executes a command on start.
+# The second window has a split pane that executes a command on start.
 
 ---
 name: Example Configuration With Starting Commands
