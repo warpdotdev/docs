@@ -1,21 +1,29 @@
 ---
-description: Get to know the basics of Warp before downloading it.
+description: A step-by-by of how to get Warp onto your machine.
 ---
 
-# Before Getting Started
-
-## Mac-Only
+# Getting Started
 
 {% hint style="info" %}
-You can subscribe [here](https://zachlloyd.typeform.com/to/lWeDTQnr) if you want to be notified when we build for these platforms.
+**Mac-Only:** Please note that Warp is currently supported on Mac only. We plan on adding support for Web (WASM), [Linux](https://github.com/warpdotdev/warp/issues/120), and [Windows](https://github.com/warpdotdev/warp/issues/204) in this order. You can subscribe [here](https://zachlloyd.typeform.com/to/lWeDTQnr) if you want to be notified when we build for these platforms.
 {% endhint %}
 
-Currently, Warp is currently supported on Mac only.&#x20;
+### Downloading Warp
 
-We plan on adding support for Web (WASM), [Linux](https://github.com/warpdotdev/warp/issues/120), and [Windows](https://github.com/warpdotdev/warp/issues/204) in this order.
+There are two ways to get Warp onto your machine -&#x20;
 
-## Compatibility
+#### 1: Download Warp by clicking the link below&#x20;
 
-Locally, the terminal integrates with Bash, Zsh, or Fish.
+{% embed url="https://app.warp.dev/get_warp" %}
 
-**Please visit our [known issues](../help/known-issues.md) to get more details on setting up common tools.**
+#### 2: Install using Homebrew by running the command below
+
+```
+brew install --cask warp
+```
+
+### Compatibility
+
+Locally, the terminal integrates with Bash, Zsh, or Fish. See [Using Warp with \[bash|zsh|fish\]](https://docs.warp.dev/getting-started/using-warp-with-shells) for more details.
+
+**Please visit our** [**known issues**](../help/known-issues.md) **to get more details on setting up common tools.**
