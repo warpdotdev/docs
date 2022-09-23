@@ -17,6 +17,6 @@ Note: Mouse reporting must be enabled in order to also toggle scroll reporting.
 * With the keyboard shortcut: `CMD-R`
 
 ### How it works
-{% embed url="https://www.loom.com/share/671a9d60d27d4d5ab630ae083a0bad78" %}
-Mouse and Scroll Reporting Demo
+{% embed url="https://www.loom.com/share/a918696b002148d3beafd545b233c1be" %}
+Toggle Mouse and Scroll Reporting Demo
 {% endembed %}
