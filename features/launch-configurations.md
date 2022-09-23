@@ -6,7 +6,9 @@ Launch Configurations enables a quick way to save your configuration of windows,
 
 ## How to access it
 
-* Toggle the Launch Configuration Palette via shortcut `CTRL-CMD-L` or through typing `#` into the Command Palette `CMD-P`.
+* Toggle the Launch Configuration Palette with keyboard shortcut `CTRL-CMD-L`
+* From the Command Palette `CMD-P`, enter `#`
+* From the Mac Menu: `File > Launch Configurations`
 
 ## How it works
 
