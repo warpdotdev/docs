@@ -3,6 +3,27 @@
 These are our release changelogs. We try to release an update every week on Thursday!
 Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2022.09.22 (v0.2022.09.20.08.08)
+
+**New Features:**
+- After selecting a Block press `CTRL-M` to open its context menu
+- Commands in the tab completions menu and history menu can now be executed directly with `CMD-ENTER`
+- Completions now support shell builtins, git aliases, and also npm aliases
+
+**Bug Fixes:**
+- Command Palette now includes the most useful features at the top
+- Improved flag completions for cargo
+
+### 2022.09.15 (v0.2022.09.13.08.15)
+
+**New features**
+- Warp Resource Center - explore Warp features and documentation by clicking the ? icon or pressing SHIFT-CTRL-?
+- New icons in the completion menu denoting flags, folders, branches, etc.
+
+**Bug fixes**
+- Press CMD-ENTER within the history menu (CTRL-R) to directly execute the highlighted command
+- Fixed crash when opening many tabs (due to MacOS’s default open file descriptor limits)
+- Fixed crash when laying out RTL text
 
 ### 2022.09.08 (v0.2022.09.07.14.56)
 
