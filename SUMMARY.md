@@ -4,7 +4,6 @@
 
 * [What is Warp?](README.md)
 * [Getting Started](getting-started/getting-started-with-warp.md)
-* [Downloading Warp](getting-started/downloading-warp.md)
 * [Using Warp with \[bash|zsh|fish\]](getting-started/using-warp-with-shells.md)
 * [Onboarding](getting-started/onboarding.md)
 * [Privacy](getting-started/privacy.md)
