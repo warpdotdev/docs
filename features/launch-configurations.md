@@ -2,7 +2,7 @@
 
 ## What is it?
 
-Launch Configurations enables a quick way to save your configuration of windows, tabs, and panes to a yaml file. It allows you to get back up and running with different tasks quickly.
+Launch Configurations enable you to save your configuration of windows, tab, and panes, so that you can reopen the same set of windows, tab, and panes per project quickly. You can save this via the app, or by adding a yaml file.
 
 ## How to access it
 
