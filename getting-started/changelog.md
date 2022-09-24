@@ -159,7 +159,7 @@ Submit bugs and feature request on our [GitHub board!](https://github.com/warpdo
 
 **New features**
 
-- Improved auto-focus behavior when closing panes by keeping track of history when navigating or clicking around panes
+- Improved autofocus behavior when closing panes by keeping track of history when navigating or clicking around panes
 - Performance improvements when executing Blocks: Warp no longer flashes on every command!
 
 **Bug fixes**
@@ -181,7 +181,7 @@ Submit bugs and feature request on our [GitHub board!](https://github.com/warpdo
 
 **Bug fixes**
 
-- Warp no longer crashes on MacOS 13 (Ventura)
+- Warp no longer crashes on macOS 13 (Ventura)
 - Global Hotkey Window (Quake Mode) no longer overlaps Spotlight, Raycast, Alfred, and the Mac Dock
 - Now correctly display the user and hostname in the Prompt after exiting an SSH session
 - Fixed a memory leak on window close.
@@ -190,7 +190,7 @@ Submit bugs and feature request on our [GitHub board!](https://github.com/warpdo
 
 **New features**
 
-- Now support renaming tabs (right click on your tab title!)
+- Now support renaming tabs (right-click on your tab title!)
 - Now support enabling custom prompt from prompt context menu (right-click on prompt)
 - Now support splitting panes (left and right) from the context menu (right click) and through the Command Palette
 - Now support CTRL-Click as an alternative to right-clicking
@@ -288,7 +288,7 @@ Submit bugs and feature request on our [GitHub board!](https://github.com/warpdo
 - Now support dotfile configurations with non-English quotation marks
 - Continued improving the reliability of login and auth within the app
 - Improved performance for commands with large outputs
-- Improved performance for long running commands
+- Improved performance for long-running commands
 - Improved text alignment within inline banners
 
 ### 2022.04.20 (v0.2022.04.18.09.08)
@@ -415,7 +415,7 @@ Submit bugs and feature request on our [GitHub board!](https://github.com/warpdo
 
 **Bug fixes**
 
-- Able to fill-in longest common prefix after filtering tab completions - [618](https://github.com/warpdotdev/warp/issues/618)
+- Able to fill in longest common prefix after filtering tab completions - [618](https://github.com/warpdotdev/warp/issues/618)
 - Block completion causes Input Editor to steal focus from find bar - [452](https://github.com/warpdotdev/warp/issues/452)
 - UP-arrow in history menu sometimes scrolls more than one item
 - CMD-F opens a no-op find bar in alt screen

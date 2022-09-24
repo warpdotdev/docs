@@ -9,7 +9,7 @@ Warp supports setting custom themes.
 The Theme Picker can be accessed through the [Command Palette](../features/command-palette.md) or by:
 
 1. Navigating to the top-right section of the Warp window
-2. Clicking the kebab-menu to open the drop down menu
+2. Clicking the kebab-menu to open the drop-down menu
 3. Clicking on “Settings”
 4. Clicking appearance in the left sidebar of the settings dialog
 5. Clicking the custom themes (shaded) box

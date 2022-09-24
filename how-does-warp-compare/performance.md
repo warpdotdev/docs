@@ -8,8 +8,8 @@ description: This is a short comparison of different terminals and their perform
 
 We chose to benchmark Warp against 4 other terminal emulator applications, based on their popularity as well as language and principles. Here is the list of the applications we chose for this comparison together with the explanation as to why we decided to include it in our comparison:
 
-* Terminal.app - the default terminal app available on the MacOS;
-* ITerm2 - one of the most popular terminal emulator used by MacOS users;
+* Terminal.app - the default terminal app available on the macOS;
+* ITerm2 - one of the most popular terminal emulator used by macOS users;
 * Alacritty & WezTerm - both of those terminals are written in Rust and are well-known for their speed and overall performance, things that Warp is aiming for.
 
 ### Versions & settings used during the comparison

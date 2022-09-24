@@ -2,7 +2,7 @@
 
 Workflows are an easier way to execute and share commands within Warp. They are searchable by name, description, or command and are easily parameterized. A [global list](https://github.com/warpdotdev/workflows) of commands sourced by the Warp team and community are readily available within the app. Additionally, you can create and manage local workflows specific to you or associated with a particular git repository.
 
-The in app Workflows menu can be accessed through the Command Palette or by pressing `SHIFT-CTRL-R`. Once inside the menu, filter the existing commands by typing in the search bar or click on any of the sections in the side panel to browse by category.
+The in-app Workflows menu can be accessed through the Command Palette or by pressing `SHIFT-CTRL-R`. Once inside the menu, filter the existing commands by typing in the search bar or click on any of the sections in the side panel to browse by category.
 
 ![Press SHIFT-CTRL-R to open the Workflows menu.](../.gitbook/assets/workflows-original.gif)
 
@@ -22,7 +22,7 @@ spend most of their workday in the terminal but less so for beginners and casual
 
 ## Creating Custom Workflows
 
-In addition to the globally sourced commands, Workflows supports the ability to save commonly used commands specific to you or your team by adding workflows defined in YAML files directly to the `~/.warp/workflows` directory or the `.warp/workflows` in the top level of a repository. Local and Repository workflows can be accessed under the "My Workflows" and "Repository Workflows" tab of the workflows menu, respectively.
+In addition to the globally sourced commands, Workflows supports the ability to save commonly used commands specific to you or your team by adding workflows defined in YAML files directly to the `~/.warp/workflows` directory or the `.warp/workflows` in the top level of a repository. Local and Repository workflows can be accessed under the "My Workflows" and "Repository Workflows" tab of the Workflows menu, respectively.
 
 ### Local vs Repository Workflows
 
@@ -42,7 +42,7 @@ To start, create a workflows subdirectory within your .warp folder
 
 `mkdir -p ~/.warp/workflows`
 
-Then, add your command’s yaml file to this directory and Warp should automatically load it into the workflows menu.
+Then, add your command’s yaml file to this directory and Warp should automatically load it into the Workflows menu.
 
 `cp ~/path/to/my_awesome_workflow.yaml ~/.warp/workflows`
 

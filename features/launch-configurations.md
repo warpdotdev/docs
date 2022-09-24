@@ -7,9 +7,9 @@ Save your configuration of windows, tabs, and panes to a file! Open a saved conf
 To get started with Launch Configurations,
 
 1. Set up the configuration of windows, tabs and panes that you would like to save.
-1. Press `CTRL-CMD-L` to open the Launch Configuration Palette and click the plus button.
-1. Name the configuration file.
-1. Click the save configuration button (plus sign).
+2. Press `CTRL-CMD-L` to open the Launch Configuration Palette and click the plus button.
+3. Name the configuration file.
+4. Click the save configuration button (plus sign).
 
 Press `CTRL-CMD-L` to open the Launch Configuration Palette, where you can earch through and open your saved configurations.
 

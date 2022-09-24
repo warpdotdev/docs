@@ -23,7 +23,7 @@ sqlite3 "$HOME/Library/Application Support/dev.warp.Warp-Stable/warp.sqlite"
 
 ##### How to clear the database
 
-Sometimes, you may want to prevent a sensitive block from being saved on your computer or you may want to clear blocks from a machine entirely.
+Sometimes, you may want to prevent a sensitive Block from being saved on your computer, or you may want to clear blocks from a machine entirely.
 
 There are two ways to do this.
 
