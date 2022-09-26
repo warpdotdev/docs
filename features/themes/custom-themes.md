@@ -21,7 +21,7 @@ There are 2 ways to install a theme from this repo.
 1. Download just a single file and follow the steps in the section below.
 2. Clone the entire repo into `~/.warp/`
 
-Here is a step-by-step Youtube video that goes through these 2 steps for an example theme.
+Here is a step-by-step YouTube video that goes through these 2 steps for an example theme.
 
 {% embed url="https://www.youtube.com/watch?v=UTYgwD-cLbk" %}
 Adding a Custom Theme to Warp
@@ -51,7 +51,7 @@ Your new theme should now be visible on the list of available themes.
 
 Warp supports creating custom themes using .yaml files.&#x20;
 
-The format itself might expand but we'll do our best to avoid breaking changes and maintain forward compatibility. We also plan on supporting sharing/creating custom themes directly within Warp.
+The format itself might expand, but we'll do our best to avoid breaking changes and maintain forward compatibility. We also plan on supporting sharing/creating custom themes directly within Warp.
 
 A custom theme in Warp has the following .yaml structure:
 
@@ -141,7 +141,7 @@ terminal_colors:
     yellow: '#b58900'
 ```
 
-To set up a gradient, create a sub-level under accent with two key-value pairs:
+To set up a gradient, create a sublevel under accent with two key-value pairs:
 
 * "left" and "right" or
 * "top" and "bottom".

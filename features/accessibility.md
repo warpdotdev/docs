@@ -15,7 +15,7 @@ Best way to start working with Warp & VoiceOver is to install it using brew:
 
 ```brew install warp```
 
-This will ensure that you can receive all the future updates automatically, without the need to go through a MacOS standard drag&drop installation process.
+This will ensure that you can receive all the future updates automatically, without the need to go through a macOS standard drag&drop installation process.
 
 From there, Warp should seamlessly work with Voice Over and start announcing what's happening on the screen and what are the actions you can take.
 This may be a major difference from other apps - as Warp announces stuff on its own, letting you know what's going on. 
@@ -43,7 +43,7 @@ In short - it's related to how our UI Framework is currently implemented and tha
 
 Instead, whenever you perform an action and/or something happens in the background, Warp announces it to you, letting you know what's going on and what are possible actions you can take.
 Since it's a terminal, we care about all user actions being keyboard accessible from the start, so pretty much all our features have the assigned keybindings already.
-You can adjust the default keybindings following the guide from this github repository: [https://github.com/warpdotdev/keysets](https://github.com/warpdotdev/keysets).
+You can adjust the default keybindings following the guide from this GitHub repository: [https://github.com/warpdotdev/keysets](https://github.com/warpdotdev/keysets).
 You can also always fallback to using cmd-p to check the keybinding or execute the specific action.
 
 ### A11y specific actions
@@ -59,4 +59,4 @@ While not all Warp features are accessible yet, we've implemented a process arou
 
 This is definitely not the ideal and final implementation. We're happy to hear your thoughts and ideas on how we can improve. 
 The biggest milestone for this work is to add support for navigating the UI elements using the keyboard.
-Give Warp a try, and please, do not hesitate to share your feedback: you can reach us via [email](mailto:feedback@warp.dev), chat with us on [Discord](https://discord.com/invite/warpdotdev) or file a ticket in our [Github repo](https://github.com/warpdotdev/warp).
+Give Warp a try, and please, do not hesitate to share your feedback: you can reach us via [email](mailto:feedback@warp.dev), chat with us on [Discord](https://discord.com/invite/warpdotdev) or file a ticket in our [GitHub repo](https://github.com/warpdotdev/warp).

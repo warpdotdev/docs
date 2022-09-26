@@ -10,10 +10,10 @@ description: Everything you need to do after downloading Warp.
 Issues with login? Check out our [troubleshooting page](https://docs.warp.dev/help/troubleshooting-login-issues).
 {% endhint %}
 
-During our closed beta, we require a login so we can interact with you, get your feedback, and focus on improving the app. After installing Warp for the first time, you will be prompted to log in with GitHub, Google, or via an email link.
+During our closed beta, we require a login, so we can interact with you, get your feedback, and focus on improving the app. After installing Warp for the first time, you will be prompted to log in with GitHub, Google, or via an email link.
 
 {% hint style="info" %}
-If you log in with Google or Github, we only get access to the associated email address. If you want to learn more, [read our approach to privacy](https://www.warp.dev/privacy).
+If you log in with Google or GitHub, we only get access to the associated email address. If you want to learn more, [read our approach to privacy](https://www.warp.dev/privacy).
 {% endhint %}
 
 Opening the app is the only time you need an active Internet connection. Otherwise, Warp is a fully-native, local app and runs fine with no internet connection whatsoever (although you will lose access to some of our cooler features).

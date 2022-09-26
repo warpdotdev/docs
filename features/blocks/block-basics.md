@@ -6,10 +6,10 @@ description: The basics of creating, selecting, and navigating between Blocks.
 
 ## The Basics
 
-* Blocks groups your command and command output
+* Blocks group your command and command output
 * The Input Editor is fixed to the bottom.
 * Blocks grow from bottom to the top.
-*   Blocks are color-coded. Blocks that quit with a non-zero exit code have a red background and red side bar.\
+*   Blocks are color-coded. Blocks that quit with a non-zero exit code have a red background and red sidebar.\
 
 
     {% hint style="info" %}
