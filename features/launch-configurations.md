@@ -2,22 +2,15 @@
 
 ## What is it?
 
-Launch Configurations enable you to save your configuration of windows, tab, and panes, so that you can reopen the same set of windows, tab, and panes per project quickly. You can save this via the app, or by adding a yaml file.
-
-## How to access it
-
-* Toggle the Launch Configuration Palette with keyboard shortcut `CTRL-CMD-L`
-* From the Command Palette `CMD-P`, enter `#`
-* From the Mac Menu: `File > Launch Configurations`
+Launch Configurations enables you to save your configuration of windows, tab, and panes, so that you can reopen the same set of windows, tab, and panes per project quickly. You can save this via the app, or by adding a yaml file.
 
 ## How it works
 
 1. Set up the configuration of windows, tabs, and panes you would like to save.
-1. Press `CTRL-CMD-L` to open the Launch Configuration Palette and click the plus button.
+1. From the Command Palette `CMD-P`, enter `#` to open the Launch Configuration Palette, then click plus **+**.
 1. Name the configuration file.
-1. Click the save configuration button (plus sign).
-1. Then, press `CTRL-CMD-L` where you can search through and open your saved configurations.
-
+1. Click the save configuration button.
+1. Then, toggle the Launch Configuration Palette like in step 2 from above, with the keyboard shortcut `CTRL-CMD-L`, or from the Mac Menu: `File > Launch Configurations`, where you can search through and open your saved configurations.
 
 {% embed url="https://www.loom.com/share/daa2a9e55c27458c8bbf722d90078880" %}
 Launch Configurations Demo
@@ -25,7 +18,7 @@ Launch Configurations Demo
 
 ## YAML Format
 
-All yaml files are stored in `~/.warp/launch_configurations/`.  _Note:_ The `cwd:` value in your yaml code must contain an absolute path or `""`, `~` or ` ` empty paths will result in the file not being visible on the list of options for Launch Configurations.
+All yaml files are stored in `~/.warp/launch_configurations/`.  _Note:_ The `cwd:` value in the yaml code must contain an absolute path or `""`. Note that `~` or ` ` empty paths will result in the file not being visible on the list of options for Launch Configurations.
 
 ### Windows
 
