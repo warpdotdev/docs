@@ -4,7 +4,7 @@ Test the documentation locally by [installing honkit from npm.](https://github.c
 
 Have added a few workflows (in the `.warp/workflows` directory) to help with installing honkit and also running the client locally.
 
-The youtube embed in the introduction (getting_started) does not work with honkit. So comment that section out.
+The YouTube embed in the introduction (getting_started) does not work with honkit. So comment that section out.
 
 You can also checkout the honkit branch and then rebase using your current development branch.
 

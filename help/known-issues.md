@@ -21,7 +21,7 @@ Links to popular GitHub issues:
 
 To enable Blocks over SSH, Warp uses an SSH Wrapper function; navigate to settings > features if you need to disable it.
 
-Note: You'll need to start a new session before a change is reflected) or try invoking the SSH binary directly: `/usr/bin/ssh`
+Note: You'll need to start a new session before a change is reflected or try invoking the SSH binary directly: `/usr/bin/ssh`
 
 ## Soft wrapping
 
@@ -41,7 +41,7 @@ In order to support Blocks ([custom hooks](https://blog.warp.dev/how-warp-works/
 
 You can however, **disable the conflicting settings for just Warp** using this flag: `$TERM_PROGRAM != "WarpTerminal"`, see below for a full example.
 
-We currently don't have support for multi-line prompts, unlike typical terminals which are essentially continuous character grids, each section of Warp is its own (separate) UI element. The native Prompt does not support multi-line at this time and does not support right sided prompts. Improving the native Prompt is on the roadmap however. Please see our [Prompt](../features/prompt.md) page for more information on custom prompts.
+We currently don't have support for multi-line prompts, unlike typical terminals which are essentially continuous character grids, each section of Warp is its own (separate) UI element. The native Prompt does not support multi-line at this time and does not support right sided prompts. Improving the native Prompt is on the roadmap, however. Please see our [Prompt](../features/prompt.md) page for more information on custom prompts.
 
 ### Debugging
 
@@ -59,7 +59,7 @@ $ZDOTDIR/.zlogin
 $ZDOTDIR/.zlogout
 ```
 
-If Warp starts working correctly then Warp is incompatible with something in the current dotfiles. We can isolate what is incompatible by iteratively disabling sections of our dotfiles with the `WarpTerminal` flag until we find the culprit. When you do find what's incompatible please let us know and we'll add it to the list below.
+If Warp starts working correctly then Warp is incompatible with something in the current dotfiles. We can isolate what is incompatible by iteratively disabling sections of our dotfiles with the `WarpTerminal` flag until we find the culprit. If you find an incompatible tool please email us at [feedback@warp.dev](mailto:feedback@warp.dev)
 
 ```
 # Bash and Zsh

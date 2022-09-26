@@ -6,7 +6,7 @@ Warp offers the option to enable Compact mode, which condenses the spacing betwe
 
 ## How to access it
 
-1. Compact Mode can be toggled through `Settings > Appearance > Compact Mode` or thru the `Command Palette > Open Settings: Appearance`.
+1. Compact Mode can be toggled through `Settings > Appearance > Compact Mode` or through the `Command Palette > Open Settings: Appearance`.
 
 Note: Similarly to Theme settings, Compact Mode will also persist across sessions.
 
