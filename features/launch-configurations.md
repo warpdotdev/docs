@@ -13,7 +13,10 @@ To get started with Launch Configurations,
 
 Press `CTRL-CMD-L` to open the Launch Configuration Palette, where you can earch through and open your saved configurations.
 
-![Launch Configurations Demo](../.gitbook/assets/launch-config-demo.gif)
+
+{% embed url="https://www.loom.com/share/daa2a9e55c27458c8bbf722d90078880" %}
+Launch Configurations Demo
+{% endembed %}
 
 ## YAML Format
 
