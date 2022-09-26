@@ -18,7 +18,10 @@ Launch Configurations enable you to save your configuration of windows, tab, and
 1. Click the save configuration button (plus sign).
 1. Then, press `CTRL-CMD-L` where you can search through and open your saved configurations.
 
-![Launch Configurations Demo](../.gitbook/assets/launch-config-demo.gif)
+
+{% embed url="https://www.loom.com/share/daa2a9e55c27458c8bbf722d90078880" %}
+Launch Configurations Demo
+{% endembed %}
 
 ## YAML Format
 
