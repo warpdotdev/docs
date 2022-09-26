@@ -8,7 +8,7 @@ Warp supports opening file, folder, and url links that are within Blocks. Multip
 
 1. After hovering over a link, open it directly by holding down `CMD` while clicking it. 
 2. Clicking a link normally will open a clickable tooltip that says “Open File/Folder/Link”.
-3. Right clicking a link will open a context menu that supports copying the absolute file path or url to the clipboard.
+3. Right-clicking a link will open a context menu that supports copying the absolute file path or url to the clipboard.
 
 Note: Configure the default editor to open files with by navigating to `Settings > Features > Choose an editor to open file links`.
 

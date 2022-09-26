@@ -33,4 +33,4 @@ If this happens to you, use the link provided on the web logged-in page (https:/
 
 ![Copy and Pasting an Authentication Token](../.gitbook/assets/auth-token-flow.png)
 
-If Take me to Warp is still not working, please fill out [this Typeform](https://zachlloyd.typeform.com/to/UnZu0akR#&question=take_me_to_warp?utm_source=docs) and our team will reach out to you.
+If "Take me to Warp" is still not working, please fill out [this Typeform](https://zachlloyd.typeform.com/to/UnZu0akR#&question=take_me_to_warp?utm_source=docs) and our team will reach out to you.

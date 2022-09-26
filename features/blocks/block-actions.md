@@ -9,7 +9,7 @@ description: All the cool features Blocks provide.
 There are 2 ways you can access Block actions.
 
 1. Hover over a Block and click the kebab (three dots) button on the right hand side.
-2. Right click a Block.
+2. Right-click a Block.
 
 {% embed url="https://www.loom.com/share/3dec25e548d4484aa3dd6437869e2bbf" %}
 Accessing Block Actions
@@ -31,7 +31,7 @@ Share a block easily with coworkers or teammates by creating a web permalink. Th
 This is the only action in the app that sends command information to our server. It is explicitly opt-in. Our privacy principle is that any data sharing is opt-in and under the control of the user, and you should be able to remove or export that data from our servers at any time. Read our privacy policy here for [more information](https://www.warp.dev/privacy).
 {% endhint %}
 
-* Currently the link is viewable to anyone who has it, but in the future, you will be able to restrict viewing permissions to specific Warp users or email domains.
+* Currently, the link is viewable to anyone who has it, but in the future, you will be able to restrict viewing permissions to specific Warp users or email domains.
 * To un-share a Block: settings -> shared blocks
 * The same actions are also supported when multiple blocks are selected.
 
@@ -49,7 +49,7 @@ Quickly navigate to important Blocks despite where they are in the terminal hist
 
 There are 3 ways to bookmark a Block.
 
-1. Click on the bookmark icon on the top right corner of a Block
+1. Click on the bookmark icon in the top right corner of a Block
 2. Select `Toggle bookmark` in the block context menu
 3. Use `Cmd-B` keybinding to bookmark a selected block
 

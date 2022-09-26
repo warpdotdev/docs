@@ -19,7 +19,7 @@ Refer a friend
 There are two ways you can invite a friend:
 
 1. Send them an invite link. This will redirect them to our product download page.
-2. Input their email address which we use to send them an email.
+2. Input their email address which we'll use to email them.
 
 ## Referral program
 
@@ -37,8 +37,8 @@ When someone joins Warp--downloads Warp **AND** creates their first Block--with 
 
 #### **10 invites: Warp T-shirt**
 
-Once you've referred 10 people, we send you an email with details on how to claim your Warp T-shirt. Physical Warp swag is unable to be shipped to some geographic locations, in these instances we'll reach out over email with a gift card.
+Once you've referred 10 people, we'll email you with details on how to claim your Warp T-shirt. Physical Warp swag is unable to be shipped to some geographic locations, in these instances we'll reach out over email with a gift card.
 
-#### 20 invites: An invite to an insiders program
+#### 20 invites: An invitation to an insiders program
 
 Once you've referred 20 people, we'll email you with an invite to our insiders program--where you'll receive early access to new features and a private newsletter.

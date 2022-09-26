@@ -12,7 +12,7 @@ If you have any questions about any of this, please don’t hesitate to reach ou
 
 Our philosophy is complete transparency and control of any data leaving your machine. This means that in general any data sharing is opt-in and under the control of the user, and you should be able to remove or export that data from our servers at any time.
 
-Terminal sessions contain sensitive information and we want the absolute minimum sent to our servers necessary in order to provide you with the best possible experience.
+Terminal sessions contain sensitive information, and we want the absolute minimum sent to our servers necessary in order to provide you with the best possible experience.
 
 See our [privacy page](https://www.warp.dev/privacy) for an explanation (in layman’s terms) or read our [full privacy policy.](https://warp.dev/terms-of-service)
 
@@ -33,7 +33,7 @@ Login serves two functions now.&#x20;
 Fill out this [Typeform](https://zachlloyd.typeform.com/to/UnZu0akR#question=github?utm\_source=docs) if you're interested in Warp supporting other providers.
 {% endhint %}
 
-Currently we only support logging in with GitHub, Google, and email links.
+Currently, we only support logging in with GitHub, Google, and email links.
 
 ## What telemetry data are you collecting and why?
 

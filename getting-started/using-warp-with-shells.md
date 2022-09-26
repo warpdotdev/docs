@@ -10,7 +10,7 @@ Warp currently supports popular existing shells like Bash, Zsh, and Fish. If you
 
 #### Step 1: Install Fish&#x20;
 
-While Bash, and Zsh come pre-installed on macOS, Fish shell does not. So before using the Fish shell with Warp, you must install it on your computer by using one of the. You can do that using one of the methods listed below -
+While Bash, and Zsh come pre-installed on macOS, Fish shell does not. So before using the Fish shell with Warp, you must install it on your computer. You can do that using one of the methods listed below -
 
 1. Using Homebrew: If you already have homebrew installed, you can simply type `brew install fish`, and follow the instructions.&#x20;
 2. Download the installer at fishshell.com.
