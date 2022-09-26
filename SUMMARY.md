@@ -54,4 +54,5 @@
 * [Sending us Feedback](help/sending-us-feedback.md)
 * [Troubleshooting Login Issues](help/troubleshooting-login-issues.md)
 * [Known Issues](help/known-issues.md)
+* [Uninstalling Warp](help/uninstalling-warp.md)
 * [Open Source Licenses](help/licenses.md)
