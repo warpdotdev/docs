@@ -1,18 +1,16 @@
 # Launch Configurations
 
-Save your configuration of windows, tabs, and panes to a file! Open a saved configuration through the Command Palette > Toggle Launch Configuration Palette (`CTRL-CMD-L`).
+## What is it?
 
-## Getting Started
+Launch Configurations enables you to save your configuration of windows, tab, and panes, so that you can reopen the same set of windows, tab, and panes per project quickly. You can save this via the app, or by adding a yaml file.
 
-To get started with Launch Configurations,
+## How it works
 
-1. Set up the configuration of windows, tabs and panes that you would like to save.
-2. Press `CTRL-CMD-L` to open the Launch Configuration Palette and click the plus button.
-3. Name the configuration file.
-4. Click the save configuration button (plus sign).
-
-Press `CTRL-CMD-L` to open the Launch Configuration Palette, where you can earch through and open your saved configurations.
-
+1. Set up the configuration of windows, tabs, and panes you would like to save.
+1. From the Command Palette `CMD-P`, enter `#` to open the Launch Configuration Palette, then click plus **+**.
+1. Name the configuration file.
+1. Click the save configuration button.
+1. Then, toggle the Launch Configuration Palette like in step 2 from above, with the keyboard shortcut `CTRL-CMD-L`, or from the Mac Menu: `File > Launch Configurations`, where you can search through and open your saved configurations.
 
 {% embed url="https://www.loom.com/share/daa2a9e55c27458c8bbf722d90078880" %}
 Launch Configurations Demo
@@ -20,7 +18,7 @@ Launch Configurations Demo
 
 ## YAML Format
 
-All yaml files are stored in `~/.warp/launch_configurations/`.  _Note:_ The `cwd:` value in your yaml code must contain an absolute path. `~` or ` ` empty paths will result in the file not being visible on the list of options for Launch Configurations.
+All yaml files are stored in `~/.warp/launch_configurations/`.  _Note:_ The `cwd:` value in the yaml code must contain an absolute path or `""`. Note that `~` or ` ` empty paths will result in the file not being visible on the list of options for Launch Configurations.
 
 ### Windows
 
@@ -55,8 +53,9 @@ windows:
 ### Tabs
 
 Here's a sample configuration that shows how tabs are structured.
-- Use `title` field to set custom tab name
-- Use `color` field to set tab color
+
+- Use the `title` field to set a custom tab name
+- Use the `color` field to set the tab color
   
   - We currently support using the terminal colors (ANSI colors): 
   
@@ -108,7 +107,7 @@ windows:
             - cwd: /Users/warp-user
         color: blue
   - tabs:
-      - title: desktop, documents and warp uesr
+      - title: desktop, documents, and warp user
         layout:
           split_direction: horizontal
           panes:
@@ -130,7 +129,7 @@ Use the `commands` field to define a set of commands to run when a configuration
 #
 # This configuration has two windows.
 # The first window executes two commands on start.
-# The second window has a split pane which executes a command on start.
+# The second window has a split pane that executes a command on start.
 
 ---
 name: Example Configuration With Starting Commands
@@ -150,7 +149,9 @@ windows:
           panes:
             - cwd: /Users/warp-user/Downloads
               commands:
-                - exec: ls -a
+                - exec: curl http://example.com -o my.file
             - cwd: /Users/warp-user
+              commands:
+                - exec: ssh user@remote.server.com
         color: green
 ```
