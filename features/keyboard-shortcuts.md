@@ -6,7 +6,7 @@ Hide the shortcut screen by clicking the menu button below it.
 ## Custom Keyboard Shortcuts
 
 Set custom or change current keyboard shortcuts by navigating to Settings > Keyboard Shortcuts.
-Search through the remappable actions using the search bar.
+Search through the re-mappable actions using the search bar.
 
 ![Custom Keybindings](../.gitbook/assets/keyboard-custom.gif)
 
@@ -47,7 +47,7 @@ Search through the remappable actions using the search bar.
 | `cmd-shift-option-c`               | If a block is selected, copy its output to clipboard                     |
 | `cmd-c`                            | If a block is selected, copy both its input and output to clipboard      |
 | `cmd-shift-s`                      | If a block is selected, share it                                         |
-| `cmd-i`                            | Reinput the command of the selected block                                |
+| `cmd-i`                            | Re-input the command of the selected block                               |
 | `escape`                           | If a block is selected, deselect it                                      |
 | Typing `clear` into the editor     | Inserts an empty block that spans the length of the terminal window      |
 

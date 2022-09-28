@@ -20,17 +20,17 @@ If you’re having issues with prompts, please see below or our [Known Issues](.
 
 ### Custom Prompt Compatibility Table
 
-| Shell    | Tool            | Does it work?  |
-| -------- | --------------  | -------------- |
-| Bash/zsh | [PS1](https://www.warp.dev/blog/whats-so-special-about-ps1)             |  Working       |
-| Bash     | SBP             |  Coming soon   |
-| Bash/zsh | [Starship](https://github.com/starship/starship)        |  Working       |
-| zsh      | [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh)       |  Working       |
-| zsh      | [prezto](https://github.com/sorin-ionescu/prezto)          |  Working       |
-| zsh      | powerlvel10k    |  Not supported |
-| zsh      | zplug           |  Not supported |
-| Bash/zsh | powerline-shell |  Coming soon   |
-| SSH      |                 |  Working       |
+| Shell    | Tool                                                        | Does it work? |
+|----------|-------------------------------------------------------------|---------------|
+| Bash/zsh | [PS1](https://www.warp.dev/blog/whats-so-special-about-ps1) | Working       |
+| Bash     | SBP                                                         | Coming soon   |
+| Bash/zsh | [Starship](https://github.com/starship/starship)            | Working       |
+| zsh      | [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh)             | Working       |
+| zsh      | [prezto](https://github.com/sorin-ionescu/prezto)           | Working       |
+| zsh      | Powerlvel10k                                                | Not supported |
+| zsh      | zplug                                                       | Not supported |
+| Bash/zsh | Powerline-shell                                             | Coming soon   |
+| SSH      |                                                             | Working       |
 
 #### Multi-Line and Right-Sided Prompts
 
@@ -54,7 +54,7 @@ fi
 
 We don't currently support P10K. Because of how we use the prompt_command in Warp and because P10K can be installed standalone or as an Oh-My-Zsh plugin, each of which results in different problems and requires special handling.
 
-We advise using Warp's default prompt or installing one of the supported tools, see [PS1 Compatability Table](../features/prompt.md#ps1-compatibility-table). You can disable P10K just for Warp as such:
+We advise using Warp's default prompt or installing one of the supported tools, see [PS1 Compatibility Table](../features/prompt.md#ps1-compatibility-table). You can disable P10K just for Warp as such:
 
 ```sh
 if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
@@ -68,4 +68,4 @@ fi
 
 ### Context Chips
 
-Context Chips is an idea we have for how the future of terminal prompts could be like, i.e. prompts that support dynamic refreshing, mouse interactions, and extends customizability via an open spec that developers can build on. Learn more via our [Twitter thread](https://twitter.com/warpdotdev/status/1496263490491023362?s=20&t=4PBawdJYHKfywG7eEe2jNA), where we also shared some Figma mocks.
+Context Chips is an idea we have for how the future of terminal prompts could be like, i.e. prompts that support dynamic refreshing, mouse interactions, and can be customized via an open spec that developers can build on. Learn more via our [Twitter thread](https://twitter.com/warpdotdev/status/1496263490491023362?s=20&t=4PBawdJYHKfywG7eEe2jNA), where we also shared some Figma mocks.

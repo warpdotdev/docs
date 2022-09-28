@@ -2,7 +2,7 @@
 
 Our mission is to make Warp the most accessible terminal for all developers. 
 It includes fixing the UI, making it easier to use for both experts and new engineers who are just starting to use the command line tools. 
-We also recognize the need to improve the experience for those visually impaiared, as - to our best knowledge - other terminal emulator apps didn't really do a good job in this area.
+We also recognize the need to improve the experience for those visually impaired, as - to our best knowledge - other terminal emulator apps didn't really do a good job in this area.
 This doc summarizes what we've done so far, how does Warp work with Voice Over and outlines the main changes from the typical workflow.
 For the features documentation and its keyboard shortcuts, please go to the feature-specific page in the documentation.
 

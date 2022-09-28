@@ -9,7 +9,7 @@ description: These are the licenses of third-party libraries that Warp depends o
 Repositories are by default GitHub if not otherwise specified
 
 | Name                          | License                                             |                                             Repository |
-| ----------------------------- | --------------------------------------------------- | -----------------------------------------------------: |
+|-------------------------------|-----------------------------------------------------|-------------------------------------------------------:|
 | addr2line                     | Apache-2.0 OR MIT                                   |                                     gimli-rs/addr2line |
 | adler                         | 0BSD OR Apache-2.0 OR MIT                           |                              jonas-schievink/adler.git |
 | adler32                       | Zlib                                                |                                    remram44/adler32-rs |
@@ -518,7 +518,7 @@ Repositories are by default GitHub if not otherwise specified
 ## ScanCode licenses
 
 | Name        | License    |                                      Copyright |
-| ----------- | ---------- | ---------------------------------------------: |
+|-------------|------------|-----------------------------------------------:|
 | Alacritty   | APACHE-2.0 | Copyright 2016 Joe Wilm, The Alacritty Project |
 | Hack Font   | MIT        |                (c) 2018 Source Foundry Authors |
 | Roboto Font | APACHE-2.0 |                     Copyright 2011 Google Inc. |

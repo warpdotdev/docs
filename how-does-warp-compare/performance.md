@@ -54,7 +54,7 @@ Benchmark code can be found [here](https://github.com/alacritty/vtebench) with t
 | dense\_cells                     | 52       | 28               | 189       | 8             | 32          |
 | scrolling                        | 32       | 266.76           | 1336      | 32            | 707         |
 | scrolling\_bottom\_region        | 170      | 243              | 1398      | 30            | 686         |
-| scrolling\_botoom\_small\_region | 167      | 224              | 1331      | 30            | 679         |
+| scrolling\_bottom\_small\_region | 167      | 224              | 1331      | 30            | 679         |
 | scrolling\_fullscreen            | 38       | 327              | 1593      | 41            | 1208        |
 | scrolling\_top\_region           | 178      | 222              | 2243      | 85            | 686         |
 | scrolling\_top\_small\_region    | 167      | 222              | 1314      | 30            | 666         |

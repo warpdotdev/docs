@@ -11,7 +11,7 @@ To get started with Launch Configurations,
 3. Name the configuration file.
 4. Click the save configuration button (plus sign).
 
-Press `CTRL-CMD-L` to open the Launch Configuration Palette, where you can earch through and open your saved configurations.
+Press `CTRL-CMD-L` to open the Launch Configuration Palette, where you can search through and open your saved configurations.
 
 
 {% embed url="https://www.loom.com/share/daa2a9e55c27458c8bbf722d90078880" %}
@@ -108,7 +108,7 @@ windows:
             - cwd: /Users/warp-user
         color: blue
   - tabs:
-      - title: desktop, documents and warp uesr
+      - title: desktop, documents and warp user
         layout:
           split_direction: horizontal
           panes:
