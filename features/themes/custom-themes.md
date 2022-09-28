@@ -141,7 +141,7 @@ terminal_colors:
     yellow: '#b58900'
 ```
 
-To set up a gradient, create a sub-level under accent with two key-value pairs:
+To set up a gradient, create a sublevel under accent with two key-value pairs:
 
 * "left" and "right" or
 * "top" and "bottom".

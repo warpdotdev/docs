@@ -6,7 +6,7 @@ description: Instructions on how to troubleshoot login issues
 
 ## Nothing happens when I click "Sign Up"
 
-Clicking it should open a login pop-up. If signing up does not work after trying the steps below, fill out [this Typeform](https://zachlloyd.typeform.com/to/UnZu0akR#&question=sign_up?utm_source=docs) and our team will reach out to you. If clicking the signup buttons opens a blank pop-up window, try using a proxy. It is possible that your ISP is blocking the app's call to googleapis.
+Clicking it should open a login pop-up. If signing up does not work after trying the steps below, fill out [this Typeform](https://zachlloyd.typeform.com/to/UnZu0akR#&question=sign_up?utm_source=docs) and our team will reach out to you. If clicking the signup buttons opens a blank pop-up window, try using a proxy. It is possible that your ISP is blocking the app's call to `googleapis`.
 
 ### All browsers
 

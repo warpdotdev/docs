@@ -16,7 +16,7 @@ Below you'll find a table showcasing different terminal features (such as text a
 | Colored underline                                         | NO   | NO           | NO    | NO        | YES     |
 | Blink                                                     | NO   | YES          | NO    | NO        | NO      |
 | Reverse                                                   | YES  | YES          | YES   | YES       | YES     |
-| Invisible (but copy-pasteable)                            | NO   | YES          | NO    | YES       | NO      |
+| Invisible (but copy-paste-able)                           | NO   | YES          | NO    | YES       | NO      |
 | Strikethrough                                             | YES  | NO           | YES   | YES       | YES     |
 | Overline                                                  | NO   | NO           | NO    | NO        | YES     |
 | [Magic string](https://en.wikipedia.org/wiki/Unicode#Web) | YES  | YES          | YES   | YES       | YES     |
