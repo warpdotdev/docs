@@ -8,7 +8,7 @@ Warp manages sessions in three different ways:
 
 ## Launch Configuration Palette
 
-Press `CTRL-CMD-L` to open the Launch Configuration Pallette--where you can view, search, and open any of your saved launch configurations.
+Press `CTRL-CMD-L` to open the Launch Configuration Palette--where you can view, search, and open any of your saved launch configurations.
 
 After pressing `CMD-P` to open the [Command Palette](/features/command-palette.md), type `#` to switch into the Launch Configuration mode.
 

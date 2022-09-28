@@ -1,6 +1,6 @@
 # SSH
 
-When you SSH into a remote box, you get all the features of Warp without any configuration on your part. The input editor, autocompletions, and history search work the same, regardless of machine.
+When you SSH into a remote box, you get all the features of Warp without any configuration on your part. The input editor, auto-completions, and history search work the same, regardless of machine.
 
 [Limitations of SSH](https://github.com/warpdotdev/Warp/issues/578) (as of February 2022):
 
