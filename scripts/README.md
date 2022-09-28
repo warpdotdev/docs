@@ -10,6 +10,6 @@ You can also checkout the honkit branch and then rebase using your current devel
 
 ## Open Source Licenses
 
-In order to run the scripts for updating the open source licenses, please checkout the [licenses_docs section](https://github.com/warpdotdev/developer-experience/tree/main/src/licenses_docs) of the developer-experience repository.
+In order to run the scripts for updating the open source licenses, please check out the [licenses_docs section](https://github.com/warpdotdev/developer-experience/tree/main/src/licenses_docs) of the developer-experience repository.
 
 This repo is nested under dx/src and there are scripts under dx/scripts to run the flows for updating the licenses.
