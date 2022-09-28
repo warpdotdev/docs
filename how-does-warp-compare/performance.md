@@ -15,7 +15,7 @@ We chose to benchmark Warp against 4 other terminal emulator applications, based
 ### Versions & settings used during the comparison
 
 | Terminal     | Version                        | Terminal size (cols / rows, window is identical pixel-wise) |
-| ------------ | ------------------------------ | ----------------------------------------------------------- |
+|--------------|--------------------------------|-------------------------------------------------------------|
 | Warp         | v0.2022.04.01.01.37.stable\_03 | 208 cols / 54 rows                                          |
 | Terminal.app | Version 2.11 (440)             | 188 cols / 72 rows                                          |
 | iTerm2       | Build 3.4.15                   | 211 cols / 78 rows                                          |
@@ -35,7 +35,7 @@ Benchmark code can be found [here](https://github.com/alacritty/vtebench) with t
 ### Average time for each of the benchmark tests
 
 |                                  | Warp avg | Terminal.app avg | iTerm avg | Alacritty avg | WezTerm avg |
-| -------------------------------- | -------- | ---------------- | --------- | ------------- | ----------- |
+|----------------------------------|----------|------------------|-----------|---------------|-------------|
 | dense\_cells                     | 43.88    | 24.91            | 144.84    | 7.25          | 28.15       |
 | scrolling                        | 30.06    | 283.34           | 1257.57   | 31.75         | 687.77      |
 | scrolling\_bottom\_region        | 117.34   | 257.23           | 1294.25   | 29.1          | 672.67      |
@@ -50,11 +50,11 @@ Benchmark code can be found [here](https://github.com/alacritty/vtebench) with t
 ### P90 of the results
 
 |                                  | Warp p90 | Terminal.app p90 | iTerm p90 | Alacritty p90 | WezTerm p90 |
-| -------------------------------- | -------- | ---------------- | --------- | ------------- | ----------- |
+|----------------------------------|----------|------------------|-----------|---------------|-------------|
 | dense\_cells                     | 52       | 28               | 189       | 8             | 32          |
 | scrolling                        | 32       | 266.76           | 1336      | 32            | 707         |
 | scrolling\_bottom\_region        | 170      | 243              | 1398      | 30            | 686         |
-| scrolling\_botoom\_small\_region | 167      | 224              | 1331      | 30            | 679         |
+| scrolling\_bottom\_small\_region | 167      | 224              | 1331      | 30            | 679         |
 | scrolling\_fullscreen            | 38       | 327              | 1593      | 41            | 1208        |
 | scrolling\_top\_region           | 178      | 222              | 2243      | 85            | 686         |
 | scrolling\_top\_small\_region    | 167      | 222              | 1314      | 30            | 666         |
@@ -71,7 +71,7 @@ Below you'll find results for `small` and default test sizes. Note that Terminal
 ### Small test sizes
 
 |                | Warp small | Terminal.app small | iTerm small | Alacritty small | WezTerm small |
-| -------------- | ---------- | ------------------ | ----------- | --------------- | ------------- |
+|----------------|------------|--------------------|-------------|-----------------|---------------|
 | ManyLine       | 6.7854     | 2.6789             | 8.7057      | 1.2532          | 8.9436        |
 | LongLine       | 9.0033     | 1.6473             | 9.0849      | 0.8179          | 11.4587       |
 | FGPerChar      | 1.3716     | 453.9888           | 2.6625      | 0.2788          | 0.6487        |
@@ -83,7 +83,7 @@ Below you'll find results for `small` and default test sizes. Note that Terminal
 ### Regular test size
 
 |                | Warp regular | iTerm regular | Alacritty regular | WezTerm regular |
-| -------------- | ------------ | ------------- | ----------------- | --------------- |
+|----------------|--------------|---------------|-------------------|-----------------|
 | ManyLine       | 113.76       | 132.4975      | 19.8802           | 150.8175        |
 | LongLine       | 155.0937     | 126.7561      | 12.7859           | 207.3647        |
 | FGPerChar      | 21.8928      | 39.3352       | 4.2925            | 9.4265          |

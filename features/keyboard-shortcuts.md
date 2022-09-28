@@ -6,7 +6,7 @@ Hide the shortcut screen by clicking the menu button below it.
 ## Custom Keyboard Shortcuts
 
 Set custom or change current keyboard shortcuts by navigating to Settings > Keyboard Shortcuts.
-Search through the remappable actions using the search bar.
+Search through the re-mappable actions using the search bar.
 
 ![Custom Keybindings](../.gitbook/assets/keyboard-custom.gif)
 
@@ -14,9 +14,9 @@ Search through the remappable actions using the search bar.
 
 
 | Keyboard binding                                     | Shortcut description                                                                                       |
-| ---------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+|------------------------------------------------------|------------------------------------------------------------------------------------------------------------|
 | `escape`                                             | Closes the input suggestions or history menu                                                               |
-| `ctrl-l`                                             | Clears the terminal                                                                                                  |
+| `ctrl-l`                                             | Clears the terminal                                                                                        |
 | `ctrl-h`                                             | Backspace                                                                                                  |
 | `ctrl-c`                                             | Clear the entire editor buffer                                                                             |
 | `ctrl-u` `cmd-shift-K`                               | Clear the current line                                                                                     |
@@ -33,28 +33,28 @@ Search through the remappable actions using the search bar.
 | `shift-up` / `shift-down`                            | Select everything above / below the cursor                                                                 |
 | `cmd-a`                                              | Select the entire editor buffer                                                                            |
 | `shift-enter` `ctrl-enter` `option-enter`            | Insert newline                                                                                             |
-| `ctrl-r`                                             | [Command History](command-history.md)                                              |
+| `ctrl-r`                                             | [Command History](command-history.md)                                                                      |
 | `cmd-d`                                              | Select all occurrences of the word(s) that has a cursor in it                                              |
-| `cmd-enter`                                          | If command history search window is open, executes selected command                                              |
+| `cmd-enter`                                          | If command history search window is open, executes selected command                                        |
 
 ## Block Shortcuts
 
 | Keyboard binding                   | Shortcut description                                                     |
-| ---------------------------------- | ------------------------------------------------------------------------ |
+|------------------------------------|--------------------------------------------------------------------------|
 | `cmd-up`                           | If the cursor is at the start of the input, select the most recent block |
 | `up` `cmd-up`/ `cmd-d`o`wn` `down` | If a block is selected, select the previous / next block                 |
 | `cmd-shift-c`                      | If a block is selected, copy its input command to clipboard              |
 | `cmd-shift-option-c`               | If a block is selected, copy its output to clipboard                     |
 | `cmd-c`                            | If a block is selected, copy both its input and output to clipboard      |
 | `cmd-shift-s`                      | If a block is selected, share it                                         |
-| `cmd-i`                            | Reinput the command of the selected block                                |
+| `cmd-i`                            | Re-input the command of the selected block                               |
 | `escape`                           | If a block is selected, deselect it                                      |
 | Typing `clear` into the editor     | Inserts an empty block that spans the length of the terminal window      |
 
 ## Terminal Shortcuts
 
 | Keyboard binding | Shortcut description      |
-| ---------------- | ------------------------- |
+|------------------|---------------------------|
 | `cmd-l`          | Focus on the input editor |
 | `cmd-f`          | [Find](find.md)           |
 | `cmd-t`          | Open a new tab            |

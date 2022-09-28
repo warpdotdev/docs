@@ -11,7 +11,7 @@ Text Editor Input also works for [SSH sessions](ssh.md).
 ## How to access it
 
 | Keyboard binding                                     | Shortcut description                                                                                       |
-| ---------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+|------------------------------------------------------|------------------------------------------------------------------------------------------------------------|
 | `escape`                                             | Closes the input suggestions or history menu                                                               |
 | `ctrl-l`                                             | Clears the terminal                                                                                        |
 | `ctrl-h`                                             | Backspace                                                                                                  |
@@ -31,7 +31,7 @@ Text Editor Input also works for [SSH sessions](ssh.md).
 | `cmd-a`                                              | Select the entire editor buffer                                                                            |
 | `shift-enter` `ctrl-enter` `option-enter`            | Insert newline                                                                                             |
 | `ctrl-r`                                             | [Command History](command\-history.md)                                                                     |
-| `cmd-d`                                              | Split pane                                              |
+| `cmd-d`                                              | Split pane                                                                                                 |
 
 ## How it Works
 
