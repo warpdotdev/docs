@@ -59,7 +59,7 @@ Zsh is the default login and interactive shell on macOS (starting with macOS Cat
 
 You can switch your default shell to any other shell supported by Warp (bash, zsh, fish).&#x20;
 
-[Zsh](https://zsh.sourceforge.io/Doc/Release/zsh\_toc.html) is a UNIX shell that’s built on top of the Bash shell, and inherits all the original features and functions of Bash, but adds a few more of its own (like customization frameworks, plugins, themes, syntax highlighting, and auto-correction).&#x20;
+[Zsh](https://zsh.sourceforge.io/Doc/Release/zsh\_toc.html) is a Unix shell built as an extension of [Bourne shell](https://en.wikipedia.org/wiki/Bourne_shell) with many improvements around customization e.g. support for plugins, themes, syntax highlighting, and auto-correction..&#x20;
 
 #### Setting up Zsh on Warp
 
