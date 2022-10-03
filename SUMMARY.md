@@ -38,6 +38,7 @@
   * [Launch Configurations](features/launch-configurations.md)
   * [Session Restoration](features/session-restoration.md)
   * [Session Navigation](features/session-navigation.md)
+* [Tabs](features/tabs.md)
 * [Split Panes](features/split-panes.md)
 * [SSH](features/ssh.md)
 * [Workflows](features/workflows.md)
