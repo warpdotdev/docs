@@ -31,7 +31,7 @@ Workflows solve some major pain points with aliases, specifically the:
 
 Workflows can easily be shared with your team by saving a workflow's YAML file to `~/.warp/workflows/` or `.warp/workflows/` in the top level of a repository. Local and Repository workflows can be accessed under the "My Workflows" and "Repository Workflows" tab of the Workflows menu, respectively.
 
-See the existing workflows specs within the [Workflows repo](https://github.com/warpdotdev/Workflows/tree/main/specs) for examples. Additionally, we outline the file format below:
+See the existing workflows spec within the [Workflows repo](https://github.com/warpdotdev/Workflows/tree/main/specs) for examples. Additionally, we outline the file format below:
 
 <details>
 
@@ -39,7 +39,7 @@ See the existing workflows specs within the [Workflows repo](https://github.com/
 
 The workflow file format is a [yaml](https://yaml.org/) file and must have either a \`.yml \` or \`yaml\` extension. If you're new to YAML and want to learn more, see [Learn YAML in Y minutes](https://learnxinyminutes.com/docs/yaml/). _Compatibility Note_: Warp is still in Beta and this format is subject to change.
 
-\<hr>\</hr>
+\-----
 
 **`name`**
 
@@ -113,7 +113,7 @@ The description of the argument. This is surfaced in both [commands.dev](https:/
 
 The default value for the argument. If specified, the `default_value` replaces the argument name within the command. Optional
 
-\<hr>\</hr>
+\-----
 
 </details>
 
