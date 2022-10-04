@@ -7,7 +7,7 @@ description: Everything you need to do after downloading Warp.
 ## 1) Logging into Warp
 
 {% hint style="info" %}
-Issues with login? Check out our [troubleshooting page](https://docs.warp.dev/help/troubleshooting-login-issues).
+Issues with login? Check out our [troubleshooting page](../help/troubleshooting-login-issues.md).
 {% endhint %}
 
 During our closed beta, we require a login, so we can interact with you, get your feedback, and focus on improving the app. After installing Warp for the first time, you will be prompted to log in with GitHub, Google, or via an email link.
@@ -21,13 +21,11 @@ Opening the app is the only time you need an active Internet connection. Otherwi
 ## 2) Onboarding survey
 
 {% hint style="info" %}
-Why do we ask these? Understanding how you use the terminal helps us improve the product and prioritize the right features.&#x20;
-
-
+Why do we ask these? Understanding how you use the terminal helps us improve the product and prioritize the right features.
 
 For example, we might find that backend engineers spend more time with multiple terminal tabs open, or engineers at large companies spend more time using CLIs.
 {% endhint %}
 
-As part of our beta, we ask a few questions within the app after you sign up.&#x20;
+As part of our beta, we ask a few questions within the app after you sign up.
 
 The survey is completely optional—you can skip all questions if you’d like.

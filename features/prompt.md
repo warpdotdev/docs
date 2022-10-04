@@ -2,9 +2,7 @@
 
 ## What is it
 
-Warp has a native Prompt that shows your current working directory (cwd) and also git branch information when in a git directory. You can also enable a custom prompt by configuring the **PS1** or by installing a supported shell prompt plugin, see [Compatibility Table](prompt.md#custom-prompt-compatibility-table). \
-\
-PS1 is a variable used by the shell to generate the prompt, it represents the primary prompt string (hence the “PS”) - which is what you see most of the time before typing a new command in your terminal.
+Warp has a native Prompt that shows your current working directory (cwd) and also git branch information when in a git directory. You can also enable a custom prompt by configuring the **PS1** or by installing a supported shell prompt plugin, see [Compatibility Table](prompt.md#custom-prompt-compatibility-table). _Note:_ PS1 is a variable used by the shell to generate the prompt, it represents the primary prompt string (hence the “PS”) - which is what you see most of the time before typing a new command in your terminal.
 
 ## How to access it
 
