@@ -1,63 +1,137 @@
 # Workflows
 
-Workflows are an easier way to execute and share commands within Warp. They are searchable by name, description, or command and are easily parameterized. A [global list](https://github.com/warpdotdev/workflows) of commands sourced by the Warp team and community are readily available within the app. Additionally, you can create and manage local workflows specific to you or associated with a particular git repository.
+## What is it
 
-The in-app Workflows menu can be accessed through the Command Palette or by pressing `SHIFT-CTRL-R`. Once inside the menu, filter the existing commands by typing in the search bar or click on any of the sections in the side panel to browse by category.
+Workflows are an easier way to execute and share commands within Warp. They are easily parameterized and searchable by name, description, or command arguments. [Common workflows](https://github.com/warpdotdev/workflows) sourced by the Warp team and community are readily available within the app. Additionally, you can create and scope workflows locally or to a git repository.
 
-![Press SHIFT-CTRL-R to open the Workflows menu.](../.gitbook/assets/workflows-original.gif)
+## How to use it
 
-## How is this Different from Aliases?
+* Press `CTRL-SHIFT-R` to open the Workflow menu or through the Command Palette `CMD-P`.
+* Once inside the menu, start typing in the search bar to filter the existing workflows or browse by category. (e.g. git, android, npm, etc.)
 
-Power users tend to save aliases, create shell functions, and leverage CLI tools that streamline this.
-Aliases, however, have major pain points:
+## How it works
+
+{% embed url="https://www.loom.com/share/27eccd9aa9b34884897e28a53642322b?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
+Workflows Demo
+{% endembed %}
+
+### How is this Different from Aliases?
+
+Workflows solve some major pain points with aliases, specifically the:
 
 1. need to context switch
     1. leave vim, source dotfiles, or reset shell
-2. it’s difficult to attach documentation
-3. are not easily searchable or sharable
-4. are not easily parameterized
-
-Getting aliases and functions to a productive state requires an upfront investment that’s justifiable for devs who
-spend most of their workday in the terminal but less so for beginners and casual users.
+1. difficulty with attaching documentation
+1. inability to easily search or share
+1. inability to easily parameterize
 
 ## Creating Custom Workflows
 
-In addition to the globally sourced commands, Workflows supports the ability to save commonly used commands specific to you or your team by adding workflows defined in YAML files directly to the `~/.warp/workflows` directory or the `.warp/workflows` in the top level of a repository. Local and Repository workflows can be accessed under the "My Workflows" and "Repository Workflows" tab of the Workflows menu, respectively.
+### How to create a workflow
 
-### Local vs Repository Workflows
+Workflows can easily be shared with your team by saving a workflow's YAML file to `~/.warp/workflows/` or `.warp/workflows/` in the top level of a repository. Local and Repository workflows can be accessed under the "My Workflows" and "Repository Workflows" tab of the Workflows menu, respectively.
 
-Local workflows are specific to a single developer. Repository workflows are instead associated with a specific git repository and can be accessed by anyone who has cloned the repo. **Currently, Repository workflows will not appear if you are SSH’d into a remote machine**.
+See the existing workflows specs within the [Workflows repo](https://github.com/warpdotdev/Workflows/tree/main/specs) for examples. Additionally, we outline the file format below:
 
-Local Workflows: `~/.warp/workflows`
+<details>
+  <summary><h3 dir="auto">Workflow File Format</h3></summary>
+<br>
+The workflow file format is a <a href="https://yaml.org/">yaml</a> file and must have either a `.yml ` or `yaml` extension. If you're new to YAML and want to learn more, see <a href="https://learnxinyminutes.com/docs/yaml/">Learn YAML in Y minutes</a>. <i>Compatibility Note</i>: Warp is still in Beta and this format is subject to change.
 
-Repository Workflows `{{path_to_git_repo}}/.warp/workflows`
+----
 
-### Workflows File Format
+####  `name`
+The name of the Workflow. Required.
 
-The existing workflows specs within the [Workflows repo](https://github.com/warpdotdev/workflows) should serve as an example for the format. Additionally, a more comprehensive file format is available in [FORMAT.md](https://github.com/warpdotdev/workflows/blob/main/FORMAT.md).
+#### `command`
+The command that is executed when the Workflow is selected. Required.
 
-### Adding a Local Workflow
+#### `tags`
+An array of tags that are useful to categorize the Workflow. Optional.
 
-To start, create a workflows subdirectory within your .warp folder
+```yaml
+tags: ["git", "GitHub"]
+```
+
+#### `description`
+The description of the Workflow and what it does. Optional.
+
+#### `source_url`
+The URL from where the Workflow was originally generated from. This is surfaced in [commands.dev](https://www.commands.dev/) for attribution purposes. Optional.
+
+
+#### `author`
+The original author of the Workflow. For example, if this workflow was generated from StackOverflow, the `author` would be the `author` of the StackOverflow post. This is surfaced in [commands.dev](https://www.commands.dev/) for attribution purposes. Optional.
+
+#### `author_url`
+The URL of original author of the Workflow. For example, if this workflow was generated from StackOverflow, the `author_url` would be the StackOverflow author's profile page. This is surfaced in [commands.dev](https://www.commands.dev/) for attribution purposes. Optional.
+
+#### `shells`
+The list of shells where this Workflow is valid. If not specified, the Workflow is assumed to be valid in all shells. This must be one of `zsh`, `bash`, or  `fish`.
+
+
+#### `arguments`
+A Workflow can have parameterized arguments to specify pieces of the Workflow that need to be filled in by the user.
+
+You can specify which part of the Workflow command maps to an argument by surrounding it with two curly braces (`{{<argument>}}`).
+
+For example the workflow command:
+```bash
+for {{variable}} in {{sequence}}; do
+  {{command}}
+done
+```
+Includes 3 arguments: `variable`, `sequence`, and `command`.
+
+#### `arguments.name` 
+The name of the argument. The argument name is used within the command to specify the ranges of the argument. Required.
+
+```yaml
+name: Example workflow
+command: echo {{string}}
+arguments:
+  - name: string
+    description: The value to echo
+```
+
+#### `arguments.description` 
+The description of the argument. This is surfaced in both [commands.dev](https://www.commands.dev/) and Warp to help users fill in Workflow arguments. Optional
+
+#### `arguments.default_value`
+The default value for the argument. If specified, the `default_value` replaces the argument name within the command. Optional
+
+-----
+</details>
+
+### Where to save workflows
+
+Local workflows are scoped to your machine. Repository workflows are scoped to a git repository and can be accessed by anyone who has cloned the repo.  _Note:_ Repository workflows will not appear if you are ssh'd into a remote machine.
+
+Local Workflow Path: `~/.warp/workflows`
+
+Repository Workflow Path: `{{path_to_git_repo}}/.warp/workflows`
+
+#### Adding a Local Workflow
+
+To start, create a workflows subdirectory within your `.warp` folder
 
 `mkdir -p ~/.warp/workflows`
 
-Then, add your command’s yaml file to this directory and Warp should automatically load it into the Workflows menu.
+Add your workflow’s `.yaml` file to this directory; if the file format is valid Warp should automatically load it into the Workflows menu.
 
 `cp ~/path/to/my_awesome_workflow.yaml ~/.warp/workflows`
 
-### Adding a Repository Workflow
+#### Adding a Repository Workflow
 
-You can add a repository workflow exactly like you add a local workflow except now the yaml file should live within the _repo’s_. `.warp` directory. While cd’d into the repo’s root directory run
+You can add a repository workflow similarly to how you added a local workflow.
+Create a workflows folder in a repository’s root directory and save your `.yaml` file like so:
 
-```
+```sh
 cd {{repository_path}}
-
-mkdir -p .warp/workflows
-
+mkdir -p .warp/workflows/
 cp ~/path/to/my_awesome_workflow.yaml .warp/workflows
 ```
 
-## Contributing to Global Workflows
+#### Contributing to Global Workflows
 
-You can add workflows that all Warp users can use by contributing directly to the [Workflows repo](https://github.com/warpdotdev/workflows/tree/main/specs). See the [Contributing](https://github.com/warpdotdev/workflows#contributing) section for more details.
+You can contribute workflows that will be made available to other Warp users by forking the [Workflows repo](https://github.com/warpdotdev/workflows/tree/main/specs) and opening a pull request. See the [Contributing](https://github.com/warpdotdev/workflows#contributing) section for more details.
