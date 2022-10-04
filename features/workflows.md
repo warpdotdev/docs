@@ -35,11 +35,11 @@ See the existing workflows specs within the [Workflows repo](https://github.com/
 
 <details>
 
-<summary>Workflow File Format</summary>
+<summary><a href="https://github.com/warpdotdev/Workflows/blob/main/FORMAT.md">Workflow File Format</a></summary>
 
 The workflow file format is a [yaml](https://yaml.org/) file and must have either a \`.yml \` or \`yaml\` extension. If you're new to YAML and want to learn more, see [Learn YAML in Y minutes](https://learnxinyminutes.com/docs/yaml/). _Compatibility Note_: Warp is still in Beta and this format is subject to change.
 
-\-----
+\<hr>\</hr>
 
 **`name`**
 
@@ -113,7 +113,7 @@ The description of the argument. This is surfaced in both [commands.dev](https:/
 
 The default value for the argument. If specified, the `default_value` replaces the argument name within the command. Optional
 
-#### -----
+\<hr>\</hr>
 
 </details>
 
