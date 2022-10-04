@@ -14,7 +14,7 @@ The Tabs feature allows you to organize a window into multiple terminal sessions
 
 {% hint style="info" %}
 **Terminal Tip**\
-You can change the Tab names (either rename the tab with something constant, by right clicking the tab; changing the whole "template" using your .bashrc or .zshrc by adding something like:
+You can change the Tab names (either rename the tab with something constant, by right-clicking the tab; changing the whole "template" using your .bashrc or .zshrc by adding something like:
 
 {% code overflow="wrap" %}
 ```bash
