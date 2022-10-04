@@ -1,16 +1,16 @@
 # Launch Configurations
 
-## What is it?
+## What is it
 
 Launch Configurations enables you to save your configuration of windows, tab, and panes, so that you can reopen the same set of windows, tab, and panes per project quickly. You can save this via the app, or by adding a yaml file.
 
 ## How it works
 
 1. Set up the configuration of windows, tabs, and panes you would like to save.
-1. From the Command Palette `CMD-P`, enter `#` to open the Launch Configuration Palette, then click plus **+**.
-1. Name the configuration file.
-1. Click the save configuration button.
-1. Then, toggle the Launch Configuration Palette like in step 2 from above, with the keyboard shortcut `CTRL-CMD-L`, or from the Mac Menu: `File > Launch Configurations`, where you can search through and open your saved configurations.
+2. From the Command Palette `CMD-P`, enter `#` to open the Launch Configuration Palette, then click plus **+**.
+3. Name the configuration file.
+4. Click the save configuration button.
+5. Then, toggle the Launch Configuration Palette like in step 2 from above, with the keyboard shortcut `CTRL-CMD-L`, or from the Mac Menu: `File > Launch Configurations`, where you can search through and open your saved configurations.
 
 {% embed url="https://www.loom.com/share/daa2a9e55c27458c8bbf722d90078880" %}
 Launch Configurations Demo
@@ -18,7 +18,7 @@ Launch Configurations Demo
 
 ## YAML Format
 
-All yaml files are stored in `~/.warp/launch_configurations/`.  _Note:_ The `cwd:` value in the yaml code must contain an absolute path or `""`. Note that `~` or ` ` empty paths will result in the file not being visible on the list of options for Launch Configurations.
+All yaml files are stored in `~/.warp/launch_configurations/`. _Note:_ The `cwd:` value in the yaml code must contain an absolute path or `""`. Note that `~` or empty paths will result in the file not being visible on the list of options for Launch Configurations.
 
 ### Windows
 
@@ -47,21 +47,19 @@ windows:
         layout:
           cwd: /Users/warp-user
         color: green
-
 ```
 
 ### Tabs
 
 Here's a sample configuration that shows how tabs are structured.
 
-- Use the `title` field to set a custom tab name
-- Use the `color` field to set the tab color
-  
-  - We currently support using the terminal colors (ANSI colors): 
-  
-    `Red | Green | Yellow | Blue | Magenta | Cyan`
-  
-    The actual color values will be automatically derived from your Warp theme
+* Use the `title` field to set a custom tab name
+* Use the `color` field to set the tab color
+  *   We currently support using the terminal colors (ANSI colors):
+
+      `Red | Green | Yellow | Blue | Magenta | Cyan`
+
+      The actual color values will be automatically derived from your Warp theme
 
 ```yaml
 # Warp Launch Configuration
@@ -80,7 +78,6 @@ windows:
         layout:
           cwd: /Users/warp-user
         color: green
-
 ```
 
 ### Panes
@@ -117,7 +114,6 @@ windows:
                 - cwd: /Users/warp-user/Documents
                 - cwd: /Users/warp-user
         color: green
-
 ```
 
 ### Commands
