@@ -3,25 +3,45 @@
 These are our release changelogs. We try to release an update every week on Thursday!
 Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2022.09.29 (v0.2022.09.27.08.11)
+
+**New features**
+
+- Extend the currently selected text (within Blocks) with `SHIFT-LEFT`, `SHIFT-RIGHT`, `SHIFT-UP`, and `SHIFT-DOWN`
+- Double-click and drag to select text in the Input Editor
+- Insert the last word of the previous command with `META-.`
+- Added a toggle to enable mouse and scroll reporting to the settings dialog (`Settings > Features`)
+
+**Bug fixes**
+
+- The `clear` command no longer appears in the snackbar at the top of the window
+- Warp’s completions now support executables in remote sessions (no longer just bash)
+- Fixed subcommand completions for commands with proper prefixes of each other (e.g. `npm r` and `npm run`)
+- The completion spec for `lsd` now supports files
+
 ### 2022.09.22 (v0.2022.09.20.08.08)
 
-**New Features:**
+**New features**
+
 - After selecting a Block press `CTRL-M` to open its context menu
 - Commands in the tab completions menu and history menu can now be executed directly with `CMD-ENTER`
 - Completions now support shell builtins, git aliases, and also npm aliases
 
-**Bug Fixes:**
+**Bug fixes**
+
 - Command Palette now includes the most useful features at the top
 - Improved flag completions for cargo
 
 ### 2022.09.15 (v0.2022.09.13.08.15)
 
 **New features**
-- Warp Resource Center - explore Warp features and documentation by clicking the ? icon or pressing SHIFT-CTRL-?
+
+- Warp Resource Center - explore Warp features and documentation by clicking the `?` icon or pressing `SHIFT-CTRL-?`
 - New icons in the completion menu denoting flags, folders, branches, etc.
 
 **Bug fixes**
-- Press CMD-ENTER within the history menu (CTRL-R) to directly execute the highlighted command
+
+- Press `CMD-ENTER` within the history menu (`CTRL-R`) to directly execute the highlighted command
 - Fixed crash when opening many tabs (due to MacOS’s default open file descriptor limits)
 - Fixed crash when laying out RTL text
 
@@ -38,14 +58,13 @@ Submit bugs and feature request on our [GitHub board!](https://github.com/warpdo
 **New features**
 
 - Tab completions now support fuzzy string matching
-- Improve completions for over 450 commands, including docker, kubernetes, cargo, node, and git.
+- Improve completions for over 450 commands, including docker, kubernetes, cargo, node, and git
 
 **Bug fixes**
 
 - Properly send C0 control codes for <ctrl-[2-8]> keystrokes
 - Session restoration now also persists bold, underline, italic, and strikethrough formatting
 - Inspect mode now works for the changelog modal
-- Hidden tab suggestions are only shown on an exact match.
 - Fixed a crash when highlighting a link
 - Fixed Find occasionally returning only partial results
 - Fixed occasional crash when loading images
@@ -180,7 +199,7 @@ Submit bugs and feature request on our [GitHub board!](https://github.com/warpdo
 
 **New features**
 
-- Improved autofocus behavior when closing panes by keeping track of history when navigating or clicking around panes
+- Improved auto-focus behavior when closing panes by keeping track of history when navigating or clicking around panes
 - Performance improvements when executing Blocks: Warp no longer flashes on every command!
 
 **Bug fixes**
@@ -202,7 +221,7 @@ Submit bugs and feature request on our [GitHub board!](https://github.com/warpdo
 
 **Bug fixes**
 
-- Warp no longer crashes on macOS 13 (Ventura)
+- Warp no longer crashes on MacOS 13 (Ventura)
 - Global Hotkey Window (Quake Mode) no longer overlaps Spotlight, Raycast, Alfred, and the Mac Dock
 - Now correctly display the user and hostname in the Prompt after exiting an SSH session
 - Fixed a memory leak on window close.
@@ -211,7 +230,7 @@ Submit bugs and feature request on our [GitHub board!](https://github.com/warpdo
 
 **New features**
 
-- Now support renaming tabs (right-click on your tab title!)
+- Now support renaming tabs (right click on your tab title!)
 - Now support enabling custom prompt from prompt context menu (right-click on prompt)
 - Now support splitting panes (left and right) from the context menu (right click) and through the Command Palette
 - Now support CTRL-Click as an alternative to right-clicking
@@ -309,7 +328,7 @@ Submit bugs and feature request on our [GitHub board!](https://github.com/warpdo
 - Now support dotfile configurations with non-English quotation marks
 - Continued improving the reliability of login and auth within the app
 - Improved performance for commands with large outputs
-- Improved performance for long-running commands
+- Improved performance for long running commands
 - Improved text alignment within inline banners
 
 ### 2022.04.20 (v0.2022.04.18.09.08)
@@ -436,7 +455,7 @@ Submit bugs and feature request on our [GitHub board!](https://github.com/warpdo
 
 **Bug fixes**
 
-- Able to fill in longest common prefix after filtering tab completions - [618](https://github.com/warpdotdev/warp/issues/618)
+- Able to fill-in longest common prefix after filtering tab completions - [618](https://github.com/warpdotdev/warp/issues/618)
 - Block completion causes Input Editor to steal focus from find bar - [452](https://github.com/warpdotdev/warp/issues/452)
 - UP-arrow in history menu sometimes scrolls more than one item
 - CMD-F opens a no-op find bar in alt screen
@@ -914,3 +933,21 @@ Submit bugs and feature request on our [GitHub board!](https://github.com/warpdo
 **Bug fixes**
 
 - Text rendering was faded on certain monitors
+
+### 2022.10.06 (v0.2022.10.04.08.05)
+
+**New features**
+
+- Drag and drop a folder or file onto the Warp dock icon to open a new tab in this directory
+- Added dividers between Blocks in compact mode
+- Shell keywords are now supported for completions and Command Inspector
+
+**Bug fixes**
+
+- Accessibility support for context menu keybinding
+- Keystrokes typed while a command is still executing no longer gets dropped
+- Link recognition no longer includes trailing quotes
+- Find search results will continue to be highlighted after clearing the screen during a long running command
+- Fixed completions for commands prefixed with environment variables
+- Warp’s resource center is now center aligned
+
