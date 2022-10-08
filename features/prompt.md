@@ -21,7 +21,7 @@ If you’re having issues with prompts, please see below or our [Known Issues](.
 ### Custom Prompt Compatibility Table
 
 | Shell    | Tool                                                        | Does it work? |
-| -------- | ----------------------------------------------------------- | ------------- |
+|----------|-------------------------------------------------------------|---------------|
 | Bash/zsh | [PS1](https://www.warp.dev/blog/whats-so-special-about-ps1) | Working       |
 | Bash     | SBP                                                         | Coming soon   |
 | Bash/zsh | [Starship](https://github.com/starship/starship)            | Working       |
