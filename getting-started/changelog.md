@@ -3,6 +3,23 @@
 These are our release changelogs. We try to release an update every week on Thursday!
 Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2022.10.06 (v0.2022.10.04.08.05)
+
+**New features**
+
+- Drag and drop a folder or file onto the Warp dock icon to open a new tab in this directory
+- Added dividers between Blocks in compact mode
+- Shell keywords are now supported for completions and Command Inspector
+
+**Bug fixes**
+
+- Accessibility support for context menu keybinding
+- Keystrokes typed while a command is still executing no longer gets dropped
+- Link recognition no longer includes trailing quotes
+- Find search results will continue to be highlighted after clearing the screen during a long running command
+- Fixed completions for commands prefixed with environment variables
+- Warp’s resource center is now center aligned
+
 ### 2022.09.29 (v0.2022.09.27.08.11)
 
 **New features**
@@ -933,21 +950,4 @@ Submit bugs and feature request on our [GitHub board!](https://github.com/warpdo
 **Bug fixes**
 
 - Text rendering was faded on certain monitors
-
-### 2022.10.06 (v0.2022.10.04.08.05)
-
-**New features**
-
-- Drag and drop a folder or file onto the Warp dock icon to open a new tab in this directory
-- Added dividers between Blocks in compact mode
-- Shell keywords are now supported for completions and Command Inspector
-
-**Bug fixes**
-
-- Accessibility support for context menu keybinding
-- Keystrokes typed while a command is still executing no longer gets dropped
-- Link recognition no longer includes trailing quotes
-- Find search results will continue to be highlighted after clearing the screen during a long running command
-- Fixed completions for commands prefixed with environment variables
-- Warp’s resource center is now center aligned
 
