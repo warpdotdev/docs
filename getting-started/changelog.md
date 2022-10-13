@@ -3,6 +3,18 @@
 These are our release changelogs. We try to release an update every week on Thursday!
 Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2022.10.13 (v0.2022.10.11.08.13)
+
+**New features**
+
+- Warp’s Input Editor now has Syntax Highlighting and Error Underlining, with no configuration!
+- Warp now uses a pointer cursor when hovering over links
+
+**Bug fixes**
+
+- Git branches in the completions menu now bold correctly
+- Warp no longer crashes when `/bin/bash` is missing
+
 ### 2022.10.06 (v0.2022.10.04.08.05)
 
 **New features**
