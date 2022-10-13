@@ -2,7 +2,7 @@
 
 ## What is it
 
-Autosuggestion will suggest commands as you type based on history and completions.&#x20;
+Warp will automatically suggest commands as you type based on shell history and possible completions.&#x20;
 
 ## How to access it
 

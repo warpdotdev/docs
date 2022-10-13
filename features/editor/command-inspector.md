@@ -2,7 +2,7 @@
 
 ## What is it
 
-Command Inspector surfaces documentation for sub-parts of your command, directly in Warp's [Input Editor](./the-input-editor.md).
+Command Inspector surfaces documentation for sub-parts of your command, directly in Warp's [Input Editor](./README.md).
 
 ## How to access it
 
