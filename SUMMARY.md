@@ -21,7 +21,7 @@
 * [Text Editor Input](features/editor/README.md)
   * [Autosuggestions](features/editor/autosuggestions.md)
   * [Command Inspector](features/editor/command-inspector.md)
-  * [Error and Syntax Highlighting](features/editor/syntax-highlighting.md)
+  * [Error and Syntax Highlighting](features/editor/error-syntax-highlighting.md)
 * [Themes](features/themes/README.md)
   * [Custom Themes](features/themes/custom-themes.md)
 * [Completions](features/completions.md)
