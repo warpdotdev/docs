@@ -4,7 +4,7 @@ Warp currently supports popular existing shells like Bash, Zsh, and Fish. If you
 
 ### Zsh is the default shell for Warp
 
-Zsh is the default login and interactive shell on macOS (starting with macOS Catalina in 2019), replacing Bash shell which. It is also the default shell for Warp. If your default system is set to Zsh, Warp will automatically start with that.
+Zsh is the default login and interactive shell on macOS (starting with macOS Catalina in 2019), replacing Bash shell which. Warp tries to load your login shell by default, currently we support Bash, Fish, and Zsh; if your login shell is set to something else e.g. Nushell Warp will load Zsh instead. 
 
 You can switch your default shell to any other shell supported by Warp (Bash, Zsh, Fish).
 
