@@ -48,7 +48,7 @@ If you run into issues configuring these files with Warp, please see [Configurin
 
 
 
-### Customize Your Bash Shell Environment&#x20;
+#### Customize Your Bash Shell Environment&#x20;
 
 You can customize your Bash shell environment by modifying the `.bashrc` file, which is a configuration file that is automatically created when Bash is installed in your system. It is typically located your home directory (`~/.bashrc`).
 
