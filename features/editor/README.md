@@ -5,13 +5,13 @@
 Unlike other terminals, Warp’s input editor operates out-of-the-box like a modern IDE and the text editors we’re used to.
 
 {% hint style="info" %}
-Text Editor Input also works for [SSH sessions](ssh.md).
+Text Editor Input also works for [SSH sessions](../ssh.md).
 {% endhint %}
 
 ## How to access it
 
 | Keyboard binding                                     | Shortcut description                                                                                       |
-|------------------------------------------------------|------------------------------------------------------------------------------------------------------------|
+| ---------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
 | `escape`                                             | Closes the input suggestions or history menu                                                               |
 | `ctrl-l`                                             | Clears the terminal                                                                                        |
 | `ctrl-h`                                             | Backspace                                                                                                  |
@@ -30,7 +30,7 @@ Text Editor Input also works for [SSH sessions](ssh.md).
 | `shift-up` / `shift-down`                            | Select everything above / below the cursor                                                                 |
 | `cmd-a`                                              | Select the entire editor buffer                                                                            |
 | `shift-enter` `ctrl-enter` `option-enter`            | Insert newline                                                                                             |
-| `ctrl-r`                                             | [Command History](command\-history.md)                                                                     |
+| `ctrl-r`                                             | [Command History](../command-history.md)                                                                   |
 | `cmd-d`                                              | Split pane                                                                                                 |
 
 ## How it Works
