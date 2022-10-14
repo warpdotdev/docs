@@ -7,10 +7,10 @@ description: >-
 # Refer a Friend
 
 {% hint style="info" %}
-If you think you've referred people but have not received an email, contact us at [feedback@warp.dev.](mailto:feedback@warp.dev)&#x20;
+If you think you've referred people but have not received an email, contact us at [feedback@warp.dev.](mailto:feedback@warp.dev)
 {% endhint %}
 
-Click the three-dots (kebab menu) in the top right corner and then click "Invite people" to open the invite / referral dialog.
+Click the three dots (kebab menu) in the top right corner and then click "Invite people" to open the invite/referral dialog.
 
 {% embed url="https://www.loom.com/share/d4acc97406c9496ab9fff673f975a081" %}
 Refer a friend
@@ -27,7 +27,7 @@ We give out themes, swag, and other perks as thanks for participating in and hel
 
 ### Join Warp via a referral
 
-We give out a special theme, if you join Warp via an invite.
+We give out a unique theme if you join Warp via an invite.
 
 ### Referring others to Warp
 
@@ -37,8 +37,8 @@ When someone joins Warp--downloads Warp **AND** creates their first Block--with 
 
 #### **10 invites: Warp T-shirt**
 
-Once you've referred 10 people, we'll email you with details on how to claim your Warp T-shirt. Physical Warp swag is unable to be shipped to some geographic locations, in these instances we'll reach out over email with a gift card.
+Once you've referred 10 people, we'll email you with details on how to claim your Warp T-shirt. Physical Warp swag cannot be shipped to some geographic locations, in these instances we'll reach out over email with a gift card.
 
 #### 20 invites: An invitation to an insiders program
 
-Once you've referred 20 people, we'll email you with an invite to our insiders program--where you'll receive early access to new features and a private newsletter.
+Once you've referred 20 people, we'll email you an invite to our insider program where you'll receive early access to new features and a private newsletter.
