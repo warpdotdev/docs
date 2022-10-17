@@ -1,12 +1,12 @@
-# Error and Syntax Highlighting
+# Syntax and Error Highlighting
 
 ## What is Syntax Highlighting
 
-Warp supports Syntax Highlighting in the [Input Editor.](./README.md) It colors each part of a command to help differentiate between sub-commands, options/flags, arguments and variables.
+Warp supports Syntax Highlighting in the [Input Editor.](./) It colors each part of a command to help differentiate between sub-commands, options/flags, arguments and variables.
 
 ### How to access Syntax Highlighting
 
-When Syntax Highlighting is enabled, Warp's [Input Editor](./README.md) automatically recognizes each part of the command as you type it into the Input Editor, and syntactically highlight them.
+When Syntax Highlighting is enabled, Warp's [Input Editor](./) automatically recognizes each part of the command as you type it into the Input Editor, and syntactically highlight them.
 
 ### How to enable/disable Syntax Highlighting
 
@@ -25,7 +25,7 @@ Syntax Highlighting Demo
 
 ## What is Error Underlining
 
-Warp highlights errors in commands that are typed within the [Input Editor](./README.md) e.g. if the binary for the command you've typed does not exist.
+Warp highlights errors in commands that are typed within the [Input Editor](./) e.g. if the binary for the command you've typed does not exist. _Note:_ Newly installed apps will trigger underlining until you open a new Warp Window / Tab.
 
 ### How to access Error Underlining
 
