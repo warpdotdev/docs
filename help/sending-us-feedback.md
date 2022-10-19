@@ -8,7 +8,7 @@ We would love to get your feedback on Warp: bugs, feature requests, novel ideas,
 * Join our [Discord](https://www.warp.dev/discord?utm_source=docs-sending_us_feedback) server. Send a message in `#bugs-and-questions` for help with issues and `#new-and-wild-ideas` for feature requests.
 * Through our in-app feedback form: navigate to the Mac menu > Send Feedback > Open Feedback Form.
 
-![Send feedback](../.gitbook/assets/sending_us_feedback.gif)
+{% embed url="https://www.loom.com/share/a1a41940784e469b84cc2fe98b2fff3a?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %} Send Feedback {% endembed %}
 
 ### Sending WarpPreview feedback:
 
