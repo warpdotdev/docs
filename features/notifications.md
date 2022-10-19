@@ -11,8 +11,7 @@ Warp can send you customizable desktop notifications when you are away from the 
 * Customize Notification triggers for long-running commands or password prompts by going to `Settings > Features`.
 
 ## How it works
-
-![Notifications Demo](../.gitbook/assets/notifications-demo.gif)
+{% embed url="https://www.loom.com/share/65967f43a7fa432b98cf3e94766a8e79?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %} Notifications Demo {% endembed %}
 
 ## Troubleshooting Warp Notifications
 
@@ -21,5 +20,5 @@ Warp requires two distinct notification settings to work. Mac system settings fo
 * Make sure that you are navigated away from Warp when you expect to receive the notification.
 * Make sure the **Do not Disturb** mode is turned off in `Mac > System Preferences > Notifications > Notifications & Focus > Focus`.
 * Go to `Mac > System Preferences > Notifications & Focus > Notifications` and select Warp in the list. Make sure either banner style or alert style notifications are selected, then quit and restart Warp.
-* To get the MacOS notification prompt to show again for Warp, run `defaults delete dev.warp.Warp-Stable Notifications`, then restart Warp and toggle on the `Settings > Features > Receive desktop noficiations from Warp`.
+* To get the MacOS notification prompt to show again for Warp, run `defaults delete dev.warp.Warp-Stable Notifications`, then restart Warp and toggle on the `Settings > Features > Receive desktop notifications from Warp`.
 Please reach out to us on [Discord](https://warp.dev/discord) or [GitHub](https://github.com/warpdotdev/Warp/issues) if any other issues.
