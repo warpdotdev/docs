@@ -13,4 +13,4 @@ _Note:_ If the window does not open after pressing the registered hotkey, check 
 
 ## How it works
 
-![Enable Quake Mode through the Settings Dialog.](../.gitbook/assets/hotkey-original.gif)
+{% embed url="https://www.loom.com/share/b7be54559fc948cfbc1d5eab0e090c9c?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %} Global Hotkey Window Demo {% endembed %}
