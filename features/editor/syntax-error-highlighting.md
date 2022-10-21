@@ -13,7 +13,7 @@ When Syntax Highlighting is enabled, Warp's [Input Editor](./) automatically rec
 Syntax highlighting is enabled by default, to toggle it:
 
 1. Press `CMD-P` to open up the Command Palette
-2. Search for the "Toggle Syntax Highlighting" option and click it (or press enter)
+2. Search for the "Syntax Highlighting" option and click it (or press enter) to enable/disable
 
 Alternatively, navigate to `Settings > Features` and toggle `Syntax highlighting for commands`
 
@@ -36,7 +36,7 @@ When Error Underlining is enabled, Warp automatically underlines any invalid com
 Error underlining is enabled by default, to toggle it:
 
 1. Press `CMD-P` to open up the Command Palette
-2. Search for the "Toggle Error Underlining" option and click it (or press enter)
+2. Search for the "Error Underlining" option and click it (or press enter) to enable/disable
 
 Alternatively, navigate to `Settings > Features` and toggle `Error underlining for commands`
 
