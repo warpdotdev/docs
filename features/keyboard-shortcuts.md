@@ -1,12 +1,15 @@
 # Keyboard Shortcuts
 
-Warp opens with a shortcut screen showing some of the most commonly used keyboard shortcuts. Hide the shortcut screen by clicking the menu button below it.
+Warp opens with a shortcut screen showing some of the most commonly used keyboard shortcuts. Hide
+the shortcut screen by clicking the menu button below it.
 
 ## Custom Keyboard Shortcuts
 
-Set custom keyboard shortcuts by navigating to Settings > Keyboard Shortcuts. Search through the re-mappable actions using the search bar.
+Set custom keyboard shortcuts by navigating to Settings > Keyboard Shortcuts. Search through the
+re-mappable actions using the search bar.
 
-Remap the keyboard shortcuts using a file (`~./.warp/keybindings.yaml`). See our [keysets repository](https://github.com/warpdotdev/keysets/tree/main) for instructions.
+Remap the keyboard shortcuts using a file (`~./.warp/keybindings.yaml`). See our
+[keysets repository](https://github.com/warpdotdev/keysets/tree/main) for instructions.
 
 ## All Available Shortcuts
 
@@ -14,12 +17,12 @@ Remap the keyboard shortcuts using a file (`~./.warp/keybindings.yaml`). See our
 
 | Shortcut       | Description                  | Action                                         |
 | -------------- | ---------------------------- | ---------------------------------------------- |
-| `` CTRL-` ``   | A.I. Command Search          | `input:toggle_natural_language_command_search` |
 | `CMD-D`        | Split Pane Right             | `pane_group:add_right`                         |
 | `CTRL-CMD-L`   | Launch Configuration Palette | `workspace:toggle_launch_config_palette`       |
 | `CTRL-CMD-T`   | Open Theme Picker            | `workspace:show_theme_chooser`                 |
 | `CTRL-R`       | Command Search               | `workspace:show_command_search`                |
 | `CTRL-SHIFT-R` | Workflows                    | `input:toggle_workflows`                       |
+| `` CTRL-` ``   | A.I. Command Search          | `input:toggle_natural_language_command_search` |
 
 ### Blocks
 
@@ -100,8 +103,8 @@ Remap the keyboard shortcuts using a file (`~./.warp/keybindings.yaml`). See our
 | `ALT-CMD-LEFT`    | Switch Panes Left                                 | `pane_group:navigate_left`                   |
 | `ALT-CMD-RIGHT`   | Switch Panes Right                                | `pane_group:navigate_right`                  |
 | `ALT-CMD-UP`      | Switch Panes Up                                   | `pane_group:navigate_up`                     |
-| `ALT-CMD-V`       | \[a11y] Set Concise Accessibility Announcements   | `workspace:set_a11y_concise_verbosity_level` |
-| `ALT-CMD-V`       | \[a11y] Set Verbose Accessibility Announcements   | `workspace:set_a11y_verbose_verbosity_level` |
+| `ALT-CMD-V`       | [a11y] Set Concise Accessibility Announcements    | `workspace:set_a11y_concise_verbosity_level` |
+| `ALT-CMD-V`       | [a11y] Set Verbose Accessibility Announcements    | `workspace:set_a11y_verbose_verbosity_level` |
 | `CMD-,`           | Open Settings                                     | `workspace:show_settings_modal`              |
 | `CMD-,`           | Open Settings: Account                            | `workspace:show_settings_account_page`       |
 | `CMD-G`           | Find the Next Occurrence of Your Search Query     | `find:find_next_occurrence`                  |
