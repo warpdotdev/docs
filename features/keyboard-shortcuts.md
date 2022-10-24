@@ -8,6 +8,9 @@ the shortcut screen by clicking the menu button below it.
 Set custom keyboard shortcuts by navigating to Settings > Keyboard Shortcuts. Search through the
 re-mappable actions using the search bar.
 
+Remap the keyboard shortcuts using a file (`~./.warp/keybindings.yaml`). See our
+[keysets repository](https://github.com/warpdotdev/keysets/tree/main) for instructions.
+
 ## All Available Shortcuts
 
 ### Warp Essentials
