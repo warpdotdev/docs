@@ -14,12 +14,12 @@ re-mappable actions using the search bar.
 
 | Shortcut       | Description                  | Action                                         |
 | -------------- | ---------------------------- | ---------------------------------------------- |
+| CTRL-`         | A.I. Command Search          | `input:toggle_natural_language_command_search` |
 | `CMD-D`        | Split Pane Right             | `pane_group:add_right`                         |
 | `CTRL-CMD-L`   | Launch Configuration Palette | `workspace:toggle_launch_config_palette`       |
 | `CTRL-CMD-T`   | Open Theme Picker            | `workspace:show_theme_chooser`                 |
 | `CTRL-R`       | Command Search               | `workspace:show_command_search`                |
 | `CTRL-SHIFT-R` | Workflows                    | `input:toggle_workflows`                       |
-| `CTRL-``       | A.I. Command Search          | `input:toggle_natural_language_command_search` |
 
 ### Blocks
 
