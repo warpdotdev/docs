@@ -85,8 +85,7 @@ end
   * usually looks like `test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true`
 * [Powerlevel10K](../features/prompt.md#powerlevel10k-p10k)
 * OH-MY-ZSH-THEMES
-  * e.g. avit
-  * maybe more
+  * e.g. avit, spaceship, maybe more ...
 * OH-MY-ZSH-PLUGINS
 * Oh-My-Tmux.
 * zsh4h (ZSH for Humans)
@@ -117,7 +116,7 @@ Also, Fig has a tendency to re-write these lines in these files when it updates 
 
 .bash\_profile
 
-```sh
+```
 # Fig post block. Keep at the bottom of this file.
 if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
     . "$HOME/.fig/shell/bash_profile.post.bash"
@@ -126,7 +125,7 @@ fi
 
 .bashrc
 
-```sh
+```
 # Fig post block. Keep at the bottom of this file.
 if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
     . "$HOME/.fig/shell/bashrc.post.bash"
