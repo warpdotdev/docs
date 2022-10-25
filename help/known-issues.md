@@ -23,6 +23,14 @@ To enable Blocks over SSH, Warp uses an SSH Wrapper function; navigate to settin
 
 Note: You'll need to start a new session before a change is reflected or try invoking the SSH binary directly: `/usr/bin/ssh`
 
+## Auto-Update on macOS Ventura
+
+Warp may have an auto-update error on macOS Ventura. This issue has been resolved for future releases of Warp, but if you experience any issues with updating, please try the following:
+
+* Go to the macOS Applications folder, right-click on Warp, choose Open, then the “This is damaged” dialog will have the option to click the “Open” button.
+* If the above doesn't work, [uninstall Warp](../help/uninstalling-warp.md), then [re-install Warp](../getting-started/getting-started-with-warp.md).
+
+
 ## Soft wrapping
 
 Nov 2021: Warp does not currently support soft wrapping in the input editor. Press `SHIFT`-`ENTER` or use `\` and `ENTER` to continue your command on the next line.
