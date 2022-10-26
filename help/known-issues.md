@@ -27,7 +27,7 @@ Note: You'll need to start a new session before a change is reflected or try inv
 
 Warp may have an auto-update error on macOS Ventura. This issue has been resolved for current and future releases of Warp. To avoid any issues, [update Warp](updating-warp.md) _before_ you upgrade to macOS Ventura. \
 \
-If you do experience an error with updating or opening Warp, please try the following:
+If you experience an error opening Warp, please try the following:
 
 * Go to the macOS Applications folder, right-click on Warp, choose Open, then the “Warp is damaged” dialog will have the option to click the Open button.
 
