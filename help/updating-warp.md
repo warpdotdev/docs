@@ -10,7 +10,7 @@ To check for updates, simply click on the same update menu -> Check for Update
 
 If nothing happens, it means you already have the latest stable build.
 
-## Autoupdate Issues
+## Auto-Update Issues
 
 Warp cannot auto-update if it does not have correct permissions to replace the running version of Warp If this is the case, a banner will prompt you to manually update Warp.
 
@@ -22,3 +22,5 @@ There are 2 main causes of this:
 2. You are a non-Admin user. This can happen if you use a computer with multiple profiles. If you have admin access on the computer, opening the app with the admin user should fix the auto-update issues.
 
 Note (Nov 2021): We will work on a fix for this in the future so that multiple profiles can use Warp.
+
+Note (Oct 2022): There is a known issue with [auto-update on MacOS Ventura](https://docs.warp.dev/help/known-issues#auto-update-on-macos-ventura).
