@@ -23,4 +23,4 @@ There are 2 main causes of this:
 
 Note (Nov 2021): We will work on a fix for this in the future so that multiple profiles can use Warp.
 
-Note (Oct 2022): There is a known issue with [auto-update on MacOS Ventura](https://docs.warp.dev/help/known-issues#auto-update-on-macos-ventura).
+Note (Oct 2022): There is a known issue with [auto-update on MacOS Ventura](../help/known-issues.md#auto-update-on-macos-ventura).
