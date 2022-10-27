@@ -2,11 +2,11 @@
 
 ## What is it
 
-AI Command Search converts natural language descriptions into shell commands that can be executed. Currently, you need to be online to use this feature. The feature is backed by [OpenAI’s codex engine](https://openai.com/blog/openai-codex/).
+AI Command Search converts natural language descriptions into shell commands that can be executed. Currently, you need to be online to use this feature. The feature is backed by [OpenAI’s codex engine](https://openai.com/blog/openai-codex/). _Note_: If this feature doesn't work, it is possible that your ISP or Firewall is blocking the calls to `app.warp.dev`
 
 ## How to access it
 
-1. Press `` CTRL-` `` to open the AI Command Search panel.&#x20;
+1. Press `` CTRL-` `` to open the AI Command Search panel.
 2. Type in the input box what you'd like to do and press `ENTER` to generate the command.
 3. Once the result shows up, press `CMD-ENTER` to input the generated command directly into Warp's Input Editor.
 
@@ -14,12 +14,14 @@ AI Command Search converts natural language descriptions into shell commands tha
 
 Refer to the demo below.
 
-{% embed url="https://www.loom.com/share/a52356f73de54f649ba7f0841861d88e?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}AI Command Search Demo{% endembed %}
+{% embed url="https://www.loom.com/share/a52356f73de54f649ba7f0841861d88e?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
+AI Command Search Demo
+{% endembed %}
 
 ## Privacy
 
-Warp does not store any commands or prompts that users send. All inputs are sent directly to the OpenAI server.&#x20;
+Warp does not store any commands or prompts that users send. All inputs are sent directly to the OpenAI server.
 
-Warp only keeps track of telemetry around opening and closing the A.I. Command Search panel.&#x20;
+Warp only keeps track of telemetry around opening and closing the A.I. Command Search panel.
 
 See OpenAI’s privacy policy [here](https://openai.com/api/policies/privacy/).
