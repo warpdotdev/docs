@@ -21,10 +21,7 @@ This setting persists i.e. Warp will open with the same settings in the next ses
 ## How it Works
 
 Refer to the demo below.
-
-{% embed url="https://loom.com/share/2182ebcb09164f2b97525161da099959" %}
-Changing Themes
-{% endembed %}
+{% embed url="https://loom.com/share/2182ebcb09164f2b97525161da099959?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}Changing Themes{% endembed %}
 
 ## OS Theme Sync
 
