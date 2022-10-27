@@ -12,6 +12,4 @@ Note: Command Inspector automatically triggers on hover, you can disable this by
 
 ## How it works
 
-{% embed url="https://www.loom.com/share/a00259927ada41b2895fd5c4072a3dcc" %}
-    Command Inspector Demo
-{% endembed %}
+{% embed url="https://www.loom.com/share/a00259927ada41b2895fd5c4072a3dcc?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}Command Inspector Demo{% endembed %}
