@@ -19,9 +19,7 @@ Alternatively, navigate to `Settings > Features` and toggle `Syntax highlighting
 
 ### How Syntax Highlighting works
 
-{% embed url="https://www.loom.com/share/87b15de13ee9407b98a24f1a31835784" %}
-Syntax Highlighting Demo
-{% endembed %}
+{% embed url="https://www.loom.com/share/87b15de13ee9407b98a24f1a31835784?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}Syntax Highlighting Demo{% endembed %}
 
 ## What is Error Underlining
 
@@ -41,7 +39,4 @@ Error underlining is enabled by default, to toggle it:
 Alternatively, navigate to `Settings > Features` and toggle `Error underlining for commands`
 
 ### How Error Underlining works
-
-{% embed url="https://www.loom.com/share/7721e06ed4aa4e1380abae4f5827ef6f" %}
-Error Underlining Demo
-{% endembed %}
+{% embed url="https://www.loom.com/share/7721e06ed4aa4e1380abae4f5827ef6f?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}Error Underlining Demo{% endembed %}
