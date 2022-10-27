@@ -19,7 +19,4 @@ Complete an autosuggestion using the `RIGHT` arrow or `CTRL-F`.&#x20;
 ## How it works
 
 Refer to the demo below.
-
-{% embed url="https://www.loom.com/share/5e87c52ae855486ab88ffb2f89aeaf73" %}
-Autosuggestion demo
-{% endembed %}
+{% embed url="https://www.loom.com/share/5e87c52ae855486ab88ffb2f89aeaf73?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}Autosuggestion Demo{% endembed %}
