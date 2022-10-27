@@ -11,17 +11,13 @@ There are 2 ways you can access Block actions.
 1. Hover over a Block and click the kebab (three dots) button on the right hand side.
 2. Right-click a Block.
 
-{% embed url="https://www.loom.com/share/3dec25e548d4484aa3dd6437869e2bbf" %}
-Accessing Block Actions
-{% endembed %}
+{% embed url="https://www.loom.com/share/3dec25e548d4484aa3dd6437869e2bbf?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}Accessing Block Actions{% endembed %}
 
 ## Copy Input / Output of Block
 
 This feature allows you to easily copy the Block command, output, or both.
 
-{% embed url="https://www.loom.com/share/9ad67eca0a8d47afb82cc1acba617f3c" %}
-Copy Block Actions
-{% endembed %}
+{% embed url="https://www.loom.com/share/9ad67eca0a8d47afb82cc1acba617f3c?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}Copy Block Actions{% endembed %}
 
 ## Sharing a Block
 
@@ -35,9 +31,7 @@ This is the only action in the app that sends command information to our server.
 * To un-share a Block: settings -> shared blocks
 * The same actions are also supported when multiple blocks are selected.
 
-{% embed url="https://www.loom.com/share/517f50e095704334882f9a0f7e5522f0" %}
-Share and Un-share a Block
-{% endembed %}
+{% embed url="https://www.loom.com/share/517f50e095704334882f9a0f7e5522f0?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}Share and Un-share a Block{% endembed %}
 
 Here is the [web permalink](https://app.warp.dev/block/vzFATak939iqGWfNh7wsAP) of the Block shared in the demo above.
 
@@ -59,15 +53,9 @@ Navigate to a bookmarked Block, by:
   The indicator position reflects the approximate position of the Block in the Block history. Hovering over the indicator will give a snapshot of the Block including its prompt, command, and the last two lines of output.
 * Pressing `OPTION-UP` and `OPTION-DOWN`
 
-{% embed url="https://www.loom.com/share/2b6152baf71b4dffb9baf1d840341512" %}
-Bookmarking Blocks
-{% endembed %}
+{% embed url="https://www.loom.com/share/2b6152baf71b4dffb9baf1d840341512?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}Bookmarking Blocks{% endembed %}
 
 ## Search Within A Block
 
 Press "Find Within Block" or use `CMD-F` to search for keywords within a Block.
-
-{% embed url="https://www.loom.com/share/7dda0e7a6ec144cfb6410d29a586ddd0" %}
-Search within a Block
-{% endembed %}
-
+{% embed url="https://www.loom.com/share/7dda0e7a6ec144cfb6410d29a586ddd0?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}Search within a Block{% endembed %}
