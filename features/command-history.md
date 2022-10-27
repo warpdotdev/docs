@@ -14,4 +14,4 @@ While running, Warp isolates the history of each shell session e.g. if you have 
 
 ## How it works
 
-{% embed url="https://www.loom.com/share/8119beca8d794b06859c5dea1b1377bb" %}
+{% embed url="https://www.loom.com/share/8119beca8d794b06859c5dea1b1377bb?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}Command History Demo{% endembed %}
