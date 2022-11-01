@@ -4,13 +4,13 @@
 
 Tab Completions will suggest commands, option names, path parameters for you.
 
-This feature works regardless of machine or directory (including SSH sessions).&#x20;
+This feature works regardless of machine or directory (including SSH sessions).
 
 ## How to access it
 
-Type out the beginning of your command, then press `TAB`.
-
-To search for options and flags, you first need to type `-` then press `TAB`.
+* Type out the beginning of your command, then press `TAB`.
+* To search for options and flags, you first need to type `-` then press `TAB`.
+* &#x20;Forgo \`TAB\` by enabling \`Open completions menu as you type\` in \`Settings > Features\`
 
 ## Try it yourself!
 
@@ -28,7 +28,7 @@ Completions Demo
 ### Supported Completion Specs
 
 | Command Name            | Level of Support |
-|-------------------------|------------------|
+| ----------------------- | ---------------- |
 | act                     | Partial          |
 | adb                     | Partial          |
 | afplay                  | Partial          |
