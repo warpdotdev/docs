@@ -99,7 +99,7 @@ end
 * OH-MY-ZSH-THEMES
   * e.g. avit, spaceship, maybe more ...
 * OH-MY-ZSH-PLUGINS
-* Oh-My-Tmux.
+* Oh-My-Tmux
 * zsh4h (ZSH for Humans)
 * FZF
 * BIND keys like:
@@ -107,7 +107,7 @@ end
 * \[\[ -r "/usr/local/etc/profile.d/bash\_completion.sh" ]] && "/usr/local/etc/profile.d/bash\_completion.sh"
 * eval "$(rbenv init -)"
 * grml-zsh-config
-* FIG
+* FIG, z, other completion plugins
 
 ## Some settings from Starship
 
