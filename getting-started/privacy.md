@@ -119,6 +119,7 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 * Opened Suggestions Menu
 * Opened Theme Chooser
 * Opened Welcome Tips
+* Prompt Changed File Count Toggled
 * Search Bar Option Toggled
 * Sessions tab created
 * Session Abandoned Before Bootstrap
