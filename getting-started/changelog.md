@@ -1,7 +1,22 @@
-# Changelog
+ # Changelog
 
 These are our release changelogs. We try to release an update every week on Thursday!
 Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
+
+### 2022.10.27 (v0.2022.10.25.08.06)
+
+**Bug fixes**
+
+- Fixed a bug when hovering over hover icons
+
+### 2022.10.20 (v0.2022.10.18.08.10)
+
+**Bug fixes**
+
+- Modifying the mouse and scroll reporting settings now applies immediately
+- Fixed cursor not blinking when starting a shell instance
+- Fixed temporarily flashing the wrong prompt while Warp is still bootstrapping
+- Removed duplicate entry for toggling error underlining and syntax highlighting within the Command Palette
 
 ### 2022.10.13 (v0.2022.10.11.08.13)
 
@@ -962,4 +977,14 @@ Submit bugs and feature request on our [GitHub board!](https://github.com/warpdo
 **Bug fixes**
 
 - Text rendering was faded on certain monitors
+
+### 2022.11.03 (v0.2022.11.01.08.03)
+
+**New features**
+
+- Warp's prompt now shows the number of modified files on your local git branch! Search "changed file count" in the Command Palette or right-click the Prompt to toggle.
+
+**Bug fixes**
+
+- Dim-styled colors are now restored properly.
 
