@@ -2,15 +2,29 @@
 
 ## What is it
 
-Warp has a native Prompt that shows your current working directory (cwd) and also git branch information when in a git directory. You can also enable a custom prompt by configuring the **PS1** or by installing a supported shell prompt plugin, see [Compatibility Table](prompt.md#custom-prompt-compatibility-table). _Note:_ PS1 is a variable used by the shell to generate the prompt, it represents the primary prompt string (hence the “PS”) - which is what you see most of the time before typing a new command in your terminal.
+Warp has a native Prompt that shows your current working directory (cwd) and also git branch information when in a git directory. 
+
+![warp_prompt](https://user-images.githubusercontent.com/16809145/199791669-8a266ddf-0b93-4fc4-98c3-ba6555f4fac3.png)
+
+### Git Status Indicator
+
+The native prompt shows the name of the git branch that you are on locally, as well as the number of uncommitted changed files. This includes any new files, modified files and deleted files that are staged or unstaged.
+
+### Custom Prompt
+
+You can also enable a custom prompt by configuring the **PS1** variable or installing a supported shell prompt plugin, see [Compatibility Table](prompt.md#custom-prompt-compatibility-table). _Note:_ The PS1 is a variable used by the shell to generate the prompt, it represents the primary prompt string (hence the “PS”) - which is what the terminal typically displays before typing new commands.
 
 ## How to access it
 
-* Enable custom prompt by right-clicking on the prompt area above the input and select "Use my own prompt" or go to `Settings > Features` and toggle on "Honor user's custom prompt (PS1)".
+* Toggle the default prompt git branch change indicator by right-clicking on the default prompt and selecting "Hide/Show changed file count"
+* Toggle custom prompt by right-clicking on the prompt area above the input and select "Use my own prompt" or toggle "Honor user's custom prompt (PS1) from the `Settings > Features` page.
+".
 
 ## How it works
 
-{% embed url="https://www.loom.com/share/199b49a8045f4380805fb02b93e874e6" %}
+{% embed url="https://www.loom.com/share/95d7fad6761d47fba82967382c6d5a5c?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %} Git Change Demo {% endembed %}
+
+{% embed url="https://www.loom.com/share/199b49a8045f4380805fb02b93e874e6?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
 Custom Prompt Demo
 {% endembed %}
 
