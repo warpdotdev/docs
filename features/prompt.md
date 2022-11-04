@@ -2,13 +2,13 @@
 
 ## What is it
 
-Warp has a native Prompt that shows your current working directory (cwd) and also git branch information when in a git directory. 
+Warp has a native Prompt that shows your current working directory (cwd) and also git branch information when in a git directory.
 
-![warp_prompt](https://user-images.githubusercontent.com/16809145/199791669-8a266ddf-0b93-4fc4-98c3-ba6555f4fac3.png)
+![Warp Native Prompt](https://user-images.githubusercontent.com/16809145/199791669-8a266ddf-0b93-4fc4-98c3-ba6555f4fac3.png)
 
 ### Git Status Indicator
 
-The native prompt shows the name of the git branch that you are on locally, as well as the number of uncommitted changed files. This includes any new files, modified files and deleted files that are staged or unstaged.
+The native Prompt shows the name of the git branch that you are on locally, as well as the number of uncommitted changed files. This includes any new files, modified files and deleted files that are staged or unstaged.
 
 ### Custom Prompt
 
@@ -17,12 +17,13 @@ You can also enable a custom prompt by configuring the **PS1** variable or insta
 ## How to access it
 
 * Toggle the default prompt git branch change indicator by right-clicking on the default prompt and selecting "Hide/Show changed file count"
-* Toggle custom prompt by right-clicking on the prompt area above the input and select "Use my own prompt" or toggle "Honor user's custom prompt (PS1) from the `Settings > Features` page.
-".
+* Toggle custom prompt by right-clicking on the prompt area above the input and select "Use my own prompt" or toggle "Honor user's custom prompt (PS1) from the `Settings > Features` page. ".
 
 ## How it works
 
-{% embed url="https://www.loom.com/share/95d7fad6761d47fba82967382c6d5a5c?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %} Git Change Demo {% endembed %}
+{% embed url="https://www.loom.com/share/95d7fad6761d47fba82967382c6d5a5c?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
+Git Status Indicator Demo
+{% endembed %}
 
 {% embed url="https://www.loom.com/share/199b49a8045f4380805fb02b93e874e6?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
 Custom Prompt Demo
@@ -35,7 +36,7 @@ If you’re having issues with prompts, please see below or our [Known Issues](.
 ### Custom Prompt Compatibility Table
 
 | Shell    | Tool                                                        | Does it work? |
-|----------|-------------------------------------------------------------|---------------|
+| -------- | ----------------------------------------------------------- | ------------- |
 | Bash/zsh | [PS1](https://www.warp.dev/blog/whats-so-special-about-ps1) | Working       |
 | Bash     | SBP                                                         | Coming soon   |
 | Bash/zsh | [Starship](https://github.com/starship/starship)            | Working       |
