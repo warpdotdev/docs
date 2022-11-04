@@ -4,11 +4,11 @@
 
 Warp has a native Prompt that shows your current working directory (cwd) and also git branch information when in a git directory.
 
-![Warp Native Prompt](https://user-images.githubusercontent.com/16809145/199791669-8a266ddf-0b93-4fc4-98c3-ba6555f4fac3.png)
+<figure><img src="../.gitbook/assets/warp_prompt.jpg" alt=""><figcaption></figcaption></figure>
 
 ### Git Status Indicator
 
-The native Prompt shows the name of the git branch that you are on locally, as well as the number of uncommitted changed files. This includes any new files, modified files and deleted files that are staged or unstaged.
+The native Prompt shows the name of the git branch that you are on locally, as well as the number of uncommitted changed files. This includes any new files, modified files, and deleted files that are staged or unstaged.
 
 ### Custom Prompt
 
