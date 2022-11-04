@@ -4,7 +4,7 @@
 
 Warp has a native Prompt that shows your current working directory (cwd) and also git branch information when in a git directory.
 
-<figure><img src="../.gitbook/assets/warp_prompt.jpg" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/warp_prompt (2).jpg" alt=""><figcaption><p>Warp Native Prompt</p></figcaption></figure>
 
 ### Git Status Indicator
 
