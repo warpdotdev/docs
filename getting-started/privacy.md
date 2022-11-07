@@ -74,6 +74,12 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 * Context menu insert selected text into input
 * Context menu initiate block sharing
 * Context menu reinput command(s)
+* Command correction proposed
+  * rule: (string identifying name of correction rule that was proposed)
+* Command correction accepted
+  * rule: (string identifying name of correction rule that was proposed)
+  * via: (whether the correction was accepted via an autosuggestion or via the banner in the block list)
+* Command correction 
 * Complete Welcome Tip
 * Database Startup Error
 * Dismiss Welcome Tips
