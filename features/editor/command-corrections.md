@@ -1,4 +1,6 @@
-# What is it
+# Command Corrections
+
+## What is it
 
 Command Corrections provides auto-correct suggestions on previously run commands to catch typos, forgotten flags, and fix general console errors. This feature was built on top of the open source project [nvdn/thefuck](https://github.com/nvbn/thefuck).
 
@@ -12,36 +14,39 @@ Here are some examples that the Warp team usually finds Command Corrections usef
 * Add permissions
   * `./script` -> `chmod +x ./script && ./script`
 
-# How to access it
+## How to access it
 
-* Command Corrections is enabled by default. You can disable Command Corrections by going to `Settings > Features` > toggle “Suggest corrected commands”. 
+* Command Corrections is enabled by default. You can disable Command Corrections by going to `Settings > Features` > toggle “Suggest corrected commands”.
 * After an incorrect command is run, a panel with the corrected command suggestion appears above the Input Editor. `CLICK` or press the `RIGHT` arrow to insert the suggestion.
 
-# How it works
+## How it works
 
-{% embed url="https://www.loom.com/share/180e1dc8d1504ec39c00694d9fd71b7c?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}Command Corrections Demo{% endembed %}
+{% embed url="https://www.loom.com/share/180e1dc8d1504ec39c00694d9fd71b7c?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
+Command Corrections Demo
+{% endembed %}
 
-### Supported Command Correction rules:
-| Command Name |
-| ------------ |
-| brew |
-| cargo |
-| cat |
-| cd |
-| chmod |
-| conda |
-| cp |
-| docker |
+#### Command Correction Rules:
+
+| Command                                                       |
+| ------------------------------------------------------------- |
+| brew                                                          |
+| cargo                                                         |
+| cat                                                           |
+| cd                                                            |
+| chmod                                                         |
+| conda                                                         |
+| cp                                                            |
+| docker                                                        |
 | generic (command agnostic, e.g. mis-spelling executable name) |
-| git |
-| go |
-| grep |
-| java |
-| ls |
-| mkdir |
-| npm |
-| pip |
-| python |
-| sed |
-| sudo |
-| yarn |
+| git                                                           |
+| go                                                            |
+| grep                                                          |
+| java                                                          |
+| ls                                                            |
+| mkdir                                                         |
+| npm                                                           |
+| pip                                                           |
+| python                                                        |
+| sed                                                           |
+| sudo                                                          |
+| yarn                                                          |
