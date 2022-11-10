@@ -20,6 +20,7 @@
 * [Command Palette](features/command-palette.md)
 * [Text Editor Input](features/editor/README.md)
   * [Autosuggestions](features/editor/autosuggestions.md)
+  * [Command Corrections](features/editor/command-corrections.md)
   * [Command Inspector](features/editor/command-inspector.md)
   * [Syntax and Error Highlighting](features/editor/syntax-error-highlighting.md)
 * [Themes](features/themes/README.md)
