@@ -67,6 +67,22 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 * Bootstrapping failed
 * Bootstrapping slow
 * Bootstrapping succeeded
+* Command correction
+* Command correction accepted
+  * rule: (string identifying name of correction rule that was proposed)
+  * via: (whether the correction was accepted via an autosuggestion or via the banner in the block list)
+* Command correction proposed
+  * rule: (string identifying name of correction rule that was proposed)
+* Command search filter changed
+  * new_filter: (which filter was applied, if any)
+* Command search opened
+  * has_initial_query: (whether the user had entered text prior to opening command search)
+* Command search result accepted
+  * result_index: (the index of the result that was accepted)
+  * result_type: (whether the result was a history item, workflow, etc.)
+  * query_filter: (which filter was applied to the search query, if any)
+  * was_immediately_executed: (for a history item, if it was executed or just accepted)
+* Complete Welcome Tip
 * Confirm Suggestion
 * Context menu copy
 * Context menu copy selected text
@@ -74,13 +90,6 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 * Context menu insert selected text into input
 * Context menu initiate block sharing
 * Context menu reinput command(s)
-* Command correction proposed
-  * rule: (string identifying name of correction rule that was proposed)
-* Command correction accepted
-  * rule: (string identifying name of correction rule that was proposed)
-  * via: (whether the correction was accepted via an autosuggestion or via the banner in the block list)
-* Command correction 
-* Complete Welcome Tip
 * Database Startup Error
 * Dismiss Welcome Tips
 * Features Page Action
