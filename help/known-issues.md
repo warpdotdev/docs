@@ -35,10 +35,6 @@ If you experience an error opening Warp, please try the following:
 
 * If the above doesn't work, [uninstall Warp](uninstalling-warp.md), then [re-install Warp](../getting-started/getting-started-with-warp.md).
 
-## Soft wrapping
-
-Nov 2021: Warp does not currently support soft wrapping in the input editor. Press `SHIFT`-`ENTER` or use `\` and `ENTER` to continue your command on the next line.
-
 ## English-only UI
 
 Nov 2021: We have added character support for Chinese, Korean, and Japanese, but our UI currently only supports English.
