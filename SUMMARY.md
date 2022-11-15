@@ -17,6 +17,7 @@
 * [Blocks](features/blocks/README.md)
   * [Block Basics](features/blocks/block-basics.md)
   * [Block Actions](features/blocks/block-actions.md)
+  * [Sticky Command Header](features/blocks/sticky-command-header.md)
 * [Command Palette](features/command-palette.md)
 * [Text Editor Input](features/editor/README.md)
   * [Autosuggestions](features/editor/autosuggestions.md)
