@@ -28,6 +28,7 @@
   * [Custom Themes](features/themes/custom-themes.md)
 * [Completions](features/completions.md)
 * [Accessibility](features/accessibility.md)
+* [Command Search](features/command-search.md)
 * [Command History](features/command-history.md)
 * [Compact Mode](features/compact-mode.md)
 * [Find](features/find.md)
