@@ -15,4 +15,4 @@ _Note:_ You can quickly find all the **pane** shortcuts by using the Command Pal
 
 ## How it works
 
-{% embed url="https://www.loom.com/share/c1104b51cab848a9bef6792ec4fd8421?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %} Split Panes Demo {% endembed %}
+{% embed url="https://www.loom.com/share/c1104b51cab848a9bef6792ec4fd8421?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}Split Panes Demo{% endembed %}

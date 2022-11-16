@@ -1,4 +1,11 @@
 root: ./
 
 redirects:  
-    features/session-management-and-restoration: features/session-management.md
+    features/session-management-and-restoration: features/sessions/session-restoration.md
+    features/ai-command-search: features/entry/ai-command-search.md
+    features/workflows: features/entry/workflows.md
+    features/command-search: features/entry/command-search.md
+    features/command-history: features/entry/command-history.md
+    features/hotkey-window: features/windows/hotkey-window.md
+    features/tabs: features/windows/tabs.md
+    features/split-panes: features/windows/split-panes.md

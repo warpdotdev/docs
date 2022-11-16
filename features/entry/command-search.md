@@ -1,7 +1,8 @@
 # Command Search
 
 ## What is it
-Command Search is a 3-in-1 panel that allows you to search across command history, saved workflows, and A.I. Command Search all at once. It has built-in prioritization and fuzzy searching technology to surface the best set of results for your search result.
+
+Command Search is a 3-in-1 panel that allows you to search across Command History, Workflows, and A.I. Command Search all at once. It has built-in prioritization and fuzzy searching technology to surface the best set of results for your search result.
 
 ## How to access it
 
@@ -12,7 +13,7 @@ Command Search is a 3-in-1 panel that allows you to search across command histor
 1. Type into the input box what your search query is. The results will be a mix of command history, saved workflows, and A.I. Command Search.
     * A {} icon signifies that the result is a workflow
     * A clock icon signifies that the result is a command history
-    * A notebook icon signifies that the result is a Notebook ( This feature is **Coming Soon**).
+    * A notebook icon signifies that the result is a Notebook (**Coming Soon**).
     * A star icon signifies piping that search query into A.I. Command Search
 1. Or if you want to activate a specific filter, you can prepend your search term with: 
     * `workflows:` will activate the workflows filter. You can also use the shortcuts `w:` or `W+TAB`.

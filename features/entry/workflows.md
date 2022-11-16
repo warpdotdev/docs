@@ -8,13 +8,11 @@ Workflows are an easier way to execute and share commands within Warp. They are 
 
 * Press `CTRL-SHIFT-R` to open the Workflow menu or through the Command Palette `CMD-P`.
 * Once inside the menu, start typing in the search bar to filter the existing workflows or browse by category. (e.g. git, android, npm, etc.)
-* When a Workflow is selected, you can use \`SHIFT-TAB\` to cycle thru the parameters.
+* When a Workflow is selected, you can use `SHIFT-TAB` to cycle thru the parameters.
 
 ## How it works
 
-{% embed url="https://www.loom.com/share/27eccd9aa9b34884897e28a53642322b?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
-Workflows Demo
-{% endembed %}
+{% embed url="https://www.loom.com/share/27eccd9aa9b34884897e28a53642322b?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}Workflows Demo{% endembed %}
 
 ### How is this Different from Aliases?
 

@@ -28,6 +28,4 @@ Where MyTitle would be whatever you want to see in the tab (either a fixed strin
 
 ## How it works
 
-{% embed url="https://www.loom.com/share/84d15cc7eb5a4a668bb86be9e827f261?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
-Tabs Demo
-{% endembed %}
+{% embed url="https://www.loom.com/share/84d15cc7eb5a4a668bb86be9e827f261?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}Tabs Demo{% endembed %}
