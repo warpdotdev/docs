@@ -6,13 +6,15 @@ AI Command Search converts natural language descriptions into shell commands tha
 
 ## How to access it
 
-1. Press `` CTRL-` `` to open the AI Command Search panel.
+1. Press `` CTRL-` `` or type `#` into the Text Input Editor to open the AI Command Search panel.
 2. Type in the input box what you'd like to do and press `ENTER` to generate the command.
 3. Once the result shows up, press `CMD-ENTER` to input the generated command directly into Warp's Input Editor.
 
 ## How it works
 
-{% embed url="https://www.loom.com/share/a52356f73de54f649ba7f0841861d88e?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}AI Command Search Demo{% endembed %}
+{% embed url="https://www.loom.com/share/a52356f73de54f649ba7f0841861d88e?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
+AI Command Search Demo
+{% endembed %}
 
 ## Privacy
 
