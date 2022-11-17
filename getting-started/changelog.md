@@ -3,6 +3,41 @@
 These are our release changelogs. We try to release an update every week on Thursday!
 Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2022.11.15 (v0.2022.11.14.14.55)
+
+**New features**
+
+- Command Search: Ctrl-R opens a panel where you can search your history, workflows, and other command execution-related items, all in one place.
+- Sticky command header: Warp now pins the prompt/command section of a Block to the top of the screen; click it to scroll to the top of the Block
+- Warp’s Input Editor now supports soft wrapping; long commands are now fully visible!
+
+**Bug fixes**
+
+- Warp now sets the TERM_PROGRAM environment variable correctly in wrapped SSH sessions.
+
+### 2022.11.10 (v0.2022.11.08.08.07)
+
+**New features**
+
+- Warp now offers Command Corrections! Warp will suggest corrections for errors in previous console commands
+- Warp now also detects invalid file paths -- they are underlined red when error underlining is enabled
+- Added a toggle in `Settings > Appearance` to configure whether and how Warp enforces minimum contrast
+
+**Bug fixes**
+
+- Fixed an issue where toggling the default prompt would not update it immediately
+- Improved positioning of the `TAB` completions menu when using split panes
+
+### 2022.11.03 (v0.2022.11.01.08.03)
+
+**New features**
+
+- Warp's prompt now shows the number of modified files on your local git branch! Search "changed file count" in the Command Palette or right-click the Prompt to toggle.
+
+**Bug fixes**
+
+- Dim-styled colors are now restored properly.
+
 ### 2022.10.27 (v0.2022.10.25.08.06)
 
 **Bug fixes**
@@ -977,14 +1012,4 @@ Submit bugs and feature request on our [GitHub board!](https://github.com/warpdo
 **Bug fixes**
 
 - Text rendering was faded on certain monitors
-
-### 2022.11.03 (v0.2022.11.01.08.03)
-
-**New features**
-
-- Warp's prompt now shows the number of modified files on your local git branch! Search "changed file count" in the Command Palette or right-click the Prompt to toggle.
-
-**Bug fixes**
-
-- Dim-styled colors are now restored properly.
 
