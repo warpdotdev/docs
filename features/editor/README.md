@@ -36,7 +36,7 @@ Warp supports soft wrapping in the input editor. If there is an auto suggestion 
 | `shift-up` / `shift-down`                            | Select everything above / below the cursor                                                                 |
 | `cmd-a`                                              | Select the entire editor buffer                                                                            |
 | `shift-enter` `ctrl-enter` `option-enter`            | Insert newline                                                                                             |
-| `ctrl-r`                                             | [Command History](../command-history.md)                                                                   |
+| `ctrl-r`                                             | [Command History](broken-reference)                                                                        |
 | `cmd-d`                                              | Split pane                                                                                                 |
 
 ## How it Works
