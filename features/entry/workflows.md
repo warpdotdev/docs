@@ -14,6 +14,8 @@ Workflows are an easier way to execute and share commands within Warp. They are 
 
 {% embed url="https://www.loom.com/share/27eccd9aa9b34884897e28a53642322b?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}Workflows Demo{% endembed %}
 
+{% embed url="https://www.youtube.com/watch?v=9HGB7nxn_0I" %}How to use Workflows{% endembed %}
+
 ### How is this Different from Aliases?
 
 Workflows solve some major pain points with aliases, specifically the:
