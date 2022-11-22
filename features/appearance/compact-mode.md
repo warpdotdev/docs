@@ -12,4 +12,4 @@ _Note:_ Warp will (persist) open with the same settings in future sessions.
 
 ## How it works
 
-![Compact Mode Demo](../.gitbook/assets/compact_mode.gif)
+<figure><img src="../../.gitbook/assets/compact_mode.gif" alt=""><figcaption><p>Compact Mode Demo</p></figcaption></figure>

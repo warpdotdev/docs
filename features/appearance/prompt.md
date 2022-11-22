@@ -4,7 +4,7 @@
 
 Warp has a native Prompt that shows your current working directory (cwd) and also git branch information when in a git directory. It can also be set to a custom prompt using one of the supported tools.
 
-<figure><img src="../.gitbook/assets/warp_prompt.jpg" alt=""><figcaption><p>Warp Native Prompt</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/warp_prompt.jpg" alt="Warp Native Prompt"><figcaption><p>Warp Native Prompt</p></figcaption></figure>
 
 ### Git Status Indicator
 
@@ -21,9 +21,13 @@ You can also enable a custom prompt by configuring the **PS1** variable or insta
 
 ## How it works
 
-{% embed url="https://www.loom.com/share/95d7fad6761d47fba82967382c6d5a5c?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}Git Status Indicator Demo{% endembed %}
+{% embed url="https://www.loom.com/share/95d7fad6761d47fba82967382c6d5a5c?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
+Git Status Indicator Demo
+{% endembed %}
 
-{% embed url="https://www.loom.com/share/199b49a8045f4380805fb02b93e874e6?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}Custom Prompt Demo{% endembed %}
+{% embed url="https://www.loom.com/share/199b49a8045f4380805fb02b93e874e6?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
+Custom Prompt Demo
+{% endembed %}
 
 ### Custom Prompt Compatibility Table
 
@@ -76,6 +80,7 @@ if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
 ##### WHAT YOU WANT TO DISABLE FOR WARP - ABOVE
 fi
 ```
+
 ## Context Chips
 
 Context Chips is an idea we have for what the future of terminal prompts could be like, i.e. prompts that support dynamic refreshing, mouse interactions, and can be customized via an open spec that developers can build on. Learn more via our [Twitter thread](https://twitter.com/warpdotdev/status/1496263490491023362?s=20\&t=4PBawdJYHKfywG7eEe2jNA), where we also shared some Figma mocks.

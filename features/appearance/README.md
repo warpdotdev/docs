@@ -11,18 +11,26 @@ Note: Warp does not yet support changing the transparency (modifying the opacity
 
 ## Themes
 
-{% embed url="https://loom.com/share/2182ebcb09164f2b97525161da099959?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}Changing Themes Demo{% endembed %}
+{% embed url="https://loom.com/share/2182ebcb09164f2b97525161da099959?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
+Changing Themes Demo
+{% endembed %}
 
 ## Custom Themes
 
-{% embed url="https://www.youtube.com/watch?v=UTYgwD-cLbk" %}Custom Theme Demo{% endembed %}
+{% embed url="https://www.youtube.com/watch?v=UTYgwD-cLbk" %}
+Custom Theme Demo
+{% endembed %}
 
 ## Prompt
 
-{% embed url="https://www.loom.com/share/95d7fad6761d47fba82967382c6d5a5c?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}Git Status Indicator Demo{% endembed %}
+{% embed url="https://www.loom.com/share/95d7fad6761d47fba82967382c6d5a5c?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
+Git Status Indicator Demo
+{% endembed %}
 
-{% embed url="https://www.loom.com/share/199b49a8045f4380805fb02b93e874e6?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}Custom Prompt Demo{% endembed %}
+{% embed url="https://www.loom.com/share/199b49a8045f4380805fb02b93e874e6?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
+Custom Prompt Demo
+{% endembed %}
 
 ## Compact Mode
 
-![Compact Mode Demo](../.gitbook/assets/compact_mode.gif)
+<figure><img src="../../.gitbook/assets/compact_mode.gif" alt="compact mode demo"><figcaption><p>Compact Mode Demo</p></figcaption></figure>
