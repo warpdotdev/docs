@@ -2,20 +2,20 @@
 
 Warp manages sessions in three different ways:
 
-1. Through [Launch Configurations](launch-configurations.md) that (`CTRL-CMD-L`) support saving a configuration of windows, tabs, and panes to open later.
-2. Through [Session Navigation](session-navigation.md) that (`SHIFT-CMD-P`) enables you to easily navigate to any session in Warp.
-3. Through automatic [Session Restoration](session-restoration.md), which automatically restores the window and tabs from your previous session (Settings > Features > Restore windows, tabs, and panes on startup).
+1. [Launch Configurations](launch-configurations.md) (`CTRL-CMD-L`) supports saving a configuration of windows, tabs, and panes to open later.
+2. [Session Navigation](session-navigation.md) (`SHIFT-CMD-P`) enables you to easily navigate to any session in Warp.
+3. [Session Restoration](session-restoration.md) automatically restores the window and tabs from your previous session.
 
-## Launch Configuration Palette
-
-Press `CTRL-CMD-L` to open the Launch Configuration Palette--where you can view, search, and open any of your saved launch configurations.
-
-After pressing `CMD-P` to open the [Command Palette](../command-palette.md), type `#` to switch into the Launch Configuration mode.
+## Launch Configuration
 
 ![Palette Switching](../../.gitbook/assets/palette-switch.gif)
 
-## Session Navigation Palette
+{% embed url="https://www.loom.com/share/daa2a9e55c27458c8bbf722d90078880?hideEmbedTopBar=true&hide_owner=true&hide_share=true&hide_title=true" %}Launch Configuration Demo{% endembed %}
 
-Press `CMD-SHIFT-P` to open the Navigation Palette--where you can search for and quickly navigate to any session.
+## Session Navigation
 
-Alternatively, you can press `CMD-P` to open the [Command Palette](../command-palette.md) and type `@` to switch into navigation mode.
+{% embed url="https://www.loom.com/share/2147adc6749c4f4ea5da432eadda7995" %}Session Navigation Demo{% endembed %}
+
+## Session Restoration
+
+![Session Restoration Demo](../../.gitbook/assets/sessions-block\_restoration.gif)

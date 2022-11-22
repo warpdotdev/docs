@@ -14,6 +14,4 @@ _Note:_ Sessions are ordered by recency i.e. the most recently focused sessions 
 
 ## How it Works
 
-{% embed url="https://www.loom.com/share/2147adc6749c4f4ea5da432eadda7995" %}
-Session Navigation Demo
-{% endembed %}
+{% embed url="https://www.loom.com/share/2147adc6749c4f4ea5da432eadda7995" %}Session Navigation Demo{% endembed %}
