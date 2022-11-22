@@ -2,30 +2,11 @@
 
 ## What is it
 
-You can add custom themes to Warp.
+Warp supports Custom Themes which can be created [manually](../appearance/custom-themes.md#create-your-own-custom-theme-manually), via the [warp-themes.com](../appearance/custom-themes.md#create-your-own-custom-theme-with-warp-themescom) tool, or downloaded from our [repo](../appearance/custom-themes.md#warps-custom-theme-repository).
 
 {% hint style="info" %}
 A more thorough explanation of the theme format, together with examples and a collection of themes can be found in the [Warp themes repository](https://github.com/warpdotdev/themes).
 {% endhint %}
-
-## Warp's Custom Theme Repository
-
-We have a [repository of themes hosted on GitHub.](https://github.com/warpdotdev/themes)
-
-Each theme has a preview generated in the README.
-
-The main difference between "standard" and "base16" themes is that "standard" themes follow the typical color setup, while "base16" themes follow the framework suggested by [@chriskempson](https://github.com/chriskempson/base16).
-
-There are 2 ways to install a theme from this repo.
-
-1. Download just a single file and follow the steps in the section below.
-2. Clone the entire repo into `~/.warp/`
-
-Here is a step-by-step YouTube video that goes through these 2 steps for an example theme.
-
-{% embed url="https://www.youtube.com/watch?v=UTYgwD-cLbk" %}
-Adding a Custom Theme to Warp
-{% endembed %}
 
 ## How do I use a custom theme in Warp?
 
@@ -36,7 +17,7 @@ mkdir -p ~/.warp/themes/
 ```
 
 {% hint style="info" %}
-Note that it may take several minutes for Warp to initially discover the new config directory. You can either wait or just restart the application. After that step, all future changes to `~/.warp/themes` directory will be reflected in Warp within seconds.
+_Note:_ It may take several minutes for Warp to initially discover the new config directory. You can either wait or just restart the application. After that step, all future changes to `~/.warp/themes` directory will be reflected in Warp within seconds.
 {% endhint %}
 
 2\.  Add your new custom theme yaml theme file to this directory:
@@ -47,7 +28,7 @@ cp ~/Downloads/my_awesome_theme.yaml ~/.warp/themes/
 
 Your new theme should now be visible on the list of available themes.
 
-## How do I write my own custom theme?
+## Create your own custom theme (manually)
 
 Warp supports creating custom themes using .yaml files.&#x20;
 
@@ -91,13 +72,16 @@ Each color is represented in hex and must start with `#`.
 * `lighter`: Color used for light-mode theme
 * `terminal_theme`: Collection of normal & bright colors (16 total) known for other terminal themes (ansi colors)
 
+## Create your own custom theme with Warp-Themes.com
+
+[Warp-Themes.com](https://warp-themes.com/) is a web app built entirely by community member [Torben Haack](https://twitter.com/torben_haack). The tool allows you to visually customize your own terminal theme with a few simple color selections, then download that theme file and have Warp load it into its theme picker. Please see more on how to use the app in our [Warp-Themes blog post](https://www.warp.dev/blog/create-custom-terminal-theme).
+
 ## Background Images and Gradients
 
 To add a background image you can use this attribute: `background_image:` with the name of the image you want to use as the background.&#x20;
 
 {% hint style="info" %}
 Note: Warp currently only supports images with the _.jpg_ file format:
-
 * `.jpeg`
 * `.jpg`
 * `.JPEG`
@@ -171,7 +155,25 @@ background:
   bottom: '#ffffff'
 ```
 
-## Contributing
+## Warp's Custom Theme Repository
+
+We have a [repository of themes hosted on GitHub.](https://github.com/warpdotdev/themes)
+
+Each theme has a preview generated in the README.
+
+The main difference between "standard" and "base16" themes is that "standard" themes follow the typical color setup, while "base16" themes follow the framework suggested by [@chriskempson](https://github.com/chriskempson/base16).
+
+There are 2 ways to install a theme from this repo.
+
+1. Download just a single file and follow the steps in the section below.
+2. Clone the entire repo into `~/.warp/`
+
+Here is a step-by-step YouTube video that goes through these 2 steps for an example theme.
+
+{% embed url="https://www.youtube.com/watch?v=UTYgwD-cLbk" %}Adding a Custom Theme to Warp{% endembed %}
+
+
+### Contributing
 
 Contributions to this repo are greatly appreciated!
 
@@ -196,17 +198,13 @@ Note: We cannot accept pull requests that include custom background images becau
 If your theme has an intended custom background image, include a comment in the yaml with a link to where people should download it.
 {% endhint %}
 
-## Create your own theme with Warp-Themes.com
-
-[Warp-Themes.com](https://warp-themes.com/) is a web app built entirely by community member [Torben Haack](https://twitter.com/torben_haack). The tool allows you to visually customize your own terminal theme with a few simple color selections, then download that theme file and have Warp load it into its theme picker. Please see more on how to use the app in our [Warp-Themes blog post](https://www.warp.dev/blog/create-custom-terminal-theme).
-
 ## Community
 
 All other Warp-related things can be discussed in our [Warp official repo](https://github.com/warpdotdev/Warp/discussions?discussions\_q=label%3ARoadmap+sort%3Atop) or our [Discord server](https://discord.gg/warpdotdev).
 
 ## Open source dependencies
 
-We'd like to call out a few of the open source themes and repositories that helped bootstrap the set of themes for Warp:
+We'd like to call out a few of the open-source themes and repositories that helped bootstrap the set of themes for Warp:
 
 * [iTerm colors pencil](https://github.com/mattly/iterm-colors-pencil)
 * [Alacritty-theme](https://github.com/eendroroy/alacritty-theme)
