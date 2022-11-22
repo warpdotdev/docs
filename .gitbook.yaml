@@ -1,7 +1,10 @@
 root: ./
 
 redirects:  
-    features/session-management-and-restoration: features/sessions/session-restoration.md
+    features/session-management-and-restoration: features/sessions/README.md
+    features/session-management/session-restoration: features/sessions/session-restoration.md
+    features/session-management/launch-configurations: features/sessions/launch-configurations.md
+    features/session-management/session-navigation: features/sessions/session-navigation.md
     features/ai-command-search: features/entry/ai-command-search.md
     features/workflows: features/entry/workflows.md
     features/command-search: features/entry/command-search.md
