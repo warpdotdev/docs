@@ -11,10 +11,10 @@ Command Search panel allows you to search across Command History, Workflows, Not
 ![Command Search Panel](../../.gitbook/assets/command-search.png)
 
 1. Type into the input box what your search query is. The results will be a mix of command history, saved workflows, and A.I. Command Search.
-    * <img src="../../.gitbook/assets/workflow.png" width="28" alt="curly brackets" /> Curly Brackets icon signifies that the result is a [Workflow](../entry/workflows.md).
-    * <img src="../../.gitbook/assets/history.png" width="28" alt="rewind time clock"/> Rewind Time Clock icon signifies that the result is a [Command History](../entry/command-history.md).
-    * <img src="../../.gitbook/assets/notebook.png" width="28" alt="earmarked page"/> Earmarked Page icon signifies that the result is a Notebook (**Coming Soon**).
-    * <img src="../../.gitbook/assets/ai-sparkle.png" width="28" alt="sparkle"/> Sparkle icon signifies piping that search query into [A.I. Command Search](../entry/ai-command-search.md)
+    * <img src="../../.gitbook/assets/workflow.png" width="28" height="28" alt="curly brackets" /> Curly Brackets icon signifies that the result is a [Workflow](../entry/workflows.md).
+    * <img src="../../.gitbook/assets/history.png" width="28" height="28" alt="rewind time clock"/> Rewind Time Clock icon signifies that the result is a [Command History](../entry/command-history.md).
+    * <img src="../../.gitbook/assets/notebook.png" width="28" height="28" alt="earmarked page"/> Earmarked Page icon signifies that the result is a Notebook (**Coming Soon**).
+    * <img src="../../.gitbook/assets/ai-sparkle.png" width="28" height="28" alt="sparkle"/> Sparkle icon signifies piping that search query into [A.I. Command Search](../entry/ai-command-search.md)
 1. Activate a specific filter, by prepending your search term with:
    * `workflows:` will activate the workflows filter. You can also use the shortcuts `w:` or `W+TAB`.
    * `history:` will activate the history filter. You can also use the shortcuts `h:` or `H+TAB`.
