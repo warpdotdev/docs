@@ -2,7 +2,7 @@
 
 ## What is it
 
-Warp supports Custom Themes which can be created [manually](../appearance/custom-themes.md#create-your-own-custom-theme-manually), via the [warp-themes.com](../appearance/custom-themes.md#create-your-own-custom-theme-with-warp-themescom) tool, or downloaded from our [repo](../appearance/custom-themes.md#warps-custom-theme-repository).
+Warp supports Custom Themes which can be created [manually](custom-themes.md#create-your-own-custom-theme-manually), via the [warp-themes.com](custom-themes.md#create-your-own-custom-theme-with-warp-themescom) tool, or downloaded from our [repo](custom-themes.md#warps-custom-theme-repository).
 
 {% hint style="info" %}
 A more thorough explanation of the theme format, together with examples and a collection of themes can be found in the [Warp themes repository](https://github.com/warpdotdev/themes).
@@ -12,7 +12,7 @@ A more thorough explanation of the theme format, together with examples and a co
 
 1. To start, create a config directory in your home directory:
 
-```sh
+```
 mkdir -p ~/.warp/themes/
 ```
 
@@ -20,9 +20,9 @@ mkdir -p ~/.warp/themes/
 _Note:_ It may take several minutes for Warp to initially discover the new config directory. You can either wait or just restart the application. After that step, all future changes to `~/.warp/themes` directory will be reflected in Warp within seconds.
 {% endhint %}
 
-2\.  Add your new custom theme yaml theme file to this directory:
+2\. Add your new custom theme yaml theme file to this directory:
 
-```sh
+```
 cp ~/Downloads/my_awesome_theme.yaml ~/.warp/themes/
 ```
 
@@ -30,7 +30,7 @@ Your new theme should now be visible on the list of available themes.
 
 ## Create your own custom theme (manually)
 
-Warp supports creating custom themes using .yaml files.&#x20;
+Warp supports creating custom themes using .yaml files.
 
 The format itself might expand, but we'll do our best to avoid breaking changes and maintain forward compatibility. We also plan on supporting sharing/creating custom themes directly within Warp.
 
@@ -74,14 +74,15 @@ Each color is represented in hex and must start with `#`.
 
 ## Create your own custom theme with Warp-Themes.com
 
-[Warp-Themes.com](https://warp-themes.com/) is a web app built entirely by community member [Torben Haack](https://twitter.com/torben_haack). The tool allows you to visually customize your own terminal theme with a few simple color selections, then download that theme file and have Warp load it into its theme picker. Please see more on how to use the app in our [Warp-Themes blog post](https://www.warp.dev/blog/create-custom-terminal-theme).
+[Warp-Themes.com](https://warp-themes.com/) is a web app built entirely by community member [Torben Haack](https://twitter.com/torben\_haack). The tool allows you to visually customize your own terminal theme with a few simple color selections, then download that theme file and have Warp load it into its theme picker. Please see more on how to use the app in our [Warp-Themes blog post](https://www.warp.dev/blog/create-custom-terminal-theme).
 
 ## Background Images and Gradients
 
-To add a background image you can use this attribute: `background_image:` with the name of the image you want to use as the background.&#x20;
+To add a background image you can use this attribute: `background_image:` with the name of the image you want to use as the background.
 
 {% hint style="info" %}
 Note: Warp currently only supports images with the _.jpg_ file format:
+
 * `.jpeg`
 * `.jpg`
 * `.JPEG`
@@ -100,7 +101,7 @@ background_image:
   # the path is relative to ~/.warp/themes/
   # the full path to the picture is: ~/.warp/themes/warp.jpg
   path: warp.jpg
-
+  # the opacity value is required and can range from 0-100
   opacity: 60
 ############################################################### SEE ABOVE
 
@@ -170,8 +171,9 @@ There are 2 ways to install a theme from this repo.
 
 Here is a step-by-step YouTube video that goes through these 2 steps for an example theme.
 
-{% embed url="https://www.youtube.com/watch?v=UTYgwD-cLbk" %}Adding a Custom Theme to Warp{% endembed %}
-
+{% embed url="https://www.youtube.com/watch?v=UTYgwD-cLbk" %}
+Adding a Custom Theme to Warp
+{% endembed %}
 
 ### Contributing
 
