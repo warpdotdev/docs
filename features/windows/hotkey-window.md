@@ -7,7 +7,8 @@ The Hotkey Window shortcut can show and hide Warp on your focused desktop regard
 ## How to access it
 
 1. Open `Settings > Features` and tick the `Hotkey Window` and enable the feature.
-2. There you can configure the keyboard shortcut and the windows position, screen, and relative size and toggle if the window auto-hides (stay on top) on the loss of focus.
+2. There you can configure the keyboard shortcut and the windows position, screen, and relative size.
+3. Toggle off "Autohides on the loss of keyboard focus" and the Hotkey Window to stay on top when triggered.
 
 _Note:_ If the window does not open after pressing the registered hotkey, check under `System Preferences > Security & Privacy > Accessibility` and tick the checkbox to grant Warp access. Also,`ESC, BACKTICK, TAB , SHIFT, CAPS` are not supported keyboard shortcuts.
 
