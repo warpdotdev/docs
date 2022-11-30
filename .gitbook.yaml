@@ -12,7 +12,6 @@ redirects:
     features/hotkey-window: features/windows/hotkey-window.md
     features/tabs: features/windows/tabs.md
     features/split-panes: features/windows/split-panes.md
-    features/themes: features/appearance/themes.md
-    features/themes/custom-themes: features/appearance/custom-themes.md
-    features/prompt: features/appearance/prompt.md
-    features/compact-mode: features/appearance/compact-mode.md
+    features/themes: appearance/themes.md
+    features/themes/custom-themes: appearance/custom-themes.md
+    features/compact-mode: appearance/compact-mode.md
