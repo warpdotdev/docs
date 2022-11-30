@@ -11,14 +11,15 @@
 * [Changelog](getting-started/changelog.md)
 * [Learn More](getting-started/learn-more.md)
 
+## 🎨 Appearance
+
+* [Themes](appearance/themes.md)
+* [Custom Themes](appearance/custom-themes.md)
+* [Compact Mode](appearance/compact-mode.md)
+
 ## 📕 Features
 
 * [Command Palette](features/command-palette.md)
-* [Appearance Customization](features/appearance/README.md)
-  * [Warp Themes](features/appearance/themes.md)
-  * [Custom Themes](features/appearance/custom-themes.md)
-  * [Prompt](features/appearance/prompt.md)
-  * [Compact Mode](features/appearance/compact-mode.md)
 * [Blocks](features/blocks/README.md)
   * [Block Basics](features/blocks/block-basics.md)
   * [Block Actions](features/blocks/block-actions.md)
@@ -41,6 +42,7 @@
   * [Global Hotkey Window](features/windows/hotkey-window.md)
   * [Tabs](features/windows/tabs.md)
   * [Split Panes](features/windows/split-panes.md)
+* [Prompt](features/prompt.md)
 * [Completions](features/completions.md)
 * [Accessibility](features/accessibility.md)
 * [Find](features/find.md)

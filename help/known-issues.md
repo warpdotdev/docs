@@ -25,7 +25,7 @@ Note: You'll need to start a new session before a change is reflected or try inv
 
 ## Auto-Update on macOS Ventura
 
-Warp may have an error opening after auto-update on macOS Ventura. This issue has been resolved for current and future releases of Warp. To avoid the issue, [update Warp](updating-warp.md) _before_ you upgrade to macOS Ventura. \
+Warp may have an error opening after auto-update on macOS Ventura. This issue has been resolved for current and future releases of Warp. To avoid the issue, [update Warp](updating-warp.md) _before_ you upgrade to macOS Ventura.\
 \
 If you experience an error opening Warp, please try the following:
 
@@ -49,7 +49,7 @@ In order to support Blocks ([custom hooks](https://blog.warp.dev/how-warp-works/
 
 You can however, **disable the conflicting settings for just Warp** using this flag: `$TERM_PROGRAM != "WarpTerminal"`, see below for a full example.
 
-We currently don't have support for multi-line prompts, unlike typical terminals which are essentially continuous character grids, each section of Warp is its own (separate) UI element. The native Prompt does not support multi-line at this time and does not support right sided prompts. Improving the native Prompt is on the roadmap, however. Please see our [Prompt](../features/prompt.md) page for more information on custom prompts.
+We currently don't have support for multi-line prompts, unlike typical terminals which are essentially continuous character grids, each section of Warp is its own (separate) UI element. The native Prompt does not support multi-line at this time and does not support right sided prompts. Improving the native Prompt is on the roadmap, however. Please see our [Prompt](broken-reference) page for more information on custom prompts.
 
 ### Debugging
 
@@ -91,7 +91,7 @@ end
 
 * iterm shell integration
   * usually looks like `test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true`
-* [Powerlevel10K](../features/prompt.md#powerlevel10k-p10k)
+* [Powerlevel10K](broken-reference)
 * OH-MY-ZSH-THEMES
   * e.g. avit, spaceship, maybe more ...
 * OH-MY-ZSH-PLUGINS

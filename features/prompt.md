@@ -2,9 +2,9 @@
 
 ## What is it
 
-Warp has a native Prompt that shows your current working directory (cwd) and also git branch information when in a git directory.
+Warp has a native Prompt that shows your current working directory (cwd) and also git branch information when in a git directory. It can also be set to a custom prompt using one of the supported tools.
 
-<figure><img src="../.gitbook/assets/warp_prompt (2).jpg" alt=""><figcaption><p>Warp Native Prompt</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/warp_prompt (1).jpg" alt="Warp Native Prompt"><figcaption><p>Warp Native Prompt</p></figcaption></figure>
 
 ### Git Status Indicator
 
@@ -29,10 +29,6 @@ Git Status Indicator Demo
 Custom Prompt Demo
 {% endembed %}
 
-## Known Incompatibilities
-
-If you’re having issues with prompts, please see below or our [Known Issues](../help/known-issues.md#configuring-and-debugging-your-rc-files) for more troubleshooting steps.
-
 ### Custom Prompt Compatibility Table
 
 | Shell    | Tool                                                        | Does it work? |
@@ -47,11 +43,15 @@ If you’re having issues with prompts, please see below or our [Known Issues](.
 | Bash/zsh | Powerline-shell                                             | Coming soon   |
 | SSH      |                                                             | Working       |
 
-#### Multi-Line and Right-Sided Prompts
+## Known Incompatibilities
+
+If you’re having issues with prompts, please see below or our [Known Issues](help/known-issues.md#configuring-and-debugging-your-rc-files) for more troubleshooting steps.
+
+### Multi-Line and Right-Sided Prompts
 
 We don’t currently support multi-line or right-sided prompts. The Input Editor is a separate UI element from the Prompt; this is actually what enables a modern text editor experience. Improving the native Prompt is on the [roadmap](prompt.md#context-chips).
 
-#### iTerm2
+### iTerm2
 
 The iTerm2 shell integration breaks Warp and your custom prompt will not be able to be visible with this on. If you're coming from iTerm please check your dotfiles for it. We advise disabling the integration just for Warp like so:
 
@@ -65,7 +65,7 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 fi
 ```
 
-#### Powerlevel10K (P10K)
+### Powerlevel10K (P10K)
 
 We don't currently support P10K. Because of how we use the prompt\_command in Warp and because P10K can be installed standalone or as an Oh-My-Zsh plugin, each of which results in different problems and requires special handling.
 
@@ -81,6 +81,6 @@ if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
 fi
 ```
 
-### Context Chips
+## Context Chips
 
 Context Chips is an idea we have for what the future of terminal prompts could be like, i.e. prompts that support dynamic refreshing, mouse interactions, and can be customized via an open spec that developers can build on. Learn more via our [Twitter thread](https://twitter.com/warpdotdev/status/1496263490491023362?s=20\&t=4PBawdJYHKfywG7eEe2jNA), where we also shared some Figma mocks.
