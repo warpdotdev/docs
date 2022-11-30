@@ -15,3 +15,7 @@ redirects:
     features/themes: appearance/themes.md
     features/themes/custom-themes: appearance/custom-themes.md
     features/compact-mode: appearance/compact-mode.md
+    features/appearance/themes: appearance/themes.md
+    features/appearance/custom-themes: appearance/custom-themes.md
+    features/appearance/prompt: features/prompt.md
+    features/appearance/compact-mode: appearance/compact-mode.md
