@@ -16,6 +16,7 @@
 * [Themes](appearance/themes.md)
 * [Custom Themes](appearance/custom-themes.md)
 * [Compact Mode](appearance/compact-mode.md)
+* [Text and Fonts](appearance/text-fonts.md)
 
 ## 📕 Features
 
