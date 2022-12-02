@@ -22,20 +22,7 @@ This feature allows you to easily copy the Block command, output, or both.
 ## Sharing a Block
 
 Share a block easily with coworkers or teammates by creating a web permalink. This preserves formatting and makes debugging and sharing output easy.
-
-{% hint style="info" %}
-This is the only action in the app that sends command information to our server. It is explicitly opt-in. Our privacy principle is that any data sharing is opt-in and under the control of the user, and you should be able to remove or export that data from our servers at any time. Read our privacy policy here for [more information](https://www.warp.dev/privacy).
-{% endhint %}
-
-* Currently, the link is viewable to anyone who has it, but in the future, you will be able to restrict viewing permissions to specific Warp users or email domains.
-* To un-share a Block: settings -> shared blocks
-* The same actions are also supported when multiple blocks are selected.
-
-{% embed url="https://www.loom.com/share/517f50e095704334882f9a0f7e5522f0?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}Share and Un-share a Block{% endembed %}
-
-Here is the [web permalink](https://app.warp.dev/block/vzFATak939iqGWfNh7wsAP) of the Block shared in the demo above.
-
-![Web Permalink of Shared Block](<../../.gitbook/assets/Screen Shot 2022-07-18 at 3.38.35 PM.png>)
+[See Block Sharing Page.](block-sharing.md)
 
 ## Bookmarking a Block
 

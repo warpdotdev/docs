@@ -24,6 +24,7 @@
 * [Blocks](features/blocks/README.md)
   * [Block Basics](features/blocks/block-basics.md)
   * [Block Actions](features/blocks/block-actions.md)
+  * [Block Sharing](features/blocks/block-sharing.md)
   * [Sticky Command Header](features/blocks/sticky-command-header.md)
 * [Text Editor Input](features/editor/README.md)
   * [Autosuggestions](features/editor/autosuggestions.md)
