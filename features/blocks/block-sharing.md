@@ -34,5 +34,3 @@ Compatible with any platform that supports Open Graph or Twitter meta tags.
 <figure><img src="../../.gitbook/assets/blocks-sharing-slack.png" alt=""><figcaption><p>Slack Block Preview</p></figcaption></figure>
 
 <figure><img src="../../.gitbook/assets/blocks-sharing-twitter.png" alt=""><figcaption><p>Twitter Block Preview</p></figcaption></figure>
-
-<figure><img src="../../.gitbook/assets/blocks-sharing-discord.png" alt="Discord Block Preview"><figcaption><p>Discord Block Preview</p></figcaption></figure>
