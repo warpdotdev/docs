@@ -15,7 +15,9 @@ Create and share a permalink to your Blocks to collaborate with teammates. Warp 
 * Currently, shared Blocks are viewable to anyone with the link, but in the future, you will be able to restrict viewing permissions to specific people or email domains.
 * Unshare a Block by navigating to `Settings -> Shared Blocks`
 
-{% embed url="https://www.loom.com/share/517f50e095704334882f9a0f7e5522f0?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}Share and Un-share a Block{% endembed %}
+{% embed url="https://www.loom.com/share/517f50e095704334882f9a0f7e5522f0?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
+Share and Un-share a Block
+{% endembed %}
 
 Here is the [web permalink](https://app.warp.dev/block/vzFATak939iqGWfNh7wsAP) of the Block shared in the demo above.
 
@@ -28,3 +30,9 @@ Shared permalinks will also display a preview of your code for quick context on 
 {% hint style="info" %}
 Compatible with any platform that supports Open Graph or Twitter meta tags.
 {% endhint %}
+
+<figure><img src="../../.gitbook/assets/blocks-sharing-slack.png" alt=""><figcaption><p>Slack Block Preview</p></figcaption></figure>
+
+<figure><img src="../../.gitbook/assets/blocks-sharing-twitter.png" alt=""><figcaption><p>Twitter Block Preview</p></figcaption></figure>
+
+<figure><img src="../../.gitbook/assets/blocks-sharing-discord.png" alt="Discord Block Preview"><figcaption><p>Discord Block Preview</p></figcaption></figure>
