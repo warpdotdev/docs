@@ -39,7 +39,7 @@ Custom Prompt Demo
 | zsh      | [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh)              | Working       |
 | zsh      | [prezto](https://github.com/sorin-ionescu/prezto)            | Working       |
 | zsh      | [Powerlvel10k](https://github.com/romkatv/powerlevel10k)     | Not supported |
-| zsh      | [Spaceship](https://spaceship-prompt.sh/)                    | Not supported |
+| zsh      | [Spaceship](https://spaceship-prompt.sh/)                    | Working       |
 | zsh      | [zplug](https://github.com/zplug/zplug)                      | Not supported |
 | Bash/zsh | [Powerline-shell](https://github.com/b-ryan/powerline-shell) | Coming soon   |
 | SSH      |                                                              | Working       |
