@@ -82,6 +82,10 @@ if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
 fi
 ```
 
+### Spaceship
+
+This prompt can cause an [issue](https://github.com/warpdotdev/Warp/issues/1973) with typeahead in Warp's input editor. Set the `SPACESHIP_PROMPT_ASYNC=false` in your `~/.zshrc` file to resolve the typeahead.
+
 ## Context Chips
 
 Context Chips is an idea we have for what the future of terminal prompts could be like, i.e. prompts that support dynamic refreshing, mouse interactions, and can be customized via an open spec that developers can build on. Learn more via our [Twitter thread](https://twitter.com/warpdotdev/status/1496263490491023362?s=20\&t=4PBawdJYHKfywG7eEe2jNA), where we also shared some Figma mocks.
