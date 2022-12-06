@@ -31,18 +31,18 @@ Custom Prompt Demo
 
 ### Custom Prompt Compatibility Table
 
-| Shell    | Tool                                                         | Does it work? |
-| -------- | ------------------------------------------------------------ | ------------- |
-| Bash/zsh | [PS1](https://www.warp.dev/blog/whats-so-special-about-ps1)  | Working       |
-| Bash     | [SBP](https://github.com/brujoand/sbp)                       | Coming soon   |
-| Bash/zsh | [Starship](https://github.com/starship/starship)             | Working       |
-| zsh      | [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh)              | Working       |
-| zsh      | [prezto](https://github.com/sorin-ionescu/prezto)            | Working       |
-| zsh      | [Powerlvel10k](https://github.com/romkatv/powerlevel10k)     | Not supported |
-| zsh      | [Spaceship](https://spaceship-prompt.sh/)                    | Working       |
-| zsh      | [zplug](https://github.com/zplug/zplug)                      | Not supported |
-| Bash/zsh | [Powerline-shell](https://github.com/b-ryan/powerline-shell) | Coming soon   |
-| SSH      |                                                              | Working       |
+| Shell    | Tool                                                         | Does it work?                                   |
+| -------- | ------------------------------------------------------------ | ----------------------------------------------- |
+| Bash/zsh | [PS1](https://www.warp.dev/blog/whats-so-special-about-ps1)  | Working                                         |
+| Bash     | [SBP](https://github.com/brujoand/sbp)                       | Coming soon                                     |
+| Bash/zsh | [Starship](https://github.com/starship/starship)             | Working                                         |
+| zsh      | [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh)              | Working                                         |
+| zsh      | [prezto](https://github.com/sorin-ionescu/prezto)            | Working                                         |
+| zsh      | [Spaceship](https://spaceship-prompt.sh/)                    | Working[\*](prompt.md#spaceship)                |
+| zsh      | [Powerlvel10k](https://github.com/romkatv/powerlevel10k)     | Not supported[\*](prompt.md#powerlevel10k-p10k) |
+| zsh      | [zplug](https://github.com/zplug/zplug)                      | Not supported                                   |
+| Bash/zsh | [Powerline-shell](https://github.com/b-ryan/powerline-shell) | Coming soon                                     |
+| SSH      |                                                              | Working                                         |
 
 ## Known Incompatibilities
 
