@@ -28,9 +28,9 @@ Here is the [web permalink](https://app.warp.dev/block/vzFATak939iqGWfNh7wsAP) o
 Shared permalinks will also display a preview of your code for quick context on each link.
 
 {% hint style="info" %}
-Compatible with any platform that supports Open Graph or Twitter meta tags.
+Compatible with any platform that supports Open Graph or Twitter meta tags. For example: Slack, Twitter, Facebook, Telegram, Notion, and more ...
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/blocks-sharing-slack.png" alt=""><figcaption><p>Slack Block Preview</p></figcaption></figure>
-
-<figure><img src="../../.gitbook/assets/blocks-sharing-twitter.png" alt=""><figcaption><p>Twitter Block Preview</p></figcaption></figure>
+{% embed url="https://www.loom.com/share/a78147fee8804c00b08a1decbc0d4e72?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
+Share and Unfurl a Block Preview
+{% endembed %}
