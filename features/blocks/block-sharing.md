@@ -15,8 +15,8 @@ Create and share a permalink to your Blocks to collaborate with teammates. Warp 
 * Currently, shared Blocks are viewable to anyone with the link, but in the future, you will be able to restrict viewing permissions to specific people or email domains.
 * Unshare a Block by navigating to `Settings -> Shared Blocks`
 
-{% embed url="https://www.loom.com/share/517f50e095704334882f9a0f7e5522f0?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
-Share and Un-share a Block
+{% embed url="https://www.loom.com/share/a78147fee8804c00b08a1decbc0d4e72?hideEmbedTopBar=true&hide_owner=true&hide_share=true&hide_title=true" %}
+Block Sharing and Unfurling Demo
 {% endembed %}
 
 Here is the [web permalink](https://app.warp.dev/block/vzFATak939iqGWfNh7wsAP) of the Block shared in the demo above.
