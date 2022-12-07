@@ -54,6 +54,7 @@
 * [Notifications](features/notifications.md)
 * [SSH](features/ssh.md)
 * [Integrations](features/integrations-and-plugins.md)
+* [Network Log](features/network-log.md)
 
 ## 📊 How Does Warp Compare?
 
