@@ -38,8 +38,8 @@ Custom Prompt Demo
 | Bash/zsh | [Starship](https://github.com/starship/starship)             | Working                                         |
 | zsh      | [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh)              | Working                                         |
 | zsh      | [prezto](https://github.com/sorin-ionescu/prezto)            | Working                                         |
-| zsh      | [Spaceship](https://spaceship-prompt.sh/)                    | Working[\*](prompt.md#spaceship)                |
-| zsh      | [Powerlvel10k](https://github.com/romkatv/powerlevel10k)     | Not supported[\*](prompt.md#powerlevel10k-p10k) |
+| zsh      | [Spaceship](https://spaceship-prompt.sh/)                    | [Working\*](prompt.md#spaceship)                |
+| zsh      | [Powerlevel10k](https://github.com/romkatv/powerlevel10k)    | [Not supported\*](prompt.md#powerlevel10k-p10k) |
 | zsh      | [zplug](https://github.com/zplug/zplug)                      | Not supported                                   |
 | Bash/zsh | [Powerline-shell](https://github.com/b-ryan/powerline-shell) | Coming soon                                     |
 | SSH      |                                                              | Working                                         |
@@ -66,6 +66,11 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 fi
 ```
 
+### Spaceship
+
+This prompt can cause an [issue](https://github.com/warpdotdev/Warp/issues/1973) with typeahead in Warp's input editor.\
+To workaround the issue, run `echo "SPACESHIP_PROMPT_ASYNC=FALSE" >>! ~/.zshrc`&#x20;
+
 ### Powerlevel10K (P10K)
 
 We don't currently support P10K. Because of how we use the prompt\_command in Warp and because P10K can be installed standalone or as an Oh-My-Zsh plugin, each of which results in different problems and requires special handling.
@@ -81,10 +86,6 @@ if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
 ##### WHAT YOU WANT TO DISABLE FOR WARP - ABOVE
 fi
 ```
-
-### Spaceship
-
-This prompt can cause an [issue](https://github.com/warpdotdev/Warp/issues/1973) with typeahead in Warp's input editor. Set the `SPACESHIP_PROMPT_ASYNC=false` in your `~/.zshrc` file to resolve the typeahead.
 
 ## Context Chips
 
