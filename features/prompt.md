@@ -4,7 +4,7 @@
 
 Warp has a native Prompt that shows your current working directory (cwd) and also git branch information when in a git directory. It can also be set to a custom prompt using one of the supported tools.
 
-<figure><img src="../.gitbook/assets/warp_prompt.jpg" alt="Warp Native Prompt"><figcaption><p>Warp Native Prompt</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/warp_prompt (1).jpg" alt="Warp Native Prompt"><figcaption><p>Warp Native Prompt</p></figcaption></figure>
 
 ### Git Status Indicator
 
@@ -12,7 +12,7 @@ The native Prompt shows the name of the git branch that you are on locally, as w
 
 ### Custom Prompt
 
-You can also enable a custom prompt by configuring the **PS1** variable or installing a supported shell prompt plugin, see [Compatibility Table](prompt.md#custom-prompt-compatibility-table). _Note:_ The PS1 is a variable used by the shell to generate the prompt, it represents the primary prompt string (hence the “PS”) - which is what the terminal typically displays before typing new commands.
+You can also enable a custom prompt by configuring the **PS1** variable or installing a supported shell prompt plugin, see [Custom Prompt Compatibility Table](prompt.md#custom-prompt-compatibility-table). _Note:_ The PS1 is a variable used by the shell to generate the prompt, it represents the primary prompt string (hence the “PS”) - which is what the terminal typically displays before typing new commands.
 
 ## How to access it
 
@@ -31,18 +31,19 @@ Custom Prompt Demo
 
 ### Custom Prompt Compatibility Table
 
-| Shell    | Tool                                                         | Does it work?                                   |
-| -------- | ------------------------------------------------------------ | ----------------------------------------------- |
-| Bash/zsh | [PS1](https://www.warp.dev/blog/whats-so-special-about-ps1)  | Working                                         |
-| Bash     | [SBP](https://github.com/brujoand/sbp)                       | Coming soon                                     |
-| Bash/zsh | [Starship](https://github.com/starship/starship)             | Working                                         |
-| zsh      | [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh)              | Working                                         |
-| zsh      | [prezto](https://github.com/sorin-ionescu/prezto)            | Working                                         |
-| zsh      | [Spaceship](https://spaceship-prompt.sh/)                    | [Working\*](prompt.md#spaceship)                |
-| zsh      | [Powerlevel10k](https://github.com/romkatv/powerlevel10k)    | [Not supported\*](prompt.md#powerlevel10k-p10k) |
-| zsh      | [zplug](https://github.com/zplug/zplug)                      | Not supported                                   |
-| Bash/zsh | [Powerline-shell](https://github.com/b-ryan/powerline-shell) | Coming soon                                     |
-| SSH      |                                                              | Working                                         |
+| Shell    | Tool                                                         | Does it work?                                             |
+| -------- | ------------------------------------------------------------ | --------------------------------------------------------- |
+| Bash/zsh | [PS1](https://www.warp.dev/blog/whats-so-special-about-ps1)  | Working                                                   |
+| Bash     | [SBP](https://github.com/brujoand/sbp)                       | Coming soon                                               |
+| Bash/zsh | [Starship](https://github.com/starship/starship)             | Working                                                   |
+| Bash/zsh | [oh-my-posh](https://github.com/JanDeDobbeleer/oh-my-posh)   | [Working\*](prompt.md#multi-line-and-right-sided-prompts) |
+| zsh      | [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh)              | Working                                                   |
+| zsh      | [prezto](https://github.com/sorin-ionescu/prezto)            | Working                                                   |
+| zsh      | [Spaceship](https://spaceship-prompt.sh/)                    | [Working\*](prompt.md#spaceship)                          |
+| zsh      | [Powerlevel10k](https://github.com/romkatv/powerlevel10k)    | [Not supported\*](prompt.md#powerlevel10k-p10k)           |
+| zsh      | [zplug](https://github.com/zplug/zplug)                      | Not supported                                             |
+| Bash/zsh | [Powerline-shell](https://github.com/b-ryan/powerline-shell) | Coming soon                                               |
+| SSH      |                                                              | Working                                                   |
 
 ## Known Incompatibilities
 
@@ -50,7 +51,7 @@ If you’re having issues with prompts, please see below or our [Known Issues](h
 
 ### Multi-Line and Right-Sided Prompts
 
-We don’t currently support multi-line or right-sided prompts. The Input Editor is a separate UI element from the Prompt; this is actually what enables a modern text editor experience. Improving the native Prompt is on the [roadmap](prompt.md#context-chips).
+We don’t currently support multi-line or right-sided prompts. The Input Editor is a separate UI element from the Prompt; this is actually what enables a modern text editor experience. Improving the native Prompt is on the [roadmap](prompt.md#context-chips). _Note: The exception_ to this is the oh-my-posh prompt.
 
 ### iTerm2
 
