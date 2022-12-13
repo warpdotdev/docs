@@ -74,7 +74,7 @@ Each color is represented in hex and must start with `#`.
 
 ## Create your own custom theme with Warp-Themes.com
 
-[Warp-Themes.com](https://warp-themes.com/) is a web app built entirely by community member [Torben Haack](https://twitter.com/torben\_haack). The tool allows you to visually customize your own terminal theme with a few simple color selections, then download that theme file and have Warp load it into its theme picker. Please see more on how to use the app in our [Warp-Themes blog post](https://www.warp.dev/blog/create-custom-terminal-theme).
+[Warp-Themes.com](https://warp-themes.com/) is a web app built entirely by community member [Torben Haack](https://github.com/haackt). The tool allows you to visually customize your own terminal theme with a few simple color selections, then download that theme file and have Warp load it into its theme picker. Please see more on how to use the app in our [Warp-Themes blog post](https://www.warp.dev/blog/create-custom-terminal-theme).
 
 ## Background Images and Gradients
 
