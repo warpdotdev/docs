@@ -3,12 +3,39 @@
 These are our release changelogs. We try to release an update every week on Thursday!
 Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2022.12.06 (v0.2022.12.06.08.03)
+
+**New features**
+
+- Users may now opt out of telemetry (app analytics and crash reporting)
+- Added 'Tail Warp network log' workflow for viewing logs of all app network activity.
+
+**Bug fixes**
+
+- Full-screen CLI commands like mitmproxy now correctly span the entire view.
+- Improved styling and organization of Features page in settings.
+- Completions While Typing menu closes while generating new results.
+- Added a hidden completion result for root dir.
+- Warp now consumes less memory when a session has many blocks.
+- Fixed an issue over SSH where logs were being inserted into input.
+
+### 2022.12.02 (v0.2022.11.29.08.03)
+
+**New features**
+
+- Users may now opt out of telemetry (app analytics and crash reporting)
+- Added 'Tail Warp network log' workflow for viewing logs of all app network activity.
+
+**Bug fixes**
+
+- Mitigated an issue where running a command over SSH would emit spurious output (specifically, 'channel: open failed' statements) in a block.
+
 ### 2022.11.15 (v0.2022.11.14.14.55)
 
 **New features**
 
 - Command Search: Ctrl-R opens a panel where you can search your history, workflows, and other command execution-related items, all in one place.
-- Sticky command header: Warp now pins the prompt/command section of a Block to the top of the screen; click it to scroll to the top of the Block
+- Sticky command header: Warp now pins the prompt/command section of a Block to the top of the screen; click it to scroll to the top of the Block. Can be toggled via Settings > Features > Show Sticky Command Header
 - Warp’s Input Editor now supports soft wrapping; long commands are now fully visible!
 
 **Bug fixes**
