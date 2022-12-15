@@ -1040,3 +1040,17 @@ Submit bugs and feature request on our [GitHub board!](https://github.com/warpdo
 
 - Text rendering was faded on certain monitors
 
+### 2022.12.15 (v0.2022.12.13.08.04)
+
+**New features**
+
+- You can now reorder and drag tabs around with your mouse!
+
+**Bug fixes**
+
+- The welcome Block now also works when using Fish shell.
+- AI Command Search no longer crashes from multi-byte characters when opened via the `#` prefix
+- Warp no longer crashes when starting a new session in a deleted or inaccessible directory
+- Resolved rendering bugs and hangs in full-screen applications like 'k9s' and 'less'.
+- Added a login failure notification.
+
