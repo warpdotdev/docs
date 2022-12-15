@@ -3,13 +3,12 @@
 ## 🚀 Getting Started
 
 * [What is Warp?](README.md)
-* [Getting Started](getting-started/getting-started-with-warp.md)
-* [Using Warp with \[zsh|bash|fish\]](getting-started/using-warp-with-shells.md)
+* [Download Warp](getting-started/getting-started-with-warp.md)
 * [Onboarding](getting-started/onboarding.md)
+* [Using Warp with \[zsh|bash|fish\]](getting-started/using-warp-with-shells.md)
 * [Privacy](getting-started/privacy.md)
 * [Refer a Friend](getting-started/refer-a-friend.md)
 * [Changelog](getting-started/changelog.md)
-* [Learn More](getting-started/learn-more.md)
 
 ## 🎨 Appearance
 

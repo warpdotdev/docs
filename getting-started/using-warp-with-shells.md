@@ -1,10 +1,15 @@
-# Using Warp with \[bash|zsh|fish]
+---
+description: >-
+  Warp currently supports popular existing shells like Bash, Zsh, and Fish. If
+  your default shell is set to any other shell, you would see a banner notifying
+  you that the shell is not supported, and War
+---
 
-Warp currently supports popular existing shells like Bash, Zsh, and Fish. If your default shell is set to any other shell, you would see a banner notifying you that the shell is not supported, and Warp will fall back to Zsh.
+# Using Warp with \[zsh|bash|fish]
 
 ### Zsh is the default shell for Warp
 
-Zsh is the default login and interactive shell on macOS (starting with macOS Catalina in 2019), replacing Bash shell which. Warp tries to load your login shell by default, currently we support Bash, Fish, and Zsh; if your login shell is set to something else e.g. Nushell Warp will load Zsh instead. 
+Zsh is the default login and interactive shell on macOS (starting with macOS Catalina in 2019), replacing Bash shell which. Warp tries to load your login shell by default, currently we support Bash, Fish, and Zsh; if your login shell is set to something else e.g. Nushell Warp will load Zsh instead.
 
 You can switch your default shell to any other shell supported by Warp (Bash, Zsh, Fish).
 
@@ -36,9 +41,7 @@ Note that the dot (`.`) before the file’s name indicates that the file is hidd
 
 When you make a change to the `zshrc` file, it needs to be reloaded or sourced again for the changes to take effect. You can do this by either restarting Warp, or by typing: `source ~/.zshrc`.
 
-
-
-### Using Bash shell with Warp&#x20;
+### Using Bash shell with Warp
 
 Macs come with Bash pre-installed, typically located at the `/bin/bash` directory. You can customize Bash by editing its configuration files (`.bashrc` file for non-login interactive shell and `.bash_profile` for login shells).
 
@@ -46,9 +49,7 @@ Macs come with Bash pre-installed, typically located at the `/bin/bash` director
 If you run into issues configuring these files with Warp, please see [Configuring and debugging your RC files](https://docs.warp.dev/help/known-issues#configuring-and-debugging-your-rc-files).
 {% endhint %}
 
-
-
-#### Customize Your Bash Shell Environment&#x20;
+#### Customize Your Bash Shell Environment
 
 You can customize your Bash shell environment by modifying the `.bashrc` file, which is a configuration file that is automatically created when Bash is installed in your system. It is typically located your home directory (`~/.bashrc`).
 
@@ -65,11 +66,11 @@ $ source ~/.bashrc
 ```
 
 {% hint style="info" %}
-**Pro Tip**: Instead of typing `source ~/.bashrc`, you can create an alias for it inside the .bashrc file by typing - \
+**Pro Tip**: Instead of typing `source ~/.bashrc`, you can create an alias for it inside the .bashrc file by typing -\
 \
 `alias reload="source ~/.bashrc"`\
 \
-So, now you can type \``` reload` ``, to source the latest changes in the `bashrc`&#x20;
+So, now you can type \``` reload` ``, to source the latest changes in the `bashrc`
 {% endhint %}
 
 ### Using Fish shell with Warp
@@ -126,8 +127,6 @@ If you prefer, you can also manually edit the /etc/shells file using the editor 
 `chsh -s /bin/bash`
 
 Enter your password when prompted to complete the switch. Every new tab, and window you now open will start with bash (note that the current session however, will remain with whatever shell you started with).
-
-
 
 **To change the default shell to zsh**
 

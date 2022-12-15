@@ -29,3 +29,7 @@ For example, we might find that backend engineers spend more time with multiple 
 As part of our beta, we ask a few questions within the app after you sign up.
 
 The survey is completely optional—you can skip all questions if you’d like.
+
+## 3 ) Customize Warp
+
+Warp has a number of Appearance and Feature customizations you can set. Please see the navigation sidebar to learn more!
