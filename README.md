@@ -18,7 +18,7 @@ Warp Demo
 
 Find updates, demos, insider stories, news articles, and more about Warp!
 
-* Visit our [press page](https://www.warp.dev/press) to see what other people have been saying about us.
+* Visit our [Blog](https://www.warp.dev/blog) to read about the latest Warp releases and features.
 * Subscribe to our [YouTube](https://www.youtube.com/channel/UCKONdcQCTP3aozARj1ntKhw) or [TikTok](https://www.tiktok.com/@warp.dev) channels for longer demos and insider stories.
 * Join our [Discord](https://www.warp.dev/community) to interact directly with other developers and our engineers.
-* Follow our [Twitter](https://twitter.com/warpdotdev) for the latest updates.
+* Follow our [Twitter](https://twitter.com/warpdotdev) for updates and to see what other people have been saying about us.
