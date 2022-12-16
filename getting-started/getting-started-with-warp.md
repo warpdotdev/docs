@@ -62,4 +62,4 @@ The survey is completely optional—you can skip all questions if you’d like.
 
 ### 3 ) Customize Warp
 
-Warp has a number of Appearance and Feature features you can toggle. Please see the navigation sidebar to learn more!
+Warp has a number of Appearance and Feature settings you can configure. Please see the navigation sidebar to learn more!
