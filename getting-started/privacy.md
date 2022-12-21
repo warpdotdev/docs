@@ -61,14 +61,13 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 | Event Name                                                 | Description                                                                                                             |
 | ---------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
 | `Accept Natural Language Search Result`                    | Accepted AI Command Search result                                                                                       |
-| `Active App Usage`                                         | App is in focus and Blocks are being created                                                                            |
 | `App Startup`                                              | App is launched                                                                                                         |
 | `Approve Domains`                                          | Under team management in settings, domain is approved for users with corresponding email domain to join the team        |
 | `Auth: Common Question Clicked in App`                     | Clicked on "Common Question" when logging in                                                                            |
 | `Auth: Toggle Common Questions`                            | Toggled FAQ Page when logging in                                                                                        |
 | `Auth: Open Privacy Settings Overlay`                      | Privacy settings modal is open during sign-in                                                                           |
 | `Autosuggestion Inserted`                                  | Accepted autosuggestion                                                                                                 |
-| `BaselineCommand Latency`                                  | Command execution time                                                                                                  |
+| `Baseline Command Latency`                                 | Command execution time                                                                                                  |
 | `Block Creation`                                           | Created Block                                                                                                           |
 | `Block Finished to Precmd Delay`                           | Latency between command finished and the precmd hook                                                                    |
 | `Block Selection`                                          | Selected Block                                                                                                          |
