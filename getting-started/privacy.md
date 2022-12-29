@@ -60,7 +60,7 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 
 | Event Name | Description |
 |---|---|
-| `Accept Natural Language Search Result` | Accepted AI Command Search result |
+| `Accept Natural Language Search Result` | Accepted AI Command Search Result |
 | `App Startup` | App is launched |
 | `Approve Domains` | Under team management in settings, domain is approved for users with corresponding email domain to join the team |
 | `Auth Common Question Clicked in App` | Clicked on "Common Question" when logging in |
