@@ -5,7 +5,7 @@
 Warp supports Custom Themes which can be created [manually](custom-themes.md#create-your-own-custom-theme-manually), via the [warp-themes.com](custom-themes.md#create-your-own-custom-theme-with-warp-themes.com) tool, or downloaded from our [repo](custom-themes.md#warps-custom-theme-repository).
 
 {% hint style="info" %}
-A more thorough explanation of the theme format, together with examples and a collection of themes can be found in the [Warp themes repository](https://github.com/warpdotdev/themes).
+Examples and a collection of themes can be found in the [Warp themes repository](https://github.com/warpdotdev/themes).
 {% endhint %}
 
 ## How do I use a custom theme in Warp?
