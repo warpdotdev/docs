@@ -8,17 +8,17 @@ description: A step-by-step of how to get Warp onto your machine and setup.
 **Mac-Only:** Please note that Warp is currently supported on Mac only. We plan on adding support for Web (WASM), [Linux](https://github.com/warpdotdev/warp/issues/120), and [Windows](https://github.com/warpdotdev/warp/issues/204) in this order. You can subscribe [here](https://zachlloyd.typeform.com/to/lWeDTQnr) if you want to be notified when we build for these platforms.
 {% endhint %}
 
-### 1 ) Installing Warp
+### Installing Warp
 
 There are two ways to get Warp onto your machine:
 
-**a) Download Warp at the link below and Drag into your Application folder**
+**Download Warp at the link below and Drag into your Application folder**
 
 {% embed url="https://app.warp.dev/get_warp" %}
 Link to Download Warp
 {% endembed %}
 
-**b) Install using Homebrew by running the command below**
+**Install using Homebrew by running the command below**
 
 ```
 brew install --cask warp
@@ -34,7 +34,7 @@ Locally, the terminal integrates with Bash, Zsh, or Fish. See [Using Warp with \
 
 ## Onboarding
 
-### 1) Logging into Warp
+### Logging into Warp
 
 {% hint style="info" %}
 Issues with login? Check out our [login troubleshooting page](../help/troubleshooting-login-issues.md).
@@ -48,7 +48,7 @@ If you log in with Google or GitHub, we only get access to the associated email 
 
 Opening the app is the only time you need an active Internet connection. Otherwise, Warp is a fully-native, local app that runs fine with no internet connection (although you will lose access to some of our cooler features).
 
-### 2) Onboarding survey
+### Onboarding Survey
 
 {% hint style="info" %}
 Why do we ask these? Understanding how you use the terminal helps us improve the product and prioritize the right features.
@@ -60,6 +60,6 @@ As part of our beta, we ask a few questions within the app after you sign up.
 
 The survey is optional - you can skip all questions if you’d like.
 
-### 3 ) Customize Warp
+### Customize Warp
 
 Warp has many Appearance and Feature settings you can configure. Please see the navigation sidebar to learn more!
