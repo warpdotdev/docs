@@ -8,11 +8,35 @@ Warp supports Custom Themes which can be created [manually](custom-themes.md#cre
 Examples and a collection of themes can be found in the [Warp themes repository](https://github.com/warpdotdev/themes).
 {% endhint %}
 
+## Warp's Custom Theme Repository
+
+We have a [repository of themes hosted on GitHub.](https://github.com/warpdotdev/themes)
+
+Each theme has a preview generated in the README.
+
+The main difference between "standard" and "base16" themes is that "standard" themes follow the typical color setup, while "base16" themes follow the framework suggested by [@chriskempson](https://github.com/chriskempson/base16).
+
+There are 2 ways to install a theme from this repo.
+
+1. Download just a single file and follow the steps in the section below.
+2. Clone the entire repo into `~/.warp/`
+
+```sh
+cd ~/.warp/
+git clone https://github.com/warpdotdev/themes.git
+```
+
+Here is a step-by-step YouTube video that goes through these 2 steps for an example theme.
+
+{% embed url="https://www.youtube.com/watch?v=UTYgwD-cLbk" %}
+Adding a Custom Theme to Warp
+{% endembed %}
+
 ## How do I use a custom theme in Warp?
 
 1. To start, create a config directory in your home directory:
 
-```
+```sh
 mkdir -p ~/.warp/themes/
 ```
 
@@ -22,7 +46,7 @@ _Note:_ It may take several minutes for Warp to initially discover the new confi
 
 2\. Add your new custom theme yaml theme file to this directory:
 
-```
+```sh
 cp ~/Downloads/my_awesome_theme.yaml ~/.warp/themes/
 ```
 
@@ -156,25 +180,6 @@ background:
   bottom: '#ffffff'
 ```
 
-## Warp's Custom Theme Repository
-
-We have a [repository of themes hosted on GitHub.](https://github.com/warpdotdev/themes)
-
-Each theme has a preview generated in the README.
-
-The main difference between "standard" and "base16" themes is that "standard" themes follow the typical color setup, while "base16" themes follow the framework suggested by [@chriskempson](https://github.com/chriskempson/base16).
-
-There are 2 ways to install a theme from this repo.
-
-1. Download just a single file and follow the steps in the section below.
-2. Clone the entire repo into `~/.warp/`
-
-Here is a step-by-step YouTube video that goes through these 2 steps for an example theme.
-
-{% embed url="https://www.youtube.com/watch?v=UTYgwD-cLbk" %}
-Adding a Custom Theme to Warp
-{% endembed %}
-
 ### Contributing
 
 Contributions to this repo are greatly appreciated!
@@ -186,7 +191,7 @@ Contributions to this repo are greatly appreciated!
 
 Run this script to generate the thumbnails.
 
-```
+```sh
 # assuming you're adding the theme to the `standard` directory:
 python3 ./scripts/gen_theme_previews.py standard
 ```
