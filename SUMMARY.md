@@ -14,8 +14,8 @@
 * [Themes](appearance/themes.md)
 * [Custom Themes](appearance/custom-themes.md)
 * [Compact Mode](appearance/compact-mode.md)
-* [Text and Fonts](appearance/transparency-and-blurring.md)
-* [Transparency and Blurring](appearance/tran.md)
+* [Text and Fonts](appearance/text-fonts.md)
+* [Transparency and Blurring](appearance/transparency-and-blurring.md)
 
 ## 📕 Features
 
