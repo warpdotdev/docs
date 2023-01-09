@@ -1,6 +1,13 @@
 # Changelog
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
+### 2023.01.05 (v0.2023.01.03.08.03)
+
+**Bug fixes**
+
+- Trailing periods are no longer considered part of a URL.
+- Fixed regression where the "autocomplete symbols" setting was not being respected.
+
 ### 2022.12.15 (v0.2022.12.13.08.04)
 
 **New features**
