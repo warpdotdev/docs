@@ -98,6 +98,8 @@
   "Pass Through Onboarding Question: engineering_experience": "Engineering experience question in onboarding survey flow",
   "Pass Through Onboarding Question: purpose": "Purpose of using warp question in onboarding survey flow",
   "Pass Through Onboarding Question: role": "Role question in onboarding survey flow",
+  "Quit Modal Cancel Pressed": "`Cancel` button on the alert modal was pressed",
+  "Quit Modal Shown": "Showed an alert modal to warn the user about closing the app/window with a running process",
   "Quit Natural Language Search": "Quit natural language search",
   "Removed user from team": "Removed user from team",
   "Resource Center Opened": "Opened Resource Center pane",
@@ -110,6 +112,8 @@
   "Sent email invites": "Sent an email invite to join team",
   "Session Abandoned Before Bootstrap": "Abandoned session before the boostrapping completes",
   "Set Line Height": "Set line height through Settings -> Appearance",
+  "Set Window Blur Radius": "Changed the blur radius from the `Settings -> Appearance` dialog",
+  "Set Window Opacity": "Changed the opacity (window transparency) from the `Settings -> Appearance` dialog",
   "ShowNotificationsDiscoveryBanner": "Showed discovery banner for notifications (notify user when long running commands finish)",
   "ShowNotificationsErrorBanner": "Showed error banner for notifications (i.e. permissions issue)",
   "Sign Up Button Clicked in App": "Clicked \"Sign Up\" button",
@@ -132,6 +136,7 @@
   "Triggered Command XRay": "Triggered Command X-Ray (hovering over a command for explanation)",
   "Unable to Update To New Version": "Update available but not authorized to install",
   "Unhandled Editor Modifier Key": "Used modifier keybinding keystroke which is not currently supported",
+  "User Initiated Closing Something": "Attempted to either quit the app or close a window",
   "Workflow Executed": "Executed workflow",
   "Workflow Selected": "Selected workflow and populated into the Input Editor"
 }
