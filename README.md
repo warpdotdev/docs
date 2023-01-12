@@ -30,4 +30,4 @@ There are multiple sections that outline how to:
 1. make the most of Warp
 1. set up advance features (like Custom Prompt and opening files in VS Code)
 
-{% embed url="https://www.loom.com/i/974f44c7127a42a8ac988672d21bbcae" %}Warp Resource Center{% endembed %}
+{% embed url="https://www.loom.com/i/ba4af27376c8448eb3e5fde5461dd05a" %}Warp Resource Center{% endembed %}
