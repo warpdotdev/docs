@@ -1,21 +1,18 @@
 # Keyboard Shortcuts
 
-Warp opens with a shortcut screen showing some of the most commonly used keyboard shortcuts. Hide
-the shortcut screen by clicking the menu button below it.
+Warp opens with a shortcut screen showing some of the most commonly used keyboard shortcuts. Hide the shortcut screen by clicking the menu button below it.
 
 ## Custom Keyboard Shortcuts
 
-Set custom keyboard shortcuts by navigating to Settings > Keyboard Shortcuts. Search through the
-re-mappable actions using the search bar.
+Set custom keyboard shortcuts by navigating to Settings > Keyboard Shortcuts. Search through the re-mappable actions using the search bar.
 
-Remap the keyboard shortcuts using a file (`~./.warp/keybindings.yaml`). See our
-[keysets repository](https://github.com/warpdotdev/keysets/tree/main) for instructions.
+Remap the keyboard shortcuts using a file (`~./.warp/keybindings.yaml`). See our [keysets repository](https://github.com/warpdotdev/keysets/tree/main) for instructions.
 
 ## All Available Shortcuts
 
 ### Warp Essentials
 
-| Shortcut       | Description                  | Action                                         |
+| Shortcut       | Command                      | Action                                         |
 | -------------- | ---------------------------- | ---------------------------------------------- |
 | `CMD-D`        | Split Pane Right             | `pane_group:add_right`                         |
 | `CTRL-CMD-L`   | Launch Configuration Palette | `workspace:toggle_launch_config_palette`       |
@@ -26,7 +23,7 @@ Remap the keyboard shortcuts using a file (`~./.warp/keybindings.yaml`). See our
 
 ### Blocks
 
-| Shortcut          | Description                       | Action                                                 |
+| Shortcut          | Command                           | Action                                                 |
 | ----------------- | --------------------------------- | ------------------------------------------------------ |
 | `ALT-DOWN`        | Select the Closest Bookmark Down  | `terminal:select_bookmark_down`                        |
 | `ALT-SHIFT-CMD-C` | Copy Command Output               | `terminal:copy_outputs`                                |
@@ -46,7 +43,7 @@ Remap the keyboard shortcuts using a file (`~./.warp/keybindings.yaml`). See our
 
 ### Input Editor
 
-| Shortcut          | Description                               | Action                                     |
+| Shortcut          | Command                                   | Action                                     |
 | ----------------- | ----------------------------------------- | ------------------------------------------ |
 | `ALT-BACKSPACE`   | Delete Word Left                          | `editor:delete_word_left`                  |
 | `ALT-CMD-F`       | Fold Selected Ranges                      | `editor_view:fold_selected_ranges`         |
@@ -97,7 +94,7 @@ Remap the keyboard shortcuts using a file (`~./.warp/keybindings.yaml`). See our
 
 ### Terminal
 
-| Shortcut          | Description                                       | Action                                       |
+| Shortcut          | Command                                           | Action                                       |
 | ----------------- | ------------------------------------------------- | -------------------------------------------- |
 | `ALT-CMD-DOWN`    | Switch Panes Down                                 | `pane_group:navigate_down`                   |
 | `ALT-CMD-LEFT`    | Switch Panes Left                                 | `pane_group:navigate_left`                   |
@@ -125,7 +122,7 @@ Remap the keyboard shortcuts using a file (`~./.warp/keybindings.yaml`). See our
 
 ### Fundamentals
 
-| Shortcut           | Description                | Action                           |
+| Shortcut           | Command                    | Action                           |
 | ------------------ | -------------------------- | -------------------------------- |
 | `CMD--`            | Decrease Font Size         | `workspace:decrease_font_size`   |
 | `CMD-0`            | Reset Font Size to Default | `workspace:reset_font_size`      |
