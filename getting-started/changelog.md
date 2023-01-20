@@ -1,6 +1,18 @@
 # Changelog
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
+### 2023.01.19 (v0.2023.01.17.08.03)
+
+**New features**
+
+- The current Git branch can now be copied using the Command Palette (`CMD-P`)
+
+**Bug fixes**
+
+- Fixed bug where some keybinding actions would be applied to the wrong terminal pane.
+- Warp now checks the input values for font size and line height and ignores them if they are too small or large
+- The `missing update permissions banner`, can now be dismissed
+- Fixed a rare crash when closing panes created by a launch configuration
 
 ### 2023.01.12 (v0.2023.01.10.08.02)
 
@@ -625,7 +637,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 - Fixed a bug where resizing a pane could cause Warp to show a blank screen
 - Parentheses, quotes, and brackets now also auto-close after typing an alphanumeric character
 - Remapped multi-cursor key bindings to CTRL-SHIFT-UP and CTRL-SHIFT-DOWN - [374](https://github.com/warpdotdev/warp/issues/374)
-- Restored OPT-CMD-UP and OPT-CMD-DOWN for switching panes up and down - [730](https://github.com/warpdotdev/warp/issues/730)
+- Restored OPT-CMD-UP and OPT-CMD-DOWN for switching panes up and down - [730](https://github.com/warpdotdev/warp/issues/730) 
 
 ### 2022.01.26 (v0.2022.01.31.09.03)
 
@@ -779,7 +791,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 - Changelog dialog
 - Emoji rendering: 😂, 😃, 🌍, 🍞, 🚗, 📞, 🎉, ❤️ - [075](https://github.com/warpdotdev/warp/issues/075)
 - Improved settings dialog
-- Theme search - [237](https://github.com/warpdotdev/warp/issues/237)
+- Theme search - [237](https://github.com/warpdotdev/warp/issues/237) 
 
 **Bug fixes**
 
@@ -868,7 +880,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 **New features**
 
 - Split panes: create multiple panes in the same tab via shortcuts (CMD-E/SHIFT-CMD-E), the Command Palette, or by right clicking in any pane.
-- Custom themes via files. You can now define your own theme as a yaml file in ~/.warp/themes. For more information on the file format and to see ~100 of the most popular themes already implemented in this format, see https://github.com/warpdotdev/themes. The ability to add and share themes directly within Warp is coming soon!
+- Custom themes via files.  You can now define your own theme as a yaml file in ~/.warp/themes. For more information on the file format and to see ~100 of the most popular themes already implemented in this format, see https://github.com/warpdotdev/themes. The ability to add and share themes directly within Warp is coming soon!
 
 **Bug fixes**
 
@@ -1079,15 +1091,3 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 
 - Text rendering was faded on certain monitors
 
-### 2023.01.19 (v0.2023.01.17.08.03)
-
-**New features**
-
-- The current Git branch can now be copied using the Command Palette (`CMD-P`)
-
-**Bug fixes**
-
-- Fixed bug where some keybinding actions would be applied to the wrong terminal pane.
-- Warp now checks the input values for font size and line height and ignores them if they are too small or large
-- The `missing update permissions banner`, can now be dismissed
-- Fixed a rare crash when closing panes created by a launch configuration
