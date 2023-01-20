@@ -152,8 +152,12 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 | `Pass Through Onboarding Question: engineering_experience` | Engineering experience question in onboarding survey flow                                                               |
 | `Pass Through Onboarding Question: purpose`                | Purpose of using warp question in onboarding survey flow                                                                |
 | `Pass Through Onboarding Question: role`                   | Role question in onboarding survey flow                                                                                 |
+| `Quit Modal Cancel Pressed`                                | `Cancel` button on the alert modal was pressed                                                                          |
+| `Quit Modal Disabled`                                      | The quit modal dialog has been disabled and will not popup when a user closes Warp while a session is running           |
+| `Quit Modal Shown`                                         | Showed an alert modal to warn the user about closing the app/window with a running process                              |
 | `Quit Natural Language Search`                             | Quit natural language search                                                                                            |
 | `Removed user from team`                                   | Removed user from team                                                                                                  |
+| `Resource Center Keybindings Page Opened`                  | Opened the keybinding page within the resource center                                                                   |
 | `Resource Center Opened`                                   | Opened Resource Center pane                                                                                             |
 | `Resource Center Tips Skipped`                             | Skipped welcome tips for new users                                                                                      |
 | `SSH Bootstrap Attempt`                                    | Attempted boostrapping for an SSH session                                                                               |
@@ -164,6 +168,8 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 | `Sent email invites`                                       | Sent an email invite to join team                                                                                       |
 | `Session Abandoned Before Bootstrap`                       | Abandoned session before the boostrapping completes                                                                     |
 | `Set Line Height`                                          | Set line height through Settings -> Appearance                                                                          |
+| `Set Window Blur Radius`                                   | Changed the blur radius from the `Settings -> Appearance` dialog                                                        |
+| `Set Window Opacity`                                       | Changed the opacity (window transparency) from the `Settings -> Appearance` dialog                                      |
 | `ShowNotificationsDiscoveryBanner`                         | Showed discovery banner for notifications (notify user when long running commands finish)                               |
 | `ShowNotificationsErrorBanner`                             | Showed error banner for notifications (i.e. permissions issue)                                                          |
 | `Sign Up Button Clicked in App`                            | Clicked "Sign Up" button                                                                                                |
@@ -180,11 +186,13 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 | `Test Block Creation Event`                                | Test Block is created within the App                                                                                    |
 | `Thin Strokes Setting Changed`                             | Changed thin strokes setting in settings -> Appearance                                                                  |
 | `Toggle Approvals Modal`                                   | Opened or closed teams modal                                                                                            |
+| `Toggle Dim Inactive Panes`                                | Whether the dim inactive panes feature has been toggled                                                                 |
 | `Toggle Restore Session`                                   | Toggled session restoration ("Restore windows, tabs, panes, on startup")                                                |
 | `Toggled Bookmark Block`                                   | Bookmarked or unbookmarked Block                                                                                        |
 | `Tried to Execute Before Precmd`                           | Attempted to execute command before precmd, a shell stage that has metadata on a command such as ssh, prompt info, etc. |
 | `Triggered Command XRay`                                   | Triggered Command X-Ray (hovering over a command for explanation)                                                       |
 | `Unable to Update To New Version`                          | Update available but not authorized to install                                                                          |
 | `Unhandled Editor Modifier Key`                            | Used modifier keybinding keystroke which is not currently supported                                                     |
+| `User Initiated Closing Something`                         | Attempted to either quit the app or close a window                                                                      |
 | `Workflow Executed`                                        | Executed workflow                                                                                                       |
 | `Workflow Selected`                                        | Selected workflow and populated into the Input Editor                                                                   |
