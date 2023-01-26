@@ -21,4 +21,4 @@ After adding some Opacity ( moving the slider to a value less than `100)`, you c
 
 ## How it works
 
-{% embed url="https://www.loom.com/share/22c9ef25392e4a5e80f9e01394c84dc4?hide\_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %} Opacity and Blurring Demo {% endembed %}
+{% embed url="https://www.loom.com/share/22c9ef25392e4a5e80f9e01394c84dc4?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %} Opacity and Blurring Demo {% endembed %}
