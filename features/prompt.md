@@ -53,20 +53,6 @@ If you’re having issues with prompts, please see below or our [Known Issues](h
 
 We don’t currently support multi-line or right-sided prompts. The Input Editor is a separate UI element from the Prompt; this is actually what enables a modern text editor experience. Improving the native Prompt is on the [roadmap](prompt.md#context-chips). _Note: The exception_ to this is the oh-my-posh prompt.
 
-### iTerm2
-
-The iTerm2 shell integration breaks Warp and your custom prompt will not be able to be visible with this on. If you're coming from iTerm please check your dotfiles for it. We advise disabling the integration just for Warp like so:
-
-```
-if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
-##### WHAT YOU WANT TO DISABLE FOR WARP - BELOW
-
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
-##### WHAT YOU WANT TO DISABLE FOR WARP - ABOVE
-fi
-```
-
 ### Spaceship
 
 This prompt can cause an [issue](https://github.com/warpdotdev/Warp/issues/1973) with typeahead in Warp's input editor.\
@@ -83,6 +69,20 @@ if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
 ##### WHAT YOU WANT TO DISABLE FOR WARP - BELOW
 
     # POWERLEVEL10K
+
+##### WHAT YOU WANT TO DISABLE FOR WARP - ABOVE
+fi
+```
+
+### iTerm2
+
+The iTerm2 shell integration breaks Warp and your custom prompt will not be able to be visible with this on. If you're coming from iTerm please check your dotfiles for it. We advise disabling the integration just for Warp like so:
+
+```
+if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
+##### WHAT YOU WANT TO DISABLE FOR WARP - BELOW
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 ##### WHAT YOU WANT TO DISABLE FOR WARP - ABOVE
 fi
