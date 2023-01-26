@@ -17,7 +17,7 @@ The Theme Picker can be accessed through the [Command Palette](../features/featu
 
 _Note:_ This setting persists i.e. Warp will open with the same settings in the next session.
 
-## How it Works
+## How it works
 
 {% embed url="https://loom.com/share/2182ebcb09164f2b97525161da099959?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
 Changing Themes Demo
