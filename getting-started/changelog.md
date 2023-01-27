@@ -1,6 +1,16 @@
 # Changelog
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
+### 2023.01.26 (v0.2023.01.24.08.03)
+
+**New features**
+
+- Warp can now dim inactive terminal panes, navigate to `Settings > Appearance > Panes > Dim inactive panes
+
+**Bug fixes**
+
+- Fixed crash when selecting multiple occurrences of multi-byte characters using `CTRL-G`
+
 ### 2023.01.19 (v0.2023.01.17.08.03)
 
 **New features**
