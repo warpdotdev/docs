@@ -35,4 +35,4 @@ If this happens to you, use the link provided on the web logged-in page (https:/
 
 ![Copy and Pasting an Authentication Token](../.gitbook/assets/auth-token-flow.png)
 
-If "Take me to Warp" is still not working, please fill out [this Typeform](https://zachlloyd.typeform.com/to/UnZu0akR#\&question=take\_me\_to\_warp?utm\_source=docs) and our team will reach out to you.
+If "Take me to Warp" is still not working it may be due to a proxy issue, please see this article for more information on a workaround [here](https://embiid.blog/post/WARP-does-not-work-after-submitting-an-invite-code/) and please fill out [this Typeform](https://zachlloyd.typeform.com/to/UnZu0akR#\&question=take\_me\_to\_warp?utm\_source=docs) and our team will reach out to you.
