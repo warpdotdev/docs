@@ -15,7 +15,7 @@
 * [Custom Themes](appearance/custom-themes.md)
 * [Compact Mode](appearance/compact-mode.md)
 * [Text and Fonts](appearance/text-fonts.md)
-* [Opacity, Blurring & Dimming](appearance/transparency-and-blurring.md)
+* [Opacity, Blurring & Dimming](appearance/opacity-blurring-dimming.md)
 
 ## 📕 Features
 
