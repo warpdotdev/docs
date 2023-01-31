@@ -33,5 +33,5 @@ Window Opacity and Blurring Demo
 {% endembed %}
 
 {% embed url="https://www.loom.com/share/62b84d3c60b34cdbaa340fbe8ce8b1d1?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
-Dim Inactive Panes Demo
+Inactive Pane Dimming Demo
 {% endembed %}
