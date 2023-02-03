@@ -14,18 +14,26 @@ The Tabs feature allows you to organize a window into multiple terminal sessions
 
 {% hint style="info" %}
 **Terminal Tip**\
-You can change the Tab names (either rename the Tab with something constant, by right-clicking the Tab or change the whole "template" using your .zshrc or .bashrc by adding something like:
+Using your .zshrc or .bashrc files, you can set a new Tab name or set the default directory of a new Window, Tab, or Pane by adding something like:
 
-<pre class="language-bash" data-overflow="wrap"><code class="lang-bash">function set_title () {​echo -ne "\033]0;My Title\007" } 
-<strong>
-</strong><strong># If using .zshrc use to set the Tab name
-</strong><strong>precmd_functions+=(set_title)
-</strong># If using .zshrc use to set the Tab name
-PROMPT_COMMAND='set_title'
+{% code overflow="wrap" %}
+```bash
+# Set name, where MyTabName would be whatever you want to see in the Tab ( either a fixed string, $PWD, or something else )
+function set_name () {​echo -ne "\033]0;MyTabName\007" }
+# Add the function to the environment variable in either Zsh or Bash
+if [ -n "$ZSH_VERSION" ]; then
+  precmd_functions+=(set_name)
+elif [ -n "$BASH_VERSION" ]; then
+  PROMPT_COMMAND='set_name'
+fi
 
-</code></pre>
+# Set default directory, there the path after cd can be any folder in your system
+cd ~/Documents
 
-Where `My Title` would be whatever you want to see in the Tab ( either a fixed string, `$PWD`, or something else ). Learn more [here](https://learn.microsoft.com/en-us/windows/terminal/tutorials/tab-title#set-the-shells-title).
+```
+{% endcode %}
+
+Learn more about Tab names [here](https://learn.microsoft.com/en-us/windows/terminal/tutorials/tab-title#set-the-shells-title) and more about setting the default directory [here](https://learn.microsoft.com/en-us/windows/terminal/tutorials/new-tab-same-directory#bash).
 {% endhint %}
 
 ## How it works
