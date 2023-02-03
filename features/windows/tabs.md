@@ -14,18 +14,22 @@ The Tabs feature allows you to organize a window into multiple terminal sessions
 
 {% hint style="info" %}
 **Terminal Tip**\
-You can change the Tab names (either rename the tab with something constant, by right-clicking the tab; changing the whole "template" using your .bashrc or .zshrc by adding something like:
+You can change the Tab names (either rename the Tab with something constant, by right-clicking the Tab or change the whole "template" using your .zshrc or .bashrc by adding something like:
 
-{% code overflow="wrap" %}
-```bash
-function set_title () {​echo -ne "\033]0;MyTitle\007" } 
-precmd_functions += (set_title)
-```
-{% endcode %}
+<pre class="language-bash" data-overflow="wrap"><code class="lang-bash">function set_title () {​echo -ne "\033]0;My Title\007" } 
+<strong>
+</strong><strong># If using .zshrc use to set the Tab name
+</strong><strong>precmd_functions+=(set_title)
+</strong># If using .zshrc use to set the Tab name
+PROMPT_COMMAND='set_title'
 
-Where MyTitle would be whatever you want to see in the tab (either a fixed string, $PWD, or something else). Learn more [here](https://learn.microsoft.com/en-us/windows/terminal/tutorials/tab-title#set-the-shells-title).
+</code></pre>
+
+Where `My Title` would be whatever you want to see in the Tab ( either a fixed string, `$PWD`, or something else ). Learn more [here](https://learn.microsoft.com/en-us/windows/terminal/tutorials/tab-title#set-the-shells-title).
 {% endhint %}
 
 ## How it works
 
-{% embed url="https://www.loom.com/share/84d15cc7eb5a4a668bb86be9e827f261?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}Tabs Demo{% endembed %}
+{% embed url="https://www.loom.com/share/84d15cc7eb5a4a668bb86be9e827f261?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
+Tabs Demo
+{% endembed %}
