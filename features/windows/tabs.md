@@ -14,7 +14,7 @@ The Tabs feature allows you to organize a window into multiple terminal sessions
 
 {% hint style="info" %}
 **Terminal Tip**\
-Using your .zshrc or .bashrc files, you can set a new Tab name or set the default directory of a new Window, Tab, or Pane by adding something like:
+Using your .zshrc or .bashrc files, you can set a new Tab name:
 
 {% code overflow="wrap" %}
 ```bash
@@ -26,14 +26,19 @@ if [ -n "$ZSH_VERSION" ]; then
 elif [ -n "$BASH_VERSION" ]; then
   PROMPT_COMMAND='set_name'
 fi
-
-# Set default directory, there the path after cd can be any folder in your system
-cd ~/Documents
-
 ```
 {% endcode %}
 
-Learn more about Tab names [here](https://learn.microsoft.com/en-us/windows/terminal/tutorials/tab-title#set-the-shells-title) and more about setting the default directory [here](https://learn.microsoft.com/en-us/windows/terminal/tutorials/new-tab-same-directory#bash).
+or set the default directory of a new Window, Tab, or Pane:
+
+{% code overflow="wrap" %}
+```bash
+# Set default directory, there the path after cd can be any folder in your system
+cd ~/Documents
+```
+{% endcode %}
+
+Learn more about Tab names [here](https://learn.microsoft.com/en-us/windows/terminal/tutorials/tab-title#set-the-shells-title) and about setting the default directory [here](https://learn.microsoft.com/en-us/windows/terminal/tutorials/new-tab-same-directory#bash).
 {% endhint %}
 
 ## How it works
