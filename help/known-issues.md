@@ -104,13 +104,8 @@ end
 * eval "$(rbenv init -)"
 * grml-zsh-config
 * FIG, z, other completion plugins
-
-## Some settings from Starship
-
-```toml
-[custom]
-disabled = true
-```
+* Starship settings like:
+  * \[custom] disabled = true
 
 ## Fig
 
