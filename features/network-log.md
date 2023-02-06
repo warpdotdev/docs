@@ -20,8 +20,7 @@ Each log item is a timestamped Debug format string for either a request or respo
 
 ## How it Works
 
-https://www.loom.com/share/0d9eaeb8715846f3a96d557abe23e7ac
-{% embed url="https://www.loom.com/share/be2fa6ab10a3494a8c57a5431966905b?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}Text and Font Demo{% endembed %}
+{% embed url="https://www.loom.com/share/0d9eaeb8715846f3a96d557abe23e7ac?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}Network Log Demo{% endembed %}
 
 ## Known Issues
 
