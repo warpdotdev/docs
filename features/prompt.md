@@ -31,7 +31,7 @@ You can also enable a custom prompt by configuring the **PS1** variable or insta
 | -------- | ----------------------------------------------------------------- | --------------------------------------------------------- |
 | Bash/zsh | [PS1](https://www.warp.dev/blog/whats-so-special-about-ps1)       | Working                                                   |
 | Bash     | [SBP](https://github.com/brujoand/sbp)                            | Coming soon                                               |
-| Bash/zsh | [Starship](https://github.com/starship/starship)                  | Working                                                   |
+| Bash/zsh | [Starship](https://github.com/starship/starship)                  | [Working*}(prompt.md#starship)                                                   |
 | Bash/zsh | [oh-my-posh](https://github.com/JanDeDobbeleer/oh-my-posh)        | [Working\*](prompt.md#multi-line-and-right-sided-prompts) |
 | zsh      | [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh)                   | Working                                                   |
 | zsh      | [prezto](https://github.com/sorin-ionescu/prezto)                 | Working                                                   |
@@ -48,6 +48,18 @@ If you’re having issues with prompts, please see below or our [Known Issues](h
 ### Multi-Line and Right-Sided Prompts
 
 We don’t currently support multi-line or right-sided prompts. The Input Editor is a separate UI element from the Prompt; this is actually what enables a modern text editor experience. Improving the native Prompt is on the [roadmap](prompt.md#context-chips). _Note: The exception_ to this is the oh-my-posh prompt.
+
+### Starship
+
+Some ~/.config/starship.toml settings are known to cause errors in Warp. `#` or `DEL` the following lines to resolve known errors:
+```
+# Get editor completions based on the config schema
+'' = 'https://starship.rs/config-schema.json'
+
+# Disables the custom module
+[custom]
+disabled = false
+```
 
 ### Spaceship
 

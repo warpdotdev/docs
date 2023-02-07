@@ -104,14 +104,7 @@ end
 * eval "$(rbenv init -)"
 * grml-zsh-config
 * FIG, z, other completion plugins
-* Starship settings like:
-  * ```
-    # Comment or delete these lines to resolve known errors
-    '' = 'https://starship.rs/config-schema.json'
-
-    [custom]
-    disabled = true
-    ```
+* Starship [settings](../features/prompt.md#starship)
 
 ## Fig
 
