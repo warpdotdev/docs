@@ -105,7 +105,13 @@ end
 * grml-zsh-config
 * FIG, z, other completion plugins
 * Starship settings like:
-  * \[custom] disabled = true
+  * ```
+    # Comment or delete these lines to resolve known errors
+    '' = 'https://starship.rs/config-schema.json'
+
+    [custom]
+    disabled = true
+    ```
 
 ## Fig
 
