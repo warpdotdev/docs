@@ -21,7 +21,7 @@ There are 2 ways to install a theme from this repo.
 1. Download just a single file and follow the steps in the section below.
 2. Clone the entire repo into `~/.warp/`
 
-```sh
+```
 cd ~/.warp/
 git clone https://github.com/warpdotdev/themes.git
 ```
@@ -36,7 +36,7 @@ Adding a Custom Theme to Warp
 
 1. To start, create a config directory in your home directory:
 
-```sh
+```
 mkdir -p ~/.warp/themes/
 ```
 
@@ -46,7 +46,7 @@ _Note:_ It may take several minutes for Warp to initially discover the new confi
 
 2\. Add your new custom theme yaml theme file to this directory:
 
-```sh
+```
 cp ~/Downloads/my_awesome_theme.yaml ~/.warp/themes/
 ```
 
@@ -191,7 +191,7 @@ Contributions to this repo are greatly appreciated!
 
 Run this script to generate the thumbnails.
 
-```sh
+```
 # assuming you're adding the theme to the `standard` directory:
 python3 ./scripts/gen_theme_previews.py standard
 ```

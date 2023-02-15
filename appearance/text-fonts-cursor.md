@@ -1,14 +1,18 @@
-# Text and Fonts
+# Text, Fonts & Cursor
 
 ## What is it
 
 Warp supports customizing the font and how text is displayed. This can help improve readability and usability.
 
+Warp also supports disabling the blinking cursor. This can help with reducing distractions and improving focus on the active Window, Tab, or Pane.
+
 ## How to use it
 
-To access the panel, go to `Settings > Appearance`
+### Text and Fonts
 
-From the panel, you can customize the
+To access it, go to `Settings > Appearance > Text`
+
+From there you can customize:
 
 * Font type
 * Font size
@@ -17,6 +21,12 @@ From the panel, you can customize the
   * The default setting prevents text from being blurry on low-DPI displays.
 * When to enforce minimum contrast
   * The default setting tweaks named colors to meet accessibility standards.
+
+### Cursor
+
+To access it, go to `Settings > Appearance > Cursor`, from there you can toggle the Blinking cursor.
+
+Or, from Command Palette `CMD-P`, type 'blink' and toggle the setting.
 
 ## How it works
 
