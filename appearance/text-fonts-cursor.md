@@ -33,3 +33,7 @@ Or, from Command Palette `CMD-P`, type 'blink' and toggle the setting.
 {% embed url="https://www.loom.com/share/be2fa6ab10a3494a8c57a5431966905b?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
 Text and Fonts Demo
 {% endembed %}
+
+{% embed url="https://www.loom.com/share/6ce3218472894763bb80a26b6c632c4d?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
+Cursor Demo
+{% endembed %}
