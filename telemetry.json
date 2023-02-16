@@ -98,6 +98,7 @@
   "Pass Through Onboarding Question: engineering_experience": "Engineering experience question in onboarding survey flow",
   "Pass Through Onboarding Question: purpose": "Purpose of using warp question in onboarding survey flow",
   "Pass Through Onboarding Question: role": "Role question in onboarding survey flow",
+  "Pty Spawned": "Tracks the manner by which we create a new shell process (new codepath vs. old codepath).  Used to ensure nothing breaks as we change parts of our infrastructure.",
   "Quit Modal Cancel Pressed": "`Cancel` button on the alert modal was pressed",
   "Quit Modal Disabled": "The quit modal dialog has been disabled and will not popup when a user closes Warp while a session is running",
   "Quit Modal Shown": "Showed an alert modal to warn the user about closing the app/window with a running process",

@@ -1,11 +1,41 @@
 # Changelog
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
+
+### 2023.02.16 (v0.2023.02.14.08.05)
+
+**New features**
+
+- Improved double-click selection. Double-clicking text now smart selects patterns like file paths, URLs, email addresses, etc. - [659](https://github.com/warpdotdev/warp/issues/659)
+- Warp can now be opened from Finder - [102](https://github.com/warpdotdev/warp/issues/102)
+
+**Bug fixes**
+
+- Warp no longer hangs after exiting the alt-screen--having searched for text using Find.
+- The Block-list now scrolls to the correct position after returning from the alt-screen.
+- Clicking above the scroll-bar no longer (incorrectly) changes its scroll position.
+- The terminal cell dimensions now update immediately after modifying the Font size.
+- Hyperlinks no longer incorrectly highlight on hover when Warp is not focused.
+- The Input Method Editor (non-English keyboards) is now positioned correctly in the alt-screen and in running Blocks
+- When there are no windows open, clicking `New Tab` from the Mac menu will create a new window
+
+### 2023.02.09 (v0.2023.02.07.08.03)
+
+**Bug fixes**
+
+- Warp now sets the Mac window title; right-clicking on the dock icon will show the name of the active tab.
+- Fixed a bug where navigating the theme picker with the arrow keys would lead to a crash when no theme matches the search.
+- The Input Editor now refocuses correctly after clicking hyperlinks.
+- Custom keybindings incorporating the `SPACE` key now persist after closing Warp.
+- The Input Method Editor (non-English keyboards) now positions itself within the Input Editor
+
+### 2023.02.02 (v0.2023.01.31.08.08)
+
 ### 2023.01.26 (v0.2023.01.24.08.03)
 
 **New features**
 
-- Warp can now dim inactive terminal panes, navigate to `Settings > Appearance > Panes > Dim inactive panes
+- Warp can now dim inactive terminal panes, navigate to `Settings > Appearance > Panes > Dim inactive panes`
 
 **Bug fixes**
 
@@ -647,7 +677,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 - Fixed a bug where resizing a pane could cause Warp to show a blank screen
 - Parentheses, quotes, and brackets now also auto-close after typing an alphanumeric character
 - Remapped multi-cursor key bindings to CTRL-SHIFT-UP and CTRL-SHIFT-DOWN - [374](https://github.com/warpdotdev/warp/issues/374)
-- Restored OPT-CMD-UP and OPT-CMD-DOWN for switching panes up and down - [730](https://github.com/warpdotdev/warp/issues/730) 
+- Restored OPT-CMD-UP and OPT-CMD-DOWN for switching panes up and down - [730](https://github.com/warpdotdev/warp/issues/730)
 
 ### 2022.01.26 (v0.2022.01.31.09.03)
 
@@ -801,7 +831,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 - Changelog dialog
 - Emoji rendering: 😂, 😃, 🌍, 🍞, 🚗, 📞, 🎉, ❤️ - [075](https://github.com/warpdotdev/warp/issues/075)
 - Improved settings dialog
-- Theme search - [237](https://github.com/warpdotdev/warp/issues/237) 
+- Theme search - [237](https://github.com/warpdotdev/warp/issues/237)
 
 **Bug fixes**
 
@@ -890,7 +920,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 **New features**
 
 - Split panes: create multiple panes in the same tab via shortcuts (CMD-E/SHIFT-CMD-E), the Command Palette, or by right clicking in any pane.
-- Custom themes via files.  You can now define your own theme as a yaml file in ~/.warp/themes. For more information on the file format and to see ~100 of the most popular themes already implemented in this format, see https://github.com/warpdotdev/themes. The ability to add and share themes directly within Warp is coming soon!
+- Custom themes via files. You can now define your own theme as a yaml file in ~/.warp/themes. For more information on the file format and to see ~100 of the most popular themes already implemented in this format, see https://github.com/warpdotdev/themes. The ability to add and share themes directly within Warp is coming soon!
 
 **Bug fixes**
 
@@ -1100,4 +1130,3 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 **Bug fixes**
 
 - Text rendering was faded on certain monitors
-
