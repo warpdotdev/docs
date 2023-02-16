@@ -49,6 +49,7 @@
 * [Accessibility](features/accessibility.md)
 * [Find](features/find.md)
 * [Files and Links](features/files-and-links.md)
+* [Smart-Select](features/smart-select.md)
 * [Full-screen Apps](features/full-screen-apps.md)
 * [Keyboard Shortcuts](features/keyboard-shortcuts.md)
 * [Notifications](features/notifications.md)
