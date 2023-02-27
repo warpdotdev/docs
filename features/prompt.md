@@ -43,7 +43,7 @@ You can also enable a custom prompt by configuring the **PS1** variable or insta
 
 ## Known incompatibilities
 
-If you’re having issues with prompts, please see below or our [Known Issues](help/known-issues.md#configuring-and-debugging-your-rc-files) for more troubleshooting steps.
+If you’re having issues with prompts, please see below or our [Known Issues](../help/known-issues.md#configuring-and-debugging-your-rc-files) for more troubleshooting steps.
 
 ### Multi-Line and Right-Sided Prompts
 
