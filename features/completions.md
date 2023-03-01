@@ -1,31 +1,37 @@
 # Completions
 
-## What is it
+What is it
 
 Tab Completions will suggest commands, option names, path parameters for you. This feature works regardless of machine or directory (including SSH sessions).
 
 ### Completions on Aliases
- 
+
 Warp supports completions on aliases:
- 
-* Shell aliases - This is an alias for an entire command. For example, if you have `gc=git checkout` in alias, typing `gc ` and hitting `TAB` should give you the same completion options as for `git checkout `.
+
+* Shell aliases - This is an alias for an entire command. For example, if you have `gc=git checkout` in alias, typing `gc` and hitting `TAB` should give you the same completion options as for `git checkout` .
 * Command aliases - This is an alias for a subcommand. For example, this could be setting `git status` to `git st`. With completions support, we could now suggest completions for `git status` even if you typed in `git st`.
 
 ## How to access it
 
 * Type out the beginning of your command, then press `TAB`.
-* To search for options and flags, you first need to type `-` then press `TAB`.
+* To search for options and flags, you must type and press `TAB`.
 * Forgo `TAB` by enabling "Open completions menu as you type" in `Settings > Features`
 
 ## Try it yourself!
 
 1. Type `git checkout` (note the space) and then press `TAB`
 2. A menu will show all of your local branches. You can select one using your mouse or the `UP ↑`/`DOWN ↓` arrow keys
- 
-## How it works
- 
-{% embed url="https://www.loom.com/share/92594c821ae341f69d5d1c1af56f2c69?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}Completions Demo{% endembed %}
 
+{% hint style="info" %}
+**Terminal Tip**\
+You can change the key binding for accepting Autosuggestions in the `Settings > Keyboard Shortcuts.`_Note: Be sure to enable the "Open completions menu as you type" in `Settings > Features` so that the completions menu still opens._
+{% endhint %}
+
+## How it works
+
+{% embed url="https://www.loom.com/share/92594c821ae341f69d5d1c1af56f2c69?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
+Completions Demo
+{% endembed %}
 
 ### Supported Completion Specs
 
