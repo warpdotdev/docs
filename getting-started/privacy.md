@@ -6,35 +6,37 @@ description: An overview of Warp's approach to privacy
 
 ## Our Philosophy
 
-{% hint style="info" %} If you have any questions about any of this, please don’t hesitate to reach out at [privacy@warp.dev](mailto:privacy@warp.dev). {% endhint %}
+{% hint style="info" %}
+If you have any questions about any of this, please don’t hesitate to reach out at [privacy@warp.dev](mailto:privacy@warp.dev).
+{% endhint %}
 
 Our philosophy is complete transparency and control of any data leaving your machine. This means you can:
 
-- View a list of [all the telemetry events](privacy.md#exhaustive-telemetry-table) that get sent
-- Monitor telemetry in real-time with our native [Network Log](../features/network-log.md)
-- [Opt-out](privacy.md#how-to-disable-telemetry) of telemetry at any time
+* View a list of [all the telemetry events](privacy.md#exhaustive-telemetry-table) that get sent
+* Monitor telemetry in real-time with our native [Network Log](../features/network-log.md)
+* [Opt-out](privacy.md#how-to-disable-telemetry) of telemetry at any time
 
 Telemetry and crash reporting are used to improve the product and to debug any issues that may arise. Terminal sessions contain sensitive information, and we want the absolute minimum sent to our servers necessary in order to provide you with the best possible experience.
 
 Telemetry data **never includes console input or output** and usage of this data will never be part of our business model.
 
-You can view our [full privacy policy here](https://assets-global.website-files.com/60352b1db5736ada4741b380/60b7f8d410ec2b9fc2a45af9_privacy-notice.pdf).
+You can view our [full privacy policy here](https://assets-global.website-files.com/60352b1db5736ada4741b380/60b7f8d410ec2b9fc2a45af9\_privacy-notice.pdf).
 
 ## How to disable telemetry and crash reporting
 
 ### Opt-out during signup
 
 1. Click on "Privacy Settings"
-2. Click the toggles of the items you want on/off (if it's blue, it's "on")\
+2.  Click the toggles of the items you want on/off (if it's blue, it's "on")\\
 
-   <figure><img src="../.gitbook/assets/opt-out-signup-modal.png" alt=""><figcaption><p>Privacy Settings During Signup</p></figcaption></figure>
+    <figure><img src="../.gitbook/assets/opt-out-signup-modal.png" alt=""><figcaption><p>Privacy Settings During Signup</p></figcaption></figure>
 
 ### Opt-out after signup
 
 1. Open the command-palette and search for privacy
-2. Toggle the items you want on/off (if it's blue, it's "on")\
+2.  Toggle the items you want on/off (if it's blue, it's "on")\\
 
-   <figure><img src="../.gitbook/assets/privacy-telem-opt-out.png" alt=""><figcaption><p>Privacy Settings After Signup</p></figcaption></figure>
+    <figure><img src="../.gitbook/assets/privacy-telem-opt-out.png" alt=""><figcaption><p>Privacy Settings After Signup</p></figcaption></figure>
 
 ### Login is still required, why?
 
@@ -42,7 +44,9 @@ The primary reason is that login allows us to build cloud-oriented features that
 
 That said, we understand the desire to try Warp before logging in, and are exploring product experiences that will allow users to preview Warp before signup.
 
-{% hint style="info" %} If you have any feedback about our login policy, please send it to this [Typeform.](https://zachlloyd.typeform.com/to/UnZu0akR#question=login_required?utm_source=docs) {% endhint %}
+{% hint style="info" %}
+If you have any feedback about our login policy, please send it to this [Typeform](https://zachlloyd.typeform.com/to/UnZu0akR#question=login\_required?utm\_source=docs).
+{% endhint %}
 
 ## What telemetry data do we collect and why?
 
