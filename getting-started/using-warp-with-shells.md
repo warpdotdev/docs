@@ -2,7 +2,7 @@
 description: >-
   Warp currently supports popular existing shells like Bash, Zsh, and Fish. If
   your default shell is set to any other shell, you would see a banner notifying
-  you that the shell is not supported, and War
+  you that the shell is not supported.
 ---
 
 # Using Warp with \[zsh|bash|fish]
