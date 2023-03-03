@@ -16,14 +16,19 @@ You can also enable a custom prompt by configuring the **PS1** variable or insta
 
 ## How to access it
 
-- Toggle the default prompt git branch change indicator by right-clicking on the default prompt and selecting "Hide/Show changed file count"
-- Toggle custom prompt by right-clicking on the prompt area above the input and select "Use my own prompt" or toggle "Honor user's custom prompt (PS1) from the `Settings > Features` page. ".
+* Toggle the default prompt git branch change indicator by right-clicking on the default prompt and selecting "Hide/Show changed file count"
+* When right-clicking the default prompt, you can also copy the entire prompt, working directory or the current git branch.
+* Toggle custom prompt by right-clicking on the prompt area above the input and select "Use my own prompt" or toggle "Honor user's custom prompt (PS1) from the `Settings > Features` page. ".
 
 ## How it works
 
-{% embed url="https://www.loom.com/share/95d7fad6761d47fba82967382c6d5a5c?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %} Git Status Indicator Demo {% endembed %}
+{% embed url="https://www.loom.com/share/95d7fad6761d47fba82967382c6d5a5c?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
+Git Status Indicator Demo
+{% endembed %}
 
-{% embed url="https://www.loom.com/share/199b49a8045f4380805fb02b93e874e6?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %} Custom Prompt Demo {% endembed %}
+{% embed url="https://www.loom.com/share/199b49a8045f4380805fb02b93e874e6?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
+Custom Prompt Demo
+{% endembed %}
 
 ### Custom Prompt Compatibility Table
 
@@ -51,7 +56,8 @@ We don’t currently support multi-line or right-sided prompts. The Input Editor
 
 ### Starship
 
-Some ~/.config/starship.toml settings are known to cause errors in Warp. `#` or `DEL` the following lines to resolve known errors:
+Some \~/.config/starship.toml settings are known to cause errors in Warp. `#` or `DEL` the following lines to resolve known errors:
+
 ```
 # Get editor completions based on the config schema
 '' = 'https://starship.rs/config-schema.json'
@@ -64,11 +70,11 @@ disabled = false
 ### Spaceship
 
 This prompt can cause an [issue](https://github.com/warpdotdev/Warp/issues/1973) with typeahead in Warp's input editor.\
-To workaround the issue, run `echo "SPACESHIP_PROMPT_ASYNC=FALSE" >>! ~/.zshrc`&#x20;
+To workaround the issue, run `echo "SPACESHIP_PROMPT_ASYNC=FALSE" >>! ~/.zshrc`
 
 ### Disabling unsupported prompts for Warp e.g. Powerlevel10K (P10K)
 
-We don't currently support P10K. Because of how we use the prompt_command in Warp and because P10K can be installed standalone or as an Oh-My-Zsh plugin, each of which results in different problems and requires special handling.
+We don't currently support P10K. Because of how we use the prompt\_command in Warp and because P10K can be installed standalone or as an Oh-My-Zsh plugin, each of which results in different problems and requires special handling.
 
 We advise using Warp's default prompt or installing one of the supported tools, see [Compatibility Table](prompt.md#custom-prompt-compatibility-table). You can disable P10K just for Warp as such:
 
@@ -98,4 +104,4 @@ fi
 
 ## Context Chips
 
-Context Chips is an idea we have for what the future of terminal prompts could be like, i.e. prompts that support dynamic refreshing, mouse interactions, and can be customized via an open spec that developers can build on. Learn more via our [Twitter thread](https://twitter.com/warpdotdev/status/1496263490491023362?s=20&t=4PBawdJYHKfywG7eEe2jNA), where we also shared some Figma mocks.
+Context Chips is an idea we have for what the future of terminal prompts could be like, i.e. prompts that support dynamic refreshing, mouse interactions, and can be customized via an open spec that developers can build on. Learn more via our [Twitter thread](https://twitter.com/warpdotdev/status/1496263490491023362?s=20\&t=4PBawdJYHKfywG7eEe2jNA), where we also shared some Figma mocks.
