@@ -35,6 +35,13 @@ If you experience an error opening Warp, please try the following:
 
 * If the above doesn't work, [uninstall Warp](uninstalling-warp.md), then [re-install Warp](../getting-started/getting-started-with-warp.md).
 
+## Referral Links or Block Sharing
+
+There is a known issue that can occur where the referral link doesn't load or blocks can't be shared. This is typically due to the login token going stale and can be resolved by the following steps:
+
+* Remove Warp user login with `sudo security delete-generic-password -l "dev.warp.Warp-Stable" $HOME/Library/Keychains/login.keychain`
+* Login to Warp with the usual
+
 ## English-only UI
 
 Nov 2021: We have added character support for Chinese, Korean, and Japanese, but our UI currently only supports English.
@@ -49,7 +56,7 @@ In order to support Blocks ([custom hooks](https://blog.warp.dev/how-warp-works/
 
 You can however, **disable the conflicting settings for just Warp** using this flag: `$TERM_PROGRAM != "WarpTerminal"`, see below for a full example.
 
-We currently don't have support for multi-line prompts, unlike typical terminals which are essentially continuous character grids, each section of Warp is its own (separate) UI element. The native Prompt does not support multi-line at this time and does not support right sided prompts. Improving the native Prompt is on the roadmap, however. Please see our [Prompt](broken-reference) page for more information on custom prompts.
+We currently don't have support for multi-line prompts, unlike typical terminals which are essentially continuous character grids, each section of Warp is its own (separate) UI element. The native Prompt does not support multi-line at this time and does not support right sided prompts. Improving the native Prompt is on the roadmap, however. Please see our [Prompt](broken-reference/) page for more information on custom prompts.
 
 ### Debugging
 
