@@ -17,7 +17,7 @@ There are two ways you can invite a friend:
 1. Send them an invite link. This will redirect them to our product download page.
 2. Input their email address which we'll use to email them.
 
-_Note:_ If you experience any issues with referral links, please see our known issues for [troubleshooting steps](../help/known-issues.md#referral-links-or-block-sharing).
+_Note:_ If you experience any issues with referral links, please see our known issues for [troubleshooting steps](../help/known-issues.md#online-features-ai-command-block-sharing-referrals-etc.).
 
 {% embed url="https://www.loom.com/share/d4acc97406c9496ab9fff673f975a081" %}
 Refer a friend

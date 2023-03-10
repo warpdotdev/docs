@@ -17,7 +17,7 @@ Create and share a permalink to your Blocks to collaborate with teammates. Warp 
 
 Here is the [web permalink](https://app.warp.dev/block/vzFATak939iqGWfNh7wsAP) of the Block shared in the demo above.
 
-_Note:_ If you experience any issues with block sharing, please see our known issues for [troubleshooting steps](../../help/known-issues.md#referral-links-or-block-sharing).
+_Note:_ If you experience any issues with block sharing, please see our known issues for [troubleshooting steps](../../help/known-issues.md#online-features-ai-command-block-sharing-referrals-etc.).
 
 ![Web Permalink of Shared Block](<../../.gitbook/assets/Screen Shot 2022-07-18 at 3.38.35 PM.png>)
 

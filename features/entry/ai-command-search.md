@@ -10,6 +10,8 @@ AI Command Search converts natural language descriptions into shell commands tha
 2. Type in the input box what you'd like to do and press `ENTER` to generate the command.
 3. Once the result shows up, press `CMD-ENTER` to input the generated command directly into Warp's Input Editor.
 
+_Note:_ If you experience any issues with A.I. Command Search, please see our known issues for [troubleshooting steps](../../help/known-issues.md#online-features-ai-command-block-sharing-referrals-etc.).
+
 ## How it works
 
 {% embed url="https://www.loom.com/share/a52356f73de54f649ba7f0841861d88e?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
