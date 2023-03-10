@@ -35,12 +35,12 @@ If you experience an error opening Warp, please try the following:
 
 * If the above doesn't work, [uninstall Warp](uninstalling-warp.md), then [re-install Warp](../getting-started/getting-started-with-warp.md).
 
-## Referral Links or Block Sharing
+## Online Features ( AI Command, Block Sharing, Referrals, etc. )
 
-There is a known issue that can occur where the referral link doesn't load or blocks can't be shared. This is typically due to the login token going stale and can be resolved by the following steps:
+There is a known issue that can occur that causes online features to break ([AI Command search won't load](https://github.com/warpdotdev/Warp/issues/2740), [referral link doesn't load](https://github.com/warpdotdev/Warp/issues/2723) or blocks can't be shared for example). This is due to the login token going stale, typically due to a password change, and can be resolved by the following steps:
 
 * Remove Warp user login with `sudo security delete-generic-password -l "dev.warp.Warp-Stable" $HOME/Library/Keychains/login.keychain`
-* Login to Warp with the usual
+* Login to Warp with the usual account
 
 ## English-only UI
 
