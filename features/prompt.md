@@ -67,6 +67,12 @@ Some \~/.config/starship.toml settings are known to cause errors in Warp. `#` or
 disabled = false
 ```
 
+There is also a known issue with [starship prompt not rendering](https://github.com/warpdotdev/Warp/issues/2756) if your default shell is `/bin/bash`. To workaround the issue, we recommend installing a newer version of bash with `brew install bash` then include the following in the top of your `~/.bash_profile`:
+
+```
+export SHELL="/opt/homebrew/bin/bash"
+```
+
 ### Spaceship
 
 This prompt can cause an [issue](https://github.com/warpdotdev/Warp/issues/1973) with typeahead in Warp's input editor.\
