@@ -1,17 +1,10 @@
-# Intelligent Command Entry
+# Command Entry
 
 Warp's main features for Command Entry and History:
 
-1. [A.I. Command Search](../warp-ai/ai-command-search.md) (`` CTRL-` ``) converts natural language descriptions into shell commands that can be executed.
-2. [Workflows](workflows.md) (`CTRL-SHIFT-R`) are an easier way to execute and share parameterized and searchable commands within Warp.
-3. [Command Search](command-search.md) (`CTRL-R`) is a 3-in-1 panel that allows you to search across Command History, Workflows, Notebooks, and A.I. Command Search all at once.
-4. [Command History](command-history.md) (`UP`) allows Warp to isolate the history of each shell session to make previously run commands easily accessible.
-
-## A.I. Command Search
-
-{% embed url="https://www.loom.com/share/a52356f73de54f649ba7f0841861d88e?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
-AI Command Search Demo
-{% endembed %}
+1. [Workflows](workflows.md) (`CTRL-SHIFT-R`) are an easier way to execute and share parameterized and searchable commands within Warp.
+2. [Command Search](command-search.md) (`CTRL-R`) is a 3-in-1 panel that allows you to search across Command History, Workflows, Notebooks, and A.I. Command Search all at once.
+3. [Command History](command-history.md) (`UP`) allows Warp to isolate the history of each shell session to make previously run commands easily accessible.
 
 ## Workflows
 

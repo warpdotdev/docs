@@ -32,7 +32,7 @@
   * [Command Corrections](features/editor/command-corrections.md)
   * [Command Inspector](features/editor/command-inspector.md)
   * [Syntax and Error Highlighting](features/editor/syntax-error-highlighting.md)
-* [Intelligent Command Entry](features/entry/README.md)
+* [Command Entry](features/entry/README.md)
   * [Workflows](features/entry/workflows.md)
   * [Command Search](features/entry/command-search.md)
   * [Command History](features/entry/command-history.md)
