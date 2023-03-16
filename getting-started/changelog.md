@@ -2,6 +2,41 @@
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2023.03.16 (v0.2023.03.07.08.02)
+
+**New features**
+
+- Introducing Warp AI ⚡ Get explanations for errors and outputs, ask for help with complicated workflows and scripts, easily execute suggested commands, all without leaving Warp!
+
+### 2023.02.28 (v0.2023.02.28.08.03)
+
+**New features**
+
+- Warp now suggests a URL for creating a GitHub PR on `git push`.
+- Command Search and Workflow menus are now horizontally resizable.
+
+**Bug fixes**
+
+- Fixed a bug where Warp doesn’t correctly Auto-Raise.
+- Fixed issue where formatting is lost when pasting into nano.
+- Fixed issue where Warp doesn’t detect process termination when exiting `info`.
+- Fixed a bug with bash prompt expansion not working on v4.4 or earlier.
+- Fixed a bug where profile pictures don’t show in the Account menu.
+- Fixed Syntax Highlighting and Error Underlining’s handling of multi-byte characters.
+- Fixed issue where 'Checking for Update’ doesn’t reflect the current status.
+
+### 2023.02.23 (v0.2023.02.21.08.03)
+
+**New features**
+
+- Support for configuring the initial working directory for new sessions. New tabs/windows/split panes can have separate configurations, or you can set one value for all new sessions.
+
+**Bug fixes**
+
+- Warp now supports syntax highlighting and error underlining for multi-line inputs with multibyte characters
+- Fixed a bug where the update status in Warp’s `About Section` was incorrect.
+- Improved GPU memory consumption when multiple windows are open.
+
 ### 2023.02.16 (v0.2023.02.14.08.05)
 
 **New features**
