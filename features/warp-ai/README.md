@@ -32,7 +32,7 @@ Or, you can start a conversation with Warp AI using natural language. To get sta
 
 Here are the ways you can access Warp AI:
 
-* shift + `CTRL` + space from the command line or with some text or a block selected
+* `SHIFT+CTRL+SPACE` from the command line or with some text or a block selected
 * Click the Warp AI icon (⚡) from any block
 * Right-click on any block or selected text and select “Ask Warp AI” from the menu
 * Click the Warp AI icon (⚡) from the top bar menu in Warp
