@@ -19,6 +19,8 @@
 
 ## 📕 Features
 
+* [Warp AI](features/warp-ai/README.md)
+  * [AI Command Search](features/warp-ai/ai-command-search.md)
 * [Command Palette](features/command-palette.md)
 * [Blocks](features/blocks/README.md)
   * [Block Basics](features/blocks/block-basics.md)
@@ -31,7 +33,6 @@
   * [Command Inspector](features/editor/command-inspector.md)
   * [Syntax and Error Highlighting](features/editor/syntax-error-highlighting.md)
 * [Intelligent Command Entry](features/entry/README.md)
-  * [A.I. Command Search](features/entry/ai-command-search.md)
   * [Workflows](features/entry/workflows.md)
   * [Command Search](features/entry/command-search.md)
   * [Command History](features/entry/command-history.md)

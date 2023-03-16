@@ -5,7 +5,7 @@ description: Share a block easily with coworkers or teammates.
 # Block Sharing
 
 {% hint style="info" %}
-This action sends command information to our server and is explicitly opt-in. Our privacy principle is that any data sharing is opt-in and under the control of the user, and you should be able to remove or export that data from our servers at any time. Read our privacy policy here for [more information](https://www.warp.dev/privacy).
+This action sends command information to our server and is explicitly opt-in. Read more about privacy at Warp on [our privacy page](https://www.warp.dev/privacy).
 {% endhint %}
 
 ## Permalink

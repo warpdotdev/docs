@@ -14,7 +14,7 @@ Command Search panel allows you to search across Command History, Workflows, Not
    * <img src="../../.gitbook/assets/workflow.png" alt="curly brackets" data-size="line"> Curly Brackets icon signifies that the result is a [Workflow](workflows.md).
    * <img src="../../.gitbook/assets/history.png" alt="rewind time clock" data-size="line"> Rewind Time Clock icon signifies that the result is a [Command History](command-history.md).
    * <img src="../../.gitbook/assets/notebook.png" alt="earmarked page" data-size="line"> Earmarked Page icon signifies that the result is a Notebook (**Coming Soon**).
-   * <img src="../../.gitbook/assets/ai-sparkle.png" alt="sparkle" data-size="line"> Sparkle icon signifies piping that search query into [A.I. Command Search](ai-command-search.md)
+   * <img src="../../.gitbook/assets/ai-sparkle.png" alt="sparkle" data-size="line"> Sparkle icon signifies piping that search query into [A.I. Command Search](../warp-ai/ai-command-search.md)
 2. Activate a specific filter, by prepending your search term with:
    * `workflows:` will activate the workflows filter. You can also use the shortcuts `w:` or `W+TAB`.
    * `history:` will activate the history filter. You can also use the shortcuts `h:` or `H+TAB`.

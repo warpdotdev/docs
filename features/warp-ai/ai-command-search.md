@@ -1,4 +1,4 @@
-# A.I. Command Search
+# AI Command Search
 
 ## What is it
 
@@ -10,7 +10,7 @@ AI Command Search converts natural language descriptions into shell commands tha
 2. Type in the input box what you'd like to do and press `ENTER` to generate the command.
 3. Once the result shows up, press `CMD-ENTER` to input the generated command directly into Warp's Input Editor.
 
-_Note:_ If you experience any issues with A.I. Command Search, please see our known issues for [troubleshooting steps](../../help/known-issues.md#online-features-ai-command-block-sharing-referrals-etc.).
+_Note:_ If you experience any issues with AI Command Search, please see our known issues for [troubleshooting steps](../../help/known-issues.md#online-features-ai-command-block-sharing-referrals-etc.).
 
 ## How it works
 
@@ -20,4 +20,4 @@ A.I. Command Search Demo
 
 ## Privacy
 
-Warp does not store any commands or prompts that users send. All inputs are sent directly to the OpenAI server. Warp only keeps track of telemetry around the opening and closing of the A.I. Command Search panel. See OpenAI’s privacy policy [here](https://openai.com/api/policies/privacy/).
+Warp does not store any commands or prompts that users send. All inputs are sent directly to the OpenAI server. Warp only keeps track of telemetry around the opening and closing of the AI Command Search panel. See OpenAI’s privacy policy [here](https://openai.com/api/policies/privacy/).
