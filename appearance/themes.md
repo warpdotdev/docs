@@ -6,7 +6,7 @@ Warp includes a number of themes (out-of-box) and also supports setting custom t
 
 ## How to access it
 
-The Theme Picker can be accessed through the [Command Palette](../features/features/command-palette.md) or by:
+The Theme Picker can be accessed through the [Command Palette](../features/features/command-palette.md), `CTRL-CMD-T`, or by:
 
 1. Navigating to the top-right section of the Warp window
 2. Clicking the kebab-menu to open the drop-down menu
@@ -35,21 +35,5 @@ Warp supports synchronizing your theme with the OS’s light and dark themes. To
 
 By default, Warp ships with these themes:
 
-* Warp Dark
-* Warp Light
-* Dracula
-* Solarized Dark
-* Solarized Light
-* Gruvbox Dark
-* Gruvbox Light
-* Jellyfish (custom background)
-* Koi (custom background)
-* Leafy (custom background)
-* Marble (custom background)
-* Pink City (custom background)
-* Snowy (custom background)
-* Dark City (custom background)
-* Red Rock (custom background)
-* Cyber Wave (custom background)
-* Willow Dream (gradient)
-* Fancy Dracula (gradient)
+<table data-view="cards"><thead><tr><th align="center"></th><th align="center"></th></tr></thead><tbody><tr><td align="center"><img src="../.gitbook/assets/warp-dark.png" alt=""></td><td align="center">Warp Dark</td></tr><tr><td align="center"><img src="../.gitbook/assets/warp-light.png" alt=""></td><td align="center">Warp Light</td></tr><tr><td align="center"><img src="../.gitbook/assets/dracula.png" alt=""></td><td align="center">Dracula</td></tr><tr><td align="center"><img src="../.gitbook/assets/solarized-dark.png" alt=""></td><td align="center">Solarized Dark</td></tr><tr><td align="center"><img src="../.gitbook/assets/solarized-light.png" alt=""></td><td align="center">Solarized Light</td></tr><tr><td align="center"><img src="../.gitbook/assets/gruvbox-dark.png" alt=""></td><td align="center">Gruvbox Dark</td></tr><tr><td align="center"><img src="../.gitbook/assets/gruvbox-light.png" alt=""></td><td align="center">Gruvbox Light</td></tr><tr><td align="center"><img src="../.gitbook/assets/jellyfish.png" alt=""></td><td align="center">Jellyfish</td></tr><tr><td align="center"><img src="../.gitbook/assets/koi.png" alt=""></td><td align="center">Koi</td></tr><tr><td align="center"><img src="../.gitbook/assets/leafy.png" alt=""></td><td align="center">Leafy</td></tr><tr><td align="center"><img src="../.gitbook/assets/marble.png" alt=""></td><td align="center">Marble</td></tr><tr><td align="center"><img src="../.gitbook/assets/pink-city.png" alt=""></td><td align="center">Pink City</td></tr><tr><td align="center"><img src="../.gitbook/assets/snowy.png" alt=""></td><td align="center">Snowy</td></tr><tr><td align="center"><img src="../.gitbook/assets/dark-city.png" alt=""></td><td align="center">Dark City</td></tr><tr><td align="center"><img src="../.gitbook/assets/red-rock.png" alt=""></td><td align="center">Red Rock</td></tr><tr><td align="center"><img src="../.gitbook/assets/cyber-wave.png" alt=""></td><td align="center">Cyber Wave</td></tr><tr><td align="center"><img src="../.gitbook/assets/willow-dream.png" alt=""></td><td align="center">Willow Dream</td></tr><tr><td align="center"><img src="../.gitbook/assets/fancy-dracula.png" alt=""></td><td align="center">Fancy Dracula</td></tr></tbody></table>
+
