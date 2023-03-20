@@ -6,7 +6,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 
 **New features**
 
-* Introducing [Warp AI](../features/warp-ai/README/) ⚡ Get explanations for errors and outputs, ask for help with complicated workflows and scripts, easily execute suggested commands, all without leaving Warp!
+* Introducing [Warp AI](../features/warp-ai/) ⚡ Get explanations for errors and outputs, ask for help with complicated workflows and scripts, easily execute suggested commands, all without leaving Warp!
 
 ### 2023.03.09 (v0.2023.03.07.08.02.stable\_01)
 
