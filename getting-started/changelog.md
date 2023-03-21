@@ -28,20 +28,20 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 
 - Introducing Warp AI ⚡ Get explanations for errors and outputs, ask for help with complicated workflows and scripts, easily execute suggested commands, all without leaving Warp!
 
-### 2023.03.09 (v0.2023.03.07.08.02.stable\_01)
+### 2023.03.09 (v0.2023.03.07.08.02)
 
 **New features**
 
-- Added support for clearing a keybinding for an action #2300.
-- Added support for showing/hiding Warp windows with a system-wide Activation hotkey #2585.
-- Improved scroll speed for Sidebar menu 'Warp Essentials'/'Keyboard Shortcuts' #2673.
+- Added support for clearing a keybinding for an action [2300](https://github.com/warpdotdev/warp/issues/2300).
+- Added support for showing/hiding Warp windows with a system-wide Activation hotkey [2585](https://github.com/warpdotdev/warp/issues/2585).
+- Improved scroll speed for Sidebar menu 'Warp Essentials'/'Keyboard Shortcuts' [2673](https://github.com/warpdotdev/warp/issues/2673).
 - Users may now set a custom keybinding to open the completions menu.
 - Enabling/disabling mouse reporting is no longer bound to CMD-R by default.
 - Toggling mouse reporting enabled shows a banner.
 
 **Bug fixes**
 
-- Fixed SSH wrapper hanging forever when SSH host is Arch Linux with the latest bash package #2636.
+- Fixed SSH wrapper hanging forever when SSH host is Arch Linux with the latest bash package [2636](https://github.com/warpdotdev/warp/issues/2636).
 - Fixed Bash commands having escape codes in the last 20 characters producing incorrect output.
 - Fixed a bug with bash prompt expansion on recent macOS versions.
 
@@ -78,7 +78,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 
 **New features**
 
-- Improved double-click selection. Double-clicking text now smart selects patterns like file paths, URLs, email addresses, etc.  - [659](https://github.com/warpdotdev/warp/issues/659)
+- Improved double-click selection. Double-clicking text now smart selects patterns like file paths, URLs, email addresses, etc. - [659](https://github.com/warpdotdev/warp/issues/659)
 - Warp can now be opened from Finder - [102](https://github.com/warpdotdev/warp/issues/102)
 
 **Bug fixes**
@@ -192,6 +192,24 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 **Bug fixes**
 
 - Mitigated an issue where running a command over SSH would emit spurious output (specifically, 'channel: open failed' statements) in a block.
+
+### 2022.12.01 (v0.2022.11.29.08.03)
+
+**New features**
+
+- Warp now supports using the find bar within the alt-screen! `CMD-F` now opens find within vim, less, and other alt-screen apps!
+
+**Bug fixes**
+
+- Respect symlinks in Warp configuration directories (for themes and workflows).
+- Fixed unwanted text appearing in the Input Editor when RPROMPT is set
+- Fixed the emoji composer not working properly.
+- Fixed a crash that could occur when using the Unicode Hex Input keyboard.
+- Fixed escape binding not closing the resource center
+- Move Backward/Forward One Word bindings can now be overridden.
+- Fixed crash when hovering over multiple byte text within the Input Editor
+- Fixed “command not found: sed” and “command not found: tr” issues with the SSH wrapper.
+- Fixed issue where tab completions and command search could be visible at the same time.
 
 ### 2022.11.15 (v0.2022.11.14.14.55)
 
@@ -457,6 +475,24 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 - Correctly parse Git commit SHAs in completion menus
 - Improved tab completion support for command line arguments that are behind flags
 
+### 2022.07.06 (v0.2022.07.04.09.08)
+
+**New features**
+
+- Bookmark a Block (or multiple) for quick access via the scroll-bar
+- Added a referral counter to the Settings > Account screen and the referral screen
+- Added support for rendering text with a lower visual weight; enable the thin strokes option in Settings > Appearance (enabled by default for low-DPI displays)
+- Togglable settings, overflow menu items, and settings pages are now accessible through the Command Palette
+- CLI options are now surfaced by default without needing to type '-'
+- Press SHIFT-CMD-C while in VSCode (Visual Studio Code) to open a new Warp session
+
+**Bug fixes**
+
+- Fixed a hang that would sometimes occur when connecting with SSH
+- Now support requesting media permissions (camera, audio, etc)
+- Correctly parse Git commit SHAs in completion menus
+- Improved tab completion support for command line arguments that are behind flags
+
 ### 2022.06.29 (v0.2022.06.27.09.14)
 
 **Bug fixes**
@@ -465,6 +501,24 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 - Dim colors now render correctly
 
 ### 2022.06.27 (v0.2022.06.20.09.15)
+
+**New features**
+
+- Improved auto-focus behavior when closing panes by keeping track of history when navigating or clicking around panes
+- Performance improvements when executing Blocks: Warp no longer flashes on every command!
+
+**Bug fixes**
+
+- Input Editor re-focuses after renaming a tab
+- Reduced visual weight of the active tab title to improve legibility.
+- Improved blending along the inside edge of rounded corners
+- Global Hotkey Windows (Quake Mode) now correctly respect the active screen setting
+- Completions for flag arguments now support absolute and relative file paths (when applicable)
+- Git checkout <`TAB`> now also completes branches with the remote prefixed.
+- Pressing Arrow-up (`UP`) when the Input Editor is non-empty opens the command history with prefix filtering
+- Button to copy app version moved to main settings page
+
+### 2022.06.22 (v0.2022.06.20.09.15)
 
 **New features**
 
@@ -491,6 +545,18 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 **Bug fixes**
 
 - Warp no longer crashes on MacOS 13 (Ventura)
+- Global Hotkey Window (Quake Mode) no longer overlaps Spotlight, Raycast, Alfred, and the Mac Dock
+- Now correctly display the user and hostname in the Prompt after exiting an SSH session
+- Fixed a memory leak on window close.
+
+### 2022.06.15 (v0.2022.06.13.09.15)
+
+**New features**
+
+- Added keyboard shortcuts to reorder tabs (CTRL-SHIFT-LEFT and CTRL-SHIFT-RIGHT)
+
+**Bug fixes**
+
 - Global Hotkey Window (Quake Mode) no longer overlaps Spotlight, Raycast, Alfred, and the Mac Dock
 - Now correctly display the user and hostname in the Prompt after exiting an SSH session
 - Fixed a memory leak on window close.
@@ -587,7 +653,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 
 **New features**
 
-- Added a Quake Mode setting that configures whether Warp should automatically hide when losing focus - [107](https://github.com/warpdotdev/warp/issues/107)7
+- Added a Quake Mode setting that configures whether Warp should automatically hide when losing focus - [1077](https://github.com/warpdotdev/warp/issues/1077)
 - Added a Quake Mode setting that configures which screen to pin Warp on - [862](https://github.com/warpdotdev/warp/issues/862)
 - Expanded the keybindings supported by Quake Mode / Global Hotkey Window - [856](https://github.com/warpdotdev/warp/issues/856)
 
@@ -598,6 +664,24 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 - Continued improving the reliability of login and auth within the app
 - Improved performance for commands with large outputs
 - Improved performance for long running commands
+- Improved text alignment within inline banners
+
+### 2022.04.27 (v0.2022.04.25.09.59)
+
+**New features**
+
+- Added a Quake Mode setting that configures whether Warp should automatically hide when losing focus - [1077](https://github.com/warpdotdev/warp/issues/1077)
+- Added a Quake Mode setting that configures which screen to pin Warp on - [862](https://github.com/warpdotdev/warp/issues/862)
+- Expanded the keybindings supported by Quake Mode / Global Hotkey Window - [856](https://github.com/warpdotdev/warp/issues/856)
+
+**Bug fixes**
+
+- Commands prepended with space are now stored in history if hist_ignore_space option is not set
+- Now support dotfile configurations with non-English quotation marks
+- Continued improving the reliability of login and auth within the app
+- Improved performance for commands with large outputs
+- Improved performance for long running commands
+- Improved line height computation for some fonts
 - Improved text alignment within inline banners
 
 ### 2022.04.20 (v0.2022.04.18.09.08)
@@ -615,6 +699,15 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 - Fixed a memory leak that occurred when new tabs were opened or panes were split
 
 ### 2022.04.15 (v0.2022.04.11.09.09)
+
+**Bug fixes**
+
+- Support parsing PS1’s exit codes (Bash’s $?) and improved PS1 parsing for newer Bash versions (4.4+)
+- Fixed prompt showing up as exit in Bash - [793](https://github.com/warpdotdev/warp/issues/793)
+- Improved parsing of Zsh default prompts
+- Opening the find bar will automatically select any existing text - [831](https://github.com/warpdotdev/warp/issues/831)
+
+### 2022.04.13 (v0.2022.04.11.09.09)
 
 **Bug fixes**
 
@@ -749,9 +842,9 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 - Fixed a bug where resizing a pane could cause Warp to show a blank screen
 - Parentheses, quotes, and brackets now also auto-close after typing an alphanumeric character
 - Remapped multi-cursor key bindings to CTRL-SHIFT-UP and CTRL-SHIFT-DOWN - [374](https://github.com/warpdotdev/warp/issues/374)
-- Restored OPT-CMD-UP and OPT-CMD-DOWN for switching panes up and down - [730](https://github.com/warpdotdev/warp/issues/730) 
+- Restored OPT-CMD-UP and OPT-CMD-DOWN for switching panes up and down - [730](https://github.com/warpdotdev/warp/issues/730)
 
-### 2022.01.26 (v0.2022.01.31.09.03)
+### 2022.02.02 (v0.2022.01.31.09.03)
 
 **New features**
 
@@ -903,7 +996,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 - Changelog dialog
 - Emoji rendering: 😂, 😃, 🌍, 🍞, 🚗, 📞, 🎉, ❤️ - [075](https://github.com/warpdotdev/warp/issues/075)
 - Improved settings dialog
-- Theme search - [237](https://github.com/warpdotdev/warp/issues/237) 
+- Theme search - [237](https://github.com/warpdotdev/warp/issues/237)
 
 **Bug fixes**
 
@@ -992,7 +1085,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 **New features**
 
 - Split panes: create multiple panes in the same tab via shortcuts (CMD-E/SHIFT-CMD-E), the Command Palette, or by right clicking in any pane.
-- Custom themes via files.  You can now define your own theme as a yaml file in ~/.warp/themes. For more information on the file format and to see ~100 of the most popular themes already implemented in this format, see https://github.com/warpdotdev/themes. The ability to add and share themes directly within Warp is coming soon!
+- Custom themes via files. You can now define your own theme as a yaml file in ~/.warp/themes. For more information on the file format and to see ~100 of the most popular themes already implemented in this format, see https://github.com/warpdotdev/themes. The ability to add and share themes directly within Warp is coming soon!
 
 **Bug fixes**
 
@@ -1202,4 +1295,3 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 **Bug fixes**
 
 - Text rendering was faded on certain monitors
-
