@@ -9,9 +9,9 @@ description: >-
 
 ### Zsh is the default shell for Warp
 
-Zsh is the default login and interactive shell on macOS (starting with macOS Catalina in 2019), replacing Bash shell which. Warp tries to load your login shell by default, currently we support Bash, Fish, and Zsh; if your login shell is set to something else e.g. Nushell Warp will load Zsh instead.
+Zsh is the default login and interactive shell on macOS (starting with macOS Catalina in 2019), replacing the Bash shell. Warp tries to load your login shell by default, currently we support Bash, Fish, and Zsh; if your login shell is set to something else e.g. Nushell Warp will load Zsh instead.
 
-You can switch your default shell to any other shell supported by Warp (Bash, Zsh, Fish).
+You can switch your default shell to any other shell supported by Warp (Bash, Zsh, Fish) using the instructions at the bottom of the page.
 
 [Zsh](https://zsh.sourceforge.io/Doc/Release/zsh\_toc.html) is a Unix shell built as an extension of [Bourne shell](https://en.wikipedia.org/wiki/Bourne\_shell) with many improvements around customization e.g. support for plugins, themes, syntax highlighting, and auto-correction..
 
@@ -84,7 +84,8 @@ While Bash, and Zsh come pre-installed on macOS, Fish shell does not. So before 
 
 #### Step 2: Switch to Fish as the default shell
 
-Once you’ve installed Fish on your computer, you can set it as your default shell, so Warp would use it every time a new tab, pane, or window is opened. To do that, you need to run two commands, depending on how you installed Fish -
+Once you’ve installed Fish on your computer, you can set it as your default shell, so Warp would use it every time a new tab, pane, or window is opened. You can either make Fish the default shell for just Warp, from the session settings (`Settings > Features`, then `Session`), or for your
+user account. To change your account's default shell, you need to run two commands, depending on how you installed Fish -
 
 **If you used Homebrew to install Fish on a Mac with an Intel Processor**, type the following two commands in Warp:
 
@@ -121,6 +122,11 @@ If you prefer, you can also manually edit the /etc/shells file using the editor 
 {% endhint %}
 
 ### **Changing default shell**
+
+There are two ways to change the default shell that Warp uses for new tabs, windows, and panes:
+
+1. Change your [login shell](https://en.wikipedia.org/wiki/Chsh) by following the instructions below (or the [macOS documentation](https://support.apple.com/en-us/HT208050))
+2. Choose a shell in Warp by going to `Settings > Features` and scrolling to the `Session` section
 
 **To change the default shell to bash**
 
