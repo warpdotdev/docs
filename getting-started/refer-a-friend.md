@@ -31,15 +31,21 @@ We give out themes, swag, and other perks as thanks for participating in and hel
 
 We give out a unique theme if you join Warp via an invite.
 
+![](../.gitbook/assets/receive\_referral\_theme.png)
+
 ### Referring others to Warp
 
 #### 1 invite: An exclusive theme
 
 When someone joins Warp--downloads Warp **AND** creates their first Block--with your referral code, the referral theme will become available in your theme picker after you restart the app. We also send an email alerting you.
 
+![](../.gitbook/assets/send\_referral\_theme.png)
+
 #### **10 invites: Warp T-shirt**
 
 Once you've referred 10 people, we'll email you with details on how to claim your Warp T-shirt. Physical Warp swag cannot be shipped to some geographic locations, in these instances we'll reach out over email with a gift card.
+
+![](../.gitbook/assets/IMG\_8149.jpg)
 
 #### 20 invites: An invitation to an insiders program
 
