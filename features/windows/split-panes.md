@@ -11,8 +11,10 @@ The Split Panes feature allows you to divide a tab into multiple rectangular _pa
 * Toggle Maximize pane with `CMD-SHIFT-ENTER`.
 * Close the active pane with `CMD-W`.
 
-_Note:_ You can quickly find all the **pane** shortcuts by using the Command Palette `CMD-P`. You can also remap the shortcuts to your liking. See [Custom Keyboard Shortcuts](../features/keyboard-shortcuts.md#custom-keyboard-shortcuts) for more details.
+_Note:_ You can quickly find all the **pane** shortcuts by using the Command Palette `CMD-P`. You can also remap the shortcuts to your liking. See [Custom Keyboard Shortcuts](../keyboard-shortcuts.md#custom-keyboard-shortcuts) for more details.
 
 ## How it works
 
-{% embed url="https://www.loom.com/share/c1104b51cab848a9bef6792ec4fd8421?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}Split Panes Demo{% endembed %}
+{% embed url="https://www.loom.com/share/c1104b51cab848a9bef6792ec4fd8421?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
+Split Panes Demo
+{% endembed %}
