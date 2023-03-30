@@ -12,7 +12,7 @@ If you're using zsh on the remote host, we create a temp folder to act as the ZD
 
 [Tmux is not currently supported.](https://github.com/warpdotdev/Warp/discussions/501)
 
-![SSH](../.gitbook/assets/ssh.png)
+![SSH](../.gitbook/assets/6\_ssh.png)
 
 ## Implementation
 
@@ -22,6 +22,8 @@ We create a wrapper (around `/usr/bin/ssh`) to set up the shell for Warp's featu
 * Warp configures histcontrol to ignore commands with leading spaces. We do this so our bootstrapping code does not clutter the history.
 
 You can see the SSH wrapper by using `which warp_ssh_helper` in Zsh, `type warp_ssh_helper` in Bash.
+
+_Note:_ The ssh wrapper is only _initialized_ on your local machine. We don’t currently support bootstrapping nested ssh sessions
 
 ## Troubleshooting
 
