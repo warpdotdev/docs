@@ -1,6 +1,19 @@
 # Changelog
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
+### 2023.03.30 (v0.2023.03.28.08.03)
+
+**New features**
+
+- Warning if a known-incompatible custom prompt is detected.
+- Keybindings for cursor navigation in REPLs and subshells, e.g. ⌥←, ⌥→, ⌥⌫, ⌘←, ⌘→, ⌘⌫, ⌘fn⌫.
+
+**Bug fixes**
+
+- Fixed an issue where an input suggestion tooltip could overflow outside the visible window
+- Fixed keybinding conflict with Warp AI.
+- Fixed completion and syntax highlighting when local paths contain separators, not in the prefix.
+
 ### 2023.03.23 (v0.2023.03.21.08.02)
 
 **New features**
@@ -14,7 +27,6 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 - The configurable width of Universal Search is now persistent (doesn’t reset to default in new sessions).
 - “Copy Prompt” now correctly respects your PS1 prompt, if enabled
 - Fixed automatic command corrections for cargo.
-- Warp’s SSH wrapper no longer breaks when fish is the remote shell.
 
 ### 2023.03.20 (v0.2023.03.14.08.03)
 
