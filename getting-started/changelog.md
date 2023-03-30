@@ -5,14 +5,14 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 
 **New features**
 
-- Warning if a known-incompatible custom prompt is detected.
-- Keybindings for cursor navigation in REPLs and subshells, e.g. ⌥←, ⌥→, ⌥⌫, ⌘←, ⌘→, ⌘⌫, ⌘fn⌫.
+- Warning if a known-incompatible custom prompt is detected
+- Keybindings for cursor navigation in REPLs and subshells, e.g. ⌥←, ⌥→, ⌥⌫, ⌘←, ⌘→, ⌘⌫, ⌘fn⌫
 
 **Bug fixes**
 
 - Fixed an issue where an input suggestion tooltip could overflow outside the visible window
-- Fixed keybinding conflict with Warp AI.
-- Fixed completion and syntax highlighting when local paths contain separators, not in the prefix.
+- Fixed keybinding conflict with Warp AI
+- Fixed completion and syntax highlighting when local paths contain separators, not in the prefix
 
 ### 2023.03.23 (v0.2023.03.21.08.02)
 
