@@ -2,7 +2,7 @@
 
 Warp automatically checks for updates on startup. A notification will appear in the top right corner of the Warp window when a new update is available.
 
-![Update Available](../.gitbook/assets/9\_update\_available.png)
+![Update Available](../.gitbook/assets/updating\_warp-available.png)
 
 To check for updates, simply click on the same update menu -> Check for Update
 
