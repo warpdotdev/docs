@@ -1,6 +1,25 @@
 # Changelog
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
+
+### 2023.04.06 (v0.2023.04.04.08.03)
+
+**New features**
+
+- The position of the input and direction of the terminal output are now configurable. You can start the input at the top and have it move down as new commands are run (to clear the screen and reset the position press `CTRL-L`, `CMD-K` or type `clear`). Or you can keep the input pinned to the top of the pane and have terminal outputs flow in reverse order. Settings are available under `Settings > Appearance > Input Position`
+- Added a button for “jumping to the bottom” of the currently hovered Block to make it easy to get to the bottom of an output. Configurable with a setting under `Settings > Appearance > Blocks`
+- Warp AI transcripts can now be navigated via keyboard (`UP` / `DOWN` arrows)
+- Added a right-click context menu in the alt-screen (that still respects mouse reporting and SGR_MOUSE)
+- Warp AI's past prompts can be accessed via `UP` (arrow)
+- `CMD-ENTER` within Warp AI now inputs the selected command into the Input Editor
+
+**Bug fixes**
+
+- Workflows can now be searched by their description in Command Search
+- Consolidated “Ask Warp AI” keybindings into one
+- Fixed an issue causing “Move cursor by word” and “Select left/right by word” to not work if “Left/Right Option key is Meta” is enabled
+- Can now unset cursor navigation bindings within an executing command
+
 ### 2023.03.30 (v0.2023.03.28.08.03)
 
 **New features**
@@ -104,7 +123,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 
 **New features**
 
-- Improved double-click selection. Double-clicking text now smart selects patterns like file paths, URLs, email addresses, etc.  - [659](https://github.com/warpdotdev/warp/issues/659)
+- Improved double-click selection. Double-clicking text now smart selects patterns like file paths, URLs, email addresses, etc. - [659](https://github.com/warpdotdev/warp/issues/659)
 - Warp can now be opened from Finder - [102](https://github.com/warpdotdev/warp/issues/102)
 
 **Bug fixes**
@@ -868,7 +887,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 - Fixed a bug where resizing a pane could cause Warp to show a blank screen
 - Parentheses, quotes, and brackets now also auto-close after typing an alphanumeric character
 - Remapped multi-cursor key bindings to CTRL-SHIFT-UP and CTRL-SHIFT-DOWN - [374](https://github.com/warpdotdev/warp/issues/374)
-- Restored OPT-CMD-UP and OPT-CMD-DOWN for switching panes up and down - [730](https://github.com/warpdotdev/warp/issues/730) 
+- Restored OPT-CMD-UP and OPT-CMD-DOWN for switching panes up and down - [730](https://github.com/warpdotdev/warp/issues/730)
 
 ### 2022.02.02 (v0.2022.01.31.09.03)
 
@@ -1022,7 +1041,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 - Changelog dialog
 - Emoji rendering: 😂, 😃, 🌍, 🍞, 🚗, 📞, 🎉, ❤️ - [075](https://github.com/warpdotdev/warp/issues/075)
 - Improved settings dialog
-- Theme search - [237](https://github.com/warpdotdev/warp/issues/237) 
+- Theme search - [237](https://github.com/warpdotdev/warp/issues/237)
 
 **Bug fixes**
 
@@ -1111,7 +1130,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 **New features**
 
 - Split panes: create multiple panes in the same tab via shortcuts (CMD-E/SHIFT-CMD-E), the Command Palette, or by right clicking in any pane.
-- Custom themes via files.  You can now define your own theme as a yaml file in ~/.warp/themes. For more information on the file format and to see ~100 of the most popular themes already implemented in this format, see https://github.com/warpdotdev/themes. The ability to add and share themes directly within Warp is coming soon!
+- Custom themes via files. You can now define your own theme as a yaml file in ~/.warp/themes. For more information on the file format and to see ~100 of the most popular themes already implemented in this format, see https://github.com/warpdotdev/themes. The ability to add and share themes directly within Warp is coming soon!
 
 **Bug fixes**
 
@@ -1321,4 +1340,3 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 **Bug fixes**
 
 - Text rendering was faded on certain monitors
-
