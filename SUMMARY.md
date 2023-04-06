@@ -16,6 +16,7 @@
 * [Compact Mode](appearance/compact-mode.md)
 * [Text, Fonts & Cursor](appearance/text-fonts-cursor.md)
 * [Opacity, Blurring & Dimming](appearance/opacity-blurring-dimming.md)
+* [Input Position](appearance/input-position.md)
 
 ## 📕 Features
 
