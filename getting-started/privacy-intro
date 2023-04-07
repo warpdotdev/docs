@@ -27,18 +27,16 @@ You can view our [full privacy policy here](https://assets-global.website-files.
 ### Opt-out during signup
 
 1. Click on "Privacy Settings"
-2.  Click the toggles of the items you want on/off (if it's blue, it's "on")\
-
+2. Click the toggles of the items you want on/off (if it's blue, it's "on")\
 
     <figure><img src="../.gitbook/assets/opt-out-signup-modal.png" alt=""><figcaption><p>Privacy Settings During Signup</p></figcaption></figure>
 
 ### Opt-out after signup
 
 1. Open the command-palette and search for privacy
-2.  Toggle the items you want on/off (if it's blue, it's "on")\
+2. Toggle the items you want on/off (if it's blue, it's "on")\
 
-
-    <figure><img src="../.gitbook/assets/privacy-telem-opt-out.png" alt=""><figcaption><p>Privacy Settings After Signup</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/privacy-telem-opt-out.png" alt=""><figcaption><p>Privacy Settings After Signup</p></figcaption></figure>
 
 ### Login is still required, why?
 
@@ -47,7 +45,7 @@ The primary reason is that login allows us to build cloud-oriented features that
 That said, we understand the desire to try Warp before logging in, and are exploring product experiences that will allow users to preview Warp before signup.
 
 {% hint style="info" %}
-If you have any feedback about our login policy, please send it to this [Typeform.](https://zachlloyd.typeform.com/to/UnZu0akR#question=login\_required?utm\_source=docs)
+If you have any feedback about our login policy, please send it to this [Typeform.](https://zachlloyd.typeform.com/to/UnZu0akR#question=login\_required?utm\_source=docs).
 {% endhint %}
 
 ## What telemetry data do we collect and why?
