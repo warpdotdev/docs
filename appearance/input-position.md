@@ -21,8 +21,8 @@ You can also choose and set modes from the Command Palette (`CMD-P`).
 
 Changes to the Input position take place immediately and apply to all open panes.
 
-## How it Works
+## How it works
 
-{% embed url="https://www.youtube.com/watch?end=147&start=74&v=z1rDVPxaNCo" %}
+{% embed url="https://www.youtube.com/watch?end=147&start=37&v=z1rDVPxaNCo" %}
 Input Position Demo
 {% endembed %}
