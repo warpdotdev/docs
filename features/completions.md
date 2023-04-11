@@ -1,6 +1,6 @@
 # Completions
 
-What is it
+## What is it
 
 Tab Completions will suggest commands, option names, path parameters for you. This feature works regardless of machine or directory (including SSH sessions).
 
