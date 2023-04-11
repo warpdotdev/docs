@@ -8,9 +8,9 @@ description: >-
 
 ## Demo
 
-Here’s a short demo by one of our [engineers](https://www.warp.dev/about-us), [Aloke Desai](https://blog.warp.dev/whos-behind-warp-meet-the-team/) (April 2022).
+Here’s a short demo by our [Developer Advocate](https://www.warp.dev/about-us), Jess Wang (April 2023).
 
-{% embed url="https://www.youtube.com/watch?v=T7R8lvvBgOI" %}
+{% embed url="https://www.youtube.com/watch?v=XWQY8LgkiXM" %}
 Warp Demo
 {% endembed %}
 
