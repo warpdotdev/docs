@@ -13,7 +13,7 @@ Removing Warp from your computer involves uninstalling Warp and then removing an
 
 ## Removing Warp login, settings, files, log, and database
 
-* Remove Warp user login with `sudo security delete-generic-password -l "dev.warp.Warp-Stable" $HOME/Library/Keychains/login.keychain`
+* Logout of your Warp user with `sudo security delete-generic-password -l "dev.warp.Warp-Stable" $HOME/Library/Keychains/login.keychain`
 * Remove Warp settings with `defaults delete dev.warp.Warp-Stable`
 * Remove Warp user files and logs with `sudo rm -r $HOME/.warp/ $HOME/Library/Logs/warp.log`
 * Remove Warp database with `sudo rm -r "$HOME/Library/Application Support/dev.warp.Warp-Stable"`
