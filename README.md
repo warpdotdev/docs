@@ -8,7 +8,7 @@ description: >-
 
 ## Demo
 
-Here’s a short demo by our [Developer Advocate](https://www.warp.dev/about-us), Jess Wang (April 2023).
+Here’s a short demo by our [Developer Advocate](https://www.warp.dev/about-us), [Jess Wang](https://twitter.com/daRubberDuckiee) (April 2023).
 
 {% embed url="https://www.youtube.com/watch?v=XWQY8LgkiXM" %}
 Warp Demo
