@@ -108,7 +108,7 @@ end
 * zsh4h (ZSH for Humans)
 * FZF
 * BIND keys like:
-  * bindkey "^j" down-line-or-beginning-search
+  * bindkey "^j" down-line-or-beginning-search, which causes users to have to hit ENTER twice to run a command.
 * \[\[ -r "/usr/local/etc/profile.d/bash\_completion.sh" ]] && "/usr/local/etc/profile.d/bash\_completion.sh"
 * eval "$(rbenv init -)"
 * grml-zsh-config
