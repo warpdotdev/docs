@@ -23,6 +23,8 @@ To enable Blocks over SSH, Warp uses an SSH Wrapper function; navigate to settin
 
 Note: You'll need to start a new session before a change is reflected or try invoking the SSH binary directly: `/usr/bin/ssh`
 
+There is also a known issue with the [SSH Wrapper not working in Windows SSH sessions](https://github.com/warpdotdev/Warp/issues/2413). You can workaround this by [installing Cygwin](https://www.cygwin.com/) on the Windows machine you'd like to connect to.
+
 ## Auto-Update on macOS Ventura
 
 Warp may have an error opening after auto-update on macOS Ventura. This issue has been resolved for current and future releases of Warp. To avoid the issue, [update Warp](updating-warp.md) _before_ you upgrade to macOS Ventura.\
