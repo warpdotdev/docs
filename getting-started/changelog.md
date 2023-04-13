@@ -2,6 +2,19 @@
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2023.04.13 (v0.2023.04.11.08.03)
+
+**New features**
+
+- Navigation by subword within the Input Editor with `CTRL-OPT-LEFT` and `CTRL-OPT-RIGHT'
+- View prior Warp AI questions using the `UP` arrow even after the transcript is cleared
+
+**Bug fixes**
+
+- Fixed a bug in proxied SSH while not on the default shell
+- Background blur now also applies to windows that are opened via drag-and-drop from Finder
+- The Sticky Command Header no longer cuts off text for pagers
+
 ### 2023.04.06 (v0.2023.04.04.08.03)
 
 **New features**
