@@ -8,13 +8,13 @@ plugins:
       uri: https://github.com/trunk-io/plugins
 lint:
   disabled:
+    - prettier@2.8.7
+  enabled:
     - git-diff-check
     - markdownlint@0.33.0
-  enabled:
     - oxipng@8.0.0
     - yamllint@1.30.0
     - gitleaks@8.16.2
-    - prettier@2.8.7
 runtimes:
   enabled:
     - python@3.10.8
