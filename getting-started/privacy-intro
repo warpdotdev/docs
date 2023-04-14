@@ -20,7 +20,7 @@ Telemetry and crash reporting are used to improve the product and to debug any i
 
 Telemetry data **never includes console input or output** and usage of this data will never be part of our business model.
 
-You can view our [full privacy policy here](https://assets-global.website-files.com/60352b1db5736ada4741b380/60b7f8d410ec2b9fc2a45af9\_privacy-notice.pdf).
+You can view our [full privacy policy here](https://assets-global.website-files.com/60352b1db5736ada4741b380/60b7f8d410ec2b9fc2a45af9_privacy-notice.pdf).
 
 ## How to disable telemetry and crash reporting
 
@@ -45,7 +45,7 @@ The primary reason is that login allows us to build cloud-oriented features that
 That said, we understand the desire to try Warp before logging in, and are exploring product experiences that will allow users to preview Warp before signup.
 
 {% hint style="info" %}
-If you have any feedback about our login policy, please send it to this [Typeform.](https://zachlloyd.typeform.com/to/UnZu0akR#question=login\_required?utm\_source=docs).
+If you have any feedback about our login policy, please send it to this [Typeform.](https://zachlloyd.typeform.com/to/UnZu0akR#question=login_required?utm_source=docs).
 {% endhint %}
 
 ## What telemetry data do we collect and why?
