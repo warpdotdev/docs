@@ -9,6 +9,7 @@ plugins:
 lint:
   disabled:
     - git-diff-check
+    - markdownlint@0.33.0
   enabled:
     - oxipng@8.0.0
     - yamllint@1.30.0
