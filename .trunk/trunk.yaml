@@ -14,7 +14,6 @@ lint:
     - yamllint@1.30.0
     - gitleaks@8.16.2
     - prettier@2.8.7
-    - markdownlint@0.33.0
 runtimes:
   enabled:
     - python@3.10.8
