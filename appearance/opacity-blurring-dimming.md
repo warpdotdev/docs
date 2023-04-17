@@ -10,19 +10,19 @@ Warp also supports dimming inactive [Panes](../features/windows/split-panes.md).
 
 ### Window Opacity
 
-To access, go to `Settings > Appearance > Themes`
+To access it, go to `Settings > Appearance > Themes`
 
 * The slider supports setting the opacity value between `1` and `100` where `100` is completely opaque or solid.
 
 ### Window Blurring
 
-After adding some Opacity ( moving the slider to a value less than `100)`, you can blur the background as well, using the blur slider. _Note:_ Large blur radiuses may cause affect performance, especially on Retina displays.
+After removing Opacity ( moving the slider to a value less than `100)`, you can also blur the background using the blur slider. _Note:_ Large blur radiuses may cause affect performance, especially on Retina displays.
 
 * Increasing the slider increases the blur radius that's applied to the background image.
 
 ### Inactive Pane Dimming
 
-To access, go to `Settings > Appearance > Panes`
+To access it, go to `Settings > Appearance > Panes`
 
 * Toggle on `Dim inactive panes` to enable the feature.
 
