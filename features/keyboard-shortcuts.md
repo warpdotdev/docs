@@ -1,10 +1,10 @@
 # Keyboard Shortcuts
 
-Warp opens with a shortcut screen showing some of the most commonly used keyboard shortcuts. Hide the shortcut screen by clicking the menu button below it.
+Warp opens with a shortcut screen showing some of the most commonly used keyboard shortcuts. Hide the shortcut screen by clicking the menu button below it. Quickly view keyboard shortcuts via the Command Palette `CMD-P` or via the keyboard shortcut sidebar `CMD-/`.
 
 ## Custom Keyboard Shortcuts
 
-Set custom keyboard shortcuts by navigating to Settings > Keyboard Shortcuts. Search through the re-mappable actions using the search bar.
+Set custom, clear, or default keyboard shortcuts by navigating to `Settings > Keyboard Shortcuts`. Search through the re-mappable actions using the search bar.
 
 Remap the keyboard shortcuts using a file (`~./.warp/keybindings.yaml`). See our [keysets repository](https://github.com/warpdotdev/keysets/tree/main) for instructions.
 
@@ -29,6 +29,7 @@ Remap the keyboard shortcuts using a file (`~./.warp/keybindings.yaml`). See our
 | `ALT-SHIFT-CMD-C` | Copy Command Output               | `terminal:copy_outputs`                                |
 | `ALT-UP`          | Select the Closest Bookmark Up    | `terminal:select_bookmark_up`                          |
 | `CMD-A`           | Select All Blocks                 | `terminal:select_all_blocks`                           |
+| `CMD-K`           | Clear Blocks                      | `terminal:clear_blocks`                                |
 | `CMD-B`           | Bookmark Selected Block           | `terminal:bookmark_selected_block`                     |
 | `CMD-DOWN`        | Select Next Block                 | `terminal:select_next_block`                           |
 | `CMD-I`           | Reinput Selected Commands         | `terminal:reinput_commands`                            |
@@ -100,8 +101,8 @@ Remap the keyboard shortcuts using a file (`~./.warp/keybindings.yaml`). See our
 | `ALT-CMD-LEFT`    | Switch Panes Left                                 | `pane_group:navigate_left`                   |
 | `ALT-CMD-RIGHT`   | Switch Panes Right                                | `pane_group:navigate_right`                  |
 | `ALT-CMD-UP`      | Switch Panes Up                                   | `pane_group:navigate_up`                     |
-| `ALT-CMD-V`       | [a11y] Set Concise Accessibility Announcements    | `workspace:set_a11y_concise_verbosity_level` |
-| `ALT-CMD-V`       | [a11y] Set Verbose Accessibility Announcements    | `workspace:set_a11y_verbose_verbosity_level` |
+| `ALT-CMD-V`       | \[a11y] Set Concise Accessibility Announcements   | `workspace:set_a11y_concise_verbosity_level` |
+| `ALT-CMD-V`       | \[a11y] Set Verbose Accessibility Announcements   | `workspace:set_a11y_verbose_verbosity_level` |
 | `CMD-,`           | Open Settings                                     | `workspace:show_settings_modal`              |
 | `CMD-,`           | Open Settings: Account                            | `workspace:show_settings_account_page`       |
 | `CMD-G`           | Find the Next Occurrence of Your Search Query     | `find:find_next_occurrence`                  |
