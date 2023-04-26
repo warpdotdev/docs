@@ -6,6 +6,14 @@ Warp opens with a shortcut screen showing some of the most commonly used keyboar
 
 Set custom, clear, or default keyboard shortcuts by navigating to `Settings > Keyboard Shortcuts`. Search through the re-mappable actions using the search bar.
 
+{% hint style="warning" %}
+Keybinds that conflict with others are highlighted with an orange border.
+
+
+{% endhint %}
+
+<figure><img src="../.gitbook/assets/keybinds-conflict.png" alt=""><figcaption></figcaption></figure>
+
 Remap the keyboard shortcuts using a file (`~./.warp/keybindings.yaml`). See our [keysets repository](https://github.com/warpdotdev/keysets/tree/main) for instructions.
 
 ## All Available Shortcuts
