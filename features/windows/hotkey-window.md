@@ -1,16 +1,28 @@
-# Global Hotkey Window
+# Global Hotkey
 
 ## What is it
 
-The Hotkey Window shortcut can show and hide Warp on your focused desktop regardless of whether the app is focused. You could customize the window’s pinned position and its width and height ratio relative to your active screen size. _Note:_ Your new customization will apply the **next** time a hotkey window is created and not the currently opened one.
+The Global Hotkey shortcut can show and hide a dedicated or all Warp windows on your focused desktop regardless of whether the app is focused. You could customize the dedicated windows' pinned position and its width and height ratio relative to your active screen size. \
+\
+_Note:_ Your new customization will apply the **next** time a Hotkey Window is created and not the currently opened one.
 
 ## How to access it
 
-1. Open `Settings > Features` and tick the `Hotkey Window` and enable the feature.
-2. There you can configure the keyboard shortcut and the windows position, screen, and relative size.
-3. Toggle off "Autohide Hotkey Window on loss of focus", the Hotkey Window will stay on top when triggered regardless of mouse or keyboard focus.
+### Hotkey Window
 
-_Note:_ If the window does not open after pressing the registered hotkey, check under `System Preferences > Security & Privacy > Accessibility` and tick the checkbox to grant Warp access. Also,`ESC, BACKTICK, TAB , SHIFT, CAPS` are not supported keyboard shortcuts.
+1. Open `Settings > Features > Keys` and select "Dedicated hotkey window" from the Global Hotkey dropdown to enable the feature.
+2. Configure the keybinding, the windows position, screen, and relative size or uncheck "Autohides on loss of keyboard focus" which will cause the dedicated Hotkey Window to stay on top when triggered regardless of mouse or keyboard focus.
+
+### Show/Hide All Windows
+
+1. Open `Settings > Features > Keys` and select "Show/hide all windows" from the Global Hotkey dropdown to enable the feature.
+2. Configure your preferred keybinding.
+
+{% hint style="info" %}
+If the keybinding doesn't work, check under `System Preferences > Security & Privacy > Accessibility` and tick the checkbox to grant Warp access. \
+\
+Note that`ESC, BACKTICK, TAB, SHIFT, and CAPS` are not supported keyboard shortcuts.
+{% endhint %}
 
 ## How it works
 

@@ -43,7 +43,7 @@
   * [Session Navigation](features/sessions/session-navigation.md)
   * [Quit Warning Modal](features/sessions/quit-warning-modal.md)
 * [Window Management](features/windows/README.md)
-  * [Global Hotkey Window](features/windows/hotkey-window.md)
+  * [Global Hotkey](features/windows/hotkey-window.md)
   * [Tabs](features/windows/tabs.md)
   * [Split Panes](features/windows/split-panes.md)
 * [Prompt](features/prompt.md)
