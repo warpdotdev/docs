@@ -28,7 +28,7 @@ Syntax Highlighting Demo
 Warp highlights errors in commands that are typed within the [Input Editor](./) e.g. if the binary for the command you've typed does not exist.
 
 {% hint style="info" %}
-Newly installed apps will trigger error underlining until you open a new Warp session (Window/Tab/Pane).
+Newly installed apps or newly created aliases will trigger error underlining until you open a new Warp session (Window/Tab/Pane).
 {% endhint %}
 
 ### How to access Error Underlining
