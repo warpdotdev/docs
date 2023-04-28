@@ -67,7 +67,8 @@
 ## ❓ Help
 
 * [Updating Warp](help/updating-warp.md)
-* [Sending us Feedback](help/sending-us-feedback.md)
+* [Using Warp Offline](help/using-warp-offline.md)
+* [Sending Us Feedback](help/sending-us-feedback.md)
 * [Troubleshooting Login Issues](help/troubleshooting-login-issues.md)
 * [Known Issues](help/known-issues.md)
 * [Uninstalling Warp](help/uninstalling-warp.md)
