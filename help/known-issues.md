@@ -25,6 +25,13 @@ Note: You'll need to start a new session before a change is reflected or try inv
 
 There is also a known issue with the [SSH Wrapper not working in Windows SSH sessions](https://github.com/warpdotdev/Warp/issues/2413). You can workaround this by [installing Cygwin](https://www.cygwin.com/) on the Windows machine you'd like to connect to.
 
+## Online features don't work
+
+There is a known issue that can occur that causes online features to break ([Warp AI](../features/warp-ai/), [AI Command ](https://github.com/warpdotdev/Warp/issues/2740)[Search](../features/warp-ai/ai-command-search.md), [Block Sharing](../features/blocks/block-sharing.md), [Refe](../getting-started/refer-a-friend.md)[r a Friend](../getting-started/refer-a-friend.md), etc. ). This is due to the login token going stale, typically due to a password change, and can be resolved by the following steps:
+
+* Remove Warp user login with `sudo security delete-generic-password -l "dev.warp.Warp-Stable" $HOME/Library/Keychains/login.keychain`
+* [Login to Warp](../getting-started/getting-started-with-warp.md#logging-into-warp)
+
 ## Auto-Update on macOS Ventura
 
 Warp may have an error opening after auto-update on macOS Ventura. This issue has been resolved for current and future releases of Warp. To avoid the issue, [update Warp](updating-warp.md) _before_ you upgrade to macOS Ventura.\
@@ -36,13 +43,6 @@ If you experience an error opening Warp, please try the following:
 <figure><img src="https://lh3.googleusercontent.com/YD_m_5N8dnKwomnPZZFs4_s3gydEzk00rXsexoZ1Po1rdhu_BT7s0zQwqGRief6XnA1q7B5J6omrT64oV2Vcq3vJBTvFj9B5YwqhNaGcUGsi5pnOipfN1Tz7NVbJlyM57E5DReZ9vQbn9urFlTGU8fk_L8bXluatW8Npd3_XEYPqA6HpK6TYI7_gWg" alt=""><figcaption></figcaption></figure>
 
 * If the above doesn't work, [uninstall Warp](uninstalling-warp.md), then [re-install Warp](../getting-started/getting-started-with-warp.md).
-
-## Online Features ( AI Command, Block Sharing, Referrals, etc. )
-
-There is a known issue that can occur that causes online features to break ([AI Command search won't load](https://github.com/warpdotdev/Warp/issues/2740), [referral link doesn't load](https://github.com/warpdotdev/Warp/issues/2723) or blocks can't be shared for example). This is due to the login token going stale, typically due to a password change, and can be resolved by the following steps:
-
-* Remove Warp user login with `sudo security delete-generic-password -l "dev.warp.Warp-Stable" $HOME/Library/Keychains/login.keychain`
-* Login to Warp with the usual account
 
 ## English-only UI
 
