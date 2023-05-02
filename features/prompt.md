@@ -32,19 +32,19 @@ Custom Prompt Demo
 
 ### Custom Prompt Compatibility Table
 
-| Shell    | Tool                                                              | Does it work?                                                                               |
-| -------- | ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
-| Bash/zsh | [PS1](https://www.warp.dev/blog/whats-so-special-about-ps1)       | Working                                                                                     |
-| Bash     | [SBP](https://github.com/brujoand/sbp)                            | Coming soon                                                                                 |
-| Bash/zsh | [Starship](https://github.com/starship/starship)                  | [Working\*](prompt.md#starship)                                                             |
-| Bash/zsh | [oh-my-posh](https://github.com/JanDeDobbeleer/oh-my-posh)        | [Working\*](prompt.md#multi-line-and-right-sided-prompts)                                   |
-| zsh      | [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh)                   | Working                                                                                     |
-| zsh      | [prezto](https://github.com/sorin-ionescu/prezto)                 | Working                                                                                     |
-| zsh      | [Spaceship](https://github.com/spaceship-prompt/spaceship-prompt) | [Working\*](prompt.md#spaceship)                                                            |
-| zsh      | [Powerlevel10k](https://github.com/romkatv/powerlevel10k)         | [Not supported\*](prompt.md#disabling-unsupported-prompts-for-warp-e.g.-powerlevel10k-p10k) |
-| zsh      | [zplug](https://github.com/zplug/zplug)                           | Not supported                                                                               |
-| Bash/zsh | [Powerline-shell](https://github.com/b-ryan/powerline-shell)      | Coming soon                                                                                 |
-| SSH      |                                                                   | Working                                                                                     |
+| Shell    | Tool                                                              | Does it work?                                                                             |
+| -------- | ----------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| Bash/zsh | [PS1](https://www.warp.dev/blog/whats-so-special-about-ps1)       | Working                                                                                   |
+| Bash/zsh | [Starship](https://github.com/starship/starship)                  | [Working\*](prompt.md#starship)                                                           |
+| Bash/zsh | [oh-my-posh](https://github.com/JanDeDobbeleer/oh-my-posh)        | [Working\*](prompt.md#multi-line-and-right-sided-prompts)                                 |
+| zsh      | [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh)                   | Working                                                                                   |
+| zsh      | [prezto](https://github.com/sorin-ionescu/prezto)                 | Working                                                                                   |
+| zsh      | [Spaceship](https://github.com/spaceship-prompt/spaceship-prompt) | [Working\*](prompt.md#spaceship)                                                          |
+| zsh      | [Powerlevel10k](https://github.com/romkatv/powerlevel10k)         | [Coming soon\*](prompt.md#disabling-unsupported-prompts-for-warp-e.g.-powerlevel10k-p10k) |
+| Bash     | [SBP](https://github.com/brujoand/sbp)                            | Not supported                                                                             |
+| zsh      | [zplug](https://github.com/zplug/zplug)                           | Not supported                                                                             |
+| Bash/zsh | [Powerline-shell](https://github.com/b-ryan/powerline-shell)      | Not supported                                                                             |
+| SSH      |                                                                   | Working                                                                                   |
 
 ## Known incompatibilities
 
@@ -88,7 +88,7 @@ We advise using Warp's default prompt or installing one of the supported tools, 
 if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
 ##### WHAT YOU WANT TO DISABLE FOR WARP - BELOW
 
-    # POWERLEVEL10K
+    # POWERLEVEL10K or Other Unsupported Custom Prompt Code
 
 ##### WHAT YOU WANT TO DISABLE FOR WARP - ABOVE
 fi
