@@ -50,7 +50,7 @@ Nov 2021: We have added character support for Chinese, Korean, and Japanese, but
 
 ## Fish shell `read` command
 
-There is an issue in Fish shell version 3.4.0 and below that causes the `read` built-in command to break Warp's integration with Fish. This means that using `read` directly or any Fish scripts that call `read` will not work as expected in Warp. That issue is resolved in the Fish repository and so should be fixed in the next release of Fish itself.
+There is an issue in Fish shell version 3.4.0 and below that causes the `read` built-in command to break Warp's integration with Fish. This means that using `read` directly or any Fish scripts that call `read` will not work as expected in Warp. That issue is resolved in the Fish repository and so should be fixed in the next release of Fish itself. We recommend upgrading Fish to the most recent version to resolve this issue.
 
 ## Configuring and debugging your RC files
 
