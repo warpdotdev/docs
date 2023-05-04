@@ -29,6 +29,7 @@
   * [Block Sharing](features/blocks/block-sharing.md)
   * [Sticky Command Header](features/blocks/sticky-command-header.md)
 * [Modern Text Editing](features/editor/README.md)
+  * [Alias Expansion](features/editor/alias-expansion.md)
   * [Autosuggestions](features/editor/autosuggestions.md)
   * [Command Corrections](features/editor/command-corrections.md)
   * [Command Inspector](features/editor/command-inspector.md)
