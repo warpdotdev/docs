@@ -80,7 +80,7 @@ To workaround the issue, run `echo "SPACESHIP_PROMPT_ASYNC=FALSE" >>! ~/.zshrc`
 
 ### Disabling unsupported prompts for Warp e.g. Powerlevel10K (P10K)
 
-We don't currently support P10K, but we're working on it. Because of how we use the prompt\_command in Warp and because P10K can be installed standalone or as an Oh-My-Zsh plugin, each of which results in different problems and requires special handling.
+We don't currently support P10K, [but we're working on it](https://github.com/warpdotdev/Warp/issues/2851). Because of how we use the prompt\_command in Warp and because P10K can be installed standalone or as an Oh-My-Zsh plugin, each of which results in different problems and requires special handling.
 
 We advise using Warp's default prompt or installing one of the supported tools, see [Compatibility Table](prompt.md#custom-prompt-compatibility-table). You can disable P10K just for Warp as such:
 
