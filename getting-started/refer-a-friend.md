@@ -43,11 +43,11 @@ We give out themes, swag, and other perks as thanks for helping to grow our comm
 
 \*By participating in the Referral Program, you agree to the [Referral Program Terms and Conditions](refer-a-friend.md#referral-program-terms-and-conditions)
 
-#### **1 referral: An exclusive theme**
+### **1 referral: An exclusive theme**
 
 When someone joins Warp with your referral code, the referral theme will become available in your theme picker after you restart the app. We also send an email alerting you.
 
-**All other referral tiers**
+### **All other referral tiers**
 
 Once you've hit the other referral tiers, we'll email you with details on how to claim your reward.
 
@@ -69,6 +69,6 @@ Physical rewards are available to users in US, Canada, Mexico, UK, and EU countr
 
 For all other countries, users are eligible to receive a digital reward in lieu of the physical reward. However, if users are willing to pay customs on the physical reward, Warp will be able to ship the physical reward to them.&#x20;
 
-Referrals must be valid and confirmed by Warp in order to count toward your rewards. The referred user must accept the referral via the referral link and must log in to the Warp desktop app.
+Referrals must be valid and confirmed by Warp in order to count toward your rewards. The referred user must accept the referral via the referral link AND must log in to the Warp desktop app.
 
 Warp reserves the right to disqualify referrals which it deems in its sole discretion to be fraudulent. Any user that refers fake emails will be disqualified at the sole discretion of Warp.&#x20;
