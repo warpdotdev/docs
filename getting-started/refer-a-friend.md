@@ -7,7 +7,9 @@ description: >-
 # Refer a Friend and Earn Rewards
 
 {% hint style="info" %}
-If you think you've referred people but have not received an email, contact us at [feedback@warp.dev.](mailto:feedback@warp.dev)
+If you think you've referred people but have not received an email, contact us at [feedback@warp.dev.](mailto:feedback@warp.dev)\
+\
+If you've claimed your physical reward but have an issue receiving your package, respond to the shipment notification email or reach out to the Operations team directly by sending and email and your order number to support@printfection.com.
 {% endhint %}
 
 Click the three dots (kebab menu) in the top right corner and then click "Invite people" to open the invite/referral dialog.
