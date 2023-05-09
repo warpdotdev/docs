@@ -4,7 +4,7 @@ description: >-
   your team or friends within the app.
 ---
 
-# Refer a Friend
+# Refer a Friend and Earn Rewards
 
 {% hint style="info" %}
 If you think you've referred people but have not received an email, contact us at [feedback@warp.dev.](mailto:feedback@warp.dev)
@@ -14,39 +14,61 @@ Click the three dots (kebab menu) in the top right corner and then click "Invite
 
 There are two ways you can invite a friend:
 
-1. Send them an invite link. This will redirect them to our product download page.
-2. Input their email address which we'll use to email them.
-
-_Note:_ If you experience any issues with referral links, please see our known issues for [troubleshooting steps](../help/known-issues.md#online-features-ai-command-block-sharing-referrals-etc.).
+1. Send them an invite link. They will log in and be directed to our product download page.
+2. Input their email address which we'll use to email them.&#x20;
 
 {% embed url="https://www.loom.com/share/d4acc97406c9496ab9fff673f975a081" %}
 Refer a friend
 {% endembed %}
 
-## Referral program
+## Referral reward program
 
-We give out themes, swag, and other perks as thanks for participating in and helping to grow our community.
+We give out themes, swag, and other perks as thanks for helping to grow our community.&#x20;
 
-### Join Warp via a referral
+<figure><img src="../.gitbook/assets/warp referral rewards.png" alt=""><figcaption></figcaption></figure>
 
-We give out a unique theme if you join Warp via an invite.
+1 referral - Exclusive theme
+
+5 referrals - Tumbler + stickers
+
+10 referrals - T-shirt
+
+20 referrals - Baseball hat
+
+50 referrals - Hoodie
+
+75 referrals - Duffel bag
+
+100 referrals - Soft shell jacket
+
+\*By participating in the Referral Program, you agree to the [Referral Program Terms and Conditions](refer-a-friend.md#referral-program-terms-and-conditions)
+
+#### **1 referral: An exclusive theme**
+
+When someone joins Warp with your referral code, the referral theme will become available in your theme picker after you restart the app. We also send an email alerting you.
+
+**All other referral tiers**
+
+Once you've hit the other referral tiers, we'll email you with details on how to claim your reward.
+
+Physical Warp swag only be shipped with customs paid to [some geographic locations](refer-a-friend.md#referral-program-terms-and-conditions). For other areas, you will be eligible for a digital reward.
+
+### Your friend gets a theme
+
+If your friend joins Warp via your invite, they will receive a unique theme.
 
 ![](../.gitbook/assets/receive\_referral\_theme.png)
 
-### Referring others to Warp
 
-#### 1 invite: An exclusive theme
 
-When someone joins Warp--downloads Warp **AND** creates their first Block--with your referral code, the referral theme will become available in your theme picker after you restart the app. We also send an email alerting you.
+## Referral Program Terms and Conditions
 
-![](../.gitbook/assets/send\_referral\_theme.png)
+Theme rewards are available to all users.
 
-#### **10 invites: Warp T-shirt**
+Physical rewards are available to users in US, Canada, Mexico, UK, and EU countries.
 
-Once you've referred 10 people, we'll email you with details on how to claim your Warp T-shirt. Physical Warp swag cannot be shipped to some geographic locations, in these instances we'll reach out over email with a gift card.
+For all other countries, users are eligible to receive a digital reward in lieu of the physical reward. However, if users are willing to pay customs on the physical reward, Warp will be able to ship the physical reward to them.&#x20;
 
-![](../.gitbook/assets/IMG\_8149.jpg)
+Referrals must be valid and confirmed by Warp in order to count toward your rewards. The referred user must accept the referral via the referral link and must log in to the Warp desktop app.
 
-#### 20 invites: An invitation to an insiders program
-
-Once you've referred 20 people, we'll email you an invite to our insider program where you'll receive early access to new features and a private newsletter.
+Warp reserves the right to disqualify referrals which it deems in its sole discretion to be fraudulent. Any user that refers fake emails will be disqualified at the sole discretion of Warp.&#x20;
