@@ -69,7 +69,7 @@ Physical rewards are available to users in US, Canada, Mexico, UK, and [select E
 
 For all other countries, users are eligible to receive a digital reward in lieu of the physical reward.&#x20;
 
-However, if users are willing to pay customs on the physical reward, Warp will be able to ship the physical reward to them. Note that in this case, the swag item will be sent via UPS's slowest shipping, and packages could take between 4-12 weeks to arrive.
+However, if users are willing to pay customs on the physical reward, Warp will be able to ship the physical reward to them. Note that in this case, the physical reward will be sent via UPS's slowest shipping. Packages could take between 4-12 weeks to arrive and all shipping updates will come from UPS.
 
 Referrals must be valid and confirmed by Warp in order to count toward your rewards. The referred user must accept the referral via the referral link AND must log in to the Warp desktop app.
 
