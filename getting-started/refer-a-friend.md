@@ -65,7 +65,7 @@ If your friend joins Warp via your invite, they will receive a unique theme.
 
 Theme rewards are available to all users.
 
-Physical rewards are available to users in US, Canada, Mexico, UK, and EU countries.
+Physical rewards are available to users in US, Canada, Mexico, UK, and EU (except Poland).
 
 For all other countries, users are eligible to receive a digital reward in lieu of the physical reward. However, if users are willing to pay customs on the physical reward, Warp will be able to ship the physical reward to them.&#x20;
 
