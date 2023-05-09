@@ -55,7 +55,7 @@
 * [Full-screen Apps](features/full-screen-apps.md)
 * [Keyboard Shortcuts](features/keyboard-shortcuts.md)
 * [Notifications](features/notifications.md)
-* [Quit Warning Modal](features/quit-warning-modal.md)
+* [Quit Warning](features/sessions/quit-warning-modal.md)
 * [SSH](features/ssh.md)
 * [Integrations](features/integrations-and-plugins.md)
 * [Network Log](features/network-log.md)
