@@ -73,6 +73,6 @@ Referrals must be valid and confirmed by Warp in order to count toward your rewa
 
 Warp reserves the right to disqualify referrals which it deems in its sole discretion to be fraudulent. Any user that refers fake emails will be disqualified at the sole discretion of Warp.&#x20;
 
-#### EU countries Warp can pay customs for (updated 05/09/2023):
+#### EU countries Warp can pay customs for
 
-Austria, Belgium, Croatia, Cyprus, Denmark, Estonia, Finland, France, Germany, Greece, Ireland, Italy, Latvia, Lithuania, Luxembourg, Malta, Netherlands, Portugal, Spain, Sweden
+_(updated 05/09/2023):_ Austria, Belgium, Croatia, Cyprus, Denmark, Estonia, Finland, France, Germany, Greece, Ireland, Italy, Latvia, Lithuania, Luxembourg, Malta, Netherlands, Portugal, Spain, Sweden
