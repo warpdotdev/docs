@@ -2,11 +2,9 @@
 
 ## What is it
 
-Warp's quit warning feature is a valuable precaution to prevent unintentional data loss or lost progress on long-running jobs. When working with multiple tabs and windows, there is a risk of forgetting about a still-running process and accidentally quitting the app by pressing `CMD-Q` without saving data. The quit warning feature ensures that you receive a warning before quitting the app with a running process, giving you an opportunity to save your work and avoid any unintended data loss.
+Warp's quit warning feature is a valuable precaution to prevent unintentional data loss or lost progress on long-running jobs. When working with multiple tabs and windows, there is a risk of forgetting about a still-running process and accidentally quitting the app by pressing `CMD-Q` without saving data. The quit warning feature ensures that you receive a warning before quitting the app with a running process, giving you an opportunity to save your work and avoid any unintended data loss. If you quit the app or close a window containing a session with a running process, you'll see the alert and need to confirm the action before proceeding. If you aren't sure which processes you have running, there is also an option to show those processes.
 
 ## How to access it
-
-If you quit the app or close a window containing a session with a running process, you'll see the alert and need to confirm the action before proceeding. If you aren't sure which processes you have running, there is also an option to show those processes in the [Session Navigation Palette](sessions/session-navigation.md).
 
 * Open `Settings > Features > General`, there you can toggle the "Show warning before quitting".
 * You can also toggle the quit warning feature in the Command Palette, by searching for \`Quit Warning'.
