@@ -1,6 +1,13 @@
 # Changelog
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
+### 2023.05.04 (v0.2023.05.02.08.03)
+
+**New features**
+
+- Indicate when Warp is downloading an update in Settings > Account > About Warp
+- Support alias expansion for bash/zsh aliases
+
 ### 2023.04.27 (v0.2023.04.25.08.05)
 
 **New features**
