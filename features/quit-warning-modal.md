@@ -6,10 +6,12 @@ This is a precaution to prevent accidental data loss or wasting progress on long
 
 ## How to access it
 
-If you quit the app or close a window containing a session with a running process, you'll see the alert and need to confirm the action before proceeding. If you aren't sure which processes you have running, there is also an option to show those processes in the [Session Navigation Palette](session-navigation.md).
+If you quit the app or close a window containing a session with a running process, you'll see the alert and need to confirm the action before proceeding. If you aren't sure which processes you have running, there is also an option to show those processes in the [Session Navigation Palette](sessions/session-navigation.md).
 
 You can enable and disable the warning in the `Settings > Features` page.
 
 ## How it Works
 
-{% embed url="https://www.loom.com/share/bacb9d1c1e3947dca8365e15231cfcd3?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}Quit Warning Modal Demo{% endembed %}
+{% embed url="https://www.loom.com/share/bacb9d1c1e3947dca8365e15231cfcd3?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
+Quit Warning Modal Demo
+{% endembed %}
