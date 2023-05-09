@@ -25,7 +25,7 @@ Refer a friend
 
 We give out themes, swag, and other perks as thanks for helping to grow our community.&#x20;
 
-<figure><img src="../.gitbook/assets/warp referral rewards.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/FINAL 3-4.png" alt=""><figcaption></figcaption></figure>
 
 1 referral - Exclusive theme
 
@@ -65,10 +65,14 @@ If your friend joins Warp via your invite, they will receive a unique theme.
 
 Theme rewards are available to all users.
 
-Physical rewards are available to users in US, Canada, Mexico, UK, and EU (except Poland).
+Physical rewards are available to users in US, Canada, Mexico, UK, and select EU countries.
 
 For all other countries, users are eligible to receive a digital reward in lieu of the physical reward. However, if users are willing to pay customs on the physical reward, Warp will be able to ship the physical reward to them.&#x20;
 
 Referrals must be valid and confirmed by Warp in order to count toward your rewards. The referred user must accept the referral via the referral link AND must log in to the Warp desktop app.
 
 Warp reserves the right to disqualify referrals which it deems in its sole discretion to be fraudulent. Any user that refers fake emails will be disqualified at the sole discretion of Warp.&#x20;
+
+#### EU countries Warp can pay customs for (updated 05/09/2023):
+
+Austria, Belgium, Croatia, Cyprus, Denmark, Estonia, Finland, France, Germany, Greece, Ireland, Italy, Latvia, Lithuania, Luxembourg, Malta, Netherlands, Portugal, Spain, Sweden
