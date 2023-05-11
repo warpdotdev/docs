@@ -8,13 +8,11 @@ Set custom, clear, or default keyboard shortcuts by navigating to `Settings > Ke
 
 Remap the keyboard shortcuts using a file (`~./.warp/keybindings.yaml`). See our [keysets repository](https://github.com/warpdotdev/keysets/tree/main) for instructions.
 
-_Note:_ Keybinds that conflict with others are highlighted with an orange border.
-
-<figure><img src="../.gitbook/assets/keybinds-conflict.png" alt="keybinds that conflict with others are highlighted in orange"><figcaption><p>Keybind Conflict</p></figcaption></figure>
-
 {% hint style="warning" %}
-`ESC, BACKTICK, TAB, SHIFT, and CAPS` are not supported keyboard shortcuts.
+Keybinds that conflict with others are highlighted with an orange border.
 {% endhint %}
+
+<figure><img src="../.gitbook/assets/keybinds-conflict.png" alt="keybinds that conflict with others are highlighted in orange"><figcaption><p>Keybind Conflict Example</p></figcaption></figure>
 
 ## All Available Shortcuts
 
