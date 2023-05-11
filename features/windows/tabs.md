@@ -29,16 +29,7 @@ fi
 ```
 {% endcode %}
 
-or set the default directory of a new Window, Tab, or Pane:
-
-{% code overflow="wrap" %}
-```bash
-# Set default directory, there the path after cd can be any folder in your system
-cd ~/Documents
-```
-{% endcode %}
-
-Learn more about Tab names [here](https://learn.microsoft.com/en-us/windows/terminal/tutorials/tab-title#set-the-shells-title) and about setting the default directory [here](https://learn.microsoft.com/en-us/windows/terminal/tutorials/new-tab-same-directory#bash).
+Learn more about Tab names [here](https://learn.microsoft.com/en-us/windows/terminal/tutorials/tab-title#set-the-shells-title) and the Working directory for Tabs [here](../working-directory.md).
 {% endhint %}
 
 ## How it works

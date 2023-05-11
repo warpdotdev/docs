@@ -6,12 +6,15 @@ Warp opens with a shortcut screen showing some of the most commonly used keyboar
 
 Set custom, clear, or default keyboard shortcuts by navigating to `Settings > Keyboard Shortcuts`. Search through the re-mappable actions using the search bar.
 
-{% hint style="warning" %}
-Keybinds that conflict with others are highlighted with an orange border.
-<figure><img src="../.gitbook/assets/keybinds-conflict.png" alt="orange hightlight around keybinds that conflict"><figcaption></figcaption></figure>
-{% endhint %}
-
 Remap the keyboard shortcuts using a file (`~./.warp/keybindings.yaml`). See our [keysets repository](https://github.com/warpdotdev/keysets/tree/main) for instructions.
+
+_Note:_ Keybinds that conflict with others are highlighted with an orange border.
+
+<figure><img src="../.gitbook/assets/keybinds-conflict.png" alt="keybinds that conflict with others are highlighted in orange"><figcaption><p>Keybind Conflict</p></figcaption></figure>
+
+{% hint style="warning" %}
+`ESC, BACKTICK, TAB, SHIFT, and CAPS` are not supported keyboard shortcuts.
+{% endhint %}
 
 ## All Available Shortcuts
 

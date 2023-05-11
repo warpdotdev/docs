@@ -2,7 +2,7 @@
 
 ## What is it
 
-Tab Completions will suggest commands, option names, path parameters for you. This feature works regardless of machine or directory (including SSH sessions).
+Warp Tab Completions will suggest commands, option names, path parameters for you. This feature works regardless of machine or directory (including SSH sessions). Completions feature fuzzy search capability that provides you with [approximate matches](https://en.wikipedia.org/wiki/Approximate\_string\_matching) for your queries. If you're unsure about the exact syntax or spelling, you'll be provided with suggestions based on your input, even if it's not an exact match. So, you can save time and improve your productivity by quickly finding the commands you need.
 
 ### Completions on Aliases
 

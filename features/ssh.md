@@ -12,7 +12,7 @@ If you're using zsh on the remote host, we create a temp folder to act as the ZD
 
 [Tmux is not currently supported.](https://github.com/warpdotdev/Warp/discussions/501)
 
-![SSH](../.gitbook/assets/6\_ssh.png)
+![SSH](../.gitbook/assets/ssh.png)
 
 ## Implementation
 
@@ -25,7 +25,7 @@ You can see the SSH wrapper by using `which warp_ssh_helper` in Zsh, `type warp_
 
 _Note:_ The ssh wrapper is only _initialized_ on your local machine. We don’t currently support bootstrapping nested ssh sessions
 
-## Troubleshooting
+## Troubleshooting SSH
 
 ### channel 2: open failed: connect failed: open failed
 
