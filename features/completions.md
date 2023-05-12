@@ -17,7 +17,7 @@ Warp supports completions on aliases:
 * To search for options and flags, you must type and press `TAB`.
 * Forgo `TAB` by enabling "Open completions menu as you type" in `Settings > Features`
 
-## Try it yourself!
+## How to use it
 
 1. Type `git checkout` (note the space) and then press `TAB`
 2. A menu will show all of your local branches. You can select one using your mouse or the `UP ↑`/`DOWN ↓` arrow keys

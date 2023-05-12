@@ -10,7 +10,9 @@ When Alias Expansion is enabled, typing an alias then hitting `SPACE` will expan
 
 To insert a space without expanding an alias, the default keybinding is `OPT-SPACE`.
 
-> Note: Aliases will not be expanded when the command in the expanded form is the same as the alias itself. e.g. if you have an alias \`ls=”ls -G”\` defined, \`ls\` will not be expanded in the input editor.&#x20;
+{% hint style="info" %}
+Aliases will not be expanded when the command in the expanded form is the same as the alias itself. e.g. if you have an alias `ls=”ls -G”` defined, `ls` will not be expanded in the input editor.
+{% endhint %}
 
 ## How to enable / disable it
 
