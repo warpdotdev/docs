@@ -38,6 +38,7 @@
   * [Workflows](features/entry/workflows.md)
   * [Command Search](features/entry/command-search.md)
   * [Command History](features/entry/command-history.md)
+  * [Synchronized Inputs](features/entry/synchronized-inputs.md)
 * [Session Management](features/sessions/README.md)
   * [Launch Configurations](features/sessions/launch-configurations.md)
   * [Session Restoration](features/sessions/session-restoration.md)
