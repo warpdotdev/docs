@@ -8,6 +8,7 @@ plugins:
       uri: https://github.com/trunk-io/plugins
 lint:
   disabled:
+    - prettier
     - prettier@2.8.7
   enabled:
     - git-diff-check
