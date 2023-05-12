@@ -1,6 +1,23 @@
 # Changelog
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
+### 2023.05.11 (v0.2023.05.09.08.03)
+
+**New features**
+
+- Warp now sends the output of background shell processes into new (distinct) Blocks--separate from user generated Blocks.
+- Synchronize (broadcast) input across multiple panes in a single tab or multiple tabs (`Mac Menu > Edit > Synchronize Inputs` or `Synchronize` within the Command Palette)
+- Added option to enable (disabled by default) an audible terminal bell (`Settings > Features > Terminal` or  “Enable/Disable Audible Terminal Bell” within the Command Palette)
+- Now opens new windows with the same position and size of the most recently closed window (if there is one)
+- Fish aliases are now supported in the completions menu
+
+**Bug fixes**
+
+- Support for `SHIFT-UP` and `SHIFT-DOWN` within alt-screen editors
+- Fixed incorrect alt-screen scrolling behavior when scroll reporting is enabled
+- `SHIFT-TAB` now (correctly) sends the ANSI (backward-tab) escape sequence (for Vim and NeoVim)
+- SSH wrapper now also loads your /etc/profile and supports login-like prompts and interactions like printing the message of the day (MOTD)
+
 ### 2023.05.04 (v0.2023.05.02.08.03)
 
 **New features**
