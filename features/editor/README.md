@@ -1,4 +1,4 @@
-# Text Editor Input
+# Modern Text Editing
 
 ## What is it
 
@@ -7,6 +7,10 @@ Unlike other terminals, Warp’s input editor operates out-of-the-box like a mod
 {% hint style="info" %}
 Text Editor Input also works for [SSH sessions](../ssh.md).
 {% endhint %}
+
+### Copy on Select
+
+Warp supports copy on select in the Input editor or with any other selectable text in [Blocks](../blocks/). Simply enable this feature in `Settings > Features > General`. Note: This feature has a known issue working within [alt-screens](https://github.com/warpdotdev/Warp/issues/2758) like vim, less, k9s, etc.
 
 ### Soft Wrapping
 
