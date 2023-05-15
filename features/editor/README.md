@@ -45,8 +45,6 @@ Warp supports soft wrapping in the input editor. If there is an auto suggestion 
 
 ## How it Works
 
-Refer to the demo below.
-
 {% embed url="https://loom.com/share/1517049fefc34227bf1abaf19cc7e6ea?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
 Text Editor Input Demo
 {% endembed %}

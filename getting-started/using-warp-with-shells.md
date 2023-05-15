@@ -90,7 +90,7 @@ Once you’ve installed Fish on your computer, you can set it as your default sh
 
 `echo /usr/local/bin/fish | sudo tee -a /etc/shells`
 
-`chsh -s /usr/local/bin/fish`
+`chsh -s $(which fish)`
 
 \`\`
 
@@ -98,7 +98,7 @@ Once you’ve installed Fish on your computer, you can set it as your default sh
 
 `echo /opt/homebrew/bin/fish | sudo tee -a /etc/shells`
 
-`chsh -s /opt/homebrew/bin/fish`
+`chsh -s $(which fish)`
 
 \`\`
 
@@ -106,7 +106,7 @@ Once you’ve installed Fish on your computer, you can set it as your default sh
 
 `echo /usr/local/bin/fish | sudo tee -a /etc/shells`
 
-`chsh -s /usr/local/bin/fish`
+`chsh -s $(which fish)`
 
 \`\`
 
@@ -129,12 +129,12 @@ There are two ways to change the default shell that Warp uses for new tabs, wind
 
 **To change the default shell to bash**
 
-`chsh -s /bin/bash`
+`chsh -s $(which bash)`
 
 Enter your password when prompted to complete the switch. Every new tab, and window you now open will start with bash (note that the current session however, will remain with whatever shell you started with).
 
 **To change the default shell to zsh**
 
-`chsh -s /bin/zsh`
+`chsh -s $(which zsh)`
 
 Enter your password when prompted to complete the switch. Every new tab, and window you now open will start with zsh (note that the current session however, will remain with whatever shell you started with).
