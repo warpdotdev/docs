@@ -110,7 +110,7 @@ If you prefer, you can also manually edit the /etc/shells file using the editor 
 
 {% hint style="info" %}
 **Why the different locations?** The location of Fish depends on how it was installed. Homebrew installs programs under `/usr/local` on Macs running Intel processors, but under `/opt/homebrew` for Macs running Apple Silicon. So, if you used Homebrew to install Fish on a Mac with Apple Silicon, the location of the executable is - `/opt/homebrew/bin/fish`. \
-You can identify which version you have with `echo $(which fish)`.
+You can identify where fish is installed by running `echo $(which fish)`.
 {% endhint %}
 
 ### **Changing default shell**
