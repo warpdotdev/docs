@@ -88,53 +88,52 @@ Once you’ve installed Fish on your computer, you can set it as your default sh
 
 **If you used Homebrew to install Fish on a Mac with an Intel Processor**, type the following two commands in Warp:
 
-`echo /usr/local/bin/fish | sudo tee -a /etc/shells`
+`echo $(which fish) | sudo tee -a /etc/shells`
 
 `chsh -s $(which fish)`
-
-\`\`
 
 **If you used Homebrew to install Fish on a Mac with Apple Silicon**, type the following two commands in Warp:
 
-`echo /opt/homebrew/bin/fish | sudo tee -a /etc/shells`
+`echo $(which fish) | sudo tee -a /etc/shells`
 
 `chsh -s $(which fish)`
-
-\`\`
 
 **If you used the Mac installer** available on fishshell.com to install Fish, type the following two commands in Warp:
 
-`echo /usr/local/bin/fish | sudo tee -a /etc/shells`
+`echo $(which fish) | sudo tee -a /etc/shells`
 
 `chsh -s $(which fish)`
 
-\`\`
-
 {% hint style="info" %}
-If you prefer, you can also manually edit the /etc/shells file using the editor of your choice (you may need sudo privileges). See screenshot below.
+If you prefer, you can also manually edit the /etc/shells file using the editor of your choice (you may need sudo privileges).
 {% endhint %}
 
-<figure><img src="https://lh5.googleusercontent.com/LcJXwtPKL713XxfXAQ6VXBiXun_NnqAU1I1uUHr64_KPLY9sc94k8jo5e-KFEYyVGMaInlw-XCyqlnk-gj-YTsaM4DpufhaYHMiqJYoEpls_Iu8PkHE8nvD0bR0j6ny3hd6h3k0rossOrioA233wvdbWgV248qEu9p2vzqhvflZPktDE2a-X-afF8A" alt=""><figcaption><p>Edit the</p></figcaption></figure>
-
 {% hint style="info" %}
-**Why the different locations?** The location of Fish depends on how it was installed. Homebrew installs programs under `/usr/local` on Macs running Intel processors, but under `/opt/homebrew` for Macs running Apple Silicon. So, if you used Homebrew to install Fish on a Mac with Apple Silicon, the location of the executable is - `/opt/homebrew/bin/fish`
+**Why the different locations?** The location of Fish depends on how it was installed. Homebrew installs programs under `/usr/local` on Macs running Intel processors, but under `/opt/homebrew` for Macs running Apple Silicon. So, if you used Homebrew to install Fish on a Mac with Apple Silicon, the location of the executable is - `/opt/homebrew/bin/fish`. \
+You can identify which version you have with `echo $(which fish)`.
 {% endhint %}
 
 ### **Changing default shell**
 
 There are two ways to change the default shell that Warp uses for new tabs, windows, and panes:
 
-1. Change your [login shell](https://en.wikipedia.org/wiki/Chsh) by following the instructions below (or the [macOS documentation](https://support.apple.com/en-us/HT208050))
-2. Choose a shell in Warp by going to `Settings > Features` and scrolling to the `Session` section, then select the "Startup shell for new sessions"
+1. We recommend you choose a shell in Warp by going to `Settings > Features` and scrolling to the `Session` section, then select the "Startup shell for new sessions"
+2. You can also change your [login shell](https://en.wikipedia.org/wiki/Chsh) by following the instructions below (or the [macOS documentation](https://support.apple.com/en-us/HT208050))
+
+{% hint style="info" %}
+The changes to your shell will only take effect when you start a new session.
+{% endhint %}
 
 **To change the default shell to bash**
 
 `chsh -s $(which bash)`
 
-Enter your password when prompted to complete the switch. Every new tab, and window you now open will start with bash (note that the current session however, will remain with whatever shell you started with).
+Enter your password when prompted to complete the switch. Every new tab, and window you now open will start with bash.
 
 **To change the default shell to zsh**
 
 `chsh -s $(which zsh)`
 
-Enter your password when prompted to complete the switch. Every new tab, and window you now open will start with zsh (note that the current session however, will remain with whatever shell you started with).
+Enter your password when prompted to complete the switch. Every new tab, and window you now open will start with zsh.
+
+[**To change the default shell to fish**](using-warp-with-shells.md#step-2-switch-to-fish-as-the-default-shell)
