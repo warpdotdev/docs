@@ -4,13 +4,6 @@
 
 Warp Tab Completions will suggest commands, option names, path parameters for you. This feature works regardless of machine or directory (including SSH sessions). Completions feature fuzzy search capability that provides you with [approximate matches](https://en.wikipedia.org/wiki/Approximate\_string\_matching) for your queries. If you're unsure about the exact syntax or spelling, you'll be provided with suggestions based on your input, even if it's not an exact match. So, you can save time and improve your productivity by quickly finding the commands you need.
 
-### Completions on Aliases
-
-Warp supports completions on aliases:
-
-* Shell aliases - This is an alias for an entire command. For example, if you have `gc=git checkout` in alias, typing `gc` and hitting `TAB` should give you the same completion options as for `git checkout` .
-* Command aliases - This is an alias for a subcommand. For example, this could be setting `git status` to `git st`. With completions support, we could now suggest completions for `git status` even if you typed in `git st`.
-
 ## How to access it
 
 * Type out the beginning of your command, then press `TAB`.
@@ -19,8 +12,15 @@ Warp supports completions on aliases:
 
 ## How to use it
 
+### Completions
+
 1. Type `git checkout` (note the space) and then press `TAB`
 2. A menu will show all of your local branches. You can select one using your mouse or the `UP ↑`/`DOWN ↓` arrow keys
+
+### Completions on Aliases
+
+* Shell aliases - This is an alias for an entire command. For example, if you have `gc=git checkout` in alias, typing `gc` and hitting `TAB` should give you the same completion options as for `git checkout` .
+* Command aliases - This is an alias for a subcommand. For example, this could be setting `git status` to `git st`. With completions support, we could now suggest completions for `git status` even if you typed in `git st`.
 
 {% hint style="info" %}
 **Terminal Tip**\
