@@ -8,15 +8,15 @@ Unlike other terminals, Warp’s input editor operates out-of-the-box like a mod
 Text Editor Input also works for [SSH sessions](../ssh.md).
 {% endhint %}
 
-### Copy on Select
-
-Warp supports copy on select in the Input editor or with any other selectable text in [Blocks](../blocks/). Simply enable this feature in `Settings > Features > General`. Note: This feature has a known issue working within [alt-screens](https://github.com/warpdotdev/Warp/issues/2758) like vim, less, k9s, etc.
-
 ### Soft Wrapping
 
 Warp supports soft wrapping in the input editor. If there is an auto suggestion that goes off-screen, the input editor will be horizontally scrollable to make it visible. _Note:"_ Some operations treat soft wrapped lines like a logical line (`TRIPLE-CLICK`, `OPTION-LEFT` / `OPTION-RIGHT`) while other operations treat soft wrapped lines like visible different lines (`UP` / `DOWN`, `SHIFT-UP` / `SHIFT-DOWN`).
 
-![Soft Wrapping](../../.gitbook/assets/soft-wrapping.png)
+<figure><img src="../../.gitbook/assets/soft-wrapping.png" alt="soft wrapping text in Warp terminal input editor"><figcaption><p>Soft Wrapping</p></figcaption></figure>
+
+### Copy on Select
+
+Warp supports copy on select in the Input editor or with any other selectable text in [Blocks](../blocks/). Simply enable this feature in `Settings > Features > General`. Note: This feature has a known issue working within [alt-screens](https://github.com/warpdotdev/Warp/issues/2758) like vim, less, k9s, etc.
 
 ## How to use it
 
