@@ -113,7 +113,7 @@ end
 * eval "$(rbenv init -)"
 * grml-zsh-config
 * FIG, z, other completion plugins
-* Starship [settings](../features/prompt.md#starship)
+* [Starship settings](../features/prompt.md#starship-settings)
 
 ## Fig
 
