@@ -56,6 +56,8 @@ We don’t currently support multi-line or right-sided prompts. The Input Editor
 
 ### Starship
 
+#### Starship Settings
+
 Some \~/.config/starship.toml settings are known to cause errors in Warp. `#` or `DEL` the following lines to resolve known errors:
 
 ```
@@ -67,11 +69,9 @@ Some \~/.config/starship.toml settings are known to cause errors in Warp. `#` or
 disabled = false
 ```
 
-There is also a known issue with [starship prompt not rendering](https://github.com/warpdotdev/Warp/issues/2756) if your default shell is `/bin/bash`. To workaround the issue, we recommend installing a newer version of bash with `brew install bash` then include the following in the top of your `~/.bash_profile`:
+#### Starship + Bash
 
-```
-export SHELL="/opt/homebrew/bin/bash"
-```
+Starship prompt may not render properly if your [default shell](../getting-started/using-warp-with-shells.md#changing-default-shell) is `/bin/bash`. To workaround the issue, we recommend you upgrade bash, find the path with `echo $(which bash)`, then put the path in your `Settings > Features > Session > "Startup shell for new sessions" > Custom`, as noted in [#3066](https://github.com/warpdotdev/Warp/issues/3066#issuecomment-1548643121).
 
 ### Spaceship
 
