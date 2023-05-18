@@ -60,6 +60,7 @@
 * [Notifications](features/notifications.md)
 * [Quit Warning](features/quit-warning.md)
 * [SSH](features/ssh.md)
+* [Subshells](features/subshells.md)
 * [Integrations](features/integrations-and-plugins.md)
 * [Network Log](features/network-log.md)
 
