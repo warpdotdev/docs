@@ -79,4 +79,4 @@ Warp reserves the right to disqualify referrals which it deems in its sole discr
 
 #### EU countries Warp can pay customs for
 
-_(updated 05/16/2023):_ Austria, Belgium, Croatia, Cyprus, Denmark, Finland, France, Germany, Greece, Ireland, Italy, Latvia, Lithuania, Luxembourg, Malta, Netherlands, Portugal, Spain, Sweden
+_(updated 05/18/2023):_ Austria, Belgium, Cyprus, Denmark, Finland, France, Germany, Greece, Ireland, Italy, Latvia, Lithuania, Luxembourg, Malta, Netherlands, Portugal, Spain, Sweden
