@@ -9,8 +9,9 @@ The Tabs feature allows you to organize a window into multiple terminal sessions
 * Open a new Tab with `CMD-T` or by clicking on the `+` in the top bar.
 * Close the current Tab with `CMD-W` or by clicking on the `x` on hover over a Tab.
 * Activate the Previous or Next Tab with `SHIFT-CMD-{` or `SHIFT-CMD-}`.
+* Activate the first thru eighth Tabs with `CMD-1` thru `CMD-8`.
 * Move a Tab to the Left or Right with `CTRL-SHIFT-LEFT` or `CTRL-SHIFT-LEFT`.
-* Right-clicking on a Tab reveals more options, like ‘Rename Tab’ and the color picker, or explore even more Tab actions within the Command Palette `CMD-P`
+* Right-clicking on a Tab reveals more options, like ‘Rename Tab’ and the color picker, or explore even more Tab actions within the Command Palette `CMD-P` or in the [Keyboard Shortcuts](../keyboard-shortcuts.md#fundamentals).
 
 {% hint style="info" %}
 **Terminal Tip**\
