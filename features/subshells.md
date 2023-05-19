@@ -1,5 +1,5 @@
 ---
-description: Warp supports subshells for Bash, Zsh, and fish.
+description: Warp supports subshells for Bash, Zsh, and Fish.
 ---
 
 # Subshells
@@ -53,7 +53,7 @@ printf '\eP$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "bash"}}\x9c'
 printf '\eP$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "fish"}}\x9c'ash
 ```
 
-2. Manually paste the following snippet to the end of the appropriate RC file.
+2. Manually paste the following snippet to the _**end**_ of the appropriate RC file.
 
 ```bash
 # For zsh subshells, add to ~/.zshrc.
