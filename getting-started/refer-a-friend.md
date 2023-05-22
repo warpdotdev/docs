@@ -6,12 +6,6 @@ description: >-
 
 # Refer a Friend and Earn Rewards
 
-{% hint style="info" %}
-If you think you've referred people but have not received an email, contact us at [feedback@warp.dev.](mailto:feedback@warp.dev)\
-\
-If you've claimed your physical reward but have an issue receiving your package, respond to the shipment notification email or reach out to the Operations team directly by sending and email and your order number to support@printfection.com.
-{% endhint %}
-
 Click the three dots (kebab menu) in the top right corner and then click "Invite people" to open the invite/referral dialog.
 
 There are two ways you can invite a friend:
@@ -80,3 +74,22 @@ Warp reserves the right to disqualify referrals which it deems in its sole discr
 #### EU countries Warp can pay customs for
 
 _(updated 05/18/2023):_ Austria, Belgium, Cyprus, Denmark, Finland, France, Germany, Greece, Ireland, Italy, Latvia, Lithuania, Luxembourg, Malta, Netherlands, Portugal, Spain, Sweden
+
+
+
+## FAQs
+
+1. "I have referred people but have not received an email."
+
+Contact us at [feedback@warp.dev.](mailto:feedback@warp.dev)\
+
+
+2. "I've claimed my physical reward but have issues receiving my package"
+
+Respond to the shipment notification email or reach out to our swag vendor's Operations team directly by sending an email and your order number to support@printfection.com.
+
+3. "My referral count has decreased since the last time."&#x20;
+
+We now only count a user who onboards onto Warp as a real referral. We have to implement this system to prevent recent abuse of the system. The referral counts in app will be updated end of May.
+
+We realize this will mean several users will now not qualify for rewards. As a one-time-only deal, we will honor retroactively for anyone who hit 20, 50, 75, 100 referrals prior to the anti-abuse system (May 9th), but not for 5 referrals (tumblers).

@@ -12,7 +12,7 @@ If you're using zsh on the remote host, we create a temp folder to act as the ZD
 
 [Tmux is not currently supported.](https://github.com/warpdotdev/Warp/discussions/501)
 
-![SSH](../.gitbook/assets/ssh.png)
+![SSH](../.gitbook/assets/6\_ssh.png)
 
 ## Implementation
 
