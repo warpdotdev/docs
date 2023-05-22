@@ -1,6 +1,18 @@
 # Changelog
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
+### 2023.05.18 (v0.2023.05.18.01.08)
+
+**New features**
+
+- Warp now supports subshells in Zsh, Bash, and fish for a better experience with Docker, GCP, Poetry, and more. Configure which commands you'd like to "Warpify" under `Settings > Subshells`
+
+**Bug fixes**
+
+- Fixed an issue with Warp's completions when using flags that start with a single dash e.g. `-namespace`
+- Fixed an issue with Synchronized Inputs where switching from alt-screens focused on the incorrect terminal session
+- Fixed an issue where command history suggestions could cause Synchronized Inputs to get out of sync
+
 ### 2023.05.11 (v0.2023.05.09.08.03)
 
 **New features**
