@@ -6,8 +6,8 @@ description: >-
 
 # Known Issues
 
-* We do not support `PROMPT_COMMAND` in Bash right now (working on this!).
-* When you [SSH](../features/ssh.md), we start a Bash shell on the remote host. We built a wrapper around SSH to make Warp features possible.
+* We do not support `PROMPT_COMMAND` in bash right now (working on this!).
+* When you [SSH](../features/ssh.md), we start a bash shell on the remote host. We built a wrapper around SSH to make Warp features possible.
 * If your default shell is zsh, your aliases typically do not transfer over. Other shells are unsupported for now.
 * When you open a subshell (a shell within a shell), we do not set it up for Warp - instead it works like a normal terminal session.
 
@@ -15,7 +15,7 @@ Links to popular GitHub issues:
 
 * [Vi / Vim / NeoVim](https://github.com/warpdotdev/warp/discussions/451)
 * [tmux](https://github.com/warpdotdev/warp/discussions/501)
-* [Oh-My-Zsh Prompts](https://github.com/warpdotdev/Warp/issues/936)
+* [oh-my-zsh Prompts](https://github.com/warpdotdev/Warp/issues/936)
 
 ## SSH
 
@@ -48,9 +48,9 @@ If you experience an error opening Warp, please try the following:
 
 Nov 2021: We have added character support for Chinese, Korean, and Japanese, but our UI currently only supports English.
 
-## Fish shell `read` command
+## fish shell `read` command
 
-There is an issue in Fish shell version 3.4.0 and below that causes the `read` built-in command to break Warp's integration with Fish. This means that using `read` directly or any Fish scripts that call `read` will not work as expected in Warp. That issue is resolved in the Fish repository and so should be fixed in the next release of Fish itself. We recommend upgrading Fish to the most recent version to resolve this issue.
+There is an issue in fish shell version 3.4.0 and below that causes the `read` built-in command to break Warp's integration with fish. This means that using `read` directly or any fish scripts that call `read` will not work as expected in Warp. That issue is resolved in the fish repository and so should be fixed in the next release of fish itself. We recommend upgrading fish to the most recent version to resolve this issue.
 
 ## Configuring and debugging your RC files
 
@@ -79,7 +79,7 @@ $ZDOTDIR/.zlogout
 If Warp starts working correctly then Warp is incompatible with something in the current dotfiles. We can isolate what is incompatible by iteratively disabling sections of our dotfiles with the `WarpTerminal` flag until we find the culprit. If you find an incompatible tool please email us at [feedback@warp.dev](mailto:feedback@warp.dev)
 
 ```
-# Bash and Zsh
+# bash and zsh
 if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
 ##### WHAT YOU WANT TO DISABLE FOR WARP - BELOW
 
@@ -90,7 +90,7 @@ fi
 ```
 
 ```
-# Fish
+# fish
 if test "$TERM_PROGRAM" != "WarpTerminal"
     # Existing bootstrap script here
 end
@@ -143,7 +143,7 @@ if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
 fi
 ```
 
-### Fish and Fig
+### fish and Fig
 
 Some older installations of Fig (most notably prior to September 2021) include startup scripts that are incompatible with Warp's bootstrap process. As described above in [Configuring and debugging your RC files](known-issues.md#configuring-and-debugging-your-rc-files), those scripts should be gated on a check of the `TERM_PROGRAM` environment variable. The two important files in this case are:
 
