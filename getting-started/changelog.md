@@ -5,7 +5,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 
 **New features**
 
-- Warp now supports subshells in Zsh, Bash, and fish for a better experience with Docker, GCP, Poetry, and more. Configure which commands you'd like to "Warpify" under `Settings > Subshells`
+- Warp now supports subshells in zsh, bash, and fish for a better experience with Docker, GCP, Poetry, and more. Configure which commands you'd like to "Warpify" under `Settings > Subshells`
 
 **Bug fixes**
 
@@ -21,7 +21,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 - Synchronize (broadcast) input across multiple panes in a single tab or multiple tabs (`Mac Menu > Edit > Synchronize Inputs` or `Synchronize` within the Command Palette)
 - Added option to enable (disabled by default) an audible terminal bell (`Settings > Features > Terminal` or  “Enable/Disable Audible Terminal Bell” within the Command Palette)
 - Now opens new windows with the same position and size of the most recently closed window (if there is one)
-- Fish aliases are now supported in the completions menu
+- fish aliases are now supported in the completions menu
 
 **Bug fixes**
 
@@ -41,7 +41,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 
 **New features**
 
-- Support for Fish abbreviations
+- Support for fish abbreviations
 - Right-click within the Input Editor to open a context menu where you can split panes, etc.
 
 **Bug fixes**
@@ -148,7 +148,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 **Bug fixes**
 
 - Fixed SSH wrapper hanging forever when SSH host is Arch Linux with the latest bash package [2636](https://github.com/warpdotdev/warp/issues/2636).
-- Fixed Bash commands having escape codes in the last 20 characters producing incorrect output.
+- Fixed bash commands having escape codes in the last 20 characters producing incorrect output.
 - Fixed a bug with bash prompt expansion on recent macOS versions.
 
 ### 2023.02.28 (v0.2023.02.28.08.03)
@@ -266,7 +266,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 
 **Bug fixes**
 
-- The welcome Block now also works when using Fish shell.
+- The welcome Block now also works when using fish shell.
 - AI Command Search no longer crashes from multi-byte characters when opened via the `#` prefix
 - Warp no longer crashes when starting a new session in a deleted or inaccessible directory
 - Resolved rendering bugs and hangs in full-screen applications like 'k9s' and 'less'.
@@ -493,7 +493,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 - Filepath completions now include current directory ('.') and parent directory ('..')
 - Support `SHIFT-HOME` and `SHIFT-END` keybindings to select text to line start and end.
 - Items in the Command Palette now highlight when you hover over them with your mouse
-- Improved how Warp cleans up the warptmp directory for Zsh SSH sessions
+- Improved how Warp cleans up the warptmp directory for zsh SSH sessions
 - Already open dropdown menus are now properly closed when clicked
 - Warp no longer crashes when dragging a window that’s running htop
 - Warp no longer crashes when the find bar is open
@@ -557,7 +557,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 
 **Bug fixes**
 
-- Improved startup time for Fish shells
+- Improved startup time for fish shells
 - Find Bar no longer crashes on selected text
 - Scrollbar now supports jumping to where you click
 - Fixed a bug with the referral link for sharing Warp not loading
@@ -705,7 +705,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 
 **Bug fixes**
 
-- Stopped prepending \ before ~ in tab titles for older versions of Bash
+- Stopped prepending \ before ~ in tab titles for older versions of bash
 - Added support for CMD-G and SHIFT-CMD-G to tab between results in the Find Bar
 
 ### 2022.05.18 (v0.2022.05.16.09.01)
@@ -719,7 +719,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 - Improved rendering of rounded corners throughout the app
 - Fixed cell dimension computation for some fonts
 - Fixed labels rendering incorrectly in the font selector dropdown in settings
-- Fixed Bash remote sessions missing tab titles
+- Fixed bash remote sessions missing tab titles
 - Reduced UI flickering after executing commands
 - Fixed errors when sshing into remote machines which do not have xxd available
 - Fixed some anti-aliased glyphs getting clipped during rasterization
@@ -743,8 +743,8 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 
 **New features**
 
-- Added default tab titles for Bash
-- Improved default tab title in Zsh
+- Added default tab titles for bash
+- Improved default tab title in zsh
 - Maximize a split pane
 - Support rcfiles that check PS1 to determine if it's an interactive shell; this may explain missing aliases or commands in Warp!
 
@@ -801,25 +801,25 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 - Improved reliability of login and auth within the app
 - Buttons within the find bar are now properly shaded for gradient themes
 - Workflows with default values are now registered by Warp
-- Fixed bootstrapping bug that affected Fish versions older than 3.2.0
+- Fixed bootstrapping bug that affected fish versions older than 3.2.0
 - Fixed a memory leak that occurred when new tabs were opened or panes were split
 
 ### 2022.04.15 (v0.2022.04.11.09.09)
 
 **Bug fixes**
 
-- Support parsing PS1’s exit codes (Bash’s $?) and improved PS1 parsing for newer Bash versions (4.4+)
-- Fixed prompt showing up as exit in Bash - [793](https://github.com/warpdotdev/warp/issues/793)
-- Improved parsing of Zsh default prompts
+- Support parsing PS1’s exit codes (Bash’s $?) and improved PS1 parsing for newer bash versions (4.4+)
+- Fixed prompt showing up as exit in bash - [793](https://github.com/warpdotdev/warp/issues/793)
+- Improved parsing of zsh default prompts
 - Opening the find bar will automatically select any existing text - [831](https://github.com/warpdotdev/warp/issues/831)
 
 ### 2022.04.13 (v0.2022.04.11.09.09)
 
 **Bug fixes**
 
-- Support parsing PS1’s exit codes (Bash’s $?) and improved PS1 parsing for newer Bash versions (4.4+)
-- Fixed prompt showing up as exit in Bash - [793](https://github.com/warpdotdev/warp/issues/793)
-- Improved parsing of Zsh default prompts
+- Support parsing PS1’s exit codes (Bash’s $?) and improved PS1 parsing for newer bash versions (4.4+)
+- Fixed prompt showing up as exit in bash - [793](https://github.com/warpdotdev/warp/issues/793)
+- Improved parsing of zsh default prompts
 - Opening the find bar will automatically select any existing text - [831](https://github.com/warpdotdev/warp/issues/831)
 
 ### 2022.04.08 (v0.2022.04.04.09.07)
@@ -860,16 +860,16 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 
 **New features**
 
-- Fish support - [190](https://github.com/warpdotdev/warp/issues/190)
+- fish support - [190](https://github.com/warpdotdev/warp/issues/190)
 - Basic screenreader support (Voiceover) - Warp is now an accessible terminal!
 - Added a toggle in the settings to disable the SSH wrapper - [821](https://github.com/warpdotdev/warp/issues/821)
 
 **Bug fixes**
 
 - Hitting tab with a text selection shows tab completions instead of indenting
-- SSH no longer hangs when /tmp is not writable for Zsh - [578](https://github.com/warpdotdev/warp/issues/578)
+- SSH no longer hangs when /tmp is not writable for zsh - [578](https://github.com/warpdotdev/warp/issues/578)
 - SSH no longer bootstrap the shell if it’s not meant to be an interactive session (e.g. if -T or a command is passed) - [578](https://github.com/warpdotdev/warp/issues/578)
-- SSH now supports Starship and Zsh's $PROMPT variable - [803](https://github.com/warpdotdev/warp/issues/803)
+- SSH now supports Starship and zsh's $PROMPT variable - [803](https://github.com/warpdotdev/warp/issues/803)
 - Also import themes in subdirectories e.g. `~/.warp/themes/subdirectory/theme.yaml`
 
 ### 2022.03.16 (v0.2022.03.14.08.49)
@@ -881,14 +881,14 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 
 **Bug fixes**
 
-- SSH no longer returns 0~ and 1~ after executing commands for Zsh 5.0.8 or older - [578](https://github.com/warpdotdev/warp/issues/578)
+- SSH no longer returns 0~ and 1~ after executing commands for zsh 5.0.8 or older - [578](https://github.com/warpdotdev/warp/issues/578)
 - SSH now supports LocalCommand / RemoteCommand - [578](https://github.com/warpdotdev/warp/issues/578)
-- SSH over Zsh no longer depends on configuring locales on the remote machine - [578](https://github.com/warpdotdev/warp/issues/578)
+- SSH over zsh no longer depends on configuring locales on the remote machine - [578](https://github.com/warpdotdev/warp/issues/578)
 - SSH sources /etc/bash.bashrc which is an extra rcfile in Debian and other Linux distributions - [578](https://github.com/warpdotdev/warp/issues/578)
 - Improved completions stability when there are multiple panes on the same remote machine
 - Vim and other alt-screen apps properly expand to take up the full window - [552](https://github.com/warpdotdev/warp/issues/552)
 - Clicking into Warp from other foreground window focuses the clicked pane - [739](https://github.com/warpdotdev/warp/issues/739)
-- Warp now respects ignore-space history options for Zsh and Bash - [044](https://github.com/warpdotdev/warp/issues/044)
+- Warp now respects ignore-space history options for zsh and bash - [044](https://github.com/warpdotdev/warp/issues/044)
 - Warp now creates a ~/.warp folder to persist custom keybindings - [801](https://github.com/warpdotdev/warp/issues/801)
 
 ### 2022.03.09 (v0.2022.03.07.08.51)
@@ -897,8 +897,8 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 
 - Added missing actions to Command Palette
 - Option is meta is now in the settings menu
-- Fix for SSH hanging when Zsh is the remote login shell
-- Fix for SSH with Zsh that would break with certain rcfiles because of incorrectly set ZDOTDIR
+- Fix for SSH hanging when zsh is the remote login shell
+- Fix for SSH with zsh that would break with certain rcfiles because of incorrectly set ZDOTDIR
 
 ### 2022.03.02 (v0.2022.02.28.08.45)
 
@@ -916,7 +916,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 
 **New features**
 
-- Zsh support over SSH
+- zsh support over SSH
 - Partially complete autosuggestion (by word) using CTRL-RIGHT and ALT-RIGHT - [488](https://github.com/warpdotdev/warp/issues/488)
 - Added a Copy URL menu item after right-clicking a URL - [154](https://github.com/warpdotdev/warp/issues/154)
 - Indicator for conflicting keybindings in keyboard customization UI
@@ -1118,7 +1118,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 
 **New features**
 
-- Autosuggestions: Warp now suggests commands as you type, similar to Fish or Gmail - [052](https://github.com/warpdotdev/warp/issues/052)
+- Autosuggestions: Warp now suggests commands as you type, similar to fish or Gmail - [052](https://github.com/warpdotdev/warp/issues/052)
 - Button to copy the app/version - [106](https://github.com/warpdotdev/warp/issues/106)
 - Conda context to the prompt - [235](https://github.com/warpdotdev/warp/issues/235)
 
@@ -1215,7 +1215,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 **Bug fixes**
 
 - Crash when closing full-screen window
-- Executables in path were not appearing for completions in Bash
+- Executables in path were not appearing for completions in bash
 - Completions menu overlaps theme picker
 
 ### 2021.09.09 (v0.2021.09.09.0.0)
@@ -1348,7 +1348,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 
 **Bug fixes**
 
-- Intermittent crashes with Zsh sessions and switching tabs
+- Intermittent crashes with zsh sessions and switching tabs
 - Always fall back to path suggestions for completions
 - Various bugs related to completions
 

@@ -26,7 +26,7 @@ brew install --cask warp
 
 #### Compatibility
 
-Locally, the terminal integrates with Bash, Zsh, or Fish. See [Using Warp with \[bash|zsh|fish\]](https://docs.warp.dev/getting-started/using-warp-with-shells) for more details.
+Locally, the terminal integrates with bash, zsh, or fish. See [Using Warp with \[bash|zsh|fish\]](https://docs.warp.dev/getting-started/using-warp-with-shells) for more details.
 
 {% hint style="warning" %}
 **Visit** [**known issues**](../help/known-issues.md) **to get more details on setting up and troubleshooting Warp.**
