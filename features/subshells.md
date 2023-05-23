@@ -1,5 +1,5 @@
 ---
-description: Warp supports subshells for Bash, Zsh, and Fish.
+description: Warp supports subshells for bash, zsh, and fish.
 ---
 
 # Subshells
