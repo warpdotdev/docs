@@ -22,6 +22,9 @@
 
 * [Warp AI](features/warp-ai/README.md)
   * [AI Command Search](features/warp-ai/ai-command-search.md)
+* [Warp Drive](features/warp-drive/README.md)
+  * [Workflows in Warp Drive](features/warp-drive/workflows-in-warp-drive.md)
+* [Teams](features/teams.md)
 * [Command Palette](features/command-palette.md)
 * [Blocks](features/blocks/README.md)
   * [Block Basics](features/blocks/block-basics.md)
