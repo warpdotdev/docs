@@ -63,9 +63,7 @@ Theme rewards are available to all users.
 
 Physical rewards are available to users in US, Canada, Mexico, UK, and [select EU countries](refer-a-friend.md#eu-countries-warp-can-pay-customs-for-updated-05-09-2023).
 
-For all other countries, users are eligible to receive a digital reward in lieu of the physical reward.&#x20;
-
-However, if users are willing to pay customs on the physical reward, Warp will be able to ship the physical reward to them. Note that in this case, the physical reward will be sent via UPS's slowest shipping. Packages could take between 4-12 weeks to arrive and all shipping updates will come from UPS.
+For all other countries, if users opt for the physical reward, they may be required to pay customs. The physical reward will also take between 4-12 weeks to arrive. Alternatively, users are eligible to claim a digital reward in lieu of the physical reward. &#x20;
 
 Referrals must be valid and confirmed by Warp in order to count toward your rewards. The referred user must accept the referral via the referral link AND must log in to the Warp desktop app.
 
@@ -73,7 +71,7 @@ Warp reserves the right to disqualify referrals which it deems in its sole discr
 
 #### EU countries Warp can pay customs for
 
-_(updated 05/18/2023):_ Austria, Belgium, Cyprus, Denmark, Finland, France, Germany, Greece, Ireland, Italy, Latvia, Lithuania, Luxembourg, Malta, Netherlands, Portugal, Spain, Sweden
+_(updated 05/26/2023):_ Austria, Belgium, Cyprus, Denmark, Finland, France, Germany, Ireland, Italy, Latvia, Lithuania, Luxembourg, Malta, Netherlands, Portugal, Spain, Sweden
 
 
 
