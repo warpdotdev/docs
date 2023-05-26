@@ -3,10 +3,6 @@
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 ### 2023.05.25 (v0.2023.05.23.08.05)
 
-**New features**
-
-- Right-clicking the New Tab `+` button now opens a context menu where you can select a saved Launch Configuration
-
 **Bug fixes**
 
 - Improved shell startup performance after system restarts for developers with Xcode installed
