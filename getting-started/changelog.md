@@ -1,6 +1,18 @@
 # Changelog
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
+### 2023.05.25 (v0.2023.05.23.08.05)
+
+**New features**
+
+- Right-clicking the New Tab `+` button now opens a context menu where you can select a saved Launch Configuration
+
+**Bug fixes**
+
+- Improved shell startup performance after system restarts for developers with Xcode installed
+- Fixed issue with Warpifying a pipenv subshell in zsh
+- Fixed issue with updating the git status prompt indicator for remote subshells
+
 ### 2023.05.18 (v0.2023.05.18.01.08)
 
 **New features**
@@ -948,7 +960,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 - Fixed a bug where resizing a pane could cause Warp to show a blank screen
 - Parentheses, quotes, and brackets now also auto-close after typing an alphanumeric character
 - Remapped multi-cursor key bindings to CTRL-SHIFT-UP and CTRL-SHIFT-DOWN - [374](https://github.com/warpdotdev/warp/issues/374)
-- Restored OPT-CMD-UP and OPT-CMD-DOWN for switching panes up and down - [730](https://github.com/warpdotdev/warp/issues/730) 
+- Restored OPT-CMD-UP and OPT-CMD-DOWN for switching panes up and down - [730](https://github.com/warpdotdev/warp/issues/730)
 
 ### 2022.02.02 (v0.2022.01.31.09.03)
 
@@ -1102,7 +1114,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 - Changelog dialog
 - Emoji rendering: 😂, 😃, 🌍, 🍞, 🚗, 📞, 🎉, ❤️ - [075](https://github.com/warpdotdev/warp/issues/075)
 - Improved settings dialog
-- Theme search - [237](https://github.com/warpdotdev/warp/issues/237) 
+- Theme search - [237](https://github.com/warpdotdev/warp/issues/237)
 
 **Bug fixes**
 
