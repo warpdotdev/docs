@@ -8,7 +8,7 @@ _Note:_ Your new customization will apply the **next** time a Hotkey Window is c
 
 ## How to access it
 
-### Hotkey Window
+### Dedicated Window
 
 1. Open `Settings > Features > Keys` and select "Dedicated hotkey window" from the Global Hotkey dropdown to enable the feature.
 2. Configure the keybinding, the windows position, screen, and relative size or uncheck "Autohides on the loss of keyboard focus" which will cause the dedicated Hotkey Window to stay on top when triggered regardless of mouse or keyboard focus.
@@ -25,7 +25,7 @@ _Note:_ Your new customization will apply the **next** time a Hotkey Window is c
 ## How it works
 
 {% embed url="https://www.loom.com/share/b7be54559fc948cfbc1d5eab0e090c9c?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
-Global Hotkey Window Demo
+Global Hotkey Dedicated Window Demo
 {% endembed %}
 
 ## Troubleshooting Hotkey Window
