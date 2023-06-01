@@ -1,6 +1,33 @@
 # Changelog
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
+### 2023.06.01 (v0.2023.05.30.08.03)
+
+**New features**
+
+- Right-clicking the New Tab (`+`) button opens a context menu to select saved Launch Configurations
+- Use Page Up (`PG-UP`) and Page Down (`PG-DOWN`) in the Command Palette for faster navigation
+- Added support for Zed as a default code editor
+- Referral counts have been updated to only include referrals who’ve onboarded onto (actually tried) Warp
+
+**Bug fixes**
+
+- Warp’s hotkey window (Quake Mode) now properly retains its size
+- Fixed issue where command output would temporarily cutoff when resizing Warp.
+- Fixed the Sticky Command Header covering content for pager commands.
+- Fixed tabs showing stale text when being renamed.
+- Clicking a Mac menu bar item that has a sub-menu no longer incorrectly closes the menu
+- Warp now automatically focuses the shortcut search bar when the keyboard shortcuts pane is opened (`CMD-/`)
+- Fixed regression where Warp’s native prompt no longer showed the virtual environment
+
+### 2023.05.25 (v0.2023.05.23.08.05)
+
+**Bug fixes**
+
+- Improved shell startup performance after a system restarts for users with Xcode installed
+- Fixed issue with Warpifying a pipenv shell subshell from zsh
+- Fixed issue with updating the git status prompt indicator in remote subshells
+
 ### 2023.05.18 (v0.2023.05.18.01.08)
 
 **New features**
