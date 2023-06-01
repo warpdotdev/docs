@@ -25,13 +25,13 @@ Warp Drive currently allows you to save and store two types of objects:
 
 You can access Warp Drive in the status bar. Doing so will open a side panel, showing all objects available to you and your team (if you are a part of one).
 
-<figure><img src="../../.gitbook/assets/image4 (1).png" alt=""><figcaption><p>Find the Warp Drive icon in the Warp status bar.</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image4.png" alt=""><figcaption><p>Find the Warp Drive icon in the Warp status bar.</p></figcaption></figure>
 
 ## Spaces
 
 There are two spaces for Warp Drive objects to exist in: your personal space or your team space. An object can only be in one space at a time. If you aren’t part of a team yet, all objects you create will simply exist in your private space. If you are part of a team, you’ll find all objects present in your team’s space as well.
 
-<figure><img src="../../.gitbook/assets/image1 (1).png" alt=""><figcaption><p>This Warp Drive has two spaces open: one for the Planet Express team and one for a personal, private space.</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image1 (2) (1).png" alt=""><figcaption><p>This Warp Drive has two spaces open: one for the Planet Express team and one for a personal, private space.</p></figcaption></figure>
 
 ## Creating new knowledge objects
 

@@ -38,9 +38,7 @@ Some types of subshells are not compatible, and you may also want to control War
 
 ### Automatically "Warpify" subshells
 
-To remember your preferences for a command and bypass the confirmation banner, you can:
-
-1. Run one of the commands in the subshell which you’d like to automatically "Warpify."
+To remember your preferences for a command and bypass the confirmation banner, you can manually paste the appropriate snippet to the end of the RC file corresponding to your subshell (bash, fish, or zsh).
 
 ```bash
 # For zsh subshells, add to ~/.zshrc.
@@ -50,20 +48,9 @@ printf '\eP$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "zsh"}}\x9c'
 printf '\eP$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "bash"}}\x9c'
 
 # For fish subshells, add to ~/.config/fish/config.fish.
-printf '\eP$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "fish"}}\x9c'ash
-```
-
-2. Manually paste the following snippet to the _**end**_ of the appropriate RC file.
-
-```bash
-# For zsh subshells, add to ~/.zshrc.
-printf '\eP$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "zsh"}}\x9c'
-
-# For bash subshells, add to ~/.bashrc or ~/.bash_profile.
-printf '\eP$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "bash"}}\x9c'
-
-# For fish subshells, add to ~/.config/fish/config.fish.
-printf '\eP$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "fish"}}\x9c'
+if status is-interactive
+  printf '\eP$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "fish"}}\x9c'
+end
 ```
 
 Once added, Warp will automatically "Warpify" subsequent subshell sessions for the corresponding shell on the machine with the newly updated RC file.
