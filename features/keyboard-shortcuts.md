@@ -77,11 +77,11 @@ Keybinds that conflict with others are highlighted with an orange border.
 | `CTRL-L`          | Clear Screen                              | `input:clear_screen`                       |
 | `CTRL-N`          | Move Cursor Down                          | `editor_view:down`                         |
 | `CTRL-P`          | Move Cursor Up                            | `editor_view:up`                           |
-| `CTRL-SHIFT-A`    | Select to Start of Line                   | `editor:select_to_line_start`              |
+| `CTRL-SHIFT-A`    | Select to Start of Line                   | `editor_view:select_to_line_start`         |
 | `CTRL-SHIFT-B`    | Select One Character to the Left          | `editor_view:select_left`                  |
 | `CTRL-SHIFT-DOWN` | Add Cursor Below                          | `editor_view:add_cursor_below`             |
 | `CTRL-SHIFT-E`    | Select to End of Line                     | `editor:select_to_line_end`                |
-| `CTRL-SHIFT-F`    | Select One Character to the Right         | `editor_view:select_right`                 |
+| `CTRL-SHIFT-F`    | Select One Character to the Right         | `editor:select_right`                      |
 | `CTRL-SHIFT-N`    | Select Down                               | `editor_view:select_down`                  |
 | `CTRL-SHIFT-P`    | Select Up                                 | `editor_view:select_up`                    |
 | `CTRL-SHIFT-UP`   | Add Cursor Above                          | `editor_view:add_cursor_above`             |
@@ -93,6 +93,8 @@ Keybinds that conflict with others are highlighted with an orange border.
 | `META-D`          | Cut Word Right                            | `editor_view:cut_word_right`               |
 | `META-E`          | Move to the End of the Paragraph          | `editor_view:move_to_paragraph_end`        |
 | `META-F`          | Move Forward One Word                     | `editor_view:move_forward_one_word`        |
+| `CTRL-OPT-LEFT`   | Move Backward One Subword                 | `editor_view:move_backward_one_subword`    |
+| `CTRL-OPT-RIGHT`  | Move Forward One Subword                  | `editor_view:move_forward_one_subword`     |
 | `SHIFT-CMD-K`     | Clear Selected Lines                      | `editor_view:clear_lines`                  |
 | `SHIFT-META-<`    | Move to the Start of the Buffer           | `editor_view:move_to_buffer_start`         |
 | `SHIFT-META->`    | Move to the End of the Buffer             | `editor_view:move_to_buffer_end`           |

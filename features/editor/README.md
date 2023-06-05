@@ -12,8 +12,6 @@ Text Editor Input also works for [SSH sessions](../ssh.md).
 
 Warp supports soft wrapping in the input editor. If there is an auto suggestion that goes off-screen, the input editor will be horizontally scrollable to make it visible. _Note:"_ Some operations treat soft wrapped lines like a logical line (`TRIPLE-CLICK`, `OPTION-LEFT` / `OPTION-RIGHT`) while other operations treat soft wrapped lines like visible different lines (`UP` / `DOWN`, `SHIFT-UP` / `SHIFT-DOWN`).
 
-<figure><img src="../../.gitbook/assets/soft-wrapping.png" alt="soft wrapping text in Warp terminal input editor"><figcaption><p>Soft Wrapping</p></figcaption></figure>
-
 ### Copy on Select
 
 Warp supports copy on select in the Input editor or with any other selectable text in [Blocks](../blocks/). Simply enable this feature in `Settings > Features > General`. Note: This feature has a known issue working within [alt-screens](https://github.com/warpdotdev/Warp/issues/2758) like vim, less, k9s, etc.
@@ -32,6 +30,7 @@ Warp supports copy on select in the Input editor or with any other selectable te
 | `option-backspace` / `option-d`                      | Delete the word to the left / right of the cursor                                                          |
 | `ctrl-k cmd-delete`                                  | Delete everything to the right of the cursor                                                               |
 | `option-left` / `option-right`                       | Move to the beginning of the previous / next word                                                          |
+| `ctrl-opt-left` / `ctrl-opt-right`                   | Move backward / forward by one subword                                                                     |
 | `cmd-left` `ctrl-a`/ `ctrl-e` `cmd-down` `cmd-right` | Move the cursor to the start / end of the line                                                             |
 | `cmd-up`                                             | Move the cursor to the beginning of the editor buffer. If it's already there, select the most recent block |
 | `shift-left` / `shift-right`                         | Select the character to the left / right of the cursor                                                     |
@@ -48,3 +47,5 @@ Warp supports copy on select in the Input editor or with any other selectable te
 {% embed url="https://loom.com/share/1517049fefc34227bf1abaf19cc7e6ea?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
 Text Editor Input Demo
 {% endembed %}
+
+<figure><img src="../../.gitbook/assets/soft-wrapping.png" alt="soft wrapping text in Warp terminal input editor"><figcaption><p>Soft Wrapping Demo</p></figcaption></figure>
