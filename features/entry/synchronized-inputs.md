@@ -31,3 +31,7 @@ When inputs are synchronized, you can start typing in one input editor and that 
 If you are working in an alternative editor mode (like vim), synchronized inputs will only apply to all tabs with that same editor type running.
 
 When you get done, you can select “Stop Synchronizing Any Panes” or use `OPT-CMD-I` to end the synchronization.
+
+## How it works
+
+<figure><img src="../../.gitbook/assets/Synchronized Inputs.gif" alt="Demo showing synchronized inputs across panes and tabs"><figcaption><p>Synchronized Inputs Demo</p></figcaption></figure>
