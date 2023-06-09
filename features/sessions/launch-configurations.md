@@ -4,7 +4,7 @@
 
 Launch Configurations enables you to save your configuration of windows, tab, and panes, so that you can reopen the same set of windows, tab, and panes per project quickly. You can save this via the app, or by adding a yaml file.
 
-## How it works
+## How to use it
 
 1. Set up the configuration of windows, tabs, and panes you would like to save.
 2. From the Command Palette `CMD-P`, enter `#` to open the Launch Configuration Palette, then click plus **+**.
@@ -12,10 +12,17 @@ Launch Configurations enables you to save your configuration of windows, tab, an
 4. Click the save configuration button.
 5. Then, toggle the Launch Configuration Palette like in step 2 from above, with the keyboard shortcut `CTRL-CMD-L`, or from the Mac Menu: `File > Launch Configurations`, where you can search through and open your saved configurations.
 
+## How to access it
+
+* From the Command Palette `CMD-P`, enter `#` to open the Launch Configuration Palette and select Launch Configuration.
+* Right-clicking the new Tab **+** button to open a context menu and select saved Launch Configuration.
+
 {% hint style="info" %}
 **Terminal Tip**\
-You can open saved Launch Configurations via [Alfred](https://www.alfredapp.com/) Workflow or [Raycast](https://www.raycast.com/) Extension. Please learn more about installation and implementation [here](https://blog.joe.codes/open-warp-launch-configurations-from-raycast-and-alfred). Credit to [@joetannenbaum](https://twitter.com/joetannenbaum/status/1633538768866009115)
+You can open saved Launch Configurations via [Alfred](https://www.alfredapp.com/) Workflow or [Raycast](https://www.raycast.com/) Extension. Learn more [here](https://blog.joe.codes/open-warp-launch-configurations-from-raycast-and-alfred). Credit to [@joetannenbaum](https://twitter.com/joetannenbaum/status/1633538768866009115)
 {% endhint %}
+
+## How it works
 
 {% embed url="https://www.loom.com/share/daa2a9e55c27458c8bbf722d90078880?hideEmbedTopBar=true&hide_owner=true&hide_share=true&hide_title=true" %}
 Launch Configuration Demo

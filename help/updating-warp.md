@@ -2,7 +2,7 @@
 
 Warp automatically checks for updates on startup. A notification will appear in the top right corner of the Warp window when a new update is available.
 
-![Update Available](../.gitbook/assets/9\_update\_available.png)
+![Update Available](../.gitbook/assets/updating\_warp-available.png)
 
 To check for updates, simply click on the same update menu -> Check for Update
 
@@ -14,7 +14,7 @@ If nothing happens, it means you already have the latest stable build.
 
 Warp cannot auto-update if it does not have correct permissions to replace the running version of Warp If this is the case, a banner will prompt you to manually update Warp.
 
-![Update Available](<../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png>)
+![Update Available](<../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png>)
 
 There are 2 main causes of this:
 
