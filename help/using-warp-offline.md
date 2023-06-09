@@ -6,6 +6,7 @@ The first time you download Warp, you will need to be online to sign up and crea
 
 Warp’s cloud-based features which require an internet connection will not work in offline mode. Those features include:
 
+* [Warp Drive](../features/warp-drive/)
 * [Warp AI (including AI Command Search)](../features/warp-ai/)
 * [Block Sharing](../features/blocks/block-sharing.md)
 * [Refer a Friend](../getting-started/refer-a-friend.md)
