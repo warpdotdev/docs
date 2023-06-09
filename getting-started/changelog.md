@@ -1,6 +1,19 @@
 # Changelog
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
+### 2023.06.08 (v0.2023.06.06.08.02)
+
+**New features**
+
+- Command Corrections can now suggest adding a new SSH key
+
+**Bug fixes**
+
+- Fixed issue with accidentally modifying $PATH when Warpifying subshells
+- Fixed a bug where the Ask Warp AI keybinding for a Block would insert incorrect content
+- Command Corrections can no longer suggest a blank command
+- After your login expires, Warp will prompt you to log in again
+
 ### 2023.06.01 (v0.2023.05.30.08.03)
 
 **New features**
@@ -13,9 +26,9 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 **Bug fixes**
 
 - Warp’s hotkey window (Quake Mode) now properly retains its size
-- Fixed issue where command output would temporarily cutoff when resizing Warp.
-- Fixed the Sticky Command Header covering content for pager commands.
-- Fixed tabs showing stale text when being renamed.
+- Fixed issue where command output would temporarily cutoff when resizing Warp
+- Fixed the Sticky Command Header covering content for pager commands
+- Fixed tabs showing stale text when being renamed
 - Clicking a Mac menu bar item that has a sub-menu no longer incorrectly closes the menu
 - Warp now automatically focuses the shortcut search bar when the keyboard shortcuts pane is opened (`CMD-/`)
 - Fixed regression where Warp’s native prompt no longer showed the virtual environment
@@ -975,7 +988,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 - Fixed a bug where resizing a pane could cause Warp to show a blank screen
 - Parentheses, quotes, and brackets now also auto-close after typing an alphanumeric character
 - Remapped multi-cursor key bindings to CTRL-SHIFT-UP and CTRL-SHIFT-DOWN - [374](https://github.com/warpdotdev/warp/issues/374)
-- Restored OPT-CMD-UP and OPT-CMD-DOWN for switching panes up and down - [730](https://github.com/warpdotdev/warp/issues/730) 
+- Restored OPT-CMD-UP and OPT-CMD-DOWN for switching panes up and down - [730](https://github.com/warpdotdev/warp/issues/730)
 
 ### 2022.02.02 (v0.2022.01.31.09.03)
 
@@ -1129,7 +1142,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 - Changelog dialog
 - Emoji rendering: 😂, 😃, 🌍, 🍞, 🚗, 📞, 🎉, ❤️ - [075](https://github.com/warpdotdev/warp/issues/075)
 - Improved settings dialog
-- Theme search - [237](https://github.com/warpdotdev/warp/issues/237) 
+- Theme search - [237](https://github.com/warpdotdev/warp/issues/237)
 
 **Bug fixes**
 
