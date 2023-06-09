@@ -9,13 +9,12 @@ description: The basics of creating, selecting, and navigating between Blocks.
 * Blocks group your command and command output
 * The Input Editor can pin to the bottom, pin to the top, or start at the top.
 * Blocks grow from the bottom to the top.
-*   Blocks are color-coded. Blocks that quit with a non-zero exit code have a red background and red sidebar.\\
+* Blocks are color-coded. Blocks that quit with a non-zero exit code have a red background and red sidebar.
 
-    {% hint style="info" %}
-    Try it yourself!\
-    \
-    Type `xyz` (or some other command that doesn’t exist) and hit `ENTER`
-    {% endhint %}
+{% hint style="info" %}
+Try it yourself!\
+Type `xyz` (or some other command that doesn’t exist) and hit `ENTER`
+{% endhint %}
 
 ## Create A Block
 
