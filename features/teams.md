@@ -23,7 +23,7 @@ To create a new team:
 
 Give your team a meaningful name for your group, team at work, or company.
 
-<figure><img src="../.gitbook/assets/image5 (1) (1) (2).png" alt=""><figcaption><p>Name your team and manage invites.</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image5 (1) (1) (1) (1) (1).png" alt=""><figcaption><p>Name your team and manage invites.</p></figcaption></figure>
 
 ## Inviting team members
 

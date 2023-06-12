@@ -43,7 +43,7 @@ Here’s a brief description of the various fields. When searching for workflows
 
 As long as your workflow has a title and command, it can be created by clicking the “Save workflow” button. Once created, the workflow will appear in Warp Drive and be synced to the cloud. If the workflow was created in a team space, it will immediately be visible to other members of the same team.
 
-<figure><img src="../../.gitbook/assets/image3 (1) (1).png" alt=""><figcaption><p>A workflow titled "Commit git changes" has a command.</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image3 (1) (1) (1) (1) (1).png" alt=""><figcaption><p>A workflow titled "Commit git changes" has a command.</p></figcaption></figure>
 
 ### Adding arguments
 
@@ -74,7 +74,7 @@ You can execute a workflow in several ways:
 
 All of these options will paste the workflow into your active terminal input, and a dialog will appear near the input showing the title, description, command, and any arguments and their associated descriptions and default values. From here, you can make any adjustments to the workflow’s arguments (or the command itself) before hitting \`enter\` to run the workflow.
 
-<figure><img src="../../.gitbook/assets/image6 (1).png" alt=""><figcaption><p>Executing a workflow will paste the workflow contents into your terminal input editor.</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image6.png" alt=""><figcaption><p>Executing a workflow will paste the workflow contents into your terminal input editor.</p></figcaption></figure>
 
 \
 \
