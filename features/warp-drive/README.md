@@ -39,7 +39,7 @@ There are several ways of creating a new knowledge object:
 
 * From the header of a space where you’d like the object to exist
 * From the “triple dot” menu when hovering over a folder
-* From the command palette (\`cmd+p\`), e.g., searching for “create a workflow” will result in options for creating a new personal or team workflow
+* From the command palette `CMD-P`, e.g., searching for “create a workflow” will result in options for creating a new personal or team workflow
 * With an associated keyboard shortcut
 
 Once created, the object will appear in Warp Drive and be synced to the cloud. If the object was created in a team space, it will immediately be available to other members of the same team.

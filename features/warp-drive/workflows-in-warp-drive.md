@@ -18,14 +18,14 @@ Workflows are created using the workflow editor. You can open the workflow edito
 
 * Click the “plus” icon to the right of the header for the space you’d like the workflow to exist in, and then choose “New workflow”.
 * Click the “triple dot” icon that appears when hovering over a folder, and then choose the “New workflow” option from that menu. The workflow you create here will be placed in that folder.
-* Search with the command palette (\`cmd+p\`) for “create workflow”
-* Use the keyboard shortcut \`cmd-shift-H\` to create a private workflow or \`cmd-alt-shift-H\` to create a team workflow.
+* Search with the command palette `CMD-P` for “create workflow”
+* Use the keyboard shortcut `CMD-SHIFT-H` to create a private workflow or `CMD-ALT-SHIFT-H` to create a team workflow.
 
-There are also other entry points which will prefill the workflow editor with a command or commands:
+There are also other entry points that will prefill the workflow editor with a command or commands:
 
 * Hover over a block and click the “save” icon that appears near the top right corner.
-* In Warp AI, click the “save” icon in a code block returned from the language model. You can also use \`cmd+s\` with a code block selected.
-* Single- or multi-select any number of blocks and click the “triple dots” icon on the right side of one, or right click on a selected block, and select the “Save as Workflow” option in the menu. You can also use \`cmd+s\` when you have at least one block selected. If you have multiple selected blocks, their commands will be chained together with \`&&\`.
+  * In Warp AI, click the “save” icon in a code block returned from the language model. You can also use `CMD-S` with a code block selected.
+* Single- or multi-select any number of blocks and click the “triple dots” icon on the right side of one, or right-click on a selected block, and select the “Save as Workflow” option in the menu. You can also use `CMD-S` when you have at least one block selected. If you have multiple selected blocks, their commands will be chained together with \`&&\`.
 
 By default, these workflows will be placed in your private space.
 
@@ -69,8 +69,8 @@ When an argument appears in the command editor, an argument editor row will appe
 You can execute a workflow in several ways:
 
 * In Warp Drive, hover over the workflow you want to execute, and hit the “run” icon.
-* Using the command palette (\`cmd+p\`), search for a workflow you want to execute, and hit \`cmd+enter\`.
-* Using command search (\`ctrl+r\`), search for a workflow you want to execute, and hit enter.
+* Using the command palette `CMD-P`, search for a workflow you want to execute, and hit `CMD-ENTER`.
+* Using command search `CTRL-R`, search for a workflow you want to execute, and hit enter.
 
 All of these options will paste the workflow into your active terminal input, and a dialog will appear near the input showing the title, description, command, and any arguments and their associated descriptions and default values. From here, you can make any adjustments to the workflow’s arguments (or the command itself) before hitting \`enter\` to run the workflow.
 
