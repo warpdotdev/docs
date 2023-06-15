@@ -48,7 +48,7 @@ After installing Warp for the first time, you will be prompted to log in with Gi
 If you log in with Google or GitHub, Warp only gets access to the associated email address. If you want to learn more, [read our approach to privacy](https://www.warp.dev/privacy).
 {% endhint %}
 
-Opening the app is the only time you need an active internet connection. Otherwise, Warp is a fully-native, local app that runs fine with no internet connection (although you will lose access to some of our cooler features).
+Opening the app is the only time you need an active internet connection. Otherwise, Warp is a fully-native, local app that runs fine with no internet connection (although you will lose access to some [cooler features](../help/using-warp-offline.md)).
 
 ### Onboarding Survey (Optional)
 
