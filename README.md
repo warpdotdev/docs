@@ -1,38 +1,30 @@
 ---
 description: >-
-  Warp is a blazingly fast, Rust-based terminal that makes you and your team
-  more productive at running, debugging, and deploying code.
+  Warp is a modern, Rust-based terminal with AI built in so you and your team
+  can build great software faster.
 ---
 
 # What is Warp?
 
 ## Demo
 
-Here’s a short demo by our [Developer Advocate](https://www.warp.dev/about-us), [Jess Wang](https://twitter.com/daRubberDuckiee) (April 2023).
+To learn more about Warp, check out this demo video by [Developer Advocate](https://www.warp.dev/about-us), [Jess Wang](https://twitter.com/daRubberDuckiee) (April 2023).
 
 {% embed url="https://www.youtube.com/watch?v=XWQY8LgkiXM" %}
 Warp Demo
 {% endembed %}
 
-## Ramp up with Warp's Resource Center
+## Warp Essentials
 
-Open the resource center by clicking the Warp icon in the top right corner of the window. Click the keyboard icon (`CMD-/`) to view the keyboard shortcuts panel.
+The Warp Essentials panel is a resource center that contains keyboard shortcuts, an updated changelog, and tips for getting started.&#x20;
 
-There are multiple sections that outline how to:
+<figure><img src=".gitbook/assets/Warp_Essentials.gif" alt="The Warp Essentials panel is available from the top menu in the Warp desktop app."><figcaption><p>Open the Warp Essentials panel for resources.</p></figcaption></figure>
 
-1. get started
-2. make the most of Warp
-3. set up advance features (like Custom Prompt and opening files in VS Code)
+## Join the community
 
-{% embed url="https://www.loom.com/i/ba4af27376c8448eb3e5fde5461dd05a" %}
-Warp Resource Center
-{% endembed %}
+Stay connected to the team at Warp and get updates on latest releases:
 
-## Learn More
-
-Find updates, demos, insider stories, news articles, and more about Warp!
-
-* Visit our [Blog](https://www.warp.dev/blog) to read about the latest Warp releases and features.
-* Subscribe to our [YouTube](https://www.youtube.com/channel/UCKONdcQCTP3aozARj1ntKhw) or [TikTok](https://www.tiktok.com/@warp.dev) channels for longer demos and insider stories.
-* Join our [Discord](https://www.warp.dev/community) to interact directly with other developers and our engineers.
-* Follow our [Twitter](https://twitter.com/warpdotdev) for updates and to see what other people have been saying about us.
+* Visit Warp's [Blog](https://www.warp.dev/blog) to read about new features and engineering topics.
+* Subscribe to Warp's [YouTube](https://www.youtube.com/channel/UCKONdcQCTP3aozARj1ntKhw) and [TikTok](https://www.tiktok.com/@warp.dev) channels for longer demos and insider stories.
+* Join Warp's [Discord](https://www.warp.dev/community) to interact directly with Warp engineers and other developers.
+* Follow Warp on [Twitter](https://twitter.com/warpdotdev) for updates and terminal tips.

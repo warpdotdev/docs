@@ -1,11 +1,11 @@
 ---
-description: A step-by-step of how to get Warp onto your machine and setup.
+description: A step-by-step guide for setting up Warp on your machine
 ---
 
-# Getting Started
+# Installing & Onboarding
 
 {% hint style="info" %}
-**Mac-Only:** Please note that Warp is currently supported on Mac only. We plan on adding support for Web (WASM), [Linux](https://github.com/warpdotdev/warp/issues/120), and [Windows](https://github.com/warpdotdev/warp/issues/204) in this order. You can subscribe [here](https://zachlloyd.typeform.com/to/lWeDTQnr) if you want to be notified when we build for these platforms.
+**Mac-Only:** Warp is currently supported on Mac only. We plan on adding support for Web (WASM), [Linux](https://github.com/warpdotdev/warp/issues/120), and [Windows](https://github.com/warpdotdev/warp/issues/204) in this order. [Subscribe to get notified](https://warpdotdev.typeform.com/to/lWeDTQnr?typeform-source=www.warp.dev) when Warp is available for Windows or Linux.
 {% endhint %}
 
 ### Installing Warp
@@ -26,7 +26,7 @@ brew install --cask warp
 
 #### Compatibility
 
-Locally, the terminal integrates with bash, zsh, or fish. See [Using Warp with \[bash|zsh|fish\]](https://docs.warp.dev/getting-started/using-warp-with-shells) for more details.
+Locally, the terminal integrates with bash, zsh, or fish. Reference [Using Warp with \[bash|zsh|fish\]](https://docs.warp.dev/getting-started/using-warp-with-shells) for more details.
 
 {% hint style="warning" %}
 **Visit** [**known issues**](../help/known-issues.md) **to get more details on setting up and troubleshooting Warp.**
@@ -34,32 +34,32 @@ Locally, the terminal integrates with bash, zsh, or fish. See [Using Warp with \
 
 ## Onboarding
 
-### Logging into Warp
+### Logging into Warp (Required)
+
+Unlike classic terminals, Warp requires you to sign up and log in to get started with the app. Unique user identity is required to support Warp's collaborative features and it makes it easier for the Warp team to provide customer support, should you need to debug an issue.
 
 {% hint style="info" %}
-Issues with login? Check out our [login troubleshooting page](../help/troubleshooting-login-issues.md).
+Issues with login? Check out the [login troubleshooting page](../help/troubleshooting-login-issues.md).
 {% endhint %}
 
-During our closed beta, we require a login to interact with you, get your feedback, and focus on improving the app. After installing Warp for the first time, you will be prompted to log in with GitHub, Google, or via an email link.
+After installing Warp for the first time, you will be prompted to log in with GitHub, Google, or with an email link.
 
 {% hint style="info" %}
-If you log in with Google or GitHub, we only get access to the associated email address. If you want to learn more, [read our approach to privacy](https://www.warp.dev/privacy).
+If you log in with Google or GitHub, Warp only gets access to the associated email address. If you want to learn more, [read our approach to privacy](https://www.warp.dev/privacy).
 {% endhint %}
 
-Opening the app is the only time you need an active Internet connection. Otherwise, Warp is a fully-native, local app that runs fine with no internet connection (although you will lose access to some of our cooler features).
+Opening the app is the only time you need an active internet connection. Otherwise, Warp is a fully-native, local app that runs fine with no internet connection (although you will lose access to some of our cooler features).
 
-### Onboarding Survey
+### Onboarding Survey (Optional)
+
+As part of the beta, Warp will ask a few questions within the app after you sign up.
+
+The survey is optional. You can skip all questions if you’d like.
 
 {% hint style="info" %}
-Why do we ask these? Understanding how you use the terminal helps us improve the product and prioritize the right features.
-
-For example, we might find that backend engineers spend more time with multiple terminal tabs open, or engineers at large companies spend more time using CLIs.
+Why do we ask these? Understanding how you use the terminal helps us improve the product and prioritize the right features to build.
 {% endhint %}
 
-As part of our beta, we ask a few questions within the app after you sign up.
+### Customizing Warp
 
-The survey is optional - you can skip all questions if you’d like.
-
-### Customize Warp
-
-Warp has many Appearance and Feature settings you can configure. Please see the navigation sidebar to learn more!
+Warp has many [Appearance settings](broken-reference) you can configure, including themes, fonts, opacity, and input position. Navigate to Settings > Appearance to customize your setup.
