@@ -6,6 +6,25 @@ description: What's new in Warp
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday. Please submit bugs and feature requests on this [GitHub board](https://github.com/warpdotdev/Warp/issues/new/choose).
 
+### 2023.06.16 (v0.2023.06.13.08.03)
+
+**New features**
+
+* Added a settings page for our upgraded referral system -- we've added new swag options
+* Right-click a highlighted file path to open a context menu that now supports showing the file in Finder
+* The Command Palette can now search through Warp sessions, actions and launch configurations
+
+**Bug fixes**
+
+* The completions menu now supports fish abbreviations
+* Fixed an issue where certain aliases would be incorrect after expansion
+* Fixed command search to ignore the extra whitespace before and after the search query
+* Restored background Blocks no longer create blank history entries
+* Fixed an issue where enabling the "Open completions as you type" setting could sometimes break path completions
+* Fixed an issue where Zsh could fail to bootstrap when `$PATH` is an a bad state
+* Fixed issue where Warp's bootstrap logic could leak into Zsh's history
+* Fix issue with properly underlining when hyperlinks are in lists or span across multiple lines
+
 ### 2023.06.08 (v0.2023.06.06.08.02)
 
 **New features**
