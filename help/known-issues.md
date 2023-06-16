@@ -107,8 +107,9 @@ end
 * Oh-My-Tmux
 * zsh4h (ZSH for Humans)
 * FZF
-* BIND keys like:
-  * bindkey "^j" down-line-or-beginning-search, which causes users to have to hit ENTER twice to run a command.
+* [BIND keys](https://github.com/warpdotdev/Warp/issues/537) like:
+  * `bindkey '^j' down-line-or-beginning-search`, which causes users to have to hit ENTER twice to run a command.
+  * `bindkey 'tab' autosuggest-accept`, which causes incorrect behavior with autocompletion.
 * \[\[ -r "/usr/local/etc/profile.d/bash\_completion.sh" ]] && "/usr/local/etc/profile.d/bash\_completion.sh"
 * eval "$(rbenv init -)"
 * grml-zsh-config
