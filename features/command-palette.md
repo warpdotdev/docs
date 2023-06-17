@@ -1,16 +1,20 @@
+---
+description: Globally search across Warp and quickly enter commands
+---
+
 # Command Palette
 
 ## What is it
 
-Command Palette allows you to search for keyboard shortcuts on how to complete various tasks within Warp.
+Command Palette is a global search that allows you to quickly locate workflows, keyboard shortcuts, or other actions within Warp.
 
 ## How to access it
 
-To access, press `CMD-P`.
+You can access the Command Palette with the keyboard shortcut `CMD - P`.
 
 ## How it works
 
-Refer to the demo below.
+_Just start typing_ to quickly search for commands, keyboard shortcuts, or actions.&#x20;
 
 {% embed url="https://www.loom.com/share/0e6108b295234637a0bb20cc941976e9?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
 Command Palette Demo

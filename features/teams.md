@@ -1,5 +1,5 @@
 ---
-description: Create or join a team to easily collaborate with others
+description: Create or join a team to collaborate with others in Warp
 ---
 
 # Teams
@@ -10,62 +10,72 @@ Teams are currently in private beta and not available for all users.
 
 ## What is a team?
 
-In Warp, a team is a group of individuals that represent your organization. Members of the same team are able to view and edit any knowledge objects shared amongst the team, making collaboration seamless and efficient. There is no limit to how large a team can be.
+A team is a group of Warp users who can collaborate on the command line together. Warp teams can share a dedicated workspace in Warp Drive.
 
-Note: For the time being, each user is limited to membership of only one team.
+Warp Drive for teams is currently in free preview. After October 2023, teams with more than 5 members will be billed. Learn about pricing.
+
+{% hint style="info" %}
+Currently, each Warp user can only be a member of one team at a time.
+{% endhint %}
 
 ## Creating a team
 
-To create a new team:
+You can create a new team from:
 
-1. Open Warp > Preferences (\`cmd+,\`) > Teams
-2. Name your team > Create team
+* Warp Drive, + Create a team, or
+* Settings > Teams\
 
-Give your team a meaningful name for your group, team at work, or company.
 
-<figure><img src="../.gitbook/assets/image5 (1) (1) (1) (1) (1).png" alt=""><figcaption><p>Name your team and manage invites.</p></figcaption></figure>
+Before you can invite team members, you will need to give your team a meaningful name. We suggest using a name to represent your organization, company, or project.
 
-## Inviting team members
+{% hint style="info" %}
+It’s not currently possible to edit and rename a team, so please choose carefully! You can delete your team and create a new one to assign a new name if needed.
+{% endhint %}
 
-You can use a referral link to invite team members:
+<figure><img src="../.gitbook/assets/create_a_team.png" alt=""><figcaption></figcaption></figure>
 
-1. Open Warp > Preferences (\`cmd+,\`) > Teams
-2. Copy the referral link and share it with your team member directly
+If you create a team, you become the team’s admin and will be the only person who can delete the team. Reference [Team roles and permissions](teams.md#team-roles-and-permissions) for more info.
 
-## Deleting a team
+### Inviting new team members
 
-If you are the administrator of a team, you can delete it by following these steps:
+Under Settings > Teams you can copy the invite link for your Warp team and paste it to your clipboard.
 
-1. Open Warp > Preferences (\`cmd+,\`) > Teams
-2. Ensure you have no team members remaining. If you still have any, remove them
-3. “Delete team” and confirm
+<figure><img src="../.gitbook/assets/copy_team_link.png" alt=""><figcaption></figcaption></figure>
 
-If you are the administrator of a team, you cannot leave it without first removing all team members from the team. Then, you will be able to delete it.
+When you share this link with your teammates directly (we suggest using a secure channel like Slack or email), they will be able to join your team in Warp.
 
-## Leaving a team
+## Restricting team invites by domain
 
-To leave a team, follow these steps:
+Sometimes you may want to control your team so that people can only join if they also authenticate with a specific email domain, such as your company’s email domain.
 
-Open Warp > Preferences (\`cmd+,\`) > Teams > Leave team
+Toggle on Restrict by domain to set an explicit allowlist.
 
-## Limiting access
-
-If you created a team, you are the administrator for the team. You can set restrictions on who can join based on the email they use for their Warp account:
-
-1. Open Warp > Preferences (\`cmd+,\`) > Teams > Restrict access by email
-2. Enter an allowlist of comma-separated domains > Set allowlist
-
-## Removing team members
-
-As the administrator of a team, you can remove existing team members via the following:
-
-1. Open Warp > Preferences (\`cmd+,\`) > Teams
-2. In the “Team members” section, remove members with the “x” icon
+If you share an invite link with somebody who’s using Warp with a domain that does not match your allowlist, they will be prompted to authenticate from an emailed link sent to a matching domain in order to join your team.
 
 ## Joining a team
 
-If you’d like to join an existing team, follow these steps:
+If you have received an invite link, you can use that link to sign up or log in and join your team in Warp. If your team is using domain restriction, you will need to authenticate you have access to a specific domain before you can join your team.
 
-1. Follow the invite link which will open your browser. If you aren’t already logged in to your Warp account, you’ll be asked to log in.
-2. If there are no join restrictions or you meet the email requirements, you can “Join team” to accept the invite.
-3. If you don’t meet the email requirements, you will be prompted to submit an email that does meet the requirements to receive a verification code. Inputting that code will grant you access to the team.
+## Leaving and deleting teams
+
+If you’re a member of a team, you can visit Settings > Teams to leave a team at any time. Team admins (who created teams) may delete a team only after all team members have been removed.
+
+## Team roles and permissions
+
+|                     | Admin                                                            | Member                                 |
+| ------------------- | ---------------------------------------------------------------- | -------------------------------------- |
+|                     | This is the Warp user who created a team. There can only be one. | All team members who belong to a team. |
+| Create a team       | ✓                                                                |                                        |
+| Restrict by domain  | ✓                                                                |                                        |
+| Invite members      | ✓                                                                | ✓                                      |
+| Remove team members | ✓                                                                |                                        |
+| Leave a team        | ✓                                                                | ✓                                      |
+| Delete a team       | ✓                                                                |                                        |
+
+###
+
+\
+\
+
+
+\

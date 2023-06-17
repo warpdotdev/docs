@@ -1,7 +1,5 @@
 ---
-description: >-
-  Easily create, manage, and organize your terminal knowledge amongst your
-  entire team
+description: Save and share workflows in your terminal
 ---
 
 # Warp Drive
@@ -12,50 +10,27 @@ Warp Drive is currently in private beta and not yet generally available.
 
 ## What is Warp Drive?
 
-Warp Drive is a place for you to create, manage, and organize your terminal knowledge, all without leaving Warp. Knowledge objects can be private to you or shared with your entire team. All objects are cloud-hosted and synced the moment they’re updated, so you always have the latest version.
-
-## Knowledge Objects
-
-Warp Drive currently allows you to save and store two types of objects:
-
-* Workflows: A workflow is a set of one or more terminal commands that you can parameterize, annotate with metadata, save, and execute repeatedly. Learn how to create and run Workflows.&#x20;
-* Folders: A folder is a grouping of other knowledge objects, including other folders.
+Warp Drive is a workspace in your terminal where you can save [workflows](workflows.md) for personal use or to share with a [team](../teams.md). All objects stored in Warp Drive sync immediately as they’re updated, so you and your team will always have access to the latest versions.
 
 ## How to access it
 
-You can access Warp Drive in the status bar. Doing so will open a side panel, showing all objects available to you and your team (if you are a part of one).
+Warp Drive is accessible from the status bar in the Warp terminal.
 
-<figure><img src="../../.gitbook/assets/image4 (1).png" alt=""><figcaption><p>Find the Warp Drive icon in the Warp status bar.</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/Open_Warp_Drive.png" alt=""><figcaption></figcaption></figure>
 
-## Spaces
+## Workspaces in Warp Drive
 
-There are two spaces for Warp Drive objects to exist in: your personal space or your team space. An object can only be in one space at a time. If you aren’t part of a team yet, all objects you create will simply exist in your private space. If you are part of a team, you’ll find all objects present in your team’s space as well.
+When you open the Warp Drive panel, you will find a personal workspace where you can store your own workflows and organize them into folders.
 
-<figure><img src="../../.gitbook/assets/image1 (1) (1) (1) (1) (2).png" alt=""><figcaption><p>This Warp Drive has two spaces open: one for the Planet Express team and one for a personal, private space.</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/Warp_Drive_Zero_State.png" alt=""><figcaption></figcaption></figure>
 
-## Creating new knowledge objects
+If you are a member of a team using Warp Drive, your team’s workspace will also be available in the side panel.
 
-There are several ways of creating a new knowledge object:
+<figure><img src="../../.gitbook/assets/Warp_Drive_with_Team.png" alt=""><figcaption></figcaption></figure>
 
-* From the header of a space where you’d like the object to exist
-* From the “triple dot” menu when hovering over a folder
-* From the command palette `CMD-P`, e.g., searching for “create a workflow” will result in options for creating a new personal or team workflow
-* With an associated keyboard shortcut
+## Organizing workflows in Warp Drive with your team
 
-Once created, the object will appear in Warp Drive and be synced to the cloud. If the object was created in a team space, it will immediately be available to other members of the same team.
-
-## Editing existing knowledge objects
-
-The way to edit an existing knowledge object differs by object type. For example, workflows are edited by selecting them in Warp Drive, while folders are edited with the “Edit” item in their “triple dot” menu.\
-
-
-Once edited, the updated object will be reflected in Warp Drive and be synced to the cloud. If the object exists in a team space, the updated version will immediately be propagated to other members of the same team.
-
-## Organizing and sharing
-
-You can use folders to organize objects in Warp Drive. You can drag objects in and out of folders. Dragging a folder into another folder will move all its children as well.
-
-To share a personal object with your team, use the “triple dot” action menu and select the “Move to \<Team Name> Space” option, or drag it to the team section of Warp Drive. Again, moving a folder to the team space will also move all its children.
-
-\
-\
+* Any objects moved from your personal workspace into a team’s workspace will be shared with all members of your team
+* It is not currently possible to move an item back from a team’s workspace into a personal workspace; if you shared something inadvertently, you should copy the contents of the object to your clipboard, recreate it in your personal workspace, and then delete the object from your team workspace
+* It is not currently possible to drag a folder of personal workflows into a team workspace; you will need to move objects one at a time
+* If you were previously using Warp on your own and were later invited to join a team, you may need to exit, update, and restart the Warp app to gain access to your team’s shared drive and commands

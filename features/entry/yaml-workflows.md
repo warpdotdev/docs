@@ -1,4 +1,8 @@
-# Workflows
+# YAML-based Workflows
+
+{% hint style="danger" %}
+You can continue to use YAML-based workflows, but we recommend using new [workflows in Warp Drive](../warp-drive/workflows.md) instead for a better editing experience.
+{% endhint %}
 
 ## What is it
 
@@ -33,7 +37,7 @@ Workflows solve some major pain points with aliases, specifically the:
 
 ## Creating Custom Workflows
 
-### How to create a workflow
+### How to create a workflow with YAML
 
 Workflows can easily be shared with your team by saving a workflow's YAML file to `~/.warp/workflows/` or `.warp/workflows/` in the top level of a repository. Local and Repository workflows can be accessed under the "My Workflows" and "Repository Workflows" tab of the Workflows menu, respectively.
 
