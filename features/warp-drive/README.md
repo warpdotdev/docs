@@ -33,4 +33,8 @@ If you are a member of a team using Warp Drive, your team’s workspace will als
 * Any objects moved from your personal workspace into a team’s workspace will be shared with all members of your team
 * It is not currently possible to move an item back from a team’s workspace into a personal workspace; if you shared something inadvertently, you should copy the contents of the object to your clipboard, recreate it in your personal workspace, and then delete the object from your team workspace
 * It is not currently possible to drag a folder of personal workflows into a team workspace; you will need to move objects one at a time
+
+## Troubleshooting Warp Drive
+
 * If you were previously using Warp on your own and were later invited to join a team, you may need to exit, update, and restart the Warp app to gain access to your team’s shared drive and commands
+* Navigating to Settings > Teams in Warp should also force a metadata update for you, which will ensure you have access to the latest versions of workflows in your team's drive&#x20;
