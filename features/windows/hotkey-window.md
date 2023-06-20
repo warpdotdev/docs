@@ -19,7 +19,7 @@ _Note:_ Your new customization will apply the **next** time a Hotkey Window is c
 2. Configure your preferred keybinding.
 
 {% hint style="warning" %}
-`ESC, BACKTICK, TAB, SHIFT, and CAPS` are not supported keyboard shortcuts for the Global Hotkey.
+`CAPS` is not a supported keyboard shortcut for the Global Hotkey
 {% endhint %}
 
 ## How it works
