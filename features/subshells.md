@@ -22,6 +22,10 @@ By default, Warp automatically recognizes the following commands as **subshell-c
 
 When you run a command that's subshell-compatible, Warp will prompt you and invite you to "Warpify" the subshell which makes all of the modern IDE features of Warp available in that subshell. The list of subshell-compatible commands is configurable in Subshell settings as described [below](subshells.md#configuring-subshell-compatible-commands).
 
+{% hint style="info" %}
+bash, zsh, or fish must be set as the default shell within containers and ssh sessions for the Warpification of the subshells to work.
+{% endhint %}
+
 ### Configuring subshell-compatible commands
 
 To configure subshell-compatible commands, navigate to the Settings > Subshells.
