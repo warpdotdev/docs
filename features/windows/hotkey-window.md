@@ -2,9 +2,7 @@
 
 ## What is it
 
-Warp's Global Hotkey is a configurable shortcut that can show/hide a dedicated window or all windows on your chosen desktop regardless of whether the app is focused. You can customize the dedicated windows' pinned position and its width and height ratio relative to your active screen size.\
-\
-_Note:_ Your new customization will apply the **next** time a Hotkey Window is created and not the currently opened one.
+Warp's Global Hotkey is a configurable shortcut that can show/hide a dedicated window or all windows on your chosen desktop regardless of whether the app is focused. You can customize the dedicated windows' pinned position and its width and height ratio relative to your active screen size.
 
 ## How to access it
 
@@ -12,6 +10,10 @@ _Note:_ Your new customization will apply the **next** time a Hotkey Window is c
 
 1. Open `Settings > Features > Keys` and select "Dedicated hotkey window" from the Global Hotkey dropdown to enable the feature.
 2. Configure the keybinding, the windows position, screen, and relative size or uncheck "Autohides on the loss of keyboard focus" which will cause the dedicated Hotkey Window to stay on top when triggered regardless of mouse or keyboard focus.
+
+{% hint style="info" %}
+Your new customization will apply the **next** time a Dedicated Window is created, not the currently opened one.
+{% endhint %}
 
 ### Show/Hide All Windows
 

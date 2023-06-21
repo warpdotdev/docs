@@ -4,10 +4,6 @@ description: Save and share workflows in your terminal
 
 # Warp Drive
 
-{% hint style="info" %}
-Warp Drive is currently in private beta and not yet generally available.
-{% endhint %}
-
 ## What is Warp Drive?
 
 Warp Drive is a workspace in your terminal where you can save [workflows](workflows.md) for personal use or to share with a [team](../teams.md). All objects stored in Warp Drive sync immediately as they’re updated, so you and your team will always have access to the latest versions.

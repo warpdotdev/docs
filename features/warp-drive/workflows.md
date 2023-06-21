@@ -4,10 +4,6 @@ description: Save parameterized commands to run on-demand
 
 # Workflows
 
-{% hint style="info" %}
-Warp Drive is currently in a private beta and not yet available for all users.
-{% endhint %}
-
 ## What is a workflow?
 
 A workflow is a parameterized command you can name and save in Warp with descriptions and arguments. Workflows are searchable and easily accessed from the [Command Palette](../command-palette.md) so you can find and execute them without switching contexts.

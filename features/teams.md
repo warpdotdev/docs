@@ -4,10 +4,6 @@ description: Create or join a team to collaborate with others in Warp
 
 # Teams
 
-{% hint style="info" %}
-Teams are currently in private beta and not available for all users.
-{% endhint %}
-
 ## What is a team?
 
 A team is a group of Warp users who can collaborate on the command line together. Warp teams can share a dedicated workspace in Warp Drive.
