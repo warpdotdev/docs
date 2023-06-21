@@ -1,7 +1,7 @@
-# YAML-based Workflows
+# YAML Workflows
 
 {% hint style="danger" %}
-You can continue to use YAML-based workflows, but we recommend using new [workflows in Warp Drive](../warp-drive/workflows.md) instead for a better editing experience.
+You can continue to use YAML based workflows, but we recommend using new [workflows in Warp Drive](../warp-drive/workflows.md) instead for a better editing experience.
 {% endhint %}
 
 ## What is it
