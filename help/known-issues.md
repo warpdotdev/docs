@@ -54,11 +54,11 @@ There is an issue in fish shell version 3.4.0 and below that causes the `read` b
 
 ## Configuring and debugging your RC files
 
-In order to support Blocks ([custom hooks](https://blog.warp.dev/how-warp-works/#implementing-blocks)), a native Input Editor experience, etc. we have to build custom support for a subset of shell functionality (decouple functionality from the shell and move to the terminal). Unfortunately, this leads to Warp being incompatible with various tools and plugins e.g. Powerlevel10k.
+In order to support Blocks ([custom hooks](https://blog.warp.dev/how-warp-works/#implementing-blocks)), a native Input Editor experience, etc. we have to build custom support for a subset of shell functionality (decouple functionality from the shell and move to the terminal). This leads to Warp being incompatible with various tools and plugins.
 
 You can however, **disable the conflicting settings for just Warp** using this flag: `$TERM_PROGRAM != "WarpTerminal"`, see below for a full example.
 
-We currently don't have support for multi-line prompts, unlike typical terminals which are essentially continuous character grids, each section of Warp is its own (separate) UI element. The native Prompt does not support multi-line at this time and does not support right sided prompts. Improving the native Prompt is on the roadmap, however. Please see our [Prompt](../features/prompt.md) page for more information on custom prompts.
+We currently don't have support for multi-line custom prompts in bash, only zsh and fish. Unlike typical terminals which are essentially continuous character grids, each section of Warp is its own (separate) UI element. Warps default prompt does not support multi-line or right sided prompts at this time. Improving the native Prompt is on the roadmap, however. Please see our [Prompt](../features/prompt.md) page for more information on custom prompts.
 
 ### Debugging
 
@@ -83,7 +83,7 @@ If Warp starts working correctly then Warp is incompatible with something in the
 if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
 ##### WHAT YOU WANT TO DISABLE FOR WARP - BELOW
 
-    # POWERLEVEL10K
+    # Unsupported plugin/prompt code here
 
 ##### WHAT YOU WANT TO DISABLE FOR WARP - ABOVE
 fi
@@ -92,7 +92,7 @@ fi
 ```
 # fish
 if test "$TERM_PROGRAM" != "WarpTerminal"
-    # Existing bootstrap script here
+    # Unsupported plugin/prompt code here
 end
 ```
 
@@ -100,7 +100,6 @@ end
 
 * [iterm shell integration](https://iterm2.com/documentation-shell-integration.html)
   * usually looks like `test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true`
-* [Powerlevel10K](../features/prompt.md#disabling-unsupported-prompts-for-warp-e.g.-powerlevel10k-p10k)
 * OH-MY-ZSH-THEMES
   * e.g. avit, spaceship, maybe more ...
 * OH-MY-ZSH-PLUGINS
