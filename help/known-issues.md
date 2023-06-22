@@ -98,7 +98,7 @@ end
 
 ### List of incompatible tools
 
-* iterm shell integration
+* [iterm shell integration](https://iterm2.com/documentation-shell-integration.html)
   * usually looks like `test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true`
 * [Powerlevel10K](../features/prompt.md#disabling-unsupported-prompts-for-warp-e.g.-powerlevel10k-p10k)
 * OH-MY-ZSH-THEMES
