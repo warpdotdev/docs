@@ -6,6 +6,18 @@ description: What's new in Warp
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday. Please submit bugs and feature requests on this [GitHub board](https://github.com/warpdotdev/Warp/issues/new/choose).
 
+### 2023.06.22 (v0.2023.06.20.08.04)
+
+**New features**
+
+* You can now bring the power of your Powerlevel10k (P10K) prompt to Warp! For best results, you\u2019ll need the latest version of P10K; see their GitHub page for upgrade instructions
+* Right-side prompts are now supported in Zsh and fish!
+* Warp AI commands can now be executed as workflows
+
+**Bug fixes**
+
+* Clicking on an inactive Warp window now focuses the underlying pane correctly
+
 ### 2023.06.16 (v0.2023.06.13.08.03)
 
 **New features**
