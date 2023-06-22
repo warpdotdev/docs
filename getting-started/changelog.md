@@ -10,7 +10,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 
 **New features**
 
-* You can now bring the power of your Powerlevel10k (P10K) prompt to Warp! For best results, you\u2019ll need the latest version of P10K; see their GitHub page for upgrade instructions
+* You can now bring the power of your Powerlevel10k (P10K) prompt to Warp! For best results, you'll need the latest version of P10K; see their GitHub page for upgrade instructions
 * Right-side prompts are now supported in Zsh and fish!
 * Warp AI commands can now be executed as workflows
 
