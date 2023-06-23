@@ -14,6 +14,10 @@ Warp AI is an AI-powered assistant that’s integrated within the Warp terminal.
 This feature sends input data to OpenAI servers through their API and is explicitly opt-in. Read more about data privacy for Warp features [on our privacy page](https://www.warp.dev/privacy).
 {% endhint %}
 
+{% embed url="https://www.youtube.com/watch?v=1YZLPJ5X18k" %}
+Warp AI Demo
+{% endembed %}
+
 ## How to use it
 
 You can ask Warp AI to:
@@ -25,10 +29,6 @@ You can ask Warp AI to:
 * Show examples
 
 Or, you can start a conversation with Warp AI using natural language. To get started, open Warp AI and ask any question or write a prompt.
-
-{% embed url="https://www.youtube.com/watch?v=1YZLPJ5X18k" %}
-Warp AI Demo
-{% endembed %}
 
 ## How to access Warp AI in the terminal
 
