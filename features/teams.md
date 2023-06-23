@@ -11,7 +11,7 @@ A team is a group of Warp users who can collaborate on the command line together
 Warp Drive for teams is currently in free preview. After October 2023, teams with more than 5 members will be billed. Learn about pricing.
 
 {% hint style="info" %}
-Currently, each Warp user can only be a member of one team at a time.
+Currently, each Warp user can only be an admin or member of one team at a time.
 {% endhint %}
 
 {% embed url="https://www.youtube.com/watch?v=8UmreUTTrkg&start=199s&end=277s" %}
