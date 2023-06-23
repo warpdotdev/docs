@@ -25,7 +25,7 @@ Any of these entry points will open the workflow editor where you can:
 * (optional) Add a meaningful description that will be indexed for search
 * (optional) Add arguments, descriptions for arguments, and default values
 
-<figure><img src="../../.gitbook/assets/image4.png" alt="Workflows save and edit modal"><figcaption><p>Workflows save / edit modal</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image4 (2).png" alt="Workflows save and edit modal"><figcaption><p>Workflows save / edit modal</p></figcaption></figure>
 
 {% embed url="https://www.youtube.com/watch?v=8UmreUTTrkg&start=9s&end=198s" %}
 Save Workflow Demo
