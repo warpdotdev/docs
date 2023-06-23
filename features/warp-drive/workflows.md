@@ -52,6 +52,10 @@ If the workflow is shared with a team, all team members will have access to edit
 
 If a workflow in the Warp Drive has been edited by another team member or a user on another device while you are attempting to edit the same workflow, you will not be able to save changes; you will need to check out the latest version and try again.
 
+{% embed url="https://www.youtube.com/watch?v=8UmreUTTrkg&start=9s&end=198s" %} Save Workflow Demo {% endembed %}
+
+{% embed url="https://www.youtube.com/watch?v=8UmreUTTrkg&start=306s&end=343s" %} Edit Workflow Demo {% endembed %}
+
 ## How to execute workflows
 
 You can execute a workflow in several ways:
@@ -73,6 +77,8 @@ These options will paste the workflow into your active terminal input. Workflow 
 
 You make any adjustments you need to the arguments (or the command itself) before running the command in your input editor.
 
+{% embed url="https://www.youtube.com/watch?v=8UmreUTTrkg&start=344s&end=370s" %} Execute Workflow Demo {% endembed %}
+
 ## Support for YAML-based workflows
 
 Prior to June 2023, Warp supported [a workflows library](../entry/yaml-workflows.md) which included both personal workflows (created with .yaml files) and community workflows, sourced from an open source repository.
@@ -80,13 +86,3 @@ Prior to June 2023, Warp supported [a workflows library](../entry/yaml-workflows
 If needed, you can continue to access your .yaml file workflows using the keyboard shortcut `CTRL-SHIFT-R`. However, these legacy workflows will not be available to access, organize, or share in Warp Drive.
 
 Moving forward, we encourage you to create new workflows with the new workflow editor in Warp Drive, which we hope you’ll find is a much easier experience.
-
-\
-
-
-\
-
-
-\
-
-
