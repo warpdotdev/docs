@@ -34,6 +34,12 @@ If you are a member of a team using Warp Drive, your team’s workspace will als
 * It is not currently possible to move an item back from a team’s workspace into a personal workspace; if you shared something inadvertently, you should copy the contents of the object to your clipboard, recreate it in your personal workspace, and then delete the object from your team workspace
 * It is not currently possible to drag a folder of personal workflows into a team workspace; you will need to move objects one at a time
 
+## Using Warp Drive offline
+
+In offline mode, some files will be read-only. You can still create and edit files while offline in your personal space. They will only be saved locally and will not be synced. They cannot be moved into a team or deleted until you are back online.&#x20;
+
+<figure><img src="../../.gitbook/assets/warp_drive_offline.png" alt=""><figcaption><p>Warp Drive Offline mode</p></figcaption></figure>
+
 ## Troubleshooting Warp Drive
 
 * If you were previously using Warp on your own and were later invited to join a team, you may need to exit, update, and restart the Warp app to gain access to your team’s shared drive and commands

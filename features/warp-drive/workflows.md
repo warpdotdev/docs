@@ -1,5 +1,5 @@
 ---
-description: Save parameterized commands to run on-demand
+description: Saved parameterized commands to run on-demand
 ---
 
 # Workflows
@@ -44,11 +44,7 @@ There are some rules for creating valid arguments:
 
 Once a workflow has been created, you can edit it at any time, as long as you have access to an internet connection.
 
-<figure><img src="../../.gitbook/assets/Edit_Workflow.png" alt=""><figcaption></figcaption></figure>
-
-In offline mode, workflows will be read-only.
-
-<figure><img src="../../.gitbook/assets/You_are_offline.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/Edit_Workflow.png" alt=""><figcaption><p>Edit workflow menu</p></figcaption></figure>
 
 {% embed url="https://www.youtube.com/watch?v=8UmreUTTrkg&start=306s&end=343s" %}
 Edit Workflow Demo

@@ -14,13 +14,16 @@ Warp Drive for teams is currently in free preview. After October 2023, teams wit
 Currently, each Warp user can only be a member of one team at a time.
 {% endhint %}
 
+{% embed url="https://www.youtube.com/watch?v=8UmreUTTrkg&start=199s&end=277s" %}
+Teams Demo
+{% endembed %}
+
 ## Creating a team
 
 You can create a new team from:
 
 * Warp Drive, + Create a team, or
-* Settings > Teams\
-
+* Settings > Teams
 
 Before you can invite team members, you will need to give your team a meaningful name. We suggest using a name to represent your organization, company, or project.
 
@@ -65,7 +68,7 @@ If you’re a member of a team, you can visit Settings > Teams to leave a team a
 | Restrict by domain  | ✓                                                                |                                        |
 | Invite members      | ✓                                                                | ✓                                      |
 | Remove team members | ✓                                                                |                                        |
-| Leave a team        | ✓                                                                | ✓                                      |
+| Leave a team        |                                                                  | ✓                                      |
 | Delete a team       | ✓                                                                |                                        |
 
 ###
