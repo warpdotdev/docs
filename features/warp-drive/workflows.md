@@ -30,8 +30,7 @@ Any of these entry points will open the workflow editor where you can:
 ### Working with arguments
 
 In the workflow editor, you can add arguments manually with "New argument" or by typing in double curly braces within the command field. If you select "New argument" while you have text selected, Warp will wrap that text in curly braces to create an argument. \
-
-
+\
 There are some rules for creating valid arguments:
 
 * Argument names can only include characters `A-Za-z0-9`, hyphens `-` and underscores `_`
@@ -43,7 +42,7 @@ Once a workflow has been created, you can edit it at any time, as long as you ha
 
 <figure><img src="../../.gitbook/assets/Edit_Workflow.png" alt=""><figcaption></figcaption></figure>
 
-In offline mode, workflows will be read only.
+In offline mode, workflows will be read-only.
 
 <figure><img src="../../.gitbook/assets/You_are_offline.png" alt=""><figcaption></figcaption></figure>
 
@@ -55,18 +54,24 @@ If a workflow in the Warp Drive has been edited by another team member or a user
 
 ## How to execute workflows
 
-You can execute a workflow several ways:
+You can execute a workflow in several ways:
 
 * From Warp Drive, click the workflow
-* From the Command Palette, search for a workflow you’d like to execute, click or select and enter
+* From the Command Palette `CMD-P`, search for a workflow you’d like to execute, click or select and enter
+* From Command Search `CTRL-R`, search for a workflow you'd like to execute, click or select and enter.
+* When a workflow is selected, you can use `SHIFT-TAB` to cycle thru the arguments.
+
+{% hint style="info" %}
+When you create two or more arguments with the same name, Warp automatically selects and puts multiple cursors over the arguments in the input editor so they are synced.
+{% endhint %}
 
 <figure><img src="../../.gitbook/assets/Screenshot 2023-06-17 at 12.16.55 PM.png" alt=""><figcaption><p>Search for any workflow in the Command Palette with <code>CMD + P</code></p></figcaption></figure>
 
 These options will paste the workflow into your active terminal input. Workflow names and any relevant descriptions and arguments will display in a dialog, so you can understand how to use the workflow.&#x20;
 
-<figure><img src="../../.gitbook/assets/Screenshot 2023-06-17 at 12.18.13 PM.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/Screenshot 2023-06-17 at 12.18.13 PM.png" alt=""><figcaption><p>Execute a Workflow</p></figcaption></figure>
 
-You can make any adjustments you need to the arguments (or the command itself) before running the command in your input editor.
+You make any adjustments you need to the arguments (or the command itself) before running the command in your input editor.
 
 ## Support for YAML-based workflows
 
