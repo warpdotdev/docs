@@ -25,16 +25,20 @@ Any of these entry points will open the workflow editor where you can:
 * (optional) Add a meaningful description that will be indexed for search
 * (optional) Add arguments, descriptions for arguments, and default values
 
-<figure><img src="../../.gitbook/assets/image4.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image4.png" alt="Workflows save and edit modal"><figcaption><p>Workflows save / edit modal</p></figcaption></figure>
+
+{% embed url="https://www.youtube.com/watch?v=8UmreUTTrkg&start=9s&end=198s" %}
+Save Workflow Demo
+{% endembed %}
 
 ### Working with arguments
 
-In the workflow editor, you can add arguments manually with "New argument" or by typing in double curly braces within the command field. If you select "New argument" while you have text selected, Warp will wrap that text in curly braces to create an argument. \
+In the workflow editor, you can add arguments manually with "New argument" or by typing in double curly braces within the command field. If you select "New argument" while you have text selected, Warp will wrap that text in curly braces to create an argument.\
 \
 There are some rules for creating valid arguments:
 
 * Argument names can only include characters `A-Za-z0-9`, hyphens `-` and underscores `_`
-* The first character of an argument cannot be a number.
+* The first character of an argument cannot be a number
 
 ### Editing workflows
 
@@ -46,15 +50,15 @@ In offline mode, workflows will be read-only.
 
 <figure><img src="../../.gitbook/assets/You_are_offline.png" alt=""><figcaption></figcaption></figure>
 
+{% embed url="https://www.youtube.com/watch?v=8UmreUTTrkg&start=306s&end=343s" %}
+Edit Workflow Demo
+{% endembed %}
+
 ### Editing workflows with a team
 
 If the workflow is shared with a team, all team members will have access to edit the workflow and updates will sync immediately for all members of the team.
 
 If a workflow in the Warp Drive has been edited by another team member or a user on another device while you are attempting to edit the same workflow, you will not be able to save changes; you will need to check out the latest version and try again.
-
-{% embed url="https://www.youtube.com/watch?v=8UmreUTTrkg&start=9s&end=198s" %} Save Workflow Demo {% endembed %}
-
-{% embed url="https://www.youtube.com/watch?v=8UmreUTTrkg&start=306s&end=343s" %} Edit Workflow Demo {% endembed %}
 
 ## How to execute workflows
 
@@ -71,13 +75,15 @@ When you create two or more arguments with the same name, Warp automatically sel
 
 <figure><img src="../../.gitbook/assets/Screenshot 2023-06-17 at 12.16.55 PM.png" alt=""><figcaption><p>Search for any workflow in the Command Palette with <code>CMD + P</code></p></figcaption></figure>
 
-These options will paste the workflow into your active terminal input. Workflow names and any relevant descriptions and arguments will display in a dialog, so you can understand how to use the workflow.&#x20;
+These options will paste the workflow into your active terminal input. Workflow names and any relevant descriptions and arguments will display in a dialog, so you can understand how to use the workflow.
 
 <figure><img src="../../.gitbook/assets/Screenshot 2023-06-17 at 12.18.13 PM.png" alt=""><figcaption><p>Execute a Workflow</p></figcaption></figure>
 
 You make any adjustments you need to the arguments (or the command itself) before running the command in your input editor.
 
-{% embed url="https://www.youtube.com/watch?v=8UmreUTTrkg&start=344s&end=370s" %} Execute Workflow Demo {% endembed %}
+{% embed url="https://www.youtube.com/watch?v=8UmreUTTrkg&start=344s&end=370s" %}
+Running Workflow Demo
+{% endembed %}
 
 ## Support for YAML-based workflows
 
