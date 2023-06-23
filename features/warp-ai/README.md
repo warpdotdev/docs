@@ -26,6 +26,10 @@ You can ask Warp AI to:
 
 Or, you can start a conversation with Warp AI using natural language. To get started, open Warp AI and ask any question or write a prompt.
 
+{% embed url="https://www.youtube.com/watch?v=1YZLPJ5X18k" %}
+Warp AI Demo
+{% endembed %}
+
 ## How to access Warp AI in the terminal
 
 Here are the ways you can access Warp AI:
@@ -41,10 +45,4 @@ Warp AI also includes [AI Command Search](ai-command-search.md), which can be ac
 
 
 <figure><img src="../../.gitbook/assets/Screenshot 2023-03-14 at 1.33.16 PM.png" alt=""><figcaption><p>Starting Warp AI from AI Command Search</p></figcaption></figure>
-
-## How it works
-
-{% embed url="https://www.youtube.com/watch?v=1YZLPJ5X18k" %}
-Warp AI Demo
-{% endembed %}
 
