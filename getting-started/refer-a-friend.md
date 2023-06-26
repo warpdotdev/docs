@@ -91,3 +91,7 @@ Respond to the shipment notification email or reach out to our swag vendor's Ope
 We now only count a user who onboards onto Warp as a real referral. We have to implement this system to prevent recent abuse of the system. The referral counts in app will be updated end of May.
 
 We realize this will mean several users will now not qualify for rewards. As a one-time-only deal, we will honor retroactively for anyone who hit 20, 50, 75, 100 referrals prior to the anti-abuse system (May 9th), but not for 5 referrals (tumblers).
+
+4. "I've referred friends, but they didn't use the link, does it still count?"
+
+Unfortunately, any referrals who didn't use your link will not count towards the rewards, and we have no way of modifying the referral count.
