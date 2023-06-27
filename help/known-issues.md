@@ -106,6 +106,8 @@ end
 * Oh-My-Tmux
 * zsh4h (ZSH for Humans)
 * FZF
+* fubectl
+  * `[ -f ${HOME}/bin/fubectl.source ] && source ${HOME}/bin/fubectl.source`
 * [BIND keys](https://github.com/warpdotdev/Warp/issues/537) like:
   * `bindkey '^j' down-line-or-beginning-search`, which causes users to have to hit ENTER twice to run a command.
   * `bindkey 'tab' autosuggest-accept`, which causes incorrect behavior with autocompletion.
