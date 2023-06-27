@@ -81,10 +81,10 @@ You make any adjustments you need to the arguments (or the command itself) befor
 Running Workflow Demo
 {% endembed %}
 
-## Support for YAML-based workflows
+## Support for YAML Workflows
 
-Prior to June 2023, Warp supported [a workflows library](../entry/yaml-workflows.md) which included both personal workflows (created with .yaml files) and community workflows, sourced from an open source repository.
+Warp will indefinitely support the [YAML Workflows](../entry/yaml-workflows.md), which includes personal and community workflows sourced from an open-source repository.
 
-If needed, you can continue to access your .yaml file workflows using the keyboard shortcut `CTRL-SHIFT-R`. However, these legacy workflows will not be available to access, organize, or share in Warp Drive.
+If needed, you can continue to access your .yaml file workflows using the keyboard shortcut `CTRL-SHIFT-R`. However, these file-based workflows will not be available to access, organize, or share in Warp Drive.
 
-Moving forward, we encourage you to create new workflows with the new workflow editor in Warp Drive, which we hope you’ll find is a much easier experience.
+Although we encourage you to create workflows with the new workflow editor in Warp Drive, we hope you’ll find it a much easier experience, there are plans for Warp Drive workflows to be imported/exported to prevent vendor lock-in.
