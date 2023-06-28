@@ -69,6 +69,13 @@ Some \~/.config/starship.toml settings are known to cause errors in Warp. `#` or
 disabled = false
 ```
 
+If you'd like to disable the multi-line prompt in starship, put the following in your \~/.config/starship.toml:
+
+```
+[line_break]
+disabled = true
+```
+
 #### Starship + Bash
 
 Starship prompt may not render properly if your [default shell](../getting-started/using-warp-with-shells.md#changing-default-shell) is `/bin/bash`. To workaround the issue, we recommend you upgrade bash, find the path with `echo $(which bash)`, then put the path in your `Settings > Features > Session > "Startup shell for new sessions" > Custom`, as noted in [#3066](https://github.com/warpdotdev/Warp/issues/3066#issuecomment-1548643121).
