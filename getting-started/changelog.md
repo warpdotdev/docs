@@ -6,6 +6,21 @@ description: What's new in Warp
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday. Please submit bugs and feature requests on this [GitHub board](https://github.com/warpdotdev/Warp/issues/new/choose).
 
+### 2023.06.29 (v0.2023.06.27.19.34)
+
+**New features**
+
+* App links of the form `Warp://launch/<launch_configuration_name>` directly open a launch configuration
+* Added a new setting for creating new windows with a specific size in terms of rows and columns
+
+**Bug fixes**
+* Fix rendering of multiple ANSI styles on the same character. This fixes rendering issues commonly encountered in Vim and emacs
+* Fix tabs (indentations) sometimes being inserted into the Input Editor when the completion menu should open
+* Added tooltip for "New tab" button
+* The "Launch Configurations" sub-menu (under the Mac File menu) now updates dynamically as launch configurations are added and removed
+* Find bar is able to match double-width unicode characters, including CJK and emojis
+* Fixed a crash that could occur when pasting a command in the workflow editor
+
 ### 2023.06.22 (v0.2023.06.20.08.04)
 
 **New features**
