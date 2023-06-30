@@ -15,7 +15,8 @@
 * [Custom Themes](appearance/custom-themes.md)
 * [Compact Mode](appearance/compact-mode.md)
 * [Text, Fonts & Cursor](appearance/text-fonts-cursor.md)
-* [Opacity, Blurring & Dimming](appearance/opacity-blurring-dimming.md)
+* [Size, Opacity, & Blurring](appearance/opacity-blurring-dimming.md)
+* [Pane Dimming](appearance/pane-dimming.md)
 * [Input Position](appearance/input-position.md)
 
 ## 📕 Features
