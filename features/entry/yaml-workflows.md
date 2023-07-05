@@ -10,7 +10,7 @@ Workflows are an easier way to execute and share commands within Warp. They are 
 
 ## How to use it
 
-* Press `CTRL-R` to search for workflows or through the Command Palette `CMD-P`.
+* Press Command Search `CTRL-R` or through the Command Palette `CMD-P` to find Workflows.
 * Once inside the menu, start typing in the search bar to filter the existing workflows or browse by category. (e.g. git, android, npm, etc.)
 * When a Workflow is selected, you can use `SHIFT-TAB` to cycle thru the arguments.
 * You can also expand the menu horizontally with the mouse by dragging it on the right edge.
