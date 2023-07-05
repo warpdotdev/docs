@@ -2,7 +2,7 @@
 
 ## What is it
 
-Command Corrections provides auto-correct suggestions on previously run commands to catch typos, forgotten flags, and fix general console errors. This feature was built on top of the open source project [nvdn/thefuck](https://github.com/nvbn/thefuck).
+Command Corrections provides auto-correct suggestions on previously run commands to catch typos, and forgotten flags, and fix general console errors. This feature was built on top of the open source project [nvdn/thefuck](https://github.com/nvbn/thefuck).
 
 Here are some examples that the Warp team usually finds Command Corrections useful for:
 
