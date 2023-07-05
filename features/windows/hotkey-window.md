@@ -21,7 +21,7 @@ Your new customization will apply the **next** time a Dedicated Window is create
 2. Configure your preferred keybinding.
 
 {% hint style="warning" %}
-`CAPS` is not a supported keyboard shortcut for the Global Hotkey
+`CAPS, TAB, BACKTICK, and TILDE` are not supported keyboard shortcuts for the Global Hotkey
 {% endhint %}
 
 ## How it works
