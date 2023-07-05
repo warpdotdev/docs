@@ -2,7 +2,7 @@
 
 Warp's main features for Command Entry and History:
 
-1. Command Corrections provides auto-correct suggestions on previously run commands to catch typos, and forgotten flags, and fix general console errors.
+1. [Command Corrections](./#command-corrections) provides auto-correct suggestions on previously run commands to catch typos, and forgotten flags, and fix general console errors.
 2. [Command Search](command-search.md) (`CTRL-R`) is a 3-in-1 panel that allows you to search across Command History, Workflows, Notebooks, and A.I. Command Search all at once.
 3. [Command History](command-history.md) (`UP`) allows Warp to isolate the history of each shell session to make previously run commands easily accessible.
 4. [Synchronized Inputs](synchronized-inputs.md) (`OPT-CMD-I`) allow you to easily run the same command in multiple sessions at the same time.
@@ -25,3 +25,7 @@ Command Search Demo
 {% embed url="https://www.loom.com/share/8119beca8d794b06859c5dea1b1377bb?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
 Command History Demo
 {% endembed %}
+
+## YAML Workflows
+
+<figure><img src="../../.gitbook/assets/yaml_workflows_demo.gif" alt=""><figcaption><p>YAML Workflows Demo</p></figcaption></figure>
