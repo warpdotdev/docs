@@ -5,6 +5,15 @@ description: What's new in Warp
 # Changelog
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday. Please submit bugs and feature requests on this [GitHub board](https://github.com/warpdotdev/Warp/issues/new/choose).
+### 2023.07.06 (v0.2023.07.04.08.03)
+
+**New features**
+* A new AI Command Search experience that allows you to translate natural language to shell commands and integrates directly with workflows! Type '#' in the input to try it out!
+
+**Bug fixes**
+* Fixed a bug where two prompts could appear for remote Bash session
+* Fixed a bug where Warp was not recognizing some single character commands and aliases
+* Fixed a bug where command output would sometimes be cut off after finishing (most notably in Gradle)
 
 ### 2023.06.29 (v0.2023.06.27.19.34)
 
