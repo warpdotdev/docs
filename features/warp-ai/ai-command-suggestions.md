@@ -1,0 +1,25 @@
+# AI Command Suggestions 
+
+## What is it
+
+AI Command Suggestions allows you to convert natural language descriptions into shell commands that can be executed and saved as [Workflows in WarpDrive](../warp-drive/workflows.md). This feature is backed by OpenAI's APIs and is completely opt-in. 
+
+_Note_: Currently, you need to be online to use this feature. If this feature doesn't work, it is possible that your ISP or Firewall is blocking the calls to `app.warp.dev`
+
+## How to access it
+
+1. Press `` CTRL-` `` or type `#` into the Text Input Editor to search by natural language.
+2. Type in the input box what you'd like to do. For example, "replace string in file".
+3. Once the results are generated, you can select one and execute it as a workflow. You can also save the Workflow to Warp Drive to easily recall it in the future.
+
+_Note:_ If you experience any issues with AI Command Suggestions, please see our known issues for [troubleshooting steps](../../help/known-issues.md#online-features-ai-command-block-sharing-referrals-etc.).
+
+## How it works
+
+{% embed url="https://www.loom.com/share/424a763ef0c8455e8269e541301968f2?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
+AI Command Suggestions Demo
+{% endembed %}
+
+## Privacy
+
+Warp does not store any commands or prompts that users send. Any provided prompts are sent to OpenAI; see OpenAI’s privacy policy [here](https://openai.com/api/policies/privacy/).

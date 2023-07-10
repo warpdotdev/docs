@@ -25,7 +25,7 @@ Keybinds that conflict with others are highlighted with an orange border.
 | `CTRL-CMD-T`   | Open Theme Picker            | `workspace:show_theme_chooser`                 |
 | `CTRL-R`       | Command Search               | `workspace:show_command_search`                |
 | `CTRL-SHIFT-R` | Workflows                    | `input:toggle_workflows`                       |
-| `` CTRL-` ``   | A.I. Command Search          | `input:toggle_natural_language_command_search` |
+| `` CTRL-` ``   | AI Command Suggestions           | `input:toggle_natural_language_command_search` |
 
 ### Blocks
 

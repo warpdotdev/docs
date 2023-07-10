@@ -27,7 +27,7 @@ There is also a known issue with the [SSH Wrapper not working in Windows SSH ses
 
 ## Online features don't work
 
-There is a known issue that can occur that causes online features to break ([Warp AI](../features/warp-ai/), [AI Command ](https://github.com/warpdotdev/Warp/issues/2740)[Search](../features/warp-ai/ai-command-search.md), [Block Sharing](../features/blocks/block-sharing.md), [Refe](../getting-started/refer-a-friend.md)[r a Friend](../getting-started/refer-a-friend.md), etc. ). This is due to the login token going stale, typically due to a password change, and can be resolved by the following steps:
+There is a known issue that can occur that causes online features to break ([Warp AI](../features/warp-ai/), [AI Command ](https://github.com/warpdotdev/Warp/issues/2740)[Suggestions](../features/warp-ai/ai-command-search.md), [Block Sharing](../features/blocks/block-sharing.md), [Refe](../getting-started/refer-a-friend.md)[r a Friend](../getting-started/refer-a-friend.md), etc. ). This is due to the login token going stale, typically due to a password change, and can be resolved by the following steps:
 
 * Remove Warp user login with `sudo security delete-generic-password -l "dev.warp.Warp-Stable" $HOME/Library/Keychains/login.keychain`
 * [Login to Warp](../getting-started/getting-started-with-warp.md#logging-into-warp)

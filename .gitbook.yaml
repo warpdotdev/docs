@@ -5,7 +5,8 @@ redirects:
     features/session-management/session-restoration: features/sessions/session-restoration.md
     features/session-management/launch-configurations: features/sessions/launch-configurations.md
     features/session-management/session-navigation: features/sessions/session-navigation.md
-    features/ai-command-search: features/entry/ai-command-search.md
+    features/warp-ai/ai-command-search: features/warp-ai/ai-command-suggestions.md
+    features/ai-command-search: features/warp-ai/ai-command-suggestions.md
     features/workflows: features/entry/workflows.md
     features/command-search: features/entry/command-search.md
     features/command-history: features/entry/command-history.md

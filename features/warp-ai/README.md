@@ -39,9 +39,9 @@ Here are the ways you can access Warp AI:
 * Right-click on any block or selected text and select “Ask Warp AI” from the menu
 * Click the Warp AI icon ⚡ from the top bar menu in Warp
 
-### Starting Warp AI from AI Command Search
+### Starting Warp AI from AI Command Suggestions
 
-Warp AI also includes [AI Command Search](ai-command-search.md), which can be accessed by typing `` CTRL-` `` or `#`  on the command line. With AI Command Search, you can write natural language to look up commands you are unsure about and Warp AI will suggest commands for you. If you'd like more information about a command before you accept and run the suggestion, you can follow the Warp AI prompts for explanations, examples, or related commands.\
+Warp AI also includes [AI Command Suggestions](ai-command-search.md), which can be accessed by typing `` CTRL-` `` or `#`  on the command line. With AI Command Suggestions, you can write natural language to look up commands you are unsure about and Warp AI will suggest commands for you. If you'd like more information about a command before you accept and run the suggestion, you can follow the Warp AI prompts for explanations, examples, or related commands.\
 
 
 <figure><img src="../../.gitbook/assets/Screenshot 2023-03-14 at 1.33.16 PM.png" alt=""><figcaption><p>Starting Warp AI from AI Command Search</p></figcaption></figure>
