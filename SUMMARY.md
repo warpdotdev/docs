@@ -22,7 +22,7 @@
 ## 📕 Features
 
 * [Warp AI](features/warp-ai/README.md)
-  * [AI Command Search](features/warp-ai/ai-command-search.md)
+  * [AI Command Suggestions](features/warp-ai/ai-command-suggestions.md)
 * [Warp Drive](features/warp-drive/README.md)
   * [Workflows](features/warp-drive/workflows.md)
 * [Teams](features/teams.md)
