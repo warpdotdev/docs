@@ -32,19 +32,20 @@ Custom Prompt Demo
 
 ### Custom Prompt Compatibility Table
 
-| Shell    | Tool                                                              | Does it work?                                             |
-| -------- | ----------------------------------------------------------------- | --------------------------------------------------------- |
-| Bash/zsh | [PS1](https://www.warp.dev/blog/whats-so-special-about-ps1)       | Working                                                   |
-| Bash/zsh | [Starship](https://github.com/starship/starship)                  | [Working\*](prompt.md#starship)                           |
-| Bash/zsh | [oh-my-posh](https://github.com/JanDeDobbeleer/oh-my-posh)        | [Working\*](prompt.md#multi-line-and-right-sided-prompts) |
-| zsh      | [Powerlevel10k](https://github.com/romkatv/powerlevel10k)         | Working                                                   |
-| zsh      | [Spaceship](https://github.com/spaceship-prompt/spaceship-prompt) | [Working\*](prompt.md#spaceship)                          |
-| zsh      | [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh)                   | Working                                                   |
-| zsh      | [prezto](https://github.com/sorin-ionescu/prezto)                 | Working                                                   |
-| zsh      | [zplug](https://github.com/zplug/zplug)                           | Not supported                                             |
-| Bash     | [SBP](https://github.com/brujoand/sbp)                            | Not supported                                             |
-| Bash/zsh | [Powerline-shell](https://github.com/b-ryan/powerline-shell)      | Not supported                                             |
-| SSH      |                                                                   | Working                                                   |
+| Shell    | Tool                                                              | Does it work?                                                   |
+| -------- | ----------------------------------------------------------------- | --------------------------------------------------------------- |
+| Bash/zsh | [PS1](https://www.warp.dev/blog/whats-so-special-about-ps1)       | Working                                                         |
+| Bash/zsh | [Starship](https://github.com/starship/starship)                  | [Working\*](prompt.md#starship)                                 |
+| Bash/zsh | [oh-my-posh](https://github.com/JanDeDobbeleer/oh-my-posh)        | [Working\*](prompt.md#multi-line-and-right-sided-prompts)       |
+| zsh      | [Powerlevel10k](https://github.com/romkatv/powerlevel10k)         | Working                                                         |
+| zsh      | [Spaceship](https://github.com/spaceship-prompt/spaceship-prompt) | [Working\*](prompt.md#spaceship)                                |
+| zsh      | [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh)                   | Working                                                         |
+| zsh      | [prezto](https://github.com/sorin-ionescu/prezto)                 | Working                                                         |
+| zsh      | [zplug](https://github.com/zplug/zplug)                           | Not supported                                                   |
+| Bash     | [SBP](https://github.com/brujoand/sbp)                            | Not supported                                                   |
+| Bash/zsh | [Powerline-shell](https://github.com/b-ryan/powerline-shell)      | Not supported                                                   |
+| fish     | [tide](https://github.com/IlanCosman/tide)                        | [Not supported](https://github.com/warpdotdev/Warp/issues/3358) |
+| SSH      |                                                                   | Working                                                         |
 
 ## Known incompatibilities
 
