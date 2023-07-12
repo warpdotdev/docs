@@ -2,7 +2,7 @@
 
 ## What is it
 
-Warp has a native Prompt that shows your current working directory (cwd) and also git branch information when in a git directory. It can also be set to a custom prompt using one of the supported tools.
+Warp has a native Prompt that shows your current working directory (cwd) and also git branch information when in a git directory. It can also be set to a custom prompt using one of the supported tools. Improving Warps native prompt is on the [roadmap](prompt.md#context-chips).
 
 <figure><img src="../.gitbook/assets/warp_prompt (1).jpg" alt="Warp Native Prompt"><figcaption><p>Warp Native Prompt</p></figcaption></figure>
 
@@ -13,6 +13,10 @@ The native Prompt shows the name of the git branch that you are on locally, as w
 ### Custom Prompt
 
 You can also enable a custom prompt by configuring the **PS1** variable or installing a supported shell prompt plugin, see [Custom Prompt Compatibility Table](prompt.md#custom-prompt-compatibility-table). _Note:_ The PS1 is a variable used by the shell to generate the prompt, it represents the primary prompt string (hence the “PS”) - which is what the terminal typically displays before typing new commands.
+
+### Multi-Line and Right-Sided Prompts
+
+Warp supports multi-line or right-sided prompts in zsh and fish, not bash. However, you can't have a multiline right-side prompt, only a multiline left prompt. You also can't have the cursor on the same line as the prompt. We render the cursor on a fresh new line within the [Input Editor](editor/), a separate UI element from the prompt; this is actually what enables a modern text editor experience.
 
 ## How to access it
 
@@ -50,10 +54,6 @@ Custom Prompt Demo
 ## Known incompatibilities
 
 If you’re having issues with prompts, please see below or our [Known Issues](../help/known-issues.md#configuring-and-debugging-your-rc-files) for more troubleshooting steps.
-
-### Multi-Line and Right-Sided Prompts
-
-We don’t currently support multi-line or right-sided prompts in bash, only zsh and fish are supported. The Input Editor is a separate UI element from the Prompt; this is actually what enables a modern text editor experience. Improving the native Prompt is on the [roadmap](prompt.md#context-chips).&#x20;
 
 ### Starship
 
