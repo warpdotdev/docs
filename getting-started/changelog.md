@@ -5,6 +5,16 @@ description: What's new in Warp
 # Changelog
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday. Please submit bugs and feature requests on this [GitHub board](https://github.com/warpdotdev/Warp/issues/new/choose).
+### 2023.07.13 (v0.2023.07.11.08.03)
+
+**New features**
+* Warp Drive items that failed to sync can now be retried
+* Workflows in Warp Drive drive can now be edited with the workflow execution modal
+
+**Bug fixes**
+* Fixed a bug where git information could sometimes be missing from the prompt
+* Adjusted some colors throughout Warp--replaced gradients with solid colors
+
 ### 2023.07.06 (v0.2023.07.04.08.03)
 
 **New features**
