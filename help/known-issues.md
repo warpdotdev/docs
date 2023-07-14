@@ -48,6 +48,15 @@ If you experience an error opening Warp, please try the following:
 
 Nov 2021: We have added character support for Chinese, Korean, and Japanese, but our UI currently only supports English.
 
+### Abnormal rendering of Chinese characters
+
+If you notice issues with the terminal rendering Chinese characters (i.e. [#3366](https://github.com/warpdotdev/Warp/issues/3366)). Please try adding the following lines to your rc file.
+
+```
+export LC_ALL=zh_CN.UTF-8
+export LANG=zh_CN.UTF-8
+```
+
 ## fish shell `read` command
 
 There is an issue in fish shell version 3.4.0 and below that causes the `read` built-in command to break Warp's integration with fish. This means that using `read` directly or any fish scripts that call `read` will not work as expected in Warp. That issue is resolved in the fish repository and so should be fixed in the next release of fish itself. We recommend upgrading fish to the most recent version to resolve this issue.
