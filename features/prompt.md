@@ -16,7 +16,7 @@ You can also enable a custom prompt by configuring the **PS1** variable or insta
 
 ### Multi-Line and Right-Sided Prompts
 
-Warp supports multi-line or right-sided prompts in zsh and fish, not bash. However, you can't have a multiline right-side prompt, only a multiline left prompt. You also can't have the cursor on the same line as the prompt. We render the cursor on a fresh new line within the [Input Editor](editor/), a separate UI element from the prompt; this is actually what enables a modern text editor experience.
+Warp supports multi-line or right-sided prompts in zsh and fish, not bash. However, you can't have a multiline right-side prompt, only a multiline left prompt. You also can't have the cursor on the same line as the prompt. Warp renders the cursor on a fresh new line within the [Input Editor](editor/), a separate UI element from the prompt; this is actually what enables a modern text editor experience.
 
 ## How to access it
 
