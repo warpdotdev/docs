@@ -7,15 +7,16 @@ Launch Configurations enables you to save your configuration of windows, tab, an
 ## How to use it
 
 1. Set up the configuration of windows, tabs, and panes you would like to save.
-2. From the Command Palette `CMD-P`, enter `#` to open the Launch Configuration Palette, then click plus **+**.
+2. From the Command Palette `CMD-P`, enter `Save New Launch Configuration`.
 3. Name the configuration file. N_ote: The name field cannot be empty._
 4. Click the save configuration button.
-5. Then, toggle the Launch Configuration Palette like in step 2 from above, with the keyboard shortcut `CTRL-CMD-L`, or from the Mac Menu: `File > Launch Configurations`, where you can search through and open your saved configurations.
 
 ## How to access it
 
-* From the Command Palette `CMD-P`, enter `#` to open the Launch Configuration Palette and select Launch Configuration.
-* Right-clicking the new Tab **+** button to open a context menu and select saved Launch Configuration.
+* From the Command Palette `CMD-P`, enter `Launch Configuration` to open and select Launch Configuration.
+* With the keyboard shortcut `CTRL-CMD-L`, open and select Launch Configuration.
+* Right-clicking the new Tab **+** button to open a menu and select saved Launch Configuration.
+* From the Mac Menu, `File > Launch Configurations`, where you can search through and open your saved Launch Configuration.
 
 {% hint style="info" %}
 **Terminal Tip**\
