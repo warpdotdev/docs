@@ -27,7 +27,7 @@ You can view our [full privacy policy here](https://assets-global.website-files.
 ### Opt-out during signup
 
 1. Navigate to Privacy Settings
-2.  Toggle off analytics, crash reports, or both (if it's blue, it's "on")
+2. Toggle off analytics, crash reports, or both (if it's blue, it's "on")
 
     <figure><img src="../.gitbook/assets/opt-out-signup-modal.png" alt=""><figcaption><p>Privacy Settings During Signup</p></figcaption></figure>
 
