@@ -20,7 +20,7 @@ Telemetry and crash reporting are used to improve the product and to debug any i
 
 Telemetry data **never includes console input or output** and usage of this data will never be part of our business model.
 
-You can view our [full privacy policy here](https://assets-global.website-files.com/60352b1db5736ada4741b380/60b7f8d410ec2b9fc2a45af9\_privacy-notice.pdf).
+You can view our [full privacy policy here](https://assets-global.website-files.com/60352b1db5736ada4741b380/60b7f8d410ec2b9fc2a45af9_privacy-notice.pdf).
 
 ## How to disable telemetry and crash reporting
 
