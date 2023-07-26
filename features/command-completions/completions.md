@@ -24,7 +24,7 @@ Warp Tab Completions will suggest commands, option names, path parameters for yo
 
 {% hint style="info" %}
 **Terminal Tip**\
-You can change the key binding for accepting Autosuggestions in the `Settings > Keyboard Shortcuts.`_Note: Be sure to enable the "Open completions menu as you type" in `Settings > Features` so that the completions menu still opens._
+The "Tab key behavior" setting under `Features > Editor` can change the action that `Tab` is bound to. If `Tab` is not bound to open the completions menu, `ctrl-space` will be assigned as the default keybinding. _Note: You can also enable the "Open completions menu as you type" in `Settings > Features` so that the completions menu opens automatically._
 {% endhint %}
 
 ## How it works

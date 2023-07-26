@@ -34,6 +34,10 @@ Git Status Indicator Demo
 Custom Prompt Demo
 {% endembed %}
 
+{% embed url="https://www.youtube.com/watch?t=18s&v=dIV9Cso4Mi8" %}
+Installing Powerlevel10k Demo
+{% endembed %}
+
 ### Custom Prompt Compatibility Table
 
 | Shell    | Tool                                                              | Does it work?                                                   |
