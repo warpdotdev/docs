@@ -67,6 +67,7 @@
 * [SSH](features/ssh.md)
 * [Subshells](features/subshells.md)
 * [Integrations](features/integrations-and-plugins.md)
+* [URI Scheme](features/uri-scheme.md)
 * [Network Log](features/network-log.md)
 
 ## 📊 How Does Warp Compare?
