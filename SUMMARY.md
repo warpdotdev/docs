@@ -33,6 +33,10 @@
   * [Block Sharing](features/blocks/block-sharing.md)
   * [Background Blocks](features/blocks/background-blocks.md)
   * [Sticky Command Header](features/blocks/sticky-command-header.md)
+* [Modern Text Editing](features/editor/README.md)
+  * [Alias Expansion](features/editor/alias-expansion.md)
+  * [Command Inspector](features/editor/command-inspector.md)
+  * [Syntax and Error Highlighting](features/editor/syntax-error-highlighting.md)
 * [Command Entry](features/entry/README.md)
   * [Command Corrections](features/entry/command-corrections.md)
   * [Command Search](features/entry/command-search.md)
@@ -65,10 +69,6 @@
 * [Integrations](features/integrations-and-plugins.md)
 * [URI Scheme](features/uri-scheme.md)
 * [Network Log](features/network-log.md)
-* [Modern Text Editing](features/editor/README.md)
-  * [Alias Expansion](features/editor/alias-expansion.md)
-  * [Command Inspector](features/editor/command-inspector.md)
-  * [Syntax and Error Highlighting](features/editor/syntax-error-highlighting.md)
 
 ## 📊 How Does Warp Compare?
 
