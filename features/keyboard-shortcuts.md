@@ -25,7 +25,7 @@ Keybinds that conflict with others are highlighted with an orange border.
 | `CTRL-CMD-T`   | Open Theme Picker            | `workspace:show_theme_chooser`                 |
 | `CTRL-R`       | Command Search               | `workspace:show_command_search`                |
 | `CTRL-SHIFT-R` | Workflows                    | `input:toggle_workflows`                       |
-| `` CTRL-` ``   | AI Command Suggestions           | `input:toggle_natural_language_command_search` |
+| `` CTRL-` ``   | AI Command Suggestions       | `input:toggle_natural_language_command_search` |
 
 ### Blocks
 
@@ -148,6 +148,7 @@ Keybinds that conflict with others are highlighted with an orange border.
 | `CMD-C`            | Copy                       | `terminal:copy`                  |
 | `CMD-F`            | Find                       | `terminal:find`                  |
 | `CMD-V`            | Paste                      | `terminal:paste`                 |
+| `CMD-T`            | Open New Tab               | `workspace:open_new_tab`         |
 | `CTRL-SHIFT-LEFT`  | Move Tab Left              | `workspace:move_tab_left`        |
 | `CTRL-SHIFT-RIGHT` | Move Tab Right             | `workspace:move_tab_right`       |
 | `SHIFT-CMD-{`      | Activate Previous Tab      | `workspace:activate_prev_tab`    |
