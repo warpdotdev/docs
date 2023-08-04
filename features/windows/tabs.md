@@ -9,6 +9,7 @@ The Tabs feature allows you to organize a window into multiple terminal sessions
 * Open a new Tab with `CMD-T` or by clicking on the `+` in the top bar.
 * Right-click on the new Tab button `+` to make a new tab or run a saved Launch Configuration.
 * Close the current Tab with `CMD-W` or by clicking on the `x` on hover over a Tab.
+* Reopen closed tabs with `SHIFT-CMD-T` for up to one minute; Configure or disable this feature in `Settings > Features > Enable reopening of closed sessions`
 * Activate the Previous or Next Tab with `SHIFT-CMD-{` or `SHIFT-CMD-}`, or by clicking a Tab.
 * Activate the first thru eighth Tabs with `CMD-1` thru `CMD-8`.
 * Move a Tab to the Left or Right with `CTRL-SHIFT-LEFT` or `CTRL-SHIFT-LEFT`, or by clicking and dragging a Tab.

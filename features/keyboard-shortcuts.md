@@ -149,6 +149,7 @@ Keybinds that conflict with others are highlighted with an orange border.
 | `CMD-F`            | Find                       | `terminal:find`                  |
 | `CMD-V`            | Paste                      | `terminal:paste`                 |
 | `CMD-T`            | Open New Tab               | `workspace:open_new_tab`         |
+| `SHIFT-CMD-T`      | Reopen Closed Tab          | `workspace:reopen_closed_tab`    |
 | `CTRL-SHIFT-LEFT`  | Move Tab Left              | `workspace:move_tab_left`        |
 | `CTRL-SHIFT-RIGHT` | Move Tab Right             | `workspace:move_tab_right`       |
 | `SHIFT-CMD-{`      | Activate Previous Tab      | `workspace:activate_prev_tab`    |
