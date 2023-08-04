@@ -61,6 +61,27 @@ export LANG=zh_CN.UTF-8
 
 There is an issue in fish shell version 3.4.0 and below that causes the `read` built-in command to break Warp's integration with fish. This means that using `read` directly or any fish scripts that call `read` will not work as expected in Warp. That issue is resolved in the fish repository and so should be fixed in the next release of fish itself. We recommend upgrading fish to the most recent version to resolve this issue.
 
+### List of incompatible tools
+
+* [iterm shell integration](https://iterm2.com/documentation-shell-integration.html)
+  * usually looks like `test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true`
+* FIG, `z`, other completion plugins
+* OH-MY-ZSH-THEMES
+  * e.g. avit, spaceship, maybe more ...
+* OH-MY-ZSH-PLUGINS
+* Oh-My-Tmux
+* zsh4h (ZSH for Humans)
+* FZF
+* fubectl
+  * `[ -f ${HOME}/bin/fubectl.source ] && source ${HOME}/bin/fubectl.source`
+* [BIND keys](https://github.com/warpdotdev/Warp/issues/537) like:
+  * `bindkey '^j' down-line-or-beginning-search`, which causes users to have to hit ENTER twice to run a command.
+  * `bindkey 'tab' autosuggest-accept`, which causes incorrect behavior with autocompletion.
+* \[\[ -r "/usr/local/etc/profile.d/bash\_completion.sh" ]] && "/usr/local/etc/profile.d/bash\_completion.sh"
+* eval "$(rbenv init -)"
+* grml-zsh-config
+* [Starship settings](../features/prompt.md#starship-settings)
+
 ## Configuring and debugging your RC files
 
 In order to support Blocks ([custom hooks](https://blog.warp.dev/how-warp-works/#implementing-blocks)), a native Input Editor experience, etc. we have to build custom support for a subset of shell functionality (decouple functionality from the shell and move to the terminal). This leads to Warp being incompatible with various tools and plugins.
@@ -104,27 +125,6 @@ if test "$TERM_PROGRAM" != "WarpTerminal"
     # Unsupported plugin/prompt code here
 end
 ```
-
-### List of incompatible tools
-
-* [iterm shell integration](https://iterm2.com/documentation-shell-integration.html)
-  * usually looks like `test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true`
-* OH-MY-ZSH-THEMES
-  * e.g. avit, spaceship, maybe more ...
-* OH-MY-ZSH-PLUGINS
-* Oh-My-Tmux
-* zsh4h (ZSH for Humans)
-* FZF
-* fubectl
-  * `[ -f ${HOME}/bin/fubectl.source ] && source ${HOME}/bin/fubectl.source`
-* [BIND keys](https://github.com/warpdotdev/Warp/issues/537) like:
-  * `bindkey '^j' down-line-or-beginning-search`, which causes users to have to hit ENTER twice to run a command.
-  * `bindkey 'tab' autosuggest-accept`, which causes incorrect behavior with autocompletion.
-* \[\[ -r "/usr/local/etc/profile.d/bash\_completion.sh" ]] && "/usr/local/etc/profile.d/bash\_completion.sh"
-* eval "$(rbenv init -)"
-* grml-zsh-config
-* FIG, z, other completion plugins
-* [Starship settings](../features/prompt.md#starship-settings)
 
 ## Fig
 
