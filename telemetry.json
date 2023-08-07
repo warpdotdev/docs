@@ -188,5 +188,9 @@
   "Warp AI Request Issued": "Issued a question to Warp AI",
   "Warp Drive Opened": "Opened Warp Drive panel",
   "Workflow Executed": "Executed workflow",
-  "Workflow Selected": "Selected workflow and populated into the Input Editor"
+  "Workflow Selected": "Selected workflow and populated into the Input Editor",
+  "Toggle Secret": "Toggled Secret Redaction - attempts to redact secrets and sensitive information",
+  "Custom Secret Regex Added": "Added a custom regex pattern to Secret Redaction",
+  "Toggle Obfuscate Secret": "Revealed or hid a secret",
+  "Copy Secret": "Copied a secret's contents"
 }

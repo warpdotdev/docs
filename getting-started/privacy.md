@@ -90,6 +90,8 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 | `Context Menu: Reinput Commands` | Clicked "reinput commands" in context menu |
 | `Copy Block Sharing Link` | Clicked "Copy Link" on Block Sharing Modal |
 | `Copy Invite Link` | Clicked "Copy Link" on Referral Modal |
+| `Copy Secret` | Copied a secret's contents |
+| `Custom Secret Regex Added` | Added a custom regex pattern to Secret Redaction |
 | `Daily App Focus Duration (seconds)` | Cumulative duration of daily focus time on app in seconds |
 | `Database Read Error` | Database read error when trying to get app state for session restoration |
 | `Database Startup Error` | Failed to initialize sqlite upon startup |
@@ -213,11 +215,13 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 | `Team Left` | Member left team |
 | `Team Link Copied` | Clicked on "Copy Link" |
 | `Test Block Creation Event` | Test Block is created within the App |
+| `Toggle Secret` | Toggled Secret Redaction - attempts to redact secrets and sensitive information |
 | `Thin Strokes Setting Changed` | Changed thin strokes setting in settings -> Appearance |
 | `Toggle Approvals Modal` | Opened or closed teams modal |
 | `Toggle Dim Inactive Panes` | Whether the dim inactive panes feature has been toggled |
 | `Toggle Jump to Bottom of Block Button` | Enabled or disabled the Jump to Bottom of Block Button |
 | `Toggle New Windows at Custom Size` | Whether the new windows at custom size feature has been toggled |
+| `Toggle Obfuscate Secret` | Revealed or hid a secret |
 | `Toggle Restore Session` | Toggled session restoration ("Restore windows, tabs, panes, on startup") |
 | `Toggle Sync Inputs Across All Panes in All Tabs` | Enable the synchronization of the Input Editor's buffer to all the panes in all the tabs |
 | `Toggle Sync Inputs Across All Panes in Current Tab` | Enable the synchronization of the Input Editor's buffer to all the panes in the current tab |

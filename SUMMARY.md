@@ -69,6 +69,7 @@
 * [Integrations](features/integrations-and-plugins.md)
 * [URI Scheme](features/uri-scheme.md)
 * [Network Log](features/network-log.md)
+* [Secret Redaction](features/secret-redaction.md)
 
 ## 📊 How Does Warp Compare?
 
