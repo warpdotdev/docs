@@ -45,7 +45,7 @@ Installing Powerlevel10k Demo
 | Bash/zsh | [PS1](https://www.warp.dev/blog/whats-so-special-about-ps1)       | Working                                                         |
 | Bash/zsh | [Starship](https://github.com/starship/starship)                  | [Working\*](prompt.md#starship)                                 |
 | Bash/zsh | [oh-my-posh](https://github.com/JanDeDobbeleer/oh-my-posh)        | Working                                                         |
-| zsh      | [Powerlevel10k](https://github.com/romkatv/powerlevel10k)         | Working                                                         |
+| zsh      | [Powerlevel10k](https://github.com/romkatv/powerlevel10k)         | [Working\*](prompt.md#powerlevel10k)                            |
 | zsh      | [Spaceship](https://github.com/spaceship-prompt/spaceship-prompt) | [Working\*](prompt.md#spaceship)                                |
 | zsh      | [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh)                   | Working                                                         |
 | zsh      | [prezto](https://github.com/sorin-ionescu/prezto)                 | Working                                                         |
@@ -84,6 +84,10 @@ disabled = true
 #### Starship + Bash
 
 Starship prompt may not render properly if your [default shell](../getting-started/using-warp-with-shells.md#changing-default-shell) is `/bin/bash`. To workaround the issue, we recommend you upgrade bash, find the path with `echo $(which bash)`, then put the path in your `Settings > Features > Session > "Startup shell for new sessions" > Custom`, as noted in [#3066](https://github.com/warpdotdev/Warp/issues/3066#issuecomment-1548643121).
+
+### Powerlevel10k
+
+Warp does support the latest version of [p10k](https://github.com/romkatv/powerlevel10k#installation). Just make sure you have the latest version installed as well as restart Warp after the installation/update of p10k. Then enable custom prompt as stated above and it should work!
 
 ### Spaceship
 
