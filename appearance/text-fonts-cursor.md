@@ -1,4 +1,4 @@
-# Text, Fonts & Cursor
+# Text, Fonts, & Cursor
 
 ## What is it
 
@@ -11,6 +11,10 @@ Warp also supports disabling the blinking cursor. This can help with reducing di
 ### Text and Fonts
 
 To access it, go to `Settings > Appearance > Text`
+
+{% hint style="info" %}
+Once a new font is installed in your system, you need to restart Warp in order for it to show on the list of options. You may also need to check "View all available system fonts" to see the new font.
+{% endhint %}
 
 From there you can customize:
 
