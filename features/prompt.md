@@ -87,7 +87,7 @@ Starship prompt may not render properly if your [default shell](../getting-start
 
 ### Powerlevel10k
 
-Warp does support the latest version of [p10k](https://github.com/romkatv/powerlevel10k#installation). Just make sure you have the latest version installed as well as restart Warp after the installation/update of p10k. Then enable custom prompt as stated above and it should work!
+Warp does support [p10k](https://github.com/romkatv/powerlevel10k#installation) version 1.19.0 and above. Just make sure you have the latest version installed as well as restart Warp after the installation/update of p10k. Then enable custom prompt as stated above and it should work!
 
 ### Spaceship
 
