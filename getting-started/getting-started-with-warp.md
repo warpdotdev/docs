@@ -5,7 +5,9 @@ description: A step-by-step guide for setting up Warp on your machine
 # Installing & Onboarding
 
 {% hint style="info" %}
-**Mac-Only:** Warp is currently supported on Mac only. We plan on adding support for Web (WASM), [Linux](https://github.com/warpdotdev/warp/issues/120), and [Windows](https://github.com/warpdotdev/warp/issues/204) in this order. [Subscribe to get notified](https://warpdotdev.typeform.com/to/lWeDTQnr?typeform-source=www.warp.dev) when Warp is available for Windows or Linux.
+**Mac-Only:** Warp is currently supported on Mac only. We plan on adding support for Web (WASM), [Linux](https://github.com/warpdotdev/warp/issues/120), and [Windows](https://github.com/warpdotdev/warp/issues/204) in this order. [Subscribe to get notified](https://warpdotdev.typeform.com/to/lWeDTQnr?typeform-source=www.warp.dev) when Warp is available for Windows or Linux.\
+\
+**Requirements:** Minimum requirements are macOS 10.14 and above as well as a machine that supports Metal (see [Apple’s docs](https://support.apple.com/en-us/HT205073))
 {% endhint %}
 
 ### Installing Warp
