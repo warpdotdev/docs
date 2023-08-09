@@ -23,7 +23,9 @@ Using your .zshrc or .bashrc files, you can set a new Tab name:
 {% code overflow="wrap" %}
 ```bash
 # Set name, where MyTabName would be whatever you want to see in the Tab ( either a fixed string, $PWD, or something else )
-function set_name () {​echo -ne "\033]0;MyTabName\007" }
+function set_name () {
+  echo -ne "\033]0;MyTabName\007"
+}
 # Add the function to the environment variable in either Zsh or Bash
 if [ -n "$ZSH_VERSION" ]; then
   precmd_functions+=(set_name)
