@@ -1,6 +1,32 @@
 # Changelog
 
-Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
+Warp auto-updates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs reports and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
+
+### 2023.08.10 (v0.2023.08.08.08.04)
+
+**New features**
+
+* Automatically create new themes based on a background image! Click the `+` button in the theme picker (`Settings -> Appearance -> Current Theme`) or search `Open Theme Picker` within the Command Palette
+
+**Improvements**
+
+* Workflows and folders in Warp Drive can now be sorted alphabetically and by last updated
+* Multiple JetBrains IDEs are now supported as external editors (e.g. WebStorm, PhpStorm, GoLand)
+* The Command Palette now shows which folders a Workflow is in (breadcrumbs)
+* Aliases like `...` and `....` no longer incorrectly have an error underline
+
+### 2023.08.03 (v0.2023.08.01.08.05)
+
+**New features**
+
+* Reopen closed tabs with `SHIFT-CMD-T` for up to one minute; configure or disable this feature in `Settings > Features > Enable reopening of closed sessions`
+* Autogenerate descriptions for Workflows in Warp Drive using Warp AI
+
+**Improvements**
+
+* Nested folders in Warp Drive can now be collapsed all at once
+* Fixed issue where fish abbreviation expansion would include comments
+* Fixed a regression with fish history becoming inaccessible
 
 ### 2023.07.27 (v0.2023.07.25.08.03)
 
