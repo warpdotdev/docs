@@ -2,41 +2,35 @@
 
 ## What is it
 
-Warp has a native Prompt that shows your current working directory (cwd) and also git branch information when in a git directory. It can also be set to a custom prompt using one of the supported tools. Improving Warps native prompt is on the [roadmap](prompt.md#context-chips).
+Warp allows you to configure its default prompt in addition to enabling a supported custom prompt. A terminal prompt is a text that appears in the command line interface, indicating that the terminal is ready to accept commands. The prompt can be customized to display additional information.
 
-<figure><img src="../.gitbook/assets/warp_prompt (1).jpg" alt="Warp Native Prompt"><figcaption><p>Warp Native Prompt</p></figcaption></figure>
+### Default Prompt
 
-### Git Status Indicator
+Warp has a native Prompt that is customizable and can show a variety of information including CWD, Git Status, Pyenv, Date, Time, etc.
 
-The native Prompt shows the name of the git branch that you are on locally, as well as the number of uncommitted changed files. This includes any new files, modified files, and deleted files that are staged or unstaged.
+#### Git Status
+
+Git branch that you are on locally, as well as the number of uncommitted changed files. This includes any new files, modified files, and deleted files that are staged or unstaged.
 
 ### Custom Prompt
 
-You can also enable a custom prompt by configuring the **PS1** variable or installing a supported shell prompt plugin, see [Custom Prompt Compatibility Table](prompt.md#custom-prompt-compatibility-table). _Note:_ The PS1 is a variable used by the shell to generate the prompt, it represents the primary prompt string (hence the “PS”) - which is what the terminal typically displays before typing new commands.
+You can also setup custom prompt by configuring the **PS1** variable or installing a supported shell prompt plugin, see [Custom Prompt Compatibility Table](prompt.md#custom-prompt-compatibility-table). _Note:_ The PS1 is a variable used by the shell to generate the prompt, it represents the primary prompt string (hence the “PS”) - which is what the terminal typically displays before typing new commands.
 
-### Multi-Line and Right-Sided Prompts
+#### Multi-Line and Right-Sided Prompts
 
-Warp supports multi-line or right-sided prompts in zsh and fish, not bash. However, you can't have a multiline right-side prompt, only a multiline left prompt. You also can't have the cursor on the same line as the prompt. Warp renders the cursor on a fresh new line within the [Input Editor](editor/), a separate UI element from the prompt; this is actually what enables a modern text editor experience.
+Warps custom prompt supports multi-line or right-sided prompts in zsh and fish, not bash. However, you can't have a multiline right-side prompt, only a multiline left prompt. You also can't have the cursor on the same line as the prompt (we're working on supporting [this](https://github.com/warpdotdev/Warp/issues/2304)). Warp renders the cursor on a fresh new line within the [Input Editor](editor/), a separate UI element from the prompt.
+
+<figure><img src="../.gitbook/assets/edit-prompt-modal.png" alt="Warp Edit Prompt Modal"><figcaption><p>Edit Warp Prompt</p></figcaption></figure>
 
 ## How to access it
 
+* Toggle the custom prompt by right-clicking on the prompt area above the input and selecting "Edit prompt" or select "Prompt" from the `Settings > Appearance` page. There you will be able to select and customize the default prompt or select the Custom prompt (PS1).
 * Toggle the default prompt git branch change indicator by right-clicking on the default prompt and selecting "Hide/Show changed file count"
-* When right-clicking the default prompt, you can also copy the entire prompt, working directory or the current git branch.
-* Toggle custom prompt by right-clicking on the prompt area above the input and select "Use my own prompt" or toggle "Honor user's custom prompt (PS1) from the `Settings > Features` page. ".
+* When right-clicking the prompt, you can also copy the entire prompt, working directory, current git branch, etc.
 
 ## How it works
 
-{% embed url="https://www.loom.com/share/95d7fad6761d47fba82967382c6d5a5c?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
-Git Status Indicator Demo
-{% endembed %}
-
-{% embed url="https://www.loom.com/share/199b49a8045f4380805fb02b93e874e6?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
-Custom Prompt Demo
-{% endembed %}
-
-{% embed url="https://www.youtube.com/watch?t=18s&v=dIV9Cso4Mi8" %}
-Installing Powerlevel10k Demo
-{% endembed %}
+<figure><img src="../.gitbook/assets/CleanShot 2023-08-18 at 10.30.19.gif" alt="Warp Prompt + Custom Prompt Demo"><figcaption><p>Warp Prompt + Custom Prompt Demo</p></figcaption></figure>
 
 ### Custom Prompt Compatibility Table
 
@@ -54,6 +48,10 @@ Installing Powerlevel10k Demo
 | Bash/zsh | [Powerline-shell](https://github.com/b-ryan/powerline-shell)      | Not supported                                                   |
 | fish     | [tide](https://github.com/IlanCosman/tide)                        | [Not supported](https://github.com/warpdotdev/Warp/issues/3358) |
 | SSH      |                                                                   | Working                                                         |
+
+{% embed url="https://www.youtube.com/watch?t=18s&v=dIV9Cso4Mi8" %}
+Installing Powerlevel10k Demo
+{% endembed %}
 
 ## Known incompatibilities
 
@@ -121,7 +119,3 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 ##### WHAT YOU WANT TO DISABLE FOR WARP - ABOVE
 fi
 ```
-
-## Context Chips
-
-Context Chips is an idea we have for what the future of terminal prompts could be like, i.e. prompts that support dynamic refreshing, mouse interactions, and can be customized via an open spec that developers can build on. Learn more via our [Twitter thread](https://twitter.com/warpdotdev/status/1496263490491023362?s=20\&t=4PBawdJYHKfywG7eEe2jNA), where we also shared some Figma mocks.
