@@ -10,7 +10,8 @@ _Note_: Currently, you need to be online to use this feature. If this feature do
 
 1. Press `` CTRL-` `` or type `#` into the Text Input Editor to search by natural language.
 2. Type in the input box what you'd like to do. For example, "replace string in file".
-3. Once the results are generated, you can select one and execute it as a workflow. You can also save the workflow to Warp Drive to easily recall it in the future.
+3. Once the results are generated, you can select one or modify the prompt to generate new commands.&#x20;
+4. When you've found the command you want to execute, it can be run or saved as a Workflow onto Warp Drive to easily recall it in the future.
 
 _Note:_ If you experience any issues with AI Command Suggestions, please see our known issues for [troubleshooting steps](../../help/known-issues.md#online-features-ai-command-block-sharing-referrals-etc.).
 
