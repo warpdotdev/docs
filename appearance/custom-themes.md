@@ -96,9 +96,9 @@ Each color is represented in hex and must start with `#`.
 * `lighter`: Color used for light-mode theme
 * `terminal_theme`: Collection of normal & bright colors (16 total) known for other terminal themes (ansi colors)
 
-## Create your own custom theme with Warp-Themes.com
+## Create your own custom theme (with a tool)
 
-[Warp-Themes.com](https://warp-themes.com/) is a web app built entirely by community member [Torben Haack](https://github.com/haackt). The tool allows you to visually customize your own terminal theme with a few simple color selections, then download that theme file and have Warp load it into its theme picker. Please see more on how to use the app in our [Warp-Themes blog post](https://www.warp.dev/blog/create-custom-terminal-theme).
+There are several tools out on the internet that help you create a terminal theme and generate the appropriate RGB values to enter into your YAML file. [https://terminal.sexy/](https://terminal.sexy/?) is a good tool for generating RGB values (Hopefully the maintainer will add the ability to export to Warps YAML format).
 
 ## Background Images and Gradients
 
