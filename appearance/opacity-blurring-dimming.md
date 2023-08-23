@@ -10,8 +10,7 @@ Warp supports settings for Window size, opacity(transparency), and blurring effe
 
 To access size settings, go to `Settings > Appearance > Window`.
 
-* Enable "Open new windows with custom size".
-* Then, configure your preferred columns and rows.
+* Enable "Open new windows with custom size", Then configure your preferred columns and rows.
 
 ### Window Opacity
 
