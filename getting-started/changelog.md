@@ -1,41 +1,67 @@
 # Changelog
 
-Warp auto-updates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs reports and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
+Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
+### 2023.08.24 (v0.2023.08.22.08.03)
+
+**New features**
+
+- Secret Redaction - Warp can now automatically redact secrets and sensitive information in terminal output, including passwords, IP addresses, API keys, and PII. Enable Secret Redaction from the Command Palette or Settings > Privacy > Secret Redaction
+
+**Improvements**
+
+- Special keys used in conjunction with `META` e.g. `META-DELETE` should now work within the alt-screen
+- The line height for the text within the Input Editor should now actually change when the custom height in `Settings > Appearance > Text > Line Height` is updated
+- Alias Abbreviations in fish should no longer show a red error underline within the Input Editor
+- Reduced the bottom padding within the Input Editor when Warp is in Compact Mode
+
+### 2023.08.17 (v0.2023.08.15.08.03)
+
+**New features**
+
+- Warp now displays richer metadata for each command in history, including exit code, working directory, git branch, and whether the command is part of a workflow.
+- Warp's native prompt is now customizable directly within the app with drag-and-drop Context Chips (`Settings > Appearance > Prompt`)
+
+**Improvements**
+
+- Warp now supports xterm's escape codes (sequences) for focus reporting
+- The Command Palette now supports searching for workflows with their Warp Drive folder name, in addition to the Workflow's name and description.
+- Auto-generating custom themes from starting images now work even with a missing `~/.warp/themes` directory
+- The "New Workflow" modal now supports more text for longer commands
 
 ### 2023.08.10 (v0.2023.08.08.08.04)
 
 **New features**
 
-* Automatically create new themes based on a background image! Click the `+` button in the theme picker (`Settings -> Appearance -> Current Theme`) or search `Open Theme Picker` within the Command Palette
+- Automatically create new themes based on a background image! Click the `+` button in the theme picker (`Settings -> Appearance -> Current Theme`) or search `Open Theme Picker` within the Command Palette
 
 **Improvements**
 
-* Workflows and folders in Warp Drive can now be sorted alphabetically and by last updated
-* Multiple JetBrains IDEs are now supported as external editors (e.g. WebStorm, PhpStorm, GoLand)
-* The Command Palette now shows which folders a Workflow is in (breadcrumbs)
-* Aliases like `...` and `....` no longer incorrectly have an error underline
+- Workflows and folders in Warp Drive can now be sorted alphabetically and by last updated
+- Multiple JetBrains IDEs are now supported as external editors (e.g. WebStorm, PhpStorm, GoLand)
+- The Command Palette now shows which folders a Workflow is in (breadcrumbs)
+- Aliases like `...` and `....` no longer incorrectly have an error underline
 
 ### 2023.08.03 (v0.2023.08.01.08.05)
 
 **New features**
 
-* Reopen closed tabs with `SHIFT-CMD-T` for up to one minute; configure or disable this feature in `Settings > Features > Enable reopening of closed sessions`
-* Autogenerate descriptions for Workflows in Warp Drive using Warp AI
+- Reopen closed tabs with `SHIFT-CMD-T` for up to one minute; configure or disable this feature in `Settings > Features > Enable reopening of closed sessions`
+- Autogenerate descriptions for Workflows in Warp Drive using Warp AI
 
 **Improvements**
 
-* Nested folders in Warp Drive can now be collapsed all at once
-* Fixed issue where fish abbreviation expansion would include comments
-* Fixed a regression with fish history becoming inaccessible
+- Nested folders in Warp Drive can now be collapsed all at once
+- Fixed issue where fish abbreviation expansion would include comments
+- Fixed a regression with fish history becoming inaccessible
 
 ### 2023.07.27 (v0.2023.07.25.08.03)
 
 **Improvements**
 
-* Fixed an issue where $PATH could be overwritten in Bash subshells
-* Fixed an issue where completions for file-paths broke when using Named Flags e.g. `ls --color=auto`
-* Fixed an issue where Warp Drive objects could get stuck in a sync state
-* The down arrow `DOWN` now correctly moves the cursor within Warp AI's text editor
+- Fixed an issue where $PATH could be overwritten in Bash subshells
+- Fixed an issue where completions for file-paths broke when using Named Flags e.g. `ls --color=auto`
+- Fixed an issue where Warp Drive objects could get stuck in a sync state
+- The down arrow `DOWN` now correctly moves the cursor within Warp AI's text editor
 
 ### 2023.07.20 (v0.2023.07.18.08.03)
 
