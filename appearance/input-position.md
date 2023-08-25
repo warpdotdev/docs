@@ -20,6 +20,7 @@ Changes to the Input position take place immediately and apply to all open panes
 
 * `CMD-K` will clear the entire list of input/output blocks for a clean view
 * `CTRL-L` will move the list of input/output blocks outside of the view and past the scroll so you have a clean view and the ability to easily visit past commands
+* For long Blocks, you can press `SHIFT-CMD-UP`/`SHIFT-CMD-DOWN` to Scroll to the top/bottom the selected block.
 
 ## How it works
 

@@ -33,7 +33,8 @@ Create a Block
 * Or using your keyboard: hit `CMD-UP` to select the most recently executed Block and use the `UP ↑` and `DOWN ↓` arrow keys to navigate to the desired Block.
 * For long Blocks:
   * You can click "Jump to the bottom of this block".&#x20;
-  * From the Command Palette `CMD-P`, you can also "Scroll to the top/bottom of the selected block".
+  * You can press `SHIFT-CMD-UP`/`SHIFT-CMD-DOWN` to Scroll to the top/bottom of the selected block.
+  * From the Command Palette `CMD-P`, you can also "Scroll to the top/bottom of selected block".
 
 {% embed url="https://www.loom.com/share/1cf8546daad548fbbe056c35edb23cdc?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
 Select a Single Block
