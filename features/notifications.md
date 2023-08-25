@@ -1,14 +1,23 @@
-# Notifications
+# Notifications & Audible Bell
 
 ## What is it
 
-Warp can send you customizable desktop notifications when you are away from the app and quickly re-focus when something meaningful happens in your terminal sessions. Notifications can be sent when a command completes after a configurable number of seconds or when a running command needs you to enter a password to proceed. For either of these triggers, Warp will only send you a desktop notification if you are using a different app at the time the trigger is fired.
+Warp can send you customizable desktop notifications when you are away from the app and quickly re-focus when something meaningful happens in your terminal sessions. Notifications can be sent when a command completes after a configurable number of seconds or when a running command needs you to enter a password to proceed. For either of these triggers, Warp will only send you a desktop notification if you are using a different app at the time the trigger is fired.\
+\
+Warp also allows you to enable an audible terminal bell (disabled by default) that can be triggered by a variety of CLI tools (i.e. `ping -a`).
 
 ## How to access it
+
+### Notifications
 
 * Notifications are enabled by default and require macOS permissions to appear. You will want to **Allow** or **Accept** the request so that Warp can send you desktop notifications. If you accidentally denied it or would like to re-enable Notifications later, check the [troubleshooting guide below](notifications.md#troubleshooting-warp-notifications).
 * If you've turned Notifications off before, toggle it back on by going to `Settings > Features`, or quickly toggle Notifications on or off via the Command Palette `CMD-P`.
 * Customize Notification triggers for long-running commands or password prompts by going to `Settings > Features`.
+
+### Audible Bell
+
+* In Settings, enable an Audible terminal bell in `Settings > Features > Terminal`.
+* In Command Palette, “Enable/Disable Audible Terminal Bell”.
 
 ## How it works
 

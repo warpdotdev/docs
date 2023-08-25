@@ -62,7 +62,7 @@
 * [Smart-Select](features/smart-select.md)
 * [Full-screen Apps](features/full-screen-apps.md)
 * [Keyboard Shortcuts](features/keyboard-shortcuts.md)
-* [Notifications](features/notifications.md)
+* [Notifications & Audible Bell](features/notifications.md)
 * [Quit Warning](features/quit-warning.md)
 * [SSH](features/ssh.md)
 * [Subshells](features/subshells.md)
