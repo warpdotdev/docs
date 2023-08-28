@@ -98,7 +98,7 @@ Each color is represented in hex and must start with `#`.
 
 ## Create your own custom theme (with a tool)
 
-There are several tools out on the internet that help you create a terminal theme and generate the appropriate RGB values to enter into your YAML file. [https://terminal.sexy/](https://terminal.sexy/?) is a good tool for generating RGB values (Hopefully the maintainer will add the ability to export to Warps YAML format).
+There are several tools out on the internet that help you create a terminal theme and generate the appropriate RGB values to enter into your YAML file. [https://terminal.sexy/](https://terminal.sexy/?) is a good tool for generating RGB values.
 
 ## Background Images and Gradients
 
