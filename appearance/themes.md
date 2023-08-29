@@ -6,6 +6,8 @@ Warp includes a number of themes (out-of-box) and also supports setting custom t
 
 ## How to access it
 
+### Theme Picker
+
 The Theme Picker can be accessed through the [Command Palette](../features/features/command-palette.md), `CTRL-CMD-T`, or by:
 
 1. Navigating to the top-right section of the Warp window
@@ -17,11 +19,21 @@ The Theme Picker can be accessed through the [Command Palette](../features/featu
 
 _Note:_ This setting persists i.e. Warp will open with the same settings in the next session.
 
+### Theme Creator
+
+Automatically create new themes based on a background image.
+
+1. Click the `+` button in the theme picker (`Settings -> Appearance -> Current Theme`) or search `Open Theme Picker` within the Command Palette.
+2. Upload the image and select the background color.
+3. Click "Create Theme" to save and accept the new theme.
+
 ## How it works
 
 {% embed url="https://loom.com/share/2182ebcb09164f2b97525161da099959?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
-Changing Themes Demo
+Theme Picker Demo
 {% endembed %}
+
+<figure><img src="../.gitbook/assets/theme-creator.gif" alt=""><figcaption><p>Theme Creator Demo</p></figcaption></figure>
 
 ## OS Theme Sync
 

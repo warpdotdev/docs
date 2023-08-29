@@ -30,7 +30,7 @@ Warps custom prompt supports multi-line or right-sided prompts in zsh and fish, 
 
 ## How it works
 
-<figure><img src="../.gitbook/assets/CleanShot 2023-08-18 at 10.30.19.gif" alt="Warp Prompt + Custom Prompt Demo"><figcaption><p>Warp Prompt + Custom Prompt Demo</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/edit-prompt.gif" alt="Warp Prompt + Custom Prompt Demo"><figcaption><p>Warp Prompt + Custom Prompt Demo</p></figcaption></figure>
 
 ### Custom Prompt Compatibility Table
 
