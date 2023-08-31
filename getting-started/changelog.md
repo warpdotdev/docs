@@ -1,6 +1,16 @@
 # Changelog
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
+### 2023.08.31 (v0.2023.08.29.08.04)
+
+**Improvements**
+- You can now delete custom themes from the Warp UI
+- You can now scroll to the top or bottom of a selected block from the Command Palette
+
+**Bug fixes**
+- Fixed an issue where CPU was being used up by git processes [3563](https://github.com/warpdotdev/Warp/issues/3563)
+- Fixed a Zsh bug where `set sh_word_split` could break Warp's bootstrapping
+
 ### 2023.08.24 (v0.2023.08.22.08.03)
 
 **New features**
