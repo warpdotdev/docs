@@ -1,14 +1,17 @@
 # Changelog
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
+
 ### 2023.08.31 (v0.2023.08.29.08.04)
 
 **Improvements**
+
 - You can now delete custom themes from the Warp UI
-- You can now scroll to the top or bottom of a selected block from the Command Palette
+- You can now scroll to the top or bottom of a selected block from the Command Palette.
 
 **Bug fixes**
-- Fixed an issue where CPU was being used up by git processes [3563](https://github.com/warpdotdev/Warp/issues/3563)
+
+- Fixed an issue where CPU was being used up by git processes ([3563](https://github.com/warpdotdev/warp/issues/3563))
 - Fixed a Zsh bug where `set sh_word_split` could break Warp's bootstrapping
 
 ### 2023.08.24 (v0.2023.08.22.08.03)
@@ -1131,7 +1134,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 - Fixed a bug where resizing a pane could cause Warp to show a blank screen
 - Parentheses, quotes, and brackets now also auto-close after typing an alphanumeric character
 - Remapped multi-cursor key bindings to CTRL-SHIFT-UP and CTRL-SHIFT-DOWN - [374](https://github.com/warpdotdev/warp/issues/374)
-- Restored OPT-CMD-UP and OPT-CMD-DOWN for switching panes up and down - [730](https://github.com/warpdotdev/warp/issues/730) 
+- Restored OPT-CMD-UP and OPT-CMD-DOWN for switching panes up and down - [730](https://github.com/warpdotdev/warp/issues/730)
 
 ### 2022.02.02 (v0.2022.01.31.09.03)
 
@@ -1285,7 +1288,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 - Changelog dialog
 - Emoji rendering: 😂, 😃, 🌍, 🍞, 🚗, 📞, 🎉, ❤️ - [075](https://github.com/warpdotdev/warp/issues/075)
 - Improved settings dialog
-- Theme search - [237](https://github.com/warpdotdev/warp/issues/237) 
+- Theme search - [237](https://github.com/warpdotdev/warp/issues/237)
 
 **Bug fixes**
 
