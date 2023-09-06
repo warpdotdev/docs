@@ -41,7 +41,7 @@ See the existing workflows spec within the [Workflows repo](https://github.com/w
 
 <summary><a href="https://github.com/warpdotdev/Workflows/blob/main/FORMAT.md">Workflow File Format</a></summary>
 
-The workflow file format is a [yaml](https://yaml.org/) file and must have either a \`.yml \` or \`yaml\` extension. If you're new to YAML and want to learn more, see [Learn YAML in Y minutes](https://learnxinyminutes.com/docs/yaml/). _Compatibility Note_: Warp is still in Beta and this format is subject to change.
+The workflow file format is a [yaml](https://yaml.org/) file and must have either a \`.yml \` or \`yaml\` extension. If you're new to YAML and want to learn more, see [Learn YAML in Y minutes](https://learnxinyminutes.com/docs/yaml/).
 
 ***
 

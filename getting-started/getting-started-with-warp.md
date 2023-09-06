@@ -54,7 +54,7 @@ Opening the app is the only time you need an active internet connection. Otherwi
 
 ### Onboarding Survey (Optional)
 
-As part of the beta, Warp will ask a few questions within the app after you sign up.
+Warp will ask a few questions within the app after you sign up.
 
 The survey is optional. You can skip all questions if you’d like.
 
