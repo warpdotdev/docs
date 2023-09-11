@@ -2,12 +2,23 @@
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2023.09.07 (v0.2023.09.06.18.09)
+
+**Improvements**
+
+- The new tab keyboard shortcut (`CMD-T` by default) can now be re-mapped
+- arp Drive now shows a loading indicator when syncing
+
+**Bug fixes**
+
+- The command timestamp tooltip is no longer hidden when the Input Editor is pinned to the top
+
 ### 2023.08.31 (v0.2023.08.29.08.04)
 
 **Improvements**
 
 - You can now delete custom themes from the Warp UI
-- You can now scroll to the top or bottom of a selected block from the Command Palette.
+- You can now scroll to the top or bottom of a selected block from the Command Palette
 
 **Bug fixes**
 
@@ -110,7 +121,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 **Improvements**
 
 - Fixed a bug where Warp was not recognizing some single character commands and aliases.
-- Fixed a bug where command output would sometimes be cut off after finishing (most notably in Gradle).
+- Fixed a bug where command output would sometimes be cut off after finishing (most notably in Gradle)
 - Fixed a bug where two prompts could appear for remote Bash sessions
 
 ### 2023.06.29 (v0.2023.06.27.19.34)
@@ -118,15 +129,15 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 **New features**
 
 - App links of the form Warp://launch/<launch_configuration_name> directly open a launch configuration
-- Added a new setting for creating new windows with a specific size in terms of rows and columns.
+- Added a new setting for creating new windows with a specific size in terms of rows and columns
 
 **Improvements**
 
 - Fix rendering of multiple ANSI styles on the same character. This fixes rendering issues commonly encountered in Vim and emacs.
-- Fix tabs (indentations) sometimes being inserted into the Input Editor when the completion menu should open.
+- Fix tabs (indentations) sometimes being inserted into the Input Editor when the completion menu should open
 - Added tooltip for “New tab” button
 - The “Launch Configurations” sub-menu (under the Mac File menu) now updates dynamically as launch configurations are added and removed.
-- Find bar is able to match double-width unicode characters, including CJK and emojis.
+- Find bar is able to match double-width unicode characters, including CJK and emojis
 - Fixed a crash that could occur when pasting a command in the workflow editor
 
 ### 2023.06.20 (v0.2023.06.20.08.04)
@@ -135,17 +146,17 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 
 - You can now bring the power of your Powerlevel10k (P10K) prompt to Warp! For best results, you’ll need the latest version of P10K; see their GitHub page for upgrade instructions
 - Right-side prompts are now supported in Zsh and fish!
-- Warp AI commands can now be executed as workflows.
+- Warp AI commands can now be executed as workflows
 
 **Bug fixes**
 
-- Clicking on an inactive Warp window now focuses the underlying pane correctly.
+- Clicking on an inactive Warp window now focuses the underlying pane correctly
 
 ### 2023.06.08 (v0.2023.06.13.08.03)
 
 **New features**
 
-- Added a settings page for our upgraded referral system--we’ve added new swag options.
+- Added a settings page for our upgraded referral system--we’ve added new swag options
 - Right-click a highlighted file path to open a context menu that now supports showing the file in Finder
 - The Command Palette can now search through Warp sessions, actions and launch configurations
 
@@ -290,7 +301,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 **Bug fixes**
 
 - Fixed an issue where AI command results with multiple commands would all render on the same line
-- The configurable width of Universal Search is now persistent (doesn’t reset to default in new sessions).
+- The configurable width of Universal Search is now persistent (doesn’t reset to default in new sessions)
 - “Copy Prompt” now correctly respects your PS1 prompt, if enabled
 - Fixed automatic command corrections for cargo.
 
@@ -298,21 +309,21 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 
 **New features**
 
-- Added support to configure which shell Warp should use when starting a terminal session. Configurable under Settings -> Features -> Session.
-- Tabs can now be renamed via mouse double-click.
+- Added support to configure which shell Warp should use when starting a terminal session. Configurable under Settings -> Features -> Session
+- Tabs can now be renamed via mouse double-click
 
 **Bug fixes**
 
-- Launch configuration templates now support use of `~` in the `cwd` field.
-- Double-clicking a button/tab in the title bar no longer resizes the whole window.
-- Context menus in the blocklist are now more pronounced and easier to dismiss by clicking.
-- Increased the clickable area of small search boxes.
-- A keyboard shortcut can now be registered to clear all blocks.
-- Fixed some locale-related issues due to use of `LC_ALL` environment variable.
-- Xterm escape code OSC 4 (“change color”) no longer crashes the app when it appears in PS1.
-- Fixed a crash that occurs when resizing windows after dismissing a notification banner.
-- Fixed crash that occurs if you unset the keybinding for the keyboard shortcuts side panel.
-- Added Warp AI to resource center.
+- Launch configuration templates now support use of `~` in the `cwd` field
+- Double-clicking a button/tab in the title bar no longer resizes the whole window
+- Context menus in the blocklist are now more pronounced and easier to dismiss by clicking
+- Increased the clickable area of small search boxes
+- A keyboard shortcut can now be registered to clear all blocks
+- Fixed some locale-related issues due to use of `LC_ALL` environment variable
+- Xterm escape code OSC 4 (“change color”) no longer crashes the app when it appears in PS1
+- Fixed a crash that occurs when resizing windows after dismissing a notification banner
+- Fixed crash that occurs if you unset the keybinding for the keyboard shortcuts side panel
+- Added Warp AI to resource center
 
 ### 2023.03.16 (v0.2023.03.07.08.02)
 
@@ -324,47 +335,47 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 
 **New features**
 
-- Added support for clearing a keybinding for an action [2300](https://github.com/warpdotdev/warp/issues/2300).
-- Added support for showing/hiding Warp windows with a system-wide Activation hotkey [2585](https://github.com/warpdotdev/warp/issues/2585).
-- Improved scroll speed for Sidebar menu 'Warp Essentials'/'Keyboard Shortcuts' [2673](https://github.com/warpdotdev/warp/issues/2673).
-- Users may now set a custom keybinding to open the completions menu.
-- Enabling/disabling mouse reporting is no longer bound to CMD-R by default.
-- Toggling mouse reporting enabled shows a banner.
+- Added support for clearing a keybinding for an action [2300](https://github.com/warpdotdev/warp/issues/2300)
+- Added support for showing/hiding Warp windows with a system-wide Activation hotkey [2585](https://github.com/warpdotdev/warp/issues/2585)
+- Improved scroll speed for Sidebar menu 'Warp Essentials'/'Keyboard Shortcuts' [2673](https://github.com/warpdotdev/warp/issues/2673)
+- Users may now set a custom keybinding to open the completions menu
+- Enabling/disabling mouse reporting is no longer bound to CMD-R by default
+- Toggling mouse reporting enabled shows a banner
 
 **Bug fixes**
 
-- Fixed SSH wrapper hanging forever when SSH host is Arch Linux with the latest bash package [2636](https://github.com/warpdotdev/warp/issues/2636).
-- Fixed Bash commands having escape codes in the last 20 characters producing incorrect output.
-- Fixed a bug with bash prompt expansion on recent macOS versions.
+- Fixed SSH wrapper hanging forever when SSH host is Arch Linux with the latest bash package [2636](https://github.com/warpdotdev/warp/issues/2636)
+- Fixed Bash commands having escape codes in the last 20 characters producing incorrect output
+- Fixed a bug with bash prompt expansion on recent macOS versions
 
 ### 2023.02.28 (v0.2023.02.28.08.03)
 
 **New features**
 
-- Warp now suggests a URL for creating a GitHub PR on `git push`.
-- Command Search and Workflow menus are now horizontally resizable.
+- Warp now suggests a URL for creating a GitHub PR on `git push`
+- Command Search and Workflow menus are now horizontally resizable
 
 **Bug fixes**
 
-- Fixed a bug where Warp doesn’t correctly Auto-Raise.
-- Fixed issue where formatting is lost when pasting into nano.
-- Fixed issue where Warp doesn’t detect process termination when exiting `info`.
-- Fixed a bug with bash prompt expansion not working on v4.4 or earlier.
-- Fixed a bug where profile pictures don’t show in the Account menu.
-- Fixed Syntax Highlighting and Error Underlining’s handling of multi-byte characters.
-- Fixed issue where 'Checking for Update’ doesn’t reflect the current status.
+- Fixed a bug where Warp doesn’t correctly Auto-Raise
+- Fixed issue where formatting is lost when pasting into nano
+- Fixed issue where Warp doesn’t detect process termination when exiting `info`
+- Fixed a bug with bash prompt expansion not working on v4.4 or earlier
+- Fixed a bug where profile pictures don’t show in the Account menu
+- Fixed Syntax Highlighting and Error Underlining’s handling of multi-byte characters
+- Fixed issue where 'Checking for Update’ doesn’t reflect the current status
 
 ### 2023.02.23 (v0.2023.02.21.08.03)
 
 **New features**
 
-- Support for configuring the initial working directory for new sessions. New tabs/windows/split panes can have separate configurations, or you can set one value for all new sessions.
+- Support for configuring the initial working directory for new sessions. New tabs/windows/split panes can have separate configurations, or you can set one value for all new sessions
 
 **Bug fixes**
 
 - Warp now supports syntax highlighting and error underlining for multi-line inputs with multibyte characters
-- Fixed a bug where the update status in Warp’s `About Section` was incorrect.
-- Improved GPU memory consumption when multiple windows are open.
+- Fixed a bug where the update status in Warp’s `About Section` was incorrect
+- Improved GPU memory consumption when multiple windows are open
 
 ### 2023.02.16 (v0.2023.02.14.08.05)
 
@@ -375,11 +386,11 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 
 **Bug fixes**
 
-- Warp no longer hangs after exiting the alt-screen--having searched for text using Find.
-- The Block-list now scrolls to the correct position after returning from the alt-screen.
-- Clicking above the scroll-bar no longer (incorrectly) changes its scroll position.
-- The terminal cell dimensions now update immediately after modifying the Font size.
-- Hyperlinks no longer incorrectly highlight on hover when Warp is not focused.
+- Warp no longer hangs after exiting the alt-screen--having searched for text using Find
+- The Block-list now scrolls to the correct position after returning from the alt-screen
+- Clicking above the scroll-bar no longer (incorrectly) changes its scroll position
+- The terminal cell dimensions now update immediately after modifying the Font size
+- Hyperlinks no longer incorrectly highlight on hover when Warp is not focused
 - The Input Method Editor (non-English keyboards) is now positioned correctly in the alt-screen and in running Blocks
 - When there are no windows open, clicking `New Tab` from the Mac menu will create a new window
 
@@ -387,13 +398,15 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 
 **Bug fixes**
 
-- Warp now sets the Mac window title; right-clicking on the dock icon will show the name of the active tab.
-- Fixed a bug where navigating the theme picker with the arrow keys would lead to a crash when no theme matches the search.
-- The Input Editor now refocuses correctly after clicking hyperlinks.
-- Custom keybindings incorporating the `SPACE` key now persist after closing Warp.
+- Warp now sets the Mac window title; right-clicking on the dock icon will show the name of the active tab
+- Fixed a bug where navigating the theme picker with the arrow keys would lead to a crash when no theme matches the search
+- The Input Editor now refocuses correctly after clicking hyperlinks
+- Custom keybindings incorporating the `SPACE` key now persist after closing Warp
 - The Input Method Editor (non-English keyboards) now positions itself within the Input Editor
 
 ### 2023.02.02 (v0.2023.01.31.08.08)
+
+- No updates this release
 
 ### 2023.01.26 (v0.2023.01.24.08.03)
 
@@ -441,8 +454,8 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 
 **Bug fixes**
 
-- Trailing periods are no longer considered part of a URL.
-- Fixed regression where the "autocomplete symbols" setting was not being respected.
+- Trailing periods are no longer considered part of a URL
+- Fixed regression where the "autocomplete symbols" setting was not being respected
 
 ### 2022.12.15 (v0.2022.12.13.08.04)
 
@@ -455,35 +468,35 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 - The welcome Block now also works when using Fish shell.
 - AI Command Search no longer crashes from multi-byte characters when opened via the `#` prefix
 - Warp no longer crashes when starting a new session in a deleted or inaccessible directory
-- Resolved rendering bugs and hangs in full-screen applications like 'k9s' and 'less'.
-- Added a login failure notification.
+- Resolved rendering bugs and hangs in full-screen applications like 'k9s' and 'less'
+- Added a login failure notification
 
 ### 2022.12.06 (v0.2022.12.06.08.03)
 
 **New features**
 
 - Users may now opt out of telemetry (app analytics and crash reporting)
-- Added 'Tail Warp network log' workflow for viewing logs of all app network activity.
+- Added 'Tail Warp network log' workflow for viewing logs of all app network activity
 
 **Bug fixes**
 
-- Full-screen CLI commands like mitmproxy now correctly span the entire view.
-- Improved styling and organization of Features page in settings.
-- Completions While Typing menu closes while generating new results.
-- Added a hidden completion result for root dir.
-- Warp now consumes less memory when a session has many blocks.
-- Fixed an issue over SSH where logs were being inserted into input.
+- Full-screen CLI commands like mitmproxy now correctly span the entire view
+- Improved styling and organization of Features page in settings
+- Completions While Typing menu closes while generating new results
+- Added a hidden completion result for root dir
+- Warp now consumes less memory when a session has many blocks
+- Fixed an issue over SSH where logs were being inserted into input
 
 ### 2022.12.02 (v0.2022.11.29.08.03)
 
 **New features**
 
 - Users may now opt out of telemetry (app analytics and crash reporting)
-- Added 'Tail Warp network log' workflow for viewing logs of all app network activity.
+- Added 'Tail Warp network log' workflow for viewing logs of all app network activity
 
 **Bug fixes**
 
-- Mitigated an issue where running a command over SSH would emit spurious output (specifically, 'channel: open failed' statements) in a block.
+- Mitigated an issue where running a command over SSH would emit spurious output (specifically, 'channel: open failed' statements) in a block
 
 ### 2022.12.01 (v0.2022.11.29.08.03)
 
@@ -493,27 +506,27 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 
 **Bug fixes**
 
-- Respect symlinks in Warp configuration directories (for themes and workflows).
+- Respect symlinks in Warp configuration directories (for themes and workflows)
 - Fixed unwanted text appearing in the Input Editor when RPROMPT is set
-- Fixed the emoji composer not working properly.
-- Fixed a crash that could occur when using the Unicode Hex Input keyboard.
+- Fixed the emoji composer not working properly
+- Fixed a crash that could occur when using the Unicode Hex Input keyboard
 - Fixed escape binding not closing the resource center
-- Move Backward/Forward One Word bindings can now be overridden.
+- Move Backward/Forward One Word bindings can now be overridden
 - Fixed crash when hovering over multiple byte text within the Input Editor
-- Fixed “command not found: sed” and “command not found: tr” issues with the SSH wrapper.
-- Fixed issue where tab completions and command search could be visible at the same time.
+- Fixed “command not found: sed” and “command not found: tr” issues with the SSH wrapper
+- Fixed issue where tab completions and command search could be visible at the same time
 
 ### 2022.11.15 (v0.2022.11.14.14.55)
 
 **New features**
 
-- Command Search: Ctrl-R opens a panel where you can search your history, workflows, and other command execution-related items, all in one place.
+- Command Search: Ctrl-R opens a panel where you can search your history, workflows, and other command execution-related items, all in one place
 - Sticky command header: Warp now pins the prompt/command section of a Block to the top of the screen; click it to scroll to the top of the Block. Can be toggled via Settings > Features > Show Sticky Command Header
 - Warp’s Input Editor now supports soft wrapping; long commands are now fully visible!
 
 **Bug fixes**
 
-- Warp now sets the TERM_PROGRAM environment variable correctly in wrapped SSH sessions.
+- Warp now sets the TERM_PROGRAM environment variable correctly in wrapped SSH sessions
 
 ### 2022.11.10 (v0.2022.11.08.08.07)
 
@@ -532,11 +545,11 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 
 **New features**
 
-- Warp's prompt now shows the number of modified files on your local git branch! Search "changed file count" in the Command Palette or right-click the Prompt to toggle.
+- Warp's prompt now shows the number of modified files on your local git branch! Search "changed file count" in the Command Palette or right-click the Prompt to toggle
 
 **Bug fixes**
 
-- Dim-styled colors are now restored properly.
+- Dim-styled colors are now restored properly
 
 ### 2022.10.27 (v0.2022.10.25.08.06)
 
