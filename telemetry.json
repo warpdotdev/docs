@@ -153,7 +153,7 @@
   "Show Subshell Banner": "Displayed the banner asking whether Warp should Warpify the current session via Warp's subshell wrapper",
   "ShowNotificationsDiscoveryBanner": "Showed discovery banner for notifications (notify user when long running commands finish)",
   "ShowNotificationsErrorBanner": "Showed error banner for notifications (i.e. permissions issue)",
-  "Showed File in File Explorer": null,
+  "Showed File in File Explorer": "Opened a file in Finder by using \"Show in Finder\"",
   "Sign Up Button Clicked in App": "Clicked \"Sign Up\" button",
   "Skip Onboarding Survey": "Skipped onboarding survey as a whole",
   "Split Pane": "Split tab into multiple panes",
