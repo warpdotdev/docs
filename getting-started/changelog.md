@@ -7,7 +7,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 **Improvements**
 
 - The new tab keyboard shortcut (`CMD-T` by default) can now be re-mapped
-- arp Drive now shows a loading indicator when syncing
+- Warp Drive now shows a loading indicator when syncing
 
 **Bug fixes**
 
