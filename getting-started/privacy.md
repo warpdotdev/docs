@@ -52,6 +52,7 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 | `Accept Natural Language Search Result` | Accepted AI Command Search Result |
 | `Add Added Subshell Command` | Added a command to be automatically Warpified via Warp's subshell wrapper |
 | `Add Denylisted Subshell Command` | Explicitly prevent a command from being Warpified via Warp's subshell wrapper |
+| `App Download Source` | Whether the Warp was installed from the home page or through homebrew |
 | `App Startup` | App is launched |
 | `Approve Domains` | Under team management in settings, domain is approved for users with corresponding email domain to join the team |
 | `Auth Common Question Clicked in App` | Clicked on "Common Question" when logging in |
@@ -115,8 +116,8 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 | `Finish Onboarding Survey` | Onboarding survey finished |
 | `Focused App` | App is in focus |
 | `Generate Block Sharing Link` | Generated Block sharing link |
-| `Generate Metadata For Workflow Error` | Failed to generate metadata for workflow using Warp AI |
-| `Generate Metadata For Workflow Success` | Successfully generated metadata for workflow using Warp AI |
+| `Generate Metadata For Workflow Error` | Failed to generate metadata for a workflow using Warp AI |
+| `Generate Metadata For Workflow Success` | Successfully generated metadata for a workflow using Warp AI |
 | `Generate Natural Language Search` | Requested AI Command Search generation |
 | `Get Invite` | Clicked "Get Invite" |
 | `Get Referral Status` | Clicked "Get Referral Status" |
@@ -231,7 +232,7 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 | `Toggle New Windows at Custom Size` | Whether the new windows at custom size feature has been toggled |
 | `Toggle Obfuscate Secret` | Revealed or hid a secret |
 | `Toggle Restore Session` | Toggled session restoration ("Restore windows, tabs, panes, on startup") |
-| `Toggle Secret Redaction` | Toggled Secret Redaction - attempts to redact secrets and sensitive information |
+| `Toggle Secret Redaction` | Toggled the setting for Secret Redaction |
 | `Toggle Sync Inputs Across All Panes in All Tabs` | Enable the synchronization of the Input Editor's buffer to all the panes in all the tabs |
 | `Toggle Sync Inputs Across All Panes in Current Tab` | Enable the synchronization of the Input Editor's buffer to all the panes in the current tab |
 | `Toggle Warp AI` | Toggled Warp AI--an AI assistant to help you debug errors, look up forgotten commands and more |
@@ -240,6 +241,7 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 | `Trigger Subshell Bootstrap` | Attempted to Warpify the current session via Warp's subshell wrapper |
 | `Triggered Command XRay` | Triggered Command X-Ray (hovering over a command for explanation) |
 | `Unable to Update To New Version` | Update available but not authorized to install |
+| `Undo Close` | Re-opened a closed tab or window (undo closing a tab or window) |
 | `Unhandled Editor Modifier Key` | Used modifier keybinding keystroke which is not currently supported |
 | `Used Warp AI Prepared Prompt` | Used one of the Warp-provided prompts, like "Show examples" |
 | `User Initiated Closing Something` | Attempted to either quit the app or close a window |
