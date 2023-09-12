@@ -90,12 +90,14 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 | `Context Menu: Reinput Commands` | Clicked "reinput commands" in context menu |
 | `Copy Block Sharing Link` | Clicked "Copy Link" on Block Sharing Modal |
 | `Copy Invite Link` | Clicked "Copy Link" on Referral Modal |
-| `Copy Secret` | Copied a secret's contents |
+| `Copy Obfuscated Secret` | Copied a secret's obfuscated contents to clipboard |
+| `Create Custom Theme` | Created a custom theme using the built-in theme creator |
 | `Custom Secret Regex Added` | Added a custom regex pattern to Secret Redaction |
 | `Daily App Focus Duration (seconds)` | Cumulative duration of daily focus time on app in seconds |
 | `Database Read Error` | Database read error when trying to get app state for session restoration |
 | `Database Startup Error` | Failed to initialize sqlite upon startup |
 | `Decline Subshell Bootstrap` | Developer declined the Warp banner to Warpify the current session |
+| `Delete Custom Theme` | Deleted a custom theme using the built-in theme creator |
 | `Deleted Notebook` | Deleted a notebook |
 | `Deleted Workflow` | Workflow is deleted on the teams page |
 | `Disable Input Sync Inputs` | Disabled / turn off the Input Synchronization (across editors) |
@@ -113,6 +115,8 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 | `Finish Onboarding Survey` | Onboarding survey finished |
 | `Focused App` | App is in focus |
 | `Generate Block Sharing Link` | Generated Block sharing link |
+| `Generate Metadata For Workflow Error` | Failed to generate metadata for workflow using Warp AI |
+| `Generate Metadata For Workflow Success` | Successfully generated metadata for workflow using Warp AI |
 | `Generate Natural Language Search` | Requested AI Command Search generation |
 | `Get Invite` | Clicked "Get Invite" |
 | `Get Referral Status` | Clicked "Get Referral Status" |
@@ -139,8 +143,10 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 | `Move Active Tab` | Move active tab left or right |
 | `Move Tab` | Move tab left or right |
 | `Natural Language Search Request Failed` | Request AI Command Search generation failed |
+| `Needs Reauth` | User needs to re-authenticate |
 | `New Session From Directory` | Dragged a file, folder, etc. into Warp to start a session |
 | `Notebook Created` | Created a new notebook |
+| `Notebook Edited` | Edited a notebook |
 | `Notebook Opened` | Opened a notebook |
 | `Notification Clicked` | Clicked desktop notification sent from Warp |
 | `Notification Failed to Send` | Failed to send desktop notification |
@@ -176,6 +182,8 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 | `Pass Through Onboarding Question: engineering_experience` | Engineering experience question in onboarding survey flow |
 | `Pass Through Onboarding Question: purpose` | Purpose of using warp question in onboarding survey flow |
 | `Pass Through Onboarding Question: role` | Role question in onboarding survey flow |
+| `Prompt Edited` | Edited the prompt using the built-in prompt editor |
+| `Prompt Editor Opened` | Opened the prompt editor |
 | `Pty Spawned` | Tracks the manner by which we create a new shell process (new codepath vs. old codepath).  Used to ensure nothing breaks as we change parts of our infrastructure. |
 | `Quit Modal Cancel Pressed` | `Cancel` button on the alert modal was pressed |
 | `Quit Modal Disabled` | The quit modal dialog has been disabled and will not popup when a user closes Warp while a session is running |
@@ -203,6 +211,7 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 | `Show Subshell Banner` | Displayed the banner asking whether Warp should Warpify the current session via Warp's subshell wrapper |
 | `ShowNotificationsDiscoveryBanner` | Showed discovery banner for notifications (notify user when long running commands finish) |
 | `ShowNotificationsErrorBanner` | Showed error banner for notifications (i.e. permissions issue) |
+| `Showed File in File Explorer` | Opened a file in Finder by using "Show in Finder" |
 | `Sign Up Button Clicked in App` | Clicked "Sign Up" button |
 | `Skip Onboarding Survey` | Skipped onboarding survey as a whole |
 | `Split Pane` | Split tab into multiple panes |
@@ -215,7 +224,6 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 | `Team Left` | Member left team |
 | `Team Link Copied` | Clicked on "Copy Link" |
 | `Test Block Creation Event` | Test Block is created within the App |
-| `Toggle Secret` | Toggled Secret Redaction - attempts to redact secrets and sensitive information |
 | `Thin Strokes Setting Changed` | Changed thin strokes setting in settings -> Appearance |
 | `Toggle Approvals Modal` | Opened or closed teams modal |
 | `Toggle Dim Inactive Panes` | Whether the dim inactive panes feature has been toggled |
@@ -223,6 +231,7 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 | `Toggle New Windows at Custom Size` | Whether the new windows at custom size feature has been toggled |
 | `Toggle Obfuscate Secret` | Revealed or hid a secret |
 | `Toggle Restore Session` | Toggled session restoration ("Restore windows, tabs, panes, on startup") |
+| `Toggle Secret Redaction` | Toggled Secret Redaction - attempts to redact secrets and sensitive information |
 | `Toggle Sync Inputs Across All Panes in All Tabs` | Enable the synchronization of the Input Editor's buffer to all the panes in all the tabs |
 | `Toggle Sync Inputs Across All Panes in Current Tab` | Enable the synchronization of the Input Editor's buffer to all the panes in the current tab |
 | `Toggle Warp AI` | Toggled Warp AI--an AI assistant to help you debug errors, look up forgotten commands and more |
