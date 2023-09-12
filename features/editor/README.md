@@ -20,9 +20,9 @@ Warp supports copy on select in the Input editor or with any other selectable te
 
 ### Input Hints
 
-Warps input will occasionally show hints within the input editor in light grey text that help users learn about features that are available. For example "Type `#`  for AI command suggestions".&#x20;
+Warps input will occasionally show hints within the input editor in light grey text that help users learn about features that are available. For example "Type `#`  for AI command suggestions". It's enabled by default.
 
-* It's enabled by default but you can disable "Show Input hint text" in `Settings > Features > Editor` or search for "input hint text" in the Command Palette `CMD-P`.
+* Disable "Show Input hint text" in `Settings > Features > Editor` or search for "input hint text" in the Command Palette `CMD-P` or Right-click on the input editor.
 
 ## How to use it
 
