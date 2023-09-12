@@ -14,7 +14,15 @@ Warp supports soft wrapping in the input editor. If there is an auto suggestion 
 
 ### Copy on Select
 
-Warp supports copy on select in the Input editor or with any other selectable text in [Blocks](../blocks/). Simply enable this feature in `Settings > Features > General`. Note: This feature has a known issue working within [alt-screens](https://github.com/warpdotdev/Warp/issues/2758) like vim, less, k9s, etc.
+Warp supports copy on select in the Input editor or with any other selectable text in [Blocks](../blocks/).  Note: This feature has a known issue working within [alt-screens](https://github.com/warpdotdev/Warp/issues/2758) like vim, less, k9s, etc.
+
+* Enable this feature in `Settings > Features > General` or search for "copy on select" in the Command Palette `CMD-P`.
+
+### Input Hints
+
+Warps input will occasionally show hints within the input editor in light grey text that help users learn about features that are available. For example "Type `#`  for AI command suggestions".&#x20;
+
+* It's enabled by default but you can disable "Show Input hint text" in `Settings > Features > Editor` or search for "input hint text" in the Command Palette `CMD-P`.
 
 ## How to use it
 
