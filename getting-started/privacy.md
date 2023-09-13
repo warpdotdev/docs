@@ -232,7 +232,7 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 | `Toggle New Windows at Custom Size` | Whether the new windows at custom size feature has been toggled |
 | `Toggle Obfuscate Secret` | Revealed or hid a secret |
 | `Toggle Restore Session` | Toggled session restoration ("Restore windows, tabs, panes, on startup") |
-| `Toggle Secret Redaction` | Toggled the setting for Secret Redaction |
+| `Toggle Secret Redaction` | Toggled the setting for Secret Redaction - attempts to redact secrets and sensitive information |
 | `Toggle Sync Inputs Across All Panes in All Tabs` | Enable the synchronization of the Input Editor's buffer to all the panes in all the tabs |
 | `Toggle Sync Inputs Across All Panes in Current Tab` | Enable the synchronization of the Input Editor's buffer to all the panes in the current tab |
 | `Toggle Warp AI` | Toggled Warp AI--an AI assistant to help you debug errors, look up forgotten commands and more |
