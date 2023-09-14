@@ -1,5 +1,5 @@
 ---
-description: Share a block easily with coworkers or teammates.
+description: Share a block with your team or community.
 ---
 
 # Block Sharing
@@ -8,18 +8,45 @@ description: Share a block easily with coworkers or teammates.
 This action sends command information to our server and is explicitly opt-in. Read more about privacy at Warp on [our privacy page](https://www.warp.dev/privacy).
 {% endhint %}
 
-## Permalink
+Share your Blocks via permalink or HTML embedding. You can interact with share blocks by opening the context menu and copying the command, output, or prompt.
 
-Create and share a permalink to your Blocks to collaborate with teammates. Warp also preserves your Block’s output to improve the debugging process.
+## How to Create Shared Blocks
 
-* Currently, shared Blocks are viewable to anyone with the link, but in the future, you will be able to restrict viewing permissions to specific people or email domains.
-* Unshare a Block by navigating to `Settings -> Shared Blocks`
+To share your blocks, follow these steps:
 
-Here is the [web permalink](https://app.warp.dev/block/vzFATak939iqGWfNh7wsAP) of the Block shared in the demo above.
+1. On a finished block, click the context menu and select `Share...` or select the Block and hit `CMD-SHIFT-S`.
+
+2. A modal will pop up that lets you title your block and customize it by selecting which parts of the block you want to share.
+
+3. Click either "Create link" or "Get embed" depending on how you want to share your block.
+
+4. The link or embed snippet will be copied to your clipboard.
 
 _Note:_ If you experience any issues with block sharing, please see our known issues for [troubleshooting steps](../../help/known-issues.md#online-features-ai-command-block-sharing-referrals-etc.).
 
-![Web Permalink of Shared Block](<../../.gitbook/assets/Screen Shot 2022-07-18 at 3.38.35 PM.png>)
+## Permalink
+
+Create and share a permalink to your blocks to collaborate with teammates. Here is the [web permalink](https://app.warp.dev/block/vzFATak939iqGWfNh7wsAP) of the block depicted below.
+
+![Shared Block](../../.gitbook/assets/shared_block.png)
+
+## Embedded Blocks
+
+Create and embed your blocks on web pages to help your readers follow along technical writing. Readers can interact with an embedded block just as they would with a block in Warp, with a context menu and styling. When you click "Get embed", Warp will copy an `iframe` to your clipboard. Here's an example `iframe`:
+
+```
+<iframe src="https://app.warp.dev/block/embed/qn0g1CqQnkYjEafPH5HCVT"
+title="server script error" style="width: 712px; height: 397px; border:0;
+overflow:hidden;" allow="clipboard-read; clipboard-write"></iframe>
+```
+
+#### Embedded Block Example on Web Page
+
+![Embedded Block Example](../../.gitbook/assets/embed.png)
+
+## Managing Shared Blocks
+
+You can unshare a block by navigating to `Settings > Shared Blocks`. Currently, shared blocks are accessible to anyone with the link.
 
 ## Link Previews
 
