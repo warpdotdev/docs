@@ -10,31 +10,30 @@ This action sends command information to our server and is explicitly opt-in. Re
 
 Share your Blocks via permalink or HTML embedding. You can interact with share blocks by opening the context menu and copying the command, output, or prompt.
 
-## How to Create Shared Blocks
+## How to Share Blocks
 
 To share your blocks, follow these steps:
 
 1. On a finished block, click the context menu and select `Share...` or select the Block and hit `CMD-SHIFT-S`.
-
 2. A modal will pop up that lets you title your block and customize it by selecting which parts of the block you want to share.
-
 3. Click either "Create link" or "Get embed" depending on how you want to share your block.
-
 4. The link or embed snippet will be copied to your clipboard.
 
 _Note:_ If you experience any issues with block sharing, please see our known issues for [troubleshooting steps](../../help/known-issues.md#online-features-ai-command-block-sharing-referrals-etc.).
+
+<figure><img src="../../.gitbook/assets/block-sharing-embed.gif" alt=""><figcaption><p>Block Sharing &#x26; Embed Demo</p></figcaption></figure>
 
 ## Permalink
 
 Create and share a permalink to your blocks to collaborate with teammates. Here is the [web permalink](https://app.warp.dev/block/vzFATak939iqGWfNh7wsAP) of the block depicted below.
 
-![Shared Block](../../.gitbook/assets/shared_block.png)
+![Shared Block](../../.gitbook/assets/shared\_block.png)
 
 ## Embedded Blocks
 
-Create and embed your blocks on web pages to help your readers follow along technical writing. Readers can interact with an embedded block just as they would with a block in Warp, with a context menu and styling. When you click "Get embed", Warp will copy an `iframe` to your clipboard. Here's an example `iframe`:
+Create and embed your blocks on web pages to help your readers follow along with technical writing. Readers can interact with an embedded block just as they would with a block in Warp, with a context menu and styling. When you click "Get embed", Warp will copy an `iframe` to your clipboard. Here's an example `iframe`:
 
-```
+```html
 <iframe src="https://app.warp.dev/block/embed/qn0g1CqQnkYjEafPH5HCVT"
 title="server script error" style="width: 712px; height: 397px; border:0;
 overflow:hidden;" allow="clipboard-read; clipboard-write"></iframe>
