@@ -14,7 +14,7 @@ Git branch that you are on locally, as well as the number of uncommitted changed
 
 ### Custom Prompt
 
-You can also setup custom prompt by configuring the **PS1** variable or installing a supported shell prompt plugin, see [Custom Prompt Compatibility Table](prompt.md#custom-prompt-compatibility-table). _Note:_ The PS1 is a variable used by the shell to generate the prompt, it represents the primary prompt string (hence the “PS”) - which is what the terminal typically displays before typing new commands.
+You can also set up a custom prompt by configuring the **PS1** variable or installing a supported shell prompt plugin, see [Custom Prompt Compatibility Table](prompt.md#custom-prompt-compatibility-table). _Note:_ The PS1 is a variable used by the shell to generate the prompt, it represents the primary prompt string (hence the “PS”) - which is what the terminal typically displays before typing new commands.
 
 #### Multi-Line and Right-Sided Prompts
 
@@ -25,7 +25,6 @@ Warps custom prompt supports multi-line or right-sided prompts in zsh and fish, 
 ## How to access it
 
 * Toggle the custom prompt by right-clicking on the prompt area above the input and selecting "Edit prompt" or select "Prompt" from the `Settings > Appearance` page. There you will be able to select and customize the default prompt or select the Custom prompt (PS1).
-* Toggle the default prompt git branch change indicator by right-clicking on the default prompt and selecting "Hide/Show changed file count"
 * When right-clicking the prompt, you can also copy the entire prompt, working directory, current git branch, etc.
 
 ## How it works
@@ -48,10 +47,6 @@ Warps custom prompt supports multi-line or right-sided prompts in zsh and fish, 
 | Bash/zsh | [Powerline-shell](https://github.com/b-ryan/powerline-shell)      | Not supported                                                   |
 | fish     | [tide](https://github.com/IlanCosman/tide)                        | [Not supported](https://github.com/warpdotdev/Warp/issues/3358) |
 | SSH      |                                                                   | Working                                                         |
-
-{% embed url="https://www.youtube.com/watch?t=18s&v=dIV9Cso4Mi8" %}
-Installing Powerlevel10k Demo
-{% endembed %}
 
 ## Known incompatibilities
 
@@ -86,6 +81,10 @@ Starship prompt may not render properly if your [default shell](../getting-start
 ### Powerlevel10k
 
 Warp does support [p10k](https://github.com/romkatv/powerlevel10k#installation) version 1.19.0 and above. Just make sure you have the latest version installed as well as restart Warp after the installation/update of p10k. Then enable custom prompt as stated above and it should work! Note: Warp still doesn't fully support some p10k features like transient prompt and visual features like gradients.
+
+{% embed url="https://www.youtube.com/watch?t=18s&v=dIV9Cso4Mi8" %}
+Installing Powerlevel10k
+{% endembed %}
 
 ### Spaceship
 
