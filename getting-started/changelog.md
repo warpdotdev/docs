@@ -2,6 +2,27 @@
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2023.09.21 (v0.2023.09.19.08.04)
+
+**New features**
+
+* You can now edit keybindings to scroll up and down by one line
+
+**Improvements**
+
+* The input editor remains visible in inactive panes when using split panes
+
+**Bug fixes**
+
+* Resolved a regression where the filled bookmark icon didn’t display on bookmarked blocks unless hovered on
+* Fixed the `TAB` key not cycling through fields in the Workflow editor under certain circumstances
+* Restored functionality of the keybinding for “New Tab” to work even when no windows are open.
+
+**New features**
+
+* New block sharing experience, by permalink or embedded HTML. Right-click on a block and select 'Share...' (`CMD + SHIFT + S`) to create a permalink or get embed code for your website
+* Warp can now open .command and Unix Executable files
+
 ### 2023.09.14 (v0.2023.09.12.16.17)
 
 **New features**
