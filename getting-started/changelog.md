@@ -16,7 +16,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 
 * Resolved a regression where the filled bookmark icon didn’t display on bookmarked blocks unless hovered on
 * Fixed the `TAB` key not cycling through fields in the Workflow editor under certain circumstances
-* Restored functionality of the keybinding for “New Tab” to work even when no windows are open.
+* Restored functionality of the keybinding for “New Tab” to work even when no windows are open
 
 ### 2023.09.14 (v0.2023.09.12.16.17)
 
