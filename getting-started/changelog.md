@@ -18,11 +18,6 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 * Fixed the `TAB` key not cycling through fields in the Workflow editor under certain circumstances
 * Restored functionality of the keybinding for “New Tab” to work even when no windows are open.
 
-**New features**
-
-* New block sharing experience, by permalink or embedded HTML. Right-click on a block and select 'Share...' (`CMD + SHIFT + S`) to create a permalink or get embed code for your website
-* Warp can now open .command and Unix Executable files
-
 ### 2023.09.14 (v0.2023.09.12.16.17)
 
 **New features**
