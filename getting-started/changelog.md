@@ -1,6 +1,21 @@
 # Changelog
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
+### 2023.09.28 (v0.2023.09.26.08.09)
+
+**New features**
+
+* If you have Cursor installed, you can now set this as your default code editor under Settings > Features > General
+
+**Improvements**
+
+* "Enhanced user accessibility by adding a tab bar button as a new entry point for the command palette
+* Improved user guidance by displaying a warning when attempting to run a workflow while another command is already in progress
+
+**Bug fixes**
+
+* Enhanced user accessibility by adding a tab bar button as a new entry point for the command palette
+* Improved user guidance by displaying a warning when attempting to run a workflow while another command is already in progress
 
 ### 2023.09.21 (v0.2023.09.19.08.04)
 
