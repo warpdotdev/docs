@@ -9,13 +9,13 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 
 **Improvements**
 
-* "Enhanced user accessibility by adding a tab bar button as a new entry point for the command palette
+* Enhanced user accessibility by adding a tab bar button as a new entry point for the command palette
 * Improved user guidance by displaying a warning when attempting to run a workflow while another command is already in progress
 
 **Bug fixes**
 
-* Enhanced user accessibility by adding a tab bar button as a new entry point for the command palette
-* Improved user guidance by displaying a warning when attempting to run a workflow while another command is already in progress
+* Resolved an issue where autosuggestions were not being inserted when bound to certain keybindings
+* Fixed a bug affecting Input Method Editor functionality on non-English keyboards, which caused incorrect positioning and prevented text input after opening a new window
 
 ### 2023.09.21 (v0.2023.09.19.08.04)
 
