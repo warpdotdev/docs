@@ -4,8 +4,6 @@
 
 Secret Redaction attempts to automatically redact secrets and sensitive information in your terminal output, including passwords, IP addresses, API keys, and PII.
 
-Secret redaction is part of Warp's Team plan and is available in free preview until October 2023. [Learn more about pricing.](https://www.warp.dev/pricing)
-
 ## How to access it
 
 To enable Secret Redaction, Open `Settings > Privacy > Secret Redaction` or type in `Enable Secret Redaction` in the command palette (it is disabled by default).
