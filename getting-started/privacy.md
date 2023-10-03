@@ -237,6 +237,7 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 | `Toggle Sync Inputs Across All Panes in Current Tab` | Enable the synchronization of the Input Editor's buffer to all the panes in the current tab |
 | `Toggle Warp AI` | Toggled Warp AI--an AI assistant to help you debug errors, look up forgotten commands and more |
 | `Toggled Bookmark Block` | Bookmarked or unbookmarked Block |
+| `Toggle Vim Mode` | Toggled Vim keybindings |
 | `Tried to Execute Before Precmd` | Attempted to execute command before precmd, a shell stage that has metadata on a command such as ssh, prompt info, etc. |
 | `Trigger Subshell Bootstrap` | Attempted to Warpify the current session via Warp's subshell wrapper |
 | `Triggered Command XRay` | Triggered Command X-Ray (hovering over a command for explanation) |
