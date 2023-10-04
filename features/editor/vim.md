@@ -4,7 +4,7 @@ description: Use Vim keybindings to edit commands in Warp's input editor.
 
 # Vim Keybindings (Beta)
 
-## Vim keybindings (Beta)
+## About Vim keybindings
 
 The Vi family of programs (including Vim and Neovim) are modal text editors that allow for keyboard-driven text editing. Several shells, including `bash` and `zsh`, implement vi-style keybindings. Warp's input editor was built natively to support more modern text editing experiences, which means it replaces the shell's editor capabilities. Warp has its own implementation of Vim keybindings you can use.
 
@@ -107,7 +107,7 @@ See [Vim docs: insert](https://vimdoc.sourceforge.net/htmldoc/insert.html#insert
 | ---------- | --------------- |
 | `"`        | register prefix |
 
-We currently support the following registers:
+Warp currently supports the following registers:
 
 | Register name    | Description                                                      |
 | ---------------- | ---------------------------------------------------------------- |
