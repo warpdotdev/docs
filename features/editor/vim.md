@@ -2,140 +2,122 @@
 description: Use Vim keybindings to edit commands in Warp's input editor.
 ---
 
-# Vim keybindings (Beta)
+# Vim Keybindings (Beta)
 
-The Vi family of programs (including Vim and Neovim) are modal text editors
-that allow for keyboard-driven text editing.
-Several shells, including `bash` and `zsh`, implement vi-style keybindings.
-Warp's input editor was built natively to support more modern text editing experiences, 
-which means it replaces the shell's editor capabilities, 
-so we implemented Vim keybindings ourselves.
+## Vim keybindings (Beta)
+
+The Vi family of programs (including Vim and Neovim) are modal text editors that allow for keyboard-driven text editing. Several shells, including `bash` and `zsh`, implement vi-style keybindings. Warp's input editor was built natively to support more modern text editing experiences, which means it replaces the shell's editor capabilities. Warp has its own implementation of Vim keybindings you can use.
 
 > Please note: this feature is in Beta.
 
-## How to enable Vim Keybindings
+### How to enable Vim Keybindings
 
-To enable Vim keybindings in Warp's input editor,
-open the Command Palette with `CMD-P` and type `Vim Keybindings`.
-This setting is also available in the Settings modal,
-under `Features` → `Editor` → `Edit commands with Vim keybindings`.
+To enable Vim keybindings in Warp's input editor, open the Command Palette with `CMD-P` and type `Vim Keybindings`. This setting is also available in the Settings modal, under `Features` → `Editor` → `Edit commands with Vim keybindings`.
 
 Just as in `bash` and `zsh`'s vi mode implementations, the editor starts in insert mode.
 
-## Customizing Keybindings
+### Customizing Keybindings
 
-At the moment, we only support default Vim keybindings.
+At the moment, Warp only supports default Vim keybindings.
 
-One exception is the keyboard shortcut for exiting insert mode, which can be rebound
-through the Settings page, under `Keyboard Shortcuts` → `Exit Vim Insert Mode`,
-or through the Command Palette with `CMD-P` and searching for `Exit Vim Insert Mode`.
+One exception is the keyboard shortcut for exiting insert mode, which can be rebound through the Settings page, under `Keyboard Shortcuts` → `Exit Vim Insert Mode`, or through the Command Palette with `CMD-P` and searching for `Exit Vim Insert Mode`.
 
-# Supported Keybindings
+## Supported Keybindings
 
-Below is a list of the vim functionality we've implemented in Warp so far.
+Below is a list of the vim functionality implemented in Warp so far.
 
-## Movement
+### Movement
 
-See [Vim docs: motion](https://vimdoc.sourceforge.net/htmldoc/motion.html)
-for more information.
+See [Vim docs: motion](https://vimdoc.sourceforge.net/htmldoc/motion.html) for more information.
 
-### Basic
+#### Basic
 
-| Command(s) | Description |
-| --- | --- |
-| `h`, `j`, `k`, `l` | single-char movement |
-| `w`, `W`, `b`, `B`, `e`, `E` | word movement |
-| `ge`, `gE` | end of previous word |
-| `$` | end of line |
-| `0` | beginning of line |
-| `^` | first non-whitespace character of line |
-| `%` | jump to matching bracket |
-| `[`, `]` | prev/next unmatched bracket |
+| Command(s)                   | Description                            |
+| ---------------------------- | -------------------------------------- |
+| `h`, `j`, `k`, `l`           | single-char movement                   |
+| `w`, `W`, `b`, `B`, `e`, `E` | word movement                          |
+| `ge`, `gE`                   | end of previous word                   |
+| `$`                          | end of line                            |
+| `0`                          | beginning of line                      |
+| `^`                          | first non-whitespace character of line |
+| `%`                          | jump to matching bracket               |
+| `[`, `]`                     | prev/next unmatched bracket            |
 
-### Multi-line-related
+#### Multi-line-related
 
-| Command(s) | Description |
-| --- | --- |
-| `gg`, `G `| jump to first/last line |
+| Command(s) | Description             |
+| ---------- | ----------------------- |
+| `gg`, `G`  | jump to first/last line |
 
-## Editing
+### Editing
 
-| Command(s) | Description |
-| --- | --- |
-| `r` | replace character under cursor |
-| `d`, `D` | delete a range or object |
-| `c`, `C` | change a range or object (delete, then go to insert mode) |
-| `s`, `S` | substitute (like change, but can only delete at the cursor) |
-| `x`, `X` | delete under cursor |
-| `y`, `Y` | yank (copy) into the clipboard |
-| `p`, `P` | paste from the clipboard |
-| `u`, `⌃r` | undo, redo |
-| `~` | toggle upper/lowercase under cursor |
-| `.` | repeat last edit |
+| Command(s) | Description                                                 |
+| ---------- | ----------------------------------------------------------- |
+| `r`        | replace character under cursor                              |
+| `d`, `D`   | delete a range or object                                    |
+| `c`, `C`   | change a range or object (delete, then go to insert mode)   |
+| `s`, `S`   | substitute (like change, but can only delete at the cursor) |
+| `x`, `X`   | delete under cursor                                         |
+| `y`, `Y`   | yank (copy) into the clipboard                              |
+| `p`, `P`   | paste from the clipboard                                    |
+| `u`, `⌃r`  | undo, redo                                                  |
+| `~`        | toggle upper/lowercase under cursor                         |
+| `.`        | repeat last edit                                            |
 
-See [Vim docs: editing](https://vimdoc.sourceforge.net/htmldoc/editing.html)
-for more information.
+See [Vim docs: editing](https://vimdoc.sourceforge.net/htmldoc/editing.html) for more information.
 
-## Search
+### Search
 
-### Character Search
+#### Character Search
 
-| Command(s) | Description |
-| --- | --- |
-| `t`, `T`, `f`, `F` | find next/prev matching character on line |
-| `;` | repeat last character search in the same direction |
-| `,` | repeat last character search in the opposite direction |
+| Command(s)         | Description                                            |
+| ------------------ | ------------------------------------------------------ |
+| `t`, `T`, `f`, `F` | find next/prev matching character on line              |
+| `;`                | repeat last character search in the same direction     |
+| `,`                | repeat last character search in the opposite direction |
 
-See [Vim docs: left-right motions](https://vimdoc.sourceforge.net/htmldoc/motion.html#f)
-for more information.
+See [Vim docs: left-right motions](https://vimdoc.sourceforge.net/htmldoc/motion.html#f) for more information.
 
-### General Search
+#### General Search
 
-Unlike Vim, general search commands don't search within the buffer.
-Instead, they open Warp's native command search.
+Unlike Vim, general search commands don't search within the buffer. Instead, they open Warp's native command search.
 
-| Command(s) | Description |
-| --- | --- |
+| Command(s)         | Description              |
+| ------------------ | ------------------------ |
 | `/`, `?`, `*`, `#` | open Warp command search |
 
-## Mode Switching
+### Mode Switching
 
-| Command(s) | Description |
-| --- | --- |
-| `i` | insert text before the cursor |
-| `I` | insert text before the first non-whitespace character in the line |
-| `a` | append text after the cursor |
-| `A` | append text at the end of the line |
-| `o` | begin new line below the cursor and insert text |
-| `O` | begin new line above the cursor and insert text |
-| `v` | visual character mode |
-| `V` | visual line mode |
+| Command(s) | Description                                                       |
+| ---------- | ----------------------------------------------------------------- |
+| `i`        | insert text before the cursor                                     |
+| `I`        | insert text before the first non-whitespace character in the line |
+| `a`        | append text after the cursor                                      |
+| `A`        | append text at the end of the line                                |
+| `o`        | begin new line below the cursor and insert text                   |
+| `O`        | begin new line above the cursor and insert text                   |
+| `v`        | visual character mode                                             |
+| `V`        | visual line mode                                                  |
 
-See [Vim docs: insert](https://vimdoc.sourceforge.net/htmldoc/insert.html#insert)
-and [Vim docs: visual mode](https://vimdoc.sourceforge.net/htmldoc/visual.html#visual-mode)
-for more information.
+See [Vim docs: insert](https://vimdoc.sourceforge.net/htmldoc/insert.html#insert) and [Vim docs: visual mode](https://vimdoc.sourceforge.net/htmldoc/visual.html#visual-mode) for more information.
 
-## Registers
+### Registers
 
-| Command(s) | Description |
-| --- | --- |
-| `"` | register prefix |
+| Command(s) | Description     |
+| ---------- | --------------- |
+| `"`        | register prefix |
 
 We currently support the following registers:
-| Register name | Description |
-| --- | --- |
-| `a`–`z`, `A`–`Z` | named registers |
-| `+` | system clipboard |
-| `*` | system clipboard |
-| `"` | unnamed register, containing the text of the last delete or yank |
 
-See [Vim docs: registers](https://vimdoc.sourceforge.net/htmldoc/change.html#registers)
-for more information.
+| Register name    | Description                                                      |
+| ---------------- | ---------------------------------------------------------------- |
+| `a`–`z`, `A`–`Z` | named registers                                                  |
+| `+`              | system clipboard                                                 |
+| `*`              | system clipboard                                                 |
+| `"`              | unnamed register, containing the text of the last delete or yank |
 
+See [Vim docs: registers](https://vimdoc.sourceforge.net/htmldoc/change.html#registers) for more information.
 
-# Feedback
+## Feedback
 
-This feature is still in Beta. We'd love to hear your feedback!
-The best way to report bugs and request features is through our
-[GitHub Issues](https://github.com/warpdotdev/Warp/issues) page.
-Please upvote (:thumbsup:) existing issues to help us prioritize them.
+This feature is still in Beta. We'd love to hear your feedback! The best way to report bugs and request features is through Warp's [GitHub Issues](https://github.com/warpdotdev/Warp/issues) page. Please upvote (:thumbsup:) existing issues to help the team prioritize them.
