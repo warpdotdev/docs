@@ -26,6 +26,7 @@ Keybinds that conflict with others are highlighted with an orange border.
 | `CTRL-R`       | Command Search               | `workspace:show_command_search`                |
 | `CTRL-SHIFT-R` | Workflows                    | `input:toggle_workflows`                       |
 | `` CTRL-` ``   | AI Command Suggestions       | `input:toggle_natural_language_command_search` |
+| `CMD-L`        | Focus Terminal Input         | `terminal:focus_input`                         |
 
 ### Blocks
 
@@ -39,7 +40,6 @@ Keybinds that conflict with others are highlighted with an orange border.
 | `CMD-B`           | Bookmark Selected Block           | `terminal:bookmark_selected_block`                     |
 | `CMD-DOWN`        | Select Next Block                 | `terminal:select_next_block`                           |
 | `CMD-I`           | Reinput Selected Commands         | `terminal:reinput_commands`                            |
-| `CMD-L`           | Focus Terminal Input              | `terminal:focus_input`                                 |
 | `CMD-UP`          | Select Previous Block             | `terminal:select_previous_block`                       |
 | `CTRL-M`          | Open Block Context Menu           | `terminal:open_block_list_context_menu_via_keybinding` |
 | `SHIFT-CMD-C`     | Copy Command                      | `terminal:copy_commands`                               |
