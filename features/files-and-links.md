@@ -18,6 +18,8 @@ Warp can open `.command` and Unix Executable files from the finder directly.
 2. Clicking a link normally will open a clickable tooltip that says “Open File/Folder/Link”.
 3. Right-clicking a link will open a context menu that supports copying the absolute file path or url to the clipboard.
 
+* You can also Drag and drop a folder or file onto the Warp dock icon to open a new tab in this directory.
+
 Note: Configure the default editor to open files by navigating to `Settings > Features > Choose an editor to open file links`.
 
 ### Scripts
