@@ -2,6 +2,19 @@
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2023.10.12 (v0.2023.10.10.08.06)
+
+**Improvements**
+
+* Warp can now support MacOS's proxy settings
+* You can now toggle whether to render Warp using the integrated GPU for dual GPU Macs in `Settings > Features > Performance > Prefer rendering new windows with integrated GPU(low power)`
+* Warp now escapes the file path of an executable loaded from Finder
+
+**Bug fixes**
+
+* Fixed a crash on startup for some users on MacOS Sonoma
+* The workflow info box now refreshes when edited
+
 ### 2023.10.05 (v0.2023.10.03.08.03)
 
 **New features**
