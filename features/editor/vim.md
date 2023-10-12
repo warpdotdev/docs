@@ -66,6 +66,18 @@ See [Vim docs: motion](https://vimdoc.sourceforge.net/htmldoc/motion.html) for m
 
 See [Vim docs: editing](https://vimdoc.sourceforge.net/htmldoc/editing.html) for more information.
 
+#### Text Objects
+
+| Command(s)     | Description                                |
+| -------------- | ------------------------------------------ |
+| `i`            | inner (exclude delimiters in text object)  |
+| `a`            | around (include delimiters in text object) |
+| `w`, `W`       | whitespace-delimited string (word)         |
+| `"`, `'`, `\`` | quote-delimited string                     |
+| `(`, `{`, `[`  | parenthesized/bracketed string             |
+
+See [Vim docs: text objects](https://vimdoc.sourceforge.net/htmldoc/motion.html#text-objects) for more information.
+
 ### Search
 
 #### Character Search
