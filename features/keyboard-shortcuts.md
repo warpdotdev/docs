@@ -81,6 +81,8 @@ Keybinds that conflict with others are highlighted with an orange border.
 | `CTRL-SHIFT-B`    | Select One Character to the Left          | `editor_view:select_left`                  |
 | `CTRL-SHIFT-DOWN` | Add Cursor Below                          | `editor_view:add_cursor_below`             |
 | `CTRL-SHIFT-E`    | Select to End of Line                     | `editor:select_to_line_end`                |
+| `CMD-Z`           | Undo                                      | `editor:undo`                              |
+| `CMD-SHIFT-Z`     | Redo                                      | `editor:redo`                              |
 | `CTRL-SHIFT-F`    | Select One Character to the Right         | `editor:select_right`                      |
 | `CTRL-SHIFT-N`    | Select Down                               | `editor_view:select_down`                  |
 | `CTRL-SHIFT-P`    | Select Up                                 | `editor_view:select_up`                    |
