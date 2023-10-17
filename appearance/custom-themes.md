@@ -44,7 +44,7 @@ mkdir -p ~/.warp/themes/
 _Note:_ It may take several minutes for Warp to initially discover the new config directory. You can either wait or just restart the application. After that step, all future changes to `~/.warp/themes` directory will be reflected in Warp within seconds.
 {% endhint %}
 
-2\. Add your new custom theme yaml theme file to this directory:
+2. Add your new custom theme yaml theme file to this directory:
 
 ```
 cp ~/Downloads/my_awesome_theme.yaml ~/.warp/themes/
@@ -52,7 +52,7 @@ cp ~/Downloads/my_awesome_theme.yaml ~/.warp/themes/
 
 Your new theme should now be visible on the list of available themes.
 
-## Create your own custom theme (manually)
+## Create your own custom theme, manually
 
 Warp supports creating custom themes using .yaml files.
 
@@ -98,9 +98,9 @@ Each color is represented in hex and must start with `#`.
 
 ## Create your own custom theme, automatically
 
-Automatically create new themes based on a background image! Click the `+` button in the theme picker (`Settings -> Appearance -> Current Theme`) or search `Open Theme Picker` within the Command Palette
+Automatically create new themes based on a background image. Click the `+` button in the theme picker (`Settings -> Appearance -> Current Theme`) or search `Open Theme Picker` within the Command Palette
 
-## Create your own custom theme (with a tool)
+## Create your own custom theme, with a tool
 
 There are several tools out on the internet that help you create a terminal theme and generate the appropriate RGB values to enter into your YAML file. [https://terminal.sexy/](https://terminal.sexy/?) is a good tool for generating RGB values.
 
