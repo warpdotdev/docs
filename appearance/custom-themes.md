@@ -96,6 +96,10 @@ Each color is represented in hex and must start with `#`.
 * `lighter`: Color used for light-mode theme
 * `terminal_theme`: Collection of normal & bright colors (16 total) known for other terminal themes (ansi colors)
 
+## Create your own custom theme, automatically
+
+Automatically create new themes based on a background image! Click the `+` button in the theme picker (`Settings -> Appearance -> Current Theme`) or search `Open Theme Picker` within the Command Palette
+
 ## Create your own custom theme (with a tool)
 
 There are several tools out on the internet that help you create a terminal theme and generate the appropriate RGB values to enter into your YAML file. [https://terminal.sexy/](https://terminal.sexy/?) is a good tool for generating RGB values.
