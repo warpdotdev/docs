@@ -15,7 +15,7 @@ You can create a new workflow from various entry points in Warp:
 * From Warp Drive, + > New workflow
 * Using Block Actions, Save as Workflow
 * From Warp AI results, Save as Workflow
-* From the Command Palette, Create a New Personal Workflow
+* From the Command Palette `CMD-P`, Create a New Personal Workflow
 * With a Keyboard Shortcut, `SHIFT + CMD + H`
 
 Any of these entry points will open the workflow editor where you can:
