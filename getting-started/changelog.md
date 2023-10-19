@@ -2,6 +2,15 @@
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2023.10.19 (v0.2023.10.17.08.03)
+
+**Improvements**
+        
+* Indicators appear in the tab bar when the current pane is maximized (a full-screen icon) and when a command exits with an error"
+* The Git context chip in Warp\u2019s prompt now shows the commit hash instead of \u201cHEAD\u201d when in a detached state"
+* Easier to add and remove allowlisted domains when inviting teammates to Warp Drive"
+* Added a menu option for copying a workflow command (into the clipboard)"
+
 ### 2023.10.12 (v0.2023.10.10.08.06)
 
 **Improvements**
