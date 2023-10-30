@@ -64,4 +64,4 @@ Why do we ask these? Understanding how you use the terminal helps us improve the
 
 ### Customizing Warp
 
-Warp has many [Appearance settings](broken-reference) you can configure, including themes, fonts, opacity, and input position. Navigate to Settings > Appearance to customize your setup.
+Warp has many [Appearance](../appearance/themes.md) settings you can configure, including themes, fonts, opacity, and input position. Navigate to Settings > Appearance to customize your setup.
