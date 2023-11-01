@@ -18,7 +18,7 @@ Press `SHIFT-CMD-C` while in VSCode to open a new session in Warp.
 
 To configure this, use the Apple Menu. Click on `Code` -> `Settings` -> `Settings`. Type in "terminal" and change _Terminal > External: Osx Exec_ to `Warp.app`.
 
-![VSCode External Terminal Configuration](../.gitbook/assets/vscode\_external\_terminal\_config.gif)
+![VSCode External Terminal Configuration](../.gitbook/assets/vscode-integration-settings.gif)
 
 ## JetBrains IDEs
 
