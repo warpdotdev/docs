@@ -21,6 +21,7 @@ Warp can open `.command` and Unix Executable files from the finder directly.
 Note: Configure the default editor to open files by navigating to `Settings > Features > Choose an editor to open file links`.
 
 * You can also Drag and drop a folder or file onto the Warp dock icon to open a new tab in this directory.
+* You can also right-click on a folder or file in Finder, then select Services, and "Open new Warp Tab | Window here".
 
 ### Scripts
 
