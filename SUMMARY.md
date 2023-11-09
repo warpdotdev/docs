@@ -31,6 +31,7 @@
   * [Block Basics](features/blocks/block-basics.md)
   * [Block Actions](features/blocks/block-actions.md)
   * [Block Sharing](features/blocks/block-sharing.md)
+  * [Block Filtering](features/blocks/block-filtering.md)
   * [Background Blocks](features/blocks/background-blocks.md)
   * [Sticky Command Header](features/blocks/sticky-command-header.md)
 * [Modern Text Editing](features/editor/README.md)

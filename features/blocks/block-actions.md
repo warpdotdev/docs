@@ -58,3 +58,7 @@ Press "Find Within Block" or use `CMD-F` to search for keywords within a Block.
 {% embed url="https://www.loom.com/share/7dda0e7a6ec144cfb6410d29a586ddd0?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
 Search within a Block
 {% endembed %}
+
+## Filtering a Block
+
+Filter the output lines of a block natively in Warp to quickly focus on a subset of the block. [See Block Filtering Page](block-filtering.md)
