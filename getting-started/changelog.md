@@ -2,6 +2,18 @@
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2023.11.09 (v0.2023.11.07.08.02)
+
+**New features**
+
+* New Markdown Viewer: You can now open .md files in Warp and run the shell commands within these files
+* Block Filtering: You can now filter block output (`SHIFT-OPT-F`) to quickly find matching lines based on a query
+
+**Improvements**
+
+* Removed the workflow button from the toolbelt section (top-right buttons) of a block. It is still accessible through the right-click menu (see "Save as Workflow") and its default keybinding `CMD-S`
+* Improved performance of Warp Drive team and state syncing
+
 ### 2023.10.19 (v0.2023.10.17.08.03)
 
 **Improvements**
