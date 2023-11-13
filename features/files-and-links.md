@@ -6,6 +6,8 @@
 
 Warp supports opening files, folders, and URL links that are within Blocks. Multiple URL protocols are supported e.g. `https`, `ftp`, `file`, etc. Warp opens web links directly in your default browser.
 
+Warp can also open Markdown files directly. Learn more about [viewing Markdown files](./markdown-viewer.md).
+
 ### Scripts
 
 Warp can open `.command` and Unix Executable files from the finder directly.

@@ -60,6 +60,7 @@
 * [Accessibility](features/accessibility.md)
 * [Find](features/find.md)
 * [Files, Links, & Scripts](features/files-and-links.md)
+* [Markdown Viewer](features/markdown-viewer.md)
 * [Working Directory](features/working-directory.md)
 * [Smart-Select](features/smart-select.md)
 * [Full-screen Apps](features/full-screen-apps.md)
