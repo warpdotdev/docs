@@ -32,7 +32,9 @@ From Finder, you can open a Markdown file in Warp from the “Open With” menu 
 
 Warp can run shell commands from Markdown code blocks in your active terminal session. Click the run icon (`>_`) to insert a command into the terminal input.
 
-> Formatting note: The shell command must be in a code block with three backticks (\`\`\`) and not inline code in order for Warp to treat the code like a runnable command.
+{% hint style="info" %}
+The shell command must be in a code block with three backticks (\`\`\`) and not inline code in order for Warp to treat the code like a runnable command.
+{% endhint %}
 
 Markdown shell blocks also support keyboard navigation. There are two ways to enter the keyboard navigation mode:
 
@@ -41,7 +43,7 @@ Markdown shell blocks also support keyboard navigation. There are two ways to en
 
 Once a shell block is selected, press `CMD_ENTER` to insert it into the terminal input. You can also use `UP`, `DOWN`, `CMD-UP`, and `CMD-DOWN` to navigate between shell blocks. While the Markdown file is focused, press `CMD-L` to switch focus back to the terminal without inserting a command.
 
-If the command contains any arguments using the curly-brace `{{param}}` syntax, they will be treated as workflow arguments. Learn more about [workflows](warp-drive/workflows.md).
+If the command contains any arguments using the curly brace `{{param}}` syntax, they will be treated as workflow arguments. Learn more about [workflows](warp-drive/workflows.md).
 
 <figure><img src="../.gitbook/assets/run-markdown-file-command.gif" alt="Demo of running two commands from a Markdown file in Warp"><figcaption><p>Navigating between and running commands in a Markdown file</p></figcaption></figure>
 
