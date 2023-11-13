@@ -14,9 +14,23 @@ To apply a filter to a block:
 2. Type in the input to filter the block. Only lines containing text that matches the filter query will be shown.
 3. (Optional) Click on either the regex or case sensitivity buttons to enable.
 
+<figure>
+    <img src="../../.gitbook/assets/block_filtering.gif">
+    <figcaption>
+        <p>Filter a block's output.</p>
+    </figcaption>
+</figure>
+
 You can also toggle a filter on/off by:
 
 1. Using the keybinding (`OPT-SHIFT-F` by default) to toggle filtering on the selected or latest block
 2. Selecting `Toggle Block Filter` in the block context menu
 
 Toggling a filter on a block without a filter applied will open the filter editor. If you toggle a filter off, the same filter will be applied if you toggle filtering on again.
+
+<figure>
+    <img src="../../.gitbook/assets/block_filtering_toggle.gif">
+    <figcaption>
+        <p>Toggle a block filter on/off.</p>
+    </figcaption>
+</figure>

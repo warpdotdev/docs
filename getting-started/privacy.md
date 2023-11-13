@@ -63,6 +63,7 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 | `Background Block Started` | Warp created a background-output Block (whenever a processes has been backgrounded and yields some output) |
 | `BaselineCommand Latency` | Command execution time |
 | `Block Creation` | Created Block |
+| `Block Filter Toolbelt Button Clicked` | Clicked the block filter icon in the top-right of a block |
 | `Block Finished to Precmd Delay` | Latency between command finished and the precmd hook |
 | `Block Selection` | Selected Block |
 | `Bootstrapping Failed` | Failed bootstrap for the session |
@@ -227,6 +228,9 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 | `Test Block Creation Event` | Test Block is created within the App |
 | `Thin Strokes Setting Changed` | Changed thin strokes setting in settings -> Appearance |
 | `Toggle Approvals Modal` | Opened or closed teams modal |
+|  `Toggle Block Filter Case Sensitivity` | Toggled on/off case sensitivity within the block filter editor |
+|  `Toggle Block Filter Regex` | Toggled on/off regex within the block filter editor |
+|  `Toggle Block Filter Query` | Toggled on/off a block filter query |
 | `Toggle Dim Inactive Panes` | Whether the dim inactive panes feature has been toggled |
 | `Toggle Jump to Bottom of Block Button` | Enabled or disabled the Jump to Bottom of Block Button |
 | `Toggle New Windows at Custom Size` | Whether the new windows at custom size feature has been toggled |
@@ -244,6 +248,7 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 | `Unable to Update To New Version` | Update available but not authorized to install |
 | `Undo Close` | Re-opened a closed tab or window (undo closing a tab or window) |
 | `Unhandled Editor Modifier Key` | Used modifier keybinding keystroke which is not currently supported |
+|  `Update Block Filter Query` | When a new filter is applied to a block |
 | `Used Warp AI Prepared Prompt` | Used one of the Warp-provided prompts, like "Show examples" |
 | `User Initiated Closing Something` | Attempted to either quit the app or close a window |
 | `Warp AI Action` | Executed a Warp AI action: Restart, Copy, Insert into terminal |
