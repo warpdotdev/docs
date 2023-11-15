@@ -129,7 +129,7 @@ Local Workflow Path: `~/.warp/workflows`
 
 Repository Workflow Path: `{{path_to_git_repo}}/.warp/workflows`
 
-#### Adding a Local Workflow
+#### Local Workflows
 
 To start, create a workflows subdirectory within your `.warp` folder
 
@@ -139,7 +139,7 @@ Add your workflow’s `.yaml` file to this directory; if the file format is vali
 
 `cp ~/path/to/my_awesome_workflow.yaml ~/.warp/workflows`
 
-#### Adding a Repository Workflow
+#### Repository Workflows
 
 You can add a repository workflow similarly to how you added a local workflow. Create a workflows folder in a repository’s root directory and save your `.yaml` file like so:
 
@@ -149,6 +149,10 @@ mkdir -p .warp/workflows/
 cp ~/path/to/my_awesome_workflow.yaml .warp/workflows
 ```
 
-#### Contributing to Global Workflows
+#### Global Workflows
 
 You can contribute workflows that will be made available to other Warp users by forking the [Workflows repo](https://github.com/warpdotdev/workflows/tree/main/specs) and opening a pull request. See the [Contributing](https://github.com/warpdotdev/workflows#contributing) section for more details.
+
+{% hint style="info" %}
+Tailor your Command Search (`CTRL-R`) experience by toggling off "Show Global Workflows" in `Settings > Features`. When disabled, your search will exclusively encompass YAML and Warp Drive Workflows.
+{% endhint %}
