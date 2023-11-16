@@ -2,6 +2,13 @@
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2023.11.16 (v0.2023.11.14.08.02)
+
+**Bug fixes**
+
+* The informational block that shows workflow metadata now resizes with your Warp window
+* The scrolling speed is now standardized across Warp
+
 ### 2023.11.09 (v0.2023.11.07.08.02)
 
 **New features**
