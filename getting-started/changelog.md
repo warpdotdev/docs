@@ -65,28 +65,43 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 **New features**
 
 * New Markdown Viewer: You can now open .md files in Warp and run the shell commands within these files
-* Block Filtering: You can now filter block output (`SHIFT-OPT-F`) to quickly find matching lines based on a query
+* Block Filtering: You can now filter block output (SHIFT-OPT-F) to quickly find matching lines based on a query.
 
 **Improvements**
 
-* Removed the workflow button from the toolbelt section (top-right buttons) of a block. It is still accessible through the right-click menu (see "Save as Workflow") and its default keybinding `CMD-S`
+* Removed the workflow button from the toolbelt section (top-right buttons) of a block. It is still accessible through the right-click menu (see “Save as Workflow”) and its default keybinding CMD-S.
 * Improved performance of Warp Drive team and state syncing
+
+### 2023.11.02 (v0.2023.10.31.08.03)
+
+**Improvements**
+
+* You can now invite new team members to your shared Warp Drive by email address and revoke invitations
+
+### 2023.10.23 (v0.2023.10.17.08.03)
+
+**Improvements**
+
+* Indicators appear in the tab bar when the current pane is maximized (a full-screen icon) and when a command exits with an error
+* The Git context chip in Warp’s prompt now shows the commit hash instead of “HEAD” when in a detached state
+* Easier to add and remove allowlisted domains when inviting teammates to Warp Drive
+* Added a menu option for copying a workflow command (into the clipboard)
 
 ### 2023.10.19 (v0.2023.10.17.08.03)
 
 **Improvements**
 
 * Indicators appear in the tab bar when the current pane is maximized (a full-screen icon) and when a command exits with an error
-* The Git context chip in Warp's prompt now shows the commit hash instead of "HEAD" when in a detached state
+* The Git context chip in Warp’s prompt now shows the commit hash instead of “HEAD” when in a detached state
 * Easier to add and remove allowlisted domains when inviting teammates to Warp Drive
-* Added a menu option for copying a workflow command into the clipboard
+* Added a menu option for copying a workflow command (into the clipboard)
 
 ### 2023.10.12 (v0.2023.10.10.08.06)
 
 **Improvements**
 
 * Warp can now support MacOS's proxy settings
-* You can now toggle whether to render Warp using the integrated GPU for dual GPU Macs in `Settings > Features > Performance > Prefer rendering new windows with integrated GPU(low power)`
+* You can now toggle whether to render Warp using the integrated GPU for dual GPU Macs
 * Warp now escapes the file path of an executable loaded from Finder
 
 **Bug fixes**
