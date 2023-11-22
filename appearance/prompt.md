@@ -18,7 +18,7 @@ You can also set up a custom prompt by configuring the **PS1** variable or insta
 
 #### Multi-Line and Right-Sided Prompts
 
-Warps custom prompt supports multi-line or right-sided prompts in zsh and fish, not bash. However, you can't have a multiline right-side prompt, only a multiline left prompt. You also can't have the cursor on the same line as the prompt (we're working on supporting [this](https://github.com/warpdotdev/Warp/issues/2304)). Warp renders the cursor on a fresh new line within the [Input Editor](editor/), a separate UI element from the prompt.
+Warps custom prompt supports multi-line or right-sided prompts in zsh and fish, not bash. However, you can't have a multiline right-side prompt, only a multiline left prompt. You also can't have the cursor on the same line as the prompt (we're working on supporting [this](https://github.com/warpdotdev/Warp/issues/2304)). Warp renders the cursor on a fresh new line within the [Input Editor](../features/editor/), a separate UI element from the prompt.
 
 <figure><img src="../.gitbook/assets/edit-prompt-modal.png" alt="Warp Edit Prompt Modal"><figcaption><p>Edit Warp Prompt</p></figcaption></figure>
 
@@ -81,6 +81,10 @@ Starship prompt may not render properly if your [default shell](../getting-start
 ### Powerlevel10k
 
 Warp does support [p10k](https://github.com/romkatv/powerlevel10k#installation) version 1.19.0 and above. Just make sure you have the latest version installed as well as restart Warp after the installation/update of p10k. Then enable custom prompt as stated above and it should work! Note: Warp still doesn't fully support some p10k features like transient prompt and visual features like gradients.
+
+{% hint style="warning" %}
+Please note the set up video for p10k setup mentions enabling a custom prompt in Settings > Features, but it's now in Settings > Appearance, see [above](prompt.md#how-to-access-it) for the updated steps.
+{% endhint %}
 
 {% embed url="https://www.youtube.com/watch?t=18s&v=dIV9Cso4Mi8" %}
 Installing Powerlevel10k

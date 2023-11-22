@@ -13,11 +13,12 @@
 
 * [Themes](appearance/themes.md)
 * [Custom Themes](appearance/custom-themes.md)
-* [Compact Mode](appearance/compact-mode.md)
+* [Prompt](appearance/prompt.md)
+* [Input Position](appearance/input-position.md)
 * [Text, Fonts, & Cursor](appearance/text-fonts-cursor.md)
 * [Size, Opacity, & Blurring](appearance/opacity-blurring-dimming.md)
 * [Pane Dimming](appearance/pane-dimming.md)
-* [Input Position](appearance/input-position.md)
+* [Compact Mode](appearance/compact-mode.md)
 
 ## 📕 Features
 
@@ -56,7 +57,6 @@
   * [Global Hotkey](features/windows/hotkey-window.md)
   * [Tabs](features/windows/tabs.md)
   * [Split Panes](features/windows/split-panes.md)
-* [Prompt](features/prompt.md)
 * [Accessibility](features/accessibility.md)
 * [Find](features/find.md)
 * [Files, Links, & Scripts](features/files-and-links.md)

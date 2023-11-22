@@ -80,7 +80,7 @@ There is an issue in fish shell version 3.4.0 and below that causes the `read` b
 * \[\[ -r "/usr/local/etc/profile.d/bash\_completion.sh" ]] && "/usr/local/etc/profile.d/bash\_completion.sh"
 * eval "$(rbenv init -)"
 * grml-zsh-config
-* [Starship settings](../features/prompt.md#starship-settings)
+* [Starship settings](../appearance/prompt.md#starship-settings)
 
 ## Configuring and debugging your RC files
 
@@ -88,7 +88,7 @@ In order to support Blocks ([custom hooks](https://blog.warp.dev/how-warp-works/
 
 You can however, **disable the conflicting settings for just Warp** using this flag: `$TERM_PROGRAM != "WarpTerminal"`, see below for a full example.
 
-We currently don't have support for multi-line custom prompts in bash, only zsh and fish. Unlike typical terminals which are essentially continuous character grids, each section of Warp is its own (separate) UI element. Warps default prompt does not support multi-line or right sided prompts at this time. Improving the native Prompt is on the roadmap, however. Please see our [Prompt](../features/prompt.md) page for more information on custom prompts.
+We currently don't have support for multi-line custom prompts in bash, only zsh and fish. Unlike typical terminals which are essentially continuous character grids, each section of Warp is its own (separate) UI element. Warps default prompt does not support multi-line or right sided prompts at this time. Improving the native Prompt is on the roadmap, however. Please see our [Prompt](../appearance/prompt.md) page for more information on custom prompts.
 
 ### Debugging
 
