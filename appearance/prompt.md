@@ -16,7 +16,9 @@ Git branch that you are on locally, as well as the number of uncommitted changed
 
 Kubernetes
 
-Kubernetes context chip shows relevant k8s information when you're using common commands like kubectl, kubectx, etc.
+Kubernetes context chip shows relevant contextual information when you're using commands:
+
+`kubectl|helm|kubens|kubectx|oc|istioctl|kogito|k9s|helmfile|flux|fluxctl|stern|kubeseal|skaffold|kubent|kubecolor|cmctl|sparkctl|etcd|fubectl`
 
 ### Custom Prompt
 
@@ -87,7 +89,7 @@ Starship prompt may not render properly if your [default shell](../getting-start
 Warp does support [p10k](https://github.com/romkatv/powerlevel10k#installation) version 1.19.0 and above. Just make sure you have the latest version installed as well as restart Warp after the installation/update of p10k. Then enable custom prompt as stated above and it should work! Note: Warp still doesn't fully support some p10k features like transient prompt and visual features like gradients.
 
 {% hint style="warning" %}
-Please note the set up video for p10k setup mentions enabling a custom prompt in Settings > Features, but it's now in Settings > Appearance, see [above](prompt.md#how-to-access-it) for the updated steps.
+Please note the setup video for p10k setup mentions enabling a custom prompt in Settings > Features, but it's now in Settings > Appearance, see [above](prompt.md#how-to-access-it) for the updated steps.
 {% endhint %}
 
 {% embed url="https://www.youtube.com/watch?t=18s&v=dIV9Cso4Mi8" %}
