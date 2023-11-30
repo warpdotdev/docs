@@ -1,6 +1,17 @@
 # Changelog
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
+### 2023.11.30 (v0.2023.11.28.08.02)
+
+**Improvements**
+
+* Warp’s custom prompt builder now includes a context chip for Kubernetes context
+* Improved completions for `kubectl`, including suggestions for resource, global options, and namespaces
+
+**Bug fixes**
+
+* Fixed a UI bug in the workflows editor where the editor for arguments was overflowing
+* Search bar focuses as expected when you open Launch Configurations with the Command Palette
 
 ### 2023.11.16 (v0.2023.11.14.08.02)
 
@@ -24,7 +35,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 ### 2023.10.19 (v0.2023.10.17.08.03)
 
 **Improvements**
-        
+
 * Indicators appear in the tab bar when the current pane is maximized (a full-screen icon) and when a command exits with an error
 * The Git context chip in Warp's prompt now shows the commit hash instead of "HEAD" when in a detached state
 * Easier to add and remove allowlisted domains when inviting teammates to Warp Drive
