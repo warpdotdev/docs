@@ -2,15 +2,21 @@
 
 ## What is it
 
-Warp allows you to configure its default prompt in addition to enabling a supported custom prompt. A terminal prompt is a text that appears in the command line interface, indicating that the terminal is ready to accept commands. The prompt can be customized to display additional information.
+Warp allows you to configure its default prompt or a supported custom prompt. A terminal prompt is a text that appears in the command line interface, indicating that the terminal is ready to accept commands. The prompt can be customized to display additional information.
+
+<figure><img src="../.gitbook/assets/edit-prompt-modal.png" alt="Warp Edit Prompt Modal"><figcaption><p>Edit Warp Prompt</p></figcaption></figure>
 
 ### Default Prompt
 
-Warp has a native Prompt that is customizable and can show a variety of information including CWD, Git Status, Pyenv, Date, Time, etc.
+Warp has a native Prompt that is customizable and can show a variety of information including cwd, git, kubernetes, pyenv, date, time, etc.
 
-#### Git Status
+#### Git
 
 Git branch that you are on locally, as well as the number of uncommitted changed files. This includes any new files, modified files, and deleted files that are staged or unstaged.
+
+Kubernetes
+
+Kubernetes context chip shows relevant k8s information when you're using common commands like kubectl, kubectx, etc.
 
 ### Custom Prompt
 
@@ -19,8 +25,6 @@ You can also set up a custom prompt by configuring the **PS1** variable or insta
 #### Multi-Line and Right-Sided Prompts
 
 Warps custom prompt supports multi-line or right-sided prompts in zsh and fish, not bash. However, you can't have a multiline right-side prompt, only a multiline left prompt. You also can't have the cursor on the same line as the prompt (we're working on supporting [this](https://github.com/warpdotdev/Warp/issues/2304)). Warp renders the cursor on a fresh new line within the [Input Editor](../features/editor/), a separate UI element from the prompt.
-
-<figure><img src="../.gitbook/assets/edit-prompt-modal.png" alt="Warp Edit Prompt Modal"><figcaption><p>Edit Warp Prompt</p></figcaption></figure>
 
 ## How to access it
 
