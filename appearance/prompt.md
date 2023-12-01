@@ -4,8 +4,6 @@
 
 Warp allows you to configure its default prompt or a supported custom prompt. A terminal prompt is a text that appears in the command line interface, indicating that the terminal is ready to accept commands. The prompt can be customized to display additional information.
 
-<figure><img src="../.gitbook/assets/edit-prompt-modal.png" alt="Warp Edit Prompt Modal"><figcaption><p>Edit Warp Prompt Modal</p></figcaption></figure>
-
 ### Warp Prompt
 
 Warp has a native prompt that is customizable and can show a variety of information including cwd, git, kubernetes, pyenv, date, time, etc.
@@ -28,6 +26,8 @@ You can also set up a custom prompt by configuring the **PS1** variable or insta
 
 Warps custom prompt supports multi-line or right-sided prompts in zsh and fish, not bash. However, you can't have a multiline right-side prompt, only a multiline left prompt. You also can't have the cursor on the same line as the prompt (we're working on supporting [this](https://github.com/warpdotdev/Warp/issues/2304)). Warp renders the cursor on a fresh new line within the [Input Editor](../features/editor/), a separate UI element from the prompt.
 
+<figure><img src="../.gitbook/assets/edit-prompt-modal.png" alt="Warp Edit Prompt Modal"><figcaption><p>Edit Warp Prompt Modal</p></figcaption></figure>
+
 ## How to access it
 
 * Toggle the custom prompt by right-clicking on the prompt area above the input and selecting "Edit prompt" or select "Prompt" from the `Settings > Appearance` page. There you will be able to select and customize the default prompt or select the Custom prompt (PS1).
@@ -35,7 +35,7 @@ Warps custom prompt supports multi-line or right-sided prompts in zsh and fish, 
 
 ## How it works
 
-<figure><img src="broken-reference" alt="Warp Prompt + Custom Prompt Demo"><figcaption><p>Warp Prompt + Custom Prompt Demo</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/prompt-demo.gif" alt="Warp Prompt + Custom Prompt Demo"><figcaption><p>Warp Prompt + Custom Prompt Demo</p></figcaption></figure>
 
 ### Custom Prompt Compatibility Table
 
