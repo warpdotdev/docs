@@ -1,12 +1,13 @@
 # Changelog
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
+
 ### 2023.11.30 (v0.2023.11.28.08.02)
 
 **Improvements**
 
 * Warp’s custom prompt builder now includes a context chip for Kubernetes context
-* Improved completions for `kubectl`, including suggestions for resource, global options, and namespaces
+* Improved completions for `kubectl`, including suggestions for resources, global options, and namespaces
 
 **Bug fixes**
 
