@@ -19,6 +19,7 @@
 * [Size, Opacity, & Blurring](appearance/opacity-blurring-dimming.md)
 * [Pane Dimming](appearance/pane-dimming.md)
 * [Compact Mode](appearance/compact-mode.md)
+* [Tab Indicators](appearance/tab-indicators.md)
 
 ## 📕 Features
 
