@@ -4,7 +4,7 @@
 
 Warp allows you to configure its default prompt or a supported custom prompt. A terminal prompt is a text that appears in the command line interface, indicating that the terminal is ready to accept commands. The prompt can be customized to display additional information.
 
-<figure><img src="../.gitbook/assets/edit-prompt-modal.png" alt="Warp Edit Prompt Modal"><figcaption><p>Edit Warp Prompt</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/edit-prompt-modal.png" alt="Warp Edit Prompt Modal"><figcaption><p>Edit Warp Prompt Modal</p></figcaption></figure>
 
 ### Warp Prompt
 
@@ -35,7 +35,7 @@ Warps custom prompt supports multi-line or right-sided prompts in zsh and fish, 
 
 ## How it works
 
-<figure><img src="../.gitbook/assets/edit-prompt.gif" alt="Warp Prompt + Custom Prompt Demo"><figcaption><p>Warp Prompt + Custom Prompt Demo</p></figcaption></figure>
+<figure><img src="broken-reference" alt="Warp Prompt + Custom Prompt Demo"><figcaption><p>Warp Prompt + Custom Prompt Demo</p></figcaption></figure>
 
 ### Custom Prompt Compatibility Table
 
