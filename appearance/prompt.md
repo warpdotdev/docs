@@ -14,7 +14,7 @@ Warp has a native Prompt that is customizable and can show a variety of informat
 
 Git branch that you are on locally, as well as the number of uncommitted changed files. This includes any new files, modified files, and deleted files that are staged or unstaged.
 
-Kubernetes
+#### Kubernetes
 
 Kubernetes context chip shows relevant contextual information when you're using commands:
 
