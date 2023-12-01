@@ -80,6 +80,7 @@ There is an issue in fish shell version 3.4.0 and below that causes the `read` b
 * \[\[ -r "/usr/local/etc/profile.d/bash\_completion.sh" ]] && "/usr/local/etc/profile.d/bash\_completion.sh"
 * eval "$(rbenv init -)"
 * grml-zsh-config
+* Python virtual environment PS1 [settings](https://github.com/warpdotdev/Warp/issues/2713#issuecomment-1447129449)
 * [Starship settings](../appearance/prompt.md#starship-settings)
 
 ## Configuring and debugging your RC files
