@@ -6,9 +6,9 @@ Warp allows you to configure its default prompt or a supported custom prompt. A 
 
 <figure><img src="../.gitbook/assets/edit-prompt-modal.png" alt="Warp Edit Prompt Modal"><figcaption><p>Edit Warp Prompt</p></figcaption></figure>
 
-### Default Prompt
+### Warp Prompt
 
-Warp has a native Prompt that is customizable and can show a variety of information including cwd, git, kubernetes, pyenv, date, time, etc.
+Warp has a native prompt that is customizable and can show a variety of information including cwd, git, kubernetes, pyenv, date, time, etc.
 
 #### Git
 
