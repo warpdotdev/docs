@@ -73,7 +73,7 @@ Some \~/.config/starship.toml settings are known to cause errors in Warp. `#` or
 disabled = false
 ```
 
-If you'd like to disable the multi-line prompt in starship, put the following in your \~/.config/starship.toml:
+For `fish` shell (optional for `bash|zsh`), disable the multi-line prompt in starship by putting the following in your `~/.config/starship.toml`:
 
 ```
 [line_break]
