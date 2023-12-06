@@ -1,6 +1,16 @@
+---
+description: Warp extends and integrates with popular development tools.
+---
+
 # Integrations
 
-Warp has methods of integrating with the most popular development tools. More methods are in the works.
+## Docker
+
+[Warp’s Docker extension](https://hub.docker.com/extensions/warpdotdev/warp) makes it more convenient to open Docker containers in Warp. With the extension, you can click to open any Docker container in [a Warpified subshell](https://docs.warp.dev/features/subshells), without manually running `docker exec` or typing out lengthy container IDs.
+
+Select a container from the list and specify a shell type. Select a user (optional). Then click “Open in Warp” to run commands within the Docker container.
+
+<figure><img src="../.gitbook/assets/docker-extension.png" alt=""><figcaption><p>Warp's extension for Docker lists available containers.</p></figcaption></figure>
 
 ## Raycast
 
