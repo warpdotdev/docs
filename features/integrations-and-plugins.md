@@ -8,7 +8,11 @@ description: Warp extends and integrates with popular development tools.
 
 [Warp’s Docker extension](https://hub.docker.com/extensions/warpdotdev/warp) makes it more convenient to open Docker containers in Warp. With the extension, you can click to open any Docker container in [a Warpified subshell](https://docs.warp.dev/features/subshells), without manually running `docker exec` or typing out lengthy container IDs.
 
-Select a container from the list and specify a shell type. Select a user (optional). Then click “Open in Warp” to run commands within the Docker container.
+Select a container from the list and specify a shell type. Note, that only `bash|zsh|fish` are supported shells for docker containers. Then, select a user (optional) and finally click “Open in Warp” to run commands within the Docker container.&#x20;
+
+{% hint style="warning" %}
+Even if Warp is already installed, you will still see the "Download Warp" banner on the Warp Docker extension when first starting it. Just dismiss the banner by clicking the X and you should see the option to "Open in Warp" after selecting the shell.
+{% endhint %}
 
 <figure><img src="../.gitbook/assets/docker-extension.png" alt=""><figcaption><p>Warp's extension for Docker lists available containers.</p></figcaption></figure>
 
