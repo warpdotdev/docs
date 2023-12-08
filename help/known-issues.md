@@ -65,7 +65,7 @@ There is an issue in fish shell version 3.4.0 and below that causes the `read` b
 
 * [iterm shell integration](https://iterm2.com/documentation-shell-integration.html)
   * usually looks like `test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true`
-* FIG, `z`, other completion plugins
+* FIG, `z`, `zsh-autocomplete`, or other completion plugins
 * OH-MY-ZSH-THEMES
   * e.g. avit, spaceship, maybe more ...
 * OH-MY-ZSH-PLUGINS
