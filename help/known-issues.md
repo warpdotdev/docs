@@ -69,6 +69,7 @@ There is an issue in fish shell version 3.4.0 and below that causes the `read` b
 * OH-MY-ZSH-THEMES
   * e.g. avit, spaceship, maybe more ...
 * OH-MY-ZSH-PLUGINS
+  * e.g. znap, maybe more ...
 * Oh-My-Tmux
 * zsh4h (ZSH for Humans)
 * FZF
