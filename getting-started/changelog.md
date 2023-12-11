@@ -11,7 +11,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 **Bug fixes**
 
 * The Input Editor now refocuses correctly after pasting terminal contents and running a command
-* Fixed issue with missing toolbelt buttons when using fish wih Vim Mode
+* Fixed issue with missing toolbelt buttons when using fish with Vim Mode
 
 ### 2023.11.30 (v0.2023.11.28.08.02)
 
