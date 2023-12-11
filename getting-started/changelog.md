@@ -1,6 +1,17 @@
 # Changelog
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
+### 2023.12.07 (v0.2023.12.05.08.02)
+
+**Improvements**
+
+* Warp Drive folders now keep their opened/closed state through app restarts
+* Markdown file links can now be configured to open with the default external editor or Warp's built-in markdown viewer
+
+**Bug fixes**
+
+* The Input Editor now refocuses correctly after pasting terminal contents and running a command
+* Fixed issue with missing toolbelt buttons when using fish wih Vim Mode
 
 ### 2023.11.30 (v0.2023.11.28.08.02)
 
