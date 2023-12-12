@@ -6,7 +6,7 @@ description: Open Markdown files in your terminal and run commands.
 
 Warp can display Markdown files directly in a [split pane](windows/split-panes.md), in addition to opening them [in an external editor](files-and-links.md). Any local file with the `.md` or `.markdown` extension is treated as a Markdown file. Remote files are currently not supported.
 
-There are three ways to view a Markdown file in Warp, you can also configure Warp to open markdown files with the default external editor or Warp's built-in markdown viewer in `Settings > Features > General > Open Markdown files in Warp's Markdown viewer by default`.
+There are three ways to view a Markdown file in Warp:
 
 ### Opening a file link within a block
 
