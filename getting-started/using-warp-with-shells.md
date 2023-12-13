@@ -77,7 +77,7 @@ So, now you can type \``` reload` ``, to source the latest changes in the `bashr
 
 #### Step 1: Install fish
 
-While bash, and zsh come pre-installed on macOS, fish shell does not. So before using fish with Warp, you will need to install it. Install fish using one of the methods listed below -
+While bash, and zsh come pre-installed on macOS, fish shell does not. So before using fish with Warp, you will need to install it. Install fish 3.6 or above using one of the methods listed below -
 
 1. With Homebrew: If you already have homebrew installed, you can simply type `brew install fish`, and follow the instructions.
 2. Download the installer at [fishshell.com](https://fishshell.com/)
@@ -109,7 +109,7 @@ If you prefer, you can also manually edit the /etc/shells file using the editor 
 {% endhint %}
 
 {% hint style="info" %}
-**Why the different locations?** The location of fish depends on how it was installed. Homebrew installs programs under `/usr/local` on Macs running Intel processors, but under `/opt/homebrew` for Macs running Apple Silicon. So, if you used Homebrew to install fish on a Mac with Apple Silicon, the location of the executable is - `/opt/homebrew/bin/fish`. \
+**Why the different locations?** The location of fish depends on how it was installed. Homebrew installs programs under `/usr/local` on Macs running Intel processors, but under `/opt/homebrew` for Macs running Apple Silicon. So, if you used Homebrew to install fish on a Mac with Apple Silicon, the location of the executable is - `/opt/homebrew/bin/fish`.\
 You can identify where fish is installed by running `echo $(which fish)`.
 {% endhint %}
 
