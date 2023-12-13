@@ -207,6 +207,7 @@
   "Unhandled Editor Modifier Key": "Used modifier keybinding keystroke which is not currently supported",
   "Untrash Object": "Restored an object from the trash back to Warp Drive",
   "Update Block Filter Query": "When a new filter is applied to a block",
+  "Update Block Filter Query With Context Lines": "When the number of context lines for a block filter query is updated",
   "Used Warp AI Prepared Prompt": "Used one of the Warp-provided prompts, like \"Show examples\"",
   "User Initiated Closing Something": "Attempted to either quit the app or close a window",
   "Warp AI Action": "Executed a Warp AI action: Restart, Copy, Insert into terminal",
