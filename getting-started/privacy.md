@@ -104,12 +104,14 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 | `Deleted Workflow` | Workflow is deleted on the teams page |
 | `Disable Input Sync Inputs` | Disabled / turn off the Input Synchronization (across editors) |
 | `Dismiss Alias Expansion Banner` | Dismissed the banner to enable automatic alias expansion within the Input Editor |
+| `Dismiss Vim Keybindings Banner` | Dismissed the banner to enable Vim keybindings in the Input Editor |
 | `Dismiss Welcome Tips` | Dismissed Welcome tips |
 | `Drag and Drop Tab` | Tab dragged and dropped |
 | `Draw Frame Latency` | Recorded time to draw a frame in app (in ms) |
 | `Draw Frame Latency Histogram Overflow` | Could not summarize histogram of draw frame latency |
 | `Edited Input Before Precmd` | Input edited before precmd hook completes |
 | `Enable Alias Expansion From Banner` | Enabled automatic alias expansion within the Input Editor from the banner |
+| `Enable Vim Keybindings From Banner` | Enabled Vim keybindings in the Input Editor from the banner |
 | `Expensive Frame` | Frame took long time to draw (past a certain threshold) |
 | `Experiment Triggered` | User assigned to A/B test |
 | `Features Page Action` | Changed settings in Features Page |
@@ -211,6 +213,7 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 | `Set Window Opacity` | Changed the opacity (window transparency) from the `Settings -> Appearance` dialog |
 | `Show Alias Expansion Banner` | Displayed the banner asking whether Warp should automatically expand aliases within the Input Editor |
 | `Show Subshell Banner` | Displayed the banner asking whether Warp should Warpify the current session via Warp's subshell wrapper |
+| `Show Vim Keybindings Banner` | Displayed the banner asking whether Warp should enable Vim keybindings in the Input Editor |
 | `ShowNotificationsDiscoveryBanner` | Showed discovery banner for notifications (notify user when long running commands finish) |
 | `ShowNotificationsErrorBanner` | Showed error banner for notifications (i.e. permissions issue) |
 | `Showed File in File Explorer` | Opened a file in Finder by using "Show in Finder" |

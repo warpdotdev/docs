@@ -2,19 +2,19 @@
 description: Use Vim keybindings to edit commands in Warp's input editor.
 ---
 
-# Vim Keybindings (Beta)
+# Vim Keybindings
 
 ## About Vim keybindings
 
 The Vi family of programs (including Vim and Neovim) are modal text editors that allow for keyboard-driven text editing. Several shells, including `bash` and `zsh`, implement vi-style keybindings. Warp's input editor was built natively to support more modern text editing experiences, which means it replaces the shell's editor capabilities. Warp has its own implementation of Vim keybindings you can use.
 
-> Please note: this feature is in Beta.
-
 ### How to enable Vim Keybindings
 
-To enable Vim keybindings in Warp's input editor, open the Command Palette with `CMD-P` and type `Vim Keybindings`. This setting is also available in the Settings modal, under `Features` → `Editor` → `Edit commands with Vim keybindings`.
+With `bash` and `zsh`, Warp attempts to detect the shell's keybinding settings. If a shell vi mode is detected, Warp may suggest enabling Vim keybindings.
 
-Just as in `bash` and `zsh`'s vi mode implementations, the editor starts in insert mode.
+To manually toggle Vim keybindings in Warp's input editor, open the Command Palette with `CMD-P` and type `Vim Keybindings`. This setting is also available in the Settings modal, under `Features` → `Editor` → `Edit commands with Vim keybindings`.
+
+Just as in `bash` and `zsh`'s vi mode implementations, the editor starts in insert mode. Pressing `ctrl-c` or `Enter` clears any pending command state.
 
 ### Customizing Keybindings
 
@@ -35,6 +35,7 @@ See [Vim docs: motion](https://vimdoc.sourceforge.net/htmldoc/motion.html) for m
 | Command(s)                   | Description                            |
 | ---------------------------- | -------------------------------------- |
 | `h`, `j`, `k`, `l`           | single-char movement                   |
+| `<space>`, `<backspace>`     | single-char movement with line wrap    |
 | `w`, `W`, `b`, `B`, `e`, `E` | word movement                          |
 | `ge`, `gE`                   | end of previous word                   |
 | `$`                          | end of line                            |
@@ -62,6 +63,9 @@ See [Vim docs: motion](https://vimdoc.sourceforge.net/htmldoc/motion.html) for m
 | `p`, `P`   | paste from the clipboard                                    |
 | `u`, `⌃r`  | undo, redo                                                  |
 | `~`        | toggle upper/lowercase under cursor                         |
+| `gu`       | lowercase under cursor (`u` in visual mode)                 |
+| `gU`       | uppercase under cursor (`U` in visual mode)                 |
+| `J`        | join current and following lines                            |
 | `.`        | repeat last edit                                            |
 
 See [Vim docs: editing](https://vimdoc.sourceforge.net/htmldoc/editing.html) for more information.
@@ -132,4 +136,4 @@ See [Vim docs: registers](https://vimdoc.sourceforge.net/htmldoc/change.html#reg
 
 ## Feedback
 
-This feature is still in Beta. We'd love to hear your feedback! The best way to report bugs and request features is through Warp's [GitHub Issues](https://github.com/warpdotdev/Warp/issues) page. Please upvote (:thumbsup:) existing issues to help the team prioritize them.
+The best way to report bugs and request features is through Warp's [GitHub Issues](https://github.com/warpdotdev/Warp/issues) page. Please upvote (:thumbsup:) existing issues to help the team prioritize them.
