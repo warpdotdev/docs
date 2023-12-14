@@ -1,6 +1,23 @@
 # Changelog
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
+### 2023.12.14 (v0.2023.12.12.08.02)
+
+**New Features**
+- Editing with Vim keybindings is now out of beta and generally available! Warp will detect vi mode in shell settings and suggest Vim keybindings.
+
+**Improvements**
+- You can now use CMD+F to search text in the Markdown Viewer
+
+**Bug fixes**
+- Block hover buttons now have a solid background when they overlap with your prompt
+- The Block filter editor now has a clear button
+- `J` and `K` (Vim Mode) can be used for navigation within a multi-line command
+- Warp no longer crashes when retrieving accessibility contents
+- Fixed potential crash when using the find bar
+- Fixed the left alignment of the tab bar when in full-screen mode on Mac
+- Fixed triple-click selection (selecting a line) when filtering a Block
+
 ### 2023.12.07 (v0.2023.12.05.08.02)
 
 **Improvements**
