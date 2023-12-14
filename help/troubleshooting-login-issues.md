@@ -29,6 +29,24 @@ This error occurs likely because you are blocking all cookies in Safari's securi
 
 If "Sign Up" does not work after trying the steps above, fill out [this Typeform](https://zachlloyd.typeform.com/to/UnZu0akR#\&question=sign\_up?utm\_source=docs) and our team will reach out to you.
 
+### Proxies
+
+When behind a proxy, a possible workaround is to disable QUIC in the browser. It will then fall back to TCP and likely allow login.
+
+- In Chrome, or Chromium based browsers like Edge, Opera, and Arc, type `chrome://flags` into the address bar.
+    1. In the search bar on the flags page, type `Experimental QUIC protocol`.
+    1. Locate the "Experimental QUIC protocol" flag and click on the drop-down menu next to it.
+    1. Select "Disabled" from the options.
+    1. Relaunch Chrome for the changes to take effect.
+
+- In Firefox, type `about:config` into the address bar.
+    1. You will see a warning message. Click on the "Accept the Risk and Continue" button.
+    1. In the search bar, type `network.http.http3.enable`.
+    1. Double-click on the `network.http.http3.enable` preference to set its value to `false`. This will disable QUIC in Firefox.
+    1. Restart Firefox for the changes to take effect.
+
+- In Safari, Unfortunately, there is no built-in option to disable QUIC in Safari. Safari uses QUIC as its default transport protocol and does not provide a user-accessible setting to disable it.
+
 ## Nothing happens when I click "Take me to Warp"
 
 If this happens to you, use the link provided on the web logged-in page (https://app.warp.dev/logged\_in) to copy the authentication token, then paste it into the app as shown below.
