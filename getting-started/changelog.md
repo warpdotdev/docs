@@ -4,10 +4,10 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 ### 2023.12.14 (v0.2023.12.12.08.02)
 
 **New Features**
-- Editing with Vim keybindings is now out of beta and generally available! Warp will detect vi mode in shell settings and suggest Vim keybindings.
+- Editing with Vim keybindings is now out of beta and generally available! Warp will detect vi mode in shell settings and suggest Vim keybindings
 
 **Improvements**
-- You can now use CMD+F to search text in the Markdown Viewer
+- You can now use `CMD-F` to search text in the Markdown Viewer
 
 **Bug fixes**
 - Block hover buttons now have a solid background when they overlap with your prompt
