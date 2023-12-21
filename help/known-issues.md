@@ -65,13 +65,13 @@ There is an issue in fish shell version 3.6 and below that causes the `read` bui
 
 * [iterm shell integration](https://iterm2.com/documentation-shell-integration.html)
   * usually looks like `test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true`
-* FIG, `z`, `zsh-autocomplete`, or other completion plugins
+* FIG, `z`, `zsh-autocomplete`, `compdef`, or other [shell-based completion](https://github.com/warpdotdev/Warp/discussions/434) plugins or definitions.
 * OH-MY-ZSH-THEMES
   * e.g. avit, spaceship, maybe more ...
 * OH-MY-ZSH-PLUGINS
-  * e.g. znap, maybe more ...
 * Oh-My-Tmux
 * zsh4h (ZSH for Humans)
+* znap
 * FZF
 * fubectl
   * `[ -f ${HOME}/bin/fubectl.source ] && source ${HOME}/bin/fubectl.source`
