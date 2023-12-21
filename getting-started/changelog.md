@@ -1,6 +1,17 @@
 # Changelog
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
+### 2023.12.21 (v0.2023.12.19.08.02)
+
+**New Features**
+- Warp now supports showing neighboring lines of output around matches when filtering blocks. To get started, enable filtering for a block and then configure the numerical input field
+
+**Improvements**
+- Improved support for Docker containers when completing Docker commands
+
+**Bug fixes**
+- Fix commands not being fully bolded when using fish
+
 ### 2023.12.14 (v0.2023.12.12.08.02)
 
 **New Features**
