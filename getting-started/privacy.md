@@ -240,6 +240,7 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 | `Toggle Obfuscate Secret` | Revealed or hid a secret |
 | `Toggle Restore Session` | Toggled session restoration ("Restore windows, tabs, panes, on startup") |
 | `Toggle Secret Redaction` | Toggled the setting for Secret Redaction - attempts to redact secrets and sensitive information |
+| `Toggle Sticky Command Header in Active Pane` | Expanded or collapsed the sticky command header in the active pane |
 | `Toggle Sync Inputs Across All Panes in All Tabs` | Enable the synchronization of the Input Editor's buffer to all the panes in all the tabs |
 | `Toggle Sync Inputs Across All Panes in Current Tab` | Enable the synchronization of the Input Editor's buffer to all the panes in the current tab |
 | `Toggle Warp AI` | Toggled Warp AI--an AI assistant to help you debug errors, look up forgotten commands and more |
