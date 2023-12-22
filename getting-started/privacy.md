@@ -93,6 +93,7 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 | `Copy Block Sharing Link` | Clicked "Copy Link" on Block Sharing Modal |
 | `Copy Invite Link` | Clicked "Copy Link" on Referral Modal |
 | `Copy Obfuscated Secret` | Copied a secret's obfuscated contents to clipboard |
+| `Copy Object To Clipboard` | Copied an object to the user's keyboard |
 | `Create Custom Theme` | Created a custom theme using the built-in theme creator |
 | `Custom Secret Regex Added` | Added a custom regex pattern to Secret Redaction |
 | `Daily App Focus Duration (seconds)` | Cumulative duration of daily focus time on app in seconds |
@@ -177,6 +178,7 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 | `Opened Save As Workflow Modal` | Opened the modal to create a new workflow using a Block's context--command, etc. |
 | `Opened Warp AI` | Activated Warp AI |
 | `Opened alt screen find bar` | Opened the Find bar in the Alt Screen |
+| `Page Up/Down In Editor Pressed` | Pressed `PAGE-UP` or `PAGE-DOWN` within the Input Editor |
 | `Page Viewed` | Page is viewed within the App |
 | `Pass Through Onboarding Question: attribution` | Attribution question in onboarding flow |
 | `Pass Through Onboarding Question: attribution:friend` | Tracked "friend" as attribution in onboarding survey flow |
@@ -211,6 +213,9 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 | `Set New Windows at Custom Size` | Set new windows at custom size through Settings -> Appearance |
 | `Set Window Blur Radius` | Changed the blur radius from the `Settings -> Appearance` dialog |
 | `Set Window Opacity` | Changed the opacity (window transparency) from the `Settings -> Appearance` dialog |
+| `Setup Flow Completed` | Finished the setup flow for new users |
+| `Setup Flow Skipped` | Skipped the setup flow for new users |
+| `Setup Flow Started` | Started the setup flow for new users |
 | `Show Alias Expansion Banner` | Displayed the banner asking whether Warp should automatically expand aliases within the Input Editor |
 | `Show Subshell Banner` | Displayed the banner asking whether Warp should Warpify the current session via Warp's subshell wrapper |
 | `Show Vim Keybindings Banner` | Displayed the banner asking whether Warp should enable Vim keybindings in the Input Editor |
@@ -231,9 +236,9 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 | `Test Block Creation Event` | Test Block is created within the App |
 | `Thin Strokes Setting Changed` | Changed thin strokes setting in settings -> Appearance |
 | `Toggle Approvals Modal` | Opened or closed teams modal |
-|  `Toggle Block Filter Case Sensitivity` | Toggled on/off case sensitivity within the block filter editor |
-|  `Toggle Block Filter Regex` | Toggled on/off regex within the block filter editor |
-|  `Toggle Block Filter Query` | Toggled on/off a block filter query |
+| `Toggle Block Filter Case Sensitivity` | Toggled on/off case sensitivity within the block filter editor |
+| `Toggle Block Filter Query` | Toggled on/off a block filter query |
+| `Toggle Block Filter Regex` | Toggled on/off regex within the block filter editor |
 | `Toggle Dim Inactive Panes` | Whether the dim inactive panes feature has been toggled |
 | `Toggle Jump to Bottom of Block Button` | Enabled or disabled the Jump to Bottom of Block Button |
 | `Toggle New Windows at Custom Size` | Whether the new windows at custom size feature has been toggled |
@@ -243,6 +248,7 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 | `Toggle Sticky Command Header in Active Pane` | Expanded or collapsed the sticky command header in the active pane |
 | `Toggle Sync Inputs Across All Panes in All Tabs` | Enable the synchronization of the Input Editor's buffer to all the panes in all the tabs |
 | `Toggle Sync Inputs Across All Panes in Current Tab` | Enable the synchronization of the Input Editor's buffer to all the panes in the current tab |
+| `Toggle Tab Indicators` | Enabled or disabled the tab indicators (failed command, etc.) |
 | `Toggle Warp AI` | Toggled Warp AI--an AI assistant to help you debug errors, look up forgotten commands and more |
 | `Toggled Bookmark Block` | Bookmarked or unbookmarked Block |
 | `Toggle Vim Mode` | Toggled Vim keybindings |
@@ -252,7 +258,8 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 | `Unable to Update To New Version` | Update available but not authorized to install |
 | `Undo Close` | Re-opened a closed tab or window (undo closing a tab or window) |
 | `Unhandled Editor Modifier Key` | Used modifier keybinding keystroke which is not currently supported |
-|  `Update Block Filter Query` | When a new filter is applied to a block |
+| `Unsupported Shell` | Booted Warp with a shell that isn't supported |
+| `Update Block Filter Query` | When a new filter is applied to a block |
 | `Used Warp AI Prepared Prompt` | Used one of the Warp-provided prompts, like "Show examples" |
 | `User Initiated Closing Something` | Attempted to either quit the app or close a window |
 | `Warp AI Action` | Executed a Warp AI action: Restart, Copy, Insert into terminal |
