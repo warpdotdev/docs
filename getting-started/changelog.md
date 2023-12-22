@@ -53,6 +53,65 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 * Fixed a UI bug in the workflows editor where the editor for arguments was overflowing
 * Search bar focuses as expected when you open Launch Configurations with the Command Palette
 
+### 2023.12.21 (v0.2023.12.19.08.02)
+
+**New features**
+
+* Warp now supports showing neighboring lines of output around matches when filtering blocks. To get started, enable filtering for a block and then configure the numerical input field
+
+**Improvements**
+
+* Improved support for Docker containers when completing Docker commands
+
+**Bug fixes**
+
+* Fix commands not being fully bolded when using fish
+
+### 2023.12.14 (v0.2023.12.12.08.02)
+
+**New features**
+
+* Editing with Vim keybindings is now out of beta and generally available! Warp will detect vi mode in shell settings and suggest Vim keybindings.
+
+**Improvements**
+
+* You can now use `CMD-F` to search text in the Markdown Viewer
+
+**Bug fixes**
+
+* Block hover buttons now have a solid background when they overlap with your prompt
+* The Block filter editor now has a clear button
+* `J` and `K` (Vim Mode) can be used for navigation within a multi-line command
+* Fixed the left alignment of the tab bar when in full-screen mode on Mac
+* Fixed triple-click selection (selecting a line) when filtering a Block
+* Fixed potential crash when using the find bar
+* Fixed potential crash when retrieving accessibility contents
+* Fix bug where "R" is erroneously inserted into the input in zsh sessions
+
+### 2023.12.07 (v0.2023.12.05.08.02)
+
+**Improvements**
+
+* Markdown file links can now be configured to open with the default external editor or Warp's built-in markdown viewer
+* Warp Drive folders now keep their opened/closed state through app restarts
+
+**Bug fixes**
+
+* The Input Editor now refocuses correctly after pasting terminal contents and running a command
+* Fixed issue with missing toolbelt buttons when using fish wih Vim Mode
+
+### 2023.11.30 (v0.2023.11.28.08.02)
+
+**Improvements**
+
+* Warp’s custom prompt builder now includes a context chip for Kubernetes context
+* Improved completions for kubectl, including suggestions for resource, global options, and namespaces
+
+**Bug fixes**
+
+* Fixed a UI bug in the workflows editor where the editor for arguments was overflowing
+* Search bar focuses as expected when you open Launch Configurations with the Command Palette
+
 ### 2023.11.16 (v0.2023.11.14.08.02)
 
 **Bug fixes**
