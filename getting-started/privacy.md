@@ -105,14 +105,12 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 | `Deleted Workflow` | Workflow is deleted on the teams page |
 | `Disable Input Sync Inputs` | Disabled / turn off the Input Synchronization (across editors) |
 | `Dismiss Alias Expansion Banner` | Dismissed the banner to enable automatic alias expansion within the Input Editor |
-| `Dismiss Vim Keybindings Banner` | Dismissed the banner to enable Vim keybindings in the Input Editor |
 | `Dismiss Welcome Tips` | Dismissed Welcome tips |
 | `Drag and Drop Tab` | Tab dragged and dropped |
 | `Draw Frame Latency` | Recorded time to draw a frame in app (in ms) |
 | `Draw Frame Latency Histogram Overflow` | Could not summarize histogram of draw frame latency |
 | `Edited Input Before Precmd` | Input edited before precmd hook completes |
 | `Enable Alias Expansion From Banner` | Enabled automatic alias expansion within the Input Editor from the banner |
-| `Enable Vim Keybindings From Banner` | Enabled Vim keybindings in the Input Editor from the banner |
 | `Expensive Frame` | Frame took long time to draw (past a certain threshold) |
 | `Experiment Triggered` | User assigned to A/B test |
 | `Features Page Action` | Changed settings in Features Page |
@@ -136,6 +134,7 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 | `InputBoxPaste` | Pasted text into the Input Editor's via its context menu (right clicking the buffer) |
 | `InputBoxSelectAll` | Selexted all the text in the Input Editor via its context menu (right clicking the buffer) |
 | `InputSaveAsWorkflow` | Clicked "Save as Workflow" from the Input Editor's context menu |
+| `Joined Shared Session` | When you join another instance of Warp using shared sessions |
 | `Jumped to Bookmark Block` | Jumped to bookmarked Block |
 | `Jumped to Bottom of Block Button Clicked` | Used the button to jump to the bottom of a Block |
 | `Jumped to Previous Command` | Jumped to a previous command |
@@ -143,6 +142,9 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 | `Keybinding Removed` | Removed / cleared a keybinding |
 | `Keybinding Reset to Default` | Reset a custom keybinding to its default |
 | `Log In Button Clicked in App` | Clicked on "Log in" button |
+| `Log Out` | Logged out of the Warp client |
+| `Log Out Modal Cancel Pressed` | Escaped the log out flow by canceling the log out modal |
+| `Log Out Modal Shown` | When the log out modal is displayed |
 | `Logged in to native app` | Login is successful |
 | `Logged-out App Startup` | Started Warp in the logged-out / signed-out state |
 | `Move Active Tab` | Move active tab left or right |
@@ -218,7 +220,6 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 | `Setup Flow Started` | Started the setup flow for new users |
 | `Show Alias Expansion Banner` | Displayed the banner asking whether Warp should automatically expand aliases within the Input Editor |
 | `Show Subshell Banner` | Displayed the banner asking whether Warp should Warpify the current session via Warp's subshell wrapper |
-| `Show Vim Keybindings Banner` | Displayed the banner asking whether Warp should enable Vim keybindings in the Input Editor |
 | `ShowNotificationsDiscoveryBanner` | Showed discovery banner for notifications (notify user when long running commands finish) |
 | `ShowNotificationsErrorBanner` | Showed error banner for notifications (i.e. permissions issue) |
 | `Showed File in File Explorer` | Opened a file in Finder by using "Show in Finder" |
@@ -226,6 +227,9 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 | `Skip Onboarding Survey` | Skipped onboarding survey as a whole |
 | `Split Pane` | Split tab into multiple panes |
 | `Start Onboarding Survey` | Started onboarding survey |
+| `Started Shared Session in New Window` | Started a shared session in a new window |
+| `Started Sharing Current Session` | Started sharing the current session |
+| `Stopped Sharing Current Session` | Halted sharing the current session |
 | `Tab Creation` | Created a tab |
 | `Tab Operations` | Took operation on a tab: change color, close tab, close adjacent tabs, etc. |
 | `Tab Renamed` | Changed tab title |
@@ -251,7 +255,6 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 | `Toggle Tab Indicators` | Enabled or disabled the tab indicators (failed command, etc.) |
 | `Toggle Warp AI` | Toggled Warp AI--an AI assistant to help you debug errors, look up forgotten commands and more |
 | `Toggled Bookmark Block` | Bookmarked or unbookmarked Block |
-| `Toggle Vim Mode` | Toggled Vim keybindings |
 | `Tried to Execute Before Precmd` | Attempted to execute command before precmd, a shell stage that has metadata on a command such as ssh, prompt info, etc. |
 | `Trigger Subshell Bootstrap` | Attempted to Warpify the current session via Warp's subshell wrapper |
 | `Triggered Command XRay` | Triggered Command X-Ray (hovering over a command for explanation) |
@@ -260,8 +263,12 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 | `Unhandled Editor Modifier Key` | Used modifier keybinding keystroke which is not currently supported |
 | `Unsupported Shell` | Booted Warp with a shell that isn't supported |
 | `Update Block Filter Query` | When a new filter is applied to a block |
+| `Update Block Filter Query With Context Lines` | When the number of context lines for a block filter query is updated |
 | `Used Warp AI Prepared Prompt` | Used one of the Warp-provided prompts, like "Show examples" |
 | `User Initiated Closing Something` | Attempted to either quit the app or close a window |
+| `Vim Keybindings Banner Dismissed` | Dismissed the banner to enable Vim keybindings in the Input Editor |
+| `Vim Keybindings Banner Displayed` | Displayed the banner asking whether Warp should enable Vim keybindings in the Input Editor |
+| `Vim Keybindings Enabled from Banner` | Enabled Vim keybindings in the Input Editor from the banner |
 | `Warp AI Action` | Executed a Warp AI action: Restart, Copy, Insert into terminal |
 | `Warp AI Character Limit Exceeded` | Attempted to ask a question longer than 1k chars to Warp AI |
 | `Warp AI Request Issued` | Issued a question to Warp AI |
