@@ -1,7 +1,7 @@
 # Changelog
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
-### 2024.01.04 (v0.2024.01.02.08.02.stable_01)
+### 2024.01.04 (v0.2024.01.02.08.02)
 
 **Improvements**
 
