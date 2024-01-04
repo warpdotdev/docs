@@ -1,6 +1,18 @@
 # Changelog
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
+### 2024.01.04 (v0.2024.01.02.08.02.stable_01)
+
+**Improvements**
+
+* The toolbelt displayed when hovering over background Blocks now has a solid background
+
+**Bug fixes**
+
+* The Markdown Viewer now respects the start number of ordered lists
+* Completing a path that includes the tilde `~` character now works as expected
+* Fixed an issue where Warp could quit before saving changes to Warp Drive
+* Fix Warp hanging when using the 'Insert into Input' context menu action
 
 ### 2023.12.21 (v0.2023.12.19.08.02)
 
