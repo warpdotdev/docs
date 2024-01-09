@@ -14,13 +14,9 @@ Git branch that you are on locally, as well as the number of uncommitted changed
 
 #### Kubernetes
 
-Kubernetes context chip shows relevant information when you're using one of the following  commands:
+Kubernetes context chip shows relevant information when you're using one of the following commands:
 
 `kubectl|helm|kubens|kubectx|oc|istioctl|kogito|k9s|helmfile|flux|fluxctl|stern|kubeseal|skaffold|kubent|kubecolor|cmctl|sparkctl|etcd|fubectl`
-
-{% hint style="warning" %}
-Please note that aliases aren't currently supported for the Kubernetes context chip commands. If you're using an alias for one of the commands listed above, please wrap in a conditional to disable just for Warp. See [#debugging](../help/known-issues.md#debugging "mention") docs for more.
-{% endhint %}
 
 ### Custom Prompt
 
