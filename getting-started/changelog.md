@@ -1,6 +1,16 @@
 # Changelog
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
+### 2024.01.11 (v0.2024.01.09.08.02)
+
+**New features**
+
+* New workflow metadata for shared workflows in Warp Drive! Hover over any workflow to learn how recently the workflow has been executed, who edited it last, and when it was last edited
+
+**Bug fixes**
+
+* Fixed the name of the currently active Python virtual environment being inserted into the blocklist when resizing Warp
+
 ### 2024.01.04 (v0.2024.01.02.08.02)
 
 **Improvements**
