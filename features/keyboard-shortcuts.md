@@ -9,6 +9,10 @@ Set custom, clear, or default keyboard shortcuts by navigating to `Settings > Ke
 Remap the keyboard shortcuts using a file (`~./.warp/keybindings.yaml`). See our [keysets repository](https://github.com/warpdotdev/keysets/tree/main) for instructions.
 
 {% hint style="warning" %}
+`CMD-ESC, CMD-BACKTICK, CMD-TAB, CMD-PERIOD, and CMD-TILDE` are not supported keyboard shortcuts. There is a request for support you can track it [here #1851](https://github.com/warpdotdev/Warp/issues/1851)
+{% endhint %}
+
+{% hint style="info" %}
 Keybinds that conflict with others are highlighted with an orange border.
 {% endhint %}
 
