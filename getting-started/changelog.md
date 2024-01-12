@@ -7,10 +7,6 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 
 * New workflow metadata for shared workflows in Warp Drive! Hover over any workflow to learn how recently the workflow has been executed, who edited it last, and when it was last edited
 
-**Bug fixes**
-
-* Fixed the name of the currently active Python virtual environment being inserted into the blocklist when resizing Warp
-
 ### 2024.01.04 (v0.2024.01.02.08.02)
 
 **Improvements**
