@@ -7,15 +7,19 @@ Sticky Command Header shows you the previous command run for a large Block that 
 ## How to access it
 
 * Sticky Command Header is enabled by default.
-* Toggle Sticky Command Header by going to `Settings > Features` > toggle “Show sticky command header”. 
-* Toggle by searching for “Sticky Command Header” within Command Palette `CMD-P`
+* Toggle Sticky Command Header by going to `Settings > Features` > toggle “Show sticky command header”.
+* Toggle by searching for “Sticky Command Header” within the Command Palette `CMD-P` or by pressing `CTRL-CMD-S`.
+* You can also toggle the Sticky Command header in the Active pane with `CTRL-S`, which won't disable the feature entirely, just minimize it on the active pane.
 
 ## How to use it
 
 * If a Block has a large output ( e.g. `seq 1 1000`), the header of the Block will show on the top of the active Window, Tab, or Pane.
 * Access the Block context menu and bookmark the Block by clicking in the stick header
 * Click on the Sticky Command Header to quickly jump to the top of the Block.
+* While active you can also minimize the Sticky Command Header on the active pane by clicking the Up/Down in the middle of the header.
 
 ## How it works
 
-{% embed url="https://www.loom.com/share/a86967c057e44ab4bee4860ba80538b9?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}Sticky Command Header Demo{% endembed %}
+{% embed url="https://www.loom.com/share/a86967c057e44ab4bee4860ba80538b9?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
+Sticky Command Header Demo
+{% endembed %}
