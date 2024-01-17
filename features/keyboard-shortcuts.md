@@ -32,6 +32,7 @@ Keybinds that conflict with others are highlighted with an orange border.
 | `` CTRL-` ``   | AI Command Suggestions       | `input:toggle_natural_language_command_search` |
 | `CMD-L`        | Focus Terminal Input         | `terminal:focus_input`                         |
 | `CTRL-I`       | Warpify Subshell             | `terminal:trigger_subshell_bootstrap`          |
+| `CMD-\`        | Warp Drive                   | `terminal:toggle_warp_drive`                   |
 
 ### Blocks
 

@@ -14,7 +14,7 @@ Warp Drive, Teams, and Workflows Demo
 
 ## How to access it
 
-Warp Drive is accessible from the status bar in the Warp terminal.
+Warp Drive is accessible from the status bar in the Warp terminal or you can toggle the Warp Drive side panel with `CMD-\`.
 
 <figure><img src="../../.gitbook/assets/Open_Warp_Drive.png" alt="Warp Drive icon on top left corner of Warp"><figcaption><p>Warp Drive Icon</p></figcaption></figure>
 
