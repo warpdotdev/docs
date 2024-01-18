@@ -1,6 +1,16 @@
 # Changelog
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
+### 2024.01.18 (v0.2024.01.16.16.31)
+
+**New features**
+
+* Warp on Linux (Private Beta): System fonts now load as expected
+
+**Bug fixes**
+
+* Warp on Linux (Private Beta): `ALT-TAB` no longer incorrectly inserts 4 spaces into the Input Editor
+
 ### 2024.01.11 (v0.2024.01.09.08.02)
 
 **New features**
