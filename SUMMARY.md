@@ -84,8 +84,8 @@
 
 * [Updating Warp](help/updating-warp.md)
 * [Using Warp Offline](help/using-warp-offline.md)
-* [Sending Us Feedback](help/sending-us-feedback.md)
+* [Sending Feedback & Logs](help/sending-us-feedback.md)
 * [Troubleshooting Login Issues](help/troubleshooting-login-issues.md)
 * [Known Issues](help/known-issues.md)
-* [Logging out / Uninstalling](help/uninstalling-warp.md)
+* [Logging out & Uninstalling](help/uninstalling-warp.md)
 * [Open Source Licenses](help/licenses.md)

@@ -1,4 +1,4 @@
-# Sending Us Feedback
+# Sending Feedback & Logs
 
 We would love to get your feedback on Warp: bugs, feature requests, novel ideas, etc.
 
@@ -7,7 +7,7 @@ We would love to get your feedback on Warp: bugs, feature requests, novel ideas,
 * Open a new issue or feature request in our [GitHub repository](https://github.com/warpdotdev/warp/issues/new/choose).
 * Through the Mac Menu: Help > Send Feedback.
 * Through in-app Menu: Warp Essentials:bulb: > Feedback
-* Join our [Discord](https://www.warp.dev/discord?utm\_source=docs-sending\_us\_feedback) server. Send a message in `#bugs-and-feedback` for help with bugs and issues and `#questions` for general questions on how to do stuff in Warp.
+* Join our [Discord](https://www.warp.dev/discord?utm\_source=docs-sending\_us\_feedback) server. Send a message in `#questions-and-feedback` for help with bugs and issues.
 
 <figure><img src="../.gitbook/assets/send-feedback-demo.gif" alt="sending feedback from the mac menu and warp essentials"><figcaption><p>Send Feedback</p></figcaption></figure>
 
@@ -15,7 +15,7 @@ We would love to get your feedback on Warp: bugs, feature requests, novel ideas,
 
 WarpPreview is an early access build given to Warp Ambassadors. You can join this insider program through our application. Learn more about the [Warp Ambassadors](https://warpdev.notion.site/Warp-Ambassadors-7aeacbc565694985a64710871470af67#68a28367517042a0aeaa472b2f29cea5) program.
 
-* Join our [Discord](https://www.warp.dev/discord?utm\_source=docs-sending\_us\_feedback) server. Send a message in `#ambassador-forum` for help with WarpPreview.
+* Join our [Discord](https://www.warp.dev/discord?utm\_source=docs-sending\_us\_feedback) server. Send a message in `#questions-and-feedback` for help with WarpPreview.
 
 ## Gathering Warp Logs
 
