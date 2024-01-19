@@ -29,6 +29,10 @@ You can see the SSH wrapper by using `which warp_ssh_helper` in Zsh, `type warp_
 
 _Note:_ The ssh wrapper is only _initialized_ on your local machine. We don’t currently support bootstrapping nested ssh sessions
 
+{% hint style="info" %}
+Warp's completions for ssh do respect `~/.ssh/config` as well as `~/.ssh/known_hosts`
+{% endhint %}
+
 ## Troubleshooting SSH
 
 ### channel 2: open failed: connect failed: open failed
