@@ -6,7 +6,7 @@ description: >-
 
 # Known Issues
 
-* We do not support `PROMPT_COMMAND` in bash right now (working on this!).
+* Warp do not support `PROMPT_COMMAND` in bash right now, to set a custom prompt use `PS1`.
 * When you [SSH](../features/ssh.md), we start a bash shell on the remote host. We built a wrapper around SSH to make Warp features possible.
 * If your default shell is zsh, your aliases typically do not transfer over. Other shells are unsupported for now.
 * When you open a [non-shell-based subshell (REPL)](https://github.com/warpdotdev/Warp/issues/4082), we do not set it up for Warp - instead, it works like a normal terminal session.
