@@ -28,6 +28,10 @@ After removing Opacity ( moving the slider to a value less than `100)`, you can 
 Large blur radiuses may cause affect performance, especially on Retina displays.
 {% endhint %}
 
+{% hint style="warning" %}
+Window blurring is not supported on Linux.
+{% endhint %}
+
 ## How it works
 
 <figure><img src="../.gitbook/assets/window_size_demo.gif" alt="Window Size Demo"><figcaption><p>Window Size Demo</p></figcaption></figure>
