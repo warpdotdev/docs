@@ -5,7 +5,7 @@
 Warp's Global Hotkey is a configurable shortcut that can show/hide a dedicated window or all windows on your chosen desktop regardless of whether the app is focused. You can customize the dedicated windows' pinned position and its width and height ratio relative to your active screen size.
 
 {% hint style="warning" %}
-On Linux, global hotkey may not work for some X11 window managers which do not implement [Extended Window Manager Hints](https://en.wikipedia.org/wiki/Extended_Window_Manager_Hints).
+On Linux, global hotkey may not work for some X11 window managers which do not implement [Extended Window Manager Hints](https://en.wikipedia.org/wiki/Extended\_Window\_Manager\_Hints).
 {% endhint %}
 
 ## How to access it
@@ -38,10 +38,17 @@ On Linux, Warp does not support the "Autohides on the loss of keyboard focus" fe
 
 <figure><img src="../../.gitbook/assets/Show-Hide All Windows.gif" alt=""><figcaption><p>Global Hotkey - Show/Hide All Windows Demo</p></figcaption></figure>
 
-## Troubleshooting Hotkey Window
+## Troubleshooting Hotkey Dedicated Window
 
-### Mac
+Review platform-specific instructions for troubleshooting the global hotkey below
+
+{% tabs %}
+{% tab title="Mac" %}
 If the keybinding doesn't work, check under `System Preferences > Security & Privacy > Accessibility` and tick the checkbox to grant Warp access.
+{% endtab %}
 
-### Linux
+{% tab title="Linux" %}
 The hotkey window may appear on the incorrect monitor under certain window sizes. For example, with GNOME, if the hotkey window is supposed to show on a monitor having the task bar (GNOME Panel), and the window height is 100%, causing an overlap, the hotkey window may fallback to showing on an external monitor if you have one. Try working around this by setting a window height to a lesser percentage, e.g. 90%.
+{% endtab %}
+{% endtabs %}
+
