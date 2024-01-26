@@ -16,7 +16,7 @@
 * [Prompt](appearance/prompt.md)
 * [Input Position](appearance/input-position.md)
 * [Text, Fonts, & Cursor](appearance/text-fonts-cursor.md)
-* [Size, Opacity, & Blurring](appearance/opacity-blurring-dimming.md)
+* [Size, Opacity, & Blurring](appearance/size-opacity-blurring.md)
 * [Pane Dimming](appearance/pane-dimming.md)
 * [Compact Mode](appearance/compact-mode.md)
 * [Tab Indicators](appearance/tab-indicators.md)
