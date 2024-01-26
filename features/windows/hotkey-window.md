@@ -20,7 +20,7 @@ Your new customization will apply the **next** time a Dedicated Window is create
 {% endhint %}
 
 {% hint style="warning" %}
-We currently do not support "Autohides on the loss of keyboard focus" feature on Linux.
+On Linux, Warp does not support the "Autohides on the loss of keyboard focus" feature.
 {% endhint %}
 
 ### Show/Hide All Windows
@@ -28,7 +28,7 @@ We currently do not support "Autohides on the loss of keyboard focus" feature on
 1. Open `Settings > Features > Keys` and select "Show/hide all windows" from the Global Hotkey dropdown to enable the feature.
 2. Configure your preferred keybinding.
 
-{% hint style="warning" %}
+{% hint style="info" %}
 `CMD-ESC, CMD-BACKTICK, CMD-TAB, CMD-PERIOD, and CMD-TILDE` are not supported keyboard shortcuts. There is a request for support you can track it [here #1851](https://github.com/warpdotdev/Warp/issues/1851)
 {% endhint %}
 
