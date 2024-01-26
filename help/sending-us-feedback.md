@@ -19,24 +19,17 @@ WarpPreview is an early access build given to Warp Ambassadors. You can join thi
 
 ## Gathering Warp Logs
 
-In some cases, we may also ask for your Warp logs. You can retrieve them using your Terminal app or the Console – a utility for tracking diagnostic information. _Note:_ Warp’s logs do _not_ contain any console input or output. See more on how we handle [Crash Reports and Telemetry](../getting-started/privacy.md#what-telemetry-data-are-you-collecting-and-why).
+In some cases, we may also ask for your Warp logs. You can retrieve them by following the intructions for your platform below. Locate the log file and attach it to your GitHub issue comment, feedback email, or discord message. _Note:_ Warp’s logs do _not_ contain any console input or output. See more on how we handle [Crash Reports and Telemetry](../getting-started/privacy.md#what-telemetry-data-are-you-collecting-and-why).
 
-### Exporting Logs from Console:
-
-1. Launch Console, found in Mac’s `Applications > Utilities` folder
-2. In the left pane, select Log Reports
-   1. In the right pane, find the `warp` log
-   2. Drag and drop the log into your GitHub issue comment, feedback email, or discord message.
-3. In case of a Warp crash, select Crash Reports from the left pane
-   1. Find the Warp crash report from within the right pane
-   2. Drag and drop the crash report into your GitHub issue comment, feedback email, or discord message.
-
-### Exporting Logs from Terminal:
-
-1. Open Terminal, found in Mac’s Applications > Utilities folder
-2. For a log report
-   1. Run `find $HOME/Library/Logs -name "warp*log" -exec cp {} ~/Desktop/ \;`
-   2. Drag and drop the log file from your Desktop into your GitHub issue comment, feedback email, or discord message.
-3. In case of a Warp crash
-   1. Run `find $HOME/Library/Logs -name "*dev*warp*" -exec cp {} ~/Desktop/ \;`
-   2. Drag and drop the crash report into your GitHub issue comment, feedback email, or discord message.
+{% tabs %}
+{% tab title="Mac" %}
+The log file is located at `~/Library/Logs/warp.log`.
+##### Using Console
+1. Launch Console, found in Mac’s `Applications > Utilities` folder.
+2. In the left pane, select Log Reports.
+3. In the right pane, find the `warp` log.
+{% endtab %}
+{% tab title="Linux" %}
+The log file is located at `${XDG_STATE_HOME:-$HOME/.local/state}/warp/warp.log`.
+{% endtab %}
+{% endtabs %}

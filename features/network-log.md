@@ -11,7 +11,7 @@ Each log item is a timestamped Debug format string for either a request or respo
 1. There are 2 main ways to access the network panel.
    1. Option 1: CMD-P > Type in “Show Warp Network Log”
    2. Option 2: Press CMD-R > Type in “Tail Warp Network Log”
-2. Both options insert a workflow into your input editor - it should look something like this: `tail -f "/Users/warp/Library/Application Support/dev.warp.Warp-Dev/warp_network.log”`
+2. Both options insert a workflow into your input editor - it should look something like this on Mac: `tail -f "/Users/warp/Library/Application Support/dev.warp.Warp-Dev/warp_network.log”` or this on Linux: `tail -f " ${XDG_STATE_HOME:-$HOME/.local/state}/warp/warp_network.log"`.
 3. Press Enter to run this workflow.
 4. Press CMD-D to open up a split pane on the right, then run AI Command Search or share a block to see the network log activity.
    1. Example #1: Press CTRL-\` to open up A.I. Command Search > Type in “print hello world”
