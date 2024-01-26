@@ -5,7 +5,7 @@
 Warp's Global Hotkey is a configurable shortcut that can show/hide a dedicated window or all windows on your chosen desktop regardless of whether the app is focused. You can customize the dedicated windows' pinned position and its width and height ratio relative to your active screen size.
 
 {% hint style="warning" %}
-On Linux, this feature may not work for some X11 window managers which do not implement [Extended Window Manager Hints](https://en.wikipedia.org/wiki/Extended_Window_Manager_Hints). 
+On Linux, global hotkey may not work for some X11 window managers which do not implement [Extended Window Manager Hints](https://en.wikipedia.org/wiki/Extended_Window_Manager_Hints).
 {% endhint %}
 
 ## How to access it
