@@ -4,6 +4,10 @@
 
 Warp's Global Hotkey is a configurable shortcut that can show/hide a dedicated window or all windows on your chosen desktop regardless of whether the app is focused. You can customize the dedicated windows' pinned position and its width and height ratio relative to your active screen size.
 
+{% hint style="info" %}
+`CMD-ESC, CMD-BACKTICK, CMD-TAB, CMD-PERIOD, and CMD-TILDE` are not supported keyboard shortcuts. There is a request for support you can track it [here #1851](https://github.com/warpdotdev/Warp/issues/1851)
+{% endhint %}
+
 {% hint style="warning" %}
 On Linux, global hotkey may not work for some X11 window managers which do not implement [Extended Window Manager Hints](https://en.wikipedia.org/wiki/Extended\_Window\_Manager\_Hints).
 {% endhint %}
@@ -28,11 +32,7 @@ On Linux, Warp does not support the "Autohides on the loss of keyboard focus" fe
 1. Open `Settings > Features > Keys` and select "Show/hide all windows" from the Global Hotkey dropdown to enable the feature.
 2. Configure your preferred keybinding.
 
-{% hint style="info" %}
-`CMD-ESC, CMD-BACKTICK, CMD-TAB, CMD-PERIOD, and CMD-TILDE` are not supported keyboard shortcuts. There is a request for support you can track it [here #1851](https://github.com/warpdotdev/Warp/issues/1851)
-{% endhint %}
-
-{% hint style="info" %}
+{% hint style="warning" %}
 On Linux, hidden windows may not appear in your `ALT-TAB` window switcher menu. Furthermore, the ordering of windows beyond the top window may change after toggling.
 {% endhint %}
 
