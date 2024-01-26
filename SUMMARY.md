@@ -55,7 +55,7 @@
   * [Session Restoration](features/sessions/session-restoration.md)
   * [Session Navigation](features/sessions/session-navigation.md)
 * [Window Management](features/windows/README.md)
-  * [Global Hotkey](features/windows/hotkey-window.md)
+  * [Global Hotkey](features/windows/global-hotkey.md)
   * [Tabs](features/windows/tabs.md)
   * [Split Panes](features/windows/split-panes.md)
 * [Accessibility](features/accessibility.md)

@@ -32,6 +32,10 @@ On Linux, Warp does not support the "Autohides on the loss of keyboard focus" fe
 `CMD-ESC, CMD-BACKTICK, CMD-TAB, CMD-PERIOD, and CMD-TILDE` are not supported keyboard shortcuts. There is a request for support you can track it [here #1851](https://github.com/warpdotdev/Warp/issues/1851)
 {% endhint %}
 
+{% hint style="info" %}
+On Linux, hidden windows may not appear in your `ALT-TAB` window switcher menu. Furthermore, the ordering of windows beyond the top window may change after toggling.
+{% endhint %}
+
 ## How it works
 
 <figure><img src="../../.gitbook/assets/Dedicated Window.gif" alt=""><figcaption><p>Global Hotkey - Dedicated Window Demo</p></figcaption></figure>
