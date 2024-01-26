@@ -25,11 +25,9 @@ After removing Opacity ( moving the slider to a value less than `100)`, you can 
 * Increasing the slider increases the blur radius that's applied to the background image.
 
 {% hint style="warning" %}
-Large blur radiuses may cause affect performance, especially on Retina displays.
-{% endhint %}
+On Mac, Large blur radiuses may cause affect performance, especially on Retina displays.
 
-{% hint style="warning" %}
-Window blurring is not supported on Linux.
+On Linux, window blurring is not supported.
 {% endhint %}
 
 ## How it works
