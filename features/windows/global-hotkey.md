@@ -9,7 +9,8 @@ Warp's Global Hotkey is a configurable shortcut that can show/hide a dedicated w
 {% endhint %}
 
 {% hint style="warning" %}
-On Linux, global hotkey may not work for some X11 window managers which do not implement [Extended Window Manager Hints](https://en.wikipedia.org/wiki/Extended\_Window\_Manager\_Hints).
+On Linux, global hotkey may not work for some X11 window managers which do not implement [Extended Window Manager Hints](https://en.wikipedia.org/wiki/Extended\_Window\_Manager\_Hints). Some examples include:
+[sowm](https://github.com/dylanaraps/sowm), [catwm](https://github.com/pyknite/catwm), [Fvwm](https://www.fvwm.org/), [dwm](https://dwm.suckless.org/), [2bWM](https://github.com/venam/2bwm), [monsterwm](https://github.com/c00kiemon5ter/monsterwm), [TinyWM](https://github.com/mackstann/tinywm), [x11fs](https://github.com/sdhand/x11fs), [XMonad](https://xmonad.org/)
 {% endhint %}
 
 ## How to access it
