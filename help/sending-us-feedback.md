@@ -22,7 +22,7 @@ WarpPreview is an early access build given to Warp Ambassadors. You can join thi
 In some cases, we may also ask for your Warp logs. You can retrieve them by following the intructions for your platform below. Locate the log file and attach it to your GitHub issue comment, feedback email, or discord message. _Note:_ Warp’s logs do _not_ contain any console input or output. See more on how we handle [Crash Reports and Telemetry](../getting-started/privacy.md#what-telemetry-data-are-you-collecting-and-why).
 
 {% tabs %}
-{% tab title="Mac" %}
+{% tab title="macOS" %}
 The log file is located at `~/Library/Logs/warp.log`.
 ##### Using Console
 1. Launch Console, found in Mac’s `Applications > Utilities` folder.

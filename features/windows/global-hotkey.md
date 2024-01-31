@@ -48,7 +48,7 @@ On Linux, hidden windows may not appear in your `ALT-TAB` window switcher menu. 
 Review platform-specific instructions for troubleshooting the global hotkey below
 
 {% tabs %}
-{% tab title="Mac" %}
+{% tab title="macOS" %}
 If the keybinding doesn't work, check under `System Preferences > Security & Privacy > Accessibility` and tick the checkbox to grant Warp access.
 {% endtab %}
 

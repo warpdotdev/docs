@@ -21,7 +21,7 @@ Keybinds that conflict with others are highlighted with an orange border.
 ## All Available Shortcuts
 
 {% tabs %}
-{% tab title="Mac" %}
+{% tab title="macOS" %}
 ### Warp Essentials
 
 | Shortcut       | Command                      | Action                                         |
