@@ -13,7 +13,8 @@ Warp will automatically suggest commands as you type based on shell history and 
 ## How to use it
 
 * Complete an autosuggestion using the `RIGHT` arrow or `CTRL-F`.
-* `CTRL-E` and `CMD-RIGHT` also complete the autosuggestion when your cursor is at the end of the buffer (the last character in the Input Editor).
+* `CTRL-E` and `CMD-RIGHT` also, complete the autosuggestion when your cursor is at the end of the buffer (the last character in the Input Editor).
+* `OPT-RIGHT`, `ALT-RIGHT`, `CTRL-RIGHT`, or `ALT-F` can be used to partially complete the autosuggestion one component at a time.
 
 {% hint style="info" %}
 **Terminal Tip**
