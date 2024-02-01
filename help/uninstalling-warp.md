@@ -25,6 +25,8 @@ You can log out of Warp through:
 
 Removing Warp from your computer involves uninstalling Warp and then removing any files or data.
 
+{% tabs %}
+{% tab title="Mac" %}
 ### Uninstalling Warp installed via dmg
 
 * Remove Warp with `sudo rm -r /Applications/Warp.app`
@@ -40,3 +42,18 @@ Removing Warp from your computer involves uninstalling Warp and then removing an
 * Remove Warp settings with `defaults delete dev.warp.Warp-Stable`
 * Remove Warp user files and logs with `sudo rm -r $HOME/.warp/ $HOME/Library/Logs/warp.log`
 * Remove Warp database with `sudo rm -r "$HOME/Library/Application Support/dev.warp.Warp-Stable"`
+{% endtab %}
+
+{% tab title="Linux" %}
+### Uninstalling Warp via package manager
+
+Uninstall Warp using the same package manager that you used to install it.
+
+### Removing Warp login, settings, files, log, and database
+* Log out of Warp using the [instructions above](#logging-out)
+* Remove Warp config files with `rm -r ${XDG_CONFIG_HOME:-$HOME/.config}/warp`
+* Remove Warp user files, logs, and database with `rm -r ${XDG_STATE_HOME:-$HOME/.local/state}/warp`
+
+{% endtab %}
+{% endtabs %}
+
