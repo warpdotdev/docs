@@ -1,7 +1,15 @@
 # Changelog
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
-### 2024.01.18 (v0.2024.01.16.16.31)
+
+### 2023.02.01 (v0.2024.01.30.16.52)
+
+**Improvements**
+
+* Improved UX for pasting an auth token to complete the sign-in flow
+* Subversion (svn) information is now available in Warp's prompt
+
+### 2023.01.18 (v0.2024.01.16.16.31)
 
 **New features**
 
@@ -11,13 +19,13 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 
 * Warp on Linux (Private Beta): `ALT-TAB` no longer incorrectly inserts 4 spaces into the Input Editor
 
-### 2024.01.11 (v0.2024.01.09.08.02)
+### 2023.01.11 (v0.2024.01.09.08.02)
 
 **New features**
 
-* New workflow metadata for shared workflows in Warp Drive! Hover over any workflow to learn how recently the workflow has been executed, who edited it last, and when it was last edited
+* New workflow metadata for shared workflows in Warp Drive! Hover over any workflow to learn how recently the workflow has been executed, who edited it last, and when it was last edited.
 
-### 2024.01.04 (v0.2024.01.02.08.02)
+### 2023.12.21 (v0.2024.01.02.08.02)
 
 **Improvements**
 
@@ -26,23 +34,9 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 **Bug fixes**
 
 * The Markdown Viewer now respects the start number of ordered lists
-* Completing a path that includes the tilde `~` character now works as expected
+* Completing a path that includes the tilde (`~`) character now works as expected
 * Fixed an issue where Warp could quit before saving changes to Warp Drive
 * Fix Warp hanging when using the 'Insert into Input' context menu action
-
-### 2023.12.21 (v0.2023.12.19.08.02)
-
-**New features**
-
-* Warp now supports showing neighboring lines of output around matches when filtering blocks. To get started, enable filtering for a block and then configure the numerical input field
-
-**Improvements**
-
-* Improved support for Docker containers when completing Docker commands
-
-**Bug fixes**
-
-* Fix commands not being fully bolded when using fish
 
 ### 2023.12.14 (v0.2023.12.12.08.02)
 
