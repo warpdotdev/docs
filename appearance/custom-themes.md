@@ -21,10 +21,21 @@ There are 2 ways to install a theme from this repo.
 1. Download just a single file and follow the steps in the section below.
 2. Clone the entire repo into `~/.warp/`
 
+{% tabs %}
+{% tab title="macOS" %}
 ```
 cd ~/.warp/
 git clone https://github.com/warpdotdev/themes.git
 ```
+{% endtab %}
+
+{% tab title="Linux" %}
+```
+cd ${XDG_DATA_HOME:-$HOME/.local/share}/warp/
+git clone https://github.com/warpdotdev/themes.git
+```
+{% endtab %}
+{% endtabs %}
 
 Here is a step-by-step YouTube video that goes through these 2 steps for an example theme.
 
@@ -34,20 +45,26 @@ Adding a Custom Theme to Warp
 
 ## How do I use a custom theme in Warp?
 
-1. To start, create a config directory in your home directory:
+1. To start, create the following directory:
 
-```
-mkdir -p ~/.warp/themes/
-```
+{% tabs %}
+{% tab title="macOS" %}
+`mkdir -p ~/.warp/themes/`
+{% endtab %}
+
+{% tab title="Linux" %}
+`mkdir -p ${XDG_DATA_HOME:-$HOME/.local/share}/warp/themes/`
+{% endtab %}
+{% endtabs %}
 
 {% hint style="info" %}
-_Note:_ It may take several minutes for Warp to initially discover the new config directory. You can either wait or just restart the application. After that step, all future changes to `~/.warp/themes` directory will be reflected in Warp within seconds.
+_Note:_ It may take several minutes for Warp to initially discover the new themes directory. You can either wait or just restart the application. After that step, all future changes to the directory will be reflected in Warp within seconds.
 {% endhint %}
 
-2. Add your new custom theme yaml theme file to this directory:
+2. Add your new custom theme yaml file to this directory:
 
 ```
-cp ~/Downloads/my_awesome_theme.yaml ~/.warp/themes/
+cp ~/Downloads/my_awesome_theme.yaml {{path_to_your_themes_directory}}
 ```
 
 Your new theme should now be visible on the list of available themes.

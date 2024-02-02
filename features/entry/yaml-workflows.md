@@ -33,7 +33,19 @@ Workflows solve some major pain points with aliases, specifically the:
 
 ### How to create a workflow with YAML
 
-Workflows can easily be shared with your team by saving a workflow's YAML file to `~/.warp/workflows/` or `.warp/workflows/` in the top level of a repository. Local and Repository workflows can be accessed under the "My Workflows" and "Repository Workflows" tab of the Workflows menu, respectively.
+You can store local workflows (scoped to your machine) in:
+
+{% tabs %}
+{% tab title="macOS" %}
+`~/.warp/workflows/`
+{% endtab %}
+
+{% tab title="Linux" %}
+`${XDG_DATA_HOME:-$HOME/.local/share}/warp/workflows/`
+{% endtab %}
+{% endtabs %}
+
+Or, you can share them with your team by saving them in `{{path_to_git_repo}}/.warp/workflows/`. Local and Repository workflows can be accessed under the "My Workflows" and "Repository Workflows" tab of the Workflows menu, respectively.
 
 See the existing workflows spec within the [Workflows repo](https://github.com/warpdotdev/Workflows/tree/main/specs) for examples. Additionally, we outline the file format below:
 
@@ -125,19 +137,36 @@ The default value for the argument. If specified, the `default_value` replaces t
 
 Local workflows are scoped to your machine. Repository workflows are scoped to a git repository and can be accessed by anyone who has cloned the repo. _Note:_ Repository workflows will not appear if you are ssh'd into a remote machine.
 
-Local Workflow Path: `~/.warp/workflows`
+Local Workflow Path:
+{% tabs %}
+{% tab title="macOS" %}
+`~/.warp/workflows/`
+{% endtab %}
+
+{% tab title="Linux" %}
+`${XDG_DATA_HOME:-$HOME/.local/share}/warp/workflows/`
+{% endtab %}
+{% endtabs %}
 
 Repository Workflow Path: `{{path_to_git_repo}}/.warp/workflows`
 
 #### Local Workflows
 
-To start, create a workflows subdirectory within your `.warp` folder
+To start, create a workflows subdirectory within 
 
-`mkdir -p ~/.warp/workflows`
+{% tabs %}
+{% tab title="macOS" %}
+`mkdir -p ~/.warp/workflows/`
+{% endtab %}
+
+{% tab title="Linux" %}
+`mkdir -p ${XDG_DATA_HOME:-$HOME/.local/share}/warp/workflows/`
+{% endtab %}
+{% endtabs %}
 
 Add your workflow’s `.yaml` file to this directory; if the file format is valid Warp should automatically load it into the Workflows menu.
 
-`cp ~/path/to/my_awesome_workflow.yaml ~/.warp/workflows`
+`cp ~/path/to/my_awesome_workflow.yaml ~/{{path_to_local_workflow_folder}}`
 
 #### Repository Workflows
 

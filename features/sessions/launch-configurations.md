@@ -31,7 +31,18 @@ Launch Configuration Demo
 
 ## YAML Format
 
-All yaml files are stored in `~/.warp/launch_configurations/`.
+All yaml files are stored in the following location:
+
+{% tabs %}
+{% tab title="macOS" %}
+`~/.warp/launch_configurations/`
+{% endtab %}
+
+{% tab title="Linux" %}
+`${XDG_DATA_HOME:-$HOME/.local/share}/warp/launch_configurations/`
+{% endtab %}
+{% endtabs %}
+
 
 {% hint style="warning" %}
 The `cwd:` value in the yaml code must contain an absolute path or `""`. Note that `~` or empty paths will result in the file not being visible on the list of options for Launch Configurations.
