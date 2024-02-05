@@ -6,11 +6,11 @@ Warp allows you to configure its default prompt or a supported custom prompt. A 
 
 ### Warp Prompt
 
-Warp has a native prompt that is customizable and can show a variety of information including cwd, git, kubernetes, pyenv, date, time, etc.
+Warp has a native prompt that is customizable and can show a variety of information including cwd, git, svn, kubernetes, pyenv, date, time, etc.
 
-#### Git
+#### Git and Subversion
 
-Git branch that you are on locally, as well as the number of uncommitted changed files. This includes any new files, modified files, and deleted files that are staged or unstaged.
+Git and Subversion branch that you are on locally, as well as the number of uncommitted changed files. This includes any new files, modified files, and deleted files that are staged or unstaged.
 
 #### Kubernetes
 
