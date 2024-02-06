@@ -7,19 +7,40 @@ description: >-
 
 # Using Warp with \[zsh|bash|fish]
 
-### Zsh is the default shell for Warp
+## Warp default shell
 
-Zsh is the default login and interactive shell on macOS (starting with macOS Catalina in 2019), replacing the bash shell. Warp tries to load your login shell by default, currently we support bash, fish, and zsh; if your login shell is set to something else e.g. Nushell Warp will load zsh instead.
+Warp tries to load your login shell by default. Currently we support bash, fish, and zsh; if your login shell is set to something else (e.g. Nushell) Warp will load zsh instead. You can change which shell Warp uses by following the [instructions below](using-warp-with-shells.md#changing-what-shell-warp-uses).
 
-You can switch your default shell to any other shell supported by Warp (bash, zsh, fish) using the instructions at the bottom of the page.
+Zsh is the default login and interactive shell on macOS (starting with macOS Catalina in 2019), replacing the bash shell. For most Linux distributions, the default shell is bash.
 
-[Zsh](https://zsh.sourceforge.io/Doc/Release/zsh\_toc.html) is a Unix shell built as an extension of [Bourne shell](https://en.wikipedia.org/wiki/Bourne\_shell) with many improvements around customization e.g. support for plugins, themes, syntax highlighting, and auto-correction..
+### **Changing what shell Warp uses**
 
-#### Setting up zsh on Warp
+There are two ways to change the shell that Warp uses for new tabs, windows, and panes:
 
-By default, macOS ships with zsh located in `/bin/zsh`. You can confirm this location by typing `which zsh` in your Warp terminal. You can also check the version of zsh installed on your system by simply typing the following:
+1. We recommend you choose a shell in Warp by going to `Settings > Features` and scrolling to the `Session` section, then select the "Startup shell for new sessions"
+2. You can also change your [login shell](https://en.wikipedia.org/wiki/Chsh) by following the [instructions below](#changing-your-system's-default-shell) (or the [macOS documentation](https://support.apple.com/en-us/HT208050)).
 
-`$ zsh --version`
+{% hint style="info" %}
+The changes to your shell will only take effect when you start a new session.
+{% endhint %}
+
+### Changing your system's default shell
+
+**To change the default shell to bash**
+
+`chsh -s $(which bash)`
+
+Enter your password when prompted to complete the switch. Every new tab, and window you now open will start with bash.
+
+**To change the default shell to zsh**
+
+`chsh -s $(which zsh)`
+
+Enter your password when prompted to complete the switch. Every new tab, and window you now open will start with zsh.
+
+[**To change the default shell to fish**](using-warp-with-shells.md#step-2-switch-to-fish-as-the-default-shell)
+
+## Customizing your shell environment
 
 #### Customize Your zsh Shell Environment
 
@@ -73,7 +94,15 @@ $ source ~/.bashrc
 So, now you can type \``` reload` ``, to source the latest changes in the `bashrc`
 {% endhint %}
 
-### Using fish shell with Warp
+## Additional shell guidance for macOS
+
+#### Setting up zsh on Warp
+
+By default, macOS ships with [zsh](https://zsh.sourceforge.io/Doc/Release/zsh\_toc.html) located in `/bin/zsh`. You can confirm this location by typing `which zsh` in your Warp terminal. You can also check the version of zsh installed on your system by simply typing the following:
+
+`$ zsh --version`
+
+### Using fish shell with Warp on macOS
 
 #### Step 1: Install fish
 
@@ -112,28 +141,3 @@ If you prefer, you can also manually edit the /etc/shells file using the editor 
 **Why the different locations?** The location of fish depends on how it was installed. Homebrew installs programs under `/usr/local` on Macs running Intel processors, but under `/opt/homebrew` for Macs running Apple Silicon. So, if you used Homebrew to install fish on a Mac with Apple Silicon, the location of the executable is - `/opt/homebrew/bin/fish`.\
 You can identify where fish is installed by running `echo $(which fish)`.
 {% endhint %}
-
-### **Changing default shell**
-
-There are two ways to change the default shell that Warp uses for new tabs, windows, and panes:
-
-1. We recommend you choose a shell in Warp by going to `Settings > Features` and scrolling to the `Session` section, then select the "Startup shell for new sessions"
-2. You can also change your [login shell](https://en.wikipedia.org/wiki/Chsh) by following the instructions below (or the [macOS documentation](https://support.apple.com/en-us/HT208050))
-
-{% hint style="info" %}
-The changes to your shell will only take effect when you start a new session.
-{% endhint %}
-
-**To change the default shell to bash**
-
-`chsh -s $(which bash)`
-
-Enter your password when prompted to complete the switch. Every new tab, and window you now open will start with bash.
-
-**To change the default shell to zsh**
-
-`chsh -s $(which zsh)`
-
-Enter your password when prompted to complete the switch. Every new tab, and window you now open will start with zsh.
-
-[**To change the default shell to fish**](using-warp-with-shells.md#step-2-switch-to-fish-as-the-default-shell)
