@@ -26,6 +26,7 @@
 * [Warp AI](features/warp-ai/README.md)
   * [AI Command Suggestions](features/warp-ai/ai-command-suggestions.md)
 * [Warp Drive](features/warp-drive/README.md)
+  * [Notebooks](features/warp-drive/notebooks.md)
   * [Workflows](features/warp-drive/workflows.md)
 * [Teams](features/teams.md)
 * [Command Palette](features/command-palette.md)
