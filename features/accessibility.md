@@ -6,6 +6,10 @@ Our mission is to make Warp the most accessible terminal for all developers. It 
 
 ## How to use Warp with Voice Over?
 
+{% hint style="info" %}
+Note that currently these instructions for macOS only.
+{% endhint %}
+
 Best way to start working with Warp & VoiceOver is to install it using brew:
 
 `brew install warp`
