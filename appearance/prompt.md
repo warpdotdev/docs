@@ -1,8 +1,11 @@
+---
+description: >-
+  Warp allows you to configure its default prompt or a supported custom prompt.
+  A terminal prompt is a text that appears in the command line interface,
+  indicating that the terminal is ready to accept co
+---
+
 # Prompt
-
-## What is it
-
-Warp allows you to configure its default prompt or a supported custom prompt. A terminal prompt is a text that appears in the command line interface, indicating that the terminal is ready to accept commands. The prompt can be customized to display additional information.
 
 ### Warp Prompt
 
@@ -10,7 +13,7 @@ Warp has a native prompt that is customizable and can show a variety of informat
 
 #### Git and Subversion
 
-Git and Subversion branch that you are on locally, as well as the number of uncommitted changed files. This includes any new files, modified files, and deleted files that are staged or unstaged.
+Git and Subversion context chips show which branch you are on locally, as well as the number of uncommitted changed files. This includes any new files, modified files, and deleted files that are staged or unstaged.
 
 #### Kubernetes
 
@@ -19,7 +22,7 @@ Kubernetes context chip shows relevant information when you're using one of the 
 `kubectl|helm|kubens|kubectx|oc|istioctl|kogito|k9s|helmfile|flux|fluxctl|stern|kubeseal|skaffold|kubent|kubecolor|cmctl|sparkctl|etcd|fubectl`
 
 {% hint style="info" %}
-Warp respects the `KUBECONFIG` environmental variable, make sure you set it to your preferred configuration file location, if it's not the default path `~/.kube/config`
+Warp respects the `KUBECONFIG` environmental variable, make sure you set it to your preferred configuration file location, if it's not the default path of `~/.kube/config`
 {% endhint %}
 
 ### Custom Prompt
@@ -30,12 +33,12 @@ You can also set up a custom prompt by configuring the **PS1** variable or insta
 
 Warps custom prompt supports multi-line or right-sided prompts in zsh and fish, not bash. However, you can't have a multiline right-side prompt, only a multiline left prompt. You also can't have the cursor on the same line as the prompt (we're working on supporting [this](https://github.com/warpdotdev/Warp/issues/2304)). Warp renders the cursor on a fresh new line within the [Input Editor](../features/editor/), a separate UI element from the prompt.
 
-<figure><img src="../.gitbook/assets/edit-prompt-modal.png" alt="Warp Edit Prompt Modal"><figcaption><p>Edit Warp Prompt Modal</p></figcaption></figure>
-
 ## How to access it
 
 * Toggle the custom prompt by right-clicking on the prompt area above the input and selecting "Edit prompt" or select "Prompt" from the `Settings > Appearance` page. There you will be able to select and customize the default prompt or select the Custom prompt (PS1).
-* When right-clicking the prompt, you can also copy the entire prompt, working directory, current git branch, etc.
+* When right-clicking the prompt, you can copy the entire prompt, working directory, current git branch, etc.
+
+<figure><img src="../.gitbook/assets/edit-prompt-modal.png" alt="Warp Edit Prompt Modal"><figcaption><p>Edit Warp Prompt Modal</p></figcaption></figure>
 
 ## How it works
 
@@ -77,7 +80,7 @@ Some \~/.config/starship.toml settings are known to cause errors in Warp. `#` or
 disabled = false
 ```
 
-For `fish` shell (optional for `bash|zsh`), disable the multi-line prompt in starship by putting the following in your `~/.config/starship.toml`:
+StarshipFor `fish` shell (optional for `bash|zsh`), disable the multi-line prompt in starship by putting the following in your `~/.config/starship.toml`:
 
 ```
 [line_break]
