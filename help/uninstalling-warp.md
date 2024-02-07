@@ -2,7 +2,7 @@
 description: How to log out from Warp, and how to uninstall Warp
 ---
 
-# Logging out / Uninstalling
+# Logging out & Uninstalling
 
 ## Logging out
 
@@ -27,16 +27,16 @@ Removing Warp from your computer involves uninstalling Warp and then removing an
 
 {% tabs %}
 {% tab title="Mac" %}
-### Uninstalling Warp installed via dmg
+#### Uninstalling Warp installed via dmg
 
 * Remove Warp with `sudo rm -r /Applications/Warp.app`
 
-### Uninstalling Warp installed via Brew
+#### Uninstalling Warp installed via Brew
 
 * Remove Warp with `brew uninstall warp`
 * Clean up old versions of Warp formulae and small kegs of data with `brew cleanup warp`
 
-### Removing Warp login, settings, files, log, and database
+#### Removing Warp login, settings, files, log, and database
 
 * Log out of your Warp user from the "Log out" button in Settings
 * Remove Warp settings with `defaults delete dev.warp.Warp-Stable`
@@ -45,15 +45,14 @@ Removing Warp from your computer involves uninstalling Warp and then removing an
 {% endtab %}
 
 {% tab title="Linux" %}
-### Uninstalling Warp via package manager
+#### Uninstalling Warp via package manager
 
 Uninstall Warp using the same package manager that you used to install it.
 
-### Removing Warp login, settings, files, log, and database
-* Log out of Warp using the [instructions above](#logging-out)
+#### Removing Warp login, settings, files, log, and database
+
+* Log out of Warp using the [instructions above](uninstalling-warp.md#logging-out)
 * Remove Warp config files with `rm -r ${XDG_CONFIG_HOME:-$HOME/.config}/warp`
 * Remove Warp user files, logs, and database with `rm -r ${XDG_STATE_HOME:-$HOME/.local/state}/warp`
-
 {% endtab %}
 {% endtabs %}
-

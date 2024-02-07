@@ -1,21 +1,19 @@
+---
+description: >-
+  Warp includes several themes (out-of-box) and also supports setting custom
+  themes.
+---
+
 # Themes
-
-## What is it
-
-Warp includes a number of themes (out-of-box) and also supports setting custom themes.
-
-## How to access it
 
 ### Theme Picker
 
-The Theme Picker can be accessed through the [Command Palette](../features/features/command-palette.md), `CTRL-CMD-T`, or by:
+The Theme Picker can be accessed by:
 
-1. Navigating to the top-right section of the Warp window
-2. Clicking the kebab-menu to open the drop-down menu
-3. Clicking on `Settings > Appearance`
-4. Clicking the Custom Themes (shaded) box
-5. Upon selecting a theme, Warp's appearance will update accordingly.
-6. Press the checkmark to save the selection, or the X to revert.
+1. Navigating to  `Settings > Appearance`.
+2. Clicking the Custom Themes (shaded) box.
+3. Upon selecting a theme, Warp's appearance will update accordingly.
+4. Press the checkmark to save the selection, or the X to revert.
 
 _Note:_ This setting persists i.e. Warp will open with the same settings in the next session.
 
@@ -29,11 +27,9 @@ Automatically create new themes based on a background image.
 
 ## How it works
 
-{% embed url="https://loom.com/share/2182ebcb09164f2b97525161da099959?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
-Theme Picker Demo
-{% endembed %}
+<figure><img src="../.gitbook/assets/theme-picker.gif" alt=""><figcaption><p>Theme picker demo</p></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/theme-creator.gif" alt=""><figcaption><p>Theme Creator Demo</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/theme-creator.gif" alt=""><figcaption><p>Theme creator demo</p></figcaption></figure>
 
 ## OS Theme Sync
 
