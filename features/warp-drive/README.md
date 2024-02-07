@@ -39,7 +39,23 @@ If you are a member of a team using Warp Drive, your team’s workspace will als
 
 In offline mode, some files will be read-only. You can still create and edit files while offline in your personal space. They will only be saved locally and will not be synced. They cannot be moved into a team or deleted until you are back online.&#x20;
 
-<figure><img src="../../.gitbook/assets/warp_drive_offline.png" alt=""><figcaption><p>Warp Drive Offline mode</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/warp_drive_offline.png" alt=""><figcaption><p>Warp Drive offline mode</p></figcaption></figure>
+
+## Navigating Warp Drive with your keyboard
+
+To avoid going back and forth between your mouse and keyboard, you can use your keyboard to navigate through Warp Drive once you have either opened Warp Drive or switched focus to the Warp Drive panel. (You can also click on a blank area within Warp Drive.) The object you are navigating with your keyboard will be highlighted in an accented color.
+
+You can take these keyboard actions within Warp Drive:
+
+* Press `Up` or `Down` to navigate to the object you want.
+* Press `Enter` to 1) execute an object or 2) open/collapse a space or folder.
+* Press `CMD-Enter` to open an object’s context menu. 
+
+<figure><img src="../../.gitbook/assets/warp_drive_nav1.png" alt=""><figcaption><p>Warp Drive navigation states</p></figcaption></figure>
+
+To switch between panels (e.g. jump from command line to Warp Drive to Warp AI) using your keyboard, you can use the “Switch Focus to Left Panel” and “Switch Focus to Right Panel” commands in the Command Palette. Alternatively, use keyboard shortcuts `CMD-Shift-(` and `CMD-Shift-)`.
+
+<figure><img src="../../.gitbook/assets/warp_drive_nav2.png" alt=""><figcaption><p></p></figcaption></figure>
 
 ## Troubleshooting Warp Drive
 
