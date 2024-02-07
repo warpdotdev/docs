@@ -12,9 +12,19 @@ Notebooks are runnable documentation consisting of markdown text and list elemen
 
 You can create a new notebook from various entry points in Warp
 
+{% tabs %}
+{% tab title="macOS" %}
 * From Warp Drive, + > New notebook
-* From the Command Palette, CMD + P, create a new team or personal notebook.
-* With a keyboard shortcut, Shift + CMD +J
+* From the Command Palette, `CMD-P`, create a new team or personal notebook.
+* With a keyboard shortcut, `SHIFT-CMD-J`
+{% endtab %}
+
+{% tab title="Linux" %}
+* From Warp Drive, + > New notebook
+* From the Command Palette, `CTRL-SHIFT-P`, create a new team or personal notebook.
+* With a keyboard shortcut, `SHIFT-CTRL-J`
+{% endtab %}
+{% endtabs %}
 
 Any of these entry points will open the notebook editor where you can:
 
@@ -32,7 +42,7 @@ Note: The notebook will not be saved until either title or body text is added.&#
 
 ### Import existing documentation
 
-Existing markdown (.md) documentation can also be directly imported into Warp Drive. To import your markdown file(s):
+Existing markdown (`.md`) documentation can also be directly imported into Warp Drive. To import your markdown file(s):
 
 * From Warp Drive, + > Import > then follow the file selection dialog.&#x20;
 
@@ -45,7 +55,7 @@ Existing markdown (.md) documentation can also be directly imported into Warp Dr
 
 #### Adding new elements
 
-Notebook elements (text, code, list items) can be added in a number of ways:
+Notebook elements (text, code, list items) can be added in several ways:
 
 * Using the appropriate markdown shortcut (e.g. ### for Heading 3).
 * Typing /, which will open up a selection menu of supported elements.
@@ -55,9 +65,8 @@ Notebook elements (text, code, list items) can be added in a number of ways:
 
 #### Styling existing elements
 
-Existing notebooks elements can be styled in several ways:
+Existing notebook elements can be styled in several ways:
 
-* Selecting an existing element and using keyboard shortcuts like CMD+B to bold.
 * Selecting an existing element and selecting text decorations (like bold, italics, or inline code) from the hover menu.
 * Using markdown syntax for text stylings like \*\*bold\*\* or \*italic\*.
 * Selecting an existing element and changing the overall type of the element via the dropdown element menu.
@@ -66,7 +75,7 @@ Existing notebooks elements can be styled in several ways:
 
 #### Using Command and Code Blocks
 
-Command and code blocks have several unique properties such as syntax-highlighting and quick actions that make working with code-based documentation simple. You can create a code or command block by either:
+Command and code blocks have several unique properties such as syntax highlighting and quick actions that make working with code-based documentation simple. You can create a code or command block by either:
 
 * Selecting Command or Code from the new element menu
 * Typing \`\`\` (triple backticks)
@@ -83,14 +92,23 @@ If you insert a Command block or specify the language as “Shell”, Warp provi
 
 Developers can execute shell command blocks by:
 
+{% tabs %}
+{% tab title="macOS" %}
 * Using the insert button at the bottom of the block
-* Pressing CMD+Enter while the block is selected (a blue highlight will appear)
+* Pressing `CMD-ENTER` while the block is selected (a blue highlight will appear)
+{% endtab %}
 
-The command text will be inserted into the developer’s active terminal session, or into a new session if none are active.
+{% tab title="Linux" %}
+* Using the insert button at the bottom of the block
+* Pressing `CTRL-ENTER` while the block is selected (a blue highlight will appear)
+{% endtab %}
+{% endtabs %}
+
+The command text will be inserted into the developer’s active terminal session, or a new session if none are active.
 
 <figure><img src="https://lh7-us.googleusercontent.com/mHKjC5btK6tyNSURjRTMwWG6J8bpeutCjr3POkYoc9uPrZGIbau8hj2LyOqbNuI8mDaP6XwVevunYIL0QhjMFxNtV1WBLt5JP89fJFliIdZpH0x2ZFOPolIvuM7VsPfcR41PUg20kLZzwQOTDHjzYzY" alt=""><figcaption><p>Run option for command block.</p></figcaption></figure>
 
-#### &#x20;Adding arguments to Command Blocks
+#### Adding arguments to Command Blocks
 
 Command blocks accept parameters in the [same format as workflows](https://docs.warp.dev/features/warp-drive/workflows#working-with-arguments). To add an argument to your command block, use \{{double\_curly\_brackets\}} to specify your argument term.
 
@@ -100,10 +118,21 @@ Command blocks accept parameters in the [same format as workflows](https://docs.
 
 Command Blocks also support keyboard navigation. There are two ways to enter the keyboard navigation mode:
 
+{% tabs %}
+{% tab title="macOS" %}
 * Clicking on a shell block.
 * Pressing `CMD-UP` or `CMD-DOWN.`
 
-Once a command block is selected, press `CMD-ENTER` to insert it into the terminal input. You can also use `UP, DOWN, CMD-UP,` and `CMD-DOWN` to navigate between command blocks. While the Notebook is focused, press `CMD-L` to switch focus back to the terminal without inserting a command.
+Once a command block is selected, press `CMD-ENTER` to insert it into the terminal input. You can also use `UP, DOWN, CMD-UP`, and `CMD-DOWN` to navigate between command blocks. While the Notebook is focused, press `CMD-L` to switch focus back to the terminal without inserting a comman
+{% endtab %}
+
+{% tab title="Linux" %}
+* Clicking on a shell block.
+* Pressing `CTRL-UP` or `CTRL-DOWN.`
+
+Once a command block is selected, press `CTRL-ENTER` to insert it into the terminal input. You can also use `UP, DOWN, CTRL-UP,` and `CTRL-DOWN` to navigate between command blocks. While the Notebook is focused, press `CTRL-L` to switch focus back to the terminal without inserting a command.
+{% endtab %}
+{% endtabs %}
 
 #### Adding existing workflows to Notebooks
 
