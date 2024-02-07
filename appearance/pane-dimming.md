@@ -1,8 +1,10 @@
+---
+description: >-
+  Warp supports dimming inactive Panes. This helps you easily see which pane is
+  active and maintain focus.
+---
+
 # Pane Dimming
-
-## What is it
-
-Warp also supports dimming inactive [Panes](../features/windows/split-panes.md). This helps you easily see which pane is active and maintain focus. Default panes show a blue indicator on the top left corner of the active pane, but this is disabled when pane dimming is enabled.
 
 ## How to use it
 
@@ -11,6 +13,10 @@ Warp also supports dimming inactive [Panes](../features/windows/split-panes.md).
 To access it, go to `Settings > Appearance > Panes`
 
 * Toggle on `Dim inactive panes` to enable the feature.
+
+{% hint style="info" %}
+Default [panes](../features/windows/split-panes.md) show an indicator on the top left corner of the active pane, but this is disabled when pane dimming is enabled.
+{% endhint %}
 
 ## How it works
 
