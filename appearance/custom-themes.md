@@ -1,8 +1,10 @@
+---
+description: >-
+  Warp supports Custom Themes which can be created manually or downloaded from
+  our repo.
+---
+
 # Custom Themes
-
-## What is it
-
-Warp supports Custom Themes which can be created [manually](custom-themes.md#create-your-own-custom-theme-manually) or downloaded from our [repo](custom-themes.md#warps-custom-theme-repository).
 
 {% hint style="info" %}
 Examples and a collection of themes can be found in the [Warp themes repository](https://github.com/warpdotdev/themes).
@@ -69,7 +71,7 @@ cp ~/Downloads/my_awesome_theme.yaml {{path_to_your_themes_directory}}
 
 Your new theme should now be visible on the list of available themes.
 
-## Create your own custom theme, manually
+## Create your custom theme, manually
 
 Warp supports creating custom themes using .yaml files.
 
@@ -111,15 +113,15 @@ Each color is represented in hex and must start with `#`.
 * `details`: Color used for detailing options
 * `darker`: Color used for dark theme
 * `lighter`: Color used for light-mode theme
-* `terminal_theme`: Collection of normal & bright colors (16 total) known for other terminal themes (ansi colors)
+* `terminal_theme`: Collection of normal & bright colors (16 total) known for other terminal themes (ANSI colors)
 
 ## Create your own custom theme, automatically
 
-Automatically create new themes based on a background image. Click the `+` button in the theme picker (`Settings -> Appearance -> Current Theme`) or search `Open Theme Picker` within the Command Palette
+Automatically create new themes based on a background image. Click the `+` button in the theme picker (`Settings > Appearance > Current Theme`) or search `Open Theme Picker` within the Command Palette.
 
-## Create your own custom theme, with a tool
+## Create your custom theme, with a tool
 
-There are several tools out on the internet that help you create a terminal theme and generate the appropriate RGB values to enter into your YAML file. [https://terminal.sexy/](https://terminal.sexy/?) is a good tool for generating RGB values.
+Several tools out on the internet help you create a terminal theme and generate the appropriate RGB values to enter into your YAML file. [Warp Themes Creator](https://warp-themes-seven.vercel.app/) is a good tool for generating RGB values.
 
 ## Background Images and Gradients
 
@@ -133,7 +135,7 @@ Note: Warp currently only supports images with the _.jpg_ file format:
 * `.JPEG`
 {% endhint %}
 
-Here is what a `.yaml` config looks like:
+Here is what a `.yaml` config looks like this:
 
 ```yaml
 accent: '#268bd2'
@@ -213,7 +215,7 @@ Contributions to this repo are greatly appreciated!
 Run this script to generate the thumbnails.
 
 ```
-# assuming you're adding the theme to the `standard` directory:
+# Assuming you're adding the theme to the `standard` directory:
 python3 ./scripts/gen_theme_previews.py standard
 ```
 
