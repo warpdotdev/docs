@@ -45,6 +45,14 @@ If you experience an error opening Warp, please try the following:
 
 * If the above doesn't work, [uninstall Warp](uninstalling-warp.md), then [re-install Warp](../getting-started/getting-started-with-warp.md).
 
+## Running Warp on Rosetta
+
+In some cases, certain CLI applications only work on x86 so you can run Warp with Rosetta to be able to use them in Warp.
+
+* Go to Finder > Applications and search for Warp.
+* Right-click and select Get Info
+* Then check the box on Open with Rosetta.
+
 ## English-only UI
 
 Nov 2021: We have added character support for Chinese, Korean, and Japanese, but our UI currently only supports English.
