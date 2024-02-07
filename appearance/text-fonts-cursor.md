@@ -1,10 +1,11 @@
+---
+description: >-
+  Warp supports customizing the font and how text is displayed. This can help
+  improve readability and usability. Warp also supports disabling the blinking
+  cursor.
+---
+
 # Text, Fonts, & Cursor
-
-## What is it
-
-Warp supports customizing the font and how text is displayed. This can help improve readability and usability.
-
-Warp also supports disabling the blinking cursor. This can help with reducing distractions and improving focus on the active Window, Tab, or Pane.
 
 ## How to use it
 
