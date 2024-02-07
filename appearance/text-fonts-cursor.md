@@ -30,7 +30,7 @@ From there you can customize:
 
 To access it, go to `Settings > Appearance > Cursor`, from there you can toggle the Blinking cursor.
 
-Or, from Command Palette `CMD-P`, type 'blink' and toggle the setting.
+Or, from [Command Palette](../features/command-palette.md), type 'blink' and toggle the setting.
 
 ## How it works
 
