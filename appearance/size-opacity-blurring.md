@@ -1,8 +1,11 @@
+---
+description: >-
+  Warp supports settings for Window size, opacity(transparency), and blurring
+  effects. This can help with setting up specific terminal layouts, as well as
+  with seeing any other tasks or processes behind
+---
+
 # Size, Opacity, & Blurring
-
-## What is it
-
-Warp supports settings for Window size, opacity(transparency), and blurring effects. This can help with setting up specific terminal layouts, as well as with seeing any other tasks or processes behind the terminal window.
 
 ## How to use it
 
