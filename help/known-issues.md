@@ -33,26 +33,6 @@ There is a known issue that can occur that causes online features to break ([War
 * Remove Warp user login with `sudo security delete-generic-password -l "dev.warp.Warp-Stable" $HOME/Library/Keychains/login.keychain`
 * [Login to Warp](../getting-started/getting-started-with-warp.md#logging-into-warp)
 
-## Auto-Update on macOS Ventura
-
-Warp may have an error opening after auto-update on macOS Ventura. This issue has been resolved for current and future releases of Warp. To avoid the issue, [update Warp](updating-warp.md) _before_ you upgrade to macOS Ventura.\
-\
-If you experience an error opening Warp, please try the following:
-
-* Go to the macOS Applications folder, right-click on Warp, choose Open, then the '"Warp" is damaged' dialog will have the option to click the Open button.
-
-<figure><img src="https://lh3.googleusercontent.com/YD_m_5N8dnKwomnPZZFs4_s3gydEzk00rXsexoZ1Po1rdhu_BT7s0zQwqGRief6XnA1q7B5J6omrT64oV2Vcq3vJBTvFj9B5YwqhNaGcUGsi5pnOipfN1Tz7NVbJlyM57E5DReZ9vQbn9urFlTGU8fk_L8bXluatW8Npd3_XEYPqA6HpK6TYI7_gWg" alt=""><figcaption></figcaption></figure>
-
-* If the above doesn't work, [uninstall Warp](uninstalling-warp.md), then [re-install Warp](../getting-started/getting-started-with-warp.md).
-
-## Running Warp on Rosetta
-
-In some cases, [CLI applications only work on x86](https://discord.com/channels/851854972600451112/1204829324847358002) so you can run Warp with Rosetta on macOS to be able to use them by doing the following.
-
-* Go to Finder > Applications and search for Warp.
-* Right-click and select Get Info
-* Then check the box on Open with Rosetta.
-
 ## English-only UI
 
 Nov 2021: We have added character support for Chinese, Korean, and Japanese, but our UI currently only supports English.
@@ -171,3 +151,25 @@ Some older installations of Fig (most notably prior to September 2021) include s
 
 * `~/.config/fish/conf.d/00_fig_pre.fish`
 * `~/.config/fish/conf.d/99_fig_post.fish`
+
+## macOS
+
+### Auto-Update on macOS Ventura
+
+Warp may have an error opening after auto-update on macOS Ventura. This issue has been resolved for current and future releases of Warp. To avoid the issue, [update Warp](updating-warp.md) _before_ you upgrade to macOS Ventura.\
+\
+If you experience an error opening Warp, please try the following:
+
+* Go to the macOS Applications folder, right-click on Warp, choose Open, then the '"Warp" is damaged' dialog will have the option to click the Open button.
+
+<figure><img src="https://lh3.googleusercontent.com/YD_m_5N8dnKwomnPZZFs4_s3gydEzk00rXsexoZ1Po1rdhu_BT7s0zQwqGRief6XnA1q7B5J6omrT64oV2Vcq3vJBTvFj9B5YwqhNaGcUGsi5pnOipfN1Tz7NVbJlyM57E5DReZ9vQbn9urFlTGU8fk_L8bXluatW8Npd3_XEYPqA6HpK6TYI7_gWg" alt=""><figcaption></figcaption></figure>
+
+* If the above doesn't work, [uninstall Warp](uninstalling-warp.md), then [re-install Warp](../getting-started/getting-started-with-warp.md).
+
+### Running x86 commands with macOS Rosetta
+
+In some cases, [CLI applications only work on x86](https://discord.com/channels/851854972600451112/1204829324847358002) so you can run Warp with Rosetta on macOS to be able to use them by doing the following.
+
+* Go to `Finder > Applications` and search for Warp.
+* Right-Click and select Get Info.
+* Then check the box on Open with Rosetta.
