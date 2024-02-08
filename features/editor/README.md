@@ -16,7 +16,7 @@ Warp supports soft wrapping in the input editor. If there is an auto suggestion 
 
 Warp supports copy on select in the Input editor or with any other selectable text in [Blocks](../blocks/).  Note: This feature has a known issue working within [alt-screens](https://github.com/warpdotdev/Warp/issues/2758) like vim, less, k9s, etc.
 
-* Enable this feature in `Settings > Features > General` or search for "copy on select" in the Command Palette `CMD-P`.
+* Enable this feature in `Settings > Features > General` or search for "Copy on select" in the [Command Palette](../command-palette.md).
 
 ### Input Hints
 
