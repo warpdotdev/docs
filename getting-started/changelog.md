@@ -2,6 +2,18 @@
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2023.02.08 (v0.2024.02.06.08.02)
+
+**New features**
+
+* You can now use your keyboard to navigate through Warp Drive
+* You can now drag and drop panes! Click and drag a pane\u2019s header around a given tab. Drag the pane to the tab bar to move it to another tab, or make it its own tab!
+* Warp on Linux (Private Beta): Added file picker support.
+
+**Bug fixes**
+* The block filter editor now remains focused even after a block completes running
+* The currently active Python virtual environment name no longer leaks into the blocklist when resizing Warp
+
 ### 2023.02.01 (v0.2024.01.30.16.52)
 
 **Improvements**
