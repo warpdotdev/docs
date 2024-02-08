@@ -10,17 +10,21 @@ Text Editor Input also works for [SSH sessions](../ssh.md).
 
 ### Soft Wrapping
 
-Warp supports soft wrapping in the input editor. If there is an auto suggestion that goes off-screen, the input editor will be horizontally scrollable to make it visible. _Note:"_ Some operations treat soft wrapped lines like a logical line (`TRIPLE-CLICK`, `OPTION-LEFT` / `OPTION-RIGHT`) while other operations treat soft wrapped lines like visible different lines (`UP` / `DOWN`, `SHIFT-UP` / `SHIFT-DOWN`).
+Warp supports soft wrapping in the input editor. If an auto suggestion goes off-screen, the input editor will be horizontally scrollable to make it visible. _Note:"_ Some operations treat soft wrapped lines like a logical line (`TRIPLE-CLICK`, `OPTION-LEFT` / `OPTION-RIGHT`) while other operations treat soft wrapped lines like visible different lines (`UP` / `DOWN`, `SHIFT-UP` / `SHIFT-DOWN`).
 
 ### Copy on Select
 
-Warp supports copy on select in the Input editor or with any other selectable text in [Blocks](../blocks/).  Note: This feature has a known issue working within [alt-screens](https://github.com/warpdotdev/Warp/issues/2758) like vim, less, k9s, etc.
+Warp supports copy on select for selectable text within [Blocks](../blocks/).&#x20;
 
 * Enable this feature in `Settings > Features > General` or search for "Copy on select" in the [Command Palette](../command-palette.md).
 
+{% hint style="warning" %}
+Copy on Select has a known issue working within [alt-screens](https://github.com/warpdotdev/Warp/issues/2758) like vim, nvim, less, k9s, etc.
+{% endhint %}
+
 ### Input Hints
 
-Warps input will occasionally show hints within the input editor in light grey text that help users learn about features that are available. For example "Type `#`  for AI command suggestions". It's enabled by default.
+Warps input will occasionally show hints within the input editor in light grey text that help users learn about available features. For example "Type `#`  for AI command suggestions". It's enabled by default.
 
 * Disable "Show Input hint text" in `Settings > Features > Editor` or search for "input hint text" in the Command Palette `CMD-P` or Right-click on the input editor.
 
