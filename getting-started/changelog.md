@@ -2,7 +2,7 @@
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
-### 2023.02.08 (v0.2024.02.06.08.02)
+### 2024.02.08 (v0.2024.02.06.08.02)
 
 **New features**
 
@@ -15,14 +15,14 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 * The block filter editor now remains focused even after a block completes running
 * The currently active Python virtual environment name no longer leaks into the blocklist when resizing Warp
 
-### 2023.02.01 (v0.2024.01.30.16.52)
+### 2024.02.01 (v0.2024.01.30.16.52)
 
 **Improvements**
 
 * Improved UX for pasting an auth token to complete the sign-in flow
 * Subversion (svn) information is now available in Warp's prompt
 
-### 2023.01.18 (v0.2024.01.16.16.31)
+### 2024.01.18 (v0.2024.01.16.16.31)
 
 **New features**
 
@@ -32,7 +32,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 
 * Warp on Linux (Private Beta): `ALT-TAB` no longer incorrectly inserts 4 spaces into the Input Editor
 
-### 2023.01.11 (v0.2024.01.09.08.02)
+### 2024.01.11 (v0.2024.01.09.08.02)
 
 **New features**
 
