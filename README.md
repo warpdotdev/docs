@@ -8,7 +8,7 @@ description: >-
 
 ## Demo
 
-To learn more about Warp, check out this demo video by [Developer Advocate](https://www.warp.dev/about-us), [Jess Wang](https://twitter.com/daRubberDuckiee) (April 2023).
+To learn more about Warp, check out this demo video by our [Developer Advocate](https://www.warp.dev/about-us), [Jess Wang](https://twitter.com/daRubberDuckiee) (April 2023).
 
 {% embed url="https://www.youtube.com/watch?v=XWQY8LgkiXM" %}
 Warp Demo
@@ -16,7 +16,7 @@ Warp Demo
 
 ## Warp Essentials
 
-The Warp Essentials panel  is a resource center that contains keyboard shortcuts, an updated changelog, and tips for getting started. Access it by clicking on the light bulb icon 💡 or by pressing `CTRL-SHIFT-/`.
+The Warp Essentials panel is a resource center that contains keyboard shortcuts, an updated changelog, and tips for getting started. Access it by clicking on the light bulb icon 💡 or by pressing `CTRL-SHIFT-/`.
 
 <figure><img src=".gitbook/assets/Warp_Essentials.gif" alt="The Warp Essentials panel is available from the top menu in the Warp desktop app."><figcaption><p>Open the Warp Essentials panel for resources.</p></figcaption></figure>
 
