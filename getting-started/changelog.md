@@ -1,6 +1,6 @@
 # Changelog
 
-Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
+Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
 ### 2024.02.08 (v0.2024.02.06.08.02)
 
@@ -322,7 +322,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 
 **New features**
 
-* App links of the form Warp://launch/<launch_configuration_name> directly open a launch configuration
+* App links of the form Warp://launch/\<launch\_configuration\_name> directly open a launch configuration
 * Added a new setting for creating new windows with a specific size in terms of rows and columns.
 
 **Improvements**
@@ -410,7 +410,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 
 * Warp now sends the output of background shell processes into new (distinct) Blocks--separate from user generated Blocks.
 * Synchronize (broadcast) input across multiple panes in a single tab or multiple tabs (`Mac Menu > Edit > Synchronize Inputs` or `Synchronize` within the Command Palette)
-* Added option to enable (disabled by default) an audible terminal bell (`Settings > Features > Terminal` or  “Enable/Disable Audible Terminal Bell” within the Command Palette)
+* Added option to enable (disabled by default) an audible terminal bell (`Settings > Features > Terminal` or “Enable/Disable Audible Terminal Bell” within the Command Palette)
 * Now opens new windows with the same position and size of the most recently closed window (if there is one)
 * Fish aliases are now supported in the completions menu
 
@@ -461,7 +461,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 * The position of the input and direction of the terminal output are now configurable. You can start the input at the top and have it move down as new commands are run (to clear the screen and reset the position press `CTRL-L`, `CMD-K` or type `clear`). Or you can keep the input pinned to the top of the pane and have terminal outputs flow in reverse order. Settings are available under `Settings > Appearance > Input Position`
 * Added a button for “jumping to the bottom” of the currently hovered Block to make it easy to get to the bottom of an output. Configurable with a setting under `Settings > Appearance > Blocks`
 * Warp AI transcripts can now be navigated via keyboard (`UP` / `DOWN` arrows)
-* Added a right-click context menu in the alt-screen (that still respects mouse reporting and SGR_MOUSE)
+* Added a right-click context menu in the alt-screen (that still respects mouse reporting and SGR\_MOUSE)
 * Warp AI's past prompts can be accessed via `UP` (arrow)
 * `CMD-ENTER` within Warp AI now inputs the selected command into the Input Editor
 
@@ -575,7 +575,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 
 **New features**
 
-* Improved double-click selection. Double-clicking text now smart selects patterns like file paths, URLs, email addresses, etc.  - [659](https://github.com/warpdotdev/warp/issues/659)
+* Improved double-click selection. Double-clicking text now smart selects patterns like file paths, URLs, email addresses, etc. - [659](https://github.com/warpdotdev/warp/issues/659)
 * Warp can now be opened from Finder - [102](https://github.com/warpdotdev/warp/issues/102)
 
 **Bug fixes**
@@ -635,7 +635,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 **Bug fixes**
 
 * Can now support completions that have escaped paths
-* Can now support background images with paths that start with ~
+* Can now support background images with paths that start with \~
 * Can now properly restore a Warp window’s position when using multiple monitors
 * Commands from restored sessions run on the local machine no longer appear in the SSH server’s history
 * Fixed issues SSHing into RHEL/Fedora machines with PackageKit-command-not-found installed
@@ -718,7 +718,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 
 **Bug fixes**
 
-* Warp now sets the TERM_PROGRAM environment variable correctly in wrapped SSH sessions.
+* Warp now sets the TERM\_PROGRAM environment variable correctly in wrapped SSH sessions.
 
 ### 2022.11.10 (v0.2022.11.08.08.07)
 
@@ -846,7 +846,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 
 **Bug fixes**
 
-* Properly send C0 control codes for <ctrl-[2-8]> keystrokes
+* Properly send C0 control codes for \<ctrl-\[2-8]> keystrokes
 * Session restoration now also persists bold, underline, italic, and strikethrough formatting
 * Inspect mode now works for the changelog modal
 * Fixed a crash when highlighting a link
@@ -1069,7 +1069,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 
 **Bug fixes**
 
-* Improved completions support for arguments nested under options (e.g. git branch -D <branch_name...>)
+* Improved completions support for arguments nested under options (e.g. git branch -D \<branch\_name...>)
 * Modified files are now included (in addition to commit SHAs) for `git diff`
 
 ### 2022.06.01 (v0.2022.05.30.09.10)
@@ -1096,7 +1096,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 
 **Bug fixes**
 
-* Stopped prepending \ before ~ in tab titles for older versions of Bash
+* Stopped prepending \ before \~ in tab titles for older versions of Bash
 * Added support for CMD-G and SHIFT-CMD-G to tab between results in the Find Bar
 
 ### 2022.05.18 (v0.2022.05.16.09.01)
@@ -1156,7 +1156,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 
 **Bug fixes**
 
-* Commands prepended with space are now stored in history if hist_ignore_space option is not set
+* Commands prepended with space are now stored in history if hist\_ignore\_space option is not set
 * Now support dotfile configurations with non-English quotation marks
 * Continued improving the reliability of login and auth within the app
 * Improved performance for commands with large outputs
@@ -1173,7 +1173,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 
 **Bug fixes**
 
-* Commands prepended with space are now stored in history if hist_ignore_space option is not set
+* Commands prepended with space are now stored in history if hist\_ignore\_space option is not set
 * Now support dotfile configurations with non-English quotation marks
 * Continued improving the reliability of login and auth within the app
 * Improved performance for commands with large outputs
@@ -1272,7 +1272,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 
 **Bug fixes**
 
-* SSH no longer returns 0~ and 1~ after executing commands for Zsh 5.0.8 or older - [578](https://github.com/warpdotdev/warp/issues/578)
+* SSH no longer returns 0\~ and 1\~ after executing commands for Zsh 5.0.8 or older - [578](https://github.com/warpdotdev/warp/issues/578)
 * SSH now supports LocalCommand / RemoteCommand - [578](https://github.com/warpdotdev/warp/issues/578)
 * SSH over Zsh no longer depends on configuring locales on the remote machine - [578](https://github.com/warpdotdev/warp/issues/578)
 * SSH sources /etc/bash.bashrc which is an extra rcfile in Debian and other Linux distributions - [578](https://github.com/warpdotdev/warp/issues/578)
@@ -1280,7 +1280,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 * Vim and other alt-screen apps properly expand to take up the full window - [552](https://github.com/warpdotdev/warp/issues/552)
 * Clicking into Warp from other foreground window focuses the clicked pane - [739](https://github.com/warpdotdev/warp/issues/739)
 * Warp now respects ignore-space history options for Zsh and Bash - [044](https://github.com/warpdotdev/warp/issues/044)
-* Warp now creates a ~/.warp folder to persist custom keybindings - [801](https://github.com/warpdotdev/warp/issues/801)
+* Warp now creates a \~/.warp folder to persist custom keybindings - [801](https://github.com/warpdotdev/warp/issues/801)
 
 ### 2022.03.09 (v0.2022.03.07.08.51)
 
@@ -1339,7 +1339,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 * Fixed a bug where resizing a pane could cause Warp to show a blank screen
 * Parentheses, quotes, and brackets now also auto-close after typing an alphanumeric character
 * Remapped multi-cursor key bindings to CTRL-SHIFT-UP and CTRL-SHIFT-DOWN - [374](https://github.com/warpdotdev/warp/issues/374)
-* Restored OPT-CMD-UP and OPT-CMD-DOWN for switching panes up and down - [730](https://github.com/warpdotdev/warp/issues/730) 
+* Restored OPT-CMD-UP and OPT-CMD-DOWN for switching panes up and down - [730](https://github.com/warpdotdev/warp/issues/730)
 
 ### 2022.02.02 (v0.2022.01.31.09.03)
 
@@ -1426,7 +1426,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 * Windows, tabs, and panes are restored whenever you reopen Warp. Restoring block content is on its way!
 * Warp now supports completions for over 300 commands and more information about existing commands by using Fig’s completion specs
 * Git aliases are now included in completions menu - [210](https://github.com/warpdotdev/warp/issues/210)
-* Switch to next pane and previous pane with CMD-[ and CMD-] - [392](https://github.com/warpdotdev/warp/issues/392)
+* Switch to next pane and previous pane with CMD-\[ and CMD-] - [392](https://github.com/warpdotdev/warp/issues/392)
 * Scrolling the Block list with PG-UP and PG-DOWN - [370](https://github.com/warpdotdev/warp/issues/370)
 * Copy and paste the file directory into Warp from Finder - [514](https://github.com/warpdotdev/warp/issues/514)
 * When the last Block is selected, can re-focus the input editor using CMD-DOWN key
@@ -1493,7 +1493,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 * Changelog dialog
 * Emoji rendering: 😂, 😃, 🌍, 🍞, 🚗, 📞, 🎉, ❤️ - [075](https://github.com/warpdotdev/warp/issues/075)
 * Improved settings dialog
-* Theme search - [237](https://github.com/warpdotdev/warp/issues/237) 
+* Theme search - [237](https://github.com/warpdotdev/warp/issues/237)
 
 **Bug fixes**
 
@@ -1582,7 +1582,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 **New features**
 
 * Split panes: create multiple panes in the same tab via shortcuts (CMD-E/SHIFT-CMD-E), the Command Palette, or by right clicking in any pane.
-* Custom themes via files.  You can now define your own theme as a yaml file in ~/.warp/themes. For more information on the file format and to see ~100 of the most popular themes already implemented in this format, see https://github.com/warpdotdev/themes. The ability to add and share themes directly within Warp is coming soon!
+* Custom themes via files. You can now define your own theme as a yaml file in \~/.warp/themes. For more information on the file format and to see \~100 of the most popular themes already implemented in this format, see https://github.com/warpdotdev/themes. The ability to add and share themes directly within Warp is coming soon!
 
 **Bug fixes**
 
@@ -1634,7 +1634,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 * Warp not rendering after executing long-running command
 * Stop powerlevel10k instant prompt from hanging on bootstrap
 * Changing “font-size” via CTRL-- and CTRL-0 should stay in sync with font size in settings menu
-* Bracketed paste mode bug: 0~ ~1 on every command when ssh-ing
+* Bracketed paste mode bug: 0\~ \~1 on every command when ssh-ing
 * Crash when tab completing with multibyte characters
 * Download page doesn’t render correctly on safari
 * Login is broken for some users using Chrome
@@ -1697,7 +1697,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 
 * Major improvements to the consistency of completions, especially for commands that can take multiple arguments (e.g. rm -rf)
 * Proper path completions for absolute paths
-* Hang when PROMPT_COMMAND is set for the shell
+* Hang when PROMPT\_COMMAND is set for the shell
 * Context Menu not closing when clicking outside of the menu
 * Crashes after executing multi-line commands and on older versions of macOS
 
@@ -1792,4 +1792,3 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 **Bug fixes**
 
 * Text rendering was faded on certain monitors
-
