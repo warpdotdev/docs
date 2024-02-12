@@ -9,7 +9,7 @@ description: >-
 ### Sending Warp feedback:
 
 * Open a new issue or feature request in our [GitHub repository](https://github.com/warpdotdev/warp/issues/new/choose).
-* Through macOS Menu: Help > Send Feedback.
+* Through the menu bar: Help > Send Feedback.
 * Through in-app Menu: Warp Essentials:bulb: > Feedback.
 * Join our [Discord](https://www.warp.dev/discord?utm\_source=docs-sending\_us\_feedback) server. Send a message in `#questions-and-feedback`.
 

@@ -8,9 +8,11 @@ description: How to log out from Warp, and how to uninstall Warp
 
 You can log out of Warp through:
 
-1. Settings, with the "Log out" button
-2. Command Palette, with the "Log Out" item
-3. The app menu bar under "Warp" > "Log out" menu item
+* `Settings > Account`, with the "Log out" button
+* [Command Palette](../features/command-palette.md), with the "Log Out" item.
+* The "Warp" menu bar, "Log out" item.
+
+<figure><img src="../.gitbook/assets/logout.gif" alt=""><figcaption><p>Logout Demo</p></figcaption></figure>
 
 ### Known issues:
 
@@ -26,7 +28,7 @@ You can log out of Warp through:
 Removing Warp from your computer involves uninstalling Warp and then removing any files or data.
 
 {% tabs %}
-{% tab title="Mac" %}
+{% tab title="macOS" %}
 #### Uninstalling Warp installed via dmg
 
 * Remove Warp with `sudo rm -r /Applications/Warp.app`
@@ -38,7 +40,7 @@ Removing Warp from your computer involves uninstalling Warp and then removing an
 
 #### Removing Warp login, settings, files, log, and database
 
-* Log out of your Warp user from the "Log out" button in Settings
+* [Log out of Warp](uninstalling-warp.md#logging-out).
 * Remove Warp settings with `defaults delete dev.warp.Warp-Stable`
 * Remove Warp user files and logs with `sudo rm -r $HOME/.warp/ $HOME/Library/Logs/warp.log`
 * Remove Warp database with `sudo rm -r "$HOME/Library/Application Support/dev.warp.Warp-Stable"`
@@ -47,11 +49,11 @@ Removing Warp from your computer involves uninstalling Warp and then removing an
 {% tab title="Linux" %}
 #### Uninstalling Warp via package manager
 
-Uninstall Warp using the same package manager that you used to install it.
+* Uninstall Warp using the same package manager that you used to [install](../getting-started/getting-started-with-warp.md) it.
 
 #### Removing Warp login, settings, files, log, and database
 
-* Log out of Warp using the [instructions above](uninstalling-warp.md#logging-out)
+* [Log out of Warp](uninstalling-warp.md#logging-out).
 * Remove Warp config files with `rm -r ${XDG_CONFIG_HOME:-$HOME/.config}/warp`
 * Remove Warp user files, logs, and database with `rm -r ${XDG_STATE_HOME:-$HOME/.local/state}/warp`
 {% endtab %}
