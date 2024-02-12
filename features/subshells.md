@@ -85,8 +85,20 @@ We understand that some developers may want to disable background commands for c
 
 To disable background commands in remote subshell sessions, you can execute the following command in a top-level terminal session:
 
+{% tabs %}
+{% tab title="macOS" %}
 ```bash
 defaults update dev.warp.Warp-Stable DisableInBandCommands true
 ```
+{% endtab %}
+
+{% tab title="Linux" %}
+
+Update the settings file located at `~/.config/warp/user_preferences.json` to include the following name-value pair: `"DisableInBandCommands": "true"`.
+
+{% endtab %}
+{% endtabs %}
+
+
 
 This will effectively disable tab completions, syntax highlighting, command corrections, and the git status prompt indicator in remote subshells.
