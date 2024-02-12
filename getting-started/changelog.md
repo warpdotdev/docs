@@ -1,6 +1,14 @@
+---
+description: >-
+  Warp auto-updates whenever a new release comes out. We try to ship updates
+  every week on Thursday! Submit bugs and feature requests on our GitHub!
+---
+
 # Changelog
 
-Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
+{% hint style="info" %}
+In-line shortcuts in the changelog are for the Warp on macOS. Please see[keyboard-shortcuts.md](../features/keyboard-shortcuts.md "mention") for Warp on Web, Linux, and Windows shortcuts.
+{% endhint %}
 
 ### 2024.02.08 (v0.2024.02.06.08.02)
 
