@@ -7,7 +7,7 @@ description: >-
 # Changelog
 
 {% hint style="info" %}
-In-line shortcuts in the changelog are for the Warp on macOS. Please see[keyboard-shortcuts.md](../features/keyboard-shortcuts.md "mention") for Warp on Web, Linux, and Windows shortcuts.
+In-line shortcuts in the changelog are for the Warp on macOS. Please see [keyboard-shortcuts.md](../features/keyboard-shortcuts.md "mention") for Warp on Linux, Web, and Windows shortcuts.
 {% endhint %}
 
 ### 2024.02.08 (v0.2024.02.06.08.02)

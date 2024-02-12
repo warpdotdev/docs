@@ -1,10 +1,10 @@
 # Keyboard Shortcuts
 
-Warp opens with a shortcut screen showing some of the most commonly used keyboard shortcuts. Hide the shortcut screen by clicking the menu button below it. Quickly view keyboard shortcuts via the Command Palette `CMD-P` or via the keyboard shortcut sidebar `CMD-/`.
+Warp opens with a shortcut screen showing some of the most commonly used keyboard shortcuts. Hide the shortcut screen by clicking the x button. Quickly view keyboard shortcuts via the [Command Palette](command-palette.md) or the resource center keyboard shortcut sidebar.
 
 ## Custom Keyboard Shortcuts
 
-Set custom, clear, or default keyboard shortcuts by navigating to `Settings > Keyboard Shortcuts`. Search through the re-mappable actions using the search bar.
+Set custom, clear, or default keyboard shortcuts by navigating to `Settings > Keyboard Shortcuts`. Search through the re-mappable actions or existing shortcuts using the search bar.
 
 Remap the keyboard shortcuts using a file (`~./.warp/keybindings.yaml`). See our [keysets repository](https://github.com/warpdotdev/keysets/tree/main) for instructions.
 
