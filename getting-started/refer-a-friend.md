@@ -6,16 +6,14 @@ description: >-
 
 # Refer a Friend and Earn Rewards
 
-Click the three dots (kebab menu) in the top right corner and then click "Invite people" to open the invite/referral dialog.
+Go to `Settings > Referrals` to open the invite a friend referral dialog.
 
 There are two ways you can invite a friend:
 
 1. Send them an invite link. They will log in and be directed to our product download page.
-2. Input their email address which we'll use to email them.&#x20;
+2. Input their email address which we'll use to email them.
 
-{% embed url="https://www.loom.com/share/d4acc97406c9496ab9fff673f975a081" %}
-Refer a friend
-{% endembed %}
+<figure><img src="../.gitbook/assets/refer-a-friend.gif" alt=""><figcaption><p>Refer a friend</p></figcaption></figure>
 
 ## Referral reward program
 
@@ -35,7 +33,7 @@ We give out themes, swag, and other perks as thanks for helping to grow our comm
 
 75 referrals - Duffel bag
 
-100 referrals - Soft shell jacket
+100 referrals - Softshell jacket
 
 \*By participating in the Referral Program, you agree to the [Referral Program Terms and Conditions](refer-a-friend.md#referral-program-terms-and-conditions)
 
@@ -75,7 +73,7 @@ _(updated 05/26/2023):_ Austria, Belgium, Cyprus, Denmark, Finland, France, Germ
 
 
 
-## FAQs
+## Referral FAQs
 
 1. "I have referred people but have not received an email."
 
