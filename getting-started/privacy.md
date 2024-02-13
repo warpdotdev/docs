@@ -38,6 +38,17 @@ You can view our [full privacy policy here](https://assets-global.website-files.
 
 <figure><img src="../.gitbook/assets/privacy-settings-after-signup.png" alt=""><figcaption><p>Privacy Settings after sign up</p></figcaption></figure>
 
+## Manage your data
+
+Warp provides a convenient way for deleting your data:
+
+* From Warp, Go to `Settings > Privacy > "Visit the data management page"`
+* Once on the page, click the Delete button and go through the data deletion flow.
+
+{% hint style="warning" %}
+If you're a [Team](../features/teams.md) admin, the deletion flow will require that you assign a team member as the new admin.
+{% endhint %}
+
 ## What telemetry data does Warp collect and why?
 
 Warp collects high-level usage data (**never console input or output**) to discover product quality issues and guide feature prioritization. Selling usage data will never be part of Warp's business model. It is used solely to improve the end-user experience.
