@@ -22,7 +22,7 @@ Links to popular GitHub issues:
 
 To enable Blocks over SSH, Warp uses an SSH Wrapper function; navigate to settings > features if you need to disable it.
 
-Note: You'll need to start a new session before a change is reflected or try invoking the SSH binary directly: `/usr/bin/ssh`
+Note: You'll need to start a new session before a change is reflected or try invoking the SSH binary directly: `command ssh`.
 
 There is also a known issue with the [SSH Wrapper not working in Windows SSH sessions](https://github.com/warpdotdev/Warp/issues/2413). You can workaround this by [installing Cygwin](https://www.cygwin.com/) on the Windows machine you'd like to connect to.
 
@@ -30,8 +30,17 @@ There is also a known issue with the [SSH Wrapper not working in Windows SSH ses
 
 There is a known issue that can occur that causes online features to break ([Warp AI](../features/warp-ai/), [AI Command Suggestions](../features/warp-ai/ai-command-suggestions.md), [Block Sharing](../features/blocks/block-sharing.md), [Refe](../getting-started/refer-a-friend.md)[r a Friend](../getting-started/refer-a-friend.md), etc. ). This is due to the login token going stale, typically due to a password change, and can be resolved by the following steps:
 
-* Remove Warp user login with `sudo security delete-generic-password -l "dev.warp.Warp-Stable" $HOME/Library/Keychains/login.keychain`
-* [Login to Warp](../getting-started/getting-started-with-warp.md#logging-into-warp)
+{% tabs %}
+{% tab title="macOS" %}
+1. Remove Warp user login with `sudo security delete-generic-password -l "dev.warp.Warp-Stable" $HOME/Library/Keychains/login.keychain`
+2. [Login to Warp](../getting-started/getting-started-with-warp.md#logging-into-warp)
+{% endtab %}
+
+{% tab title="Linux" %}
+1. Remove Warp user login with your keychain manager (gnome-keyring, kwallet, etc.). Search for `dev.warp.Warp` and delete the `User` password/secret.
+2. [Login to Warp](../getting-started/getting-started-with-warp.md#logging-into-warp)
+{% endtab %}
+{% endtabs %}
 
 ## English-only UI
 
