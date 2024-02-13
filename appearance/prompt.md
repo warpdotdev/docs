@@ -60,6 +60,7 @@ Warps custom prompt supports multi-line or right-sided prompts in zsh and fish, 
 | bash                | [SBP](https://github.com/brujoand/sbp)                            | Not supported                                                   |
 | bash \| zsh         | [Powerline-shell](https://github.com/b-ryan/powerline-shell)      | Not supported                                                   |
 | fish                | [tide](https://github.com/IlanCosman/tide)                        | [Not supported](https://github.com/warpdotdev/Warp/issues/3358) |
+| fish                | [oh-my-fish](https://github.com/oh-my-fish/oh-my-fish)            | [Not supported](https://github.com/warpdotdev/Warp/issues/3796) |
 
 ## Known incompatibilities
 
