@@ -10,7 +10,7 @@ Warp also allows you to enable an audible terminal bell (disabled by default) th
 
 ### Notifications
 
-* Notifications are enabled by default and require system permissions to appear. You will want to **Allow** or **Accept** the request so that Warp can send you desktop notifications. If you accidentally denied it or would like to re-enable Notifications later, check the [troubleshooting guide below](notifications.md#troubleshooting-warp-notifications).
+* Notifications are enabled by default and require system permissions to appear. On macOS, you will want to **Allow** or **Accept** the request so that Warp can send you desktop notifications. If you accidentally denied it or would like to re-enable Notifications later, check the [troubleshooting guide below](notifications.md#troubleshooting-warp-notifications).
 * If you've turned Notifications off before, toggle it back on by going to `Settings > Features`, or quickly toggle Notifications on or off via the Command Palette `CMD-P`.
 * Customize Notification triggers for long-running commands or password prompts by going to `Settings > Features`.
 
@@ -41,10 +41,8 @@ Warp requires two distinct notification settings to work. Mac system settings fo
 {% tab title="Linux" %}
 Warp requires two distinct notification settings to work. Linux system settings (found in something like `Settings > Notifcations > Warp`) and Warp app settings found in `Settings > Features` must both be enabled for Notifications to show. If you have Notifications enabled in the system and Warp, but you still aren't receiving desktop notifications, try the following:
 * Make sure that you are navigated away from Warp when you expect to receive the notification.
-* Make sure the **Do not Disturb** mode is turned off.
+* Make sure the **Do not Disturb** mode (if your distribution supports it) is turned off.
 * Go to `Settings > Notifications` and select Warp in the list. Make sure notifications are turned on, then quit and restart Warp.
-* Once all of the above is done, please restart your machine to apply the changes and that should help with restoring notifications in Warp.
-
 
 {% endtab %}
 {% endtabs %}
