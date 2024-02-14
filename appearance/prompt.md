@@ -38,9 +38,9 @@ Warps custom prompt supports multi-line or right-sided prompts in zsh and fish, 
 * Toggle the custom prompt by right-clicking on the prompt area above the input and selecting "Edit prompt" or select "Prompt" from the `Settings > Appearance` page. There you will be able to select and customize the default prompt or select the Custom prompt (PS1).
 * When right-clicking the prompt, you can copy the entire prompt, working directory, current git branch, etc.
 
-<figure><img src="../.gitbook/assets/edit-prompt-modal.png" alt="Warp Edit Prompt Modal"><figcaption><p>Edit Warp Prompt Modal</p></figcaption></figure>
-
 ## How it works
+
+<figure><img src="../.gitbook/assets/edit-prompt-modal.png" alt="Warp Edit Prompt Modal"><figcaption><p>Edit Warp Prompt Modal</p></figcaption></figure>
 
 <figure><img src="../.gitbook/assets/prompt-demo.gif" alt="Warp Prompt + Custom Prompt Demo"><figcaption><p>Warp Prompt + Custom Prompt Demo</p></figcaption></figure>
 
@@ -78,7 +78,7 @@ If you’re having issues with prompts, please see below or our [Known Issues](.
 
 #### Starship Settings
 
-Some \~/.config/starship.toml settings are known to cause errors in Warp. `#` or `DEL` the following lines to resolve known errors:
+Some `~/.config/starship.toml` settings are known to cause errors in Warp. `#` or `DEL` the following lines to resolve known errors:
 
 ```
 # Get editor completions based on the config schema
@@ -89,7 +89,7 @@ Some \~/.config/starship.toml settings are known to cause errors in Warp. `#` or
 disabled = false
 ```
 
-StarshipFor `fish` shell (optional for `bash|zsh`), disable the multi-line prompt in starship by putting the following in your `~/.config/starship.toml`:
+For `fish` shell, optional for `bash|zsh`, disable the multi-line prompt in Starship by putting the following in your `~/.config/starship.toml`:
 
 ```
 [line_break]
@@ -98,12 +98,11 @@ disabled = true
 
 #### Starship + Bash
 
-Starship prompt may not render properly if your [default shell](../getting-started/using-warp-with-shells.md#changing-default-shell) is `/bin/bash`. To workaround the issue, we recommend you upgrade bash, find the path with `echo $(which bash)`, then put the path in your `Settings > Features > Session > "Startup shell for new sessions" > Custom`, as noted in [#3066](https://github.com/warpdotdev/Warp/issues/3066#issuecomment-1548643121).
+Starship prompt may not render properly if your [default shell](../getting-started/using-warp-with-shells.md#changing-default-shell) is `/bin/bash`. To [workaround](https://github.com/warpdotdev/Warp/issues/3066#issuecomment-1548643121) the issue, we recommend you upgrade bash, find the path with `echo $(which bash)`, then put the path in your `Settings > Features > Session > "Startup shell for new sessions" > Custom`.
 
 #### Powerlevel10k
 
-Powerlevel10k prompt may display the arrow dividers as grey instead of color. The color for those chars is rendered grey due to Warp's minimum contrast setting, as Warp updates colors to enforce a minimum contrast ratio for readability.\
-To [fix](https://github.com/warpdotdev/Warp/issues/2851#issuecomment-1605005256) this issue, go to `Settings > Appearance > Text > Enforce minimum contrast` and set it to "Never".
+Powerlevel10k prompt may display the arrow dividers as grey instead of color. The color for those chars is rendered grey due to Warp's minimum contrast setting, as Warp updates colors to enforce a minimum contrast ratio for readability. To [workaround](https://github.com/warpdotdev/Warp/issues/2851#issuecomment-1605005256) this issue, go to `Settings > Appearance > Text > Enforce minimum contrast` and set it to "Never".
 
 <figure><img src="../.gitbook/assets/p10k-grey-arrow-prompt.png" alt="" width="563"><figcaption><p>Example of the grey dividers in p10k</p></figcaption></figure>
 
@@ -115,8 +114,7 @@ Warp still doesn't fully support some p10k features like transient prompt and vi
 
 #### Spaceship
 
-This prompt can cause an [issue](https://github.com/warpdotdev/Warp/issues/1973) with typeahead in Warp's input editor.\
-To workaround the issue, run `echo "SPACESHIP_PROMPT_ASYNC=FALSE" >>! ~/.zshrc`
+This prompt can cause an issue with typeahead in Warp's input editor. To [workaround](https://github.com/warpdotdev/Warp/issues/1973#issuecomment-1340150521) the issue, run `echo "SPACESHIP_PROMPT_ASYNC=FALSE" >>! ~/.zshrc`.
 
 ### Disabling unsupported prompts for Warp
 
@@ -132,7 +130,7 @@ if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
 fi
 ```
 
-### iTerm2
+#### iTerm2
 
 The iTerm2 shell integration breaks Warp and your custom prompt will not be able to be visible with this on. If you're coming from iTerm2 please check your dotfiles for it. We advise disabling the integration for Warp like so:
 
