@@ -6,15 +6,15 @@ description: Use Vim keybindings to edit commands in Warp's input editor.
 
 ## About Vim keybindings
 
-The Vi family of programs (including Vim and Neovim) are modal text editors that allow for keyboard-driven text editing. Several shells, including `bash` and `zsh`, implement vi-style keybindings. Warp's input editor was built natively to support more modern text editing experiences, which means it replaces the shell's editor capabilities. Warp has its own implementation of Vim keybindings you can use.
+The Vi family of programs (including Vim and Neovim) are modal text editors that allow for keyboard-driven text editing. Several shells, including `bash` and `zsh`, implement vi-style keybindings. Warp's input editor was built natively to support more modern text editing experiences, which means it replaces the shell's editor capabilities. Warp has its implementation of Vim keybindings you can use.
 
 ### How to enable Vim Keybindings
 
 With `bash` and `zsh`, Warp attempts to detect the shell's keybinding settings. If a shell vi mode is detected, Warp may suggest enabling Vim keybindings.
 
-To manually toggle Vim keybindings in Warp's input editor, open the Command Palette with `CMD-P` and type `Vim Keybindings`. This setting is also available in the Settings modal, under `Features` → `Editor` → `Edit commands with Vim keybindings`.
+To manually toggle Vim keybindings in Warp's input editor, open the [Command Palette](../command-palette.md) and type `Vim Keybindings`. This setting is also available in the Settings modal, under `Features` → `Editor` → `Edit commands with Vim keybindings`.
 
-Just as in `bash` and `zsh`'s vi mode implementations, the editor starts in insert mode. Pressing `ctrl-c` or `Enter` clears any pending command state.
+As in `bash` and `zsh`'s vi mode implementations, the editor starts in insert mode. Pressing `ctrl-c` or `Enter` clears any pending command state.
 
 ### Customizing Keybindings
 
@@ -72,13 +72,13 @@ See [Vim docs: editing](https://vimdoc.sourceforge.net/htmldoc/editing.html) for
 
 #### Text Objects
 
-| Command(s)     | Description                                |
-| -------------- | ------------------------------------------ |
-| `i`            | inner (exclude delimiters in text object)  |
-| `a`            | around (include delimiters in text object) |
-| `w`, `W`       | whitespace-delimited string (word)         |
-| `"`, `'`, `\`` | quote-delimited string                     |
-| `(`, `{`, `[`  | parenthesized/bracketed string             |
+| Command(s)       | Description                                |
+| ---------------- | ------------------------------------------ |
+| `i`              | inner (exclude delimiters in text object)  |
+| `a`              | around (include delimiters in text object) |
+| `w`, `W`         | whitespace-delimited string (word)         |
+| `"`, `'`, \`\`\` | quote-delimited string                     |
+| `(`, `{`, `[`    | parenthesized/bracketed string             |
 
 See [Vim docs: text objects](https://vimdoc.sourceforge.net/htmldoc/motion.html#text-objects) for more information.
 
