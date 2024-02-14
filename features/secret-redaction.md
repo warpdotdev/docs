@@ -1,12 +1,15 @@
+---
+description: >-
+  Secret Redaction attempts to automatically redact secrets and sensitive
+  information in your terminal output, including passwords, IP addresses, API
+  keys, and PII.
+---
+
 # Secret Redaction
-
-## What is it
-
-Secret Redaction attempts to automatically redact secrets and sensitive information in your terminal output, including passwords, IP addresses, API keys, and PII.
 
 ## How to access it
 
-To enable Secret Redaction, Open `Settings > Privacy > Secret Redaction` or type in `Enable Secret Redaction` in the command palette (it is disabled by default).
+Disabled by default, to enable Secret Redaction open `Settings > Privacy > Secret Redaction` or type in "Secret Redaction" to toggle it in the [Command Palette](command-palette.md).
 
 ## How it works
 
