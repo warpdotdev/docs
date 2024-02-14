@@ -44,6 +44,14 @@ Warps custom prompt supports multi-line or right-sided prompts in zsh and fish, 
 
 <figure><img src="../.gitbook/assets/prompt-demo.gif" alt="Warp Prompt + Custom Prompt Demo"><figcaption><p>Warp Prompt + Custom Prompt Demo</p></figcaption></figure>
 
+{% embed url="https://www.youtube.com/watch?t=18s&v=dIV9Cso4Mi8" %}
+Installing Powerlevel10k
+{% endembed %}
+
+{% hint style="warning" %}
+Please note the installing powerlevel10k video mentions enabling a custom prompt in `Settings > Features`, but it's now in `Settings > Appearance`, see [above](prompt.md#how-to-access-it) for the updated steps.
+{% endhint %}
+
 ### Custom Prompt Compatibility Table
 
 | Shell               | Tool                                                              | Does it work?                                                   |
@@ -92,19 +100,20 @@ disabled = true
 
 Starship prompt may not render properly if your [default shell](../getting-started/using-warp-with-shells.md#changing-default-shell) is `/bin/bash`. To workaround the issue, we recommend you upgrade bash, find the path with `echo $(which bash)`, then put the path in your `Settings > Features > Session > "Startup shell for new sessions" > Custom`, as noted in [#3066](https://github.com/warpdotdev/Warp/issues/3066#issuecomment-1548643121).
 
-### Powerlevel10k
+#### Powerlevel10k
 
-Warp does support [p10k](https://github.com/romkatv/powerlevel10k#installation) version 1.19.0 and above. Make sure you have the latest version installed as well as restart Warp after the installation/update of p10k. Then enable custom prompt as stated above and it should work! Note: Warp still doesn't fully support some p10k features like transient prompt and visual features like gradients.
+Powerlevel10k prompt may display the arrow dividers as grey instead of color. The color for those chars is rendered grey due to Warp's minimum contrast setting, as Warp updates colors to enforce a minimum contrast ratio for readability.\
+To [fix](https://github.com/warpdotdev/Warp/issues/2851#issuecomment-1605005256) this issue, go to `Settings > Appearance > Text > Enforce minimum contrast` and set it to "Never".
 
-{% hint style="warning" %}
-Please note the setup video for p10k setup mentions enabling a custom prompt in Settings > Features, but it's now in Settings > Appearance, see [above](prompt.md#how-to-access-it) for the updated steps.
+<figure><img src="../.gitbook/assets/p10k-grey-arrow-prompt.png" alt="" width="563"><figcaption><p>Example of the grey dividers in p10k</p></figcaption></figure>
+
+Warp does support [p10k](https://github.com/romkatv/powerlevel10k#installation) version 1.19.0 and above. Make sure you have the latest version installed as well as restart Warp after the installation/update of p10k. Then enable the custom prompt as stated [above](prompt.md#how-to-access-it) and it should work.
+
+{% hint style="info" %}
+Warp still doesn't fully support some p10k features like transient prompt and visual features like gradients.
 {% endhint %}
 
-{% embed url="https://www.youtube.com/watch?t=18s&v=dIV9Cso4Mi8" %}
-Installing Powerlevel10k
-{% endembed %}
-
-### Spaceship
+#### Spaceship
 
 This prompt can cause an [issue](https://github.com/warpdotdev/Warp/issues/1973) with typeahead in Warp's input editor.\
 To workaround the issue, run `echo "SPACESHIP_PROMPT_ASYNC=FALSE" >>! ~/.zshrc`
