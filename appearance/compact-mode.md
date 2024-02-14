@@ -8,7 +8,7 @@ description: >-
 
 ## How to access it
 
-1. Compact Mode can be toggled through `Settings > Appearance > Compact Mode` or through the `Command Palette > Enable / Disable Compact Mode`.
+1. Compact Mode can be toggled through `Settings > Appearance > Compact Mode` or through the Command Palette search for "Compact mode" to toggle.
 
 {% hint style="info" %}
 Warp will open with the same compact settings in future sessions.
