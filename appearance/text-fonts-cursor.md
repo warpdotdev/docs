@@ -7,15 +7,15 @@ description: >-
 
 # Text, Fonts, & Cursor
 
+{% hint style="info" %}
+Once a new font is installed in your system, you need to restart Warp for it to show on the list of options. You may also need to check "View all available system fonts" to see the new font.
+{% endhint %}
+
 ## How to use it
 
 ### Text and Fonts
 
 To access it, go to `Settings > Appearance > Text`
-
-{% hint style="info" %}
-Once a new font is installed in your system, you need to restart Warp in order for it to show on the list of options. You may also need to check "View all available system fonts" to see the new font.
-{% endhint %}
 
 From there you can customize:
 
@@ -29,9 +29,7 @@ From there you can customize:
 
 ### Cursor
 
-To access it, go to `Settings > Appearance > Cursor`, from there you can toggle the Blinking cursor.
-
-Or, from [Command Palette](../features/command-palette.md), type 'blink' and toggle the setting.
+To access it, go to `Settings > Appearance > Cursor`, from there you can toggle the Blinking cursor or from the [Command Palette](../features/command-palette.md), type "Cursor blink" and toggle the setting.
 
 ## How it works
 
