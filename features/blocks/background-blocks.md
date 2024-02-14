@@ -8,7 +8,7 @@ description: How Blocks interact with background process output
 
 Commands can start background processes that continue even after they exit. You can also start a background process directly from the shell, such as by running it with `&`.
 
-If Warp receives output that is likely from a background process, the output goes into a _background block_. Background blocks act just like regular blocks, except that they don't have an associated command.
+If Warp receives output that is likely from a background process, the output goes into a _background block_. Background blocks act like regular blocks, except that they don't have an associated command.
 
 This lets you use all of Warp's block features with background output, such as sharing and bookmarking.
 

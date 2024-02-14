@@ -6,13 +6,13 @@ description: Instructions on how to troubleshoot login issues
 
 ## Nothing happens when I click "Sign Up"
 
-Clicking it should open a login pop-up. If clicking the signup button opens a blank pop-up window, try using a proxy. It is possible that your ISP or Firewall is blocking the app's call to `*.googleapis.com` or `*.segment.io`. In in some older Ruby development environments, `.dev` domains do not resolve properly and you may need to delete the `/etc/resolver/dev`, see more [here](https://superuser.com/questions/1374892/dev-domains-dont-resolve).
+Clicking it should open a login pop-up. If clicking the signup button opens a blank pop-up window, try using a proxy. Your ISP or Firewall may be blocking the app's call to `*.googleapis.com` or `*.segment.io`. In some older Ruby development environments, `.dev` domains do not resolve properly and you may need to delete the `/etc/resolver/dev`, see more [here](https://superuser.com/questions/1374892/dev-domains-dont-resolve).
 
 ### All browsers
 
 This error could occur if you installed an ad blocker and the ad blocker blocks all pop-ups, including our Firebase auth pop-up. **To fix it:**
 
-1. Disable your ad blocker just for app.warp.dev
+1. Disable your ad blocker for `app.warp.dev`
 2. Refresh and try again
 
 ### Safari
@@ -33,19 +33,17 @@ If "Sign Up" does not work after trying the steps above, fill out [this Typeform
 
 When behind a proxy, a possible workaround is to disable QUIC in the browser. It will then fall back to TCP and likely allow login.
 
-- In Chrome, or Chromium based browsers like Edge, Opera, and Arc, type `chrome://flags` into the address bar.
-    1. In the search bar on the flags page, type `Experimental QUIC protocol`.
-    1. Locate the "Experimental QUIC protocol" flag and click on the drop-down menu next to it.
-    1. Select "Disabled" from the options.
-    1. Relaunch Chrome for the changes to take effect.
-
-- In Firefox, type `about:config` into the address bar.
-    1. You will see a warning message. Click on the "Accept the Risk and Continue" button.
-    1. In the search bar, type `network.http.http3.enable`.
-    1. Double-click on the `network.http.http3.enable` preference to set its value to `false`. This will disable QUIC in Firefox.
-    1. Restart Firefox for the changes to take effect.
-
-- In Safari, Unfortunately, there is no built-in option to disable QUIC in Safari. Safari uses QUIC as its default transport protocol and does not provide a user-accessible setting to disable it.
+* In Chrome, or Chromium-based browsers like Edge, Opera, and Arc, type `chrome://flags` into the address bar.
+  1. In the search bar on the flags page, type `Experimental QUIC protocol`.
+  2. Locate the "Experimental QUIC protocol" flag and click on the drop-down menu next to it.
+  3. Select "Disabled" from the options.
+  4. Relaunch Chrome for the changes to take effect.
+* In Firefox, type `about:config` into the address bar.
+  1. You will see a warning message. Click on the "Accept the Risk and Continue" button.
+  2. In the search bar, type `network.http.http3.enable`.
+  3. Double-click on the `network.http.http3.enable` preference to set its value to `false`. This will disable QUIC in Firefox.
+  4. Restart Firefox for the changes to take effect.
+* In Safari, Unfortunately, there is no built-in option to disable QUIC in Safari. Safari uses QUIC as its default transport protocol and does not provide a user-accessible setting to disable it.
 
 ## Nothing happens when I click "Take me to Warp"
 

@@ -94,7 +94,7 @@ Starship prompt may not render properly if your [default shell](../getting-start
 
 ### Powerlevel10k
 
-Warp does support [p10k](https://github.com/romkatv/powerlevel10k#installation) version 1.19.0 and above. Just make sure you have the latest version installed as well as restart Warp after the installation/update of p10k. Then enable custom prompt as stated above and it should work! Note: Warp still doesn't fully support some p10k features like transient prompt and visual features like gradients.
+Warp does support [p10k](https://github.com/romkatv/powerlevel10k#installation) version 1.19.0 and above. Make sure you have the latest version installed as well as restart Warp after the installation/update of p10k. Then enable custom prompt as stated above and it should work! Note: Warp still doesn't fully support some p10k features like transient prompt and visual features like gradients.
 
 {% hint style="warning" %}
 Please note the setup video for p10k setup mentions enabling a custom prompt in Settings > Features, but it's now in Settings > Appearance, see [above](prompt.md#how-to-access-it) for the updated steps.
@@ -111,7 +111,7 @@ To workaround the issue, run `echo "SPACESHIP_PROMPT_ASYNC=FALSE" >>! ~/.zshrc`
 
 ### Disabling unsupported prompts for Warp
 
-We advise using Warp's default prompt or installing one of the supported tools, see [Compatibility Table](prompt.md#custom-prompt-compatibility-table). You can disable unsupported prompts just for Warp as such:
+We advise using Warp's default prompt or installing one of the supported tools, see [Compatibility Table](prompt.md#custom-prompt-compatibility-table). You can disable unsupported prompts for Warp as such:
 
 ```
 if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
@@ -125,7 +125,7 @@ fi
 
 ### iTerm2
 
-The iTerm2 shell integration breaks Warp and your custom prompt will not be able to be visible with this on. If you're coming from iTerm please check your dotfiles for it. We advise disabling the integration just for Warp like so:
+The iTerm2 shell integration breaks Warp and your custom prompt will not be able to be visible with this on. If you're coming from iTerm2 please check your dotfiles for it. We advise disabling the integration for Warp like so:
 
 ```
 if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then

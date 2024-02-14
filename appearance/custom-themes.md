@@ -20,7 +20,7 @@ The main difference between "standard" and "base16" themes is that "standard" th
 
 There are 2 ways to install a theme from this repo.
 
-1. Download just a single file and follow the steps in the section below.
+1. Download a single file and follow the steps in the section below.
 2. Clone the entire repo into `~/.warp/`
 
 {% tabs %}
@@ -60,7 +60,7 @@ Adding a Custom Theme to Warp
 {% endtabs %}
 
 {% hint style="info" %}
-_Note:_ It may take several minutes for Warp to initially discover the new themes directory. You can either wait or just restart the application. After that step, all future changes to the directory will be reflected in Warp within seconds.
+_Note:_ It may take several minutes for Warp to initially discover the new themes directory. You can either wait or restart Warp. After that step, all future changes to the directory will be reflected within seconds.
 {% endhint %}
 
 2. Add your new custom theme yaml file to this directory:
@@ -223,7 +223,7 @@ python3 ./scripts/gen_theme_previews.py standard
 Note: We cannot accept pull requests that include custom background images because:
 
 * Licensing restrictions
-* Trying to keep the binary size of the repo as small as possible (just the yaml files)
+* Trying to keep the binary size of the repo as small as possible (only the yaml files)
 
 If your theme has an intended custom background image, include a comment in the yaml with a link to where people should download it.
 {% endhint %}

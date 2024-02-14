@@ -101,7 +101,7 @@ While bash, and zsh come pre-installed on macOS systems, fish shell does not. So
 
 #### Step 2: Switch to fish as the default shell
 
-Once you’ve installed fish on your computer, you can set it as your default shell, so Warp will use it every time a new tab, pane, or window is opened. You can either make fish the default shell for just Warp, from the session settings (`Settings > Features >`` ``Session`), or for your user account. To change your account's default shell, you need to run two commands.
+Once you’ve installed fish on your computer, you can set it as your default shell, so Warp will use it every time a new tab, pane, or window is opened. You can either make fish the default shell for only Warp, from the session settings (`Settings > Features > Session`), or for your user account. To change your account's default shell, you need to run two commands.
 
 **If you used Homebrew to install fish on a macOS or if you used the Mac installer** available on fishshell.com to install fish, type the following two commands in Warp:
 

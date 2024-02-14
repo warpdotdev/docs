@@ -31,7 +31,7 @@ Create and share a permalink to your blocks to collaborate with teammates. Here 
 
 ## Embedded Blocks
 
-Create and embed your blocks on web pages to help your readers follow along with technical writing. Readers can interact with an embedded block just as they would with a block in Warp, with a context menu and styling. When you click "Get embed", Warp will copy an `iframe` to your clipboard. Here's an example `iframe`:
+Create and embed your blocks on web pages to help your readers follow along with technical writing. Readers can interact with an embedded block as they would with a block in Warp, with a context menu and styling. When you click "Get embed", Warp will copy an `iframe` to your clipboard. Here's an example `iframe`:
 
 ```html
 <iframe src="https://app.warp.dev/block/embed/qn0g1CqQnkYjEafPH5HCVT"

@@ -1,15 +1,22 @@
+---
+description: >-
+  Sticky Command Header shows you the command run for a large Block that is
+  scrolled partially off-screen. This helps you see the command that was
+  previously run or currently running jump to the top.
+---
+
 # Sticky Command Header
 
-## What is it
-
-Sticky Command Header shows you the previous command run for a large Block that is scrolled partially off-screen. This helps you see the command that was previously run or currently running (if it’s long) and click on the header to jump to the top of the Block. _Note:_ For long-running commands that take up the full screen, the sticky header only shows after you start scrolling up. This is to prevent the header blocking the top part of the output for commands like ‘git log’ that simulate full screen apps.
+{% hint style="info" %}
+For long-running commands that take up the full screen, the sticky header only shows after you start scrolling up. This is to prevent the header from blocking the top part of the output for commands like `git log` that simulate full-screen apps.
+{% endhint %}
 
 ## How to access it
 
 * Sticky Command Header is enabled by default.
 * Toggle Sticky Command Header by going to `Settings > Features` > toggle “Show sticky command header”.
 * Toggle by searching for “Sticky Command Header” within the Command Palette `CMD-P` or by pressing `CTRL-CMD-S`.
-* You can also toggle the Sticky Command header in the Active pane with `CTRL-S`, which won't disable the feature entirely, just minimize it on the active pane.
+* You can also toggle the Sticky Command header in the Active pane with `CTRL-S`, which won't disable the feature entirely, only minimize it on the active session.
 
 ## How to use it
 

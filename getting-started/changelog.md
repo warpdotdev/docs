@@ -807,7 +807,7 @@ In-line shortcuts in the changelog are for the Warp on macOS. Please see [keyboa
 **Bug fixes**
 
 * The `clear` command no longer appears in the snackbar at the top of the window
-* Warp’s completions now support executables in remote sessions (no longer just bash)
+* Warp’s completions now support executables in remote sessions (no longer only bash)
 * Fixed subcommand completions for commands with proper prefixes of each other (e.g. `npm r` and `npm run`)
 * The completion spec for `lsd` now supports files
 
@@ -1120,7 +1120,7 @@ In-line shortcuts in the changelog are for the Warp on macOS. Please see [keyboa
 * Fixed labels rendering incorrectly in the font selector dropdown in settings
 * Fixed Bash remote sessions missing tab titles
 * Reduced UI flickering after executing commands
-* Fixed errors when sshing into remote machines which do not have xxd available
+* Fixed errors when sshing into remote machines that do not have xxd available
 * Fixed some anti-aliased glyphs getting clipped during rasterization
 * Fixed search bar stealing focus after command execution
 
@@ -1129,13 +1129,13 @@ In-line shortcuts in the changelog are for the Warp on macOS. Please see [keyboa
 **New features**
 
 * Filepath completions without needing to cd
-* Support for any font (not just monospaced)
+* Support for any font (not only monospaced)
 
 **Bug fixes**
 
 * Tab completions (cd) with international characters are now properly escaped (edited)
 * Improve rendering performance when many tabs are open (fixes non-responsiveness when searching history)
-* Fixed a race condition with autoupdate a11y announcements and other a11y messaging
+* Fixed a race condition with auto-update a11y announcements and other a11y messaging
 * Fixed a regression that would cut off the output of some long-running Blocks
 
 ### 2022.05.04 (v0.2022.05.02.09.00)
@@ -1400,7 +1400,7 @@ In-line shortcuts in the changelog are for the Warp on macOS. Please see [keyboa
 **Bug fixes**
 
 * Double clicking text in a url now highlights the word instead of the whole url - [508](https://github.com/warpdotdev/warp/issues/508)
-* Double clicking a string with underscores now selects the whole string and not just the subword
+* Double clicking a string with underscores now selects the whole string and not only the subword
 * Selection updates correctly when a block hit its max line length
 * Can now also close the Command Palette using CMD-P - [184](https://github.com/warpdotdev/warp/issues/184)
 * Moved check for update button to settings dialog - [070](https://github.com/warpdotdev/warp/issues/070)
