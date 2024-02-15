@@ -35,18 +35,15 @@ Any of these entry points will open the notebook editor where you can:
 Note: The notebook will not be saved until either title or body text is added.&#x20;
 {% endhint %}
 
-<figure><img src="https://lh7-us.googleusercontent.com/gff35vEbh1ZQK1w-v8YhmAmoACEIeDdbxAF_IK46gCMDgrp-rdGpdXZ2Tw6vju9BaZWmYNbiN4TI9IRY4tdlqyczcpEAHrsoIBhIym8FOoRB3sxiRddM9FUxNQ74ObaAYHCZpJkcp4_wGUX3onbl-pg" alt=""><figcaption><p>Empty Notebook befores saving.</p></figcaption></figure>
-
-\
-
+<figure><img src="https://lh7-us.googleusercontent.com/gff35vEbh1ZQK1w-v8YhmAmoACEIeDdbxAF_IK46gCMDgrp-rdGpdXZ2Tw6vju9BaZWmYNbiN4TI9IRY4tdlqyczcpEAHrsoIBhIym8FOoRB3sxiRddM9FUxNQ74ObaAYHCZpJkcp4_wGUX3onbl-pg" alt=""><figcaption><p>Empty Notebook before saving</p></figcaption></figure>
 
 ### Import existing documentation
 
-Existing markdown (`.md`) documentation can also be directly imported into Warp Drive. To import your markdown file(s):
+Existing markdown `.md` documentation can also be directly imported into Warp Drive. To import your markdown file(s):
 
 * From Warp Drive, + > Import > then follow the file selection dialog.&#x20;
 
-<figure><img src="https://lh7-us.googleusercontent.com/egr80PmzqDz6qRt6rSbL_o7Vtt0u846eF5QinJ3JFLnyQwkBMmYngbhYaip13ngWb89vmLWQ0br7Wa_lDEpykksDhCY9TRieQ9l3UmCdjlnrQZJ0pXvS7OKV0uFD10xbcypso5zddiOgym9rvCO50Ig" alt=""><figcaption><p>Notebook import modal.</p></figcaption></figure>
+<figure><img src="https://lh7-us.googleusercontent.com/egr80PmzqDz6qRt6rSbL_o7Vtt0u846eF5QinJ3JFLnyQwkBMmYngbhYaip13ngWb89vmLWQ0br7Wa_lDEpykksDhCY9TRieQ9l3UmCdjlnrQZJ0pXvS7OKV0uFD10xbcypso5zddiOgym9rvCO50Ig" alt=""><figcaption><p>Notebook import modal</p></figcaption></figure>
 
 \
 
@@ -61,7 +58,7 @@ Notebook elements (text, code, list items) can be added in several ways:
 * Typing /, which will open up a selection menu of supported elements.
 * Pressing the + icon which appears when hovering over a line and selecting from the menu of supported elements.
 
-<figure><img src="https://lh7-us.googleusercontent.com/b_gWDWdsknhKT73Wpg5U46gMErCMmplahV7jYFGTmphG6jbWcgyovdaZmVPTDYp7tD7zjjmYySIfzHO6--N0ED45mIPkSI11-d1EPpHPX7n1_u-BfsF5_6IYCQ140l2TiXYfItVZoBZndCLdkOWR_9I" alt=""><figcaption><p>Markdown element types.</p></figcaption></figure>
+<figure><img src="https://lh7-us.googleusercontent.com/b_gWDWdsknhKT73Wpg5U46gMErCMmplahV7jYFGTmphG6jbWcgyovdaZmVPTDYp7tD7zjjmYySIfzHO6--N0ED45mIPkSI11-d1EPpHPX7n1_u-BfsF5_6IYCQ140l2TiXYfItVZoBZndCLdkOWR_9I" alt=""><figcaption><p>Markdown element types</p></figcaption></figure>
 
 #### Styling existing elements
 
@@ -78,11 +75,11 @@ Existing notebook elements can be styled in several ways:
 Command and code blocks have several unique properties such as syntax highlighting and quick actions that make working with code-based documentation simple. You can create a code or command block by either:
 
 * Selecting Command or Code from the new element menu
-* Typing \`\`\` (triple backticks)
+* Typing ` ``` ` (triple backticks)
 
 Once you’ve inserted your code block you can select the language at the bottom of the block from numerous options which will apply the appropriate syntax highlighting if available (or default to Code if your language is not found). All code and command blocks will apply syntax highlighting and provide a quick copy button for easy access.
 
-<figure><img src="https://lh7-us.googleusercontent.com/P5SQh2ATRrn5d-VqXIAjsJgRZ22ge79kczbuL1mvhKHWsbAu1fy2RpRFxqUAh4WUrcbNa5BAH1xPUhTLxePDI7jRpHbAv8RMUbbII61eQOGtBrnl2Ih9LzYxJd0RslzvLMsdW_kLnx2qsLKu_yXCPVk" alt=""><figcaption><p>Example code block.</p></figcaption></figure>
+<figure><img src="https://lh7-us.googleusercontent.com/P5SQh2ATRrn5d-VqXIAjsJgRZ22ge79kczbuL1mvhKHWsbAu1fy2RpRFxqUAh4WUrcbNa5BAH1xPUhTLxePDI7jRpHbAv8RMUbbII61eQOGtBrnl2Ih9LzYxJd0RslzvLMsdW_kLnx2qsLKu_yXCPVk" alt=""><figcaption><p>Example code block</p></figcaption></figure>
 
 #### Special Properties of Command Blocks&#x20;
 
@@ -106,13 +103,13 @@ Developers can execute shell command blocks by:
 
 The command text will be inserted into the developer’s active terminal session, or a new session if none are active.
 
-<figure><img src="https://lh7-us.googleusercontent.com/mHKjC5btK6tyNSURjRTMwWG6J8bpeutCjr3POkYoc9uPrZGIbau8hj2LyOqbNuI8mDaP6XwVevunYIL0QhjMFxNtV1WBLt5JP89fJFliIdZpH0x2ZFOPolIvuM7VsPfcR41PUg20kLZzwQOTDHjzYzY" alt=""><figcaption><p>Run option for command block.</p></figcaption></figure>
+<figure><img src="https://lh7-us.googleusercontent.com/mHKjC5btK6tyNSURjRTMwWG6J8bpeutCjr3POkYoc9uPrZGIbau8hj2LyOqbNuI8mDaP6XwVevunYIL0QhjMFxNtV1WBLt5JP89fJFliIdZpH0x2ZFOPolIvuM7VsPfcR41PUg20kLZzwQOTDHjzYzY" alt=""><figcaption><p>Run option for command block</p></figcaption></figure>
 
 #### Adding arguments to Command Blocks
 
 Command blocks accept parameters in the [same format as workflows](https://docs.warp.dev/features/warp-drive/workflows#working-with-arguments). To add an argument to your command block, use \{{double\_curly\_brackets\}} to specify your argument term.
 
-<figure><img src="https://lh7-us.googleusercontent.com/f5Irl1-6HZoH6mMTz5bLbUjs-l5RI6JzlyPqJELR9Z8b8RXZ-G99NegApG8QAr8QhejAKWcTGmg6DAaEOCsVFH5Cg0Sh4m3FN3gfT1OtmTElS7Ovf4sbbAa5urq7QkGphuVt0XFL3Mxf07n_558zce0" alt=""><figcaption><p>Command block with parameter.</p></figcaption></figure>
+<figure><img src="https://lh7-us.googleusercontent.com/f5Irl1-6HZoH6mMTz5bLbUjs-l5RI6JzlyPqJELR9Z8b8RXZ-G99NegApG8QAr8QhejAKWcTGmg6DAaEOCsVFH5Cg0Sh4m3FN3gfT1OtmTElS7Ovf4sbbAa5urq7QkGphuVt0XFL3Mxf07n_558zce0" alt=""><figcaption><p>Command block with parameters</p></figcaption></figure>
 
 #### Navigating command blocks with the keyboard
 
@@ -123,7 +120,7 @@ Command Blocks also support keyboard navigation. There are two ways to enter the
 * Clicking on a shell block.
 * Pressing `CMD-UP` or `CMD-DOWN.`
 
-Once a command block is selected, press `CMD-ENTER` to insert it into the terminal input. You can also use `UP, DOWN, CMD-UP`, and `CMD-DOWN` to navigate between command blocks. While the Notebook is focused, press `CMD-L` to switch focus back to the terminal without inserting a comman
+Once a command block is selected, press `CMD-ENTER` to insert it into the terminal input. You can also use `UP, DOWN, CMD-UP`, and `CMD-DOWN` to navigate between command blocks. While the Notebook is focused, press `CMD-L` to switch focus back to the terminal without inserting a command.
 {% endtab %}
 
 {% tab title="Linux" %}
@@ -136,18 +133,18 @@ Once a command block is selected, press `CTRL-ENTER` to insert it into the termi
 
 #### Adding existing workflows to Notebooks
 
-If you have existing [workflows](https://docs.warp.dev/features/warp-drive/workflows#working-with-arguments) that you’d like to insert into your notebook rather than duplicating their content, you can select Embedded Workflow from the new element menu and select from the available workflows. Once embedded in a notebook, the workflow will be executable like a regular command block. To edit the content of the embedded workflow, you will need to edit the source workflow which can be found via searching for the title in the Command Palette.
+If you have existing [Workflows](workflows.md) that you’d like to insert into your notebook rather than duplicating their content, you can select Embedded Workflow from the new element menu and select from the available workflows. Once embedded in a notebook, the workflow will be executable like a regular command block. To edit the content of the embedded workflow, you will need to edit the source workflow which can be found by searching for the title in the [Command Palette](../command-palette.md).
 
 <figure><img src="https://lh7-us.googleusercontent.com/fFlwgY0nRNkeptsid5mch_0Rww7G0EA8Y1tFSkon5cDyfuCrrV0HtglO4B_ddyWeQhEzdbdimF2l1EzvZy9aNXNaDWoujJomIQft_nIApQGBt1YXGolBFek1qg1b51y4qVLxndmrbCAHGUmRYci1NSA" alt=""><figcaption><p>Embedding an existing workflow in a notebook.</p></figcaption></figure>
 
 ### Working with Notebooks in a team
 
-If the notebook is shared with a team, all team members will have access to edit the notebook and updates will sync immediately for all members of the team.&#x20;
+If the notebook is shared with a team, all team members will have access to edit the notebook and updates will sync immediately for all members of the team.
 
 {% hint style="info" %}
 &#x20;Note that only one editor is allowed at a given time. Opening the notebook while there is an active editor will open the notebook in Viewing mode. Your mode (view vs edit) can be toggled above the notebook’s title.
 {% endhint %}
 
-<figure><img src="https://lh7-us.googleusercontent.com/tYp_RiFBa8qX01CHeDYWPrR_UqaDhkTEjQTOUGUvL8Y3pim8e9nZy8paHQuZXbSzJDIHrZHkyo6BBUnbyRKpnxNPXW9oEfmKn-qHfP_wGX23DlK6sKN9zsula_A987BBQ2qK8tmXw4ysCQAYGM6zfhg" alt=""><figcaption><p>View mode example.</p></figcaption></figure>
+<figure><img src="https://lh7-us.googleusercontent.com/tYp_RiFBa8qX01CHeDYWPrR_UqaDhkTEjQTOUGUvL8Y3pim8e9nZy8paHQuZXbSzJDIHrZHkyo6BBUnbyRKpnxNPXW9oEfmKn-qHfP_wGX23DlK6sKN9zsula_A987BBQ2qK8tmXw4ysCQAYGM6zfhg" alt=""><figcaption><p>View mode example</p></figcaption></figure>
 
 \
