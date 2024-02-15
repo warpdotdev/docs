@@ -10,6 +10,16 @@ description: >-
 In-line shortcuts in the changelog are for the Warp on macOS. Please see [keyboard-shortcuts.md](../features/keyboard-shortcuts.md "mention") for Warp on Linux, Web, and Windows shortcuts.
 {% endhint %}
 
+### 2024.02.15 (v0.2024.02.13.08.02)
+
+**New features**
+
+* Warp on Linux (Private Beta): Added support for the Input Mode Editor (IME)
+
+**Bug fixes**
+
+* Fix the inputted command sometimes overlapping rprompt (right-sided prompt)
+
 ### 2024.02.08 (v0.2024.02.06.08.02)
 
 **New features**
