@@ -1,8 +1,10 @@
+---
+description: >-
+  Warps URI scheme enables you to programmatically open new windows, tabs, or
+  launch configurations with ease.
+---
+
 # URI Scheme
-
-## What is it
-
-Warps URI scheme enables you to programmatically open new windows, tabs, or launch configurations with ease.
 
 ## How to use it
 
