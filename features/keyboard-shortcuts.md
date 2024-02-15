@@ -9,7 +9,7 @@ Set custom, clear, or default keyboard shortcuts by navigating to `Settings > Ke
 Remap the keyboard shortcuts using a file (`~./.warp/keybindings.yaml`). See our [keysets repository](https://github.com/warpdotdev/keysets/tree/main) for instructions.
 
 {% hint style="info" %}
-On macOS, [system keyboard shortcuts](https://github.com/warpdotdev/Warp/issues/1851#issuecomment-1947321880) like `CMD-ESC, CMD-BACKTICK, CMD-TAB, CMD-PERIOD, and CMD-TILDE` need to be unbound before you can use them in Warp.
+On macOS, [system keyboard shortcuts](https://support.apple.com/en-us/HT201236) like `CMD-ESC`, `CMD-BACKTICK`, `CMD-TAB`, `CMD-PERIOD`, and `CMD-TILDE` need to be [unbound](https://support.apple.com/guide/mac-help/keyboard-shortcuts-mchlp2262/mac) before you can use them in Warp.
 {% endhint %}
 
 {% hint style="info" %}

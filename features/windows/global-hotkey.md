@@ -5,7 +5,7 @@
 Warp's Global Hotkey is a configurable shortcut that can show/hide a dedicated window or all windows on your chosen desktop regardless of whether the app is focused. You can customize the dedicated windows' pinned position and its width and height ratio relative to your active screen size.On
 
 {% hint style="info" %}
-On macOS, [system keyboard shortcuts](https://github.com/warpdotdev/Warp/issues/1851#issuecomment-1947321880) like `CMD-ESC, CMD-BACKTICK, CMD-TAB, CMD-PERIOD, and CMD-TILDE` need to be unbound before you can use them in Warp.
+On macOS, [system keyboard shortcuts](https://support.apple.com/en-us/HT201236) like `CMD-ESC`, `CMD-BACKTICK`, `CMD-TAB`, `CMD-PERIOD`, and `CMD-TILDE` need to be [unbound](https://support.apple.com/guide/mac-help/keyboard-shortcuts-mchlp2262/mac) before you can use them in Warp.
 {% endhint %}
 
 {% hint style="warning" %}
