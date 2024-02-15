@@ -2,15 +2,14 @@
 
 ## What is it
 
-Warp's Global Hotkey is a configurable shortcut that can show/hide a dedicated window or all windows on your chosen desktop regardless of whether the app is focused. You can customize the dedicated windows' pinned position and its width and height ratio relative to your active screen size.
+Warp's Global Hotkey is a configurable shortcut that can show/hide a dedicated window or all windows on your chosen desktop regardless of whether the app is focused. You can customize the dedicated windows' pinned position and its width and height ratio relative to your active screen size.On
 
 {% hint style="info" %}
-`CMD-ESC, CMD-BACKTICK, CMD-TAB, CMD-PERIOD, and CMD-TILDE` are not supported keyboard shortcuts. There is a request for support you can track it [here #1851](https://github.com/warpdotdev/Warp/issues/1851)
+On macOS, [system keyboard shortcuts](https://github.com/warpdotdev/Warp/issues/1851#issuecomment-1947321880) like `CMD-ESC, CMD-BACKTICK, CMD-TAB, CMD-PERIOD, and CMD-TILDE` need to be unbound before you can use them in Warp.
 {% endhint %}
 
 {% hint style="warning" %}
-On Linux, global hotkey may not work for some X11 window managers which do not implement [Extended Window Manager Hints](https://en.wikipedia.org/wiki/Extended\_Window\_Manager\_Hints). Some examples include:
-[sowm](https://github.com/dylanaraps/sowm), [catwm](https://github.com/pyknite/catwm), [Fvwm](https://www.fvwm.org/), [dwm](https://dwm.suckless.org/), [2bWM](https://github.com/venam/2bwm), [monsterwm](https://github.com/c00kiemon5ter/monsterwm), [TinyWM](https://github.com/mackstann/tinywm), [x11fs](https://github.com/sdhand/x11fs), [XMonad](https://xmonad.org/)
+On Linux, global hotkey may not work for some X11 window managers which do not implement [Extended Window Manager Hints](https://en.wikipedia.org/wiki/Extended\_Window\_Manager\_Hints). Some examples include: [sowm](https://github.com/dylanaraps/sowm), [catwm](https://github.com/pyknite/catwm), [Fvwm](https://www.fvwm.org/), [dwm](https://dwm.suckless.org/), [2bWM](https://github.com/venam/2bwm), [monsterwm](https://github.com/c00kiemon5ter/monsterwm), [TinyWM](https://github.com/mackstann/tinywm), [x11fs](https://github.com/sdhand/x11fs), [XMonad](https://xmonad.org/)
 {% endhint %}
 
 ## How to access it
@@ -21,7 +20,7 @@ On Linux, global hotkey may not work for some X11 window managers which do not i
 2. Configure the keybinding, the windows position, screen, and relative size or uncheck "Autohides on the loss of keyboard focus" which will cause the dedicated Hotkey Window to stay on top when triggered regardless of mouse or keyboard focus.
 
 {% hint style="info" %}
-Your new customization will apply the **next** time a Dedicated Window is created, not the currently opened one.
+Your new customization will apply the **next** time a Dedicated Window is created
 {% endhint %}
 
 {% hint style="warning" %}
@@ -56,4 +55,3 @@ If the keybinding doesn't work, check under `System Preferences > Security & Pri
 The hotkey window may appear on the incorrect monitor under certain window sizes. For example, with GNOME, if the hotkey window is supposed to show on a monitor having the task bar (GNOME Panel), and the window height is 100%, causing an overlap, the hotkey window may fallback to showing on an external monitor if you have one. Try working around this by setting a window height to a lesser percentage, e.g. 90%.
 {% endtab %}
 {% endtabs %}
-
