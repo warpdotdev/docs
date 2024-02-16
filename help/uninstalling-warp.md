@@ -10,7 +10,10 @@ You can log out of Warp through:
 
 * `Settings > Account`, with the "Log out" button
 * [Command Palette](../features/command-palette.md), with the "Log Out" item.
-* The "Warp" menu bar, "Log out" item.
+
+{% hint style="info" %}
+On macOS, you can also go to Warp in the menu bar and select "Log out".
+{% endhint %}
 
 <figure><img src="../.gitbook/assets/logout.gif" alt=""><figcaption><p>Logout Demo</p></figcaption></figure>
 
@@ -54,7 +57,7 @@ Removing Warp from your computer involves uninstalling Warp and then removing an
 #### Removing Warp login, settings, files, log, and database
 
 * [Log out of Warp](uninstalling-warp.md#logging-out).
-* Remove Warp config files with `rm -r ${XDG_CONFIG_HOME:-$HOME/.config}/warp`
-* Remove Warp user files, logs, and database with `rm -r ${XDG_STATE_HOME:-$HOME/.local/state}/warp`
+* Remove Warp config files with `rm -r ${XDG_CONFIG_HOME:-$HOME/.config}/warp-terminal`
+* Remove Warp user files, logs, and database with `rm -r ${XDG_STATE_HOME:-$HOME/.local/state}/warp-terminal`
 {% endtab %}
 {% endtabs %}

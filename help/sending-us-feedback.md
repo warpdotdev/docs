@@ -41,6 +41,6 @@ The log file is located at `~/Library/Logs/warp.log`.
 {% endtab %}
 
 {% tab title="Linux" %}
-The log file is located at `${XDG_STATE_HOME:-$HOME/.local/state}/warp/warp.log`.
+The log file is located at `${XDG_STATE_HOME:-$HOME/.local/state}/warp-terminal/warp.log`.
 {% endtab %}
 {% endtabs %}
