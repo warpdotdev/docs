@@ -6,7 +6,7 @@
 
 Warp supports opening files, folders, and URL links that are within Blocks. Multiple URL protocols are supported e.g. `https`, `ftp`, `file`, etc. Warp opens web links directly in your default browser.
 
-Warp can also open Markdown files directly. Learn more about [viewing Markdown files](./markdown-viewer.md).
+Warp can also open Markdown files directly. Learn more about [viewing Markdown files](markdown-viewer.md).
 
 ### Scripts
 
@@ -16,21 +16,35 @@ Warp can open `.command` and Unix Executable files from the finder directly.
 
 ### Files & Links
 
+{% tabs %}
+{% tab title="macOS" %}
 1. After hovering over a link, open it directly by holding down `CMD` while clicking it.
 2. Clicking a link normally will open a clickable tooltip that says “Open File/Folder/Link”.
-3. Right-clicking a link will open a context menu that supports copying the absolute file path or url to the clipboard.
+3. Right-clicking a link will open a context menu that supports copying the absolute file path or URL to the clipboard.
+{% endtab %}
 
-Note: Configure the default editor to open files by navigating to `Settings > Features > Choose an editor to open file links`.
+{% tab title="Linux" %}
+1. After hovering over a link, open it directly by holding down `CTRL` while clicking it.
+2. Clicking a link normally will open a clickable tooltip that says “Open File/Folder/Link”.
+3. Right-clicking a link will open a context menu that supports copying the absolute file path or URL to the clipboard.
+{% endtab %}
+{% endtabs %}
+
+{% hint style="info" %}
+Configure the default editor to open files by navigating to `Settings > Features > Choose an editor to open file links`.
+{% endhint %}
 
 * You can also Drag and drop a folder or file onto the Warp dock icon to open a new tab in this directory.
 * You can also right-click on a folder or file in Finder, then select Services, and "Open new Warp Tab | Window here".
 
 ### Scripts
 
-1. Find a .command or Shell script you'd like to open in Finder.
+1. Find a `.command` or Shell script you'd like to open in Finder.
 2. Right-click and open the script with Warp.
 
-Note: Make sure the file has the appropriate executable permissions before you can run it in Warp. (eg `chmod +x script.command`)
+{% hint style="warning" %}
+Make sure the file has the appropriate executable permissions before you can run it in Warp. (e.g. `chmod +x script.command`)
+{% endhint %}
 
 ## How it works
 
