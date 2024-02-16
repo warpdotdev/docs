@@ -13,7 +13,7 @@ If you're using zsh on the remote host, we create a temp folder to act as the ZD
 [Tmux is not currently supported.](https://github.com/warpdotdev/Warp/discussions/501)
 
 {% hint style="warning" %}
-The SSH Wrapper only supports bash/zsh/fish shells in remote sessions. If the remote server has another shell, please [change the default shell](../getting-started/using-warp-with-shells.md#changing-default-shell) to enable the SSH Wrapper.
+The SSH Wrapper only supports `bash|zsh|fish` shells in remote sessions. If the remote server has another shell, please [change the default shell](../getting-started/using-warp-with-shells.md#changing-default-shell) to enable the SSH Wrapper.
 {% endhint %}
 
 ![SSH](../.gitbook/assets/ssh.png)
@@ -25,12 +25,12 @@ We create a wrapper (around `/usr/bin/ssh`) to set up the shell for Warp's featu
 * Warp takes over the prompt which enables us to build a modern input editor.
 * Warp configures histcontrol to ignore commands with leading spaces. We do this so our bootstrapping code does not clutter the history.
 
-You can see the SSH wrapper by using `which warp_ssh_helper` in Zsh, `type warp_ssh_helper` in Bash.
+You can see the SSH wrapper by using `which warp_ssh_helper` in zsh, `type warp_ssh_helper` in bash.
 
 _Note:_ The ssh wrapper is only _initialized_ on your local machine. We don’t currently support bootstrapping nested ssh sessions.
 
 {% hint style="info" %}
-Warp's completions for ssh do respect `~/.ssh/config` as well as `~/.ssh/known_hosts`
+Warp [Completions](command-completions/completions.md) for ssh show entries in `~/.ssh/config` and `~/.ssh/known_hosts`
 {% endhint %}
 
 ## Troubleshooting SSH
