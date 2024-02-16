@@ -1,8 +1,15 @@
+---
+description: >-
+  Warp can send you customizable desktop notifications when you are away from
+  the app and quickly re-focus when something meaningful happens in your
+  terminal sessions.
+---
+
 # Notifications & Audible Bell
 
 ## What is it
 
-Warp can send you customizable desktop notifications when you are away from the app and quickly re-focus when something meaningful happens in your terminal sessions. Notifications can be sent when a command completes after a configurable number of seconds or when a running command needs you to enter a password to proceed. For either of these triggers, Warp will only send you a desktop notification if you are using a different app at the time the trigger is fired.\
+Notifications can be sent when a command completes after a configurable number of seconds or when a running command needs you to enter a password to proceed. For either of these triggers, Warp will only send you a desktop notification if you are using a different app at the time the trigger is fired.\
 \
 Warp also allows you to enable an audible terminal bell (disabled by default) that can be triggered by a variety of CLI tools (i.e. `ping -a`).
 
@@ -10,14 +17,18 @@ Warp also allows you to enable an audible terminal bell (disabled by default) th
 
 ### Notifications
 
-* Notifications are enabled by default and require system permissions to appear. On macOS, you will want to **Allow** or **Accept** the request so that Warp can send you desktop notifications. If you accidentally denied it or would like to re-enable Notifications later, check the [troubleshooting guide below](notifications.md#troubleshooting-warp-notifications).
-* If you've turned Notifications off before, toggle it back on by going to `Settings > Features`, or quickly toggle Notifications on or off via the Command Palette `CMD-P`.
+* Notifications are enabled by default and require system permissions to appear.
+* If you've turned Notifications off before, toggle it back on by going to `Settings > Features > Session`, or quickly toggle Notifications with the [Command Palette](command-palette.md).
 * Customize Notification triggers for long-running commands or password prompts by going to `Settings > Features`.
+
+{% hint style="info" %}
+On macOS, you will want to **Allow** or **Accept** the request so that Warp can send you desktop notifications. If you accidentally denied it or would like to re-enable Notifications later, check the [troubleshooting guide below](notifications.md#troubleshooting-notifications).
+{% endhint %}
 
 ### Audible Bell
 
 * In Settings, enable an Audible terminal bell in `Settings > Features > Terminal`.
-* In Command Palette, “Enable/Disable Audible Terminal Bell”.
+* In [Command Palette](command-palette.md), “Enable/Disable Audible Terminal Bell”.
 
 ## How it works
 
@@ -29,21 +40,25 @@ Notifications Demo
 
 {% tabs %}
 {% tab title="macOS" %}
-Warp requires two distinct notification settings to work. Mac system settings found in `Mac > System Preferences > Notifications & Focus` and Warp app settings found in `Settings > Features` must both be enabled for Notifications to show. If you have Notifications enabled in the system and Warp, but you still aren't receiving desktop notifications, try the following:
+Warp requires two distinct notification settings to work. Mac system settings are found in `Mac > System Preferences > Notifications & Focus` and Warp app settings are found in `Settings > Features` must both be enabled for Notifications to show. \
+\
+If you have Notifications enabled in the system and Warp, but you still aren't receiving desktop notifications, try the following:
+
 * Make sure that you are navigated away from Warp when you expect to receive the notification.
-* Make sure the **Do not Disturb** mode is turned off in `Mac > System Preferences > Notifications > Notifications & Focus > Focus`.
+* Make sure the **Do Not Disturb** mode is turned off in `Mac > System Preferences > Notifications > Notifications & Focus > Focus`.
 * Go to `Mac > System Preferences > Notifications & Focus > Notifications` and select Warp in the list. Make sure either banner style or alert style notifications are selected, then quit and restart Warp.
 * To get the MacOS notification prompt to show again for Warp, run `defaults delete dev.warp.Warp-Stable Notifications`, then restart Warp and toggle on the `Settings > Features > Receive desktop notifications from Warp`.
 * Once all of the above is done, please Restart MacOS to apply the changes and that should help with restoring notifications in Warp.
-
 {% endtab %}
 
 {% tab title="Linux" %}
-Warp requires two distinct notification settings to work. Linux system settings (found in something like `Settings > Notifcations > Warp`) and Warp app settings found in `Settings > Features` must both be enabled for Notifications to show. If you have Notifications enabled in the system and Warp, but you still aren't receiving desktop notifications, try the following:
-* Make sure that you are navigated away from Warp when you expect to receive the notification.
-* Make sure the **Do not Disturb** mode (if your distribution supports it) is turned off.
-* Go to `Settings > Notifications` and select Warp in the list. Make sure notifications are turned on, then quit and restart Warp.
+Warp requires two distinct notification settings to work. Linux system settings (found in something like `Settings > Notifcations > Warp`) and Warp app settings found in `Settings > Features` must both be enabled for Notifications to show. \
+\
+If you have Notifications enabled in the system and Warp, but you still aren't receiving desktop notifications, try the following:
 
+* Make sure that you are navigated away from Warp when you expect to receive the notification.
+* Make sure the **Do Not Disturb** mode (if your distribution supports it) is turned off.
+* Go to `Settings > Notifications` and select Warp in the list. Make sure notifications are turned on, then quit and restart Warp.
 {% endtab %}
 {% endtabs %}
 
