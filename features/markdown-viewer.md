@@ -10,7 +10,15 @@ There are three ways to view a Markdown file in Warp, you can also configure War
 
 ### Opening a file link within a block
 
-For any link to a Markdown file within a block, you can open the file in Warp by `CMD`-clicking on the link, from the link tooltip, or from the right-click context menu on the link.
+{% tabs %}
+{% tab title="macOS" %}
+For any link to a Markdown file within a block, you can open the file in Warp by `CMD`-clicking on the link, from the link tooltip, or the right-click context menu on the link.
+{% endtab %}
+
+{% tab title="Linux" %}
+For any link to a Markdown file within a block, you can open the file in Warp by `CTRL`-clicking on the link, from the link tooltip, or the right-click context menu on the link.
+{% endtab %}
+{% endtabs %}
 
 <figure><img src="../.gitbook/assets/open-markdown-file-demo.gif" alt="Clicking a Markdown file link in the output of ls to open it in Warp"><figcaption><p>Opening a Markdown file in Warp using the link tooltip</p></figcaption></figure>
 
@@ -30,18 +38,29 @@ From Finder, you can open a Markdown file in Warp from the “Open With” menu 
 
 ## Shell commands in Markdown files
 
-Warp can run shell commands from Markdown code blocks in your active terminal session. Click the run icon (`>_`) to insert a command into the terminal input.
+Warp can run shell commands from Markdown code blocks in your active terminal session. Click the run icon `>_` to insert a command into the terminal input.
 
 {% hint style="info" %}
-The shell command must be in a code block with three backticks (\`\`\`) and not inline code in order for Warp to treat the code like a runnable command.
+The shell command must be in a code block with three backticks ` ``` ` and not inline code for Warp to treat the code like a runnable command.
 {% endhint %}
 
 Markdown shell blocks also support keyboard navigation. There are two ways to enter the keyboard navigation mode:
 
+{% tabs %}
+{% tab title="macOS" %}
 * Clicking on a shell block.
 * Pressing `CMD-UP` or `CMD-DOWN`.
 
-Once a shell block is selected, press `CMD_ENTER` to insert it into the terminal input. You can also use `UP`, `DOWN`, `CMD-UP`, and `CMD-DOWN` to navigate between shell blocks. While the Markdown file is focused, press `CMD-L` to switch focus back to the terminal without inserting a command.
+Once a shell block is selected, press `CMD-ENTER` to insert it into the terminal input. You can also use `UP`, `DOWN`, `CMD-UP`, and `CMD-DOWN` to navigate between shell blocks. While the Markdown file is focused, press `CMD-L` to switch focus back to the terminal without inserting a command.
+{% endtab %}
+
+{% tab title="Linux" %}
+* Clicking on a shell block.
+* Pressing `CTRL-UP` or `CTRL-DOWN`.
+
+Once a shell block is selected, press `CTRL-ENTER` to insert it into the terminal input. You can also use `UP`, `DOWN`, `CTRL-UP`, and `CTRL-DOWN` to navigate between shell blocks. While the Markdown file is focused, press `CTRL-SHIFT-L` to switch focus back to the terminal without inserting a command.
+{% endtab %}
+{% endtabs %}
 
 If the command contains any arguments using the curly brace `{{param}}` syntax, they will be treated as workflow arguments. Learn more about [workflows](warp-drive/workflows.md).
 
