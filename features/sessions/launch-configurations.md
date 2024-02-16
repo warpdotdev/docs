@@ -1,26 +1,32 @@
+---
+description: >-
+  Launch Configurations enables you to save your configuration of windows, tab,
+  and panes, so that you can reopen the same set of sessions per project
+  quickly.
+---
+
 # Launch Configurations
 
 ## What is it
 
-Launch Configurations enables you to save your configuration of windows, tab, and panes, so that you can reopen the same set of windows, tab, and panes per project quickly. You can save this via the app, or by adding a yaml file.
+With Launch configurations you can save in the app or by adding a yaml file.
 
 ## How to use it
 
 1. Set up the configuration of windows, tabs, and panes you would like to save.
-2. From the Command Palette `CMD-P`, enter `Save New Launch Configuration`.
-3. Name the configuration file. N_ote: The name field cannot be empty._
+2. From the [Command Palette](../command-palette.md), enter `Save New Launch Configuration`.
+3. Name the configuration file, the name field cannot be empty.
 4. Click the save configuration button.
 
 ## How to access it
 
-* From the Command Palette `CMD-P`, enter `Launch Configuration` to open and select Launch Configuration.
-* With the keyboard shortcut `CTRL-CMD-L`, open and select Launch Configuration.
+* From the [Command Palette](../command-palette.md), enter `Launch Configuration` to open and select Launch Configuration.
 * Right-clicking the new Tab **+** button to open a menu and select saved Launch Configuration.
 * From the Mac Menu, `File > Launch Configurations`, where you can search through and open your saved Launch Configuration.
 
 {% hint style="info" %}
 **Terminal Tip**\
-You can open saved Launch Configurations via [Alfred](https://www.alfredapp.com/) Workflow or [Raycast](https://www.raycast.com/) Extension. Learn more [here](https://blog.joe.codes/open-warp-launch-configurations-from-raycast-and-alfred). Credit to [@joetannenbaum](https://twitter.com/joetannenbaum/status/1633538768866009115)
+You can open saved Launch Configurations via Alfred Workflow or [Raycast](../integrations-and-plugins.md#raycast) Extension. Learn more [here](https://blog.joe.codes/open-warp-launch-configurations-from-raycast-and-alfred). Credit to [@joetannenbaum](https://twitter.com/joetannenbaum/status/1633538768866009115)
 {% endhint %}
 
 ## How it works
@@ -39,10 +45,9 @@ All yaml files are stored in the following location:
 {% endtab %}
 
 {% tab title="Linux" %}
-`${XDG_DATA_HOME:-$HOME/.local/share}/warp/launch_configurations/`
+`${XDG_DATA_HOME:-$HOME/.local/share}/warp-terminal/launch_configurations/`
 {% endtab %}
 {% endtabs %}
-
 
 {% hint style="warning" %}
 The `cwd:` value in the yaml code must contain an absolute path or `""`. Note that `~` or empty paths will result in the file not being visible on the list of options for Launch Configurations.
