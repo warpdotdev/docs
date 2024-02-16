@@ -15,13 +15,13 @@ You can create a new notebook from various entry points in Warp
 {% tabs %}
 {% tab title="macOS" %}
 * From Warp Drive, + > New notebook
-* From the Command Palette, `CMD-P`, create a new team or personal notebook.
+* From the [Command Palette](../command-palette.md), create a new team or personal notebook.
 * With a keyboard shortcut, `SHIFT-CMD-J`
 {% endtab %}
 
 {% tab title="Linux" %}
 * From Warp Drive, + > New notebook
-* From the Command Palette, `CTRL-SHIFT-P`, create a new team or personal notebook.
+* From the [Command Palette](../command-palette.md), create a new team or personal notebook.
 * With a keyboard shortcut, `SHIFT-CTRL-J`
 {% endtab %}
 {% endtabs %}

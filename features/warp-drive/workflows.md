@@ -15,15 +15,14 @@ You can create a new workflow from various entry points in Warp:
 * From Warp Drive, + > New workflow
 * Using Block Actions, Save as Workflow
 * From Warp AI results, Save as Workflow
-* From the Command Palette `CMD-P`, Create a New Personal Workflow
-* With a Keyboard Shortcut, `SHIFT + CMD + H`
+* From the [Command Palette](../command-palette.md), Create a New Personal Workflow
 
 Any of these entry points will open the workflow editor where you can:
 
 * Name your workflow
 * Edit the command along with any arguments (also known as parameters)
-* (optional) Add a meaningful description that will be indexed for search
-* (optional) Add arguments, descriptions for arguments, and default values
+* Add a meaningful description that will be indexed for search (optional)
+* Add arguments, descriptions for arguments, and default values (optional)
 
 <figure><img src="../../.gitbook/assets/image4 (2).png" alt="Workflows save and edit modal"><figcaption><p>Workflows save / edit modal</p></figcaption></figure>
 
@@ -61,14 +60,14 @@ If a workflow in the Warp Drive has been edited by another team member or a user
 You can execute a workflow in several ways:
 
 * From Warp Drive, click the workflow
-* From the Command Palette `CMD-P`, search for a workflow you’d like to execute, click or select and enter
-* From Command Search `CTRL-R`, search for a workflow you'd like to execute, click or select and enter.
-* When a workflow is selected, you can use `SHIFT-TAB` to cycle thru the arguments.
+* From the [Command Palette](../command-palette.md), search for a workflow you’d like to execute, click or select, and enter
+* From [Command Search](../entry/command-search.md), search for a workflow you'd like to execute, click or select, and enter.
+* When a workflow is selected, you can use `SHIFT-TAB` to cycle through the arguments.
 
 {% hint style="info" %}
 When you create two or more arguments with the same name, Warp automatically selects and puts multiple cursors over the arguments in the input editor so they are synced. \
 \
-Also, tailor your Command Search (`CTRL-R`) experience by toggling off "Show Global Workflows" in `Settings > Features`. When disabled, your search will exclusively encompass YAML and Warp Drive Workflows.
+Also, tailor your Command Search experience by toggling off "Show Global Workflows" in `Settings > Features`. When disabled, your search will exclusively encompass YAML and Warp Drive Workflows.
 {% endhint %}
 
 <figure><img src="../../.gitbook/assets/Screenshot 2023-06-17 at 12.16.55 PM.png" alt=""><figcaption><p>Search for any workflow in the Command Palette with <code>CMD + P</code></p></figcaption></figure>
@@ -87,6 +86,6 @@ Running Workflow Demo
 
 Warp will indefinitely support the [YAML Workflows](../entry/yaml-workflows.md), which includes personal and community workflows sourced from an open-source repository.
 
-If needed, you can continue to access your .yaml file workflows using [Command Search](../entry/command-search.md) `CTRL-R` or the [Command Palette](../command-palette.md) `CMD-P`. However, these file-based workflows will not be available to access, organize, or share in Warp Drive.
+If needed, you can continue to access your .yaml file workflows using [Command Search](../entry/command-search.md) or the [Command Palette](../command-palette.md). However, these file-based workflows will not be available to access, organize, or share in Warp Drive.
 
 Although we encourage you to create workflows with the new workflow editor in Warp Drive, we hope you’ll find it a much easier experience, there are plans for Warp Drive workflows to be imported/exported to prevent vendor lock-in.
