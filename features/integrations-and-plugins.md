@@ -4,11 +4,11 @@ description: Warp extends and integrates with popular development tools.
 
 # Integrations
 
+## Docker
+
 {% hint style="info" %}
 Currently, the Docker extension is only available on macOS.
 {% endhint %}
-
-## Docker
 
 [Warp’s Docker extension](https://hub.docker.com/extensions/warpdotdev/warp) makes it more convenient to open Docker containers in Warp. With the extension, you can click to open any Docker container in a [Warpified subshell](subshells.md), without manually running `docker exec` or typing out lengthy container IDs.
 
