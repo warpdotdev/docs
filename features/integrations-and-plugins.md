@@ -24,6 +24,13 @@ Warp + Raycast extension helps you open new Windows, Tabs, or Launch Configurati
 Warp + Raycast Extension Link
 {% endembed %}
 
+{% hint style="info" %}
+**Terminal Tip**\
+Within `Raycast Settings > Extensions > Apps` search for Warp and assign the alias "terminal" so that it will show up on a search.
+{% endhint %}
+
+<figure><img src="../.gitbook/assets/raycast-terminal-tip.png" alt=""><figcaption><p>Raycast Terminal Tip</p></figcaption></figure>
+
 ## VSCode
 
 {% tabs %}
