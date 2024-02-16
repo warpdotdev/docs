@@ -1,12 +1,14 @@
 ---
-description: Save and share workflows in your terminal
+description: >-
+  Warp Drive is a workspace in your terminal where you can save workflows for
+  personal use or to share with a team.
 ---
 
 # Warp Drive
 
 ## What is Warp Drive?
 
-Warp Drive is a workspace in your terminal where you can save [workflows](workflows.md) for personal use or to share with a [team](../teams.md). All objects stored in Warp Drive sync immediately as they’re updated, so you and your team will always have access to the latest versions.
+All objects stored in Warp Drive sync immediately as they’re updated, so you and your team will always have access to the latest versions.
 
 {% embed url="https://www.youtube.com/watch?v=8UmreUTTrkg" %}
 Warp Drive, Teams, and Workflows Demo
@@ -14,13 +16,21 @@ Warp Drive, Teams, and Workflows Demo
 
 ## How to access it
 
+{% tabs %}
+{% tab title="macOS" %}
 Warp Drive is accessible from the status bar in the Warp terminal or you can toggle the Warp Drive side panel with `CMD-\`.
+{% endtab %}
+
+{% tab title="Linux" %}
+Warp Drive is accessible from the status bar in the Warp terminal or you can toggle the Warp Drive side panel with `CTRL-SHIFT-\`.
+{% endtab %}
+{% endtabs %}
 
 <figure><img src="../../.gitbook/assets/Open_Warp_Drive.png" alt="Warp Drive icon on top left corner of Warp"><figcaption><p>Warp Drive Icon</p></figcaption></figure>
 
 ## Workspaces in Warp Drive
 
-When you open the Warp Drive panel, you will find a personal workspace where you can store your own workflows and organize them into folders.
+When you open the Warp Drive panel, you will find a personal workspace where you can store your workflows and organize them into folders.
 
 <figure><img src="../../.gitbook/assets/Warp_Drive_Zero_State.png" alt=""><figcaption></figcaption></figure>
 
@@ -37,7 +47,7 @@ If you are a member of a team using Warp Drive, your team’s workspace will als
 
 ## Using Warp Drive offline
 
-In offline mode, some files will be read-only. You can still create and edit files while offline in your personal space. They will only be saved locally and will not be synced. They cannot be moved into a team or deleted until you are back online.&#x20;
+In offline mode, some files will be read-only. You can still create and edit files while offline in your personal space. They will only be saved locally and will not be synced. They cannot be moved into a team or deleted until you are back online.
 
 <figure><img src="../../.gitbook/assets/warp_drive_offline.png" alt=""><figcaption><p>Warp Drive offline mode</p></figcaption></figure>
 
@@ -47,15 +57,27 @@ To avoid going back and forth between your mouse and keyboard, you can use your 
 
 You can take these keyboard actions within Warp Drive:
 
-* Press `Up` or `Down` to navigate to the object you want.
+{% tabs %}
+{% tab title="macOS" %}
+* Press `UP` or `DOWN` to navigate to the object you want.
 * Press `Enter` to 1) execute an object or 2) open/collapse a space or folder.
-* Press `CMD-Enter` to open an object’s context menu. 
+* Press `CMD-ENTER` to open an object’s context menu.
+* Press `CMD-SHIFT-(` and `CMD-SHIFT-)` to switch focus on Warp Drive and [Warp AI](../warp-ai/).
+{% endtab %}
+
+{% tab title="Linux" %}
+* Press `UP` or `DOWN` to navigate to the object you want.
+* Press `Enter` to 1) execute an object or 2) open/collapse a space or folder.
+* Press `CTRL-ENTER` to open an object’s context menu.
+* Press `CTRL-SHIFT-(` and `CTRL-SHIFT-)` to switch focus on Warp Drive and [Warp AI](../warp-ai/).
+{% endtab %}
+{% endtabs %}
 
 <figure><img src="../../.gitbook/assets/warp_drive_nav1.png" alt=""><figcaption><p>Warp Drive navigation states</p></figcaption></figure>
 
-To switch between panels (e.g. jump from command line to Warp Drive to Warp AI) using your keyboard, you can use the “Switch Focus to Left Panel” and “Switch Focus to Right Panel” commands in the Command Palette. Alternatively, use keyboard shortcuts `CMD-Shift-(` and `CMD-Shift-)`.
+To switch between panels (e.g. jump from command line to Warp Drive to Warp AI) using your keyboard, you can use the “Switch Focus to Left Panel” and “Switch Focus to Right Panel” commands in the [Command Palette](../command-palette.md).
 
-<figure><img src="../../.gitbook/assets/warp_drive_nav2.png" alt=""><figcaption><p></p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/warp_drive_nav2.png" alt=""><figcaption></figcaption></figure>
 
 ## Troubleshooting Warp Drive
 
