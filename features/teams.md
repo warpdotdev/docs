@@ -23,11 +23,11 @@ Teams Demo
 You can create a new team from:
 
 * Warp Drive, + Create a team, or
-* Settings > Teams
+* `Settings > Teams`
 
 Before you can invite team members, you will need to give your team a meaningful name. We suggest using a name to represent your organization, company, or project.
 
-{% hint style="info" %}
+{% hint style="warning" %}
 It’s not currently possible to edit and rename a team, so please choose carefully! You can delete your team and create a new one to assign a new name if needed.
 {% endhint %}
 
@@ -37,7 +37,7 @@ If you create a team, you become the team’s admin and will be the only person 
 
 ### Inviting new team members
 
-Under Settings > Teams you can copy the invite link for your Warp team and paste it to your clipboard.
+Under `Settings > Teams` you can copy the invite link for your Warp team and paste it to your clipboard.
 
 <figure><img src="../.gitbook/assets/copy_team_link.png" alt=""><figcaption></figcaption></figure>
 
@@ -49,7 +49,7 @@ Sometimes you may want to control your team so that people can only join if they
 
 Toggle on Restrict by domain to set an explicit allowlist.
 
-If you share an invite link with somebody who’s using Warp with a domain that does not match your allowlist, they will be prompted to authenticate from an emailed link sent to a matching domain in order to join your team.
+If you share an invite link with somebody who’s using Warp with a domain that does not match your allowlist, they will be prompted to authenticate from an emailed link sent to a matching domain to join your team.
 
 ## Joining a team
 
@@ -57,9 +57,13 @@ If you have received an invite link, you can use that link to sign up or log in 
 
 ## Leaving and deleting teams
 
-If you’re a member of a team, you can visit Settings > Teams to leave a team at any time. Team admins (who created teams) may delete a team only after all team members have been removed.
+If you’re a member of a team, you can visit `Settings > Teams` to leave a team at any time. Team admins (who created teams) may delete a team only after all team members have been removed.
 
 ## Team roles and permissions
+
+{% hint style="warning" %}
+If you're a Team admin, and you choose to [delete your Warp](../getting-started/privacy.md#manage-your-data) account, the deletion flow will require that you assign a team member as the new admin.
+{% endhint %}
 
 |                     | Admin                                                            | Member                                 |
 | ------------------- | ---------------------------------------------------------------- | -------------------------------------- |
