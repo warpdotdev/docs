@@ -33,7 +33,7 @@ git clone https://github.com/warpdotdev/themes.git
 
 {% tab title="Linux" %}
 ```
-cd ${XDG_DATA_HOME:-$HOME/.local/share}/warp/
+cd ${XDG_DATA_HOME:-$HOME/.local/share}/warp-terminal/
 git clone https://github.com/warpdotdev/themes.git
 ```
 {% endtab %}
@@ -55,7 +55,7 @@ Adding a Custom Theme to Warp
 {% endtab %}
 
 {% tab title="Linux" %}
-`mkdir -p ${XDG_DATA_HOME:-$HOME/.local/share}/warp/themes/`
+`mkdir -p ${XDG_DATA_HOME:-$HOME/.local/share}/warp-terminal/themes/`
 {% endtab %}
 {% endtabs %}
 

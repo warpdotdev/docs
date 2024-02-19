@@ -4,11 +4,13 @@
 
 While running, Warp isolates the history of each shell session e.g. if you have two Split Panes open, commands created in one pane do not populate the history of the other. Warp combines the history upon closing.
 
-Warp's history also provides rich&#x20;
+Command History also provides rich information like exit code, directory, thread, time to finish running, last run, etc.
+
+<figure><img src="../../.gitbook/assets/command-history-rich.png" alt=""><figcaption><p>Command History rich information</p></figcaption></figure>
 
 ## How to access it
 
-* Hitting `↑` (UP) in the [Input Editor](editor/) brings up your history and performs a prefix search based on input.
+* Hitting `UP` in the [Input Editor](editor/) brings up your history and performs a prefix search based on input.
 * Pressing `CTRL-R` opens the [Command Search](command-search.md) panel and initiates a search of your Command History. To navigate the Command Search panel:
   * Start typing and Warp will automatically filter using fuzzy search. Warp bolds matching text when filtering with fuzzy search.
 

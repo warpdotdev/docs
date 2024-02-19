@@ -10,10 +10,14 @@ Workflows are an easier way to execute and share commands within Warp. They are 
 
 ## How to use it
 
-* Press Command Search `CTRL-R` or through the Command Palette `CMD-P` to find Workflows.
+* Press [Command Search](command-search.md) or through the [Command Palette](../command-palette.md) to find Workflows.
 * Once inside the menu, start typing in the search bar to filter the existing workflows. (e.g. git, android, npm, etc.)
-* When a Workflow is selected, you can use `SHIFT-TAB` to cycle thru the arguments.
+* When a Workflow is selected, you can use `SHIFT-TAB` to cycle through the arguments.
 * You can also expand the menu horizontally with the mouse by dragging it on the right edge.
+
+{% hint style="info" %}
+Tailor your [Command Search](command-search.md) experience by toggling off "Show Global Workflows" in `Settings > Features`. When disabled, your search will exclusively encompass YAML and Warp Drive Workflows.
+{% endhint %}
 
 ## How it works
 
@@ -41,13 +45,13 @@ You can store local workflows (scoped to your machine) in:
 {% endtab %}
 
 {% tab title="Linux" %}
-`${XDG_DATA_HOME:-$HOME/.local/share}/warp/workflows/`
+`${XDG_DATA_HOME:-$HOME/.local/share}/warp-terminal/workflows/`
 {% endtab %}
 {% endtabs %}
 
 Or, you can share them with your team by saving them in `{{path_to_git_repo}}/.warp/workflows/`. Local and Repository workflows can be accessed under the "My Workflows" and "Repository Workflows" tab of the Workflows menu, respectively.
 
-See the existing workflows spec within the [Workflows repo](https://github.com/warpdotdev/Workflows/tree/main/specs) for examples. Additionally, we outline the file format below:
+See the existing workflow spec within the [Workflows repo](https://github.com/warpdotdev/Workflows/tree/main/specs) for examples. Additionally, we outline the file format below:
 
 <details>
 
@@ -135,16 +139,17 @@ The default value for the argument. If specified, the `default_value` replaces t
 
 ### Where to save workflows
 
-Local workflows are scoped to your machine. Repository workflows are scoped to a git repository and can be accessed by anyone who has cloned the repo. _Note:_ Repository workflows will not appear if you are ssh'd into a remote machine.
+Local workflows are scoped to your machine. Repository workflows are scoped to a git repository and can be accessed by anyone who has cloned the repo. _Note:_ Repository workflows will not appear if you are ssh into a remote machine.
 
 Local Workflow Path:
+
 {% tabs %}
 {% tab title="macOS" %}
 `~/.warp/workflows/`
 {% endtab %}
 
 {% tab title="Linux" %}
-`${XDG_DATA_HOME:-$HOME/.local/share}/warp/workflows/`
+`${XDG_DATA_HOME:-$HOME/.local/share}/warp-terminal/workflows/`
 {% endtab %}
 {% endtabs %}
 
@@ -152,7 +157,7 @@ Repository Workflow Path: `{{path_to_git_repo}}/.warp/workflows`
 
 #### Local Workflows
 
-To start, create a workflows subdirectory within 
+To start, create a workflow subdirectory within
 
 {% tabs %}
 {% tab title="macOS" %}
@@ -160,7 +165,7 @@ To start, create a workflows subdirectory within
 {% endtab %}
 
 {% tab title="Linux" %}
-`mkdir -p ${XDG_DATA_HOME:-$HOME/.local/share}/warp/workflows/`
+`mkdir -p ${XDG_DATA_HOME:-$HOME/.local/share}/warp-terminal/workflows/`
 {% endtab %}
 {% endtabs %}
 
@@ -181,7 +186,3 @@ cp ~/path/to/my_awesome_workflow.yaml .warp/workflows
 #### Global Workflows
 
 You can contribute workflows that will be made available to other Warp users by forking the [Workflows repo](https://github.com/warpdotdev/workflows/tree/main/specs) and opening a pull request. See the [Contributing](https://github.com/warpdotdev/workflows#contributing) section for more details.
-
-{% hint style="info" %}
-Tailor your Command Search (`CTRL-R`) experience by toggling off "Show Global Workflows" in `Settings > Features`. When disabled, your search will exclusively encompass YAML and Warp Drive Workflows.
-{% endhint %}
