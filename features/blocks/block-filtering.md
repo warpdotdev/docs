@@ -15,23 +15,26 @@ To apply a filter to a block:
 3. (Optional) Click on either the regex or case sensitivity buttons to enable.
 4. (Optional) Type in a number in the right input field to add context lines around matched lines.
 
-<figure>
-    <img src="../../.gitbook/assets/block_filtering_with_context_lines.gif">
-    <figcaption>
-        <p>Filter a block's output, with the ability to add context lines.</p>
-    </figcaption>
-</figure>
+<figure><img src="../../.gitbook/assets/block_filtering_with_context_lines.gif" alt=""><figcaption><p>Filter a block's output, with the ability to add context lines.</p></figcaption></figure>
 
+{% tabs %}
+{% tab title="macOS" %}
+You can also toggle a filter by:
+
+* Using the keybinding `OPT-SHIFT-F` by default to toggle filtering on the selected or latest block
+* Selecting `Toggle Block Filter` in the block context menu
+{% endtab %}
+
+{% tab title="Linux" %}
 You can also toggle a filter on/off by:
 
-1. Using the keybinding (`OPT-SHIFT-F` by default) to toggle filtering on the selected or latest block
-2. Selecting `Toggle Block Filter` in the block context menu
+* Using the keybinding `ALT-SHIFT-F` to toggle filtering on the selected or latest block
+* Selecting `Toggle Block Filter` in the block context menu
+{% endtab %}
+{% endtabs %}
 
+{% hint style="info" %}
 Toggling a filter on a block without a filter applied will open the filter editor. If you toggle a filter off, the same filter will be applied if you toggle filtering on again.
+{% endhint %}
 
-<figure>
-    <img src="../../.gitbook/assets/block_filtering_toggle.gif">
-    <figcaption>
-        <p>Toggle a block filter on/off.</p>
-    </figcaption>
-</figure>
+<figure><img src="../../.gitbook/assets/block_filtering_toggle.gif" alt=""><figcaption><p>Toggle a block filter on/off.</p></figcaption></figure>

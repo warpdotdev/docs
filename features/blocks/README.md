@@ -1,12 +1,10 @@
 ---
-description: A general introduction to the concept of Blocks in Warp.
+description: A Block groups commands and outputs into one atomic unit.
 ---
 
 # Blocks
 
 ## What are Blocks?
-
-A Block groups commands and outputs into one atomic unit.
 
 Blocks enable us to easily:
 

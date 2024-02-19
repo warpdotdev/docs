@@ -13,20 +13,32 @@ For long-running commands that take up the full screen, the sticky header only s
 
 ## How to access it
 
+{% tabs %}
+{% tab title="macOS" %}
 * Sticky Command Header is enabled by default.
 * Toggle Sticky Command Header by going to `Settings > Features` > toggle “Show sticky command header”.
 * Toggle by searching for “Sticky Command Header” within the Command Palette `CMD-P` or by pressing `CTRL-CMD-S`.
-* You can also toggle the Sticky Command header in the Active pane with `CTRL-S`, which won't disable the feature entirely, only minimize it on the active session.
+* You can also "Toggle the Sticky Command Header in the Active Pane" with `CTRL-S`. This won't disable the feature entirely, only minimize it on the active session.
+{% endtab %}
+
+{% tab title="Linux" %}
+* Sticky Command Header is enabled by default.
+* Toggle the Sticky Command Header by going to `Settings > Features` > toggle “Show sticky command header”.
+* Toggle by searching for “Sticky Command Header” within the [Command Palette](../command-palette.md) or by setting up a key bind in `Settings > Keyboard Shortcuts`.
+* You can also "Toggle the Sticky Command Header in the Active Pane" in the Command Palette or by setting up a key bind in `Settings > Keyboard Shortcuts`. This won't disable the feature entirely, only minimize it on the active session.
+{% endtab %}
+{% endtabs %}
 
 ## How to use it
 
 * If a Block has a large output ( e.g. `seq 1 1000`), the header of the Block will show on the top of the active Window, Tab, or Pane.
-* Access the Block context menu and bookmark the Block by clicking in the stick header
 * Click on the Sticky Command Header to quickly jump to the top of the Block.
-* While active you can also minimize the Sticky Command Header on the active pane by clicking the Up/Down in the middle of the header.
+* While active you can also minimize the Sticky Command Header on the active pane by clicking the UP/DOWN arrow in the middle of the header.
 
 ## How it works
 
 {% embed url="https://www.loom.com/share/a86967c057e44ab4bee4860ba80538b9?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
 Sticky Command Header Demo
 {% endembed %}
+
+<figure><img src="../../.gitbook/assets/sticky-header-toggle-active-demo.gif" alt=""><figcaption><p>Toggle active header and Jump to bottom of block demo</p></figcaption></figure>
