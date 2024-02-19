@@ -2,7 +2,7 @@
 
 ## What is Syntax Highlighting
 
-Warp supports Syntax Highlighting in the [Input Editor.](./) It colors each part of a command to help differentiate between sub-commands, options/flags, arguments and variables.
+Warp supports Syntax Highlighting in the [Input Editor.](./) It colors each part of a command to help differentiate between sub-commands, options/flags, arguments, and variables.
 
 ### How to access Syntax Highlighting
 
@@ -12,12 +12,10 @@ When Syntax Highlighting is enabled, Warp's [Input Editor](./) automatically rec
 
 Syntax highlighting is enabled by default, to toggle it:
 
-1. Press `CMD-P` to open up the Command Palette
-2. Search for the "Syntax Highlighting" option and click it (or press enter) to enable/disable
+* Through the [Command Palette](../command-palette.md), search for the "Syntax Highlighting" option and click it (or press enter) to enable/disable.
+* Through  `Settings > Features > Editor` , toggle "Syntax highlighting for commands"
 
-Alternatively, navigate to `Settings > Features` and toggle `Syntax highlighting for commands`
-
-### How Syntax Highlighting works
+### How Syntax Highlighting Works
 
 {% embed url="https://www.loom.com/share/87b15de13ee9407b98a24f1a31835784?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
 Syntax Highlighting Demo
@@ -27,8 +25,8 @@ Syntax Highlighting Demo
 
 Warp highlights errors in commands that are typed within the [Input Editor](./) e.g. if the binary for the command you've typed does not exist.
 
-{% hint style="info" %}
-Newly installed apps or newly created aliases will trigger error underlining until you open a new Warp session (Window/Tab/Pane).
+{% hint style="warning" %}
+Newly installed apps or newly created aliases will trigger error underlining until you open a new Warp session (new window, tab, or pane).
 {% endhint %}
 
 ### How to access Error Underlining
@@ -39,10 +37,8 @@ When Error Underlining is enabled, Warp automatically underlines any invalid com
 
 Error underlining is enabled by default, to toggle it:
 
-1. Press `CMD-P` to open up the Command Palette
-2. Search for the "Error Underlining" option and click it (or press enter) to enable/disable
-
-Alternatively, navigate to `Settings > Features` and toggle `Error underlining for commands`
+* Through the [Command Palette](../command-palette.md), search for the "Syntax Highlighting" option and click it (or press enter) to enable/disable.
+* Through  `Settings > Features > Editor` , toggle "Error underlining for commands"
 
 ### How Error Underlining works
 

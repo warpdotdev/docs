@@ -1,8 +1,10 @@
+---
+description: >-
+  Unlike other terminals, Warp’s input editor operates out of the box like a
+  modern IDE and the text editors we’re used to.
+---
+
 # Modern Text Editing
-
-## What is it
-
-Unlike other terminals, Warp’s input editor operates out of the box like a modern IDE and the text editors we’re used to.
 
 {% hint style="info" %}
 Text Editor Input also works for [SSH sessions](../ssh.md).
@@ -10,13 +12,13 @@ Text Editor Input also works for [SSH sessions](../ssh.md).
 
 ### Soft Wrapping
 
-Warp supports soft wrapping in the input editor. If an auto suggestion goes off-screen, the input editor will be horizontally scrollable to make it visible. _Note:"_ Some operations treat soft wrapped lines like a logical line (`TRIPLE-CLICK`, `OPTION-LEFT` / `OPTION-RIGHT`) while other operations treat soft wrapped lines like visible different lines (`UP` / `DOWN`, `SHIFT-UP` / `SHIFT-DOWN`).
+Warp supports soft wrapping in the input editor. If an autosuggestion goes off-screen, the input editor will be horizontally scrollable to make it visible. Some operations treat soft-wrapped lines like a logical line (`TRIPLE-CLICK`) while other operations treat soft wrapped lines like visible different lines (`UP`/`DOWN`, `SHIFT-UP`/`SHIFT-DOWN`).
 
 ### Copy on Select
 
 Warp supports copy on select for selectable text within [Blocks](../blocks/).&#x20;
 
-* Enable this feature in `Settings > Features > General` or search for "Copy on select" in the [Command Palette](../command-palette.md).
+* Enable this feature `Settings > Features > General` or search for "Copy on select" in the [Command Palette](../command-palette.md).
 
 {% hint style="warning" %}
 Copy on Select has a known issue working within [alt-screens](https://github.com/warpdotdev/Warp/issues/2758) like vim, nvim, less, k9s, etc.
@@ -24,35 +26,21 @@ Copy on Select has a known issue working within [alt-screens](https://github.com
 
 ### Input Hints
 
-Warps input will occasionally show hints within the input editor in light grey text that help users learn about available features. For example "Type `#`  for AI command suggestions". It's enabled by default.
+Warp input occasionally shows hints within the input editor in a light grey text that helps users learn about features. It's enabled by default.
 
-* Disable "Show Input hint text" in `Settings > Features > Editor` or search for "input hint text" in the Command Palette `CMD-P` or Right-click on the input editor.
+* Disable "Show Input hint text" in `Settings > Features > Editor` or search for "input hint text" in the [Command Palette](../command-palette.md) or Right-click on the input editor.
 
 ## How to use it
 
-| Keyboard binding                                     | Shortcut description                                                                                       |
-| ---------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| `escape`                                             | Closes the input suggestions or history menu                                                               |
-| `ctrl-l`                                             | Clears the terminal                                                                                        |
-| `ctrl-h`                                             | Backspace                                                                                                  |
-| `ctrl-c`                                             | Clear the entire editor buffer                                                                             |
-| `ctrl-u` `cmd-shift-K`                               | Clear the current line                                                                                     |
-| `cmd-c` `ctrl-y`, `cmd-x`, `cmd-v`                   | Copy, cut, paste                                                                                           |
-| `ctrl-w` / `option-d`                                | Cut the word to the left / right of the cursor                                                             |
-| `option-backspace` / `option-d`                      | Delete the word to the left / right of the cursor                                                          |
-| `ctrl-k cmd-delete`                                  | Delete everything to the right of the cursor                                                               |
-| `option-left` / `option-right`                       | Move to the beginning of the previous / next word                                                          |
-| `ctrl-opt-left` / `ctrl-opt-right`                   | Move backward / forward by one subword                                                                     |
-| `cmd-left` `ctrl-a`/ `ctrl-e` `cmd-down` `cmd-right` | Move the cursor to the start / end of the line                                                             |
-| `cmd-up`                                             | Move the cursor to the beginning of the editor buffer. If it's already there, select the most recent block |
-| `shift-left` / `shift-right`                         | Select the character to the left / right of the cursor                                                     |
-| `option-shift-left` / `option-shift-right`           | Select the word to the left / right of the cursor                                                          |
-| `cmd-shift-left` / `cmd-shift-right`                 | Select everything to the left / right of the cursor                                                        |
-| `shift-up` / `shift-down`                            | Select everything above / below the cursor                                                                 |
-| `cmd-a`                                              | Select the entire editor buffer                                                                            |
-| `shift-enter` `ctrl-enter` `option-enter`            | Insert newline                                                                                             |
-| `ctrl-r`                                             | [Command History](broken-reference)                                                                        |
-| `cmd-d`                                              | Split pane                                                                                                 |
+{% tabs %}
+{% tab title="macOS" %}
+<table><thead><tr><th width="317">Keyboard binding</th><th>Shortcut description</th></tr></thead><tbody><tr><td><code>ESCAPE</code></td><td>Closes the input suggestions or history menu</td></tr><tr><td><code>CTRL-L</code></td><td>Clears the terminal</td></tr><tr><td><code>CTRL-H</code></td><td>Backspace</td></tr><tr><td><code>CTRL-C</code></td><td>Clear the entire editor buffer</td></tr><tr><td><code>CTRL-U</code></td><td>Copy and Clear the current line</td></tr><tr><td><code>CMD-SHIFT-K</code></td><td>Clear selected lines</td></tr><tr><td><code>CMD-C</code>, <code>CMD-X</code>, <code>CMD-V</code></td><td>Copy, cut, paste</td></tr><tr><td><code>CTRL-W</code> / <code>OPT-D</code></td><td>Cut the word to the left / right of the cursor</td></tr><tr><td><code>OPT-BACKSPACE</code> / <code>OPT-D</code></td><td>Delete the word to the left / right of the cursor</td></tr><tr><td><code>CTRL-K CMD-DELETE</code></td><td>Delete everything to the right of the cursor</td></tr><tr><td><code>OPT-LEFT</code> / <code>OPT-RIGHT</code></td><td>Move to the beginning of the previous / next word</td></tr><tr><td><code>CTRL-OPT-LEFT</code> / <code>CTRL-OPT-RIGHT</code></td><td>Move backward / forward by one subword</td></tr><tr><td><code>CMD-LEFT</code> <code>CTRL-A</code>/ <code>CTRL-E</code> <code>CMD-DOWN</code> <code>CMD-RIGHT</code></td><td>Move the cursor to the start / end of the line</td></tr><tr><td><code>SHIFT-LEFT</code> / <code>SHIFT-RIGHT</code></td><td>Select the character to the left / right of the cursor</td></tr><tr><td><code>OPT-SHIFT-LEFT</code> / <code>OPT-SHIFT-RIGHT</code></td><td>Select the word to the left / right of the cursor</td></tr><tr><td><code>CMD-SHIFT-LEFT</code> / <code>CMD-SHIFT-RIGHT</code></td><td>Select everything to the left / right of the cursor</td></tr><tr><td><code>SHIFT-UP</code> / <code>SHIFT-UP</code></td><td>Select everything above / below the cursor</td></tr><tr><td><code>CMD-A</code></td><td>Select the entire editor buffer</td></tr><tr><td><code>SHIFT-ENTER</code> <code>CTRL-ENTER</code> <code>OPT-ENTER</code></td><td>Insert newline</td></tr><tr><td><code>CTRL-R</code></td><td><a href="../entry/command-search.md">Command Search</a></td></tr><tr><td><code>CMD-D</code></td><td>Split pane</td></tr></tbody></table>
+{% endtab %}
+
+{% tab title="Linux" %}
+<table><thead><tr><th width="317">Keyboard binding</th><th>Shortcut description</th></tr></thead><tbody><tr><td><code>ESCAPE</code></td><td>Closes the input suggestions or history menu</td></tr><tr><td><code>CTRL-L</code></td><td>Clears the terminal</td></tr><tr><td><code>CTRL-H</code></td><td>Backspace</td></tr><tr><td><code>CTRL-C</code></td><td>Clear the entire editor buffer</td></tr><tr><td><code>CTRL-U</code></td><td>Copy and Clear the current line</td></tr><tr><td><code>CTRL-SHIFT-K</code></td><td>Clear selected lines</td></tr><tr><td><code>CTRL-C</code>, <code>CTRL-X</code>, <code>CTRL-V</code></td><td>Copy, cut, paste</td></tr><tr><td><code>CTRL-W</code> / <code>ALT-D</code></td><td>Cut the word to the left / right of the cursor</td></tr><tr><td><code>ALT-BACKSPACE</code> / <code>ALT-D</code></td><td>Delete the word to the left / right of the cursor</td></tr><tr><td><code>CTRL-K</code></td><td>Delete everything to the right of the cursor</td></tr><tr><td><code>ALT-LEFT</code> / <code>ALT-RIGHT</code></td><td>Move to the beginning of the previous / next word</td></tr><tr><td><code>CTRL-LEFT</code> / <code>CTRL-RIGHT</code></td><td>Move backward / forward by one subword</td></tr><tr><td><code>CTRL-A</code>/ <code>CTRL-E</code></td><td>Move the cursor to the start / end of the line</td></tr><tr><td></td><td>Select the character to the left / right of the cursor</td></tr><tr><td><code>META-SHIFT-B</code> / <code>META-SHIFT-F</code></td><td>Select the word to the left / right of the cursor</td></tr><tr><td></td><td>Select everything to the left / right of the cursor</td></tr><tr><td><code>SHIFT-UP</code> / <code>SHIFT-UP</code></td><td>Select everything above / below the cursor</td></tr><tr><td><code>CTRL-A</code></td><td>Select the entire editor buffer</td></tr><tr><td><code>SHIFT-ENTER</code> <code>CTRL-ENTER</code> <code>ALT-ENTER</code></td><td>Insert newline</td></tr><tr><td><code>CTRL-R</code></td><td><a href="../entry/command-search.md">Command Search</a></td></tr><tr><td><code>CTRL-SHIFT-D</code></td><td>Split pane</td></tr></tbody></table>
+{% endtab %}
+{% endtabs %}
 
 ## How it Works
 

@@ -10,17 +10,22 @@ The Vi family of programs (including Vim and Neovim) are modal text editors that
 
 ### How to enable Vim Keybindings
 
+{% hint style="info" %}
 With `bash` and `zsh`, Warp attempts to detect the shell's keybinding settings. If a shell vi mode is detected, Warp may suggest enabling Vim keybindings.
+{% endhint %}
 
-To manually toggle Vim keybindings in Warp's input editor, open the [Command Palette](../command-palette.md) and type `Vim Keybindings`. This setting is also available in the Settings modal, under `Features` → `Editor` → `Edit commands with Vim keybindings`.
+To manually toggle Vim keybindings in Warp's input editor:
 
-As in `bash` and `zsh`'s vi mode implementations, the editor starts in insert mode. Pressing `ctrl-c` or `Enter` clears any pending command state.
+* Through the [Command Palette](../command-palette.md), search for "Vim Keybindings".&#x20;
+* Through `Settings > Features > Editor`, toggle "Edit commands with Vim keybindings".
+
+As in `bash` and `zsh`'s vi mode implementations, the editor starts in insert mode. Pressing `CTRL-C` or `ENTER` clears any pending command state.
 
 ### Customizing Keybindings
 
 At the moment, Warp only supports default Vim keybindings.
 
-One exception is the keyboard shortcut for exiting insert mode, which can be rebound through the Settings page, under `Keyboard Shortcuts` → `Exit Vim Insert Mode`, or through the Command Palette with `CMD-P` and searching for `Exit Vim Insert Mode`.
+One exception is the keyboard shortcut for exiting insert mode, which can be rebound under `Settings > Keyboard Shortcuts > Exit Vim Insert Mode`, or through the [Command Palette](../command-palette.md) search for "Exit Vim Insert Mode".
 
 ## Supported Keybindings
 
@@ -136,4 +141,4 @@ See [Vim docs: registers](https://vimdoc.sourceforge.net/htmldoc/change.html#reg
 
 ## Feedback
 
-The best way to report bugs and request features is through Warp's [GitHub Issues](https://github.com/warpdotdev/Warp/issues) page. Please upvote (:thumbsup:) existing issues to help the team prioritize them.
+The best way to report bugs and request features is through Warp's [GitHub Issues](https://github.com/warpdotdev/Warp/issues) page. Please note that the issue or request is for Vim Keybindings.
