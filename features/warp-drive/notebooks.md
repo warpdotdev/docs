@@ -58,7 +58,7 @@ Notebook elements (text, code, list items) can be added in several ways:
 * Typing /, which will open up a selection menu of supported elements.
 * Pressing the + icon which appears when hovering over a line and selecting from the menu of supported elements.
 
-<figure><img src="https://lh7-us.googleusercontent.com/b_gWDWdsknhKT73Wpg5U46gMErCMmplahV7jYFGTmphG6jbWcgyovdaZmVPTDYp7tD7zjjmYySIfzHO6--N0ED45mIPkSI11-d1EPpHPX7n1_u-BfsF5_6IYCQ140l2TiXYfItVZoBZndCLdkOWR_9I" alt=""><figcaption><p>Markdown element types</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/Screenshot 2024-02-20 at 9.53.34 AM.png" alt=""><figcaption><p>Markdown element types</p></figcaption></figure>
 
 #### Styling existing elements
 
@@ -68,7 +68,11 @@ Existing notebook elements can be styled in several ways:
 * Using markdown syntax for text stylings like \*\*bold\*\* or \*italic\*.
 * Selecting an existing element and changing the overall type of the element via the dropdown element menu.
 
-<figure><img src="https://lh7-us.googleusercontent.com/_gcXiJ0AWaDPj9P4XwCUYsPKkhwMWH95NWnNpr7tIJ7vM-hdrUXtxQH4GKrgGTiicP-A85Z7G_nC20iU9C15AMBYCITS_TVeTWYU5Dy-QRukUTUxltgPLtZ-tPfIHUYJWYpKJkdiz5JmJRHUm9Gokpg" alt=""><figcaption><p>Styling menu</p></figcaption></figure>
+<div data-full-width="true">
+
+<figure><img src="../../.gitbook/assets/Screenshot 2024-02-20 at 9.54.37 AM.png" alt=""><figcaption><p>Styling menu</p></figcaption></figure>
+
+</div>
 
 #### Using Command and Code Blocks
 
@@ -135,7 +139,7 @@ Once a command block is selected, press `CTRL-ENTER` to insert it into the termi
 
 If you have existing [Workflows](workflows.md) that you’d like to insert into your notebook rather than duplicating their content, you can select Embedded Workflow from the new element menu and select from the available workflows. Once embedded in a notebook, the workflow will be executable like a regular command block. To edit the content of the embedded workflow, you will need to edit the source workflow which can be found by searching for the title in the [Command Palette](../command-palette.md).
 
-<figure><img src="https://lh7-us.googleusercontent.com/fFlwgY0nRNkeptsid5mch_0Rww7G0EA8Y1tFSkon5cDyfuCrrV0HtglO4B_ddyWeQhEzdbdimF2l1EzvZy9aNXNaDWoujJomIQft_nIApQGBt1YXGolBFek1qg1b51y4qVLxndmrbCAHGUmRYci1NSA" alt=""><figcaption><p>Embedding an existing workflow in a notebook.</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/Screenshot 2024-02-20 at 9.58.44 AM.png" alt=""><figcaption><p>Embedding an existing workflow in a notebook.</p></figcaption></figure>
 
 ### Working with Notebooks in a team
 
