@@ -38,12 +38,13 @@ You can view our [full privacy policy here](https://assets-global.website-files.
 
 <figure><img src="../.gitbook/assets/privacy-settings-after-signup.png" alt=""><figcaption><p>Privacy Settings after sign up</p></figcaption></figure>
 
-## Manage your data
+### Delete your data
 
 Warp provides a convenient way for deleting your data:
 
-* From Warp, Go to `Settings > Privacy > "Visit the data management page"`
-* On the [Data Management](https://app.warp.dev/data\_management) page, click the Delete button and go through the data deletion flow.
+* From Warp, go to `Settings > Privacy > "Visit the data management page"`
+  * On the Data Management page, click the "Delete" button to go through the data deletion flow.
+* From the [Data Management](https://app.warp.dev/data\_management) page, log in to your Warp account, and click the "Delete" button to go through the data deletion flow.
 
 {% hint style="warning" %}
 If you're a [Team](../features/teams.md) admin, the deletion flow will require that you assign a team member as the new admin.
