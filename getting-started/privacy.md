@@ -43,7 +43,7 @@ You can view our [full privacy policy here](https://assets-global.website-files.
 Warp provides a convenient way for deleting your data:
 
 * From Warp, Go to `Settings > Privacy > "Visit the data management page"`
-* Once on the page, click the Delete button and go through the data deletion flow.
+* On the [Data Management](https://app.warp.dev/data\_management) page, click the Delete button and go through the data deletion flow.
 
 {% hint style="warning" %}
 If you're a [Team](../features/teams.md) admin, the deletion flow will require that you assign a team member as the new admin.
