@@ -2,9 +2,9 @@
 
 Warp's features for Window Management:
 
-1. [Global Hotkey](broken-reference) (`CMD-SHIFT-T`) is a configurable shortcut that can show/hide a dedicated window or all windows on your chosen desktop regardless of whether the app is focused.
-2. [Tabs](tabs.md) (`CMD-T`) allow you to organize a window into multiple terminal sessions.
-3. [Split Panes](split-panes.md) (`CMD-D` / `SHIFT-CMD-D`) allows you to divide a Tab into multiple rectangular _panes_, each of which is a unique terminal session.
+1. [Global Hotkey](broken-reference) is a configurable shortcut that can show/hide a dedicated window or all windows on your chosen desktop regardless of whether the app is focused.
+2. [Tabs](tabs.md) allow you to organize a window into multiple terminal sessions.
+3. [Split Panes](split-panes.md) allows you to divide a Tab into multiple rectangular _panes_, each of which is a unique terminal session.
 
 ## Global Hotkey
 

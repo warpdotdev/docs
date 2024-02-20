@@ -1,24 +1,53 @@
+---
+description: >-
+  The Tabs feature allows you to organize a window into multiple terminal
+  sessions. Tabs can be customized with a title and/or an ANSI color to help
+  identify them.
+---
+
 # Tabs
 
-## What is it
+{% hint style="info" %}
+New Tabs will default to the active Tabs’ current [Working Directory](../working-directory.md) and the actual color values will be automatically derived from your Warp [Theme](../../appearance/themes.md).
+{% endhint %}
 
-The Tabs feature allows you to organize a window into multiple terminal sessions. Tabs can be customized with a title and/or an ANSI color to help identify them. _Note:_ New Tabs will default to the active Tabs’ current working directory and the actual color values will be automatically derived from your Warp theme.
+### Tab Restoration
+
+Tab Restoration enables you to reopen recently closed tabs for up to 60 seconds. Configure this feature in `Settings > Features > Session > Enable reopening of closed sessions`
 
 ## How to use it
 
+{% tabs %}
+{% tab title="macOS" %}
+* Right-click on the new Tab button `+` to make a new tab, restore closed tab, or run a saved [Launch Configuration](../sessions/launch-configurations.md).
 * Open a new Tab with `CMD-T` or by clicking on the `+` in the top bar.
-* Right-click on the new Tab button `+` to make a new tab or run a saved Launch Configuration.
-* Close the current Tab with `CMD-W` or by clicking on the `x` on hover over a Tab.
-* Reopen closed tabs with `SHIFT-CMD-T` for up to one minute; Configure or disable this feature in `Settings > Features > Enable reopening of closed sessions`
-* Activate the Previous or Next Tab with `SHIFT-CMD-{` or `SHIFT-CMD-}`, or by clicking a Tab.
-* Activate the first thru eighth Tabs with `CMD-1` thru `CMD-8`.
-* Move a Tab to the Left or Right with `CTRL-SHIFT-LEFT` or `CTRL-SHIFT-LEFT`, or by clicking and dragging a Tab.
+* Close the current Tab with `CMD-W` or by clicking on the `X` on hover over a Tab.
+* Reopen closed tabs with `SHIFT-CMD-T`.
+* Move a Tab to the Left / Right with `CTRL-SHIFT-LEFT` / `CTRL-SHIFT-LEFT` or by clicking and dragging a Tab.
+* Activate the Previous / Next Tab with `SHIFT-CMD-{` / `SHIFT-CMD-}` or by clicking a Tab.
+* Activate the first through eighth Tabs with `CMD-1` thru `CMD-8`.
+* Switch to the last Tab with `CMD-9`.
 * Double-click a Tab to rename it.
-* Right-clicking on a Tab reveals more options, like ‘Rename Tab’ and the color picker, or explore even more Tab actions within the Command Palette `CMD-P` or in the [Keyboard Shortcuts](../keyboard-shortcuts.md#fundamentals).
+* Right-clicking on a Tab reveals more options that you can explore within the [Command Palette](../command-palette.md) or [Keyboard Shortcuts](../keyboard-shortcuts.md#fundamentals).
+{% endtab %}
+
+{% tab title="Linux" %}
+* Right-click on the new Tab button `+` to make a new tab, restore closed tab, or run a saved [Launch Configuration](../sessions/launch-configurations.md).
+* Open a new Tab with `CTRL-SHIFT-T` or by clicking on the `+` in the top bar.
+* Close the current Tab with `CTRL-SHIFT-W` or by clicking on the `x` on hover over a Tab.
+* Reopen closed tabs with `CTRL-ALT-T`.
+* Move a Tab to the Left / Right with `CTRL-SHIFT-LEFT` / `CTRL-SHIFT-LEFT` or by clicking and dragging a Tab.
+* Activate the Previous / Next Tab with `CTRL-PGUP` / `CTRL-PGDN` or by clicking a Tab.
+* Activate the first through eighth Tabs with `CTRL-1` thru `CTRL-8`.
+* Switch to the last Tab with `CTRL-9`.
+* Double-click a Tab to rename it.
+* Right-clicking on a Tab reveals more options that you can explore within the [Command Palette](../command-palette.md) or [Keyboard Shortcuts](../keyboard-shortcuts.md#fundamentals).
+{% endtab %}
+{% endtabs %}
 
 {% hint style="info" %}
 **Terminal Tip**\
-Using your .zshrc or .bashrc files, you can set a new Tab name:
+Using your `.zshrc` or `.bashrc` files, you can set a new Tab name:
 
 {% code overflow="wrap" %}
 ```bash
@@ -35,7 +64,7 @@ fi
 ```
 {% endcode %}
 
-Learn more about Tab names [here](https://learn.microsoft.com/en-us/windows/terminal/tutorials/tab-title#set-the-shells-title) and the Working directory for Tabs [here](../working-directory.md).
+Learn more about Tab names [here](https://learn.microsoft.com/en-us/windows/terminal/tutorials/tab-title#set-the-shells-title).
 {% endhint %}
 
 ## How it works

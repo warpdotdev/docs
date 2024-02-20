@@ -8,11 +8,23 @@ description: >-
 
 ## How to use it
 
-* Split panes to the right with `CMD-D` and down with `SHIFT-CMD-D` or in any direction by right-clicking on any pane.
-* Navigate among split panes with `OPT-CMD-ARROW`, the active pane will be marked with a triangle in the top corner.
-* Toggle Maximize pane with `CMD-SHIFT-ENTER`.
-* Close the active pane with `CMD-W`.
-* You can also drag and drop panes. Click and drag a pane’s header around a given tab, drag the pane to the tab bar to move it to another tab, or make it into a tab.
+{% tabs %}
+{% tab title="macOS" %}
+* Split Panes to the right / down with `CMD-D` / `SHIFT-CMD-D` or in any direction by right-clicking on any Pane.
+* Navigate among Split Panes with `OPT-CMD-ARROW`, the active pane will be marked with a triangle in the top corner.
+* Toggle Maximize Pane with `CMD-SHIFT-ENTER`.
+* Close the active Pane with `CMD-W`.
+* You can also drag and drop panes. Click and drag a Pane’s header around a given tab, drag the Pane to the tab bar to move it to another Tab, or make it into a Tab.
+{% endtab %}
+
+{% tab title="Linux" %}
+* Split Panes to the right / down with `CTRL-SHIFT-D` / `CTRL-SHIFT-E` or in any direction by right-clicking on any Pane.
+* Navigate among Split Panes with `CTRL-ALT-ARROW`, the active pane will be marked with a triangle in the top corner.
+* Toggle Maximize Pane with `CTRL-SHIFT-ENTER`.
+* Close the active Pane with `CTRL-SHIFT-W`.
+* You can also drag and drop panes. Click and drag a Pane’s header around a given tab, drag the Pane to the tab bar to move it to another Tab, or make it into a Tab.
+{% endtab %}
+{% endtabs %}
 
 {% hint style="info" %}
 You can quickly find all the **pane** shortcuts by using the [Command Palette](../command-palette.md). You can also remap the shortcuts to your liking. See [Custom Keyboard Shortcuts](../keyboard-shortcuts.md#custom-keyboard-shortcuts) for more details.
