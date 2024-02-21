@@ -38,7 +38,11 @@ There is a known issue that can occur that causes online features to break ([War
 
 {% tab title="Linux" %}
 1. Remove Warp user login with your keychain manager (gnome-keyring, kwallet, etc.). Search for `dev.warp.Warp` and delete the `User` password/secret.
-2. [Login to Warp](../getting-started/getting-started-with-warp.md#logging-into-warp)
+2. Remove any user files with the following command:
+   ```sh
+   rm -f ${XDG_STATE_HOME:-$HOME/.local/state}/warp-terminal/*-User
+   ```
+3. [Login to Warp](../getting-started/getting-started-with-warp.md#logging-into-warp)
 {% endtab %}
 {% endtabs %}
 
