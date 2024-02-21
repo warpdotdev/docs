@@ -94,7 +94,7 @@ defaults update dev.warp.Warp-Stable DisableInBandCommands true
 
 {% tab title="Linux" %}
 
-Update the settings file located at `~/.config/warp/user_preferences.json` to include the following name-value pair: `"DisableInBandCommands": "true"`.
+Update the settings file located at `~/.config/warp-terminal/user_preferences.json` to include the following name-value pair: `"DisableInBandCommands": "true"`.
 
 {% endtab %}
 {% endtabs %}
