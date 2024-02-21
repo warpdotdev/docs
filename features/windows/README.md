@@ -1,6 +1,8 @@
-# Window Management
+---
+description: Warp's features for Window Management.
+---
 
-Warp's features for Window Management:
+# Window Management
 
 1. [Global Hotkey](broken-reference) is a configurable shortcut that can show/hide a dedicated window or all windows on your chosen desktop regardless of whether the app is focused.
 2. [Tabs](tabs.md) allow you to organize a window into multiple terminal sessions.

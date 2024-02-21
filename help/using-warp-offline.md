@@ -1,6 +1,10 @@
+---
+description: Using Warp offline and what features are supported.
+---
+
 # Using Warp Offline
 
-The first time you download Warp, you will need to be online to sign up and create your personal user account. After that initial setup, as long as you’re signed into the Warp app, Warp’s core terminal features will work as expected when you’re offline.&#x20;
+The first time you download Warp, you will need to be online to sign up and create your personal user account. After that initial setup, as long as you’re signed into the Warp app, Warp’s core terminal features will work as expected when you’re offline.
 
 ### Cloud-based features require online access
 
@@ -8,7 +12,7 @@ Warp’s cloud-based features which require an internet connection will not work
 
 * [Warp Drive](../features/warp-drive/#using-warp-drive-offline) (Some files may be read-only in offline mode)
 * [Warp AI](../features/warp-ai/)
-  * [AI Command Suggestions ](../features/warp-ai/ai-command-suggestions.md)
+  * [AI Command Suggestions](../features/warp-ai/ai-command-suggestions.md)
 * [Teams](../features/teams.md)
 * [Block Sharing](../features/blocks/block-sharing.md)
 * [Refer a Friend](../getting-started/refer-a-friend.md)

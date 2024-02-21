@@ -1,3 +1,7 @@
+---
+description: Quickly open links and files or run scripts with your mouse.
+---
+
 # Files, Links, & Scripts
 
 ## What is it

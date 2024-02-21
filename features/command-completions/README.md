@@ -1,6 +1,8 @@
-# Command Completions
+---
+description: Warp main features for command completions and suggestions.
+---
 
-Warp main features for completions and suggestions:
+# Command Completions
 
 1. [Completions](completions.md) will suggest commands, option names, and path parameters for you.
 2. [Autosuggestions](autosuggestions.md) will automatically suggest commands as you type based on shell history and possible completions.

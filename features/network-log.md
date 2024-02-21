@@ -1,8 +1,7 @@
 ---
 description: >-
-  Warp’s network log contains logs for all network traffic (both requests and
-  responses) originating from the current terminal session. You can use Warp’s
-  network log to help debug issues or simply use
+  Logs for all network traffic (both requests and responses) originating from
+  the current terminal session.
 ---
 
 # Network Log

@@ -1,6 +1,10 @@
-# Command Entry
+---
+description: >-
+  Warp's main features for Command Entry, History, Synchronized Inputs, YAML
+  Workflows and More!
+---
 
-Warp's main features for Command Entry and History:
+# Command Entry
 
 1. [Command Corrections](./#command-corrections) provides auto-correct suggestions on previously run commands to catch typos, and forgotten flags, and fix general console errors.
 2. [Command Search](command-search.md) is a 3-in-1 panel that allows you to search across Command History, Workflows, Notebooks, and A.I. Command Search all at once.

@@ -1,6 +1,10 @@
+---
+description: Warps commonly used keyboard shortcuts.
+---
+
 # Keyboard Shortcuts
 
-Warp opens with a shortcut screen showing some of the most commonly used keyboard shortcuts. Hide the shortcut screen by clicking the x button. Quickly view keyboard shortcuts via the [Command Palette](command-palette.md) or the resource center keyboard shortcut sidebar.
+Warp opens with a shortcut screen showing some of the most commonly used keyboard shortcuts. Hide the shortcut screen by clicking the x button. Quickly view keyboard shortcuts via the [Command Palette](command-palette.md) or the Resource Center keyboard shortcut sidebar.
 
 ## Custom Keyboard Shortcuts
 

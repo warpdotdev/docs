@@ -1,5 +1,5 @@
 ---
-description: Instructions on how to troubleshoot login issues
+description: Instructions on how to troubleshoot login issues.
 ---
 
 # Troubleshooting Login Issues

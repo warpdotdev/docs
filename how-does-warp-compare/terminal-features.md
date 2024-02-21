@@ -1,9 +1,15 @@
-# Terminal Features - How does Warp compare?
+---
+description: >-
+  Below you'll find a table showcasing different terminal features (such as text
+  attribution) and information about which one of those are supported in Warp.
+---
 
-Below you'll find a table showcasing different terminal features (such as text attribution) and information about which one of those are supported in Warp. To make it more transparent & useful, we also show the results for 4 other popular macOS terminal emulators.
+# Terminal features
+
+To make it more transparent & useful, we also show the results for 4 other popular macOS terminal emulators.
 
 | Feature                                                   | Warp | Terminal.app | Iterm | Alacritty | Wezterm |
-|-----------------------------------------------------------|------|--------------|-------|-----------|---------|
+| --------------------------------------------------------- | ---- | ------------ | ----- | --------- | ------- |
 | 24-bit (true color)                                       | YES  | NO           | YES   | YES       | YES     |
 | Bold                                                      | YES  | YES          | YES   | YES       | YES     |
 | Dim                                                       | NO   | YES          | YES   | YES       | YES     |

@@ -1,3 +1,7 @@
+---
+description: Command History helps you quickly find previously run commands.
+---
+
 # Command History
 
 ## What is it

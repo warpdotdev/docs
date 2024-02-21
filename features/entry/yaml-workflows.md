@@ -1,3 +1,7 @@
+---
+description: Workflows are an easier way to execute and share commands within Warp.
+---
+
 # YAML Workflows
 
 {% hint style="danger" %}
@@ -6,7 +10,7 @@ You can continue to use YAML-based workflows, but we recommend using new [workfl
 
 ## What is it
 
-Workflows are an easier way to execute and share commands within Warp. They are easily parameterized and searchable by name, description, or command arguments. [Common workflows](https://github.com/warpdotdev/workflows) sourced by the Warp team and community are readily available within the app. Additionally, you can create and scope workflows locally or to a git repository.
+Workflows are easily parameterized and searchable by name, description, or command arguments. [Common workflows](https://github.com/warpdotdev/workflows) sourced by the Warp team and community are readily available within the app. Additionally, you can create and scope workflows locally or to a git repository.
 
 ## How to use it
 

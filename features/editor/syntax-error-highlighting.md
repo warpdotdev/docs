@@ -1,3 +1,10 @@
+---
+description: >-
+  Syntax Highlighting differentiate between sub-commands, options/flags,
+  arguments, and variables. Error Highlighting automatically underlines any
+  invalid commands with a dashed red underline.
+---
+
 # Syntax and Error Highlighting
 
 ## What is Syntax Highlighting

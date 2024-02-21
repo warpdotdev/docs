@@ -1,3 +1,7 @@
+---
+description: Steps and help with updating Warp.
+---
+
 # Updating Warp
 
 Warp automatically checks for updates on startup. A notification will appear in the top right corner of the Warp window when a new update is available.

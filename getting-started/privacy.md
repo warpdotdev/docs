@@ -1,5 +1,5 @@
 ---
-description: An overview of Warp's approach to privacy
+description: An overview of Warp's approach to privacy.
 ---
 
 # Privacy

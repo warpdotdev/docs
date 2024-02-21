@@ -1,5 +1,5 @@
 ---
-description: Save interactive playbooks to simplify onboarding and development
+description: Save interactive playbooks to simplify onboarding and development.
 ---
 
 # Notebooks

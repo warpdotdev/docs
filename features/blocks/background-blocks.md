@@ -1,5 +1,5 @@
 ---
-description: How Blocks interact with background process output
+description: How Blocks interact with background process output.
 ---
 
 # Background Blocks

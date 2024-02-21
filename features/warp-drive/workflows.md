@@ -1,5 +1,5 @@
 ---
-description: Saved parameterized commands to run on-demand
+description: Saved parameterized commands to run on-demand.
 ---
 
 # Workflows

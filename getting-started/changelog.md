@@ -1,7 +1,7 @@
 ---
 description: >-
   Warp auto-updates whenever a new release comes out. We try to ship updates
-  every week on Thursday! Submit bugs and feature requests on our GitHub!
+  every week on Thursday. Submit bugs and feature requests on our GitHub!
 ---
 
 # Changelog

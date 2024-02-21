@@ -1,8 +1,8 @@
 ---
 description: >-
-  Warp allows you to configure its default prompt or a supported custom prompt.
-  A terminal prompt is a text that appears in the command line interface,
-  indicating that the terminal is ready to accept co
+  Warp allows you to configure its default prompt or a custom prompt. A terminal
+  prompt is a text that appears in the command line interface, indicating that
+  the terminal is ready to accept commands.
 ---
 
 # Prompt

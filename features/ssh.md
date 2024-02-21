@@ -1,3 +1,7 @@
+---
+description: SSH wrapper that enables Warp features in remote sessions.
+---
+
 # SSH
 
 When you SSH into a remote box, you get all the features of Warp without any configuration on your part. The input editor, auto-completions, and history search work the same, regardless of machine.

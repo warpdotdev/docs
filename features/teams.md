@@ -1,5 +1,5 @@
 ---
-description: Create or join a team to collaborate with others in Warp
+description: Create or join a team to collaborate with others in Warp.
 ---
 
 # Teams
