@@ -90,3 +90,4 @@
 * [Known Issues](help/known-issues.md)
 * [Logging out & Uninstalling](help/uninstalling-warp.md)
 * [Open Source Licenses](help/licenses.md)
+* [Gitbook rebuild 01](help/gitbook-rebuild-01.md)
