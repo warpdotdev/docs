@@ -16,7 +16,7 @@ If you're using zsh on the remote host, we create a temp folder to act as the ZD
 The SSH Wrapper only supports `bash|zsh|fish` shells in remote sessions. If the remote server has another shell, please [change the default shell](../getting-started/using-warp-with-shells.md#changing-default-shell) to enable the SSH Wrapper.
 {% endhint %}
 
-![SSH](../.gitbook/assets/ssh.png)
+![SSH](../.gitbook/assets/6\_ssh.png)
 
 ## Implementation
 
