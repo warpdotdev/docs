@@ -121,7 +121,7 @@ Automatically create new themes based on a background image. Click the `+` butto
 
 ## Create your custom theme, with a tool
 
-Several tools out on the internet help you create a terminal theme and generate the appropriate RGB values to enter into your YAML file. [Warp Themes Creator](https://warp-themes-seven.vercel.app/) is a good tool for generating RGB values.
+Use [Terminal-Themes](https://terminal-themes.com/) to create a custom theme and generate the appropriate RGB values for your custom theme. Once the YAML file is created, you can edit the file to add the background images or gradients.
 
 ## Background Images and Gradients
 
