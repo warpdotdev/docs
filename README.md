@@ -8,10 +8,10 @@ description: >-
 
 ## Demo
 
-To learn more about Warp, check out this demo video by our [Developer Advocate](https://www.warp.dev/about-us), [Jess Wang](https://twitter.com/daRubberDuckiee) (April 2023).
+To learn about Warp, check out this demo video by our [Developer Advocate](https://www.warp.dev/about-us), [Jess Wang](https://twitter.com/daRubberDuckiee) (Feb 2024).
 
-{% embed url="https://www.youtube.com/watch?v=XWQY8LgkiXM" %}
-Warp Demo
+{% embed url="https://www.youtube.com/watch?v=34INSNevPOk" %}
+Warp Demo 2024
 {% endembed %}
 
 ## Warp Essentials
