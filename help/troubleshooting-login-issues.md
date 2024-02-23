@@ -49,6 +49,10 @@ When behind a proxy, a possible workaround is to disable QUIC in the browser. It
 
 In some cases, your browser may not open from Warp directly when you click "Sign up" or "Sign in". Please go to the [Signup ](https://app.warp.dev/signup)page to create an account or [Login](https://app.warp.dev/login) page if you already have an account, then copy the auth token from the "here" link on the logged\_in page and paste it into Warp.
 
+{% hint style="warning" %}
+On Linux, if you're using Wayland, there isn't support for copy-paste so you may need to switch to X11 or manually enter the auth token. We're working on a fix!
+{% endhint %}
+
 <figure><img src="../.gitbook/assets/auth-token-demo.gif" alt=""><figcaption><p>Auth token copy demo</p></figcaption></figure>
 
 ## Nothing happens when I click "Take me to Warp"
