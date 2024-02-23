@@ -47,11 +47,8 @@ To configure this, use the Apple Menu. Click on `Code` -> `Settings` -> `Setting
 {% tab title="Linux" %}
 Press `SHIFT-CTRL-C` while in [VSCode](https://code.visualstudio.com/docs/terminal/basics) to open a new session in Warp.
 
-![VSCode New Session Shortcut](../.gitbook/assets/vscode\_new\_session.gif)
+To configure this, navigate to Settings in VSCode and search for `Terminal › External: Linux Exec`. Change this to `warp-terminal` if you've installed Warp with your distribution's package manager. Otherwise, put in the full path to the executable (e.g. if it is an AppImage).
 
-To configure this, navigate to Settings in VSCode and search for `Terminal › External: Linux Exec`. Change this to `warp` if you've installed Warp with your distribution's package manager. Otherwise, put in the full path to the executable (e.g. if it is an AppImage).
-
-![VSCode External Terminal Configuration](../.gitbook/assets/vscode-integration-settings.gif)
 {% endtab %}
 {% endtabs %}
 
