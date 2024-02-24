@@ -27,6 +27,10 @@ From there you can customize:
 * When to enforce minimum contrast
   * The default setting tweaks named colors to meet accessibility standards.
 
+{% hint style="warning" %}
+On Linux, Warp does not support the "Use thin stroke" feature.
+{% endhint %}
+
 ### Cursor
 
 To access it, go to `Settings > Appearance > Cursor`, from there you can toggle the Blinking cursor or from the [Command Palette](../features/command-palette.md), type "Cursor blink" and toggle the setting.
