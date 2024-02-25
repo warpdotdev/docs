@@ -5,7 +5,7 @@ description: A step-by-step guide for setting up Warp on your machine.
 # Installing & Onboarding
 
 {% hint style="info" %}
-**Platform support:** Warp is currently supported on Mac (both Intel and Mac Silicon) and Linux (x86\_64). We plan on adding support for [Windows](https://github.com/warpdotdev/warp/issues/204) soon. [Subscribe to get notified](https://warpdotdev.typeform.com/to/lWeDTQnr?typeform-source=www.warp.dev) when Warp is available for Windows.
+**Platform support:** Warp is currently supported on Mac (both Intel and Mac Silicon) and Linux (x86\_64). We plan on adding support for [Windows](https://github.com/warpdotdev/warp/issues/204) soon. [Subscribe to get notified]([https://warpdotdev.typeform.com/to/lWeDTQnr?typeform-source=www.warp.de](https://www.warp.dev/windows-terminal)v) when Warp is available for Windows.
 {% endhint %}
 
 ## Installing Warp
@@ -33,7 +33,7 @@ brew install --cask warp
 
 {% tab title="Linux" %}
 {% hint style="info" %}
-**Requirements:** Minimum requirement is a x86\_64 Linux distribution with glibc >= 2.31 (released Feb. 2020) and support for either OpenGL or Vulkan.
+**Requirements:** Minimum requirement is a x86\_64 Linux distribution with glibc >= 2.31 (released Feb. 2020) and support for either OpenGL or Vulkan. We plan on adding support for [ARM](https://github.com/warpdotdev/Warp/issues/4213) and [WSL]([url](https://github.com/warpdotdev/Warp/issues/4240)) soon.
 
 This includes (but is not limited to) the following:
 
