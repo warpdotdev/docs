@@ -6,18 +6,17 @@ description: SSH wrapper that enables Warp features in remote sessions.
 
 When you SSH into a remote box, you get all the features of Warp without any configuration on your part. The input editor, auto-completions, and history search work the same, regardless of machine.
 
-[Limitations of SSH](https://github.com/warpdotdev/Warp/issues/578) (as of February 2022):
+{% hint style="warning" %}
+[Limitations of SSH](https://github.com/warpdotdev/Warp/issues/578) (as of February 2024):
 
-* Warp specific features like Blocks are currently supported only for bash and zsh.
+* The SSH Wrapper only supports `bash`or `zsh` shells in remote sessions.
 * If you're using a different shell, you'll want to use `command ssh` directly (see below for more details).
 * For zsh, xxd is required to bootstrap warp.
+* [Tmux is not currently supported.](https://github.com/warpdotdev/Warp/discussions/501)
+{% endhint %}
 
-If you're using zsh on the remote host, we create a temp folder to act as the ZDOTDIR during the bootstrapping process and remove it when the shell is set up.
-
-[Tmux is not currently supported.](https://github.com/warpdotdev/Warp/discussions/501)
-
-{% hint style="warning" %}
-The SSH Wrapper only supports `bash|zsh|fish` shells in remote sessions. If the remote server has another shell, please [change the default shell](../getting-started/using-warp-with-shells.md#changing-default-shell) to enable the SSH Wrapper.
+{% hint style="info" %}
+If you're using zsh on the remote host, Warp creates a temp folder to act as the ZDOTDIR during the bootstrapping process and removes it when the shell is set up.
 {% endhint %}
 
 ![SSH](../.gitbook/assets/6\_ssh.png)
