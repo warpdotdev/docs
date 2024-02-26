@@ -4,7 +4,7 @@ description: Using Warp offline and what features are supported.
 
 # Using Warp Offline
 
-The first time you download Warp, you will need to be online to sign up and create your personal user account. After that initial setup, as long as you’re signed into the Warp app, Warp’s core terminal features will work as expected when you’re offline.
+The first time you download Warp, you will need to be online to sign up and create your user account. After that initial setup, as long as you’re signed into the Warp app, Warp’s core terminal features will work as expected when you’re offline.
 
 ### Cloud-based features require online access
 
