@@ -10,17 +10,17 @@ description: >-
 
 To learn about Warp, check out this video by our [Developer Advocate](https://www.warp.dev/about-us), [Jess Wang](https://twitter.com/daRubberDuckiee) (Feb 2024).
 
-<a href="https://www.youtube.com/watch?v=34INSNevPOk">
-  <img src="https://img.youtube.com/vi/34INSNevPOk/0.jpg" alt="Warp Demo 2024" style="width: 100%;">
-</a>
+{% embed url="https://www.youtube.com/watch?v=34INSNevPOk" %}
+Warp Demo 2024
+{% endembed %}
 
 ## Warp Essentials
 
-The Warp Essentials panel is a resource center that contains keyboard shortcuts, recent changelogs, and tips for getting started.&#x20;
+The Warp Essentials panel is a resource center that contains keyboard shortcuts, recent changelogs, and tips for getting started.
 
 Access it by clicking on the light bulb icon 💡 or by pressing `CTRL-SHIFT-/`.
 
-<figure><img src=".gitbook/assets/Warp_Essentials.gif" alt="The Warp Essentials panel is available from the top menu in the Warp desktop app."><figcaption><p></p></figcaption></figure>
+<figure><img src=".gitbook/assets/Warp_Essentials.gif" alt="The Warp Essentials panel is available from the top menu in the Warp desktop app."><figcaption></figcaption></figure>
 
 ## Join the community
 
