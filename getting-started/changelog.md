@@ -2,7 +2,18 @@
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
-### 2024.02.20 (v0.2024.02.20.08.01)
+### 2024.02.26 (v0.2024.02.20.08.01.stable_02)
+
+**New features**
+
+* Warp is now available for Linux! [Read the blog](https://www.warp.dev/blog/warp-for-linux) to learn more and download.
+
+**Improvements**
+
+* Completions for apt-get, aptitude, and pacman
+* You can now type to search in the font picker in Settings > Appearance
+
+### 2024.02.20 (v0.2024.02.20.08.01.stable_01)
 
 **Improvements**
 
