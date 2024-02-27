@@ -13,7 +13,7 @@ description: A step-by-step guide for setting up Warp on your machine.
 {% tabs %}
 {% tab title="macOS" %}
 {% hint style="info" %}
-**Requirements:** Minimum requirements are macOS 10.14 and above as well as a machine that supports Metal (see [Apple’s docs](https://support.apple.com/en-us/HT205073))
+**Requirements:** Minimum requirements are macOS 10.14 or above and hardware that supports [Metal](https://support.apple.com/en-us/HT205073).
 {% endhint %}
 
 There are two ways to get Warp onto your machine:
@@ -33,7 +33,7 @@ brew install --cask warp
 
 {% tab title="Linux" %}
 {% hint style="info" %}
-**Requirements:** Minimum requirement is a x86\_64 Linux distribution with glibc >= 2.31 (released Feb. 2020) and support for _either_ [OpenGL ES 3.0+ or Vulkan](https://github.com/gfx-rs/wgpu?tab=readme-ov-file#supported-platforms). We plan on adding support for [ARM](https://github.com/warpdotdev/Warp/issues/4213) and [WSL](https://github.com/warpdotdev/Warp/issues/4240) soon.
+**Requirements:** Minimum requirement is a x86\_64 Linux distribution with glibc >= 2.31 (released Feb. 2020) and support for _either_ [OpenGL ES 3.0+ or Vulkan](https://github.com/gfx-rs/wgpu?tab=readme-ov-file#supported-platforms). We plan on adding support for [ARM](https://github.com/warpdotdev/Warp/issues/4213) and [WSL](https://github.com/warpdotdev/Warp/issues/4240).
 
 This includes (but is not limited to) the following:
 
