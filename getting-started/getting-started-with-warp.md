@@ -33,7 +33,7 @@ brew install --cask warp
 
 {% tab title="Linux" %}
 {% hint style="info" %}
-**Requirements:** Minimum requirement is a x86\_64 Linux distribution with glibc >= 2.31 (released Feb. 2020) and support for either OpenGL or Vulkan. We plan on adding support for [ARM](https://github.com/warpdotdev/Warp/issues/4213) and [WSL](https://github.com/warpdotdev/Warp/issues/4240) soon.
+**Requirements:** Minimum requirement is a x86\_64 Linux distribution with glibc >= 2.31 (released Feb. 2020) and support for _either_ [OpenGL ES 3.0+ or Vulkan](https://github.com/gfx-rs/wgpu?tab=readme-ov-file#supported-platforms). We plan on adding support for [ARM](https://github.com/warpdotdev/Warp/issues/4213) and [WSL](https://github.com/warpdotdev/Warp/issues/4240) soon.
 
 This includes (but is not limited to) the following:
 
