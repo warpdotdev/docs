@@ -11,10 +11,6 @@ You can log out of Warp through:
 * `Settings > Account`, with the "Log out" button
 * [Command Palette](../features/command-palette.md), with the "Log Out" item.
 
-{% hint style="info" %}
-On macOS, you can also go to Warp in the menu bar and select "Log out".
-{% endhint %}
-
 <figure><img src="../.gitbook/assets/logout.gif" alt=""><figcaption><p>Logout Demo</p></figcaption></figure>
 
 ### Known issues:

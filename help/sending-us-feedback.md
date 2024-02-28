@@ -9,9 +9,9 @@ description: >-
 ### Sending Warp feedback:
 
 * Open a new issue or feature request in our [GitHub repository](https://github.com/warpdotdev/warp/issues/new/choose).
-* Through the menu bar: Help > Send Feedback.
-* Through in-app Menu: Warp Essentials:bulb: > Feedback.
-* Join our [Discord](https://www.warp.dev/discord?utm\_source=docs-sending\_us\_feedback) server. Send a message in `#questions-and-feedback`.
+* [Command Palette](../features/command-palette.md), type and select "Send Feedback".
+* Warp Essentials:bulb:, click on Feedback.
+* Join our [Discord](https://www.warp.dev/discord?utm\_source=docs-sending\_us\_feedback) server. Send a message in [`#questions-and-feedback`](https://discord.com/channels/851854972600451112/1154432424873296012).
 
 <figure><img src="../.gitbook/assets/send-feedback-demo.gif" alt="sending feedback from the mac menu and warp essentials"><figcaption><p>Send Feedback</p></figcaption></figure>
 
