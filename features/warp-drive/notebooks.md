@@ -2,7 +2,11 @@
 description: Save interactive playbooks to simplify onboarding and development.
 ---
 
-# Notebooks
+# Notebooks (Private Beta)
+
+{% hint style="info" %}
+Notebooks are in a private beta. If you'd like early access, please email [feedback+notebooks@warp.dev](mailto:feedback+notebooks@warp.dev) about your use case.
+{% endhint %}
 
 ### What is a Notebook?
 

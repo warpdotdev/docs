@@ -1,7 +1,7 @@
 ---
 description: >-
   The Command Search panel allows you to search across Command History,
-  Workflows, Notebooks, and Warp AI all at once. Warp supports fuzzy search and
+  Workflows, Notebooks (Private Beta), and Warp AI all at once. Warp supports fuzzy search and
   tries to rank more relevant results.
 ---
 
@@ -20,7 +20,7 @@ Tailor your [Command Search](command-search.md) experience by toggling off "Show
 * Type into the input box what your search query is. The results will be a mix of command history, saved workflows, and AI Command Suggestions.
   * $\_ Dollar Sign-Underscore signifies that the result is a [Workflow](yaml-workflows.md).
   * <img src="../../.gitbook/assets/history.png" alt="rewind time clock" data-size="line">  Rewind Time Clock icon signifies that the result is a [Command History](command-history.md).
-  * <img src="../../.gitbook/assets/notebook.png" alt="earmarked page" data-size="line"> Earmarked Page icon signifies that the result is a [Notebook](../warp-drive/notebooks.md).
+  * <img src="../../.gitbook/assets/notebook.png" alt="earmarked page" data-size="line"> Earmarked Page icon signifies that the result is a [Notebook (Private Beta)](../warp-drive/notebooks.md).
   * ⚡ Lightning Bolt icon signifies piping that search query into [AI Command Suggestions](../warp-ai/ai-command-suggestions.md).
 * Activate a specific filter, by prepending your search term with:
   * `workflows:` will activate the workflow filter. You can also use the shortcuts `w:` or `W+TAB`.
