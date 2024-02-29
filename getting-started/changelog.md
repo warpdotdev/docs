@@ -2,6 +2,29 @@
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2024.02.29 (v0.2024.02.27.08.01.stable_03)
+
+**Improvements**
+
+* Added completion support for `dnf`
+* Configuring the global hotkey window settings (Quake Mode) now updates the window in real time
+* [Linux] Can now `CTRL-CLICK` to open a file
+* [Linux] Added support for IntelliJ, CLion, Webstorm, and PhpStorm
+
+**Bug fixes**
+
+* Fix issue with typeahead commands overlapping the prompt's content
+* Command X-Ray now recognizes builtins and functions, hover over a command in the Input Editor to see the command description
+* Fixed an issue where the shell couldn't accept pasted text when an rc file expected user input
+* [Linux] Modified pacman-key -r invocation during Arch Linux auto-update to be more robust
+* [Linux] Fixed crash on Linux that could occur if device was missing a symlink from libX11.so to libX11.so.6
+* [Linux] Fixed issues where opening external links would cause Firefox 123 to use 100% CPU and never launch
+* [Linux] X11 Users can now open links when default browser is firefox
+* [Linux] Fix some global hotkey combinations crashing the app
+
+**Improvements**
+
+
 ### 2024.02.26 (v0.2024.02.20.08.01.stable_02)
 
 **New features**
