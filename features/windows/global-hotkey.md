@@ -24,10 +24,6 @@ Dedicated Window allows you to customize the windows' pinned position and its wi
 1. Open `Settings > Features > Keys` and select "Dedicated hotkey window" from the Global Hotkey dropdown to enable the feature.
 2. Configure the keybinding, the windows position, screen, and relative size or uncheck "Autohides on the loss of keyboard focus" which will cause the dedicated Hotkey Window to stay on top when triggered regardless of mouse or keyboard focus.
 
-{% hint style="info" %}
-Your new customization will apply the **next** time a Dedicated Window is created
-{% endhint %}
-
 {% hint style="warning" %}
 On Linux, Warp does not support the "Autohides on the loss of keyboard focus" feature.
 {% endhint %}
