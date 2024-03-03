@@ -117,7 +117,7 @@ Locally, the terminal integrates with bash, zsh, or fish. Reference [Using Warp 
 
 ### Logging into Warp (Required)
 
-Unlike classic terminals, Warp requires you to sign up and log in to get started with the app. Unique user identity is required to support Warp's collaborative features and it makes it easier for the Warp team to provide customer support, should you need to debug an issue.
+Unlike classic terminals, Warp requires you to [sign up](https://app.warp.dev/signup) and [log in](https://app.warp.dev/login) to get started with the app. Unique user identity is required to support Warp's collaborative features and it makes it easier for the Warp team to provide customer support, should you need to debug an issue.
 
 {% hint style="info" %}
 Issues with login? Check out the [login troubleshooting page](../help/troubleshooting-login-issues.md).
