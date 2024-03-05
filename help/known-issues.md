@@ -38,10 +38,11 @@ There is a known issue that can occur that causes online features to break ([War
 
 {% tab title="Linux" %}
 1. Remove Warp user login with your keychain manager (gnome-keyring, kwallet, etc.). Search for `dev.warp.Warp` and delete the `User` password/secret.
-2. Remove any user files with the following command:
-   ```sh
-   rm -f ${XDG_STATE_HOME:-$HOME/.local/state}/warp-terminal/*-User
-   ```
+2.  Remove any user files with the following command:
+
+    ```sh
+    rm -f ${XDG_STATE_HOME:-$HOME/.local/state}/warp-terminal/*-User
+    ```
 3. [Login to Warp](../getting-started/getting-started-with-warp.md#logging-into-warp)
 {% endtab %}
 {% endtabs %}
@@ -186,3 +187,33 @@ In some cases, [CLI applications only work on x86](https://discord.com/channels/
 * Go to `Finder > Applications` and search for Warp.
 * Right-Click and select Get Info.
 * Then check the box on Open with Rosetta.
+
+## Linux
+
+### Warp window not showing
+
+We're tracking some issues for Linux where a [Warp window doesn't show/render](https://github.com/warpdotdev/Warp/issues/4215), especially in [Virtual Machines](https://github.com/warpdotdev/Warp/issues/4476), over [remote desktops](https://github.com/warpdotdev/Warp/issues/4435), or on [WSL](https://github.com/warpdotdev/Warp/issues/4240).
+
+Below are some workarounds that have worked to fix these issues:
+
+{% hint style="info" %}
+Package install examples are for Ubuntu using `apt`, your distro may use different commands (i.e. `dnf`, `pacman`, `zypper`, etc.) or have a different name for the packages.
+{% endhint %}
+
+* Installing / Updating [Xorg](https://www.x.org/wiki/) / [Wayland](https://wayland.freedesktop.org/). (`sudo apt install xserver-xorg` / `sudo apt install wayland`)
+* Install / Update [Mesa](https://docs.mesa3d.org/index.html). (`sudo apt install mesa-utils`)
+* Install / Update your GPU Drivers, esp [NVIDIA](https://github.com/warpdotdev/Warp/issues/4215#issuecomment-1969750786) (`sudo ubuntu-drivers install`).
+* Installing [Hack font](https://sourcefoundry.org/hack/) (`sudo apt install fonts-hack`).
+* Setting the Environmental Variables for Warp. Prefix `warp-terminal` with the variables, and once you confirm they work, `export` them in your `.profile`/`.zprofile` to [load on startup](https://github.com/warpdotdev/Warp/issues/4240#issuecomment-1968228029):
+  * [Default to Wayland](https://github.com/warpdotdev/Warp/issues/4240#issuecomment-1961993281) (`WARP_ENABLE_WAYLAND=1`).
+  * Set [Default GPU](https://docs.mesa3d.org/drivers/d3d12.html#utilities) ( e.g. `MESA_D3D12_DEFAULT_ADAPTER_NAME=NVIDIA`).
+  * Set [Graphics APIs](https://github.com/gfx-rs/wgpu?tab=readme-ov-file#environment-variables) backend (e.g. `WGPU_BACKEND=gl`).
+*   Use [Low Power (integrated) GPU](https://github.com/warpdotdev/Warp/issues/4215#issuecomment-1967500574) in your `~/.config/warp-terminal/user_preferences.json` file:
+
+    ```json
+    {
+      "prefs": {
+        "PreferLowPowerGPU": "true",
+      }
+    }
+    ```
