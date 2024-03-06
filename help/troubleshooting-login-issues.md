@@ -47,17 +47,17 @@ When behind a proxy, a possible workaround is to disable QUIC in the browser. It
 
 ## How to get an Auth token to login
 
-In some cases, your browser may not open from Warp directly when you click "Sign up" or "Sign in". Please go to the [Signup ](https://app.warp.dev/signup)page to create an account or [Login](https://app.warp.dev/login) page if you already have an account, then copy the auth token from the "here" link on the logged\_in page and paste it into Warp.
+In some cases, your browser may not open from Warp directly when you click "Sign up" or "Sign in". Please go to the [Signup ](https://app.warp.dev/signup)page to create an account or [Login](https://app.warp.dev/login) page if you already have one, then copy the auth token from the "here" link on the logged\_in page and paste it into Warp.
 
 {% hint style="warning" %}
-On Linux, if you're using Wayland, there isn't support for copy-paste so you may need to switch to X11 or manually enter the auth token. We're working on a fix!
+On Linux, the default copy-and-paste [Keyboard shortcuts](../features/keyboard-shortcuts.md) are `CTRL-SHIFT-C` and `CTRL-SHIFT-V` respectively.
 {% endhint %}
 
 <figure><img src="../.gitbook/assets/auth-token-demo.gif" alt=""><figcaption><p>Auth token copy demo</p></figcaption></figure>
 
 ## Nothing happens when I click "Take me to Warp"
 
-If this happens to you, use the link provided on the web logged-in page (https://app.warp.dev/logged\_in) to copy the authentication token, then paste it into the app as shown below.
+If this happens to you, copy the "here" link on the web logged-in page (https://app.warp.dev/logged\_in) to copy the authentication token, then paste it into the app as shown below.
 
 ![Copy and Pasting an Authentication Token](../.gitbook/assets/auth-token-flow.png)
 
