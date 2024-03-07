@@ -62,7 +62,7 @@ Please note the installing powerlevel10k video mentions enabling a custom prompt
 | zsh                 | [Powerlevel10k](https://github.com/romkatv/powerlevel10k)                 | [Working\*](prompt.md#powerlevel10k)                            |
 | zsh                 | [Spaceship](https://github.com/spaceship-prompt/spaceship-prompt)         | [Working\*](prompt.md#spaceship)                                |
 | zsh                 | [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh)                           | Working                                                         |
-| zsh                 | [prezto](https://github.com/sorin-ionescu/prezto)                         | Working                                                         |
+| zsh                 | [prezto](https://github.com/sorin-ionescu/prezto)                         | [Working\*](prompt.md#prezto)                                   |
 | ssh                 |                                                                           | Working                                                         |
 | bash                | [SBP](https://github.com/brujoand/sbp)                                    | Not supported                                                   |
 | bash                | [synth-shell-prompt](https://github.com/andresgongora/synth-shell-prompt) | Not supported                                                   |
@@ -116,6 +116,10 @@ Warp still doesn't fully support some p10k features like transient prompt and vi
 #### Spaceship
 
 This prompt can cause an issue with typeahead in Warp's input editor. To [workaround](https://github.com/warpdotdev/Warp/issues/1973#issuecomment-1340150521) the issue, run `echo "SPACESHIP_PROMPT_ASYNC=FALSE" >>! ~/.zshrc`.
+
+#### Prezto
+
+Although Warp does have support for prezto's prompt, enabling the [prezto utility module](https://github.com/sorin-ionescu/prezto/blob/master/modules/utility/README.md) in the `.zpreztorc` is not supported as with many other autocompletion [plugins that are incompatible](../help/known-issues.md#list-of-incompatible-tools).
 
 ### Disabling unsupported prompts for Warp
 

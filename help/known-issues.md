@@ -68,7 +68,7 @@ There is an issue in fish shell version 3.6 and below that causes the `read` bui
 
 * [iterm shell integration](https://iterm2.com/documentation-shell-integration.html)
   * usually looks like `test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true`
-* FIG, `z`, `zsh-autocomplete`, `compdef`, `compinit`, or other [shell-based completion](https://github.com/warpdotdev/Warp/discussions/434) plugins or definitions.
+* FIG, `z`, `zsh-autocomplete`, `compdef`, `compinit`, [prezto utility module](https://github.com/sorin-ionescu/prezto/blob/master/modules/utility/README.md), or other [shell-based completion](https://github.com/warpdotdev/Warp/discussions/434) plugins or definitions.
 * OH-MY-ZSH-THEMES
   * e.g. avit, spaceship, maybe more ...
 * OH-MY-ZSH-PLUGINS
