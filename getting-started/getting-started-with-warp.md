@@ -5,7 +5,8 @@ description: A step-by-step guide for setting up Warp on your machine.
 # Installing & Onboarding
 
 {% hint style="info" %}
-**Platform support:** Warp is currently supported on Mac (both Intel and Mac Silicon) and Linux (x86\_64). We plan on adding support for Windows soon. Subscribe to get notified when Warp is available for [Windows](https://warp.dev/windows-terminal).
+**Platform support:** Warp is currently supported on Mac (both Intel and Mac Silicon) and Linux (x86\_64). We have plans to support Windows and the Web (WASM)! \
+Subscribe to get notified when Warp is available for [Windows](https://warp.dev/windows-terminal).
 {% endhint %}
 
 ## Installing Warp
