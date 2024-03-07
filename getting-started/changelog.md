@@ -6,11 +6,11 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 
 **Improvements**
 
-* You can now adjust the number of lines the mouse wheel scrolls in Warp. Go to Settings > Features > Terminal > Lines Scrolled by Mouse Wheel Interval to configure this setting.
-* You can now close the Warp window using the Command Palette (`SHIFT-CMD-W` for Mac).
-* You can now quit Warp using the Command Palette (\u201cQuit Warp\u201d)
+* You can now adjust the number of lines the mouse wheel scrolls in Warp. Go to Settings > Features > Terminal > Lines Scrolled by Mouse Wheel Interval to configure this setting
+* You can now close the Warp window using the Command Palette (`SHIFT-CMD-W` for Mac)
+* You can now quit Warp using the Command Palette ("Quit Warp")
 * [Linux] Warp can now automatically hide the window's traffic lights when using a tiling manager
-* [Linux] Improved (a window\u2019s) rounded corners when using a tiling manager
+* [Linux] Improved (a window's) rounded corners when using a tiling manager
 * [Linux] You can now move tabs left or right using keyboard shortcuts. Use `SHIFT-CTRL-PGUP` to move a tab to the left and `SHIFT-CTRL-PGDN` to move a tab to the right
 
 **Bug fixes**
