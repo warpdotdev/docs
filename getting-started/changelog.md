@@ -6,7 +6,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 
 **Improvements**
 
-* You can now adjust the number of lines the mouse wheel scrolls in Warp. Go to Settings > Features > Terminal > Lines Scrolled by Mouse Wheel Interval to configure this setting
+* You can now adjust the number of lines the mouse wheel scrolls in Warp. Go to Settings > Features > General > Lines Scrolled by Mouse Wheel Interval to configure this setting
 * You can now close the Warp window using the Command Palette (`SHIFT-CMD-W` for Mac)
 * You can now quit Warp using the Command Palette ("Quit Warp")
 * [Linux] Warp can now automatically hide the window's traffic lights when using a tiling manager
