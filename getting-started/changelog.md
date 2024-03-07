@@ -2,6 +2,22 @@
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2024.03.07 (v0.2024.03.05.08.02)
+
+**Improvements**
+
+* You can now adjust the number of lines the mouse wheel scrolls in Warp. Go to Settings > Features > Terminal > Lines Scrolled by Mouse Wheel Interval to configure this setting.
+* You can now close the Warp window using the Command Palette (`SHIFT-CMD-W` for Mac).
+* You can now quit Warp using the Command Palette (\u201cQuit Warp\u201d)
+* [Linux] Warp can now automatically hide the window's traffic lights when using a tiling manager
+* [Linux] Improved (a window\u2019s) rounded corners when using a tiling manager
+* [Linux] You can now move tabs left or right using keyboard shortcuts. Use `SHIFT-CTRL-PGUP` to move a tab to the left and `SHIFT-CTRL-PGDN` to move a tab to the right
+
+**Bug fixes**
+
+* Fixed a bug where Warp could crash because of an invalid Vim command
+* [Linux] Fixed a bug where errors encountered while running `pacman-key` could lead to an invalid pacman repository configuration
+
 ### 2024.02.29 (v0.2024.02.27.08.01)
 
 **Improvements**
