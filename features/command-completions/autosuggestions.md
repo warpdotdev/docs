@@ -8,7 +8,7 @@ description: >-
 
 ## How to access it
 
-* From the [Command Palette](../command-palette.md), type in "Toggle Autosuggestions" to toggle.
+* From the [Command Palette](../command-palette.md), type in "Autosuggestions" to toggle.
 
 {% hint style="info" %}
 **Terminal Tip**
