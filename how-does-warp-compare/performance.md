@@ -30,20 +30,20 @@ Ideally, the benchmarks would also cover the latency (time between pressing a ke
 
 ## VTE benchmark
 
-Benchmark code can be found [here](https://github.com/alacritty/vtebench) with the specific commit we used in our comparison: `93bcc32b6e0f7560e9b1a5a8b0998c04fbf9b50d`.
+Benchmark code can be found [here](https://github.com/alacritty/vtebench) with the specific commit we used in our comparison: `93bcc32b6e0f7560e9b1a5a8b0998c04fbf9b50d`. Results in milliseconds.
 
 ### Average time for each of the benchmark tests
 
-|                                  | Warp avg | Terminal.app avg | iTerm avg | Alacritty avg | WezTerm avg |
-| -------------------------------- | -------- | ---------------- | --------- | ------------- | ----------- |
-| dense\_cells                     | 43.88    | 24.91            | 144.84    | 7.25          | 28.15       |
-| scrolling                        | 30.06    | 283.34           | 1257.57   | 31.75         | 687.77      |
-| scrolling\_bottom\_region        | 117.34   | 257.23           | 1294.25   | 29.1          | 672.67      |
-| scrolling\_bottom\_small\_region | 114.52   | 227.75           | 1251      | 25.98         | 669.93      |
-| scrolling\_fullscreen            | 37.4     | 307.03           | 1565.17   | 37.36         | 1205        |
-| scrolling\_top\_region           | 120.63   | 209.29           | 2212.2    | 84.42         | 682.6       |
-| scrolling\_top\_small\_region    | 114.64   | 205.59           | 1216.33   | 21.91         | 663.44      |
-| unicode                          | 66.47    | 34.45            | 93.01     | 16.78         | 1279.25     |
+|                                  | Warp avg (ms) | Terminal.app avg (ms) | iTerm avg | Alacritty avg | WezTerm avg |
+| -------------------------------- | ------------- | --------------------- | --------- | ------------- | ----------- |
+| dense\_cells                     | 43.88         | 24.91                 | 144.84    | 7.25          | 28.15       |
+| scrolling                        | 30.06         | 283.34                | 1257.57   | 31.75         | 687.77      |
+| scrolling\_bottom\_region        | 117.34        | 257.23                | 1294.25   | 29.1          | 672.67      |
+| scrolling\_bottom\_small\_region | 114.52        | 227.75                | 1251      | 25.98         | 669.93      |
+| scrolling\_fullscreen            | 37.4          | 307.03                | 1565.17   | 37.36         | 1205        |
+| scrolling\_top\_region           | 120.63        | 209.29                | 2212.2    | 84.42         | 682.6       |
+| scrolling\_top\_small\_region    | 114.64        | 205.59                | 1216.33   | 21.91         | 663.44      |
+| unicode                          | 66.47         | 34.45                 | 93.01     | 16.78         | 1279.25     |
 
 ![VTEbench average results (logarithmic scale )](../.gitbook/assets/vtebench\_avg.png)
 
@@ -66,28 +66,28 @@ Benchmark code can be found [here](https://github.com/alacritty/vtebench) with t
 
 Benchmark code can be found [here](https://github.com/cmuratori/termbench) with the specific commit we used in our comparison: `82afbc69256b4e22de913f0f02f82e0480f3dac5`.
 
-Below you'll find results for `small` and default test sizes. Note that Terminal.app only participated in the `small` test.
+Below you'll find results for small and regular test sizes. Note that Terminal.app only participated in the small test. Results in seconds.
 
 ### Small test sizes
 
-|                | Warp small | Terminal.app small | iTerm small | Alacritty small | WezTerm small |
-| -------------- | ---------- | ------------------ | ----------- | --------------- | ------------- |
-| ManyLine       | 6.7854     | 2.6789             | 8.7057      | 1.2532          | 8.9436        |
-| LongLine       | 9.0033     | 1.6473             | 9.0849      | 0.8179          | 11.4587       |
-| FGPerChar      | 1.3716     | 453.9888           | 2.6625      | 0.2788          | 0.6487        |
-| FGBGPerChar    | 2.8403     | 908.894            | 4.5881      | 0.5931          | 0.7283        |
-| overall result | 20.0006    | 1367.209           | 25.0413     | 2.943           | 21.7793       |
+|                | Warp small (s) | Terminal.app small (s) | iTerm small (s) | Alacritty small | WezTerm small |
+| -------------- | -------------- | ---------------------- | --------------- | --------------- | ------------- |
+| ManyLine       | 6.7854         | 2.6789                 | 8.7057          | 1.2532          | 8.9436        |
+| LongLine       | 9.0033         | 1.6473                 | 9.0849          | 0.8179          | 11.4587       |
+| FGPerChar      | 1.3716         | 453.9888               | 2.6625          | 0.2788          | 0.6487        |
+| FGBGPerChar    | 2.8403         | 908.894                | 4.5881          | 0.5931          | 0.7283        |
+| overall result | 20.0006        | 1367.209               | 25.0413         | 2.943           | 21.7793       |
 
 ![Termbench small results (logarithmic scale )](../.gitbook/assets/termbench\_small.png)
 
 ### Regular test size
 
-|                | Warp regular | iTerm regular | Alacritty regular | WezTerm regular |
-| -------------- | ------------ | ------------- | ----------------- | --------------- |
-| ManyLine       | 113.76       | 132.4975      | 19.8802           | 150.8175        |
-| LongLine       | 155.0937     | 126.7561      | 12.7859           | 207.3647        |
-| FGPerChar      | 21.8928      | 39.3352       | 4.2925            | 9.4265          |
-| FGBGPerChar    | 46.312       | 50.5369       | 8.418             | 13.5142         |
-| overall result | 337.0585     | 349.1258      | 45.3767           | 381.1229        |
+|                | Warp regular (s) | iTerm regular (s) | Alacritty regular (s) | WezTerm regular |
+| -------------- | ---------------- | ----------------- | --------------------- | --------------- |
+| ManyLine       | 113.76           | 132.4975          | 19.8802               | 150.8175        |
+| LongLine       | 155.0937         | 126.7561          | 12.7859               | 207.3647        |
+| FGPerChar      | 21.8928          | 39.3352           | 4.2925                | 9.4265          |
+| FGBGPerChar    | 46.312           | 50.5369           | 8.418                 | 13.5142         |
+| overall result | 337.0585         | 349.1258          | 45.3767               | 381.1229        |
 
-![Termbench results (logarithmic scale )](../.gitbook/assets/termbench\_regular.png)
+![Termbench results (logarithmic scale)](../.gitbook/assets/termbench\_regular.png)
