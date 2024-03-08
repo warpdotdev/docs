@@ -9,7 +9,7 @@ description: A step-by-step guide for setting up Warp on your machine.
 Subscribe to get notified when Warp is available for [Windows](https://warp.dev/windows-terminal).
 {% endhint %}
 
-## Installing Warp
+## Installing and Running Warp
 
 {% tabs %}
 {% tab title="macOS" %}
@@ -30,6 +30,10 @@ Link to Download Warp
 ```
 brew install --cask warp
 ```
+
+#### **Running Warp on Mac**
+
+Find the Warp in your Applications folder and run it from there (or search for Warp in Spotlight/Raycast).
 {% endtab %}
 
 {% tab title="Linux" %}
@@ -96,13 +100,17 @@ Installing the .rpm package will automatically set up the Warp yum repository. O
 
 We also provide an AppImage ([https://appimage.org](https://appimage.org)), a single-file executable version of Warp. Installing Warp via a package manager is recommended, however, as it will ensure your system has all necessary dependencies installed.
 
-You can download and run the Warp AppImage with the following commands:
+You can download the Warp AppImage with the following commands:
 
 ```
 curl -L "https://app.warp.dev/download?package=appimage" -o Warp-x86_64.AppImage
 chmod +x Warp-x86_64.AppImage
-./Warp-x86_64.AppImage
 ```
+
+#### Running Warp on Linux
+
+If you installed a package, find Warp in your desktop manager or run `warp-terminal` on your terminal.\
+If you're using the AppImage, you can launch it by navigating to the directory where the AppImage is located and running `./Warp-x86_64.AppImage`.
 {% endtab %}
 {% endtabs %}
 
