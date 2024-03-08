@@ -194,14 +194,37 @@ In some cases, [CLI applications only work on x86](https://discord.com/channels/
 
 We're tracking some issues for Linux where a [Warp window doesn't show/render](https://github.com/warpdotdev/Warp/issues/4215), especially but not exclusively in [Virtual Machines](https://github.com/warpdotdev/Warp/issues/4476), over [remote desktops](https://github.com/warpdotdev/Warp/issues/4435), or on [WSL](https://github.com/warpdotdev/Warp/issues/4240).
 
-{% hint style="info" %}
-Package install examples are for Ubuntu using `apt`, your distro may use different commands (i.e. `dnf`, `pacman`, `zypper`, etc.) or have a different name for the packages.
+{% hint style="warning" %}
+Many package install examples are for Ubuntu using `apt`, your distro may use different commands (i.e. `dnf`, `pacman`, `zypper`, etc.) or have a different name for the packages.
 {% endhint %}
 
-Below are some possible workarounds for these issues:
+If any of the workarounds below help, please comment on [this GitHub issue](https://github.com/warpdotdev/Warp/issues/4513) with your Linux distro, installation (Baremetal, VM, or WSL), the issue you had, and the workaround that fixed it.
 
 * Installing / Updating [Xorg](https://www.x.org/wiki/) / [Wayland](https://wayland.freedesktop.org/). (`sudo apt install xserver-xorg` / `sudo apt install wayland`)
-* Install / Update your GPU Drivers, esp [NVIDIA](https://github.com/warpdotdev/Warp/issues/4215#issuecomment-1969750786) (`sudo ubuntu-drivers install`)
+* Install / Update your GPU Drivers, eg [NVIDIA](https://github.com/warpdotdev/Warp/issues/4215#issuecomment-1969750786):
+  *   For Ubuntu:
+
+      ```bash
+      sudo ubuntu-drivers install
+      ```
+
+      For Fedora:
+
+      ```bash
+      sudo dnf install akmod-nvidia
+      ```
+
+      For Arch Linux:
+
+      ```bash
+      sudo pacman -S nvidia
+      ```
+
+      For openSUSE:
+
+      ```bash
+      sudo zypper install x11-video-nvidiaG05
+      ```
 * Installing [Hack font](https://sourcefoundry.org/hack/) (`sudo apt install fonts-hack`)
 * [Fallback to Mesa v23](https://github.com/warpdotdev/Warp/issues/4214#issuecomment-1965477121).x from Mesa v24.
 * Use [Low Power (integrated) GPU](https://github.com/warpdotdev/Warp/issues/4215#issuecomment-1967500574) in `~/.config/warp-terminal/user_preferences.json` file: `{"prefs":{"PreferLowPowerGPU": "true",}}`
