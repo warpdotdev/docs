@@ -64,6 +64,7 @@ Please note the installing powerlevel10k video mentions enabling a custom prompt
 | zsh                 | [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh)                           | Working                                                         |
 | zsh                 | [prezto](https://github.com/sorin-ionescu/prezto)                         | [Working\*](prompt.md#prezto)                                   |
 | ssh                 |                                                                           | Working                                                         |
+| bash                | [bash-it](https://github.com/Bash-it/bash-it)                             | Not supported                                                   |
 | bash                | [SBP](https://github.com/brujoand/sbp)                                    | Not supported                                                   |
 | bash                | [synth-shell-prompt](https://github.com/andresgongora/synth-shell-prompt) | Not supported                                                   |
 | bash \| zsh         | [Powerline-shell](https://github.com/b-ryan/powerline-shell)              | Not supported                                                   |
