@@ -198,19 +198,22 @@ If any of the workarounds help, please comment on [this GitHub issue](https://gi
 
 {% hint style="info" %}
 * Many package install examples are for Ubuntu using `apt`, your distro may use different commands (`dnf`, `pacman`, `zypper`) or package names.
-* Default GPU and Graphics API settings are system-dependent. e.g. AMD vs NVIDIA and OpenGL vs Vulkan
+* GPU Drivers and Default GPU / Graphics API environmental variables are system-dependent. e.g. AMD vs NVIDIA and OpenGL vs Vulkan
 {% endhint %}
 
-* Installing or Updating [Xorg](https://www.x.org/wiki/) / [Wayland](https://wayland.freedesktop.org/): `sudo apt install xserver-xorg` / `sudo apt install wayland`
-* Install or Update your GPU Drivers: e.g. [NVIDIA](https://github.com/warpdotdev/Warp/issues/4215#issuecomment-1969750786)
-  *   For Ubuntu: `sudo ubuntu-drivers install`
-  *   For Fedora: `sudo dnf install akmod-nvidia`
-  *   For Arch Linux: `sudo pacman -S nvidia`
-  *   For openSUSE: `sudo zypper install x11-video-nvidiaG05`
-* Installing [Hack font](https://sourcefoundry.org/hack/): `sudo apt install fonts-hack`
-* [Fallback to Mesa v23](https://github.com/warpdotdev/Warp/issues/4214#issuecomment-1965477121).x from Mesa v24.
-* Use [Low Power (integrated) GPU](https://github.com/warpdotdev/Warp/issues/4215#issuecomment-1967500574) in `~/.config/warp-terminal/user_preferences.json` file: `{"prefs":{"PreferLowPowerGPU": "true",}}`
-* Set Environmental Variables for Warp. Prefix `warp-terminal` with the variables, and once you confirm they work, `export` them in your `.profile`/`.zprofile` to [load on startup](https://github.com/warpdotdev/Warp/issues/4240#issuecomment-1968228029):
-  * [Default to Wayland](https://github.com/warpdotdev/Warp/issues/4240#issuecomment-1961993281): `WARP_ENABLE_WAYLAND=1`
-  * Set [Default GPU](https://docs.mesa3d.org/drivers/d3d12.html#utilities): e.g. `MESA_D3D12_DEFAULT_ADAPTER_NAME=NVIDIA`
-  * Set [Graphics APIs](https://github.com/gfx-rs/wgpu?tab=readme-ov-file#environment-variables): e.g. `WGPU_BACKEND=gl`
+* System
+  * Installing or Updating [Xorg](https://www.x.org/wiki/) / [Wayland](https://wayland.freedesktop.org/): `sudo apt install xserver-xorg` / `sudo apt install wayland`
+  * Installing [Hack font](https://sourcefoundry.org/hack/): `sudo apt install fonts-hack`
+  * [Fallback to Mesa v23](https://github.com/warpdotdev/Warp/issues/4214#issuecomment-1965477121).x from Mesa v24.
+* Graphics
+  * Install or Update your GPU Drivers: e.g. [NVIDIA](https://github.com/warpdotdev/Warp/issues/4215#issuecomment-1969750786)
+    *   For Ubuntu: `sudo ubuntu-drivers install`
+    *   For Fedora: `sudo dnf install akmod-nvidia`
+    *   For Arch Linux: `sudo pacman -S nvidia`
+    *   For openSUSE: `sudo zypper install x11-video-nvidiaG05`
+  * Use [Low Power (integrated) GPU](https://github.com/warpdotdev/Warp/issues/4215#issuecomment-1967500574) in `~/.config/warp-terminal/user_preferences.json` file: `{"prefs":{"PreferLowPowerGPU": "true",}}`
+* Environmental Variables
+  * Prefix `warp-terminal` with the variables (multiple can be used), and once you confirm they work, `export` them in your `.profile`/`.zprofile` to [load on startup](https://github.com/warpdotdev/Warp/issues/4240#issuecomment-1968228029):
+    * [Default to Wayland](https://github.com/warpdotdev/Warp/issues/4240#issuecomment-1961993281): `WARP_ENABLE_WAYLAND=1`
+    * Set [Default GPU](https://docs.mesa3d.org/drivers/d3d12.html#utilities): e.g. `MESA_D3D12_DEFAULT_ADAPTER_NAME=NVIDIA`
+    * Set [Graphics APIs](https://github.com/gfx-rs/wgpu?tab=readme-ov-file#environment-variables): e.g. `WGPU_BACKEND=gl`
