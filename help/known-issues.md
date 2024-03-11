@@ -190,7 +190,7 @@ In some cases, [CLI applications only work on x86](https://discord.com/channels/
 
 ## Linux
 
-### Workarounds
+### Linux Workarounds
 
 We're tracking some issues for Linux where a [Warp window doesn't show/render](https://github.com/warpdotdev/Warp/issues/4215), Won't run in [Virtual Machines](https://github.com/warpdotdev/Warp/issues/4476), over [remote desktops](https://github.com/warpdotdev/Warp/issues/4435), or on [WSL](https://github.com/warpdotdev/Warp/issues/4240).
 
@@ -207,10 +207,10 @@ If any of the workarounds help, please comment on [this GitHub issue](https://gi
   * [Fallback to Mesa v23](https://github.com/warpdotdev/Warp/issues/4214#issuecomment-1965477121).x from Mesa v24.
 * Graphics
   * Install or Update your GPU Drivers: e.g. [NVIDIA](https://github.com/warpdotdev/Warp/issues/4215#issuecomment-1969750786)
-    *   For Ubuntu: `sudo ubuntu-drivers install`
-    *   For Fedora: `sudo dnf install akmod-nvidia`
-    *   For Arch Linux: `sudo pacman -S nvidia`
-    *   For openSUSE: `sudo zypper install x11-video-nvidiaG05`
+    * For Ubuntu: `sudo ubuntu-drivers install`
+    * For Fedora: `sudo dnf install akmod-nvidia`
+    * For Arch Linux: `sudo pacman -S nvidia`
+    * For openSUSE: `sudo zypper install x11-video-nvidiaG05`
   * Use [Low Power (integrated) GPU](https://github.com/warpdotdev/Warp/issues/4215#issuecomment-1967500574) in `~/.config/warp-terminal/user_preferences.json` file: `{"prefs":{"PreferLowPowerGPU": "true",}}`
 * Environmental Variables
   * Prefix `warp-terminal` with the variables (multiple can be used), and once you confirm they work, `export` them in your `.profile`/`.zprofile` to [load on startup](https://github.com/warpdotdev/Warp/issues/4240#issuecomment-1968228029):
