@@ -190,45 +190,27 @@ In some cases, [CLI applications only work on x86](https://discord.com/channels/
 
 ## Linux
 
-### Warp window not showing
+### Workarounds
 
-We're tracking some issues for Linux where a [Warp window doesn't show/render](https://github.com/warpdotdev/Warp/issues/4215), especially but not exclusively in [Virtual Machines](https://github.com/warpdotdev/Warp/issues/4476), over [remote desktops](https://github.com/warpdotdev/Warp/issues/4435), or on [WSL](https://github.com/warpdotdev/Warp/issues/4240).
+We're tracking some issues for Linux where a [Warp window doesn't show/render](https://github.com/warpdotdev/Warp/issues/4215), Won't run in [Virtual Machines](https://github.com/warpdotdev/Warp/issues/4476), over [remote desktops](https://github.com/warpdotdev/Warp/issues/4435), or on [WSL](https://github.com/warpdotdev/Warp/issues/4240).
 
-{% hint style="warning" %}
-Many package install examples are for Ubuntu using `apt`, your distro may use different commands (i.e. `dnf`, `pacman`, `zypper`, etc.) or have a different name for the packages.
+If any of the workarounds help, please comment on [this GitHub issue](https://github.com/warpdotdev/Warp/issues/4513) with your Linux distro, installation (WSL, Baremetal or VM, x86 or ARM), the issue you had, the workaround that fixed it, and any other workarounds not listed.
+
+{% hint style="info" %}
+* Many package install examples are for Ubuntu using `apt`, your distro may use different commands (`dnf`, `pacman`, `zypper`) or package names.
+* Default GPU and Graphics API settings are system-dependent. e.g. AMD vs NVIDIA and OpenGL vs Vulkan
 {% endhint %}
 
-If any of the workarounds below help, please comment on [this GitHub issue](https://github.com/warpdotdev/Warp/issues/4513) with your Linux distro, installation (Baremetal, VM, or WSL), the issue you had, and the workaround that fixed it.
-
-* Installing / Updating [Xorg](https://www.x.org/wiki/) / [Wayland](https://wayland.freedesktop.org/). (`sudo apt install xserver-xorg` / `sudo apt install wayland`)
-* Install / Update your GPU Drivers, eg [NVIDIA](https://github.com/warpdotdev/Warp/issues/4215#issuecomment-1969750786):
-  *   For Ubuntu:
-
-      ```bash
-      sudo ubuntu-drivers install
-      ```
-
-      For Fedora:
-
-      ```bash
-      sudo dnf install akmod-nvidia
-      ```
-
-      For Arch Linux:
-
-      ```bash
-      sudo pacman -S nvidia
-      ```
-
-      For openSUSE:
-
-      ```bash
-      sudo zypper install x11-video-nvidiaG05
-      ```
-* Installing [Hack font](https://sourcefoundry.org/hack/) (`sudo apt install fonts-hack`)
+* Installing or Updating [Xorg](https://www.x.org/wiki/) / [Wayland](https://wayland.freedesktop.org/): `sudo apt install xserver-xorg` / `sudo apt install wayland`
+* Install or Update your GPU Drivers: e.g. [NVIDIA](https://github.com/warpdotdev/Warp/issues/4215#issuecomment-1969750786)
+  *   For Ubuntu: `sudo ubuntu-drivers install`
+  *   For Fedora: `sudo dnf install akmod-nvidia`
+  *   For Arch Linux: `sudo pacman -S nvidia`
+  *   For openSUSE: `sudo zypper install x11-video-nvidiaG05`
+* Installing [Hack font](https://sourcefoundry.org/hack/): `sudo apt install fonts-hack`
 * [Fallback to Mesa v23](https://github.com/warpdotdev/Warp/issues/4214#issuecomment-1965477121).x from Mesa v24.
 * Use [Low Power (integrated) GPU](https://github.com/warpdotdev/Warp/issues/4215#issuecomment-1967500574) in `~/.config/warp-terminal/user_preferences.json` file: `{"prefs":{"PreferLowPowerGPU": "true",}}`
 * Set Environmental Variables for Warp. Prefix `warp-terminal` with the variables, and once you confirm they work, `export` them in your `.profile`/`.zprofile` to [load on startup](https://github.com/warpdotdev/Warp/issues/4240#issuecomment-1968228029):
-  * [Default to Wayland](https://github.com/warpdotdev/Warp/issues/4240#issuecomment-1961993281) (`WARP_ENABLE_WAYLAND=1`)
-  * Set [Default GPU](https://docs.mesa3d.org/drivers/d3d12.html#utilities) ( e.g. `MESA_D3D12_DEFAULT_ADAPTER_NAME=NVIDIA`)
-  * Set [Graphics APIs](https://github.com/gfx-rs/wgpu?tab=readme-ov-file#environment-variables) backend (e.g. `WGPU_BACKEND=gl`)
+  * [Default to Wayland](https://github.com/warpdotdev/Warp/issues/4240#issuecomment-1961993281): `WARP_ENABLE_WAYLAND=1`
+  * Set [Default GPU](https://docs.mesa3d.org/drivers/d3d12.html#utilities): e.g. `MESA_D3D12_DEFAULT_ADAPTER_NAME=NVIDIA`
+  * Set [Graphics APIs](https://github.com/gfx-rs/wgpu?tab=readme-ov-file#environment-variables): e.g. `WGPU_BACKEND=gl`
