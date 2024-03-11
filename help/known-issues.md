@@ -205,9 +205,12 @@ If any of the workarounds help, please comment on [this GitHub issue](https://gi
 * System
   * Installing or Updating [Xorg](https://www.x.org/wiki/) / [Wayland](https://wayland.freedesktop.org/): `sudo apt install xserver-xorg` / `sudo apt install wayland`
   * Installing [Hack font](https://sourcefoundry.org/hack/): `sudo apt install fonts-hack`
-  * [Fallback to Mesa v23](https://github.com/warpdotdev/Warp/issues/4214#issuecomment-1965477121).x from Mesa v24.
+  * Install [WSL utilities](https://wslutiliti.es/wslu/install.html)
+  * Install Mesa utilities: `sudo apt install mesa-utils`
+  * Install Mesa Vulkan drivers: `sudo apt install mesa-vulkan-drivers`
+  * Fallback to [Mesa v23.x from Mesa v24](https://github.com/warpdotdev/Warp/issues/4214#issuecomment-1965477121)
 * Graphics
-  * Install or Update your GPU Drivers: e.g. [NVIDIA](https://github.com/warpdotdev/Warp/issues/4215#issuecomment-1969750786)
+  * Install or Update your GPU driver: e.g. [NVIDIA](https://github.com/warpdotdev/Warp/issues/4215#issuecomment-1969750786)
     * For Ubuntu: `sudo ubuntu-drivers install`
     * For Fedora: `sudo dnf install akmod-nvidia`
     * For Arch Linux: `sudo pacman -S nvidia`
