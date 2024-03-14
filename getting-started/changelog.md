@@ -2,6 +2,20 @@
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2024.03.14 (v0.2024.03.12.08.02)
+
+**Improvements**
+
+* Warp now supports the primary selection protocol, which allows you to paste with a middle click. On platforms that don't support this, Warp will read/write from the default clipboard
+* You can now filter out unwanted lines from a block, using the new "invert filter" toggle in the block filtering menu
+* Continuous block selections are now rendered with a single border instead of a border around each individual block
+The `\b` and `^` patterns are now supported in Warp's regex search (find bar and block filtering)
+* [Linux] The hotkey window now has a unique instance name on X11
+
+**Bug fixes**
+
+* Copy on Select now works within alt-screens
+
 ### 2024.03.07 (v0.2024.03.05.08.02)
 
 **Improvements**
