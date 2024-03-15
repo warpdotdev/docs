@@ -9,7 +9,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 * Warp now supports the primary selection protocol, which allows you to paste with a middle click. On platforms that don't support this, Warp will read/write from the default clipboard
 * You can now filter out unwanted lines from a block, using the new "invert filter" toggle in the block filtering menu
 * Continuous block selections are now rendered with a single border instead of a border around each individual block
-The `\b` and `^` patterns are now supported in Warp's regex search (find bar and block filtering)
+* The `\b` and `^` patterns are now supported in Warp's regex search (find bar and block filtering)
 * [Linux] The hotkey window now has a unique instance name on X11
 
 **Bug fixes**
