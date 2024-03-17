@@ -67,9 +67,17 @@ There is an issue in fish shell version 3.6 and below that causes the `read` bui
 ### List of incompatible tools
 
 * [iterm shell integration](https://iterm2.com/documentation-shell-integration.html)
-  * usually looks like `test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true`
+  * `test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true`
+* [Termium](https://codeium.com/blog/termium-codeium-in-terminal-launch)&#x20;
+  * `eval "$(termium shell-hook show post)"`
+* [thefuck experimental instant mode](https://github.com/nvbn/thefuck?tab=readme-ov-file#experimental-instant-mode)
+  * `eval $(thefuck --alias --enable-experimental-instant-mode)`
+* [fubectl](https://github.com/kubermatic/fubectl)
+  * `[ -f ${HOME}/bin/fubectl.source ] && source ${HOME}/bin/fubectl.source`
+* [BIND keys](https://github.com/warpdotdev/Warp/issues/537)
+  * `bindkey '^j' down-line-or-beginning-search`, which causes users to have to hit ENTER twice to run a command.
+  * `bindkey 'tab' autosuggest-accept`, which causes incorrect behavior with autocompletion.
 * FIG, `z`, `zsh-autocomplete`, `compdef`, `compinit`, [prezto utility module](https://github.com/sorin-ionescu/prezto/blob/master/modules/utility/README.md), or other [shell-based completion](https://github.com/warpdotdev/Warp/discussions/434) plugins or definitions.
-* [Termium](https://codeium.com/blog/termium-codeium-in-terminal-launch) `eval "$(termium shell-hook show post)"`
 * OH-MY-ZSH-THEMES
   * e.g. avit, spaceship, maybe more ...
 * OH-MY-ZSH-PLUGINS
@@ -77,14 +85,9 @@ There is an issue in fish shell version 3.6 and below that causes the `read` bui
 * zsh4h (ZSH for Humans)
 * znap
 * FZF
-* fubectl
-  * `[ -f ${HOME}/bin/fubectl.source ] && source ${HOME}/bin/fubectl.source`
-* [BIND keys](https://github.com/warpdotdev/Warp/issues/537) like:
-  * `bindkey '^j' down-line-or-beginning-search`, which causes users to have to hit ENTER twice to run a command.
-  * `bindkey 'tab' autosuggest-accept`, which causes incorrect behavior with autocompletion.
-* \[\[ -r "/usr/local/etc/profile.d/bash\_completion.sh" ]] && "/usr/local/etc/profile.d/bash\_completion.sh"
-* eval "$(rbenv init -)"
-* grml-zsh-config
+* `[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && "/usr/local/etc/profile.d/bash_completion.sh"`
+* `eval "$(rbenv init -)"`
+* `grml-zsh-config`
 * Python virtual environment PS1 [settings](https://github.com/warpdotdev/Warp/issues/2713#issuecomment-1447129449)
 * [Starship settings](../appearance/prompt.md#starship-settings)
 
