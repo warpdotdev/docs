@@ -41,6 +41,15 @@ The log file is located at `~/Library/Logs/warp.log`.
 {% endtab %}
 
 {% tab title="Linux" %}
-The log file is located at `${XDG_STATE_HOME:-$HOME/.local/state}/warp-terminal/warp.log`.
+The log file is located at `${XDG_STATE_HOME:-$HOME/.local/state}/warp-terminal/warp.log`
+
+{% hint style="info" %}
+If your issue is graphical (eg no display of windows, etc), please run Warp with the following command to capture more log information.
+
+```bash
+RUST_LOG=wgpu_core=info,wgpu_hal=info MESA_DEBUG=1 EGL_LOG_LEVEL=debug warp-terminal
+```
+{% endhint %}
 {% endtab %}
 {% endtabs %}
+
