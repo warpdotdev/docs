@@ -198,7 +198,7 @@ In some cases, [CLI applications only work on x86](https://discord.com/channels/
 
 We're tracking some issues for Linux where a [Warp window doesn't show/render](https://github.com/warpdotdev/Warp/issues/4215), Won't run in [Virtual Machines](https://github.com/warpdotdev/Warp/issues/4476), over [remote desktops](https://github.com/warpdotdev/Warp/issues/4435), or on [WSL](https://github.com/warpdotdev/Warp/issues/4240).
 
-If any of the workarounds help, please comment on [this GitHub issue](https://github.com/warpdotdev/Warp/issues/4513) with your Linux distro, installation (WSL, Baremetal or VM, x86 or ARM), the issue you had, the workaround that fixed it, and any other workarounds not listed. If the issue is graphical and none of the workarounds help, please open a new [GitHub issue](sending-us-feedback.md#sending-warp-feedback) and include [logs](sending-us-feedback.md#gathering-warp-logs) along with the output of `eglinfo`.
+If any of the workarounds help, please comment on [this GitHub issue](https://github.com/warpdotdev/Warp/issues/4513) with your Linux distro, installation (WSL, Baremetal or VM, x86 or ARM), the issue you had, the workaround that fixed it, and any other workarounds not listed. If none of the workarounds help, please open a new [GitHub issue](sending-us-feedback.md#sending-warp-feedback) and include [logs](sending-us-feedback.md#gathering-warp-logs) along with the output of `eglinfo`.
 
 {% hint style="info" %}
 * Many package install examples are for Ubuntu using `apt`, your distro may use different commands (`dnf`, `pacman`, `zypper`) or package names.
