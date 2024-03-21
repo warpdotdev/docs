@@ -12,6 +12,7 @@ When you SSH into a remote box, you get all the features of Warp without any con
 * The SSH Wrapper only supports `bash`or `zsh` shells in remote sessions.
 * If you're using a different shell, you'll want to use `command ssh` directly (see below for more details).
 * For zsh, xxd is required to bootstrap warp.
+* For Windows, [Cygwin](https://www.cygwin.com/) is required to bootstrap the SSH Wrapper.
 * [Tmux is not currently supported.](https://github.com/warpdotdev/Warp/discussions/501)
 {% endhint %}
 
