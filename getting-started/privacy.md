@@ -46,9 +46,14 @@ Warp provides a convenient way for deleting your data:
   * Click the "Delete" button on the Data Management page to go through the data deletion flow.
 * From the [Data Management](https://app.warp.dev/data\_management) page, log in to your Warp account, and click the "Delete" button to go through the data deletion flow.
 
+{% hint style="info" %}
+Deletion jobs run every 24 hours, so if you deleted your account and want to signup again with the same email, you won't be able to until that deletion completes.
+{% endhint %}
+
 {% hint style="warning" %}
 If you're a [Team](../features/teams.md) admin, the deletion flow will require that you assign a team member as the new admin.
 {% endhint %}
+
 
 ## What telemetry data does Warp collect and why?
 
