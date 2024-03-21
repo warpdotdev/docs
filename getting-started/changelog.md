@@ -2,6 +2,13 @@
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2024.03.21 (v0.2024.03.19.08.01)
+
+**Bug fixes**
+
+* Symlinks to a directory are now properly treated as a directory instead of as a file
+* [Linux] Warp's windows are no longer escalated into an urgent state (tiling window managers) after a Warp URL is opened
+
 ### 2024.03.14 (v0.2024.03.12.08.02)
 
 **Improvements**
