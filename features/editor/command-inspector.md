@@ -1,7 +1,7 @@
 ---
 description: >-
-  Command Inspector surfaces documentation for sub-parts of your command,
-  directly in Warp's Input Editor.
+  Command Inspector  (also known as Command X-Ray) surfaces documentation for
+  sub-parts of your command, directly in Warp's Input Editor.
 ---
 
 # Command Inspector
