@@ -51,6 +51,8 @@ In some cases, your browser may not open from Warp directly when you click "Sign
 
 {% hint style="warning" %}
 On Linux, the default copy-and-paste [Keyboard shortcuts](../features/keyboard-shortcuts.md) are `CTRL-SHIFT-C` and `CTRL-SHIFT-V` respectively.
+
+You may also need to change your default `$BROWSER` to `chrome` or `firefox` to workaround the login issue.
 {% endhint %}
 
 <figure><img src="../.gitbook/assets/auth-token-demo.gif" alt=""><figcaption><p>Auth token copy demo</p></figcaption></figure>
