@@ -212,6 +212,7 @@ If any of the workarounds help, please comment on [this GitHub issue](https://gi
   * Install Mesa utilities: `sudo apt install mesa-utils`
   * Install Mesa Vulkan drivers: `sudo apt install mesa-vulkan-drivers`
   * Fallback to [Mesa v23.x from Mesa v24](https://github.com/warpdotdev/Warp/issues/4214#issuecomment-1965477121)
+  * If unable to use the file picker, install the following: `sudo apt install xdg-desktop-portal xdg-desktop-portal-gtk zenity`
 * Graphics
   * Install or Update your GPU driver: e.g. [NVIDIA](https://github.com/warpdotdev/Warp/issues/4215#issuecomment-1969750786)
     * For Ubuntu: `sudo ubuntu-drivers install`
