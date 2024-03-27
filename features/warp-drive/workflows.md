@@ -32,7 +32,7 @@ Save Workflow Demo
 
 ### Working with arguments
 
-In the workflow editor, you can add arguments manually with "New argument" or by typing in double curly braces within the command field. If you select "New argument" while you have text selected, Warp will wrap that text in curly braces to create an argument.\
+In the workflow editor, you can add arguments manually with "New argument" or by typing in double curly braces (`{{argument}}`) within the command field. If you select "New argument" while you have text selected, Warp will wrap that text in curly braces to create an argument.\
 \
 There are some rules for creating valid arguments:
 
