@@ -15,6 +15,10 @@ To access size settings, go to `Settings > Appearance > Window`.
 
 * Enable "Open new windows with custom size", Then configure your preferred columns and rows.
 
+{% hint style="info" %}
+If [Session Restoration](../features/sessions/session-restoration.md) is enabled, Warp will restore the size of the last window closed when you quit the app. Either make sure the custom-sized window is the last one closed, or disable Session Restoration to ensure Warp launches with the custom-sized window.
+{% endhint %}
+
 ### Window Opacity
 
 To access it, go to `Settings > Appearance > Themes`
