@@ -2,6 +2,27 @@
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2024.03.28 (v0.2024.03.26.08.02)
+
+**New features**
+
+* Vim keybindings can now be used in the Warp AI panel
+* Workflows can now be exported out of Warp Drive
+
+**Improvements**
+
+* The width of Vim\u2019s block cursor now matches the width of the glyph it\u2019s over
+* Warp now defaults to opening the dedicated hotkey window as a floating window
+* Warp will now show the block header buttons when you hover over a block in an inactive pane
+
+**Bug fixes**
+
+* The Input Editor now properly wraps text for long lines of text without word breaks
+* Warp windows no longer dissapear when being resized to 0px
+* In zsh sessions, the KSH_ARRAYS option no longer breaks Warp
+* Custom window titles are no longer improperly cleared when a process resets Warp\u2019s state
+* Fixed an issue where users would need to focus the input editor before middle-clicking to paste
+
 ### 2024.03.21 (v0.2024.03.19.08.01)
 
 **Bug fixes**
