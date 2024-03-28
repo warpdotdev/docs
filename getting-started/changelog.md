@@ -11,7 +11,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 
 **Improvements**
 
-* The width of Vim\u2019s block cursor now matches the width of the glyph it\u2019s over
+* The width of Vim's block cursor now matches the width of the glyph it's over
 * Warp now defaults to opening the dedicated hotkey window as a floating window
 * Warp will now show the block header buttons when you hover over a block in an inactive pane
 
@@ -19,8 +19,8 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 
 * The Input Editor now properly wraps text for long lines of text without word breaks
 * Warp windows no longer dissapear when being resized to 0px
-* In zsh sessions, the KSH_ARRAYS option no longer breaks Warp
-* Custom window titles are no longer improperly cleared when a process resets Warp\u2019s state
+* In zsh sessions, the `KSH_ARRAYS` option no longer breaks Warp
+* Custom window titles are no longer improperly cleared when a process resets Warp's state
 * Fixed an issue where users would need to focus the input editor before middle-clicking to paste
 
 ### 2024.03.21 (v0.2024.03.19.08.01)
