@@ -18,7 +18,7 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 **Bug fixes**
 
 * The Input Editor now properly wraps text for long lines of text without word breaks
-* Warp windows no longer dissapear when being resized to 0px
+* Warp windows no longer disappear when being resized to 0px
 * In zsh sessions, the `KSH_ARRAYS` option no longer breaks Warp
 * Custom window titles are no longer improperly cleared when a process resets Warp's state
 * Fixed an issue where users would need to focus the input editor before middle-clicking to paste
