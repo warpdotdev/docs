@@ -7,7 +7,6 @@ Warp autoupdates whenever a new release comes out. We try to ship an update ever
 **New features**
 
 * Vim keybindings can now be used in the Warp AI panel
-* Workflows can now be exported out of Warp Drive
 
 **Improvements**
 
