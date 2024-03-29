@@ -68,7 +68,8 @@ There is an issue in fish shell version 3.6 and below that causes the `read` bui
 
 * [iterm shell integration](https://iterm2.com/documentation-shell-integration.html)
   * `test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true`
-* [Termium](https://codeium.com/blog/termium-codeium-in-terminal-launch)&#x20;
+* [Termium](https://codeium.com/blog/termium-codeium-in-terminal-launch)
+  * `eval "$(termium shell-hook show pre)"`
   * `eval "$(termium shell-hook show post)"`
 * [thefuck experimental instant mode](https://github.com/nvbn/thefuck?tab=readme-ov-file#experimental-instant-mode)
   * `eval $(thefuck --alias --enable-experimental-instant-mode)`
