@@ -6,7 +6,7 @@ description: Save interactive playbooks to simplify onboarding and development.
 
 ### What is a Notebook?
 
-Notebooks are runnable documentation consisting of markdown text and list elements, code blocks, and runnable shell snippets that can be automatically executed in your terminal session. Notebooks are searchable and accessible through the [Command Palette](https://docs.warp.dev/features/command-palette) so you can access and run your documentation without ever leaving the terminal.
+Notebooks are runnable documentation consisting of markdown text and list elements, code blocks, and runnable shell snippets that can be automatically executed in your terminal session. Notebooks are searchable and accessible through the [Command Palette](../command-palette.md) so you can access and run your documentation without ever leaving the terminal.
 
 ### How to save and edit notebooks
 
@@ -35,7 +35,7 @@ Any of these entry points will open the notebook editor where you can:
 Note: The notebook will not be saved until either title or body text is added.
 {% endhint %}
 
-<figure><img src="https://lh7-us.googleusercontent.com/gff35vEbh1ZQK1w-v8YhmAmoACEIeDdbxAF_IK46gCMDgrp-rdGpdXZ2Tw6vju9BaZWmYNbiN4TI9IRY4tdlqyczcpEAHrsoIBhIym8FOoRB3sxiRddM9FUxNQ74ObaAYHCZpJkcp4_wGUX3onbl-pg" alt=""><figcaption><p>Empty Notebook before saving</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/notebooks_editor.gif" alt=""><figcaption><p>Editing a Notebook</p></figcaption></figure>
 
 ### Import existing documentation
 
@@ -44,8 +44,6 @@ Existing markdown `.md` documentation can also be directly imported into Warp Dr
 * From Warp Drive, + > Import > then follow the file selection dialog.
 
 <figure><img src="https://lh7-us.googleusercontent.com/egr80PmzqDz6qRt6rSbL_o7Vtt0u846eF5QinJ3JFLnyQwkBMmYngbhYaip13ngWb89vmLWQ0br7Wa_lDEpykksDhCY9TRieQ9l3UmCdjlnrQZJ0pXvS7OKV0uFD10xbcypso5zddiOgym9rvCO50Ig" alt=""><figcaption><p>Notebook import modal</p></figcaption></figure>
-
-\\
 
 ### Working with Notebooks
 
@@ -110,7 +108,7 @@ The command text will be inserted into the developer’s active terminal session
 
 #### Adding arguments to Command Blocks
 
-Command blocks accept parameters in the [same format as workflows](https://docs.warp.dev/features/warp-drive/workflows#working-with-arguments). To add an argument to your command block, use \{{double\_curly\_brackets\}} to specify your argument term.
+Command blocks accept parameters in the same format as [Workflows](workflows.md). To add an argument to your command block, use \{{double\_curly\_brackets\}} to specify your argument term.
 
 <figure><img src="https://lh7-us.googleusercontent.com/f5Irl1-6HZoH6mMTz5bLbUjs-l5RI6JzlyPqJELR9Z8b8RXZ-G99NegApG8QAr8QhejAKWcTGmg6DAaEOCsVFH5Cg0Sh4m3FN3gfT1OtmTElS7Ovf4sbbAa5urq7QkGphuVt0XFL3Mxf07n_558zce0" alt=""><figcaption><p>Command block with parameters</p></figcaption></figure>
 
@@ -134,7 +132,7 @@ Once a command block is selected, press `CTRL-ENTER` to insert it into the termi
 {% endtab %}
 {% endtabs %}
 
-#### Adding existing workflows to Notebooks
+#### Adding existing Workflows to Notebooks
 
 If you have existing [Workflows](workflows.md) that you’d like to insert into your notebook rather than duplicating their content, you can select Embedded Workflow from the new element menu and select from the available workflows. Once embedded in a notebook, the workflow will be executable like a regular command block. To edit the content of the embedded workflow, you will need to edit the source workflow which can be found by searching for the title in the [Command Palette](../command-palette.md).
 
@@ -149,5 +147,3 @@ Note that only one editor is allowed at a given time. Opening the notebook while
 {% endhint %}
 
 <figure><img src="https://lh7-us.googleusercontent.com/tYp_RiFBa8qX01CHeDYWPrR_UqaDhkTEjQTOUGUvL8Y3pim8e9nZy8paHQuZXbSzJDIHrZHkyo6BBUnbyRKpnxNPXW9oEfmKn-qHfP_wGX23DlK6sKN9zsula_A987BBQ2qK8tmXw4ysCQAYGM6zfhg" alt=""><figcaption><p>View mode example</p></figcaption></figure>
-
-\\
