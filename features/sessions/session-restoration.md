@@ -14,6 +14,11 @@ Session restoration allows you to quickly pick up where you left off in your pre
 ## How to access it
 
 * Session Restoration comes enabled by default in Warp.
+
+{% hint style="info" %}
+On Linux, opening windows at a specific position is not supported in Wayland.
+{% endhint %}
+
 * You can disable Session Restoration by going to `Settings > Features`, then toggling off `Restore windows, tabs, and panes on startup`.&#x20;
 
 {% hint style="warning" %}
