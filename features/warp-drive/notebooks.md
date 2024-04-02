@@ -2,15 +2,11 @@
 description: Save interactive playbooks to simplify onboarding and development.
 ---
 
-# Notebooks (Private Beta)
-
-{% hint style="info" %}
-Notebooks are in a private beta. If you'd like early access, please email [feedback+notebooks@warp.dev](mailto:feedback+notebooks@warp.dev) about your use case.
-{% endhint %}
+# Notebooks
 
 ### What is a Notebook?
 
-Notebooks are runnable documentation consisting of markdown text and list elements, code blocks, and runnable shell snippets that can be automatically executed in your terminal session. Notebooks are searchable and accessible through the [Command Palette](https://docs.warp.dev/features/command-palette) so you can access and run your documentation without ever leaving the terminal.&#x20;
+Notebooks are runnable documentation consisting of markdown text and list elements, code blocks, and runnable shell snippets that can be automatically executed in your terminal session. Notebooks are searchable and accessible through the [Command Palette](https://docs.warp.dev/features/command-palette) so you can access and run your documentation without ever leaving the terminal.
 
 ### How to save and edit notebooks
 
@@ -36,7 +32,7 @@ Any of these entry points will open the notebook editor where you can:
 * Start adding text and code elements.
 
 {% hint style="info" %}
-Note: The notebook will not be saved until either title or body text is added.&#x20;
+Note: The notebook will not be saved until either title or body text is added.
 {% endhint %}
 
 <figure><img src="https://lh7-us.googleusercontent.com/gff35vEbh1ZQK1w-v8YhmAmoACEIeDdbxAF_IK46gCMDgrp-rdGpdXZ2Tw6vju9BaZWmYNbiN4TI9IRY4tdlqyczcpEAHrsoIBhIym8FOoRB3sxiRddM9FUxNQ74ObaAYHCZpJkcp4_wGUX3onbl-pg" alt=""><figcaption><p>Empty Notebook before saving</p></figcaption></figure>
@@ -45,12 +41,11 @@ Note: The notebook will not be saved until either title or body text is added.&#
 
 Existing markdown `.md` documentation can also be directly imported into Warp Drive. To import your markdown file(s):
 
-* From Warp Drive, + > Import > then follow the file selection dialog.&#x20;
+* From Warp Drive, + > Import > then follow the file selection dialog.
 
 <figure><img src="https://lh7-us.googleusercontent.com/egr80PmzqDz6qRt6rSbL_o7Vtt0u846eF5QinJ3JFLnyQwkBMmYngbhYaip13ngWb89vmLWQ0br7Wa_lDEpykksDhCY9TRieQ9l3UmCdjlnrQZJ0pXvS7OKV0uFD10xbcypso5zddiOgym9rvCO50Ig" alt=""><figcaption><p>Notebook import modal</p></figcaption></figure>
 
-\
-
+\\
 
 ### Working with Notebooks
 
@@ -89,9 +84,9 @@ Once you’ve inserted your code block you can select the language at the bottom
 
 <figure><img src="https://lh7-us.googleusercontent.com/P5SQh2ATRrn5d-VqXIAjsJgRZ22ge79kczbuL1mvhKHWsbAu1fy2RpRFxqUAh4WUrcbNa5BAH1xPUhTLxePDI7jRpHbAv8RMUbbII61eQOGtBrnl2Ih9LzYxJd0RslzvLMsdW_kLnx2qsLKu_yXCPVk" alt=""><figcaption><p>Example code block</p></figcaption></figure>
 
-#### Special Properties of Command Blocks&#x20;
+#### Special Properties of Command Blocks
 
-If you insert a Command block or specify the language as “Shell”, Warp provides extra functionality to simplify terminal work.&#x20;
+If you insert a Command block or specify the language as “Shell”, Warp provides extra functionality to simplify terminal work.
 
 #### Executing Command Blocks
 
@@ -150,9 +145,9 @@ If you have existing [Workflows](workflows.md) that you’d like to insert into 
 If the notebook is shared with a team, all team members will have access to edit the notebook and updates will sync immediately for all members of the team.
 
 {% hint style="info" %}
-&#x20;Note that only one editor is allowed at a given time. Opening the notebook while there is an active editor will open the notebook in Viewing mode. Your mode (view vs edit) can be toggled above the notebook’s title.
+Note that only one editor is allowed at a given time. Opening the notebook while there is an active editor will open the notebook in Viewing mode. Your mode (view vs edit) can be toggled above the notebook’s title.
 {% endhint %}
 
 <figure><img src="https://lh7-us.googleusercontent.com/tYp_RiFBa8qX01CHeDYWPrR_UqaDhkTEjQTOUGUvL8Y3pim8e9nZy8paHQuZXbSzJDIHrZHkyo6BBUnbyRKpnxNPXW9oEfmKn-qHfP_wGX23DlK6sKN9zsula_A987BBQ2qK8tmXw4ysCQAYGM6zfhg" alt=""><figcaption><p>View mode example</p></figcaption></figure>
 
-\
+\\
