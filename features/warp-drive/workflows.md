@@ -86,6 +86,7 @@ Running Workflow Demo
 
 Warp will indefinitely support the [YAML Workflows](../entry/yaml-workflows.md), which includes personal and community workflows sourced from an open-source repository.
 
-If needed, you can continue to access your .yaml file workflows using [Command Search](../entry/command-search.md) or the [Command Palette](../command-palette.md). However, these file-based workflows will not be available to access, organize, or share in Warp Drive.
+If needed, you can continue to access your `.yaml` file workflows using [Command Search](../entry/command-search.md) or the [Command Palette](../command-palette.md). However, these file-based workflows will not be available to access, organize, or share in Warp Drive.
 
-Although we encourage you to create workflows with the new workflow editor in Warp Drive, we hope you’ll find it a much easier experience, there are plans for Warp Drive workflows to be imported/exported to prevent vendor lock-in.
+You can also export Warp Drive workflows as `.yaml` files, by right-clicking on a workflow in Warp Drive and choosing "Export".
+

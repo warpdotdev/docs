@@ -79,6 +79,16 @@ To switch between panels (e.g. jump from command line to Warp Drive to Warp AI) 
 
 <figure><img src="../../.gitbook/assets/warp_drive_nav2.png" alt=""><figcaption></figcaption></figure>
 
+## Import and Export
+
+Every object in Warp Drive can be exported to a local file. To export, right-click on an object in Warp Drive and choose "Export" from the menu. This will prompt you for a directory to export into.
+
+To import a local file or directory, right-click on a folder or workspace and choose "Import." If importing a directory, supported files in the directory and its sub-directories will be imported into a matching folder structure.
+
+When importing or exporting, objects are converted as follows:
+* [Workflows](./workflows.md) import from and export to [YAML workflows](../entry/yaml-workflows.md)
+* [Notebooks](./notebooks.md) import from and export to Markdown files
+
 ## Troubleshooting Warp Drive
 
 * If you were previously using Warp on your own and were later invited to join a team, you may need to exit, update, and restart the Warp app to gain access to your team’s shared drive and commands
