@@ -2,6 +2,24 @@
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2024.04.04 (v0.2024.04.02.08.02)
+
+**New features**
+
+- Notebooks in Warp Drive! Create and share interactive runbooks with your team [Learn more on our blog](https://www.warp.dev/blog/notebooks-in-warp-drive)
+
+**Improvements**
+
+- You can now export workflows and notebooks from Warp Drive
+- Middle-clicking to paste now automatically focuses the Input Editor
+- Warp no longer automatically expands aliases that are escaped using a backslash
+- Adds support for Android Studio, DataGrip, DataSpell, Goland, Pycharm, Rider, Rubymine, and Sublime Text as external editors on Linux
+
+**Bug fixes**
+
+- [Linux] Warp now case-sensitively parses top-level commands on Linux
+- [Linux] Fixed an issue where middle-click paste could paste across multiple panes
+
 ### 2024.03.28 (v0.2024.03.26.08.02)
 
 **New features**
