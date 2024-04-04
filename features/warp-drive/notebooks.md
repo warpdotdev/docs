@@ -6,7 +6,7 @@ description: Save interactive playbooks to simplify onboarding and development.
 
 ### What is a Notebook?
 
-Notebooks are runnable documentation consisting of markdown text and list elements, code blocks, and runnable shell snippets that can be automatically executed in your terminal session. Notebooks are searchable and accessible through the [Command Palette](../command-palette.md) so you can access and run your documentation without ever leaving the terminal.
+Notebooks are runnable documentation consisting of markdown text and list elements, code blocks, and runnable shell snippets that can be automatically executed in your terminal session. Notebooks are searchable and accessible through the [Command Palette](../command-palette.md) so you can access and run your documentation without ever leaving the terminal. You can also export Notebooks in .md format at any time.
 
 ### How to save and edit notebooks
 
@@ -44,6 +44,10 @@ Existing markdown `.md` documentation can also be directly imported into Warp Dr
 * From Warp Drive, + > Import > then follow the file selection dialog.
 
 <figure><img src="https://lh7-us.googleusercontent.com/egr80PmzqDz6qRt6rSbL_o7Vtt0u846eF5QinJ3JFLnyQwkBMmYngbhYaip13ngWb89vmLWQ0br7Wa_lDEpykksDhCY9TRieQ9l3UmCdjlnrQZJ0pXvS7OKV0uFD10xbcypso5zddiOgym9rvCO50Ig" alt=""><figcaption><p>Notebook import modal</p></figcaption></figure>
+
+### Export Notebooks from Warp Drive
+
+From Warp Drive, select the overflow menu for the Notebook you'd like to export and then Export. You will then be prompted to open the file in .md format.
 
 ### Working with Notebooks
 
