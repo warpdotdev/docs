@@ -5,7 +5,7 @@ description: A step-by-step guide for setting up Warp on your machine.
 # Installing & Onboarding
 
 {% hint style="info" %}
-**Platform support:** Warp is currently supported on Mac (both Intel and Mac Silicon) and Linux (x86\_64). We have plans to support Windows and the Web (WASM)! \
+**Platform support:** Warp is currently supported on Mac (both Intel and Mac Silicon) and Linux (x86\_64). We have plans to support Windows and the Web (WASM)!\
 Subscribe to get notified when Warp is available for [Windows](https://warp.dev/windows-terminal).
 {% endhint %}
 
@@ -25,13 +25,13 @@ There are two ways to get Warp onto your machine:
 Link to Download Warp
 {% endembed %}
 
-#### Install using Homebrew by running the command below
+**Install using Homebrew by running the command below**
 
 ```
 brew install --cask warp
 ```
 
-#### Running Warp on Mac
+**Running Warp on Mac**
 
 Find the Warp in your Applications folder and run it from there (or search for Warp in Spotlight/Raycast).
 {% endtab %}
@@ -50,7 +50,7 @@ This includes (but is not limited to) the following:
 
 Visit the [Warp download page](https://app.warp.dev/get\_warp?auto\_download=false\&linux=true) for the full list of available installation options. All installation options support auto-update, ensuring you receive new features, bug fixes, and performance improvements.
 
-#### Debian- and Ubuntu-based distributions
+**Debian- and Ubuntu-based distributions**
 
 The easiest way to install Warp is to download and install the [.deb package](https://app.warp.dev/download?package=deb). After downloading, you can install the package with:
 
@@ -60,7 +60,7 @@ sudo apt install ./<file>.deb
 
 Installing the .deb package will automatically set up the Warp apt repository and signing key needed to automatically update Warp and verify the integrity of the downloaded packages.
 
-#### RHEL-, Fedora-, and CentOS-based distributions
+**RHEL-, Fedora-, and CentOS-based distributions**
 
 The easiest way to install Warp is to download and install the [.rpm package](https://app.warp.dev/download?package=rpm). After downloading, you can install the package with:
 
@@ -70,7 +70,7 @@ sudo dnf install ./<file>.rpm
 
 Installing the .rpm package will automatically set up the Warp yum repository. On first update, `dnf` will retrieve the signing key needed to verify the integrity of the downloaded packages.
 
-#### Arch Linux-based distributions
+**Arch Linux-based distributions**
 
 The easiest way to install Warp is to download and install the [.pkg.tar.zst package](https://app.warp.dev/download?package=pacman). After downloading, you can install the package with:
 
@@ -86,7 +86,7 @@ sudo pacman-key -r "linux-maintainers@warp.dev"
 sudo pacman-key --lsign-key "linux-maintainers@warp.dev"
 ```
 
-#### OpenSUSE- and SLE-based distributions
+**OpenSUSE- and SLE-based distributions**
 
 The Warp yum repository also works for OpenSUSE- and SLE-based systems. Download and install the [.rpm package](https://app.warp.dev/download?package=rpm). After downloading, you can install the package with:
 
@@ -96,7 +96,7 @@ sudo zypper install ./<file>.rpm
 
 Installing the .rpm package will automatically set up the Warp yum repository. On first update, `zypper` will retrieve the signing key needed to verify the integrity of the downloaded packages.
 
-#### AppImage
+**AppImage**
 
 We also provide an AppImage ([https://appimage.org](https://appimage.org)), a single-file executable version of Warp. Installing Warp via a package manager is recommended, however, as it will ensure your system has all necessary dependencies installed.
 
@@ -107,7 +107,7 @@ curl -L "https://app.warp.dev/download?package=appimage" -o Warp-x86_64.AppImage
 chmod +x Warp-x86_64.AppImage
 ```
 
-#### Running Warp on Linux
+**Running Warp on Linux**
 
 If you installed a package, find Warp in your desktop manager or run `warp-terminal` on your terminal.\
 If you're using the AppImage, you can launch it by navigating to the directory where the AppImage is located and running `./Warp-x86_64.AppImage`.
@@ -132,7 +132,7 @@ Unlike classic terminals, Warp requires you to [sign up](https://app.warp.dev/si
 Issues with login? Check out the [login troubleshooting page](../help/troubleshooting-login-issues.md).
 {% endhint %}
 
-After installing Warp for the first time, you will be prompted to log in with GitHub, Google, or with an email link.
+After installing Warp for the first time, you will be prompted to log in with GitHub, Google, SSO for Enterprise, or with an email link.
 
 {% hint style="info" %}
 If you log in with Google or GitHub, Warp only gets access to the associated email address. If you want to learn more, [read our approach to privacy](https://www.warp.dev/privacy).

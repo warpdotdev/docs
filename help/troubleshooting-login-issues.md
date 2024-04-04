@@ -45,22 +45,26 @@ When behind a proxy, a possible workaround is to disable QUIC in the browser. It
   4. Restart Firefox for the changes to take effect.
 * In Safari, Unfortunately, there is no built-in option to disable QUIC in Safari. Safari uses QUIC as its default transport protocol and does not provide a user-accessible setting to disable it.
 
+## Can't open Warp from the SSO page
+
+Directly launching Warp from Okta or other SSO providers' pages isn’t supported. Instead, do the following:
+
+1. Go to [app.warp.dev/login](http://app.warp.dev/login)
+2. Choose “Continue with SSO”
+3. Login with your normal SSO credentials
+
 ## How to get an Auth token to login
 
-In some cases, your browser may not open from Warp directly when you click "Sign up" or "Sign in". Please go to the [Signup ](https://app.warp.dev/signup)page to create an account or [Login](https://app.warp.dev/login) page if you already have one, then copy the auth token from the "here" link on the logged\_in page and paste it into Warp.
+If the browser does not open from Warp directly when you click "Sign up" or "Sign in". Please go to the [Signup ](https://app.warp.dev/signup)page to create an account or [Login](https://app.warp.dev/login) page if you already have one, then copy the auth token from the "here" link on the logged\_in page and paste it into Warp.
 
 {% hint style="warning" %}
-On Linux, the default copy-and-paste [Keyboard shortcuts](../features/keyboard-shortcuts.md) are `CTRL-SHIFT-C` and `CTRL-SHIFT-V` respectively.
-
-You may also need to change your default `$BROWSER` to `chrome` or `firefox` to workaround the login issue.
+On Linux, the default copy-and-paste [Keyboard shortcuts](../features/keyboard-shortcuts.md) are `CTRL-SHIFT-C` and `CTRL-SHIFT-V` respectively. You may also need to change your default `$BROWSER` to `chrome` or `firefox` to workaround the log in issue.
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/auth-token-demo.gif" alt=""><figcaption><p>Auth token copy demo</p></figcaption></figure>
-
-## Nothing happens when I click "Take me to Warp"
-
-If this happens to you, copy the "here" link on the web logged-in page (https://app.warp.dev/logged\_in) to copy the authentication token, then paste it into the app as shown below.
-
-![Copy and Pasting an Authentication Token](../.gitbook/assets/auth-token-flow.png)
+If nothing happens when you click "Take me to Warp" on the logged-in page. If this happens to you, copy the "here" link on the web logged-in page (https://app.warp.dev/logged\_in) to copy the authentication token, then paste it into the app as shown below.
 
 If "Take me to Warp" is still not working it may be due to a [proxy issue](troubleshooting-login-issues.md#proxies), please see this article for more information on a workaround [here](https://embiid.blog/post/WARP-does-not-work-after-submitting-an-invite-code/) and please fill out [this Typeform](https://zachlloyd.typeform.com/to/UnZu0akR#\&question=take\_me\_to\_warp?utm\_source=docs) and our team will reach out to you.
+
+<figure><img src="../.gitbook/assets/auth-token-demo.gif" alt=""><figcaption><p>Authentication Token Linux</p></figcaption></figure>
+
+![Authentication Token Mac](../.gitbook/assets/auth-token-flow.png)
