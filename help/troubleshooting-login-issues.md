@@ -4,7 +4,7 @@ description: Instructions on how to troubleshoot login issues.
 
 # Troubleshooting Login Issues
 
-## Nothing happens when I click "Sign Up"
+## Can't "Sign Up" for Warp
 
 Clicking it should open a login pop-up. If clicking the signup button opens a blank pop-up window, try using a proxy. Your ISP or Firewall may be blocking the app's call to `*.googleapis.com` or `*.segment.io`. In some older Ruby development environments, `.dev` domains do not resolve properly and you may need to delete the `/etc/resolver/dev`, see more [here](https://superuser.com/questions/1374892/dev-domains-dont-resolve).
 
@@ -45,9 +45,9 @@ When behind a proxy, a possible workaround is to disable QUIC in the browser. It
   4. Restart Firefox for the changes to take effect.
 * In Safari, Unfortunately, there is no built-in option to disable QUIC in Safari. Safari uses QUIC as its default transport protocol and does not provide a user-accessible setting to disable it.
 
-## Can't open Warp from the SSO page
+## Can't open Warp from SSO
 
-Directly launching Warp from Okta or other SSO providers' pages isn’t supported. Instead, do the following:
+Directly launching Warp from Okta or other SSO providers' pages isn’t supported. This is due to a limitation with Warp authentication APIs. Instead, do the following:
 
 1. Go to [app.warp.dev/login](http://app.warp.dev/login)
 2. Choose “Continue with SSO”
