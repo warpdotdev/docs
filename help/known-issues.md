@@ -208,11 +208,10 @@ If any of the workarounds help, please comment on [this GitHub issue](https://gi
 
 * System
   * Installing or Updating [Xorg](https://www.x.org/wiki/) / [Wayland](https://wayland.freedesktop.org/): `sudo apt install xserver-xorg` / `sudo apt install wayland`
-  * Installing [Hack font](https://sourcefoundry.org/hack/): `sudo apt install fonts-hack`
+  * Installing [Hack font](https://sourcefoundry.org/hack/) on WSL and VMs: `sudo apt install fonts-hack`
   * Install [WSL utilities](https://wslutiliti.es/wslu/install.html)
   * Install Mesa utilities: `sudo apt install mesa-utils`
   * Install Mesa Vulkan drivers: `sudo apt install mesa-vulkan-drivers`
-  * Fallback to [Mesa v23.x from Mesa v24](https://github.com/warpdotdev/Warp/issues/4214#issuecomment-1965477121)
   * If unable to use the file picker, install the following: `sudo apt install xdg-desktop-portal xdg-desktop-portal-gtk zenity`
 * Graphics
   * Install or Update your GPU driver: e.g. [NVIDIA](https://github.com/warpdotdev/Warp/issues/4215#issuecomment-1969750786) 535.x or below drivers
@@ -224,5 +223,5 @@ If any of the workarounds help, please comment on [this GitHub issue](https://gi
 * Environmental Variables
   * Prefix `warp-terminal` with the variables (multiple can be used), and once you confirm they work, `export` them in your `.profile`/`.zprofile` to [load on startup](https://github.com/warpdotdev/Warp/issues/4240#issuecomment-1968228029):
     * [Default to Wayland](https://github.com/warpdotdev/Warp/issues/4240#issuecomment-1961993281): `WARP_ENABLE_WAYLAND=1`
-    * Set [Default GPU](https://docs.mesa3d.org/drivers/d3d12.html#utilities): e.g. `MESA_D3D12_DEFAULT_ADAPTER_NAME=NVIDIA`
+    * Set [Default GPU](https://docs.mesa3d.org/drivers/d3d12.html#utilities) for WSL: e.g. `MESA_D3D12_DEFAULT_ADAPTER_NAME=NVIDIA`
     * Set [Graphics APIs](https://github.com/gfx-rs/wgpu?tab=readme-ov-file#environment-variables): e.g. `WGPU_BACKEND=gl`
