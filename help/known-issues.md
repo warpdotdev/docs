@@ -215,7 +215,7 @@ If any of the workarounds help, please comment on [this GitHub issue](https://gi
   * Fallback to [Mesa v23.x from Mesa v24](https://github.com/warpdotdev/Warp/issues/4214#issuecomment-1965477121)
   * If unable to use the file picker, install the following: `sudo apt install xdg-desktop-portal xdg-desktop-portal-gtk zenity`
 * Graphics
-  * Install or Update your GPU driver: e.g. [NVIDIA](https://github.com/warpdotdev/Warp/issues/4215#issuecomment-1969750786)
+  * Install or Update your GPU driver: e.g. [NVIDIA](https://github.com/warpdotdev/Warp/issues/4215#issuecomment-1969750786) 535.x or below drivers
     * For Ubuntu: `sudo ubuntu-drivers install`
     * For Fedora: `sudo dnf install akmod-nvidia`
     * For Arch Linux: `sudo pacman -S nvidia`
