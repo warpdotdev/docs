@@ -6,10 +6,14 @@ description: A step-by-step guide for setting up Warp on your machine.
 
 {% hint style="info" %}
 **Platform support:** Warp is currently supported on Mac (both Intel and Mac Silicon) and Linux (x86\_64). We have plans to support Windows and the Web (WASM)!\
-Subscribe to get notified when Warp is available for [Windows](https://warp.dev/windows-terminal).
+Subscribe to get notified when Warp is available for [Windows](https://warp.dev/windows-terminal). Please see our [Known Issues](../help/known-issues.md) for any issues running Warp or [contact us](../help/sending-us-feedback.md#sending-warp-feedback).
 {% endhint %}
 
 ## Installing and Running Warp
+
+{% hint style="warning" %}
+**Visit** [**known issues**](../help/known-issues.md) **to get more details on setting up and troubleshooting Warp.**
+{% endhint %}
 
 {% tabs %}
 {% tab title="macOS" %}
@@ -116,11 +120,7 @@ If you're using the AppImage, you can launch it by navigating to the directory w
 
 ## Shell Compatibility
 
-Locally, the terminal integrates with bash, zsh, or fish. Reference [Using Warp with \[bash|zsh|fish\]](https://docs.warp.dev/getting-started/using-warp-with-shells) for more details.
-
-{% hint style="warning" %}
-**Visit** [**known issues**](../help/known-issues.md) **to get more details on setting up and troubleshooting Warp.**
-{% endhint %}
+Locally, the terminal integrates with bash, zsh, or fish. Reference [using Warp with \[bash|zsh|fish\] ](using-warp-with-shells.md)for more details.
 
 ## Onboarding
 

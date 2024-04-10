@@ -13,6 +13,10 @@ Warp tries to load your login shell by default. Currently, Warp supports bash, f
 
 Zsh is the default login and interactive shell on macOS (starting with macOS Catalina in 2019), replacing the bash shell. For most Linux distributions, the default shell is bash.
 
+{% hint style="info" %}
+If you run into issues configuring your RC files (`~/.bashrc`, `~/.zshrc`, `config.fish`) with Warp, please see [Configuring and debugging your RC files](https://docs.warp.dev/help/known-issues#configuring-and-debugging-your-rc-files).
+{% endhint %}
+
 ### **Changing what shell Warp uses**
 
 There are two ways to change the shell that Warp uses for new tabs, windows, and panes:
@@ -63,10 +67,6 @@ When you make a change to the `zshrc` file, it needs to be sourced again for the
 ### Using bash shell with Warp
 
 Macs come with bash pre-installed, typically located at the `/bin/bash` directory. You can customize bash by editing its configuration files (`.bashrc` file for non-login interactive shell and `.bash_profile` for login shells).
-
-{% hint style="info" %}
-If you run into issues configuring these files with Warp, please see [Configuring and debugging your RC files](https://docs.warp.dev/help/known-issues#configuring-and-debugging-your-rc-files).
-{% endhint %}
 
 #### Customize Your bash Shell Environment
 

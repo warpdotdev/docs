@@ -49,9 +49,10 @@ When behind a proxy, a possible workaround is to disable QUIC in the browser. It
 
 Directly launching Warp from Okta or other SSO providers' pages isn’t supported. This is due to a limitation with Warp authentication APIs. Instead, do the following:
 
-1. Go to [app.warp.dev/login](http://app.warp.dev/login)
-2. Choose “Continue with SSO”
-3. Login with your normal SSO credentials
+1. [Install and run Warp](../getting-started/getting-started-with-warp.md#installing-and-running-warp)
+2. Go to [app.warp.dev/login](http://app.warp.dev/login)
+3. Choose “Continue with SSO”
+4. Login with your normal SSO credentials
 
 ## How to get an Auth token to login
 
