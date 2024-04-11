@@ -2,6 +2,17 @@
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2024.04.11 (v0.2024.04.09.08.01)
+
+**Improvements**
+
+* Improved Warp's prompt performance for large repositories
+* When switching panes directionally, Warp now automatically selects the most recently focused pane in that given direction
+
+**Bug fixes**
+
+* Fixed a pane management bug where dragging a pane to a new location wouldn't initiate the option to drop it there
+
 ### 2024.04.04 (v0.2024.04.02.08.02)
 
 **New features**
