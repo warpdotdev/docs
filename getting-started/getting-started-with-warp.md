@@ -64,6 +64,17 @@ sudo apt install ./<file>.deb
 
 Installing the .deb package will automatically set up the Warp apt repository and signing key needed to automatically update Warp and verify the integrity of the downloaded packages.
 
+Alternatively, you can manually configure the Warp apt repository and install Warp by running the following commands:
+
+```
+sudo apt-get install wget gpg
+wget -qO- https://releases.warp.dev/linux/keys/warp.asc | gpg --dearmor > warpdotdev.gpg
+sudo install -D -o root -g root -m 644 warpdotdev.gpg /etc/apt/keyrings/warpdotdev.gpg
+sudo sh -c 'echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/warpdotdev.gpg] https://releases.warp.dev/linux/deb stable main" > /etc/apt/sources.list.d/warpdotdev.list'
+rm warpdotdev.gpg
+sudo apt update && sudo apt install warp-terminal
+```
+
 **RHEL-, Fedora-, and CentOS-based distributions**
 
 The easiest way to install Warp is to download and install the [.rpm package](https://app.warp.dev/download?package=rpm). After downloading, you can install the package with:
@@ -74,6 +85,14 @@ sudo dnf install ./<file>.rpm
 
 Installing the .rpm package will automatically set up the Warp yum repository. On first update, `dnf` will retrieve the signing key needed to verify the integrity of the downloaded packages.
 
+Alternatively, you can manually configure the Warp yum repository and install Warp by running the following commands:
+
+```
+sudo rpm --import https://releases.warp.dev/linux/keys/warp.asc
+sudo sh -c 'echo -e "[warpdotdev]\nname=warpdotdev\nbaseurl=https://releases.warp.dev/linux/rpm/stable\nenabled=1\ngpgcheck=1\ngpgkey=https://releases.warp.dev/linux/keys/warp.asc" > /etc/yum.repos.d/warpdotdev.repo'
+sudo dnf install warp-terminal
+```
+
 **Arch Linux-based distributions**
 
 The easiest way to install Warp is to download and install the [.pkg.tar.zst package](https://app.warp.dev/download?package=pacman). After downloading, you can install the package with:
@@ -82,12 +101,15 @@ The easiest way to install Warp is to download and install the [.pkg.tar.zst pac
 sudo pacman -U ./<file>.pkg.tar.zst
 ```
 
-The first time you update Warp through the app, it will guide you through setting up the Warp pacman repository and signing key. Alternatively, you can do so manually by running the following commands:
+The first time you update Warp through the app, it will guide you through setting up the Warp pacman repository and signing key.
+
+Alternatively, you can manually configure the Warp pacman repository and install Warp by running the following commands:
 
 ```
 sudo sh -c "echo -e '\n[warpdotdev]\nServer = https://releases.warp.dev/linux/pacman/\$repo/\$arch' >> /etc/pacman.conf"
 sudo pacman-key -r "linux-maintainers@warp.dev"
 sudo pacman-key --lsign-key "linux-maintainers@warp.dev"
+sudo pacman -Sy warp-terminal
 ```
 
 **OpenSUSE- and SLE-based distributions**
@@ -99,6 +121,14 @@ sudo zypper install ./<file>.rpm
 ```
 
 Installing the .rpm package will automatically set up the Warp yum repository. On first update, `zypper` will retrieve the signing key needed to verify the integrity of the downloaded packages.
+
+Alternatively, you can manually configure the Warp yum repository and install Warp by running the following commands:
+
+```
+sudo rpm --import https://releases.warp.dev/linux/keys/warp.asc
+sudo sh -c 'echo -e "[warpdotdev]\nname=warpdotdev\ntype=rpm-md\nbaseurl=https://releases.warp.dev/linux/rpm/stable\nenabled=1\nautorefresh=1\ngpgcheck=1\ngpgkey=https://releases.warp.dev/linux/keys/warp.asc\nkeeppackages=0" > /etc/zypp/repos.d/warpdotdev.repo'
+sudo zypper install warp-terminal
+```
 
 **AppImage**
 
