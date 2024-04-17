@@ -2,6 +2,20 @@
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2024.04.18 (v0.2024.04.16.08.02)
+
+**Improvements**
+
+* You can now navigate and expand folders in Warp Drive with left/right arrow keys
+
+**Bug fixes**
+
+* Middle-click now works even when the mouse is within the prompt area
+* Already open notebooks no longer open in a new tab
+* Fixed an issue where autocd completions were incorrect for file paths starting with `~`
+* Opening a Workflow through a link now focuses it even while in trash view
+* Fixed a bug handling carriage returns in notebooks, the markdown viewer, and Warp AI
+
 ### 2024.04.11 (v0.2024.04.09.08.01)
 
 **Improvements**
