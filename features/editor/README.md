@@ -20,10 +20,6 @@ Warp supports copy on select for selectable text within [Blocks](../blocks/).&#x
 
 * Enable this feature `Settings > Features > General` or search for "Copy on select" in the [Command Palette](../command-palette.md).
 
-{% hint style="warning" %}
-Copy on Select has a known issue working within [alt-screens](https://github.com/warpdotdev/Warp/issues/2758) like vim, nvim, less, k9s, etc.
-{% endhint %}
-
 ### Input Hints
 
 Warp input occasionally shows hints within the input editor in a light grey text that helps users learn about features. It's enabled by default.
