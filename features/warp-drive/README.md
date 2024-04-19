@@ -60,9 +60,11 @@ You can take these keyboard actions within Warp Drive:
 {% tabs %}
 {% tab title="macOS" %}
 * Press `UP` or `DOWN` to navigate to the object you want.
-* Press `Enter` to 1) execute an object or 2) open/collapse a space or folder.
+* Press `Enter` to 1) execute an object or 2) open/collapse a workspace or folder.
 * Press `CMD-ENTER` to open an object’s context menu.
 * Press `CMD-SHIFT-(` and `CMD-SHIFT-)` to switch focus on Warp Drive and [Warp AI](../warp-ai/).
+* Press `LEFT-ARROW` to collapse a workspace or folder
+* Press `RIGHT-ARROW` to open a workspace or folder
 {% endtab %}
 
 {% tab title="Linux" %}
