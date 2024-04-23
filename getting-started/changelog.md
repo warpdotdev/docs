@@ -2,6 +2,22 @@
 
 Warp autoupdates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature request on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2024.04.25 (v0.2024.04.23.08.01)
+
+**New features**
+
+* The free preview for Warp AI and Warp Drive for teams has ended. [Learn about Warp's new self-service plan](https://www.warp.dev/blog/team-plan)
+
+**Improvements**
+
+* Shared links to notebooks and workflows are now opened directly in Warp and no longer need to go through a browser
+
+**Bug fixes**
+
+* Warp now supports completions for directories that contain spaces when in a remote session
+* [Linux] Launch configurations are now saved in the correct file path location
+* Warp's notebook editor now only shows hint text when it's in edit mode
+
 ### 2024.04.18 (v0.2024.04.16.08.02)
 
 **Improvements**
