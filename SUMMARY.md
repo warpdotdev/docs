@@ -75,6 +75,7 @@
 * [URI Scheme](features/uri-scheme.md)
 * [Network Log](features/network-log.md)
 * [Secret Redaction](features/secret-redaction.md)
+* [Session Sharing](features/session-sharing.md)
 
 ## 📊 How Does Warp Compare?
 
