@@ -84,6 +84,7 @@
 
 ## ❓ Help
 
+* [Plans, Subscriptions & Pricing](help/plans-subscriptions-and-pricing.md)
 * [Updating Warp](help/updating-warp.md)
 * [Using Warp Offline](help/using-warp-offline.md)
 * [Sending Feedback & Logs](help/sending-us-feedback.md)
