@@ -6,9 +6,7 @@ description: Create or join a team to collaborate with others in Warp.
 
 ## What is a team?
 
-A team is a group of Warp users who can collaborate on the command line together. Warp teams can share a dedicated workspace in Warp Drive.
-
-&#x20;[Learn about pricing](https://www.warp.dev/pricing).
+A team is a group of Warp users who can collaborate on the command line together. Warp teams can share a dedicated workspace in Warp Drive. [Learn about pricing](https://www.warp.dev/pricing) and see our [Pricing FAQ](../help/plans-subscriptions-and-pricing.md).
 
 {% hint style="info" %}
 Currently, each Warp user can only be an admin or member of one team at a time.

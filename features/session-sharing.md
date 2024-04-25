@@ -2,10 +2,10 @@
 description: Collaborate with your teammates in a Warp terminal session, in real-time
 ---
 
-# Session Sharing
+# Session Sharing (Beta)
 
 {% hint style="info" %}
-This feature is currently in a limited Beta and available upon request for subscribers to Warp’s Team plan.&#x20;
+This feature is currently in a limited Beta and available upon request for subscribers to Warp’s Team plan. If interested, please email [feedback+sharing@warp.dev](mailto:feedback+sharing@warp.dev).
 {% endhint %}
 
 {% hint style="warning" %}

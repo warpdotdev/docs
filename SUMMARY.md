@@ -29,6 +29,7 @@
   * [Notebooks](features/warp-drive/notebooks.md)
   * [Workflows](features/warp-drive/workflows.md)
 * [Teams](features/teams.md)
+* [Session Sharing (Beta)](features/session-sharing.md)
 * [Command Palette](features/command-palette.md)
 * [Blocks](features/blocks/README.md)
   * [Block Basics](features/blocks/block-basics.md)
@@ -75,7 +76,6 @@
 * [URI Scheme](features/uri-scheme.md)
 * [Network Log](features/network-log.md)
 * [Secret Redaction](features/secret-redaction.md)
-* [Session Sharing](features/session-sharing.md)
 
 ## 📊 How Does Warp Compare?
 
