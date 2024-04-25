@@ -1,5 +1,5 @@
 ---
-description: Collaborate with your teammates in a Warp terminal session, in real-time
+description: Collaborate with anybody in a Warp terminal session, in real-time
 ---
 
 # Session Sharing (Beta)
@@ -14,7 +14,7 @@ This action sends command information to Warp’s servers and is explicitly opt-
 
 <figure><img src="../.gitbook/assets/session_sharing_preview.png" alt=""><figcaption><p>Session Sharing allows multiple teammates to edit the input at the same time</p></figcaption></figure>
 
-### Share a session with your teammates
+### Share a session
 
 When you have Session Sharing enabled for your Team plan, you will find a Share button in the Warp top-bar navigation.\
 
@@ -36,14 +36,14 @@ If you initiate a shared session using Block actions, you will be given the opti
 
 #### How to invite collaborators to your session
 
-Warp will copy a link to your clipboard that you can share with your teammates.
+Warp will copy a link to your clipboard that you can share with anyone.
 
 {% hint style="warning" %}
-During the Beta, it’s critical you only share your session links in private channels with known teammates and approved collaborators. Do not include your session sharing links in any public forums.\
+It's important to understand these are open links. During the Beta, it’s critical you only share your session links in private channels with known teammates and approved collaborators. Do not include your session sharing links in any public forums.\
 
 {% endhint %}
 
-When a teammate who is logged into Warp accesses your shared session, they will be able to:
+When somebody who is logged into Warp accesses your shared session, they will be able to:
 
 * View your session in Warp including your command line input and output
 * Highlight text in your session
