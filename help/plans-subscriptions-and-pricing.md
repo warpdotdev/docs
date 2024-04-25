@@ -14,15 +14,15 @@ Don't have Warp yet? [Download now](../getting-started/getting-started-with-warp
 
 ### How can I subscribe to a Warp Team plan?&#x20;
 
-To subscribe to a Warp Team plan, you must first create a Team in Warp. Then, you can [upgrade online](https://app.warp.dev/upgrade) or through the downloaded app. In the app, navigate to Settings → Teams and find the upgrade link. After you enter your payment information, you will receive an invoice and confirmation email from Warp.
+To subscribe to a Warp Team plan, you must first [create a Team in Warp](https://docs.warp.dev/features/teams). Then, you can [upgrade online](https://app.warp.dev/upgrade) or through the downloaded app. In the app, navigate to Settings → Teams and find the upgrade link. After you enter your payment information, you will receive an invoice and confirmation email from Warp.
 
 ### How can I subscribe to a Warp Enterprise plan?&#x20;
 
-Warp offers an Enterprise plan with custom pricing for larger engineering organizations or businesses with advanced security and compliance requirements. If you are interested in learning whether an Enterprise plan might be the best fit for your team, please contact us to kick off a conversation.
+Warp offers an Enterprise plan with custom pricing for larger engineering organizations or businesses with advanced security and compliance requirements. If you are interested in learning whether an Enterprise plan might be the best fit for your team, please [contact us](https://www.warp.dev/contact-sales) to kick off a conversation.
 
 ### How can I upgrade for higher Warp AI request limits?&#x20;
 
-Warp’s Team plan includes higher limits for Warp AI requests than what’s currently available on the Warp Free plan. Even if you are working alone and not ready to invite additional team members for collaboration, you will need to create a Team in Warp to upgrade to the paid Warp Team plan, which unlocks access to higher AI limits.
+Warp’s Team plan includes higher limits for Warp AI requests than what’s currently available on the Warp Free plan. Even if you are working alone and not ready to invite additional team members for collaboration, you will need to [create a Team](https://docs.warp.dev/features/teams) in Warp to upgrade to the paid Warp Team plan, which unlocks access to higher AI limits.
 
 If you are not planning on extending invites to any team member collaborators, we suggest creating a Team with your name, e.g. “Zach’s Team” or “My Personal Team.” Then you can [upgrade online](https://app.warp.dev/upgrade) or in the downloaded app by navigating to Settings → Teams and finding the upgrade link.
 
@@ -45,7 +45,7 @@ If a member leaves part way through the billing cycle, Warp will issue a prorate
 
 Individual users with either personal or work email domains may continue to use Warp independently without incurring billing. The benefit of joining together on a Warp Team is that you get access to a shared Team Drive and collaboration features.
 
-When you’re ready to use Warp more collaboratively, we suggest you nominate an Admin to create a Team and invite members to join. When your Team exceeds three (3) members you will be prompted to upgrade to a Team plan.
+When you’re ready to use Warp more collaboratively, we suggest you nominate an Admin to [create a Team](https://docs.warp.dev/features/teams) and invite members to join. When your Team exceeds three (3) members you will be prompted to upgrade to a Team plan.
 
 ### What happens when I downgrade during a billing cycle?&#x20;
 
