@@ -1,7 +1,7 @@
 ---
 description: >-
   Ask Warp AI to debug errors, explain output, write scripts, or walk you
-  through a workflow.
+  through a workflow
 ---
 
 # Warp AI

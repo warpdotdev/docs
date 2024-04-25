@@ -1,7 +1,7 @@
 ---
 description: >-
   Warp Drive is a workspace in your terminal where you can save workflows for
-  personal use or to share with a team.
+  personal use or to share with a team
 ---
 
 # Warp Drive
@@ -88,8 +88,9 @@ Every object in Warp Drive can be exported to a local file. To export, right-cli
 To import a local file or directory, right-click on a folder or workspace and choose "Import." If importing a directory, supported files in the directory and its sub-directories will be imported into a matching folder structure.
 
 When importing or exporting, objects are converted as follows:
-* [Workflows](./workflows.md) import from and export to [YAML workflows](../entry/yaml-workflows.md)
-* [Notebooks](./notebooks.md) import from and export to Markdown files
+
+* [Workflows](workflows.md) import from and export to [YAML workflows](../entry/yaml-workflows.md)
+* [Notebooks](notebooks.md) import from and export to Markdown files
 
 ## Troubleshooting Warp Drive
 

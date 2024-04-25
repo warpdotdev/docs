@@ -8,7 +8,7 @@ description: Create or join a team to collaborate with others in Warp.
 
 A team is a group of Warp users who can collaborate on the command line together. Warp teams can share a dedicated workspace in Warp Drive.
 
-Warp Drive for teams is currently in free preview. After the free preview ends, teams with more than 5 members will be billed. [Learn about pricing](https://www.warp.dev/pricing).
+&#x20;[Learn about pricing](https://www.warp.dev/pricing).
 
 {% hint style="info" %}
 Currently, each Warp user can only be an admin or member of one team at a time.
