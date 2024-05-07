@@ -64,6 +64,7 @@ Please note the installing powerlevel10k video mentions enabling a custom prompt
 | zsh                 | [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh)                           | Working                                                         |
 | zsh                 | [prezto](https://github.com/sorin-ionescu/prezto)                         | [Working\*](prompt.md#prezto)                                   |
 | ssh                 |                                                                           | Working                                                         |
+| bash                | [oh-my-bash](https://github.com/ohmybash/oh-my-bash)                      | Not supported                                                   |
 | bash                | [bash-it](https://github.com/Bash-it/bash-it)                             | Not supported                                                   |
 | bash                | [SBP](https://github.com/brujoand/sbp)                                    | Not supported                                                   |
 | bash                | [synth-shell-prompt](https://github.com/andresgongora/synth-shell-prompt) | Not supported                                                   |
@@ -74,7 +75,7 @@ Please note the installing powerlevel10k video mentions enabling a custom prompt
 
 ## Known incompatibilities
 
-If you’re having issues with prompts, please see below or our [Known Issues](../help/known-issues.md#configuring-and-debugging-your-rc-files) for more troubleshooting steps.
+If you’re having issues with prompts, please see below or our [Known Issues](../help/known-issues.md#configuring-and-debugging-your-rc-files) for more troubleshooting steps. Also, although some prompts are not officially supported, they may still work in Warp.
 
 ### Starship
 
