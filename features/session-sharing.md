@@ -4,10 +4,6 @@ description: Collaborate with anybody in a Warp terminal session, in real-time
 
 # Session Sharing (Beta)
 
-{% hint style="info" %}
-This feature is currently in a limited Beta and available upon request for subscribers to Warp’s Team plan. If interested, please email [feedback+sharing@warp.dev](mailto:feedback+sharing@warp.dev).
-{% endhint %}
-
 {% hint style="warning" %}
 This action sends command information to Warp’s servers and is explicitly opt-in. Read more about privacy for cloud features in the [privacy overview](https://www.warp.dev/privacy/overview).
 {% endhint %}
@@ -16,8 +12,7 @@ This action sends command information to Warp’s servers and is explicitly opt-
 
 ### Share a session
 
-When you have Session Sharing enabled for your Team plan, you will find a Share button in the Warp top-bar navigation.\
-
+When you have Session Sharing enabled for your Team plan, you will find a Share button in the Warp top-bar navigation.
 
 To start sharing:
 
