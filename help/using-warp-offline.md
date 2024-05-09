@@ -18,5 +18,6 @@ Warp’s cloud-based features which require an internet connection will not work
 * [Warp AI](../features/warp-ai/)
   * [AI Command Suggestions](../features/warp-ai/ai-command-suggestions.md)
 * [Teams](../features/teams.md)
+* [Session Sharing](../features/session-sharing.md)
 * [Block Sharing](../features/blocks/block-sharing.md)
 * [Refer a Friend](../getting-started/refer-a-friend.md)
