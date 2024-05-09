@@ -14,7 +14,7 @@ Don't have Warp yet? [Download now](../getting-started/getting-started-with-warp
 
 ### How can I subscribe to a Warp Team plan?&#x20;
 
-To subscribe to a Warp Team plan, you must first [create a Team in Warp](https://docs.warp.dev/features/teams). Then, you can [upgrade online](https://app.warp.dev/upgrade) or through the downloaded app. In the app, navigate to Settings → Teams and find the upgrade link. After you enter your payment information, you will receive an invoice and confirmation email from Warp.
+To subscribe to a Warp Team plan, you must first [create a Team in Warp](../features/teams.md#creating-a-team). Then, you can [upgrade online](https://app.warp.dev/upgrade) or through the downloaded app. In the app, navigate to Settings → Teams and find the upgrade link. After you enter your payment information, you will receive an invoice and confirmation email from Warp.
 
 ### How can I subscribe to a Warp Enterprise plan?&#x20;
 
@@ -22,7 +22,7 @@ Warp offers an Enterprise plan with custom pricing for larger engineering organi
 
 ### How can I upgrade for higher Warp AI request limits?&#x20;
 
-Warp’s Team plan includes higher limits for Warp AI requests than what’s currently available on the Warp Free plan. Even if you are working alone and not ready to invite additional team members for collaboration, you will need to [create a Team](https://docs.warp.dev/features/teams) in Warp to upgrade to the paid Warp Team plan, which unlocks access to higher AI limits.
+Warp’s Team plan includes higher limits for Warp AI requests than what’s currently available on the Warp Free plan. Even if you are working alone and not ready to invite additional team members for collaboration, you will need to [create a Team](../features/teams.md#creating-a-team) in Warp to upgrade to the paid Warp Team plan, which unlocks access to higher AI limits.
 
 If you are not planning on extending invites to any team member collaborators, we suggest creating a Team with your name, e.g. “Zach’s Team” or “My Personal Team.” Then you can [upgrade online](https://app.warp.dev/upgrade) or in the downloaded app by navigating to Settings → Teams and finding the upgrade link.
 
@@ -115,6 +115,5 @@ Warp cannot currently accept payment by ACH, cash, check, money order, or crypto
 
 The team at Warp is standing by and ready to help you with any questions you have about your plan or subscription. Please email us at [billing@warp.dev](mailto:billing@warp.dev) and we will get back to you.
 
-
-
+\
 Don't have Warp yet? [Download now](../getting-started/getting-started-with-warp.md) and get started today.
