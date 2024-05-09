@@ -26,6 +26,7 @@ There are 2 ways to install a theme from this repo.
 {% tabs %}
 {% tab title="macOS" %}
 ```
+mkdir -p ~/.warp
 cd ~/.warp/
 git clone https://github.com/warpdotdev/themes.git
 ```
@@ -33,6 +34,7 @@ git clone https://github.com/warpdotdev/themes.git
 
 {% tab title="Linux" %}
 ```
+mkdir -p ${XDG_DATA_HOME:-$HOME/.local/share}/warp-terminal
 cd ${XDG_DATA_HOME:-$HOME/.local/share}/warp-terminal/
 git clone https://github.com/warpdotdev/themes.git
 ```
