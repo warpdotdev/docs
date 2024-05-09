@@ -2,6 +2,14 @@
 
 Warp auto-updates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2024.05.09 (v0.2024.05.07.08.02)
+
+**Bug fixes**
+
+- Vim-related settings no longer appear in the Command Palette when editing with Vim keybindings is disabled
+- Warp's Input Editor now immediately reflects any changes to the Vim status bar settings
+- Fixed a bug when handling URLs with parentheses in notebooks and Warp AI
+
 ### 2024.05.02 (v0.2024.04.30.08.02)
 
 **Bug fixes**
