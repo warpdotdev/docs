@@ -1,24 +1,30 @@
+---
+description: >-
+  Warp auto-updates whenever a new release comes out. We try to ship an update
+  every week usually on Thursday!
+---
+
 # Changelog
 
-Warp auto-updates whenever a new release comes out. We try to ship an update every week usually on Thursday! Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
+Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
 ### 2024.05.09 (v0.2024.05.07.08.02)
 
 **Bug fixes**
 
-- Vim-related settings no longer appear in the Command Palette when editing with Vim keybindings is disabled
-- Warp's Input Editor now immediately reflects any changes to the Vim status bar settings
-- Fixed a bug when handling URLs with parentheses in notebooks and Warp AI
+* Vim-related settings no longer appear in the Command Palette when editing with Vim keybindings is disabled
+* Warp's Input Editor now immediately reflects any changes to the Vim status bar settings
+* Fixed a bug when handling URLs with parentheses in notebooks and Warp AI
 
 ### 2024.05.02 (v0.2024.04.30.08.02)
 
 **Bug fixes**
 
-- In Notebooks, code block menus no longer overlap with rich text menus
-- Fixed an issue that could cause Warp to display an invisible/empty window
-- Fixed a crash that could occur when unindenting multiple lines within the Input Editor
-- Fixed a Vim Mode bug when "cutting word left" (and similar actions) while the (up-arrow) history menu is open
-- [Linux] Fixed an issue where Warp would flicker on Intel UHD 620 drivers when using Vulkan due to a bug in specific versions of Mesa
+* In Notebooks, code block menus no longer overlap with rich text menus
+* Fixed an issue that could cause Warp to display an invisible/empty window
+* Fixed a crash that could occur when unindenting multiple lines within the Input Editor
+* Fixed a Vim Mode bug when "cutting word left" (and similar actions) while the (up-arrow) history menu is open
+* \[Linux] Fixed an issue where Warp would flicker on Intel UHD 620 drivers when using Vulkan due to a bug in specific versions of Mesa
 
 ### 2024.04.25 (v0.2024.04.23.08.01)
 
