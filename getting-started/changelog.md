@@ -146,7 +146,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 **Improvements**
 
 * Added completion support for `dnf`
-* Configuring the global hotkey window settings (Quake Mode) now updates the window in real time
+* Configuring the Global Hotkey Dedicated Window settings now updates the window in real time
 * \[Linux] Can now `CTRL-CLICK` to open a file
 * \[Linux] Added support for IntelliJ, CLion, Webstorm, and PhpStorm
 
@@ -559,7 +559,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 **Bug fixes**
 
-* Warp’s hotkey window (Quake Mode) now properly retains its size
+* Warp’s Global Hotkey Dedicated Window now properly retains its size
 * Fixed issue where command output would temporarily cutoff when resizing Warp.
 * Fixed the Sticky Command Header covering content for pager commands.
 * Fixed tabs showing stale text when being renamed.
@@ -1182,21 +1182,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 ### 2022.06.27 (v0.2022.06.20.09.15)
 
-**New features**
-
-* Improved auto-focus behavior when closing panes by keeping track of history when navigating or clicking around panes
-* Performance improvements when executing Blocks: Warp no longer flashes on every command!
-
-**Bug fixes**
-
-* Input Editor re-focuses after renaming a tab
-* Reduced visual weight of the active tab title to improve legibility.
-* Improved blending along the inside edge of rounded corners
-* Global Hotkey Windows (Quake Mode) now correctly respect the active screen setting
-* Completions for flag arguments now support absolute and relative file paths (when applicable)
-* Git checkout <`TAB`> now also completes branches with the remote prefixed.
-* Pressing Arrow-up (`UP`) when the Input Editor is non-empty opens the command history with prefix filtering
-* Button to copy app version moved to main settings page
+* No major changes this week
 
 ### 2022.06.22 (v0.2022.06.20.09.15)
 
@@ -1210,7 +1196,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 * Input Editor re-focuses after renaming a tab
 * Reduced visual weight of the active tab title to improve legibility.
 * Improved blending along the inside edge of rounded corners
-* Global Hotkey Windows (Quake Mode) now correctly respect the active screen setting
+* Global Hotkey Dedicated Window now correctly respect the active screen setting
 * Completions for flag arguments now support absolute and relative file paths (when applicable)
 * Git checkout <`TAB`> now also completes branches with the remote prefixed.
 * Pressing Arrow-up (`UP`) when the Input Editor is non-empty opens the command history with prefix filtering
@@ -1218,16 +1204,9 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 ### 2022.06.17 (v0.2022.06.13.09.15)
 
-**New features**
-
-* Added keyboard shortcuts to reorder tabs (CTRL-SHIFT-LEFT and CTRL-SHIFT-RIGHT)
-
 **Bug fixes**
 
 * Warp no longer crashes on MacOS 13 (Ventura)
-* Global Hotkey Window (Quake Mode) no longer overlaps Spotlight, Raycast, Alfred, and the Mac Dock
-* Now correctly display the user and hostname in the Prompt after exiting an SSH session
-* Fixed a memory leak on window close.
 
 ### 2022.06.15 (v0.2022.06.13.09.15)
 
@@ -1237,7 +1216,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 **Bug fixes**
 
-* Global Hotkey Window (Quake Mode) no longer overlaps Spotlight, Raycast, Alfred, and the Mac Dock
+* Global Hotkey Dedicated Window no longer overlaps Spotlight, Raycast, Alfred, and the Mac Dock
 * Now correctly display the user and hostname in the Prompt after exiting an SSH session
 * Fixed a memory leak on window close.
 
@@ -1331,28 +1310,15 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 ### 2022.05.02 (v0.2022.04.25.09.59)
 
-**New features**
-
-* Added a Quake Mode setting that configures whether Warp should automatically hide when losing focus - [1077](https://github.com/warpdotdev/warp/issues/1077)
-* Added a Quake Mode setting that configures which screen to pin Warp on - [862](https://github.com/warpdotdev/warp/issues/862)
-* Expanded the keybindings supported by Quake Mode / Global Hotkey Window - [856](https://github.com/warpdotdev/warp/issues/856)
-
-**Bug fixes**
-
-* Commands prepended with space are now stored in history if hist\_ignore\_space option is not set
-* Now support dotfile configurations with non-English quotation marks
-* Continued improving the reliability of login and auth within the app
-* Improved performance for commands with large outputs
-* Improved performance for long running commands
-* Improved text alignment within inline banners
+* No major changes this week
 
 ### 2022.04.27 (v0.2022.04.25.09.59)
 
 **New features**
 
-* Added a Quake Mode setting that configures whether Warp should automatically hide when losing focus - [1077](https://github.com/warpdotdev/warp/issues/1077)
-* Added a Quake Mode setting that configures which screen to pin Warp on - [862](https://github.com/warpdotdev/warp/issues/862)
-* Expanded the keybindings supported by Quake Mode / Global Hotkey Window - [856](https://github.com/warpdotdev/warp/issues/856)
+* Added a Global Hotkey Dedicated Window setting that configures whether Warp should automatically hide when losing focus - [1077](https://github.com/warpdotdev/warp/issues/1077)
+* Added a Global Hotkey Dedicated Window setting that configures which screen to pin Warp on - [862](https://github.com/warpdotdev/warp/issues/862)
+* Expanded the keybindings supported by Global Hotkey Dedicated Window - [856](https://github.com/warpdotdev/warp/issues/856)
 
 **Bug fixes**
 
@@ -1421,7 +1387,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 **New features**
 
 * Workflows: an easier way to share, parameterize, and execute commands - [625](https://github.com/warpdotdev/warp/issues/625)
-* Quake mode / Focus Warp with a Global Hotkey - [091](https://github.com/warpdotdev/warp/issues/091)
+* Added Global Hotkey Dedicated Window - [091](https://github.com/warpdotdev/warp/issues/091)
 
 **Bug fixes**
 
