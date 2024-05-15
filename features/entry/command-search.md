@@ -7,6 +7,8 @@ description: >-
 
 # Command Search
 
+![Command Search Panel](<../../.gitbook/assets/CleanShot 2024-05-15 at 15.31.06.png>)
+
 {% hint style="info" %}
 Tailor your [Command Search](command-search.md) experience by toggling off "Show Global Workflows" in `Settings > Features`. When disabled, your search will exclusively encompass YAML and Warp Drive Workflows.
 {% endhint %}
@@ -14,9 +16,6 @@ Tailor your [Command Search](command-search.md) experience by toggling off "Show
 ## How to use it
 
 * Press `CTRL-R` to open the Command Search Panel. You’ll be greeted with a landing page, where you can click through different filters to get started.
-
-![Command Search Panel](<../../.gitbook/assets/CleanShot 2024-05-15 at 15.31.06.png>)
-
 * Type into the input box what your search query is. The results will contain command history, saved workflows, notebooks, and AI Command Suggestions.
   * $\_ Dollar Sign-Underscore signifies that the result is a [Workflow](yaml-workflows.md).
   * <img src="../../.gitbook/assets/history.png" alt="rewind time clock" data-size="line"> Rewind Time Clock icon signifies that the result is a [Command History](command-history.md).
