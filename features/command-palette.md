@@ -1,10 +1,12 @@
 ---
 description: >-
-  Command Palette is a global search that allows you to quickly locate
-  workflows, keyboard shortcuts, or other actions within Warp.
+  Command Palette is a global search to quickly locate Workflows, Notebooks, 
+  keyboard shortcuts, or other actions within Warp.
 ---
 
 # Command Palette
+
+<figure><img src="../.gitbook/assets/CleanShot 2024-05-15 at 15.36.39.png" alt=""><figcaption><p>Command Palette Panel</p></figcaption></figure>
 
 ## How to access it
 

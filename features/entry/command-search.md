@@ -1,8 +1,8 @@
 ---
 description: >-
   The Command Search panel allows you to search across Command History,
-  Workflows, Notebooks, and Warp AI all at once. Warp supports fuzzy search and
-  tries to rank more relevant results.
+  Workflows, Notebooks, and Warp AI simultaneously. Warp supports fuzzy search
+  and tries to rank more relevant results.
 ---
 
 # Command Search
