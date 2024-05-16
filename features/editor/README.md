@@ -18,13 +18,19 @@ Warp supports soft wrapping in the input editor. If an autosuggestion goes off-s
 
 Warp supports copy on select for selectable text within [Blocks](../blocks/).&#x20;
 
-* Enable this feature `Settings > Features > General` or search for "Copy on select" in the [Command Palette](../command-palette.md).
+* Toggle this feature `Settings > Features > General` or search for "Copy on select" in the [Command Palette](../command-palette.md).
 
 ### Input Hints
 
 Warp input occasionally shows hints within the input editor in a light grey text that helps users learn about features. It's enabled by default.
 
-* Disable "Show Input hint text" in `Settings > Features > Editor` or search for "input hint text" in the [Command Palette](../command-palette.md) or Right-click on the input editor.
+* Toggle this feature `Settings > Features > Editor` or search for "Input hint text" in the [Command Palette](../command-palette.md) or Right-click on the input editor.
+
+### Autocomplete Quotes, Parentheses, and Brackets
+
+Warp can automatically complete quotes, brackets, and parentheses like you're used to in IDEs.
+
+* Toggle this feature  `Settings > Features > Editor` or search for "Autocomplete quotes" in the [Command Palette](../command-palette.md).
 
 ## How to use it
 
