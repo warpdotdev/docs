@@ -8,6 +8,16 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2024.05.16 (v0.2024.05.14.08.01)
+
+**New features**
+
+- Team admins can now make their teams discoverable to colleagues from the same custom email domain. This feature is available under Settings > Teams
+
+**Bug fixes**
+
+- The prompt and command should no longer overlap the output (or each other) for multi-line commands in Bash versions earlier than 4.4, such as the default Bash installation for MacOS
+
 ### 2024.05.09 (v0.2024.05.07.08.02)
 
 **Bug fixes**
