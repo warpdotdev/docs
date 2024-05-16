@@ -116,6 +116,7 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 | `Disable Input Sync Inputs` | Disabled / turn off the Input Synchronization (across editors) |
 | `Dismiss Alias Expansion Banner` | Dismissed the banner to enable automatic alias expansion within the Input Editor |
 | `Dismiss Welcome Tips` | Dismissed Welcome tips |
+| `Don't Show Sharer Grant Modal Again` | When you check don't show again on the confirmation modal for granting a role |
 | `Drag and Drop Tab` | Tab dragged and dropped |
 | `Draw Frame Latency` | Recorded time to draw a frame in app (in ms) |
 | `Draw Frame Latency Histogram Overflow` | Could not summarize histogram of draw frame latency |
@@ -216,6 +217,7 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 | `Setup Flow Interrupted` | The setup flow could not finish due to some interruption |
 | `Setup Flow Skipped` | Skipped the setup flow for new users |
 | `Setup Flow Started` | Started the setup flow for new users |
+| `Sharer Cancelled Grant Role` | When you cancel granting a role to a shared session participant |
 | `Show Alias Expansion Banner` | Displayed the banner asking whether Warp should automatically expand aliases within the Input Editor |
 | `Show Subshell Banner` | Displayed the banner asking whether Warp should Warpify the current session via Warp's subshell wrapper |
 | `ShowNotificationsDiscoveryBanner` | Showed notifications discovery banner in the block list |
@@ -234,6 +236,7 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 | `Team Left` | Left a Warp Drive team |
 | `Team Link Copied` | Copied a Warp Drive team link |
 | `Thin Strokes Setting Changed` | Changed thin strokes setting in settings -> Appearance |
+| `Tier Limit Hit` | User hit the tier limit for a feature |
 | `Toggle Approvals Modal` | Opened or closed teams modal |
 | `Toggle Block Filter Case Sensitivity` | Toggled on/off case sensitivity within the block filter editor |
 | `Toggle Block Filter Invert` | Toggled on/off invert within the block filter editor |
