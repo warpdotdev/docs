@@ -7,12 +7,13 @@ description: SSH wrapper that enables Warp features in remote sessions.
 When you SSH into a remote box, you get all the features of Warp without any configuration on your part. The input editor, auto-completions, and history search work the same, regardless of machine.
 
 {% hint style="warning" %}
-[Limitations of SSH](https://github.com/warpdotdev/Warp/issues/578) (as of February 2024):
+[Limitations of SSH](https://github.com/warpdotdev/Warp/issues/578) (as of May 2024):
 
 * The SSH Wrapper only supports `bash`or `zsh` shells in remote sessions.
 * If you're using a different shell, you'll want to use `command ssh` directly (see below for more details).
 * For zsh, xxd is required to bootstrap warp.
 * For Windows, [Cygwin](https://www.cygwin.com/) is required to bootstrap the SSH Wrapper.
+* RemoteCommand causes the ssh wrapper to fail.
 * [Tmux is not currently supported.](https://github.com/warpdotdev/Warp/discussions/501)
 {% endhint %}
 
@@ -46,3 +47,13 @@ If you're seeing these errors, you may have some config on your server (usually 
 You should ensure that `MaxSessions` is either commented out or is at least `2`.
 
 Write access in `/etc/ssh/` typically requires sudo access. After any edits, you'd also need to restart the `sshd` daemon.
+
+### SSH Wrapper fails
+
+There are several [known issues with SSH](https://github.com/warpdotdev/Warp/issues?q=is%3Aissue+is%3Aopen+sort%3Acreated-desc+label%3ABugs+label%3ASSH). As a workaround to the SSH Wrapper, you can add `command ssh` to your `Settings > Subshells > Added commands`, then run `command ssh <user@server>` to connect to a remote session, this will attempt to enable Warp features as a [subshell](subshells.md).&#x20;
+
+{% hint style="info" %}
+If the subshell workaround helps, we recommend you disable the SSH Wrapper in `Settings > Features.`You'll need to start a new session before a change is reflected or try invoking the SSH binary directly with`command ssh`.
+{% endhint %}
+
+<figure><img src="../.gitbook/assets/CleanShot 2024-05-22 at 15.20.28.gif" alt="Command SSH subshell workaround"><figcaption><p>Command SSH Subshell Workaround</p></figcaption></figure>

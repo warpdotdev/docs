@@ -7,7 +7,7 @@ description: >-
 # Known Issues
 
 * Warp doesn't support `PROMPT_COMMAND` in bash right now, to set a custom prompt use `PS1`.
-* When you [SSH](../features/ssh.md), we start a bash shell on the remote host. We built a wrapper around SSH to make Warp features possible.
+* When you [SSH](known-issues.md#ssh), we start a bash shell on the remote host. We built a wrapper around SSH to make Warp features possible.
 * If your default shell is zsh, your aliases typically do not transfer over. Other shells are unsupported for now.
 * When you open a [non-shell-based subshell (REPL)](https://github.com/warpdotdev/Warp/issues/4082), we do not set it up for Warp - instead, it works like a normal terminal session.
 * Warp may become unresponsive if it doesn't have permission to access the folders.
@@ -20,11 +20,7 @@ Links to popular GitHub issues:
 
 ## SSH
 
-To enable Blocks over SSH, Warp uses an SSH Wrapper function; navigate to settings > features if you need to disable it.
-
-Note: You'll need to start a new session before a change is reflected or try invoking the SSH binary directly: `command ssh`.
-
-There is also a known issue with the [SSH Wrapper not working in Windows SSH sessions](https://github.com/warpdotdev/Warp/issues/2413). You can workaround this by [installing Cygwin](https://www.cygwin.com/) on the Windows machine you'd like to connect to.
+To enable Blocks over SSH, Warp uses an SSH Wrapper function; navigate to settings > features if you need to disable it. Please see  [Troubleshooting SSH](../features/ssh.md#troubleshooting-ssh) for more info on workarounds to SSH issues.
 
 ## Online features don't work
 
