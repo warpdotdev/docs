@@ -8,6 +8,13 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2024.05.23 (v0.2024.05.21.16.09)
+
+**Bug fixes**
+
+* Fixed a bug where a terminal session could get stuck in a bad state if an SSH connection is lost while the alternate screen is in use (e.g. tmux, TUI programs, pagers)
+* Fixed a bug where 00~ and 01~ characters could get erroneously added to user-submitted commands after an SSH connection is lost
+
 ### 2024.05.16 (v0.2024.05.14.08.01)
 
 **New features**
