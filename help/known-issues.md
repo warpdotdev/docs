@@ -62,6 +62,7 @@ There is an issue in fish shell version 3.6 and below that causes the `read` bui
 
 ### List of incompatible tools
 
+* oh-my-fish, oh-my-bash, or other unsupported shell prompts. See our [Custom Prompt Compatibility Table](../appearance/prompt.md#custom-prompt-compatibility-table).
 * [iterm shell integration](https://iterm2.com/documentation-shell-integration.html)
   * `test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true`
 * [Termium](https://codeium.com/blog/termium-codeium-in-terminal-launch)
@@ -87,6 +88,7 @@ There is an issue in fish shell version 3.6 and below that causes the `read` bui
 * `grml-zsh-config`
 * Python virtual environment PS1 [settings](https://github.com/warpdotdev/Warp/issues/2713#issuecomment-1447129449)
 * [Starship settings](../appearance/prompt.md#starship-settings)
+* Potentially more, this is an inexhaustive list ...
 
 ## Configuring and debugging your RC files
 
