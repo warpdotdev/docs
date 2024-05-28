@@ -23,14 +23,14 @@
 
 ## 📕 Features
 
-* [Warp AI](features/warp-ai/README.md)
-  * [AI Command Suggestions](features/warp-ai/ai-command-suggestions.md)
+* [Command Palette](features/command-palette.md)
 * [Warp Drive](features/warp-drive/README.md)
   * [Notebooks](features/warp-drive/notebooks.md)
   * [Workflows](features/warp-drive/workflows.md)
+* [Warp AI](features/warp-ai/README.md)
+  * [AI Command Suggestions](features/warp-ai/ai-command-suggestions.md)
 * [Teams](features/teams.md)
 * [Session Sharing (Beta)](features/session-sharing.md)
-* [Command Palette](features/command-palette.md)
 * [Blocks](features/blocks/README.md)
   * [Block Basics](features/blocks/block-basics.md)
   * [Block Actions](features/blocks/block-actions.md)

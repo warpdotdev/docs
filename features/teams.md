@@ -73,8 +73,6 @@ If you're a Team admin, and you choose to [delete your Warp](../getting-started/
 | Leave a team        |                                                                  | ✓                                      |
 | Delete a team       | ✓                                                                |                                        |
 
-###
-
 \
 \
 
