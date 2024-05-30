@@ -34,6 +34,7 @@
   "Context Menu: Find Within Blocks": "Clicked \"find within blocks\" in context menu",
   "Context Menu: Initiate Block Sharing": "Opened \"Share\" modal via context menu",
   "Context Menu: Reinput Commands": "Clicked \"reinput commands\" in context menu",
+  "Copied Shared Session Link": "Copied a shared session link",
   "Copy Block Sharing Link": "Clicked \"Share block...\" in context menu",
   "Copy Invite Link": "Clicked \"Copy Link\" on Referral Modal",
   "Copy Obfuscated Secret": "Copied a secret's obfuscated contents to clipboard",
@@ -79,6 +80,7 @@
   "Jumped to Bookmark Block": "Jumped to bookmarked Block",
   "Jumped to Bottom of Block Button Clicked": "Used the button to jump to the bottom of a Block",
   "Jumped to Previous Command": "Jumped to a previous command",
+  "Jumped to Shared Session Participant": "Clicked on a shared session participant avatar to jump to their location in the session",
   "Keybinding Changed": "Edited a custom keybinding",
   "Keybinding Removed": "Removed / cleared a keybinding",
   "Keybinding Reset to Default": "Reset a custom keybinding to its default",
@@ -209,6 +211,7 @@
   "Warp AI Character Limit Exceeded": "Attempted to ask a question longer than 1k chars to Warp AI",
   "Warp AI Request Issued": "Issued a question to Warp AI",
   "Warp Drive Opened": "Opened Warp Drive panel",
+  "Web session opened on desktop": "Shared session viewed on the web was opened on the desktop",
   "Workflow Executed": "Executed workflow",
   "Workflow Selected": "Selected workflow and populated into the Input Editor"
 }
