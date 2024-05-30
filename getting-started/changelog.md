@@ -8,6 +8,12 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2024.05.30 (v0.2024.05.28.08.02)
+
+**Improvements**
+
+* Warp now renders terminal text ANSI colors as specified by the theme without any dimming
+
 ### 2024.05.23 (v0.2024.05.21.16.09)
 
 **Bug fixes**
