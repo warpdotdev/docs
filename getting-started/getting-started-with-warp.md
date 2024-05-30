@@ -5,7 +5,7 @@ description: A step-by-step guide for setting up Warp on your machine.
 # Installing & Onboarding
 
 {% hint style="info" %}
-**Platform support:** Warp is currently supported on Mac (both Intel and Mac Silicon) and Linux (x86\_64). We have plans to support Windows and the Web (WASM)!\
+**Platform support:** Warp is currently supported on Mac (Intel and Mac Silicon) and Linux (x86\_64 and ARM64). We have plans to support Windows and the Web (WASM)!\
 Subscribe to get notified when Warp is available for [Windows](https://warp.dev/windows-terminal). Please see our [Known Issues](../help/known-issues.md) for any issues running Warp or [contact us](../help/sending-us-feedback.md#sending-warp-feedback).
 {% endhint %}
 
@@ -18,7 +18,7 @@ Subscribe to get notified when Warp is available for [Windows](https://warp.dev/
 {% tabs %}
 {% tab title="macOS" %}
 {% hint style="info" %}
-**Requirements:** Minimum requirements are macOS 10.14 or above and hardware that supports [Metal](https://support.apple.com/en-us/HT205073).
+**Requirements:** Minimum requirements are an Intel or Apple silicon macOS 10.14 or above and hardware that supports [Metal](https://support.apple.com/en-us/HT205073).
 {% endhint %}
 
 There are two ways to get Warp onto your machine:
@@ -42,7 +42,7 @@ Find the Warp in your Applications folder and run it from there (or search for W
 
 {% tab title="Linux" %}
 {% hint style="info" %}
-**Requirements:** Minimum requirement is a x86\_64 Linux distribution with glibc >= 2.31 (released Feb. 2020) and support for _either_ [OpenGL ES 3.0+ or Vulkan](https://github.com/gfx-rs/wgpu?tab=readme-ov-file#supported-platforms). We are tracking support requests for [ARM](https://github.com/warpdotdev/Warp/issues/4213) and [WSL](https://github.com/warpdotdev/Warp/issues/4240).
+**Requirements:** Minimum requirements are an x86\_64 or ARM64 Linux distribution with glibc >= 2.31 (released Feb. 2020) and support for _either_ [OpenGL ES 3.0+ or Vulkan](https://github.com/gfx-rs/wgpu?tab=readme-ov-file#supported-platforms). We are tracking support requests for [WSL](https://github.com/warpdotdev/Warp/issues/4240).
 
 This includes (but is not limited to) the following:
 
