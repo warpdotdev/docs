@@ -8,6 +8,17 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2024.06.06 (v0.2024.06.04.08.02)
+
+**Improvements**
+
+* Warp now supports Unicode emoji presentation selectors when rendering glyphs
+* Removed the default keybindings for Warp Drive object creation actions, in order to free up more keyboard shortcut options. You can still assign custom keybindings to these actions in Settings > Keyboard shortcuts
+
+**Bug fixes**
+
+* When editing with Vim visual line mode and the cursor is at the end of the line, operators will only affect the correct lines
+
 ### 2024.05.30 (v0.2024.05.28.08.02)
 
 **Improvements**
@@ -25,7 +36,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 **New features**
 
-* Team admins can now make their teams discoverable to colleagues from the same custom email domain. This feature is available under Settings -> Teams.
+* Team admins can now make their teams discoverable to colleagues from the same custom email domain. This feature is available under Settings > Teams.
 
 **Bug fixes**
 
@@ -432,7 +443,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 **New features**
 
 * Warp now displays richer metadata for each command in history, including exit code, working directory, git branch, and whether the command is part of a workflow.
-* Warp's native prompt is now customizable directly within the app with drag-and-drop Context Chips (`Settings > Appearance > Prompt`)
+* Warp's native prompt is now customizable directly within the app with drag-and-drop Context Chips Settings > Appearance > Prompt
 
 **Improvements**
 
@@ -445,7 +456,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 **New features**
 
-* Automatically create new themes based on a background image! Click the `+` button in the theme picker (`Settings -> Appearance -> Current Theme`) or search `Open Theme Picker` within the Command Palette
+* Automatically create new themes based on a background image! Click the `+` button in the theme picker Settings > Appearance > Current Theme or search `Open Theme Picker` within the Command Palette
 
 **Improvements**
 
@@ -458,7 +469,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 **New features**
 
-* Reopen closed tabs with `SHIFT-CMD-T` for up to one minute; configure or disable this feature in `Settings > Features > Enable reopening of closed sessions`
+* Reopen closed tabs with `SHIFT-CMD-T` for up to one minute; configure or disable this feature in Settings > Features > Enable reopening of closed sessions
 * Autogenerate descriptions for Workflows in Warp Drive using Warp AI
 
 **Improvements**
@@ -480,7 +491,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 **New features**
 
-* Can now configure whether `TAB` accepts autosuggestions or opens the completions menu; switch between the configurations via `Settings > Features > Editor`
+* Can now configure whether `TAB` accepts autosuggestions or opens the completions menu; switch between the configurations in Settings > Features > Editor
 * Improved completions behavior by improving common prefix detection, and supporting case sensitivity
 * Can now natively draw some Unicode block element characters instead of using font glyphs--improves alignment and reduces fuzziness
 * Warp's Resource Center now displays new features and improvements
@@ -605,7 +616,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 * Warp now sends the output of background shell processes into new (distinct) Blocks--separate from user generated Blocks.
 * Synchronize (broadcast) input across multiple panes in a single tab or multiple tabs (`Mac Menu > Edit > Synchronize Inputs` or `Synchronize` within the Command Palette)
-* Added option to enable (disabled by default) an audible terminal bell (`Settings > Features > Terminal` or  “Enable/Disable Audible Terminal Bell” within the Command Palette)
+* Added option to enable (disabled by default) an audible terminal bell Settings > Features > Terminal or  “Audible Terminal Bell” within the Command Palette
 * Now opens new windows with the same position and size of the most recently closed window (if there is one)
 * Fish aliases are now supported in the completions menu
 
@@ -653,8 +664,8 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 **New features**
 
-* The position of the input and direction of the terminal output are now configurable. You can start the input at the top and have it move down as new commands are run (to clear the screen and reset the position press `CTRL-L`, `CMD-K` or type `clear`). Or you can keep the input pinned to the top of the pane and have terminal outputs flow in reverse order. Settings are available under `Settings > Appearance > Input Position`
-* Added a button for “jumping to the bottom” of the currently hovered Block to make it easy to get to the bottom of an output. Configurable with a setting under `Settings > Appearance > Blocks`
+* The position of the input and direction of the terminal output are now configurable. You can start the input at the top and have it move down as new commands are run (to clear the screen and reset the position press `CTRL-L`, `CMD-K` or type `clear`). Or you can keep the input pinned to the top of the pane and have terminal outputs flow in reverse order. Settings are available under Settings > Appearance > Input Position
+* Added a button for “jumping to the bottom” of the currently hovered Block to make it easy to get to the bottom of an output. Configurable with a setting under Settings > Appearance > Blocks
 * Warp AI transcripts can now be navigated via keyboard (`UP` / `DOWN` arrows)
 * Added a right-click context menu in the alt-screen (that still respects mouse reporting and SGR_MOUSE)
 * Warp AI's past prompts can be accessed via `UP` (arrow)
@@ -698,7 +709,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 **New features**
 
-* Added support to configure which shell Warp should use when starting a terminal session. Configurable under Settings -> Features -> Session.
+* Added support to configure which shell Warp should use when starting a terminal session. Configurable under Settings > Features > Session.
 * Tabs can now be renamed via mouse double-click.
 
 **Bug fixes**
@@ -799,7 +810,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 **New features**
 
-* Warp can now dim inactive terminal panes, navigate to `Settings > Appearance > Panes > Dim inactive panes`
+* Warp can now dim inactive terminal panes, navigate to Settings > Appearance > Panes > Dim inactive panes
 
 **Bug fixes**
 
@@ -822,7 +833,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 **New features**
 
-* Support setting window background transparency and blur radius, via sliders under `Settings > Appearance`
+* Support setting window background transparency and blur radius, via sliders under Settings > Appearance
 * Revamped resource center! Click the Warp icon in the top right to see keyboard shortcuts and learn how to best use Warp
 * Quit modal: Quitting or closing Warp while a session is running triggers a warning prompt–that also lets you view which sessions are running
 * Added a toggle to disable cursor blinking
@@ -921,7 +932,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 * Warp now offers Command Corrections! Warp will suggest corrections for errors in previous console commands
 * Warp now also detects invalid file paths -- they are underlined red when error underlining is enabled
-* Added a toggle in `Settings > Appearance` to configure whether and how Warp enforces minimum contrast
+* Added a toggle in Settings > Appearance to configure whether and how Warp enforces minimum contrast
 
 **Bug fixes**
 
@@ -989,7 +1000,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 * Extend the currently selected text (within Blocks) with `SHIFT-LEFT`, `SHIFT-RIGHT`, `SHIFT-UP`, and `SHIFT-DOWN`
 * Double-click and drag to select text in the Input Editor
 * Insert the last word of the previous command with `META-.`
-* Added a toggle to enable mouse and scroll reporting to the settings dialog (`Settings > Features`)
+* Added a toggle to enable mouse and scroll reporting to the settings dialog Settings > Features
 
 **Bug fixes**
 
@@ -1029,8 +1040,8 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 **New features**
 
 * Global hotkey window can now float above full-screen apps
-* Tabs can now have their color customized (via right-clicking on a tab)
-* Terminal line height is now configurable (via Settings > Appearance)
+* Tabs can now have their color customized by right-clicking on a tab
+* Terminal line height is now configurable in Settings > Appearance
 
 ### 2022.09.01 (v0.2022.08.31.18.11)
 
@@ -1053,7 +1064,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 **New features**
 
-* Experimental feature: support for always-on completions — the completions menu can now open automatically while typing (enable via Settings -> Features)
+* Experimental feature: support for always-on completions — the completions menu can now open automatically while typing enable in Settings > Features
 
 **Bug fixes**
 
@@ -1808,7 +1819,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 **New features**
 
-* New themes for Warp!!! (Access them via Settings on the overflow menu. We have Dracula, Solarized, & Gruvbox)
+* New themes for Warp!!! Access them in Settings. We have Dracula, Solarized, & Gruvbox
 * CMD-, opens the Settings menu
 
 **Bug fixes**
