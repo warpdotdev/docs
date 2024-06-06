@@ -29,7 +29,7 @@ If you initiate a shared session using Block actions, you will be given the opti
 
 #### How to invite collaborators to your session
 
-Warp will copy a link to your clipboard that you can share with anyone.
+Warp will copy a link to your clipboard that you can share with anyone. Share links open the Warp's native app on MacOS, Linux, or the Web.
 
 {% hint style="warning" %}
 It's important to understand these are open links. During the Beta, it’s critical you only share your session links in private channels with known teammates and approved collaborators. Do not include your session-sharing links in any public forums.
@@ -49,6 +49,8 @@ You can also:
 * Jump to a collaborator’s selection by clicking on their avatar
 * Revoke edit access from collaborators at any time during a session
 
+<figure><img src="../.gitbook/assets/session-sharing-native-web-demo.gif" alt=""><figcaption><p>Session Sharing Native to Web Demo</p></figcaption></figure>
+
 #### How to end a shared session
 
 When you’re ready to end a shared session, click Share → Stop sharing to wrap up and close access for all collaborators.
@@ -60,8 +62,6 @@ You may share multiple sessions simultaneously. If you have multiple shared sess
 <figure><img src="../.gitbook/assets/Screenshot 2024-04-24 at 3.13.42 PM (1).png" alt=""><figcaption><p>Switch between shared sessions or stop all shared sessions at once</p></figcaption></figure>
 
 ### Known limitations
-
-While this feature is in Beta, share links will open the Warp native app on MacOS or Linux. In the future, Session Sharing will support web-based viewing and collaboration using web links.
 
 While this feature is in Beta, anybody who has access to a share link and an active Warp account will be able to view and collaborate on a session. In the future, Session Sharing will have Team-based access controls and permission restrictions.
 
