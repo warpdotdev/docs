@@ -42,7 +42,7 @@ Find the Warp in your Applications folder and run it from there (or search for W
 
 {% tab title="Linux" %}
 {% hint style="info" %}
-**Requirements:** Minimum requirements are an x86\_64 or ARM64 Linux distribution with glibc >= 2.31 (released Feb. 2020) and support for _either_ [OpenGL ES 3.0+ or Vulkan](https://github.com/gfx-rs/wgpu?tab=readme-ov-file#supported-platforms). We are tracking support requests for [WSL](https://github.com/warpdotdev/Warp/issues/4240).
+**Requirements:** Minimum requirements are an x64 or ARM64 Linux distribution with glibc >= 2.31 (released Feb. 2020) and support for _either_ [OpenGL ES 3.0+ or Vulkan](https://github.com/gfx-rs/wgpu?tab=readme-ov-file#supported-platforms). We are tracking support requests for [WSL](https://github.com/warpdotdev/Warp/issues/4240).
 
 This includes (but is not limited to) the following:
 
@@ -56,7 +56,7 @@ Visit the [Warp download page](https://app.warp.dev/get\_warp?auto\_download=fal
 
 **Debian- and Ubuntu-based distributions**
 
-The easiest way to install Warp is to download and install the [.deb package](https://app.warp.dev/download?package=deb). After downloading, you can install the package with:
+The easiest way to install Warp is to download [x64 .deb package](https://app.warp.dev/download?package=deb) or [ARM64 deb package](https://app.warp.dev/download?package=deb_arm64). After downloading, you can install the package with:
 
 ```
 sudo apt install ./<file>.deb
@@ -77,7 +77,7 @@ sudo apt update && sudo apt install warp-terminal
 
 **RHEL-, Fedora-, and CentOS-based distributions**
 
-The easiest way to install Warp is to download and install the [.rpm package](https://app.warp.dev/download?package=rpm). After downloading, you can install the package with:
+The easiest way to install Warp is to download the [x64 .rpm package](https://app.warp.dev/download?package=rpm) or [ARM64 .rpm package](https://app.warp.dev/download?package=rpm_arm64). After downloading, you can install the package with:
 
 ```
 sudo dnf install ./<file>.rpm
@@ -95,7 +95,7 @@ sudo dnf install warp-terminal
 
 **Arch Linux-based distributions**
 
-The easiest way to install Warp is to download and install the [.pkg.tar.zst package](https://app.warp.dev/download?package=pacman). After downloading, you can install the package with:
+The easiest way to install Warp is to download the [x64 .pkg.tar.zst package](https://app.warp.dev/download?package=pacman) or [ARM64 pacman package](https://app.warp.dev/download?package=pacman_arm64). After downloading, you can install the package with:
 
 ```
 sudo pacman -U ./<file>.pkg.tar.zst
@@ -114,7 +114,7 @@ sudo pacman -Sy warp-terminal
 
 **OpenSUSE- and SLE-based distributions**
 
-The Warp yum repository also works for OpenSUSE- and SLE-based systems. Download and install the [.rpm package](https://app.warp.dev/download?package=rpm). After downloading, you can install the package with:
+The Warp yum repository also works for OpenSUSE- and SLE-based systems. Download the [x64 .rpm package](https://app.warp.dev/download?package=rpm) or [ARM64 .rpm package](https://app.warp.dev/download?package=rpm_arm64). After downloading, you can install the package with:
 
 ```
 sudo zypper install ./<file>.rpm
@@ -132,19 +132,25 @@ sudo zypper install warp-terminal
 
 **AppImage**
 
-We also provide an AppImage ([https://appimage.org](https://appimage.org)), a single-file executable version of Warp. Installing Warp via a package manager is recommended, however, as it will ensure your system has all necessary dependencies installed.
+We also provide an [AppImage](https://appimage.org), a single-file executable version of Warp. Installing Warp via a package manager is recommended, as it will ensure your system has all necessary dependencies installed.
 
 You can download the Warp AppImage with the following commands:
 
 ```
-curl -L "https://app.warp.dev/download?package=appimage" -o Warp-x86_64.AppImage
-chmod +x Warp-x86_64.AppImage
+# On x64 systems
+curl -L "https://app.warp.dev/download?package=appimage" -o Warp-x64.AppImage
+chmod +x Warp-x64.AppImage
+```
+```
+# On ARM64 systems
+curl -L "https://app.warp.dev/download?package=appimage_arm64" -o Warp-ARM64.AppImage
+chmod +x Warp-ARM64.AppImage
 ```
 
 **Running Warp on Linux**
 
-If you installed a package, find Warp in your desktop manager or run `warp-terminal` on your terminal.\
-If you're using the AppImage, you can launch it by navigating to the directory where the AppImage is located and running `./Warp-x86_64.AppImage`.
+If you installed a package, find Warp in your desktop manager or run `warp-terminal` on your terminal.
+If you're using the AppImage, you can launch it by navigating to the directory where the AppImage is located and running `./Warp-*.AppImage`.
 {% endtab %}
 {% endtabs %}
 
