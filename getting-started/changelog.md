@@ -8,6 +8,13 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2024.06.13 (v0.2024.06.11.08.02)
+
+**Improvements**
+
+* Brackets and quotes are now autocompleted in the workflow editor
+* Improved support for editing multi-line workflows
+
 ### 2024.06.06 (v0.2024.06.04.08.02)
 
 **Improvements**
