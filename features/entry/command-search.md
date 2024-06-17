@@ -20,7 +20,7 @@ Tailor your [Command Search](command-search.md) experience by toggling off "Show
   * $\_ Dollar Sign-Underscore signifies that the result is a [Workflow](yaml-workflows.md).
   * <img src="../../.gitbook/assets/history.png" alt="rewind time clock" data-size="line"> Rewind Time Clock icon signifies that the result is a [Command History](command-history.md).
   * <img src="../../.gitbook/assets/notebook.png" alt="earmarked page" data-size="line"> Earmarked Page icon signifies that the result is a [Notebook](../warp-drive/notebooks.md).
-  * ⚡ Lightning Bolt icon signifies piping that search query into [AI Command Suggestions](../warp-ai/ai-command-suggestions.md).
+  * ✨ Sparkle icon signifies piping that search query into [AI Command Suggestions](../warp-ai/ai-command-suggestions.md).
 * Activate a specific filter, by prepending your search term with the following:
   * `workflows:`, `w:`, or `W-TAB` will filter for Workflows.
   * `notebooks:`, `n:`, or `N-TAB` will filter for Notebooks.
