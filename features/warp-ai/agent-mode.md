@@ -14,9 +14,9 @@ Agent Mode can:
 1. Understand plain English (not just commands)
 2. Execute commands and use that output to guide you
 3. Correct itself when it encounters mistakes
-4. Learn and integrate with any service that has public docs or –-help
+4. Learn and integrate with any service that has public docs or --help
 
-Visit the example gallery to watch videos of Agent Mode in action: [warp.dev/ai](https://www.warp.dev/ai)
+[Visit the example gallery to watch videos of Agent Mode in action](https://www.warp.dev/ai).
 
 ### How to enter Agent Mode
 
