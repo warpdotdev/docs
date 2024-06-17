@@ -63,6 +63,7 @@ You may share multiple sessions simultaneously. If you have multiple shared sess
 
 ### Known limitations
 
-While this feature is in Beta, anybody who has access to a share link and an active Warp account will be able to view and collaborate on a session. In the future, Session Sharing will have Team-based access controls and permission restrictions.
+* [Agent Mode blocks](warp-ai/agent-mode.md) are not shareable during session sharing. Participants will be able to share regular shell commands that are run, but will not be able to share AI interactions (requested commands, AI blocks, etc.)
+* While this feature is in Beta, anybody who has access to a share link and an active Warp account will be able to view and collaborate on a session. In the future, Session Sharing will have Team-based access controls and permission restrictions.
 
 There is a session size limit of 100MB per user per session. These limits are subject to change.

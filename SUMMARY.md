@@ -28,6 +28,7 @@
   * [Notebooks](features/warp-drive/notebooks.md)
   * [Workflows](features/warp-drive/workflows.md)
 * [Warp AI](features/warp-ai/README.md)
+  * [Agent Mode](features/warp-ai/agent-mode.md)
   * [AI Command Suggestions](features/warp-ai/ai-command-suggestions.md)
 * [Teams](features/teams.md)
 * [Session Sharing (Beta)](features/session-sharing.md)

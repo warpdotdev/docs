@@ -12,9 +12,9 @@ Don't have Warp yet? [Download now](../getting-started/getting-started-with-warp
 
 ## Frequently asked questions
 
-### How can I subscribe to a Warp Team plan?&#x20;
+### How can I subscribe to a Pro or Team plan?
 
-To subscribe to a Warp Team plan, you must first [create a Team in Warp](../features/teams.md#creating-a-team). Then, you can [upgrade online](https://app.warp.dev/upgrade) or through the downloaded app. In the app, navigate to Settings → Teams and find the upgrade link. After you enter your payment information, you will receive an invoice and confirmation email from Warp.
+To subscribe to a paid Warp plan like Pro or Team, you must first [create a Team in Warp](../features/teams.md#creating-a-team). Then, you can [upgrade online](https://app.warp.dev/upgrade) or through the downloaded app. In the app, navigate to Settings → Teams and find the upgrade link. After you enter your payment information, you will receive an invoice and confirmation email from Warp.
 
 ### How can I subscribe to a Warp Enterprise plan?&#x20;
 
@@ -22,7 +22,7 @@ Warp offers an Enterprise plan with custom pricing for larger engineering organi
 
 ### How can I upgrade for higher Warp AI request limits?&#x20;
 
-Warp’s Team plan includes higher limits for Warp AI requests than what’s currently available on the Warp Free plan. Even if you are working alone and not ready to invite additional team members for collaboration, you will need to [create a Team](../features/teams.md#creating-a-team) in Warp to upgrade to the paid Warp Team plan, which unlocks access to higher AI limits.
+Both Warp’s Pro plan and Warp's Team plan include higher limits for Warp AI requests than what’s currently available on the Warp Free plan. Even if you are working alone and not ready to invite additional team members for collaboration, you will need to [create a Team](../features/teams.md#creating-a-team) in Warp to upgrade to the paid Warp plan, which unlocks access to higher AI limits.
 
 If you are not planning on extending invites to any team member collaborators, we suggest creating a Team with your name, e.g. “Zach’s Team” or “My Personal Team.” Then you can [upgrade online](https://app.warp.dev/upgrade) or in the downloaded app by navigating to Settings → Teams and finding the upgrade link.
 
@@ -61,33 +61,27 @@ If a payment fails, you will receive an email from Stripe and your Warp Team Set
 
 ### What counts as a Warp AI request?&#x20;
 
-[Warp AI](../features/warp-ai/) includes the “Ask Warp AI” chat panel, AI Command Suggestions (“#), and AI autofill in Warp Drive.
+[Warp AI](../features/warp-ai/) includes [Agent Mode](../features/warp-ai/agent-mode.md), AI Command Suggestions (“#), and AI autofill in Warp Drive.
 
-Every time you submit a query to Warp AI chat, it counts as one AI request. Anytime you run AI autofill in Warp Drive, this also counts as one AI request.
+Every time you submit an AI query with Agent Mode, it counts as one AI request. Agent Mode suggested commands and requested commands do not count as AI requests
+
+Anytime you run AI autofill in Warp Drive, this counts as one AI request.
 
 [AI Command Suggestions](../features/warp-ai/ai-command-suggestions.md) lets you look up commands as you’re typing. As you’re entering and adjusting a query to look up a command suggestion, you may incur multiple AI requests before selecting a suggestion.
 
-Request limits are allocated at the seat level to Warp users or team members. You can follow along with your request limits by referencing the counter on your Warp AI panel.
+Request limits are allocated at the seat level to Warp users or team members. You can follow along with your request limits by referencing the counter under Settings -> AI.
 
 ### How often does my Warp AI request limit reset?&#x20;
 
-Allotted AI requests refill every 30 days from your signup date. When you upgrade to a Team plan, you will be given a higher request limit immediately. You can follow along with your refill period by referencing the counter on your Warp AI panel.&#x20;
+Allotted AI requests refill every 30 days from your signup date. When you upgrade to a Pro or Team plan, you will be given a higher request limit immediately. You can follow along with your refill period by referencing the counter under Settings -> AI.
 
 ### How can I get the most out of my Warp Team plan?&#x20;
 
 The main benefits of a Warp Team plan are related to team collaboration and knowledge sharing, async, and in real-time. You can make the most of your Team plan by creating an organized Warp Drive with [Notebooks](../features/warp-drive/notebooks.md) and [Workflows](../features/warp-drive/workflows.md) to help your team streamline processes. Be sure to try out [Session Sharing](https://docs.warp.dev/features/session-sharing) for pair programming!
 
-### What if I don’t need all the capabilities of Warp’s Team plan?&#x20;
-
-Warp has a Free plan that is ideal for students, hobby developers, or small teams. You can downgrade to a Free plan at any time.
-
 ### Can I use a Free plan if I'm a developer at a large company or organization?
 
 Yes, absolutely. If you're using Warp at work, you may benefit from upgrading to a Team plan or an Enterprise plan for collaboration or plan features. However, Warp does not force companies of a certain size to upgrade to a paid plan. You are welcome to take advantage of Warp's Free plan.
-
-### Are annual discounts for Warp’s Team plan available?&#x20;
-
-Yes. If you subscribe to a Warp Team plan for the year, you benefit from the discounted rate of $22 per team member per month instead of $25 per team member per month.
 
 ### Are there any Warp discounts for students, non-profits, or open-source teams?&#x20;
 
@@ -105,7 +99,7 @@ Before the launch of the Warp Team plan, certain features like Warp Drive for Te
 
 During the Free Preview period of Warp Drive for Teams, several customers went above and beyond to provide ongoing design feedback and partnership with the Warp Product Team. If your Team was part of this program, you may see a special “Early adopter” label on the Team settings in your account. Early adopter teams have some custom pricing and plan exemptions in place. Please contact your Warp Team Admin for more information about how this status affects your account.
 
-### What payment options are available for the Warp Team plan?&#x20;
+### What payment options are available for Warp's self-service plans?&#x20;
 
 Warp uses Stripe for payment processing and the only available payment method is by credit card.
 
