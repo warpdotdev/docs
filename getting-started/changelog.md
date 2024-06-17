@@ -8,6 +8,12 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2024.06.17 (v0.2024.06.11.08.02)
+
+**New features**
+
+* New Agent Mode in Warp AI: Use plain English on the command line to accomplish multi-step workflows. [Learn more](https://www.warp.dev/blog/agent-mode)
+
 ### 2024.06.13 (v0.2024.06.11.08.02)
 
 **Improvements**
