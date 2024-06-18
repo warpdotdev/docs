@@ -82,11 +82,12 @@ The format itself might expand, but we'll do our best to avoid breaking changes 
 A custom theme in Warp has the following `.yaml` structure:
 
 ```yaml
+name: Custom Theme # Name for the theme
 accent: '#268bd2' # Accent color for UI elements
 background: '#002b36' # Terminal background color
-details: darker # Whether the theme is lighter or darker.
-foreground: '#839496' # The foreground color.
-terminal_colors: # Ansi escape colors.
+foreground: '#839496' # The foreground color
+details: darker # Whether the theme is lighter or darker
+terminal_colors: # Ansi escape colors
   bright:
     black: '#002b36'
     blue: '#839496'
@@ -106,16 +107,18 @@ terminal_colors: # Ansi escape colors.
     white: '#eee8d5'
     yellow: '#b58900'
 ```
-
+{% hint style="info" %}
 Each color is represented in hex and must start with `#`.
+{% endhint %}
 
+* `name`: Name for the theme, will show up in the Theme picker.
 * `accent`: Color used for highlights in Warp's UI
 * `background`: Color of background
 * `foreground`: Color of foreground
 * `details`: Color used for detailing options
-* `darker`: Color used for dark theme
-* `lighter`: Color used for light-mode theme
-* `terminal_theme`: Collection of normal & bright colors (16 total) known for other terminal themes (ANSI colors)
+  * `darker`: Color used for dark theme
+  * `lighter`: Color used for light-mode theme
+* `terminal_colors`: Collection of normal & bright colors (16 total) known for other terminal themes (ANSI colors)
 
 ## Create your custom theme, automatically
 
@@ -140,6 +143,7 @@ Note: Warp currently only supports images with the _.jpg_ file format:
 Here is what a `.yaml` config looks like this:
 
 ```yaml
+name: Custom Theme
 accent: '#268bd2'
 background: '#002b36'
 details: darker
