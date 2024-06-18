@@ -29,7 +29,7 @@ Before you can invite team members, you will need to give your team a meaningful
 It’s not currently possible to edit and rename a team, so please choose carefully! You can delete your team and create a new one to assign a new name if needed.
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/create_a_team.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/team-creation-settings.png" alt=""><figcaption></figcaption></figure>
 
 If you create a team, you become the team’s admin and will be the only person who can delete the team. Reference [Team roles and permissions](teams.md#team-roles-and-permissions) for more info.
 
@@ -37,7 +37,7 @@ If you create a team, you become the team’s admin and will be the only person 
 
 Under `Settings > Teams` you can copy the invite link for your Warp team and paste it to your clipboard.
 
-<figure><img src="../.gitbook/assets/copy_team_link.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/teams-invite-demo.png" alt=""><figcaption><p>Teams settings panel</p></figcaption></figure>
 
 When you share this link with your teammates directly (we suggest using a secure channel like Slack or email), they will be able to join your team in Warp.
 
