@@ -27,7 +27,11 @@ Warp respects the `KUBECONFIG` environmental variable, make sure you set it to y
 
 ### Custom Prompt
 
-You can also set up a custom prompt by configuring the **PS1** variable or installing a supported shell prompt plugin, see [Custom Prompt Compatibility Table](prompt.md#custom-prompt-compatibility-table). _Note:_ The PS1 is a variable used by the shell to generate the prompt, it represents the primary prompt string (hence the “PS”) - which is what the terminal typically displays before typing new commands.
+You can also set up a custom prompt by configuring the **PS1** variable or installing a supported shell prompt plugin, see [Custom Prompt Compatibility Table](prompt.md#custom-prompt-compatibility-table).
+
+{% hint style="info" %}
+The PS1 is a variable used by the shell to generate the prompt, it represents the primary prompt string (hence the “PS”) - which the terminal typically displays before typing new commands.
+{% endhint %}
 
 #### Multi-Line and Right-Sided Prompts
 
@@ -36,7 +40,8 @@ Warps custom prompt supports multi-line or right-sided prompts in zsh and fish, 
 ## How to access it
 
 * Toggle the custom prompt by right-clicking on the prompt area above the input and selecting "Edit prompt" or select "Prompt" from the `Settings > Appearance` page. There you will be able to select and customize the default prompt or select the Custom prompt (PS1).
-* When right-clicking the prompt, you can copy the entire prompt, working directory, current git branch, etc.
+* When using Warp prompt, you can right-click the prompt to copy the entire prompt, working directory, current git branch, git uncommitted file count, etc.
+* When using a custom prompt, you can right-click the prompt to copy the entire prompt or select any part of the custom prompt in previously run blocks in your session.
 
 ## How it works
 
