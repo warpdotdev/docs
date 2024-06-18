@@ -55,7 +55,15 @@ If you have received an invite link, you can use that link to sign up or log in 
 
 ## Leaving and deleting teams
 
-If you’re a member of a team, you can visit `Settings > Teams` to leave a team at any time. Team admins (who created teams) may delete a team only after all team members have been removed.
+If you’re a member of a team, you can visit `Settings > Teams` to leave a team at any time. Team admins (who created teams) may delete a team only after removing all team members.
+
+## Team discoverability
+
+Team admins can make their teams discoverable to colleagues from the same email domain. This feature is available under `Settings > Teams > Make team discoverable`.
+
+{% hint style="info" %}
+While discoverability is enabled, any new user who joins the team will add a prorated charge to the team's next month's bill. See more in our [pricing docs](../help/plans-subscriptions-and-pricing.md#what-counts-as-a-team-member-and-how-does-billing-work-for-members).
+{% endhint %}
 
 ## Team roles and permissions
 
