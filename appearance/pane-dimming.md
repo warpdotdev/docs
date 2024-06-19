@@ -15,7 +15,7 @@ To access it, go to `Settings > Appearance > Panes`
 * Toggle on `Dim inactive panes` to enable the feature.
 
 {% hint style="info" %}
-Default [panes](../features/windows/split-panes.md) show an indicator on the top left corner of the active pane, but this is disabled when pane dimming is enabled.
+Split panes show a triangle indicator on the top left corner of the active pane.
 {% endhint %}
 
 ## How it works
