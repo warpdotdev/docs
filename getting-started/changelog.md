@@ -8,6 +8,17 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2024.06.20 (v0.2024.06.18.08.02)
+
+**Improvements**
+
+* The glyph over the cursor will take on a high-contrast color to make sure it's legible
+* Dragging a word or line selection in a notebook now extends the selection
+
+**Bug fixes**
+
+* Fixes a crash where text layout would not expect the BOM marker at the beginning of a string
+
 ### 2024.06.17 (v0.2024.06.11.08.02)
 
 **New features**
