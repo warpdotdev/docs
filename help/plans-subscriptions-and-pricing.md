@@ -49,9 +49,9 @@ When you’re ready to use Warp more collaboratively, we suggest you nominate an
 
 ### What happens when I downgrade during a billing cycle?&#x20;
 
-When you upgrade to a Warp Team plan, you have the option to subscribe monthly or annually.
+When you upgrade to a Warp Team plan, you can subscribe monthly or annually.
 
-You can initiate a downgrade at any point throughout your subscription through the billing portal. The subscription will be canceled at the end of your billing cycle, monthly or yearly.&#x20;
+You can initiate a downgrade at any point throughout your subscription through the billing portal by going to `Settings > Teams > Manage billing`. The subscription will be canceled at the end of your billing cycle, monthly or yearly.&#x20;
 
 You can continue to use your Warp Team plan features until the cycle end date. Any additional team members added to your team will be invoiced at the end of your billing cycle.
 
