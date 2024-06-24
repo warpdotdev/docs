@@ -85,7 +85,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 * [Linux] Fixed an issue where Warp would flicker on Intel UHD 620 drivers when using Vulkan due to a bug in specific versions of Mesa
 * [Linux] Fixed a regression in input latency
 
-### 2024.03.27 (v0.2024.04.23.08.01)
+### 2024.04.27 (v0.2024.04.23.08.01)
 
 **New features**
 
