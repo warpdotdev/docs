@@ -89,7 +89,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 **New features**
 
-* The free preview for Warp AI and Warp Drive for teams has ended. [Learn about Warp’s new self-service plan]
+* The free preview for Warp AI and Warp Drive for teams has ended. [Learn about Warp’s new self-service plan](https://www.warp.dev/blog/team-plan)
 
 **Improvements**
 
