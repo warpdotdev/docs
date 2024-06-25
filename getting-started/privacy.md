@@ -68,6 +68,10 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 | `AI Command Search opened` | Opened the modal for AI Command Search, where you can use natural language to search for commands |
 | `Add Added Subshell Command` | Added a command to be automatically Warpified via Warp's subshell wrapper |
 | `Add Denylisted Subshell Command` | Explicitly prevent a command from being Warpified via Warp's subshell wrapper |
+| `AgentMode.AttachedContext` | Attached block as context to an Agent Mode query |
+| `AgentMode.ClickedEntrypoint` | Clicked on an Agent Mode entrypoint |
+| `AgentMode.QueryAttemptAtLImit` | Tried to send an Agent Mode query but they already reached the query limit |
+| `AgentMode.ToggledAskFollowUp` | Toggled 'ask followup' on Agent Mode query |
 | `App Download Source` | Whether the Warp was installed from the home page or through homebrew |
 | `App Startup` | App is launched |
 | `Approve Domains` | Under team management in settings, domain is approved for users with corresponding email domain to join the team |
@@ -80,6 +84,7 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 | `Block Creation` | Created Block |
 | `Block Filter Toolbelt Button Clicked` | Clicked the block filter icon in the top-right of a block |
 | `Block Selection` | Selected Block |
+| `BlocklistAI.CreatedBlock` | Created an AI Block |
 | `Bootstrapping Slow` | Slow bootstrap on session startup |
 | `Bootstrapping Succeeded` | Successful bootstrap for session |
 | `Changed invite view option` | Toggled between link and invite for invite |
@@ -156,6 +161,7 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 | `Log Out Modal Shown` | When the log out modal is displayed |
 | `Logged in to native app` | Login is successful |
 | `Logged-out App Startup` | Started Warp in the logged-out / signed-out state |
+| `Manually toggle off AI autodetection` | Manually toggled off AI input after autodetected AI |
 | `Move Active Tab` | Move active tab left or right |
 | `Move Tab` | Move tab left or right |
 | `Needs Reauth` | User needs to re-authenticate |
@@ -196,7 +202,6 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 | `Quit Modal Disabled` | The quit modal dialog has been disabled and will not popup when a user closes Warp while a session is running |
 | `Quit Modal Shown` | Showed an alert modal to warn the user about closing the app/window with a running process |
 | `Received Subshell RC File DCS` | Spawned a subshell to be automatically Warpified |
-| `Regenerate Suggested Workflows` | Requested that Warp AI regenerate suggested workflows |
 | `Remove Added Subshell Command` | Removed a command from the list of commands to automatically Warpify via Warp's subshell wrapper |
 | `Remove Denylisted Subshell Command` | Removed a command from the list of commands to IGNORE when trying to Warpify via Warp's subshell wrapper |
 | `Removed user from team` | Remove user from Warp Drive team |
@@ -219,6 +224,7 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 | `Setup Flow Interrupted` | The setup flow could not finish due to some interruption |
 | `Setup Flow Skipped` | Skipped the setup flow for new users |
 | `Setup Flow Started` | Started the setup flow for new users |
+| `Shared Object Limit Hit Banner View Plans Button Clicked` | Clicked the 'View Plans' button on the persistent drive banner |
 | `Sharer Cancelled Grant Role` | When you cancel granting a role to a shared session participant |
 | `Show Alias Expansion Banner` | Displayed the banner asking whether Warp should automatically expand aliases within the Input Editor |
 | `Show Subshell Banner` | Displayed the banner asking whether Warp should Warpify the current session via Warp's subshell wrapper |
@@ -228,7 +234,6 @@ We use [Sentry](https://sentry.io/about/) for crash reporting and [Segment](http
 | `Sign Up Button Clicked in App` | Clicked "Sign Up" button |
 | `Skip Onboarding Survey` | Skipped onboarding survey as a whole |
 | `Split Pane` | Split tab into multiple panes |
-| `Start Onboarding Survey` | Started onboarding survey |
 | `Tab Creation` | Created a tab |
 | `Tab Operations` | Took operation on a tab: change color, close tab, close adjacent tabs, etc. |
 | `Tab Renamed` | Changed tab title |
