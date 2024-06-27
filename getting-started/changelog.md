@@ -19,17 +19,6 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 * Text selection in full screen apps will change as you scroll
 * [MacOS] Meta shortcuts, e.g. `OPT-U`, `OPT-I`, will no longer be ignored
 
-### 2024.06.27 (v0.2024.06.25.08.02)
-
-**New features**
-
-* Warp’s new Pro plan includes higher AI requests for individuals or small teams [Learn more](https://www.warp.dev/blog/pro-plan)
-
-**Bug fixes**
-
-* Text selection in full screen apps will change as you scroll
-* [MacOS] Meta shortcuts, e.g. `OPT-U`, `OPT-I`, will no longer be ignored
-
 ### 2024.06.20 (v0.2024.06.18.08.02)
 
 **Improvements**
