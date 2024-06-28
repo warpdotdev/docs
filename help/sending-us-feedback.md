@@ -33,6 +33,14 @@ Warp’s logs do _not_ contain any console input or output. See more on how we h
 {% tab title="macOS" %}
 The log file is located at `~/Library/Logs/warp.log`.
 
+{% hint style="info" %}
+If your issue is graphical (e.g. no display of windows, etc), please run Warp with the following command to capture more log information.
+
+```bash
+RUST_LOG=wgpu_core=info,wgpu_hal=info MESA_DEBUG=1 EGL_LOG_LEVEL=debug /Applications/Warp.app/Contents/MacOS/stable
+```
+{% endhint %}
+
 **Using Console**
 
 1. Launch Console, found in Mac’s `Applications > Utilities` folder.
@@ -44,7 +52,7 @@ The log file is located at `~/Library/Logs/warp.log`.
 The log file is located at `${XDG_STATE_HOME:-$HOME/.local/state}/warp-terminal/warp.log`
 
 {% hint style="info" %}
-If your issue is graphical (eg no display of windows, etc), please run Warp with the following command to capture more log information.
+If your issue is graphical (e.g. no display of windows, etc), please run Warp with the following command to capture more log information.
 
 ```bash
 RUST_LOG=wgpu_core=info,wgpu_hal=info MESA_DEBUG=1 EGL_LOG_LEVEL=debug warp-terminal
