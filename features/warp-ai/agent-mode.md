@@ -123,7 +123,7 @@ If you're already in Agent Mode, use the following ways to attach or clear conte
 {% tab title="macOS" %}
 #### Attach a previous block
 
-* To attach blocks to a query, you can use `CMD-UP` to attach the previous block as context to the query. You can then use your `ARROW` keys to pick another block.&#x20;
+* To attach blocks to a query, you can use `CMD-UP` to attach the previous block as context to the query. While holding `CMD`, you can then use your `UP/DOWN` keys to pick another block to attach.&#x20;
   * You may also use your mouse to attach blocks in your session. Hold `CMD` as you click on other blocks to extend your block selection.
 
 #### Clear a previous block
@@ -139,7 +139,7 @@ When using "Pin to the top" [Input Position](../../appearance/input-position.md)
 {% tab title="Linux" %}
 #### Attach a previous block
 
-* To attach blocks to a query, you can use `CTRL-UP` to attach the previous block as context to the query. You can then use your `ARROW` keys to pick another block.&#x20;
+* To attach blocks to a query, you can use `CTRL-UP` to attach the previous block as context to the query. While holding `CMD`, you can then use your `UP/DOWN` keys to pick another block to attach.&#x20;
   * You may also use your mouse to select blocks in your session. Hold `CTRL` as you click on other blocks to extend your block selection.
 
 #### Clear a previous block
