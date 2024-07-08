@@ -16,6 +16,7 @@ Warp’s cloud-based features which require an internet connection will not work
 
 * [Warp Drive](../features/warp-drive/#using-warp-drive-offline) (Some files may be read-only in offline mode)
 * [Warp AI](../features/warp-ai/)
+  * [Agent Mode](../features/warp-ai/agent-mode.md)
   * [AI Command Suggestions](../features/warp-ai/ai-command-suggestions.md)
 * [Teams](../features/teams.md)
 * [Session Sharing](../features/session-sharing.md)
