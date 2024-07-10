@@ -8,6 +8,23 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2024.07.11 (v0.2024.07.09.08.01)
+
+**New features**
+
+* PS1 prompts are now on the same line as the command input editor. Warp prompt is configurable in the same manner Settings > Appearance > Prompt
+
+**Improvements**
+
+* Added support for completions while using Agent Mode input
+* Semantic selection now works in AI blocks
+* SHIFT-CLICK now lets you select text for alternate screen apps in SGR mouse mode
+
+**Bug fixes**
+
+* Pressing Esc in Vim insert mode no longer closes the history menu
+* Made sure terminal context menus close when opening the settings modal
+
 ### 2024.06.27 (v0.2024.06.25.08.02)
 
 **New features**
