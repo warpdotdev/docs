@@ -15,7 +15,7 @@ You can visit Settings -> Appearance -> Prompt to drag and drop context chips in
 
 <figure><img src="../.gitbook/assets/Screenshot 2024-07-11 at 10.05.01 AM.png" alt=""><figcaption><p>Edit your Warp prompt.</p></figcaption></figure>
 
-### How to set your Warp prompt the same line
+### Same line prompt
 
 By default, Warp's prompt displays on two lines where the command line input is one line below the prompt.
 
