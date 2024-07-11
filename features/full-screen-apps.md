@@ -8,11 +8,13 @@ description: >-
 
 ## Mouse and Scroll Reporting
 
-Warp supports configuring how to handle mouse and scroll events, they can be sent to the currently running app e.g. `vim`, or kept and handled by Warp.
+Warp supports configuring how to handle mouse and scroll events. They can be sent to the currently running app, e.g. `vim`, or kept and handled by Warp.
 
 {% hint style="info" %}
 Mouse reporting must be enabled to also toggle scroll reporting.
 {% endhint %}
+
+Once mouse reporting is enabled, Warp will use ANSI escape sequences to communicate mouse events to the running app. If you want a mouse event to go to Warp instead (for example, for text selection) without disabling mouse reporting, you can hold the `SHIFT` key.
 
 ### How to access it
 
