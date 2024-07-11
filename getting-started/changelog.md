@@ -12,7 +12,7 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 
 **New features**
 
-* PS1 prompts are now on the same line as the command input editor. Warp prompt is configurable in the same manner Settings > Appearance > Prompt
+* Same line prompt: Now you can choose whether you'd like your prompt on a new line (Warp's default) or on the same line with commands, like a classic terminal. If you're using PS1, Warp will use the same line prompt setting to respect theme configurations. Visit Settings > Appearance > Prompt to configure your prompt style. [Learn more](https://docs.warp.dev/appearance/prompt#same-line-prompt)
 
 **Improvements**
 
