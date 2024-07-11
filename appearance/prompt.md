@@ -9,7 +9,25 @@ description: >-
 
 ### Warp Prompt
 
-Warp has a native prompt that is customizable and can show a variety of information including cwd, git, svn, kubernetes, pyenv, date, time, etc.
+Warp has a native prompt that is customizable and can show a variety of information including cwd, git, svn, kubernetes, pyenv, date, time, an so on.
+
+You can visit Settings -> Appearance -> Prompt to drag and drop context chips into your Warp prompt until it displays the pieces of information you'd like to include.
+
+<figure><img src="../.gitbook/assets/Screenshot 2024-07-11 at 10.05.01 AM.png" alt=""><figcaption><p>Edit your Warp prompt.</p></figcaption></figure>
+
+### How to set your Warp prompt the same line
+
+By default, Warp's prompt displays on two lines where the command line input is one line below the prompt.
+
+<figure><img src="../.gitbook/assets/Screenshot 2024-07-11 at 10.01.47 AM.png" alt=""><figcaption><p>Warp's prompt, on a new line.</p></figcaption></figure>
+
+If you'd like to set your prompt such that the command line input and the prompt display together inline, you can configure this under Settings -> Appearance -> Prompt and check the box for "Same line prompt."
+
+<figure><img src="../.gitbook/assets/Screenshot 2024-07-11 at 10.07.05 AM.png" alt=""><figcaption><p>Same line prompt setting available in settings.</p></figcaption></figure>
+
+<figure><img src="../.gitbook/assets/Screenshot 2024-07-11 at 10.07.22 AM.png" alt=""><figcaption><p>A Warp prompt with the same line prompt settings applied.</p></figcaption></figure>
+
+If you're using a [custom prompt (PS1)](prompt.md#custom-prompt), Warp will use the same line prompt settings in order to respect any styles or theme configurations. You may optionally configure a new line prompt with PS1 but you will need to write your own configuration, according to your theme of choice.
 
 #### Git and Subversion
 
@@ -35,7 +53,7 @@ The PS1 is a variable used by the shell to generate the prompt, it represents th
 
 #### Multi-Line and Right-Sided Prompts
 
-Warps custom prompt supports multi-line or right-sided prompts in zsh and fish, not bash. However, you can't have a multiline right-side prompt, only a multiline left prompt. You also can't have the cursor on the same line as the prompt (we're working on supporting [this](https://github.com/warpdotdev/Warp/issues/2304)). Warp renders the cursor on a fresh new line within the [Input Editor](../features/editor/), a separate UI element from the prompt.
+Warps custom prompt supports multi-line or right-sided prompts in zsh and fish, not bash. However, you can't have a multiline right-side prompt, only a multiline left prompt.&#x20;
 
 ## How to access it
 
@@ -54,7 +72,7 @@ Installing Powerlevel10k
 {% endembed %}
 
 {% hint style="warning" %}
-Please note the installing powerlevel10k video mentions enabling a custom prompt in `Settings > Features`, but it's now in `Settings > Appearance`, see [above](prompt.md#how-to-access-it) for the updated steps.
+Please note the installing powerlevel10k video mentions enabling a custom prompt in `Settings > Features`, but it's now in `Settings > Appearance.`
 {% endhint %}
 
 ### Custom Prompt Compatibility Table
