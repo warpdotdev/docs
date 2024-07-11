@@ -7,27 +7,9 @@ description: >-
 
 # Prompt
 
-### Warp Prompt
+### Warp prompt
 
-Warp has a native prompt that is customizable and can show a variety of information including cwd, git, svn, kubernetes, pyenv, date, time, an so on.
-
-You can visit Settings -> Appearance -> Prompt to drag and drop context chips into your Warp prompt until it displays the pieces of information you'd like to include.
-
-<figure><img src="../.gitbook/assets/Screenshot 2024-07-11 at 10.05.01 AM.png" alt=""><figcaption><p>Edit your Warp prompt.</p></figcaption></figure>
-
-### Same line prompt
-
-By default, Warp's prompt displays on two lines where the command line input is one line below the prompt.
-
-<figure><img src="../.gitbook/assets/Screenshot 2024-07-11 at 10.01.47 AM.png" alt=""><figcaption><p>Warp's prompt, on a new line.</p></figcaption></figure>
-
-If you'd like to set your prompt such that the command line input and the prompt display together inline, you can configure this under Settings -> Appearance -> Prompt and check the box for "Same line prompt."
-
-<figure><img src="../.gitbook/assets/Screenshot 2024-07-11 at 10.07.05 AM.png" alt=""><figcaption><p>Same line prompt setting available in settings.</p></figcaption></figure>
-
-<figure><img src="../.gitbook/assets/Screenshot 2024-07-11 at 10.07.22 AM.png" alt=""><figcaption><p>A Warp prompt with the same line prompt settings applied.</p></figcaption></figure>
-
-If you're using a [custom prompt (PS1)](prompt.md#custom-prompt), Warp will use the same line prompt settings in order to respect any styles or theme configurations. You may optionally configure a new line prompt with PS1 but you will need to write your own configuration, according to your theme of choice.
+Warp has a native prompt that is customizable and can show a variety of information including cwd, git, svn, kubernetes, pyenv, date, time, an so on. You can visit `Settings > Appearance > Prompt` to drag and drop context chips into your Warp prompt until it displays the pieces of information you'd like to include.
 
 #### Git and Subversion
 
@@ -43,7 +25,15 @@ Kubernetes context chip shows relevant information when you're using one of the 
 Warp respects the `KUBECONFIG` environmental variable, make sure you set it to your preferred configuration file location, if it's not the default path of `~/.kube/config`
 {% endhint %}
 
-### Custom Prompt
+### Same line prompt
+
+By default, Warp's prompt displays on two lines where the command line input is one line below the prompt.
+
+If you'd like to set your prompt such that the command line input and the prompt display together inline, you can configure this under `Settings > Appearance > Prompt` and check the box for "Same line prompt."
+
+If you're using a [custom prompt (PS1)](prompt.md#custom-prompt), Warp will use the same line prompt settings to respect any styles or theme configurations. You may optionally configure a new line prompt with PS1 but you will need to write your configuration, according to your theme of choice.
+
+### Custom prompt
 
 You can also set up a custom prompt by configuring the **PS1** variable or installing a supported shell prompt plugin, see [Custom Prompt Compatibility Table](prompt.md#custom-prompt-compatibility-table).
 
@@ -63,9 +53,9 @@ Warps custom prompt supports multi-line or right-sided prompts in zsh and fish, 
 
 ## How it works
 
-<figure><img src="../.gitbook/assets/edit-prompt-modal.png" alt="Warp Edit Prompt Modal"><figcaption><p>Edit Warp Prompt Modal</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/edit prompt modal.png" alt=""><figcaption><p>Prompt edit modal</p></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/prompt-demo.gif" alt="Warp Prompt + Custom Prompt Demo"><figcaption><p>Warp Prompt + Custom Prompt Demo</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/warp-custom-prompt-demo.gif" alt="Warp Prompt + Custom Prompt Demo"><figcaption><p>Warp Prompt + Custom Prompt Demo</p></figcaption></figure>
 
 {% embed url="https://www.youtube.com/watch?t=18s&v=dIV9Cso4Mi8" %}
 Installing Powerlevel10k
@@ -122,6 +112,8 @@ For `fish` shell, optional for `bash|zsh`, disable the multi-line prompt in Star
 disabled = true
 ```
 
+You may also see an error relating to timeout. You can set the `command_timeout` variable in your `~/.config/starship.toml` to fix this. See more in the [starship docs](https://starship.rs/config/#prompt).
+
 #### Starship + Bash
 
 Starship prompt may not render properly if your [default shell](../getting-started/using-warp-with-shells.md#changing-default-shell) is `/bin/bash`. To [workaround](https://github.com/warpdotdev/Warp/issues/3066#issuecomment-1548643121) the issue, we recommend you upgrade bash, find the path with `echo $(which bash)`, then put the path in your `Settings > Features > Session > "Startup shell for new sessions" > Custom`.
@@ -140,7 +132,7 @@ Warp still doesn't fully support some p10k features like transient prompt and vi
 
 #### Spaceship
 
-This prompt can cause an issue with typeahead in Warp's input editor. To [workaround](https://github.com/warpdotdev/Warp/issues/1973#issuecomment-1340150521) the issue, run `echo "SPACESHIP_PROMPT_ASYNC=FALSE" >>! ~/.zshrc`.
+This prompt can cause an issue with typeahead in Warp's input editor. To [workaround](https://github.com/warpdotdev/Warp/issues/1973#issuecomment-1340150521) the issue, run `echo "SPACESHIP_PROMPT_ASYNC=FALSE" >>! ~/.zshrc`.&#x20;
 
 #### Prezto
 
