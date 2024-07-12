@@ -14,11 +14,15 @@ Warp supports configuring how to handle mouse and scroll events. They can be sen
 Mouse reporting must be enabled to also toggle scroll reporting.
 {% endhint %}
 
-Once mouse reporting is enabled, Warp will use ANSI escape sequences to communicate mouse events to the running app. If you want a mouse event to go to Warp instead (for example, for text selection) without disabling mouse reporting, you can hold the `SHIFT` key.
+Once mouse reporting is enabled, Warp will use ANSI escape sequences to communicate mouse events to the running app. 
+
+{% hint style="info" %}
+If you want a mouse event to go to Warp instead (for example, for text selection) without disabling mouse reporting, you can hold the `SHIFT` key.
+{% endhint %}
 
 ### How to access it
 
-* From the Settings panel, `Settings > Features`` ``> Enable Mouse Reporting`
+* From the Settings panel, `Settings > Features > Enable Mouse Reporting`
   * Scroll Reporting can be enabled after toggling `Enable Mouse Reporting`
 * From the [Command Palette](command-palette.md), search for "Toggle Mouse Reporting"
 * From the macOS Menu, `View > Toggle Mouse Reporting`
