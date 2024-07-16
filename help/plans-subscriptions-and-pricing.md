@@ -103,7 +103,11 @@ During the Free Preview period of Warp Drive for Teams, several customers went a
 
 Warp uses Stripe for payment processing and the only available payment method is by credit card.
 
-Warp cannot currently accept payment by ACH, cash, check, money order, or crypto-currency.
+Warp cannot currently accept payment by ACH, cash, check, money order, or cryptocurrency.
+
+### How do I cancel my subscription?
+
+You can cancel at any point throughout your subscription through the billing portal by going to `Settings > Teams > Manage billing`. Cancelled subscriptions will remain active until the end of the billing cycle.
 
 ### I have a question and need help. How can I reach a human at Warp?&#x20;
 
