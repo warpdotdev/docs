@@ -8,6 +8,20 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2024.07.18 (v0.2024.07.16.08.02)
+
+**Improvements**
+
+* Completions for git push origin now include tags in addition to branches
+* Docker extension: The "Open in Warp" feature now requires you to run the command in order to open the Warpified Docker subshell. Attempts to open an invalid link will display an error toast
+
+**Bug fixes**
+
+* Warp prompt text now respects custom line height settings
+* Scroll positions are now stable when hitting block line limits [#1355](https://github.com/warpdotdev/Warp/issues/1355)
+* Fish commands containing syntax errors now correctly "finish" the block
+* Fixed binaries listed directly in `PATH` being automatically executed when running commands in Bash
+
 ### 2024.07.11 (v0.2024.07.09.08.01)
 
 **New features**
