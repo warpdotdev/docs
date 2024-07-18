@@ -109,6 +109,10 @@ Warp cannot currently accept payment by ACH, cash, check, money order, or crypto
 
 You can cancel at any point throughout your subscription through the billing portal by going to `Settings > Teams > Manage billing`. Cancelled subscriptions will remain active until the end of the billing cycle.
 
+### Why can't I subscribe to Warp?
+
+There are certain prohibited and restricted businesses which Stripe and major credit card networks will not process payments for. For the most updated information, please see the full list [here](https://stripe.com/legal/restricted-businesses).
+
 ### I have a question and need help. How can I reach a human at Warp?&#x20;
 
 The team at Warp is standing by and ready to help you with any questions you have about your plan or subscription. Please email us at [billing@warp.dev](mailto:billing@warp.dev) and we will get back to you.
