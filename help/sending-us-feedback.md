@@ -13,13 +13,11 @@ description: >-
 * Warp Essentials:bulb:, click on Feedback.
 * Join our [Discord](https://www.warp.dev/discord?utm\_source=docs-sending\_us\_feedback) server. Send a message in [`#questions-and-feedback`](https://discord.com/channels/851854972600451112/1154432424873296012).
 
+{% hint style="info" %}
+For security-related issues or questions, please email [security@warp.dev](mailto:security@warp.dev).
+{% endhint %}
+
 <figure><img src="../.gitbook/assets/send-feedback-demo.gif" alt="sending feedback from the mac menu and warp essentials"><figcaption><p>Send Feedback</p></figcaption></figure>
-
-### Sending WarpPreview feedback:
-
-WarpPreview is an early access build given to Warp Ambassadors. You can join this insider program through our application. Learn more about the [Warp Ambassadors](https://warpdev.notion.site/Warp-Ambassadors-7aeacbc565694985a64710871470af67#68a28367517042a0aeaa472b2f29cea5) program.
-
-* Join our [Discord](https://www.warp.dev/discord?utm\_source=docs-sending\_us\_feedback) server. Send a message in `#questions-and-feedback`.
 
 ## Gathering Warp Logs
 
@@ -60,4 +58,3 @@ RUST_LOG=wgpu_core=info,wgpu_hal=info MESA_DEBUG=1 EGL_LOG_LEVEL=debug warp-term
 {% endhint %}
 {% endtab %}
 {% endtabs %}
-
