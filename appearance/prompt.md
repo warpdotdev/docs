@@ -114,11 +114,15 @@ disabled = true
 
 You may also see an error relating to timeout. You can set the `command_timeout` variable in your `~/.config/starship.toml` to fix this. See more in the [starship docs](https://starship.rs/config/#prompt).
 
-#### Starship + Bash
+#### Starship + bash
 
 Starship prompt may not render properly if your [default shell](../getting-started/using-warp-with-shells.md#changing-default-shell) is `/bin/bash`. To [workaround](https://github.com/warpdotdev/Warp/issues/3066#issuecomment-1548643121) the issue, we recommend you upgrade bash, find the path with `echo $(which bash)`, then put the path in your `Settings > Features > Session > "Startup shell for new sessions" > Custom`.
 
-#### Powerlevel10k
+#### Starship + zsh
+
+If you want to restore the additional line after the Starship prompt on `zsh`, add the following to the bottom of your `~/.zshrc` file: `PROMPT="${PROMPT}"$'\n'`
+
+### Powerlevel10k
 
 Powerlevel10k prompt may display the arrow dividers as grey instead of color. The color for those chars is rendered grey due to Warp's minimum contrast setting, as Warp updates colors to enforce a minimum contrast ratio for readability. To [workaround](https://github.com/warpdotdev/Warp/issues/2851#issuecomment-1605005256) this issue, go to `Settings > Appearance > Text > Enforce minimum contrast` and set it to "Never".
 
@@ -130,11 +134,11 @@ Warp does support [p10k](https://github.com/romkatv/powerlevel10k#installation) 
 Warp still doesn't fully support some p10k features like transient prompt and visual features like gradients.
 {% endhint %}
 
-#### Spaceship
+### Spaceship
 
 This prompt can cause an issue with typeahead in Warp's input editor. To [workaround](https://github.com/warpdotdev/Warp/issues/1973#issuecomment-1340150521) the issue, run `echo "SPACESHIP_PROMPT_ASYNC=FALSE" >>! ~/.zshrc`.&#x20;
 
-#### Prezto
+### Prezto
 
 Although Warp does have support for prezto's prompt, enabling the [prezto utility module](https://github.com/sorin-ionescu/prezto/blob/master/modules/utility/README.md) in the `.zpreztorc` is not supported as with many other autocompletion [plugins that are incompatible](../help/known-issues.md#list-of-incompatible-tools).
 
