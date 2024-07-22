@@ -10,7 +10,7 @@ redirects:
     features/workflows: features/entry/workflows.md
     features/command-search: features/entry/command-search.md
     features/command-history: features/entry/command-history.md
-    features/hotkey-window: features/windows/hotkey-window.md
+    features/hotkey-window: features/windows/global-hotkey.md
     features/tabs: features/windows/tabs.md
     features/split-panes: features/windows/split-panes.md
     features/themes: appearance/themes.md
