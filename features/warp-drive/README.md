@@ -92,6 +92,20 @@ When importing or exporting, objects are converted as follows:
 * [Workflows](workflows.md) import from and export to [YAML workflows](../entry/yaml-workflows.md)
 * [Notebooks](notebooks.md) import from and export to Markdown files
 
+## Sharing Your Drive Objects
+
+Every object in Warp Drive can be shared. Currently, sharing is managed via Team-based links and only team objects can be shared. Personal object sharing and richer sharing modalities including direct sharing are coming soon.
+
+### Sharing a Drive Object With a Teammate via Link
+
+To share a Drive object, navigate to the object's overflow menu, and choose "Copy link". Once the link is successfully copied to your clipboard, you can share it with teammates and reference your object in your codebase, documentation, or communication channels like Slack.  Users will need to make an account on Warp to see the object.&#x20;
+
+{% hint style="info" %}
+To view an object, link-followers must have a Warp account and be a member of the object's Warp Drive Team. Those without accounts will be prompted to sign up. Users not on the relevant team will have the ability to automatically request the team admin to be added.
+{% endhint %}
+
+<figure><img src="../../.gitbook/assets/Screenshot 2024-07-23 at 12.42.25 PM.png" alt="" width="216"><figcaption><p>Copy link Menu Item</p></figcaption></figure>
+
 ## Troubleshooting Warp Drive
 
 * If you were previously using Warp on your own and were later invited to join a team, you may need to exit, update, and restart the Warp app to gain access to your team’s shared drive and commands

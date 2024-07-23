@@ -27,6 +27,7 @@
 * [Warp Drive](features/warp-drive/README.md)
   * [Notebooks](features/warp-drive/notebooks.md)
   * [Workflows](features/warp-drive/workflows.md)
+  * [Warp Drive on the Web \[Beta\]](features/warp-drive/warp-drive-on-the-web-beta.md)
 * [Warp AI](features/warp-ai/README.md)
   * [Agent Mode](features/warp-ai/agent-mode.md)
   * [AI Command Suggestions](features/warp-ai/ai-command-suggestions.md)
