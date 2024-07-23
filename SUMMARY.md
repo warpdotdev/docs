@@ -42,7 +42,7 @@
 * [Modern Text Editing](features/editor/README.md)
   * [Alias Expansion](features/editor/alias-expansion.md)
   * [Command Inspector](features/editor/command-inspector.md)
-  * [Syntax and Error Highlighting](features/editor/syntax-error-highlighting.md)
+  * [Syntax & Error Highlighting](features/editor/syntax-error-highlighting.md)
   * [Vim Keybindings](features/editor/vim.md)
 * [Command Entry](features/entry/README.md)
   * [Command Corrections](features/entry/command-corrections.md)
