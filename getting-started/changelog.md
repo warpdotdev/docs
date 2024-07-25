@@ -8,6 +8,23 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2024.07.25 (v0.2024.07.23.08.02)
+
+**New features**
+
+* You can now find AI queries from other sessions in `UP` arrow history
+
+**Improvements**
+
+* Clicking an attached block on an AI block no longer affects your pending query's context selection
+* Clicking the terminal input box will no longer remove the blocks you selected as context
+* Added support for smart selections in AI blocks
+* Increased priority of command matches when searching for a workflow
+
+**Bug fixes**
+
+* Opening file links with line and column numbers in Zed now works
+
 ### 2024.07.18 (v0.2024.07.16.08.02)
 
 **Improvements**
