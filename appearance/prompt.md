@@ -33,6 +33,37 @@ If you'd like to set your prompt such that the command line input and the prompt
 
 If you're using a [custom prompt (PS1)](prompt.md#custom-prompt), Warp will use the same line prompt settings to respect any styles or theme configurations. You may optionally configure a new line prompt with PS1 but you will need to write your configuration, according to your theme of choice.
 
+{% hint style="info" %}
+If you want to add back the new line on your custom prompt, please run the following based on your shell or prompt:
+
+```sh
+# Bash
+echo -e '\nPS1="${PS1}"$'\''\\n'\''' >> ~/.bashrc
+
+# Zsh
+echo -e '\nPROMPT="${PROMPT}"$'\''\\n'\''' >> ~/.zshrc
+
+# Fish
+echo -e '\nfunctions --copy fish_prompt fish_prompt_orig; function fish_prompt; fish_prompt_orig; echo; end' >> ~/.config/fish/config.fish
+
+# Powershell
+$rawString = @'
+$originalPrompt = Get-Item Function:\prompt
+Set-Item -Path Function:\prompt_original -Value $originalPrompt
+function prompt {
+    "$(& prompt_original)`n"
+}
+'@
+Add-Content -Path $PROFILE -Value "`n$rawString`n"
+
+# Powerlevel10k
+p10k configure
+
+# Starship Prompt
+echo '[line_break]\ndisabled = false' >> ~/.config/starship.toml
+```
+{% endhint %}
+
 ### Custom prompt
 
 You can also set up a custom prompt by configuring the **PS1** variable or installing a supported shell prompt plugin, see [Custom Prompt Compatibility Table](prompt.md#custom-prompt-compatibility-table).
