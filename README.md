@@ -1,7 +1,7 @@
 ---
 description: >-
   Warp is a modern, Rust-based terminal with AI built in so you and your team
-  can build great software faster.
+  can build great software faster
 ---
 
 # What is Warp?
