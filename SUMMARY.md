@@ -6,7 +6,7 @@
 * [Installing & Onboarding](getting-started/getting-started-with-warp.md)
 * [Using Warp with \[zsh|bash|fish\]](getting-started/using-warp-with-shells.md)
 * [Privacy](getting-started/privacy.md)
-* [Refer a Friend and Earn Rewards](getting-started/refer-a-friend.md)
+* [Refer a Friend & Earn Rewards](getting-started/refer-a-friend.md)
 * [Changelog](getting-started/changelog.md)
 
 ## 🎨 Appearance
