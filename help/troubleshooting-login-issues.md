@@ -4,7 +4,7 @@ description: Instructions on how to troubleshoot login issues.
 
 # Troubleshooting Login Issues
 
-## Can't "Sign Up" for Warp
+### Can't "Sign Up" for Warp
 
 Clicking it should open a login pop-up. If clicking the signup button opens a blank pop-up window, try using a proxy. Your ISP or Firewall may be blocking the app's call to `*.googleapis.com` or `*.segment.io`. In some older Ruby development environments, `.dev` domains do not resolve properly and you may need to delete the `/etc/resolver/dev`, see more [here](https://superuser.com/questions/1374892/dev-domains-dont-resolve).
 
@@ -15,7 +15,7 @@ This error could occur if you installed an ad blocker and the ad blocker blocks 
 1. Disable your ad blocker for `app.warp.dev`
 2. Refresh and try again
 
-### Safari
+## Safari
 
 You are on Safari and you might notice in your console that you get the following messages:
 
@@ -26,8 +26,6 @@ This error occurs likely because you are blocking all cookies in Safari's securi
 
 1. Go to Safari Preferences > Privacy
 2. Uncheck the "Block all cookies" checkbox
-
-If "Sign Up" does not work after trying the steps above, fill out [this Typeform](https://zachlloyd.typeform.com/to/UnZu0akR#\&question=sign\_up?utm\_source=docs) and our team will reach out to you.
 
 ### Proxies
 
@@ -45,7 +43,7 @@ When behind a proxy, a possible workaround is to disable QUIC in the browser. It
   4. Restart Firefox for the changes to take effect.
 * In Safari, Unfortunately, there is no built-in option to disable QUIC in Safari. Safari uses QUIC as its default transport protocol and does not provide a user-accessible setting to disable it.
 
-## Can't open Warp from SSO
+### Can't open Warp from SSO
 
 Directly launching Warp from Okta or other SSO providers' pages isn’t supported. This is due to a limitation with Warp authentication APIs. Instead, do the following:
 
@@ -54,7 +52,7 @@ Directly launching Warp from Okta or other SSO providers' pages isn’t supporte
 3. Choose “Continue with SSO”
 4. Login with your normal SSO credentials
 
-## How to get an Auth token to login
+### How to get an Auth token to login
 
 If the browser does not open from Warp directly when you click "Sign up" or "Sign in". Please go to the [Signup ](https://app.warp.dev/signup)page to create an account or [Login](https://app.warp.dev/login) page if you already have one, then copy the auth token from the "here" link on the logged\_in page and paste it into Warp.
 
@@ -69,3 +67,7 @@ If "Take me to Warp" is still not working it may be due to a [proxy issue](troub
 <figure><img src="../.gitbook/assets/auth-token-demo.gif" alt=""><figcaption><p>Authentication Token Linux</p></figcaption></figure>
 
 ![Authentication Token Mac](../.gitbook/assets/auth-token-flow.png)
+
+### Get help with login issues
+
+If Sign Up or Login does not work after trying the steps above, fill out [this Typeform](https://warpdotdev.typeform.com/to/UnZu0akR?question=sign_up?utm_source=docs) and our team will reach out to you.
