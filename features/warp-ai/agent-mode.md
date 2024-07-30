@@ -53,6 +53,12 @@ The first time you enter Agent Mode, you will be served a banner with the option
 
 <figure><img src="../../.gitbook/assets/banner_for_auto-detection_first_experience.png" alt="Warp displays an option to toggle natural language detection on / off"><figcaption><p>Warp displays an option to toggle natural language detection on / off</p></figcaption></figure>
 
+### Input Hints
+
+Warp input occasionally shows hints within the input editor in a light grey text that helps users learn about features. It's enabled by default.
+
+* Toggle this feature `Settings > AI > Show input hint text` or search for "Input hint text" in the [Command Palette](../command-palette.md) or Right-click on the input editor.
+
 ### How to exit Agent Mode
 
 {% tabs %}
