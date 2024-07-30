@@ -8,6 +8,12 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2024.08.01 (v0.2024.07.30.08.02)
+
+**Improvements**
+
+* Now it's easier to find and configure settings related to AI on the command line. You can enable / disable natural language detection or input hint text under Settings > AI
+
 ### 2024.07.25 (v0.2024.07.23.08.02)
 
 **New features**
