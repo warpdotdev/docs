@@ -106,7 +106,7 @@ end
 
 ### List of incompatible tools
 
-Since Warp has built an [Input Editor](../features/editor/) that wraps around the shell, plugins or tools can cause potential conflict given extra bytes coming into play for the PTY
+Since Warp has an [Input Editor](../features/editor/) that wraps around the shell, the following inexhaustive list of plugins or tools can cause potential conflict given extra bytes coming into the PTY:
 
 * oh-my-fish, oh-my-bash, or other unsupported shell prompts. See our [Custom Prompt Compatibility Table](../appearance/prompt.md#custom-prompt-compatibility-table).
 * [iterm shell integration](https://iterm2.com/documentation-shell-integration.html)
