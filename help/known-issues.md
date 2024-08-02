@@ -60,36 +60,6 @@ export LANG=zh_CN.UTF-8
 
 There is an issue in fish shell version 3.6 and below that causes the `read` built-in command to break Warp's integration with fish. This means that using `read` directly or any fish scripts that call `read` will not work as expected in Warp. That issue is resolved in the fish repository and so should be fixed in the next release of fish itself. We recommend upgrading fish to the most recent version to resolve this issue.
 
-### List of incompatible tools
-
-* oh-my-fish, oh-my-bash, or other unsupported shell prompts. See our [Custom Prompt Compatibility Table](../appearance/prompt.md#custom-prompt-compatibility-table).
-* [iterm shell integration](https://iterm2.com/documentation-shell-integration.html)
-  * `test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true`
-* [Termium](https://codeium.com/blog/termium-codeium-in-terminal-launch)
-  * `eval "$(termium shell-hook show pre)"`
-  * `eval "$(termium shell-hook show post)"`
-* [thefuck experimental instant mode](https://github.com/nvbn/thefuck?tab=readme-ov-file#experimental-instant-mode)
-  * `eval $(thefuck --alias --enable-experimental-instant-mode)`
-* [fubectl](https://github.com/kubermatic/fubectl)
-  * `[ -f ${HOME}/bin/fubectl.source ] && source ${HOME}/bin/fubectl.source`
-* [BIND keys](https://github.com/warpdotdev/Warp/issues/537)
-  * `bindkey '^j' down-line-or-beginning-search`, which causes users to have to hit ENTER twice to run a command.
-  * `bindkey 'tab' autosuggest-accept`, which causes incorrect behavior with autocompletion.
-* FIG, `z`, `zsh-autocomplete`, `compdef`, `compinit`, [prezto utility module](https://github.com/sorin-ionescu/prezto/blob/master/modules/utility/README.md), or other [shell-based completion](https://github.com/warpdotdev/Warp/discussions/434) plugins or definitions.
-* OH-MY-ZSH-THEMES
-  * e.g. avit, spaceship, maybe more ...
-* OH-MY-ZSH-PLUGINS
-* Oh-My-Tmux
-* zsh4h (ZSH for Humans)
-* znap
-* FZF
-* `[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && "/usr/local/etc/profile.d/bash_completion.sh"`
-* `eval "$(rbenv init -)"`
-* `grml-zsh-config`
-* Python virtual environment PS1 [settings](https://github.com/warpdotdev/Warp/issues/2713#issuecomment-1447129449)
-* [Starship settings](../appearance/prompt.md#starship-settings)
-* Potentially more, this is an inexhaustive list ...
-
 ## Configuring and debugging your RC files
 
 To support Blocks ([custom hooks](https://blog.warp.dev/how-warp-works/#implementing-blocks)), a native Input Editor experience, etc. we have to build custom support for a subset of shell functionality (decouple functionality from the shell and move to the terminal). This leads to Warp being incompatible with various tools and plugins.
@@ -134,15 +104,48 @@ if test "$TERM_PROGRAM" != "WarpTerminal"
 end
 ```
 
+### List of incompatible tools
+
+Since Warp has built an [Input Editor](../features/editor/) that wraps around the shell, plugins or tools can cause potential conflict given extra bytes coming into play for the PTY
+
+* oh-my-fish, oh-my-bash, or other unsupported shell prompts. See our [Custom Prompt Compatibility Table](../appearance/prompt.md#custom-prompt-compatibility-table).
+* [iterm shell integration](https://iterm2.com/documentation-shell-integration.html)
+  * `test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true`
+* [Termium](https://codeium.com/blog/termium-codeium-in-terminal-launch)
+  * `eval "$(termium shell-hook show pre)"`
+  * `eval "$(termium shell-hook show post)"`
+* [thefuck experimental instant mode](https://github.com/nvbn/thefuck?tab=readme-ov-file#experimental-instant-mode)
+  * `eval $(thefuck --alias --enable-experimental-instant-mode)`
+* [fubectl](https://github.com/kubermatic/fubectl)
+  * `[ -f ${HOME}/bin/fubectl.source ] && source ${HOME}/bin/fubectl.source`
+* [BIND keys](https://github.com/warpdotdev/Warp/issues/537)
+  * `bindkey '^j' down-line-or-beginning-search`, which causes users to have to hit ENTER twice to run a command.
+  * `bindkey 'tab' autosuggest-accept`, which causes incorrect behavior with autocompletion.
+* FIG, `z`, `compdef`, `compinit`, [prezto utility module](https://github.com/sorin-ionescu/prezto/blob/master/modules/utility/README.md), or other [shell-based completion](https://github.com/warpdotdev/Warp/discussions/434) plugins or definitions.
+* OH-MY-ZSH Themes
+  * e.g. avit, spaceship, maybe more ...
+* OH-MY-ZSH Plugins
+  * e.g. zsh-autosuggestions, zsh-autocomplete, maybe more ...
+* Oh-My-Tmux
+* zsh4h (ZSH for Humans)
+* znap
+* FZF
+* `[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && "/usr/local/etc/profile.d/bash_completion.sh"`
+* `eval "$(rbenv init -)"`
+* `grml-zsh-config`
+* Python virtual environment PS1 [settings](https://github.com/warpdotdev/Warp/issues/2713#issuecomment-1447129449)
+* [Starship settings](../appearance/prompt.md#starship-settings)
+* Potentially more, this is an inexhaustive list ...
+
 ## Fig
 
 ### Bash and Fig
 
-A recent version of Fig (happens as of 1.0.56 - and may also happen on earlier versions) updated the bash rcfiles in a way that prevents Warp from bootstrapping.
+A recent version of Fig (happens as of 1.0.56 - and may also happen on earlier versions) updated the bash rc files to prevent Warp from bootstrapping.
 
-In order to work around this, you can disable this logic for Warp. Note that you might have to do this for `.bash_profile` _and_ `.bashrc`.
+To work around this, you can disable this logic for Warp. Note that you might have to do this for `.bash_profile` _and_ `.bashrc`.
 
-Also, Fig has a tendency to re-write these lines in these files when it updates - so you might have to do this multiple times if you are using Fig actively.
+Also, Fig tends to re-write these lines in these files when it updates - so you might have to do this multiple times if you are using Fig actively.
 
 .bash\_profile
 
@@ -195,7 +198,7 @@ In some cases, [CLI applications only work on x86](https://discord.com/channels/
 
 ### Linux Workarounds
 
-We're tracking some issues for Linux where a [Warp window doesn't show/render](https://github.com/warpdotdev/Warp/issues/4215), Won't run in [Virtual Machines](https://github.com/warpdotdev/Warp/issues/4476), over [remote desktops](https://github.com/warpdotdev/Warp/issues/4435), or on [WSL](https://github.com/warpdotdev/Warp/issues/4240).
+We're tracking some issues for Linux where a [Warp window doesn't show/render](https://github.com/warpdotdev/Warp/issues/4215) and won't run in [Virtual Machines](https://github.com/warpdotdev/Warp/issues/4476), over [remote desktops](https://github.com/warpdotdev/Warp/issues/4435), or on [WSL](https://github.com/warpdotdev/Warp/issues/4240).
 
 If any of the workarounds help, please comment on [this GitHub issue](https://github.com/warpdotdev/Warp/issues/4513) with your Linux distro, installation (WSL, Baremetal or VM; x86\_64 or ARM64), the issue you had, the workaround that fixed it, or any other workarounds not listed. If none of the workarounds help, please open a new [GitHub issue](sending-us-feedback.md#sending-warp-feedback) and include [logs](sending-us-feedback.md#gathering-warp-logs).
 
