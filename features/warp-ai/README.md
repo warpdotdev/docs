@@ -18,4 +18,4 @@ This feature sends input data to OpenAI servers through their API and is explici
 
 * [Agent Mode](agent-mode.md) — Write natural language on the command line and walk through any dev task &#x20;
 * [AI Command Suggestions (#)](ai-command-suggestions.md) — Quickly look up commands using natural language
-* Autofill for workflows in [Warp Drive](../warp-drive/) — Let Warp AI name and describe workflows you save
+* [AI Autofill ](../warp-drive/workflows.md#ai-autofill)in Warp Drive — Let Warp AI name and describe the workflows you create.

@@ -24,7 +24,7 @@ Any of these entry points will open the workflow editor where you can:
 * Add a meaningful description that will be indexed for search (optional)
 * Add arguments, descriptions for arguments, and default values (optional)
 
-<figure><img src="../../.gitbook/assets/image4.png" alt="Workflows save and edit modal"><figcaption><p>Workflows save / edit modal</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/edit-workflow-pane.png" alt="Workflows save and edit modal"><figcaption><p>Workflows save / edit pane</p></figcaption></figure>
 
 {% embed url="https://www.youtube.com/watch?v=8UmreUTTrkg&start=9s&end=198s" %}
 Save Workflow Demo
@@ -45,9 +45,14 @@ Once a workflow has been created, you can edit it at any time, as long as you ha
 
 <figure><img src="../../.gitbook/assets/Edit_Workflow.png" alt=""><figcaption><p>Edit workflow menu</p></figcaption></figure>
 
-{% embed url="https://www.youtube.com/watch?v=8UmreUTTrkg&start=306s&end=343s" %}
-Edit Workflow Demo
-{% endembed %}
+#### AI Autofill
+
+Workflows also have the option to use [Warp AI](../warp-ai/) to automatically generate a title, descriptions, or parameters.
+
+* Create or edit a Workflow, in the edit view you should see the option to AutoFill.
+* Warp AI will fill in the fields based on the Workflow you're creating.
+
+<figure><img src="../../.gitbook/assets/Edit-workflows-autofill.gif" alt=""><figcaption><p>Edit Workflows - Autofill</p></figcaption></figure>
 
 ### Editing workflows with a team
 
@@ -65,7 +70,7 @@ You can execute a workflow in several ways:
 * When a workflow is selected, you can use `SHIFT-TAB` to cycle through the arguments.
 
 {% hint style="info" %}
-When you create two or more arguments with the same name, Warp automatically selects and puts multiple cursors over the arguments in the input editor so they are synced. \
+When you create two or more arguments with the same name, Warp automatically selects and puts multiple cursors over the arguments in the input editor so they are synced.\
 \
 Also, tailor your Command Search experience by toggling off "Show Global Workflows" in `Settings > Features`. When disabled, your search will exclusively encompass YAML and Warp Drive Workflows.
 {% endhint %}
@@ -89,4 +94,3 @@ Warp will indefinitely support the [YAML Workflows](../entry/yaml-workflows.md),
 If needed, you can continue to access your `.yaml` file workflows using [Command Search](../entry/command-search.md) or the [Command Palette](../command-palette.md). However, these file-based workflows will not be available to access, organize, or share in Warp Drive.
 
 You can also export Warp Drive workflows as `.yaml` files, by right-clicking on a workflow in Warp Drive and choosing "Export".
-

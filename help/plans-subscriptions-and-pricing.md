@@ -65,7 +65,7 @@ If a payment fails, you will receive an email from Stripe and your Warp Team Set
 
 Every time you submit an AI query with Agent Mode, it counts as one AI request. Agent Mode suggested commands and requested commands do not count as AI requests
 
-Anytime you run AI autofill in Warp Drive, this counts as one AI request.
+Anytime you run AI Autofill in Warp Drive, this counts as one AI request.
 
 [AI Command Suggestions](../features/warp-ai/ai-command-suggestions.md) lets you look up commands as you’re typing. As you’re entering and adjusting a query to look up a command suggestion, you may incur multiple AI requests before selecting a suggestion.
 
