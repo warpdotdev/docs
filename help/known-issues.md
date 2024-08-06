@@ -191,7 +191,7 @@ If you experience an error opening Warp, please try the following:
 In some cases, [CLI applications only work on x86](https://discord.com/channels/851854972600451112/1204829324847358002) so you can run Warp with Rosetta on macOS to be able to use them by doing the following.
 
 * Go to `Finder > Applications` and search for Warp.
-* Right-Click and select Get Info.
+* Right-click and select Get Info.
 * Then check the box on Open with Rosetta.
 
 ## Linux
@@ -200,7 +200,7 @@ In some cases, [CLI applications only work on x86](https://discord.com/channels/
 
 We're tracking some issues for Linux where a [Warp window doesn't show/render](https://github.com/warpdotdev/Warp/issues/4215) and won't run in [Virtual Machines](https://github.com/warpdotdev/Warp/issues/4476), over [remote desktops](https://github.com/warpdotdev/Warp/issues/4435), or on [WSL](https://github.com/warpdotdev/Warp/issues/4240).
 
-If any of the workarounds help, please comment on [this GitHub issue](https://github.com/warpdotdev/Warp/issues/4513) with your Linux distro, installation (WSL, Baremetal or VM; x86\_64 or ARM64), the issue you had, the workaround that fixed it, or any other workarounds not listed. If none of the workarounds help, please open a new [GitHub issue](sending-us-feedback.md#sending-warp-feedback) and include [logs](sending-us-feedback.md#gathering-warp-logs).
+If none of the workarounds help, please open a [new GitHub issue](https://github.com/warpdotdev/warp/issues/new/choose) and include [logs](sending-us-feedback.md#gathering-warp-logs) with your Linux distro, installation (WSL, Baremetal or VM, x86 or ARM), and the issue you had.
 
 {% hint style="info" %}
 * Many package install examples are for Ubuntu using `apt`, your distro may use different commands (`dnf`, `pacman`, `zypper`) or package names.
