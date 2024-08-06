@@ -210,7 +210,7 @@ If any of the workarounds help, please comment on [this GitHub issue](https://gi
 * System
   * Installing or Updating [Xorg](https://www.x.org/wiki/) / [Wayland](https://wayland.freedesktop.org/): `sudo apt install xserver-xorg` / `sudo apt install wayland`
   * Installing [Hack font](https://sourcefoundry.org/hack/) on WSL and VMs: `sudo apt install fonts-hack`
-  * Install [WSL utilities](https://wslutiliti.es/wslu/install.html)
+  * Install [WSL utilities](https://wslutiliti.es/wslu/install.html): `sudo apt install wslu`
   * Install Mesa utilities: `sudo apt install mesa-utils`
   * Install Mesa Vulkan drivers: `sudo apt install mesa-vulkan-drivers`
   * If unable to use the file picker, install the following: `sudo apt install xdg-desktop-portal xdg-desktop-portal-gtk zenity`
