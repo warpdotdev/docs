@@ -8,6 +8,20 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2024.08.08 (v0.2024.08.06.08.01)
+
+**New features**
+
+* You can now find your past Agent Mode queries in Command Search (`CTRL-R`)
+
+**Improvements**
+
+* Completions-as-you-type now works in AI input for filepath completions
+
+**Bug fixes**
+
+* Warp now recognizes more escape codes for toggling alternate screen mode
+
 ### 2024.08.01 (v0.2024.07.30.08.02)
 
 **Improvements**
