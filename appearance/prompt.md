@@ -88,14 +88,6 @@ Warps custom prompt supports multi-line or right-sided prompts in zsh and fish, 
 
 <figure><img src="../.gitbook/assets/warp-custom-prompt-demo.gif" alt="Warp Prompt + Custom Prompt Demo"><figcaption><p>Warp Prompt + Custom Prompt Demo</p></figcaption></figure>
 
-{% embed url="https://www.youtube.com/watch?t=18s&v=dIV9Cso4Mi8" %}
-Installing Powerlevel10k
-{% endembed %}
-
-{% hint style="warning" %}
-Please note the installing powerlevel10k video mentions enabling a custom prompt in `Settings > Features`, but it's now in `Settings > Appearance.`
-{% endhint %}
-
 ### Custom Prompt Compatibility Table
 
 | Shell               | Tool                                                                      | Does it work?                                                   |
@@ -155,7 +147,9 @@ If you want to restore the additional line after the Starship prompt on `zsh`, a
 
 ### Powerlevel10k
 
-When using the Powerlevel10k (P10k) prompt, we recommend you use the [Meslo Nerd Font](https://github.com/romkatv/powerlevel10k/blob/master/font.md). P10K may display the arrow dividers as grey instead of color. The color for those chars is rendered grey due to Warp's minimum contrast setting, as Warp updates colors to enforce a minimum contrast ratio for readability. To [workaround](https://github.com/warpdotdev/Warp/issues/2851#issuecomment-1605005256) this issue, go to `Settings > Appearance > Text > Enforce minimum contrast` and set it to "Never".
+When installing the Powerlevel10k (P10k) prompt, we recommend you use the [Meslo Nerd Font](https://github.com/romkatv/powerlevel10k/blob/master/font.md).\
+\
+P10K may display the arrow dividers as grey instead of color. The color for those chars is rendered grey due to Warp's minimum contrast setting. To [workaround](https://github.com/warpdotdev/Warp/issues/2851#issuecomment-1605005256) this issue, go to `Settings > Appearance > Text > Enforce minimum contrast` and set it to "Never".
 
 <figure><img src="../.gitbook/assets/p10k-grey-arrow-prompt.png" alt="" width="563"><figcaption><p>Example of the grey dividers in p10k</p></figcaption></figure>
 
@@ -163,6 +157,14 @@ Warp does support [p10k](https://github.com/romkatv/powerlevel10k#installation) 
 
 {% hint style="info" %}
 Warp still doesn't fully support some p10k features like transient prompt and visual features like gradients.
+{% endhint %}
+
+{% embed url="https://www.youtube.com/watch?t=18s&v=dIV9Cso4Mi8" %}
+Installing Powerlevel10k
+{% endembed %}
+
+{% hint style="warning" %}
+Please note the installing powerlevel10k video mentions enabling a custom prompt in `Settings > Features > Honor users custom prompt (PS1)`, but it's now in `Settings > Appearance > Prompt > Shell prompt.`
 {% endhint %}
 
 ### Spaceship
