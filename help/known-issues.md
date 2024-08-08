@@ -196,7 +196,7 @@ In some cases, [CLI applications only work on x86](https://discord.com/channels/
 
 ## Linux
 
-### Linux Workarounds
+### Warp won't run or render on Linux
 
 We're tracking some issues for Linux where a [Warp window doesn't show/render](https://github.com/warpdotdev/Warp/issues/4215) and won't run in [Virtual Machines](https://github.com/warpdotdev/Warp/issues/4476), over [remote desktops](https://github.com/warpdotdev/Warp/issues/4435), or on [WSL](https://github.com/warpdotdev/Warp/issues/4240).
 
@@ -226,3 +226,7 @@ If none of the workarounds help, please open a [new GitHub issue](https://github
     * [Default to Wayland](https://github.com/warpdotdev/Warp/issues/4240#issuecomment-1961993281): `WARP_ENABLE_WAYLAND=1`
     * Set [Default GPU](https://docs.mesa3d.org/drivers/d3d12.html#utilities) for WSL: e.g. `MESA_D3D12_DEFAULT_ADAPTER_NAME=NVIDIA`
     * Set [Graphics APIs](https://github.com/gfx-rs/wgpu?tab=readme-ov-file#environment-variables): e.g. `WGPU_BACKEND=gl`
+
+### Warp Upgrade fails after upgrading Linux
+
+Some users have noted that the Warp upgrade fails after the Linux distro has been upgraded. This happens because the repositories set by Warp may be modified by the Linux distro during the upgrade. To workaround this issue, manually add back in the repositories so that you can upgrade Warp. See the instructions for each Linux distro we support in our [Installing & Onboarding](../getting-started/getting-started-with-warp.md#linux) doc.
