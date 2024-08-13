@@ -101,7 +101,7 @@ During the Free Preview period of Warp Drive for Teams, several customers went a
 
 ### What payment options are available for Warp's self-service plans?&#x20;
 
-Warp uses Stripe for payment processing and the only available payment method is by credit card.
+Warp uses Stripe for payment processing; the only available payment method is by credit card.
 
 Warp cannot currently accept payment by ACH, cash, check, money order, or cryptocurrency.
 
@@ -109,9 +109,13 @@ Warp cannot currently accept payment by ACH, cash, check, money order, or crypto
 
 You can cancel at any point throughout your subscription through the billing portal by going to `Settings > Teams > Manage billing`. Cancelled subscriptions will remain active until the end of the billing cycle.
 
+### How do I get a refund?
+
+For monthly subscriptions, we in general do not issue refunds. You can remove the users you do not want to pay for in `Settings > Teams > Team Members`. You will only be refunded in credits for Warp on a prorated basis.
+
 ### Why can't I subscribe to Warp?
 
-There are certain prohibited and restricted businesses which Stripe and major credit card networks will not process payments for. For the most updated information, please see the full list [here](https://stripe.com/legal/restricted-businesses).
+There are certain prohibited and restricted businesses in which Stripe and major credit card networks will not process payments. For the most updated information, please see the full list [here](https://stripe.com/legal/restricted-businesses).
 
 ### I have a question and need help. How can I reach a human at Warp?&#x20;
 
