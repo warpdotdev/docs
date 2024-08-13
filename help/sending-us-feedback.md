@@ -29,7 +29,8 @@ Warp’s logs do _not_ contain any console input or output. See more on how we h
 
 {% tabs %}
 {% tab title="macOS" %}
-The log file is located at `~/Library/Logs/warp.log`.
+The Warp log files are located at `~/Library/Logs/warp.log*` on macOS.
+Zip the logs to your home folder with `zip -j ~/warp-logs.zip ~/Library/Logs/warp.log*`.
 
 {% hint style="info" %}
 If your issue is graphical (e.g. no display of windows, etc), please run Warp with the following command to capture more log information.
@@ -47,7 +48,8 @@ RUST_LOG=wgpu_core=info,wgpu_hal=info MESA_DEBUG=1 EGL_LOG_LEVEL=debug /Applicat
 {% endtab %}
 
 {% tab title="Linux" %}
-The log file is located at `${XDG_STATE_HOME:-$HOME/.local/state}/warp-terminal/warp.log`
+The Warp log files are located at `${XDG_STATE_HOME:-$HOME/.local/state}/warp-terminal/warp.log*` on Linux.
+Zip the logs to your home folder with `zip -j ~/warp-logs.zip ~/.local/state/warp-terminal/warp.log*`
 
 {% hint style="info" %}
 If your issue is graphical (e.g. no display of windows, etc), please run Warp with the following command to capture more log information.
