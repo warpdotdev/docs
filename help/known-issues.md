@@ -229,4 +229,17 @@ If none of the workarounds help, please open a [new GitHub issue](https://github
 
 ### Warp Upgrade fails after upgrading Linux
 
-Some users have noted that the Warp upgrade fails after the Linux distro has been upgraded. This happens because the repositories set by Warp may be modified by the Linux distro during the upgrade. To workaround this issue, manually add back in the repositories so that you can upgrade Warp. See the instructions for each Linux distro we support in our [Installing & Onboarding](../getting-started/getting-started-with-warp.md#linux) doc.
+The Linux distro may modify Warp's package repository during the upgrade. Particularly Ubuntu, but this may affect other distros. We're tracking this issue on GitHub [here](https://github.com/warpdotdev/Warp/issues/5201).\
+\
+To workaround this issue, manually add the repository to upgrade Warp.
+
+```
+sudo apt-get install wget gpg
+wget -qO- https://releases.warp.dev/linux/keys/warp.asc | gpg --dearmor > warpdotdev.gpg
+sudo install -D -o root -g root -m 644 warpdotdev.gpg /etc/apt/keyrings/warpdotdev.gpg
+sudo sh -c 'echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/warpdotdev.gpg] https://releases.warp.dev/linux/deb stable main" > /etc/apt/sources.list.d/warpdotdev.list'
+rm warpdotdev.gpg
+sudo apt update && sudo apt install warp-terminal
+```
+
+See the instructions for other Linux distros on our[Installing & Onboarding](../getting-started/getting-started-with-warp.md#linux) doc.&#x20;
