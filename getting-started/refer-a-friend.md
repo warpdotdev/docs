@@ -23,7 +23,7 @@ We give out themes, swag, and other perks as thanks for helping to grow our comm
 
 1 referral - Exclusive theme
 
-5 referrals - Tumbler + stickers
+5 referrals - $5 USD gift card
 
 10 referrals - T-shirt
 
