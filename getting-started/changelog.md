@@ -8,6 +8,12 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2024.08.15 (v0.2024.08.13.08.02)
+
+**New features**
+
+* New enums for Workflow arguments. Now you can set a list of suggested options for any argument in a workflow so it's easier to fill in parameters correctly. [Learn more](https://docs.warp.dev/features/warp-drive/workflows#working-with-arguments)
+
 ### 2024.08.08 (v0.2024.08.06.08.01)
 
 **New features**
