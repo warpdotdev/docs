@@ -32,21 +32,12 @@ Save Workflow Demo
 
 ### Working with arguments
 
-In the workflow editor, you can add arguments manually with "New argument" or by typing in double curly braces (`{{argument}}`) within the command field. If you select "New argument" while you have text selected, Warp will wrap that text in curly braces to create an argument. Arguments can have defaults values set to text or an [enum](#enums).
+In the workflow editor, you can add arguments manually with "New argument" or by typing in double curly braces (`{{argument}}`) within the command field. If you select "New argument" while you have text selected, Warp will wrap that text in curly braces to create an argument.
 
 There are some rules for creating valid arguments:
 
 * Argument names can only include characters `A-Za-z0-9`, hyphens `-` and underscores `_`
 * The first character of an argument cannot be a number
-
-#### Enums
-
-Enums can be set as a default value for arguments in Workflows. Enums are a set of variants defined when editing a workflow and choosen from when running a workflow. You can create or use an enum in the following ways:
-
-* When editing a Workflow, select the default value field for an argument and select Enum.
-* Choose new to create a new enum or select an existing enum from the list.
-* When creating a new Enum, you can give it a name, add and remove variants, or make it available to other Workflows.
-* When running a workflow with an Enum in an argument, you'll have the option to select one of the variants.
 
 ### Editing workflows
 
