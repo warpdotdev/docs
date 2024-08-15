@@ -41,7 +41,7 @@ There are some rules for creating valid arguments:
 
 #### Enums
 
-Enums can be set as a default argument in Workflows. Enums are a set of default variants defined when editing a workflow and choosen from when running a workflow. You can create or use an enum in the following ways:
+Enums can be set as a default value for arguments in Workflows. Enums are a set of variants defined when editing a workflow and choosen from when running a workflow. You can create or use an enum in the following ways:
 
 * When editing a Workflow, select the default value field for an argument and select Enum.
 * Choose new to create a new enum or select an existing enum from the list.
