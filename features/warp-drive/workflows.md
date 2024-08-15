@@ -39,9 +39,10 @@ There are some rules for creating valid arguments:
 * Argument names can only include characters `A-Za-z0-9`, hyphens `-` and underscores `_`
 * The first character of an argument cannot be a number
 
-Arguments can be one of two types: text or enum. By default, all new arguments are text type. 
+Arguments can be one of two types: text or enum. By default, all new arguments are text type.
 
 #### Enum type arguments
+
 Enums allow you to specify expected inputs to a workflow argument. When you insert a workflow with enums into the input editor, you will be prompted with suggestions for filling in the argument. You can open the suggestions menu by pressing `SHIFT-TAB` while selecting an argument.
 
 {% embed url="https://www.loom.com/share/b2f54eeef2f247a8bbcf87698b2a4287?hideEmbedTopBar=true&hide_owner=true&hide_share=true&hide_title=true" %}
@@ -54,11 +55,11 @@ To create an enum type argument:
 2. Select the "Enum" type.
 3. Click "New" to create a new enum, or select an existing one from the dropdown menu.
 
+If you create an enum for a workflow you'd like to reuse somewhere else, check "Make this enum available in other workflows" in the enum editing dialog. Enums created within team workflows will be reusable amongst team members, while enums in your personal space are only accessible to you.
+
 {% embed url="https://www.loom.com/share/6505a0ff0f764267b817a4dc45dc44eb?hideEmbedTopBar=true&hide_owner=true&hide_share=true&hide_title=true" %}
 Enum Creation Demo
 {% endembed %}
-
-If you create an enum for a workflow that you'd like to reuse somewhere else, check "Make this enum available in other workflows" in the enum editing dialog. Enums created within team workflows will be reusable amongst members of your team, while enums in your personal space are only accessible to you. 
 
 ### Editing workflows
 
