@@ -28,9 +28,11 @@ If you are not planning on extending invites to any team member collaborators, w
 
 ### What counts as a team member and how does billing work for members?&#x20;
 
-In Warp, a team member is a seat with access to your Team, which includes access to the shared team Warp Drive and any shared objects like Notebooks or Workflows in that Warp Drive.
-
-Every Warp plan includes free access for up to three (3) team members. Beyond the limit, you will be prompted to [upgrade to a Warp Team plan](https://app.warp.dev/upgrade) to invite more members. After upgrading, you will be notified by email as additional team members accept invites to join the team. Each team member is billed at the rate of $25 per member per month if you’re paying month-to-month or $22 per member per month if you are committing annually. Billing for the team member applies to every day the team member has access to your team.
+In Warp, a team member is a seat with access to your Team, which includes access to the shared team Warp Drive and any shared objects like Notebooks or Workflows in that Warp Drive. Every Warp Drive team on any plan allows an unlimited number of users. However, to gain access to more features, such as more AI requests or no limits on the number of Warp Drive objects you can create, you will need to upgrade to a tier that includes those features. Upgrading a Warp Drive team to a new tier upgrades both your account as well as the accounts of all members on the same team.\
+\
+Warp's Free plan includes access to share up to a limited number of Notebooks and Workflows with a team of other Free members. Beyond the limit, you will be prompted to [upgrade to a Warp Team plan](https://app.warp.dev/upgrade) to share more.\
+\
+After upgrading to a Pro or Team plan, you will be notified by email as additional team members accept invites to join the team. Each team member is billed at the rate of $25 per member per month if you’re paying month-to-month or $22 per member per month if you are committing annually. Billing for the team member applies to every day the team member has access to your team.
 
 There are differences in how members are billed based on your payment schedule:&#x20;
 
@@ -45,7 +47,7 @@ If a member leaves part way through the billing cycle, Warp will issue a prorate
 
 Individual users with either personal or work email domains may continue to use Warp independently without incurring billing. The benefit of joining together on a Warp Team is that you get access to a shared Team Drive and collaboration features.
 
-When you’re ready to use Warp more collaboratively, we suggest you nominate an Admin to [create a Team](https://docs.warp.dev/features/teams) and invite members to join. When your Team exceeds three (3) members you will be prompted to upgrade to a Team plan.
+When you’re ready to use Warp more collaboratively, we suggest you nominate an Admin to [create a Team](https://docs.warp.dev/features/teams) and invite members to join. When your Team exceeds the Warp Drive limits, you will be prompted to upgrade to a Team plan.
 
 ### What happens when I downgrade during a billing cycle?&#x20;
 
