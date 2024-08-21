@@ -62,7 +62,7 @@ On Linux, the default copy-and-paste [Keyboard shortcuts](../features/keyboard-s
 
 If nothing happens when you click "Take me to Warp" on the logged-in page. If this happens to you, copy the "here" link on the web logged-in page (https://app.warp.dev/logged\_in) to copy the authentication token, then paste it into the app as shown below.
 
-If "Take me to Warp" is still not working it may be due to a [proxy issue](troubleshooting-login-issues.md#proxies), please see this article for more information on a workaround [here](https://embiid.blog/post/WARP-does-not-work-after-submitting-an-invite-code/) and please fill out [this Typeform](https://zachlloyd.typeform.com/to/UnZu0akR#\&question=take\_me\_to\_warp?utm\_source=docs) and our team will reach out to you.
+If "Take me to Warp" is still not working it may be due to a [proxy issue](troubleshooting-login-issues.md#proxies), please see this article for more information on a workaround [here](https://embiid.blog/post/WARP-does-not-work-after-submitting-an-invite-code/).
 
 <figure><img src="../.gitbook/assets/auth-token-demo.gif" alt=""><figcaption><p>Authentication Token Linux</p></figcaption></figure>
 
@@ -70,4 +70,4 @@ If "Take me to Warp" is still not working it may be due to a [proxy issue](troub
 
 ### Get help with login issues
 
-If Sign Up or Login does not work after trying the steps above, fill out [this Typeform](https://warpdotdev.typeform.com/to/UnZu0akR?question=sign_up?utm_source=docs) and our team will reach out to you.
+If Sign Up or Login does not work after trying the steps above, fill out [this Typeform](https://warpdotdev.typeform.com/to/UnZu0akR?question=sign\_up?utm\_source=docs) and our team will reach out to you.
