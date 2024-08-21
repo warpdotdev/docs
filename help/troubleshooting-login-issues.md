@@ -56,17 +56,19 @@ Directly launching Warp from Okta or other SSO providers' pages isn’t supporte
 
 If the browser does not open from Warp directly when you click "Sign up" or "Sign in". Please go to the [Signup ](https://app.warp.dev/signup)page to create an account or [Login](https://app.warp.dev/login) page if you already have one, then copy the auth token from the "here" link on the logged\_in page and paste it into Warp.
 
-{% hint style="warning" %}
-On Linux, the default copy-and-paste [Keyboard shortcuts](../features/keyboard-shortcuts.md) are `CTRL-SHIFT-C` and `CTRL-SHIFT-V` respectively. You may also need to change your default `$BROWSER` to `chrome` or `firefox` to workaround the log in issue.
-{% endhint %}
-
 If nothing happens when you click "Take me to Warp" on the logged-in page. If this happens to you, copy the "here" link on the web logged-in page (https://app.warp.dev/logged\_in) to copy the authentication token, then paste it into the app as shown below.
 
-If "Take me to Warp" is still not working it may be due to a [proxy issue](troubleshooting-login-issues.md#proxies), please see this article for more information on a workaround [here](https://embiid.blog/post/WARP-does-not-work-after-submitting-an-invite-code/).
+{% hint style="warning" %}
+On Linux, the default copy-and-paste [Keyboard shortcuts](../features/keyboard-shortcuts.md) are `CTRL-SHIFT-C` and `CTRL-SHIFT-V` respectively. \
+\
+On Linux and WSL you should install and set your default `$BROWSER` to `chrome` or `brave-browser` to workaround any copy-paste issues.
+{% endhint %}
 
 <figure><img src="../.gitbook/assets/auth-token-demo.gif" alt=""><figcaption><p>Authentication Token Linux</p></figcaption></figure>
 
 ![Authentication Token Mac](../.gitbook/assets/auth-token-flow.png)
+
+If "Take me to Warp" is still not working it may be due to a [proxy issue](troubleshooting-login-issues.md#proxies), please see this article for more information on a workaround [here](https://embiid.blog/post/WARP-does-not-work-after-submitting-an-invite-code/).
 
 ### Get help with login issues
 
