@@ -213,7 +213,8 @@ If none of the workarounds help, please open a [new GitHub issue](https://github
   * Install [WSL utilities](https://wslutiliti.es/wslu/install.html): `sudo apt install wslu`
   * Install Mesa utilities: `sudo apt install mesa-utils`
   * Install Mesa Vulkan drivers: `sudo apt install mesa-vulkan-drivers`
-  * If unable to use the file picker, install the following: `sudo apt install xdg-desktop-portal xdg-desktop-portal-gtk zenity`
+  * If unable to use the file picker: `sudo apt install xdg-desktop-portal xdg-desktop-portal-gtk zenity`
+  * If unable to copy-paste: `sudo apt install wl-clipboard`
 * Graphics
   * Install or Update your GPU driver: e.g. [NVIDIA](https://github.com/warpdotdev/Warp/issues/4215#issuecomment-1969750786) 535.x or below drivers
     * For Ubuntu: `sudo ubuntu-drivers install`
