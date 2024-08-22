@@ -8,6 +8,20 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2024.08.22 (v0.2024.08.20.08.02)
+
+**New features**
+
+* You can now specify a cursor color in Warp themes
+
+**Improvements**
+
+* Warp now restores fullscreen windows to fullscreen
+
+**Bug fixes**
+
+* [MacOS] Completions for commands now work when you type a command name containing capital letters. This does not apply to aliases
+
 ### 2024.08.15 (v0.2024.08.13.08.02)
 
 **New features**
