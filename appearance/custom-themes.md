@@ -86,7 +86,7 @@ name: Custom Theme # Name for the theme
 accent: '#268bd2' # Accent color for UI elements
 background: '#002b36' # Terminal background color
 foreground: '#839496' # The foreground color
-cursor: '#d3a964' # The cursor color
+cursor: '#d3a964' # The cursor color (optional; defaults to accent color if omitted)
 details: darker # Whether the theme is lighter or darker
 terminal_colors: # Ansi escape colors
   bright:
