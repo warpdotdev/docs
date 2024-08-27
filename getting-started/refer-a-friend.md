@@ -4,7 +4,7 @@ description: >-
   your team or friends within the app.
 ---
 
-# Refer a Friend and Earn Rewards
+# Refer a Friend & Earn Rewards
 
 Go to `Settings > Referrals` to open the invite a friend referral dialog.
 
@@ -17,9 +17,9 @@ There are two ways you can invite a friend:
 
 ## Referral reward program
 
-We give out themes, swag, and other perks as thanks for helping to grow our community.&#x20;
+We give out themes, swag, and other perks as thanks for helping to grow our community.
 
-<figure><img src="../.gitbook/assets/FINAL 3-4.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/5-gc-referrals.png" alt=""><figcaption></figcaption></figure>
 
 1 referral - Exclusive theme
 
@@ -53,38 +53,33 @@ If your friend joins Warp via your invite, they will receive a unique theme.
 
 ![](../.gitbook/assets/receive\_referral\_theme.png)
 
-
-
 ## Referral Program Terms and Conditions
 
 Theme rewards are available to all users.
 
 Physical rewards are available to users in US, Canada, Mexico, UK, and [select EU countries](refer-a-friend.md#eu-countries-warp-can-pay-customs-for-updated-05-09-2023).
 
-For all other countries, if users opt for the physical reward, they may be required to pay customs. The physical reward will also take between 4-12 weeks to arrive. Alternatively, users are eligible to claim a digital reward in lieu of the physical reward. &#x20;
+For all other countries, if users opt for the physical reward, they may be required to pay customs. The physical reward will also take between 4-12 weeks to arrive. Alternatively, users are eligible to claim a digital reward in lieu of the physical reward.
 
 Referrals must be valid and confirmed by Warp in order to count toward your rewards. The referred user must accept the referral via the referral link AND must log in to the Warp desktop app.
 
-Warp reserves the right to disqualify referrals which it deems in its sole discretion to be fraudulent. Any user that refers fake emails will be disqualified at the sole discretion of Warp.&#x20;
+Warp reserves the right to disqualify referrals which it deems in its sole discretion to be fraudulent. Any user that refers fake emails will be disqualified at the sole discretion of Warp.
 
 #### EU countries Warp can pay customs for
 
 _(updated March 2024):_ Austria, Belgium, France, Germany, Ireland, Italy, Netherlands, Portugal, Spain.
 
-
-
 ## Referral FAQs
 
 1. "I have referred people but have not received an email."
 
-Contact us at [feedback@warp.dev.](mailto:feedback@warp.dev)\
-
+Contact us at [feedback@warp.dev.](mailto:feedback@warp.dev)\\
 
 2. "I've claimed my physical reward but have issues receiving my package"
 
 Respond to the shipment notification email or reach out to our swag vendor's Operations team directly by sending an email and your order number to support@printfection.com.
 
-3. "My referral count has decreased since the last time."&#x20;
+3. "My referral count has decreased since the last time."
 
 We now only count a user who onboards onto Warp as a real referral. We have to implement this system to prevent recent abuse of the system. The referral counts in app will be updated end of May.
 
