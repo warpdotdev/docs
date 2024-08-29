@@ -12,7 +12,7 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 
 **Bug fixes**
 
-* Links highlights now correctly disappear when making changes in alt-screen programs.
+* Links highlights now correctly disappear when making changes in alt-screen programs
 
 ### 2024.08.22 (v0.2024.08.20.08.02)
 
