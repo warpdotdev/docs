@@ -8,6 +8,12 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2024.08.29 (v0.2024.08.27.08.02)
+
+**Bug fixes**
+
+* Links highlights now correctly disappear when making changes in alt-screen programs.
+
 ### 2024.08.22 (v0.2024.08.20.08.02)
 
 **New features**
