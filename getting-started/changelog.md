@@ -8,6 +8,12 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2024.09.05 (v0.2024.09.03.08.02)
+
+**Bug fixes**
+
+* Warp no longer autoscrolls to the bottom of the terminal upon command completion
+
 ### 2024.08.29 (v0.2024.08.27.08.02)
 
 **Bug fixes**
