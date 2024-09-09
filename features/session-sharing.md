@@ -70,5 +70,5 @@ You may share multiple sessions simultaneously. If you have multiple shared sess
 There is a session size limit of 100MB per session, 1GB per user per day, and a maximum of 10 participants per session (excluding the sharer). These limits are subject to change.
 
 {% hint style="info" %}
-If you have any questions or want to be added to the Beta, please reach out at feedback+ss@warp.dev.
+If you have any questions or want to be added to the Beta, please reach out at [feedback+ss@warp.dev](mailto:feedback+ss@warp.dev).
 {% endhint %}
