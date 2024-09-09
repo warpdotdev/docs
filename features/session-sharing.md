@@ -12,7 +12,7 @@ This action sends command information to Warp’s servers and is explicitly opt-
 
 ### Share a session
 
-While on a [Team](teams.md) plan, you will find a Share button in the Warp top-bar navigation.
+Users on a [Team](teams.md) plan and users on the Beta will find a Share button in the Warp top-bar navigation.
 
 To start sharing:
 
@@ -64,6 +64,11 @@ You may share multiple sessions simultaneously. If you have multiple shared sess
 ### Known limitations
 
 * [Agent Mode blocks](warp-ai/agent-mode.md) are not shareable during session sharing. Participants will be able to share regular shell commands that are run, but will not be able to share AI interactions (requested commands, AI blocks, etc.)
+* [Secret redaction](secret-redaction.md) is not applied during session sharing.
 * While this feature is in Beta, anybody who has access to a share link and an active Warp account will be able to view and collaborate on a session. In the future, Session Sharing will have Team-based access controls and permission restrictions.
 
-There is a session size limit of 100MB per user per session. These limits are subject to change.
+There is a session size limit of 100MB per session, 1GB per user per day, and a maximum of 10 participants per session (excluding the sharer). These limits are subject to change.
+
+{% hint style="info" %}
+If you have any questions or want to be added to the Beta, please reach out at feedback+ss@warp.dev.
+{% endhint %}
