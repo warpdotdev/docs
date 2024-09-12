@@ -8,6 +8,16 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2024.09.13 (v0.2024.09.10.08.02)
+
+**Improvements**
+
+* Links are now detected in Agent Mode responses
+
+**Bug fixes**
+
+* Fixed an infinite loop bug that could lead to runaway memory usage and the application hanging
+
 ### 2024.09.05 (v0.2024.09.03.08.02)
 
 **Bug fixes**
