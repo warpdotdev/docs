@@ -83,14 +83,16 @@ To switch between panels (e.g. jump from command line to Warp Drive to Warp AI) 
 
 ## Import and Export
 
-Every object in Warp Drive can be exported to a local file. To export, right-click on an object in Warp Drive and choose "Export" from the menu. This will prompt you for a directory to export into.
+Every object in Warp Drive can be exported to or imported from a file.
 
-To import a local file or directory, right-click on a folder or workspace and choose "Import." If importing a directory, supported files in the directory and its sub-directories will be imported into a matching folder structure.
+* To export a single Warp Drive object, RIGHT-CLICK on an object and choose "Export" from the menu, then select a directory for export.
+* To export all Warp Drive objects, Open the [Command Palette](../command-palette.md#how-to-access-it), search for and select "Export all Warp Drive Objects", then select a directory for export.
+* To import a local file or directory, RIGHT-CLICK on a folder or workspace and choose "Import." If importing a directory, supported files in the directory and its sub-directories will be imported into a matching folder structure.
 
 When importing or exporting, objects are converted as follows:
 
-* [Workflows](workflows.md) import from and export to [YAML workflows](../entry/yaml-workflows.md)
-* [Notebooks](notebooks.md) import from and export to Markdown files
+* [Workflows](workflows.md) import from and export to YAML
+* [Notebooks](notebooks.md) import from and export to Markdown
 
 ## Sharing Your Drive Objects
 
