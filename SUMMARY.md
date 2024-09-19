@@ -78,6 +78,7 @@
 * [URI Scheme](features/uri-scheme.md)
 * [Network Log](features/network-log.md)
 * [Secret Redaction](features/secret-redaction.md)
+* [Linux](features/linux.md)
 
 ## 📊 How Does Warp Compare?
 

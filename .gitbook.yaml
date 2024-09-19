@@ -20,4 +20,5 @@ redirects:
     features/appearance/custom-themes: appearance/custom-themes.md
     features/appearance/prompt: features/prompt.md
     features/appearance/compact-mode: appearance/compact-mode.md
+    features/linux: features/linux.md
     appearance/transparency-and-blurring: appearance/opacity-blurring-dimming.md
