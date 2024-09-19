@@ -8,6 +8,24 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2024.09.19 (v0.2024.09.17.08.02)
+
+**New features**
+
+* [Linux] Warp now supports Wayland. You can configure the window system in `Settings >  Features > System`
+
+**Improvements**
+
+* Adds a Command Palette action called “Export all Warp Drive objects” that enables bulk export of a Warp Drive
+* Completion suggestions for git commit hashes are now sorted reverse-chronologically
+* History shows the working directory in which you made an Agent Mode query
+* Agent Mode Blocks are surfaced in Find
+
+**Bug fixes**
+
+* Fixed an infinite loop bug that could lead to runaway memory usage and the application hanging
+* Fixes a regression where the Setup Guide didn't work
+
 ### 2024.09.13 (v0.2024.09.10.08.02)
 
 **Improvements**
