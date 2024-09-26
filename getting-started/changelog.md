@@ -8,6 +8,27 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2024.09.26 (v0.2024.09.24.08.02)
+
+**New features**
+
+* Powershell is now supported! Make `pwsh` your default shell for your user account or select `pwsh` in Settings > Features > Startup shell for new sessions
+* You can now save and sync environment variable collections in Warp Drive. Learn more: https://docs.warp.dev/features/warp-drive/environment-variables
+* Your Agent Mode blocks and queries are now restored across sessions
+
+**Improvements**
+
+* Secret redaction now applies to AI Blocks within Warp, in addition to Command Blocks
+* New Agent Mode panes always open to the right
+* You can now navigate the trash index via your keyboard
+
+**Bug fixes**
+
+* `fish` config is no longer sourced twice during shell startup
+* The first window after launching Warp will now use a custom window size if set
+* When opening a launch configuration, Warp now respects restored and custom window sizes
+
+
 ### 2024.09.19 (v0.2024.09.17.08.02)
 
 **New features**
