@@ -1,20 +1,20 @@
 ---
 description: >-
-  Warp supports popular shells like bash, zsh, and fish. If your default shell
-  is set to any other shell, you will see a banner indicating the shell is not
-  supported and Warp will default to zsh.
+  Warp supports popular shells like bash, zsh, fish, and PowerShell (pwsh). If your default shell
+  is set to any other shell, you will see a banner indicating the shell is not supported and Warp
+  will default to zsh.
 ---
 
-# Using Warp with \[zsh|bash|fish]
+# Using Warp with \[zsh|bash|fish|pwsh]
 
 ## Warp default shell
 
-Warp tries to load your login shell by default. Currently, Warp supports bash, fish, and zsh; if your login shell is set to something else (e.g. Nushell) Warp will load zsh instead.
+Warp tries to load your login shell by default. Currently, Warp supports bash, fish, zsh, and PowerShell (pwsh); if your login shell is set to something else (e.g. Nushell) Warp will load zsh instead.
 
 Zsh is the default login and interactive shell on macOS (starting with macOS Catalina in 2019), replacing the bash shell. For most Linux distributions, the default shell is bash.
 
 {% hint style="info" %}
-If you run into issues configuring your RC files (`~/.bashrc`, `~/.zshrc`, `config.fish`) with Warp, please see [Configuring and debugging your RC files](https://docs.warp.dev/help/known-issues#configuring-and-debugging-your-rc-files).
+If you run into issues configuring your RC files (`~/.bashrc`, `~/.zshrc`, `config.fish`, `Microsoft.PowerShell_profile.ps1`) with Warp, please see [Configuring and debugging your RC files](https://docs.warp.dev/help/known-issues#configuring-and-debugging-your-rc-files).
 {% endhint %}
 
 ### **Changing what shell Warp uses**
@@ -116,5 +116,32 @@ If you prefer, you can also manually edit the `/etc/shells` file using the edito
 
 {% hint style="info" %}
 **Why the different locations?** The location of fish depends on how it was installed. Homebrew installs programs under `/usr/local` on Macs running Intel processors, but under `/opt/homebrew` for Macs running Apple Silicon. So, if you used Homebrew to install fish on a Mac with Apple Silicon, the location of the executable is - `/opt/homebrew/bin/fish`.\
-You can identify where fish is installed by running `echo $(which fish)`.
+You can identify where fish is installed by running `which fish`.
+{% endhint %}
+
+### Using PowerShell (pwsh) with Warp on macOS
+
+#### Step 1: Install PowerShell
+
+While bash, and zsh come pre-installed on macOS systems, PowerShell shell does not. So before using PowerShell with Warp, you will need to install it. Install PowerShell 7.0 or above using one of the methods listed below -
+
+1. With Homebrew: If you already have homebrew installed, you can simply type `brew install powershell/tap/powershell`, and follow the instructions.
+2. Download from the [official Microsoft website](https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell).
+
+#### Step 2: Switch to pwsh as the default shell
+
+Once you’ve installed PowerShell on your computer, you can set it as your default shell, so Warp will use it every time a new tab, pane, or window is opened. You can either make pwsh the default shell for only Warp, from the session settings (`Settings > Features > Session`), or for your user account. To change your account's default shell, you need to run two commands.
+
+```
+echo $(which pwsh) | sudo tee -a /etc/shells
+chsh -s $(which pwsh)
+```
+
+{% hint style="info" %}
+If you prefer, you can also manually edit the `/etc/shells` file using the editor of your choice (you may need sudo privileges).
+{% endhint %}
+
+{% hint style="info" %}
+**Why the different locations?** The location of pwsh depends on how it was installed. Homebrew installs programs under `/usr/local` on Macs running Intel processors, but under `/opt/homebrew` for Macs running Apple Silicon. So, if you used Homebrew to install pwsh on a Mac with Apple Silicon, the location of the executable is - `/opt/homebrew/bin/pwsh`.\
+You can identify where pwsh is installed by running `which pwsh`.
 {% endhint %}
