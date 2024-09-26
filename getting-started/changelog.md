@@ -32,7 +32,7 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 
 **New features**
 
-* [Linux] Warp now supports Wayland. You can configure the window system in `Settings >  Features > System`
+* [Linux] Warp now supports Wayland. You can configure the window system in Settings >  Features > System
 
 **Improvements**
 
@@ -617,7 +617,7 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 **Improvements**
 
 * Special keys used in conjunction with `META` e.g. `META-DELETE` should now work within the alt-screen
-* The line height for the text within the Input Editor should now actually change when the custom height in `Settings > Appearance > Text > Line Height` is updated
+* The line height for the text within the Input Editor should now actually change when the custom height in Settings > Appearance > Text > Line Height is updated
 * Alias Abbreviations in fish should no longer show a red error underline within the Input Editor
 * Reduced the bottom padding within the Input Editor when Warp is in Compact Mode
 
@@ -639,7 +639,7 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 
 **New features**
 
-* Automatically create new themes based on a background image! Click the `+` button in the theme picker `Settings > Appearance > Current Theme` or search "Open Theme Picker" within the Command Palette
+* Automatically create new themes based on a background image! Click the `+` button in the theme picker Settings > Appearance > Current Theme or search "Open Theme Picker" within the Command Palette
 
 **Improvements**
 
