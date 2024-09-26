@@ -12,8 +12,8 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 
 **New features**
 
-* Powershell is now supported! Make `pwsh` your default shell for your user account or select `pwsh` in Settings > Features > Startup shell for new sessions
-* You can now save and sync environment variable collections in Warp Drive. Learn more: https://docs.warp.dev/features/warp-drive/environment-variables
+* Powershell is now supported! Make `pwsh` your default shell for your user account or select `pwsh` in Settings > Features > Startup shell for new sessions. [Learn More](https://docs.warp.dev/getting-started/using-warp-with-shells)
+* You can now save and sync environment variable collections in Warp Drive. [Learn more](https://docs.warp.dev/features/warp-drive/environment-variables)
 * Your Agent Mode blocks and queries are now restored across sessions
 
 **Improvements**
@@ -27,7 +27,6 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 * `fish` config is no longer sourced twice during shell startup
 * The first window after launching Warp will now use a custom window size if set
 * When opening a launch configuration, Warp now respects restored and custom window sizes
-
 
 ### 2024.09.19 (v0.2024.09.17.08.02)
 
