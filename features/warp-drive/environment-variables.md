@@ -4,6 +4,10 @@ description: Save or sync environment variables to load into your terminal sessi
 
 # Environment Variables
 
+{% hint style="info" %}
+Environment Variables are currently available in Free Preview.
+{% endhint %}
+
 ## What are Environment Variables in Warp?
 
 Environment Variables in Warp are similar to .env files, except you can:
