@@ -11,7 +11,7 @@ Key Features:
 * **[Warp Drive](../features/warp-drive/)**: Notebooks, workflows, and environment variables for you to use personally or with your team.
 * **[Modern UX and Text Editing](../features/editor)**: Commands and outputs are grouped into easy to use Blocks, and you can use your cursor or customizable keybindings to easily navigate Warp’s input editor.
 
-You can fully customize Warp's appearance, prompts, settings, and keybindings to fit your preferences. Warp works seamlessly with zsh, bash, fish, and PowerShell, and is built with Rust for high performance.
+You can fully customize Warp's appearance, prompts, settings, and keybindings to fit your preferences. Warp works with zsh, bash, fish, and PowerShell, and is built with Rust for high performance.
 
 For an inside look at how Warp is built, you can read the blog post on [How Warp Works](https://www.warp.dev/blog/how-warp-works).
 
