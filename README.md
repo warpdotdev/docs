@@ -4,21 +4,22 @@ description: Warp is the terminal with AI and your dev team's knowledge built-in
 
 # What is Warp?
 
-## Demo
+Warp is a modern terminal that brings AI and your dev team's knowledge together on the command line.
 
-To learn about Warp, check out this video by our [Developer Advocate](https://www.warp.dev/about-us), [Jess Wang](https://twitter.com/daRubberDuckiee) (Feb 2024).
+Key Features:
+* **Warp AI**: AI integrated in your terminal for natural language input, autofill, and intelligent suggestions.
+* **Warp Drive**: Notebooks, workflows, and environment variables for you to use personally or with your team.
+* **Modern UX and Text Editing**: Commands and outputs are grouped into easy to use Blocks, and you can use your cursor or customizable keybindings to easily navigate Warp’s input editor.
+
+You can fully customize Warp's appearance, prompts, settings, and keybindings to fit your preferences. Warp works seamlessly with zsh, bash, fish, and PowerShell, and is built with Rust for high performance.
+
+For an inside look at how Warp is built, you can read the blog post on [How Warp Works](https://www.warp.dev/blog/how-warp-works).
+
+To see Warp in action, check out this video by Warp's [Developer Advocate](https://www.warp.dev/about-us), [Jess Wang](https://twitter.com/daRubberDuckiee).
 
 {% embed url="https://www.youtube.com/watch?v=34INSNevPOk" %}
-Warp Demo 2024
+Warp Demo Feb 2024
 {% endembed %}
-
-## Warp Essentials
-
-The Warp Essentials panel is a resource center that contains keyboard shortcuts, recent changelogs, and tips for getting started.
-
-Access it by clicking on the light bulb icon 💡 or by pressing `CTRL-SHIFT-/`.
-
-<figure><img src=".gitbook/assets/Warp_Essentials.gif" alt="The Warp Essentials panel is available from the top menu in the Warp desktop app."><figcaption></figcaption></figure>
 
 ## Join the community
 
