@@ -8,6 +8,25 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2024.10.08 (v0.2024.10.08.08.02)
+
+**Improvements**
+
+* Tab key always accepts active autosuggestions in zero-state
+* Command suggestions from Agent Mode are now ghosted autosuggestions instead of direct buffer text
+* Warp now shows a warning when closing a tab with running commands or shared sessions
+* New Agent Mode panes will open to a useful minimum width if the Warp window is big enough to support it
+* Clearing the terminal input via ctrl-c will now also close the command search
+* [macOS] You can now access Warp Drive features from mac menus
+* [macOS] You can click the mouse middle-button to paste from the clipboard
+
+**Bug fixes**
+
+* Agent Mode queries are now de-duplicated in up-arrow history and Command Search
+* `CTRL-D` can now be used to signal EOF when the shell is bootstrapping
+* Double-clicking the tab bar now correctly toggles maximizing the Warp window even when an AI block is present in the focused pane
+* Hovering over the block insertion menu at the bottom of a notebook no longer causes Warp to hang
+
 ### 2024.09.26 (v0.2024.09.24.08.02)
 
 **New features**
@@ -149,7 +168,7 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 
 * Added support for completions while using Agent Mode input
 * Semantic selection now works in AI blocks
-* SHIFT-CLICK now lets you select text for alternate screen apps in SGR mouse mode
+* `SHIFT-CLICK` now lets you select text for alternate screen apps in SGR mouse mode
 
 **Bug fixes**
 
