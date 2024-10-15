@@ -13,7 +13,7 @@ description: >-
 * Warp may become unresponsive if it doesn't have permission to access the folders.
 
 {% hint style="warning" %}
-Please note there are many tools that are incompatible with Warp, listed [here](known-issues.md#list-of-incompatible-tools). We have a debugging and workaround information in this [section](known-issues.md#configuring-and-debugging-your-rc-files).
+Please note many tools are incompatible with Warp, as listed [here](known-issues.md#list-of-incompatible-tools). We have debugging information in this [section](known-issues.md#debugging).
 {% endhint %}
 
 Links to popular GitHub issues:
@@ -94,19 +94,20 @@ If Warp starts working correctly then Warp is incompatible with something in the
 # bash and zsh
 if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
 ##### WHAT YOU WANT TO DISABLE FOR WARP - BELOW
-
-    # Unsupported plugin/prompt code here
-
+    # Unsupported plugin/prompt code here, i.e.
+    test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true
 ##### WHAT YOU WANT TO DISABLE FOR WARP - ABOVE
 fi
 ```
 
-```
-# fish
+<pre><code># fish
 if test "$TERM_PROGRAM" != "WarpTerminal"
-    # Unsupported plugin/prompt code here
-end
-```
+##### WHAT YOU WANT TO DISABLE FOR WARP - BELOW
+    # Unsupported plugin/prompt code here i.e. 
+    test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
+##### WHAT YOU WANT TO DISABLE FOR WARP - ABOVE
+<strong>end
+</strong></code></pre>
 
 ### List of incompatible tools
 
