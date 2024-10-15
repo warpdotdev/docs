@@ -15,76 +15,110 @@ There are two ways you can invite a friend:
 
 <figure><img src="../.gitbook/assets/refer-a-friend.gif" alt=""><figcaption><p>Refer a friend</p></figcaption></figure>
 
-## Referral reward program
+## Referral Rewards Program
 
 We give out themes, swag, and other perks as thanks for helping to grow our community.
 
 <figure><img src="../.gitbook/assets/5-gc-referrals.png" alt=""><figcaption></figcaption></figure>
 
-1 referral - Exclusive theme
+The tiers are as follows:
+<div align="center">
 
-5 referrals - $5 USD gift card
+| Referrals |      Reward       | Digital gift card alternative |
+|:---------:|:-----------------:|:-----------------------------:|
+|     1     | Exclusive theme   |              $0               |
+|     5     | $5 USD gift card  |              $5               |
+|    10     |     T-shirt       |              $10              |
+|    20     |   Baseball hat    |              $20              |
+|    50     |      Hoodie       |              $50              |
+|    75     |    Duffle bag     |              $75              |
+|    100    | Softshell jacket  |             $100              |
 
-10 referrals - T-shirt
+</div>
 
-20 referrals - Baseball hat
-
-50 referrals - Hoodie
-
-75 referrals - Duffel bag
-
-100 referrals - Softshell jacket
-
-\*By participating in the Referral Program, you agree to the [Referral Program Terms and Conditions](refer-a-friend.md#referral-program-terms-and-conditions)
-
-### **1 referral: An exclusive theme**
-
-When someone joins Warp with your referral code, the referral theme will become available in your theme picker after you restart the app. We also send an email alerting you.
-
-### **All other referral tiers**
-
-Once you've hit the other referral tiers, we'll email you with details on how to claim your reward.
-
-Physical Warp swag only be shipped with customs paid to [some geographic locations](refer-a-friend.md#referral-program-terms-and-conditions). For other areas, you will be eligible for a digital reward.
+<small>By participating in Warp's Referral Program, you agree to the [Referral Program Terms and Conditions](refer-a-friend.md#referral-program-terms-and-conditions).</small>
 
 ### Your friend gets a theme
 
-If your friend joins Warp via your invite, they will receive a unique theme.
+If your friend joins and activates their Warp account after clicking your invite link, they will receive a unique theme.
 
-![](../.gitbook/assets/receive\_referral\_theme.png)
+![](../.gitbook/assets/receive_referral_theme.png)
 
 ## Referral Program Terms and Conditions
 
-Theme rewards are available to all users.
+> **Last Updated:** October 15, 2024
 
-Physical rewards are available to users in US, Canada, Mexico, UK, and [select EU countries](refer-a-friend.md#eu-countries-warp-can-pay-customs-for-updated-05-09-2023).
+### 1 referral: An exclusive theme
 
-For all other countries, if users opt for the physical reward, they may be required to pay customs. The physical reward will also take between 4-12 weeks to arrive. Alternatively, users are eligible to claim a digital reward in lieu of the physical reward.
+When someone joins Warp with your referral code, the referral theme will become available in your theme picker after you restart the app. We also send an email alerting you. This reward is available to all users worldwide.
 
-Referrals must be valid and confirmed by Warp in order to count toward your rewards. The referred user must accept the referral via the referral link AND must log in to the Warp desktop app.
+### All other referral tiers
 
-Warp reserves the right to disqualify referrals which it deems in its sole discretion to be fraudulent. Any user that refers fake emails will be disqualified at the sole discretion of Warp.
+Once you've hit the other referral tiers, we'll email you with details on how to claim your reward. Physical rewards are available to users residing in the United States, and Warp will cover shipping costs for these users. International users can also claim physical rewards; however, they will be responsible for any customs fees. For all users, there's an option to claim a digital reward (gift card) instead of physical Warp swag.
 
-#### EU countries Warp can pay customs for
+### International users
+International users who choose physical rewards are responsible for paying any customs fees associated with shipping. Estimated costs are provided in the [approximate customs fees by region](#approximate-customs-fees-by-region) section below. Please note that once the package leaves the United States, Warp no longer has visibility or control over the shipment process, including any customs-related issues or fees that may arise.
 
-_(updated March 2024):_ Austria, Belgium, France, Germany, Ireland, Italy, Netherlands, Portugal, Spain.
+Alternatively, international users may opt to receive a digital gift card instead of a physical reward.
 
-## Referral FAQs
+Note: for users who qualified for referral rewards before October 15th, 2025, Warp will cover all shipping and customs costs. Starting from that date onwards, international users receiving referral rewards will be responsible for paying any customs fees associated with shipping.
+
+### Shipping time frame
+Physical rewards may take 2 to 3 weeks to arrive for users located in the United States, and 4 to 12 weeks for international users. After claiming your order, you will receive an email with a shipping confirmation and a tracking link from Printfection.
+
+If you have any questions about the status of your shipment or order, please reach out to support@printfection.com with your order number.
+
+### General terms and conditions
+Referrals must be valid and confirmed by Warp to count towards rewards. This means the referred user must accept the referral via the referral link and log into Warp's desktop application. 
+
+Warp reserves the right, at its sole discretion, to disqualify any referrals deemed fraudulent. Any users who refer fake emails or users will be disqualified at the sole discretion of Warp.
+
+Warp reserves the right to modify or terminate the referral rewards program at any time without prior notice. Participation in the swag program constitutes acceptance of these terms and conditions.
+
+If you have any questions about the referral program, please contact [referrals@warp.dev](mailto:referrals@warp.dev).
+
+### Digital gift card rewards
+All amounts are listed in USD. Rewards are based on the number of valid referrals.
+
+<div align="center">
+
+| Number of referrals | Gift card amount |
+|:-------------------:|:-----------------:|
+|          1          |        $0         |
+|          5          |        $5         |
+|         10          |        $10        |
+|         20          |        $20        |
+|         50          |        $50        |
+|         75          |        $75        |
+|         100         |       $100        |
+
+</div>
+
+### Approximate customs fees by region
+All amounts are listed in USD. Fees are estimates and may vary regardless of package size.
+
+<div align="center">
+
+| Country / region | Approximate customs fees |
+|:-----------------:|:------------------------:|
+| Canada & Mexico  |        $40 to $70        |
+| Europe           |        $40 to $80        |
+| Others (Asia, South America, Africa, Oceania, etc.) | $50 to $120 |
+
+</div>
+
+<small>*Note: The approximate customs fees provided are estimates and may vary based on your country's specific import regulations, taxes, and duties. Actual fees can differ due to factors such as package contents, declared value, and current customs policies. We recommend checking with your local customs office or postal service for precise information relevant to your situation.</small>
+
+## Referral Rewards Program FAQs
 
 1. "I have referred people but have not received an email."
 
-Contact us at [feedback@warp.dev.](mailto:feedback@warp.dev)\\
+Contact us at [referrals@warp.dev](mailto:referrals@warp.dev).
 
-2. "I've claimed my physical reward but have issues receiving my package"
+2. "I've claimed my physical reward but have issues receiving my package."
 
-Respond to the shipment notification email or reach out to our swag vendor's Operations team directly by sending an email and your order number to support@printfection.com.
+Respond to the shipment notification email or reach out to our swag vendor's operations team directly by sending an email with your order number to support@printfection.com.
 
-3. "My referral count has decreased since the last time."
-
-We now only count a user who onboards onto Warp as a real referral. We have to implement this system to prevent recent abuse of the system. The referral counts in app will be updated end of May.
-
-We realize this will mean several users will now not qualify for rewards. As a one-time-only deal, we will honor retroactively for anyone who hit 20, 50, 75, 100 referrals prior to the anti-abuse system (May 9th), but not for 5 referrals (tumblers).
-
-4. "I've referred friends, but they didn't use the link, does it still count?"
+3. "I've referred friends, but they didn't use the link. Does it still count?"
 
 Unfortunately, any referrals who didn't use your link will not count towards the rewards, and we have no way of modifying the referral count.
