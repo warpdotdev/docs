@@ -6,7 +6,7 @@ description: These are the third-party libraries that Warp depends on.
 
 ## Cargo based licenses
 
-Repositories are by default GitHub if not otherwise specified
+Repositories are by default GitHub if not otherwise specified.
 
 | Name                          | License                                             |                                             Repository |
 | ----------------------------- | --------------------------------------------------- | -----------------------------------------------------: |
