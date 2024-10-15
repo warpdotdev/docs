@@ -12,6 +12,10 @@ description: >-
 * When you open a [non-shell-based subshell (REPL)](https://github.com/warpdotdev/Warp/issues/4082), we do not set it up for Warp - instead, it works like a normal terminal session.
 * Warp may become unresponsive if it doesn't have permission to access the folders.
 
+{% hint style="warning" %}
+Please note there are many tools that are incompatible with Warp, listed [here](known-issues.md#list-of-incompatible-tools). We have a debugging and workaround information in this [section](known-issues.md#configuring-and-debugging-your-rc-files).
+{% endhint %}
+
 Links to popular GitHub issues:
 
 * [Vi / Vim / NeoVim](https://github.com/warpdotdev/warp/discussions/451)
