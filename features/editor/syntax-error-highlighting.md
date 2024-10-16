@@ -5,11 +5,15 @@ description: >-
   invalid commands with a dashed red underline.
 ---
 
-# Syntax and Error Highlighting
+# Syntax & Error Highlighting
 
 ## What is Syntax Highlighting
 
 Warp supports Syntax Highlighting in the [Input Editor.](./) It colors each part of a command to help differentiate between sub-commands, options/flags, arguments, and variables.
+
+{% hint style="warning" %}
+Newly installed apps or newly created aliases will not trigger syntax highlighting until you open a new Warp session (new window, tab, or pane), even if you `source` the RC files in the current session.
+{% endhint %}
 
 ### How to access Syntax Highlighting
 
@@ -33,7 +37,7 @@ Syntax Highlighting Demo
 Warp highlights errors in commands that are typed within the [Input Editor](./) e.g. if the binary for the command you've typed does not exist.
 
 {% hint style="warning" %}
-Newly installed apps or newly created aliases will trigger error underlining until you open a new Warp session (new window, tab, or pane).
+Newly installed apps or newly created aliases will trigger error underlining until you open a new Warp session (new window, tab, or pane), even if you `source` the RC files in the current session.
 {% endhint %}
 
 ### How to access Error Underlining
