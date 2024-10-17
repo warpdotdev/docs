@@ -1,7 +1,7 @@
 ---
 description: >-
-  Warp is a terminal that brings AI and your dev team's knowledge together on
-  the command line.
+  Warp is the intelligent terminal with AI and your dev team's knowledge
+  built-in.
 ---
 
 # What is Warp?
