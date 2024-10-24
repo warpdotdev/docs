@@ -8,6 +8,16 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2024.10.24 (v0.2024.10.23.14.49)
+
+**Improvements**
+
+* Improved rendering of a handful of PowerLine glyphs (half circles and slants)
+
+**Bug fixes**
+
+* Un-launched the Node Version prompt chip due to performance issues
+
 ### 2024.10.17 (v0.2024.10.15.08.02)
 
 **New features**
