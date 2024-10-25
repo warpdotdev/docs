@@ -1,22 +1,28 @@
 ---
 description: >-
-  Warp supports dimming inactive Panes. This helps you easily see which pane is
-  active and maintain focus.
+  Warp supports dimming inactive Panes as well as allowing the focus to follow
+  the mouse. This helps you easily see which pane is active and maintain focus.
 ---
 
-# Pane Dimming
+# Pane Dimming & Focus
 
 ## How to use it
 
 ### Inactive Pane Dimming
 
-To access it, go to `Settings > Appearance > Panes`
+The panes that aren't active will be dimmed to better indicate which pane is active. To access it, go to `Settings > Appearance > Panes`
 
 * Toggle on `Dim inactive panes` to enable the feature.
 
 {% hint style="info" %}
 Split panes show a triangle indicator on the top left corner of the active pane.
 {% endhint %}
+
+### Mouse Focus
+
+The pane with the mouse over it will become active. To access it, go to `Settings > Appearance > Panes`
+
+* Toggle on `Focus follows mouse` to enable the feature.
 
 ## How it works
 
