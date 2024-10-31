@@ -25,15 +25,15 @@ There are 2 ways to install a theme from this repo.
 
 {% tabs %}
 {% tab title="macOS" %}
-```
-mkdir -p ~/.warp
-cd ~/.warp/
+```bash
+mkdir -p $HOME/.warp
+cd $HOME/.warp/
 git clone https://github.com/warpdotdev/themes.git
 ```
 {% endtab %}
 
 {% tab title="Linux" %}
-```
+```bash
 mkdir -p ${XDG_DATA_HOME:-$HOME/.local/share}/warp-terminal
 cd ${XDG_DATA_HOME:-$HOME/.local/share}/warp-terminal/
 git clone https://github.com/warpdotdev/themes.git
@@ -53,11 +53,15 @@ Adding a Custom Theme to Warp
 
 {% tabs %}
 {% tab title="macOS" %}
-`mkdir -p ~/.warp/themes/`
+```bash
+mkdir -p $HOME/.warp/themes/
+```
 {% endtab %}
 
 {% tab title="Linux" %}
-`mkdir -p ${XDG_DATA_HOME:-$HOME/.local/share}/warp-terminal/themes/`
+```bash
+mkdir -p ${XDG_DATA_HOME:-$HOME/.local/share}/warp-terminal/themes/
+```
 {% endtab %}
 {% endtabs %}
 
@@ -67,7 +71,7 @@ It may take several minutes for Warp to initially discover the new themes direct
 
 2. Add your new custom theme yaml file to this directory:
 
-```
+```bash
 cp ~/Downloads/my_awesome_theme.yaml {{path_to_your_themes_directory_from_step1}}
 ```
 
@@ -109,6 +113,7 @@ terminal_colors: # Ansi escape colors
     white: '#eee8d5'
     yellow: '#b58900'
 ```
+
 {% hint style="info" %}
 Each color is represented in hex and must start with `#`.
 {% endhint %}
@@ -225,7 +230,7 @@ Contributions to this repo are greatly appreciated!
 
 Run this script to generate the thumbnails.
 
-```
+```bash
 # Assuming you're adding the theme to the `standard` directory:
 python3 ./scripts/gen_theme_previews.py standard
 ```

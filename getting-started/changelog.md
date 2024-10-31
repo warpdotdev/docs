@@ -29,7 +29,7 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 * Created a setting allowing focus to follow mouse hover ([#699](https://github.com/warpdotdev/Warp/issues/699))
 * Added support for Node Version chip in Warp Prompt
 * Automatically switch to shell command input mode if accepting a shell command autosuggestion from Agent Mode
-* [macOS] Adjusted default font smoothing `Appearance > "Use thin strokes"` configuration to improve text legibility
+* \[macOS] Adjusted default font smoothing `Appearance > "Use thin strokes"` configuration to improve text legibility
 
 **Bug fixes**
 
@@ -47,8 +47,8 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 * Warp now shows a warning when closing a tab with running commands or shared sessions
 * New Agent Mode panes will open to a useful minimum width if the Warp window is big enough to support it
 * Clearing the terminal input via ctrl-c will now also close the command search
-* [macOS] You can now access Warp Drive features from mac menus
-* [macOS] You can click the mouse middle-button to paste from the clipboard
+* \[macOS] You can now access Warp Drive features from mac menus
+* \[macOS] You can click the mouse middle-button to paste from the clipboard
 
 **Bug fixes**
 
@@ -81,7 +81,7 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 
 **New features**
 
-* [Linux] Warp now supports Wayland. You can configure the window system in Settings >  Features > System
+* \[Linux] Warp now supports Wayland. You can configure the window system in Settings > Features > System
 
 **Improvements**
 
@@ -129,7 +129,7 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 
 **Bug fixes**
 
-* [MacOS] Completions for commands now work when you type a command name containing capital letters. This does not apply to aliases
+* \[MacOS] Completions for commands now work when you type a command name containing capital letters. This does not apply to aliases
 
 ### 2024.08.15 (v0.2024.08.13.08.02)
 
@@ -214,7 +214,7 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 **Bug fixes**
 
 * Text selection in full screen apps will change as you scroll
-* [MacOS] Meta shortcuts, e.g. `OPT-U`, `OPT-I`, will no longer be ignored
+* \[MacOS] Meta shortcuts, e.g. `OPT-U`, `OPT-I`, will no longer be ignored
 
 ### 2024.06.20 (v0.2024.06.18.08.02)
 
@@ -262,7 +262,7 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 **Bug fixes**
 
 * Fixed a bug where a terminal session could get stuck in a bad state if an SSH connection is lost while the alternate screen is in use (e.g. tmux, TUI programs, pagers)
-* Fixed a bug where 00~ and 01~ characters could get erroneously added to user-submitted commands after an SSH connection is lost
+* Fixed a bug where 00\~ and 01\~ characters could get erroneously added to user-submitted commands after an SSH connection is lost
 
 ### 2024.05.16 (v0.2024.05.14.08.01)
 
@@ -290,8 +290,8 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 * Fixed an issue that could cause Warp to display an invisible/empty window
 * Fixed a crash that could occur when unindenting multiple lines within the Input Editor
 * Fixed a Vim Mode bug when “cutting word left” (and similar actions) while the (up-arrow) history menu is open
-* [Linux] Fixed an issue where Warp would flicker on Intel UHD 620 drivers when using Vulkan due to a bug in specific versions of Mesa
-* [Linux] Fixed a regression in input latency
+* \[Linux] Fixed an issue where Warp would flicker on Intel UHD 620 drivers when using Vulkan due to a bug in specific versions of Mesa
+* \[Linux] Fixed a regression in input latency
 
 ### 2024.04.27 (v0.2024.04.23.08.01)
 
@@ -344,19 +344,19 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 * You can now export workflows and notebooks from Warp Drive
 * Middle-clicking to paste now automatically focuses the Input Editor
 * Warp no longer automatically expands aliases that are escaped using a backslash
-* [Linux] Adds support for Android Studio, DataGrip, DataSpell, Goland, Pycharm, Rider, Rubymine, and Sublime Text as external editors
+* \[Linux] Adds support for Android Studio, DataGrip, DataSpell, Goland, Pycharm, Rider, Rubymine, and Sublime Text as external editors
 
 **Bug fixes**
 
-* [Linux] Warp now case-sensitively parses top-level commands on Linux
-* [Linux] Fixed an issue where middle-click paste could paste across multiple panes
+* \[Linux] Warp now case-sensitively parses top-level commands on Linux
+* \[Linux] Fixed an issue where middle-click paste could paste across multiple panes
 
 ### 2024.03.21 (v0.2024.03.19.08.01)
 
 **Bug fixes**
 
 * Symlinks to a directory are now properly treated as a directory instead of as a file
-* [Linux] Warp's windows are no longer escalated into an urgent state (tiling window managers) after a Warp URL is opened
+* \[Linux] Warp's windows are no longer escalated into an urgent state (tiling window managers) after a Warp URL is opened
 
 ### 2024.03.14 (v0.2024.03.12.08.02)
 
@@ -366,7 +366,7 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 * You can now filter out unwanted lines from a block, using the new "invert filter" toggle in the block filtering menu
 * Continuous block selections are now rendered with a single border instead of a border around each individual block
 * The `` and `^` patterns are now supported in Warp's regex search (find bar and block filtering)
-* [Linux] The hotkey window now has a unique instance name on X11.
+* \[Linux] The hotkey window now has a unique instance name on X11.
 
 **Bug fixes**
 
@@ -379,14 +379,14 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 * You can now adjust the number of lines the mouse wheel scrolls in Warp. Go to Settings > Features > General > Lines Scrolled by Mouse Wheel Interval to configure this setting
 * You can now close the Warp window using the Command Palette (`SHIFT-CMD-W` for Mac)
 * You can now quit Warp using the Command Palette (“Quit Warp”)
-* [Linux] Warp can now automatically hide the window's traffic lights when using a tiling manager
-* [Linux] Improved (a window’s) rounded corners when using a tiling manager
-* [Linux] You can now move tabs left or right using keyboard shortcuts. Use `SHIFT-CTRL-PGUP` to move a tab to the left and `SHIFT-CTRL-PGDN` to move a tab to the right
+* \[Linux] Warp can now automatically hide the window's traffic lights when using a tiling manager
+* \[Linux] Improved (a window’s) rounded corners when using a tiling manager
+* \[Linux] You can now move tabs left or right using keyboard shortcuts. Use `SHIFT-CTRL-PGUP` to move a tab to the left and `SHIFT-CTRL-PGDN` to move a tab to the right
 
 **Bug fixes**
 
 * Fixed a bug where Warp could crash because of an invalid Vim command
-* [Linux] Fixed a bug where errors encountered while running `pacman-key` could lead to an invalid pacman repository configuration
+* \[Linux] Fixed a bug where errors encountered while running `pacman-key` could lead to an invalid pacman repository configuration
 
 ### 2024.03.05 (v0.2024.03.05.08.02)
 
@@ -404,19 +404,19 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 
 * Added completion support for `dnf`
 * Configuring the global hotkey window settings (Quake Mode) now updates the window in real time
-* [Linux] Can now `CTRL-CLICK` to open a file
-* [Linux] Added support for IntelliJ, CLion, Webstorm, and PhpStorm
+* \[Linux] Can now `CTRL-CLICK` to open a file
+* \[Linux] Added support for IntelliJ, CLion, Webstorm, and PhpStorm
 
 **Bug fixes**
 
 * Fix issue with typeahead commands overlapping the prompt’s content
 * Command X-Ray now recognizes builtins and functions, hover over a command in the Input Editor to see the command description
 * Fixed an issue where the shell couldn’t accept pasted text when an rc file expected user input
-* [Linux] Modified pacman-key -r invocation during Arch Linux auto-update to be more robust
-* [Linux] Fixed crash on Linux that could occur if device was missing a symlink from libX11.so to libX11.so.6
-* [Linux] Fixed issues where opening external links would cause Firefox 123 to use 100% CPU and never launch
-* [Linux] X11 Users can now open links when default browser is firefox
-* [Linux] Fix some global hotkey combinations crashing the app
+* \[Linux] Modified pacman-key -r invocation during Arch Linux auto-update to be more robust
+* \[Linux] Fixed crash on Linux that could occur if device was missing a symlink from libX11.so to libX11.so.6
+* \[Linux] Fixed issues where opening external links would cause Firefox 123 to use 100% CPU and never launch
+* \[Linux] X11 Users can now open links when default browser is firefox
+* \[Linux] Fix some global hotkey combinations crashing the app
 
 ### 2024.02.26 (v0.2024.02.20.08.01)
 
@@ -681,7 +681,7 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 
 * Warp now supports xterm's escape codes (sequences) for focus reporting
 * The Command Palette now supports searching for workflows with their Warp Drive folder name, in addition to the Workflow's name and description
-* Auto-generating custom themes from starting images now work even with a missing `~/.warp/themes` directory
+* Auto-generating custom themes from starting images now work even with a missing `$HOME/.warp/themes` directory
 * The "New Workflow" modal now supports more text for longer commands
 
 ### 2023.08.10 (v0.2023.08.08.08.04)
@@ -760,7 +760,7 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 
 **New features**
 
-* App links of the form Warp://launch/<launch_configuration_name> directly open a launch configuration
+* App links of the form Warp://launch/\<launch\_configuration\_name> directly open a launch configuration
 * Added a new setting for creating new windows with a specific size in terms of rows and columns.
 
 **Improvements**
@@ -848,7 +848,7 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 
 * Warp now sends the output of background shell processes into new (distinct) Blocks--separate from user generated Blocks.
 * Synchronize (broadcast) input across multiple panes in a single tab or multiple tabs (`Mac Menu > Edit > Synchronize Inputs` or `Synchronize` within the Command Palette)
-* Added option to enable (disabled by default) an audible terminal bell Settings > Features > Terminal or  “Audible Terminal Bell” within the Command Palette
+* Added option to enable (disabled by default) an audible terminal bell Settings > Features > Terminal or “Audible Terminal Bell” within the Command Palette
 * Now opens new windows with the same position and size of the most recently closed window (if there is one)
 * Fish aliases are now supported in the completions menu
 
@@ -899,7 +899,7 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 * The position of the input and direction of the terminal output are now configurable. You can start the input at the top and have it move down as new commands are run (to clear the screen and reset the position press `CTRL-L`, `CMD-K` or type `clear`). Or you can keep the input pinned to the top of the pane and have terminal outputs flow in reverse order. Settings are available under Settings > Appearance > Input Position
 * Added a button for “jumping to the bottom” of the currently hovered Block to make it easy to get to the bottom of an output. Configurable with a setting under Settings > Appearance > Blocks
 * Warp AI transcripts can now be navigated via keyboard (`UP` / `DOWN` arrows)
-* Added a right-click context menu in the alt-screen (that still respects mouse reporting and SGR_MOUSE)
+* Added a right-click context menu in the alt-screen (that still respects mouse reporting and SGR\_MOUSE)
 * Warp AI's past prompts can be accessed via `UP` (arrow)
 * `CMD-ENTER` within Warp AI now inputs the selected command into the Input Editor
 
@@ -1013,7 +1013,7 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 
 **New features**
 
-* Improved double-click selection. Double-clicking text now smart selects patterns like file paths, URLs, email addresses, etc.  - [659](https://github.com/warpdotdev/warp/issues/659)
+* Improved double-click selection. Double-clicking text now smart selects patterns like file paths, URLs, email addresses, etc. - [659](https://github.com/warpdotdev/warp/issues/659)
 * Warp can now be opened from Finder - [102](https://github.com/warpdotdev/warp/issues/102)
 
 **Bug fixes**
@@ -1073,7 +1073,7 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 **Bug fixes**
 
 * Can now support completions that have escaped paths
-* Can now support background images with paths that start with ~
+* Can now support background images with paths that start with \~
 * Can now properly restore a Warp window’s position when using multiple monitors
 * Commands from restored sessions run on the local machine no longer appear in the SSH server’s history
 * Fixed issues SSHing into RHEL/Fedora machines with PackageKit-command-not-found installed
@@ -1156,7 +1156,7 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 
 **Bug fixes**
 
-* Warp now sets the TERM_PROGRAM environment variable correctly in wrapped SSH sessions
+* Warp now sets the TERM\_PROGRAM environment variable correctly in wrapped SSH sessions
 
 ### 2022.11.10 (v0.2022.11.08.08.07)
 
@@ -1284,7 +1284,7 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 
 **Bug fixes**
 
-* Properly send C0 control codes for <ctrl-[2-8]> keystrokes
+* Properly send C0 control codes for \<ctrl-\[2-8]> keystrokes
 * Session restoration now also persists bold, underline, italic, and strikethrough formatting
 * Inspect mode now works for the changelog modal
 * Fixed a crash when highlighting a link
@@ -1507,7 +1507,7 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 
 **Bug fixes**
 
-* Improved completions support for arguments nested under options (e.g. git branch -D <branch_name...>)
+* Improved completions support for arguments nested under options (e.g. git branch -D \<branch\_name...>)
 * Modified files are now included (in addition to commit SHAs) for `git diff`
 
 ### 2022.06.01 (v0.2022.05.30.09.10)
@@ -1534,7 +1534,7 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 
 **Bug fixes**
 
-* Stopped prepending \ before ~ in tab titles for older versions of Bash
+* Stopped prepending \ before \~ in tab titles for older versions of Bash
 * Added support for CMD-G and SHIFT-CMD-G to tab between results in the Find Bar
 
 ### 2022.05.18 (v0.2022.05.16.09.01)
@@ -1594,7 +1594,7 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 
 **Bug fixes**
 
-* Commands prepended with space are now stored in history if hist_ignore_space option is not set
+* Commands prepended with space are now stored in history if hist\_ignore\_space option is not set
 * Now support dotfile configurations with non-English quotation marks
 * Continued improving the reliability of login and auth within the app
 * Improved performance for commands with large outputs
@@ -1611,7 +1611,7 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 
 **Bug fixes**
 
-* Commands prepended with space are now stored in history if hist_ignore_space option is not set
+* Commands prepended with space are now stored in history if hist\_ignore\_space option is not set
 * Now support dotfile configurations with non-English quotation marks
 * Continued improving the reliability of login and auth within the app
 * Improved performance for commands with large outputs
@@ -1699,7 +1699,7 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 * SSH no longer hangs when /tmp is not writable for Zsh - [578](https://github.com/warpdotdev/warp/issues/578)
 * SSH no longer bootstrap the shell if it’s not meant to be an interactive session (e.g. if -T or a command is passed) - [578](https://github.com/warpdotdev/warp/issues/578)
 * SSH now supports Starship and Zsh's $PROMPT variable - [803](https://github.com/warpdotdev/warp/issues/803)
-* Also import themes in subdirectories e.g. `~/.warp/themes/subdirectory/theme.yaml`
+* Also import themes in subdirectories e.g. `$HOME/.warp/themes/subdirectory/theme.yaml`
 
 ### 2022.03.16 (v0.2022.03.14.08.49)
 
@@ -1710,7 +1710,7 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 
 **Bug fixes**
 
-* SSH no longer returns 0~ and 1~ after executing commands for Zsh 5.0.8 or older - [578](https://github.com/warpdotdev/warp/issues/578)
+* SSH no longer returns 0\~ and 1\~ after executing commands for Zsh 5.0.8 or older - [578](https://github.com/warpdotdev/warp/issues/578)
 * SSH now supports LocalCommand / RemoteCommand - [578](https://github.com/warpdotdev/warp/issues/578)
 * SSH over Zsh no longer depends on configuring locales on the remote machine - [578](https://github.com/warpdotdev/warp/issues/578)
 * SSH sources /etc/bash.bashrc which is an extra rcfile in Debian and other Linux distributions - [578](https://github.com/warpdotdev/warp/issues/578)
@@ -1718,7 +1718,7 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 * Vim and other alt-screen apps properly expand to take up the full window - [552](https://github.com/warpdotdev/warp/issues/552)
 * Clicking into Warp from other foreground window focuses the clicked pane - [739](https://github.com/warpdotdev/warp/issues/739)
 * Warp now respects ignore-space history options for Zsh and Bash - [044](https://github.com/warpdotdev/warp/issues/044)
-* Warp now creates a ~/.warp folder to persist custom keybindings - [801](https://github.com/warpdotdev/warp/issues/801)
+* Warp now creates a `$HOME/.warp` folder to persist custom keybindings - [801](https://github.com/warpdotdev/warp/issues/801)
 
 ### 2022.03.09 (v0.2022.03.07.08.51)
 
@@ -1777,7 +1777,7 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 * Fixed a bug where resizing a pane could cause Warp to show a blank screen
 * Parentheses, quotes, and brackets now also auto-close after typing an alphanumeric character
 * Remapped multi-cursor key bindings to CTRL-SHIFT-UP and CTRL-SHIFT-DOWN - [374](https://github.com/warpdotdev/warp/issues/374)
-* Restored OPT-CMD-UP and OPT-CMD-DOWN for switching panes up and down - [730](https://github.com/warpdotdev/warp/issues/730) 
+* Restored OPT-CMD-UP and OPT-CMD-DOWN for switching panes up and down - [730](https://github.com/warpdotdev/warp/issues/730)
 
 ### 2022.02.02 (v0.2022.01.31.09.03)
 
@@ -1864,7 +1864,7 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 * Windows, tabs, and panes are restored whenever you reopen Warp. Restoring block content is on its way
 * Warp now supports completions for over 300 commands and more information about existing commands by using Fig’s completion specs
 * Git aliases are now included in completions menu - [210](https://github.com/warpdotdev/warp/issues/210)
-* Switch to next pane and previous pane with CMD-[ and CMD-] - [392](https://github.com/warpdotdev/warp/issues/392)
+* Switch to next pane and previous pane with CMD-\[ and CMD-] - [392](https://github.com/warpdotdev/warp/issues/392)
 * Scrolling the Block list with PG-UP and PG-DOWN - [370](https://github.com/warpdotdev/warp/issues/370)
 * Copy and paste the file directory into Warp from Finder - [514](https://github.com/warpdotdev/warp/issues/514)
 * When the last Block is selected, can re-focus the input editor using CMD-DOWN key
@@ -1931,7 +1931,7 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 * Changelog dialog
 * Emoji rendering: 😂, 😃, 🌍, 🍞, 🚗, 📞, 🎉, ❤️ - [075](https://github.com/warpdotdev/warp/issues/075)
 * Improved settings dialog
-* Theme search - [237](https://github.com/warpdotdev/warp/issues/237) 
+* Theme search - [237](https://github.com/warpdotdev/warp/issues/237)
 
 **Bug fixes**
 
@@ -2020,7 +2020,7 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 **New features**
 
 * Split panes: create multiple panes in the same tab via shortcuts (CMD-E/SHIFT-CMD-E), the Command Palette, or by right clicking in any pane.
-* Custom themes via files.  You can now define your own theme as a yaml file in ~/.warp/themes. For more information on the file format and to see ~100 of the most popular themes already implemented in this format, see https://github.com/warpdotdev/themes. The ability to add and share themes directly within Warp is coming soon
+* Custom themes via files. You can now define your own theme as a yaml file in `$HOME/.warp/themes`. For more information on the file format and to see \~100 of the most popular themes already implemented in this format, see https://github.com/warpdotdev/themes. The ability to add and share themes directly within Warp is coming soon
 
 **Bug fixes**
 
@@ -2072,7 +2072,7 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 * Warp not rendering after executing long-running command
 * Stop powerlevel10k instant prompt from hanging on bootstrap
 * Changing “font-size” via CTRL-- and CTRL-0 should stay in sync with font size in settings menu
-* Bracketed paste mode bug: 0~ ~1 on every command when ssh-ing
+* Bracketed paste mode bug: 0\~ \~1 on every command when ssh-ing
 * Crash when tab completing with multibyte characters
 * Download page doesn’t render correctly on safari
 * Login is broken for some users using Chrome
@@ -2135,7 +2135,7 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 
 * Major improvements to the consistency of completions, especially for commands that can take multiple arguments (e.g. rm -rf)
 * Proper path completions for absolute paths
-* Hang when PROMPT_COMMAND is set for the shell
+* Hang when PROMPT\_COMMAND is set for the shell
 * Context Menu not closing when clicking outside of the menu
 * Crashes after executing multi-line commands and on older versions of macOS
 
@@ -2230,4 +2230,3 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 **Bug fixes**
 
 * Text rendering was faded on certain monitors
-

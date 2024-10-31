@@ -41,7 +41,7 @@ All yaml files are stored in the following location:
 
 {% tabs %}
 {% tab title="macOS" %}
-`~/.warp/launch_configurations/`
+`$HOME/.warp/launch_configurations/`
 {% endtab %}
 
 {% tab title="Linux" %}

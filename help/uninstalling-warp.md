@@ -43,7 +43,7 @@ Removing Warp from your computer involves uninstalling Warp and then removing an
 * Remove Warp settings with `defaults delete dev.warp.Warp-Stable`
 * Remove Warp user files and logs with `sudo rm -r $HOME/.warp/ $HOME/Library/Logs/warp.log`
 * Remove Warp database with `sudo rm -r "$HOME/Library/Application Support/dev.warp.Warp-Stable"`
-* Remove Warp themes and launch configurations with `rm -rf ~/.warp`
+* Remove Warp themes and launch configurations with `rm -rf $HOME/.warp`
 {% endtab %}
 
 {% tab title="Linux" %}
