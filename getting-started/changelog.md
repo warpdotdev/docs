@@ -8,6 +8,13 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2024.10.31 (v0.2024.10.29.08.02)
+
+**Bug fixes**
+
+* Improved command completions to no longer attempt to use error messages as valid options
+* Fixed some `kubectl` completions not working as intended
+
 ### 2024.10.24 (v0.2024.10.23.14.49)
 
 **Improvements**
