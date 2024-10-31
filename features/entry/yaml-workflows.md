@@ -45,7 +45,7 @@ You can store local workflows (scoped to your machine) in:
 
 {% tabs %}
 {% tab title="macOS" %}
-`~/.warp/workflows/`
+`$HOME/.warp/workflows/`
 {% endtab %}
 
 {% tab title="Linux" %}
@@ -149,7 +149,7 @@ Local Workflow Path:
 
 {% tabs %}
 {% tab title="macOS" %}
-`~/.warp/workflows/`
+`$HOME/.warp/workflows/`
 {% endtab %}
 
 {% tab title="Linux" %}
@@ -165,7 +165,7 @@ To start, create a workflow subdirectory within
 
 {% tabs %}
 {% tab title="macOS" %}
-`mkdir -p ~/.warp/workflows/`
+`mkdir -p $HOME/.warp/workflows/`
 {% endtab %}
 
 {% tab title="Linux" %}
@@ -175,7 +175,7 @@ To start, create a workflow subdirectory within
 
 Add your workflow’s `.yaml` file to this directory; if the file format is valid Warp should automatically load it into the Workflows menu.
 
-`cp ~/path/to/my_awesome_workflow.yaml ~/{{path_to_local_workflow_folder}}`
+`cp ~/path/to/my_awesome_workflow.yaml {{path_to_local_workflow_folder}}`
 
 #### Repository Workflows
 
@@ -184,7 +184,7 @@ You can add a repository workflow similarly to how you added a local workflow. C
 ```
 cd {{repository_path}}
 mkdir -p .warp/workflows/
-cp ~/path/to/my_awesome_workflow.yaml .warp/workflows
+cp ~/path/to/my_awesome_workflow.yaml {{path_to_local_workflow_folder}}
 ```
 
 #### Global Workflows
