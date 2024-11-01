@@ -183,6 +183,8 @@ Some older installations of Fig (most notably prior to September 2021) include s
 
 On macOS, you may see a `Operation not permitted` error when trying to run commands in directories that have already been granted permissions (Documents, Downloads, Desktop, etc). We believe this occurs due to a pending update, are working on a fix, and tracking it [here](https://github.com/warpdotdev/Warp/issues/3009). The best workaround at this time, is to [apply any pending Updates](updating-warp.md) so that the new Warp binary has the correct permissions.
 
+<figure><img src="../.gitbook/assets/CleanShot 2024-11-01 at 13.37.01.png" alt=""><figcaption><p>Permission error on macOS</p></figcaption></figure>
+
 ### Auto-Update on macOS Ventura
 
 Warp may have an error opening after auto-update on macOS Ventura. This issue has been resolved for current and future releases of Warp. To avoid the issue, [update Warp](updating-warp.md) _before_ you upgrade to macOS Ventura.\
