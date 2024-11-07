@@ -8,7 +8,7 @@ description: Warp supports subshells for bash, zsh, and fish.
 
 Within the context of the Warp terminal, a "subshell" is defined as any nested interactive shell session that's spawned and running within the context of an existing, running shell. This might be a nested session running locally on your machine, a shell session running within a Docker container, or a remote server accessed through SSH.
 
-Note that Warp's definition of a subshell differs from the more common definition of a Unix subshell, which typically refers to any shell process spawned as a child of the interactive shell.  For example, in bash, a command wrapped in parentheses is executed in a subshell with its own PID and addressable memory space.
+Note that Warp's definition of a subshell differs from the more common definition of a Unix subshell, which typically refers to any shell process spawned as a child of the interactive shell. For example, in bash, a command wrapped in parentheses is executed in a subshell with its own PID and addressable memory space.
 
 ## How to Warpify the subshell
 
@@ -25,6 +25,8 @@ When you run a command that's subshell-compatible, Warp will prompt you and invi
 {% hint style="info" %}
 bash, zsh, or fish (3.6 or above) must be set as the default shell within containers and ssh sessions for the Warpification of the subshells to work.
 {% endhint %}
+
+<figure><img src="../../.gitbook/assets/subshells-demo.gif" alt=""><figcaption><p>Subshells Demo</p></figcaption></figure>
 
 ### Configuring subshell-compatible commands
 
@@ -69,11 +71,11 @@ If you happen to encounter issues in subshell sessions where the RC file is sour
 
 ## Background commands
 
-Warp runs background commands to power useful features like completions, syntax highlighting, and command corrections.  For example, in order to provide completions for git checkout, Warp runs a background command that lists all git branches in the current repo.
+Warp runs background commands to power useful features like completions, syntax highlighting, and command corrections. For example, in order to provide completions for git checkout, Warp runs a background command that lists all git branches in the current repo.
 
 In local subshell sessions, these commands are run in forked shell processes, isolated from your interactive shell session. This is the same implementation used for any non-subshell session.
 
-In remote sessions, however, Warp takes a different approach – while a forked shell process is running on your local machine (where the Warp app is running), your remote session might be running on a server elsewhere.  In these cases, Warp takes advantage of the session’s “idle time” – when no command is currently running – to run background commands directly in the session itself.  These commands are executed in a non-interactive subshell process to prevent modifications to the session state (they cannot modify an environment variable, for instance).
+In remote sessions, however, Warp takes a different approach – while a forked shell process is running on your local machine (where the Warp app is running), your remote session might be running on a server elsewhere. In these cases, Warp takes advantage of the session’s “idle time” – when no command is currently running – to run background commands directly in the session itself. These commands are executed in a non-interactive subshell process to prevent modifications to the session state (they cannot modify an environment variable, for instance).
 
 ### Show/hide background blocks
 
@@ -93,12 +95,8 @@ defaults update dev.warp.Warp-Stable DisableInBandCommands true
 {% endtab %}
 
 {% tab title="Linux" %}
-
 Update the settings file located at `~/.config/warp-terminal/user_preferences.json` to include the following name-value pair: `"DisableInBandCommands": "true"`.
-
 {% endtab %}
 {% endtabs %}
-
-
 
 This will effectively disable tab completions, syntax highlighting, command corrections, and the git status prompt indicator in remote subshells.

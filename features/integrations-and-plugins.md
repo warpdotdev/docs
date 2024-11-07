@@ -10,7 +10,7 @@ description: Warp extends and integrates with popular development tools.
 Currently, the Docker extension is only available on macOS.
 {% endhint %}
 
-[Warp’s Docker extension](https://hub.docker.com/extensions/warpdotdev/warp) makes it more convenient to open Docker containers in Warp. With the extension, you can click to open any Docker container in a [Warpified subshell](subshells.md), without manually running `docker exec` or typing out lengthy container IDs.
+[Warp’s Docker extension](https://hub.docker.com/extensions/warpdotdev/warp) makes it more convenient to open Docker containers in Warp. With the extension, you can click to open any Docker container in a [Warpified subshell](warpify/subshells.md), without manually running `docker exec` or typing out lengthy container IDs.
 
 Select a container from the list and specify a shell type. Note, that only `bash|zsh|fish` are supported shells for docker containers. Then, select a user (optional) and finally click “Open in Warp” to run commands within the Docker container.
 
@@ -48,7 +48,6 @@ To configure this, use the Apple Menu. Click on `Code` -> `Settings` -> `Setting
 Press `SHIFT-CTRL-C` while in [VSCode](https://code.visualstudio.com/docs/terminal/basics) to open a new session in Warp.
 
 To configure this, navigate to Settings in VSCode and search for `Terminal › External: Linux Exec`. Change this to `warp-terminal` if you've installed Warp with your distribution's package manager. Otherwise, put in the full path to the executable (e.g. if it is an AppImage).
-
 {% endtab %}
 {% endtabs %}
 

@@ -24,7 +24,7 @@ Links to popular GitHub issues:
 
 ## SSH
 
-To enable Blocks over SSH, Warp uses an SSH Wrapper function; navigate to settings > features if you need to disable it. Please see  [Troubleshooting SSH](../features/ssh.md#troubleshooting-ssh) for more info on workarounds to SSH issues.
+To enable Blocks over SSH, Warp uses an SSH Wrapper function; navigate to settings > features if you need to disable it. Please see  [Troubleshooting SSH](../features/warpify/ssh.md#troubleshooting-ssh) for more info on workarounds to SSH issues.
 
 ## Online features don't work
 

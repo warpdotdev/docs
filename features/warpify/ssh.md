@@ -21,7 +21,7 @@ When you SSH into a remote box, you get all the features of Warp without any con
 If you're using zsh on the remote host, Warp creates a temp folder to act as the ZDOTDIR during the bootstrapping process and removes it when the shell is set up.
 {% endhint %}
 
-![SSH](../.gitbook/assets/6\_ssh.png)
+![SSH](../../.gitbook/assets/6\_ssh.png)
 
 ## Implementation
 
@@ -35,7 +35,7 @@ You can see the SSH wrapper by using `which warp_ssh_helper` in zsh, `type warp_
 _Note:_ The ssh wrapper is only _initialized_ on your local machine. We don’t currently support bootstrapping nested ssh sessions.
 
 {% hint style="info" %}
-Warp [Completions](command-completions/completions.md) for ssh show entries in `~/.ssh/config` and `~/.ssh/known_hosts`
+Warp [Completions](../command-completions/completions.md) for ssh show entries in `~/.ssh/config` and `~/.ssh/known_hosts`
 {% endhint %}
 
 ## Troubleshooting SSH
@@ -56,4 +56,4 @@ There are several [known issues with SSH Wrapper](https://github.com/warpdotdev/
 If the subshell workaround helps, we recommend you disable the SSH Wrapper in `Settings > Features.`You'll need to start a new session before a change is reflected or try invoking the SSH binary directly with`command ssh`.
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/subshell-ssh-demo.gif" alt="Command SSH subshell workaround"><figcaption><p>Command SSH Subshell Workaround</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/subshell-ssh-demo.gif" alt="Command SSH subshell workaround"><figcaption><p>Warpify SSH Demo</p></figcaption></figure>
