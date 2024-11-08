@@ -23,4 +23,4 @@ Next, you can choose your [prompt](../appearance/prompt.md) and decide whether o
 
 After choosing a prompt, you’re ready to start using Warp.
 
-If you are already running Warp but would like to import your iTerm2 profile, you can use Ctrl+P to open the Command Palette and search for the Setup Guide. This will enter you into the workflow to import your settings.
+If you are already running Warp but would like to import your iTerm2 profile, you can open the [Command Palette](../features/command-palette.md) and search for the Setup Guide. This will enter you into the workflow to import your settings.
