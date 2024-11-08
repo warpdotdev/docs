@@ -8,6 +8,18 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2024.11.08 (v0.2024.11.05.08.02)
+
+**Improvements**
+
+* Fixes a bug where Warpifying subshells could crash if you had something typed in your input
+* Renamed the Subshells tab to Warpify in Settings
+
+**Bug fixes**
+
+* Fixed an issue where kubectl resource names wouldn't complete given a prefix
+* Fixed bug causing not all memory to be immediately freed when clearing the blocklist
+
 ### 2024.10.31 (v0.2024.10.29.08.02)
 
 **Bug fixes**
@@ -25,6 +37,25 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 
 * Un-launched the Node Version prompt chip due to performance issues
 
+### 2024.10.17 (v0.2024.10.15.08.02)
+
+**New features**
+
+* Warp.dev has a fresh look today! Check out what's new and read about the design process behind the launch [here](https://www.warp.dev/blog/world-of-warp)
+
+**Improvements**
+
+* Created a setting allowing focus to follow mouse hover ([#699](https://github.com/warpdotdev/Warp/issues/699))
+* Added support for Node Version chip in Warp Prompt
+* Automatically switch to shell command input mode if accepting a shell command autosuggestion from Agent Mode
+* [macOS] Adjusted default font smoothing `Appearance > "Use thin strokes"` configuration to improve text legibility
+
+**Bug fixes**
+
+* Alt-screen find doesn't beachball when scrolling through find matches
+* You can now select individual cells in the alt-screen
+* All find matches are correctly highlighted in the alt-screen
+* Hitting `ENTER` within the Launch Config Save Modal will work as expected
 ### 2024.10.17 (v0.2024.10.15.08.02)
 
 **New features**
