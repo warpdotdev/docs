@@ -355,7 +355,6 @@ Repositories are by default GitHub if not otherwise specified.
 | smallvec                      | Apache-2.0 OR MIT                                   |                                    servo/rust-smallvec |
 | smart-default                 | MIT                                                 |                            idanarye/rust-smart-default |
 | smol                          | Apache-2.0 OR MIT                                   |                                          stjepang/smol |
-| snailquote                    | GPL-3.0-only                                        |                                       euank/snailquote |
 | socket2                       | Apache-2.0 OR MIT                                   |                                alexcrichton/socket2-rs |
 | socket2                       | Apache-2.0 OR MIT                                   |                                      rust-lang/socket2 |
 | stable\_deref\_trait          | Apache-2.0 OR MIT                                   |                       storyyeller/stable\_deref\_trait |
