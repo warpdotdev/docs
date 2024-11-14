@@ -8,6 +8,24 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2024.11.14 (v0.2024.11.12.08.02)
+
+**Improvements**
+
+* Added padding after an expanded Agent Mode requested command
+* Improved the quality of autosuggestions
+* Warp Drive workflow links now open in the active terminal session rather than a new tab
+* On the web, Warp Drive workflows now have a button to quickly open the workflow in Warp's desktop app
+* [Linux] Increased the app icon size to match other apps
+
+**Bug fixes**
+
+* Fixed Graphite CLI `gt` completions
+* Fixed completion and syntax highlighting behavior for arguments containing backslashes in PowerShell
+* Fixed an issue where opening Warp Drive in a browser could cause the tab to stop responding
+* [Linux] Tightened timeout for looking up the system color scheme at app startup to avoid hangs if the `org.freedesktop.portal.Desktop` D-Bus service is unresponsive
+* [macOS] Fixed a crash that can occur when starting the app or opening a new window
+
 ### 2024.11.08 (v0.2024.11.05.08.02)
 
 **Improvements**
