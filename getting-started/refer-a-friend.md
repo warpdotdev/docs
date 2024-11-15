@@ -61,7 +61,7 @@ International users who choose physical rewards are responsible for paying any c
 
 Alternatively, international users may opt to receive a digital gift card instead of a physical reward.
 
-Note: for users who qualified for referral rewards before October 15th, 2025, Warp will cover all shipping and customs costs. Starting from that date onwards, international users receiving referral rewards will be responsible for paying any customs fees associated with shipping.
+Note: for users who qualified for referral rewards before October 15th, 2024, Warp will cover all shipping and customs costs. Starting from that date onwards, international users receiving referral rewards will be responsible for paying any customs fees associated with shipping.
 
 ### Shipping time frame
 Physical rewards may take 2 to 3 weeks to arrive for users located in the United States, and 4 to 12 weeks for international users. After claiming your order, you will receive an email with a shipping confirmation and a tracking link from Printfection.
