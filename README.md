@@ -1,5 +1,5 @@
 ---
-description: Warp is the terminal with AI and your dev team's knowledge built-in..
+description: Warp is the terminal with AI and your dev team's knowledge built-in.
 ---
 
 # What is Warp?
