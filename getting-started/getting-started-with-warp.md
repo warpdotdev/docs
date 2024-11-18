@@ -1,43 +1,40 @@
 ---
-description: A step-by-step guide for setting up Warp on your machine.
+description: Learn how to install Warp and get it running on your machine.
 ---
 
-# Installing & Onboarding
+# Quickstart Guide
 
 {% hint style="info" %}
-**Platform support:** Warp is currently supported on Mac (Intel and Mac Silicon) and Linux (x86\_64 and ARM64). We have plans to support Windows and the Web (WASM)!\
-Subscribe to get notified when Warp is available for [Windows](https://warp.dev/windows-terminal). Please see our [Known Issues](../help/known-issues.md) for any issues running Warp or [contact us](../help/sending-us-feedback.md#sending-warp-feedback).
+**Platform support:** Warp is currently supported on Mac (Intel and Mac Silicon) and Linux (x86\_64 and ARM64). We have plans to support Windows and the Web (WASM)!
+
+Subscribe to get notified when Warp is available for [Windows](https://warp.dev/windows-terminal).
 {% endhint %}
 
-## Installing and Running Warp
+## Install Warp
 
 {% hint style="warning" %}
-**Visit** [**known issues**](../help/known-issues.md) **to get more details on setting up and troubleshooting Warp.**
+**Visit** [Known Issues](../help/known-issues.md) **to get more details on setting up and troubleshooting Warp.**
 {% endhint %}
 
 {% tabs %}
 {% tab title="macOS" %}
 {% hint style="info" %}
-**Requirements:** Minimum requirements are an Intel or Apple silicon macOS 10.14 or above and hardware that supports [Metal](https://support.apple.com/en-us/HT205073).
+**Minimum requirements:** Intel or Apple silicon macOS 10.14 or above and hardware that supports [Metal](https://support.apple.com/en-us/HT205073).
 {% endhint %}
 
-There are two ways to get Warp onto your machine:
+You can install Warp in two ways:
 
-**Download Warp at the link below and Drag into your Application folder**
+1. [**Download Warp**](https://app.warp.dev/get\_warp) **and drag into your Applications folder**
 
 {% embed url="https://app.warp.dev/get_warp" %}
-Link to Download Warp
-{% endembed %}
 
-**Install using Homebrew by running the command below**
+2. **Install using Homebrew by running the command below**
 
 ```
 brew install --cask warp
 ```
 
-**Running Warp on Mac**
-
-Find the Warp in your Applications folder and run it from there (or search for Warp in Spotlight/Raycast).
+After installation, you can find Warp in your Applications folder.
 {% endtab %}
 
 {% tab title="Linux" %}
@@ -56,7 +53,7 @@ Visit the [Warp download page](https://app.warp.dev/get\_warp?auto\_download=fal
 
 **Debian- and Ubuntu-based distributions**
 
-The easiest way to install Warp is to download [x64 .deb package](https://app.warp.dev/download?package=deb) or [ARM64 deb package](https://app.warp.dev/download?package=deb_arm64). After downloading, you can install the package with:
+The easiest way to install Warp is to download [x64 .deb package](https://app.warp.dev/download?package=deb) or [ARM64 deb package](https://app.warp.dev/download?package=deb\_arm64). After downloading, you can install the package with:
 
 ```
 sudo apt install ./<file>.deb
@@ -77,7 +74,7 @@ sudo apt update && sudo apt install warp-terminal
 
 **RHEL-, Fedora-, and CentOS-based distributions**
 
-The easiest way to install Warp is to download the [x64 .rpm package](https://app.warp.dev/download?package=rpm) or [ARM64 .rpm package](https://app.warp.dev/download?package=rpm_arm64). After downloading, you can install the package with:
+The easiest way to install Warp is to download the [x64 .rpm package](https://app.warp.dev/download?package=rpm) or [ARM64 .rpm package](https://app.warp.dev/download?package=rpm\_arm64). After downloading, you can install the package with:
 
 ```
 sudo dnf install ./<file>.rpm
@@ -95,7 +92,7 @@ sudo dnf install warp-terminal
 
 **Arch Linux-based distributions**
 
-The easiest way to install Warp is to download the [x64 .pkg.tar.zst package](https://app.warp.dev/download?package=pacman) or [ARM64 pacman package](https://app.warp.dev/download?package=pacman_arm64). After downloading, you can install the package with:
+The easiest way to install Warp is to download the [x64 .pkg.tar.zst package](https://app.warp.dev/download?package=pacman) or [ARM64 pacman package](https://app.warp.dev/download?package=pacman\_arm64). After downloading, you can install the package with:
 
 ```
 sudo pacman -U ./<file>.pkg.tar.zst
@@ -114,7 +111,7 @@ sudo pacman -Sy warp-terminal
 
 **OpenSUSE- and SLE-based distributions**
 
-The Warp yum repository also works for OpenSUSE- and SLE-based systems. Download the [x64 .rpm package](https://app.warp.dev/download?package=rpm) or [ARM64 .rpm package](https://app.warp.dev/download?package=rpm_arm64). After downloading, you can install the package with:
+The Warp yum repository also works for OpenSUSE- and SLE-based systems. Download the [x64 .rpm package](https://app.warp.dev/download?package=rpm) or [ARM64 .rpm package](https://app.warp.dev/download?package=rpm\_arm64). After downloading, you can install the package with:
 
 ```
 sudo zypper install ./<file>.rpm
@@ -141,6 +138,7 @@ You can download the Warp AppImage with the following commands:
 curl -L "https://app.warp.dev/download?package=appimage" -o Warp-x64.AppImage
 chmod +x Warp-x64.AppImage
 ```
+
 ```
 # On ARM64 systems
 curl -L "https://app.warp.dev/download?package=appimage_arm64" -o Warp-ARM64.AppImage
@@ -149,43 +147,59 @@ chmod +x Warp-ARM64.AppImage
 
 **Running Warp on Linux**
 
-If you installed a package, find Warp in your desktop manager or run `warp-terminal` on your terminal.
-If you're using the AppImage, you can launch it by navigating to the directory where the AppImage is located and running `./Warp-*.AppImage`.
+If you installed a package, find Warp in your desktop manager or run `warp-terminal` on your terminal. If you're using the AppImage, you can launch it by navigating to the directory where the AppImage is located and running `./Warp-*.AppImage`.
 {% endtab %}
 {% endtabs %}
 
-## Shell Compatibility
+## Initial Setup
 
-Locally, the terminal integrates with bash, zsh, or fish. Reference [using Warp with \[bash|zsh|fish\] ](using-warp-with-shells.md)for more details.
+### Log into Warp
 
-## Onboarding
+After installation, you may be prompted to sign up for a Warp account. If you're having issues logging in, you can check out the [Login Troubleshooting](../help/troubleshooting-login-issues.md) page.
 
-### Logging into Warp (Required)
+If you sign up using Google or GitHub, Warp only gets access to the associated email address. Visit the [Privacy](privacy.md) page for more details on Warp's approach to privacy.
 
-Unlike classic terminals, Warp requires you to [sign up](https://app.warp.dev/signup) and [log in](https://app.warp.dev/login) to get started with the app. Unique user identity is required to support Warp's collaborative features and it makes it easier for the Warp team to provide customer support, should you need to debug an issue.
+### Use Warp offline
 
-{% hint style="info" %}
-Issues with login? Check out the [login troubleshooting page](../help/troubleshooting-login-issues.md).
-{% endhint %}
+You will only need an active internet connection when you open the Warp app for the first time. Once opened, [Warp is able to run with no internet connection](../help/using-warp-offline.md), although certain features that require an internet connection will be unavailable.
 
-After installing Warp for the first time, you will be prompted to log in with GitHub, Google, SSO for Enterprise, or with an email link.
+### Import your settings
 
-{% hint style="info" %}
-If you log in with Google or GitHub, Warp only gets access to the associated email address. If you want to learn more, [read our approach to privacy](https://www.warp.dev/privacy).
-{% endhint %}
+If you are migrating to Warp from another terminal like iTerm2, you can easily import your settings, such as keyboard shortcuts and color themes. For more details, visit the [Migrate to Warp](migrate-to-warp.md) docs.
 
-Opening the app is the only time you need an active internet connection. Otherwise, Warp is a fully-native, local app that runs fine with no internet connection (although you will lose access to some [cooler features](../help/using-warp-offline.md)).
+### Set up your Warp default shell
 
-### Onboarding Survey (Optional)
+Warp tries to load your login shell by default. Currently, Warp supports bash, fish, zsh, and PowerShell (pwsh). If your login shell is set to something else (for example, Nushell) Warp will load zsh by default.
 
-Warp will ask a few questions within the app after you sign up.
+Zsh is the default login and interactive shell on macOS (starting with macOS Catalina in 2019), replacing the bash shell. For most Linux distributions, the default shell is bash.
 
-The survey is optional. You can skip all questions if you’d like.
+You can change your default shell by going to `Settings > Features > Session`. In the Startup shell for new sessions section, you can choose which shell you want Warp to use.
 
-{% hint style="info" %}
-Why do we ask these? Understanding how you use the terminal helps us improve the product and prioritize the right features to build.
-{% endhint %}
+### Customize Warp's Appearance
 
-### Customizing Warp
+Warp has many Appearance settings you can configure:
 
-Warp has many [Appearance](../appearance/themes.md) settings you can configure, including themes, fonts, opacity, and input position. Navigate to `Settings > Appearance` to customize your setup.
+* [Themes](https://docs.warp.dev/appearance/themes): You can choose from pre-loaded themes or create your own [custom theme](https://docs.warp.dev/appearance/custom-themes), using .yaml or based on a background image you upload.
+* [Text and fonts](https://docs.warp.dev/appearance/text-fonts-cursor): You can customize your font type and font size. You can also adjust the font to improve readability and accessibility.
+* [Input position](https://docs.warp.dev/appearance/input-position): Set your prompt and command line to the top or bottom of your terminal window.
+
+Navigate to `Settings > Appearance` to customize your setup.
+
+<figure><img src="../.gitbook/assets/settings-appearance.png" alt=""><figcaption><p>Settings > Appearance</p></figcaption></figure>
+
+### Modify behavior settings
+
+There are a number of behavior settings and features that will help you customize your terminal to best suit your needs:
+
+* [Dedicated window](https://docs.warp.dev/features/windows/global-hotkey#dedicated-window): Dedicated hotkey window (also known as Quake Mode) allows you to customize your window’s position, width, and height ratio relative to your active screen size.
+* [Tabs](../features/windows/tabs.md): Organize your windows into multiple terminal sessions, and customize them with different titles and/or colors.
+* [Split panes](https://docs.warp.dev/features/windows/split-panes): Divide any tab into multiple panels, side-by-side or stacked.
+
+<figure><img src="../.gitbook/assets/tab-splitpane-examples.png" alt=""><figcaption><p>Organize tabs and divide them into multiple panels</p></figcaption></figure>
+
+* [Auto suggestions](https://docs.warp.dev/features/command-completions/autosuggestions): As you type, Warp will automatically suggest commands based on shell history and possible completions.
+* [Completions](https://docs.warp.dev/features/command-completions/completions): When you press TAB, Warp will suggest commands, option names, and path parameters for you. Customize your TAB key behavior under `Settings > Features`.
+* [Vim keybindings](https://docs.warp.dev/features/editor/vim): Warp supports default Vim keybindings, allowing for keyboard-driven text editing.
+* [Keyboard shortcuts](https://docs.warp.dev/features/keyboard-shortcuts): Warp supports commonly used keyboard shortcuts. You can also set custom keyboard shortcuts by creating new commands or editing existing shortcuts.
+* [Open files and links](https://docs.warp.dev/features/files-and-links): Using your cursor, you can open files, folders, and URL links that are within Blocks. You can also [configure the default editor to open files](https://docs.warp.dev/features/files-and-links#files-and-links-1).
+* [Command Corrections](../features/entry/command-corrections.md): Get auto-correct suggestions on commands to catch typos, forgotten flags, and general console errors.
