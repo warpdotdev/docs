@@ -1,4 +1,4 @@
-root: ./
+root: ./docs/
 
 redirects:  
     features/session-management-and-restoration: features/sessions/README.md
