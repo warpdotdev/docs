@@ -1,6 +1,6 @@
 ---
 description: >-
-  Launch Configurations enables you to save your configuration of windows, tab,
+  Launch Configurations enables you to save your configuration of windows, tabs,
   and panes, so that you can reopen the same set of sessions per project
   quickly.
 ---
@@ -14,19 +14,19 @@ With Launch configurations you can save in the app or by adding a yaml file.
 ## How to use it
 
 1. Set up the configuration of windows, tabs, and panes you would like to save.
-2. From the [Command Palette](../command-palette.md), enter `Save New Launch Configuration`.
+2. From the [Command Palette](../../docs/features/command-palette.md), enter `Save New Launch Configuration`.
 3. Name the configuration file, the name field cannot be empty.
 4. Click the save configuration button.
 
 ## How to access it
 
-* From the [Command Palette](../command-palette.md), enter `Launch Configuration` to open and select Launch Configuration.
+* From the [Command Palette](../../docs/features/command-palette.md), enter `Launch Configuration` to open and select Launch Configuration.
 * Right-clicking the new Tab **+** button to open a menu and select saved Launch Configuration.
 * From the Mac Menu, `File > Launch Configurations`, where you can search through and open your saved Launch Configuration.
 
 {% hint style="info" %}
 **Terminal Tip**\
-You can open saved Launch Configurations via Alfred Workflow or [Raycast](../integrations-and-plugins.md#raycast) Extension. Learn more [here](https://blog.joe.codes/open-warp-launch-configurations-from-raycast-and-alfred). Credit to [@joetannenbaum](https://twitter.com/joetannenbaum/status/1633538768866009115)
+You can open saved Launch Configurations via Alfred Workflow or [Raycast](../../docs/features/integrations-and-plugins.md#raycast) Extension. Learn more [here](https://blog.joe.codes/open-warp-launch-configurations-from-raycast-and-alfred). Credit to [@joetannenbaum](https://twitter.com/joetannenbaum/status/1633538768866009115)
 {% endhint %}
 
 ## How it works

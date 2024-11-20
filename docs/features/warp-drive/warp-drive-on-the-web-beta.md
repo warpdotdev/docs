@@ -14,7 +14,7 @@ Warp now gives developers the ability to view their drives and shared sessions o
 
 Warp's web-based viewing experience can currently be accessed via:
 
-* [Drive Object](./#sharing-your-drive-objects) Links
+* [Drive Object](../../../features/warp-drive/#sharing-your-drive-objects) Links
 * [Session Sharing](../session-sharing.md#how-to-invite-collaborators-to-your-session) Links
 
 {% hint style="warning" %}

@@ -6,7 +6,7 @@ description: Use natural language to accomplish any task in the terminal
 
 ## What is Agent Mode?
 
-Agent Mode is a mode in Warp that lets you perform any terminal task with natural language. Type the task into your terminal input, press `ENTER`, and Warp AI runs highly accurate commands tailored to your environment. \
+Agent Mode is a mode in Warp that lets you perform any terminal task with natural language. Type the task into your terminal input, press `ENTER`, and Warp AI runs highly accurate commands tailored to your environment.\
 \
 Agent Mode can:
 
@@ -24,7 +24,7 @@ You may enter Agent Mode in a few ways:
 {% tabs %}
 {% tab title="macOS" %}
 * Type any natural language, like a task or a question, in the terminal input. Warp will recognize natural language with a local auto-detection feature and prepare to send your query to Warp AI.
-* Use keyboard shortcuts to toggle into Agent Mode `CMD-I`  or type `ASTERISK+SPACE`.
+* Use keyboard shortcuts to toggle into Agent Mode `CMD-I` or type `ASTERISK+SPACE`.
 * Click the “AI” sparkles icon in the menu bar, and this will open a new terminal pane that starts in Agent Mode.
 * From a block, you want to ask Warp AI about. You can click the sparkles icon in the toolbelt, or click on its block context menu item “Attach block(s) to AI query”.
 {% endtab %}
@@ -43,11 +43,11 @@ When you are in Agent Mode, a ✨ sparkles icon will display in line with your t
 
 ### Auto-detection for natural language and configurable settings
 
-The feature Warp uses to detect natural language automatically is completely local. None of your input is sent to AI unless you press `ENTER` in Agent Mode.&#x20;
+The feature Warp uses to detect natural language automatically is completely local. None of your input is sent to AI unless you press `ENTER` in Agent Mode.
 
 If you find that certain shell commands are falsely detected as natural language, you can fix the model by adding those commands to a denylist in `Settings > AI > Auto-detection denylist`.
 
-You may also turn autodetection off from `Settings > AI > Input Auto-detection`.&#x20;
+You may also turn autodetection off from `Settings > AI > Input Auto-detection`.
 
 The first time you enter Agent Mode, you will be served a banner with the option to disable auto-detection for natural language on your command line:
 
@@ -81,11 +81,11 @@ Unlike a chat panel, Agent Mode can complete tasks for you by running commands d
 
 If Agent Mode finds a suitable command that will accomplish your task, it will describe the command in the AI block. It will also fill your terminal input with the suggested command so you can press `ENTER` to run the command.
 
-When you run a command suggested by Agent Mode, that command will work like a standard command you've written in the terminal. No data will be sent back to the AI.&#x20;
+When you run a command suggested by Agent Mode, that command will work like a standard command you've written in the terminal. No data will be sent back to the AI.
 
 If the suggested command fails and you want to resolve the error, you may start a new AI query to address the problem.
 
-<figure><img src="../../.gitbook/assets/Screenshot 2024-06-14 at 5.07.37 PM.png" alt="Agent Mode makes a suggestion to run a command."><figcaption><p>Agent Mode makes a suggestion to run a command.</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/Screenshot 2024-06-14 at 5.07.19 PM (1).png" alt="Agent Mode makes a suggestion to run a command."><figcaption><p>Agent Mode makes a suggestion to run a command.</p></figcaption></figure>
 
 #### Agent Mode Requested Commands
 
@@ -127,12 +127,12 @@ If you're already in Agent Mode, use the following ways to attach or clear conte
 
 {% tabs %}
 {% tab title="macOS" %}
-#### Attach a previous block
+**Attach a previous block**
 
-* To attach blocks to a query, you can use `CMD-UP` to attach the previous block as context to the query. While holding `CMD`, you can then use your `UP/DOWN` keys to pick another block to attach.&#x20;
+* To attach blocks to a query, you can use `CMD-UP` to attach the previous block as context to the query. While holding `CMD`, you can then use your `UP/DOWN` keys to pick another block to attach.
   * You may also use your mouse to attach blocks in your session. Hold `CMD` as you click on other blocks to extend your block selection.
 
-#### Clear a previous block
+**Clear a previous block**
 
 * To clear blocks from a query, you can use `CMD-DOWN` until the blocks are removed from context.
   * You may also use your mouse to clear blocks in your session. Hold `CMD` as you click on an attached block to clear it.
@@ -143,12 +143,12 @@ When using "Pin to the top" [Input Position](../../appearance/input-position.md)
 {% endtab %}
 
 {% tab title="Linux" %}
-#### Attach a previous block
+**Attach a previous block**
 
-* To attach blocks to a query, you can use `CTRL-UP` to attach the previous block as context to the query. While holding `CMD`, you can then use your `UP/DOWN` keys to pick another block to attach.&#x20;
+* To attach blocks to a query, you can use `CTRL-UP` to attach the previous block as context to the query. While holding `CMD`, you can then use your `UP/DOWN` keys to pick another block to attach.
   * You may also use your mouse to select blocks in your session. Hold `CTRL` as you click on other blocks to extend your block selection.
 
-#### Clear a previous block
+**Clear a previous block**
 
 * To clear blocks from a query, you can use `CTRL-DOWN` until the blocks are removed from context.
   * You may also use your mouse to clear blocks in your session. Hold `CTRL` as you click on an attached block to clear it.
@@ -175,7 +175,7 @@ To enter follow-up mode manually, press `CTRL-Y`.
 
 <figure><img src="https://lh7-us.googleusercontent.com/docsz/AD_4nXfjbyDahdx8N92hqQCRjNCEaZaALNuQ2qOLIOicgsJag3OOsLPqhurAXx_Mfv_1iu9FnqmMkV5RtKSx_cc5mh30K7uM898-tYR1Ej3gsEqR3BkS72fl_TOOkIqVLFYLfLOFuiTNjdm8a3P7yegZDea-EAf6?key=93MSbS8PGHqqCWcAfKQhVw" alt=""><figcaption><p>A continuing conversation in Agent Mode with a follow-up indicator</p></figcaption></figure>
 
-### **How to start a new conversation**&#x20;
+### **How to start a new conversation**
 
 If there is no follow-up ↳ icon next to your input, this indicates a new conversation. If you ask an AI query after running a shell command you will be placed in a new conversation. Agent Mode will also kick you out to a new conversation after 3 hours.
 
@@ -201,13 +201,13 @@ You might notice that in long conversations, the AI loses context from the very 
 
 Every Warp plan includes a set number of Warp AI requests per user per month. Please refer to [pricing](https://www.warp.dev/pricing) to compare plans.
 
-Warp AI includes Agent Mode, [AI Command Suggestions](ai-command-suggestions.md), and AI autofill in Warp Drive. When you have used up your allotted requests for the cycle, you will not be able to issue any more AI requests until the cycle renews.&#x20;
+Warp AI includes Agent Mode, [AI Command Suggestions](ai-command-suggestions.md), and AI autofill in Warp Drive. When you have used up your allotted requests for the cycle, you will not be able to issue any more AI requests until the cycle renews.
 
 ### What counts as a Warp AI request in Agent Mode?
 
-Every time you submit an AI query from your input box, this counts as one Warp AI request.&#x20;
+Every time you submit an AI query from your input box, this counts as one Warp AI request.
 
-[Suggested commands](agent-mode.md#agent-mode-command-suggestions) and [requested commands](agent-mode.md#agent-mode-requested-commands) do not count as billable Warp AI requests.&#x20;
+[Suggested commands](agent-mode.md#agent-mode-command-suggestions) and [requested commands](agent-mode.md#agent-mode-requested-commands) do not count as billable Warp AI requests.
 
 You can monitor your request usage under `Settings > AI > Request Usage`.
 
@@ -224,7 +224,7 @@ We recognize that the terminal is a sensitive environment and we want to be expl
 * You have to explicitly approve any command the AI wants to run.
 * The natural language detection in the input is done completely locally. Warp first checks the string input with a completion engine, and then cross-checks the query string against popular engineering-related words. If you’re uncomfortable with the auto-detection, you may turn it off in Settings.
 * You get to choose what blocks, if any, are sent to Warp AI.
-* All actions are performed through terminal commands. All commands are inspectable. You may click on the requested commands to see their output. All suggested commands are run as regular Warp blocks you can read.&#x20;
+* All actions are performed through terminal commands. All commands are inspectable. You may click on the requested commands to see their output. All suggested commands are run as regular Warp blocks you can read.
 * [Suggested commands](agent-mode.md#agent-mode-command-suggestions) are not read by Warp AI.
 * While [requested commands](agent-mode.md#agent-mode-requested-commands) and their output are sent to Warp AI, you get to cancel out a requested command at any time.
 * You can inspect all data that’s leaving your machine using [Network Log](../network-log.md).
@@ -268,4 +268,4 @@ As of now, Warp is using OpenAI’s GPT-4o model.
 
 Warp AI is tailored for the terminal so you can get optimal results and performance. It’s suitable for AI power users and professional use cases.
 
-For organizations with strict security requirements, a “Bring Your Own LLM” option is available on the Enterprise plan. At the Enterprise plan level, we can work closely with your team to ensure quality and compliance for your LLM of choice.\
+For organizations with strict security requirements, a “Bring Your Own LLM” option is available on the Enterprise plan. At the Enterprise plan level, we can work closely with your team to ensure quality and compliance for your LLM of choice.\\

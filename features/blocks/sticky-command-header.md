@@ -24,7 +24,7 @@ For long-running commands that take up the full screen, the sticky header only s
 {% tab title="Linux" %}
 * Sticky Command Header is enabled by default.
 * Toggle the Sticky Command Header by going to `Settings > Features` > toggle “Show sticky command header”.
-* Toggle by searching for “Sticky Command Header” within the [Command Palette](../command-palette.md) or by setting up a key bind in `Settings > Keyboard Shortcuts`.
+* Toggle by searching for “Sticky Command Header” within the [Command Palette](../../docs/features/command-palette.md) or by setting up a key bind in `Settings > Keyboard Shortcuts`.
 * You can also "Toggle the Sticky Command Header in the Active Pane" in the Command Palette or by setting up a key bind in `Settings > Keyboard Shortcuts`. This won't disable the feature entirely, only minimize it on the active session.
 {% endtab %}
 {% endtabs %}
@@ -41,4 +41,4 @@ For long-running commands that take up the full screen, the sticky header only s
 Sticky Command Header Demo
 {% endembed %}
 
-<figure><img src="../../.gitbook/assets/sticky-header-toggle-active-demo.gif" alt=""><figcaption><p>Toggle active header and Jump to bottom of block demo</p></figcaption></figure>
+<figure><img src="../../docs/.gitbook/assets/sticky-header-toggle-active-demo.gif" alt=""><figcaption><p>Toggle active header and Jump to bottom of block demo</p></figcaption></figure>

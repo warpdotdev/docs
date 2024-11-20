@@ -1,7 +1,7 @@
 ---
 description: >-
   Command Corrections provides auto-correct suggestions on previously run
-  commands to catch typos, and forgotten flags, and fix general console errors.
+  commands to catch typos and forgotten flags, and fix general console errors.
 ---
 
 # Command Corrections

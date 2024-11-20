@@ -1,7 +1,7 @@
 ---
 description: >-
-  Warp Tab Completions will suggest commands, option names, path parameters for
-  you. This feature works regardless of machine or directory (including SSH
+  Warp Tab Completions will suggest commands, option names, and path parameters
+  for you. This feature works regardless of machine or directory (including SSH
   sessions).
 ---
 

@@ -20,7 +20,7 @@ Environment Variables in Warp are similar to .env files, except you can:
 
 You can create new environment variables through:
 
-* [Warp Drive](./), + → Environment variable
+* [Warp Drive](../../../features/warp-drive/), + → Environment variable
 * [Command Palette](../command-palette.md), create new team or personal environment variables
 
 Any of these entry points will open the environment variables editor where you can name and describe your environment variables.
@@ -114,7 +114,7 @@ First, click your environment variable from Warp Drive or the Command Palette.
 
 Then, review the confirmation block. If your environment variables are correct, hit enter to load them into your session.
 
-<figure><img src="../../.gitbook/assets/Screenshot 2024-09-25 at 6.12.05 PM (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/Screenshot 2024-09-25 at 6.12.05 PM (1) (2).png" alt=""><figcaption></figcaption></figure>
 
 <figure><img src="../../.gitbook/assets/Screenshot 2024-09-25 at 6.14.17 PM.png" alt=""><figcaption></figcaption></figure>
 
@@ -122,7 +122,7 @@ These environment variables will now be present for the remainder of your sessio
 
 #### Click to load into a subshell
 
-To load environment variables into a subshell, you will need to open [Warp Drive](./) and locate your environment variable in the Warp Drive index. You can then use the overflow menu to select "Load in subshell."
+To load environment variables into a subshell, you will need to open [Warp Drive](../../../features/warp-drive/) and locate your environment variable in the Warp Drive index. You can then use the overflow menu to select "Load in subshell."
 
 Loading an environment into a subshell reduces the risk of your environment variables accidentally contaminating your workspace. The subshell is clearly defined and once you exit it, any environment variables set by Warp Environment Variables will be cleared, unless they are already present in the parent session.
 

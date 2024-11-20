@@ -8,7 +8,7 @@ description: >-
 # Tabs
 
 {% hint style="info" %}
-New Tabs will default to the active Tabs’ current [Working Directory](../working-directory.md) and the actual color values will be automatically derived from your Warp [Theme](../../appearance/themes.md).
+New Tabs will default to the active Tabs’ current [Working Directory](../working-directory.md) and the actual color values will be automatically derived from your Warp [Theme](../../../appearance/themes.md).
 {% endhint %}
 
 ### Tab Restoration
@@ -19,7 +19,7 @@ Tab Restoration enables you to reopen recently closed tabs for up to 60 seconds.
 
 {% tabs %}
 {% tab title="macOS" %}
-* Right-click on the new Tab button `+` to make a new tab, restore closed tab, or run a saved [Launch Configuration](../sessions/launch-configurations.md).
+* Right-click on the new Tab button `+` to make a new tab, restore closed tab, or run a saved [Launch Configuration](../../../features/sessions/launch-configurations.md).
 * Open a new Tab with `CMD-T` or by clicking on the `+` in the top bar.
 * Close the current Tab with `CMD-W` or by clicking on the `X` on hover over a Tab.
 * Reopen closed tabs with `SHIFT-CMD-T`.
@@ -32,7 +32,7 @@ Tab Restoration enables you to reopen recently closed tabs for up to 60 seconds.
 {% endtab %}
 
 {% tab title="Linux" %}
-* Right-click on the new Tab button `+` to make a new tab, restore closed tab, or run a saved [Launch Configuration](../sessions/launch-configurations.md).
+* Right-click on the new Tab button `+` to make a new tab, restore closed tab, or run a saved [Launch Configuration](../../../features/sessions/launch-configurations.md).
 * Open a new Tab with `CTRL-SHIFT-T` or by clicking on the `+` in the top bar.
 * Close the current Tab with `CTRL-SHIFT-W` or by clicking on the `x` on hover over a Tab.
 * Reopen closed tabs with `CTRL-ALT-T`.

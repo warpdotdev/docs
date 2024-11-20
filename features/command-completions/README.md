@@ -1,5 +1,5 @@
 ---
-description: Warp main features for command completions and suggestions.
+description: Warp's main features for command completions and autosuggestions.
 ---
 
 # Command Completions

@@ -17,7 +17,7 @@ With Warp’s synchronized inputs, whatever command you enter in one session wil
 
 There are three ways to access controls to synchronize inputs:&#x20;
 
-* [Command Palette](../command-palette.md) in Warp: Search for “synchronize”&#x20;
+* [Command Palette](../../docs/features/command-palette.md) in Warp: Search for “synchronize”&#x20;
 * Mac menus for the Warp app: `Edit > Synchronize Input`
 
 ## How to use it
@@ -48,4 +48,4 @@ When you get done, you can select “Stop Synchronizing Any Panes” to end the 
 
 ## How it works
 
-<figure><img src="../../.gitbook/assets/Synchronized Inputs.gif" alt="Demo showing synchronized inputs across panes and tabs"><figcaption><p>Synchronized Inputs Demo</p></figcaption></figure>
+<figure><img src="../../docs/.gitbook/assets/Synchronized Inputs.gif" alt="Demo showing synchronized inputs across panes and tabs"><figcaption><p>Synchronized Inputs Demo</p></figcaption></figure>

@@ -26,10 +26,10 @@ You can access the Command Palette with the keyboard shortcut `SHIFT-CTRL-P`.
 * Activate a specific filter, by prepending your search term with the following:
   * `workflows:` or `w:` will filter for [Workflows](warp-drive/workflows.md).
   * `notebook:` or `n:` will filter for [Notebooks](warp-drive/notebooks.md).
-  * `drive:` will filter for [Warp Drive](warp-drive/).
+  * `drive:` will filter for [Warp Drive](../../features/warp-drive/).
   * `actions:` will filter for Warp-specific actions like settings and [features](broken-reference).
-  * `sessions:` will filter for active sessions with [Session Navigation](sessions/session-navigation.md).
-  * `launch_configs:` will filter for [Launch Configurations](sessions/launch-configurations.md).\
+  * `sessions:` will filter for active sessions with [Session Navigation](../../features/sessions/session-navigation.md).
+  * `launch_configs:` will filter for [Launch Configurations](../../features/sessions/launch-configurations.md).\
 
 
 {% embed url="https://www.loom.com/share/0e6108b295234637a0bb20cc941976e9?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
