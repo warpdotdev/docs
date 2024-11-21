@@ -12,7 +12,7 @@ You can select from three different input positions, which each have different m
 
 ## How to access it
 
-* You can configure your input position by navigating to **Settings > Appearance > Input**.
+* You can configure your input position by navigating to `Settings > Appearance > Input`.
 * You can also choose and set modes from the [Command Palette](../features/command-palette.md).
 
 {% hint style="info" %}
