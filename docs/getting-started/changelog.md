@@ -8,6 +8,22 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2024.11.21 (v0.2024.11.19.08.02)
+
+**New features**
+
+* You can now use Warp without login!
+
+**Improvements**
+
+* [Agent Mode] Code outputs no longer show a confusing code diff UI
+* You can now sort Warp Drive objects by type, with folders on top
+
+**Bug fixes**
+
+* [Agent Mode] Single-line code suggestions are no longer hidden behind the horizontal scrollbar
+* Fixed a crash interacting with Env Vars in the command palette
+
 ### 2024.11.14 (v0.2024.11.12.08.02)
 
 **Improvements**
