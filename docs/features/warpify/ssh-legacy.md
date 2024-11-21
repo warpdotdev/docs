@@ -5,8 +5,7 @@ description: SSH wrapper that enables Warp features in remote sessions.
 # SSH (Legacy)
 
 {% hint style="info" %}
-Check out the [new SSH guide](./ssh.md) as we begin to roll out an improved SSH implementation!
-You may not yet have access to the new SSH features.
+Check out the [new SSH guide](ssh.md) as we begin to roll out an improved SSH implementation! You may not yet have access to the new SSH features.
 {% endhint %}
 
 When you SSH into a remote box, you get all the features of Warp without any configuration on your part. The input editor, auto-completions, and history search work the same, regardless of machine.
@@ -26,7 +25,7 @@ When you SSH into a remote box, you get all the features of Warp without any con
 If you're using zsh on the remote host, Warp creates a temp folder to act as the ZDOTDIR during the bootstrapping process and removes it when the shell is set up.
 {% endhint %}
 
-![SSH](<../../.gitbook/assets/6\_ssh (1).png>)
+![SSH](<../../.gitbook/assets/6\_ssh (1) (1).png>)
 
 ## Implementation
 

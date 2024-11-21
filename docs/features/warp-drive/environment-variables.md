@@ -41,7 +41,7 @@ After you save the environment variable, you can click it to load it into your t
 
 <figure><img src="../../.gitbook/assets/Screenshot 2024-09-25 at 5.40.04 PM.png" alt=""><figcaption></figcaption></figure>
 
-When you use static variables, Warp stores them securely in Warp Drive. \
+When you use static variables, Warp stores them securely in Warp Drive.\
 \
 Note: Static variables should not be used to replace a secret manager. Please use dynamic variables for any sensitive information.
 
@@ -72,11 +72,11 @@ Before you get started, please ensure you have the CLI installed for your tool o
 * [1Password CLI](https://developer.1password.com/docs/cli/get-started/)
 * [LastPass CLI](https://github.com/lastpass/lastpass-cli)
 
-Then, you can click the key icon and select your manager from the dropdown menu.&#x20;
+Then, you can click the key icon and select your manager from the dropdown menu.
 
 <figure><img src="../../.gitbook/assets/Screenshot 2024-09-25 at 6.07.50 PM.png" alt=""><figcaption></figcaption></figure>
 
-The CLI will require you to authenticate and then provide you with a list of available secrets.&#x20;
+The CLI will require you to authenticate and then provide you with a list of available secrets.
 
 {% hint style="info" %}
 Selecting a secret name never stores the actual secret. Warp uses your selection to generate a command that dynamically pulls in your selected secret at runtime.
@@ -89,7 +89,7 @@ Selecting a secret name never stores the actual secret. Warp uses your selection
 Reference the documentation for your external secret manager. Then, write a custom command to retrieve secrets.
 
 {% hint style="info" %}
-Your custom command should return the exact string you want loaded into your environment. Please make sure that you are selecting the exact field you want loaded as many secret manager CLIs provide additional formatting by default.&#x20;
+Your custom command should return the exact string you want loaded into your environment. Please make sure that you are selecting the exact field you want loaded as many secret manager CLIs provide additional formatting by default.
 {% endhint %}
 
 For example, you could write a command using the [Hashicorp Vault CLI](https://developer.hashicorp.com/vault/docs/commands) to retrieve and load the password field for the staging server. When using secret commands, Warp stores the command but never the actual secrets. The secrets will be referenced and loaded into a terminal session at runtime.
@@ -114,7 +114,7 @@ First, click your environment variable from Warp Drive or the Command Palette.
 
 Then, review the confirmation block. If your environment variables are correct, hit enter to load them into your session.
 
-<figure><img src="../../.gitbook/assets/Screenshot 2024-09-25 at 6.12.05 PM (1) (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/Screenshot 2024-09-25 at 6.12.05 PM (1) (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 <figure><img src="../../.gitbook/assets/Screenshot 2024-09-25 at 6.14.17 PM.png" alt=""><figcaption></figcaption></figure>
 
@@ -132,9 +132,9 @@ Loading an environment into a subshell reduces the risk of your environment vari
 
 #### Select to load with a workflow
 
-Any time you run a workflow, you can select from existing environment variables. This allows you to dynamically inject environment variables into a parameterized workflow so you can use a single workflow command in multiple environments, such as production and staging.&#x20;
+Any time you run a workflow, you can select from existing environment variables. This allows you to dynamically inject environment variables into a parameterized workflow so you can use a single workflow command in multiple environments, such as production and staging.
 
-For example, you might have a workflow to create a new team that uses the environment variable $SERVER\_URL. By using the environment variables dropdown in the workflow card, you can dynamically inject the necessary variables. This ensures the workflow references the appropriate values so the command runs with the relevant environment-specific information.&#x20;
+For example, you might have a workflow to create a new team that uses the environment variable $SERVER\_URL. By using the environment variables dropdown in the workflow card, you can dynamically inject the necessary variables. This ensures the workflow references the appropriate values so the command runs with the relevant environment-specific information.
 
 These environment variables will now be present for the remainder of your session until you clear them or overwrite them with a different environment.
 
@@ -142,4 +142,4 @@ These environment variables will now be present for the remainder of your sessio
 
 <figure><img src="https://lh7-rt.googleusercontent.com/docsz/AD_4nXfApBfW8EMRxbGkyXWeqN_2YOQ7x3PvVDZLvgwKY28oOGUlRoDY4ObKV6mD8TwLuOmC3ILAgKfVqXJyUpW28Tu0hFgObEqgohd86_tfFbBTYAr-0exPb8-i8yb53Ap_Zq1btmoyblbhAui34O3KF5gQg2C6?key=q_xMyXgvJVA02ysqZAH4Jw" alt=""><figcaption></figcaption></figure>
 
-\
+\\
