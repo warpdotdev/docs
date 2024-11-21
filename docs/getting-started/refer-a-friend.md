@@ -19,20 +19,22 @@ There are two ways you can invite a friend:
 
 We give out themes, swag, and other perks as thanks for helping to grow our community.
 
-<figure><img src="../.gitbook/assets/5-gc-referrals.png" alt=""><figcaption></figcaption></figure>
+<!-- TO DO: UPDATE THIS AHHADFDSAFASFDASKFLDSAFJDSAKFS -->
+<figure><img src="../.gitbook/assets/referrals-swag.png" alt=""><figcaption></figcaption></figure>
 
 The tiers are as follows:
 <div align="center">
 
-| Referrals |      Reward       | Digital gift card alternative |
-|:---------:|:-----------------:|:-----------------------------:|
-|     1     | Exclusive theme   |              $0               |
-|     5     | $5 USD gift card  |              $5               |
-|    10     |     T-shirt       |              $10              |
-|    20     |   Baseball hat    |              $20              |
-|    50     |      Hoodie       |              $50              |
-|    75     |    Duffle bag     |              $75              |
-|    100    | Softshell jacket  |             $100              |
+| Referrals | Reward                         | Digital Gift Card Alternative |
+|:---------|:-------------------------------|:-------------------------------:|
+| 1        | Exclusive Theme                | $0                             |
+| 5        | Stickers and Keycaps           | $5                             |
+| 10       | T-Shirt                        | $10                            |
+| 20       | Moleskin Notebook              | $20                            |
+| 35       | Baseball Hat                   | $35                            |
+| 50       | Hoodie                         | $50                            |
+| 75       | Hydroflask                     | $75                            |
+| 100      | North Face Backpack            | $100                           |
 
 </div>
 
@@ -46,7 +48,7 @@ If your friend joins and activates their Warp account after clicking your invite
 
 ## Referral Program Terms and Conditions
 
-> **Last Updated:** October 15, 2024
+> **Last Updated:** November 21, 2024
 
 ### 1 referral: An exclusive theme
 
@@ -57,6 +59,7 @@ When someone joins Warp with your referral code, the referral theme will become 
 Once you've hit the other referral tiers, we'll email you with details on how to claim your reward. Physical rewards are available to users residing in the United States, and Warp will cover shipping costs for these users. International users can also claim physical rewards; however, they will be responsible for any customs fees. For all users, there's an option to claim a digital reward (gift card) instead of physical Warp swag.
 
 ### International users
+
 International users who choose physical rewards are responsible for paying any customs fees associated with shipping. Estimated costs are provided in the [approximate customs fees by region](#approximate-customs-fees-by-region) section below. Please note that once the package leaves the United States, Warp no longer has visibility or control over the shipment process, including any customs-related issues or fees that may arise.
 
 Alternatively, international users may opt to receive a digital gift card instead of a physical reward.
@@ -64,11 +67,13 @@ Alternatively, international users may opt to receive a digital gift card instea
 Note: for users who qualified for referral rewards before October 15th, 2024, Warp will cover all shipping and customs costs. Starting from that date onwards, international users receiving referral rewards will be responsible for paying any customs fees associated with shipping.
 
 ### Shipping time frame
+
 Physical rewards may take 2 to 3 weeks to arrive for users located in the United States, and 4 to 12 weeks for international users. After claiming your order, you will receive an email with a shipping confirmation and a tracking link from Printfection.
 
 If you have any questions about the status of your shipment or order, please reach out to support@printfection.com with your order number.
 
 ### General terms and conditions
+
 Referrals must be valid and confirmed by Warp to count towards rewards. This means the referred user must accept the referral via the referral link and log into Warp's desktop application. 
 
 Warp reserves the right, at its sole discretion, to disqualify any referrals deemed fraudulent. Any users who refer fake emails or users will be disqualified at the sole discretion of Warp.
@@ -78,6 +83,7 @@ Warp reserves the right to modify or terminate the referral rewards program at a
 If you have any questions about the referral program, please contact [referrals@warp.dev](mailto:referrals@warp.dev).
 
 ### Digital gift card rewards
+
 All amounts are listed in USD. Rewards are based on the number of valid referrals.
 
 <div align="center">
@@ -88,6 +94,7 @@ All amounts are listed in USD. Rewards are based on the number of valid referral
 |          5          |        $5         |
 |         10          |        $10        |
 |         20          |        $20        |
+|         35          |        $35        |
 |         50          |        $50        |
 |         75          |        $75        |
 |         100         |       $100        |
@@ -95,6 +102,7 @@ All amounts are listed in USD. Rewards are based on the number of valid referral
 </div>
 
 ### Approximate customs fees by region
+
 All amounts are listed in USD. Fees are estimates and may vary regardless of package size.
 
 <div align="center">
@@ -122,3 +130,7 @@ Respond to the shipment notification email or reach out to our swag vendor's ope
 3. "I've referred friends, but they didn't use the link. Does it still count?"
 
 Unfortunately, any referrals who didn't use your link will not count towards the rewards, and we have no way of modifying the referral count.
+
+4. "The swag tiers changed. I previously qualified for X. What happens now?"
+
+We’ve recently updated our referral program, effective November 21, introducing new tiers and exciting swag items. If you have questions about how these changes affect your previous qualifications, feel free to contact us at referrals@warp.dev.
