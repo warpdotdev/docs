@@ -19,26 +19,22 @@ There are two ways you can invite a friend:
 
 We give out themes, swag, and other perks as thanks for helping to grow our community.
 
-<!-- TO DO: UPDATE THIS AHHADFDSAFASFDASKFLDSAFJDSAKFS -->
 <figure><img src="../.gitbook/assets/referrals-swag.png" alt=""><figcaption></figcaption></figure>
 
 The tiers are as follows:
-<div align="center">
 
-| Referrals | Reward                         | Digital Gift Card Alternative |
-|:---------|:-------------------------------|:-------------------------------:|
-| 1        | Exclusive Theme                | $0                             |
-| 5        | Stickers and Keycaps           | $5                             |
-| 10       | T-Shirt                        | $10                            |
-| 20       | Moleskin Notebook              | $20                            |
-| 35       | Baseball Hat                   | $35                            |
-| 50       | Hoodie                         | $50                            |
-| 75       | Hydroflask                     | $75                            |
-| 100      | North Face Backpack            | $100                           |
+| Referrals | Reward               | Digital Gift Card Alternative |
+| --------- | -------------------- | :---------------------------: |
+| 1         | Exclusive Theme      |               $0              |
+| 5         | Stickers and Keycaps |               $5              |
+| 10        | T-Shirt              |              $10              |
+| 20        | Moleskin Notebook    |              $20              |
+| 35        | Baseball Hat         |              $35              |
+| 50        | Hoodie               |              $50              |
+| 75        | Hydroflask           |              $75              |
+| 100       | North Face Backpack  |              $100             |
 
-</div>
-
-<small>By participating in Warp's Referral Program, you agree to the [Referral Program Terms and Conditions](refer-a-friend.md#referral-program-terms-and-conditions).</small>
+By participating in Warp's Referral Program, you agree to the [Referral Program Terms and Conditions](refer-a-friend.md#referral-program-terms-and-conditions).
 
 ### Your friend gets a theme
 
@@ -60,7 +56,7 @@ Once you've hit the other referral tiers, we'll email you with details on how to
 
 ### International users
 
-International users who choose physical rewards are responsible for paying any customs fees associated with shipping. Estimated costs are provided in the [approximate customs fees by region](#approximate-customs-fees-by-region) section below. Please note that once the package leaves the United States, Warp no longer has visibility or control over the shipment process, including any customs-related issues or fees that may arise.
+International users who choose physical rewards are responsible for paying any customs fees associated with shipping. Estimated costs are provided in the [approximate customs fees by region](refer-a-friend.md#approximate-customs-fees-by-region) section below. Please note that once the package leaves the United States, Warp no longer has visibility or control over the shipment process, including any customs-related issues or fees that may arise.
 
 Alternatively, international users may opt to receive a digital gift card instead of a physical reward.
 
@@ -74,7 +70,7 @@ If you have any questions about the status of your shipment or order, please rea
 
 ### General terms and conditions
 
-Referrals must be valid and confirmed by Warp to count towards rewards. This means the referred user must accept the referral via the referral link and log into Warp's desktop application. 
+Referrals must be valid and confirmed by Warp to count towards rewards. This means the referred user must accept the referral via the referral link and log into Warp's desktop application.
 
 Warp reserves the right, at its sole discretion, to disqualify any referrals deemed fraudulent. Any users who refer fake emails or users will be disqualified at the sole discretion of Warp.
 
@@ -86,36 +82,28 @@ If you have any questions about the referral program, please contact [referrals@
 
 All amounts are listed in USD. Rewards are based on the number of valid referrals.
 
-<div align="center">
-
 | Number of referrals | Gift card amount |
-|:-------------------:|:-----------------:|
-|          1          |        $0         |
-|          5          |        $5         |
-|         10          |        $10        |
-|         20          |        $20        |
-|         35          |        $35        |
-|         50          |        $50        |
-|         75          |        $75        |
-|         100         |       $100        |
-
-</div>
+| :-----------------: | :--------------: |
+|          1          |        $0        |
+|          5          |        $5        |
+|          10         |        $10       |
+|          20         |        $20       |
+|          35         |        $35       |
+|          50         |        $50       |
+|          75         |        $75       |
+|         100         |       $100       |
 
 ### Approximate customs fees by region
 
 All amounts are listed in USD. Fees are estimates and may vary regardless of package size.
 
-<div align="center">
+|                   Country / region                  | Approximate customs fees |
+| :-------------------------------------------------: | :----------------------: |
+|                   Canada & Mexico                   |        $40 to $70        |
+|                        Europe                       |        $40 to $80        |
+| Others (Asia, South America, Africa, Oceania, etc.) |        $50 to $120       |
 
-| Country / region | Approximate customs fees |
-|:-----------------:|:------------------------:|
-| Canada & Mexico  |        $40 to $70        |
-| Europe           |        $40 to $80        |
-| Others (Asia, South America, Africa, Oceania, etc.) | $50 to $120 |
-
-</div>
-
-<small>*Note: The approximate customs fees provided are estimates and may vary based on your country's specific import regulations, taxes, and duties. Actual fees can differ due to factors such as package contents, declared value, and current customs policies. We recommend checking with your local customs office or postal service for precise information relevant to your situation.</small>
+\*Note: The approximate customs fees provided are estimates and may vary based on your country's specific import regulations, taxes, and duties. Actual fees can differ due to factors such as package contents, declared value, and current customs policies. We recommend checking with your local customs office or postal service for precise information relevant to your situation.
 
 ## Referral Rewards Program FAQs
 
@@ -130,6 +118,10 @@ Respond to the shipment notification email or reach out to our swag vendor's ope
 3. "I've referred friends, but they didn't use the link. Does it still count?"
 
 Unfortunately, any referrals who didn't use your link will not count towards the rewards, and we have no way of modifying the referral count.
+
+4. "I've referred friends, but they joined anonymously. Does it still count?"
+
+In order to qualify as a referral, a new user must log in and sign up. We don't have a way to attribute a logged out user to your specific referral link. We are currently working on a solution to this problem.
 
 4. "The swag tiers changed. I previously qualified for X. What happens now?"
 

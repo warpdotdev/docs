@@ -31,20 +31,20 @@ For security-related issues or questions, please email [security@warp.dev](mailt
 ### Opt out during signup
 
 1. Follow the link to privacy settings
-2.  Toggle off app analytics, crash reports, or both (if it's blue, it's "on")
+2. Toggle off app analytics, crash reports, or both (if it's blue, it's "on")
 
-    <figure><img src="../.gitbook/assets/opt-out-signup-modal.png" alt=""><figcaption><p>Privacy Settings during sign up</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/signup-privacy-settings.png" alt=""><figcaption><p>Privacy Settings during signup</p></figcaption></figure>
 
-### Opt out after signup
+### &#x20;Opt out after signup
 
 1. Navigate to `Settings > Privacy`, or open the [Command Palette](../features/command-palette.md) and search for "privacy"
 2. Toggle off app analytics, crash reports, or both (if it's blue, it's "on")
 
 <figure><img src="../.gitbook/assets/privacy-settings-after-signup.png" alt=""><figcaption><p>Privacy Settings after sign up</p></figcaption></figure>
 
-### Why does Warp require a login?
+### Why should I log in to Warp?
 
-Unique user identity is required to support Warp's collaborative features and it makes it easier for the Warp team to provide customer support, should you need to debug an issue.
+Unique user identity supports Warp's collaborative features and makes it easier for the Warp team to provide customer support, should you need to debug an issue. In the future, some features may be gated to logged in users.
 
 ### Your data privacy and AI in Warp
 
@@ -58,7 +58,7 @@ Warp provides a convenient way for you to delete your data:
 
 * From Warp, go to `Settings > Privacy > "Visit the data management page"`
   * Click the "Delete" button on the Data Management page to go through the data deletion flow.
-* From the [Data Management](https://app.warp.dev/data\_management) page, log into your Warp account, and click the "Delete" button to go through the data deletion flow.
+* From the [Data Management](https://app.warp.dev/data_management) page, log into your Warp account, and click the "Delete" button to go through the data deletion flow.
 
 {% hint style="info" %}
 Deletion jobs run every 24 hours, so if you deleted your account and want to sign up again with the same email, you won't be able to do so until that deletion completes.

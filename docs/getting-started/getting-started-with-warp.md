@@ -24,7 +24,7 @@ Subscribe to get notified when Warp is available for [Windows](https://warp.dev/
 
 You can install Warp in two ways:
 
-1. [**Download Warp**](https://app.warp.dev/get\_warp) **and drag into your Applications folder**
+1. [**Download Warp**](https://app.warp.dev/get_warp) **and drag into your Applications folder**
 
 {% embed url="https://app.warp.dev/get_warp" %}
 
@@ -49,11 +49,11 @@ This includes (but is not limited to) the following:
 * Arch Linux
 {% endhint %}
 
-Visit the [Warp download page](https://app.warp.dev/get\_warp?auto\_download=false\&linux=true) for the full list of available installation options. All installation options support auto-update, ensuring you receive new features, bug fixes, and performance improvements.
+Visit the [Warp download page](https://app.warp.dev/get_warp?auto_download=false\&linux=true) for the full list of available installation options. All installation options support auto-update, ensuring you receive new features, bug fixes, and performance improvements.
 
 **Debian- and Ubuntu-based distributions**
 
-The easiest way to install Warp is to download [x64 .deb package](https://app.warp.dev/download?package=deb) or [ARM64 deb package](https://app.warp.dev/download?package=deb\_arm64). After downloading, you can install the package with:
+The easiest way to install Warp is to download [x64 .deb package](https://app.warp.dev/download?package=deb) or [ARM64 deb package](https://app.warp.dev/download?package=deb_arm64). After downloading, you can install the package with:
 
 ```
 sudo apt install ./<file>.deb
@@ -74,7 +74,7 @@ sudo apt update && sudo apt install warp-terminal
 
 **RHEL-, Fedora-, and CentOS-based distributions**
 
-The easiest way to install Warp is to download the [x64 .rpm package](https://app.warp.dev/download?package=rpm) or [ARM64 .rpm package](https://app.warp.dev/download?package=rpm\_arm64). After downloading, you can install the package with:
+The easiest way to install Warp is to download the [x64 .rpm package](https://app.warp.dev/download?package=rpm) or [ARM64 .rpm package](https://app.warp.dev/download?package=rpm_arm64). After downloading, you can install the package with:
 
 ```
 sudo dnf install ./<file>.rpm
@@ -92,7 +92,7 @@ sudo dnf install warp-terminal
 
 **Arch Linux-based distributions**
 
-The easiest way to install Warp is to download the [x64 .pkg.tar.zst package](https://app.warp.dev/download?package=pacman) or [ARM64 pacman package](https://app.warp.dev/download?package=pacman\_arm64). After downloading, you can install the package with:
+The easiest way to install Warp is to download the [x64 .pkg.tar.zst package](https://app.warp.dev/download?package=pacman) or [ARM64 pacman package](https://app.warp.dev/download?package=pacman_arm64). After downloading, you can install the package with:
 
 ```
 sudo pacman -U ./<file>.pkg.tar.zst
@@ -111,7 +111,7 @@ sudo pacman -Sy warp-terminal
 
 **OpenSUSE- and SLE-based distributions**
 
-The Warp yum repository also works for OpenSUSE- and SLE-based systems. Download the [x64 .rpm package](https://app.warp.dev/download?package=rpm) or [ARM64 .rpm package](https://app.warp.dev/download?package=rpm\_arm64). After downloading, you can install the package with:
+The Warp yum repository also works for OpenSUSE- and SLE-based systems. Download the [x64 .rpm package](https://app.warp.dev/download?package=rpm) or [ARM64 .rpm package](https://app.warp.dev/download?package=rpm_arm64). After downloading, you can install the package with:
 
 ```
 sudo zypper install ./<file>.rpm
@@ -153,9 +153,9 @@ If you installed a package, find Warp in your desktop manager or run `warp-termi
 
 ## Initial Setup
 
-### Log into Warp
+### Log in to Warp
 
-After installation, you may be prompted to sign up for a Warp account. If you're having issues logging in, you can check out the [Login Troubleshooting](../help/troubleshooting-login-issues.md) page.
+After installation, you will be prompted to sign up for a Warp account. You have the option to skip this step. If you're having issues logging in, you can check out the [Login Troubleshooting](../help/troubleshooting-login-issues.md) page.
 
 If you sign up using Google or GitHub, Warp only gets access to the associated email address. Visit the [Privacy](privacy.md) page for more details on Warp's approach to privacy.
 
