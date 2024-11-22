@@ -18,8 +18,8 @@ For an inside look at how Warp is built, you can read the blog post on [How Warp
 
 To see Warp in action, check out this video by Warp's [Developer Advocate](https://www.warp.dev/about-us), [Jess Wang](https://twitter.com/daRubberDuckiee).
 
-{% embed url="https://www.youtube.com/watch?v=34INSNevPOk" %}
-Warp Demo Feb 2024
+{% embed url="https://www.youtube.com/watch?v=Ab7tRyN62yI" %}
+Warp Demo Nov 2024
 {% endembed %}
 
 ## Join the community
