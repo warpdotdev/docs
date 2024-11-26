@@ -97,11 +97,11 @@ When you create two or more arguments with the same name, Warp automatically sel
 Also, tailor your Command Search experience by toggling off "Show Global Workflows" in `Settings > Features`. When disabled, your search will exclusively encompass YAML and Warp Drive Workflows.
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/Screenshot 2023-06-17 at 12.16.55 PM.png" alt=""><figcaption><p>Search for any workflow in the Command Palette with <code>CMD + P</code></p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/search-workflow-command-palette.png" alt=""><figcaption><p>Search for any workflow in the Command Palette with <code>CMD + P</code></p></figcaption></figure>
 
 These options will paste the workflow into your active terminal input. Workflow names and any relevant descriptions and arguments will be displayed in a dialog, so you can understand how to use the workflow.
 
-<figure><img src="../../.gitbook/assets/Screenshot 2023-06-17 at 12.18.13 PM.png" alt=""><figcaption><p>Execute a Workflow</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/execute-a-workflow.png" alt=""><figcaption><p>Execute a Workflow</p></figcaption></figure>
 
 You make any adjustments you need to the arguments (or the command itself) before running the command in your input editor.
 

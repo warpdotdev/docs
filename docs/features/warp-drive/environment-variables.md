@@ -25,7 +25,7 @@ You can create new environment variables through:
 
 Any of these entry points will open the environment variables editor where you can name and describe your environment variables.
 
-<figure><img src="../../.gitbook/assets/Screenshot 2024-09-25 at 5.35.23 PM.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/env-var-create.png" alt=""><figcaption></figcaption></figure>
 
 ## Managing individual environment variables
 
@@ -35,11 +35,11 @@ Warp supports two types of environment variables: static variables and dynamic v
 
 Static variables are similar to .env files. You create the variables by entering raw strings of text. Each variable has a variable name and a corresponding value.
 
-<figure><img src="../../.gitbook/assets/Screenshot 2024-09-25 at 5.38.40 PM.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/env-var-static-variable-save.png" alt=""><figcaption></figcaption></figure>
 
 After you save the environment variable, you can click it to load it into your terminal session.
 
-<figure><img src="../../.gitbook/assets/Screenshot 2024-09-25 at 5.40.04 PM.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/env-var-static-variable-load.png" alt=""><figcaption></figcaption></figure>
 
 When you use static variables, Warp stores them securely in Warp Drive.\
 \
@@ -63,7 +63,7 @@ To create a new dynamic variable:
 2. Use the key icon to reveal the dynamic variable menu.
 3. Select an integrated password manager or "Command" to write your own custom integration.
 
-<figure><img src="../../.gitbook/assets/Screenshot 2024-09-25 at 5.54.24 PM.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/env-var-dynamic-variables.png" alt=""><figcaption></figcaption></figure>
 
 #### **Integrated password managers**
 
@@ -74,7 +74,7 @@ Before you get started, please ensure you have the CLI installed for your tool o
 
 Then, you can click the key icon and select your manager from the dropdown menu.
 
-<figure><img src="../../.gitbook/assets/Screenshot 2024-09-25 at 6.07.50 PM.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/env-var-password-mgrs.png" alt=""><figcaption></figcaption></figure>
 
 The CLI will require you to authenticate and then provide you with a list of available secrets.
 
@@ -114,9 +114,9 @@ First, click your environment variable from Warp Drive or the Command Palette.
 
 Then, review the confirmation block. If your environment variables are correct, hit enter to load them into your session.
 
-<figure><img src="../../.gitbook/assets/Screenshot 2024-09-25 at 6.12.05 PM (1) (2) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/env-var-load-to-input.png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../.gitbook/assets/Screenshot 2024-09-25 at 6.14.17 PM.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/env-var-load-in-session.png" alt=""><figcaption></figcaption></figure>
 
 These environment variables will now be present for the remainder of your session.
 

@@ -7,7 +7,7 @@ description: >-
 
 # Command Search
 
-![Command Search Panel](<../../.gitbook/assets/CleanShot 2024-05-15 at 15.31.06.png>)
+![Command Search Panel](<../../.gitbook/assets/command-search-panel.png>)
 
 {% hint style="info" %}
 Tailor your [Command Search](command-search.md) experience by toggling off "Show Global Workflows" in `Settings > Features`. When disabled, your search will exclusively encompass YAML and Warp Drive Workflows.

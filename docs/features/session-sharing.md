@@ -25,7 +25,7 @@ If you select to share a current session, you will be given the option to share 
 
 If you initiate a shared session using Block actions, you will be given the option to start sharing from the selected block onwards. This option gives you the precision to select a specific block of output in your session history as the starting point, excluding all previous scrollback before that block.
 
-<figure><img src="../.gitbook/assets/Screenshot 2024-04-24 at 3.09.05 PM.png" alt=""><figcaption><p>Start sharing from a selected block onward or an entire session with or without scrollback</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/start-session-sharing.png" alt=""><figcaption><p>Start sharing from a selected block onward or an entire session with or without scrollback</p></figcaption></figure>
 
 #### How to invite collaborators to your session
 
@@ -59,7 +59,7 @@ When you’re ready to end a shared session, click Share → Stop sharing to wra
 
 You may share multiple sessions simultaneously. If you have multiple shared sessions, you will find _Other shared sessions_ listed in the Share dropdown menu. You may also end multiple shared sessions at the same time with Share → Stop sharing all.
 
-<figure><img src="../.gitbook/assets/Screenshot 2024-04-24 at 3.13.42 PM (1) (1) (1).png" alt=""><figcaption><p>Switch between shared sessions or stop all shared sessions at once</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/switch-stop-session-sharing.png" alt=""><figcaption><p>Switch between shared sessions or stop all shared sessions at once</p></figcaption></figure>
 
 ### Known limitations
 

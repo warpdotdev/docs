@@ -107,7 +107,7 @@ To share a Drive object, navigate to the object's overflow menu, and choose "Cop
 To view an object, link-followers must have a Warp account and be a member of the object's Warp Drive Team. Those without accounts will be prompted to sign up. Users not on the relevant team will have the ability to automatically request the team admin to be added.
 {% endhint %}
 
-<figure><img src="../../docs/.gitbook/assets/Screenshot 2024-07-23 at 12.42.25 PM.png" alt="" width="216"><figcaption><p>Copy link Menu Item</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/wd-copy-link-menu.png" alt="" width="216"><figcaption><p>Copy link Menu Item</p></figcaption></figure>
 
 ## Troubleshooting Warp Drive
 

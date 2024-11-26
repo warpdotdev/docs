@@ -85,7 +85,7 @@ When you run a command suggested by Agent Mode, that command will work like a st
 
 If the suggested command fails and you want to resolve the error, you may start a new AI query to address the problem.
 
-<figure><img src="../../.gitbook/assets/Screenshot 2024-06-14 at 5.07.19 PM (1) (1).png" alt="Agent Mode makes a suggestion to run a command."><figcaption><p>Agent Mode makes a suggestion to run a command.</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/agent-mode-suggestion.png" alt="Agent Mode makes a suggestion to run a command."><figcaption><p>Agent Mode makes a suggestion to run a command.</p></figcaption></figure>
 
 #### Agent Mode Requested Commands
 
@@ -95,11 +95,11 @@ You must explicitly agree and press `ENTER` to run the requested command. When y
 
 If you do not wish to send the command or its output to AI, you can click Cancel or press `CTRL-C` to exit Agent Mode and return to the traditional command line. No input or output is ever sent to Warp AI without your explicit action.
 
-<figure><img src="../../.gitbook/assets/Screenshot 2024-06-14 at 5.13.02 PM.png" alt="Warp AI asks permission to run a command and read the output."><figcaption><p>Warp AI asks permission to run a command and read the output.</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/warp-ai-permissions.png" alt="Warp AI asks permission to run a command and read the output."><figcaption><p>Warp AI asks permission to run a command and read the output.</p></figcaption></figure>
 
 Once a requested command is executed, you may click to expand the output and view command details.
 
-<figure><img src="../../.gitbook/assets/Screenshot 2024-06-14 at 5.21.37 PM.png" alt=""><figcaption><p>Viewing command details</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/warp-ai-viewing-commands.png" alt=""><figcaption><p>Viewing command details</p></figcaption></figure>
 
 In the case that a requested command fails, Warp AI will detect that. Agent Mode is self-correcting. It will request another command until it completes the task for you.
 

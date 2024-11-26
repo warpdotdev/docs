@@ -41,9 +41,9 @@ On Linux, hidden windows may not appear in your `ALT-TAB` window switcher menu. 
 
 ## How it works
 
-<figure><img src="../../.gitbook/assets/Dedicated Window.gif" alt=""><figcaption><p>Global Hotkey - Dedicated Window Demo</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/Dedicated-Window.gif" alt=""><figcaption><p>Global Hotkey - Dedicated Window Demo</p></figcaption></figure>
 
-<figure><img src="../../.gitbook/assets/Show-Hide All Windows.gif" alt=""><figcaption><p>Global Hotkey - Show/Hide All Windows Demo</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/Show-Hide-All-Windows.gif" alt=""><figcaption><p>Global Hotkey - Show/Hide All Windows Demo</p></figcaption></figure>
 
 ## Troubleshooting Hotkey Dedicated Window
 

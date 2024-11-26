@@ -59,7 +59,7 @@ Notebook elements (text, code, list items) can be added in several ways:
 * Typing /, which will open up a selection menu of supported elements.
 * Pressing the + icon which appears when hovering over a line and selecting from the menu of supported elements.
 
-<figure><img src="../../.gitbook/assets/Screenshot 2024-02-20 at 9.53.34 AM.png" alt=""><figcaption><p>Markdown element types</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/markdown-element-types.png" alt=""><figcaption><p>Markdown element types</p></figcaption></figure>
 
 #### Styling existing elements
 
@@ -71,7 +71,7 @@ Existing notebook elements can be styled in several ways:
 
 <div data-full-width="true">
 
-<figure><img src="../../.gitbook/assets/Screenshot 2024-02-20 at 9.54.37 AM.png" alt=""><figcaption><p>Styling menu</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/styling-menu.png" alt=""><figcaption><p>Styling menu</p></figcaption></figure>
 
 </div>
 
@@ -140,7 +140,7 @@ Once a command block is selected, press `CTRL-ENTER` to insert it into the termi
 
 If you have existing [Workflows](workflows.md) that you’d like to insert into your notebook rather than duplicating their content, you can select Embedded Workflow from the new element menu and select from the available workflows. Once embedded in a notebook, the workflow will be executable like a regular command block. To edit the content of the embedded workflow, you will need to edit the source workflow which can be found by searching for the title in the [Command Palette](../command-palette.md).
 
-<figure><img src="../../.gitbook/assets/Screenshot 2024-02-20 at 9.58.44 AM.png" alt=""><figcaption><p>Embedding an existing workflow in a notebook.</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/embedding-a-workflow.png" alt=""><figcaption><p>Embedding an existing workflow in a notebook.</p></figcaption></figure>
 
 ### Working with Notebooks in a team
 

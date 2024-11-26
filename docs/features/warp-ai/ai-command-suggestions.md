@@ -10,7 +10,7 @@ Type `#` on the command line input to Ask Warp AI for command suggestions.
 
 AI Command Suggestions are backed by OpenAI's APIs and are completely opt-in.
 
-<figure><img src="../../.gitbook/assets/Screenshot 2024-06-15 at 5.05.29 PM.png" alt=""><figcaption><p>Typing '#' on the command line opens the suggestions interface</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/open-ai-commands.png" alt=""><figcaption><p>Typing '#' on the command line opens the suggestions interface</p></figcaption></figure>
 
 {% hint style="info" %}
 Currently, you need to be online to use this feature. If this feature doesn't work, your ISP or firewall may be blocking the calls to `app.warp.dev`

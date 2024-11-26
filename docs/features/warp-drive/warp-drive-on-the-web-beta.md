@@ -8,7 +8,7 @@ description: Access your Drive objects and Shared Sessions wherever you are.
 
 Warp now gives developers the ability to view their drives and shared sessions on the browser.
 
-<figure><img src="../../.gitbook/assets/Screenshot 2024-07-23 at 12.54.16 PM.png" alt="" width="375"><figcaption><p>A web-based rendering of a Team Workflow</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/wd-web-team-workflow.png" alt="" width="375"><figcaption><p>A web-based rendering of a Team Workflow</p></figcaption></figure>
 
 ## Accessing Warp Drive on the Web
 
@@ -31,18 +31,18 @@ The desktop option is only presented if Warp's web service is able to detect the
 
 1. The first time you follow a link, you will be presented with the option to globally set your view preference to open links on desktop. Dismissing the pop-up will set you preference to web.
 
-<figure><img src="../../.gitbook/assets/Screenshot 2024-07-23 at 1.05.11 PM.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/wd-popup-message.png" alt="" width="563"><figcaption></figcaption></figure>
 
 2.  This preference can be changed at any point in _Settings > Features > General > Open links in desktop app._ Note that this setting is only available while on the web-based version of Warp.
 
-    <figure><img src="../../.gitbook/assets/Screenshot 2024-07-23 at 1.09.06 PM.png" alt="" width="563"><figcaption><p>Setting managing how to open links</p></figcaption></figure>
+    <figure><img src="../../.gitbook/assets/wd-open-links-preference.png" alt="" width="563"><figcaption><p>Setting managing how to open links</p></figcaption></figure>
 3. You can always switch between web and desktop views on a case-by-case basis.&#x20;
    1.  To switch from a web-view to Desktop for a given object, open the _overflow menu > Open link on Desktop._
 
-       <figure><img src="../../.gitbook/assets/Screenshot 2024-07-23 at 1.10.58 PM.png" alt="" width="563"><figcaption></figcaption></figure>
+       <figure><img src="../../.gitbook/assets/wd-switch-viewer.png" alt="" width="563"><figcaption></figcaption></figure>
    2.  To stay on the web for a given object despite a global Desktop preference, follow the _View on the web_ option that is part of the redirect screen to Desktop.
 
-       <figure><img src="../../.gitbook/assets/Screenshot 2024-07-23 at 1.11.20 PM.png" alt="" width="375"><figcaption></figcaption></figure>
+       <figure><img src="../../.gitbook/assets/wd-view-on-web.png" alt="" width="375"><figcaption></figcaption></figure>
 
 ## Supported Browsers
 
