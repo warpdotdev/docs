@@ -11,7 +11,7 @@ description: >-
 * Open a new issue or feature request in our [GitHub repository](https://github.com/warpdotdev/warp/issues/new/choose).
 * [Command Palette](../features/command-palette.md), type and select "Send Feedback".
 * Warp Essentials:bulb:, click on Feedback.
-* Join our [Discord](https://discord.gg/jhyvMGCXUc) server. Send a message in [`#questions-and-feedback`](https://discord.com/channels/851854972600451112/1154432424873296012).
+* Join our [Discord](https://discord.com/invite/warpdotdev) server. Send a message in [`#questions-and-feedback`](https://discord.com/channels/851854972600451112/1154432424873296012).
 
 {% hint style="info" %}
 For security-related issues or questions, please email [security@warp.dev](mailto:security@warp.dev).
