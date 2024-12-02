@@ -2,10 +2,10 @@
 description: SSH wrapper that enables Warp features in remote sessions.
 ---
 
-# SSH (Legacy)
+# SSH
 
 {% hint style="info" %}
-Check out the [new SSH guide](ssh.md) as we begin to roll out an improved SSH implementation! You may not yet have access to the new SSH features.
+This implementation of SSH will be deprecated in the near future, replaced with a new and improved implementation.
 {% endhint %}
 
 When you SSH into a remote box, you get all the features of Warp without any configuration on your part. The input editor, auto-completions, and history search work the same, regardless of machine.

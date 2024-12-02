@@ -2,45 +2,48 @@
 description: SSH wrapper that enables Warp features in remote sessions.
 ---
 
-# SSH
+# 🆕 SSH
 
 {% hint style="warning" %}
-This page is dedicated to the upcoming SSH features that may not yet be available to you.
+This page is dedicated to the upcoming SSH features that may not yet be available to you, powered by `tmux`.
 
 If you are looking to troubleshoot the legacy SSH implementation, see the [SSH (Legacy)](ssh-legacy.md).
 {% endhint %}
 
-When you Warpify your SSH session, you get all the features of Warp without any configuration on your part. The input editor, auto-completions, and history search work the same, regardless of machine. We achieve this by running commands like `ls` on the remote machine on your behalf (more on this in the next section).
+Warpifying your SSH session gives you all the features of Warp while connected to a remote machine: the input editor, auto-completions, history search, and more. We achieve this by running commands like `ls` on the remote machine on your behalf.
 
-![SSH](<../../.gitbook/assets/6_ssh (1) (1) (1).png>)
+**Warpifying a remote SSH Session [will never make lasting changes to the remote machine without your explicit consent](#will-warpifying-a-remote-ssh-session-make-changes-to-the-remote-machine).**
 
-## Implementation
+![SSH](<../../.gitbook/assets/warpify_ssh.png>)
 
-If you have the `Warpify > SSH > Host Detection` setting enabled and run `ssh` and we detect an interactive session, we will begin our ssh host detection workflow. Once we have confidence you have successfully authenticated (by detecting `Last login:` or something resembling a basic prompt) we will prompt you to Warpify your active SSH session. Accepting Warpification will validate you have `tmux` installed on the remote machine, or ask to install it for you if not found.
+## FAQs
 
-[tmux](https://github.com/tmux/tmux/wiki) is a popular open source terminal multiplexer, which lets you switch easily between several programs within one terminal session. Warpifying a remote SSH session uses [tmux Control Mode](https://github.com/tmux/tmux/wiki/Control-Mode) to run adhoc background tasks (like those required to autocomplete a `cd` command, or populate the contents of a custom prompt) without disrupting your session history.
+#### Will Warpifying a remote SSH session make changes to the remote machine?
 
-**Warpifying a remote SSH Session will make no lasting changes to your remote machine. The only exception to this is if you do not have `tmux` installed on the remote machine, in which case we will ask if we can install `tmux` on your behalf.**
+Only to install [`tmux`](#why-do-i-need-tmux-on-the-remote-machine) (a popular open source terminal multiplexer) and only with your explicit permission. If `tmux` is not installed, Warp will offer to install it for you and will show you the list of commands that will be run. You can always decline and continue to use your ssh session without some of Warp's features (or install `tmux` yourself and re-run Warpification [via the command palette](#what-if-warp-fails-to-detect-my-ssh-session)).
 
-If Warpification detects `tmux` is not installed, it will explicitly ask for your permission to install `tmux`. The installation of `tmux` is the only possible lasting change to the remote machine.
+#### Why do I need `tmux` on the remote machine?
 
-## User Settings
+`tmux` is used to asynchronously run commands on the remote machine without disrupting your interactive session. [tmux](https://github.com/tmux/tmux/wiki) is a popular open source terminal multiplexer, which lets you run multiple sessions within one ssh connection.
+It requires minimal permissions and is widely adopted (⭐ 35k+ on GitHub).
+Warpifying a remote SSH session uses [tmux Control Mode](https://github.com/tmux/tmux/wiki/Control-Mode) to run adhoc background tasks (like those required to autocomplete a `cd` command, or populate the contents of a custom prompt).
 
-You can find all settings related to Warpifying SSH sessions in `Warpify > SSH`.
+#### Can I ssh to remote machines that I don't want to Warpify? 
 
-* If `Host Detection` is disabled, both automatic Warpification and the Warpification Prompt will be disabled for SSH sessions. The only way to Warpify an SSH session with `Host Detection` disabled is to manually run `Warpify SSH Session` from the command palette.
-* Any host added to `Added hosts` will be automatically Warpified.
-* Any host added to `Denylisted hosts` will not be prompted nor automatically Warpified.
-* Both `Added hosts` and `Denylisted hosts` settings support regex, and the denylist takes precedence (i.e. a host that matches `Added hosts` and `Denylisted hosts` will not be prompted for Warpification nor automatically Warpify).
+Yes! You can always cancel Warpification and continue to use SSH, just without some of Warp's additional features. You can also explicitly add hosts to the Denylist to ensure you’re never asked to Warpify that host again.
 
-Host detection is parsed from the `ssh` command itself. For example:
+#### What shells and operating systems are supported?
 
-```bash
-ssh localhost
-```
+At the time of writing, we support macOS and most flavors of Linux as remote hosts.  Supported shells are `bash` and `zsh`.
 
-Here we're going to use the string literal `localhost` as a unique identifier for your target host.
+#### What if Warp fails to detect my SSH session?
 
-## Manual Warpification
+If you are ever in a remote SSH Session and would like to manually Warpify, you can do so by using the [command palette](../command-palette.md) and searching for "Warpify SSH Session".
 
-If you are ever in a remote SSH Session and would like to manually Warpify, you can do so by using the [command palette](../command-palette.md) and search for "Warpify SSH Session".
+#### What triggers SSH Session Detection for Warpification?
+
+If SSH Session Detection is enabled, Warp will detect when you run an `ssh` command with arguments that suggest it's starting an interactive session. If you've aliased `ssh` or are running it as part of a script, we will not perform SSH Session Detection.
+
+Once we have confidence you have successfully authenticated (by detecting `Last login:` or something resembling a basic prompt) we will prompt you to Warpify your active SSH session.
+
+If SSH Session Detection does not detect your session, you can still [Warpify manually](#what-if-warp-fails-to-detect-my-ssh-session).
