@@ -22,4 +22,4 @@ Session Navigation Demo
 
 ## Session Restoration
 
-![Session Restoration Demo](../../.gitbook/assets/sessions-block\_restoration.gif)
+![Session Restoration Demo](broken-reference)

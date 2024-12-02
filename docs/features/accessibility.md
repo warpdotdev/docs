@@ -47,4 +47,4 @@ Some a11y-specific settings are available through the command palette. For examp
 
 While not all Warp features are accessible yet, we've implemented a process around releasing new features and changes to the main app, to ensure that all new code provides proper a11y announcements.
 
-This is not the ideal and final implementation. We're happy to hear your thoughts and ideas on how we can improve. The biggest milestone for this work is to add support for navigating the UI elements using the keyboard. Give Warp a try, and please, do not hesitate to share your feedback: you can reach us via [email](mailto:feedback@warp.dev), chat with us on [Discord](https://discord.com/invite/warpdotdev), or file a ticket in our [GitHub repo](https://github.com/warpdotdev/warp).
+This is not the ideal and final implementation. We're happy to hear your thoughts and ideas on how we can improve. The biggest milestone for this work is to add support for navigating the UI elements using the keyboard. Give Warp a try, and please, do not hesitate to [share your feedback](../help/sending-us-feedback.md).

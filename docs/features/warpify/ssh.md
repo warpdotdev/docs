@@ -12,7 +12,7 @@ If you are looking to troubleshoot the legacy SSH implementation, see the [SSH (
 
 When you Warpify your SSH session, you get all the features of Warp without any configuration on your part. The input editor, auto-completions, and history search work the same, regardless of machine. We achieve this by running commands like `ls` on the remote machine on your behalf (more on this in the next section).
 
-![SSH](<../../.gitbook/assets/6\_ssh (1) (1).png>)
+![SSH](<../../.gitbook/assets/6_ssh (1) (1) (1).png>)
 
 ## Implementation
 

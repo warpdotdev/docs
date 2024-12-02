@@ -37,7 +37,7 @@ Within `Raycast Settings > Extensions > Apps` search for Warp and assign the ali
 {% tab title="macOS" %}
 Press `SHIFT-CMD-C` while in [VSCode](https://code.visualstudio.com/docs/terminal/basics) to open a new session in Warp.
 
-![VSCode New Session Shortcut](../.gitbook/assets/vscode\_new\_session.gif)
+![VSCode New Session Shortcut](broken-reference)
 
 To configure this, use the Apple Menu. Click on `Code` -> `Settings` -> `Settings`. Type in "terminal" and change _Terminal > External: Osx Exec_ to `Warp.app`.
 
@@ -68,8 +68,8 @@ To configure this, use the Apple Menu. Click on `Preferences`, go to `External T
 
 Then press `Ok`. Now you will be able to `Open Warp` from the Apple Menu under `Tools` -> `External Tools`.
 
-![JetBrains New Session Shortcut](../.gitbook/assets/jetbrains\_external\_terminal\_config.gif)
+![JetBrains New Session Shortcut](broken-reference)
 
 To attach this configuration to a keyboard shortcut, you must go to the Apple Menu -> `Preferences`. Then go to `Keymap` -> `External Tools`. You will find `Open Warp`. Right-click on it, and select `Add Keyboard Shortcut`. Type your desired shortcut and click save! You're ready to open Warp with a keyboard shortcut.
 
-![JetBrains Configure Keyboard Shortcut](../.gitbook/assets/jetbrains\_external\_window\_keymap\_config.gif)
+![JetBrains Configure Keyboard Shortcut](broken-reference)

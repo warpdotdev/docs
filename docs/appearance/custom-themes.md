@@ -246,7 +246,7 @@ If your theme has an intended custom background image, include a comment in the 
 
 ## Community
 
-All other Warp-related things can be discussed in our [Warp official repo](https://github.com/warpdotdev/Warp/discussions?discussions\_q=label%3ARoadmap+sort%3Atop) or our [Discord server](https://discord.gg/warpdotdev).
+All other Warp-related things can be discussed, please [contact us](../help/sending-us-feedback.md).
 
 ## Open source dependencies
 

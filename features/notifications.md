@@ -40,7 +40,7 @@ Notifications Demo
 
 {% tabs %}
 {% tab title="macOS" %}
-Warp requires two distinct notification settings to work. Mac system settings are found in `Mac > System Preferences > Notifications & Focus` and Warp app settings are found in `Settings > Features` must both be enabled for Notifications to show. \
+Warp requires two distinct notification settings to work. Mac system settings are found in `Mac > System Preferences > Notifications & Focus` and Warp app settings are found in `Settings > Features` must both be enabled for Notifications to show.\
 \
 If you have Notifications enabled in the system and Warp, but you still aren't receiving desktop notifications, try the following:
 
@@ -52,7 +52,7 @@ If you have Notifications enabled in the system and Warp, but you still aren't r
 {% endtab %}
 
 {% tab title="Linux" %}
-Warp requires two distinct notification settings to work. Linux system settings (found in something like `Settings > Notifcations > Warp`) and Warp app settings found in `Settings > Features` must both be enabled for Notifications to show. \
+Warp requires two distinct notification settings to work. Linux system settings (found in something like `Settings > Notifcations > Warp`) and Warp app settings found in `Settings > Features` must both be enabled for Notifications to show.\
 \
 If you have Notifications enabled in the system and Warp, but you still aren't receiving desktop notifications, try the following:
 
@@ -62,4 +62,4 @@ If you have Notifications enabled in the system and Warp, but you still aren't r
 {% endtab %}
 {% endtabs %}
 
-Please reach out to us on [Discord](https://warp.dev/discord) or [GitHub](https://github.com/warpdotdev/Warp/issues) if any other issues.
+Please [reach out to us](../docs/help/sending-us-feedback.md#sending-warp-feedback) if any other issues.

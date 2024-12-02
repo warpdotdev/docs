@@ -74,7 +74,7 @@ The PS1 is a variable used by the shell to generate the prompt, it represents th
 
 #### Multi-Line and Right-Sided Prompts
 
-Warps custom prompt supports multi-line or right-sided prompts in zsh and fish, not bash. However, you can't have a multiline right-side prompt, only a multiline left prompt.&#x20;
+Warps custom prompt supports multi-line or right-sided prompts in zsh and fish, not bash. However, you can't have a multiline right-side prompt, only a multiline left prompt.
 
 ## How to access it
 
@@ -84,7 +84,7 @@ Warps custom prompt supports multi-line or right-sided prompts in zsh and fish, 
 
 ## How it works
 
-<figure><img src="../.gitbook/assets/edit-prompt-modal.png" alt=""><figcaption><p>Prompt edit modal</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/edit-prompt-modal (1).png" alt=""><figcaption><p>Prompt edit modal</p></figcaption></figure>
 
 <figure><img src="../.gitbook/assets/warp-custom-prompt-demo.gif" alt="Warp Prompt + Custom Prompt Demo"><figcaption><p>Warp Prompt + Custom Prompt Demo</p></figcaption></figure>
 
@@ -169,7 +169,7 @@ Please note the installing powerlevel10k video mentions enabling a custom prompt
 
 ### Spaceship
 
-This prompt can cause an issue with typeahead in Warp's input editor. To [workaround](https://github.com/warpdotdev/Warp/issues/1973#issuecomment-1340150521) the issue, run `echo "SPACESHIP_PROMPT_ASYNC=FALSE" >>! ~/.zshrc`.&#x20;
+This prompt can cause an issue with typeahead in Warp's input editor. To [workaround](https://github.com/warpdotdev/Warp/issues/1973#issuecomment-1340150521) the issue, run `echo "SPACESHIP_PROMPT_ASYNC=FALSE" >>! ~/.zshrc`.
 
 ### Prezto
 

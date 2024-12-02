@@ -19,7 +19,7 @@ Session restoration allows you to quickly pick up where you left off in your pre
 On Linux, opening windows at a specific position is not supported in Wayland.
 {% endhint %}
 
-* You can disable Session Restoration by going to `Settings > Features`, then toggling off `Restore windows, tabs, and panes on startup`.&#x20;
+* You can disable Session Restoration by going to `Settings > Features`, then toggling off `Restore windows, tabs, and panes on startup`.
 
 {% hint style="warning" %}
 Toggling off Session Restoration will not clear the [SQLite database](session-restoration.md#session-restoration-database); however, Warp will stop recording new output.
@@ -27,7 +27,7 @@ Toggling off Session Restoration will not clear the [SQLite database](session-re
 
 ## How it works
 
-![Session Restoration Demo](../../.gitbook/assets/sessions-block\_restoration.gif)
+![Session Restoration Demo](broken-reference)
 
 #### Session Restoration database
 

@@ -45,7 +45,7 @@ Benchmark code can be found [here](https://github.com/alacritty/vtebench) with t
 | scrolling\_top\_small\_region    | 114.64        | 205.59                | 1216.33   | 21.91         | 663.44      |
 | unicode                          | 66.47         | 34.45                 | 93.01     | 16.78         | 1279.25     |
 
-![VTEbench average results (logarithmic scale )](../.gitbook/assets/vtebench\_avg.png)
+![VTEbench average results (logarithmic scale )](broken-reference)
 
 ### P90 of the results
 
@@ -60,7 +60,7 @@ Benchmark code can be found [here](https://github.com/alacritty/vtebench) with t
 | scrolling\_top\_small\_region    | 167      | 222              | 1314      | 30            | 666         |
 | unicode                          | 77       | 39               | 90        | 20            | 3883        |
 
-![VTEbench p90 results (logarithmic scale )](../.gitbook/assets/vtebench\_p90.png)
+![VTEbench p90 results (logarithmic scale )](broken-reference)
 
 ## Termbench
 
@@ -78,7 +78,7 @@ Below you'll find results for small and regular test sizes. Note that Terminal.a
 | FGBGPerChar    | 2.8403         | 908.894                | 4.5881          | 0.5931          | 0.7283        |
 | overall result | 20.0006        | 1367.209               | 25.0413         | 2.943           | 21.7793       |
 
-![Termbench small results (logarithmic scale )](../.gitbook/assets/termbench\_small.png)
+![Termbench small results (logarithmic scale )](broken-reference)
 
 ### Regular test size
 
@@ -90,4 +90,4 @@ Below you'll find results for small and regular test sizes. Note that Terminal.a
 | FGBGPerChar    | 46.312           | 50.5369           | 8.418                 | 13.5142         |
 | overall result | 337.0585         | 349.1258          | 45.3767               | 381.1229        |
 
-![Termbench results (logarithmic scale)](../.gitbook/assets/termbench\_regular.png)
+![Termbench results (logarithmic scale)](broken-reference)
