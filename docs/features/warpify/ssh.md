@@ -1,4 +1,5 @@
 ---
+hidden: true
 description: SSH wrapper that enables Warp features in remote sessions.
 ---
 

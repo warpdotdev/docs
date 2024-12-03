@@ -67,6 +67,7 @@
 * [Warpify](features/warpify/README.md)
   * [Subshells](features/warpify/subshells.md)
   * [SSH](features/warpify/ssh-legacy.md)
+  * [🆕 SSH](features/warpify/ssh.md)
 * [Accessibility](features/accessibility.md)
 * [Find](features/find.md)
 * [Files, Links, & Scripts](features/files-and-links.md)
