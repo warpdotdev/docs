@@ -1,7 +1,7 @@
 ---
 description: >-
   Warp is the intelligent terminal with AI and your dev team's knowledge
-  built-in
+  built-in.
 ---
 
 # What is Warp?
