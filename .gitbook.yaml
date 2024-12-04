@@ -22,5 +22,5 @@ redirects:
     features/appearance/compact-mode: appearance/compact-mode.md
     features/linux: features/linux.md
     features/subshells: features/warpify/subshells.md
-    features/ssh: features/warpify/ssh.md
+    features/ssh: features/warpify/ssh-legacy.md
     appearance/transparency-and-blurring: appearance/opacity-blurring-dimming.md
