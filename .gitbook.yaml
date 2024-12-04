@@ -1,6 +1,7 @@
 root: ./docs/
 
-redirects:  
+redirects:
+    help/changelog: getting-started/changelog.md
     features/session-management-and-restoration: features/sessions/README.md
     features/session-management/session-restoration: features/sessions/session-restoration.md
     features/session-management/launch-configurations: features/sessions/launch-configurations.md
