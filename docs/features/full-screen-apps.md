@@ -1,7 +1,7 @@
 ---
 description: >-
-  Warp runs alt-grid apps like Vim and Emacs in full-screen mode and also
-  supports sending mouse and scroll events directly to the alt-grid.
+  Warp runs alt-grid apps like Vim and Emacs in full-screen mode. Warp also
+  supports sending mouse and scroll events directly to the alt-grid or adjusting the padding surrounding the apps.
 ---
 
 # Full-screen Apps
@@ -33,3 +33,19 @@ If you want a mouse event to go to Warp instead (for example, for text selection
 {% embed url="https://www.loom.com/share/a918696b002148d3beafd545b233c1be?hideEmbedTopBar=true&hide_owner=true&hide_share=true&hide_title=true" %}
 Mouse and Scroll Reporting Demo
 {% endembed %}
+
+## Padding
+
+Warp supports configuring how much padding surrounds full-screen apps. The default is 0 pixel padding, but this can be changed to a custom padding amount or to match the padding in the Blocklist.
+
+### How to access it
+
+* Go to `Settings > Appearance > Full Screen Apps` or from the [Command Palette](command-palette.md) search for "Appearance"
+  * `Use custom padding in alt-screen` is enabled by default, you can disable it to match the Blocklist padding
+    * Set the desired uniform padding (px) pixels, which is set to 0px by default
+
+{% hint style="info" %}
+Some full-screen applications don't behave well when resizing. If you are experiencing rendering issues with full screen apps, try turning this setting off. This will ensure that full-screen apps don't need to resize when starting up.
+{% endhint %}
+
+<figure><img src="../.gitbook/assets/padding-setting.png" alt="alt-screen padding setting"><figcaption><p>Alt-screen padding setting</p></figcaption></figure>
