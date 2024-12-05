@@ -2,6 +2,7 @@
 description: >-
   Warp supports a palette of custom dock icons. Currently, custom icons are only
   available on MacOS
+hidden: true
 ---
 
 # Custom dock icons
