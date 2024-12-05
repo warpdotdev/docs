@@ -35,7 +35,7 @@
   * [Agent Mode](features/warp-ai/agent-mode.md)
   * [AI Command Suggestions](features/warp-ai/ai-command-suggestions.md)
 * [Teams](features/teams.md)
-* [Session Sharing (Beta)](features/session-sharing.md)
+* [Session Sharing](features/session-sharing.md)
 * [Blocks](features/blocks/README.md)
   * [Block Basics](features/blocks/block-basics.md)
   * [Block Actions](features/blocks/block-actions.md)

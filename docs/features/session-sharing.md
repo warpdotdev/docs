@@ -2,7 +2,7 @@
 description: Collaborate with anybody in a Warp terminal session, in real-time
 ---
 
-# Session Sharing (Beta)
+# Session Sharing
 
 {% hint style="warning" %}
 This action sends command information to Warp’s servers and is explicitly opt-in. Read more about privacy for cloud features in the [privacy overview](https://www.warp.dev/privacy/overview).
@@ -12,7 +12,7 @@ This action sends command information to Warp’s servers and is explicitly opt-
 
 ### Share a session
 
-Users on a [Team](teams.md) plan and users on the Beta will find a Share button in the Warp top-bar navigation.
+Users will find a Share button in the Warp top-bar navigation.
 
 To start sharing:
 
@@ -29,16 +29,26 @@ If you initiate a shared session using Block actions, you will be given the opti
 
 #### How to invite collaborators to your session
 
-Warp will copy a link to your clipboard that you can share with anyone. Share links open the Warp's native app on MacOS, Linux, or the Web.
+After starting a shared session, Warp will copy a link to your clipboard that you can share. Share links open the Warp's native app on MacOS, Linux, or the Web. 
 
 {% hint style="warning" %}
-It's important to understand these are open links. During the Beta, it’s critical you only share your session links in private channels with known teammates and approved collaborators. Do not include your session-sharing links in any public forums.
+By default the links are restricted to only those directly invited by email. It’s critical you only share your session links in private channels with known teammates and approved collaborators. Do not include your session-sharing links in any public forums.
 {% endhint %}
 
-When somebody who is logged into Warp accesses your shared session, they will be able to:
+You can adjust who has access to your session and specifically:
+* Invite collaborators directly via email
+* Allow anyone with the link to view or edit the session
+* Allow anyone on your team to view or edit the session
+* Revoke edit access from collaborators in the session
+* Remove collaborators from the session
+
+<figure><img src="../.gitbook/assets/session-who-has-access.png" alt=""><figcaption><p>Update permissions through the share icon</p></figcaption></figure>
+
+
+When somebody accesses your shared session, they will be able to:
 
 * View your session in Warp including your command line input and output
-* Highlight text in your session
+* Highlight blocks and text in your session
 * Request control to edit and enter commands in the sharer’s session
 
 If granted access, collaborators can edit the input together in real-time and execute commands.
@@ -47,7 +57,6 @@ You can also:
 
 * Reference avatars and usernames for every collaborator who has access to your session
 * Jump to a collaborator’s selection by clicking on their avatar
-* Revoke edit access from collaborators at any time during a session
 
 <figure><img src="../.gitbook/assets/session-sharing-native-web-demo.gif" alt=""><figcaption><p>Session Sharing Native to Web Demo</p></figcaption></figure>
 
@@ -65,10 +74,9 @@ You may share multiple sessions simultaneously. If you have multiple shared sess
 
 * [Agent Mode blocks](warp-ai/agent-mode.md) are not shareable during session sharing. Participants will be able to share regular shell commands that are run, but will not be able to share AI interactions (requested commands, AI blocks, etc.)
 * [Secret redaction](secret-redaction.md) is not applied during session sharing.
-* While this feature is in Beta, anybody who has access to a share link and an active Warp account will be able to view and collaborate on a session. In the future, Session Sharing will have Team-based access controls and permission restrictions.
-
-There is a session size limit of 100MB per session, 1GB per user per day, and a maximum of 10 participants per session (excluding the sharer). These limits are subject to change.
+* There is a session size limit of 100MB per session, 1GB per user per day, and a maximum of 10 participants per session (excluding the sharer). These limits are subject to change.
+* Warp's Free and Pro plans are limited to 5 shared sessions. Upgrade to a [Team plan](../features/teams.md) to get unlimited sessions.
 
 {% hint style="info" %}
-If you have any questions or want to be added to the Beta, please reach out at [feedback+ss@warp.dev](mailto:feedback+ss@warp.dev).
+If you have any questions, please email [feedback+ss@warp.dev](mailto:feedback+ss@warp.dev).
 {% endhint %}
