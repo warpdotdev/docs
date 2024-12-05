@@ -8,6 +8,17 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2024.12.05 (v0.2024.12.03.08.02)
+
+**New features**
+
+* You can now share shared sessions directly with your Warp team, or with any other Warp user
+* Padding in the alt-screen can now be manually adjusted. Defaults to no padding
+
+**Improvements**
+
+* Improved PTY throughput by \~13% through more efficient dirty region computation
+
 ### 2024.11.21 (v0.2024.11.19.08.02)
 
 **New features**
@@ -16,12 +27,12 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 
 **Improvements**
 
-* [Agent Mode] Code outputs no longer show a confusing code diff UI
+* \[Agent Mode] Code outputs no longer show a confusing code diff UI
 * You can now sort Warp Drive objects by type, with folders on top
 
 **Bug fixes**
 
-* [Agent Mode] Single-line code suggestions are no longer hidden behind the horizontal scrollbar
+* \[Agent Mode] Single-line code suggestions are no longer hidden behind the horizontal scrollbar
 * Fixed a crash interacting with Env Vars in the command palette
 
 ### 2024.11.14 (v0.2024.11.12.08.02)
@@ -32,15 +43,15 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 * Improved the quality of autosuggestions
 * Warp Drive workflow links now open in the active terminal session rather than a new tab
 * On the web, Warp Drive workflows now have a button to quickly open the workflow in Warp's desktop app
-* [Linux] Increased the app icon size to match other apps
+* \[Linux] Increased the app icon size to match other apps
 
 **Bug fixes**
 
 * Fixed Graphite CLI `gt` completions
 * Fixed completion and syntax highlighting behavior for arguments containing backslashes in PowerShell
 * Fixed an issue where opening Warp Drive in a browser could cause the tab to stop responding
-* [Linux] Tightened timeout for looking up the system color scheme at app startup to avoid hangs if the `org.freedesktop.portal.Desktop` D-Bus service is unresponsive
-* [macOS] Fixed a crash that can occur when starting the app or opening a new window
+* \[Linux] Tightened timeout for looking up the system color scheme at app startup to avoid hangs if the `org.freedesktop.portal.Desktop` D-Bus service is unresponsive
+* \[macOS] Fixed a crash that can occur when starting the app or opening a new window
 
 ### 2024.11.08 (v0.2024.11.05.08.02)
 
@@ -82,7 +93,7 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 * Created a setting allowing focus to follow mouse hover ([#699](https://github.com/warpdotdev/Warp/issues/699))
 * Added support for Node Version chip in Warp Prompt
 * Automatically switch to shell command input mode if accepting a shell command autosuggestion from Agent Mode
-* [macOS] Adjusted default font smoothing `Appearance > "Use thin strokes"` configuration to improve text legibility
+* \[macOS] Adjusted default font smoothing `Appearance > "Use thin strokes"` configuration to improve text legibility
 
 **Bug fixes**
 
@@ -90,6 +101,7 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 * You can now select individual cells in the alt-screen
 * All find matches are correctly highlighted in the alt-screen
 * Hitting `ENTER` within the Launch Config Save Modal will work as expected
+
 ### 2024.10.17 (v0.2024.10.15.08.02)
 
 **New features**
