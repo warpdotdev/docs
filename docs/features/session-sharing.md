@@ -62,11 +62,11 @@ You can also:
 
 #### How to end a shared session
 
-When you’re ready to end a shared session, click Share → Stop sharing to wrap up and close access for all collaborators.
+When you’re ready to end a shared session, click `Share > Stop` sharing to wrap up and close access for all collaborators.
 
 #### Multiple shared sessions
 
-You may share multiple sessions simultaneously. If you have multiple shared sessions, you will find _Other shared sessions_ listed in the Share dropdown menu. You may also end multiple shared sessions at the same time with Share → Stop sharing all.
+You may share multiple sessions simultaneously. If you have multiple shared sessions, you will find _Other shared sessions_ listed in the Share dropdown menu. You may also end multiple shared sessions at the same time with `Share > Stop` sharing all.
 
 <figure><img src="../.gitbook/assets/switch-stop-session-sharing.png" alt=""><figcaption><p>Switch between shared sessions or stop all shared sessions at once</p></figcaption></figure>
 
