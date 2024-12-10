@@ -1,11 +1,13 @@
 ---
-description: >-
-  Warp supports a palette of custom dock icons. Currently, custom icons are only
-  available on MacOS
+description: Warp supports a palette of custom dock icons.
 hidden: true
 ---
 
 # Custom dock icons
+
+{% hint style="info" %}
+Currently, the Docker extension is only available on macOS.
+{% endhint %}
 
 ## How to change the dock icon
 
