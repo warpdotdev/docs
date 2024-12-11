@@ -97,17 +97,52 @@ When importing or exporting, objects are converted as follows:
 
 ## Sharing Your Drive Objects
 
-Every object in Warp Drive can be shared. Currently, sharing is managed using Team-based links and only team objects can be shared. Personal object sharing and richer sharing modalities including direct sharing are coming soon.
+Every object in Warp Drive can be shared. There are three ways to share objects:
+* **Teams:** All members of a Warp team have full access to the objects in its Drive.
+* **Direct Sharing:** Objects can be shared directly with individuals by email.
+* **Link-based Sharing:** You can make an object public to anyone with the link, including those without Warp accounts.
 
-### Sharing a Drive Object With a Teammate using Links
+### Sharing a Drive Object using Links
 
-To share a Drive object, navigate to the object's overflow menu, and choose "Copy link". Once the link is successfully copied to your clipboard, you can share it with teammates and reference your object in your codebase, documentation, or communication channels like Slack. Users will need to make an account on Warp to see the object.
+To share a Drive object, navigate to the object's overflow menu, and choose "Copy link". Once the link is successfully copied to your clipboard, you can share it with teammates and reference your object in your codebase, documentation, or communication channels like Slack.
 
 {% hint style="info" %}
-To view an object, link-followers must have a Warp account and be a member of the object's Warp Drive Team. Those without accounts will be prompted to sign up. Users not on the relevant team will have the ability to automatically request the team admin to be added.
+In order to access an object, link-followers must have permission to open it through one of the sharing methods above. If they do not have permission, they can automatically request access from the object owner or team admin.
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/wd-copy-link-menu.png" alt="" width="216"><figcaption><p>Copy link Menu Item</p></figcaption></figure>
+<figure><img src="../../docs/.gitbook/assets/wd-copy-link-menu.png" alt="" width="216"><figcaption><p>Copy link Menu Item</p></figcaption></figure>
+
+### Managing Permissions
+
+To manage a Drive object's permissions, navigate to its overflow menu and choose "Share". If the object is open, you can also use the [Command Palette](../../docs/features/command-palette.md#how-to-access-it) and search for "Share Pane" or click the share button in the pane header:
+
+<figure><img src="../../docs/.gitbook/assets/wd-share-button.png" alt="The pane header for a notebook, with the share button circled" width="216"><figcaption><p>Pane header share button</p></figcaption></figure>
+
+This opens a dialog that lists the current sharing settings and allows you to change them:
+
+<figure><img src="../../docs/.gitbook/assets/wd-share-dialog.png" alt="A sharing dialog showing that anyone with the link can view, the owner has full access, and another user can edit."><figcaption><p>Warp Drive sharing dialog</p></figcaption></figure>
+
+In this dialog, you can:
+* Invite other users directly using the email input at the top.
+* Change or remove the public link-based access level.
+* Update the access level for individual users, or remove their access.
+
+Permissions are inherited from parent folders. For example, if a folder was shared with edit permissions, then the user would also be able to edit all objects inside the folder or its subfolders.
+
+Owners and their teammates always have full access. When sharing an object, you can choose between view and edit access.
+
+|                                     | Can view | Can edit | Full access |
+|-------------------------------------|----------|----------|-------------|
+| Read a notebook                     |✓         |✓         |✓            |
+| Execute a workflow                  |✓         |✓         |✓            |
+| Use env vars                        |✓         |✓         |✓            |
+| Edit contents                       |          |✓         |✓            |
+| Create objects in a folder          |          |✓         |✓            |
+| Trash or untrash                    |          |✓         |✓            |
+| Delete permanently                  |          |          |✓            |
+| Modify permissions                  |          |          |✓            |
+| Move to a different folder or drive |          |          |✓            |
+
 
 ## Troubleshooting Warp Drive
 

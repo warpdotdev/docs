@@ -34,7 +34,8 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 
 **New features**
 
-* You can now share shared sessions directly with your Warp team, or with any other Warp user
+* You can now share shared sessions directly with your Warp team, another Warp user, and non Warp users via a URL
+* You can now share Warp Drive objects directly with others via email or a URL
 * Padding in the alt-screen can now be manually adjusted. Defaults to no padding
 
 **Improvements**
