@@ -14,6 +14,7 @@ Agent Mode can:
 2. Execute commands and use that output to guide you
 3. Correct itself when it encounters mistakes
 4. Learn and integrate with any service that has public docs or --help
+5. Utilize your saved workflows to answer queries
 
 [Visit the example gallery to watch videos of Agent Mode in action](https://www.warp.dev/ai).
 
@@ -102,6 +103,18 @@ Once a requested command is executed, you may click to expand the output and vie
 <figure><img src="../../.gitbook/assets/warp-ai-viewing-commands.png" alt=""><figcaption><p>Viewing command details</p></figcaption></figure>
 
 In the case that a requested command fails, Warp AI will detect that. Agent Mode is self-correcting. It will request another command until it completes the task for you.
+
+## How to choose your model in Agent Mode
+
+Warp supports the ability to choose from a pre-defined list of LLMs to be used in your Agent Mode queries. Warp defaults to using Claude 3.5 Sonnet, but has support for OpenAI GPT-4o and Claude 3.5 Haiku.
+
+When you start an agent mode conversation, you will be able to see the model being used.&#x20;
+
+<figure><img src="../../.gitbook/assets/Screenshot 2024-12-10 at 5.53.44 PM.png" alt=""><figcaption><p>Agent mode prompt using Sonnet</p></figcaption></figure>
+
+To change the model being used, click the current model name, 'claude 3.5 sonnet' in the example image above, to open a dropdown menu with the supported models. Your model choice will persist in future prompts.
+
+<figure><img src="../../.gitbook/assets/Screenshot 2024-12-10 at 5.55.19 PM.png" alt=""><figcaption><p>Dropdown menu of supported models</p></figcaption></figure>
 
 ## Conversations with Agent Mode
 
@@ -197,7 +210,6 @@ To start a new conversation manually, use `CTRL-Y` or `BACKSPACE`.
 You might notice that in long conversations, the AI loses context from the very beginning of the conversation. This is because Warp's models are limited by context windows (\~128K tokens) and it will discard earlier tokens.
 {% endhint %}
 
-
 ## Prompt Suggestions
 
 Prompt Suggestions are contextual, AI-powered suggestions that activate Agent Mode. These banners will provide suggestions for what to ask Agent Mode in specific scenarios, similar to how Warp already suggests commands to run.
@@ -206,10 +218,11 @@ Prompt Suggestions are contextual, AI-powered suggestions that activate Agent Mo
 
 If you press `CMD-ENTER` (on Mac), `CTRL-SHIFT-ENTER` (on Linux/Windows), or click on the chip, the suggestion will be auto-populated into your input and run against Agent Mode (with the most recent block attached).
 
-{% hint style="info" %} Prompt Suggestions uses an LLM to generate prompts based on your terminal session, specifically the most recent block. These AI requests do not contribute towards your AI limits, however, any accepted prompts run in Agent Mode contribute as normal. Visit Settings > AI > Agent Mode, if you'd like to turn it off. {% endhint %}
+{% hint style="info" %}
+Prompt Suggestions uses an LLM to generate prompts based on your terminal session, specifically the most recent block. These AI requests do not contribute towards your AI limits, however, any accepted prompts run in Agent Mode contribute as normal. Visit Settings > AI > Agent Mode, if you'd like to turn it off.
+{% endhint %}
 
 <figure><img src="../../.gitbook/assets/prompt-suggestions-setting.png" alt=""><figcaption><p>Where you can enable/disable Prompt Suggestions in Settings.</p></figcaption></figure>
-
 
 ## How does billing work for Agent Mode?
 
@@ -272,11 +285,11 @@ Agent Mode has replaced the Warp AI chat panel. Agent Mode is more powerful in a
 
 #### Is my data used for model training?
 
-No, Warp nor its provider OpenAI trains on your data.
+No, Warp nor its providers OpenAI or Anthropic train on your data.
 
 #### What model are you using?
 
-As of now, Warp is using OpenAI’s GPT-4o model.
+As of now, Warp supports OpenAI’s GPT-4o, Claude 3.5 Sonnet, and Claude 3.5 Haiku models.
 
 #### Can I use my own LLM API key?
 
