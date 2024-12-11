@@ -8,6 +8,28 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2024.12.11 (v0.2024.12.10.15.55)
+
+**New features**
+
+* [Prompt Suggestions](../features/warp-ai/agent-mode.md#prompt-suggestions) may appear above the input, helping you activate Agent Mode quickly in scenarios where it might be helpful. Note this feature sends activity to an LLM to generate prompts, head to `Settings > AI > Agent Mode` if you'd like to turn it off
+* Warp now has support for Claude 3.5 Sonnet and Haiku. Choose which model to use in the dropdown menu above your Agent Mode prompts
+* Agent Mode can now leverage your Warp Drive contents to tailor responses to your personal and team developer workflows
+* Warp has added a Shell Selector - a dropdown menu next to the 'New tab' button in the tab bar - to quickly pick from the shells available on your system
+* Agent Mode can now suggest code changes in a built-in code editor
+* \[macOS] You can now configure whether closing the last window quits the app in `Settings > Features > General`
+
+**Improvements**
+
+* Single-window launch configs can be launched into the active window from the launch configuration palette using `CMD-ENTER` on Mac or `CTRL-ENTER` on Linux
+* You can now set `$PS1` with `PROMPT_COMMAND` in bash
+
+**Bug fixes**
+
+* \[Linux] Fixed an issue where the 'Git Uncommitted File Count' prompt chip did not work on fish
+* Fixed highlighting for arguments in Workflows with multibyte character
+* Hitting `ENTER` within the Launch Configuration save modal will work as expected
+
 ### 2024.12.05 (v0.2024.12.03.08.02)
 
 **New features**
