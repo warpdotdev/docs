@@ -32,7 +32,7 @@ With Launch configurations you can save in the app or by adding a yaml file.&#x2
 * From the [Command Palette](../../docs/features/command-palette.md), enter `Launch Configuration` to open and select Launch Configuration.
 * Right-clicking the new Tab **+** button to open a menu and select saved Launch Configuration.
 * From the Mac Menu, `File > Launch Configurations`, where you can search through and open your saved Launch Configuration.
-  * Single-window launch configs can be launched into the active window from the launch configuration palette using `CMD-ENTER` .
+  * Single-window launch configs can be launched into the active window from the launch configuration palette using `CMD-ENTER` on Mac.
 {% endtab %}
 
 {% tab title="Linux" %}
