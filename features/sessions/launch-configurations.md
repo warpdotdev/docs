@@ -9,20 +9,38 @@ description: >-
 
 ## What is it
 
-With Launch configurations you can save in the app or by adding a yaml file.
+With Launch configurations you can save in the app or by adding a yaml file.&#x20;
 
-## How to use it
+## Creating a Launch Configuration
+
+### From the UI
 
 1. Set up the configuration of windows, tabs, and panes you would like to save.
-2. From the [Command Palette](../../docs/features/command-palette.md), enter `Save New Launch Configuration`.
-3. Name the configuration file, the name field cannot be empty.
-4. Click the save configuration button.
+2. Open the [Command Palette](../../docs/features/command-palette.md), and type in `Save New Launch Configuration`.
+3. Name the configuration file. The name field cannot be empty.
+4. Click the Save configuration button.
 
-## How to access it
+### With a YAML File
 
+* Launch Configurations files are generated when you create them with the UI and can also be created or modified manually.
+* Please see the below for [Launch Configuration YAML file locations, format, and examples](launch-configurations.md#launch-configuration-yaml-format).
+
+## Using a Launch Configuration
+
+{% tabs %}
+{% tab title="macOS" %}
 * From the [Command Palette](../../docs/features/command-palette.md), enter `Launch Configuration` to open and select Launch Configuration.
 * Right-clicking the new Tab **+** button to open a menu and select saved Launch Configuration.
 * From the Mac Menu, `File > Launch Configurations`, where you can search through and open your saved Launch Configuration.
+  * Single-window launch configs can be launched into the active window from the launch configuration palette using `CMD-ENTER` .
+{% endtab %}
+
+{% tab title="Linux" %}
+* From the [Command Palette](../../docs/features/command-palette.md), enter `Launch Configuration` to open and select Launch Configuration.
+* Right-clicking the new Tab **+** button to open a menu and select saved Launch Configuration.
+  * Single-window launch configs can be launched into the active window from the launch configuration palette using `CTRL-ENTER` on Linux.
+{% endtab %}
+{% endtabs %}
 
 {% hint style="info" %}
 **Terminal Tip**\
@@ -35,17 +53,21 @@ You can open saved Launch Configurations via Alfred Workflow or [Raycast](../../
 Launch Configuration Demo
 {% endembed %}
 
-## YAML Format
+## Launch Configuration YAML Format
 
-All yaml files are stored in the following location:
+All Launch Configuration yaml files are stored in the following location:
 
 {% tabs %}
 {% tab title="macOS" %}
-`$HOME/.warp/launch_configurations/`
+```sh
+$HOME/.warp/launch_configurations/
+```
 {% endtab %}
 
 {% tab title="Linux" %}
-`${XDG_DATA_HOME:-$HOME/.local/share}/warp-terminal/launch_configurations/`
+```
+${XDG_DATA_HOME:-$HOME/.local/share}/warp-terminal/launch_configurations/
+```
 {% endtab %}
 {% endtabs %}
 
@@ -55,7 +77,7 @@ The `cwd:` value in the yaml code must contain an absolute path or `""`. Note th
 
 ### Windows
 
-Here's a sample configuration that shows how windows are structured.
+Here's a sample configuration that shows how windows are structured in launch configuration files.
 
 ```yaml
 # Warp Launch Configuration
@@ -84,7 +106,7 @@ windows:
 
 ### Tabs
 
-Here's a sample configuration that shows how tabs are structured.
+Here's a sample configuration that shows how tabs are structured in launch configuration files.
 
 * Use the `title` field to set a custom tab name
 * Use the `color` field to set the tab color
@@ -115,7 +137,7 @@ windows:
 
 ### Panes
 
-Launch Configurations support setting split panes in each tab. Note that Warp also supports nesting split panes.
+Launch Configurations support setting split panes in each tab. Note that Warp also supports nesting split panes in launch configuration files.
 
 ```yaml
 # Warp Launch Configuration
@@ -151,7 +173,7 @@ windows:
 
 ### Commands
 
-Use the `commands` field to define a set of commands to run when a configuration is launched.
+Use the `commands` field to define a set of commands to run when a launch configuration in run.
 
 ```yaml
 # Warp Launch Configuration
