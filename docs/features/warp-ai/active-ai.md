@@ -1,6 +1,10 @@
+---
+description: >-
+  Active AI proactively recommends fixes and next actions based on errors,
+  inputs, and outputs in your session.
+---
+
 # Active AI
-
-
 
 ## Features
 
