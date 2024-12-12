@@ -32,6 +32,7 @@
   * [Warp Drive on the Web](features/warp-drive/warp-drive-on-the-web.md)
   * [Environment Variables](features/warp-drive/environment-variables.md)
 * [Warp AI](features/warp-ai/README.md)
+  * [Active AI](features/warp-ai/active-ai.md)
   * [Agent Mode](features/warp-ai/agent-mode.md)
   * [AI Command Suggestions](features/warp-ai/ai-command-suggestions.md)
 * [Teams](features/teams.md)
