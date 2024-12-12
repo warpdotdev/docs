@@ -27,7 +27,7 @@ Toggling off Session Restoration will not clear the [SQLite database](session-re
 
 ## How it works
 
-![Session Restoration Demo](broken-reference)
+![Session Restoration Demo](../../.gitbook/assets/sessions-block_restoration.gif)
 
 #### Session Restoration database
 

@@ -42,7 +42,7 @@ If you experience any issues with block sharing, please see our known issues for
 
 Create and share a permalink to your blocks to collaborate with teammates. Here is the [web permalink](https://app.warp.dev/block/vzFATak939iqGWfNh7wsAP) of the block depicted below.
 
-![Shared Block](broken-reference)
+![Shared Block](../../.gitbook/assets/shared_block.png)
 
 ## Embedded Blocks
 

@@ -7,7 +7,7 @@ description: >-
 # Modern Text Editing
 
 {% hint style="info" %}
-Text Editor Input also works for [SSH sessions](../warpify/ssh.md).
+Text Editor Input also works for [SSH sessions](../warpify/ssh-legacy.md).
 {% endhint %}
 
 ### Soft Wrapping

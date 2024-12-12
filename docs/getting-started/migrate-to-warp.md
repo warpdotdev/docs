@@ -12,7 +12,7 @@ When you run Warp for the first time, you will get the option to import your def
 
 Select **iTerm2 Profile: Default** to import your settings.
 
-<figure><img src="broken-reference" alt=""><figcaption><p>Select a settings profile to import</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/migrate-to-warp.png" alt=""><figcaption><p>Select a settings profile to import</p></figcaption></figure>
 
 Warp will only import settings associated with the Default profile.
 
