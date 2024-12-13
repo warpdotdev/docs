@@ -6,9 +6,7 @@ description: >-
 
 # Active AI
 
-## Features
-
-### Prompt Suggestions
+## Prompt Suggestions
 
 Prompt Suggestions are contextual, AI-powered suggestions that activate Agent Mode. These banners will provide suggestions for what to ask Agent Mode in specific scenarios, similar to how Warp already suggests commands to run.
 
@@ -24,7 +22,7 @@ Prompt Suggestions use an LLM to generate prompts based on your terminal session
 
 
 
-### Next Command (coming soon)
+## Next Command (coming soon)
 
 Next Command uses AI to suggest the next command to run based on your active terminal session and command history. It uses your active terminal session contents and an LLM to generate commands.&#x20;
 

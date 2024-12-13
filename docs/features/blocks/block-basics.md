@@ -32,9 +32,9 @@ Create a Block
 {% tabs %}
 {% tab title="macOS" %}
 * Using your mouse: click on a Block.
-* Or using your keyboard: hit `CMD-UP`  (or `CMD-DOWN` if input as pinned up top) to select the most recently executed Block and use the `UP ↑` and `DOWN ↓` arrow keys to navigate to the desired Block.
+* Or using your keyboard: hit `CMD-UP` (or `CMD-DOWN` if input as pinned up top) to select the most recently executed Block and use the `UP ↑` and `DOWN ↓` arrow keys to navigate to the desired Block.
 * For long Blocks:
-  * You can click "Jump to the bottom of this block".&#x20;
+  * You can click "Jump to the bottom of this block".
   * You can press `SHIFT-CMD-UP`/`SHIFT-CMD-DOWN` to Scroll to the top/bottom of the selected block.
   * From the [Command Palette](../command-palette.md), you can also "Scroll to the top/bottom of selected block".
 {% endtab %}
@@ -43,7 +43,7 @@ Create a Block
 * Using your mouse: Click on a Block.
 * Or using your keyboard: hit `CTRL-UP` (or `CTRL-DOWN` if input as pinned up top) to select the most recently executed Block and use the `UP ↑` and `DOWN ↓` arrow keys to navigate to the desired Block.
 * For long Blocks:
-  * You can click "Jump to the bottom of this block".&#x20;
+  * You can click "Jump to the bottom of this block".
   * You can press `SHIFT-CTRL-UP`/`SHIFT-CTRL-DOWN` to Scroll to the top/bottom of the selected block.
   * From the [Command Palette](../command-palette.md), you can also "Scroll to the top/bottom of selected block".
 {% endtab %}
@@ -77,7 +77,7 @@ Select Multiple Blocks
 
 * Either scroll using your mouse or the scrollbar or select a Block and use the `UP ↑` and `DOWN ↓` arrow keys.
 * "Scroll Terminal output up/down one line" is also a way to navigate block output, and can be configured with a keyboard shortcut or accessed from the [Command Palette](../command-palette.md).
-* When the output of a command is cut off, Warp keeps the [Sticky Command Header](../../../features/blocks/sticky-command-header.md) pinned at the top that displays the command the Block corresponds to. Clicking the header will scroll the screen to the start of the Block.
+* When the output of a command is cut off, Warp keeps the [Sticky Command Header](sticky-command-header.md) pinned at the top that displays the command the Block corresponds to. Clicking the header will scroll the screen to the start of the Block.
 
 {% embed url="https://www.loom.com/share/21ebb0a79c1248a98846cba12a4b7020?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
 Navigate between Blocks

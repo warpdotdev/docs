@@ -86,7 +86,7 @@ When you run a command suggested by Agent Mode, that command will work like a st
 
 If the suggested command fails and you want to resolve the error, you may start a new AI query to address the problem.
 
-<figure><img src="../../.gitbook/assets/agent-mode-suggestion.png" alt="Agent Mode makes a suggestion to run a command."><figcaption><p>Agent Mode makes a suggestion to run a command.</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/agent-mode-suggestion (3).png" alt="Agent Mode makes a suggestion to run a command."><figcaption><p>Agent Mode makes a suggestion to run a command.</p></figcaption></figure>
 
 #### Agent Mode Requested Commands
 
@@ -108,7 +108,7 @@ In the case that a requested command fails, Warp AI will detect that. Agent Mode
 
 Warp supports the ability to choose from a pre-defined list of LLMs to be used in your Agent Mode queries. Warp defaults to using Claude 3.5 Sonnet, but has support for OpenAI GPT-4o and Claude 3.5 Haiku.
 
-When you start an agent mode conversation, you will be able to see the model being used.&#x20;
+When you start an agent mode conversation, you will be able to see the model being used.
 
 <figure><img src="../../.gitbook/assets/agent-mode-prompt-sonnet.png" alt=""><figcaption><p>Agent mode prompt using Sonnet</p></figcaption></figure>
 
