@@ -12,7 +12,7 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 
 **New features**
 
-* [Prompt Suggestions](../features/warp-ai/agent-mode.md#prompt-suggestions) may appear above the input, helping you activate Agent Mode quickly in scenarios where it might be helpful. Note this feature sends activity to an LLM to generate prompts, head to `Settings > AI > Agent Mode` if you'd like to turn it off
+* Prompt Suggestions may appear above the input, helping you activate Agent Mode quickly in scenarios where it might be helpful. Note this feature sends activity to an LLM to generate prompts, head to `Settings > AI > Agent Mode` if you'd like to turn it off. [Learn more](../features/warp-ai/active-ai.md#prompt-suggestions)
 * Warp now has support for Claude 3.5 Sonnet and Haiku. Choose which model to use in the dropdown menu above your Agent Mode prompts
 * Agent Mode can now leverage your Warp Drive contents to tailor responses to your personal and team developer workflows
 * Warp has added a Shell Selector - a dropdown menu next to the 'New tab' button in the tab bar - to quickly pick from the shells available on your system
@@ -21,6 +21,7 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 
 **Improvements**
 
+* Added settings to manage Warp’s AI integration and permissions. Visit \`Settings > AI\` to learn more
 * Single-window launch configs can be launched into the active window from the launch configuration palette using `CMD-ENTER` on Mac or `CTRL-ENTER` on Linux
 * You can now set `$PS1` with `PROMPT_COMMAND` in bash
 

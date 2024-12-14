@@ -6,7 +6,6 @@ description: >-
 
 # Known Issues
 
-* Warp doesn't support `PROMPT_COMMAND` in bash right now, to set a custom prompt use `PS1`.
 * When you [SSH](known-issues.md#ssh), we start a bash shell on the remote host. We built a wrapper around SSH to make Warp features possible.
 * If your default shell is zsh, your aliases typically do not transfer over. Other shells are unsupported for now.
 * When you open a [non-shell-based subshell (REPL)](https://github.com/warpdotdev/Warp/issues/4082), we do not set it up for Warp - instead, it works like a normal terminal session.
@@ -24,8 +23,7 @@ Links to popular GitHub issues:
 
 ## SSH
 
-To enable Blocks over SSH, Warp uses an SSH Wrapper function; navigate to settings > features if you need to disable it. Please see [Troubleshooting Legacy SSH](../features/warpify/ssh-legacy.md#troubleshooting-ssh) for more info on workarounds to SSH issues, or see [the new SSH Page](../warpify/features/ssh) for more on the upcoming features.
-
+To enable Blocks over SSH, Warp uses an SSH Wrapper function; navigate to settings > features if you need to disable it. Please see [Troubleshooting Legacy SSH](../features/warpify/ssh-legacy.md#troubleshooting-ssh) for more info on workarounds to SSH issues, or see [the new SSH Page](../warpify/features/ssh/) for more on the upcoming features.
 
 ## Online features don't work
 
@@ -79,7 +77,7 @@ If Warp is not working with your dotfile configuration,
 
 You can quickly set up clean configs by putting `ZDOTDIR=/` in a `~/.zshenv` file. This forces zsh to run with zero configs.
 
-Zsh loads your configuration settings in this [order](https://zsh.sourceforge.io/Intro/intro\_3.html):
+Zsh loads your configuration settings in this [order](https://zsh.sourceforge.io/Intro/intro_3.html):
 
 ```
 $ZDOTDIR/.zshenv
@@ -255,4 +253,4 @@ rm warpdotdev.gpg
 sudo apt update && sudo apt install warp-terminal
 ```
 
-See the instructions for other Linux distros on our[Installing & Onboarding](../getting-started/getting-started-with-warp.md#linux) doc.&#x20;
+See the instructions for other Linux distros on our[Installing & Onboarding](../getting-started/getting-started-with-warp.md#linux) doc.
