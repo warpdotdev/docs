@@ -14,9 +14,9 @@ Workflows are easily parameterized and searchable by name, description, or comma
 
 ## How to use it
 
-* Press [Command Search](command-search.md) or through the [Command Palette](../command-palette.md) to find Workflows.
+* Open the [Command Search](command-search.md) or Workflow Search `CTRL-SHIFT-R` panel to find Workflows.
 * Once inside the menu, start typing in the search bar to filter the existing workflows. (e.g. git, android, npm, etc.)
-* When a Workflow is selected, you can use `SHIFT-TAB` to cycle through the arguments.
+* When a Workflow is selected with `ENTER`, you can use `SHIFT-TAB` to cycle through the arguments.
 * You can also expand the menu horizontally with the mouse by dragging it on the right edge.
 
 {% hint style="info" %}
