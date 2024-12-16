@@ -6,6 +6,10 @@ description: >-
 
 # Active AI
 
+{% hint style="info" %}
+Active AI features can be disabled in `Settings > AI` with the Active AI toggle.
+{% endhint %}
+
 ## Prompt Suggestions
 
 Prompt Suggestions are contextual, AI-powered suggestions that activate Agent Mode. These banners will provide suggestions for what to ask Agent Mode in specific scenarios, similar to how Warp already suggests commands to run.
