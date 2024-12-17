@@ -63,6 +63,12 @@ You can initiate a downgrade at any point throughout your subscription through t
 
 You can continue to use your Warp Team plan features until the cycle end date. Any additional team members added to your team will be invoiced at the end of your billing cycle.
 
+### What happens if I upgrade from monthly to annual billing?
+
+When upgrading from a monthly to annual billing cycle the billing is prorated, meaning you only pay for the annual portion of the year you haven't paid for yet. You will be billed for the remaining part of the billing year with the discounted rate.\
+\
+You can initiate a upgrade at any point throughout your subscription through the billing portal by going to `Settings > Teams > Manage billing`.
+
 ### What happens if my payment fails?
 
 If a payment fails, you will receive an email from Stripe and your Warp Team Settings will show a past-due alert. Certain Team plan features and the ability to invite new members will be locked down while your Team is in a past-due state. Paying the most recent invoice through the [billing portal](https://app.warp.dev/upgrade) will fully re-enable your Team plan features.
