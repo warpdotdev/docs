@@ -25,6 +25,6 @@ There are 2 main causes of this:
 1. You opened Warp directly from the mounted volume instead of dragging it into your Applications directory. If this is the case, the easiest fix is to quit Warp, drag the application into /Applications, and restart Warp.
 2. You are a non-Admin user. This can happen if you use a computer with multiple profiles. If you have admin access on the computer, opening the app with the admin user should fix the auto-update issues.
 
-Note (Nov 2021): We will work on a fix for this in the future so that multiple profiles can use Warp.
-
-Note (Oct 2022): There is a known issue with [auto-update on MacOS Ventura](known-issues.md#auto-update-on-macos-ventura).
+{% hint style="info" %}
+(Oct 2022): There is a known issue with [auto-update on MacOS Ventura](known-issues.md#auto-update-on-macos-ventura).
+{% endhint %}

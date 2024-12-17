@@ -23,7 +23,7 @@ Links to popular GitHub issues:
 
 ## SSH
 
-To enable Blocks over SSH, Warp uses an SSH Wrapper function; navigate to settings > features if you need to disable it. Please see [Troubleshooting Legacy SSH](../features/warpify/ssh-legacy.md#troubleshooting-ssh) for more info on workarounds to SSH issues, or see [the new SSH Page](../warpify/features/ssh/) for more on the upcoming features.
+To enable Blocks over SSH, Warp uses an SSH Wrapper function; navigate to settings > features if you need to disable it. Please see [Troubleshooting Legacy SSH](../features/warpify/ssh-legacy.md#troubleshooting-ssh) for more info on workarounds to SSH issues, or see the [new SSH Page](../features/warpify/ssh.md) for more on the upcoming features.
 
 ## Online features don't work
 
@@ -125,7 +125,7 @@ Since Warp has an [Input Editor](../features/editor/) that wraps around the shel
 * [BIND keys](https://github.com/warpdotdev/Warp/issues/537)
   * `bindkey '^j' down-line-or-beginning-search`, which causes users to have to hit ENTER twice to run a command.
   * `bindkey 'tab' autosuggest-accept`, which causes incorrect behavior with autocompletion.
-* FIG, `z`, `compdef`, `compinit`, [prezto utility module](https://github.com/sorin-ionescu/prezto/blob/master/modules/utility/README.md), or other [shell-based completion](https://github.com/warpdotdev/Warp/discussions/434) plugins or definitions.
+* `z`, `compdef`, `compinit`, [prezto utility module](https://github.com/sorin-ionescu/prezto/blob/master/modules/utility/README.md), CodeWhisperer or other [shell-based completion](https://github.com/warpdotdev/Warp/discussions/434) plugins.
 * OH-MY-ZSH Themes
   * e.g. avit, spaceship, maybe more ...
 * OH-MY-ZSH Plugins
@@ -140,41 +140,6 @@ Since Warp has an [Input Editor](../features/editor/) that wraps around the shel
 * Python virtual environment PS1 [settings](https://github.com/warpdotdev/Warp/issues/2713#issuecomment-1447129449)
 * [Starship settings](../appearance/prompt.md#starship-settings)
 * Potentially more, this is an inexhaustive list ...
-
-## Fig
-
-### Bash and Fig
-
-A recent version of Fig (happens as of 1.0.56 - and may also happen on earlier versions) updated the bash rc files to prevent Warp from bootstrapping.
-
-To work around this, you can disable this logic for Warp. Note that you might have to do this for `.bash_profile` _and_ `.bashrc`.
-
-Also, Fig tends to re-write these lines in these files when it updates - so you might have to do this multiple times if you are using Fig actively.
-
-.bash\_profile
-
-```
-# Fig post block. Keep at the bottom of this file.
-if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
-    . "$HOME/.fig/shell/bash_profile.post.bash"
-fi
-```
-
-.bashrc
-
-```
-# Fig post block. Keep at the bottom of this file.
-if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
-    . "$HOME/.fig/shell/bashrc.post.bash"
-fi
-```
-
-### fish and Fig
-
-Some older installations of Fig (most notably prior to September 2021) include startup scripts that are incompatible with Warp's bootstrap process. As described above in [Configuring and debugging your RC files](known-issues.md#configuring-and-debugging-your-rc-files), those scripts should be gated on a check of the `TERM_PROGRAM` environment variable. The two important files in this case are:
-
-* `~/.config/fish/conf.d/00_fig_pre.fish`
-* `~/.config/fish/conf.d/99_fig_post.fish`
 
 ## macOS
 
