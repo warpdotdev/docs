@@ -8,6 +8,30 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2024.12.19 (v0.2024.12.18.08.02)
+
+**New features**
+
+* Introducing: Next Command! Next Command uses AI to suggest the next command to run based on your active terminal session and command history. Visit `Settings > AI` to turn it off
+* Added support for block and underline-styled cursors in the input editor (Only while vim mode is disabled)
+
+**Improvements**
+
+* Clarified default permission information for sessions and Warp Drive objects
+* \[Linux & Windows] `F11` (configurable) now toggles fullscreen
+* PowerShell environment variables are now recognized in completions
+* Cursor shape is now more responsive to clickable buttons
+
+**Bug fixes**
+
+* Characters from unhandled keystrokes no longer handled as typed characters in the alt screen, e.g. when using vim
+* Fixed issue with copying secrets when secret redaction is disabled
+* kubectl completions now respect your kubeconfig, specified through environment variables or command line flag
+* ssh commands with permission issues should no longer suggest sudo
+* Fixed an issue with lazygit entering a blank screen
+* \[macOS] Fixed a bug where Warp disk images volumes might not be unmounted after an update
+* \[macOS] Improved robustness of autoupdate process
+
 ### 2024.12.11 (v0.2024.12.10.15.55)
 
 **New features**
@@ -51,12 +75,12 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 
 **Improvements**
 
-* \[Agent Mode] Code outputs no longer show a confusing code diff UI
+* Agent Mode code outputs no longer show a confusing code diff UI
 * You can now sort Warp Drive objects by type, with folders on top
 
 **Bug fixes**
 
-* \[Agent Mode] Single-line code suggestions are no longer hidden behind the horizontal scrollbar
+* Agent Mode single-line code suggestions are no longer hidden behind the horizontal scrollbar
 * Fixed a crash interacting with Env Vars in the command palette
 
 ### 2024.11.14 (v0.2024.11.12.08.02)
