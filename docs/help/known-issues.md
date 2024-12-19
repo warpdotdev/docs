@@ -143,9 +143,16 @@ Since Warp has an [Input Editor](../features/editor/) that wraps around the shel
 
 ## macOS
 
+### SSH to local network device is denied
+
+On macOS, you may be [denied permission to SSH](https://github.com/warpdotdev/Warp/issues/5550) from Warp into other devices in your local network and see an error like: `ssh: connect to host <host_name> port 22: Undefined error: 0`.\
+To resolve this issue, go to Mac > System Settings > Privacy & Security > Local Network, and add Warp.
+
+<figure><img src="../.gitbook/assets/mac-ssh-permission.png" alt=""><figcaption><p>Mac SSH permission error</p></figcaption></figure>
+
 ### Unexpected loss of permission
 
-On macOS, you may see a `Operation not permitted` error when trying to run commands in directories that have already been granted permissions (Documents, Downloads, Desktop, etc). We believe this occurs due to a pending update, are working on a fix, and tracking it [here](https://github.com/warpdotdev/Warp/issues/3009). The best workaround at this time, is to [apply any pending Updates](updating-warp.md) so that the new Warp binary has the correct permissions.
+On macOS, you may see a `Operation not permitted` error when trying to run commands in directories that have already been granted macOS permissions (Documents, Downloads, Desktop, etc). The best workaround at this time, is to [apply any pending Updates](updating-warp.md) so that the new Warp binary has the correct permissions. We are and tracking this issue [here](https://github.com/warpdotdev/Warp/issues/3009).
 
 <figure><img src="../.gitbook/assets/permission-error-macos.png" alt=""><figcaption><p>Permission error on macOS</p></figcaption></figure>
 
@@ -203,11 +210,11 @@ If none of the workarounds help, please open a [new GitHub issue](https://github
     * Set [Default GPU](https://docs.mesa3d.org/drivers/d3d12.html#utilities) for WSL: e.g. `MESA_D3D12_DEFAULT_ADAPTER_NAME=NVIDIA`
     * Set [Graphics APIs](https://github.com/gfx-rs/wgpu?tab=readme-ov-file#environment-variables): e.g. `WGPU_BACKEND=gl`
 
-### Warp Upgrade fails after upgrading Linux
+### Warp update fails after upgrading Linux
 
-The Linux distro may modify Warp's package repository during the upgrade. Particularly Ubuntu, but this may affect other distros. We're tracking this issue on GitHub [here](https://github.com/warpdotdev/Warp/issues/5201).\
+Some Linux distros may modify Warp's package repository during the the OS upgrades. We're aware of this on Ubuntu, but this may affect other Linux distros. We're tracking this issue on GitHub [here](https://github.com/warpdotdev/Warp/issues/5201).\
 \
-To workaround this issue, manually add the repository to upgrade Warp.
+To workaround this issue, manually add the repository to update Warp. The Ubuntu example is below:
 
 ```
 sudo apt-get install wget gpg
@@ -218,4 +225,4 @@ rm warpdotdev.gpg
 sudo apt update && sudo apt install warp-terminal
 ```
 
-See the instructions for other Linux distros on our[Installing & Onboarding](../getting-started/getting-started-with-warp.md#linux) doc.
+See the instructions for other Linux distros on our [Quick Start Guide](../getting-started/getting-started-with-warp.md#linux).
