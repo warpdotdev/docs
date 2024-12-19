@@ -1,7 +1,7 @@
 ---
 description: >-
-  Active AI proactively recommends fixes and next actions based on errors,
-  inputs, and outputs.
+  Active AI proactively recommends fixes and next actions based on your terminal
+  errors, inputs, and outputs.
 ---
 
 # Active AI
@@ -26,8 +26,25 @@ Prompt Suggestions use an LLM to generate prompts based on your terminal session
 
 
 
-## Next Command (coming soon)
+## Next Command&#x20;
 
 Next Command uses AI to suggest the next command to run based on your active terminal session and command history. It uses your active terminal session contents and an LLM to generate commands.&#x20;
 
 <figure><img src="../../.gitbook/assets/Screenshot 2024-12-12 at 5.26.10 PM.png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="info" %}
+&#x20;Next Command proactively utilizes an LLM together with your command history and recent block input and output to generate the next command suggestions. \
+\
+**To disable, please visit Settings > AI > Next Command**
+{% endhint %}
+
+#### **Accepting a Next Command Suggestion**
+
+In order to use a next Command Suggestion, please use the `TAB` or `→` key to add the suggested next command to your input buffer. `ENTER` execute the accepted command.
+
+#### **Next Command And Billing**
+
+For the latest information on limits, visit [warp.dev/pricing](https://warp.dev/pricing). A Next Command only counts toward your limit if you explicitly accept the suggestion. If you enter a command that matches a suggested Next Command by typing it manually or rerunning it from your history, it will not count toward your usage.
+
+
+
