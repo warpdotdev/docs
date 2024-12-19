@@ -33,7 +33,7 @@ Next Command uses AI to suggest the next command to run based on your active ter
 <figure><img src="../../.gitbook/assets/Screenshot 2024-12-12 at 5.26.10 PM.png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-&#x20;Next Command proactively utilizes an LLM together with your command history and recent block input and output to generate the next command suggestions. \
+&#x20;Next Command is an LLM-based feature which utilizes your command history (enriched with git branch, exit code, and directory metadata) as well as recent block input and output to generate the next command suggestions. \
 \
 **To disable, please visit Settings > AI > Next Command**
 {% endhint %}
