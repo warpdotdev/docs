@@ -6,6 +6,8 @@ description: >-
 
 # Active AI
 
+
+
 {% hint style="info" %}
 Active AI features can be disabled in `Settings > AI` with the Active AI toggle.
 {% endhint %}
@@ -19,7 +21,9 @@ Prompt Suggestions are contextual, AI-powered suggestions that activate Agent Mo
 If you press `CMD-ENTER` (on Mac), `CTRL-SHIFT-ENTER` (on Linux/Windows), or click on the chip, the suggestion will be auto-populated into your input and run against Agent Mode (with the most recent block attached).
 
 {% hint style="info" %}
-Prompt Suggestions use an LLM to generate prompts based on your terminal session, specifically the most recent block. These AI requests do not contribute towards your AI limits, however, any accepted prompts run in Agent Mode contribute as normal. Visit Settings > AI > Agent Mode, if you'd like to turn it off.
+Prompt Suggestions use an LLM to generate prompts based on your terminal session, specifically the most recent block. These AI requests do not contribute towards your AI limits, however, any accepted prompts run in Agent Mode contribute as normal. Visit Settings > AI > Agent Mode, if you'd like to turn it off.\
+\
+\* Please note that [Secret Redaction](../secret-redaction.md) is automatically applied to any content sent to Active AI features to prevent any sensitive data being leaked.
 {% endhint %}
 
 <figure><img src="../../.gitbook/assets/spaces_-MbqIgTw17KQvq_DQuRr_uploads_git-blob-010f0d6e8d02c054768b2939c9d45cf84447b5e4_prompt-suggestions-setting.png" alt=""><figcaption><p>Setting for Prompt Suggestions</p></figcaption></figure>
@@ -34,13 +38,17 @@ Next Command uses AI to suggest the next command to run based on your active ter
 
 {% hint style="info" %}
 &#x20;Next Command is an LLM-based feature which utilizes your command history (enriched with git branch, exit code, and directory metadata) as well as recent block input and output to generate the next command suggestions. \
+
+
+Please note that [Secret Redaction](../secret-redaction.md) is automatically applied to any content sent to Active AI features to prevent any sensitive data being leaked.
+
 \
 **To disable, please visit Settings > AI > Next Command**
 {% endhint %}
 
 #### **Accepting a Next Command Suggestion**
 
-In order to use a next Command Suggestion, please use the `TAB` or `→` key to add the suggested next command to your input buffer. `ENTER` execute the accepted command.
+In order to use a next Command Suggestion, please use the `TAB` key , `→` key , or `CTRL-F` to add the suggested next command to your input buffer. `ENTER` executes the accepted command.
 
 #### **Next Command And Billing**
 
