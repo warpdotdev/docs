@@ -211,6 +211,7 @@ You might notice that in long conversations, the AI loses context from the very 
 {% endhint %}
 
 ## Coding capabilities in Agent Mode
+
 Agent Mode now includes advanced coding capabilities directly within your terminal, triggered when it detects an opportunity to generate a code diff. This powerful feature allows for seamless code generation, editing, and management tasks, all within your terminal environment.
 
 <figure><img src="../../.gitbook/assets/agent-mode-coding-capabilities.gif" alt="Agent mode coding capabilities demo of a topological sort in Python."><figcaption><p>Agent mode coding capabilities demo of a topological sort in Python.</p></figcaption></figure>
@@ -220,7 +221,9 @@ For a more tailored editing experience, you can attach context blocks directly f
 If you have questions or feedback about this recent feature, feel free to contact us at [feedback@warp.dev](mailto:feedback@warp.dev).
 
 ### **Examples of coding capabilities**
+
 Agent Mode responds to prompts related to code generation, editing, and analysis. Here are some examples:
+
 * Code creation: “Write a function in JavaScript to debounce an input”
 * Based on error outputs, suggest fixes: “Fix this TypeScript error.”
 * Modify code within a file: “Update all instances of ‘var’ to ‘let’ in this file.”
@@ -228,7 +231,8 @@ Agent Mode responds to prompts related to code generation, editing, and analysis
 
 When Agent Mode generates a code diff, you can review, refine, and decide whether to apply the changes.
 
-### **Navigating diffs with in text-editor view**
+### **Navigating diffs within text-editor view**
+
 When Agent Mode generates a code diff, it automatically triggers a built-in text editor diff view, which visually displays the changes as distinct hunks.
 
 You can navigate through the highlighted hunks using the `UP` and `DOWN` arrow keys or mouse clicks. Agent Mode also supports multi-file changes, enabling you to view and manage hunks across several files. To switch between files, use the `LEFT` and `RIGHT` arrow keys.
@@ -236,6 +240,7 @@ You can navigate through the highlighted hunks using the `UP` and `DOWN` arrow k
 Once satisfied with the changes, you can apply them by pressing `ENTER` or selecting the “Accept Changes” button. These modifications will not be applied to the files until you explicitly accept them.
 
 ### **Refining and editing diffs in text-editor view**
+
 For refining or customizing the changes, Agent Mode allows for further interaction. You can refine the query (and diff) using natural language by pressing `R` or the “Refine” button, which will generate an updated diff based on your follow-up input.
 
 If you wish to make direct edits within the text editor, press `E` or the “Edit” button to open the editor view. You can exit the editor by pressing `ESC`.
@@ -243,13 +248,14 @@ If you wish to make direct edits within the text editor, press `E` or the “Edi
 To cancel a pending action, use `CTRL-C` (on both Mac and Linux systems).
 
 ### **Supported languages for code suggestions in Agent Mode**
+
 Agent Mode’s built-in text editor supports a wide range of programming languages and syntax highlighting, including: Python, JavaScript, TypeScript, Rust, Golang, Java, C, C#, C++, HTML, CSS, Bash, JSON, YAML. We are also continuously working on adding support for more languages.
 
 ## How does billing work for Agent Mode?
 
 Every Warp plan includes a set number of Warp AI requests per user per month. Please refer to [pricing](https://www.warp.dev/pricing) to compare plans.
 
-Warp AI includes Agent Mode, [AI Command Suggestions](ai-command-suggestions.md), and AI autofill in Warp Drive. When you have used up your allotted requests for the cycle, you will not be able to issue any more AI requests until the cycle renews.
+AI Request limits apply to Agent Mode, [AI Command Suggestions](ai-command-suggestions.md), and AI autofill in Warp Drive. When you have used up your allotted requests for the cycle, you will not be able to issue any more AI requests until the cycle renews.
 
 ### What counts as a Warp AI request in Agent Mode?
 
@@ -257,7 +263,7 @@ Every time you submit an AI query from your input box, this counts as one Warp A
 
 [Suggested commands](agent-mode.md#agent-mode-command-suggestions) and [requested commands](agent-mode.md#agent-mode-requested-commands) do not count as billable Warp AI requests.
 
-You can monitor your request usage under `Settings > AI > Request Usage`.
+You can monitor your request usage under `Settings > AI > Usage`.
 
 ### **When do my Warp AI requests refresh?**
 

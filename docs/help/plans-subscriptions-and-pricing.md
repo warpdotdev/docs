@@ -26,15 +26,15 @@ To subscribe to a paid Warp plan like Pro or Team, you must first [create a Team
 
 Warp offers an Enterprise plan with custom pricing for larger engineering organizations or businesses with advanced security and compliance requirements. If you are interested in learning whether an Enterprise plan might be the best fit for your team, please [contact us](https://www.warp.dev/contact-sales) to kick off a conversation.
 
-### How can I upgrade for higher Warp AI request limits?
+### How can I upgrade for more Warp AI requests and command suggestions?
 
-Both Warp’s Pro plan and Warp's Team plan include higher limits for Warp AI requests than what’s currently available on the Warp Free plan. Even if you are working alone and not ready to invite additional team members for collaboration, you will need to [create a Team](../features/teams.md#creating-a-team) in Warp to upgrade to the paid Warp plan, which unlocks access to higher AI limits.
+Both Warp’s Pro and Team plans include higher limits for Warp AI requests and command suggestions than what’s currently available on the Warp Free plan. Even if you are working alone and not ready to invite additional team members for collaboration, you will need to [create a Team](../features/teams.md#creating-a-team) in Warp to upgrade to the paid Warp plan, which unlocks access to higher AI limits.
 
 If you are not planning on extending invites to any team member collaborators, we suggest creating a Team with your name, e.g. “Zach’s Team” or “My Personal Team.” Then you can [upgrade online](https://app.warp.dev/upgrade) or in the downloaded app by navigating to Settings → Teams and finding the upgrade link.
 
 ### What counts as a team member and how does billing work for members?
 
-In Warp, a team member is a seat with access to your Team, which includes access to the shared team Warp Drive and any shared objects like Notebooks or Workflows in that Warp Drive. Every Warp Drive team on any plan allows an unlimited number of users. However, to gain access to more features, such as more AI requests or no limits on the number of Warp Drive objects you can create, you will need to upgrade to a tier that includes those features. Upgrading a Warp Drive team to a new tier upgrades both your account as well as the accounts of all members on the same team.\
+In Warp, a team member is a seat with access to your Team, which includes access to the shared team Warp Drive and any shared objects like Notebooks or Workflows in that Warp Drive. Every Warp Drive team on any plan allows an unlimited number of users. However, to gain access to more features and higher limits, you will need to upgrade to a tier that includes those features. Upgrading a Warp Drive team to a new tier upgrades both your account as well as the accounts of all members on the same team.\
 \
 Warp's Free plan includes access to share up to a limited number of Notebooks and Workflows with a team of other Free members. Beyond the limit, you will be prompted to [upgrade to a Warp Team plan](https://app.warp.dev/upgrade) to share more.\
 \
@@ -73,21 +73,23 @@ You can initiate a upgrade at any point throughout your subscription through the
 
 If a payment fails, you will receive an email from Stripe and your Warp Team Settings will show a past-due alert. Certain Team plan features and the ability to invite new members will be locked down while your Team is in a past-due state. Paying the most recent invoice through the [billing portal](https://app.warp.dev/upgrade) will fully re-enable your Team plan features.
 
-### What counts as a Warp AI request?
+### What counts as a Warp AI request or suggestion?
 
-[Warp AI](../features/warp-ai/) includes [Agent Mode](../features/warp-ai/agent-mode.md), AI Command Suggestions (“#), and AI autofill in Warp Drive.
+[Warp AI](../features/warp-ai/) includes [Agent Mode](../features/warp-ai/agent-mode.md), [Active AI](../features/warp-ai/active-ai.md), [AI Command Suggestions](../features/warp-ai/ai-command-suggestions.md), and [AI Autofill](../features/warp-drive/workflows.md#ai-autofill) in Warp Drive.
 
-Every time you submit an AI query with Agent Mode, it counts as one AI request. Agent Mode suggested commands and requested commands do not count as AI requests
+Every time you submit an AI query with Agent Mode, it counts as one AI request. Agent Mode suggested commands and requested commands do not count as AI requests.
 
+Active AI features like Next Command have a seperate counter and only count when accepted.\
+\
+[AI Command Suggestions](../features/warp-ai/ai-command-suggestions.md) lets you look up commands as you’re typing. As you’re entering and adjusting a query to look up a command suggestion, you may incur multiple AI requests before selecting a suggestion.\
+\
 Anytime you run AI Autofill in Warp Drive, this counts as one AI request.
-
-[AI Command Suggestions](../features/warp-ai/ai-command-suggestions.md) lets you look up commands as you’re typing. As you’re entering and adjusting a query to look up a command suggestion, you may incur multiple AI requests before selecting a suggestion.
 
 Request limits are allocated at the seat level to Warp users or team members. You can follow along with your request limits by referencing the counter under Settings -> AI.
 
-### How often does my Warp AI request limit reset?
+### How often does my Warp AI request and suggestion limits reset?
 
-Allotted AI requests refill every 30 days from your signup date. When you upgrade to a Pro or Team plan, you will be given a higher request limit immediately. You can follow along with your refill period by referencing the counter under Settings -> AI.
+Allotted AI requests and command suggestions limits reset every 30 days from your signup date. When you upgrade to a Pro or Team plan, you will be given a higher request limit immediately. You can follow along with your refill period by referencing the counter under Settings -> AI.
 
 ### How can I get the most out of my Warp Team plan?
 
