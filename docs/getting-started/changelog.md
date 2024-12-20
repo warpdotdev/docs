@@ -150,26 +150,6 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 * All find matches are correctly highlighted in the alt-screen
 * Hitting `ENTER` within the Launch Config Save Modal will work as expected
 
-### 2024.10.17 (v0.2024.10.15.08.02)
-
-**New features**
-
-* Warp.dev has a fresh look today! Check out what's new and read about the design process behind the launch [here](https://www.warp.dev/blog/world-of-warp)
-
-**Improvements**
-
-* Created a setting allowing focus to follow mouse hover ([#699](https://github.com/warpdotdev/Warp/issues/699))
-* Added support for Node Version chip in Warp Prompt
-* Automatically switch to shell command input mode if accepting a shell command autosuggestion from Agent Mode
-* \[macOS] Adjusted default font smoothing `Appearance > "Use thin strokes"` configuration to improve text legibility
-
-**Bug fixes**
-
-* Alt-screen find doesn't beachball when scrolling through find matches
-* You can now select individual cells in the alt-screen
-* All find matches are correctly highlighted in the alt-screen
-* Hitting `ENTER` within the Launch Config Save Modal will work as expected
-
 ### 2024.10.08 (v0.2024.10.08.08.02)
 
 **Improvements**
@@ -573,26 +553,20 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 
 * Warp on Linux (Private Beta): Added support for the Input Mode Editor (IME)
 
-### 2024.02.14 (v0.2024.02.14.15.46)
-
-**New features**
-
-* Warp on Linux (Private Beta): Added support for the Input Mode Editor (IME)
-
-### 2023.02.08 (v0.2024.02.13.08.02)
+### 2024.02.08 (v0.2024.02.13.08.02)
 
 **Bug fixes**
 
 * Fix the inputted command sometimes overlapping rprompt (right-sided prompt)
 
-### 2023.02.01 (v0.2024.01.30.16.52)
+### 2024.02.01 (v0.2024.01.30.16.52)
 
 **Improvements**
 
 * Improved UX for pasting an auth token to complete the sign-in flow
 * Subversion (svn) information is now available in Warp's prompt
 
-### 2023.01.18 (v0.2024.01.16.16.31)
+### 2024.01.18 (v0.2024.01.16.16.31)
 
 **New features**
 
@@ -602,7 +576,7 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 
 * Warp on Linux (Private Beta): `ALT-TAB` no longer incorrectly inserts 4 spaces into the Input Editor
 
-### 2023.01.11 (v0.2024.01.09.08.02)
+### 2024.01.11 (v0.2024.01.09.08.02)
 
 **New features**
 
