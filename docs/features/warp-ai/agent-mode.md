@@ -247,9 +247,20 @@ If you wish to make direct edits within the text editor, press `E` or the “Edi
 
 To cancel a pending action, use `CTRL-C` (on both Mac and Linux systems).
 
+{% hint style="info" %}
+You can open up code files in Warp by clicking on the link and selecting "Open in Warp"\
+
+{% endhint %}
+
 ### **Supported languages for code suggestions in Agent Mode**
 
 Agent Mode’s built-in text editor supports a wide range of programming languages and syntax highlighting, including: Python, JavaScript, TypeScript, Rust, Golang, Java, C, C#, C++, HTML, CSS, Bash, JSON, YAML. We are also continuously working on adding support for more languages.
+
+{% hint style="info" %}
+You can also open supported code files in Warp by clicking on the link, then selecting "Open in Warp". To save your changes, press `CMD-S` on macOS or `CTRL-S` on Linux and Windows.
+{% endhint %}
+
+<figure><img src="../../.gitbook/assets/open-in-warp-code.gif" alt=""><figcaption><p>Opening code files in Warp</p></figcaption></figure>
 
 ## How does billing work for Agent Mode?
 
