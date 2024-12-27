@@ -248,8 +248,7 @@ If you wish to make direct edits within the text editor, press `E` or the “Edi
 To cancel a pending action, use `CTRL-C` (on both Mac and Linux systems).
 
 {% hint style="info" %}
-You can open up code files in Warp by clicking on the link and selecting "Open in Warp"\
-
+You can open up code files in Warp by clicking on the link and selecting "Open in Warp"\\
 {% endhint %}
 
 ### **Supported languages for code suggestions in Agent Mode**
@@ -262,23 +261,9 @@ You can also open supported code files in Warp by clicking on the link, then sel
 
 <figure><img src="../../.gitbook/assets/open-in-warp-code.gif" alt=""><figcaption><p>Opening code files in Warp</p></figcaption></figure>
 
+## Warp Drive as Agent Mode context
 
-## Prompt Suggestions
-
-Prompt Suggestions are contextual, AI-powered suggestions that activate Agent Mode. These banners will provide suggestions for what to ask Agent Mode in specific scenarios, similar to how Warp already suggests commands to run.
-
-<figure><img src="../../.gitbook/assets/spaces_-MbqIgTw17KQvq_DQuRr_uploads_git-blob-9068c40fd8eea9b45eebcda6f08832023b4e9fa0_prompt-suggestions-example.png" alt=""><figcaption><p>Example of inline banner popping up when relevant contextually.</p></figcaption></figure>
-
-If you press `CMD-ENTER` (on Mac), `CTRL-SHIFT-ENTER` (on Linux/Windows), or click on the chip, the suggestion will be auto-populated into your input and run against Agent Mode (with the most recent block attached).
-
-{% hint style="info" %}
-Prompt Suggestions use an LLM to generate prompts based on your terminal session, specifically the most recent block. These AI requests do not contribute towards your AI limits, however, any accepted prompts run in Agent Mode contribute as normal. Visit Settings > AI > Agent Mode, if you'd like to turn it off.\
-\
-\* Please note that [Secret Redaction](../secret-redaction.md) is automatically applied to any content sent to Active AI features to prevent any sensitive data being leaked.
-{% endhint %}
-
-<figure><img src="../../.gitbook/assets/spaces_-MbqIgTw17KQvq_DQuRr_uploads_git-blob-010f0d6e8d02c054768b2939c9d45cf84447b5e4_prompt-suggestions-setting.png" alt=""><figcaption><p>Setting for Prompt Suggestions</p></figcaption></figure>
-
+Agent Mode can leverage your [Warp Drive](../warp-drive/) contents to tailor responses to your personal and team developer workflows and environments. This includes any Workflows, Notebooks, Environmental Variables, etc..
 
 ## How does billing work for Agent Mode?
 
