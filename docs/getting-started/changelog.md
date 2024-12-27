@@ -8,17 +8,28 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board](https://github.com/warpdotdev/Warp/issues/new/choose)
 
-### 2024.12.19 (v0.2024.12.18.08.02)
+### 2024.12.26 (v0.2024.12.18.08.02.stable\_04)
+
+**Improvements**
+
+* Warp now immediately shows an error when trying to Warpify unsupported shells over SSH
+
+**Bug fixes**
+
+* Fixed blank lines being appended to some blocks on resize
+* Fixed an issue where the AI context disappears when accepting the default autosuggestion
+
+### 2024.12.19 (v0.2024.12.18.08.02.stable\_03)
 
 **New features**
 
-* Introducing: Next Command! Next Command uses AI to suggest the next command to run based on your active terminal session and command history. Visit `Settings > AI` to turn it off
+* [Next Command](../features/warp-ai/active-ai.md#next-command) uses AI to suggest the next command to run based on your active terminal session and command history. Visit `Settings > AI` to turn it off
 * Added support for block and underline-styled cursors in the input editor (Only while vim mode is disabled)
 
 **Improvements**
 
 * Clarified default permission information for sessions and Warp Drive objects
-* \[Linux & Windows] `F11` (configurable) now toggles fullscreen
+* \[Linux & Windows] `F11` (configurable) now toggles full-screen
 * PowerShell environment variables are now recognized in completions
 * Cursor shape is now more responsive to clickable buttons
 
@@ -28,15 +39,15 @@ Submit bugs and feature requests on our [GitHub board](https://github.com/warpdo
 * Fixed issue with copying secrets when secret redaction is disabled
 * kubectl completions now respect your kubeconfig, specified through environment variables or command line flag
 * ssh commands with permission issues should no longer suggest sudo
-* Fixed an issue with lazygit entering a blank screen
+* Fixed an issue with `lazygit` entering a blank screen
 * \[macOS] Fixed a bug where Warp disk images volumes might not be unmounted after an update
-* \[macOS] Improved robustness of autoupdate process
+* \[macOS] Improved robustness of auto-update process
 
 ### 2024.12.11 (v0.2024.12.10.15.55)
 
 **New features**
 
-* Prompt Suggestions may appear above the input, helping you activate Agent Mode quickly in scenarios where it might be helpful. Note this feature sends activity to an LLM to generate prompts, head to `Settings > AI > Agent Mode` if you'd like to turn it off. [Learn more](../features/warp-ai/active-ai.md#prompt-suggestions)
+* [Prompt Suggestions](../features/warp-ai/active-ai.md#prompt-suggestions) may appear above the input, helping you activate Agent Mode quickly in scenarios where it might be helpful. Note this feature sends activity to an LLM to generate prompts, head to `Settings > AI > Agent Mode` if you'd like to turn it off
 * Warp now has support for Claude 3.5 Sonnet and Haiku. Choose which model to use in the dropdown menu above your Agent Mode prompts
 * Agent Mode can now leverage your Warp Drive contents to tailor responses to your personal and team developer workflows
 * Warp has added a Shell Selector - a dropdown menu next to the 'New tab' button in the tab bar - to quickly pick from the shells available on your system
