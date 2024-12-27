@@ -16,7 +16,7 @@ You can fully customize Warp's appearance, prompts, settings, and keybindings to
 
 For an inside look at how Warp is built, you can read the blog post on [How Warp Works](https://www.warp.dev/blog/how-warp-works).
 
-To see Warp in action, check out this video by Warp's [Developer Advocate](https://www.warp.dev/about-us), [Jess Wang](https://twitter.com/daRubberDuckiee).
+To see Warp in action, check out this video by Warp's Developer Advocate, [Jess Wang](https://twitter.com/daRubberDuckiee).
 
 {% embed url="https://www.youtube.com/watch?v=Ab7tRyN62yI" %}
 Warp Demo Nov 2024
