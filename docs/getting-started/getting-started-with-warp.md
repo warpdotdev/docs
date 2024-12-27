@@ -159,6 +159,10 @@ After installation, you will be prompted to sign up for a Warp account. You have
 
 If you sign up using Google or GitHub, Warp only gets access to the associated email address. Visit the [Privacy](privacy.md) page for more details on Warp's approach to privacy.
 
+### Onboarding Survey (Optional)
+
+Warp will ask a few questions within the app after you sign up. The survey is optional. You can skip all questions if you’d like. Why do we ask these? Understanding how you use the terminal helps us improve the product and prioritize the right features to build.
+
 ### Use Warp offline
 
 You will only need an active internet connection when you open the Warp app for the first time. Once opened, [Warp is able to run with no internet connection](../help/using-warp-offline.md), although certain features that require an internet connection will be unavailable.
