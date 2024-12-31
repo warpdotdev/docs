@@ -114,7 +114,7 @@ First, click your environment variable from Warp Drive or the Command Palette.
 
 Then, review the confirmation block. If your environment variables are correct, hit enter to load them into your session.
 
-<figure><img src="../../.gitbook/assets/env-var-load-to-input.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/env-var-load-to-input (4).png" alt=""><figcaption></figcaption></figure>
 
 <figure><img src="../../.gitbook/assets/env-var-load-in-session.png" alt=""><figcaption></figcaption></figure>
 

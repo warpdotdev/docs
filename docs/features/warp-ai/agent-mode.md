@@ -86,7 +86,7 @@ When you run a command suggested by Agent Mode, that command will work like a st
 
 If the suggested command fails and you want to resolve the error, you may start a new AI query to address the problem.
 
-<figure><img src="../../.gitbook/assets/agent-mode-suggestion.png" alt="Agent Mode makes a suggestion to run a command."><figcaption><p>Agent Mode makes a suggestion to run a command.</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/agent-mode-suggestion (3).png" alt="Agent Mode makes a suggestion to run a command."><figcaption><p>Agent Mode makes a suggestion to run a command.</p></figcaption></figure>
 
 #### Agent Mode Requested Commands
 

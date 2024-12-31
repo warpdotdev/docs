@@ -13,9 +13,10 @@ Active AI features can be disabled in `Settings > AI` with the Active AI toggle.
 ## Prompt Suggestions
 
 Prompt Suggestions are contextual, AI-powered suggestions that activate Agent Mode. These banners will provide suggestions for what to ask Agent Mode in specific scenarios, similar to how Warp already suggests commands to run.
+
 * To disable, please visit `Settings > AI > Active AI > Prompt Suggestions`
 
-<figure><img src="../../.gitbook/assets/prompt-suggestions-example.png" alt=""><figcaption><p>Example of inline banner popping up when relevant contextually.</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/prompt-suggestions-example (1).png" alt=""><figcaption><p>Example of inline banner popping up when relevant contextually.</p></figcaption></figure>
 
 ### Accepting a Prompt Suggestion
 
@@ -27,11 +28,12 @@ Prompt Suggestions use an LLM to generate prompts based on your terminal session
 [Secret Redaction](../secret-redaction.md) is automatically applied to any content sent to Active AI features to prevent any sensitive data being leaked.
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/prompt-suggestions-setting.png" alt=""><figcaption><p>Setting for Prompt Suggestions</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/prompt-suggestions-setting (1).png" alt=""><figcaption><p>Setting for Prompt Suggestions</p></figcaption></figure>
 
 ## Next Command
 
-Next Command uses AI to suggest the next command to run based on your active terminal session and command history. It uses your active terminal session contents and an LLM to generate commands.&#x20;
+Next Command uses AI to suggest the next command to run based on your active terminal session and command history. It uses your active terminal session contents and an LLM to generate commands.
+
 * To disable, please visit `Settings > AI > Active AI > Next Command`
 
 <figure><img src="../../.gitbook/assets/next-command.png" alt=""><figcaption></figcaption></figure>
