@@ -86,7 +86,7 @@ When you run a command suggested by Agent Mode, that command will work like a st
 
 If the suggested command fails and you want to resolve the error, you may start a new AI query to address the problem.
 
-<figure><img src="../../.gitbook/assets/agent-mode-suggestion (3).png" alt="Agent Mode makes a suggestion to run a command."><figcaption><p>Agent Mode makes a suggestion to run a command.</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/agent-mode-suggestion.png" alt="Agent Mode makes a suggestion to run a command."><figcaption><p>Agent Mode makes a suggestion to run a command.</p></figcaption></figure>
 
 #### Agent Mode Requested Commands
 
@@ -186,7 +186,7 @@ To enter follow-up mode manually, press `CTRL-Y`.
 {% endtab %}
 {% endtabs %}
 
-<figure><img src="https://lh7-us.googleusercontent.com/docsz/AD_4nXfjbyDahdx8N92hqQCRjNCEaZaALNuQ2qOLIOicgsJag3OOsLPqhurAXx_Mfv_1iu9FnqmMkV5RtKSx_cc5mh30K7uM898-tYR1Ej3gsEqR3BkS72fl_TOOkIqVLFYLfLOFuiTNjdm8a3P7yegZDea-EAf6?key=93MSbS8PGHqqCWcAfKQhVw" alt=""><figcaption><p>A continuing conversation in Agent Mode with a follow-up indicator</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/agent-mode-with-followup.png" alt=""><figcaption><p>A continuing conversation in Agent Mode with a follow-up indicator</p></figcaption></figure>
 
 ### **How to start a new conversation**
 
@@ -202,7 +202,7 @@ To start a new conversation manually, use `CTRL-Y` or `BACKSPACE`.
 {% endtab %}
 {% endtabs %}
 
-<figure><img src="https://lh7-us.googleusercontent.com/docsz/AD_4nXfH3_f7d4_tZ5-Iqp4MfCX906vB62UgwGtZrvAs5qOw99JZod_WRvpHbBMJWKzT7UUDzPMsAaOHVOaA_GM-R8BjEJpDFlXh74dasTR_CUNwBlBM3zdnxuFfy7UxcyoMgQbl9VxX90aXJItaKfHjhNVIeyAw?key=93MSbS8PGHqqCWcAfKQhVw" alt=""><figcaption><p>A new conversation in Agent Mode with no follow-up indicator</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/agent-mode-no-followup.png" alt=""><figcaption><p>A new conversation in Agent Mode with no follow-up indicator</p></figcaption></figure>
 
 {% hint style="info" %}
 **Context truncation**
