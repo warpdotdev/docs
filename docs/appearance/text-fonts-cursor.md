@@ -33,7 +33,16 @@ On Linux, Warp does not support the "Use thin stroke" feature.
 
 ### Cursor
 
-To access it, go to `Settings > Appearance > Cursor`, from there you can toggle the Blinking cursor or from the [Command Palette](../features/command-palette.md), type "Cursor blink" and toggle the setting.
+To access it, go to `Settings > Appearance > Cursor`
+
+From there you can customize:
+
+* Select the Cursor type to Bar, Block, or Underline.
+* Toggle the Blinking cursor or from the [Command Palette](../features/command-palette.md), type "Cursor blink" and toggle the setting.
+
+{% hint style="info" %}
+Cursor type preference is disabled while [Vim keybindings](../features/editor/vim.md) (vim mode) is active.
+{% endhint %}
 
 ## How it works
 
