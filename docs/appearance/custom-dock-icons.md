@@ -5,14 +5,18 @@ hidden: true
 
 # Custom dock icons
 
-{% hint style="info" %}
-Currently, the Docker extension is only available on macOS.
+{% hint style="warning" %}
+This feature isn't available yet. This page is dedicated to the upcoming feature which we will update the progress on github request [#5408](https://github.com/warpdotdev/Warp/issues/5408#issuecomment-2520941378).
 {% endhint %}
 
 ## How to change the dock icon
 
 * Navigate to `Settings > Appearance > Icon`
 * Select the desired dock icon from the drop down menu
+
+{% hint style="info" %}
+Custom dock icons are only available on macOS.
+{% endhint %}
 
 <figure><img src="../.gitbook/assets/custom-dock-icon-dropdown.png" alt=""><figcaption><p>Icon customization drop-down menu</p></figcaption></figure>
 
