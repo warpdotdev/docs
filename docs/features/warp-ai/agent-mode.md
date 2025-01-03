@@ -271,7 +271,7 @@ Every Warp plan includes a set number of Warp AI requests per user per month. Pl
 
 AI Request limits apply to Agent Mode, [AI Command Suggestions](ai-command-suggestions.md), and AI autofill in Warp Drive. When you have used up your allotted requests for the cycle, you will not be able to issue any more AI requests until the cycle renews.
 
-### What counts as a Warp AI request in Agent Mode?
+#### What counts as a Warp AI request in Agent Mode?
 
 Every time you submit an AI query from your input box, this counts as one Warp AI request.
 
@@ -279,7 +279,7 @@ Every time you submit an AI query from your input box, this counts as one Warp A
 
 You can monitor your request usage under `Settings > AI > Usage`.
 
-### **When do my Warp AI requests refresh?**
+#### **When do my Warp AI requests refresh?**
 
 Allotted AI requests refill every 30 days from your signup date. When you upgrade to a Pro or Team plan, you will be given more requests immediately. You can follow along with your refill period by referencing `Settings > AI > Request Usage`.
 
@@ -308,17 +308,21 @@ We recognize that the terminal is a sensitive environment and we want to be expl
 * You cannot continue any conversation that’s before an existing conversation.
 * Agent Mode works better with Warp's default prompt settings, where the prompt starts on a new line, than it does with a same-line prompt. If you are using the same-line prompt, the cursor will jump from the end of the single line to the start of the input box when you switch to Agent Mode.
 
-## Exceeding Agent Mode limits
+### Exceeding Agent Mode token limits
 
-**“Message token limit exceeded” error**
+{% hint style="info" %}
+**Tokens** are chunks of text, such as words, parts of code, or characters, that large language models (LLMs) break down to analyze and generate responses. LLMs have a maximum number of tokens they can process at once. [Requests](agent-mode.md#what-counts-as-a-warp-ai-request-in-agent-mode) are not the same as Tokens, which are limited separately regardless of which [plan](../../help/plans-subscriptions-and-pricing.md) you're on. Please learn more about Tokens [here](https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them).
+{% endhint %}
+
+#### **“Message token limit exceeded” error**
 
 If you run into this error, it means that your query and attached context have collectively hit the context window limit on the models we are using. On GPT-4o, Warp AI cannot send more than 123,904 tokens in a single request, or you may not get output. To resolve this error, we recommend you start a new conversation or attach fewer lines of blocks to the query.
 
-**“Monthly token limit exceeded” error**
+#### **“Monthly token limit exceeded” error**
 
 Warp has set an extremely high token limit on users to prevent abuse. We do not anticipate any user hitting this limit. If you hit this limit and are interested in getting it lifted, please contact us with your use case at [feedback@warp.dev](mailto:feedback@warp.dev)
 
-## Agent Mode FAQs
+### Agent Mode FAQs
 
 #### What happened to the old Warp AI chat panel?
 
@@ -336,4 +340,4 @@ As of now, Warp supports OpenAI’s GPT-4o, Claude 3.5 Sonnet, and Claude 3.5 Ha
 
 Warp AI is tailored for the terminal so you can get optimal results and performance. It’s suitable for AI power users and professional use cases.
 
-For organizations with strict security requirements, a “Bring Your Own LLM” option is available on the Enterprise plan. At the Enterprise plan level, we can work closely with your team to ensure quality and compliance for your LLM of choice.\\
+For organizations with strict security requirements, a “Bring Your Own LLM” option is available on the Enterprise plan. At the Enterprise plan level, we can work closely with your team to ensure quality and compliance for your LLM of choice.
