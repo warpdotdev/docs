@@ -8,6 +8,38 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2025.01.09 (v0.2025.01.08.08.02)
+
+**New features**
+
+* A percentage of Warp users may now enable cloud syncing of their Warp settings under `Settings` > `Account`. We are gradually enabling this feature for all Warp users starting in this release. See the [documentation](https://docs.warp.dev/features/settings-sync) for more information
+* Introduced a setting to hide the tab bar ([Zen mode](https://github.com/warpdotdev/Warp/issues/1009)). See the [documentation](https://docs.warp.dev/appearance/tabs-behavior) for more
+* Introduced new profile menu
+
+**Improvements**
+
+* Removed the Command Corrections banner, as there's already an autosuggestion in the input editor
+* Implemented `_`, `+`, and `-` motions in [Vim mode](../features/editor/vim.md)
+* Warp will now show a warning before closing a session with a long-running process
+* Pasting multiple lines of content into the [Find](../features/find.md) feature will convert it into a single line of text, rather than hide previous lines
+* Titles of notebooks imported from Markdown files no longer end in \`.md\`
+* "What's new" no longer shows on update
+* Added the ability to hide blocklist lines
+* Consolidated top bar navigation items
+* Settings are now in the profile menu
+* Scrollbars and pane controls only show on hover
+
+**Bug fixes**
+
+* Fixed the rendering of keyboard shortcuts at larger font sizes
+* Tab completion menu now closes after selecting a single remaining suggestion
+* Warp displays an error if relaunching to apply an update failed
+* Old prompt suggestions won't reappear when issuing AI queries rapidly or after clearing the blocklist
+* Accepting the 'What happened here?' autosuggestion no longer clears AI context blocks
+* `ALT` key now sends meta control codes to the shell in long-running blocks and the alt screen
+* When secret redaction is disabled, secrets are not redacted in command corrections
+* \[MacOS] Fixed a bug where assigning `CMD-SHIFT-LEFT` and `CMD-SHIFT-RIGHT` to an action sometimes wouldn't work
+
 ### 2024.12.26 (v0.2024.12.18.08.02.stable\_04)
 
 **Improvements**
