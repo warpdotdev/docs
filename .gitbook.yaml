@@ -25,3 +25,4 @@ redirects:
     features/subshells: features/warpify/subshells.md
     features/ssh: features/warpify/ssh-legacy.md
     appearance/transparency-and-blurring: appearance/opacity-blurring-dimming.md
+    appearance/tab-indicators: appearance/tabs-behavior.md

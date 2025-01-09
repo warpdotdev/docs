@@ -20,7 +20,7 @@
 * [Size, Opacity, & Blurring](appearance/size-opacity-blurring.md)
 * [Pane Dimming & Focus](appearance/pane-dimming.md)
 * [Compact Mode](appearance/compact-mode.md)
-* [Tab Indicators](appearance/tab-indicators.md)
+* [Tabs Behavior](appearance/tabs-behavior.md)
 * [Custom dock icons](appearance/custom-dock-icons.md)
 
 ## 📕 Features
