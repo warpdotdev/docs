@@ -79,6 +79,7 @@
 * [Full-screen Apps](features/full-screen-apps.md)
 * [Keyboard Shortcuts](features/keyboard-shortcuts.md)
 * [Notifications & Audible Bell](features/notifications.md)
+* [Settings Sync (Beta)](features/settings-sync.md)
 * [Quit Warning](features/quit-warning.md)
 * [Integrations](features/integrations-and-plugins.md)
 * [URI Scheme](features/uri-scheme.md)
