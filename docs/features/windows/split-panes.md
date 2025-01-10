@@ -6,11 +6,12 @@ description: >-
 
 # Split Panes
 
-## How to use it
+## How to use Split Panes
 
 {% tabs %}
 {% tab title="macOS" %}
 * Split Panes to the right / down with `CMD-D` / `SHIFT-CMD-D` or in any direction by right-clicking on any Pane.
+* Activate the Previous / Next Pane with `CMD-[` / `CMD-]` or by clicking a pane.
 * Navigate among Split Panes with `OPT-CMD-ARROW`, the active pane will be marked with a triangle in the top corner.
 * Toggle Maximize Pane with `CMD-SHIFT-ENTER`.
 * Close the active Pane with `CMD-W`.
@@ -19,6 +20,7 @@ description: >-
 
 {% tab title="Linux" %}
 * Split Panes to the right / down with `CTRL-SHIFT-D` / `CTRL-SHIFT-E` or in any direction by right-clicking on any Pane.
+* Activate the Previous / Next Pane with `CTRL-SHIFT-{` / `CTRL-SHIFT-}` or by clicking a pane.
 * Navigate among Split Panes with `CTRL-ALT-ARROW`, the active pane will be marked with a triangle in the top corner.
 * Toggle Maximize Pane with `CTRL-SHIFT-ENTER`.
 * Close the active Pane with `CTRL-SHIFT-W`.
@@ -30,7 +32,7 @@ description: >-
 You can quickly find all the **pane** shortcuts by using the [Command Palette](../command-palette.md). You can also remap the shortcuts to your liking. See [Custom Keyboard Shortcuts](../keyboard-shortcuts.md#custom-keyboard-shortcuts) for more details.
 {% endhint %}
 
-## How it works
+## How Split Panes work
 
 {% embed url="https://www.loom.com/share/c1104b51cab848a9bef6792ec4fd8421?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
 Split Panes Demo

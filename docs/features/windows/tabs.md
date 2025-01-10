@@ -11,11 +11,7 @@ description: >-
 New Tabs will default to the active Tabs’ current [Working Directory](../working-directory.md) and the actual color values will be automatically derived from your Warp [Theme](../../appearance/themes.md).
 {% endhint %}
 
-### Tab Restoration
-
-Tab Restoration enables you to reopen recently closed tabs for up to 60 seconds. Configure this feature in `Settings > Features > Session > Enable reopening of closed sessions`
-
-## How to use it
+## How to use Tabs
 
 {% tabs %}
 {% tab title="macOS" %}
@@ -45,7 +41,7 @@ Tab Restoration enables you to reopen recently closed tabs for up to 60 seconds.
 {% endtab %}
 {% endtabs %}
 
-{% hint style="info" %}
+{% hint style="success" %}
 **Terminal Tip**\
 Using your `.zshrc` or `.bashrc` files, you can set a new Tab name:
 
@@ -67,8 +63,16 @@ fi
 Learn more about Tab names [here](https://learn.microsoft.com/en-us/windows/terminal/tutorials/tab-title#set-the-shells-title).
 {% endhint %}
 
-## How it works
+### How Tabs work
 
 {% embed url="https://www.loom.com/share/84d15cc7eb5a4a668bb86be9e827f261?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
 Tabs Demo
 {% endembed %}
+
+### Tab Restoration
+
+Tab Restoration enables you to reopen recently closed tabs for up to 60 seconds. Configure this feature in `Settings > Features > Session > Enable reopening of closed sessions`
+
+### Tabs Behavior
+
+Please see our [Appearance > Tabs Behavior](../../appearance/tabs-behavior.md) docs for more Tab related settings.&#x20;
