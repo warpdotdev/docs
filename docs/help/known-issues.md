@@ -125,7 +125,7 @@ Since Warp has an [Input Editor](../features/editor/) that wraps around the shel
 * [BIND keys](https://github.com/warpdotdev/Warp/issues/537)
   * `bindkey '^j' down-line-or-beginning-search`, which causes users to have to hit ENTER twice to run a command.
   * `bindkey 'tab' autosuggest-accept`, which causes incorrect behavior with autocompletion.
-* `z`, `compdef`, `compinit`, [prezto utility module](https://github.com/sorin-ionescu/prezto/blob/master/modules/utility/README.md), CodeWhisperer or other [shell-based completion](https://github.com/warpdotdev/Warp/discussions/434) plugins.
+* `z`, `compdef`, `compinit`, [prezto utility module](https://github.com/sorin-ionescu/prezto/blob/master/modules/utility/README.md), [bash-it](https://github.com/Bash-it/bash-it), CodeWhisperer or other [shell-based completion](https://github.com/warpdotdev/Warp/discussions/434) plugins.
 * OH-MY-ZSH Themes
   * e.g. avit, spaceship, maybe more ...
 * OH-MY-ZSH Plugins
