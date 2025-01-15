@@ -26,9 +26,9 @@ To subscribe to a paid Warp plan like Pro or Team, you must first [create a Team
 
 Warp offers an Enterprise plan with custom pricing for larger engineering organizations or businesses with advanced security and compliance requirements. If you are interested in learning whether an Enterprise plan might be the best fit for your team, please [contact us](https://www.warp.dev/contact-sales) to kick off a conversation.
 
-### How can I upgrade for more Warp AI requests and command suggestions?
+### How can I upgrade for more Warp AI requests, command suggestions, and tokens?
 
-Both Warp’s Pro and Team plans include higher limits for Warp AI requests and command suggestions than what’s currently available on the Warp Free plan. Even if you are working alone and not ready to invite additional team members for collaboration, you will need to [create a Team](../features/teams.md#creating-a-team) in Warp to upgrade to the paid Warp plan, which unlocks access to higher AI limits.
+Both Warp’s Pro and Team plans include higher limits for Warp AI requests, command suggestions, and tokens than what’s currently available on the Warp Free plan. Even if you are working alone and not ready to invite additional team members for collaboration, you will need to [create a Team](../features/teams.md#creating-a-team) in Warp to upgrade to the paid Warp plan, which unlocks access to higher AI limits.
 
 If you are not planning on extending invites to any team member collaborators, we suggest creating a Team with your name, e.g. “Zach’s Team” or “My Personal Team.” Then you can [upgrade online](https://app.warp.dev/upgrade) or in the downloaded app by navigating to Settings → Teams and finding the upgrade link.
 
@@ -73,7 +73,7 @@ You can initiate a upgrade at any point throughout your subscription through the
 
 If a payment fails, you will receive an email from Stripe and your Warp Team Settings will show a past-due alert. Certain Team plan features and the ability to invite new members will be locked down while your Team is in a past-due state. Paying the most recent invoice through the [billing portal](https://app.warp.dev/upgrade) will fully re-enable your Team plan features.
 
-### What counts as a Warp AI request or suggestion?
+### What counts as a Warp AI request or command suggestion?
 
 [Warp AI](../features/warp-ai/) includes [Agent Mode](../features/warp-ai/agent-mode.md), [Active AI](../features/warp-ai/active-ai.md), [AI Command Suggestions](../features/warp-ai/ai-command-suggestions.md), and [AI Autofill](../features/warp-drive/workflows.md#ai-autofill) in Warp Drive.
 
@@ -85,9 +85,15 @@ Active AI features like Next Command have a seperate counter and only count when
 \
 Anytime you run AI Autofill in Warp Drive, this counts as one AI request.
 
-Request limits are allocated at the seat level to Warp users or team members. You can follow along with your request limits by referencing the counter under Settings -> AI.
+Request limits are allocated at the seat level to Warp users or team members. You can follow along with your request limits by referencing the counter under `Settings > AI`.
 
-### How often does my Warp AI request and suggestion limits reset?
+### What counts as a Warp AI token?
+
+Tokens are chunks of text, such as words, parts of code, or characters, that large language models (LLMs) break down to analyze and generate responses. LLMs have a maximum number of tokens they can process at once. Warp AI Requests and Suggestions are not the same as Tokens, which are limited separately regardless of which plan you're on. \
+\
+Please learn more about Tokens [here](https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them) and refer to [pricing](https://www.warp.dev/pricing) for the current monthly token limits on each plan.
+
+### How often does my Warp AI request, token, and suggestion limits reset?
 
 Allotted AI requests and command suggestions limits reset every 30 days from your signup date. When you upgrade to a Pro or Team plan, you will be given a higher request limit immediately. You can follow along with your refill period by referencing the counter under Settings -> AI.
 

@@ -265,7 +265,7 @@ You can also open supported code files in Warp by clicking on the link, then sel
 
 Agent Mode can leverage your [Warp Drive](../warp-drive/) contents to tailor responses to your personal and team developer workflows and environments. This includes any Workflows, Notebooks, Environmental Variables, etc..
 
-## How does billing work for Agent Mode?
+## How billing work for Agent Mode
 
 Every Warp plan includes a set number of Warp AI requests per user per month. Please refer to [pricing](https://www.warp.dev/pricing) to compare plans.
 
@@ -273,13 +273,15 @@ AI Request limits apply to Agent Mode, [AI Command Suggestions](ai-command-sugge
 
 #### What counts as a Warp AI request in Agent Mode?
 
-Every time you submit an AI query from your input box, this counts as one Warp AI request.
-
-[Suggested commands](agent-mode.md#agent-mode-command-suggestions) and [requested commands](agent-mode.md#agent-mode-requested-commands) do not count as billable Warp AI requests.
-
+Every time you submit an AI query from your input box, this counts as one Warp AI request. [Suggested commands](agent-mode.md#agent-mode-command-suggestions) and [requested commands](agent-mode.md#agent-mode-requested-commands) do not count as billable Warp AI requests. [Next Command](active-ai.md#next-command) suggestions are counted separately to Warp AI requests as noted in our [Active AI](active-ai.md#next-command-and-billing) docs.\
 You can monitor your request usage under `Settings > AI > Usage`.
 
-#### **When do my Warp AI requests refresh?**
+#### What counts as a Warp AI token in Agent Mode?
+
+Tokens are chunks of text, such as words, parts of code, or characters, that large language models (LLMs) break down to analyze and generate responses. LLMs have a maximum number of tokens they can process at once. Warp AI Requests and Suggestions are not the same as Tokens, which are limited separately regardless of which plan you're on.\
+Please learn more about Tokens [here](https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them) and refer to [pricing](https://www.warp.dev/pricing) for the current monthly token limits on each plan.
+
+#### **When do my Warp AI requests, suggestions, and tokens refresh?**
 
 Allotted AI requests refill every 30 days from your signup date. When you upgrade to a Pro or Team plan, you will be given more requests immediately. You can follow along with your refill period by referencing `Settings > AI > Request Usage`.
 
@@ -309,10 +311,6 @@ We recognize that the terminal is a sensitive environment and we want to be expl
 * Agent Mode works better with Warp's default prompt settings, where the prompt starts on a new line, than it does with a same-line prompt. If you are using the same-line prompt, the cursor will jump from the end of the single line to the start of the input box when you switch to Agent Mode.
 
 ### Exceeding Agent Mode token limits
-
-{% hint style="info" %}
-**Tokens** are chunks of text, such as words, parts of code, or characters, that large language models (LLMs) break down to analyze and generate responses. LLMs have a maximum number of tokens they can process at once. [Requests](agent-mode.md#what-counts-as-a-warp-ai-request-in-agent-mode) are not the same as Tokens, which are limited separately regardless of which [plan](../../help/plans-subscriptions-and-pricing.md) you're on. Please learn more about Tokens [here](https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them).
-{% endhint %}
 
 #### **“Message token limit exceeded” error**
 
