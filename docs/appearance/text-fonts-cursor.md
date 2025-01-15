@@ -22,13 +22,19 @@ From there you can customize:
 * Font type
 * Font size
 * Line height
-* When to use thin strokes
+* Use thin strokes
   * The default setting prevents text from being blurry on low-DPI displays.
-* When to enforce minimum contrast
-  * The default setting tweaks named colors to meet accessibility standards.
 
 {% hint style="warning" %}
 On Linux, Warp does not support the "Use thin stroke" feature.
+{% endhint %}
+
+* Enforce minimum contrast
+  * The default setting tweaks named colors to meet accessibility standards.
+* Show ligatures in terminal
+
+{% hint style="info" %}
+Enabling ligatures can reduce performance. Warps default font (Hack) doesn't yet have ligature support, as a workaround we recommend a [Nerd Font](https://www.nerdfonts.com/).
 {% endhint %}
 
 ### Cursor
