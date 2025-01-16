@@ -34,7 +34,7 @@ On Linux, Warp does not support the "Use thin stroke" feature.
 * Show ligatures in terminal
 
 {% hint style="info" %}
-Enabling ligatures can reduce performance. Warps default font (Hack) doesn't yet have ligature support, as a workaround we recommend a [Nerd Font](https://www.nerdfonts.com/).
+Enabling ligatures can reduce performance. Warps default font, Hack, doesn't yet have ligature support. We recommend font that supports ligatures (e.g. [Fira Code](https://github.com/tonsky/FiraCode)) as a stopgap.
 {% endhint %}
 
 ### Cursor
