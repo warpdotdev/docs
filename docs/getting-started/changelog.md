@@ -8,6 +8,27 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2025.01.22 (v0.2025.01.22.08.02)
+
+**New features**
+
+* Generate input for any interactive CLI using ⌘I on macOS and Ctrl-Shift I on Linux.
+* You can now dynamically populate arguments in Workflows with shell commands.
+* Added support for rectangular selection when holding ⌘⌥ on Mac and Ctrl-Alt on Linux.
+
+**Improvements**
+
+* Settings are now searchable and rendered in a separate tab
+* Terminal font weight is now configurable.
+* Launch Configurations now save the focused window state and active pane.
+* Autosuggestions in the input now soft-wrap.
+
+**Bug fixes**
+
+* Fixed several issues where hovering over URLs in the blocklist sometimes resulted in URLs only being partially detected, or not detected at all.
+* Fixed issue with Prompt Suggestions occasionally remaining visible after subsequent command exeuction.
+* [macOS] Changed the download location for new Warp updates to prevent corruption.
+
 ### 2025.01.15 (v0.2025.01.15.08.02)
 
 **New features**
