@@ -20,6 +20,7 @@ To access it, go to `Settings > Appearance > Text`
 From there you can customize:
 
 * Font type
+* Font weight
 * Font size
 * Line height
 * Use thin strokes
