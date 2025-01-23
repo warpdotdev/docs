@@ -19,7 +19,7 @@
 * [Text, Fonts, & Cursor](appearance/text-fonts-cursor.md)
 * [Size, Opacity, & Blurring](appearance/size-opacity-blurring.md)
 * [Pane Dimming & Focus](appearance/pane-dimming.md)
-* [Blocks Behavior](appearance/compact-mode.md)
+* [Blocks Behavior](appearance/blocks-behavior.md)
 * [Tabs Behavior](appearance/tabs-behavior.md)
 * [Custom dock icons](appearance/custom-dock-icons.md)
 
