@@ -1,6 +1,6 @@
 ---
 description: >-
-  Warp lets you customize your blocks in a variety of ways such as enabling
+  Warp lets you customize your Blocks in a variety of ways such as enabling
   Compact mode, or disabling the Block Dividers for a more custom block
   experience, and more.
 ---
@@ -9,7 +9,7 @@ description: >-
 
 ## Compact Mode
 
-Warp offers the option to enable Compact mode, which condenses the spacing between Blocks, enabling more content to be in view.&#x20;
+Warp offers the option to enable Compact mode, which condenses the spacing between [Blocks](../features/blocks/), enabling more content to be in view.&#x20;
 
 ### How to enable Compact Mode
 
@@ -26,7 +26,7 @@ Warp will open with the same compact settings in future sessions.
 
 ## Block Dividers
 
-Warp [Blocks](../features/blocks/) are divided by vertical lines that separate individual command input and output, they create a visual break between different commands that you run in a session.&#x20;
+Warp [Blocks](../features/blocks/) are divided by horizontal lines that separate individual command input and output, they create a visual break between different commands that you run in a session.
 
 ### How to toggle Block Dividers
 
