@@ -54,10 +54,9 @@ To create an enum type argument:
 1. Navigate to the "default value" field of an argument.
 2. Select the "Enum" type.
 3. Click "New" to create a new enum, or select an existing one from the dropdown menu.
+4. If you selected "New", you can choose to create a "Static" enum or "Dynamic" enum. Dynamic enums are associated with a shell command whose output is parsed to determine the set of valid values for that argument.
 
-If you create an enum for a workflow you'd like to reuse somewhere else, check "Make this enum available in other workflows" in the enum editing dialog. Enums created within team workflows will be reusable amongst team members, while enums in your personal space are only accessible to you.
-
-{% embed url="https://www.loom.com/share/6505a0ff0f764267b817a4dc45dc44eb?hideEmbedTopBar=true&hide_owner=true&hide_share=true&hide_title=true" %}
+{% embed url="https://www.loom.com/share/b429ab7f7014418e9591e505fd71af83?hideEmbedTopBar=true&hide_owner=true&hide_share=true&hide_title=true" %}
 Enum Creation Demo
 {% endembed %}
 
