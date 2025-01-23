@@ -15,7 +15,7 @@ Warp offers the option to enable Compact mode, which condenses the spacing betwe
 
 Compact mode is disabled by default, but can be toggled in the following ways:
 
-* Navigate to `Settings > Appearance > Compact Mode`.
+* Navigate to `Settings > Appearance > Blocks > Compact Mode`.
 * Utilize the [Command Palette](../features/command-palette.md), then search for "Compact mode" to toggle.
 
 {% hint style="info" %}
