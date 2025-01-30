@@ -8,6 +8,27 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2025.01.29 (v0.2025.01.29.08.02)
+
+**New features**
+
+* Added support for DeepSeek R1 and V3 in Agent Mode! Try them out by switching to Agent Mode and clicking on the model name in the prompt.
+* Agent Mode can now auto-execute readonly requested commands. Commands can also be explicitly allowlisted or denylisted. See `Settings` -> `AI` -> `Autonomy` to configure.
+
+**Improvements**
+
+* You can now use `j`/`k` keys to navigate up and down Warp Drive.
+* Agent Mode chip added to Warp prompt.
+* Next Command is preferred over Command Corrections in cases where Corrections has less confidence.
+* Moved the Settings modal to its own tab.
+
+**Bug fixes**
+
+* Fixed a bug that caused double-clicking to select the incorrect range of text when non-ASCII characters are present.
+* Saving workflow aliases no longer deletes aliases from other workflows.
+* Fixed cases where a small part of the bottom of the editor would be cut off at certain appearance settings.
+
+
 ### 2025.01.22 (v0.2025.01.22.08.02)
 
 **New features**
