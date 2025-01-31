@@ -106,7 +106,7 @@ In the case that a requested command fails, Warp AI will detect that. Agent Mode
 
 ## How to choose your model in Agent Mode
 
-Warp supports the ability to choose from a pre-defined list of LLMs to be used in your Agent Mode queries. Warp defaults to using Claude 3.5 Sonnet, but has support for OpenAI GPT-4o and Claude 3.5 Haiku.
+Warp supports the ability to choose from a pre-defined list of LLMs to be used in your Agent Mode queries. Warp defaults to using Claude 3.5 Sonnet, but has support for OpenAI GPT-4o, Claude 3.5 Haiku, and DeepSeek R1 & V3 (hosted by [Fireworks AI](https://fireworks.ai/) in the US).
 
 When you start an agent mode conversation, you will be able to see the model being used.
 
@@ -332,7 +332,7 @@ No, Warp nor its providers OpenAI or Anthropic train on your data.
 
 #### What model are you using?
 
-As of now, Warp supports OpenAI’s GPT-4o, Claude 3.5 Sonnet, and Claude 3.5 Haiku models.
+As of now, Warp supports OpenAI’s GPT-4o, Claude 3.5 Sonnet, Claude 3.5 Haiku, and DeepSeek R1 & V3 (hosted by [Fireworks AI](https://fireworks.ai/) in the US).
 
 #### Can I use my own LLM API key?
 
