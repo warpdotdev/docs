@@ -269,7 +269,7 @@ Agent Mode can leverage your [Warp Drive](../warp-drive/) contents to tailor res
 
 Every Warp plan includes a set number of Warp AI requests per user per month. Please refer to [pricing](https://www.warp.dev/pricing) to compare plans.
 
-AI Request limits apply to Agent Mode, [AI Command Suggestions](ai-command-suggestions.md), and AI autofill in Warp Drive. When you have used up your allotted requests for the cycle, you will not be able to issue any more AI requests until the cycle renews.
+AI Request limits apply to Agent Mode, [Generate](generate.md), [Active AI](active-ai.md), and AI autofill in Warp Drive. When you have used up your allotted requests for the cycle, you will not be able to issue any more AI requests until the cycle renews.
 
 #### What counts as a Warp AI request in Agent Mode?
 

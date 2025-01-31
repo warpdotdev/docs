@@ -75,13 +75,13 @@ If a payment fails, you will receive an email from Stripe and your Warp Team Set
 
 ### What counts as a Warp AI request or command suggestion?
 
-[Warp AI](../features/warp-ai/) includes [Agent Mode](../features/warp-ai/agent-mode.md), [Active AI](../features/warp-ai/active-ai.md), [AI Command Suggestions](../features/warp-ai/ai-command-suggestions.md), and [AI Autofill](../features/warp-drive/workflows.md#ai-autofill) in Warp Drive.
+[Warp AI](../features/warp-ai/) includes [Agent Mode](../features/warp-ai/agent-mode.md), [Active AI](../features/warp-ai/active-ai.md), [Generate](../features/warp-ai/generate.md), and [AI Autofill](../features/warp-drive/workflows.md#ai-autofill) in Warp Drive.
 
 Every time you submit an AI query with Agent Mode, it counts as one AI request. Agent Mode suggested commands and requested commands do not count as AI requests.
 
 Active AI features like Next Command have a seperate counter and only count when accepted.\
 \
-[AI Command Suggestions](../features/warp-ai/ai-command-suggestions.md) lets you look up commands as you’re typing. As you’re entering and adjusting a query to look up a command suggestion, you may incur multiple AI requests before selecting a suggestion.\
+[Generate](../features/warp-ai/generate.md) lets you look up commands or contextual suggestions as you’re typing. As you’re entering and adjusting a query to look up a command suggestion, you may incur multiple AI requests before selecting a suggestion.\
 \
 Anytime you run AI Autofill in Warp Drive, this counts as one AI request.
 

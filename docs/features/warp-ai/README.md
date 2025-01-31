@@ -20,5 +20,5 @@ These features sends input data to OpenAI servers through their API. Read more a
 
 * [Active AI](active-ai.md) - Proactively recommends fixes and next actions based on errors, inputs, and outputs
 * [Agent Mode](agent-mode.md) - Write natural language on the command line and walk through any dev task
-* [AI Command Suggestions (#)](ai-command-suggestions.md) - Quickly look up commands using natural language
-* [AI Autofill ](../warp-drive/workflows.md#ai-autofill)in Warp Drive - Let Warp AI name and describe the workflows you create
+* [Generate](generate.md) - Quickly look up commands and contextual suggestions for interactive CLIs using natural language
+* [AI Autofill](../warp-drive/workflows.md#ai-autofill)in Warp Drive - Let Warp AI name and describe the workflows you create

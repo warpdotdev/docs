@@ -34,7 +34,7 @@
 * [Warp AI](features/warp-ai/README.md)
   * [Active AI](features/warp-ai/active-ai.md)
   * [Agent Mode](features/warp-ai/agent-mode.md)
-  * [AI Command Suggestions](features/warp-ai/ai-command-suggestions.md)
+  * [Generate](features/warp-ai/generate.md)
 * [Teams](features/teams.md)
 * [Session Sharing](features/session-sharing.md)
 * [Blocks](features/blocks/README.md)

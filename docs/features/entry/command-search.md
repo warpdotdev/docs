@@ -16,16 +16,16 @@ Tailor your [Command Search](command-search.md) experience by toggling off "Show
 ## How to use it
 
 * Press `CTRL-R` to open the Command Search Panel. You’ll be greeted with a landing page, where you can click through different filters to get started.
-* Type into the input box what your search query is. The results will contain command history, saved workflows, notebooks, and AI Command Suggestions.
+* Type into the input box what your search query is. The results will contain command history, saved workflows, notebooks, and AI command suggestions from Generate.
   * $\_ Dollar Sign-Underscore signifies that the result is a [Workflow](yaml-workflows.md).
   * <img src="../../.gitbook/assets/history.png" alt="rewind time clock" data-size="line"> Rewind Time Clock icon signifies that the result is a [Command History](command-history.md).
   * <img src="../../.gitbook/assets/notebook.png" alt="earmarked page" data-size="line"> Earmarked Page icon signifies that the result is a [Notebook](../warp-drive/notebooks.md).
-  * ✨ Sparkle icon signifies piping that search query into [AI Command Suggestions](../warp-ai/ai-command-suggestions.md).
+  * ✨ Sparkle icon signifies piping that search query into [Generate](Generate.md).
 * Activate a specific filter, by prepending your search term with the following:
   * `workflows:`, `w:`, or `W-TAB` will filter for Workflows.
   * `notebooks:`, `n:`, or `N-TAB` will filter for Notebooks.
   * `history:`, `h:`, or `H-TAB` will filter for Command History.
-  * `#:` will activate the AI Command Suggestions filter. Once the filter is activated, it will be bolded and italicized.
+  * `#:` will activate the Generate filter. Once the filter is activated, it will be bolded and italicized.
 * Once the result shows up, press `ENTER` to input the command directly into Warp's Input Editor.
 * You can also expand the menu horizontally with the mouse by dragging it on the right edge.
 
