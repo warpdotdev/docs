@@ -59,20 +59,23 @@ You can take these keyboard actions within Warp Drive:
 
 {% tabs %}
 {% tab title="macOS" %}
-* Press `UP` or `DOWN` to navigate to the object you want.
+* Press `UP`/`DOWN` or `j`/`k` to navigate to the object you want.
 * Press `Enter` to 1) execute an object, 2) open/collapse a workspace or folder, or 3) open the trash.
 * Press `CMD-ENTER` to open an object’s context menu.
-* Press `CMD-SHIFT-(` and `CMD-SHIFT-)` to switch focus on Warp Drive and [Warp AI](../../features/warp-ai/).
+* Press `CMD-SHIFT-(` and `CMD-SHIFT-)` to switch focus between the terminal and Warp Drive.
 * Press `LEFT-ARROW` to collapse a workspace or folder
 * Press `RIGHT-ARROW` to open a workspace or folder
 * Press `Esc` to return to Warp Drive from your trash.
 {% endtab %}
 
 {% tab title="Linux" %}
-* Press `UP` or `DOWN` to navigate to the object you want.
-* Press `Enter` to 1) execute an object or 2) open/collapse a space or folder.
+* Press `UP`/`DOWN` or `j`/`k` to navigate to the object you want.
+* Press `Enter` to 1) execute an object, 2) open/collapse a workspace or folder, or 3) open the trash.
 * Press `CTRL-ENTER` to open an object’s context menu.
-* Press `CTRL-SHIFT-(` and `CTRL-SHIFT-)` to switch focus on Warp Drive and [Warp AI](../../features/warp-ai/).
+* Press `CTRL-SHIFT-(` and `CTRL-SHIFT-)` to switch focus between the terminal and Warp Drive.
+* Press `LEFT-ARROW` to collapse a workspace or folder
+* Press `RIGHT-ARROW` to open a workspace or folder
+* Press `Esc` to return to Warp Drive from your trash.
 {% endtab %}
 {% endtabs %}
 
