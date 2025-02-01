@@ -106,7 +106,7 @@ In the case that a requested command fails, Warp AI will detect that. Agent Mode
 
 ## How to choose your model in Agent Mode
 
-Warp supports the ability to choose from a pre-defined list of LLMs to be used in your Agent Mode queries. Warp defaults to using Claude 3.5 Sonnet, but has support for OpenAI GPT-4o, Claude 3.5 Haiku, and DeepSeek R1 & V3 (hosted by [Fireworks AI](https://fireworks.ai/) in the US).
+Warp supports the ability to choose from a pre-defined list of LLMs to be used in your Agent Mode queries. Warp defaults to using Claude 3.5 Sonnet, but has support for OpenAI GPT-4o, OpenAI o3-mini, Claude 3.5 Haiku, and DeepSeek R1 & V3 (hosted by [Fireworks AI](https://fireworks.ai/) in the US).
 
 When you start an agent mode conversation, you will be able to see the model being used.
 
@@ -324,7 +324,7 @@ Warp has set an extremely high token limit on users to prevent abuse. We do not 
 
 #### What happened to the old Warp AI chat panel?
 
-Agent Mode has replaced the Warp AI chat panel. Agent Mode is more powerful in all of the chat panel’s use cases. Not only can Agent Mode run commands for you, it can also gather context without you needing to copy and paste. To start a similar chat panel, click the AI button in the menu bar to start on a new AI pane.
+Agent Mode has replaced the Warp AI chat panel. Agent Mode is more powerful in all of the chat panel's use cases. Not only can Agent Mode run commands for you, it can also gather context without you needing to copy and paste. To start a similar chat panel, click the AI button in the menu bar to start on a new AI pane.
 
 #### Is my data used for model training?
 
@@ -332,10 +332,19 @@ No, Warp nor its providers OpenAI or Anthropic train on your data.
 
 #### What model are you using?
 
-As of now, Warp supports OpenAI’s GPT-4o, Claude 3.5 Sonnet, Claude 3.5 Haiku, and DeepSeek R1 & V3 (hosted by [Fireworks AI](https://fireworks.ai/) in the US).
+The following LLMs are currently supported in Warp:
+- **OpenAI**:
+	+ GPT-4o
+	+ o3-mini
+- **Claude**:
+	+ 3.5 Sonnet
+	+ 3.5 Haiku
+- **DeepSeek** (hosted by [Fireworks AI](https://fireworks.ai/) in the US):
+	+ R1
+	+ V3
 
 #### Can I use my own LLM API key?
 
-Warp AI is tailored for the terminal so you can get optimal results and performance. It’s suitable for AI power users and professional use cases.
+Warp AI is tailored for the terminal so you can get optimal results and performance. It's suitable for AI power users and professional use cases.
 
 For organizations with strict security requirements, a “Bring Your Own LLM” option is available on the Enterprise plan. At the Enterprise plan level, we can work closely with your team to ensure quality and compliance for your LLM of choice.
