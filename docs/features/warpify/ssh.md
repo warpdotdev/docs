@@ -15,7 +15,7 @@ Warpifying your SSH session gives you all the features of Warp while connected t
 
 **Warpifying a remote SSH Session [will never make lasting changes to the remote machine without your explicit consent](#will-warpifying-a-remote-ssh-session-make-changes-to-the-remote-machine).**
 
-![SSH](<../../.gitbook/assets/warpify_ssh.png>)
+![SSH](<../../.gitbook/assets/warpify_ssh_prompt.png>)
 
 ## FAQs
 
@@ -32,6 +32,12 @@ Warpifying a remote SSH session uses [tmux Control Mode](https://github.com/tmux
 #### Can I ssh to remote machines that I don't want to Warpify? 
 
 Yes! You can always cancel Warpification and continue to use SSH, just without some of Warp's additional features. You can also explicitly add hosts to the Denylist to ensure you’re never asked to Warpify that host again.
+
+### Do I have to manually Warpify every time?
+
+After you successfully Warpify an SSH connection manually, we provide a brief script you can run to append a message at the end of your shell's rcfile. This allows us to know when your shell is ready to be Warpified, and be found at the bottom of your rcfile for the best results.
+
+![Setting up Auto-Warpify](<../../.gitbook/assets/warpify_ssh_auto_script.png>)
 
 #### What shells and operating systems are supported?
 
