@@ -9,6 +9,7 @@ redirects:
     features/warp-ai/ai-command-search: features/warp-ai/generate.md
     features/ai-command-search: features/warp-ai/generate.md
     features/generate: features/warp-ai/generate.md
+    features/voice: features/warp-ai/voice.md
     features/workflows: features/entry/workflows.md
     features/command-search: features/entry/command-search.md
     features/command-history: features/entry/command-history.md

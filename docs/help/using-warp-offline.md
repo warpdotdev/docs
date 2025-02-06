@@ -22,6 +22,7 @@ Warp’s cloud-based features which require an internet connection will not work
   * [Generate](../features/warp-ai/generate.md)
   * [AI Autofill](../features/warp-drive/workflows.md#warp-ai-autofill)
   * [Active AI](../features/warp-ai/active-ai.md)
+  * [Voice](../features/warp-ai/voice.md)
 * [Teams](../features/teams.md)
 * [Session Sharing](../features/session-sharing.md)
 * [Block Sharing](../features/blocks/block-sharing.md)

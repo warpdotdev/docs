@@ -35,6 +35,7 @@
   * [Active AI](features/warp-ai/active-ai.md)
   * [Agent Mode](features/warp-ai/agent-mode.md)
   * [Generate](features/warp-ai/generate.md)
+  * [Voice](features/warp-ai/voice.md)
 * [Teams](features/teams.md)
 * [Session Sharing](features/session-sharing.md)
 * [Blocks](features/blocks/README.md)

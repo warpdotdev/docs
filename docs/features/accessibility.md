@@ -43,6 +43,16 @@ Instead, whenever you perform an action and/or something happens in the backgrou
 
 Some a11y-specific settings are available through the command palette. For example, you can adjust the verbosity level of messages. Simply enter the [Command Palette](command-palette.md) and type "a11y" to discover related options and their keybindings.
 
+### Voice Input
+
+Warp supports voice input as an alternative way to interact with your terminal. This can be especially helpful for users who prefer or require voice commands over typing. You can use voice input to:
+
+- Issue terminal commands
+- Ask questions about command usage
+- Perform complex multi-step operations
+
+Voice input can be enabled in `Settings > AI > Voice`. For detailed information about voice features and setup, see our [Voice documentation](./warp-ai/voice.md).
+
 ## Future work
 
 While not all Warp features are accessible yet, we've implemented a process around releasing new features and changes to the main app, to ensure that all new code provides proper a11y announcements.
