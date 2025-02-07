@@ -12,7 +12,9 @@ Warp's Voice feature transforms how you interact with your terminal, letting you
 Voice input functionality can be configured in `Settings > AI > Voice`. You can enable/disable voice input and select your preferred activation hotkey from pre-defined options.
 {% endhint %}
 
-<!-- TO DO: add in GIF demo -->
+{% embed url="https://www.loom.com/share/77399be4e434443488bbe267b3548552?hideEmbedTopBar=true&hide_owner=true&hide_share=true&hide_title=true" %}
+Voice Demo
+{% endembed %}
 
 ## Getting Started
 
