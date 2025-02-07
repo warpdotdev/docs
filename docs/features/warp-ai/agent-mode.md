@@ -261,11 +261,60 @@ You can also open supported code files in Warp by clicking on the link, then sel
 
 <figure><img src="../../.gitbook/assets/open-in-warp-code.gif" alt=""><figcaption><p>Opening code files in Warp</p></figcaption></figure>
 
+## Autonomy
+
+Agent Mode supports configurable autonomous command execution under `Settings > AI > Autonomy`. You can customize this by:
+
+1. Using a command allowlist to specify which commands can auto-execute
+2. Using a command denylist to specify which commands require confirmation
+3. Letting the Agent Mode model automatically determine if a command is safe to execute based on whether it's read-only
+
+<figure><img src="../../.gitbook/assets/autonomy.gif" alt="Agent Mode connects to a docker container and checks for error logs with autonomy enabled."><figcaption><p>Agent Mode connects to a docker container and checks for error logs with autonomy enabled.</p></figcaption></figure>
+
+### Command allowlist
+
+Agent Mode comes with default allowlist entries for common read-only commands that can be automatically executed without user confirmation.
+
+- `which .*` - Find executable locations
+- `ls(\s.*)?` - List directory contents
+- `grep(\s.*)?` - Search file contents
+- `find .*` - Search for files
+- `echo(\s.*)?` - Print text output
+
+You can add your own regular expressions to this list in `Settings > AI > Autonomy > Command allowlist`. Commands in the allowlist will always auto-execute, even if they are not read-only operations.
+
+### Command denylist
+
+Agent Mode comes with default denylist entries for potentially risky commands that always require explicit user permission before execution. A couple of examples include:
+
+- `wget(\s.*)?` - Network downloads
+- `curl(\s.*)?` - Network requests 
+- `rm(\s.*)?` - File deletion
+- `eval(\s.*)?` - Shell code execution
+
+The denylist takes precedence over both the allowlist and model-based auto-execution. If a command matches the denylist, user permission will always be required, regardless of other settings. You can add your own regular expressions to this list in `Settings > AI > Autonomy > Command denylist`.
+
+### Model based auto-execution
+
+Agent Mode can dynamically analyze command safety for automatic execution of read-only commands. This provides intelligent command safety analysis but follows a strict precedence order.
+
+1. Denylist (highest priority) - Commands always require confirmation
+2. Allowlist - Commands always auto-execute
+3. Model-based analysis (lowest priority) - Agent Mode determines if a command is read-only safe
+
+This behavior can be toggled in `Settings > AI > Autonomy > Model-based auto-execution`.
+
+### File read permissions for coding
+
+When performing coding tasks, Agent Mode can automatically read files. This allows Agent Mode to analyze code without requiring explicit permission for each file access.
+
+This behavior can be toggled in `Settings > AI > Autonomy > Coding read permissions`.
+
 ## Warp Drive as Agent Mode context
 
 Agent Mode can leverage your [Warp Drive](../warp-drive/) contents to tailor responses to your personal and team developer workflows and environments. This includes any Workflows, Notebooks, Environmental Variables, etc..
 
-## How billing work for Agent Mode
+## How billing works for Agent Mode
 
 Every Warp plan includes a set number of Warp AI requests per user per month. Please refer to [pricing](https://www.warp.dev/pricing) to compare plans.
 
