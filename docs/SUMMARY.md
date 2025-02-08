@@ -25,17 +25,17 @@
 
 ## 📕 Features
 
+* [Warp AI](features/warp-ai/README.md)
+  * [Active AI](features/warp-ai/active-ai.md)
+  * [Agent Mode](features/warp-ai/agent-mode.md)
+  * [Generate](features/warp-ai/generate.md)
+  * [Voice](features/warp-ai/voice.md)
 * [Command Palette](features/command-palette.md)
 * [Warp Drive](features/warp-drive/README.md)
   * [Notebooks](features/warp-drive/notebooks.md)
   * [Workflows](features/warp-drive/workflows.md)
   * [Warp Drive on the Web](features/warp-drive/warp-drive-on-the-web.md)
   * [Environment Variables](features/warp-drive/environment-variables.md)
-* [Warp AI](features/warp-ai/README.md)
-  * [Active AI](features/warp-ai/active-ai.md)
-  * [Agent Mode](features/warp-ai/agent-mode.md)
-  * [Generate](features/warp-ai/generate.md)
-  * [Voice](features/warp-ai/voice.md)
 * [Teams](features/teams.md)
 * [Session Sharing](features/session-sharing.md)
 * [Blocks](features/blocks/README.md)
