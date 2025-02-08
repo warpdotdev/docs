@@ -394,6 +394,14 @@ The following LLMs are currently supported in Warp:
 	+ R1
 	+ V3
 
+#### Is DeepSeek enabled by default?
+
+No, DeepSeek is never enabled by default. By default, Agent Mode uses Claude 3.5 Sonnet. To use DeepSeek, you would need to manually select it from the model selector inside Agent Mode.
+
+#### How is my data handled for DeepSeek models?
+
+We take privacy and security very seriously when it comes to models developed by foreign companies or hosted outside the US. DeepSeek models in Warp are hosted exclusively on US servers through our trusted provider, [Fireworks AI](https://fireworks.ai/). No requests are routed to servers outside the US.
+
 #### Can I use my own LLM API key?
 
 Warp AI is tailored for the terminal so you can get optimal results and performance. It's suitable for AI power users and professional use cases.
