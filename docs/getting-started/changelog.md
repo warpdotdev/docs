@@ -8,6 +8,17 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2025.02.05 (v0.2025.02.05.08.02)
+
+**New features**
+
+* You can now talk to Warp to transcribe Agent Mode prompts or any other text! Set up the hotkey in `Settings > AI > Voice` or use the microphone button in AI input mode to trigger this.
+
+**Improvements**
+
+* Autosuggestions in the input now soft-wrap.
+* You can now attach default environment variables to a workflow.
+
 ### 2025.01.29 (v0.2025.01.29.08.02)
 
 **New features**
@@ -2147,7 +2158,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 * Fixed a bug where resizing a pane could cause Warp to show a blank screen
 * Parentheses, quotes, and brackets now also auto-close after typing an alphanumeric character
 * Remapped multi-cursor key bindings to CTRL-SHIFT-UP and CTRL-SHIFT-DOWN - [374](https://github.com/warpdotdev/warp/issues/374)
-* Restored OPT-CMD-UP and OPT-CMD-DOWN for switching panes up and down - [730](https://github.com/warpdotdev/warp/issues/730) 
+* Restored OPT-CMD-UP and OPT-CMD-DOWN for switching panes up and down - [730](https://github.com/warpdotdev/warp/issues/730)
 
 ### 2022.02.02 (v0.2022.01.31.09.03)
 
@@ -2301,7 +2312,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 * Changelog dialog
 * Emoji rendering: 😂, 😃, 🌍, 🍞, 🚗, 📞, 🎉, ❤️ - [075](https://github.com/warpdotdev/warp/issues/075)
 * Improved settings dialog
-* Theme search - [237](https://github.com/warpdotdev/warp/issues/237) 
+* Theme search - [237](https://github.com/warpdotdev/warp/issues/237)
 
 **Bug fixes**
 
