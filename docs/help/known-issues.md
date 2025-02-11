@@ -176,6 +176,13 @@ In some cases, [CLI applications only work on x86](https://discord.com/channels/
 * Right-click and select Get Info.
 * Then check the box on Open with Rosetta.
 
+## Windows
+
+### Unsupported in Warp for Windows
+
+* Git Bash, cmd.exe, or fish shells
+* Warpifying ssh sessions
+
 ## Linux
 
 ### Warp won't run or render on Linux
