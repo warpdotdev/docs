@@ -1,13 +1,15 @@
 ---
-description: Learn how to install Warp and get it running on your machine.
+description: >-
+  Learn how to install Warp and get it running on your machine. All installation
+  options support auto-update, ensuring you receive new features, bug fixes, and
+  performance improvements.
 ---
 
 # Quickstart Guide
 
 {% hint style="info" %}
-**Platform support:** Warp is currently supported on Mac (Intel and Mac Silicon) and Linux (x86\_64 and ARM64). We have plans to support Windows and the Web (WASM)!
-
-Subscribe to get notified when Warp is available for [Windows](https://warp.dev/windows-terminal).
+**Platform support:** Warp is currently supported on Mac (Intel and Mac Silicon) and Linux (x86\_64 and ARM64). \
+We have plans to support Windows soon! Subscribe to get notified when Warp is available for [Windows](https://warp.dev/windows-terminal).
 {% endhint %}
 
 ## Install Warp
@@ -22,11 +24,13 @@ Subscribe to get notified when Warp is available for [Windows](https://warp.dev/
 **Minimum requirements:** Intel or Apple silicon macOS 10.14 or above and hardware that supports [Metal](https://support.apple.com/en-us/HT205073).
 {% endhint %}
 
-You can install Warp in two ways:
+You can install Warp on macOS in two ways:
 
-1. [**Download Warp**](https://app.warp.dev/get_warp) **and drag into your Applications folder**
+1. **Download Warp** **and drag into your Applications folder**
 
-{% embed url="https://app.warp.dev/get_warp" %}
+{% embed url="https://www.warp.dev/download" %}
+Download Warp
+{% endembed %}
 
 2. **Install using Homebrew by running the command below**
 
@@ -37,9 +41,19 @@ brew install --cask warp
 After installation, you can find Warp in your Applications folder.
 {% endtab %}
 
+{% tab title="Windows" %}
+{% hint style="info" %}
+**Minimum requirements:** Requirements coming soon!
+{% endhint %}
+
+**Download Info Coming Soon!**\
+\
+Subscribe to get notified when Warp is available for [Windows](https://warp.dev/windows-terminal).
+{% endtab %}
+
 {% tab title="Linux" %}
 {% hint style="info" %}
-**Requirements:** Minimum requirements are an x64 or ARM64 Linux distribution with glibc >= 2.31 (released Feb. 2020) and support for _either_ [OpenGL ES 3.0+ or Vulkan](https://github.com/gfx-rs/wgpu?tab=readme-ov-file#supported-platforms). We are tracking support requests for [WSL](https://github.com/warpdotdev/Warp/issues/4240).
+**Minimum requirements:** Minimum requirements are an x64 or ARM64 Linux distribution with glibc >= 2.31 (released Feb. 2020) and support for _either_ [OpenGL ES 3.0+ or Vulkan](https://github.com/gfx-rs/wgpu?tab=readme-ov-file#supported-platforms). We are tracking support requests for [WSL](https://github.com/warpdotdev/Warp/issues/4240).
 
 This includes (but is not limited to) the following:
 
@@ -49,7 +63,11 @@ This includes (but is not limited to) the following:
 * Arch Linux
 {% endhint %}
 
-Visit the [Warp download page](https://app.warp.dev/get_warp?auto_download=false\&linux=true) for the full list of available installation options. All installation options support auto-update, ensuring you receive new features, bug fixes, and performance improvements.
+Visit the Warp download page for the full list of available installation options.
+
+{% embed url="https://www.warp.dev/download" %}
+Download Warp
+{% endembed %}
 
 **Debian- and Ubuntu-based distributions**
 

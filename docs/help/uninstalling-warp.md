@@ -28,16 +28,16 @@ Removing Warp from your computer involves uninstalling Warp and then removing an
 
 {% tabs %}
 {% tab title="macOS" %}
-#### Uninstalling Warp installed via dmg
+**Uninstalling Warp by dmg**
 
 * Remove Warp with `sudo rm -r /Applications/Warp.app`
 * Go to Mac `Finder > Applications` and right-click on Warp, and "Move to Trash"
 
-#### Uninstalling Warp installed via Brew
+**Uninstalling Warp by Homebrew**
 
 * Remove Warp with `brew uninstall warp`
 
-#### Removing Warp login, settings, files, log, and database
+**Removing Warp login, settings, files, log, and database**
 
 * [Log out of Warp](uninstalling-warp.md#logging-out).
 * Remove Warp settings with `defaults delete dev.warp.Warp-Stable`
@@ -46,12 +46,23 @@ Removing Warp from your computer involves uninstalling Warp and then removing an
 * Remove Warp themes and launch configurations with `rm -rf $HOME/.warp`
 {% endtab %}
 
+{% tab title="Windows" %}
+**Uninstalling Warp installed by Installer**
+
+* Search for "Installed apps” section of the Control Panel.
+* Search for and Uninstall the Warp application
+
+**Removing Warp login, settings, files, log, and database**
+
+More info on file locations coming soon ...
+{% endtab %}
+
 {% tab title="Linux" %}
-#### Uninstalling Warp via package manager
+**Uninstalling Warp by package manager**
 
 * Uninstall Warp using the same package manager that you used to [install](../getting-started/getting-started-with-warp.md) it.
 
-#### Removing Warp login, settings, files, log, and database
+**Removing Warp login, settings, files, log, and database**
 
 * [Log out of Warp](uninstalling-warp.md#logging-out).
 * Remove Warp settings files with `rm -r ${XDG_CONFIG_HOME:-$HOME/.config}/warp-terminal`
