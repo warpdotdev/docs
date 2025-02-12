@@ -1,10 +1,12 @@
 ---
-description: Use natural language to look up commands or input, accessible either directly from the command line input or inside any interactive command or program.
+description: >-
+  Use natural language to look up commands or input, accessible either directly
+  from the command line input or inside any interactive command or program.
 ---
 
 # Generate
 
-## What is it?
+## What is Generate?
 
 Generate helps turn natural language queries into precise commands as terminal input or contextual suggestions inside interactive commands and programs, whether you're using psql, gdb, git, mysql, or any other CLI tool.
 
@@ -14,9 +16,9 @@ Generate is backed by Large Language Models from API providers like OpenAI and A
 Currently, you need to be online to use this feature. If this feature doesn't work, your ISP or firewall may be blocking the calls to `app.warp.dev`
 {% endhint %}
 
-## Two ways to access Generate
+## Ways to Generate with AI
 
-### 1. Generate commands as terminal input
+### Generate commands as terminal input
 
 Type `#` on the command line input to generate command suggestions.
 
@@ -31,7 +33,7 @@ Generating commands as terminal input demo
 3. Results are generated in real-time, and you can keep the current prompt or modify the prompt to generate new commands.
 4. When you've found the command you want to execute, it can be run or saved as a Workflow onto Warp Drive to easily recall it in the future.
 
-### 2. Generate text and contextual suggestions in interactive CLIs
+### Generate text and contextual suggestions in interactive CLIs
 
 In interactive CLI applications, you can generate input using natural language.
 
@@ -58,12 +60,13 @@ In interactive CLI applications, you can generate input using natural language.
 {% endtabs %}
 
 A couple of other examples of interactive CLIs where you can invoke Generate:
-- **Database REPL** (e.g. `psql`, `mysql`, `sqlite`): Generate SQL queries such as "create a table to store user data" or "show me all the rows in orders for the last month"
-- **Text editors** (e.g. `vim`, `nano`): Quickly generate text such as a markdown header, a code block comment, or a boilerplate CSS class.
-- **Python REPL** (e.g. `ipython`, `python`): Quickly generate Python snippets such as "create a simple plot of x" or "write a unit test for this function"
-- **Debugger tools** (e.g. `gdb`, `lldb`): Get commands for setting breakpoints or inspecting memory
-- **Version control** (e.g. `git rebase -i`): Speed up complex git commands by describing your goal such as "interactively rebase master onto feature-branch"
-- **Cloud provider shells** (e.g. `gcloud`, `aws cli`): faster setup or resource management such as "create a new Kubernetes cluster" or "provision a new RDS instance"
+
+* **Database REPL** (e.g. `psql`, `mysql`, `sqlite`): Generate SQL queries such as "create a table to store user data" or "show me all the rows in orders for the last month"
+* **Text editors** (e.g. `vim`, `nano`): Quickly generate text such as a markdown header, a code block comment, or a boilerplate CSS class.
+* **Python REPL** (e.g. `ipython`, `python`): Quickly generate Python snippets such as "create a simple plot of x" or "write a unit test for this function"
+* **Debugger tools** (e.g. `gdb`, `lldb`): Get commands for setting breakpoints or inspecting memory
+* **Version control** (e.g. `git rebase -i`): Speed up complex git commands by describing your goal such as "interactively rebase master onto feature-branch"
+* **Cloud provider shells** (e.g. `gcloud`, `aws cli`): faster setup or resource management such as "create a new Kubernetes cluster" or "provision a new RDS instance"
 
 {% hint style="warning" %}
 If you experience any issues with Generate, please visit known issues for [troubleshooting steps](../../help/known-issues.md#online-features-dont-work).
