@@ -275,22 +275,26 @@ Agent Mode supports configurable autonomous command execution under `Settings > 
 
 Agent Mode comes with default allowlist entries for common read-only commands that can be automatically executed without user confirmation.
 
-- `which .*` - Find executable locations
-- `ls(\s.*)?` - List directory contents
-- `grep(\s.*)?` - Search file contents
-- `find .*` - Search for files
-- `echo(\s.*)?` - Print text output
+* `which .*` - Find executable locations
+* `ls(\s.*)?` - List directory contents
+* `grep(\s.*)?` - Search file contents
+* `find .*` - Search for files
+* `echo(\s.*)?` - Print text output
 
 You can add your own regular expressions to this list in `Settings > AI > Autonomy > Command allowlist`. Commands in the allowlist will always auto-execute, even if they are not read-only operations.
+
+{% hint style="info" %}
+Mostly any commands are allowed to be auto-executed if they are on the allowlist, with the exception of any commands that contain redirection. e.g. `which warp 2>/dev/null`
+{% endhint %}
 
 ### Command denylist
 
 Agent Mode comes with default denylist entries for potentially risky commands that always require explicit user permission before execution. A couple of examples include:
 
-- `wget(\s.*)?` - Network downloads
-- `curl(\s.*)?` - Network requests 
-- `rm(\s.*)?` - File deletion
-- `eval(\s.*)?` - Shell code execution
+* `wget(\s.*)?` - Network downloads
+* `curl(\s.*)?` - Network requests
+* `rm(\s.*)?` - File deletion
+* `eval(\s.*)?` - Shell code execution
 
 The denylist takes precedence over both the allowlist and model-based auto-execution. If a command matches the denylist, user permission will always be required, regardless of other settings. You can add your own regular expressions to this list in `Settings > AI > Autonomy > Command denylist`.
 
@@ -382,17 +386,18 @@ No, Warp nor its providers OpenAI or Anthropic train on your data.
 #### What model are you using?
 
 The following LLMs are currently supported in Warp:
-- **OpenAI**:
-	+ GPT-4o
-	+ o3-mini
-- **Claude**:
-	+ 3.5 Sonnet
-	+ 3.5 Haiku
-- **Google**:
-	+ Gemini 2.0 Flash
-- **DeepSeek** (hosted by [Fireworks AI](https://fireworks.ai/) in the US):
-	+ R1
-	+ V3
+
+* **OpenAI**:
+  * GPT-4o
+  * o3-mini
+* **Claude**:
+  * 3.5 Sonnet
+  * 3.5 Haiku
+* **Google**:
+  * Gemini 2.0 Flash
+* **DeepSeek** (hosted by [Fireworks AI](https://fireworks.ai/) in the US):
+  * R1
+  * V3
 
 #### Is DeepSeek enabled by default?
 
