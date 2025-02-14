@@ -8,6 +8,26 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2025.02.12 (v0.2025.02.12.16.51)
+
+**New features**
+
+* `CTRL-TAB` is now configurable under `Settings > Features` to cycle between the most recently used sessions rather than just activating the next tab.
+
+**Improvements**
+
+* The LLM menu is now keyboard-navigable.
+
+**Bug fixes**
+
+* Clearing Blocks now also clears any active Prompt Suggestions.
+* Fix Kali Linux `.bashrc` breaking Warp.
+* Fix bug with Agent Mode in PowerShell sessions with multi-line commands.
+* Fixed a bug that prevented Autosuggestions from being accepted and Agent Mode model from being selected while up arrow history was open.
+* Fixed cases where dragged Warp tabs would get stuck.
+* Restores subshell Warpification script.
+* [macOS] Fix hotkey keybinding not triggering on non-US keyboard input source.
+
 ### 2025.02.05 (v0.2025.02.05.08.02)
 
 **New features**
