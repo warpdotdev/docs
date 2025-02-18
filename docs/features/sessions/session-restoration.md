@@ -11,7 +11,7 @@ description: >-
 
 Session restoration allows you to quickly pick up where you left off in your previous terminal session.
 
-## How to access it
+## How to access Session Restoration
 
 * Session Restoration comes enabled by default in Warp.
 
@@ -25,7 +25,7 @@ On Linux, opening windows at a specific position is not supported in Wayland.
 Toggling off Session Restoration will not clear the [SQLite database](session-restoration.md#session-restoration-database); however, Warp will stop recording new output.
 {% endhint %}
 
-## How it works
+## How Session Restoration works
 
 ![Session Restoration Demo](../../.gitbook/assets/sessions-block_restoration.gif)
 
@@ -47,7 +47,7 @@ sqlite3 "${XDG_STATE_HOME:-$HOME/.local/state}/warp-terminal/warp.sqlite"
 {% endtab %}
 {% endtabs %}
 
-**How to clear the database**
+**How to clear the Session Restoration database**
 
 Sometimes, you may want to prevent a sensitive Block from being saved on your computer, or you may want to clear blocks from a machine entirely.
 
