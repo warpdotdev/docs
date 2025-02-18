@@ -180,16 +180,25 @@ In some cases, [CLI applications only work on x86](https://discord.com/channels/
 
 ### Unsupported in Warp for Windows
 
+We will work on adding support for these, but the following will not be available at launch.
+
 * Git Bash, cmd.exe, or fish shells
-* Warpifying ssh sessions
+* [Warpifying SSH sessions](../features/warpify/ssh.md)
+* [VSCode integration](../features/integrations-and-plugins.md#vscode)
+* [Warp AI > Voice](../features/warp-ai/voice.md)
+
+### Warp won't run or render on Windows
+
+We're tracking some issues on Windows where [Warp crashes on startup](https://github.com/warpdotdev/Warp/issues/5840) or doesn't render, with some possible workarounds below. If none of the workarounds help, please open a [new GitHub issue](https://github.com/warpdotdev/warp/issues/new/choose) and include [logs](sending-us-feedback.md#gathering-warp-logs), installation (Baremetal or VM, x86\_64 or ARM64), and the issue you had.
+
+* Graphics
+  * To prefer the DX12 rendering, run this PowerShell command from a different terminal and then restart Warp: `Set-ItemProperty -Path "HKCU:\SOFTWARE\Warp.dev\Warp" -Name PreferredGraphicsBackend '"Dx12"'`
 
 ## Linux
 
 ### Warp won't run or render on Linux
 
-We're tracking some issues for Linux where a [Warp window doesn't show/render](https://github.com/warpdotdev/Warp/issues/4215) and won't run in [Virtual Machines](https://github.com/warpdotdev/Warp/issues/4476), over [remote desktops](https://github.com/warpdotdev/Warp/issues/4435), or on [WSL](https://github.com/warpdotdev/Warp/issues/4240).
-
-If none of the workarounds help, please open a [new GitHub issue](https://github.com/warpdotdev/warp/issues/new/choose) and include [logs](sending-us-feedback.md#gathering-warp-logs) with your Linux distro, installation (WSL, Baremetal or VM, x86 or ARM), and the issue you had.
+We're tracking some issues on Linux where a [Warp window doesn't show/render](https://github.com/warpdotdev/Warp/issues/4215) and won't run in [Virtual Machines](https://github.com/warpdotdev/Warp/issues/4476), over [remote desktops](https://github.com/warpdotdev/Warp/issues/4435), or on [WSL](https://github.com/warpdotdev/Warp/issues/4240). Some possible workarounds are below. If none of the workarounds help, please open a [new GitHub issue](https://github.com/warpdotdev/warp/issues/new/choose) and include [logs](sending-us-feedback.md#gathering-warp-logs) with your Linux distro, installation (WSL, Baremetal or VM, x86\_64 or ARM64), and the issue you had.
 
 {% hint style="info" %}
 * Many package install examples are for Ubuntu using `apt`, your distro may use different commands (`dnf`, `pacman`, `zypper`) or package names.
@@ -210,7 +219,7 @@ If none of the workarounds help, please open a [new GitHub issue](https://github
     * For Fedora: `sudo dnf install akmod-nvidia`
     * For Arch Linux: `sudo pacman -S nvidia`
     * For openSUSE: `sudo zypper install x11-video-nvidiaG05`
-  * Use [Low Power (integrated) GPU](https://github.com/warpdotdev/Warp/issues/4215#issuecomment-1967500574) in `~/.config/warp-terminal/user_preferences.json` file: `{"prefs":{"PreferLowPowerGPU": "true",}}`. The low-power workaround is particularly helpful if you see [`Unrecognized device error ERROR_INITIALIZATION_FAILED` in warp.log](https://github.com/warpdotdev/Warp/issues/4390#issuecomment-1989493913).
+  * Use [Low Power (integrated) GPU](https://github.com/warpdotdev/Warp/issues/4215#issuecomment-1967500574) in `~/.config/warp-terminal/user_preferences.json` file: `{"prefs":{"PreferLowPowerGPU": "true",}}`.  The low-power workaround is particularly helpful if you see [`Unrecognized device error ERROR_INITIALIZATION_FAILED` in warp.log](https://github.com/warpdotdev/Warp/issues/4390#issuecomment-1989493913).
 * Environmental Variables
   * Prefix `warp-terminal` with the variables (multiple can be used), and once you confirm they work, `export` them in your `.profile`/`.zprofile` to [load on startup](https://github.com/warpdotdev/Warp/issues/4240#issuecomment-1968228029):
     * [Default to Wayland](https://github.com/warpdotdev/Warp/issues/4240#issuecomment-1961993281): `WARP_ENABLE_WAYLAND=1`
