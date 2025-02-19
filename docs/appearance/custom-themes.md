@@ -88,10 +88,9 @@ A custom theme in Warp has the following `.yaml` structure:
 ```yaml
 name: Custom Theme # Name for the theme
 accent: '#268bd2' # Accent color for UI elements
-cursor: '#95D886' # Input cursor color
+cursor: '#95D886' # Input cursor color (optional; defaults to accent color if omitted)
 background: '#002b36' # Terminal background color
 foreground: '#839496' # The foreground color
-cursor: '#d3a964' # The cursor color (optional; defaults to accent color if omitted)
 details: darker # Whether the theme is lighter or darker
 terminal_colors: # Ansi escape colors
   bright:
@@ -120,10 +119,9 @@ Each color is represented in hex and must start with `#`.
 
 * `name`: Name for the theme, will show up in the Theme picker.
 * `accent`: Color used for highlights in Warp's UI
-* `cursor`: Color for the input cursor
+* `cursor`: Color for the input cursor (optional; defaults to accent color if omitted)
 * `background`: Color of background
 * `foreground`: Color of foreground
-* `cursor`: (Optional) color used for the cursor. Defaults to the `accent` color.
 * `details`: Color used for detailing options
   * `darker`: Color used for dark theme
   * `lighter`: Color used for light-mode theme
