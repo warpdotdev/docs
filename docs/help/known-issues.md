@@ -25,7 +25,9 @@ Links to popular GitHub issues:
 
 To enable Blocks over SSH, Warp uses an SSH Wrapper function; navigate to settings > features if you need to disable it. Please see [Troubleshooting Legacy SSH](../features/warpify/ssh-legacy.md#troubleshooting-ssh) for more info on workarounds to SSH issues, or see the [new SSH Page](../features/warpify/ssh.md) for more on the upcoming features.
 
-## Online features don't work
+## General
+
+### Online features don't work
 
 There is a known issue that can occur that causes online features to break ([Warp AI](../features/warp-ai/), [Generate](../features/warp-ai/generate.md), [Block Sharing](../features/blocks/block-sharing.md), [Refer a Friend](../getting-started/refer-a-friend.md) ). This is due to the login token going stale, typically due to a password change, and can be resolved by the following steps:
 
@@ -46,7 +48,7 @@ There is a known issue that can occur that causes online features to break ([War
 {% endtab %}
 {% endtabs %}
 
-## English-only UI
+### English-only UI
 
 Nov 2021: We have added character support for Chinese, Korean, and Japanese, but our UI currently only supports English.
 
@@ -59,11 +61,13 @@ export LC_ALL=zh_CN.UTF-8
 export LANG=zh_CN.UTF-8
 ```
 
-## fish shell `read` command
+## Shells
+
+### fish shell `read` command
 
 There is an issue in fish shell version 3.6 and below that causes the `read` built-in command to break Warp's integration with fish. This means that using `read` directly or any fish scripts that call `read` will not work as expected in Warp. That issue is resolved in the fish repository and so should be fixed in the next release of fish itself. We recommend upgrading fish to the most recent version to resolve this issue.
 
-## Configuring and debugging your RC files
+### Configuring and debugging your RC files
 
 To support Blocks ([custom hooks](https://blog.warp.dev/how-warp-works/#implementing-blocks)), a native Input Editor experience, etc. we have to build custom support for a subset of shell functionality (decouple functionality from the shell and move to the terminal). This leads to Warp being incompatible with various tools and plugins.
 
@@ -71,7 +75,7 @@ You can **disable the conflicting settings for Warp** using this flag: `$TERM_PR
 
 We currently don't have support for multi-line custom prompts in bash, only zsh and fish. Unlike typical terminals which are essentially continuous character grids, each section of Warp is its own (separate) UI element. Warps default prompt does not support multi-line or right-sided prompts at this time. Improving the native Prompt is on the roadmap, however. Please see our [Prompt](../appearance/prompt.md) page for more information on custom prompts.
 
-### Debugging
+#### Debugging
 
 If Warp is not working with your dotfile configuration,
 
@@ -108,7 +112,7 @@ if test "$TERM_PROGRAM" != "WarpTerminal"
 <strong>end
 </strong></code></pre>
 
-### List of incompatible tools
+#### List of incompatible tools
 
 Since Warp has an [Input Editor](../features/editor/) that wraps around the shell, the following inexhaustive list of plugins or tools can cause potential conflict given extra bytes coming into the PTY:
 
