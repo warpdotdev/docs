@@ -21,11 +21,11 @@ Links to popular GitHub issues:
 * [tmux](https://github.com/warpdotdev/warp/discussions/501)
 * [oh-my-zsh Prompts](https://github.com/warpdotdev/Warp/issues/936)
 
-## SSH
+## General
+
+### SSH
 
 To enable Blocks over SSH, Warp uses an SSH Wrapper function; navigate to settings > features if you need to disable it. Please see [Troubleshooting Legacy SSH](../features/warpify/ssh-legacy.md#troubleshooting-ssh) for more info on workarounds to SSH issues, or see the [new SSH Page](../features/warpify/ssh.md) for more on the upcoming features.
-
-## General
 
 ### Online features don't work
 
@@ -186,10 +186,9 @@ In some cases, [CLI applications only work on x86](https://discord.com/channels/
 
 We will work on adding support for these, but the following will not be available at launch.
 
-* Git Bash, cmd.exe, or fish shells
+* cmd.exe or fish shells
 * [Warpifying SSH sessions](../features/warpify/ssh.md)
 * [VSCode integration](../features/integrations-and-plugins.md#vscode)
-* [Warp AI > Voice](../features/warp-ai/voice.md)
 
 ### Warp won't run or render on Windows
 
