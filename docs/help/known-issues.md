@@ -147,20 +147,20 @@ Since Warp has an [Input Editor](../features/editor/) that wraps around the shel
 
 ## macOS
 
-### SSH to local network device is denied
+### SSH to local network device is denied on macOS
 
 On macOS, you may be [denied permission to SSH](https://github.com/warpdotdev/Warp/issues/5550) from Warp into other devices in your local network and see an error like: `ssh: connect to host <host_name> port 22: Undefined error: 0`.\
-To resolve this issue, go to Mac > System Settings > Privacy & Security > Local Network, and add Warp.
+To resolve this issue, go to `Mac > System Settings > Privacy & Security > Local Network`, and add Warp.
 
 <figure><img src="../.gitbook/assets/mac-ssh-permission.png" alt=""><figcaption><p>Mac SSH permission error</p></figcaption></figure>
 
-### Unexpected loss of permission
+### Unexpected loss of permission on macOS
 
 On macOS, you may see a `Operation not permitted` error when trying to run commands in directories that have already been granted macOS permissions (Documents, Downloads, Desktop, etc). The best workaround at this time, is to [apply any pending Updates](updating-warp.md) so that the new Warp binary has the correct permissions. We are and tracking this issue [here](https://github.com/warpdotdev/Warp/issues/3009).
 
 <figure><img src="../.gitbook/assets/permission-error-macos.png" alt=""><figcaption><p>Permission error on macOS</p></figcaption></figure>
 
-### Auto-Update on macOS Ventura
+### Auto-Update error on macOS
 
 Warp may have an error opening after auto-update on macOS Ventura. This issue has been resolved for current and future releases of Warp. To avoid the issue, [update Warp](updating-warp.md) _before_ you upgrade to macOS Ventura.\
 \
@@ -172,7 +172,7 @@ If you experience an error opening Warp, please try the following:
 
 * If the above doesn't work, [uninstall Warp](uninstalling-warp.md), then [re-install Warp](../getting-started/getting-started-with-warp.md).
 
-### Running x86 commands with macOS Rosetta
+### Running x86 commands with macOS
 
 In some cases, [CLI applications only work on x86](https://discord.com/channels/851854972600451112/1204829324847358002) so you can run Warp with Rosetta on macOS to be able to use them by doing the following.
 
@@ -182,7 +182,7 @@ In some cases, [CLI applications only work on x86](https://discord.com/channels/
 
 ## Windows
 
-### Unsupported in Warp for Windows
+### Unsupported in Warp on Windows
 
 We will work on adding support for these, but the following will not be available at launch.
 
@@ -196,6 +196,10 @@ We're tracking some issues on Windows where [Warp crashes on startup](https://gi
 
 * Graphics
   * To prefer the DX12 rendering, run this PowerShell command from a different terminal and then restart Warp: `Set-ItemProperty -Path "HKCU:\SOFTWARE\Warp.dev\Warp" -Name PreferredGraphicsBackend '"Dx12"'`
+
+### Crash on opening a Launch configuration or new window on Windows
+
+When a user has an Nvidia GPU and 572.xx drivers or above, Warp may [crash when trying to open a Launch Configuration](https://github.com/warpdotdev/Warp/issues/5875) or new window. This may be worked around by going to the `NVIDIA Control Panel > 3D Settings > Manage 3D settings > Vulkan/OpenGL present method` and set it to "Prefer native".
 
 ## Linux
 
@@ -229,7 +233,7 @@ We're tracking some issues on Linux where a [Warp window doesn't show/render](ht
     * Set [Default GPU](https://docs.mesa3d.org/drivers/d3d12.html#utilities) for WSL: e.g. `MESA_D3D12_DEFAULT_ADAPTER_NAME=NVIDIA`
     * Set [Graphics APIs](https://github.com/gfx-rs/wgpu?tab=readme-ov-file#environment-variables): e.g. `WGPU_BACKEND=gl`
 
-### Warp update fails after upgrading Linux
+### Update fails after upgrading Linux
 
 Some Linux distros may modify Warp's package repository during the the OS upgrades. We're aware of this on Ubuntu, but this may affect other Linux distros. We're tracking this issue on GitHub [here](https://github.com/warpdotdev/Warp/issues/5201).\
 \
