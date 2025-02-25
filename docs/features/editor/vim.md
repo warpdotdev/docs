@@ -4,13 +4,13 @@ description: >-
   editor.
 ---
 
-# Vim keybindings
+# Vim Keybindings
 
-## About vim keybindings
+## About Vim keybindings
 
 The Vi family of programs (including Vim and Neovim) are modal text editors that allow for keyboard-driven text editing. Several shells, including `bash` and `zsh`, implement vi-style keybindings. Warp's input editor was built natively to support more modern text editing experiences, which means it replaces the shell's editor capabilities. Warp has its implementation of Vim keybindings (also known as Vim mode) you can use.
 
-### How to enable vim keybindings
+### How to enable Vim Keybindings
 
 {% hint style="info" %}
 With `bash` and `zsh`, Warp attempts to detect the shell's keybinding settings. If a shell vi mode is detected, Warp may suggest enabling Vim keybindings (also known as Vim mode).
@@ -23,13 +23,13 @@ To manually toggle Vim keybindings in Warp's input editor:
 
 As in `bash` and `zsh`'s vi mode implementations, the editor starts in insert mode. Pressing `CTRL-C` or `ENTER` clears any pending command state.
 
-### Customizing keybindings
+### Customizing Keybindings
 
 At the moment, Warp only supports default Vim keybindings.
 
 One exception is the keyboard shortcut for exiting insert mode, which can be rebound under `Settings > Keyboard Shortcuts > Exit Vim Insert Mode`, or through the [Command Palette](../command-palette.md) search for "Exit Vim Insert Mode".
 
-## Supported keybindings
+## Supported Keybindings
 
 Below is a list of the vim functionality implemented in Warp so far.
 

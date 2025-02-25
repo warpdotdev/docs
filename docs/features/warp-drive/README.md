@@ -14,7 +14,7 @@ All objects stored in Warp Drive sync immediately as they’re updated, so you a
 Warp Drive, Teams, and Workflows Demo
 {% endembed %}
 
-## How to access Warp Drive
+## How to access it
 
 {% tabs %}
 {% tab title="macOS" %}
@@ -85,7 +85,7 @@ To switch between panels (e.g. jump from command line to Warp Drive to Warp AI) 
 
 <figure><img src="../../.gitbook/assets/warp_drive_nav2.png" alt=""><figcaption></figcaption></figure>
 
-## Import and export
+## Import and Export
 
 Every object in Warp Drive can be exported to or imported from a file.
 
@@ -98,7 +98,7 @@ When importing or exporting, objects are converted as follows:
 * [Workflows](workflows.md) import from and export to YAML
 * [Notebooks](notebooks.md) import from and export to Markdown
 
-## Sharing your drive objects
+## Sharing Your Drive Objects
 
 Every object in Warp Drive can be shared. There are three ways to share objects:
 
@@ -106,7 +106,7 @@ Every object in Warp Drive can be shared. There are three ways to share objects:
 * **Direct Sharing:** Objects can be shared directly with individuals by email.
 * **Link-based Sharing:** You can make an object public to anyone with the link, including those without Warp accounts.
 
-### Sharing a Drive object using links
+### Sharing a Drive Object using Links
 
 To share a Drive object, navigate to the object's overflow menu, and choose "Copy link". Once the link is successfully copied to your clipboard, you can share it with teammates and reference your object in your codebase, documentation, or communication channels like Slack.
 
@@ -116,7 +116,7 @@ In order to access an object, link-followers must have permission to open it thr
 
 <figure><img src="../../docs/.gitbook/assets/wd-copy-link-menu.png" alt="" width="216"><figcaption><p>Copy link Menu Item</p></figcaption></figure>
 
-### Managing permissions
+### Managing Permissions
 
 To manage a Drive object's permissions, navigate to its overflow menu and choose "Share". If the object is open, you can also use the [Command Palette](../command-palette.md#how-to-access-it) and search for "Share Pane" or click the share button in the pane header:
 

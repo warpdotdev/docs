@@ -1,12 +1,12 @@
 ---
 description: >-
-  Command corrections provides auto-correct suggestions on previously run
+  Command Corrections provides auto-correct suggestions on previously run
   commands to catch typos and forgotten flags, and fix general console errors.
 ---
 
-# Command corrections
+# Command Corrections
 
-## What are command corrections
+## What is it
 
 This feature was built on top of the open-source project [nvdn/thefuck](https://github.com/nvbn/thefuck). Here are some examples that the Warp team usually finds Command Corrections useful for:
 
@@ -18,12 +18,12 @@ This feature was built on top of the open-source project [nvdn/thefuck](https://
 * Add permissions
   * `./script` -> `chmod +x ./script && ./script`
 
-## How to access command corrections
+## How to access it
 
 * Command Corrections is enabled by default. You can disable Command Corrections by going to `Settings > Features` > toggle “Suggest corrected commands”.
 * After an incorrect command is run, a panel with the corrected command suggestion appears above the Input Editor. `CLICK` or press the `RIGHT` arrow to insert the suggestion.
 
-## How command corrections work
+## How it works
 
 {% embed url="https://www.loom.com/share/180e1dc8d1504ec39c00694d9fd71b7c?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
 Command Corrections Demo

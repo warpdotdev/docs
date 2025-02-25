@@ -74,7 +74,7 @@ Warp collects high-level usage data (**never console input or output**) to disco
 
 Warp uses Sentry for crash reporting and Rudderstack for app analytics.
 
-### Exhaustive telemetry table
+### Exhaustive Telemetry Table
 
 | Event Name                                                 | Description                                                                                                                                                       |
 | ---------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |

@@ -2,9 +2,9 @@
 description: All the cool features Blocks provide.
 ---
 
-# Block actions
+# Block Actions
 
-## Accessing block actions
+## Accessing Block Actions
 
 There are 2 ways you can access Block actions.
 
@@ -15,7 +15,7 @@ There are 2 ways you can access Block actions.
 Accessing Block Actions
 {% endembed %}
 
-## Copy input / output of block
+## Copy Input / Output of Block
 
 This feature allows you to easily copy the Block command, output, or both.
 
@@ -23,11 +23,11 @@ This feature allows you to easily copy the Block command, output, or both.
 Copy Block Actions
 {% endembed %}
 
-## Sharing a block
+## Sharing a Block
 
 Share a block easily with coworkers or teammates by creating a web permalink. This preserves formatting and makes debugging and sharing output easy. [See Block Sharing Page.](block-sharing.md)
 
-## Bookmarking a block
+## Bookmarking a Block
 
 Quickly navigate to important Blocks despite where they are in the terminal history.
 
@@ -69,7 +69,7 @@ Bookmarks only persist while the session is open, once you close the session the
 Bookmarking Blocks
 {% endembed %}
 
-## Search within a block
+## Search Within A Block
 
 Quickly find important information within a Block. [See Find page](../find.md)
 

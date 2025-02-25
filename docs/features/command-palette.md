@@ -1,14 +1,14 @@
 ---
 description: >-
-  Command palette is a global search to quickly locate Workflows, Notebooks, 
+  Command Palette is a global search to quickly locate Workflows, Notebooks, 
   keyboard shortcuts, or other actions within Warp.
 ---
 
-# Command palette
+# Command Palette
 
 <figure><img src="../.gitbook/assets/command-palette-panel.png" alt=""><figcaption><p>Command Palette Panel</p></figcaption></figure>
 
-## How to access the command palette
+## How to access it
 
 {% tabs %}
 {% tab title="macOS" %}
@@ -20,7 +20,7 @@ You can access the Command Palette with the keyboard shortcut `SHIFT-CTRL-P`.
 {% endtab %}
 {% endtabs %}
 
-## How the command palette works
+## How it works
 
 * Start typing to search for workflows, notebooks, keyboard shortcuts, actions, toggles, etc.
 * Activate a specific filter, by prepending your search term with the following:

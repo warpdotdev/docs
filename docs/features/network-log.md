@@ -4,15 +4,15 @@ description: >-
   the current terminal session.
 ---
 
-# Network log
+# Network Log
 
-## What is the network log
+## What is it
 
 You can use Warp’s network log to help debug issues or simply use it to understand when information is sent or received over the network throughout a Warp terminal session.
 
 Each log item is a timestamped Debug format string for either a request or response object handled by Warp. Messages are logged via pre-request and post-response hooks in Warp’s internal HTTP client.
 
-## How to use the network log
+## How to use it
 
 1. To access the network panel from the [Command Palette](command-palette.md), type in “Show Warp Network Log”
 2. That will insert a workflow into your input editor - it should look something like this: `tail -f "some/path/to/warp_network.log"`.
@@ -20,7 +20,7 @@ Each log item is a timestamped Debug format string for either a request or respo
 4. Then search for an [Generated](generate.md) command or [Share a Block](blocks/block-sharing.md) to see the network log activity.
 5. Once you run one of these examples, you’ll see the corresponding requests and responses logged in the network log.
 
-## How the network log Works
+## How it Works
 
 {% embed url="https://www.loom.com/share/0d9eaeb8715846f3a96d557abe23e7ac?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
 Network Log Demo

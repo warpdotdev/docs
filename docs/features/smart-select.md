@@ -4,13 +4,13 @@ description: >-
   common patterns (listed below).
 ---
 
-# Smart-select
+# Smart-Select
 
-## What is smart-select
+## What is it
 
 Double-click selection typically highlights an individual word; semantic selection, however, extends the definition of a word so that it's not delimited by whitespace or some punctuation marks. This enables easily selecting URLs, IP addresses, etc.
 
-## How to access smart-select
+## How to access it
 
 Double-click on some text in the app. The following patterns are recognized:
 

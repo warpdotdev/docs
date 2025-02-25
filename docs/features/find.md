@@ -7,7 +7,7 @@ description: >-
 
 # Find
 
-## What is find
+## What is it
 
 Find searches for matches in all your Blocks from the bottom up and can even be isolated to a specific Block.
 
@@ -15,7 +15,7 @@ Find searches for matches in all your Blocks from the bottom up and can even be 
 Since command outputs are contained within Blocks, you can still use the input editor when invoking find.
 {% endhint %}
 
-## How to access find
+## How to access it
 
 {% tabs %}
 {% tab title="macOS" %}

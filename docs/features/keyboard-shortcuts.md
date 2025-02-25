@@ -2,11 +2,11 @@
 description: Warps commonly used keyboard shortcuts.
 ---
 
-# Keyboard shortcuts
+# Keyboard Shortcuts
 
 Warp opens with a shortcut screen showing some of the most commonly used keyboard shortcuts. Hide the shortcut screen by clicking the x button. Quickly view keyboard shortcuts via the [Command Palette](command-palette.md) or the Resource Center keyboard shortcut sidebar.
 
-## Custom keyboard shortcuts
+## Custom Keyboard Shortcuts
 
 Set custom, clear, or default keyboard shortcuts by navigating to `Settings > Keyboard Shortcuts`. Search through the re-mappable actions or existing shortcuts using the search bar.
 
@@ -22,7 +22,7 @@ Keybinds that conflict with others are highlighted with an orange border.
 
 <figure><img src="../.gitbook/assets/keybinds-conflict.png" alt="keybinds that conflict with others are highlighted in orange"><figcaption><p>Keybind Conflict Example</p></figcaption></figure>
 
-## All available shortcuts
+## All Available Shortcuts
 
 {% tabs %}
 {% tab title="macOS" %}

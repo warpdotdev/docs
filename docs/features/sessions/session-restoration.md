@@ -1,17 +1,17 @@
 ---
 description: >-
-  The session restoration feature enables Warp to restore your session history,
+  The Session Restoration feature enables Warp to restore your session history,
   specifically windows, tabs, and panes, along with the last few Blocks in each
   pane.
 ---
 
-# Session restoration
+# Session Restoration
 
-## What is session restoration
+## What is it
 
 Session restoration allows you to quickly pick up where you left off in your previous terminal session.
 
-## How to access session restoration
+## How to access Session Restoration
 
 * Session Restoration comes enabled by default in Warp.
 
@@ -29,7 +29,7 @@ Toggling off Session Restoration will not clear the [SQLite database](session-re
 
 ![Session Restoration Demo](../../.gitbook/assets/sessions-block_restoration.gif)
 
-### Session Restoration database
+#### Session Restoration database
 
 Warp saves the data from your previous session's windows, tabs, and panes to a SQLite database on your computer, and every time you quit the app, this data is overwritten by your latest session. You can open the database directly and inspect its full contents like so:
 
@@ -47,7 +47,7 @@ sqlite3 "${XDG_STATE_HOME:-$HOME/.local/state}/warp-terminal/warp.sqlite"
 {% endtab %}
 {% endtabs %}
 
-#### **How to clear the Session Restoration database**
+**How to clear the Session Restoration database**
 
 Sometimes, you may want to prevent a sensitive Block from being saved on your computer, or you may want to clear blocks from a machine entirely.
 

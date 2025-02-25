@@ -1,11 +1,11 @@
 ---
 description: >-
-  Synchronized inputs allow you to sync your commands from one session to
+  Synchronized Inputs allow you to sync your commands from one session to
   multiple similar panes as you’re typing, so you can easily run the same
   command in multiple sessions at the same time.
 ---
 
-# Synchronized inputs
+# Synchronized Inputs
 
 ### Synchronized inputs vs. broadcast input
 
@@ -13,14 +13,14 @@ Synchronized inputs in Warp work similarly to “broadcast input” settings in 
 
 With Warp’s synchronized inputs, whatever command you enter in one session will sync to the other sessions in its entirety. Whereas, "broadcast input" typically allows you to "broadcast" individual keystrokes, which may be more suitable for editing parts of commands.
 
-## How to access synchronized inputs
+## How to access it
 
 There are three ways to access controls to synchronize inputs:
 
 * [Command Palette](../command-palette.md) in Warp: Search for “synchronize”
 * Mac menus for the Warp app: `Edit > Synchronize Input`
 
-## How to use synchronized inputs
+## How to use it
 
 {% tabs %}
 {% tab title="macOS" %}
@@ -46,6 +46,6 @@ If you are working in an alternative editor mode (like vim), synchronized inputs
 
 When you get done, you can select “Stop Synchronizing Any Panes” to end the synchronization.
 
-## How synchronized inputs work
+## How it works
 
 <figure><img src="../../.gitbook/assets/Synchronized-Inputs.gif" alt="Demo showing synchronized inputs across panes and tabs"><figcaption><p>Synchronized Inputs Demo</p></figcaption></figure>

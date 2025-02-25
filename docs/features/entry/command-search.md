@@ -1,11 +1,11 @@
 ---
 description: >-
-  The Command search panel allows you to search across Command History,
+  The Command Search panel allows you to search across Command History,
   Workflows, Notebooks, and Warp AI simultaneously. Warp supports fuzzy search
   and tries to rank more relevant results.
 ---
 
-# Command search
+# Command Search
 
 ![Command Search Panel](../../.gitbook/assets/command-search-panel.png)
 
@@ -13,7 +13,7 @@ description: >-
 Tailor your [Command Search](command-search.md) experience by toggling off "Show Global Workflows" in `Settings > Features`. When disabled, your search will exclusively encompass YAML and Warp Drive Workflows.
 {% endhint %}
 
-## How to use command search
+## How to use it
 
 * Press `CTRL-R` to open the Command Search Panel. You’ll be greeted with a landing page, where you can click through different filters to get started.
 * Type into the input box what your search query is. The results will contain command history, saved workflows, notebooks, and AI command suggestions from Generate.
@@ -29,7 +29,7 @@ Tailor your [Command Search](command-search.md) experience by toggling off "Show
 * Once the result shows up, press `ENTER` to input the command directly into Warp's Input Editor.
 * You can also expand the menu horizontally with the mouse by dragging it on the right edge.
 
-## How command search works
+## How it works
 
 {% embed url="https://www.loom.com/share/21a6f58a33754ee7913edbff6d33d8d1?hideEmbedTopBar=true&hide_owner=true&hide_share=true&hide_title=true" %}
 Command Search Demo

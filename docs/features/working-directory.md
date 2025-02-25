@@ -1,16 +1,10 @@
----
-description: >-
-  Warp's working directory feature is designed to enhance your workflow by
-  enabling you to set up a default directory for new sessions.
----
+# Working Directory
 
-# Working directory
+## What is it
 
-## What is working directory
+Warp's working directory feature is designed to enhance your workflow by enabling you to set up a default directory for new sessions. This feature helps you save time and quickly access your preferred directories when starting new sessions. You have the flexibility to set up a working directory for all new sessions or customize it individually for Windows, Tabs, and Panes, based on your specific needs.
 
-This feature helps you save time and quickly access your preferred directories when starting new sessions. You have the flexibility to set up a working directory for all new sessions or customize it individually for Windows, Tabs, and Panes, based on your specific needs.
-
-## How to access working directory
+## How to access it
 
 * Open `Settings > Features > Session` and go to "Working directory for new sessions".
 * The drop-down for this feature provides several options discussed below:
@@ -19,6 +13,6 @@ This feature helps you save time and quickly access your preferred directories w
   * Custom directory, opens new sessions in a file path you specify.
   * Advanced, allows you to select from the three options for new sessions in Windows, Tabs, and Panes.
 
-## How to use working directory
+## How to use it
 
 <figure><img src="../.gitbook/assets/working-directory-demo.gif" alt="Working Directory Demo"><figcaption><p>Working Directory Demo</p></figcaption></figure>

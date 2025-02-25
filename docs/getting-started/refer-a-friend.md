@@ -4,7 +4,7 @@ description: >-
   your team or friends within the app.
 ---
 
-# Refer a friend & earn rewards
+# Refer a Friend & Earn Rewards
 
 Go to `Settings > Referrals` to open the invite a friend referral dialog.
 
@@ -15,7 +15,7 @@ There are two ways you can invite a friend:
 
 <figure><img src="../.gitbook/assets/refer-a-friend.gif" alt=""><figcaption><p>Refer a friend</p></figcaption></figure>
 
-## Referral rewards program
+## Referral Rewards Program
 
 We give out themes, swag, and other perks as thanks for helping to grow our community.
 
@@ -42,7 +42,7 @@ If your friend joins and activates their Warp account after clicking your invite
 
 ![](../.gitbook/assets/receive_referral_theme.png)
 
-## Referral program terms and conditions
+## Referral Program Terms and Conditions
 
 > **Last Updated:** November 27, 2024
 

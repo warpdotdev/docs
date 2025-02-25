@@ -1,8 +1,8 @@
 ---
-description: Learn about Warp's plans and pricing tiers. Get started for free.
+description: Use Warp for free or subscribe to a paid plan
 ---
 
-# Plans, subscriptions & pricing
+# Plans, Subscriptions & Pricing
 
 You can visit [warp.dev/pricing ](https://www.warp.dev/pricing)to learn about Warp's current plans and what's included in each offering.
 
@@ -10,7 +10,7 @@ This article includes answers to some frequent questions that might come up as y
 
 Don't have Warp yet? [Download now](../getting-started/getting-started-with-warp.md) and get started today.
 
-## Warp’s refund policy
+## Warp’s Refund Policy
 
 If you believe you've made a mistake signing up for a paid Warp subscription, please contact us at [billing@warp.dev](mailto:billing@warp.dev). We'll be happy to refund you the full amount if you downgrade your subscription within 72 hours of signing up for monthly billing, or within 30 days of signing up for annual billing.
 

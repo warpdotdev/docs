@@ -1,17 +1,17 @@
 ---
 description: >-
-  Launch configurations enables you to save your configuration of windows, tabs,
+  Launch Configurations enables you to save your configuration of windows, tabs,
   and panes, so that you can reopen the same set of sessions per project
   quickly.
 ---
 
-# Launch configurations
+# Launch Configurations
 
-## What are launch configurations
+## What is it
 
 With Launch configurations you can save in the app or by adding a yaml file.
 
-## Creating a launch configuration
+## Creating a Launch Configuration
 
 ### From the UI
 
@@ -25,7 +25,7 @@ With Launch configurations you can save in the app or by adding a yaml file.
 * Launch Configurations files are generated when you create them with the UI and can also be created or modified manually.
 * Please see the below for [Launch Configuration YAML file locations, format, and examples](launch-configurations.md#launch-configuration-yaml-format).
 
-## Using a launch configuration
+## Using a Launch Configuration
 
 {% tabs %}
 {% tab title="macOS" %}
@@ -47,7 +47,7 @@ With Launch configurations you can save in the app or by adding a yaml file.
 You can open saved Launch Configurations via Alfred Workflow or [Raycast](../integrations-and-plugins.md#raycast) Extension. Learn more [here](https://blog.joe.codes/open-warp-launch-configurations-from-raycast-and-alfred). Credit to [@joetannenbaum](https://twitter.com/joetannenbaum/status/1633538768866009115)
 {% endhint %}
 
-## How launch configurations work
+## How it works
 
 {% embed url="https://www.loom.com/share/daa2a9e55c27458c8bbf722d90078880?hideEmbedTopBar=true&hide_owner=true&hide_share=true&hide_title=true" %}
 Launch Configuration Demo

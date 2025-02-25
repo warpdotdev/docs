@@ -54,7 +54,7 @@ The first time you enter Agent Mode, you will be served a banner with the option
 
 <figure><img src="../../.gitbook/assets/banner_for_auto-detection_first_experience.png" alt="Warp displays an option to toggle natural language detection on / off"><figcaption><p>Warp displays an option to toggle natural language detection on / off</p></figcaption></figure>
 
-### Input hints
+### Input Hints
 
 Warp input occasionally shows hints within the input editor in a light grey text that helps users learn about features. It's enabled by default.
 
@@ -78,7 +78,7 @@ Once you have typed your question or task in the input, press `ENTER` to execute
 
 Unlike a chat panel, Agent Mode can complete tasks for you by running commands directly in your session.
 
-#### Agent Mode command suggestions
+#### Agent Mode Command Suggestions
 
 If Agent Mode finds a suitable command that will accomplish your task, it will describe the command in the AI block. It will also fill your terminal input with the suggested command so you can press `ENTER` to run the command.
 
@@ -88,7 +88,7 @@ If the suggested command fails and you want to resolve the error, you may start 
 
 <figure><img src="../../.gitbook/assets/agent-mode-suggestion (3).png" alt="Agent Mode makes a suggestion to run a command."><figcaption><p>Agent Mode makes a suggestion to run a command.</p></figcaption></figure>
 
-#### Agent Mode requested commands
+#### Agent Mode Requested Commands
 
 If Agent Mode doesn't have enough context to assist with a task, it will ask permission to run a command and read the output of that command.
 
@@ -261,7 +261,7 @@ You can also open supported code files in Warp by clicking on the link, then sel
 
 <figure><img src="../../.gitbook/assets/open-in-warp-code.gif" alt=""><figcaption><p>Opening code files in Warp</p></figcaption></figure>
 
-### **Codebase context**
+### **Codebase Context**
 
 In order for Agent Mode to be able to answer questions about about the code files in your codebase, Warp can generate an outline containing relevant information about each file. This outline can then be used when querying Agent Mode to find relevant files for a requested query.
 
@@ -366,7 +366,7 @@ Allotted AI requests refill every 30 days from your signup date. When you upgrad
 
 For more FAQs about pricing, visit [Plans, Subscriptions, and Pricing](../../help/plans-subscriptions-and-pricing.md).
 
-## Agent Mode privacy, security, and safety
+## Privacy, Security, and Safety
 
 We recognize that the terminal is a sensitive environment and we want to be explicit about what's leaving your machine and what’s being run when you use Agent Mode.
 
@@ -381,7 +381,7 @@ We recognize that the terminal is a sensitive environment and we want to be expl
 * While Warp AI is built on OpenAI and OpenAI’s servers will receive all input, OpenAI does not train their models on this data.
 * Advanced security features, such as Zero Data Retention and Custom LLM, are available on Warp's Enterprise plan.
 
-## Agent Mode known issues and limitations
+## Known Issues and Limitations
 
 * Note that Agent Mode blocks are not shareable during [session sharing](../session-sharing.md). Participants will be able to share regular shell commands that are run, but will not be able to share AI interactions (requested commands, AI blocks, etc.).
 * Block actions such as [Block Sharing](../blocks/block-sharing.md) are not available on Agent Mode AI blocks.

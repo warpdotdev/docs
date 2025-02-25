@@ -68,7 +68,7 @@ When you make a change to the `zshrc` file, it needs to be sourced again for the
 
 Macs come with bash pre-installed, typically located at the `/bin/bash` directory. You can customize bash by editing its configuration files (`.bashrc` file for non-login interactive shell and `.bash_profile` for login shells).
 
-#### Customize Your bash shell environment
+#### Customize Your bash Shell Environment
 
 You can customize your bash shell environment by modifying the `.bashrc` file, which is a configuration file that is automatically created when bash is installed in your system. It is typically located in your home directory (`~/.bashrc`).
 

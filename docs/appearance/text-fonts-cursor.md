@@ -5,13 +5,15 @@ description: >-
   cursor.
 ---
 
-# Text, fonts, & cursor
+# Text, Fonts, & Cursor
 
 {% hint style="info" %}
 Once a new font is installed in your system, you need to restart Warp for it to show on the list of options. You may also need to check "View all available system fonts" to see the new font.
 {% endhint %}
 
-## How to configure text and fonts
+## How to use it
+
+### Text and Fonts
 
 To access it, go to `Settings > Appearance > Text`
 
@@ -36,7 +38,7 @@ On Linux, Warp does not support the "Use thin stroke" feature.
 Enabling ligatures can reduce performance. Warps default font, Hack, doesn't yet have ligature support. We recommend font that supports ligatures (e.g. [Fira Code](https://github.com/tonsky/FiraCode)) as a stopgap.
 {% endhint %}
 
-## How to configure cursor
+### Cursor
 
 To access it, go to `Settings > Appearance > Cursor`
 
@@ -49,7 +51,7 @@ From there you can customize:
 Cursor type preference is disabled while [Vim keybindings](../features/editor/vim.md) (vim mode) is active.
 {% endhint %}
 
-## How fonts, text, and cursor works
+## How it works
 
 {% embed url="https://www.loom.com/share/be2fa6ab10a3494a8c57a5431966905b?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
 Text and Fonts Demo

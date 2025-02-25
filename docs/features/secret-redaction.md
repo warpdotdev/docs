@@ -1,23 +1,23 @@
 ---
 description: >-
-  Secret redaction attempts to automatically redact secrets and sensitive
+  Secret Redaction attempts to automatically redact secrets and sensitive
   information in your terminal output, including passwords, IP addresses, API
   keys, and PII.
 ---
 
-# Secret redaction
+# Secret Redaction
 
-## How to access secret redation
+## How to access it
 
 Disabled by default, to enable Secret Redaction open `Settings > Privacy > Secret Redaction` or type in "Secret Redaction" to toggle it in the [Command Palette](command-palette.md).
 
-## How secret redaction works
+## How it works
 
 Secret Redaction attempts to detect sensitive data using a list of default regex patterns and then masks it with lock icons. Clicking on a secret will display a tooltip that lets you reveal the secret or copy the secret's contents. When trying to copy terminal output containing secrets, it will be copied as asterisks (e.g. `echo password` becomes `echo ********`) unless revealed or copied from the tooltip.
 
 You can add additional custom regex for secrets you want to include in `Settings > Privacy > Secret Redaction > Custom Secret Redaction`.
 
-## Secret Regex list
+## Secret Regex List
 
 Here is a list of the default regular expressions that Warp uses to identify secrets.
 

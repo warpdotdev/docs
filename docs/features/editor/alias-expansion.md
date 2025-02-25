@@ -2,9 +2,9 @@
 description: Warp will automatically expand your aliases as you type in the input editor.
 ---
 
-# Alias expansion
+# Alias Expansion
 
-## How to use alias expansion
+## How to use it
 
 {% tabs %}
 {% tab title="macOS" %}
@@ -24,14 +24,14 @@ To insert a space without expanding an alias, the default keybinding is `ALT-SPA
 Aliases will not be expanded when the command in the expanded form is the same as the alias itself. e.g. if you have an alias `ls='ls -G'`, `ls` will not be expanded in the input editor.
 {% endhint %}
 
-## How to access alias expantion
+## How to access it
 
 Alias expansion is disabled by default. There are two ways to toggle this on and off:
 
 * From Settings: Navigate to `Settings > Features > Editor` and toggle “Expand aliases as you type”.
 * From the [Command Palette](../command-palette.md): Search for the “Enable/disable alias expansion” option and hit `ENTER`.
 
-## How alias expantion works
+## How it works
 
 {% embed url="https://www.loom.com/share/2267657c033e482890eea75a8a6c5373?hideEmbedTopBar=true&hide_owner=true&hide_share=true&hide_title=true" %}
 Alias Expansion Demo

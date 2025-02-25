@@ -2,9 +2,9 @@
 description: The basics of creating, selecting, and navigating between Blocks.
 ---
 
-# Block basics
+# Block Basics
 
-## The block basics
+## The Basics
 
 * Blocks group your command and command output
 * The Input Editor can pin to the bottom, pin to the top, or start at the top.
@@ -16,7 +16,7 @@ Try it yourself!\
 Type `xyz` (or some other command that doesn’t exist) and hit `ENTER`
 {% endhint %}
 
-## Create a block
+## Create A Block
 
 1. Execute a command (type `ls` and hit `ENTER`) in the Input Editor at the bottom of the screen.
 2. Your command and output are grouped into a Block.
@@ -27,7 +27,7 @@ Type `xyz` (or some other command that doesn’t exist) and hit `ENTER`
 Create a Block
 {% endembed %}
 
-## Select a single block
+## Select a Single Block
 
 {% tabs %}
 {% tab title="macOS" %}
@@ -53,7 +53,7 @@ Create a Block
 Select a Single Block
 {% endembed %}
 
-## Select multiple blocks
+## Select Multiple Blocks
 
 {% tabs %}
 {% tab title="macOS" %}
@@ -73,7 +73,7 @@ Select a Single Block
 Select Multiple Blocks
 {% endembed %}
 
-## Navigate blocks
+## Navigate Blocks
 
 * Either scroll using your mouse or the scrollbar or select a Block and use the `UP ↑` and `DOWN ↓` arrow keys.
 * "Scroll Terminal output up/down one line" is also a way to navigate block output, and can be configured with a keyboard shortcut or accessed from the [Command Palette](../command-palette.md).

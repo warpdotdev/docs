@@ -4,9 +4,9 @@ description: >-
   launch configurations with ease.
 ---
 
-# URI scheme
+# URI Scheme
 
-## How to use the URI scheme
+## How to use it
 
 There are several ways to use the URI scheme:
 
@@ -14,7 +14,7 @@ There are several ways to use the URI scheme:
 * Open new tab `warp://action/new_tab?path=<path_to_folder>`
 * Open Launch Configuration `warp://launch/<launch_configuration_path>`
 
-## How the URI scheme works
+## How it works
 
 Example of Warp [URIs in use in Warp + Raycast Extension](https://github.com/raycast/extensions/blob/74521b70b62355004b0958393a64f9417b1ff3a6/extensions/warp/src/uri.ts).
 

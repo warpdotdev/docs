@@ -1,17 +1,17 @@
 ---
 description: >-
-  Sticky command header shows you the command run for a large Block that is
+  Sticky Command Header shows you the command run for a large Block that is
   scrolled partially off-screen. This helps you see the command that was
   previously run or currently running jump to the top.
 ---
 
-# Sticky command header
+# Sticky Command Header
 
 {% hint style="info" %}
 For long-running commands that take up the full screen, the sticky header only shows after you start scrolling up. This is to prevent the header from blocking the top part of the output for commands like `git log` that simulate full-screen apps.
 {% endhint %}
 
-## How to access sticky command header
+## How to access it
 
 {% tabs %}
 {% tab title="macOS" %}
@@ -29,13 +29,13 @@ For long-running commands that take up the full screen, the sticky header only s
 {% endtab %}
 {% endtabs %}
 
-## How to use sticky command header
+## How to use it
 
 * If a Block has a large output ( e.g. `seq 1 1000`), the header of the Block will show on the top of the active Window, Tab, or Pane.
 * Click on the Sticky Command Header to quickly jump to the top of the Block.
 * While active you can also minimize the Sticky Command Header on the active pane by clicking the UP/DOWN arrow in the middle of the header.
 
-## How sticky command header works
+## How it works
 
 {% embed url="https://www.loom.com/share/a86967c057e44ab4bee4860ba80538b9?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
 Sticky Command Header Demo

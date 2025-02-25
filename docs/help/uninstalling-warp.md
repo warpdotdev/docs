@@ -1,8 +1,8 @@
 ---
-description: How to log out from Warp and uninstall Warp.
+description: How to log out from Warp, and how to uninstall Warp.
 ---
 
-# Logging out & uninstalling
+# Logging out & Uninstalling
 
 ## Logging out
 

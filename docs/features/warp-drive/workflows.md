@@ -108,7 +108,7 @@ You make any adjustments you need to the arguments (or the command itself) befor
 Running Workflow Demo
 {% endembed %}
 
-## Support for YAML workflows
+## Support for YAML Workflows
 
 Warp will indefinitely support the [YAML Workflows](../entry/yaml-workflows.md), which includes personal and community workflows sourced from an open-source repository.
 

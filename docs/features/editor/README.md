@@ -26,7 +26,7 @@ Warp can automatically complete quotes, brackets, and parentheses like you're us
 
 * Toggle this feature `Settings > Features > Editor` or search for "Autocomplete quotes" in the [Command Palette](../command-palette.md).
 
-## How to use the input editor
+## How to use it
 
 {% tabs %}
 {% tab title="macOS" %}
@@ -38,7 +38,7 @@ Warp can automatically complete quotes, brackets, and parentheses like you're us
 {% endtab %}
 {% endtabs %}
 
-## How the input editor works
+## How it Works
 
 {% embed url="https://loom.com/share/1517049fefc34227bf1abaf19cc7e6ea?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
 Text Editor Input Demo

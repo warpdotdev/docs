@@ -4,11 +4,11 @@ description: Save interactive playbooks to simplify onboarding and development.
 
 # Notebooks
 
-## What is a notebook?
+### What is a Notebook?
 
 Notebooks are runnable documentation consisting of markdown text and list elements, code blocks, and runnable shell snippets that can be automatically executed in your terminal session. Notebooks are searchable and accessible through the [Command Palette](../command-palette.md) so you can access and run your documentation without ever leaving the terminal. You can also export Notebooks in .md format at any time.
 
-## How to save and edit notebooks
+### How to save and edit notebooks
 
 You can create a new notebook from various entry points in Warp
 
@@ -45,13 +45,13 @@ Existing markdown `.md` documentation can also be directly imported into Warp Dr
 
 <figure><img src="../../.gitbook/assets/notebook-import-modal.png" alt=""><figcaption><p>Notebook import modal</p></figcaption></figure>
 
-### Export notebooks from Warp Drive
+### Export Notebooks from Warp Drive
 
 From Warp Drive, select the overflow menu for the Notebook you'd like to export and then Export. You will then be prompted to open the file in .md format.
 
-## Working with notebooks
+### Working with Notebooks
 
-### Adding new elements
+#### Adding new elements
 
 Notebook elements (text, code, list items) can be added in several ways:
 
@@ -61,7 +61,7 @@ Notebook elements (text, code, list items) can be added in several ways:
 
 <figure><img src="../../.gitbook/assets/markdown-element-types.png" alt=""><figcaption><p>Markdown element types</p></figcaption></figure>
 
-### Styling existing elements
+#### Styling existing elements
 
 Existing notebook elements can be styled in several ways:
 
@@ -71,7 +71,7 @@ Existing notebook elements can be styled in several ways:
 
 <div data-full-width="true"><figure><img src="../../.gitbook/assets/styling-menu.png" alt=""><figcaption><p>Styling menu</p></figcaption></figure></div>
 
-### Using command and code blocks
+#### Using Command and Code Blocks
 
 Command and code blocks have several unique properties such as syntax highlighting and quick actions that make working with code-based documentation simple. You can create a code or command block by either:
 
@@ -82,11 +82,11 @@ Once you’ve inserted your code block you can select the language at the bottom
 
 <figure><img src="../../.gitbook/assets/notebook-code-block.png" alt=""><figcaption><p>Example code block</p></figcaption></figure>
 
-### Special properties of command blocks
+#### Special Properties of Command Blocks
 
 If you insert a Command block or specify the language as “Shell”, Warp provides extra functionality to simplify terminal work.
 
-### Executing command blocks
+#### Executing Command Blocks
 
 Developers can execute shell command blocks by:
 
@@ -106,13 +106,13 @@ The command text will be inserted into the developer’s active terminal session
 
 <figure><img src="../../.gitbook/assets/notebook-cmd-block-run.png" alt=""><figcaption><p>Run option for command block</p></figcaption></figure>
 
-### Adding arguments to command blocks
+#### Adding arguments to Command Blocks
 
 Command blocks accept parameters in the same format as [Workflows](workflows.md). To add an argument to your command block, use \{{double\_curly\_brackets\}} to specify your argument term.
 
 <figure><img src="../../.gitbook/assets/notebook-cmd-with-params.png" alt=""><figcaption><p>Command block with parameters</p></figcaption></figure>
 
-### Navigating command blocks with the keyboard
+#### Navigating command blocks with the keyboard
 
 Command Blocks also support keyboard navigation. There are two ways to enter the keyboard navigation mode:
 
@@ -132,13 +132,13 @@ Once a command block is selected, press `CTRL-ENTER` to insert it into the termi
 {% endtab %}
 {% endtabs %}
 
-### Adding existing workflows to notebooks
+#### Adding existing Workflows to Notebooks
 
 If you have existing [Workflows](workflows.md) that you’d like to insert into your notebook rather than duplicating their content, you can select Embedded Workflow from the new element menu and select from the available workflows. Once embedded in a notebook, the workflow will be executable like a regular command block. To edit the content of the embedded workflow, you will need to edit the source workflow which can be found by searching for the title in the [Command Palette](../command-palette.md).
 
 <figure><img src="../../.gitbook/assets/embedding-a-workflow.png" alt=""><figcaption><p>Embedding an existing workflow in a notebook.</p></figcaption></figure>
 
-## Working with notebooks in a team
+### Working with Notebooks in a team
 
 If the notebook is shared with a team, all team members will have access to edit the notebook and updates will sync immediately for all members of the team.
 

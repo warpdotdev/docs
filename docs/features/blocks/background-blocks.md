@@ -2,9 +2,9 @@
 description: How Blocks interact with background process output.
 ---
 
-# Background blocks
+# Background Blocks
 
-## What are background blocks
+## What is it
 
 Commands can start background processes that continue even after they exit. You can also start a background process directly from the shell, such as by running it with `&`.
 
@@ -12,17 +12,17 @@ If Warp receives output that is likely from a background process, the output goe
 
 This lets you use all of Warp's block features with background output, such as sharing and bookmarking.
 
-## How to use background blocks
+## How to use it
 
 Background blocks are automatically created as needed, in between regular blocks running. If you run commands while a background process is still producing output, that output gets split into multiple blocks interleaved with your commands.
 
-## How background blocks work
+## How it works
 
 {% embed url="https://www.loom.com/share/55bbbd9a8cbf495189260756c717cfb2?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
 Create Background Blocks
 {% endembed %}
 
-## Troubleshooting background blocks
+## Troubleshooting Background Blocks
 
 There are some limitations, because Warp doesn't know _which_ process any given output came from:
 

@@ -6,7 +6,7 @@ description: >-
 
 # Generate
 
-## What is generate?
+## What is Generate?
 
 Generate helps turn natural language queries into precise commands as terminal input or contextual suggestions inside interactive commands and programs, whether you're using psql, gdb, git, mysql, or any other CLI tool.
 
@@ -16,7 +16,7 @@ Generate is backed by Large Language Models from API providers like OpenAI and A
 Currently, you need to be online to use this feature. If this feature doesn't work, your ISP or firewall may be blocking the calls to `app.warp.dev`
 {% endhint %}
 
-## Ways to generate with AI
+## Ways to Generate with AI
 
 ### Generate commands as terminal input
 
@@ -72,6 +72,6 @@ A couple of other examples of interactive CLIs where you can invoke Generate:
 If you experience any issues with Generate, please visit known issues for [troubleshooting steps](../../help/known-issues.md#online-features-dont-work).
 {% endhint %}
 
-## Generate AI privacy
+## AI Privacy
 
 When you use Generate, the query you enter is sent to OpenAI or Anthropic, but it is not stored on our servers. Instead, we rely on these AI providers to generate code or contextual suggestions based on your instructions. You can learn more about how these companies handle your data by visiting their privacy policies: [OpenAI's privacy policy](https://openai.com/policies/privacy-policy) and [Anthropic's privacy policy](https://www.anthropic.com/legal/privacy). Additionally, neither Warp, OpenAI, nor Anthropic use your data to train their AI models.

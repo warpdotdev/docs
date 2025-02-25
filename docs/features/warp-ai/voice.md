@@ -12,7 +12,13 @@ Warp's Voice feature transforms how you interact with your terminal, letting you
 Voice input functionality can be configured in `Settings > AI > Voice`. You can enable/disable voice input and select your preferred activation hotkey from pre-defined options.
 {% endhint %}
 
-## Voice initial setup
+{% embed url="https://www.loom.com/share/77399be4e434443488bbe267b3548552?hideEmbedTopBar=true&hide_owner=true&hide_share=true&hide_title=true" %}
+Voice Demo
+{% endembed %}
+
+## Getting Started
+
+### Initial Setup
 
 First-time users will need to grant microphone permissions:
 
@@ -20,7 +26,7 @@ First-time users will need to grant microphone permissions:
 * On Linux: Configure through system sound settings
 * On Windows: Allow microphone access in privacy settings
 
-## Using voice
+### Using Voice
 
 There are two ways to activate Voice:
 
@@ -46,11 +52,7 @@ There are two ways to activate Voice:
 
 <figure><img src="../../.gitbook/assets/voice-settings.png" alt=""><figcaption><p>Voice settings panel showing hotkey configuration and voice input toggle options</p></figcaption></figure>
 
-{% embed url="https://www.loom.com/share/77399be4e434443488bbe267b3548552?hideEmbedTopBar=true&hide_owner=true&hide_share=true&hide_title=true" %}
-Voice Demo
-{% endembed %}
-
-### Sample voice use cases
+### Sample use cases
 
 Voice input makes complex interactions with Agent Mode more natural and efficient. Instead of typing lengthy queries, you can speak naturally to accomplish various tasks. For example, you might ask "Create a new Node.js project, install Express and MongoDB, then set up a basic server with a health check endpoint," or "What's the difference between chmod and chown? Give me examples of when to use each one."
 
@@ -60,17 +62,17 @@ Voice input is not limited to just Agent Mode - it works across all of Warp's in
 
 <figure><img src="../../.gitbook/assets/voice-in-find.png" alt=""><figcaption><p>Voice input works across Warp's editor interfaces, including the Find dialog and other input editors</p></figcaption></figure>
 
-## Privacy & security
+## Privacy & Security
 
 The transcription is powered by [Wispr Flow](https://wisprflow.ai/). Voice data is processed in real-time by Wispr Flow and is not retained after transcription.
 
-## Usage limits
+## Usage Limits
 
 Voice features have anti-abuse limits in place to ensure fair usage. These limits are subject to change as we continue to improve the service.
 
-## Troubleshooting voice
+## Troubleshooting
 
-### Common issues
+### Common Issues
 
 1. **Microphone not detected** If your microphone isn't being detected, first check your system permissions to ensure Warp has access. You should also verify that your microphone is properly connected to your system. If issues persist, try restarting Warp to reset the connection.
 2. **Poor transcription quality** To improve transcription quality, try to minimize background noise in your environment. Position yourself closer to the microphone while speaking, and verify that your microphone input levels are properly adjusted in your system settings. For best results, speak clearly at a natural pace and use complete sentences to provide better context. When referring to specific file names or commands, enunciate them clearly. It's also recommended to review the transcription before sending to ensure accuracy.
