@@ -14,7 +14,7 @@ All objects stored in Warp Drive sync immediately as they’re updated, so you a
 Warp Drive, Teams, and Workflows Demo
 {% endembed %}
 
-## How to access it
+## How to access Warp Drive
 
 {% tabs %}
 {% tab title="macOS" %}
@@ -81,31 +81,32 @@ You can take these keyboard actions within Warp Drive:
 
 <figure><img src="../../.gitbook/assets/warp_drive_nav1.png" alt=""><figcaption><p>Warp Drive navigation states</p></figcaption></figure>
 
-To switch between panels (e.g. jump from command line to Warp Drive to Warp AI) using your keyboard, you can use the “Switch Focus to Left Panel” and “Switch Focus to Right Panel” commands in the [Command Palette](../../features/command-palette.md).
+To switch between panels (e.g. jump from command line to Warp Drive to Warp AI) using your keyboard, you can use the “Switch Focus to Left Panel” and “Switch Focus to Right Panel” commands in the [Command Palette](../command-palette.md).
 
 <figure><img src="../../.gitbook/assets/warp_drive_nav2.png" alt=""><figcaption></figcaption></figure>
 
-## Import and Export
+## Import and export
 
 Every object in Warp Drive can be exported to or imported from a file.
 
 * To export a single Warp Drive object, RIGHT-CLICK on an object and choose "Export" from the menu, then select a directory for export.
-* To export all Warp Drive objects, Open the [Command Palette](../../features/command-palette.md#how-to-access-it), search for and select "Export all Warp Drive Objects", then select a directory for export.
+* To export all Warp Drive objects, Open the [Command Palette](../command-palette.md#how-to-access-it), search for and select "Export all Warp Drive Objects", then select a directory for export.
 * To import a local file or directory, RIGHT-CLICK on a folder or workspace and choose "Import." If importing a directory, supported files in the directory and its sub-directories will be imported into a matching folder structure.
 
 When importing or exporting, objects are converted as follows:
 
-* [Workflows](../../features/warp-drive/workflows.md) import from and export to YAML
-* [Notebooks](../../features/warp-drive/notebooks.md) import from and export to Markdown
+* [Workflows](workflows.md) import from and export to YAML
+* [Notebooks](notebooks.md) import from and export to Markdown
 
-## Sharing Your Drive Objects
+## Sharing your drive objects
 
 Every object in Warp Drive can be shared. There are three ways to share objects:
+
 * **Teams:** All members of a Warp team have full access to the objects in its Drive.
 * **Direct Sharing:** Objects can be shared directly with individuals by email.
 * **Link-based Sharing:** You can make an object public to anyone with the link, including those without Warp accounts.
 
-### Sharing a Drive Object using Links
+### Sharing a Drive object using links
 
 To share a Drive object, navigate to the object's overflow menu, and choose "Copy link". Once the link is successfully copied to your clipboard, you can share it with teammates and reference your object in your codebase, documentation, or communication channels like Slack.
 
@@ -115,9 +116,9 @@ In order to access an object, link-followers must have permission to open it thr
 
 <figure><img src="../../docs/.gitbook/assets/wd-copy-link-menu.png" alt="" width="216"><figcaption><p>Copy link Menu Item</p></figcaption></figure>
 
-### Managing Permissions
+### Managing permissions
 
-To manage a Drive object's permissions, navigate to its overflow menu and choose "Share". If the object is open, you can also use the [Command Palette](../../features/command-palette.md#how-to-access-it) and search for "Share Pane" or click the share button in the pane header:
+To manage a Drive object's permissions, navigate to its overflow menu and choose "Share". If the object is open, you can also use the [Command Palette](../command-palette.md#how-to-access-it) and search for "Share Pane" or click the share button in the pane header:
 
 <figure><img src="../../.gitbook/assets/wd-share-button.png" alt="The pane header for a notebook, with the share button circled"><figcaption><p>Pane header share button</p></figcaption></figure>
 
@@ -126,6 +127,7 @@ This opens a dialog that lists the current sharing settings and allows you to ch
 <figure><img src="../../.gitbook/assets/wd-share-dialog.png" alt="A sharing dialog showing that anyone with the link can view, the owner has full access, and another user can edit."><figcaption><p>Warp Drive sharing dialog</p></figcaption></figure>
 
 In this dialog, you can:
+
 * Invite other users directly using the email input at the top.
 * Change or remove the public link-based access level.
 * Update the access level for individual users, or remove their access.
@@ -135,17 +137,16 @@ Permissions are inherited from parent folders. For example, if a folder was shar
 Owners and their teammates always have full access. When sharing an object, you can choose between view and edit access.
 
 |                                     | Can view | Can edit | Full access |
-|-------------------------------------|----------|----------|-------------|
-| Read a notebook                     |✓         |✓         |✓            |
-| Execute a workflow                  |✓         |✓         |✓            |
-| Use env vars                        |✓         |✓         |✓            |
-| Edit contents                       |          |✓         |✓            |
-| Create objects in a folder          |          |✓         |✓            |
-| Trash or untrash                    |          |✓         |✓            |
-| Delete permanently                  |          |          |✓            |
-| Modify permissions                  |          |          |✓            |
-| Move to a different folder or drive |          |          |✓            |
-
+| ----------------------------------- | -------- | -------- | ----------- |
+| Read a notebook                     | ✓        | ✓        | ✓           |
+| Execute a workflow                  | ✓        | ✓        | ✓           |
+| Use env vars                        | ✓        | ✓        | ✓           |
+| Edit contents                       |          | ✓        | ✓           |
+| Create objects in a folder          |          | ✓        | ✓           |
+| Trash or untrash                    |          | ✓        | ✓           |
+| Delete permanently                  |          |          | ✓           |
+| Modify permissions                  |          |          | ✓           |
+| Move to a different folder or drive |          |          | ✓           |
 
 ## Troubleshooting Warp Drive
 

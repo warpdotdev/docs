@@ -1,12 +1,12 @@
 ---
 description: >-
-  The Split Panes feature allows you to divide a tab into multiple rectangular
+  The split panes feature allows you to divide a tab into multiple rectangular
   panes, each of which is a unique terminal session.
 ---
 
-# Split Panes
+# Split panes
 
-## How to use Split Panes
+## How to use split panes
 
 {% tabs %}
 {% tab title="macOS" %}
@@ -36,7 +36,7 @@ You can quickly find all the **pane** shortcuts by using the [Command Palette](.
 
 `CTRL-TAB` shortcut defaults to activate the previous / next [Tabs](tabs.md). You can configure the shortcut to cycle the most recent session, including any Split Panes, in `Settings > Features > Keys > Ctrl-Tab behavior`
 
-## How Split Panes work
+## How split panes work
 
 {% embed url="https://www.loom.com/share/c1104b51cab848a9bef6792ec4fd8421?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
 Split Panes Demo

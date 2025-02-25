@@ -5,9 +5,9 @@ description: >-
   the padding surrounding the apps.
 ---
 
-# Full-screen Apps
+# Full-screen apps
 
-## Mouse and Scroll Reporting
+## Mouse and scroll reporting
 
 Warp supports configuring how to handle mouse and scroll events. They can be sent to the currently running app, e.g. `vim`, or kept and handled by Warp.
 
@@ -21,7 +21,7 @@ Once mouse reporting is enabled, Warp will use ANSI escape sequences to communic
 If you want a mouse event to go to Warp instead (for example, for text selection) without disabling mouse reporting, you can hold the `SHIFT` key.
 {% endhint %}
 
-### How to access it
+### How to mouse and scroll reporting
 
 * From the Settings panel, `Settings > Features > Enable Mouse Reporting`
   * Scroll Reporting can be enabled after toggling `Enable Mouse Reporting`
@@ -29,7 +29,7 @@ If you want a mouse event to go to Warp instead (for example, for text selection
 * From the macOS Menu, `View > Toggle Mouse Reporting`
 * With the keyboard shortcut: `CMD-R`
 
-### How it works
+### How mouse and scroll reporting works
 
 {% embed url="https://www.loom.com/share/a918696b002148d3beafd545b233c1be?hideEmbedTopBar=true&hide_owner=true&hide_share=true&hide_title=true" %}
 Mouse and Scroll Reporting Demo
@@ -43,7 +43,7 @@ Warp supports configuring how much padding surrounds full-screen apps. The defau
 Warp allows you to scale your terminal by fractions of a cell width | height. When your terminal size is not perfectly aligned to a cell width | height, the extra space appears as padding on the right | bottom.
 {% endhint %}
 
-### How to access it
+### How to configure alt-screen padding
 
 * Go to `Settings > Appearance > Full Screen Apps` or from the [Command Palette](command-palette.md) search for "Appearance"
   * `Use custom padding in alt-screen` is enabled by default, you can disable it to match the Blocklist padding

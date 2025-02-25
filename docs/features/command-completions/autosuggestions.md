@@ -6,7 +6,7 @@ description: >-
 
 # Autosuggestions
 
-## How to access it
+## How to access autosuggestions
 
 * From the [Command Palette](../command-palette.md), type in "Autosuggestions" to toggle.
 
@@ -16,7 +16,7 @@ description: >-
 You can change the keybinding for accepting autosuggestions to `Tab`. Configure this in the "Tab key behavior" setting under Features > Editor. _Note: This will update the keybinding for opening the completions menu to `CTRL-SPACE`. You can also enable the "Open completions menu as you type" in Settings > Features so that the completions menu opens automatically._
 {% endhint %}
 
-## How to use it
+## How to use autosuggestions
 
 {% tabs %}
 {% tab title="macOS" %}
@@ -36,7 +36,7 @@ There are several ways to accept autosuggestions, either completely or partially
 {% endtab %}
 {% endtabs %}
 
-## How it works
+## How autosuggestions work
 
 {% embed url="https://www.loom.com/share/5e87c52ae855486ab88ffb2f89aeaf73?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
 Autosuggestion Demo

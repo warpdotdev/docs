@@ -1,8 +1,8 @@
 ---
-description: Access your Drive objects and Shared Sessions wherever you are.
+description: Access your Drive objects and shared sessions wherever you are.
 ---
 
-# Warp Drive on the Web
+# Warp Drive on the web
 
 ## What is Warp Drive on the Web?
 
@@ -10,7 +10,7 @@ Warp now gives developers the ability to view their drives and shared sessions o
 
 <figure><img src="../../.gitbook/assets/wd-web-team-workflow.png" alt="" width="375"><figcaption><p>A web-based rendering of a Team Workflow</p></figcaption></figure>
 
-## Accessing Warp Drive on the Web
+## Accessing Warp Drive on the web
 
 Warp's web-based viewing experience can currently be accessed via:
 
@@ -22,7 +22,7 @@ Warp's web-based viewing experience can currently be accessed via:
 You should be able to edit and view web-based objects and session as normal. The one exception is executing a command from a workflow or notebook since there is no shell session running on the web.
 {% endhint %}
 
-## Managing Your View Preferences - Web or Desktop
+## Managing your view preferences - web or desktop
 
 If the Warp app is installed, links will open on the desktop by default. You can manage whether Warp links open in Warp's desktop app or the browser in multiple ways:
 
@@ -47,7 +47,7 @@ If you would like to use Warp locally and do not have it installed, please visit
 
        <figure><img src="../../.gitbook/assets/wd-view-on-web.png" alt="" width="375"><figcaption></figcaption></figure>
 
-## Supported Browsers
+## Supported browsers
 
 Modern browser support currently includes
 

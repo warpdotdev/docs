@@ -6,7 +6,7 @@ description: >-
 
 # Themes
 
-### Theme Picker
+### Theme picker
 
 The Theme Picker can be accessed by:
 
@@ -19,7 +19,7 @@ The Theme Picker can be accessed by:
 The Theme setting persists, meaning Warp will open with the same settings in the next session.
 {% endhint %}
 
-### Theme Creator
+### Theme creator
 
 Automatically create new themes based on a background image.
 
@@ -28,7 +28,7 @@ Automatically create new themes based on a background image.
 3. Upload the image and select the background color.
 4. Click "Create Theme" to save and accept the new theme.
 
-### OS Theme Sync
+### OS theme sync
 
 Warp supports synchronizing your theme with the OS’s light and dark themes. To enable this:
 
@@ -36,7 +36,7 @@ Warp supports synchronizing your theme with the OS’s light and dark themes. To
 2. Click the toggle "Sync with OS".
 3. You will then be able to select a specific theme for when the OS is in light mode and dark mode.
 
-## How it works
+## How themes works
 
 <figure><img src="../.gitbook/assets/theme-picker.gif" alt=""><figcaption><p>Theme picker demo</p></figcaption></figure>
 
@@ -44,7 +44,7 @@ Warp supports synchronizing your theme with the OS’s light and dark themes. To
 
 <figure><img src="../.gitbook/assets/theme-sync-demo.gif" alt="theme os sync demo"><figcaption><p>Theme sync demo</p></figcaption></figure>
 
-## Default Themes
+## Default themes
 
 By default, Warp ships with these themes:
 

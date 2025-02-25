@@ -1,8 +1,8 @@
 ---
-description: Use Warp for free or subscribe to a paid plan
+description: Learn about Warp's plans and pricing tiers. Get started for free.
 ---
 
-# Plans, Subscriptions & Pricing
+# Plans, subscriptions & pricing
 
 You can visit [warp.dev/pricing ](https://www.warp.dev/pricing)to learn about Warp's current plans and what's included in each offering.
 
@@ -10,7 +10,7 @@ This article includes answers to some frequent questions that might come up as y
 
 Don't have Warp yet? [Download now](../getting-started/getting-started-with-warp.md) and get started today.
 
-## Warp’s Refund Policy
+## Warp’s refund policy
 
 If you believe you've made a mistake signing up for a paid Warp subscription, please contact us at [billing@warp.dev](mailto:billing@warp.dev). We'll be happy to refund you the full amount if you downgrade your subscription within 72 hours of signing up for monthly billing, or within 30 days of signing up for annual billing.
 
@@ -89,7 +89,7 @@ Request limits are allocated at the seat level to Warp users or team members. Yo
 
 ### What counts as a Warp AI token?
 
-Tokens are chunks of text, such as words, parts of code, or characters, that large language models (LLMs) break down to analyze and generate responses. LLMs have a maximum number of tokens they can process at once. Warp AI Requests and Suggestions are not the same as Tokens, which are limited separately regardless of which plan you're on. \
+Tokens are chunks of text, such as words, parts of code, or characters, that large language models (LLMs) break down to analyze and generate responses. LLMs have a maximum number of tokens they can process at once. Warp AI Requests and Suggestions are not the same as Tokens, which are limited separately regardless of which plan you're on.\
 \
 Please learn more about Tokens [here](https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them) and refer to [pricing](https://www.warp.dev/pricing) for the current monthly token limits on each plan.
 

@@ -2,9 +2,9 @@
 description: All the cool features Blocks provide.
 ---
 
-# Block Actions
+# Block actions
 
-## Accessing Block Actions
+## Accessing block actions
 
 There are 2 ways you can access Block actions.
 
@@ -15,7 +15,7 @@ There are 2 ways you can access Block actions.
 Accessing Block Actions
 {% endembed %}
 
-## Copy Input / Output of Block
+## Copy input / output of block
 
 This feature allows you to easily copy the Block command, output, or both.
 
@@ -23,11 +23,11 @@ This feature allows you to easily copy the Block command, output, or both.
 Copy Block Actions
 {% endembed %}
 
-## Sharing a Block
+## Sharing a block
 
 Share a block easily with coworkers or teammates by creating a web permalink. This preserves formatting and makes debugging and sharing output easy. [See Block Sharing Page.](block-sharing.md)
 
-## Bookmarking a Block
+## Bookmarking a block
 
 Quickly navigate to important Blocks despite where they are in the terminal history.
 
@@ -69,13 +69,13 @@ Bookmarks only persist while the session is open, once you close the session the
 Bookmarking Blocks
 {% endembed %}
 
-## Search Within A Block
+## Search within a block
 
 Quickly find important information within a Block. [See Find page](../find.md)
 
 {% tabs %}
 {% tab title="macOS" %}
-With a Block selected, press "Find Within Block" or use `CMD-F` to search within a Block.&#x20;
+With a Block selected, press "Find Within Block" or use `CMD-F` to search within a Block.
 {% endtab %}
 
 {% tab title="Linux" %}
@@ -102,4 +102,3 @@ Filter the output lines of a block natively in Warp to quickly focus on a subset
 * Selecting `Toggle Block Filter` in the block context menu
 {% endtab %}
 {% endtabs %}
-

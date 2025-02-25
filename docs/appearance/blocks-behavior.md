@@ -5,13 +5,13 @@ description: >-
   experience, and more.
 ---
 
-# Blocks Behavior
+# Blocks behavior
 
-## Compact Mode
+## Compact mode
 
 Warp offers the option to enable Compact mode, which condenses the spacing between [Blocks](../features/blocks/), enabling more content to be in view.&#x20;
 
-### How to enable Compact Mode
+### How to enable compact mode
 
 Compact mode is disabled by default, but can be toggled in the following ways:
 
@@ -24,11 +24,11 @@ Warp will open with the same compact settings in future sessions.
 
 <figure><img src="../.gitbook/assets/compact_mode.gif" alt=""><figcaption><p>Compact Mode Demo</p></figcaption></figure>
 
-## Block Dividers
+## Block dividers
 
 Warp [Blocks](../features/blocks/) are divided by horizontal lines that separate individual command input and output, they create a visual break between different commands that you run in a session.
 
-### How to toggle Block Dividers
+### How to toggle block dividers
 
 Block dividers are enabled by default, but can be toggled in the following ways:
 

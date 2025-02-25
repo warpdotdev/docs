@@ -13,7 +13,7 @@ Warp has a native prompt that is customizable and can show a variety of informat
 
 #### Git and Subversion
 
-Git and Subversion context chips show which branch you are on locally, as well as the number of uncommitted changed files. This includes any new files, modified files, and deleted files that are staged or unstaged.
+Git and Subversion (SVN) context chips show which branch you are on locally, as well as the number of uncommitted changed files. This includes any new files, modified files, and deleted files that are staged or unstaged.
 
 #### Kubernetes
 
@@ -76,19 +76,19 @@ The PS1 is a variable used by the shell to generate the prompt, it represents th
 
 Warps custom prompt supports multi-line or right-sided prompts in zsh and fish, not bash. However, you can't have a multiline right-side prompt, only a multiline left prompt.
 
-## How to access it
+## How configure the prompt
 
 * Toggle the custom prompt by right-clicking on the prompt area above the input and selecting "Edit prompt" or select "Prompt" from the `Settings > Appearance` page. There you will be able to select and customize the default prompt or select the Custom prompt (PS1).
 * When using Warp prompt, you can right-click the prompt to copy the entire prompt, working directory, current git branch, git uncommitted file count, etc.
 * When using a custom prompt, you can right-click the prompt to copy the entire prompt or select any part of the custom prompt in previously run blocks in your session.
 
-## How it works
+## How prompt works
 
 <figure><img src="../.gitbook/assets/edit-prompt-modal (1).png" alt=""><figcaption><p>Prompt edit modal</p></figcaption></figure>
 
 <figure><img src="../.gitbook/assets/warp-custom-prompt-demo.gif" alt="Warp Prompt + Custom Prompt Demo"><figcaption><p>Warp Prompt + Custom Prompt Demo</p></figcaption></figure>
 
-### Custom Prompt Compatibility Table
+### Custom prompt compatibility table
 
 | Shell                       | Tool                                                                      | Does it work?                                                   |
 | --------------------------- | ------------------------------------------------------------------------- | --------------------------------------------------------------- |
@@ -109,13 +109,13 @@ Warps custom prompt supports multi-line or right-sided prompts in zsh and fish, 
 | fish                        | [tide](https://github.com/IlanCosman/tide)                                | [Not supported](https://github.com/warpdotdev/Warp/issues/3358) |
 | fish                        | [oh-my-fish](https://github.com/oh-my-fish/oh-my-fish)                    | [Not supported](https://github.com/warpdotdev/Warp/issues/3796) |
 
-## Known incompatibilities
+## Known prompt incompatibilities
 
 If you’re having issues with prompts, please see below or our [Known Issues](../help/known-issues.md#configuring-and-debugging-your-rc-files) for more troubleshooting steps. Also, although some prompts are not officially supported, they may still work in Warp.
 
 ### Starship
 
-#### Starship Settings
+#### Starship settings
 
 Some `~/.config/starship.toml` settings are known to cause errors in Warp. `#` or `DEL` the following lines to resolve known errors:
 

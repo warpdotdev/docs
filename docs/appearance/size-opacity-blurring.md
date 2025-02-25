@@ -5,11 +5,9 @@ description: >-
   preferences.
 ---
 
-# Size, Opacity, & Blurring
+# Size, opacity, & blurring
 
-## How to use it
-
-### Window Size
+## How to configure window size
 
 To access size settings, go to `Settings > Appearance > Window`.
 
@@ -19,13 +17,13 @@ To access size settings, go to `Settings > Appearance > Window`.
 If [Session Restoration](../features/sessions/session-restoration.md) is enabled, Warp will restore the size of the last window closed when you quit the app. Either make sure the custom-sized window is the last one closed, or disable Session Restoration to ensure Warp launches with the custom-sized window.
 {% endhint %}
 
-### Window Opacity
+## How to configure window opacity
 
 To access it, go to `Settings > Appearance > Themes`
 
 * The slider supports setting the opacity value between `1` and `100` where `100` is completely opaque or solid.
 
-### Window Blurring
+## How to configure window blurring
 
 After removing Opacity ( moving the slider to a value less than `100)`, you can also blur the background using the blur slider.
 
@@ -37,7 +35,7 @@ On macOS, large blur radiuses may affect performance, especially on Retina displ
 On Linux, window blurring is not supported.
 {% endhint %}
 
-## How it works
+## How window size, opacity, and blur works
 
 <figure><img src="../.gitbook/assets/window_size_demo.gif" alt="Window Size Demo"><figcaption><p>Window Size Demo</p></figcaption></figure>
 

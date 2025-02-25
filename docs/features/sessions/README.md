@@ -2,11 +2,11 @@
 description: Warp feature to manages sessions in multiple ways.
 ---
 
-# Session Management
+# Session management
 
-1. [Launch Configurations](launch-configurations.md) supports saving a configuration of windows, tabs, and panes to open later.
-2. [Session Navigation](session-navigation.md) enables you to easily navigate to any session in Warp.
-3. [Session Restoration](session-restoration.md) automatically restores the window and tabs from your previous session.
+1. [Launch configurations](launch-configurations.md) supports saving a configuration of windows, tabs, and panes to open later.
+2. [Session navigation](session-navigation.md) enables you to easily navigate to any session in Warp.
+3. [Session restoration](session-restoration.md) automatically restores the window and tabs from your previous session.
 
 ## Launch Configuration
 

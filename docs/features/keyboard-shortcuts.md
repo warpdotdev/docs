@@ -2,11 +2,11 @@
 description: Warps commonly used keyboard shortcuts.
 ---
 
-# Keyboard Shortcuts
+# Keyboard shortcuts
 
 Warp opens with a shortcut screen showing some of the most commonly used keyboard shortcuts. Hide the shortcut screen by clicking the x button. Quickly view keyboard shortcuts via the [Command Palette](command-palette.md) or the Resource Center keyboard shortcut sidebar.
 
-## Custom Keyboard Shortcuts
+## Custom keyboard shortcuts
 
 Set custom, clear, or default keyboard shortcuts by navigating to `Settings > Keyboard Shortcuts`. Search through the re-mappable actions or existing shortcuts using the search bar.
 
@@ -22,11 +22,11 @@ Keybinds that conflict with others are highlighted with an orange border.
 
 <figure><img src="../.gitbook/assets/keybinds-conflict.png" alt="keybinds that conflict with others are highlighted in orange"><figcaption><p>Keybind Conflict Example</p></figcaption></figure>
 
-## All Available Shortcuts
+## All available shortcuts
 
 {% tabs %}
 {% tab title="macOS" %}
-#### Warp Essentials
+**Warp Essentials**
 
 | Shortcut       | Command                      | Action                                         |
 | -------------- | ---------------------------- | ---------------------------------------------- |
@@ -40,7 +40,7 @@ Keybinds that conflict with others are highlighted with an orange border.
 | `CTRL-I`       | Warpify Subshell             | `terminal:trigger_subshell_bootstrap`          |
 | `CMD-\`        | Warp Drive                   | `terminal:toggle_warp_drive`                   |
 
-#### Blocks
+**Blocks**
 
 | Shortcut          | Command                           | Action                                                 |
 | ----------------- | --------------------------------- | ------------------------------------------------------ |
@@ -60,7 +60,7 @@ Keybinds that conflict with others are highlighted with an orange border.
 | `SHIFT-DOWN`      | Expand Selected Blocks Below      | `terminal:expand_block_selection_below`                |
 | `SHIFT-UP`        | Expand Selected Blocks Above      | `terminal:expand_block_selection_above`                |
 
-#### Input Editor
+**Input Editor**
 
 | Shortcut          | Command                                   | Action                                     |
 | ----------------- | ----------------------------------------- | ------------------------------------------ |
@@ -115,7 +115,7 @@ Keybinds that conflict with others are highlighted with an orange border.
 | `SHIFT-META-B`    | Select One Word to the Left               | `editor_view:select_left_by_word`          |
 | `SHIFT-META-F`    | Select One Word to the Right              | `editor_view:select_right_by_word`         |
 
-#### Terminal
+**Terminal**
 
 | Shortcut          | Command                                           | Action                                       |
 | ----------------- | ------------------------------------------------- | -------------------------------------------- |
@@ -143,7 +143,7 @@ Keybinds that conflict with others are highlighted with an orange border.
 | `SHIFT-CMD-G`     | Find the Previous Occurrence of Your Search Query | `find:find_prev_occurrence`                  |
 | `SHIFT-CMD-P`     | Toggle Navigation Palette                         | `workspace:toggle_navigation_palette`        |
 
-#### Fundamentals
+**Fundamentals**
 
 | Shortcut           | Command                    | Action                           |
 | ------------------ | -------------------------- | -------------------------------- |
@@ -171,7 +171,7 @@ Keybinds that conflict with others are highlighted with an orange border.
 {% endtab %}
 
 {% tab title="Linux" %}
-#### Warp Essentials
+**Warp Essentials**
 
 | Shortcut       | Command                      | Action                                         |
 | -------------- | ---------------------------- | ---------------------------------------------- |
@@ -185,7 +185,7 @@ Keybinds that conflict with others are highlighted with an orange border.
 | `CTRL-I`       | Warpify Subshell             | `terminal:trigger_subshell_bootstrap`          |
 | `CTRL-SHIFT-\` | Warp Drive                   | `terminal:toggle_warp_drive`                   |
 
-#### Blocks
+**Blocks**
 
 | Shortcut           | Command                           | Action                                                 |
 | ------------------ | --------------------------------- | ------------------------------------------------------ |
@@ -205,7 +205,7 @@ Keybinds that conflict with others are highlighted with an orange border.
 | `SHIFT-DOWN`       | Expand Selected Blocks Below      | `terminal:expand_block_selection_below`                |
 | `SHIFT-UP`         | Expand Selected Blocks Above      | `terminal:expand_block_selection_above`                |
 
-#### Input Editor
+**Input Editor**
 
 | Shortcut           | Command                                   | Action                                     |
 | ------------------ | ----------------------------------------- | ------------------------------------------ |
@@ -260,7 +260,7 @@ Keybinds that conflict with others are highlighted with an orange border.
 | `CTRL-SHIFT-LEFT`  | Select One Word to the Left               | `editor_view:select_left_by_word`          |
 | `CTRL-SHIFT-RIGHT` | Select One Word to the Right              | `editor_view:select_right_by_word`         |
 
-#### Terminal
+**Terminal**
 
 | Shortcut           | Command                                           | Action                                       |
 | ------------------ | ------------------------------------------------- | -------------------------------------------- |
@@ -288,7 +288,7 @@ Keybinds that conflict with others are highlighted with an orange border.
 | `SHIFT-F3`         | Find the Previous Occurrence of Your Search Query | `find:find_prev_occurrence`                  |
 |                    | Toggle Navigation Palette                         | `workspace:toggle_navigation_palette`        |
 
-#### Fundamentals
+**Fundamentals**
 
 | Shortcut           | Command                    | Action                           |
 | ------------------ | -------------------------- | -------------------------------- |

@@ -2,23 +2,15 @@
 description: Quickly open links and files or run scripts with your mouse.
 ---
 
-# Files, Links, & Scripts
+# Files, links, & scripts
 
-## What is it
-
-### Files & Links
+## What are files & links
 
 Warp supports opening files, folders, and URL links that are within Blocks. Multiple URL protocols are supported e.g. `https`, `ftp`, `file`, etc. Warp opens web links directly in your default browser.
 
 Warp can also open Markdown files directly. Learn more about [viewing Markdown files](markdown-viewer.md).
 
-### Scripts
-
-Warp can open `.command` and Unix Executable files from the finder directly.
-
-## How to access it
-
-### Files & Links
+## How to access files & links
 
 {% tabs %}
 {% tab title="macOS" %}
@@ -41,18 +33,7 @@ Configure the default editor to open files by navigating to `Settings > Features
 * You can also Drag and drop a folder or file onto the Warp dock icon to open a new tab in this directory.
 * You can also right-click on a folder or file in Finder, then select Services, and "Open new Warp Tab | Window here".
 
-### Scripts
-
-1. Find a `.command` or Shell script you'd like to open in Finder.
-2. Right-click and open the script with Warp.
-
-{% hint style="warning" %}
-Make sure the file has the appropriate executable permissions before you can run it in Warp. (e.g. `chmod +x script.command`)
-{% endhint %}
-
-## How it works
-
-### Files & Links
+## How files & links works
 
 Warp parses relative and absolute file paths. Warp also tries to capture line and column numbers attached to the file path, supported formats include:
 
@@ -65,6 +46,19 @@ Warp parses relative and absolute file paths. Warp also tries to capture line an
 
 <figure><img src="../.gitbook/assets/files-links-demo.gif" alt=""><figcaption><p>Files &#x26; Links Demo</p></figcaption></figure>
 
-### Scripts
+## What are scripts
+
+Warp can open `.command` and Unix Executable files from the finder directly.
+
+## How to access scripts
+
+1. Find a `.command` or Shell script you'd like to open in Finder.
+2. Right-click and open the script with Warp.
+
+{% hint style="warning" %}
+Make sure the file has the appropriate executable permissions before you can run it in Warp. (e.g. `chmod +x script.command`)
+{% endhint %}
+
+## How scripts works
 
 <figure><img src="../.gitbook/assets/script-demo.gif" alt=""><figcaption><p>Scripts Demo</p></figcaption></figure>

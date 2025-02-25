@@ -169,7 +169,7 @@ If you installed a package, find Warp in your desktop manager or run `warp-termi
 {% endtab %}
 {% endtabs %}
 
-## Initial Setup
+## Initial setup
 
 ### Log in to Warp
 
@@ -177,7 +177,7 @@ After installation, you will be prompted to sign up for a Warp account. You have
 
 If you sign up using Google or GitHub, Warp only gets access to the associated email address. Visit the [Privacy](privacy.md) page for more details on Warp's approach to privacy.
 
-### Onboarding Survey (Optional)
+### Onboarding survey (optional)
 
 Warp will ask a few questions within the app after you sign up. The survey is optional. You can skip all questions if you’d like. Why do we ask these? Understanding how you use the terminal helps us improve the product and prioritize the right features to build.
 
@@ -197,7 +197,7 @@ Zsh is the default login and interactive shell on macOS (starting with macOS Cat
 
 You can change your default shell by going to `Settings > Features > Session`. In the Startup shell for new sessions section, you can choose which shell you want Warp to use.
 
-### Customize Warp's Appearance
+### Customize Warp's appearance
 
 Warp has many Appearance settings you can configure:
 

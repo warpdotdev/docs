@@ -1,20 +1,20 @@
 ---
-description: Workflows are an easier way to execute and share commands within Warp.
+description: YAML workflows are an easier way to execute file based commands within Warp.
 ---
 
-# YAML Workflows
+# YAML workflows
 
 {% hint style="danger" %}
 You can continue to use YAML-based workflows, but we recommend using new [workflows in Warp Drive](../warp-drive/workflows.md) instead for a better editing experience.
 {% endhint %}
 
-## What is it
+## What are yaml workflows
 
-Workflows are easily parameterized and searchable by name, description, or command arguments. [Common workflows](https://github.com/warpdotdev/workflows) sourced by the Warp team and community are readily available within the app. Additionally, you can create and scope workflows locally or to a git repository.
+YAML workflows are easily parameterized and searchable by name, description, or command arguments. [Common workflows](https://github.com/warpdotdev/workflows) sourced by the Warp team and community are readily available within the app. Additionally, you can create and scope workflows locally or to a git repository.
 
-## How to use it
+## How to use yaml workflows
 
-* Open the [Command Search](command-search.md) or Workflow Search `CTRL-SHIFT-R` panel to find Workflows.
+* Open the [Command Search](command-search.md) or Workflow search `CTRL-SHIFT-R` panel to find Workflows.
 * Once inside the menu, start typing in the search bar to filter the existing workflows. (e.g. git, android, npm, etc.)
 * When a Workflow is selected with `ENTER`, you can use `SHIFT-TAB` to cycle through the arguments.
 * You can also expand the menu horizontally with the mouse by dragging it on the right edge.
@@ -23,7 +23,7 @@ Workflows are easily parameterized and searchable by name, description, or comma
 Tailor your [Command Search](command-search.md) experience by toggling off "Show Global Workflows" in `Settings > Features`. When disabled, your search will exclusively encompass YAML and Warp Drive Workflows.
 {% endhint %}
 
-## How it works
+## How yaml workflows work
 
 <figure><img src="../../.gitbook/assets/yaml_workflows_demo.gif" alt="YAML Workflows Demo"><figcaption><p>YAML Workflows Demo</p></figcaption></figure>
 
@@ -39,7 +39,7 @@ Workflows solve some major pain points with aliases, specifically the:
 
 ## Creating Custom Workflows
 
-### How to create a workflow with YAML
+### How to create a workflow with yaml
 
 You can store local workflows (scoped to your machine) in:
 
@@ -141,11 +141,11 @@ The default value for the argument. If specified, the `default_value` replaces t
 
 </details>
 
-### Where to save workflows
+### Where to save yaml workflows
 
 Local workflows are scoped to your machine. Repository workflows are scoped to a git repository and can be accessed by anyone who has cloned the repo. _Note:_ Repository workflows will not appear if you are ssh into a remote machine.
 
-Local Workflow Path:
+Local yaml workflow path:
 
 {% tabs %}
 {% tab title="macOS" %}
@@ -159,7 +159,7 @@ Local Workflow Path:
 
 Repository Workflow Path: `{{path_to_git_repo}}/.warp/workflows`
 
-#### Local Workflows
+#### Local yaml workflows
 
 To start, create a workflow subdirectory within
 
@@ -177,7 +177,7 @@ Add your workflow’s `.yaml` file to this directory; if the file format is vali
 
 `cp ~/path/to/my_awesome_workflow.yaml {{path_to_local_workflow_folder}}`
 
-#### Repository Workflows
+#### Repository yaml workflows
 
 You can add a repository workflow similarly to how you added a local workflow. Create a workflows folder in a repository’s root directory and save your `.yaml` file like so:
 
@@ -187,6 +187,6 @@ mkdir -p .warp/workflows/
 cp ~/path/to/my_awesome_workflow.yaml {{path_to_local_workflow_folder}}
 ```
 
-#### Global Workflows
+#### Global workflows
 
 You can contribute workflows that will be made available to other Warp users by forking the [Workflows repo](https://github.com/warpdotdev/workflows/tree/main/specs) and opening a pull request. See the [Contributing](https://github.com/warpdotdev/workflows#contributing) section for more details.

@@ -1,17 +1,17 @@
 ---
 description: >-
-  Launch Configurations enables you to save your configuration of windows, tabs,
+  Launch configurations enables you to save your configuration of windows, tabs,
   and panes, so that you can reopen the same set of sessions per project
   quickly.
 ---
 
-# Launch Configurations
+# Launch configurations
 
-## What is it
+## What are launch configurations
 
-With Launch configurations you can save in the app or by adding a yaml file.&#x20;
+With Launch configurations you can save in the app or by adding a yaml file.
 
-## Creating a Launch Configuration
+## Creating a launch configuration
 
 ### From the UI
 
@@ -25,7 +25,7 @@ With Launch configurations you can save in the app or by adding a yaml file.&#x2
 * Launch Configurations files are generated when you create them with the UI and can also be created or modified manually.
 * Please see the below for [Launch Configuration YAML file locations, format, and examples](launch-configurations.md#launch-configuration-yaml-format).
 
-## Using a Launch Configuration
+## Using a launch configuration
 
 {% tabs %}
 {% tab title="macOS" %}
@@ -47,7 +47,7 @@ With Launch configurations you can save in the app or by adding a yaml file.&#x2
 You can open saved Launch Configurations via Alfred Workflow or [Raycast](../integrations-and-plugins.md#raycast) Extension. Learn more [here](https://blog.joe.codes/open-warp-launch-configurations-from-raycast-and-alfred). Credit to [@joetannenbaum](https://twitter.com/joetannenbaum/status/1633538768866009115)
 {% endhint %}
 
-## How it works
+## How launch configurations work
 
 {% embed url="https://www.loom.com/share/daa2a9e55c27458c8bbf722d90078880?hideEmbedTopBar=true&hide_owner=true&hide_share=true&hide_title=true" %}
 Launch Configuration Demo
@@ -62,6 +62,7 @@ All Launch Configuration yaml files are stored in the following location:
 ```sh
 $HOME/.warp/launch_configurations/
 ```
+
 ```sh
 $HOME/.warp/launch_configurations/
 ```
@@ -71,6 +72,7 @@ $HOME/.warp/launch_configurations/
 ```
 ${XDG_DATA_HOME:-$HOME/.local/share}/warp-terminal/launch_configurations/
 ```
+
 ```
 ${XDG_DATA_HOME:-$HOME/.local/share}/warp-terminal/launch_configurations/
 ```

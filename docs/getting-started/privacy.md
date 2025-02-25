@@ -35,7 +35,7 @@ For security-related issues or questions, please email [security@warp.dev](mailt
 
 <figure><img src="../.gitbook/assets/signup-privacy-settings.png" alt=""><figcaption><p>Privacy Settings during signup</p></figcaption></figure>
 
-### &#x20;Opt out after signup
+### Opt out after signup
 
 1. Navigate to `Settings > Privacy`, or open the [Command Palette](../features/command-palette.md) and search for "privacy"
 2. Toggle off app analytics, crash reports, or both (if it's blue, it's "on")
@@ -72,9 +72,9 @@ If you're a [Team](../features/teams.md) admin, the deletion flow will require t
 
 Warp collects high-level usage data (**never console input or output**) to discover product quality issues and guide feature prioritization. Selling usage data will never be part of Warp's business model. This data is used solely to improve the end-user experience.
 
-Warp uses Sentry for crash reporting and Rudderstack for app analytics.&#x20;
+Warp uses Sentry for crash reporting and Rudderstack for app analytics.
 
-### Exhaustive Telemetry Table
+### Exhaustive telemetry table
 
 | Event Name                                                 | Description                                                                                                                                                       |
 | ---------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -238,8 +238,8 @@ Warp uses Sentry for crash reporting and Rudderstack for app analytics.&#x20;
 | `Setup Flow Skipped`                                       | Skipped the setup flow for new users                                                                                                                              |
 | `Setup Flow Started`                                       | Started the setup flow for new users                                                                                                                              |
 | `Shared Object Limit Hit Banner View Plans Button Clicked` | Clicked the 'View Plans' button on the persistent drive banner                                                                                                    |
-| `Shared Session Modal Upgrade Pressed`                     | Clicked the 'View Plans' button on the upgrade modal for shared sessions                                                                                             |
-|`Shared Session Onboarding Block Shown`                     | Showed the onboarding block for session sharing                                                                                            |
+| `Shared Session Modal Upgrade Pressed`                     | Clicked the 'View Plans' button on the upgrade modal for shared sessions                                                                                          |
+| `Shared Session Onboarding Block Shown`                    | Showed the onboarding block for session sharing                                                                                                                   |
 | `Sharer Cancelled Grant Role`                              | When you cancel granting a role to a shared session participant                                                                                                   |
 | `Show Alias Expansion Banner`                              | Displayed the banner asking whether Warp should automatically expand aliases within the Input Editor                                                              |
 | `Show Subshell Banner`                                     | Displayed the banner asking whether Warp should Warpify the current session via Warp's subshell wrapper                                                           |
@@ -249,8 +249,8 @@ Warp uses Sentry for crash reporting and Rudderstack for app analytics.&#x20;
 | `Sign Up Button Clicked in App`                            | Clicked "Sign Up" button                                                                                                                                          |
 | `Skip Onboarding Survey`                                   | Skipped onboarding survey as a whole                                                                                                                              |
 | `Split Pane`                                               | Split tab into multiple panes                                                                                                                                     |
-| `Start Shared Session In New Tab`                          | Started a shared session in a new tab                                                                                                    |
-| `Started Shared Session In New Window`                     | Started a shared session in a new window                                                                                                   |
+| `Start Shared Session In New Tab`                          | Started a shared session in a new tab                                                                                                                             |
+| `Started Shared Session In New Window`                     | Started a shared session in a new window                                                                                                                          |
 | `Tab Creation`                                             | Created a tab                                                                                                                                                     |
 | `Tab Operations`                                           | Took operation on a tab: change color, close tab, close adjacent tabs, etc.                                                                                       |
 | `Tab Renamed`                                              | Changed tab title                                                                                                                                                 |

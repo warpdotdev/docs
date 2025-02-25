@@ -18,7 +18,7 @@ Warp will only import settings associated with the Default profile.
 
 If you are already running Warp but would like to import your iTerm2 profile, you can open the [Command Palette](../features/command-palette.md) and search for the Setup Guide. This will enter you into the workflow to import your settings.
 
-### Choose your Prompt
+### Choose your prompt
 
 Next, you can choose your [prompt](../appearance/prompt.md) and decide whether or not to inherit your existing prompt configuration. There are two prompt options:
 

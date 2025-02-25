@@ -5,32 +5,30 @@ description: >-
   terminal sessions.
 ---
 
-# Notifications & Audible Bell
+# Notifications & audible bell
 
-## What is it
+## What are notificatons and audible bell
 
 Notifications can be sent when a command completes after a configurable number of seconds or when a running command needs you to enter a password to proceed. For either of these triggers, Warp will only send you a desktop notification if you are using a different app at the time the trigger is fired.\
 \
 Warp also allows you to enable an audible terminal bell (disabled by default) that can be triggered by a variety of CLI tools (for example, `ping -a`).
 
-## How to access it
-
-### Notifications
+## How to access notifications
 
 * Notifications are enabled by default and require system permissions to appear.
-* If you've turned Notifications off before, toggle it back on by going to `Settings > Features > Session`, or quickly toggle Notifications with the [Command Palette](../features/command-palette.md).
+* If you've turned Notifications off before, toggle it back on by going to `Settings > Features > Session`, or quickly toggle Notifications with the [Command Palette](command-palette.md).
 * Customize Notification triggers for long-running commands or password prompts by going to `Settings > Features`.
 
 {% hint style="info" %}
 On macOS, you will want to **Allow** or **Accept** the request so that Warp can send you desktop notifications. If you accidentally denied it or would like to re-enable Notifications later, check the [troubleshooting guide below](notifications.md#troubleshooting-notifications).
 {% endhint %}
 
-### Audible Bell
+## How to access audible bell
 
 * In Settings, enable an Audible terminal bell in `Settings > Features > Terminal`.
-* In [Command Palette](../features/command-palette.md), “Enable/Disable Audible Terminal Bell”.
+* In [Command Palette](command-palette.md), “Enable/Disable Audible Terminal Bell”.
 
-## How it works
+## How notifications work
 
 {% embed url="https://www.loom.com/share/65967f43a7fa432b98cf3e94766a8e79?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
 Notifications Demo

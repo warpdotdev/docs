@@ -4,7 +4,7 @@ description: >-
   ideas, etc.
 ---
 
-# Sending Feedback & Logs
+# Sending feedback & logs
 
 ### Sending Warp feedback:
 
@@ -19,7 +19,7 @@ For security-related issues or questions, please email [security@warp.dev](mailt
 
 <figure><img src="../.gitbook/assets/send-feedback-demo.gif" alt="sending feedback from the mac menu and warp essentials"><figcaption><p>Send Feedback</p></figcaption></figure>
 
-## Gathering Warp Logs
+## Gathering Warp logs
 
 In some cases, we may also ask for your Warp logs. You can retrieve them by following the instructions for your platform below. Locate the log file and attach it to your GitHub issue comment, feedback email, or discord message.
 

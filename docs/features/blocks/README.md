@@ -4,7 +4,7 @@ description: A Block groups commands and outputs into one atomic unit.
 
 # Blocks
 
-## What are Blocks?
+## What are blocks?
 
 Blocks enable us to easily:
 

@@ -7,24 +7,24 @@ description: >-
 
 # Completions
 
-## What is it
+## What are completions
 
-Completions feature fuzzy search capability that provides you with [approximate matches](https://en.wikipedia.org/wiki/Approximate\_string\_matching) for your queries. If you're unsure about the exact syntax or spelling, you'll be provided with suggestions based on your input, even if it's not an exact match.
+Completions feature fuzzy search capability that provides you with [approximate matches](https://en.wikipedia.org/wiki/Approximate_string_matching) for your queries. If you're unsure about the exact syntax or spelling, you'll be provided with suggestions based on your input, even if it's not an exact match.
 
-## How to access it
+## How to access completions
 
 * Type out the beginning of your command, then press `TAB`.
 * To search for options and flags, you must type and press `TAB`.
 * Forgo `TAB` by enabling "Open completions menu as you type" in `Settings > Features`
 
-## How to use it
+## How to use completions
 
-### Completions
+### Command completions
 
 1. Type `git checkout` (note the space) and then press `TAB`
 2. A menu will show all of your local branches. You can select one using your mouse or the `UP ↑`/`DOWN ↓` arrow keys
 
-### Completions on Aliases
+### Completions on aliases
 
 * Shell aliases - This is an alias for an entire command. For example, if you have `gc=git checkout` in alias, typing `gc` and hitting `TAB` should give you the same completion options as for `git checkout` .
 * Command aliases - This is an alias for a subcommand. For example, this could be setting `git status` to `git st`. With completions support, we could now suggest completions for `git status` even if you typed in `git st`.
@@ -34,13 +34,13 @@ Completions feature fuzzy search capability that provides you with [approximate 
 The "Tab key behavior" setting under `Features > Editor` can change the action that `Tab` is bound to. If `Tab` is not bound to open the completions menu, `ctrl-space` will be assigned as the default keybinding. _Note: You can also enable the "Open completions menu as you type" in `Settings > Features` so that the completions menu opens automatically._
 {% endhint %}
 
-## How it works
+## How completions work
 
 {% embed url="https://www.loom.com/share/92594c821ae341f69d5d1c1af56f2c69?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
 Completions Demo
 {% endembed %}
 
-### Supported Completion Specs
+### Supported completion specs
 
 | Command Name            | Level of Support |
 | ----------------------- | ---------------- |

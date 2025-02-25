@@ -4,13 +4,13 @@ description: >-
   our repo.
 ---
 
-# Custom Themes
+# Custom themes
 
 {% hint style="info" %}
 Examples and a collection of themes can be found in the [Warp themes repository](https://github.com/warpdotdev/themes).
 {% endhint %}
 
-## Warp's Custom Theme Repository
+## Warp's custom theme repository
 
 We have a [repository of themes hosted on GitHub.](https://github.com/warpdotdev/themes)
 
@@ -135,7 +135,7 @@ Automatically create new themes based on a background image. Click the `+` butto
 
 Use [Terminal-Themes](https://terminal-themes.com/) to create a custom theme and generate the appropriate RGB values for your custom theme. Once the YAML file is created, you can edit the file to add the background images or gradients.
 
-## Background Images and Gradients
+## Background images and gradients
 
 To add a background image you can use this attribute: `background_image:` with the name of the image you want to use as the background.
 
@@ -246,7 +246,7 @@ If your theme has an intended custom background image, include a comment in the 
 
 All other Warp-related things can be discussed, please [contact us](../help/sending-us-feedback.md).
 
-## Open source dependencies
+## Open source theme dependencies
 
 We'd like to call out a few of the open-source themes and repositories that helped bootstrap the set of themes for Warp:
 

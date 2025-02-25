@@ -1,12 +1,12 @@
 ---
-description: Warp's features for Window Management.
+description: Warp's features for window management.
 ---
 
-# Window Management
+# Window management
 
-1. [Global Hotkey](global-hotkey.md) is a configurable shortcut that can show/hide a dedicated window or all windows on your chosen desktop regardless of whether the app is focused.
+1. [Global hotkey](global-hotkey.md) is a configurable shortcut that can show/hide a dedicated window or all windows on your chosen desktop regardless of whether the app is focused.
 2. [Tabs](tabs.md) allow you to organize a window into multiple terminal sessions.
-3. [Split Panes](split-panes.md) allows you to divide a Tab into multiple rectangular _panes_, each of which is a unique terminal session.
+3. [Split panes](split-panes.md) allows you to divide a Tab into multiple rectangular _panes_, each of which is a unique terminal session.
 
 ## Global Hotkey
 

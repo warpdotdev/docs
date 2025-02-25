@@ -1,16 +1,16 @@
 ---
 description: >-
-  Warp's main features for Command Entry, History, Synchronized Inputs, YAML
-  Workflows and More!
+  Warp's main features for Command entry, history, synchronized Inputs, yaml
+  workflows and more!
 ---
 
-# Command Entry
+# Command entry
 
-1. [Command Corrections](command-corrections.md) provides auto-correct suggestions on previously run commands to catch typos, and forgotten flags, and fix general console errors.
-2. [Command Search](command-search.md) is a 3-in-1 panel that allows you to search across Command History, Workflows, Notebooks, and A.I. Command Search all at once.
-3. [Command History](command-history.md) allows Warp to isolate the history of each shell session to make previously run commands easily accessible.
-4. [Synchronized Inputs](synchronized-inputs.md) allow you to easily run the same command in multiple sessions at the same time.
-5. [YAML Workflows](yaml-workflows.md) are easier to execute and share parameterized and searchable commands within Warp.
+1. [Command corrections](command-corrections.md) provides auto-correct suggestions on previously run commands to catch typos, and forgotten flags, and fix general console errors.
+2. [Command search](command-search.md) is a 3-in-1 panel that allows you to search across Command History, Workflows, Notebooks, and A.I. Command Search all at once.
+3. [Command history](command-history.md) allows Warp to isolate the history of each shell session to make previously run commands easily accessible.
+4. [Synchronized inputs](synchronized-inputs.md) allow you to easily run the same command in multiple sessions at the same time.
+5. [YAML workflows](yaml-workflows.md) are easier to execute and share parameterized and searchable commands within Warp.
 
 ## Command Corrections
 

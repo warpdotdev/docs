@@ -1,12 +1,12 @@
 ---
 description: >-
-  Command Inspector  (also known as Command X-Ray) surfaces documentation for
+  Command inspector  (also known as Command X-Ray) surfaces documentation for
   sub-parts of your command, directly in Warp's Input Editor.
 ---
 
-# Command Inspector
+# Command inspector
 
-## How to access it
+## How to access command inspector
 
 {% tabs %}
 {% tab title="macOS" %}
@@ -19,10 +19,10 @@ Hover over the part of the command you want to inspect with your mouse or press 
 {% endtabs %}
 
 {% hint style="info" %}
-Command Inspector automatically triggers on hover, you can disable this by navigating to the settings dialog `Settings > Features > Editor`, or through the Command Palette, search for "Open Settings: Features" and toggling "Trigger Command Inspector on hover".
+Command inspector automatically triggers on hover, you can disable this by navigating to the settings dialog `Settings > Features > Editor`, or through the Command Palette, search for "Open Settings: Features" and toggling "Trigger Command Inspector on hover".
 {% endhint %}
 
-## How it works
+## How command inspector works
 
 {% embed url="https://www.loom.com/share/a00259927ada41b2895fd5c4072a3dcc?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
 Command Inspector Demo

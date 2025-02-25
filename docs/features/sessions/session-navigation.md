@@ -1,13 +1,13 @@
 ---
 description: >-
-  The Session Navigation Palette helps you speed up your workflow by allowing
+  The session navigation palette helps you speed up your workflow by allowing
   you to quickly navigate using the keyboard or mouse to the terminal sessions
   you are looking for across Warp.
 ---
 
-# Session Navigation
+# Session navigation
 
-## How to access Session navigation
+## How to access session navigation
 
 1. Open the Session Navigation palette with the [Command Palette](../command-palette.md), click on **session >\_** or type in "sessions:".
 2. Jump to a session by using your mouse or the `UP ↑`/`DOWN ↓` arrow keys and `ENTER`.
@@ -21,7 +21,7 @@ Sessions are ordered by recency, so the most recently focused sessions show up f
 
 `CTRL-TAB` shortcut defaults to activate the previous / next [Tabs](../windows/tabs.md). You can configure the shortcut to cycle the most recent session, including any [Split Panes](../windows/split-panes.md), in `Settings > Features > Keys > Ctrl-Tab behavior`
 
-## How Session Navigation Works
+### How session navigation Works
 
 {% embed url="https://www.loom.com/share/2147adc6749c4f4ea5da432eadda7995" %}
 Session Navigation Demo
