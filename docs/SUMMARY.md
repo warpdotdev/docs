@@ -2,8 +2,8 @@
 
 ## 🚀 Getting Started
 
-* [What is Warp?](README.md)
-* [Quickstart Guide](getting-started/getting-started-with-warp.md)
+* [Quickstart Guide](README.md)
+* [What is Warp?](getting-started/what-is-warp.md)
 * [Migrate to Warp](getting-started/migrate-to-warp.md)
 * [Using Warp with \[zsh|bash|fish|pwsh\]](getting-started/using-warp-with-shells.md)
 * [Privacy](getting-started/privacy.md)
@@ -95,11 +95,11 @@
 
 ## ❓ Help
 
+* [Sending Feedback & Logs](help/sending-us-feedback.md)
 * [Plans, Subscriptions & Pricing](help/plans-subscriptions-and-pricing.md)
 * [Updating Warp](help/updating-warp.md)
 * [Using Warp Offline](help/using-warp-offline.md)
-* [Sending Feedback & Logs](help/sending-us-feedback.md)
-* [Troubleshooting Login Issues](help/troubleshooting-login-issues.md)
-* [Known Issues](help/known-issues.md)
 * [Logging out & Uninstalling](help/uninstalling-warp.md)
+* [Known Issues](help/known-issues.md)
+* [Troubleshooting Login Issues](help/troubleshooting-login-issues.md)
 * [Open Source Licenses](help/licenses.md)

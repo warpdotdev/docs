@@ -34,27 +34,33 @@ There is a known issue that can occur that causes online features to break ([War
 {% tabs %}
 {% tab title="macOS" %}
 1. Remove Warp user login with the following command:
+
 ```bash
 sudo security delete-generic-password -l "dev.warp.Warp-Stable" $HOME/Library/Keychains/login.keychain
 ```
-2. [Login to Warp](../getting-started/getting-started-with-warp.md#logging-into-warp)
+
+2. [Login to Warp](../#logging-into-warp)
 {% endtab %}
 
 {% tab title="Windows" %}
 1. Remove any user files with the following command:
+
 ```powershell
 Remove-Item $env:LOCALAPPDATA\warp\Warp\data\*-User
 ```
-2. [Login to Warp](../getting-started/getting-started-with-warp.md#logging-into-warp)
+
+2. [Login to Warp](../#logging-into-warp)
 {% endtab %}
 
 {% tab title="Linux" %}
 1. Remove Warp user login with your keychain manager (gnome-keyring, kwallet, etc.). Search for `dev.warp.Warp` and delete the `User` password/secret.
 2. Remove any user files with the following command:
+
 ```bash
 rm -f ${XDG_STATE_HOME:-$HOME/.local/state}/warp-terminal/*-User
 ```
-3. [Login to Warp](../getting-started/getting-started-with-warp.md#logging-into-warp)
+
+3. [Login to Warp](../#logging-into-warp)
 {% endtab %}
 {% endtabs %}
 
@@ -180,7 +186,7 @@ If you experience an error opening Warp, please try the following:
 
 <figure><img src="../.gitbook/assets/open-warp-mac.gif" alt=""><figcaption></figcaption></figure>
 
-* If the above doesn't work, [uninstall Warp](uninstalling-warp.md), then [re-install Warp](../getting-started/getting-started-with-warp.md).
+* If the above doesn't work, [uninstall Warp](uninstalling-warp.md), then [re-install Warp](../).
 
 ### Running x86 commands with macOS
 
@@ -236,7 +242,7 @@ We're tracking some issues on Linux where a [Warp window doesn't show/render](ht
     * For Fedora: `sudo dnf install akmod-nvidia`
     * For Arch Linux: `sudo pacman -S nvidia`
     * For openSUSE: `sudo zypper install x11-video-nvidiaG05`
-  * Use [Low Power (integrated) GPU](https://github.com/warpdotdev/Warp/issues/4215#issuecomment-1967500574) in `~/.config/warp-terminal/user_preferences.json` file: `{"prefs":{"PreferLowPowerGPU": "true",}}`.  The low-power workaround is particularly helpful if you see [`Unrecognized device error ERROR_INITIALIZATION_FAILED` in warp.log](https://github.com/warpdotdev/Warp/issues/4390#issuecomment-1989493913).
+  * Use [Low Power (integrated) GPU](https://github.com/warpdotdev/Warp/issues/4215#issuecomment-1967500574) in `~/.config/warp-terminal/user_preferences.json` file: `{"prefs":{"PreferLowPowerGPU": "true",}}`. The low-power workaround is particularly helpful if you see [`Unrecognized device error ERROR_INITIALIZATION_FAILED` in warp.log](https://github.com/warpdotdev/Warp/issues/4390#issuecomment-1989493913).
 * Environmental Variables
   * Prefix `warp-terminal` with the variables (multiple can be used), and once you confirm they work, `export` them in your `.profile`/`.zprofile` to [load on startup](https://github.com/warpdotdev/Warp/issues/4240#issuecomment-1968228029):
     * [Default to Wayland](https://github.com/warpdotdev/Warp/issues/4240#issuecomment-1961993281): `WARP_ENABLE_WAYLAND=1`
@@ -258,4 +264,4 @@ rm warpdotdev.gpg
 sudo apt update && sudo apt install warp-terminal
 ```
 
-See the instructions for other Linux distros on our [Quick Start Guide](../getting-started/getting-started-with-warp.md#linux).
+See the instructions for other Linux distros on our [Quick Start Guide](../#linux).

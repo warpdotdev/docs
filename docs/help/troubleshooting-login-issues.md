@@ -47,7 +47,7 @@ When behind a proxy, a possible workaround is to disable QUIC in the browser. It
 
 Directly launching Warp from Okta or other SSO providers' pages isn’t supported. This is due to a limitation with Warp authentication APIs. Instead, do the following:
 
-1. [Install and run Warp](../getting-started/getting-started-with-warp.md#installing-and-running-warp)
+1. [Install and run Warp](../#installing-and-running-warp)
 2. Go to [app.warp.dev/login](http://app.warp.dev/login)
 3. Choose “Continue with SSO”
 4. Login with your normal SSO credentials
@@ -59,7 +59,7 @@ If the browser does not open from Warp directly when you click "Sign up" or "Sig
 If nothing happens when you click "Take me to Warp" on the logged-in page. If this happens to you, copy the "here" link on the web logged-in page (https://app.warp.dev/logged\_in) to copy the authentication token, then paste it into the app as shown below.
 
 {% hint style="warning" %}
-the On Linux, the default copy-and-paste [Keyboard shortcuts](../features/keyboard-shortcuts.md) are `CTRL-SHIFT-C` and `CTRL-SHIFT-V` respectively. \
+the On Linux, the default copy-and-paste [Keyboard shortcuts](../features/keyboard-shortcuts.md) are `CTRL-SHIFT-C` and `CTRL-SHIFT-V` respectively.\
 \
 On Linux and WSL you should install and set your default `$BROWSER` to `brave-browser` to workaround any copy-paste issues. Please see the workaround guide below.
 {% endhint %}
@@ -76,4 +76,4 @@ If "Take me to Warp" is still not working it may be due to a [proxy issue](troub
 
 ### Get help with login issues
 
-If Sign Up or Login does not work after trying the steps above, fill out [this Typeform](https://warpdotdev.typeform.com/to/UnZu0akR?question=sign\_up?utm\_source=docs) and our team will reach out to you.
+If Sign Up or Login does not work after trying the steps above, fill out [this Typeform](https://warpdotdev.typeform.com/to/UnZu0akR?question=sign_up?utm_source=docs) and our team will reach out to you.

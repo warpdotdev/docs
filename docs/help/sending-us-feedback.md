@@ -1,7 +1,5 @@
 ---
-description: >-
-  We would love to get your feedback on Warp: bugs, feature requests, novel
-  ideas, etc.
+description: 'Submit your feedback on Warp: bugs, feature requests, novel ideas, etc.'
 ---
 
 # Sending Feedback & Logs
@@ -29,14 +27,15 @@ Warp’s logs do _not_ contain any console input or output. See more on how we h
 
 {% tabs %}
 {% tab title="macOS" %}
-The Warp log files are located at `~/Library/Logs/warp.log*`. 
-Zip the logs to your home folder with:
+The Warp log files are located at `~/Library/Logs/warp.log*`. Zip the logs to your home folder with:
+
 ```bash
 zip -j ~/Desktop/warp-logs.zip ~/Library/Logs/warp.log*
 ```
 
 {% hint style="info" %}
 If your issue is graphical (e.g. no display of windows, etc), please run Warp with the following command to capture more log information.
+
 ```bash
 RUST_LOG=wgpu_core=info,wgpu_hal=info /Applications/Warp.app/Contents/MacOS/stable
 ```
@@ -44,13 +43,15 @@ RUST_LOG=wgpu_core=info,wgpu_hal=info /Applications/Warp.app/Contents/MacOS/stab
 {% endtab %}
 
 {% tab title="Windows" %}
-The Warp log files are located at `$env:LOCALAPPDATA\warp\Warp\data\logs\warp.log*`.
-Zip the logs to your home folder with:
+The Warp log files are located at `$env:LOCALAPPDATA\warp\Warp\data\logs\warp.log*`. Zip the logs to your home folder with:
+
 ```powershell
 Compress-Archive -Path $env:LOCALAPPDATA\warp\Warp\data\logs\warp.log*" -DestinationPath "$HOME\Desktop\warp-logs.zip
 ```
+
 {% hint style="info" %}
 If your issue is graphical (e.g. no display of windows, etc), please run Warp with the following command to capture more log information.
+
 ```powershell
 $env:RUST_LOG="wgpu_core=info,wgpu_hal=info"; & "$env:LOCALAPPDATA\Programs\Warp\warp.exe"
 ```
@@ -58,13 +59,15 @@ $env:RUST_LOG="wgpu_core=info,wgpu_hal=info"; & "$env:LOCALAPPDATA\Programs\Warp
 {% endtab %}
 
 {% tab title="Linux" %}
-The Warp log files are located at `${XDG_STATE_HOME:-$HOME/.local/state}/warp-terminal/warp.log*`.
-Zip the logs to your home folder with:
+The Warp log files are located at `${XDG_STATE_HOME:-$HOME/.local/state}/warp-terminal/warp.log*`. Zip the logs to your home folder with:
+
 ```bash
 zip -j ~/warp-logs.zip ~/.local/state/warp-terminal/warp.log*
 ```
+
 {% hint style="info" %}
 If your issue is graphical (e.g. no display of windows, etc), please run Warp with the following command to capture more log information.
+
 ```bash
 RUST_LOG=wgpu_core=info,wgpu_hal=info MESA_DEBUG=1 EGL_LOG_LEVEL=debug warp-terminal
 ```

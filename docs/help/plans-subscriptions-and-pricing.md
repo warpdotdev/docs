@@ -1,5 +1,5 @@
 ---
-description: Use Warp for free or subscribe to a paid plan
+description: Learn about Warp's plans and pricing tiers. Get started for free.
 ---
 
 # Plans, Subscriptions & Pricing
@@ -8,7 +8,7 @@ You can visit [warp.dev/pricing ](https://www.warp.dev/pricing)to learn about Wa
 
 This article includes answers to some frequent questions that might come up as you subscribe, manage billing, or pay invoices.
 
-Don't have Warp yet? [Download now](../getting-started/getting-started-with-warp.md) and get started today.
+Don't have Warp yet? [Download now](../) and get started today.
 
 ## Warp’s Refund Policy
 
@@ -144,4 +144,4 @@ There are certain prohibited and restricted businesses in which Stripe and major
 The team at Warp is standing by and ready to help you with any questions you have about your plan or subscription. Please email us at [billing@warp.dev](mailto:billing@warp.dev) and we will get back to you.
 
 \
-Don't have Warp yet? [Download now](../getting-started/getting-started-with-warp.md) and get started today.
+Don't have Warp yet? [Download now](../) and get started today.

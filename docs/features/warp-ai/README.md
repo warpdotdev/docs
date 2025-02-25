@@ -1,7 +1,7 @@
 ---
 description: >-
-  Warp AI is an AI-powered assistant that’s fully integrated within the Warp
-  terminal.
+  Warp AI includes powerful capabilities such as Agent Mode, Voice, Generate,
+  and Autonomy fully integrated within the Warp terminal.
 ---
 
 # Warp AI
