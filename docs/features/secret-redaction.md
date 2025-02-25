@@ -13,9 +13,11 @@ Disabled by default, to enable Secret Redaction open `Settings > Privacy > Secre
 
 ## How it works
 
-Secret Redaction attempts to detect sensitive data using a list of default regex patterns and then masks it with lock icons. Clicking on a secret will display a tooltip that lets you reveal the secret or copy the secret's contents. When trying to copy terminal output containing secrets, it will be copied as asterisks (e.g. `echo password` becomes `echo ********`) unless revealed or copied from the tooltip.
+Secret Redaction attempts to detect sensitive data (including secrets, passwords, API keys, and PII) using a list of default regex patterns and then masks it with asterisks. Clicking on a secret will display a tooltip that lets you reveal the secret or copy the secret's contents. When trying to copy terminal output containing secrets, it will be copied as asterisks (e.g. `echo password` becomes `echo ********`) unless revealed or copied from the tooltip. Secret redaction is not applied in shared sessions.
 
 You can add additional custom regex for secrets you want to include in `Settings > Privacy > Secret Redaction > Custom Secret Redaction`.
+
+Secret redaction **always** applies to AI interactions, regardless of this setting. Your secrets will never be sent to AI.
 
 ## Secret Regex List
 
