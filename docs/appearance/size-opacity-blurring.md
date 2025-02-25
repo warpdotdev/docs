@@ -27,14 +27,18 @@ To access it, go to `Settings > Appearance > Themes`
 
 ### Window Blurring
 
-After removing Opacity ( moving the slider to a value less than `100)`, you can also blur the background using the blur slider.
+After decreasing Opacity (moving the slider to a value less than `100`), you can also blur the background.
 
-* Increasing the slider increases the blur radius that's applied to the background image.
+* On MacOS, this is done using the blur slider. Increasing the slider increases the blur radius that's applied to the background image.
+
+* On Windows, this is done by toggling the Acrylic background texture on or off.
 
 {% hint style="warning" %}
 On macOS, large blur radiuses may affect performance, especially on Retina displays.
 
 On Linux, window blurring is not supported.
+
+On Windows, some graphics drivers may not support rendering transparent or translucent windows. See below for troubleshooting tips.
 {% endhint %}
 
 ## How it works
@@ -44,3 +48,11 @@ On Linux, window blurring is not supported.
 {% embed url="https://www.loom.com/share/22c9ef25392e4a5e80f9e01394c84dc4?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
 Window Opacity and Blurring Demo
 {% endembed %}
+
+### Troubleshooting transparency on Windows
+
+Some graphics drivers may not support rendering transparent or translucent windows.
+
+You can select the graphics backend used to render new Warp windows in the Settings menu, under `Features` > `System` > `Preferred graphics backend`.
+
+You can also opt to render new Warp windows with an integrated GPU, under `Features` > `System` > `Prefer rendering new windows with integrated GPU (low power)`.
