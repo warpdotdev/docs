@@ -35,13 +35,19 @@ Warp saves the data from your previous session's windows, tabs, and panes to a S
 
 {% tabs %}
 {% tab title="macOS" %}
-```sh
+```bash
 sqlite3 "$HOME/Library/Application Support/dev.warp.Warp-Stable/warp.sqlite"
 ```
 {% endtab %}
 
+{% tab title="Windows" %}
+```powershell
+sqlite3 $env:LOCALAPPDATA\warp\Warp\data\warp.sqlite
+```
+{% endtab %}
+
 {% tab title="Linux" %}
-```sh
+```bash
 sqlite3 "${XDG_STATE_HOME:-$HOME/.local/state}/warp-terminal/warp.sqlite"
 ```
 {% endtab %}
@@ -52,7 +58,7 @@ sqlite3 "${XDG_STATE_HOME:-$HOME/.local/state}/warp-terminal/warp.sqlite"
 Sometimes, you may want to prevent a sensitive Block from being saved on your computer, or you may want to clear blocks from a machine entirely.
 
 {% hint style="info" %}
-This interferes with the running session's ability to save content and may require you to restart Warp.
+This interferes with the running session's ability to save content and may require you close Warp before running the database removal commands.
 {% endhint %}
 
 There are two ways to do this:
@@ -61,17 +67,24 @@ There are two ways to do this:
 {% tab title="macOS" %}
 * Clear the blocks from your running Warp session with `CMD-K`.
 * Delete the SQLite file entirely with the following command:
+```bash
+rm -f "$HOME/Library/Application Support/dev.warp.Warp-Stable/warp.sqlite"
+```
+{% endtab %}
 
-```sh
-rm "$HOME/Library/Application Support/dev.warp.Warp-Stable/warp.sqlite"
+{% tab title="Windows" %}
+* Clear the blocks from your running Warp session with `CTRL-SHIFT-K`.
+* Delete the SQLite file entirely with the following command:
+```powershell
+Remove-Item -Force $env:LOCALAPPDATA\warp\Warp\data\warp.sqlite
 ```
 {% endtab %}
 
 {% tab title="Linux" %}
 * Clear the blocks from your running Warp session with `CTRL-SHIFT-K`.
 * Delete the SQLite file entirely with the following command:
-
-<pre class="language-sh"><code class="lang-sh"><strong>rm "${XDG_STATE_HOME:-$HOME/.local/state}/warp-terminal/warp.sqlite"
-</strong></code></pre>
+```bash
+rm -f "${XDG_STATE_HOME:-$HOME/.local/state}/warp-terminal/warp.sqlite"
+```
 {% endtab %}
 {% endtabs %}

@@ -21,6 +21,10 @@ Warp Drive, Teams, and Workflows Demo
 Warp Drive is accessible from the status bar in the Warp terminal or you can toggle the Warp Drive side panel with `CMD-\`.
 {% endtab %}
 
+{% tab title="Windows" %}
+Warp Drive is accessible from the status bar in the Warp terminal or you can toggle the Warp Drive side panel with `CTRL-SHIFT-\`.
+{% endtab %}
+
 {% tab title="Linux" %}
 Warp Drive is accessible from the status bar in the Warp terminal or you can toggle the Warp Drive side panel with `CTRL-SHIFT-\`.
 {% endtab %}
@@ -63,6 +67,16 @@ You can take these keyboard actions within Warp Drive:
 * Press `Enter` to 1) execute an object, 2) open/collapse a workspace or folder, or 3) open the trash.
 * Press `CMD-ENTER` to open an object’s context menu.
 * Press `CMD-SHIFT-(` and `CMD-SHIFT-)` to switch focus between the terminal and Warp Drive.
+* Press `LEFT-ARROW` to collapse a workspace or folder
+* Press `RIGHT-ARROW` to open a workspace or folder
+* Press `Esc` to return to Warp Drive from your trash.
+{% endtab %}
+
+{% tab title="Windows" %}
+* Press `UP`/`DOWN` or `j`/`k` to navigate to the object you want.
+* Press `Enter` to 1) execute an object, 2) open/collapse a workspace or folder, or 3) open the trash.
+* Press `CTRL-ENTER` to open an object’s context menu.
+* Press `CTRL-SHIFT-(` and `CTRL-SHIFT-)` to switch focus between the terminal and Warp Drive.
 * Press `LEFT-ARROW` to collapse a workspace or folder
 * Press `RIGHT-ARROW` to open a workspace or folder
 * Press `Esc` to return to Warp Drive from your trash.

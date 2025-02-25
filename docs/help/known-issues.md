@@ -33,17 +33,27 @@ There is a known issue that can occur that causes online features to break ([War
 
 {% tabs %}
 {% tab title="macOS" %}
-1. Remove Warp user login with `sudo security delete-generic-password -l "dev.warp.Warp-Stable" $HOME/Library/Keychains/login.keychain`
+1. Remove Warp user login with the following command:
+```bash
+sudo security delete-generic-password -l "dev.warp.Warp-Stable" $HOME/Library/Keychains/login.keychain
+```
+2. [Login to Warp](../getting-started/getting-started-with-warp.md#logging-into-warp)
+{% endtab %}
+
+{% tab title="Windows" %}
+1. Remove any user files with the following command:
+```powershell
+Remove-Item $env:LOCALAPPDATA\warp\Warp\data\*-User
+```
 2. [Login to Warp](../getting-started/getting-started-with-warp.md#logging-into-warp)
 {% endtab %}
 
 {% tab title="Linux" %}
 1. Remove Warp user login with your keychain manager (gnome-keyring, kwallet, etc.). Search for `dev.warp.Warp` and delete the `User` password/secret.
-2.  Remove any user files with the following command:
-
-    ```sh
-    rm -f ${XDG_STATE_HOME:-$HOME/.local/state}/warp-terminal/*-User
-    ```
+2. Remove any user files with the following command:
+```bash
+rm -f ${XDG_STATE_HOME:-$HOME/.local/state}/warp-terminal/*-User
+```
 3. [Login to Warp](../getting-started/getting-started-with-warp.md#logging-into-warp)
 {% endtab %}
 {% endtabs %}

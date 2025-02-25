@@ -37,13 +37,18 @@ Removing Warp from your computer involves uninstalling Warp and then removing an
 
 * Remove Warp with `brew uninstall warp`
 
-**Removing Warp login, settings, files, log, and database**
+**Removing Warp settings, files, logs, and database**
 
-* [Log out of Warp](uninstalling-warp.md#logging-out).
-* Remove Warp settings with `defaults delete dev.warp.Warp-Stable`
-* Remove Warp user files and logs with `sudo rm -r $HOME/.warp/ $HOME/Library/Logs/warp.log`
-* Remove Warp database with `sudo rm -r "$HOME/Library/Application Support/dev.warp.Warp-Stable"`
-* Remove Warp themes and launch configurations with `rm -rf $HOME/.warp`
+```bash
+# Remove Warp settings defaults
+defaults delete dev.warp.Warp-Stable
+# Remove Warp logs
+sudo rm -r $HOME/Library/Logs/warp.log
+# Remove Warp database
+sudo rm -r "$HOME/Library/Application Support/dev.warp.Warp-Stable"
+# Remove Warp user files, themes, and launch configurations
+sudo rm -r $HOME/.warp
+```
 {% endtab %}
 
 {% tab title="Windows" %}
@@ -52,21 +57,43 @@ Removing Warp from your computer involves uninstalling Warp and then removing an
 * Search for "Installed apps” section of the Control Panel.
 * Search for and Uninstall the Warp application
 
-**Removing Warp login, settings, files, log, and database**
+**Removing Warp settings, files, logs, and database**
 
-More info on file locations coming soon ...
+```powershell
+# Remove Warp settings in the Windows Registry
+Remove-Item -Path "HKCU:\Software\Warp.dev\Warp" -Recurse -Force
+# Remove Warp user files, logs, cache, and database from LOCALAPPDATA
+Remove-Item -Path "$env:LOCALAPPDATA\warp\Warp" -Recurse -Force
+# Remove themes and launch configurations
+Remove-Item -Path "$env:APPDATA\warp\Warp" -Recurse -Force
+```
 {% endtab %}
 
 {% tab title="Linux" %}
 **Uninstalling Warp by package manager**
 
+```bash
+# apt uninstall
+sudo apt remove warp-terminal
+# dnf uninstall
+sudo dnf remove warp-terminal
+# zypper uninstall
+sudo zypper remove warp-terminal
+# pacman uninstall
+sudo pacman -R warp-terminal
+```
+
 * Uninstall Warp using the same package manager that you used to [install](../getting-started/getting-started-with-warp.md) it.
 
-**Removing Warp login, settings, files, log, and database**
+**Removing Warp settings, files, logs, and database**
 
-* [Log out of Warp](uninstalling-warp.md#logging-out).
-* Remove Warp settings files with `rm -r ${XDG_CONFIG_HOME:-$HOME/.config}/warp-terminal`
-* Remove Warp user files, logs, and database with `rm -r ${XDG_STATE_HOME:-$HOME/.local/state}/warp-terminal`
-* Remove Warp themes and launch configurations with `rm -r ${XDG_STATE_HOME:-$HOME/.local/share}/warp-terminal`
+```bash
+# Remove Warp settings files
+rm -r ${XDG_CONFIG_HOME:-$HOME/.config}/warp-terminal
+# Remove Warp user files, logs, and database
+rm -r ${XDG_STATE_HOME:-$HOME/.local/state}/warp-terminal
+# Remove Warp themes and launch configurations
+rm -r ${XDG_STATE_HOME:-$HOME/.local/share}/warp-terminal
+```
 {% endtab %}
 {% endtabs %}

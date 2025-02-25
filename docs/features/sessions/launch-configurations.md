@@ -35,6 +35,12 @@ With Launch configurations you can save in the app or by adding a yaml file.
   * Single-window launch configs can be launched into the active window from the launch configuration palette using `CMD-ENTER` on Mac.
 {% endtab %}
 
+{% tab title="Windows" %}
+* From the [Command Palette](../command-palette.md), enter `Launch Configuration` to open and select Launch Configuration.
+* Right-clicking the new Tab **+** button to open a menu and select saved Launch Configuration.
+  * Single-window launch configs can be launched into the active window from the launch configuration palette using `CTRL-ENTER` on Linux.
+{% endtab %}
+
 {% tab title="Linux" %}
 * From the [Command Palette](../command-palette.md), enter `Launch Configuration` to open and select Launch Configuration.
 * Right-clicking the new Tab **+** button to open a menu and select saved Launch Configuration.
@@ -59,21 +65,19 @@ All Launch Configuration yaml files are stored in the following location:
 
 {% tabs %}
 {% tab title="macOS" %}
-```sh
-$HOME/.warp/launch_configurations/
-```
-
-```sh
+```bash
 $HOME/.warp/launch_configurations/
 ```
 {% endtab %}
 
-{% tab title="Linux" %}
+{% tab title="Windows" %}
+```powershell
+$env:APPDATA\warp\Warp\data\launch_configurations\
 ```
-${XDG_DATA_HOME:-$HOME/.local/share}/warp-terminal/launch_configurations/
-```
+{% endtab %}
 
-```
+{% tab title="Linux" %}
+```bash
 ${XDG_DATA_HOME:-$HOME/.local/share}/warp-terminal/launch_configurations/
 ```
 {% endtab %}

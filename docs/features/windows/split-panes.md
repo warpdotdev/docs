@@ -18,6 +18,15 @@ description: >-
 * You can also drag and drop panes. Click and drag a Pane’s header around a given tab, drag the Pane to the tab bar to move it to another Tab, or make it into a Tab.
 {% endtab %}
 
+{% tab title="Windows" %}
+* Split Panes to the right / down with `CTRL-SHIFT-D` / `CTRL-SHIFT-E` or in any direction by right-clicking on any Pane.
+* Activate the Previous / Next Pane with `CTRL-SHIFT-{` / `CTRL-SHIFT-}` or by clicking a pane.
+* Navigate among Split Panes with `CTRL-ALT-ARROW`, the active pane will be marked with a triangle in the top corner.
+* Toggle Maximize Pane with `CTRL-SHIFT-ENTER`.
+* Close the active Pane with `CTRL-SHIFT-W`.
+* You can also drag and drop panes. Click and drag a Pane’s header around a given tab, drag the Pane to the tab bar to move it to another Tab, or make it into a Tab.
+{% endtab %}
+
 {% tab title="Linux" %}
 * Split Panes to the right / down with `CTRL-SHIFT-D` / `CTRL-SHIFT-E` or in any direction by right-clicking on any Pane.
 * Activate the Previous / Next Pane with `CTRL-SHIFT-{` / `CTRL-SHIFT-}` or by clicking a pane.

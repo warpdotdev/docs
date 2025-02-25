@@ -16,13 +16,16 @@ You can create a new notebook from various entry points in Warp
 {% tab title="macOS" %}
 * From Warp Drive, + > New notebook
 * From the [Command Palette](../command-palette.md), create a new team or personal notebook.
-* With a keyboard shortcut, `SHIFT-CMD-J`
+{% endtab %}
+
+{% tab title="Windows" %}
+* From Warp Drive, + > New notebook
+* From the [Command Palette](../command-palette.md), create a new team or personal notebook.
 {% endtab %}
 
 {% tab title="Linux" %}
 * From Warp Drive, + > New notebook
 * From the [Command Palette](../command-palette.md), create a new team or personal notebook.
-* With a keyboard shortcut, `SHIFT-CTRL-J`
 {% endtab %}
 {% endtabs %}
 
@@ -96,6 +99,11 @@ Developers can execute shell command blocks by:
 * Pressing `CMD-ENTER` while the block is selected (a blue highlight will appear)
 {% endtab %}
 
+{% tab title="Windows" %}
+* Using the insert button at the bottom of the block
+* Pressing `CTRL-ENTER` while the block is selected (a blue highlight will appear)
+{% endtab %}
+
 {% tab title="Linux" %}
 * Using the insert button at the bottom of the block
 * Pressing `CTRL-ENTER` while the block is selected (a blue highlight will appear)
@@ -122,6 +130,13 @@ Command Blocks also support keyboard navigation. There are two ways to enter the
 * Pressing `CMD-UP` or `CMD-DOWN.`
 
 Once a command block is selected, press `CMD-ENTER` to insert it into the terminal input. You can also use `UP, DOWN, CMD-UP`, and `CMD-DOWN` to navigate between command blocks. While the Notebook is focused, press `CMD-L` to switch focus back to the terminal without inserting a command.
+{% endtab %}
+
+{% tab title="Windows" %}
+* Clicking on a shell block.
+* Pressing `CTRL-UP` or `CTRL-DOWN.`
+
+Once a command block is selected, press `CTRL-ENTER` to insert it into the terminal input. You can also use `UP, DOWN, CTRL-UP,` and `CTRL-DOWN` to navigate between command blocks. While the Notebook is focused, press `CTRL-L` to switch focus back to the terminal without inserting a command.
 {% endtab %}
 
 {% tab title="Linux" %}

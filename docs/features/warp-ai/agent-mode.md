@@ -25,14 +25,21 @@ You may enter Agent Mode in a few ways:
 {% tabs %}
 {% tab title="macOS" %}
 * Type any natural language, like a task or a question, in the terminal input. Warp will recognize natural language with a local auto-detection feature and prepare to send your query to Warp AI.
-* Use keyboard shortcuts to toggle into Agent Mode `CMD-I` or type `ASTERISK+SPACE`.
+* Use keyboard shortcuts to toggle into Agent Mode `CMD-I` or type `ASTERISK-SPACE`.
+* Click the “AI” sparkles icon in the menu bar, and this will open a new terminal pane that starts in Agent Mode.
+* From a block, you want to ask Warp AI about. You can click the sparkles icon in the toolbelt, or click on its block context menu item “Attach block(s) to AI query”.
+{% endtab %}
+
+{% tab title="Windows" %}
+* Type any natural language, like a task or a question, in the terminal input. Warp will recognize natural language with a local auto-detection feature and prepare to send your query to Warp AI.
+* Use keyboard shortcuts to toggle into Agent Mode `CTRL-I` or type `ASTERISK-SPACE`.
 * Click the “AI” sparkles icon in the menu bar, and this will open a new terminal pane that starts in Agent Mode.
 * From a block, you want to ask Warp AI about. You can click the sparkles icon in the toolbelt, or click on its block context menu item “Attach block(s) to AI query”.
 {% endtab %}
 
 {% tab title="Linux" %}
 * Type any natural language, like a task or a question, in the terminal input. Warp will recognize natural language with a local auto-detection feature and prepare to send your query to Warp AI.
-* Use keyboard shortcuts to toggle into Agent Mode `CTRL-I` or type `ASTERISK+SPACE`.
+* Use keyboard shortcuts to toggle into Agent Mode `CTRL-I` or type `ASTERISK-SPACE`.
 * Click the “AI” sparkles icon in the menu bar, and this will open a new terminal pane that starts in Agent Mode.
 * From a block, you want to ask Warp AI about. You can click the sparkles icon in the toolbelt, or click on its block context menu item “Attach block(s) to AI query”.
 {% endtab %}
@@ -65,6 +72,10 @@ Warp input occasionally shows hints within the input editor in a light grey text
 {% tabs %}
 {% tab title="macOS" %}
 You can quit Agent Mode at any point with `ESC` or `CTRL-C`, or toggle out of Agent Mode with `CMD-I`.
+{% endtab %}
+
+{% tab title="Windows" %}
+You can quit Agent Mode at any point with `ESC` or `CTRL-C`, or toggle out of Agent Mode with `CTRL-I`.
 {% endtab %}
 
 {% tab title="Linux" %}
@@ -155,10 +166,26 @@ When using "Pin to the top" [Input Position](../../appearance/input-position.md)
 {% endhint %}
 {% endtab %}
 
+{% tab title="Windows" %}
+**Attach a previous block**
+
+* To attach blocks to a query, you can use `CTRL-UP` to attach the previous block as context to the query. While holding `CTRL`, you can then use your `UP/DOWN` keys to pick another block to attach.
+  * You may also use your mouse to select blocks in your session. Hold `CTRL` as you click on other blocks to extend your block selection.
+
+**Clear a previous block**
+
+* To clear blocks from a query, you can use `CTRL-DOWN` until the blocks are removed from context.
+  * You may also use your mouse to clear blocks in your session. Hold `CTRL` as you click on an attached block to clear it.
+
+{% hint style="info" %}
+When using "Pin to the top" [Input Position](../../appearance/input-position.md), the direction for attaching or detaching is reversed (i.e. `CTRL-DOWN` attaches blocks to context, while `CTRL-UP` clears blocks from context).
+{% endhint %}
+{% endtab %}
+
 {% tab title="Linux" %}
 **Attach a previous block**
 
-* To attach blocks to a query, you can use `CTRL-UP` to attach the previous block as context to the query. While holding `CMD`, you can then use your `UP/DOWN` keys to pick another block to attach.
+* To attach blocks to a query, you can use `CTRL-UP` to attach the previous block as context to the query. While holding `CTRL`, you can then use your `UP/DOWN` keys to pick another block to attach.
   * You may also use your mouse to select blocks in your session. Hold `CTRL` as you click on other blocks to extend your block selection.
 
 **Clear a previous block**
@@ -181,6 +208,10 @@ By default, if you ask an AI query right after any interaction in Agent Mode, yo
 To enter follow-up mode manually, press `CMD-Y`.
 {% endtab %}
 
+{% tab title="Windows" %}
+To enter follow-up mode manually, press `CTRL-SHIFT-Y`.
+{% endtab %}
+
 {% tab title="Linux" %}
 To enter follow-up mode manually, press `CTRL-Y`.
 {% endtab %}
@@ -195,6 +226,10 @@ If there is no follow-up ↳ icon next to your input, this indicates a new conve
 {% tabs %}
 {% tab title="macOS" %}
 To start a new conversation manually, use `CMD-Y` or `BACKSPACE`.
+{% endtab %}
+
+{% tab title="Windows" %}
+To start a new conversation manually, use `CTRL-Y` or `BACKSPACE`.
 {% endtab %}
 
 {% tab title="Linux" %}
@@ -409,7 +444,7 @@ Agent Mode has replaced the Warp AI chat panel. Agent Mode is more powerful in a
 
 No, Warp nor its providers OpenAI or Anthropic train on your data.
 
-#### What model are you using?
+#### What model are you using for Agent Mode?
 
 The following LLMs are currently supported in Warp:
 

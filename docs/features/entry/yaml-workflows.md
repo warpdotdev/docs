@@ -45,11 +45,21 @@ You can store local workflows (scoped to your machine) in:
 
 {% tabs %}
 {% tab title="macOS" %}
-`$HOME/.warp/workflows/`
+```bash
+$HOME/.warp/workflows/
+```
+{% endtab %}
+
+{% tab title="Windows" %}
+```powershell
+$env:APPDATA\warp\Warp\data\workflows\
+```
 {% endtab %}
 
 {% tab title="Linux" %}
-`${XDG_DATA_HOME:-$HOME/.local/share}/warp-terminal/workflows/`
+```bash
+${XDG_DATA_HOME:-$HOME/.local/share}/warp-terminal/workflows/
+```
 {% endtab %}
 {% endtabs %}
 
@@ -145,19 +155,37 @@ The default value for the argument. If specified, the `default_value` replaces t
 
 Local workflows are scoped to your machine. Repository workflows are scoped to a git repository and can be accessed by anyone who has cloned the repo. _Note:_ Repository workflows will not appear if you are ssh into a remote machine.
 
-Local Workflow Path:
-
 {% tabs %}
 {% tab title="macOS" %}
-`$HOME/.warp/workflows/`
+```bash
+# Local Workflow Path
+$HOME/.warp/workflows/
+
+# Repository Workflow Path
+{{path_to_git_repo}}/.warp/workflows
+```
+{% endtab %}
+
+{% tab title="Windows" %}
+```powershell
+# Local Workflow Path
+$env:APPDATA\warp\Warp\data\workflows\
+
+# Repository Workflow Path
+{{path_to_git_repo}}\.warp\workflows
+```
 {% endtab %}
 
 {% tab title="Linux" %}
-`${XDG_DATA_HOME:-$HOME/.local/share}/warp-terminal/workflows/`
+```bash
+# Local Workflow Path
+${XDG_DATA_HOME:-$HOME/.local/share}/warp-terminal/workflows/
+
+# Repository Workflow Path
+{{path_to_git_repo}}/.warp/workflows
+```
 {% endtab %}
 {% endtabs %}
-
-Repository Workflow Path: `{{path_to_git_repo}}/.warp/workflows`
 
 #### Local Workflows
 
@@ -165,11 +193,21 @@ To start, create a workflow subdirectory within
 
 {% tabs %}
 {% tab title="macOS" %}
-`mkdir -p $HOME/.warp/workflows/`
+```bash
+mkdir -p $HOME/.warp/workflows/
+```
+{% endtab %}
+
+{% tab title="Windows" %}
+```powershell
+New-Item -Path "$env:APPDATA\warp\Warp\data\workflows\" -ItemType Directory
+```
 {% endtab %}
 
 {% tab title="Linux" %}
-`mkdir -p ${XDG_DATA_HOME:-$HOME/.local/share}/warp-terminal/workflows/`
+```bash
+mkdir -p ${XDG_DATA_HOME:-$HOME/.local/share}/warp-terminal/workflows/
+```
 {% endtab %}
 {% endtabs %}
 

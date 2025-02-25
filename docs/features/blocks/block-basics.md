@@ -39,12 +39,21 @@ Create a Block
   * From the [Command Palette](../command-palette.md), you can also "Scroll to the top/bottom of selected block".
 {% endtab %}
 
+{% tab title="Windows" %}
+* Using your mouse: Click on a Block.
+* Or using your keyboard: hit `CTRL-UP` (or `CTRL-DOWN` if input as pinned up top) to select the most recently executed Block and use the `UP ↑` and `DOWN ↓` arrow keys to navigate to the desired Block.
+* For long Blocks:
+  * You can click "Jump to the bottom of this block".
+  * You can press `CTRL-SHIFT-UP`/`CTRL-SHIFT-DOWN` to Scroll to the top/bottom of the selected block.
+  * From the [Command Palette](../command-palette.md), you can also "Scroll to the top/bottom of selected block".
+{% endtab %}
+
 {% tab title="Linux" %}
 * Using your mouse: Click on a Block.
 * Or using your keyboard: hit `CTRL-UP` (or `CTRL-DOWN` if input as pinned up top) to select the most recently executed Block and use the `UP ↑` and `DOWN ↓` arrow keys to navigate to the desired Block.
 * For long Blocks:
   * You can click "Jump to the bottom of this block".
-  * You can press `SHIFT-CTRL-UP`/`SHIFT-CTRL-DOWN` to Scroll to the top/bottom of the selected block.
+  * You can press `CTRL-SHIFT-UP`/`CTRL-SHIFT-DOWN` to Scroll to the top/bottom of the selected block.
   * From the [Command Palette](../command-palette.md), you can also "Scroll to the top/bottom of selected block".
 {% endtab %}
 {% endtabs %}
@@ -58,6 +67,12 @@ Select a Single Block
 {% tabs %}
 {% tab title="macOS" %}
 * Click another Block while holding `CMD` to toggle the selection of that Block, or
+* Click another Block while holding `SHIFT` to select a range of Block, or
+* Use `SHIFT-UP ↑` or `SHIFT-DOWN ↓` to expand the active selection (the Block with the thicker border) up or down, respectively.
+{% endtab %}
+
+{% tab title="Windows" %}
+* Click another Block while holding `CTRL-SHIFT` to toggle the selection of that Block, or
 * Click another Block while holding `SHIFT` to select a range of Block, or
 * Use `SHIFT-UP ↑` or `SHIFT-DOWN ↓` to expand the active selection (the Block with the thicker border) up or down, respectively.
 {% endtab %}

@@ -8,8 +8,7 @@ description: >-
 # Quickstart Guide
 
 {% hint style="info" %}
-**Platform support:** Warp is currently supported on Mac (Intel and Mac Silicon) and Linux (x86\_64 and ARM64). \
-We have plans to support Windows soon! Subscribe to get notified when Warp is available for [Windows](https://warp.dev/windows-terminal).
+**Platform support:** Warp is supported on Mac (Intel and Mac Silicon), Windows (x86\_64 and ARM64), and Linux (x86\_64 and ARM64).
 {% endhint %}
 
 ## Install Warp
@@ -26,15 +25,13 @@ We have plans to support Windows soon! Subscribe to get notified when Warp is av
 
 You can install Warp on macOS in two ways:
 
-1. **Download Warp** **and drag into your Applications folder**
-
+**Download Warp and drag into your Applications folder**
 {% embed url="https://www.warp.dev/download" %}
 Download Warp
 {% endembed %}
 
-2. **Install using Homebrew by running the command below**
-
-```
+**Install using Homebrew by running the command below**
+```bash
 brew install --cask warp
 ```
 
@@ -43,17 +40,26 @@ After installation, you can find Warp in your Applications folder.
 
 {% tab title="Windows" %}
 {% hint style="info" %}
-**Minimum requirements:** Requirements coming soon!
+**Minimum requirements:** Warp is supported on Windows 10, build 18309 or later. This is a requirement for [conPTY](https://devblogs.microsoft.com/commandline/windows-command-line-introducing-the-windows-pseudo-console-conpty/).
 {% endhint %}
 
-**Download Info Coming Soon!**\
-\
-Subscribe to get notified when Warp is available for [Windows](https://warp.dev/windows-terminal).
+**Download Warp, then open and run the installer**
+{% embed url="https://www.warp.dev/download" %}
+Download Warp
+{% endembed %}
+
+**Install using WinGet by running the command below**
+```powershell
+winget install Warp.Warp
+```
+
+After installation, you can find Warp in the Start menu.
+
 {% endtab %}
 
 {% tab title="Linux" %}
 {% hint style="info" %}
-**Minimum requirements:** Minimum requirements are an x64 or ARM64 Linux distribution with glibc >= 2.31 (released Feb. 2020) and support for _either_ [OpenGL ES 3.0+ or Vulkan](https://github.com/gfx-rs/wgpu?tab=readme-ov-file#supported-platforms). We are tracking support requests for [WSL](https://github.com/warpdotdev/Warp/issues/4240).
+**Minimum requirements:** Linux distribution with glibc >= 2.31 (released Feb. 2020) and support for _either_ [OpenGL ES 3.0+ or Vulkan](https://github.com/gfx-rs/wgpu?tab=readme-ov-file#supported-platforms).
 
 This includes (but is not limited to) the following:
 
@@ -63,7 +69,7 @@ This includes (but is not limited to) the following:
 * Arch Linux
 {% endhint %}
 
-Visit the Warp download page for the full list of available installation options.
+**Visit the Warp download page for the full list of Linux installation options**
 
 {% embed url="https://www.warp.dev/download" %}
 Download Warp
@@ -94,7 +100,7 @@ sudo apt update && sudo apt install warp-terminal
 
 The easiest way to install Warp is to download the [x64 .rpm package](https://app.warp.dev/download?package=rpm) or [ARM64 .rpm package](https://app.warp.dev/download?package=rpm_arm64). After downloading, you can install the package with:
 
-```
+```bash
 sudo dnf install ./<file>.rpm
 ```
 
@@ -102,7 +108,7 @@ Installing the .rpm package will automatically set up the Warp yum repository. O
 
 Alternatively, you can manually configure the Warp yum repository and install Warp by running the following commands:
 
-```
+```bash
 sudo rpm --import https://releases.warp.dev/linux/keys/warp.asc
 sudo sh -c 'echo -e "[warpdotdev]\nname=warpdotdev\nbaseurl=https://releases.warp.dev/linux/rpm/stable\nenabled=1\ngpgcheck=1\ngpgkey=https://releases.warp.dev/linux/keys/warp.asc" > /etc/yum.repos.d/warpdotdev.repo'
 sudo dnf install warp-terminal
@@ -112,7 +118,7 @@ sudo dnf install warp-terminal
 
 The easiest way to install Warp is to download the [x64 .pkg.tar.zst package](https://app.warp.dev/download?package=pacman) or [ARM64 pacman package](https://app.warp.dev/download?package=pacman_arm64). After downloading, you can install the package with:
 
-```
+```bash
 sudo pacman -U ./<file>.pkg.tar.zst
 ```
 
@@ -120,7 +126,7 @@ The first time you update Warp through the app, it will guide you through settin
 
 Alternatively, you can manually configure the Warp pacman repository and install Warp by running the following commands:
 
-```
+```bash
 sudo sh -c "echo -e '\n[warpdotdev]\nServer = https://releases.warp.dev/linux/pacman/\$repo/\$arch' >> /etc/pacman.conf"
 sudo pacman-key -r "linux-maintainers@warp.dev"
 sudo pacman-key --lsign-key "linux-maintainers@warp.dev"
@@ -131,7 +137,7 @@ sudo pacman -Sy warp-terminal
 
 The Warp yum repository also works for OpenSUSE- and SLE-based systems. Download the [x64 .rpm package](https://app.warp.dev/download?package=rpm) or [ARM64 .rpm package](https://app.warp.dev/download?package=rpm_arm64). After downloading, you can install the package with:
 
-```
+```bash
 sudo zypper install ./<file>.rpm
 ```
 
@@ -139,7 +145,7 @@ Installing the .rpm package will automatically set up the Warp yum repository. O
 
 Alternatively, you can manually configure the Warp yum repository and install Warp by running the following commands:
 
-```
+```bash
 sudo rpm --import https://releases.warp.dev/linux/keys/warp.asc
 sudo sh -c 'echo -e "[warpdotdev]\nname=warpdotdev\ntype=rpm-md\nbaseurl=https://releases.warp.dev/linux/rpm/stable\nenabled=1\nautorefresh=1\ngpgcheck=1\ngpgkey=https://releases.warp.dev/linux/keys/warp.asc\nkeeppackages=0" > /etc/zypp/repos.d/warpdotdev.repo'
 sudo zypper install warp-terminal
@@ -151,13 +157,13 @@ We also provide an [AppImage](https://appimage.org), a single-file executable ve
 
 You can download the Warp AppImage with the following commands:
 
-```
+```bash
 # On x64 systems
 curl -L "https://app.warp.dev/download?package=appimage" -o Warp-x64.AppImage
 chmod +x Warp-x64.AppImage
 ```
 
-```
+```bash
 # On ARM64 systems
 curl -L "https://app.warp.dev/download?package=appimage_arm64" -o Warp-ARM64.AppImage
 chmod +x Warp-ARM64.AppImage

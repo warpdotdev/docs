@@ -27,6 +27,19 @@ New Tabs will default to the active Tabs’ current [Working Directory](../worki
 * Right-clicking on a Tab reveals more options you can explore within the [Command Palette](../command-palette.md) or [Keyboard Shortcuts](../keyboard-shortcuts.md#fundamentals).
 {% endtab %}
 
+{% tab title="Windows" %}
+* Right-click on the new Tab button `+` to make a new tab, restore closed tab, or run a saved [Launch Configuration](../sessions/launch-configurations.md).
+* Open a new Tab with `CTRL-SHIFT-T` or by clicking on the `+` in the top bar.
+* Close the current Tab with `CTRL-SHIFT-W` or by clicking on the `x` on hover over a Tab.
+* Reopen closed tabs with `CTRL-ALT-T`.
+* Move a Tab to the Left / Right with `CTRL-SHIFT-LEFT` / `CTRL-SHIFT-RIGHT` or by clicking and dragging a Tab.
+* Activate the Previous / Next Tab with `CTRL-PGUP` / `CTRL-PGDN` or by clicking a Tab.
+* Activate the first through eighth Tabs with `CTRL-1` thru `CTRL-8`.
+* Switch to the last Tab with `CTRL-9`.
+* Double-click a Tab to rename it.
+* Right-clicking on a Tab reveals more options you can explore within the [Command Palette](../command-palette.md) or [Keyboard Shortcuts](../keyboard-shortcuts.md#fundamentals).
+{% endtab %}
+
 {% tab title="Linux" %}
 * Right-click on the new Tab button `+` to make a new tab, restore closed tab, or run a saved [Launch Configuration](../sessions/launch-configurations.md).
 * Open a new Tab with `CTRL-SHIFT-T` or by clicking on the `+` in the top bar.
@@ -43,7 +56,7 @@ New Tabs will default to the active Tabs’ current [Working Directory](../worki
 
 {% hint style="success" %}
 **Terminal Tip**\
-Using your `.zshrc` or `.bashrc` files, you can set a new Tab name:
+Using your `.zshrc` or `.bashrc` files on macOS or Linux, you can set a new Tab name:
 
 {% code overflow="wrap" %}
 ```bash

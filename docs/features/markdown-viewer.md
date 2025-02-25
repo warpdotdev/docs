@@ -15,6 +15,10 @@ There are three ways to view a Markdown file in Warp, you can also configure War
 For any link to a Markdown file within a block, you can open the file in Warp by `CMD`-clicking on the link, from the link tooltip, or the right-click context menu on the link.
 {% endtab %}
 
+{% tab title="Windows" %}
+For any link to a Markdown file within a block, you can open the file in Warp by `CTRL`-clicking on the link, from the link tooltip, or the right-click context menu on the link.
+{% endtab %}
+
 {% tab title="Linux" %}
 For any link to a Markdown file within a block, you can open the file in Warp by `CTRL`-clicking on the link, from the link tooltip, or the right-click context menu on the link.
 {% endtab %}
@@ -52,6 +56,13 @@ Markdown shell blocks also support keyboard navigation. There are two ways to en
 * Pressing `CMD-UP` or `CMD-DOWN`.
 
 Once a shell block is selected, press `CMD-ENTER` to insert it into the terminal input. You can also use `UP`, `DOWN`, `CMD-UP`, and `CMD-DOWN` to navigate between shell blocks. While the Markdown file is focused, press `CMD-L` to switch focus back to the terminal without inserting a command.
+{% endtab %}
+
+{% tab title="Windows" %}
+* Clicking on a shell block.
+* Pressing `CTRL-UP` or `CTRL-DOWN`.
+
+Once a shell block is selected, press `CTRL-ENTER` to insert it into the terminal input. You can also use `UP`, `DOWN`, `CTRL-UP`, and `CTRL-DOWN` to navigate between shell blocks. While the Markdown file is focused, press `CTRL-SHIFT-L` to switch focus back to the terminal without inserting a command.
 {% endtab %}
 
 {% tab title="Linux" %}

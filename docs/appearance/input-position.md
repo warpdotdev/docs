@@ -28,10 +28,16 @@ Changes to the Input position take place immediately and apply to all open panes
 * For long Blocks, you can press `SHIFT-CMD-UP`/`SHIFT-CMD-DOWN` to Scroll to the top/bottom the selected block.
 {% endtab %}
 
+{% tab title="Windows" %}
+* `CTRL-SHIFT-K` will clear the entire list of input/output blocks for a clean view
+* `CTRL-L` will move the list of input/output blocks outside of the view and past the scroll so you have a clear view and the ability to easily visit past commands
+* For long Blocks, you can press `CTRL-SHIFT-UP`/`CTRL-SHIFT-DOWN` to Scroll to the top/bottom of the selected block.
+{% endtab %}
+
 {% tab title="Linux" %}
 * `CTRL-SHIFT-K` will clear the entire list of input/output blocks for a clean view
 * `CTRL-L` will move the list of input/output blocks outside of the view and past the scroll so you have a clear view and the ability to easily visit past commands
-* For long Blocks, you can press `SHIFT-CTRL-UP`/`SHIFT-CTRL-DOWN` to Scroll to the top/bottom of the selected block.
+* For long Blocks, you can press `CTRL-SHIFT-UP`/`CTRL-SHIFT-DOWN` to Scroll to the top/bottom of the selected block.
 {% endtab %}
 {% endtabs %}
 

@@ -32,6 +32,14 @@ git clone https://github.com/warpdotdev/themes.git
 ```
 {% endtab %}
 
+{% tab title="Windows" %}
+```powershell
+New-Item -Path "$env:APPDATA\warp\Warp\data\" -ItemType Directory
+Set-Location -Path $env:APPDATA\warp\Warp\data\
+git clone https://github.com/warpdotdev/themes.git
+```
+{% endtab %}
+
 {% tab title="Linux" %}
 ```bash
 mkdir -p ${XDG_DATA_HOME:-$HOME/.local/share}/warp-terminal
@@ -55,6 +63,12 @@ Adding a Custom Theme to Warp
 {% tab title="macOS" %}
 ```bash
 mkdir -p $HOME/.warp/themes/
+```
+{% endtab %}
+
+{% tab title="Windows" %}
+```powershell
+New-Item -Path "$env:APPDATA\warp\Warp\data\themes\" -ItemType Directory
 ```
 {% endtab %}
 

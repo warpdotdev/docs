@@ -27,12 +27,20 @@ There are several ways to accept autosuggestions, either completely or partially
 * `CTRL-RIGHT` can be used to partially complete the autosuggestion one component at a time.
 {% endtab %}
 
+{% tab title="Windows" %}
+There are several ways to accept autosuggestions, either completely or partially:
+
+* Complete an autosuggestion using the `RIGHT` arrow or `CTRL-F`.
+* `END` jumps to the last character in the Input Editor, then `RIGHT` completes the autosuggestion.
+* `CTRL-SHIFT-RIGHT` can be used to partially complete the autosuggestion one component at a time.
+{% endtab %}
+
 {% tab title="Linux" %}
 There are several ways to accept autosuggestions, either completely or partially:
 
 * Complete an autosuggestion using the `RIGHT` arrow or `CTRL-F`.
 * `CTRL-E` jumps to the last character in the Input Editor, then `RIGHT` completes the autosuggestion.
-* `CTRL-RIGHT` can be used to partially complete the autosuggestion one component at a time.
+* `CTRL-SHIFT-RIGHT` can be used to partially complete the autosuggestion one component at a time.
 {% endtab %}
 {% endtabs %}
 

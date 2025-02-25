@@ -27,6 +27,12 @@ Warp can open `.command` and Unix Executable files from the finder directly.
 3. Right-clicking a link will open a context menu that supports copying the absolute file path or URL to the clipboard.
 {% endtab %}
 
+{% tab title="Windows" %}
+1. After hovering over a link, open it directly by holding down `CTRL` while clicking it.
+2. Clicking a link normally will open a clickable tooltip that says “Open File/Folder/Link”.
+3. Right-clicking a link will open a context menu that supports copying the absolute file path or URL to the clipboard.
+{% endtab %}
+
 {% tab title="Linux" %}
 1. After hovering over a link, open it directly by holding down `CTRL` while clicking it.
 2. Clicking a link normally will open a clickable tooltip that says “Open File/Folder/Link”.

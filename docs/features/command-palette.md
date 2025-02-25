@@ -15,8 +15,12 @@ description: >-
 You can access the Command Palette with the keyboard shortcut `CMD-P`.
 {% endtab %}
 
+{% tab title="Windows" %}
+You can access the Command Palette with the keyboard shortcut `CTRL-SHIFT-P`.
+{% endtab %}
+
 {% tab title="Linux" %}
-You can access the Command Palette with the keyboard shortcut `SHIFT-CTRL-P`.
+You can access the Command Palette with the keyboard shortcut `CTRL-SHIFT-P`.
 {% endtab %}
 {% endtabs %}
 

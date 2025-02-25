@@ -25,6 +25,13 @@ You can also toggle a filter by:
 * Selecting `Toggle Block Filter` in the block context menu
 {% endtab %}
 
+{% tab title="Windows" %}
+You can also toggle a filter on/off by:
+
+* Using the keybinding `ALT-SHIFT-F` to toggle filtering on the selected or latest block
+* Selecting `Toggle Block Filter` in the block context menu
+{% endtab %}
+
 {% tab title="Linux" %}
 You can also toggle a filter on/off by:
 

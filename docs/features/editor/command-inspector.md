@@ -10,17 +10,17 @@ description: >-
 
 {% tabs %}
 {% tab title="macOS" %}
-Hover over the part of the command you want to inspect with your mouse or press `CMD-I` to inspect the cursor's current location.
+Hover over the part of the command you want to inspect with your mouse or press `CMD-SHIFT-I` to inspect the cursor's current location.
+{% endtab %}
+
+{% tab title="Windows" %}
+Hover over the part of the command you want to inspect with your mouse or press `CTRL-SHIFT-I` to inspect the cursor's current location.
 {% endtab %}
 
 {% tab title="Linux" %}
-Hover over the part of the command you want to inspect with your mouse or press `CTRL-I` to inspect the cursor's current location.
+Hover over the part of the command you want to inspect with your mouse or press `CTRL-SHIFT-I` to inspect the cursor's current location.
 {% endtab %}
 {% endtabs %}
-
-{% hint style="info" %}
-Command Inspector automatically triggers on hover, you can disable this by navigating to the settings dialog `Settings > Features > Editor`, or through the Command Palette, search for "Open Settings: Features" and toggling "Trigger Command Inspector on hover".
-{% endhint %}
 
 ## How it works
 

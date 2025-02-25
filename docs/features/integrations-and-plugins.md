@@ -39,13 +39,26 @@ Press `SHIFT-CMD-C` while in [VSCode](https://code.visualstudio.com/docs/termina
 
 ![VSCode New Session Shortcut](../.gitbook/assets/vscode_new_session.gif)
 
-To configure this, use the Apple Menu. Click on `Code` -> `Settings` -> `Settings`. Type in "terminal" and change _Terminal > External: Osx Exec_ to `Warp.app`.
+To configure this, use the Apple Menu. Click on `Code > Settings > Settings`. Type in "terminal" and change _Terminal > External: Osx Exec_ to `Warp.app`.
 
 ![VSCode External Terminal Configuration](../.gitbook/assets/vscode-integration-settings.gif)
 {% endtab %}
 
+{% tab title="Windows" %}
+
+{% hint style="info" %}
+On Windows, the VS Code integration will not be available at launch. We will update this section when it is available.
+{% endhint %}
+
+<!-- Remove Comment tags when this integraton is available
+Press `CTRL-SHIFT-C` while in [VSCode](https://code.visualstudio.com/docs/terminal/basics) to open a new session in Warp.
+
+To configure this, navigate to Settings in VSCode and search for `Terminal › External: Windows Exec`. Change this to `C:\Program Files\Warp\warp.exe` if you've installed Warp with the installer. Otherwise, put in the full path to the executable.
+-->
+{% endtab %}
+
 {% tab title="Linux" %}
-Press `SHIFT-CTRL-C` while in [VSCode](https://code.visualstudio.com/docs/terminal/basics) to open a new session in Warp.
+Press `CTRL-SHIFT-C` while in [VSCode](https://code.visualstudio.com/docs/terminal/basics) to open a new session in Warp.
 
 To configure this, navigate to Settings in VSCode and search for `Terminal › External: Linux Exec`. Change this to `warp-terminal` if you've installed Warp with your distribution's package manager. Otherwise, put in the full path to the executable (e.g. if it is an AppImage).
 {% endtab %}

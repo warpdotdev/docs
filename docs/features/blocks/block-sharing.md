@@ -22,10 +22,19 @@ To share your blocks, follow these steps:
 4. The link or embed snippet will be copied to your clipboard.
 {% endtab %}
 
+{% tab title="Windows" %}
+To share your blocks, follow these steps:
+
+1. On a finished block, click the context menu and select `Share...` or by setting up a key bind for Share Block in `Settings > Keyboard Shortcuts`.
+2. A modal will pop up that lets you title your block and customize it by selecting which parts of the block you want to share (e.g. command, output, prompt, etc.).
+3. Click either "Create link" or "Get embed" depending on how you want to share your block.
+4. The link or embed snippet will be copied to your clipboard.
+{% endtab %}
+
 {% tab title="Linux" %}
 To share your blocks, follow these steps:
 
-1. On a finished block, click the context menu and select `Share...` or select the block and hit `CTRL-SHIFT-S`.
+1. On a finished block, click the context menu and select `Share...` or by setting up a key bind for Share Block in `Settings > Keyboard Shortcuts`.
 2. A modal will pop up that lets you title your block and customize it by selecting which parts of the block you want to share (e.g. command, output, prompt, etc.).
 3. Click either "Create link" or "Get embed" depending on how you want to share your block.
 4. The link or embed snippet will be copied to your clipboard.

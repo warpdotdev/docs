@@ -89,13 +89,25 @@ To disable background commands in remote subshell sessions, you can execute the 
 
 {% tabs %}
 {% tab title="macOS" %}
+Update the settings defaults located in `dev.warp.Warp-Stable` to include the following name-value pair: `"DisableInBandCommands": "true"`.
 ```bash
 defaults update dev.warp.Warp-Stable DisableInBandCommands true
 ```
 {% endtab %}
 
+{% tab title="Windows" %}
+Update the settings registry located at `HKCU:\Software\Warp.dev\Warp` to include the following name-value pair: `"DisableInBandCommands": "true"`.
+```powershell
+Set-ItemProperty -Path "HKCU:\SOFTWARE\Warp.dev\Warp" -Name DisableInBandCommands -Value true
+```
+{% endtab %}
+
 {% tab title="Linux" %}
 Update the settings file located at `~/.config/warp-terminal/user_preferences.json` to include the following name-value pair: `"DisableInBandCommands": "true"`.
+```bash
+cd ~/.config/warp-terminal/
+jq '.prefs += {"DisableInBandCommands": "true"}' user_preferences.json > tmp.json && mv tmp.json user_preferences.json
+```
 {% endtab %}
 {% endtabs %}
 

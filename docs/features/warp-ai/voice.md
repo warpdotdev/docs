@@ -9,22 +9,22 @@ description: >-
 Warp's Voice feature transforms how you interact with your terminal, letting you naturally speak commands and questions instead of typing them. This is especially powerful when combined with Agent Mode for complex operations or when you need to explain longer scenarios.
 
 {% hint style="info" %}
-Voice input functionality can be configured in `Settings > AI > Voice`. You can enable/disable voice input and select your preferred activation hotkey from pre-defined options.
+Voice input functionality can be configured in `Settings > AI > Voice`. You can toggle voice input and select your preferred activation hotkey from pre-defined options.
 {% endhint %}
 
 {% embed url="https://www.loom.com/share/77399be4e434443488bbe267b3548552?hideEmbedTopBar=true&hide_owner=true&hide_share=true&hide_title=true" %}
 Voice Demo
 {% endembed %}
 
-## Getting Started
+## Getting Started with Voice
 
 ### Initial Setup
 
 First-time users will need to grant microphone permissions:
 
-* On macOS: Accept the system permission prompt
+* On macOS: Accept the system permission prompt or allow Warp microphone access in `System Settings > Privacy & Security > Microphone`
+* On Windows: Allow Warp microphone access in `Settings > Privacy & Security > Microphone`
 * On Linux: Configure through system sound settings
-* On Windows: Allow microphone access in privacy settings
 
 ### Using Voice
 
@@ -43,10 +43,16 @@ There are two ways to activate Voice:
 * Release the `Fn` key to stop recording and transcribe
 {% endtab %}
 
-{% tab title="Linux /Windows" %}
-* Press and hold the `Alt-Right` key (configurable) to start recording
+{% tab title="Windows" %}
+* Press and hold the `ALT-RIGHT` key (configurable) to start recording
 * Speak your command or query while holding the key
-* Release the `Alt-Right` key to stop recording and transcribe
+* Release the `ALT-RIGHT` key to stop recording and transcribe
+{% endtab %}
+
+{% tab title="Linux" %}
+* Press and hold the `ALT-RIGHT` key (configurable) to start recording
+* Speak your command or query while holding the key  
+* Release the `ALT-RIGHT` key to stop recording and transcribe
 {% endtab %}
 {% endtabs %}
 
@@ -76,6 +82,6 @@ Voice features have anti-abuse limits in place to ensure fair usage. These limit
 
 1. **Microphone not detected** If your microphone isn't being detected, first check your system permissions to ensure Warp has access. You should also verify that your microphone is properly connected to your system. If issues persist, try restarting Warp to reset the connection.
 2. **Poor transcription quality** To improve transcription quality, try to minimize background noise in your environment. Position yourself closer to the microphone while speaking, and verify that your microphone input levels are properly adjusted in your system settings. For best results, speak clearly at a natural pace and use complete sentences to provide better context. When referring to specific file names or commands, enunciate them clearly. It's also recommended to review the transcription before sending to ensure accuracy.
-3.  **Feature not activating** If the Voice feature isn't activating, confirm that your hotkey settings are correctly configured in Warp. Check for any conflicting keyboard shortcuts that might interfere with Voice activation. Also ensure that you're running the latest version of Warp, as older versions may have compatibility issues.
+3. **Feature not activating** If the Voice feature isn't activating, confirm that your hotkey settings are correctly configured in Warp. Check for any conflicting keyboard shortcuts that might interfere with Voice activation. Also ensure that you're running the latest version of Warp, as older versions may have compatibility issues.
 
     If you are on an Enterprise plan, your administrator may have disabled Voice functionality, or it may be pending approval.

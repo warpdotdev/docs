@@ -31,6 +31,14 @@ There are two modes available to scope how input is synchronized and one to stop
 * Stop Synchronizing Any Panes `OPT-CMD-I`
 {% endtab %}
 
+{% tab title="Windows" %}
+There are two modes available to scope how input is synchronized and one to stop any synchronization:
+
+* Synchronize All Panes in All Tabs
+* Synchronize All Panes in Current Tab `CTRL-ALT-I`
+* Stop Synchronizing Any Panes `CTRL-ALT-I`
+{% endtab %}
+
 {% tab title="Linux" %}
 There are two modes available to scope how input is synchronized and one to stop any synchronization:
 

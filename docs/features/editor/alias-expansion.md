@@ -13,6 +13,12 @@ When Alias Expansion is enabled, type an alias and then hit `SPACE` will expand 
 To insert a space without expanding an alias, the default keybinding is `OPT-SPACE`.
 {% endtab %}
 
+{% tab title="Windows" %}
+When Alias Expansion is enabled, type an alias and then hit `SPACE` will expand the alias.
+
+To insert a space without expanding an alias, the default keybinding is `ALT-SPACE`.
+{% endtab %}
+
 {% tab title="Linux" %}
 When Alias Expansion is enabled, type an alias and then hit `SPACE` will expand the alias.
 

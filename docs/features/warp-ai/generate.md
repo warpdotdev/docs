@@ -45,15 +45,23 @@ In interactive CLI applications, you can generate input using natural language.
 {% tab title="macOS" %}
 1. Inside a long-running, interactive command, press `CMD-I` when you see the hint text appear.
 2. Type what you would like to generate in the input box. For example, "show me all tables in my Postgres database" or in Vim, "generate a recursive Fibonacci function and save it to the file."
-3. Results are generated in real time using the LLM of your choice. By default, Generate uses Claude 3.5 Sonnet, but it also supports OpenAI GPT-4o and Claude 3.5 Haiku.
+3. Results are generated in real time using the [LLM of your choice](#supported-interactive-cli-models).
 4. To refine or follow up on your query, press `CMD-Y`. You can then either edit your last message by pressing `UP ↑` or add a follow-up by typing in new text.
+5. When you've found the text you want to add or execute, press `Enter` or click the Accept button.
+{% endtab %}
+
+{% tab title="Windows" %}
+1. Inside a long-running, interactive command, press `CTRL-SHIFT-I` when you see the hint text appear.
+2. Type what you would like to generate in the input box. For example, "show me all tables in my Postgres database" or in Vim, "generate a recursive Fibonacci function and save it to the file."
+3. Results are generated in real time using the [LLM of your choice](#supported-interactive-cli-models)
+4. To refine or follow up on your query, press `CTRL-SHIFT-Y`. You can then either edit your last message by pressing `UP ↑` or add a follow-up by typing in new text.
 5. When you've found the text you want to add or execute, press `Enter` or click the Accept button.
 {% endtab %}
 
 {% tab title="Linux" %}
 1. Inside a long-running, interactive command, press `CTRL-SHIFT-I` when you see the hint text appear.
 2. Type what you would like to generate in the input box. For example, "show me all tables in my Postgres database" or in Vim, "generate a recursive Fibonacci function and save it to the file."
-3. Results are generated in real time using the LLM of your choice. By default, Generate uses Claude 3.5 Sonnet, but it also supports OpenAI GPT-4o and Claude 3.5 Haiku.
+3. Results are generated in real time using the [LLM of your choice](#supported-interactive-cli-models)
 4. To refine or follow up on your query, press `CTRL-SHIFT-Y`. You can then either edit your last message by pressing `UP ↑` or add a follow-up by typing in new text.
 5. When you've found the text you want to add or execute, press `Enter` or click the Accept button.
 {% endtab %}
@@ -71,6 +79,22 @@ A couple of other examples of interactive CLIs where you can invoke Generate:
 {% hint style="warning" %}
 If you experience any issues with Generate, please visit known issues for [troubleshooting steps](../../help/known-issues.md#online-features-dont-work).
 {% endhint %}
+
+#### Supported interactive CLI models
+
+The following LLMs are currently supported in Warp:
+
+* **OpenAI**:
+  * GPT-4o
+  * o3-mini
+* **Claude**:
+  * 3.5 Sonnet
+  * 3.5 Haiku
+* **Google**:
+  * Gemini 2.0 Flash
+* **DeepSeek** (hosted by [Fireworks AI](https://fireworks.ai/) in the US):
+  * R1
+  * V3
 
 ## AI Privacy
 

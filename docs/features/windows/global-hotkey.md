@@ -25,7 +25,7 @@ Dedicated Window allows you to customize the windows' pinned position and its wi
 2. Configure the keybinding, the windows position, screen, and relative size or uncheck "Autohides on the loss of keyboard focus" which will cause the dedicated Hotkey Window to stay on top when triggered regardless of mouse or keyboard focus.
 
 {% hint style="warning" %}
-On Linux, Warp does not support the "Autohides on the loss of keyboard focus" feature.
+On Linux and Windows, Warp does not support the "Autohides on the loss of keyboard focus" feature.
 {% endhint %}
 
 ### Show/Hide All Windows
@@ -52,6 +52,10 @@ Review platform-specific instructions for troubleshooting the global hotkey belo
 {% tabs %}
 {% tab title="macOS" %}
 If the keybinding doesn't work, check under `System Preferences > Security & Privacy > Accessibility` and tick the checkbox to grant Warp access.
+{% endtab %}
+
+{% tab title="Windows" %}
+On Windows, there are no known issues with Global Hotkey Dedicated Window. If you find an issue, please [send feedback](../../help/sending-us-feedback.md) to let us know.
 {% endtab %}
 
 {% tab title="Linux" %}
