@@ -379,6 +379,8 @@ This behavior can be toggled in `Settings > AI > Autonomy > Coding read permissi
 
 Agent Mode can leverage your [Warp Drive](../warp-drive/) contents to tailor responses to your personal and team developer workflows and environments. This includes any Workflows, Notebooks, Environmental Variables, etc..
 
+When a Warp Drive object is pulled as context, it will be displayed in the conversation as a citation under "References" or "Derived from". 
+
 ## How billing works for Agent Mode
 
 Every Warp plan includes a set number of Warp AI requests per user per month. Please refer to [pricing](https://www.warp.dev/pricing) to compare plans.

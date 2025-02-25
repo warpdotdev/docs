@@ -21,5 +21,6 @@ These features sends input data to various LLM providers through their API. Read
 * [Active AI](active-ai.md) - Proactively recommends fixes and next actions based on errors, inputs, and outputs
 * [Agent Mode](agent-mode.md) - Write natural language on the command line and walk through any dev task
 * [Generate](generate.md) - Quickly look up commands and contextual suggestions for interactive CLIs using natural language
-* [AI Autofill](../warp-drive/workflows.md#ai-autofill)in Warp Drive - Let Warp AI name and describe the workflows you create
+* [AI Autofill](../warp-drive/workflows.md#ai-autofill) in Warp Drive - Let Warp AI name and describe the workflows you create
 * [Voice](voice.md) - Talk to Warp AI using voice commands to accomplish any task. (Note that this uses [Wispr Flow](https://wisprflow.ai/) to power voice-to-text functionality, rather than other LLM providers)
+* [Knowledge](knowledge.md) - Create and store memories to use as AI context. 
