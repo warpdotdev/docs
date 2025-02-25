@@ -117,7 +117,7 @@ In the case that a requested command fails, Warp AI will detect that. Agent Mode
 
 ## How to choose your model in Agent Mode
 
-Warp supports the ability to choose from a pre-defined list of LLMs to be used in your Agent Mode queries. Warp defaults to using Claude 3.5 Sonnet, but has support for OpenAI GPT-4o, OpenAI o3-mini, Claude 3.5 Haiku, Gemini 2.0 Flash, and DeepSeek R1 & V3 (hosted by [Fireworks AI](https://fireworks.ai/) in the US).
+Warp supports the ability to choose from a pre-defined list of LLMs to be used in your Agent Mode queries. Warp defaults to using Claude 3.7 Sonnet, but has support for OpenAI GPT-4o, OpenAI o3-mini, Claude 3.5 Sonnet, Claude 3.5 Haiku, Gemini 2.0 Flash, and DeepSeek R1 & V3 (hosted by [Fireworks AI](https://fireworks.ai/) in the US).
 
 When you start an agent mode conversation, you will be able to see the model being used.
 
@@ -452,6 +452,7 @@ The following LLMs are currently supported in Warp:
   * GPT-4o
   * o3-mini
 * **Claude**:
+  * 3.7 Sonnet
   * 3.5 Sonnet
   * 3.5 Haiku
 * **Google**:
@@ -462,7 +463,7 @@ The following LLMs are currently supported in Warp:
 
 #### Is DeepSeek enabled by default?
 
-No, DeepSeek is never enabled by default. By default, Agent Mode uses Claude 3.5 Sonnet. To use DeepSeek, you would need to manually select it from the model selector inside Agent Mode.
+No, DeepSeek is never enabled by default. By default, Agent Mode uses Claude 3.7 Sonnet. To use DeepSeek, you would need to manually select it from the model selector inside Agent Mode.
 
 #### How is my data handled for DeepSeek models?
 
