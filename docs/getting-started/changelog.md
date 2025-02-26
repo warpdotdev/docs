@@ -8,6 +8,12 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2025.02.26 (v0.2025.02.24.20.50)
+
+**New features**
+
+* Warp is now available for Windows! See our [#windows](../#windows "mention") Quickstart Guide
+
 ### 2025.02.19 (v0.2025.02.19.08.02)
 
 **New features**
