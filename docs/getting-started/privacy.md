@@ -28,29 +28,14 @@ For security-related issues or questions, please email [security@warp.dev](mailt
 
 ## How to disable telemetry and crash reporting
 
-### Opt out during signup
-
-1. Follow the link to privacy settings
-2. Toggle off app analytics, crash reports, or both (if it's blue, it's "on")
-
-<figure><img src="../.gitbook/assets/signup-privacy-settings.png" alt=""><figcaption><p>Privacy Settings during signup</p></figcaption></figure>
-
-### Opt out after signup
-
 1. Navigate to `Settings > Privacy`, or open the [Command Palette](../features/command-palette.md) and search for "privacy"
 2. Toggle off app analytics, crash reports, or both (if it's blue, it's "on")
 
-<figure><img src="../.gitbook/assets/privacy-settings-after-signup.png" alt=""><figcaption><p>Privacy Settings after sign up</p></figcaption></figure>
-
-### Why should I log in to Warp?
-
-Unique user identity supports Warp's collaborative features and makes it easier for the Warp team to provide customer support, should you need to debug an issue. In the future, some features may be gated to logged in users.
+<figure><img src="../.gitbook/assets/privacy-settings-after-signup.png" alt=""><figcaption><p>Privacy Settings</p></figcaption></figure>
 
 ### Your data privacy and AI in Warp
 
-Warp includes optional [AI features](../features/warp-ai/) you can choose to engage for assistance on the command line or across the Warp app. For [Agent Mode](../features/warp-ai/agent-mode.md), natural language detection happens locally, and you can choose to disable this at any time. Any AI requests are sent to the APIs through a proxy. No input or console data is collected or stored by Warp. No AI data is ever used to train public models. Zero data retention is available.
-
-[Learn more](https://docs.warp.dev/features/warp-ai/agent-mode#privacy-security-and-safety)
+Warp includes optional [AI features](../features/warp-ai/) you can choose to engage for assistance on the command line or across the Warp app. For [Agent Mode](../features/warp-ai/agent-mode.md), natural language detection happens locally, and you can choose to disable this at any time. Any AI requests are sent to the APIs through a proxy. No input or console data is collected or stored by Warp. No AI data is ever used to train public models. Zero data retention is available. [Learn more](https://docs.warp.dev/features/warp-ai/agent-mode#privacy-security-and-safety)
 
 ### Delete your data
 

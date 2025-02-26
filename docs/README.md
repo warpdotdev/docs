@@ -180,11 +180,13 @@ If you installed a package, find Warp in your desktop manager or run `warp-termi
 
 ## Initial Setup
 
-### Log in to Warp
+### Log in to Warp (Optional)
 
-After installation, you will be prompted to sign up for a Warp account. You have the option to skip this step. If you're having issues logging in, you can check out the [Login Troubleshooting](help/troubleshooting-login-issues.md) page.
+After installation, you have the option to create a Warp account thru the "Sign up" bottom on the top right or in `Settings > Account > Sign up`. You have the option to skip this step. If you're having issues logging in, you can check out the [Login Troubleshooting](help/troubleshooting-login-issues.md) page.
 
+{% hint style="info" %}
 If you sign up using Google or GitHub, Warp only gets access to the associated email address. Visit the [Privacy](getting-started/privacy.md) page for more details on Warp's approach to privacy.
+{% endhint %}
 
 ### Onboarding Survey (Optional)
 

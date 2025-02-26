@@ -4,7 +4,7 @@ description: Using Warp offline and what features are supported.
 
 # Using Warp Offline
 
-The first time you download and open Warp, you will need to be online to either sign up and create your user account or to skip login. After that initial setup Warp’s core terminal features will work as expected when you’re offline, regardless of whether you are logged in or logged out.
+The first time you download and open Warp, you will need to be online for the initial setup. After the initial setup Warp’s core terminal features will work as expected when you’re offline, regardless of whether you are logged in or logged out.
 
 Requiring all users, logging in or logged out, to be online when first accessing Warp is required to allow use of Warp's AI and cloud features. When you first open the app, we create a unique user-ID to meter AI-usage and attach cloud objects to specific accounts. If you opt to use Warp logged-out, this unique ID is attached to an anonymous user account.
 
