@@ -51,6 +51,12 @@ After installation, you can find Warp in your Applications folder.
 Download Warp
 {% endembed %}
 
+**Install using WinGet by running the command below**
+
+```powershell
+winget install Warp.Warp
+```
+
 After installation, you can find Warp in the Start menu.
 {% endtab %}
 
