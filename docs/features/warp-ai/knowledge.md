@@ -8,13 +8,13 @@ description: >-
 Warp's Knowledge feature helps Agent Mode provide smarter and more tailored assistance. Memories can be manually created and are automatically fetched as context to make your workflows smoother and more efficient.
 
 ### How to access it
-* From the [Warp Drive](../warp-drive/README.md), under "Personal" > "Knowledge"
-* From the [Command Palette](command-palette.md), search for "Open AI Knowledge"
-* From the Settings panel, `Settings > AI > Manage Knowledge`
-* From the macOS Menu, `AI > Open AI Knowledge`
+* From the [Warp Drive](../warp-drive/README.md), under "Personal" > "AI Memory"
+* From the [Command Palette](command-palette.md), search for "Open AI Memory"
+* From the Settings panel, `Settings > AI > Manage Memory`
+* From the macOS Menu, `AI > Open AI Memory`
 
 ### Managing Knowledge
-In the Knowlege pane, users can add, edit, delete and clear any memories.
+In the AI Memory pane, users can add, edit, delete and clear any memories.
 
 {% embed url="https://www.loom.com/share/a93e8bccd5df428d8f8557bc30bc40ee?sid=53a4e79f-c1de-4712-a2f4-28a969641f90?hideEmbedTopBar=true&hide_owner=true&hide_share=true&hide_title=true" %}
 Knowledge Demo
