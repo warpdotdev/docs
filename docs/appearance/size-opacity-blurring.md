@@ -30,7 +30,6 @@ To access it, go to `Settings > Appearance > Themes`
 After decreasing Opacity (moving the slider to a value less than `100`), you can also blur the background.
 
 * On MacOS, this is done using the blur slider. Increasing the slider increases the blur radius that's applied to the background image.
-
 * On Windows, this is done by toggling the Acrylic background texture on or off.
 
 {% hint style="warning" %}
@@ -51,8 +50,15 @@ Window Opacity and Blurring Demo
 
 ### Troubleshooting transparency on Windows
 
-Some graphics drivers may not support rendering transparent or translucent windows.
+{% hint style="info" %}
+At the moment, window opacity in Warp on Windows **does not work** in the following circumstances:
 
-You can select the graphics backend used to render new Warp windows in the Settings menu, under `Features` > `System` > `Preferred graphics backend`.
+* When using DirectX 12 as the rendering backend
+* When using any rendering backend with an Nvidia GPU when "Auto" or "Prefer layered" is selected as the value for "Vulkan/OpenGL present method" in NVIDIA Control Panel > Manage 3D Settings
+{% endhint %}
+
+Some graphics drivers and rendering backends may not support rendering transparent windows.
+
+You can select the Vulkan or OpenGL graphics backend to render new Warp windows in the Settings menu, under `Features` > `System` > `Preferred graphics backend`.
 
 You can also opt to render new Warp windows with an integrated GPU, under `Features` > `System` > `Prefer rendering new windows with integrated GPU (low power)`.
