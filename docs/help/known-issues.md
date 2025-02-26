@@ -211,11 +211,15 @@ We will work on adding support for these, but the following will not be availabl
 We're tracking some issues on Windows where [Warp crashes on startup](https://github.com/warpdotdev/Warp/issues/5840) or doesn't render, with some possible workarounds below. If none of the workarounds help, please open a [new GitHub issue](https://github.com/warpdotdev/warp/issues/new/choose) and include [logs](sending-us-feedback.md#gathering-warp-logs), installation (Baremetal or VM, x86\_64 or ARM64), and the issue you had.
 
 * Graphics
-  * To prefer the DX12 rendering, run this PowerShell command from a different terminal and then restart Warp: `Set-ItemProperty -Path "HKCU:\SOFTWARE\Warp.dev\Warp" -Name PreferredGraphicsBackend '"Dx12"'`
+  * You can select the graphics backend used to render new Warp windows in the Settings menu, under `Features` > `System` > `Preferred graphics backend`.
+  * You can also opt to render new Warp windows with an integrated GPU, under `Features` > `System` > `Prefer rendering new windows with integrated GPU (low power)`.
 
-### Crash on opening a Launch configuration or new window on Windows
+### Crash on opening a Launch configuration or doesn't become transparent on Windows
 
-When a user has an Nvidia GPU and 572.xx drivers or above, Warp may [crash when trying to open a Launch Configuration](https://github.com/warpdotdev/Warp/issues/5875) or new window. This may be worked around by going to the `NVIDIA Control Panel > 3D Settings > Manage 3D settings > Vulkan/OpenGL present method` and set it to "Prefer native".
+When a user has an Nvidia GPU and 572.xx drivers or above, Warp may [crash when trying to open a Launch Configuration](https://github.com/warpdotdev/Warp/issues/5875), or [Warp fails to become transparent](https://github.com/warpdotdev/Warp/issues/5903) (opacity setting doesn't work).\
+This may be worked around by going to the NVIDIA Control Panel, then go to Manage 3D settings > Program Settings > Warp.exe, for Vulkan/OpenGL present method choose Prefer native, then Apply and restart Warp.
+
+<figure><img src="../.gitbook/assets/windows-nvidia-prefer-native.png" alt=""><figcaption><p>NVIDIA Control Panel</p></figcaption></figure>
 
 ## Linux
 
