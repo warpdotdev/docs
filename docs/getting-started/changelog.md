@@ -15,7 +15,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 * Warp is now available for Windows! See our [#windows](../#windows "mention") Quickstart Guide
 * Prompt, plan, and execute fully autonomous tasks from [Agent Mode with Dispatch](../features/warp-ai/agent-mode.md#dispatch) (Beta)
 * Add codebase context support to Agent Mode. Currently enabled for git repositories only
-* \[macOS] You can now customize your [App Icon](../appearance/custom-dock-icons.md) in `Settings > Appearance > Icon`
+* \[macOS] You can now customize your [App Icon](../appearance/app-icons.md) in `Settings > Appearance > Icon`
 * Create and store [AI Memories](../features/warp-ai/knowledge.md) to use as Agent Mode context
 * Show default suggestions in Agent Mode input
 
