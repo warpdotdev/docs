@@ -202,9 +202,11 @@ In some cases, [CLI applications only work on x86](https://discord.com/channels/
 
 We will work on adding support for these, but the following will not be available at launch.
 
-* cmd.exe or fish shells
+* [cmd.exe](https://github.com/warpdotdev/Warp/issues/5882) or fish shells
 * [Warpifying SSH sessions](../features/warpify/ssh.md)
+* [Transparency (Opacity) on DX12 graphics backend](https://github.com/warpdotdev/Warp/issues/5910)
 * [VSCode integration](../features/integrations-and-plugins.md#vscode)
+* [Touch input support](https://github.com/warpdotdev/Warp/issues/5936)
 
 ### Warp won't run or render on Windows
 
@@ -216,10 +218,11 @@ We're tracking some issues on Windows where [Warp crashes on startup](https://gi
 
 ### Crash on opening a Launch configuration or doesn't become transparent on Windows
 
-When a user has an Nvidia GPU and 572.xx drivers or above, Warp may [crash when trying to open a Launch Configuration](https://github.com/warpdotdev/Warp/issues/5875), or [Warp fails to become transparent](https://github.com/warpdotdev/Warp/issues/5903) (opacity setting doesn't work).\
-This may be worked around by going to the NVIDIA Control Panel, then go to Manage 3D settings > Program Settings > Warp.exe, for Vulkan/OpenGL present method choose Prefer native, then Apply and restart Warp.
+When a user has an Nvidia 572.xx or AMD 23.10.x drivers or above, Warp may [crash when trying to open a Launch Configuration](https://github.com/warpdotdev/Warp/issues/5875), or [Warp fails to become transparent](https://github.com/warpdotdev/Warp/issues/5903) (opacity setting doesn't work). These are known limitations of the graphics drivers. We're investigating the issues and will updated on the GitHub issues above. You can try and workaround this by forcing the graphics backend to Vulkan or OpenGL by running the following from another terminal:
 
-<figure><img src="../.gitbook/assets/windows-nvidia-prefer-native.png" alt=""><figcaption><p>NVIDIA Control Panel</p></figcaption></figure>
+```powershell
+$env:WGPU_BACKEND="vulkan,gl"; & "$env:LOCALAPPDATA\Programs\Warp\warp.exe"
+```
 
 ## Linux
 
