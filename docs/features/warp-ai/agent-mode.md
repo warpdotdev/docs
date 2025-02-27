@@ -45,6 +45,8 @@ You may enter Agent Mode in a few ways:
 {% endtab %}
 {% endtabs %}
 
+This will put you in *Pair* mode by default. While pairing with Warp, you can write out questions and tasks in an ongoing conversation.
+
 When you are in Agent Mode, a ✨ sparkles icon will display in line with your terminal input.
 
 <figure><img src="../../.gitbook/assets/undo_my_git_commit.png" alt="The sparkles on the command line indicate Agent Mode is active."><figcaption><p>The sparkles on the command line indicate Agent Mode is active.</p></figcaption></figure>
@@ -322,6 +324,42 @@ These outlines can then be used by Agent Mode to search for relevant files to an
 You can disable generating codebase context outlines and using them for Agent Mode requests by disabling the "Codebase Context" setting.
 {% endhint %}
 
+## Dispatch
+
+*Dispatch* is a form of Agent Mode that carries out complex tasks automatically. When you make a Dispatch query, the AI will:
+1. Gather context about the task, using your [codebase](agent-mode.md#codebase-context), [requested commands](agent-mode.md#agent-mode-requested-commands), and followup questions.
+2. Use a reasoning model to create a plan to carry out the task. You can refine the plan with AI, or edit it directly.
+3. Automatically carry out the approved plan.
+
+While Dispatch is executing a plan, it automatically runs commands and applies code changes. However, it will still obey your [command denylist](agent-mode.md#command-denylist). The border along the left of the session will change color to indicate that Dispatch is running autonomously:
+
+<figure><img src="../../.gitbook/assets/agent-mode-dispatch-exchange.gif" alt="Scrolling through a completed Dispatch task"><figcaption><p>A completed Dispatch task</p></figcaption></figure>
+
+{% hint style="warning" %}
+Dispatch is currently in beta. Its capabilities will improve over time. 
+{% endhint %}
+
+### How to enter Dispatch
+
+You can enter Dispatch in a few ways:
+
+{% tabs %}
+{% tab title="macOS" %}
+Press `CMD-SHIFT-I` to toggle between Dispatch and the terminal input, or to switch from pairing to Dispatch.
+{% endtab %}
+{% tab title="Windows" %}
+Press `CTRL-SHIFT-I` to toggle between Dispatch and the terminal input, or to switch from pairing to Dispatch.
+{% endtab %}{% tab title="Linux" %}
+Press `CTRL-SHIFT-I` to toggle between Dispatch and the terminal input, or to switch from pairing to Dispatch.
+{% endtab %}
+{% endtabs %}
+
+<figure><img src="../../.gitbook/assets/interaction-type-menu.gif" alt="Prompt menu for switching between pairing and dispatch in Agent Mode"><figcaption><p>In addition, within Agent Mode, you can use the menu to switch between pairing and Dispatch</p></figcaption></figure>
+
+If you're using the [Warp prompt](../../appearance/prompt.md), you can also click the Dispatch context chip:
+
+<figure><img src="../../.gitbook/assets/agent-mode-dispatch-prompt.png" alt="The Dispatch and Pair prompt context chips"><figcaption><p>Context chips for entering Agent Mode</p></figcaption></figure>
+
 ## Autonomy
 
 Agent Mode supports configurable autonomous command execution under `Settings > AI > Autonomy`. You can customize this by:
@@ -389,7 +427,7 @@ AI Request limits apply to Agent Mode, [Generate](generate.md), [Active AI](acti
 
 #### What counts as a Warp AI request in Agent Mode?
 
-Every time you submit an AI query from your input box, this counts as one Warp AI request. [Suggested commands](agent-mode.md#agent-mode-command-suggestions) and [requested commands](agent-mode.md#agent-mode-requested-commands) do not count as billable Warp AI requests. [Next Command](active-ai.md#next-command) suggestions are counted separately to Warp AI requests as noted in our [Active AI](active-ai.md#next-command-and-billing) docs.\
+Every time you submit an AI query from your input box, this counts as one Warp AI request. [Suggested commands](agent-mode.md#agent-mode-command-suggestions) do not count as billable Warp AI requests. [Next Command](active-ai.md#next-command) suggestions are counted separately to Warp AI requests as noted in our [Active AI](active-ai.md#next-command-and-billing) docs.\
 You can monitor your request usage under `Settings > AI > Usage`.
 
 #### What counts as a Warp AI token in Agent Mode?
