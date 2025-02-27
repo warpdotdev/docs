@@ -8,11 +8,22 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
-### 2025.02.26 (v0.2025.02.24.20.50)
+### 2025.02.26 (v0.2025.02.26.08.02)
 
 **New features**
 
 * Warp is now available for Windows! See our [#windows](../#windows "mention") Quickstart Guide
+* Prompt, plan, and execute fully autonomous tasks from [Agent Mode with Dispatch](../features/warp-ai/agent-mode.md#dispatch) (Beta)
+* Add codebase context support to Agent Mode. Currently enabled for git repositories only
+* \[macOS] You can now customize your [App Icon](../appearance/custom-dock-icons.md) in `Settings > Appearance > Icon`
+* Create and store [AI Memories](../features/warp-ai/knowledge.md) to use as Agent Mode context
+* Show default suggestions in Agent Mode input
+
+**Bug fixes**
+
+* Multicursor input is now `ALT` on Linux and Windows
+* Fix prompt chip misalignment for certain fonts
+* Autosuggestions remain visible when the input is not focused, to prevent height flickering when the autosuggestion soft wraps
 
 ### 2025.02.19 (v0.2025.02.19.08.02)
 

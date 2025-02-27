@@ -21,7 +21,7 @@
 * [Pane Dimming & Focus](appearance/pane-dimming.md)
 * [Blocks Behavior](appearance/blocks-behavior.md)
 * [Tabs Behavior](appearance/tabs-behavior.md)
-* [Custom dock icons](appearance/custom-dock-icons.md)
+* [App Icons](appearance/custom-dock-icons.md)
 
 ## 📕 Features
 

@@ -1,22 +1,17 @@
 ---
-description: Warp supports a palette of custom dock icons.
-hidden: true
+description: Warp supports a palette of built-in app icons.
 ---
 
-# Custom dock icons
-
-{% hint style="warning" %}
-This feature isn't available yet. This page is dedicated to the upcoming feature which we will update the progress on github request [#5408](https://github.com/warpdotdev/Warp/issues/5408#issuecomment-2520941378).
-{% endhint %}
-
-## How to change the dock icon
-
-* Navigate to `Settings > Appearance > Icon`
-* Select the desired dock icon from the drop down menu
+# App Icons
 
 {% hint style="info" %}
-Custom dock icons are only available on macOS.
+App icons are only available for Warp on macOS. The feature doesn't support custom dock icons.
 {% endhint %}
+
+## How to change the app icon
+
+* Navigate to `Settings > Appearance > Icon > Customize your app icon`
+* Select the desired dock icon from the drop down menu
 
 <figure><img src="../.gitbook/assets/custom-dock-icon-dropdown.png" alt=""><figcaption><p>Icon customization drop-down menu</p></figcaption></figure>
 
