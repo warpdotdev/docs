@@ -33,11 +33,10 @@ Quickly navigate to important Blocks despite where they are in the terminal hist
 
 {% tabs %}
 {% tab title="macOS" %}
-There are three ways to bookmark a Block:
+Ways to bookmark a Block:
 
-1. Click on the bookmark icon in the top right corner of a Block
-2. Select `Toggle bookmark` in the block context menu
-3. Use `CMD-B` keybinding to bookmark a selected block
+1. Select `Toggle bookmark` in the block context menu
+2. Use `CMD-B` keybinding to bookmark a selected block
 
 Navigate to a bookmarked Block, by:
 
@@ -47,11 +46,10 @@ Navigate to a bookmarked Block, by:
 {% endtab %}
 
 {% tab title="Windows" %}
-There are three ways to bookmark a Block.
+There are Ways to bookmark a Block:
 
-1. Click on the bookmark icon in the top right corner of a Block
-2. Select `Toggle bookmark` in the block context menu
-3. Use `CTRL-SHIFT-B` keybinding to bookmark a selected block
+1. Select `Toggle bookmark` in the block context menu
+2. Use `CTRL-SHIFT-B` keybinding to bookmark a selected block
 
 Navigate to a bookmarked Block, by:
 
@@ -61,7 +59,7 @@ Navigate to a bookmarked Block, by:
 {% endtab %}
 
 {% tab title="Linux" %}
-There are three ways to bookmark a Block.
+Ways to bookmark a Block:
 
 1. Click on the bookmark icon in the top right corner of a Block
 2. Select `Toggle bookmark` in the block context menu
@@ -79,9 +77,7 @@ Navigate to a bookmarked Block, by:
 Bookmarks only persist while the session is open, once you close the session they are lost. If you want to save the command and output for later use, [Share the Block](block-sharing.md).
 {% endhint %}
 
-{% embed url="https://www.loom.com/share/2b6152baf71b4dffb9baf1d840341512?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
-Bookmarking Blocks
-{% endembed %}
+<figure><img src="../../.gitbook/assets/block-bookmarks.gif" alt=""><figcaption><p>Bookmarking a Block</p></figcaption></figure>
 
 ## Search Within A Block
 
