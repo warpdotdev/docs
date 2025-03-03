@@ -1,10 +1,12 @@
 ---
-description: >-
-  To see a complete list of issues and feature requests, please visit our GitHub
-  issues page.
+description: Warp issues along with workarounds and solutions.
 ---
 
 # Known Issues
+
+{% hint style="info" %}
+To see a complete list of Warp issues and feature requests, please visit our [GitHub issues page](https://github.com/warpdotdev/Warp/issues?q=is%3Aissue+is%3Aopen+sort%3Acreated-desc).
+{% endhint %}
 
 * When you [SSH](known-issues.md#ssh), we start a bash shell on the remote host. We built a wrapper around SSH to make Warp features possible.
 * If your default shell is zsh, your aliases typically do not transfer over. Other shells are unsupported for now.
@@ -14,12 +16,6 @@ description: >-
 {% hint style="warning" %}
 Please note many tools are incompatible with Warp, as listed [here](known-issues.md#list-of-incompatible-tools). We have debugging information in this [section](known-issues.md#debugging).
 {% endhint %}
-
-Links to popular GitHub issues:
-
-* [Vi / Vim / NeoVim](https://github.com/warpdotdev/warp/discussions/451)
-* [tmux](https://github.com/warpdotdev/warp/discussions/501)
-* [oh-my-zsh Prompts](https://github.com/warpdotdev/Warp/issues/936)
 
 ## General
 
