@@ -6,7 +6,7 @@ description: Warp extends and integrates with popular development tools.
 
 ## Docker
 
-{% hint style="warning" %}
+{% hint style="info" %}
 Currently, the Docker extension is only available on macOS.
 {% endhint %}
 
@@ -18,11 +18,7 @@ Select a container from the list and specify a shell type. Note, that only `bash
 
 ## Raycast
 
-{% hint style="warning" %}
-Currently, the Raycast integration is only available on macOS.
-{% endhint %}
-
-Warp + Raycast extension helps you open new Windows, Tabs, or Launch Configurations with [ease](https://twitter.com/warpdotdev/status/1678432353461637121).&#x20;
+Warp + Raycast extension helps you open new Windows, Tabs, or Launch Configurations with [ease](https://twitter.com/warpdotdev/status/1678432353461637121).
 
 {% embed url="https://www.raycast.com/warpdotdev/warp" %}
 Warp + Raycast Extension Link
@@ -41,33 +37,29 @@ Within `Raycast Settings > Extensions > Apps` search for Warp and assign the ali
 {% tab title="macOS" %}
 Press `SHIFT-CMD-C` while in [VSCode](https://code.visualstudio.com/docs/terminal/basics) to open a new session in Warp.
 
-To configure this, navigate to Settings in VSCode and search for `Terminal › External: Osx Exec`.  \
-\
-Change this to `Warp.app` if you've installed Warp in the default location. Otherwise, put in the full path to the executable.
-
 ![VSCode New Session Shortcut](../.gitbook/assets/vscode_new_session.gif)
+
+To configure this, use the Apple Menu. Click on `Code > Settings > Settings`. Type in "terminal" and change _Terminal > External: Osx Exec_ to `Warp.app`.
+
+![VSCode External Terminal Configuration](../.gitbook/assets/vscode-integration-settings.gif)
 {% endtab %}
 
 {% tab title="Windows" %}
-Press `CTRL-SHIFT-C` while in [VSCode](https://code.visualstudio.com/docs/terminal/basics) to open a new session in Warp.
-
-To configure this, navigate to Settings in VSCode and search for `Terminal › External: Windows Exec`. \
-\
-Change this to `%LOCALAPPDATA%\Programs\Warp\warp.exe` if you've installed Warp in the default location. Otherwise, put in the full path to the executable.
+{% hint style="info" %}
+On Windows, the VS Code integration will not be available at launch. We will update this section when it is available.
+{% endhint %}
 {% endtab %}
 
 {% tab title="Linux" %}
 Press `CTRL-SHIFT-C` while in [VSCode](https://code.visualstudio.com/docs/terminal/basics) to open a new session in Warp.
 
-To configure this, navigate to Settings in VSCode and search for `Terminal › External: Linux Exec`. \
-\
-Change this to `warp-terminal` if you've installed Warp with your distribution's package manager. Otherwise, put in the full path to the executable (e.g. if it is an AppImage).
+To configure this, navigate to Settings in VSCode and search for `Terminal › External: Linux Exec`. Change this to `warp-terminal` if you've installed Warp with your distribution's package manager. Otherwise, put in the full path to the executable (e.g. if it is an AppImage).
 {% endtab %}
 {% endtabs %}
 
 ## JetBrains IDEs
 
-{% hint style="warning" %}
+{% hint style="info" %}
 Currently, the JetBrains IDE configuration is only available on macOS.
 {% endhint %}
 
