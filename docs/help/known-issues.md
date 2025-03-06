@@ -200,7 +200,6 @@ We will work on adding support for these, but the following will not be availabl
 
 * [cmd.exe](https://github.com/warpdotdev/Warp/issues/5882) or fish shells
 * [Warpifying SSH sessions](../features/warpify/ssh.md)
-* [Transparency (Opacity) on DX12 graphics backend](https://github.com/warpdotdev/Warp/issues/5910)
 * [VSCode integration](../features/integrations-and-plugins.md#vscode)
 * [Touch input support](https://github.com/warpdotdev/Warp/issues/5936)
 
@@ -214,7 +213,7 @@ We're tracking some issues on Windows where [Warp crashes on startup](https://gi
 
 ### Crash on opening a Launch configuration or doesn't become transparent on Windows
 
-When a user has an Nvidia 572.xx or AMD 23.10.x drivers or above, Warp may [crash when trying to open a Launch Configuration](https://github.com/warpdotdev/Warp/issues/5875), or [Warp fails to become transparent](https://github.com/warpdotdev/Warp/issues/5903) (opacity setting doesn't work). These are known limitations of the graphics drivers. We're investigating the issues and will updated on the GitHub issues above. You can try and workaround this by forcing the graphics backend to Vulkan or OpenGL by running the following from another terminal:
+When a user has an Nvidia 572.xx or AMD 23.10.x drivers or above, Warp may [crash when trying to open a Launch Configuration](https://github.com/warpdotdev/Warp/issues/5875), or [Warp fails to become transparent](https://github.com/warpdotdev/Warp/issues/5903) (opacity setting doesn't work). These are known limitations of the graphics drivers. We're investigating the issues and will updated on the GitHub issues above. You can workaround this by forcing the graphics backend to Vulkan or OpenGL by running the following from another terminal and setting your GPU driver Vulkan/OpenGL render method setting to "Prefer Native", or using the [DX12 backend](known-issues.md#warp-wont-run-or-render-on-windows):
 
 ```powershell
 $env:WGPU_BACKEND="vulkan,gl"; & "$env:LOCALAPPDATA\Programs\Warp\warp.exe"

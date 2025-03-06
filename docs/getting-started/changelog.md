@@ -8,6 +8,32 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2025.03.05 (v0.2025.03.05.08.02)
+
+**New features**
+
+* iTerm Image Protocol is now supported on Mac and Linux!
+* \[macOS] Warp now starts at login (can be disabled in System Settings > Login Items & Extensions).
+
+**Improvements**
+
+* Input mode automatically returns to command mode when a command is detected in an AI follow-up request. (Only applies if natural language detection is turned on.)
+* Text selections can now be attached to Agent Mode queries as context.
+* \[Windows] Window transparency now works when using DirectX 12.
+* \[Windows] Added “Open Warp Here” item for folders in the File Explorer context menu under “Show more options”.
+
+**Bug fixes**
+
+* Fixed an issue where `bazel` completions could use up a lot of CPU.
+* \[macOS] Fixed a regression where the title bar would be transparent in fullscreen windows.
+* \[Windows] Fixed children of shell processes not always exiting properly at shell termination.
+* \[Windows] Fixed Warpification for custom-built WSL distributions.
+* \[Windows] Fixed Ctrl-Up and Ctrl-Down shortcuts not working in alt screen programs (e.g. vim and emacs).
+* \[Windows] Fixed last line of output getting truncated with some prompt configs in WSL.
+* \[Windows] Fixed some hangs when using Agent Mode.
+* \[Windows] Fixed issues starting PowerShell in strict mode.
+* \[Windows] Fixed an issue where . would turn into n in ZSH when using ohmyzsh in WSL with an Italian keyboard layout.
+
 ### 2025.02.26 (v0.2025.02.26.08.02)
 
 **New features**
