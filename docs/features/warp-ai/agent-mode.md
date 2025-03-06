@@ -45,7 +45,7 @@ You may enter Agent Mode in a few ways:
 {% endtab %}
 {% endtabs %}
 
-This will put you in *Pair* mode by default. While pairing with Warp, you can write out questions and tasks in an ongoing conversation.
+This will put you in _Pair_ mode by default. While pairing with Warp, you can write out questions and tasks in an ongoing conversation.
 
 When you are in Agent Mode, a ✨ sparkles icon will display in line with your terminal input.
 
@@ -99,7 +99,7 @@ When you run a command suggested by Agent Mode, that command will work like a st
 
 If the suggested command fails and you want to resolve the error, you may start a new AI query to address the problem.
 
-<figure><img src="../../.gitbook/assets/agent-mode-suggestion (3).png" alt="Agent Mode makes a suggestion to run a command."><figcaption><p>Agent Mode makes a suggestion to run a command.</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/agent-mode-suggestion (3) (1).png" alt="Agent Mode makes a suggestion to run a command."><figcaption><p>Agent Mode makes a suggestion to run a command.</p></figcaption></figure>
 
 #### Agent Mode Requested Commands
 
@@ -326,7 +326,8 @@ You can disable generating codebase context outlines and using them for Agent Mo
 
 ## Dispatch
 
-*Dispatch* is a form of Agent Mode that carries out complex tasks automatically. When you make a Dispatch query, the AI will:
+_Dispatch_ is a form of Agent Mode that carries out complex tasks automatically. When you make a Dispatch query, the AI will:
+
 1. Gather context about the task, using your [codebase](agent-mode.md#codebase-context), [requested commands](agent-mode.md#agent-mode-requested-commands), and followup questions.
 2. Use a reasoning model to create a plan to carry out the task. You can refine the plan with AI, or edit it directly.
 3. Automatically carry out the approved plan.
@@ -336,7 +337,7 @@ While Dispatch is executing a plan, it automatically runs commands and applies c
 <figure><img src="../../.gitbook/assets/agent-mode-dispatch-exchange.gif" alt="Scrolling through a completed Dispatch task"><figcaption><p>A completed Dispatch task</p></figcaption></figure>
 
 {% hint style="warning" %}
-Dispatch is currently in beta. Its capabilities will improve over time. 
+Dispatch is currently in beta. Its capabilities will improve over time.
 {% endhint %}
 
 ### How to enter Dispatch
@@ -347,9 +348,12 @@ You can enter Dispatch in a few ways:
 {% tab title="macOS" %}
 Press `CMD-SHIFT-I` to toggle between Dispatch and the terminal input, or to switch from pairing to Dispatch.
 {% endtab %}
+
 {% tab title="Windows" %}
 Press `CTRL-SHIFT-I` to toggle between Dispatch and the terminal input, or to switch from pairing to Dispatch.
-{% endtab %}{% tab title="Linux" %}
+{% endtab %}
+
+{% tab title="Linux" %}
 Press `CTRL-SHIFT-I` to toggle between Dispatch and the terminal input, or to switch from pairing to Dispatch.
 {% endtab %}
 {% endtabs %}
@@ -417,7 +421,7 @@ This behavior can be toggled in `Settings > AI > Autonomy > Coding read permissi
 
 Agent Mode can leverage your [Warp Drive](../warp-drive/) contents to tailor responses to your personal and team developer workflows and environments. This includes any Workflows, Notebooks, Environmental Variables, etc..
 
-When a Warp Drive object is pulled as context, it will be displayed in the conversation as a citation under "References" or "Derived from". 
+When a Warp Drive object is pulled as context, it will be displayed in the conversation as a citation under "References" or "Derived from".
 
 ## How billing works for Agent Mode
 
