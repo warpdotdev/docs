@@ -11,7 +11,8 @@ To see a complete list of Warp issues and feature requests, please visit our [Gi
 * When you [SSH](known-issues.md#ssh), we start a bash shell on the remote host. We built a wrapper around SSH to make Warp features possible.
 * If your default shell is zsh, your aliases typically do not transfer over. Other shells are unsupported for now.
 * When you open a [non-shell-based subshell (REPL)](https://github.com/warpdotdev/Warp/issues/4082), we do not set it up for Warp - instead, it works like a normal terminal session.
-* Warp may become unresponsive if it doesn't have permission to access the folders.
+* Warp may become unresponsive if it doesn't have permission to access the folders.\\
+* [No touch input support](https://github.com/warpdotdev/Warp/issues/5347)
 
 {% hint style="warning" %}
 Please note many tools are incompatible with Warp, as listed [here](known-issues.md#list-of-incompatible-tools). We have debugging information in this [section](known-issues.md#debugging).
@@ -196,12 +197,9 @@ In some cases, [CLI applications only work on x86](https://discord.com/channels/
 
 ### Unsupported in Warp on Windows
 
-We will work on adding support for these, but the following will not be available at launch.
+The following feature are not supported in Warp on Windows. Please track the relevant GitHub issues linked below for any changes:
 
-* [cmd.exe](https://github.com/warpdotdev/Warp/issues/5882) or fish shells
-* [Warpifying SSH sessions](../features/warpify/ssh.md)
-* [VSCode integration](../features/integrations-and-plugins.md#vscode)
-* [Touch input support](https://github.com/warpdotdev/Warp/issues/5936)
+* [cmd.exe](https://github.com/warpdotdev/Warp/issues/5882) or [fish](https://github.com/warpdotdev/Warp/issues/6060) shells
 
 ### Warp won't run or render on Windows
 
