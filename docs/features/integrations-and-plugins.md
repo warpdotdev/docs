@@ -53,7 +53,7 @@ Press `CTRL-SHIFT-C` while in [VSCode](https://code.visualstudio.com/docs/termin
 
 To configure this, navigate to Settings in VSCode and search for `Terminal › External: Windows Exec`.\
 \
-Change this to `%LOCALAPPDATA%\Programs\Warp\warp.exe` if you've installed Warp in the default location. Otherwise, put in the full path to the executable.
+Change this to `%LOCALAPPDATA%\Programs\Warp\warp.exe` if you've installed Warp in the default location for a single user or `C:\Program Files\Warp\warp.exe` if you've installed Warp in the default location for all users. Otherwise, put in the full path to the executable.
 {% endtab %}
 
 {% tab title="Linux" %}
