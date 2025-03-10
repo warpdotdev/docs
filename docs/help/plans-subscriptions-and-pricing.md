@@ -28,7 +28,7 @@ Warp offers an Enterprise plan with custom pricing for larger engineering organi
 
 ### How can I upgrade for more Warp AI requests, command suggestions, and tokens?
 
-Both Warp’s Pro and Turbo plans include higher limits for Warp AI requests, command suggestions, and tokens than what’s currently available on the Warp Free plan. Even if you are working alone and not ready to invite additional team members for collaboration, you will need to [create a Team](../features/teams.md#creating-a-team) in Warp to upgrade to the paid Warp plan, which unlocks access to higher AI limits.
+Both Warp’s Pro and Turbo plans include higher limits for Warp AI requests, command suggestions, and tokens than what’s currently available on the Warp Free plan. Even if you are working alone and not ready to invite additional team members for collaboration, you will need to [create a Team](../features/teams.md#creating-a-team) in Warp to upgrade to the paid Warp plan, which unlocks access to higher AI limits. Any usage will transfer over when you upgrade plans.
 
 If you are not planning on extending invites to any team member collaborators, we suggest creating a Team with your name, e.g. “Zach’s Team” or “My Personal Team.” Then you can [upgrade online](https://app.warp.dev/upgrade) or in the downloaded app by navigating to Settings → Teams and finding the upgrade link.
 
@@ -51,9 +51,9 @@ If a member leaves part way through the billing cycle, Warp will issue a prorate
 
 ### What is the value of joining or creating a team on Warp?
 
-Team members on Turbo plans have access to your shared Warp Drive objects and have unlimited access to Warp's collaboration features, including Session Sharing and Warp Drive storage.&#x20;
+Team members on Turbo plans have access to your shared Warp Drive objects and have unlimited access to Warp's collaboration features, including Session Sharing and Warp Drive storage.
 
-Additionally, Turbo teams with three or more members will receive a 30% discount on their monthly or annual cost per user.&#x20;
+Additionally, Turbo teams with three or more members will receive a 30% discount on their monthly or annual cost per user.
 
 ### My co-workers are using Warp but we’re not on a Team together yet. How does billing work?
 
