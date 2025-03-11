@@ -135,11 +135,11 @@ Warp cannot currently accept payment by ACH, cash, check, money order, or crypto
 
 ### How do I cancel my subscription?
 
-You can cancel at any point throughout your subscription through the billing portal by going to `Settings > Teams > Manage billing`. Cancelled subscriptions will remain active until the end of the billing cycle.
+You can cancel at any point throughout your subscription by going to `Settings > Teams > Manage billing` or by going directly to the [billing portal](https://app.warp.dev/upgrade). Cancelled subscriptions will remain active until the end of the billing cycle.
 
 ### How do I get a refund?
 
-For monthly subscriptions, we in general do not issue refunds. You can remove the users you do not want to pay for in `Settings > Teams > Team Members`. You will only be refunded in credits for Warp on a prorated basis.
+For monthly subscriptions, we in general do not issue refunds. Please see [Warp's Refund Policy](plans-subscriptions-and-pricing.md#warps-refund-policy) for details and exceptions. You can remove the users you do not want to pay for in `Settings > Teams > Team Members`. You will only be refunded in credits for Warp on a prorated basis.
 
 ### Why can't I subscribe to Warp?
 
