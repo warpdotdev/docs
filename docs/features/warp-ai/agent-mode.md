@@ -441,7 +441,7 @@ Please learn more about Tokens [here](https://help.openai.com/en/articles/493685
 
 #### **When do my Warp AI requests, suggestions, and tokens refresh?**
 
-Allotted AI requests refill every 30 days from your signup date. When you upgrade to a Pro or Team plan, you will be given more requests immediately. You can follow along with your refill period by referencing `Settings > AI > Request Usage`.
+Allotted AI requests refill every 30 days from your signup date. When you upgrade to a [paid plan](https://www.warp.dev/pricing), you will be given more requests immediately. You can follow along with your refill period by referencing `Settings > AI > Request Usage`.
 
 For more FAQs about pricing, visit [Plans, Subscriptions, and Pricing](../../help/plans-subscriptions-and-pricing.md).
 

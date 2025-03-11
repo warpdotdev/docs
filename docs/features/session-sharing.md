@@ -75,7 +75,7 @@ You may share multiple sessions simultaneously. If you have multiple shared sess
 * [Agent Mode blocks](warp-ai/agent-mode.md) are not shareable during session sharing. Participants will be able to share regular shell commands that are run, but will not be able to share AI interactions (requested commands, AI blocks, etc.)
 * [Secret redaction](secret-redaction.md) is not applied during session sharing.
 * There is a session size limit of 100MB per session, 1GB per user per day, and a maximum of 10 participants per session (excluding the sharer). These limits are subject to change.
-* Warp's Free and Pro plans are limited to 5 shared sessions and the session limits do not reset. Upgrade to a [Team plan](teams.md) to get unlimited sessions.
+* Some of Warp's plans are limited to 5 shared sessions and the session limits do not reset. Upgrade to a [paid plan](https://www.warp.dev/pricing) to get unlimited sessions.
 
 {% hint style="info" %}
 If you have any questions, please email [feedback+ss@warp.dev](mailto:feedback+ss@warp.dev).
