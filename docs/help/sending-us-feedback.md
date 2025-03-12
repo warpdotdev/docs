@@ -22,7 +22,7 @@ For security-related issues or questions, please email [security@warp.dev](mailt
 In some cases, we may also ask for your Warp logs. You can retrieve them by following the instructions for your platform below. Locate the log file and attach it to your GitHub issue comment, feedback email, or discord message.
 
 {% hint style="info" %}
-Warp’s logs do _not_ contain any console input or output. See more on how we handle [Crash Reports and Telemetry](../getting-started/privacy.md#what-telemetry-data-are-you-collecting-and-why).
+Warp’s crash reports do _not_ contain any console input or output. See more on how we handle [Crash Reports and Telemetry](../getting-started/privacy.md#what-telemetry-data-are-you-collecting-and-why).
 {% endhint %}
 
 {% tabs %}

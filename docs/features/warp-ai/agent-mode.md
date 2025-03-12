@@ -107,7 +107,7 @@ If Agent Mode doesn't have enough context to assist with a task, it will ask per
 
 You must explicitly agree and press `ENTER` to run the requested command. When you hit enter, both the command input and the output will be sent to Warp AI.
 
-If you do not wish to send the command or its output to AI, you can click Cancel or press `CTRL-C` to exit Agent Mode and return to the traditional command line. No input or output is ever sent to Warp AI without your explicit action.
+If you do not wish to send the command or its output to AI, you can click Cancel or press `CTRL-C` to exit Agent Mode and return to the traditional command line.
 
 <figure><img src="../../.gitbook/assets/warp-ai-permissions.png" alt="Warp AI asks permission to run a command and read the output."><figcaption><p>Warp AI asks permission to run a command and read the output.</p></figcaption></figure>
 
@@ -445,21 +445,6 @@ Allotted AI requests refill every 30 days from your signup date. When you upgrad
 
 For more FAQs about pricing, visit [Plans, Subscriptions, and Pricing](../../help/plans-subscriptions-and-pricing.md).
 
-## Privacy, Security, and Safety
-
-We recognize that the terminal is a sensitive environment and we want to be explicit about what's leaving your machine and what’s being run when you use Agent Mode.
-
-* You have to explicitly approve any command the AI wants to run.
-* The natural language detection in the input is done completely locally. Warp first checks the string input with a completion engine, and then cross-checks the query string against popular engineering-related words. If you’re uncomfortable with the auto-detection, you may turn it off in Settings.
-* You get to choose what blocks, if any, are sent to Warp AI.
-* All actions are performed through terminal commands. All commands are inspectable. You may click on the requested commands to see their output. All suggested commands are run as regular Warp blocks you can read.
-* [Suggested commands](agent-mode.md#agent-mode-command-suggestions) are not read by Warp AI.
-* While [requested commands](agent-mode.md#agent-mode-requested-commands) and their output are sent to Warp AI, you get to cancel out a requested command at any time.
-* You can inspect all data that’s leaving your machine using [Network Log](../network-log.md).
-* Warp does not store or train on any data from Agent Mode.
-* While Warp AI is built on OpenAI and OpenAI’s servers will receive all input, OpenAI does not train their models on this data.
-* Advanced security features, such as Zero Data Retention and Custom LLM, are available on Warp's Enterprise plan.
-
 ## Known Issues and Limitations
 
 * Note that Agent Mode blocks are not shareable during [session sharing](../session-sharing.md). Participants will be able to share regular shell commands that are run, but will not be able to share AI interactions (requested commands, AI blocks, etc.).
@@ -479,6 +464,10 @@ If you run into this error, it means that your query and attached context have c
 Warp has set an extremely high token limit on users to prevent abuse. We do not anticipate any user hitting this limit. If you hit this limit and are interested in getting it lifted, please contact us with your use case at [feedback@warp.dev](mailto:feedback@warp.dev)
 
 ### Agent Mode FAQs
+
+#### What data is sent and/or stored when using Agent Mode?
+
+See our [Privacy Page](../../getting-started/privacy.md) for more information on how we handle data with Agent Mode.
 
 #### What happened to the old Warp AI chat panel?
 

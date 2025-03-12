@@ -4,38 +4,47 @@ description: Warp's approach to privacy and your control over your data
 
 # Privacy
 
-## Transparency and control
-
 {% hint style="info" %}
-If you have any questions about any of this, please don’t hesitate to reach out at [privacy@warp.dev](mailto:privacy@warp.dev).
+If you have any questions about any of this, please don’t hesitate to reach out at [privacy@warp.dev](mailto:privacy@warp.dev). For security-related issues or questions, please email [security@warp.dev](mailto:security@warp.dev).
 {% endhint %}
 
-Our philosophy is complete transparency and control of any data leaving your machine. This means you can:
+## Transparency and control
+
+Our philosophy is complete transparency and control over any data leaving your machine. This means you can:
 
 * Read a complete list of [all the telemetry events](privacy.md#exhaustive-telemetry-table) that get sent for app analytics
 * Monitor telemetry in real-time with Warp's native [Network Log](../features/network-log.md)
 * [Opt out](privacy.md#how-to-disable-telemetry-and-crash-reporting) of telemetry at any time
 
-App analytics and crash reporting are used to improve the product and to debug any issues that may arise. Terminal sessions contain sensitive information, and we want the **absolute minimum** sent to Warp's servers necessary to provide you with the best possible experience.
 
-Telemetry data **never includes console input or output** and usage of this data will never be part of Warp's business model.
+## What telemetry data does Warp collect and why?
+
+Warp collects high-level telemetry and usage data to discover product quality issues and guide feature prioritization.
+
+If you haven't opted out of "Help improve Warp", we may collect:
+
+1. High level product usage and analytics data to analyze feature uptake and usage patterns. See the [Exhaustive Telemetry Table](#exhaustive-telemetry-table) for the full list of tracked events below. These are all high level metrics and do not include any user generated content.
+2. AI interactions and console inputs that power our [AI features](../features//warp-ai/). Warp unconditionally applies [Secret Redaction](../features/secret-redaction.md) in all AI interactions to ensure that any sensitive data is *never* collected or sent to third parties.
+
+All users can opt-out of this any time and still continue using all of Warp (including AI features).
+
+{% hint style="warning" %}
+Enterprise plans are covered by our Zero Data Retention (ZDR) agreement. No AI interaction or console data is ever collected.
+{% endhint %}
+
+Selling usage data will never be part of Warp's business model. This data is used solely to improve the end-user experience. Warp uses Sentry for crash reporting and Rudderstack for app analytics.
 
 You can read our [full privacy policy](https://www.warp.dev/privacy/policy) as well as [how Warp handles security](https://www.warp.dev/security).
 
-{% hint style="info" %}
-For security-related issues or questions, please email [security@warp.dev](mailto:security@warp.dev).
-{% endhint %}
 
-## How to disable telemetry and crash reporting
+### How to disable telemetry and crash reporting
 
 1. Navigate to `Settings > Privacy`, or open the [Command Palette](../features/command-palette.md) and search for "privacy"
-2. Toggle off app analytics, crash reports, or both (if it's blue, it's "on")
+2. Toggle off "Help improve Warp", "Send crash reports", or both
 
 <figure><img src="../.gitbook/assets/privacy-settings-after-signup.png" alt=""><figcaption><p>Privacy Settings</p></figcaption></figure>
 
-### Your data privacy and AI in Warp
-
-Warp includes optional [AI features](../features/warp-ai/) you can choose to engage for assistance on the command line or across the Warp app. For [Agent Mode](../features/warp-ai/agent-mode.md), natural language detection happens locally, and you can choose to disable this at any time. Any AI requests are sent to the APIs through a proxy. No input or console data is collected or stored by Warp. No AI data is ever used to train public models. Zero data retention is available. [Learn more](https://docs.warp.dev/features/warp-ai/agent-mode#privacy-security-and-safety)
+With telemetry disabled, no console interactions are ever persisted on Warp's servers. Each request contains a `X-Warp-Telemetry-Enabled` header to specify whether telemetry is disabled, and even if this is missing from the request, our server assumes it's disabled.
 
 ### Delete your data
 
@@ -52,12 +61,6 @@ Deletion jobs run every 24 hours, so if you deleted your account and want to sig
 {% hint style="warning" %}
 If you're a [Team](../features/teams.md) admin, the deletion flow will require that you assign a team member as the new admin.
 {% endhint %}
-
-## What telemetry data does Warp collect and why?
-
-Warp collects high-level usage data (**never console input or output**) to discover product quality issues and guide feature prioritization. Selling usage data will never be part of Warp's business model. This data is used solely to improve the end-user experience.
-
-Warp uses Sentry for crash reporting and Rudderstack for app analytics.
 
 ### Exhaustive Telemetry Table
 

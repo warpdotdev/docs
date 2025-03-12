@@ -70,7 +70,7 @@ Voice input is not limited to just Agent Mode - it works across all of Warp's in
 
 ## Privacy & Security
 
-The transcription is powered by [Wispr Flow](https://wisprflow.ai/). Voice data is processed in real-time by Wispr Flow and is not retained after transcription.
+The transcription is powered by [Wispr Flow](https://wisprflow.ai/). Voice data is processed in real-time by Wispr Flow and is not retained as a recording after transcription.
 
 ## Usage Limits
 

@@ -29,3 +29,7 @@ Agent Mode can leverage the rules you created to tailor its responses. Rules tha
 <figure><img src="../../.gitbook/assets/context-derived-from-memory.png" alt="Context derived from memory"><figcaption><p>Derived from memory</p></figcaption></figure>
 
 <figure><img src="../../.gitbook/assets/context-references-memory.png" alt="Context derived from memory"><figcaption><p>Memory as references</p></figcaption></figure>
+
+### Knowledge Privacy
+
+See our [Privacy Page](../../getting-started/privacy.md) for more information on how we handle data with Knowledge.

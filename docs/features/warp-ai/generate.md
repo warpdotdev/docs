@@ -99,4 +99,4 @@ The following LLMs are currently supported in Warp:
 
 ## AI Privacy
 
-When you use Generate, the query you enter is sent to OpenAI or Anthropic, but it is not stored on our servers. Instead, we rely on these AI providers to generate code or contextual suggestions based on your instructions. You can learn more about how these companies handle your data by visiting their privacy policies: [OpenAI's privacy policy](https://openai.com/policies/privacy-policy) and [Anthropic's privacy policy](https://www.anthropic.com/legal/privacy). Additionally, neither Warp, OpenAI, nor Anthropic use your data to train their AI models.
+See our [Privacy Page](../../getting-started/privacy.md) for more information on how we handle data with Generate.

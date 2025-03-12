@@ -51,3 +51,7 @@ In order to use a next Command Suggestion, please use the `TAB` key , `→` key 
 ### Next Command And Billing
 
 For the latest information on limits, visit [warp.dev/pricing](https://warp.dev/pricing). A Next Command only counts toward your limit if you explicitly accept the suggestion. If you enter a command that matches a suggested Next Command by typing it manually or rerunning it from your history, it will not count toward your usage.
+
+# Active AI Privacy
+
+See our [Privacy Page](../../getting-started/privacy.md) for more information on how we handle data with Active AI.
