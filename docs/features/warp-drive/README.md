@@ -101,16 +101,21 @@ To switch between panels (e.g. jump from command line to Warp Drive to Warp AI) 
 
 ## Import and Export
 
-Every object in Warp Drive can be exported to or imported from a file.
+Every object in Warp Drive can be exported to or imported from a file. When importing or exporting, objects are converted as follows:
 
-* To export a single Warp Drive object, RIGHT-CLICK on an object and choose "Export" from the menu, then select a directory for export.
-* To export all Warp Drive objects, Open the [Command Palette](../command-palette.md#how-to-access-it), search for and select "Export all Warp Drive Objects", then select a directory for export.
-* To import a local file or directory, RIGHT-CLICK on a folder or workspace and choose "Import." If importing a directory, supported files in the directory and its sub-directories will be imported into a matching folder structure.
+* [Workflows](workflows.md) import from and export to YAML (.yaml, .yml)
+* [Notebooks](notebooks.md) import from and export to MARKDOWN (.md)
+* [Environment Variables](environment-variables.md) import isn't supported at this time, but you can export to DOTENV (.env)
 
-When importing or exporting, objects are converted as follows:
+### Importing files into Warp Drive
 
-* [Workflows](workflows.md) import from and export to YAML
-* [Notebooks](notebooks.md) import from and export to Markdown
+To import a local file or directory, `RIGHT-CLICK` on a  folder or click `+` on a workspace and choose "Import." If importing a directory, supported files in the directory and its sub-directories will be imported into a matching folder structure.
+
+<figure><img src="../../.gitbook/assets/notebook-import-modal.png" alt=""><figcaption><p>Import modal</p></figcaption></figure>
+
+### Exporting files from Warp Drive
+
+To export a single Warp Drive object, `RIGHT-CLICK` on an object and choose "Export" from the menu, then select a directory for export. To export all Warp Drive objects, Open the [Command Palette](../command-palette.md#how-to-access-it), search for and select "Export all Warp Drive Objects", then select a directory for export.
 
 ## Sharing Your Drive Objects
 

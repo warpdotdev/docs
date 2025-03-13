@@ -1,5 +1,5 @@
 ---
-description: Access your Drive objects and Shared Sessions wherever you are.
+description: Access your Warp Drive objects and Shared Sessions wherever you are.
 ---
 
 # Warp Drive on the Web

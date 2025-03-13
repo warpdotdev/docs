@@ -40,18 +40,6 @@ Note: The notebook will not be saved until either title or body text is added.
 
 <figure><img src="../../.gitbook/assets/notebooks_editor.gif" alt=""><figcaption><p>Editing a Notebook</p></figcaption></figure>
 
-### Import existing documentation
-
-Existing markdown `.md` documentation can also be directly imported into Warp Drive. To import your markdown file(s):
-
-* From Warp Drive, + > Import > then follow the file selection dialog.
-
-<figure><img src="../../.gitbook/assets/notebook-import-modal.png" alt=""><figcaption><p>Notebook import modal</p></figcaption></figure>
-
-### Export Notebooks from Warp Drive
-
-From Warp Drive, select the overflow menu for the Notebook you'd like to export and then Export. You will then be prompted to open the file in .md format.
-
 ### Working with Notebooks
 
 #### Adding new elements
@@ -162,3 +150,7 @@ Note that only one editor is allowed at a given time. Opening the notebook while
 {% endhint %}
 
 <figure><img src="../../.gitbook/assets/notebook-view-mode.png" alt=""><figcaption><p>View mode example</p></figcaption></figure>
+
+### Import and Export Notebooks in Warp Drive
+
+Please see our [Warp Drive Import and Export](./#import-and-export) instructions.
