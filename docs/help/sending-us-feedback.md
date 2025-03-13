@@ -50,25 +50,31 @@ The Warp log files are located at `$env:LOCALAPPDATA\warp\Warp\data\logs\`.&#x20
 Close Warp and run the following from another terminal to zip the logs to your Desktop:
 
 ```powershell
-Compress-Archive -Path $env:LOCALAPPDATA\warp\Warp\data\logs\warp.log*" -DestinationPath "$HOME\Desktop\warp-logs.zip
+Compress-Archive -Path "$env:LOCALAPPDATA\warp\Warp\data\logs\warp.log*" -DestinationPath "$HOME\Desktop\warp-logs.zip" -Force
 ```
 
 {% hint style="warning" %}
 If your issue is graphical (e.g. no display of windows) or a crash, please run Warp with the following command to capture more log information:
 
 ```powershell
+# Run if Warp on Windows is installed for a single user
 $env:RUST_LOG="wgpu_core=info,wgpu_hal=info"; & "$env:LOCALAPPDATA\Programs\Warp\warp.exe"
+```
+
+```powershell
+# Run if Warp on Windows is installed for all users
+$env:RUST_LOG="wgpu_core=info,wgpu_hal=info"; & "$env:PROGRAMFILES\Warp\warp.exe"
 ```
 {% endhint %}
 {% endtab %}
 
 {% tab title="Linux" %}
-The Warp log files are located at `${XDG_STATE_HOME:-$HOME/.local/state}/warp-terminal/warp.log*`.
+The Warp log files are located at `~/.local/state/warp-terminal/`.
 
-Close Warp and run the following from another terminal to zip the logs to your Desktop:
+Close Warp and run the following from another terminal to zip the logs to your home directory:
 
 ```bash
-zip -j ~/Desktop/warp-logs.zip ~/.local/state/warp-terminal/warp.log*
+tar -czf ~/warp-logs.tar.gz -C ~/.local/state/warp-terminal warp.log*
 ```
 
 {% hint style="warning" %}
