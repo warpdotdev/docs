@@ -8,6 +8,28 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2025.03.12 (v0.2025.03.12.08.02)
+
+**New features**
+
+* Agent Mode output is now rendered with Markdown formatting.
+* You can now change the font used for Agent Mode output (Settings > Appearance).
+
+**Improvements**
+
+* \[Windows] Significantly improved pseudoconsole throughput (~3x improvement).
+* The Agent Mode model will now automatically select the best model based on your specific task.
+* Ordered lists in Markdown now uses alphabetical or Roman numeral labels when nested.
+* \[Windows] We now search more locations for a PowerShell executable.
+* Reduced the size of Markdown headings.
+
+**Bug fixes**
+
+* Control whether Warp starts at login via a setting under Settings > Features > Start Warp at login (MacOS only).
+* \[Windows] Fixed an issue where dynamic enums commands weren't being executed.
+* Fixed a bug with the mouse cursor when hovering over buttons.
+* Fixed a bug that causes high CPU load with codebase context.
+
 ### 2025.03.05 (v0.2025.03.05.08.02)
 
 **New features**
@@ -32,7 +54,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 * \[Windows] Fixed last line of output getting truncated with some prompt configs in WSL.
 * \[Windows] Fixed some hangs when using Agent Mode.
 * \[Windows] Fixed issues starting PowerShell in strict mode.
-* \[Windows] Fixed an issue where . would turn into n in ZSH when using ohmyzsh in WSL with an Italian keyboard layout.
+* \[Windows] Fixed an issue where `.` would turn into n in ZSH when using ohmyzsh in WSL with an Italian keyboard layout.
 
 ### 2025.02.26 (v0.2025.02.26.08.02)
 
@@ -40,16 +62,16 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 * Warp is now available for Windows! See our [#windows](../#windows "mention") Quickstart Guide
 * Prompt, plan, and execute fully autonomous tasks from [Agent Mode with Dispatch](../features/warp-ai/agent-mode.md#dispatch) (Beta)
-* Add codebase context support to Agent Mode. Currently enabled for git repositories only
-* \[macOS] You can now customize your [App Icon](../appearance/app-icons.md) in `Settings > Appearance > Icon`
-* Create and store [AI Memories](../features/warp-ai/knowledge.md) to use as Agent Mode context
-* Show default suggestions in Agent Mode input
+* Add codebase context support to Agent Mode. Currently enabled for git repositories only.
+* \[macOS] You can now customize your [App Icon](../appearance/app-icons.md) in `Settings > Appearance > Icon`.
+* Create and store [AI Memories](../features/warp-ai/knowledge.md) to use as Agent Mode context.
+* Show default suggestions in Agent Mode input.
 
 **Bug fixes**
 
-* Multicursor input is now `ALT` on Linux and Windows
-* Fix prompt chip misalignment for certain fonts
-* Autosuggestions remain visible when the input is not focused, to prevent height flickering when the autosuggestion soft wraps
+* Multicursor input is now `ALT` on Linux and Windows.
+* Fix prompt chip misalignment for certain fonts.
+* Autosuggestions remain visible when the input is not focused, to prevent height flickering when the autosuggestion soft wraps.
 
 ### 2025.02.19 (v0.2025.02.19.08.02)
 
