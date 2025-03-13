@@ -302,6 +302,10 @@ You can also open supported code files in Warp by clicking on the link, then sel
 
 In order for Agent Mode to be able to answer questions about about the code files in your codebase, Warp can generate an outline containing relevant information about each file. This outline can then be used when querying Agent Mode to find relevant files for a requested query.
 
+{% hint style="warning" %}
+No code indexed with codebase context is ever stored on our servers.
+{% endhint %}
+
 Outline generation works in the following way:
 
 * When opening a new terminal pane or changing to a new directory in the terminal, check if this directory is a part of a Git repository.
@@ -312,9 +316,7 @@ Outline generation works in the following way:
 
 The first time that a user opens a directory after the Warp application is opened, the outline for the repository is fully generated. Creating an outline for repositories can take a few minutes for large repositories. Codebase context will not be used in Agent Mode queries until the outline is generated.
 
-{% hint style="info" %}
 Outline generation is completely local. The outline is only sent to the server when an Agent Mode request is made that could use the codebase context and the user approves sending codebase context for that directory.
-{% endhint %}
 
 After the outline is generated in full, Warp watches for changes to any file in the directory and the outline is updated as needed.
 
