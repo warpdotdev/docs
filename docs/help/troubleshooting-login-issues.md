@@ -4,9 +4,13 @@ description: Instructions on how to troubleshoot login issues.
 
 # Troubleshooting Login Issues
 
-### Can't "Sign Up" for Warp
+### Can't sign up for or log into Warp
 
-Clicking it should open a login pop-up. If clicking the signup button opens a blank pop-up window, try using a proxy. Your ISP or Firewall may be blocking the app's call to `*.googleapis.com` or `*.segment.io`. In some older Ruby development environments, `.dev` domains do not resolve properly and you may need to delete the `/etc/resolver/dev`, see more [here](https://superuser.com/questions/1374892/dev-domains-dont-resolve).
+Clicking it should open a signup or login pop-up. If clicking the button opens a blank pop-up window, try using a proxy. Your ISP or Firewall may be blocking the app's call to `*.googleapis.com`.
+
+{% hint style="info" %}
+&#x20;In some older Ruby development environments, `.dev` domains do not resolve properly and you may need to delete the `/etc/resolver/dev`, see more [here](https://superuser.com/questions/1374892/dev-domains-dont-resolve).
+{% endhint %}
 
 ### All browsers
 
