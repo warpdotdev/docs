@@ -9,8 +9,8 @@ description: >-
 
 
 
-{% hint style="info" %}
-**Platform support:** Warp is supported on Mac (Intel and Mac Silicon), Windows (x86\_64 and ARM64), and Linux (x86\_64 and ARM64).
+{% hint style="success" %}
+**Platform support:** Warp is supported on macOS (Intel and Mac Silicon), Windows (x86\_64 and ARM64), and Linux (x86\_64 and ARM64)
 {% endhint %}
 
 ## Install Warp
