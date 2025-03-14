@@ -10,10 +10,11 @@ Clicking it should open a login pop-up. If clicking the signup button opens a bl
 
 ### All browsers
 
-This error could occur if you installed an ad blocker and the ad blocker blocks all pop-ups, including our Firebase auth pop-up. **To fix it:**
+This error could occur if you installed an ad blocker or have stale browser cookies, including our Firebase auth pop-up. **To fix it:**
 
 1. Disable your ad blocker for `app.warp.dev`
-2. Refresh and try again
+2. Clear any cookies and cache, or open a incognito / private browser window
+3. Try [http://app.warp.dev/login](http://app.warp.dev/login) again
 
 ## Safari
 
