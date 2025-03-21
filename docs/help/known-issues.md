@@ -214,7 +214,11 @@ We're tracking some issues on Windows where [Warp crashes on startup](https://gi
 When a user has an Nvidia 572.xx or AMD 23.10.x drivers or above, Warp may [crash when trying to open a Launch Configuration](https://github.com/warpdotdev/Warp/issues/5875), or [Warp fails to become transparent](https://github.com/warpdotdev/Warp/issues/5903) (opacity setting doesn't work). These are known limitations of the graphics drivers. We're investigating the issues and will updated on the GitHub issues above. You can workaround this by forcing the graphics backend to Vulkan or OpenGL by running the following from another terminal and setting your GPU driver Vulkan/OpenGL render method setting to "Prefer Native", or using the [DX12 backend](known-issues.md#warp-wont-run-or-render-on-windows):
 
 ```powershell
+# Run if Warp on Windows is installed for a single user
 $env:WGPU_BACKEND="vulkan,gl"; & "$env:LOCALAPPDATA\Programs\Warp\warp.exe"
+
+# Run if Warp on Windows is installed for all users
+$env:WGPU_BACKEND="vulkan,gl"; & "$env:PROGRAMFILES\Warp\warp.exe"
 ```
 
 ## Linux

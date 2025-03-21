@@ -59,9 +59,7 @@ If your issue is graphical (e.g. no display of windows) or a crash, please run W
 ```powershell
 # Run if Warp on Windows is installed for a single user
 $env:RUST_LOG="wgpu_core=info,wgpu_hal=info"; & "$env:LOCALAPPDATA\Programs\Warp\warp.exe"
-```
 
-```powershell
 # Run if Warp on Windows is installed for all users
 $env:RUST_LOG="wgpu_core=info,wgpu_hal=info"; & "$env:PROGRAMFILES\Warp\warp.exe"
 ```
