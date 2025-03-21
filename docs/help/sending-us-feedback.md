@@ -4,7 +4,7 @@ description: 'Submit your feedback on Warp: bugs, feature requests, novel ideas,
 
 # Sending Feedback & Logs
 
-### Sending Warp feedback:
+### Sending Warp feedback
 
 * Open a new issue or feature request in our [GitHub repository](https://github.com/warpdotdev/warp/issues/new/choose).
 * [Command Palette](../features/command-palette.md), type and select "Send Feedback".
