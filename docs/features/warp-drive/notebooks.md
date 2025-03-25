@@ -137,7 +137,7 @@ Once a command block is selected, press `CTRL-ENTER` to insert it into the termi
 
 #### Adding existing Workflows to Notebooks
 
-If you have existing [Workflows](workflows.md) that you’d like to insert into your notebook rather than duplicating their content, you can select Embedded Workflow from the new element menu and select from the available workflows. Once embedded in a notebook, the workflow will be executable like a regular command block. To edit the content of the embedded workflow, you will need to edit the source workflow which can be found by searching for the title in the [Command Palette](../command-palette.md).
+If you have existing [Workflows](workflows.md) that you’d like to insert into your notebook rather than duplicating their content, you can select Embedded Workflow from the new element menu and select from the available Workflows. Once embedded in a notebook, the workflow will be executable like a regular command block. To edit the content of the embedded workflow, you will need to edit the source workflow which can be found by searching for the title in the [Command Palette](../command-palette.md).
 
 <figure><img src="../../.gitbook/assets/embedding-a-workflow.png" alt=""><figcaption><p>Embedding an existing workflow in a notebook.</p></figcaption></figure>
 

@@ -73,7 +73,7 @@ Once a shell block is selected, press `CTRL-ENTER` to insert it into the termina
 {% endtab %}
 {% endtabs %}
 
-If the command contains any arguments using the curly brace `{{param}}` syntax, they will be treated as workflow arguments. Learn more about [workflows](warp-drive/workflows.md).
+If the command contains any arguments using the curly brace `{{param}}` syntax, they will be treated as Workflow arguments. Learn more about [Workflows](warp-drive/workflows.md).
 
 <figure><img src="../.gitbook/assets/run-markdown-file-command.gif" alt="Demo of running two commands from a Markdown file in Warp"><figcaption><p>Navigating between and running commands in a Markdown file</p></figcaption></figure>
 

@@ -1,7 +1,6 @@
 ---
 description: >-
-  Warp Drive is a workspace in your terminal where you can save workflows for
-  personal use or to share with a team.
+  Warp Drive is a workspace in your terminal where you can save Workflows, Notebooks, Prompts, and Environment Variables for personal use or to share with a team.
 ---
 
 # Warp Drive
@@ -34,7 +33,7 @@ Warp Drive is accessible from the status bar in the Warp terminal or you can tog
 
 ## Workspaces in Warp Drive
 
-When you open the Warp Drive panel, you will find a personal workspace where you can store your workflows and organize them into folders.
+When you open the Warp Drive panel, you will find a personal workspace where you can store your Workflows, Notebooks, Prompts, and Environment Variables and organize them into folders.
 
 <figure><img src="../../.gitbook/assets/Warp_Drive_Zero_State.png" alt=""><figcaption></figcaption></figure>
 
@@ -42,12 +41,12 @@ If you are a member of a team using Warp Drive, your team’s workspace will als
 
 <figure><img src="../../.gitbook/assets/Warp_Drive_with_Team.png" alt=""><figcaption></figcaption></figure>
 
-## Organizing workflows in Warp Drive with your team
+## Organizing objects in Warp Drive with your team
 
-* Objects (e.g. Workflows) and folders in Warp Drive can be sorted alphabetically and by the last updated
+* Objects (e.g. Workflows, Notebooks, Prompts, and Environment Variables) and folders in Warp Drive can be sorted alphabetically and by the last updated
 * Any objects moved from your personal workspace into a team’s workspace will be shared with all members of your team
 * It is not currently possible to move an item back from a team’s workspace into a personal workspace; if you shared something inadvertently, you should copy the contents of the object to your clipboard, recreate it in your personal workspace, and then delete the object from your team workspace
-* It is not currently possible to drag a folder of personal workflows into a team workspace; you will need to move objects one at a time
+* It is not currently possible to drag a folder of personal Workflows into a team workspace; you will need to move objects one at a time
 
 ## Using Warp Drive offline
 
@@ -95,7 +94,7 @@ You can take these keyboard actions within Warp Drive:
 
 <figure><img src="../../.gitbook/assets/warp_drive_nav1.png" alt=""><figcaption><p>Warp Drive navigation states</p></figcaption></figure>
 
-To switch between panels (e.g. jump from command line to Warp Drive to Warp AI) using your keyboard, you can use the “Switch Focus to Left Panel” and “Switch Focus to Right Panel” commands in the [Command Palette](../command-palette.md).
+To switch between panels using your keyboard, you can use the “Switch Focus to Left Panel” and “Switch Focus to Right Panel” commands in the [Command Palette](../command-palette.md).
 
 <figure><img src="../../.gitbook/assets/warp_drive_nav2.png" alt=""><figcaption></figcaption></figure>
 
@@ -104,6 +103,7 @@ To switch between panels (e.g. jump from command line to Warp Drive to Warp AI) 
 Every object in Warp Drive can be exported to or imported from a file. When importing or exporting, objects are converted as follows:
 
 * [Workflows](workflows.md) import from and export to YAML (.yaml, .yml)
+* [Prompts](prompts.md) import isn't supported at this time, but you can export to YAML (.yaml, .yml)
 * [Notebooks](notebooks.md) import from and export to MARKDOWN (.md)
 * [Environment Variables](environment-variables.md) import isn't supported at this time, but you can export to DOTENV (.env)
 
@@ -158,7 +158,7 @@ Owners and their teammates always have full access. When sharing an object, you 
 |                                     | Can view | Can edit | Full access |
 | ----------------------------------- | -------- | -------- | ----------- |
 | Read a notebook                     | ✓        | ✓        | ✓           |
-| Execute a workflow                  | ✓        | ✓        | ✓           |
+| Execute a Workflow                  | ✓        | ✓        | ✓           |
 | Use env vars                        | ✓        | ✓        | ✓           |
 | Edit contents                       |          | ✓        | ✓           |
 | Create objects in a folder          |          | ✓        | ✓           |
@@ -170,4 +170,4 @@ Owners and their teammates always have full access. When sharing an object, you 
 ## Troubleshooting Warp Drive
 
 * If you were previously using Warp on your own and were later invited to join a team, you may need to exit, update, and restart the Warp app to gain access to your team’s shared drive and commands
-* Navigating to Settings > Teams in Warp should also force a metadata update for you, which will ensure you have access to the latest versions of workflows in your team's drive
+* Navigating to Settings > Teams in Warp should also force a metadata update for you, which will ensure you have access to the latest versions of Workflows in your team's drive

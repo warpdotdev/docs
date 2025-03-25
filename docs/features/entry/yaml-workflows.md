@@ -10,12 +10,12 @@ You can continue to use YAML-based workflows, but we recommend using new [workfl
 
 ## What is it
 
-Workflows are easily parameterized and searchable by name, description, or command arguments. [Common workflows](https://github.com/warpdotdev/workflows) sourced by the Warp team and community are readily available within the app. Additionally, you can create and scope workflows locally or to a git repository.
+Workflows are easily parameterized and searchable by name, description, or command arguments. [Common Workflows](https://github.com/warpdotdev/workflows) sourced by the Warp team and community are readily available within the app. Additionally, you can create and scope Workflows locally or to a git repository.
 
 ## How to use it
 
 * Open the [Command Search](command-search.md) or Workflow Search `CTRL-SHIFT-R` panel to find Workflows.
-* Once inside the menu, start typing in the search bar to filter the existing workflows. (e.g. git, android, npm, etc.)
+* Once inside the menu, start typing in the search bar to filter the existing Workflows. (e.g. git, android, npm, etc.)
 * When a Workflow is selected with `ENTER`, you can use `SHIFT-TAB` to cycle through the arguments.
 * You can also expand the menu horizontally with the mouse by dragging it on the right edge.
 
@@ -63,15 +63,15 @@ ${XDG_DATA_HOME:-$HOME/.local/share}/warp-terminal/workflows/
 {% endtab %}
 {% endtabs %}
 
-Or, you can share them with your team by saving them in `{{path_to_git_repo}}/.warp/workflows/`. Local and Repository workflows can be accessed under the "My Workflows" and "Repository Workflows" tab of the Workflows menu, respectively.
+Or, you can share them with your team by saving them in `{{path_to_git_repo}}/.warp/workflows/`. Local and repository Workflows can be accessed under the "My Workflows" and "Repository Workflows" tab of the Workflows menu, respectively.
 
-See the existing workflow spec within the [Workflows repo](https://github.com/warpdotdev/Workflows/tree/main/specs) for examples. Additionally, we outline the file format below:
+See the existing Workflow spec within the [Workflows repo](https://github.com/warpdotdev/Workflows/tree/main/specs) for examples. Additionally, we outline the file format below:
 
 <details>
 
 <summary><a href="https://github.com/warpdotdev/Workflows/blob/main/FORMAT.md">Workflow File Format</a></summary>
 
-The workflow file format is a [yaml](https://yaml.org/) file and must have either a \`.yml \` or \`yaml\` extension. If you're new to YAML and want to learn more, see [Learn YAML in Y minutes](https://learnxinyminutes.com/docs/yaml/).
+The Workflow file format is a [yaml](https://yaml.org/) file and must have either a \`.yml \` or \`yaml\` extension. If you're new to YAML and want to learn more, see [Learn YAML in Y minutes](https://learnxinyminutes.com/docs/yaml/).
 
 ***
 
@@ -101,11 +101,11 @@ The URL from where the Workflow was originally generated from. This is surfaced 
 
 **`author`**
 
-The original author of the Workflow. For example, if this workflow was generated from StackOverflow, the `author` would be the `author` of the StackOverflow post. This is surfaced in [commands.dev](https://www.commands.dev/) for attribution purposes. Optional.
+The original author of the Workflow. For example, if this Workflow was generated from StackOverflow, the `author` would be the `author` of the StackOverflow post. This is surfaced in [commands.dev](https://www.commands.dev/) for attribution purposes. Optional.
 
 **`author_url`**
 
-The URL of original author of the Workflow. For example, if this workflow was generated from StackOverflow, the `author_url` would be the StackOverflow author's profile page. This is surfaced in [commands.dev](https://www.commands.dev/) for attribution purposes. Optional.
+The URL of original author of the Workflow. For example, if this Workflow was generated from StackOverflow, the `author_url` would be the StackOverflow author's profile page. This is surfaced in [commands.dev](https://www.commands.dev/) for attribution purposes. Optional.
 
 **`shells`**
 
@@ -117,7 +117,7 @@ A Workflow can have parameterized arguments to specify pieces of the Workflow th
 
 You can specify which part of the Workflow command maps to an argument by surrounding it with two curly braces (`{{<argument>}}`).
 
-For example the workflow command:
+For example the Workflow command:
 
 ```bash
 for {{variable}} in {{sequence}}; do
@@ -132,7 +132,7 @@ Includes 3 arguments: `variable`, `sequence`, and `command`.
 The name of the argument. The argument name is used within the command to specify the ranges of the argument. Required.
 
 ```yaml
-name: Example workflow
+name: Example Workflow
 command: echo {{string}}
 arguments:
   - name: string
@@ -153,7 +153,7 @@ The default value for the argument. If specified, the `default_value` replaces t
 
 ### Where to save workflows
 
-Local workflows are scoped to your machine. Repository workflows are scoped to a git repository and can be accessed by anyone who has cloned the repo. _Note:_ Repository workflows will not appear if you are ssh into a remote machine.
+Local Workflows are scoped to your machine. Repository Workflows are scoped to a git repository and can be accessed by anyone who has cloned the repo. _Note:_ Repository Workflows will not appear if you are ssh into a remote machine.
 
 {% tabs %}
 {% tab title="macOS" %}
@@ -189,7 +189,7 @@ ${XDG_DATA_HOME:-$HOME/.local/share}/warp-terminal/workflows/
 
 #### Local Workflows
 
-To start, create a workflow subdirectory within
+To start, create a Workflow subdirectory within
 
 {% tabs %}
 {% tab title="macOS" %}
@@ -211,13 +211,13 @@ mkdir -p ${XDG_DATA_HOME:-$HOME/.local/share}/warp-terminal/workflows/
 {% endtab %}
 {% endtabs %}
 
-Add your workflow’s `.yaml` file to this directory; if the file format is valid Warp should automatically load it into the Workflows menu.
+Add your Workflow’s `.yaml` file to this directory; if the file format is valid Warp should automatically load it into the Workflows menu.
 
 `cp ~/path/to/my_awesome_workflow.yaml {{path_to_local_workflow_folder}}`
 
 #### Repository Workflows
 
-You can add a repository workflow similarly to how you added a local workflow. Create a workflows folder in a repository’s root directory and save your `.yaml` file like so:
+You can add a repository Workflow similarly to how you added a local Workflow. Create a Workflows folder in a repository’s root directory and save your `.yaml` file like so:
 
 ```
 cd {{repository_path}}
@@ -227,4 +227,4 @@ cp ~/path/to/my_awesome_workflow.yaml {{path_to_local_workflow_folder}}
 
 #### Global Workflows
 
-You can contribute workflows that will be made available to other Warp users by forking the [Workflows repo](https://github.com/warpdotdev/workflows/tree/main/specs) and opening a pull request. See the [Contributing](https://github.com/warpdotdev/workflows#contributing) section for more details.
+You can contribute Workflows that will be made available to other Warp users by forking the [Workflows repo](https://github.com/warpdotdev/workflows/tree/main/specs) and opening a pull request. See the [Contributing](https://github.com/warpdotdev/workflows#contributing) section for more details.

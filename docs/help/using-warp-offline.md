@@ -21,6 +21,7 @@ Warp’s cloud-based features which require an internet connection will not work
   * [Agent Mode](../features/warp-ai/agent-mode.md)
   * [Generate](../features/warp-ai/generate.md)
   * [AI Autofill](../features/warp-drive/workflows.md#warp-ai-autofill)
+  * [Prompts](../features/warp-drive/prompts.md)
   * [Active AI](../features/warp-ai/active-ai.md)
   * [Voice](../features/warp-ai/voice.md)
   * [Knowledge](../features/warp-ai/knowledge.md)

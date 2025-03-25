@@ -35,6 +35,7 @@
 * [Warp Drive](features/warp-drive/README.md)
   * [Notebooks](features/warp-drive/notebooks.md)
   * [Workflows](features/warp-drive/workflows.md)
+  * [Prompts](features/warp-drive/prompts.md)
   * [Environment Variables](features/warp-drive/environment-variables.md)
   * [Warp Drive on the Web](features/warp-drive/warp-drive-on-the-web.md)
 * [Teams](features/teams.md)
