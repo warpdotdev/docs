@@ -185,7 +185,12 @@ windows:
 
 ### Commands
 
-Use the `commands` field to define a set of commands to run when a launch configuration in run.
+Use the `commands` field to define a set of commands to run when a launch configuration in run.&#x20;
+
+{% hint style="warning" %}
+You should use double quotes for commands with special characters. \
+Commands in separate lines are chained together with `&&` when run.
+{% endhint %}
 
 ```yaml
 # Warp Launch Configuration
@@ -203,7 +208,7 @@ windows:
           cwd: /Users/warp-user/Documents
           commands:
             - exec: ls
-            - exec: code .
+            - exec: "code ."
         color: blue
   - tabs:
       - title: downloads
@@ -212,9 +217,10 @@ windows:
           panes:
             - cwd: /Users/warp-user/Downloads
               commands:
-                - exec: curl http://example.com -o my.file
+                - exec: "curl http://example.com -o my.file"
+                - exec: "cp my.file my.file2"
             - cwd: /Users/warp-user
               commands:
-                - exec: ssh user@remote.server.com
+                - exec: "ssh user@remote.server.com"
         color: green
 ```
