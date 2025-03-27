@@ -8,15 +8,13 @@ description: Learn how to import settings from other terminals when you switch t
 
 You can easily import your settings from iTerm2 to Warp. This includes custom keybindings and color themes.
 
-When you run Warp for the first time, you will get the option to import your default profile from iTerm2.
+To do so, you can open the [Command Palette](../features/command-palette.md) and search for Import External Settings. This will enter you into the workflow to import your settings.
 
 Select **iTerm2 Profile: Default** to import your settings.
 
 <figure><img src="../.gitbook/assets/migrate-to-warp.png" alt=""><figcaption><p>Select a settings profile to import</p></figcaption></figure>
 
 Warp will only import settings associated with the Default profile.
-
-If you are already running Warp but would like to import your iTerm2 profile, you can open the [Command Palette](../features/command-palette.md) and search for the Setup Guide. This will enter you into the workflow to import your settings.
 
 ### Choose your Prompt
 
