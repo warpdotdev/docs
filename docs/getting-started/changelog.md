@@ -8,6 +8,37 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2025.03.26 (v0.2025.03.26.08.10)
+
+**New features**
+
+* Kitty Image Protocol is now supported on macOS and Linux!
+
+**Improvements**
+
+* Agents may suggest using Dispatch to create a plan for complex tasks. You can disable suggestions to create plans under `Settings > AI > Dispatch`.
+* You can now resume auto-execution of a previously dispatched plan if your follow-up query is set to "Dispatch", instead of creating a new plan.
+* Added a keyboard shortcut to accept the most recent command correction.
+* Zero-state suggestions are no longer shown when using a saved Prompt or past AI query.
+* Tabs will not resize while hovered, making closing multiple tabs easier.
+* The warning dialog for closing sessions now responds to the `ENTER` and `ESC` keys.
+* Selected text within agent responses can now be copied via the `RIGHT-CLICK` menu.
+* [Windows/Linux] You can now toggle whether a block is selected using `CTRL+CLICK`.
+
+**Bug fixes**
+
+* Fixed an issue that caused agent mode blocks to be incorrectly highlighted when performing rectangular selection.
+* Fixed an issue where duplicate cloud preferences could be created during sync operations.
+* Fixed keyboard shortcut padding for prompt suggestions.
+* Fixed color contrast issues with light themes for the Pair & Dispatch chip in Prompt Editor.
+* Agent Mode will no longer default to Windows-style line endings when creating a new file on macOS or Linux.
+* PowerShell sessions will start even if the profile has a terminating error.
+* The numpad `ENTER` key now behaves like the `ENTER` key in Agent Mode.
+* [Mac] Fixed a scenario where Warp would beachball while updating.
+* [Windows] In WSL, show completions for symlinked files.
+* [Windows] Fixed completions with `.exe` suffixes.
+* [Windows] Fixed setting Git Bash custom shell paths.
+
 ### 2025.03.12 (v0.2025.03.12.08.02)
 
 **New features**

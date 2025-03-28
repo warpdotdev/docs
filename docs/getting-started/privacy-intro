@@ -16,15 +16,14 @@ Our philosophy is complete transparency and control over any data leaving your m
 * Monitor telemetry in real-time with Warp's native [Network Log](../features/network-log.md)
 * [Opt out](privacy.md#how-to-disable-telemetry-and-crash-reporting) of telemetry at any time
 
-
 ## What telemetry data does Warp collect and why?
 
 Warp collects high-level telemetry and usage data to discover product quality issues and guide feature prioritization.
 
 If you haven't opted out of "Help improve Warp", we may collect:
 
-1. High level product usage and analytics data to analyze feature uptake and usage patterns. See the [Exhaustive Telemetry Table](#exhaustive-telemetry-table) for the full list of tracked events below. These are all high level metrics and do not include any user generated content.
-2. AI interactions and console inputs that power our [AI features](../features//warp-ai/). Warp unconditionally applies [Secret Redaction](../features/secret-redaction.md) in all AI interactions to ensure that any sensitive data is *never* collected or sent to third parties.
+1. High level product usage and analytics data to analyze feature uptake and usage patterns. See the [Exhaustive Telemetry Table](privacy.md#exhaustive-telemetry-table) for the full list of tracked events below. These are all high level metrics and do not include any user generated content.
+2. AI interactions and console inputs that power our [AI features](../features/warp-ai/). Warp unconditionally applies [Secret Redaction](../features/secret-redaction.md) in all AI interactions to ensure that any sensitive data is _never_ collected or sent to third parties.
 
 All users can opt-out of this any time and still continue using all of Warp (including AI features).
 
@@ -36,7 +35,6 @@ Selling usage data will never be part of Warp's business model. This data is use
 
 You can read our [full privacy policy](https://www.warp.dev/privacy/policy) as well as [how Warp handles security](https://www.warp.dev/security).
 
-
 ### How to disable telemetry and crash reporting
 
 1. Navigate to `Settings > Privacy`, or open the [Command Palette](../features/command-palette.md) and search for "privacy"
@@ -46,16 +44,16 @@ You can read our [full privacy policy](https://www.warp.dev/privacy/policy) as w
 
 With telemetry disabled, no console interactions are ever persisted on Warp's servers. Each request contains a `X-Warp-Telemetry-Enabled` header to specify whether telemetry is disabled, and even if this is missing from the request, our server assumes it's disabled.
 
-### Delete your data
+### Delete your account and data
 
-Warp provides a convenient way for you to delete your data:
+Warp provides a convenient way for you to delete your account and data. Any active Warp subscriptions associated with the account will also be cancelled when deleted. You can delete your Warp account and data in the following ways:
 
 * From Warp, go to `Settings > Privacy > "Visit the data management page"`
   * Click the "Delete" button on the Data Management page to go through the data deletion flow.
-* From the [Data Management](https://app.warp.dev/data_management) page, log into your Warp account, and click the "Delete" button to go through the data deletion flow.
+* From the [Data Management](https://app.warp.dev/data_management) page, log into your Warp account, and click the "Delete" button to go through the data and account deletion flow.
 
 {% hint style="info" %}
-Deletion jobs run every 24 hours, so if you deleted your account and want to sign up again with the same email, you won't be able to do so until that deletion completes.
+Deletion jobs run every 24 hours, so if you deleted your account and want to sign up again with the same email, you won't be able to do so until that deletion job completes.
 {% endhint %}
 
 {% hint style="warning" %}
