@@ -22,22 +22,22 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 * Zero-state suggestions are no longer shown when using a saved Prompt or past AI query.
 * Tabs will not resize while hovered, making closing multiple tabs easier.
 * The warning dialog for closing sessions now responds to the `ENTER` and `ESC` keys.
-* Selected text within agent responses can now be copied via the `RIGHT-CLICK` menu.
-* [Windows/Linux] You can now toggle whether a block is selected using `CTRL+CLICK`.
+* Selected text within Agent responses can now be copied via the `RIGHT-CLICK` menu.
+* \[Windows/Linux] You can now toggle whether a block is selected using `CTRL+CLICK`.
 
 **Bug fixes**
 
-* Fixed an issue that caused agent mode blocks to be incorrectly highlighted when performing rectangular selection.
+* Fixed an issue that caused Agent mode blocks to be incorrectly highlighted when performing rectangular selection.
 * Fixed an issue where duplicate cloud preferences could be created during sync operations.
 * Fixed keyboard shortcut padding for prompt suggestions.
 * Fixed color contrast issues with light themes for the Pair & Dispatch chip in Prompt Editor.
 * Agent Mode will no longer default to Windows-style line endings when creating a new file on macOS or Linux.
 * PowerShell sessions will start even if the profile has a terminating error.
 * The numpad `ENTER` key now behaves like the `ENTER` key in Agent Mode.
-* [Mac] Fixed a scenario where Warp would beachball while updating.
-* [Windows] In WSL, show completions for symlinked files.
-* [Windows] Fixed completions with `.exe` suffixes.
-* [Windows] Fixed setting Git Bash custom shell paths.
+* \[Mac] Fixed a scenario where Warp would beachball while updating.
+* \[Windows] In WSL, show completions for symlinked files.
+* \[Windows] Fixed completions with `.exe` suffixes.
+* \[Windows] Fixed setting Git Bash custom shell paths.
 
 ### 2025.03.12 (v0.2025.03.12.08.02)
 
@@ -48,7 +48,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 **Improvements**
 
-* \[Windows] Significantly improved pseudoconsole throughput (~3x improvement).
+* \[Windows] Significantly improved pseudoconsole throughput (\~3x improvement).
 * The Agent Mode model will now automatically select the best model based on your specific task.
 * Ordered lists in Markdown now uses alphabetical or Roman numeral labels when nested.
 * \[Windows] We now search more locations for a PowerShell executable.

@@ -8,6 +8,10 @@ description: Quickly open links and files or run scripts with your mouse.
 
 Warp supports opening files, folders, and URL links that are within Blocks. Multiple URL protocols are supported e.g. `https`, `ftp`, `file`, etc. Warp can open files and folders in a variety of editors and opens web links directly in your default browser. Warp can also open markdown files directly with a [Markdown Viewer](markdown-viewer.md).
 
+{% hint style="info" %}
+Warp also supports iTerm2 and Kitty Image protocols on macOS and Linux. You will need to use a cli tool to view images, in some cases the tools expect `$TERM=kitty`, so you may need to workaround this by setting `TERM=kitty` before the command. We're working on updating the popular tools to recognize Warp natively.
+{% endhint %}
+
 Warp parses relative and absolute file paths. Warp also tries to capture line and column numbers attached to the file path, supported formats include:
 
 * `file_name:line_num`
