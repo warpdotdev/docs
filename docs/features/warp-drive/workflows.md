@@ -60,6 +60,14 @@ To create an enum type argument:
 Enum Creation Demo
 {% endembed %}
 
+### Working with aliases
+
+Workflow aliases allow you to create personalized shortcuts and custom configurations for your frequently used workflows. These aliases provide enhanced flexibility in how you use and configure workflows. Aliases are personal to your account, not shared with everyone who has the workflow. If settings sync is enabled, they'll be synced across devices logged in to your account. Aliases can set default values for each [argument](workflows.md#working-with-arguments), but don't have to. Aliases can have [Environmental Variables](environment-variables.md) associated with them.
+
+{% hint style="info" %}
+Workflow aliases are not compatible with [YAML Workflows](../entry/yaml-workflows.md). They can only be used with Workflows created in [Warp Drive](./).
+{% endhint %}
+
 ### Editing workflows
 
 Once a workflow has been created, you can edit it at any time, as long as you have access to an internet connection.
