@@ -65,6 +65,9 @@ If you're a [Team](../features/teams.md) admin, the deletion flow will require t
 | Event Name | Description |
 |---|---|
 | `AI Command Search opened` | Opened the modal for AI Command Search, where you can use natural language to search for commands |
+| `AI Suggested Rule Added` | Clicked the Add Suggested Rule button in the AI blocklist |
+| `AI Suggested Rule Content Changed` | Content changed by the user in the suggested rule dialog |
+| `AI Suggested Rule Edited` | Clicked the Edit Suggested Rule button in the AI blocklist |
 | `AIAutonomy.AutoexecutedRequestedCommand` | Autoexecuted an Agent Mode requested command |
 | `AIAutonomy.ChangedAgentModeCodingPermissions` | Changed Agent Mode permissions for coding tasks |
 | `AIAutonomy.ToggledAutoexecuteReadonlyCommandsSetting` | Toggled setting to autoexecute readonly Agent Mode requested commands |
@@ -86,6 +89,7 @@ If you're a [Team](../features/teams.md) admin, the deletion flow will require t
 | `AgentMode.ClickedEntrypoint` | Clicked on an Agent Mode entrypoint |
 | `AgentMode.Code.DiffHunksNavigated` | Agent Mode Code diff hunks navigated |
 | `AgentMode.Code.DiffMatchFailed` | Failed to match code diff |
+| `AgentMode.Code.FileExceededContextLimit` | File from AI exceeded context limit |
 | `AgentMode.Code.FilesNavigated` | Agent Mode Code files navigated |
 | `AgentMode.Code.InvalidFile` | File(s) in code diff could not be found |
 | `AgentMode.Code.SuggestedCodeEditedByUser` | Agent Mode Code suggestion edited by user |
@@ -97,6 +101,7 @@ If you're a [Team](../features/teams.md) admin, the deletion flow will require t
 | `AgentMode.PotentialAutoDetectionFalsePositive` | Manually toggled input to shell mode after input was auto-detected as natural language. |
 | `AgentMode.QueryAttemptAtLImit` | Tried to send an Agent Mode query but they already reached the query limit |
 | `AgentMode.RatedResponse` | User rated an Agent Mode response |
+| `AgentMode.ResponseWarning` | Encountered one or more non-blocking errors when parsing GenerateAIAgentOutput |
 | `AgentMode.SurfacedCitations` | Agent mode used and cited external sources that were used in its response |
 | `AgentMode.ToggleAutoDetectionSetting` | Toggled the setting that enables or disables natural language auto-detection in the input.  |
 | `AgentMode.ToggledAskFollowUp` | Toggled 'ask followup' on Agent Mode query |
@@ -305,6 +310,8 @@ If you're a [Team](../features/teams.md) admin, the deletion flow will require t
 | `Sign Up Button Clicked in App` | Clicked "Sign Up" button |
 | `Skip Onboarding Survey` | Skipped onboarding survey as a whole |
 | `Split Pane` | Split tab into multiple panes |
+| `Static Prompt Suggestion Accepted` | Static Prompt Suggestion accepted |
+| `Static Prompt Suggestions Banner Shown` | Static Prompt Suggestions banner shown |
 | `Tab Creation` | Created a tab |
 | `Tab Operations` | Took operation on a tab: change color, close tab, close adjacent tabs, etc. |
 | `Tab Renamed` | Changed tab title |
