@@ -17,12 +17,20 @@ For security-related issues or questions, please email [security@warp.dev](mailt
 
 <figure><img src="../.gitbook/assets/send-feedback-demo.gif" alt="sending feedback from the mac menu and warp essentials"><figcaption><p>Send Feedback</p></figcaption></figure>
 
+### Preview-Specific Feedback
+
+If you're using [Warp Preview](../getting-started/warp-preview-and-alpha-program.md), please share your feedback in our [Warp Community Slack](https://join.slack.com/t/warpcommunity/shared_invite/zt-331ddp5ci-o8uP~K0A~OpSLrGz~87ucg) instead of GitHub issues. This helps us better track and respond to Preview-specific feedback.
+
+{% hint style="info" %}
+Note: If the link doesn't work, reach out to us at [preview@warp.dev](mailto:preview@warp.dev) and we'll add you directly.
+{% endhint %}
+
 ## Gathering Warp Logs
 
 In some cases, we may also ask for your Warp logs. You can retrieve them by following the instructions for your platform below. Locate the log file and attach it to your GitHub issue comment, feedback email, or discord message.
 
 {% hint style="info" %}
-Warp’s logs and crash reports do _not_ contain any console input or output. See more on how we handle [Crash Reports and Telemetry](../getting-started/privacy.md#what-telemetry-data-are-you-collecting-and-why).
+Warp's logs and crash reports do _not_ contain any console input or output. See more on how we handle [Crash Reports and Telemetry](../getting-started/privacy.md#what-telemetry-data-are-you-collecting-and-why).
 {% endhint %}
 
 {% tabs %}

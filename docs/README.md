@@ -7,8 +7,6 @@ description: >-
 
 # Quickstart Guide
 
-
-
 {% hint style="info" %}
 **Platform support:** Warp is supported on macOS (Intel and Mac Silicon), Windows (x86\_64 and ARM64), and Linux (x86\_64 and ARM64)
 {% endhint %}
@@ -178,6 +176,10 @@ If you installed a package, find Warp in your desktop manager or run `warp-termi
 {% endtab %}
 {% endtabs %}
 
+{% hint style="info" %}
+Want to try our newest features? [Warp Preview](getting-started/warp-preview-and-alpha-program.md) is available on all platforms and architectures (macOS, Windows, Linux) for early access to experimental features.
+{% endhint %}
+
 ## Initial Setup
 
 ### Log in to Warp (Optional)
@@ -190,7 +192,7 @@ If you sign up using Google or GitHub, Warp only gets access to the associated e
 
 ### Onboarding Survey (Optional)
 
-Warp will ask a few questions within the app after you sign up. The survey is optional. You can skip all questions if you’d like. Why do we ask these? Understanding how you use the terminal helps us improve the product and prioritize the right features to build.
+Warp will ask a few questions within the app after you sign up. The survey is optional. You can skip all questions if you'd like. Why do we ask these? Understanding how you use the terminal helps us improve the product and prioritize the right features to build.
 
 ### Use Warp offline
 
@@ -224,7 +226,7 @@ Navigate to `Settings > Appearance` to customize your setup.
 
 There are a number of behavior settings and features that will help you customize your terminal to best suit your needs:
 
-* [Dedicated window](https://docs.warp.dev/features/windows/global-hotkey#dedicated-window): Dedicated hotkey window (also known as Quake Mode) allows you to customize your window’s position, width, and height ratio relative to your active screen size.
+* [Dedicated window](https://docs.warp.dev/features/windows/global-hotkey#dedicated-window): Dedicated hotkey window (also known as Quake Mode) allows you to customize your window's position, width, and height ratio relative to your active screen size.
 * [Tabs](features/windows/tabs.md): Organize your windows into multiple terminal sessions, and customize them with different titles and/or colors.
 * [Split panes](https://docs.warp.dev/features/windows/split-panes): Divide any tab into multiple panels, side-by-side or stacked.
 

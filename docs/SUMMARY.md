@@ -8,6 +8,7 @@
 * [Using Warp with \[zsh|bash|fish|pwsh\]](getting-started/using-warp-with-shells.md)
 * [Privacy](getting-started/privacy.md)
 * [Refer a Friend & Earn Rewards](getting-started/refer-a-friend.md)
+* [Warp Preview & Alpha Program](getting-started/warp-preview-and-alpha-program.md)
 * [Changelog](getting-started/changelog.md)
 
 ## 🎨 Appearance

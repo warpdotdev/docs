@@ -26,6 +26,10 @@ You can log out of Warp through:
 
 Removing Warp from your computer involves uninstalling Warp and then removing any files or data.
 
+{% hint style="info" %}
+If you're using Warp Preview, replace "Warp-Stable" with "Warp-Preview" in the commands below (e.g., `defaults delete dev.warp.Warp-Preview`).
+{% endhint %}
+
 {% tabs %}
 {% tab title="macOS" %}
 **Uninstalling Warp by dmg**
@@ -49,12 +53,24 @@ sudo rm -r "$HOME/Library/Application Support/dev.warp.Warp-Stable"
 # Remove Warp user files, themes, and launch configurations
 sudo rm -r $HOME/.warp
 ```
+
+**For Warp Preview users:**
+
+```bash
+# Remove Warp Preview settings defaults
+defaults delete dev.warp.Warp-Preview
+# Remove Warp Preview logs
+sudo rm -r $HOME/Library/Logs/warp_preview.log
+# Remove Warp Preview database
+sudo rm -r "$HOME/Library/Application Support/dev.warp.Warp-Preview"
+# Note: Removing $HOME/.warp will delete files for both Preview and Stable versions. If you wish to delete it all, then: sudo rm -r $HOME/.warp
+```
 {% endtab %}
 
 {% tab title="Windows" %}
 **Uninstalling Warp installed by Installer**
 
-* Search for "Installed apps” section of the Control Panel.
+* Search for "Installed apps" section of the Control Panel.
 * Search for and Uninstall the Warp application
 
 **Removing Warp settings, files, logs, and database**
@@ -66,6 +82,17 @@ Remove-Item -Path "HKCU:\Software\Warp.dev\Warp" -Recurse -Force
 Remove-Item -Path "$env:LOCALAPPDATA\warp\Warp" -Recurse -Force
 # Remove themes and launch configurations
 Remove-Item -Path "$env:APPDATA\warp\Warp" -Recurse -Force
+```
+
+**For Warp Preview users:**
+
+```powershell
+# Remove Warp Preview settings in the Windows Registry
+Remove-Item -Path "HKCU:\Software\Warp.dev\Warp-Preview" -Recurse -Force
+# Remove Warp Preview user files, logs, cache, and database from LOCALAPPDATA
+Remove-Item -Path "$env:LOCALAPPDATA\warp\Warp-Preview" -Recurse -Force
+# Remove Warp Preview themes and launch configurations
+Remove-Item -Path "$env:APPDATA\warp\Warp-Preview" -Recurse -Force
 ```
 {% endtab %}
 
@@ -94,6 +121,30 @@ rm -r ${XDG_CONFIG_HOME:-$HOME/.config}/warp-terminal
 rm -r ${XDG_STATE_HOME:-$HOME/.local/state}/warp-terminal
 # Remove Warp themes and launch configurations
 rm -r ${XDG_STATE_HOME:-$HOME/.local/share}/warp-terminal
+```
+
+**For Warp Preview users:**
+
+```bash
+# apt uninstall
+sudo apt remove warp-terminal-preview
+# dnf uninstall
+sudo dnf remove warp-terminal-preview
+# zypper uninstall
+sudo zypper remove warp-terminal-preview
+# pacman uninstall
+sudo pacman -R warp-terminal-preview
+```
+
+* Uninstall Warp Preview using the same package manager that you used to install it.
+
+```bash
+# Remove Warp Preview settings files
+rm -r ${XDG_CONFIG_HOME:-$HOME/.config}/warp-terminal-preview
+# Remove Warp Preview user files, logs, and database
+rm -r ${XDG_STATE_HOME:-$HOME/.local/state}/warp-terminal-preview
+# Remove Warp Preview themes and launch configurations
+rm -r ${XDG_STATE_HOME:-$HOME/.local/share}/warp-terminal-preview
 ```
 {% endtab %}
 {% endtabs %}
