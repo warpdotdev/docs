@@ -10,22 +10,27 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 ### 2025.04.02 (v0.2025.04.02.08.11)
 
+**New features**
+
+* Get early access to unreleased and experimental features with [Warp Preview](warp-preview-and-alpha-program.md).
+
 **Improvements**
 
 * Improved login item management to respect when users manually remove Warp from login items in System Preferences.
 * The input editor now supports `CMD-SHIFT-UP/DOWN` on macOS or `CTRL-SHIFT-HOME/END` on Windows/ to move and select to the top/bottom of the text buffer.
-* [Windows] Added “Open Warp in new tab / window” item for folders in the File Explorer context menu under “Show more options”.
 * Removed 3-hour conversation timeout, allowing AI conversations to remain active indefinitely.
 * Show a small popup when users who are at AI limits have their quota reset.
 * Display a notification when AI request quota resets after hitting the limit in the previous billing cycle.
+* \[Windows] Added “Open Warp in new tab / window” item for folders in the File Explorer context menu under “Show more options”.
 
 **Bug fixes**
 
-* Minor fixes for iTerm and Kitty images
-* [Linux] Window corners are correctly rounded with themes having background images.
+* Minor fixes for iTerm and Kitty images.
 * Fixed regression related to using keyboard shortcuts to navigate a command an empty split pane.
 * Fixed some issues with Agent Mode failing to read files.
 * Click targets in scroll views should more reliably click while moving the mouse.
+* \[Linux] Window corners are correctly rounded with themes having background images.
+* Fix a few common failure modes for Agent Mode response deserialization errors.
 
 ### 2025.03.26 (v0.2025.03.26.08.10)
 
