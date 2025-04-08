@@ -89,28 +89,24 @@ The `cwd:` value in the yaml code must contain an absolute path or `""`. Note th
 
 ### Windows
 
-Here's a sample configuration that shows how windows are structured in launch configuration files.
+Sample configuration that shows how windows are structured in launch configuration files.
 
 ```yaml
 # Warp Launch Configuration
 #
-#
-# Use this to start a certain configuration of windows, tabs, and panes.
-# Open the launch configuration palette with ctrl-cmd-L to access 
-# and open any launch configuration.
-#
-# This configuration has two windows, each with one tab in different starting directories.
+# This configuration has two windows, 
+# each with one tab in different starting directories.
 
 ---
-name: Example Configuration With Two Windows
+name: Example Windows
 windows:
   - tabs:
-      - title: documents
+      - title: Documents
         layout:
           cwd: /Users/warp-user/Documents
         color: blue
   - tabs:
-      - title: warp user
+      - title: Warp User
         layout:
           cwd: /Users/warp-user
         color: green
@@ -134,14 +130,14 @@ Here's a sample configuration that shows how tabs are structured in launch confi
 # This configuration has two tabs in the same window.
 
 ---
-name: Example Configuration With Two Tabs
+name: Example Tabs
 windows:
   - tabs:
-      - title: documents 
+      - title: Documents 
         layout:
           cwd: /Users/warp-user/Documents
         color: blue
-      - title: warp user
+      - title: Warp User
         layout:
           cwd: /Users/warp-user
         color: green
@@ -154,16 +150,16 @@ Launch Configurations support setting split panes in each tab. Note that Warp al
 ```yaml
 # Warp Launch Configuration
 #
-# This configuration is two windows, each with split panes.
+# This configuration is two windows, each with split panes. 
 # The first window contains a vertically split tab with two panes.
 # The second window contains a horizontally split tab, 
 # with a vertically split tab on the right.
 
 ---
-name: Example Configuration With Split Panes
+name: Example Panes
 windows:
   - tabs:
-      - title: downloads and warp user
+      - title: Downloads and Warp User
         layout:
           split_direction: vertical
           panes:
@@ -171,7 +167,7 @@ windows:
             - cwd: /Users/warp-user
         color: blue
   - tabs:
-      - title: desktop, documents, and warp user
+      - title: Desktop, Documents, and Warp User
         layout:
           split_direction: horizontal
           panes:
@@ -181,6 +177,45 @@ windows:
                 - cwd: /Users/warp-user/Documents
                 - cwd: /Users/warp-user
         color: green
+```
+
+### Active and Focus
+
+Sample configuration that shows how a Window and Tab can be activated with a session in focus.
+
+* Use the `active_window_index` and `active_tab_index`fields to set your active Window and Tab.
+* Use the `is_focused` field to set which Pane is focused in each tab.
+
+{% hint style="warning" %}
+Not that when you use  `- active_tab_index:`  the `tabs:` field doesn't need the `-` prefix, as this can cause syntax issues.
+{% endhint %}
+
+```yaml
+# Warp Launch Configuration
+#
+# This configurations has two tabs, with the second tab active.
+# Two vertical split panes in the first tab and the top pane focused.
+# Two horizontal split panes in the second tab and the right pane focused.
+---
+name: Example Active and Focus
+active_window_index: 0
+windows:
+  - active_tab_index: 1
+    tabs:
+      - title: Tab 1
+        layout:
+          split_direction: vertical
+          panes:
+            - cwd: /Users/warp-user/Documents
+              is_focused: true
+            - cwd: /Users/warp-user/Documents/Projects
+      - title: Tab 2
+        layout:
+          split_direction: horizontal
+          panes:
+            - cwd: /Users/warp-user/Downloads
+            - cwd: /Users/warp-user
+              is_focused: true
 ```
 
 ### Commands
@@ -194,15 +229,15 @@ You may need to use double quotes for commands with special characters. Commands
 ```yaml
 # Warp Launch Configuration
 #
-# This configuration has two windows.
-# The first window executes two commands on start.
-# The second window has a split pane that executes a command on start.
+# This configuration has two windows,
+# the first window executes two commands on start,
+# the second window has a split pane that executes a command on start.
 
 ---
-name: Example Configuration With Starting Commands
+name: Example Commands
 windows:
   - tabs:
-      - title: documents
+      - title: Documents
         layout:
           cwd: /Users/warp-user/Documents
           commands:
@@ -210,7 +245,7 @@ windows:
             - exec: code .
         color: blue
   - tabs:
-      - title: downloads
+      - title: Downloads
         layout:
           split_direction: vertical
           panes:
