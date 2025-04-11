@@ -93,6 +93,7 @@ The following LLMs are currently supported in Warp:
   * 3.5 Haiku
 * **Google**:
   * Gemini 2.0 Flash
+  * Gemini 2.5 Pro
 * **DeepSeek** (hosted by [Fireworks AI](https://fireworks.ai/) in the US):
   * R1
   * V3
