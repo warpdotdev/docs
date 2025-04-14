@@ -8,6 +8,27 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2025.04.09 (v0.2025.04.09.08.11)
+
+**New features**
+
+* Recommended AI prompts are shown in new tabs, go to Settings > Features to disable.
+
+**Improvements**
+
+* Agent Mode is now better at searching for exact function / symbol / etc. names in your code.
+* Fix text selection for environment variable blocks.
+* You can now attach select text in a code block as the Agent Mode context.
+* Warp now supports marked text in the IME (non-English keyboards).
+* Make text selectable for non-expandable command outputs (ex. failed agent tasks).
+* Zero-state chips are no longer shown when entering AI input with a non-empty input buffer.
+
+**Bug fixes**
+
+* Fixed a bug that prevented copying of selected text of a code block when Agent Mode is enabled.
+* Fixed a bug that allows a selection in the code block and a selection on the text simultaneously.
+* \[Mac] Fixed shells installed via Homebrew not appearing in the list of available shells.
+
 ### 2025.04.02 (v0.2025.04.02.08.11)
 
 **New features**
