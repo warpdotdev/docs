@@ -1,7 +1,8 @@
 ---
 description: >-
-  The Command Search panel allows you to search across Command History, Workflows, Environment Variables, Notebooks, Prompts, and Agent Mode history simultaneously. Warp supports fuzzy search
-  and tries to rank more relevant results.
+  The Command Search panel allows you to search across Command History,
+  Workflows, Environment Variables, Notebooks, Prompts, and Agent Mode history
+  simultaneously. Warp supports fuzzy search and tries
 ---
 
 # Command Search
@@ -21,31 +22,32 @@ Tailor your Command Search experience by toggling off "Show Global Workflows" in
 ## Search Results
 
 The Command Search panel searches across:
-- Command History
-- Workflows
-- Notebooks
-- AI Command Suggestions from Generate
+
+* Command History
+* Workflows
+* Notebooks
+* AI Command Suggestions from Generate
 
 ### Result Icons
 
-- $\_ Dollar Sign-Underscore: [Workflow](yaml-workflows.md)
-- <img src="../../.gitbook/assets/history.png" alt="rewind time clock" data-size="line"> Rewind Time Clock: [Command History](command-history.md)
-- <img src="../../.gitbook/assets/notebook.png" alt="earmarked page" data-size="line"> Earmarked Page: [Notebook](../warp-drive/notebooks.md)
-- ✨ Sparkle: Piping search query into [Generate](Generate.md)
+* $\_ Dollar Sign-Underscore: [Workflow](yaml-workflows.md)
+* <img src="../../.gitbook/assets/history.png" alt="rewind time clock" data-size="line"> Rewind Time Clock: [Command History](command-history.md)
+* <img src="../../.gitbook/assets/notebook.png" alt="earmarked page" data-size="line"> Earmarked Page: [Notebook](../warp-drive/notebooks.md)
+* ✨ Sparkle: Piping search query into [Generate](Generate.md)
 
 ## Search Filters
 
 You can filter your search results by prepending your search term with any of the following:
 
-| Filter | Shortcuts |
-|--------|-----------|
-| Workflows | `workflows:`, `w:`, or `W-TAB` |
-| Notebooks | `notebooks:`, `n:`, or `N-TAB` |
-| Command History | `history:`, `h:`, or `H-TAB` |
-| Environment Variables | `env_vars:`, `e:`, or `E-TAB` |
-| Prompts | `prompts:`, `p:`, or `P-TAB` |
-| Agent Mode History | `ai_history:`, `a:`, or `A-TAB` |
-| Generate | `#:` |
+| Filter                | Shortcuts                       |
+| --------------------- | ------------------------------- |
+| Workflows             | `workflows:`, `w:`, or `W-TAB`  |
+| Notebooks             | `notebooks:`, `n:`, or `N-TAB`  |
+| Command History       | `history:`, `h:`, or `H-TAB`    |
+| Environment Variables | `env_vars:`, `e:`, or `E-TAB`   |
+| Prompts               | `prompts:`, `p:`, or `P-TAB`    |
+| Agent Mode History    | `ai_history:`, `a:`, or `A-TAB` |
+| Generate              | `#:`                            |
 
 {% hint style="info" %}
 When a filter is activated, it will be bolded and italicized in the search panel.
@@ -53,8 +55,8 @@ When a filter is activated, it will be bolded and italicized in the search panel
 
 ## Additional Features
 
-- You can expand the menu horizontally by dragging the right edge
-- The panel supports fuzzy search and ranks results by relevance
+* You can expand the menu horizontally by dragging the right edge
+* The panel supports fuzzy search and ranks results by relevance
 
 ## How it works
 
