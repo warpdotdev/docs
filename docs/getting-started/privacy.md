@@ -335,12 +335,12 @@ If you're a [Team](../features/teams.md) admin, the deletion flow will require t
 | `Toggle Global AI Enablement` | Toggled global AI enablement. |
 | `Toggle Intelligent Autosuggestions Setting` | Toggled on/off the intelligent autosuggestions setting |
 | `Toggle Jump to Bottom of Block Button` | Enabled or disabled the Jump to Bottom of Block Button |
-| `Toggle Legacy SSH Wrapper` | Changed the setting for SSH sessions to use legacy wrapper |
 | `Toggle Ligature Rendering` | Toggled ligature rendering |
 | `Toggle New Windows at Custom Size` | Whether the new windows at custom size feature has been toggled |
 | `Toggle Obfuscate Secret` | Revealed or hid a secret |
 | `Toggle Restore Session` | Toggled session restoration ("Restore windows, tabs, panes, on startup") |
 | `Toggle SSH Tmux Wrapper` | Changed the setting for SSH sessions to prompt for Tmux Wrapper |
+| `Toggle SSH Warpification` | Changed the setting for SSH sessions to be warified |
 | `Toggle Same Line Prompt` | Toggled same line prompt |
 | `Toggle Secret Redaction` | Toggled the setting for Secret Redaction - attempts to redact secrets and sensitive information |
 | `Toggle Settings Sync` | User toggled Settings Sync |

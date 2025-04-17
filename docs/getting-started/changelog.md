@@ -8,6 +8,24 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2025.04.16 (v0.2025.04.16.08.11)
+
+**Improvements**
+
+* After editing a code diff, you will now be returned to your original Agent Mode conversation.
+* Commands with certain invalid arguments will no longer be suggested, such as file paths, git branches, and docker images.
+* [Windows/Linux] You can now open launch configurations in the current window with `SHIFT-ENTER` or `CTRL-ENTER` on the Command Palette.
+* Added more default regexes for Secret Redaction, pertaining to AI API keys.
+* Typing `ESC` in the terminal input editor now clears any Autosuggestions.
+
+**Bug Fixes**
+
+* Fixed issue with rendering performance for file links in AI output.
+* Fixed an issue that causes Warp to crash when Agent Mode outputs broken links.
+* New tab page no longer falls back to email if display name is not set.
+* Fixed prompt chips not being clickable in new session with prompt pinned to top.
+* Agent Mode now properly greps for queries containing double quotes.
+
 ### 2025.04.09 (v0.2025.04.09.08.11)
 
 **New features**
