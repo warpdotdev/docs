@@ -99,6 +99,23 @@ Tokens are chunks of text, such as words, parts of code, or characters, that lar
 \
 Please learn more about Tokens [here](https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them) and refer to [pricing](https://www.warp.dev/pricing) for the current monthly token limits on each plan.
 
+### What is Lite?
+
+**Lite** is our basic, non-premium AI model designed to provide uninterrupted access to core AI features in two scenarios:
+
+* **As a fallback**: When you hit your monthly Turbo token or AI request limits, Warp automatically switches to Lite. You can continue using AI at no additional cost, just with a more limited model.
+* **As a standalone option**: You can manually switch to Lite before reaching your limits. In this case, usage will still count toward your monthly token and request quotas — but once you hit those limits, Lite becomes available for unlimited use.
+
+Currently, Lite uses DeepSeek V3 under the hood, but this may change over time as we evaluate different models. While performance and capabilities may vary compared to premium models, it allows you to continue using AI features without full interruption.
+
+Note: Each query still counts as an AI request and contributes to your monthly usage, but using Lite won't incur any additional charges to your plan.
+
+### What happens when I exceed my token or request limits on Turbo?
+
+If you exceed your monthly token or AI request limit on the Turbo plan (see [pricing](https://www.warp.dev/pricing) for current limits), Warp will automatically disable access to premium models and switch you to Lite.
+
+You’ll still be able to use AI with no added cost — just through a more lightweight, basic model — until your quota resets at the start of your next billing cycle.
+
 ### How often does my Warp AI request, token, and suggestion limits reset?
 
 Allotted AI requests and command suggestions limits reset every 30 days from your signup date. When you upgrade to a Pro or Turbo plan, you will be given a higher request limit immediately. You can follow along with your refill period by referencing the counter under Settings -> AI.

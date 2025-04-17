@@ -457,13 +457,27 @@ For more FAQs about pricing, visit [Plans, Subscriptions, and Pricing](../../hel
 
 ### Exceeding Agent Mode token limits
 
-#### **“Message token limit exceeded” error**
+#### **What is Lite?**
 
-If you run into this error, it means that your query and attached context have collectively hit the context window limit on the models we are using. On GPT-4o, Warp AI cannot send more than 123,904 tokens in a single request, or you may not get output. To resolve this error, we recommend you start a new conversation or attach fewer lines of blocks to the query.
+**Lite** is our basic AI model that serves two purposes:
+* **Fallback model**: If you hit your Turbo token or AI request limits, Warp automatically switches to Lite so you can keep using AI without interruption — at no additional cost.
+* **Standalone option**: You can also choose to use Lite before hitting your limits. In that case, usage will still count toward your monthly token and request limits — but once those limits are reached, Lite remains available with unlimited usage.
 
-#### **“Monthly token limit exceeded” error**
+Lite is more token-efficient than other premium models and supports core AI workflows. Learn more in [What is Lite?](../../help/plans-subscriptions-and-pricing.md#what-is-lite) in our pricing documentation for more details.
 
-Warp has set an extremely high token limit on users to prevent abuse. We do not anticipate any user hitting this limit. If you hit this limit and are interested in getting it lifted, please contact us with your use case at [feedback@warp.dev](mailto:feedback@warp.dev)
+#### **"Message token limit exceeded" error**
+
+This error means your input (plus attached context) exceeds the maximum context window of the model you're using. For example, GPT-4o has a context window limit of 123,904 tokens. If you exceed that, you may receive no output.
+
+To fix this, try:
+* Starting a new conversation
+* Reducing the number of blocks or lines attached to your query
+
+#### **"Monthly token limit exceeded" error**
+
+Once you exceed your monthly token limit or AI requests on the Turbo plan (see [pricing](https://www.warp.dev/pricing) for current limits), premium models will be disabled, and Warp will automatically switch you to Lite. This allows you to continue using AI features with a more token-efficient model until your quota resets at the start of your next billing cycle.
+
+If you have questions or need extended access, feel free to reach out to us at [feedback@warp.dev](mailto:feedback@warp.dev).
 
 ### Agent Mode FAQs
 
