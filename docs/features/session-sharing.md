@@ -12,12 +12,11 @@ This action sends command information to Warp’s servers and is explicitly opt-
 
 ### Share a session
 
-Users will find a Share button in the Warp top-bar navigation.
-
 To start sharing:
 
-1. Click Share
-2. Select the option to share a current session or start a new session
+1. From the [Command Palette](command-palette.md), search for and select "Share New Session" or "Share Current Session".
+2. From the Pane header overflow menu, select "Start Session sharing"
+3. From the `RIGHT-CLICK` context menu, select "Share session..."
 
 #### How to control a starting point for sharing
 
