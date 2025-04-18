@@ -86,7 +86,10 @@ The following LLMs are currently supported in Warp:
 
 * **OpenAI**:
   * GPT-4o
+  * GPT 4.1
   * o3-mini
+  * o3
+  * o4-mini
 * **Claude**:
   * 3.7 Sonnet
   * 3.5 Sonnet
