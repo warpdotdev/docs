@@ -10,11 +10,11 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 ### 2025.04.16 (v0.2025.04.16.08.11)
 
-**Improvements**
+**New features**
 
 * After editing a code diff, you will now be returned to your original Agent Mode conversation.
 * Commands with certain invalid arguments will no longer be suggested, such as file paths, git branches, and docker images.
-* [Windows/Linux] You can now open launch configurations in the current window with `SHIFT-ENTER` or `CTRL-ENTER` on the Command Palette.
+* \[Windows/Linux] You can now open launch configurations in the current window with `SHIFT-ENTER` or `CTRL-ENTER` on the Command Palette.
 * Added more default regexes for Secret Redaction, pertaining to AI API keys.
 * Typing `ESC` in the terminal input editor now clears any Autosuggestions.
 
