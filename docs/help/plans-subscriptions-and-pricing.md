@@ -106,7 +106,7 @@ Please learn more about Tokens [here](https://help.openai.com/en/articles/493685
 * **As a fallback**: When you hit your monthly Turbo token or AI request limits, Warp automatically switches to Lite. You can continue using AI at no additional cost, just with a more limited model.
 * **As a standalone option**: You can manually switch to Lite before reaching your limits. In this case, usage will still count toward your monthly token and request quotas — but once you hit those limits, Lite becomes available for unlimited use.
 
-Currently, Lite uses DeepSeek V3 under the hood, but this may change over time as we evaluate different models. While performance and capabilities may vary compared to premium models, it allows you to continue using AI features without full interruption.
+Currently, Lite uses Gemini 2.0 Flash under the hood, but this may change over time as we evaluate different models. While performance and capabilities may vary compared to premium models, it allows you to continue using AI features without full interruption.
 
 Note: Each query still counts as an AI request and contributes to your monthly usage, but using Lite won't incur any additional charges to your plan.
 
