@@ -75,7 +75,6 @@ If you're a [Team](../features/teams.md) admin, the deletion flow will require t
 | `AIDispatch.EnteredDispatch` | Switched to Agent Mode's Dispatch mode |
 | `AIDispatch.RefinedPlan` | Refined a suggested Dispatch plan |
 | `AIDispatch.SuggestCreatePlanResult` | User accepted or rejected the suggestion to create a Dispatch plan |
-| `AIMemory Updated Chip Clicked` | Clicked the AIMemory Updated chip in the AI blocklist |
 | `Add Added Subshell Command` | Added a command to be automatically Warpified via Warp's subshell wrapper |
 | `Add Denylisted SSH Tmux Wrapper Host` | Added a SSH host to the denylist for prompting for Tmux Wrapper |
 | `Add Denylisted Subshell Command` | Explicitly prevent a command from being Warpified via Warp's subshell wrapper |
@@ -95,8 +94,13 @@ If you're a [Team](../features/teams.md) admin, the deletion flow will require t
 | `AgentMode.Code.SuggestedCodeEditedByUser` | Agent Mode Code suggestion edited by user |
 | `AgentMode.Code.SuggestedEditResolved` | Agent Mode pending code edit suggestion resolved |
 | `AgentMode.CreatedAIBlock` | Created an AI block in agent mode |
+| `AgentMode.Error` | Received an error when getting Agent Mode response |
 | `AgentMode.ExecutedWarpDrivePrompt` | Executed a saved prompt. |
 | `AgentMode.FailedToDeserializeResponse` | Failed to deserialize GenerateAIAgentOutput response |
+| `AgentMode.FileGlob.Failed` | The file glob tool failed to complete |
+| `AgentMode.FileGlob.Succeeded` | The file glob tool completed successfully |
+| `AgentMode.Grep.Failed` | The grep tool failed to complete |
+| `AgentMode.Grep.Succeeded` | The grep tool completed successfully |
 | `AgentMode.OpenedCitation` | Opened a citation that was surfaced in agent mode |
 | `AgentMode.PotentialAutoDetectionFalsePositive` | Manually toggled input to shell mode after input was auto-detected as natural language. |
 | `AgentMode.QueryAttemptAtLImit` | Tried to send an Agent Mode query but they already reached the query limit |

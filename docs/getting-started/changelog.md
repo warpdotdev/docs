@@ -8,6 +8,23 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2025.04.23 (v0.2025.04.23.08.11)
+
+**Improvements**
+
+* Restored Agent Mode conversations can now be continued.
+* Agent Mode now has access to a filepath search tool for coding tasks.
+* Improved the reliability and positioning of suggestion dialogs for rules and Agent Mode workflows.
+* We reworked the command palette search to make it more useful.
+
+**Bug Fixes**
+
+* Fix XML parse errors complaining that a "thought" cannot be empty.
+* [Windows] Fixed an issue where Agent Mode would fail to search when in WSL or Git Bash.
+* Show "copy" button and other text selection tools when right clicking selected environment variable text.
+* Fixed old shortcuts icon appearing in new tab page, if recommended AI prompts are disabled.
+* Fish commands containing syntax errors now correctly "finish" the block.
+
 ### 2025.04.16 (v0.2025.04.16.08.11)
 
 **New features**
