@@ -41,3 +41,7 @@ Here is a list of the default regular expressions that Warp uses to identify sec
 | Heroku API Key                            | `\b[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}\b`         |
 | Stripe Key                                | `\b(?:r\|s)k_(test\|live)_[0-9a-zA-Z]{24}\b`                                              |
 | Firebase Auth Domain                      | `\b([a-z0-9-]){1,30}(\.firebaseapp\.com)\b`                                               |
+| JSON web token                            | `\b(ey[a-zA-z0-9_\-=]{10,}\.){2}[a-zA-z0-9_\-=]{10,}\b`                               |
+| OpenAI API Key                            | `\bsk-[a-zA-Z0-9]{48}\b`                               |
+| Anthropic API Key                         | `\bsk-ant-api\d{0,2}-[a-zA-Z0-9\-]{80,120}\b`                               |
+| Fireworks API Key                         | `\bfw_[a-zA-Z0-9]{24}\b`                               |
