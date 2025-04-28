@@ -26,6 +26,8 @@ To subscribe to a paid Warp plan like Pro or Turbo, you must first [create a Tea
 
 Warp offers an Enterprise plan with custom pricing for larger engineering organizations or businesses with advanced security and compliance requirements. If you are interested in learning whether an Enterprise plan might be the best fit for your team, please [contact us](https://www.warp.dev/contact-sales) to kick off a conversation.
 
+###
+
 ### How can I upgrade for more Warp AI requests, command suggestions, and tokens?
 
 Both Warp’s Pro and Turbo plans include higher limits for Warp AI requests, command suggestions, and tokens than what’s currently available on the Warp Free plan. Even if you are working alone and not ready to invite additional team members for collaboration, you will need to [create a Team](../features/teams.md#creating-a-team) in Warp to upgrade to the paid Warp plan, which unlocks access to higher AI limits. Any usage will transfer over when you upgrade plans.
@@ -60,6 +62,10 @@ Additionally, Turbo teams with three or more members will receive a 30% discount
 Individual users with either personal or work email domains may continue to use Warp independently without incurring billing. The benefit of joining together on a Warp Team is that you get access to a shared Team Drive and collaboration features.
 
 When you’re ready to use Warp more collaboratively, we suggest you nominate an Admin to [create a Team](https://docs.warp.dev/features/teams) and invite members to join. When your Team exceeds the Warp Drive limits, you will be prompted to upgrade to a Turbo plan.
+
+### How does usage work if logged into the same account on multiple devices?
+
+When you use the account to sign into Warp on different devices, for example Linux on one computer and Windows on another, your usage of metered features like AI Requests is tracked at the account level, not the device level. You can use your Warp account on multiple personal computers. Warp is designed to provide a consistent experience across devices. When you log in with the same account on different computers, your settings and preferences can be synced through the [Settings Sync](https://docs.warp.dev/features/settings-sync) feature.
 
 ### What happens when I downgrade during a billing cycle?
 
