@@ -26,8 +26,6 @@ To subscribe to a paid Warp plan like Pro or Turbo, you must first [create a Tea
 
 Warp offers an Enterprise plan with custom pricing for larger engineering organizations or businesses with advanced security and compliance requirements. If you are interested in learning whether an Enterprise plan might be the best fit for your team, please [contact us](https://www.warp.dev/contact-sales) to kick off a conversation.
 
-###
-
 ### How can I upgrade for more Warp AI requests, command suggestions, and tokens?
 
 Both Warp’s Pro and Turbo plans include higher limits for Warp AI requests, command suggestions, and tokens than what’s currently available on the Warp Free plan. Even if you are working alone and not ready to invite additional team members for collaboration, you will need to [create a Team](../features/teams.md#creating-a-team) in Warp to upgrade to the paid Warp plan, which unlocks access to higher AI limits. Any usage will transfer over when you upgrade plans.
