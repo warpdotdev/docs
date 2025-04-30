@@ -463,13 +463,13 @@ For more FAQs about pricing, visit [Plans, Subscriptions, and Pricing](../../hel
 * You cannot continue any conversation that’s before an existing conversation.
 * Agent Mode works better with Warp's default prompt settings, where the prompt starts on a new line, than it does with a same-line prompt. If you are using the same-line prompt, the cursor will jump from the end of the single line to the start of the input box when you switch to Agent Mode.
 
-### Exceeding Agent Mode token limits
+### Exceeding Agent Mode request limits
 
 #### **What is Lite?**
 
-**Lite** is our basic AI model that serves two purposes:
-* **Fallback model**: If you hit your Turbo token or AI request limits, Warp automatically switches to Lite so you can keep using AI without interruption — at no additional cost.
-* **Standalone option**: You can also choose to use Lite before hitting your limits. In that case, usage will still count toward your monthly token and request limits — but once those limits are reached, Lite remains available with unlimited usage.
+**Lite** is a basic AI model included with the Turbo plan that serves two purposes:
+* **Fallback model**: If you reach your Turbo AI request limits, Warp automatically switches to Lite so you can keep using AI without interruption — at no additional cost.
+* **Standalone option**: You can also choose to use Lite before hitting your limits. In this case, usage will still count toward your monthly request limits, but once those limits are reached, Lite remains available with unlimited usage for Turbo plan users only.
 
 Lite is more token-efficient than other premium models and supports core AI workflows. Learn more in [What is Lite?](../../help/plans-subscriptions-and-pricing.md#what-is-lite) in our pricing documentation for more details.
 
@@ -481,9 +481,9 @@ To fix this, try:
 * Starting a new conversation
 * Reducing the number of blocks or lines attached to your query
 
-#### **"Monthly token limit exceeded" error**
+#### **"Monthly request limit exceeded" error**
 
-Once you exceed your monthly token limit or AI requests on the Turbo plan (see [pricing](https://www.warp.dev/pricing) for current limits), premium models will be disabled, and Warp will automatically switch you to Lite. This allows you to continue using AI features with a more token-efficient model until your quota resets at the start of your next billing cycle.
+Once you exceed your AI requests on the Turbo plan (see [pricing](https://www.warp.dev/pricing) for current limits), premium models will be disabled, and Warp will automatically switch you to Lite. This allows you to continue using AI features with a more token-efficient model until your quota resets at the start of your next billing cycle.
 
 If you have questions or need extended access, feel free to reach out to us at [feedback@warp.dev](mailto:feedback@warp.dev).
 

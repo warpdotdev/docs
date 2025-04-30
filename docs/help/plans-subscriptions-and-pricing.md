@@ -22,15 +22,13 @@ We also may choose to offer refunds, on a case-by-case basis, if a severe produc
 
 To subscribe to a paid Warp plan like Pro or Turbo, you must first [create a Team in Warp](../features/teams.md#creating-a-team). Then, you can [upgrade online](https://app.warp.dev/upgrade) or through the downloaded app. In the app, navigate to Settings → Teams and find the upgrade link. After you enter your payment information, you will receive an invoice and confirmation email from Warp.
 
+### How can I upgrade for more Warp AI requests?
+
+Both the Pro and Turbo plans offer higher Warp AI request limits than the Free plan. If you’re working with a team, Turbo also includes discounts for teams of 3 or more, giving everyone on the plan access to even more AI. You can learn more at [warp.dev/pricing](https://www.warp.dev/pricing). Any AI usage you’ve already accumulated will carry over when you upgrade.
+
 ### How can I subscribe to a Warp Enterprise plan?
 
 Warp offers an Enterprise plan with custom pricing for larger engineering organizations or businesses with advanced security and compliance requirements. If you are interested in learning whether an Enterprise plan might be the best fit for your team, please [contact us](https://www.warp.dev/contact-sales) to kick off a conversation.
-
-### How can I upgrade for more Warp AI requests, command suggestions, and tokens?
-
-Both Warp’s Pro and Turbo plans include higher limits for Warp AI requests, command suggestions, and tokens than what’s currently available on the Warp Free plan. Even if you are working alone and not ready to invite additional team members for collaboration, you will need to [create a Team](../features/teams.md#creating-a-team) in Warp to upgrade to the paid Warp plan, which unlocks access to higher AI limits. Any usage will transfer over when you upgrade plans.
-
-If you are not planning on extending invites to any team member collaborators, we suggest creating a Team with your name, e.g. “Zach’s Team” or “My Personal Team.” Then you can [upgrade online](https://app.warp.dev/upgrade) or in the downloaded app by navigating to Settings → Teams and finding the upgrade link.
 
 ### What counts as a team member and how does billing work for members?
 
@@ -105,28 +103,33 @@ Please learn more about Tokens [here](https://help.openai.com/en/articles/493685
 
 ### What is Lite?
 
-**Lite** is our basic, non-premium AI model designed to provide uninterrupted access to core AI features in two scenarios:
-
-* **As a fallback**: When you hit your monthly Turbo token or AI request limits, Warp automatically switches to Lite. You can continue using AI at no additional cost, just with a more limited model.
-* **As a standalone option**: You can manually switch to Lite before reaching your limits. In this case, usage will still count toward your monthly token and request quotas — but once you hit those limits, Lite becomes available for unlimited use.
+**Lite** is a basic AI model included with the Turbo plan that serves two purposes:
+* **Fallback model**: If you reach your Turbo AI request limits, Warp automatically switches to Lite so you can keep using AI without interruption — at no additional cost.
+* **Standalone option**: You can also choose to use Lite before hitting your limits. In this case, usage will still count toward your monthly request limits, but once those limits are reached, Lite remains available with unlimited usage for Turbo plan users only.
 
 Currently, Lite uses Gemini 2.0 Flash under the hood, but this may change over time as we evaluate different models. While performance and capabilities may vary compared to premium models, it allows you to continue using AI features without full interruption.
 
 Note: Each query still counts as an AI request and contributes to your monthly usage, but using Lite won't incur any additional charges to your plan.
 
-### What happens when I exceed my token or request limits on Turbo?
+### What happens when I exceed my request limits on Turbo?
 
-If you exceed your monthly token or AI request limit on the Turbo plan (see [pricing](https://www.warp.dev/pricing) for current limits), Warp will automatically disable access to premium models and switch you to Lite.
+If you exceed your monthly AI request limit on the Turbo plan (see [pricing](https://www.warp.dev/pricing) for current limits), Warp will automatically disable access to premium models and switch you to Lite.
 
 You’ll still be able to use AI with no added cost — just through a more lightweight, basic model — until your quota resets at the start of your next billing cycle.
 
-### How often does my Warp AI request, token, and suggestion limits reset?
+### How often does my Warp AI request limits reset?
 
-Allotted AI requests and command suggestions limits reset every 30 days from your signup date. When you upgrade to a Pro or Turbo plan, you will be given a higher request limit immediately. You can follow along with your refill period by referencing the counter under Settings -> AI.
+Allotted AI requests reset every 30 days from your signup date. When you upgrade to a Pro or Turbo plan, you will be given a higher request limit immediately. You can follow along with your refill period by referencing the counter under Settings -> AI.
 
-### How can I get the most out of my Warp Turbo plan?
+### How can I get the most out of my Warp Pro or Turbo plans?
 
-The main benefits of a Warp Turbo plan are related to team collaboration and knowledge sharing, async, and in real-time. You can make the most of your Turbo plan by creating an organized Warp Drive with [Notebooks](../features/warp-drive/notebooks.md) and [Workflows](../features/warp-drive/workflows.md) to help your team streamline processes. Be sure to try out [Session Sharing](https://docs.warp.dev/features/session-sharing) for pair programming!
+Warp Pro and Turbo unlock powerful collaboration and knowledge-sharing tools to help your team move faster, together:
+* Use [Notebooks](../features/warp-drive/notebooks.md) and [Workflows](../features/warp-drive/workflows.md) in Warp Drive to organize and share knowledge across your team.
+* Try [Session Sharing](https://docs.warp.dev/features/session-sharing) to collaborate in real time through live, shared terminal sessions.
+
+Warp Turbo also gives you the most AI power of any plan — with the highest monthly AI request limit (see [pricing](https://www.warp.dev/pricing) for details), access to our most advanced models, and unlimited [Lite](#what-is-lite) model usage.
+
+Both plans are built for developers who want to uplevel their productivity with powerful collaboration features, with Turbo adding premium AI capabilities on top.
 
 ### Can I use a Free plan if I'm a developer at a large company or organization?
 
