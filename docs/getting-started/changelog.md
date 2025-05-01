@@ -8,7 +8,6 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
-
 ### 2025.04.30 (v0.2025.04.30.08.11)
 
 **New Features**
@@ -33,7 +32,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 **Bug Fixes**
 
 * Fix XML parse errors complaining that a "thought" cannot be empty.
-* [Windows] Fixed an issue where Agent Mode would fail to search when in WSL or Git Bash.
+* \[Windows] Fixed an issue where Agent Mode would fail to search when in WSL or Git Bash.
 * Show "copy" button and other text selection tools when right clicking selected environment variable text.
 * Fixed old shortcuts icon appearing in new tab page, if recommended AI prompts are disabled.
 * Fish commands containing syntax errors now correctly "finish" the block.
@@ -188,7 +187,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 * Prompt, plan, and execute fully autonomous tasks from [Agent Mode with Dispatch](../features/warp-ai/agent-mode.md#dispatch) (Beta)
 * Add codebase context support to Agent Mode. Currently enabled for git repositories only.
 * \[macOS] You can now customize your [App Icon](../appearance/app-icons.md) in `Settings > Appearance > Icon`.
-* Create and store [AI Memories](../features/warp-ai/knowledge.md) to use as Agent Mode context.
+* Create and store [Rules](../features/warp-ai/rules.md) to use as Agent Mode context.
 * Show default suggestions in Agent Mode input.
 
 **Bug fixes**
