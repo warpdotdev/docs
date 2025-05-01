@@ -151,7 +151,7 @@ During the Free Preview period of Warp Drive for Teams, several customers went a
 
 ### What payment options are available for Warp's self-service plans?
 
-Warp uses Stripe for payment processing; the only available payment method is by credit card.
+Warp uses Stripe for payment processing; the only available payment methods are a card or US bank account.
 
 Warp cannot currently accept payment by ACH, cash, check, money order, or cryptocurrency.
 
