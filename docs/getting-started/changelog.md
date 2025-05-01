@@ -8,6 +8,19 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+
+### 2025.04.30 (v0.2025.04.30.08.11)
+
+**New Features**
+
+* Added desktop notifications for Agent Mode. Now, you can be notified when an agent completes a task, or when an agent needs your attention to continue (i.e. to review a command, to run an unsafe command, etc). You can configure these settings from `Features > Notifications`.
+
+**Improvements**
+
+* Agent Mode is now more robust at applying code diffs.
+* Redesigned requested commands UX.
+* Improved readability for "needs password prompt" desktop notifications.
+
 ### 2025.04.23 (v0.2025.04.23.08.11)
 
 **Improvements**
