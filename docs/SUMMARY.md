@@ -30,6 +30,7 @@
   * [Active AI](features/warp-ai/active-ai.md)
   * [Agent Mode](features/warp-ai/agent-mode.md)
   * [Generate](features/warp-ai/generate.md)
+  * [Model Context Protocol](features/warp-ai/mcp.md)
   * [Voice](features/warp-ai/voice.md)
   * [Rules](features/warp-ai/rules.md)
 * [Command Palette](features/command-palette.md)
