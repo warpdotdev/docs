@@ -10,7 +10,8 @@ redirects:
     features/ai-command-search: features/warp-ai/generate.md
     features/generate: features/warp-ai/generate.md
     features/voice: features/warp-ai/voice.md
-    features/knowledge: features/warp-ai/knowledge.md
+    features/knowledge: features/warp-ai/rules.md
+    features/warp-ai/knowledge: features/warp-ai/rules.md
     features/workflows: features/entry/workflows.md
     features/command-search: features/entry/command-search.md
     features/command-history: features/entry/command-history.md

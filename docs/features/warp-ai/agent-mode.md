@@ -433,6 +433,8 @@ Agent Mode can leverage your [Warp Drive](../warp-drive/) contents to tailor res
 
 When a Warp Drive object is pulled as context, it will be displayed in the conversation as a citation under "References" or "Derived from".
 
+Enabled by default, this can be toggled in `Settings > AI > Knowledge > Warp Drive as Agent Mode Context`.
+
 ## How billing works for Agent Mode
 
 Every Warp plan includes a set number of Warp AI requests per user per month. Please refer to [pricing](https://www.warp.dev/pricing) to compare plans.

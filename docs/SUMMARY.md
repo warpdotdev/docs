@@ -31,7 +31,7 @@
   * [Agent Mode](features/warp-ai/agent-mode.md)
   * [Generate](features/warp-ai/generate.md)
   * [Voice](features/warp-ai/voice.md)
-  * [Knowledge](features/warp-ai/knowledge.md)
+  * [Rules](features/warp-ai/rules.md)
 * [Command Palette](features/command-palette.md)
 * [Warp Drive](features/warp-drive/README.md)
   * [Notebooks](features/warp-drive/notebooks.md)
