@@ -121,11 +121,11 @@ In the case that a requested command fails, Warp AI will detect that. Agent Mode
 
 Warp lets you choose from a curated list of LLMs for use in Agent Mode. By default, Warp uses **Claude 3.7 Sonnet**, but you can switch to other supported models, including:
 
-- **OpenAI (General Purpose)**: `GPT-4o`, `GPT-4.1`  
-- **OpenAI (Reasoning Models)**: `o3-mini`, `o3`, `o4-mini`  
-- **Anthropic**: `Claude 3.7 Sonnet`, `Claude 3.5 Sonnet`, `Claude 3.5 Haiku`  
-- **Google**: `Gemini 2.0 Flash`, `Gemini 2.5 Pro`  
-- **DeepSeek**: `R1`, `V3` (hosted by [Fireworks AI](https://fireworks.ai/) in the US)
+* **OpenAI (General Purpose)**: `GPT-4o`, `GPT-4.1`
+* **OpenAI (Reasoning Models)**: `o3-mini`, `o3`, `o4-mini`
+* **Anthropic**: `Claude 3.7 Sonnet`, `Claude 3.5 Sonnet`, `Claude 3.5 Haiku`
+* **Google**: `Gemini 2.0 Flash`, `Gemini 2.5 Pro`
+* **DeepSeek**: `R1`, `V3` (hosted by [Fireworks AI](https://fireworks.ai/) in the US)
 
 You can also select "auto" to let Warp automatically choose the best model for your task based on factors like query type and context.
 
@@ -439,19 +439,17 @@ Enabled by default, this can be toggled in `Settings > AI > Knowledge > Warp Dri
 
 Every Warp plan includes a set number of Warp AI requests per user per month. Please refer to [pricing](https://www.warp.dev/pricing) to compare plans.
 
-AI Request limits apply to Agent Mode, [Generate](generate.md), [Active AI](active-ai.md), and AI autofill in Warp Drive. When you have used up your allotted requests for the cycle, you will not be able to issue any more AI requests until the cycle renews.
+AI Request limits apply to Agent Mode, [Generate](generate.md), and [AI autofill in Workflows](../warp-drive/workflows.md#ai-autofill). When you have used up your allotted requests for the cycle, you will not be able to issue any more AI requests until the cycle renews.
 
 #### What counts as a Warp AI request in Agent Mode?
 
-Every time you submit an AI query from your input box, this counts as one Warp AI request. [Suggested commands](agent-mode.md#agent-mode-command-suggestions) do not count as billable Warp AI requests. [Next Command](active-ai.md#next-command) suggestions are counted separately to Warp AI requests as noted in our [Active AI](active-ai.md#next-command-and-billing) docs.\
-You can monitor your request usage under `Settings > AI > Usage`.
+Every time you submit an AI query from your input box, this counts as towards your allotted Warp AI requests. Agent Mode [suggested commands](agent-mode.md#agent-mode-command-suggestions) and [Active AI](active-ai.md) features do not count as AI requests. Submitting prompts with large context or attachments increases the amount of Warp AI requests used. You can monitor your request usage under `Settings > AI > Usage`.
 
 #### What counts as a Warp AI token in Agent Mode?
 
-Tokens are chunks of text, such as words, parts of code, or characters, that large language models (LLMs) break down to analyze and generate responses. LLMs have a maximum number of tokens they can process at once. Warp AI Requests and Suggestions are not the same as Tokens, which are limited separately regardless of which plan you're on.\
-Please learn more about Tokens [here](https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them) and refer to [pricing](https://www.warp.dev/pricing) for the current monthly token limits on each plan.
+Tokens are chunks of text, such as words, parts of code, or characters, that large language models (LLMs) break down to analyze and generate responses. LLMs have a maximum number of tokens they can process at once. Warp AI Requests are not the same as Tokens, which are limited separately regardless of which plan you're on. Please learn more about Tokens [here](https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them) and refer to [pricing](https://www.warp.dev/pricing) for the current monthly token limits on each plan.
 
-#### **When do my Warp AI requests, suggestions, and tokens refresh?**
+#### **When do my Warp AI requests refresh?**
 
 Allotted AI requests refill every 30 days from your signup date. When you upgrade to a [paid plan](https://www.warp.dev/pricing), you will be given more requests immediately. You can follow along with your refill period by referencing `Settings > AI > Request Usage`.
 
@@ -470,6 +468,7 @@ For more FAQs about pricing, visit [Plans, Subscriptions, and Pricing](../../hel
 #### **What is Lite?**
 
 **Lite** is a basic AI model included with the Turbo plan that serves two purposes:
+
 * **Fallback model**: If you reach your Turbo AI request limits, Warp automatically switches to Lite so you can keep using AI without interruption — at no additional cost.
 * **Standalone option**: You can also choose to use Lite before hitting your limits. In this case, usage will still count toward your monthly request limits, but once those limits are reached, Lite remains available with unlimited usage for Turbo plan users only.
 
@@ -480,6 +479,7 @@ Lite is more token-efficient than other premium models and supports core AI work
 This error means your input (plus attached context) exceeds the maximum context window of the model you're using. For example, GPT-4o has a context window limit of 123,904 tokens. If you exceed that, you may receive no output.
 
 To fix this, try:
+
 * Starting a new conversation
 * Reducing the number of blocks or lines attached to your query
 

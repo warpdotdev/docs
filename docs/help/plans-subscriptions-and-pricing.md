@@ -81,17 +81,13 @@ You can initiate a upgrade at any point throughout your subscription through the
 
 If a payment fails, you will receive an email from Stripe and your Warp Team Settings will show a past-due alert. Certain paid plan features and the ability to invite new members will be locked down while your Team is in a past-due state. Paying the most recent invoice through the [billing portal](https://app.warp.dev/upgrade) will fully re-enable your paid plan features.
 
-### What counts as a Warp AI request or command suggestion?
+### What counts as a Warp AI request?
 
-[Warp AI](../features/warp-ai/) includes [Agent Mode](../features/warp-ai/agent-mode.md), [Active AI](../features/warp-ai/active-ai.md), [Generate](../features/warp-ai/generate.md), and [AI Autofill](../features/warp-drive/workflows.md#ai-autofill) in Warp Drive.
-
-Every time you submit an AI query with Agent Mode, it counts as one AI request. Agent Mode suggested commands and requested commands do not count as AI requests.
-
-Active AI features like Next Command have a seperate counter and only count when accepted.\
+Every time you submit an AI query from your input box, this counts as towards your allotted Warp AI requests. Agent Mode [suggested commands](plans-subscriptions-and-pricing.md#agent-mode-command-suggestions) and [Active AI](../features/warp-ai/active-ai.md) features do not count as AI requests. Submitting prompts with large context or attachments increases the amount of Warp AI requests used. You can monitor your request usage under `Settings > AI > Usage`.\
 \
 [Generate](../features/warp-ai/generate.md) lets you look up commands or contextual suggestions as you’re typing. As you’re entering and adjusting a query to look up a command suggestion, you may incur multiple AI requests before selecting a suggestion.\
 \
-Anytime you run AI Autofill in Warp Drive, this counts as one AI request.
+Anytime you run [AI Autofill in Workflows](../features/warp-drive/workflows.md#ai-autofill), this counts as an AI request.
 
 Request limits are allocated at the seat level to Warp users or team members. You can follow along with your request limits by referencing the counter under `Settings > AI`.
 
@@ -104,6 +100,7 @@ Please learn more about Tokens [here](https://help.openai.com/en/articles/493685
 ### What is Lite?
 
 **Lite** is a basic AI model included with the Turbo plan that serves two purposes:
+
 * **Fallback model**: If you reach your Turbo AI request limits, Warp automatically switches to Lite so you can keep using AI without interruption — at no additional cost.
 * **Standalone option**: You can also choose to use Lite before hitting your limits. In this case, usage will still count toward your monthly request limits, but once those limits are reached, Lite remains available with unlimited usage for Turbo plan users only.
 
@@ -124,16 +121,17 @@ Allotted AI requests reset every 30 days from your signup date. When you upgrade
 ### How can I get the most out of my Warp Pro or Turbo plans?
 
 Warp Pro and Turbo unlock powerful collaboration and knowledge-sharing tools to help your team move faster, together:
+
 * Use [Notebooks](../features/warp-drive/notebooks.md) and [Workflows](../features/warp-drive/workflows.md) in Warp Drive to organize and share knowledge across your team.
 * Try [Session Sharing](https://docs.warp.dev/features/session-sharing) to collaborate in real time through live, shared terminal sessions.
 
-Warp Turbo also gives you the most AI power of any plan — with the highest monthly AI request limit (see [pricing](https://www.warp.dev/pricing) for details), access to our most advanced models, and unlimited [Lite](#what-is-lite) model usage.
+Warp Turbo also gives you the most AI power of any plan — with the highest monthly AI request limit (see [pricing](https://www.warp.dev/pricing) for details), access to our most advanced models, and unlimited [Lite](plans-subscriptions-and-pricing.md#what-is-lite) model usage.
 
 Both plans are built for developers who want to uplevel their productivity with powerful collaboration features, with Turbo adding premium AI capabilities on top.
 
 ### Can I use a Free plan if I'm a developer at a large company or organization?
 
-Yes, absolutely. If you're using Warp at work, you may benefit from upgrading to a Turbo plan or an Enterprise plan for collaboration or plan features. However, Warp does not force companies of a certain size to upgrade to a paid plan. You are welcome to take advantage of Warp's Free plan.
+Yes, absolutely. If you're using Warp at work, you may benefit from upgrading to a Pro, Turbo, or Enterprise plan for collaboration or plan features. However, Warp does not force companies of a certain size to upgrade to a paid plan. You are welcome to take advantage of Warp's Free plan.
 
 ### Are there any Warp discounts for students, non-profits, or open-source teams?
 
