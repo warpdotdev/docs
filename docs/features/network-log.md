@@ -14,11 +14,9 @@ Each log item is a timestamped Debug format string for either a request or respo
 
 ## How to use it
 
-1. To access the network panel from the [Command Palette](command-palette.md), type in “Show Warp Network Log”
-2. That will insert a workflow into your input editor - it should look something like this: `tail -f "some/path/to/warp_network.log"`.
-3. Press Enter to run this workflow.
-4. Then search for an [Generated](generate.md) command or [Share a Block](blocks/block-sharing.md) to see the network log activity.
-5. Once you run one of these examples, you’ll see the corresponding requests and responses logged in the network log.
+1. To access the network log, select the Input in a session and open the [Command Palette](command-palette.md), then search for “Show Warp Network Log”.
+2. That will insert a command into your Input editor - it should look something like this: `tail -f "some/path/to/warp_network.log"`.
+3. Press Enter to run this command. You’ll then see the corresponding requests and responses logged in the network log.
 
 ## How it Works
 
