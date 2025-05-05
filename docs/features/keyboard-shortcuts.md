@@ -129,7 +129,7 @@ Keybinds that conflict with others are highlighted with an orange border.
 | `CMD-,`           | Open Settings: Account                            | `workspace:show_settings_account_page`       |
 | `CMD-G`           | Find the Next Occurrence of Your Search Query     | `find:find_next_occurrence`                  |
 | `CMD-P`           | Toggle Command Palette                            | `workspace:toggle_command_palette`           |
-| `CMD-R`           | Toggle Mouse Reporting                            | `workspace:toggle_mouse_reporting`           |
+|                   | Toggle Mouse Reporting                            | `workspace:toggle_mouse_reporting`           |
 | `CMD-[`           | Activate Previous Pane                            | `pane_group:navigate_prev`                   |
 | `CMD-]`           | Activate Next Pane                                | `pane_group:navigate_next`                   |
 | `CTRL-CMD-DOWN`   | Resize Pane > Move Divider Down                   | `pane_group:resize_down`                     |

@@ -27,7 +27,6 @@ If you want a mouse event to go to Warp instead (for example, for text selection
   * Scroll Reporting can be enabled after toggling `Enable Mouse Reporting`
 * From the [Command Palette](command-palette.md), search for "Toggle Mouse Reporting"
 * From the macOS Menu, `View > Toggle Mouse Reporting`
-* With the keyboard shortcut: `CMD-R`
 
 ### How it works
 
