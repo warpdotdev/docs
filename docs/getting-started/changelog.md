@@ -8,6 +8,24 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2025.05.07 (v0.2025.05.07.08.12)
+
+**Improvements**
+
+* Redesigned env var collection block UX.
+* Added ability to embed Warp Drive Prompts inside Notebooks.
+* Added AI block loading animation.
+* Added ability to select and continue previous Agent Mode conversations.
+* [MacOS] Improved time to update and relaunch Warp.
+
+**Bug Fixes**
+
+* Fixed a bug where escape was clearing autosuggestions in Vim's insert mode.
+* Stopped showing an unexpected <citations /> block in the planning output for o3.
+* [Windows] Fixed a bug when hovering symlinks in WSL sessions.
+* Fixed terminal input remaining hidden after cancelling an env var block.
+* Prevented unexpected empty code fences in agent mode when using Gemini 2.5 Pro or o3.
+
 ### 2025.04.30 (v0.2025.04.30.08.11)
 
 **New Features**

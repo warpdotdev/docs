@@ -240,6 +240,7 @@
   "Settings Import Initiated": "Started the import settings flow for new users",
   "Shared Object Limit Hit Banner View Plans Button Clicked": "Clicked the 'View Plans' button on the persistent drive banner",
   "Sharer Cancelled Grant Role": "When you cancel granting a role to a shared session participant",
+  "Shell Terminated Prematurely": "The shell process terminated prematurely",
   "Show Alias Expansion Banner": "Displayed the banner asking whether Warp should automatically expand aliases within the Input Editor",
   "Show Subshell Banner": "Displayed the banner asking whether Warp should Warpify the current session via Warp's subshell wrapper",
   "Show Warpify SSH Banner": "Displayed the banner asking whether Warp should Warpify the current SSH session via Warp's SSH Wrapper",
