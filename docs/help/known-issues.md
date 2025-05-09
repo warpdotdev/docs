@@ -80,6 +80,10 @@ export LANG=zh_CN.UTF-8
 
 There is an issue in fish shell version 3.6 and below that causes the `read` built-in command to break Warp's integration with fish. This means that using `read` directly or any fish scripts that call `read` will not work as expected in Warp. That issue is resolved in the fish repository and so should be fixed in the next release of fish itself. We recommend upgrading fish to the most recent version to resolve this issue.
 
+### Warp shell loads slowly due to EDR
+
+If you comment out the rc files (i.e. `~/.zshrc`, `~/.bashrc`, `~/.config/fish/config.fish`), and still notice a slowdown on loading the shell. It could be due to an Endpoint Detection and Response or EDR (i.e. Sentinel One, CrowdStrike, Carbon Black) causing the issue. Please restart your system and see if the issue persists. If so, please [Send us Feedback](sending-us-feedback.md) and provide details of your EDR, OS, Shell, etc.
+
 ### Configuring and debugging your RC files
 
 To support Blocks ([custom hooks](https://blog.warp.dev/how-warp-works/#implementing-blocks)), a native Input Editor experience, etc. we have to build custom support for a subset of shell functionality (decouple functionality from the shell and move to the terminal). This leads to Warp being incompatible with various tools and plugins.
