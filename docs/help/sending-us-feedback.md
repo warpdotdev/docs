@@ -19,7 +19,7 @@ For security-related issues or questions, please email [security@warp.dev](mailt
 
 ### Preview-Specific Feedback
 
-If you're using [Warp Preview](../getting-started/warp-preview-and-alpha-program.md), please share your feedback in our [Warp Community Slack](https://join.slack.com/t/warpcommunity/shared_invite/zt-33wif632p-nSxp21zRS1cTNJJHYk4YDA) instead of GitHub issues. This helps us better track and respond to Preview-specific feedback.
+If you're using [Warp Preview](../getting-started/warp-preview-and-alpha-program.md), please share your feedback in our [Warp Community Slack](https://go.warp.dev/join-preview) instead of GitHub issues. This helps us better track and respond to Preview-specific feedback.
 
 {% hint style="info" %}
 Note: If the link doesn't work, reach out to us at [preview@warp.dev](mailto:preview@warp.dev) and we'll add you directly.
