@@ -38,7 +38,6 @@ Here is a list of the default regular expressions that Warp uses to identify sec
 | Github OAuth Access Token                 | `\bgho_[A-Za-z0-9_]{36}\b`                                                                |
 | Github User to Server Token               | `\bghu_[A-Za-z0-9_]{36}\b`                                                                |
 | Github Server to Server Token             | `\bghs_[A-Za-z0-9_]{36}\b`                                                                |
-| Heroku API Key                            | `\b[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}\b`         |
 | Stripe Key                                | `\b(?:r\|s)k_(test\|live)_[0-9a-zA-Z]{24}\b`                                              |
 | Firebase Auth Domain                      | `\b([a-z0-9-]){1,30}(\.firebaseapp\.com)\b`                                               |
 | JSON web token                            | `\b(ey[a-zA-z0-9_\-=]{10,}\.){2}[a-zA-z0-9_\-=]{10,}\b`                               |
