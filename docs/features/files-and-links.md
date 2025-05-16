@@ -1,0 +1,86 @@
+---
+description: Quickly open links and files or run scripts with your mouse.
+---
+
+# Files, Links, & Scripts
+
+## Files & Links
+
+Warp supports opening files, folders, and URL links that are within Blocks. Multiple URL protocols are supported e.g. `https`, `ftp`, `file`, etc. Warp can open files and folders in a variety of editors and opens web links directly in your default browser. Warp can also open markdown files directly with a [Markdown Viewer](markdown-viewer.md).
+
+{% hint style="info" %}
+Warp also supports iTerm2 and Kitty Image protocols on macOS and Linux. You will need to use a cli tool to view images, in some cases the tools expect `$TERM=kitty`, so you may need to workaround this by setting `TERM=kitty` before the command. We're working on updating the popular tools to recognize Warp natively.
+{% endhint %}
+
+Warp parses relative and absolute file paths. Warp also tries to capture line and column numbers attached to the file path, supported formats include:
+
+* `file_name:line_num`
+* `file_name:line_num:column_num`
+* `file_name[line_num, column_num]`
+* `file_name(line_num, column_num)`
+* `file_name, line: line_num, column: column_num`
+* `file_name, line: line_num, in`
+
+{% tabs %}
+{% tab title="macOS" %}
+1. After hovering over a link, open it directly by holding down `CMD` while clicking it.
+2. Clicking a link normally will open a clickable tooltip that says “Open File/Folder/Link”.
+3. Right-clicking a link will open a context menu that supports copying the absolute file path or URL to the clipboard.
+{% endtab %}
+
+{% tab title="Windows" %}
+1. After hovering over a link, open it directly by holding down `CTRL` while clicking it.
+2. Clicking a link normally will open a clickable tooltip that says “Open File/Folder/Link”.
+3. Right-clicking a link will open a context menu that supports copying the absolute file path or URL to the clipboard.
+{% endtab %}
+
+{% tab title="Linux" %}
+1. After hovering over a link, open it directly by holding down `CTRL` while clicking it.
+2. Clicking a link normally will open a clickable tooltip that says “Open File/Folder/Link”.
+3. Right-clicking a link will open a context menu that supports copying the absolute file path or URL to the clipboard.
+{% endtab %}
+{% endtabs %}
+
+* You can also Drag and drop a folder or file onto the Warp dock icon to open a new tab in this directory.
+* You can also right-click on a folder or file in Finder, then select Services, and "Open new Warp Tab | Window here".
+* Configure the default editor to open files by navigating to `Settings > Features > Choose an editor to open file links`.
+  * Selecting "Default App" uses your system's default application for the file type.&#x20;
+
+#### List of supported editors
+
+Non exhaustive list of editors, please submit new ones on our GitHub, see [Sending Feedback](../help/sending-us-feedback.md#sending-warp-feedback).
+
+1. Visual Studio Code
+2. JetBrains IDEs
+   * WebStorm
+   * PhpStorm
+   * GoLand
+   * PyCharm
+   * DataGrip
+   * DataSpell
+   * Rider
+   * RubyMine
+3. Zed
+4. Cursor
+5. Windsurf
+6. Sublime Text
+7. Android Studio
+
+{% hint style="info" %}
+Warp currently only supports GUI-based editors and not terminal-based editors like vim, nano, or helix. If you want to use a terminal-based editor, you would need to type `$EDITOR <path/to/file>` to open files with your default terminal editor.
+{% endhint %}
+
+<figure><img src="../.gitbook/assets/files-links-demo.gif" alt=""><figcaption><p>Files &#x26; Links Demo</p></figcaption></figure>
+
+## Scripts
+
+Warp can open `.command` and Unix Executable files from the finder directly.
+
+1. Find a `.command` or Shell script you'd like to open in Finder.
+2. Right-click and open the script with Warp.
+
+{% hint style="warning" %}
+Make sure the file has the appropriate executable permissions before you can run it in Warp. (e.g. `chmod +x script.command`)
+{% endhint %}
+
+<figure><img src="../.gitbook/assets/script-demo.gif" alt=""><figcaption><p>Scripts Demo</p></figcaption></figure>

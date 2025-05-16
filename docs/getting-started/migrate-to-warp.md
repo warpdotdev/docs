@@ -8,7 +8,7 @@ description: Learn how to import settings from other terminals when you switch t
 
 You can easily import your settings from iTerm2 to Warp. This includes custom keybindings and color themes.
 
-To do so, you can open the [Command Palette](../terminal/command-palette.md) and search for Import External Settings. This will enter you into the workflow to import your settings.
+To do so, you can open the [Command Palette](../features/command-palette.md) and search for Import External Settings. This will enter you into the workflow to import your settings.
 
 Select **iTerm2 Profile: Default** to import your settings.
 
@@ -18,10 +18,10 @@ Warp will only import settings associated with the Default profile.
 
 ### Choose your Prompt
 
-Next, you can choose your [prompt](../terminal/appearance/prompt.md) and decide whether or not to inherit your existing prompt configuration. There are two prompt options:
+Next, you can choose your [prompt](../appearance/prompt.md) and decide whether or not to inherit your existing prompt configuration. There are two prompt options:
 
-1. [Warp prompt](../terminal/appearance/prompt.md#warp-prompt): This is Warp's native prompt that you can customize to meet your needs. In `Settings > Appearance > Prompt`, you can drag and drop context chips into your Warp prompt to display specific information, like git branches or timestamps.
-2. [Shell prompt (PS1)](../terminal/appearance/prompt.md#custom-prompt): This custom prompt inherits your pre-existing prompt configuration. Select this option if you want your Warp prompt to match your settings from iTerm2.
+1. [Warp prompt](../appearance/prompt.md#warp-prompt): This is Warp's native prompt that you can customize to meet your needs. In `Settings > Appearance > Prompt`, you can drag and drop context chips into your Warp prompt to display specific information, like git branches or timestamps.
+2. [Shell prompt (PS1)](../appearance/prompt.md#custom-prompt): This custom prompt inherits your pre-existing prompt configuration. Select this option if you want your Warp prompt to match your settings from iTerm2.
 
 After choosing a prompt, you’re ready to start using Warp.
 

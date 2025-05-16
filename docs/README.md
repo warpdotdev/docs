@@ -14,7 +14,7 @@ description: >-
 ## Install Warp
 
 {% hint style="warning" %}
-**Visit** [Known Issues](support-and-billing/known-issues.md) **to get more details on setting up and troubleshooting Warp.**
+**Visit** [Known Issues](help/known-issues.md) **to get more details on setting up and troubleshooting Warp.**
 {% endhint %}
 
 {% tabs %}
@@ -177,17 +177,17 @@ If you installed a package, find Warp in your desktop manager or run `warp-termi
 {% endtabs %}
 
 {% hint style="info" %}
-Want to try our newest features? [Warp Preview](community/warp-preview-and-alpha-program.md) is available on all platforms and architectures (macOS, Windows, Linux) for early access to experimental features.
+Want to try our newest features? [Warp Preview](getting-started/warp-preview-and-alpha-program.md) is available on all platforms and architectures (macOS, Windows, Linux) for early access to experimental features.
 {% endhint %}
 
 ## Initial Setup
 
 ### Log in to Warp (Optional)
 
-After installation, you have the option to create a Warp account thru the "Sign up" bottom on the top right or in `Settings > Account > Sign up`. You have the option to skip this step. If you're having issues logging in, you can check out the [Login Troubleshooting](support-and-billing/troubleshooting-login-issues.md) page.
+After installation, you have the option to create a Warp account thru the "Sign up" bottom on the top right or in `Settings > Account > Sign up`. You have the option to skip this step. If you're having issues logging in, you can check out the [Login Troubleshooting](help/troubleshooting-login-issues.md) page.
 
 {% hint style="info" %}
-If you sign up using Google or GitHub, Warp only gets access to the associated email address. Visit the [Privacy](privacy/privacy.md) page for more details on Warp's approach to privacy.
+If you sign up using Google or GitHub, Warp only gets access to the associated email address. Visit the [Privacy](getting-started/privacy.md) page for more details on Warp's approach to privacy.
 {% endhint %}
 
 ### Onboarding Survey (Optional)
@@ -196,7 +196,7 @@ Warp will ask a few questions within the app after you sign up. The survey is op
 
 ### Use Warp offline
 
-You will only need an active internet connection when you open the Warp app for the first time. Once opened, [Warp is able to run with no internet connection](support-and-billing/using-warp-offline.md), although certain features that require an internet connection will be unavailable.
+You will only need an active internet connection when you open the Warp app for the first time. Once opened, [Warp is able to run with no internet connection](help/using-warp-offline.md), although certain features that require an internet connection will be unavailable.
 
 ### Import your settings
 
@@ -227,7 +227,7 @@ Navigate to `Settings > Appearance` to customize your setup.
 There are a number of behavior settings and features that will help you customize your terminal to best suit your needs:
 
 * [Dedicated window](https://docs.warp.dev/features/windows/global-hotkey#dedicated-window): Dedicated hotkey window (also known as Quake Mode) allows you to customize your window's position, width, and height ratio relative to your active screen size.
-* [Tabs](terminal/windows/tabs.md): Organize your windows into multiple terminal sessions, and customize them with different titles and/or colors.
+* [Tabs](features/windows/tabs.md): Organize your windows into multiple terminal sessions, and customize them with different titles and/or colors.
 * [Split panes](https://docs.warp.dev/features/windows/split-panes): Divide any tab into multiple panels, side-by-side or stacked.
 
 <figure><img src=".gitbook/assets/tab-splitpane-examples.png" alt=""><figcaption><p>Organize tabs and divide them into multiple panels</p></figcaption></figure>
@@ -237,4 +237,4 @@ There are a number of behavior settings and features that will help you customiz
 * [Vim keybindings](https://docs.warp.dev/features/editor/vim): Warp supports default Vim keybindings, allowing for keyboard-driven text editing.
 * [Keyboard shortcuts](https://docs.warp.dev/features/keyboard-shortcuts): Warp supports commonly used keyboard shortcuts. You can also set custom keyboard shortcuts by creating new commands or editing existing shortcuts.
 * [Open files and links](https://docs.warp.dev/features/files-and-links): Using your cursor, you can open files, folders, and URL links that are within Blocks. You can also [configure the default editor to open files](https://docs.warp.dev/features/files-and-links#files-and-links-1).
-* [Command Corrections](terminal/entry/command-corrections.md): Get auto-correct suggestions on commands to catch typos, forgotten flags, and general console errors.
+* [Command Corrections](features/entry/command-corrections.md): Get auto-correct suggestions on commands to catch typos, forgotten flags, and general console errors.

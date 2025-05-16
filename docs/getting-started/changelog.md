@@ -8,22 +8,6 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
-### 2025.05.14 (v0.2025.05.14.08.11)
-
-**Improvements**
-
-* Introduced refining functionality for requested commands.
-* Added ability to continue previous Agent Mode conversations directly from response blocks.
-* Overhauled the editing experience for suggested plans.
-* Renamed input auto-detection setting to natural language detection in Command Palette for better clarity.
-* Zero-state prompt suggestion chips are now horizontally clipped instead of being individually shrunk.
-
-**Bug Fixes**
-
-* Fixed incorrect ordering in history of executed commands and agent mode queries.
-* Copying text from Agent Mode plans and suggested code changes now works more reliable.
-* \[Windows] Made some changes to reduce false-positives from virus scanners.
-
 ### 2025.05.07 (v0.2025.05.07.08.12)
 
 **Improvements**
@@ -114,7 +98,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 **New features**
 
-* Get early access to unreleased and experimental features with [Warp Preview](../community/warp-preview-and-alpha-program.md).
+* Get early access to unreleased and experimental features with [Warp Preview](warp-preview-and-alpha-program.md).
 
 **Improvements**
 
@@ -218,10 +202,10 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 **New features**
 
 * Warp is now available for Windows! See our [#windows](../#windows "mention") Quickstart Guide
-* Prompt, plan, and execute fully autonomous tasks from [Agent Mode with Dispatch](../agents/warp-ai/agent-mode.md#dispatch) (Beta)
+* Prompt, plan, and execute fully autonomous tasks from [Agent Mode with Dispatch](../features/warp-ai/agent-mode.md#dispatch) (Beta)
 * Add codebase context support to Agent Mode. Currently enabled for git repositories only.
-* \[macOS] You can now customize your [App Icon](../terminal/appearance/app-icons.md) in `Settings > Appearance > Icon`.
-* Create and store [Rules](../knowledge-and-collaboration/rules.md) to use as Agent Mode context.
+* \[macOS] You can now customize your [App Icon](../appearance/app-icons.md) in `Settings > Appearance > Icon`.
+* Create and store [Rules](../features/warp-ai/rules.md) to use as Agent Mode context.
 * Show default suggestions in Agent Mode input.
 
 **Bug fixes**
