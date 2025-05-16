@@ -8,6 +8,22 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2025.05.14 (v0.2025.05.14.08.11)
+
+**Improvements**
+
+* Introduced refining functionality for requested commands.
+* Added ability to continue previous Agent Mode conversations directly from response blocks.
+* Overhauled the editing experience for suggested plans.
+* Renamed input auto-detection setting to natural language detection in Command Palette for better clarity.
+* Zero-state prompt suggestion chips are now horizontally clipped instead of being individually shrunk.
+
+**Bug Fixes**
+
+* Fixed incorrect ordering in history of executed commands and agent mode queries.
+* Copying text from Agent Mode plans and suggested code changes now works more reliable.
+* \[Windows] Made some changes to reduce false-positives from virus scanners.
+
 ### 2025.05.07 (v0.2025.05.07.08.12)
 
 **Improvements**
