@@ -8,6 +8,22 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2025.05.21 (v0.2025.05.21.08.11)
+
+**New Features**
+
+* Set new Agent Mode permissions around executing commands, reading files, coding, and planning in AI settings.
+
+**Improvements**
+
+* You can now choose the coding model behind Agent Mode.
+* Agent Mode conversations can now be paused via a hovering control panel in the right corner.
+* Improved maximum block output capacity to 50k lines.
+
+**Bug Fixes**
+
+* Fix edit icon positioning for shared sessions.
+
 ### 2025.05.14 (v0.2025.05.14.08.11)
 
 **Improvements**

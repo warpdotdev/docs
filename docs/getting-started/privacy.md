@@ -93,6 +93,7 @@ If you're a [Team](../features/teams.md) admin, the deletion flow will require t
 | `AgentMode.Code.FilesNavigated` | Agent Mode Code files navigated |
 | `AgentMode.Code.InvalidFile` | File(s) in code diff could not be found |
 | `AgentMode.Code.SuggestedCodeEditedByUser` | Agent Mode Code suggestion edited by user |
+| `AgentMode.Code.SuggestedEditReceived` | Agent Mode suggested a code edit |
 | `AgentMode.Code.SuggestedEditResolved` | Agent Mode pending code edit suggestion resolved |
 | `AgentMode.CreatedAIBlock` | Created an AI block in agent mode |
 | `AgentMode.Error` | Received an error when getting Agent Mode response |
@@ -109,6 +110,7 @@ If you're a [Team](../features/teams.md) admin, the deletion flow will require t
 | `AgentMode.QueryAttemptAtLImit` | Tried to send an Agent Mode query but they already reached the query limit |
 | `AgentMode.RatedResponse` | User rated an Agent Mode response |
 | `AgentMode.ResponseWarning` | Encountered one or more non-blocking errors when parsing GenerateAIAgentOutput |
+| `AgentMode.SearchCodebase.RepoUnavailable` | Tried to use the Search Codebase tool on a repo that is unavailable |
 | `AgentMode.SearchCodebase.Requested` | Ran the Search Codebase tool |
 | `AgentMode.ShowedSuggestedAgentModeWorkflowModal` | Showed the suggested Agent Mode workflow modal to the user |
 | `AgentMode.ShowedSuggestedWorkflowChip` | Showed the Suggested Agent Mode workflow chip to the user |
