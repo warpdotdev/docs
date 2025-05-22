@@ -37,21 +37,23 @@ To add a new MCP server, you can click the `+ Add` button. There are two types o
 * SSE (URL)
   * Warp will expect a valid MCP server to be listening at the provided URL.
 
-{% hint style="warning" %}
-Note: For now, MCP servers are synced to your [Warp Drive](../warp-drive/) in the cloud, including all environment variables. For Warp Preview users who have questions about this, please reach out to us via the dedicated Slack channel.
-{% endhint %}
+<figure><img src="../../.gitbook/assets/mcp-add-server-json.png" alt=""><figcaption><p>Adding a CLI MCP Server (Command)</p></figcaption></figure>
 
-<figure><img src="../../.gitbook/assets/mcp-add-server.png" alt=""><figcaption><p>Adding an MCP Server</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/mcp-sse-json.png" alt=""><figcaption><p>Adding an SSE MCP Server (URL)</p></figcaption></figure>
 
 ### Managing MCP servers
 
 After MCP servers are registered in Warp, you can Start or Stop them from the MCP servers page. Each running server will have a list of available tools and resources.
 
-You can rename and edit a server's name, as well as delete the server. To prevent Warp from automatically starting a server when you open Warp, click the edit button and disable the `Start on Warp Launch` option.
+You can rename and edit a server's name, as well as delete the server. To prevent Warp from automatically starting a server when you open Warp, set the `"start_on_launch"` value to `false` in the server's JSON configuration.
 
 ### Debugging
 
 If you're having trouble with an MCP server, you can check the logs for any errors or messages to help you diagnose the problem by clicking the `View Logs` button on a server from the MCP servers page.
+
+{% hint style="warning" %}
+If you choose to share your MCP server logs with anybody, make sure to remove any sensitive information before sharing, as they may contain API keys. Many SSE based MCP servers will state that your URL should be treated like a password, and can be used with no additional authentication.
+{% endhint %}
 
 {% hint style="info" %}
 Tip: We've noticed that some models often work better with MCP servers than others. If you're having trouble calling or using an MCP server, try using a different model.
