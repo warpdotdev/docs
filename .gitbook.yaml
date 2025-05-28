@@ -1,11 +1,9 @@
 root: ./docs/
 
 redirects:
-    # getting-started redirects
     getting-started/privacy: privacy/privacy.md
     getting-started/refer-a-friend: community/refer-a-friend.md
     getting-started/warp-preview-and-alpha-program: community/warp-preview-and-alpha-program.md
-    # appearance redirects
     appearance/themes: terminal/appearance/themes.md
     appearance/custom-themes: terminal/appearance/custom-themes.md
     appearance/prompt: terminal/appearance/prompt.md
@@ -17,7 +15,6 @@ redirects:
     appearance/blocks-behavior: terminal/appearance/blocks-behavior.md
     appearance/tabs-behavior: terminal/appearance/tabs-behavior.md
     appearance/app-icons: terminal/appearance/app-icons.md
-    # features redirects
     features/warp-ai: agents/warp-ai/README.md
     features/warp-ai/agent-mode: agents/warp-ai/agent-mode.md
     features/warp-ai/active-ai: agents/active-ai.md
@@ -25,6 +22,7 @@ redirects:
     features/warp-ai/generate: agents/generate.md
     features/warp-ai/voice: agents/voice.md
     features/warp-ai/mcp: knowledge-and-collaboration/mcp.md
+    features/warp-ai/knowledge: knowledge-and-collaboration/rules.md
     features/warp-ai/rules: knowledge-and-collaboration/rules.md
     features/command-palette: terminal/command-palette.md
     features/warp-drive: knowledge-and-collaboration/warp-drive/README.md
@@ -85,10 +83,8 @@ redirects:
     features/network-log: privacy/network-log.md
     features/secret-redaction: privacy/secret-redaction.md
     features/linux: terminal/more-features/linux.md
-    # how-does-warp-compare redirects
     how-does-warp-compare/performance: terminal/comparisons/performance.md
     how-does-warp-compare/terminal-features: terminal/comparisons/terminal-features.md
-    # help redirects
     help/sending-us-feedback: support-and-billing/sending-us-feedback.md
     help/plans-subscriptions-and-pricing: support-and-billing/plans-and-pricing.md
     help/updating-warp: support-and-billing/updating-warp.md
