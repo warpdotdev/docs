@@ -24,7 +24,7 @@ To subscribe to a paid Warp plan like Pro or Turbo, you must first [create a Tea
 
 ### How can I upgrade for more Warp AI requests?
 
-Both the Pro and Turbo plans offer higher Warp AI request limits than the Free plan. If you’re working with a team, Turbo also includes discounts for teams of 3 or more, giving everyone on the plan access to even more AI. You can learn more at [warp.dev/pricing](https://www.warp.dev/pricing). Any AI usage you’ve already accumulated will carry over when you upgrade.
+Both the Pro and Turbo plans offer higher Warp AI request limits than the Free plan. If you’re working with a team, Turbo also includes discounts for teams of 3 or more, giving everyone on the plan access to even more AI. You can learn more at [warp.dev/pricing](https://www.warp.dev/pricing). AI Usage resets when you upgrade from Free to a paid plan. Any AI usage you’ve already accumulated on a paid plan will carry over when you change to another plan.
 
 ### How can I subscribe to a Warp Enterprise plan?
 
