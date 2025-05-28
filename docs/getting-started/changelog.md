@@ -130,7 +130,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 **New features**
 
-* Get early access to unreleased and experimental features with [Warp Preview](warp-preview-and-alpha-program.md).
+* Get early access to unreleased and experimental features with [Warp Preview](../community/warp-preview-and-alpha-program.md).
 
 **Improvements**
 
@@ -234,10 +234,10 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 **New features**
 
 * Warp is now available for Windows! See our [#windows](../#windows "mention") Quickstart Guide
-* Prompt, plan, and execute fully autonomous tasks from [Agent Mode with Dispatch](../features/warp-ai/agent-mode.md#dispatch) (Beta)
+* Prompt, plan, and execute fully autonomous tasks from [Agent Mode with Dispatch](../agents/warp-ai/agent-mode.md#dispatch) (Beta)
 * Add codebase context support to Agent Mode. Currently enabled for git repositories only.
-* \[macOS] You can now customize your [App Icon](../appearance/app-icons.md) in `Settings > Appearance > Icon`.
-* Create and store [Rules](../features/warp-ai/rules.md) to use as Agent Mode context.
+* \[macOS] You can now customize your [App Icon](../terminal/appearance/app-icons.md) in `Settings > Appearance > Icon`.
+* Create and store [Rules](../knowledge-and-collaboration/rules.md) to use as Agent Mode context.
 * Show default suggestions in Agent Mode input.
 
 **Bug fixes**
