@@ -8,6 +8,12 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2025.05.28 (v0.2025.05.28.08.11)
+
+**New Features**
+
+* Added MCP server support. It's now possible to extend Agent Mode's capabilities using programs that support the [Model Context Protocol](../knowledge-and-collaboration/mcp.md).
+
 ### 2025.05.21 (v0.2025.05.21.08.11)
 
 **New Features**
