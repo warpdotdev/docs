@@ -4,10 +4,6 @@ description: How to use Model Context Protocol (MCP) servers in Warp
 
 # Model Context Protocol
 
-{% hint style="info" %}
-This feature is only available in [Warp Preview.](../community/warp-preview-and-alpha-program.md#warp-preview) We are working hard to get this feature out to all users as soon as possible. We encourage Warp Preview users to reach out with feedback via the dedicated Slack channel.
-{% endhint %}
-
 ## Model Context Protocol (MCP)
 
 Model Context Protocol (MCP) servers expose data sources or tools to Warp's [Agent Mode](../agents/warp-ai/agent-mode.md) through a standardized interface — essentially acting like plugins for Warp. This allows you to extend the Agent's capabilities in a modular, flexible way.
