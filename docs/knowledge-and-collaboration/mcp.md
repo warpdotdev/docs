@@ -33,9 +33,9 @@ To add a new MCP server, you can click the `+ Add` button. There are two types o
 * SSE (URL)
   * Warp will expect a valid MCP server to be listening at the provided URL.
 
-<figure><img src="../../.gitbook/assets/mcp-add-server-json.png" alt=""><figcaption><p>Adding a CLI MCP Server (Command)</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/mcp-add-server-json.png" alt=""><figcaption><p>Adding a CLI MCP Server (Command)</p></figcaption></figure>
 
-<figure><img src="../../.gitbook/assets/mcp-sse-json.png" alt=""><figcaption><p>Adding an SSE MCP Server (URL)</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/mcp-sse-json.png" alt=""><figcaption><p>Adding an SSE MCP Server (URL)</p></figcaption></figure>
 
 ### Managing MCP servers
 
