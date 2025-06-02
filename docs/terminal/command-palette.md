@@ -33,9 +33,9 @@ You can access the Command Palette with the keyboard shortcut `CTRL-SHIFT-P`.
   * `prompts:` or `p:` will filter for [Prompts](../knowledge-and-collaboration/warp-drive/prompts.md)
   * `env_vars:` will filter for [Environment Variables](../knowledge-and-collaboration/warp-drive/environment-variables.md)
   * `drive:` will filter for [Warp Drive](../knowledge-and-collaboration/warp-drive/).
-  * `actions:` will filter for Warp-specific actions like settings and [features](../features/broken-reference/).
+  * `actions:` will filter for Warp-specific actions like settings and features.
   * `sessions:` will filter for active sessions with [Session Navigation](sessions/session-navigation.md).
-  * `launch_configs:` will filter for [Launch Configurations](sessions/launch-configurations.md).\\
+  * `launch_configs:` will filter for [Launch Configurations](sessions/launch-configurations.md).
 
 {% embed url="https://www.loom.com/share/0e6108b295234637a0bb20cc941976e9?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
 Command Palette Demo
