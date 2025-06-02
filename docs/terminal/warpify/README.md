@@ -7,7 +7,7 @@ description: >-
 # Warpify
 
 1. [Subshells](subshells.md), Warp supports enabling Warp features in subshells for bash, zsh, and fish.
-2. [SSH](ssh-legacy.md), Warp supports a wrapper that enables Warp features in remote (SSH) sessions.
+2. [SSH](broken-reference), Warp supports a wrapper that enables Warp features in remote (SSH) sessions.
 
 ## Subshells
 

@@ -17,7 +17,7 @@ With Warp’s synchronized inputs, whatever command you enter in one session wil
 
 There are three ways to access controls to synchronize inputs:
 
-* [Command Palette](../command-palette.md) in Warp: Search for “synchronize”
+* [Command Palette](broken-reference) in Warp: Search for “synchronize”
 * Mac menus for the Warp app: `Edit > Synchronize Input`
 
 ## How to use it

@@ -36,7 +36,7 @@ Create a Block
 * For long Blocks:
   * You can click "Jump to the bottom of this block".
   * You can press `SHIFT-CMD-UP`/`SHIFT-CMD-DOWN` to Scroll to the top/bottom of the selected block.
-  * From the [Command Palette](../command-palette.md), you can also "Scroll to the top/bottom of selected block".
+  * From the [Command Palette](broken-reference), you can also "Scroll to the top/bottom of selected block".
 {% endtab %}
 
 {% tab title="Windows" %}
@@ -45,7 +45,7 @@ Create a Block
 * For long Blocks:
   * You can click "Jump to the bottom of this block".
   * You can press `CTRL-SHIFT-UP`/`CTRL-SHIFT-DOWN` to Scroll to the top/bottom of the selected block.
-  * From the [Command Palette](../command-palette.md), you can also "Scroll to the top/bottom of selected block".
+  * From the [Command Palette](broken-reference), you can also "Scroll to the top/bottom of selected block".
 {% endtab %}
 
 {% tab title="Linux" %}
@@ -54,7 +54,7 @@ Create a Block
 * For long Blocks:
   * You can click "Jump to the bottom of this block".
   * You can press `CTRL-SHIFT-UP`/`CTRL-SHIFT-DOWN` to Scroll to the top/bottom of the selected block.
-  * From the [Command Palette](../command-palette.md), you can also "Scroll to the top/bottom of selected block".
+  * From the [Command Palette](broken-reference), you can also "Scroll to the top/bottom of selected block".
 {% endtab %}
 {% endtabs %}
 
@@ -91,7 +91,7 @@ Select Multiple Blocks
 ## Navigate Blocks
 
 * Either scroll using your mouse or the scrollbar or select a Block and use the `UP ↑` and `DOWN ↓` arrow keys.
-* "Scroll Terminal output up/down one line" is also a way to navigate block output, and can be configured with a keyboard shortcut or accessed from the [Command Palette](../command-palette.md).
+* "Scroll Terminal output up/down one line" is also a way to navigate block output, and can be configured with a keyboard shortcut or accessed from the [Command Palette](broken-reference).
 * When the output of a command is cut off, Warp keeps the [Sticky Command Header](sticky-command-header.md) pinned at the top that displays the command the Block corresponds to. Clicking the header will scroll the screen to the start of the Block.
 
 {% embed url="https://www.loom.com/share/21ebb0a79c1248a98846cba12a4b7020?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}

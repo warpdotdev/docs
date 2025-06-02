@@ -6,7 +6,7 @@ description: Warp supports subshells for bash, zsh, and fish.
 
 ## What is a subshell?
 
-Within the context of the Warp terminal, a "subshell" is defined as any nested interactive shell session that's spawned and running within the context of an existing, running shell. This might be a nested session running locally on your machine, a shell session running within a Docker container, or a remote server accessed through SSH. [See more on SSH Warpification](ssh-legacy.md).
+Within the context of the Warp terminal, a "subshell" is defined as any nested interactive shell session that's spawned and running within the context of an existing, running shell. This might be a nested session running locally on your machine, a shell session running within a Docker container, or a remote server accessed through SSH. [See more on SSH Warpification](broken-reference).
 
 Note that Warp's definition of a subshell differs from the more common definition of a Unix subshell, which typically refers to any shell process spawned as a child of the interactive shell. For example, in bash, a command wrapped in parentheses is executed in a subshell with its own PID and addressable memory space.
 

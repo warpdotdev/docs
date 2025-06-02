@@ -18,6 +18,17 @@ Tab indicators provide visual cues in the tab bar under certain specific conditi
 
 <figure><img src="../../.gitbook/assets/tab-indicator-demo.gif" alt=""><figcaption><p>Tab Indicator Demo</p></figcaption></figure>
 
+## Recommended AI prompts
+
+Recommended prompts can be shown in new tabs to help get quick help from Agent Mode with installing, coding, deploying, or something else.
+
+### How to toggle recommended AI prompts
+
+* Navigate to `Settings > Features > General`, and switch the "Recommend AI Prompts on new tab" option.
+* Utilize the [Command Palette](../command-palette.md), then search for "Recommend AI Prompts" to toggle.
+
+<figure><img src="../../.gitbook/assets/ai-prompts-new-tab.png" alt=""><figcaption><p>Recommended AI Prompts in new tab</p></figcaption></figure>
+
 ## Tab Bar
 
 The tab bar provides easy navigation between open tabs. By default, the tab bar is visible in windowed mode but hides in fullscreen. To access the tab bar when hidden, hover near the top of the window. You can customize its visibility based on your preferences.

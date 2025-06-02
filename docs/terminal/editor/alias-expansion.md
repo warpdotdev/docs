@@ -35,7 +35,7 @@ Aliases will not be expanded when the command in the expanded form is the same a
 Alias expansion is disabled by default. There are two ways to toggle this on and off:
 
 * From Settings: Navigate to `Settings > Features > Editor` and toggle “Expand aliases as you type”.
-* From the [Command Palette](../command-palette.md): Search for the “Enable/disable alias expansion” option and hit `ENTER`.
+* From the [Command Palette](broken-reference): Search for the “Enable/disable alias expansion” option and hit `ENTER`.
 
 ## How it works
 

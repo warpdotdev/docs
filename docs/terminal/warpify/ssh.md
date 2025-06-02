@@ -8,7 +8,7 @@ hidden: true
 {% hint style="warning" %}
 This page is dedicated to the upcoming SSH features that may not yet be available to you, powered by `tmux`.
 
-If you are looking to troubleshoot the legacy SSH implementation, see the [SSH (Legacy)](ssh-legacy.md).
+If you are looking to troubleshoot the legacy SSH implementation, see the [SSH (Legacy)](broken-reference).
 {% endhint %}
 
 Warpifying your SSH session gives you all the features of Warp while connected to a remote machine: the input editor, auto-completions, history search, and more. We achieve this by running commands like `ls` on the remote machine on your behalf.
@@ -43,7 +43,7 @@ At the time of writing, we support macOS and most flavors of Linux as remote hos
 
 #### What if Warp fails to detect my SSH session?
 
-If you are ever in a remote SSH Session and would like to manually Warpify, you can do so by using the [command palette](../command-palette.md) and searching for "Warpify SSH Session".
+If you are ever in a remote SSH Session and would like to manually Warpify, you can do so by using the [command palette](broken-reference) and searching for "Warpify SSH Session".
 
 #### What triggers SSH Session Detection for Warpification?
 
