@@ -2,10 +2,10 @@
 description: SSH wrapper that enables Warp features in remote sessions.
 ---
 
-# SSH
+# SSH Legacy
 
 {% hint style="info" %}
-This implementation of SSH will be deprecated in the near future, replaced with a new and improved implementation.
+This implementation of SSH will be replaced with a new and improved implementation.
 {% endhint %}
 
 When you SSH into a remote box, you get all the features of Warp without any configuration on your part. The input editor, auto-completions, and history search work the same, regardless of machine.
@@ -39,7 +39,7 @@ You can see the SSH wrapper by using `which warp_ssh_helper` in zsh, `type warp_
 _Note:_ The ssh wrapper is only _initialized_ on your local machine. We don’t currently support bootstrapping nested ssh sessions.
 
 {% hint style="info" %}
-Warp [Completions](../../terminal/command-completions/completions.md) for ssh show entries in `~/.ssh/config` and `~/.ssh/known_hosts`
+Warp [Completions](../command-completions/completions.md) for ssh show entries in `~/.ssh/config` and `~/.ssh/known_hosts`
 {% endhint %}
 
 ## Troubleshooting SSH

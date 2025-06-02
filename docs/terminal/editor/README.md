@@ -7,7 +7,7 @@ description: >-
 # Modern Text Editing
 
 {% hint style="info" %}
-Text Editor Input also works for [SSH sessions](broken-reference).
+Text Editor Input also works for [SSH sessions](../warpify/ssh.md).
 {% endhint %}
 
 ### Soft Wrapping
@@ -18,13 +18,13 @@ Warp supports soft wrapping in the input editor. If an autosuggestion goes off-s
 
 Warp supports copy on select for selectable text within [Blocks](../blocks/).
 
-* Toggle this feature `Settings > Features > General` or search for "Copy on select" in the [Command Palette](broken-reference).
+* Toggle this feature `Settings > Features > General` or search for "Copy on select" in the [Command Palette](../command-palette.md).
 
 ### Autocomplete Quotes, Parentheses, and Brackets
 
 Warp can automatically complete quotes, brackets, and parentheses like you're used to in IDEs.
 
-* Toggle this feature `Settings > Features > Editor` or search for "Autocomplete quotes" in the [Command Palette](broken-reference).
+* Toggle this feature `Settings > Features > Editor` or search for "Autocomplete quotes" in the [Command Palette](../command-palette.md).
 
 ## How to use it
 

@@ -18,7 +18,7 @@ With `bash` and `zsh`, Warp attempts to detect the shell's keybinding settings. 
 
 To manually toggle Vim keybindings in Warp's input editor:
 
-* Through the [Command Palette](broken-reference), search for "Vim Keybindings".
+* Through the [Command Palette](../command-palette.md), search for "Vim Keybindings".
 * Through `Settings > Features > Editor`, toggle "Edit commands with Vim keybindings".
 
 As in `bash` and `zsh`'s vi mode implementations, the editor starts in insert mode. Pressing `CTRL-C` or `ENTER` clears any pending command state.
@@ -27,7 +27,7 @@ As in `bash` and `zsh`'s vi mode implementations, the editor starts in insert mo
 
 At the moment, Warp only supports default Vim keybindings.
 
-One exception is the keyboard shortcut for exiting insert mode, which can be rebound under `Settings > Keyboard Shortcuts > Exit Vim Insert Mode`, or through the [Command Palette](broken-reference) search for "Exit Vim Insert Mode".
+One exception is the keyboard shortcut for exiting insert mode, which can be rebound under `Settings > Keyboard Shortcuts > Exit Vim Insert Mode`, or through the [Command Palette](../command-palette.md) search for "Exit Vim Insert Mode".
 
 ## Supported Keybindings
 

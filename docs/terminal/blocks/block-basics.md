@@ -36,7 +36,7 @@ Create a Block
 * For long Blocks:
   * You can click "Jump to the bottom of this block".
   * You can press `SHIFT-CMD-UP`/`SHIFT-CMD-DOWN` to Scroll to the top/bottom of the selected block.
-  * From the [Command Palette](broken-reference), you can also "Scroll to the top/bottom of selected block".
+  * From the [Command Palette](../command-palette.md), you can also "Scroll to the top/bottom of selected block".
 {% endtab %}
 
 {% tab title="Windows" %}
@@ -45,7 +45,7 @@ Create a Block
 * For long Blocks:
   * You can click "Jump to the bottom of this block".
   * You can press `CTRL-SHIFT-UP`/`CTRL-SHIFT-DOWN` to Scroll to the top/bottom of the selected block.
-  * From the [Command Palette](broken-reference), you can also "Scroll to the top/bottom of selected block".
+  * From the [Command Palette](../command-palette.md), you can also "Scroll to the top/bottom of selected block".
 {% endtab %}
 
 {% tab title="Linux" %}
@@ -54,7 +54,7 @@ Create a Block
 * For long Blocks:
   * You can click "Jump to the bottom of this block".
   * You can press `CTRL-SHIFT-UP`/`CTRL-SHIFT-DOWN` to Scroll to the top/bottom of the selected block.
-  * From the [Command Palette](broken-reference), you can also "Scroll to the top/bottom of selected block".
+  * From the [Command Palette](../command-palette.md), you can also "Scroll to the top/bottom of selected block".
 {% endtab %}
 {% endtabs %}
 
