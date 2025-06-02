@@ -91,7 +91,7 @@ Select Multiple Blocks
 ## Navigate Blocks
 
 * Either scroll using your mouse or the scrollbar or select a Block and use the `UP ↑` and `DOWN ↓` arrow keys.
-* "Scroll Terminal output up/down one line" is also a way to navigate block output, and can be configured with a keyboard shortcut or accessed from the [Command Palette](broken-reference).
+* "Scroll Terminal output up/down one line" is also a way to navigate block output, and can be configured with a keyboard shortcut or accessed from the [Command Palette](../command-palette.md).
 * When the output of a command is cut off, Warp keeps the [Sticky Command Header](sticky-command-header.md) pinned at the top that displays the command the Block corresponds to. Clicking the header will scroll the screen to the start of the Block.
 
 {% embed url="https://www.loom.com/share/21ebb0a79c1248a98846cba12a4b7020?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
