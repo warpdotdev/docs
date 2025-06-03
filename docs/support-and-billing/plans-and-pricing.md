@@ -65,16 +65,18 @@ When you use the account to sign into Warp on different devices, for example Lin
 
 ### What happens when I downgrade during a billing cycle?
 
-When you upgrade to a Warp paid plan, you can subscribe monthly or annually.
+You can initiate a downgrade at any point throughout your subscription through the billing portal by going to `Settings > Teams > Manage billing`. The subscription will immediately downgrade to the lower plan and the changes will be prorated.
 
-You can initiate a downgrade at any point throughout your subscription through the billing portal by going to `Settings > Teams > Manage billing`. The subscription will be canceled at the end of your billing cycle, monthly or yearly.
+### What happens when I cancel during a billing cycle?
+
+You can initiate a cancellation at any point throughout your subscription through the billing portal by going to `Settings > Teams > Manage billing`. The subscription will be canceled at the end of your billing cycle, monthly or yearly.
 
 You can continue to use your Warp paid plan features until the cycle end date. Any additional team members added to your team will be invoiced at the end of your billing cycle.
 
 ### What happens if I upgrade from monthly to annual billing?
 
-When upgrading from a monthly to annual billing cycle the billing is prorated, meaning you only pay for the annual portion of the year you haven't paid for yet. You will be billed for the remaining part of the billing year with the discounted rate.\
-\
+When upgrading from a monthly to annual billing cycle the billing is prorated, meaning you only pay for the annual portion of the year you haven't paid for yet. You will be billed for the remaining part of the billing year with the discounted rate.
+
 You can initiate a upgrade at any point throughout your subscription through the billing portal by going to `Settings > Teams > Manage billing`.
 
 ### What happens if my payment fails?
