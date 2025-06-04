@@ -54,3 +54,27 @@ If you choose to share your MCP server logs with anybody, make sure to remove an
 {% hint style="info" %}
 Tip: We've noticed that some models often work better with MCP servers than others. If you're having trouble calling or using an MCP server, try using a different model.
 {% endhint %}
+
+#### MCP logs
+
+Warp saves the MCP logs locally on your computer. You can open the files directly and inspect the full contents in the following location:
+
+{% tabs %}
+{% tab title="macOS" %}
+```bash
+cd "$HOME/Library/Application Support/dev.warp.Warp-Stable/mcp"
+```
+{% endtab %}
+
+{% tab title="Windows" %}
+```powershell
+Set-Location $env:LOCALAPPDATA\warp\Warp\data\logs\mcp
+```
+{% endtab %}
+
+{% tab title="Linux" %}
+```bash
+cd "${XDG_STATE_HOME:-$HOME/.local/state}/warp-terminal/mcp"
+```
+{% endtab %}
+{% endtabs %}

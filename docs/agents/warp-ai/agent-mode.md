@@ -334,6 +334,30 @@ These outlines can then be used by Agent Mode to search for relevant files to an
 You can disable generating codebase context outlines and using them for Agent Mode requests by disabling the "Codebase Context" setting.
 {% endhint %}
 
+#### Codebase context database
+
+Warp saves the data from codebase context to local json files on your computer. You can open the files directly and inspect the full contents in the following location:
+
+{% tabs %}
+{% tab title="macOS" %}
+```bash
+cd "$HOME/Library/Application Support/dev.warp.Warp-Stable/codebase_index_snapshots"
+```
+{% endtab %}
+
+{% tab title="Windows" %}
+```powershell
+Set-Location $env:LOCALAPPDATA\warp\Warp\data\codebase_index_snapshots
+```
+{% endtab %}
+
+{% tab title="Linux" %}
+```bash
+cd "${XDG_STATE_HOME:-$HOME/.local/state}/warp-terminal/codebase_index_snapshots"
+```
+{% endtab %}
+{% endtabs %}
+
 ## Dispatch
 
 _Dispatch_ is a form of Agent Mode that carries out complex tasks automatically. When you make a Dispatch query, the AI will:
