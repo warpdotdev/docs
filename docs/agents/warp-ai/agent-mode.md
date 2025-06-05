@@ -511,7 +511,11 @@ To fix this, try:
 
 Once you exceed your AI requests on the Turbo plan (see [pricing](https://www.warp.dev/pricing) for current limits), premium models will be disabled, and Warp will automatically switch you to Lite. This allows you to continue using AI features with a more token-efficient model until your quota resets at the start of your next billing cycle.
 
-If you have questions or need extended access, feel free to reach out to us at [feedback@warp.dev](mailto:feedback@warp.dev).
+If you have questions or need extended access, feel free to reach out to us at [feedback@warp.dev](mailto:feedback@warp.dev).\
+\
+&#xNAN;**"Request failed with error: QuotaLimit" error**
+
+Once you exceed your AI token limits, all models will be disabled. Note that requests and tokens are calculated separately, and even though the plans may have a set number of requests, they also have a limited number of tokens you can submit. If you have questions, feel free to reach out to us at [feedback@warp.dev](mailto:feedback@warp.dev).
 
 ### Agent Mode FAQs
 
