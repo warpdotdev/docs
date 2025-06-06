@@ -8,6 +8,23 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2025.06.04 (v0.2025.06.04.08.11)
+
+**New Features**
+
+* Sonnet 4 is now an available model (enabled by default in the "auto" model).
+
+**Improvements**
+
+* Press the hovering fast-forward button to auto-execute all Agent actions until the task completes.
+* Added ability to share session via `RIGHT-CLICK` on tab.
+* You can now give the Agent permission to auto-execute MCP tool calls.
+
+**Bug Fixes**
+
+* Fixed an issue where Agent Mode would sometimes not find untracked files in git repos.
+* Fixed Agent Mode file editor randomly scrolling to the first line of a file.
+
 ### 2025.05.28 (v0.2025.05.28.08.11)
 
 **New Features**

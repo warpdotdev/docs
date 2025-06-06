@@ -91,6 +91,7 @@ The following LLMs are currently supported in Warp:
   * o3
   * o4-mini
 * **Claude**:
+  * 4 Sonnet  
   * 3.7 Sonnet
   * 3.5 Sonnet
   * 3.5 Haiku
