@@ -10,25 +10,38 @@ redirects:
     appearance/input-position: terminal/appearance/input-position.md
     appearance/text-fonts-cursor: terminal/appearance/text-fonts-cursor.md
     appearance/size-opacity-blurring: terminal/appearance/size-opacity-blurring.md
+    appearance/transparency-and-blurring: terminal/appearance/size-opacity-blurring.md
     appearance/pane-dimming: terminal/appearance/pane-dimming.md
     appearance/compact-mode: terminal/appearance/blocks-behavior.md
     appearance/blocks-behavior: terminal/appearance/blocks-behavior.md
     appearance/tabs-behavior: terminal/appearance/tabs-behavior.md
+    appearance/tab-indicators: terminal/appearance/tabs-behavior.md
     appearance/app-icons: terminal/appearance/app-icons.md
+    features/themes: terminal/appearance/themes.md
+    features/themes/custom-themes: terminal/appearance/custom-themes.md
+    features/compact-mode: terminal/appearance/blocks-behavior.md
+    features/appearance/compact-mode: terminal/appearance/blocks-behavior.md
+    features/appearance/themes: terminal/appearance/themes.md
+    features/appearance/custom-themes: terminal/appearance/custom-themes.md
+    features/appearance/prompt: terminal/appearance/prompt.md
     features/warp-ai: agents/warp-ai/README.md
     features/warp-ai/agent-mode: agents/warp-ai/agent-mode.md
     features/warp-ai/active-ai: agents/active-ai.md
     features/warp-ai/ai-command-search: agents/generate.md
     features/warp-ai/generate: agents/generate.md
+    features/ai-command-search: agents/generate.md
+    features/generate: agents/generate.md
     features/warp-ai/voice: agents/voice.md
+    features/voice: agents/voice.md
     features/warp-ai/mcp: knowledge-and-collaboration/mcp.md
     features/warp-ai/knowledge: knowledge-and-collaboration/rules.md
     features/warp-ai/rules: knowledge-and-collaboration/rules.md
+    features/knowledge: knowledge-and-collaboration/rules.md
     features/command-palette: terminal/command-palette.md
     features/warp-drive: knowledge-and-collaboration/warp-drive/README.md
     features/warp-drive/notebooks: knowledge-and-collaboration/warp-drive/notebooks.md
     features/warp-drive/workflows: knowledge-and-collaboration/warp-drive/workflows.md
-    features/warp-drive/prompts: knowledge-and-collaboration/warp-drive/prompts.md     
+    features/warp-drive/prompts: knowledge-and-collaboration/warp-drive/prompts.md
     features/warp-drive/environment-variables: knowledge-and-collaboration/warp-drive/environment-variables.md
     features/warp-drive/warp-drive-on-the-web: knowledge-and-collaboration/warp-drive/warp-drive-on-the-web.md
     features/teams: knowledge-and-collaboration/teams.md
@@ -49,23 +62,34 @@ redirects:
     features/entry/command-corrections: terminal/entry/command-corrections.md
     features/entry/command-search: terminal/entry/command-search.md
     features/entry/command-history: terminal/entry/command-history.md
+    features/command-search: terminal/entry/command-search.md
+    features/command-history: terminal/entry/command-history.md
     features/entry/synchronized-inputs: terminal/entry/synchronized-inputs.md
     features/entry/yaml-workflows: terminal/entry/yaml-workflows.md
+    features/workflows: terminal/entry/yaml-workflows.md
     features/command-completions: terminal/command-completions/README.md
     features/command-completions/completions: terminal/command-completions/completions.md
     features/command-completions/autosuggestions: terminal/command-completions/autosuggestions.md
-    features/session-management-and-restoration: terminal/sessions/README.md
     features/sessions/README: terminal/sessions/README.md
     features/sessions/launch-configurations: terminal/sessions/launch-configurations.md
     features/sessions/session-navigation: terminal/sessions/session-navigation.md
     features/sessions/session-restoration: terminal/sessions/session-restoration.md
+    features/session-management-and-restoration: terminal/sessions/README.md
+    features/session-management/session-restoration: terminal/sessions/session-restoration.md
+    features/session-management/launch-configurations: terminal/sessions/launch-configurations.md
+    features/session-management/session-navigation: terminal/sessions/session-navigation.md
     features/windows: terminal/windows/README.md
     features/windows/global-hotkey: terminal/windows/global-hotkey.md
     features/windows/tabs: terminal/windows/tabs.md
     features/windows/split-panes: terminal/windows/split-panes.md
+    features/hotkey-window: terminal/windows/global-hotkey.md
+    features/tabs: terminal/windows/tabs.md
+    features/split-panes: terminal/windows/split-panes.md
     features/warpify: terminal/warpify/README.md
     features/warpify/subshells: terminal/warpify/subshells.md
+    features/subshells: terminal/warpify/subshells.md
     features/warpify/ssh-legacy: terminal/warpify/ssh-legacy.md
+    features/ssh: terminal/warpify/ssh-legacy.md
     features/warpify/ssh: terminal/warpify/ssh.md
     features/accessibility: terminal/more-features/accessibility.md
     features/find: terminal/blocks/find.md
@@ -93,3 +117,4 @@ redirects:
     help/known-issues: support-and-billing/known-issues.md
     help/troubleshooting-login-issues: support-and-billing/troubleshooting-login-issues.md
     help/licenses: support-and-billing/licenses.md
+    help/changelog: getting-started/changelog.md
