@@ -515,7 +515,7 @@ If you have questions or need extended access, feel free to reach out to us at [
 \
 &#xNAN;**"Request failed with error: QuotaLimit" error**
 
-Once you exceed your AI token limits, all models will be disabled. Note that requests and tokens are calculated separately, and even though the plans may have a set number of requests, they also have a limited number of tokens you can submit. If you have questions, feel free to reach out to us at [feedback@warp.dev](mailto:feedback@warp.dev).
+Once you exceed your AI token limits, all models will be disabled. Note that requests and tokens are calculated separately, and even though the plans may have a set number of requests, they also have a limited number of tokens.
 
 ### Agent Mode FAQs
 
