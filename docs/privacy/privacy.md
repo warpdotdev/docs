@@ -85,6 +85,7 @@ If you're a [Team](../knowledge-and-collaboration/teams.md) admin, the deletion 
 | `Agent Predict` | Completed an Agent Predict prediction |
 | `AgentMode.AISuggestedAgentModeWorkflowAdded` | User created an AI suggested Agent Mode workflow |
 | `AgentMode.AttachedContext` | Attached block as context to an Agent Mode query |
+| `AgentMode.AttachedImages` | Attached images to an Agent Mode query |
 | `AgentMode.ChangedInputType` | The input type was changed from shell -> AI or AI -> shell |
 | `AgentMode.ClickedEntrypoint` | Clicked on an Agent Mode entrypoint |
 | `AgentMode.Code.DiffHunksNavigated` | Agent Mode Code diff hunks navigated |
@@ -352,7 +353,7 @@ If you're a [Team](../knowledge-and-collaboration/teams.md) admin, the deletion 
 | `Thin Strokes Setting Changed` | Changed thin strokes setting in settings -> Appearance |
 | `Tier Limit Hit` | User hit the tier limit for a feature |
 | `Toggle Active AI Enablement` | Toggled active AI enablement. |
-| `Toggle Agent Mode Codebase Context` | User toggled the enablement of codebase context usage for Agent Mode. |
+| `Toggle Agent Mode Codebase Context` | Toggled on/off the enablement of codebase context usage for Agent Mode. |
 | `Toggle Agent Mode Query Suggestions Setting` | Toggled on/off the prompt suggestions setting |
 | `Toggle Approvals Modal` | Opened or closed teams modal |
 | `Toggle Block Filter Case Sensitivity` | Toggled on/off case sensitivity within the block filter editor |
@@ -360,8 +361,9 @@ If you're a [Team](../knowledge-and-collaboration/teams.md) admin, the deletion 
 | `Toggle Block Filter Query` | Toggled on/off a block filter query |
 | `Toggle Block Filter Regex` | Toggled on/off regex within the block filter editor |
 | `Toggle Code Suggestions Setting` | Toggled on/off the code suggestions setting |
+| `Toggle Codebase Context Autoindexing` | Toggled on/off the enablement of autoindexing for codebase context. |
 | `Toggle Dim Inactive Panes` | Whether the dim inactive panes feature has been toggled |
-| `Toggle Focus Pane On Hover` | User toggled focus pane on hover feature, which causes panes to automatically focus when hovering over them |
+| `Toggle Focus Pane On Hover` | Toggled on/off focus pane on hover feature, which causes panes to automatically focus when hovering over them |
 | `Toggle Global AI Enablement` | Toggled global AI enablement. |
 | `Toggle Intelligent Autosuggestions Setting` | Toggled on/off the intelligent autosuggestions setting |
 | `Toggle Jump to Bottom of Block Button` | Enabled or disabled the Jump to Bottom of Block Button |
@@ -372,9 +374,10 @@ If you're a [Team](../knowledge-and-collaboration/teams.md) admin, the deletion 
 | `Toggle Restore Session` | Toggled session restoration ("Restore windows, tabs, panes, on startup") |
 | `Toggle SSH Tmux Wrapper` | Changed the setting for SSH sessions to prompt for Tmux Wrapper |
 | `Toggle SSH Warpification` | Changed the setting for SSH sessions to be warified |
-| `Toggle Same Line Prompt` | Toggled same line prompt |
-| `Toggle Secret Redaction` | Toggled the setting for Secret Redaction - attempts to redact secrets and sensitive information |
-| `Toggle Settings Sync` | User toggled Settings Sync |
+| `Toggle Same Line Prompt` | Toggled on/off same line prompt |
+| `Toggle Secret Redaction` | Toggled on/off the setting for Secret Redaction - attempts to redact secrets and sensitive information |
+| `Toggle Settings Sync` | Toggled on/off Settings Sync |
+| `Toggle SharedBlock Title Generation` | Toggled on/off the shared block title generation setting |
 | `Toggle Show Block Dividers` | Enabled or disabled the Show Block Dividers Button |
 | `Toggle Sticky Command Header in Active Pane` | Expanded or collapsed the sticky command header in the active pane |
 | `Toggle Sync Inputs Across All Panes in All Tabs` | Enable the synchronization of the Input Editor's buffer to all the panes in all the tabs |

@@ -8,6 +8,25 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2025.06.11 (v0.2025.06.11.08.11)
+
+**New Features**
+
+* You can now attach images as context for Agent Mode! Simply use the image icon and select the files you wish to attach.
+
+**Improvements**
+
+* [Linux] Added support for standard installed Zed and Zed Preview as default code editors.
+* [macOS] Added support for Zed Preview as a default code editor.
+* Added syntax highlighting support for TSX and JSX.
+* Increased visibility of non-focused diff hunks when navigating diffs.
+* New Agent Mode output will no longer force-scroll.
+
+**Bug Fixes**
+
+* Fixed keybinding being missing for editing requested commands.
+* Removed keybindings for zero-state prompt suggestions, to avoid conflicting with tab switching keybindings.
+
 ### 2025.06.04 (v0.2025.06.04.08.11)
 
 **New Features**
