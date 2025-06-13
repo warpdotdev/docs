@@ -2,7 +2,7 @@
 description: Use natural language to accomplish any task in the terminal
 ---
 
-# Untitled
+# Using Agents
 
 ## What is Agent Mode?
 
@@ -145,14 +145,8 @@ Set-Location $env:LOCALAPPDATA\warp\Warp\data\codebase_index_snapshots
 {% tab title="Linux" %}
 ```bash
 cd "${XDG_STATE_HOME:-$HOME/.local/state}/warp-terminal/codebase_index_snapshots"
+
+
 ```
 {% endtab %}
 {% endtabs %}
-
-## Dispatch
-
-If you have questions or need extended access, feel free to reach out to us at [feedback@warp.dev](mailto:feedback@warp.dev).\
-\
-&#xNAN;**"Request failed with error: QuotaLimit" error**
-
-Once you exceed your AI token limits, all models will be disabled. Note that requests and tokens are calculated separately, and even though the plans may have a set number of requests, they also have a limited number of tokens.

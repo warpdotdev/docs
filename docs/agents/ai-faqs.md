@@ -22,7 +22,7 @@ No, Warp nor its providers OpenAI or Anthropic train on your data.
 
 ### What model are you using for Agent Mode?
 
-Warp supports a curated list of LLMs from providers like OpenAI, Anthropic, Google, and DeepSeek (hosted by Fireworks AI in the US). To view the full list of supported models and learn how to switch between them, visit the [model-choice.md](model-choice.md "mention") page.
+Warp supports a curated list of LLMs from providers like OpenAI, Anthropic, Google, and DeepSeek (hosted by Fireworks AI in the US). To view the full list of supported models and learn how to switch between them, visit the [model-choice.md](using-agents/model-choice.md "mention") page.
 
 ### Is DeepSeek enabled by default?
 
@@ -69,5 +69,11 @@ To fix this, try:
 #### **"Monthly request limit exceeded" error**
 
 Once you exceed your AI requests on the Turbo plan (see [pricing](https://www.warp.dev/pricing) for current limits), premium models will be disabled, and Warp will automatically switch you to Lite. This allows you to continue using AI features with a more token-efficient model until your quota resets at the start of your next billing cycle.
+
+
+
+**"Request failed with error: QuotaLimit" error**
+
+Once you exceed your AI token limits, all models will be disabled. Note that requests and tokens are calculated separately, and even though the plans may have a set number of requests, they also have a limited number of tokens.
 
 If you have questions or need extended access, feel free to reach out to us at [feedback@warp.dev](mailto:feedback@warp.dev).
