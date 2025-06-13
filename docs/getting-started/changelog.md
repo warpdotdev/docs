@@ -276,7 +276,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 **New features**
 
 * Warp is now available for Windows! See our [#windows](../#windows "mention") Quickstart Guide
-* Prompt, plan, and execute fully autonomous tasks from [Agent Mode with Dispatch](../agents/agents/#dispatch) (Beta)
+* Prompt, plan, and execute fully autonomous tasks from [Agent Mode with Dispatch](../agents/using-agents/#dispatch) (Beta)
 * Add codebase context support to Agent Mode. Currently enabled for git repositories only.
 * \[macOS] You can now customize your [App Icon](../terminal/appearance/app-icons.md) in `Settings > Appearance > Icon`.
 * Create and store [Rules](../knowledge-and-collaboration/rules.md) to use as Agent Mode context.

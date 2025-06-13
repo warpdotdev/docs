@@ -11,10 +11,10 @@
 
 ## Agents
 
-* [Getting started with agents](agents/warp-ai.md)
-* [Untitled](agents/agents/README.md)
-  * [Agent Conversations](agents/agents/agent-conversations.md)
-  * [Agent Autonomy](agents/agents/agent-autonomy.md)
+* [Warp AI](agents/warp-ai.md)
+* [Using Agents](agents/using-agents/README.md)
+  * [Agent Conversations](agents/using-agents/agent-conversations.md)
+  * [Agent Autonomy](agents/using-agents/agent-autonomy.md)
 * [Code](agents/code/README.md)
   * [Codebase Context](agents/code/codebase-context.md)
 * [Model Choice](agents/model-choice.md)

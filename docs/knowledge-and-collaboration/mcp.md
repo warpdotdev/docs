@@ -6,7 +6,7 @@ description: How to use Model Context Protocol (MCP) servers in Warp
 
 ## Model Context Protocol (MCP)
 
-Model Context Protocol (MCP) servers expose data sources or tools to Warp's [Agent Mode](../agents/agents/) through a standardized interface — essentially acting like plugins for Warp. This allows you to extend the Agent's capabilities in a modular, flexible way.
+Model Context Protocol (MCP) servers expose data sources or tools to Warp's [Agent Mode](../agents/using-agents/) through a standardized interface — essentially acting like plugins for Warp. This allows you to extend the Agent's capabilities in a modular, flexible way.
 
 MCP is an open source protocol. Check out the official [MCP documentation](https://modelcontextprotocol.io/introduction) for more detailed information on how this protocol is engineered.
 

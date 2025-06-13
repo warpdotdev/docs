@@ -22,7 +22,7 @@ Prompt Suggestions are contextual, AI-powered suggestions that activate Agent Mo
 
 #### Accepting a Prompt Suggestion
 
-If you press `CMD-ENTER` (on Mac), `CTRL-SHIFT-ENTER` (on Linux/Windows), or click on the chip, the suggestion will be auto-populated into your input and run against [Agent Mode](agents/) (with the most recent block attached).
+If you press `CMD-ENTER` (on Mac), `CTRL-SHIFT-ENTER` (on Linux/Windows), or click on the chip, the suggestion will be auto-populated into your input and run against [Agent Mode](using-agents/) (with the most recent block attached).
 
 {% hint style="info" %}
 Prompt Suggestions use an LLM to generate prompts based on your terminal session, specifically the most recent block. These AI requests do not contribute towards your AI limits, however, any accepted prompts run in Agent Mode contribute as normal. Visit Settings > AI > Agent Mode, if you'd like to turn it off.
