@@ -8,7 +8,7 @@ description: >-
 
 Key Features:
 
-* [**Warp AI**](../agents/warp-ai/): AI integrated in your terminal for natural language input, autofill, and intelligent suggestions.
+* [**Warp AI**](../agents/warp-ai.md): AI integrated in your terminal for natural language input, autofill, and intelligent suggestions.
 * [**Warp Drive**](../knowledge-and-collaboration/warp-drive/): Notebooks, workflows, and environment variables for you to use personally or with your team.
 * [**Modern UX and Text Editing**](../terminal/editor/): Commands and outputs are grouped into easy to use Blocks, and you can use your cursor or customizable keybindings to easily navigate Warp’s input editor.
 

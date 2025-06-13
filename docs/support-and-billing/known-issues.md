@@ -26,7 +26,7 @@ To enable Blocks over SSH, Warp uses an SSH Wrapper function; navigate to settin
 
 ### Online features don't work
 
-There is a known issue that can occur that causes online features to break ([Warp AI](../agents/warp-ai/), [Generate](../agents/generate.md), [Block Sharing](../terminal/blocks/block-sharing.md), [Refer a Friend](../community/refer-a-friend.md) ). This is due to the login token going stale, typically due to a password change, and can be resolved by the following steps:
+There is a known issue that can occur that causes online features to break ([Warp AI](../agents/warp-ai.md), [Generate](../agents/generate.md), [Block Sharing](../terminal/blocks/block-sharing.md), [Refer a Friend](../community/refer-a-friend.md) ). This is due to the login token going stale, typically due to a password change, and can be resolved by the following steps:
 
 {% tabs %}
 {% tab title="macOS" %}
@@ -73,6 +73,13 @@ If you notice issues with the terminal rendering Chinese characters (i.e. [#3366
 export LC_ALL=zh_CN.UTF-8
 export LANG=zh_CN.UTF-8
 ```
+
+## Agent Mode
+
+* Note that Agent Mode blocks are not shareable during [session sharing](../knowledge-and-collaboration/session-sharing.md). Participants will be able to share regular shell commands that are run, but will not be able to share AI interactions (requested commands, AI blocks, etc.).
+* Block actions such as [Block Sharing](../terminal/blocks/block-sharing.md) are not available on Agent Mode AI blocks.
+* Warp AI does not have up-to-date information on several commands’ completion specs
+* Agent Mode works better with Warp's default prompt settings, where the prompt starts on a new line, than it does with a same-line prompt. If you are using the same-line prompt, the cursor will jump from the end of the single line to the start of the input box when you switch to Agent Mode.
 
 ## Shells
 
@@ -273,3 +280,6 @@ sudo apt update && sudo apt install warp-terminal
 ```
 
 See the instructions for other Linux distros on our [Quick Start Guide](../#linux).
+
+
+

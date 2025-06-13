@@ -4,18 +4,24 @@
 
 * [Quickstart Guide](README.md)
 * [What is Warp?](getting-started/what-is-warp.md)
-* [Supported shells](getting-started/using-warp-with-shells.md)
+* [Supported Shells](getting-started/supported-shells.md)
 * [Migrate to Warp](getting-started/migrate-to-warp.md)
 * [Keyboard Shortcuts](getting-started/keyboard-shortcuts.md)
 * [Changelog](getting-started/changelog.md)
 
 ## Agents
 
-* [Warp AI](agents/warp-ai/README.md)
-  * [Agent Mode](agents/warp-ai/agent-mode.md)
+* [Getting started with agents](agents/warp-ai.md)
+* [Untitled](agents/agents/README.md)
+  * [Agent Conversations](agents/agents/agent-conversations.md)
+  * [Agent Autonomy](agents/agents/agent-autonomy.md)
+* [Code](agents/code/README.md)
+  * [Codebase Context](agents/code/codebase-context.md)
+* [Model Choice](agents/model-choice.md)
 * [Active AI](agents/active-ai.md)
 * [Generate](agents/generate.md)
 * [Voice](agents/voice.md)
+* [AI FAQs](agents/ai-faqs.md)
 
 ## Terminal
 
@@ -90,6 +96,7 @@
   * [Prompts](knowledge-and-collaboration/warp-drive/prompts.md)
   * [Environment Variables](knowledge-and-collaboration/warp-drive/environment-variables.md)
   * [Warp Drive on the Web](knowledge-and-collaboration/warp-drive/warp-drive-on-the-web.md)
+  * [Warp Drive as Agent Mode Context](knowledge-and-collaboration/warp-drive/warp-drive-as-agent-mode-context.md)
 * [Model Context Protocol](knowledge-and-collaboration/mcp.md)
 * [Rules](knowledge-and-collaboration/rules.md)
 * [Teams](knowledge-and-collaboration/teams.md)

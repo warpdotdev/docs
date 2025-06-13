@@ -16,8 +16,8 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 **Improvements**
 
-* [Linux] Added support for standard installed Zed and Zed Preview as default code editors.
-* [macOS] Added support for Zed Preview as a default code editor.
+* \[Linux] Added support for standard installed Zed and Zed Preview as default code editors.
+* \[macOS] Added support for Zed Preview as a default code editor.
 * Added syntax highlighting support for TSX and JSX.
 * Increased visibility of non-focused diff hunks when navigating diffs.
 * New Agent Mode output will no longer force-scroll.
@@ -276,7 +276,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 **New features**
 
 * Warp is now available for Windows! See our [#windows](../#windows "mention") Quickstart Guide
-* Prompt, plan, and execute fully autonomous tasks from [Agent Mode with Dispatch](../agents/warp-ai/agent-mode.md#dispatch) (Beta)
+* Prompt, plan, and execute fully autonomous tasks from [Agent Mode with Dispatch](../agents/agents/#dispatch) (Beta)
 * Add codebase context support to Agent Mode. Currently enabled for git repositories only.
 * \[macOS] You can now customize your [App Icon](../terminal/appearance/app-icons.md) in `Settings > Appearance > Icon`.
 * Create and store [Rules](../knowledge-and-collaboration/rules.md) to use as Agent Mode context.

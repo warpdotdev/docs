@@ -76,7 +76,7 @@ Once a workflow has been created, you can edit it at any time, as long as you ha
 
 #### AI Autofill
 
-Workflows also have the option to use [Warp AI](../../agents/warp-ai/) to automatically generate a title, descriptions, or parameters.
+Workflows also have the option to use [Warp AI](../../agents/warp-ai.md) to automatically generate a title, descriptions, or parameters.
 
 * Create or edit a Workflow, in the edit view you should see the option to AutoFill.
 * Warp AI will fill in the fields based on the Workflow you're creating.

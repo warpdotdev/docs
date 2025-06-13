@@ -95,9 +95,19 @@ Request limits are allocated at the seat level to Warp users or team members. Yo
 
 ### What counts as a Warp AI token?
 
-Tokens are chunks of text, such as words, parts of code, or characters, that large language models (LLMs) break down to analyze and generate responses. LLMs have a maximum number of tokens they can process at once. Warp AI Requests and Suggestions are not the same as Tokens, which are limited separately regardless of which plan you're on.\
+Tokens are chunks of text, such as words, parts of code, or characters, that large language models (LLMs) break down to analyze and generate responses. LLMs have a maximum number of tokens they can process at once. Warp AI requests and suggestions are not the same as tokens, which are limited separately regardless of which plan you're on.\
 \
-Please learn more about Tokens [here](https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them) and refer to [pricing](https://www.warp.dev/pricing) for the current monthly token limits on each plan.
+Please learn more about tokens [here](https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them) and refer to [pricing](https://www.warp.dev/pricing) for the current monthly token limits on each plan.
+
+### What happens when I exceed my request limits on Turbo?
+
+If you exceed your monthly AI request limit on the Turbo plan (see [pricing](https://www.warp.dev/pricing) for current limits), Warp will automatically disable access to premium models and switch you to Lite.
+
+You’ll still be able to use AI with no added cost — just through a more lightweight, basic model — until your quota resets at the start of your next billing cycle.
+
+### How often does my Warp AI requests reset?
+
+Allotted AI requests refill every 30 days from your signup date. When you upgrade to a [paid plan](https://www.warp.dev/pricing), you will be given more requests immediately. You can follow along with your refill period by referencing `Settings > AI > Request Usage`.
 
 ### What is Lite?
 
@@ -109,16 +119,6 @@ Please learn more about Tokens [here](https://help.openai.com/en/articles/493685
 Currently, Lite uses Gemini 2.0 Flash under the hood, but this may change over time as we evaluate different models. While performance and capabilities may vary compared to premium models, it allows you to continue using AI features without full interruption.
 
 Note: Each query still counts as an AI request and contributes to your monthly usage, but using Lite won't incur any additional charges to your plan.
-
-### What happens when I exceed my request limits on Turbo?
-
-If you exceed your monthly AI request limit on the Turbo plan (see [pricing](https://www.warp.dev/pricing) for current limits), Warp will automatically disable access to premium models and switch you to Lite.
-
-You’ll still be able to use AI with no added cost — just through a more lightweight, basic model — until your quota resets at the start of your next billing cycle.
-
-### How often does my Warp AI request limits reset?
-
-Allotted AI requests reset every 30 days from your signup date. When you upgrade to a Pro or Turbo plan, you will be given a higher request limit immediately. You can follow along with your refill period by referencing the counter under Settings -> AI.
 
 ### How can I get the most out of my Warp Pro or Turbo plans?
 

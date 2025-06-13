@@ -139,7 +139,7 @@ You may also see an error relating to timeout. You can set the `command_timeout`
 
 #### Starship + bash
 
-Starship prompt may not render properly if your [default shell](../../getting-started/using-warp-with-shells.md#changing-default-shell) is `/bin/bash`. To [workaround](https://github.com/warpdotdev/Warp/issues/3066#issuecomment-1548643121) the issue, we recommend you upgrade bash, find the path with `echo $(which bash)`, then put the path in your `Settings > Features > Session > "Startup shell for new sessions" > Custom`.
+Starship prompt may not render properly if your [default shell](../../getting-started/supported-shells.md#changing-default-shell) is `/bin/bash`. To [workaround](https://github.com/warpdotdev/Warp/issues/3066#issuecomment-1548643121) the issue, we recommend you upgrade bash, find the path with `echo $(which bash)`, then put the path in your `Settings > Features > Session > "Startup shell for new sessions" > Custom`.
 
 #### Starship + zsh
 

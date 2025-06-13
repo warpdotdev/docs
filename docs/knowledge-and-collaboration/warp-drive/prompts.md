@@ -6,7 +6,7 @@ description: Save and reuse parameterized Agent Mode prompts to run on-demand.
 
 ## What is a Prompt?
 
-A Prompt is a parameterized natural language query you can name and save in Warp to use with [Agent Mode](../../agents/warp-ai/agent-mode.md).
+A Prompt is a parameterized natural language query you can name and save in Warp to use with [Agent Mode](../../agents/agents/).
 
 Prompts are searchable and easily accessed from the [Command Palette](../../terminal/command-palette.md) so you can find and execute them without switching context. They allow you to save and reuse specific and complex AI workflows, making it easier to repeat multi-step tasks with Agent Mode.
 
