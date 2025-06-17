@@ -19,35 +19,11 @@ Tailor your Command Search experience by toggling off "Show Global Workflows" in
 2. Type your search query in the input box
 3. Press `ENTER` to input the selected command into Warp's Input Editor
 
-## Search Results
-
-The Command Search panel searches across:
-
-* Command History
-* Workflows
-* Notebooks
-* AI Command Suggestions from Generate
-
-### Result Icons
-
-* $\_ Dollar Sign-Underscore: [Workflow](yaml-workflows.md)
-* <img src="../../.gitbook/assets/history.png" alt="rewind time clock" data-size="line"> Rewind Time Clock: [Command History](command-history.md)
-* <img src="../../.gitbook/assets/notebook.png" alt="earmarked page" data-size="line"> Earmarked Page: [Notebook](../../knowledge-and-collaboration/warp-drive/notebooks.md)
-* ✨ Sparkle: Piping search query into [Generate](../../agents/generate.md)
-
 ## Search Filters
 
 You can filter your search results by prepending your search term with any of the following:
 
-| Filter                | Shortcuts                       |
-| --------------------- | ------------------------------- |
-| Workflows             | `workflows:`, `w:`, or `W-TAB`  |
-| Notebooks             | `notebooks:`, `n:`, or `N-TAB`  |
-| Command History       | `history:`, `h:`, or `H-TAB`    |
-| Environment Variables | `env_vars:`, `e:`, or `E-TAB`   |
-| Prompts               | `prompts:`, `p:`, or `P-TAB`    |
-| Agent Mode History    | `ai_history:`, `a:`, or `A-TAB` |
-| Generate              | `#:`                            |
+<table><thead><tr><th width="215.78436279296875">Filter</th><th>Shortcuts</th></tr></thead><tbody><tr><td>Command History</td><td><code>history:</code>, <code>h:</code>, or <code>H-TAB</code></td></tr><tr><td>Prompts</td><td><code>prompts:</code>, <code>p:</code>, or <code>P-TAB</code></td></tr><tr><td>Agent Mode History</td><td><code>ai_history:</code>, <code>a:</code>, or <code>A-TAB</code></td></tr><tr><td>Workflows</td><td><code>workflows:</code>, <code>w:</code>, or <code>W-TAB</code></td></tr><tr><td>Notebooks</td><td><code>notebooks:</code>, <code>n:</code>, or <code>N-TAB</code></td></tr><tr><td>Environment Variables</td><td><code>env_vars:</code>, <code>e:</code>, or <code>E-TAB</code></td></tr><tr><td>Generate</td><td><code>#:</code></td></tr></tbody></table>
 
 {% hint style="info" %}
 When a filter is activated, it will be bolded and italicized in the search panel.
