@@ -17,8 +17,6 @@ Secret Redaction attempts to detect sensitive data (including secrets, passwords
 
 You can add additional custom regex for secrets you want to include in `Settings > Privacy > Secret Redaction > Custom Secret Redaction`.
 
-Secret redaction **always** applies to AI interactions, regardless of this setting. Your secrets will never be sent to AI.
-
 ## Secret Regex List
 
 Here is a list of the default regular expressions that Warp uses to identify secrets.
