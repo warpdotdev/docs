@@ -5,17 +5,9 @@ description: Warp issues along with workarounds and solutions.
 # Known Issues
 
 {% hint style="info" %}
-To see a complete list of Warp issues and feature requests, please visit our [GitHub issues page](https://github.com/warpdotdev/Warp/issues?q=is%3Aissue+is%3Aopen+sort%3Acreated-desc).
-{% endhint %}
+To see a complete list of Warp issues and feature requests, please visit our [GitHub issues page](https://github.com/warpdotdev/Warp/issues?q=is%3Aissue+is%3Aopen+sort%3Acreated-desc).&#x20;
 
-* When you [SSH](known-issues.md#ssh), we start a bash shell on the remote host. We built a wrapper around SSH to make Warp features possible.
-* If your default shell is zsh, your aliases typically do not transfer over. Other shells are unsupported for now.
-* When you open a [non-shell-based subshell (REPL)](https://github.com/warpdotdev/Warp/issues/4082), we do not set it up for Warp - instead, it works like a normal terminal session.
-* Warp may become unresponsive if it doesn't have permission to access the folders.\\
-* [No touch input support](https://github.com/warpdotdev/Warp/issues/5347)
-
-{% hint style="warning" %}
-Please note many tools are incompatible with Warp, as listed [here](known-issues.md#list-of-incompatible-tools). We have debugging information in this [section](known-issues.md#debugging).
+Please note that there are tools that are incompatible with Warp, as listed [below](known-issues.md#list-of-incompatible-tools). You can find debugging information in this [section](known-issues.md#debugging).
 {% endhint %}
 
 ## General
@@ -74,11 +66,19 @@ export LC_ALL=zh_CN.UTF-8
 export LANG=zh_CN.UTF-8
 ```
 
+### Misc.
+
+* When you [SSH](known-issues.md#ssh), we start a bash shell on the remote host. We built a wrapper around SSH to make Warp features possible.
+* If your default shell is zsh, your aliases typically do not transfer over. Other shells are unsupported for now.
+* When you open a [non-shell-based subshell (REPL)](https://github.com/warpdotdev/Warp/issues/4082), Warp does not modify the environment — it behaves like a standard terminal session.
+* Warp may become unresponsive if it doesn't have permission to access the folders.
+* [No touch input support](https://github.com/warpdotdev/Warp/issues/5347)
+
 ## Agent Mode
 
 * Note that Agent Mode blocks are not shareable during [session sharing](../knowledge-and-collaboration/session-sharing.md). Participants will be able to share regular shell commands that are run, but will not be able to share AI interactions (requested commands, AI blocks, etc.).
 * Block actions such as [Block Sharing](../terminal/blocks/block-sharing.md) are not available on Agent Mode AI blocks.
-* Warp AI does not have up-to-date information on several commands’ completion specs
+* Warp's AI features do not have up-to-date information on several commands’ completion specs
 * Agent Mode works better with Warp's default prompt settings, where the prompt starts on a new line, than it does with a same-line prompt. If you are using the same-line prompt, the cursor will jump from the end of the single line to the start of the input box when you switch to Agent Mode.
 
 ## Shells
@@ -89,56 +89,81 @@ There is an issue in fish shell version 3.6 and below that causes the `read` bui
 
 ### Warp shell loads slowly due to EDR
 
-If you comment out the rc files (i.e. `~/.zshrc`, `~/.bashrc`, `~/.config/fish/config.fish`), and still notice a slowdown on loading the shell. It could be due to an Endpoint Detection and Response or EDR (i.e. Sentinel One, CrowdStrike, Carbon Black) causing the issue. Please restart your system and see if the issue persists. If so, please [Send us Feedback](sending-us-feedback.md) and provide details of your EDR, OS, Shell, etc.
+If you comment out the rc files (i.e. `~/.zshrc`, `~/.bashrc`, `~/.config/fish/config.fish`), and still notice a slowdown on loading the shell. It could be due to an Endpoint Detection and Response or EDR (i.e. Sentinel One, CrowdStrike, Carbon Black) causing the issue. Please restart your system and see if the issue persists. If so, please [Send us Feedback](sending-us-feedback.md) and provide details of your EDR, OS, shell, etc.
 
 ### Configuring and debugging your RC files
 
-To support Blocks ([custom hooks](https://blog.warp.dev/how-warp-works/#implementing-blocks)), a native Input Editor experience, etc. we have to build custom support for a subset of shell functionality (decouple functionality from the shell and move to the terminal). This leads to Warp being incompatible with various tools and plugins.
+To support Blocks ([custom hooks](https://blog.warp.dev/how-warp-works/#implementing-blocks)), a native Input Editor experience, AI blocks, etc. we have built custom support for a subset of shell functionality (decouple functionality from the shell and move to the terminal). This leads to Warp being incompatible with various tools and plugins. Please see the [list of incompatible](known-issues.md#list-of-incompatible-tools) tools to find the tools that are known not to work with Warp.&#x20;
 
-You can **disable the conflicting settings for Warp** using this flag: `$TERM_PROGRAM != "WarpTerminal"`, see below for a full example.
-
-We currently don't have support for multi-line custom prompts in bash, only zsh and fish. Unlike typical terminals which are essentially continuous character grids, each section of Warp is its own (separate) UI element. Warps default prompt does not support multi-line or right-sided prompts at this time. Improving the native Prompt is on the roadmap, however. Please see our [Prompt](../terminal/appearance/prompt.md) page for more information on custom prompts.
+Unlike typical terminals which are essentially continuous character grids, each section of Warp is its own (separate) UI element. Please see our [Prompt](../terminal/appearance/prompt.md) page for more information on custom prompts.&#x20;
 
 #### Debugging
 
-If Warp is not working with your dotfile configuration,
+If Warp is not working with your dotfile configuration, you can run your shell in Warp with a clean configuration using examples below:
 
-You can quickly set up clean configs by putting `ZDOTDIR=/` in a `~/.zshenv` file. This forces zsh to run with zero configs.
+{% tabs %}
+{% tab title="bash" %}
+You can set up clean configs for Bash (Bourne Again SHell) by moving or commenting out your `.bashrc` \
+\
+If Warp starts working correctly then Warp is incompatible with something in the current dotfiles. We can isolate what is incompatible by iteratively disabling sections of our dotfiles with the `WarpTerminal` flag until we find the culprit. See the list of incompatible tools below and comment them out just for Warp with the following conditionals:
 
-Zsh loads your configuration settings in this [order](https://zsh.sourceforge.io/Intro/intro_3.html):
+<pre class="language-bash"><code class="lang-bash"># bash (See ~/.bashrc)
+<strong>if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
+</strong><strong>##### WHAT YOU WANT TO DISABLE FOR WARP - BELOW
+</strong><strong>    # Unsupported plugin/prompt code here, i.e.
+</strong>##### WHAT YOU WANT TO DISABLE FOR WARP - ABOVE
+<strong>fi
+</strong></code></pre>
+{% endtab %}
 
-```
-$ZDOTDIR/.zshenv
-$ZDOTDIR/.zprofile
-$ZDOTDIR/.zshrc
-$ZDOTDIR/.zlogin
-$ZDOTDIR/.zlogout
-```
+{% tab title="zsh" %}
+You can set up clean configs for Zsh (Z SHell) by moving or commenting out your `.zshrc` \
+\
+If Warp starts working correctly then Warp is incompatible with something in the current dotfiles. We can isolate what is incompatible by iteratively disabling sections of our dotfiles with the `WarpTerminal` flag until we find the culprit. See the list of incompatible tools below and comment them out just for Warp with the following conditional:
 
-If Warp starts working correctly then Warp is incompatible with something in the current dotfiles. We can isolate what is incompatible by iteratively disabling sections of our dotfiles with the `WarpTerminal` flag until we find the culprit. If you find an incompatible tool please email us at [feedback@warp.dev](mailto:feedback@warp.dev)
-
-```
-# bash and zsh
+```bash
+# zsh (See ~/.zshrc)
 if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
 ##### WHAT YOU WANT TO DISABLE FOR WARP - BELOW
-    # Unsupported plugin/prompt code here, i.e.
-    test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true
+    # Unsupported plugin/prompt code here
 ##### WHAT YOU WANT TO DISABLE FOR WARP - ABOVE
 fi
 ```
+{% endtab %}
 
-<pre><code># fish
+{% tab title="fish" %}
+You can set up clean configs for Fish (Friendly Interactive SHell) by moving or commenting out your `config.fish`\
+\
+If Warp starts working correctly then Warp is incompatible with something in the current config file. We can isolate what is incompatible by iteratively disabling sections of our config file with the `WarpTerminal` flag until we find the culprit. See the list of incompatible tools below and comment them out just for Warp with the following conditional:
+
+```bash
+# fish (see ~/.config/fish/config.fish)
 if test "$TERM_PROGRAM" != "WarpTerminal"
-##### WHAT YOU WANT TO DISABLE FOR WARP - BELOW
-    # Unsupported plugin/prompt code here i.e. 
-    test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
-##### WHAT YOU WANT TO DISABLE FOR WARP - ABOVE
-<strong>end
-</strong></code></pre>
+    ##### WHAT YOU WANT TO DISABLE FOR WARP - BELOW
+    # Unsupported plugin/prompt code here
+    ##### WHAT YOU WANT TO DISABLE FOR WARP - ABOVE
+end
+```
+{% endtab %}
+
+{% tab title="pwsh" %}
+You can set up clean configs for pwsh (PowerShell) by moving or commenting out your `$PROFILE`
+
+If Warp starts working correctly then Warp is incompatible with something in the current profile. We can isolate what is incompatible by iteratively disabling sections of our profile with the WarpTerminal flag until we find the culprit. See the list of incompatible tools below and comment them out just for Warp with the following conditional:
+
+<pre class="language-powershell"><code class="lang-powershell"><strong># pwsh (see $PROFILE)
+</strong>if ($env:TERM_PROGRAM -ne "WarpTerminal") {
+    ##### WHAT YOU WANT TO DISABLE FOR WARP - BELOW
+    # Unsupported plugin/prompt code here
+    ##### WHAT YOU WANT TO DISABLE FOR WARP - ABOVE
+}
+</code></pre>
+{% endtab %}
+{% endtabs %}
 
 #### List of incompatible tools
 
-Since Warp has an [Input Editor](../terminal/editor/) that wraps around the shell, the following inexhaustive list of plugins or tools can cause potential conflict given extra bytes coming into the PTY:
+The following non exhaustive list of plugins, prompts, or tools can cause potential issues in Warp:
 
 * oh-my-fish, oh-my-bash, or other unsupported shell prompts. See our [Custom Prompt Compatibility Table](../terminal/appearance/prompt.md#custom-prompt-compatibility-table).
 * [iterm shell integration](https://iterm2.com/documentation-shell-integration.html)
@@ -167,10 +192,12 @@ Since Warp has an [Input Editor](../terminal/editor/) that wraps around the shel
 * `grml-zsh-config`
 * Python virtual environment PS1 [settings](https://github.com/warpdotdev/Warp/issues/2713#issuecomment-1447129449)
 * [Starship settings](../terminal/appearance/prompt.md#starship-settings)
-* Potentially more, this is an inexhaustive list ...
+* Potentially more — this is an non exhaustive list. If you find an incompatible tool, please email us at [feedback@warp.dev](mailto:feedback@warp.dev)
 
-## macOS
+## Operating systems
 
+{% tabs %}
+{% tab title="macOS" %}
 ### SSH to local network device is denied on macOS
 
 On macOS, you may be [denied permission to SSH](https://github.com/warpdotdev/Warp/issues/5550) from Warp into other devices in your local network and see an error like: `ssh: connect to host <host_name> port 22: Undefined error: 0`.\
@@ -203,9 +230,9 @@ In some cases, [CLI applications only work on x86](https://discord.com/channels/
 * Go to `Finder > Applications` and search for Warp.
 * Right-click and select Get Info.
 * Then check the box on Open with Rosetta.
+{% endtab %}
 
-## Windows
-
+{% tab title="Windows" %}
 ### Unsupported in Warp on Windows
 
 The following feature are not supported in Warp on Windows. Please track the relevant GitHub issues linked below for any changes:
@@ -231,9 +258,9 @@ $env:WGPU_BACKEND="vulkan,gl"; & "$env:LOCALAPPDATA\Programs\Warp\warp.exe"
 # Run if Warp on Windows is installed for all users
 $env:WGPU_BACKEND="vulkan,gl"; & "$env:PROGRAMFILES\Warp\warp.exe"
 ```
+{% endtab %}
 
-## Linux
-
+{% tab title="Linux" %}
 ### Warp won't run or render on Linux
 
 We're tracking some issues on Linux where a [Warp window doesn't show/render](https://github.com/warpdotdev/Warp/issues/4215) and won't run in [Virtual Machines](https://github.com/warpdotdev/Warp/issues/4476), over [remote desktops](https://github.com/warpdotdev/Warp/issues/4435), or on [WSL](https://github.com/warpdotdev/Warp/issues/4240). Some possible workarounds are below. If none of the workarounds help, please open a [new GitHub issue](https://github.com/warpdotdev/warp/issues/new/choose) and include [logs](sending-us-feedback.md#gathering-warp-logs) with your Linux distro, installation (WSL, Baremetal or VM, x86\_64 or ARM64), and the issue you had.
@@ -280,6 +307,8 @@ sudo apt update && sudo apt install warp-terminal
 ```
 
 See the instructions for other Linux distros on our [Quick Start Guide](../#linux).
+{% endtab %}
+{% endtabs %}
 
 
 
