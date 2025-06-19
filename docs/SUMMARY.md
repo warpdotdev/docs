@@ -120,7 +120,8 @@
 ## Support & Billing
 
 * [Sending Feedback & Logs](support-and-billing/sending-us-feedback.md)
-* [Plans & Pricing](support-and-billing/plans-and-pricing.md)
+* [Plans & Pricing](support-and-billing/plans-and-pricing/README.md)
+  * [Usage Overages](support-and-billing/plans-and-pricing/usage-overages.md)
 * [Updating Warp](support-and-billing/updating-warp.md)
 * [Using Warp Offline](support-and-billing/using-warp-offline.md)
 * [Logging out & Uninstalling](support-and-billing/uninstalling-warp.md)

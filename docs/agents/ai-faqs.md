@@ -44,7 +44,7 @@ Every Warp plan includes a set number of Warp AI requests per user per month. Pl
 
 AI Request limits apply to Agent Mode, [Generate](generate.md), and [AI autofill in Workflows](../knowledge-and-collaboration/warp-drive/workflows.md#ai-autofill). When you have used up your allotted requests for the cycle, you will not be able to issue any more AI requests until the cycle renews.
 
-For questions around what counts as a Warp AI request, what counts as a token, and how often requests refresh, please refer to [#what-counts-as-a-warp-ai-request](../support-and-billing/plans-and-pricing.md#what-counts-as-a-warp-ai-request "mention")and more on the [plans-and-pricing.md](../support-and-billing/plans-and-pricing.md "mention")page.
+For questions around what counts as a Warp AI request, what counts as a token, and how often requests refresh, please refer to [#what-counts-as-a-warp-ai-request](../support-and-billing/plans-and-pricing/#what-counts-as-a-warp-ai-request "mention")and more on the [plans-and-pricing](../support-and-billing/plans-and-pricing/ "mention")page.
 
 ### Exceeding Agent Mode request limits
 
@@ -55,7 +55,7 @@ For questions around what counts as a Warp AI request, what counts as a token, a
 * **Fallback model**: If you reach your Turbo AI request limits, Warp automatically switches to Lite so you can keep using AI without interruption — at no additional cost.
 * **Standalone option**: You can also choose to use Lite before hitting your limits. In this case, usage will still count toward your monthly request limits, but once those limits are reached, Lite remains available with unlimited usage for Turbo plan users only.
 
-Lite is a more token-efficient model than other premium models and supports core AI workflows. Learn more about Lite in the [#what-is-lite](../support-and-billing/plans-and-pricing.md#what-is-lite "mention") section of our [plans-and-pricing.md](../support-and-billing/plans-and-pricing.md "mention") documentation.
+Lite is a more token-efficient model than other premium models and supports core AI workflows. Learn more about Lite in the [#what-is-lite](../support-and-billing/plans-and-pricing/#what-is-lite "mention") section of our [plans-and-pricing](../support-and-billing/plans-and-pricing/ "mention") documentation.
 
 #### **"Message token limit exceeded" error**
 

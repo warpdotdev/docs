@@ -6,7 +6,7 @@ description: Create or join a team to collaborate with others in Warp.
 
 ## What is a team?
 
-A team is a group of Warp users who can collaborate on the command line together. Warp teams can share a dedicated workspace in Warp Drive. [Learn about pricing](https://www.warp.dev/pricing) and see our [Pricing FAQ](../support-and-billing/plans-and-pricing.md).
+A team is a group of Warp users who can collaborate on the command line together. Warp teams can share a dedicated workspace in Warp Drive. [Learn about pricing](https://www.warp.dev/pricing) and see our [Pricing FAQ](../support-and-billing/plans-and-pricing/).
 
 {% hint style="info" %}
 Currently, each Warp user can only be an admin or member of one team at a time.
@@ -62,7 +62,7 @@ If you’re a member of a team, you can visit `Settings > Teams` to leave a team
 Team admins can make their teams discoverable to colleagues from the same email domain. This feature is available under `Settings > Teams > Make team discoverable`.
 
 {% hint style="info" %}
-While discoverability is enabled, any new user who joins the team will add a prorated charge to the team's next month's bill. See more in our [pricing docs](../support-and-billing/plans-and-pricing.md#what-counts-as-a-team-member-and-how-does-billing-work-for-members).
+While discoverability is enabled, any new user who joins the team will add a prorated charge to the team's next month's bill. See more in our [pricing docs](../support-and-billing/plans-and-pricing/#what-counts-as-a-team-member-and-how-does-billing-work-for-members).
 {% endhint %}
 
 ## Transferring team admin
@@ -75,14 +75,14 @@ Team admins can transfer their role to another team member by going to `Settings
 If you're a Team admin, and you choose to [delete your Warp](../privacy/privacy.md#manage-your-data) account, the deletion flow will require that you assign a team member as the new admin.
 {% endhint %}
 
-|                                                               | Admin                                                            | Member                                 |
-| ------------------------------------------------------------- | ---------------------------------------------------------------- | -------------------------------------- |
-|                                                               | This is the Warp user who created a team. There can only be one. | All team members who belong to a team. |
-| Create a team                                                 | ✓                                                                |                                        |
-| Restrict by domain                                            | ✓                                                                |                                        |
-| Invite members                                                | ✓                                                                | ✓                                      |
-| Remove team members                                           | ✓                                                                |                                        |
-| Leave a team                                                  |                                                                  | ✓                                      |
-| Delete a team                                                 | ✓                                                                |                                        |
-| Transfer admin                                                | ✓                                                                |                                        |
-| [Manage billing](../support-and-billing/plans-and-pricing.md) | ✓                                                                |                                        |
+|                                                             | Admin                                                            | Member                                 |
+| ----------------------------------------------------------- | ---------------------------------------------------------------- | -------------------------------------- |
+|                                                             | This is the Warp user who created a team. There can only be one. | All team members who belong to a team. |
+| Create a team                                               | ✓                                                                |                                        |
+| Restrict by domain                                          | ✓                                                                |                                        |
+| Invite members                                              | ✓                                                                | ✓                                      |
+| Remove team members                                         | ✓                                                                |                                        |
+| Leave a team                                                |                                                                  | ✓                                      |
+| Delete a team                                               | ✓                                                                |                                        |
+| Transfer admin                                              | ✓                                                                |                                        |
+| [Manage billing](../support-and-billing/plans-and-pricing/) | ✓                                                                |                                        |
