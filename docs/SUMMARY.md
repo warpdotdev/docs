@@ -14,6 +14,7 @@
 * [Warp AI](agents/warp-ai.md)
 * [Using Agents](agents/using-agents/README.md)
   * [Agent Conversations](agents/using-agents/agent-conversations.md)
+  * [Agent Context](agents/using-agents/agent-context.md)
   * [Model Choice](agents/using-agents/model-choice.md)
 * [Autonomy](agents/autonomy/README.md)
   * [Agent Permissions](agents/autonomy/agent-permissions.md)

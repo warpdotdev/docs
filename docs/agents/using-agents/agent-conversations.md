@@ -17,68 +17,6 @@ You will get more accurate results from AI queries if the conversation is releva
 Long conversations can have high latency. We recommend creating a new conversation when possible for distinct tasks or questions where the previous context isn't relevant.
 {% endhint %}
 
-### How to attach context to an Agent Mode conversation
-
-Agent Mode can gather context from your terminal sessions and tailor every command to your session and environment.
-
-You can supply a block of context to your conversation with Agent Mode as part of your query. From the block in the terminal, click the AI sparkles icon to "Attach as Agent Mode context."
-
-<figure><img src="../../.gitbook/assets/remove_all_untracked_files.png" alt=""><figcaption><p>From a block of output, attach the block and ask Agent Mode to remove all untracked files.</p></figcaption></figure>
-
-The most common use case is to ask the AI to fix an error. You can attach the error in a query to Agent Mode and type "fix it."
-
-If you're already in Agent Mode, use the following ways to attach or clear context from your query:
-
-{% tabs %}
-{% tab title="macOS" %}
-**Attach a previous block**
-
-* To attach blocks to a query, you can use `CMD-UP` to attach the previous block as context to the query. While holding `CMD`, you can then use your `UP/DOWN` keys to pick another block to attach.
-  * You may also use your mouse to attach blocks in your session. Hold `CMD` as you click on other blocks to extend your block selection.
-
-**Clear a previous block**
-
-* To clear blocks from a query, you can use `CMD-DOWN` until the blocks are removed from context.
-  * You may also use your mouse to clear blocks in your session. Hold `CMD` as you click on an attached block to clear it.
-
-{% hint style="info" %}
-When using "Pin to the top" [Input Position](../../terminal/appearance/input-position.md), the direction for attaching or detaching is reversed (i.e. `CMD-DOWN` attaches blocks to context, while `CMD-UP` clears blocks from context).
-{% endhint %}
-{% endtab %}
-
-{% tab title="Windows" %}
-**Attach a previous block**
-
-* To attach blocks to a query, you can use `CTRL-UP` to attach the previous block as context to the query. While holding `CTRL`, you can then use your `UP/DOWN` keys to pick another block to attach.
-  * You may also use your mouse to select blocks in your session. Hold `CTRL` as you click on other blocks to extend your block selection.
-
-**Clear a previous block**
-
-* To clear blocks from a query, you can use `CTRL-DOWN` until the blocks are removed from context.
-  * You may also use your mouse to clear blocks in your session. Hold `CTRL` as you click on an attached block to clear it.
-
-{% hint style="info" %}
-When using "Pin to the top" [Input Position](../../terminal/appearance/input-position.md), the direction for attaching or detaching is reversed (i.e. `CTRL-DOWN` attaches blocks to context, while `CTRL-UP` clears blocks from context).
-{% endhint %}
-{% endtab %}
-
-{% tab title="Linux" %}
-**Attach a previous block**
-
-* To attach blocks to a query, you can use `CTRL-UP` to attach the previous block as context to the query. While holding `CTRL`, you can then use your `UP/DOWN` keys to pick another block to attach.
-  * You may also use your mouse to select blocks in your session. Hold `CTRL` as you click on other blocks to extend your block selection.
-
-**Clear a previous block**
-
-* To clear blocks from a query, you can use `CTRL-DOWN` until the blocks are removed from context.
-  * You may also use your mouse to clear blocks in your session. Hold `CTRL` as you click on an attached block to clear it.
-
-{% hint style="info" %}
-When using "Pin to the top" [Input Position](../../terminal/appearance/input-position.md), the direction for attaching or detaching is reversed (i.e. `CTRL-DOWN` attaches blocks to context, while `CTRL-UP` clears blocks from context).
-{% endhint %}
-{% endtab %}
-{% endtabs %}
-
 ### **How to ask a follow-up to stay in a conversation**
 
 By default, if you ask an AI query right after any interaction in Agent Mode, your query will be sent as a follow-up. The follow-up ↳ icon is a bent arrow, to indicate your query is continuing the conversation.
