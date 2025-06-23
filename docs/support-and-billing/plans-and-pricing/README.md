@@ -101,13 +101,9 @@ Please learn more about tokens [here](https://help.openai.com/en/articles/493685
 
 ### What happens when I exceed my request limits on Turbo?
 
-If you exceed your monthly AI request limit on the Turbo plan (see [pricing](https://www.warp.dev/pricing) for current limits), Warp will automatically disable access to premium models and switch you to Lite.
+If you exceed your monthly AI request limit on the Turbo plan (see [pricing](https://www.warp.dev/pricing) for current limits), Warp will automatically disable access to premium models and switch you to Lite. You’ll still be able to use AI with no added cost — just through the [Lite model](./#what-is-lite) — until your quota resets at the start of your next billing cycle.
 
-You’ll still be able to use AI with no added cost — just through a more lightweight, basic model — until your quota resets at the start of your next billing cycle.
-
-### How often does my Warp AI requests reset?
-
-Allotted AI requests refill every 30 days from your signup date. When you upgrade to a [paid plan](https://www.warp.dev/pricing), you will be given more requests immediately. You can follow along with your refill period by referencing `Settings > AI > Request Usage`.
+Alternatively, you can also set [Usage Overages](usage-overages.md) to your desired amount to continue to use more premium model requests.
 
 ### What is Lite?
 
@@ -118,7 +114,13 @@ Allotted AI requests refill every 30 days from your signup date. When you upgrad
 
 Currently, Lite uses Gemini 2.0 Flash under the hood, but this may change over time as we evaluate different models. While performance and capabilities may vary compared to premium models, it allows you to continue using AI features without full interruption.
 
-Note: Each query still counts as an AI request and contributes to your monthly usage, but using Lite won't incur any additional charges to your plan.
+{% hint style="info" %}
+Each query still counts as an AI request and contributes to your monthly usage, but using Lite won't incur any additional charges to your plan.
+{% endhint %}
+
+### How often does my Warp AI requests reset?
+
+Allotted AI requests refill every 30 days from your signup date. When you upgrade to a [paid plan](https://www.warp.dev/pricing), you will be given more requests immediately. You can follow along with your refill period by referencing `Settings > AI > Request Usage`.
 
 ### How can I get the most out of my Warp Pro or Turbo plans?
 
