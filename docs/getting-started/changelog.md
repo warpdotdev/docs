@@ -8,6 +8,40 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2025.06.20 (v0.2025.06.20.22.47)
+
+**New Features**\
+\
+**Warp 2.0 is here - The Agentic Development Environment**
+
+Built from the ground up for agentic workflows, Warp is the most powerful tool for prompting, coding, and collaborating with multiple agents.
+
+**Multithread yourself with agents**
+
+* Launch intelligent tasks (agents) with a prompt. Agents gather context using CLI commands, MCP, Warp Drive, and Codebase Context.
+* New Agent Management Panel to monitor, multitask, and intervene across multiple agents.
+* Set autonomy controls and get notified when agents need your help.
+
+**A state-of-the-art coding platform**
+
+* 70% on SWE-bench, #1 on Terminal-Bench — the highest quality coding agent available.
+* Codebase Context: Warp indexes and understands your codebase, allowing you to debug and write code faster without storing any code on Warp's servers.
+* Review and edit diffs directly in Warp's native code editor.
+
+**Still a great command-line**\n-&#x20;
+
+* A new Universal Input: run commands or prompt agents from a single interface. Lock into command- or agent-mode, or let Warp detect automatically.
+* Choose your model, continue a conversation, attach images, link URLs, or reference files using `@`.
+* Modern, IDE-like terminal experience with completions, predictions, and mouse support, all built natively in Rust for performance.
+
+**Context for your teammates and agents**
+
+* A knowledge store where you can configure MCP, define Rules, and store shared commands, notebooks, env vars, and prompts as context.
+
+All of this comes with higher AI usage limits on our Pro and Turbo plans, plus new pay-as-you-go overages for continued access to premium models.\
+\
+**Watch the full Warp 2.0 launch event →** [**warp.dev/future**](https://warp.dev/future)
+
 ### 2025.06.11 (v0.2025.06.11.08.11)
 
 **New Features**
