@@ -8,7 +8,7 @@ You can visit [warp.dev/pricing ](https://www.warp.dev/pricing)to learn about Wa
 
 This article includes answers to some frequent questions that might come up as you subscribe, manage billing, or pay invoices.
 
-Don't have Warp yet? [Download now](../../) and get started today.
+Don't have Warp yet? [Download now](../) and get started today.
 
 ## Warp’s Refund Policy
 
@@ -20,7 +20,7 @@ We also may choose to offer refunds, on a case-by-case basis, if a severe produc
 
 ### How can I subscribe to a Pro or Turbo plan?
 
-To subscribe to a paid Warp plan like Pro or Turbo, you must first [create a Team in Warp](../../knowledge-and-collaboration/teams.md#creating-a-team). Then, you can [upgrade online](https://app.warp.dev/upgrade) or through the downloaded app. In the app, navigate to Settings → Teams and find the upgrade link. After you enter your payment information, you will receive an invoice and confirmation email from Warp.
+To subscribe to a paid Warp plan like Pro or Turbo, you must first [create a Team in Warp](../knowledge-and-collaboration/teams.md#creating-a-team). Then, you can [upgrade online](https://app.warp.dev/upgrade) or through the downloaded app. In the app, navigate to Settings → Teams and find the upgrade link. After you enter your payment information, you will receive an invoice and confirmation email from Warp.
 
 ### How can I upgrade for more Warp AI requests?
 
@@ -83,17 +83,17 @@ You can initiate a upgrade at any point throughout your subscription through the
 
 If a payment fails, you will receive an email from Stripe and your Warp Team Settings will show a past-due alert. Certain paid plan features and the ability to invite new members will be locked down while your Team is in a past-due state. Paying the most recent invoice through the [billing portal](https://app.warp.dev/upgrade) will fully re-enable your paid plan features.
 
-### What counts as a Warp AI request?
+### What counts as an AI request?
 
-Every time you submit an AI query from your input box, this counts as towards your allotted Warp AI requests. Agent Mode [suggested commands](./#agent-mode-command-suggestions) and [Active AI](../../agents/active-ai.md) features do not count as AI requests. Submitting prompts with large context or attachments increases the amount of Warp AI requests used. You can monitor your request usage under `Settings > AI > Usage`.\
+Every time you submit an AI query from your input box, this counts as towards your allotted Warp AI requests. Agent Mode [suggested commands](plans-and-pricing.md#agent-mode-command-suggestions) and [Active AI](../agents/active-ai.md) features do not count as AI requests. Submitting prompts with large context or attachments increases the amount of Warp AI requests used. You can monitor your request usage under `Settings > AI > Usage`.\
 \
-[Generate](../../agents/generate.md) lets you look up commands or contextual suggestions as you’re typing. As you’re entering and adjusting a query to look up a command suggestion, you may incur multiple AI requests before selecting a suggestion.\
+[Generate](../agents/generate.md) lets you look up commands or contextual suggestions as you’re typing. As you’re entering and adjusting a query to look up a command suggestion, you may incur multiple AI requests before selecting a suggestion.\
 \
-Anytime you run [AI Autofill in Workflows](../../knowledge-and-collaboration/warp-drive/workflows.md#ai-autofill), this counts as an AI request.
+Anytime you run [AI Autofill in Workflows](../knowledge-and-collaboration/warp-drive/workflows.md#ai-autofill), this counts as an AI request.
 
 Request limits are allocated at the seat level to Warp users or team members. You can follow along with your request limits by referencing the counter under `Settings > AI`.
 
-### What counts as a Warp AI token?
+### What counts as an AI token?
 
 Tokens are chunks of text, such as words, parts of code, or characters, that large language models (LLMs) break down to analyze and generate responses. LLMs have a maximum number of tokens they can process at once. Warp AI requests and suggestions are not the same as tokens, which are limited separately regardless of which plan you're on.\
 \
@@ -101,9 +101,11 @@ Please learn more about tokens [here](https://help.openai.com/en/articles/493685
 
 ### What happens when I exceed my request limits on Turbo?
 
-If you exceed your monthly AI request limit on the Turbo plan (see [pricing](https://www.warp.dev/pricing) for current limits), Warp will automatically disable access to premium models and switch you to Lite. You’ll still be able to use AI with no added cost — just through the [Lite model](./#what-is-lite) — until your quota resets at the start of your next billing cycle.
+If you exceed your monthly AI request limit on the Turbo plan (see [pricing](https://www.warp.dev/pricing) for current limits), Warp will automatically disable access to premium models and switch you to Lite. You’ll still be able to use AI with no added cost — just through the [Lite model](plans-and-pricing.md#what-is-lite) — until your quota resets at the start of your next billing cycle.
 
-Alternatively, you can also set [Usage Overages](usage-overages.md) to your desired amount to continue to use more premium model requests.
+### How often do my AI requests reset?
+
+Alternatively, you can also set [Usage Overages](plans-and-pricing/usage-overages.md) to your desired amount to continue to use more premium model requests.
 
 ### What is Lite?
 
@@ -126,10 +128,10 @@ Allotted AI requests refill every 30 days from your signup date. When you upgrad
 
 Warp Pro and Turbo unlock powerful collaboration and knowledge-sharing tools to help your team move faster, together:
 
-* Use [Notebooks](../../knowledge-and-collaboration/warp-drive/notebooks.md) and [Workflows](../../knowledge-and-collaboration/warp-drive/workflows.md) in Warp Drive to organize and share knowledge across your team.
+* Use [Notebooks](../knowledge-and-collaboration/warp-drive/notebooks.md) and [Workflows](../knowledge-and-collaboration/warp-drive/workflows.md) in Warp Drive to organize and share knowledge across your team.
 * Try [Session Sharing](https://docs.warp.dev/features/session-sharing) to collaborate in real time through live, shared terminal sessions.
 
-Warp Turbo also gives you the most AI power of any plan — with the highest monthly AI request limit (see [pricing](https://www.warp.dev/pricing) for details), access to our most advanced models, and unlimited [Lite](./#what-is-lite) model usage.
+Warp Turbo also gives you the most AI power of any plan — with the highest monthly AI request limit (see [pricing](https://www.warp.dev/pricing) for details), access to our most advanced models, and unlimited [Lite](plans-and-pricing.md#what-is-lite) model usage.
 
 Both plans are built for developers who want to uplevel their productivity with powerful collaboration features, with Turbo adding premium AI capabilities on top.
 
@@ -165,7 +167,7 @@ You can cancel at any point throughout your subscription by going to `Settings >
 
 ### How do I get a refund?
 
-For monthly subscriptions, we in general do not issue refunds. Please see [Warp's Refund Policy](./#warps-refund-policy) for details and exceptions. You can remove the users you do not want to pay for in `Settings > Teams > Team Members`. You will only be refunded in credits for Warp on a prorated basis.
+For monthly subscriptions, we in general do not issue refunds. Please see [Warp's Refund Policy](plans-and-pricing.md#warps-refund-policy) for details and exceptions. You can remove the users you do not want to pay for in `Settings > Teams > Team Members`. You will only be refunded in credits for Warp on a prorated basis.
 
 ### Why can't I subscribe to Warp?
 
@@ -176,4 +178,4 @@ There are certain prohibited and restricted businesses in which Stripe and major
 The team at Warp is standing by and ready to help you with any questions you have about your plan or subscription. Please email us at [billing@warp.dev](mailto:billing@warp.dev) and we will get back to you.
 
 \
-Don't have Warp yet? [Download now](../../) and get started today.
+Don't have Warp yet? [Download now](../) and get started today.

@@ -1,8 +1,8 @@
 ---
 description: >-
-  Agent Mode enables intelligent, in-terminal code generation and editing
-  through AI-powered diffs, allowing you to review, refine, and apply changes
-  seamlessly across your codebase.
+  Agent Mode enables intelligent code generation and editing through AI-powered
+  diffs, allowing you to review, refine, and apply changes seamlessly across
+  your codebase.
 ---
 
 # Code

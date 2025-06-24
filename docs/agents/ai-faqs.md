@@ -1,6 +1,6 @@
 ---
 description: >-
-  Frequently asked questions about Warp's Agent Mode, including supported
+  Frequently asked questions about Warp's AI features, including supported
   models, privacy practices, request limits, billing, and usage guidelines.
 ---
 
@@ -8,9 +8,9 @@ description: >-
 
 ## General
 
-### What data is sent and/or stored when using Agent Mode?
+### What data is sent and/or stored when using Agents in Warp?
 
-See our [Privacy Page](../privacy/privacy.md) for more information on how we handle data with Agent Mode.
+See our [Privacy Page](../privacy/privacy.md) for more information on how we handle data used by Agents in Warp
 
 ### What happened to the old Warp AI chat panel?
 
@@ -22,29 +22,19 @@ No, Warp nor its providers OpenAI or Anthropic train on your data.
 
 ### What model are you using for Agent Mode?
 
-Warp supports a curated list of LLMs from providers like OpenAI, Anthropic, Google, and DeepSeek (hosted by Fireworks AI in the US). To view the full list of supported models and learn how to switch between them, visit the [model-choice.md](using-agents/model-choice.md "mention") page.
-
-### Is DeepSeek enabled by default?
-
-No, DeepSeek is never enabled by default. By default, Agent Mode uses Claude 3.7 Sonnet. To use DeepSeek, you would need to manually select it from the model selector inside Agent Mode.
-
-### How is my data handled for DeepSeek models?
-
-We take privacy and security very seriously when it comes to models developed by foreign companies or hosted outside the US. DeepSeek models in Warp are hosted exclusively on US servers through our trusted provider, [Fireworks AI](https://fireworks.ai/). No requests are routed to servers outside the US.
+Warp supports a curated list of LLMs from providers like OpenAI, Anthropic, and Gemini. To view the full list of supported models and learn how to switch between them, visit the [model-choice.md](using-agents/model-choice.md "mention") page.
 
 ### Can I use my own LLM API key?
 
-Warp AI is tailored for the terminal so you can get optimal results and performance. It's suitable for AI power users and professional use cases.
-
-For organizations with strict security requirements, a “Bring Your Own LLM” option is available on the Enterprise plan. At the Enterprise plan level, we can work closely with your team to ensure quality and compliance for your LLM of choice.
+Organizations on the Enterprise plan can enable a “Bring Your Own LLM” option to meet strict security or compliance requirements. Our team will work closely with you to support your preferred LLM provider. This feature is not currently available on other plans.
 
 ## Billing
 
-Every Warp plan includes a set number of Warp AI requests per user per month. Please refer to [pricing](https://www.warp.dev/pricing) to compare plans.
+Every Warp plan includes a set number of AI requests per user per month. Please refer to [pricing](https://www.warp.dev/pricing) to compare plans.
 
 AI Request limits apply to Agent Mode, [Generate](generate.md), and [AI autofill in Workflows](../knowledge-and-collaboration/warp-drive/workflows.md#ai-autofill). When you have used up your allotted requests for the cycle, you will not be able to issue any more AI requests until the cycle renews.
 
-For questions around what counts as a Warp AI request, what counts as a token, and how often requests refresh, please refer to [#what-counts-as-a-warp-ai-request](../support-and-billing/plans-and-pricing/#what-counts-as-a-warp-ai-request "mention")and more on the [plans-and-pricing](../support-and-billing/plans-and-pricing/ "mention")page.
+For questions around what counts as a AI request, what counts as a token, and how often requests refresh, please refer to [#what-counts-as-an-ai-request](../support-and-billing/plans-and-pricing.md#what-counts-as-an-ai-request "mention")and more on the [plans-and-pricing.md](../support-and-billing/plans-and-pricing.md "mention")page.
 
 ### Exceeding Agent Mode request limits
 
@@ -55,7 +45,7 @@ For questions around what counts as a Warp AI request, what counts as a token, a
 * **Fallback model**: If you reach your Turbo AI request limits, Warp automatically switches to Lite so you can keep using AI without interruption — at no additional cost.
 * **Standalone option**: You can also choose to use Lite before hitting your limits. In this case, usage will still count toward your monthly request limits, but once those limits are reached, Lite remains available with unlimited usage for Turbo plan users only.
 
-Lite is a more token-efficient model than other premium models and supports core AI workflows. Learn more about Lite in the [#what-is-lite](../support-and-billing/plans-and-pricing/#what-is-lite "mention") section of our [plans-and-pricing](../support-and-billing/plans-and-pricing/ "mention") documentation.
+Lite is a more token-efficient model than other premium models and supports core AI workflows. Learn more about Lite in the [#what-is-lite](../support-and-billing/plans-and-pricing.md#what-is-lite "mention") section of our [plans-and-pricing.md](../support-and-billing/plans-and-pricing.md "mention") documentation.
 
 #### **"Message token limit exceeded" error**
 
@@ -69,8 +59,6 @@ To fix this, try:
 #### **"Monthly request limit exceeded" error**
 
 Once you exceed your AI requests on the Turbo plan (see [pricing](https://www.warp.dev/pricing) for current limits), premium models will be disabled, and Warp will automatically switch you to Lite. This allows you to continue using AI features with a more token-efficient model until your quota resets at the start of your next billing cycle.
-
-
 
 **"Request failed with error: QuotaLimit" error**
 

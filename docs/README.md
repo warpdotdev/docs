@@ -190,17 +190,13 @@ After installation, you have the option to create a Warp account thru the "Sign 
 If you sign up using Google or GitHub, Warp only gets access to the associated email address. Visit the [Privacy](privacy/privacy.md) page for more details on Warp's approach to privacy.
 {% endhint %}
 
-### Onboarding Survey (Optional)
-
-Warp will ask a few questions within the app after you sign up. The survey is optional. You can skip all questions if you'd like. Why do we ask these? Understanding how you use the terminal helps us improve the product and prioritize the right features to build.
-
 ### Use Warp offline
 
-You will only need an active internet connection when you open the Warp app for the first time. Once opened, [Warp is able to run with no internet connection](support-and-billing/using-warp-offline.md), although certain features that require an internet connection will be unavailable.
+You will only need an active internet connection when you open the Warp app for the first time. Once opened, [Warp is able to run with no internet connection](support-and-billing/using-warp-offline.md), although certain features that require an internet connection like AI and real-time collaboration features will be unavailable.
 
 ### Import your settings
 
-If you are migrating to Warp from another terminal like iTerm2, you can easily import your settings, such as keyboard shortcuts and color themes. For more details, visit the [Migrate to Warp](getting-started/migrate-to-warp.md) docs.
+If you are migrating to Warp from a terminal like iTerm2, you can easily import your settings, such as keyboard shortcuts and color themes. For more details, visit the [Migrate to Warp](getting-started/migrate-to-warp.md) docs.
 
 ### Set up your Warp default shell
 
@@ -212,11 +208,12 @@ You can change your default shell by going to `Settings > Features > Session`. I
 
 ### Customize Warp's Appearance
 
-Warp has many Appearance settings you can configure:
+Warp has many [Appearance](terminal/appearance/) settings you can configure:
 
-* [Themes](https://docs.warp.dev/appearance/themes): You can choose from pre-loaded themes or create your own [custom theme](https://docs.warp.dev/appearance/custom-themes), using .yaml or based on a background image you upload.
-* [Text and fonts](https://docs.warp.dev/appearance/text-fonts-cursor): You can customize your font type and font size. You can also adjust the font to improve readability and accessibility.
-* [Input position](https://docs.warp.dev/appearance/input-position): Set your prompt and command line to the top or bottom of your terminal window.
+* [**Themes**](https://docs.warp.dev/appearance/themes): You can choose from pre-loaded themes or create your own [custom theme](https://docs.warp.dev/appearance/custom-themes), using .yaml or based on a background image you upload.
+* **Input format**: Choose between Warp's Standard input or Classic input. Standard enables easier access to AI features, while Classic resembles a traditional terminal input more closely.
+* [**Text and fonts**](https://docs.warp.dev/appearance/text-fonts-cursor): You can customize your font type and font size. You can also adjust the font to improve readability and accessibility.
+* [**Input position**](https://docs.warp.dev/appearance/input-position): Set your prompt and command line to the top or bottom of your Warp window.
 
 Navigate to `Settings > Appearance` to customize your setup.
 
@@ -224,10 +221,10 @@ Navigate to `Settings > Appearance` to customize your setup.
 
 ### Modify behavior settings
 
-There are a number of behavior settings and features that will help you customize your terminal to best suit your needs:
+There are a number of behavior settings and features that will help you customize Warp to best suit your needs:
 
 * [Dedicated window](https://docs.warp.dev/features/windows/global-hotkey#dedicated-window): Dedicated hotkey window (also known as Quake Mode) allows you to customize your window's position, width, and height ratio relative to your active screen size.
-* [Tabs](terminal/windows/tabs.md): Organize your windows into multiple terminal sessions, and customize them with different titles and/or colors.
+* [Tabs](terminal/windows/tabs.md): Organize your windows into multiple sessions, and customize them with different titles and/or colors.
 * [Split panes](https://docs.warp.dev/features/windows/split-panes): Divide any tab into multiple panels, side-by-side or stacked.
 
 <figure><img src=".gitbook/assets/tab-splitpane-examples.png" alt=""><figcaption><p>Organize tabs and divide them into multiple panels</p></figcaption></figure>

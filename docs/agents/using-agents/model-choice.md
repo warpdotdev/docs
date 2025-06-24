@@ -11,7 +11,7 @@ Warp lets you choose from a curated list of LLMs for use in Agent Mode. By defau
 
 * **OpenAI (General Purpose)**: `GPT-4o`, `GPT-4.1`
 * **OpenAI (Reasoning Models)**: `o3-mini`, `o3`, `o4-mini`
-* **Anthropic**: `Claude 3.7 Sonnet`, `Claude 3.5 Sonnet`, `Claude 3.5 Haiku`
+* **Anthropic**: `Claude 4 Sonnet` ,`Claude 3.7 Sonnet`, `Claude 3.5 Sonnet`, `Claude 3.5 Haiku`
 * **Google**: `Gemini 2.0 Flash`, `Gemini 2.5 Pro`
 * **DeepSeek**: `R1`, `V3` (hosted by [Fireworks AI](https://fireworks.ai/) in the US)
 

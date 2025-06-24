@@ -4,14 +4,14 @@
 
 * [Quickstart Guide](README.md)
 * [What is Warp?](getting-started/what-is-warp.md)
-* [Supported Shells](getting-started/supported-shells.md)
 * [Migrate to Warp](getting-started/migrate-to-warp.md)
+* [Supported Shells](getting-started/supported-shells.md)
 * [Keyboard Shortcuts](getting-started/keyboard-shortcuts.md)
 * [Changelog](getting-started/changelog.md)
 
 ## Agents
 
-* [Warp AI](agents/warp-ai.md)
+* [Overview](agents/warp-ai.md)
 * [Using Agents](agents/using-agents/README.md)
   * [Agent Conversations](agents/using-agents/agent-conversations.md)
   * [Agent Context](agents/using-agents/agent-context.md)
@@ -22,7 +22,7 @@
   * [Run to completion](agents/autonomy/run-to-completion.md)
 * [Code](agents/code/README.md)
   * [Codebase Context](agents/code/codebase-context.md)
-  * [Reviewing Agent Code](agents/code/reviewing-agent-code.md)
+  * [Reviewing Agent-generated Code](agents/code/reviewing-agent-code.md)
 * [Active AI](agents/active-ai.md)
 * [Generate](agents/generate.md)
 * [Voice](agents/voice.md)
@@ -121,11 +121,11 @@
 ## Support & Billing
 
 * [Sending Feedback & Logs](support-and-billing/sending-us-feedback.md)
-* [Plans & Pricing](support-and-billing/plans-and-pricing/README.md)
+* [Plans & Pricing](support-and-billing/plans-and-pricing.md)
   * [Usage Overages](support-and-billing/plans-and-pricing/usage-overages.md)
 * [Updating Warp](support-and-billing/updating-warp.md)
 * [Using Warp Offline](support-and-billing/using-warp-offline.md)
-* [Logging out & Uninstalling](support-and-billing/uninstalling-warp.md)
+* [Logging Out & Uninstalling](support-and-billing/uninstalling-warp.md)
 * [Known Issues](support-and-billing/known-issues.md)
 * [Troubleshooting Login Issues](support-and-billing/troubleshooting-login-issues.md)
 * [Open Source Licenses](support-and-billing/licenses.md)

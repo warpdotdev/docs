@@ -1,19 +1,21 @@
 ---
 description: >-
   Think Warp would be the ideal product for someone you know? You can invite
-  your team or friends within the app.
+  your team or friends within the app and earn rewards.
 ---
 
 # Refer a Friend & Earn Rewards
 
+{% hint style="info" %}
 Go to `Settings > Referrals` to open the invite a friend referral dialog.
+{% endhint %}
 
-There are two ways you can invite a friend:
+**There are two ways you can invite a friend:**
 
 1. Send them an invite link. They will be directed to our product download page.
 2. Input their email address, which we'll use to email them with your referral link.
 
-<figure><img src="../.gitbook/assets/refer-a-friend.gif" alt=""><figcaption><p>Refer a friend</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/refer-a-friend.gif" alt=""><figcaption><p>Refer a friend modal in settings.</p></figcaption></figure>
 
 ## Referral Rewards Program
 
@@ -107,25 +109,25 @@ All amounts are listed in USD. Fees are estimates and may vary regardless of pac
 
 ## Referral Rewards Program FAQs
 
-1. "I have referred people but have not received an email."
+#### **"I have referred people but have not received an email."**
 
 Please allow a few hours for the referral system to process and send email updates. If you still haven’t received an email after a reasonable amount of time, contact us at [referrals@warp.dev](mailto:referrals@warp.dev) and we'll look into it.
 
-2. "I've claimed my physical reward but have issues receiving my package."
+#### **"I've claimed my physical reward but have issues receiving my package."**
 
 If you experience issues with your shipment, please respond to the shipping notification email you should have received from Printfection. For further assistance, contact our swag vendor’s operations team at [support@printfection.com](mailto:support@printfection.com) with your order number.
 
-3. "I've referred friends, but they didn't use the link. Does it still count?"
+#### **"I've referred friends, but they didn't use the link. Does it still count?"**
 
 Unfortunately, any referrals who didn't use your link will not count towards the rewards, and we have no way of modifying the referral count.
 
-4. "I've referred friends, but they joined anonymously. Does it still count?"
+#### **"I've referred friends, but they joined anonymously. Does it still count?"**
 
 For a referral to count, new users must sign up and actively use Warp. Unfortunately, we’re unable to associate anonymous users with specific referral links at this time.
 
 We’re actively working on solutions to make the referral process more seamless and reliable for anonymous users. Stay tuned for updates as we improve this experience.
 
-5. "The reward tiers recented changed with the new swag items. I previously qualified for X. What happens now, and are the new swag items retroactive?"
+#### **"The reward tiers recently changed with the new swag items. I previously qualified for X. What happens now, and are the new swag items retroactive?"**
 
 Our referral program was updated on November 21, 2024, with new reward tiers and exciting swag options. To ensure a smooth transition, we will honor previous reward tiers alongside the updated program until December 15, 2024.
 

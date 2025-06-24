@@ -78,7 +78,7 @@ export LANG=zh_CN.UTF-8
 
 * Note that Agent Mode blocks are not shareable during [session sharing](../knowledge-and-collaboration/session-sharing.md). Participants will be able to share regular shell commands that are run, but will not be able to share AI interactions (requested commands, AI blocks, etc.).
 * Block actions such as [Block Sharing](../terminal/blocks/block-sharing.md) are not available on Agent Mode AI blocks.
-* Warp's AI features do not have up-to-date information on several commands’ completion specs
+* Agents do not have up-to-date information on several commands’ completion specs
 * Agent Mode works better with Warp's default prompt settings, where the prompt starts on a new line, than it does with a same-line prompt. If you are using the same-line prompt, the cursor will jump from the end of the single line to the start of the input box when you switch to Agent Mode.
 
 ## Shells

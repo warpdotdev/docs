@@ -20,7 +20,7 @@ You can manage usage-based pricing directly in Warp under `Settings > Billing an
 Usage-based pricing only applies after you’ve reached the AI request limit on your plan — you won’t be charged for any overages until that point, even if overages are enabled.
 {% endhint %}
 
-If you’re using [Warp Lite](./#what-is-lite) and have usage-based pricing turned on, overages will automatically take precedence once your included usage is exhausted.
+If you’re using [Warp Lite](../plans-and-pricing.md#what-is-lite) and have usage-based pricing turned on, overages will automatically take precedence once your included usage is exhausted.
 
 ### How overages work
 

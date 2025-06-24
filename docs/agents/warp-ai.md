@@ -1,27 +1,29 @@
 ---
 description: >-
-  Warp AI includes powerful capabilities like Agents, Code, Voice, Generate, and
-  Active AI fully integrated within the Warp terminal.
+  Powerful AI features like Agents, Code, Voice, Generate, and Active AI, fully
+  integrated into the Warp Agentic Development Environment.
 ---
 
-# Warp AI
+# Overview
 
-## What is Warp AI?
+## AI in Warp
 
-Warp AI is an AI-powered assistant that looks up commands, walks you through multi-step workflows, auto-completes Workflows, and proactively fix bugs that's fully integrated into the terminal.
+Warp includes intelligent agents designed to help you build, test, deploy, and debug — all while keeping you in control. Agents can look up commands, execute tasks, fix bugs, and adapt to your workflows. You can manage agent behavior directly, with full context from your Warp Drive and your team.
 
 {% hint style="info" %}
-Warp AI features can be globally disabled in `Settings > AI` with the AI toggle.\
+Warp's AI features can be globally disabled in `Settings > AI` with the AI toggle.\
 \
 These features sends input data to various LLM providers through their API. Read more about data privacy for Warp features [on our privacy page](https://www.warp.dev/privacy).
 {% endhint %}
 
-## Warp AI features include:
+## Included AI features:
 
-* [Active AI](active-ai.md) - Proactively recommends fixes and next actions based on errors, inputs, and outputs
 * [Agents](using-agents/) - Write natural language on the command line and walk through any dev task
-* [Generate](generate.md) - Quickly look up commands and contextual suggestions for interactive CLIs using natural language
-* [Model Context Protocol](../knowledge-and-collaboration/mcp.md) - Model Context Protocol (MCP) Servers expose data sources or tools to Warp's Agent Mode.
-* [Voice](voice.md) - Talk to Warp AI using voice commands to accomplish any task. (Note that this uses [Wispr Flow](https://wisprflow.ai/) to power voice-to-text functionality, rather than other LLM providers)
-* [Rules](../knowledge-and-collaboration/rules.md) - Create and store rules to use as AI context.
+* [Autonomy](autonomy/) - Control what permissions agents have to run commands, apply code, and more
+* [Code](code/) - Generate, edit, and apply code changes with AI-powered diffs
+* [Active AI](active-ai.md) - Proactively recommends fixes and next actions based on errors, inputs, and outputs
+* [Model Context Protocol](../knowledge-and-collaboration/mcp.md) - MCP Servers expose data sources or tools to Warp's Agents
+* [Generate](generate.md) - Look up commands and contextual suggestions for interactive CLIs in natural language
+* [Voice](voice.md) - Talk to Warp AI using voice commands to accomplish any task
+* [Rules](../knowledge-and-collaboration/rules.md) - Create and store rules to use as AI context
 * [AI Autofill](../knowledge-and-collaboration/warp-drive/workflows.md#ai-autofill) in Warp Drive - Let Warp AI name and describe the workflows you create

@@ -1,7 +1,7 @@
 ---
 description: >-
-  Active AI proactively recommends fixes and next actions based on your terminal
-  errors, inputs, and outputs.
+  Active AI proactively recommends fixes and next actions based on your command
+  line errors, inputs, and outputs.
 ---
 
 # Active AI

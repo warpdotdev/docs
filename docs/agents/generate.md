@@ -18,14 +18,14 @@ Currently, you need to be online to use this feature. If this feature doesn't wo
 
 ## Ways to Generate with AI
 
-### Generate commands as terminal input
+### Generate commands as command line input
 
 Type `#` on the command line input to generate command suggestions.
 
 <figure><img src="../.gitbook/assets/open-ai-commands.png" alt=""><figcaption><p>Typing '#' on the command line opens the suggestions interface</p></figcaption></figure>
 
 {% embed url="https://www.loom.com/share/424a763ef0c8455e8269e541301968f2" %}
-Generating commands as terminal input demo
+Generating commands as command line input demo
 {% endembed %}
 
 1. Press `` CTRL-` `` or type `#` into the text input editor to search using natural language.
@@ -79,29 +79,3 @@ A couple of other examples of interactive CLIs where you can invoke Generate:
 {% hint style="warning" %}
 If you experience any issues with Generate, please visit known issues for [troubleshooting steps](../support-and-billing/known-issues.md#online-features-dont-work).
 {% endhint %}
-
-#### Supported interactive CLI models
-
-The following LLMs are currently supported in Warp:
-
-* **OpenAI**:
-  * GPT-4o
-  * GPT 4.1
-  * o3-mini
-  * o3
-  * o4-mini
-* **Claude**:
-  * 4 Sonnet  
-  * 3.7 Sonnet
-  * 3.5 Sonnet
-  * 3.5 Haiku
-* **Google**:
-  * Gemini 2.0 Flash
-  * Gemini 2.5 Pro
-* **DeepSeek** (hosted by [Fireworks AI](https://fireworks.ai/) in the US):
-  * R1
-  * V3
-
-## AI Privacy
-
-See our [Privacy Page](../privacy/privacy.md) for more information on how we handle data with Generate.

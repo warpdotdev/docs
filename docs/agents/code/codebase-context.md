@@ -1,41 +1,43 @@
 ---
 description: >-
   Warp generates a local, privacy-preserving outline of your Git-tracked
-  codebase to help Agent Mode understand and answer questions about your code --
+  codebase to help Agents understand and answer questions about your code --
   only sharing context when explicitly approved.
 ---
 
 # Codebase Context
 
-In order for Agent Mode to be able to answer questions about about the code files in your codebase, Warp can generate an outline containing relevant information about each file. This outline can then be used when querying Agent Mode to find relevant files for a requested query.
+For Warp Agents to answer questions about the code files in your codebase, Warp generates an outline containing relevant information about each file. Agents can then use this outline to identify the most relevant files for a given query.
 
 {% hint style="warning" %}
-No code indexed with codebase context is ever stored on our servers.
+No code indexed with Codebase Context is ever stored on our servers.
 {% endhint %}
 
-Outline generation works in the following way:
+### How outline generation works
 
-* When opening a new terminal pane or changing to a new directory in the terminal, check if this directory is a part of a Git repository.
-* If it is in a Git repository, extract metadata from each code file in the repository.
-  * Only file types for languages supported by Agent Mode are processed.
-  * Files in `.gitignore` are not processed.
-  * This metadata currently includes function names in the file, but this may expand.
+* When you open a new pane or change directories, Warp checks if the directory is part of a Git repository.
+* If it is, Warp extracts metadata from each code file in the repository.
+  * Only file types in languages supported by Warp's Agents are processed.
+  * Files listed in `.gitignore` are excluded.
+  * Metadata currently includes function names, though this may expand in the future.
 
-The first time that a user opens a directory after the Warp application is opened, the outline for the repository is fully generated. Creating an outline for repositories can take a few minutes for large repositories. Codebase context will not be used in Agent Mode queries until the outline is generated.
+The first time you open a directory after launching Warp, the outline for the repository is fully generated. This may take a few minutes for large repositories. Warp’s agents will not use codebase context until this outline is available.
 
-Outline generation is completely local. The outline is only sent to the server when an Agent Mode request is made that could use the codebase context and the user approves sending codebase context for that directory.
+### Outline behavior and privacy
+
+Outline generation is completely local. The outline is only sent to the server when an agent request is made and you approve sending codebase context for that directory.
 
 After the outline is generated in full, Warp watches for changes to any file in the directory and the outline is updated as needed.
 
-These outlines can then be used by Agent Mode to search for relevant files to answer questions about a codebase, or find relevant files to edit.
+These outlines can then be used by Warp's Agents to search for relevant files to answer questions about a codebase, or find relevant files to edit.
 
 {% hint style="info" %}
-You can disable generating codebase context outlines and using them for Agent Mode requests by disabling the "Codebase Context" setting.
+You can disable both outline generation and the use of codebase context by turning off “Codebase index” under `Settings > Code > Codebase` index in Warp.
 {% endhint %}
 
-#### Codebase context database
+### Codebase context database
 
-Warp saves the data from codebase context to local json files on your computer. You can open the files directly and inspect the full contents in the following location:
+Warp saves codebase context outlines as local JSON files. You can view them directly at:
 
 {% tabs %}
 {% tab title="macOS" %}

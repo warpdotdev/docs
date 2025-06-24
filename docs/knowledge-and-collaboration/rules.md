@@ -1,21 +1,27 @@
 ---
-description: Provide more context to your Agent Mode interactions.
+description: >-
+  Create reusable guidelines that help Warp’s agents respond with your preferred
+  coding standards, project conventions, and personal preferences.
 ---
 
 # Rules
 
-Warp's Rules feature allows you to create and store rules that provide context to Agent Mode interations for smarter and more tailored assistance. Warp can also suggest rules to you based on your interactions with Agent Mode. These rules can include:
+Warp’s Rules feature lets you create and manage reusable guidelines that inform how agents respond to your prompts. These rules help tailor responses based on your coding standards, project conventions, or personal preferences.&#x20;
+
+Warp can also suggest rules based on your usage patterns to make future agent interactions smarter and more consistent.
+
+**What Rules Can Include**
 
 * Coding standards and best practices
-* Project and workspace guidelines
-* User-specific preferences
+* Project or workspace-specific guidelines
+* Personal preferences or tool configurations
 
 ### How to access Rules
 
-* From the [Warp Drive](warp-drive/), > Personal > Rules
-* From the [Command Palette](../terminal/command-palette.md), search for "Open AI Rules"
-* From the Settings panel, `Settings > AI > Knowledge > Manage Rules`
-* From the macOS Menu, `AI > Open Rules`
+* From [Warp Drive](warp-drive/): Personal > Rules
+* From the [Command Palette](../terminal/command-palette.md): search for "Open AI Rules"
+* From the Settings panel: `Settings > AI > Knowledge > Manage Rules`
+* From the macOS Menu: `AI > Open Rules`
 
 ### Managing Rules
 
@@ -25,9 +31,9 @@ In the Rules pane, users can add, edit, delete any number of rules. Each rule in
 Rules Demo
 {% endembed %}
 
-### Rules as Agent Mode context
+### Rules as Agent context
 
-Agent Mode can leverage the rules you created to tailor its responses. Rules that are pulled as context will be displayed in the conversation as a citation under "References" or "derived from".
+When relevant, Warp agents will automatically pull in applicable rules to guide their responses. Rules used in an interaction will appear in the conversation under **References** or marked as **derived from** a specific rule.
 
 <figure><img src="../.gitbook/assets/context-derived-from-memory.png" alt="Context derived from memory"><figcaption><p>Derived from rules</p></figcaption></figure>
 
