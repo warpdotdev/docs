@@ -1,8 +1,8 @@
 ---
 description: >-
-  Warp generates a local, privacy-preserving outline of your Git-tracked
-  codebase to help Agents understand your code and provide the most relevant,
-  tailored responses.
+  Warp generates a privacy-preserving outline of your Git-tracked codebase to
+  help Agents understand your code and provide the most relevant, tailored
+  responses.
 ---
 
 # Codebase Context
@@ -10,14 +10,14 @@ description: >-
 Codebase Context helps Warp Agents understand your project by indexing your local codebase. This allows Agents to generate more accurate completions, suggest context-aware edits, and answer questions using real knowledge of your code.
 
 {% hint style="warning" %}
-Indexing happens locally. Code indexed with Codebase Context is never uploaded or stored on our servers.
+Code indexed with Codebase Context is never stored on our servers.
 {% endhint %}
 
 <figure><img src="../../.gitbook/assets/codebase-context-main.png" alt=""><figcaption><p>Codebase indexing settings in Warp. Easily track sync status and manage which folders are indexed for AI-powered context and suggestions.</p></figcaption></figure>
 
 ## Indexing your codebase
 
-When you open a directory in Warp, we check if it is part of a Git repository. If it is, Warp will begin generating a local outline of the project. This outline helps agents:
+When you open a directory in Warp, we check if it is part of a Git repository. If it is, Warp will begin generating an outline of the project. This outline helps agents:
 
 * Understand your project structure and reference relevant parts of the codebase
 * Generate code that matches your style and apply edits in the right places
@@ -78,31 +78,3 @@ Warp supports referencing context across multiple indexed repositories. Note tha
 * Using one repo as a reference while building in another, for example: “copy the implementation from repo A into my repo B”
 
 Agents will only reference other repositories if they are already indexed. During cross-repo tasks, Warp's Agents have access to the file paths of all indexed repos. It is more likely to use cross-repo context when you mention the exact name of the repo in your prompt.
-
-## Privacy and storage
-
-Codebase Context is stored locally on your machine. Warp only sends this context to the server when you trigger an Agent request and explicitly approve using it for that directory.
-
-Once indexing is complete, Warp continuously watches for file changes and updates the outline automatically. Agents use this outline to search for relevant files, answer questions, and determine which files to edit.
-
-You can view these outlines directly as local JSON files at:
-
-{% tabs %}
-{% tab title="macOS" %}
-```bash
-cd "$HOME/Library/Application Support/dev.warp.Warp-Stable/codebase_index_snapshots"
-```
-{% endtab %}
-
-{% tab title="Windows" %}
-```powershell
-Set-Location $env:LOCALAPPDATA\warp\Warp\data\codebase_index_snapshots
-```
-{% endtab %}
-
-{% tab title="Linux" %}
-```bash
-cd "${XDG_STATE_HOME:-$HOME/.local/state}/warp-terminal/codebase_index_snapshots"
-```
-{% endtab %}
-{% endtabs %}
