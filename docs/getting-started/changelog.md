@@ -8,6 +8,22 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2025.06.25 (v0.2025.06.25.08.12)
+
+**New Features**
+
+* Git branch and directory chip now are searchable.
+
+**Improvements**
+
+* Added support for HCL syntax highlighting in Terraform files.
+
+**Bug Fixes**
+
+* Fixed potential crash when displaying context chips with Unicode characters in file paths.
+* Fixed a rendering issue with line numbers in suggested diffs.
+* Attach context chip no longer appears if there is no context you can attach.
+
 ### 2025.06.20 (v0.2025.06.20.22.47)
 
 **New Features**\
