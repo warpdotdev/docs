@@ -1,8 +1,7 @@
 ---
 description: >-
-  Warp generates a privacy-preserving outline of your Git-tracked codebase to
-  help Agents understand your code and provide the most relevant, tailored
-  responses.
+  Warp indexes your Git-tracked codebase to help Agents understand your code and
+  generate accurate, context-aware responses. No code is stored on Warp servers.
 ---
 
 # Codebase Context
@@ -17,18 +16,21 @@ Code indexed with Codebase Context is never stored on our servers.
 
 ## Indexing your codebase
 
-When you open a directory in Warp, we check if it is part of a Git repository. If it is, Warp will begin generating an outline of the project. This outline helps agents:
+When you open a directory in Warp, we check if it is part of a Git repository. If it is, Warp begins indexing the source code to provide rich context for Warp Agents.
 
-* Understand your project structure and reference relevant parts of the codebase
-* Generate code that matches your style and apply edits in the right places
+This embeddings index helps Agents:
 
-The outline includes basic metadata such as file paths and function names. It is kept up to date as you make changes to your code.
+* Understand your project structure and reference relevant code
+* Generate completions that match your style and patterns
+* Suggest edits in the correct locations based on real context
+
+**Warp keeps the index up to date automatically as you make changes**, so Agents always have access to fresh context.
+
+The first time you open a directory after launching Warp, indexing will begin from scratch. For large projects, this may take a few minutes. Warp Agents will not use codebase context until indexing is complete — but **agentic coding features remain fully available in the meantime**.
 
 {% hint style="info" %}
 You can view and manage your indexed codebases under `Settings > Code > Codebase Index`. You can also choose whether to automatically index new folders as you navigate them.
 {% endhint %}
-
-The first time you open a directory after launching Warp, the codebase outline will be generated from scratch. For larger projects, this may take a few minutes. Warp Agents will not use codebase context until the outline is complete, but **agentic coding features remain fully available during this time.**
 
 ### **Codebase indexing states**
 
@@ -49,6 +51,12 @@ Warp automatically triggers a codebase sync periodically and whenever a new Agen
 In large projects (e.g. after a branch switch), there may be a short delay where the Agent rerefernces stale or outdated files.
 {% endhint %}
 
+### File and Codebase Limits
+
+The number of codebases you can index and the maximum number of files per codebase vary by plan. All plans support indexing **at least 5,000 files per codebase**, with higher tiers including support for more files and additional codebases.
+
+For full details, visit our [pricing page](https://www.warp.dev/pricing).
+
 ### Ignore files
 
 For large codebases, Warp supports several ignore files to give you control over what gets indexed. This allows each developer to focus context on the parts of the codebase most relevant to their work.
@@ -58,15 +66,14 @@ Warp respects the following ignore files:
 * `.gitignore`
 * `.warpindexingignore`
 * `.cursorignore`
+* `.cursorindexingignore`
 * `.codeiumignore`
 
 Use these files to skip indexing of folders, generated files, or any content you don't want agents to reference. This can improve performance and result quality.
 
-### File and Codebase Limits
-
-The number of codebases you can index and the maximum number of files per codebase vary by plan. All plans support indexing **at least 5,000 files per codebase**, with higher tiers including support for more files and additional codebases.
-
-For full details, visit our [pricing page](https://www.warp.dev/pricing).
+{% hint style="info" %}
+Files excluded by ignore rules **do not** count toward your codebase's file limit.
+{% endhint %}
 
 ## Multi-repo context
 
