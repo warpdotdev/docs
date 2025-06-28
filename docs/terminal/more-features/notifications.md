@@ -5,13 +5,11 @@ description: >-
   terminal sessions.
 ---
 
-# Notifications & Audible Bell
+# Desktop Notifications
 
 ## What is it
 
-Notifications can be sent when a command completes after a configurable number of seconds or when a running command needs you to enter a password to proceed. For either of these triggers, Warp will only send you a desktop notification if you are using a different app at the time the trigger is fired.\
-\
-Warp also allows you to enable an audible terminal bell (disabled by default) that can be triggered by a variety of CLI tools (for example, `ping -a`).
+Notifications can be sent when a command completes after a configurable number of seconds or when a running command needs you to enter a password to proceed. For either of these triggers, Warp will only send you a desktop notification if you are using a different app at the time the trigger is fired.
 
 ## How to access it
 
@@ -24,11 +22,6 @@ Warp also allows you to enable an audible terminal bell (disabled by default) th
 {% hint style="info" %}
 On macOS, you will want to **Allow** or **Accept** the request so that Warp can send you desktop notifications. If you accidentally denied it or would like to re-enable Notifications later, check the [troubleshooting guide below](notifications.md#troubleshooting-notifications).
 {% endhint %}
-
-### Audible Bell
-
-* In Settings, enable an Audible terminal bell in `Settings > Features > Terminal`.
-* In [Command Palette](../command-palette.md), “Enable/Disable Audible Terminal Bell”.
 
 ## How it works
 
