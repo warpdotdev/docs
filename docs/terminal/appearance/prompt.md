@@ -1,6 +1,6 @@
 ---
 description: >-
-  Warp allows you to configure its default prompt or a custom prompt. A terminal
+  Warp allows you to configure its Warp prompt or a Shell prompt. A terminal
   prompt is a text that appears in the command line interface, indicating that
   the terminal is ready to accept commands.
 ---
@@ -9,7 +9,7 @@ description: >-
 
 ### Warp prompt
 
-Warp has a native prompt that is customizable and can show a variety of information including cwd, git, svn, kubernetes, pyenv, date, time, an so on. You can visit `Settings > Appearance > Prompt` to drag and drop context chips into your Warp prompt until it displays the pieces of information you'd like to include.
+Warp has a native prompt that is customizable and can show a variety of information including cwd, git, svn, kubernetes, pyenv, date, time, an so on. You can visit `Settings > Appearance > Input > Classic > Current prompt > Warp Prompt` to drag and drop context chips into your Warp prompt until it displays the pieces of information you'd like to include.
 
 #### Git and Subversion
 
@@ -29,12 +29,12 @@ Warp respects the `KUBECONFIG` environmental variable, make sure you set it to y
 
 By default, Warp's prompt displays on two lines where the command line input is one line below the prompt.
 
-If you'd like to set your prompt such that the command line input and the prompt display together inline, you can configure this under `Settings > Appearance > Prompt` and check the box for "Same line prompt."
+If you'd like to set your prompt such that the command line input and the prompt display together inline, you can configure this under `Settings > Appearance > Input > Classic > Current prompt > Warp Prompt` and check the box for "Same line prompt."
 
-If you're using a [custom prompt (PS1)](prompt.md#custom-prompt), Warp will use the same line prompt settings to respect any styles or theme configurations. You may optionally configure a new line prompt with PS1 but you will need to write your configuration, according to your theme of choice.
+If you're using a [Shell prompt (PS1)](prompt.md#custom-prompt), Warp will use the same line prompt settings to respect any styles or theme configurations. You may optionally configure a new line prompt with PS1 but you will need to write your configuration, according to your theme of choice.
 
 {% hint style="info" %}
-If you want to add back the new line on your custom prompt, please run the following based on your shell or prompt:
+If you want to add back the new line on your Shell prompt, please run the following based on your shell or prompt:
 
 ```sh
 # Bash
@@ -64,9 +64,9 @@ echo '[line_break]\ndisabled = false' >> ~/.config/starship.toml
 ```
 {% endhint %}
 
-### Custom prompt
+### Shell prompt (PS1)
 
-You can also set up a custom prompt by configuring the **PS1** variable or installing a supported shell prompt plugin, see [Custom Prompt Compatibility Table](prompt.md#custom-prompt-compatibility-table).
+You can also set up a Shell prompt by configuring the **PS1** variable or installing a supported shell prompt plugin, see [Shell Prompt Compatibility Table](prompt.md#shell-prompt-compatibility-table). Visit `Settings > Appearance > Input > Classic > Current prompt > Shell Prompt (PS1)` to enabled it.
 
 {% hint style="info" %}
 The PS1 is a variable used by the shell to generate the prompt, it represents the primary prompt string (hence the “PS”) - which the terminal typically displays before typing new commands.
@@ -74,21 +74,23 @@ The PS1 is a variable used by the shell to generate the prompt, it represents th
 
 #### Multi-Line and Right-Sided Prompts
 
-Warps custom prompt supports multi-line or right-sided prompts in zsh and fish, not bash. However, you can't have a multiline right-side prompt, only a multiline left prompt.
+The Shell prompt supports multi-line or right-sided prompts in zsh and fish, not bash. However, you can't have a multiline right-side prompt, only a multiline left prompt.
 
 ## How to access it
 
-* Toggle the custom prompt by right-clicking on the prompt area above the input and selecting "Edit prompt" or select "Prompt" from the `Settings > Appearance` page. There you will be able to select and customize the default prompt or select the Custom prompt (PS1).
-* When using Warp prompt, you can right-click the prompt to copy the entire prompt, working directory, current git branch, git uncommitted file count, etc.
-* When using a custom prompt, you can right-click the prompt to copy the entire prompt or select any part of the custom prompt in previously run blocks in your session.
+* Toggle the prompt by right-clicking on the prompt area above the input and selecting `Settings > Appearance > Input > Classic > Current prompt`. There you will be able to select and customize the Warp prompt or select the Shell prompt (PS1).
+  * When using Warp prompt, you can right-click the prompt to copy the entire prompt, working directory, current git branch, git uncommitted file count, etc.
+  * When using a Shell prompt, you can right-click the prompt to copy the entire prompt or select any part of the custom prompt in previously run blocks in your session.
 
 ## How it works
 
+<figure><img src="../../.gitbook/assets/classic-prompt.gif" alt=""><figcaption><p>Classic input</p></figcaption></figure>
+
+<figure><img src="../../.gitbook/assets/warp-custom-prompt-demo.gif" alt="Warp Prompt + Custom Prompt Demo"><figcaption><p>Warp Prompt |  Shell Prompt Demo</p></figcaption></figure>
+
 <figure><img src="../../.gitbook/assets/edit-prompt-modal (1) (1).png" alt=""><figcaption><p>Prompt edit modal</p></figcaption></figure>
 
-<figure><img src="../../.gitbook/assets/warp-custom-prompt-demo.gif" alt="Warp Prompt + Custom Prompt Demo"><figcaption><p>Warp Prompt + Custom Prompt Demo</p></figcaption></figure>
-
-### Custom Prompt Compatibility Table
+### Shell Prompt Compatibility Table
 
 | Shell                       | Tool                                                                      | Does it work?                                                   |
 | --------------------------- | ------------------------------------------------------------------------- | --------------------------------------------------------------- |
@@ -164,7 +166,7 @@ Installing Powerlevel10k
 {% endembed %}
 
 {% hint style="warning" %}
-Please note the installing powerlevel10k video mentions enabling a custom prompt in `Settings > Features > Honor users custom prompt (PS1)`, but it's now in `Settings > Appearance > Prompt > Shell prompt.`
+Please note the Installing Powerlevel10k video mentions enabling a custom prompt in `Settings > Features > Honor users custom prompt (PS1)`, but it's now in `Settings > Appearance > Input > Classic > Current prompt > Shell Prompt (PS1)` .
 {% endhint %}
 
 ### Spaceship
