@@ -34,7 +34,7 @@ For example, if your plan includes 10,000 AI requests per team member:
 * If **User B** has only used 2,000 requests, they still have 8,000 included requests left.
 * User A's overages **do not** consume User B's remaining quota.
 
-Overages are **billed monthly**, or when your team accumulates **$50 worth of charges**, whichever comes first.&#x20;
+Overages are **billed monthly**, or when your team accumulates **$20 worth of charges**, whichever comes first.&#x20;
 
 ### Plan upgrades and cancellations
 
