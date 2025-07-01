@@ -18,7 +18,7 @@ Agent Mode has replaced the Warp AI chat panel. Agent Mode is more powerful in a
 
 ### Is my data used for model training?
 
-No, Warp nor its providers OpenAI or Anthropic train on your data.
+No, Warp nor its providers (i.e. OpenAI, Anthropic, etc.) train on your data.
 
 ### What model are you using for Agent Mode?
 

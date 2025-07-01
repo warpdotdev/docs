@@ -105,7 +105,7 @@ You can monitor your request usage under `Settings > Billing and usage` .
 
 In addition, a few other Warp features also consume AI requests:
 
-* [Generate](../agents/generate.md) helps you look up commands and suggestions as you type. As you refine your input, multiple requests may be used before you a select a final suggestion.
+* [Generate](../agents/generate.md) helps you look up commands and suggestions as you type. As you refine your input, multiple requests may be used before you select a final suggestion.
 * [AI Autofill in Workflows](../knowledge-and-collaboration/warp-drive/workflows.md#ai-autofill) count as a request each time it is run.
 
 Request limits are allocated at the seat level to Warp users or team members.
@@ -115,7 +115,7 @@ Request limits are allocated at the seat level to Warp users or team members.
 Tokens are chunks of text, such as words, parts of code, or characters, that large language models (LLMs) break down to analyze and generate responses. LLMs have a maximum number of tokens they can process at once. AI requests and suggestions are not the same as tokens, which are limited separately regardless of which plan you're on.
 
 {% hint style="info" %}
-Warp now abstracts away token usage, so you don't need to manage or track it directly. You only need to monitor your **AI request usage**, which are what are measured in your plan limits and overages.
+Warp now abstracts away token usage, so you don't need to manage or track it directly. You only need to monitor your **AI request usage**, which is what’s measured in your plan limits and overages.
 {% endhint %}
 
 If you're curious, you can still learn more about tokens [here](https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them), or refer to the pricing page for plan-level request allocations.
@@ -139,7 +139,7 @@ Alternatively, you can also set [Usage Overages](plans-and-pricing/usage-overage
 * **Fallback model**: If you reach your Turbo AI request limits, Warp automatically switches to Lite so you can keep using AI without interruption, at no additional cost.
 * **Standalone option**: You can also choose to use Lite before hitting your limits. In this case, usage will still count toward your monthly request limits, but once those limits are reached, Lite remains available with unlimited usage for Turbo plan users only.
 
-Currently, Lite uses **Claude Sonnet 3.5** under the hood, but this may change over time as we evaluate different models. While performance and capabilities may vary compared to premium models, it allows you to continue using AI features without full interruption.
+While performance and capabilities may vary compared to premium models, it allows you to continue using AI features without full interruption.
 
 {% hint style="info" %}
 Each query still counts as an AI request and contributes to your monthly usage, but using Lite won't incur any additional charges to your plan.
@@ -178,13 +178,13 @@ For more details, please [visit the Security Overview](https://www.warp.dev/secu
 
 ### What does “Free preview” mean in Warp?
 
-Before Warp’s paid plans launched, certain features such as Warp Drive for teams and Warp’s AI features were available in a Free Preview. This allowed early adopters to try them while they were still in development.
+Before Warp’s paid plans launched, certain features such as Warp Drive for Teams and Warp’s AI features were available in a Free Preview. This allowed early adopters to try them while they were still in development.
 
 The Free Preview for Warp Drive and AI features has ended, but new features may be offered in Free Preview again in the future.
 
 ### What does “Early adopter” mean in Warp?
 
-During the Free Preview of Warp Drive for teams, some customers actively partnered with the Warp team by providing design feedback and product input. If your team participated, you may see an “Early adopter” label in your Team settings.
+During the Free Preview of Warp Drive for Teams, some customers actively partnered with the Warp team by providing design feedback and product input. If your team participated, you may see an “Early adopter” label in your Team settings.
 
 Early adopter teams may have custom pricing or plan exceptions. For details, contact your team admin.
 
