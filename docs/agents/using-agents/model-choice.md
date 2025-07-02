@@ -9,11 +9,9 @@ description: >-
 
 Warp lets you choose from a curated list of LLMs for use in Agent Mode. By default, Warp uses **Claude 3.7 Sonnet**, but you can switch to other supported models, including:
 
-* **OpenAI (General Purpose)**: `GPT-4o`, `GPT-4.1`
-* **OpenAI (Reasoning Models)**: `o3-mini`, `o3`, `o4-mini`
-* **Anthropic**: `Claude 4 Sonnet` ,`Claude 3.7 Sonnet`, `Claude 3.5 Sonnet`, `Claude 3.5 Haiku`
+* **OpenAI**: `GPT-4o`, `GPT-4.1` ,`o4-mini`, `o3`, `o3-mini`&#x20;
+* **Anthropic**: `Claude Sonnet 4` ,`Claude Opus 4` ,`Claude Sonnet 3.7`, `Claude Sonnet 3.5`, `Claude Haiku 3.5`
 * **Google**: `Gemini 2.0 Flash`, `Gemini 2.5 Pro`
-* **DeepSeek**: `R1`, `V3` (hosted by [Fireworks AI](https://fireworks.ai/) in the US)
 
 You can also select "auto" to let Warp automatically choose the best model for your task based on factors like query type and context.
 
