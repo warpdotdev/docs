@@ -8,6 +8,26 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2025.07.02 (v0.2025.07.02.08.36)
+
+**New features**
+
+* Tab close button can now be set to the left.
+
+**Improvements**
+
+* Added syntax highlighting for TOML, PHP, Lua, Ruby, and Groovy (with Java syntax).
+* Added conda chip support to new Universal Input prompt.
+* Increased color contrast on tabs.
+* Added "Upgrade" menu item for free users and "Billing and Usage" menu item for paid users in the user menu for easier access to subscription management.
+
+**Bug fixes**
+
+* When AI is disabled, ESC should no longer enter Agent Mode.
+* Fixed an issue on WSL where files created by Agent Mode would have CLRF line endings.
+* [Mac] Tweaked autoupdate logic to more reliably remove old applications off disk.
+* Fixed "Manage plan suggestion setting" link.
+
 ### 2025.06.25 (v0.2025.06.25.08.12)
 
 **New Features**
