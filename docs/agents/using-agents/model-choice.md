@@ -7,7 +7,7 @@ description: >-
 
 # Model Choice
 
-Warp lets you choose from a curated list of LLMs for use in Agent Mode. By default, Warp uses **Claude 3.7 Sonnet**, but you can switch to other supported models, including:
+Warp lets you choose from a curated list of LLMs for use in Agent Mode. By default, Warp uses `Claude 3.7 Sonnet` for Auto and `Claude 3.5 Sonnet` for Lite, but you can switch to other supported models, including:
 
 * **OpenAI**: `GPT-4o`, `GPT-4.1` ,`o4-mini`, `o3`, `o3-mini`&#x20;
 * **Anthropic**: `Claude Sonnet 4` ,`Claude Opus 4` ,`Claude Sonnet 3.7`, `Claude Sonnet 3.5`, `Claude Haiku 3.5`
