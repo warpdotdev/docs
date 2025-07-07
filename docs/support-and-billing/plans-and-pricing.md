@@ -149,7 +149,7 @@ Each query still counts as an AI request and contributes to your monthly usage, 
 
 Pro and Turbo are designed for developers who rely on AI to code, debug, and move faster with their team.
 
-With **Pro**, you get higher AI request limits than the Free plan, support for larger codebases with [Codebase Context](../agents/code/codebase-context.md), and access to premium models with optional pay-as-you-go overages.
+With **Pro**, you get higher AI request limits than the Free plan, support for larger codebases with [Codebase Context](../codebase-context.md), and access to premium models with optional pay-as-you-go overages.
 
 **Warp Turbo** includes our highest AI request limits, the highest Codebase Context indexing limits, and unlimited access to the [Lite](plans-and-pricing.md#what-is-lite) AI model—so you can keep using AI even after reaching your quota. You’ll also have the option to pay for additional usage beyond your included requests. **Teams with 3 or more users automatically receive a discounted rate.**
 

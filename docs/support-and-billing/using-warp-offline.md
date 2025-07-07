@@ -17,7 +17,7 @@ Warp is "Offline" when you aren't connected to the internet, or if you're blocki
 Warp’s cloud-based features which require an internet connection will not work in offline mode. Those features include:
 
 * [Warp Drive](../knowledge-and-collaboration/warp-drive/#using-warp-drive-offline) (Some files may be read-only in offline mode)
-* [Warp AI](../agents/warp-ai.md)
+* [Warp AI](../agents/overview.md)
   * [Agent Mode](../agents/using-agents/)
   * [Generate](../agents/generate.md)
   * [AI Autofill](../knowledge-and-collaboration/warp-drive/workflows.md#warp-ai-autofill)

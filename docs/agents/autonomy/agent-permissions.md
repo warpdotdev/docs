@@ -6,34 +6,24 @@ description: >-
 
 # Agent Permissions
 
-Agent Permissions let you define how your Agent operates—control its autonomy, choose what tools, models, or MCP servers it can access, and set when it should act independently or ask for approval. You can also fine-tune its natural language behavior and other capabilities.
+Agent Permissions let you define how your Agent operates—control its autonomy, choose what tools or MCP servers it can access, and set when it should act independently or ask for approval. You can also fine-tune its natural language behavior and other capabilities.
 
-### **Model choice**
+### Agent Permissions
 
-* **Base model**: this model serves as the core engine for your Agentic Development Environment. It drives most interactions and invokes other models as necessary. There's an option in the app to show the model picker as well.
-* **Planning model**: responsible for breaking down complex tasks into actionable steps and creating structured execution plans.
+You can control how much autonomy the Agent has when performing different types of actions under `Settings > AI > Agents > Permissions` . Agent permission types:
 
-<figure><img src="../../.gitbook/assets/base-planning-model-pickers.png" alt=""><figcaption><p>Model choice example, where the base model is Auto (claude 4 sonnet( and the planning model is o3.</p></figcaption></figure>
-
-### Permissions
-
-You can control how much autonomy the Agent has when performing different types of actions under `Settings > AI > Agents > Permissions` . There are four permission types:
-
-1. Apply code diffs
-2. Read files
-3. Create plans
-4. Execute commands
+* Read files
+* Create plans
+* Execute commands
 
 <figure><img src="../../.gitbook/assets/agent-permissions.png" alt=""><figcaption><p>Fine-tuning agent control: This permissions panel lets users customize how much autonomy the Agent has when applying code diffs, reading files, creating plans, and executing commands—balancing safety with automation.</p></figcaption></figure>
 
-**Each permission has three levels of autonomy:**
+**Each permission has different levels of autonomy:**
 
-<table><thead><tr><th width="196.3369140625">Autonomy level</th><th>Description</th></tr></thead><tbody><tr><td>Always ask</td><td>Agent will request explicit user approval before taking any action. Choose this for sensitive actions.</td></tr><tr><td>Always allow</td><td>Agent will perform the action without ever requesting explicit conformation. Use this for tasks you fully trust the Agent to handle on its own.</td></tr><tr><td>Agent Decides</td><td>Agent will act autonomously when it's confident, but prompt for approval when uncertain. This option balances speed with control, allowing the Agent to go ahead with common workflows while keeping you in the loop for more complex or risky steps.</td></tr></tbody></table>
-
-_**Note**:_&#x20;
+<table><thead><tr><th width="196.3369140625">Autonomy level</th><th>Description</th></tr></thead><tbody><tr><td>Agent Decides</td><td>Agent will act autonomously when it's confident, but prompt for approval when uncertain. This option balances speed with control, allowing the Agent to go ahead with common workflows while keeping you in the loop for more complex or risky steps.</td></tr><tr><td>Always ask</td><td>Agent will request explicit user approval before taking any action. Choose this for sensitive actions.</td></tr><tr><td>Always allow</td><td>Agent will perform the action without ever requesting explicit conformation. Use this for tasks you fully trust the Agent to handle on its own.</td></tr><tr><td>Never</td><td>Agent will not ever take the action (i.e. Create plans).</td></tr></tbody></table>
 
 {% hint style="info" %}
-_When all four permissions are set to Always allow, the Agent gains full autonomy (“YOLO mode”); however, any denylist rules will still override these settings._
+_When all Agent permissions are set to Always allow, the Agent gains full autonomy (“YOLO mode”); however, any denylist rules will still override these settings._
 {% endhint %}
 
 ### Command allowlist

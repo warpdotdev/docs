@@ -11,7 +11,7 @@
 
 ## Agents
 
-* [Overview](agents/warp-ai.md)
+* [Agent Overview](agents/overview.md)
 * [Using Agents](agents/using-agents/README.md)
   * [Agent Conversations](agents/using-agents/agent-conversations.md)
   * [Agent Context](agents/using-agents/agent-context.md)
@@ -20,13 +20,20 @@
 * [Autonomy](agents/autonomy/README.md)
   * [Agent Permissions](agents/autonomy/agent-permissions.md)
   * [Run to completion](agents/autonomy/run-to-completion.md)
-* [Code](agents/code/README.md)
-  * [Codebase Context](agents/code/codebase-context.md)
-  * [Reviewing Agent-generated Code](agents/code/reviewing-agent-code.md)
 * [Active AI](agents/active-ai.md)
 * [Generate](agents/generate.md)
 * [Voice](agents/voice.md)
 * [AI FAQs](agents/ai-faqs.md)
+
+## Code
+
+* [Code Overview](code/overview.md)
+
+***
+
+* [Codebase Context](codebase-context.md)
+* [Reviewing Code Diffs](reviewing-code.md)
+* [Code Permissions](code-permissions.md)
 
 ## Terminal
 

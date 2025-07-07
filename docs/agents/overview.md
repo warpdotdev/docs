@@ -4,7 +4,7 @@ description: >-
   integrated into the Warp Agentic Development Environment.
 ---
 
-# Overview
+# Agent Overview
 
 ## AI in Warp
 
@@ -16,11 +16,10 @@ Warp's AI features can be globally disabled in `Settings > AI` with the AI toggl
 These features sends input data to various LLM providers through their API. Read more about data privacy for Warp features [on our privacy page](https://www.warp.dev/privacy).
 {% endhint %}
 
-## Included AI features:
+## Included Agent features:
 
 * [Agents](using-agents/) - Write natural language on the command line and walk through any dev task
 * [Autonomy](autonomy/) - Control what permissions agents have to run commands, apply code, and more
-* [Code](code/) - Generate, edit, and apply code changes with AI-powered diffs
 * [Active AI](active-ai.md) - Proactively recommends fixes and next actions based on errors, inputs, and outputs
 * [Model Context Protocol](../knowledge-and-collaboration/mcp.md) - MCP Servers expose data sources or tools to Warp's Agents
 * [Generate](generate.md) - Look up commands and contextual suggestions for interactive CLIs in natural language
