@@ -39,6 +39,43 @@ To add a new MCP server, you can click the `+ Add` button. There are two types o
 
 <figure><img src="../.gitbook/assets/mcp-sse-json.png" alt=""><figcaption><p>Adding an SSE MCP Server (URL)</p></figcaption></figure>
 
+### Adding multiple MCP Servers
+
+Warp supports configuring **multiple MCP servers** using a JSON snippet. To add a multiple MCP servers, you can click the `+ Add` button then paste in a JSON snippet like the example below:
+
+#### Multiple MCP server configuration:
+
+* Each entry under `mcpServers` is keyed by a unique name (`filesystem`, `github`, `notes`, etc).
+* `command` and `args` define how each server is started.
+* Use `env` to inject sensitive credentials securely.
+* `start_on_launch: true` means Warp will auto-start the server when Warp launches.
+* All servers defined in this block are added automatically — no manual setup required.
+
+```json
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/path/to/allowed/files"],
+      "start_on_launch": true
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "your-github-token"
+      },
+      "start_on_launch": true
+    },
+    "notes": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-notes", "--notes-dir", "/Users/you/Documents/notes"],
+      "start_on_launch": true
+    }
+  }
+}
+```
+
 ### Managing MCP servers
 
 After MCP servers are registered in Warp, you can **Start** or **Stop** them from the MCP servers page. Each running server will have a list of available tools and resources.
