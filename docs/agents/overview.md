@@ -19,7 +19,7 @@ These features sends input data to various LLM providers through their API. Read
 ## Included Agent features:
 
 * [Agents](using-agents/) - Write natural language on the command line and walk through any dev task
-* [Autonomy](autonomy/) - Control what permissions agents have to run commands, apply code, and more
+* [Autonomy](broken-reference) - Control what permissions agents have to run commands, apply code, and more
 * [Active AI](active-ai.md) - Proactively recommends fixes and next actions based on errors, inputs, and outputs
 * [Model Context Protocol](../knowledge-and-collaboration/mcp.md) - MCP Servers expose data sources or tools to Warp's Agents
 * [Generate](generate.md) - Look up commands and contextual suggestions for interactive CLIs in natural language

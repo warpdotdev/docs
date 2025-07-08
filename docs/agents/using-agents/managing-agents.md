@@ -63,5 +63,5 @@ You can configure how much autonomy and control agents have in `Settings > AI > 
 * Require manual approval before the agent applies code diffs, reads files, creates plans, or runs commands
 * Define allowlists or denylists to control agent behavior based on command types or patterns
 
-These settings let you fine-tune how agents interact with your system and control the level of automation based on task sensitivity. For more information on autonomy, please reference: [autonomy](../autonomy/ "mention")
+These settings let you fine-tune how agents interact with your system and control the level of automation based on task sensitivity. For more information on autonomy, please reference: [Broken link](broken-reference "mention")
 
