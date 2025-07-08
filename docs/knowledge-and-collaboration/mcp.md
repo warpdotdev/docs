@@ -41,9 +41,9 @@ To add a new MCP server, you can click the `+ Add` button. There are two types o
 
 ### Adding multiple MCP Servers
 
-Warp supports configuring **multiple MCP servers** using a JSON snippet. To add a multiple MCP servers, you can click the `+ Add` button then paste in a JSON snippet like the example below:
+Warp supports configuring **multiple MCP servers** using a JSON snippet. To add a multiple MCP servers, you can click the `+ Add` button then paste in a JSON snippet like the example below.
 
-#### Multiple MCP server configuration:
+#### Multiple MCP server configuration
 
 * Each entry under `mcpServers` is keyed by a unique name (`filesystem`, `github`, `notes`, etc).
 * `command` and `args` define how each server is started.
