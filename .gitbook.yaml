@@ -25,9 +25,9 @@ redirects:
     features/appearance/themes: terminal/appearance/themes.md
     features/appearance/custom-themes: terminal/appearance/custom-themes.md
     features/appearance/prompt: terminal/appearance/prompt.md
-    features/warp-ai: agents/warp-ai.md
+    features/warp-ai: agents/agents-overview.md
     features/warp-ai/agent-mode: agents/using-agents/README.md
-    features/warp-ai/code: agents/code/README.md
+    features/warp-ai/code: code/code-overview.md
     features/warp-ai/active-ai: agents/active-ai.md
     features/warp-ai/ai-command-search: agents/generate.md
     features/warp-ai/generate: agents/generate.md
