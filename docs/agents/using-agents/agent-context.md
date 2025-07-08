@@ -110,7 +110,7 @@ Note that search is always relative to the root of the Git repository, even when
 
 <figure><img src="../../.gitbook/assets/at-context.png" alt=""><figcaption><p>Using the @ symbol to search for and attach a file or folder from the project root.</p></figcaption></figure>
 
-Additionally, no codebase indexing (via [codebase-context.md](../../codebase-context.md "mention")) is required — file search is available immediately in any Git-initialized directory. The search also respects `.gitignore` rules and will exclude ignored files from the results.
+Additionally, no codebase indexing (via [codebase-context.md](../../code/codebase-context.md "mention")) is required — file search is available immediately in any Git-initialized directory. The search also respects `.gitignore` rules and will exclude ignored files from the results.
 
 <figure><img src="../../.gitbook/assets/at-context-app.png" alt=""><figcaption><p>Filtering files using @app to locate files containing “app” in their name or path.</p></figcaption></figure>
 

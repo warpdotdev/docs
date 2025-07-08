@@ -11,27 +11,24 @@
 
 ## Agents
 
-* [Agent Overview](agents/overview.md)
+* [Agents Overview](agents/agents-overview.md)
 * [Using Agents](agents/using-agents/README.md)
   * [Agent Conversations](agents/using-agents/agent-conversations.md)
   * [Agent Context](agents/using-agents/agent-context.md)
   * [Managing Agents](agents/using-agents/managing-agents.md)
   * [Model Choice](agents/using-agents/model-choice.md)
-  * [Agent Permissions](agents/using-agents/agent-permissions.md)
 * [Active AI](agents/active-ai.md)
 * [Generate](agents/generate.md)
 * [Voice](agents/voice.md)
+* [Agent Permissions](agents/agent-permissions.md)
 * [AI FAQs](agents/ai-faqs.md)
 
 ## Code
 
-* [Code Overview](code/overview.md)
-
-***
-
-* [Codebase Context](codebase-context.md)
-* [Reviewing Code Diffs](reviewing-code.md)
-* [Code Permissions](code-permissions.md)
+* [Code Overview](code/code-overview.md)
+* [Codebase Context](code/codebase-context.md)
+* [Reviewing Code Diffs](code/reviewing-code.md)
+* [Code Permissions](code/code-permissions.md)
 
 ## Terminal
 

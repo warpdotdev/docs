@@ -16,7 +16,7 @@ Code indexed with Codebase Context is never stored on our servers.
 Codebase context isn't currently working within Warp for Windows WSL sessions. It's being tracked on the following Github issue. [https://github.com/warpdotdev/Warp/issues/6744](https://github.com/warpdotdev/Warp/issues/6744)
 {% endhint %}
 
-<figure><img src=".gitbook/assets/codebase-context-main.png" alt=""><figcaption><p>Codebase indexing settings in Warp. Easily track sync status and manage which folders are indexed for AI-powered context and suggestions.</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/codebase-context-main.png" alt=""><figcaption><p>Codebase indexing settings in Warp. Easily track sync status and manage which folders are indexed for AI-powered context and suggestions.</p></figcaption></figure>
 
 ## Indexing your codebase
 
@@ -45,7 +45,7 @@ When viewing indexed codebases in Warp under `Settings > Code`, you may see diff
 * **Failed** – Indexing failed. Common reasons include unreadable `.git` directories or corrupted repositories. Try recloning the repo and syncing again.
 * **Codebase too large** – The number of files in the codebase exceeds your current plan’s limit. You can either reduce the number of files being indexed using `.warpindexingignore`, or [contact sales](https://warp.dev/contact-sales) for support with larger codebases.
 
-<figure><img src=".gitbook/assets/codebase-context-statuses.png" alt=""><figcaption><p>View and manage the indexing status of your codebases in Warp. Easily see which projects are synced, in progress, or require attention.</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/codebase-context-statuses.png" alt=""><figcaption><p>View and manage the indexing status of your codebases in Warp. Easily see which projects are synced, in progress, or require attention.</p></figcaption></figure>
 
 ### When does codebase syncing happen?
 

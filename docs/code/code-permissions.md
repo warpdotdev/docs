@@ -12,7 +12,7 @@ Code Permissions let you define how your code agent operates—control its abili
 
 You can control how much autonomy the Coding agent has when applying diffs under `Settings > AI > Agents > Permissions` .&#x20;
 
-<figure><img src=".gitbook/assets/agent-permissions.png" alt=""><figcaption><p>Fine-tuning agent control: This permissions panel lets users customize how much autonomy the Agent has when applying code diffs, reading files, creating plans, and executing commands—balancing safety with automation.</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/agent-permissions.png" alt=""><figcaption><p>Fine-tuning agent control: This permissions panel lets users customize how much autonomy the Agent has when applying code diffs, reading files, creating plans, and executing commands—balancing safety with automation.</p></figcaption></figure>
 
 **Code diff permission has three levels of autonomy:**
 
