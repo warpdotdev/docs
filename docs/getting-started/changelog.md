@@ -8,6 +8,23 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2025.07.09 (v0.2025.07.09.08.11)
+
+**New Features**
+
+* New secret redaction strikethrough UI. Comes with new `Settings > Privacy > Hide secrets in block list` setting that defaults to off.
+
+**Improvements**
+
+* You can now resume stopped AI conversations: `CTRL-C` to stop and `CMD-SHIFT-R` to resume on macOS or `CTRL-SHIFT-R` on Windows and Linux.
+* Code Diff view's default Edit and Revise keybindings changed and made configurable.
+* Added syntax highlighting for PowerShell, Kotlin and Swift.
+
+**Bug Fixes**
+
+* Fixed an issue with `.inc` file chunking.
+* Clicking on an active, long running block will no longer select the block, but focus the input.
+
 ### 2025.07.02 (v0.2025.07.02.08.36)
 
 **New features**
