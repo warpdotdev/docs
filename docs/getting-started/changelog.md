@@ -41,8 +41,8 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 **Bug fixes**
 
 * When AI is disabled, ESC should no longer enter Agent Mode.
-* Fixed an issue on WSL where files created by Agent Mode would have CLRF line endings.
-* [Mac] Tweaked autoupdate logic to more reliably remove old applications off disk.
+* Fixed an issue on WSL where files created by Agent Mode would have CRLF line endings.
+* \[Mac] Tweaked autoupdate logic to more reliably remove old applications off disk.
 * Fixed "Manage plan suggestion setting" link.
 
 ### 2025.06.25 (v0.2025.06.25.08.12)
@@ -81,7 +81,7 @@ Built from the ground up for agentic workflows, Warp is the most powerful tool f
 * Codebase Context: Warp indexes and understands your codebase, allowing you to debug and write code faster without storing any code on Warp's servers.
 * Review and edit diffs directly in Warp's native code editor.
 
-**Still a great command-line**\n-&#x20;
+**Still a great command-line**\n-
 
 * A new Universal Input: run commands or prompt agents from a single interface. Lock into command- or agent-mode, or let Warp detect automatically.
 * Choose your model, continue a conversation, attach images, link URLs, or reference files using `@`.
