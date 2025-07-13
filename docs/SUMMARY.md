@@ -3,6 +3,10 @@
 ## Getting Started
 
 * [Quickstart Guide](README.md)
+  * [Installation and setup](getting-started/quickstart-guide/installation-and-setup.md)
+  * [Agents in Warp](getting-started/quickstart-guide/agents-in-warp.md)
+  * [Coding in Warp](getting-started/quickstart-guide/coding-in-warp.md)
+  * [Customizing Warp](getting-started/quickstart-guide/customizing-warp.md)
 * [What is Warp?](getting-started/what-is-warp.md)
 * [Migrate to Warp](getting-started/migrate-to-warp.md)
 * [Supported Shells](getting-started/supported-shells.md)
