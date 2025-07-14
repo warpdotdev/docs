@@ -28,28 +28,39 @@ This will show a list of all configured MCP servers, including which are current
 
 ### Adding an MCP Server
 
-To add a new MCP server, you can click the `+ Add` button. There are two types of MCP servers you can add:
+To add a new MCP server, you can click the `+ Add` button. MCP server types you can add:
 
-1. **CLI Server (Command)**
-   1. Provide a startup command. Warp will launch this command when starting up and shut it down on exit.
-2. **SSE Server (URL)**
-   1. Provide a URL where Warp can reach an already-running MCP server that supports Server-Sent Events.
+{% tabs %}
+{% tab title="CLI Server (Command)" %}
+Provide a startup command. Warp will launch this command when starting up and shut it down on exit.
 
 <figure><img src="../.gitbook/assets/mcp-add-server-json.png" alt=""><figcaption><p>Adding a CLI MCP Server (Command)</p></figcaption></figure>
 
+{% hint style="info" %}
+Always set `working_directory` explicitly when your MCP server command or args include relative paths. This ensures consistent and predictable behavior across machines and sessions.
+{% endhint %}
+
+#### CLI Server (Command) MCP Configuration Properties
+
+<table><thead><tr><th width="184.9906005859375">Property</th><th width="99.9312744140625">Type</th><th width="105.1248779296875">Required</th><th>Description</th></tr></thead><tbody><tr><td><code>command</code></td><td><code>string</code></td><td>Yes</td><td>The executable to launch (e.g., <code>npx</code>).</td></tr><tr><td><code>args</code></td><td><code>string</code></td><td>Yes</td><td>Array of command-line arguments passed to <code>command</code> (e.g., module name, paths).</td></tr><tr><td><code>env</code></td><td><code>object</code></td><td>No</td><td>Key-value object of environment variables (e.g., tokens, API keys).</td></tr><tr><td><code>working_directory</code></td><td><code>string</code></td><td>No</td><td>Working directory path where the command is run, used for resolving relative paths. Default <code>null</code></td></tr><tr><td><code>start_on_launch</code></td><td><code>boolean</code></td><td>No</td><td>Whether Warp auto-starts the MCP server on Warp launch. Default <code>true</code></td></tr></tbody></table>
+{% endtab %}
+
+{% tab title="SSE Server (URL)" %}
+Provide a URL where Warp can reach an already-running MCP server that supports Server-Sent Events.
+
 <figure><img src="../.gitbook/assets/mcp-sse-json.png" alt=""><figcaption><p>Adding an SSE MCP Server (URL)</p></figcaption></figure>
+
+#### SSE Server (URL) MCP Configuration Properties
+
+<table><thead><tr><th width="169.590576171875">Property</th><th width="99.72808837890625">Type</th><th width="108.0625">Required</th><th>Description</th></tr></thead><tbody><tr><td><code>url</code></td><td><code>string</code></td><td>Yes</td><td>The HTTP endpoint URL to connect to via Server-Sent Events (SSE).</td></tr><tr><td><code>env</code></td><td><code>object</code></td><td>No</td><td>Optional key-value object for environment variables or headers (e.g., tokens).</td></tr><tr><td><code>start_on_launch</code></td><td><code>boolean</code></td><td>No</td><td>Whether Warp connects to the SSE endpoint automatically on Warp launch. Default <code>true</code></td></tr></tbody></table>
+{% endtab %}
+{% endtabs %}
 
 ### Adding multiple MCP Servers
 
-Warp supports configuring **multiple MCP servers** using a JSON snippet. To add a multiple MCP servers, you can click the `+ Add` button then paste in a JSON snippet like the example below.
+Warp supports configuring **multiple MCP servers** using a JSON snippet. Each entry under `mcpServers` is keyed by a unique name (`filesystem`, `github`, `notes`, etc). All servers defined in the example are added automatically — no manual setup required. To add a multiple MCP servers, you can click the `+ Add` button then paste in a JSON snippet like the example below.
 
-#### Multiple MCP server configuration
-
-* Each entry under `mcpServers` is keyed by a unique name (`filesystem`, `github`, `notes`, etc).
-* `command` and `args` define how each server is started.
-* Use `env` to inject sensitive credentials securely.
-* `start_on_launch: true` means Warp will auto-start the server when Warp launches.
-* All servers defined in this block are added automatically — no manual setup required.
+#### Multiple MCP server example
 
 ```json
 {
