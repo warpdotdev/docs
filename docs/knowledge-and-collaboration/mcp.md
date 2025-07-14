@@ -80,14 +80,9 @@ Warp supports configuring **multiple MCP servers** using a JSON snippet. Each en
     },
     "notes": {
     "command": "npx",
-    "args": [
-      "-y",
-      "@modelcontextprotocol/server-notes",
-      "--notes-dir",
-      "./notes"
-    ],
-    "working_directory": "/Users/WarpUser/Documents",
-    "start_on_launch": true
+      "args": ["-y", "@modelcontextprotocol/server-notes", "--notes-dir", "./notes"],
+      "working_directory": "/Users/Warp/Documents",
+      "start_on_launch": true
     }
   }
 }
