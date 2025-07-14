@@ -60,8 +60,6 @@ Provide a URL where Warp can reach an already-running MCP server that supports S
 
 Warp supports configuring **multiple MCP servers** using a JSON snippet. Each entry under `mcpServers` is keyed by a unique name (`filesystem`, `github`, `notes`, etc). All servers defined in the example are added automatically — no manual setup required. To add a multiple MCP servers, you can click the `+ Add` button then paste in a JSON snippet like the example below.
 
-#### Multiple MCP server example
-
 ```json
 {
   "mcpServers": {
@@ -79,7 +77,7 @@ Warp supports configuring **multiple MCP servers** using a JSON snippet. Each en
       "start_on_launch": true
     },
     "notes": {
-    "command": "npx",
+     "command": "npx",
       "args": ["-y", "@modelcontextprotocol/server-notes", "--notes-dir", "./notes"],
       "working_directory": "/Users/Warp/Documents",
       "start_on_launch": true
