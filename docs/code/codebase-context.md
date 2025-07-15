@@ -13,7 +13,9 @@ Code indexed with Codebase Context is never stored on our servers.
 {% endhint %}
 
 {% hint style="danger" %}
-Codebase context isn't currently working within Warp for Windows WSL sessions. It's being tracked on the following Github issue. [https://github.com/warpdotdev/Warp/issues/6744](https://github.com/warpdotdev/Warp/issues/6744)
+Codebase context doesn't work within SSH or WSL sessions. Feature requests for support are being tracked in the following Github issues: \
+SSH - [https://github.com/warpdotdev/Warp/issues/6831](https://github.com/warpdotdev/Warp/issues/6831)\
+WSL - [https://github.com/warpdotdev/Warp/issues/6744](https://github.com/warpdotdev/Warp/issues/6744)
 {% endhint %}
 
 <figure><img src="../.gitbook/assets/codebase-context-main.png" alt=""><figcaption><p>Codebase indexing settings in Warp. Easily track sync status and manage which folders are indexed for AI-powered context and suggestions.</p></figcaption></figure>
