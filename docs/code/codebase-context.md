@@ -9,7 +9,7 @@ description: >-
 Codebase Context helps Warp Agents understand your project by indexing your local codebase. This allows Agents to generate more accurate completions, suggest context-aware edits, and answer questions using real knowledge of your code.
 
 {% hint style="info" %}
-Code indexed with Codebase Context is never stored on our servers.
+Code indexed with Codebase Context is never stored on our servers. Warps coding agent only work on local repositories. The agent can make changes on remote or docker repositories, but fallback to using terminal commands (i.e. `sed`, `grep` ) to make the changes.
 {% endhint %}
 
 {% hint style="danger" %}

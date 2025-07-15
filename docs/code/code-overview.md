@@ -7,6 +7,10 @@ description: >-
 
 # Code Overview
 
+{% hint style="info" %}
+Warps coding agent only work on local repositories. The agent can make changes on remote or docker repositories, but fallback to using terminal commands (i.e. `sed`, `grep` ) to make the changes.
+{% endhint %}
+
 ## Coding capabilities
 
 Warp includes advanced coding capabilities directly within your app window, which are triggered when the app detects an opportunity to generate a code diff. This powerful feature allows for seamless code generation, editing, and management tasks, all within the Warp environment.
