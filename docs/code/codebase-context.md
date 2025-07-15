@@ -8,7 +8,7 @@ description: >-
 
 Codebase Context helps Warp Agents understand your project by indexing your local codebase. This allows Agents to generate more accurate completions, suggest context-aware edits, and answer questions using real knowledge of your code.
 
-{% hint style="warning" %}
+{% hint style="info" %}
 Code indexed with Codebase Context is never stored on our servers.
 {% endhint %}
 
@@ -22,7 +22,11 @@ WSL - [https://github.com/warpdotdev/Warp/issues/6744](https://github.com/warpdo
 
 ## Indexing your codebase
 
-When you open a directory in Warp, we check if it is part of a Git repository. If it is, Warp begins indexing the source code to provide rich context for Warp Agents.
+When you open a directory in Warp, we check if it is part of a Git repository. If it is, Warp begins indexing the source code to provide rich context for Warp Agents.&#x20;
+
+Codebase indexing intervals and triggers:
+
+* Initially when you have Codebase Context enabled, and&#x20;
 
 This embeddings index helps Agents:
 
@@ -51,10 +55,10 @@ When viewing indexed codebases in Warp under `Settings > Code`, you may see diff
 
 ### When does codebase syncing happen?
 
-Warp automatically triggers a codebase sync periodically and whenever a new Agent conversation begins. However, if many files have changed or the network is slow, the sync may not complete before the Agent tries to access context.
+Warp automatically triggers a codebase sync periodically (every hour) and whenever there are changes in your git branches. However, if many files have changed or the network is slow, the sync may not complete before the Agent tries to access context.
 
 {% hint style="info" %}
-In large projects (e.g. after a branch switch), there may be a short delay where the Agent rerefernces stale or outdated files.
+In large projects (e.g. after a branch switch), there may be a short delay where the Agent references stale or outdated files.
 {% endhint %}
 
 ### File and Codebase Limits
