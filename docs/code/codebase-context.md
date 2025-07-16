@@ -55,7 +55,7 @@ When viewing indexed codebases in Warp under `Settings > Code`, you may see diff
 
 ### When does codebase syncing happen?
 
-Warp automatically triggers a codebase sync periodically (every hour) and whenever there are changes in your git branches. However, if many files have changed or the network is slow, the sync may not complete before the Agent tries to access context.
+Warp automatically triggers a codebase sync periodically (every hour), whenever there are changes in your git branches, and whenever a new Agent conversation begins. However, if many files have changed or the network is slow, the sync may not complete before the Agent tries to access context.
 
 {% hint style="info" %}
 In large projects (e.g. after a branch switch), there may be a short delay where the Agent references stale or outdated files.
