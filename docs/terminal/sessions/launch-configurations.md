@@ -39,6 +39,13 @@ With Launch configurations you can save in the app or by adding a yaml file.
 * From the [Command Palette](../command-palette.md), enter `Launch Configuration` to open and select Launch Configuration.
 * Right-clicking the new Tab **+** button to open a menu and select saved Launch Configuration.
   * Single-window launch configs can be launched into the active window from the launch configuration palette using `CTRL-ENTER` on Linux.
+
+To open a WSL tab with a Launch Configuration, you must first set WSL as your default shell in Warp:
+
+* Go to `Settings > Features > Session > Startup shell for new sessions`.
+* Select your desired WSL distribution (e.g., Ubuntu) as the default shell.
+
+After this, any Launch Configuration you open will use WSL as the shell.
 {% endtab %}
 
 {% tab title="Linux" %}
@@ -48,9 +55,9 @@ With Launch configurations you can save in the app or by adding a yaml file.
 {% endtab %}
 {% endtabs %}
 
-{% hint style="info" %}
+{% hint style="success" %}
 **Terminal Tip**\
-You can open saved Launch Configurations via Alfred Workflow or [Raycast](../../terminal/integrations-and-plugins.md#raycast) Extension. Learn more [here](https://blog.joe.codes/open-warp-launch-configurations-from-raycast-and-alfred). Credit to [@joetannenbaum](https://twitter.com/joetannenbaum/status/1633538768866009115)
+You can open saved Launch Configurations via Alfred Workflow or [Raycast](../integrations-and-plugins.md#raycast) Extension. Learn more [here](https://blog.joe.codes/open-warp-launch-configurations-from-raycast-and-alfred). Credit to [@joetannenbaum](https://twitter.com/joetannenbaum/status/1633538768866009115)
 {% endhint %}
 
 ## How it works
@@ -187,7 +194,7 @@ Sample configuration that shows how a Window and Tab can be activated with a ses
 * Use the `is_focused` field to set which Pane is focused in each tab.
 
 {% hint style="warning" %}
-Not that when you use  `- active_tab_index:`  the `tabs:` field doesn't need the `-` prefix, as this can cause syntax issues.
+Not that when you use `- active_tab_index:` the `tabs:` field doesn't need the `-` prefix, as this can cause syntax issues.
 {% endhint %}
 
 ```yaml
@@ -220,7 +227,7 @@ windows:
 
 ### Commands
 
-Use the `commands` field to define a set of commands to run when a launch configuration in run.&#x20;
+Use the `commands` field to define a set of commands to run when a launch configuration in run.
 
 {% hint style="warning" %}
 You may need to use double quotes for commands with special characters. Commands in separate lines are chained together with `&&` when run, as such commands run after `ssh` commands may not execute.
