@@ -42,7 +42,13 @@ Always set `working_directory` explicitly when your MCP server command or args i
 
 #### CLI Server (Command) MCP Configuration Properties
 
-<table><thead><tr><th width="184.9906005859375">Property</th><th width="99.9312744140625">Type</th><th width="105.1248779296875">Required</th><th>Description</th></tr></thead><tbody><tr><td><code>command</code></td><td><code>string</code></td><td>Yes</td><td>The executable to launch (e.g., <code>npx</code>).</td></tr><tr><td><code>args</code></td><td><code>string</code></td><td>Yes</td><td>Array of command-line arguments passed to <code>command</code> (e.g., module name, paths).</td></tr><tr><td><code>env</code></td><td><code>object</code></td><td>No</td><td>Key-value object of environment variables (e.g., tokens, API keys).</td></tr><tr><td><code>working_directory</code></td><td><code>string</code></td><td>No</td><td>Working directory path where the command is run, used for resolving relative paths. Default <code>null</code></td></tr><tr><td><code>start_on_launch</code></td><td><code>boolean</code></td><td>No</td><td>Whether Warp auto-starts the MCP server on Warp launch. Default <code>true</code></td></tr></tbody></table>
+| Property           | Type       | Required | Description                                                                 |
+|--------------------|------------|----------|-----------------------------------------------------------------------------|
+| `command`          | string     | Yes      | The executable to launch (e.g., `npx`).                                    |
+| `args`             | string[]   | Yes      | Array of command-line arguments passed to `command` (e.g., module name, paths). |
+| `env`              | object     | No       | Key-value object of environment variables (e.g., tokens).                  |
+| `working_directory`| string     | No       | Working directory path where the command is run, used for resolving relative paths. |
+| `start_on_launch`  | boolean    | No       | Whether Warp auto-starts the MCP server on Warp launch.                    |
 {% endtab %}
 
 {% tab title="SSE Server (URL)" %}
@@ -52,13 +58,19 @@ Provide a URL where Warp can reach an already-running MCP server that supports S
 
 #### SSE Server (URL) MCP Configuration Properties
 
-<table><thead><tr><th width="169.590576171875">Property</th><th width="99.72808837890625">Type</th><th width="108.0625">Required</th><th>Description</th></tr></thead><tbody><tr><td><code>url</code></td><td><code>string</code></td><td>Yes</td><td>The HTTP endpoint URL to connect to via Server-Sent Events (SSE).</td></tr><tr><td><code>env</code></td><td><code>object</code></td><td>No</td><td>Optional key-value object for environment variables or headers (e.g., tokens).</td></tr><tr><td><code>start_on_launch</code></td><td><code>boolean</code></td><td>No</td><td>Whether Warp connects to the SSE endpoint automatically on Warp launch. Default <code>true</code></td></tr></tbody></table>
+| Property          | Type       | Required | Description                                                                |
+|-------------------|------------|----------|----------------------------------------------------------------------------|
+| `url`             | string     | Yes      | The HTTP endpoint URL to connect to via Server-Sent Events (SSE).          |
+| `env`             | object     | No       | Optional key-value object for environment variables or headers (e.g., tokens). |
+| `start_on_launch` | boolean    | No       | Whether Warp connects to the SSE endpoint automatically on Warp launch.    |
 {% endtab %}
 {% endtabs %}
 
 ### Adding multiple MCP Servers
 
-Warp supports configuring **multiple MCP servers** using a JSON snippet. Each entry under `mcpServers` is keyed by a unique name (`filesystem`, `github`, `notes`, etc). All servers defined in the example are added automatically — no manual setup required. To add a multiple MCP servers, you can click the `+ Add` button then paste in a JSON snippet like the example below.
+Warp supports configuring **multiple MCP servers** using a JSON snippet. Each entry under `mcpServers` is keyed by a unique name (`filesystem`, `github`, `notes`, etc). All servers defined in the example are added automatically — no manual setup required. 
+
+To add a multiple MCP servers, you can click the `+ Add` button then paste in a JSON snippet like the example below:
 
 ```json
 {
@@ -68,18 +80,13 @@ Warp supports configuring **multiple MCP servers** using a JSON snippet. Each en
       "args": ["-y", "@modelcontextprotocol/server-filesystem", "/path/to/allowed/files"],
       "start_on_launch": true
     },
-    "github": {
+    "notes": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-github"],
-      "env": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "your-github-token"
-      },
+      "args": ["-y", "@modelcontextprotocol/server-notes", "--notes-dir", "/Users/you/Documents/notes"],
       "start_on_launch": true
     },
-    "notes": {
-     "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-notes", "--notes-dir", "./notes"],
-      "working_directory": "/Users/Warp/Documents",
+    "externalDocs": {
+      "url": "http://localhost:4000/mcp/stream",
       "start_on_launch": true
     }
   }
@@ -126,6 +133,198 @@ Set-Location $env:LOCALAPPDATA\warp\Warp\data\logs\mcp
 {% tab title="Linux" %}
 ```bash
 cd "${XDG_STATE_HOME:-$HOME/.local/state}/warp-terminal/mcp"
+```
+{% endtab %}
+{% endtabs %}
+
+
+### Warp MCP Server Configuration Examples
+
+Below are examples for popular Model Context Protocol (MCP) servers, presented in tabs with:
+
+- **CLI Server (Command)** — local `npx` launches (requires MCP package and API credentials).  
+- **SSE Server (URL)** — remote-hosted MCP endpoint.
+
+{% tabs %}
+{% tab title="GitHub" %}
+[GitHub MCP Docs](https://github.com/github/github-mcp-server)
+
+**GitHub CLI Server (Command)**
+```json
+{
+  "GitHub": {
+    "command": "docker",
+    "args": ["run","-i","--rm","-e","GITHUB_PERSONAL_ACCESS_TOKEN","ghcr.io/github/github-mcp-server"],
+    "env": {
+      "GITHUB_PERSONAL_ACCESS_TOKEN": "<your_github_token>"
+    },
+    "start_on_launch": false
+  }
+}
+```
+
+**GitHub SSE Server (URL)**
+```json
+{
+  "GitHub": {
+    "url": "https://api.githubcopilot.com/mcp/"
+  }
+}
+```
+{% endtab %}
+
+{% tab title="Sentry" %}
+[Sentry MCP Docs](https://docs.sentry.io/product/sentry-mcp/)
+
+**CLI Server (Command)**
+```json
+{
+  "Sentry": {
+    "command": "npx",
+    "args": ["-y","mcp-remote@latest","https://mcp.sentry.dev/mcp"],
+    "start_on_launch": true
+  }
+}
+```
+
+**SSE Server (URL)**
+```json
+{
+  "Sentry": {
+    "url": "https://mcp.sentry.dev/sse"
+  }
+}
+```
+{% endtab %}
+
+{% tab title="Grafana" %}
+[Grafana MCP Docs](https://github.com/grafana/mcp-grafana)
+
+**CLI Server (Command)**
+```json
+{
+  "Grafana": {
+    "command": "docker",
+    "args": ["run","--rm","-i","-e","GRAFANA_URL","-e","GRAFANA_API_KEY","mcp/grafana","-t","stdio","-debug"],
+    "env": {
+      "GRAFANA_URL": "http://localhost:3000",
+      "GRAFANA_API_KEY": "<your_grafana_key>"
+    },  
+    "start_on_launch": true
+  }
+}
+```
+
+**SSE Server (URL)**
+```json
+{
+  "Grafana": {
+    "url": "https://your-mcp-host.com/api/mcp/grafana/sse"
+  }
+}
+```
+{% endtab %}
+
+{% tab title="Linear" %}
+[Linear MCP Docs](https://linear.app/docs/mcp)
+
+**CLI Server (Command)**
+```json
+{
+  "Linear": {
+    "command": "npx",
+    "args": ["-y","mcp-remote","https://mcp.linear.app/sse"],
+    "start_on_launch": true
+  }
+}
+```
+
+**SSE Server (URL)**
+```json
+{
+  "Linear": {
+    "url": "https://mcp.linear.app/sse"
+  }
+}
+```
+{% endtab %}
+
+{% tab title="Atlassian" %}
+[Atlassian MCP Docs](https://community.atlassian.com/forums/Atlassian-Platform-articles/Using-the-Atlassian-Remote-MCP-Server-beta/ba-p/3005104)
+
+**CLI Server (Command)**
+```json
+{
+  "Atlassian": {
+    "command": "npx",
+    "args": ["-y", "mcp-remote", "https://mcp.atlassian.com/v1/sse"],
+    "start_on_launch": true
+  }
+}
+```
+
+**SSE Server (URL)**
+```json
+{
+  "Atlassian": {
+    "url": "https://mcp.atlassian.com/v1/sse"
+  }
+}
+```
+{% endtab %}
+
+{% tab title="Notion" %}
+[Notion MCP Docs](https://notion.notion.site/Beta-Overview-Notion-MCP-206efdeead058060a59bf2c14202bd0a)
+
+**CLI Server (Command)**
+```json
+{
+  "Notion": {
+    "command": "npx",
+    "args": ["-y", "mcp-remote", "https://mcp.notion.com/sse"],
+    "start_on_launch": true
+  }
+}
+```
+
+**SSE Server (URL)**
+```json
+{
+  "Notion": {
+    "url": "https://mcp.notion.com/sse"
+  }
+}
+```
+{% endtab %}
+
+{% tab title="Slack" %}
+[Slack MCP Docs](https://github.com/korotovsky/slack-mcp-server/)
+
+**CLI Server (Command)**
+```json
+{
+  "Slack": {
+    "command": "npx",
+    "args": ["-y", "@modelcontextprotocol/server-slack"],
+    "env": {
+      "SLACK_BOT_TOKEN": "xoxb-<your-bot-token>",
+      "SLACK_APP_TOKEN": "xapp-<your-app-token>",
+      "SLACK_TEAM_ID": "T<your_workspace_id>",
+      "SLACK_CHANNEL_IDS": "<your_channel_id-1>, <your_channel_id-2>",
+      "MCP_MODE": "stdio"
+    },
+    "start_on_launch": true
+  }
+}
+```
+
+**SSE Server (URL)**
+```json
+{
+  "Slack": {
+    "url": "https://your-mcp-host.com/api/mcp/slack/sse"
+  }
+}
 ```
 {% endtab %}
 {% endtabs %}
