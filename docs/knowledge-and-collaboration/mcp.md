@@ -257,7 +257,7 @@ Below are examples for popular Model Context Protocol (MCP) servers, presented i
 {% endtab %}
 
 {% tab title="Atlassian" %}
-[Atlassian MCP Docs](https://support.atlassian.com/rovo/docs/getting-started-with-the-atlassian-remote-mcp-server/)
+[Atlassian MCP Docs](https://support.atlassian.com/rovo/docs/setting-up-ides/)
 
 **CLI Server (Command)**
 
@@ -267,16 +267,6 @@ Below are examples for popular Model Context Protocol (MCP) servers, presented i
     "command": "npx",
     "args": ["-y", "mcp-remote", "https://mcp.atlassian.com/v1/sse"],
     "start_on_launch": true
-  }
-}
-```
-
-**SSE Server (URL)**
-
-```json
-{
-  "Atlassian": {
-    "url": "https://mcp.atlassian.com/v1/sse"
   }
 }
 ```
