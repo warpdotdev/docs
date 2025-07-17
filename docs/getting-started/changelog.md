@@ -8,6 +8,24 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2025.07.16 (v0.2025.07.16.08.12)
+
+**New Features**
+
+* [macOS] Support pasting images from clipboard into Agent Mode context.
+* Migrated Warp's built-in set of Secret Redaction regexes into user's regexes, giving users more fine-grained control over their secret redaction.
+* Added support for Find and Replace using `CMD-F` when viewing diffs or editing files in the built-in code editor.
+
+**Improvements**
+
+* Removed lock icon from Secret Redaction in favor of asterisks when ligatures are enabled.
+* Added individual keybinding shortcuts to change input modes.
+
+**Bug Fixes**
+
+* Fixed an issue where the hover tooltip for disabled prompt suggestions either didn't render at all or was incredibly hard to read.
+* Fixed the background color of inline code in restored AI blocks.
+
 ### 2025.07.09 (v0.2025.07.09.08.11)
 
 **New Features**

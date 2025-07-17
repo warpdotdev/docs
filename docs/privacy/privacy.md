@@ -116,6 +116,7 @@ If you're a [Team](../knowledge-and-collaboration/teams.md) admin, the deletion 
 | `AgentMode.PotentialAutoDetectionFalsePositive` | Manually toggled input to shell mode after input was auto-detected as natural language. |
 | `AgentMode.QueryAttemptAtLImit` | Tried to send an Agent Mode query but they already reached the query limit |
 | `AgentMode.RatedResponse` | User rated an Agent Mode response |
+| `AgentMode.RequestRetrySucceeded` | Agent Mode request succeeded after retrying following an initial error |
 | `AgentMode.SearchCodebase.RepoUnavailable` | Tried to use the Search Codebase tool on a repo that is unavailable |
 | `AgentMode.SearchCodebase.Requested` | Ran the Search Codebase tool |
 | `AgentMode.ShowedSuggestedAgentModeWorkflowModal` | Showed the suggested Agent Mode workflow modal to the user |
@@ -198,6 +199,7 @@ If you're a [Team](../knowledge-and-collaboration/teams.md) admin, the deletion 
 | `Edited Input Before Precmd` | Input edited before precmd hook completes |
 | `Edited Workflow Alias Argument` | Edited an argument in a Warp Drive workflow alias |
 | `Enable Alias Expansion From Banner` | Enabled automatic alias expansion within the Input Editor from the banner |
+| `Expanded Code Suggestion` | Expanded the passive code diff suggestion |
 | `Expensive Frame` | Frame took long time to draw (past a certain threshold) |
 | `Experiment Triggered` | User assigned to A/B test |
 | `Export Object` | Exported a Warp Drive object |
@@ -372,7 +374,6 @@ If you're a [Team](../knowledge-and-collaboration/teams.md) admin, the deletion 
 | `Toggle Intelligent Autosuggestions Setting` | Toggled on/off the intelligent autosuggestions setting |
 | `Toggle Jump to Bottom of Block Button` | Enabled or disabled the Jump to Bottom of Block Button |
 | `Toggle Ligature Rendering` | Toggled ligature rendering |
-| `Toggle Natural Language Autosuggestions Setting` | Toggled on/off the natural language autosuggestions setting |
 | `Toggle New Windows at Custom Size` | Whether the new windows at custom size feature has been toggled |
 | `Toggle Obfuscate Secret` | Revealed or hid a secret |
 | `Toggle Restore Session` | Toggled session restoration ("Restore windows, tabs, panes, on startup") |
