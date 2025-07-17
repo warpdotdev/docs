@@ -9,17 +9,30 @@ description: >-
 
 ## How to access it
 
-Disabled by default, to enable Secret Redaction open `Settings > Privacy > Secret Redaction` or type in "Secret Redaction" to toggle it in the [Command Palette](../terminal/command-palette.md).
+Disabled by default, to enable Secret Redaction open `Settings > Privacy > Secret redaction` or type in "Secret Redaction" to toggle it in the [Command Palette](../terminal/command-palette.md).
 
 ## How it works
 
-Secret Redaction attempts to detect sensitive data (including secrets, passwords, API keys, and PII) using a list of default regex patterns and then masks it with asterisks. Clicking on a secret will display a tooltip that lets you reveal the secret or copy the secret's contents. When trying to copy terminal output containing secrets, it will be copied as asterisks (e.g. `echo password` becomes `echo ********`) unless revealed or copied from the tooltip. Secret redaction is not applied in shared sessions.
+Secret Redaction attempts to detect sensitive data (including secrets, passwords, API keys, and PII) using your list of regex patterns. Any identified secret will be redacted instead of being sent to our servers or any LLM provider.
+Additionally, Warp Drive will prevent you from saving any secrets in plain text (workflows, MCP servers, prompts, etc.).
 
-You can add additional custom regex for secrets you want to include in `Settings > Privacy > Secret Redaction > Custom Secret Redaction`.
+You can add custom regex for secrets you want to include in `Settings > Privacy > Secret redaction > Custom secret redaction`.
+
+## Visually hiding secrets
+
+By default, identified secrets will be displayed with a strikethrough visual treatment by default, i.e. "echo ~~password~~". 
+
+If instead you'd prefer to visually hide the secrets as well, i.e. "echo ********", the setting to obfuscate secrets with asterisks can be found in `Settings > Privacy > Secret redaction > Hide secrets in blocklist`.
+
+Clicking on a secret will display a tooltip that lets you reveal the secret or copy the secret's contents. When trying to copy terminal output containing secrets, it will be copied as asterisks (e.g. `echo password` becomes `echo ********`) unless revealed or copied from the tooltip. Secret redaction is not applied in shared sessions.
+
+## Case sensitivity
+
+Secret redaction regexes are case-sensitive by default (i.e. the regex `password` will not match the text `Password`). If you want a regex to be case-sensitive, you can prepend `(?i)` like so: `(?i)password` to ensure that `PASSWORD`, `Password`, and `password` would all match.
 
 ## Secret Regex List
 
-Here is a list of the default regular expressions that Warp uses to identify secrets.
+Here is a list of the recommended regular expressions that Warp uses to identify secrets:
 
 | Secret Type                               | Regex Pattern                                                                             |
 | ----------------------------------------- | ----------------------------------------------------------------------------------------- |
