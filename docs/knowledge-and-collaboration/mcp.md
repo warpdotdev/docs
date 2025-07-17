@@ -40,15 +40,15 @@ Provide a startup command. Warp will launch this command when starting up and sh
 Always set `working_directory` explicitly when your MCP server command or args include relative paths. This ensures consistent and predictable behavior across machines and sessions.
 {% endhint %}
 
-#### CLI Server (Command) MCP Configuration Properties
+**CLI Server (Command) MCP Configuration Properties**
 
-| Property           | Type       | Required | Description                                                                 |
-|--------------------|------------|----------|-----------------------------------------------------------------------------|
-| `command`          | string     | Yes      | The executable to launch (e.g., `npx`).                                    |
-| `args`             | string[]   | Yes      | Array of command-line arguments passed to `command` (e.g., module name, paths). |
-| `env`              | object     | No       | Key-value object of environment variables (e.g., tokens).                  |
-| `working_directory`| string     | No       | Working directory path where the command is run, used for resolving relative paths. |
-| `start_on_launch`  | boolean    | No       | Whether Warp auto-starts the MCP server on Warp launch.                    |
+| Property            | Type      | Required | Description                                                                         |
+| ------------------- | --------- | -------- | ----------------------------------------------------------------------------------- |
+| `command`           | string    | Yes      | The executable to launch (e.g., `npx`).                                             |
+| `args`              | string\[] | Yes      | Array of command-line arguments passed to `command` (e.g., module name, paths).     |
+| `env`               | object    | No       | Key-value object of environment variables (e.g., tokens).                           |
+| `working_directory` | string    | No       | Working directory path where the command is run, used for resolving relative paths. |
+| `start_on_launch`   | boolean   | No       | Whether Warp auto-starts the MCP server on Warp launch.                             |
 {% endtab %}
 
 {% tab title="SSE Server (URL)" %}
@@ -56,19 +56,19 @@ Provide a URL where Warp can reach an already-running MCP server that supports S
 
 <figure><img src="../.gitbook/assets/mcp-sse-json.png" alt=""><figcaption><p>Adding an SSE MCP Server (URL)</p></figcaption></figure>
 
-#### SSE Server (URL) MCP Configuration Properties
+**SSE Server (URL) MCP Configuration Properties**
 
-| Property          | Type       | Required | Description                                                                |
-|-------------------|------------|----------|----------------------------------------------------------------------------|
-| `url`             | string     | Yes      | The HTTP endpoint URL to connect to via Server-Sent Events (SSE).          |
-| `env`             | object     | No       | Optional key-value object for environment variables or headers (e.g., tokens). |
-| `start_on_launch` | boolean    | No       | Whether Warp connects to the SSE endpoint automatically on Warp launch.    |
+| Property          | Type    | Required | Description                                                                    |
+| ----------------- | ------- | -------- | ------------------------------------------------------------------------------ |
+| `url`             | string  | Yes      | The HTTP endpoint URL to connect to via Server-Sent Events (SSE).              |
+| `env`             | object  | No       | Optional key-value object for environment variables or headers (e.g., tokens). |
+| `start_on_launch` | boolean | No       | Whether Warp connects to the SSE endpoint automatically on Warp launch.        |
 {% endtab %}
 {% endtabs %}
 
 ### Adding multiple MCP Servers
 
-Warp supports configuring **multiple MCP servers** using a JSON snippet. Each entry under `mcpServers` is keyed by a unique name (`filesystem`, `github`, `notes`, etc). All servers defined in the example are added automatically — no manual setup required. 
+Warp supports configuring **multiple MCP servers** using a JSON snippet. Each entry under `mcpServers` is keyed by a unique name (`filesystem`, `github`, `notes`, etc). All servers defined in the example are added automatically — no manual setup required.
 
 To add a multiple MCP servers, you can click the `+ Add` button then paste in a JSON snippet like the example below:
 
@@ -104,7 +104,7 @@ You can rename and edit a server's name, as well as delete the server. To preven
 If you're having trouble with an MCP server, you can check the logs for any errors or messages to help you diagnose the problem by clicking the `View Logs` button on a server from the MCP servers page.
 
 {% hint style="warning" %}
-If you choose to share your MCP server logs with anybody, **make sure to remove any sensitive information before sharing**, as they may contain API keys.&#x20;
+If you choose to share your MCP server logs with anybody, **make sure to remove any sensitive information before sharing**, as they may contain API keys.
 
 Many SSE based MCP servers will state that your URL should be treated like a password, and can be used with no additional authentication.
 {% endhint %}
@@ -137,19 +137,19 @@ cd "${XDG_STATE_HOME:-$HOME/.local/state}/warp-terminal/mcp"
 {% endtab %}
 {% endtabs %}
 
-
 ### Warp MCP Server Configuration Examples
 
 Below are examples for popular Model Context Protocol (MCP) servers, presented in tabs with:
 
-- **CLI Server (Command)** — local `npx` launches (requires MCP package and API credentials).  
-- **SSE Server (URL)** — remote-hosted MCP endpoint.
+* **CLI Server (Command)** — local `npx` launches (requires MCP package and API credentials).
+* **SSE Server (URL)** — remote-hosted MCP endpoint.
 
 {% tabs %}
 {% tab title="GitHub" %}
 [GitHub MCP Docs](https://github.com/github/github-mcp-server)
 
 **GitHub CLI Server (Command)**
+
 ```json
 {
   "GitHub": {
@@ -164,6 +164,7 @@ Below are examples for popular Model Context Protocol (MCP) servers, presented i
 ```
 
 **GitHub SSE Server (URL)**
+
 ```json
 {
   "GitHub": {
@@ -177,6 +178,7 @@ Below are examples for popular Model Context Protocol (MCP) servers, presented i
 [Sentry MCP Docs](https://docs.sentry.io/product/sentry-mcp/)
 
 **CLI Server (Command)**
+
 ```json
 {
   "Sentry": {
@@ -188,6 +190,7 @@ Below are examples for popular Model Context Protocol (MCP) servers, presented i
 ```
 
 **SSE Server (URL)**
+
 ```json
 {
   "Sentry": {
@@ -201,6 +204,7 @@ Below are examples for popular Model Context Protocol (MCP) servers, presented i
 [Grafana MCP Docs](https://github.com/grafana/mcp-grafana)
 
 **CLI Server (Command)**
+
 ```json
 {
   "Grafana": {
@@ -216,6 +220,7 @@ Below are examples for popular Model Context Protocol (MCP) servers, presented i
 ```
 
 **SSE Server (URL)**
+
 ```json
 {
   "Grafana": {
@@ -229,6 +234,7 @@ Below are examples for popular Model Context Protocol (MCP) servers, presented i
 [Linear MCP Docs](https://linear.app/docs/mcp)
 
 **CLI Server (Command)**
+
 ```json
 {
   "Linear": {
@@ -240,6 +246,7 @@ Below are examples for popular Model Context Protocol (MCP) servers, presented i
 ```
 
 **SSE Server (URL)**
+
 ```json
 {
   "Linear": {
@@ -250,9 +257,10 @@ Below are examples for popular Model Context Protocol (MCP) servers, presented i
 {% endtab %}
 
 {% tab title="Atlassian" %}
-[Atlassian MCP Docs](https://community.atlassian.com/forums/Atlassian-Platform-articles/Using-the-Atlassian-Remote-MCP-Server-beta/ba-p/3005104)
+[Atlassian MCP Docs](https://support.atlassian.com/rovo/docs/getting-started-with-the-atlassian-remote-mcp-server/)
 
 **CLI Server (Command)**
+
 ```json
 {
   "Atlassian": {
@@ -264,6 +272,7 @@ Below are examples for popular Model Context Protocol (MCP) servers, presented i
 ```
 
 **SSE Server (URL)**
+
 ```json
 {
   "Atlassian": {
@@ -277,6 +286,7 @@ Below are examples for popular Model Context Protocol (MCP) servers, presented i
 [Notion MCP Docs](https://notion.notion.site/Beta-Overview-Notion-MCP-206efdeead058060a59bf2c14202bd0a)
 
 **CLI Server (Command)**
+
 ```json
 {
   "Notion": {
@@ -288,6 +298,7 @@ Below are examples for popular Model Context Protocol (MCP) servers, presented i
 ```
 
 **SSE Server (URL)**
+
 ```json
 {
   "Notion": {
@@ -301,6 +312,7 @@ Below are examples for popular Model Context Protocol (MCP) servers, presented i
 [Slack MCP Docs](https://github.com/korotovsky/slack-mcp-server/)
 
 **CLI Server (Command)**
+
 ```json
 {
   "Slack": {
@@ -319,6 +331,7 @@ Below are examples for popular Model Context Protocol (MCP) servers, presented i
 ```
 
 **SSE Server (URL)**
+
 ```json
 {
   "Slack": {
