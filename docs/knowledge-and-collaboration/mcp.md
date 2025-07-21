@@ -137,7 +137,7 @@ cd "${XDG_STATE_HOME:-$HOME/.local/state}/warp-terminal/mcp"
 {% endtab %}
 {% endtabs %}
 
-### Warp MCP Server Configuration Examples
+### MCP Server Configuration Examples
 
 Below are examples for popular Model Context Protocol (MCP) servers, presented in tabs with:
 
@@ -281,7 +281,7 @@ Below are examples for popular Model Context Protocol (MCP) servers, presented i
 {
   "Notion": {
     "command": "npx",
-    "args": ["-y", "mcp-remote", "https://mcp.notion.com/sse"],
+    "args": ["-y", "mcp-remote", "https://mcp.notion.com/mcp"],
     "start_on_launch": true
   }
 }
