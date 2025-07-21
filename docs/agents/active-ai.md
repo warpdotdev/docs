@@ -27,7 +27,7 @@ If you press `CMD-ENTER` (on Mac), `CTRL-SHIFT-ENTER` (on Linux/Windows), or cli
 {% hint style="info" %}
 Prompt Suggestions use an LLM to generate prompts based on your terminal session, specifically the most recent block. These AI requests do not contribute towards your AI limits, however, any accepted prompts run in Agent Mode contribute as normal. Visit Settings > AI > Agent Mode, if you'd like to turn it off.
 
-[Secret Redaction](../privacy/secret-redaction.md) is automatically applied to any content sent to Active AI features to prevent any sensitive data being leaked.
+If [Secret Redaction](../privacy/secret-redaction.md) is enabled, any selected regexes are applied to content sent to Active AI features to prevent any sensitive data being leaked.
 {% endhint %}
 
 <figure><img src="../.gitbook/assets/prompt-suggestions-setting (1).png" alt=""><figcaption><p>Setting for Prompt Suggestions</p></figcaption></figure>
