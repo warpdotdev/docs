@@ -26,7 +26,10 @@ When you open a directory in Warp, we check if it is part of a Git repository. I
 
 Codebase indexing intervals and triggers:
 
-* Initially when you have Codebase Context enabled, and&#x20;
+* Initially when you have Codebase Context enabled and you navigate to a git repository.
+* Warp automatically triggers a codebase sync periodically (every hour).
+* Whenever a new Agent conversation begins.
+* Whenever there are changes in your git branches.
 
 This embeddings index helps Agents:
 
@@ -34,9 +37,7 @@ This embeddings index helps Agents:
 * Generate completions that match your style and patterns
 * Suggest edits in the correct locations based on real context
 
-**Warp keeps the index up to date automatically as you make changes**, so Agents always have access to fresh context.
-
-The first time you open a directory after launching Warp, indexing will begin from scratch. For large projects, this may take a few minutes. Warp Agents will not use codebase context until indexing is complete — but **agentic coding features remain fully available in the meantime**.
+For large projects, indexing may take a few minutes. Warp Agents will not use codebase context until indexing is complete, but **agentic coding features remain fully available in the meantime**.
 
 {% hint style="info" %}
 You can view and manage your indexed codebases under `Settings > Code > Codebase Index`. You can also choose whether to automatically index new folders as you navigate them.
@@ -48,7 +49,7 @@ When viewing indexed codebases in Warp under `Settings > Code`, you may see diff
 
 * **Synced** — Indexing is complete and the codebase is ready to be used as context.
 * **Discovering files** – Warp is currently scanning and indexing files in the codebase.
-* **Failed** – Indexing failed. Common reasons include unreadable `.git` directories or corrupted repositories. Try recloning the repo and syncing again.
+* **Failed** – Indexing failed. Common reasons include unreadable `.git` directories or corrupted repositories. Try re-cloning the repo and syncing again.
 * **Codebase too large** – The number of files in the codebase exceeds your current plan’s limit. You can either reduce the number of files being indexed using `.warpindexingignore`, or [contact sales](https://warp.dev/contact-sales) for support with larger codebases.
 
 <figure><img src="../.gitbook/assets/codebase-context-statuses.png" alt=""><figcaption><p>View and manage the indexing status of your codebases in Warp. Easily see which projects are synced, in progress, or require attention.</p></figcaption></figure>
