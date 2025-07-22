@@ -26,10 +26,10 @@ When you open a directory in Warp, we check if it is part of a Git repository. I
 
 Codebase indexing intervals and triggers:
 
-* Initially when you have Codebase Context enabled and you navigate to a git repository.
-* Warp automatically triggers a codebase sync periodically (every hour).
+* Initially when you have Codebase Context enabled.
+* Warp automatically triggers a codebase index periodically.
 * Whenever a new Agent conversation begins.
-* Whenever there are changes in your git branches.
+* When you click on the sync 🔄 button in `Settings > Code` menu.
 
 This embeddings index helps Agents:
 
@@ -56,7 +56,7 @@ When viewing indexed codebases in Warp under `Settings > Code`, you may see diff
 
 ### When does codebase syncing happen?
 
-Warp automatically triggers a codebase sync periodically (every hour), whenever there are changes in your git branches, and whenever a new Agent conversation begins. However, if many files have changed or the network is slow, the sync may not complete before the Agent tries to access context.
+Warp automatically triggers a codebase sync initially and periodically, when you click on the sync 🔄 button in `Settings > Code` menu, or when you start a new Agent conversation. However, if many files have changed or the network is slow, the sync may not complete before the Agent tries to access context.
 
 {% hint style="info" %}
 In large projects (e.g. after a branch switch), there may be a short delay where the Agent references stale or outdated files.
