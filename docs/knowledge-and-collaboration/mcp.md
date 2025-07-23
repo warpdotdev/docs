@@ -12,8 +12,6 @@ MCP servers extend Warp’s [agents](../agents/using-agents/) in a modular, flex
 
 MCP is an open source protocol. Check out the official [MCP documentation](https://modelcontextprotocol.io/introduction) for more detailed information on how this protocol is engineered.
 
-In these docs, we'll focus on how to use MCP servers in Warp.
-
 ### How to access MCP Server settings
 
 You can navigate to the MCP servers page in any of the following ways:
@@ -22,7 +20,7 @@ You can navigate to the MCP servers page in any of the following ways:
 * From the [Command Palette](../terminal/command-palette.md): search for `Open MCP Servers`
 * From the settings tab: `Settings > AI > Manage MCP servers`
 
-This will show a list of all configured MCP servers, including which are currently running
+This will show a list of all configured MCP servers, including which are currently running. If you close Warp with an MCP server running, it will run again on next start of Warp. MCP servers that are stopped will remain so on next launch of Warp.
 
 <figure><img src="../.gitbook/assets/mcp-running.png" alt=""><figcaption><p>MCP servers page</p></figcaption></figure>
 
@@ -48,7 +46,6 @@ Always set `working_directory` explicitly when your MCP server command or args i
 | `args`              | string\[] | Yes      | Array of command-line arguments passed to `command` (e.g., module name, paths).     |
 | `env`               | object    | No       | Key-value object of environment variables (e.g., tokens).                           |
 | `working_directory` | string    | No       | Working directory path where the command is run, used for resolving relative paths. |
-| `start_on_launch`   | boolean   | No       | Whether Warp auto-starts the MCP server on Warp launch.                             |
 {% endtab %}
 
 {% tab title="SSE Server (URL)" %}
@@ -58,11 +55,10 @@ Provide a URL where Warp can reach an already-running MCP server that supports S
 
 **SSE Server (URL) MCP Configuration Properties**
 
-| Property          | Type    | Required | Description                                                                    |
-| ----------------- | ------- | -------- | ------------------------------------------------------------------------------ |
-| `url`             | string  | Yes      | The HTTP endpoint URL to connect to via Server-Sent Events (SSE).              |
-| `env`             | object  | No       | Optional key-value object for environment variables or headers (e.g., tokens). |
-| `start_on_launch` | boolean | No       | Whether Warp connects to the SSE endpoint automatically on Warp launch.        |
+| Property | Type   | Required | Description                                                                    |
+| -------- | ------ | -------- | ------------------------------------------------------------------------------ |
+| `url`    | string | Yes      | The HTTP endpoint URL to connect to via Server-Sent Events (SSE).              |
+| `env`    | object | No       | Optional key-value object for environment variables or headers (e.g., tokens). |
 {% endtab %}
 {% endtabs %}
 
@@ -77,17 +73,14 @@ To add a multiple MCP servers, you can click the `+ Add` button then paste in a 
   "mcpServers": {
     "filesystem": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/path/to/allowed/files"],
-      "start_on_launch": true
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/path/to/allowed/files"]
     },
     "notes": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-notes", "--notes-dir", "/Users/you/Documents/notes"],
-      "start_on_launch": true
+      "args": ["-y", "@modelcontextprotocol/server-notes", "--notes-dir", "/Users/you/Documents/notes"]
     },
     "externalDocs": {
-      "url": "http://localhost:4000/mcp/stream",
-      "start_on_launch": true
+      "url": "http://localhost:4000/mcp/stream"
     }
   }
 }
@@ -157,8 +150,7 @@ Below are examples for popular Model Context Protocol (MCP) servers, presented i
     "args": ["run","-i","--rm","-e","GITHUB_PERSONAL_ACCESS_TOKEN","ghcr.io/github/github-mcp-server"],
     "env": {
       "GITHUB_PERSONAL_ACCESS_TOKEN": "<your_github_token>"
-    },
-    "start_on_launch": false
+    }
   }
 }
 ```
@@ -183,8 +175,7 @@ Below are examples for popular Model Context Protocol (MCP) servers, presented i
 {
   "Sentry": {
     "command": "npx",
-    "args": ["-y","mcp-remote@latest","https://mcp.sentry.dev/mcp"],
-    "start_on_launch": true
+    "args": ["-y","mcp-remote@latest","https://mcp.sentry.dev/mcp"]
   }
 }
 ```
@@ -213,8 +204,7 @@ Below are examples for popular Model Context Protocol (MCP) servers, presented i
     "env": {
       "GRAFANA_URL": "http://localhost:3000",
       "GRAFANA_API_KEY": "<your_grafana_key>"
-    },  
-    "start_on_launch": true
+    }
   }
 }
 ```
@@ -239,8 +229,7 @@ Below are examples for popular Model Context Protocol (MCP) servers, presented i
 {
   "Linear": {
     "command": "npx",
-    "args": ["-y","mcp-remote","https://mcp.linear.app/sse"],
-    "start_on_launch": true
+    "args": ["-y","mcp-remote","https://mcp.linear.app/sse"]
   }
 }
 ```
@@ -265,8 +254,7 @@ Below are examples for popular Model Context Protocol (MCP) servers, presented i
 {
   "Atlassian": {
     "command": "npx",
-    "args": ["-y", "mcp-remote", "https://mcp.atlassian.com/v1/sse"],
-    "start_on_launch": true
+    "args": ["-y", "mcp-remote", "https://mcp.atlassian.com/v1/sse"]
   }
 }
 ```
@@ -281,8 +269,7 @@ Below are examples for popular Model Context Protocol (MCP) servers, presented i
 {
   "Notion": {
     "command": "npx",
-    "args": ["-y", "mcp-remote", "https://mcp.notion.com/mcp"],
-    "start_on_launch": true
+    "args": ["-y", "mcp-remote", "https://mcp.notion.com/mcp"]
   }
 }
 ```
@@ -314,8 +301,7 @@ Below are examples for popular Model Context Protocol (MCP) servers, presented i
       "SLACK_TEAM_ID": "T<your_workspace_id>",
       "SLACK_CHANNEL_IDS": "<your_channel_id-1>, <your_channel_id-2>",
       "MCP_MODE": "stdio"
-    },
-    "start_on_launch": true
+    }
   }
 }
 ```
