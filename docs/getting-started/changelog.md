@@ -8,6 +8,28 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2025.07.23 (v0.2025.07.23.08.12)
+
+**New Features**
+
+* [Windows] Added support for pasting images from Clipboard into Agent Mode context.
+
+**Improvements**
+
+* Added image filename when pasting images into Agent Mode context.
+* Added support for restarting MCP servers when Warp restarts.
+* Added support for copying AI block and conversation contents via the context menu.
+* Added Node.js prompt chip.
+
+**Bug Fixes**
+
+* Fixed a bug where attaching a block as AI context would reset the input state.
+* Fixed a spacing issue with horizontal scrollbars in agent planning view.
+* Added support for auto-expanding manually executed Agent Mode suggested commands.
+* Fixed a bug where Warp would hang while updating code symbols in the @-context menu.
+* Modified secret redaction regexes to be case sensitive. Use a `(?i)` prefix to make your regex case insensitive.
+* Modified the Universal Input to no longer exit a conversation via "backspace".
+
 ### 2025.07.16 (v0.2025.07.16.08.12)
 
 **New Features**
