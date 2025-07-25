@@ -132,6 +132,10 @@ Allotted AI requests refill every 30 days from your signup date. When you upgrad
 
 Alternatively, you can also set [Usage Overages](plans-and-pricing/usage-overages.md) to your desired amount to continue to use more premium model requests.
 
+{% hint style="info" %}
+Unused AI requests do not rollover to the next cycle and can't be transferred to other accounts.
+{% endhint %}
+
 ### What is Lite?
 
 **Lite** is a basic AI model included with the Turbo plan that serves two purposes:
