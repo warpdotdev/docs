@@ -17,7 +17,9 @@ Accessing Block Actions
 
 ## Copy Input / Output of Block
 
-This feature allows you to easily copy the Block command, output, or both.
+For command blocks, you can `RIGHT-CLICK` on a Block or click the context menu and copy the Block command, output, or both.
+
+For AI blocks, you can `RIGHT-CLICK` to copy the prompt, output, both or the entire conversation.
 
 {% embed url="https://www.loom.com/share/9ad67eca0a8d47afb82cc1acba617f3c?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
 Copy Block Actions
