@@ -20,23 +20,37 @@ We also may choose to offer refunds, on a case-by-case basis, if a severe produc
 
 ## Frequently asked questions
 
-### How can I subscribe to a Pro or Turbo plan?
+### How can I subscribe to a Warp plan?
 
-To subscribe to Warp Pro or Turbo, start by [creating a Team in Warp](../knowledge-and-collaboration/teams.md#creating-a-team) (even if you're subscribing as an individual). Once your Team is set up, you can upgrade either [online](https://app.warp.dev/upgrade) or in the app.&#x20;
+To subscribe to any Warp paid plan, start by [creating a Team in Warp](../knowledge-and-collaboration/teams.md#creating-a-team), even if you're subscribing as an individual. Once your team is created, you can upgrade:
 
-In the app, navigate to `Settings` > `Teams` and find the upgrade link. After you enter your payment information, you will receive an invoice and confirmation email from Warp.
+* In the app: Go to `Settings` > `Billing and usage`, then click the Upgrade link
+* Online: Visit [warp.dev/pricing](https://www.warp.dev/pricing)
+
+After entering your payment details, you’ll receive an invoice and confirmation via email.
+
+{% hint style="info" %}
+For Enterprise plans, [contact our sales team](https://warp.dev/contact-sales) and we’ll get in touch promptly.
+{% endhint %}
 
 ### How can I upgrade for more Warp AI requests?
 
-Both the Pro and Turbo plans come with higher monthly AI request limits than the Free plan. If you're on a team, Turbo also includes automatic discounts for **teams of 3 or more** — giving everyone on the plan access to even more AI.
+All paid Warp plans come with significantly higher monthly AI request limits than the Free plan.
 
-When you upgrade from a free to a paid plan, your AI usage resets. If you're switching between paid plans, any AI usage you've already accumulated will carry over. You can compare plans at [**warp.dev/pricing**](https://www.warp.dev/pricing).
+When you upgrade from Free to a paid plan, your AI request usage resets. If you’re switching between paid plans, any AI usage you've already accumulated will carry over.
+
+You can compare plans and AI limits at [warp.dev/pricing](https://www.warp.dev/pricing).
 
 ### How can I subscribe to a Warp Enterprise plan?
 
-Warp offers an Enterprise plan with custom pricing for larger engineering organizations or businesses with advanced security, compliance, or support needs.
+Warp offers two options for larger teams and organizations:
 
-If your team is interested in exploring whether an Enterprise plan might be the best for your team, please [contact us](https://www.warp.dev/contact-sales) to start the conversation.
+* **Business Plan**: Supports up to 50 seats and is available for immediate upgrade. It includes Zero Data Retention by default and admin-controlled SAML-based SSO.
+* **Enterprise Plan**: Offers custom pricing and support for larger engineering orgs or teams with advanced security, compliance, or support needs.
+
+{% hint style="info" %}
+If you’d like to explore Enterprise, [contact our sales team](https://warp.dev/contact-sales) and someone from Warp will follow up.
+{% endhint %}
 
 ### What counts as a team member and how does billing work for members?
 
@@ -57,9 +71,7 @@ If a member leaves part way through the billing cycle, Warp will issue a prorate
 
 ### What is the value of joining or creating a team on Warp?
 
-Team members on Pro plans have access to your shared Warp Drive objects and have unlimited access to Warp's collaboration features, including Session Sharing and Warp Drive storage.
-
-Additionally, Turbo teams with three or more members will receive a 30% discount on their monthly or annual cost per user.
+Team members on Pro plans have access to your shared [Warp Drive](../knowledge-and-collaboration/warp-drive/) objects and have unlimited access to Warp's collaboration features, including Session Sharing and Warp Drive storage.
 
 ### My co-workers are using Warp but we’re not on a Team together yet. How does billing work?
 
@@ -79,9 +91,9 @@ To downgrade at any point throughout your subscription through the billing porta
 
 ### What happens when I cancel during a billing cycle?
 
-You can cancel at any point throughout your subscription through the billing portal by going to `Settings > Billing and usage > Manage billing`. The subscription will be canceled at the end of your billing cycle, monthly or yearly.
+You can cancel at any point throughout your subscription through the billing portal by going to `Settings > Billing and usage > Manage billing`. The subscription will be canceled at the **end of your billing cycle**, monthly or yearly.
 
-You can continue to use your Warp paid plan features until the cycle end date. Any additional team members added to your team will be invoiced at the end of your billing cycle.
+**You can continue to use your Warp paid plan features until the cycle end date**. Any additional team members added to your team will be invoiced at the end of your billing cycle.
 
 ### What happens if I upgrade from monthly to annual billing?
 
@@ -149,15 +161,16 @@ While performance and capabilities may vary compared to premium models, it allow
 Each query still counts as an AI request and contributes to your monthly usage, but using Lite won't incur any additional charges to your plan.
 {% endhint %}
 
-### How can I get the most out of my Warp Pro or Turbo plans?
+### How can I get the most out of my Warp paid plan?
 
-Pro and Turbo are designed for developers who rely on AI to code, debug, and move faster with their team.
+Warp's plans are designed for developers who rely on AI to code, debug, and move faster with their team.
 
-With **Pro**, you get higher AI request limits than the Free plan, support for larger codebases with [Codebase Context](../code/codebase-context.md), and access to premium models with optional pay-as-you-go overages.
+* With **Pro**, you get higher AI request limits than the Free plan, support for larger codebases with [Codebase Context](../code/codebase-context.md), and access to premium models with optional pay-as-you-go overages.
+* **Warp Turbo** offers even higher AI request limits, larger Codebase Context indexing, and unlimited access to the [Lite](plans-and-pricing.md#what-is-lite) AI model -- plus the option to pay for additional usage beyond your included requests.
+* **Warp Lightspeed** is our most powerful plan, offering the highest AI request limits, expanded codebase indexing, access to top-tier models, and pay-as-you-go overages so you can keep working without interruption.
+* **Warp Business** includes everything in Turbo, with advanced features like Zero Data Retention, SAML-based SSO, and support for teams up to 50 seats.
 
-**Warp Turbo** includes our highest AI request limits, the highest Codebase Context indexing limits, and unlimited access to the [Lite](plans-and-pricing.md#what-is-lite) AI model—so you can keep using AI even after reaching your quota. You’ll also have the option to pay for additional usage beyond your included requests. **Teams with 3 or more users automatically receive a discounted rate.**
-
-Both plans also unlock powerful collaboration and knowledge-sharing tools to help your team move faster, together:
+All plans also unlock powerful collaboration and knowledge-sharing tools to help your team move faster, together:
 
 * Use [Notebooks](../knowledge-and-collaboration/warp-drive/notebooks.md) and [Workflows](../knowledge-and-collaboration/warp-drive/workflows.md) in Warp Drive to organize and share knowledge across your team.
 * Try [Session Sharing](https://docs.warp.dev/features/session-sharing) to collaborate in real time through live, shared terminal sessions.
@@ -179,12 +192,6 @@ Warp doesn’t currently offer discounts for students, non-profits, or open-sour
 Warp Drive data is securely stored on Google Cloud Platform servers located in the United States. All data is encrypted in transit and at rest.
 
 For more details, please [visit the Security Overview](https://www.warp.dev/security) or contact [security@warp.dev](mailto:security@warp.dev).
-
-### What does “Free preview” mean in Warp?
-
-Before Warp’s paid plans launched, certain features such as Warp Drive for Teams and Warp’s AI features were available in a Free Preview. This allowed early adopters to try them while they were still in development.
-
-The Free Preview for Warp Drive and AI features has ended, but new features may be offered in Free Preview again in the future.
 
 ### What does “Early adopter” mean in Warp?
 

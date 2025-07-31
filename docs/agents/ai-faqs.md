@@ -10,7 +10,7 @@ description: >-
 
 ### What data is sent and/or stored when using Agents in Warp?
 
-See our [Privacy Page](../privacy/privacy.md) for more information on how we handle data used by Agents in Warp
+See our [Privacy Page](../privacy/privacy.md) for more information on how we handle data used by Agents in Warp.
 
 ### What happened to the old Warp AI chat panel?
 
