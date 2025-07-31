@@ -8,6 +8,26 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2025.07.30 (v0.2025.07.30.08.12)
+
+**New Features**
+
+* You can now set a configurable block size limit for higher scrollback limits! Head to `Settings > Features > Session > Maximum rows in a block` to configure.
+* [Linux] Added support for pasting images as context.
+
+**Improvements**
+
+* The "Open in Warp" banner now supports code files.
+* When using Agent Mode, user-configured redaction rules are now applied to the contents of diffs and files, in addition to terminal blocks.
+* Add SHIFT-ENTER keybinding. Claude Code users can use this to add linefeeds to their prompt.
+* Added an overflow menu button in the top right of AI blocks for copying contents.
+
+**Bug Fixes**
+
+* Deleted files no longer appear in the @-context selection box.
+* Users with Turkish locale will no longer see an extra letter "i" between commands.
+* [Windows] Restored windows will no longer be positioned with the title bar above the top of the display.
+
 ### 2025.07.23 (v0.2025.07.23.08.12)
 
 **New Features**
