@@ -43,15 +43,15 @@ If there is no follow-up ↳ icon next to your input, this indicates a new conve
 
 {% tabs %}
 {% tab title="macOS" %}
-To start a new conversation manually, use `CMD-Y` or `BACKSPACE`.
+To start a new conversation manually, use `CMD-I` or when using the Universal input enable auto detection mode with `BACKSPACE`.
 {% endtab %}
 
 {% tab title="Windows" %}
-To start a new conversation manually, use `CTRL-Y` or `BACKSPACE`.
+To start a new conversation manually, use `CTRL-I` or when using the Universal input enable auto detection mode with `BACKSPACE`.
 {% endtab %}
 
 {% tab title="Linux" %}
-To start a new conversation manually, use `CTRL-Y` or `BACKSPACE`.
+To start a new conversation manually, use `CTRL-I` or when using the Universal input enable auto detection mode with `BACKSPACE`.
 {% endtab %}
 {% endtabs %}
 
