@@ -122,6 +122,10 @@ In addition, a few other Warp features also consume AI requests:
 
 Request limits are allocated at the seat level to Warp users or team members.
 
+{% hint style="success" %}
+Regular shell commands in Warp do not consume or count toward AI requests.
+{% endhint %}
+
 ### What counts as an AI token?
 
 Tokens are chunks of text, such as words, parts of code, or characters, that large language models (LLMs) break down to analyze and generate responses. LLMs have a maximum number of tokens they can process at once. AI requests and suggestions are not the same as tokens, which are limited separately regardless of which plan you're on.
