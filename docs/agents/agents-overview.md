@@ -23,6 +23,6 @@ These features sends input data to various LLM providers through their API. Read
 * [Model Context Protocol](../knowledge-and-collaboration/mcp.md) - MCP Servers expose data sources or tools to Warp's Agents
 * [Generate](generate.md) - Look up commands and contextual suggestions for interactive CLIs in natural language
 * [Voice](voice.md) - Talk to Warp AI using voice commands to accomplish any task
-* [Agent Permissions](agent-permissions.md) - Control what permissions agents have to run commands, apply code, and more
+* [Agent Permissions](using-agents/agent-permissions.md) - Control what permissions agents have to run commands, apply code, and more
 * [Rules](../knowledge-and-collaboration/rules.md) - Create and store rules to use as AI context
 * [AI Autofill](../knowledge-and-collaboration/warp-drive/workflows.md#ai-autofill) in Warp Drive - Let Warp AI name and describe the workflows you create

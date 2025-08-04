@@ -20,11 +20,11 @@
   * [Agent Conversations](agents/using-agents/agent-conversations.md)
   * [Agent Context](agents/using-agents/agent-context.md)
   * [Managing Agents](agents/using-agents/managing-agents.md)
+  * [Agent Permissions](agents/using-agents/agent-permissions.md)
   * [Model Choice](agents/using-agents/model-choice.md)
 * [Active AI](agents/active-ai.md)
 * [Generate](agents/generate.md)
 * [Voice](agents/voice.md)
-* [Agent Permissions](agents/agent-permissions.md)
 * [AI FAQs](agents/ai-faqs.md)
 
 ## Code

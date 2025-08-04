@@ -16,7 +16,7 @@ You can control how much autonomy the Agent has when performing different types 
 * Create plans
 * Execute commands
 
-<figure><img src="../.gitbook/assets/agent-permissions.png" alt=""><figcaption><p>Fine-tuning agent control: This permissions panel lets users customize how much autonomy the Agent has when applying code diffs, reading files, creating plans, and executing commands—balancing safety with automation.</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/agent-permissions.png" alt=""><figcaption><p>Fine-tuning agent control: This permissions panel lets users customize how much autonomy the Agent has when applying code diffs, reading files, creating plans, and executing commands—balancing safety with automation.</p></figcaption></figure>
 
 **Each permission has different levels of autonomy:**
 
@@ -67,7 +67,7 @@ Auto-approve all Agent actions with: `CTRL + SHIFT + I`
 {% endtab %}
 {% endtabs %}
 
-<figure><img src="../.gitbook/assets/run-until-completion.png" alt=""><figcaption><p>A button overlay in the lower-right corner lets you enable auto-approve or end the Agent interaction.</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/run-until-completion.png" alt=""><figcaption><p>A button overlay in the lower-right corner lets you enable auto-approve or end the Agent interaction.</p></figcaption></figure>
 
 {% hint style="info" %}
 Note: _Run until completion_ ignores the denylist entirely. It’s the purest form of “YOLO” mode and essentially a fully “autonomous mode” where the Agent proceeds without asking for confirmation.
@@ -83,6 +83,6 @@ In this settings menu, you can configure which MCP servers the Agent is allowed 
 * Use the MCP denylist to require approval before calling certain servers, even if they’re also in the allowlist.
 * Or set the Agent to “decide” — it will act autonomously when confident, and ask for confirmation when uncertain.
 
-<figure><img src="../.gitbook/assets/MCP_servers_agent_permissions.png" alt=""><figcaption><p>Customize how the Agent interacts with MCP servers by choosing between “Agent decides,” allowlist, or denylist settings.</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/MCP_servers_agent_permissions.png" alt=""><figcaption><p>Customize how the Agent interacts with MCP servers by choosing between “Agent decides,” allowlist, or denylist settings.</p></figcaption></figure>
 
-To learn how to build and configure your own MCP server, check out the [MCP feature docs](../knowledge-and-collaboration/mcp.md).
+To learn how to build and configure your own MCP server, check out the [MCP feature docs](../../knowledge-and-collaboration/mcp.md).
