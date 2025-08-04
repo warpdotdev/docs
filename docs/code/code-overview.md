@@ -32,7 +32,11 @@ When coding agent generates a code diff, you can review, refine, and decide whet
 
 Warp’s [ADE (Agentic Development Environment)](https://www.warp.dev/blog/reimagining-coding-agentic-development-environment) lets you make quick file edits without leaving your agent conversation, keeping you in flow and avoiding an extra context-switch over to your IDE.
 
-Our built-in text editor supports editing and syntax highlighting for a wide range of programming languages, including: Rust, Go, YAML, Python, JavaScript/TypeScript, JSX/TSX, Java/Groovy, C++, Shell/Bash, C#, HTML, CSS, C, JSON, HCL/Terraform, Lua, Ruby, PHP, TOML, Swift, Kotlin, and Powershell. We’re continuously expanding language support to cover even more workflows.
+Our built-in text editor supports editing and syntax highlighting for a wide range of programming languages, including: \
+\
+Rust, Go, YAML, Python, JavaScript/TypeScript, JSX/TSX, Java/Groovy, C++, Shell/Bash, C#, HTML, CSS, C, JSON, HCL/Terraform, Lua, Ruby, PHP, TOML, Swift, Kotlin, Powershell, and Elixir. \
+\
+We’re continuously expanding language support to cover even more workflows.
 
 {% hint style="info" %}
 You can open supported code files in Warp by clicking on a file path from the terminal output or an AI conversation and selecting "Open in Warp". To save your changes, press `CMD-S` on macOS or `CTRL-S` on Windows or Linux.
