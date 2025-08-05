@@ -101,6 +101,10 @@ When upgrading from a monthly to annual billing cycle the billing is prorated, m
 
 To upgrade at any point throughout your subscription through the billing portal by going to `Settings > Billing and usage > Manage billing`.
 
+### What happens to unused AI requests?
+
+Unused AI requests do not rollover to the next cycle and can't be transferred to other accounts. You see when your requests will reset in the `Settings > Billing and usage` menu.
+
 ### What happens if my payment fails?
 
 If a payment fails, you will receive an email from Stripe and your Warp Team Settings will show a past-due alert. Certain paid plan features and the ability to invite new members will be locked down while your Team is in a past-due state. Paying the most recent invoice through the [billing portal](https://app.warp.dev/upgrade) will fully re-enable your paid plan features.
