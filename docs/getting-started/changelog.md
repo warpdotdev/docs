@@ -8,6 +8,28 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2025.08.06 (v0.2025.08.06.08.12)
+
+**New Features**
+
+* GPT-5 is now available to all users. Use the model selector in the input bar to try it yourself.
+* [MacOS] Added the ability to attach images as context by drag-and-dropping them or pasting from your clipboard.
+
+**Improvements**
+
+* You can now open any files within Warp's editor (including txt/csv files)!
+* Warp can now edit Bazel files.
+* Warp can now edit `.bashrc` and `.zshrc` files.
+* Added `Always show secrets` to Secret Redaction for a less obtrusive secret redaction mode.
+* Added reset time to the Billing and usage menu.
+
+**Bug Fixes**
+
+* Fix fish version <= 3.7 when vi keybindings were activated.
+* Fixed bug affecting the "Open in Markdown Viewer by default" setting, you can use this setting to determine whether you'd like to view/edit MD files in Warp by default.
+* Fixed an issue where typeahead for the next command could be lost if you typed really quickly after hitting enter on the previous command.
+* Resolved an issue where stopping voice recording via the button would interrupt transcription.
+
 ### 2025.07.30 (v0.2025.07.30.08.12)
 
 **New Features**
