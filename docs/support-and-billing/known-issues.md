@@ -192,6 +192,7 @@ The following non exhaustive list of plugins, prompts, or tools can cause potent
 * `grml-zsh-config`
 * Python virtual environment PS1 [settings](https://github.com/warpdotdev/Warp/issues/2713#issuecomment-1447129449)
 * [Starship settings](../terminal/appearance/prompt.md#starship-settings)
+* `zle-line-init`
 * Potentially more — this is an non exhaustive list. If you find an incompatible tool, please email us at [feedback@warp.dev](mailto:feedback@warp.dev)
 
 ## Operating systems
