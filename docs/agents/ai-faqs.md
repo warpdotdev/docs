@@ -64,4 +64,6 @@ Once you exceed your AI requests on the Turbo plan (see [pricing](https://www.wa
 
 Once you exceed your AI token limits, all models will be disabled. Note that requests and tokens are calculated separately, and even though the plans may have a set number of requests, they also have a limited number of tokens.
 
-If you have questions or need extended access, feel free to reach out to us at [feedback@warp.dev](mailto:feedback@warp.dev).
+## Gathering AI debugging ID
+
+In cases where you have issues with the Agent, we may ask for the AI debugging ID to troubleshoot the specific conversation. To gather the debugging ID, `RIGHT-CLICK` on the AI conversation block in question and select "Copy debugging ID", then paste that into the [bug report](../support-and-billing/sending-us-feedback.md#sending-warp-feedback) that you submit so that our team can investigate the issue.
