@@ -47,6 +47,8 @@ For questions around what counts as a AI request, what counts as a token, and ho
 
 Lite is a more token-efficient model than other premium models and supports core AI workflows. Learn more about Lite in the [#what-is-lite](../support-and-billing/plans-and-pricing.md#what-is-lite "mention") section of our [plans-and-pricing.md](../support-and-billing/plans-and-pricing.md "mention") documentation.
 
+## Common AI error messages
+
 #### **"Message token limit exceeded" error**
 
 This error means your input (plus attached context) exceeds the maximum context window of the model you're using. For example, GPT-4o has a context window limit of 123,904 tokens. If you exceed that, you may receive no output.
@@ -63,6 +65,12 @@ Once you exceed your AI requests on the Turbo plan (see [pricing](https://www.wa
 **"Request failed with error: QuotaLimit" error**
 
 Once you exceed your AI token limits, all models will be disabled. Note that requests and tokens are calculated separately, and even though the plans may have a set number of requests, they also have a limited number of tokens.
+
+**"Request failed with error: ErrorStatus(403, "Your account has been blocked from using AI features")**"
+
+This message means your account has been blocked from using AI features, typically due to a violation of our [Terms of Service](https://www.warp.dev/terms-of-service) or suspected abuse (e.g. attempting to bypass request or token limits).
+
+To resolve or clarify this, please contact our team at [appeals@warp.dev](mailto:appeals@warp.dev) if you believe this was an error. We'll review your case and respond as soon as possible.
 
 ## Gathering AI debugging ID
 
