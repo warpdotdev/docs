@@ -6,7 +6,7 @@ description: >-
 
 # Usage Overages
 
-Warp offers usage-based pricing for **Pro** and **Turbo** users, allowing continued access to premium AI models even after reaching the monthly request limit included in the plan.
+Warp offers usage-based pricing for **Pro** and **Turbo** users, allowing continued access to premium AI models even after reaching the monthly request limit included in the plan (billed at $0.04 per additional request).
 
 You can manage usage-based pricing directly in Warp under `Settings > Billing and usage`.
 
@@ -24,7 +24,7 @@ If you’re using [Warp Lite](../plans-and-pricing.md#what-is-lite) and have usa
 
 ### How overages work
 
-Overages are managed **at the team level**, even if your team only has one member (i.e. individual users). Once overages are enabled, any team member who reaches their monthly AI request quota can continue to have access to premium models — with additional usage billed at cost.
+Overages are managed **at the team level**, even if your team only has one member (i.e. individual users). Once overages are enabled, any team member who reaches their monthly AI request quota can continue to have access to premium models — with **additional usage billed at cost ($0.04 per request)**.
 
 Each user on the team has their **own request limit**, but only **requests made beyond that personal quota** are considered overages. These charges are tracked and billed **collectively** at the team level.
 
