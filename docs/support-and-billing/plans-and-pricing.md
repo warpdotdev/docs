@@ -54,15 +54,15 @@ If you’d like to explore Enterprise, [contact our sales team](https://warp.dev
 
 ### What counts as a team member and how does billing work for members?
 
-In Warp, a _team member_ is any seat with access to your Team — including the shared Warp Drive, Notebooks, Workflows, and other team resources. All plans allow you to invite unlimited users, but to unlock higher limits and advanced features, you’ll need to upgrade your team to a Pro or Turbo plan. Upgrading applies to your entire team, including your own account and all active members.
+In Warp, a _team member_ is any seat with access to your Team — including the shared Warp Drive, Notebooks, Workflows, and other team resources. All plans allow you to invite unlimited users, but to unlock higher limits and advanced features, you’ll need to upgrade your team to a plan. Upgrading applies to your entire team, including your own account and all active members.
 
-On the Free plan, you can share a limited number of Notebooks and Workflows with other Free users. If your team exceeds that limit, you’ll be prompted to [upgrade to a Pro plan](https://app.warp.dev/upgrade).\
+On the Free plan, you can share a limited number of Notebooks and Workflows with other Free users. If your team exceeds that limit, you’ll be prompted to [upgrade to a plan](https://app.warp.dev/upgrade).\
 \
 Once you upgrade, you’ll receive email notifications as team members accept invites. Billing is **prorated**, meaning you’re only charged for the days each member has access during your billing cycle. If a member leaves mid-cycle, Warp automatically applies a credit for the unused time to your next invoice.
 
 **There are differences in how members are billed based on your payment schedule:**
 
-* **Monthly plans**: New members’ prorated fees are added to your next monthly invoice.
+* **Monthly plans**: New members are billed immediately for the remaining time in the month.
 * **Annual plans**: New members are billed immediately for the remaining time in the year.
 
 For example, if a member joins your Turbo monthly plan halfway through the month, you will be charged just half of the monthly fee ($25.00 out of $50). Similarly, if a member joins with four months remaining in an annual plan, you will be charged for those four months only, which amounts to $160 (4/12 of the annual $480).
@@ -71,7 +71,7 @@ If a member leaves part way through the billing cycle, Warp will issue a prorate
 
 ### What is the value of joining or creating a team on Warp?
 
-Team members on Pro plans have access to your shared [Warp Drive](../knowledge-and-collaboration/warp-drive/) objects and have unlimited access to Warp's collaboration features, including Session Sharing and Warp Drive storage.
+Team members on plans have access to your shared [Warp Drive](../knowledge-and-collaboration/warp-drive/) objects and have unlimited access to Warp's collaboration features, including Session Sharing and Warp Drive storage.
 
 ### My co-workers are using Warp but we’re not on a Team together yet. How does billing work?
 
