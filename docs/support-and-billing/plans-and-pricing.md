@@ -87,7 +87,7 @@ You can use your Warp account on multiple personal computers. Warp is designed t
 
 ### What happens when I downgrade during a billing cycle?
 
-To downgrade at any point throughout your subscription through the billing portal by going to `Settings > Billing and usage > Manage billing`. The subscription will immediately downgrade to the lower plan and the changes will be prorated.
+To downgrade at any point throughout your subscription through the billing portal by going to `Settings > Billing and usage > Manage billing`. The subscription will immediately downgrade to the lower plan limits and the changes will be prorated. If you’re switching between paid plans, any AI usage you've already accumulated will carry over.
 
 ### What happens when I cancel during a billing cycle?
 
@@ -222,6 +222,15 @@ You can cancel at any point throughout your subscription by going to `Settings >
 For monthly subscriptions, we in general do not issue refunds. Please see [Warp's Refund Policy](plans-and-pricing.md#warps-refund-policy) for details and exceptions.&#x20;
 
 You can remove the users you do not want to pay for in `Settings > Teams > Team Members`. Prorated refunds are issued as Warp credit, not cash.
+
+### How can I subscribe to Warp as tax exempt?
+
+Warp does allow tax exempt organizations to subscribe, but there are some additional steps that you need to take.
+
+1. Create a Warp account, login, and go to the [upgrade page](https://app.warp.dev/upgrade), and select a plan, but **don't checkout or pay yet.** This will only setup your billing account in the system that will be used in the later steps.
+2. E-mail [billing@warp.dev](mailto:billing@warp.dev) with your proof of your organization tax exempt status and your Warp account email.
+3. Warp's team will verify your tax exempt status and will change your account to tax exempt.
+4. Finally, subscribe to your plan of choice, you will see not taxes applied to the bill.
 
 ### Why can't I subscribe to Warp?
 
