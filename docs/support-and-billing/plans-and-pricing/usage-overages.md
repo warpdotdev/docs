@@ -1,12 +1,12 @@
 ---
 description: >-
   Pay-as-you-go access to premium AI models after reaching your monthly quota on
-  the Pro and Turbo plans.
+  Warps plans.
 ---
 
-# Usage Overages
+# Overages
 
-Warp offers usage-based pricing for **Pro** and **Turbo** users, allowing continued access to premium AI models even after reaching the monthly request limit included in the plan (billed at $0.04 per additional request).
+Warp offers usage-based pricing for Subscribers, allowing continued access to premium AI models even after reaching the monthly request limit included in the plan (billed at $0.04 per additional request).
 
 You can manage usage-based pricing directly in Warp under `Settings > Billing and usage`.
 
@@ -14,7 +14,7 @@ You can manage usage-based pricing directly in Warp under `Settings > Billing an
 
 ### Enabling overages
 
-**Only Pro and Turbo team admins** can enable or disable "premium model overages" and set a monthly spending limit from the settings dashboard. Individual Pro and Turbo users can manage their own overage settings directly in the settings dashboard.
+**Team admins** can enable or disable "premium model overages" and set a monthly spending limit from the settings dashboard. Individual subscribers can manage their own overage settings directly in the settings dashboard.
 
 {% hint style="info" %}
 Usage-based pricing only applies after you’ve reached the AI request limit on your plan — you won’t be charged for any overages until that point, even if overages are enabled.
@@ -38,6 +38,6 @@ Overages are **billed monthly**, or when your team accumulates **$20 worth of ch
 
 ### Plan upgrades and cancellations
 
-If you upgrade from Pro to Turbo, your monthly request limit will update immediately to match the Turbo plan. (For exact limits, see our [pricing page](https://www.warp.dev/pricing).) However, **any overages incurred while on the Pro plan will still be billed** — upgrading does not retroactively remove or reduce existing overage charges.
+If you upgrade from lower to a higher plan, your monthly request limit will update immediately to match the higher plan. (For exact limits, see our [pricing page](https://www.warp.dev/pricing).) However, **any overages incurred while on the lower plan will still be billed** — upgrading does not retroactively remove or reduce existing overage charges.
 
-If you cancel your Pro or Turbo subscription, you’ll retain access to premium features until the end of your current billing period. Any usage-based overages accrued during that period will be charged at the time your plan ends.\
+If you cancel your subscription, you’ll retain access to premium features until the end of your current billing period. Any usage-based overages accrued during that period will be charged at the time your plan ends.\

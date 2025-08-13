@@ -111,24 +111,11 @@ If a payment fails, you will receive an email from Stripe and your Warp Team Set
 
 ### What counts as an AI request?
 
-Each time you submit a prompt in Warp, whether to generate code, suggest a command, or accomplish a task, you initiate an interaction with the Agent. This interaction consumes **at least one AI request**, though more complex interactions may use **multiple requests** based on the number of tool calls, context gathered, and steps required.
+Each time you submit a prompt in Warp, whether to generate code, suggest a command, or accomplish a task, you initiate an interaction with the Agent. Please see more details in our [AI Request](plans-and-pricing/ai-requests.md) page.
 
-Prompts that include large context (such as [attached blocks](../agents/using-agents/agent-context.md#attaching-blocks-as-context) or long messages) or file attachments like [images](../agents/using-agents/agent-context.md#attaching-images-as-context) may also increase the number of requests used.
+### How do overages work?
 
-{% hint style="info" %}
-You can monitor your request usage under `Settings > Billing and usage` .
-{% endhint %}
-
-In addition, a few other Warp features also consume AI requests:
-
-* [Generate](../agents/generate.md) helps you look up commands and suggestions as you type. As you refine your input, multiple requests may be used before you select a final suggestion.
-* [AI Autofill in Workflows](../knowledge-and-collaboration/warp-drive/workflows.md#ai-autofill) count as a request each time it is run.
-
-Request limits are allocated at the seat level to Warp users or team members.
-
-{% hint style="success" %}
-Regular shell commands in Warp do not consume or count toward AI requests.
-{% endhint %}
+Overages allow for pay-as-you-go access to premium AI models after reaching your monthly quota on Warp plans. Please see more details in our [Overages](plans-and-pricing/usage-overages.md) page.
 
 ### What counts as an AI token?
 
@@ -138,19 +125,13 @@ Tokens are chunks of text, such as words, parts of code, or characters, that lar
 Warp now abstracts away token usage, so you don't need to manage or track it directly. You only need to monitor your **AI request usage**, which is what’s measured in your plan limits and overages.
 {% endhint %}
 
-If you're curious, you can still learn more about tokens [here](https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them), or refer to the pricing page for plan-level request allocations.
+If you're curious, you can still learn more about tokens [here](https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them), or refer to the pricing page for plan-level request allocations. If you reach your monthly AI request limits on a paid plan, premium models will be temporarily disabled until your quota resets at the start of your next billing cycle.&#x20;
 
-If you reach your monthly AI request limits on a paid plan, premium models will be temporarily disabled until your quota resets at the start of your next billing cycle.&#x20;
-
-If you’d like to continue using premium models beyond your included quota, you can enable [pay-as-you-go usage overages](plans-and-pricing/usage-overages.md) in `Settings > Billing and usage`.
-
-On the Turbo plan, Warp will automatically switch you to the [Lite](plans-and-pricing.md#what-is-lite) model, which offers unlimited usage at no additional cost, so you can keep using AI without interruption.
+If you’d like to continue using premium models beyond your included quota, you can enable [pay-as-you-go overages](plans-and-pricing/usage-overages.md) in `Settings > Billing and usage`. On some higher plans, Warp will automatically switch you to the [Lite](plans-and-pricing.md#what-is-lite) model, which offers unlimited usage at no additional cost, so you can keep using AI without interruption.
 
 ### How often do my AI requests reset?
 
-Allotted AI requests refill every 30 days from your signup date. When you upgrade to a [paid plan](https://www.warp.dev/pricing), you will be given more requests immediately. You can follow along with your refill period by referencing `Settings > Billing and usage`.
-
-Alternatively, you can also set [Usage Overages](plans-and-pricing/usage-overages.md) to your desired amount to continue to use more premium model requests.
+Allotted AI requests refill every 30 days from your signup date. When you upgrade to a [paid plan](https://www.warp.dev/pricing), you will be given more requests immediately. You can follow along with your refill period by referencing `Settings > Billing and usage`. Alternatively, you can also set [Overages](plans-and-pricing/usage-overages.md) to your desired amount to continue to use more premium model requests.
 
 {% hint style="info" %}
 Unused AI requests do not rollover to the next cycle and can't be transferred to other accounts.
