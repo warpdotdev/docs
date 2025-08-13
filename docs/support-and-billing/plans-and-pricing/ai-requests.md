@@ -1,8 +1,5 @@
 ---
-description: >-
-  Details on Warp AI requests and how they are calculated Pay-as-you-go access
-  to premium AI models after reaching your monthly quota on the Pro and Turbo
-  plans.
+description: Details on Warp AI requests and how they are calculated.
 ---
 
 # AI Requests

@@ -129,8 +129,8 @@
 
 * [Sending Feedback & Logs](support-and-billing/sending-us-feedback.md)
 * [Plans & Pricing](support-and-billing/plans-and-pricing.md)
-  * [Overages](support-and-billing/plans-and-pricing/usage-overages.md)
   * [AI Requests](support-and-billing/plans-and-pricing/ai-requests.md)
+  * [Overages](support-and-billing/plans-and-pricing/usage-overages.md)
 * [Updating Warp](support-and-billing/updating-warp.md)
 * [Using Warp Offline](support-and-billing/using-warp-offline.md)
 * [Logging Out & Uninstalling](support-and-billing/uninstalling-warp.md)
