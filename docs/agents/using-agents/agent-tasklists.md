@@ -1,0 +1,30 @@
+---
+description: >-
+  Track and manage complex Agent workflows with automatic task lists that break
+  requests into clear, actionable steps and update progress in real time.
+---
+
+# Agent Task Lists
+
+The Agent can automatically break down complex requests into clear, trackable steps in the form of a task list with to-do items.\
+\
+When you make a sufficiently complex request that requires multiple actions, the Agent will automatically create a list of steps, execute them in order, and track progress from start to finish. There’s no need to adjust settings or enable a special mode—the Agent detects and creates task lists automatically.
+
+### **How Task Lists work**
+
+1. **Automatic task creation** — For complex requests, the Agent generates a structured list of tasks to complete.
+2. **Step-by-step execution** — The Agent works through each task in sequence, updating statuses in real time.
+3. **Summary** — Once all tasks are complete, the Agent provides a concise summary of what was done, including outputs, results, and relevant context. If any tasks were skipped or couldn’t be completed, it explains why.
+
+### Task statuses
+
+Each task in the list has a visual indicator so you can quickly see its progress.
+
+<table><thead><tr><th width="145.5">Status</th><th width="186.2265625">Icon</th><th>Meaning</th></tr></thead><tbody><tr><td>Current task</td><td>● (filled circle)</td><td>The Agent is actively working on this task.</td></tr><tr><td>Completed</td><td>✔︎</td><td>The Agent has finished this task successfully.</td></tr><tr><td>Not started</td><td>○ (empty circle)</td><td>The task is in the queue but work hasn’t begun.</td></tr></tbody></table>
+
+### Task List access
+
+During any Agent conversation, a task list chip appears at the bottom-right of the screen (when input is pinned to the bottom; otherwise, it may appear along the right side).
+
+* Click the chip to open the current task list.
+* You can collapse or expand the view at any time without interrupting the Agent.
