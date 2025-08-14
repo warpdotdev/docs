@@ -13,7 +13,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 **New Features**
 
 * Agent Mode now displays interactive code blocks when referencing snippets from your codebase. You can easily copy the snippet, add the snippet as Agent Mode context, or open the file in Warp's built-in editor.
-* Agent Mode now creates and tracks task lists for more complex workflows.
+* Agent Mode now creates and tracks task lists for more complex workflows. See [Agent Task Lists](../agents/using-agents/agent-tasklists.md).
 * Added support for defining project-scoped rules with a WARP.md file.
 
 **Improvements**
