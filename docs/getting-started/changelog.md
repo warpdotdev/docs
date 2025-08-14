@@ -14,12 +14,13 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 * Agent Mode now displays interactive code blocks when referencing snippets from your codebase. You can easily copy the snippet, add the snippet as Agent Mode context, or open the file in Warp's built-in editor.
 * Agent Mode now creates and tracks task lists for more complex workflows.
+* Added support for defining project-scoped rules with a WARP.md file.
 
 **Improvements**
 
 * Added syntax highlighting for SQL in Warp's code editor.
 * Added button to dismiss suggestions footer.
-* [Linux and Windows] Added support for drag-dropping multiple images.
+* \[Linux and Windows] Added support for drag-dropping multiple images.
 * New files in Warp open in a pane by default. You can customize this behavior via `Settings > Features > General > Choose a layout to open files in Warp`, where you can switch between opening files in a pane or a new tab.
 * Input stays in Agent Mode after an image is attached, instead of switching to shell mode.
 
@@ -28,17 +29,17 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 * Fixed behavior when clicking Agents chip in Classic input mode.
 * Repository-scoped Warp features are now available in git worktrees.
 * Fixed drag-drop of images for long-running commands (eg Claude Code, vim).
-* [Linux and Windows] Fixed attaching images from pasted files.
+* \[Linux and Windows] Fixed attaching images from pasted files.
 * Fixed "Find in selected block" feature after clicking on an active running block.
 * Fixed text overlap on narrow panes with Classic Warp Prompt with Same Line Prompt.
-* [macOS] Fixed a bug that would cause text to disappear for very long Agent Mode prompts.
+* \[macOS] Fixed a bug that would cause text to disappear for very long Agent Mode prompts.
 
 ### 2025.08.06 (v0.2025.08.06.08.12)
 
 **New Features**
 
 * GPT-5 is now available to all users. Use the model selector in the input bar to try it yourself.
-* [MacOS] Added the ability to attach images as context by drag-and-dropping them or pasting from your clipboard.
+* \[MacOS] Added the ability to attach images as context by drag-and-dropping them or pasting from your clipboard.
 
 **Improvements**
 
@@ -60,7 +61,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 **New Features**
 
 * You can now set a configurable block size limit for higher scrollback limits! Head to `Settings > Features > Session > Maximum rows in a block` to configure.
-* [Linux] Added support for pasting images as context.
+* \[Linux] Added support for pasting images as context.
 
 **Improvements**
 
@@ -73,13 +74,13 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 * Deleted files no longer appear in the @-context selection box.
 * Users with Turkish locale will no longer see an extra letter "i" between commands.
-* [Windows] Restored windows will no longer be positioned with the title bar above the top of the display.
+* \[Windows] Restored windows will no longer be positioned with the title bar above the top of the display.
 
 ### 2025.07.23 (v0.2025.07.23.08.12)
 
 **New Features**
 
-* [Windows] Added support for pasting images from Clipboard into Agent Mode context.
+* \[Windows] Added support for pasting images from Clipboard into Agent Mode context.
 
 **Improvements**
 
@@ -101,7 +102,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 **New Features**
 
-* [macOS] Support pasting images from clipboard into Agent Mode context.
+* \[macOS] Support pasting images from clipboard into Agent Mode context.
 * Migrated Warp's built-in set of Secret Redaction regexes into user's regexes, giving users more fine-grained control over their secret redaction.
 * Added support for Find and Replace using `CMD-F` when viewing diffs or editing files in the built-in code editor.
 
