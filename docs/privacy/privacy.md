@@ -66,6 +66,15 @@ If you're a [Team](../knowledge-and-collaboration/teams.md) admin, the deletion 
 | Event Name | Description |
 |---|---|
 | `AI Command Search opened` | Opened the modal for AI Command Search, where you can use natural language to search for commands |
+| `AI Execution Profile Created` | A new AI execution profile was created |
+| `AI Execution Profile Deleted` | An AI execution profile was deleted |
+| `AI Execution Profile: Added To Allowlist` | An item was added to an AI execution profile allowlist |
+| `AI Execution Profile: Added To Denylist` | An item was added to an AI execution profile denylist |
+| `AI Execution Profile: Model Selected` | An AI model was selected for an AI execution profile |
+| `AI Execution Profile: Removed From Allowlist` | An item was removed from an AI execution profile allowlist |
+| `AI Execution Profile: Removed From Denylist` | An item was removed from an AI execution profile denylist |
+| `AI Execution Profile: Setting Updated` | An AI execution profile setting was updated |
+| `AI Input Not Sent` | The AI input was not sent |
 | `AI Suggested Rule Added` | Clicked the Add Suggested Rule button in the AI blocklist |
 | `AI Suggested Rule Content Changed` | Content changed by the user in the suggested rule dialog |
 | `AI Suggested Rule Edited` | Clicked the Edit Suggested Rule button in the AI blocklist |

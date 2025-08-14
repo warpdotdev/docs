@@ -8,6 +8,31 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2025.08.13 (v0.2025.08.13.08.12)
+
+**New Features**
+
+* Agent Mode now displays interactive code blocks when referencing snippets from your codebase. You can easily copy the snippet, add the snippet as Agent Mode context, or open the file in Warp's built-in editor.
+* Agent Mode now creates and tracks task lists for more complex workflows.
+
+**Improvements**
+
+* Added syntax highlighting for SQL in Warp's code editor.
+* Added button to dismiss suggestions footer.
+* [Linux and Windows] Added support for drag-dropping multiple images.
+* New files in Warp open in a pane by default. You can customize this behavior via `Settings > Features > General > Choose a layout to open files in Warp`, where you can switch between opening files in a pane or a new tab.
+* Input stays in Agent Mode after an image is attached, instead of switching to shell mode.
+
+**Bug Fixes**
+
+* Fixed behavior when clicking Agents chip in Classic input mode.
+* Repository-scoped Warp features are now available in git worktrees.
+* Fixed drag-drop of images for long-running commands (eg Claude Code, vim).
+* [Linux and Windows] Fixed attaching images from pasted files.
+* Fixed "Find in selected block" feature after clicking on an active running block.
+* Fixed text overlap on narrow panes with Classic Warp Prompt with Same Line Prompt.
+* [macOS] Fixed a bug that would cause text to disappear for very long Agent Mode prompts.
+
 ### 2025.08.06 (v0.2025.08.06.08.12)
 
 **New Features**
