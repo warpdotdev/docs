@@ -23,6 +23,7 @@
   * [Agent Permissions](agents/using-agents/agent-permissions.md)
   * [Agent Task Lists](agents/using-agents/agent-tasklists.md)
   * [Model Choice](agents/using-agents/model-choice.md)
+* [Slash Commands](agents/slash-commands.md)
 * [Active AI](agents/active-ai.md)
 * [Generate](agents/generate.md)
 * [Voice](agents/voice.md)

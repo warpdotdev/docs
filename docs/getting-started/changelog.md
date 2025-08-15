@@ -14,7 +14,8 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 * Agent Mode now displays interactive code blocks when referencing snippets from your codebase. You can easily copy the snippet, add the snippet as Agent Mode context, or open the file in Warp's built-in editor.
 * Agent Mode now creates and tracks task lists for more complex workflows. See [Agent Task Lists](../agents/using-agents/agent-tasklists.md).
-* Added support for defining project-scoped rules with a WARP.md file.
+* Added support for defining project-scoped rules with a WARP.md file. See [Rules](../knowledge-and-collaboration/rules.md#project-scoped-rules).
+* Added Slash Commands (/) in Agent Mode or Auto-Detection Mode to quickly run built-in actions or saved prompts without leaving the input field. See [Slash Commands](../agents/slash-commands.md).
 
 **Improvements**
 
