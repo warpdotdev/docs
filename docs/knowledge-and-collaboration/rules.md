@@ -31,7 +31,7 @@ Project-Scoped Rules live in your codebase and apply automatically when working 
 If manually creating a `WARP.md`, make sure to always follow that naming convention (all caps).
 {% endhint %}
 
-When you're in a directory:
+**When you're in a directory:**
 
 * Warp automatically applies the `WARP.md` in the root and in the current directory.
 * If you edit files in another subdirectory, Warp makes a best-effort attempt to include that subdirectory’s `WARP.md` as well.
@@ -76,6 +76,8 @@ This ensures the most specific, project-relevant rules take priority over broade
   * Here, you can manage both Global as well as Project-Scoped Rules.
 * From the macOS Menu: `AI > Open Rules` &#x20;
 * From the Slash Commands menu: `/open-project-rules`  to open Project-Scoped Rules directly in Warp's code editor
+
+<figure><img src="../.gitbook/assets/project-scoped-rules-pane.png" alt=""><figcaption><p>Project-based Rules UI open in a Rules pane</p></figcaption></figure>
 
 ## How to create, edit, or delete Rules
 
