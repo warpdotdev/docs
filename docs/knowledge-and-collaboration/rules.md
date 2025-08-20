@@ -100,7 +100,8 @@ Rules Demo (legacy) with just Global Rules. Project-based rules can also be foun
 * **From the Slash Commands menu:** Use `/init` in Auto or Agent mode to:
   * Begin indexing your codebase or display indexing status
   * Generate a `WARP.md` file with initial context, or
-  * Link an existing `CLAUDE.md` or `.cursorrules` file to `WARP.md`
+  * Link an existing Rules file to `WARP.md`
+    * Warp currently supports the following Rules files: `CLAUDE.md`, `.cursorrules`, `AGENT.md`, `AGENTS.md`, `GEMINI.md`, `.clinerules`, `.windsurfrules`, `.github/copilot-instructions.md`
 
 ### Rules as Agent context
 
