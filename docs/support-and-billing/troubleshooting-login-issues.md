@@ -9,7 +9,7 @@ description: Instructions on how to troubleshoot login issues.
 Clicking it should open a signup or login pop-up. If clicking the button opens a blank pop-up window, try using a proxy. Your ISP or Firewall may be blocking the app's call to `*.googleapis.com`.
 
 {% hint style="info" %}
-&#x20;In some older Ruby development environments, `.dev` domains do not resolve properly and you may need to delete the `/etc/resolver/dev`, see more [here](https://superuser.com/questions/1374892/dev-domains-dont-resolve).
+In some older Ruby development environments, `.dev` domains do not resolve properly and you may need to delete the `/etc/resolver/dev`, see more [here](https://superuser.com/questions/1374892/dev-domains-dont-resolve).
 {% endhint %}
 
 ### All browsers
@@ -68,10 +68,6 @@ the On Linux, the default copy-and-paste [Keyboard shortcuts](../getting-started
 \
 On Linux and WSL you should install and set your default `$BROWSER` to `brave-browser` to workaround any copy-paste issues. Please see the workaround guide below.
 {% endhint %}
-
-{% embed url="https://www.loom.com/share/c35a754bc21b4b0580a47b52154829fc?sid=05323b4c-39ed-482c-9338-61fa14be15f0" %}
-Warp for Linux on WSL Install and Login
-{% endembed %}
 
 <figure><img src="../.gitbook/assets/auth-token-demo.gif" alt=""><figcaption><p>Authentication Token Linux</p></figcaption></figure>
 
