@@ -54,7 +54,7 @@ Several factors influence how many requests are counted for a single interaction
 
 #### **1. The LLM model used**
 
-Generally, smaller, faster models typically consume fewer requests than larger, reasoning-based models. For example, **Claude 4 Opus** tends to consume the most tokens and requests in Warp, followed by **Claude 4 Sonnet, GPT-5, Gemini 2.5 Pro**, and others in roughly that order. This generally correlates with model pricing as well.
+Generally, smaller, faster models typically consume fewer requests than larger, reasoning-based models. For example, **Claude Opus 4.1** tends to consume the most tokens and requests in Warp, followed by **Claude Sonnet 4, GPT-5, Gemini 2.5 Pro**, and others in roughly that order. This generally correlates with model pricing as well.
 
 {% hint style="info" %}
 **Tip**: If your task doesn't require deep reasoning, planning, or multi-step problem solving, choose a more lightweight model to reduce request usage.
