@@ -106,6 +106,14 @@ Many SSE based MCP servers will state that your URL should be treated like a pas
 Tip: We've noticed that some models often work better with MCP servers than others. If you're having trouble calling or using an MCP server, try using a different model.
 {% endhint %}
 
+#### Debugging Auth issues
+
+In some cases you may need to reset the auth token for some MCP servers. To do this delete the local mcp auth files by running the following: `rm -rf ~/.mcp-auth`
+
+{% hint style="warning" %}
+Note this will delete all your MCP auth tokens stored locally so you will need to login and reauthenticate.
+{% endhint %}
+
 ### Where MCP Logs Are Stored
 
 Warp saves the MCP logs locally on your computer. You can open the files directly and inspect the full contents in the following location:
