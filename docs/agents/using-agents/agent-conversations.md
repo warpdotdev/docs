@@ -1,64 +1,132 @@
 ---
 description: >-
-  Agent Mode organizes your AI interactions into conversations tied to terminal
-  panes, allowing you to attach context blocks, follow up on previous queries,
-  or start fresh threads for distinct tasks.
+  Agent Mode organizes your AI interactions into conversations tied to sessions,
+  allowing you to attach context blocks, follow up on previous queries, or begin
+  new threads for distinct tasks.
 ---
 
 # Agent Conversations
 
-## Conversations with Agent Mode
+## Conversations with Warp's Agent
 
-Conceptually, a conversation refers to a sequence of AI queries and blocks. Conversations are tied to panes and you can have multiple Agent Mode conversations running at the same time in different panes.
+Conceptually, a conversation is a sequence of AI queries and blocks. Conversations are tied to sessions and you can run multiple Agent Mode conversations simultaneously in different windows, tabs, or panes.
 
-You will get more accurate results from AI queries if the conversation is relevant to the query you ask. When you start an AI query unrelated to the previous conversation, start a new conversation. When you start an AI query related to the previous conversation, ask a follow-up and stay in the same conversation.
+Conversations work best when the queries are related. If your new question builds on the last one, continue in the same conversation. If it is unrelated, it is better to start a new one so that the context remains relevant.
 
 {% hint style="info" %}
-Long conversations can have high latency. We recommend creating a new conversation when possible for distinct tasks or questions where the previous context isn't relevant.
+Long conversations can cause slower performance and lower-quality answers. When working on a separate task or question, start fresh rather than relying on context from earlier interactions.
 {% endhint %}
 
-### **How to ask a follow-up to stay in a conversation**
+### Staying in a Conversation (Follow-Ups)
 
-By default, if you ask an AI query right after any interaction in Agent Mode, your query will be sent as a follow-up. The follow-up ↳ icon is a bent arrow, to indicate your query is continuing the conversation.
+By default, if you ask an AI query immediately after interacting in Agent Mode, your query is sent as a **follow-up** to the current conversation.
+
+* In **Classic Input**, you’ll see both the pink highlight bar on the left side of the block and a bent follow-up arrow (↳) next to your input. The conversation input chip also shows which conversation you are in.
+* In **Universal Input,** the pink highlight bar and the conversation input chip serve as the indicators, but the bent arrow is not shown.
+
+
+
+**To follow-up in a previous conversation or manage conversations:**
+
+* Simply continue prompting the agent if you are already in an active conversation.
+* Open the **Conversations menu** (`CMD + Y` on macOS, `CTRL + SHIFT + Y` on Windows/Linux), select a conversation, and then enter your query.
+* Alternatively, click the pink conversation chip in the input field to resume.
+
+<figure><img src="../../.gitbook/assets/classic-input-follow-up.png" alt=""><figcaption><p>Continuing an Agent conversation in Classic Input (with indicator)</p></figcaption></figure>
+
+<figure><img src="../../.gitbook/assets/follow-up-universal-input.png" alt=""><figcaption><p>Continuing an Agent conversation in Universal Input</p></figcaption></figure>
+
+### **Starting a New Conversation**
+
+Warp automatically creates a new conversation in a few situations. For example, if you ask an AI query after running a shell command or if three hours pass without activity, Agent Mode will start a fresh conversation.
+
+Visual indicators differ slightly depending on input mode:
+
+* In **Classic Input,** a new conversation begins when there is no follow-up arrow (↳) next to your input.
+* In **Universal Input**, a new conversation begins when there is no pink highlight bar on the left side of the block. The conversation input chip also helps confirm whether you’re in a new or existing thread.
 
 {% tabs %}
 {% tab title="macOS" %}
-To enter follow-up mode manually, press `CMD-Y`.
+You can also start a new conversation manually at any time:
+
+* In **Classic Input**, press `CMD + I` or press `BACKSPACE` while in follow-up mode.
+* In **Universal Input**, press `CMD + SHIFT + N` or click directly on the conversation input chip.
 {% endtab %}
 
 {% tab title="Windows" %}
-To enter follow-up mode manually, press `CTRL-SHIFT-Y`.
+You can also start a new conversation manually at any time:
+
+* In **Classic Input**, press `CTRL + I` or press `BACKSPACE` while in follow-up mode.
+* In **Universal Input**, press `CTRL + ALT + SHIFT + N` or click directly on the conversation input chip.
 {% endtab %}
 
 {% tab title="Linux" %}
-To enter follow-up mode manually, press `CTRL-Y`.
+You can also start a new conversation manually at any time:
+
+* In **Classic Input**, press `CTRL + I` or press `BACKSPACE` while in follow-up mode.
+* In **Universal Input**, press `CTRL + ALT + SHIFT + N` or click directly on the conversation input chip.
 {% endtab %}
 {% endtabs %}
 
-<figure><img src="../../.gitbook/assets/agent-mode-with-followup.png" alt=""><figcaption><p>A continuing conversation in Agent Mode with a follow-up indicator</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/classic-input-new-convo.png" alt=""><figcaption><p>Starting a new Conversation in Classic Input</p></figcaption></figure>
 
-### **How to start a new conversation**
+<figure><img src="../../.gitbook/assets/universal-input-new-convo.png" alt=""><figcaption><p>Starting a new Agent Conversation in Universal Input</p></figcaption></figure>
 
-If there is no follow-up ↳ icon next to your input, this indicates a new conversation. If you ask an AI query after running a shell command you will be placed in a new conversation. Agent Mode will also kick you out to a new conversation after 3 hours.
+## Context Window Management
+
+Every conversation with an agent consumes tokens stored in a **context window**. The context window (sometimes called _context length_) is the amount of text (measured in tokens) that a Large Language Model (LLM) can process at one time. **The size of the context window depends on the model you are using.**
+
+As tokens accumulate and exceed the context window, performance and response quality may degrade. If the context window is exceeded, the model may lose track of earlier parts of the conversation, and **Warp will automatically summarize the conversation to free up space**.
+
+### Warp provides a **context window usage indicator** to help you track this:
+
+When less than 20% of the window is used, no indicator is shown. As more tokens accumulate, the usage bar progresses to reflect how much of the context window has been consumed.
+
+<figure><img src="../../.gitbook/assets/context-window-1.png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../.gitbook/assets/context-window-2 (1).png" alt=""><figcaption></figcaption></figure>
+
+As you approach the limit, the indicator turns red to warn that the context window is nearly full.
+
+<figure><img src="../../.gitbook/assets/context-window-2.png" alt=""><figcaption></figcaption></figure>
+
+Once the limit is exceeded, Warp automatically summarizes the conversation so you can continue without losing important context.
+
+<figure><img src="../../.gitbook/assets/context-window-3.png" alt=""><figcaption></figcaption></figure>
+
+The context window usage indicator is available only in **Universal Input**, which you can enable under `Settings > Appearance > Input`.
+
+{% hint style="info" %}
+If you switch models during a conversation, the context usage indicator updates only after you send your next message.
+{% endhint %}
+
+## Conversation Segmentation
+
+Warp automatically detects when your query has shifted to a new topic. When this happens, it suggests starting a new conversation instead of continuing in the same context.
+
+These options appear in the blocklist, where you can decide whether to branch off into a new conversation or keep going with the current one.
+
+<figure><img src="../../.gitbook/assets/conversation-segmentation.png" alt=""><figcaption></figcaption></figure>
+
+You can also create a new conversation manually at any time by using the keyboard shortcut, opening a new tab, or opening a new pane.
 
 {% tabs %}
 {% tab title="macOS" %}
-To start a new conversation manually, use `CMD-I` or when using the Universal input enable auto detection mode with `BACKSPACE`.
+* Start a new conversation: `CMD + SHIFT + N`
+* Open a new tab: `CMD + T`
+* Open a new pane: `CMD + D`
 {% endtab %}
 
 {% tab title="Windows" %}
-To start a new conversation manually, use `CTRL-I` or when using the Universal input enable auto detection mode with `BACKSPACE`.
+* Start a new conversation: `CTRL + SHIFT + N`
+* Open a new tab: `CTRL + SHIFT + T`
+* Open a new pane: `CTRL + SHIFT + D`
 {% endtab %}
 
 {% tab title="Linux" %}
-To start a new conversation manually, use `CTRL-I` or when using the Universal input enable auto detection mode with `BACKSPACE`.
+* Start a new conversation: `CTRL + SHIFT + N`
+* Open a new tab: `CTRL + SHIFT + T`
+* Open a new pane: `CTRL + SHIFT + D`
 {% endtab %}
 {% endtabs %}
 
-<figure><img src="../../.gitbook/assets/agent-mode-no-followup.png" alt=""><figcaption><p>A new conversation in Agent Mode with no follow-up indicator</p></figcaption></figure>
-
-{% hint style="info" %}
-**Context truncation**
-
-You might notice that in long conversations, the AI loses context from the very beginning of the conversation. This is because Warp's models are limited by context windows (\~128K tokens) and it will discard earlier tokens.
-{% endhint %}
