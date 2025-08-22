@@ -8,6 +8,27 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2025.08.20 (v0.2025.08.20.08.11)
+
+**New features**
+
+* [Suggested Code Diffs](../agents/active-ai.md#suggested-code-diffs) - Warp now intelligently suggests the appropriate fixes for any simple errors encountered in the command line e.g. compiler errors. Head to `Settings > Active AI` to toggle this feature.
+
+**Improvements**
+
+* Added setting to hide fixed prompt suggestions.
+* Updated default input type from 'Classic' to 'Universal'.
+* Improve the styling and usability of tabs for narrow windows.
+
+**Bug fixes**
+
+* Fix failures to start zsh sessions when using prezto.
+* The agent status indicator no longer disappears while a command is running.
+* Selecting a workflow will correctly close the workflows menu.
+* Don't auto-attach image if file pasted as plaintext.
+* Fixed issue with drag-drop images.
+* Fixed display of completions that may have included special characters.
+
 ### 2025.08.13 (v0.2025.08.13.08.12)
 
 **New Features**
