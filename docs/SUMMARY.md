@@ -89,7 +89,7 @@
   * [Files, Links, & Scripts](terminal/more-features/files-and-links.md)
   * [Markdown Viewer](terminal/more-features/markdown-viewer.md)
   * [Working Directory](terminal/more-features/working-directory.md)
-  * [Smart-Select](terminal/more-features/smart-select.md)
+  * [Text Selection](terminal/more-features/smart-select.md)
   * [Full-screen Apps](terminal/more-features/full-screen-apps.md)
   * [Desktop Notifications](terminal/more-features/notifications.md)
   * [Audible Bell](terminal/more-features/audible-bell.md)
