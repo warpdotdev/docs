@@ -92,7 +92,7 @@ After MCP servers are registered in Warp, you can **Start** or **Stop** them fro
 
 You can rename and edit a server's name, as well as delete the server. To prevent Warp from automatically starting a server when you open Warp, set the `"start_on_launch"` value to `false` in the server's JSON configuration.
 
-### Debugging
+### Debugging MCP
 
 If you're having trouble with an MCP server, you can check the logs for any errors or messages to help you diagnose the problem by clicking the `View Logs` button on a server from the MCP servers page.
 
@@ -106,13 +106,15 @@ Many SSE based MCP servers will state that your URL should be treated like a pas
 Tip: We've noticed that some models often work better with MCP servers than others. If you're having trouble calling or using an MCP server, try using a different model.
 {% endhint %}
 
-#### Debugging Auth issues
+#### Debugging MCP Authentication issues
 
 In some cases you may need to reset the auth token for some MCP servers. To do this delete the local mcp auth files by running the following: `rm -rf ~/.mcp-auth`
 
 {% hint style="warning" %}
-Note this will delete all your MCP auth tokens stored locally so you will need to login and reauthenticate.
+Note this will delete all your MCP auth tokens stored locally so you will need to login and re-authenticate.
 {% endhint %}
+
+If the above doesn't help and you need to reset or change authentication, you may need to switch to a CLI-based MCP server configuration and provide the token via environment variables. See [Sentry CLI MCP Example](mcp.md#sentry).
 
 ### Where MCP Logs Are Stored
 
