@@ -19,7 +19,7 @@ For security-related issues or questions, please email [security@warp.dev](mailt
 
 <figure><img src="../.gitbook/assets/send-feedback-demo.gif" alt="sending feedback from the mac menu and warp essentials"><figcaption><p>Send Feedback</p></figcaption></figure>
 
-### Sending Warp-Preview Feedback
+### Sending Warp Preview Feedback
 
 If you're using [Warp Preview](../community/warp-preview-and-alpha-program.md), please share your feedback in our [Warp Community Slack](https://go.warp.dev/join-preview) instead of GitHub issues. This helps us better track and respond to Preview-specific feedback.
 
@@ -97,4 +97,4 @@ RUST_LOG=wgpu_core=info,wgpu_hal=info MESA_DEBUG=1 EGL_LOG_LEVEL=debug warp-term
 
 ### Gathering AI debugging ID <a href="#gathering-ai-debugging-id" id="gathering-ai-debugging-id"></a>
 
-In cases where you have issues with the Agent, we may ask for the AI debugging ID to troubleshoot the specific conversation. To gather the debugging ID, `RIGHT-CLICK` on the AI conversation block in question and select "Copy debugging ID", then paste that into the [bug report](https://docs.warp.dev/support-and-billing/sending-us-feedback#sending-warp-feedback) that you submit so that our team can investigate the issue.
+In cases where you have issues with the Agent, we may ask for the AI debugging ID to troubleshoot the specific conversation. To gather the debugging ID, `RIGHT-CLICK` on the AI conversation block in question and select "Copy debugging ID", then paste that into the [bug report](sending-us-feedback.md#sending-warp-feedback) that you submit so that our team can investigate the issue.
