@@ -34,7 +34,7 @@ Warp’s [ADE (Agentic Development Environment)](https://www.warp.dev/blog/reima
 
 Our built-in text editor supports editing and syntax highlighting for a wide range of programming languages, including: \
 \
-Rust, Go, YAML, Python, JavaScript/TypeScript, JSX/TSX, Java/Groovy, C++, Shell/Bash, C#, HTML, CSS, C, JSON, HCL/Terraform, Lua, Ruby, PHP, TOML, Swift, Kotlin, Powershell, and Elixir. \
+Rust, Go, YAML, Python, JavaScript/TypeScript, JSX/TSX, Java/Groovy, C++, Shell/Bash, C#, HTML, CSS, C, JSON, HCL/Terraform, Lua, Ruby, PHP, TOML, Swift, Kotlin, Powershell, Elixir, and Scala. \
 \
 We’re continuously expanding language support to cover even more workflows.
 
