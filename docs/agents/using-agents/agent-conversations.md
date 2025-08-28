@@ -26,7 +26,7 @@ By default, if you ask an AI query immediately after interacting in Agent Mode, 
 
 
 
-**To follow-up in a previous conversation or manage conversations:**
+**To follow-up on a previous conversation:**
 
 * Simply continue prompting the agent if you are already in an active conversation.
 * Open the **Conversations menu** (`CMD + Y` on macOS, `CTRL + SHIFT + Y` on Windows/Linux), select a conversation, and then enter your query.
@@ -35,6 +35,16 @@ By default, if you ask an AI query immediately after interacting in Agent Mode, 
 <figure><img src="../../.gitbook/assets/classic-input-follow-up.png" alt=""><figcaption><p>Continuing an Agent conversation in Classic Input (with indicator)</p></figcaption></figure>
 
 <figure><img src="../../.gitbook/assets/follow-up-universal-input.png" alt=""><figcaption><p>Continuing an Agent conversation in Universal Input</p></figcaption></figure>
+
+### **Managing Conversations**
+
+You can view previous conversations or start a new conversation via the **Conversations Menu** (`CMD + Y` on macOS, `CTRL + SHIFT + Y` on Windows/Linux).
+
+{% embed url="https://www.loom.com/share/9cc2451412be43e389a6b1414ea185e4?sid=4457ba14-4876-4988-ade6-1dca43dda96a" %}
+
+{% hint style="info" %}
+The "New Conversation" item disappears once you start searching for an actual conversation.
+{% endhint %}
 
 ### **Starting a New Conversation**
 
@@ -51,6 +61,7 @@ You can also start a new conversation manually at any time:
 
 * In **Classic Input**, press `CMD + I` or press `BACKSPACE` while in follow-up mode.
 * In **Universal Input**, press `CMD + SHIFT + N` or click directly on the conversation input chip.
+* Open the **Conversations Menu** using `CMD + Y` and selecting "New Conversation".
 {% endtab %}
 
 {% tab title="Windows" %}
@@ -58,6 +69,7 @@ You can also start a new conversation manually at any time:
 
 * In **Classic Input**, press `CTRL + I` or press `BACKSPACE` while in follow-up mode.
 * In **Universal Input**, press `CTRL + ALT + SHIFT + N` or click directly on the conversation input chip.
+* Open the **Conversations Menu** using `CMD + SHIFT + Y` and selecting "New Conversation".
 {% endtab %}
 
 {% tab title="Linux" %}
@@ -65,12 +77,15 @@ You can also start a new conversation manually at any time:
 
 * In **Classic Input**, press `CTRL + I` or press `BACKSPACE` while in follow-up mode.
 * In **Universal Input**, press `CTRL + ALT + SHIFT + N` or click directly on the conversation input chip.
+* Open the **Conversations Menu** using `CMD + SHIFT + Y` and selecting "New Conversation".
 {% endtab %}
 {% endtabs %}
 
 <figure><img src="../../.gitbook/assets/classic-input-new-convo.png" alt=""><figcaption><p>Starting a new Conversation in Classic Input</p></figcaption></figure>
 
 <figure><img src="../../.gitbook/assets/universal-input-new-convo.png" alt=""><figcaption><p>Starting a new Agent Conversation in Universal Input</p></figcaption></figure>
+
+
 
 ## Context Window Management
 

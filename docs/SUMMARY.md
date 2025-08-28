@@ -20,7 +20,7 @@
   * [Agent Conversations](agents/using-agents/agent-conversations.md)
   * [Agent Context](agents/using-agents/agent-context.md)
   * [Managing Agents](agents/using-agents/managing-agents.md)
-  * [Agent Permissions](agents/using-agents/agent-permissions.md)
+  * [Agent Profiles & Permissions](agents/using-agents/agent-profiles-permissions.md)
   * [Agent Task Lists](agents/using-agents/agent-tasklists.md)
   * [Model Choice](agents/using-agents/model-choice.md)
 * [Slash Commands](agents/slash-commands.md)
