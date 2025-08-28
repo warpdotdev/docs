@@ -8,6 +8,19 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2025.08.27 (v0.2025.08.27.08.11)
+
+**New Features**
+
+* [Agent Profiles](../agents/using-agents/agent-profiles-permissions.md#agent-profiles): define how your agent operates.
+* New pane to view changes to a git repository.
+* Files now open in a tabbed viewer.
+* Syntax highlighting for Scala files in Warp.
+
+**Bug Fixes**
+
+* Fix paths not inserted when pasted images are not attached.
+
 ### 2025.08.20 (v0.2025.08.20.08.11)
 
 **New features**
