@@ -5,7 +5,7 @@ description: SSH wrapper that enables Warp features in remote sessions.
 # SSH
 
 {% hint style="warning" %}
-This page is dedicated to the upcoming SSH features that may not yet be available to you, powered by `tmux`.
+This page is dedicated to the SSH features powered by `tmux`.
 
 If you are looking to troubleshoot the legacy SSH implementation, see the [SSH (Legacy)](ssh-legacy.md).
 {% endhint %}

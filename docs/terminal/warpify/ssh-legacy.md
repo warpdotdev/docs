@@ -5,7 +5,7 @@ description: SSH wrapper that enables Warp features in remote sessions.
 # SSH Legacy
 
 {% hint style="info" %}
-This implementation of SSH will be replaced with a new and improved implementation.
+If you are looking to troubleshoot the TMUX SSH feature, see the [SSH](ssh.md).
 {% endhint %}
 
 When you SSH into a remote box, you get all the features of Warp without any configuration on your part. The input editor, auto-completions, and history search work the same, regardless of machine.
