@@ -66,6 +66,18 @@ export LC_ALL=zh_CN.UTF-8
 export LANG=zh_CN.UTF-8
 ```
 
+### Warp fails to render a window
+
+This can likely occur due to some corruption in the local sqlite db. You may see a similar error your [logs](sending-us-feedback.md#gathering-warp-logs):
+
+{% code overflow="wrap" %}
+```
+[WARN] SQLite error 283 (A WAL mode database file was recovered): recovered 383 frames from WAL file /home/xxxxx/.local/state/warp-terminal/warp.sqlite-wal
+```
+{% endcode %}
+
+To try and resolve the issue of Warp not rendering a window, [delete the Session Restoration SQLite database files](../terminal/sessions/session-restoration.md#session-restoration-database).
+
 ### Misc.
 
 * When you [SSH](known-issues.md#ssh), we start a bash shell on the remote host. We built a wrapper around SSH to make Warp features possible.
@@ -240,7 +252,7 @@ The following feature are not supported in Warp on Windows. Please track the rel
 
 * [cmd.exe](https://github.com/warpdotdev/Warp/issues/5882) or [fish](https://github.com/warpdotdev/Warp/issues/6060) shells
 
-### Warp won't run or render on Windows
+### Warp won't run on Windows
 
 We're tracking some issues on Windows where [Warp crashes on startup](https://github.com/warpdotdev/Warp/issues/5840) or doesn't render, with some possible workarounds below. If none of the workarounds help, please open a [new GitHub issue](https://github.com/warpdotdev/warp/issues/new/choose) and include [logs](sending-us-feedback.md#gathering-warp-logs), installation (Baremetal or VM, x86\_64 or ARM64), and the issue you had.
 
@@ -262,7 +274,7 @@ $env:WGPU_BACKEND="vulkan,gl"; & "$env:PROGRAMFILES\Warp\warp.exe"
 {% endtab %}
 
 {% tab title="Linux" %}
-### Warp won't run or render on Linux
+### Warp won't run on Linux
 
 We're tracking some issues on Linux where a [Warp window doesn't show/render](https://github.com/warpdotdev/Warp/issues/4215) and won't run in [Virtual Machines](https://github.com/warpdotdev/Warp/issues/4476), over [remote desktops](https://github.com/warpdotdev/Warp/issues/4435), or on [WSL](https://github.com/warpdotdev/Warp/issues/4240). Some possible workarounds are below. If none of the workarounds help, please open a [new GitHub issue](https://github.com/warpdotdev/warp/issues/new/choose) and include [logs](sending-us-feedback.md#gathering-warp-logs) with your Linux distro, installation (WSL, Baremetal or VM, x86\_64 or ARM64), and the issue you had.
 

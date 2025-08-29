@@ -61,6 +61,10 @@ Sometimes, you may want to prevent a sensitive Block from being saved on your co
 This interferes with the running session's ability to save content and may require you close Warp before running the database removal commands.
 {% endhint %}
 
+{% hint style="danger" %}
+The following guidance is destructive and will delete any sessions and block history.
+{% endhint %}
+
 There are two ways to do this:
 
 {% tabs %}
