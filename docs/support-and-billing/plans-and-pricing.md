@@ -139,15 +139,15 @@ Unused AI requests do not rollover to the next cycle and can't be transferred to
 
 ### What is Lite?
 
-**Lite** is a basic AI model included with the Turbo plan that serves two purposes:
+**Lite** is a basic AI model included with the Turbo plan or higher that serves two purposes:
 
-* **Fallback model**: If you reach your Turbo AI request limits, Warp automatically switches to Lite so you can keep using AI without interruption, at no additional cost.
-* **Standalone option**: You can also choose to use Lite before hitting your limits. In this case, usage will still count toward your monthly request limits, but once those limits are reached, Lite remains available with unlimited usage for Turbo plan users only.
+* **Fallback model**: If you reach your AI request limits, Warp automatically switches to Lite so you can keep using AI without interruption, at no additional cost.
+* **Standalone option**: You can also choose to use Lite before hitting your limits. In this case, usage will still count toward your monthly request limits, but once those limits are reached, Lite remains available with unlimited usage for Turbo plan or higher subscribers only.
 
 While performance and capabilities may vary compared to premium models, it allows you to continue using AI features without full interruption.
 
 {% hint style="info" %}
-Each query still counts as an AI request and contributes to your monthly usage, but using Lite won't incur any additional charges to your plan.
+Each Lite model query still counts against your AI requests and contributes to your monthly usage.
 {% endhint %}
 
 ### How can I get the most out of my Warp paid plan?

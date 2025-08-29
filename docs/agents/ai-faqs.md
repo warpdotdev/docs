@@ -40,10 +40,10 @@ For questions around what counts as a AI request, what counts as a token, and ho
 
 #### **What is Lite?**
 
-**Lite** is a basic AI model included with the Turbo plan that serves two purposes:
+**Lite** is a basic AI model included with the Turbo plan or higher that serves two purposes:
 
-* **Fallback model**: If you reach your Turbo AI request limits, Warp automatically switches to Lite so you can keep using AI without interruption — at no additional cost.
-* **Standalone option**: You can also choose to use Lite before hitting your limits. In this case, usage will still count toward your monthly request limits, but once those limits are reached, Lite remains available with unlimited usage for Turbo plan users only.
+* **Fallback model**: If you reach your AI request limits, Warp automatically switches to Lite so you can keep using AI without interruption — at no additional cost.
+* **Standalone option**: You can also choose to use Lite before hitting your limits. In this case, usage will still count toward your monthly request limits, but once those limits are reached, Lite remains available with unlimited usage for Turbo plan or higher subscribers only.
 
 Lite is a more token-efficient model than other premium models and supports core AI workflows. Learn more about Lite in the [#what-is-lite](../support-and-billing/plans-and-pricing.md#what-is-lite "mention") section of our [plans-and-pricing.md](../support-and-billing/plans-and-pricing.md "mention") documentation.
 
