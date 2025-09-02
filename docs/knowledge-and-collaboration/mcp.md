@@ -151,7 +151,7 @@ Below are examples for popular Model Context Protocol (MCP) servers, presented i
 {% tab title="GitHub" %}
 [GitHub MCP Docs](https://github.com/github/github-mcp-server)
 
-**GitHub CLI Server (Command)**
+#### **GitHub CLI Server (Command)**
 
 ```json
 {
@@ -165,7 +165,7 @@ Below are examples for popular Model Context Protocol (MCP) servers, presented i
 }
 ```
 
-**GitHub SSE Server (URL)**
+#### **GitHub SSE Server (URL)**
 
 ```json
 {
@@ -176,10 +176,50 @@ Below are examples for popular Model Context Protocol (MCP) servers, presented i
 ```
 {% endtab %}
 
+{% tab title="Linear" %}
+[Linear MCP Docs](https://linear.app/docs/mcp)
+
+#### **Linear CLI Server (Command)**
+
+```json
+{
+  "Linear": {
+    "command": "npx",
+    "args": ["-y","mcp-remote","https://mcp.linear.app/sse"]
+  }
+}
+```
+
+#### **Linear SSE Server (URL)**
+
+```json
+{
+  "Linear": {
+    "url": "https://mcp.linear.app/sse"
+  }
+}
+```
+{% endtab %}
+
+{% tab title="Atlassian" %}
+[Atlassian MCP Docs](https://support.atlassian.com/rovo/docs/setting-up-ides/)
+
+#### **Atlassian CLI Server (Command)**
+
+```json
+{
+  "Atlassian": {
+    "command": "npx",
+    "args": ["-y", "mcp-remote", "https://mcp.atlassian.com/v1/sse"]
+  }
+}
+```
+{% endtab %}
+
 {% tab title="Sentry" %}
 [Sentry MCP Docs](https://docs.sentry.io/product/sentry-mcp/)
 
-**Sentry CLI Server (Command)**
+#### **Sentry CLI Server (Command)**
 
 ```json
 {
@@ -190,7 +230,7 @@ Below are examples for popular Model Context Protocol (MCP) servers, presented i
 }
 ```
 
-**Sentry SSE Server (URL)**
+#### **Sentry SSE Server (URL)**
 
 ```json
 {
@@ -204,7 +244,7 @@ Below are examples for popular Model Context Protocol (MCP) servers, presented i
 {% tab title="Grafana" %}
 [Grafana MCP Docs](https://github.com/grafana/mcp-grafana)
 
-**Grafana CLI Server (Command)**
+#### **Grafana CLI Server (Command)**
 
 ```json
 {
@@ -219,7 +259,7 @@ Below are examples for popular Model Context Protocol (MCP) servers, presented i
 }
 ```
 
-**Grafana SSE Server (URL)**
+#### **Grafana SSE Server (URL)**
 
 ```json
 {
@@ -230,48 +270,8 @@ Below are examples for popular Model Context Protocol (MCP) servers, presented i
 ```
 {% endtab %}
 
-{% tab title="Linear" %}
-[Linear MCP Docs](https://linear.app/docs/mcp)
-
-**Linear CLI Server (Command)**
-
-```json
-{
-  "Linear": {
-    "command": "npx",
-    "args": ["-y","mcp-remote","https://mcp.linear.app/sse"]
-  }
-}
-```
-
-**Linear SSE Server (URL)**
-
-```json
-{
-  "Linear": {
-    "url": "https://mcp.linear.app/sse"
-  }
-}
-```
-{% endtab %}
-
-{% tab title="Atlassian" %}
-[Atlassian MCP Docs](https://support.atlassian.com/rovo/docs/setting-up-ides/)
-
-**Atlassian CLI Server (Command)**
-
-```json
-{
-  "Atlassian": {
-    "command": "npx",
-    "args": ["-y", "mcp-remote", "https://mcp.atlassian.com/v1/sse"]
-  }
-}
-```
-{% endtab %}
-
 {% tab title="Figma" %}
-**Official Figma SSE Server (URL)**
+#### **Official Figma SSE Server (URL)**
 
 1. Enable the Official Figma MCP Server. [Figma MCP Docs](https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Dev-Mode-MCP-Server)
 2. Open the [Figma desktop app](https://www.figma.com/downloads/) and make sure you’ve [updated to the latest version](https://help.figma.com/hc/en-us/articles/5601429983767-Guide-to-the-Figma-desktop-app#h_01HE5QD60DG6FEEDTZVJYM82QW).
@@ -288,7 +288,7 @@ Below are examples for popular Model Context Protocol (MCP) servers, presented i
 }
 ```
 
-**3rd Party Figma CLI Server (Command)**
+#### **3rd Party Figma CLI Server (Command)**
 
 1. Download and run the 3rd party Figma Context MCP server. [Figma-Context-MCP](https://github.com/GLips/Figma-Context-MCP)
 2. Generate a token with full read-only access in Figma > Settings > Security > Personal Access Token. [See steps](https://www.warp.dev/university/mcp/using-the-figma-mcp-server-to-code-designs)
@@ -314,7 +314,7 @@ Below are examples for popular Model Context Protocol (MCP) servers, presented i
 {% tab title="Notion" %}
 [Notion MCP Docs](https://notion.notion.site/Beta-Overview-Notion-MCP-206efdeead058060a59bf2c14202bd0a)
 
-**CLI Server (Command)**
+#### **Notion CLI Server (Command)**
 
 ```json
 {
@@ -325,7 +325,7 @@ Below are examples for popular Model Context Protocol (MCP) servers, presented i
 }
 ```
 
-**SSE Server (URL)**
+#### **Notion SSE Server (URL)**
 
 ```json
 {
@@ -339,7 +339,7 @@ Below are examples for popular Model Context Protocol (MCP) servers, presented i
 {% tab title="Slack" %}
 [Slack MCP Docs](https://github.com/korotovsky/slack-mcp-server/)
 
-**CLI Server (Command)**
+#### **Slack CLI Server (Command)**
 
 ```json
 {
@@ -357,7 +357,7 @@ Below are examples for popular Model Context Protocol (MCP) servers, presented i
 }
 ```
 
-**SSE Server (URL)**
+#### **Slack SSE Server (URL)**
 
 ```json
 {
