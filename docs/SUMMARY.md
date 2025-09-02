@@ -116,6 +116,10 @@
 * [Teams](knowledge-and-collaboration/teams.md)
 * [Session Sharing](knowledge-and-collaboration/session-sharing.md)
 
+## Developers
+
+* [Warp CLI](developers/cli.md)
+
 ## Privacy
 
 * [Privacy](privacy/privacy.md)
