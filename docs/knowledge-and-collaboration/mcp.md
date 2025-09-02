@@ -147,6 +147,8 @@ Below are examples for popular Model Context Protocol (MCP) servers, presented i
 * **CLI Server (Command)** — local `npx` launches (requires MCP package and API credentials).
 * **SSE Server (URL)** — remote-hosted MCP endpoint.
 
+**🔧 Engineering & Ops Tools**
+
 {% tabs %}
 {% tab title="GitHub" %}
 [GitHub MCP Docs](https://github.com/github/github-mcp-server)
@@ -171,46 +173,6 @@ Below are examples for popular Model Context Protocol (MCP) servers, presented i
 {
   "GitHub": {
     "url": "https://api.githubcopilot.com/mcp/"
-  }
-}
-```
-{% endtab %}
-
-{% tab title="Linear" %}
-[Linear MCP Docs](https://linear.app/docs/mcp)
-
-#### **Linear CLI Server (Command)**
-
-```json
-{
-  "Linear": {
-    "command": "npx",
-    "args": ["-y","mcp-remote","https://mcp.linear.app/sse"]
-  }
-}
-```
-
-#### **Linear SSE Server (URL)**
-
-```json
-{
-  "Linear": {
-    "url": "https://mcp.linear.app/sse"
-  }
-}
-```
-{% endtab %}
-
-{% tab title="Atlassian" %}
-[Atlassian MCP Docs](https://support.atlassian.com/rovo/docs/setting-up-ides/)
-
-#### **Atlassian CLI Server (Command)**
-
-```json
-{
-  "Atlassian": {
-    "command": "npx",
-    "args": ["-y", "mcp-remote", "https://mcp.atlassian.com/v1/sse"]
   }
 }
 ```
@@ -270,42 +232,45 @@ Below are examples for popular Model Context Protocol (MCP) servers, presented i
 ```
 {% endtab %}
 
-{% tab title="Figma" %}
-#### **Official Figma SSE Server (URL)**
+{% tab title="Linear" %}
+[Linear MCP Docs](https://linear.app/docs/mcp)
 
-1. Enable the Official Figma MCP Server. [Figma MCP Docs](https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Dev-Mode-MCP-Server)
-2. Open the [Figma desktop app](https://www.figma.com/downloads/) and make sure you’ve [updated to the latest version](https://help.figma.com/hc/en-us/articles/5601429983767-Guide-to-the-Figma-desktop-app#h_01HE5QD60DG6FEEDTZVJYM82QW).
-3. Create or open a Figma Design file.
-4. In the upper-left corner, open the Figma menu.
-5. Under **Preferences**, select **Enable local MCP Server**.
-6. Enter the following configuration into Warp > Warp Drive > MCP Servers > +.
+#### **Linear CLI Server (Command)**
 
 ```json
 {
-  "Official Figma MCP (SSE)": {
-    "url": "http://localhost:3845/sse"
+  "Linear": {
+    "command": "npx",
+    "args": ["-y","mcp-remote","https://mcp.linear.app/sse"]
   }
 }
 ```
 
-#### **3rd Party Figma CLI Server (Command)**
-
-1. Download and run the 3rd party Figma Context MCP server. [Figma-Context-MCP](https://github.com/GLips/Figma-Context-MCP)
-2. Generate a token with full read-only access in Figma > Settings > Security > Personal Access Token. [See steps](https://www.warp.dev/university/mcp/using-the-figma-mcp-server-to-code-designs)
-3. Enter the following configuration into Warp > Warp Drive > MCP Servers > +.
+#### **Linear SSE Server (URL)**
 
 ```json
 {
- "3rd Party Figma Context MCP (CLI)": {
-   "command": "npx",
-   "args": [
-     "-y",
-     "figma-developer-mcp",
-     "--stdio"
-     ],
-     "env": {
-       "FIGMA_API_KEY": "<YOUR_FIGMA_TOKEN>"
-    }
+  "Linear": {
+    "url": "https://mcp.linear.app/sse"
+  }
+}
+```
+{% endtab %}
+{% endtabs %}
+
+**💬 Collaboration & Design Tools**
+
+{% tabs %}
+{% tab title="Atlassian" %}
+[Atlassian MCP Docs](https://support.atlassian.com/rovo/docs/setting-up-ides/)
+
+#### **Atlassian CLI Server (Command)**
+
+```json
+{
+  "Atlassian": {
+    "command": "npx",
+    "args": ["-y", "mcp-remote", "https://mcp.atlassian.com/v1/sse"]
   }
 }
 ```
@@ -363,6 +328,47 @@ Below are examples for popular Model Context Protocol (MCP) servers, presented i
 {
   "Slack": {
     "url": "https://your-mcp-host.com/api/mcp/slack/sse"
+  }
+}
+```
+{% endtab %}
+
+{% tab title="Figma" %}
+#### **Official Figma SSE Server (URL)**
+
+1. Enable the Official Figma MCP Server. [Figma MCP Docs](https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Dev-Mode-MCP-Server)
+2. Open the [Figma desktop app](https://www.figma.com/downloads/) and make sure you’ve [updated to the latest version](https://help.figma.com/hc/en-us/articles/5601429983767-Guide-to-the-Figma-desktop-app#h_01HE5QD60DG6FEEDTZVJYM82QW).
+3. Create or open a Figma Design file.
+4. In the upper-left corner, open the Figma menu.
+5. Under **Preferences**, select **Enable local MCP Server**.
+6. Enter the following configuration into Warp > Warp Drive > MCP Servers > +.
+
+```json
+{
+  "Official Figma MCP (SSE)": {
+    "url": "http://localhost:3845/sse"
+  }
+}
+```
+
+#### **3rd Party Figma CLI Server (Command)**
+
+1. Download and run the 3rd party Figma Context MCP server. [Figma-Context-MCP](https://github.com/GLips/Figma-Context-MCP)
+2. Generate a token with full read-only access in Figma > Settings > Security > Personal Access Token. [See steps](https://www.warp.dev/university/mcp/using-the-figma-mcp-server-to-code-designs)
+3. Enter the following configuration into Warp > Warp Drive > MCP Servers > +.
+
+```json
+{
+ "3rd Party Figma Context MCP (CLI)": {
+   "command": "npx",
+   "args": [
+     "-y",
+     "figma-developer-mcp",
+     "--stdio"
+     ],
+     "env": {
+       "FIGMA_API_KEY": "<YOUR_FIGMA_TOKEN>"
+    }
   }
 }
 ```
