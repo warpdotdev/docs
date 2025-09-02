@@ -147,7 +147,7 @@ Below are examples for popular Model Context Protocol (MCP) servers.
 * **CLI Server (Command)** — local `npx`  or `docker` command based MCP servers.
 * **SSE Server (URL)** — remote or locally hosted MCP endpoints.
 
-### **🔧 Engineering & Ops MCP Tools**
+### **Engineering & Ops**
 
 {% tabs %}
 {% tab title="GitHub" %}
@@ -258,7 +258,7 @@ Below are examples for popular Model Context Protocol (MCP) servers.
 {% endtab %}
 {% endtabs %}
 
-### **💬 Collaboration & Design MCP Tools**
+### **Collaboration & Design**
 
 {% tabs %}
 {% tab title="Atlassian" %}
