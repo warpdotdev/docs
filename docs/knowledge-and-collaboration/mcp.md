@@ -140,14 +140,14 @@ cd "${XDG_STATE_HOME:-$HOME/.local/state}/warp-terminal/mcp"
 {% endtab %}
 {% endtabs %}
 
-### MCP Server Configuration Examples
+## MCP Server Configuration Examples
 
-Below are examples for popular Model Context Protocol (MCP) servers, presented in tabs with:
+Below are examples for popular Model Context Protocol (MCP) servers.
 
-* **CLI Server (Command)** — local `npx` launches (requires MCP package and API credentials).
-* **SSE Server (URL)** — remote-hosted MCP endpoint.
+* **CLI Server (Command)** — local `npx`  or `docker` command based MCP servers.
+* **SSE Server (URL)** — remote or locally hosted MCP endpoints.
 
-**🔧 Engineering & Ops Tools**
+### **🔧 Engineering & Ops MCP Tools**
 
 {% tabs %}
 {% tab title="GitHub" %}
@@ -258,7 +258,7 @@ Below are examples for popular Model Context Protocol (MCP) servers, presented i
 {% endtab %}
 {% endtabs %}
 
-**💬 Collaboration & Design Tools**
+### **💬 Collaboration & Design MCP Tools**
 
 {% tabs %}
 {% tab title="Atlassian" %}
