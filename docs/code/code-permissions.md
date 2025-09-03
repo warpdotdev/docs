@@ -2,6 +2,7 @@
 description: >-
   Configure how the Coding agent behaves and fine-tune when it should act on its
   own or ask for your approval.
+hidden: true
 ---
 
 # Code Permissions

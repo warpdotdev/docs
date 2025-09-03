@@ -7,74 +7,87 @@ description: >-
 
 # Code Overview
 
+## From Prompt to Production
+
+Warp Code is a suite of features designed to help you take agent-generated code from the initial prompt and project setup all the way to deployment and production. It is powered by Warp’s dedicated coding agent, which consistently ranks among the top results on [SWE-bench Verified](https://www.swebench.com/#verified) and [Terminal-Bench](https://www.tbench.ai/leaderboard).
+
+In addition to Warp’s modern, [native code editor](code-editor/), it includes:
+
+* [Codebase Context](codebase-context.md) for accurate, context-aware agent responses
+* [Project Rules](../knowledge-and-collaboration/rules.md) and Commands to tailor agent behavior per repository
+* A dedicated [Code Review](code-review.md) experience for reviewing and editing diffs
+* [Zero-state and setup flows](code-overview.md#getting-started-with-coding-in-warp) to quickly start a new project or initialize an existing one
+
+### Coding Agent
+
+Warp’s coding agent is designed to help you generate, edit, and manage code directly in the Agentic Development Environment. It detects opportunities to apply code diffs and surfaces them inline, allowing you to review and apply changes without switching to an external IDE. When you need to make manual edits, you can open Warp’s native code editor.
+
+### How It Works
+
+* **Prompt-driven coding**: You write natural language prompts such as _“Add a retry mechanism to this API call”_ or _“Fix the failing unit test in auth.test.ts.”_
+* **Inline code diffs**: When the agent proposes changes, it shows them as diffs you can inspect, modify, or reject.
+* **Agent steering**: You can refine prompts, interrupt and retry, or attach context (such as a file, diff, or selection) to guide the agent toward better results.
+
+{% embed url="https://screen.studio/share/VwLoR3BE" %}
+
 {% hint style="info" %}
 Warps coding agent only work on local repositories. The agent can make changes on remote or docker repositories, but fallback to using terminal commands (i.e. `sed`, `grep` ) to make the changes.
 {% endhint %}
 
-## Coding capabilities
-
-Warp includes advanced coding capabilities directly within your app window, which are triggered when the app detects an opportunity to generate a code diff. This powerful feature allows for seamless code generation, editing, and management tasks, all within the Warp environment.
-
-<figure><img src="../.gitbook/assets/agent-mode-coding-capabilities.gif" alt="Agent mode coding capabilities demo of a topological sort in Python."><figcaption><p>Coding demo of a topological sort in Python.</p></figcaption></figure>
-
-### Examples of coding capabilities
+### Examples of Coding Capabilities
 
 Code responds to prompts related to code generation, editing, and analysis. Here are some examples:
 
-* Code creation: “Write a function in JavaScript to debounce an input”
-* Based on error outputs, suggest fixes: “Fix this TypeScript error.”
-* Modify code within a file: “Update all instances of ‘var’ to ‘let’ in this file.”
-* Apply changes across multiple files: “Add headers to all .py files in this directory”
+* **Code creation**
+  * “Write a function in JavaScript to debounce an input”
+  * “Generate a Python class for managing user sessions with Redis.”
+* **Error-driven fixes**
+  * “Fix the TypeScript error shown in the last build output.”
+  * “Resolve this merge conflict by keeping backend changes and updating tests accordingly.”
+* **Refactoring**
+  * “Update all instances of var to let in this file.”
+  * “Extract the database logic from app.js into a new db.js module and update imports.”
+* **Multi-file and repo-wide changes**
+  * “Add headers to all .py files in this directory.”
+  * “Replace requests with httpx across the codebase, updating imports and error handling.”
+* **Complex workflows** (examples shown below — in practice, prompts should include more detail for best results)
+  * “Implement OAuth2 authentication, update affected routes, and add tests.”
+  * “Identify functions without test coverage and create Jest test files for them.”
+  * “Optimize slow SQL queries in queries.sql and regenerate migrations.”
 
-When coding agent generates a code diff, you can review, refine, and decide whether to apply the changes.
+{% embed url="https://youtu.be/IuFSuOYstfg" %}
+How to kick off a coding task
+{% endembed %}
 
-### Built-in Code Editor
+{% embed url="https://youtu.be/dm-P63USsVg" %}
+How to interpret & edit Warp’s coding output
+{% endembed %}
 
-Warp’s [ADE (Agentic Development Environment)](https://www.warp.dev/blog/reimagining-coding-agentic-development-environment) lets you make quick file edits without leaving your agent conversation, keeping you in flow and avoiding an extra context-switch over to your IDE.
+## Getting Started With Coding in Warp
 
-Our built-in text editor supports editing and syntax highlighting for a wide range of programming languages, including: \
-\
-Rust, Go, YAML, Python, JavaScript/TypeScript, JSX/TSX, Java/Groovy, C++, Shell/Bash, C#, HTML, CSS, C, JSON, HCL/Terraform, Lua, Ruby, PHP, TOML, Swift, Kotlin, Powershell, Elixir, and Scala. \
-\
-We’re continuously expanding language support to cover even more workflows.
+Warp provides multiple entry points to begin coding with agents, whether you are starting a new project, opening an existing one, or cloning from GitHub. Each new tab shows a **zero state** that lets you choose how to proceed.
 
-{% hint style="info" %}
-You can open supported code files in Warp by clicking on a file path from the terminal output or an AI conversation and selecting "Open in Warp". To save your changes, press `CMD-S` on macOS or `CTRL-S` on Windows or Linux.
-{% endhint %}
+<figure><img src="../.gitbook/assets/code_mode.png" alt=""><figcaption><p>Zero-state tab with 3 starting points for agentic coding in Warp.</p></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/open-in-warp-code.gif" alt="opening the code editor in Warp"><figcaption><p>Opening code files in Warp</p></figcaption></figure>
+#### 1. Starting a New Project
 
-#### Find
+To begin a new project, select `Create a New Project` from the tab. You can start directly with a prompt (Warp will suggest ideas) or configure the project manually. Warp sets up the repository with a `WARP.md` file containing [project rules](../knowledge-and-collaboration/rules.md#project-rules) and enables [codebase indexing](codebase-context.md) to provide the agent with full context.
 
-Press `CMD-F` on macOS or `CTRL-F` on Windows and Linux to open the find menu. As you type, all matches in the file are highlighted, and the match closest to your cursor is selected.
+#### 2. Open an Existing Repo
 
-* Press `ENTER` or use the down arrow to jump to the next match
-* Press `SHIFT-ENTER` or use the up arrow to go to the previous match
-* Click "Select All" to highlight all matches and close the menu
+Select `Open Repository` to use your computer’s file picker. If you choose a Git repository, Warp automatically changes into the directory and runs the `/init` setup command (a built-in “[slash command](../agents/slash-commands.md)”) if the repo has not already been initialized. Warp will detect the repository, index the codebase, and prepare it for coding.
 
-You can toggle regex and case-sensitive search options directly in the query editor.
+* For non-Git folders, Warp simply changes into the directory without initialization.
+* If you have an existing project that is not yet initialized, you can run `/init` manually to bootstrap it with a version-controlled `WARP.md` file.&#x20;
+* This view also shows a list of your three most recently used repositories and AI conversations for quick access, as well as a list of recent directories (which behave like running `cd`).
 
-<figure><img src="../.gitbook/assets/code-find-menu.gif" alt="using find in the code editor"><figcaption><p>Using the find menu in Warp</p></figcaption></figure>
+#### 3. Clone a Repo
 
-#### Replace
+Select `Clone Repository` to paste in a repo link or clone directly from GitHub. Warp places you in the cloned folder and automatically runs the `/init` flow to set up project rules and indexing.
 
-Click the dropdown to the left of the find menu to open the replace options.
+## Learn More About Code Features:
 
-* Press Enter to replace the currently selected match
-* Use Replace All to replace all matches
-
-Toggle Preserve Case to keep the original casing of replaced text. Case is preserved in text that contains PascalCase, camelCase, hyphens, and underscores. For example:
-
-* Replacing “old” with “new” will turn “Old” into “New” and “OLD” into “NEW”
-* Replacing “oldValue” with “NewValue” will result in “newValue”
-* Replacing “OldValue” with “newValue” will result in “NewValue”
-* Replacing “my-Old-VALUE” with “my-new-value” will result in “my-New-VALUE”
-
-<figure><img src="../.gitbook/assets/code-replace-menu.gif" alt="using replace in the code editor"><figcaption><p>Using the replace menu in Warp</p></figcaption></figure>
-
-## Included Code features:
-
-* [Code](code-overview.md) - Warp enables intelligent code generation and editing through AI-powered diffs, allowing you to review, refine, and apply changes seamlessly across your codebase.
-* [Code Permissions](code-permissions.md) - Configure how the Coding agent behaves and fine-tune when it should act on its own or ask for your approval.
+* [Code Editor](code-editor/) - Warp’s built-in code editor lets you make quick, in-context edits with essentials like syntax highlighting, tabs, find and replace, Vim keybindings, and a file tree.
 * [Codebase Context](codebase-context.md) - Warp indexes your Git-tracked codebase to help Agents understand your code and generate accurate, context-aware responses. No code is stored on Warp servers.
-* [Reviewing Code Diffs](reviewing-code.md) - Learn how to review, refine, and apply code changes generated by Warp’s agents using the built-in visual diff editor.
+* [Code Review](code-review.md) - review, edit, and manage Git diffs in real time, with options to attach, revert, or open files directly.
+* [Code Diffs in Agent Conversations](reviewing-code.md) - Learn how to review, refine, and apply code changes generated by Warp’s agents using the built-in visual diff editor.

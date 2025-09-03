@@ -1,7 +1,7 @@
 ---
 description: >-
   Warp Preview is an early-access build of Warp with experimental features. The
-  Alpha Program offers the most engaged users unlimited AI.
+  Alpha Program offers the most engaged users free, additional AI.
 ---
 
 # Warp Preview & Alpha Program
@@ -39,7 +39,7 @@ For details on how to send feedback for Warp Preview, please see [Preview-Specif
 
 Warp Alpha is a private extension of the Preview program for our most dedicated users. Participants receive:
 
-* **Unlimited AI usage**: Experience cutting-edge AI features without limits.
+* **Additional AI usage**: Experience more cutting-edge AI features.
 * **Direct team access**: Engage closely with Warp’s engineering and product teams.
 * **Insider insights**: See early mockups, join product discussions, and help guide feature development.
 

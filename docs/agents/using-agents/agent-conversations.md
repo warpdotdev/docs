@@ -1,6 +1,6 @@
 ---
 description: >-
-  Agent Mode organizes your AI interactions into conversations tied to sessions,
+  Warp organizes your Agent interactions into conversations tied to sessions,
   allowing you to attach context blocks, follow up on previous queries, or begin
   new threads for distinct tasks.
 ---

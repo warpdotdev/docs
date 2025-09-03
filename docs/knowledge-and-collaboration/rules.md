@@ -1,14 +1,16 @@
 ---
 description: >-
-  Create reusable global or project-based guidelines to ensure Warp’s agents
-  follow your coding standards, project conventions, and personal preferences.
+  Create reusable Global or Project Rules to ensure Warp’s agents follow your
+  coding standards, project conventions, and personal preferences.
 ---
 
 # Rules
 
 Warp’s **Rules** feature lets you create reusable guidelines that inform how agents respond to your prompts. Rules help tailor responses to match your coding standards, project conventions, and personal preferences, making agent interactions smarter and more consistent.
 
-Warp supports two types of rules: **Global Rules** and **Project-Scoped Rules**.
+Warp supports two types of rules: **Global Rules** and **Project Rules**.
+
+{% embed url="https://youtu.be/fDr0-3bLxMQ" %}
 
 ## Global Rules
 
@@ -20,9 +22,9 @@ Global Rules apply across all projects and contexts. They're ideal for:
 
 Warp may also suggest Global Rules based on your usage patterns to make future interactions smarter and more consistent.
 
-## Project-Scoped Rules
+## Project Rules
 
-Project-Scoped Rules live in your codebase and apply automatically when working within that project. They’re stored in a `WARP.md` file and can be:
+Project Rules live in your codebase and apply automatically when working within that project. They’re stored in a `WARP.md` file and can be:
 
 * Placed in the root of your repository
 * Added in subdirectories for more targeted guidance
@@ -47,14 +49,14 @@ project/
   WARP.md        # Project-wide rules
 ```
 
-How Warp applies these project-based rules:
+How Warp applies these Project Rules:
 
-* **If the current directory is `ui/`**\
-  Automatically applied: `project/WARP.md` and `project/ui/WARP.md`\
-  Best effort: `project/api/WARP.md` if editing files there
-* **If the current directory is `api/`**\
-  Automatically applied: `project/WARP.md` and `project/api/WARP.md`\
-  Best effort: `project/ui/WARP.md` if editing files there
+* **If the current directory is `ui/`**
+  * Automatically applied: `project/WARP.md` and `project/ui/WARP.md`
+  * Best effort: `project/api/WARP.md` if editing files there
+* **If the current directory is `api/`**
+  * Automatically applied: `project/WARP.md` and `project/api/WARP.md`
+  * Best effort: `project/ui/WARP.md` if editing files there
 
 ### **Rules precedence**
 
@@ -73,11 +75,11 @@ This ensures the most specific, project-relevant rules take priority over broade
 * From [Warp Drive](warp-drive/): Personal > Rules
 * From the [Command Palette](../terminal/command-palette.md): search for "Open AI Rules"
 * From the Settings panel: `Settings > AI > Knowledge > Manage Rules`
-  * Here, you can manage both Global as well as Project-Scoped Rules.
+  * Here, you can manage both Global as well as Project Rules.
 * From the macOS Menu: `AI > Open Rules` &#x20;
-* From the Slash Commands menu: `/open-project-rules`  to open Project-Scoped Rules directly in Warp's code editor
+* From the Slash Commands menu: `/open-project-rules`  to open Project Rules directly in Warp's code editor
 
-<figure><img src="../.gitbook/assets/project-scoped-rules-pane.png" alt=""><figcaption><p>Project-based Rules UI open in a Rules pane</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/project-scoped-rules-pane.png" alt=""><figcaption><p>Project Rules UI open in a Rules pane</p></figcaption></figure>
 
 ## How to create, edit, or delete Rules
 
@@ -90,18 +92,18 @@ This ensures the most specific, project-relevant rules take priority over broade
 * **From the Slash Commands menu:** `/add-rule` in Auto or Agent input modes to create a new Global Rule (automatically opens the Warp Drive Rules pane).
 
 {% embed url="https://www.loom.com/share/3a49462c01e149cf9c040130cebe1184?hideEmbedTopBar=true&hide_owner=true&hide_share=true&hide_title=true" %}
-Rules Demo (legacy) with just Global Rules. Project-based rules can also be found there.
+Rules Demo (legacy) with just Global Rules. Project rules can also be found there.
 {% endembed %}
 
-#### Project-Scoped Rules
+#### Project Rules
 
-* **From Warp Drive Rules pane:** `Personal > Rules > Project-based`\
-  View all Project-based Rules and open them in Warp.
-* **From the Slash Commands menu:** Use `/init` in Auto or Agent mode to:
+* **When in a directory, set up Project Rules with a slash command:** Use `/init` in Auto or Natural language modes to:
   * Begin indexing your codebase or display indexing status
   * Generate a `WARP.md` file with initial context, or
   * Link an existing Rules file to `WARP.md`
-    * Warp currently supports the following Rules files: `CLAUDE.md`, `.cursorrules`, `AGENT.md`, `AGENTS.md`, `GEMINI.md`, `.clinerules`, `.windsurfrules`, `.github/copilot-instructions.md`
+    * Warp currently supports the following Rules files: `CLAUDE.md`, `.cursorrules`, `AGENT.md`, `AGENTS.md`, `GEMINI.md`, `.clinerules`, `.windsurfrules`, `.github/copilot-instructions.md`&#x20;
+
+To view all Project Rules and open them in Warp, access it via the Warp Drive Rules pane: `Personal > Rules > Project-based`
 
 ### Rules as Agent context
 

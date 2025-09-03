@@ -4,7 +4,11 @@ description: Agents can generate and edit code directly from within Warp.
 
 # Coding in Warp
 
-When Warp detects an opportunity to apply a code diff, it activates an advanced code generation flow that supports both single-file edits and multi-file changes.
+When you enter a git repo for the first time, Warp will enter an initialization flow to index your codebase and generate a WARP.md file.&#x20;
+
+As you're in the repo, Warp will enter an advanced code generation flow that supports both single-line and multi-file changes when it detects an opportunity to write code.
+
+For example, Warp may write code when you prompt:
 
 * **Code creation**: “Write a function in JavaScript to debounce an input”
 * **Based on error outputs, suggest fixes**: “Fix this TypeScript error.”
@@ -58,7 +62,9 @@ Agents pull directly from your [**Warp Drive**](https://docs.warp.dev/features/w
 
 #### Rules
 
-**Rules** let you provide persistent context to Agents, enabling smarter and more personalized responses. You can create your own Rules, and Warp will also suggest new ones based on your usage patterns.
+**Rules** let you provide persistent context to Agents, enabling smarter and more personalized responses.&#x20;
+
+You can create global rules (accessed through [Warp Drive](https://docs.warp.dev/features/warp-drive) > Personal > Rules) or project scoped rules, defined in a WARP.md file.
 
 **Examples of Rules include:**
 
@@ -66,7 +72,12 @@ Agents pull directly from your [**Warp Drive**](https://docs.warp.dev/features/w
 * Project- or workspace-specific guidelines
 * Personal preferences for tools, formatting, or behavior
 
-How to access Rules
+How to access project-specific Rules
+
+1. From the file-searcher, CMD+O and search "WARP.md"
+2. From the file tree, click the "code" icon when in a repo
+
+How to access Global Rules
 
 1. From the [Warp Drive](https://docs.warp.dev/features/warp-drive) > Personal > Rules
 2. From the [Command Palette](../../features/warp-ai/command-palette.md), search for "Open AI Rules"

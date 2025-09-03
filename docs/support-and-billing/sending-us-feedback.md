@@ -12,12 +12,8 @@ description: >-
 * [Command Palette](../terminal/command-palette.md), type and select "Send Feedback".
 * Warp Essentials:bulb:, click on Feedback.
 * Join our [Discord](https://discord.com/invite/warpdotdev) server. Send a message in [`#questions-and-feedback`](https://discord.com/channels/851854972600451112/1154432424873296012).
-* If you're using [Warp Preview](../community/warp-preview-and-alpha-program.md), please share your feedback in our [Warp Community Slack](https://go.warp.dev/join-preview).
-* For Enterprise customers, please submit feedback on your private slack channel.
-
-{% hint style="info" %}
-If the Warp Community Slack link doesn't work, reach out to us at [preview@warp.dev](mailto:preview@warp.dev).
-{% endhint %}
+* Join our [Warp Community Slack](https://go.warp.dev/join-preview) and share feedback in **#feedback-general** (or **#feedback-preview** if it is specific to [Warp Preview](../community/warp-preview-and-alpha-program.md).
+* For enterprise clients, please direct all feedback (including bug reports and debugging IDs) to the designated Warp Slack channel.
 
 {% hint style="danger" %}
 For security-related issues or questions, please email [security@warp.dev](mailto:security@warp.dev).
@@ -95,4 +91,10 @@ RUST_LOG=wgpu_core=info,wgpu_hal=info MESA_DEBUG=1 EGL_LOG_LEVEL=debug warp-term
 
 ## Gathering AI debugging ID <a href="#gathering-ai-debugging-id" id="gathering-ai-debugging-id"></a>
 
-In cases where you have issues with the Agent, we may ask for the AI debugging ID to troubleshoot the specific conversation. To gather the debugging ID, `RIGHT-CLICK` on the AI conversation block in question and select "Copy debugging ID", then paste that into the [bug report](sending-us-feedback.md#sending-warp-feedback) that you submit so that our team can investigate the issue.
+In cases where you have issues with the Agent, we may ask for the AI debugging ID to troubleshoot the specific conversation.&#x20;
+
+To gather the debugging ID, `RIGHT-CLICK` on the AI conversation block in question and select "Copy debugging ID", then paste that into the [bug report](sending-us-feedback.md#sending-warp-feedback) that you submit so that our team can investigate the issue.&#x20;
+
+Whenever there is an error in the Agent Conversation, there will also be an option to directly copy the debugging ID for the bug report.
+
+<figure><img src="../.gitbook/assets/send-feedback-debugging-information.png" alt=""><figcaption></figcaption></figure>

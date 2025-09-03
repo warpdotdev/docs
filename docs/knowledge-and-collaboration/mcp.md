@@ -4,7 +4,7 @@ description: >-
   modular plugins powered by a standardized interface.
 ---
 
-# Model Context Protocol
+# Model Context Protocol (MCP)
 
 ## Model Context Protocol (MCP)
 
@@ -374,3 +374,15 @@ Below are examples for popular Model Context Protocol (MCP) servers.
 ```
 {% endtab %}
 {% endtabs %}
+
+### MCP Server Demos
+
+[Warp University](https://www.warp.dev/university) hosts a collection of demos and walkthroughs showing how MCP servers can extend your workflows. Each example highlights practical use cases you can try today:
+
+* [**GitHub**](https://www.warp.dev/university/mcp/using-github-mcp-server) — access repositories, issues, and pull requests through MCP.
+* [**Sentry**](https://www.warp.dev/university/mcp/using-sentry-mcp-server) — surface error monitoring and alerts as agent-usable data.
+* [**Linear**](https://www.warp.dev/university/mcp/connecting-warp-to-linear-via-mcp) — integrate project management tasks and tickets.
+* [**Figma**](https://www.warp.dev/university/mcp/using-the-figma-mcp-server-to-code-designs) — connect design files directly into your development environment.
+* [**Puppeteer**](https://www.warp.dev/university/mcp/using-puppeteer-mcp-server) — run automated browser workflows via MCP.
+* [**Context7**](https://www.warp.dev/university/mcp/using-context7-mcp-server) — experiment with external data integrations.
+

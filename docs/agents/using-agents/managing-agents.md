@@ -12,6 +12,8 @@ Agents will notify you when they need input, such as permission to run a command
 
 This page covers how agent statuses are displayed, how to use the Agent Management Panel, how notifications work, and how to configure agent autonomy and permissions.
 
+{% embed url="https://youtu.be/3jwus1bfKv4" %}
+
 ### **Agent status indicators**
 
 Each tab that contains an agent conversation will display a status icon indicating the agent’s current state.
@@ -64,4 +66,10 @@ You can configure how much autonomy and control agents have in `Settings > AI > 
 * Define allowlists or denylists to control agent behavior based on command types or patterns
 
 These settings let you fine-tune how agents interact with your system and control the level of automation based on task sensitivity. For more information on autonomy, please reference: [agent-profiles-permissions.md](agent-profiles-permissions.md "mention").
+
+### Demo: Using multiple agents at once in Warp
+
+Here's an example from [Warp University](https://www.warp.dev/university), where Zach demonstrates how he uses and manages multiple agents in Warp:
+
+{% embed url="https://www.youtube.com/watch?t=&v=3jwus1bfKv4" %}
 

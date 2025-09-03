@@ -1,10 +1,10 @@
 ---
 description: >-
-  Use Vim keybindings (also known as Vim mode) to edit commands in Warp's input
-  editor.
+  Use Input Editor Vim keybindings (also known as Vim mode) to edit commands
+  quickly in Warp.
 ---
 
-# Vim Keybindings
+# Input Editor Vim Keybindings
 
 ## About Vim keybindings
 

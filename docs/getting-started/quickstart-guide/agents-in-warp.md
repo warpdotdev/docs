@@ -45,6 +45,13 @@ For each action, you can set the autonomy level to one of the following:
 
 You can also configure an **allowlist** and **denylist** for specific commands you always want to run—either with or without confirmation.
 
+### Agent Profiles
+
+Define profiles in `Settings > AI` with unique permissions and model choices. You can switch profiles at any time by clicking the "profile" icon in Warp's input area. In addition to your default permissions, you may create:
+
+* YOLO mode: Loose permissions for using in personal projects
+* Prod mode: Limit AI permissions to "Always Ask" when in high-risk environments like your production server
+
 ### Managing multiple agents
 
 You can run multiple agents in Warp simultaneously, monitor their status, and step in when needed—without losing track of what’s happening across your sessions. Each tab includes a [status icon](https://docs.warp.dev/agents/using-agents/managing-agents#agent-status-indicators) that shows the agent’s current state. All of your active agents are tracked in the [Agent Management Panel](https://docs.warp.dev/agents/using-agents/managing-agents#agent-management-panel), located in the top-right corner next to your avatar.

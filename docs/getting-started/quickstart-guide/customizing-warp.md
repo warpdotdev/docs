@@ -15,7 +15,7 @@ Warp has many [Appearance](../../terminal/appearance/) settings you can configur
 
 Navigate to `Settings > Appearance` to customize your setup.
 
-<figure><img src="../../.gitbook/assets/settings-appearance.png" alt=""><figcaption><p>Settings > Appearance</p></figcaption></figure>
+{% embed url="https://youtu.be/fzb1JcZ0fFA" %}
 
 ### Modify behavior settings
 

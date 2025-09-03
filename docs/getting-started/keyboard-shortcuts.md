@@ -39,6 +39,8 @@ Keybinds that conflict with others are highlighted with an orange border.
 | `CMD-L`        | Focus Terminal Input         | `terminal:focus_input`                         |
 | `CTRL-I`       | Warpify Subshell             | `terminal:trigger_subshell_bootstrap`          |
 | `CMD-\`        | Warp Drive                   | `terminal:toggle_warp_drive`                   |
+| `CMD-O`        | File search                  |                                                |
+| `CMD-P`        | Open command pallette        |                                                |
 
 **Blocks**
 

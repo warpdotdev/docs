@@ -12,6 +12,14 @@ Prompts are searchable and easily accessed from the [Command Palette](../../term
 
 <figure><img src="../../.gitbook/assets/prompts-command-view.png" alt="View of a Prompt in Warp Drive showing the command view interface"><figcaption><p>Command view of a Prompt in Warp Drive</p></figcaption></figure>
 
+### Demo: Trigger Reusable Actions with Saved Prompts
+
+Here's an example from [Warp University](https://www.warp.dev/university), where Zach walks through what Prompts he uses for PRs and Git commits:
+
+{% embed url="https://www.youtube.com/watch?ab_channel=Warp&v=pE15zjJmB4E" %}
+
+There's other great examples of Prompts on [Do Things](https://dothings.warp.dev/) and [Warp University](https://www.warp.dev/university).
+
 ## How to save and edit Prompts
 
 You can create a new Prompt from Warp Drive by clicking the + button and selecting "Prompt".

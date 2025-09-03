@@ -1,8 +1,8 @@
 ---
-description: Use Warp Agents from the terminal
+description: Use Warp Agents from the terminal.
 ---
 
-# Warp CLI (Preview)
+# Warp CLI
 
 ## What is the Warp CLI?
 
@@ -16,18 +16,11 @@ The Warp CLI is in preview and only supports some operations. We welcome feedbac
 
 The Warp CLI is automatically distributed with the Warp desktop app.
 
-{% tabs %}
-{% tab title="macOS" %}
 To add the Warp CLI to your `PATH`, open the [Command Palette](../terminal/command-palette.md) and choose the `Install Warp CLI Command` action. This will ask for administrator permissions to install the CLI into `/usr/local/bin`.
-{% endtab %}
 
-{% tab title="Windows" %}
 In the Warp installer, select `Add Warp to PATH`. If you are installing for all users, this will put the CLI on the system path. Otherwise, the CLI is only added to the path for your account.
-{% endtab %}
 
-{% tab title="Linux" %}
 To run the Warp CLI on Linux, use the same command that you'd use to start Warp normally. If you installed Warp via a package manager, it should already be on the system `PATH`.
-{% endtab %}
 
 We are also working on a standalone distribution of the CLI for headless and resource-constrained systems.
 
@@ -93,6 +86,7 @@ Tip: create a dedicated Agent Profile for CLI usage. The CLI cannot ask you for 
 ## Using MCP servers
 
 For robustness, the Warp CLI identifies MCP servers by auto-generated stable IDs. To get the ID of an MCP server, you can either:
+
 * Use the `warp mcp list` command
 * Copy the ID from the MCP server's settings page
 

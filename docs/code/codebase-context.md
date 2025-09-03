@@ -13,9 +13,11 @@ Code indexed with Codebase Context is never stored on our servers. Warps coding 
 {% endhint %}
 
 {% hint style="danger" %}
-Codebase context doesn't work within SSH or WSL sessions. Feature requests for support are being tracked in the following Github issues: \
-SSH - [https://github.com/warpdotdev/Warp/issues/6831](https://github.com/warpdotdev/Warp/issues/6831)\
-WSL - [https://github.com/warpdotdev/Warp/issues/6744](https://github.com/warpdotdev/Warp/issues/6744)
+**Codebase context doesn't work within SSH or WSL sessions.** \
+\
+Feature requests for support are being tracked in the following Github issues: \
+\- SSH: [https://github.com/warpdotdev/Warp/issues/6831](https://github.com/warpdotdev/Warp/issues/6831)\
+\- WSL: [https://github.com/warpdotdev/Warp/issues/6744](https://github.com/warpdotdev/Warp/issues/6744)
 {% endhint %}
 
 <figure><img src="../.gitbook/assets/codebase-context-main.png" alt=""><figcaption><p>Codebase indexing settings in Warp. Easily track sync status and manage which folders are indexed for AI-powered context and suggestions.</p></figcaption></figure>
@@ -24,14 +26,14 @@ WSL - [https://github.com/warpdotdev/Warp/issues/6744](https://github.com/warpdo
 
 When you open a directory in Warp, we check if it is part of a Git repository. If it is, Warp begins indexing the source code to provide rich context for Warp Agents.&#x20;
 
-Codebase indexing intervals and triggers:
+**Codebase indexing intervals and triggers:**
 
 * Initially when you have Codebase Context enabled.
 * Warp automatically triggers a codebase index periodically.
 * Whenever a new Agent conversation begins.
 * When you click on the sync 🔄 button in `Settings > Code` menu.
 
-This embeddings index helps Agents:
+**This embeddings index helps Agents:**
 
 * Understand your project structure and reference relevant code
 * Generate completions that match your style and patterns
@@ -42,6 +44,8 @@ For large projects, indexing may take a few minutes. Warp Agents will not use co
 {% hint style="info" %}
 You can view and manage your indexed codebases under `Settings > Code > Codebase Index`. You can also choose whether to automatically index new folders as you navigate them.
 {% endhint %}
+
+{% embed url="https://youtu.be/11rz9OYQ8Hg" %}
 
 ### **Codebase indexing states**
 
@@ -96,3 +100,9 @@ Warp supports referencing context across multiple indexed repositories. Note tha
 * Using one repo as a reference while building in another, for example: “copy the implementation from repo A into my repo B”
 
 Agents will only reference other repositories if they are already indexed. During cross-repo tasks, Warp's Agents have access to the file paths of all indexed repos. It is more likely to use cross-repo context when you mention the exact name of the repo in your prompt.
+
+## Demo: Explain My Codebase with Warp
+
+Here's an example from [Warp University](https://www.warp.dev/university), where Zach demonstrates how Warp uses Codebase Context to search for and use the relevant files as context:
+
+{% embed url="https://www.youtube.com/watch?v=11rz9OYQ8Hg" %}
