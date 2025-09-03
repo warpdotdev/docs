@@ -8,6 +8,30 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2025.09.01 (v0.2025.09.01.20.54)
+
+**New features**
+
+* Revert diff hunks directly from the Code Review Pane.
+* Add lines of a file to the context of a conversation from the Warp code editor.
+* You can now search and restore Agent conversations in your history using the `conversations:` prefix.
+* You can now search and navigate to indexed code bases using the `repos:` prefix.
+
+**Improvements**
+
+* Voice transcriptions are no longer cut off when unfocusing an input editor.
+* You can now select the $EDITOR environment variable as the default application for opening file links.
+* Added new header treatment for unfocused Warp windows.
+* [Mac] A new dock icon option to celebrate Code Country - the Cow icon! (`Appearance > Icon` to change)
+* Pasting images in the terminal input switches to Agent mode and attaches the image as context.
+* Added support for the Streamable HTTP transport for MCP servers.
+
+**Bug fixes**
+
+* [Windows/Linux] Fixed keybinding conflict for split pane down action for the Input, when a code diff is not active.
+* Fixed tab tooltips displaying unwanted leading and trailing whitespace.
+* Pressing the up key while the model picker is open no longer opens the command history. Opening the model picker while the command history is open now closes the command history.
+
 ### 2025.08.27 (v0.2025.08.27.08.11)
 
 **New Features**

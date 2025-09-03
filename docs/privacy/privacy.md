@@ -129,7 +129,6 @@ If you're a [Team](../knowledge-and-collaboration/teams.md) admin, the deletion 
 | `AgentMode.OpenedCitation` | Opened a citation that was surfaced in agent mode |
 | `AgentMode.PotentialAutoDetectionFalsePositive` | Manually toggled input to shell mode after input was auto-detected as natural language. |
 | `AgentMode.QueryAttemptAtLImit` | Tried to send an Agent Mode query but they already reached the query limit |
-| `AgentMode.RatedResponse` | User rated an Agent Mode response |
 | `AgentMode.RequestRetrySucceeded` | Agent Mode request succeeded after retrying following an initial error |
 | `AgentMode.SearchCodebase.RepoUnavailable` | Tried to use the Search Codebase tool on a repo that is unavailable |
 | `AgentMode.SearchCodebase.Requested` | Ran the Search Codebase tool |
@@ -141,7 +140,6 @@ If you're a [Team](../knowledge-and-collaboration/teams.md) admin, the deletion 
 | `AgentMode.SyncCodebaseContext.Failed` | Failed to sync codebase context |
 | `AgentMode.SyncCodebaseContext.Success` | Successfully synced codebase context |
 | `AgentMode.ToggleAutoDetectionSetting` | Toggled the setting that enables or disables natural language auto-detection in the input.  |
-| `AgentMode.ToggledAskFollowUp` | Toggled 'ask followup' on Agent Mode query |
 | `AgenticOnboarding.BlockSelected` | Selected an agentic onboarding block to execute |
 | `Anonymous User Attempted Login-Gated Feature` | Anonymous user attempted to access a login-gated feature |
 | `Anonymous User Expiration Lockout` | An anonymous user opened Warp after their conversion deadline and was locked out |
@@ -170,7 +168,15 @@ If you're a [Team](../knowledge-and-collaboration/teams.md) admin, the deletion 
 | `Changed invite view option` | Toggled between link and invite for invite |
 | `Clicked Continue Conversation Button` | User clicked the Continue Conversation button in a block footer |
 | `Clicked Reset to Defaults Button in Settings Import` | Reset the imported settings in the settings import onboarding block |
+| `Clone Repo Prompt Submitted` | User submitted a repository URL from the clone repo view |
+| `Code Pane Opened` | Opened the code editor pane from various sources |
+| `CodeReview.AddToContext` | Content added to AI context from code review |
+| `CodeReview.BaseChanged` | Diff base changed in code review |
+| `CodeReview.FileOpenedInWarpEditor` | File opened in new Warp editor tab |
+| `CodeReview.FileSaved` | File saved in code review pane |
 | `CodeReview.PaneOpened` | Code review pane opened |
+| `CodeReview.PaneStateChanged` | Code review pane minimized or maximized |
+| `CodeReview.RevertHunkClicked` | Revert hunk button clicked |
 | `Command Correction Event` | Accepted command correction |
 | `Command File Run` | Opened a .cmd or unix executable file and ran it directly in Warp |
 | `Command Palette Search Accepted` | Accepted a command palette search result |
@@ -198,6 +204,8 @@ If you're a [Team](../knowledge-and-collaboration/teams.md) admin, the deletion 
 | `Copy Obfuscated Secret` | Copied a secret's obfuscated contents to clipboard |
 | `Copy Object To Clipboard` | Copied an object to the user's keyboard |
 | `Create Custom Theme` | Created a custom theme using the built-in theme creator |
+| `Create Project Prompt Submitted` | User submitted a prompt from the create project view |
+| `Create Project Prompt Submitted Content` | User submitted custom prompt content from the create project view |
 | `Custom Secret Regex Added` | Custom Secret Regex Added |
 | `Database Read Error` | Database read error when trying to get app state for session restoration |
 | `Database Startup Error` | Failed to initialize sqlite upon startup |
@@ -222,11 +230,15 @@ If you're a [Team](../knowledge-and-collaboration/teams.md) admin, the deletion 
 | `Experiment Triggered` | User assigned to A/B test |
 | `Export Object` | Exported a Warp Drive object |
 | `Features Page Action` | Changed settings in Features Page |
+| `File Tree Toggled` | Opened the file tree/project explorer |
+| `FileTree.AttachedAsContext` | Attached a file or directory as context from the file tree |
+| `FileTree.ItemCreated` | Created a new file from the file tree |
 | `Find Option Toggled` | Changed settings in Find Toggle |
 | `Focused Config in Settings Import` | Selected a terminal in the settings import onboarding block |
 | `Generate Block Sharing Link` | Generated Block sharing link |
 | `Generate Metadata For Workflow Error` | Failed to generate metadata for a workflow using Warp AI |
 | `Generate Metadata For Workflow Success` | Successfully generated metadata for a workflow using Warp AI |
+| `Get Started Skip to Terminal` | User clicked skip to terminal from get started view |
 | `ITerm Profile has Multiple Hotkeys` | Attempted to import an iTerm profile that contained multiple hotkey window bindings |
 | `Identified Antivirus Software` | Identified running antivirus software on the user's machine |
 | `Image Received` | Received an image through an image protocol over the pty |
@@ -419,7 +431,6 @@ If you're a [Team](../knowledge-and-collaboration/teams.md) admin, the deletion 
 | `Tried to Execute Before Precmd` | Attempted to execute command before precmd, a shell stage that has metadata on a command such as ssh, prompt info, etc. |
 | `Trigger Subshell Bootstrap` | Attempted to Warpify the current session via Warp's subshell wrapper |
 | `Triggered Command XRay` | Triggered Command X-Ray (hovering over a command for explanation) |
-| `Try Agent Mode Banner Shown` | Try Agent Mode banner shown |
 | `Unable to Update To New Version` | Update available but not authorized to install |
 | `Undo Close` | Re-opened a closed tab or window (undo closing a tab or window) |
 | `Unhandled Editor Modifier Key` | Used modifier keybinding keystroke which is not currently supported |
