@@ -44,14 +44,15 @@ Warp parses relative and absolute file paths. Warp also tries to capture line an
 * You can also Drag and drop a folder or file onto the Warp dock icon to open a new tab in this directory.
 * You can also right-click on a folder or file in Finder, then select Services, and "Open new Warp Tab | Window here".
 * Configure the default editor to open files by navigating to `Settings > Features > Choose an editor to open file links`.
-  * Selecting "Default App" uses your system's default application for the file type.&#x20;
+  * Selecting "Default App" uses your system's default application for the file type.
 
 #### List of supported editors
 
 Non exhaustive list of editors, please submit new ones on our GitHub, see [Sending Feedback](../../support-and-billing/sending-us-feedback.md#sending-warp-feedback).
 
-1. Visual Studio Code
-2. JetBrains IDEs
+1. `$EDITOR`  &#x20;
+2. Visual Studio Code
+3. JetBrains IDEs
    * WebStorm
    * PhpStorm
    * GoLand
@@ -60,15 +61,11 @@ Non exhaustive list of editors, please submit new ones on our GitHub, see [Sendi
    * DataSpell
    * Rider
    * RubyMine
-3. Zed
-4. Cursor
-5. Windsurf
-6. Sublime Text
-7. Android Studio
-
-{% hint style="info" %}
-Warp currently only supports GUI-based editors and not terminal-based editors like vim, nano, or helix. If you want to use a terminal-based editor, you would need to type `$EDITOR <path/to/file>` to open files with your default terminal editor.
-{% endhint %}
+4. Zed and Zed Preview
+5. Cursor
+6. Windsurf
+7. Sublime Text
+8. Android Studio
 
 <figure><img src="../../.gitbook/assets/files-links-demo.gif" alt=""><figcaption><p>Files &#x26; Links Demo</p></figcaption></figure>
 
