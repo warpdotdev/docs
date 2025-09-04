@@ -4,13 +4,13 @@ description: Use Warp Agents from the terminal.
 
 # Warp CLI
 
+{% hint style="warning" %}
+The Warp CLI under development, only available in [Warp Preview](../community/warp-preview-and-alpha-program.md#warp-preview), and only supports some operations. We welcome [feedback](../support-and-billing/sending-us-feedback.md#sending-warp-feedback) on how you're building with the CLI and on any missing functionality!
+{% endhint %}
+
 ## What is the Warp CLI?
 
 A limited subset of Warp's features are available through the command-line interface. This CLI is for building integrations with Warp's agents, though it's available from any terminal (including Warp!).
-
-{% hint style="info" %}
-The Warp CLI is in preview and only supports some operations. We welcome feedback on how you're building with the CLI and on any missing functionality!
-{% endhint %}
 
 ## Installing the CLI
 
