@@ -16,11 +16,25 @@ The Warp CLI is in preview and only supports some operations. We welcome feedbac
 
 The Warp CLI is automatically distributed with the Warp desktop app.
 
+{% tabs %}
+{% tab title="macOS" %}
 To add the Warp CLI to your `PATH`, open the [Command Palette](../terminal/command-palette.md) and choose the `Install Warp CLI Command` action. This will ask for administrator permissions to install the CLI into `/usr/local/bin`.
 
+You can then run the CLI using `warp` (if you've installed [Warp Preview](../community/warp-preview-and-alpha-program.md), use `warp-preview` rather than `warp`).
+{% endtab %}
+
+{% tab title="Windows" %}
 In the Warp installer, select `Add Warp to PATH`. If you are installing for all users, this will put the CLI on the system path. Otherwise, the CLI is only added to the path for your account.
 
+You can then run the CLI using `warp` (if you've installed [Warp Preview](../community/warp-preview-and-alpha-program.md), use `warp-preview` rather than `warp`).
+{% endtab %}
+
+{% tab title="Linux" %}
 To run the Warp CLI on Linux, use the same command that you'd use to start Warp normally. If you installed Warp via a package manager, it should already be on the system `PATH`.
+
+You can then run the CLI using `warp-terminal` (if you've installed [Warp Preview](../community/warp-preview-and-alpha-program.md), use `warp-terminal-preview` rather than `warp`).
+{% endtab %}
+{% endtabs %}
 
 We are also working on a standalone distribution of the CLI for headless and resource-constrained systems.
 
