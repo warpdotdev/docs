@@ -8,6 +8,12 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2025.09.03 (v0.2025.09.03.08.11)
+
+**Improvements**
+
+* Added support for rendering H4-H6 in markdown.
+
 ### 2025.09.01 (v0.2025.09.01.20.54)
 
 **New features**
@@ -22,13 +28,13 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 * Voice transcriptions are no longer cut off when unfocusing an input editor.
 * You can now select the $EDITOR environment variable as the default application for opening file links.
 * Added new header treatment for unfocused Warp windows.
-* [Mac] A new dock icon option to celebrate Code Country - the Cow icon! (`Appearance > Icon` to change)
+* \[Mac] A new dock icon option to celebrate Code Country - the Cow icon! (`Appearance > Icon` to change)
 * Pasting images in the terminal input switches to Agent mode and attaches the image as context.
 * Added support for the Streamable HTTP transport for MCP servers.
 
 **Bug fixes**
 
-* [Windows/Linux] Fixed keybinding conflict for split pane down action for the Input, when a code diff is not active.
+* \[Windows/Linux] Fixed keybinding conflict for split pane down action for the Input, when a code diff is not active.
 * Fixed tab tooltips displaying unwanted leading and trailing whitespace.
 * Pressing the up key while the model picker is open no longer opens the command history. Opening the model picker while the command history is open now closes the command history.
 
