@@ -107,7 +107,7 @@ Unused AI requests do not rollover to the next cycle and can't be transferred to
 
 ### What happens if my payment fails?
 
-If a payment fails, you will receive an email from Stripe and your Warp Team Settings will show a past-due alert. Certain paid plan features and the ability to invite new members will be locked down while your Team is in a past-due state. Paying the most recent invoice through the [billing portal](https://app.warp.dev/upgrade) will fully re-enable your paid plan features.
+If a payment fails, you will receive an email from Stripe and your Warp Team Settings will show a past-due alert. Certain paid plan features and the ability to invite new members will be locked down while your Team is in a past-due state. Paying the most recent invoice through the billing portal by going to `Settings > Billing and usage > Manage billing` will fully re-enable your paid plan features.
 
 ### What counts as an AI request?
 
@@ -196,7 +196,7 @@ At this time, we do not support ACH transfers, checks, cash, money orders, or cr
 
 ### How do I cancel my subscription?
 
-You can cancel at any point throughout your subscription by going to `Settings > Billing and usage > Manage billing` or by going directly to the [billing portal](https://app.warp.dev/upgrade). Cancelled subscriptions will remain active until the end of the billing cycle.
+You can cancel at any point throughout your subscription through the billing portal by going to `Settings > Billing and usage > Manage billing`. Cancelled subscriptions will remain active until the end of the billing cycle.
 
 ### How do I get a refund?
 
