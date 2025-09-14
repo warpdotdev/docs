@@ -126,6 +126,7 @@
 * [Model Context Protocol (MCP)](knowledge-and-collaboration/mcp.md)
 * [Rules](knowledge-and-collaboration/rules.md)
 * [Teams](knowledge-and-collaboration/teams.md)
+* [Admin Panel](knowledge-and-collaboration/admin-panel.md)
 * [Session Sharing](knowledge-and-collaboration/session-sharing.md)
 
 ## Developers
