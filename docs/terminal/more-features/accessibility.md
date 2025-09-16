@@ -8,7 +8,7 @@ description: >-
 # Accessibility
 
 {% hint style="info" %}
-Note that currently, these instructions are for macOS only. We don't yet fully support screenreaders or a11y on Linux.
+Note that currently, these instructions are for macOS only. Warp doesn't support screen readers on Linux or Windows and it's being tracked here: [https://github.com/warpdotdev/Warp/issues/3847](https://github.com/warpdotdev/Warp/issues/3847)
 {% endhint %}
 
 We recognize the need to improve the experience for those visually impaired, as - to our best knowledge - other terminal emulator apps didn't do a good job in this area. This doc summarizes what we've done so far, how Warp works with VoiceOver, and outlines the main changes from the typical workflow. For the features documentation and its keyboard shortcuts, please go to the feature-specific page in the documentation.
