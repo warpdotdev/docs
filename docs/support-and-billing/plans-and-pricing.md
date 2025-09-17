@@ -14,7 +14,7 @@ This article covers common questions about upgrading, managing billing, refunds,
 
 ## Warp’s Refund Policy
 
-If you believe you signed up for a paid Warp subscription in error, please contact us at [billing@warp.dev](mailto:billing@warp.dev). We’ll happily refund the full amount if you downgrade within **72 hours of starting a monthly plan** or within **30 days of starting an annual plan**.
+If you believe you signed up for a paid Warp subscription in error, please contact us at [billing@warp.dev](mailto:billing@warp.dev). We’ll happily refund the full amount if you downgrade within **72 hours of starting a monthly plan** or **30 days of starting an annual plan** and **less than the Free plan AI requests (150) used**. If you use more requests than allowed and are on the annual plan, we are unable to refund the current month, but will refund future months.
 
 We also may choose to offer refunds, on a case-by-case basis, if a severe product defect or problem with uptime availability occurs. While Warp does not yet provide a formal guaranteed uptime SLA, you can monitor live incidents on our [**Status Page**](https://status.warp.dev/) and track open issues on our [**GitHub Issues**](https://github.com/warpdotdev/Warp/issues). To request a refund, please email [billing@warp.dev](mailto:billing@warp.dev) with detailed information about your situation—the more context you provide, the faster we can resolve your request.
 
@@ -203,6 +203,10 @@ You can cancel at any point throughout your subscription through the billing por
 For monthly subscriptions, we in general do not issue refunds. Please see [Warp's Refund Policy](plans-and-pricing.md#warps-refund-policy) for details and exceptions.&#x20;
 
 You can remove the users you do not want to pay for in `Settings > Teams > Team Members`. Prorated refunds are issued as Warp credit, not cash.
+
+### Why doesn't my promo code work or why was it disabled?
+
+Warp's promotions are a way to try Warp before committing to a subscription, not get unlimited free or inexpensive AI. In order to prevent abuse, we're limiting promotion codes to first-time redemptions only. So each account can only use one promotion code. We also reserve the right to disable any promotion codes at any time and remove the associated subscriptions if we find that the code was being abused.&#x20;
 
 ### How can I subscribe to Warp as tax exempt?
 
