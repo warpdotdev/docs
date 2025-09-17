@@ -154,5 +154,5 @@
 * [Using Warp Offline](support-and-billing/using-warp-offline.md)
 * [Logging Out & Uninstalling](support-and-billing/uninstalling-warp.md)
 * [Known Issues](support-and-billing/known-issues.md)
-* [Troubleshooting Login Issues](support-and-billing/troubleshooting-login-issues.md)
+* [Troubleshooting Login](support-and-billing/troubleshooting-login-issues.md)
 * [Open Source Licenses](support-and-billing/licenses.md)

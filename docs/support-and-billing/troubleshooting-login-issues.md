@@ -2,9 +2,9 @@
 description: Instructions on how to troubleshoot login issues.
 ---
 
-# Troubleshooting Login Issues
+# Troubleshooting Login
 
-### Can't sign up for or log into Warp
+## Can't sign up for or log into Warp
 
 Clicking it should open a signup or login pop-up. If clicking the button opens a blank pop-up window, try using a proxy. Your ISP or Firewall may be blocking the app's call to `*.googleapis.com`.
 
@@ -12,7 +12,7 @@ Clicking it should open a signup or login pop-up. If clicking the button opens a
 In some older Ruby development environments, `.dev` domains do not resolve properly and you may need to delete the `/etc/resolver/dev`, see more [here](https://superuser.com/questions/1374892/dev-domains-dont-resolve).
 {% endhint %}
 
-### All browsers
+## All browsers
 
 This error could occur if you installed an ad blocker or have stale browser cookies, including our Firebase auth pop-up. **To fix it:**
 
@@ -20,7 +20,7 @@ This error could occur if you installed an ad blocker or have stale browser cook
 2. Clear any cookies and cache, or open a incognito / private browser window
 3. Try [http://app.warp.dev/login](http://app.warp.dev/login) again
 
-## Safari
+### Safari
 
 You are on Safari and you might notice in your console that you get the following messages:
 
@@ -32,7 +32,7 @@ This error occurs likely because you are blocking all cookies in Safari's securi
 1. Go to Safari Preferences > Privacy
 2. Uncheck the "Block all cookies" checkbox
 
-### Proxies
+## Proxies
 
 When behind a proxy, a possible workaround is to disable QUIC in the browser. It will then fall back to TCP and likely allow login.
 
@@ -48,16 +48,26 @@ When behind a proxy, a possible workaround is to disable QUIC in the browser. It
   4. Restart Firefox for the changes to take effect.
 * In Safari, Unfortunately, there is no built-in option to disable QUIC in Safari. Safari uses QUIC as its default transport protocol and does not provide a user-accessible setting to disable it.
 
+## SSO login
+
 ### Can't open Warp from SSO
 
 Directly launching Warp from Okta or other SSO providers' pages isn’t supported. This is due to a limitation with Warp authentication APIs. Instead, do the following:
 
-1. [Install and run Warp](../#installing-and-running-warp)
-2. Go to [app.warp.dev/login](http://app.warp.dev/login)
-3. Choose “Continue with SSO”
-4. Login with your normal SSO credentials
+1. Go to [app.warp.dev/login](http://app.warp.dev/login)
+2. Choose “Continue with SSO”
+3. Login with your normal SSO credentials
 
-### How to get an Auth token to login
+### I logged in with another method before and now can't use SSO
+
+In cases where you logged in with another method, please do the following to fix SSO login:
+
+1. Go to [app.warp.dev/login](http://app.warp.dev/login)
+2. Login with the original method that you used to create your Warp account (email, Google, Github).
+3. Once logged in, go to [app.warp.dev/link\_sso](https://app.warp.dev/link_sso)
+4. This should link your login to SSO. You can now proceed to login with "Continue with SSO".
+
+## How to get an Auth token to login
 
 If the browser does not open from Warp directly when you click "Sign up" or "Sign in". Please go to the [Signup ](https://app.warp.dev/signup)page to create an account or [Login](https://app.warp.dev/login) page if you already have one, then copy the auth token from the "here" link on the logged\_in page and paste it into Warp.
 
@@ -75,6 +85,6 @@ On Linux and WSL you should install and set your default `$BROWSER` to `brave-br
 
 If "Take me to Warp" is still not working it may be due to a [proxy issue](troubleshooting-login-issues.md#proxies), please see this article for more information on a workaround [here](https://embiid.blog/post/WARP-does-not-work-after-submitting-an-invite-code/).
 
-### Get help with login issues
+## Get help with login issues
 
 If Sign Up or Login does not work after trying the steps above, fill out [this Typeform](https://warpdotdev.typeform.com/to/UnZu0akR?question=sign_up?utm_source=docs) and our team will reach out to you.
