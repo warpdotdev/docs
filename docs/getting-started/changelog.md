@@ -8,6 +8,26 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2025.09.10 (v0.2025.09.10.08.11)
+
+**Improvements**
+
+* Added support for ignoring input suggestions. Click the X next to an item in your up-arrow history menu to hide that from showing up again. You can also enable the `Show autosuggestion ignore button` setting to add an X to autosuggestions directly in your input.
+* Git UI detects more changes in git worktrees.
+* You can now rename/delete items in the file picker and open them with the system file explorer.
+* Combine "refine" and "cancel" buttons into a single "reject" button. This lets you give feedback on code diffs, commands, and plans with a single button.
+* You can now switch node versions by clicking on the node version chip.
+* Added a "New Agent" button to the agent management panel to start a new agent conversation more easily."
+
+**Bug fixes**
+
+* Fixed an issue where agent output in a code block could be inserted at the wrong place.
+* Fixed code review diff buttons incorrectly receiving mouse events.
+* Avoid auto-expanding an agent's requested commands while you are using voice dictation.
+* Add back the auto-approve button for classic input mode.
+* Fixed keyboard navigation of chip menus in the input while an agent is running.
+* Properly reset context when user sends query to agent.
+
 ### 2025.09.03 (v0.2025.09.03.08.11)
 
 **Improvements**

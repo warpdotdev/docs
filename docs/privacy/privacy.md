@@ -164,6 +164,7 @@ If you're a [Team](../knowledge-and-collaboration/teams.md) admin, the deletion 
 | `Bootstrapping Succeeded` | Successful bootstrap for session |
 | `CLI.Execute.Agent.Profile.List` | Listed agent profiles from the Warp CLI |
 | `CLI.Execute.Agent.Run` | Ran an agent from the Warp CLI |
+| `CLI.Execute.Login` | Logged in via the Warp CLI |
 | `CLI.Execute.MCP.List` | Listed MCP servers from the Warp CLI |
 | `Changed invite view option` | Toggled between link and invite for invite |
 | `Clicked Continue Conversation Button` | User clicked the Continue Conversation button in a block footer |
@@ -172,8 +173,10 @@ If you're a [Team](../knowledge-and-collaboration/teams.md) admin, the deletion 
 | `Code Pane Opened` | Opened the code editor pane from various sources |
 | `CodeReview.AddToContext` | Content added to AI context from code review |
 | `CodeReview.BaseChanged` | Diff base changed in code review |
+| `CodeReview.CalculateDiffMetadataFailed` | Failure when calculating diff metadata |
 | `CodeReview.FileOpenedInWarpEditor` | File opened in new Warp editor tab |
 | `CodeReview.FileSaved` | File saved in code review pane |
+| `CodeReview.LoadDiffFailed` | Failure when loading diff content |
 | `CodeReview.PaneOpened` | Code review pane opened |
 | `CodeReview.PaneStateChanged` | Code review pane minimized or maximized |
 | `CodeReview.RevertHunkClicked` | Revert hunk button clicked |
@@ -227,7 +230,6 @@ If you're a [Team](../knowledge-and-collaboration/teams.md) admin, the deletion 
 | `Enable Alias Expansion From Banner` | Enabled automatic alias expansion within the Input Editor from the banner |
 | `Expanded Code Suggestion` | Expanded the passive code diff suggestion |
 | `Expensive Frame` | Frame took long time to draw (past a certain threshold) |
-| `Experiment Triggered` | User assigned to A/B test |
 | `Export Object` | Exported a Warp Drive object |
 | `Features Page Action` | Changed settings in Features Page |
 | `File Tree Toggled` | Opened the file tree/project explorer |
@@ -303,6 +305,7 @@ If you're a [Team](../knowledge-and-collaboration/teams.md) admin, the deletion 
 | `Open Launch Config File` | Opened the launch config YAML file from modal once saved successfully |
 | `Open Palette` | Opened the palette |
 | `Open Quake Mode Window` | Toggled quake mode window when previously hidden or closed |
+| `Open Repo Folder Submitted` | User selected a folder to open as a repo from the "Open repository" button |
 | `Open Save Config Modal` | Opened save launch configuration modal |
 | `Open Slash Menu` | Opened the slash commands menu |
 | `Open Suggestions Menu` | Opened a suggestion menus, such as with up arrow or tab |
@@ -331,6 +334,7 @@ If you're a [Team](../knowledge-and-collaboration/teams.md) admin, the deletion 
 | `Quit Modal Disabled` | The quit modal dialog has been disabled and will not popup when a user closes Warp while a session is running |
 | `Quit Modal Shown` | Showed an alert modal to warn the user about closing the app/window with a running process |
 | `Received Subshell RC File DCS` | Spawned a subshell to be automatically Warpified |
+| `Recent Menu Item Selected` | User selected an item from the recents list on the new tab zero state |
 | `Remove Added Subshell Command` | Removed a command from the list of commands to automatically Warpify via Warp's subshell wrapper |
 | `Remove Denylisted SSH Tmux Wrapper Host` | Removed an SSH host from the denylist from prompting for Tmux Wrapper |
 | `Remove Denylisted Subshell Command` | Removed a command from the list of commands to IGNORE when trying to Warpify via Warp's subshell wrapper |
@@ -457,6 +461,7 @@ If you're a [Team](../knowledge-and-collaboration/teams.md) admin, the deletion 
 | `Workflow Executed` | Executed workflow |
 | `Workflow Selected` | Selected workflow and populated into the Input Editor |
 | `Zero State Prompt Suggestion Used` | Used a zero state prompt suggestion |
+| `experiments.client.enroll_client` | Client assigned to A/B test |
 | `perf_metrics.memory_usage_high` | Total application memory usage exceeded a significant threshold |
 | `perf_metrics.resource_usage` | Periodic report on application resource usage statistics |
 
