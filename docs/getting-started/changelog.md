@@ -8,6 +8,31 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2025.09.17 (v0.2025.09.17.08.11)
+
+**New Features**
+
+* Warp agents are now available via the command line! [Learn more](https://docs.warp.dev/developers/cli)
+* Added support for custom Regex names in Enterprise Secret Redaction.
+
+**Improvements**
+
+* The @ context menu can now be activated outside of Git repositories (for actions such as attaching blocks/workflows), when in autodetection or AI input mode.
+* move the auto-approve button alongside the agent "stop" button for easier access.
+* Move the "stop" button alongside the "Warping..." indicator. This restores the "stop" button to classic input users, and offers a more intuitive experience for universal input users.
+* Added right-click context menu to code review pane with split pane controls.
+* Files selected in the file tree now open in a preview mode until interacted with.
+* Warp's agent now shows reasoning traces from reasoning models.
+* Ctrl-c during a long running command run by the agent will also stop the agent, not just the command.
+
+**Bug Fixes**
+
+* Fixed nested lists in agent markdown output sometimes not rendering properly.
+* Fix slow scrolling on macOS Tahoe.
+* Fix todo lists overflowing off of the screen for 10 or more items.
+* Fix code review maximize button appearing outside of split pane mode.
+* Fix the stop button unexpectedly disappearing when accepting the "start a new conversation" suggestion.
+
 ### 2025.09.10 (v0.2025.09.10.08.11)
 
 **Improvements**
