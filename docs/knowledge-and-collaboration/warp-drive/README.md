@@ -135,7 +135,7 @@ To share a Drive object, navigate to the object's overflow menu, and choose "Cop
 In order to access an object, link-followers must have permission to open it through one of the sharing methods above. If they do not have permission, they can automatically request access from the object owner or team admin.
 {% endhint %}
 
-<figure><img src="../../docs/.gitbook/assets/wd-copy-link-menu.png" alt="" width="216"><figcaption><p>Copy link Menu Item</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/wd-copy-link-menu.png" alt="" width="216"><figcaption><p>Copy link Menu Item</p></figcaption></figure>
 
 ### Managing Permissions
 

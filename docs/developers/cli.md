@@ -5,7 +5,7 @@ description: Use Warp Agents from the terminal.
 # Warp CLI
 
 {% hint style="warning" %}
-The Warp CLI under development, only available in [Warp Preview](../community/warp-preview-and-alpha-program.md#warp-preview), and only supports some operations. We welcome [feedback](../support-and-billing/sending-us-feedback.md#sending-warp-feedback) on how you're building with the CLI and on any missing functionality!
+The Warp CLI under development and only supports some operations. We welcome [feedback](../support-and-billing/sending-us-feedback.md#sending-warp-feedback) on how you're building with the CLI and on any missing functionality!
 {% endhint %}
 
 ## What is the Warp CLI?
@@ -14,29 +14,77 @@ A limited subset of Warp's features are available through the command-line inter
 
 ## Installing the CLI
 
+There are two ways to install the CLI:
+1. Installing the CLI as part of Warp
+2. Installing the CLI as a standalone package
+
+### Bundled with Warp
+
 The Warp CLI is automatically distributed with the Warp desktop app.
 
 {% tabs %}
 {% tab title="macOS" %}
 To add the Warp CLI to your `PATH`, open the [Command Palette](../terminal/command-palette.md) and choose the `Install Warp CLI Command` action. This will ask for administrator permissions to install the CLI into `/usr/local/bin`.
-
-You can then run the CLI using `warp` (if you've installed [Warp Preview](../community/warp-preview-and-alpha-program.md), use `warp-preview` rather than `warp`).
 {% endtab %}
 
 {% tab title="Windows" %}
 In the Warp installer, select `Add Warp to PATH`. If you are installing for all users, this will put the CLI on the system path. Otherwise, the CLI is only added to the path for your account.
-
-You can then run the CLI using `warp` (if you've installed [Warp Preview](../community/warp-preview-and-alpha-program.md), use `warp-preview` rather than `warp`).
 {% endtab %}
 
 {% tab title="Linux" %}
 To run the Warp CLI on Linux, use the same command that you'd use to start Warp normally. If you installed Warp via a package manager, it should already be on the system `PATH`.
-
-You can then run the CLI using `warp-terminal` (if you've installed [Warp Preview](../community/warp-preview-and-alpha-program.md), use `warp-terminal-preview` rather than `warp`).
 {% endtab %}
 {% endtabs %}
 
-We are also working on a standalone distribution of the CLI for headless and resource-constrained systems.
+### Standalone
+
+On macOS and Linux, Warp provides standalone packages for the CLI, without the full Warp desktop application.
+
+{% tabs %}
+{% tab title="macOS" %}
+On macOS, the recommended way to install and update the CLI is with [Homebrew], using the [`warpdotdev/warp` tap](https://github.com/warpdotdev/homebrew-warp).
+
+```sh
+$ brew tap warpdotdev/warp
+$ brew update
+$ brew install --cask warp-cli
+```
+
+To install Warp Preview, use `brew install --cask warp-cli@preview`.
+
+You can also download the CLI directly from these URLs, though it will not auto-update:
+* [Apple Silicon](https://app.warp.dev/download/cli?os=macos&package=tar&arch=aarch64)
+* [Intel](https://app.warp.dev/download/cli?os=macos&package=tar&arch=x86_64)
+* [Apple Silicon, Warp Preview](https://app.warp.dev/download/cli?os=macos&channel=preview&package=tar&arch=aarch64)
+* [Intel, Warp Preview](https://app.warp.dev/download/cli?os=macos&channel=preview&package=tar&arch=x86_64)
+{% endtab %}
+{% tab title="Linux" %}
+On Linux, the recommended way to install and update the CLI is through your distribution's package manager. See the [installation instructions](../getting-started/quickstart-guide/installation-and-setup.md) for how to add the distribution-specific Warp package repositories. We support `apt`, `yum`, and `pacman`.
+
+Once the Warp package repository is added, you can install `warp-cli` or `warp-cli-preview` packages (for example, `apt install warp-cli`).
+
+You can also download and install packages directly, which will automatically add the Warp repository:
+* [x86-64 `.deb` package](https://app.warp.dev/download/cli?os=linux&package=deb&arch=x86_64)
+* [x86-64 `.rpm` package](https://app.warp.dev/download/cli?os=linux&package=rpm&arch=x86_64)
+* [x86-64 pacman package](https://app.warp.dev/download/cli?os=linux&package=pacman&arch=x86_64)
+* [aarch64 `.deb` package](https://app.warp.dev/download/cli?os=linux&package=deb&arch=aarch64)
+* [aarch64 `.rpm` package](https://app.warp.dev/download/cli?os=linux&package=rpm&arch=aarch64)
+* [aarch64 pacman package](https://app.warp.dev/download/cli?os=linux&package=pacman&arch=aarch64)
+{% endtab %}
+{% endtabs %}
+
+## Running the CLI
+
+The command to run the Warp CLI depends on your OS, whether you installed the CLI as part of Warp or separately, and whether you're using the stable build or [Warp Preview](../community/warp-preview-and-alpha-program.md).
+
+| OS      | Installation Method |    CLI Command |   CLI Command (Preview) |
+|---------|---------------------|----------------|-------------------------|
+| macOS   | Standalone          |         `warp` |          `warp-preview` |
+| macOS   | Bundled             |         `warp` |          `warp-preview` |
+| Linux   | Standalone          |     `warp-cli` |      `warp-cli-preview` |
+| Linux   | Bundled             | `warp-terminal`| `warp-terminal-preview` |
+| Windows | Standalone          |          N/A   |                     N/A |
+| Windows | Bundled             |         `warp` |          `warp-preview` |
 
 ## Getting help
 
@@ -55,6 +103,12 @@ Commands:
 Options:
   -h, --help  Print help
 ```
+
+## Logging in
+
+If you use the CLI on a host where you've already logged in to Warp, it will reuse your existing credentials.
+
+To set up the CLI on a remote host, use the `warp login` command (replace `warp` with the appropriate command name for your installation method in the table above). This prints out a URL that you can open in a browser on another computer to sign in to Warp.
 
 ## Running agents
 
@@ -91,24 +145,108 @@ Next steps:
 Tell me which of the above you’d like me to do and I’ll proceed.
 ```
 
-The agent will automatically carry out the task you gave it, printing out tool calls and responses as it works. If you're using the CLI that's bundled with the Warp app, you can also follow along in the graphical interface with the `--gui` flag.
+The agent will automatically carry out the task you gave it, printing out tool calls and responses as it works.
+
+By default, the agent runs in your current working directory. To run from a different directory, use the `-C/--cwd` flag.
+
+## Using saved prompts
+
+Instead of typing out a prompt, you can reference [saved prompts](../knowledge-and-collaboration/warp-drive/prompts.md) using the `--saved-prompt` flag:
+
+```sh
+$ warp agent run --saved-prompt sgNpbUgDkmp2IImUVDc8kR
+...
+```
 
 {% hint style="info" %}
-Tip: create a dedicated Agent Profile for CLI usage. The CLI cannot ask you for approval, so use profiles to allow access to specific commands and directories.
+The ID of a saved prompt will be the last part of its [URL](../knowledge-and-collaboration/warp-drive/README.md#sharing-a-drive-object-using-links).
+For example, in the Warp Drive URL `https://staging.warp.dev/drive/prompt/Fix-compiler-error-sgNpbUgDkmp2IImUVDc8kR`, the ID is `sgNpbUgDkmp2IImUVDc8kR`.
 {% endhint %}
 
-## Using MCP servers
+## Referencing Warp Drive objects
 
-For robustness, the Warp CLI identifies MCP servers by auto-generated stable IDs. To get the ID of an MCP server, you can either:
+This prompt can include [Warp Drive objects](../knowledge-and-collaboration/warp-drive/README.md) and [rules](../knowledge-and-collaboration/rules.md) as attached context, using the syntax `<workflow:id>`, `<notebook:id>`, or `<rule:id>`. To quickly create these references, use the [@ context menu](../agents/using-agents/agent-context/using-to-add-context.md) in Warp to construct a prompt, and then copy it into your CLI command.
 
-* Use the `warp mcp list` command
-* Copy the ID from the MCP server's settings page
-
-To start an agent with an MCP server, add the `--mcp-server <server id>` flag. If you have Warp installed on multiple machines, MCP server configurations are automatically synced, but any necessary server programs must be installed on each one.
+```sh
+$ warp agent run --prompt "Follow the instructions in <notebook:gq1CMAUWLtaL1CpEoTDQ3y>"
+...
+```
 
 ## Using agent profiles
 
-1. Create an [agent profile](../agents/using-agents/agent-profiles-permissions.md) and use the `warp agent profile list` command to get its stable ID.
-2. Use the `--profile <profile id>` flag to select the profile.
+The Warp CLI uses [agent profiles](../agents/using-agents/agent-profiles-permissions.md) to customize how the agent behaves. To use different models, autonomy behavior, or MCP servers, create a new profile. Agent profiles are automatically synced to each host that you have Warp installed on, so you can still use them remotely.
 
-Agent profiles are automatically synced to each machine that you have Warp installed on.
+{% hint style="info" %}
+Tip: create a dedicated profile for CLI usage. The CLI will fail if it tries to execute a prohibited action, so make sure your profile allows the directories, commands, and MCP servers that you'd like the agent to use.
+{% endhint %}
+
+To use an agent profile with the CLI, first get its ID using the `warp agent profile list` command:
+
+```sh
+$ warp agent profile list
++--------------+------------------------+
+| Name         | ID                     |
++=======================================+
+| Default      | AnTb02PZfrkVC9l4V15eH1 |
+|--------------+------------------------|
+| Coding       | CWhozDJPdPCsjJ1pSG0HCN |
+|--------------+------------------------|
+| Command Line | hV6n5dNm7ThQVlOiPF8DLS |
++--------------+------------------------+
+```
+
+Then, select that profile using the `--profile` flag:
+
+```sh
+$ warp agent run --profile CWhozDJPdPCsjJ1pSG0HCN --prompt "update my CI pipeline to use nextest"
+...
+```
+
+## Using MCP servers
+
+The CLI can use any [MCP server](../knowledge-and-collaboration/mcp.md) that you've configured. There are two ways to start MCP servers with the agent:
+
+1. If the selected agent profile allows _specific_ MCP servers, they will start automatically.
+2. If the selected agent profile allows _any_ MCP server, you must specify the ones to start using the `--mcp-server` flag.
+
+Make sure that your agent profile includes the MCP servers that you want to use!
+
+To start specific MCP servers, you'll need their ID. To get MCP server IDs, use `warp mcp list`:
+
+```sh
+$ warp mcp list
++--------------------------------------+--------+
+| UUID                                 | Name   |
++===============================================+
+| 1deb1b14-b6e5-4996-ae99-233b7555d2d0 | github |
+|--------------------------------------+--------|
+| 65450c32-9eb1-4c57-8804-0861737acbc4 | linear |
+|--------------------------------------+--------|
+| d94ade64-0e73-47a6-b3ee-14e5afec3d90 | Sentry |
++--------------------------------------+--------+
+```
+
+You can also copy the server ID from the MCP servers page:
+
+<figure><img src="../.gitbook/assets/mcp-server-id.png" alt=""><figcaption><p>MCP servers page, showing a server with its UUID</p></figcaption></figure>
+
+Then, run an agent like this:
+
+```sh
+$ warp agent run --mcp-server "1deb1b14-b6e5-4996-ae99-233b7555d2d0" --prompt "who last updated the README?"
+...
+```
+
+{% hint style="warning" %}
+While Warp syncs MCP server configuration between hosts, it **does not** sync environment variables. You'll have to set any required MCP environment variables when running the agent on a remote host.
+{% endhint %}
+
+```sh
+export MY_MCP_SERVER_ACCESS_TOKEN="..."
+$ warp agent run --mcp-server "904a8936-fa82-4571-b1d6-166c26197981" --prompt "use my MCP server to check for errors"
+...
+```
+
+{% hint style="info" %}
+Tip: consider using a password or secret manager CLI, such as [`op`](https://developer.1password.com/docs/cli/get-started/), [`pass`](https://www.passwordstore.org/), or [`gcloud secrets versions access`](https://cloud.google.com/secret-manager/docs/create-secret-quickstart#secretmanager-quickstart-gcloud) to fetch MCP secrets on remote hosts.
+{% endhint %}
