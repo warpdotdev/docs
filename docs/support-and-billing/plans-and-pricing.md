@@ -14,7 +14,12 @@ This article covers common questions about upgrading, managing billing, refunds,
 
 ## Warp’s Refund Policy
 
-If you believe you signed up for a paid Warp subscription in error, please contact us at [billing@warp.dev](mailto:billing@warp.dev). We’ll happily refund the full amount if you downgrade within **72 hours of starting a monthly plan** or **30 days of starting an annual plan** and **less than the Free plan AI requests (150) used**. If you use more requests than allowed and are on the annual plan, we are unable to refund the current month, but will refund future months.
+If you signed up for a paid Warp subscription by mistake, please contact us at **billing@warp.dev**. We’ll issue a full refund if you downgrade within:
+
+* **72 hours** of starting a monthly plan, or
+* **30 days** of starting an annual plan,
+
+provided you’ve used fewer than **150 AI requests** (the Free plan limit). If you exceed that limit on an annual plan, we cannot refund the current month, but we will refund any unused future months.
 
 We also may choose to offer refunds, on a case-by-case basis, if a severe product defect or problem with uptime availability occurs. While Warp does not yet provide a formal guaranteed uptime SLA, you can monitor live incidents on our [**Status Page**](https://status.warp.dev/) and track open issues on our [**GitHub Issues**](https://github.com/warpdotdev/Warp/issues). To request a refund, please email [billing@warp.dev](mailto:billing@warp.dev) with detailed information about your situation—the more context you provide, the faster we can resolve your request.
 
