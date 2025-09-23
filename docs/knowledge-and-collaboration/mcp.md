@@ -92,6 +92,17 @@ After MCP servers are registered in Warp, you can **Start** or **Stop** them fro
 
 You can rename and edit a server's name, as well as delete the server. To prevent Warp from automatically starting a server when you open Warp, set the `"start_on_launch"` value to `false` in the server's JSON configuration.
 
+### Authentication in MCP servers
+
+Most MCP servers require authentication to connect to external services. Warp supports two main methods:
+
+* **Environment variable tokens**: pass an API key or access token via the server's environment variables.
+* **OAuth login (one-click installation)**: simplifies configuration by handling authentication through your browser. Warp stores credentials securely on your device and reuses them for future sessions.
+  * Starting a server without existing credentials automatically opens a browser-based authentication flow.
+  * Credentials can be revoked at any time from the MCP Servers pane in Warp.
+
+Re-authentication is required when opening Warp on a new machine.
+
 ### Debugging MCP
 
 If you're having trouble with an MCP server, you can check the logs for any errors or messages to help you diagnose the problem by clicking the `View Logs` button on a server from the MCP servers page.
@@ -108,7 +119,7 @@ Tip: We've noticed that some models often work better with MCP servers than othe
 
 #### Debugging MCP Authentication issues
 
-In some cases you may need to reset the auth token for some MCP servers. To do this delete the local mcp auth files by running the following: `rm -rf ~/.mcp-auth`
+In some cases you may need to reset the auth token for some MCP servers. To do this delete the local MCP auth files by running the following: `rm -rf ~/.mcp-auth`
 
 {% hint style="warning" %}
 Note this will delete all your MCP auth tokens stored locally so you will need to login and re-authenticate.
@@ -258,44 +269,43 @@ Below are examples for popular Model Context Protocol (MCP) servers.
 {% endtab %}
 {% endtabs %}
 
-### **Collaboration & Design**
+### **Design & Collaboration**
 
 {% tabs %}
-{% tab title="Atlassian" %}
-[Atlassian MCP Docs](https://support.atlassian.com/rovo/docs/setting-up-ides/)
+{% tab title="Figma" %}
+#### **Figma Remote MCP Server (URL)**
 
-#### **Atlassian CLI Server (Command)**
+The official Figma remote MCP server supports OAuth for simple, one-click setup.
 
-```json
-{
-  "Atlassian": {
-    "command": "npx",
-    "args": ["-y", "mcp-remote", "https://mcp.atlassian.com/v1/sse"]
-  }
-}
-```
-{% endtab %}
+1. In Warp, go to `Warp Drive` > `MCP Servers` > `+ Add` and paste the configuration below.
+2. Warp will open a browser window to authenticate with Figma.
+3. After approving access, credentials are stored securely on your device.
 
-{% tab title="Notion" %}
-[Notion MCP Docs](https://notion.notion.site/Beta-Overview-Notion-MCP-206efdeead058060a59bf2c14202bd0a)
-
-#### **Notion CLI Server (Command)**
+{% hint style="info" %}
+Note: A Figma account with [Dev Mode](https://www.figma.com/dev-mode/) enabled is required.
+{% endhint %}
 
 ```json
 {
-  "Notion": {
-    "command": "npx",
-    "args": ["-y", "mcp-remote", "https://mcp.notion.com/mcp"]
+  "Figma": {
+    "url": "https://mcp.figma.com/mcp"
   }
 }
 ```
 
-#### **Notion SSE Server (URL)**
+#### **Figma Local SSE Server (URL)**
+
+1. Enable the Official Figma MCP Server. [Figma MCP Docs](https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Dev-Mode-MCP-Server)
+2. Open the [Figma desktop app](https://www.figma.com/downloads/) and make sure you’ve [updated to the latest version](https://help.figma.com/hc/en-us/articles/5601429983767-Guide-to-the-Figma-desktop-app#h_01HE5QD60DG6FEEDTZVJYM82QW).
+3. Create or open a Figma Design file.
+4. In the upper-left corner, open the Figma menu.
+5. Under **Preferences**, select **Enable local MCP Server**.
+6. Enter the following configuration into Warp > `Warp Drive` > `MCP Servers` > `+ Add`.
 
 ```json
 {
-  "Notion": {
-    "url": "https://mcp.notion.com/sse"
+  "Official Figma MCP (SSE)": {
+    "url": "http://localhost:3845/sse"
   }
 }
 ```
@@ -305,6 +315,8 @@ Below are examples for popular Model Context Protocol (MCP) servers.
 [Slack MCP Docs](https://github.com/korotovsky/slack-mcp-server/)
 
 #### **Slack CLI Server (Command)**
+
+Enter the following configuration into Warp > `Warp Drive` > `MCP Servers` > `+ Add`.
 
 ```json
 {
@@ -324,6 +336,8 @@ Below are examples for popular Model Context Protocol (MCP) servers.
 
 #### **Slack SSE Server (URL)**
 
+Enter the following configuration into Warp > `Warp Drive` > `MCP Servers` > `+ Add`.
+
 ```json
 {
   "Slack": {
@@ -333,42 +347,47 @@ Below are examples for popular Model Context Protocol (MCP) servers.
 ```
 {% endtab %}
 
-{% tab title="Figma" %}
-#### **Official Figma SSE Server (URL)**
+{% tab title="Atlassian" %}
+[Atlassian MCP Docs](https://support.atlassian.com/rovo/docs/setting-up-ides/)
 
-1. Enable the Official Figma MCP Server. [Figma MCP Docs](https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Dev-Mode-MCP-Server)
-2. Open the [Figma desktop app](https://www.figma.com/downloads/) and make sure you’ve [updated to the latest version](https://help.figma.com/hc/en-us/articles/5601429983767-Guide-to-the-Figma-desktop-app#h_01HE5QD60DG6FEEDTZVJYM82QW).
-3. Create or open a Figma Design file.
-4. In the upper-left corner, open the Figma menu.
-5. Under **Preferences**, select **Enable local MCP Server**.
-6. Enter the following configuration into Warp > Warp Drive > MCP Servers > +.
+#### **Atlassian CLI Server (Command)**
+
+Enter the following configuration into Warp > `Warp Drive` > `MCP Servers` > `+ Add`.
 
 ```json
 {
-  "Official Figma MCP (SSE)": {
-    "url": "http://localhost:3845/sse"
+  "Atlassian": {
+    "command": "npx",
+    "args": ["-y", "mcp-remote", "https://mcp.atlassian.com/v1/sse"]
+  }
+}
+```
+{% endtab %}
+
+{% tab title="Notion" %}
+[Notion MCP Docs](https://notion.notion.site/Beta-Overview-Notion-MCP-206efdeead058060a59bf2c14202bd0a)
+
+#### **Notion CLI Server (Command)**
+
+Enter the following configuration into Warp > `Warp Drive` > `MCP Servers` > `+ Add`.
+
+```json
+{
+  "Notion": {
+    "command": "npx",
+    "args": ["-y", "mcp-remote", "https://mcp.notion.com/mcp"]
   }
 }
 ```
 
-#### **3rd Party Figma CLI Server (Command)**
+#### **Notion SSE Server (URL)**
 
-1. Download and run the 3rd party Figma Context MCP server. [Figma-Context-MCP](https://github.com/GLips/Figma-Context-MCP)
-2. Generate a token with full read-only access in Figma > Settings > Security > Personal Access Token. [See steps](https://www.warp.dev/university/mcp/using-the-figma-mcp-server-to-code-designs)
-3. Enter the following configuration into Warp > Warp Drive > MCP Servers > +.
+Enter the following configuration into Warp > `Warp Drive` > `MCP Servers` > `+ Add`.
 
 ```json
 {
- "3rd Party Figma Context MCP (CLI)": {
-   "command": "npx",
-   "args": [
-     "-y",
-     "figma-developer-mcp",
-     "--stdio"
-     ],
-     "env": {
-       "FIGMA_API_KEY": "<YOUR_FIGMA_TOKEN>"
-    }
+  "Notion": {
+    "url": "https://mcp.notion.com/sse"
   }
 }
 ```
@@ -382,7 +401,6 @@ Below are examples for popular Model Context Protocol (MCP) servers.
 * [**GitHub**](https://www.warp.dev/university/mcp/using-github-mcp-server) — access repositories, issues, and pull requests through MCP.
 * [**Sentry**](https://www.warp.dev/university/mcp/using-sentry-mcp-server) — surface error monitoring and alerts as agent-usable data.
 * [**Linear**](https://www.warp.dev/university/mcp/connecting-warp-to-linear-via-mcp) — integrate project management tasks and tickets.
-* [**Figma**](https://www.warp.dev/university/mcp/using-the-figma-mcp-server-to-code-designs) — connect design files directly into your development environment.
 * [**Puppeteer**](https://www.warp.dev/university/mcp/using-puppeteer-mcp-server) — run automated browser workflows via MCP.
 * [**Context7**](https://www.warp.dev/university/mcp/using-context7-mcp-server) — experiment with external data integrations.
 
