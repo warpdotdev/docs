@@ -267,6 +267,29 @@ Below are examples for popular Model Context Protocol (MCP) servers.
 }
 ```
 {% endtab %}
+
+{% tab title="Chroma" %}
+#### **Chroma Package Search CLI Server (Command)**
+
+1. Visit Chroma's [Package Search](http://trychroma.com/package-search) page.
+2. Click "Get API Key" to create or log into your Chroma account and issue an API key for Package Search.
+3. After issuing your API key, click the "Other" tab and copy your API key.
+4. Add the following to your Warp MCP config. Make sure to click "Start" on the server after adding.
+
+More info in [Chroma's Package Search MCP Docs](https://docs.trychroma.com/cloud/package-search/mcp)
+
+```json
+{
+    "package-search": {
+      "command": "npx",
+      "args": ["mcp-remote", "https://mcp.trychroma.com/package-search/v1", "--header", "x-chroma-token: ${X_CHROMA_TOKEN}"],
+      "env": {
+        "X_CHROMA_TOKEN": "<YOUR_CHROMA_API_KEY>"
+      }
+    }
+}
+```
+{% endtab %}
 {% endtabs %}
 
 ### **Design & Collaboration**
