@@ -296,7 +296,7 @@ More info in [Chroma's Package Search MCP Docs](https://docs.trychroma.com/cloud
 
 {% tabs %}
 {% tab title="Figma" %}
-#### **Figma Remote MCP Server (URL)**
+#### **Figma Remote MCP Server (Recommended)**
 
 The official Figma remote MCP server supports OAuth for simple, one-click setup.
 
@@ -316,7 +316,7 @@ Note: A Figma account with [Dev Mode](https://www.figma.com/dev-mode/) enabled i
 }
 ```
 
-#### **Figma Local SSE Server (URL)**
+#### **Figma Local MCP Server**
 
 1. Enable the Official Figma MCP Server. [Figma MCP Docs](https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Dev-Mode-MCP-Server)
 2. Open the [Figma desktop app](https://www.figma.com/downloads/) and make sure you’ve [updated to the latest version](https://help.figma.com/hc/en-us/articles/5601429983767-Guide-to-the-Figma-desktop-app#h_01HE5QD60DG6FEEDTZVJYM82QW).
@@ -327,8 +327,8 @@ Note: A Figma account with [Dev Mode](https://www.figma.com/dev-mode/) enabled i
 
 ```json
 {
-  "Official Figma MCP (SSE)": {
-    "url": "http://localhost:3845/sse"
+  "Figma (Local)": {
+    "url": "http://127.0.0.1:3845/mcp"
   }
 }
 ```
