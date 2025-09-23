@@ -54,7 +54,7 @@ The Warp log files are located at `$env:LOCALAPPDATA\warp\Warp\data\logs\`.
 Close Warp and run the following from another terminal to zip the logs to your Desktop:
 
 ```powershell
-Compress-Archive -Path "$env:LOCALAPPDATA\warp\Warp\data\logs\warp.log*" -DestinationPath "$HOME\Desktop\warp-logs.zip" -Force
+Compress-Archive -Path "$env:LOCALAPPDATA\warp\Warp\data\logs\warp.log*" -DestinationPath "$([Environment]::GetFolderPath('Desktop'))\warp-logs.zip"
 ```
 
 {% hint style="warning" %}
