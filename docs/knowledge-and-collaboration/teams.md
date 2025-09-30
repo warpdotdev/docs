@@ -18,15 +18,15 @@ Teams Demo
 
 ## Creating a team
 
-You can create a new team from:
+You can create a new team in the following ways:
 
-* Warp Drive, + Create a team, or
+* Warp Drive, + Create a team
 * `Settings > Teams`
 
-Before you can invite team members, you will need to give your team a meaningful name. We suggest using a name to represent your organization, company, or project.
+Before you can invite team members, you will need to give your team a meaningful name. We suggest using a name to represent your organization, company, or project.&#x20;
 
-{% hint style="warning" %}
-It’s not currently possible to edit and rename a team, so please choose carefully! You can delete your team and create a new one to assign a new name if needed.
+{% hint style="info" %}
+You can rename the team by going to `Settings > Teams` and clicking on the team name, entering the new name, and pressing `ENTER` to accept.
 {% endhint %}
 
 <figure><img src="../.gitbook/assets/team-creation-settings.png" alt=""><figcaption></figcaption></figure>
@@ -36,6 +36,14 @@ If you create a team, you become the team’s admin and will be the only person 
 ### Inviting new team members
 
 Under `Settings > Teams` you can copy the invite link for your Warp team and paste it to your clipboard.
+
+{% hint style="warning" %}
+If you’re on a paid plan, upgrading will automatically include all team members in your billing. Adding new members after upgrading will also add them as paid seats.
+
+For more details on how team member billing works, please see our billing FAQs:
+
+[#what-counts-as-a-team-member-and-how-does-billing-work-for-members](../support-and-billing/plans-and-pricing.md#what-counts-as-a-team-member-and-how-does-billing-work-for-members "mention")
+{% endhint %}
 
 <figure><img src="../.gitbook/assets/teams-invite-demo.png" alt=""><figcaption><p>Teams settings panel</p></figcaption></figure>
 
