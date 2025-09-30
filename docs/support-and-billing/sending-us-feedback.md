@@ -13,7 +13,14 @@ description: >-
 * Warp Essentials:bulb:, click on Feedback.
 * Join our [Discord](https://discord.com/invite/warpdotdev) server. Send a message in [`#questions-and-feedback`](https://discord.com/channels/851854972600451112/1154432424873296012).
 * Join our [Warp Community Slack](https://go.warp.dev/join-preview) and share feedback in **#feedback-general** (or **#feedback-preview** if it is specific to [Warp Preview](../community/warp-preview-and-alpha-program.md).
-* For enterprise clients, please direct all feedback (including bug reports and debugging IDs) to the designated Warp Slack channel.
+
+{% hint style="success" %}
+For enterprise clients, please direct all feedback (including bug reports and debugging IDs) to the designated Warp Slack channel.
+{% endhint %}
+
+{% hint style="warning" %}
+For billing-related issues (refunds, cancellation, promos, etc.), please email [billing@warp.dev](mailto:billing@warp.dev).
+{% endhint %}
 
 {% hint style="danger" %}
 For security-related issues or questions, please email [security@warp.dev](mailto:security@warp.dev).
