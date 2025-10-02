@@ -4,9 +4,7 @@ description: Open Markdown files in your terminal and run commands.
 
 # Markdown Viewer
 
-Warp can display Markdown files directly in a [split pane](../windows/split-panes.md), in addition to opening them [in an external editor](files-and-links.md). Any local file with the `.md` or `.markdown` extension is treated as a Markdown file. Remote files are currently not supported.
-
-There are three ways to view a Markdown file in Warp, you can also configure Warp to open markdown files with the default external editor or Warp's built-in markdown viewer in `Settings > Features > General > Open Markdown files in Warp's Markdown viewer by default`.
+Warp can be used for both editing and viewing rendered Markdown files in a [split pane](../windows/split-panes.md). Any local file with the `.md` or `.markdown` extension is treated as a Markdown file. Remote files are currently not supported. Turning on `Settings > Features > General > Open Markdown files in Warp's Markdown viewer by default` will make the Markdown viewer default, otherwise Markdown files will open in Warp's editor.
 
 ### Opening a file link within a block
 
@@ -24,7 +22,7 @@ For any link to a Markdown file within a block, you can open the file in Warp by
 {% endtab %}
 {% endtabs %}
 
-<figure><img src="../../.gitbook/assets/open-markdown-file-demo.gif" alt="Clicking a Markdown file link in the output of ls to open it in Warp"><figcaption><p>Opening a Markdown file in Warp using the link tooltip</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/open-markdown-viewer.gif" alt="Clicking a Markdown file link in the output of ls to open it in Warp"><figcaption><p>Opening a Markdown file in Warp using the link tooltip</p></figcaption></figure>
 
 ### Markdown-viewing commands
 
@@ -39,6 +37,12 @@ The following commands are considered Markdown viewers:
 ### Opening a Markdown file from Finder
 
 From Finder, you can open a Markdown file in Warp from the “Open With” menu that appears when right-clicking on the file.
+
+### Toggling between editor and viewer
+
+You can toggle between the Markdown editor and viewer via the pane overflow menu.
+
+<figure><img src="../../.gitbook/assets/markdown-raw-rendered-toggle.gif" alt="Clicking a Markdown file link in the output of ls to open it in Warp"><figcaption><p>Toggling between editor and viewer</p></figcaption></figure>
 
 ## Shell commands in Markdown files
 
