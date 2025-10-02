@@ -8,6 +8,15 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2025.10.01 (v0.2025.10.01.08.12)
+
+**Improvements**
+
+* Editing suggested file changes now takes place in the same pane, instead of a new tab.
+* When using the `@` context menu outside of a repo, current folder's contents are now listed.
+* The code mode file picker will now display gitignored files.
+* [macOS] Warp now stores session restoration data in a more-secure application container.
+
 ### 2025.09.24 (v0.2025.09.24.08.11)
 
 **New features**

@@ -327,6 +327,7 @@ If you're a [Team](../knowledge-and-collaboration/teams.md) admin, the deletion 
 | `Pane Drag Inititiated` | Initiated dragging a pane via the header |
 | `Parameterized Workflow With Environment Variables` | Selected from environment variables dropdown to parameterize workflow |
 | `Parsed Config in Settings Import` | Parsed a terminal's settings as part of settings import |
+| `Preview Pane Promoted` | Promoted a preview code tab to a normal tab |
 | `Prompt Edited` | Edited the prompt using the built-in prompt editor |
 | `Prompt Editor Opened` | Opened the prompt editor |
 | `Pty Spawned` | Tracks the manner by which we create a new shell process (new codepath vs. old codepath).  Used to ensure nothing breaks as we change parts of our infrastructure. |
@@ -444,6 +445,8 @@ If you're a [Team](../knowledge-and-collaboration/teams.md) admin, the deletion 
 | `Update Tab Close Button Position` | Updated the tab close button position |
 | `Updated Alt Screen Padding Mode` | Updated the custom padding setting for the alt-screen |
 | `Updated Sorting Choice` | Modified the sorting scheme for Warp Drive objects |
+| `Upgrade To Pro Modal CTA Clicked` | User clicked the CTA button in the UpgradeToProModal |
+| `Upgrade To Pro Modal Dismissed` | User dismissed the UpgradeToProModal |
 | `Used Warp AI Prepared Prompt` | Used one of the Warp-provided prompts, like "Show examples" |
 | `User Initiated Closing Something` | Attempted to either quit the app or close a window |
 | `User Initiated Log Out` | Confirms a user has explicitly logged out of the application |
