@@ -8,6 +8,25 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2025.09.24 (v0.2025.09.24.08.11)
+
+**New features**
+
+* You can now create new files directly in Warp. Search "New File" in the command palette. MacOS users can find it in the app menu under "File".
+
+**Improvements**
+
+* Change the "Reject" label to "Refine" for code diffs and plans. They're functionally the same, though we think this will clear up some confusion over what hitting "Reject" will do.
+* Added realtime form validation to Environment Variables when secret redaction is enabled.
+* Avoid showing the `@` context completions menu when typing a package name. This covers common installers for JS, Python, Ruby, Go, PHP, and more.
+* Add an "auto-approve" option with a keyboard shortcut for requested commands and MCP tool calls. This makes it easier to accept a command and auto-approve future commands in a single button.
+
+**Bug fixes**
+
+* Fixed error with fish shell v4.
+* Avoid showing multiple "stopped task" banners when toggling a resumed conversation back to stopped before the agent begins responding.
+* Fix input problems with Russian on PowerShell.
+
 ### 2025.09.17 (v0.2025.09.17.08.11)
 
 **New Features**
