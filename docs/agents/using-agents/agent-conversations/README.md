@@ -32,9 +32,9 @@ By default, if you ask an AI query immediately after interacting in Agent Mode, 
 * Open the **Conversations menu** (`CMD + Y` on macOS, `CTRL + SHIFT + Y` on Windows/Linux), select a conversation, and then enter your query.
 * Alternatively, click the pink conversation chip in the input field to resume.
 
-<figure><img src="../../.gitbook/assets/classic-input-follow-up.png" alt=""><figcaption><p>Continuing an Agent conversation in Classic Input (with indicator)</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/classic-input-follow-up.png" alt=""><figcaption><p>Continuing an Agent conversation in Classic Input (with indicator)</p></figcaption></figure>
 
-<figure><img src="../../.gitbook/assets/follow-up-universal-input.png" alt=""><figcaption><p>Continuing an Agent conversation in Universal Input</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/follow-up-universal-input.png" alt=""><figcaption><p>Continuing an Agent conversation in Universal Input</p></figcaption></figure>
 
 ### **Managing Conversations**
 
@@ -81,9 +81,9 @@ You can also start a new conversation manually at any time:
 {% endtab %}
 {% endtabs %}
 
-<figure><img src="../../.gitbook/assets/classic-input-new-convo.png" alt=""><figcaption><p>Starting a new Conversation in Classic Input</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/classic-input-new-convo.png" alt=""><figcaption><p>Starting a new Conversation in Classic Input</p></figcaption></figure>
 
-<figure><img src="../../.gitbook/assets/universal-input-new-convo.png" alt=""><figcaption><p>Starting a new Agent Conversation in Universal Input</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/universal-input-new-convo.png" alt=""><figcaption><p>Starting a new Agent Conversation in Universal Input</p></figcaption></figure>
 
 
 
@@ -97,17 +97,17 @@ As tokens accumulate and exceed the context window, performance and response qua
 
 When less than 20% of the window is used, no indicator is shown. As more tokens accumulate, the usage bar progresses to reflect how much of the context window has been consumed.
 
-<figure><img src="../../.gitbook/assets/context-window-1.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/context-window-1.png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../.gitbook/assets/context-window-2 (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/context-window-2 (1).png" alt=""><figcaption></figcaption></figure>
 
 As you approach the limit, the indicator turns red to warn that the context window is nearly full.
 
-<figure><img src="../../.gitbook/assets/context-window-2.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/context-window-2.png" alt=""><figcaption></figcaption></figure>
 
 Once the limit is exceeded, Warp automatically summarizes the conversation so you can continue without losing important context.
 
-<figure><img src="../../.gitbook/assets/context-window-3.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/context-window-3.png" alt=""><figcaption></figcaption></figure>
 
 The context window usage indicator is available only in **Universal Input**, which you can enable under `Settings > Appearance > Input`.
 
@@ -121,7 +121,7 @@ Warp automatically detects when your query has shifted to a new topic. When this
 
 These options appear in the blocklist, where you can decide whether to branch off into a new conversation or keep going with the current one.
 
-<figure><img src="../../.gitbook/assets/conversation-segmentation.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/conversation-segmentation.png" alt=""><figcaption></figcaption></figure>
 
 You can also create a new conversation manually at any time by using the keyboard shortcut, opening a new tab, or opening a new pane.
 

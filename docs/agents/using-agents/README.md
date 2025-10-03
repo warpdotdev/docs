@@ -16,7 +16,7 @@ Agents are designed to work alongside you. They never act without visibility, an
 **Key concepts related to Agents include:**
 
 * Agent Mode — run terminal or coding workflows with natural language.
-* [Conversations](agent-conversations.md) — group queries and blocks for a specific task.
+* [Conversations](agent-conversations/) — group queries and blocks for a specific task.
 * [Context](agent-context/) — attach and manage information to improve responses.
 * [Task Lists](agent-tasklists.md) — break complex requests into clear, trackable steps.
 * [Agent Management](managing-agents.md) — monitor, configure, and control active agents.

@@ -18,7 +18,7 @@ To enable Blocks over SSH, Warp uses an SSH Wrapper function; navigate to settin
 
 ### Online features don't work
 
-There is a known issue that can occur that causes online features to break ([Warp AI](../agents/agents-overview/), [Generate](../agents/generate.md), [Block Sharing](../terminal/blocks/block-sharing.md), [Refer a Friend](../community/refer-a-friend.md) ). This is due to the login token going stale, typically due to a password change, and can be resolved by the following steps:
+There is a known issue that can occur that causes online features to break ([Warp AI](../agents/agents-overview.md), [Generate](../agents/generate.md), [Block Sharing](../terminal/blocks/block-sharing.md), [Refer a Friend](../community/refer-a-friend.md) ). This is due to the login token going stale, typically due to a password change, and can be resolved by the following steps:
 
 {% tabs %}
 {% tab title="macOS" %}

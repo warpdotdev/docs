@@ -9,7 +9,7 @@ hidden: true
 
 Key Features:
 
-* [**Warp AI**](../agents/agents-overview/): Warp autodetects whether you are typing a natural language prompt or a command. Use natural language prompts to have Warp write code, debug issues, or write commands for you.
+* [**Warp AI**](../agents/agents-overview.md): Warp autodetects whether you are typing a natural language prompt or a command. Use natural language prompts to have Warp write code, debug issues, or write commands for you.
 * [**Multi-agent management**](../agents/using-agents/managing-agents.md): Warp is designed to have multiple agents running at once. Agents will send you notifications if they require your input, and you can see all your agents in one panel.
 * [**Warp Drive**](../knowledge-and-collaboration/warp-drive/): Notebooks, workflows, and environment variables for you to use personally or with your team. All Warp Drive data is used as context for AI.
 * [**Modern UX and Text Editing**](../terminal/editor/): Inputs (commands or prompts) and outputs are grouped into easy to use Blocks, and you can use your cursor or customizable keybindings to easily navigate Warp’s input editor.

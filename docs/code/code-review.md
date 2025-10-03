@@ -34,7 +34,7 @@ In the [universal-input](../terminal/universal-input/ "mention") editor, when yo
 
 #### 2. Agent Conversation: Review Changes Button
 
-When an Agent makes code edits in an [agent-conversations.md](../agents/using-agents/agent-conversations.md "mention"), a `Review changes` button appears at the bottom of the conversation. Clicking it opens the code review panel.
+When an Agent makes code edits in an [agent-conversations](../agents/using-agents/agent-conversations/ "mention"), a `Review changes` button appears at the bottom of the conversation. Clicking it opens the code review panel.
 
 <figure><img src="../.gitbook/assets/Blocklist with review changes.png" alt=""><figcaption><p>Review changes at bottom of Agent Conversation.</p></figcaption></figure>
 

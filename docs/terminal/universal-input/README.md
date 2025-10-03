@@ -6,7 +6,7 @@ description: >-
 
 # Universal Input
 
-The **Universal Input** is the main input interface for using Warp. It accepts both terminal commands and natural language [Agent](../../agents/agents-overview/) prompts, letting you run shell workflows and kick off agentic tasks from the same place.
+The **Universal Input** is the main input interface for using Warp. It accepts both terminal commands and natural language [Agent](../../agents/agents-overview.md) prompts, letting you run shell workflows and kick off agentic tasks from the same place.
 
 <figure><img src="../../.gitbook/assets/universal-input-header.png" alt=""><figcaption><p>The Universal Input with an Agent prompt and multiple contextual chips active.</p></figcaption></figure>
 
@@ -188,13 +188,13 @@ The Universal Input includes **contextual chips** that provide inline informatio
 
 #### Conversation Management chip
 
-The conversation management chip shows your recent [Agent conversations](../../agents/using-agents/agent-conversations.md), allowing you to reference or reopen them directly.&#x20;
+The conversation management chip shows your recent [Agent conversations](../../agents/using-agents/agent-conversations/), allowing you to reference or reopen them directly.&#x20;
 
-These chips appear in both Agent Mode and Terminal Mode, so you can continue a previous conversation without starting from scratch. For more details, see [agent-conversations.md](../../agents/using-agents/agent-conversations.md "mention").
+These chips appear in both Agent Mode and Terminal Mode, so you can continue a previous conversation without starting from scratch. For more details, see [agent-conversations](../../agents/using-agents/agent-conversations/ "mention").
 
 <figure><img src="../../.gitbook/assets/conversation-management-chip-universal-input.png" alt=""><figcaption><p>The Conversation Management chip displays recent Agent conversations and lets you continue or reopen them directly from the input.</p></figcaption></figure>
 
-These chips appear in both Agent Mode and Terminal Mode, helping you continue a previous conversation without starting from scratch. For more details, refer to [agent-conversations.md](../../agents/using-agents/agent-conversations.md "mention").
+These chips appear in both Agent Mode and Terminal Mode, helping you continue a previous conversation without starting from scratch. For more details, refer to [agent-conversations](../../agents/using-agents/agent-conversations/ "mention").
 
 #### Active directory chip
 

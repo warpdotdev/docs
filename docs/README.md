@@ -9,7 +9,7 @@ description: >-
 ## Key Features:
 
 * [**Warp Code**](code/code-overview.md): Warp is optimized for writing code by prompt on large, existing codebases. When Warp detects an opportunity to write code, it will enter an advanced code generation flow.
-* [**Agents**](agents/agents-overview/): Warp autodetects whether you are typing a natural language prompt or a command. Use natural language prompts to have Warp write code, debug issues, or write commands for you.
+* [**Agents**](agents/agents-overview.md): Warp autodetects whether you are typing a natural language prompt or a command. Use natural language prompts to have Warp write code, debug issues, or write commands for you.
 * [**Context management**](agents/using-agents/agent-context/): Warp will use codebase context, images, URLs, and documentation you save in Warp as context for agents.&#x20;
 * [**Multi-agent management**](agents/using-agents/managing-agents.md): Warp is designed to have multiple agents running at once. Agents will send you notifications if they require your input, and you can see all your agents in one panel.
 * [**Modern UX and Text Editing**](terminal/editor/): Inputs (commands or prompts) and outputs are grouped into easy to use Blocks, and you can use your cursor or customizable keybindings to easily navigate Warp’s input editor.

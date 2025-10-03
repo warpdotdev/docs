@@ -15,10 +15,10 @@
 
 ## Agents
 
-* [Agents Overview](agents/agents-overview/README.md)
-  * [Conversation Forking](agents/agents-overview/conversation-forking.md)
+* [Agents Overview](agents/agents-overview.md)
 * [Using Agents](agents/using-agents/README.md)
-  * [Agent Conversations](agents/using-agents/agent-conversations.md)
+  * [Agent Conversations](agents/using-agents/agent-conversations/README.md)
+    * [Conversation Forking](agents/using-agents/agent-conversations/conversation-forking.md)
   * [Agent Context](agents/using-agents/agent-context/README.md)
     * [Blocks as Context](agents/using-agents/agent-context/blocks-as-context.md)
     * [Images as Context](agents/using-agents/agent-context/images-as-context.md)

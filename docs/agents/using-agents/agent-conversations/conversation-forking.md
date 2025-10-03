@@ -29,21 +29,21 @@ Open the menu using the command palette (`CMD + Y` on macOS / `CTRL + SHIFT + Y`
 
 Select **Fork current conversation** to fork your current conversation, or fork a specific conversation from open conversations.
 
-<figure><img src="../../.gitbook/assets/conversation-forking-palette.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/conversation-forking-palette.png" alt=""><figcaption></figcaption></figure>
 
 In addition, when you hover over any open conversation in the command palette, you’ll see a **fork button**. This lets you fork not only active conversations, but also inactive and historical ones.
 
-<figure><img src="../../.gitbook/assets/conversation-forking-open-conversations.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/conversation-forking-open-conversations.png" alt=""><figcaption></figcaption></figure>
 
 You can also access this conversation view from the [universal input chip](https://app.gitbook.com/o/-MbqIZLCtzerswjFm7mh/s/-MbqIgTw17KQvq_DQuRr/~/diff/~/changes/1112/terminal/universal-input/~/overview) in the current conversation.
 
-<figure><img src="../../.gitbook/assets/conversation-forking-chip.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/conversation-forking-chip.png" alt=""><figcaption></figcaption></figure>
 
 #### **2. From the footer of the most recent AI response block**
 
 In any conversation in the blocklist, click the **fork button** in the footer of the most recent AI block. A new conversation opens in a separate pane with the full context of the original.
 
-<figure><img src="../../.gitbook/assets/conversation-forking-footer.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/conversation-forking-footer.png" alt=""><figcaption></figcaption></figure>
 
 ### Using forked conversations <a href="#using-forked-conversations" id="using-forked-conversations"></a>
 
