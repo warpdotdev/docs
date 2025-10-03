@@ -6,7 +6,7 @@ description: >-
 
 # Universal Input
 
-The **Universal Input** is the main input interface for using Warp. It accepts both terminal commands and natural language [Agent](../../agents/agents-overview.md) prompts, letting you run shell workflows and kick off agentic tasks from the same place.
+The **Universal Input** is the main input interface for using Warp. It accepts both terminal commands and natural language [Agent](../../agents/agents-overview/) prompts, letting you run shell workflows and kick off agentic tasks from the same place.
 
 <figure><img src="../../.gitbook/assets/universal-input-header.png" alt=""><figcaption><p>The Universal Input with an Agent prompt and multiple contextual chips active.</p></figcaption></figure>
 
