@@ -5,7 +5,7 @@ description: Save or sync environment variables to load into your terminal sessi
 # Environment Variables
 
 {% hint style="info" %}
-Environment Variables are currently available in Free Preview.
+Environment Variables are not currently supported on Warp for Windows, but it's being tracked on GitHub here [#7684](https://github.com/warpdotdev/Warp/issues/7684)
 {% endhint %}
 
 ## What are Environment Variables in Warp?
