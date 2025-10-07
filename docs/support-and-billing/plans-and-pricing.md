@@ -19,9 +19,13 @@ If you signed up for a paid Warp subscription by mistake, please contact us at *
 * **72 hours** of starting a monthly plan, or
 * **30 days** of starting an annual plan,
 
-provided you’ve used fewer than **150 AI requests** (the Free plan limit). If you exceed that limit on an annual plan, we cannot refund the current month, but we will refund any unused future months.
+provided you’ve used fewer than **150 AI requests** (the Free plan limit for the first two months). If you exceed that limit on an annual plan, we cannot refund the current month, but we will refund any unused future months.
 
-We also may choose to offer refunds, on a case-by-case basis, if a severe product defect or problem with uptime availability occurs. While Warp does not yet provide a formal guaranteed uptime SLA, you can monitor live incidents on our [**Status Page**](https://status.warp.dev/) and track open issues on our [**GitHub Issues**](https://github.com/warpdotdev/Warp/issues). To request a refund, please email [billing@warp.dev](mailto:billing@warp.dev) with detailed information about your situation—the more context you provide, the faster we can resolve your request.
+We also may choose to offer refunds, on a case-by-case basis, if a severe product defect or problem with uptime availability occurs. While Warp does not yet provide a formal guaranteed uptime SLA, you can monitor live incidents on our [**Status Page**](https://status.warp.dev/) and track open issues on our [**GitHub Issues**](https://github.com/warpdotdev/Warp/issues).&#x20;
+
+{% hint style="info" %}
+To request a refund, please email [billing@warp.dev](mailto:billing@warp.dev) with detailed information about your situation—the more context you provide, the faster we can resolve your request.
+{% endhint %}
 
 ## Frequently asked questions
 
@@ -164,7 +168,9 @@ Warp's plans are designed for developers who rely on AI to code, debug, and move
 * **Warp Lightspeed** is our most powerful plan, offering the highest AI request limits, expanded codebase indexing, access to top-tier models, and pay-as-you-go overages so you can keep working without interruption.
 * **Warp Business** includes everything in Turbo, with advanced features like Zero Data Retention, SAML-based SSO, and support for teams up to 50 seats.
 
-All plans also unlock powerful collaboration and knowledge-sharing tools to help your team move faster, together:
+
+
+**All plans also unlock powerful collaboration and knowledge-sharing tools to help your team move faster, together:**
 
 * Use [Notebooks](../knowledge-and-collaboration/warp-drive/notebooks.md) and [Workflows](../knowledge-and-collaboration/warp-drive/workflows.md) in Warp Drive to organize and share knowledge across your team.
 * Try [Session Sharing](https://docs.warp.dev/features/session-sharing) to collaborate in real time through live, shared terminal sessions.
@@ -211,7 +217,9 @@ You can remove the users you do not want to pay for in `Settings > Teams > Team 
 
 ### Why doesn't my promo code work or why was it disabled?
 
-Warp's promotions are a way to try Warp before committing to a subscription, not get unlimited free or inexpensive AI. In order to prevent abuse, we're limiting promotion codes to first-time redemptions only. So each account can only use one promotion code. We also reserve the right to disable any promotion codes at any time and remove the associated subscriptions if we find that the code was being abused.&#x20;
+Warp's promotions are a way to try Warp before committing to a subscription, not get unlimited free or inexpensive AI. In order to prevent abuse, we're limiting promotion codes to first-time redemptions only.&#x20;
+
+So each account can only use one promotion code. We also reserve the right to disable any promotion codes at any time and remove the associated subscriptions if we find that the code was being abused.&#x20;
 
 ### How can I subscribe to Warp as tax exempt?
 
