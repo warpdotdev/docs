@@ -78,6 +78,10 @@ For example, if a member joins your Turbo monthly plan halfway through the month
 
 If a member leaves part way through the billing cycle, Warp will issue a prorated credit based on the unused portion of their membership. This credit is applied to your team's next invoice, regardless of whether you're on a monthly or annual plan.
 
+{% hint style="warning" %}
+All members of the team will have the same subscription plan, you can't mix and match plans for each member of a team. In order to have different plans, you currently must have seperate teams.
+{% endhint %}
+
 ### What is the value of joining or creating a team on Warp?
 
 Team members on plans have access to your shared [Warp Drive](../knowledge-and-collaboration/warp-drive/) objects and have unlimited access to Warp's collaboration features, including Session Sharing and Warp Drive storage.
