@@ -62,16 +62,20 @@ To fix this, try:
 
 Once you exceed your AI credits on the Turbo plan (see [pricing](https://www.warp.dev/pricing) for current limits), premium models will be disabled, and Warp will automatically switch you to Lite. This allows you to continue using AI features with a more token-efficient model until your quota resets at the start of your next billing cycle.
 
-**"Request failed with error: QuotaLimit" error**
+**Request failed with error: QuotaLimit**
 
 Once you exceed your AI token limits, all models will be disabled. Note that credits and tokens are calculated separately, and even though the plans may have a set number of credits, they also have a limited number of tokens.
 
-**"Request failed with error: ErrorStatus(403, "Your account has been blocked from using AI features")**"
+**Request failed with error: ErrorStatus (403, "Your account has been blocked from using AI features")**
 
 This message means your account has been blocked from using AI features, typically due to a violation of our [Terms of Service](https://www.warp.dev/terms-of-service) or suspected abuse (e.g. attempting to bypass credit or token limits).
 
 To resolve or clarify this, please contact our team at [appeals@warp.dev](mailto:appeals@warp.dev) if you believe this was an error. We'll review your case and respond as soon as possible.
 
+{% hint style="warning" %}
+Note that any error that does not mention appeals@warp.dev isn't related to being blocked and should be reported as feedback or a bug. See [sending-us-feedback.md](../support-and-billing/sending-us-feedback.md "mention") for more.
+{% endhint %}
+
 ## Gathering AI debugging ID
 
-In cases where you have issues with the Agent, we may ask for the AI debugging ID to troubleshoot the specific conversation. To gather the debugging ID, `RIGHT-CLICK` on the AI conversation block in question and select "Copy debugging ID", then paste that into the [bug report](../support-and-billing/sending-us-feedback.md#sending-warp-feedback) that you submit so that our team can investigate the issue.
+In cases where you have issues with the Agent, we may ask for the AI debugging ID to troubleshoot the specific conversation. To gather the debugging ID, see [#gathering-ai-debugging-id](../support-and-billing/sending-us-feedback.md#gathering-ai-debugging-id "mention") for detailed steps.
