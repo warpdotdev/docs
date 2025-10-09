@@ -8,17 +8,12 @@ description: >-
 
 Warp lets you choose from a curated set of LLMs to power your Agentic Development Environment.
 
-**By default, Warp uses:**
-
-* `Claude Sonnet 4` for _Auto_ (as the base model)
-  * `o3` for the planning model
-* `Claude Sonnet 3.5` for _Lite_
-
-**But you can switch to other supported models, including:**
+**Warp supports the following models:**
 
 * OpenAI: `GPT-5`, `GPT-4o`, `GPT-4.1`, `o4-mini`, `o3`
   * For `GPT-5` specifically, you can select between _low, medium,_ and _high_ reasoning modes.
-* Anthropic: `Claude Sonnet 4`, `Claude Opus 4.1`, `Claude Opus 4`
+* Anthropic: `Claude Sonnet 4.5`, `Claude Sonnet 4`, `Claude Opus 4.1`, `Claude Opus 4`
+  * `Claude Sonnet 3.5` for _Lite_
 * Google: `Gemini 2.5 Pro`
 
 ## How to change models

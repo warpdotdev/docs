@@ -19,7 +19,7 @@ If you signed up for a paid Warp subscription by mistake, please contact us at *
 * **72 hours** of starting a monthly plan, or
 * **30 days** of starting an annual plan,
 
-provided you’ve used fewer than **150 AI requests** (the Free plan limit for the first two months). If you exceed that limit on an annual plan, we cannot refund the current month, but we will refund any unused future months.
+provided you’ve used fewer than **150 AI credits** (the Free plan limit for the first two months). If you exceed that limit on an annual plan, we cannot refund the current month, but we will refund any unused future months.
 
 We also may choose to offer refunds, on a case-by-case basis, if a severe product defect or problem with uptime availability occurs. While Warp does not yet provide a formal guaranteed uptime SLA, you can monitor live incidents on our [**Status Page**](https://status.warp.dev/) and track open issues on our [**GitHub Issues**](https://github.com/warpdotdev/Warp/issues).&#x20;
 
@@ -42,11 +42,11 @@ After entering your payment details, you’ll receive an invoice and confirmatio
 For Enterprise plans, [contact our sales team](https://warp.dev/contact-sales) and we’ll get in touch promptly.
 {% endhint %}
 
-### How can I upgrade for more Warp AI requests?
+### How can I upgrade for more Warp AI credits?
 
-All paid Warp plans come with significantly higher monthly AI request limits than the Free plan.
+All paid Warp plans come with significantly higher monthly AI credit limits than the Free plan.
 
-When you upgrade from Free to a paid plan, your AI request usage resets. If you’re switching between paid plans, any AI usage you've already accumulated will carry over.
+When you upgrade from Free to a paid plan, your AI credit usage resets. If you’re switching between paid plans, any AI usage you've already accumulated will carry over.
 
 You can compare plans and AI limits at [warp.dev/pricing](https://www.warp.dev/pricing).
 
@@ -90,7 +90,7 @@ When you’re ready to use Warp more collaboratively, we suggest you nominate an
 
 ### How does usage work if logged into the same account on multiple devices?
 
-When you use the account to sign into Warp on different devices, for example Linux on one computer and Windows on another, your usage of metered features like AI requests is tracked at the account level, not the device level.&#x20;
+When you use the account to sign into Warp on different devices, for example Linux on one computer and Windows on another, your usage of metered features like AI credits is tracked at the account level, not the device level.&#x20;
 
 You can use your Warp account on multiple personal computers. Warp is designed to provide a consistent experience across devices. When you log in with the same account on different computers, your settings and preferences can be synced through the [Settings Sync](https://docs.warp.dev/features/settings-sync) feature.
 
@@ -110,17 +110,17 @@ When upgrading from a monthly to annual billing cycle the billing is prorated, m
 
 To upgrade at any point throughout your subscription through the billing portal by going to `Settings > Billing and usage > Manage billing`.
 
-### What happens to unused AI requests?
+### What happens to unused AI credits?
 
-Unused AI requests do not rollover to the next cycle and can't be transferred to other accounts. You see when your requests will reset in the `Settings > Billing and usage` menu.
+Unused AI credits do not rollover to the next cycle and can't be transferred to other accounts. You see when your credits will reset in the `Settings > Billing and usage` menu.
 
 ### What happens if my payment fails?
 
 If a payment fails, you will receive an email from Stripe and your Warp Team Settings will show a past-due alert. Certain paid plan features and the ability to invite new members will be locked down while your Team is in a past-due state. Paying the most recent invoice through the billing portal by going to `Settings > Billing and usage > Manage billing` will fully re-enable your paid plan features.
 
-### What counts as an AI request?
+### What counts as an AI credit?
 
-Each time you submit a prompt in Warp, whether to generate code, suggest a command, or accomplish a task, you initiate an interaction with the Agent. Please see more details in our [AI Request](plans-and-pricing/ai-requests.md) page.
+Each time you submit a prompt in Warp, whether to generate code, suggest a command, or accomplish a task, you initiate an interaction with the Agent. Please see more details in our [AI Credits](plans-and-pricing/ai-requests.md) page.
 
 ### How do overages work?
 
@@ -128,44 +128,44 @@ Overages allow for pay-as-you-go access to premium AI models after reaching your
 
 ### What counts as an AI token?
 
-Tokens are chunks of text, such as words, parts of code, or characters, that large language models (LLMs) break down to analyze and generate responses. LLMs have a maximum number of tokens they can process at once. AI requests and suggestions are not the same as tokens, which are limited separately regardless of which plan you're on.
+Tokens are chunks of text, such as words, parts of code, or characters, that large language models (LLMs) break down to analyze and generate responses. LLMs have a maximum number of tokens they can process at once. AI credits and suggestions are not the same as tokens, which are limited separately regardless of which plan you're on.
 
 {% hint style="info" %}
-Warp now abstracts away token usage, so you don't need to manage or track it directly. You only need to monitor your **AI request usage**, which is what’s measured in your plan limits and overages.
+Warp now abstracts away token usage, so you don't need to manage or track it directly. You only need to monitor your **AI credit usage**, which is what’s measured in your plan limits and overages.
 {% endhint %}
 
-If you're curious, you can still learn more about tokens [here](https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them), or refer to the pricing page for plan-level request allocations. If you reach your monthly AI request limits on a paid plan, premium models will be temporarily disabled until your quota resets at the start of your next billing cycle.&#x20;
+If you're curious, you can still learn more about tokens [here](https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them), or refer to the pricing page for plan-level credit allocations. If you reach your monthly AI credit limits on a paid plan, premium models will be temporarily disabled until your quota resets at the start of your next billing cycle.&#x20;
 
 If you’d like to continue using premium models beyond your included quota, you can enable [pay-as-you-go overages](plans-and-pricing/usage-overages.md) in `Settings > Billing and usage`. On some higher plans, Warp will automatically switch you to the [Lite](plans-and-pricing.md#what-is-lite) model, which offers unlimited usage at no additional cost, so you can keep using AI without interruption.
 
-### How often do my AI requests reset?
+### How often do my AI credits reset?
 
-Allotted AI requests refill every 30 days from your signup date. When you upgrade to a [paid plan](https://www.warp.dev/pricing), you will be given more requests immediately. You can follow along with your refill period by referencing `Settings > Billing and usage`. Alternatively, you can also set [Overages](plans-and-pricing/usage-overages.md) to your desired amount to continue to use more premium model requests.
+Allotted AI credits refill every 30 days from your signup date. When you upgrade to a [paid plan](https://www.warp.dev/pricing), you will be given more credits immediately. You can follow along with your refill period by referencing `Settings > Billing and usage`. Alternatively, you can also set [Overages](plans-and-pricing/usage-overages.md) to your desired amount to continue to use more premium model credits.
 
 {% hint style="info" %}
-Unused AI requests do not rollover to the next cycle and can't be transferred to other accounts.
+Unused AI credits do not rollover to the next cycle and can't be transferred to other accounts.
 {% endhint %}
 
 ### What is Lite?
 
 **Lite** is a basic AI model included with the Turbo plan or higher that serves two purposes:
 
-* **Fallback model**: If you reach your AI request limits, Warp automatically switches to Lite so you can keep using AI without interruption, at no additional cost.
-* **Standalone option**: You can also choose to use Lite before hitting your limits. In this case, usage will still count toward your monthly request limits, but once those limits are reached, Lite remains available with unlimited usage for Turbo plan or higher subscribers only.
+* **Fallback model**: If you reach your AI credit limits, Warp automatically switches to Lite so you can keep using AI without interruption, at no additional cost.
+* **Standalone option**: You can also choose to use Lite before hitting your limits. In this case, usage will still count toward your monthly credit limits, but once those limits are reached, Lite remains available with unlimited usage for Turbo plan or higher subscribers only.
 
 While performance and capabilities may vary compared to premium models, it allows you to continue using AI features without full interruption.
 
 {% hint style="info" %}
-Each Lite model query still counts against your AI requests and contributes to your monthly usage.
+Each Lite model query still counts against your AI credits and contributes to your monthly usage.
 {% endhint %}
 
 ### How can I get the most out of my Warp paid plan?
 
 Warp's plans are designed for developers who rely on AI to code, debug, and move faster with their team.
 
-* With **Pro**, you get higher AI request limits than the Free plan, support for larger codebases with [Codebase Context](../code/codebase-context.md), and access to premium models with optional pay-as-you-go overages.
-* **Warp Turbo** offers even higher AI request limits, larger Codebase Context indexing, and unlimited access to the [Lite](plans-and-pricing.md#what-is-lite) AI model -- plus the option to pay for additional usage beyond your included requests.
-* **Warp Lightspeed** is our most powerful plan, offering the highest AI request limits, expanded codebase indexing, access to top-tier models, and pay-as-you-go overages so you can keep working without interruption.
+* With **Pro**, you get higher AI credit limits than the Free plan, support for larger codebases with [Codebase Context](../code/codebase-context.md), and access to premium models with optional pay-as-you-go overages.
+* **Warp Turbo** offers even higher AI credit limits, larger Codebase Context indexing, and unlimited access to the [Lite](plans-and-pricing.md#what-is-lite) AI model -- plus the option to pay for additional usage beyond your included credits.
+* **Warp Lightspeed** is our most powerful plan, offering the highest AI credit limits, expanded codebase indexing, access to top-tier models, and pay-as-you-go overages so you can keep working without interruption.
 * **Warp Business** includes everything in Turbo, with advanced features like Zero Data Retention, SAML-based SSO, and support for teams up to 50 seats.
 
 

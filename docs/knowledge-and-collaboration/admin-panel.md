@@ -1,7 +1,7 @@
 ---
 description: >-
-  Centralized management for team administrators to configure workspace
-  settings enforced across all team members.
+  Centralized management for team administrators to configure workspace settings
+  enforced across all team members.
 ---
 
 # Admin Panel
@@ -11,12 +11,11 @@ description: >-
 The [Admin Panel](https://app.warp.dev/admin/) provides team administrators with centralized control over organization-wide settings in Warp. It allows you to manage workspace settings that are enforced across all members of your team.
 
 {% hint style="info" %}
-Admin Panel access is restricted to team administrators. Right now, only the creator of a team is the designated admin.
-If your admin has setup styles that override user preferences, you will not be able to control them
-inside of Warp, and you'll see a note that your admin has configured this setting.
+Admin Panel access is restricted to team administrators. Right now, only the creator of a team is the designated admin. If your admin has setup styles that override user preferences, you will not be able to control them inside of Warp, and you'll see a note that your admin has configured this setting.
 {% endhint %}
 
 **Key features:**
+
 * **AI Settings** - Control agent autonomy, permissions, and allowlists across your team
 * **Privacy Controls** - Configure data collection and enterprise secret redaction
 * **Billing Management** - Set spending limits and manage usage-based pricing
@@ -29,7 +28,6 @@ Team administrators can access the Admin Panel directly at https://app.warp.dev/
 
 <figure><img src="../.gitbook/assets/admin-panel-overview.png" alt=""><figcaption><p>Admin Panel main interface with sections for AI, privacy, billing, code, and sharing settings</p></figcaption></figure>
 
-
 ## How Settings Enforcement Works
 
 The Admin Panel uses a tier-based policy system to determine which settings administrators can control:
@@ -37,6 +35,7 @@ The Admin Panel uses a tier-based policy system to determine which settings admi
 ### Toggleable vs. Fixed Settings
 
 **Toggleable settings** can be modified by team administrators. These appear as dropdown menus with options like:
+
 * Enabled/Disabled for boolean settings
 * Specific autonomy levels for AI settings
 * Respect User Setting to allow individual control
@@ -58,6 +57,7 @@ Any changes made in the Admin Panel can take effect immediately for all team mem
 {% endhint %}
 
 When organization settings override individual preferences:
+
 * Users see their personal settings grayed out
 * A message indicates "your organization has configured this setting"
 * Users cannot modify settings that are organizationally enforced
@@ -67,15 +67,18 @@ When organization settings override individual preferences:
 The features available in the Admin Panel vary by billing tier:
 
 **Free Tier**
+
 * Most settings are fixed and non-toggleable
 * Limited codebase context and sharing features
 
 **Business Plans**
+
 * Most settings become toggleable by administrators
 * Enhanced AI autonomy control
 * Advanced sharing and privacy features
 
 **Enterprise Plans**
+
 * Full admin control over all settings
 * Enterprise secret redaction
 * Custom LLM integration
@@ -93,44 +96,39 @@ Configure how Agents behave across your organization, including autonomy levels 
 
 #### General AI Settings
 
-**AI in Remote Sessions**
-Controls whether AI features are available during SSH sessions and remote connections. Enterprise plans can toggle this setting, while Free tier teams have it enabled by default.
+**AI in Remote Sessions** Controls whether AI features are available during SSH sessions and remote connections. Enterprise plans can toggle this setting, while Free tier teams have it enabled by default.
 
-**Prompt Summarization Caching**
-When conversations become long enough to require summarization, this setting allows the summary to be cached temporarily by the LLM provider to improve performance.
+**Prompt Summarization Caching** When conversations become long enough to require summarization, this setting allows the summary to be cached temporarily by the LLM provider to improve performance.
 
 #### Autonomy Settings
 
 Configure how much independence Agents have when performing different actions:
 
 **Apply Code Diffs**
+
 * Agent Decides - Agent acts autonomously when confident, asks for approval when uncertain
 * Always Ask - Require explicit approval before applying any code changes
 * Always Allow - Apply code diffs without confirmation
 * Respect User Setting - Allow individual users to control this setting
 
-**Create Plans**
-Controls whether Agents can create structured task plans without user approval.
+**Create Plans** Controls whether Agents can create structured task plans without user approval.
 
-**Execute Commands**
-Manages Agent's ability to run terminal commands autonomously.
+**Execute Commands** Manages Agent's ability to run terminal commands autonomously.
 
-**Read Files**
-Controls Agent access to reading files in the codebase.
+**Read Files** Controls Agent access to reading files in the codebase.
 
 #### Directory and Command Control
 
-**Directory Allowlist**
-Specify directories where Agents can read files without restriction. Use paths like `~/git/repo1` to grant access to specific project folders.
+**Directory Allowlist** Specify directories where Agents can read files without restriction. Use paths like `~/git/repo1` to grant access to specific project folders.
 
-**Command Allowlist**
-Regular expressions matching commands that Agent Mode can execute without asking permission. Common examples:
+**Command Allowlist** Regular expressions matching commands that Agent Mode can execute without asking permission. Common examples:
+
 * `grep .*` - Text search commands
 * `ls(\\s.*)?` - Directory listing
 * `which .*` - Finding executable locations
 
-**Command Denylist**
-Regular expressions for commands that always require explicit user approval, even if they would normally be allowed. Examples:
+**Command Denylist** Regular expressions for commands that always require explicit user approval, even if they would normally be allowed. Examples:
+
 * `rm -rf.*` - Recursive file deletion
 * `sudo.*` - Administrative commands
 * `curl.*` - Network requests
@@ -143,14 +141,13 @@ Command denylist rules take precedence over allowlist rules and agent autonomy s
 
 Manage data collection and security policies for your organization.
 
-**UGC Data Collection**
-Controls how Warp collects and uses user-generated content to improve the service:
+**UGC Data Collection** Controls how Warp collects and uses user-generated content to improve the service:
+
 * Disabled - No UGC data collection
 * Enabled - Allow data collection for service improvement
 * Respect User Setting - Let individual users decide
 
-**Enterprise Secret Redaction**
-When enabled, applies regex patterns to prevent secrets from being sent to Warp servers or LLM providers. This feature is available on Enterprise plans and includes:
+**Enterprise Secret Redaction** When enabled, applies regex patterns to prevent secrets from being sent to Warp servers or LLM providers. This feature is available on Enterprise plans and includes:
 
 * Automatic detection of common secret patterns
 * Custom regex patterns for organization-specific secrets
@@ -160,8 +157,8 @@ When enabled, applies regex patterns to prevent secrets from being sent to Warp 
 
 Control codebase indexing and AI code features for your team.
 
-**Codebase Context**
-Determines whether Warp indexes your team's Git repositories to provide context for AI features:
+**Codebase Context** Determines whether Warp indexes your team's Git repositories to provide context for AI features:
+
 * Disabled - No codebase indexing
 * Enabled - Index codebases for improved AI responses
 * Respect User Setting - Allow individual control
@@ -172,20 +169,17 @@ Higher tier plans support more indexed repositories and larger file limits per c
 
 Configure billing preferences and spending controls.
 
-**Usage Based Pricing**
-Enable pay-as-you-go billing for AI requests beyond your plan's included quota. When enabled, you can set:
+**Usage Based Pricing** Enable pay-as-you-go billing for AI credits beyond your plan's included quota. When enabled, you can set:
 
-**Monthly Spending Limit**
-Set a maximum monthly overage spending limit to control costs. The system displays current overage usage including:
-* Total overage requests used
+**Monthly Spending Limit** Set a maximum monthly overage spending limit to control costs. The system displays current overage usage including:
+
+* Total overage credits used
 * Current month's overage costs
 
 ### Sharing Settings
 
 Control how team members can share Warp Drive objects and collaborate.
 
-**Direct Link Sharing**
-Allow team members to share Notebooks, Workflows, and other objects via direct links.
+**Direct Link Sharing** Allow team members to share Notebooks, Workflows, and other objects via direct links.
 
-**Anyone with Link Sharing**
-Enable public access to shared objects - anyone with the link can view the content without being a team member.
+**Anyone with Link Sharing** Enable public access to shared objects - anyone with the link can view the content without being a team member.

@@ -1,7 +1,7 @@
 ---
 description: >-
   Frequently asked questions about Warp's AI features, including supported
-  models, privacy practices, request limits, billing, and usage guidelines.
+  models, privacy practices, credit limits, billing, and usage guidelines.
 ---
 
 # AI FAQs
@@ -30,20 +30,20 @@ Organizations on the Enterprise plan can enable a “Bring Your Own LLM” optio
 
 ## Billing
 
-Every Warp plan includes a set number of AI requests per user per month. Please refer to [pricing](https://www.warp.dev/pricing) to compare plans.
+Every Warp plan includes a set number of AI credits per user per month. Please refer to [pricing](https://www.warp.dev/pricing) to compare plans.
 
-AI Request limits apply to Agent Mode, [Generate](generate.md), and [AI autofill in Workflows](../knowledge-and-collaboration/warp-drive/workflows.md#ai-autofill). When you have used up your allotted requests for the cycle, you will not be able to issue any more AI requests until the cycle renews.
+AI credit limits apply to Agent Mode, [Generate](generate.md), and [AI autofill in Workflows](../knowledge-and-collaboration/warp-drive/workflows.md#ai-autofill). When you have used up your allotted credits for the cycle, you will not be able to issue any more AI credits until the cycle renews.
 
-For questions around what counts as a AI request, what counts as a token, and how often requests refresh, please refer to [#what-counts-as-an-ai-request](../support-and-billing/plans-and-pricing.md#what-counts-as-an-ai-request "mention")and more on the [plans-and-pricing.md](../support-and-billing/plans-and-pricing.md "mention")page.
+For questions around what counts as a AI credit, what counts as a token, and how often credits refresh, please refer to [ai-requests.md](../support-and-billing/plans-and-pricing/ai-requests.md "mention")and more on the [plans-and-pricing.md](../support-and-billing/plans-and-pricing.md "mention")page.
 
-### Exceeding Agent Mode request limits
+### Exceeding Agent Mode credit limits
 
 #### **What is Lite?**
 
 **Lite** is a basic AI model included with the Turbo plan or higher that serves two purposes:
 
-* **Fallback model**: If you reach your AI request limits, Warp automatically switches to Lite so you can keep using AI without interruption — at no additional cost.
-* **Standalone option**: You can also choose to use Lite before hitting your limits. In this case, usage will still count toward your monthly request limits, but once those limits are reached, Lite remains available with unlimited usage for Turbo plan or higher subscribers only.
+* **Fallback model**: If you reach your AI credit limits, Warp automatically switches to Lite so you can keep using AI without interruption — at no additional cost.
+* **Standalone option**: You can also choose to use Lite before hitting your limits. In this case, usage will still count toward your monthly credit limits, but once those limits are reached, Lite remains available with unlimited usage for Turbo plan or higher subscribers only.
 
 Lite is a more token-efficient model than other premium models and supports core AI workflows. Learn more about Lite in the [#what-is-lite](../support-and-billing/plans-and-pricing.md#what-is-lite "mention") section of our [plans-and-pricing.md](../support-and-billing/plans-and-pricing.md "mention") documentation.
 
@@ -58,17 +58,17 @@ To fix this, try:
 * Starting a new conversation
 * Reducing the number of blocks or lines attached to your query
 
-#### **"Monthly request limit exceeded" error**
+#### **"Monthly request limit exceeded" or "Monthly credit limit exceeded" errors**
 
-Once you exceed your AI requests on the Turbo plan (see [pricing](https://www.warp.dev/pricing) for current limits), premium models will be disabled, and Warp will automatically switch you to Lite. This allows you to continue using AI features with a more token-efficient model until your quota resets at the start of your next billing cycle.
+Once you exceed your AI credits on the Turbo plan (see [pricing](https://www.warp.dev/pricing) for current limits), premium models will be disabled, and Warp will automatically switch you to Lite. This allows you to continue using AI features with a more token-efficient model until your quota resets at the start of your next billing cycle.
 
 **"Request failed with error: QuotaLimit" error**
 
-Once you exceed your AI token limits, all models will be disabled. Note that requests and tokens are calculated separately, and even though the plans may have a set number of requests, they also have a limited number of tokens.
+Once you exceed your AI token limits, all models will be disabled. Note that credits and tokens are calculated separately, and even though the plans may have a set number of credits, they also have a limited number of tokens.
 
 **"Request failed with error: ErrorStatus(403, "Your account has been blocked from using AI features")**"
 
-This message means your account has been blocked from using AI features, typically due to a violation of our [Terms of Service](https://www.warp.dev/terms-of-service) or suspected abuse (e.g. attempting to bypass request or token limits).
+This message means your account has been blocked from using AI features, typically due to a violation of our [Terms of Service](https://www.warp.dev/terms-of-service) or suspected abuse (e.g. attempting to bypass credit or token limits).
 
 To resolve or clarify this, please contact our team at [appeals@warp.dev](mailto:appeals@warp.dev) if you believe this was an error. We'll review your case and respond as soon as possible.
 
