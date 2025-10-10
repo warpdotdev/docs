@@ -8,6 +8,21 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2025.10.08 (v0.2025.10.08.08.12)
+
+**Improvements**
+
+* Added the ability to sort team members by usage in `Settings > Billing and usage`.
+* Added UI indication of when agent mode conversation summarization is in progress, with a cancellation confirmation dialog.
+* Made the sizing for headings consistent across all collapsible blocks.
+* `@` menu no longer appears when running JS package manager subcommands, like `yarn workspace @org/package add`.
+* [macOS] Resolved an issue re-mapping keybindings that conflict with MacOS keybindings.
+
+**Bug Fixes**
+
+* Agent mode requested command previews now only show the first line of multi-line commands.
+* Removed misleading \"auto-approve\" button while Warp is generating a fix for failed terminal commands.
+
 ### 2025.10.01 (v0.2025.10.01.08.12)
 
 **Improvements**
