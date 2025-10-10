@@ -149,7 +149,7 @@
 
 * [Sending Feedback & Logs](support-and-billing/sending-us-feedback.md)
 * [Plans & Pricing](support-and-billing/plans-and-pricing.md)
-  * [AI Credits](support-and-billing/plans-and-pricing/ai-requests.md)
+  * [AI Credits](support-and-billing/plans-and-pricing/ai-credits.md)
   * [Overages](support-and-billing/plans-and-pricing/usage-overages.md)
 * [Updating Warp](support-and-billing/updating-warp.md)
 * [Using Warp Offline](support-and-billing/using-warp-offline.md)

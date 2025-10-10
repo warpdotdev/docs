@@ -34,7 +34,7 @@ Every Warp plan includes a set number of AI credits per user per month. Please r
 
 AI credit limits apply to Agent Mode, [Generate](generate.md), and [AI autofill in Workflows](../knowledge-and-collaboration/warp-drive/workflows.md#ai-autofill). When you have used up your allotted credits for the cycle, you will not be able to issue any more AI credits until the cycle renews.
 
-For questions around what counts as a AI credit, what counts as a token, and how often credits refresh, please refer to [ai-requests.md](../support-and-billing/plans-and-pricing/ai-requests.md "mention")and more on the [plans-and-pricing.md](../support-and-billing/plans-and-pricing.md "mention")page.
+For questions around what counts as a AI credit, what counts as a token, and how often credits refresh, please refer to [ai-credits.md](../support-and-billing/plans-and-pricing/ai-credits.md "mention")and more on the [plans-and-pricing.md](../support-and-billing/plans-and-pricing.md "mention")page.
 
 ### Exceeding Agent Mode credit limits
 

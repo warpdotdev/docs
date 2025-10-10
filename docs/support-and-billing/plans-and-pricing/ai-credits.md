@@ -13,7 +13,7 @@ This interaction consumes **at least one AI credit**, though more complex intera
 Because of these factors and the nature of LLMs, AI credit usage is **non-deterministic** -- two similar prompts can still use a different number of credits.
 
 {% hint style="info" %}
-For a general breakdown of what factors contribute to how many AI credits are consumed, please refer to:  [#how-are-warp-ai-credits-calculated](ai-requests.md#how-are-warp-ai-credits-calculated "mention")
+For a general breakdown of what factors contribute to how many AI credits are consumed, please refer to:  [#how-are-warp-ai-credits-calculated](ai-credits.md#how-are-warp-ai-credits-calculated "mention")
 {% endhint %}
 
 Since there's no exact formula for predicting usage, we recommend building an intuitive understanding by experimenting with different prompts, models, and tracking how many credits they consume.

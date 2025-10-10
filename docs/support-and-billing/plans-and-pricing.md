@@ -124,7 +124,7 @@ If a payment fails, you will receive an email from Stripe and your Warp Team Set
 
 ### What counts as an AI credit?
 
-Each time you submit a prompt in Warp, whether to generate code, suggest a command, or accomplish a task, you initiate an interaction with the Agent. Please see more details in our [AI Credits](plans-and-pricing/ai-requests.md) page.
+Each time you submit a prompt in Warp, whether to generate code, suggest a command, or accomplish a task, you initiate an interaction with the Agent. Please see more details in our [AI Credits](plans-and-pricing/ai-credits.md) page.
 
 ### How do overages work?
 
