@@ -77,14 +77,14 @@ You can also download and install packages directly, which will automatically ad
 
 The command to run the Warp CLI depends on your OS, whether you installed the CLI as part of Warp or separately, and whether you're using the stable build or [Warp Preview](../community/warp-preview-and-alpha-program.md).
 
-| OS      | Installation Method |    CLI Command |   CLI Command (Preview) |
-|---------|---------------------|----------------|-------------------------|
-| macOS   | Standalone          |         `warp` |          `warp-preview` |
-| macOS   | Bundled             |         `warp` |          `warp-preview` |
-| Linux   | Standalone          |     `warp-cli` |      `warp-cli-preview` |
-| Linux   | Bundled             | `warp-terminal`| `warp-terminal-preview` |
-| Windows | Standalone          |          N/A   |                     N/A |
-| Windows | Bundled             |         `warp` |          `warp-preview` |
+| OS      | Installation Method | CLI Command     | CLI Command (Preview)   |
+| ------- | ------------------- | --------------- | ----------------------- |
+| macOS   | Standalone          | `warp`          | `warp-preview`          |
+| macOS   | Bundled             | `warp`          | `warp-preview`          |
+| Linux   | Standalone          | `warp-cli`      | `warp-cli-preview`      |
+| Linux   | Bundled             | `warp-terminal` | `warp-terminal-preview` |
+| Windows | Standalone          | N/A             | N/A                     |
+| Windows | Bundled             | `warp`          | `warp-preview`          |
 
 ## Getting help
 
@@ -178,6 +178,10 @@ The Warp CLI uses [agent profiles](../agents/using-agents/agent-profiles-permiss
 
 {% hint style="info" %}
 Tip: create a dedicated profile for CLI usage. The CLI will fail if it tries to execute a prohibited action, so make sure your profile allows the directories, commands, and MCP servers that you'd like the agent to use.
+{% endhint %}
+
+{% hint style="warning" %}
+The default profile for CLI usage is broadly permissive and gives the agent the ability read/write files, apply code diffs, and execute commands (with a default denylist for commands). The agent does not the ability to use MCP servers by default.
 {% endhint %}
 
 To use an agent profile with the CLI, first get its ID using the `warp agent profile list` command:
