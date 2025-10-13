@@ -5,7 +5,7 @@ description: Use Warp Agents from the terminal.
 # Warp CLI
 
 {% hint style="warning" %}
-The Warp CLI under development and only supports some operations. We welcome [feedback](../support-and-billing/sending-us-feedback.md#sending-warp-feedback) on how you're building with the CLI and on any missing functionality!
+The Warp CLI is under development and only supports some operations. We welcome [feedback](../support-and-billing/sending-us-feedback.md#sending-warp-feedback) on how you're building with the CLI and on any missing functionality!
 {% endhint %}
 
 ## What is the Warp CLI?
@@ -127,7 +127,7 @@ To create an API key:
 
 Authenticate with the CLI using either method:
 
-**Via environment variable (recomended):**
+**Via environment variable (recommended):**
 ```sh
 $ export WARP_API_KEY="wk-xxx..."
 $ warp agent run --prompt "analyze this codebase"
@@ -209,7 +209,7 @@ Tip: create a dedicated profile for CLI usage. The CLI will fail if it tries to 
 {% endhint %}
 
 {% hint style="warning" %}
-The default profile for CLI usage is broadly permissive and gives the agent the ability read/write files, apply code diffs, and execute commands (with a default denylist for commands). The agent does not the ability to use MCP servers by default.
+The default profile for CLI usage is broadly permissive and gives the agent the ability to read/write files, apply code diffs, and execute commands (with a default denylist for commands). The agent does not have the ability to use MCP servers by default.
 {% endhint %}
 
 To use an agent profile with the CLI, first get its ID using the `warp agent profile list` command:
