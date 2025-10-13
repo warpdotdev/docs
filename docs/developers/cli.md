@@ -110,6 +110,34 @@ If you use the CLI on a host where you've already logged in to Warp, it will reu
 
 To set up the CLI on a remote host, use the `warp login` command (replace `warp` with the appropriate command name for your installation method in the table above). This prints out a URL that you can open in a browser on another computer to sign in to Warp.
 
+## API key authentication
+
+For automated workflows or CI/CD environments, you can authenticate using API keys instead of interactive login.
+
+### Generating API keys
+
+To create an API key:
+1. Open Warp Settings > Platform
+2. Navigate to the API Keys section
+3. Click "+ Create API Key" and provide a descriptive name
+
+<figure><img src="../.gitbook/assets/api-key-management.png" alt=""><figcaption><p>API key management interface in Warp settings</p></figcaption></figure>
+
+### Using API keys
+
+Authenticate with the CLI using either method:
+
+**Via environment variable (recomended):**
+```sh
+$ export WARP_API_KEY="wk-xxx..."
+$ warp agent run --prompt "analyze this codebase"
+```
+
+**Via command flag:**
+```sh
+$ warp agent run --api-key "wk-xxx..." --prompt "analyze this codebase"
+```
+
 ## Running agents
 
 To start a Warp agent, use the `warp agent run` subcommand. You'll need to specify a prompt and, optionally, the [MCP servers](../knowledge-and-collaboration/mcp.md) and [agent profile](../agents/using-agents/agent-profiles-permissions.md) to use.
