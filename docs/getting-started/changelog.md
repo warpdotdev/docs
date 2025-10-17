@@ -8,6 +8,26 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2025.10.15 (v0.2025.10.15.08.12)
+
+**New Features**
+
+* Warp now supports scaling the entire application. Change the zoom level in `Settings > Appearance > Window` or by pressing `CMD-+` on Mac or `CTRL-+` on Windows / Linux.
+
+**Improvements**
+
+* The code review pane can now show diffs against other base branches.
+* Added confirmation dialog when cancelling AI summarization requests.
+* You can now expand Suggested Code Diffs further on down arrow.
+* Restore closed panes using `CMD-SHIFT-T` or `CTRL-ALT-T` on Windows / Linux within 60 seconds of them being closed.
+* Added shell completions for the Warp CLI.
+* Warp Drive Environment Variables are now supported for Warp for Windows (PowerShell, Git Bash, and WSL).
+* Enriched the model picker to include detailed specs of each model's intelligence, speed and cost.
+
+**Bug Fixes**
+
+* Fixed the custom window size setting not reliably applying on startup.
+
 ### 2025.10.08 (v0.2025.10.08.08.12)
 
 **Improvements**
