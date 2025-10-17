@@ -2,7 +2,7 @@
 
 ## Getting Started
 
-* [Quickstart Guide](README.md)
+* [Quickstart Guided](README.md)
   * [Installation and setup](getting-started/quickstart-guide/installation-and-setup.md)
   * [Coding in Warp](getting-started/quickstart-guide/coding-in-warp.md)
   * [Agents in Warp](getting-started/quickstart-guide/agents-in-warp.md)

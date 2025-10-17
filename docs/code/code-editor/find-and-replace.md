@@ -9,7 +9,7 @@ description: >-
 
 ## Find
 
-Press `CMD-F` on macOS or `CTRL-F` on Windows and Linux to open the find menu. As you type, all matches in the file are highlighted, and the match closest to your cursor is selected.
+Press `CMD-F` on macOS or `CTRL-SHIFT-F` on Windows and Linux to open the find menu. As you type, all matches in the file are highlighted, and the match closest to your cursor is selected.
 
 * Press `ENTER` or use the down arrow to jump to the next match
 * Press `SHIFT-ENTER` or use the up arrow to go to the previous match
