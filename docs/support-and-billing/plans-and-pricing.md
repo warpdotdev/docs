@@ -140,7 +140,7 @@ Warp now abstracts away token usage, so you don't need to manage or track it dir
 
 If you're curious, you can still learn more about tokens [here](https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them), or refer to the pricing page for plan-level credit allocations. If you reach your monthly AI credit limits on a paid plan, premium models will be temporarily disabled until your quota resets at the start of your next billing cycle.&#x20;
 
-If you’d like to continue using premium models beyond your included quota, you can enable [pay-as-you-go overages](plans-and-pricing/usage-overages.md) in `Settings > Billing and usage`. On some higher plans, Warp will automatically switch you to the [Lite](plans-and-pricing.md#what-is-lite) model, which offers unlimited usage at no additional cost, so you can keep using AI without interruption.
+If you’d like to continue using premium models beyond your included quota, you can enable [pay-as-you-go overages](plans-and-pricing/usage-overages.md) in `Settings > Billing and usage`.&#x20;
 
 ### How often do my AI credits reset?
 
@@ -150,25 +150,12 @@ Allotted AI credits refill every 30 days from your signup date. When you upgrade
 Unused AI credits do not rollover to the next cycle and can't be transferred to other accounts.
 {% endhint %}
 
-### What is Lite?
-
-**Lite** is a basic AI model included with the Turbo plan or higher that serves two purposes:
-
-* **Fallback model**: If you reach your AI credit limits, Warp automatically switches to Lite so you can keep using AI without interruption, at no additional cost.
-* **Standalone option**: You can also choose to use Lite before hitting your limits. In this case, usage will still count toward your monthly credit limits, but once those limits are reached, Lite remains available with unlimited usage for Turbo plan or higher subscribers only.
-
-While performance and capabilities may vary compared to premium models, it allows you to continue using AI features without full interruption.
-
-{% hint style="info" %}
-Each Lite model query still counts against your AI credits and contributes to your monthly usage.
-{% endhint %}
-
 ### How can I get the most out of my Warp paid plan?
 
 Warp's plans are designed for developers who rely on AI to code, debug, and move faster with their team.
 
 * With **Pro**, you get higher AI credit limits than the Free plan, support for larger codebases with [Codebase Context](../code/codebase-context.md), and access to premium models with optional pay-as-you-go overages.
-* **Warp Turbo** offers even higher AI credit limits, larger Codebase Context indexing, and unlimited access to the [Lite](plans-and-pricing.md#what-is-lite) AI model -- plus the option to pay for additional usage beyond your included credits.
+* **Warp Turbo** offers even higher AI credit limits, larger Codebase Context indexing, and the option to pay for additional usage beyond your included credits.
 * **Warp Lightspeed** is our most powerful plan, offering the highest AI credit limits, expanded codebase indexing, access to top-tier models, and pay-as-you-go overages so you can keep working without interruption.
 * **Warp Business** includes everything in Turbo, with advanced features like Zero Data Retention, SAML-based SSO, and support for teams up to 50 seats.
 

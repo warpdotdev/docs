@@ -20,8 +20,6 @@ You can manage usage-based pricing directly in Warp under `Settings > Billing an
 Usage-based pricing only applies after you’ve reached the AI credit limit on your plan — you won’t be charged for any overages until that point, even if overages are enabled.
 {% endhint %}
 
-If you’re using [Warp Lite](../plans-and-pricing.md#what-is-lite) and have usage-based pricing turned on, overages will automatically take precedence once your included usage is exhausted.
-
 ### How overages work
 
 Overages are managed **at the team level**, even if your team only has one member (i.e. individual users). Once overages are enabled, any team member who reaches their monthly AI credit quota can continue to have access to premium models — with **additional usage billed at cost ($0.04 per credit)**.

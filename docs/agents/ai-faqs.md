@@ -36,17 +36,6 @@ AI credit limits apply to Agent Mode, [Generate](generate.md), and [AI autofill 
 
 For questions around what counts as a AI credit, what counts as a token, and how often credits refresh, please refer to [ai-credits.md](../support-and-billing/plans-and-pricing/ai-credits.md "mention")and more on the [plans-and-pricing.md](../support-and-billing/plans-and-pricing.md "mention")page.
 
-### Exceeding Agent Mode credit limits
-
-#### **What is Lite?**
-
-**Lite** is a basic AI model included with the Turbo plan or higher that serves two purposes:
-
-* **Fallback model**: If you reach your AI credit limits, Warp automatically switches to Lite so you can keep using AI without interruption — at no additional cost.
-* **Standalone option**: You can also choose to use Lite before hitting your limits. In this case, usage will still count toward your monthly credit limits, but once those limits are reached, Lite remains available with unlimited usage for Turbo plan or higher subscribers only.
-
-Lite is a more token-efficient model than other premium models and supports core AI workflows. Learn more about Lite in the [#what-is-lite](../support-and-billing/plans-and-pricing.md#what-is-lite "mention") section of our [plans-and-pricing.md](../support-and-billing/plans-and-pricing.md "mention") documentation.
-
 ## Common AI error messages
 
 #### **"Message token limit exceeded" error**
@@ -60,7 +49,7 @@ To fix this, try:
 
 #### **"Monthly request limit exceeded" or "Monthly credit limit exceeded" errors**
 
-Once you exceed your AI credits on the Turbo plan (see [pricing](https://www.warp.dev/pricing) for current limits), premium models will be disabled, and Warp will automatically switch you to Lite. This allows you to continue using AI features with a more token-efficient model until your quota resets at the start of your next billing cycle.
+Once you exceed your AI credits on the Turbo plan (see [pricing](https://www.warp.dev/pricing) for current limits), premium models will be disabled until your quota resets at the start of your next billing cycle.
 
 **Request failed with error: QuotaLimit**
 
