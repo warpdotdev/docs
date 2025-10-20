@@ -184,11 +184,13 @@ Warp Drive data is securely stored on Google Cloud Platform servers located in t
 
 For more details, please [visit the Security Overview](https://www.warp.dev/security) or contact [security@warp.dev](mailto:security@warp.dev).
 
-### What does “Early adopter” mean in Warp?
+### What happened to the Lite model?
 
-During the Free Preview of Warp Drive for Teams, some customers actively partnered with the Warp team by providing design feedback and product input. If your team participated, you may see an “Early adopter” label in your Team settings.
+Over time, the Lite model—originally designed as a fallback when premium models ran out—began to deliver inconsistent results, especially for users running complex, multi-step prompts.
 
-Early adopter teams may have custom pricing or plan exceptions. For details, contact your team admin.
+For credit-efficient usage, we encourage you to try our new Auto (cost-efficiency) model, which automatically selects the optimal model based on task complexity to help extend your credits. To continue AI usage please either [enable Overages](plans-and-pricing/usage-overages.md) or [upgrade to a higher plan](plans-and-pricing.md#how-can-i-upgrade-for-more-warp-ai-credits).
+
+If you have any questions or feedback, please connect with us in our [community Slack](sending-us-feedback.md#sending-warp-feedback).
 
 ### What payment options are available for Warp's self-service plans?
 
