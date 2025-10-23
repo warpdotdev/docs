@@ -8,6 +8,21 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2025.10.22 (v0.2025.10.22.08.13)
+
+**New Features**
+
+* Warp will suggest new unit tests in addition to code fixes via Suggested Code Banners
+
+**Improvements**
+
+* Fixed an issue where the model specs menu would get cut off.
+
+**Bug Fixes**
+
+* Fixed the close icon from becoming too small on the Warp Drive notebook viewer.
+* Fixed an issue where the CLI would report invalid debug IDs in its troubleshooting output.
+
 ### 2025.10.15 (v0.2025.10.15.08.12)
 
 **New Features**
