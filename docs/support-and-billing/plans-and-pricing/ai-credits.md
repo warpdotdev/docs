@@ -31,7 +31,7 @@ You can view your total AI credit usage, along with other billing details, in `S
 #### Credit **limits and billing**
 
 * **Seat-level allocation**: on team plans, credit limits apply per seat — each team member has their own allowance.
-* **Hitting the credit limits**: Once you hit your monthly credit limit, your access will depend on your plan. On the Free plan, AI access stops until your next billing cycle. On paid plans with overages enabled, you can continue using AI with [**usage-based billing**](usage-overages.md), charged per extra credit.
+* **Hitting the credit limits**: Once you hit your monthly credit limit, your access will depend on your plan. On the Free plan, AI access stops until your next billing cycle. On paid plans with Reload credits, you can continue using AI with [**usage-based billing**](reload-credits-add-on-credits.md), charged per extra credit.
 
 #### **Other features that use AI** credit**s**
 
@@ -54,7 +54,9 @@ Several factors influence how many credits are counted for a single interaction:
 
 #### **1. The LLM model used**
 
-Generally, smaller, faster models typically consume fewer credits than larger, reasoning-based models. For example, **Claude Opus 4.1** tends to consume the most tokens and credits in Warp, followed by **Claude Sonnet 4, GPT-5, Gemini 2.5 Pro**, and others in roughly that order. This generally correlates with model pricing as well.
+Generally, smaller, faster models typically consume fewer credits than larger, reasoning-based models.&#x20;
+
+For example, **Claude Opus 4.1** tends to consume the most tokens and credits in Warp, followed by **Claude Sonnet 4.5, GPT-5, Gemini 2.5 Pro**, and others in roughly that order. This generally correlates with model pricing as well.
 
 {% hint style="info" %}
 **Tip**: If your task doesn't require deep reasoning, planning, or multi-step problem solving, choose a more lightweight model to reduce credit usage.
