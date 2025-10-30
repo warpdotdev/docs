@@ -7,27 +7,27 @@ description: >-
 
 # Reload Credits (Add-on Credits)
 
-Reload Credits replace Warp’s old [pay-as-you-go overages model](usage-overages.md). They let you continue using premium AI models even after you’ve reached your monthly credit limit — at lower rates and with more control over spending.
+Reload credits replace Warp’s old [pay-as-you-go overages model](usage-overages.md). They let you continue using premium AI models even after you’ve reached your monthly credit limit — at lower rates and with more control over spending.
 
-You can manage and purchase Reload Credits directly in `Settings > Billing and usage`.
+You can manage and purchase Reload credits directly in `Settings > Billing and usage`.
 
 <figure><img src="../../.gitbook/assets/reload-credits.png" alt=""><figcaption></figcaption></figure>
 
-### How do Reload Credits work?
+### How do Reload credits work?
 
-Reload Credits act as **add-on credits** that extend your AI usage beyond the included monthly quota in your plan. Once your plan’s AI credits are used up, Warp will automatically begin drawing from your available Reload Credits.
+Reload credits act as **add-on credits** that extend your AI usage beyond the included monthly quota in your plan. Once your plan’s AI credits are used up, Warp will automatically begin drawing from your available Reload credits.
 
 If you’ve enabled **Auto-Reload**, new credits will be added automatically and billed based on your selected configuration.
 
-Reload Credits are available for Build, Business, and Enterprise plans (with custom pricing for Enterprise). These credits **roll over across billing cycles** and remain valid for **12 months from the purchase date**.
+Reload credits are available for Build, Business, and Enterprise plans (with custom pricing for Enterprise). These credits **roll over across billing cycles** and remain valid for **12 months from the purchase date**.
 
-### Purchasing Reload Credits
+### Purchasing Reload credits
 
 You have two options for purchasing more credits:
 
 #### 1. Buy On-Demand&#x20;
 
-You can purchase additional Reload Credits at any time directly within the app under `Settings > Billing and usage`. Buying more credits upfront provides a larger discount.
+You can purchase additional Reload credits at any time directly within the app under `Settings > Billing and usage`. Buying more credits upfront provides a larger discount.
 
 The table below shows the available credit denominations, their prices, and corresponding discounts:
 
@@ -47,7 +47,7 @@ You can opt in and choose your reload amount when subscribing to a paid plan at 
 
 #### **Configuring a Monthly Spend Limit**
 
-Your monthly spend limit sets the maximum amount you can spend on Reload Credits in a single calendar month. This ensures you have full control over your AI usage costs while still allowing flexibility for automatic top-ups when needed.
+Your monthly spend limit sets the maximum amount you can spend on Reload credits in a single calendar month. This ensures you have full control over your AI usage costs while still allowing flexibility for automatic top-ups when needed.
 
 * The default limit is $200, but you can increase or decrease it anytime in `Settings > Billing and usage`.
 * **If a credit purchase would exceed your limit, it won’t process** — you’ll need to either raise your limit or choose a smaller reload amount.

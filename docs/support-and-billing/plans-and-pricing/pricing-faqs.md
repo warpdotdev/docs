@@ -31,7 +31,7 @@ To see more details on the latest plan, please visit [**warp.dev/pricing**](http
 
 Warp's plans are designed for developers who rely on AI to code, debug, and move faster with their team.
 
-* **Build**, one usage-based plan with a set of AI credits, ability to Bring Your Own API Key (BYOK), and access to reload AI credits with volume-based discounts. See more on [bring-your-own-api-key.md](bring-your-own-api-key.md "mention").
+* **Build**, one usage-based plan with a set of AI credits, ability to Bring Your Own API Key (BYOK), and access to Reload AI credits with volume-based discounts. See more on [bring-your-own-api-key.md](bring-your-own-api-key.md "mention").
 * **Business** includes everything in Build, with advanced features like automatically enforced team-wide Zero Data Retention, SAML-based SSO, and support for teams up to 50 seats.
 
 Legacy plans:
@@ -230,7 +230,7 @@ If you take no action, your Pro, Turbo, Lightspeed, or legacy Business plan will
 
 #### What should I keep in mind about this change?
 
-* **BYOK and Reload Credits**: These are only available on the new Build and Business plans. Switching early gives you immediate access.
+* **BYOK and Reload credits**: These are only available on the new Build and Business plans. Switching early gives you immediate access.
 * **Pricing differences**: Depending on your usage, your monthly cost may increase or decrease. You’ll now pay based on what you actually use.
 * **Renewal timing**: You’ll stay on your current plan until your renewal date after December 1. No interruptions to service will occur.
 * **Transparency**: You can view your credit balance, monthly spend limit, and reload settings anytime in `Settings > Billing and usage`.\
