@@ -6,7 +6,9 @@ description: Learn about Warp's plans and pricing tiers. Get started for free.
 
 ## Warp Plans & Pricing
 
-Warp offers flexible plans designed for individual developers, teams, and enterprises. Each plan includes a monthly allowance of AI credits, which power features such as code generation, debugging, and multi-agent workflows.
+Warp offers flexible, pay-as-you-go plans designed for individual developers, teams, and enterprises.&#x20;
+
+You only pay for what you use—each plan includes a monthly allowance of AI credits that power features such as code generation, debugging, and multi-agent workflows. Once you use your included credits, you can continue using AI features by purchasing [Reload Credits](plans-and-pricing/reload-credits-add-on-credits.md), which roll over month to month and remain valid for 12 months.
 
 {% hint style="info" %}
 Visit [warp.dev/pricing](https://warp.dev/pricing) to see the latest plans and what’s included in each offering.
