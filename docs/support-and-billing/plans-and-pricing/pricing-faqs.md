@@ -233,8 +233,8 @@ If you take no action, your Pro, Turbo, Lightspeed, or legacy Business plan will
 If you move from Warp’s legacy Pro, Turbo, Lightspeed, or old Business plans to the new Build or Business plans:
 
 * You’ll receive a prorated credit balance on Stripe for your current plan, based on how far you are into your billing cycle. This balance can be applied toward monthly Build fees or any Reload Credits you purchase.
-  * You can view your credit balance by going to `Settings > Billing and Usage > Manage Account`.
-* Your credit balance will reset to **0/1,500** when you switch to the Build or Business plan. For teams on Build or Business, each member’s balance will also reset to 0.
+  * You can view your credit balance by going to `Settings > Billing and Usage > Manage Account`. You can also view your credit balance on the Stripe invoice that was sent when your plan changed to Build or Business.
+* Your credit balance will reset to **0/1,500** when you switch to the Build or Business plan.&#x20;
 
 If you switched immediately after the rollout, before a subsequent update was applied, we’ll retroactively reset your credit balance to 0/1,500.
 
