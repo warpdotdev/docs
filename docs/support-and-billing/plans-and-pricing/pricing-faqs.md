@@ -228,6 +228,18 @@ You can switch to the new Warp Build or Business plan anytime from **Settings > 
 
 If you take no action, your Pro, Turbo, Lightspeed, or legacy Business plan will automatically move to the new structure on your first renewal after **December 1, 2025**. You’ll receive an email before your renewal with details and other details to make the transition easier.
 
+#### What happens when I change from my current plan to the new Build or Business plans?
+
+If you move from Warp’s legacy Pro, Turbo, Lightspeed, or old Business plans to the new Build or Business plans:
+
+* You’ll receive a prorated credit balance on Stripe for your current plan, based on how far you are into your billing cycle. This balance can be applied toward monthly Build fees or any Reload Credits you purchase.
+  * You can view your credit balance by going to `Settings > Billing and Usage > Manage Account`.
+* Your credit balance will reset to **0/1,500** when you switch to the Build or Business plan. For teams on Build or Business, each member’s balance will also reset to 0.
+
+If you switched immediately after the rollout, before a subsequent update was applied, we’ll retroactively reset your credit balance to 0/1,500.
+
+* You should see this reflected in `Settings > Billing and Usage`. If you experience any issues, please contact us at **build-priority@warp.dev**.
+
 #### What should I keep in mind about this change?
 
 * **BYOK and Reload credits**: These are only available on the new Build and Business plans. Switching early gives you immediate access.
