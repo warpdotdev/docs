@@ -104,6 +104,7 @@
   "CLI.Execute.Environment.List": "Listed cloud environments from the Warp CLI",
   "CLI.Execute.Login": "Logged in via the Warp CLI",
   "CLI.Execute.MCP.List": "Listed MCP servers from the Warp CLI",
+  "CLI.Execute.Task.List": "Listed tasks from the Warp CLI",
   "Changed invite view option": "Toggled between link and invite for invite",
   "Clicked Continue Conversation Button": "User clicked the Continue Conversation button in a block footer",
   "Clicked Reset to Defaults Button in Settings Import": "Reset the imported settings in the settings import onboarding block",

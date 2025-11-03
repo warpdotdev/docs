@@ -8,6 +8,20 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2025.10.29 (v0.2025.10.29.08.12)
+
+**Improvements**
+
+* Display conversation summaries when summarization is triggered.
+* Added completions for the Warp CLI.
+* Updated community links from Discord to Slack throughout the app.
+
+**Bug Fixes**
+
+* Reduce padding on restored Agent Mode blocks and expanded shell commands.
+* Add support for delete key in vim mode in code editors.
+* Fix rendering for multi-line Agent Mode shell commands.
+
 ### 2025.10.22 (v0.2025.10.22.08.13)
 
 **New Features**
