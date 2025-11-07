@@ -8,6 +8,18 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+## 2025.11.05 (v0.2025.11.05.08.12)
+
+**New Features**
+
+* From the code review panel, add file diffs or the entire diff set as context to an agent conversation.
+
+**Improvements**
+
+* Warp now defaults to requiring approval before the agent will execute a command.
+* Shared session links will open in a new tab by default, rather than a new window.
+* Display summarization tokens when conversation summarization is triggered.
+
 ### 2025.10.29 (v0.2025.10.29.08.12)
 
 **Improvements**

@@ -170,6 +170,9 @@ If you're a [Team](../knowledge-and-collaboration/teams.md) admin, the deletion 
 | `CLI.Execute.Environment.List` | Listed cloud environments from the Warp CLI |
 | `CLI.Execute.Login` | Logged in via the Warp CLI |
 | `CLI.Execute.MCP.List` | Listed MCP servers from the Warp CLI |
+| `CLI.Execute.Provider.List` | Listed providers from the Warp CLI |
+| `CLI.Execute.Provider.Setup` | Set up a provider via the Warp CLI |
+| `CLI.Execute.Task.Get` | Got status of task from the Warp CLI |
 | `CLI.Execute.Task.List` | Listed tasks from the Warp CLI |
 | `Changed invite view option` | Toggled between link and invite for invite |
 | `Clicked Continue Conversation Button` | User clicked the Continue Conversation button in a block footer |
@@ -181,6 +184,9 @@ If you're a [Team](../knowledge-and-collaboration/teams.md) admin, the deletion 
 | `CodeReview.CalculateDiffMetadataFailed` | Failure when calculating diff metadata |
 | `CodeReview.FileOpenedInWarpEditor` | File opened in new Warp editor tab |
 | `CodeReview.FileSaved` | File saved in code review pane |
+| `CodeReview.FindBarModeChanged` | Search mode changed in code review find bar |
+| `CodeReview.FindBarToggled` | Code review find bar opened or closed |
+| `CodeReview.FindNavigated` | Navigated to next or previous match in code review find bar |
 | `CodeReview.LoadDiffFailed` | Failure when loading diff content |
 | `CodeReview.PaneOpened` | Code review pane opened |
 | `CodeReview.PaneStateChanged` | Code review pane minimized or maximized |
@@ -343,6 +349,7 @@ If you're a [Team](../knowledge-and-collaboration/teams.md) admin, the deletion 
 | `Remove Denylisted Subshell Command` | Removed a command from the list of commands to IGNORE when trying to Warpify via Warp's subshell wrapper |
 | `Removed Workflow Alias` | Removed an alias from a Warp Drive workflow |
 | `Removed user from team` | Remove user from Warp Drive team |
+| `RepoMetadata.BuildTree.Failed` | Failed to build file tree for repo metadata |
 | `Resource Center Keybindings Page Opened` | Opened the keybinding page within the resource center |
 | `Resource Center Opened` | Opened Resource Center pane |
 | `Resource Center Tips Completed` | Completed resource center tips |
