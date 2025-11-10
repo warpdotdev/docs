@@ -25,7 +25,7 @@ When you SSH into a remote box, you get all the features of Warp without any con
 If you're using zsh on the remote host, Warp creates a temp folder to act as the ZDOTDIR during the bootstrapping process and removes it when the shell is set up.
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/ssh-legacy (2).png" alt="SSH"><figcaption><p>SSH</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/ssh (1).png" alt="SSH"><figcaption><p>SSH</p></figcaption></figure>
 
 ## Implementation
 

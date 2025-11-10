@@ -15,6 +15,7 @@ Warp lets you choose from a curated set of Large Language Models (LLMs) to power
 * OpenAI: `GPT-5` (select between _low, medium,_ and _high_ reasoning modes)
 * Anthropic: `Claude Sonnet 4.5`, `Claude Opus 4.1`, `Claude Haiku 4.5` , `Claude Sonnet 4`
 * Google: `Gemini 2.5 Pro`
+* z.ai: `GLM 4.6` (hosted in the US, by [Fireworks AI](https://fireworks.ai/models/fireworks/glm-4p6))
 
 ### Auto Models
 
@@ -35,8 +36,28 @@ To change models, click the displayed model name (for example, _Claude Sonnet 4.
 
 ### Configuring models per Agent Profile
 
-You can configure the base and planning models for each [agent-profiles-permissions.md](agent-profiles-permissions.md "mention"), defining the Agent’s autonomy, tool access, and other permissions.&#x20;
+You can configure the base and planning models for each [agent-profiles-permissions.md](agent-profiles-permissions.md "mention"), defining the Agent’s autonomy, tool access, and other permissions.
 
 Edit your default profile or more profiles directly in `Settings > AI > Agents > Profiles`.
 
 <figure><img src="../../.gitbook/assets/base-planning-model-pickers.png" alt=""><figcaption><p>Model choice example, where the base model is Auto (Claude 4 Sonnet) and the planning model is o3.</p></figcaption></figure>
+
+### Zero Data Retention Policies
+
+Warp integrates with multiple Large Language Model (LLM) providers to power its AI-driven features.
+
+These providers include, but are not limited to:
+
+* OpenAI
+* Anthropic
+* OpenAI
+* Google
+* Fireworks AI
+
+Warp has executed Zero Data Retention (ZDR) agreements with these providers. This means that, by default across all plans:
+
+* LLM providers commit not to train their models on any customer-generated data processed through Warp’s services.
+* LLM providers commit to delete inputs and outputs after generating the relevant output, within a fixed time period.
+
+Warp enforces these commitments through both technical measures and contractual safeguards with the LLM providers.
+

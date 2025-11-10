@@ -86,9 +86,9 @@ The Shell prompt supports multi-line or right-sided prompts in zsh and fish, not
 
 <figure><img src="../../.gitbook/assets/classic-prompt.gif" alt=""><figcaption><p>Classic input</p></figcaption></figure>
 
-<figure><img src="../../.gitbook/assets/warp-custom-prompt-demo.gif" alt="Warp Prompt + Custom Prompt Demo"><figcaption><p>Warp Prompt |  Shell Prompt Demo</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/warp-custom-prompt-demo.gif" alt="Warp Prompt + Custom Prompt Demo"><figcaption><p>Warp Prompt | Shell Prompt Demo</p></figcaption></figure>
 
-<figure><img src="../../.gitbook/assets/edit-prompt-modal (1) (1).png" alt=""><figcaption><p>Prompt edit modal</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/edit-prompt-modal (1).png" alt=""><figcaption><p>Prompt edit modal</p></figcaption></figure>
 
 ### Shell Prompt Compatibility Table
 

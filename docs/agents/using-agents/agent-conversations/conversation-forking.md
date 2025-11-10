@@ -25,7 +25,7 @@ There are two ways to fork an existing conversation:
 
 #### **1. From the command palette**
 
-Open the menu using the command palette (`CMD + Y` on macOS / `CTRL + SHIFT + Y` on Windows/Linux).&#x20;
+Open the menu using the command palette (`CMD + Y` on macOS / `CTRL + SHIFT + Y` on Windows/Linux).
 
 Select **Fork current conversation** to fork your current conversation, or fork a specific conversation from open conversations.
 
@@ -35,7 +35,7 @@ In addition, when you hover over any open conversation in the command palette, y
 
 <figure><img src="../../../.gitbook/assets/conversation-forking-open-conversations.png" alt=""><figcaption></figcaption></figure>
 
-You can also access this conversation view from the [universal input chip](https://app.gitbook.com/o/-MbqIZLCtzerswjFm7mh/s/-MbqIgTw17KQvq_DQuRr/~/diff/~/changes/1112/terminal/universal-input/~/overview) in the current conversation.
+You can also access this conversation view from the [universal input chip](../../../terminal/universal-input/) in the current conversation.
 
 <figure><img src="../../../.gitbook/assets/conversation-forking-chip.png" alt=""><figcaption></figcaption></figure>
 

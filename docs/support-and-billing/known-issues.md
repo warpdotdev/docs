@@ -5,7 +5,7 @@ description: Warp issues along with workarounds and solutions.
 # Known Issues
 
 {% hint style="info" %}
-To see a complete list of Warp issues and feature requests, please visit our [GitHub issues page](https://github.com/warpdotdev/Warp/issues?q=is%3Aissue+is%3Aopen+sort%3Acreated-desc).&#x20;
+To see a complete list of Warp issues and feature requests, please visit our [GitHub issues page](https://github.com/warpdotdev/Warp/issues?q=is%3Aissue+is%3Aopen+sort%3Acreated-desc).
 
 Please note that there are tools that are incompatible with Warp, as listed [below](known-issues.md#list-of-incompatible-tools). You can find debugging information in this [section](known-issues.md#debugging).
 {% endhint %}
@@ -105,9 +105,9 @@ If you comment out the rc files (i.e. `~/.zshrc`, `~/.bashrc`, `~/.config/fish/c
 
 ### Configuring and debugging your RC files
 
-To support Blocks ([custom hooks](https://blog.warp.dev/how-warp-works/#implementing-blocks)), a native Input Editor experience, AI blocks, etc. we have built custom support for a subset of shell functionality (decouple functionality from the shell and move to the terminal). This leads to Warp being incompatible with various tools and plugins. Please see the [list of incompatible](known-issues.md#list-of-incompatible-tools) tools to find the tools that are known not to work with Warp.&#x20;
+To support Blocks ([custom hooks](https://blog.warp.dev/how-warp-works/#implementing-blocks)), a native Input Editor experience, AI blocks, etc. we have built custom support for a subset of shell functionality (decouple functionality from the shell and move to the terminal). This leads to Warp being incompatible with various tools and plugins. Please see the [list of incompatible](known-issues.md#list-of-incompatible-tools) tools to find the tools that are known not to work with Warp.
 
-Unlike typical terminals which are essentially continuous character grids, each section of Warp is its own (separate) UI element. Please see our [Prompt](../terminal/appearance/prompt.md) page for more information on custom prompts.&#x20;
+Unlike typical terminals which are essentially continuous character grids, each section of Warp is its own (separate) UI element. Please see our [Prompt](../terminal/appearance/prompt.md) page for more information on custom prompts.
 
 #### Debugging
 
@@ -115,7 +115,7 @@ If Warp is not working with your dotfile configuration, you can run your shell i
 
 {% tabs %}
 {% tab title="bash" %}
-You can set up clean configs for Bash (Bourne Again SHell) by moving or commenting out your `.bashrc` \
+You can set up clean configs for Bash (Bourne Again SHell) by moving or commenting out your `.bashrc`\
 \
 If Warp starts working correctly then Warp is incompatible with something in the current dotfiles. We can isolate what is incompatible by iteratively disabling sections of our dotfiles with the `WarpTerminal` flag until we find the culprit. See the list of incompatible tools below and comment them out just for Warp with the following conditionals:
 
@@ -129,7 +129,7 @@ If Warp starts working correctly then Warp is incompatible with something in the
 {% endtab %}
 
 {% tab title="zsh" %}
-You can set up clean configs for Zsh (Z SHell) by moving or commenting out your `.zshrc` \
+You can set up clean configs for Zsh (Z SHell) by moving or commenting out your `.zshrc`\
 \
 If Warp starts working correctly then Warp is incompatible with something in the current dotfiles. We can isolate what is incompatible by iteratively disabling sections of our dotfiles with the `WarpTerminal` flag until we find the culprit. See the list of incompatible tools below and comment them out just for Warp with the following conditional:
 
@@ -211,20 +211,20 @@ The following non exhaustive list of plugins, prompts, or tools can cause potent
 
 {% tabs %}
 {% tab title="macOS" %}
-### SSH to local network device is denied on macOS
+#### SSH to local network device is denied on macOS
 
 On macOS, you may be [denied permission to SSH](https://github.com/warpdotdev/Warp/issues/5550) from Warp into other devices in your local network and see an error like: `ssh: connect to host <host_name> port 22: Undefined error: 0`.\
 To resolve this issue, go to `Mac > System Settings > Privacy & Security > Local Network`, and add Warp.
 
 <figure><img src="../.gitbook/assets/mac-ssh-permission.png" alt=""><figcaption><p>Mac SSH permission error</p></figcaption></figure>
 
-### Unexpected loss of permission on macOS
+#### Unexpected loss of permission on macOS
 
 On macOS, you may see a `Operation not permitted` error when trying to run commands in directories that have already been granted macOS permissions (Documents, Downloads, Desktop, etc). The best workaround at this time, is to [apply any pending Updates](updating-warp.md) so that the new Warp binary has the correct permissions. We are and tracking this issue [here](https://github.com/warpdotdev/Warp/issues/3009).
 
 <figure><img src="../.gitbook/assets/permission-error-macos.png" alt=""><figcaption><p>Permission error on macOS</p></figcaption></figure>
 
-### Auto-Update error on macOS
+#### Auto-Update error on macOS
 
 Warp may have an error opening after auto-update on macOS Ventura. This issue has been resolved for current and future releases of Warp. To avoid the issue, [update Warp](updating-warp.md) _before_ you upgrade to macOS Ventura.\
 \
@@ -236,7 +236,7 @@ If you experience an error opening Warp, please try the following:
 
 * If the above doesn't work, [uninstall Warp](uninstalling-warp.md), then [re-install Warp](../).
 
-### Running x86 commands with macOS
+#### Running x86 commands with macOS
 
 In some cases, [CLI applications only work on x86](https://discord.com/channels/851854972600451112/1204829324847358002) so you can run Warp with Rosetta on macOS to be able to use them by doing the following.
 
@@ -246,13 +246,13 @@ In some cases, [CLI applications only work on x86](https://discord.com/channels/
 {% endtab %}
 
 {% tab title="Windows" %}
-### Unsupported in Warp on Windows
+#### Unsupported in Warp on Windows
 
 The following feature are not supported in Warp on Windows. Please track the relevant GitHub issues linked below for any changes:
 
 * [cmd.exe](https://github.com/warpdotdev/Warp/issues/5882) or [fish](https://github.com/warpdotdev/Warp/issues/6060) shells
 
-### Warp won't run on Windows
+#### Warp won't run on Windows
 
 We're tracking some issues on Windows where [Warp crashes on startup](https://github.com/warpdotdev/Warp/issues/5840) or doesn't render, with some possible workarounds below. If none of the workarounds help, please open a [new GitHub issue](https://github.com/warpdotdev/warp/issues/new/choose) and include [logs](sending-us-feedback.md#gathering-warp-logs), installation (Baremetal or VM, x86\_64 or ARM64), and the issue you had.
 
@@ -260,7 +260,7 @@ We're tracking some issues on Windows where [Warp crashes on startup](https://gi
   * You can select the graphics backend used to render new Warp windows in the Settings menu, under `Features` > `System` > `Preferred graphics backend`.
   * You can also opt to render new Warp windows with an integrated GPU, under `Features` > `System` > `Prefer rendering new windows with integrated GPU (low power)`.
 
-### Crash on opening a Launch configuration or doesn't become transparent on Windows
+#### Crash on opening a Launch configuration or doesn't become transparent on Windows
 
 When a user has an Nvidia 572.xx or AMD 23.10.x drivers or above, Warp may [crash when trying to open a Launch Configuration](https://github.com/warpdotdev/Warp/issues/5875), or [Warp fails to become transparent](https://github.com/warpdotdev/Warp/issues/5903) (opacity setting doesn't work). These are known limitations of the graphics drivers. We're investigating the issues and will updated on the GitHub issues above. You can workaround this by forcing the graphics backend to Vulkan or OpenGL by running the following from another terminal and setting your GPU driver Vulkan/OpenGL render method setting to "Prefer Native", or using the [DX12 backend](known-issues.md#warp-wont-run-or-render-on-windows):
 
@@ -274,7 +274,7 @@ $env:WGPU_BACKEND="vulkan,gl"; & "$env:PROGRAMFILES\Warp\warp.exe"
 {% endtab %}
 
 {% tab title="Linux" %}
-### Warp won't run on Linux
+#### Warp won't run on Linux
 
 We're tracking some issues on Linux where a [Warp window doesn't show/render](https://github.com/warpdotdev/Warp/issues/4215) and won't run in [Virtual Machines](https://github.com/warpdotdev/Warp/issues/4476), over [remote desktops](https://github.com/warpdotdev/Warp/issues/4435), or on [WSL](https://github.com/warpdotdev/Warp/issues/4240). Some possible workarounds are below. If none of the workarounds help, please open a [new GitHub issue](https://github.com/warpdotdev/warp/issues/new/choose) and include [logs](sending-us-feedback.md#gathering-warp-logs) with your Linux distro, installation (WSL, Baremetal or VM, x86\_64 or ARM64), and the issue you had.
 
@@ -304,7 +304,7 @@ We're tracking some issues on Linux where a [Warp window doesn't show/render](ht
     * Set [Default GPU](https://docs.mesa3d.org/drivers/d3d12.html#utilities) for WSL: e.g. `MESA_D3D12_DEFAULT_ADAPTER_NAME=NVIDIA`
     * Set [Graphics APIs](https://github.com/gfx-rs/wgpu?tab=readme-ov-file#environment-variables): e.g. `WGPU_BACKEND=gl`
 
-### Update fails after upgrading Linux
+#### Update fails after upgrading Linux
 
 Some Linux distros may modify Warp's package repository during the the OS upgrades. We're aware of this on Ubuntu, but this may affect other Linux distros. We're tracking this issue on GitHub [here](https://github.com/warpdotdev/Warp/issues/5201).\
 \
@@ -322,6 +322,3 @@ sudo apt update && sudo apt install warp-terminal
 See the instructions for other Linux distros on our [Quick Start Guide](../#linux).
 {% endtab %}
 {% endtabs %}
-
-
-

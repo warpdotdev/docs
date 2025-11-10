@@ -9,7 +9,7 @@ description: >-
 
 ## Classic Input Style
 
-Warp supports two input styles: **Classic Input** and [Universal Input](./). Classic Input is closer to a traditional terminal experience, with support for shell customizations (e.g. PS1, same-line prompts, oh-my-zsh themes, and more).&#x20;
+Warp supports two input styles: **Classic Input** and [Universal Input](./). Classic Input is closer to a traditional terminal experience, with support for shell customizations (e.g. PS1, same-line prompts, oh-my-zsh themes, and more).
 
 You can switch between input styles in `Settings > Appearance > Input`.
 
@@ -112,7 +112,7 @@ When you run a command suggested by Agent Mode, that command will work like a st
 
 If the suggested command fails and you want to resolve the error, you may start a new AI query to address the problem.
 
-<figure><img src="../../.gitbook/assets/agent-mode-suggestion (3) (1).png" alt="Agent Mode makes a suggestion to run a command."><figcaption><p>Agent Mode makes a suggestion to run a command.</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/agent-mode-suggestion (1).png" alt="Agent Mode makes a suggestion to run a command."><figcaption><p>Agent Mode makes a suggestion to run a command.</p></figcaption></figure>
 
 #### Agent Mode Requested Commands
 
