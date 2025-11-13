@@ -168,6 +168,13 @@ If you're a [Team](../knowledge-and-collaboration/teams.md) admin, the deletion 
 | `CLI.Execute.Environment.Create` | Created a cloud environment from the Warp CLI |
 | `CLI.Execute.Environment.Delete` | Deleted a cloud environment from the Warp CLI |
 | `CLI.Execute.Environment.List` | Listed cloud environments from the Warp CLI |
+| `CLI.Execute.Integration.Create` | Created an integration from the Warp CLI |
+| `CLI.Execute.Integration.Delete` | Deleted an integration from the Warp CLI |
+| `CLI.Execute.Integration.Disable` | Disabled an integration from the Warp CLI |
+| `CLI.Execute.Integration.Edit` | Edited an integration from the Warp CLI |
+| `CLI.Execute.Integration.Enable` | Enabled an integration from the Warp CLI |
+| `CLI.Execute.Integration.Export` | Exported an integration manifest from the Warp CLI |
+| `CLI.Execute.Integration.List` | Listed integrations from the Warp CLI |
 | `CLI.Execute.Login` | Logged in via the Warp CLI |
 | `CLI.Execute.MCP.List` | Listed MCP servers from the Warp CLI |
 | `CLI.Execute.Provider.List` | Listed providers from the Warp CLI |
@@ -182,6 +189,14 @@ If you're a [Team](../knowledge-and-collaboration/teams.md) admin, the deletion 
 | `CodeReview.AddToContext` | Content added to AI context from code review |
 | `CodeReview.BaseChanged` | Diff base changed in code review |
 | `CodeReview.CalculateDiffMetadataFailed` | Failure when calculating diff metadata |
+| `CodeReview.CommentAdded` | Inline code review comment added |
+| `CodeReview.CommentDeleted` | Inline code review comment deleted |
+| `CodeReview.CommentEdited` | Inline code review comment edited |
+| `CodeReview.CommentEditorOpened` | Inline code review comment editor opened |
+| `CodeReview.CommentListExpanded` | Inline code review comment list expanded |
+| `CodeReview.CommentListItemClicked` | Inline code review comment list item clicked |
+| `CodeReview.CommentRelocationFailed` | Inline code review comment relocation fell back to approximate line |
+| `CodeReview.CommentResolved` | Inline code review comment resolved |
 | `CodeReview.FileOpenedInWarpEditor` | File opened in new Warp editor tab |
 | `CodeReview.FileSaved` | File saved in code review pane |
 | `CodeReview.FindBarModeChanged` | Search mode changed in code review find bar |
@@ -191,6 +206,7 @@ If you're a [Team](../knowledge-and-collaboration/teams.md) admin, the deletion 
 | `CodeReview.PaneOpened` | Code review pane opened |
 | `CodeReview.PaneStateChanged` | Code review pane minimized or maximized |
 | `CodeReview.RevertHunkClicked` | Revert hunk button clicked |
+| `CodeReview.ReviewSubmitted` | Inline code review submitted to agent |
 | `Command Correction Event` | Accepted command correction |
 | `Command File Run` | Opened a .cmd or unix executable file and ran it directly in Warp |
 | `Command Palette Search Accepted` | Accepted a command palette search result |

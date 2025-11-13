@@ -8,6 +8,18 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+## 2025.11.12 (v0.2025.11.12.08.12)
+
+**Improvements**
+
+* [Vim mode] Paragraph text objects are now supported, e.g. `dip` to delete a paragraph.
+* [Vim mode] In terminal mode, press `K` over part of a command to inspect it.
+* Agent notifications now reference conversations' titles instead of their queries.
+
+**Bug Fixes**
+
+* The copy link button now works as expected after shared sessions have been closed.
+
 ## 2025.11.05 (v0.2025.11.05.08.12)
 
 **New Features**
