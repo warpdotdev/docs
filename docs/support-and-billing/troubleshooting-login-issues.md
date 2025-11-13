@@ -74,7 +74,7 @@ If the browser does not open from Warp directly when you click "Sign up" or "Sig
 If nothing happens when you click "Take me to Warp" on the logged-in page. If this happens to you, copy the "here" link on the web logged-in page (https://app.warp.dev/logged\_in) to copy the authentication token, then paste it into the app as shown below.
 
 {% hint style="warning" %}
-the On Linux, the default copy-and-paste [Keyboard shortcuts](../getting-started/keyboard-shortcuts.md) are `CTRL-SHIFT-C` and `CTRL-SHIFT-V` respectively.\
+The on Linux and Windows, the default copy-and-paste [Keyboard shortcuts](../getting-started/keyboard-shortcuts.md) are `CTRL-SHIFT-C` and `CTRL-SHIFT-V` respectively.\
 \
 On Linux and WSL you should install and set your default `$BROWSER` to `brave-browser` to workaround any copy-paste issues. Please see the workaround guide below.
 {% endhint %}
