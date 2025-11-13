@@ -12,7 +12,7 @@ Warp lets you choose from a curated set of Large Language Models (LLMs) to power
 
 **Warp supports the following models:**
 
-* OpenAI: `GPT-5` (select between _low, medium,_ and _high_ reasoning modes)
+* OpenAI: `GPT-5` and `GPT-5.1` (select between _low, medium,_ and _high_ reasoning modes)
 * Anthropic: `Claude Sonnet 4.5`, `Claude Opus 4.1`, `Claude Haiku 4.5` , `Claude Sonnet 4`
 * Google: `Gemini 2.5 Pro`
 * z.ai: `GLM 4.6` (hosted in the US, by [Fireworks AI](https://fireworks.ai/models/fireworks/glm-4p6))
