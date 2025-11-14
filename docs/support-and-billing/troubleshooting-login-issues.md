@@ -67,6 +67,14 @@ In cases where you logged in with another method, please do the following to fix
 3. Once logged in, go to [app.warp.dev/link\_sso](https://app.warp.dev/link_sso)
 4. This should link your login to SSO. You can now proceed to login with "Continue with SSO".
 
+## Blocked for Terms of Service violation
+
+Warp has a system in place that identifies users that could potentially be fraudulent, but it can produce false positives if the user has a restrictive ad, script, and/or tracker blocking extensions or browsers.
+
+To workaround this issue, try disabling any ad, script, and/or tracking blockers to see if that helps.
+
+If that doesn't work, the system has determined your account is blocked and you can't proceed with using Warp, let us know at [appeals@warp.dev](mailto:appeals@warp.dev).
+
 ## How to get an Auth token to login
 
 If the browser does not open from Warp directly when you click "Sign up" or "Sign in". Please go to the [Signup ](https://app.warp.dev/signup)page to create an account or [Login](https://app.warp.dev/login) page if you already have one, then copy the auth token from the "here" link on the logged\_in page and paste it into Warp.
