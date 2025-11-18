@@ -134,7 +134,7 @@ Warp saves the MCP logs locally on your computer. You can open the files directl
 {% tabs %}
 {% tab title="macOS" %}
 ```bash
-cd "$HOME/Library/Application Support/dev.warp.Warp-Stable/mcp"
+cd "$HOME/Library/Group Containers/2BBY89MBSN.dev.warp/Library/Application Support/dev.warp.Warp-Stable/mcp"
 ```
 {% endtab %}
 

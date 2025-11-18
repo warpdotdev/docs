@@ -49,7 +49,7 @@ defaults delete dev.warp.Warp-Stable
 # Remove Warp logs
 sudo rm -r $HOME/Library/Logs/warp.log
 # Remove Warp database, codebase context, and mcp logs
-sudo rm -r "$HOME/Library/Application Support/dev.warp.Warp-Stable"
+sudo rm -r "$HOME/Library/Group Containers/2BBY89MBSN.dev.warp/Library/Application Support/dev.warp.Warp-Stable"
 # Remove Warp user files, themes, and launch configurations
 sudo rm -r $HOME/.warp
 # Note: Removing $HOME/.warp will delete files for both Stable and Preview.
@@ -64,7 +64,7 @@ defaults delete dev.warp.Warp-Preview
 # Remove Warp Preview logs
 sudo rm -r $HOME/Library/Logs/warp_preview.log
 # Remove Warp Preview database, codebase context, and mcp logs
-sudo rm -r "$HOME/Library/Application Support/dev.warp.Warp-Preview"
+sudo rm -r "$HOME/Library/Group Containers/2BBY89MBSN.dev.warp/Library/Application Support/dev.warp.Warp-Preview"
 # Note: Removing $HOME/.warp will delete files for both Preview and Stable. 
 # If you wish to delete it all, then: sudo rm -r $HOME/.warp
 ```

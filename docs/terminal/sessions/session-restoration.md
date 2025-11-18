@@ -36,7 +36,7 @@ Warp saves the data from your previous session's windows, tabs, and panes to a S
 {% tabs %}
 {% tab title="macOS" %}
 ```bash
-sqlite3 "$HOME/Library/Application Support/dev.warp.Warp-Stable/warp.sqlite"
+sqlite3 "$HOME/Library/Group Containers/2BBY89MBSN.dev.warp/Library/Application Support/dev.warp.Warp-Stable/warp.sqlite"
 ```
 {% endtab %}
 
@@ -73,7 +73,7 @@ There are two ways to do this:
 * Delete the SQLite file entirely with the following command:
 
 ```bash
-rm -f "$HOME/Library/Application Support/dev.warp.Warp-Stable/warp.sqlite"
+rm -f "$HOME/Library/Group Containers/2BBY89MBSN.dev.warp/Library/Application Support/dev.warp.Warp-Stable/warp.sqlite"
 ```
 {% endtab %}
 
