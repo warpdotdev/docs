@@ -4,7 +4,7 @@ description: >-
   from the command line input or inside any interactive command or program.
 ---
 
-# Generate
+# Generate (Legacy)
 
 ## What is Generate?
 
@@ -33,7 +33,13 @@ Generating commands as command line input demo
 3. Results are generated in real-time, and you can keep the current prompt or modify the prompt to generate new commands.
 4. When you've found the command you want to execute, it can be run or saved as a Workflow onto Warp Drive to easily recall it in the future.
 
-### Generate text and contextual suggestions in interactive CLIs
+### \[Legacy] Generate text and contextual suggestions in interactive CLIs
+
+{% hint style="warning" %}
+**Our legacy Generate feature which works in interactive CLIs has been replaced by** [full-terminal-use.md](full-terminal-use.md "mention")**, where Warp’s agent can now run and control long-running or full-screen terminal applications**. This includes debuggers, database shells, installers, and system monitors. \
+\
+The agent can provide input when prompted, navigate interactive screens, and continue execution without stalling.
+{% endhint %}
 
 In interactive CLI applications, you can generate input using natural language.
 

@@ -8,26 +8,25 @@ description: >-
 
 ## Agent Profiles
 
-Agent Profiles let you configure how your Agent behaves in different situations. Each profile defines the Agent's autonomy, base and planning models, and tool access. You can create multiple profiles and edit them directly in `Settings > AI > Agents > Profiles`.
+Agent Profiles let you configure how your Agent behaves in different situations. Each profile defines the Agent's autonomy, base models, and tool access. You can create multiple profiles and edit them directly in `Settings > AI > Agents > Profiles`.
 
 * **Default profile**: Every user starts with a default profile, you can edit it at any time, and new profiles will copy its settings as a starting point.
-* **Other profiles**: Set up different profiles for different workflows (e.g., "Safe & cautious", "YOLO mode", etc.). Manage them in the Profiles settings menu.&#x20;
+* **Other profiles**: Set up different profiles for different workflows (e.g., "Safe & cautious", "YOLO mode", etc.). Manage them in the Profiles settings menu.
 
 <figure><img src="../../.gitbook/assets/agent-profiles.png" alt=""><figcaption><p>Agent Profiles in Settings: define how your Agent operates.</p></figcaption></figure>
 
 **In each Agent Profile, you can configure:**
 
 * The name of the profile
-* Base and planning models
-  * **Base model**: The core engine for your Agent. It handles most interactions and invokes other models when needed (e.g. for planning or code generation).&#x20;
-  * **Planning model**: Responsible for breaking down complex tasks into actionable steps. It generates structured execution plans and decides how to route work between models.
-* Agent Permissions
+* **Base model**: The core engine for your Agent. It handles most interactions and invokes other models when needed (e.g. for code generation).&#x20;
+  * This model is also used for [planning.md](planning.md "mention"), which is responsible for breaking down complex tasks into actionable steps. It generates structured execution plans and decides how to route work between models.
+* Agent autonomy and permissions
 
 <figure><img src="../../.gitbook/assets/agent-profiles-settings.png" alt=""><figcaption><p>Agent Profiles in Settings: editting a Profile.</p></figcaption></figure>
 
 ## Agent Permissions
 
-Agent Permissions let you define how your Agent in a specific Profile operates — control its autonomy, choose what tools or MCP servers it can access, and set when it should act independently or ask for approval.&#x20;
+Agent Permissions let you define how your Agent in a specific Profile operates — control its autonomy, choose what tools or MCP servers it can access, and set when it should act independently or ask for approval.
 
 You can control how much autonomy the Agent has when performing different types of actions under `Settings > AI > Agents > Profiles > Permissions` . Agent permission types:
 
@@ -35,8 +34,9 @@ You can control how much autonomy the Agent has when performing different types 
 * Read files
 * Create plans
 * Execute commands
+* Interact with running commands (via [full-terminal-use.md](../full-terminal-use.md "mention"))
 
-<figure><img src="../../.gitbook/assets/agent-permissions.png" alt=""><figcaption><p>Fine-tuning agent control: This permissions panel lets users customize how much autonomy the Agent has when applying code diffs, reading files, creating plans, and executing commands.</p></figcaption></figure>
+<div align="center"><figure><img src="../../.gitbook/assets/agent-permissions-with-full-terminal-use.png" alt=""><figcaption><p>Fine-tuning agent control: This permissions panel lets users customize how much autonomy the Agent has when applying code diffs, reading files, creating plans, and executing commands.</p></figcaption></figure></div>
 
 **Each permission has different levels of autonomy:**
 

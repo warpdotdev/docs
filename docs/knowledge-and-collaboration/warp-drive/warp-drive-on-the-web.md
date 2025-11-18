@@ -16,7 +16,7 @@ Warp's web-based viewing experience can currently be accessed via:
 
 * The [`app.warp.dev/app` homepage](https://app.warp.dev/app)
 * [Drive Object](./#sharing-your-drive-objects) Links
-* [Session Sharing](../session-sharing.md#how-to-allow-access-to-collaborators-in-your-session) Links
+* [Session Sharing](../session-sharing/#how-to-allow-access-to-collaborators-in-your-session) Links
 
 {% hint style="warning" %}
 You should be able to edit and view web-based objects and session as normal. The one exception is executing a command from a workflow or notebook since there is no shell session running on the web.

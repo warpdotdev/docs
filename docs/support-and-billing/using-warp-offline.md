@@ -27,6 +27,6 @@ Warp’s cloud-based features which require an internet connection will not work
   * [Rules](../knowledge-and-collaboration/rules.md)
   * [Model Context Protocol](../knowledge-and-collaboration/mcp.md)
 * [Teams](../knowledge-and-collaboration/teams.md)
-* [Session Sharing](../knowledge-and-collaboration/session-sharing.md)
+* [Session Sharing](../knowledge-and-collaboration/session-sharing/)
 * [Block Sharing](../terminal/blocks/block-sharing.md)
 * [Refer a Friend](../community/refer-a-friend.md)

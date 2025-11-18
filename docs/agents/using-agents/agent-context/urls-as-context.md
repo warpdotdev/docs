@@ -9,10 +9,14 @@ description: >-
 
 ## Referencing websites via URLs
 
-You can attach a public URL to a prompt to provide website content as context. When a URL is included, the agent will scrape the page and extract relevant information to inform its response.
+You can attach a public URL to any prompt to provide page content as context. Warp will scrape the page and surface the extracted text directly to the model.
 
-This feature only works with publicly accessible pages. The full text of the page is sent to the model, which may increase AI request usage depending on the length of the content.
+* Only publicly accessible pages are supported.
+* The full page is added to the model’s context, which may increase credit usage for long documents.
+* Only the specific URL you provide is processed. The agent won’t explore the site, follow links, or crawl beyond that page.
 
-Note: this is not a search feature—the agent does not currently have browsing capabilities or access to real-time web search. Only the specific page you link will be used as context.
+{% hint style="info" %}
+**Important**: URL attachments are different from web search. If you need the agent to look something up, gather real-time information, or pull in multiple sources, use [web-search.md](../web-search.md "mention") instead.
+{% endhint %}
 
 <figure><img src="../../../.gitbook/assets/url-as-context.png" alt=""><figcaption><p>Example of referencing docs via a URL</p></figcaption></figure>

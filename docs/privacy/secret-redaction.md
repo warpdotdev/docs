@@ -13,17 +13,17 @@ Disabled by default, to enable Secret Redaction open `Settings > Privacy > Secre
 
 ## How it works
 
-Secret Redaction attempts to detect sensitive data (including secrets, passwords, API keys, and PII) using your list of regex patterns. Any identified secret will be redacted instead of being sent to our servers or any LLM provider. Additionally, Warp Drive will prevent you from saving any secrets in plain text (workflows, MCP servers, prompts, etc.). \
+Secret Redaction attempts to detect sensitive data (including secrets, passwords, API keys, and PII) using your list of regex patterns. Any identified secret will be redacted instead of being sent to our servers or any LLM provider. Additionally, Warp Drive will prevent you from saving any secrets in plain text (workflows, MCP servers, prompts, etc.).\
 \
 Warp ships with a [list of recommended regex](secret-redaction.md#secret-regex-list) you can easily add to the list. Additionally you can add custom regex for secrets you want to include in `Settings > Privacy > Secret redaction > Custom secret redaction`.
 
 ## Visually hiding secrets
 
-By default, identified secrets will be displayed with a strikethrough visual treatment, i.e. `echo`` `~~`password`~~.
+By default, identified secrets will be displayed with a strikethrough visual treatment, i.e. ` echo`` `` `~~`password`~~.
 
 If instead you'd prefer to visually hide the secrets as well, i.e. `echo ********`, the setting to obfuscate secrets with asterisks can be found in `Settings > Privacy > Secret redaction > Hide secrets in blocklist`.
 
-Clicking on a secret will display a tooltip that lets you reveal the secret or copy the secret's contents. When trying to copy terminal output containing secrets, it will be copied as asterisks (e.g. `echo password` becomes `echo ********`) unless revealed or copied from the tooltip. Secret redaction is not applied in [Session Sharing](../knowledge-and-collaboration/session-sharing.md).
+Clicking on a secret will display a tooltip that lets you reveal the secret or copy the secret's contents. When trying to copy terminal output containing secrets, it will be copied as asterisks (e.g. `echo password` becomes `echo ********`) unless revealed or copied from the tooltip. Secret redaction is not applied in [Session Sharing](../knowledge-and-collaboration/session-sharing/).
 
 ## Case sensitivity
 

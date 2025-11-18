@@ -65,7 +65,7 @@ The model Warp uses to detect natural language automatically is completely local
 
 #### Disabling Natural Language Auto-detection
 
-By default, auto-detection is enabled. This means Warp decides whether to treat your input as a command or an Agent prompt.&#x20;
+By default, auto-detection is enabled. This means Warp decides whether to treat your input as a command or an Agent prompt.
 
 * **To turn off auto-detection**: go to `Settings > AI > Input > Natural Language Detection`
 * When disabled: You’ll explicitly be in either Terminal or Agent Mode. Use the following keyboard shortcuts to switch between modes:
@@ -116,7 +116,7 @@ When you’re in Agent Mode, the **Agent icon** will be highlighted in the [.](.
 
 <figure><img src="../../.gitbook/assets/using-agents-universal-input.png" alt=""><figcaption><p>The Agent icon in the Universal input indicates that Agent Mode is active.</p></figcaption></figure>
 
-In Classic Input, you’ll also see a ✨ sparkles indicator inline.&#x20;
+In Classic Input, you’ll also see a ✨ sparkles indicator inline.
 
 <figure><img src="../../.gitbook/assets/undo_my_git_commit.png" alt="The sparkles on the command line indicate Agent Mode is active."><figcaption><p>The sparkles in the Classic input indicates that Agent Mode is active.</p></figcaption></figure>
 
@@ -188,7 +188,7 @@ The Universal Input includes **contextual chips** that provide inline informatio
 
 #### Conversation Management chip
 
-The conversation management chip shows your recent [Agent conversations](../../agents/using-agents/agent-conversations/), allowing you to reference or reopen them directly.&#x20;
+The conversation management chip shows your recent [Agent conversations](../../agents/using-agents/agent-conversations/), allowing you to reference or reopen them directly.
 
 These chips appear in both Agent Mode and Terminal Mode, so you can continue a previous conversation without starting from scratch. For more details, see [agent-conversations](../../agents/using-agents/agent-conversations/ "mention").
 
@@ -202,9 +202,9 @@ The active directory chip displays your current working directory and enables si
 
 <figure><img src="../../.gitbook/assets/active-directory-chip.png" alt=""><figcaption><p>The Active Directory chip lets you browse directories and open files directly from the input.</p></figcaption></figure>
 
-#### Git Status chip&#x20;
+#### Git Status chip
 
-When you’re in a Git-tracked repository, the Git Status chip displays file- and line-level changes. You can switch branches by clicking on the branch name or review modified files in Warp’s [native Code Review panel](../../code/code-review.md).&#x20;
+When you’re in a Git-tracked repository, the Git Status chip displays file- and line-level changes. You can switch branches by clicking on the branch name or review modified files in Warp’s [native Code Review panel](../../code/code-review/).
 
 The chip updates automatically as files are added, removed, or changed, giving you a real-time view of your repository state.
 
@@ -234,9 +234,9 @@ The **Input Toolbelt** provides quick-access controls alongside the Universal In
 
 <figure><img src="../../.gitbook/assets/input-toolbar.png" alt=""><figcaption><p>The Input Toolbelt in Warp’s Universal Input, showing quick-access controls for context, slash commands, voice input, attachments, profiles, and model selection.</p></figcaption></figure>
 
-#### @ - Context&#x20;
+#### @ - Context
 
-The [@ context chip](../../agents/using-agents/agent-context/using-to-add-context.md) is available when you are working in a Git repository. Outside of a Git repo, it appears dimmed.&#x20;
+The [@ context chip](../../agents/using-agents/agent-context/using-to-add-context.md) is available when you are working in a Git repository. Outside of a Git repo, it appears dimmed.
 
 This feature allows you to attach specific files, folders, code symbols, Warp Drive objects, or blocks from other sessions as context for a prompt. Typing **@** inside the input also opens a context menu where you can search for and select files or directories to include.
 

@@ -1,5 +1,5 @@
 ---
-description: Collaborate with anybody in a Warp terminal session, in real-time
+description: Collaborate with anybody in a Warp terminal session, in real-time.
 ---
 
 # Session Sharing
@@ -8,13 +8,13 @@ description: Collaborate with anybody in a Warp terminal session, in real-time
 This action sends command information to Warp’s servers and is explicitly opt-in. Read more about privacy for cloud features in the [privacy overview](https://www.warp.dev/privacy/overview).
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/session_sharing_preview.png" alt=""><figcaption><p>Session Sharing allows multiple teammates to edit the input at the same time</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/session_sharing_preview.png" alt=""><figcaption><p>Session Sharing allows multiple teammates to edit the input at the same time</p></figcaption></figure>
 
 ### Share a session
 
 To start sharing:
 
-1. From the [Command Palette](../terminal/command-palette.md), search for and select "Share New Session" or "Share Current Session".
+1. From the [Command Palette](../../terminal/command-palette.md), search for and select "Share New Session" or "Share Current Session".
 2. From the Pane header overflow menu, select "Start Session sharing"
 3. From the `RIGHT-CLICK` context menu, select "Share session..."
 
@@ -24,7 +24,7 @@ If you select to share a current session, you will be given the option to share 
 
 If you initiate a shared session using Block actions, you will be given the option to start sharing from the selected block onwards. This option gives you the precision to select a specific block of output in your session history as the starting point, excluding all previous scrollback before that block.
 
-<figure><img src="../.gitbook/assets/start-session-sharing.png" alt=""><figcaption><p>Start sharing from a selected block onward or an entire session with or without scrollback</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/start-session-sharing.png" alt=""><figcaption><p>Start sharing from a selected block onward or an entire session with or without scrollback</p></figcaption></figure>
 
 #### How to allow access to collaborators in your session
 
@@ -42,7 +42,7 @@ You can adjust who has view or edit access to your session and specifically:
 * Revoke edit access from collaborators
 * Remove collaborators from the session
 
-<figure><img src="../.gitbook/assets/session-who-has-access.png" alt=""><figcaption><p>Update permissions through the share icon</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/session-who-has-access.png" alt=""><figcaption><p>Update permissions through the share icon</p></figcaption></figure>
 
 When somebody accesses your shared session, they will be able to:
 
@@ -57,7 +57,7 @@ You can also:
 * Reference avatars and usernames for every collaborator who has access to your session
 * Jump to a collaborator’s selection by clicking on their avatar
 
-<figure><img src="../.gitbook/assets/session-sharing-native-web-demo.gif" alt=""><figcaption><p>Session Sharing Native to Web Demo</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/session-sharing-native-web-demo.gif" alt=""><figcaption><p>Session Sharing Native to Web Demo</p></figcaption></figure>
 
 #### How to end a shared session
 
@@ -67,12 +67,11 @@ When you’re ready to end a shared session, click `Share > Stop` sharing to wra
 
 You may share multiple sessions simultaneously. If you have multiple shared sessions, you will find _Other shared sessions_ listed in the Share dropdown menu. You may also end multiple shared sessions at the same time with `Share > Stop` sharing all.
 
-<figure><img src="../.gitbook/assets/switch-stop-session-sharing (1).png" alt=""><figcaption><p>Switch between shared sessions or stop all shared sessions at once</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/switch-stop-session-sharing (1).png" alt=""><figcaption><p>Switch between shared sessions or stop all shared sessions at once</p></figcaption></figure>
 
 ### Known limitations
 
-* [Agent Mode blocks](../agents/using-agents/) are not shareable during session sharing. Participants will be able to share regular shell commands that are run, but will not be able to share AI interactions (requested commands, AI blocks, etc.)
-* Even if enabled, [Secret Redaction](../privacy/secret-redaction.md) is not applied during session sharing.
+* Even if enabled, [Secret Redaction](../../privacy/secret-redaction.md) is not applied during session sharing.
 * There is a session size limit of 100MB per session, 1GB per user per day, and a maximum of 10 participants per session (excluding the sharer). These limits are subject to change.
 * Some of Warp's plans are limited to 5 shared sessions and the session limits do not reset. Upgrade to a [paid plan](https://www.warp.dev/pricing) to get unlimited sessions.
 

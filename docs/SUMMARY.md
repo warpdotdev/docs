@@ -2,7 +2,7 @@
 
 ## Getting Started
 
-* [Quickstart Guided](README.md)
+* [Quickstart Guide](README.md)
   * [Installation and setup](getting-started/quickstart-guide/installation-and-setup.md)
   * [Coding in Warp](getting-started/quickstart-guide/coding-in-warp.md)
   * [Agents in Warp](getting-started/quickstart-guide/agents-in-warp.md)
@@ -25,13 +25,16 @@
     * [URLs as Context](agents/using-agents/agent-context/urls-as-context.md)
     * [Selection as Context](agents/using-agents/agent-context/selection-as-context.md)
     * [Using @ to Add Context](agents/using-agents/agent-context/using-to-add-context.md)
-  * [Managing Agents](agents/using-agents/managing-agents.md)
   * [Agent Profiles & Permissions](agents/using-agents/agent-profiles-permissions.md)
   * [Agent Task Lists](agents/using-agents/agent-tasklists.md)
+  * [Planning](agents/using-agents/planning.md)
+  * [Managing Agents](agents/using-agents/managing-agents.md)
   * [Model Choice](agents/using-agents/model-choice.md)
+  * [Web Search](agents/using-agents/web-search.md)
+* [Full Terminal Use](agents/full-terminal-use.md)
 * [Slash Commands](agents/slash-commands.md)
 * [Active AI](agents/active-ai.md)
-* [Generate](agents/generate.md)
+* [Generate (Legacy)](agents/generate.md)
 * [Voice](agents/voice.md)
 * [AI FAQs](agents/ai-faqs.md)
 
@@ -39,13 +42,13 @@
 
 * [Code Overview](code/code-overview.md)
 * [Code Editor](code/code-editor/README.md)
-  * [File Tree](code/code-editor/file-tree.md)
+  * [File Tree (Project Explorer)](code/code-editor/file-tree.md)
   * [Find and Replace](code/code-editor/find-and-replace.md)
   * [Code Editor Vim Keybindings](code/code-editor/code-editor-vim-keybindings.md)
+* [Code Review](code/code-review/README.md)
+  * [Interactive Code Review](code/code-review/interactive-code-review.md)
 * [Codebase Context](code/codebase-context.md)
-* [Code Review](code/code-review.md)
 * [Code Diffs in Agent Conversations](code/reviewing-code.md)
-* [Code Permissions](code/code-permissions.md)
 
 ## Terminal
 
@@ -113,7 +116,6 @@
 * [Comparisons](terminal/comparisons/README.md)
   * [Performance](terminal/comparisons/performance.md)
   * [Terminal features](terminal/comparisons/terminal-features.md)
-* [Integrations](terminal/integrations-and-plugins.md)
 
 ## Knowledge & Collaboration
 
@@ -128,11 +130,22 @@
 * [Rules](knowledge-and-collaboration/rules.md)
 * [Teams](knowledge-and-collaboration/teams.md)
 * [Admin Panel](knowledge-and-collaboration/admin-panel.md)
-* [Session Sharing](knowledge-and-collaboration/session-sharing.md)
+* [Session Sharing](knowledge-and-collaboration/session-sharing/README.md)
+  * [Agent Session Sharing](knowledge-and-collaboration/session-sharing/agent-session-sharing.md)
+  * [Ambient Agents Session Sharing](knowledge-and-collaboration/session-sharing/ambient-agents-session-sharing.md)
 
 ## Developers
 
 * [Warp CLI](developers/cli.md)
+
+## Integrations
+
+* [Integrations Overview](integrations/integrations-overview/README.md)
+  * [Integrations and Environments](integrations/integrations-overview/integrations-and-environments.md)
+* [Slack](integrations/slack.md)
+* [Linear](integrations/linear.md)
+* [Github Actions](integrations/github-actions.md)
+* [Terminal Integrations](integrations/integrations-and-plugins.md)
 
 ## Privacy
 

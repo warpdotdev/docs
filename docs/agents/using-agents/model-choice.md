@@ -14,7 +14,7 @@ Warp lets you choose from a curated set of Large Language Models (LLMs) to power
 
 * OpenAI: `GPT-5` and `GPT-5.1` (select between _low, medium,_ and _high_ reasoning modes)
 * Anthropic: `Claude Sonnet 4.5`, `Claude Opus 4.1`, `Claude Haiku 4.5` , `Claude Sonnet 4`
-* Google: `Gemini 2.5 Pro`
+* Google: `Gemini 3 Pro`, `Gemini 2.5 Pro`
 * z.ai: `GLM 4.6` (hosted in the US, by [Fireworks AI](https://fireworks.ai/models/fireworks/glm-4p6))
 
 ### Auto Models
@@ -60,4 +60,3 @@ Warp has executed Zero Data Retention (ZDR) agreements with these providers. Thi
 * LLM providers commit to delete inputs and outputs after generating the relevant output, within a fixed time period.
 
 Warp enforces these commitments through both technical measures and contractual safeguards with the LLM providers.
-

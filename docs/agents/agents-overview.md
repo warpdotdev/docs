@@ -21,13 +21,14 @@ These features sends input data to various LLM providers through their API. Warp
 * [Agents](using-agents/) - Run and manage multiple agents natively in Warp using natural language.
 * [Agent Conversations](using-agents/agent-conversations/) - Warp organizes your AI interactions into conversations tied to sessions, allowing you to attach context blocks, continue previous conversations, or start new threads for distinct tasks.
 * [Agent Context](using-agents/agent-context/) - Attach multimodal context directly to Warp’s Agent within the prompt.
+* [Full Terminal Use](full-terminal-use.md) - Lets Warp’s agent drive interactive terminal apps—seeing live output, running commands and keystrokes, and handing control back to you whenever you want.
 * [Managing Agents](using-agents/managing-agents.md) - Track, control, and configure all active agents in Warp using visual status indicators, in-app notifications, and the Agent Management Panel.
 * [Agent Profiles and Permissions](using-agents/agent-profiles-permissions.md) - Set up Profiles to control what permissions and autonomy Agents have to run commands, apply code changes, and more.
+* [Planning](using-agents/planning.md) - turn any Agent request into an organized, editable, and executable plan that the agent can run step-by-step with full visibility and version control.
 * [Agent Task Lists](using-agents/agent-tasklists.md) - Track and manage complex workflows with automatic task lists that break requests into clear, actionable steps and update progress in real time.
 * [Model Choice](using-agents/model-choice.md) - Pick your preferred LLM for Warp’s Agent from a curated set of the top models, or rely on Warp to choose the optimal model.
 * [Active AI](active-ai.md) - Proactively recommends fixes and next actions based on errors, inputs, and outputs.
 * [Model Context Protocol](../knowledge-and-collaboration/mcp.md) - Expose data sources or tools to Warp’s Agents via MCP Servers.
 * [Rules](../knowledge-and-collaboration/rules.md) - Create and store Global and Project Rules to set guidelines and constraints for Agents.
-* [Generate](generate.md) - Look up commands and contextual suggestions for interactive CLIs in natural language.
 * [Voice](voice.md) - Talk to Warp AI using voice commands to accomplish tasks.
 * [AI Autofill in Warp Drive](../knowledge-and-collaboration/warp-drive/workflows.md#ai-autofill) - let Warp's Agent name and describe the workflows you create.

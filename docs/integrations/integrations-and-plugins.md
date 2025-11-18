@@ -1,8 +1,10 @@
 ---
-description: Warp extends and integrates with popular development tools.
+description: >-
+  Warp's terminal functionality extends and integrates with popular development
+  tools.
 ---
 
-# Integrations
+# Terminal Integrations
 
 ## Docker
 
@@ -43,7 +45,7 @@ Press `SHIFT-CMD-C` while in [VSCode](https://code.visualstudio.com/docs/termina
 
 ![VSCode New Session Shortcut](../.gitbook/assets/vscode_new_session.gif)
 
-To configure this, navigate to Settings in VSCode and search for `Terminal › External: Osx Exec`. \
+To configure this, navigate to Settings in VSCode and search for `Terminal › External: Osx Exec`.\
 \
 Change this to `Warp.app` if you've installed Warp in the default location. Otherwise, put in the full path to the executable.
 {% endtab %}

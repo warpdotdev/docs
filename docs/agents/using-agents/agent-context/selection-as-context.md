@@ -20,7 +20,7 @@ This makes it easy to highlight just the lines you want the Agent to analyze or 
 
 ### Attaching selections from Warp’s Code Review panel
 
-You can also directly attach context from the [Code Review panel](../../../code/code-review.md):
+You can also directly attach context from the [Code Review panel](../../../code/code-review/):
 
 1. Hover over any **diff hunk** to reveal the option to attach it as context.
 

@@ -88,7 +88,7 @@ To try and resolve the issue of Warp not rendering a window, [delete the Session
 
 ## Agent Mode
 
-* Note that Agent Mode blocks are not shareable during [session sharing](../knowledge-and-collaboration/session-sharing.md). Participants will be able to share regular shell commands that are run, but will not be able to share AI interactions (requested commands, AI blocks, etc.).
+* Note that Agent Mode blocks are not shareable during [session sharing](../knowledge-and-collaboration/session-sharing/). Participants will be able to share regular shell commands that are run, but will not be able to share AI interactions (requested commands, AI blocks, etc.).
 * Block actions such as [Block Sharing](../terminal/blocks/block-sharing.md) are not available on Agent Mode AI blocks.
 * Agents do not have up-to-date information on several commands’ completion specs
 * Agent Mode works better with Warp's default prompt settings, where the prompt starts on a new line, than it does with a same-line prompt. If you are using the same-line prompt, the cursor will jump from the end of the single line to the start of the input box when you switch to Agent Mode.
@@ -211,20 +211,20 @@ The following non exhaustive list of plugins, prompts, or tools can cause potent
 
 {% tabs %}
 {% tab title="macOS" %}
-#### SSH to local network device is denied on macOS
+**SSH to local network device is denied on macOS**
 
 On macOS, you may be [denied permission to SSH](https://github.com/warpdotdev/Warp/issues/5550) from Warp into other devices in your local network and see an error like: `ssh: connect to host <host_name> port 22: Undefined error: 0`.\
 To resolve this issue, go to `Mac > System Settings > Privacy & Security > Local Network`, and add Warp.
 
 <figure><img src="../.gitbook/assets/mac-ssh-permission.png" alt=""><figcaption><p>Mac SSH permission error</p></figcaption></figure>
 
-#### Unexpected loss of permission on macOS
+**Unexpected loss of permission on macOS**
 
 On macOS, you may see a `Operation not permitted` error when trying to run commands in directories that have already been granted macOS permissions (Documents, Downloads, Desktop, etc). The best workaround at this time, is to [apply any pending Updates](updating-warp.md) so that the new Warp binary has the correct permissions. We are and tracking this issue [here](https://github.com/warpdotdev/Warp/issues/3009).
 
 <figure><img src="../.gitbook/assets/permission-error-macos.png" alt=""><figcaption><p>Permission error on macOS</p></figcaption></figure>
 
-#### Auto-Update error on macOS
+**Auto-Update error on macOS**
 
 Warp may have an error opening after auto-update on macOS Ventura. This issue has been resolved for current and future releases of Warp. To avoid the issue, [update Warp](updating-warp.md) _before_ you upgrade to macOS Ventura.\
 \
@@ -236,7 +236,7 @@ If you experience an error opening Warp, please try the following:
 
 * If the above doesn't work, [uninstall Warp](uninstalling-warp.md), then [re-install Warp](../).
 
-#### Running x86 commands with macOS
+**Running x86 commands with macOS**
 
 In some cases, [CLI applications only work on x86](https://discord.com/channels/851854972600451112/1204829324847358002) so you can run Warp with Rosetta on macOS to be able to use them by doing the following.
 
@@ -246,13 +246,13 @@ In some cases, [CLI applications only work on x86](https://discord.com/channels/
 {% endtab %}
 
 {% tab title="Windows" %}
-#### Unsupported in Warp on Windows
+**Unsupported in Warp on Windows**
 
 The following feature are not supported in Warp on Windows. Please track the relevant GitHub issues linked below for any changes:
 
 * [cmd.exe](https://github.com/warpdotdev/Warp/issues/5882) or [fish](https://github.com/warpdotdev/Warp/issues/6060) shells
 
-#### Warp won't run on Windows
+**Warp won't run on Windows**
 
 We're tracking some issues on Windows where [Warp crashes on startup](https://github.com/warpdotdev/Warp/issues/5840) or doesn't render, with some possible workarounds below. If none of the workarounds help, please open a [new GitHub issue](https://github.com/warpdotdev/warp/issues/new/choose) and include [logs](sending-us-feedback.md#gathering-warp-logs), installation (Baremetal or VM, x86\_64 or ARM64), and the issue you had.
 
@@ -260,7 +260,7 @@ We're tracking some issues on Windows where [Warp crashes on startup](https://gi
   * You can select the graphics backend used to render new Warp windows in the Settings menu, under `Features` > `System` > `Preferred graphics backend`.
   * You can also opt to render new Warp windows with an integrated GPU, under `Features` > `System` > `Prefer rendering new windows with integrated GPU (low power)`.
 
-#### Crash on opening a Launch configuration or doesn't become transparent on Windows
+**Crash on opening a Launch configuration or doesn't become transparent on Windows**
 
 When a user has an Nvidia 572.xx or AMD 23.10.x drivers or above, Warp may [crash when trying to open a Launch Configuration](https://github.com/warpdotdev/Warp/issues/5875), or [Warp fails to become transparent](https://github.com/warpdotdev/Warp/issues/5903) (opacity setting doesn't work). These are known limitations of the graphics drivers. We're investigating the issues and will updated on the GitHub issues above. You can workaround this by forcing the graphics backend to Vulkan or OpenGL by running the following from another terminal and setting your GPU driver Vulkan/OpenGL render method setting to "Prefer Native", or using the [DX12 backend](known-issues.md#warp-wont-run-or-render-on-windows):
 
@@ -274,7 +274,7 @@ $env:WGPU_BACKEND="vulkan,gl"; & "$env:PROGRAMFILES\Warp\warp.exe"
 {% endtab %}
 
 {% tab title="Linux" %}
-#### Warp won't run on Linux
+**Warp won't run on Linux**
 
 We're tracking some issues on Linux where a [Warp window doesn't show/render](https://github.com/warpdotdev/Warp/issues/4215) and won't run in [Virtual Machines](https://github.com/warpdotdev/Warp/issues/4476), over [remote desktops](https://github.com/warpdotdev/Warp/issues/4435), or on [WSL](https://github.com/warpdotdev/Warp/issues/4240). Some possible workarounds are below. If none of the workarounds help, please open a [new GitHub issue](https://github.com/warpdotdev/warp/issues/new/choose) and include [logs](sending-us-feedback.md#gathering-warp-logs) with your Linux distro, installation (WSL, Baremetal or VM, x86\_64 or ARM64), and the issue you had.
 
@@ -304,7 +304,7 @@ We're tracking some issues on Linux where a [Warp window doesn't show/render](ht
     * Set [Default GPU](https://docs.mesa3d.org/drivers/d3d12.html#utilities) for WSL: e.g. `MESA_D3D12_DEFAULT_ADAPTER_NAME=NVIDIA`
     * Set [Graphics APIs](https://github.com/gfx-rs/wgpu?tab=readme-ov-file#environment-variables): e.g. `WGPU_BACKEND=gl`
 
-#### Update fails after upgrading Linux
+**Update fails after upgrading Linux**
 
 Some Linux distros may modify Warp's package repository during the the OS upgrades. We're aware of this on Ubuntu, but this may affect other Linux distros. We're tracking this issue on GitHub [here](https://github.com/warpdotdev/Warp/issues/5201).\
 \
