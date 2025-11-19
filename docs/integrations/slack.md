@@ -13,8 +13,6 @@ The Slack integration lets your team trigger Warp agents directly from conversat
 
 Agents keep you updated as they work, generate pull requests using your GitHub account, and share a link to a live remote session so you can watch or guide the workflow in real time.
 
-{% embed url="https://www.youtube.com/watch?v=ahFfInVD0HQ" %}
-
 This page explains what the integration does, how it behaves inside Slack, and how to configure it for your Warp team.
 
 ***

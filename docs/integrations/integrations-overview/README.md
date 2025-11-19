@@ -25,6 +25,8 @@ All of this is powered by the [cli.md](../../developers/cli.md "mention").
 
 The fastest way to get Warp agents running from Slack or Linear is to create an environment with the guided flow. An **environment** defines everything the agent needs to run your code remotely, including your Docker image, repos, and setup commands.
 
+{% embed url="https://www.youtube.com/watch?v=ahFfInVD0HQ" %}
+
 #### 1. Run /create-environment
 
 From Warp (in command mode), run:
