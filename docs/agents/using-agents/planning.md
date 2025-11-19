@@ -15,7 +15,7 @@ Warp has native planning functionality that helps you break down complex enginee
 
 ### Creating a Plan
 
-You can generate a plan using the `/plan` [slash command](../slash-commands.md) or by asking the agent in natural language in the [universal-input](../../terminal/universal-input/ "mention").&#x20;
+You can generate a plan using the `/plan` [slash command](../slash-commands.md) or by asking the agent in natural language in the [universal-input](../../terminal/universal-input/ "mention").
 
 <figure><img src="../../.gitbook/assets/plan-slash-command.png" alt="" width="375"><figcaption><p>Prompting the agent to create a plan using the slash command.</p></figcaption></figure>
 
@@ -23,7 +23,7 @@ The agent then creates a structured plan inside Warp’s native rich text editor
 
 ### Reviewing and Editing
 
-Once a plan is generated, you can review it, reorganize steps, or refine details. You can edit the document manually or ask the agent to revise sections for you.&#x20;
+Once a plan is generated, you can review it, reorganize steps, or refine details. You can edit the document manually or ask the agent to revise sections for you.
 
 <figure><img src="../../.gitbook/assets/planning-main-view.png" alt=""><figcaption><p>Plan editor in Warp.</p></figcaption></figure>
 
@@ -35,7 +35,7 @@ When you’re ready to start implementing, prompt the agent to run the plan. You
 
 <figure><img src="../../.gitbook/assets/manually-trigger-plan.png" alt=""><figcaption><p>Manually referencing the plan using @ to kickoff the plan.</p></figcaption></figure>
 
-The agent applies changes incrementally and updates files as it proceeds. This makes it easy to validate early steps before moving forward, adjust the plan mid-run, or try alternative paths without committing to the full workflow.&#x20;
+The agent applies changes incrementally and updates files as it proceeds. This makes it easy to validate early steps before moving forward, adjust the plan mid-run, or try alternative paths without committing to the full workflow.
 
 If you revise the plan while the agent is running, you can notify it directly; the agent will adjust its execution based on your updates.
 
@@ -51,7 +51,7 @@ This gives you clear oversight, helps confirm expected behavior, and lets you in
 
 ### Saving and Sharing
 
-Warp automatically saves all plans in the _Plans_ folder in [warp-drive](../../knowledge-and-collaboration/warp-drive/ "mention"). You can export any plan as Markdown, check it into your repository, or share a link—useful for GitHub PRs, design reviews, or async collaboration.&#x20;
+Warp automatically saves all plans in the _Plans_ folder in [warp-drive](../../knowledge-and-collaboration/warp-drive/ "mention"). You can export any plan as Markdown, check it into your repository, or share a link—useful for GitHub PRs, design reviews, or async collaboration.
 
 <figure><img src="../../.gitbook/assets/export-notebooks.png" alt="" width="375"><figcaption><p>Different ways to share a plan.</p></figcaption></figure>
 
@@ -61,11 +61,11 @@ Because plans persist in Warp Drive, you can return to them later, reuse them fo
 
 You can configure whether your plans will be automatically added and synced to Warp drive In your [agent-profiles-permissions.md](agent-profiles-permissions.md "mention") under `Settings > AI > Agents > Profiles`.
 
-<figure><img src="../../.gitbook/assets/automatically-sync-plans.png" alt="" width="371"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/auto-sync-plans (1).png" alt="" width="371"><figcaption></figcaption></figure>
 
 ### Using Plans Across Conversations
 
-Plans are reusable across tasks and sessions. You can reference them in future prompts, continue where you left off, or build follow-up plans that rely on earlier work.&#x20;
+Plans are reusable across tasks and sessions. You can reference them in future prompts, continue where you left off, or build follow-up plans that rely on earlier work.
 
 The **@plans** command helps you quickly search for and reopen previously saved plans, making planning a consistent part of your development workflow rather than a one-off step. Learn more about attaching context using @ [here](agent-context/using-to-add-context.md).
 
