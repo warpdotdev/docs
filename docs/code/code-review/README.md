@@ -113,7 +113,7 @@ When you revert, the changes are immediately updated in your working directory. 
 
 In addition to reviewing and editing diffs directly in the Code Review pane, you can open a file directly in Warp’s [code-editor](../code-editor/ "mention"). Each file listed in the Code Review pane includes an expand button in the top-right corner of its diff view.
 
-<figure><img src="../../.gitbook/assets/image.png" alt="" width="375"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/code-review-header.png" alt="" width="375"><figcaption></figcaption></figure>
 
 * Clicking the **expand button** (right-most button on the header) opens the file in a new editor tab, allowing you to see the full file beyond just the changed lines.
   * This is useful when you need additional context around a diff, want to make broader edits, or prefer working in the full editor rather than inline.

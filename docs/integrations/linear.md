@@ -38,7 +38,7 @@ Agents keep you informed through:
 
 Session sharing works in Warp or in a browser view and allows multiple teammates to watch the session.
 
-<figure><img src="../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/linear-warp-on-web.png" alt=""><figcaption></figcaption></figure>
 
 #### Joining the remote session
 
@@ -49,7 +49,7 @@ Selecting [**Open in Warp**](../knowledge-and-collaboration/session-sharing/ambi
 * An input box to add clarifying instructions
 * A real-time view identical to a local Warp task
 
-<p align="center"><img src="../.gitbook/assets/image (2).png" alt=""></p>
+<p align="center"><img src="../.gitbook/assets/linear-open-in-warp.png" alt=""></p>
 
 Any instructions you give will interrupt the agent, feed the new context, and resume work.
 

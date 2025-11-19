@@ -9,7 +9,11 @@ description: >-
 
 ### Overview
 
-The Slack integration lets your team trigger Warp agents directly from conversations in Slack. When you tag @Warp in a message or DM the bot, Warp will start an agent in the cloud, clone the repositories defined in your environment, and begin working through the task with full context from your codebase and the Slack thread. Agents keep you updated as they work, generate pull requests using your GitHub account, and share a link to a live remote session so you can watch or guide the workflow in real time.
+The Slack integration lets your team trigger Warp agents directly from conversations in Slack. When you tag **@Warp** in a message or DM the bot, Warp will start an agent in the cloud, clone the repositories defined in your environment, and begin working through the task with full context from your codebase and the Slack thread.&#x20;
+
+Agents keep you updated as they work, generate pull requests using your GitHub account, and share a link to a live remote session so you can watch or guide the workflow in real time.
+
+{% embed url="https://www.youtube.com/watch?v=ahFfInVD0HQ" %}
 
 This page explains what the integration does, how it behaves inside Slack, and how to configure it for your Warp team.
 
@@ -19,7 +23,9 @@ This page explains what the integration does, how it behaves inside Slack, and h
 
 Assigning Warp to a message or tagging @Warp in a thread starts an agent run. The agent clones the repositories in your environment, sets up your development environment using your Docker image and setup commands, and begins working with the context from the Slack conversation. Warp posts updates back into the thread as it progresses so you can follow along without opening your terminal.
 
-Agents also share a link to an interactive remote session using Warp’s [Ambient Agent Session Sharing](../knowledge-and-collaboration/session-sharing/ambient-agents-session-sharing.md). Opening this link gives you a live terminal view of the cloud agent running your code. You can interrupt or steer the agent by providing additional instructions, and the agent will pick up where it left off with the new context. When the work is complete, Warp will create a pull request on your behalf using your GitHub permissions and send a summary and PR link back to the original Slack thread.
+Agents also share a link to an interactive remote session using Warp’s [Ambient Agent Session Sharing](../knowledge-and-collaboration/session-sharing/ambient-agents-session-sharing.md). Opening this link gives you a live terminal view of the cloud agent running your code. You can interrupt or steer the agent by providing additional instructions, and the agent will pick up where it left off with the new context.&#x20;
+
+When the work is complete, Warp will create a pull request on your behalf using your GitHub permissions and send a summary and PR link back to the original Slack thread.
 
 ### Triggering an agent
 
