@@ -8,6 +8,17 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+
+## 2025.11.18 (v0.2025.11.18.12.24)
+
+**New features**
+
+* [Full Terminal Use](../agents/full-terminal-use.md): Let the agent use the terminal as you would: interact with REPLs, debuggers, and full-screen apps like `top`. Warp is the only product on the market with Full Terminal Use capabilities.
+* [`/plan`](../agents/using-agents/planning.md): do spec-driven development in Warp. Work with an agent to align on an implementation plan that can be saved, versioned, and even attached to a PR for teammates.
+* [Interactive Code Review](../code/code-review/interactive-code-review.md): Review an agent's code like you would a teammate's, directly in Warp, and ask the agent to address the comments.
+* [Slack and Linear integrations](../integrations/integrations-overview/integrations-and-environments.md):** Ask the agent to get to work from the tools you already use, track their progress, and take the wheel via live session sharing.
+* Warp's Agents can now [search the web](../agents/using-agents/web-search.md) to retrieve information, when relevant. This capability is configurable via Agent Profiles.
+
 ## 2025.11.12 (v0.2025.11.12.08.12)
 
 **Improvements**
