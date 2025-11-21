@@ -71,9 +71,9 @@ In cases where you logged in with another method, please do the following to fix
 
 Warp has a system in place that identifies users that could potentially be fraudulent, but it can produce false positives if the user has a restrictive ad, script, and/or tracker blocking extensions or browsers.
 
-To workaround this issue, try disabling any ad, script, and/or tracking blockers to see if that helps.
-
-If that doesn't work, the system has determined your account is blocked and you can't proceed with using Warp, let us know at [appeals@warp.dev](mailto:appeals@warp.dev).
+To workaround this issue, try disabling any ad, script, and/or tracking blockers to see if that helps. If that doesn't work, the system has determined your account is blocked and you can't proceed with using Warp.\
+\
+If you have an active subscription and continue to have login issues, please [contact us](https://www.warp.dev/contact) for support.
 
 ## How to get an Auth token to login
 
@@ -95,4 +95,4 @@ If "Take me to Warp" is still not working it may be due to a [proxy issue](troub
 
 ## Get help with login issues
 
-If Sign Up or Login does not work after trying the steps above, fill out [this Typeform](https://warpdotdev.typeform.com/to/UnZu0akR?question=sign_up?utm_source=docs) and our team will reach out to you.
+If Sign Up or Login does not work after trying the steps above, please [contact us](https://www.warp.dev/contact) for support.
