@@ -9,7 +9,7 @@ description: >-
 
 Warp has native planning functionality that helps you break down complex engineering tasks into structured, executable steps. Planning is tightly integrated with Warp's coding agent and provides a persistent plan editor, version history, selective execution, and deep links into your workspace.
 
-{% embed url="https://www.youtube.com/watch?v=MPmWlV8U5Sk" %}
+{% embed url="https://youtu.be/DawcFWyudV0?si=OzvuInMl8DoNR97R" %}
 
 ***
 
