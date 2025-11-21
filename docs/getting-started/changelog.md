@@ -8,6 +8,13 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+## 2025.11.19 (v0.2025.11.19.08.12)
+
+**New features**
+
+* MCP server configurations can now be shared with others on your team. You can install a server shared by your team with minimal configuration.
+* Warp now provides out-of-box MCP servers for common services like Github and Linear that can be installed and run with a single click.
+* Find now works in the code review pane.
 
 ## 2025.11.18 (v0.2025.11.18.12.24)
 
@@ -16,15 +23,15 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 * [Full Terminal Use](../agents/full-terminal-use.md): Let the agent use the terminal as you would: interact with REPLs, debuggers, and full-screen apps like `top`. Warp is the only product on the market with Full Terminal Use capabilities.
 * [`/plan`](../agents/using-agents/planning.md): do spec-driven development in Warp. Work with an agent to align on an implementation plan that can be saved, versioned, and even attached to a PR for teammates.
 * [Interactive Code Review](../code/code-review/interactive-code-review.md): Review an agent's code like you would a teammate's, directly in Warp, and ask the agent to address the comments.
-* [Slack and Linear integrations](../integrations/integrations-overview/integrations-and-environments.md):** Ask the agent to get to work from the tools you already use, track their progress, and take the wheel via live session sharing.
+* [Slack and Linear integrations](../integrations/integrations-overview/integrations-and-environments.md):\*\* Ask the agent to get to work from the tools you already use, track their progress, and take the wheel via live session sharing.
 * Warp's Agents can now [search the web](../agents/using-agents/web-search.md) to retrieve information, when relevant. This capability is configurable via Agent Profiles.
 
 ## 2025.11.12 (v0.2025.11.12.08.12)
 
 **Improvements**
 
-* [Vim mode] Paragraph text objects are now supported, e.g. `dip` to delete a paragraph.
-* [Vim mode] In terminal mode, press `K` over part of a command to inspect it.
+* \[Vim mode] Paragraph text objects are now supported, e.g. `dip` to delete a paragraph.
+* \[Vim mode] In terminal mode, press `K` over part of a command to inspect it.
 * Agent notifications now reference conversations' titles instead of their queries.
 
 **Bug Fixes**
@@ -100,12 +107,12 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 * Added UI indication of when agent mode conversation summarization is in progress, with a cancellation confirmation dialog.
 * Made the sizing for headings consistent across all collapsible blocks.
 * `@` menu no longer appears when running JS package manager subcommands, like `yarn workspace @org/package add`.
-* [macOS] Resolved an issue re-mapping keybindings that conflict with MacOS keybindings.
+* \[macOS] Resolved an issue re-mapping keybindings that conflict with MacOS keybindings.
 
 **Bug Fixes**
 
 * Agent mode requested command previews now only show the first line of multi-line commands.
-* Removed misleading \"auto-approve\" button while Warp is generating a fix for failed terminal commands.
+* Removed misleading "auto-approve" button while Warp is generating a fix for failed terminal commands.
 
 ### 2025.10.01 (v0.2025.10.01.08.12)
 
@@ -114,7 +121,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 * Editing suggested file changes now takes place in the same pane, instead of a new tab.
 * When using the `@` context menu outside of a repo, current folder's contents are now listed.
 * The code mode file picker will now display gitignored files.
-* [macOS] Warp now stores session restoration data in a more-secure application container.
+* \[macOS] Warp now stores session restoration data in a more-secure application container.
 
 ### 2025.09.24 (v0.2025.09.24.08.11)
 
