@@ -22,7 +22,7 @@ After entering your payment details, you’ll receive an invoice and confirmatio
 ### How can I get the most out of my Warp plan?
 
 {% hint style="warning" %}
-Warp's legacy paid plans included Pro, Turbo, and Lightspeed.&#x20;
+Warp's legacy paid plans included Pro, Turbo, and Lightspeed.
 
 After **Oct 30, 2025**, we have rolled out the new Build plan to replace them. Existing subscribers will start to roll over onto the Build plan starting **Dec 1st, 2025**. For questions related to the new pricing changes, please refer to [#warps-pricing-change-faqs-oct-30-2025](pricing-faqs.md#warps-pricing-change-faqs-oct-30-2025 "mention").
 
@@ -41,12 +41,6 @@ Legacy plans:
 * **Lightspeed** is our most powerful plan, offering the highest AI credit limits, expanded codebase indexing, access to top-tier models, and pay-as-you-go overages so you can keep working without interruption.
 
 For the most up-to-date feature and usage details, visit [**warp.dev/pricing**](https://www.warp.dev/pricing).
-
-### How do I switch or upgrade to the Build plan?
-
-If you're a current subscriber to our legacy plans, go to `Settings > Billing and usage > Manage billing > Update subscription` and select the new **Build plan**.\
-\
-If you're a new subscriber, please follow the upgrade steps listed above. [#how-can-i-upgrade-and-subscribe-to-a-warp-plan](pricing-faqs.md#how-can-i-upgrade-and-subscribe-to-a-warp-plan "mention")
 
 ### How can I subscribe to a Warp Enterprise plan?
 
@@ -97,13 +91,19 @@ When you’re ready to use Warp more collaboratively, we suggest you nominate an
 
 ### How does usage work if logged into the same account on multiple devices?
 
-When you use the account to sign into Warp on different devices, for example Linux on one computer and Windows on another, your usage of metered features like AI credits is tracked at the account level, not the device level.&#x20;
+When you use the account to sign into Warp on different devices, for example Linux on one computer and Windows on another, your usage of metered features like AI credits is tracked at the account level, not the device level.
 
 You can use your Warp account on multiple personal computers. Warp is designed to provide a consistent experience across devices. When you log in with the same account on different computers, your settings and preferences can be synced through the [Settings Sync](https://docs.warp.dev/features/settings-sync) feature.
 
 ### What happens when I downgrade during a billing cycle?
 
-To downgrade at any point throughout your subscription through the billing portal by going to `Settings > Billing and usage > Manage billing`. The subscription will immediately downgrade to the lower plan limits and the changes will be prorated. If you’re switching between paid plans, any AI usage you've already accumulated will carry over.
+{% hint style="warning" %}
+Note this only applies when switching between legacy plans (Pro, Turbo, Lightspeed, or the Old Business) or switching the new plans (Build, New Business). When switching between legacy to new plans, the change is immediate, prorated, and the AI credits are reset. See more in [#what-happens-when-i-change-from-my-legacy-plan-to-the-new-build-or-business-plans](pricing-faqs.md#what-happens-when-i-change-from-my-legacy-plan-to-the-new-build-or-business-plans "mention").
+{% endhint %}
+
+The subscription will downgrade to the lower plan limits at the end of the billing cycle. If you’re switching between paid plans, any AI usage you've already accumulated will carry over.\
+\
+To downgrade at any point throughout your subscription through the billing portal by going to `Settings > Billing and usage > Manage billing`.&#x20;
 
 ### What happens when I cancel during a billing cycle?
 
@@ -141,9 +141,9 @@ Tokens are chunks of text, such as words, parts of code, or characters, that lar
 Warp now abstracts away token usage, so you don't need to manage or track it directly. You only need to monitor your **AI credit usage**, which is what’s measured in your plan limits and overages.
 {% endhint %}
 
-If you're curious, you can still learn more about tokens [here](https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them), or refer to the pricing page for plan-level credit allocations. If you reach your monthly AI credit limits on a paid plan, premium models will be temporarily disabled until your quota resets at the start of your next billing cycle.&#x20;
+If you're curious, you can still learn more about tokens [here](https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them), or refer to the pricing page for plan-level credit allocations. If you reach your monthly AI credit limits on a paid plan, premium models will be temporarily disabled until your quota resets at the start of your next billing cycle.
 
-If you’d like to continue using premium models beyond your included quota, you can enable [pay-as-you-go overages](usage-overages.md) in `Settings > Billing and usage`.&#x20;
+If you’d like to continue using premium models beyond your included quota, you can enable [pay-as-you-go overages](usage-overages.md) in `Settings > Billing and usage`.
 
 ### How often do my AI credits reset?
 
@@ -155,7 +155,7 @@ Unused AI credits do not rollover to the next cycle and can't be transferred to 
 
 ### Can I use a Free plan if I'm a developer at a large company or organization?
 
-Yes. Developers at any company size are welcome to use Warp’s Free plan.&#x20;
+Yes. Developers at any company size are welcome to use Warp’s Free plan.
 
 If you need access to advanced collaboration features or higher limits, you may benefit from upgrading to a plan, but Warp does not require large organizations to upgrade.
 
@@ -189,15 +189,15 @@ You can cancel at any point throughout your subscription through the billing por
 
 ### How do I get a refund?
 
-For monthly subscriptions, we in general do not issue refunds. Please see [Warp's Refund Policy](pricing-faqs.md#warps-refund-policy) for details and exceptions.&#x20;
+For monthly subscriptions, we in general do not issue refunds. Please see [Warp's Refund Policy](pricing-faqs.md#warps-refund-policy) for details and exceptions.
 
 You can remove the users you do not want to pay for in `Settings > Teams > Team Members`. Prorated refunds are issued as Warp credit, not cash.
 
 ### Why doesn't my promo code work or why was it disabled?
 
-Warp's promotions are a way to try Warp before committing to a subscription, not get unlimited free or inexpensive AI. In order to prevent abuse, we're limiting promotion codes to first-time redemptions only.&#x20;
+Warp's promotions are a way to try Warp before committing to a subscription, not get unlimited free or inexpensive AI. In order to prevent abuse, we're limiting promotion codes to first-time redemptions only.
 
-So each account can only use one promotion code. We also reserve the right to disable any promotion codes at any time and remove the associated subscriptions if we find that the code was being abused.&#x20;
+So each account can only use one promotion code. We also reserve the right to disable any promotion codes at any time and remove the associated subscriptions if we find that the code was being abused.
 
 ### How can I subscribe to Warp as tax exempt?
 
@@ -224,29 +224,33 @@ For more details, see this blog post on [Warp's plan changes](https://www.warp.d
 
 #### How do I change from my current plan to the new Build or Business plan?
 
-You can switch to the new Warp Build or Business plan anytime from **Settings > Billing and usage** in the Warp app or at [app.warp.dev/upgrade](https://app.warp.dev/upgrade). Select Change plan, then choose the plan that fits your needs.
+You can switch to the new Warp Build or Business plan anytime from `Settings > Billing and usage > Manage billing > Update subscription` in the Warp app or at [app.warp.dev/upgrade](https://app.warp.dev/upgrade). Select Change plan, then choose the plan that fits your needs.
 
 If you take no action, your Pro, Turbo, Lightspeed, or legacy Business plan will automatically move to the new structure on your first renewal after **December 1, 2025**. You’ll receive an email before your renewal with details and other details to make the transition easier.
 
-#### What happens when I change from my current plan to the new Build or Business plans?
+#### What happens when I change from my legacy plan to the new Build or Business plans?
 
 If you move from Warp’s legacy Pro, Turbo, Lightspeed, or old Business plans to the new Build or Business plans:
 
-* You’ll receive a prorated credit balance on Stripe for your current plan, based on how far you are into your billing cycle. This balance can be applied toward monthly Build fees or any Reload Credits you purchase.
+* The change to the new plans will take place immediately
+* You’ll receive a prorated credit balance on Stripe for your current plan, based on how far you are into your billing cycle (not unused AI credits). This balance can be applied toward monthly Build fees or any Reload Credits you purchase.
   * You can view your credit balance by going to `Settings > Billing and Usage > Manage Account`. You can also view your credit balance on the Stripe invoice that was sent when your plan changed to Build or Business.
-* Your credit balance will reset to **0/1,500** when you switch to the Build or Business plan.&#x20;
+* Your credit balance will reset to **0/1,500** when you switch to the Build or Business plan.
 
 If you switched immediately after the rollout, before a subsequent update was applied, we’ll retroactively reset your credit balance to 0/1,500.
 
 * You should see this reflected in `Settings > Billing and Usage`. If you experience any issues, please contact us at **build-priority@warp.dev**.
+
+{% hint style="info" %}
+We recommend you use all the AI credits on your legacy plan before you switch over to the new plans. This way you can make best use of them before they are reset to the new plan limits.
+{% endhint %}
 
 #### What should I keep in mind about this change?
 
 * **BYOK and Reload credits**: These are only available on the new Build and Business plans. Switching early gives you immediate access.
 * **Pricing differences**: Depending on your usage, your monthly cost may increase or decrease. You’ll now pay based on what you actually use.
 * **Renewal timing**: You’ll stay on your current plan until your renewal date after December 1. No interruptions to service will occur.
-* **Transparency**: You can view your credit balance, monthly spend limit, and reload settings anytime in `Settings > Billing and usage`.\
-
+* **Transparency**: You can view your credit balance, monthly spend limit, and reload settings anytime in `Settings > Billing and usage`.
 
 For full details, see [warp.dev/pricing](https://www.warp.dev/pricing) or reach out to billing@warp.dev if you have questions about your transition.
 
@@ -254,37 +258,37 @@ For full details, see [warp.dev/pricing](https://www.warp.dev/pricing) or reach 
 
 For **new customers**, the new pricing and packaging take effect immediately on Oct 30, 2025.
 
-For **existing monthly subscribers**, changes will apply on your first renewal after **December 1, 2025**; most likely during the month of December 2025. For **annual subscribers**, the new plan and pricing will take effect on your next renewal after December 1, 2025.&#x20;
+For **existing monthly subscribers**, changes will apply on your first renewal after **December 1, 2025**; most likely during the month of December 2025. For **annual subscribers**, the new plan and pricing will take effect on your next renewal after December 1, 2025.
 
-If you have any questions, please reach out to us at **billing@warp.dev**.&#x20;
+If you have any questions, please reach out to us at **billing@warp.dev**.
 
 #### **What happens to my current plan (Pro, Turbo, Lightspeed)?**
 
-You will retain your current plan and credits until December 1, 2025. All current Pro, Turbo, and Lightspeed plans will be transitioned to the new Warp Build plan at renewal.&#x20;
+You will retain your current plan and credits until the first renewal after December 1, 2025. All current Pro, Turbo, and Lightspeed plans will be transitioned to the new Warp Build plan at renewal.
 
 The Build plan includes 1,500 monthly AI credits, [reload-credits-add-on-credits.md](reload-credits-add-on-credits.md "mention") that roll over for 12 months, and the ability to bring your own API key. **Learn more at** [**warp.dev/pricing**](https://www.warp.dev/pricing)**.**
 
-#### Can I continue to use Warp as my primary terminal?&#x20;
+#### Can I continue to use Warp as my primary terminal?
 
-Yes, the terminal features of Warp will continue to be free to use for developers across Windows, Mac, and Linux. Learn more at [Broken link](broken-reference "mention").
+Yes, the terminal features of Warp will continue to be free to use for developers. Learn more at [plans-and-pricing.md](../plans-and-pricing.md "mention").
 
 #### How are Reload credits different from overages?
 
-Reload credits replace overages with a simpler, prepaid system. They’re up to \~40% cheaper than the old overage rates, roll over month-to-month, and remain valid for 12 months. They also come with Warp’s full SOC 2 / Zero Data Retention protection.
+Reload credits replace [Overages](usage-overages.md) with a simpler, prepaid system. They’re up to \~40% cheaper than the old overage rates, roll over month-to-month, and remain valid for 12 months. They also come with Warp’s full SOC 2 / Zero Data Retention protection.
 
-#### Do AI credits rollover?&#x20;
+#### Do AI credits rollover?
 
-For existing users on legacy plans, plan credits on Pro, Turbo, and Lightspeed do not rollover. Neither will pay-as-you-go overage credits.&#x20;
+For existing users on legacy plans, plan credits on Pro, Turbo, and Lightspeed do not rollover. Neither will pay-as-you-go Overage credits.
 
-For the Build plan, credits will not rollover but Reload credits will rollover and be valid for 12 months from the date of purchase.&#x20;
+For the Build plan, credits will not rollover but Reload credits will rollover and be valid for 12 months from the date of purchase.
 
 #### Can I bring my own key on legacy plans (Pro, Turbo, Lightspeed)?
 
-No, Bring-your-own API key for OpenAI, Anthropic, and Gemini is only available to users on the Warp Build plan. You can choose to switch your existing plan to Warp Build at any time before your applicable renewal date to access BYOK.&#x20;
+No, Bring-your-own API key for OpenAI, Anthropic, and Gemini is only available to users on the Warp Build plan. You can choose to switch your existing plan to Warp Build at any time before your applicable renewal date to access BYOK.
 
-#### How does the monthly spend limit on Reload Credits work?&#x20;
+#### How does the monthly spend limit on Reload Credits work?
 
-You set a monthly spend limit that applies to your AI usage for each calendar month. This limit acts as the maximum amount you can spend on credits during that period.&#x20;
+You set a monthly spend limit that applies to your AI usage for each calendar month. This limit acts as the maximum amount you can spend on credits during that period.
 
 If a purchase would exceed your limit, it won’t go through—you’ll need to either increase your limit or choose a smaller purchase amount.
 
