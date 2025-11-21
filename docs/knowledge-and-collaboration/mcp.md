@@ -16,23 +16,26 @@ MCP is an open source protocol. Check out the official [MCP documentation](https
 
 You can navigate to the MCP servers page in any of the following ways:
 
+* From the [Settings Page](warp://settings/mcp): `Settings > MCP Servers`
 * From [Warp Drive](warp-drive/): under `Personal > MCP Servers`
 * From the [Command Palette](../terminal/command-palette.md): search for `Open MCP Servers`
-* From the settings tab: `Settings > AI > Manage MCP servers`
+* From the AI settings tab: `Settings > AI > Manage MCP servers`
 
 This will show a list of all configured MCP servers, including which are currently running. If you close Warp with an MCP server running, it will run again on next start of Warp. MCP servers that are stopped will remain so on next launch of Warp.
 
-<figure><img src="../.gitbook/assets/mcp-running.png" alt=""><figcaption><p>MCP servers page</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/mcp-servers-list.png" alt=""><figcaption><p>MCP servers page</p></figcaption></figure>
 
 ### Adding an MCP Server
 
-To add a new MCP server, you can click the `+ Add` button. MCP server types you can add:
+To add a new MCP server, you can click the `+ Add` button. Configurations from most MCP Clients can be directly copied and pasted.
+
+MCP server types you can add:
 
 {% tabs %}
 {% tab title="CLI Server (Command)" %}
 Provide a startup command. Warp will launch this command when starting up and shut it down on exit.
 
-<figure><img src="../.gitbook/assets/mcp-add-server-json.png" alt=""><figcaption><p>Adding a CLI MCP Server (Command)</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/mcp-servers-add-cli.png" alt=""><figcaption><p>Adding a CLI MCP Server (Command)</p></figcaption></figure>
 
 {% hint style="info" %}
 Always set `working_directory` explicitly when your MCP server command or args include relative paths. This ensures consistent and predictable behavior across machines and sessions.
@@ -51,14 +54,13 @@ Always set `working_directory` explicitly when your MCP server command or args i
 {% tab title="SSE Server (URL)" %}
 Provide a URL where Warp can reach an already-running MCP server that supports Server-Sent Events.
 
-<figure><img src="../.gitbook/assets/mcp-sse-json.png" alt=""><figcaption><p>Adding an SSE MCP Server (URL)</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/mcp-servers-add-sse.png" alt=""><figcaption><p>Adding an SSE MCP Server (URL)</p></figcaption></figure>
 
 **SSE Server (URL) MCP Configuration Properties**
 
 | Property | Type   | Required | Description                                                                    |
 | -------- | ------ | -------- | ------------------------------------------------------------------------------ |
 | `url`    | string | Yes      | The HTTP endpoint URL to connect to via Server-Sent Events (SSE).              |
-| `env`    | object | No       | Optional key-value object for environment variables or headers (e.g., tokens). |
 {% endtab %}
 {% endtabs %}
 
@@ -90,7 +92,17 @@ To add a multiple MCP servers, you can click the `+ Add` button then paste in a 
 
 After MCP servers are registered in Warp, you can **Start** or **Stop** them from the MCP servers page. Each running server will have a list of available tools and resources.
 
-You can rename and edit a server's name, as well as delete the server. To prevent Warp from automatically starting a server when you open Warp, set the `"start_on_launch"` value to `false` in the server's JSON configuration.
+You can rename and edit a server's name, as well as delete the server. If you are a part of a Team, you can also share a MCP with your teammates.
+
+### Sharing MCP servers
+
+MCP servers can be shared with your teammates by clicking the share icon. When sharing, sensitive values in the `env` configuration will be automatically scrubbed and replaced with variables. 
+
+<figure><img src="../.gitbook/assets/mcp-servers-share.png" alt=""><figcaption><p>Sharing a MCP Server</p></figcaption></figure>
+
+Your teammates can find shared MCP servers under the `Shared` section of their MCP settings. When your teammates install your server configuration, they will be prompted to enter any scrubbed `env` values. 
+
+Warp also provides out-of-the-box MCP servers that can be installed by anyone. These can be found under the `Shared` section of your MCP settings.
 
 ### Authentication in MCP servers
 
