@@ -163,7 +163,7 @@
 * [Sending Feedback & Logs](support-and-billing/sending-us-feedback.md)
 * [Plans & Pricing](support-and-billing/plans-and-pricing.md)
   * [AI Credits](support-and-billing/plans-and-pricing/ai-credits.md)
-  * [Reload Credits (Add-on Credits)](support-and-billing/plans-and-pricing/reload-credits-add-on-credits.md)
+  * [Add-on Credits](support-and-billing/plans-and-pricing/add-on-credits.md)
   * [Bring Your Own API Key](support-and-billing/plans-and-pricing/bring-your-own-api-key.md)
   * [Overages (Legacy)](support-and-billing/plans-and-pricing/usage-overages.md)
   * [Pricing FAQs](support-and-billing/plans-and-pricing/pricing-faqs.md)

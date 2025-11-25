@@ -61,7 +61,7 @@ Because plans persist in Warp Drive, you can return to them later, reuse them fo
 
 You can configure whether your plans will be automatically added and synced to Warp drive In your [agent-profiles-permissions.md](agent-profiles-permissions.md "mention") under `Settings > AI > Agents > Profiles`.
 
-<figure><img src="../../.gitbook/assets/auto-sync-plans (1).png" alt="" width="371"><figcaption></figcaption></figure>
+<figure><img src="/broken/files/o7LV3PbHeb0Vy068tIQZ" alt="" width="371"><figcaption></figcaption></figure>
 
 ### Using Plans Across Conversations
 

@@ -6,14 +6,14 @@ description: Details on Warp AI credits and how they are calculated.
 
 ### What are Warp AI credits?
 
-Each time you submit a prompt in Warp, whether to generate code, suggest a command, or accomplish a task, you initiate an interaction with the Agent.&#x20;
+Each time you submit a prompt in Warp, whether to generate code, suggest a command, or accomplish a task, you initiate an interaction with the Agent.
 
-This interaction consumes **at least one AI credit**, though more complex interactions may use **multiple credits**. The number of credits consumed can vary based on factors such as your codebase and environment, the model used, number of tool calls the agent makes, amount of context gathered, steps required to accomplish the given task, and other factors.&#x20;
+This interaction consumes **at least one AI credit**, though more complex interactions may use **multiple credits**. The number of credits consumed can vary based on factors such as your codebase and environment, the model used, number of tool calls the agent makes, amount of context gathered, steps required to accomplish the given task, and other factors.
 
 Because of these factors and the nature of LLMs, AI credit usage is **non-deterministic** -- two similar prompts can still use a different number of credits.
 
 {% hint style="info" %}
-For a general breakdown of what factors contribute to how many AI credits are consumed, please refer to:  [#how-are-warp-ai-credits-calculated](ai-credits.md#how-are-warp-ai-credits-calculated "mention")
+For a general breakdown of what factors contribute to how many AI credits are consumed, please refer to: [#how-are-warp-ai-credits-calculated](ai-credits.md#how-are-warp-ai-credits-calculated "mention")
 {% endhint %}
 
 Since there's no exact formula for predicting usage, we recommend building an intuitive understanding by experimenting with different prompts, models, and tracking how many credits they consume.
@@ -31,7 +31,7 @@ You can view your total AI credit usage, along with other billing details, in `S
 #### Credit **limits and billing**
 
 * **Seat-level allocation**: on team plans, credit limits apply per seat — each team member has their own allowance.
-* **Hitting the credit limits**: Once you hit your monthly credit limit, your access will depend on your plan. On the Free plan, AI access stops until your next billing cycle. On paid plans with Reload credits, you can continue using AI with [**usage-based billing**](reload-credits-add-on-credits.md), charged per extra credit.
+* **Hitting the credit limits**: Once you hit your monthly credit limit, your access will depend on your plan. On the Free plan, AI access stops until your next billing cycle. On paid plans with Add-on credits, you can continue using AI with [**usage-based billing**](add-on-credits.md), charged per extra credit.
 
 #### **Other features that use AI** credit**s**
 
@@ -54,7 +54,7 @@ Several factors influence how many credits are counted for a single interaction:
 
 #### **1. The LLM model used**
 
-Generally, smaller, faster models typically consume fewer credits than larger, reasoning-based models.&#x20;
+Generally, smaller, faster models typically consume fewer credits than larger, reasoning-based models.
 
 For example, **Claude Opus 4.1** tends to consume the most tokens and credits in Warp, followed by **Claude Sonnet 4.5, GPT-5, Gemini 2.5 Pro**, and others in roughly that order. This generally correlates with model pricing as well.
 
@@ -97,7 +97,7 @@ Many model prompts include repeated content, like system instructions:
 * **Cache hits**: if the model provider can match a prefix or a part of the prompt from a past request, it can reuse results from the cache, reducing both tokens consumed and latency.
 * **Cache misses**: if no match is found, the full prompt may be processed again, which can increase credit consumption.
 
-Because cache results depend on model provider behavior and timing, two similar prompts may still have different credit counts, depending on when you run the commands.&#x20;
+Because cache results depend on model provider behavior and timing, two similar prompts may still have different credit counts, depending on when you run the commands.
 
 {% hint style="info" %}
 **Tip**: Work in a continuous session when possible to improve cache hit rates.

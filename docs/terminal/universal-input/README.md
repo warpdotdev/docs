@@ -55,9 +55,9 @@ _Indicator_: Neither mode highlighted.
 
 When Warp detects an input type, the input switcher softly highlights the corresponding mode.
 
-| Agent (natural language) mode detected                                                                                          | Terminal (shell) mode detected                                                                                                 |
-| ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| <div><figure><img src="../../.gitbook/assets/auto-detection-agent-mode (1).png" alt=""><figcaption></figcaption></figure></div> | <div><figure><img src="../../.gitbook/assets/auto-detection-terminal-mode.png" alt=""><figcaption></figcaption></figure></div> |
+| Agent (natural language) mode detected                                                                     | Terminal (shell) mode detected                                                                                                 |
+| ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| <div><figure><img src="/broken/files/FX3QZROHD9G0K31PLH1h" alt=""><figcaption></figcaption></figure></div> | <div><figure><img src="../../.gitbook/assets/auto-detection-terminal-mode.png" alt=""><figcaption></figcaption></figure></div> |
 
 {% hint style="info" %}
 The model Warp uses to detect natural language automatically is completely local.

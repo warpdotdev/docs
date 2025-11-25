@@ -18,7 +18,7 @@ Prompt Suggestions are contextual, AI-powered suggestions that activate Agent Mo
 
 To disable, please visit `Settings > AI > Active AI > Prompt Suggestions`
 
-<figure><img src="../.gitbook/assets/prompt-suggestions-example (1).png" alt=""><figcaption><p>Example of inline banner popping up when relevant contextually.</p></figcaption></figure>
+<figure><img src="/broken/files/TN22qVuWujouYacalRBN" alt=""><figcaption><p>Example of inline banner popping up when relevant contextually.</p></figcaption></figure>
 
 #### Accepting a Prompt Suggestion
 
@@ -30,7 +30,7 @@ Prompt Suggestions use an LLM to generate prompts based on your terminal session
 If [Secret Redaction](../privacy/secret-redaction.md) is enabled, any selected regexes are applied to content sent to Active AI features to prevent any sensitive data being leaked.
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/prompt-suggestions-setting (1).png" alt=""><figcaption><p>Setting for Prompt Suggestions</p></figcaption></figure>
+<figure><img src="/broken/files/xBLOzm1m9DYtRWAMjUzz" alt=""><figcaption><p>Setting for Prompt Suggestions</p></figcaption></figure>
 
 ### Next Command
 
@@ -48,11 +48,11 @@ Next Command is an LLM-based feature which utilizes your command history (enrich
 
 #### Accepting Next Commands
 
-Accept a Next Command Suggestion with  `TAB` , `→` , or `CTRL-F` to add the suggested next command to your input buffer. `ENTER` executes the accepted command.
+Accept a Next Command Suggestion with `TAB` , `→` , or `CTRL-F` to add the suggested next command to your input buffer. `ENTER` executes the accepted command.
 
 #### Billing
 
-Next Commands are unlimited across all of Warp's plans, including the Free plan. For the latest information on other AI limits and other pricing details, visit [warp.dev/pricing](https://warp.dev/pricing).&#x20;
+Next Commands are unlimited across all of Warp's plans, including the Free plan. For the latest information on other AI limits and other pricing details, visit [warp.dev/pricing](https://warp.dev/pricing).
 
 ### Suggested Code Diffs
 
@@ -66,7 +66,7 @@ When an error occurs, Warp evaluates whether it is appropriate for an LLM to gen
 
 #### **Using a Suggested Code Diff**
 
-Once the diff is generated, you can either dismiss it or accept it. Acceptance can be done directly via the buttons in the diff view, or with `CMD + ENTER` on macOS and `CTRL  + ENTER` on Windows/Linux.&#x20;
+Once the diff is generated, you can either dismiss it or accept it. Acceptance can be done directly via the buttons in the diff view, or with `CMD + ENTER` on macOS and `CTRL + ENTER` on Windows/Linux.
 
 You can also view additional details of the diff by pressing `CMD + E` (macOS) or `CTRL + E` (Windows/Linux), which expands the view to allow further inspection (including refining or editing it). You can also use `↓` to view the entire diff.
 

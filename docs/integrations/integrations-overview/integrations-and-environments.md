@@ -93,10 +93,10 @@ Setup commands run on every new agent session:
 
 #### Example environments
 
-| Project type    | Docker image                        | Repos                                                      | Example setup commands                                                                                                                                                            |
-| --------------- | ----------------------------------- | ---------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Web dev project | `node:20-bullseye`                  | <p>your-org/frontend-react<br><br>your-org/backend-api</p> | <p><code>npm install -g pnpm</code></p><p><br><code>cd frontend-react &#x26;&#x26; pnpm install</code></p><p></p><p><br><code>cd backend-api &#x26;&#x26; pnpm install</code></p> |
-| Python project  | Custom image based on `python:3.11` | your-org/cool\_python\_project                             | `cd cool_python_project && pip install -r requirements.txt`                                                                                                                       |
+| Project type    | Docker image                        | Repos                                                      | Example setup commands                                                                                                                                                     |
+| --------------- | ----------------------------------- | ---------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Web dev project | `node:20-bullseye`                  | <p>your-org/frontend-react<br><br>your-org/backend-api</p> | <p><code>npm install -g pnpm</code></p><p><br><code>cd frontend-react &#x26;&#x26; pnpm install</code></p><p><br><code>cd backend-api &#x26;&#x26; pnpm install</code></p> |
+| Python project  | Custom image based on `python:3.11` | your-org/cool\_python\_project                             | `cd cool_python_project && pip install -r requirements.txt`                                                                                                                |
 
 ***
 
@@ -129,7 +129,7 @@ You can inspect existing environments with: `warp environment list`
 
 #### Option B — Use the guided setup (/create-environment)
 
-If you’d like Warp to analyze your repos and suggest an environment configuration, use the guided setup  [slash-commands.md](../../agents/slash-commands.md "mention"): `/create-environment`
+If you’d like Warp to analyze your repos and suggest an environment configuration, use the guided setup [slash-commands.md](../../agents/slash-commands.md "mention"): `/create-environment`
 
 You can run it:
 
@@ -202,12 +202,12 @@ To use integrations:
 * **Your team must be on a plan that supports add-on credits**
   * **Supported**: Build and Business (new)
   * Not supported (legacy plans): Pro, Turbo, Lightspeed, legacy Business. Learn more about these plan changes in [ai-faqs.md](../../agents/ai-faqs.md "mention").
-* Your team must have **at least 20 add-on** ([reload-credits-add-on-credits.md](../../support-and-billing/plans-and-pricing/reload-credits-add-on-credits.md "mention")) **credits available**
+* Your team must have **at least 20 add-on** ([add-on-credits.md](../../support-and-billing/plans-and-pricing/add-on-credits.md "mention")) **credits available**
 * Integrations run entirely on usage-based pricing
   * They do not draw from an individual user’s monthly base credits
   * All usage is billed to the team’s add-on credit balance
 
-If your team does not meet these requirements or run out of [reload-credits-add-on-credits.md](../../support-and-billing/plans-and-pricing/reload-credits-add-on-credits.md "mention"), integrations will not run.
+If your team does not meet these requirements or run out of [add-on-credits.md](../../support-and-billing/plans-and-pricing/add-on-credits.md "mention"), integrations will not run.
 
 {% hint style="info" %}
 If you’re on an enterprise plan, please reach out to your dedicated Warp representative with any billing questions related to integrations.
@@ -363,8 +363,8 @@ Follow the GitHub popup flow to install/adjust the Warp GitHub app.
 
 Check the following:
 
-1. **Repo is part of your environment**.&#x20;
-   1. Make sure the repo is listed in: `warp environment get <id>`&#x20;
+1. **Repo is part of your environment**.
+   1. Make sure the repo is listed in: `warp environment get <id>`
 2. **Warp GitHub app has access to that repo**
    1. In GitHub’s settings, confirm the Warp app is installed and that the repo is selected.
 3. **You have write access**

@@ -31,7 +31,7 @@ To see more details on the latest plan, please visit [**warp.dev/pricing**](http
 
 Warp's plans are designed for developers who rely on AI to code, debug, and move faster with their team.
 
-* **Build**, one usage-based plan with a set of AI credits, ability to Bring Your Own API Key (BYOK), and access to Reload AI credits with volume-based discounts. See more on [bring-your-own-api-key.md](bring-your-own-api-key.md "mention").
+* **Build**, one usage-based plan with a set of AI credits, ability to Bring Your Own API Key (BYOK), and access to [Add-on credits](add-on-credits.md) with volume-based discounts. See more on [bring-your-own-api-key.md](bring-your-own-api-key.md "mention").
 * **Business** includes everything in Build, with advanced features like automatically enforced team-wide Zero Data Retention, SAML-based SSO, and support for teams up to 50 seats.
 
 Legacy plans:
@@ -173,7 +173,7 @@ For more details, please [visit the Security Overview](https://www.warp.dev/secu
 
 Over time, the Lite model—originally designed as a fallback when premium models ran out—began to deliver inconsistent results, especially for users running complex, multi-step prompts.
 
-For credit-efficient usage, we encourage you to try our new **Auto (cost-efficiency) model**, which automatically selects the optimal model based on task complexity to help extend your credits. To continue AI usage please either [add Reload Credits](reload-credits-add-on-credits.md) or consider [using your own API key](bring-your-own-api-key.md).
+For credit-efficient usage, we encourage you to try our new **Auto (cost-efficiency) model**, which automatically selects the optimal model based on task complexity to help extend your credits. To continue AI usage please either add [Add-on Credits](add-on-credits.md) or consider [using your own API key](bring-your-own-api-key.md).
 
 If you have any questions or feedback, please connect with us in our [community Slack](../sending-us-feedback.md#sending-warp-feedback).
 
@@ -232,8 +232,7 @@ If you take no action, your Pro, Turbo, Lightspeed, or legacy Business plan will
 
 If you move from Warp’s legacy Pro, Turbo, Lightspeed, or old Business plans to the new Build or Business plans:
 
-* The change to the new plans will take place immediately
-* You’ll receive a prorated credit balance on Stripe for your current plan, based on how far you are into your billing cycle (not unused AI credits). This balance can be applied toward monthly Build fees or any Reload Credits you purchase.
+* You’ll receive a prorated credit balance on Stripe for your current plan, based on how far you are into your billing cycle. This balance can be applied toward monthly Build fees or any Add-on Credits you purchase.
   * You can view your credit balance by going to `Settings > Billing and Usage > Manage Account`. You can also view your credit balance on the Stripe invoice that was sent when your plan changed to Build or Business.
 * Your credit balance will reset to **0/1,500** when you switch to the Build or Business plan.
 
@@ -247,10 +246,10 @@ We recommend you use all the AI credits on your legacy plan before you switch ov
 
 #### What should I keep in mind about this change?
 
-* **BYOK and Reload credits**: These are only available on the new Build and Business plans. Switching early gives you immediate access.
+* **BYOK and Add-on credits**: These are only available on the new Build and Business plans. Switching early gives you immediate access.
 * **Pricing differences**: Depending on your usage, your monthly cost may increase or decrease. You’ll now pay based on what you actually use.
 * **Renewal timing**: You’ll stay on your current plan until your renewal date after December 1. No interruptions to service will occur.
-* **Transparency**: You can view your credit balance, monthly spend limit, and reload settings anytime in `Settings > Billing and usage`.
+* **Transparency**: You can view your credit balance, monthly spend limit, and Add-on settings anytime in `Settings > Billing and usage`.
 
 For full details, see [warp.dev/pricing](https://www.warp.dev/pricing) or reach out to billing@warp.dev if you have questions about your transition.
 
@@ -266,56 +265,56 @@ If you have any questions, please reach out to us at **billing@warp.dev**.
 
 You will retain your current plan and credits until the first renewal after December 1, 2025. All current Pro, Turbo, and Lightspeed plans will be transitioned to the new Warp Build plan at renewal.
 
-The Build plan includes 1,500 monthly AI credits, [reload-credits-add-on-credits.md](reload-credits-add-on-credits.md "mention") that roll over for 12 months, and the ability to bring your own API key. **Learn more at** [**warp.dev/pricing**](https://www.warp.dev/pricing)**.**
+The Build plan includes 1,500 monthly AI credits, [add-on-credits.md](add-on-credits.md "mention") that roll over for 12 months, and the ability to bring your own API key. **Learn more at** [**warp.dev/pricing**](https://www.warp.dev/pricing)**.**
 
 #### Can I continue to use Warp as my primary terminal?
 
 Yes, the terminal features of Warp will continue to be free to use for developers. Learn more at [plans-and-pricing.md](../plans-and-pricing.md "mention").
 
-#### How are Reload credits different from overages?
+#### How are Add-on credits different from overages?
 
-Reload credits replace [Overages](usage-overages.md) with a simpler, prepaid system. They’re up to \~40% cheaper than the old overage rates, roll over month-to-month, and remain valid for 12 months. They also come with Warp’s full SOC 2 / Zero Data Retention protection.
+Add-on credits replace overages with a simpler, prepaid system. They’re up to \~40% cheaper than the old overage rates, roll over month-to-month, and remain valid for 12 months. They also come with Warp’s full SOC 2 / Zero Data Retention protection.
 
 #### Do AI credits rollover?
 
 For existing users on legacy plans, plan credits on Pro, Turbo, and Lightspeed do not rollover. Neither will pay-as-you-go Overage credits.
 
-For the Build plan, credits will not rollover but Reload credits will rollover and be valid for 12 months from the date of purchase.
+For the Build plan, credits will not rollover but Add-on credits will rollover and be valid for 12 months from the date of purchase.
 
 #### Can I bring my own key on legacy plans (Pro, Turbo, Lightspeed)?
 
 No, Bring-your-own API key for OpenAI, Anthropic, and Gemini is only available to users on the Warp Build plan. You can choose to switch your existing plan to Warp Build at any time before your applicable renewal date to access BYOK.
 
-#### How does the monthly spend limit on Reload Credits work?
+#### How does the monthly spend limit on Add-on Credits work?
 
 You set a monthly spend limit that applies to your AI usage for each calendar month. This limit acts as the maximum amount you can spend on credits during that period.
 
 If a purchase would exceed your limit, it won’t go through—you’ll need to either increase your limit or choose a smaller purchase amount.
 
-**For auto-reload settings:**
+**For auto reload settings:**
 
-* New users who enable auto-reload will start with a $200 spend limit.
-* Existing paid plan users who enable auto-reload will have their limit match their existing overages spend limit (if previously configured, otherwise $200).
+* New users who enable auto reload will start with a $200 spend limit.
+* Existing paid plan users who enable auto reload will have their limit match their existing overages spend limit (if previously configured, otherwise $200).
 
 #### I’m an individual developer and need more than 1,500 AI credits per month. What’s the right plan for me?
 
-If you regularly use more than 1,500 AI credits per month, the Build plan is designed for you. It includes 1,500 monthly credits and gives you the flexibility to scale further with Reload Credits, which you can purchase at discounted rates directly under `Settings > Billing and usage`.
+If you regularly use more than 1,500 AI credits per month, the Build plan is designed for you. It includes 1,500 monthly credits and gives you the flexibility to scale further with Add-on Credits, which you can purchase at discounted rates directly under `Settings > Billing and usage`.
 
-Reload Credits roll over month to month, remain valid for 12 months, and offer up to \~40% savings for larger denominations. You can also enable auto-reload to automatically top up your credits when your balance runs low.
+Add-on Credits roll over month to month, remain valid for 12 months, and offer up to \~40% savings for larger denominations. You can also enable auto reload to automatically top up your credits when your balance runs low.
 
 If you’re part of a team that needs shared credit management, SSO, or enforced Zero Data Retention (ZDR), the Business plan provides all the same AI capabilities plus advanced security and administrative features.
 
 #### Should I subscribe to the Build plan or the Business plan?
 
-If you’re an individual developer or part of a small team, the Build plan is the best fit. It includes 1,500 monthly AI credits, discounted Reload Credits for additional usage, and the ability to bring your own API key (BYOK) for OpenAI, Anthropic, or Google models. You’ll also get unlimited Warp Drive objects, collaboration tools, and the highest codebase indexing limits.
+If you’re an individual developer or part of a small team, the Build plan is the best fit. It includes 1,500 monthly AI credits, discounted Add-on Credits for additional usage, and the ability to bring your own API key (BYOK) for OpenAI, Anthropic, or Google models. You’ll also get unlimited Warp Drive objects, collaboration tools, and the highest codebase indexing limits.
 
-If you’re part of a larger team (up to 50 members) that needs advanced administrative and security controls, choose the Business plan. It includes everything in Build, plus SSO, enforced Zero Data Retention (ZDR), shared Reload Credits that can be used by all team members, and centralized billing – ideal for organizations that need stronger security, compliance, and team-wide management.
+If you’re part of a larger team (up to 50 members) that needs advanced administrative and security controls, choose the Business plan. It includes everything in Build, plus SSO, enforced Zero Data Retention (ZDR), shared Add-on Credits that can be used by all team members, and centralized billing – ideal for organizations that need stronger security, compliance, and team-wide management.
 
 #### How do AI credits work for multi-seat teams?
 
 For teams on the Build or Business plans, AI credits are managed at two levels:
 
 * **Included monthly credits**: Each seat on a paid plan receives 1,500 individual credits per month. These credits are tied to the user and reset every 30 days based on their subscription or renewal date.
-* **Reload Credits**: Once individual plan credits are used up, team members draw from a shared Reload Credit balance that can be topped up and managed by team admins. Reload Credits roll over month to month, remain valid for 12 months, and can be purchased at discounted rates directly under Settings > Billing and usage.
+* **Add-on Credits**: Once individual plan credits are used up, team members draw from a shared Add-on Credit balance that can be topped up and managed by team admins. Add-on Credits roll over month to month, remain valid for 12 months, and can be purchased at discounted rates directly under Settings > Billing and usage.
 
 This shared model gives teams the flexibility to handle variable AI usage – heavy users can consume more when needed, while the entire team benefits from shared value and volume-based discounts.
