@@ -234,6 +234,28 @@ $ warp agent run --profile CWhozDJPdPCsjJ1pSG0HCN --prompt "update my CI pipelin
 ...
 ```
 
+## Session Sharing
+
+In addition to text-based output, the CLI can share the agent's session for you to access on other devices or in a browser. To enable [agent-session-sharing.md](../knowledge-and-collaboration/session-sharing/agent-session-sharing.md "mention"), use the `--share` flag.
+By default, the session is only accessible to the user running the CLI, but you can also share with [teammates](../knowledge-and-collaboration/teams.md "mention") or other Warp users:
+
+```sh
+# Share the agent's session with yourself:
+$ warp agent run --share --prompt "fix the compiler error"
+
+# Give other users view-only access to a session:
+$ warp agent run --share firstuser@example.com --share otheruser@example.com --prompt "fix the compiler error"
+
+# Let any user on your team edit the session:
+$ warp agent run --share team:edit --prompt "fix the compiler error"
+```
+
+The `--share` flag can be repeated, and uses the following syntax:
+* `--share user@email.com` or `--share user@email.com:view`: Give `user@email.com` read-only access to the session
+* `--share user@email.com:edit`: Give `user@email.com` read/write access to the session
+* `--share team` or `--share team:view`: Give all members of your team read-only access to the session
+* `--share team:edit`: Give all members of your team read/write access to the session
+
 ## Using MCP servers
 
 The CLI can use any [MCP server](../knowledge-and-collaboration/mcp.md) that you've configured. There are two ways to start MCP servers with the agent:
