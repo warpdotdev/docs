@@ -40,17 +40,31 @@ Warp's logs and crash reports do _not_ contain any console input or output. See 
 {% tab title="macOS" %}
 The Warp log files are located at `~/Library/Logs/`.
 
+#### Warp logs on macOS
+
 Close Warp and run the following from another terminal to zip the logs to your Desktop:
 
 ```bash
 zip -j ~/Desktop/warp-logs.zip ~/Library/Logs/warp.log*
 ```
 
+#### Warp Preview logs on macOS
+
+Close Warp Preview and run the following from another terminal to zip the logs to your Desktop:
+
+```bash
+zip -j ~/Desktop/warp_preview-logs.zip ~/Library/Logs/warp_preview.log*
+```
+
 {% hint style="warning" %}
 If your issue is graphical (e.g. no display of windows) or a crash, please run Warp with the following command to capture more log information:
 
 ```bash
+# Run if Warp on macOS is installed
 RUST_LOG=wgpu_core=info,wgpu_hal=info /Applications/Warp.app/Contents/MacOS/stable
+
+# Run if Warp Preview on macOS is installed
+RUST_LOG=wgpu_core=info,wgpu_hal=info /Applications/WarpPreview.app/Contents/MacOS/preview
 ```
 {% endhint %}
 {% endtab %}
@@ -58,10 +72,20 @@ RUST_LOG=wgpu_core=info,wgpu_hal=info /Applications/Warp.app/Contents/MacOS/stab
 {% tab title="Windows" %}
 The Warp log files are located at `$env:LOCALAPPDATA\warp\Warp\data\logs\`.
 
+#### Warp logs on Windows
+
 Close Warp and run the following from another terminal to zip the logs to your Desktop:
 
 ```powershell
 Compress-Archive -Path "$env:LOCALAPPDATA\warp\Warp\data\logs\warp.log*" -DestinationPath "$([Environment]::GetFolderPath('Desktop'))\warp-logs.zip"
+```
+
+#### Warp Preview logs on Windows
+
+Close Warp Preview and run the following from another terminal to zip the logs to your Desktop:
+
+```powershell
+Compress-Archive -Path "$env:LOCALAPPDATA\warp\WarpPreview\data\logs\warp_preview.log*" -DestinationPath "$([Environment]::GetFolderPath('Desktop'))\warp_preview-logs.zip"
 ```
 
 {% hint style="warning" %}
@@ -73,6 +97,12 @@ $env:RUST_LOG="wgpu_core=info,wgpu_hal=info"; & "$env:LOCALAPPDATA\Programs\Warp
 
 # Run if Warp on Windows is installed for all users
 $env:RUST_LOG="wgpu_core=info,wgpu_hal=info"; & "$env:PROGRAMFILES\Warp\warp.exe"
+
+# Run if Warp Preview on Windows is installed for a single user
+$env:RUST_LOG="wgpu_core=info,wgpu_hal=info"; & "$env:LOCALAPPDATA\Programs\WarpPreview\preview.exe"
+
+# Run if Warp Preview on Windows is installed for all users
+$env:RUST_LOG="wgpu_core=info,wgpu_hal=info"; & "$env:PROGRAMFILES\WarpPreview\preview.exe"
 ```
 {% endhint %}
 {% endtab %}
@@ -80,27 +110,40 @@ $env:RUST_LOG="wgpu_core=info,wgpu_hal=info"; & "$env:PROGRAMFILES\Warp\warp.exe
 {% tab title="Linux" %}
 The Warp log files are located at `~/.local/state/warp-terminal/`.
 
+#### Warp logs on Linux
+
 Close Warp and run the following from another terminal to zip the logs to your home directory:
 
 ```bash
 tar -czf ~/warp-logs.tar.gz -C ~/.local/state/warp-terminal warp.log*
 ```
 
+#### Warp Preview logs on Linux
+
+Close Warp and run the following from another terminal to zip the logs to your home directory:
+
+```bash
+tar -czf ~/warp_preview-logs.tar.gz -C ~/.local/state/warp-terminal-preview warp_preview.log*
+```
+
 {% hint style="warning" %}
 If your issue is graphical (e.g. no display of windows) or a crash, please run Warp with the following command to capture more log information:
 
-```bash
-RUST_LOG=wgpu_core=info,wgpu_hal=info MESA_DEBUG=1 EGL_LOG_LEVEL=debug warp-terminal
-```
+<pre class="language-bash"><code class="lang-bash"># Run if Warp on macOS is installed
+<strong>RUST_LOG=wgpu_core=info,wgpu_hal=info MESA_DEBUG=1 EGL_LOG_LEVEL=debug warp-terminal
+</strong><strong>
+</strong># Run if Warp Preview on Linux is installed
+RUST_LOG=wgpu_core=info,wgpu_hal=info MESA_DEBUG=1 EGL_LOG_LEVEL=debug warp-terminal-preview
+</code></pre>
 {% endhint %}
 {% endtab %}
 {% endtabs %}
 
 ## Gathering AI debugging ID <a href="#gathering-ai-debugging-id" id="gathering-ai-debugging-id"></a>
 
-In cases where you have issues with the Agent, we may ask for the AI debugging ID to troubleshoot the specific conversation.&#x20;
+In cases where you have issues with the Agent, we may ask for the AI debugging ID to troubleshoot the specific conversation.
 
-To gather the debugging ID, `RIGHT-CLICK` on the AI conversation block in question and select "Copy debugging ID", then paste that into the [bug report](sending-us-feedback.md#sending-warp-feedback) that you submit so that our team can investigate the issue.&#x20;
+To gather the debugging ID, `RIGHT-CLICK` on the AI conversation block in question and select "Copy debugging ID", then paste that into the [bug report](sending-us-feedback.md#sending-warp-feedback) that you submit so that our team can investigate the issue.
 
 Whenever there is an error in the Agent Conversation, there will also be an option to directly copy the debugging ID for the bug report.
 
