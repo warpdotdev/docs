@@ -103,7 +103,7 @@ Note this only applies when switching between legacy plans (Pro, Turbo, Lightspe
 
 The subscription will downgrade to the lower plan limits at the end of the billing cycle. If you’re switching between paid plans, any AI usage you've already accumulated will carry over.\
 \
-To downgrade at any point throughout your subscription through the billing portal by going to `Settings > Billing and usage > Manage billing`.&#x20;
+To downgrade at any point throughout your subscription through the billing portal by going to `Settings > Billing and usage > Manage billing`.
 
 ### What happens when I cancel during a billing cycle?
 
@@ -218,7 +218,7 @@ The team at Warp is standing by and ready to help you with any questions you hav
 
 ***
 
-## Warp's Pricing Change FAQs (Oct 30, 2025)
+### Warp's Pricing Change FAQs (Oct 30, 2025)
 
 For more details, see this blog post on [Warp's plan changes](https://www.warp.dev/blog/changing-pricing).
 
@@ -244,6 +244,10 @@ If you switched immediately after the rollout, before a subsequent update was ap
 We recommend you use all the AI credits on your legacy plan before you switch over to the new plans. This way you can make best use of them before they are reset to the new plan limits.
 {% endhint %}
 
+{% hint style="warning" %}
+Add-on credit auto reload will be enabled by default for some legacy plan users when they transition to the Build plan. Please see more in our [Pricing FAQs](pricing-faqs.md#what-happens-to-my-current-plan-pro-turbo-lightspeed).
+{% endhint %}
+
 #### What should I keep in mind about this change?
 
 * **BYOK and Add-on credits**: These are only available on the new Build and Business plans. Switching early gives you immediate access.
@@ -265,7 +269,13 @@ If you have any questions, please reach out to us at **billing@warp.dev**.
 
 You will retain your current plan and credits until the first renewal after December 1, 2025. All current Pro, Turbo, and Lightspeed plans will be transitioned to the new Warp Build plan at renewal.
 
-The Build plan includes 1,500 monthly AI credits, [add-on-credits.md](add-on-credits.md "mention") that roll over for 12 months, and the ability to bring your own API key. **Learn more at** [**warp.dev/pricing**](https://www.warp.dev/pricing)**.**
+The Build plan includes 1,500 monthly AI credits, [add-on-credits.md](add-on-credits.md "mention") that roll over for 12 months, and the ability to bring your own API key. Learn more at [warp.dev/pricing](https://www.warp.dev/pricing).
+
+In addition, [Add-on credit auto reload](add-on-credits.md#id-2.-enable-auto-reload) will be automatically enabled for some of the legacy plan users in the following ways (but can be opted-out or modified):
+
+* **Pro:** Auto reload will not be enabled by default.
+* **Turbo:** Auto reload will be enabled by default. It will default to a $30 monthly spending limit for Turbo monthly and $20 monthly spending limit for Turbo yearly subscribers. The $10 / 400 add-on credits will be chosen by default.
+* **Lightspeed:** Auto reload will be enabled by default. It will default to a $205 monthly spending limit for Turbo monthly and $180 monthly spending limit for Turbo yearly subscribers. The $20 / 1000 add-on credits will be chosen by default.
 
 #### Can I continue to use Warp as my primary terminal?
 
@@ -294,7 +304,7 @@ If a purchase would exceed your limit, it won’t go through—you’ll need to 
 **For auto reload settings:**
 
 * New users who enable auto reload will start with a $200 spend limit.
-* Existing paid plan users who enable auto reload will have their limit match their existing overages spend limit (if previously configured, otherwise $200).
+* Existing paid plan users who enable auto reload will have their limit match their existing Overages spend limit (if previously configured, otherwise $200).
 
 #### I’m an individual developer and need more than 1,500 AI credits per month. What’s the right plan for me?
 

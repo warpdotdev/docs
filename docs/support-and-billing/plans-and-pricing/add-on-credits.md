@@ -37,12 +37,16 @@ The table below shows the available credit denominations, their prices, and corr
 
 Auto reload automatically purchases more credits whenever your balance reaches **100 credits**, ensuring uninterrupted access to premium AI features.
 
-By default, **Auto reload is disabled**. When you turn it on, it starts with a **$200 monthly spend limit**, which you can adjust anytime in `Settings > Billing and usage`.
+By default, **Auto reload is disabled for new subscribers**. When you turn it on, it starts with a **$200 monthly spend limit**, which you can adjust anytime in `Settings > Billing and usage`.
 
 Auto reload uses the same denominations and discounts as manual purchases. The denomination you select (e.g., 400, 1,000, 3,000, or 6,500 credits) will repeat each time your balance is depleted, up to your monthly spending limit. Larger denominations offer up to \~40% off per credit.
 
 {% hint style="info" %}
 You can opt in and choose your reload amount when subscribing to a paid plan at [app.warp.dev/upgrade](https://app.warp.dev/upgrade), or change your configuration anytime in Settings > Billing and usage.
+{% endhint %}
+
+{% hint style="warning" %}
+Add-on credit auto reload will be enabled by default for some legacy plan users when they transition to the Build plan. Please see more in our [Pricing FAQs](pricing-faqs.md#what-happens-to-my-current-plan-pro-turbo-lightspeed).
 {% endhint %}
 
 #### **Configuring a Monthly Spend Limit**
@@ -60,8 +64,6 @@ Your monthly spend limit is separate from your billing cycle (which determines w
 \
 The limit resets automatically at the start of each calendar month, so you can manage recurring AI usage with predictable spending and clear visibility into your costs.
 {% endhint %}
-
-
 
 ### Billing and Credit Usage
 
@@ -100,4 +102,3 @@ If you move to the Free plan, you’ll retain access to any previously purchased
 {% hint style="info" %}
 All unused Add-on Credits remain valid for 12 months from purchase.
 {% endhint %}
-
