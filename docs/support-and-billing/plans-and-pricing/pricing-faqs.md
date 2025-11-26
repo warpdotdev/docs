@@ -265,17 +265,22 @@ For **existing monthly subscribers**, changes will apply on your first renewal a
 
 If you have any questions, please reach out to us at **billing@warp.dev**.
 
-#### **What happens to my current plan (Pro, Turbo, Lightspeed)?**
+#### **What happens to my current plan (Pro, Turbo, Lightspeed, Business)?**
 
-You will retain your current plan and credits until the first renewal after December 1, 2025. All current Pro, Turbo, and Lightspeed plans will be transitioned to the new Warp Build plan at renewal.
+You will retain your current plan and credits until the first renewal after December 1, 2025. At renewal, all current Pro, Turbo, Lightspeed, and Business plans will transition to the new Warp Build and Business plans.
 
-The Build plan includes 1,500 monthly AI credits, [add-on-credits.md](add-on-credits.md "mention") that roll over for 12 months, and the ability to bring your own API key. Learn more at [warp.dev/pricing](https://www.warp.dev/pricing).
+The Build and new Business plans includes 1,500 monthly AI credits, the ability to purchase [add-on-credits.md](add-on-credits.md "mention") that roll over for 12 months, and the ability to bring your own API key. Learn more at [warp.dev/pricing](https://www.warp.dev/pricing).
 
-In addition, [Add-on credit auto reload](add-on-credits.md#id-2.-enable-auto-reload) will be automatically enabled for some of the legacy plan users in the following ways (but can be opted-out or modified):
+In addition, [Add-on credit auto reload](add-on-credits.md#id-2.-enable-auto-reload) will be automatically enabled for some legacy plan users in the following ways (but can be opted out of or modified at any time). Our goal is to maintain the same maximum monthly spend in line with your legacy plan subscription plus any Overages:
 
-* **Pro:** Auto reload will not be enabled by default.
-* **Turbo:** Auto reload will be enabled by default. It will default to a $30 monthly spending limit for Turbo monthly and $20 monthly spending limit for Turbo yearly subscribers. The $10 / 400 add-on credits will be chosen by default.
-* **Lightspeed:** Auto reload will be enabled by default. It will default to a $205 monthly spending limit for Turbo monthly and $180 monthly spending limit for Turbo yearly subscribers. The $20 / 1000 add-on credits will be chosen by default.
+* **Pro:** Will transition to the Build plan. Auto-reload _**will not**_**&#x20;be enabled by default**.
+* **Turbo:** Will transition to the Build plan. Auto-reload _**will**_**&#x20;be enabled by default**. It will default to $30 auto-reload monthly spending limit for monthly subscribers and $22 for yearly subscribers. A handful of Turbo subscribers received a bulk discount for teams of 3 or more—please check your email for details on the default spending limits for your account.
+* **Lightspeed:** Will transition to the Build plan. Auto-reload _**will**_**&#x20;be enabled by default**. It will default to $205 auto-reload monthly spending limit for monthly subscribers and $182 for yearly subscribers.
+* **Business:** Will transition to the new Business plan. Auto-reload _**will**_**&#x20;be enabled by default**. It will default to $10 auto-reload monthly spending limit for both monthly and yearly subscribers.
+
+In any of the above cases, if Overages were enabled, we will set the monthly auto-reload spending limit equal to your Overage spending limit plus any of the amounts listed above.\
+\
+If your total auto-reload monthly spend limit is $80 or above, we will set the Add-on credit denomination to $20 / 1000 credits by default. If your total auto reload monthly spending limit is below $80, we will set the Add-on credit denomination to $10 / 400 credits by default.
 
 #### Can I continue to use Warp as my primary terminal?
 
