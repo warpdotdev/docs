@@ -71,9 +71,11 @@ In cases where you logged in with another method, please do the following to fix
 
 Warp has a system in place that identifies users that could potentially be fraudulent, but it can produce false positives if the user has a restrictive ad, script, and/or tracker blocking extensions or browsers.
 
-To workaround this issue, try disabling any ad, script, and/or tracking blockers to see if that helps. If that doesn't work, the system has determined your account is blocked and you can't proceed with using Warp.\
+To workaround this issue, try disabling any ad, script, and/or tracking blockers to see if that helps. If that doesn't work, try logging in with any other Warp accounts you may have as those may not be blocked.\
 \
-If you have an active subscription and continue to have login issues, please [contact us](https://www.warp.dev/contact) for support.
+If none of the above work, the system has determined your account is blocked and you can't proceed with using Warp, please email [appeals@warp.dev](mailto:appeals@warp.dev) for appealing the block (note that response to that inbox is greatly delayed)\
+\
+If you have an active subscription and continue to have login issues, please the the rest of the recommendations on [this doc](troubleshooting-login-issues.md#get-help-with-login-issues).
 
 ## How to get an Auth token to login
 
