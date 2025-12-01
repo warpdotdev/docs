@@ -1,39 +1,33 @@
 ---
 description: >-
-  Submit your feedback on Warp as well as logs, debugging id, process samples,
-  bugs, feature requests, novel ideas, etc.
+  Submit your feedback, bugs or feature requests to Warp as well as logs,
+  debugging id, bugs, feature requests, novel ideas, etc.
 ---
 
 # Sending Feedback & Logs
 
 ### Sending Warp feedback
 
-* Open a new issue or feature request in our [GitHub repository](https://github.com/warpdotdev/warp/issues/new/choose).
-* [Command Palette](../terminal/command-palette.md), type and select "Send Feedback".
-* Warp Essentials:bulb:, click on Feedback.
-* Join our [Discord](https://discord.com/invite/warpdotdev) server. Send a message in [`#questions-and-feedback`](https://discord.com/channels/851854972600451112/1154432424873296012).
-* Join our [Warp Community Slack](https://go.warp.dev/join-preview) and share feedback in **#feedback-general** (or **#feedback-preview** if it is specific to [Warp Preview](../community/warp-preview-and-alpha-program.md).
+* Open a new bugs or feature request in our [GitHub repository](https://github.com/warpdotdev/warp/issues/new/choose).
+* Join our [Warp Community Slack](https://go.warp.dev/join-preview) and share feedback in **#feedback-general**, or **#feedback-preview** if it is specific to [Warp Preview](../community/warp-preview-and-alpha-program.md).
+* Join our [Discord](https://discord.com/invite/warpdotdev) server, and ask questions or share feedback in [`#questions-and-feedback`](https://discord.com/channels/851854972600451112/1154432424873296012).
+* For security issues or questions, email [security@warp.dev](mailto:security@warp.dev).
+* For questions about privacy, email [privacy@warp.dev](mailto:privacy@warp.dev).
 
-{% hint style="success" %}
-For enterprise clients, please direct all feedback (including bug reports and debugging IDs) to the designated Warp Slack channel.
-{% endhint %}
+#### Subscriber and Enterprise
 
-{% hint style="warning" %}
-For billing-related issues (refunds, cancellation, promos, etc.), please email [billing@warp.dev](mailto:billing@warp.dev).
-{% endhint %}
-
-{% hint style="danger" %}
-For security-related issues or questions, please email [security@warp.dev](mailto:security@warp.dev).
-{% endhint %}
+* For subscriber technical issues or questions (bugs, credits, etc.), email [support@warp.dev](mailto:support@warp.dev).
+* For subscriber billing issues or questions (refunds, cancellation, etc.), email [billing@warp.dev](mailto:billing@warp.dev).
+* For enterprise, please direct all feedback and issues to your designated Slack Channel.
 
 <figure><img src="../.gitbook/assets/send-feedback-demo.gif" alt="sending feedback from the mac menu and warp essentials"><figcaption><p>Send Feedback</p></figcaption></figure>
 
 ## Gathering Warp Logs
 
-In some cases, we may also ask for your Warp logs. You can retrieve them by following the instructions for your platform below. Locate the log file and attach it to your GitHub issue comment, feedback email, or discord message.
+You can retrieve Warp's logs by following the instructions for your platform below. Locate the log file and attach it to your GitHub issue or email.
 
 {% hint style="info" %}
-Warp's logs and crash reports do _not_ contain any console input or output. See more on how we handle [Crash Reports and Telemetry](../privacy/privacy.md#what-telemetry-data-are-you-collecting-and-why).
+Warp's logs and crash reports _**do not**_ contain any console input or output. See more on how we handle [Crash Reports and Telemetry](../privacy/privacy.md#what-telemetry-data-are-you-collecting-and-why).
 {% endhint %}
 
 {% tabs %}
@@ -140,8 +134,6 @@ RUST_LOG=wgpu_core=info,wgpu_hal=info MESA_DEBUG=1 EGL_LOG_LEVEL=debug warp-term
 {% endtabs %}
 
 ## Gathering AI debugging ID <a href="#gathering-ai-debugging-id" id="gathering-ai-debugging-id"></a>
-
-In cases where you have issues with the Agent, we may ask for the AI debugging ID to troubleshoot the specific conversation.
 
 To gather the debugging ID, `RIGHT-CLICK` on the AI conversation block in question and select "Copy debugging ID", then paste that into the [bug report](sending-us-feedback.md#sending-warp-feedback) that you submit so that our team can investigate the issue.
 
