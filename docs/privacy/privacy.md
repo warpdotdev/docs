@@ -101,6 +101,7 @@ If you're a [Team](../knowledge-and-collaboration/teams.md) admin, the deletion 
 | `AgentMode.ClickedEntrypoint` | Clicked on an Agent Mode entrypoint |
 | `AgentMode.Code.DiffHunksNavigated` | Agent Mode Code diff hunks navigated |
 | `AgentMode.Code.DiffMatchFailed` | Failed to match code diff |
+| `AgentMode.Code.EditReverted` | User reverted an accepted Agent Mode edit |
 | `AgentMode.Code.FileExceededContextLimit` | File from AI exceeded context limit |
 | `AgentMode.Code.FilesNavigated` | Agent Mode Code files navigated |
 | `AgentMode.Code.InvalidFile` | File(s) in code diff could not be found |
@@ -303,6 +304,9 @@ If you're a [Team](../knowledge-and-collaboration/teams.md) admin, the deletion 
 | `MCP Server Added` | MCP Server Added |
 | `MCP Server Collection Pane Opened` | MCP Server Collection Pane Opened |
 | `MCP Server Spawned` | MCP Server Spawned |
+| `MCP Template Created` | MCP Template Created |
+| `MCP Template Installed` | MCP Template Installed |
+| `MCP Template Shared` | MCP Template Shared |
 | `MCP Tool Call Accepted` | MCP Tool Call Accepted |
 | `Move Active Tab` | Move active tab left or right |
 | `Move Tab` | Move tab left or right |

@@ -8,6 +8,21 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+## 2025.12.03 (v0.2025.12.03.08.12)
+
+**Improvements**
+
+* The Warp CLI now displays more detailed information when the agent tries to take a prohibited action.
+* Allow dragging file paths from the Project Explorer into active terminal commands like claude code and gemini for referencing files and folders.
+
+**Bug fixes**
+
+* Fixed a bug that could cause unbounded memory growth when using Warpified subshells or the legacy (non-tmux) SSH Warpify implementation.
+* Fixed a bug that could cause `comm` errors to appear in Warpified subshells.
+* [Windows] Fixed keybinding for "find in code editor." This is now `CTRL-SHIFT-F` and configurable from Settings > Keyboard shortcuts.
+* Ensured that the Warp CLI is available automatically on macOS.
+* Fixed toast messages showing "Notebook" instead of "Plan" when taking actions on Plans in Warp Drive.
+
 ## 2025.11.19 (v0.2025.11.19.08.12)
 
 **New features**
