@@ -47,9 +47,9 @@ For the most up-to-date feature and usage details, visit [**warp.dev/pricing**](
 Warp offers two options for larger teams and organizations:
 
 * **Business Plan**: Supports up to 50 seats and is available for immediate upgrade. It includes automatically enforced team-wide Zero Data Retention by default and admin-controlled SAML-based SSO.
-* **Enterprise Plan**: Offers custom pricing and support for larger engineering orgs or teams with advanced security, compliance, or support needs.
+* **Enterprise Plan**: Offers custom pricing, credit limits, and terms. Along with support for larger engineering orgs or teams with advanced security, compliance, or support needs.
 
-{% hint style="info" %}
+{% hint style="success" %}
 If you’d like to explore Enterprise, [contact our sales team](https://warp.dev/contact-sales) and someone from Warp will follow up.
 {% endhint %}
 
@@ -195,9 +195,13 @@ You can remove the users you do not want to pay for in `Settings > Teams > Team 
 
 ### Why doesn't my promo code work or why was it disabled?
 
-Warp's promotions are a way to try Warp before committing to a subscription, not get unlimited free or inexpensive AI. In order to prevent abuse, we're limiting promotion codes to first-time redemptions only.
+Warp's promotions are a way to try Warp before committing to a subscription, not get unlimited free or inexpensive AI. In order to prevent abuse, we're limiting promotion codes to first-time redemptions only, so each account can only use one promotion code.\
+\
+In addition certain promo codes we issue are only valid for specific plans (not all plans) and expire after a certain time. If you apply a promo code for a certain plan, then upgrade to another plan, the promotion doesn't transfer to the new plan so you will end up paying full price for the upgrade.
 
-So each account can only use one promotion code. We also reserve the right to disable any promotion codes at any time and remove the associated subscriptions if we find that the code was being abused.
+{% hint style="warning" %}
+Warp reserves the right to disable any promotion codes at any time, and cancel the associated subscriptions if we find that the code was being abused.
+{% endhint %}
 
 ### How can I subscribe to Warp as tax exempt?
 
