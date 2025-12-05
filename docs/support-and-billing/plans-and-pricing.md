@@ -35,7 +35,7 @@ If you signed up for a paid Warp subscription by mistake, we’ll issue a subscr
 * **72 hours** of starting a monthly plan, or
 * **30 days** of starting an annual plan,
 
-Provided you’ve used fewer than **150 AI credits** (the Free plan limit). If you exceed that limit on an annual plan, we cannot refund the current month, but we will refund any unused future months.
+Provided you’ve used fewer than **150 AI credits** (the Free plan limit). If you exceed that limit i**n your first month** on an annual plan, we cannot refund the first month, but we will refund **months 2-12**.
 
 #### Add-on Credits | Overages Refund Policy
 
@@ -43,7 +43,7 @@ Provided you’ve used fewer than **150 AI credits** (the Free plan limit). If y
 * All [Overages (Legacy)](plans-and-pricing/usage-overages.md) credits are non-refundable. Since Overages are for AI credits you've already used, we can't issue refund for a resources that were already consumed.
 
 {% hint style="info" %}
-While Warp does not provide a formal guaranteed uptime SLA, we may choose to offer refunds or extra AI credits, on a case-by-case basis, if a severe product defect or problem with uptime availability occurs. \
+While Warp does not provide a formal guaranteed uptime SLA, we may choose to offer refunds or extra AI credits, on a case-by-case basis, if a severe product defect or problem with uptime availability occurs.\
 \
 You can monitor live incidents on our [**Status Page**](https://status.warp.dev/) and track open issues on our [**GitHub Issues**](https://github.com/warpdotdev/Warp/issues).
 {% endhint %}
