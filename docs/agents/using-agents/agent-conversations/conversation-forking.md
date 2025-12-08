@@ -21,7 +21,7 @@ _Example_: You can fork a conversation to explore an alternate solution, ask “
 
 ### Ways to fork a conversation
 
-There are two ways to fork an existing conversation:
+There are four ways to fork an existing conversation:
 
 #### **1. From the command palette**
 
@@ -44,6 +44,28 @@ You can also access this conversation view from the [universal input chip](../..
 In any conversation in the blocklist, click the **fork button** in the footer of the most recent AI block. A new conversation opens in a separate pane with the full context of the original.
 
 <figure><img src="../../../.gitbook/assets/conversation-forking-footer.png" alt=""><figcaption></figcaption></figure>
+
+#### **3. Using the /fork slash command**
+
+Type `/fork` in the input to fork the current conversation. You can optionally include a prompt after the command, and Warp will send that prompt in the newly forked conversation.
+
+_Example_: `/fork Can you try a different approach?` Forks the selected conversation and immediately sends `Can you try a different approach?` in the forked conversation.
+
+#### **4. Using the /fork-and-compact slash command**
+
+Type `/fork-and-compact` to fork the current conversation and automatically compact the forked version. This combines forking with [context window management](./README.md#context-window-management), giving you a fresh start with a summarized context.
+
+### Fork from anywhere in a conversation
+
+In addition to forking from the end of a conversation, you can fork from any point in the conversation history. This lets you return to an earlier agent response and branch off in a new direction from there.
+
+To fork from a specific point, right-click on any agent response block or click the three-dot menu in the top-right corner of the block. Select **Fork conversation from here** to create a new conversation that includes everything up to and including that response, but excludes any queries or responses that came after it.
+
+**This is particularly useful for:**
+
+* **Exploring alternate paths** - Go back to a point where the conversation was on track and try a different approach.
+* **Managing your context window** - If a conversation has grown too long, fork from an earlier point to continue with only the relevant context.
+* **Preventing context pollution** - When a conversation has accumulated errors or gone off track, fork from before those issues occurred to start fresh.
 
 ### Using forked conversations <a href="#using-forked-conversations" id="using-forked-conversations"></a>
 
