@@ -51,9 +51,13 @@ Type `/fork` in the input to fork the current conversation. You can optionally i
 
 _Example_: `/fork Can you try a different approach?` Forks the selected conversation and immediately sends `Can you try a different approach?` in the forked conversation.
 
+{% embed url="https://youtu.be/SlhF4_0bBxY" %}
+
 #### **4. Using the /fork-and-compact slash command**
 
-Type `/fork-and-compact` to fork the current conversation and automatically compact the forked version. This combines forking with [context window management](./README.md#context-window-management), giving you a fresh start with a summarized context.
+Type `/fork-and-compact` to fork the current conversation and automatically compact the forked version. This combines forking with [context window management](./#context-window-management), giving you a fresh start with a summarized context.
+
+<figure><img src="../../../.gitbook/assets/conversation-fork-and-compact.png" alt=""><figcaption></figcaption></figure>
 
 ### Fork from anywhere in a conversation
 

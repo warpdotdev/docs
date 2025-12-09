@@ -7,7 +7,7 @@ description: >-
 
 # Linear
 
-The Linear integration lets your team delegate development work directly to Warp agents from inside Linear. When you tag Warp on an issue or comment, an agent will spin up in the cloud, clone the repos defined in your environment, and begin working through the task.&#x20;
+The Linear integration lets your team delegate development work directly to Warp agents from inside Linear. When you tag Warp on an issue or comment, an agent will spin up in the cloud, clone the repos defined in your environment, and begin working through the task.
 
 Agents keep you updated inside Linear, generate pull requests using your GitHub account, and provide a link to join a live remote session so you can watch or steer the workflow in real time.
 
@@ -29,8 +29,6 @@ You can start an agent in two ways:
 * **Assign the issue to Warp** as if it were a teammate.
 
 Warp will acknowledge the request directly in the Linear issue and begin working.
-
-<figure><img src="broken-reference" alt=""><figcaption></figcaption></figure>
 
 Agents keep you informed through:
 

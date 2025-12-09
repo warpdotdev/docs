@@ -55,5 +55,3 @@ If you are working in an alternative editor mode (like vim), synchronized inputs
 When you get done, you can select “Stop Synchronizing Any Panes” to end the synchronization.
 
 ## How it works
-
-<figure><img src="../../.gitbook/assets/Synchronized-Inputs.gif" alt="Demo showing synchronized inputs across panes and tabs"><figcaption><p>Synchronized Inputs Demo</p></figcaption></figure>
