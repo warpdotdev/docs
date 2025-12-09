@@ -1,0 +1,439 @@
+openapi: 3.0.0
+info:
+  title: Warp Public Agent API
+  version: 1.0.0
+  description: |
+    Public API for creating, managing, and querying Warp ambient agent tasks.
+    
+    These endpoints allow users to programmatically spawn agents, list tasks, 
+    and retrieve detailed task information.
+  license:
+    name: Proprietary
+servers:
+  - url: https://app.warp.dev/api/v1
+    description: Production server
+
+paths:
+  /agent/run:
+    post:
+      summary: Run an agent task
+      description: |
+        Spawn an ambient agent with a prompt and optional configuration.
+        The agent will be queued for execution and assigned a unique task ID.
+      operationId: runAgent
+      tags:
+        - agent
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RunAgentRequest'
+            examples:
+              simple:
+                summary: Simple prompt
+                value:
+                  prompt: "Fix the bug in auth.go"
+              withConfig:
+                summary: With agent config
+                value:
+                  prompt: "Refactor the database layer"
+                  config:
+                    name: "my-agent"
+                    model_id: "claude-sonnet-4"
+                    base_prompt: "Focus on Go backend code"
+                  title: "DB Refactoring Task"
+      responses:
+        '200':
+          description: Task created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RunAgentResponse'
+        '400':
+          description: Invalid request (missing prompt, invalid config)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: No permission to access referenced resources (environment, MCP servers)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /agent/tasks:
+    get:
+      summary: List agent tasks
+      description: |
+        Retrieve a paginated list of agent tasks with optional filtering.
+        Results are ordered by creation time (newest first).
+      operationId: listTasks
+      tags:
+        - agent
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: limit
+          in: query
+          description: Maximum number of tasks to return
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 500
+            default: 20
+        - name: cursor
+          in: query
+          description: Pagination cursor from previous response
+          required: false
+          schema:
+            type: string
+        - name: state
+          in: query
+          description: |
+            Filter by task state. Can be specified multiple times to match any of the given states.
+          required: false
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/TaskState'
+          style: form
+          explode: true
+        - name: config_name
+          in: query
+          description: Filter by agent config name
+          required: false
+          schema:
+            type: string
+        - name: model_id
+          in: query
+          description: Filter by model ID
+          required: false
+          schema:
+            type: string
+        - name: creator
+          in: query
+          description: Filter by creator UID (user or service account)
+          required: false
+          schema:
+            type: string
+        - name: source
+          in: query
+          description: Filter by task source type
+          required: false
+          schema:
+            $ref: '#/components/schemas/TaskSourceType'
+        - name: created_after
+          in: query
+          description: Filter tasks created after this timestamp (RFC3339 format)
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: created_before
+          in: query
+          description: Filter tasks created before this timestamp (RFC3339 format)
+          required: false
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: List of tasks
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTasksResponse'
+        '400':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /agent/tasks/{taskId}:
+    get:
+      summary: Get task details
+      description: |
+        Retrieve detailed information about a specific agent task, 
+        including the full prompt, session link, and resolved configuration.
+      operationId: getTask
+      tags:
+        - agent
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: taskId
+          in: path
+          description: The unique identifier of the task
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Task details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskItem'
+        '400':
+          description: Missing task ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: No permission to access task
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Task not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: |
+        Authentication via personal API key or service account credentials.
+
+  schemas:
+    RunAgentRequest:
+      type: object
+      required:
+        - prompt
+      properties:
+        prompt:
+          type: string
+          description: The prompt/instruction for the agent to execute
+        config:
+          $ref: '#/components/schemas/AmbientAgentConfig'
+        title:
+          type: string
+          description: Custom title for the task (auto-generated if not provided)
+
+    RunAgentResponse:
+      type: object
+      required:
+        - task_id
+        - state
+      properties:
+        task_id:
+          type: string
+          description: Unique identifier for the created task
+        state:
+          $ref: '#/components/schemas/TaskState'
+
+    ListTasksResponse:
+      type: object
+      required:
+        - tasks
+        - page_info
+      properties:
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaskItem'
+        page_info:
+          $ref: '#/components/schemas/PageInfo'
+
+    TaskItem:
+      type: object
+      required:
+        - task_id
+        - title
+        - state
+        - prompt
+        - created_at
+        - updated_at
+      properties:
+        task_id:
+          type: string
+          description: Unique identifier for the task
+        title:
+          type: string
+          description: Human-readable title for the task
+        state:
+          $ref: '#/components/schemas/TaskState'
+        prompt:
+          type: string
+          description: The prompt/instruction for the agent
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the task was created (RFC3339)
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when the task was last updated (RFC3339)
+        status_message:
+          $ref: '#/components/schemas/TaskStatusMessage'
+        source:
+          $ref: '#/components/schemas/TaskSourceType'
+        session_id:
+          type: string
+          description: UUID of the shared session (if available)
+        session_link:
+          type: string
+          format: uri
+          description: URL to view the agent session
+        creator:
+          $ref: '#/components/schemas/TaskCreatorInfo'
+        agent_config:
+          $ref: '#/components/schemas/AmbientAgentConfig'
+
+    PageInfo:
+      type: object
+      required:
+        - has_next_page
+      properties:
+        has_next_page:
+          type: boolean
+          description: Whether there are more results available
+        next_cursor:
+          type: string
+          description: Opaque cursor for fetching the next page
+
+    TaskStatusMessage:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable status message
+
+    TaskCreatorInfo:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - user
+            - service_account
+          description: Type of the creator principal
+        uid:
+          type: string
+          description: Unique identifier of the creator
+
+    TaskState:
+      type: string
+      enum:
+        - QUEUED
+        - PENDING
+        - CLAIMED
+        - INPROGRESS
+        - SUCCEEDED
+        - FAILED
+      description: |
+        Current state of the task:
+        - QUEUED: Task is waiting to be picked up
+        - PENDING: Task is being prepared
+        - CLAIMED: Task has been claimed by a worker
+        - INPROGRESS: Task is actively being executed
+        - SUCCEEDED: Task completed successfully
+        - FAILED: Task failed
+
+    TaskSourceType:
+      type: string
+      enum:
+        - LINEAR
+        - AGENT_WEBHOOK
+        - SLACK
+        - LOCAL
+        - SCHEDULED_AGENT
+      description: |
+        Source that created the task:
+        - LINEAR: Created from Linear integration
+        - AGENT_WEBHOOK: Created via the public API
+        - SLACK: Created from Slack integration
+        - LOCAL: Created from local CLI/app
+        - SCHEDULED_AGENT: Created by a scheduled agent
+
+    AmbientAgentConfig:
+      type: object
+      description: Configuration for an ambient agent task
+      properties:
+        name:
+          type: string
+          description: Config name for searchability and traceability
+        model_id:
+          type: string
+          description: LLM model to use (uses workspace default if not specified)
+        base_prompt:
+          type: string
+          description: Custom base prompt for the agent
+        environment_id:
+          type: string
+          description: UID of a CloudEnvironment GSO to use
+        mcp_servers:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/MCPServerConfig'
+          description: Map of MCP server configurations by name
+
+    MCPServerConfig:
+      type: object
+      description: |
+        Configuration for an MCP server. Must have exactly one of: warp_id, command, or url.
+      properties:
+        warp_id:
+          type: string
+          description: Reference to a Warp shared MCP server by UUID
+        command:
+          type: string
+          description: Stdio transport - command to run
+        args:
+          type: array
+          items:
+            type: string
+          description: Stdio transport - command arguments
+        url:
+          type: string
+          format: uri
+          description: SSE/HTTP transport - server URL
+        env:
+          type: object
+          additionalProperties:
+            type: string
+          description: Environment variables for the server
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+          description: HTTP headers for SSE/HTTP transport
+
+    Error:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
