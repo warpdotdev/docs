@@ -51,8 +51,6 @@ Type `/fork` in the input to fork the current conversation. You can optionally i
 
 _Example_: `/fork Can you try a different approach?` Forks the selected conversation and immediately sends `Can you try a different approach?` in the forked conversation.
 
-{% embed url="https://youtu.be/SlhF4_0bBxY" %}
-
 #### **4. Using the /fork-and-compact slash command**
 
 Type `/fork-and-compact` to fork the current conversation and automatically compact the forked version. This combines forking with [context window management](./#context-window-management), giving you a fresh start with a summarized context.
@@ -63,7 +61,11 @@ Type `/fork-and-compact` to fork the current conversation and automatically comp
 
 In addition to forking from the end of a conversation, you can fork from any point in the conversation history. This lets you return to an earlier agent response and branch off in a new direction from there.
 
-To fork from a specific point, right-click on any agent response block or click the three-dot menu in the top-right corner of the block. Select **Fork conversation from here** to create a new conversation that includes everything up to and including that response, but excludes any queries or responses that came after it.
+{% embed url="https://youtu.be/SlhF4_0bBxY" %}
+
+To fork from a specific point, **right-click** on any agent response block or click the three-dot menu in the top-right corner of the block.&#x20;
+
+* Select **Fork conversation from here** to create a new conversation that includes everything up to and including that response, but excludes any queries or responses that came after it.
 
 **This is particularly useful for:**
 
