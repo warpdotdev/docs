@@ -364,14 +364,14 @@ components:
       type: string
       enum:
         - LINEAR
-        - AGENT_WEBHOOK
+        - API
         - SLACK
         - LOCAL
         - SCHEDULED_AGENT
       description: |
         Source that created the task:
         - LINEAR: Created from Linear integration
-        - AGENT_WEBHOOK: Created via the public API
+        - API: Created via the public API
         - SLACK: Created from Slack integration
         - LOCAL: Created from local CLI/app
         - SCHEDULED_AGENT: Created by a scheduled agent
