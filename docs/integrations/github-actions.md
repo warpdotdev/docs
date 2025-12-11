@@ -129,8 +129,6 @@ What it does:
 
 * Interactive coding assistance during review or issue triage.
 
-{% embed url="https://github.com/warpdotdev/warp-agent-action/blob/main/examples/respond-to-comment.yml" %}
-
 ### 2. Automated pull request review
 
 * **File**: [`examples/review-pr.yml`](https://github.com/warpdotdev/warp-agent-action/blob/main/examples/review-pr.yml)
@@ -145,8 +143,6 @@ What it does:
 **When to use:**
 
 * Fast initial review before human reviewers step in.
-
-{% embed url="https://github.com/warpdotdev/warp-agent-action/blob/main/examples/review-pr.yml" %}
 
 ### 3. Automatically fix issues
 
@@ -164,8 +160,6 @@ What it does:
 
 * Automating bug fixes, small features, or maintenance tasks.
 
-{% embed url="https://github.com/warpdotdev/warp-agent-action/blob/main/examples/auto-fix-issue.yml" %}
-
 ### 4. Daily issue summaries
 
 * **File**: [`examples/daily-issue-summary.yml`](https://github.com/warpdotdev/warp-agent-action/blob/main/examples/daily-issue-summary.yml)
@@ -181,8 +175,6 @@ What it does:
 **When to use:**
 
 * Daily visibility into new work across your repositories.
-
-{% embed url="https://github.com/warpdotdev/warp-agent-action/blob/main/examples/daily-issue-summary.yml" %}
 
 ### 5. Fixing failing CI checks
 
@@ -200,8 +192,6 @@ What it does:
 
 * Reducing downtime from failing builds or flaky tests.
 
-{% embed url="https://github.com/warpdotdev/warp-agent-action/blob/main/examples/fix-failing-checks.yml" %}
-
 ### 6. Suggest fixes for review comments
 
 * **File**: [`examples/suggest-review-fixes.yml`](https://github.com/warpdotdev/warp-agent-action/blob/main/examples/suggest-review-fixes.yml)
@@ -218,6 +208,3 @@ What it does:
 **When to use:**
 
 * Quickly addressing straightforward review feedback such as typos, naming tweaks, style nits, and small refactors.
-
-{% embed url="https://github.com/warpdotdev/warp-agent-action/blob/main/examples/suggest-review-fixes.yml" %}
-
