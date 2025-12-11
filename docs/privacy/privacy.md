@@ -175,6 +175,11 @@ If you're a [Team](../knowledge-and-collaboration/teams.md) admin, the deletion 
 | `CLI.Execute.MCP.List` | Listed MCP servers from the Warp CLI |
 | `CLI.Execute.Provider.List` | Listed providers from the Warp CLI |
 | `CLI.Execute.Provider.Setup` | Set up a provider via the Warp CLI |
+| `CLI.Execute.Schedule.Create` | Created a scheduled agent from the Warp CLI |
+| `CLI.Execute.Schedule.Delete` | Deleted a scheduled agent from the Warp CLI |
+| `CLI.Execute.Schedule.Pause` | Paused a scheduled agent from the Warp CLI |
+| `CLI.Execute.Schedule.Unpause` | Unpaused a scheduled agent from the Warp CLI |
+| `CLI.Execute.Schedule.Update` | Updated a scheduled agent from the Warp CLI |
 | `CLI.Execute.Task.Get` | Got status of task from the Warp CLI |
 | `CLI.Execute.Task.List` | Listed tasks from the Warp CLI |
 | `Changed invite view option` | Toggled between link and invite for invite |
@@ -266,11 +271,6 @@ If you're a [Team](../knowledge-and-collaboration/teams.md) admin, the deletion 
 | `Image Received` | Received an image through an image protocol over the pty |
 | `InitialWorkingDirectoryConfigurationChanged` | Replaced the default working directory with a different path |
 | `Initiate Reauth` | Started the flow to re-authenticate the client |
-| `InlineAI.AcceptedOutput` | Accepted Inline AI output |
-| `InlineAI.ClickedRefine` | Refined an Inline AI output with a follow-up query |
-| `InlineAI.Open` | Opened Inline AI |
-| `InlineAI.RevertedFollowUp` | Reverted to a previous Inline AI output |
-| `InlineAI.ShowedHintText` | Showed hint text for Inline AI. |
 | `Input Mode Changed` | Changed the Input Editor Mode (Pinned to Bottom, Pinned to Top, Classic / Waterfall Mode) |
 | `Input.AtMenuInteracted` | Interacted with the @ menu |
 | `Input.ContextChipInteracted` | Interacted with a context chip |
@@ -491,4 +491,7 @@ If you're a [Team](../knowledge-and-collaboration/teams.md) admin, the deletion 
 | `experiments.client.enroll_client` | Client assigned to A/B test |
 | `perf_metrics.memory_usage_high` | Total application memory usage exceeded a significant threshold |
 | `perf_metrics.resource_usage` | Periodic report on application resource usage statistics |
+| `revenue.AutoReloadModalClosed` | User closed the auto-reload modal (either dismissed or enabled auto-reload) |
+| `revenue.AutoReloadToggledFromBillingSettings` | User toggled auto-reload in Billing & Usage settings |
+| `revenue.OutOfCreditsBannerClosed` | User closed the 'Out of credits' banner (dismissed or purchased credits) |
 

@@ -8,6 +8,24 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+## 2025.12.10 (v0.2025.12.10.08.12)
+
+**Improvements**
+
+* Added 'Initialize codebase' button to Code Review, which appears when you're in an uninitialized repo, making it easier to set up codebase indexing and LSP.
+* Added a new sub-menu to the model picker for selecting the reasoning level of reasoning models.
+* Added syntax highlighting for Vue template files.
+* Added support for specifying custom models for agents, integrations, and scheduled agents using the `--model` flag.
+* Added support for custom HTTP headers in MCP SSE server connections.
+* Added `/conversations` slash command with a clock-rewind icon to open the conversation history palette.
+* Warp integrations will more proactively signal if the agent is blocked.
+
+**Bug fixes**
+
+* Fixed a bug where, in `Settings > Billing and usage`, the credit denomination wasn't set to the proper value for teams with auto-reload on.
+* The code editor now opens to the right of the active tab when "Choose a layout to open files in Warp" is set to "New tab".
+* Fixed mouse reporting for apps that don't use the alternate screen buffer, e.g. Radare2.
+
 ## 2025.12.03 (v0.2025.12.03.08.12)
 
 **Improvements**
