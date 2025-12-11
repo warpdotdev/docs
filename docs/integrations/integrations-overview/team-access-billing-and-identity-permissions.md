@@ -82,6 +82,8 @@ Ambient agents and integrations draw from your team’s add-on credit balance.
 * When a trigger activates, the agent starts a run and consumes credits until the workflow completes.
 * Depending on the integration and implementation of Ambient Agents, these runs may not require anyone to be present unless your workflow is designed to ask for input.
 
+#### Who configures triggers and workflows
+
 All triggers and instructions used by ambient agents are defined and controlled by your team’s authorized users.
 
 * Admins or other authorized users decide which triggers exist, when they fire, and what the agent should do in response.
