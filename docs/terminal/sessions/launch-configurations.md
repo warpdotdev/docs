@@ -57,7 +57,7 @@ After this, any Launch Configuration you open will use WSL as the shell.
 
 {% hint style="success" %}
 **Terminal Tip**\
-You can open saved Launch Configurations via Alfred Workflow or [Raycast](../../integrations/integrations-and-plugins.md#raycast) Extension. Learn more [here](https://blog.joe.codes/open-warp-launch-configurations-from-raycast-and-alfred). Credit to [@joetannenbaum](https://twitter.com/joetannenbaum/status/1633538768866009115)
+You can open saved Launch Configurations via Alfred Workflow or [Raycast](../integrations-and-plugins.md#raycast) Extension. Learn more [here](https://blog.joe.codes/open-warp-launch-configurations-from-raycast-and-alfred). Credit to [@joetannenbaum](https://twitter.com/joetannenbaum/status/1633538768866009115)
 {% endhint %}
 
 ## How it works

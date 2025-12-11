@@ -116,6 +116,7 @@
 * [Comparisons](terminal/comparisons/README.md)
   * [Performance](terminal/comparisons/performance.md)
   * [Terminal features](terminal/comparisons/terminal-features.md)
+* [Terminal Integrations](terminal/integrations-and-plugins.md)
 
 ## Knowledge & Collaboration
 
@@ -142,10 +143,11 @@
 
 * [Integrations Overview](integrations/integrations-overview/README.md)
   * [Integrations and Environments](integrations/integrations-overview/integrations-and-environments.md)
+  * [Team Access, Billing, and Identity Permissions](integrations/integrations-overview/team-access-billing-and-identity-permissions.md)
+  * [Troubleshooting](integrations/integrations-overview/troubleshooting.md)
 * [Slack](integrations/slack.md)
 * [Linear](integrations/linear.md)
 * [Github Actions](integrations/github-actions.md)
-* [Terminal Integrations](integrations/integrations-and-plugins.md)
 
 ## Privacy
 

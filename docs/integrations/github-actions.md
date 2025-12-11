@@ -7,7 +7,9 @@ description: >-
 
 # Github Actions
 
-Warp’s GitHub Actions integration lets you run Warp agents directly inside your CI workflows. Using the `warp-agent-action` Github Action, you can delegate tasks such as code review, issue triage, bug fixing, or automated maintenance to the agent as part of a standard Actions pipeline. The agent runs inside your workflow, uses your repository context, and can open pull requests or comment on issues using your GitHub permissions.
+Warp’s GitHub Actions integration lets you run Warp agents directly inside your CI workflows. Using the `warp-agent-action` Github Action, you can delegate tasks such as code review, issue triage, bug fixing, or automated maintenance to the agent as part of a standard Actions pipeline.&#x20;
+
+The agent runs inside your workflow, uses your repository context, and can open pull requests or comment on issues using your GitHub permissions.
 
 {% hint style="info" %}
 For more detailed setup instructions, please refer to the [Warp Agent Actions](https://github.com/warpdotdev/warp-agent-action) repo.
@@ -113,7 +115,7 @@ The `warp-agent-action` supports several automation patterns commonly used in CI
 
 ### 1. Responding to comments with @ mentions
 
-* **File**: `examples/respond-to-comment.yml`
+* **File**: [`examples/respond-to-comment.yml`](https://github.com/warpdotdev/warp-agent-action/blob/main/examples/respond-to-comment.yml)
 * **Use case**: Add “@warpdotdev fix this typo” or similar comments to a PR or Issue.
 
 What it does:
@@ -127,9 +129,11 @@ What it does:
 
 * Interactive coding assistance during review or issue triage.
 
+{% embed url="https://github.com/warpdotdev/warp-agent-action/blob/main/examples/respond-to-comment.yml" %}
+
 ### 2. Automated pull request review
 
-* **File**: `.github/workflows/review-pr.yml`
+* **File**: [`examples/review-pr.yml`](https://github.com/warpdotdev/warp-agent-action/blob/main/examples/review-pr.yml)
 * **Use case**: Provide automated agent feedback when a PR is opened or marked ready for review.
 
 What it does:
@@ -142,9 +146,11 @@ What it does:
 
 * Fast initial review before human reviewers step in.
 
+{% embed url="https://github.com/warpdotdev/warp-agent-action/blob/main/examples/review-pr.yml" %}
+
 ### 3. Automatically fix issues
 
-* **File**: `examples/auto-fix-issue.yml`
+* **File**: [`examples/auto-fix-issue.yml`](https://github.com/warpdotdev/warp-agent-action/blob/main/examples/auto-fix-issue.yml)
 * **Use case**: Apply the `warp-agent` label on an Issue to trigger automated fixes.
 
 What it does:
@@ -158,9 +164,11 @@ What it does:
 
 * Automating bug fixes, small features, or maintenance tasks.
 
+{% embed url="https://github.com/warpdotdev/warp-agent-action/blob/main/examples/auto-fix-issue.yml" %}
+
 ### 4. Daily issue summaries
 
-* **File**: `examples/daily-issue-summary.yml`
+* **File**: [`examples/daily-issue-summary.yml`](https://github.com/warpdotdev/warp-agent-action/blob/main/examples/daily-issue-summary.yml)
 * **Use case**: Scheduled summaries of newly opened issues.
 
 What it does:
@@ -174,9 +182,11 @@ What it does:
 
 * Daily visibility into new work across your repositories.
 
+{% embed url="https://github.com/warpdotdev/warp-agent-action/blob/main/examples/daily-issue-summary.yml" %}
+
 ### 5. Fixing failing CI checks
 
-* **File**: `examples/fix-failing-checks.yml`
+* **File**: [`examples/fix-failing-checks.yml`](https://github.com/warpdotdev/warp-agent-action/blob/main/examples/fix-failing-checks.yml)
 * **Use case**: Automatically attempt fixes when a workflow or test suite fails.
 
 What it does:
@@ -189,3 +199,25 @@ What it does:
 **When to use:**
 
 * Reducing downtime from failing builds or flaky tests.
+
+{% embed url="https://github.com/warpdotdev/warp-agent-action/blob/main/examples/fix-failing-checks.yml" %}
+
+### 6. Suggest fixes for review comments
+
+* **File**: [`examples/suggest-review-fixes.yml`](https://github.com/warpdotdev/warp-agent-action/blob/main/examples/suggest-review-fixes.yml)
+* Use case: Automatically propose code suggestions in response to submitted review comments.
+
+**What it does:**
+
+* Triggers when a pull request review is submitted
+* Fetches review comments and stores them in review\_comments.json
+* Sends comments and context to a Warp agent to decide which ones are simple, actionable fixes
+* Generates `responses.json` with explanations and suggestion blocks for each fixable comment
+* Replies inline to the original review comments with the generated suggestions
+
+**When to use:**
+
+* Quickly addressing straightforward review feedback such as typos, naming tweaks, style nits, and small refactors.
+
+{% embed url="https://github.com/warpdotdev/warp-agent-action/blob/main/examples/suggest-review-fixes.yml" %}
+
