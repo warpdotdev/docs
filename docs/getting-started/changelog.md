@@ -16,7 +16,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 * Added a new sub-menu to the model picker for selecting the reasoning level of reasoning models.
 * Added syntax highlighting for Vue template files.
 * Added support for specifying custom models for agents, integrations, and scheduled agents using the `--model` flag.
-* Added support for custom HTTP headers in MCP SSE server connections.
+* Added support for custom HTTP headers in MCP Streamable HTTP or SSE server connections.
 * Added `/conversations` slash command with a clock-rewind icon to open the conversation history palette.
 * Warp integrations will more proactively signal if the agent is blocked.
 
@@ -37,7 +37,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 * Fixed a bug that could cause unbounded memory growth when using Warpified subshells or the legacy (non-tmux) SSH Warpify implementation.
 * Fixed a bug that could cause `comm` errors to appear in Warpified subshells.
-* [Windows] Fixed keybinding for "find in code editor." This is now `CTRL-SHIFT-F` and configurable from Settings > Keyboard shortcuts.
+* \[Windows] Fixed keybinding for "find in code editor." This is now `CTRL-SHIFT-F` and configurable from Settings > Keyboard shortcuts.
 * Ensured that the Warp CLI is available automatically on macOS.
 * Fixed toast messages showing "Notebook" instead of "Plan" when taking actions on Plans in Warp Drive.
 
