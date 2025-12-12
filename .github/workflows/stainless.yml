@@ -8,9 +8,6 @@ on:
 
 env:
   STAINLESS_API_KEY: ${{ secrets.STAINLESS_API_KEY }}
-  STAINLESS_ORG: Warp
-  STAINLESS_PROJECT: warp-api
-  OAS_PATH: docs/developers/agent-api-openapi.yaml
 
 jobs:
   preview:
@@ -23,6 +20,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: stainless-api/upload-openapi-spec-action/preview@v1
+        with:
+          org: Warp
+          project: warp-api
+          oas_path: docs/developers/agent-api-openapi.yaml
 
   merge:
     if: github.event.pull_request.merged == true
@@ -35,3 +36,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: stainless-api/upload-openapi-spec-action/merge@v1
+        with:
+          org: Warp
+          project: warp-api
+          oas_path: docs/developers/agent-api-openapi.yaml
