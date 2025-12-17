@@ -17,6 +17,15 @@ For more detailed setup instructions, please refer to the [Warp Agent Actions](h
 
 This page explains what the integration does, how to use it in workflows, and common patterns for automating development tasks with Warp.
 
+{% embed url="https://www.loom.com/share/534f88b6a98e43ca9769ca09de6424b5" %}
+
+In this demo
+
+* Automated PR reviews with both summary feedback and inline suggestions
+* One-click batching and committing of agent suggestions directly from the GitHub UI
+* Automatically fixing failing CI checks by opening a suggested PR
+* Suggesting fixes for small review comments (“nits”) without checking out code locally
+
 ***
 
 ### What the GitHub Actions integration does
@@ -28,6 +37,7 @@ The `warp-agent-action` is a GitHub Action that wraps the Warp CLI and:
 * Captures the agent’s output for use in subsequent workflow steps
 * Lets you pass workflow context, event data, and previous step outputs into the agent prompt
 * Allows the agent to comment on PRs, post results, or open branches via the GitHub CLI
+* Supports inline code suggestions that can be batched and committed directly from the GitHub pull request UI
 
 ### Requirements
 
@@ -95,6 +105,10 @@ with:
 ```
 
 This allows downstream steps to branch, format messages, or post results programmatically.
+
+{% hint style="info" %}
+Because the agent is fully prompt-driven, you can insert it anywhere in a GitHub Actions workflow, pass in files or event context, and control whether the output is human-readable comments or structured JSON for downstream automation.
+{% endhint %}
 
 #### Debugging and session sharing
 
@@ -195,7 +209,7 @@ What it does:
 ### 6. Suggest fixes for review comments
 
 * **File**: [`examples/suggest-review-fixes.yml`](https://github.com/warpdotdev/warp-agent-action/blob/main/examples/suggest-review-fixes.yml)
-* Use case: Automatically propose code suggestions in response to submitted review comments.
+* Use cases: Automatically propose code suggestions for small, actionable review comments such as typos, naming tweaks, and minor refactors.
 
 **What it does:**
 

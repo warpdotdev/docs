@@ -1,6 +1,6 @@
 # Team Access, Billing, and Identity Permissions
 
-This page explains how access to integrations and Ambient Agents work across your Warp team, how billing and credits apply, and how Warp maps user identities across Slack, Linear, and GitHub.
+This page explains how access to integrations and Ambient Agents work across your Warp team, how billing and credits apply, and how Warp maps user identities across integrations such as Slack, Linear, and GitHub.
 
 ***
 
@@ -12,11 +12,11 @@ When someone triggers an ambient agent for the first time, Warp may prompt them 
 
 #### Team and billing requirements
 
-Integrations and ambient agents run inside Warp’s cloud, which means usage is billed based on [AI credits](../../support-and-billing/plans-and-pricing/ai-credits.md). Credits are shared at the team level.
+Integrations and [Ambient Agents](/broken/pages/rVCLQETZqLlr5BBHYy2y) run inside Warp’s cloud, which means usage is billed based on [AI credits](../support-and-billing/plans-and-pricing/ai-credits.md). Credits are shared at the team level.
 
 Your team must meet the following requirements to run integrations:
 
-* You must be on a plan that supports **add-on credits** ([add-on-credits.md](../../support-and-billing/plans-and-pricing/add-on-credits.md "mention"))&#x20;
+* You must be on a plan that supports **add-on credits** ([add-on-credits.md](../support-and-billing/plans-and-pricing/add-on-credits.md "mention"))&#x20;
   * Supported: **Build, Business**
   * Not supported: Pro, Turbo, Lightspeed, legacy Business.
 * Your team needs at least **20 add-on credits** available to run an integration
@@ -30,9 +30,10 @@ If you’re on an enterprise plan, please reach out to your dedicated Warp repre
 
 ### Identity mapping
 
-Warp maps your identity across systems using the email address on your account.
+Warp needs a reliable way to know which person an Ambient Agent run is acting for, across Warp, Slack, Linear, and GitHub.
 
-* Your Slack or Linear email must match your Warp account email
+* Slack uses a dedicated account-linking flow to map a Slack user to their Warp account. This is the recommended path for Slack-triggered agents, since it doesn’t rely on email matching.
+* Linear currently maps identities using email address matching. Your Linear email must match your Warp account email for Warp to correctly attribute and scope agent runs.
 * Each teammate must authorize GitHub before an agent can write PRs or push branches on their behalf
 * Agents always operate using the GitHub permissions of the triggering user
 
@@ -95,5 +96,3 @@ Because triggers and instructions are configured by your team, any AI credits us
 
 * It’s the team’s responsibility to manage triggers, confirm they behave as intended, and monitor usage.
 * Reviewing triggers, prompts, and agent behavior periodically helps ensure that credit usage aligns with expectations.
-
-***

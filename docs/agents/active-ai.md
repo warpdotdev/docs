@@ -18,7 +18,7 @@ Prompt Suggestions are contextual, AI-powered suggestions that activate Agent Mo
 
 To disable, please visit `Settings > AI > Active AI > Prompt Suggestions`
 
-<figure><img src="/broken/files/TN22qVuWujouYacalRBN" alt=""><figcaption><p>Example of inline banner popping up when relevant contextually.</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/prompt-suggestions-example (1).png" alt=""><figcaption><p>Example of inline banner popping up when relevant contextually.</p></figcaption></figure>
 
 #### Accepting a Prompt Suggestion
 
@@ -30,7 +30,7 @@ Prompt Suggestions use an LLM to generate prompts based on your terminal session
 If [Secret Redaction](../privacy/secret-redaction.md) is enabled, any selected regexes are applied to content sent to Active AI features to prevent any sensitive data being leaked.
 {% endhint %}
 
-<figure><img src="/broken/files/xBLOzm1m9DYtRWAMjUzz" alt=""><figcaption><p>Setting for Prompt Suggestions</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/prompt-suggestions-setting (1).png" alt=""><figcaption><p>Setting for Prompt Suggestions</p></figcaption></figure>
 
 ### Next Command
 

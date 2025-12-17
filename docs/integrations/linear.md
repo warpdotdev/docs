@@ -76,7 +76,7 @@ Because PRs are created as _you_, this makes code review, auditing, and team col
 
 ### How to configure the integration
 
-Setup involves two steps powered by the [cli.md](../developers/cli.md "mention"). For more instructions, see [integrations-overview](integrations-overview/ "mention").
+Setup involves two steps powered by the [cli](../platform/cli/ "mention"). For more instructions, see [integrations-overview.md](integrations-overview.md "mention").
 
 #### 1. Create an environment
 
@@ -91,7 +91,7 @@ You can create an environment via:
 * The CLI
 * The guided flow using `/create-environment` ([slash-commands.md](../agents/slash-commands.md "mention"))
 
-For full instructions, see our [Environment Setup](integrations-overview/) docs.
+For full instructions, see our [Environment Setup](integrations-overview.md) docs.
 
 #### 2. Create the Linear integration
 
@@ -121,4 +121,4 @@ After revoking access, Warp will no longer be able to read issues, receive trigg
 
 ### Troubleshooting
 
-If something isn’t working as expected—missing repos, PR failures, Linear not detecting Warp, or environment issues—see our [Integrations Troubleshooting](integrations-overview/#troubleshooting) page for detailed guidance on GitHub permissions, environment configuration, and common setup problems.
+If something isn’t working as expected—missing repos, PR failures, Linear not detecting Warp, or environment issues—see our [Integrations Troubleshooting](integrations-overview.md#troubleshooting) page for detailed guidance on GitHub permissions, environment configuration, and common setup problems.

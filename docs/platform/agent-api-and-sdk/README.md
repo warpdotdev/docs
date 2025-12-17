@@ -1,0 +1,138 @@
+# Agent API & SDK
+
+### Agent API
+
+Warp’s Public Agent API lets you create and inspect [Ambient Agent](/broken/pages/rVCLQETZqLlr5BBHYy2y) tasks over HTTP from any system (CI, cron, backend services, internal tools), without requiring the Warp desktop app.
+
+**With the API you can:**
+
+* Run an agent by submitting a prompt plus optional config (model, environment, MCP servers, base prompt, etc.)
+* Monitor execution by listing tasks and tracking state transitions over time (queued → in progress → succeeded/failed)
+* Inspect results and provenance by fetching a task’s full details, including the original prompt, source/creator metadata, session link, and resolved agent configuration
+
+{% hint style="warning" %}
+This page is a high-level overview. \
+\
+For full API endpoint details, see the [Broken link](/broken/pages/79f7384c791b35eb8bcc21da33b5da2459ac79fa "mention") API page, and for schema definitions see the [Broken link](/broken/pages/bb0a450a8b08ff4cf0752e96286f7d4852a851f2 "mention") reference.&#x20;
+{% endhint %}
+
+### Agent SDK
+
+Warp provides official [Python](https://github.com/warpdotdev/warp-sdk-python) and [TypeScript](https://github.com/warpdotdev/warp-sdk-typescript) SDKs that wrap the Public Agent API with:
+
+* **Typed requests and responses** (editor autocomplete, fewer schema mistakes)
+* **Built-in retries and timeouts** (with per-request overrides)
+* **Consistent error type**s that map to API status codes
+* **Helpers for raw responses** when you need headers/status or custom parsing
+
+If you’re building an integration (CI, Slack bots, internal tooling, orchestrators), the SDKs are typically the quickest and safest starting point.
+
+**SDK vs raw REST**
+
+* Use the SDK when you want strong typing, standardized error handling, and easy concurrency patterns.
+* Use raw REST when you want minimal dependencies or full control over your HTTP client (the SDKs also support calling undocumented endpoints when needed).
+
+{% hint style="warning" %}
+For the full SDK surface area and latest usage, refer to the GitHub repos: [**Python SDK**](https://github.com/warpdotdev/warp-sdk-python) and [**TypeScript SDK**](https://github.com/warpdotdev/warp-sdk-typescript).
+{% endhint %}
+
+***
+
+## Agent API
+
+### REST API Base URL
+
+All endpoints are served over HTTPS:
+
+```
+https://app.warp.dev/api/v1
+```
+
+### Core Concepts
+
+#### **Agent tasks**
+
+An agent task represents a single run of an Ambient Agent, created with a prompt and optional configuration. Each task has:
+
+* A unique `task_id`
+* A human-readable `title`
+* A `prompt` that the agent executes
+* A `state` (for example `QUEUED`, `INPROGRESS`, `SUCCEEDED`, `FAILED`)
+* Timestamps (`created_at`, `updated_at`)
+* Optional session information (`session_id`, `session_link`)
+* Optional resolved configuration (`agent_config`)
+
+See [Broken link](/broken/pages/79f7384c791b35eb8bcc21da33b5da2459ac79fa "mention")**s API** for details on how tasks are created and listed.
+
+#### **Agent configuration**
+
+You can influence how an agent runs using AmbientAgentConfig, including:
+
+* `name` for traceability and filtering
+* `model_id` for LLM selection
+* `base_prompt` to shape behavior
+* `environment_id` to choose a `CloudEnvironment`
+* `mcp_servers` to enable specific tools via MCP
+
+See [Broken link](/broken/pages/bb0a450a8b08ff4cf0752e96286f7d4852a851f2 "mention") for the full configuration schema.
+
+***
+
+### Key Endpoints
+
+**The Agents API exposes three primary endpoints:**
+
+*   `POST /agent/run`
+
+    Create a new agent task with a prompt and optional config and title. Returns task\_id and initial state.
+*   `GET /agent/tasks`
+
+    List tasks with pagination and filters for state, config\_name, model\_id, creator, source, and creation time.
+*   `GET /agent/tasks/{taskId}`
+
+    Fetch full details for a single task, including session link and resolved configuration.
+
+All endpoint semantics, query parameters, and error codes are documented on the [Broken link](/broken/pages/79f7384c791b35eb8bcc21da33b5da2459ac79fa "mention")'s page.
+
+***
+
+#### Models Reference
+
+The API shares a set of reusable models across endpoints. Detailed JSON schemas, types, and enums are documented on the [Broken link](/broken/pages/bb0a450a8b08ff4cf0752e96286f7d4852a851f2 "mention") page, including:
+
+* `RunAgentRequest`
+* `RunAgentResponse`
+* `ListTasksResponse`
+* `TaskItem`
+* `PageInfo`
+* `TaskStatusMessage`
+* `TaskCreatorInfo`
+* `TaskState`
+* `TaskSourceType`
+* `AmbientAgentConfig`
+* `MCPServerConfig`
+* `Error`
+
+***
+
+## Agent SDKs
+
+### Python SDK
+
+The Python SDK is the recommended way to call the Agent API from Python services and scripts. It provides:
+
+* Sync + async clients
+* Typed request/response models
+* Configurable retries/timeouts and structured errors
+
+See the [Python SDK GitHub repo](https://github.com/warpdotdev/warp-sdk-python) for installation, full API reference (api.md), and up-to-date examples.
+
+### TypeScript SDK
+
+The TypeScript SDK is the recommended way to call the Agent API from Node.js services and modern TS/JS runtimes. It provides:
+
+* Fully typed params/responses
+* First-class error handling, retries/timeouts
+* Support across common runtimes where fetch is available or polyfilled
+
+See the [TypeScript SDK GitHub repo](https://github.com/warpdotdev/warp-sdk-typescript) for installation, full API reference (api.md), and up-to-date examples.

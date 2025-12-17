@@ -7,7 +7,7 @@ description: >-
 
 # Ambient Agents Session Sharing
 
-Ambient Agent Session Sharing lets you open, inspect, and continue interacting with agent tasks that are running on remote virtual machines. Whether an Ambient Agent was triggered from [integrations](broken-reference) like Slack, Linear, GitHub Actions, or the [Warp CLI](../../developers/cli.md), you can view its full session, follow along in real time, ask follow-up questions, and even “fork” the work into your local Warp environment.
+Ambient Agent Session Sharing lets you open, inspect, and continue interacting with agent tasks that are running on remote virtual machines. Whether an Ambient Agent was triggered from [integrations](broken-reference/) like Slack, Linear, GitHub Actions, or the [Warp CLI](../../platform/cli/), you can view its full session, follow along in real time, ask follow-up questions, and even “fork” the work into your local Warp environment.
 
 {% embed url="https://www.loom.com/share/edd662da8de345ae979c4d39eb19c513" %}
 
@@ -32,7 +32,7 @@ Everything is accessible whether or not Warp is installed on the viewer’s mach
 
 #### 1. Open a remote Ambient Agent run
 
-When an Ambient Agent starts working — for example, from a Slack mention, a Linear issue, or a [cli.md](../../developers/cli.md "mention") trigger — Warp attaches a shareable link to the run.
+When an Ambient Agent starts working — for example, from a Slack mention, a Linear issue, or a [cli](../../platform/cli/ "mention") trigger — Warp attaches a shareable link to the run.
 
 * From [slack.md](../../integrations/slack.md "mention"), click **View Agent** in the agent response to open the session.
 * From [linear.md](../../integrations/linear.md "mention"), click the ↗ **Warp** button ("Open in Warp") on the ticket to open the session.

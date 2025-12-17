@@ -6,7 +6,7 @@ description: Steps and help with updating Warp.
 
 Warp automatically checks for updates on startup. A notification will appear in the top right corner of the Warp window when a new update is available.
 
-![Update Available](/broken/files/EERGvZQj5o8XtthW46ji)
+![Update Available](<../.gitbook/assets/update-available (1).png>)
 
 To check for updates, search for "update" in the [Command Palette](../terminal/command-palette.md) or go to `Settings > Accounts` and click "Check for Update".
 
@@ -18,7 +18,7 @@ If nothing happens, it means you already have the latest stable build.
 
 Warp cannot auto-update if it does not have the correct permissions to replace the running version of Warp If this is the case, a banner will prompt you to manually update Warp.
 
-![Update Available](/broken/files/JViofTS01MSevOjVRHXp)
+![Update Available](<../.gitbook/assets/update-available-bar (1).png>)
 
 There are 2 main causes of this:
 

@@ -1,11 +1,13 @@
 ---
-description: Run Ambient Agents with the Warp CLI from any terminal.
+description: Use Warp Agents from the terminal.
 ---
 
 # Warp CLI
 
 {% hint style="info" %}
-The Warp CLI is under development and only supports some operations. We welcome [feedback](../support-and-billing/sending-us-feedback.md#sending-warp-feedback) on how you're building with the CLI and on any missing functionality!
+The Warp CLI is under development and only supports some operations. \
+\
+We welcome [feedback](../../support-and-billing/sending-us-feedback.md#sending-warp-feedback) on how you're building with the CLI and on any missing functionality!
 {% endhint %}
 
 ## What is the Warp CLI?
@@ -25,13 +27,13 @@ Set up and run your first ambient agent in less than 5 minutes.
 
 ### 1. Installing the CLI
 
-If you already have the [Warp desktop app installed](../getting-started/quickstart-guide/installation-and-setup.md), the **CLI is included** and available in the Warp terminal.&#x20;
+If you already have the [Warp desktop app installed](../../getting-started/quickstart-guide/installation-and-setup.md), the **CLI is included** and available in the Warp terminal.&#x20;
 
-If not, see [Installing the CLI](cli.md#id-1.-installing-the-cli) for installation options for all platforms.
+If not, see [Installing the CLI](./#id-1.-installing-the-cli) for installation options for all platforms.
 
 ### 2. Authenticate
 
-For local development and first-time setup, authenticate interactively using the `warp login` command. Replace `warp` with the appropriate command name based on your installation method. For command names, refer to the table in [Running the CLI](cli.md#running-the-cli).
+For local development and first-time setup, authenticate interactively using the `warp login` command. Replace `warp` with the appropriate command name based on your installation method. For command names, refer to the table in [Running the CLI](./#running-the-cli).
 
 For example, on macOS:
 
@@ -74,11 +76,11 @@ You'll be prompted to authorize the Warp GitHub App if you haven't already.
 
 Once you've successfully set up and ran your agent, explore other configurations and workflows with the Warp CLI:
 
-* Customize behavior with [agent profiles.](cli.md#using-agent-profiles)
-* [Reuse prompts](cli.md#using-saved-prompts) with `--saved-prompt`.
-* Connect agents to external systems [using MCP servers](cli.md#using-mcp-servers).
-* Authenticate with [API keys](cli.md#api-key-authentication) for automated environments or workflows.
-* Get up-to-date information about the Warp CLI using the [`help` command.](cli.md#getting-help)
+* Customize behavior with [agent profiles.](./#using-agent-profiles)
+* [Reuse prompts](./#using-saved-prompts) with `--saved-prompt`.
+* Connect agents to external systems [using MCP servers](./#using-mcp-servers).
+* Authenticate with [API keys](./#api-key-authentication) for automated environments or workflows.
+* Get up-to-date information about the Warp CLI using the [`help` command.](./#getting-help)
 
 Continue reading to learn how to install the CLI on different platforms, authenticate in different environments, and configure agents for real-world workflows.
 
@@ -96,7 +98,7 @@ The Warp CLI is automatically distributed with the Warp desktop app and can be u
 {% tab title="macOS" %}
 To add the Warp CLI to your `PATH`,:
 
-1. Open the [Command Palette](../terminal/command-palette.md) (`CMD+P` )&#x20;
+1. Open the [Command Palette](../../terminal/command-palette.md) (`CMD+P` )&#x20;
 2. In the search field, find and select the `Install Warp CLI Command` action.&#x20;
 
 {% hint style="info" %}
@@ -152,7 +154,7 @@ You can also download the CLI directly from these URLs:
 {% tab title="Linux" %}
 On Linux, we recommend that you install and update the standalone CLI through your distribution's package manager. We support `apt`, `yum`, and `pacman`.
 
-1. Add the Warp package repository for your distribution (see the [installation instructions](../getting-started/quickstart-guide/installation-and-setup.md)).&#x20;
+1. Add the Warp package repository for your distribution (see the [installation instructions](../../getting-started/quickstart-guide/installation-and-setup.md)).&#x20;
 2. Install either the stable or Preview package (replace `apt` with `yum` or `pacman` as needed):
 
 ```sh
@@ -175,7 +177,7 @@ You can also install the CLI by downloading a package directly. These installers
 
 ## Running the CLI
 
-The command to run the Warp CLI depends on your OS, whether you installed the CLI as part of Warp or as a standalone package, and whether you're using the stable build or [Warp Preview](../community/warp-preview-and-alpha-program.md).
+The command to run the Warp CLI depends on your OS, whether you installed the CLI as part of Warp or as a standalone package, and whether you're using the stable build or [Warp Preview](../../community/warp-preview-and-alpha-program.md).
 
 | OS      | Installation Method | CLI Command     | CLI Command (Preview)   |
 | ------- | ------------------- | --------------- | ----------------------- |
@@ -204,7 +206,7 @@ To authenticate interactively:
 warp login
 ```
 
-Replace `warp` with the appropriate command name for your installation method according ot the table in [Running the CLI](cli.md#running-the-cli).
+Replace `warp` with the appropriate command name for your installation method according ot the table in [Running the CLI](./#running-the-cli).
 
 The CLI prints out a URL that you can open in any browser to login to Warp.
 
@@ -222,7 +224,7 @@ You can create an API key from your settings in Warp:
 4. Name the key and choose an expiration.
 5. Click **Create key**.
 
-<figure><img src="../.gitbook/assets/api-key-management.png" alt=""><figcaption><p>API key management interface in Warp settings</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/api-key-management.png" alt=""><figcaption><p>API key management interface in Warp settings</p></figcaption></figure>
 
 #### Authenticating with API keys
 
@@ -245,7 +247,7 @@ $ warp agent run --api-key "wk-xxx..." --prompt "analyze this codebase"
 
 ## Running agents
 
-To start a Warp agent, use the `warp agent run` subcommand. You'll need to specify a prompt and, optionally, the [MCP servers](../knowledge-and-collaboration/mcp.md) and [agent profile](../agents/using-agents/agent-profiles-permissions.md) to use.
+To start a Warp agent, use the `warp agent run` subcommand. You'll need to specify a prompt and, optionally, the [MCP servers](../../knowledge-and-collaboration/mcp.md) and [agent profile](../../agents/using-agents/agent-profiles-permissions.md) to use.
 
 ### Running an agent with a prompt
 
@@ -286,9 +288,14 @@ The agent will automatically carry out the task you gave it, printing out tool c
 
 By default, the agent runs in your current working directory. To run from a different directory, use the `-C/--cwd` flag.
 
+**Two ways to run agents**
+
+* `warp agent run`: runs against your current machine/working directory (best for local dev + debugging; supports --cwd and --share).
+* `warp agent run-ambient`: dispatches a task to run remotely in a Warp [Environment](integrations-and-environments.md#how-integrations-and-environments-work) (best for background/remote/standardized runs; supports --environment and --open).
+
 ### Reusing saved prompts
 
-Instead of typing out a prompt, you can reference [saved prompts](../knowledge-and-collaboration/warp-drive/prompts.md) using the `--saved-prompt` flag:
+Instead of typing out a prompt, you can reference [saved prompts](../../knowledge-and-collaboration/warp-drive/prompts.md) using the `--saved-prompt` flag:
 
 ```sh
 $ warp agent run --saved-prompt sgNpbUgDkmp2IImUVDc8kR
@@ -296,24 +303,71 @@ $ warp agent run --saved-prompt sgNpbUgDkmp2IImUVDc8kR
 ```
 
 {% hint style="info" %}
-The ID of a saved prompt will be the last part of its [URL](../knowledge-and-collaboration/warp-drive/#sharing-a-drive-object-using-links). For example, in the Warp Drive URL `https://staging.warp.dev/drive/prompt/Fix-compiler-error-sgNpbUgDkmp2IImUVDc8kR`, the ID is `sgNpbUgDkmp2IImUVDc8kR`.
+The ID of a saved prompt will be the last part of its [URL](../../knowledge-and-collaboration/warp-drive/#sharing-a-drive-object-using-links). For example, in the Warp Drive URL `https://staging.warp.dev/drive/prompt/Fix-compiler-error-sgNpbUgDkmp2IImUVDc8kR`, the ID is `sgNpbUgDkmp2IImUVDc8kR`.
 {% endhint %}
 
 ### Referencing Warp Drive objects
 
-This prompt can include [Warp Drive objects](../knowledge-and-collaboration/warp-drive/) and [rules](../knowledge-and-collaboration/rules.md) as attached context, using the syntax `<workflow:id>`, `<notebook:id>`, or `<rule:id>`. To quickly create these references, use the [@ context menu](../agents/using-agents/agent-context/using-to-add-context.md) in Warp to construct a prompt, and then copy it into your CLI command.
+This prompt can include [Warp Drive objects](../../knowledge-and-collaboration/warp-drive/) and [rules](../../knowledge-and-collaboration/rules.md) as attached context, using the syntax `<workflow:id>`, `<notebook:id>`, or `<rule:id>`. To quickly create these references, use the [@ context menu](../../agents/using-agents/agent-context/using-to-add-context.md) in Warp to construct a prompt, and then copy it into your CLI command.
 
 ```sh
 $ warp agent run --prompt "Follow the instructions in <notebook:gq1CMAUWLtaL1CpEoTDQ3y>"
 ...
 ```
 
+### Run an Ambient Agent remotely
+
+`warp agent run-ambient` dispatches an Ambient Agent to run remotely in a specified Warp [Environment](integrations-and-environments.md#how-integrations-and-environments-work). Use it when you want the agent to execute outside your local machine (for example: background tasks, remote machines, automated systems, or standardized team environments).
+
+#### **How it works**
+
+When you run `warp agent run-ambient`, Warp creates an agent task and executes it via “ambient” (remote) execution. You provide what to do using either:
+
+* `--prompt <PROMPT>` for one-off instructions, or
+* `--saved-prompt <SAVED_PROMPT_ID>` to reuse a saved prompt by ID.
+
+**Key flags**
+
+* `--environment <ENVIRONMENT_ID> (-e)`: selects the environment to run in (this is the main knob that makes the run “ambient”).
+* `--open`: opens the agent’s session in Warp once it’s available.
+* `--name <NAME>`: names the task (useful for identifying it later).
+* `--profile <PROFILE_ID>`: selects an execution profile (defaults if omitted).
+* `--mcp <SPEC>`: starts one or more MCP servers before execution (UUID, JSON file path, or inline JSON).
+
+#### **Differences vs `warp agent run`**
+
+`run-ambient` is optimized for remote dispatch, so some local/session features don’t apply:
+
+* No `--cwd` (there’s no local working directory concept in the same way).
+* No `--share` (sharing options are on agent run, not run-ambient).
+
+If you want a run tied to your current directory with local streaming and session sharing, use `warp agent run` instead.
+
+#### **Example**
+
+```bash
+warp agent run-ambient \
+  --environment SVhg783GBFQHk1OfdPfFU9 \
+  --name "Repo summary" \
+  --prompt "Summarize this repo and list the top 5 risky areas." \
+  --open
+```
+
+**Using a saved prompt**
+
+```bash
+warp agent run-ambient \
+  --environment SVhg783GBFQHk1OfdPfFU9 \
+  --saved-prompt sgNpbUgDkmp2IImUVDc8kR \
+  --open
+```
+
 ## Using agent profiles
 
-The Warp CLI uses [agent profiles](../agents/using-agents/agent-profiles-permissions.md) to customize how the agent behaves. To use different models, autonomy behavior, or MCP servers, create a new profile. Agent profiles are automatically synced to each host that you have Warp installed on, so you can still use them remotely.
+The Warp CLI uses [agent profiles](../../agents/using-agents/agent-profiles-permissions.md) to customize how the agent behaves. To use different models, autonomy behavior, or MCP servers, create a new profile. Agent profiles are automatically synced to each host that you have Warp installed on, so you can still use them remotely.
 
 {% hint style="info" %}
-Tip: create a dedicated profile for CLI usage. The CLI will fail if it tries to execute a prohibited action, so make sure your profile allows the directories, commands, and MCP servers that you'd like the agent to use.
+**Tip**: create a dedicated profile for CLI usage. The CLI will fail if it tries to execute a prohibited action, so make sure your profile allows the directories, commands, and MCP servers that you'd like the agent to use.
 {% endhint %}
 
 {% hint style="warning" %}
@@ -344,7 +398,7 @@ $ warp agent run --profile CWhozDJPdPCsjJ1pSG0HCN --prompt "update my CI pipelin
 
 ## Using MCP servers
 
-MCP servers let Ambient Agents interact with external systems like GitHub, Linear, or Sentry, etc. The CLI can use any [MCP server](../knowledge-and-collaboration/mcp.md) that you've configured. There are two ways to start MCP servers with the agent:
+MCP servers let Ambient Agents interact with external systems like GitHub, Linear, or Sentry, etc. The CLI can use any [MCP server](../../knowledge-and-collaboration/mcp.md) that you've configured. There are two ways to start MCP servers with the agent:
 
 1. If the selected agent profile allows _specific_ MCP servers, they will start automatically.
 2. If the selected agent profile allows _any_ MCP server, you must specify the ones to start using the `--mcp-server` flag.
@@ -368,7 +422,7 @@ $ warp mcp list
 
 You can also copy the server ID from the MCP servers page:
 
-<figure><img src="../.gitbook/assets/mcp-server-id.png" alt=""><figcaption><p>MCP servers page, showing a server with its UUID</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/mcp-server-id.png" alt=""><figcaption><p>MCP servers page, showing a server with its UUID</p></figcaption></figure>
 
 Then, run an agent like this:
 
@@ -393,9 +447,9 @@ Tip: consider using a password or secret manager CLI, such as [`op`](https://dev
 
 ## Collaboration
 
-In addition to text-based output, the CLI can share the agent's session for you to access on other devices or in a browser. To enable [agent-session-sharing.md](../knowledge-and-collaboration/session-sharing/agent-session-sharing.md "mention"), use the `--share` flag.&#x20;
+In addition to text-based output, the CLI can share the agent's session for you to access on other devices or in a browser. To enable [agent-session-sharing.md](../../knowledge-and-collaboration/session-sharing/agent-session-sharing.md "mention"), use the `--share` flag.&#x20;
 
-By default, the session is only accessible to the user running the CLI, but you can also share with [teams.md](../knowledge-and-collaboration/teams.md "mention") or other Warp users:
+By default, the session is only accessible to the user running the CLI, but you can also share with [teams.md](../../knowledge-and-collaboration/teams.md "mention") or other Warp users:
 
 ```sh
 # Share the agent's session with yourself:

@@ -7,17 +7,17 @@ description: >-
 
 # Integrations Overview
 
-Warp integrations let your team trigger Warp agents directly from the terminal, or from first-party tools like [slack.md](../slack.md "mention") and [linear.md](../linear.md "mention"). Once everything is set up, agents can:
+Warp integrations let your team trigger Warp agents directly from the terminal, or from first-party tools like [slack.md](slack.md "mention") and [linear.md](linear.md "mention"). Once everything is set up, agents can:
 
 * Read conversation or issue context
 * Run code inside your codebase in a remote environment
 * Open pull requests and perform other multi-step agent workflows on your behalf
 
 {% hint style="info" %}
-For a full walkthrough of Warp's integrations and configurable environments, please refer to [integrations-and-environments.md](integrations-and-environments.md "mention").
+For a full walkthrough of Warp's integrations and configurable environments, please refer to [integrations-and-environments.md](../platform/cli/integrations-and-environments.md "mention").
 {% endhint %}
 
-All of this is powered by the [cli.md](../../developers/cli.md "mention").
+All of this is powered by the [cli](../platform/cli/ "mention").
 
 ***
 
@@ -88,4 +88,4 @@ Warp will read the thread/issue, spin up your environment, run the workflow in t
 
 ***
 
-<sub>For more details on configuring integrations and environments in Warp, please refer to</sub> [<sub>Integrations and Environments</sub>](integrations-and-environments.md)<sub>.</sub>
+<sub>For more details on configuring integrations and environments in Warp, please refer to</sub> [<sub>Integrations and Environments</sub>](../platform/cli/integrations-and-environments.md)<sub>.</sub>

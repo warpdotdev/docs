@@ -135,16 +135,38 @@
   * [Agent Session Sharing](knowledge-and-collaboration/session-sharing/agent-session-sharing.md)
   * [Ambient Agents Session Sharing](knowledge-and-collaboration/session-sharing/ambient-agents-session-sharing.md)
 
-## Developers
+## Ambient Agents
 
-* [Warp CLI](developers/cli.md)
+* [Ambient Agents Overview](ambient-agents/ambient-agents-overview.md)
+* [Managing Ambient Agents](ambient-agents/managing-ambient-agents/README.md)
+  * [Scheduled Agents](ambient-agents/managing-ambient-agents/scheduled-agents.md)
+* [Agent Secrets](ambient-agents/agent-secrets.md)
+* [MCP Servers for Agents](ambient-agents/mcp-servers-for-agents.md)
+
+## Platform
+
+* [Warp Platform](platform/warp-platform.md)
+* [Warp CLI](platform/cli/README.md)
+  * [Integrations and Environments](platform/cli/integrations-and-environments.md)
+  * [Troubleshooting](platform/cli/troubleshooting.md)
+* [Agent API & SDK](platform/agent-api-and-sdk/README.md)
+  * ```yaml
+    type: builtin:openapi
+    props:
+      models: true
+      downloadLink: false
+    dependencies:
+      spec:
+        ref:
+          kind: openapi
+          spec: warp-public-agent-api
+    ```
+* [Team Access, Billing, and Identity Permissions](platform/team-access-billing-and-identity-permissions.md)
+* [Deployment Patterns](platform/deployment-patterns.md)
 
 ## Integrations
 
-* [Integrations Overview](integrations/integrations-overview/README.md)
-  * [Integrations and Environments](integrations/integrations-overview/integrations-and-environments.md)
-  * [Team Access, Billing, and Identity Permissions](integrations/integrations-overview/team-access-billing-and-identity-permissions.md)
-  * [Troubleshooting](integrations/integrations-overview/troubleshooting.md)
+* [Integrations Overview](integrations/integrations-overview.md)
 * [Slack](integrations/slack.md)
 * [Linear](integrations/linear.md)
 * [Github Actions](integrations/github-actions.md)

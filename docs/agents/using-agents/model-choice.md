@@ -12,9 +12,20 @@ Warp lets you choose from a curated set of Large Language Models (LLMs) to power
 
 **Warp supports the following models:**
 
-* OpenAI: `GPT-5` and `GPT-5.1` (select between _low, medium,_ and _high_ reasoning modes)
-* Anthropic: `Claude Sonnet 4.5`, `Claude Opus 4.1`, `Claude Haiku 4.5` , `Claude Sonnet 4`
-* Google: `Gemini 3 Pro`, `Gemini 2.5 Pro`
+* OpenAI:
+  * &#x20;`GPT-5.2` (_low, medium,_ _high_ and _extra high_ reasoning)
+  * &#x20;`GPT-5.1` (_low, medium,_ and _high_ reasoning)
+  * &#x20;`GPT-5` (_low, medium,_ and _high_ reasoning)
+* Anthropic:&#x20;
+  * `Claude Opus 4.5`  with thinking mode&#x20;
+  * `Claude Sonnet 4.5`  with thinking mode
+  * `Claude Opus 4.1`  &#x20;
+  * `Claude Haiku 4.5`&#x20;
+  * `Claude Sonnet 4`
+* Google:&#x20;
+  * `Gemini 3 Pro`
+  * `Gemini 3 Flash`  &#x20;
+  * `Gemini 2.5 Pro`
 * z.ai: `GLM 4.6` (hosted in the US, by [Fireworks AI](https://fireworks.ai/models/fireworks/glm-4p6))
 
 ### Auto Models
@@ -50,11 +61,10 @@ These providers include, but are not limited to:
 
 * OpenAI
 * Anthropic
-* OpenAI
 * Google
 * Fireworks AI
 
-Warp has executed Zero Data Retention (ZDR) agreements with these providers. This means that, by default across all plans:
+Warp has executed **Zero Data Retention (ZDR)** agreements with these providers. This means that, by default across all plans:
 
 * LLM providers commit not to train their models on any customer-generated data processed through Warp’s services.
 * LLM providers commit to delete inputs and outputs after generating the relevant output, within a fixed time period.
