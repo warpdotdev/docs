@@ -8,6 +8,20 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+## 2025.12.17 (v0.2025.12.17.17.17)
+
+**Improvements**
+
+* Warp now specifies what different models were used for in the credit transparency footer.
+* You can choose whether forked conversations open in a split pane or new tab.
+* `warp mcp list`, `warp environment list`, and `warp agent profile list` now support plain-text and JSON output.
+* MCP server configurations are now displayed in integration details (i.e. `warp integration list`).
+* Added support for configuring MCP servers in integrations.
+
+**Bug fixes**
+
+* Fixed a bug where Warp CLI runs could get stuck trying to run a denylisted command.
+
 ## 2025.12.10 (v0.2025.12.10.08.12)
 
 **Improvements**
