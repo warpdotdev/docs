@@ -240,5 +240,5 @@ You now have everything needed to trigger Warp agents from your team’s tools. 
 
 * [Broken link](/broken/pages/rVCLQETZqLlr5BBHYy2y "mention")
 * [warp-platform.md](../warp-platform.md "mention")
-* [slack.md](../../integrations/slack.md "mention"), [linear.md](../../integrations/linear.md "mention"), and [github-actions.md](../../integrations/github-actions.md "mention") integrations
+* [slack.md](../../integrations/slack.md "mention"), [linear.md](../../integrations/linear.md "mention"), and [github-actions](../../integrations/github-actions/ "mention") integrations
 * [troubleshooting.md](troubleshooting.md "mention")

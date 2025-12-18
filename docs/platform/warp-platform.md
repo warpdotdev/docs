@@ -197,7 +197,7 @@ warp integration create …
 Examples of context:
 
 * [Slack](../integrations/slack.md): message text + channel + thread + user identity
-* [GitHub](../integrations/github-actions.md): PR metadata + diffs + labels + checks
+* [GitHub](../integrations/github-actions/): PR metadata + diffs + labels + checks
 * CI: logs + job metadata + artifacts
 
 #### Custom integrations

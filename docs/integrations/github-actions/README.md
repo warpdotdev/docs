@@ -67,9 +67,9 @@ To run Warp agents from GitHub Actions, **you must store your Warp API Key as a 
 
 Your secret will now appear in the list of available Actions secrets:
 
-<figure><img src="../.gitbook/assets/actions-secrets-and-variables.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/actions-secrets-and-variables.png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/actions-add-a-secret.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/actions-add-a-secret.png" alt=""><figcaption></figcaption></figure>
 
 #### Add the Warp Agent Action to your workflow
 
@@ -119,7 +119,7 @@ with:
   share: true
 ```
 
-This posts an [Ambient Agents Session Sharing link](../knowledge-and-collaboration/session-sharing/ambient-agents-session-sharing.md) to the job logs. Anyone with the link can inspect the agent’s execution directly.
+This posts an [Ambient Agents Session Sharing link](../../knowledge-and-collaboration/session-sharing/ambient-agents-session-sharing.md) to the job logs. Anyone with the link can inspect the agent’s execution directly.
 
 ***
 

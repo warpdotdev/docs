@@ -7,6 +7,8 @@ Warp provides a centralized management view where you can monitor agent activity
 * Where an agent was triggered from (a local agent conversation, the Warp CLI, Slack, etc.)
 * How many AI credits those runs consumed
 
+{% embed url="https://www.loom.com/share/679c267ddd2d44519abf79edcb1122c7" %}
+
 This management view includes your **local (interactive) agents** and [Ambient Agent](/broken/pages/rVCLQETZqLlr5BBHYy2y) runs.&#x20;
 
 ***

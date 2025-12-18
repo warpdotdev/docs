@@ -27,6 +27,8 @@ Warp provides official [Python](https://github.com/warpdotdev/warp-sdk-python) a
 
 If you’re building an integration (CI, Slack bots, internal tooling, orchestrators), the SDKs are typically the quickest and safest starting point.
 
+{% embed url="https://www.youtube.com/watch?v=0cf7383MZSk" %}
+
 **SDK vs raw REST**
 
 * Use the SDK when you want strong typing, standardized error handling, and easy concurrency patterns.

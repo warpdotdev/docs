@@ -161,6 +161,7 @@
           kind: openapi
           spec: warp-public-agent-api
     ```
+  * [Demo: Sentry monitoring with SDK](platform/agent-api-and-sdk/demo-sentry-monitoring-with-sdk.md)
 * [Team Access, Billing, and Identity Permissions](platform/team-access-billing-and-identity-permissions.md)
 * [Deployment Patterns](platform/deployment-patterns.md)
 
@@ -169,7 +170,8 @@
 * [Integrations Overview](integrations/integrations-overview.md)
 * [Slack](integrations/slack.md)
 * [Linear](integrations/linear.md)
-* [Github Actions](integrations/github-actions.md)
+* [Github Actions](integrations/github-actions/README.md)
+  * [Demo: Issue Triage Bot](integrations/github-actions/demo-issue-triage-bot.md)
 
 ## Privacy
 

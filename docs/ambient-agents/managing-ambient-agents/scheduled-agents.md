@@ -9,6 +9,8 @@ description: >-
 
 Warp's Scheduled Agents let you run Ambient Agents automatically on a **recurring schedule**. They are designed for routine, repeatable tasks that should happen without manual intervention, such as dead code cleanup, dependency maintenance, issue triage, or periodic refactors.
 
+{% embed url="https://www.youtube.com/watch?feature=youtu.be&v=wX9cDbsRXHs" %}
+
 Scheduled Agents run in the background on Warp’s infrastructure. Each run starts from a clean session, executes a fixed prompt, and produces its own task and session history that can be inspected after the fact.
 
 ***
