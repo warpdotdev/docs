@@ -151,10 +151,10 @@
   * [Troubleshooting](platform/cli/troubleshooting.md)
 * [Agent API & SDK](platform/agent-api-and-sdk/README.md)
   * ```yaml
-    type: builtin:openapi
     props:
       models: true
       downloadLink: false
+    type: builtin:openapi
     dependencies:
       spec:
         ref:
