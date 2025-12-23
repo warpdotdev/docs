@@ -13,6 +13,8 @@ description: >-
 
 Warp’s Ambient Agents are **cloud connected**, **background agents** built on the [Warp Platform](../platform/warp-platform.md). They run automatically in response to system events, schedules, or integrations. Together with Warp’s interactive agent (in the desktop app), they support both real-time, human-in-the-loop work and fully autonomous execution.
 
+{% embed url="https://www.youtube.com/watch?v=V-8_fZExlFQ" %}
+
 ### What Ambient Agents are designed for
 
 Ambient Agents are designed for situations where:
