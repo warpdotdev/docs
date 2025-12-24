@@ -17,7 +17,7 @@ This article describes the environment and integration setup that is required be
 {% endhint %}
 
 {% hint style="info" %}
-For a quick start guide to Warp integrations, please see[integrations-overview.md](../../integrations/integrations-overview.md "mention").
+For a quick start guide to Warp integrations, please see the [integrations-overview.md](../../integrations/integrations-overview.md "mention").
 {% endhint %}
 
 ## How integrations and environments work

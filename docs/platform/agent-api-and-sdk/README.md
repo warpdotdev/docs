@@ -13,7 +13,7 @@ Warp’s Public Agent API lets you create and inspect [Ambient Agent](/broken/pa
 {% hint style="warning" %}
 This page is a high-level overview. \
 \
-For full API endpoint details, see the [Broken link](/broken/pages/79f7384c791b35eb8bcc21da33b5da2459ac79fa "mention") API page, and for schema definitions see the [Broken link](/broken/pages/bb0a450a8b08ff4cf0752e96286f7d4852a851f2 "mention") reference.&#x20;
+For full API endpoint details, please refer to the [**Agents API**](/broken/pages/60233b1548cd4f90fe7bea37ea6ac1354c1de747)**.** For schema definitions, see the [**Models reference**](/broken/pages/31878676451d9ee75902d5fdd7f538558e1df3df).&#x20;
 {% endhint %}
 
 ### Agent SDK
@@ -46,7 +46,7 @@ For the full SDK surface area and latest usage, refer to the GitHub repos: [**Py
 
 All endpoints are served over HTTPS:
 
-```
+```http
 https://app.warp.dev/api/v1
 ```
 
@@ -64,7 +64,7 @@ An agent task represents a single run of an Ambient Agent, created with a prompt
 * Optional session information (`session_id`, `session_link`)
 * Optional resolved configuration (`agent_config`)
 
-See [Broken link](/broken/pages/79f7384c791b35eb8bcc21da33b5da2459ac79fa "mention")**s API** for details on how tasks are created and listed.
+See the [**Agents API**](/broken/pages/60233b1548cd4f90fe7bea37ea6ac1354c1de747) for details on how tasks are created and listed.
 
 #### **Agent configuration**
 
@@ -76,7 +76,7 @@ You can influence how an agent runs using AmbientAgentConfig, including:
 * `environment_id` to choose a `CloudEnvironment`
 * `mcp_servers` to enable specific tools via MCP
 
-See [Broken link](/broken/pages/bb0a450a8b08ff4cf0752e96286f7d4852a851f2 "mention") for the full configuration schema.
+See the [**Models reference**](/broken/pages/31878676451d9ee75902d5fdd7f538558e1df3df) for the full configuration schema.
 
 ***
 
@@ -94,13 +94,13 @@ See [Broken link](/broken/pages/bb0a450a8b08ff4cf0752e96286f7d4852a851f2 "mentio
 
     Fetch full details for a single task, including session link and resolved configuration.
 
-All endpoint semantics, query parameters, and error codes are documented on the [Broken link](/broken/pages/79f7384c791b35eb8bcc21da33b5da2459ac79fa "mention")'s page.
+All endpoint semantics, query parameters, and error codes are documented on the [Agents API](/broken/pages/60233b1548cd4f90fe7bea37ea6ac1354c1de747).
 
 ***
 
 #### Models Reference
 
-The API shares a set of reusable models across endpoints. Detailed JSON schemas, types, and enums are documented on the [Broken link](/broken/pages/bb0a450a8b08ff4cf0752e96286f7d4852a851f2 "mention") page, including:
+The API shares a set of reusable models across endpoints. Detailed JSON schemas, types, and enums are documented on the [Models reference](/broken/pages/31878676451d9ee75902d5fdd7f538558e1df3df), including:
 
 * `RunAgentRequest`
 * `RunAgentResponse`
@@ -127,7 +127,7 @@ The Python SDK is the recommended way to call the Agent API from Python services
 * Typed request/response models
 * Configurable retries/timeouts and structured errors
 
-See the [Python SDK GitHub repo](https://github.com/warpdotdev/warp-sdk-python) for installation, full API reference (api.md), and up-to-date examples.
+See the [**Python SDK GitHub repo**](https://github.com/warpdotdev/warp-sdk-python) for installation, full API reference (api.md), and up-to-date examples.
 
 ### TypeScript SDK
 
@@ -137,4 +137,4 @@ The TypeScript SDK is the recommended way to call the Agent API from Node.js ser
 * First-class error handling, retries/timeouts
 * Support across common runtimes where fetch is available or polyfilled
 
-See the [TypeScript SDK GitHub repo](https://github.com/warpdotdev/warp-sdk-typescript) for installation, full API reference (api.md), and up-to-date examples.
+See the [**TypeScript SDK GitHub repo**](https://github.com/warpdotdev/warp-sdk-typescript) for installation, full API reference (api.md), and up-to-date examples.
