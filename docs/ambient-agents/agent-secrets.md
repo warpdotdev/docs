@@ -29,7 +29,11 @@ Warp-managed secrets are designed to work across [ambient agent](/broken/pages/r
 
 Warp provides a set of CLI commands for creating, updating, and listing secrets. Secret values are stored securely and cannot be retrieved once created.
 
-At runtime, **Warp sets the relevant secrets as environment variables** for each ambient agent run, based on who triggered the agent and how it was triggered. Secret values are available only to the agent process (and any subprocesses it spawns) during execution, and **can’t be viewed or retrieved afterward.**
+At runtime, **Warp sets the relevant secrets as environment variables** for each ambient agent run, based on who triggered the agent and how it was triggered.&#x20;
+
+{% hint style="info" %}
+Secret values are available only to the agent process (and any subprocesses it spawns) during execution, and **can’t be viewed or retrieved afterward.**
+{% endhint %}
 
 Key properties of secrets:
 
