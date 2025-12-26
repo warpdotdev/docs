@@ -29,13 +29,13 @@ Warp-managed secrets are designed to work across [ambient agent](/broken/pages/r
 
 Warp provides a set of CLI commands for creating, updating, and listing secrets. Secret values are stored securely and cannot be retrieved once created.
 
-At runtime, Warp automatically injects the appropriate secrets into ambient agent environments based on who triggered the agent and how it was triggered.
+At runtime, **Warp sets the relevant secrets as environment variables** for each ambient agent run, based on who triggered the agent and how it was triggered. Secret values are available only to the agent process (and any subprocesses it spawns) during execution, and **can’t be viewed or retrieved afterward.**
 
 Key properties of secrets:
 
 * **Scoped** to either a team or an individual user
-* **Never readable after creation**; only metadata is visible
-* **Automatically injected** into ambient agent runs when in scope
+* Secret values are **never readable after creation** (only metadata is visible)
+* **Automatically set** for ambient agent runs when in scope
 
 ### Secret scopes
 
@@ -138,17 +138,15 @@ MY_MCP_SERVER_TOKEN          personal   10:00am
 
 **Secret values are never displayed.**
 
-### How secrets are injected into ambient agents
+### How secrets are made available to ambient agents
 
-When an ambient agent starts, Warp determines which secrets are in scope and injects them into the agent environment.
+When an ambient agent starts, Warp determines which secrets are in scope and sets them as environment variables in the agent’s execution environment.
 
-Currently, secrets are injected as environment variables using their secret names. For example:
+Today, secrets are provided as environment variables using the secret name as the variable name. For example:
 
 ```bash
 METABASE_API_KEY=********
 ```
-
-Future versions may support writing secrets directly to config files or tool-specific locations for supported secret types.
 
 ***
 
