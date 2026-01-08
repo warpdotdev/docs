@@ -1,7 +1,7 @@
 ---
 description: >-
   Warp is an Agentic Development Environment, built to help developers ship
-  faster with agents
+  faster with agents.
 hidden: true
 ---
 

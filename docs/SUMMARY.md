@@ -164,6 +164,7 @@
   * [Demo: Sentry monitoring with SDK](platform/agent-api-and-sdk/demo-sentry-monitoring-with-sdk.md)
 * [Team Access, Billing, and Identity Permissions](platform/team-access-billing-and-identity-permissions.md)
 * [Deployment Patterns](platform/deployment-patterns.md)
+* [Environments](platform/environments.md)
 
 ## Integrations
 
