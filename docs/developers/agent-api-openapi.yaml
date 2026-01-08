@@ -239,6 +239,10 @@ components:
         title:
           type: string
           description: Custom title for the task (auto-generated if not provided)
+        team:
+          type: boolean
+          description: Make the task visible to all team members, not only the calling user
+          default: false
 
     RunAgentResponse:
       type: object
@@ -371,7 +375,7 @@ components:
       description: |
         Source that created the task:
         - LINEAR: Created from Linear integration
-        - API: Created via the public API
+        - API: Created via the Warp API
         - SLACK: Created from Slack integration
         - LOCAL: Created from local CLI/app
         - SCHEDULED_AGENT: Created by a scheduled agent
@@ -385,13 +389,13 @@ components:
           description: Config name for searchability and traceability
         model_id:
           type: string
-          description: LLM model to use (uses workspace default if not specified)
+          description: LLM model to use (uses team default if not specified)
         base_prompt:
           type: string
           description: Custom base prompt for the agent
         environment_id:
           type: string
-          description: UID of a CloudEnvironment GSO to use
+          description: UID of the environment to run the task in
         mcp_servers:
           type: object
           additionalProperties:

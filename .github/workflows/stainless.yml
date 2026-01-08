@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: stainless-api/upload-openapi-spec-action/preview@v1
         with:
-          org: Warp
+          org: warp-bnavetta
           project: warp-api
           oas_path: docs/developers/agent-api-openapi.yaml
 
@@ -37,6 +37,6 @@ jobs:
       - uses: actions/checkout@v4
       - uses: stainless-api/upload-openapi-spec-action/merge@v1
         with:
-          org: Warp
+          org: warp-bnavetta
           project: warp-api
           oas_path: docs/developers/agent-api-openapi.yaml
