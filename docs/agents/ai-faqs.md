@@ -18,7 +18,7 @@ Agent Mode has replaced the Warp AI chat panel. Agent Mode is more powerful in a
 
 ### Is my data used for model training?
 
-Warp reserves the right to use data collected to train models and improve Warp. Warp has Zero Data Retention with all it's model providers (e.g. Anthropic, OpenAI, etc.). Please learn more about telemetry in our [Privacy Page](../privacy/privacy.md).
+Warp reserves the right to use data collected to train models and improve Warp. Warp has Zero Data Retention with all its model providers (e.g. Anthropic, OpenAI, etc.). Please learn more about telemetry in our [Privacy Page](../privacy/privacy.md).
 
 ### What model are you using for Agent Mode?
 

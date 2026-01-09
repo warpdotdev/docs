@@ -13,7 +13,7 @@ Warp includes intelligent agents designed to help you build, test, deploy, and d
 {% hint style="info" %}
 Warp's AI features can be globally disabled in `Settings > AI` with the AI toggle.\
 \
-These features sends input data to various LLM providers through their API. Warp is **SOC 2 compliant** and has **Zero Data Retention** policies with all contracted LLM providers -- no customer AI data is retained, store, or used for training. Read more about data privacy for Warp features [on our privacy page](https://www.warp.dev/privacy).
+These features send input data to various LLM providers through their API. Warp is **SOC 2 compliant** and has **Zero Data Retention** policies with all contracted LLM providers -- no customer AI data is retained, store, or used for training. Read more about data privacy for Warp features [on our privacy page](https://www.warp.dev/privacy).
 {% endhint %}
 
 ## Included Agent features:

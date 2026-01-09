@@ -280,7 +280,7 @@ I'll run a few terminal commands to:
 
 * `--cwd <PATH>` — run from a different directory.
 * `--share` — share the session with teammates (see [#collaboration](./#collaboration "mention")).
-* `--profile <ID>` — use a specific agent profiel (see [#using-agent-profiles](./#using-agent-profiles "mention")).
+* `--profile <ID>` — use a specific agent profile (see [#using-agent-profiles](./#using-agent-profiles "mention")).
 
 The agent will automatically carry out the task you gave it, printing out tool calls and responses as it works.&#x20;
 

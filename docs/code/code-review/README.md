@@ -83,7 +83,7 @@ Warp offers two ways to review changes:
    1. Warp automatically detects the target branch and updates the comparison accordingly.
 3. **Changes vs. another branch**: compare your work against any arbitrary branch for stacked PRs, feature comparisons, or alternate base branches.
 
-You can manually switch between the two views either in the Code Review panel or via the unviersal input chip:
+You can manually switch between the two views either in the Code Review panel or via the universal input chip:
 
 <figure><img src="../../.gitbook/assets/diff dropdown to change base from the code review pane.png" alt=""><figcaption><p>Changing diff view in the Code Review Panel.</p></figcaption></figure>
 

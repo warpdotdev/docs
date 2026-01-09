@@ -16,7 +16,7 @@ The agent can see the live terminal buffer (terminal state), write to the PTY to
 
 With Full Terminal Use, Warp’s agent can attach to interactive tools like `psql`, `vim`, `python`, `gdb`, `top`, or your dev server, read the terminal output as it changes, and interact with the application as if you were typing.
 
-You can either ask the agent to start an interactive program, or you can start it yourself and then tag the agent in once the tool is already running. In both cases, the agent sees the same terminal buffer (and PYT session) you do and can act on it.
+You can either ask the agent to start an interactive program, or you can start it yourself and then tag the agent in once the tool is already running. In both cases, the agent sees the same terminal buffer (and PTY session) you do and can act on it.
 
 ## How Full Terminal Use works
 

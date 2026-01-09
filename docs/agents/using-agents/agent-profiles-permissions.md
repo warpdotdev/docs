@@ -22,7 +22,7 @@ Agent Profiles let you configure how your Agent behaves in different situations.
   * This model is also used for [planning.md](planning.md "mention"), which is responsible for breaking down complex tasks into actionable steps. It generates structured execution plans and decides how to route work between models.
 * Agent autonomy and permissions
 
-<figure><img src="../../.gitbook/assets/agent-profiles-settings.png" alt=""><figcaption><p>Agent Profiles in Settings: editting a Profile.</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/agent-profiles-settings.png" alt=""><figcaption><p>Agent Profiles in Settings: editing a Profile.</p></figcaption></figure>
 
 ## Agent Permissions
 

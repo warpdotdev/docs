@@ -28,7 +28,7 @@ To make sure you can fully use Agents, confirm that the global AI toggle is enab
 
 ## What is Agent Mode?
 
-Agent Mode is the primary way to interact with Warp’s Agent. It lets you run terminal or coding workflows by typing plain English instead of shell commands or IDE operations. When you enter a request, Warp uses leading LLMs to interpret it, suggest or run the right commands , surface code diffs when applicable, and stream results directly into your session, all tailored to your environment and setup.\
+Agent Mode is the primary way to interact with Warp's Agent. It lets you run terminal or coding workflows by typing plain English instead of shell commands or IDE operations. When you enter a request, Warp uses leading LLMs to interpret it, suggest or run the right commands, surface code diffs when applicable, and stream results directly into your session, all tailored to your environment and setup.\
 \
 **Agent Mode can:**
 

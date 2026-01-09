@@ -22,16 +22,6 @@ Use an MCP server when your agent needs access to:
 
 Agents call MCP tools automatically whenever their workflow requires them.
 
-### When to Use MCP Servers
-
-Use an MCP server when your agent needs access to:
-
-* External tools or APIs wrapped behind an MCP interface
-* Local processes that expose MCP endpoints
-* Internal developer tools that you want integrated into your ambient workflows
-
-Agents call MCP tools automatically whenever their workflow requires them.
-
 #### 1. Inline JSON
 
 You can pass the full MCP JSON object directly into the `--mcp` flag:

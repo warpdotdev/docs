@@ -38,7 +38,7 @@ Warp can group multiple files into a single tabbed viewer, reducing clutter and 
 
 * Enabled by default for new users (can be toggled in `Settings > Features > General > Group files into a single editor pane`)
 * Reorder, close, or drag file viewers between tabs.
-* Merge enter panes together by dragging one into another.
+* Merge entire panes together by dragging one into another.
 
 **Here's a more in-depth demo:**
 
