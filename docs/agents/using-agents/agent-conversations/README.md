@@ -24,8 +24,6 @@ By default, if you ask an AI query immediately after interacting in Agent Mode, 
 * In **Classic Input**, you’ll see both the pink highlight bar on the left side of the block and a bent follow-up arrow (↳) next to your input. The conversation input chip also shows which conversation you are in.
 * In **Universal Input,** the pink highlight bar and the conversation input chip serve as the indicators, but the bent arrow is not shown.
 
-
-
 **To follow-up on a previous conversation:**
 
 * Simply continue prompting the agent if you are already in an active conversation.
@@ -35,6 +33,14 @@ By default, if you ask an AI query immediately after interacting in Agent Mode, 
 <figure><img src="../../../.gitbook/assets/classic-input-follow-up.png" alt=""><figcaption><p>Continuing an Agent conversation in Classic Input (with indicator)</p></figcaption></figure>
 
 <figure><img src="../../../.gitbook/assets/follow-up-universal-input.png" alt=""><figcaption><p>Continuing an Agent conversation in Universal Input</p></figcaption></figure>
+
+#### Agent tips in the input
+
+While Warp’s agent is thinking and processing your request, Warp may surface short tips with helpful workflows and ways to use Warp. These tips appear under the Warping indicator.
+
+<figure><img src="../../../.gitbook/assets/agent-tips.png" alt=""><figcaption></figcaption></figure>
+
+You can enable or disable these tips in `Settings` → `AI` → `Input` → `Show agent tips`.
 
 ### **Managing Conversations**
 
@@ -84,8 +90,6 @@ You can also start a new conversation manually at any time:
 <figure><img src="../../../.gitbook/assets/classic-input-new-convo.png" alt=""><figcaption><p>Starting a new Conversation in Classic Input</p></figcaption></figure>
 
 <figure><img src="../../../.gitbook/assets/universal-input-new-convo.png" alt=""><figcaption><p>Starting a new Agent Conversation in Universal Input</p></figcaption></figure>
-
-
 
 ## Context Window Management
 
@@ -144,4 +148,3 @@ You can also create a new conversation manually at any time by using the keyboar
 * Open a new pane: `CTRL + SHIFT + D`
 {% endtab %}
 {% endtabs %}
-
