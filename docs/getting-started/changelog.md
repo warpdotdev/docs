@@ -8,6 +8,30 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+## 2026.01.07 (v0.2026.01.07.08.13)
+
+**New Features**
+
+* Added agent tips under the warping indicator.
+
+**Improvements**
+
+* Users can now create team-scoped API keys.
+* Agent tip now leads with `WARP.md` when mentioning project-scoped rule files.
+* The warp agent run-ambient command can now create ambient agent tasks that are shared with team members.
+* Updated agent profile switching tip to better explain why users would want to switch profiles.
+* Comments in the code review flow now render full width when there are 4 or fewer comments, improving readability.
+* When the completions menu is opened (tab), no completion item is selected by default. Pressing enter while no completion is selected directly runs the command currently in the input. Upon selecting a completion, it now automatically shows up in the input. This more closely mirrors behavior in traditional terminals.
+* The Warp agent run-ambient command now supports saved prompts.
+* We added a new full terminal use model selector in the agents profile page so that you can select a specific model for full terminal use work.
+
+**Bug fixes**
+
+* Improved out-of-memory handling for ambient agents.
+* Fixed a configuration error creating team-scoped Warp-managed secrets.
+* Fixed 'parameter not set' error in zsh when users have setopt nounset enabled.
+* Fixed an issue where up arrow history could be ordered incorrectly on quit or restart Warp.
+
 ## 2025.12.17 (v0.2025.12.17.17.17)
 
 **Improvements**

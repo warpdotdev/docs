@@ -97,6 +97,15 @@ If you're a [Team](../knowledge-and-collaboration/teams.md) admin, the deletion 
 | `Agent Mode Setup Project Scoped Rules Action` | User clicked a button in the Agent Mode setup project scoped rules step |
 | `Agent Mode.Setup Codebase Context Action` | User clicked a button in the Agent Mode setup codebase context step |
 | `Agent Predict` | Completed an Agent Predict prediction |
+| `AgentManagement.DismissSetupGuide` | User dismissed the ambient agent setup guide |
+| `AgentManagement.NavigateToConversation` | User navigated to an interactive conversation from agent management |
+| `AgentManagement.OpenSession` | User opened an ambient session from agent management view |
+| `AgentManagement.OpenSetupGuide` | User opened the ambient agent setup guide |
+| `AgentManagement.SetupGuideDocsLink` | User clicked a docs URL in the setup guide |
+| `AgentManagement.SetupGuideStepCopy` | User copied a workflow step from the setup guide |
+| `AgentManagement.SetupGuideStepRun` | User ran a workflow step from the setup guide |
+| `AgentManagement.SpawnNewLocalAgent` | User spawned a new local agent from agent management |
+| `AgentManagement.ViewToggled` | User toggled the agent management view open or closed |
 | `AgentMode.AISuggestedAgentModeWorkflowAdded` | User created an AI suggested Agent Mode workflow |
 | `AgentMode.AttachedContext` | Attached block as context to an Agent Mode query |
 | `AgentMode.AttachedImages` | Attached images to an Agent Mode query |
@@ -104,7 +113,6 @@ If you're a [Team](../knowledge-and-collaboration/teams.md) admin, the deletion 
 | `AgentMode.ClickedEntrypoint` | Clicked on an Agent Mode entrypoint |
 | `AgentMode.Code.DiffHunksNavigated` | Agent Mode Code diff hunks navigated |
 | `AgentMode.Code.DiffMatchFailed` | Failed to match code diff |
-| `AgentMode.Code.EditReverted` | User reverted an accepted Agent Mode edit |
 | `AgentMode.Code.FileExceededContextLimit` | File from AI exceeded context limit |
 | `AgentMode.Code.FilesNavigated` | Agent Mode Code files navigated |
 | `AgentMode.Code.InvalidFile` | File(s) in code diff could not be found |
@@ -134,13 +142,14 @@ If you're a [Team](../knowledge-and-collaboration/teams.md) admin, the deletion 
 | `AgentMode.SearchCodebase.Requested` | Ran the Search Codebase tool |
 | `AgentMode.ShowedSuggestedAgentModeWorkflowModal` | Showed the suggested Agent Mode workflow modal to the user |
 | `AgentMode.ShowedSuggestedWorkflowChip` | Showed the Suggested Agent Mode workflow chip to the user |
-| `AgentMode.SuggestCreatePlanResult` | User accepted or rejected the suggestion to create a plan |
 | `AgentMode.SurfacedCitations` | Agent mode used and cited external sources that were used in its response |
 | `AgentMode.SyncCodebaseContext.BuildTree.Failed` | Failed to build merkle tree for codebase context |
 | `AgentMode.SyncCodebaseContext.BuildTree.Success` | Successfully built merkle tree for codebase context |
 | `AgentMode.SyncCodebaseContext.Failed` | Failed to sync codebase context |
 | `AgentMode.SyncCodebaseContext.Success` | Successfully synced codebase context |
 | `AgentMode.ToggleAutoDetectionSetting` | Toggled the setting that enables or disables natural language auto-detection in the input.  |
+| `AgentTip Clicked` | User clicked a link or action in an Agent Tip |
+| `AgentTip Shown` | Selected an Agent Tip to show in the Agent Mode status bar |
 | `AgenticOnboarding.BlockSelected` | Selected an agentic onboarding block to execute |
 | `Anonymous User Attempted Login-Gated Feature` | Anonymous user attempted to access a login-gated feature |
 | `Anonymous User Expiration Lockout` | An anonymous user opened Warp after their conversion deadline and was locked out |
@@ -466,6 +475,7 @@ If you're a [Team](../knowledge-and-collaboration/teams.md) admin, the deletion 
 | `Toggle Secret Redaction` | Toggled on/off the setting for Secret Redaction - attempts to redact secrets and sensitive information |
 | `Toggle Settings Sync` | Toggle Settings Sync |
 | `Toggle SharedBlock Title Generation` | Toggled on/off the shared block title generation setting |
+| `Toggle Show Agent Tips` | Toggled the Show Agent Tips setting in AI settings |
 | `Toggle Show Block Dividers` | Enabled or disabled the Show Block Dividers Button |
 | `Toggle Sticky Command Header in Active Pane` | Expanded or collapsed the sticky command header in the active pane |
 | `Toggle Sync Inputs Across All Panes in All Tabs` | Enable the synchronization of the Input Editor's buffer to all the panes in all the tabs |
@@ -508,8 +518,10 @@ If you're a [Team](../knowledge-and-collaboration/teams.md) admin, the deletion 
 | `Zero State Prompt Suggestion Used` | Used a zero state prompt suggestion |
 | `experiments.client.enroll_client` | Client assigned to A/B test |
 | `onboarding_completed` | User completed the onboarding flow |
+| `onboarding_get_started_clicked` | User clicked the Get Started button |
 | `onboarding_slide_viewed` | User viewed a slide in the onboarding flow |
 | `onboarding_started` | User started the onboarding flow |
+| `onboarding_theme_selected` | User selected a theme during onboarding |
 | `perf_metrics.memory_usage_high` | Total application memory usage exceeded a significant threshold |
 | `perf_metrics.resource_usage` | Periodic report on application resource usage statistics |
 | `revenue.AutoReloadModalClosed` | User closed the auto-reload modal (either dismissed or enabled auto-reload) |
