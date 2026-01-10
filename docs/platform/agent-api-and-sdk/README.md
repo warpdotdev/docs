@@ -2,7 +2,7 @@
 
 ### Agent API
 
-Warp’s Public Agent API lets you create and inspect [Ambient Agent](/broken/pages/rVCLQETZqLlr5BBHYy2y) tasks over HTTP from any system (CI, cron, backend services, internal tools), without requiring the Warp desktop app.
+Warp’s Public Agent API lets you create and inspect [Ambient Agent](/broken/pages/qj5k8MzlSHUvsvCjjA1o) tasks over HTTP from any system (CI, cron, backend services, internal tools), without requiring the Warp desktop app.
 
 **With the API you can:**
 
@@ -11,9 +11,9 @@ Warp’s Public Agent API lets you create and inspect [Ambient Agent](/broken/pa
 * Inspect results and provenance by fetching a task’s full details, including the original prompt, source/creator metadata, session link, and resolved agent configuration
 
 {% hint style="warning" %}
-This page is a high-level overview. \
+This page is a high-level overview.\
 \
-For full API endpoint details, please refer to the [**Agents API**](/broken/pages/60233b1548cd4f90fe7bea37ea6ac1354c1de747)**.** For schema definitions, see the [**Models reference**](/broken/pages/31878676451d9ee75902d5fdd7f538558e1df3df).&#x20;
+For full API endpoint details, please refer to the [**Agents API**](/broken/pages/61314e8441508f77a941d0c0d3bb7d4f0fd3c8a9)**.** For schema definitions, see the [**Models reference**](/broken/pages/56e16ee51fb31abab4b7da6fc38e21f37fc99a83).
 {% endhint %}
 
 ### Agent SDK
@@ -64,7 +64,7 @@ An agent task represents a single run of an Ambient Agent, created with a prompt
 * Optional session information (`session_id`, `session_link`)
 * Optional resolved configuration (`agent_config`)
 
-See the [**Agents API**](/broken/pages/60233b1548cd4f90fe7bea37ea6ac1354c1de747) for details on how tasks are created and listed.
+See the [**Agents API**](/broken/pages/61314e8441508f77a941d0c0d3bb7d4f0fd3c8a9) for details on how tasks are created and listed.
 
 #### **Agent configuration**
 
@@ -76,7 +76,7 @@ You can influence how an agent runs using AmbientAgentConfig, including:
 * `environment_id` to choose a `CloudEnvironment`
 * `mcp_servers` to enable specific tools via MCP
 
-See the [**Models reference**](/broken/pages/31878676451d9ee75902d5fdd7f538558e1df3df) for the full configuration schema.
+See the [**Models reference**](/broken/pages/56e16ee51fb31abab4b7da6fc38e21f37fc99a83) for the full configuration schema.
 
 ***
 
@@ -100,7 +100,7 @@ All endpoint semantics, query parameters, and error codes are documented on the 
 
 #### Models Reference
 
-The API shares a set of reusable models across endpoints. Detailed JSON schemas, types, and enums are documented on the [Models reference](/broken/pages/31878676451d9ee75902d5fdd7f538558e1df3df), including:
+The API shares a set of reusable models across endpoints. Detailed JSON schemas, types, and enums are documented on the [Models reference](/broken/pages/56e16ee51fb31abab4b7da6fc38e21f37fc99a83), including:
 
 * `RunAgentRequest`
 * `RunAgentResponse`
