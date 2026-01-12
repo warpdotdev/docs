@@ -67,15 +67,21 @@ In cases where you logged in with another method, please do the following to fix
 3. Once logged in, go to [app.warp.dev/link\_sso](https://app.warp.dev/link_sso)
 4. This should link your login to SSO. You can now proceed to login with "Continue with SSO".
 
-## Blocked for Terms of Service violation
+## Flagged as Fraudulent
 
-Warp has a system in place that identifies users that could potentially be fraudulent, but it can produce false positives if the user has a restrictive ad, script, and/or tracker blocking extensions or browsers.
+If you received the message "This account has been flagged as fraudulent.", this means that you have failed one or more checks in our fraud detection system, and you will be unable to authenticate to Warp or leverage AI features.
 
-To workaround this issue, try disabling any ad, script, and/or tracking blockers to see if that helps. If that doesn't work, try logging in with any other Warp accounts you may have as those may not be blocked.\
-\
-If none of the above work, the system has determined your account is blocked and you can't proceed with using Warp, please email [appeals@warp.dev](mailto:appeals@warp.dev) for appealing the block (note that response to that inbox is greatly delayed)\
-\
-If you have an active subscription and continue to have login issues, please the the rest of the recommendations on [this doc](troubleshooting-login-issues.md#get-help-with-login-issues).
+Please note that creating multiple accounts or using throwaway emails is against our [Terms of Service](https://www.warp.dev/terms-of-service) and increases the chance of triggering this system significantly.
+
+### False Positives
+
+At times, ad-blockers or systems like Pi-hole may falsely trigger this system. You may be able to remediate this error by temporarily disabling these and attempting login again.
+
+### Requesting an Appeal
+
+If you are still unable to authenticate, you may email [appeals@warp.dev](mailto:appeals@warp.dev) to request an appeal. Please include the email of the account you are experiencing the issue on so a member of our support team can investigate. This may take 5-10 days.
+
+If you have an active subscription and continue to have login issues, please see the rest of the recommendations on [this page](#get-help-with-login-issues).
 
 ## How to get an Auth token to login
 
