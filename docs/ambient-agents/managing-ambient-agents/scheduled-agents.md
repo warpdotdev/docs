@@ -17,7 +17,7 @@ Scheduled Agents run in the background on Warp’s infrastructure. Each run star
 
 ### What are Scheduled Agents?
 
-A Scheduled Agent is an [Ambient Agent](/broken/pages/rVCLQETZqLlr5BBHYy2y) that runs on a cron-based schedule.
+A Scheduled Agent is an [Ambient Agent](../ambient-agents-overview.md) that runs on a cron-based schedule.
 
 **Key characteristics:**
 

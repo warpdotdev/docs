@@ -7,7 +7,7 @@ description: >-
 
 # Warp Platform
 
-[Ambient Agents](/broken/pages/rVCLQETZqLlr5BBHYy2y) and first-party [integrations](/broken/pages/yZxJAcV9IjTMmnS0tGpd) run on the Warp Platform. The platform gives you a consistent way to **trigger work**, **orchestrate and track tasks**, **execute agents** (in an optional [Environment](cli/integrations-and-environments.md), on a host), and inspect outcomes with team visibility.
+[Ambient Agents](../ambient-agents/ambient-agents-overview.md) and first-party [integrations](../integrations/integrations-overview.md) run on the Warp Platform. The platform gives you a consistent way to **trigger work**, **orchestrate and track tasks**, **execute agents** (in an optional [Environment](cli/integrations-and-environments.md), on a host), and inspect outcomes with team visibility.
 
 **Most production setups follow the same flow:**
 
@@ -175,7 +175,7 @@ With self-hosting:
 
 ### Integrations
 
-[Integrations](/broken/pages/yZxJAcV9IjTMmnS0tGpd) connect external system events to Ambient Agent execution. An integration ties a third-party event source to Warp so that when an event occurs, Warp can create a task with the relevant context and start it automatically.
+[Integrations](../integrations/integrations-overview.md) connect external system events to Ambient Agent execution. An integration ties a third-party event source to Warp so that when an event occurs, Warp can create a task with the relevant context and start it automatically.
 
 * **First-party integrations**: Warp owns event subscriptions + context extraction.
 * **Custom integrations**: You own event ingestion/filtering; you call the API/SDK to create tasks.
@@ -275,7 +275,7 @@ This is especially useful when the same workflow can be triggered from multiple 
 
 ### Using the Warp Platform with or without the Warp app
 
-[Ambient Agents](/broken/pages/rVCLQETZqLlr5BBHYy2y) do not require Warp’s desktop terminal. Teams can operate Ambient Agent workflows using:
+[Ambient Agents](../ambient-agents/ambient-agents-overview.md) do not require Warp's desktop terminal. Teams can operate Ambient Agent workflows using:
 
 * Warp CLI
 * web surfaces (where available)

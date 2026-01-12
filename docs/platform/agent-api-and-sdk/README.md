@@ -2,7 +2,7 @@
 
 ### Agent API
 
-Warp’s Public Agent API lets you create and inspect [Ambient Agent](/broken/pages/qj5k8MzlSHUvsvCjjA1o) tasks over HTTP from any system (CI, cron, backend services, internal tools), without requiring the Warp desktop app.
+Warp's Public Agent API lets you create and inspect [Ambient Agent](../../ambient-agents/ambient-agents-overview.md) tasks over HTTP from any system (CI, cron, backend services, internal tools), without requiring the Warp desktop app.
 
 **With the API you can:**
 
@@ -13,7 +13,7 @@ Warp’s Public Agent API lets you create and inspect [Ambient Agent](/broken/pa
 {% hint style="warning" %}
 This page is a high-level overview.\
 \
-For full API endpoint details, please refer to the [**Agents API**](/broken/pages/61314e8441508f77a941d0c0d3bb7d4f0fd3c8a9)**.** For schema definitions, see the [**Models reference**](/broken/pages/56e16ee51fb31abab4b7da6fc38e21f37fc99a83).
+For full API endpoint details, please refer to the [**Agents API**](https://docs.warp.dev/platform/agent-api-and-sdk/agent)**.** For schema definitions, see the [**Models reference**](https://docs.warp.dev/platform/agent-api-and-sdk/models).
 {% endhint %}
 
 ### Agent SDK
@@ -64,7 +64,7 @@ An agent task represents a single run of an Ambient Agent, created with a prompt
 * Optional session information (`session_id`, `session_link`)
 * Optional resolved configuration (`agent_config`)
 
-See the [**Agents API**](/broken/pages/61314e8441508f77a941d0c0d3bb7d4f0fd3c8a9) for details on how tasks are created and listed.
+See the [**Agents API**](https://docs.warp.dev/platform/agent-api-and-sdk/agent) for details on how tasks are created and listed.
 
 #### **Agent configuration**
 
@@ -76,7 +76,7 @@ You can influence how an agent runs using AmbientAgentConfig, including:
 * `environment_id` to choose a `CloudEnvironment`
 * `mcp_servers` to enable specific tools via MCP
 
-See the [**Models reference**](/broken/pages/56e16ee51fb31abab4b7da6fc38e21f37fc99a83) for the full configuration schema.
+See the [**Models reference**](https://docs.warp.dev/platform/agent-api-and-sdk/models) for the full configuration schema.
 
 ***
 
@@ -94,13 +94,13 @@ See the [**Models reference**](/broken/pages/56e16ee51fb31abab4b7da6fc38e21f37fc
 
     Fetch full details for a single task, including session link and resolved configuration.
 
-All endpoint semantics, query parameters, and error codes are documented on the [Agents API](/broken/pages/60233b1548cd4f90fe7bea37ea6ac1354c1de747).
+All endpoint semantics, query parameters, and error codes are documented on the [Agents API](https://docs.warp.dev/platform/agent-api-and-sdk/agent).
 
 ***
 
 #### Models Reference
 
-The API shares a set of reusable models across endpoints. Detailed JSON schemas, types, and enums are documented on the [Models reference](/broken/pages/56e16ee51fb31abab4b7da6fc38e21f37fc99a83), including:
+The API shares a set of reusable models across endpoints. Detailed JSON schemas, types, and enums are documented on the [Models reference](https://docs.warp.dev/platform/agent-api-and-sdk/models), including:
 
 * `RunAgentRequest`
 * `RunAgentResponse`

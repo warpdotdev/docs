@@ -12,7 +12,7 @@ We welcome [feedback](../../support-and-billing/sending-us-feedback.md#sending-w
 
 ## What is the Warp CLI?
 
-The Warp CLI is the command-line tool that lets you run [Ambient Agents](/broken/pages/rVCLQETZqLlr5BBHYy2y) from anywhere, including terminals, scripts, automated systems, or services.&#x20;
+The Warp CLI is the command-line tool that lets you run [Ambient Agents](../../ambient-agents/ambient-agents-overview.md) from anywhere, including terminals, scripts, automated systems, or services.&#x20;
 
 It’s the standard runtime entry point that turns a **prompt** plus **configuration** into an **executable agent task** that runs on either a **Warp-hosted or self-hosted runner**.&#x20;
 

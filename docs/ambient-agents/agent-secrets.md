@@ -8,7 +8,7 @@ description: >-
 
 Ambient agents often need to interact with external systems such as APIs, databases, cloud providers, or internal tooling. To do this safely, Warp provides Warp-managed **agent secrets**, a secure way to store, scope, and inject credentials into ambient agent runs without exposing secret values to users or logs.
 
-Warp-managed secrets are designed to work across [ambient agent](/broken/pages/rVCLQETZqLlr5BBHYy2y) and [integration](/broken/pages/yZxJAcV9IjTMmnS0tGpd) triggers (CLI, Slack, Linear, and schedules), support both team-wide and personal credentials, and give engineering and security teams visibility into what agents can access.
+Warp-managed secrets are designed to work across [ambient agent](ambient-agents-overview.md) and [integration](../integrations/integrations-overview.md) triggers (CLI, Slack, Linear, and schedules), support both team-wide and personal credentials, and give engineering and security teams visibility into what agents can access.
 
 **Warp-managed secrets are useful when:**
 
@@ -176,7 +176,7 @@ It **does not receive personal secrets** belonging to other team members.
 When an agent is triggered without a user context, such as:
 
 * [Scheduled (cron) agents](managing-ambient-agents/scheduled-agents.md)
-* Fully automated [integrations](/broken/pages/yZxJAcV9IjTMmnS0tGpd)
+* Fully automated [integrations](../integrations/integrations-overview.md)
 
 The agent receives:
 

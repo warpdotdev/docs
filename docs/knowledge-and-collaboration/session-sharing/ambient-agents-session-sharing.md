@@ -7,7 +7,7 @@ description: >-
 
 # Ambient Agents Session Sharing
 
-Ambient Agent Session Sharing lets you open, inspect, and continue interacting with agent tasks that are running on remote virtual machines. Whether an Ambient Agent was triggered from [integrations](broken-reference/) like Slack, Linear, GitHub Actions, or the [Warp CLI](../../platform/cli/), you can view its full session, follow along in real time, ask follow-up questions, and even “fork” the work into your local Warp environment.
+Ambient Agent Session Sharing lets you open, inspect, and continue interacting with agent tasks that are running on remote virtual machines. Whether an Ambient Agent was triggered from [integrations](../../integrations/integrations-overview.md) like Slack, Linear, GitHub Actions, or the [Warp CLI](../../platform/cli/), you can view its full session, follow along in real time, ask follow-up questions, and even "fork" the work into your local Warp environment.
 
 {% embed url="https://www.loom.com/share/edd662da8de345ae979c4d39eb19c513" %}
 

@@ -9,7 +9,7 @@ Warp provides a centralized management view where you can monitor agent activity
 
 {% embed url="https://www.loom.com/share/679c267ddd2d44519abf79edcb1122c7" %}
 
-This management view includes your **local (interactive) agents** and [Ambient Agent](/broken/pages/rVCLQETZqLlr5BBHYy2y) runs.&#x20;
+This management view includes your **local (interactive) agents** and [Ambient Agent](../ambient-agents-overview.md) runs.&#x20;
 
 ***
 
@@ -50,7 +50,7 @@ Where the agent was launched from. Common sources include:
 * **Interactive:** an [agent conversation](../../agents/agents-overview.md) started in the Warp app
 * **CLI**: a local run triggered by the [Warp CLI](../../platform/cli/)
 * **API**: a run triggered by [Warp’s API](../../platform/agent-api-and-sdk/)
-* **Slack / Linear**: runs triggered by [integrations](/broken/pages/yZxJAcV9IjTMmnS0tGpd)
+* **Slack / Linear**: runs triggered by [integrations](../../integrations/integrations-overview.md)
 * **Scheduled**: runs triggered on a [cron schedule](scheduled-agents.md)
 
 **Status**

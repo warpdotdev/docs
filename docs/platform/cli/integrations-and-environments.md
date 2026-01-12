@@ -27,7 +27,7 @@ Warp integrations connect external tools, like Slack or Linear, to agents that r
 There are three main components to know:
 
 * **Triggers** provide the context that tells Warp _what_ to run. A trigger could be a Slack message where you tag @Warp, or a Linear issue or comment.
-* [**Integrations**](/broken/pages/yZxJAcV9IjTMmnS0tGpd) are what connect the trigger surface (Slack, Linear) to Warp. An integration links the trigger to your [Warp team](../../knowledge-and-collaboration/teams.md) and handles posting results to the original tool, for example, replying in Slack.
+* [**Integrations**](../../integrations/integrations-overview.md) are what connect the trigger surface (Slack, Linear) to Warp. An integration links the trigger to your [Warp team](../../knowledge-and-collaboration/teams.md) and handles posting results to the original tool, for example, replying in Slack.
 * **Environments** define how and where agents run your code. When an agent is triggered, Warp uses the environment to spin up a container, clone repositories, and execute the agent's workflow.
 
 {% code title="Diagram of Warp integration components" %}
@@ -238,7 +238,7 @@ You now have everything needed to trigger Warp agents from your team’s tools. 
 
 **Additional reading**
 
-* [Broken link](/broken/pages/rVCLQETZqLlr5BBHYy2y "mention")
+* [ambient-agents-overview.md](../../ambient-agents/ambient-agents-overview.md "mention")
 * [warp-platform.md](../warp-platform.md "mention")
 * [slack.md](../../integrations/slack.md "mention"), [linear.md](../../integrations/linear.md "mention"), and [github-actions](../../integrations/github-actions/ "mention") integrations
 * [troubleshooting.md](troubleshooting.md "mention")

@@ -6,7 +6,7 @@ description: >-
 
 # Environments
 
-Environments ensure your [Ambient Agents](/broken/pages/qj5k8MzlSHUvsvCjjA1o) run with the same toolchain and setup every time, regardless of where they’re triggered from. When you set up an environment, a workflow triggered from any surface uses identical dependencies, repos, and configuration, eliminating “works on my machine” drift.&#x20;
+Environments ensure your [Ambient Agents](../ambient-agents/ambient-agents-overview.md) run with the same toolchain and setup every time, regardless of where they're triggered from. When you set up an environment, a workflow triggered from any surface uses identical dependencies, repos, and configuration, eliminating "works on my machine" drift.&#x20;
 
 An environment defines the execution context for automated agent runs: the **Docker image**, **repositories to clone**, **setup commands**, and **runtime configuration** Warp uses to prepare the workspace before the agent starts.
 
@@ -36,7 +36,7 @@ An environment typically includes:
 Configuring runtime settings:
 
 * **Environment variables**: Configure these in your Dockerfile using Docker’s \`ENV\` directives or pass them when running the container.
-* **Secrets**: For credentials and sensitive data, use [Broken link](/broken/pages/D1LRQUC22Cp0SfQ6kjpy "mention"). These are configured separately from environments and injected securely at runtime.
+* **Secrets**: For credentials and sensitive data, use [agent-secrets.md](../ambient-agents/agent-secrets.md "mention"). These are configured separately from environments and injected securely at runtime.
 {% endhint %}
 
 What an environment is not:
