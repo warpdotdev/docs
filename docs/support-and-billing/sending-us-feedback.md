@@ -34,17 +34,17 @@ Warp's logs and crash reports _**do not**_ contain any console input or output. 
 {% tab title="macOS" %}
 The Warp log files are located at `~/Library/Logs/`.
 
-#### Warp logs on macOS
+**Warp logs on macOS**
 
-Close Warp and run the following from another terminal to zip the logs to your Desktop:
+Run the following to zip the Warp logs to your Desktop:
 
 ```bash
 zip -j ~/Desktop/warp-logs.zip ~/Library/Logs/warp.log*
 ```
 
-#### Warp Preview logs on macOS
+**Warp Preview logs on macOS**
 
-Close Warp Preview and run the following from another terminal to zip the logs to your Desktop:
+Run the following to zip the Warp Preview logs to your Desktop:
 
 ```bash
 zip -j ~/Desktop/warp_preview-logs.zip ~/Library/Logs/warp_preview.log*
@@ -66,7 +66,7 @@ RUST_LOG=wgpu_core=info,wgpu_hal=info /Applications/WarpPreview.app/Contents/Mac
 {% tab title="Windows" %}
 The Warp log files are located at `$env:LOCALAPPDATA\warp\Warp\data\logs\`.
 
-#### Warp logs on Windows
+**Warp logs on Windows**
 
 Close Warp and run the following from another terminal to zip the logs to your Desktop:
 
@@ -74,7 +74,7 @@ Close Warp and run the following from another terminal to zip the logs to your D
 Compress-Archive -Path "$env:LOCALAPPDATA\warp\Warp\data\logs\warp.log*" -DestinationPath "$([Environment]::GetFolderPath('Desktop'))\warp-logs.zip"
 ```
 
-#### Warp Preview logs on Windows
+**Warp Preview logs on Windows**
 
 Close Warp Preview and run the following from another terminal to zip the logs to your Desktop:
 
@@ -104,17 +104,17 @@ $env:RUST_LOG="wgpu_core=info,wgpu_hal=info"; & "$env:PROGRAMFILES\WarpPreview\p
 {% tab title="Linux" %}
 The Warp log files are located at `~/.local/state/warp-terminal/`.
 
-#### Warp logs on Linux
+**Warp logs on Linux**
 
-Close Warp and run the following from another terminal to zip the logs to your home directory:
+Run the following to zip the Warp logs to your home directory:
 
 ```bash
 tar -czf ~/warp-logs.tar.gz -C ~/.local/state/warp-terminal warp.log*
 ```
 
-#### Warp Preview logs on Linux
+**Warp Preview logs on Linux**
 
-Close Warp and run the following from another terminal to zip the logs to your home directory:
+Run the following to zip the Warp Preview logs to your home directory:
 
 ```bash
 tar -czf ~/warp_preview-logs.tar.gz -C ~/.local/state/warp-terminal-preview warp_preview.log*
@@ -125,8 +125,8 @@ If your issue is graphical (e.g. no display of windows) or a crash, please run W
 
 <pre class="language-bash"><code class="lang-bash"># Run if Warp on macOS is installed
 <strong>RUST_LOG=wgpu_core=info,wgpu_hal=info MESA_DEBUG=1 EGL_LOG_LEVEL=debug warp-terminal
-</strong><strong>
-</strong># Run if Warp Preview on Linux is installed
+</strong>
+# Run if Warp Preview on Linux is installed
 RUST_LOG=wgpu_core=info,wgpu_hal=info MESA_DEBUG=1 EGL_LOG_LEVEL=debug warp-terminal-preview
 </code></pre>
 {% endhint %}
