@@ -72,6 +72,10 @@ warp schedule create \
   [--environment=ENVIRONMENT_ID]
 ```
 
+{% hint style="info" %}
+Currently, environments are never required - if you don't specify one, the scheduled agent runs in a barebones sandbox.
+{% endhint %}
+
 **Example**
 
 The following command schedules an agent to clean up old feature flags every four days:
