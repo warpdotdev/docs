@@ -53,7 +53,7 @@ All scheduling operations require the Warp CLI and an authenticated session
 
 #### Creating a Schedule
 
-Use `warp schedule create` to define a new Scheduled Agent.
+Use `warp schedule create` (with required flags) to define a new Scheduled Agent.
 
 **Each schedule requires:**
 
@@ -81,7 +81,7 @@ warp schedule create \
   --name "Feature Flag Cleanup" \
   --cron "0 10 */4 * *" \
   --prompt "Scan the repository for stale feature flags and remove any that are no longer referenced. Open a PR with the changes and include a summary." \
-  --environment "env_123"
+  --environment "KB1ndNMQAs5kjPdX2jatA8"
 ```
 
 Once created, the agent will automatically run at the specified times without further action.
