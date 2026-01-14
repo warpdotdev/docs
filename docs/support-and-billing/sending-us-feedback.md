@@ -123,7 +123,7 @@ tar -czf ~/warp_preview-logs.tar.gz -C ~/.local/state/warp-terminal-preview warp
 {% hint style="warning" %}
 If your issue is graphical (e.g. no display of windows) or a crash, please run Warp with the following command to capture more log information:
 
-<pre class="language-bash"><code class="lang-bash"># Run if Warp on macOS is installed
+<pre class="language-bash"><code class="lang-bash"># Run if Warp on Linux is installed
 <strong>RUST_LOG=wgpu_core=info,wgpu_hal=info MESA_DEBUG=1 EGL_LOG_LEVEL=debug warp-terminal
 </strong>
 # Run if Warp Preview on Linux is installed
