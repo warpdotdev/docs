@@ -109,7 +109,7 @@
   * [Full-screen Apps](terminal/more-features/full-screen-apps.md)
   * [Desktop Notifications](terminal/more-features/notifications.md)
   * [Audible Bell](terminal/more-features/audible-bell.md)
-  * [Settings Sync (Beta)](terminal/more-features/settings-sync.md)
+  * [Settings Sync](terminal/more-features/settings-sync.md)
   * [Quit Warning](terminal/more-features/quit-warning.md)
   * [URI Scheme](terminal/more-features/uri-scheme.md)
   * [Linux](terminal/more-features/linux.md)

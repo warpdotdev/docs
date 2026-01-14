@@ -1,17 +1,11 @@
 ---
 description: >-
-  Settings Sync is a cloud feature in Warp that makes it convenient to use Warp
-  on multiple devices or on a single device using both the Desktop and Web
-  versions of Warp.
+  Settings Sync is a cloud feature that keeps your Warp settings and
+  configuration consistent across devices and sessions, including the desktop
+  app and the browser.
 ---
 
-# Settings Sync (Beta)
-
-{% hint style="info" %}
-Settings Sync is an experimental (Beta) feature. We will post updates on github request [#2561](https://github.com/warpdotdev/Warp/issues/2561). Please note that it sends your settings information to Warp’s servers. Read more about privacy for cloud features in the [privacy overview](https://www.warp.dev/privacy/overview).
-
-Starting January 9, 2025, we will be enabling Settings Sync gradually for a percentage of Warp users. New users who are included in this percentage rollout will have Settings Sync on by default; existing users in the percentage rollout will need to opt-in to Settings Sync in Settings > Account.
-{% endhint %}
+# Settings Sync
 
 ## How to toggle settings sync
 
@@ -24,13 +18,17 @@ Starting January 9, 2025, we will be enabling Settings Sync gradually for a perc
 
 ## How settings sync works
 
-Settings Sync works by syncing the state of most of your Warp settings to our cloud servers.
+**Settings Sync** works by syncing the state of most of your Warp settings to our cloud servers.
 
-When you log in to Warp on another device or through the browser if you have Settings Sync enabled, most of your settings will be the same as they were when you were logged in before.
+When you log in to Warp on another device or through the browser with [session-sharing](../../knowledge-and-collaboration/session-sharing/ "mention"), if you have Settings Sync enabled, most of your settings will be the same as they were when you were logged in before.
 
-That means your themes, most features, privacy settings, ai settings, are all the same everywhere you use Warp, saving you the time from having to set them up again.
+That means your themes, most features, privacy settings, AI settings, **are all the same everywhere you use Warp**, saving you the time from having to set them up again.
 
-When you first enable Settings Sync, the settings from the computer you enabled it on become the default settings for all devices. This is true if you toggle Settings Sync off and on as well - the synced settings are always from the last device you enabled Settings Sync on, so toggling effectively causes all of your devices to have settings from the current logged in instance.
+When you first enable Settings Sync, the settings from the computer you enabled it on becomes the default settings for all devices. This is true if you toggle Settings Sync off and on as well - the synced settings are always from **the last device you enabled Settings Sync on**, so toggling effectively causes all of your devices to have settings from the current logged in instance.
+
+{% hint style="info" %}
+Read more about privacy for cloud features in the [privacy overview](https://www.warp.dev/privacy/overview).
+{% endhint %}
 
 ### Non-synced settings
 
