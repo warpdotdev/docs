@@ -48,6 +48,7 @@ The guided flow will:
 * Detect which repos you want the agent to work with
 * Identify languages, frameworks, and tools
 * Suggest a Docker image (or build/push one if needed)
+  * The Docker image can be your own custom image, an official base image (e.g. node, python), or one of Warp’s prebuilt dev images (see [repo](https://github.com/warpdotdev/warp-dev-environments)).
 * Recommend setup commands
 * Create the environment and return an environment ID
 
@@ -77,7 +78,7 @@ The CLI opens an authorization page where you install Warp into your Slack works
 
 In Slack:
 
-* Tag @Warp in a message or thread
+* Tag **@Warp** in a message or thread
 * Or DM the bot
 
 In Linear:

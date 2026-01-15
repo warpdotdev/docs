@@ -6,7 +6,7 @@ description: >-
 
 # Environments
 
-Environments ensure your [Ambient Agents](../ambient-agents/ambient-agents-overview.md) run with the same toolchain and setup every time, regardless of where they're triggered from. When you set up an environment, a workflow triggered from any surface uses identical dependencies, repos, and configuration, eliminating "works on my machine" drift.&#x20;
+Environments ensure your [Ambient Agents](../ambient-agents/ambient-agents-overview.md) run with the same toolchain and setup every time, regardless of where they're triggered from. When you set up an environment, a workflow triggered from any surface uses identical dependencies, repos, and configuration, eliminating "works on my machine" drift.
 
 An environment defines the execution context for automated agent runs: the **Docker image**, **repositories to clone**, **setup commands**, and **runtime configuration** Warp uses to prepare the workspace before the agent starts.
 
@@ -29,6 +29,7 @@ Environments define _how_ an agent runs, not _what_ it does. They’re required 
 An environment typically includes:
 
 * **Docker image (required)** – The toolchain and runtime the agent runs with.
+  * The Docker image can be your own custom image, an official base image (e.g. node, python), or one of Warp’s prebuilt dev images (see [repo](https://github.com/warpdotdev/warp-dev-environments)).
 * **Repository/workspace** – One or more repos the agent can clone and operate on.
 * **Setup commands** – Commands to prepare the workspace (e.g., dependency install, builds, bootstrapping).
 
@@ -109,13 +110,13 @@ Choose an environment if any of the following apply:
 
 * Runs must be consistent across triggers/hosts. The workflow should behave the same regardless of where it is triggered from.
 * The toolchain must be fixed. You need a known image and deterministic setup steps to avoid “it works on my machine” drift.
-* The workflow is shared across a team. Multiple people, or systems, will run the workflow and expect repeatable results.&#x20;
+* The workflow is shared across a team. Multiple people, or systems, will run the workflow and expect repeatable results.
 
 **Example:**
 
-If your team tags @Warp in Slack to fix a failing CI job, an environment ensures every run uses the same Docker image, clones the same repos, and runs the same setup commands.&#x20;
+If your team tags @Warp in Slack to fix a failing CI job, an environment ensures every run uses the same Docker image, clones the same repos, and runs the same setup commands.
 
-The fix the agent tests matches what runs in CI and what your teammates see when they review the PR.&#x20;
+The fix the agent tests matches what runs in CI and what your teammates see when they review the PR.
 
 ### Where to configure environments
 
@@ -127,6 +128,10 @@ Make sure you have:
 
 * One or more GitHub repositories that the agent should clone and work in.
 * A publicly-accessible Docker image that can build and run your code. Official images like [node](https://hub.docker.com/_/node), [python](https://hub.docker.com/_/python), or [rust](https://hub.docker.com/_/rust) work for many projects.
+  * **Optional**: use Warp’s prebuilt dev images
+    * If you don’t have a custom Docker image yet, Warp maintains a small set of prebuilt Ubuntu-based development images (Node/Python base, plus Go/Rust/Java/.NET/Ruby variants) that work well for common repos.
+    * You can use them as a starting point, or bring your own image. Warp only uses these if you explicitly choose them or if you don’t supply a `--docker-image`.
+    * See: [Warp Dev Environment Docker Images](https://github.com/warpdotdev/warp-dev-environments)
 
 {% hint style="info" %}
 Create one environment per codebase, then reuse it across triggers like Slack, Linear, and CLI runs.
@@ -136,7 +141,7 @@ Create one environment per codebase, then reuse it across triggers like Slack, L
 
 Use [`/create-environment`](warp://action/create_environment) when you want Warp to inspect your repos and recommend an environment configuration automatically. This is the fastest way to get started: Warp detects your languages, frameworks, and tools, then suggests appropriate images and setup commands.
 
-You can run the command inside a git repo directory with no argument, or with one or more repo paths or URLs.&#x20;
+You can run the command inside a git repo directory with no argument, or with one or more repo paths or URLs.
 
 ```shellscript
 # Local file paths
@@ -154,6 +159,7 @@ Warp will:
 
 * Detect the repositories you want the agent to work with and identify languages, frameworks, and tools
 * Look for an existing Dockerfile, recommend an official base image, or help build a custom image (if needed)
+  * If you don’t provide an image, Warp can suggest an official base image or a [Warp prebuilt dev image](https://github.com/warpdotdev/warp-dev-environments) as a starting point.
 * Suggest setup commands based on your scripts and package managers
 * Create the environment through the CLI and return an `environment ID`
 
@@ -182,6 +188,7 @@ Optional flags:
 
 * `--name` : human-readable label for the environment.
 * `--docker-image` : image name on Docker Hub.
+  * If you pass `--docker-image`, Warp will use it exactly. If you don’t, Warp may suggest a starting image during setup, which you can always override. Also choose from a set of preset images [here](https://github.com/warpdotdev/warp-dev-environments).
 
 ## Managing environments
 
@@ -201,7 +208,7 @@ warp environment get <ENV_ID>
 
 **Update an environment**
 
-Add/remove repos and setup commands without recreating the environment. Replace \<ENV\_ID> with the ID of the environment you want to modify.
+Add/remove repos and setup commands without recreating the environment. Replace `<ENV_ID>` with the ID of the environment you want to modify.
 
 ```sh
 # Add a repo
@@ -229,7 +236,7 @@ For end-to-end setup, see the [integrations-and-environments.md](cli/integration
 
 ## Environment design and best practices
 
-A well-designed environment removes guesswork by giving every run the same starting conditions. When an agent opens a PR from Slack or fixes a failed CI job, the result matches what your team can reproduce locally and in CI.&#x20;
+A well-designed environment removes guesswork by giving every run the same starting conditions. When an agent opens a PR from Slack or fixes a failed CI job, the result matches what your team can reproduce locally and in CI.
 
 **Design guidelines**<br>
 
