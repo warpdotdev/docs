@@ -13,18 +13,20 @@ Warp lets you choose from a curated set of Large Language Models (LLMs) to power
 **Warp supports the following models:**
 
 * OpenAI:
-  * &#x20;`GPT-5.2` (_low, medium,_ _high_ and _extra high_ reasoning)
-  * &#x20;`GPT-5.1` (_low, medium,_ and _high_ reasoning)
-  * &#x20;`GPT-5` (_low, medium,_ and _high_ reasoning)
-* Anthropic:&#x20;
-  * `Claude Opus 4.5`  with thinking mode&#x20;
-  * `Claude Sonnet 4.5`  with thinking mode
-  * `Claude Opus 4.1`  &#x20;
-  * `Claude Haiku 4.5`&#x20;
+  * `GPT-5.2` (_low, medium,_ _high_ and _extra high_ reasoning)
+  * `GPT-5.2 Codex` (_low, medium, high_, and _extra high_ reasoning)
+  * `GPT-5.1 Codex Max` (_low, medium, high_, and _extra high_ reasoning)
+  * `GPT-5.1 Codex` _(low, medium,_ and _high_ reasoning)
+  * `GPT-5.1` (_low, medium,_ and _high_ reasoning)
+  * `GPT-5` (_low, medium,_ and _high_ reasoning)
+* Anthropic:
+  * `Claude Opus 4.5` with thinking mode
+  * `Claude Sonnet 4.5` with thinking mode
+  * `Claude Opus 4.1`
+  * `Claude Haiku 4.5`
   * `Claude Sonnet 4`
-* Google:&#x20;
+* Google:
   * `Gemini 3 Pro`
-  * `Gemini 3 Flash`  &#x20;
   * `Gemini 2.5 Pro`
 * z.ai: `GLM 4.6` (hosted in the US, by [Fireworks AI](https://fireworks.ai/models/fireworks/glm-4p6))
 
@@ -34,6 +36,7 @@ Warp also offers two _Auto_ modes that intelligently select the best model for y
 
 1. **Auto (Cost-efficient)**: Optimizes for lower credit consumption while maintaining strong output quality, helping extend your available usage.
 2. **Auto (Responsiveness)**: Prioritizes the highest-quality results using the fastest available model, though it may consume credits more quickly.
+3. **Auto (Genius)**: Adapts to the complexity of your task and selects Warp’s most capable model when it’s worth it. Best for deep debugging, architecture decisions, and /plan-style sessions where you want maximum reasoning quality.
 
 Both Auto models perform well across all agent workflows and are ideal if you prefer Warp to manage model selection dynamically.
 
@@ -57,7 +60,7 @@ Edit your default profile or more profiles directly in `Settings > AI > Agents >
 
 Warp integrates with multiple Large Language Model (LLM) providers to power its AI-driven features.
 
-These providers include, but are not limited to:
+**These providers include, but are not limited to:**
 
 * OpenAI
 * Anthropic
