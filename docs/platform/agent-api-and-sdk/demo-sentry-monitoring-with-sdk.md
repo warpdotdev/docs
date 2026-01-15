@@ -14,8 +14,8 @@ He also covers the task lifecycle basics in the TypeScript SDK (running an agent
 
 **What Ben covers**
 
-* Using Warp’s TypeScript SDK to trigger agent runs and retrieve task details.
-* Handling task lifecycle states (queued → running) to reliably fetch a session link.
+* Using Warp's TypeScript SDK to trigger agent runs and retrieve run details.
+* Handling run lifecycle states (queued → running) to reliably fetch a session link.
 * Running agents inside a Warp Environment so they can investigate real code, run tests, and validate fixes.
 * Building a lightweight Sentry webhook server that filters, validates, and routes only the right errors to an agent.
 * Creating a workflow that results in draft PRs for human review, instead of silent autonomous changes.

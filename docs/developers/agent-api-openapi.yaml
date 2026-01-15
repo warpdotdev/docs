@@ -3,10 +3,10 @@ info:
   title: Warp Public Agent API
   version: 1.0.0
   description: |
-    Public API for creating, managing, and querying Warp ambient agent tasks.
+    Public API for creating, managing, and querying Warp ambient agent runs.
     
-    These endpoints allow users to programmatically spawn agents, list tasks, 
-    and retrieve detailed task information.
+    These endpoints allow users to programmatically spawn agents, list runs, 
+    and retrieve detailed run information.
   license:
     name: Proprietary
 servers:
@@ -19,7 +19,7 @@ paths:
       summary: Run an agent task
       description: |
         Spawn an ambient agent with a prompt and optional configuration.
-        The agent will be queued for execution and assigned a unique task ID.
+        The agent will be queued for execution and assigned a unique run ID.
       operationId: runAgent
       tags:
         - agent
@@ -44,10 +44,10 @@ paths:
                     name: "my-agent"
                     model_id: "claude-sonnet-4"
                     base_prompt: "Focus on Go backend code"
-                  title: "DB Refactoring Task"
+                  title: "DB Refactoring Run"
       responses:
         '200':
-          description: Task created successfully
+          description: Run created successfully
           content:
             application/json:
               schema:
@@ -71,13 +71,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 
-  /agent/tasks:
+  /agent/runs:
     get:
-      summary: List agent tasks
+      summary: List agent runs
       description: |
-        Retrieve a paginated list of agent tasks with optional filtering.
+        Retrieve a paginated list of agent runs with optional filtering.
         Results are ordered by creation time (newest first).
-      operationId: listTasks
+      operationId: listRuns
       tags:
         - agent
       security:
@@ -85,7 +85,7 @@ paths:
       parameters:
         - name: limit
           in: query
-          description: Maximum number of tasks to return
+          description: Maximum number of runs to return
           required: false
           schema:
             type: integer
@@ -101,12 +101,12 @@ paths:
         - name: state
           in: query
           description: |
-            Filter by task state. Can be specified multiple times to match any of the given states.
+            Filter by run state. Can be specified multiple times to match any of the given states.
           required: false
           schema:
             type: array
             items:
-              $ref: '#/components/schemas/TaskState'
+              $ref: '#/components/schemas/RunState'
           style: form
           explode: true
         - name: config_name
@@ -129,31 +129,31 @@ paths:
             type: string
         - name: source
           in: query
-          description: Filter by task source type
+          description: Filter by run source type
           required: false
           schema:
-            $ref: '#/components/schemas/TaskSourceType'
+            $ref: '#/components/schemas/RunSourceType'
         - name: created_after
           in: query
-          description: Filter tasks created after this timestamp (RFC3339 format)
+          description: Filter runs created after this timestamp (RFC3339 format)
           required: false
           schema:
             type: string
             format: date-time
         - name: created_before
           in: query
-          description: Filter tasks created before this timestamp (RFC3339 format)
+          description: Filter runs created before this timestamp (RFC3339 format)
           required: false
           schema:
             type: string
             format: date-time
       responses:
         '200':
-          description: List of tasks
+          description: List of runs
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ListTasksResponse'
+                $ref: '#/components/schemas/ListRunsResponse'
         '400':
           description: Invalid request parameters
           content:
@@ -167,33 +167,33 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 
-  /agent/tasks/{taskId}:
+  /agent/runs/{runId}:
     get:
-      summary: Get task details
+      summary: Get run details
       description: |
-        Retrieve detailed information about a specific agent task, 
+        Retrieve detailed information about a specific agent run, 
         including the full prompt, session link, and resolved configuration.
-      operationId: getTask
+      operationId: getRun
       tags:
         - agent
       security:
         - bearerAuth: []
       parameters:
-        - name: taskId
+        - name: runId
           in: path
-          description: The unique identifier of the task
+          description: The unique identifier of the run
           required: true
           schema:
             type: string
       responses:
         '200':
-          description: Task details
+          description: Run details
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TaskItem'
+                $ref: '#/components/schemas/RunItem'
         '400':
-          description: Missing task ID
+          description: Missing run ID
           content:
             application/json:
               schema:
@@ -205,13 +205,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
         '403':
-          description: No permission to access task
+          description: No permission to access run
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         '404':
-          description: Task not found
+          description: Run not found
           content:
             application/json:
               schema:
@@ -238,75 +238,75 @@ components:
           $ref: '#/components/schemas/AmbientAgentConfig'
         title:
           type: string
-          description: Custom title for the task (auto-generated if not provided)
+          description: Custom title for the run (auto-generated if not provided)
         team:
           type: boolean
-          description: Make the task visible to all team members, not only the calling user
+          description: Make the run visible to all team members, not only the calling user
           default: false
 
     RunAgentResponse:
       type: object
       required:
-        - task_id
+        - run_id
         - state
       properties:
-        task_id:
+        run_id:
           type: string
-          description: Unique identifier for the created task
+          description: Unique identifier for the created run
         state:
-          $ref: '#/components/schemas/TaskState'
+          $ref: '#/components/schemas/RunState'
 
-    ListTasksResponse:
+    ListRunsResponse:
       type: object
       required:
-        - tasks
+        - runs
         - page_info
       properties:
-        tasks:
+        runs:
           type: array
           items:
-            $ref: '#/components/schemas/TaskItem'
+            $ref: '#/components/schemas/RunItem'
         page_info:
           $ref: '#/components/schemas/PageInfo'
 
-    TaskItem:
+    RunItem:
       type: object
       required:
-        - task_id
+        - run_id
         - title
         - state
         - prompt
         - created_at
         - updated_at
       properties:
-        task_id:
+        run_id:
           type: string
-          description: Unique identifier for the task
+          description: Unique identifier for the run
         title:
           type: string
-          description: Human-readable title for the task
+          description: Human-readable title for the run
         state:
-          $ref: '#/components/schemas/TaskState'
+          $ref: '#/components/schemas/RunState'
         prompt:
           type: string
           description: The prompt/instruction for the agent
         created_at:
           type: string
           format: date-time
-          description: Timestamp when the task was created (RFC3339)
+          description: Timestamp when the run was created (RFC3339)
         updated_at:
           type: string
           format: date-time
-          description: Timestamp when the task was last updated (RFC3339)
+          description: Timestamp when the run was last updated (RFC3339)
         started_at:
           type: string
           format: date-time
           nullable: true
-          description: Timestamp when the agent started working on the task (RFC3339)
+          description: Timestamp when the agent started working on the run (RFC3339)
         status_message:
-          $ref: '#/components/schemas/TaskStatusMessage'
+          $ref: '#/components/schemas/RunStatusMessage'
         source:
-          $ref: '#/components/schemas/TaskSourceType'
+          $ref: '#/components/schemas/RunSourceType'
         session_id:
           type: string
           description: UUID of the shared session (if available)
@@ -315,7 +315,7 @@ components:
           format: uri
           description: URL to view the agent session
         creator:
-          $ref: '#/components/schemas/TaskCreatorInfo'
+          $ref: '#/components/schemas/RunCreatorInfo'
         agent_config:
           $ref: '#/components/schemas/AmbientAgentConfig'
 
@@ -331,14 +331,14 @@ components:
           type: string
           description: Opaque cursor for fetching the next page
 
-    TaskStatusMessage:
+    RunStatusMessage:
       type: object
       properties:
         message:
           type: string
           description: Human-readable status message
 
-    TaskCreatorInfo:
+    RunCreatorInfo:
       type: object
       properties:
         type:
@@ -351,7 +351,7 @@ components:
           type: string
           description: Unique identifier of the creator
 
-    TaskState:
+    RunState:
       type: string
       enum:
         - QUEUED
@@ -361,15 +361,15 @@ components:
         - SUCCEEDED
         - FAILED
       description: |
-        Current state of the task:
-        - QUEUED: Task is waiting to be picked up
-        - PENDING: Task is being prepared
-        - CLAIMED: Task has been claimed by a worker
-        - INPROGRESS: Task is actively being executed
-        - SUCCEEDED: Task completed successfully
-        - FAILED: Task failed
+        Current state of the run:
+        - QUEUED: Run is waiting to be picked up
+        - PENDING: Run is being prepared
+        - CLAIMED: Run has been claimed by a worker
+        - INPROGRESS: Run is actively being executed
+        - SUCCEEDED: Run completed successfully
+        - FAILED: Run failed
 
-    TaskSourceType:
+    RunSourceType:
       type: string
       enum:
         - LINEAR
@@ -378,7 +378,7 @@ components:
         - LOCAL
         - SCHEDULED_AGENT
       description: |
-        Source that created the task:
+        Source that created the run:
         - LINEAR: Created from Linear integration
         - API: Created via the Warp API
         - SLACK: Created from Slack integration
@@ -387,7 +387,7 @@ components:
 
     AmbientAgentConfig:
       type: object
-      description: Configuration for an ambient agent task
+      description: Configuration for an ambient agent run
       properties:
         name:
           type: string
@@ -400,7 +400,7 @@ components:
           description: Custom base prompt for the agent
         environment_id:
           type: string
-          description: UID of the environment to run the task in
+          description: UID of the environment to run the agent in
         mcp_servers:
           type: object
           additionalProperties:
