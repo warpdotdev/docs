@@ -32,13 +32,13 @@ Warp lets you choose from a curated set of Large Language Models (LLMs) to power
 
 ### Auto Models
 
-Warp also offers two _Auto_ modes that intelligently select the best model for your task based on the context and request type:
+Warp also offers three _Auto_ modes that intelligently select the best model for your task based on the context and request type:
 
 1. **Auto (Cost-efficient)**: Optimizes for lower credit consumption while maintaining strong output quality, helping extend your available usage.
 2. **Auto (Responsive)**: Prioritizes the highest-quality results using the fastest available model, though it may consume credits more quickly.
 3. **Auto (Genius)**: Adapts to the complexity of your task and selects Warp’s most capable model when it’s worth it. Best for deep debugging, architecture decisions, and /plan-style sessions where you want maximum reasoning quality.
 
-Both Auto models perform well across all agent workflows and are ideal if you prefer Warp to manage model selection dynamically.
+All Auto models perform well across all agent workflows and are ideal if you prefer Warp to manage model selection dynamically.
 
 ### How to change models
 
