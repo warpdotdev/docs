@@ -8,6 +8,26 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+## 2026.01.14 (v0.2026.01.14.08.15)
+
+**New features**
+
+* Added footer for third party CLIs.
+* Added onboarding flow for new users.
+
+**Improvements**
+
+* Fixed duplicate rule suggestions on dismiss and save.
+* @-context search now matches on both name and content for notebooks, rules, and workflows.
+* Updated checkbox checkmark to use foreground color for better theme consistency.
+* Filter selections in the ambient agent management view now persist across app restarts.
+* MCP servers with OAuth authentication can now be used in warp agent run if previously authenticated in the desktop app.
+
+**Bug fixes**
+
+* Fixed a bug where text in the MCP tool call detail wasn't selectable.
+* Fixed agent thread banner text overflow on smaller screens.
+
 ## 2026.01.07 (v0.2026.01.07.08.13)
 
 **New Features**
