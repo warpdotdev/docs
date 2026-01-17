@@ -21,7 +21,7 @@ Warp currently supports:
 * Amp
 * Gemini CLI
 * Droid
-* OpenCode (soon)
+* OpenCode
 
 {% hint style="info" %}
 If you’re using one of these and don’t see the utility bar, make sure you’re on the latest Warp version and that the command is being run inside Warp (not an external terminal).
