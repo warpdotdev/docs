@@ -31,6 +31,7 @@
   * [Managing Agents](agents/using-agents/managing-agents.md)
   * [Model Choice](agents/using-agents/model-choice.md)
   * [Web Search](agents/using-agents/web-search.md)
+  * [Third-Party CLI Agents](agents/using-agents/third-party-cli-agents.md)
 * [Full Terminal Use](agents/full-terminal-use.md)
 * [Slash Commands](agents/slash-commands.md)
 * [Active AI](agents/active-ai.md)
