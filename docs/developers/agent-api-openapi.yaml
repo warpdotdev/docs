@@ -273,6 +273,7 @@ components:
       type: object
       required:
         - run_id
+        - task_id
         - title
         - state
         - prompt
@@ -282,6 +283,11 @@ components:
         run_id:
           type: string
           description: Unique identifier for the run
+        task_id:
+          type: string
+          deprecated: true
+          x-stainless-deprecation-message: Use run_id instead.
+          description: Unique identifier for the task (typically matches run_id). Deprecated - use run_id instead.
         title:
           type: string
           description: Human-readable title for the run
@@ -316,8 +322,16 @@ components:
           description: URL to view the agent session
         creator:
           $ref: '#/components/schemas/RunCreatorInfo'
+        request_usage:
+          $ref: '#/components/schemas/RequestUsage'
         agent_config:
           $ref: '#/components/schemas/AmbientAgentConfig'
+        conversation_id:
+          type: string
+          description: UUID of the conversation associated with the run
+        is_sandbox_running:
+          type: boolean
+          description: Whether the sandbox environment is currently running
 
     PageInfo:
       type: object
@@ -338,6 +352,19 @@ components:
           type: string
           description: Human-readable status message
 
+    RequestUsage:
+      type: object
+      description: Resource usage information for the run
+      properties:
+        inference_cost:
+          type: number
+          format: double
+          description: Cost of LLM inference for the run
+        compute_cost:
+          type: number
+          format: double
+          description: Cost of compute resources for the run
+
     RunCreatorInfo:
       type: object
       properties:
@@ -350,6 +377,13 @@ components:
         uid:
           type: string
           description: Unique identifier of the creator
+        display_name:
+          type: string
+          description: Display name of the creator
+        photo_url:
+          type: string
+          format: uri
+          description: URL to the creator's photo
 
     RunState:
       type: string
