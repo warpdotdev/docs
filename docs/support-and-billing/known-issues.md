@@ -76,7 +76,7 @@ This can likely occur due to some corruption in the local sqlite db. You may see
 ```
 {% endcode %}
 
-To try and resolve the issue of Warp not rendering a window, [delete the Session Restoration SQLite database files](../terminal/sessions/session-restoration.md#session-restoration-database).
+To try and resolve the issue of Warp not rendering a window, rename the sqlite database found in the [following locations](../terminal/sessions/session-restoration.md#session-restoration-database).
 
 ### Misc.
 
