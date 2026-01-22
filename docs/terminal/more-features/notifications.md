@@ -11,6 +11,22 @@ description: >-
 
 Notifications can be sent when a command completes after a configurable number of seconds or when a running command needs you to enter a password to proceed. For either of these triggers, Warp will only send you a desktop notification if you are using a different app at the time the trigger is fired.
 
+## Custom notification hooks (OSC 9 / OSC 777)
+
+Warp supports pluggable notifications triggered by terminal escape sequences, so scripts and tools can raise desktop notifications without additional dependencies.
+
+- OSC 9 (body only): sends a notification with just a body.
+  - Format: `ESC ] 9 ; <body> BEL`
+  - Example (bash/zsh): `printf '\033]9;Build complete\007'`
+- OSC 777 (title + body): sends a notification with a title and body.
+  - Format: `ESC ] 777 ; notify ; <title> ; <body> BEL`
+  - Example (bash/zsh): `printf '\033]777;notify;Deploy;Success on prod\007'`
+
+Notes:
+- Works on macOS, Windows, and Linux where Warp is allowed to show notifications.
+- Newlines and semicolons should be avoided or escaped in payloads.
+- This feature is enabled by default in current releases of Warp.
+
 ## How to access it
 
 ### Notifications
