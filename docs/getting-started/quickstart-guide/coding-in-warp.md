@@ -4,7 +4,7 @@ description: Agents can generate and edit code directly from within Warp.
 
 # Coding in Warp
 
-When you enter a git repo for the first time, Warp will enter an initialization flow to index your codebase and generate a WARP.md file.&#x20;
+When you enter a git repo for the first time, Warp will enter an initialization flow to index your codebase and generate an AGENTS.md file.&#x20;
 
 As you're in the repo, Warp will enter an advanced code generation flow that supports both single-line and multi-file changes when it detects an opportunity to write code.
 
@@ -64,7 +64,7 @@ Agents pull directly from your [**Warp Drive**](https://docs.warp.dev/features/w
 
 **Rules** let you provide persistent context to Agents, enabling smarter and more personalized responses.&#x20;
 
-You can create global rules (accessed through [Warp Drive](https://docs.warp.dev/features/warp-drive) > Personal > Rules) or project scoped rules, defined in a WARP.md file.
+You can create global rules (accessed through [Warp Drive](https://docs.warp.dev/features/warp-drive) > Personal > Rules) or project scoped rules, defined in an AGENTS.md file.
 
 **Examples of Rules include:**
 
@@ -74,7 +74,7 @@ You can create global rules (accessed through [Warp Drive](https://docs.warp.dev
 
 How to access project-specific Rules
 
-1. From the file-searcher, CMD+O and search "WARP.md"
+1. From the file-searcher, CMD+O and search "AGENTS.md"
 2. From the file tree, click the "code" icon when in a repo
 
 How to access Global Rules

@@ -21,49 +21,48 @@ Global Rules apply across all projects and contexts. They're ideal for:
 * Tool configurations or preferences you want applied everywhere
 
 Warp may also suggest Global Rules based on your usage patterns to make future interactions smarter and more consistent.
-
 ## Project Rules
 
-Project Rules live in your codebase and apply automatically when working within that project. They’re stored in a `WARP.md` file and can be:
+Project Rules live in your codebase and apply automatically when working within that project. They're stored in an `AGENTS.md` file (or `WARP.md` for backwards compatibility) and can be:
 
 * Placed in the root of your repository
 * Added in subdirectories for more targeted guidance
 
 {% hint style="info" %}
-If manually creating a `WARP.md`, make sure to always follow that naming convention (all caps).
+Warp uses `AGENTS.md` as the default project rules file. Existing `WARP.md` files are still fully supported—if you have `WARP.md`, it will continue to work as expected. You can also rename `WARP.md` to `AGENTS.md` at any time without additional changes.
 {% endhint %}
 
 **When you're in a directory:**
 
-* Warp automatically applies the `WARP.md` in the root and in the current directory.
-* If you edit files in another subdirectory, Warp makes a best-effort attempt to include that subdirectory’s `WARP.md` as well.
+* Warp automatically applies the `AGENTS.md` (or `WARP.md`) in the root and in the current directory.
+* If you edit files in another subdirectory, Warp makes a best-effort attempt to include that subdirectory's rules file as well.
 
 Example project structure:
 
 ```
 project/
   api/
-    WARP.md      # API-specific rules
+    AGENTS.md      # API-specific rules
   ui/
-    WARP.md      # UI-specific rules
-  WARP.md        # Project-wide rules
+    AGENTS.md      # UI-specific rules
+  AGENTS.md        # Project-wide rules
 ```
 
 How Warp applies these Project Rules:
 
 * **If the current directory is `ui/`**
-  * Automatically applied: `project/WARP.md` and `project/ui/WARP.md`
-  * Best effort: `project/api/WARP.md` if editing files there
+  * Automatically applied: `project/AGENTS.md` and `project/ui/AGENTS.md`
+  * Best effort: `project/api/AGENTS.md` if editing files there
 * **If the current directory is `api/`**
-  * Automatically applied: `project/WARP.md` and `project/api/WARP.md`
-  * Best effort: `project/ui/WARP.md` if editing files there
+  * Automatically applied: `project/AGENTS.md` and `project/api/AGENTS.md`
+  * Best effort: `project/ui/AGENTS.md` if editing files there
 
 ### **Rules precedence**
 
 When multiple rules apply, Warp follows this order of precedence:
 
-1. Rules in the current subdirectory's `WARP.md` file
-2. Rules in the root directory's `WARP.md` file
+1. Rules in the current subdirectory's project rules file
+2. Rules in the root directory's project rules file
 3. Global Rules
 
 This ensures the most specific, project-relevant rules take priority over broader ones.
@@ -99,9 +98,9 @@ Rules Demo (legacy) with just Global Rules. Project rules can also be found ther
 
 * **When in a directory, set up Project Rules with a slash command:** Use `/init` in Auto or Natural language modes to:
   * Begin indexing your codebase or display indexing status
-  * Generate a `WARP.md` file with initial context, or
-  * Link an existing Rules file to `WARP.md`
-    * Warp currently supports the following Rules files: `CLAUDE.md`, `.cursorrules`, `AGENT.md`, `AGENTS.md`, `GEMINI.md`, `.clinerules`, `.windsurfrules`, `.github/copilot-instructions.md`&#x20;
+  * Generate an `AGENTS.md` file with initial context, or
+  * Link an existing Rules file to `AGENTS.md`
+    * Warp currently supports the following Rules files: `WARP.md`, `CLAUDE.md`, `.cursorrules`, `AGENT.md`, `GEMINI.md`, `.clinerules`, `.windsurfrules`, `.github/copilot-instructions.md`&#x20;
 
 To view all Project Rules and open them in Warp, access it via the Warp Drive Rules pane: `Personal > Rules > Project-based`
 
