@@ -38,6 +38,7 @@
 * [Generate (Legacy)](agents/generate.md)
 * [Voice](agents/voice.md)
 * [AI FAQs](agents/ai-faqs.md)
+* [Agent Modality (Beta)](agents/agent-modality-beta.md)
 
 ## Code
 
@@ -151,6 +152,17 @@
   * [Integrations and Environments](platform/cli/integrations-and-environments.md)
   * [Troubleshooting](platform/cli/troubleshooting.md)
 * [Agent API & SDK](platform/agent-api-and-sdk/README.md)
+  * ```yaml
+    props:
+      models: true
+      downloadLink: false
+    type: builtin:openapi
+    dependencies:
+      spec:
+        ref:
+          kind: openapi
+          spec: warp-public-agent-api
+    ```
   * ```yaml
     props:
       models: true
