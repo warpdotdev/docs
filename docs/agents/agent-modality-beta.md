@@ -8,7 +8,7 @@ Agent modality is currently in beta and only available in [**Warp Preview**](htt
 
 Agent modality, an **experimental** UI under development for [agent conversations](using-agents/agent-conversations/), gives you two distinct ways to work in Warp: a clean terminal for commands, and a dedicated conversation view for multi-turn agent workflows.&#x20;
 
-{% embed url="https://www.loom.com/share/68d63a5740ef473cbbb79da11455d52e" %}
+{% embed url="https://www.loom.com/share/b5b58c5cd3af42748c890680f3f7692d" %}
 
 ***
 
