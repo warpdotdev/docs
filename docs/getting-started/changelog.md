@@ -8,6 +8,31 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+## 2026.01.21 (v0.2026.01.21.08.14)
+
+**New Features**
+
+* Global search in files across your current directories. Use `CMD-F`/`CTRL-SHIFT-F` to open.
+* Expanded web search support to additional models.
+
+**Improvements**
+
+* Save AI prompts as agent mode workflows via context menu.
+* `/init` now generates AGENTS.md instead of WARP.md.
+* Added horizontal autoscrolling when jumping to line/column.
+* Better language detection for syntax highlighting.
+
+**Bug Fixes**
+
+* Fixed a memory leak that occurs when making an Agent Mode request.
+* Fixed an issue where "waiting for a password" notifications could be triggered incorrectly when launching certain terminal apps like neovim.
+* Fixed duplicate entries appearing in the agent management view for Slack-triggered conversations.
+* Fixed alias expansion being triggered in AI input when it should only apply to shell commands.
+* Fixed an issue where multiple shell commands could enter long-running mode in the same request batch.
+* Hide AI options in the command palette when AI is disabled.
+* Stopped highlighting search matches in reasoning blocks.
+* Fixed session viewer input being cleared when agent runs commands.
+
 ## 2026.01.14 (v0.2026.01.14.08.15)
 
 **New features**
