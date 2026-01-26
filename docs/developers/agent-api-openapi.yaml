@@ -147,6 +147,12 @@ paths:
           schema:
             type: string
             format: date-time
+        - name: environmentId
+          in: query
+          description: Filter runs by environment ID
+          required: false
+          schema:
+            type: string
       responses:
         '200':
           description: List of runs
