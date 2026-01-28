@@ -32,6 +32,10 @@ Project Rules live in your codebase and apply automatically when working within 
 Warp uses `AGENTS.md` as the default project rules file. Existing `WARP.md` files are still fully supported—if you have `WARP.md`, it will continue to work as expected. You can also rename `WARP.md` to `AGENTS.md` at any time without additional changes.
 {% endhint %}
 
+{% hint style="warning" %}
+The filename must be in **all caps** for Warp to recognize it (e.g., `AGENTS.md`, not `agents.md` or `Agents.md`). We recommend creating `AGENTS.md` for new projects.
+{% endhint %}
+
 **When you're in a directory:**
 
 * Warp automatically applies the `AGENTS.md` (or `WARP.md`) in the root and in the current directory.

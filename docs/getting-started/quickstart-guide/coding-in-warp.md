@@ -64,7 +64,7 @@ Agents pull directly from your [**Warp Drive**](https://docs.warp.dev/features/w
 
 **Rules** let you provide persistent context to Agents, enabling smarter and more personalized responses.&#x20;
 
-You can create global rules (accessed through [Warp Drive](https://docs.warp.dev/features/warp-drive) > Personal > Rules) or project scoped rules, defined in an AGENTS.md file.
+You can create global rules (accessed through [Warp Drive](https://docs.warp.dev/features/warp-drive) > Personal > Rules) or project scoped rules, defined in an `AGENTS.md` file. Note: the filename must be in all caps for Warp to recognize it.
 
 **Examples of Rules include:**
 

@@ -71,7 +71,7 @@ Warp provides multiple entry points to begin coding with agents, whether you are
 
 #### 1. Starting a New Project
 
-To begin a new project, select `Create a New Project` from the tab. You can start directly with a prompt (Warp will suggest ideas) or configure the project manually. Warp sets up the repository with an `AGENTS.md` file containing [project rules](../knowledge-and-collaboration/rules.md#project-rules) and enables [codebase indexing](codebase-context.md) to provide the agent with full context.
+To begin a new project, select `Create a New Project` from the tab. You can start directly with a prompt (Warp will suggest ideas) or configure the project manually. Warp sets up the repository with an `AGENTS.md` file (filename must be in all caps) containing [project rules](../knowledge-and-collaboration/rules.md#project-rules) and enables [codebase indexing](codebase-context.md) to provide the agent with full context.
 
 #### 2. Open an Existing Repo
 

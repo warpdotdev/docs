@@ -22,6 +22,10 @@ Warp currently supports the following built-in Slash Commands:
 Slash commands marked with a `*` consume AI credits to complete the task.
 {% endhint %}
 
+{% hint style="info" %}
+The `AGENTS.md` filename must be in **all caps** for Warp to recognize it. See [Rules](../knowledge-and-collaboration/rules.md#project-rules) for details.
+{% endhint %}
+
 #### Using Prompts via Slash Commands
 
 In addition to static commands, the menu also shows [Agent Prompts](../knowledge-and-collaboration/warp-drive/prompts.md) saved in your [Warp Drive](../knowledge-and-collaboration/warp-drive/).
