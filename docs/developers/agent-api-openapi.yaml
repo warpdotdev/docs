@@ -338,6 +338,88 @@ components:
         is_sandbox_running:
           type: boolean
           description: Whether the sandbox environment is currently running
+        artifacts:
+          type: array
+          items:
+            $ref: '#/components/schemas/ArtifactItem'
+          description: Artifacts created during the run (plans, pull requests, etc.)
+
+    ArtifactItem:
+      oneOf:
+        - $ref: '#/components/schemas/PlanArtifact'
+        - $ref: '#/components/schemas/PullRequestArtifact'
+      discriminator:
+        propertyName: artifact_type
+        mapping:
+          plan: '#/components/schemas/PlanArtifact'
+          pull_request: '#/components/schemas/PullRequestArtifact'
+
+    PlanArtifact:
+      type: object
+      required:
+        - artifact_type
+        - created_at
+        - plan
+      properties:
+        artifact_type:
+          type: string
+          enum:
+            - plan
+          description: Type of the artifact
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the artifact was created (RFC3339)
+        plan:
+          $ref: '#/components/schemas/PlanArtifactData'
+
+    PullRequestArtifact:
+      type: object
+      required:
+        - artifact_type
+        - created_at
+        - pull_request
+      properties:
+        artifact_type:
+          type: string
+          enum:
+            - pull_request
+          description: Type of the artifact
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the artifact was created (RFC3339)
+        pull_request:
+          $ref: '#/components/schemas/PullRequestArtifactData'
+
+    PlanArtifactData:
+      type: object
+      required:
+        - document_uid
+      properties:
+        document_uid:
+          type: string
+          description: Unique identifier for the plan document
+        notebook_uid:
+          type: string
+          description: Unique identifier for the associated notebook
+        title:
+          type: string
+          description: Title of the plan
+
+    PullRequestArtifactData:
+      type: object
+      required:
+        - url
+        - branch
+      properties:
+        url:
+          type: string
+          format: uri
+          description: URL of the pull request
+        branch:
+          type: string
+          description: Branch name for the pull request
 
     PageInfo:
       type: object
@@ -417,6 +499,8 @@ components:
         - SLACK
         - LOCAL
         - SCHEDULED_AGENT
+        - WEB_APP
+        - GITHUB_ACTION
       description: |
         Source that created the run:
         - LINEAR: Created from Linear integration
@@ -424,6 +508,8 @@ components:
         - SLACK: Created from Slack integration
         - LOCAL: Created from local CLI/app
         - SCHEDULED_AGENT: Created by a scheduled agent
+        - WEB_APP: Created from the Warp web app
+        - GITHUB_ACTION: Created from a GitHub action
 
     AmbientAgentConfig:
       type: object
@@ -446,6 +532,11 @@ components:
           additionalProperties:
             $ref: '#/components/schemas/MCPServerConfig'
           description: Map of MCP server configurations by name
+        worker_host:
+          type: string
+          description: |
+            Self-hosted worker ID that should execute this task.
+            If not specified or set to "warp", the task runs on Warp-hosted workers.
 
     MCPServerConfig:
       type: object
