@@ -8,6 +8,27 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+## 2026.01.28 (v0.2026.01.28.08.14)
+
+**Improvements**
+
+* Files opened from code review panel, project explorer, and global search now respect your external editor setting
+* Toggling the plan while the pane is maximized now restores the layout to show the plan
+* Added "copy path" button to file headers in code review panel
+* Pasting images into the input now enters agent mode, matching drag and drop behavior
+
+**Bug Fixes**
+
+* Fixed an issue where conversations could break when the agent read large images from directories
+* Fixed input buttons overflowing into adjacent panes in narrow layouts
+* Fixed text in MCP tool call details not being copyable
+* Fixed status indicator incorrectly showing for empty conversations in tab headers
+* Fixed Drive team section header displaying in all caps
+* Fixed Enter key not working in MCP installation modal
+* Fixed slash command text not highlighting correctly in some cases
+* Fixed input mode detection occasionally switching unexpectedly
+* Fixed /edit command failing when filename had trailing whitespace
+
 ## 2026.01.21 (v0.2026.01.21.08.14)
 
 **New Features**

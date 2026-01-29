@@ -184,6 +184,8 @@
   "CodeReview.PaneStateChanged": "Code review pane minimized or maximized",
   "CodeReview.RevertHunkClicked": "Revert hunk button clicked",
   "CodeReview.ReviewSubmitted": "Inline code review submitted to agent",
+  "CodexModal.Opened": "User opened the Codex modal",
+  "CodexModal.UseCodexClicked": "User clicked 'Use Codex' in the Codex modal",
   "Command Correction Event": "Accepted command correction",
   "Command File Run": "Opened a .cmd or unix executable file and ran it directly in Warp",
   "Command Palette Search Accepted": "Accepted a command palette search result",
