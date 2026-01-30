@@ -1,7 +1,5 @@
 # Table of contents
 
-* [Overview](README.md)
-
 ## [Troubleshooting and support](troubleshooting-and-support/README.md)
 
 * [Overview](troubleshooting-and-support/README.md)

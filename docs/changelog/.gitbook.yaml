@@ -1,1 +1,6 @@
 root: ./
+
+redirects:
+    getting-started/changelog: changelog/README.md
+    warp/getting-started/changelog: changelog/README.md
+    help/changelog: changelog/README.md

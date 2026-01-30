@@ -1,1 +1,9 @@
 root: ./
+
+redirects:
+    platform/warp-platform: reference/README.md
+    developers/cli: reference/cli/README.md
+    platform/cli: reference/cli/README.md
+    integrations/integrations-overview/integrations-and-environments: reference/cli/integrations-and-environments.md
+    developers/cli#api-key-authentication: reference/cli.md#api-key-authentication
+

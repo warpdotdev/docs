@@ -39,6 +39,7 @@ redirects:
     plans-pricing-and-billing/pricing-faqs: plans-and-billing/pricing-faqs.md
 
     # Old privacy/ paths
+    getting-started/privacy: privacy-and-security/privacy.md
     privacy/privacy: privacy-and-security/privacy.md
     privacy/secret-redaction: privacy-and-security/secret-redaction.md
     privacy/network-log: privacy-and-security/network-log.md
@@ -60,3 +61,6 @@ redirects:
     help/known-issues: troubleshooting-and-support/known-issues.md
     help/troubleshooting-login-issues: troubleshooting-and-support/troubleshooting-login-issues.md
     help/licenses: community/open-source-licenses.md
+
+    # Since restructure
+    support-and-billing/plans-and-pricing/reload-credits-add-on-credits: support-and-community/plans-and-billing/add-on-credits.md

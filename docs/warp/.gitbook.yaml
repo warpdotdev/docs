@@ -304,3 +304,11 @@ redirects:
     help/known-issues: support-and-community/troubleshooting-and-support/known-issues.md
     help/troubleshooting-login-issues: support-and-community/troubleshooting-and-support/troubleshooting-login-issues.md
     help/licenses: support-and-community/community/open-source-licenses.md
+
+    # Since restructure
+    features/prompt: terminal/appearance/prompt.md
+    features/smart-select: terminal/more-features/text-selection.md
+    getting-started/getting-started-with-warp: getting-started/quickstart-guide/README.md
+    features/settings: terminal/more-features/settings-sync.md
+    getting-started/quickstart: README.md
+    getting-started/quickstart-guide/README: README.md
