@@ -1,0 +1,60 @@
+---
+metaLinks:
+  alternates:
+    - >-
+      https://app.gitbook.com/s/c5dAwvMCRiTxUOdDicqy/developer-workflows/beginner/how-to-explain-your-codebase-using-warp-rust-codebase
+---
+
+# How to: Explain Your Codebase Using Warp (Rust Codebase)
+
+Learn how to use Warp’s AI agent to explore and understand large, unfamiliar codebases — using semantic and symbol-level search.
+
+{% embed url="https://www.youtube.com/watch?v=11rz9OYQ8Hg" %}
+
+***
+
+## Overview
+
+This walkthrough shows:
+
+* How Warp explains unknown sections of code
+* How it combines semantic and keyword searches
+* How to use these insights to modify UI components
+
+***
+
+{% stepper %}
+{% step %}
+#### Prompt
+
+{% code title="prompt.txt" %}
+```
+Please explain how the agent popup code is structured,
+where it lives in the codebase,
+and how it is rendered and called.
+I want to understand the full data flow and structure
+so I can add a new agent button to it.
+```
+{% endcode %}
+{% endstep %}
+
+{% step %}
+#### How Warp’s Agent Searches
+
+Warp begins by using **semantic (vectorized) search** to locate relevant files.\
+Once it finds probable matches (e.g., `agent_management_popup.rs`), it switches to **symbolic search** (`grep` and direct code reads).
+
+Warp intelligently reads large files (splitting them into smaller chunks) to extract relevant definitions and render logic.
+{% endstep %}
+
+{% step %}
+#### Generated Explanation
+
+Warp returns a full breakdown:
+
+* File paths where the popup is defined
+* How it’s rendered within the workspace
+* Which actions and UI components trigger it
+* A step-by-step view of data flow through the popup component
+{% endstep %}
+{% endstepper %}

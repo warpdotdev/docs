@@ -1,0 +1,72 @@
+---
+metaLinks:
+  alternates:
+    - >-
+      https://app.gitbook.com/s/c5dAwvMCRiTxUOdDicqy/developer-workflows/beginner/trigger-reusable-actions-with-saved-prompts
+---
+
+# Trigger Reusable Actions With Saved Prompts
+
+{% embed url="https://www.youtube.com/watch?t=3s&v=pE15zjJmB4E" %}
+
+### 1. Automating Commits
+
+When working on a PR, instead of typing long commit messages, you can use a saved prompt.
+
+Warp’s agent:
+
+* Runs a `git diff` and summarizes the change
+* Generates a clean commit message
+* Pushes it automatically to your branch
+
+You can view the saved prompt in Warp Drive → Team Prompts, where it shows:
+
+* Who created it
+* When it was last used
+* How many times it’s been run
+
+Because it’s saved in your team drive, anyone can reuse it.
+
+***
+
+### 2. Reviewing Code with Prompts
+
+Before creating a PR, you can run another saved prompt.
+
+This agent:
+
+* Reads your current branch
+* Reviews the diffs
+* Highlights logical or stylistic issues
+* Suggests improvements
+
+Example output:
+
+> “Logic bug detected — potential race condition in async handler.”
+
+Warp automatically surfaces real issues before you even open a PR — saving time and reducing back-and-forth with reviewers.
+
+***
+
+### 3. Opening a Pull Request Automatically
+
+Once your code looks clean, trigger your final saved prompt.
+
+Warp will:
+
+* Generate a PR title and description
+* Push the branch
+* Open the PR on GitHub
+* Even link related issues if found in commit messages
+
+***
+
+### 4. Sharing and Team Usage
+
+All saved prompts live in your Team Warp Drive, meaning:
+
+* Anyone can discover and run them
+* You can parameterize or modify them
+* Usage history and creator info are visible
+
+This makes it easy for teams to standardize common actions like code reviews, deployments, or build runs.

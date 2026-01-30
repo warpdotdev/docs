@@ -1,0 +1,49 @@
+---
+metaLinks:
+  alternates:
+    - >-
+      https://app.gitbook.com/s/c5dAwvMCRiTxUOdDicqy/how-warp-uses-warp/creating-rules-for-agents
+---
+
+# Creating Rules For Agents
+
+_Speaker: Maggie — Engineer at Warp_
+
+{% embed url="https://youtu.be/OyrpkeL6WNY?si=E1rDShRA0CisOwZp" %}
+
+### 1. Starting with Agent Mode Evals
+
+I’m currently adding **Evals** (short for evaluations) to test a new feature I’ve been building.
+
+Warp quickly surfaces helpful context — like notebooks and internal docs — written by teammates on how to run Evals.\
+\
+This makes onboarding onto new tasks fast and collaborative.
+
+***
+
+### 2. Adding a Rust Syntax Eval
+
+Next, I want to add an Eval that tests for Rust syntax errors.\
+So I ask Warp to update the Dockerfile to include Rust.
+
+However, the generated Dockerfile installs Rust differently than I wanted.\
+It also includes `gcc` and `python` via a single `apt-get` line, which doesn’t follow our internal conventions.
+
+***
+
+### 3. Stashing Changes & Creating a Rule
+
+Instead of fixing this manually every time, I decide to stash the current changes and create a reusable Rule that encodes our convention:
+
+> Rule Example:\
+> “Always use `apt-get` to install packages and follow the same pattern used for installing Python and GCC.”
+
+This way, future sessions — and even other teammates — can automatically apply the same standard.
+
+***
+
+### 4. Applying the Rule
+
+Now, I just ask Warp’s Agent Mode to try again!
+
+Warp re-runs the request, follows the new rule, and correctly adds Rust with the right syntax. The code now matches our conventions.

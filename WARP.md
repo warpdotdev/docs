@@ -1,3 +1,7 @@
+# Table of Contents
+- [Warp Documentation Style Guide](#warp-documentation-style-guide)
+- [Warp Docs Repository Guide](#warp-docs-repository-guide)
+
 # Warp Documentation Style Guide
 
 This guide establishes standards for writing documentation that matches Warp's voice, tone, and formatting conventions. Use this as a reference when creating or updating any documentation in the GitBook repository.
@@ -187,3 +191,82 @@ Before publishing any documentation:
 ---
 
 *This style guide should evolve with Warp's documentation needs. Update it when establishing new patterns or conventions.*
+
+# Warp Docs Repository Guide
+
+This file provides guidance to WARP (warp.dev) when working with code in this repository.
+
+## What this repo is
+This repo contains the source content for Warp’s GitBook documentation.
+
+## Common commands
+
+### Install dependencies
+This repo uses `honkit` (a GitBook-compatible local renderer) as a dev dependency.
+
+```bash
+npm ci
+```
+
+### Preview docs locally
+Serve the GitBook site from the `docs/` directory.
+
+```bash
+npx honkit serve docs
+```
+
+### Build the static site locally
+Build the GitBook site from the `docs/` directory.
+
+```bash
+npx honkit build docs
+```
+
+### Lint / format
+This repo is configured for the Trunk CLI via `.trunk/trunk.yaml`.
+
+```bash
+trunk check
+trunk fmt
+```
+
+Notes:
+- Enabled linters include `markdownlint`, `yamllint`, `gitleaks`, and `oxipng`.
+- Trunk is not vendored in this repo; install it separately if you want to run these locally.
+
+### Tests
+There is no test suite configured in `package.json` (the `test` script intentionally exits with an error).
+
+## Codebase structure and “big picture”
+
+### GitBook root, navigation, and redirects
+- **GitBook root** - `.gitbook.yaml` sets `root: ./docs/`, so GitBook (and `honkit`) treat `docs/` as the site root.
+- **Sidebar / IA** - Each section directory (e.g., `docs/warp/`, `docs/agent-platform/`) contains its own `SUMMARY.md` that defines the table of contents for that section. If you add/move pages, update the relevant section's SUMMARY.md.
+- **Landing pages** - `README.md` files serve as landing pages for folders and subfolders throughout the documentation hierarchy.
+- **Redirects** - `.gitbook.yaml` contains a large `redirects:` map used to preserve old URLs after content moves. When you rename/move a page that's already published, add a redirect entry.
+
+### Content organization
+Documentation is organized into separate top-level section directories under `docs/`, each with its own `SUMMARY.md`:
+- **warp/** - Warp Terminal and IDE documentation (Getting started, Terminal, Code, Knowledge and collaboration)
+- **agent-platform/** - Agent Platform documentation (Agent, Ambient Agents, Integrations, Platform)
+- **reference/** - Technical reference (CLI, API & SDK)
+- **support-and-community/** - Support and community resources (Troubleshooting, Plans and billing, Privacy and security, Community)
+- **enterprise/** - Enterprise documentation
+- **changelog/** - Changelog
+- **developers/** - Developer resources (API specs)
+
+### Content model
+The docs site has multiple levels of hierarchy:
+- **Top-level category** (e.g., `docs/warp/`)
+  - **Subcategories** (e.g., `docs/warp/terminal/`)
+    - **Articles** (e.g., `docs/warp/code/code-overview.md`)
+
+We organize content in logical groupings that help people find what they are searching for. We aim to limit the layers of hierarchy, with few nested subcategories, which can make it difficult to find help.
+
+**Content order**: Organize content predictably in categories and subcategories, from broadest applicability to most specific. General order is: conceptual content, reference content, procedures, troubleshooting information.
+
+### Assets
+GitBook-managed images and GIFs live in `docs/.gitbook/assets/`.
+
+### OpenAPI spec and CI workflow
+`docs/developers/agent-api-openapi.yaml` is a first-class artifact: `.github/workflows/stainless.yml` watches that file on pull requests and uploads it to Stainless for preview/merge.

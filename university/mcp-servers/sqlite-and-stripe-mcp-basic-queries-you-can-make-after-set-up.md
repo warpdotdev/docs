@@ -1,0 +1,102 @@
+---
+metaLinks:
+  alternates:
+    - >-
+      https://app.gitbook.com/s/c5dAwvMCRiTxUOdDicqy/mcp-servers/sqlite-and-stripe-mcp-basic-queries-you-can-make-after-set-up
+---
+
+# SQLite and Stripe MCP: Basic Queries You Can Make After Set Up
+
+This tutorial teaches you how to use **MCP servers** to connect Warp to **Stripe** and **SQLite**, showing how AI transforms the command line into a connected, conversational workspace.
+
+{% embed url="https://x.com/svpino/status/1937896922297311390" %}
+
+{% stepper %}
+{% step %}
+#### Enabling MCP in Warp
+
+Warp now supports configuring any MCP server directly from the terminal.
+
+To set it up:
+
+* Open **Settings → AI → MCP Servers** in Warp.
+* Click **Add Server**, and choose from a list of available MCP configurations.
+* Once added, Warp automatically connects and authorizes the agent to use those tools.
+
+In this demo, two MCP servers were enabled:
+
+* **SQLite Server** – for running local database queries
+* **Stripe Server** – for retrieving and analyzing payment data
+{% endstep %}
+
+{% step %}
+#### Querying Stripe
+
+Once configured, you can issue conversational prompts to the terminal — no manual API calls required.
+
+Example — Querying Stripe
+
+```
+How many customers do I have in Stripe?
+```
+
+Warp connects to the Stripe MCP server, confirms the action, and returns:
+
+> “You have 3 customers.”
+
+You can continue naturally:
+
+```
+List the payments made by the first customer.
+```
+
+The agent retrieves seven payment intents — one successful, six canceled — all live from your Stripe test account.
+
+Note: MCP’s confirmation prompts can be disabled once you trust a given server or agent.
+{% endstep %}
+
+{% step %}
+#### Querying SQLite
+
+The same workflow applies to databases.
+
+Example — Querying SQLite
+
+```
+What SQL tables do I have access to?
+```
+
+Warp lists all available tables from the local SQLite database.
+
+```
+Break down female penguins by island.
+```
+
+Warp translates this into a structured SQL query and executes it, returning:
+
+> “Bisco Island — 51 female penguins; Dream Island — ...”
+
+Follow-up prompts work contextually:
+
+```
+Do the same with male penguins.
+```
+
+Warp runs the updated SQL query and displays results inline.
+{% endstep %}
+
+{% step %}
+#### Why This Matters
+
+This demo highlights how Warp’s AI and MCP support combine to make your terminal:
+
+* **Connected** — Access cloud APIs, local data, or enterprise tools instantly.
+* **Conversational** — Run natural language prompts for structured data retrieval.
+{% endstep %}
+
+{% step %}
+{% hint style="info" %}
+“Even two years ago, no one could’ve imagined a terminal capable of this. Warp has officially redefined what a terminal can be.” — Santiago
+{% endhint %}
+{% endstep %}
+{% endstepper %}

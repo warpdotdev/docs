@@ -1,0 +1,58 @@
+---
+metaLinks:
+  alternates:
+    - >-
+      https://app.gitbook.com/s/c5dAwvMCRiTxUOdDicqy/developer-workflows/power-user/how-to-set-coding-best-practices
+---
+
+# How To: Set Coding Best Practices
+
+Learn how to use Warp’s Rules to enforce coding style, documentation quality, and consistency across projects.
+
+{% embed url="https://youtu.be/AuM2OIvXlnY?si=rxnQH5TH-5vj0LMf" %}
+
+***
+
+## Intro
+
+This tutorial teaches you how to create coding Rules that make AI follow your team’s **best practices** automatically.\
+\
+By specifying formatting, style preferences, and documentation standards, Warp ensures consistent, high-quality code across your repositories.
+
+***
+
+{% stepper %}
+{% step %}
+#### The Problem
+
+Developers often have different habits — formatting styles, TypeScript conventions, or comment quality.\
+Without clear rules, AI-generated code can be inconsistent or hard to maintain.
+{% endstep %}
+
+{% step %}
+#### The Rule Setup
+
+Define Rules that enforce formatting, type preferences, and doc quality.
+
+**Example Rule**
+
+```
+Rule: Code Authoring Standards
+- Always format and check work before returning results.
+- Prefer `types` over `interfaces` in TypeScript.
+- Apply concise, human-readable JS Docs using the Hemingway test.
+```
+
+{% hint style="info" %}
+The **Hemingway test** ensures code comments are simple and clear — short sentences, active voice, and no unnecessary complexity.
+{% endhint %}
+{% endstep %}
+
+{% step %}
+#### Benefits
+
+* Encourages readable, maintainable code
+* Improves documentation clarity
+* Prevents style drift across AI contributions
+{% endstep %}
+{% endstepper %}

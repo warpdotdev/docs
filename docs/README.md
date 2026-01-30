@@ -1,39 +1,142 @@
 ---
 description: >-
-  Warp is the terminal for AI development, built to help developers ship faster
-  with agents.
+  Submit your feedback, bugs or feature requests to Warp as well as logs,
+  debugging id, bugs, feature requests, novel ideas, etc.
 ---
 
-# Quickstart Guide
+# Sending Feedback & Logs
 
-## Key Features:
+### Sending Warp feedback
 
-* [**Code**](code/code-overview.md): Warp is optimized for writing code by prompt on large, existing codebases. When Warp detects an opportunity to write code, it will enter an advanced code generation flow.
-* [**Modern terminal**](terminal/editor/): A fast, editor-style input environment with cursor movement, multi-line editing, and rich completions. Every command or prompt appears in clean, navigable Blocks. Includes built-in SSH support, flexible window management, and full Mac/Windows/Linux compatibility.
-* [**Agents**](agents/agents-overview.md): Warp autodetects whether you are typing a natural language prompt or a command. Use natural language prompts to have Warp write code, debug issues, or write commands for you.
-* [**Multi-agent management**](agents/using-agents/managing-agents.md): Warp is designed to have multiple agents running at once. Agents will send you notifications if they require your input, and you can see all your agents in one panel.
-* [**Universal Input**](terminal/universal-input/): Type naturally and let Warp understand what you mean. You can talk to it in plain English, ask for fixes or explanations, and invoke agents without switching modes or special syntax.
-* [**Code Review**](code/code-review/): Warp surfaces agent-generated code diffs in an integrated diff view, letting you inspect changes, refine them with natural language, or apply them when ready. You stay in control while agents produce and update code across your repo.
-* [**Ambient Agents (Beta)**](ambient-agents/ambient-agents-overview.md): Warp can also run agents asynchronously in the cloud. Ambient Agents are designed for background, long-running, or event-driven work, like PR review, issue triage, dependency updates, and routine repo maintenance.&#x20;
-* [**Integrations**](integrations/integrations-overview.md): Warp connects directly with your team's tools. Use [Slack](integrations/slack.md), [Linear](integrations/linear.md), [GitHub Actions](integrations/github-actions/), and other integrations to trigger agents in the cloud, run workflows on your codebase, and make changes asynchronously.
-* [**Platform**](platform/warp-platform.md): The underlying infrastructure that powers Ambient Agents and integrations, including the CLI, Agent API/SDK, orchestration layer, environments/execution, secrets, and management/observability.
+* Open a new bugs or feature request in our [GitHub repository](https://github.com/warpdotdev/warp/issues/new/choose).
+* Join our [Warp Community Slack](https://go.warp.dev/join-preview) and share feedback in **#feedback-general**, or **#feedback-preview** if it is specific to [Warp Preview](support-and-community/community/warp-preview-and-alpha-program.md).
+* Join our [Discord](https://discord.com/invite/warpdotdev) server, and ask questions or share feedback in [`#questions-and-feedback`](https://discord.com/channels/851854972600451112/1154432424873296012).
+* For security issues or questions, email [security@warp.dev](mailto:security@warp.dev).
+* For questions about privacy, email [privacy@warp.dev](mailto:privacy@warp.dev).
 
-You can fully customize Warp's appearance, prompts, settings, and keybindings to fit your preferences. Warp works with zsh, bash, fish, and PowerShell, and is built with Rust for high performance.
+#### Subscriber and Enterprise
 
-***
+* For subscriber technical issues or questions (bugs, credits, etc.), email [support@warp.dev](mailto:support@warp.dev).
+* For subscriber billing issues or questions (refunds, cancellation, etc.), email [billing@warp.dev](mailto:billing@warp.dev).
+* For enterprise, please direct all feedback and issues to your designated Slack Channel.
 
-#### **Learn More**
+<figure><img src=".gitbook/assets/send-feedback-demo.gif" alt="sending feedback from the mac menu and warp essentials"><figcaption><p>Send Feedback</p></figcaption></figure>
 
-For an inside look at how Warp is built, you can read the blog post on [How Warp Works](https://www.warp.dev/blog/how-warp-works). To understand the product philosophy behind Warp’s evolution, see [Warp 2.0: The Agentic Development Environment](https://www.warp.dev/blog/reimagining-coding-agentic-development-environment). To see Warp in action, watch this walkthrough:
+## Gathering Warp Logs
 
-{% embed url="https://youtu.be/0yAL7iA0po4" %}
+You can retrieve Warp's logs by following the instructions for your platform below. Locate the log file and attach it to your GitHub issue or email.
 
-## Join the community
+{% hint style="info" %}
+Warp's logs and crash reports _**do not**_ contain any console input or output. See more on how we handle [Crash Reports and Telemetry](support-and-community/privacy-and-security/privacy.md#what-telemetry-data-are-you-collecting-and-why).
+{% endhint %}
 
-Stay connected to the team at Warp and get updates on the latest releases:
+{% tabs %}
+{% tab title="macOS" %}
+The Warp log files are located at `~/Library/Logs/`.
 
-* Visit Warp's [Blog](https://www.warp.dev/blog) to read about new features and engineering topics.
-* Join Warp's [Slack community](https://go.warp.dev/join-preview) to interact directly with Warp engineers and other developers.
-* Subscribe to Warp's [YouTube](http://www.youtube.com/@warpdotdev) and [TikTok](https://www.tiktok.com/@warp.dev) channels for longer demos and insider stories.
-* Visit [Warp University](https://app.gitbook.com/o/-MbqIZLCtzerswjFm7mh/s/c5dAwvMCRiTxUOdDicqy/) to get end-to-end workflows for coding, deploying, and becoming pro AI developer.
-* Follow Warp on [Twitter](https://twitter.com/warpdotdev) for updates and tips.
+**Warp logs on macOS**
+
+Run the following to zip the Warp logs to your Desktop:
+
+```bash
+zip -j ~/Desktop/warp-logs.zip ~/Library/Logs/warp.log*
+```
+
+**Warp Preview logs on macOS**
+
+Run the following to zip the Warp Preview logs to your Desktop:
+
+```bash
+zip -j ~/Desktop/warp_preview-logs.zip ~/Library/Logs/warp_preview.log*
+```
+
+{% hint style="warning" %}
+If your issue is graphical (e.g. no display of windows) or a crash, please run Warp with the following command to capture more log information:
+
+```bash
+# Run if Warp on macOS is installed
+RUST_LOG=wgpu_core=info,wgpu_hal=info /Applications/Warp.app/Contents/MacOS/stable
+
+# Run if Warp Preview on macOS is installed
+RUST_LOG=wgpu_core=info,wgpu_hal=info /Applications/WarpPreview.app/Contents/MacOS/preview
+```
+{% endhint %}
+{% endtab %}
+
+{% tab title="Windows" %}
+The Warp log files are located at `$env:LOCALAPPDATA\warp\Warp\data\logs\`.
+
+**Warp logs on Windows**
+
+Close Warp and run the following from another terminal to zip the logs to your Desktop:
+
+```powershell
+Compress-Archive -Path "$env:LOCALAPPDATA\warp\Warp\data\logs\warp.log*" -DestinationPath "$([Environment]::GetFolderPath('Desktop'))\warp-logs.zip"
+```
+
+**Warp Preview logs on Windows**
+
+Close Warp Preview and run the following from another terminal to zip the logs to your Desktop:
+
+```powershell
+Compress-Archive -Path "$env:LOCALAPPDATA\warp\WarpPreview\data\logs\warp_preview.log*" -DestinationPath "$([Environment]::GetFolderPath('Desktop'))\warp_preview-logs.zip"
+```
+
+{% hint style="warning" %}
+If your issue is graphical (e.g. no display of windows) or a crash, please run Warp with the following command to capture more log information:
+
+```powershell
+# Run if Warp on Windows is installed for a single user
+$env:RUST_LOG="wgpu_core=info,wgpu_hal=info"; & "$env:LOCALAPPDATA\Programs\Warp\warp.exe"
+
+# Run if Warp on Windows is installed for all users
+$env:RUST_LOG="wgpu_core=info,wgpu_hal=info"; & "$env:PROGRAMFILES\Warp\warp.exe"
+
+# Run if Warp Preview on Windows is installed for a single user
+$env:RUST_LOG="wgpu_core=info,wgpu_hal=info"; & "$env:LOCALAPPDATA\Programs\WarpPreview\preview.exe"
+
+# Run if Warp Preview on Windows is installed for all users
+$env:RUST_LOG="wgpu_core=info,wgpu_hal=info"; & "$env:PROGRAMFILES\WarpPreview\preview.exe"
+```
+{% endhint %}
+{% endtab %}
+
+{% tab title="Linux" %}
+The Warp log files are located at `~/.local/state/warp-terminal/`.
+
+**Warp logs on Linux**
+
+Run the following to zip the Warp logs to your home directory:
+
+```bash
+tar -czf ~/warp-logs.tar.gz -C ~/.local/state/warp-terminal warp.log*
+```
+
+**Warp Preview logs on Linux**
+
+Run the following to zip the Warp Preview logs to your home directory:
+
+```bash
+tar -czf ~/warp_preview-logs.tar.gz -C ~/.local/state/warp-terminal-preview warp_preview.log*
+```
+
+{% hint style="warning" %}
+If your issue is graphical (e.g. no display of windows) or a crash, please run Warp with the following command to capture more log information:
+
+<pre class="language-bash"><code class="lang-bash"># Run if Warp on Linux is installed
+<strong>RUST_LOG=wgpu_core=info,wgpu_hal=info MESA_DEBUG=1 EGL_LOG_LEVEL=debug warp-terminal
+</strong>
+# Run if Warp Preview on Linux is installed
+RUST_LOG=wgpu_core=info,wgpu_hal=info MESA_DEBUG=1 EGL_LOG_LEVEL=debug warp-terminal-preview
+</code></pre>
+{% endhint %}
+{% endtab %}
+{% endtabs %}
+
+## Gathering AI debugging ID <a href="#gathering-ai-debugging-id" id="gathering-ai-debugging-id"></a>
+
+To gather the debugging ID, `RIGHT-CLICK` on the AI conversation block in question and select "Copy debugging ID", then paste that into the [bug report](./#sending-warp-feedback) that you submit so that our team can investigate the issue.
+
+Whenever there is an error in the Agent Conversation, there will also be an option to directly copy the debugging ID for the bug report.
+
+<figure><img src=".gitbook/assets/send-feedback-debugging-information.png" alt=""><figcaption></figcaption></figure>

@@ -1,0 +1,62 @@
+root: ./
+
+redirects:
+    # Old getting-started paths (duplicated from warp space)
+    getting-started/privacy: privacy-and-security/privacy.md
+    getting-started/refer-a-friend: community/refer-a-friend.md
+    getting-started/warp-preview-and-alpha-program: community/warp-preview-and-alpha-program.md
+
+    # Old support-and-billing paths
+    support-and-billing/known-issues: troubleshooting-and-support/known-issues.md
+    support-and-billing/sending-us-feedback: troubleshooting-and-support/sending-us-feedback.md
+    support-and-billing/troubleshooting-login-issues: troubleshooting-and-support/troubleshooting-login-issues.md
+    support-and-billing/updating-warp: troubleshooting-and-support/updating-warp.md
+    support-and-billing/using-warp-offline: troubleshooting-and-support/using-warp-offline.md
+    support-and-billing/uninstalling-warp: troubleshooting-and-support/uninstalling-warp.md
+    support-and-billing/plans-and-pricing: plans-and-billing/plans-and-pricing.md
+    support-and-billing/plans-and-pricing/ai-credits: plans-and-billing/ai-credits.md
+    support-and-billing/plans-and-pricing/add-on-credits: plans-and-billing/add-on-credits.md
+    support-and-billing/plans-and-pricing/bring-your-own-api-key: plans-and-billing/bring-your-own-api-key.md
+    support-and-billing/plans-and-pricing/usage-overages: plans-and-billing/overages-legacy.md
+    support-and-billing/plans-and-pricing/pricing-faqs: plans-and-billing/pricing-faqs.md
+    support-and-billing/licenses: community/open-source-licenses.md
+    support-and-billing/licenses-intro: community/open-source-licenses.md
+
+    # Old support-and-community/plans-pricing-and-billing paths
+    support-and-community/plans-pricing-and-billing: plans-and-billing/plans-and-pricing.md
+    support-and-community/plans-pricing-and-billing/ai-credits: plans-and-billing/ai-credits.md
+    support-and-community/plans-pricing-and-billing/add-on-credits: plans-and-billing/add-on-credits.md
+    support-and-community/plans-pricing-and-billing/bring-your-own-api-key: plans-and-billing/bring-your-own-api-key.md
+    support-and-community/plans-pricing-and-billing/overages-legacy: plans-and-billing/overages-legacy.md
+    support-and-community/plans-pricing-and-billing/pricing-faqs: plans-and-billing/pricing-faqs.md
+
+    # Short plans-pricing-and-billing paths
+    plans-pricing-and-billing: plans-and-billing/plans-and-pricing.md
+    plans-pricing-and-billing/ai-credits: plans-and-billing/ai-credits.md
+    plans-pricing-and-billing/add-on-credits: plans-and-billing/add-on-credits.md
+    plans-pricing-and-billing/bring-your-own-api-key: plans-and-billing/bring-your-own-api-key.md
+    plans-pricing-and-billing/overages-legacy: plans-and-billing/overages-legacy.md
+    plans-pricing-and-billing/pricing-faqs: plans-and-billing/pricing-faqs.md
+
+    # Old privacy/ paths
+    privacy/privacy: privacy-and-security/privacy.md
+    privacy/secret-redaction: privacy-and-security/secret-redaction.md
+    privacy/network-log: privacy-and-security/network-log.md
+
+    # Old community/ paths
+    community/refer-a-friend: community/refer-a-friend.md
+    community/warp-preview-and-alpha-program: community/warp-preview-and-alpha-program.md
+
+    # Old features/ paths (duplicated from warp space)
+    features/network-log: privacy-and-security/network-log.md
+    features/secret-redaction: privacy-and-security/secret-redaction.md
+
+    # Old help/ paths
+    help/sending-us-feedback: troubleshooting-and-support/sending-us-feedback.md
+    help/plans-subscriptions-and-pricing: plans-and-billing/plans-and-pricing.md
+    help/updating-warp: troubleshooting-and-support/updating-warp.md
+    help/using-warp-offline: troubleshooting-and-support/using-warp-offline.md
+    help/uninstalling-warp: troubleshooting-and-support/uninstalling-warp.md
+    help/known-issues: troubleshooting-and-support/known-issues.md
+    help/troubleshooting-login-issues: troubleshooting-and-support/troubleshooting-login-issues.md
+    help/licenses: community/open-source-licenses.md

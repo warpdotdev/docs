@@ -1,0 +1,114 @@
+---
+metaLinks:
+  alternates:
+    - >-
+      https://app.gitbook.com/s/c5dAwvMCRiTxUOdDicqy/developer-workflows/power-user/how-to-configure-yolo-and-strategic-agent-profiles
+---
+
+# How To: Configure YOLO and Strategic Agent Profiles
+
+{% hint style="info" %}
+This tutorial explains how **Agent Profiles** in Warp influence behavior, autonomy, and planning when coding with AI — demonstrated through the NFL Predictor app example.
+{% endhint %}
+
+{% embed url="https://youtu.be/iD0R-8fY-tY?si=FCX9yVq5_BRUognp" %}
+
+{% stepper %}
+{% step %}
+#### Define the Project
+
+I want to create an app that scrapes **NFL data** from the past decade, processes stats like team scores and player performance, and predicts future wins.
+
+The prompt specifies:
+
+* Data sources and constraints
+* Dependencies and CLI commands
+* Implementation details and deliverables
+
+{% code overflow="wrap" %}
+```
+Role & Goal
+You are my AI coding copilot inside Warp. 
+Create a production-ready Python project that ingests 2015–2025 NFL data to power future win projections. 
+
+Specifically: acquire week-level player and team stats, acquire game schedules + final scores (to determine weekly winners), and assemble a clean analytics dataset I can build models on later. Prefer stable/public data sources over brittle HTML scraping. Where scraping is unavoidable, respect robots.txt, add rate-limiting, and make scraping pluggable/optional. 
+
+Primary data sources:
+nflverse/nflreadr static files for weekly player stats and schedules (CSV/Parquet over HTTPS). 
+
+Tech constraints:
+Python 3.11+, no notebooks in the main flow. 
+Deterministic, idempotent pipelines. 
+Strong typing (pydantic) + docstrings. 
+Parquet as the storage format; small sample CSVs for quick checks. 
+CLI via Typer (warp run … friendly). 
+Logging (structlog), retry/backoff (tenacity), polite rate-limits. 
+Zero secrets required for core pipeline. 
+
+Deliverables:
+A fully initialized repo with the scaffold above.
+Implemented CLI + modules to download/ingest 2015–2025 data, compute/normalize fantasy PPR, produce winners by week, and write Parquet outputs. 
+One sample run in the README showing commands and example output counts. 
+If successful, run full 2015–2025. 
+Print a summary table (by season: games, players, weeks) at the end.
+```
+{% endcode %}
+{% endstep %}
+
+{% step %}
+#### Configure the Strategic Agent
+
+**Base Model:** GPT‑5 (for reasoning)\
+**Planning Model:** Claude 4 Opus (for detailed breakdowns)
+
+| Action           | Permission    |
+| ---------------- | ------------- |
+| Apply code diffs | Agent decides |
+| Read files       | Agent decides |
+| Create plans     | Always allow  |
+| Execute commands | Always ask    |
+
+Behavior:
+
+*   The agent starts by asking clarifying questions:
+
+    > “Do you want me to scrape both player stats and schedules or just one first?”\
+    > “Where should raw data be stored — locally or in a database?”
+* It builds a **14-step plan** covering setup, dependencies, validation modules, and pipelines.
+* When the agent requests NFL schedule URLs, the chosen source returns 404 errors.
+* Execution halts — showing that the **Strategic** profile prioritizes verification over progress.
+{% endstep %}
+
+{% step %}
+#### Configure the YOLO Agent
+
+**Permissions:**
+
+| Action                   | Permission   |
+| ------------------------ | ------------ |
+| Apply diffs / read files | Always allow |
+| Create plans             | Never        |
+| Execute commands         | Always allow |
+
+Behavior:
+
+* The YOLO agent skips detailed planning.
+* It produces a **10-step plan** that covers essentials only:
+  * Initialize project
+  * Build CLI
+  * Ingest player data
+  * Compute scores and transformations
+* Instead of using unstable schedule URLs, it focuses on reliable player endpoints — completing a functional data pipeline.
+{% endstep %}
+
+{% step %}
+#### Compare Outcomes
+{% endstep %}
+{% endstepper %}
+
+| Aspect      | Strategic Agent         | YOLO Agent                             |
+| ----------- | ----------------------- | -------------------------------------- |
+| Planning    | Detailed (14 steps)     | Minimal (10 steps)                     |
+| Interaction | Clarifications required | Autonomous                             |
+| Speed       | Slower due to checks    | Faster iteration                       |
+| Output      | Stalled on invalid URLs | Working player dataset + summary table |

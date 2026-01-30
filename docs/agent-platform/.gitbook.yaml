@@ -1,0 +1,56 @@
+root: ./
+
+redirects:
+    # Old features/warp-ai paths (duplicated from warp space)
+    features/warp-ai: agent/agents-overview.md
+    features/warp-ai/agent-mode: agent/using-agents/README.md
+    features/warp-ai/active-ai: agent/active-ai.md
+    features/warp-ai/ai-command-search: agent/generate.md
+    features/warp-ai/generate: agent/generate.md
+    features/ai-command-search: agent/generate.md
+    features/generate: agent/generate.md
+    features/warp-ai/voice: agent/voice.md
+    features/voice: agent/voice.md
+
+    # Old agents/ paths
+    agents/active-ai: agent/active-ai.md
+    agents/agents-overview: agent/agents-overview.md
+    agents/ai-faqs: agent/ai-faqs.md
+    agents/full-terminal-use: agent/full-terminal-use.md
+    agents/generate: agent/generate.md
+    agents/slash-commands: agent/slash-commands.md
+    agents/using-agents: agent/using-agents/README.md
+    agents/using-agents/agent-context: agent/using-agents/agent-context/README.md
+    agents/using-agents/agent-context/blocks-as-context: agent/using-agents/agent-context/blocks-as-context.md
+    agents/using-agents/agent-context/images-as-context: agent/using-agents/agent-context/images-as-context.md
+    agents/using-agents/agent-context/selection-as-context: agent/using-agents/agent-context/selection-as-context.md
+    agents/using-agents/agent-context/urls-as-context: agent/using-agents/agent-context/urls-as-context.md
+    agents/using-agents/agent-context/using-to-add-context: agent/using-agents/agent-context/using-to-add-context.md
+    agents/using-agents/agent-conversations: agent/using-agents/agent-conversations/README.md
+    agents/using-agents/agent-conversations/conversation-forking: agent/using-agents/agent-conversations/conversation-forking.md
+    agents/using-agents/agent-profiles-permissions: agent/using-agents/agent-profiles-permissions.md
+    agents/using-agents/agent-tasklists: agent/using-agents/agent-tasklists.md
+    agents/using-agents/managing-agents: agent/using-agents/managing-agents.md
+    agents/using-agents/model-choice: agent/using-agents/model-choice.md
+    agents/using-agents/planning: agent/using-agents/planning.md
+    agents/using-agents/web-search: agent/using-agents/web-search.md
+    agents/voice: agent/voice.md
+
+    # Old ambient-agents/ paths
+    ambient-agents/agent-secrets: ambient-agents/agent-secrets.md
+    ambient-agents/ambient-agents-overview: ambient-agents/ambient-agents-overview.md
+    ambient-agents/managing-ambient-agents: ambient-agents/managing-ambient-agents/README.md
+    ambient-agents/managing-ambient-agents/scheduled-agents: ambient-agents/managing-ambient-agents/scheduled-agents.md
+    ambient-agents/mcp-servers-for-agents: ambient-agents/mcp-servers-for-agents.md
+
+    # Old integrations/ paths
+    integrations/github-actions: integrations/github-actions/README.md
+    integrations/github-actions/demo-issue-triage-bot: integrations/github-actions/demo-issue-triage-bot.md
+    integrations/integrations-overview: integrations/integrations-overview.md
+    integrations/linear: integrations/linear.md
+    integrations/slack: integrations/slack.md
+
+    # Old platform/ paths
+    platform/deployment-patterns: platform/deployment-patterns.md
+    platform/team-access-billing-and-identity-permissions: platform/team-access-billing-and-identity-permissions.md
+    platform/warp-platform: platform/warp-platform.md

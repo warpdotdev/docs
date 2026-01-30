@@ -1,0 +1,63 @@
+---
+metaLinks:
+  alternates:
+    - >-
+      https://app.gitbook.com/s/c5dAwvMCRiTxUOdDicqy/developer-workflows/power-user/how-to-set-tech-stack-preferences-with-rules
+---
+
+# How To: Set Tech Stack Preferences with Rules
+
+Learn how to guide Warp’s AI to use your favorite tech stack when scaffolding new apps or generating code.
+
+{% embed url="https://youtu.be/W5B6MhZsZ_4?si=Bd9AT0cnW6uiMhKO" %}
+
+***
+
+## Intro
+
+This tutorial walks you through teaching Warp’s AI your **preferred technologies** so it consistently uses the frameworks and stacks you care about.
+
+By setting up tech stack Rules, you make sure every new project follows your conventions — whether you prefer **Astro**, **SvelteKit**, **Next.js**, or something else.
+
+***
+
+## The Problem
+
+When you ask AI to scaffold a new web app, it often defaults to **React** and **Express**, or other older stacks.\
+This creates friction when your workflow is based on modern tools or opinionated frameworks.
+
+Warp solves this by letting you **store your stack preferences** directly as Rules.
+
+***
+
+## The Rule Setup
+
+Create a simple Rule that defines your favorite frameworks for each project type.
+
+### Example Rule
+
+```
+Rule: Tech Stack Preferences
+- Use Astro for websites.
+- Use SvelteKit for desktop apps.
+- Prefer Vite for build tooling.
+- Avoid legacy stacks like Create React App or Express.
+```
+
+Once added, Warp’s AI automatically applies these defaults when generating new projects or updating existing ones.
+
+{% hint style="info" %}
+Think of it like setting a default coding personality for your agent.
+{% endhint %}
+
+***
+
+## Why It Matters
+
+{% hint style="success" %}
+Defining your stack preferences helps the AI:
+
+* Generate **consistent boilerplates**
+* Follow your **current tech standards**
+* Skip outdated or irrelevant dependencies
+{% endhint %}
