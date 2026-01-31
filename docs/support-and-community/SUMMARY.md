@@ -1,6 +1,8 @@
 # Table of contents
 
-## [Troubleshooting and support](troubleshooting-and-support/README.md)
+* [Support and Community](README.md)
+
+## Troubleshooting and support
 
 * [Overview](troubleshooting-and-support/README.md)
 * [Sending Feedback & Logs](troubleshooting-and-support/sending-us-feedback.md)
@@ -10,7 +12,7 @@
 * [Updating Warp](troubleshooting-and-support/updating-warp.md)
 * [Logging Out & Uninstalling](troubleshooting-and-support/logging-out-and-uninstalling.md)
 
-## [Plans and billing](plans-and-billing/README.md)
+## Plans and billing
 
 * [Plans & Pricing](plans-and-billing/plans-and-pricing.md)
 * [AI Credits](plans-and-billing/ai-credits.md)
@@ -19,14 +21,14 @@
 * [Overages (Legacy)](plans-and-billing/overages-legacy.md)
 * [Pricing FAQs](plans-and-billing/pricing-faqs.md)
 
-## [Privacy and security](privacy-and-security/README.md)
+## Privacy and security
 
 * [Privacy](privacy-and-security/privacy.md)
 * [Secret Redaction](privacy-and-security/secret-redaction.md)
 * [Network Log](privacy-and-security/network-log.md)
 
-## [Community](community/README.md)
+## Community
 
-* [Refer a Friend & Earn Rewards](community/refer-a-friend.md)
 * [Warp Preview & Alpha Program](community/warp-preview-and-alpha-program.md)
+* [Refer a Friend & Earn Rewards](community/refer-a-friend.md)
 * [Open Source Licenses](community/open-source-licenses.md)
