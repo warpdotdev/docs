@@ -4,7 +4,6 @@
 
 ## Troubleshooting and support
 
-* [Overview](troubleshooting-and-support/README.md)
 * [Sending Feedback & Logs](troubleshooting-and-support/sending-us-feedback.md)
 * [Known Issues](troubleshooting-and-support/known-issues.md)
 * [Troubleshooting Login](troubleshooting-and-support/troubleshooting-login-issues.md)

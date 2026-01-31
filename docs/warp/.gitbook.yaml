@@ -311,3 +311,4 @@ redirects:
     features/settings: terminal/more-features/settings-sync.md
     getting-started/quickstart: README.md
     getting-started/quickstart-guide/README: README.md
+    appearance/prompt#custom-prompt-compatibility-table: terminal/appearance/prompt.md#shell-prompt-compatibility-table

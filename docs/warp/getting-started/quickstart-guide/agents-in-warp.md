@@ -15,7 +15,7 @@ Describe what you want to do (_you can even use your voice_), and Warp’s agent
 3. Execute shell commands and use the output to guide next steps
 4. Automatically recover from common errors and retry with adjustments.
 5. Learn and integrate with any tool that offers public docs or `--help`.
-6. Leverage your saved [Warp Drive](../../knowledge-and-collaboration/warp-drive/README.md) contents, [MCP servers](../../knowledge-and-collaboration/mcp), and [Rules](../../knowledge-and-collaboration/rules.md) to provide tailored responses.
+6. Leverage your saved [Warp Drive](../../knowledge-and-collaboration/warp-drive/README.md) contents, [MCP servers](../../knowledge-and-collaboration/mcp.md), and [Rules](../../knowledge-and-collaboration/rules.md) to provide tailored responses.
 
 **Give this prompt a try —** [_open the below Prompt in Warp_](https://app.warp.dev/drive/prompt/Clone-and-install-Warps-themes-repository-PkK9Zw16SCD3JKzOUoGuj4)
 
@@ -54,6 +54,6 @@ Define profiles in `Settings > AI` with unique permissions and model choices. Yo
 
 ### Managing multiple agents
 
-You can run multiple agents in Warp simultaneously, monitor their status, and step in when needed—without losing track of what’s happening across your sessions. Each tab includes a [status icon](../../agents/using-agents/managing-agents#agent-status-indicators) that shows the agent’s current state. All of your active agents are tracked in the [Agent Management Panel](../../agents/using-agents/managing-agents#agent-management-panel), located in the top-right corner next to your avatar.
+You can run multiple agents in Warp simultaneously, monitor their status, and step in when needed—without losing track of what’s happening across your sessions. Each tab includes a [status icon](https://docs.warp.dev/agent-platform/agent/using-agents/managing-agents#agent-status-indicators) that shows the agent’s current state. All of your active agents are tracked in the [Agent Management Panel](https://docs.warp.dev/agent-platform/agent/using-agents/managing-agents#agent-management-panel), located in the top-right corner next to your avatar.
 
-Agents will also [notify](../..agents/using-agents/managing-agents#agent-status-indicators) you when they need input, such as permission to run a command or approval to apply a code diff. This lets you focus on other work, knowing you’ll be alerted when your attention is required.
+Agents will also [notify](https://docs.warp.dev/agent-platform/agent/using-agents/managing-agents#agent-status-indicators) you when they need input, such as permission to run a command or approval to apply a code diff. This lets you focus on other work, knowing you’ll be alerted when your attention is required.

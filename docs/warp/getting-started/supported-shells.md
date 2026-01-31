@@ -31,7 +31,7 @@ The changes to your shell will only take effect when you start a new session.
 
 ### Customize Your zsh Shell Environment
 
-Zsh can be customized via the `~/.zshrc` file, which runs whenever a new session starts (window, tab, or pane). Use it to set environment variables, aliases, and customize the [prompt](../../documentation/terminal/appearance/prompt.md).
+Zsh can be customized via the `~/.zshrc` file, which runs whenever a new session starts (window, tab, or pane). Use it to set environment variables, aliases, and customize the [prompt](../terminal/appearance/prompt.md).
 
 #### Editing the .zshrc File
 
@@ -47,7 +47,7 @@ Apply changes by running `source ~/.zshrc` or restarting Warp/opening a new sess
 
 ### Customize Your Bash Shell Environment
 
-Bash is pre-installed on macOS and can be customized using `~/.bashrc` (for non-login shells) or `~/.bash_profile` (for login shells). Use these files to set environment variables, aliases, and customize the [prompt](../../documentation/terminal/appearance/prompt.md).
+Bash is pre-installed on macOS and can be customized using `~/.bashrc` (for non-login shells) or `~/.bash_profile` (for login shells). Use these files to set environment variables, aliases, and customize the [prompt](../terminal/appearance/prompt.md).
 
 #### Editing the .bashrc File
 

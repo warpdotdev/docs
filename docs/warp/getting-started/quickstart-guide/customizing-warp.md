@@ -30,6 +30,6 @@ There are a number of behavior settings and features that will help you customiz
 * [Auto suggestions](../../terminal/command-completions/autosuggestions.md): As you type, Warp will automatically suggest commands based on shell history and possible completions.
 * [Completions](../../terminal/command-completions/completions.md): When you press TAB, Warp will suggest commands, option names, and path parameters for you. Customize your TAB key behavior under `Settings > Features`.
 * [Vim keybindings](../../terminal/editor/vim.md): Warp supports default Vim keybindings, allowing for keyboard-driven text editing.
-* [Keyboard shortcuts](../../terminal/keyboard-shortcuts.md): Warp supports commonly used keyboard shortcuts. You can also set custom keyboard shortcuts by creating new commands or editing existing shortcuts.
-* [Open files and links](../../terminal/files-and-links.md): Using your cursor, you can open files, folders, and URL links that are within Blocks. You can also [configure the default editor to open files](../../terminal/files-and-links.md#files-and-links-1).
+* [Keyboard shortcuts](../keyboard-shortcuts.md): Warp supports commonly used keyboard shortcuts. You can also set custom keyboard shortcuts by creating new commands or editing existing shortcuts.
+* [Open files and links](../../terminal/more-features/files-and-links.md): Using your cursor, you can open files, folders, and URL links that are within Blocks. You can also [configure the default editor to open files](../../terminal/more-features/files-and-links.md#files-and-links-1).
 * [Command Corrections](../../terminal/entry/command-corrections.md): Get auto-correct suggestions on commands to catch typos, forgotten flags, and general console errors.
