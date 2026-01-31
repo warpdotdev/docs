@@ -2,7 +2,6 @@ root: ./
 
 redirects:
     # Old getting-started paths (duplicated from warp space)
-    getting-started/privacy: privacy-and-security/privacy.md
     getting-started/refer-a-friend: community/refer-a-friend.md
     getting-started/warp-preview-and-alpha-program: community/warp-preview-and-alpha-program.md
 

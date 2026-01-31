@@ -91,7 +91,6 @@ redirects:
     features/files-and-links: terminal/more-features/files-and-links.md
     features/markdown-viewer: terminal/more-features/markdown-viewer.md
     features/working-directory: terminal/more-features/working-directory.md
-    features/smart-select: terminal/more-features/text-selection.md
     features/full-screen-apps: terminal/more-features/full-screen-apps.md
     features/keyboard-shortcuts: getting-started/keyboard-shortcuts.md
     features/notifications: terminal/more-features/notifications.md
@@ -106,7 +105,7 @@ redirects:
     how-does-warp-compare/terminal-features: terminal/comparisons/terminal-features.md
 
     # Help redirects (to warp)
-    help/changelog: getting-started/changelog.md
+    help/changelog: changelog/README.md
 
     # Code section (paths that already include code/)
     code/code-editor: code/code-editor/README.md
@@ -120,7 +119,7 @@ redirects:
     code/reviewing-code: code/reviewing-code.md
 
     # Getting started section
-    getting-started/changelog: getting-started/changelog.md
+    getting-started/changelog: changelog/README.md
     getting-started/keyboard-shortcuts: getting-started/keyboard-shortcuts.md
     getting-started/migrate-to-warp: getting-started/migrate-to-warp.md
     getting-started/quickstart-guide/agents-in-warp: getting-started/quickstart-guide/agents-in-warp.md

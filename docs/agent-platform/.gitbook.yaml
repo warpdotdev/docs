@@ -38,7 +38,6 @@ redirects:
 
     # Old ambient-agents/ paths
     ambient-agents/agent-secrets: ambient-agents/agent-secrets.md
-    ambient-agents/ambient-agents-overview: ambient-agents/ambient-agents-overview.md
     ambient-agents/managing-ambient-agents: ambient-agents/managing-ambient-agents/README.md
     ambient-agents/managing-ambient-agents/scheduled-agents: ambient-agents/managing-ambient-agents/scheduled-agents.md
     ambient-agents/mcp-servers-for-agents: ambient-agents/mcp-servers-for-agents.md
