@@ -48,6 +48,15 @@ You can use the model picker in your prompt input to quickly switch between mode
 
 To change models, click the displayed model name (for example, _Claude Sonnet 4.5_) to open a dropdown with all supported options. Your selection will automatically persist for future prompts.
 
+### Model fallback
+
+Warp uses a model fallback system to ensure uninterrupted service if your selected model becomes temporarily unavailable due to provider outages or capacity issues.
+
+**How it works:**
+* If your selected model isn't available, Warp automatically uses a fallback model from a predefined chain to continue your conversation without errors.
+* As soon as your originally selected model becomes available again, Warp automatically switches back to it.
+* The fallback model is selected to provide comparable quality and capabilities to your original choice.
+
 ### Configuring models per Agent Profile
 
 You can configure the base and planning models for each [Agent Profiles & Permissions](agent-profiles-permissions.md), defining the Agent’s autonomy, tool access, and other permissions.
