@@ -104,9 +104,6 @@ redirects:
     how-does-warp-compare/performance: terminal/comparisons/performance.md
     how-does-warp-compare/terminal-features: terminal/comparisons/terminal-features.md
 
-    # Help redirects (to warp)
-    help/changelog: changelog/README.md
-
     # Code section (paths that already include code/)
     code/code-editor: code/code-editor/README.md
     code/code-editor/code-editor-vim-keybindings: code/code-editor/code-editor-vim-keybindings.md
@@ -119,7 +116,6 @@ redirects:
     code/reviewing-code: code/reviewing-code.md
 
     # Getting started section
-    getting-started/changelog: changelog/README.md
     getting-started/keyboard-shortcuts: getting-started/keyboard-shortcuts.md
     getting-started/migrate-to-warp: getting-started/migrate-to-warp.md
     getting-started/quickstart-guide/agents-in-warp: getting-started/quickstart-guide/agents-in-warp.md
@@ -211,98 +207,6 @@ redirects:
     terminal/windows/global-hotkey: terminal/windows/global-hotkey.md
     terminal/windows/split-panes: terminal/windows/split-panes.md
     terminal/windows/tabs: terminal/windows/tabs.md
-
-    # Cross-space redirects to agent-platform
-    features/warp-ai: agent-platform/agent/agents-overview.md
-    features/warp-ai/agent-mode: agent-platform/agent/using-agents/README.md
-    features/warp-ai/active-ai: agent-platform/agent/active-ai.md
-    features/warp-ai/ai-command-search: agent-platform/agent/generate.md
-    features/warp-ai/generate: agent-platform/agent/generate.md
-    features/ai-command-search: agent-platform/agent/generate.md
-    features/generate: agent-platform/agent/generate.md
-    features/warp-ai/voice: agent-platform/agent/voice.md
-    features/voice: agent-platform/agent/voice.md
-    agents/active-ai: agent-platform/agent/active-ai.md
-    agents/agents-overview: agent-platform/agent/agents-overview.md
-    agents/ai-faqs: agent-platform/agent/ai-faqs.md
-    agents/full-terminal-use: agent-platform/agent/full-terminal-use.md
-    agents/generate: agent-platform/agent/generate.md
-    agents/slash-commands: agent-platform/agent/slash-commands.md
-    agents/using-agents: agent-platform/agent/using-agents/README.md
-    agents/using-agents/agent-context: agent-platform/agent/using-agents/agent-context/README.md
-    agents/using-agents/agent-context/blocks-as-context: agent-platform/agent/using-agents/agent-context/blocks-as-context.md
-    agents/using-agents/agent-context/images-as-context: agent-platform/agent/using-agents/agent-context/images-as-context.md
-    agents/using-agents/agent-context/selection-as-context: agent-platform/agent/using-agents/agent-context/selection-as-context.md
-    agents/using-agents/agent-context/urls-as-context: agent-platform/agent/using-agents/agent-context/urls-as-context.md
-    agents/using-agents/agent-context/using-to-add-context: agent-platform/agent/using-agents/agent-context/using-to-add-context.md
-    agents/using-agents/agent-conversations: agent-platform/agent/using-agents/agent-conversations/README.md
-    agents/using-agents/agent-conversations/conversation-forking: agent-platform/agent/using-agents/agent-conversations/conversation-forking.md
-    agents/using-agents/agent-profiles-permissions: agent-platform/agent/using-agents/agent-profiles-permissions.md
-    agents/using-agents/agent-tasklists: agent-platform/agent/using-agents/agent-tasklists.md
-    agents/using-agents/managing-agents: agent-platform/agent/using-agents/managing-agents.md
-    agents/using-agents/model-choice: agent-platform/agent/using-agents/model-choice.md
-    agents/using-agents/planning: agent-platform/agent/using-agents/planning.md
-    agents/using-agents/web-search: agent-platform/agent/using-agents/web-search.md
-    agents/voice: agent-platform/agent/voice.md
-    ambient-agents/agent-secrets: agent-platform/ambient-agents/agent-secrets.md
-    ambient-agents/ambient-agents-overview: agent-platform/ambient-agents/ambient-agents-overview.md
-    ambient-agents/managing-ambient-agents: agent-platform/ambient-agents/managing-ambient-agents/README.md
-    ambient-agents/managing-ambient-agents/scheduled-agents: agent-platform/ambient-agents/managing-ambient-agents/scheduled-agents.md
-    ambient-agents/mcp-servers-for-agents: agent-platform/ambient-agents/mcp-servers-for-agents.md
-    integrations/github-actions: agent-platform/integrations/github-actions/README.md
-    integrations/github-actions/demo-issue-triage-bot: agent-platform/integrations/github-actions/demo-issue-triage-bot.md
-    integrations/integrations-overview: agent-platform/integrations/integrations-overview.md
-    integrations/linear: agent-platform/integrations/linear.md
-    integrations/slack: agent-platform/integrations/slack.md
-    platform/deployment-patterns: agent-platform/platform/deployment-patterns.md
-    platform/team-access-billing-and-identity-permissions: agent-platform/platform/team-access-billing-and-identity-permissions.md
-    platform/warp-platform: agent-platform/platform/warp-platform.md
-
-    # Cross-space redirects to support-and-community
-    getting-started/privacy: support-and-community/privacy-and-security/privacy.md
-    getting-started/refer-a-friend: support-and-community/community/refer-a-friend.md
-    getting-started/warp-preview-and-alpha-program: support-and-community/community/warp-preview-and-alpha-program.md
-    support-and-billing/known-issues: support-and-community/troubleshooting-and-support/known-issues.md
-    support-and-billing/sending-us-feedback: support-and-community/troubleshooting-and-support/sending-us-feedback.md
-    support-and-billing/troubleshooting-login-issues: support-and-community/troubleshooting-and-support/troubleshooting-login-issues.md
-    support-and-billing/updating-warp: support-and-community/troubleshooting-and-support/updating-warp.md
-    support-and-billing/using-warp-offline: support-and-community/troubleshooting-and-support/using-warp-offline.md
-    support-and-billing/uninstalling-warp: support-and-community/troubleshooting-and-support/uninstalling-warp.md
-    support-and-billing/plans-and-pricing: support-and-community/plans-and-billing/plans-and-pricing.md
-    support-and-billing/plans-and-pricing/ai-credits: support-and-community/plans-and-billing/ai-credits.md
-    support-and-billing/plans-and-pricing/add-on-credits: support-and-community/plans-and-billing/add-on-credits.md
-    support-and-billing/plans-and-pricing/bring-your-own-api-key: support-and-community/plans-and-billing/bring-your-own-api-key.md
-    support-and-billing/plans-and-pricing/usage-overages: support-and-community/plans-and-billing/overages-legacy.md
-    support-and-billing/plans-and-pricing/pricing-faqs: support-and-community/plans-and-billing/pricing-faqs.md
-    support-and-community/plans-pricing-and-billing: support-and-community/plans-and-billing/plans-and-pricing.md
-    support-and-community/plans-pricing-and-billing/ai-credits: support-and-community/plans-and-billing/ai-credits.md
-    support-and-community/plans-pricing-and-billing/add-on-credits: support-and-community/plans-and-billing/add-on-credits.md
-    support-and-community/plans-pricing-and-billing/bring-your-own-api-key: support-and-community/plans-and-billing/bring-your-own-api-key.md
-    support-and-community/plans-pricing-and-billing/overages-legacy: support-and-community/plans-and-billing/overages-legacy.md
-    support-and-community/plans-pricing-and-billing/pricing-faqs: support-and-community/plans-and-billing/pricing-faqs.md
-    plans-pricing-and-billing: support-and-community/plans-and-billing/plans-and-pricing.md
-    plans-pricing-and-billing/ai-credits: support-and-community/plans-and-billing/ai-credits.md
-    plans-pricing-and-billing/add-on-credits: support-and-community/plans-and-billing/add-on-credits.md
-    plans-pricing-and-billing/bring-your-own-api-key: support-and-community/plans-and-billing/bring-your-own-api-key.md
-    plans-pricing-and-billing/overages-legacy: support-and-community/plans-and-billing/overages-legacy.md
-    plans-pricing-and-billing/pricing-faqs: support-and-community/plans-and-billing/pricing-faqs.md
-    support-and-billing/licenses: support-and-community/community/open-source-licenses.md
-    support-and-billing/licenses-intro: support-and-community/community/open-source-licenses.md
-    privacy/privacy: support-and-community/privacy-and-security/privacy.md
-    privacy/secret-redaction: support-and-community/privacy-and-security/secret-redaction.md
-    privacy/network-log: support-and-community/privacy-and-security/network-log.md
-    community/refer-a-friend: support-and-community/community/refer-a-friend.md
-    community/warp-preview-and-alpha-program: support-and-community/community/warp-preview-and-alpha-program.md
-    features/network-log: support-and-community/privacy-and-security/network-log.md
-    features/secret-redaction: support-and-community/privacy-and-security/secret-redaction.md
-    help/sending-us-feedback: support-and-community/troubleshooting-and-support/sending-us-feedback.md
-    help/plans-subscriptions-and-pricing: support-and-community/plans-and-billing/plans-and-pricing.md
-    help/updating-warp: support-and-community/troubleshooting-and-support/updating-warp.md
-    help/using-warp-offline: support-and-community/troubleshooting-and-support/using-warp-offline.md
-    help/uninstalling-warp: support-and-community/troubleshooting-and-support/uninstalling-warp.md
-    help/known-issues: support-and-community/troubleshooting-and-support/known-issues.md
-    help/troubleshooting-login-issues: support-and-community/troubleshooting-and-support/troubleshooting-login-issues.md
-    help/licenses: support-and-community/community/open-source-licenses.md
 
     # Since restructure
     features/prompt: terminal/appearance/prompt.md

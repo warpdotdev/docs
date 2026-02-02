@@ -55,8 +55,8 @@ redirects:
     platform/warp-platform: platform/warp-platform.md
 
     # Since restructure
-    ambient-agents/ambient-agents-overview: agent-platform/ambient-agents/ambient-agents-overview.md
-    features/ai: agent-platform/README.md
-    agents/autonomy: agent-platform/README.md
-    features/ai/model-choice: agent-platform/agent/using-agents/model-choice.md
+    ambient-agents/ambient-agents-overview: ambient-agents/ambient-agents-overview.md
+    features/ai: README.md
+    agents/autonomy: README.md
+    features/ai/model-choice: agent/using-agents/model-choice.md
     using-agents/managing-agents: agent/using-agents/managing-agents.md
