@@ -43,7 +43,7 @@ The `warp-agent-action` is a GitHub Action that wraps the Warp CLI and:
 
 To use Warp agents in GitHub Actions, you need:
 
-* A [**Warp API Key**](https://docs.warp.dev/developers/cli#api-key-authentication) stored as a [GitHub secret](https://docs.github.com/en/actions/concepts/security/secrets)
+* A [**Warp API Key**](https://docs.warp.dev/reference/cli/cli#generating-api-keys) stored as a [GitHub secret](https://docs.github.com/en/actions/concepts/security/secrets)
 * A workflow with permissions that match your intended actions (for example, write access to PRs if the agent should commit or comment)
 * The `warp-agent-action` step added to your workflow
 * Familiarity with GitHub Actions concepts — see the official docs for [GitHub Actions](https://docs.github.com/en/actions)
@@ -120,6 +120,15 @@ with:
 ```
 
 This posts an [Ambient Agents Session Sharing link](../../knowledge-and-collaboration/session-sharing/ambient-agents-session-sharing.md) to the job logs. Anyone with the link can inspect the agent’s execution directly.
+
+The session sharing option also accepts multi-line configuration for the recipients of the share link.
+
+```
+with:
+  share:
+    | jane@example.com
+    | john@example.com
+```
 
 ***
 
