@@ -14,6 +14,52 @@ servers:
     description: Production server
 
 paths:
+  /agent:
+    get:
+      summary: List available agents
+      description: |
+        Retrieve a list of available agents (skills) that can be used to run tasks.
+        Agents are discovered from environments or a specific repository.
+      operationId: listAgents
+      tags:
+        - agent
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: repo
+          in: query
+          description: |
+            Optional repository specification to list agents from (format: "owner/repo").
+            If not provided, lists agents from all accessible environments.
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of available agents
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAgentsResponse'
+        '400':
+          description: Invalid repository specification
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
   /agent/run:
     post:
       summary: Run an agent task
@@ -218,6 +264,397 @@ paths:
                 $ref: '#/components/schemas/Error'
         '404':
           description: Run not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /agent/runs/{runId}/cancel:
+    post:
+      summary: Cancel a run
+      description: |
+        Cancel an agent run that is currently queued or in progress.
+        Once cancelled, the run will transition to a failed state.
+      operationId: cancelRun
+      tags:
+        - agent
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: runId
+          in: path
+          description: The unique identifier of the run to cancel
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Run cancelled successfully
+          content:
+            application/json:
+              schema:
+                type: string
+                description: The ID of the cancelled run
+        '400':
+          description: Missing run ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: No permission to cancel run
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Run not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /agent/schedules:
+    post:
+      summary: Create a scheduled agent
+      description: |
+        Create a new scheduled agent that runs on a cron schedule.
+        The agent will be triggered automatically based on the cron expression.
+      operationId: createScheduledAgent
+      tags:
+        - schedules
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateScheduledAgentRequest'
+            examples:
+              simple:
+                summary: Simple daily schedule
+                value:
+                  name: "Daily Code Review"
+                  cron_schedule: "0 9 * * *"
+                  prompt: "Review open pull requests and provide feedback"
+                  enabled: true
+              withConfig:
+                summary: With agent config
+                value:
+                  name: "Weekly Report"
+                  cron_schedule: "0 10 * * 1"
+                  prompt: "Generate weekly status report"
+                  enabled: true
+                  agent_config:
+                    model_id: "claude-sonnet-4"
+      responses:
+        '201':
+          description: Scheduled agent created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduledAgentItem'
+        '400':
+          description: Invalid request (missing required fields, invalid cron expression)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: No permission or feature not available
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    get:
+      summary: List scheduled agents
+      description: |
+        Retrieve all scheduled agents accessible to the authenticated user.
+        Results are sorted alphabetically by name.
+      operationId: listScheduledAgents
+      tags:
+        - schedules
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of scheduled agents
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListScheduledAgentsResponse'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /agent/schedules/{scheduleId}:
+    get:
+      summary: Get scheduled agent details
+      description: |
+        Retrieve detailed information about a specific scheduled agent,
+        including its configuration, history, and next scheduled run time.
+      operationId: getScheduledAgent
+      tags:
+        - schedules
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: scheduleId
+          in: path
+          description: The unique identifier of the scheduled agent
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Scheduled agent details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduledAgentItem'
+        '400':
+          description: Missing schedule ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: No permission to access schedule
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Schedule not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: Update a scheduled agent
+      description: |
+        Update an existing scheduled agent's configuration.
+        All fields except agent_config are required.
+      operationId: updateScheduledAgent
+      tags:
+        - schedules
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: scheduleId
+          in: path
+          description: The unique identifier of the scheduled agent
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateScheduledAgentRequest'
+      responses:
+        '200':
+          description: Scheduled agent updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduledAgentItem'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: No permission to update schedule
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Schedule not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: Delete a scheduled agent
+      description: |
+        Delete a scheduled agent. This will stop all future scheduled runs.
+      operationId: deleteScheduledAgent
+      tags:
+        - schedules
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: scheduleId
+          in: path
+          description: The unique identifier of the scheduled agent
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Scheduled agent deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteScheduledAgentResponse'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: No permission to delete schedule
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Schedule not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /agent/schedules/{scheduleId}/pause:
+    post:
+      summary: Pause a scheduled agent
+      description: |
+        Pause a scheduled agent. The agent will not run until resumed.
+        This sets the enabled flag to false.
+      operationId: pauseScheduledAgent
+      tags:
+        - schedules
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: scheduleId
+          in: path
+          description: The unique identifier of the scheduled agent
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Scheduled agent paused successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduledAgentItem'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: No permission to pause schedule
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Schedule not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /agent/schedules/{scheduleId}/resume:
+    post:
+      summary: Resume a scheduled agent
+      description: |
+        Resume a paused scheduled agent. The agent will start running
+        according to its cron schedule. This sets the enabled flag to true.
+      operationId: resumeScheduledAgent
+      tags:
+        - schedules
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: scheduleId
+          in: path
+          description: The unique identifier of the scheduled agent
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Scheduled agent resumed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduledAgentItem'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: No permission to resume schedule
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Schedule not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
           content:
             application/json:
               schema:
@@ -527,6 +964,13 @@ components:
         environment_id:
           type: string
           description: UID of the environment to run the agent in
+        skill_spec:
+          type: string
+          description: |
+            Skill specification identifying which agent skill to use.
+            Format: "{owner}/{repo}:{skill_path}"
+            Example: "warpdotdev/warp-server:.claude/skills/deploy/SKILL.md"
+            Use the list agents endpoint to discover available skills.
         mcp_servers:
           type: object
           additionalProperties:
@@ -577,3 +1021,263 @@ components:
         error:
           type: string
           description: Human-readable error message
+
+    ScheduledAgentItem:
+      type: object
+      required:
+        - id
+        - name
+        - cron_schedule
+        - enabled
+        - prompt
+        - created_at
+        - updated_at
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the scheduled agent
+        name:
+          type: string
+          description: Human-readable name for the schedule
+        cron_schedule:
+          type: string
+          description: Cron expression defining when the agent runs (e.g., "0 9 * * *" for daily at 9am UTC)
+        enabled:
+          type: boolean
+          description: Whether the schedule is currently active
+        prompt:
+          type: string
+          description: The prompt/instruction for the agent to execute
+        last_spawn_error:
+          type: string
+          nullable: true
+          description: Error message from the last failed spawn attempt, if any
+        agent_config:
+          $ref: '#/components/schemas/AmbientAgentConfig'
+        environment:
+          allOf:
+            - $ref: '#/components/schemas/CloudEnvironmentConfig'
+          description: Resolved environment configuration (if agent_config references an environment_id)
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the schedule was created (RFC3339)
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when the schedule was last updated (RFC3339)
+        created_by:
+          $ref: '#/components/schemas/RunCreatorInfo'
+        updated_by:
+          $ref: '#/components/schemas/RunCreatorInfo'
+        history:
+          $ref: '#/components/schemas/ScheduledAgentHistoryItem'
+
+    ScheduledAgentHistoryItem:
+      type: object
+      description: Scheduler-derived history metadata for a scheduled agent
+      properties:
+        last_ran:
+          type: string
+          format: date-time
+          nullable: true
+          description: Timestamp of the last successful run (RFC3339)
+        next_run:
+          type: string
+          format: date-time
+          nullable: true
+          description: Timestamp of the next scheduled run (RFC3339)
+
+    CreateScheduledAgentRequest:
+      type: object
+      required:
+        - name
+        - cron_schedule
+        - prompt
+      properties:
+        name:
+          type: string
+          description: Human-readable name for the schedule
+        cron_schedule:
+          type: string
+          description: Cron expression defining when the agent runs (e.g., "0 9 * * *" for daily at 9am UTC)
+        prompt:
+          type: string
+          description: The prompt/instruction for the agent to execute
+        enabled:
+          type: boolean
+          description: Whether the schedule should be active immediately
+          default: true
+        agent_config:
+          $ref: '#/components/schemas/AmbientAgentConfig'
+        team:
+          type: boolean
+          description: |
+            Whether to create a team-owned schedule.
+            Defaults to true for users on a single team.
+
+    UpdateScheduledAgentRequest:
+      type: object
+      required:
+        - name
+        - cron_schedule
+        - prompt
+        - enabled
+      properties:
+        name:
+          type: string
+          description: Human-readable name for the schedule
+        cron_schedule:
+          type: string
+          description: Cron expression defining when the agent runs
+        prompt:
+          type: string
+          description: The prompt/instruction for the agent to execute
+        enabled:
+          type: boolean
+          description: Whether the schedule should be active
+        agent_config:
+          $ref: '#/components/schemas/AmbientAgentConfig'
+
+    ListScheduledAgentsResponse:
+      type: object
+      required:
+        - schedules
+      properties:
+        schedules:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScheduledAgentItem'
+          description: List of scheduled agents
+
+    DeleteScheduledAgentResponse:
+      type: object
+      required:
+        - success
+      properties:
+        success:
+          type: boolean
+          description: Whether the deletion was successful
+
+    CloudEnvironmentConfig:
+      type: object
+      description: Configuration for a cloud environment used by scheduled agents
+      properties:
+        name:
+          type: string
+          description: Human-readable name for the environment
+        description:
+          type: string
+          nullable: true
+          description: Optional description of the environment
+        docker_image:
+          type: string
+          description: Docker image to use (e.g., "ubuntu:latest" or "registry/repo:tag")
+        github_repos:
+          type: array
+          items:
+            $ref: '#/components/schemas/GitHubRepo'
+          description: List of GitHub repositories to clone into the environment
+        setup_commands:
+          type: array
+          items:
+            type: string
+          description: Shell commands to run during environment setup
+
+    GitHubRepo:
+      type: object
+      required:
+        - owner
+        - repo
+      properties:
+        owner:
+          type: string
+          description: GitHub repository owner (user or organization)
+        repo:
+          type: string
+          description: GitHub repository name
+
+    ListAgentsResponse:
+      type: object
+      required:
+        - agents
+      properties:
+        agents:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgentListItem'
+          description: List of available agents
+
+    AgentListItem:
+      type: object
+      required:
+        - name
+        - variants
+      properties:
+        name:
+          type: string
+          description: Human-readable name of the agent
+        variants:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgentListVariant'
+          description: Available variants of this agent
+
+    AgentListVariant:
+      type: object
+      required:
+        - id
+        - description
+        - base_prompt
+        - source
+        - environments
+      properties:
+        id:
+          type: string
+          description: |
+            Stable identifier for this skill variant.
+            Format: "{owner}/{repo}:{skill_path}"
+            Example: "warpdotdev/warp-server:.claude/skills/deploy/SKILL.md"
+        description:
+          type: string
+          description: Description of the agent variant
+        base_prompt:
+          type: string
+          description: Base prompt/instructions for the agent
+        source:
+          $ref: '#/components/schemas/AgentListSource'
+        environments:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgentListEnvironment'
+          description: Environments where this agent variant is available
+
+    AgentListSource:
+      type: object
+      required:
+        - owner
+        - name
+        - skill_path
+      properties:
+        owner:
+          type: string
+          description: GitHub repository owner
+        name:
+          type: string
+          description: GitHub repository name
+        skill_path:
+          type: string
+          description: Path to the skill definition file within the repository
+
+    AgentListEnvironment:
+      type: object
+      required:
+        - uid
+        - name
+      properties:
+        uid:
+          type: string
+          description: Unique identifier for the environment
+        name:
+          type: string
+          description: Human-readable name of the environment
