@@ -175,7 +175,7 @@ With self-hosting:
 
 ### Integrations
 
-[Integrations](integrations/integrations-overview.md) connect external system events to Ambient Agent execution. An integration ties a third-party event source to Warp so that when an event occurs, Warp can create a task with the relevant context and start it automatically.
+[Integrations](../integrations/integrations-overview.md) connect external system events to Ambient Agent execution. An integration ties a third-party event source to Warp so that when an event occurs, Warp can create a task with the relevant context and start it automatically.
 
 * **First-party integrations**: Warp owns event subscriptions + context extraction.
 * **Custom integrations**: You own event ingestion/filtering; you call the API/SDK to create tasks.
@@ -196,8 +196,8 @@ warp integration create …
 
 Examples of context:
 
-* [Slack](integrations/slack.md): message text + channel + thread + user identity
-* [GitHub](integrations/github-actions/): PR metadata + diffs + labels + checks
+* [Slack](../integrations/slack.md): message text + channel + thread + user identity
+* [GitHub](../integrations/github-actions/): PR metadata + diffs + labels + checks
 * CI: logs + job metadata + artifacts
 
 #### Custom integrations
@@ -220,7 +220,7 @@ In this model:
 
 ### Secrets
 
-Ambient Agents often need credentials to access external systems (APIs, cloud providers, databases, internal tools, MCP servers). Warp provides a [secrets store](ambient-agents/agent-secrets.md) that can inject secrets at runtime so agents can use authenticated tools without exposing secret values in logs or UI.
+Ambient Agents often need credentials to access external systems (APIs, cloud providers, databases, internal tools, MCP servers). Warp provides a [secrets store](../ambient-agents/agent-secrets.md) that can inject secrets at runtime so agents can use authenticated tools without exposing secret values in logs or UI.
 
 #### What secrets are for
 
@@ -263,11 +263,11 @@ Warp provides multiple surfaces for observability:
 
 Ambient Agent setups often include shared configuration such as:
 
-* [MCP configuration](ambient-agents/mcp-servers-for-agents.md)
+* [MCP configuration](../ambient-agents/mcp-servers-for-agents.md)
 * [rules / guardrails](https://docs.warp.dev/warp/knowledge-and-collaboration/rules)
 * [saved prompts](https://docs.warp.dev/warp/knowledge-and-collaboration/warp-drive/prompts)
 * [environment variables](https://docs.warp.dev/warp/knowledge-and-collaboration/warp-drive/environment-variables)
-* [secrets](ambient-agents/agent-secrets.md)
+* [secrets](../ambient-agents/agent-secrets.md)
 
 Warp supports centralized configuration so these settings apply consistently regardless of where a task is launched.
 
@@ -275,7 +275,7 @@ This is especially useful when the same workflow can be triggered from multiple 
 
 ### Using the Warp Platform with or without the Warp app
 
-[Ambient Agents](ambient-agents/ambient-agents-overview.md) do not require Warp's desktop terminal. Teams can operate Ambient Agent workflows using:
+[Ambient Agents](../ambient-agents/ambient-agents-overview.md) do not require Warp's desktop terminal. Teams can operate Ambient Agent workflows using:
 
 * Warp CLI
 * web surfaces (where available)

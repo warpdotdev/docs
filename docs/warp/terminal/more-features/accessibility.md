@@ -51,7 +51,7 @@ Warp supports voice input as an alternative way to interact with your terminal. 
 * Ask questions about command usage
 * Perform complex multi-step operations
 
-Voice input can be enabled in `Settings > AI > Voice`. For detailed information about voice features and setup, see our [Voice documentation](../../agents/voice.md).
+Voice input can be enabled in `Settings > AI > Voice`. For detailed information about voice features and setup, see our [Voice documentation](https://docs.warp.dev/agent-platform/agent/voice).
 
 ## Future work
 

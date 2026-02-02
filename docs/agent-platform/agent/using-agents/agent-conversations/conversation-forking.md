@@ -35,7 +35,7 @@ In addition, when you hover over any open conversation in the command palette, y
 
 <figure><img src="../../../.gitbook/assets/conversation-forking-open-conversations.png" alt=""><figcaption></figcaption></figure>
 
-You can also access this conversation view from the [universal input chip](../../../terminal/universal-input/) in the current conversation.
+You can also access this conversation view from the [universal input chip](https://docs.warp.dev/terminal/universal-input) in the current conversation.
 
 <figure><img src="../../../.gitbook/assets/conversation-forking-chip.png" alt=""><figcaption></figcaption></figure>
 

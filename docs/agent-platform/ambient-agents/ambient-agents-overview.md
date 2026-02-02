@@ -125,5 +125,5 @@ If the team’s add-on credit balance reaches zero, integrations and Ambient Age
 * [Agent API and SDK](https://docs.warp.dev/reference/api-and-sdk/README) — documents the REST API for creating, querying, and monitoring agent tasks programmatically.
 * [Agent Secrets](agent-secrets.md) — covers how to store, scope, and inject credentials into agent runs safely.
 * [MCP Servers for Agents](mcp-servers-for-agents.md) — describes how to configure MCP servers for agent tool access and how MCP configuration is applied across runs.
-* [Deployment Patterns](../platform-1/deployment-patterns.md) (beta) — compares common ways to deploy Ambient Agents and when to use each.
+* [Deployment Patterns](../platform/deployment-patterns.md) (beta) — compares common ways to deploy Ambient Agents and when to use each.
 * [Team Access Billing And Identity Permissions](../platform/team-access-billing-and-identity-permissions.md) — explains team-level requirements, credit billing behavior, and the permission model for who can run, view, and steer Ambient Agent tasks.

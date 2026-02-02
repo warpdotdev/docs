@@ -19,7 +19,7 @@ You can switch between input styles in `Settings > Appearance > Input`.
 Classic Input remains supported for users who prefer a traditional terminal experience, but it is considered a legacy option. We encourage you to use Universal Input for the best experience.
 {% endhint %}
 
-[Agent Mode](../../agents/using-agents/) works in Classic Input just like it does in Universal Input, with some minor differences.
+[Agent Mode](https://docs.warp.dev/agent-platform/agent/using-agents) works in Classic Input just like it does in Universal Input, with some minor differences.
 
 ### Learn more about Classic Input
 
@@ -130,4 +130,4 @@ Once a requested command is executed, you may click to expand the output and vie
 
 In the case that a requested command fails, Warp AI will detect that. Agent Mode is self-correcting. It will request another command until it completes the task for you.
 
-Warp lets you choose from a curated list of LLMs for use in Agent Mode. By default, Warp uses **Claude 4 Sonnet** for auto, but you can switch to other supported models. For all available models, please refer to [Model Choice](../../agents/using-agents/model-choice.md).
+Warp lets you choose from a curated list of LLMs for use in Agent Mode. By default, Warp uses **Claude 4 Sonnet** for auto, but you can switch to other supported models. For all available models, please refer to [Model Choice](https://docs.warp.dev/agent-platform/agent/using-agents/model-choice).

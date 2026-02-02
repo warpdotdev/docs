@@ -108,7 +108,7 @@ warp environment create \
   --setup-command "<command>"
 ```
 
-*   **Guided setup using `/create-environment`** ( [Slash Commands](../agents/slash-commands.md))
+*   **Guided setup using `/create-environment`** ( [Slash Commands](../agent/slash-commands.md))
 
     This flow analyzes your repos, recommends a Docker image, suggests setup commands, and can build + push a custom image if needed.
 

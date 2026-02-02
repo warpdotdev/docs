@@ -132,7 +132,7 @@ You can configure global defaults from your [Agent Profiles & Permissions](using
 These settings apply to every session that uses Full Terminal Use. You can still override them on a per-session basis when prompted. For example, you can enable **auto-approval** for similar commands in the current session using the fast-forward control, or switch to a **different AI profile** with its own permission settings for that conversation.
 
 {% hint style="info" %}
-**Note**: All [Secret Redaction](../privacy-and-security/secret-redaction.md) features still apply during Full Terminal Use, so sensitive values in your environment or output remain protected.
+**Note**: All [Secret Redaction](https://docs.warp.dev/support-and-community/privacy-and-security/secret-redaction) features still apply during Full Terminal Use, so sensitive values in your environment or output remain protected.
 {% endhint %}
 
 ### AI credits usage

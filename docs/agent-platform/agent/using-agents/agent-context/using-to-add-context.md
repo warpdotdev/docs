@@ -51,9 +51,9 @@ If you type something like `@main`, Warp will surface a matching `main()` functi
 
 Warp Drive objects are another way to attach context with **@**. You can reference:
 
-* [Workflows](../../../knowledge-and-collaboration/warp-drive/workflows.md) — parameterized commands you can name and save in Warp with descriptions and arguments.
-* [Notebooks](../../../knowledge-and-collaboration/warp-drive/notebooks.md) — runnable documentation consisting of markdown text and list elements, code blocks, and runnable shell snippets that can be automatically executed in your terminal session.
-* [Rules](../../../knowledge-and-collaboration/rules.md) — reusable guidelines and constraints that inform how Agents respond to your prompts/
+* [Workflows](https://docs.warp.dev/knowledge-and-collaboration/warp-drive/workflows) — parameterized commands you can name and save in Warp with descriptions and arguments.
+* [Notebooks](https://docs.warp.dev/knowledge-and-collaboration/warp-drive/notebooks) — runnable documentation consisting of markdown text and list elements, code blocks, and runnable shell snippets that can be automatically executed in your terminal session.
+* [Rules](https://docs.warp.dev/knowledge-and-collaboration/rules) — reusable guidelines and constraints that inform how Agents respond to your prompts/
 
 When you select one of these objects, Warp inserts a reference token into your prompt. The contents of the object are then automatically passed as context to the Agent.
 

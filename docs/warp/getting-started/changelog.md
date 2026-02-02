@@ -157,11 +157,11 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 **New features**
 
-* [Full Terminal Use](../agents/full-terminal-use.md): Let the agent use the terminal as you would: interact with REPLs, debuggers, and full-screen apps like `top`. Warp is the only product on the market with Full Terminal Use capabilities.
-* [`/plan`](../agents/using-agents/planning.md): do spec-driven development in Warp. Work with an agent to align on an implementation plan that can be saved, versioned, and even attached to a PR for teammates.
+* [Full Terminal Use](https://docs.warp.dev/agent-platform/agent/full-terminal-use): Let the agent use the terminal as you would: interact with REPLs, debuggers, and full-screen apps like `top`. Warp is the only product on the market with Full Terminal Use capabilities.
+* [`/plan`](https://docs.warp.dev/agent-platform/agent/using-agents/planning): do spec-driven development in Warp. Work with an agent to align on an implementation plan that can be saved, versioned, and even attached to a PR for teammates.
 * [Interactive Code Review](../code/code-review/interactive-code-review.md): Review an agent's code like you would a teammate's, directly in Warp, and ask the agent to address the comments.
 * [Slack and Linear integrations](https://docs.warp.dev/reference/cli/integrations-and-environments):\*\* Ask the agent to get to work from the tools you already use, track their progress, and take the wheel via live session sharing.
-* Warp's Agents can now [search the web](../agents/using-agents/web-search.md) to retrieve information, when relevant. This capability is configurable via Agent Profiles.
+* Warp's Agents can now [search the web](https://docs.warp.dev/agent-platform/agent/using-agents/web-search) to retrieve information, when relevant. This capability is configurable via Agent Profiles.
 
 ## 2025.11.12 (v0.2025.11.12.08.12)
 
@@ -358,7 +358,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 **New Features**
 
-* [Agent Profiles](../agents/using-agents/agent-profiles-permissions.md#agent-profiles): define how your agent operates.
+* [Agent Profiles](https://docs.warp.dev/agent-platform/agent/using-agents/agent-profiles-permissions#agent-profiles): define how your agent operates.
 * New pane to view changes to a git repository.
 * Files now open in a tabbed viewer.
 * Syntax highlighting for Scala files in Warp.
@@ -371,7 +371,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 **New features**
 
-* [Suggested Code Diffs](../agents/active-ai.md#suggested-code-diffs) - Warp now intelligently suggests the appropriate fixes for any simple errors encountered in the command line e.g. compiler errors. Head to `Settings > Active AI` to toggle this feature.
+* [Suggested Code Diffs](https://docs.warp.dev/agent-platform/agent/active-ai#suggested-code-diffs) - Warp now intelligently suggests the appropriate fixes for any simple errors encountered in the command line e.g. compiler errors. Head to `Settings > Active AI` to toggle this feature.
 
 **Improvements**
 
@@ -393,9 +393,9 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 **New Features**
 
 * Agent Mode now displays interactive code blocks when referencing snippets from your codebase. You can easily copy the snippet, add the snippet as Agent Mode context, or open the file in Warp's built-in editor.
-* Agent Mode now creates and tracks task lists for more complex workflows. See [Agent Task Lists](../agents/using-agents/agent-tasklists.md).
+* Agent Mode now creates and tracks task lists for more complex workflows. See [Agent Task Lists](https://docs.warp.dev/agent-platform/agent/using-agents/agent-tasklists).
 * Added support for defining project-scoped rules with a WARP.md file. See [Rules](../knowledge-and-collaboration/rules.md#project-scoped-rules).
-* Added Slash Commands (/) in Agent Mode or Auto-Detection Mode to quickly run built-in actions or saved prompts without leaving the input field. See [Slash Commands](../agents/slash-commands.md).
+* Added Slash Commands (/) in Agent Mode or Auto-Detection Mode to quickly run built-in actions or saved prompts without leaving the input field. See [Slash Commands](https://docs.warp.dev/agent-platform/agent/slash-commands).
 
 **Improvements**
 
@@ -852,7 +852,7 @@ All of this comes with higher AI usage limits on our Pro and Turbo plans, plus n
 **New features**
 
 * Warp is now available for Windows! See our [Windows Quickstart Guide](../#windows)
-* Prompt, plan, and execute fully autonomous tasks from [Agent Mode with Dispatch](../agents/using-agents/#dispatch) (Beta)
+* Prompt, plan, and execute fully autonomous tasks from [Agent Mode with Dispatch](https://docs.warp.dev/agent-platform/agent/using-agents#dispatch) (Beta)
 * Add codebase context support to Agent Mode. Currently enabled for git repositories only.
 * \[macOS] You can now customize your [App Icon](../terminal/appearance/app-icons.md) in `Settings > Appearance > Icon`.
 * Create and store [Rules](../knowledge-and-collaboration/rules.md) to use as Agent Mode context.
@@ -974,8 +974,8 @@ All of this comes with higher AI usage limits on our Pro and Turbo plans, plus n
 
 **New features**
 
-* A percentage of Warp users may now enable cloud syncing of their Warp settings under `Settings` > `Account`. We are gradually enabling this feature for all Warp users starting in this release. See the [documentation](../documentation/terminal/more-features/settings-sync.md) for more information.
-* Introduced a setting to hide the tab bar (Zen mode). See the [documentation](../documentation/terminal/appearance/tabs-behavior.md) for more information.
+* A percentage of Warp users may now enable cloud syncing of their Warp settings under `Settings` > `Account`. We are gradually enabling this feature for all Warp users starting in this release. See the [documentation](../terminal/more-features/settings-sync.md) for more information.
+* Introduced a setting to hide the tab bar (Zen mode). See the [documentation](../terminal/appearance/tabs-behavior.md) for more information.
 * Introduced new profile menu.
 
 **Improvements**
@@ -1312,7 +1312,7 @@ All of this comes with higher AI usage limits on our Pro and Turbo plans, plus n
 **New features**
 
 * Powershell is now supported! Make `pwsh` your default shell for your user account or select `pwsh` in Settings > Features > Startup shell for new sessions.
-* You can now save and sync environment variable collections in Warp Drive. To learn more, see [Environment Variables](../documentation/features/warp-drive/environment-variables.md).
+* You can now save and sync environment variable collections in Warp Drive. To learn more, see [Environment Variables](../knowledge-and-collaboration/warp-drive/environment-variables.md).
 * Your Agent Mode blocks and queries are now restored across sessions.
 
 **Improvements**
@@ -1379,7 +1379,7 @@ All of this comes with higher AI usage limits on our Pro and Turbo plans, plus n
 
 **New Features**
 
-* New enums for Workflow arguments. Now you can set a list of suggested options for any argument in a workflow so it's easier to fill in parameters correctly. To learn more, see [Workflows](../documentation/knowledge-and-collaboration/warp-drive/workflows#working-with-arguments).
+* New enums for Workflow arguments. Now you can set a list of suggested options for any argument in a workflow so it's easier to fill in parameters correctly. To learn more, see [Workflows](../knowledge-and-collaboration/warp-drive/workflows.md#working-with-arguments).
 
 ### 2024.08.07 (v0.2024.08.06.08.01)
 
@@ -1449,7 +1449,7 @@ All of this comes with higher AI usage limits on our Pro and Turbo plans, plus n
 
 **New features**
 
-* Same line prompt. Now you can choose whether you'd like your prompt on a new line (Warp's default) or on the same line with commands, like a classic terminal. If you're using PS1, Warp will use the same line prompt setting to respect theme configurations. Visit Settings > Appearance > Prompt to configure your prompt style. To learn more, see [Prompts](../documentation/terminal/appearance/prompt#same-line-prompt).
+* Same line prompt. Now you can choose whether you'd like your prompt on a new line (Warp's default) or on the same line with commands, like a classic terminal. If you're using PS1, Warp will use the same line prompt setting to respect theme configurations. Visit Settings > Appearance > Prompt to configure your prompt style. To learn more, see [Prompts](../terminal/appearance/prompt.md#same-line-prompt).
 
 **Improvements**
 

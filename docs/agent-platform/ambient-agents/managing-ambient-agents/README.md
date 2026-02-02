@@ -47,7 +47,7 @@ Each row represents a single item in the management view (either an interactive 
 
 Where the agent was launched from. Common sources include:
 
-* **Interactive:** an [agent conversation](../../agents/agents-overview.md) started in the Warp app
+* **Interactive:** an [agent conversation](../../agent/agents-overview.md) started in the Warp app
 * **CLI**: a local run triggered by the [Warp CLI](https://docs.warp.dev/reference/cli/README)
 * **API**: a run triggered by [Warp’s API](https://docs.warp.dev/reference/api-and-sdk/README)
 * **Slack / Linear**: runs triggered by [integrations](../../integrations/integrations-overview.md)

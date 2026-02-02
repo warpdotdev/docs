@@ -87,7 +87,7 @@ An environment defines everything the agent needs to run your code:
 You can create an environment via:
 
 * The CLI
-* The guided flow using `/create-environment` ([Slash Commands](../agents/slash-commands.md))
+* The guided flow using `/create-environment` ([Slash Commands](../agent/slash-commands.md))
 
 For full instructions, see our [Environment Setup](integrations-overview.md) docs.
 

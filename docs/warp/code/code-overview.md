@@ -75,7 +75,7 @@ To begin a new project, select `Create a New Project` from the tab. You can star
 
 #### 2. Open an Existing Repo
 
-Select `Open Repository` to use your computer’s file picker. If you choose a Git repository, Warp automatically changes into the directory and runs the `/init` setup command (a built-in “[slash command](../agents/slash-commands.md)”) if the repo has not already been initialized. Warp will detect the repository, index the codebase, and prepare it for coding.
+Select `Open Repository` to use your computer's file picker. If you choose a Git repository, Warp automatically changes into the directory and runs the `/init` setup command (a built-in "[slash command](https://docs.warp.dev/agent-platform/agent/slash-commands)") if the repo has not already been initialized. Warp will detect the repository, index the codebase, and prepare it for coding.
 
 * For non-Git folders, Warp simply changes into the directory without initialization.
 * If you have an existing project that is not yet initialized, you can run `/init` manually to bootstrap it with a version-controlled `AGENTS.md` file.

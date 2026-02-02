@@ -44,7 +44,7 @@ In the [Universal Input](../../terminal/universal-input/) editor, when you're in
 
 #### 2. Agent Conversation: Review Changes Button
 
-When an Agent makes code edits in an [Agent Conversation](../../agents/using-agents/agent-conversations/), a `Review changes` button appears at the bottom of the conversation. Clicking it opens the code review panel.
+When an Agent makes code edits in an [Agent Conversation](https://docs.warp.dev/agent-platform/agent/using-agents/agent-conversations), a `Review changes` button appears at the bottom of the conversation. Clicking it opens the code review panel.
 
 <figure><img src="../../.gitbook/assets/Blocklist with review changes.png" alt=""><figcaption><p>Review changes at bottom of Agent Conversation.</p></figcaption></figure>
 
@@ -99,7 +99,7 @@ The Code Review pane makes it simple to share changes with the Agent. You can at
 
 <figure><img src="../../.gitbook/assets/attach-diff-hunk-as-context.png" alt="" width="299"><figcaption><p>Attaching a diff as context from the Code Review panel.</p></figcaption></figure>
 
-This ensures responses are grounded in your latest edits, whether you’re asking for feedback, explanations, or follow-up changes. For more details, see [Selection as Context](../../agents/using-agents/agent-context/selection-as-context.md).
+This ensures responses are grounded in your latest edits, whether you're asking for feedback, explanations, or follow-up changes. For more details, see [Selection as Context](https://docs.warp.dev/agent-platform/agent/using-agents/agent-context/selection-as-context).
 
 #### Reverting diffs
 

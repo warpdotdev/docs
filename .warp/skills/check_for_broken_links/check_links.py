@@ -35,7 +35,7 @@ MARKDOWN_EXTENSIONS = {'.md', '.mdx'}
 SKIP_DOMAINS = {'twitter.com', 'x.com', 'linkedin.com', 'facebook.com', 't.co'}
 
 # Non-HTTP schemes to skip
-SKIP_SCHEMES = {'mailto', 'tel', 'javascript', 'data', 'file'}
+SKIP_SCHEMES = {'mailto', 'tel', 'javascript', 'data', 'file', 'warp'}
 
 
 class LinkChecker:

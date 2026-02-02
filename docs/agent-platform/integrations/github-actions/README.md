@@ -119,7 +119,7 @@ with:
   share: true
 ```
 
-This posts an [Ambient Agents Session Sharing link](../../knowledge-and-collaboration/session-sharing/ambient-agents-session-sharing.md) to the job logs. Anyone with the link can inspect the agent’s execution directly.
+This posts an [Ambient Agents Session Sharing link](https://docs.warp.dev/knowledge-and-collaboration/session-sharing/ambient-agents-session-sharing) to the job logs. Anyone with the link can inspect the agent's execution directly.
 
 The session sharing option also accepts multi-line configuration for the recipients of the share link.
 
