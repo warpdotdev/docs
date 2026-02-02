@@ -5,6 +5,7 @@ Broken Link Checker for Warp GitBook Documentation
 Scans markdown source files to find and validate links.
 - Internal links: validated by checking if the target file exists
 - External links: validated via HTTP HEAD requests
+- Optional Slack notifications for CI/ambient agent integration
 """
 
 import argparse
@@ -15,6 +16,8 @@ import sys
 import time
 from pathlib import Path
 from urllib.parse import urlparse, unquote
+
+SLACK_CHANNEL_GROWTH_DOCS = "C09BVK0PL3Y"
 
 try:
     import requests
@@ -37,6 +40,9 @@ SKIP_DOMAINS = {'twitter.com', 'x.com', 'linkedin.com', 'facebook.com', 't.co'}
 # Non-HTTP schemes to skip
 SKIP_SCHEMES = {'mailto', 'tel', 'javascript', 'data', 'file', 'warp'}
 
+# Directories to skip when scanning
+SKIP_DIRECTORIES = {'_book', 'node_modules', '.git'}
+
 
 class LinkChecker:
     def __init__(self, docs_root, timeout=10):
@@ -56,7 +62,8 @@ class LinkChecker:
 
     def find_markdown_files(self):
         files = []
-        for root, _, filenames in os.walk(self.docs_root):
+        for root, dirs, filenames in os.walk(self.docs_root):
+            dirs[:] = [d for d in dirs if d not in SKIP_DIRECTORIES]
             for f in filenames:
                 if Path(f).suffix.lower() in MARKDOWN_EXTENSIONS:
                     files.append(Path(root) / f)
@@ -272,6 +279,75 @@ class LinkChecker:
             'broken_links': self.broken_links
         }
 
+    def format_slack_message(self):
+        internal = [l for l in self.broken_links if l['type'] == 'internal']
+        external = [l for l in self.broken_links if l['type'] == 'external']
+        
+        if not self.broken_links:
+            return ":white_check_mark: *Broken Link Check Passed*\n\nNo broken links found in GitBook docs."
+        
+        lines = [
+            ":warning: *Broken Link Check Found Issues*",
+            "",
+            f"• Files scanned: {self.files_scanned}",
+            f"• Internal links checked: {self.internal_checked}",
+            f"• External links checked: {self.external_checked}",
+            f"• *Broken links found: {len(self.broken_links)}*",
+        ]
+        
+        if internal:
+            lines.append(f"\n*Internal ({len(internal)} broken):*")
+            for link in internal[:10]:
+                lines.append(f"  • `{link['file']}:{link['line']}` → {link['url']}")
+            if len(internal) > 10:
+                lines.append(f"  _...and {len(internal) - 10} more_")
+        
+        if external:
+            lines.append(f"\n*External ({len(external)} broken):*")
+            for link in external[:5]:
+                lines.append(f"  • `{link['file']}:{link['line']}` → {link['error']}")
+            if len(external) > 5:
+                lines.append(f"  _...and {len(external) - 5} more_")
+        
+        lines.append("\n_Run the skill to fix these issues._")
+        return "\n".join(lines)
+
+
+def send_slack_notification(message, channel=SLACK_CHANNEL_GROWTH_DOCS):
+    token = os.environ.get('SLACK_BOT_TOKEN')
+    if not token:
+        print("Error: SLACK_BOT_TOKEN environment variable not set", file=sys.stderr)
+        print("Create it with: warp secret create SLACK_BOT_TOKEN --scope team", file=sys.stderr)
+        return False
+    
+    if not HAS_REQUESTS:
+        print("Error: 'requests' library required for Slack notifications", file=sys.stderr)
+        return False
+    
+    try:
+        resp = requests.post(
+            'https://slack.com/api/chat.postMessage',
+            headers={
+                'Authorization': f'Bearer {token}',
+                'Content-Type': 'application/json',
+            },
+            json={
+                'channel': channel,
+                'text': message,
+                'mrkdwn': True,
+            },
+            timeout=10
+        )
+        data = resp.json()
+        if not data.get('ok'):
+            print(f"Slack API error: {data.get('error', 'unknown')}", file=sys.stderr)
+            return False
+        print(f"Slack notification sent to channel {channel}")
+        return True
+    except Exception as e:
+        print(f"Failed to send Slack notification: {e}", file=sys.stderr)
+        return False
+
 
 def find_docs_root():
     cwd = Path.cwd()
@@ -295,6 +371,10 @@ def main():
     parser.add_argument('--external-only', action='store_true', help='Only check external links')
     parser.add_argument('--timeout', type=int, default=10, help='HTTP timeout (default: 10)')
     parser.add_argument('--output', help='Output JSON file')
+    parser.add_argument('--slack-notify', action='store_true', 
+                        help='Send results to #growth-docs Slack channel (requires SLACK_BOT_TOKEN)')
+    parser.add_argument('--slack-channel', default=SLACK_CHANNEL_GROWTH_DOCS,
+                        help=f'Slack channel ID (default: {SLACK_CHANNEL_GROWTH_DOCS})')
     
     args = parser.parse_args()
     
@@ -326,6 +406,10 @@ def main():
         with open(args.output, 'w') as f:
             json.dump(checker.get_results(), f, indent=2)
         print(f"\nResults saved to: {args.output}")
+    
+    if args.slack_notify:
+        message = checker.format_slack_message()
+        send_slack_notification(message, channel=args.slack_channel)
     
     sys.exit(1 if checker.broken_links else 0)
 

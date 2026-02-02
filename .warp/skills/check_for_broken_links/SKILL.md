@@ -1,11 +1,11 @@
 ---
 name: check_for_broken_links
-description: Check the Warp GitBook documentation for broken links by scanning source markdown files. Run the diagnostic script, review the output, fix broken links, and create a PR.
+description: Check the Warp GitBook documentation for broken links by scanning source markdown files. Run the diagnostic script, review the output, fix broken links, and optionally notify Slack.
 ---
 
 # Check for Broken Links
 
-This skill checks the Warp GitBook documentation for broken links by scanning source markdown files directly.
+This skill checks the Warp GitBook documentation for broken links by scanning source markdown files directly. It can optionally send results to the `#growth-docs` Slack channel.
 
 ## Running the Check
 
@@ -21,6 +21,8 @@ python3 .warp/skills/check_for_broken_links/check_links.py
 - `--external-only`: Only check external links
 - `--timeout N`: HTTP timeout in seconds (default: 10)
 - `--output FILE`: Save results to JSON file
+- `--slack-notify`: Send results to `#growth-docs` Slack channel
+- `--slack-channel ID`: Override the default Slack channel
 
 ### Quick internal-only check:
 
@@ -99,6 +101,36 @@ redirects:
 2. Fix the broken links identified by the script
 3. Re-run the script to verify all fixes: `python3 .warp/skills/check_for_broken_links/check_links.py`
 4. Commit and create a PR
+
+## Slack Notifications
+
+To send results to Slack (useful for CI/CD or ambient agents):
+
+### Setup (one-time)
+
+Create a Warp team secret for the Slack bot token:
+
+```bash
+warp secret create SLACK_BOT_TOKEN --team --description "Slack bot token for broken link reports"
+```
+
+You'll be prompted to enter the token securely. The token needs `chat:write` scope.
+
+### Usage
+
+```bash
+python3 .warp/skills/check_for_broken_links/check_links.py --internal-only --slack-notify
+```
+
+For ambient agent runs, the `SLACK_BOT_TOKEN` secret is automatically injected as an environment variable.
+
+### Custom channel
+
+To post to a different channel:
+
+```bash
+python3 .warp/skills/check_for_broken_links/check_links.py --slack-notify --slack-channel C09BVK0PL3Y
+```
 
 ## Dependencies
 
