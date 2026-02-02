@@ -72,8 +72,12 @@ After running the script, fix each broken link based on the error type:
 3. **Missing .md extension**: Directory link doesn't resolve
    - Add `.md` extension or ensure `README.md` exists in the directory
 
-4. **Cross-space links**: Links between GitBook spaces (warp/, agent-platform/, etc.)
-   - Verify the path correctly navigates between spaces using `../`
+4. **Cross-space links**: Links between GitBook spaces (warp/, agent-platform/, support-and-community/, reference/)
+   - **Relative paths do NOT work across spaces** — use absolute URLs instead
+   - From `docs/warp/`: `https://docs.warp.dev/{subfolder}/{page}` (warp is the homepage, not in URL)
+   - From other folders: `https://docs.warp.dev/{folder}/{subfolder}/{page}`
+   - Example: `../../support-and-billing/known-issues.md` → `https://docs.warp.dev/support-and-community/troubleshooting-and-support/known-issues`
+   - **Note**: Old folder names may be outdated (e.g., `support-and-billing` → `support-and-community/troubleshooting-and-support`). Search for the actual file location before constructing the URL.
 
 ### External Links
 
