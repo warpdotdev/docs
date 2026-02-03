@@ -14,7 +14,7 @@ To check for updates, search for "update" in the [Command Palette](https://docs.
 
 If nothing happens, it means you already have the latest stable build.
 
-## Auto-Update Issues
+## macOS: Auto-Update Permissions Issues
 
 Warp cannot auto-update if it does not have the correct permissions to replace the running version of Warp If this is the case, a banner will prompt you to manually update Warp.
 
@@ -28,3 +28,46 @@ There are 2 main causes of this:
 {% hint style="info" %}
 (Oct 2022): There is a known issue with [auto-update on MacOS Ventura](known-issues.md#auto-update-on-macos-ventura).
 {% endhint %}
+
+## Linux: Refreshing the Package Signing Key
+
+If you encounter signature verification errors when trying to update Warp on Linux, you may need to refresh the package signing key. This can happen if the key on your system has expired.
+
+### Debian / Ubuntu (apt)
+
+```bash
+curl -fsSL https://releases.warp.dev/linux/keys/warp.asc | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/warpdotdev.gpg > /dev/null
+```
+
+Then retry your update:
+
+```bash
+sudo apt update && sudo apt install warp-terminal
+```
+
+### Fedora / RHEL / CentOS (dnf/yum)
+
+```bash
+sudo rpm --import https://releases.warp.dev/linux/keys/warp.asc
+```
+
+Then retry your update:
+
+```bash
+sudo dnf upgrade warp-terminal
+# or for older systems:
+sudo yum upgrade warp-terminal
+```
+
+### Arch Linux (pacman)
+
+```bash
+sudo pacman-key --recv-keys "linux-maintainers@warp.dev" --keyserver hkp://keys.openpgp.org:80
+sudo pacman-key --lsign-key "linux-maintainers@warp.dev"
+```
+
+Then retry your update:
+
+```bash
+sudo pacman -Syu warp-terminal
+```
