@@ -1,10 +1,6 @@
 root: ./
 
 redirects:
-    # Old getting-started paths (duplicated from warp space)
-    getting-started/refer-a-friend: community/refer-a-friend.md
-    getting-started/warp-preview-and-alpha-program: community/warp-preview-and-alpha-program.md
-
     # Old support-and-billing paths
     support-and-billing/known-issues: troubleshooting-and-support/known-issues.md
     support-and-billing/sending-us-feedback: troubleshooting-and-support/sending-us-feedback.md
@@ -63,3 +59,87 @@ redirects:
 
     # Since restructure
     support-and-billing/plans-and-pricing/reload-credits-add-on-credits: plans-and-billing/add-on-credits.md
+
+    # Root-level paths
+    troubleshooting: troubleshooting-and-support/known-issues.md
+    troubleshooting/common-issues: troubleshooting-and-support/known-issues.md
+    troubleshooting/general-troubleshooting: troubleshooting-and-support/known-issues.md
+    privacy: privacy-and-security/privacy.md
+    privacy-and-security: privacy-and-security/privacy.md
+    known-issues: troubleshooting-and-support/known-issues.md
+
+    # Additional help/ paths
+    help: troubleshooting-and-support/known-issues.md
+    help/faq/billing-and-payments: plans-and-billing/pricing-faqs.md
+    help/ai-features/bring-your-own-llm: plans-and-billing/bring-your-own-api-key.md
+    help/releasing-and-updating: troubleshooting-and-support/updating-warp.md
+    help/troubleshooting-login-issues: troubleshooting-and-support/troubleshooting-login-issues.md
+
+    # Additional support-and-billing/ paths
+    support-and-billing: plans-and-billing/plans-and-pricing.md
+    support-and-billing/subscription-management: plans-and-billing/plans-and-pricing.md
+    support-and-billing/pricing-faqs: plans-and-billing/pricing-faqs.md
+    support-and-billing/plans-and-pricing/ai-requests: plans-and-billing/ai-credits.md
+    support-and-billing/plans-and-billing/bring-your-own-api-key: plans-and-billing/bring-your-own-api-key.md
+    support-and-billing/plans-and-prilling/bring-your-own-api-key: plans-and-billing/bring-your-own-api-key.md
+    support-and-billing/uninstalling-warp: troubleshooting-and-support/uninstalling-warp.md
+    support-and-billing/plans-and-pricing/ai-credits: plans-and-billing/ai-credits.md
+    support-and-billing/troubleshooting-login-issues: troubleshooting-and-support/troubleshooting-login-issues.md
+
+    # Additional privacy/ paths
+    privacy/privacy#exhaustive-telemetry-table: privacy-and-security/privacy.md
+    privacy/privacy#telemetry-what-usage-data-are-you-collecting-and-why: privacy-and-security/privacy.md
+    security-and-privacy/data-ownership: privacy-and-security/privacy.md
+    security-and-privacy/data-handling: privacy-and-security/privacy.md
+
+    # Additional community/ paths
+    community/refer-a-friend#referral-program-terms-and-conditions: community/refer-a-friend.md
+
+    # support-and-community/ prefix paths
+    support-and-community/privacy-and-security/privacy: privacy-and-security/privacy.md
+    support-and-community/plans-and-billing/ai-credits: plans-and-billing/ai-credits.md
+
+    # Anchor-specific paths for known-issues
+    help/known-issues#debugging: troubleshooting-and-support/known-issues.md
+    help/known-issues#list-of-incompatible-tools: troubleshooting-and-support/known-issues.md
+    help/known-issues#linux-workarounds: troubleshooting-and-support/known-issues.md
+    help/known-issues#auto-update-on-macos-ventura: troubleshooting-and-support/known-issues.md
+    help/known-issues#ssh-to-local-network-device-is-denied: troubleshooting-and-support/known-issues.md
+    support-and-billing/known-issues#debugging: troubleshooting-and-support/known-issues.md
+    support-and-billing/known-issues#windows-1: troubleshooting-and-support/known-issues.md
+    support-and-billing/known-issues#pwsh: troubleshooting-and-support/known-issues.md
+    support-and-billing/known-issues#linux-1: troubleshooting-and-support/known-issues.md
+    support-and-billing/known-issues#list-of-incompatible-tools: troubleshooting-and-support/known-issues.md
+    support-and-billing/known-issues#shells: troubleshooting-and-support/known-issues.md
+
+    # Anchor-specific paths for troubleshooting-login-issues
+    help/troubleshooting-login-issues#how-to-get-an-auth-token-to-login: troubleshooting-and-support/troubleshooting-login-issues.md
+    support-and-billing/troubleshooting-login-issues#flagged-as-fraudulent: troubleshooting-and-support/troubleshooting-login-issues.md
+    support-and-billing/troubleshooting-login-issues#blocked-for-terms-of-service-violation: troubleshooting-and-support/troubleshooting-login-issues.md
+    support-and-billing/troubleshooting-login-issues#how-to-get-an-auth-token-to-login: troubleshooting-and-support/troubleshooting-login-issues.md
+
+    # Anchor-specific paths for updating-warp
+    help/updating-warp#auto-update-issues: troubleshooting-and-support/updating-warp.md
+
+    # Anchor-specific paths for bring-your-own-api-key
+    support-and-billing/plans-and-pricing/bring-your-own-api-key#how-does-byok-work: plans-and-billing/bring-your-own-api-key.md
+    support-and-billing/plans-and-pricing/bring-your-own-api-key#enabling-byok: plans-and-billing/bring-your-own-api-key.md
+
+    # Anchor-specific paths for sending-us-feedback
+    help/sending-us-feedback#gathering-warp-logs: troubleshooting-and-support/sending-us-feedback.md
+    support-and-billing/sending-us-feedback#gathering-warp-logs: troubleshooting-and-support/sending-us-feedback.md
+    support-and-billing/sending-us-feedback#gathering-ai-debugging-id: troubleshooting-and-support/sending-us-feedback.md
+    support-and-billing/sending-us-feedback#windows: troubleshooting-and-support/sending-us-feedback.md
+
+    # Anchor-specific paths for uninstalling-warp
+    help/uninstalling-warp#removing-warp-login-settings-files-log-and-database-1: troubleshooting-and-support/uninstalling-warp.md
+
+    # Anchor-specific paths for pricing-faqs
+    support-and-billing/plans-and-pricing/pricing-faqs#how-can-i-subscribe-to-a-warp-enterprise-plan: plans-and-billing/pricing-faqs.md
+    support-and-billing/plans-and-pricing/pricing-faqs#how-can-i-upgrade-and-subscribe-to-a-warp-plan: plans-and-billing/pricing-faqs.md
+
+    # Anchor-specific paths for add-on-credits
+    support-and-billing/plans-and-pricing/add-on-credits#id-2.-enable-auto-reload: plans-and-billing/add-on-credits.md
+
+    # Anchor-specific paths for ai-credits
+    support-and-billing/plans-and-pricing/ai-requests#how-are-warp-ai-requests-calculated: plans-and-billing/ai-credits.md

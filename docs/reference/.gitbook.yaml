@@ -7,3 +7,27 @@ redirects:
     integrations/integrations-overview/integrations-and-environments: cli/integrations-and-environments.md
     developers/cli#api-key-authentication: cli/README.md#api-key-authentication
 
+    # Additional developers/* paths
+    developers/cli#generating-api-keys: cli/README.md
+    developers/cli#linux: cli/README.md
+
+    # platform/cli paths
+    platform/cli#api-key-authentication: cli/README.md#api-key-authentication
+    platform/cli/integrations-and-environments: cli/integrations-and-environments.md
+    platform/cli/troubleshooting: cli/troubleshooting.md
+
+    # platform/agent-api-and-sdk paths
+    platform/agent-api-and-sdk: api-and-sdk/README.md
+    platform/agent-api-and-sdk#agent-sdk: api-and-sdk/README.md
+    platform/agent-api-and-sdk/demo-sentry-monitoring-with-sdk: api-and-sdk/demo-sentry-monitoring-with-sdk.md
+    platform/agent-api-and-sdk/agent: api-and-sdk/README.md
+    platform/agent-api-and-sdk/agent-1: api-and-sdk/README.md
+
+    # integrations/* paths
+    integrations/integrations-overview/integrations-and-environments#creating-an-environment: cli/integrations-and-environments.md#creating-an-environment 
+    # Root-level paths
+    agent-api-and-sdk: api-and-sdk/README.md
+    cli/integrations-and-environments: cli/integrations-and-environments.md
+
+    # Anchor-specific paths
+    cli#api-key-authentication: cli/README.md#api-key-authentication

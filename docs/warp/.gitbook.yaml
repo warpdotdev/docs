@@ -211,8 +211,130 @@ redirects:
     # Since restructure
     features/prompt: terminal/appearance/prompt.md
     features/smart-select: terminal/more-features/text-selection.md
-    getting-started/getting-started-with-warp: getting-started/quickstart-guide/README.md
+    getting-started/getting-started-with-warp: getting-started/quickstart-guide/installation-and-setup.md
     features/settings: terminal/more-features/settings-sync.md
     getting-started/quickstart: README.md
     getting-started/quickstart-guide/README: README.md
     appearance/prompt#custom-prompt-compatibility-table: terminal/appearance/prompt.md#shell-prompt-compatibility-table
+
+    # Root-level paths
+    settings: terminal/more-features/settings-sync.md
+    settings-overview: terminal/more-features/settings-sync.md
+    settings-menu/overview: terminal/more-features/settings-sync.md
+    keyboard-shortcuts: getting-started/keyboard-shortcuts.md
+    shortcuts: getting-started/keyboard-shortcuts.md
+    configuration: terminal/more-features/settings-sync.md
+    session-sharing: knowledge-and-collaboration/session-sharing/README.md
+    readme: README.md
+    what-is-warp: getting-started/what-is-warp.md
+    installation: getting-started/quickstart-guide/installation-and-setup.md
+    installation/linux: getting-started/quickstart-guide/installation-and-setup.md
+    code-editor: code/code-editor/README.md
+
+    # features/* additional paths
+    features: README.md
+    features/overview: README.md
+    features/completions: terminal/command-completions/completions.md
+    features/completions#how-to-access-it: terminal/command-completions/completions.md
+    features/completions#supported-completion-specs: terminal/command-completions/completions.md
+    features/workspaces: terminal/sessions/README.md
+    features/sessions: terminal/sessions/README.md
+    features/sessions/sharing-sessions: knowledge-and-collaboration/session-sharing/README.md
+    features/sessions/quit-warning-modal: terminal/more-features/quit-warning.md
+    features/launch-configurations: terminal/sessions/launch-configurations.md
+    features/command-inspector: terminal/editor/command-inspector.md
+    features/keybindings: getting-started/keyboard-shortcuts.md
+    features/keyboard-input: getting-started/keyboard-shortcuts.md
+    features/global-hotkey: terminal/windows/global-hotkey.md
+    features/appearance: terminal/appearance/README.md
+    features/system-settings: terminal/more-features/settings-sync.md
+    features/settings/configuration-files: terminal/more-features/settings-sync.md
+    features/terminal-features: terminal/blocks/README.md
+    features/windows/hotkey-window#dedicated-window: terminal/windows/global-hotkey.md
+    features/customize/custom-keyboard-shortcuts: getting-started/keyboard-shortcuts.md
+    features/advanced/settings: terminal/more-features/settings-sync.md
+    features/integrations: terminal/integrations-and-plugins.md
+    features/integrations/mcp: knowledge-and-collaboration/mcp.md
+    features/integrations/urls-and-deep-links: terminal/more-features/uri-scheme.md
+    features/the-input-editor: terminal/editor/README.md
+    features/entry/workflows: terminal/entry/yaml-workflows.md
+    features/workflows/block-metrics/shortcuts: getting-started/keyboard-shortcuts.md
+    features/editor/command-corrections: terminal/entry/command-corrections.md
+
+    # features/warp-drive/* paths
+    features/warp-drive/warp-drive-on-the-web-beta: knowledge-and-collaboration/warp-drive/warp-drive-on-the-web.md
+
+    # features/prompt anchor paths
+    features/prompt#how-it-works: terminal/appearance/prompt.md
+    features/prompt#custom-prompt: terminal/appearance/prompt.md
+    features/prompt#how-to-access-it: terminal/appearance/prompt.md
+    features/prompt#custom-prompt-compatibility-table: terminal/appearance/prompt.md
+
+    # getting-started/* additional paths
+    getting-started/installation: getting-started/quickstart-guide/installation-and-setup.md
+    getting-started/installation/linux: getting-started/quickstart-guide/installation-and-setup.md
+    getting-started/linux: getting-started/quickstart-guide/installation-and-setup.md
+    getting-started/linux-installation: getting-started/quickstart-guide/installation-and-setup.md
+    getting-started/installing-warp: getting-started/quickstart-guide/installation-and-setup.md
+    getting-started/installing-warp-on-linux: getting-started/quickstart-guide/installation-and-setup.md
+    getting-started/download-and-install: getting-started/quickstart-guide/installation-and-setup.md
+    getting-started/downloading-warp: getting-started/quickstart-guide/installation-and-setup.md
+    getting-started/introduction: getting-started/what-is-warp.md
+    getting-started/quickstart-guide: getting-started/quickstart-guide/installation-and-setup.md
+    getting-started/account-and-login: getting-started/quickstart-guide/installation-and-setup.md
+    getting-started/launching-warp: getting-started/quickstart-guide/installation-and-setup.md
+    getting-started/settings: terminal/more-features/settings-sync.md
+    getting-started/customizing-warp/settings: terminal/more-features/settings-sync.md
+    getting-started/how-to-use-warp: README.md
+    getting-started/guides/shortcuts: getting-started/keyboard-shortcuts.md
+    getting-started/syncing-your-terminal: terminal/more-features/settings-sync.md
+    getting-started/launch-configurations: terminal/sessions/launch-configurations.md
+    getting-started/mac-permissions: getting-started/quickstart-guide/installation-and-setup.md
+    getting-started/terminal: terminal/blocks/README.md
+    getting-started/getting-started-with-warp-on-linux: getting-started/quickstart-guide/installation-and-setup.md
+
+    # getting-started anchor paths
+    getting-started/getting-started-with-warp#appimage: getting-started/quickstart-guide/installation-and-setup.md
+    getting-started/getting-started-with-warp#logging-into-warp: getting-started/quickstart-guide/installation-and-setup.md
+    getting-started/getting-started-with-warp#logging-into-warp-required: getting-started/quickstart-guide/installation-and-setup.md
+    getting-started/getting-started-with-warp#arch-linux-based-distributions: getting-started/quickstart-guide/installation-and-setup.md
+
+    # terminal/* additional paths
+    terminal/shortcuts: getting-started/keyboard-shortcuts.md
+    terminal/keyboard-shortcuts: getting-started/keyboard-shortcuts.md
+    terminal/keybindings: getting-started/keyboard-shortcuts.md
+    terminal/windows/keyboard-shortcuts: getting-started/keyboard-shortcuts.md
+    terminal/windows/keyboard-shortcuts-windows: getting-started/keyboard-shortcuts.md
+    terminal/windows/windows-shortcuts: getting-started/keyboard-shortcuts.md
+    terminal/command-input/command-suggestions: terminal/command-completions/completions.md
+    terminal/appearance/prompt#custom-prompt: terminal/appearance/prompt.md
+
+    # reference/* paths (settings/keyboard shortcuts stay in warp space)
+    reference/settings: terminal/more-features/settings-sync.md
+    reference/keyboard-shortcuts: getting-started/keyboard-shortcuts.md
+    reference/keybindings: getting-started/keyboard-shortcuts.md
+
+    # features/windows/ paths
+    features/windows/~: terminal/windows/README.md
+
+    # knowledge-and-collaboration/* paths
+    knowledge-and-collaboration/warp-drive/model-context-protocol-mcp: knowledge-and-collaboration/mcp.md
+    knowledge-and-collaboration/workflows: knowledge-and-collaboration/warp-drive/workflows.md
+
+    # settings/* paths
+    settings/features: terminal/more-features/settings-sync.md
+    settings/keyboard-shortcuts: getting-started/keyboard-shortcuts.md
+
+    # guide/* paths
+    guide/ssh-guide: terminal/warpify/ssh.md
+    guides/ssh-quickstart: terminal/warpify/ssh.md
+    advanced/command-line-flags: terminal/sessions/launch-configurations.md
+
+    # warp-terminal-101/* paths
+    warp-terminal-101/settings: terminal/more-features/settings-sync.md
+
+    # appearance/* paths
+    appearance/custom-themes.git: terminal/appearance/custom-themes.md
+    
+    # integrations/* paths
+    integrations/linear: integrations/linear.md

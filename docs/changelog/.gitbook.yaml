@@ -4,3 +4,7 @@ redirects:
     getting-started/changelog: README.md
     warp/getting-started/changelog: README.md
     help/changelog: README.md
+    release-notes: README.md
+    changelog/rss: README.md
+    rss: README.md
+    url/docs.warp.dev/getting-started/changelog: README.md
