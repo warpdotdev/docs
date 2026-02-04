@@ -29,7 +29,7 @@ Skill discovery is based on your current working directory. For Git repositories
 {% endhint %}
 
 {% hint style="info" %}
-Skills complement [Rules](../../warp/knowledge-and-collaboration/rules.md), which provide persistent guidelines that Agents always follow. Use Rules for constraints and preferences; use Skills for specific task workflows.
+Skills complement Rules, which provide persistent guidelines that Agents always follow. Use Rules for constraints and preferences; use Skills for specific task workflows.
 {% endhint %}
 
 ### Example interactions
@@ -59,7 +59,7 @@ Skills are markdown files with YAML frontmatter. Each skill must have:
 
 ### Basic Structure
 
-```markdown path=null start=null
+```markdown
 ---
 name: your-skill-name
 description: Brief description of what this skill does and when to use it
@@ -78,7 +78,7 @@ Show concrete examples of using this skill.
 
 Here's a complete example of a skill that helps create feature flags:
 
-```markdown path=null start=null
+```markdown
 ---
 name: add-feature-flag
 description: Add a new feature flag to the codebase with proper configuration and documentation
@@ -183,12 +183,14 @@ The directory structure is the same as project skills:
 Understanding when to use each level:
 
 **Project skills** are best for:
+
 * Project-specific workflows (deployment, testing, migrations)
 * Team-shared procedures and standards
 * Repository-specific automation and tooling
 * Domain-specific patterns for that codebase
 
 **Root directory skills** are best for:
+
 * Personal coding preferences and patterns
 * General-purpose workflows used across all projects
 * Cross-project automation (git workflows, documentation templates)
@@ -223,7 +225,7 @@ touch .agents/skills/my-new-skill/SKILL.md
 
 Write your skill with clear instructions:
 
-```markdown path=null start=null
+```markdown
 ---
 name: my-new-skill
 description: One-line description of what this skill does
@@ -286,7 +288,7 @@ The Agent lists all discovered skills with their names and descriptions. This in
 
 ### Editing skills
 
-Use the [`/open-skill`](../slash-commands.md) slash command to modify existing skills:
+Use the [`/open-skill`](slash-commands.md) slash command to modify existing skills:
 
 ```
 /open-skill
@@ -309,8 +311,7 @@ This opens an interactive menu where you can:
 
 ## Related features
 
-* **[Rules](../../warp/knowledge-and-collaboration/rules.md)** - Set persistent guidelines and constraints for Agent behavior
-* **[MCP Servers](../../warp/knowledge-and-collaboration/mcp.md)** - Expose external data sources and tools to Agents
-* **[Ambient Agents](../ambient-agents/ambient-agents-overview.md)** - Run Agents in the cloud on schedules or triggers
-* **[Agent Profiles](using-agents/agent-profiles-permissions.md)** - Control Agent permissions and autonomy
-
+* **Rules** - Set persistent guidelines and constraints for Agent behavior
+* **MCP Servers** - Expose external data sources and tools to Agents
+* [**Ambient Agents**](/broken/pages/iDWOF6hSIh5lQfKb3TOa) - Run Agents in the cloud on schedules or triggers
+* [**Agent Profiles**](using-agents/agent-profiles-permissions.md) - Control Agent permissions and autonomy
