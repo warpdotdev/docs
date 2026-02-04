@@ -4,10 +4,8 @@ redirects:
     # Old support-and-billing paths
     support-and-billing/known-issues: troubleshooting-and-support/known-issues.md
     support-and-billing/sending-us-feedback: troubleshooting-and-support/sending-us-feedback.md
-    support-and-billing/troubleshooting-login-issues: troubleshooting-and-support/troubleshooting-login-issues.md
     support-and-billing/updating-warp: troubleshooting-and-support/updating-warp.md
     support-and-billing/using-warp-offline: troubleshooting-and-support/using-warp-offline.md
-    support-and-billing/uninstalling-warp: troubleshooting-and-support/uninstalling-warp.md
     support-and-billing/plans-and-pricing: plans-and-billing/plans-and-pricing.md
     support-and-billing/plans-and-pricing/ai-credits: plans-and-billing/ai-credits.md
     support-and-billing/plans-and-pricing/add-on-credits: plans-and-billing/add-on-credits.md
@@ -54,7 +52,6 @@ redirects:
     help/using-warp-offline: troubleshooting-and-support/using-warp-offline.md
     help/uninstalling-warp: troubleshooting-and-support/uninstalling-warp.md
     help/known-issues: troubleshooting-and-support/known-issues.md
-    help/troubleshooting-login-issues: troubleshooting-and-support/troubleshooting-login-issues.md
     help/licenses: community/open-source-licenses.md
 
     # Since restructure
