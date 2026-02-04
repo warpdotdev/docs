@@ -224,9 +224,21 @@ You can create an API key from your settings in Warp:
 2. In the sidebar, click **Platform**.
 3. In the API Keys section, click **+ Create API Key.**
 4. Name the key and choose an expiration.
-5. Click **Create key**.
+5. Select the key type:
+   * **Personal** - Tied to your individual Warp account
+   * **Team** - Tied to your team, not any individual user
+6. Click **Create key**.
 
 <figure><img src="../.gitbook/assets/api-key-management.png" alt=""><figcaption><p>API key management interface in Warp settings</p></figcaption></figure>
+
+#### Personal vs team API keys
+
+Warp supports two types of API keys, each with different billing and identity behavior:
+
+* **Personal API keys** - Cloud agent runs authenticate as you. These runs can use your personal base credits before drawing from team add-on credits, just like running an agent from the Warp app or triggering one via Slack or Linear.
+* **Team API keys** - Cloud agent runs are not tied to any individual user. These runs can only draw from your team's pool of add-on credits—they cannot use any individual's base credits.
+
+Team API keys are useful for fully automated workflows, CI/CD pipelines, and scheduled tasks where no specific user context is needed. For billing details, see [Team access, billing, and identity permissions](https://docs.warp.dev/agent-platform/platform/team-access-billing-and-identity-permissions).
 
 #### Authenticating with API keys
 
