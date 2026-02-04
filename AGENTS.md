@@ -124,6 +124,44 @@ Use these terms consistently throughout all documentation:
 - **Warp Drive** (always capitalized)
 - **Codebase Context** (capitalized as a proper feature name)
 
+### Oz terminology
+
+#### Oz vs Warp
+- **Warp** is the terminal and coding surface
+- **Oz** is the programmable agent and orchestration-scaffolding that makes running cloud agents and automations easy
+- There is typically one Warp environment per user session. Oz can run many agents concurrently, across machines, repos, and teams.
+
+#### Core Oz terms
+- **Oz** - Warp's programmable agent for running and coordinating agents at scale
+- **Oz agent** - A combination of agent instructions (skill or prompt), trigger (cron, webhook, manual), environment (local, cloud), profile, and host. Agents can be local or cloud, and interactive or ambient.
+- **Oz cloud agent** - An Oz agent running in the cloud, from a trigger, schedule, or started from someone's local machine
+- **Oz subagent** - A child Oz agent created by a parent Oz agent to parallelize or delegate work
+- **Oz run** - A single execution lifecycle of an Oz agent, including actions, outputs, and logs. Always ambient and cloud-based.
+- **Oz conversation** - An interactive execution lifecycle within the Warp Terminal, regardless of whether it's local or in the cloud
+- **Environment** - The execution context for an Oz agent, including repo access, dependencies, secrets, compute, and runtime configuration
+- **Oz dashboard** - The app surface to manage all Oz runs, unified across the Warp app and web
+- **Oz web app** - The web app for configuring Oz agents and managing runs
+
+#### Oz CLI commands
+- `oz agent run` - Run a local agent
+- `oz agent run-cloud` - Run an adhoc cloud agent
+- `oz integration create` - Install integrations (Slack, Linear)
+- `oz environment create/list/get/update/delete` - CRUD on environments
+- `oz schedule create/list/get/update/delete` - CRUD on scheduled ambient agents
+- `oz secret create/list/update/delete` - CRUD on Warp-managed secrets
+- `oz run list/get` - Get info on ambient agent runs
+
+#### Preferred phrases
+- ✅ "Ask Oz to..."
+- ✅ "Oz can help you..."
+- ✅ "What would you like Oz to do?"
+
+#### Terms to avoid
+- ❌ "Ozzies" → Use "Oz agents", "instances", or "Oz subagents"
+- ❌ "Deploying an Oz" → Use "Deploying an Oz agent"
+- ❌ "The Oz Agent" → Use "An Oz agent" or "A parent Oz agent"
+- ❌ "Oz is running" → Use "An Oz agent is running" or "A run is in progress"
+
 ### Technical Terms
 - **codebase** (one word, lowercase unless part of feature name)
 - **command-line** (hyphenated when used as adjective)
@@ -266,7 +304,10 @@ We organize content in logical groupings that help people find what they are sea
 **Content order**: Organize content predictably in categories and subcategories, from broadest applicability to most specific. General order is: conceptual content, reference content, procedures, troubleshooting information.
 
 ### Assets
-GitBook-managed images and GIFs live in `docs/.gitbook/assets/`.
+GitBook-managed images and GIFs live in `.gitbook/assets/` folder for each sub-folder in `docs/`.
+
+### Redirects
+Each sub-folder in `docs/` with it's own `.gitbook.yaml` file is it's own Space in GitBook. Redirects within the same sub-directory are added to the sub-folders `.gitbook.yaml` file. Redirects that cross different sub-directories are adding using the `gitbook_redirects.py` tool in the `scripts/` folder. Read the tool's readme to learn about how to use the tool. Always read the current list of redirects before adding another redirect to make sure it's not already there. Also look at the current structure of the sub-folders in `docs/` to make sure the redirects are going to the current and correct location.
 
 ### OpenAPI spec and CI workflow
 `docs/developers/agent-api-openapi.yaml` is a first-class artifact: `.github/workflows/stainless.yml` watches that file on pull requests and uploads it to Stainless for preview/merge.
