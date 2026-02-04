@@ -40,7 +40,7 @@ Also clarify: Is this a new page or an update to an existing page?
 
 ### 3. Research existing patterns
 Before drafting, read:
-1. `WARP.md` in the gitbook repo root for the complete style guide
+1. `AGENTS.md` in the gitbook repo root for the complete style guide
 2. 1-2 similar pages in the target section to match existing patterns
 
 ### 4. Research source code (if needed)

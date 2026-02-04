@@ -23,6 +23,7 @@
   * [Third-Party CLI Agents](agent/using-agents/third-party-cli-agents.md)
 * [Full Terminal Use](agent/full-terminal-use.md)
 * [Slash Commands](agent/slash-commands.md)
+* [Skills](agent/skills.md)
 * [Active AI](agent/active-ai.md)
 * [Generate (Legacy)](agent/generate.md)
 * [Voice](agent/voice.md)
