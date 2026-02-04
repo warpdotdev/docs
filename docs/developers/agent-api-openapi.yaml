@@ -193,9 +193,28 @@ paths:
           schema:
             type: string
             format: date-time
-        - name: environmentId
+        - name: updated_after
+          in: query
+          description: Filter runs updated after this timestamp (RFC3339 format)
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: environment_id
           in: query
           description: Filter runs by environment ID
+          required: false
+          schema:
+            type: string
+        - name: skill_spec
+          in: query
+          description: Filter runs by skill spec (e.g., "owner/repo:path/to/SKILL.md")
+          required: false
+          schema:
+            type: string
+        - name: schedule_id
+          in: query
+          description: Filter runs by the scheduled agent ID that created them
           required: false
           schema:
             type: string
