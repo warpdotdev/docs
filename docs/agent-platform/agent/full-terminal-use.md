@@ -135,9 +135,9 @@ These settings apply to every session that uses Full Terminal Use. You can still
 **Note**: All [Secret Redaction](https://docs.warp.dev/support-and-community/privacy-and-security/secret-redaction) features still apply during Full Terminal Use, so sensitive values in your environment or output remain protected.
 {% endhint %}
 
-### AI credits usage
+### Credits usage
 
-All AI interactions from Full Terminal Use consume [AI Credits](https://docs.warp.dev/support-and-community/plans-and-billing/ai-credits), including understanding your natural language requests
+All AI interactions from Full Terminal Use consume [credits](https://docs.warp.dev/support-and-community/plans-and-billing/credits), including understanding your natural language requests
 
 Credits are consumed in a similar way as other Warp AI actions that use the same model and a similar context size.
 
@@ -156,7 +156,7 @@ Credits are consumed in a similar way as other Warp AI actions that use the same
   * Set global permissions to "Ask on first write" or "Always ask", then approve only what you need.
 
 {% hint style="info" %}
-To learn more about what goes into a credit and how to get more value from AI usage in Warp, see: [_Getting the most out of AI credits in Warp_](https://www.warp.dev/blog/warp-ai-requests).
+To learn more about what goes into a credit and how to get more value from AI usage in Warp, see: [_Getting the most out of credits in Warp_](https://www.warp.dev/blog/warp-ai-requests).
 {% endhint %}
 
 ## Example workflows

@@ -5,7 +5,7 @@ Warp provides a centralized management view where you can monitor agent activity
 * Which agents have been running recently (and what’s running right now)
 * Which runs succeeded, failed, or were canceled
 * Where an agent was triggered from (a local agent conversation, the Warp CLI, Slack, etc.)
-* How many AI credits those runs consumed
+* How many credits those runs consumed
 
 {% embed url="https://www.loom.com/share/679c267ddd2d44519abf79edcb1122c7" %}
 
@@ -30,7 +30,7 @@ The management view includes two categories of agent activity.
 * Credit usage reflects inference + compute, shown as a single combined value in this view.
 
 {% hint style="warning" %}
-All usage rolls up into Warp's standard [**AI credit**](https://docs.warp.dev/support-and-community/plans-and-billing/ai-credits) system.
+All usage rolls up into Warp's standard [**credit**](https://docs.warp.dev/support-and-community/plans-and-billing/credits) system.
 {% endhint %}
 
 In the **Personal** tab, you can view all of the interactive and Ambient Agent conversations that you own. In the **All** tab, you can see everything from the personal tab, as well as any ambient sessions that are shared with you by your teammates; right now, this only includes things triggered from integrations.

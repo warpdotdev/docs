@@ -14,7 +14,7 @@
 ## Plans and billing
 
 * [Plans & Pricing](plans-and-billing/plans-and-pricing.md)
-* [AI Credits](plans-and-billing/ai-credits.md)
+* [Credits](plans-and-billing/credits.md)
 * [Add-on Credits](plans-and-billing/add-on-credits.md)
 * [Bring Your Own API Key](plans-and-billing/bring-your-own-api-key.md)
 * [Overages (Legacy)](plans-and-billing/overages-legacy.md)

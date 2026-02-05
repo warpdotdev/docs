@@ -8,9 +8,9 @@ description: >-
 
 ### How can I upgrade and subscribe to a Warp plan?
 
-All paid Warp plans come with higher monthly AI credit limits than the Free plan.
+All paid Warp plans come with higher monthly credit limits than the Free plan.
 
-When you upgrade from Free to a paid plan, your AI credit usage resets. If you’re switching between paid plans, any AI usage you've already accumulated will carry over.
+When you upgrade from Free to a paid plan, your credit usage resets. If you’re switching between paid plans, any AI usage you've already accumulated will carry over.
 
 To subscribe to any Warp paid plan, start by [creating a Team in Warp](https://docs.warp.dev/warp/knowledge-and-collaboration/teams#creating-a-team), even if you're subscribing as an individual. Once your team is created, you can upgrade:
 
@@ -31,14 +31,14 @@ To see more details on the latest plan, please visit [**warp.dev/pricing**](http
 
 Warp's plans are designed for developers who rely on AI to code, debug, and move faster with their team.
 
-* **Build**, one usage-based plan with a set of AI credits, ability to Bring Your Own API Key (BYOK), and access to [Add-on credits](add-on-credits.md) with volume-based discounts. See more on [Bring Your Own API Key](bring-your-own-api-key.md).
+* **Build**, one usage-based plan with a set of credits, ability to Bring Your Own API Key (BYOK), and access to [Add-on credits](add-on-credits.md) with volume-based discounts. See more on [Bring Your Own API Key](bring-your-own-api-key.md).
 * **Business** includes everything in Build, with advanced features like automatically enforced team-wide Zero Data Retention, SAML-based SSO, and support for teams up to 50 seats.
 
 Legacy plans:
 
-* **Pro**, gets you a higher AI credit limits than the Free plan, support for larger codebases with [Codebase Context](https://docs.warp.dev/code/codebase-context), and access to premium models with optional pay-as-you-go overages.
-* **Turbo** offers even higher AI credit limits, larger Codebase Context indexing, and the option to pay for additional usage beyond your included credits.
-* **Lightspeed** is our most powerful plan, offering the highest AI credit limits, expanded codebase indexing, access to top-tier models, and pay-as-you-go overages so you can keep working without interruption.
+* **Pro**, gets you a higher credit limits than the Free plan, support for larger codebases with [Codebase Context](https://docs.warp.dev/code/codebase-context), and access to premium models with optional pay-as-you-go overages.
+* **Turbo** offers even higher credit limits, larger Codebase Context indexing, and the option to pay for additional usage beyond your included credits.
+* **Lightspeed** is our most powerful plan, offering the highest credit limits, expanded codebase indexing, access to top-tier models, and pay-as-you-go overages so you can keep working without interruption.
 
 For the most up-to-date feature and usage details, visit [**warp.dev/pricing**](https://www.warp.dev/pricing).
 
@@ -91,14 +91,14 @@ When you’re ready to use Warp more collaboratively, we suggest you nominate an
 
 ### How does usage work if logged into the same account on multiple devices?
 
-When you use the account to sign into Warp on different devices, for example Linux on one computer and Windows on another, your usage of metered features like AI credits is tracked at the account level, not the device level.
+When you use the account to sign into Warp on different devices, for example Linux on one computer and Windows on another, your usage of metered features like credits is tracked at the account level, not the device level.
 
 You can use your Warp account on multiple personal computers. Warp is designed to provide a consistent experience across devices. When you log in with the same account on different computers, your settings and preferences can be synced through the [Settings Sync](https://docs.warp.dev/terminal/more-features/settings-sync) feature.
 
 ### What happens when I downgrade during a billing cycle?
 
 {% hint style="warning" %}
-Note this only applies when switching between legacy plans (Pro, Turbo, Lightspeed, or the Old Business) or switching the new plans (Build, New Business). When switching between legacy to new plans, the change is immediate, prorated, and the AI credits are reset. See more in [What happens when I change from my legacy plan to the new Build or Business plans?](pricing-faqs.md#what-happens-when-i-change-from-my-legacy-plan-to-the-new-build-or-business-plans).
+Note this only applies when switching between legacy plans (Pro, Turbo, Lightspeed, or the Old Business) or switching the new plans (Build, New Business). When switching between legacy to new plans, the change is immediate, prorated, and the credits are reset. See more in [What happens when I change from my legacy plan to the new Build or Business plans?](pricing-faqs.md#what-happens-when-i-change-from-my-legacy-plan-to-the-new-build-or-business-plans).
 {% endhint %}
 
 The subscription will downgrade to the lower plan limits at the end of the billing cycle. If you’re switching between paid plans, any AI usage you've already accumulated will carry over.\
@@ -117,17 +117,17 @@ When upgrading from a monthly to annual billing cycle the billing is prorated, m
 
 To upgrade at any point throughout your subscription through the billing portal by going to `Settings > Billing and usage > Manage billing`.
 
-### What happens to unused AI credits?
+### What happens to unused credits?
 
-Unused AI credits do not rollover to the next cycle and can't be transferred to other accounts. You see when your credits will reset in the `Settings > Billing and usage` menu.
+Unused credits do not rollover to the next cycle and can't be transferred to other accounts. You see when your credits will reset in the `Settings > Billing and usage` menu.
 
 ### What happens if my payment fails?
 
 If a payment fails, you will receive an email from Stripe and your Warp Team Settings will show a past-due alert. Certain paid plan features and the ability to invite new members will be locked down while your Team is in a past-due state. Paying the most recent invoice through the billing portal by going to `Settings > Billing and usage > Manage billing` will fully re-enable your paid plan features.
 
-### What counts as an AI credit?
+### What counts as a credit?
 
-Each time you submit a prompt in Warp, whether to generate code, suggest a command, or accomplish a task, you initiate an interaction with the Agent. Please see more details in our [AI Credits](ai-credits.md) page.
+Each time you submit a prompt in Warp, whether to generate code, suggest a command, or accomplish a task, you initiate an interaction with the Agent. Please see more details in our [credits](credits.md) page.
 
 ### How do overages work?
 
@@ -135,22 +135,22 @@ Overages allow for pay-as-you-go access to premium AI models after reaching your
 
 ### What counts as an AI token?
 
-Tokens are chunks of text, such as words, parts of code, or characters, that large language models (LLMs) break down to analyze and generate responses. LLMs have a maximum number of tokens they can process at once. AI credits and suggestions are not the same as tokens, which are limited separately regardless of which plan you're on.
+Tokens are chunks of text, such as words, parts of code, or characters, that large language models (LLMs) break down to analyze and generate responses. LLMs have a maximum number of tokens they can process at once. credits and suggestions are not the same as tokens, which are limited separately regardless of which plan you're on.
 
 {% hint style="info" %}
-Warp now abstracts away token usage, so you don't need to manage or track it directly. You only need to monitor your **AI credit usage**, which is what’s measured in your plan limits and overages.
+Warp now abstracts away token usage, so you don't need to manage or track it directly. You only need to monitor your **credit usage**, which is what’s measured in your plan limits and overages.
 {% endhint %}
 
-If you're curious, you can still learn more about tokens [here](https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them), or refer to the pricing page for plan-level credit allocations. If you reach your monthly AI credit limits on a paid plan, premium models will be temporarily disabled until your quota resets at the start of your next billing cycle.
+If you're curious, you can still learn more about tokens [here](https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them), or refer to the pricing page for plan-level credit allocations. If you reach your monthly credit limits on a paid plan, premium models will be temporarily disabled until your quota resets at the start of your next billing cycle.
 
 If you’d like to continue using premium models beyond your included quota, you can enable [pay-as-you-go overages](overages-legacy.md) in `Settings > Billing and usage`.
 
-### How often do my AI credits reset?
+### How often do my credits reset?
 
-Allotted AI credits refill every 30 days from your signup date. When you upgrade to a [paid plan](https://www.warp.dev/pricing), you will be given more credits immediately. You can follow along with your refill period by referencing `Settings > Billing and usage`. Alternatively, you can also set [Overages](overages-legacy.md) to your desired amount to continue to use more premium model credits.
+Allotted credits refill every 30 days from your signup date. When you upgrade to a [paid plan](https://www.warp.dev/pricing), you will be given more credits immediately. You can follow along with your refill period by referencing `Settings > Billing and usage`. Alternatively, you can also set [Overages](overages-legacy.md) to your desired amount to continue to use more premium model credits.
 
 {% hint style="info" %}
-Unused AI credits do not rollover to the next cycle and can't be transferred to other accounts.
+Unused credits do not rollover to the next cycle and can't be transferred to other accounts.
 {% endhint %}
 
 ### Can I use a Free plan if I'm a developer at a large company or organization?
@@ -245,7 +245,7 @@ If you switched immediately after the rollout, before a subsequent update was ap
 * You should see this reflected in `Settings > Billing and Usage`. If you experience any issues, please contact us at **build-priority@warp.dev**.
 
 {% hint style="info" %}
-We recommend you use all the AI credits on your legacy plan before you switch over to the new plans. This way you can make best use of them before they are reset to the new plan limits.
+We recommend you use all the credits on your legacy plan before you switch over to the new plans. This way you can make best use of them before they are reset to the new plan limits.
 {% endhint %}
 
 {% hint style="warning" %}
@@ -273,7 +273,7 @@ If you have any questions, please reach out to us at **billing@warp.dev**.
 
 You will retain your current plan and credits until the first renewal after December 1, 2025. At renewal, all current Pro, Turbo, Lightspeed, and Business plans will transition to the new Warp Build and Business plans.
 
-The Build and new Business plans includes 1,500 monthly AI credits, the ability to purchase [Add-on Credits](add-on-credits.md) that roll over for 12 months, and the ability to bring your own API key. Learn more at [warp.dev/pricing](https://www.warp.dev/pricing).
+The Build and new Business plans includes 1,500 monthly credits, the ability to purchase [Add-on Credits](add-on-credits.md) that roll over for 12 months, and the ability to bring your own API key. Learn more at [warp.dev/pricing](https://www.warp.dev/pricing).
 
 In addition, [Add-on credit auto reload](add-on-credits.md#id-2.-enable-auto-reload) will be automatically enabled for some legacy plan users in the following ways (but can be opted out of or modified at any time). Our goal is to maintain the same maximum monthly spend in line with your legacy plan subscription plus any Overages:
 
@@ -294,9 +294,9 @@ Yes, the terminal features of Warp will continue to be free to use for developer
 
 Add-on credits replace overages with a simpler, prepaid system. They’re up to \~40% cheaper than the old overage rates, roll over month-to-month, and remain valid for 12 months. They also come with Warp’s full SOC 2 / Zero Data Retention protection.
 
-#### Do AI credits rollover?
+#### Do credits rollover?
 
-For existing users on legacy plans, plan credits on Pro, Turbo, and Lightspeed do not rollover. Neither will pay-as-you-go Overage credits.
+For existing users on legacy plans, plan credits on Pro, Turbo, and Lightspeed do not rollover.
 
 For the Build plan, credits will not rollover but Add-on credits will rollover and be valid for 12 months from the date of purchase.
 
@@ -315,9 +315,9 @@ If a purchase would exceed your limit, it won’t go through—you’ll need to 
 * New users who enable auto reload will start with a $200 spend limit.
 * Existing paid plan users who enable auto reload will have their limit match their existing Overages spend limit (if previously configured, otherwise $200).
 
-#### I’m an individual developer and need more than 1,500 AI credits per month. What’s the right plan for me?
+#### I’m an individual developer and need more than 1,500 credits per month. What’s the right plan for me?
 
-If you regularly use more than 1,500 AI credits per month, the Build plan is designed for you. It includes 1,500 monthly credits and gives you the flexibility to scale further with Add-on Credits, which you can purchase at discounted rates directly under `Settings > Billing and usage`.
+If you regularly use more than 1,500 credits per month, the Build plan is designed for you. It includes 1,500 monthly credits and gives you the flexibility to scale further with Add-on Credits, which you can purchase at discounted rates directly under `Settings > Billing and usage`.
 
 Add-on Credits roll over month to month, remain valid for 12 months, and offer up to \~40% savings for larger denominations. You can also enable auto reload to automatically top up your credits when your balance runs low.
 
@@ -325,15 +325,15 @@ If you’re part of a team that needs shared credit management, SSO, or enforced
 
 #### Should I subscribe to the Build plan or the Business plan?
 
-If you’re an individual developer or part of a small team, the Build plan is the best fit. It includes 1,500 monthly AI credits, discounted Add-on Credits for additional usage, and the ability to bring your own API key (BYOK) for OpenAI, Anthropic, or Google models. You’ll also get unlimited Warp Drive objects, collaboration tools, and the highest codebase indexing limits.
+If you’re an individual developer or part of a small team, the Build plan is the best fit. It includes 1,500 monthly credits, discounted Add-on Credits for additional usage, and the ability to bring your own API key (BYOK) for OpenAI, Anthropic, or Google models. You’ll also get unlimited Warp Drive objects, collaboration tools, and the highest codebase indexing limits.
 
 If you’re part of a larger team (up to 50 members) that needs advanced administrative and security controls, choose the Business plan. It includes everything in Build, plus SSO, enforced Zero Data Retention (ZDR), shared Add-on Credits that can be used by all team members, and centralized billing – ideal for organizations that need stronger security, compliance, and team-wide management.
 
-#### How do AI credits work for multi-seat teams?
+#### How do credits work for multi-seat teams?
 
-For teams on the Build or Business plans, AI credits are managed at two levels:
+For teams on the Build or Business plans, credits are managed at two levels:
 
 * **Included monthly credits**: Each seat on a paid plan receives 1,500 individual credits per month. These credits are tied to the user and reset every 30 days based on their subscription or renewal date.
-* **Add-on Credits**: Once individual plan credits are used up, team members draw from a shared Add-on Credit balance that can be topped up and managed by team admins. Add-on Credits roll over month to month, remain valid for 12 months, and can be purchased at discounted rates directly under Settings > Billing and usage.
+* **Add-on Credits**: Once individual plan credits are used up, team members draw from a shared Add-on Credit balance that can be topped up and managed by team admins.
 
 This shared model gives teams the flexibility to handle variable AI usage – heavy users can consume more when needed, while the entire team benefits from shared value and volume-based discounts.

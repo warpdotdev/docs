@@ -17,16 +17,16 @@ You can manage usage-based pricing directly in Warp under `Settings > Billing an
 **Team admins** can enable or disable "premium model overages" and set a monthly spending limit from the settings dashboard. Individual subscribers can manage their own overage settings directly in the settings dashboard.
 
 {% hint style="info" %}
-Usage-based pricing only applies after you’ve reached the AI credit limit on your plan — you won’t be charged for any overages until that point, even if overages are enabled.
+Usage-based pricing only applies after you’ve reached the credit limit on your plan — you won’t be charged for any overages until that point, even if overages are enabled.
 {% endhint %}
 
 ### How overages work
 
-Overages are managed **at the team level**, even if your team only has one member (i.e. individual users). Once overages are enabled, any team member who reaches their monthly AI credit quota can continue to have access to premium models — with **additional usage billed at cost ($0.04 per credit)**.
+Overages are managed **at the team level**, even if your team only has one member (i.e. individual users). Once overages are enabled, any team member who reaches their monthly credit quota can continue to have access to premium models — with **additional usage billed at cost ($0.04 per credit)**.
 
 Each user on the team has their **own credit limit**, but only **credits made beyond that personal quota** are considered overages. These charges are tracked and billed **collectively** at the team level.
 
-For example, if your plan includes 10,000 AI credits per team member:
+For example, if your plan includes 10,000 credits per team member:
 
 * If **User A** reaches their 10,000 limit, any further usage by them counts towards overages.
 * If **User B** has only used 2,000 credits, they still have 8,000 included credits left.

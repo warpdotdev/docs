@@ -12,7 +12,7 @@ When someone triggers an ambient agent for the first time, Warp may prompt them 
 
 #### Team and billing requirements
 
-Integrations and [Ambient Agents](../ambient-agents/ambient-agents-overview.md) run inside Warp's cloud, which means usage is billed based on [credits](https://docs.warp.dev/support-and-community/plans-and-billing/ai-credits). Credits are shared at the team level.
+Integrations and [Ambient Agents](../ambient-agents/ambient-agents-overview.md) run inside Warp's cloud, which means usage is billed based on [credits](https://docs.warp.dev/support-and-community/plans-and-billing/credits). Credits are shared at the team level.
 
 Your team must meet the following requirements to run integrations:
 

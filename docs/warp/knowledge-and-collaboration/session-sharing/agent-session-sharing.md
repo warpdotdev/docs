@@ -55,7 +55,7 @@ Viewers see:
 * Agent thinking animations
 * Tool use
 * Planning steps
-* [AI Credits](https://docs.warp.dev/support-and-community/plans-and-billing/ai-credits) usage
+* [Credits](https://docs.warp.dev/support-and-community/plans-and-billing/credits) usage
 * Final responses
 
 This happens live as the sharer interacts with the Agent.

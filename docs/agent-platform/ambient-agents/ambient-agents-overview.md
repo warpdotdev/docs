@@ -96,7 +96,7 @@ If your team also uses Warp’s terminal, you get an additional workflow: tasks 
 
 ### Team and billing requirements
 
-Ambient Agents and [integrations](../integrations/integrations-overview.md) run on the [Warp Platform](../platform/warp-platform.md) control plane, and usage is billed using AI credits.
+Ambient Agents and [integrations](../integrations/integrations-overview.md) run on the [Warp Platform](../platform/warp-platform.md) control plane, and usage is billed using credits.
 
 To run **integrations (and most Ambient Agent automation)**, your team must meet the following requirements:
 

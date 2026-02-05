@@ -10,7 +10,7 @@ Warp supports **Bring Your Own Key (BYOK)** for users who want to connect Warp�
 
 This lets you use your own API keys to access models directly, giving you full control over model selection, billing, and data routing. See [Model Choice](https://docs.warp.dev/agent-platform/agent/using-agents/model-choice) for a list of supported models.
 
-BYOK provides greater flexibility in model access and ensures Warp **never consumes your** [AI Credits](ai-credits.md) for requests routed through your own keys.
+BYOK provides greater flexibility in model access and ensures Warp **never consumes your** [credits](credits.md) for requests routed through your own keys.
 
 {% hint style="info" %}
 BYOK is currently only available on Warp's paid plans, starting with Build. Learn more about plans and pricing [warp.dev/pricing](https://www.warp.dev/pricing).
@@ -24,7 +24,7 @@ Warp uses these API keys to directly route your agent requests to the model prov
 
 When a model is selected using your own key:
 
-* Warp **does not consume** any of your [AI Credits](ai-credits.md).
+* Warp **does not consume** any of your [credits](credits.md).
 * Costs are billed directly through your model provider account.
 * Warp does not retain or store your API key on any of its servers.
 
@@ -46,7 +46,7 @@ When you explicitly select a model with a key icon, Warp routes requests through
 
 ### Auto Model
 
-Warp's **Auto** models dynamically routes requests across different models based on context and performance. Because this routing logic depends on Warp’s infrastructure, **Auto always consumes Warp's AI credits**, even if you’ve configured your own API keys.
+Warp's **Auto** models dynamically routes requests across different models based on context and performance. Because this routing logic depends on Warp’s infrastructure, **Auto always consumes Warp's credits**, even if you’ve configured your own API keys.
 
 To use your own key, select a specific provider model (for example, Claude Sonnet 4.5, GPT-5, or Gemini 2.5 Pro) directly from the model picker with a key icon.
 
@@ -66,7 +66,7 @@ The credit transparency footer will show “0 credits used”, and the `Billing 
 
 Some AI-powered features are not affected by BYOK and are included as part of Warp’s paid plans.
 
-| Feature                                                           | Uses Warp's AI Credits | Description                                         |
+| Feature                                                           | Uses Warp's credits | Description                                         |
 | ----------------------------------------------------------------- | ---------------------- | --------------------------------------------------- |
 | [Active AI](https://docs.warp.dev/agent-platform/agent/active-ai) | No                     | Always included with Build and higher plans.        |
 | [Codebase Context](https://docs.warp.dev/code/codebase-context)   | Yes                    | Uses Warp's AI infrastructure and consumes credits. |

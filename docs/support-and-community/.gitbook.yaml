@@ -7,7 +7,7 @@ redirects:
     support-and-billing/updating-warp: troubleshooting-and-support/updating-warp.md
     support-and-billing/using-warp-offline: troubleshooting-and-support/using-warp-offline.md
     support-and-billing/plans-and-pricing: plans-and-billing/plans-and-pricing.md
-    support-and-billing/plans-and-pricing/ai-credits: plans-and-billing/ai-credits.md
+    support-and-billing/plans-and-pricing/ai-credits: plans-and-billing/credits.md
     support-and-billing/plans-and-pricing/add-on-credits: plans-and-billing/add-on-credits.md
     support-and-billing/plans-and-pricing/bring-your-own-api-key: plans-and-billing/bring-your-own-api-key.md
     support-and-billing/plans-and-pricing/usage-overages: plans-and-billing/overages-legacy.md
@@ -17,7 +17,7 @@ redirects:
 
     # Old support-and-community/plans-pricing-and-billing paths
     support-and-community/plans-pricing-and-billing: plans-and-billing/plans-and-pricing.md
-    support-and-community/plans-pricing-and-billing/ai-credits: plans-and-billing/ai-credits.md
+    support-and-community/plans-pricing-and-billing/ai-credits: plans-and-billing/credits.md
     support-and-community/plans-pricing-and-billing/add-on-credits: plans-and-billing/add-on-credits.md
     support-and-community/plans-pricing-and-billing/bring-your-own-api-key: plans-and-billing/bring-your-own-api-key.md
     support-and-community/plans-pricing-and-billing/overages-legacy: plans-and-billing/overages-legacy.md
@@ -25,7 +25,7 @@ redirects:
 
     # Short plans-pricing-and-billing paths
     plans-pricing-and-billing: plans-and-billing/plans-and-pricing.md
-    plans-pricing-and-billing/ai-credits: plans-and-billing/ai-credits.md
+    plans-pricing-and-billing/ai-credits: plans-and-billing/credits.md
     plans-pricing-and-billing/add-on-credits: plans-and-billing/add-on-credits.md
     plans-pricing-and-billing/bring-your-own-api-key: plans-and-billing/bring-your-own-api-key.md
     plans-pricing-and-billing/overages-legacy: plans-and-billing/overages-legacy.md
@@ -76,11 +76,11 @@ redirects:
     support-and-billing: plans-and-billing/plans-and-pricing.md
     support-and-billing/subscription-management: plans-and-billing/plans-and-pricing.md
     support-and-billing/pricing-faqs: plans-and-billing/pricing-faqs.md
-    support-and-billing/plans-and-pricing/ai-requests: plans-and-billing/ai-credits.md
+    support-and-billing/plans-and-pricing/ai-requests: plans-and-billing/credits.md
     support-and-billing/plans-and-billing/bring-your-own-api-key: plans-and-billing/bring-your-own-api-key.md
     support-and-billing/plans-and-prilling/bring-your-own-api-key: plans-and-billing/bring-your-own-api-key.md
     support-and-billing/uninstalling-warp: troubleshooting-and-support/uninstalling-warp.md
-    support-and-billing/plans-and-pricing/ai-credits: plans-and-billing/ai-credits.md
+    support-and-billing/plans-and-pricing/ai-credits: plans-and-billing/credits.md
     support-and-billing/troubleshooting-login-issues: troubleshooting-and-support/troubleshooting-login-issues.md
 
     # Additional privacy/ paths
@@ -94,7 +94,7 @@ redirects:
 
     # support-and-community/ prefix paths
     support-and-community/privacy-and-security/privacy: privacy-and-security/privacy.md
-    support-and-community/plans-and-billing/ai-credits: plans-and-billing/ai-credits.md
+    support-and-community/plans-and-billing/ai-credits: plans-and-billing/credits.md
 
     # Anchor-specific paths for known-issues
     help/known-issues#debugging: troubleshooting-and-support/known-issues.md
@@ -139,4 +139,7 @@ redirects:
     support-and-billing/plans-and-pricing/add-on-credits#id-2.-enable-auto-reload: plans-and-billing/add-on-credits.md
 
     # Anchor-specific paths for ai-credits
-    support-and-billing/plans-and-pricing/ai-requests#how-are-warp-ai-requests-calculated: plans-and-billing/ai-credits.md
+    support-and-billing/plans-and-pricing/ai-requests#how-are-warp-ai-requests-calculated: plans-and-billing/credits.md
+
+    # Redirect old ai-credits path to new credits path
+    plans-and-billing/ai-credits: plans-and-billing/credits.md

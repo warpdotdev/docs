@@ -15,7 +15,7 @@ You can manage and purchase Add-on credits directly in `Settings > Billing and u
 
 ### How do Add-on credits work?
 
-Add-on credits extend your AI usage beyond the included monthly quota in your plan. Once your plan’s AI credits are used up, Warp will automatically begin drawing from your available Add-on credits.
+Add-on credits extend your AI usage beyond the included monthly quota in your plan. Once your plan’s credits are used up, Warp will automatically begin drawing from your available Add-on credits.
 
 If you’ve enabled **Auto reload**, new credits will be added automatically and billed based on your selected configuration of monthly spending limit and selected purchase amount.
 
@@ -88,7 +88,7 @@ Team admins can manage:
 
 Each user on the team has their own monthly credit limit, **but any usage beyond that personal quota draws from the shared team credits**. These shared credits are tracked and billed collectively at the team level.
 
-For example, if your plan includes 1,500 AI credits per team member:
+For example, if your plan includes 1,500 credits per team member:
 
 * If **User A** reaches their 1,500 limit, any further usage will draw from shared Add-on Credits.
 * If **User B** has only used 200 credits, their remaining quota is unaffected, but User A will consume the team's shared credits.

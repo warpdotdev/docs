@@ -25,7 +25,7 @@ A Scheduled Agent is an [Ambient Agent](../ambient-agents-overview.md) that runs
 * Uses a fixed prompt defined at schedule creation time.
 * Starts a fresh agent session for every run.
 * Executes in a specific Warp Environment, if provided.
-* Consumes AI credits when it runs.
+* Consumes credits when it runs.
 * Can be paused, updated, or deleted at any time.
 
 Scheduled Agents are ideal for work that should happen regularly and predictably, without needing a human to trigger the agent manually.
@@ -246,7 +246,7 @@ Each scheduled run behaves like a standard Ambient Agent run, with a few importa
 * Every run starts a fresh session.
 * No state is carried over between runs unless your environment explicitly persists data.
 * Runs execute automatically without human intervention.
-* All usage is billed to the team’s shared AI credit balance.
+* All usage is billed to the team’s shared credit balance.
 
 If a scheduled run fails, it does not block future runs. Each execution is independent.
 
@@ -259,7 +259,7 @@ By creating a Scheduled Agent, you are responsible for:
 * The cron schedule and how often the agent runs.
 * The instructions provided in the prompt.
 * The environment and integrations the agent has access to.
-* The AI credits consumed by scheduled executions.
+* The credits consumed by scheduled executions.
 
 Carefully review prompts and schedules before deploying them broadly, especially for agents that can modify production code or infrastructure.
 

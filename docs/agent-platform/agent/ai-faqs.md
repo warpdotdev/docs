@@ -30,11 +30,11 @@ Organizations on the Enterprise plan can enable a “Bring Your Own LLM” optio
 
 ## Billing
 
-Every Warp plan includes a set number of AI credits per user per month. Please refer to [pricing](https://www.warp.dev/pricing) to compare plans.
+Every Warp plan includes a set number of credits per user per month. Please refer to [pricing](https://www.warp.dev/pricing) to compare plans.
 
-AI credit limits apply to Agent Mode, [Generate](generate.md), and [AI autofill in Workflows](https://docs.warp.dev/knowledge-and-collaboration/warp-drive/workflows#ai-autofill). When you have used up your allotted credits for the cycle, you will not be able to issue any more AI credits until the cycle renews.
+Credit limits apply to Agent Mode, [Generate](generate.md), and [AI autofill in Workflows](https://docs.warp.dev/knowledge-and-collaboration/warp-drive/workflows#ai-autofill). When you have used up your allotted credits for the cycle, you will not be able to issue any more credits until the cycle renews.
 
-For questions around what counts as a AI credit, what counts as a token, and how often credits refresh, please refer to [AI Credits](https://docs.warp.dev/support-and-community/plans-and-billing/ai-credits) and more on the [Plans & Pricing](https://docs.warp.dev/support-and-community/plans-and-billing/plans-and-pricing) page.
+For questions around what counts as a credit, what counts as a token, and how often credits refresh, please refer to [Credits](https://docs.warp.dev/support-and-community/plans-and-billing/credits) and more on the [Plans & Pricing](https://docs.warp.dev/support-and-community/plans-and-billing/plans-and-pricing) page.
 
 ## Common AI error messages
 
@@ -49,7 +49,7 @@ To fix this, try:
 
 #### "Monthly request limit exceeded" or "Monthly credit limit exceeded" errors
 
-Once you exceed your AI credits on the Turbo plan (see [pricing](https://www.warp.dev/pricing) for current limits), premium models will be disabled until your quota resets at the start of your next billing cycle.
+Once you exceed your credits on the Turbo plan (see [pricing](https://www.warp.dev/pricing) for current limits), premium models will be disabled until your quota resets at the start of your next billing cycle.
 
 **Request failed with error: QuotaLimit**
 

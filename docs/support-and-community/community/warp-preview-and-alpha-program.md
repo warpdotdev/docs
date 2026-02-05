@@ -1,7 +1,7 @@
 ---
 description: >-
   Warp Preview is an early-access build of Warp with experimental features. The
-  Alpha Program offers the most engaged users free, additional AI credits.
+  Alpha Program offers the most engaged users free, additional credits.
 ---
 
 # Warp Preview & Alpha Program

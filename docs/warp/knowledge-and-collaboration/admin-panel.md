@@ -169,7 +169,7 @@ Higher tier plans support more indexed repositories and larger file limits per c
 
 Configure billing preferences and spending controls.
 
-**Usage Based Pricing** Enable pay-as-you-go billing for AI credits beyond your plan's included quota. When enabled, you can set:
+**Usage Based Pricing** Enable pay-as-you-go billing for credits beyond your plan's included quota. When enabled, you can set:
 
 **Monthly Spending Limit** Set a maximum monthly overage spending limit to control costs. The system displays current overage usage including:
 

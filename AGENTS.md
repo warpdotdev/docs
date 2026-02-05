@@ -168,6 +168,12 @@ Use these terms consistently throughout all documentation:
 - **Git repository** or **repo** (not "git repository")
 - **macOS** (not "Mac OS" or "Mac")
 
+### Billing and Credits
+- **credits** (lowercase, not "AI credits") - the unit of usage for AI features in Warp
+- **Add-on Credits** (capitalized as a product feature name)
+- **plan credits** - credits included with a subscription plan
+- Use "credit" or "credits" without the "AI" prefix throughout documentation
+
 ### UI Elements
 - **Settings** (capitalized when referring to the Settings panel)
 - **Command Palette** (capitalized)
