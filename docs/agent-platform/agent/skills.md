@@ -32,6 +32,14 @@ Skill discovery is based on your current working directory. For Git repositories
 Skills complement Rules, which provide persistent guidelines that Agents always follow. Use Rules for constraints and preferences; use Skills for specific task workflows.
 {% endhint %}
 
+### Skill name conflicts
+
+If you have skills with the same name in multiple directories, Warp handles the conflict differently depending on how the skill is invoked:
+
+* **Natural language** - The Agent receives a list of all in-scope skills including their names, descriptions, and file paths. The Agent can see all available options and chooses the appropriate skill based on its path.
+* **Slash commands** - When multiple skills share the same name, Warp displays all matching skills in the menu. You select which one to use based on the description.
+* **Background resolution** - When Warp resolves skill names automatically (without direct user selection), it prioritizes home directory (global) skills first, then skills from higher directories (closer to the repository root).
+
 ### Example interactions
 
 You can invoke skills in two ways:
