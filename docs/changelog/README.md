@@ -46,8 +46,6 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 * Fixed slash command text not highlighting correctly in some cases.
 * Fixed input mode detection occasionally switching unexpectedly.
 * Fixed /edit command failing when filename had trailing whitespace.
-
-
 {% endupdate %}
 
 {% update date="2026-01-21" %}
@@ -78,7 +76,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 {% endupdate %}
 
 {% update date="2026-01-14" %}
-## (v0.2026.01.14.08.15)
+## v0.2026.01.14.08.15
 
 **New features**
 
@@ -100,7 +98,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 {% endupdate %}
 
 {% update date="2026-01-07" %}
-## (v0.2026.01.07.08.13)
+## v0.2026.01.07.08.13
 
 **New Features**
 
@@ -126,7 +124,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 {% endupdate %}
 
 {% update date="2025-12-17" %}
-## (v0.2025.12.17.17.17)
+## v0.2025.12.17.17.17
 
 **Improvements**
 
@@ -142,7 +140,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 {% endupdate %}
 
 {% update date="2025-12-12" %}
-## (v0.2025.12.10.08.12)
+## v0.2025.12.10.08.12
 
 **Improvements**
 
@@ -162,7 +160,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 {% endupdate %}
 
 {% update date="2025-12-03" %}
-## (v0.2025.12.03.08.12)
+## v0.2025.12.03.08.12
 
 **Improvements**
 
