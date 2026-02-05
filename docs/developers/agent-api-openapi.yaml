@@ -807,26 +807,26 @@ components:
       discriminator:
         propertyName: artifact_type
         mapping:
-          plan: '#/components/schemas/PlanArtifact'
-          pull_request: '#/components/schemas/PullRequestArtifact'
+          PLAN: '#/components/schemas/PlanArtifact'
+          PULL_REQUEST: '#/components/schemas/PullRequestArtifact'
 
     PlanArtifact:
       type: object
       required:
         - artifact_type
         - created_at
-        - plan
+        - data
       properties:
         artifact_type:
           type: string
           enum:
-            - plan
+            - PLAN
           description: Type of the artifact
         created_at:
           type: string
           format: date-time
           description: Timestamp when the artifact was created (RFC3339)
-        plan:
+        data:
           $ref: '#/components/schemas/PlanArtifactData'
 
     PullRequestArtifact:
@@ -834,18 +834,18 @@ components:
       required:
         - artifact_type
         - created_at
-        - pull_request
+        - data
       properties:
         artifact_type:
           type: string
           enum:
-            - pull_request
+            - PULL_REQUEST
           description: Type of the artifact
         created_at:
           type: string
           format: date-time
           description: Timestamp when the artifact was created (RFC3339)
-        pull_request:
+        data:
           $ref: '#/components/schemas/PullRequestArtifactData'
 
     PlanArtifactData:
@@ -938,6 +938,7 @@ components:
         - INPROGRESS
         - SUCCEEDED
         - FAILED
+        - CANCELLED
       description: |
         Current state of the run:
         - QUEUED: Run is waiting to be picked up
@@ -946,7 +947,7 @@ components:
         - INPROGRESS: Run is actively being executed
         - SUCCEEDED: Run completed successfully
         - FAILED: Run failed
-
+        - CANCELLED: Run was cancelled by user
     RunSourceType:
       type: string
       enum:
