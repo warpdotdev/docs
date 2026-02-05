@@ -775,6 +775,8 @@ components:
           $ref: '#/components/schemas/RunStatusMessage'
         source:
           $ref: '#/components/schemas/RunSourceType'
+        schedule:
+          $ref: '#/components/schemas/ScheduleInfo'
         session_id:
           type: string
           description: UUID of the shared session (if available)
@@ -876,6 +878,24 @@ components:
         branch:
           type: string
           description: Branch name for the pull request
+
+    ScheduleInfo:
+      type: object
+      description: Information about the schedule that triggered this run (only present for scheduled runs)
+      required:
+        - schedule_id
+        - schedule_name
+        - cron_schedule
+      properties:
+        schedule_id:
+          type: string
+          description: Unique identifier for the schedule
+        schedule_name:
+          type: string
+          description: Name of the schedule at the time the run was created
+        cron_schedule:
+          type: string
+          description: Cron expression at the time the run was created
 
     PageInfo:
       type: object
