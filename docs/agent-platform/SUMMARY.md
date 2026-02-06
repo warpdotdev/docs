@@ -37,6 +37,7 @@
   * [Scheduled Agents](ambient-agents/managing-ambient-agents/scheduled-agents.md)
 * [Agent Secrets](ambient-agents/agent-secrets.md)
 * [MCP Servers for Agents](ambient-agents/mcp-servers-for-agents.md)
+* [Cloud Agents FAQs](ambient-agents/cloud-agents-faqs.md)
 
 ## Integrations
 
