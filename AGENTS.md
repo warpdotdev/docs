@@ -315,5 +315,11 @@ GitBook-managed images and GIFs live in `.gitbook/assets/` folder for each sub-f
 ### Redirects
 Each sub-folder in `docs/` with its own `.gitbook.yaml` file is its own Space in GitBook. Redirects within the same sub-directory are added to the sub-folder's `.gitbook.yaml` file. Redirects that cross different sub-directories are added using the `gitbook_redirects.py` tool in the `scripts/` folder. Read the tool's readme to learn about how to use the tool. Always read the current list of redirects before adding another redirect to make sure it's not already there. Also look at the current structure of the sub-folders in `docs/` to make sure the redirects are going to the current and correct location.
 
+### Sample doc URLs
+Documentation pages are published at `docs.warp.dev/`. For example:
+- `docs.warp.dev/warp/terminal/blocks/block-basics`
+- `docs.warp.dev/agent-platform/capabilities/skills`
+- `docs.warp.dev/reference/cli`
+
 ### OpenAPI spec and CI workflow
 `docs/developers/agent-api-openapi.yaml` is a first-class artifact: `.github/workflows/stainless.yml` watches that file on pull requests and uploads it to Stainless for preview/merge.

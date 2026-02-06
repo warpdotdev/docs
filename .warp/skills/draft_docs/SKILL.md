@@ -29,12 +29,12 @@ Review all provided context (PRD, spec, existing doc, etc.). Identify:
 
 ### 2. Clarify placement
 Ask the user where the doc should live. The docs are organized into sections, each with its own `SUMMARY.md`:
-- `docs/warp/` - Warp Terminal and IDE (Getting started, Terminal, Code, Knowledge and collaboration)
-- `docs/agent-platform/` - Agent Platform (Agent, Ambient Agents, Integrations, Platform)
-- `docs/reference/` - Technical reference (CLI, API & SDK)
-- `docs/support-and-community/` - Support (Troubleshooting, Plans and billing, Privacy and security, Community)
-- `docs/enterprise/` - Enterprise documentation
-- `docs/changelog/` - Changelog
+- `docs/warp/` - Warp Terminal and IDE (Getting started, Terminal, Code, Knowledge and collaboration) → published at `docs.warp.dev/warp/`
+- `docs/agent-platform/` - Agent Platform (Agent, Ambient Agents, Integrations, Platform) → published at `docs.warp.dev/agent-platform/`
+- `docs/reference/` - Technical reference (CLI, API & SDK) → published at `docs.warp.dev/reference/`
+- `docs/support-and-community/` - Support (Troubleshooting, Plans and billing, Privacy and security, Community) → published at `docs.warp.dev/support-and-community/`
+- `docs/enterprise/` - Enterprise documentation → published at `docs.warp.dev/enterprise/`
+- `docs/changelog/` - Changelog → published at `docs.warp.dev/changelog/`
 
 Also clarify: Is this a new page or an update to an existing page?
 
