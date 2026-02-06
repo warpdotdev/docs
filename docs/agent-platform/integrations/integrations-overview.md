@@ -29,7 +29,7 @@ The fastest way to get Warp agents running from Slack or Linear is to create an 
 
 #### 1. Run /create-environment
 
-From Warp (in command mode), run:
+From Warp, run the following slash command:
 
 ```
 /create-environment
@@ -42,6 +42,10 @@ You can run it inside any repo, or point it at multiple repos:
 /create-environment your-org/repo-name
 /create-environment https://github.com/your-org/api.git
 ```
+
+{% hint style="info" %}
+Learn more about slash commands and how to use them in the [Slash Commands](../agent/slash-commands.md) documentation.
+{% endhint %}
 
 The guided flow will:
 
