@@ -978,6 +978,8 @@ components:
         - SCHEDULED_AGENT
         - WEB_APP
         - GITHUB_ACTION
+        - CLOUD_MODE
+        - CLI
       description: |
         Source that created the run:
         - LINEAR: Created from Linear integration
@@ -987,7 +989,8 @@ components:
         - SCHEDULED_AGENT: Created by a scheduled agent
         - WEB_APP: Created from the Warp web app
         - GITHUB_ACTION: Created from a GitHub action
-
+        - CLOUD_MODE: Created from a Cloud Mode
+        - CLI: Created from the CLI
     AmbientAgentConfig:
       type: object
       description: Configuration for an ambient agent run
