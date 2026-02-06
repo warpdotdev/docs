@@ -21,7 +21,7 @@ Your team must meet the following requirements to run integrations:
   * Not supported: Pro, Turbo, Lightspeed, legacy Business.
 * Your team needs at least **20 Reload Credits** available to run an integration
 
-When a user triggers an agent through an integration (like Slack or Linear), the run draws from credits in a specific order. It starts with any credit grants the user has that are specifically allocated for cloud agent usage, then moves to the user's base credits, followed by the team's Reload Credits, and finally the user's own Reload Credits. Enterprises may have different payment options and credit plans that affect this flow. If all applicable credit sources are exhausted, integrations and ambient agents will pause until credits are added.
+When a user triggers an agent through an integration (like Slack or Linear), the run draws from credits in a specific order. It starts with any [Cloud Agent Credits](https://docs.warp.dev/support-and-community/plans-and-billing/credits#cloud-agent-credits) the user has, then moves to the user's base credits, followed by the team's Reload Credits, and finally the user's own Reload Credits. Enterprises may have different payment options and credit plans that affect this flow. If all applicable credit sources are exhausted, integrations and ambient agents will not work until credits are added.
 
 {% hint style="info" %}
 If you’re on an enterprise plan, please reach out to your dedicated Warp representative with any billing questions related to integrations.

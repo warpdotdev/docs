@@ -106,8 +106,8 @@ To run **integrations (and most Ambient Agent automation)**, your team must meet
   * Your plan must support add-on credits.
 * **Credit requirements**
 * Your team must have at least 20 [add-on credits](https://docs.warp.dev/support-and-community/plans-and-billing/add-on-credits) available to run an integration.
-  * Integration usage is billed to the team’s add-on credit balance.
-  * Ambient Agents and integrations do not draw from personal monthly base credits.
+  * Integration usage is billed to the team's add-on credit balance.
+  * Cloud agents and integrations can use [Cloud Agent Credits](https://docs.warp.dev/support-and-community/plans-and-billing/credits#cloud-agent-credits) if available.
 
 For more details, please refer to: [Team Access Billing And Identity Permissions](../platform/team-access-billing-and-identity-permissions.md)
 

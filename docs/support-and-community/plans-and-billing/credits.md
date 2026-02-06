@@ -6,11 +6,11 @@ description: Details on Warp credits and how they are calculated.
 
 ### What are Warp credits?
 
-Each time you submit a prompt in Warp, whether to generate code, suggest a command, or accomplish a task, you initiate an interaction with the Agent.
+Any interaction with Warp's Agent consumes credits. Credits are primarily based on AI usage — the number of credits a task consumes varies based on the size and complexity of your codebase, the size of the task, the model you're using, the amount of context the agent needs to gather, and more.
 
-This interaction consumes **at least one credit**, though more complex interactions may use **multiple credits**. The number of credits consumed can vary based on factors such as your codebase and environment, the model used, number of tool calls the agent makes, amount of context gathered, steps required to accomplish the given task, and other factors.
+Credits also include a small hosting fee, charged only when running agents in the cloud, hosted on Warp's infrastructure. For details on cloud agent credits, see [Cloud Agent Credits](credits.md#cloud-agent-credits).
 
-Because of these factors and the nature of LLMs, credit usage is **non-deterministic** -- two similar prompts can still use a different number of credits.
+Each interaction consumes **at least one credit**, though more complex interactions may use **multiple credits**. Because of factors such as codebase size, model choice, number of tool calls, and the nature of LLMs, credit usage is **non-deterministic** — two similar prompts can still use a different number of credits.
 
 {% hint style="info" %}
 For a general breakdown of what factors contribute to how many credits are consumed, please refer to: [How are Warp credits calculated?](credits.md#how-are-warp-credits-calculated)
@@ -104,3 +104,23 @@ Because cache results depend on model provider behavior and timing, two similar 
 {% endhint %}
 
 These are the most common factors affecting credit usage, though there are others. Understanding them can help you manage your credits more efficiently and get the most from your plan.
+
+### Cloud Agent Credits
+
+Cloud Agent Credits are a type of credit consumed only by cloud agent runs — AI requests that run on Warp-hosted compute.
+
+#### Eligible for Cloud Agent Credits
+
+The following scenarios use Cloud Agent Credits:
+
+* **First-party integrations** — Running agents through Slack or Linear integrations
+* **Cloud agent runs** — Using `warp agent run-ambient` via the CLI
+* **Agent API** — Running agents through Warp's Agent API
+* **Cloud Mode** — Running an agent from Cloud Mode in the Warp app
+
+#### Not eligible for Cloud Agent Credits
+
+The following scenarios do **not** use Cloud Agent Credits:
+
+* **Local agent runs** — Using `warp agent run` on your local machine
+* **Self-hosted compute** — Using `warp agent run` on GitHub Actions, CI/CD pipelines, or other self-hosted infrastructure
