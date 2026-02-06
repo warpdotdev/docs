@@ -42,7 +42,7 @@
 * [Ambient Agents Session Sharing](local-agents/ambient-agents-session-sharing.md)
 * [Generate (Legacy)](local-agents/generate.md)
 
-## Cloud Agents & Orchestration
+## Cloud Agents & Orchestration <a href="#cloud-agents" id="cloud-agents"></a>
 
 * [Cloud Agents Overview](cloud-agents/cloud-agents-overview.md)
 * [Warp Platform](cloud-agents/warp-platform.md)
