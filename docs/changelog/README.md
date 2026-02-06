@@ -25,6 +25,36 @@ metaLinks: {}
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
 {% updates format="full" %}
+{% update date="2026-02-04" %}
+## v0.2026.02.04.08.20
+
+**New features**
+
+* Added full support for the Kitty keyboard enhancement protocol, enabling TUI applications like OpenCode to detect and use enhanced keyboard input.
+* Support agent footer when running Copilot CLI.
+* Added a new paid plan, **Max**, which comes with 12× more monthly AI credits than Build. Upgrade in `Settings > Billing and Usage`.
+
+**Improvements**
+
+* Improved environment update handling with better timestamp tracking and immediate UI refresh after edits.
+* `@` menu now shows function definitions when NLD is disabled.
+* Conversation deep links now open in a new tab instead of a new window.
+* Renamed `edit` slash command to `open`.
+* Fixed a race condition when using API keys with the Warp CLI.
+* Improved robustness of MCP connections (especially using the legacy SSE transport). "Transport closed" errors now trigger a reconnection to the server.
+* Added a new setting to keep the opened/closed state of the tool panel consistent across tabs in the same window ("Tools panel visibility is consistent across tabs").
+
+**Bug fixes**
+
+* Fixed "Sharing in Warp Drive" onboarding block appearing mid-stream during agent responses.
+* Disabled codebase indexing on non-agent run commands.
+* Fixed scrolling behavior when typing in long-running commands — cursor is now scrolled into view.
+* Fixed sharing dialog copy link icon being slightly larger than the text.
+* Fixed issue where the code review panel would get stuck on "Loading open changes" when multiple repositories are open in the same tab.
+* Fixed a crash caused by orphaned wide character flags in the terminal grid.
+* Fixed clipping issue in terminal message bar.
+{% endupdate %}
+
 {% update date="2026-01-28" %}
 ## v0.2026.01.28.08.14
 
