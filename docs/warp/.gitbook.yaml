@@ -197,8 +197,8 @@ redirects:
     terminal/sessions/launch-configurations: terminal/sessions/launch-configurations.md
     terminal/sessions/session-navigation: terminal/sessions/session-navigation.md
     terminal/sessions/session-restoration: terminal/sessions/session-restoration.md
-    terminal/universal-input: terminal/universal-input/README.md
-    terminal/universal-input/classic-input: terminal/universal-input/classic-input.md
+    terminal/universal-input: terminal/input/universal-input.md
+    terminal/universal-input/classic-input: terminal/input/classic-input.md
     terminal/warpify: terminal/warpify/README.md
     terminal/warpify/ssh-legacy: terminal/warpify/ssh-legacy.md
     terminal/warpify/ssh: terminal/warpify/ssh.md

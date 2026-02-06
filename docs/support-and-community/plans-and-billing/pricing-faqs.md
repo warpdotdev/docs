@@ -12,7 +12,7 @@ All paid Warp plans come with higher monthly credit limits than the Free plan.
 
 When you upgrade from Free to a paid plan, your credit usage resets. If you’re switching between paid plans, any AI usage you've already accumulated will carry over.
 
-To subscribe to any Warp paid plan, start by [creating a Team in Warp](https://docs.warp.dev/warp/knowledge-and-collaboration/teams#creating-a-team), even if you're subscribing as an individual. Once your team is created, you can upgrade:
+To subscribe to any Warp paid plan, start by [creating a Team in Warp](https://docs.warp.dev/knowledge-and-collaboration/teams#creating-a-team), even if you're subscribing as an individual. Once your team is created, you can upgrade:
 
 * In the app: Go to `Settings` > `Billing and usage`, then click the Upgrade link
 * Online: Visit [warp.dev/pricing](https://www.warp.dev/pricing)
@@ -76,18 +76,18 @@ All members of the team will have the same subscription plan, you can't mix and 
 
 ### What is the value of joining or creating a team on Warp?
 
-Team members have access to your shared [Warp Drive](https://docs.warp.dev/warp/knowledge-and-collaboration/warp-drive/) objects and limited access to Warp's collaboration features, including Session Sharing and Warp Drive storage.
+Team members have access to your shared [Warp Drive](https://docs.warp.dev/knowledge-and-collaboration/warp-drive/) objects and limited access to Warp's collaboration features, including Session Sharing and Warp Drive storage.
 
 **Upgrading the team to a plan unlocks powerful collaboration and knowledge-sharing tools to help your team move faster, together:**
 
-* Create unlimited [Notebooks](https://docs.warp.dev/warp/knowledge-and-collaboration/warp-drive/notebooks) and [Workflows](https://docs.warp.dev/warp/knowledge-and-collaboration/warp-drive/workflows) in Warp Drive to organize and share knowledge across your team.
-* Use Unlimited [Session Sharing](https://docs.warp.dev/warp/knowledge-and-collaboration/session-sharing) to collaborate in real time through live, shared terminal sessions.
+* Create unlimited [Notebooks](https://docs.warp.dev/knowledge-and-collaboration/warp-drive/notebooks) and [Workflows](https://docs.warp.dev/knowledge-and-collaboration/warp-drive/workflows) in Warp Drive to organize and share knowledge across your team.
+* Use Unlimited [Session Sharing](https://docs.warp.dev/knowledge-and-collaboration/session-sharing) to collaborate in real time through live, shared terminal sessions.
 
 ### My co-workers are using Warp but we’re not on a Team together yet. How does billing work?
 
 Individual users with either personal or work email domains may continue to use Warp independently without incurring billing. The benefit of joining together on a Warp Team is that you get access to a shared Team Drive and collaboration features.
 
-When you’re ready to use Warp more collaboratively, we suggest you nominate an Admin to [create a Team](https://docs.warp.dev/warp/knowledge-and-collaboration/teams) and invite members to join. When your Team exceeds the Warp Drive limits, you will be prompted to upgrade to a plan.
+When you’re ready to use Warp more collaboratively, we suggest you nominate an Admin to [create a Team](https://docs.warp.dev/knowledge-and-collaboration/teams) and invite members to join. When your Team exceeds the Warp Drive limits, you will be prompted to upgrade to a plan.
 
 ### How does usage work if logged into the same account on multiple devices?
 

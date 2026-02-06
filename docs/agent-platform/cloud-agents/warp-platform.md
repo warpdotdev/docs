@@ -1,0 +1,289 @@
+---
+description: >-
+  Ambient Agents and integrations are built on the Warp Platform, which includes
+  the CLI, API/SDK, orchestration, environments and execution, and
+  management/observability.
+---
+
+# Warp Platform
+
+[Ambient Agents](cloud-agents-overview.md) and first-party [integrations](integrations/README.md) run on the Warp Platform. The platform gives you a consistent way to **trigger work**, **orchestrate and track tasks**, **execute agents** (in an optional [Environment](https://docs.warp.dev/reference/cli/integrations-and-environments), on a host), and inspect outcomes with team visibility.
+
+**Most production setups follow the same flow:**
+
+1. A **trigger** fires (schedule, integration event, CI step, webhook, API call, or manual run).
+2. Warp's **orchestration layer** creates an Ambient Agent task and tracks its lifecycle.
+3. The agent executes on a **host**, optionally inside an Environment, using the required configuration and credentials.
+4. The task produces a **persistent record** (status, metadata, transcript, outputs) your team can review and manage.
+
+The sections below describe the Warp Platform primitives that power this flow, and how they compose.
+
+***
+
+### Key concepts
+
+Before diving into the components, it helps to align on a few terms:
+
+* **Trigger**: The event that starts work (for example: cron, Slack mention, PR opened, CI failure, “run now”).
+* **Task:** The unit of work Warp tracks. A task includes inputs, state, metadata, and an execution record (where it ran, what it did, and what it produced).
+* **Context**: Additional inputs attached to a task (for example: a Slack message, PR metadata, CI logs, repository diffs).
+* **Outputs:** What the task produced (for example: created a PR, posted a Slack reply, emitted a report, or just a transcript + summary).
+
+In practice: **triggers create tasks; tasks execute on a host (optionally in an Environment); tasks produce outputs.**
+
+***
+
+### Warp CLI
+
+The [Warp CLI](https://docs.warp.dev/reference/cli) is the **headless interface** for running Warp agents in non-interactive mode. It’s commonly used in CI, scripts, and server environments where there is no interactive UI. For interactive workflows, use the [agent](https://docs.warp.dev/agent-platform/local-agents/agents-overview) embedded in Warp’s desktop app.
+
+A key property of the CLI is that it is **cloud-connected**. Even when an agent is started on a local machine or in CI, it reports progress to Warp’s servers. This enables team visibility, session sharing (where supported), and programmatic tracking through the API.
+
+#### When you use the CLI
+
+Use the CLI when:
+
+* You want to run an agent anywhere (local machine, CI runner, remote dev box, server).
+* An external system is orchestrating runs (for example GitHub Actions, custom automation, incident tooling).
+* You want task observability and auditing without requiring Warp desktop.
+
+#### How it fits in the Warp Platform
+
+Depending on the command, the CLI typically:
+
+* Authenticates as a member of your team.
+* Starts work by creating a task in the orchestrator (either directly via CLI commands, or indirectly via an integration/schedule).
+* Streams progress back to Warp for live observability and a persistent record.
+* Optionally attaches an Environment and other configuration.
+
+#### Example (no Environment)
+
+You can also run an agent locally without an environment using a command like:
+
+```bash
+warp agent run ...
+```
+
+***
+
+### Warp Orchestrator
+
+The orchestration layer manages the lifecycle of Ambient Agent tasks. It creates tasks, tracks state transitions, and is the system of record for what’s running and what ran.
+
+#### What the orchestrator does
+
+The orchestrator:
+
+* Runs on Warp’s servers (cloud control plane).
+* Creates tasks when triggers fire (integrations, schedules, API calls, or explicit starts).
+* Tracks lifecycle state (created → running → completed/failed) and associated metadata.
+* Exposes task lifecycle operations via the [Warp CLI](https://docs.warp.dev/reference/cli) and a [REST API](https://docs.warp.dev/reference/api-and-sdk/agent) (create tasks, query history, and inspect status/outputs).
+* Powers SDKs (TypeScript/Python) for programmatic usage on top of the orchestrator API.
+
+#### When teams use the API/SDK
+
+Teams typically use the API/SDK when:
+
+* Triggering agents from custom internal systems (incident tools, bots, internal automation).
+* Building internal dashboards or monitoring (success rates, runtime, failure reasons).
+* Coordinating many runs (fanout, sharding, queueing, retries, rate limiting at the app layer).
+* Creating higher-level workflows that treat tasks as building blocks.
+
+***
+
+### Environments
+
+[Environments](https://docs.warp.dev/reference/cli/integrations-and-environments#what-is-an-environment) define the execution context an agent should run in.
+
+**An Environment typically includes:**
+
+* A Docker image (toolchain and runtime).
+* One or more repositories (or a workspace definition).
+* Startup commands and configuration (setup steps, dependency install, bootstrapping).
+* Optional environment variables and other runtime settings.
+
+{% hint style="info" %}
+Environments are how teams make agent runs consistent across triggers (Slack, CI, schedules) and across hosts.
+{% endhint %}
+
+#### Environments are optional
+
+Agents can run without an Environment (for example, against an existing local checkout or a CI workspace). Teams usually move to Environments when they want stronger reproducibility, isolation, and standardization.
+
+#### When to use Environments
+
+Environments are recommended when:
+
+* The agent needs a consistent toolchain (linters, build tools, language runtimes).
+* You want repeatable execution across CI and cloud execution.
+* You want standard execution across a team (same repo state rules, same setup steps).
+* You want to reduce “works on my machine” variability across tasks.
+
+***
+
+### Agent API and SDK
+
+The Warp [Agent API](https://docs.warp.dev/reference/api-and-sdk/agent) is the HTTP interface to the Warp Platform. It lets you create and inspect Ambient Agent tasks from any system (CI, cron, backend services, internal tools), without requiring the Warp desktop app.
+
+**What you can do with the API**
+
+* Run an agent by submitting a prompt plus optional configuration (model, environment, MCP servers, base prompt, etc.).
+* Monitor execution by listing tasks and tracking state transitions over time (for example: `QUEUED` → `INPROGRESS` → `SUCCEEDED/FAILED`).
+* Inspect results and provenance by fetching a task’s full details, including the original prompt, creator/source metadata, session link, and resolved agent configuration.
+
+**Agent SDKs**
+
+Warp provides official [Python](https://github.com/warpdotdev/warp-sdk-python) and [TypeScript SDKs](https://github.com/warpdotdev/warp-sdk-typescript) that wrap the Public Agent API with:
+
+* Typed requests/responses (autocomplete, fewer schema mistakes)
+* Built-in retries and timeouts (with per-request overrides)
+* Consistent error types mapped to API status codes
+* Helpers for raw responses when you need headers/status/custom parsing
+
+If you’re building an integration (CI, Slack bots, internal tooling, orchestrators), the [SDKs](https://docs.warp.dev/reference/api-and-sdk/agent) are typically the quickest and safest starting point.
+
+**SDK vs raw REST**
+
+* Use the SDK when you want strong typing, standardized error handling, and easy concurrency patterns.
+* Use raw REST when you want minimal dependencies or full control over your HTTP client.
+
+{% hint style="info" %}
+For full endpoint semantics and schema definitions, please refer to the dedicated [API docs](https://docs.warp.dev/reference/api-and-sdk/agent) and Models/Schema reference, plus the [Python SDK](https://github.com/warpdotdev/warp-sdk-python) and [TypeScript SDK](https://github.com/warpdotdev/warp-sdk-typescript) repos for the latest usage/examples.
+{% endhint %}
+
+***
+
+### Execution hosts
+
+A host describes where the agent actually executes. Warp supports multiple execution models depending on your security, compliance, and operational requirements.
+
+#### Warp-hosted execution
+
+With Warp hosting:
+
+* Warp runs the environment on Warp-managed infrastructure.
+* This is the default model for teams that want the simplest setup and do not need execution to occur inside their network boundary.
+
+#### Self-hosting execution (coming soon)
+
+With self-hosting:
+
+* The agent runs on customer-managed infrastructure.
+* This is used when teams want code and execution to remain on their own systems rather than being cloned or executed in Warp’s cloud.
+
+***
+
+### Integrations
+
+[Integrations](integrations/README.md) connect external system events to Ambient Agent execution. An integration ties a third-party event source to Warp so that when an event occurs, Warp can create a task with the relevant context and start it automatically.
+
+* **First-party integrations**: Warp owns event subscriptions + context extraction.
+* **Custom integrations**: You own event ingestion/filtering; you call the API/SDK to create tasks.
+
+#### First-party integrations
+
+Warp supports first-party integrations that can be configured with a simple setup flow (for example via CLI):
+
+```bash
+warp integration create …
+```
+
+**In first-party integrations, Warp typically:**
+
+* Registers webhooks (or other event subscriptions) with the third-party system.
+* Receives events and extracts context (payload, metadata, links, logs).
+* Constructs a task and executes it, optionally in an Environment.
+
+Examples of context:
+
+* [Slack](integrations/slack.md): message text + channel + thread + user identity
+* [GitHub](integrations/github-actions.md): PR metadata + diffs + labels + checks
+* CI: logs + job metadata + artifacts
+
+#### Custom integrations
+
+Warp also supports custom integrations where you own the webhook and event handling logic.
+
+In this model:
+
+* Your system receives an event.
+* Your system calls Warp’s orchestrator API (directly or via an SDK) to create/start a task.
+* The task is still a first-class Ambient Agent task in Warp (observable, manageable, auditable).
+
+**Custom integrations are ideal when:**
+
+* You have internal event sources (custom tooling, proprietary systems).
+* You need custom filtering, routing, or enrichment before triggering the agent.
+* You want to implement your own permissioning, queueing, or governance around triggers.
+
+***
+
+### Secrets
+
+Ambient Agents often need credentials to access external systems (APIs, cloud providers, databases, internal tools, MCP servers). Warp provides a [secrets store](cloud-agent-secrets.md) that can inject secrets at runtime so agents can use authenticated tools without exposing secret values in logs or UI.
+
+#### What secrets are for
+
+In most deployments, secrets power:
+
+* API keys and tokens (GitHub, Slack, Linear, internal APIs).
+* Shared team credentials (cloud providers, CI identities).
+* Database credentials (read-only query bots, reporting).
+* Credentials required by MCP servers (static tokens/keys).
+
+#### Scoping and control
+
+Today, secrets support two scopes:
+
+* **Team secrets:** shared credentials available to the team (useful for shared infrastructure).
+* **Personal secrets**: credentials tied to an individual (useful when actions must be attributable to a specific person).
+
+***
+
+### Management and observability
+
+Ambient Agents are designed so task execution is visible to the team.
+
+While a task is executing, the agent reports progress and status back to Warp. After completion, the task retains a persistent record for review and debugging.
+
+Warp provides multiple surfaces for observability:
+
+* [Management UI](managing-cloud-agents.md): lists tasks, status, timing, metadata, and history.
+* [Agent Session Sharing](agent-session-sharing.md): authorized teammates can attach to a running task to monitor and, where supported, steer it.
+* [APIs](https://docs.warp.dev/reference/api-and-sdk/agent) and SDKs: query task history, build monitoring, and generate reports.
+
+#### Access control
+
+**Access control is part of the model:**
+
+* Teams can restrict who can run, view, or intervene in agent tasks.
+* At the same time, organizations can enable system-wide visibility where appropriate for auditing and operations.
+
+### Centralized configuration
+
+Ambient Agent setups often include shared configuration such as:
+
+* [MCP configuration](https://docs.warp.dev/reference/cli/mcp-servers-for-cloud-agents)
+* [rules / guardrails](https://docs.warp.dev/agent-platform/capabilities/rules)
+* [saved prompts](https://docs.warp.dev/knowledge-and-collaboration/warp-drive/prompts)
+* [environment variables](https://docs.warp.dev/knowledge-and-collaboration/warp-drive/environment-variables)
+* [secrets](cloud-agent-secrets.md)
+
+Warp supports centralized configuration so these settings apply consistently regardless of where a task is launched.
+
+This is especially useful when the same workflow can be triggered from multiple places (for example Slack, CI, and schedules). Instead of duplicating setup across systems, teams can keep configuration in one place and reuse it across triggers.
+
+### Using the Warp Platform with or without the Warp app
+
+[Ambient Agents](cloud-agents-overview.md) do not require Warp's desktop terminal. Teams can operate Ambient Agent workflows using:
+
+* Warp CLI
+* web surfaces (where available)
+* [session sharing](https://docs.warp.dev/knowledge-and-collaboration/session-sharing)
+* management UI
+* APIs and SDKs
+
+**If your team also uses Warp’s terminal, you gain an additional workflow:**
+
+* Tasks launched via the CLI can be handed off into an interactive session for review, edits, or continuation.
+* This is useful when you want a human checkpoint (final edits, validation, merge decisions) without losing the audit trail from the ambient run.

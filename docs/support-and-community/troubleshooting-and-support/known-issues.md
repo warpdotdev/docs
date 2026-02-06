@@ -18,7 +18,7 @@ To enable Blocks over SSH, Warp uses an SSH Wrapper function; navigate to settin
 
 ### Online features don't work
 
-There is a known issue that can occur that causes online features to break ([Warp AI](https://docs.warp.dev/agent-platform/agent/agents-overview), [Generate](https://docs.warp.dev/agent-platform/agent/generate), [Block Sharing](https://docs.warp.dev/terminal/blocks/block-sharing), [Refer a Friend](../community/refer-a-friend.md) ). This is due to the login token going stale, typically due to a password change, and can be resolved by the following steps:
+There is a known issue that can occur that causes online features to break ([Warp AI](https://docs.warp.dev/agent-platform/local-agents/agents-overview), [Generate](https://docs.warp.dev/agent-platform/local-agents/generate), [Block Sharing](https://docs.warp.dev/terminal/blocks/block-sharing), [Refer a Friend](../community/refer-a-friend.md) ). This is due to the login token going stale, typically due to a password change, and can be resolved by the following steps:
 
 {% tabs %}
 {% tab title="macOS" %}
@@ -28,7 +28,7 @@ There is a known issue that can occur that causes online features to break ([War
 sudo security delete-generic-password -l "dev.warp.Warp-Stable" $HOME/Library/Keychains/login.keychain
 ```
 
-2. [Login to Warp](/broken/pages/4ZsQG3ARMEMszUzEjFJd#logging-into-warp)
+2. [Login to Warp](https://docs.warp.dev/getting-started/quickstart-guide/installation-and-setup#log-in-to-warp-optional)
 {% endtab %}
 
 {% tab title="Windows" %}
@@ -38,7 +38,7 @@ sudo security delete-generic-password -l "dev.warp.Warp-Stable" $HOME/Library/Ke
 Remove-Item $env:LOCALAPPDATA\warp\Warp\data\*-User
 ```
 
-2. [Login to Warp](/broken/pages/4ZsQG3ARMEMszUzEjFJd#logging-into-warp)
+2. [Login to Warp](https://docs.warp.dev/getting-started/quickstart-guide/installation-and-setup#log-in-to-warp-optional)
 {% endtab %}
 
 {% tab title="Linux" %}
@@ -49,7 +49,7 @@ Remove-Item $env:LOCALAPPDATA\warp\Warp\data\*-User
 rm -f ${XDG_STATE_HOME:-$HOME/.local/state}/warp-terminal/*-User
 ```
 
-3. [Login to Warp](/broken/pages/4ZsQG3ARMEMszUzEjFJd#logging-into-warp)
+3. [Login to Warp](https://docs.warp.dev/getting-started/quickstart-guide/installation-and-setup#log-in-to-warp-optional)
 {% endtab %}
 {% endtabs %}
 
@@ -88,7 +88,7 @@ To try and resolve the issue of Warp not rendering a window, rename the SQLite d
 
 ## Agent Mode
 
-* Note that Agent Mode blocks are not shareable during [session sharing](https://docs.warp.dev/warp/knowledge-and-collaboration/session-sharing/). Participants will be able to share regular shell commands that are run, but will not be able to share AI interactions (requested commands, AI blocks, etc.).
+* Note that Agent Mode blocks are not shareable during [session sharing](https://docs.warp.dev/knowledge-and-collaboration/session-sharing/). Participants will be able to share regular shell commands that are run, but will not be able to share AI interactions (requested commands, AI blocks, etc.).
 * Block actions such as [Block Sharing](https://docs.warp.dev/terminal/blocks/block-sharing) are not available on Agent Mode AI blocks.
 * Agents do not have up-to-date information on several commands’ completion specs
 * Agent Mode works better with Warp's default prompt settings, where the prompt starts on a new line, than it does with a same-line prompt. If you are using the same-line prompt, the cursor will jump from the end of the single line to the start of the input box when you switch to Agent Mode.
@@ -234,7 +234,7 @@ If you experience an error opening Warp, please try the following:
 
 <figure><img src="../../.gitbook/assets/open-warp-mac.gif" alt=""><figcaption></figcaption></figure>
 
-* If the above doesn't work, [uninstall Warp](uninstalling-warp.md), then [re-install Warp](/broken/pages/4ZsQG3ARMEMszUzEjFJd).
+* If the above doesn't work, [uninstall Warp](uninstalling-warp.md), then [re-install Warp](https://docs.warp.dev/getting-started/quickstart-guide/installation-and-setup).
 
 **Running x86 commands with macOS**
 
@@ -319,6 +319,6 @@ rm warpdotdev.gpg
 sudo apt update && sudo apt install warp-terminal
 ```
 
-See the instructions for other Linux distros on our [Quick Start Guide](/broken/pages/4ZsQG3ARMEMszUzEjFJd#linux).
+See the instructions for other Linux distros on our [Quick Start Guide](https://docs.warp.dev/getting-started/quickstart-guide/installation-and-setup#linux).
 {% endtab %}
 {% endtabs %}

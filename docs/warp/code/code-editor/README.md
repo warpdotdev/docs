@@ -24,7 +24,7 @@ The editor is built for fast changes to agent-generated code: renaming a variabl
 
     <figure><img src="../../.gitbook/assets/search-files-icon.png" alt=""><figcaption></figcaption></figure>
 3. **Browse via the** [File Tree (Project Explorer)](file-tree.md) to open or create files.
-4. **Opening a generated code diff** from an Agent Conversation: [Code Diffs in Agent Conversations](../reviewing-code.md).
+4. **Opening a generated code diff** from an Agent Conversation: [Code Diffs in Agent Conversations](https://docs.warp.dev/agent-platform/local-agents/code-diffs-in-agent-conversations).
 
 {% embed url="https://screen.studio/share/H7hTUgf2" %}
 

@@ -12,7 +12,7 @@ We welcome [feedback](https://docs.warp.dev/support-and-community/troubleshootin
 
 ## What is the Warp CLI?
 
-The Warp CLI is the command-line tool that lets you run [Ambient Agents](https://docs.warp.dev/agent-platform/ambient-agents/ambient-agents-overview) from anywhere, including terminals, scripts, automated systems, or services.
+The Warp CLI is the command-line tool that lets you run [Ambient Agents](https://docs.warp.dev/agent-platform/cloud-agents/cloud-agents-overview) from anywhere, including terminals, scripts, automated systems, or services.
 
 It’s the standard runtime entry point that turns a **prompt** plus **configuration** into an **executable agent task** that runs on either a **Warp-hosted or self-hosted runner**.&#x20;
 
@@ -238,7 +238,7 @@ Warp supports two types of API keys, each with different billing and identity be
 * **Personal API keys** - Cloud agent runs authenticate as you. These runs can use your personal base credits before drawing from team add-on credits, just like running an agent from the Warp app or triggering one via Slack or Linear.
 * **Team API keys** - Cloud agent runs are not tied to any individual user. These runs can only draw from your team's pool of add-on credits—they cannot use any individual's base credits.
 
-Team API keys are useful for fully automated workflows, CI/CD pipelines, and scheduled tasks where no specific user context is needed. For billing details, see [Team access, billing, and identity permissions](https://docs.warp.dev/agent-platform/platform/team-access-billing-and-identity-permissions).
+Team API keys are useful for fully automated workflows, CI/CD pipelines, and scheduled tasks where no specific user context is needed. For billing details, see [Team access, billing, and identity permissions](https://docs.warp.dev/agent-platform/cloud-agents/team-access-billing-and-identity).
 
 #### Authenticating with API keys
 
@@ -279,7 +279,7 @@ The Warp CLI offers two ways to run agents, depending on where you want the work
 
 ### Running locally: \`warp agent run\`
 
-To start a Warp agent, use the `warp agent run` subcommand. You'll need to specify a prompt and, optionally, the [MCP servers](https://docs.warp.dev/knowledge-and-collaboration/mcp) and [agent profile](https://docs.warp.dev/agent-platform/agent/using-agents/agent-profiles-permissions) to use.
+To start a Warp agent, use the `warp agent run` subcommand. You'll need to specify a prompt and, optionally, the [MCP servers](https://docs.warp.dev/knowledge-and-collaboration/mcp) and [agent profile](https://docs.warp.dev/agent-platform/capabilities/agent-profiles-permissions) to use.
 
 ```sh
 warp agent run --prompt "set up a new Rust crate named warp-cli"
@@ -335,9 +335,9 @@ warp agent run-ambient \
 
 #### Reusing saved prompts <a href="#reusing-saved-prompts" id="reusing-saved-prompts"></a>
 
-When you find prompts that work well, save them in [Warp Drive](https://docs.warp.dev/warp/knowledge-and-collaboration/warp-drive) to reuse across sessions, share with teammates, and integrate into automated workflows. For more information, see [Prompts](https://docs.warp.dev/warp/knowledge-and-collaboration/warp-drive/prompts).
+When you find prompts that work well, save them in [Warp Drive](https://docs.warp.dev/knowledge-and-collaboration/warp-drive) to reuse across sessions, share with teammates, and integrate into automated workflows. For more information, see [Prompts](https://docs.warp.dev/knowledge-and-collaboration/warp-drive/prompts).
 
-To reuse a prompt, first find its ID. The ID of a saved prompt will be the last part of its Warp Drive [Sharing a drive object using links](https://docs.warp.dev/warp/knowledge-and-collaboration/warp-drive#sharing-a-drive-object-using-links).
+To reuse a prompt, first find its ID. The ID of a saved prompt will be the last part of its Warp Drive [Sharing a drive object using links](https://docs.warp.dev/knowledge-and-collaboration/warp-drive#sharing-a-drive-object-using-links).
 
 For example, in the URL:
 
@@ -356,7 +356,7 @@ $ warp agent run --saved-prompt sgNpbUgDkmp2IImUVDc8kR
 
 #### Referencing Warp Drive objects <a href="#referencing-warp-drive-objects" id="referencing-warp-drive-objects"></a>
 
-Use `<workflow:id>`, `<notebook:id>`, or `<rule:id>` in prompts to reference [Warp Drive objects](https://docs.warp.dev/warp/knowledge-and-collaboration/warp-drive) and [rules](https://docs.warp.dev/warp/knowledge-and-collaboration/rules) as attached context. To quickly create these references, use the [@ context menu](https://docs.warp.dev/agent-platform/agent/using-agents/agent-context/using-to-add-context) in Warp to construct a prompt, and then copy it into your CLI command.
+Use `<workflow:id>`, `<notebook:id>`, or `<rule:id>` in prompts to reference [Warp Drive objects](https://docs.warp.dev/knowledge-and-collaboration/warp-drive) and [rules](https://docs.warp.dev/knowledge-and-collaboration/rules) as attached context. To quickly create these references, use the [@ context menu](https://docs.warp.dev/agent-platform/local-agents/agent-context/using-to-add-context) in Warp to construct a prompt, and then copy it into your CLI command.
 
 ```
 $ warp agent run --prompt "Follow the instructions in <notebook:gq1CMAUWLtaL1CpEoTDQ3y>"
@@ -371,7 +371,7 @@ Agent profiles control three things:
 * **How the agent works** — Model selection, autonomy level, and response style.
 * **Where the agent can act** — Directory allowlists/denylists.
 
-You can create and configure agent profiles in the Warp app. For detailed instructions, see [Agent Profiles & Permissions](https://docs.warp.dev/agent-platform/agent/using-agents/agent-profiles-permissions).
+You can create and configure agent profiles in the Warp app. For detailed instructions, see [Agent Profiles & Permissions](https://docs.warp.dev/agent-platform/capabilities/agent-profiles-permissions).
 
 Agent profiles are automatically synced to each host that you have Warp installed on, so you can still use them remotely.
 
@@ -407,7 +407,7 @@ $ warp agent run --profile CWhozDJPdPCsjJ1pSG0HCN --prompt "update my CI pipelin
 
 ## Using MCP servers
 
-MCP servers connect Ambient Agents interact with external systems like GitHub, Linear, or Sentry. To use a [Model Context Protocol (MCP)](https://docs.warp.dev/warp/knowledge-and-collaboration/mcp) server from the CLI, you need:
+MCP servers connect Ambient Agents interact with external systems like GitHub, Linear, or Sentry. To use a [Model Context Protocol (MCP)](https://docs.warp.dev/knowledge-and-collaboration/mcp) server from the CLI, you need:
 
 * An MCP server configured in Warp
 * An agent profile that allows for the MCP server you want to use
@@ -515,4 +515,4 @@ warp --version
 * API keys: confirm the key is valid, not expired, and exported correctly (`echo $WARP_API_KEY`).
 
 **Agent or MCP errors**\
-Ensure your agent profile and [MCP servers](https://docs.warp.dev/agent-platform/ambient-agents/mcp-servers-for-agents) are configured properly, with correct permissions.
+Ensure your agent profile and [MCP servers](https://docs.warp.dev/agent-platform/capabilities/mcp) are configured properly, with correct permissions.

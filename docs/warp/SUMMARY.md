@@ -7,7 +7,6 @@
 * [Quickstart Guide](README.md)
   * [Installation and setup](getting-started/quickstart-guide/installation-and-setup.md)
   * [Coding in Warp](getting-started/quickstart-guide/coding-in-warp.md)
-  * [Agents in Warp](getting-started/quickstart-guide/agents-in-warp.md)
   * [Customizing Warp](getting-started/quickstart-guide/customizing-warp.md)
 * [What is Warp?](getting-started/what-is-warp.md)
 * [Migrate to Warp](getting-started/migrate-to-warp.md)
@@ -16,8 +15,7 @@
 
 ## Terminal
 
-* [Universal Input](terminal/universal-input/README.md)
-  * [Classic Input](terminal/universal-input/classic-input.md)
+* [Classic Input](terminal/input/classic-input.md)
 * [Blocks](terminal/blocks/README.md)
   * [Block Basics](terminal/blocks/block-basics.md)
   * [Block Actions](terminal/blocks/block-actions.md)
@@ -89,10 +87,7 @@
   * [File Tree (Project Explorer)](code/code-editor/file-tree.md)
   * [Find and Replace](code/code-editor/find-and-replace.md)
   * [Code Editor Vim Keybindings](code/code-editor/code-editor-vim-keybindings.md)
-* [Code Review](code/code-review/README.md)
-  * [Interactive Code Review](code/code-review/interactive-code-review.md)
-* [Codebase Context](code/codebase-context.md)
-* [Code Diffs in Agent Conversations](code/reviewing-code.md)
+* [Code Review](code/code-review.md)
 
 ## Knowledge and collaboration
 
@@ -103,10 +98,6 @@
   * [Environment Variables](knowledge-and-collaboration/warp-drive/environment-variables.md)
   * [Warp Drive on the Web](knowledge-and-collaboration/warp-drive/warp-drive-on-the-web.md)
   * [Warp Drive as Agent Mode Context](knowledge-and-collaboration/warp-drive/warp-drive-as-agent-mode-context.md)
-* [Model Context Protocol (MCP)](knowledge-and-collaboration/mcp.md)
-* [Rules](knowledge-and-collaboration/rules.md)
 * [Teams](knowledge-and-collaboration/teams.md)
 * [Admin Panel](knowledge-and-collaboration/admin-panel.md)
 * [Session Sharing](knowledge-and-collaboration/session-sharing/README.md)
-  * [Agent Session Sharing](knowledge-and-collaboration/session-sharing/agent-session-sharing.md)
-  * [Ambient Agents Session Sharing](knowledge-and-collaboration/session-sharing/ambient-agents-session-sharing.md)

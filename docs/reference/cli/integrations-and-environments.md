@@ -17,7 +17,7 @@ This article describes the environment and integration setup that is required be
 {% endhint %}
 
 {% hint style="info" %}
-For a quick start guide to Warp integrations, please see the [Integrations Overview](https://docs.warp.dev/agent-platform/integrations/integrations-overview).
+For a quick start guide to Warp integrations, please see the [Integrations Overview](https://docs.warp.dev/agent-platform/cloud-agents/integrations).
 {% endhint %}
 
 ## How integrations and environments work
@@ -27,7 +27,7 @@ Warp integrations connect external tools, like Slack or Linear, to agents that r
 There are three main components to know:
 
 * **Triggers** provide the context that tells Warp _what_ to run. A trigger could be a Slack message where you tag @Warp, or a Linear issue or comment.
-* [**Integrations**](https://docs.warp.dev/agent-platform/integrations/integrations-overview) are what connect the trigger surface (Slack, Linear) to Warp. An integration links the trigger to your [Warp team](https://docs.warp.dev/knowledge-and-collaboration/teams) and handles posting results to the original tool, for example, replying in Slack.
+* [**Integrations**](https://docs.warp.dev/agent-platform/cloud-agents/integrations) are what connect the trigger surface (Slack, Linear) to Warp. An integration links the trigger to your [Warp team](https://docs.warp.dev/knowledge-and-collaboration/teams) and handles posting results to the original tool, for example, replying in Slack.
 * **Environments** define how and where agents run your code. When an agent is triggered, Warp uses the environment to spin up a container, clone repositories, and execute the agent's workflow.
 
 {% code title="Diagram of Warp integration components" %}
@@ -81,7 +81,7 @@ You only need to create an environment once. It can be reused across Slack, Line
 
 ### Option 1: Guided environment setup (recommended)
 
-The fastest way to get started is to use the guided environment setup. Use the `/create-environment` [slash command](https://docs.warp.dev/agent-platform/agents/slash-commands) if you want Warp to analyze your repos and suggest an environment configuration.&#x20;
+The fastest way to get started is to use the guided environment setup. Use the `/create-environment` [slash command](https://docs.warp.dev/agent-platform/capabilities/slash-commands) if you want Warp to analyze your repos and suggest an environment configuration.&#x20;
 
 You can run the command inside a git repo directory with no argument, or with one or more repo paths or URLs. For example, from Warp:
 
@@ -103,7 +103,7 @@ The guided flow will:
 3. Suggest setup commands based on your scripts and package managers
 4. Create the environment through the CLI and return an environment ID
 
-This produces a ready-to-use environment that can immediately be connected to [Slack](https://docs.warp.dev/agent-platform/integrations/slack) or [Linear](https://docs.warp.dev/agent-platform/integrations/linear).
+This produces a ready-to-use environment that can immediately be connected to [Slack](https://docs.warp.dev/agent-platform/cloud-agents/integrations/slack) or [Linear](https://docs.warp.dev/agent-platform/cloud-agents/integrations/linear).
 
 ### Option 2: Create an environment with the CLI
 
@@ -136,7 +136,7 @@ Key flags:
 
 You can inspect existing environments with `warp environment list` .
 
-For more details about environment configuration, see the [Slack](https://docs.warp.dev/agent-platform/integrations/slack) and [Linear](https://docs.warp.dev/agent-platform/integrations/linear) articles.
+For more details about environment configuration, see the [Slack](https://docs.warp.dev/agent-platform/cloud-agents/integrations/slack) and [Linear](https://docs.warp.dev/agent-platform/cloud-agents/integrations/linear) articles.
 
 #### Example environments
 
@@ -202,7 +202,7 @@ warp integration create slack \
 ```
 
 {% hint style="info" %}
-For more details, see the dedicated pages for [Slack](https://docs.warp.dev/agent-platform/integrations/slack) and [Linear](https://docs.warp.dev/agent-platform/integrations/linear) integrations.
+For more details, see the dedicated pages for [Slack](https://docs.warp.dev/agent-platform/cloud-agents/integrations/slack) and [Linear](https://docs.warp.dev/agent-platform/cloud-agents/integrations/linear) integrations.
 {% endhint %}
 
 ## How are environments used at runtime?
@@ -238,7 +238,7 @@ You now have everything needed to trigger Warp agents from your team’s tools. 
 
 **Additional reading**
 
-* [Ambient Agents Overview](https://docs.warp.dev/agent-platform/ambient-agents/ambient-agents-overview)
-* [Warp Platform](https://docs.warp.dev/agent-platform/platform/warp-platform)
-* [Slack](https://docs.warp.dev/agent-platform/integrations/slack), [Linear](https://docs.warp.dev/agent-platform/integrations/linear), and [GitHub Actions](https://docs.warp.dev/agent-platform/integrations/github-actions/README) integrations
+* [Ambient Agents Overview](https://docs.warp.dev/agent-platform/cloud-agents/cloud-agents-overview)
+* [Warp Platform](https://docs.warp.dev/agent-platform/cloud-agents/warp-platform)
+* [Slack](https://docs.warp.dev/agent-platform/cloud-agents/integrations/slack), [Linear](https://docs.warp.dev/agent-platform/cloud-agents/integrations/linear), and [GitHub Actions](https://docs.warp.dev/agent-platform/cloud-agents/integrations/github-actions/README) integrations
 * [Troubleshooting](troubleshooting.md)

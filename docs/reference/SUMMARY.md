@@ -6,12 +6,12 @@
 
 * [Warp CLI](cli/README.md)
 * [Integrations and Environments](cli/integrations-and-environments.md)
+* [MCP Servers for Cloud Agents](cli/mcp-servers-for-cloud-agents.md)
 * [Troubleshooting](cli/troubleshooting.md)
 
 ## API & SDK
 
-* [Agent API & SDK](api-and-sdk/README.md)
-  * ```yaml
+* ```yaml
     props:
       models: true
       downloadLink: false

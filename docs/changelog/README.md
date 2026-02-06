@@ -221,11 +221,11 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 **New features**
 
-* [Full Terminal Use](https://docs.warp.dev/agents/full-terminal-use): Let the agent use the terminal as you would: interact with REPLs, debuggers, and full-screen apps like `top`. Warp is the only product on the market with Full Terminal Use capabilities.
-* [`/plan`](https://docs.warp.dev/agents/using-agents/planning): do spec-driven development in Warp. Work with an agent to align on an implementation plan that can be saved, versioned, and even attached to a PR for teammates.
-* [Interactive Code Review](https://docs.warp.dev/code/code-review/interactive-code-review): Review an agent's code like you would a teammate's, directly in Warp, and ask the agent to address the comments.
-* [Slack and Linear integrations](https://docs.warp.dev/platform/integrations/integrations-overview):\*\* Ask the agent to get to work from the tools you already use, track their progress, and take the wheel via live session sharing.
-* Warp's Agents can now [search the web](https://docs.warp.dev/agents/using-agents/web-search) to retrieve information, when relevant. This capability is configurable via Agent Profiles.
+* [Full Terminal Use](https://docs.warp.dev/agent-platform/capabilities/full-terminal-use): Let the agent use the terminal as you would: interact with REPLs, debuggers, and full-screen apps like `top`. Warp is the only product on the market with Full Terminal Use capabilities.
+* [`/plan`](https://docs.warp.dev/agent-platform/capabilities/planning): do spec-driven development in Warp. Work with an agent to align on an implementation plan that can be saved, versioned, and even attached to a PR for teammates.
+* [Interactive Code Review](https://docs.warp.dev/agent-platform/local-agents/interactive-code-review): Review an agent's code like you would a teammate's, directly in Warp, and ask the agent to address the comments.
+* [Slack and Linear integrations](https://docs.warp.dev/agent-platform/cloud-agents/integrations):\*\* Ask the agent to get to work from the tools you already use, track their progress, and take the wheel via live session sharing.
+* Warp's Agents can now [search the web](https://docs.warp.dev/agent-platform/capabilities/web-search) to retrieve information, when relevant. This capability is configurable via Agent Profiles.
 
 ### 2025.11.12 (v0.2025.11.12.08.12)
 
@@ -347,7 +347,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 **New Features**
 
-* Warp agents are now available via the command line! [Learn more](https://docs.warp.dev/platform/cli)
+* Warp agents are now available via the command line! [Learn more](https://docs.warp.dev/reference/cli)
 * Added support for custom Regex names in Enterprise Secret Redaction.
 
 **Improvements**
@@ -422,7 +422,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 **New Features**
 
-* [Agent Profiles](https://docs.warp.dev/agents/using-agents/agent-profiles-permissions#agent-profiles): define how your agent operates.
+* [Agent Profiles](https://docs.warp.dev/agent-platform/capabilities/agent-profiles-permissions#agent-profiles): define how your agent operates.
 * New pane to view changes to a git repository.
 * Files now open in a tabbed viewer.
 * Syntax highlighting for Scala files in Warp.
@@ -435,7 +435,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 **New features**
 
-* [Suggested Code Diffs](https://docs.warp.dev/agents/active-ai#suggested-code-diffs) - Warp now intelligently suggests the appropriate fixes for any simple errors encountered in the command line e.g. compiler errors. Head to `Settings > Active AI` to toggle this feature.
+* [Suggested Code Diffs](https://docs.warp.dev/agent-platform/local-agents/active-ai#suggested-code-diffs) - Warp now intelligently suggests the appropriate fixes for any simple errors encountered in the command line e.g. compiler errors. Head to `Settings > Active AI` to toggle this feature.
 
 **Improvements**
 
@@ -457,9 +457,9 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 **New Features**
 
 * Agent Mode now displays interactive code blocks when referencing snippets from your codebase. You can easily copy the snippet, add the snippet as Agent Mode context, or open the file in Warp's built-in editor.
-* Agent Mode now creates and tracks task lists for more complex workflows. See [Agent Task Lists](https://docs.warp.dev/agents/using-agents/agent-tasklists).
+* Agent Mode now creates and tracks task lists for more complex workflows. See [Agent Task Lists](https://docs.warp.dev/agent-platform/capabilities/task-lists).
 * Added support for defining project-scoped rules with a WARP.md file. See [Rules](https://docs.warp.dev/knowledge-and-collaboration/rules#project-scoped-rules).
-* Added Slash Commands (/) in Agent Mode or Auto-Detection Mode to quickly run built-in actions or saved prompts without leaving the input field. See [Slash Commands](https://docs.warp.dev/agents/slash-commands).
+* Added Slash Commands (/) in Agent Mode or Auto-Detection Mode to quickly run built-in actions or saved prompts without leaving the input field. See [Slash Commands](https://docs.warp.dev/agent-platform/capabilities/slash-commands).
 
 **Improvements**
 
@@ -916,7 +916,7 @@ All of this comes with higher AI usage limits on our Pro and Turbo plans, plus n
 **New features**
 
 * Warp is now available for Windows! See our [Quickstart Guide](https://docs.warp.dev/getting-started/quickstart-guide/installation-and-setup#windows)
-* Prompt, plan, and execute fully autonomous tasks from [Agent Mode with Dispatch](https://docs.warp.dev/agents/using-agents) (Beta)
+* Prompt, plan, and execute fully autonomous tasks from [Agent Mode with Dispatch](https://docs.warp.dev/agent-platform/local-agents/interacting-with-agents) (Beta)
 * Add codebase context support to Agent Mode. Currently enabled for git repositories only.
 * \[macOS] You can now customize your [App Icon](https://docs.warp.dev/terminal/appearance/app-icons) in `Settings > Appearance > Icon`.
 * Create and store [Rules](https://docs.warp.dev/knowledge-and-collaboration/rules) to use as Agent Mode context.

@@ -1,0 +1,206 @@
+---
+description: >-
+  Securely store, scope, and inject credentials for Warp ambient agents across
+  CLI, Slack, Linear, and scheduled runs—without ever exposing secret values.
+---
+
+# Agent Secrets
+
+Ambient agents often need to interact with external systems such as APIs, databases, cloud providers, or internal tooling. To do this safely, Warp provides Warp-managed **agent secrets**, a secure way to store, scope, and inject credentials into ambient agent runs without exposing secret values to users or logs.
+
+Warp-managed secrets are designed to work across [ambient agent](cloud-agents-overview.md) and [integration](integrations/README.md) triggers (CLI, Slack, Linear, and schedules), support both team-wide and personal credentials, and give engineering and security teams visibility into what agents can access.
+
+**Warp-managed secrets are useful when:**
+
+* An ambient agent needs to call an API or CLI that does not support OAuth
+* You are using [MCP servers](https://docs.warp.dev/reference/cli/mcp-servers-for-cloud-agents) that expect static tokens or keys
+* An agent needs credentials for tools like cloud CLIs, databases, monitoring systems, or internal services
+* You want centralized auditing and control over what credentials agents can access
+
+### Common use cases
+
+* Run SQL queries against BigQuery or Metabase to answer questions like “what changed in last night’s pipeline run” or “how many users hit this error today,” using a read-only service account or API token.
+* Call cloud or infrastructure CLIs to take small, predefined remediation steps when an alert fires, such as restarting a service, scaling a deployment, or clearing a stuck job, using tightly scoped credentials.
+* List and review all API keys, service accounts, and tokens that ambient agents can access to verify scopes, rotation policies, and ownership match internal security requirements.
+
+***
+
+### How Warp-managed secrets work
+
+Warp provides a set of CLI commands for creating, updating, and listing secrets. Secret values are stored securely and cannot be retrieved once created.
+
+At runtime, **Warp sets the relevant secrets as environment variables** for each ambient agent run, based on who triggered the agent and how it was triggered.&#x20;
+
+{% hint style="info" %}
+Secret values are available only to the agent process (and any subprocesses it spawns) during execution, and **can’t be viewed or retrieved afterward.**
+{% endhint %}
+
+Key properties of secrets:
+
+* **Scoped** to either a team or an individual user
+* Secret values are **never readable after creation** (only metadata is visible)
+* **Automatically set** for ambient agent runs when in scope
+
+### Secret scopes
+
+Each secret has a scope that determines who can use it.
+
+#### Team secrets
+
+Team secrets are shared across the entire team and are available to all ambient agents running on behalf of the team.
+
+**Key characteristics:**
+
+* Always injected into ambient agent runs, regardless of how the agent is triggered (CLI, Slack, Linear, or scheduled runs)
+* Available to agents running with or without a specific user context
+* Ideal for shared infrastructure credentials, service accounts, and read-only API keys
+
+{% hint style="info" %}
+Because team secrets are broadly available and may be used by fully automated or scheduled agents, they should generally be created **using bot or service accounts**, rather than credentials tied to an individual person.
+{% endhint %}
+
+**For example:**
+
+* Use a Metabase service account or read-only API token, not a personal Metabase API key
+* Use cloud provider service accounts with minimal required permissions
+* Use integration-specific tokens created for automation
+
+This ensures credentials remain valid as team membership changes, permissions are tightly scoped, and ownership and rotation align with internal security policies.
+
+#### Personal secrets
+
+Personal secrets belong to an **individual user**.
+
+* Only available to ambient agents triggered by that user
+* Not accessible to teammates or user-less triggers
+* Useful for personal API keys or credentials tied to an individual account
+
+***
+
+## Managing agent secrets with the Warp CLI
+
+Secrets are managed using the warp secret command family.
+
+You can create secrets interactively or from a file.
+
+**Create a team secret interactively**
+
+```bash
+warp secret create --team --name "METABASE_API_KEY"
+```
+
+You will be prompted to enter the value securely in the terminal.
+
+**Create a personal secret from a file**
+
+```bash
+warp secret create --personal --name "METABASE_API_KEY" --value-file api_key.txt
+```
+
+This is useful for long values such as JSON blobs or private keys.
+
+#### Adding descriptions
+
+Descriptions help with auditing and rotation tracking.
+
+```bash
+warp secret create --team \
+  --name "MY_SECRET" \
+  --description "Rotate every 2 weeks; owned by platform team"
+```
+
+Descriptions are visible in listings but never expose the secret value.
+
+#### Updating a secret
+
+Updating a secret replaces its value while keeping the same name and scope.
+
+```bash
+warp secret update --team \
+  --name "METABASE_API_KEY" \
+  --value-file new_api_key.txt
+```
+
+This is the recommended way to rotate credentials.
+
+#### Listing secrets
+
+You can list all secrets you have access to.
+
+```bash
+warp secret list
+```
+
+Example output:
+
+```bash
+NAME                         SCOPE      LAST UPDATED
+METABASE_API_KEY             team       1 week ago
+GCP_SERVICE_ACCOUNT_JSON     team       yesterday
+MY_MCP_SERVER_TOKEN          personal   10:00am
+```
+
+**Secret values are never displayed.**
+
+### How secrets are made available to ambient agents
+
+When an ambient agent starts, Warp determines which secrets are in scope and sets them as environment variables in the agent’s execution environment.
+
+Today, secrets are provided as environment variables using the secret name as the variable name. For example:
+
+```bash
+METABASE_API_KEY=********
+```
+
+***
+
+### Secret availability by trigger type
+
+Which secrets an agent receives depends on how the agent was triggered.
+
+#### User-initiated triggers
+
+When an agent is triggered by a specific user, such as:
+
+* Warp CLI
+* Slack mentions
+* Linear updates
+
+**The agent receives:**
+
+* All team-level secrets
+* The triggering user’s personal secrets
+
+It **does not receive personal secrets** belonging to other team members.
+
+When an agent is triggered without a user context, such as:
+
+* [Scheduled (cron) agents](triggers/scheduled-agents.md)
+* Fully automated [integrations](integrations/README.md)
+
+The agent receives:
+
+* Team-level secrets only
+
+{% hint style="warning" %}
+Personal secrets are never injected in these cases.
+{% endhint %}
+
+***
+
+### Auditing and security considerations
+
+Warp is designed to make secret usage auditable and predictable:
+
+* Secret values cannot be read or exported after creation
+* All secrets are explicitly scoped to a team or user
+* Engineering and security leads can list all secrets available to them
+* Rotation is handled by updating secrets in place
+* Ambient agents only receive secrets that are in scope for the trigger
+
+**Teams remain responsible for:**
+
+* Choosing appropriate scopes for each secret
+* Limiting permissions on external systems (for example, read-only API keys)
+* Rotating credentials according to internal policies
+* Managing which agents and triggers exist within their environment

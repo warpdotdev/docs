@@ -30,7 +30,7 @@ redirects:
     agents/using-agents/agent-conversations/conversation-forking: agent/using-agents/agent-conversations/conversation-forking.md
     agents/using-agents/agent-profiles-permissions: agent/using-agents/agent-profiles-permissions.md
     agents/using-agents/agent-tasklists: agent/using-agents/agent-tasklists.md
-    agents/using-agents/managing-agents: agent/using-agents/managing-agents.md
+    agents/using-agents/managing-agents: cloud-agents/managing-cloud-agents.md
     agents/using-agents/model-choice: agent/using-agents/model-choice.md
     agents/using-agents/planning: agent/using-agents/planning.md
     agents/using-agents/web-search: agent/using-agents/web-search.md
@@ -59,7 +59,7 @@ redirects:
     features/ai: README.md
     agents/autonomy: agent/using-agents/agent-profiles-permissions.md
     features/ai/model-choice: agent/using-agents/model-choice.md
-    using-agents/managing-agents: agent/using-agents/managing-agents.md
+    using-agents/managing-agents: cloud-agents/managing-cloud-agents.md
 
     # Root-level agent-platform paths
     agent-platform/using-agents: agent/using-agents/README.md
@@ -87,7 +87,7 @@ redirects:
     agent-platform/using-agents/web-search: agent/using-agents/web-search.md
     agent-platform/using-agents/third-party-cli-agents: agent/using-agents/third-party-cli-agents.md
     agent-platform/using-agents/agent-tasklists: agent/using-agents/agent-tasklists.md
-    agent-platform/using-agents/managing-agents: agent/using-agents/managing-agents.md
+    agent-platform/using-agents/managing-agents: cloud-agents/managing-cloud-agents.md
     agent-platform/using-agents/agent-context: agent/using-agents/agent-context/README.md
     agent-platform/using-agents/agent-conversations/conversation-forking: agent/using-agents/agent-conversations/conversation-forking.md
     agent-platform/using-agents/agent-context/images-as-context: agent/using-agents/agent-context/images-as-context.md
@@ -118,7 +118,7 @@ redirects:
     agent-platform/using-agents/model-choice#available-models: agent/using-agents/model-choice.md
     agent-platform/using-agents/agent-profiles-permissions#agent-profiles: agent/using-agents/agent-profiles-permissions.md
     agent-platform/using-agents/agent-profiles-permissions#agent-permissions: agent/using-agents/agent-profiles-permissions.md
-    agent-platform/using-agents/managing-agents#in-app-agent-notifications: agent/using-agents/managing-agents.md
+    agent-platform/using-agents/managing-agents#in-app-agent-notifications: cloud-agents/managing-cloud-agents.md
     agent-platform/using-agents/agent-context/blocks-as-context#attaching-blocks-as-context: agent/using-agents/agent-context/blocks-as-context.md
     agent-platform/full-terminal-use#session-level-approvals: agent/full-terminal-use.md
     agent-platform/ai-faqs#gathering-ai-debugging-id: agent/ai-faqs.md
@@ -218,3 +218,43 @@ redirects:
 
     # settings/ai paths
     settings/ai-agents: agent/using-agents/agent-profiles-permissions.md
+
+    # Pages moved from agent-mode to capabilities
+    agent-mode/task-lists: capabilities/task-lists.md
+    agent-mode/model-choice: capabilities/model-choice.md
+    agent-mode/full-terminal-use: capabilities/full-terminal-use.md
+    agent-mode/web-search: capabilities/web-search.md
+
+    # Renamed: agent-concepts -> capabilities
+    agent-concepts: capabilities/README.md
+    agent-concepts/agent-profiles-permissions: capabilities/agent-profiles-permissions.md
+    agent-concepts/codebase-context: capabilities/codebase-context.md
+    agent-concepts/full-terminal-use: capabilities/full-terminal-use.md
+    agent-concepts/mcp: capabilities/mcp.md
+    agent-concepts/model-choice: capabilities/model-choice.md
+    agent-concepts/planning: capabilities/planning.md
+    agent-concepts/rules: capabilities/rules.md
+    agent-concepts/skills: capabilities/skills.md
+    agent-concepts/slash-commands: capabilities/slash-commands.md
+    agent-concepts/task-lists: capabilities/task-lists.md
+    agent-concepts/web-search: capabilities/web-search.md
+
+    # Renamed: agent-mode -> local-agents
+    agent-mode: local-agents/agents-overview.md
+    agent-mode/active-ai: local-agents/active-ai.md
+    agent-mode/agents-overview: local-agents/agents-overview.md
+    agent-mode/ambient-agents-session-sharing: local-agents/ambient-agents-session-sharing.md
+    agent-mode/code-diffs-in-agent-conversations: local-agents/code-diffs-in-agent-conversations.md
+    agent-mode/generate: local-agents/generate.md
+    agent-mode/interactive-code-review: local-agents/interactive-code-review.md
+    agent-mode/third-party-cli-agents: local-agents/third-party-cli-agents.md
+    agent-mode/agent-context: local-agents/agent-context/README.md
+    agent-mode/agent-context/blocks-as-context: local-agents/agent-context/blocks-as-context.md
+    agent-mode/agent-context/images-as-context: local-agents/agent-context/images-as-context.md
+    agent-mode/agent-context/selection-as-context: local-agents/agent-context/selection-as-context.md
+    agent-mode/agent-context/urls-as-context: local-agents/agent-context/urls-as-context.md
+    agent-mode/agent-context/using-to-add-context: local-agents/agent-context/using-to-add-context.md
+    agent-mode/interacting-with-agents: local-agents/interacting-with-agents/README.md
+    agent-mode/interacting-with-agents/agent-modality-beta: local-agents/interacting-with-agents/agent-modality-beta.md
+    agent-mode/interacting-with-agents/conversation-forking: local-agents/interacting-with-agents/conversation-forking.md
+    agent-mode/interacting-with-agents/voice: local-agents/interacting-with-agents/voice.md

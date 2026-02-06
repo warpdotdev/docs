@@ -17,16 +17,16 @@ redirects:
     platform/cli/troubleshooting: cli/troubleshooting.md
 
     # platform/agent-api-and-sdk paths
-    platform/agent-api-and-sdk: api-and-sdk/README.md
-    platform/agent-api-and-sdk#agent-sdk: api-and-sdk/README.md
+    platform/agent-api-and-sdk: api-and-sdk/agent/README.md
+    platform/agent-api-and-sdk#agent-sdk: api-and-sdk/agent/README.md
     platform/agent-api-and-sdk/demo-sentry-monitoring-with-sdk: api-and-sdk/demo-sentry-monitoring-with-sdk.md
-    platform/agent-api-and-sdk/agent: api-and-sdk/README.md
-    platform/agent-api-and-sdk/agent-1: api-and-sdk/README.md
+    platform/agent-api-and-sdk/agent: api-and-sdk/agent/README.md
+    platform/agent-api-and-sdk/agent-1: api-and-sdk/agent/README.md
 
     # integrations/* paths
     integrations/integrations-overview/integrations-and-environments#creating-an-environment: cli/integrations-and-environments.md#creating-an-environment 
     # Root-level paths
-    agent-api-and-sdk: api-and-sdk/README.md
+    agent-api-and-sdk: api-and-sdk/agent/README.md
     cli/integrations-and-environments: cli/integrations-and-environments.md
 
     # Anchor-specific paths

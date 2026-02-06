@@ -74,9 +74,15 @@ After running the script, fix each broken link based on the error type:
 
 4. **Cross-space links**: Links between GitBook spaces (warp/, agent-platform/, support-and-community/, reference/)
    - **Relative paths do NOT work across spaces** — use absolute URLs instead
-   - From `docs/warp/`: `https://docs.warp.dev/{subfolder}/{page}` (warp is the homepage, not in URL)
-   - From other folders: `https://docs.warp.dev/{folder}/{subfolder}/{page}`
-   - Example: `../../support-and-billing/known-issues.md` → `https://docs.warp.dev/support-and-community/troubleshooting-and-support/known-issues`
+   - **IMPORTANT: `docs/warp/` is the docs homepage, so "warp" is NOT included in URLs**
+     - Files in `docs/warp/code/code-review.md` → `https://docs.warp.dev/code/code-review`
+     - Files in `docs/warp/terminal/command-palette.md` → `https://docs.warp.dev/terminal/command-palette`
+   - For other spaces, include the folder name in the URL:
+     - Files in `docs/agent-platform/...` → `https://docs.warp.dev/agent-platform/...`
+     - Files in `docs/support-and-community/...` → `https://docs.warp.dev/support-and-community/...`
+   - Example cross-space link: From `agent-platform/` linking to `warp/code/code-review.md`:
+     - ❌ Wrong: `https://docs.warp.dev/warp/code/code-review`
+     - ✅ Correct: `https://docs.warp.dev/code/code-review`
    - **Note**: Old folder names may be outdated (e.g., `support-and-billing` → `support-and-community/troubleshooting-and-support`). Search for the actual file location before constructing the URL.
 
 ### External Links

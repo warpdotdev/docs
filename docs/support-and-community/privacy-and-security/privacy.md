@@ -23,7 +23,7 @@ Warp collects high-level telemetry and usage data to discover product quality is
 If you haven't opted out of "Help improve Warp", we may collect:
 
 1. High level product usage and analytics data to analyze feature uptake and usage patterns. See the [Exhaustive Telemetry Table](privacy.md#exhaustive-telemetry-table) for the full list of tracked events below. These are all high level metrics and do not include any user generated content.
-2. AI interactions and console inputs that power our [AI features](https://docs.warp.dev/agent-platform/agent/). Warp unconditionally applies [Secret Redaction](secret-redaction.md) in all AI interactions to ensure that any sensitive data is _never_ collected or sent to third parties.
+2. AI interactions and console inputs that power our [AI features](https://docs.warp.dev/agent-platform/local-agents/). Warp unconditionally applies [Secret Redaction](secret-redaction.md) in all AI interactions to ensure that any sensitive data is _never_ collected or sent to third parties.
 
 All users can opt-out of this any time and still continue using all of Warp (including AI features).
 
@@ -58,7 +58,7 @@ Deletion jobs run every 24 hours, so if you deleted your account and want to sig
 {% endhint %}
 
 {% hint style="warning" %}
-If you're a [Team](https://docs.warp.dev/warp/knowledge-and-collaboration/teams) admin, the deletion flow will require that you assign a team member as the new admin.
+If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admin, the deletion flow will require that you assign a team member as the new admin.
 {% endhint %}
 
 ### Exhaustive Telemetry Table
