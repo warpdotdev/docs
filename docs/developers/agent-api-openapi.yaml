@@ -1016,6 +1016,11 @@ components:
           additionalProperties:
             $ref: '#/components/schemas/MCPServerConfig'
           description: Map of MCP server configurations by name
+        computer_use_enabled:
+          type: boolean
+          description: |
+            Controls whether computer use is enabled for this agent.
+            If not set, defaults to false.
         worker_host:
           type: string
           description: |
