@@ -2,6 +2,7 @@
 description: >-
   Use natural language to look up commands or input, accessible either directly
   from the command line input or inside any interactive command or program.
+hidden: true
 ---
 
 # Generate (Legacy)
@@ -36,8 +37,7 @@ Generating commands as command line input demo
 ### \[Legacy] Generate text and contextual suggestions in interactive CLIs
 
 {% hint style="warning" %}
-**Our legacy Generate feature which works in interactive CLIs has been replaced by** [Full Terminal Use](../capabilities/full-terminal-use.md)**, where Warp's agent can now run and control long-running or full-screen terminal applications**.
-\
+**Our legacy Generate feature which works in interactive CLIs has been replaced by** [Full Terminal Use](../capabilities/full-terminal-use.md)**, where Warp's agent can now run and control long-running or full-screen terminal applications**.\
 The agent can provide input when prompted, navigate interactive screens, and continue execution without stalling.
 {% endhint %}
 
