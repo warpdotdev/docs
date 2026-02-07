@@ -17,6 +17,7 @@
 * [Model Choice](capabilities/model-choice.md)
 * [Rules](capabilities/rules.md)
 * [Full Terminal Use](capabilities/full-terminal-use.md)
+* [Computer Use](capabilities/computer-use.md)
 * [MCP](capabilities/mcp.md)
 * [Codebase Context](capabilities/codebase-context.md)
 * [Agent Profiles & Permissions](capabilities/agent-profiles-permissions.md)

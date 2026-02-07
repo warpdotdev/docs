@@ -19,6 +19,7 @@ Understanding these capabilities helps you get the most out of agents by configu
 * [Model Choice](model-choice.md) - Pick your preferred LLM from a curated set of top models, or let Warp choose the optimal one.
 * [Rules](rules.md) - Define global and project-level guidelines that shape agent behavior and responses.
 * [Full Terminal Use](full-terminal-use.md) - Let the agent drive interactive terminal apps, seeing live output and running commands.
+* [Computer Use](computer-use.md) - Let agents interact with desktop environments by taking screenshots, clicking, typing, and controlling the GUI.
 * [MCP](mcp.md) - Connect external data sources and tools to Warp's agents via the Model Context Protocol.
 * [Codebase Context](codebase-context.md) - Let agents understand your codebase through semantic indexing of your Git-tracked files.
 * [Agent Profiles & Permissions](agent-profiles-permissions.md) - Control what permissions and autonomy agents have to run commands and apply changes.
