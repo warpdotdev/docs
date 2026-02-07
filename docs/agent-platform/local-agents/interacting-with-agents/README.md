@@ -17,6 +17,10 @@ Conversations work best when the queries are related. If your new question build
 Long conversations can cause slower performance and lower-quality answers. When working on a separate task or question, start fresh rather than relying on context from earlier interactions.
 {% endhint %}
 
+{% hint style="info" %}
+To access conversations across devices, share them with teammates, or restore past cloud Agent conversations, enable [Cloud-synced Conversations](../../cloud-conversations.md).
+{% endhint %}
+
 ### Staying in a Conversation (Follow-Ups)
 
 By default, if you ask an AI query immediately after interacting in Agent Mode, your query is sent as a **follow-up** to the current conversation.

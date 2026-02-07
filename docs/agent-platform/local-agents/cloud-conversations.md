@@ -1,0 +1,130 @@
+---
+description: >-
+  Sync agent conversations to the cloud to access them across devices, share
+  with teammates, and continue past conversations from anywhere.
+---
+
+# Cloud-synced conversations
+
+Warp can sync your [agent conversations](interacting-with-agents/) to the cloud, making them accessible across devices, shareable with teammates, and persistent even after logging out. This enables you to pick up where you left off on any machine, share context with collaborators, and access past [cloud agent](../cloud-agents/cloud-agents-overview.md) conversations.
+
+## Key capabilities
+
+* **Persistence across devices** - Your conversations remain available when you log out and back in, or switch to a different machine.
+* **Access to past cloud agent conversations** - View and restore cloud agent conversations after they complete.
+* **Link sharing with access controls** - Share conversations with specific teammates or your team, with configurable permissions.
+* **Web viewing** - View shared conversations in a browser without installing Warp.
+* **Local continuation** - Restore any cloud conversation and continue it locally on your machine.
+
+## Enabling cloud conversations
+
+Cloud conversation sync is controlled by a setting in Warp:
+
+1. Open `Settings > Privacy`
+2. Enable **Store AI conversations in the cloud**
+
+When enabled, your Agent conversations automatically sync to the cloud as you interact with the Agent. When disabled, conversations are stored locally on your machine only.
+
+{% hint style="warning" %}
+If cloud conversations are disabled, conversation data is lost when you log out and cannot be shared with others. Cloud agent conversations are always stored in the cloud regardless of this setting.
+{% endhint %}
+
+## How it works
+
+### Conversation syncing
+
+When cloud conversations are enabled, Warp automatically syncs your conversation data after each Agent interaction. This happens in the background and does not affect your workflow.
+
+Cloud conversations store a snapshot of the conversation state at each sync point. If you open the same conversation on two different machines, each continues independently from that snapshot—changes on one machine do not sync to the other in real time.
+
+### Continuing vs. forking
+
+When you restore a cloud conversation:
+
+* **Your own conversations** - You can continue the conversation directly, and updates sync back to the cloud.
+* **Shared conversations from others** - Continuing creates a fork, giving you a new conversation that starts with the shared context but does not modify the original.
+
+This behavior mirrors [Conversation Forking](interacting-with-agents/conversation-forking.md), where you branch off to explore a different direction without affecting the source conversation.
+
+## Managing cloud-synced conversations
+
+Cloud-synced conversations appear in all the usual conversation management entrypoints alongside your local conversations. You can browse, search, restore, and delete them just like any other conversation.
+
+See [Interacting with Agents](interacting-with-agents/) for detailed information on navigating and managing conversations, including keyboard shortcuts and the Conversation Panel in [Agent Modality](interacting-with-agents/agent-modality-beta.md).
+
+* **Browse** - View all your local and cloud-synced conversations in one place.
+* **Search** - Find conversations by title or content.
+* **Restore** - Click a conversation to load it into your current session and continue where you left off.
+* **Delete** - Remove conversations you no longer need. Deletion is permanent and immediate.
+
+## Sharing conversations
+
+You can share any cloud conversation with teammates via a link.
+
+### Creating a share link
+
+To share a conversation:
+
+1. Open the conversation you want to share
+2. Access the share options through the conversation menu
+3. Configure access permissions:
+   * **Anyone on your team** (default) - All team members can view
+   * **Specific people** - Enter email addresses to grant access
+   * **Anyone with the link** - No authentication required
+
+By default, shared conversations are visible to anyone on your team.
+
+### Viewing shared conversations
+
+Recipients can view shared conversations in two ways:
+
+* **On the web** - Open the link in a browser to view the conversation transcript without installing Warp.
+* **In Warp** - Click "Open in Warp" to load the conversation in the desktop app, where you can continue it locally.
+
+When you continue a shared conversation from someone else, Warp creates a fork so you can build on the shared context without modifying the original.
+
+{% hint style="info" %}
+Cloud-synced conversations store snapshots of conversation data. For real-time collaboration on a live session, use [Agent Session Sharing](https://docs.warp.dev/knowledge-and-collaboration/session-sharing/agent-session-sharing).
+{% endhint %}
+
+## Cloud agent conversations
+
+[Cloud agents](../cloud-agents/cloud-agents-overview.md) run in the cloud, and their conversations are automatically stored regardless of your local cloud conversations setting.
+
+### Accessing cloud agent conversations
+
+You can access any past cloud agent conversation:
+
+* **View transcripts** - Access the full conversation history of any past cloud agent run.
+* **Restore locally** - Load a cloud agent conversation into your local Warp session to review or continue the work.
+
+This is useful when a cloud agent completes a task and you want to review what it did or continue from where it left off.
+
+## Privacy and data
+
+### Enterprise controls
+
+Enterprise administrators can disable cloud conversation storage for their organization through the [Admin Panel](https://docs.warp.dev/knowledge-and-collaboration/admin-panel).
+
+When cloud conversation storage is disabled by your organization:
+
+* Conversations are stored locally only and not synced to the cloud
+* You cannot share conversations or access them across devices
+* Cloud agent conversations are still accessible through the Warp dashboard
+
+### Storage limits
+
+Cloud conversation storage limits vary by plan. For free users, Warp automatically removes the oldest cloud conversations when you reach your limit to make room for new ones. Your conversations are always preserved locally on your machine—only the cloud-synced copies are removed.
+
+For current storage limits by plan, see our [pricing page](https://www.warp.dev/pricing).
+
+### Deleting conversations
+
+When you delete a conversation, it is removed permanently and immediately. Make sure you no longer need a conversation before deleting it.
+
+## Related features
+
+* [Interacting with Agents](interacting-with-agents/) - Learn about conversation mechanics, follow-ups, and context windows.
+* [Conversation Forking](interacting-with-agents/conversation-forking.md) - Branch conversations to explore different directions.
+* [Agent Session Sharing](../cloud-agents/agent-session-sharing.md) - Collaborate in real time on a live Agent session.
+* [Cloud Agents Overview](../cloud-agents/cloud-agents-overview.md) - Run agents in the cloud from triggers, schedules, or integrations.

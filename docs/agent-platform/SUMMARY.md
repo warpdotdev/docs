@@ -41,8 +41,9 @@
 * [Third-Party CLI Agents](local-agents/third-party-cli-agents.md)
 * [Active AI](local-agents/active-ai.md)
 * [Generate (Legacy)](local-agents/generate.md)
+* [Cloud-synced Conversations](local-agents/cloud-conversations.md)
 
-## Cloud Agents & Orchestration <a href="#cloud-agents" id="cloud-agents"></a>
+## Cloud Agents & Orchestration
 
 * [Cloud Agents Overview](cloud-agents/cloud-agents-overview.md)
 * [Cloud Agents Platform](cloud-agents/platform.md)
