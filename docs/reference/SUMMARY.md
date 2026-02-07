@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Technical Reference](README.md)
+* [API Reference](README.md)
 
 ## CLI
 

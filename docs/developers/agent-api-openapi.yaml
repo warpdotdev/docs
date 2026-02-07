@@ -3,7 +3,7 @@ info:
   title: Warp Public Agent API
   version: 1.0.0
   description: |
-    Public API for creating, managing, and querying Warp ambient agent runs.
+    Public API for creating, managing, and querying Warp cloud agent runs.
     
     These endpoints allow users to programmatically spawn agents, list runs, 
     and retrieve detailed run information.
@@ -64,7 +64,7 @@ paths:
     post:
       summary: Run an agent task
       description: |
-        Spawn an ambient agent with a prompt and optional configuration.
+        Spawn an cloud agent with a prompt and optional configuration.
         The agent will be queued for execution and assigned a unique run ID.
       operationId: runAgent
       tags:
@@ -993,7 +993,7 @@ components:
         - CLI: Created from the CLI
     AmbientAgentConfig:
       type: object
-      description: Configuration for an ambient agent run
+      description: Configuration for an cloud agent run
       properties:
         name:
           type: string

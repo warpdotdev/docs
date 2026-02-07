@@ -52,7 +52,7 @@ redirects:
     # Old platform/ paths
     platform/deployment-patterns: platform/deployment-patterns.md
     platform/team-access-billing-and-identity-permissions: platform/team-access-billing-and-identity-permissions.md
-    platform/warp-platform: platform/warp-platform.md
+    platform/warp-platform: cloud-agents/platform.md
 
     # Since restructure
     ambient-agents/ambient-agents-overview: ambient-agents/ambient-agents-overview.md
@@ -62,6 +62,8 @@ redirects:
     using-agents/managing-agents: cloud-agents/managing-cloud-agents.md
 
     # Root-level agent-platform paths
+    agent-platform/cloud-agents/warp-platform: cloud-agents/platform.md
+    agent-platform/cloud-agents/cloud-agents-platform: cloud-agents/platform.md
     agent-platform/using-agents: agent/using-agents/README.md
     agent-platform/agents-overview: agent/agents-overview.md
     agent-platform/ai-faqs: agent/ai-faqs.md
@@ -204,8 +206,10 @@ redirects:
 
     # platform/* paths (not in platform section)
     platform/environments: platform/environments.md
-    platform: platform/warp-platform.md
-    warp-platform: platform/warp-platform.md
+    platform: cloud-agents/platform.md
+    warp-platform: cloud-agents/platform.md
+    cloud-agents/warp-platform: cloud-agents/platform.md
+    cloud-agents/cloud-agents-platform: cloud-agents/platform.md
     platform/integrations/integrations-overview: integrations/integrations-overview.md
 
     # integrations/* root paths
@@ -243,7 +247,7 @@ redirects:
     agent-mode: local-agents/agents-overview.md
     agent-mode/active-ai: local-agents/active-ai.md
     agent-mode/agents-overview: local-agents/agents-overview.md
-    agent-mode/ambient-agents-session-sharing: local-agents/ambient-agents-session-sharing.md
+    agent-mode/ambient-agents-session-sharing: cloud-agents/cloud-agents-session-sharing.md
     agent-mode/code-diffs-in-agent-conversations: local-agents/code-diffs-in-agent-conversations.md
     agent-mode/generate: local-agents/generate.md
     agent-mode/interactive-code-review: local-agents/interactive-code-review.md
@@ -258,3 +262,4 @@ redirects:
     agent-mode/interacting-with-agents/agent-modality-beta: local-agents/interacting-with-agents/agent-modality-beta.md
     agent-mode/interacting-with-agents/conversation-forking: local-agents/interacting-with-agents/conversation-forking.md
     agent-mode/interacting-with-agents/voice: local-agents/interacting-with-agents/voice.md
+    local-agents/ambient-agents-session-sharing: cloud-agents/cloud-agents-session-sharing.md

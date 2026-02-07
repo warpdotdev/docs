@@ -12,7 +12,7 @@ We welcome [feedback](https://docs.warp.dev/support-and-community/troubleshootin
 
 ## What is the Warp CLI?
 
-The Warp CLI is the command-line tool that lets you run [Ambient Agents](https://docs.warp.dev/agent-platform/cloud-agents/cloud-agents-overview) from anywhere, including terminals, scripts, automated systems, or services.
+The Warp CLI is the command-line tool that lets you run [Cloud Agents](https://docs.warp.dev/agent-platform/cloud-agents/cloud-agents-overview) from anywhere, including terminals, scripts, automated systems, or services.
 
 It’s the standard runtime entry point that turns a **prompt** plus **configuration** into an **executable agent task** that runs on either a **Warp-hosted or self-hosted runner**.&#x20;
 
@@ -25,7 +25,7 @@ With the Warp CLI, you can:
 
 ## Quickstart Guide
 
-Set up and run your first ambient agent in less than 5 minutes.
+Set up and run your first cloud agent in less than 5 minutes.
 
 ### 1. Installing the CLI
 
@@ -59,7 +59,7 @@ This uses the default agent profile, loads any available MCP servers, and execut
 
 What happens:
 
-* Warp starts a new Ambient Agent session.
+* Warp starts a new cloud agent session.
 * The agent is given access to your current working directory.
 * The agent autonomously executes commands and streams output to your terminal.
 
@@ -407,7 +407,7 @@ $ warp agent run --profile CWhozDJPdPCsjJ1pSG0HCN --prompt "update my CI pipelin
 
 ## Using MCP servers
 
-MCP servers connect Ambient Agents interact with external systems like GitHub, Linear, or Sentry. To use a [Model Context Protocol (MCP)](https://docs.warp.dev/knowledge-and-collaboration/mcp) server from the CLI, you need:
+MCP servers connect cloud agents to interact with external systems like GitHub, Linear, or Sentry. To use a [Model Context Protocol (MCP)](https://docs.warp.dev/knowledge-and-collaboration/mcp) server from the CLI, you need:
 
 * An MCP server configured in Warp
 * An agent profile that allows for the MCP server you want to use

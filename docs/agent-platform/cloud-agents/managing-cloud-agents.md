@@ -1,4 +1,4 @@
-# Managing Ambient Agents
+# Managing Cloud Agents
 
 Warp provides a centralized management view where you can monitor agent activity across your account and (where applicable) your team. It’s designed to answer, at a glance:
 
@@ -9,7 +9,7 @@ Warp provides a centralized management view where you can monitor agent activity
 
 {% embed url="https://www.loom.com/share/679c267ddd2d44519abf79edcb1122c7" %}
 
-This management view includes your **local (interactive) agents** and [Ambient Agent](cloud-agents-overview.md) runs.&#x20;
+This management view includes your **local (interactive) agents** and [Cloud Agent](cloud-agents-overview.md) runs.&#x20;
 
 ***
 
@@ -23,7 +23,7 @@ The management view includes two categories of agent activity.
 * The conversation is owned by you. It opens locally in Warp, and can be shared via a link when needed.
 * Credit usage reflects inference.
 
-#### Ambient agent runs
+#### Cloud agent runs
 
 * Background executions initiated by triggers such as integrations and automations (for example: Slack, Linear, schedules, GitHub Actions, or API/CLI invocations).
 * Each run produces a shared session that can be inspected after completion (including logs, messages, and outputs).
@@ -33,7 +33,7 @@ The management view includes two categories of agent activity.
 All usage rolls up into Warp's standard [**credit**](https://docs.warp.dev/support-and-community/plans-and-billing/credits) system.
 {% endhint %}
 
-In the **Personal** tab, you can view all of the interactive and Ambient Agent conversations that you own. In the **All** tab, you can see everything from the personal tab, as well as any ambient sessions that are shared with you by your teammates; right now, this only includes things triggered from integrations.
+In the **Personal** tab, you can view all of the interactive and cloud agent conversations that you own. In the **All** tab, you can see everything from the personal tab, as well as any ambient sessions that are shared with you by your teammates; right now, this only includes things triggered from integrations.
 
 ***
 
@@ -59,7 +59,7 @@ Warp uses a small set of statuses to help you quickly identify what needs attent
 
 <table><thead><tr><th width="173.375">Status</th><th width="78.41973876953125">Icon</th><th>Description</th></tr></thead><tbody><tr><td><code>Working</code></td><td>N/A</td><td>in progress (may include queued / running states)</td></tr><tr><td><code>Blocked</code></td><td>🟨</td><td><p><em>(interactive only)</em></p><p><br>the conversation is waiting on user input or a required step</p></td></tr><tr><td><code>Canceled</code></td><td>⬜️</td><td>(interactive only)<br><br>the interactive conversation was canceled before completion</td></tr><tr><td><code>Failed / Errored</code></td><td>🔺</td><td>something went wrong (applies to both interactive and ambient)</td></tr><tr><td><code>Success</code></td><td>✅</td><td>completed successfully (applies to both interactive and ambient)</td></tr></tbody></table>
 
-**Duration (for Ambient Agent tasks)**
+**Duration (for cloud agent tasks)**
 
 * Shown for ambient runs to indicate how long the task executed.
 * Note: Interactive conversations generally don’t map cleanly to a single “run duration,” so this is currently omitted.&#x20;

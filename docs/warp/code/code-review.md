@@ -36,7 +36,7 @@ You can also open the Code Review panel with `CMD – SHIFT – +` on macOS or `
 
 #### 1. Universal Input: Git diff chip
 
-In the [Universal Input](../../terminal/input/universal-input.md) editor, when you're in a Git repository with changes, the chip shows the number of files modified along with lines added and removed. Clicking the chip opens the Code Review panel with the relevant diffs.
+In the [Universal Input](../terminal/input/universal-input.md) editor, when you're in a Git repository with changes, the chip shows the number of files modified along with lines added and removed. Clicking the chip opens the Code Review panel with the relevant diffs.
 
 <figure><img src="../../.gitbook/assets/whole UDI bar.png" alt=""><figcaption></figcaption></figure>
 

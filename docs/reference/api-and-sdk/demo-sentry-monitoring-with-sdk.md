@@ -1,6 +1,6 @@
 # Demo: Sentry monitoring with SDK
 
-### Turn Production Errors into Draft PRs with Ambient Agents + TypeScript SDK
+### Turn Production Errors into Draft PRs with Cloud Agents + TypeScript SDK
 
 {% embed url="https://www.youtube.com/watch?feature=youtu.be&v=fHQXLg9ybi4" %}
 
@@ -8,7 +8,7 @@
 Example repository: [**https://github.com/warpdotdev/warp-agents-sdk-demo-sentry-monitor**](https://github.com/warpdotdev/warp-agents-sdk-demo-sentry-monitor)
 {% endhint %}
 
-In this demo, Ben builds a small TypeScript “Sentry monitor” service that listens for specific Sentry alerts (like a Go nil pointer dereference) and triggers a Warp Ambient Agent to investigate. The server validates the webhook, extracts the stack trace, and injects it into an agent run inside a Warp Environment so the agent can inspect the repo and propose a fix.
+In this demo, Ben builds a small TypeScript “Sentry monitor” service that listens for specific Sentry alerts (like a Go nil pointer dereference) and triggers a Warp cloud agent to investigate. The server validates the webhook, extracts the stack trace, and injects it into an agent run inside a Warp Environment so the agent can inspect the repo and propose a fix.
 
 He also covers the task lifecycle basics in the TypeScript SDK (running an agent, polling task state to fetch a session link for debugging), and shows the end result: a draft GitHub pull request created from the Sentry event for a maintainer to review.
 

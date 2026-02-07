@@ -21,7 +21,7 @@ This page explains what the integration does, how it behaves inside Slack, and h
 
 Assigning Warp to a message or tagging @Warp in a thread starts an agent run. The agent clones the repositories in your environment, sets up your development environment using your Docker image and setup commands, and begins working with the context from the Slack conversation. Warp posts updates back into the thread as it progresses so you can follow along without opening your terminal.
 
-Agents also share a link to an interactive remote session using Warp’s [Ambient Agent Session Sharing](https://docs.warp.dev/knowledge-and-collaboration/session-sharing/ambient-agents-session-sharing). Opening this link gives you a live terminal view of the cloud agent running your code. You can interrupt or steer the agent by providing additional instructions, and the agent will pick up where it left off with the new context.
+Agents also share a link to an interactive remote session using Warp's [cloud agent session sharing](../cloud-agents-session-sharing.md). Opening this link gives you a live terminal view of the cloud agent running your code. You can interrupt or steer the agent by providing additional instructions, and the agent will pick up where it left off with the new context.
 
 When the work is complete, Warp will create a pull request on your behalf using your GitHub permissions and send a summary and PR link back to the original Slack thread.
 
@@ -50,7 +50,7 @@ Agents keep you informed directly in Slack via:
 * Checkpoints indicating major steps completed
 * A session-sharing link that opens a live terminal view of the remote agent
 
-[Ambient Agents Session Sharing](https://docs.warp.dev/knowledge-and-collaboration/session-sharing/ambient-agents-session-sharing) works in Warp or in your browser and supports multiple teammates joining the same live session.
+[Cloud agent session sharing](../cloud-agents-session-sharing.md) works in Warp or in your browser and supports multiple teammates joining the same live session.
 
 ### Joining the live remote session
 
@@ -108,11 +108,11 @@ warp environment create \
   --setup-command "<command>"
 ```
 
-*   **Guided setup using `/create-environment`** ( [Slash Commands](../agent/slash-commands.md))
+*   **Guided setup using `/create-environment`** ( [Slash Commands](../../capabilities/slash-commands.md))
 
     This flow analyzes your repos, recommends a Docker image, suggests setup commands, and can build + push a custom image if needed.
 
-See the [Environment Setup](integrations-overview.md) docs for detailed instructions.
+See the [Environment Setup](README.md) docs for detailed instructions.
 
 #### 2. Create the Slack integration
 
@@ -164,7 +164,7 @@ Once removed, Slack will immediately disable the integration for all teammates.
 
 ### Troubleshooting
 
-If something isn’t working—missing repos, Slack not detecting @Warp, PR failures, or environment configuration issues—see the [Integrations Troubleshooting](integrations-overview.md#troubleshooting) page. It covers:
+If something isn't working—missing repos, Slack not detecting @Warp, PR failures, or environment configuration issues—see the [Integrations Troubleshooting](README.md#troubleshooting) page. It covers:
 
 * GitHub authorization and repo access
 * Docker image pull errors

@@ -2,7 +2,7 @@
 
 ### Agent API
 
-Warp's Public Agent API lets you create and inspect [Ambient Agent](https://docs.warp.dev/agent-platform/cloud-agents/cloud-agents-overview) runs over HTTP from any system (CI, cron, backend services, internal tools), without requiring the Warp desktop app.
+Warp's Public Agent API lets you create and inspect [Cloud Agent](https://docs.warp.dev/agent-platform/cloud-agents/cloud-agents-overview) runs over HTTP from any system (CI, cron, backend services, internal tools), without requiring the Warp desktop app.
 
 **With the API you can:**
 
@@ -54,7 +54,7 @@ https://app.warp.dev/api/v1
 
 #### **Agent runs**
 
-An agent run represents a single execution of an Ambient Agent, created with a prompt and optional configuration. Each run has:
+An agent run represents a single execution of a cloud agent, created with a prompt and optional configuration. Each run has:
 
 * A unique `run_id`
 * A human-readable `title`

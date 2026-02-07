@@ -4,7 +4,7 @@ description: >-
   autonomy to the tools and permissions it can use.
 ---
 
-# Agent Profiles & Permissions
+# Profiles & Permissions
 
 ## Agent Profiles
 

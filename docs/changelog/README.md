@@ -118,7 +118,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 * Fixed duplicate rule suggestions on dismiss and save.
 * @-context search now matches on both name and content for notebooks, rules, and workflows.
 * Updated checkbox checkmark to use foreground color for better theme consistency.
-* Filter selections in the ambient agent management view now persist across app restarts.
+* Filter selections in the cloud agent management view now persist across app restarts.
 * MCP servers with OAuth authentication can now be used in warp agent run if previously authenticated in the desktop app.
 
 **Bug fixes**
@@ -138,7 +138,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 * Users can now create team-scoped API keys.
 * Agent tip now leads with `WARP.md` when mentioning project-scoped rule files.
-* The warp agent run-ambient command can now create ambient agent tasks that are shared with team members.
+* The warp agent run-ambient command can now create cloud agent tasks that are shared with team members.
 * Updated agent profile switching tip to better explain why users would want to switch profiles.
 * Comments in the code review flow now render full width when there are 4 or fewer comments, improving readability.
 * When the completions menu is opened (tab), no completion item is selected by default. Pressing enter while no completion is selected directly runs the command currently in the input. Upon selecting a completion, it now automatically shows up in the input. This more closely mirrors behavior in traditional terminals.
@@ -147,7 +147,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 **Bug fixes**
 
-* Improved out-of-memory handling for ambient agents.
+* Improved out-of-memory handling for cloud agents.
 * Fixed a configuration error creating team-scoped Warp-managed secrets.
 * Fixed 'parameter not set' error in zsh when users have setopt nounset enabled.
 * Fixed an issue where up arrow history could be ordered incorrectly on quit or restart Warp.

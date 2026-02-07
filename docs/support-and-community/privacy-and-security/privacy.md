@@ -97,8 +97,8 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `Agent Mode Setup Project Scoped Rules Action` | User clicked a button in the Agent Mode setup project scoped rules step |
 | `Agent Mode.Setup Codebase Context Action` | User clicked a button in the Agent Mode setup codebase context step |
 | `Agent Predict` | Completed an Agent Predict prediction |
-| `AgentManagement.DismissSetupGuide` | User dismissed the ambient agent setup guide |
-| `AgentManagement.OpenSetupGuide` | User opened the ambient agent setup guide |
+| `AgentManagement.DismissSetupGuide` | User dismissed the cloud agent setup guide |
+| `AgentManagement.OpenSetupGuide` | User opened the cloud agent setup guide |
 | `AgentManagement.SetupGuideDocsLink` | User clicked a docs URL in the setup guide |
 | `AgentManagement.SetupGuideStepCopy` | User copied a workflow step from the setup guide |
 | `AgentManagement.SetupGuideStepRun` | User ran a workflow step from the setup guide |
@@ -182,7 +182,7 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `CLI.Execute.Agent.List` | Listed agents from the Warp CLI |
 | `CLI.Execute.Agent.Profile.List` | Listed agent profiles from the Warp CLI |
 | `CLI.Execute.Agent.Run` | Ran an agent from the Warp CLI |
-| `CLI.Execute.Agent.RunAmbient` | Ran an ambient agent from the Warp CLI |
+| `CLI.Execute.Agent.RunAmbient` | Ran an cloud agent from the Warp CLI |
 | `CLI.Execute.Environment.Create` | Created a cloud environment from the Warp CLI |
 | `CLI.Execute.Environment.Delete` | Deleted a cloud environment from the Warp CLI |
 | `CLI.Execute.Environment.Get` | Got cloud environment details from the Warp CLI |

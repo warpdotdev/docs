@@ -1,23 +1,23 @@
 ---
 description: >-
-  Warp Ambient Agents are cloud connected background agents that run from
+  Warp Cloud Agents are cloud connected background agents that run from
   events, schedules, or integrations, giving teams scalable automation with
   shared observability and centralized configs (beta)
 ---
 
-# Ambient Agents Overview
+# Cloud Agents Overview
 
 {% hint style="info" %}
-**Beta**: Ambient Agents are currently in beta. APIs, CLI commands, and product behavior may change. If you have feedback, reach out in the [Warp Community Slack](https://go.warp.dev/join-preview).
+**Beta**: Cloud Agents are currently in beta. APIs, CLI commands, and product behavior may change. If you have feedback, reach out in the [Warp Community Slack](https://go.warp.dev/join-preview).
 {% endhint %}
 
-Warp's Ambient Agents are **cloud connected**, **background agents** built on the [Warp Platform](warp-platform.md). They run automatically in response to system events, schedules, or integrations.
+Warp's Cloud Agents are **cloud connected**, **background agents** built on the [Cloud Agents Platform](platform.md). They run automatically in response to system events, schedules, or integrations.
 
 {% embed url="https://www.youtube.com/watch?v=V-8_fZExlFQ" %}
 
-### What Ambient Agents are designed for
+### What Cloud Agents are designed for
 
-Ambient Agents are designed for situations where:
+Cloud Agents are designed for situations where:
 
 * **You need agents to react to system events.**
   * Examples include crashes, bug reports, Slack interactions, cron timers, or CI steps.
@@ -30,9 +30,9 @@ Ambient Agents are designed for situations where:
 
 ***
 
-### What is an Ambient Agent run?
+### What is a cloud agent run?
 
-An Ambient Agent run is represented as an agent task. A task is created when a trigger fires (for example a webhook event or schedule) or when a user starts a run explicitly.
+A cloud agent run is represented as an agent task. A task is created when a trigger fires (for example a webhook event or schedule) or when a user starts a run explicitly.
 
 Each task includes:
 
@@ -42,13 +42,13 @@ Each task includes:
 * **Persistent record**: status, metadata, and a session transcript that can be reviewed after the task completes.
 
 {% hint style="info" %}
-If you are evaluating whether something should be an Ambient Agent, a good test is whether you can define:\
+If you are evaluating whether something should be a cloud agent, a good test is whether you can define:\
 (1) what triggers it, (2) what context it needs, and (3) how the team will inspect or validate the output.
 {% endhint %}
 
-### How Ambient Agents work
+### How Cloud Agents work
 
-Ambient Agents run on the [Warp Platform](warp-platform.md), which provides the primitives for triggering work, orchestrating tasks, executing agents (optionally in Environments), injecting secrets, and inspecting results.
+Cloud Agents run on the [Cloud Agents Platform](platform.md), which provides the primitives for triggering work, orchestrating tasks, executing agents (optionally in Environments), injecting secrets, and inspecting results.
 
 * Something **triggers** an agent task.
 * The **orchestrator creates** and tracks the task.
@@ -57,11 +57,11 @@ The exact way tasks are triggered and executed depends on your deployment model 
 
 ### What you get by default
 
-Because Ambient Agents run on the [Warp Platform](warp-platform.md), each run is tracked and produces a persistent record that can be observed, shared, and audited (even if execution happens outside the Warp app).
+Because Cloud Agents run on the [Cloud Agents Platform](platform.md), each run is tracked and produces a persistent record that can be observed, shared, and audited (even if execution happens outside the Warp app).
 
 #### Observability and steerability
 
-Ambient Agent tasks are designed to be inspectable by the team:
+Cloud agent tasks are designed to be inspectable by the team:
 
 * [Agent Session Sharing](https://docs.warp.dev/agent-platform/cloud-agents/agent-session-sharing) lets authorized teammates attach to a running task to monitor progress and, where supported, steer the agent while it runs.
 * Each run produces a session transcript and task metadata, which provides a record of what the agent did.
@@ -69,7 +69,7 @@ Ambient Agent tasks are designed to be inspectable by the team:
 
 #### Centralized configuration
 
-Ambient Agent workflows often rely on shared configuration such as [MCP servers](https://docs.warp.dev/reference/cli/mcp-servers-for-cloud-agents), rules, saved prompts, environment variables, and [secrets](cloud-agent-secrets.md).
+Cloud agent workflows often rely on shared configuration such as [MCP servers](https://docs.warp.dev/reference/cli/mcp-servers-for-cloud-agents), rules, saved prompts, environment variables, and [secrets](cloud-agent-secrets.md).
 
 Warp supports centralized configuration so the same workflow behaves consistently across triggers (for example Slack + CI + schedules), without duplicating setup in every system.
 
@@ -81,9 +81,9 @@ The Warp Platform exposes task visibility via the [**Agent API and SDKs**](https
 * Fetch task metadata and outcomes.
 * Build internal dashboards or monitoring (for example success rates, runtime, failure reasons).
 
-### Using Ambient Agents with or without Warp’s app
+### Using Cloud Agents with or without Warp’s app
 
-Ambient Agents do not require the Warp desktop app. Teams can deploy and operate them through the [Warp Platform](warp-platform.md) using:
+Cloud Agents do not require the Warp desktop app. Teams can deploy and operate them through the [Cloud Agents Platform](platform.md) using:
 
 * [Warp CLI](https://docs.warp.dev/reference/cli)
 * Web surfaces (where available)
@@ -96,9 +96,9 @@ If your team also uses Warp’s terminal, you get an additional workflow: tasks 
 
 ### Team and billing requirements
 
-Ambient Agents and [integrations](integrations/README.md) run on the [Warp Platform](warp-platform.md) control plane, and usage is billed using credits.
+Cloud Agents and [integrations](integrations/README.md) run on the [Cloud Agents Platform](platform.md) control plane, and usage is billed using credits.
 
-To run **integrations (and most Ambient Agent automation)**, your team must meet the following requirements:
+To run **integrations (and most cloud agent automation)**, your team must meet the following requirements:
 
 * **Plan requirements**
   * **Supported plans**: Build, Business
@@ -112,18 +112,18 @@ To run **integrations (and most Ambient Agent automation)**, your team must meet
 For more details, please refer to: [Team Access Billing And Identity Permissions](team-access-billing-and-identity.md)
 
 {% hint style="warning" %}
-If the team’s add-on credit balance reaches zero, integrations and Ambient Agent runs that require add-on credits will not be able to execute until credits are replenished.
+If the team’s add-on credit balance reaches zero, integrations and cloud agent runs that require add-on credits will not be able to execute until credits are replenished.
 {% endhint %}
 
 ***
 
 ### Learn more
 
-* [Warp Platform](warp-platform.md) — CLI, Agent API/SDK, orchestration, tasks, environments, hosts, integrations, and more.
+* [Cloud Agents Platform](platform.md) — CLI, Agent API/SDK, orchestration, tasks, environments, hosts, integrations, and more.
 * [Warp CLI](https://docs.warp.dev/reference/cli) — shows how to run Warp's agent in non-interactive mode from CI, scripts, or remote machines, including auth and common commands.
 * [Environments](environments.md) — explains how environments provide the runtime context (repo, image, startup commands) for agent tasks.
 * [Agent API and SDK](https://docs.warp.dev/reference/api-and-sdk/agent) — documents the REST API for creating, querying, and monitoring agent tasks programmatically.
 * [Agent Secrets](cloud-agent-secrets.md) — covers how to store, scope, and inject credentials into agent runs safely.
 * [MCP Servers for Agents](https://docs.warp.dev/reference/cli/mcp-servers-for-cloud-agents) — describes how to configure MCP servers for agent tool access and how MCP configuration is applied across runs.
-* [Deployment Patterns](deployment-patterns.md) (beta) — compares common ways to deploy Ambient Agents and when to use each.
-* [Team Access Billing And Identity Permissions](team-access-billing-and-identity.md) — explains team-level requirements, credit billing behavior, and the permission model for who can run, view, and steer Ambient Agent tasks.
+* [Deployment Patterns](deployment-patterns.md) (beta) — compares common ways to deploy cloud agents and when to use each.
+* [Team Access Billing And Identity Permissions](team-access-billing-and-identity.md) — explains team-level requirements, credit billing behavior, and the permission model for who can run, view, and steer cloud agent tasks.

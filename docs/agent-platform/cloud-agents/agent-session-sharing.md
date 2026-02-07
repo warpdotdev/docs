@@ -7,7 +7,7 @@ description: >-
 
 # Agent Session Sharing
 
-**Agent Session Sharing** extends Warp's regular [Session Sharing](./) to include full visibility and control over Agent activity. Anyone viewing a shared session can now see Agent messages, thinking indicators, credit usage, and, if granted permission, send their own Agent queries from the shared environment.
+**Agent Session Sharing** extends Warp's regular [Session Sharing](https://docs.warp.dev/knowledge-and-collaboration/session-sharing) to include full visibility and control over Agent activity. Anyone viewing a shared session can now see Agent messages, thinking indicators, credit usage, and, if granted permission, send their own Agent queries from the shared environment.
 
 {% embed url="https://www.loom.com/share/89e0e99c9bbf463a8a5e5bc2e96dabe4" %}
 

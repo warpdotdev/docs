@@ -15,6 +15,7 @@
 
 ## Terminal
 
+* [Universal Input](terminal/input/universal-input.md)
 * [Classic Input](terminal/input/classic-input.md)
 * [Blocks](terminal/blocks/README.md)
   * [Block Basics](terminal/blocks/block-basics.md)
@@ -77,7 +78,7 @@
 * [Command Palette](terminal/command-palette.md)
 * [Comparisons](terminal/comparisons/README.md)
   * [Performance](terminal/comparisons/performance.md)
-  * [Terminal features](terminal/comparisons/terminal-features.md)
+* [Terminal Features](terminal/comparisons/terminal-features.md)
 * [Terminal Integrations](terminal/integrations-and-plugins.md)
 
 ## Code

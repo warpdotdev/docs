@@ -21,7 +21,7 @@ This guide explains what the integration does, how it works end-to-end, and how 
 
 Assigning Warp to an issue or tagging @warp in a Linear comment starts an agent run. Warp clones the repositories defined in your environment, sets up your development environment using your Docker image and setup commands, and begins working through the task with full context from your codebase and the Linear issue. Agents post updates as they progress, including a task list, elapsed time, and checkpoints, so you can follow along without leaving Linear.
 
-Agents also share a link to an interactive remote session using Warp’s [Ambient Agent Session Sharing](https://docs.warp.dev/knowledge-and-collaboration/session-sharing/ambient-agents-session-sharing). Opening this link lets you view the live terminal output for the running agent in Warp or in the browser. From there, you can interrupt or guide the agent with additional instructions when needed. Once the agent finishes, it will create a pull request on your behalf — using your GitHub permissions — and post a summary of its work and the PR link back into Linear.
+Agents also share a link to an interactive remote session using Warp's [cloud agent session sharing](../cloud-agents-session-sharing.md). Opening this link lets you view the live terminal output for the running agent in Warp or in the browser. From there, you can interrupt or guide the agent with additional instructions when needed. Once the agent finishes, it will create a pull request on your behalf — using your GitHub permissions — and post a summary of its work and the PR link back into Linear.
 
 You can start an agent in two ways:
 
@@ -42,7 +42,7 @@ Session sharing works in Warp or in a browser view and allows multiple teammates
 
 #### Joining the remote session
 
-Selecting [**Open in Warp**](https://docs.warp.dev/knowledge-and-collaboration/session-sharing/ambient-agents-session-sharing) (or the web option) opens the active session. You’ll see:
+Selecting [**Open in Warp**](../cloud-agents-session-sharing.md) (or the web option) opens the active session. You'll see:
 
 * The agent’s full execution log
 * The plan pane with the task list
@@ -74,7 +74,7 @@ Because PRs are created as _you_, this makes code review, auditing, and team col
 
 ### How to configure the integration
 
-Setup involves two steps powered by the [Warp CLI](https://docs.warp.dev/reference/cli/README). For more instructions, see [Integrations Overview](integrations-overview.md).
+Setup involves two steps powered by the [Warp CLI](https://docs.warp.dev/reference/cli/README). For more instructions, see [Integrations Overview](README.md).
 
 #### 1. Create an environment
 
@@ -87,9 +87,9 @@ An environment defines everything the agent needs to run your code:
 You can create an environment via:
 
 * The CLI
-* The guided flow using `/create-environment` ([Slash Commands](../agent/slash-commands.md))
+* The guided flow using `/create-environment` ([Slash Commands](../../capabilities/slash-commands.md))
 
-For full instructions, see our [Environment Setup](integrations-overview.md) docs.
+For full instructions, see our [Environment Setup](README.md) docs.
 
 #### 2. Create the Linear integration
 
@@ -119,4 +119,4 @@ After revoking access, Warp will no longer be able to read issues, receive trigg
 
 ### Troubleshooting
 
-If something isn’t working as expected—missing repos, PR failures, Linear not detecting Warp, or environment issues—see our [Integrations Troubleshooting](integrations-overview.md#troubleshooting) page for detailed guidance on GitHub permissions, environment configuration, and common setup problems.
+If something isn't working as expected—missing repos, PR failures, Linear not detecting Warp, or environment issues—see our [Integrations Troubleshooting](README.md#troubleshooting) page for detailed guidance on GitHub permissions, environment configuration, and common setup problems.

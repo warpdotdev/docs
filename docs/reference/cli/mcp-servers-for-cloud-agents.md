@@ -1,14 +1,14 @@
 ---
 description: >-
-  Learn how to configure MCP servers in Warp to let ambient agents securely call
+  Learn how to configure MCP servers in Warp to let cloud agents securely call
   external tools, local services, and internal APIs using the MCP JSON standard.
 ---
 
 # MCP Servers for Agents
 
-Ambient Agents in Warp can call external tools through [Model Context Protocol (MCP) servers](https://docs.warp.dev/knowledge-and-collaboration/mcp). This enables agents to extend their capabilities beyond the terminal and interact with systems such as GitHub, dbt, or custom internal services.
+Cloud Agents in Warp can call external tools through [Model Context Protocol (MCP) servers](https://docs.warp.dev/knowledge-and-collaboration/mcp). This enables agents to extend their capabilities beyond the terminal and interact with systems such as GitHub, dbt, or custom internal services.
 
-Warp currently supports the [**MCP JSON configuration standard**](https://gofastmcp.com/integrations/mcp-json-configuration), either inline or via file. This guide explains how to define, load, validate, and troubleshoot MCP configurations when running an Ambient Agent.
+Warp currently supports the [**MCP JSON configuration standard**](https://gofastmcp.com/integrations/mcp-json-configuration), either inline or via file. This guide explains how to define, load, validate, and troubleshoot MCP configurations when running a cloud agent.
 
 ***
 
@@ -127,4 +127,4 @@ This file can be passed as the agent’s config file or referenced through `conf
 #### Defaults
 
 * If `mcp_servers` is omitted, the agent runs with no MCP servers enabled.
-* MCP permissions default to **allowing calls**, but may inherit profile settings depending on the user’s environment. This default behavior is evolving as Warp plans to phase out profiles for ambient agents.
+* MCP permissions default to **allowing calls**, but may inherit profile settings depending on the user’s environment. This default behavior is evolving as Warp plans to phase out profiles for cloud agents.

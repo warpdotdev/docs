@@ -10,3 +10,6 @@ Triggers allow you to run cloud agents automatically without manual intervention
 ## Available trigger types
 
 * **[Scheduled Agents](scheduled-agents.md)** - Run agents on a recurring schedule using cron expressions.
+* **[CLI](https://docs.warp.dev/reference/cli)** - Trigger cloud agents directly from your terminal using the Warp CLI.
+* **[API & SDK](https://docs.warp.dev/reference/api-and-sdk/agent)** - Programmatically trigger agents via the Warp API or SDK.
+* **[Integrations](../integrations/README.md)** - Trigger agents from external services like Slack, Linear, or GitHub Actions.

@@ -1,12 +1,12 @@
 ---
 description: >-
-  Environments ensure your Ambient Agents run with consistent toolchains across
+  Environments ensure your Cloud Agents run with consistent toolchains across
   all triggers. Learn when to use environments and how to configure them.
 ---
 
 # Environments
 
-Environments ensure your [Ambient Agents](cloud-agents-overview.md) run with the same toolchain and setup every time, regardless of where they're triggered from.
+Environments ensure your [Cloud Agents](cloud-agents-overview.md) run with the same toolchain and setup every time, regardless of where they're triggered from.
 
 An environment defines the execution context for automated agent runs: the **Docker image**, **repositories to clone**, **setup commands**, and **runtime configuration** Warp uses to prepare the workspace before the agent starts.
 
@@ -24,7 +24,7 @@ What environments give you:
 
 ## About environments
 
-Environments define _how_ an agent runs, not _what_ it does. They’re required for [Warp Platform](warp-platform.md) automation (Ambient Agents, integrations, API runs) but are not required for interactive local usage.
+Environments define _how_ an agent runs, not _what_ it does. They're required for [Cloud Agents Platform](platform.md) automation (Ambient Agents, integrations, API runs) but are not required for interactive local usage.
 
 An environment typically includes:
 
@@ -61,7 +61,7 @@ Components in the execution flow:
 6. **Outputs** – The run produces PRs, messages, reports, or transcripts
 
 {% hint style="info" %}
-**Local agent** runs (using `warp agent run`) don’t require an environment. These runs use your current machine’s setup. Environments are required for **automated platform** runs like Ambient Agents and integrations
+**Local agent** runs (using `warp agent run`) don’t require an environment. These runs use your current machine’s setup. Environments are required for **automated platform** runs like cloud agents and integrations
 {% endhint %}
 
 ### Hosts and environments
@@ -74,7 +74,7 @@ Host options:
 * **Self-hosted** – You provide the infrastructure (runners in your cloud or network). Best for compliance requirements, on-premise execution, or custom hardware needs.
 * Local (coming soon) – Run environments on your local machine for sandbox development and testing.
 
-The same environment can run on different hosts with identical behavior. For more details on hosting options, see [Deployment Patterns](deployment-patterns.md) and [execution hosts](warp-platform.md#execution-hosts).
+The same environment can run on different hosts with identical behavior. For more details on hosting options, see [Deployment Patterns](deployment-patterns.md) and [execution hosts](platform.md#execution-hosts).
 
 ### What happens at runtime
 
@@ -157,7 +157,7 @@ Warp will:
 * Suggest setup commands based on your scripts and package managers
 * Create the environment through the CLI and return an `environment ID`
 
-This produces a ready-to-use environment that can immediately be connected to integrations and Ambient Agents.
+This produces a ready-to-use environment that can immediately be connected to integrations and cloud agents.
 
 ### Create an environment with the CLI
 

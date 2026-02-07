@@ -10,7 +10,7 @@
 ## Capabilities
 
 * [Capabilities Overview](capabilities/README.md)
-* [Slash commands](capabilities/slash-commands.md)
+* [Slash Commands](capabilities/slash-commands.md)
 * [Skills](capabilities/skills.md)
 * [Planning](capabilities/planning.md)
 * [Task Lists](capabilities/task-lists.md)
@@ -18,9 +18,9 @@
 * [Rules](capabilities/rules.md)
 * [Full Terminal Use](capabilities/full-terminal-use.md)
 * [Computer Use](capabilities/computer-use.md)
-* [MCP](capabilities/mcp.md)
+* [Model Context Protocol (MCP)](capabilities/mcp.md)
 * [Codebase Context](capabilities/codebase-context.md)
-* [Agent Profiles & Permissions](capabilities/agent-profiles-permissions.md)
+* [Profiles & Permissions](capabilities/agent-profiles-permissions.md)
 * [Web Search](capabilities/web-search.md)
 
 ## Local Agents
@@ -40,13 +40,12 @@
 * [Interactive Code Review](local-agents/interactive-code-review.md)
 * [Third-Party CLI Agents](local-agents/third-party-cli-agents.md)
 * [Active AI](local-agents/active-ai.md)
-* [Ambient Agents Session Sharing](local-agents/ambient-agents-session-sharing.md)
 * [Generate (Legacy)](local-agents/generate.md)
 
 ## Cloud Agents & Orchestration <a href="#cloud-agents" id="cloud-agents"></a>
 
 * [Cloud Agents Overview](cloud-agents/cloud-agents-overview.md)
-* [Warp Platform](cloud-agents/warp-platform.md)
+* [Cloud Agents Platform](cloud-agents/platform.md)
 * [Triggers](cloud-agents/triggers/README.md)
   * [Scheduled Agents](cloud-agents/triggers/scheduled-agents.md)
 * [Integrations](cloud-agents/integrations/README.md)
@@ -57,6 +56,7 @@
 * [Environments](cloud-agents/environments.md)
 * [Managing Cloud Agents](cloud-agents/managing-cloud-agents.md)
 * [Agent Session Sharing](cloud-agents/agent-session-sharing.md)
+* [Cloud Agent Session Sharing](cloud-agents/cloud-agents-session-sharing.md)
 * [Cloud Agent Secrets](cloud-agents/cloud-agent-secrets.md)
 * [Deployment Patterns](cloud-agents/deployment-patterns.md)
 * [Team Access, Billing, and Identity](cloud-agents/team-access-billing-and-identity.md)

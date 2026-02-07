@@ -1,18 +1,18 @@
 ---
 description: >-
-  Ambient Agents and integrations are built on the Warp Platform, which includes
+  Cloud Agents and integrations are built on the Warp Platform, which includes
   the CLI, API/SDK, orchestration, environments and execution, and
   management/observability.
 ---
 
-# Warp Platform
+# Cloud Agents Platform
 
-[Ambient Agents](cloud-agents-overview.md) and first-party [integrations](integrations/README.md) run on the Warp Platform. The platform gives you a consistent way to **trigger work**, **orchestrate and track tasks**, **execute agents** (in an optional [Environment](https://docs.warp.dev/reference/cli/integrations-and-environments), on a host), and inspect outcomes with team visibility.
+[Cloud Agents](cloud-agents-overview.md) and first-party [integrations](integrations/README.md) run on the Warp Platform. The platform gives you a consistent way to **trigger work**, **orchestrate and track tasks**, **execute agents** (in an optional [Environment](https://docs.warp.dev/reference/cli/integrations-and-environments), on a host), and inspect outcomes with team visibility.
 
 **Most production setups follow the same flow:**
 
 1. A **trigger** fires (schedule, integration event, CI step, webhook, API call, or manual run).
-2. Warp's **orchestration layer** creates an Ambient Agent task and tracks its lifecycle.
+2. Warp's **orchestration layer** creates a cloud agent task and tracks its lifecycle.
 3. The agent executes on a **host**, optionally inside an Environment, using the required configuration and credentials.
 4. The task produces a **persistent record** (status, metadata, transcript, outputs) your team can review and manage.
 
@@ -68,7 +68,7 @@ warp agent run ...
 
 ### Warp Orchestrator
 
-The orchestration layer manages the lifecycle of Ambient Agent tasks. It creates tasks, tracks state transitions, and is the system of record for what’s running and what ran.
+The orchestration layer manages the lifecycle of cloud agent tasks. It creates tasks, tracks state transitions, and is the system of record for what’s running and what ran.
 
 #### What the orchestrator does
 
@@ -123,7 +123,7 @@ Environments are recommended when:
 
 ### Agent API and SDK
 
-The Warp [Agent API](https://docs.warp.dev/reference/api-and-sdk/agent) is the HTTP interface to the Warp Platform. It lets you create and inspect Ambient Agent tasks from any system (CI, cron, backend services, internal tools), without requiring the Warp desktop app.
+The Warp [Agent API](https://docs.warp.dev/reference/api-and-sdk/agent) is the HTTP interface to the Warp Platform. It lets you create and inspect cloud agent tasks from any system (CI, cron, backend services, internal tools), without requiring the Warp desktop app.
 
 **What you can do with the API**
 
@@ -175,7 +175,7 @@ With self-hosting:
 
 ### Integrations
 
-[Integrations](integrations/README.md) connect external system events to Ambient Agent execution. An integration ties a third-party event source to Warp so that when an event occurs, Warp can create a task with the relevant context and start it automatically.
+[Integrations](integrations/README.md) connect external system events to cloud agent execution. An integration ties a third-party event source to Warp so that when an event occurs, Warp can create a task with the relevant context and start it automatically.
 
 * **First-party integrations**: Warp owns event subscriptions + context extraction.
 * **Custom integrations**: You own event ingestion/filtering; you call the API/SDK to create tasks.
@@ -208,7 +208,7 @@ In this model:
 
 * Your system receives an event.
 * Your system calls Warp’s orchestrator API (directly or via an SDK) to create/start a task.
-* The task is still a first-class Ambient Agent task in Warp (observable, manageable, auditable).
+* The task is still a first-class cloud agent task in Warp (observable, manageable, auditable).
 
 **Custom integrations are ideal when:**
 
@@ -220,7 +220,7 @@ In this model:
 
 ### Secrets
 
-Ambient Agents often need credentials to access external systems (APIs, cloud providers, databases, internal tools, MCP servers). Warp provides a [secrets store](cloud-agent-secrets.md) that can inject secrets at runtime so agents can use authenticated tools without exposing secret values in logs or UI.
+Cloud Agents often need credentials to access external systems (APIs, cloud providers, databases, internal tools, MCP servers). Warp provides a [secrets store](cloud-agent-secrets.md) that can inject secrets at runtime so agents can use authenticated tools without exposing secret values in logs or UI.
 
 #### What secrets are for
 
@@ -242,7 +242,7 @@ Today, secrets support two scopes:
 
 ### Management and observability
 
-Ambient Agents are designed so task execution is visible to the team.
+Cloud Agents are designed so task execution is visible to the team.
 
 While a task is executing, the agent reports progress and status back to Warp. After completion, the task retains a persistent record for review and debugging.
 
@@ -261,7 +261,7 @@ Warp provides multiple surfaces for observability:
 
 ### Centralized configuration
 
-Ambient Agent setups often include shared configuration such as:
+Cloud Agent setups often include shared configuration such as:
 
 * [MCP configuration](https://docs.warp.dev/reference/cli/mcp-servers-for-cloud-agents)
 * [rules / guardrails](https://docs.warp.dev/agent-platform/capabilities/rules)
@@ -275,7 +275,7 @@ This is especially useful when the same workflow can be triggered from multiple 
 
 ### Using the Warp Platform with or without the Warp app
 
-[Ambient Agents](cloud-agents-overview.md) do not require Warp's desktop terminal. Teams can operate Ambient Agent workflows using:
+[Cloud Agents](cloud-agents-overview.md) do not require Warp's desktop terminal. Teams can operate cloud agent workflows using:
 
 * Warp CLI
 * web surfaces (where available)

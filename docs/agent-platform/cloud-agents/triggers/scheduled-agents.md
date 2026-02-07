@@ -1,13 +1,13 @@
 ---
 description: >-
-  Warp Scheduled Agents run ambient agents automatically on a cron schedule,
+  Warp Scheduled Agents run cloud agents automatically on a cron schedule,
   enabling repeatable maintenance and cleanup tasks to execute reliably in the
   background without manual triggers.
 ---
 
 # Scheduled Agents
 
-Warp's Scheduled Agents let you run Ambient Agents automatically on a **recurring schedule**. They are designed for routine, repeatable tasks that should happen without manual intervention, such as dead code cleanup, dependency maintenance, issue triage, or periodic refactors.
+Warp's Scheduled Agents let you run cloud agents automatically on a **recurring schedule**. They are designed for routine, repeatable tasks that should happen without manual intervention, such as dead code cleanup, dependency maintenance, issue triage, or periodic refactors.
 
 {% embed url="https://www.youtube.com/watch?feature=youtu.be&v=wX9cDbsRXHs" %}
 
@@ -17,7 +17,7 @@ Scheduled Agents run in the background on Warp’s infrastructure. Each run star
 
 ### What are Scheduled Agents?
 
-A Scheduled Agent is an [Ambient Agent](../cloud-agents-overview.md) that runs on a cron-based schedule.
+A Scheduled Agent is a [cloud agent](../cloud-agents-overview.md) that runs on a cron-based schedule.
 
 **Key characteristics:**
 
@@ -90,7 +90,7 @@ warp schedule create \
 
 Once created, the agent will automatically run at the specified times without further action.
 
-Scheduled Agents support the same [model selection](https://docs.warp.dev/reference/cli/) and [MCP server configuration](https://docs.warp.dev/reference/cli/mcp-servers-for-cloud-agents) as other Ambient Agent triggers.
+Scheduled Agents support the same [model selection](https://docs.warp.dev/reference/cli/) and [MCP server configuration](https://docs.warp.dev/reference/cli/mcp-servers-for-cloud-agents) as other cloud agent triggers.
 
 #### Cron Schedule Format
 
@@ -241,7 +241,7 @@ Deleting a schedule immediately stops all future runs. Previous runs and their s
 
 ### Execution Model and Behavior
 
-Each scheduled run behaves like a standard Ambient Agent run, with a few important guarantees:
+Each scheduled run behaves like a standard cloud agent run, with a few important guarantees:
 
 * Every run starts a fresh session.
 * No state is carried over between runs unless your environment explicitly persists data.
@@ -267,6 +267,6 @@ Carefully review prompts and schedules before deploying them broadly, especially
 
 Scheduled Agents are best when work should happen on a predictable cadence.
 
-If you want an agent to run in response to an event, such as a Slack mention, PR update, or issue change, use triggered Ambient Agents instead.
+If you want an agent to run in response to an event, such as a Slack mention, PR update, or issue change, use triggered cloud agents instead.
 
 Many teams use both together: triggers for reactive workflows, and Scheduled Agents for proactive maintenance.

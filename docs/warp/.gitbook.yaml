@@ -131,7 +131,6 @@ redirects:
     knowledge-and-collaboration/rules: knowledge-and-collaboration/rules.md
     knowledge-and-collaboration/session-sharing: knowledge-and-collaboration/session-sharing/README.md
     knowledge-and-collaboration/session-sharing/agent-session-sharing: knowledge-and-collaboration/session-sharing/agent-session-sharing.md
-    knowledge-and-collaboration/session-sharing/ambient-agents-session-sharing: knowledge-and-collaboration/session-sharing/ambient-agents-session-sharing.md
     knowledge-and-collaboration/teams: knowledge-and-collaboration/teams.md
     knowledge-and-collaboration/warp-drive: knowledge-and-collaboration/warp-drive/README.md
     knowledge-and-collaboration/warp-drive/environment-variables: knowledge-and-collaboration/warp-drive/environment-variables.md

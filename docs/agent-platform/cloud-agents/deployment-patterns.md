@@ -1,10 +1,10 @@
 # Deployment Patterns
 
-Teams adopt Ambient Agents in a few repeatable ways. This page outlines the most common architectures, what they’re good for, and how they fit together.
+Teams adopt Cloud Agents in a few repeatable ways. This page outlines the most common architectures, what they’re good for, and how they fit together.
 
 #### Quick mental model
 
-Ambient Agent systems usually have four moving parts:
+Cloud Agent systems usually have four moving parts:
 
 1. **Trigger**: something happens (CI step, webhook, cron, Slack mention).
 2. **Orchestration**: something decides what to run and tracks it (Warp Orchestrator, GitHub Actions, your internal system).
