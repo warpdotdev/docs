@@ -2,6 +2,7 @@
 description: >-
   Warp’s Universal Input unifies shell commands, agent prompts, and contextual
   tools into one editor built for modern coding with agents.
+hidden: true
 ---
 
 # Universal Input
@@ -55,9 +56,9 @@ _Indicator_: Neither mode highlighted.
 
 When Warp detects an input type, the input switcher softly highlights the corresponding mode.
 
-| Agent (natural language) mode detected                                                                                          | Terminal (shell) mode detected                                                                                                 |
-| ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| <div><figure><img src="../../.gitbook/assets/auto-detection-agent-mode (1).png" alt=""><figcaption></figcaption></figure></div> | <div><figure><img src="../../.gitbook/assets/auto-detection-terminal-mode.png" alt=""><figcaption></figcaption></figure></div> |
+| Agent (natural language) mode detected                                                          | Terminal (shell) mode detected                                                                 |
+| ----------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| <img src="../../.gitbook/assets/auto-detection-agent-mode (1).png" alt="" data-size="original"> | <img src="../../.gitbook/assets/auto-detection-terminal-mode.png" alt="" data-size="original"> |
 
 {% hint style="info" %}
 The model Warp uses to detect natural language automatically is completely local.
@@ -72,9 +73,9 @@ By default, auto-detection is enabled. This means Warp decides whether to treat 
   * `CMD+I` (macOS)
   * `CTRL+I` (Windows/Linux)
 
-| Agent (natural language) mode enabled                                                                                              | Terminal (shell) mode enabled                                                                                                   |
-| ---------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| <div><figure><img src="../../.gitbook/assets/auto-detection-off-terminal-mode.png" alt=""><figcaption></figcaption></figure></div> | <div><figure><img src="../../.gitbook/assets/auto-detection-off-agent-mode.png" alt=""><figcaption></figcaption></figure></div> |
+| Agent (natural language) mode enabled                                                              | Terminal (shell) mode enabled                                                                   |
+| -------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| <img src="../../.gitbook/assets/auto-detection-off-terminal-mode.png" alt="" data-size="original"> | <img src="../../.gitbook/assets/auto-detection-off-agent-mode.png" alt="" data-size="original"> |
 
 ### Entering Agent Mode
 
