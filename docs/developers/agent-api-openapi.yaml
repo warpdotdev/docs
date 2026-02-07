@@ -218,6 +218,21 @@ paths:
           required: false
           schema:
             type: string
+        - name: artifact_type
+          in: query
+          description: Filter runs by artifact type (PLAN or PULL_REQUEST)
+          required: false
+          schema:
+            type: string
+            enum:
+              - PLAN
+              - PULL_REQUEST
+        - name: q
+          in: query
+          description: Fuzzy search query across run title, prompt, and skill_spec
+          required: false
+          schema:
+            type: string
       responses:
         '200':
           description: List of runs
@@ -801,6 +816,10 @@ components:
           items:
             $ref: '#/components/schemas/ArtifactItem'
           description: Artifacts created during the run (plans, pull requests, etc.)
+        agent_skill:
+          $ref: '#/components/schemas/AgentSkill'
+        scope:
+          $ref: '#/components/schemas/Scope'
 
     ArtifactItem:
       oneOf:
@@ -1120,6 +1139,8 @@ components:
           $ref: '#/components/schemas/RunCreatorInfo'
         history:
           $ref: '#/components/schemas/ScheduledAgentHistoryItem'
+        scope:
+          $ref: '#/components/schemas/Scope'
 
     ScheduledAgentHistoryItem:
       type: object
@@ -1329,3 +1350,33 @@ components:
         name:
           type: string
           description: Human-readable name of the environment
+
+    Scope:
+      type: object
+      description: Ownership scope for a resource (team or personal)
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          enum:
+            - User
+            - Team
+          description: Type of ownership ("User" for personal, "Team" for team-owned)
+        uid:
+          type: string
+          description: UID of the owning user or team
+
+    AgentSkill:
+      type: object
+      description: Information about the agent skill used for the run
+      properties:
+        name:
+          type: string
+          description: Human-readable name of the skill
+        description:
+          type: string
+          description: Description of the skill
+        skill_path:
+          type: string
+          description: Path to the skill definition file
