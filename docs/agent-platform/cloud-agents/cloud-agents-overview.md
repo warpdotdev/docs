@@ -63,7 +63,7 @@ Because Cloud Agents run on the [Cloud Agents Platform](platform.md), each run i
 
 Cloud agent tasks are designed to be inspectable by the team:
 
-* [Agent Session Sharing](https://docs.warp.dev/agent-platform/cloud-agents/agent-session-sharing) lets authorized teammates attach to a running task to monitor progress and, where supported, steer the agent while it runs.
+* [Agent Session Sharing](agent-session-sharing.md) lets authorized teammates attach to a running task to monitor progress and, where supported, steer the agent while it runs.
 * Each run produces a session transcript and task metadata, which provides a record of what the agent did.
 * A [management experience](managing-cloud-agents.md) surfaces task status and history.
 

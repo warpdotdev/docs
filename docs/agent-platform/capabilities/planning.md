@@ -43,7 +43,7 @@ If you revise the plan while the agent is running, you can notify it directly; t
 
 ### Monitoring Progress
 
-While the agent is running, you can reopen the plan at any time by selecting **View plan** in the [Universal Input](https://docs.warp.dev/terminal/universal-input/). You can also follow each change in real time through the [Code Review](https://docs.warp.dev/code/code-review/) panel and add comments or guidance using [Interactive Code Review](https://docs.warp.dev/agent-platform/local-agents/interactive-code-review).
+While the agent is running, you can reopen the plan at any time by selecting **View plan** in the [Universal Input](https://docs.warp.dev/terminal/universal-input/). You can also follow each change in real time through the [Code Review](https://docs.warp.dev/code/code-review/) panel and add comments or guidance using [Interactive Code Review](../local-agents/interactive-code-review.md).
 
 <figure><img src="../.gitbook/assets/view-plan-udi.png" alt="" width="375"><figcaption></figcaption></figure>
 

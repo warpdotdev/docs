@@ -35,7 +35,7 @@ In practice: **triggers create tasks; tasks execute on a host (optionally in an 
 
 ### Warp CLI
 
-The [Warp CLI](https://docs.warp.dev/reference/cli) is the **headless interface** for running Warp agents in non-interactive mode. It’s commonly used in CI, scripts, and server environments where there is no interactive UI. For interactive workflows, use the [agent](https://docs.warp.dev/agent-platform/local-agents/agents-overview) embedded in Warp’s desktop app.
+The [Warp CLI](https://docs.warp.dev/reference/cli) is the **headless interface** for running Warp agents in non-interactive mode. It's commonly used in CI, scripts, and server environments where there is no interactive UI. For interactive workflows, use the [agent](../local-agents/agents-overview.md) embedded in Warp's desktop app.
 
 A key property of the CLI is that it is **cloud-connected**. Even when an agent is started on a local machine or in CI, it reports progress to Warp’s servers. This enables team visibility, session sharing (where supported), and programmatic tracking through the API.
 
@@ -264,7 +264,7 @@ Warp provides multiple surfaces for observability:
 Cloud Agent setups often include shared configuration such as:
 
 * [MCP configuration](https://docs.warp.dev/reference/cli/mcp-servers-for-cloud-agents)
-* [rules / guardrails](https://docs.warp.dev/agent-platform/capabilities/rules)
+* [rules / guardrails](../capabilities/rules.md)
 * [saved prompts](https://docs.warp.dev/knowledge-and-collaboration/warp-drive/prompts)
 * [environment variables](https://docs.warp.dev/knowledge-and-collaboration/warp-drive/environment-variables)
 * [secrets](cloud-agent-secrets.md)
