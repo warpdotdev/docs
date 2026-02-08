@@ -34,6 +34,27 @@ paths:
           required: false
           schema:
             type: string
+        - name: refresh
+          in: query
+          description: |
+            When true, clears the agent list cache before fetching.
+            Use this to force a refresh of the available agents.
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: sort_by
+          in: query
+          description: |
+            Sort order for the returned agents.
+            - "name": Sort alphabetically by name (default)
+            - "last_run": Sort by most recently used
+          required: false
+          schema:
+            type: string
+            enum:
+              - name
+              - last_run
       responses:
         '200':
           description: List of available agents
@@ -155,7 +176,7 @@ paths:
               $ref: '#/components/schemas/RunState'
           style: form
           explode: true
-        - name: config_name
+        - name: name
           in: query
           description: Filter by agent config name
           required: false
@@ -203,6 +224,14 @@ paths:
         - name: environment_id
           in: query
           description: Filter runs by environment ID
+          required: false
+          schema:
+            type: string
+        - name: skill
+          in: query
+          description: |
+            Filter runs by skill spec (e.g., "owner/repo:path/to/SKILL.md").
+            Alias for skill_spec.
           required: false
           schema:
             type: string
@@ -705,12 +734,25 @@ components:
   schemas:
     RunAgentRequest:
       type: object
-      required:
-        - prompt
+      description: |
+        Request body for creating a new agent run.
+        Either prompt or skill (via skill field or config.skill_spec) is required.
       properties:
         prompt:
           type: string
-          description: The prompt/instruction for the agent to execute
+          description: |
+            The prompt/instruction for the agent to execute.
+            Required unless a skill is specified via the skill field or config.skill_spec.
+        skill:
+          type: string
+          description: |
+            Skill specification to use as the base prompt for the agent.
+            Supported formats:
+              - "repo:skill_name" - Simple name in specific repo
+              - "repo:skill_path" - Full path in specific repo
+              - "org/repo:skill_name" - Simple name with org and repo
+              - "org/repo:skill_path" - Full path with org and repo
+            When provided, this takes precedence over config.skill_spec.
         config:
           $ref: '#/components/schemas/AmbientAgentConfig'
         title:
@@ -718,18 +760,37 @@ components:
           description: Custom title for the run (auto-generated if not provided)
         team:
           type: boolean
-          description: Make the run visible to all team members, not only the calling user
-          default: false
+          description: |
+            Whether to create a team-owned run.
+            Defaults to true for users on a single team.
+        conversation_id:
+          type: string
+          description: |
+            Optional conversation ID to continue an existing conversation.
+            If provided, the agent will continue from where the previous run left off.
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/ImageInput'
+          description: |
+            Optional images to include with the prompt (max 5).
+            Images are uploaded to cloud storage and made available to the agent.
 
     RunAgentResponse:
       type: object
       required:
         - run_id
+        - task_id
         - state
       properties:
         run_id:
           type: string
           description: Unique identifier for the created run
+        task_id:
+          type: string
+          deprecated: true
+          x-stainless-deprecation-message: Use run_id instead.
+          description: Unique identifier for the task (same as run_id). Deprecated - use run_id instead.
         state:
           $ref: '#/components/schemas/RunState'
 
@@ -1089,6 +1150,28 @@ components:
           type: string
           description: Human-readable error message
 
+    ImageInput:
+      type: object
+      description: A base64-encoded image to include with the prompt
+      required:
+        - mime_type
+        - data
+      properties:
+        mime_type:
+          type: string
+          description: |
+            MIME type of the image.
+            Supported types: image/jpeg, image/png, image/gif, image/webp
+          enum:
+            - image/jpeg
+            - image/png
+            - image/gif
+            - image/webp
+        data:
+          type: string
+          format: byte
+          description: Base64-encoded image data
+
     ScheduledAgentItem:
       type: object
       required:
@@ -1320,6 +1403,11 @@ components:
           items:
             $ref: '#/components/schemas/AgentListEnvironment'
           description: Environments where this agent variant is available
+        last_run_timestamp:
+          type: string
+          format: date-time
+          nullable: true
+          description: Timestamp of the last time this skill was run (RFC3339)
 
     AgentListSource:
       type: object
@@ -1369,7 +1457,9 @@ components:
 
     AgentSkill:
       type: object
-      description: Information about the agent skill used for the run
+      description: |
+        Information about the agent skill used for the run.
+        Either full_path or bundled_skill_id will be set, but not both.
       properties:
         name:
           type: string
@@ -1377,6 +1467,9 @@ components:
         description:
           type: string
           description: Description of the skill
-        skill_path:
+        full_path:
           type: string
-          description: Path to the skill definition file
+          description: Path to the SKILL.md file (for file-based skills)
+        bundled_skill_id:
+          type: string
+          description: Unique identifier for bundled skills
