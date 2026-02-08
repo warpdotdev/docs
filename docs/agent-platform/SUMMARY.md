@@ -43,7 +43,7 @@
 * [Generate (Legacy)](local-agents/generate.md)
 * [Cloud-synced Conversations](local-agents/cloud-conversations.md)
 
-## Cloud Agents & Orchestration
+## Cloud Agents & Orchestration <a href="#cloud-agents" id="cloud-agents"></a>
 
 * [Cloud Agents Overview](cloud-agents/cloud-agents-overview.md)
 * [Cloud Agents Platform](cloud-agents/platform.md)
