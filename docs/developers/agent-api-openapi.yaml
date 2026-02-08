@@ -7,11 +7,21 @@ info:
     
     These endpoints allow users to programmatically spawn agents, list runs, 
     and retrieve detailed run information.
+  contact:
+    name: Warp Support
+    url: https://docs.warp.dev
+    email: support@warp.dev
   license:
     name: Proprietary
 servers:
   - url: https://app.warp.dev/api/v1
     description: Production server
+
+tags:
+  - name: agent
+    description: Operations for running and managing cloud agents
+  - name: schedules
+    description: Operations for creating and managing scheduled agents
 
 paths:
   /agent:
