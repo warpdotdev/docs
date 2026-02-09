@@ -1252,10 +1252,12 @@ components:
 
     CreateScheduledAgentRequest:
       type: object
+      description: |
+        Request body for creating a new scheduled agent.
+        Either prompt or agent_config.skill_spec is required.
       required:
         - name
         - cron_schedule
-        - prompt
       properties:
         name:
           type: string
@@ -1265,7 +1267,9 @@ components:
           description: Cron expression defining when the agent runs (e.g., "0 9 * * *" for daily at 9am UTC)
         prompt:
           type: string
-          description: The prompt/instruction for the agent to execute
+          description: |
+            The prompt/instruction for the agent to execute.
+            Required unless agent_config.skill_spec is provided.
         enabled:
           type: boolean
           description: Whether the schedule should be active immediately
@@ -1280,10 +1284,12 @@ components:
 
     UpdateScheduledAgentRequest:
       type: object
+      description: |
+        Request body for updating a scheduled agent.
+        Either prompt or agent_config.skill_spec is required.
       required:
         - name
         - cron_schedule
-        - prompt
         - enabled
       properties:
         name:
@@ -1294,7 +1300,9 @@ components:
           description: Cron expression defining when the agent runs
         prompt:
           type: string
-          description: The prompt/instruction for the agent to execute
+          description: |
+            The prompt/instruction for the agent to execute.
+            Required unless agent_config.skill_spec is provided.
         enabled:
           type: boolean
           description: Whether the schedule should be active
