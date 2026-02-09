@@ -35,6 +35,15 @@ If you encounter signature verification errors when trying to update Warp on Lin
 
 ### Debian / Ubuntu (apt)
 
+You may see an error like the following:
+
+```
+W: GPG error: https://releases.warp.dev/linux/deb stable Release: The following signatures were invalid: EXPKEYSIG 31F4254AFE49E02E Warp Linux Maintainers (Package Signing Authority) <linux-maintainers@warp.dev>
+E: The repository 'https://releases.warp.dev/linux/deb stable Release' is not signed.
+```
+
+To fetch the updated signing key, run:
+
 ```bash
 curl -fsSL https://releases.warp.dev/linux/keys/warp.asc | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/warpdotdev.gpg > /dev/null
 ```
@@ -46,6 +55,14 @@ sudo apt update && sudo apt install warp-terminal
 ```
 
 ### Fedora / RHEL / CentOS (dnf/yum)
+
+You may see an error like the following:
+
+```
+OpenPGP check for package "warp-terminal-v0.2026.01.28.08.14.stable_04-1.x86_64" (/var/cache/libdnf5/warpdotdev-4ac10ef632833104/packages/warp-terminal-v0.2026.01.28.08.14.stable_04-1.x86_64.rpm) from repo "warpdotdev" has failed: Problem occurred when opening the package.
+```
+
+To fetch the updated signing key, run:
 
 ```bash
 sudo rpm --import https://releases.warp.dev/linux/keys/warp.asc
@@ -60,6 +77,14 @@ sudo yum upgrade warp-terminal
 ```
 
 ### Arch Linux (pacman)
+
+You may see an error like the following:
+
+```
+error: warpdotdev: signature from "Warp Linux Maintainers (Package Signing Authority) <linux-maintainers@warp.dev>" is expired
+```
+
+To fetch the updated signing key, run:
 
 ```bash
 sudo pacman-key --recv-keys "linux-maintainers@warp.dev" --keyserver hkp://keys.openpgp.org:80
