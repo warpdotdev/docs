@@ -7,6 +7,10 @@ description: >-
 
 # Skills
 
+{% hint style="info" %}
+Skills are currently only available in [**Warp Preview**](https://warp.dev/download-preview). Download the preview build to try this feature.
+{% endhint %}
+
 Skills allow you to create reusable, shareable instructions that Agents can invoke when performing tasks. Instead of repeating detailed prompts, you can encapsulate common workflows, coding patterns, or domain expertise into skill files that Agents automatically discover and use.
 
 ## Key features
