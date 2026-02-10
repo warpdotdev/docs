@@ -16,7 +16,7 @@ The Oz web app works on mobile devices, so you can monitor and manage your cloud
 
 ## Quick reference
 
-<table><thead><tr><th width="150">Page</th><th width="120">Path</th><th>What you can do</th></tr></thead><tbody><tr><td><strong>Runs</strong></td><td><code>/runs</code></td><td>View all runs, filter by status/source/creator, start new runs, inspect transcripts</td></tr><tr><td><strong>Agents</strong></td><td><code>/agents</code></td><td>Browse skills from your environments, view suggested skills, dispatch skills as agents</td></tr><tr><td><strong>Schedules</strong></td><td><code>/schedules</code></td><td>Create scheduled agents, pause/enable schedules, view run history</td></tr><tr><td><strong>Environments</strong></td><td><code>/environments</code></td><td>Create and manage environments with repos, Docker images, and setup commands</td></tr><tr><td><strong>Integrations</strong></td><td><code>/integrations</code></td><td>Connect Slack and Linear to trigger agents from external tools</td></tr></tbody></table>
+<table><thead><tr><th width="150">Page</th><th width="120">Path</th><th>What you can do</th></tr></thead><tbody><tr><td><strong>Dashboard</strong></td><td><code>/dashboard</code></td><td>Quick actions, suggested agents, recent agents, and featured reads</td></tr><tr><td><strong>Runs</strong></td><td><code>/runs</code></td><td>View all runs, filter by status/source/creator, start new runs, inspect transcripts</td></tr><tr><td><strong>Agents</strong></td><td><code>/agents</code></td><td>Browse skills from your environments, view suggested skills, dispatch skills as agents</td></tr><tr><td><strong>Schedules</strong></td><td><code>/schedules</code></td><td>Create scheduled agents, pause/enable schedules, view run history</td></tr><tr><td><strong>Environments</strong></td><td><code>/environments</code></td><td>Create and manage environments with repos, Docker images, and setup commands</td></tr><tr><td><strong>Integrations</strong></td><td><code>/integrations</code></td><td>Connect Slack and Linear to trigger agents from external tools</td></tr></tbody></table>
 
 <figure><img src="../.gitbook/assets/oz-web-app-runs-view.png" alt=""><figcaption><p>The Oz Web App's management view.</p></figcaption></figure>
 
@@ -31,6 +31,49 @@ The Oz web app is ideal when you want to:
 * **Set up integrations** — Connect Slack and Linear with a guided setup flow
 
 For scripting, automation, and CI/CD workflows, use the [Oz CLI](https://docs.warp.dev/reference/cli) or [API](https://docs.warp.dev/reference/api-and-sdk/agent).
+
+***
+
+## Getting started
+
+When you first sign in to the Oz web app, you'll see a guided onboarding flow that helps you get started based on your goals.
+
+The onboarding asks "What brings you to Oz?" and offers three paths:
+
+* **Create an agent automation** — Walks you through setting up a scheduled agent, integration-triggered agent, or other automation
+* **Run Oz Cloud Agents in Warp** — Opens the Warp desktop app (or takes you to the download page) to run cloud agents interactively
+* **Build an app that uses agents** — Links to the [Oz Platform](platform.md) docs for using the CLI, SDK, or API
+
+You can skip onboarding at any time to go directly to the Runs page.
+
+***
+
+## Dashboard
+
+The **Dashboard** page (`/dashboard`) is your starting point for common actions and discovery. It provides quick access to the features you use most.
+
+### Quick actions
+
+Four action cards at the top let you immediately:
+
+* **New run** — Start a cloud agent run
+* **New agent** — Create a new skill
+* **New schedule** — Set up a scheduled agent
+* **New environment** — Configure a new execution environment
+
+Each action opens a guided side pane without leaving the Dashboard.
+
+### Suggested agents
+
+A curated list of pre-built skills from Warp's public [oz-skills repository](https://github.com/warpdotdev/oz-skills). Click **Run** on any suggested agent to start a run with that skill.
+
+### Recent agents
+
+Shows the last three agents you've run, so you can quickly re-run common workflows. If you haven't run any agents yet, you'll see prompts to start a new run or create your first agent.
+
+### Featured reads
+
+Links to curated articles and documentation to help you get the most out of Oz (visible on desktop).
 
 ***
 
