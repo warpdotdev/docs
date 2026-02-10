@@ -13,8 +13,6 @@ description: >-
 
 Oz Cloud Agents are **cloud-connected**, **background agents** that run on the [Oz Platform](platform.md).
 
-{% embed url="https://www.youtube.com/watch?v=V-8_fZExlFQ" %}
-
 ### What cloud agents are designed for
 
 Cloud agents are designed for situations where:
