@@ -55,7 +55,7 @@ Oz Cloud Agents run in the background on Warp's infrastructure (or your own) for
 
 Cloud agents are ideal for work that doesn't need your immediate attention, like PR reviews, issue triage, routine maintenance, and integration-driven workflows.
 
-→ [Learn about cloud agents](https://docs.warp.dev/agent-platform/ambient-agents/ambient-agents-overview)
+→ [Learn about cloud agents](https://docs.warp.dev/agent-platform/cloud-agents/cloud-agents-overview)
 
 ***
 
@@ -65,7 +65,7 @@ Warp terminal and Oz provide a unified experience across local and cloud develop
 
 * **Same agent, anywhere**: Whether you're working interactively in Warp or running agents in the cloud, you're using the same underlying agent capabilities.
 * **Seamless handoff**: Start a task in the cloud and take over locally in Warp when you want hands-on control, without losing progress or context.
-* **Shared context**: [Warp Drive](../knowledge-and-collaboration/warp-drive/), [Rules](https://docs.warp.dev/agent-platform/capabilities/rules.md), and [MCP servers](https://docs.warp.dev/agent-platform/capabilities/mcp.md) work across both local and cloud agents, so your team's knowledge and tools are always available.
+* **Shared context**: [Warp Drive](../knowledge-and-collaboration/warp-drive/), [Rules](https://docs.warp.dev/agent-platform/capabilities/rules), and [MCP servers](https://docs.warp.dev/agent-platform/capabilities/mcp) work across both local and cloud agents, so your team's knowledge and tools are always available.
 * **Team collaboration**: Share agent sessions, review agents' actions, and steer running tasks, regardless of who started them.
 
 ***
@@ -90,5 +90,5 @@ Warp's AI features can be globally disabled in `Settings > AI`.
 
 * [**Quickstart Guide**](../README.md): Get Warp installed and start coding
 * [**Local Agents Overview**](https://docs.warp.dev/agent-platform/agent/agents-overview): Explore all AI features available in Warp
-* [**Cloud Agents Overview**](https://docs.warp.dev/agent-platform/ambient-agents/ambient-agents-overview): Set up background automation
+* [**Cloud Agents Overview**](https://docs.warp.dev/agent-platform/cloud-agents/cloud-agents-overview): Set up background automation
 * [**Warp Platform**](https://docs.warp.dev/agent-platform/platform/warp-platform): Learn about the CLI, API, SDK, and infrastructure
