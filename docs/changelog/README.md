@@ -25,6 +25,35 @@ metaLinks: {}
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
 {% updates format="full" %}
+{% update date="2026-02-10" %}
+## v0.2026.02.10.11.37
+
+**New features**
+
+## Introducing Oz: orchestration for cloud agents
+
+![Introducing Oz](https://releases.warp.dev/changelog_images/v0.2026.02.09.06.06.stable.png)
+
+Oz is Warp's orchestration platform for cloud agents: launch parallel agents, automate recurring engineering work, and build apps on top of agents with full visibility and control.
+
+[Read the launch post →](https://www.warp.dev/blog/oz-orchestration-platform-cloud-agents)
+
+### Oz Cloud Agents
+- **Run Cloud Agents from anywhere with built-in tracking** — start agents from Warp or via the CLI, triggers, or schedules. Every run is auditable and steerable. [Cloud Agents docs →](https://docs.warp.dev/agent-platform/cloud-agents/cloud-agents-overview)
+- **Cloud environments for consistent execution** — configure Docker-based environments (unlimited repos + setup commands) and run agents in isolated cloud sandboxes. [Environments docs →](https://docs.warp.dev/agent-platform/cloud-agents/environments)
+- **Track agents from the web** — manage runs, create schedules, configure environments, and set up integrations from any browser at [oz.warp.dev](https://oz.warp.dev).
+- **Schedule agents based on Skills** — run agents automatically on a cron schedule for code cleanup, dependency updates, and issue triage. [Scheduled Agents docs →](https://docs.warp.dev/agent-platform/cloud-agents/triggers/scheduled-agents)
+- **Programmable by default** — orchestrate agents via the CLI and integrate Oz into tools and services via the API/SDK. [API and CLI reference →](https://docs.warp.dev/reference)
+
+### Warp Upgrades
+- **Agent Modality** — two distinct modes: a clean terminal for commands, and a dedicated conversation view for multi-turn agent workflows with full controls (model select, voice, attachments).
+- **Cloud-Synced Conversations** — your agent conversations sync to the cloud and persist across devices. Share with teammates via link, view on the web, or continue locally.
+
+### Agent Capabilities
+- **Skills** — reusable instruction sets that agents auto-discover from your project or home directory. Invoke with `/{skill-name}` or run as scheduled cloud agents for repeatable automation. [Skills docs →](https://docs.warp.dev/agent-platform/capabilities/skills)
+- **Computer Use** — agents can interact with desktop environments in sandboxed cloud containers—take screenshots, click, type, and test UI changes. [Computer Use docs →](https://docs.warp.dev/agent-platform/capabilities/computer-use)
+{% endupdate %}
+
 {% update date="2026-02-04" %}
 ## v0.2026.02.04.08.20
 

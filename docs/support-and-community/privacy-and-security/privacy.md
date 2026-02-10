@@ -97,12 +97,26 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `Agent Mode Setup Project Scoped Rules Action` | User clicked a button in the Agent Mode setup project scoped rules step |
 | `Agent Mode.Setup Codebase Context Action` | User clicked a button in the Agent Mode setup codebase context step |
 | `Agent Predict` | Completed an Agent Predict prediction |
-| `AgentManagement.DismissSetupGuide` | User dismissed the cloud agent setup guide |
-| `AgentManagement.OpenSetupGuide` | User opened the cloud agent setup guide |
+| `AgentManagement.AgentTypeSelectorOpened` | User opened the agent type selector from agent management |
+| `AgentManagement.ArtifactClicked` | User clicked an artifact button |
+| `AgentManagement.CloudRunCancelled` | User cancelled a cloud run |
+| `AgentManagement.CloudRunOpened` | User opened a cloud run |
+| `AgentManagement.ConversationForked` | User forked a conversation |
+| `AgentManagement.ConversationLinkCopied` | User copied a conversation link |
+| `AgentManagement.ConversationOpened` | User opened a conversation |
+| `AgentManagement.DetailsPanelContinueLocally` | User clicked Continue locally in the details panel |
+| `AgentManagement.DetailsViewed` | User clicked View details |
+| `AgentManagement.DismissSetupGuide` | User dismissed the ambient agent setup guide |
+| `AgentManagement.FilterChanged` | User changed a filter in the management view |
+| `AgentManagement.OpenSetupGuide` | User opened the ambient agent setup guide |
+| `AgentManagement.SessionLinkCopied` | User copied a session link |
 | `AgentManagement.SetupGuideDocsLink` | User clicked a docs URL in the setup guide |
 | `AgentManagement.SetupGuideStepCopy` | User copied a workflow step from the setup guide |
 | `AgentManagement.SetupGuideStepRun` | User ran a workflow step from the setup guide |
+| `AgentManagement.SpawnNewCloudAgent` | User spawned a new cloud agent from agent management |
 | `AgentManagement.SpawnNewLocalAgent` | User spawned a new local agent from agent management |
+| `AgentManagement.TombstoneArtifactClicked` | User clicked an artifact in the tombstone view |
+| `AgentManagement.TombstoneContinueLocally` | User clicked Continue locally in the tombstone |
 | `AgentManagement.ViewToggled` | User toggled the agent management view open or closed |
 | `AgentMode.AttachedContext` | Attached block as context to an Agent Mode query |
 | `AgentMode.AttachedImages` | Attached images to an Agent Mode query |
@@ -153,6 +167,20 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `AgentView.InlineConversationMenuOpened` | User opened the inline conversation menu in Agent View |
 | `AgentView.ShortcutsViewToggled` | User toggled the shortcuts view in Agent View |
 | `AgenticOnboarding.BlockSelected` | Selected an agentic onboarding block to execute |
+| `AmbientAgent.CloudMode.Entered` | User entered cloud agent view |
+| `AmbientAgent.CloudMode.EnvironmentSelector.Opened` | User opened the environment selector menu |
+| `AmbientAgent.CloudMode.EnvironmentSelector.Selected` | User selected an environment from the selector |
+| `AmbientAgent.CloudMode.EnvironmentSettings.GitHubAuth` | User started GitHub authentication from the environment form |
+| `AmbientAgent.CloudMode.EnvironmentSettings.LaunchedAgent` | User launched an environment setup agent from the environment form |
+| `AmbientAgent.ConcurrencyModal.Dismissed` | User dismissed the cloud agent capacity modal |
+| `AmbientAgent.ConcurrencyModal.Opened` | User opened the cloud agent capacity modal |
+| `AmbientAgent.ConcurrencyModal.UpgradeClicked` | User clicked the upgrade button in the cloud agent capacity modal |
+| `AmbientAgent.EnvironmentSettings.CreatedEnvironment` | User created a new environment |
+| `AmbientAgent.EnvironmentSettings.DeletedEnvironment` | User deleted an environment |
+| `AmbientAgent.EnvironmentSettings.Image.Suggested` | Docker image was suggested for an environment |
+| `AmbientAgent.EnvironmentSettings.Image.SuggestionFailed` | Docker image suggestion failed |
+| `AmbientAgent.EnvironmentSettings.Opened` | User opened the environment management pane |
+| `AmbientAgent.EnvironmentSettings.UpdatedEnvironment` | User updated an existing environment |
 | `Anonymous User Attempted Login-Gated Feature` | Anonymous user attempted to access a login-gated feature |
 | `Anonymous User Expiration Lockout` | An anonymous user opened Warp after their conversion deadline and was locked out |
 | `Anonymous User Hit Cloud Object Limit` | Anonymous user attempted to create a cloud object past their personal object limit |
@@ -179,38 +207,38 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `CLI Subagent Control State Changed` | Control state changed in CLI subagent (agent in control, agent blocked, user in control, or agent tagged in) |
 | `CLI Subagent Input Dismissed` | User dismissed the input in the CLI subagent |
 | `CLI Subagent Responses Toggled` | User toggled the visibility of agent responses in CLI subagent |
-| `CLI.Execute.Agent.List` | Listed agents from the Oz CLI |
-| `CLI.Execute.Agent.Profile.List` | Listed agent profiles from the Oz CLI |
-| `CLI.Execute.Agent.Run` | Ran an agent from the Oz CLI |
-| `CLI.Execute.Agent.RunAmbient` | Ran an cloud agent from the Oz CLI |
-| `CLI.Execute.Environment.Create` | Created a cloud environment from the Oz CLI |
-| `CLI.Execute.Environment.Delete` | Deleted a cloud environment from the Oz CLI |
-| `CLI.Execute.Environment.Get` | Got cloud environment details from the Oz CLI |
-| `CLI.Execute.Environment.Image.List` | Listed available base images from the Oz CLI |
-| `CLI.Execute.Environment.List` | Listed cloud environments from the Oz CLI |
-| `CLI.Execute.Environment.Update` | Updated a cloud environment from the Oz CLI |
-| `CLI.Execute.Integration.Create` | Created an integration from the Oz CLI |
-| `CLI.Execute.Integration.List` | Listed integrations from the Oz CLI |
-| `CLI.Execute.Integration.Update` | Updated an integration from the Oz CLI |
-| `CLI.Execute.Login` | Logged in via the Oz CLI |
-| `CLI.Execute.Logout` | Logged out via the Oz CLI |
-| `CLI.Execute.MCP.List` | Listed MCP servers from the Oz CLI |
-| `CLI.Execute.Model.List` | Listed models from the Oz CLI |
-| `CLI.Execute.Provider.List` | Listed providers from the Oz CLI |
-| `CLI.Execute.Provider.Setup` | Set up a provider via the Oz CLI |
-| `CLI.Execute.Schedule.Create` | Created a scheduled agent from the Oz CLI |
-| `CLI.Execute.Schedule.Delete` | Deleted a scheduled agent from the Oz CLI |
-| `CLI.Execute.Schedule.Get` | Got scheduled agent configuration from the Oz CLI |
-| `CLI.Execute.Schedule.List` | Listed scheduled agents from the Oz CLI |
-| `CLI.Execute.Schedule.Pause` | Paused a scheduled agent from the Oz CLI |
-| `CLI.Execute.Schedule.Unpause` | Unpaused a scheduled agent from the Oz CLI |
-| `CLI.Execute.Schedule.Update` | Updated a scheduled agent from the Oz CLI |
-| `CLI.Execute.Secret.Create` | Created a secret from the Oz CLI |
-| `CLI.Execute.Secret.Delete` | Deleted a secret from the Oz CLI |
-| `CLI.Execute.Secret.List` | Listed secrets from the Oz CLI |
-| `CLI.Execute.Secret.Update` | Updated a secret from the Oz CLI |
-| `CLI.Execute.Task.Get` | Got status of task from the Oz CLI |
-| `CLI.Execute.Task.List` | Listed tasks from the Oz CLI |
+| `CLI.Execute.Agent.List` | Listed agents from the Warp CLI |
+| `CLI.Execute.Agent.Profile.List` | Listed agent profiles from the Warp CLI |
+| `CLI.Execute.Agent.Run` | Ran an agent from the Warp CLI |
+| `CLI.Execute.Agent.RunAmbient` | Ran an ambient agent from the Warp CLI |
+| `CLI.Execute.Environment.Create` | Created a cloud environment from the Warp CLI |
+| `CLI.Execute.Environment.Delete` | Deleted a cloud environment from the Warp CLI |
+| `CLI.Execute.Environment.Get` | Got cloud environment details from the Warp CLI |
+| `CLI.Execute.Environment.Image.List` | Listed available base images from the Warp CLI |
+| `CLI.Execute.Environment.List` | Listed cloud environments from the Warp CLI |
+| `CLI.Execute.Environment.Update` | Updated a cloud environment from the Warp CLI |
+| `CLI.Execute.Integration.Create` | Created an integration from the Warp CLI |
+| `CLI.Execute.Integration.List` | Listed integrations from the Warp CLI |
+| `CLI.Execute.Integration.Update` | Updated an integration from the Warp CLI |
+| `CLI.Execute.Login` | Logged in via the Warp CLI |
+| `CLI.Execute.Logout` | Logged out via the Warp CLI |
+| `CLI.Execute.MCP.List` | Listed MCP servers from the Warp CLI |
+| `CLI.Execute.Model.List` | Listed models from the Warp CLI |
+| `CLI.Execute.Provider.List` | Listed providers from the Warp CLI |
+| `CLI.Execute.Provider.Setup` | Set up a provider via the Warp CLI |
+| `CLI.Execute.Schedule.Create` | Created a scheduled agent from the Warp CLI |
+| `CLI.Execute.Schedule.Delete` | Deleted a scheduled agent from the Warp CLI |
+| `CLI.Execute.Schedule.Get` | Got scheduled agent configuration from the Warp CLI |
+| `CLI.Execute.Schedule.List` | Listed scheduled agents from the Warp CLI |
+| `CLI.Execute.Schedule.Pause` | Paused a scheduled agent from the Warp CLI |
+| `CLI.Execute.Schedule.Unpause` | Unpaused a scheduled agent from the Warp CLI |
+| `CLI.Execute.Schedule.Update` | Updated a scheduled agent from the Warp CLI |
+| `CLI.Execute.Secret.Create` | Created a secret from the Warp CLI |
+| `CLI.Execute.Secret.Delete` | Deleted a secret from the Warp CLI |
+| `CLI.Execute.Secret.List` | Listed secrets from the Warp CLI |
+| `CLI.Execute.Secret.Update` | Updated a secret from the Warp CLI |
+| `CLI.Execute.Task.Get` | Got status of task from the Warp CLI |
+| `CLI.Execute.Task.List` | Listed tasks from the Warp CLI |
 | `CLIAgentFooter.ImageAttached` | User attached an image from the CLI agent footer |
 | `CLIAgentFooter.SettingToggled` | User toggled the CLI agent footer setting |
 | `CLIAgentFooter.Shown` | CLI agent footer was shown to the user |
@@ -254,6 +282,8 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `Command Search Result Accepted` | Accepted command search result |
 | `Complete Welcome Tip` | Completed all welcome tips items |
 | `Completed Settings Import` | Imported a terminal's settings via the settings import onboarding block |
+| `ComputerUse.Approved` | A RequestComputerUse action was approved (manually or auto-executed) |
+| `ComputerUse.Cancelled` | A RequestComputerUse action was cancelled/rejected |
 | `Confirm Suggestion` | Accepted tab completion suggestion |
 | `Context Menu Copy` | Clicked "Copy" in context menu |
 | `Context Menu Copy Prompt` | Clicked  "Copy Prompt" in context menu |
@@ -302,6 +332,9 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `FileTree.ItemCreated` | Created a new file from the file tree |
 | `Find Option Toggled` | Changed settings in Find Toggle |
 | `Focused Config in Settings Import` | Selected a terminal in the settings import onboarding block |
+| `FreeTierLimitHitInterstitial.Closed` | User closed the free tier limit hit interstitial |
+| `FreeTierLimitHitInterstitial.Displayed` | The free tier limit hit interstitial was displayed |
+| `FreeTierLimitHitInterstitial.UpgradeButtonClicked` | User clicked the 'Upgrade' button in the free tier limit hit interstitial |
 | `Generate Block Sharing Link` | Generated Block sharing link |
 | `Generate Metadata For Workflow Error` | Failed to generate metadata for a workflow using Warp AI |
 | `Generate Metadata For Workflow Success` | Successfully generated metadata for a workflow using Warp AI |
@@ -437,6 +470,7 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `Set Window Blur Radius` | Changed the blur radius from the `Settings -> Appearance` dialog |
 | `Set Window Opacity` | Changed the opacity (window transparency) from the `Settings -> Appearance` dialog |
 | `Settings Import Initiated` | Started the import settings flow for new users |
+| `Settings.Environments.PageOpened` | User opened the Environments settings page |
 | `Shared Object Limit Hit Banner View Plans Button Clicked` | Clicked the 'View Plans' button on the persistent drive banner |
 | `Sharer Cancelled Grant Role` | When you cancel granting a role to a shared session participant |
 | `Shell Terminated Prematurely` | The shell process terminated prematurely |
