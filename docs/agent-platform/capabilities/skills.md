@@ -331,7 +331,7 @@ For a complete guide to running skill-based agents—including CLI usage, the Oz
 
 ## Related features
 
-* [**Rules**](/rules.md) - Set persistent guidelines and constraints for Agent behavior
-* [**MCP Servers**](/mcp.md) - Expose external data sources and tools to Agents
+* [**Rules**](rules.md) - Set persistent guidelines and constraints for Agent behavior
+* [**MCP Servers**](mcp.md) - Expose external data sources and tools to Agents
 * [**Cloud Agents**](../cloud-agents/cloud-agents-overview.md) - Run Agents in the cloud on schedules or triggers
 * [**Agent Profiles**](agent-profiles-permissions.md) - Control Agent permissions and autonomy

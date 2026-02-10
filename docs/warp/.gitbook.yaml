@@ -111,10 +111,10 @@ redirects:
     code/code-editor/file-tree: code/code-editor/file-tree.md
     code/code-editor/find-and-replace: code/code-editor/find-and-replace.md
     code/code-overview: code/code-overview.md
-    code/code-review: code/code-review/README.md
-    code/code-review/interactive-code-review: code/code-review/interactive-code-review.md
+    code/code-review: code/code-review.md
+    code/code-review/interactive-code-review: code/code-review.md
     code/codebase-context: code/codebase-context.md
-    code/reviewing-code: code/reviewing-code.md
+    code/reviewing-code: code/code-review.md
 
     # Getting started section
     getting-started/keyboard-shortcuts: getting-started/keyboard-shortcuts.md
