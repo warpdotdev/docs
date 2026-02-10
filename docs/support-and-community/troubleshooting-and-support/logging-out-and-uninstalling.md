@@ -71,6 +71,12 @@ sudo rm -r "$HOME/Library/Group Containers/2BBY89MBSN.dev.warp/Library/Applicati
 {% endtab %}
 
 {% tab title="Windows" %}
+**Uninstalling Warp by WinGet**
+
+```powershell
+winget uninstall Warp.Warp
+```
+
 **Uninstalling Warp installed by Installer**
 
 * Search for "Installed apps" section of the Control Panel.

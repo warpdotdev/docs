@@ -77,16 +77,16 @@ Personal secrets belong to an **individual user**.
 
 ***
 
-## Managing agent secrets with the Warp CLI
+## Managing agent secrets with the Oz CLI
 
-Secrets are managed using the warp secret command family.
+Secrets are managed using the oz secret command family.
 
 You can create secrets interactively or from a file.
 
 **Create a team secret interactively**
 
 ```bash
-warp secret create --team --name "METABASE_API_KEY"
+oz secret create --team --name "METABASE_API_KEY"
 ```
 
 You will be prompted to enter the value securely in the terminal.
@@ -94,7 +94,7 @@ You will be prompted to enter the value securely in the terminal.
 **Create a personal secret from a file**
 
 ```bash
-warp secret create --personal --name "METABASE_API_KEY" --value-file api_key.txt
+oz secret create --personal --name "METABASE_API_KEY" --value-file api_key.txt
 ```
 
 This is useful for long values such as JSON blobs or private keys.
@@ -104,7 +104,7 @@ This is useful for long values such as JSON blobs or private keys.
 Descriptions help with auditing and rotation tracking.
 
 ```bash
-warp secret create --team \
+oz secret create --team \
   --name "MY_SECRET" \
   --description "Rotate every 2 weeks; owned by platform team"
 ```
@@ -116,7 +116,7 @@ Descriptions are visible in listings but never expose the secret value.
 Updating a secret replaces its value while keeping the same name and scope.
 
 ```bash
-warp secret update --team \
+oz secret update --team \
   --name "METABASE_API_KEY" \
   --value-file new_api_key.txt
 ```
@@ -128,7 +128,7 @@ This is the recommended way to rotate credentials.
 You can list all secrets you have access to.
 
 ```bash
-warp secret list
+oz secret list
 ```
 
 Example output:
@@ -162,7 +162,7 @@ Which secrets an agent receives depends on how the agent was triggered.
 
 When an agent is triggered by a specific user, such as:
 
-* Warp CLI
+* Oz CLI
 * Slack mentions
 * Linear updates
 

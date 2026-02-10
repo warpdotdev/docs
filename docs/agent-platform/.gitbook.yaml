@@ -72,7 +72,7 @@ redirects:
     agent-platform/slash-commands: agent/slash-commands.md
     agent-platform/active-ai: agent/active-ai.md
     agent-platform/generate: agent/generate.md
-    agent-platform/agent-modality-beta: agent/agent-modality-beta.md
+    agent-platform/agent-modality-beta: local-agents/interacting-with-agents/agent-modality.md
     agent-platform/model-choice: agent/using-agents/model-choice.md
     agent-platform/autonomy: agent/using-agents/agent-profiles-permissions.md
     agent-platform/warp-ai: agent/agents-overview.md
@@ -259,7 +259,8 @@ redirects:
     agent-mode/agent-context/urls-as-context: local-agents/agent-context/urls-as-context.md
     agent-mode/agent-context/using-to-add-context: local-agents/agent-context/using-to-add-context.md
     agent-mode/interacting-with-agents: local-agents/interacting-with-agents/README.md
-    agent-mode/interacting-with-agents/agent-modality-beta: local-agents/interacting-with-agents/agent-modality-beta.md
+    agent-mode/interacting-with-agents/agent-modality-beta: local-agents/interacting-with-agents/agent-modality.md
+    local-agents/interacting-with-agents/agent-modality-beta: local-agents/interacting-with-agents/agent-modality.md
     agent-mode/interacting-with-agents/conversation-forking: local-agents/interacting-with-agents/conversation-forking.md
     agent-mode/interacting-with-agents/voice: local-agents/interacting-with-agents/voice.md
     local-agents/ambient-agents-session-sharing: cloud-agents/cloud-agents-session-sharing.md

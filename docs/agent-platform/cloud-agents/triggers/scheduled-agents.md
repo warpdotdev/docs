@@ -32,7 +32,9 @@ Scheduled Agents are ideal for work that should happen regularly and predictably
 
 ### Common Use Cases
 
-Scheduled Agents are best suited for maintenance-style workflows, including:
+Scheduled Agents are best suited for maintenance-style workflows, including skills that automate recurring tasks. For more on running skill-based agents on schedules, see [Skills as Agents](../skills-as-agents.md).
+
+Common use cases include:
 
 * Dead code or unused feature flag cleanup.
 * Dependency updates or security scans.
@@ -45,15 +47,15 @@ Because each run is isolated, Scheduled Agents are safe to use for tasks that be
 
 ***
 
-### Scheduling Agents with the Warp CLI
+### Scheduling Agents with the Oz CLI
 
-Warp Scheduled Agents are managed through the warp schedule family of CLI commands.
+Oz scheduled agents are managed through the Oz `schedule` family of CLI commands.
 
-All scheduling operations require the Warp CLI and an authenticated session
+All scheduling operations require the Oz CLI and an authenticated session
 
 #### Creating a Schedule
 
-Use `warp schedule create` (with required flags) to define a new Scheduled Agent.
+Use `oz schedule create` (with required flags) to define a new Scheduled Agent.
 
 **Each schedule requires:**
 
@@ -65,7 +67,7 @@ Use `warp schedule create` (with required flags) to define a new Scheduled Agent
 * [Optional MCP server configuration](https://docs.warp.dev/reference/cli/mcp-servers-for-cloud-agents).
 
 ```bash
-warp schedule create \
+oz schedule create \
   --name=NAME \
   --cron=SCHEDULE \
   --prompt=PROMPT \
@@ -81,7 +83,7 @@ Currently, environments are never required - if you don't specify one, the sched
 The following command schedules an agent to clean up old feature flags every four days:
 
 ```bash
-warp schedule create \
+oz schedule create \
   --name "Feature Flag Cleanup" \
   --cron "0 10 */4 * *" \
   --prompt "Scan the repository for stale feature flags and remove any that are no longer referenced. Open a PR with the changes and include a summary." \
@@ -115,7 +117,7 @@ Make sure your cron expression reflects the cadence you want, as Scheduled Agent
 To view all Scheduled Agents for your team, use:
 
 ```bash
-warp schedule list
+oz schedule list
 ```
 
 This command prints a table with details about each schedule, including:
@@ -143,10 +145,10 @@ This makes it easy to audit what ran, when it ran, and what the agent did.
 
 #### Viewing a Specific Scheduled Agent
 
-Use `warp schedule get` to view detailed information about a single Scheduled Agent.
+Use `oz schedule get` to view detailed information about a single Scheduled Agent.
 
 ```bash
-warp schedule get SCHEDULE_ID
+oz schedule get SCHEDULE_ID
 ```
 
 This command returns additional details not shown in the list view, including:
@@ -164,7 +166,7 @@ This is useful when auditing behavior, debugging failures, or reviewing how a Sc
 Scheduled Agents can be temporarily disabled without deleting them.
 
 ```bash
-warp schedule pause SCHEDULE_ID
+oz schedule pause SCHEDULE_ID
 ```
 
 When paused, the agent will not run at its scheduled times.
@@ -172,7 +174,7 @@ When paused, the agent will not run at its scheduled times.
 **Example**
 
 ```bash
-warp schedule pause abc123
+oz schedule pause abc123
 ```
 
 #### Unpausing a Schedule
@@ -185,7 +187,7 @@ Once unpaused, the agent resumes running according to its original cron schedule
 
 ### Editing Scheduled Agents
 
-You can modify an existing schedule using warp schedule update.
+You can modify an existing schedule using oz schedule update.
 
 You may update one or more properties at a time, including:
 
@@ -198,7 +200,7 @@ You may update one or more properties at a time, including:
 #### Command
 
 ```bash
-warp schedule update SCHEDULE_ID \
+oz schedule update SCHEDULE_ID \
   [--name=NAME] \
   [--schedule=SCHEDULE] \
   [--prompt=PROMPT] \
@@ -210,13 +212,13 @@ warp schedule update SCHEDULE_ID \
 Change when a scheduled agent runs, leaving everything else unchanged:
 
 ```bash
-warp schedule update abc123 --schedule "0 9 */4 * *"
+oz schedule update abc123 --schedule "0 9 */4 * *"
 ```
 
 Update the environment used for future runs:
 
 ```bash
-warp schedule update abc123 --environment=jkl789
+oz schedule update abc123 --environment=jkl789
 ```
 
 Changes apply only to future runs. Past runs and their session history remain unchanged.
@@ -226,13 +228,13 @@ Changes apply only to future runs. Past runs and their session history remain un
 To permanently remove a schedule, use:
 
 ```bash
-warp schedule delete SCHEDULE_ID
+oz schedule delete SCHEDULE_ID
 ```
 
 **Example**
 
 ```bash
-warp schedule delete abc123
+oz schedule delete abc123
 ```
 
 Deleting a schedule immediately stops all future runs. Previous runs and their session history remain accessible for auditing and review.

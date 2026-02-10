@@ -1,17 +1,19 @@
 # Managing Cloud Agents
 
-Warp provides a centralized management view where you can monitor agent activity across your account and (where applicable) your team. It’s designed to answer, at a glance:
+Warp provides a centralized management view where you can monitor agent activity across your account and (where applicable) your team. You can access this view in the Warp app or through the [Oz web app](oz-web-app.md) at [oz.warp.dev](https://oz.warp.dev), which works on mobile devices.
 
-* Which agents have been running recently (and what’s running right now)
+The management view is designed to answer, at a glance:
+
+* Which agents have been running recently (and what's running right now)
 * Which runs succeeded, failed, or were canceled
-* Where an agent was triggered from (a local agent conversation, the Warp CLI, Slack, etc.)
+* Where an agent run was triggered from (a local agent conversation, the Oz CLI, Slack, etc.)
 * How many credits those runs consumed
 
 {% embed url="https://www.loom.com/share/679c267ddd2d44519abf79edcb1122c7" %}
 
-This management view includes your **local (interactive) agents** and [Cloud Agent](cloud-agents-overview.md) runs.&#x20;
+This management view includes your **local (interactive) agents** and [cloud agent](cloud-agents-overview.md) runs.
 
-***
+<figure><img src="../.gitbook/assets/management-view-scannable-list.png" alt=""><figcaption><p>Warp's management view showing interactive and cloud agent runs.</p></figcaption></figure>
 
 ### What appears in the management view
 
@@ -48,7 +50,7 @@ Each row represents a single item in the management view (either an interactive 
 Where the agent was launched from. Common sources include:
 
 * **Interactive:** an [agent conversation](../local-agents/agents-overview.md) started in the Warp app
-* **CLI**: a local run triggered by the [Warp CLI](https://docs.warp.dev/reference/cli/)
+* **CLI**: a local run triggered by the [Oz CLI](https://docs.warp.dev/reference/cli/)
 * **API**: a run triggered by [Warp's API](https://docs.warp.dev/reference/api-and-sdk/agent)
 * **Slack / Linear**: runs triggered by [integrations](integrations/)
 * **Scheduled**: runs triggered on a [cron schedule](triggers/scheduled-agents.md)
@@ -84,4 +86,4 @@ In both _Personal_ and _All_ views, you can open the filter menu and filter by:
 * Creator
 * Status
 
-This is the fastest way to isolate “everything that failed today,” “runs from Slack,” or “what a specific teammate triggered via integrations.”<br>
+This is the fastest way to isolate "everything that failed today," "runs from Slack," or "what a specific teammate triggered via integrations."

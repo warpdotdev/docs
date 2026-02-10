@@ -19,14 +19,14 @@ This guide explains what the integration does, how it works end-to-end, and how 
 
 ### Using Warp inside Linear
 
-Assigning Warp to an issue or tagging @warp in a Linear comment starts an agent run. Warp clones the repositories defined in your environment, sets up your development environment using your Docker image and setup commands, and begins working through the task with full context from your codebase and the Linear issue. Agents post updates as they progress, including a task list, elapsed time, and checkpoints, so you can follow along without leaving Linear.
+Assigning Warp to an issue or tagging @Oz in a Linear comment starts an agent run. Warp clones the repositories defined in your environment, sets up your development environment using your Docker image and setup commands, and begins working through the task with full context from your codebase and the Linear issue. Agents post updates as they progress, including a task list, elapsed time, and checkpoints, so you can follow along without leaving Linear.
 
 Agents also share a link to an interactive remote session using Warp's [cloud agent session sharing](../cloud-agents-session-sharing.md). Opening this link lets you view the live terminal output for the running agent in Warp or in the browser. From there, you can interrupt or guide the agent with additional instructions when needed. Once the agent finishes, it will create a pull request on your behalf — using your GitHub permissions — and post a summary of its work and the PR link back into Linear.
 
 You can start an agent in two ways:
 
-* **Tag Warp in a comment** (@Warp) and describe what you want done.
-* **Assign the issue to Warp** as if it were a teammate.
+* **Tag the Oz agent in a comment** (@Oz) and describe what you want done.
+* **Assign the issue to the Oz agent** as if it were a teammate.
 
 Warp will acknowledge the request directly in the Linear issue and begin working.
 
@@ -64,17 +64,19 @@ Because PRs are created as _you_, this makes code review, auditing, and team col
 
 ### Requirements
 
-* Cloud agents are available only to **paid Warp users**. See [Warp Pricing](https://www.warp.dev/pricing) for more details.
-* You must be logged into Warp with the same email as your Linear workspace.
-* You must authorize the Warp GitHub app the first time you trigger an agent.
+* **Team membership** - The Linear integration requires you to be part of a [Warp team](https://docs.warp.dev/warp/knowledge-and-collaboration/teams). Teams can be created on any plan, including Free.
+* **Plan and credits** - Your team must be on a plan that supports integrations (Build, Max, or Business) and have at least 20 credits available (any type of Warp credits work). See [Access, Billing, and Identity](../team-access-billing-and-identity.md) for details.
+* **Infrastructure** - By default, agents run on Warp-hosted infrastructure. Enterprise teams can [self-host agents](../self-hosting.md) on their own infrastructure.
+* **Identity** - You must be logged into Warp with the same email as your Linear workspace.
+* **GitHub authorization** - You must authorize the Warp GitHub app the first time you trigger an agent.
   * The repositories involved must be included in your environment and accessible to the Warp GitHub app.
-* You must have write access to the repo if you want Warp to create PRs on your behalf.
+  * You must have write access to the repo if you want Warp to create PRs on your behalf.
 
 ***
 
 ### How to configure the integration
 
-Setup involves two steps powered by the [Warp CLI](https://docs.warp.dev/reference/cli/README). For more instructions, see [Integrations Overview](README.md).
+Setup involves two steps powered by the [Oz CLI](https://docs.warp.dev/reference/cli). For more instructions, see [Integrations Overview](README.md).
 
 #### 1. Create an environment
 
@@ -93,10 +95,16 @@ For full instructions, see our [Environment Setup](README.md) docs.
 
 #### 2. Create the Linear integration
 
-Once your environment exists, create the integration:
+Once your environment exists, create the integration.
+
+{% hint style="info" %}
+For easier setup, use the [Oz web app](https://oz.warp.dev) to configure integrations with a guided flow.
+{% endhint %}
+
+Alternatively, you can use the CLI:
 
 ```
-warp integration create linear --environment <ENV_ID>
+oz integration create linear --environment <ENV_ID>
 ```
 
 The CLI will open a browser window prompting you to install the Warp app into your Linear workspace. After installation, the integration becomes available to all members of your Warp team.

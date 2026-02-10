@@ -27,7 +27,7 @@
 
 * [Local Agents Overview](local-agents/agents-overview.md)
 * [Interacting with Agents](local-agents/interacting-with-agents/README.md)
-  * [Agent Modality (Beta)](local-agents/interacting-with-agents/agent-modality-beta.md)
+  * [Agent Modality](local-agents/interacting-with-agents/agent-modality.md)
   * [Conversation Forking](local-agents/interacting-with-agents/conversation-forking.md)
   * [Code Diffs in Agent Conversations](local-agents/code-diffs-in-agent-conversations.md)
   * [Voice](local-agents/interacting-with-agents/voice.md)
@@ -46,7 +46,7 @@
 ## Cloud Agents & Orchestration <a href="#cloud-agents" id="cloud-agents"></a>
 
 * [Cloud Agents Overview](cloud-agents/cloud-agents-overview.md)
-* [Cloud Agents Platform](cloud-agents/platform.md)
+* [Oz Platform](cloud-agents/platform.md)
 * [Triggers](cloud-agents/triggers/README.md)
   * [Scheduled Agents](cloud-agents/triggers/scheduled-agents.md)
 * [Integrations](cloud-agents/integrations/README.md)
@@ -56,9 +56,12 @@
   * [Demo: Issue Triage Bot](cloud-agents/integrations/demo-issue-triage-bot.md)
 * [Environments](cloud-agents/environments.md)
 * [Managing Cloud Agents](cloud-agents/managing-cloud-agents.md)
+* [Oz Web App](cloud-agents/oz-web-app.md)
+* [Skills as Agents](cloud-agents/skills-as-agents.md)
 * [Agent Session Sharing](cloud-agents/agent-session-sharing.md)
 * [Cloud Agent Session Sharing](cloud-agents/cloud-agents-session-sharing.md)
 * [Cloud Agent Secrets](cloud-agents/cloud-agent-secrets.md)
 * [Deployment Patterns](cloud-agents/deployment-patterns.md)
-* [Team Access, Billing, and Identity](cloud-agents/team-access-billing-and-identity.md)
+* [Self-Hosting](cloud-agents/self-hosting.md)
+* [Access, Billing, and Identity](cloud-agents/team-access-billing-and-identity.md)
 * [Cloud Agents FAQs](cloud-agents/cloud-agents-faqs.md)

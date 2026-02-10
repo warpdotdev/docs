@@ -111,4 +111,4 @@ Currently, BYOK is configured at the **user level**, not the team or admin level
 * Team admins cannot yet enforce or share API keys across members.
 * There currently is no organization-level admin panel for BYOK management.
 
-If your organization has specific needs for managed keys or enterprise-level control, please contact us at [warp.dev/contact-sales](https://warp.dev/contact-sales) or reach out to your Warp representative.
+If your organization has specific needs for managed keys or enterprise-level control, please contact us at [warp.dev/contact-sales](https://warp.dev/contact-sales).

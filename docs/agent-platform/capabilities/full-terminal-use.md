@@ -31,6 +31,8 @@ You can either ask the agent to run an interactive command, or start one manuall
 * **Or start the command yourself, then tag the agent in**
   * Example:
     * If you’ve already launched an interactive tool (for example `psql` or `npm run dev`), you can bring the agent into the running session using the "Use Agent" button in the terminal footer or via `CMD + I` .
+
+    <figure><img src="../.gitbook/assets/full-terminal-use-tag-hint.png" alt=""><figcaption><p>Option to tag the agent into a running command.</p></figcaption></figure>
     *   Once the agent is tagged in, you can follow up with natural-language requests such as:
 
         “Watch this process and help debug the error on the /session endpoint.”
@@ -40,7 +42,9 @@ You can either ask the agent to run an interactive command, or start one manuall
 Tagging in the agent.
 {% endembed %}
 
-<figure><img src="../.gitbook/assets/full-terminal-use-npm.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/full-terminal-use-build.png" alt=""><figcaption><p>Running a build command.</p></figcaption></figure>
+
+<figure><img src="../.gitbook/assets/full-terminal-use-dev-monitor.png" alt=""><figcaption><p>Tagging in the Agent to monitor the dev server.</p></figcaption></figure>
 
 Warp attaches the agent to the running command so it can see and control the terminal buffer.
 
@@ -79,6 +83,32 @@ This makes it easy to:
 * Let the agent do mechanical work (paging output, trying variants of a command)
 * Step in for delicate or security-sensitive actions
 * Then let the agent continue once the critical step is done
+
+#### Long-running commands in terminal vs agent view
+
+The behavior differs based on where you start the long-running command:
+
+{% tabs %}
+{% tab title="From terminal view" %}
+1. Run an interactive command (e.g., `python`, `psql`)
+2. Press `⌘↩` (macOS) or `Ctrl+Shift+Enter` (Windows/Linux), or use `⌘I` (macOS) / `Ctrl+I` (Windows/Linux), to tag in the agent
+3. The input switches to agent mode with full controls
+4. When you exit, an agent conversation block appears in your terminal blocklist
+5. Click the block to reopen the full conversation with your LRC interaction context
+{% endtab %}
+
+{% tab title="From agent view" %}
+1. The agent runs an interactive command as part of your conversation
+2. Use `⌘↩` (macOS) or `Ctrl+Shift+Enter` (Windows/Linux) to tag in if the agent isn't already interacting
+3. The UI stays the same since you're already in agent view
+4. When you exit, the interaction remains part of your conversation. No separate block is created in the terminal blocklist
+5. Commands run in agent view are automatically included as context
+{% endtab %}
+{% endtabs %}
+
+{% hint style="info" %}
+You can also use `CMD + I` (macOS) or `CTRL + I` (Windows/Linux) to toggle agent control in either view.
+{% endhint %}
 
 #### Showing and hiding agent responses
 

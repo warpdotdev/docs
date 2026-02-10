@@ -1,23 +1,23 @@
 ---
 description: >-
-  Warp Cloud Agents are cloud connected background agents that run from
+  Oz Cloud Agents are cloud-connected background agents that run from
   events, schedules, or integrations, giving teams scalable automation with
   shared observability and centralized configs (beta)
 ---
 
-# Cloud Agents Overview
+# Oz Cloud Agents Overview
 
 {% hint style="info" %}
-**Beta**: Cloud Agents are currently in beta. APIs, CLI commands, and product behavior may change. If you have feedback, reach out in the [Warp Community Slack](https://go.warp.dev/join-preview).
+**Beta**: Oz Cloud Agents are currently in beta. APIs, CLI commands, and product behavior may change. If you have feedback, reach out in the [Warp Community Slack](https://go.warp.dev/join-preview).
 {% endhint %}
 
-Warp's Cloud Agents are **cloud connected**, **background agents** built on the [Cloud Agents Platform](platform.md). They run automatically in response to system events, schedules, or integrations.
+Oz Cloud Agents are **cloud-connected**, **background agents** that run on the [Oz Platform](platform.md).
 
 {% embed url="https://www.youtube.com/watch?v=V-8_fZExlFQ" %}
 
-### What Cloud Agents are designed for
+### What cloud agents are designed for
 
-Cloud Agents are designed for situations where:
+Cloud agents are designed for situations where:
 
 * **You need agents to react to system events.**
   * Examples include crashes, bug reports, Slack interactions, cron timers, or CI steps.
@@ -27,6 +27,8 @@ Cloud Agents are designed for situations where:
   * For example, running many agent tasks concurrently in the cloud, sharding a repo-wide task into multiple runs, or fanning out the same task across multiple targets.
 * **You want agents to operate continuously as part of engineering infrastructure.**
   * This includes scheduled maintenance tasks and integration-driven automation.
+
+<figure><img src="../.gitbook/assets/oz-use-cases.png" alt="Oz use cases across the development lifecycle: Plan, Prototype, Build, Validate, Review + Merge, Deploy + Monitor"><figcaption></figcaption></figure>
 
 ***
 
@@ -46,9 +48,9 @@ If you are evaluating whether something should be a cloud agent, a good test is 
 (1) what triggers it, (2) what context it needs, and (3) how the team will inspect or validate the output.
 {% endhint %}
 
-### How Cloud Agents work
+### How cloud agents work
 
-Cloud Agents run on the [Cloud Agents Platform](platform.md), which provides the primitives for triggering work, orchestrating tasks, executing agents (optionally in Environments), injecting secrets, and inspecting results.
+Cloud agents run on the [Oz Platform](platform.md), which provides the primitives for triggering work, orchestrating tasks, executing agents (optionally in Environments), injecting secrets, and inspecting results.
 
 * Something **triggers** an agent task.
 * The **orchestrator creates** and tracks the task.
@@ -57,7 +59,7 @@ The exact way tasks are triggered and executed depends on your deployment model 
 
 ### What you get by default
 
-Because Cloud Agents run on the [Cloud Agents Platform](platform.md), each run is tracked and produces a persistent record that can be observed, shared, and audited (even if execution happens outside the Warp app).
+Because cloud agents run on the [Oz Platform](platform.md), each run is tracked and produces a persistent record that can be observed, shared, and audited (even if execution happens outside the Warp app).
 
 #### Observability and steerability
 
@@ -75,55 +77,67 @@ Warp supports centralized configuration so the same workflow behaves consistentl
 
 #### API access to tasks
 
-The Warp Platform exposes task visibility via the [**Agent API and SDKs**](https://docs.warp.dev/reference/api-and-sdk/agent), so teams can…
+The Oz Platform exposes task visibility via the [**Oz Agent API and SDKs**](https://docs.warp.dev/reference/api-and-sdk), so teams can:
 
 * Query which tasks are running or have run.
 * Fetch task metadata and outcomes.
 * Build internal dashboards or monitoring (for example success rates, runtime, failure reasons).
 
-### Using Cloud Agents with or without Warp’s app
+### Using cloud agents with or without the Warp app
 
-Cloud Agents do not require the Warp desktop app. Teams can deploy and operate them through the [Cloud Agents Platform](platform.md) using:
+Cloud agents do not require the Warp desktop app. Teams can deploy and operate them through the [Oz Platform](platform.md) using:
 
-* [Warp CLI](https://docs.warp.dev/reference/cli)
-* Web surfaces (where available)
-* [Agent Session Sharing](agent-session-sharing.md)
-* [Agent Management UX](managing-cloud-agents.md)
-* Admin settings and [APIs](https://docs.warp.dev/reference/api-and-sdk/agent)
-If your team also uses Warp’s terminal, you get an additional workflow: tasks launched via the CLI can be handed off into an interactive session for review, edits, or continuation.
+* [Oz CLI](https://docs.warp.dev/reference/cli) — run agents from scripts, CI, or the terminal
+* [Oz web app](oz-web-app.md) — visual interface for managing runs, schedules, environments, and integrations (works on mobile)
+* [Agent Session Sharing](agent-session-sharing.md) — attach to running tasks to monitor or steer
+* [Agent Management UX](managing-cloud-agents.md) — view agent activity and run history
+* [APIs and SDKs](https://docs.warp.dev/reference/api-and-sdk) — programmatic access for custom integrations
+
+If your team also uses Warp's terminal, you get an additional workflow: tasks launched via the CLI can be handed off into an interactive session for review, edits, or continuation.
 
 ***
 
-### Team and billing requirements
+### Billing and plan requirements
 
-Cloud Agents and [integrations](integrations/README.md) run on the [Cloud Agents Platform](platform.md) control plane, and usage is billed using credits.
+Cloud agents and [integrations](integrations/README.md) run on the [Oz Platform](platform.md) control plane, and usage is billed using credits.
 
-To run **integrations (and most cloud agent automation)**, your team must meet the following requirements:
+#### For Cloud Agents via CLI/API
+
+Individual users can run cloud agents without being on a team. Requirements:
+
+* You need at least 20 credits (any type: normal Warp credits, [Cloud Agent Credits](https://docs.warp.dev/support-and-community/plans-and-billing/credits#cloud-agent-credits), or Build plan credits)
+* Cloud agents run on Warp-hosted infrastructure
+* Self-hosted agents require a team subscription
+
+#### For Integrations (Slack/Linear)
+
+Integrations require you to be part of a [Warp team](https://docs.warp.dev/warp/knowledge-and-collaboration/teams) and additional requirements:
 
 * **Plan requirements**
-  * **Supported plans**: Build, Business
+  * **Supported plans**: Build, Max, Business
   * Not supported: Pro, Turbo, Lightspeed, legacy Business
   * Your plan must support add-on credits.
 * **Credit requirements**
-* Your team must have at least 20 [add-on credits](https://docs.warp.dev/support-and-community/plans-and-billing/add-on-credits) available to run an integration.
-  * Integration usage is billed to the team's add-on credit balance.
-  * Cloud agents and integrations can use [Cloud Agent Credits](https://docs.warp.dev/support-and-community/plans-and-billing/credits#cloud-agent-credits) if available.
+  * Your team must have at least 20 credits available (any type of Warp credits work) to run cloud agents and integrations.
+  * Usage is billed based on credit type and team configuration.
+  * Normal credits, [Cloud Agent Credits](https://docs.warp.dev/support-and-community/plans-and-billing/credits#cloud-agent-credits), and [add-on credits](https://docs.warp.dev/support-and-community/plans-and-billing/add-on-credits) all work.
 
-For more details, please refer to: [Team Access Billing And Identity Permissions](team-access-billing-and-identity.md)
+For more details, please refer to: [Access, Billing, and Identity Permissions](team-access-billing-and-identity.md)
 
 {% hint style="warning" %}
-If the team’s add-on credit balance reaches zero, integrations and cloud agent runs that require add-on credits will not be able to execute until credits are replenished.
+If your credit balance reaches zero, cloud agent runs will not be able to execute until credits are replenished.
 {% endhint %}
 
 ***
 
 ### Learn more
 
-* [Cloud Agents Platform](platform.md) — CLI, Agent API/SDK, orchestration, tasks, environments, hosts, integrations, and more.
-* [Warp CLI](https://docs.warp.dev/reference/cli) — shows how to run Warp's agent in non-interactive mode from CI, scripts, or remote machines, including auth and common commands.
+* [Oz Platform](platform.md) — CLI, Oz Agent API/SDK, orchestration, tasks, environments, hosts, integrations, and more.
+* [Skills as Agents](skills-as-agents.md) — run agents based on reusable skill definitions from the CLI, web app, API, or on a schedule.
+* [Oz CLI](https://docs.warp.dev/reference/cli) — shows how to run Warp's agent in non-interactive mode from CI, scripts, or remote machines, including auth and common commands.
 * [Environments](environments.md) — explains how environments provide the runtime context (repo, image, startup commands) for agent tasks.
-* [Agent API and SDK](https://docs.warp.dev/reference/api-and-sdk/agent) — documents the REST API for creating, querying, and monitoring agent tasks programmatically.
+* [Oz Agent API and SDK](https://docs.warp.dev/reference/api-and-sdk) — documents the REST API for creating, querying, and monitoring agent tasks programmatically.
 * [Agent Secrets](cloud-agent-secrets.md) — covers how to store, scope, and inject credentials into agent runs safely.
 * [MCP Servers for Agents](https://docs.warp.dev/reference/cli/mcp-servers-for-cloud-agents) — describes how to configure MCP servers for agent tool access and how MCP configuration is applied across runs.
 * [Deployment Patterns](deployment-patterns.md) (beta) — compares common ways to deploy cloud agents and when to use each.
-* [Team Access Billing And Identity Permissions](team-access-billing-and-identity.md) — explains team-level requirements, credit billing behavior, and the permission model for who can run, view, and steer cloud agent tasks.
+* [Access, Billing, and Identity Permissions](team-access-billing-and-identity.md) — explains individual and team-level requirements, credit billing behavior, and the permission model for who can run, view, and steer cloud agent tasks.

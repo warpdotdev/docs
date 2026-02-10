@@ -1,8 +1,8 @@
-# Agent API & SDK
+# Oz Agent API & SDK
 
-### Agent API
+### Oz Agent API
 
-Warp's Public Agent API lets you create and inspect [Cloud Agent](https://docs.warp.dev/agent-platform/cloud-agents/cloud-agents-overview) runs over HTTP from any system (CI, cron, backend services, internal tools), without requiring the Warp desktop app.
+The Oz Agent API lets you create and inspect [Cloud Agent](https://docs.warp.dev/agent-platform/cloud-agents/cloud-agents-overview) runs over HTTP from any system (CI, cron, backend services, internal tools), without requiring the Warp desktop app.
 
 **With the API you can:**
 
@@ -16,9 +16,9 @@ This page is a high-level overview.\
 For full API endpoint details, please refer to the [**Agents API**](https://docs.warp.dev/reference/api-and-sdk/agent)**.** For schema definitions, see the [**Models reference**](https://docs.warp.dev/reference/api-and-sdk/models).
 {% endhint %}
 
-### Agent SDK
+### Oz Agent SDK
 
-Warp provides official [Python](https://github.com/warpdotdev/warp-sdk-python) and [TypeScript](https://github.com/warpdotdev/warp-sdk-typescript) SDKs that wrap the Public Agent API with:
+Oz provides official [Python](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript](https://github.com/warpdotdev/oz-sdk-typescript) SDKs that wrap the Oz Agent API with:
 
 * **Typed requests and responses** (editor autocomplete, fewer schema mistakes)
 * **Built-in retries and timeouts** (with per-request overrides)
@@ -35,12 +35,12 @@ If you’re building an integration (CI, Slack bots, internal tooling, orchestra
 * Use raw REST when you want minimal dependencies or full control over your HTTP client (the SDKs also support calling undocumented endpoints when needed).
 
 {% hint style="warning" %}
-For the full SDK surface area and latest usage, refer to the GitHub repos: [**Python SDK**](https://github.com/warpdotdev/warp-sdk-python) and [**TypeScript SDK**](https://github.com/warpdotdev/warp-sdk-typescript).
+For the full SDK surface area and latest usage, refer to the GitHub repos: [**Python SDK**](https://github.com/warpdotdev/oz-sdk-python) and [**TypeScript SDK**](https://github.com/warpdotdev/oz-sdk-typescript).
 {% endhint %}
 
 ***
 
-## Agent API
+## Oz Agent API
 
 ### REST API Base URL
 
@@ -74,6 +74,7 @@ You can influence how an agent runs using AmbientAgentConfig, including:
 * `model_id` for LLM selection
 * `base_prompt` to shape behavior
 * `environment_id` to choose a `CloudEnvironment`
+* `skill_spec` to use a [skill](https://docs.warp.dev/agent-platform/capabilities/skills) as the base prompt (format: `owner/repo:skill-name` or `owner/repo:path/to/SKILL.md`)
 * `mcp_servers` to enable specific tools via MCP
 
 See the [**Models reference**](https://docs.warp.dev/reference/api-and-sdk/models) for the full configuration schema.
@@ -117,24 +118,24 @@ The API shares a set of reusable models across endpoints. Detailed JSON schemas,
 
 ***
 
-## Agent SDKs
+## Oz Agent SDKs
 
 ### Python SDK
 
-The Python SDK is the recommended way to call the Agent API from Python services and scripts. It provides:
+The Python SDK is the recommended way to call the Oz Agent API from Python services and scripts. It provides:
 
 * Sync + async clients
 * Typed request/response models
 * Configurable retries/timeouts and structured errors
 
-See the [**Python SDK GitHub repo**](https://github.com/warpdotdev/warp-sdk-python) for installation, full API reference (api.md), and up-to-date examples.
+See the [**Python SDK GitHub repo**](https://github.com/warpdotdev/oz-sdk-python) for installation, full API reference (api.md), and up-to-date examples.
 
 ### TypeScript SDK
 
-The TypeScript SDK is the recommended way to call the Agent API from Node.js services and modern TS/JS runtimes. It provides:
+The TypeScript SDK is the recommended way to call the Oz Agent API from Node.js services and modern TS/JS runtimes. It provides:
 
 * Fully typed params/responses
 * First-class error handling, retries/timeouts
 * Support across common runtimes where fetch is available or polyfilled
 
-See the [**TypeScript SDK GitHub repo**](https://github.com/warpdotdev/warp-sdk-typescript) for installation, full API reference (api.md), and up-to-date examples.
+See the [**TypeScript SDK GitHub repo**](https://github.com/warpdotdev/oz-sdk-typescript) for installation, full API reference (api.md), and up-to-date examples.

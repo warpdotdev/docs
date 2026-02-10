@@ -1,13 +1,13 @@
 ---
-description: >-
-  Cloud Agents and integrations are built on the Warp Platform, which includes
+description: >
+  Cloud agents and integrations are built on the Oz Platform, which includes
   the CLI, API/SDK, orchestration, environments and execution, and
   management/observability.
 ---
 
-# Cloud Agents Platform
+# Oz Platform
 
-[Cloud Agents](cloud-agents-overview.md) and first-party [integrations](integrations/README.md) run on the Warp Platform. The platform gives you a consistent way to **trigger work**, **orchestrate and track tasks**, **execute agents** (in an optional [Environment](https://docs.warp.dev/reference/cli/integrations-and-environments), on a host), and inspect outcomes with team visibility.
+Cloud agents are background agents that run on the **[Oz Platform](platform.md)**. First-party [integrations](integrations/README.md) connect external events to cloud agents. The platform gives you a consistent way to **trigger work**, **orchestrate and track tasks**, **execute agents** (in an optional [Environment](https://docs.warp.dev/reference/cli/integrations-and-environments), on a host), and inspect outcomes with team visibility.
 
 **Most production setups follow the same flow:**
 
@@ -16,7 +16,11 @@ description: >-
 3. The agent executes on a **host**, optionally inside an Environment, using the required configuration and credentials.
 4. The task produces a **persistent record** (status, metadata, transcript, outputs) your team can review and manage.
 
-The sections below describe the Warp Platform primitives that power this flow, and how they compose.
+<figure><img src="../.gitbook/assets/most-flexible-platform-for-building-with-agents.png" alt="Oz Platform architecture showing Trigger, Agent, Environment, and Artifacts components"><figcaption></figcaption></figure>
+
+<figure><img src="../.gitbook/assets/oz-diagram.png" alt="Oz Platform detailed architecture showing components, triggers, orchestrator, and agent runners"><figcaption></figcaption></figure>
+
+The sections below describe the Oz Platform primitives that power this flow, and how they compose.
 
 ***
 
@@ -33,9 +37,9 @@ In practice: **triggers create tasks; tasks execute on a host (optionally in an 
 
 ***
 
-### Warp CLI
+### Oz CLI
 
-The [Warp CLI](https://docs.warp.dev/reference/cli) is the **headless interface** for running Warp agents in non-interactive mode. It's commonly used in CI, scripts, and server environments where there is no interactive UI. For interactive workflows, use the [agent](../local-agents/agents-overview.md) embedded in Warp's desktop app.
+The [Oz CLI](https://docs.warp.dev/reference/cli) is the **headless interface** for running Warp agents in non-interactive mode. It's commonly used in CI, scripts, and server environments where there is no interactive UI. For interactive workflows, use the [agent](../local-agents/agents-overview.md) embedded in Warp's desktop app.
 
 A key property of the CLI is that it is **cloud-connected**. Even when an agent is started on a local machine or in CI, it reports progress to Warp’s servers. This enables team visibility, session sharing (where supported), and programmatic tracking through the API.
 
@@ -47,11 +51,11 @@ Use the CLI when:
 * An external system is orchestrating runs (for example GitHub Actions, custom automation, incident tooling).
 * You want task observability and auditing without requiring Warp desktop.
 
-#### How it fits in the Warp Platform
+#### How it fits in the Oz Platform
 
 Depending on the command, the CLI typically:
 
-* Authenticates as a member of your team.
+* Authenticates as you (or as a member of your team, if applicable).
 * Starts work by creating a task in the orchestrator (either directly via CLI commands, or indirectly via an integration/schedule).
 * Streams progress back to Warp for live observability and a persistent record.
 * Optionally attaches an Environment and other configuration.
@@ -61,7 +65,7 @@ Depending on the command, the CLI typically:
 You can also run an agent locally without an environment using a command like:
 
 ```bash
-warp agent run ...
+oz agent run ...
 ```
 
 ***
@@ -74,10 +78,10 @@ The orchestration layer manages the lifecycle of cloud agent tasks. It creates t
 
 The orchestrator:
 
-* Runs on Warp’s servers (cloud control plane).
+* Runs on Warp's servers (cloud control plane).
 * Creates tasks when triggers fire (integrations, schedules, API calls, or explicit starts).
 * Tracks lifecycle state (created → running → completed/failed) and associated metadata.
-* Exposes task lifecycle operations via the [Warp CLI](https://docs.warp.dev/reference/cli) and a [REST API](https://docs.warp.dev/reference/api-and-sdk/agent) (create tasks, query history, and inspect status/outputs).
+* Exposes task lifecycle operations via the [Oz CLI](https://docs.warp.dev/reference/cli) and a [REST API](https://docs.warp.dev/reference/api-and-sdk/agent) (create tasks, query history, and inspect status/outputs).
 * Powers SDKs (TypeScript/Python) for programmatic usage on top of the orchestrator API.
 
 #### When teams use the API/SDK
@@ -121,9 +125,9 @@ Environments are recommended when:
 
 ***
 
-### Agent API and SDK
+### Oz Agent API and SDK
 
-The Warp [Agent API](https://docs.warp.dev/reference/api-and-sdk/agent) is the HTTP interface to the Warp Platform. It lets you create and inspect cloud agent tasks from any system (CI, cron, backend services, internal tools), without requiring the Warp desktop app.
+The Oz [Agent API](https://docs.warp.dev/reference/api-and-sdk/agent) is the HTTP interface to the Oz Platform. It lets you create and inspect cloud agent tasks from any system (CI, cron, backend services, internal tools), without requiring the Warp desktop app.
 
 **What you can do with the API**
 
@@ -131,9 +135,9 @@ The Warp [Agent API](https://docs.warp.dev/reference/api-and-sdk/agent) is the H
 * Monitor execution by listing tasks and tracking state transitions over time (for example: `QUEUED` → `INPROGRESS` → `SUCCEEDED/FAILED`).
 * Inspect results and provenance by fetching a task’s full details, including the original prompt, creator/source metadata, session link, and resolved agent configuration.
 
-**Agent SDKs**
+**Oz Agent SDKs**
 
-Warp provides official [Python](https://github.com/warpdotdev/warp-sdk-python) and [TypeScript SDKs](https://github.com/warpdotdev/warp-sdk-typescript) that wrap the Public Agent API with:
+Oz provides official [Python](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript SDKs](https://github.com/warpdotdev/oz-sdk-typescript) that wrap the Oz Agent API with:
 
 * Typed requests/responses (autocomplete, fewer schema mistakes)
 * Built-in retries and timeouts (with per-request overrides)
@@ -148,7 +152,7 @@ If you’re building an integration (CI, Slack bots, internal tooling, orchestra
 * Use raw REST when you want minimal dependencies or full control over your HTTP client.
 
 {% hint style="info" %}
-For full endpoint semantics and schema definitions, please refer to the dedicated [API docs](https://docs.warp.dev/reference/api-and-sdk/agent) and Models/Schema reference, plus the [Python SDK](https://github.com/warpdotdev/warp-sdk-python) and [TypeScript SDK](https://github.com/warpdotdev/warp-sdk-typescript) repos for the latest usage/examples.
+For full endpoint semantics and schema definitions, please refer to the dedicated [API docs](https://docs.warp.dev/reference/api-and-sdk/agent) and Models/Schema reference, plus the [Python SDK](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript SDK](https://github.com/warpdotdev/oz-sdk-typescript) repos for the latest usage/examples.
 {% endhint %}
 
 ***
@@ -164,12 +168,17 @@ With Warp hosting:
 * Warp runs the environment on Warp-managed infrastructure.
 * This is the default model for teams that want the simplest setup and do not need execution to occur inside their network boundary.
 
-#### Self-hosting execution (coming soon)
+#### Self-hosted execution
 
 With self-hosting:
 
 * The agent runs on customer-managed infrastructure.
-* This is used when teams want code and execution to remain on their own systems rather than being cloned or executed in Warp’s cloud.
+* Oz orchestrator still manages lifecycle and observability.
+* This is used when teams want code and execution to remain on their own systems rather than being cloned or executed in Warp's cloud.
+
+{% hint style="info" %}
+**Enterprise feature**: Self-hosted execution requires an Enterprise plan. See [Self-Hosting](self-hosting.md) for setup instructions.
+{% endhint %}
 
 ***
 
@@ -185,7 +194,7 @@ With self-hosting:
 Warp supports first-party integrations that can be configured with a simple setup flow (for example via CLI):
 
 ```bash
-warp integration create …
+oz integration create …
 ```
 
 **In first-party integrations, Warp typically:**
@@ -207,8 +216,8 @@ Warp also supports custom integrations where you own the webhook and event handl
 In this model:
 
 * Your system receives an event.
-* Your system calls Warp’s orchestrator API (directly or via an SDK) to create/start a task.
-* The task is still a first-class cloud agent task in Warp (observable, manageable, auditable).
+* Your system calls Oz's orchestrator API (directly or via an SDK) to create/start a task.
+* The task is still a first-class Oz agent run in Warp (observable, manageable, auditable).
 
 **Custom integrations are ideal when:**
 
@@ -220,7 +229,7 @@ In this model:
 
 ### Secrets
 
-Cloud Agents often need credentials to access external systems (APIs, cloud providers, databases, internal tools, MCP servers). Warp provides a [secrets store](cloud-agent-secrets.md) that can inject secrets at runtime so agents can use authenticated tools without exposing secret values in logs or UI.
+Cloud agents often need credentials to access external systems (APIs, cloud providers, databases, internal tools, MCP servers). Warp provides a [secrets store](cloud-agent-secrets.md) that can inject secrets at runtime so agents can use authenticated tools without exposing secret values in logs or UI.
 
 #### What secrets are for
 
@@ -242,7 +251,7 @@ Today, secrets support two scopes:
 
 ### Management and observability
 
-Cloud Agents are designed so task execution is visible to the team.
+Cloud agents are designed so task execution is visible to the team.
 
 While a task is executing, the agent reports progress and status back to Warp. After completion, the task retains a persistent record for review and debugging.
 
@@ -261,7 +270,7 @@ Warp provides multiple surfaces for observability:
 
 ### Centralized configuration
 
-Cloud Agent setups often include shared configuration such as:
+Cloud agent setups often include shared configuration such as:
 
 * [MCP configuration](https://docs.warp.dev/reference/cli/mcp-servers-for-cloud-agents)
 * [rules / guardrails](../capabilities/rules.md)
@@ -273,15 +282,15 @@ Warp supports centralized configuration so these settings apply consistently reg
 
 This is especially useful when the same workflow can be triggered from multiple places (for example Slack, CI, and schedules). Instead of duplicating setup across systems, teams can keep configuration in one place and reuse it across triggers.
 
-### Using the Warp Platform with or without the Warp app
+### Using the Oz Platform with or without the Warp app
 
-[Cloud Agents](cloud-agents-overview.md) do not require Warp's desktop terminal. Teams can operate cloud agent workflows using:
+[Cloud agents](cloud-agents-overview.md) do not require Warp's desktop terminal. Teams can operate cloud agent workflows using:
 
-* Warp CLI
-* web surfaces (where available)
-* [session sharing](https://docs.warp.dev/knowledge-and-collaboration/session-sharing)
-* management UI
-* APIs and SDKs
+* [Oz CLI](https://docs.warp.dev/reference/cli) — run agents from scripts, CI, or the terminal
+* [Oz web app](oz-web-app.md) — visual interface at [oz.warp.dev](https://oz.warp.dev) for managing runs, schedules, environments, and integrations (works on mobile)
+* [Session sharing](agent-session-sharing.md) — attach to running tasks to monitor or steer
+* [Management UI](managing-cloud-agents.md) — view agent activity and run history
+* [APIs and SDKs](https://docs.warp.dev/reference/api-and-sdk) — programmatic access for custom integrations
 
 **If your team also uses Warp’s terminal, you gain an additional workflow:**
 

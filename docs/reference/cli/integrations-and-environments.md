@@ -13,7 +13,9 @@ This article describes the environment and integration setup that is required be
 * Trigger Warp agents using Slack or Linear
 
 {% hint style="info" %}
-**You only need to complete this setup once per Warp team**. After an integration exists, anyone on the team can use it. For example, the first time a teammate triggers an agent from Slack or Linear, they’ll be prompted to authorize GitHub with their own account in order for the agent to write back to repos.
+**You only need to complete this setup once per Warp team**. After an integration exists, anyone on the team can use it. For example, the first time a teammate triggers an agent from Slack or Linear, they'll be prompted to authorize GitHub with their own account in order for the agent to write back to repos.
+
+Note: While cloud agents can be run individually via CLI without a team, integrations (Slack, Linear) require team membership.
 {% endhint %}
 
 {% hint style="info" %}
@@ -26,7 +28,7 @@ Warp integrations connect external tools, like Slack or Linear, to agents that r
 
 There are three main components to know:
 
-* **Triggers** provide the context that tells Warp _what_ to run. A trigger could be a Slack message where you tag @Warp, or a Linear issue or comment.
+* **Triggers** provide the context that tells Warp _what_ to run. A trigger could be a Slack message where you tag @Oz, or a Linear issue or comment.
 * [**Integrations**](https://docs.warp.dev/agent-platform/cloud-agents/integrations) are what connect the trigger surface (Slack, Linear) to Warp. An integration links the trigger to your [Warp team](https://docs.warp.dev/knowledge-and-collaboration/teams) and handles posting results to the original tool, for example, replying in Slack.
 * **Environments** define how and where agents run your code. When an agent is triggered, Warp uses the environment to spin up a container, clone repositories, and execute the agent's workflow.
 
@@ -118,7 +120,7 @@ If you already know how you want to configure your environment, you can create i
 From Warp:
 
 ```sh
-warp environment create \
+oz environment create \
   --name <name> \
   --docker-image <image> \
   --repo <owner/repo> \
@@ -134,7 +136,7 @@ Key flags:
 * `--repo` – can be repeated for each repo.
 * `--setup-command` – can be repeated; commands run in the order provided.
 
-You can inspect existing environments with `warp environment list` .
+You can inspect existing environments with `oz environment list` .
 
 For more details about environment configuration, see the [Slack](https://docs.warp.dev/agent-platform/cloud-agents/integrations/slack) and [Linear](https://docs.warp.dev/agent-platform/cloud-agents/integrations/linear) articles.
 
@@ -175,12 +177,18 @@ You typically only need to handle this once per team, unless your repo access ch
 
 ## Step 3: Setting up an integration
 
-Once you have set up at least one environment, you can create integrations that connect it to Slack or Linear. For example, run the following command where `<ENV_ID>` is your environment ID:
+Once you have set up at least one environment, you can create integrations that connect it to Slack or Linear.
+
+{% hint style="info" %}
+For easier setup, use the [Oz web app](https://oz.warp.dev) to configure integrations with a guided flow.
+{% endhint %}
+
+Alternatively, use the CLI where `<ENV_ID>` is your environment ID:
 
 ```bash
-warp integration create slack --environment <ENV_ID>
+oz integration create slack --environment <ENV_ID>
 # or
-warp integration create linear --environment <ENV_ID>
+oz integration create linear --environment <ENV_ID>
 ```
 
 {% hint style="info" %}
@@ -196,7 +204,7 @@ The CLI then:
 Optionally, you can attach a custom prompt that is applied to all runs for that integration:
 
 ```bash
-warp integration create slack \
+oz integration create slack \
   --environment <ENV_ID> \
   --prompt "Always prefix PR titles with [WARP-AGENT] and add detailed test steps."
 ```
@@ -239,6 +247,6 @@ You now have everything needed to trigger Warp agents from your team’s tools. 
 **Additional reading**
 
 * [Cloud Agents Overview](https://docs.warp.dev/agent-platform/cloud-agents/cloud-agents-overview)
-* [Cloud Agents Platform](https://docs.warp.dev/agent-platform/cloud-agents/platform)
+* [Oz Platform](https://docs.warp.dev/agent-platform/cloud-agents/platform)
 * [Slack](https://docs.warp.dev/agent-platform/cloud-agents/integrations/slack), [Linear](https://docs.warp.dev/agent-platform/cloud-agents/integrations/linear), and [GitHub Actions](https://docs.warp.dev/agent-platform/cloud-agents/integrations/github-actions/README) integrations
 * [Troubleshooting](troubleshooting.md)

@@ -1,59 +1,111 @@
 ---
-description: >-
-  Warp's agents are capable collaborators that help you write code, debug
+description: >
+  Warp's Oz agents are capable collaborators that help you write code, debug
   issues, and complete terminal workflows -- all from natural language prompts.
 ---
 
 # Agents in Warp
 
-Describe what you want to do (_you can even use your voice_), and Warp’s agents will intelligently take action using your environment, codebase, and saved context to tailor their responses.
+Warp includes Oz agents—coding agents designed to help you build, test, deploy, and debug while keeping you in control. Describe what you want to do in natural language (_you can even use your voice_), and Oz will take action using your environment, codebase, and saved context.
 
-**Agents can:**
+## What Oz agents can do
 
-1. Write and edit code across single or multiple files.
-2. Fix errors based on output or stack traces.
-3. Execute shell commands and use the output to guide next steps
-4. Automatically recover from common errors and retry with adjustments.
-5. Learn and integrate with any tool that offers public docs or `--help`.
-6. Leverage your saved [Warp Drive](https://docs.warp.dev/knowledge-and-collaboration/warp-drive) contents, [MCP servers](../capabilities/mcp.md), and [Rules](../capabilities/rules.md) to provide tailored responses.
+Oz agents understand your codebase and can execute tasks autonomously while keeping you in control:
 
-**Give this prompt a try —** [_open the below Prompt in Warp_](https://app.warp.dev/drive/prompt/Clone-and-install-Warps-themes-repository-PkK9Zw16SCD3JKzOUoGuj4)
+* **Write and edit code** - Create new files, refactor existing code, or make changes across multiple files in your codebase
+* **Debug and fix errors** - Analyze stack traces, interpret error output, and apply fixes
+* **Run commands** - Execute shell commands and use the output to guide next steps
+* **Recover from errors** - Automatically retry failed operations with adjustments
+* **Learn tools** - Integrate with any CLI tool by reading its `--help` or public documentation
+* **Use your context** - Leverage [Warp Drive](https://docs.warp.dev/warp/knowledge-and-collaboration/warp-drive), [MCP servers](../capabilities/mcp.md), [Rules](../capabilities/rules.md), and [codebase indexing](../capabilities/codebase-context.md) for tailored responses
+
+**Try this prompt** — [_open in Warp_](https://app.warp.dev/drive/prompt/Clone-and-install-Warps-themes-repository-PkK9Zw16SCD3JKzOUoGuj4)
 
 {% code overflow="wrap" %}
 ```markup
 Detect my current operating system. Based on that, navigate to the appropriate Warp themes directory (e.g. ~/.warp/ on macOS). 
 
-Then, clone the official Warp themes repository using SSH (git@github.com:warpdotdev/themes.git) into that directory, following the structure and instructions provided in the repo’s README. If SSH does not work, try HTTPS (https://github.com/warpdotdev/themes.git) or via the GitHub CLI (gh repo clone warpdotdev/themes).
+Then, clone the official Warp themes repository using SSH (git@github.com:warpdotdev/themes.git) into that directory, following the structure and instructions provided in the repo's README. If SSH does not work, try HTTPS (https://github.com/warpdotdev/themes.git) or via the GitHub CLI (gh repo clone warpdotdev/themes).
 ```
 {% endcode %}
 
-### Agent Autonomy
+***
 
-Under `Settings > AI > Agents > Permissions`, you can control how much autonomy the agent has when performing different types of actions, such as:
+## Agent autonomy
+
+Under `Settings > AI > Agents > Permissions`, you can control how much autonomy the agent has when performing different types of actions:
 
 * Reading files
 * Creating plans
 * Executing commands
-* Calling MCP servers, and more
+* Calling MCP servers
 
-For each action, you can set the autonomy level to one of the following:
+For each action, set the autonomy level to:
 
-* Let the agent decide
-* Always prompt for confirmation
-* Always allow
-* Never
+* **Let the agent decide** - The agent chooses when to ask for confirmation
+* **Always prompt for confirmation** - Require approval before each action
+* **Always allow** - Execute without prompting
+* **Never** - Disable this action entirely
 
 You can also configure an **allowlist** and **denylist** for specific commands you always want to run—either with or without confirmation.
 
-### Agent Profiles
+***
 
-Define profiles in `Settings > AI` with unique permissions and model choices. You can switch profiles at any time by clicking the "profile" icon in Warp's input area. In addition to your default permissions, you may create:
+## Agent profiles
 
-* YOLO mode: Loose permissions for using in personal projects
-* Prod mode: Limit AI permissions to "Always Ask" when in high-risk environments like your production server
+Profiles let you define different permission and model configurations for different contexts. Create and manage profiles in `Settings > AI`, then switch between them by clicking the profile icon in Warp's input area.
 
-### Managing multiple agents
+Common profile patterns:
 
-You can run multiple agents in Warp simultaneously, monitor their status, and step in when needed—without losing track of what’s happening across your sessions. All of your active agents are tracked in the [management view](../cloud-agents/managing-cloud-agents.md).
+* **Default** - Balanced permissions for everyday use
+* **YOLO mode** - Loose permissions for personal projects where you want the agent to move fast
+* **Prod mode** - Restrictive permissions ("Always Ask") for high-risk environments like production servers
 
-Agents will also notify you when they need input, such as permission to run a command or approval to apply a code diff. This lets you focus on other work, knowing you’ll be alerted when your attention is required.
+For more details, see [Agent Profiles & Permissions](../capabilities/agent-profiles-permissions.md).
+
+***
+
+## Managing agents
+
+You can run multiple Oz agents simultaneously in Warp. All active agents—both local conversations and cloud agent runs—are tracked in the [management view](../cloud-agents/managing-cloud-agents.md).
+
+Agents notify you when they need input, such as permission to run a command or approval to apply a code diff. This lets you focus on other work, knowing you'll be alerted when your attention is required.
+
+To access conversations across devices, share them with teammates, or restore past conversations, enable [cloud-synced conversations](../local-agents/cloud-conversations.md).
+
+***
+
+## Context and knowledge
+
+Oz agents work best when they understand your codebase and workflows. Warp provides several ways to give agents the context they need:
+
+* [**Codebase Context**](../capabilities/codebase-context.md) - Warp indexes your Git-tracked files so agents can search and understand your code
+* [**Rules**](../capabilities/rules.md) - Define global and project-level guidelines that shape agent behavior
+* [**Skills**](../capabilities/skills.md) - Reusable instructions that teach agents how to perform specific tasks
+* [**MCP Servers**](../capabilities/mcp.md) - Connect external tools and data sources (GitHub, Linear, databases) to your agents
+* [**Warp Drive**](https://docs.warp.dev/warp/knowledge-and-collaboration/warp-drive) - Save prompts, workflows, and notebooks that agents can reference
+
+***
+
+## From local to cloud
+
+The same Oz agent capabilities that power interactive conversations in Warp also run in the cloud. Cloud agents can:
+
+* React to events from Slack, Linear, or GitHub
+* Run on schedules for recurring tasks like dependency updates
+* Execute in parallel across repos or tasks
+* Produce tracked, auditable, shareable runs
+
+Cloud agents are ideal for work that doesn't need your immediate attention—PR reviews, issue triage, routine maintenance, and integration-driven workflows.
+
+→ [Learn about Cloud Agents](../cloud-agents/cloud-agents-overview.md)
+
+***
+
+## Resources
+
+* [**Oz web app**](https://oz.warp.dev) - Create runs, manage schedules, browse skills, and configure integrations
+* [**Local Agents Overview**](../local-agents/agents-overview.md) - Detailed guide to working with agents in Warp
+* [**Capabilities**](../capabilities/README.md) - All agent capabilities: planning, task lists, model choice, and more
+* [**Oz CLI**](https://docs.warp.dev/reference/cli) - Run agents from the command line
+* [**Oz Agent API & SDK**](https://docs.warp.dev/reference/api-and-sdk/agent) - Programmatic access to agent runs

@@ -1,0 +1,86 @@
+---
+description: >-
+  AI-integrated objects in Warp Drive help agents understand your workflows,
+  preferences, and tools. Access Rules, MCP Servers, and more from the Warp
+  Drive panel.
+---
+
+# AI-Integrated Objects
+
+Warp Drive includes several object types that integrate with Warp's agents to provide personalized, context-aware assistance. These objects help agents understand your coding standards, connect to external tools, and follow your preferred workflows.
+
+## Rules
+
+Rules are reusable guidelines that inform how agents respond to your prompts. They help tailor responses to match your coding standards, project conventions, and personal preferences.
+
+**Access from Warp Drive:** `Personal > Rules`
+
+Warp supports two types of rules:
+
+* **Global Rules** - Apply across all projects and contexts
+* **Project Rules** - Live in your codebase (as `AGENTS.md` or `WARP.md` files) and apply automatically when working within that project
+
+{% hint style="info" %}
+For complete documentation on creating and managing rules, see [Rules](https://docs.warp.dev/agent-platform/capabilities/rules).
+{% endhint %}
+
+## MCP Servers
+
+MCP (Model Context Protocol) servers extend Warp's agents with custom tools and data sources through a standardized interface. They act as plugins that let agents access external services like GitHub, Sentry, Linear, Slack, and more.
+
+**Access from Warp Drive:** `Personal > MCP Servers`
+
+MCP servers can be:
+
+* **CLI-based** - Local commands that Warp launches and manages
+* **URL-based** - Remote endpoints using Streamable HTTP or SSE
+
+{% hint style="info" %}
+For complete documentation on configuring and using MCP servers, see [Model Context Protocol (MCP)](https://docs.warp.dev/agent-platform/capabilities/mcp).
+{% endhint %}
+
+## Skills
+
+Skills are reusable instruction sets that teach agents how to perform specific tasks. Unlike Rules (which provide guidelines), Skills define complete workflows that agents can invoke when relevant.
+
+Skills are file-based (stored as `SKILL.md` files in your project or home directory) rather than cloud-synced objects, but they integrate closely with Warp Drive workflows.
+
+* **Project Skills** - Live in `.agents/skills/`, `.warp/skills/`, or similar directories in your repository
+* **Global Skills** - Live in `~/.agents/skills/` or similar directories in your home folder
+
+{% hint style="info" %}
+For complete documentation on creating and using skills, see [Skills](https://docs.warp.dev/agent-platform/capabilities/skills).
+{% endhint %}
+
+## Prompts
+
+Prompts are parameterized natural language queries you can save and reuse with Agent Mode. They allow you to save complex AI workflows and execute them quickly from the Command Palette.
+
+**Access from Warp Drive:** Click `+` and select "Prompt", or browse existing prompts in your personal or team workspace.
+
+{% hint style="info" %}
+For complete documentation on Prompts, see [Prompts](prompts.md).
+{% endhint %}
+
+## How agents use these objects
+
+When you start an agent conversation, Warp automatically provides relevant context from your Warp Drive objects:
+
+* **Rules** guide agent behavior and responses based on your preferences
+* **MCP Servers** give agents access to external tools and data sources
+* **Skills** provide task-specific instructions agents can invoke
+* **Prompts** let you trigger predefined workflows quickly
+
+When an object is used as context, it appears in the conversation under "References" or "Derived from."
+
+{% hint style="info" %}
+For more details on how Warp Drive content serves as agent context, see [Warp Drive as Agent Mode Context](warp-drive-as-agent-mode-context.md).
+{% endhint %}
+
+## Related
+
+* [Rules](https://docs.warp.dev/agent-platform/capabilities/rules) - Create guidelines for agent behavior
+* [MCP Servers](https://docs.warp.dev/agent-platform/capabilities/mcp) - Connect external tools and data sources
+* [Skills](https://docs.warp.dev/agent-platform/capabilities/skills) - Define reusable task workflows
+* [Prompts](prompts.md) - Save and reuse parameterized agent prompts
+* [Agent Profiles & Permissions](https://docs.warp.dev/agent-platform/capabilities/agent-profiles-permissions) - Control agent autonomy and tool access

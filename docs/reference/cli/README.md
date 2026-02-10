@@ -2,21 +2,21 @@
 description: Use Warp Agents from the terminal.
 ---
 
-# Warp CLI
+# Oz CLI
 
 {% hint style="info" %}
-The Warp CLI is under development and only supports some operations. \
+The Oz CLI is under development and only supports some operations.
 \
 We welcome [feedback](https://docs.warp.dev/support-and-community/troubleshooting-and-support/sending-us-feedback#sending-warp-feedback) on how you're building with the CLI and on any missing functionality!
 {% endhint %}
 
-## What is the Warp CLI?
+## What is the Oz CLI?
 
-The Warp CLI is the command-line tool that lets you run [Cloud Agents](https://docs.warp.dev/agent-platform/cloud-agents/cloud-agents-overview) from anywhere, including terminals, scripts, automated systems, or services.
+The Oz CLI is the command-line tool that lets you run [Cloud Agents](https://docs.warp.dev/agent-platform/cloud-agents/cloud-agents-overview) from anywhere, including terminals, scripts, automated systems, or services.
 
-It’s the standard runtime entry point that turns a **prompt** plus **configuration** into an **executable agent task** that runs on either a **Warp-hosted or self-hosted runner**.&#x20;
+It's the standard runtime entry point that turns a **prompt** plus **configuration** into an **executable agent task** that runs on either a **Warp-hosted or self-hosted runner**.&#x20;
 
-With the Warp CLI, you can:
+With the Oz CLI, you can:
 
 * Run agents locally for development and debugging
 * Run agents on remote machines
@@ -35,12 +35,12 @@ If not, see [Installing the CLI](#installing-the-cli) for installation options f
 
 ### 2. Authenticate
 
-For local development and first-time setup, authenticate interactively using the `warp login` command. Replace `warp` with the appropriate command name based on your installation method. For command names, refer to the table in [Running the CLI](#running-the-cli).
+For local development and first-time setup, authenticate interactively using the `oz login` command. Use the appropriate command name based on your installation method. For command names, refer to the table in [Running the CLI](#running-the-cli).
 
 **For example, on macOS:**
 
 ```sh
-warp login
+oz login
 ```
 
 This command prints a sign-in URL in your terminal. Open the URL in your browser to login to Warp. Your credentials will be stored securely for future CLI use.
@@ -52,7 +52,7 @@ Interactive login works on both **local** and **remote** machines, and does not 
 From any directory, run:
 
 ```sh
-warp agent run --prompt "summarize this directory"
+oz agent run --prompt "summarize this directory"
 ```
 
 This uses the default agent profile, loads any available MCP servers, and executes the run locally. The output appears directly in your terminal.
@@ -65,24 +65,24 @@ What happens:
 
 ### 4. Add GitHub context (optional)
 
-If the directory is a Git repository, the Warp CLI can use GitHub as an MCP server:
+If the directory is a Git repository, the Oz CLI can use GitHub as an MCP server:
 
 ```sh
-warp mcp add github
-warp agent run --prompt "Open a pull request that fixes TODOs in this repo"
+oz mcp add github
+oz agent run --prompt "Open a pull request that fixes TODOs in this repo"
 ```
 
 You'll be prompted to authorize the Warp GitHub App if you haven't already.
 
 ### 5. Next steps
 
-Once you've successfully set up and ran your agent, explore other configurations and workflows with the Warp CLI:
+Once you've successfully set up and ran your agent, explore other configurations and workflows with the Oz CLI:
 
 * Customize behavior with [agent profiles.](./#using-agent-profiles)
 * [Reuse prompts](./#using-saved-prompts) with `--saved-prompt`.
 * Connect agents to external systems [using MCP servers](./#using-mcp-servers).
-* Authenticate with [API keys](./#api-key-authentication) for automated environments or workflows.
-* Get up-to-date information about the Warp CLI using the [`help` command.](./#getting-help)
+* Authenticate with [API keys](api-keys.md) for automated environments or workflows.
+* Get up-to-date information about the Oz CLI using the [`help` command.](./#getting-help)
 
 Continue reading to learn how to install the CLI on different platforms, authenticate in different environments, and configure agents for real-world workflows.
 
@@ -90,18 +90,18 @@ Continue reading to learn how to install the CLI on different platforms, authent
 
 ## Installing the CLI
 
-You can install the Warp CLI as part of the Warp desktop app, or as a standalone package.&#x20;
+You can install the Oz CLI as part of the Warp desktop app, or as a standalone package.&#x20;
 
 ### Bundled with Warp
 
-The Warp CLI is automatically distributed with the Warp desktop app and can be used right away with the Warp terminal. To make the CLI globally available, add it your `PATH`.
+The Oz CLI is automatically distributed with the Warp desktop app and can be used right away with the Warp terminal. To make the CLI globally available, add it your `PATH`.
 
 {% tabs %}
 {% tab title="macOS" %}
-To add the Warp CLI to your `PATH`,:
+To add the Oz CLI to your `PATH`,:
 
 1. Open the [Command Palette](https://docs.warp.dev/terminal/command-palette) (`CMD+P` )&#x20;
-2. In the search field, find and select the `Install Warp CLI Command` action.&#x20;
+2. In the search field, find and select the `Install Oz CLI Command` action.
 
 {% hint style="info" %}
 **Note:** Administrator permissions are required to install the CLI into `/usr/local/bin` .
@@ -113,7 +113,7 @@ In the Warp installer, select `Add Warp to PATH`. If you are installing for all 
 {% endtab %}
 
 {% tab title="Linux" %}
-To run the Warp CLI on Linux, use the same command that you'd use to start Warp normally. If you installed Warp via a package manager, it should already be on the system `PATH`.
+To run the Oz CLI on Linux, use the same command that you'd use to start Warp normally. If you installed Warp via a package manager, it should already be on the system `PATH`.
 {% endtab %}
 {% endtabs %}
 
@@ -175,23 +175,35 @@ You can also install the CLI by downloading a package directly. These installers
 * x86-64: [`.deb`](https://app.warp.dev/download/cli?os=linux\&package=deb\&arch=x86_64), [`.rpm`](https://app.warp.dev/download/cli?os=linux\&package=rpm\&arch=x86_64), [pacman](https://app.warp.dev/download/cli?os=linux\&package=pacman\&arch=x86_64)
 * aarch64: [`.deb`](https://app.warp.dev/download/cli?os=linux\&package=deb\&arch=aarch64), [`.rpm`](https://app.warp.dev/download/cli?os=linux\&package=rpm\&arch=aarch64), [pacman](https://app.warp.dev/download/cli?os=linux\&package=pacman\&arch=aarch64)
 {% endtab %}
+
+{% tab title="Windows" %}
+A standalone CLI package is not currently available on Windows. To use the Oz CLI on Windows, install the Warp app, which bundles the CLI.
+
+You can install Warp using [WinGet](https://learn.microsoft.com/en-us/windows/package-manager/winget/):
+
+```powershell
+winget install Warp.Warp
+```
+
+After installation, see [Bundled with Warp](#bundled-with-warp) for instructions on adding the CLI to your `PATH`.
+{% endtab %}
 {% endtabs %}
 
 ## Running the CLI
 
-The command to run the Warp CLI depends on your OS, whether you installed the CLI as part of Warp or as a standalone package, and whether you're using the stable build or [Warp Preview](https://docs.warp.dev/support-and-community/community/warp-preview-and-alpha-program).
+The command to run the Oz CLI depends on your OS, whether you installed the CLI as part of Warp or as a standalone package, and whether you're using the stable build or [Warp Preview](https://docs.warp.dev/support-and-community/community/warp-preview-and-alpha-program).
 
-| OS      | Installation Method | CLI Command     | CLI Command (Preview)   |
-| ------- | ------------------- | --------------- | ----------------------- |
-| macOS   | Standalone          | `warp`          | `warp-preview`          |
-| macOS   | Bundled             | `warp`          | `warp-preview`          |
-| Linux   | Standalone          | `warp-cli`      | `warp-cli-preview`      |
-| Linux   | Bundled             | `warp-terminal` | `warp-terminal-preview` |
-| Windows | Bundled             | `warp`          | `warp-preview`          |
+| OS      | Installation Method | CLI Command | CLI Command (Preview) |
+| ------- | ------------------- | ----------- | --------------------- |
+| macOS   | Standalone          | `oz`        | `oz-preview`          |
+| macOS   | Bundled             | `oz`        | `oz-preview`          |
+| Linux   | Standalone          | `oz-cli`    | `oz-cli-preview`      |
+| Linux   | Bundled             | `oz`        | `oz-preview`          |
+| Windows | Bundled             | `oz`        | `oz-preview`          |
 
 ## Logging in
 
-The Warp CLI supports two authentication methods, depending on where and how you’re running agents.
+The Oz CLI supports two authentication methods, depending on where and how you're running agents.
 
 * **Interactive login —** best for local machines where you have Warp installed and can authenticate through a browser.
 * **API keys** — best for automated or remote environments that need to authenticate without human interaction.
@@ -205,10 +217,10 @@ If you use the CLI on a host where you're already signed in to Warp, it automati
 To authenticate interactively:
 
 ```bash
-warp login
+oz login
 ```
 
-Replace `warp` with the appropriate command name for your installation method according ot the table in [Running the CLI](./#running-the-cli).
+Replace `oz` with the appropriate command name for your installation method according to the table in [Running the CLI](./#running-the-cli).
 
 The CLI prints out a URL that you can open in any browser to login to Warp.
 
@@ -216,73 +228,41 @@ The CLI prints out a URL that you can open in any browser to login to Warp.
 
 Use an API key when the environment must authenticate on its own, such as CI pipelines, headless servers, VMs, Codespaces, or containers. API keys let the CLI authenticate non-interactively.
 
-#### Generating API keys
+For detailed instructions on creating, managing, and using API keys, see [API Keys](api-keys.md).
 
-You can create an API key from your settings in Warp:
-
-1. Click your profile photo in the top-right corner, then click **Settings.**&#x20;
-2. In the sidebar, click **Platform**.
-3. In the API Keys section, click **+ Create API Key.**
-4. Name the key and choose an expiration.
-5. Select the key type:
-   * **Personal** - Tied to your individual Warp account
-   * **Team** - Tied to your team, not any individual user
-6. Click **Create key**.
-
-<figure><img src="../.gitbook/assets/api-key-management.png" alt=""><figcaption><p>API key management interface in Warp settings</p></figcaption></figure>
-
-#### Personal vs team API keys
-
-Warp supports two types of API keys, each with different billing and identity behavior:
-
-* **Personal API keys** - Cloud agent runs authenticate as you. These runs can use your personal base credits before drawing from team add-on credits, just like running an agent from the Warp app or triggering one via Slack or Linear.
-* **Team API keys** - Cloud agent runs are not tied to any individual user. These runs can only draw from your team's pool of add-on credits—they cannot use any individual's base credits.
-
-Team API keys are useful for fully automated workflows, CI/CD pipelines, and scheduled tasks where no specific user context is needed. For billing details, see [Team access, billing, and identity permissions](https://docs.warp.dev/agent-platform/cloud-agents/team-access-billing-and-identity).
-
-#### Authenticating with API keys
-
-You can authenticate with an API key in the CLI using either an environment variable or command flag. We recommend environment variables for security and easier reuse across multiple commands.
-
-**Via environment variable (recommended):**
+**Quick start:**
 
 ```sh
 $ export WARP_API_KEY="wk-xxx..."
-$ warp agent run --prompt "analyze this codebase"
-```
-
-**Via command flag:**
-
-```sh
-$ warp agent run --api-key "wk-xxx..." --prompt "analyze this codebase"
+$ oz agent run --prompt "analyze this codebase"
 ```
 
 ***
 
 ## Running agents
 
-The Warp CLI offers two ways to run agents, depending on where you want the work to happen:
+The Oz CLI offers two ways to run agents, depending on where you want the work to happen:
 
-**Use `warp agent run` when:**
+**Use `oz agent run` when:**
 
 * You're developing locally and want immediate feedback
 * You need the agent to work with files in your current directory
 * You want to inspect and modify the agent's work in real time
 * You're debugging or iterating on prompts
 
-**Use `warp agent run-ambient` when:**
+**Use `oz agent run-cloud` when:**
 
 * You want the agent to run on a remote machine or standardized environment
 * You're triggering agent work from CI/CD or automated systems
 * You need the agent to run independently of your local session
 * You're delegating work that doesn't require your immediate attention
 
-### Running locally: \`warp agent run\`
+### Running locally: \`oz agent run\`
 
-To start a Warp agent, use the `warp agent run` subcommand. You'll need to specify a prompt and, optionally, the [MCP servers](https://docs.warp.dev/knowledge-and-collaboration/mcp) and [agent profile](https://docs.warp.dev/agent-platform/capabilities/agent-profiles-permissions) to use.
+To start a Warp agent, use the `oz agent run` subcommand. You'll need to specify a prompt and, optionally, the [MCP servers](https://docs.warp.dev/knowledge-and-collaboration/mcp) and [agent profile](https://docs.warp.dev/agent-platform/capabilities/agent-profiles-permissions) to use.
 
 ```sh
-warp agent run --prompt "set up a new Rust crate named warp-cli"
+oz agent run --prompt "set up a new Rust crate named warp-cli"
 I'll run a few terminal commands to:
 - Check if this is a Git repo and Cargo workspace
 - Create a new binary crate named warp-cli
@@ -293,21 +273,23 @@ I'll run a few terminal commands to:
 * `--cwd <PATH>` — run from a different directory.
 * `--share` — share the session with teammates (see [Collaboration](./#collaboration)).
 * `--profile <ID>` — use a specific agent profile (see [Using Agent Profiles](./#using-agent-profiles)).
+* `--model <MODEL_ID>` — override the default model (see [Model Choice](https://docs.warp.dev/agent-platform/capabilities/model-choice)).
+* `--skill <SPEC>` — use a skill as the base prompt (see [Using Skills](./#using-skills)).
 
 The agent will automatically carry out the task you gave it, printing out tool calls and responses as it works.&#x20;
 
 By default, the agent runs in your current working directory. To run from a different directory, use the `-C/--cwd` flag.&#x20;
 
-### Running agents remotely: \`warp agent run-ambient\`
+### Running agents remotely: \`oz agent run-cloud\`
 
-Ambient runs dispatch tasks to remote environments. Use ambient runs for:
+Cloud runs dispatch tasks to remote environments. Use cloud runs for:
 
 * Background processing
 * Standardized team configurations
 * Remote execution on servers you don't directly access
 
 ```sh
-warp agent run-ambient \
+oz agent run-cloud \
   --environment SVhg783GBFQHk1OfdPfFU9 \
   --name "Repo summary" \
   --prompt "Summarize this repo and list the top 5 risky areas" \
@@ -316,16 +298,18 @@ warp agent run-ambient \
 
 **Key flags**
 
-* `--environment <ENVIRONMENT_ID> (-e)` — select the environment to run in (this is the main knob that makes the run “ambient”).
-* `--open` — view the agent’s session in Warp once it’s available.
+* `--environment <ENVIRONMENT_ID> (-e)` — select the environment to run in (this is the main knob that makes the run execute in the cloud).
+* `--open` — view the agent's session in Warp once it's available.
 * `--name <NAME>` — name the task (useful for identifying it later).
 * `--profile <PROFILE_ID>` — select an execution profile (defaults if omitted).
 * `--mcp <SPEC>` — start one or more MCP servers before execution (UUID, JSON file path, or inline JSON).
+* `--model <MODEL_ID>` — override the default model.
+* `--skill <SPEC>` — use a skill from the environment's repository as the base prompt (see [Using Skills](./#using-skills)).
 
 **Key differences from `run`**
 
 * No `--cwd` — the environment determines the working directory.
-* No `--share` — sharing options are on `run`, not `run-ambient.`
+* No `--share` — sharing options are on `run`, not `run-cloud`.
 
 **When ambient runs fail**
 
@@ -350,7 +334,7 @@ https://staging.warp.dev/drive/prompt/Fix-compiler-error-sgNpbUgDkmp2IImUVDc8kR
 You can reference [saved prompts](https://docs.warp.dev) using the `--saved-prompt` flag:
 
 ```bash
-$ warp agent run --saved-prompt sgNpbUgDkmp2IImUVDc8kR
+$ oz agent run --saved-prompt sgNpbUgDkmp2IImUVDc8kR
 ...
 ```
 
@@ -359,7 +343,7 @@ $ warp agent run --saved-prompt sgNpbUgDkmp2IImUVDc8kR
 Use `<workflow:id>`, `<notebook:id>`, or `<rule:id>` in prompts to reference [Warp Drive objects](https://docs.warp.dev/knowledge-and-collaboration/warp-drive) and [rules](https://docs.warp.dev/knowledge-and-collaboration/rules) as attached context. To quickly create these references, use the [@ context menu](https://docs.warp.dev/agent-platform/local-agents/agent-context/using-to-add-context) in Warp to construct a prompt, and then copy it into your CLI command.
 
 ```
-$ warp agent run --prompt "Follow the instructions in <notebook:gq1CMAUWLtaL1CpEoTDQ3y>"
+$ oz agent run --prompt "Follow the instructions in <notebook:gq1CMAUWLtaL1CpEoTDQ3y>"
 ...
 ```
 
@@ -383,10 +367,10 @@ Agent profiles are automatically synced to each host that you have Warp installe
 The default profile for CLI usage is broadly permissive and gives the agent the ability to read/write files, apply code diffs, and execute commands (with a default denylist). The agent does not have the ability to use MCP servers by default.
 {% endhint %}
 
-To use an agent profile with the CLI, first find the profile ID using the `warp agent profile list` command:
+To use an agent profile with the CLI, first find the profile ID using the `oz agent profile list` command:
 
 ```sh
-$ warp agent profile list
+$ oz agent profile list
 +--------------+------------------------+
 | Name         | ID                     |
 +=======================================+
@@ -401,7 +385,7 @@ $ warp agent profile list
 Then, select that profile using the `--profile` flag:
 
 ```sh
-$ warp agent run --profile CWhozDJPdPCsjJ1pSG0HCN --prompt "update my CI pipeline to use nextest"
+$ oz agent run --profile CWhozDJPdPCsjJ1pSG0HCN --prompt "update my CI pipeline to use nextest"
 ...
 ```
 
@@ -418,10 +402,10 @@ There are two ways to start MCP servers with the agent:
 1. If the selected agent profile allows _specific_ MCP servers, they will start automatically.
 2. If the selected agent profile allows _any_ MCP server, you must specify the ones to start using the `--mcp-server` flag.
 
-To start specific MCP servers, first get the MCP server ID using  `warp mcp list`:
+To start specific MCP servers, first get the MCP server ID using  `oz mcp list`:
 
 ```sh
-$ warp mcp list
+$ oz mcp list
 +--------------------------------------+--------+
 | UUID                                 | Name   |
 +===============================================+
@@ -443,7 +427,7 @@ Alternatively, you can copy the server ID from the MCP servers page in Warp:
 Next, use `--mcp-server` to start the server:
 
 ```sh
-$ warp agent run --mcp-server "1deb1b14-b6e5-4996-ae99-233b7555d2d0" --prompt "who last updated the README?"
+$ oz agent run --mcp-server "1deb1b14-b6e5-4996-ae99-233b7555d2d0" --prompt "who last updated the README?"
 ...
 ```
 
@@ -453,13 +437,68 @@ While Warp syncs MCP server configuration between hosts, it **does not** sync en
 
 ```sh
 export MY_MCP_SERVER_ACCESS_TOKEN="..."
-$ warp agent run --mcp-server "904a8936-fa82-4571-b1d6-166c26197981" --prompt "use my MCP server to check for errors"
+$ oz agent run --mcp-server "904a8936-fa82-4571-b1d6-166c26197981" --prompt "use my MCP server to check for errors"
 ...
 ```
 
 {% hint style="info" %}
 Tip: consider using a password or secret manager CLI, such as [`op`](https://developer.1password.com/docs/cli/get-started/), [`pass`](https://www.passwordstore.org/), or [`gcloud secrets versions access`](https://cloud.google.com/secret-manager/docs/create-secret-quickstart#secretmanager-quickstart-gcloud) to fetch MCP secrets on remote hosts.
 {% endhint %}
+
+## Using Skills
+
+[Skills](https://docs.warp.dev/agent-platform/capabilities/skills) are reusable instruction sets that teach agents how to perform specific tasks. You can use skills from repositories in your environment with the `--skill` flag.
+
+### Skill spec format
+
+The `--skill` flag accepts a skill specification that identifies which skill to use:
+
+```sh
+# Fully qualified format (recommended)
+oz agent run-cloud -e <ENV_ID> --skill "owner/repo:skill-name" --prompt "deploy to staging"
+
+# With full path
+oz agent run-cloud -e <ENV_ID> --skill "warpdotdev/warp-server:.warp/skills/deploy/SKILL.md" --prompt "deploy to staging"
+```
+
+Supported formats:
+
+* `owner/repo:skill-name` — skill by name in a specific repository (recommended)
+* `owner/repo:path/to/SKILL.md` — skill by full path in a repository
+* `repo:skill-name` — skill by name (only works when the repo is configured in your environment)
+
+### Using Skills with cloud agents
+
+Skills are particularly useful with cloud agents (`oz agent run-cloud`) because they let you define reusable workflows that run consistently across environments:
+
+```sh
+# Run a deploy skill from a specific repo
+oz agent run-cloud \
+  --environment SVhg783GBFQHk1OfdPfFU9 \
+  --skill "myorg/backend:.warp/skills/deploy/SKILL.md" \
+  --prompt "deploy to staging"
+
+# Run a code review skill
+oz agent run-cloud \
+  --environment SVhg783GBFQHk1OfdPfFU9 \
+  --skill "myorg/backend:code-review" \
+  --prompt "review the latest PR"
+```
+
+{% hint style="info" %}
+When you specify a skill, it provides the base instructions for the agent. The `--prompt` adds additional context or parameters for that specific run.
+{% endhint %}
+
+### Using Skills with local agents
+
+For local agent runs, skills from your current repository are automatically discovered. You can also explicitly specify a skill:
+
+```sh
+# Use a skill from a public or accessible repo
+oz agent run --skill "owner/repo:skill-name" --prompt "additional context"
+```
+
+For more information about creating and managing skills, see [Skills](https://docs.warp.dev/agent-platform/capabilities/skills).
 
 ## Collaboration
 
@@ -469,18 +508,18 @@ By default, the session is only accessible to the user running the CLI, but you 
 
 ```sh
 # Share the agent's session with yourself:
-$ warp agent run --share --prompt "fix the compiler error"
+$ oz agent run --share --prompt "fix the compiler error"
 
 # Give specific users view-only access to a session:
-$ warp agent run --share firstuser@example.com --share otheruser@example.com --prompt "fix the compiler error"
+$ oz agent run --share firstuser@example.com --share otheruser@example.com --prompt "fix the compiler error"
 
 # Let any user on your team edit the session:
-$ warp agent run --share team:edit --prompt "fix the compiler error"
+$ oz agent run --share team:edit --prompt "fix the compiler error"
 ```
 
 The `--share` flag can be repeated, and uses the following syntax:
 
-* `--share user@email.com` or `--share user@email.com:view`i — gives specified user read-only access to the session.&#x20;
+* `--share user@email.com` or `--share user@email.com:view` — gives specified user read-only access to the session.&#x20;
 * `--share user@email.com:edit` — gives specified user `user@email.com` read/write access to the session.
 * `--share team` or `--share team:view` — gives all members of your team read-only access to the session.
 * `--share team:edit` — gives all members of your team read/write access to the session.
@@ -491,13 +530,13 @@ The CLI includes built-in documentation for all commands:
 
 ```bash
 # See all available commands
-warp help
+oz help
 
 # Get details on a specific command
-warp help agent run
+oz help agent run
 
 # Explore MCP-related commands
-warp help mcp
+oz help mcp
 ```
 
 ### Common errors
@@ -506,12 +545,12 @@ warp help mcp
 Verify your installation path and confirm the CLI version:
 
 ```bash
-warp --version
+oz --version
 ```
 
 **Authentication issues**
 
-* Interactive login: ensure you’ve completed the browser-based flow with `warp login`.
+* Interactive login: ensure you’ve completed the browser-based flow with `oz login`.
 * API keys: confirm the key is valid, not expired, and exported correctly (`echo $WARP_API_KEY`).
 
 **Agent or MCP errors**\

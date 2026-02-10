@@ -4,14 +4,16 @@
 
 ## CLI
 
-* [Warp CLI](cli/README.md)
+* [Oz CLI](cli/README.md)
+* [API Keys](cli/api-keys.md)
 * [Integrations and Environments](cli/integrations-and-environments.md)
 * [MCP Servers for Cloud Agents](cli/mcp-servers-for-cloud-agents.md)
 * [Troubleshooting](cli/troubleshooting.md)
 
 ## API & SDK
 
-* ```yaml
+* [Oz Agent API & SDK](api-and-sdk/README.md)
+  * ```yaml
     props:
       models: true
       downloadLink: false

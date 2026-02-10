@@ -1,12 +1,12 @@
 ---
-description: >-
-  Environments ensure your Cloud Agents run with consistent toolchains across
+description: >
+  Environments ensure your cloud agents run with consistent toolchains across
   all triggers. Learn when to use environments and how to configure them.
 ---
 
 # Environments
 
-Environments ensure your [Cloud Agents](cloud-agents-overview.md) run with the same toolchain and setup every time, regardless of where they're triggered from.
+Environments ensure your [cloud agents](cloud-agents-overview.md) run with the same toolchain and setup every time, regardless of where they're triggered from.
 
 An environment defines the execution context for automated agent runs: the **Docker image**, **repositories to clone**, **setup commands**, and **runtime configuration** Warp uses to prepare the workspace before the agent starts.
 
@@ -24,7 +24,7 @@ What environments give you:
 
 ## About environments
 
-Environments define _how_ an agent runs, not _what_ it does. They're required for [Cloud Agents Platform](platform.md) automation (Ambient Agents, integrations, API runs) but are not required for interactive local usage.
+Environments define _how_ an agent runs, not _what_ it does. They're required for [Oz Platform](platform.md) automation (cloud agents, integrations, API runs) but are not required for interactive local usage.
 
 An environment typically includes:
 
@@ -47,9 +47,9 @@ What an environment is not:
 * [MCP](https://docs.warp.dev/reference/cli/mcp-servers-for-cloud-agents) – MCP connects agents to external tools and data.
 * Per-run context – Trigger-specific data like Slack threads, PR metadata, or CI logs attach to individual tasks, not the environment configuration.
 
-## How environments fit into the Warp Platform
+## How environments fit into the Oz Platform
 
-An environment is the runtime layer for automated Warp Platform runs. It defines the container image, repos, and setup steps used when a trigger kicks off an agent task.
+An environment is the runtime layer for automated Oz Platform runs. It defines the container image, repos, and setup steps used when a trigger kicks off an agent task.
 
 Components in the execution flow:
 
@@ -61,7 +61,7 @@ Components in the execution flow:
 6. **Outputs** – The run produces PRs, messages, reports, or transcripts
 
 {% hint style="info" %}
-**Local agent** runs (using `warp agent run`) don’t require an environment. These runs use your current machine’s setup. Environments are required for **automated platform** runs like cloud agents and integrations
+**Local agent** runs (using `oz agent run`) don't require an environment. These runs use your current machine's setup. Environments are required for **automated platform** runs like Oz cloud agents and integrations
 {% endhint %}
 
 ### Hosts and environments
@@ -90,6 +90,8 @@ When you trigger an agent, Warp follows this process:
 
 This process ensures every run starts from the same baseline, making results reproducible and debugging straightforward.
 
+***
+
 ## When to use environments
 
 Use an environment when your run needs a predictable toolchain and repeatable setup, regardless of where it’s triggered from.
@@ -113,7 +115,7 @@ Choose an environment if any of the following apply:
 
 **Example:**
 
-If your team tags @Warp in Slack to fix a failing CI job, an environment ensures every run uses the same Docker image, clones the same repos, and runs the same setup commands.&#x20;
+If your team tags @Oz in Slack to fix a failing CI job, an environment ensures every run uses the same Docker image, clones the same repos, and runs the same setup commands.&#x20;
 
 The fix the agent tests matches what runs in CI and what your teammates see when they review the PR.&#x20;
 
@@ -128,9 +130,15 @@ Make sure you have:
 * One or more GitHub repositories that the agent should clone and work in.
 * A publicly-accessible Docker image that can build and run your code. Official images like [node](https://hub.docker.com/_/node), [python](https://hub.docker.com/_/python), or [rust](https://hub.docker.com/_/rust) work for many projects.
 
+{% hint style="warning" %}
+Musl-based Docker images (such as Alpine Linux) are not supported. The Warp agent runtime requires glibc. Use glibc-based images like Debian, Ubuntu, or the default (non-Alpine) variants of official Docker Hub images.
+{% endhint %}
+
 {% hint style="info" %}
 Create one environment per codebase, then reuse it across triggers like Slack, Linear, and CLI runs.
 {% endhint %}
+
+<figure><img src="../.gitbook/assets/oz-web-app-new-environment.png" alt=""><figcaption><p>Creating a new environment in the Oz Web App.</p></figcaption></figure>
 
 ### Create an environment with guided setup (recommended)
 
@@ -164,7 +172,7 @@ This produces a ready-to-use environment that can immediately be connected to in
 Use the CLI when you already know how you want to configure your environment, you have a custom Docker image you want to use, or when you’re automating environment creation.
 
 ```docker
-warp environment create \
+oz environment create \
   --name <name> \
   --docker-image <image> \
   --repo <owner/repo> \
@@ -183,20 +191,22 @@ Optional flags:
 * `--name` : human-readable label for the environment.
 * `--docker-image` : image name on Docker Hub.
 
+***
+
 ## Managing environments
 
-Once created, you can use the [Warp CLI](https://docs.warp.dev/reference/cli/) to inspect and update environments.
+Once created, you can use the [Oz CLI](https://docs.warp.dev/reference/cli/) to inspect and update environments.
 
 **List environments**
 
 ```sh
-warp environment list
+oz environment list
 ```
 
 **View an environment’s configuration.** Replace \<ENV\_ID> with the ID of the environment you want to view.
 
 ```sh
-warp environment get <ENV_ID>
+oz environment get <ENV_ID>
 ```
 
 **Update an environment**
@@ -205,27 +215,29 @@ Add/remove repos and setup commands without recreating the environment. Replace 
 
 ```sh
 # Add a repo
-warp environment update <ENV_ID> --repo owner/repo
+oz environment update <ENV_ID> --repo owner/repo
 
 # Remove a repo
-warp environment update <ENV_ID> --remove-repo owner/repo
+oz environment update <ENV_ID> --remove-repo owner/repo
 
 # Add a setup command
-warp environment update <ENV_ID> --setup-command "your command"
+oz environment update <ENV_ID> --setup-command "your command"
 
 # Remove a setup command (must match exactly)
-warp environment update <ENV_ID> --remove-setup-command "exact command"
+oz environment update <ENV_ID> --remove-setup-command "exact command"
 ```
 
 **Delete an environment.** Replace \<ENV\_ID> with the ID of the environment you want to delete.
 
 ```sh
-warp environment delete <ENV_ID>
+oz environment delete <ENV_ID>
 ```
 
 {% hint style="info" %}
 For end-to-end setup, see the [Integrations and Environments](https://docs.warp.dev/reference/cli/integrations-and-environments) guide.
 {% endhint %}
+
+***
 
 ## Environment design and best practices
 
@@ -260,5 +272,8 @@ If your setup commands depend on secrets or credentials, configure them through 
   * Solution: Write idempotent setup commands that work on a fresh container.
 * **Missing credentials or secrets** – Builds fail when private repos, package registries, or external services require authorization.
 * Solution: Configure credentials with [Agent Secrets](cloud-agent-secrets.md).
-* **Repo access and GitHub authorization issues** – Runs fail when GitHub doesn’t have repo access or the triggering user lacks permissions.
+* **Repo access and GitHub authorization issues** – Runs fail when GitHub doesn't have repo access or the triggering user lacks permissions.
 * Solution: See [Integrations and Environments](https://docs.warp.dev/reference/cli/integrations-and-environments#how-github-authorization-works) for GitHub authorization setup.
+* **Docker image incompatibility** – You see the error: "VM failed before the agent could run. This is likely an issue with your Docker image."
+  * Possible cause: Alpine Linux and other musl-based images are not compatible with the Warp agent runtime, which requires glibc.
+  * Solution: Switch to a glibc-based image such as Debian, Ubuntu, or the default (non-Alpine) variants of official Docker Hub images (e.g. `node`, `python`, `rust`).

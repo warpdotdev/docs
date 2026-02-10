@@ -29,6 +29,8 @@ Once a plan is generated, you can review it, reorganize steps, or refine details
 
 Any updates made by the agent **creates a new version**. Version history lets you compare past iterations and restore an older version if you want to revert your approach, preserving a clear decision trail as the plan evolves.
 
+<figure><img src="../.gitbook/assets/agent-plans-versioning.png" alt=""><figcaption><p>Access previous versions of your plan.</p></figcaption></figure>
+
 ### Executing a Plan
 
 When you’re ready to start implementing, prompt the agent to run the plan. You can ask it to execute the full set of steps or only a specific section, such as “Implement phase 1 of the plan.”
@@ -45,19 +47,23 @@ If you revise the plan while the agent is running, you can notify it directly; t
 
 While the agent is running, you can reopen the plan at any time by selecting **View plan** in the [Universal Input](https://docs.warp.dev/terminal/universal-input/). You can also follow each change in real time through the [Code Review](https://docs.warp.dev/code/code-review/) panel and add comments or guidance using [Interactive Code Review](../local-agents/interactive-code-review.md).
 
-<figure><img src="../.gitbook/assets/view-plan-udi.png" alt="" width="375"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/agent-plans-tasks.png" alt=""><figcaption><p>Monitoring progress with the task list and plan view.</p></figcaption></figure>
 
 This gives you clear oversight, helps confirm expected behavior, and lets you intervene quickly if something needs correction.
 
 ### Saving and Sharing
 
-Warp automatically saves all plans in the _Plans_ folder in [Warp Drive](https://docs.warp.dev/knowledge-and-collaboration/warp-drive/). You can export any plan as Markdown, check it into your repository, or share a link—useful for GitHub PRs, design reviews, or async collaboration.
+Warp automatically saves all plans in the _Plans_ folder in [Warp Drive](https://docs.warp.dev/knowledge-and-collaboration/warp-drive/). You'll see a confirmation when your plan is synced.
+
+<figure><img src="../.gitbook/assets/agent-plans-synced.png" alt=""><figcaption><p>Plans are automatically synced to Warp Drive.</p></figcaption></figure>
+
+You can export any plan as Markdown, check it into your repository, or share a link—useful for GitHub PRs, design reviews, or async collaboration.
 
 <figure><img src="../.gitbook/assets/export-notebooks.png" alt="" width="375"><figcaption><p>Different ways to share a plan.</p></figcaption></figure>
 
 Because plans persist in Warp Drive, you can return to them later, reuse them for new work, or treat them as documentation for ongoing projects. This is also naturally passed to the agent as context.
 
-<figure><img src="../.gitbook/assets/plans-in-drive.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/plans-in-warp-drive-side-panel.png" alt=""><figcaption><p>Plans are accessible directly from the Warp Drive side panel.</p></figcaption></figure>
 
 You can configure whether your plans will be automatically added and synced to Warp drive In your [Agent Profiles & Permissions](agent-profiles-permissions.md) under `Settings > AI > Agents > Profiles`.
 

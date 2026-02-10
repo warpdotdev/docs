@@ -14,9 +14,9 @@ Warp supports two input styles: **Classic Input** and [Universal Input](./). Cla
 You can switch between input styles in `Settings > Appearance > Input`.
 
 {% hint style="info" %}
-[Universal Input](./) is the default input style in Warp. Many of our newest features are only available in Universal Input and may not work in Classic Input.\
-\
-Classic Input remains supported for users who prefer a traditional terminal experience, but it is considered a legacy option. We encourage you to use Universal Input for the best experience.
+Warp now uses [Agent Modality](https://docs.warp.dev/agent-platform/local-agents/interacting-with-agents/agent-modality), which provides a clean terminal by default and a dedicated conversation view for agent interactions. [Universal Input](universal-input.md) is a legacy option.
+
+Classic Input remains supported for users who prefer a traditional terminal experience with shell customizations like PS1 and oh-my-zsh themes.
 {% endhint %}
 
 [Agent Mode](https://docs.warp.dev/agent-platform/local-agents/interacting-with-agents) works in Classic Input just like it does in Universal Input, with some minor differences.
@@ -58,7 +58,7 @@ You may enter Agent Mode in a few ways:
 {% endtab %}
 {% endtabs %}
 
-This will put you in _Pair_ mode by default. While pairing with Warp, you can write out questions and tasks in an ongoing conversation.
+This opens an agent conversation where you can write questions and tasks in an ongoing conversation with Warp's agent.
 
 When you are in Agent Mode, a ✨ sparkles icon will display in line with your terminal input.
 

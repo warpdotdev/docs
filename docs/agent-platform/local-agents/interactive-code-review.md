@@ -38,7 +38,7 @@ Select any changed line or block and add a comment describing what you want adju
 
 Add as many comments as you need before submitting them. The agent receives your entire batch of feedback, applies the changes in one iteration, and returns an updated diff for verification.
 
-<figure><img src="../.gitbook/assets/interactive-code-review-batch-comments.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/interactive-code-review-batch-comments.png" alt=""><figcaption><p>Adding comments directly in the Code Review view.</p></figcaption></figure>
 
 ### Example demo
 

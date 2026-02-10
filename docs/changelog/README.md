@@ -40,7 +40,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 * `@` menu now shows function definitions when NLD is disabled.
 * Conversation deep links now open in a new tab instead of a new window.
 * Renamed `edit` slash command to `open`.
-* Fixed a race condition when using API keys with the Warp CLI.
+* Fixed a race condition when using API keys with the Oz CLI.
 * Improved robustness of MCP connections (especially using the legacy SSE transport). "Transport closed" errors now trigger a reconnection to the server.
 * Added a new setting to keep the opened/closed state of the tool panel consistent across tabs in the same window ("Tools panel visibility is consistent across tabs").
 
@@ -166,7 +166,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 **Bug fixes**
 
-* Fixed a bug where Warp CLI runs could get stuck trying to run a denylisted command.
+* Fixed a bug where Oz CLI runs could get stuck trying to run a denylisted command.
 {% endupdate %}
 
 {% update date="2025-12-12" %}
@@ -194,7 +194,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 **Improvements**
 
-* The Warp CLI now displays more detailed information when the agent tries to take a prohibited action.
+* The Oz CLI now displays more detailed information when the agent tries to take a prohibited action.
 * Allow dragging file paths from the Project Explorer into active terminal commands like claude code and gemini for referencing files and folders.
 
 **Bug fixes**
@@ -202,7 +202,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 * Fixed a bug that could cause unbounded memory growth when using Warpified subshells or the legacy (non-tmux) SSH Warpify implementation.
 * Fixed a bug that could cause `comm` errors to appear in Warpified subshells.
 * \[Windows] Fixed keybinding for "find in code editor." This is now `CTRL-SHIFT-F` and configurable from Settings > Keyboard shortcuts.
-* Ensured that the Warp CLI is available automatically on macOS.
+* Ensured that the Oz CLI is available automatically on macOS.
 * Fixed toast messages showing "Notebook" instead of "Plan" when taking actions on Plans in Warp Drive.
 {% endupdate %}
 {% endupdates %}
@@ -256,7 +256,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 **Improvements**
 
 * Display conversation summaries when summarization is triggered.
-* Added completions for the Warp CLI.
+* Added completions for the Oz CLI.
 * Updated community links from Discord to Slack throughout the app.
 
 **Bug Fixes**
@@ -292,7 +292,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 * Added confirmation dialog when cancelling AI summarization requests.
 * You can now expand Suggested Code Diffs further on down arrow.
 * Restore closed panes using `CMD-SHIFT-T` or `CTRL-ALT-T` on Windows / Linux within 60 seconds of them being closed.
-* Added shell completions for the Warp CLI.
+* Added shell completions for the Oz CLI.
 * Warp Drive Environment Variables are now supported for Warp for Windows (PowerShell, Git Bash, and WSL).
 * Enriched the model picker to include detailed specs of each model's intelligence, speed and cost.
 

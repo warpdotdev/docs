@@ -30,7 +30,7 @@ In this demo
 
 ### What the GitHub Actions integration does
 
-The `warp-agent-action` is a GitHub Action that wraps the Warp CLI and:
+The `warp-agent-action` is a GitHub Action that wraps the Oz CLI and:
 
 * Runs a Warp agent inside an Actions job
 * Caches package installation for faster builds
@@ -67,9 +67,9 @@ To run Warp agents from GitHub Actions, **you must store your Warp API Key as a 
 
 Your secret will now appear in the list of available Actions secrets:
 
-<figure><img src="../../../.gitbook/assets/actions-secrets-and-variables.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/actions-secrets-and-variables.png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/actions-add-a-secret.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/actions-add-a-secret.png" alt=""><figcaption></figcaption></figure>
 
 #### Add the Warp Agent Action to your workflow
 

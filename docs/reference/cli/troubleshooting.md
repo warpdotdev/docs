@@ -7,7 +7,7 @@
 List your integrations:
 
 ```
-warp integration list
+oz integration list
 ```
 
 This shows each integration, its ID, and the environment it’s linked to. Use this to confirm which environment to inspect or update before making changes.
@@ -17,7 +17,7 @@ This shows each integration, its ID, and the environment it’s linked to. Use t
 Once you know the environment ID, run:
 
 ```
-warp environment get <ENV_ID>
+oz environment get <ENV_ID>
 ```
 
 This prints the full configuration, including:
@@ -31,30 +31,30 @@ This is the most reliable way to verify what the agent will see when it runs.
 
 #### How do I add or remove repos and setup commands?
 
-Use `warp environment` update. You can modify environments incrementally without recreating them.
+Use `oz environment` update. You can modify environments incrementally without recreating them.
 
 **Add a repo:**
 
 ```
-warp environment update <ENV_ID> --repo owner/repo
+oz environment update <ENV_ID> --repo owner/repo
 ```
 
 **Remove a repo:**
 
 ```
-warp environment update <ENV_ID> --remove-repo owner/repo
+oz environment update <ENV_ID> --remove-repo owner/repo
 ```
 
 **Add a setup command:**
 
 ```
-warp environment update <ENV_ID> --setup-command "your command"
+oz environment update <ENV_ID> --setup-command "your command"
 ```
 
 **Remove a setup command (must match exactly):**
 
 ```
-warp environment update <ENV_ID> --remove-setup-command "exact command"
+oz environment update <ENV_ID> --remove-setup-command "exact command"
 ```
 
 Notes:
@@ -67,7 +67,7 @@ Notes:
 If an environment is no longer needed:
 
 ```
-warp environment delete <ID>
+oz environment delete <ID>
 ```
 
 Only do this once you’ve confirmed no active integrations are relying on that environment. If an integration points to a deleted environment, requests from Slack/Linear will fail until you create a new integration with a valid environment.
@@ -79,16 +79,16 @@ Only do this once you’ve confirmed no active integrations are relying on that 
 List your integrations:
 
 ```
-warp integration list
+oz integration list
 ```
 
 This shows each integration, its ID, and the environment it’s attached to. Use this when you’re unsure which environment to update or delete.
 
-#### **I created a new environment, but don’t see it when running warp integration create**
+#### **I created a new environment, but don’t see it when running oz integration create**
 
 Check:
 
-1. Environment exists and is healthy: `warp environment list`
+1. Environment exists and is healthy: `oz environment list`
 2. You’re on the correct Warp team. Make sure your local CLI is logged into the same team where the environment was created.
    1. If both look correct and the environment still doesn’t appear, recreate it and confirm there were no errors during creation.
 
@@ -108,7 +108,7 @@ Follow the GitHub popup flow to install/adjust the Warp GitHub app.
 Check the following:
 
 1. **Repo is part of your environment**.
-   1. Make sure the repo is listed in: `warp environment get <id>`
+   1. Make sure the repo is listed in: `oz environment get <id>`
 2. **Warp GitHub app has access to that repo**
    1. In GitHub’s settings, confirm the Warp app is installed and that the repo is selected.
 3. **You have write access**
@@ -131,4 +131,13 @@ If local docker pull fails, fix the image visibility/name first, then recreate o
 This usually means the Docker image is missing required dependencies. Fix by either:
 
 * Updating the Dockerfile used to build the image, then pushing a new version to Docker Hub and updating the environment with the new image, or
-* Adding additional setup commands to install the missing tools: `warp environment update --setup-command "apt-get update && apt-get install -y "`
+* Adding additional setup commands to install the missing tools: `oz environment update --setup-command "apt-get update && apt-get install -y "`
+
+#### **I see "VM failed before the agent could run. This is likely an issue with your Docker image"**
+
+This typically means your Docker image uses musl libc instead of glibc. Alpine Linux and other musl-based images are not compatible with the Warp agent runtime.
+
+Fix:
+
+* Switch to a glibc-based image such as Debian, Ubuntu, or the default (non-Alpine) variants of official Docker Hub images (e.g. `node`, `python`, `rust`).
+* If you're using an Alpine variant like `node:20-alpine`, replace it with the default tag (e.g. `node:20`).

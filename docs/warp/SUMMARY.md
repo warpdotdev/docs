@@ -4,6 +4,7 @@
 
 ## Getting started
 
+* [Getting started with Warp and Oz](getting-started/getting-started.md)
 * [Quickstart Guide](README.md)
   * [Installation and setup](getting-started/quickstart-guide/installation-and-setup.md)
   * [Coding in Warp](getting-started/quickstart-guide/coding-in-warp.md)
@@ -15,7 +16,7 @@
 
 ## Terminal
 
-* [Universal Input](terminal/input/universal-input.md)
+* [Universal Input (Legacy)](terminal/input/universal-input.md)
 * [Classic Input](terminal/input/classic-input.md)
 * [Blocks](terminal/blocks/README.md)
   * [Block Basics](terminal/blocks/block-basics.md)
@@ -97,6 +98,7 @@
   * [Workflows](knowledge-and-collaboration/warp-drive/workflows.md)
   * [Prompts](knowledge-and-collaboration/warp-drive/prompts.md)
   * [Environment Variables](knowledge-and-collaboration/warp-drive/environment-variables.md)
+  * [AI-Integrated Objects](knowledge-and-collaboration/warp-drive/ai-objects.md)
   * [Warp Drive on the Web](knowledge-and-collaboration/warp-drive/warp-drive-on-the-web.md)
   * [Warp Drive as Agent Mode Context](knowledge-and-collaboration/warp-drive/warp-drive-as-agent-mode-context.md)
 * [Teams](knowledge-and-collaboration/teams.md)

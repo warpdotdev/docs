@@ -2,6 +2,7 @@ root: ./
 
 redirects:
     # Getting started redirects
+    getting-started/about-warps-ai: getting-started/getting-started.md
     getting-started/using-warp-with-shells: getting-started/supported-shells.md
 
     # Appearance redirects (old paths)

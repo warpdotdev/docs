@@ -128,11 +128,11 @@ Use these terms consistently throughout all documentation:
 
 #### Oz vs Warp
 - **Warp** is the terminal and coding surface
-- **Oz** is the programmable agent and orchestration-scaffolding that makes running cloud agents and automations easy
+- **Oz** is the orchestration platform for cloud agents that makes running and coordinating agents at scale easy
 - There is typically one Warp environment per user session. Oz can run many agents concurrently, across machines, repos, and teams.
 
 #### Core Oz terms
-- **Oz** - Warp's programmable agent for running and coordinating agents at scale
+- **Oz** - The orchestration platform for cloud agents
 - **Oz agent** - A combination of agent instructions (skill or prompt), trigger (cron, webhook, manual), environment (local, cloud), profile, and host. Agents can be local or cloud, and interactive or ambient.
 - **Oz cloud agent** - An Oz agent running in the cloud, from a trigger, schedule, or started from someone's local machine
 - **Oz subagent** - A child Oz agent created by a parent Oz agent to parallelize or delegate work

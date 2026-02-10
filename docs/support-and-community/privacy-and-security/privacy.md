@@ -179,38 +179,38 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `CLI Subagent Control State Changed` | Control state changed in CLI subagent (agent in control, agent blocked, user in control, or agent tagged in) |
 | `CLI Subagent Input Dismissed` | User dismissed the input in the CLI subagent |
 | `CLI Subagent Responses Toggled` | User toggled the visibility of agent responses in CLI subagent |
-| `CLI.Execute.Agent.List` | Listed agents from the Warp CLI |
-| `CLI.Execute.Agent.Profile.List` | Listed agent profiles from the Warp CLI |
-| `CLI.Execute.Agent.Run` | Ran an agent from the Warp CLI |
-| `CLI.Execute.Agent.RunAmbient` | Ran an cloud agent from the Warp CLI |
-| `CLI.Execute.Environment.Create` | Created a cloud environment from the Warp CLI |
-| `CLI.Execute.Environment.Delete` | Deleted a cloud environment from the Warp CLI |
-| `CLI.Execute.Environment.Get` | Got cloud environment details from the Warp CLI |
-| `CLI.Execute.Environment.Image.List` | Listed available base images from the Warp CLI |
-| `CLI.Execute.Environment.List` | Listed cloud environments from the Warp CLI |
-| `CLI.Execute.Environment.Update` | Updated a cloud environment from the Warp CLI |
-| `CLI.Execute.Integration.Create` | Created an integration from the Warp CLI |
-| `CLI.Execute.Integration.List` | Listed integrations from the Warp CLI |
-| `CLI.Execute.Integration.Update` | Updated an integration from the Warp CLI |
-| `CLI.Execute.Login` | Logged in via the Warp CLI |
-| `CLI.Execute.Logout` | Logged out via the Warp CLI |
-| `CLI.Execute.MCP.List` | Listed MCP servers from the Warp CLI |
-| `CLI.Execute.Model.List` | Listed models from the Warp CLI |
-| `CLI.Execute.Provider.List` | Listed providers from the Warp CLI |
-| `CLI.Execute.Provider.Setup` | Set up a provider via the Warp CLI |
-| `CLI.Execute.Schedule.Create` | Created a scheduled agent from the Warp CLI |
-| `CLI.Execute.Schedule.Delete` | Deleted a scheduled agent from the Warp CLI |
-| `CLI.Execute.Schedule.Get` | Got scheduled agent configuration from the Warp CLI |
-| `CLI.Execute.Schedule.List` | Listed scheduled agents from the Warp CLI |
-| `CLI.Execute.Schedule.Pause` | Paused a scheduled agent from the Warp CLI |
-| `CLI.Execute.Schedule.Unpause` | Unpaused a scheduled agent from the Warp CLI |
-| `CLI.Execute.Schedule.Update` | Updated a scheduled agent from the Warp CLI |
-| `CLI.Execute.Secret.Create` | Created a secret from the Warp CLI |
-| `CLI.Execute.Secret.Delete` | Deleted a secret from the Warp CLI |
-| `CLI.Execute.Secret.List` | Listed secrets from the Warp CLI |
-| `CLI.Execute.Secret.Update` | Updated a secret from the Warp CLI |
-| `CLI.Execute.Task.Get` | Got status of task from the Warp CLI |
-| `CLI.Execute.Task.List` | Listed tasks from the Warp CLI |
+| `CLI.Execute.Agent.List` | Listed agents from the Oz CLI |
+| `CLI.Execute.Agent.Profile.List` | Listed agent profiles from the Oz CLI |
+| `CLI.Execute.Agent.Run` | Ran an agent from the Oz CLI |
+| `CLI.Execute.Agent.RunAmbient` | Ran an cloud agent from the Oz CLI |
+| `CLI.Execute.Environment.Create` | Created a cloud environment from the Oz CLI |
+| `CLI.Execute.Environment.Delete` | Deleted a cloud environment from the Oz CLI |
+| `CLI.Execute.Environment.Get` | Got cloud environment details from the Oz CLI |
+| `CLI.Execute.Environment.Image.List` | Listed available base images from the Oz CLI |
+| `CLI.Execute.Environment.List` | Listed cloud environments from the Oz CLI |
+| `CLI.Execute.Environment.Update` | Updated a cloud environment from the Oz CLI |
+| `CLI.Execute.Integration.Create` | Created an integration from the Oz CLI |
+| `CLI.Execute.Integration.List` | Listed integrations from the Oz CLI |
+| `CLI.Execute.Integration.Update` | Updated an integration from the Oz CLI |
+| `CLI.Execute.Login` | Logged in via the Oz CLI |
+| `CLI.Execute.Logout` | Logged out via the Oz CLI |
+| `CLI.Execute.MCP.List` | Listed MCP servers from the Oz CLI |
+| `CLI.Execute.Model.List` | Listed models from the Oz CLI |
+| `CLI.Execute.Provider.List` | Listed providers from the Oz CLI |
+| `CLI.Execute.Provider.Setup` | Set up a provider via the Oz CLI |
+| `CLI.Execute.Schedule.Create` | Created a scheduled agent from the Oz CLI |
+| `CLI.Execute.Schedule.Delete` | Deleted a scheduled agent from the Oz CLI |
+| `CLI.Execute.Schedule.Get` | Got scheduled agent configuration from the Oz CLI |
+| `CLI.Execute.Schedule.List` | Listed scheduled agents from the Oz CLI |
+| `CLI.Execute.Schedule.Pause` | Paused a scheduled agent from the Oz CLI |
+| `CLI.Execute.Schedule.Unpause` | Unpaused a scheduled agent from the Oz CLI |
+| `CLI.Execute.Schedule.Update` | Updated a scheduled agent from the Oz CLI |
+| `CLI.Execute.Secret.Create` | Created a secret from the Oz CLI |
+| `CLI.Execute.Secret.Delete` | Deleted a secret from the Oz CLI |
+| `CLI.Execute.Secret.List` | Listed secrets from the Oz CLI |
+| `CLI.Execute.Secret.Update` | Updated a secret from the Oz CLI |
+| `CLI.Execute.Task.Get` | Got status of task from the Oz CLI |
+| `CLI.Execute.Task.List` | Listed tasks from the Oz CLI |
 | `CLIAgentFooter.ImageAttached` | User attached an image from the CLI agent footer |
 | `CLIAgentFooter.SettingToggled` | User toggled the CLI agent footer setting |
 | `CLIAgentFooter.Shown` | CLI agent footer was shown to the user |

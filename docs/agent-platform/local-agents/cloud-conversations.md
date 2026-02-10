@@ -16,6 +16,10 @@ Warp can sync your [agent conversations](interacting-with-agents/) to the cloud,
 * **Web viewing** - View shared conversations in a browser without installing Warp.
 * **Local continuation** - Restore any cloud conversation and continue it locally on your machine.
 
+{% embed url="https://www.loom.com/share/54038cf41219485dad3adb1d811e7e9a?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
+Cloud-synced conversations
+{% endembed %}
+
 ## Enabling cloud conversations
 
 Cloud conversation sync is controlled by a setting in Warp:
@@ -50,12 +54,14 @@ This behavior mirrors [Conversation Forking](interacting-with-agents/conversatio
 
 Cloud-synced conversations appear in all the usual conversation management entrypoints alongside your local conversations. You can browse, search, restore, and delete them just like any other conversation.
 
-See [Interacting with Agents](interacting-with-agents/) for detailed information on navigating and managing conversations, including keyboard shortcuts and the Conversation Panel in [Agent Modality](interacting-with-agents/agent-modality-beta.md).
+See [Interacting with Agents](interacting-with-agents/) for detailed information on navigating and managing conversations, including keyboard shortcuts and the Conversation Panel in [Agent Modality](interacting-with-agents/agent-modality.md).
 
 * **Browse** - View all your local and cloud-synced conversations in one place.
 * **Search** - Find conversations by title or content.
 * **Restore** - Click a conversation to load it into your current session and continue where you left off.
 * **Delete** - Remove conversations you no longer need. Deletion is permanent and immediate.
+
+***
 
 ## Sharing conversations
 
@@ -100,6 +106,8 @@ You can access any past cloud agent conversation:
 
 This is useful when a cloud agent completes a task and you want to review what it did or continue from where it left off.
 
+***
+
 ## Privacy and data
 
 ### Enterprise controls
@@ -121,6 +129,8 @@ For current storage limits by plan, see our [pricing page](https://www.warp.dev/
 ### Deleting conversations
 
 When you delete a conversation, it is removed permanently and immediately. Make sure you no longer need a conversation before deleting it.
+
+***
 
 ## Related features
 

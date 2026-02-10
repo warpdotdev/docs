@@ -67,3 +67,36 @@ When using "Pin to the top" [Input Position](https://docs.warp.dev/terminal/appe
 {% endhint %}
 {% endtab %}
 {% endtabs %}
+
+***
+
+## Block visibility across views
+
+Blocks in Warp belong to either the terminal view or a specific agent conversation:
+
+* **Terminal blocks** - Commands you run directly in the terminal. These always appear in your terminal blocklist and can be attached as context to multiple conversations.
+* **Agent conversation blocks** - Commands executed within an agent conversation (either by you or the agent). These only appear within that specific conversation and don't clutter your terminal blocklist.
+
+This separation keeps your terminal view clean while preserving full context within each conversation.
+
+***
+
+## Automatic context in agent conversations
+
+When you're working inside an agent conversation, any shell commands you run are automatically included as context for your next query. This means you can:
+
+1. Run a command to see its output
+2. Ask the agent about the results without manually attaching the block
+
+For example, in an agent conversation, run `npm test` and then ask "why did these tests fail?"—the test output is already part of the conversation context.
+
+You can also manually attach terminal view blocks to add additional context from commands you ran outside the conversation.
+
+***
+
+## Pending and attached context
+
+When you select blocks in terminal view and start a new conversation, those blocks become **pending context**:
+
+* **Pending context** - Blocks are selected but the conversation hasn't started yet. If you deselect the blocks (`ESC` or `CMD-K` on macOS, `ESC` or `CTRL-K` on Windows/Linux), they're removed from the agent view.
+* **Attached context** - Once you submit your first query, the pending blocks become attached to the conversation and remain part of the context.

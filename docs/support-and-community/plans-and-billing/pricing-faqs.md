@@ -12,7 +12,7 @@ All paid Warp plans come with higher monthly credit limits than the Free plan.
 
 When you upgrade from Free to a paid plan, your credit usage resets. If you’re switching between paid plans, any AI usage you've already accumulated will carry over.
 
-To subscribe to any Warp paid plan, start by [creating a Team in Warp](https://docs.warp.dev/knowledge-and-collaboration/teams#creating-a-team), even if you're subscribing as an individual. Once your team is created, you can upgrade:
+You can subscribe to a Warp paid plan as an individual or as part of a team. To upgrade:
 
 * In the app: Go to `Settings` > `Billing and usage`, then click the Upgrade link
 * Online: Visit [warp.dev/pricing](https://www.warp.dev/pricing)

@@ -1,0 +1,313 @@
+{
+  "docs_root": "/Users/rachaelrenk/Documents/Warp/gitbook/docs",
+  "files_scanned": 175,
+  "internal_checked": 985,
+  "external_checked": 844,
+  "broken_count": 38,
+  "broken_links": [
+    {
+      "file": "agent-platform/README.md",
+      "line": 20,
+      "url": "cloud-agents/warp-platform.md",
+      "error": "File not found",
+      "suggestion": null,
+      "type": "internal"
+    },
+    {
+      "file": "agent-platform/cloud-agents/cloud-agents-overview.md",
+      "line": 17,
+      "url": "warp-platform.md",
+      "error": "File not found",
+      "suggestion": null,
+      "type": "internal"
+    },
+    {
+      "file": "agent-platform/cloud-agents/cloud-agents-overview.md",
+      "line": 58,
+      "url": "warp-platform.md",
+      "error": "File not found",
+      "suggestion": null,
+      "type": "internal"
+    },
+    {
+      "file": "agent-platform/cloud-agents/cloud-agents-overview.md",
+      "line": 71,
+      "url": "warp-platform.md",
+      "error": "File not found",
+      "suggestion": null,
+      "type": "internal"
+    },
+    {
+      "file": "agent-platform/cloud-agents/cloud-agents-overview.md",
+      "line": 101,
+      "url": "warp-platform.md",
+      "error": "File not found",
+      "suggestion": null,
+      "type": "internal"
+    },
+    {
+      "file": "agent-platform/cloud-agents/cloud-agents-overview.md",
+      "line": 118,
+      "url": "warp-platform.md",
+      "error": "File not found",
+      "suggestion": null,
+      "type": "internal"
+    },
+    {
+      "file": "agent-platform/cloud-agents/environments.md",
+      "line": 30,
+      "url": "warp-platform.md",
+      "error": "File not found",
+      "suggestion": null,
+      "type": "internal"
+    },
+    {
+      "file": "agent-platform/cloud-agents/integrations/github-actions.md",
+      "line": 70,
+      "url": "../../../.gitbook/assets/actions-secrets-and-variables.png",
+      "error": "File not found",
+      "suggestion": null,
+      "type": "internal"
+    },
+    {
+      "file": "agent-platform/cloud-agents/integrations/github-actions.md",
+      "line": 72,
+      "url": "../../../.gitbook/assets/actions-add-a-secret.png",
+      "error": "File not found",
+      "suggestion": null,
+      "type": "internal"
+    },
+    {
+      "file": "agent-platform/cloud-agents/integrations/slack.md",
+      "line": 161,
+      "url": "../.gitbook/assets/delete-warpy.png",
+      "error": "File not found",
+      "suggestion": null,
+      "type": "internal"
+    },
+    {
+      "file": "agent-platform/cloud-agents/integrations/slack.md",
+      "line": 163,
+      "url": "../.gitbook/assets/remove-slack-app.png",
+      "error": "File not found",
+      "suggestion": null,
+      "type": "internal"
+    },
+    {
+      "file": "agent-platform/local-agents/interacting-with-agents/agent-modality-beta.md",
+      "line": 34,
+      "url": "../../.gitbook/assets/terminal-modality.png",
+      "error": "File not found",
+      "suggestion": null,
+      "type": "internal"
+    },
+    {
+      "file": "agent-platform/local-agents/interacting-with-agents/agent-modality-beta.md",
+      "line": 44,
+      "url": "../../.gitbook/assets/agent-modality-convo.png",
+      "error": "File not found",
+      "suggestion": null,
+      "type": "internal"
+    },
+    {
+      "file": "agent-platform/local-agents/interacting-with-agents/agent-modality-beta.md",
+      "line": 77,
+      "url": "../../.gitbook/assets/send-to-agent.png",
+      "error": "File not found",
+      "suggestion": null,
+      "type": "internal"
+    },
+    {
+      "file": "agent-platform/local-agents/interacting-with-agents/agent-modality-beta.md",
+      "line": 118,
+      "url": "../../.gitbook/assets/agent-conversations-new-modality.png",
+      "error": "File not found",
+      "suggestion": null,
+      "type": "internal"
+    },
+    {
+      "file": "agent-platform/local-agents/interacting-with-agents/agent-modality-beta.md",
+      "line": 179,
+      "url": "../../.gitbook/assets/slash-commands-agent-modality.png",
+      "error": "File not found",
+      "suggestion": null,
+      "type": "internal"
+    },
+    {
+      "file": "agent-platform/local-agents/interacting-with-agents/agent-modality-beta.md",
+      "line": 192,
+      "url": "../../.gitbook/assets/slash-commands-terminal-modality.png",
+      "error": "File not found",
+      "suggestion": null,
+      "type": "internal"
+    },
+    {
+      "file": "support-and-community/troubleshooting-and-support/updating-warp.md",
+      "line": 9,
+      "url": "<../../.gitbook/assets/update-available (1",
+      "error": "File not found",
+      "suggestion": null,
+      "type": "internal"
+    },
+    {
+      "file": "support-and-community/troubleshooting-and-support/updating-warp.md",
+      "line": 9,
+      "url": "<../../.gitbook/assets/update-available (1",
+      "error": "File not found",
+      "suggestion": null,
+      "type": "internal"
+    },
+    {
+      "file": "support-and-community/troubleshooting-and-support/updating-warp.md",
+      "line": 21,
+      "url": "<../../.gitbook/assets/update-available-bar (1",
+      "error": "File not found",
+      "suggestion": null,
+      "type": "internal"
+    },
+    {
+      "file": "support-and-community/troubleshooting-and-support/updating-warp.md",
+      "line": 21,
+      "url": "<../../.gitbook/assets/update-available-bar (1",
+      "error": "File not found",
+      "suggestion": null,
+      "type": "internal"
+    },
+    {
+      "file": "warp/code/code-review.md",
+      "line": 23,
+      "url": "../../.gitbook/assets/code-review-panel-update.png",
+      "error": "File not found",
+      "suggestion": null,
+      "type": "internal"
+    },
+    {
+      "file": "warp/code/code-review.md",
+      "line": 39,
+      "url": "../../terminal/input/universal-input.md",
+      "error": "File not found",
+      "suggestion": null,
+      "type": "internal"
+    },
+    {
+      "file": "warp/code/code-review.md",
+      "line": 41,
+      "url": "../../.gitbook/assets/whole UDI bar.png",
+      "error": "File not found",
+      "suggestion": null,
+      "type": "internal"
+    },
+    {
+      "file": "warp/code/code-review.md",
+      "line": 43,
+      "url": "../../.gitbook/assets/git chip tooltip 1.png",
+      "error": "File not found",
+      "suggestion": null,
+      "type": "internal"
+    },
+    {
+      "file": "warp/code/code-review.md",
+      "line": 49,
+      "url": "../../.gitbook/assets/Blocklist with review changes.png",
+      "error": "File not found",
+      "suggestion": null,
+      "type": "internal"
+    },
+    {
+      "file": "warp/code/code-review.md",
+      "line": 51,
+      "url": "../../.gitbook/assets/review changes in footer.png",
+      "error": "File not found",
+      "suggestion": null,
+      "type": "internal"
+    },
+    {
+      "file": "warp/code/code-review.md",
+      "line": 57,
+      "url": "../../.gitbook/assets/ai_control_panel_buttons_larger_view.png",
+      "error": "File not found",
+      "suggestion": null,
+      "type": "internal"
+    },
+    {
+      "file": "warp/code/code-review.md",
+      "line": 63,
+      "url": "../../.gitbook/assets/warp-tab-bar-review-code.png",
+      "error": "File not found",
+      "suggestion": null,
+      "type": "internal"
+    },
+    {
+      "file": "warp/code/code-review.md",
+      "line": 69,
+      "url": "../../.gitbook/assets/whole git diff view with one file collapsed.png",
+      "error": "File not found",
+      "suggestion": null,
+      "type": "internal"
+    },
+    {
+      "file": "warp/code/code-review.md",
+      "line": 88,
+      "url": "../../.gitbook/assets/diff dropdown to change base from the code review pane.png",
+      "error": "File not found",
+      "suggestion": null,
+      "type": "internal"
+    },
+    {
+      "file": "warp/code/code-review.md",
+      "line": 90,
+      "url": "../../.gitbook/assets/git diff change base dropdown.png",
+      "error": "File not found",
+      "suggestion": null,
+      "type": "internal"
+    },
+    {
+      "file": "warp/code/code-review.md",
+      "line": 92,
+      "url": "../../.gitbook/assets/arbitrary-branch-diff.png",
+      "error": "File not found",
+      "suggestion": null,
+      "type": "internal"
+    },
+    {
+      "file": "warp/code/code-review.md",
+      "line": 100,
+      "url": "../../.gitbook/assets/attach-diff-hunk-as-context.png",
+      "error": "File not found",
+      "suggestion": null,
+      "type": "internal"
+    },
+    {
+      "file": "warp/code/code-review.md",
+      "line": 108,
+      "url": "../../.gitbook/assets/revert diff hunk.png",
+      "error": "File not found",
+      "suggestion": null,
+      "type": "internal"
+    },
+    {
+      "file": "warp/code/code-review.md",
+      "line": 116,
+      "url": "../../.gitbook/assets/code-review-header.png",
+      "error": "File not found",
+      "suggestion": null,
+      "type": "internal"
+    },
+    {
+      "file": "warp/code/code-review.md",
+      "line": 129,
+      "url": "../../.gitbook/assets/directly-editing-diffs.gif",
+      "error": "File not found",
+      "suggestion": null,
+      "type": "internal"
+    },
+    {
+      "file": "warp/code/code-review.md",
+      "line": 135,
+      "url": "../../.gitbook/assets/discard-all-changes.png",
+      "error": "File not found",
+      "suggestion": null,
+      "type": "internal"
+    }
+  ]
+}

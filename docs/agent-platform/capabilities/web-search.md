@@ -73,7 +73,7 @@ This makes it easy to verify accuracy, audit reasoning, and validate sources.
 
 ### Enabling or Disabling Web Search
 
-Web search is controlled per [Agent Profiles & Permissions](../capabilities/agent-profiles-permissions.md).
+Web search is controlled per [Profiles & Permissions](../capabilities/agent-profiles-permissions.md).
 
 **To configure:**
 

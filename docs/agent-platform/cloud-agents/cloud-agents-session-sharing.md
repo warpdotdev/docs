@@ -7,7 +7,7 @@ description: >-
 
 # Cloud agent session sharing
 
-Cloud agent session sharing lets you open, inspect, and continue interacting with agent tasks that are running on remote virtual machines. Whether a cloud agent was triggered from [integrations](./integrations) like Slack, Linear, GitHub Actions, or the [Warp CLI](https://docs.warp.dev/reference/cli), you can view its full session, follow along in real time, ask follow-up questions, and even "fork" the work into your local Warp environment.
+Cloud agent session sharing lets you open, inspect, and continue interacting with agent tasks that are running on remote virtual machines. Whether a cloud agent was triggered from [integrations](./integrations) like Slack, Linear, GitHub Actions, or the [Oz CLI](https://docs.warp.dev/reference/cli), you can view its full session, follow along in real time, ask follow-up questions, and even "fork" the work into your local Warp environment.
 
 {% embed url="https://www.loom.com/share/edd662da8de345ae979c4d39eb19c513" %}
 

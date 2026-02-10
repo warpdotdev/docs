@@ -7,11 +7,7 @@ description: >-
 
 # Skills
 
-{% hint style="info" %}
-Skills are currently only available in [**Warp Preview**](https://warp.dev/download-preview). Download the preview build to try this feature.
-{% endhint %}
-
-Skills allow you to create reusable, shareable instructions that Agents can invoke when performing tasks. Instead of repeating detailed prompts, you can encapsulate common workflows, coding patterns, or domain expertise into skill files that Agents automatically discover and use.
+Skills allow you to create reusable, shareable instructions that agents can invoke when performing tasks. Instead of repeating detailed prompts, you can encapsulate common workflows, coding patterns, or domain expertise into skill files that agents automatically discover and use.
 
 ## Key features
 
@@ -22,7 +18,7 @@ Skills allow you to create reusable, shareable instructions that Agents can invo
 * **Supporting files** - Include scripts, templates, or other resources alongside your skill instructions
 * **Slash command invocation** - Invoke any skill directly with `/{skill-name}`
 
-## How skills work
+## How Skills work
 
 When you start an [Agent conversation](../local-agents/interacting-with-agents/README.md), the Agent receives a list of all available skills with their names and descriptions.
 
@@ -321,9 +317,21 @@ This opens an interactive menu where you can:
 * **Use consistent naming** - Follow a naming convention like `verb-noun` (e.g., `add-feature-flag`, `run-migrations`)
 * **Version control your skills** - Commit project skills to your repo so the whole team benefits
 
+## Pre-built skills
+
+Warp maintains a public collection of ready-to-use skills in the [warpdotdev/oz-skills](https://github.com/warpdotdev/oz-skills) repository. You can browse these skills for inspiration, copy them directly into your project's `.agents/skills/` directory, or adapt them to fit your team's workflows.
+
+These same skills also appear as suggested agents in the [Oz web app](../cloud-agents/oz-web-app.md), where you can run them directly in the cloud.
+
+## Running agents from skills
+
+Skills can be used with both local and [cloud agents](../cloud-agents/cloud-agents-overview.md) to create reusable, automated workflows. When running an agent via the CLI, web app, or API, you can specify a skill to provide the base instructions for the agent.
+
+For a complete guide to running skill-based agents—including CLI usage, the Oz web app, scheduling, skill discovery, and API integration—see [Skills as Agents](../cloud-agents/skills-as-agents.md).
+
 ## Related features
 
-* **Rules** - Set persistent guidelines and constraints for Agent behavior
-* **MCP Servers** - Expose external data sources and tools to Agents
+* [**Rules**](/rules.md) - Set persistent guidelines and constraints for Agent behavior
+* [**MCP Servers**](/mcp.md) - Expose external data sources and tools to Agents
 * [**Cloud Agents**](../cloud-agents/cloud-agents-overview.md) - Run Agents in the cloud on schedules or triggers
 * [**Agent Profiles**](agent-profiles-permissions.md) - Control Agent permissions and autonomy

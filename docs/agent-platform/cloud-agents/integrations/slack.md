@@ -9,7 +9,7 @@ description: >-
 
 ### Overview
 
-The Slack integration lets your team trigger Warp agents directly from conversations in Slack. When you tag **@Warp** in a message or DM the bot, Warp will start an agent in the cloud, clone the repositories defined in your environment, and begin working through the task with full context from your codebase and the Slack thread.
+The Slack integration lets your team trigger Warp agents directly from conversations in Slack. When you tag **@Oz** in a message or DM the bot, Warp will start an agent in the cloud, clone the repositories defined in your environment, and begin working through the task with full context from your codebase and the Slack thread.
 
 Agents keep you updated as they work, generate pull requests using your GitHub account, and share a link to a live remote session so you can watch or guide the workflow in real time.
 
@@ -19,7 +19,7 @@ This page explains what the integration does, how it behaves inside Slack, and h
 
 ### Using Warp inside Slack
 
-Assigning Warp to a message or tagging @Warp in a thread starts an agent run. The agent clones the repositories in your environment, sets up your development environment using your Docker image and setup commands, and begins working with the context from the Slack conversation. Warp posts updates back into the thread as it progresses so you can follow along without opening your terminal.
+Assigning Warp to a message or tagging @Oz in a thread starts an agent run. The agent clones the repositories in your environment, sets up your development environment using your Docker image and setup commands, and begins working with the context from the Slack conversation. Warp posts updates back into the thread as it progresses so you can follow along without opening your terminal.
 
 Agents also share a link to an interactive remote session using Warp's [cloud agent session sharing](../cloud-agents-session-sharing.md). Opening this link gives you a live terminal view of the cloud agent running your code. You can interrupt or steer the agent by providing additional instructions, and the agent will pick up where it left off with the new context.
 
@@ -29,13 +29,13 @@ When the work is complete, Warp will create a pull request on your behalf using 
 
 You can start an agent in three ways:
 
-*   **Tag @Warp in a channel message**
+*   **Tag @Oz in a channel message**
 
     Describe the task, and Warp will begin working with full context from the thread.
-*   **Tag @Warp inside a thread**
+*   **Tag @Oz inside a thread**
 
     Warp will automatically collect the thread’s prior messages and use them as context.
-*   **DM Warp directly**
+*   **DM the Oz agent directly**
 
     Useful for private tasks or experimentation.
 
@@ -78,15 +78,17 @@ Because PRs are created as you, the workflow slots seamlessly into your team’s
 
 ### Requirements
 
-* Cloud agents are available only to paid Warp users.
-* You must be logged into Warp with the same email used in your Slack workspace.
-* You must authorize the **Warp GitHub app** the first time you trigger a Slack integration request.
+* **Team membership** - The Slack integration requires you to be part of a [Warp team](https://docs.warp.dev/warp/knowledge-and-collaboration/teams). Teams can be created on any plan, including Free.
+* **Plan and credits** - Your team must be on a plan that supports integrations (Build, Max, or Business) and have at least 20 credits available (any type of Warp credits work). See [Access, Billing, and Identity](../team-access-billing-and-identity.md) for details.
+* **Infrastructure** - By default, agents run on Warp-hosted infrastructure. Enterprise teams can [self-host agents](../self-hosting.md) on their own infrastructure.
+* **Identity** - You must be logged into Warp with the same email used in your Slack workspace.
+* **GitHub authorization** - You must authorize the **Warp GitHub app** the first time you trigger a Slack integration request.
   * The repositories involved must be included in your environment and accessible to the Warp GitHub app.
-* You must have write access for Warp to open PRs on your behalf.
+  * You must have write access for Warp to open PRs on your behalf.
 
 ### How to configure the Slack integration
 
-Setup involves two steps, powered by the [Warp CLI](https://docs.warp.dev/reference/cli/README).
+Setup involves two steps, powered by the [Oz CLI](https://docs.warp.dev/reference/cli).
 
 #### 1. Create an environment
 
@@ -98,10 +100,10 @@ An environment defines everything the agent needs to run your code in the cloud:
 
 Create an environment via:
 
-* **Warp CLI**
+* **Oz CLI**
 
 ```bash
-warp environment create \
+oz environment create \
   --name <name> \
   --docker-image <image> \
   --repo <owner/repo> \
@@ -116,10 +118,16 @@ See the [Environment Setup](README.md) docs for detailed instructions.
 
 #### 2. Create the Slack integration
 
-Once your environment is ready, create the integration:
+Once your environment is ready, create the integration.
+
+{% hint style="info" %}
+For easier setup, use the [Oz web app](https://oz.warp.dev) to configure integrations with a guided flow.
+{% endhint %}
+
+Alternatively, use the CLI:
 
 ```
-warp integration create slack --environment <ENV_ID>
+oz integration create slack --environment <ENV_ID>
 ```
 
 The CLI will open a browser window to install the Warp app into your Slack workspace. After installation, the integration becomes available to all members of your Warp team.
@@ -127,7 +135,7 @@ The CLI will open a browser window to install the Warp app into your Slack works
 You can optionally attach a custom prompt that is applied to every agent run:
 
 ```
-warp integration create slack \
+oz integration create slack \
   --environment <ENV_ID> \
   --prompt "Always prefix PR titles with '[WARP]' and include detailed test steps."
 ```
@@ -158,13 +166,9 @@ To remove the Warp app from your Slack workspace:
 
 Once removed, Slack will immediately disable the integration for all teammates.
 
-<figure><img src="../.gitbook/assets/delete-warpy.png" alt=""><figcaption><p>Warpy is just an internal Slackbot, your Warp slackbot should be called Warp.</p></figcaption></figure>
-
-<figure><img src="../.gitbook/assets/remove-slack-app.png" alt=""><figcaption></figcaption></figure>
-
 ### Troubleshooting
 
-If something isn't working—missing repos, Slack not detecting @Warp, PR failures, or environment configuration issues—see the [Integrations Troubleshooting](README.md#troubleshooting) page. It covers:
+If something isn't working—missing repos, Slack not detecting @Oz, PR failures, or environment configuration issues—see the [Integrations Troubleshooting](README.md#troubleshooting) page. It covers:
 
 * GitHub authorization and repo access
 * Docker image pull errors

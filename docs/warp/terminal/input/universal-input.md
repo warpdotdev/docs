@@ -1,13 +1,17 @@
 ---
 description: >-
-  Warp’s Universal Input unifies shell commands, agent prompts, and contextual
-  tools into one editor built for modern coding with agents.
-hidden: true
+  Universal Input was the previous default input interface for Warp. It has been
+  replaced by Agent Modality, which provides a cleaner separation between terminal
+  and agent workflows.
 ---
 
-# Universal Input
+# Universal Input (Legacy)
 
-The **Universal Input** is the main input interface for using Warp. It accepts both terminal commands and natural language [Agent](https://docs.warp.dev/agent-platform/local-agents/agents-overview) prompts, letting you run shell workflows and kick off agentic tasks from the same place.
+{% hint style="warning" %}
+**This is legacy documentation.** Universal Input has been replaced by [Agent Modality](https://docs.warp.dev/agent-platform/local-agents/interacting-with-agents/agent-modality), which provides a cleaner terminal experience with a dedicated conversation view for agent interactions.
+{% endhint %}
+
+The **Universal Input** was the main input interface for using Warp.
 
 <figure><img src="../../.gitbook/assets/universal-input-header.png" alt=""><figcaption><p>The Universal Input with an Agent prompt and multiple contextual chips active.</p></figcaption></figure>
 

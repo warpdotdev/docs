@@ -35,7 +35,7 @@ To enable Computer Use for [Cloud Agents](../cloud-agents/cloud-agents-overview.
 
 ### CLI
 
-When running agents in the cloud via the [CLI](../../reference/cli/README.md), use flags to control Computer Use per run:
+When running agents in the cloud via the [CLI](https://docs.warp.dev/reference/cli), use flags to control Computer Use per run:
 
 ```bash
 oz agent run-cloud --computer-use <task>
@@ -54,7 +54,7 @@ When calling the Warp API to create agent runs, include the `computer_use_enable
 }
 ```
 
-For full API documentation, see the [Agent API & SDK](../../reference/api-and-sdk/README.md) reference.
+For full API documentation, see the [Oz Agent API & SDK](https://docs.warp.dev/reference/api-and-sdk/) reference.
 
 ### Web App
 
@@ -140,4 +140,4 @@ Computer Use can also help with general web tasks:
 ## Related capabilities
 
 * [Images as Context](../local-agents/agent-context/images-as-context.md) - Pass design mockups and screenshots as context
-* [Full Terminal Use](full-terminal-use.md) - Let agents drive interactive terminal apps, seeing live output and running commands
+* [Full Terminal Use](full-terminal-use.md) - Let agents drive interactive terminal apps, see live output, and run commands

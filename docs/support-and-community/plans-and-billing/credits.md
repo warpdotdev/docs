@@ -30,7 +30,8 @@ You can view your total credit usage, along with other billing details, in `Sett
 
 #### Credit **limits and billing**
 
-* **Seat-level allocation**: on team plans, credit limits apply per seat — each team member has their own allowance.
+* **Seat-level allocation**: On team plans, credit limits apply per seat — each team member has their own allowance. Individual users (not on a team) also have their own credit allocation.
+* **Cloud Agent Credits**: Individual users can run cloud agents via CLI/API using their normal Warp credits, [Cloud Agent Credits](#cloud-agent-credits), or a Build plan with available credits. Integrations (Slack, Linear) require team membership.
 * **Hitting the credit limits**: Once you hit your monthly credit limit, your access will depend on your plan. On the Free plan, AI access stops until your next billing cycle. On paid plans with Add-on credits, you can continue using AI with [**usage-based billing**](add-on-credits.md), charged per extra credit.
 
 #### **Other features that use credits**
@@ -114,13 +115,13 @@ Cloud Agent Credits are a type of credit consumed only by cloud agent runs — A
 The following scenarios use Cloud Agent Credits:
 
 * **First-party integrations** — Running agents through Slack or Linear integrations
-* **Cloud agent runs** — Using `warp agent run-ambient` via the CLI
-* **Agent API** — Running agents through Warp's Agent API
+* **Cloud agent runs** — Using `oz agent run-cloud` via the CLI
+* **Oz Agent API** — Running agents through Warp's Oz Agent API
 * **Cloud Mode** — Running an agent from Cloud Mode in the Warp app
 
 #### Not eligible for Cloud Agent Credits
 
 The following scenarios do **not** use Cloud Agent Credits:
 
-* **Local agent runs** — Using `warp agent run` on your local machine
-* **Self-hosted compute** — Using `warp agent run` on GitHub Actions, CI/CD pipelines, or other self-hosted infrastructure
+* **Local agent runs** — Using `oz agent run` on your local machine
+* **Self-hosted compute** — Using `oz agent run` on GitHub Actions, CI/CD pipelines, or other self-hosted infrastructure

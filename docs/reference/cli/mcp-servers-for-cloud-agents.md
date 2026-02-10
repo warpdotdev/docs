@@ -27,7 +27,7 @@ Agents call MCP tools automatically whenever their workflow requires them.
 You can pass the full MCP JSON object directly into the `--mcp` flag:
 
 ```shellscript
-warp agent run \
+oz agent run \
   --mcp '{"mymcp": { "url": "https://fakemcp.com/mcp" }}' \
   -p "Call the MCP tool"
 ```
@@ -39,7 +39,7 @@ Warp interprets the entire argument as the configuration map for all MCP servers
 Instead of embedding JSON inline, you may supply a path:
 
 ```shellscript
-warp agent run --mcp ./my-mcp-config.json
+oz agent run --mcp ./my-mcp-config.json
 ```
 
 The file must contain a valid MCP JSON structure as defined by the specification.
@@ -127,4 +127,10 @@ This file can be passed as the agent’s config file or referenced through `conf
 #### Defaults
 
 * If `mcp_servers` is omitted, the agent runs with no MCP servers enabled.
-* MCP permissions default to **allowing calls**, but may inherit profile settings depending on the user’s environment. This default behavior is evolving as Warp plans to phase out profiles for cloud agents.
+* MCP permissions default to **allowing calls**, but may inherit profile settings depending on the user's environment. This default behavior is evolving as Warp plans to phase out profiles for cloud agents.
+
+### MCP limitations
+
+Warp does not currently support OAuth-based MCP servers in cloud agents. This means you cannot use tools like Figma's MCP to directly read Figma designs.
+
+As a workaround, you can pass Figma mockups as **image context** to the agent, which can then build and test the UI against those images.

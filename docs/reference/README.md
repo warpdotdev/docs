@@ -1,6 +1,6 @@
 ---
-description: >-
-  Technical reference documentation for the Warp CLI, API, and SDK.
+description: >
+  Technical reference documentation for the Oz CLI, API, and SDK.
 ---
 
 # API Reference
@@ -9,7 +9,7 @@ This section covers the programmatic interfaces for running and managing Warp ag
 
 ## CLI
 
-The [Warp CLI](cli/README.md) runs agents in non-interactive mode from any environment.
+The [Oz CLI](cli/README.md) runs agents in non-interactive mode from any environment.
 
 - [Integrations and Environments](cli/integrations-and-environments.md) - configure execution contexts and connect external systems
 - [MCP Servers for Cloud Agents](cli/mcp-servers-for-cloud-agents.md) - extend agent capabilities with external tools
@@ -17,6 +17,6 @@ The [Warp CLI](cli/README.md) runs agents in non-interactive mode from any envir
 
 ## API & SDK
 
-The [Agent API](https://docs.warp.dev/reference/api-and-sdk/agent) lets you create and monitor cloud agent runs over HTTP. Official SDKs for [Python](https://github.com/warpdotdev/warp-sdk-python) and [TypeScript](https://github.com/warpdotdev/warp-sdk-typescript) provide typed clients with built-in retries and error handling.
+The [Oz Agent API](https://docs.warp.dev/reference/api-and-sdk/agent) lets you create and monitor cloud agent runs over HTTP. Official SDKs for [Python](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript](https://github.com/warpdotdev/oz-sdk-typescript) provide typed clients with built-in retries and error handling.
 
 - [Demo: Sentry monitoring with SDK](api-and-sdk/demo-sentry-monitoring-with-sdk.md) - example integration

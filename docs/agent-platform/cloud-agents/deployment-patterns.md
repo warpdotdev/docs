@@ -1,15 +1,15 @@
 # Deployment Patterns
 
-Teams adopt Cloud Agents in a few repeatable ways. This page outlines the most common architectures, what they’re good for, and how they fit together.
+Teams adopt cloud agents in a few repeatable ways. This page outlines the most common architectures, what they're good for, and how they fit together.
 
 #### Quick mental model
 
-Cloud Agent systems usually have four moving parts:
+Oz cloud agent setups usually have four moving parts:
 
 1. **Trigger**: something happens (CI step, webhook, cron, Slack mention).
-2. **Orchestration**: something decides what to run and tracks it (Warp Orchestrator, GitHub Actions, your internal system).
-3. **Execution**: where the agent actually runs (your runner, Warp-hosted environment, eventually self-hosted workers).
-4. **Visibility**: how the team monitors and intervenes (management UI, session sharing, APIs).
+2. **Orchestration**: something decides what to run and tracks it (Oz orchestrator, GitHub Actions, your internal system).
+3. **Execution**: where the agent actually runs (your runner, Oz-hosted environment, eventually self-hosted workers).
+4. **Visibility**: how the team monitors and intervenes (Oz dashboard, session sharing, APIs).
 
 ***
 
@@ -47,21 +47,23 @@ Use this when you already have a system that schedules work (CI, dev boxes, inte
 
 * A Warp team
 * A service account (recommended for automation)
-* The Warp CLI installed on the runner / box
+* The Oz CLI installed on the runner / box
 * Any needed credentials (often via secrets + environment variables)
 
 ***
 
-### Pattern 2: Warp-hosted agents + Warp orchestration (managed cloud execution)
+### Pattern 2: Oz-hosted agents + Oz orchestration (managed cloud execution)
 
-Use this when you want Warp to run agent workloads on Warp-managed infrastructure, typically inside reproducible Docker environments, with built-in lifecycle management.
+Use this when you want Oz to run agent workloads on Warp-managed infrastructure, typically inside reproducible Docker environments, with built-in lifecycle management.
+
+<figure><img src="../.gitbook/assets/cloud-agents-infra.png" alt="Warp enterprise SaaS architecture showing customer infrastructure, isolated tenant sandboxes, Warp backend, and LLM providers"><figcaption></figcaption></figure>
 
 #### What it looks like
 
 * **Trigger**: first-party integrations, cron schedules, API/SDK calls, or on-demand commands
-* **Orchestration**: Warp Orchestrator
-* **Execution**: Warp-hosted environments (Docker-based)
-* **Visibility**: management UI + session sharing + APIs/SDKs
+* **Orchestration**: Oz orchestrator
+* **Execution**: Oz-hosted environments (Docker-based)
+* **Visibility**: Oz dashboard + session sharing + APIs/SDKs
 
 #### Why teams choose it
 
@@ -74,24 +76,24 @@ Use this when you want Warp to run agent workloads on Warp-managed infrastructur
 * **First-party integrations (Slack, Linear, etc.)** that create tasks automatically from external events.
 * **Scheduled agents** for recurring work (cron-like automation).
 * **Custom triggers** from your own systems using Warp’s API/SDK.
-* **On-demand cloud jobs** using CLI commands like warp agent run-ambient.
+* **On-demand cloud jobs** using CLI commands like oz agent run-cloud.
 
 #### Example recipe: Daily dead-code cleanup
 
-1. Define a Warp Environment with the repo + toolchain.
+1. Define an Oz Environment with the repo + toolchain.
 2. Create a schedule with a fixed prompt for cleanup.
-3. Warp runs the agent on the cadence.
-4. Your team monitors runs in the management UI, reviews artifacts (PRs, plans), and intervenes when needed.
-5. Define a Warp Environment with the target repo.
+3. Oz runs the agent on the cadence.
+4. Your team monitors runs in the Oz dashboard, reviews artifacts (PRs, plans), and intervenes when needed.
+5. Define an Oz Environment with the target repo.
 6. Register a Sentry webhook to your handler (server, cloud function, Zapier/n8n).
-7. Handler extracts crash details, constructs a prompt, and calls Warp’s Orchestrator API/SDK to start a task.
+7. Handler extracts crash details, constructs a prompt, and calls the Oz orchestrator API/SDK to start a task.
 8. Warp spins up the run in the environment and you monitor progress via UI/API.
 
 #### Example recipe: Fan-out parallel work (sharding)
 
 If a task is naturally divisible:
 
-* Launch multiple cloud agents via warp agent run-ambient, each with:
+* Launch multiple cloud agents via oz agent run-cloud, each with:
   * A shard of the repo (directory/module ownership)
   * A shard of the prompt (one responsibility)
 * Aggregate results (PRs, notes, plans) in whatever system you prefer.
@@ -103,11 +105,32 @@ If a task is naturally divisible:
 
 ***
 
-### Pattern 3: Self-hosted execution (coming soon)
+### Pattern 3: Self-hosted execution
 
-Use this when you need execution and code to remain inside your network boundary, but still want Warp’s orchestration and visibility model.
+Use this when you need execution and code to remain inside your network boundary, but still want Oz orchestration and visibility.
 
-#### Intended model
+{% hint style="info" %}
+**Enterprise feature**: Self-hosted execution is available exclusively to teams on an Enterprise plan.
+{% endhint %}
 
-* Warp Orchestrator still manages lifecycle and observability.
-* Execution happens on customer-managed infrastructure.
+#### What it looks like
+
+* **Trigger**: same as other patterns (integrations, schedules, CLI, API/SDK)
+* **Orchestration**: Oz orchestrator
+* **Execution**: your infrastructure, running the self-hosted worker
+* **Visibility**: same Oz dashboard, session sharing, and APIs as Oz-hosted
+
+#### Why teams choose it
+
+* You need code and execution to stay within your network boundary.
+* You have compliance or security requirements that prevent using Warp-hosted compute.
+* You want to use your own infrastructure while still benefiting from Oz orchestration.
+
+#### How it works
+
+1. You run a worker process on your infrastructure that connects to Oz.
+2. When you create a task with `--host "your-worker-id"`, Oz routes it to your worker.
+3. The worker runs the task locally and reports status back to Oz.
+4. Your team gets the same observability (Oz dashboard, session sharing, APIs) as Oz-hosted runs.
+
+For setup instructions, see [Self-Hosting](self-hosting.md).
