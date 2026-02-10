@@ -128,16 +128,14 @@ On macOS, we recommend that you install and update the standalone CLI with [Home
 ```sh
 $ brew tap warpdotdev/warp
 $ brew update
-$ brew install --cask warp-cli
+$ brew install --cask oz
 ```
 
 If you're using Warp Preview, install the preview version of the CLI instead:
 
 ```sh
-brew install --cask warp-cli@preview
+brew install --cask oz@preview
 ```
-
-To install Warp Preview, use `brew install --cask warp-cli@preview`.
 
 ***
 
