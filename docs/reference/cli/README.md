@@ -161,12 +161,16 @@ On Linux, we recommend that you install and update the standalone CLI through yo
 
 ```sh
 # Stable
-sudo apt install warp-cli
+sudo apt install oz-stable
 
 # Preview (beta/early-access)
-sudo apt install warp-cli-preview
+sudo apt install oz-preview
 
 ```
+
+{% hint style="info" %}
+**Note:** The package name (`oz-stable`) differs from the CLI command executable (`oz`). After installation, use the CLI via `oz` commands.
+{% endhint %}
 
 ***
 
@@ -197,7 +201,7 @@ The command to run the Oz CLI depends on your OS, whether you installed the CLI 
 | ------- | ------------------- | ----------- | --------------------- |
 | macOS   | Standalone          | `oz`        | `oz-preview`          |
 | macOS   | Bundled             | `oz`        | `oz-preview`          |
-| Linux   | Standalone          | `oz-cli`    | `oz-cli-preview`      |
+| Linux   | Standalone          | `oz`        | `oz-preview`          |
 | Linux   | Bundled             | `oz`        | `oz-preview`          |
 | Windows | Bundled             | `oz`        | `oz-preview`          |
 
