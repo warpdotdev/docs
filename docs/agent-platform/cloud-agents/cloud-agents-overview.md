@@ -48,7 +48,7 @@ If you are evaluating whether something should be a cloud agent, a good test is 
 
 ### How cloud agents work
 
-Cloud agents run on the [Oz Platform](platform.md), which provides the primitives for triggering work, orchestrating tasks, executing agents (optionally in Environments), injecting secrets, and inspecting results.
+Cloud agents run on the [Oz Platform](platform.md), which provides the primitives for triggering work, orchestrating tasks, executing agents (optionally in environments), injecting secrets, and inspecting results.
 
 * Something **triggers** an agent task.
 * The **orchestrator creates** and tracks the task.

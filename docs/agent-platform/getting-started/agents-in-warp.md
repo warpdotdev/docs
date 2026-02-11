@@ -1,12 +1,12 @@
 ---
 description: >
   Warp's Oz agents are capable collaborators that help you write code, debug
-  issues, and complete terminal workflows -- all from natural language prompts.
+  issues, and complete terminal workflows, all from natural language prompts.
 ---
 
 # Agents in Warp
 
-Warp includes Oz agents—coding agents designed to help you build, test, deploy, and debug while keeping you in control. Describe what you want to do in natural language (_you can even use your voice_), and Oz will take action using your environment, codebase, and saved context.
+Warp includes Oz agents. These coding agents are designed to help you build, test, deploy, and debug while keeping you in control. Describe what you want to do in natural language (_you can even use your voice_), and Oz will take action using your environment, codebase, and saved context.
 
 ## What Oz agents can do
 

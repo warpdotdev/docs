@@ -7,13 +7,13 @@ description: >
 
 # Oz Platform
 
-Cloud agents are background agents that run on the **[Oz Platform](platform.md)**. First-party [integrations](integrations/README.md) connect external events to cloud agents. The platform gives you a consistent way to **trigger work**, **orchestrate and track tasks**, **execute agents** (in an optional [Environment](https://docs.warp.dev/reference/cli/integrations-and-environments), on a host), and inspect outcomes with team visibility.
+Cloud agents run on the **Oz Platform**. First-party [integrations](integrations/README.md) connect external events to cloud agents. The platform gives you a consistent way to **trigger work**, **orchestrate and track tasks**, **execute agents** (in an optional [environment](https://docs.warp.dev/reference/cli/integrations-and-environments), on a host), and inspect outcomes with team visibility.
 
 **Most production setups follow the same flow:**
 
 1. A **trigger** fires (schedule, integration event, CI step, webhook, API call, or manual run).
 2. Warp's **orchestration layer** creates a cloud agent task and tracks its lifecycle.
-3. The agent executes on a **host**, optionally inside an Environment, using the required configuration and credentials.
+3. The agent executes on a **host**, optionally inside an environment, using the required configuration and credentials.
 4. The task produces a **persistent record** (status, metadata, transcript, outputs) your team can review and manage.
 
 <figure><img src="../.gitbook/assets/most-flexible-platform-for-building-with-agents.png" alt="Oz Platform architecture showing Trigger, Agent, Environment, and Artifacts components"><figcaption></figcaption></figure>
@@ -33,7 +33,7 @@ Before diving into the components, it helps to align on a few terms:
 * **Context**: Additional inputs attached to a task (for example: a Slack message, PR metadata, CI logs, repository diffs).
 * **Outputs:** What the task produced (for example: created a PR, posted a Slack reply, emitted a report, or just a transcript + summary).
 
-In practice: **triggers create tasks; tasks execute on a host (optionally in an Environment); tasks produce outputs.**
+In practice: **triggers create tasks; tasks execute on a host (optionally in an environment); tasks produce outputs.**
 
 ***
 
@@ -43,7 +43,7 @@ The [Oz CLI](https://docs.warp.dev/reference/cli) is the **headless interface** 
 
 A key property of the CLI is that it is **cloud-connected**. Even when an agent is started on a local machine or in CI, it reports progress to Warp’s servers. This enables team visibility, session sharing (where supported), and programmatic tracking through the API.
 
-#### When you use the CLI
+#### When to use the CLI
 
 Use the CLI when:
 
@@ -58,9 +58,9 @@ Depending on the command, the CLI typically:
 * Authenticates as you (or as a member of your team, if applicable).
 * Starts work by creating a task in the orchestrator (either directly via CLI commands, or indirectly via an integration/schedule).
 * Streams progress back to Warp for live observability and a persistent record.
-* Optionally attaches an Environment and other configuration.
+* Optionally attaches an environment and other configuration.
 
-#### Example (no Environment)
+#### Example (no environment)
 
 You can also run an agent locally without an environment using a command like:
 
@@ -97,7 +97,7 @@ Teams typically use the API/SDK when:
 
 ### Environments
 
-[Environments](https://docs.warp.dev/reference/cli/integrations-and-environments#what-is-an-environment) define the execution context an agent should run in.
+[Environments](/environments.md) define the execution context an agent should run in.
 
 **An Environment typically includes:**
 
@@ -112,9 +112,9 @@ Environments are how teams make agent runs consistent across triggers (Slack, CI
 
 #### Environments are optional
 
-Agents can run without an Environment (for example, against an existing local checkout or a CI workspace). Teams usually move to Environments when they want stronger reproducibility, isolation, and standardization.
+Agents can run without an environment (for example, against an existing local checkout or a CI workspace). Teams usually move to environments when they want stronger reproducibility, isolation, and standardization.
 
-#### When to use Environments
+#### When to use environments
 
 Environments are recommended when:
 
