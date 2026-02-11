@@ -56,6 +56,12 @@ The message bar at the bottom of the terminal provides contextual guidance:
 
 If auto-detection is enabled, Warp labels your input as "agent" or "shell" before you submit, showing "(autodetected)" in magenta. See [Understanding auto-detection](#understanding-auto-detection) for configuration and override methods.
 
+**Disabling the message bar:** To hide the terminal mode hint bar while keeping AI features enabled, go to `Settings > Features > Terminal Input` and toggle off **Show terminal input message line**. This only hides the contextual hints—it does not disable any AI functionality.
+
+{% hint style="warning" %}
+If you disable the message bar while auto-detection is enabled, you won't see the visual indicator that tells you whether Warp detected your input as a shell command or an agent prompt. Consider also disabling auto-detection (`Settings > AI > Input`) if you turn off the message bar.
+{% endhint %}
+
 {% hint style="info" %}
 The shortcuts shown on this page use macOS keybindings. For Windows and Linux shortcuts, see [Keyboard Shortcuts](https://docs.warp.dev/getting-started/keyboard-shortcuts.md).
 {% endhint %}
