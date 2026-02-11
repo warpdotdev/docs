@@ -22,6 +22,10 @@ When you add your own model API keys in Warp, those keys are stored **locally on
 
 Warp uses these API keys to directly route your agent requests to the model provider you've configured.
 
+{% hint style="warning" %}
+BYOK does not apply to [Oz Cloud Agents](https://docs.warp.dev/agent-platform/cloud-agents/cloud-agents-overview). Because your API keys are stored locally on your device, they are not available to cloud-hosted agent runs. Cloud agent runs always consume [Warp credits](credits.md).
+{% endhint %}
+
 When a model is selected using your own key:
 
 * Warp **does not consume** any of your [credits](credits.md).
@@ -70,6 +74,7 @@ Some AI-powered features are not affected by BYOK and are included as part of Wa
 | ----------------------------------------------------------------- | ---------------------- | --------------------------------------------------- |
 | [Active AI](https://docs.warp.dev/agent-platform/local-agents/active-ai) | No                     | Always included with Build and higher plans.        |
 | [Codebase Context](https://docs.warp.dev/code/codebase-context)   | Yes                    | Uses Warp's AI infrastructure and consumes credits. |
+| [Oz Cloud Agents](https://docs.warp.dev/agent-platform/cloud-agents/cloud-agents-overview) | Yes                    | BYOK keys are stored locally and not available to cloud-hosted runs. |
 
 These features will continue to function normally regardless of whether you’ve configured BYOK.
 

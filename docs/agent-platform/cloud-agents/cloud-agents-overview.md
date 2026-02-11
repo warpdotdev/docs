@@ -99,6 +99,10 @@ If your team also uses Warp's terminal, you get an additional workflow: tasks la
 
 Cloud agents and [integrations](integrations/README.md) run on the [Oz Platform](platform.md) control plane, and usage is billed using credits.
 
+{% hint style="info" %}
+[Bring Your Own Key (BYOK)](https://docs.warp.dev/support-and-community/plans-and-billing/bring-your-own-api-key) is not supported for cloud agent runs. BYOK keys are stored locally on your device and are not accessible to cloud-hosted agents. All cloud agent runs consume Warp credits.
+{% endhint %}
+
 #### For Cloud Agents via CLI/API
 
 Individual users can run cloud agents without being on a team. Requirements:
