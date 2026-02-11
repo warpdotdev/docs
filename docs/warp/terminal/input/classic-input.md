@@ -9,7 +9,7 @@ description: >-
 
 ## Classic Input Style
 
-Warp supports two input styles: **Classic Input** and [Universal Input](./). Classic Input is closer to a traditional terminal experience, with support for shell customizations (e.g. PS1, same-line prompts, oh-my-zsh themes, and more).
+Warp supports two input styles: **Shell (PS1)** and [Warp Input](./). Shell Input is closer to a traditional terminal experience, with support for shell customizations (e.g. Warp or PS1 prompt, same-line prompts, oh-my-zsh themes, and more).
 
 You can switch between input styles in `Settings > Appearance > Input`.
 

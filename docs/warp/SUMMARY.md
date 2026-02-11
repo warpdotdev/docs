@@ -1,11 +1,11 @@
 # Table of contents
 
-* [Quickstart Guide](README.md)
+* [Quickstart Guide](<README (1).md>)
 
 ## Getting started
 
-* [Getting started with Warp and Oz](getting-started/getting-started.md)
-* [Quickstart Guide](README.md)
+* [Getting started with Warp and Oz](README.md)
+* [Quickstart Guide](<README (1).md>)
   * [Installation and setup](getting-started/quickstart-guide/installation-and-setup.md)
   * [Coding in Warp](getting-started/quickstart-guide/coding-in-warp.md)
   * [Customizing Warp](getting-started/quickstart-guide/customizing-warp.md)

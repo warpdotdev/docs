@@ -9,7 +9,7 @@ description: >-
 
 ### Warp prompt
 
-Warp has a native prompt that is customizable and can show a variety of information including cwd, git, svn, kubernetes, pyenv, date, time, an so on. You can visit `Settings > Appearance > Input > Classic > Current prompt > Warp Prompt` to drag and drop context chips into your Warp prompt until it displays the pieces of information you'd like to include.
+Warp has a native prompt that is customizable and can show a variety of information including cwd, git, svn, kubernetes, pyenv, date, time, an so on. You can visit `ettings > Appearance > Input > Input Type > Shell (PS1)` then in the terminal input area right-click on it and select Edit prompt and select `Warp Prompt` to drag and drop context chips into your Warp prompt until it displays the pieces of information you'd like to include.
 
 #### Git and Subversion
 
@@ -25,11 +25,11 @@ Kubernetes context chip shows relevant information when you're using one of the 
 Warp respects the `KUBECONFIG` environmental variable, make sure you set it to your preferred configuration file location, if it's not the default path of `~/.kube/config`
 {% endhint %}
 
-### Same line prompt
+#### Same line prompt
 
 By default, Warp's prompt displays on two lines where the command line input is one line below the prompt.
 
-If you'd like to set your prompt such that the command line input and the prompt display together inline, you can configure this under `Settings > Appearance > Input > Classic > Current prompt > Warp Prompt` and check the box for "Same line prompt."
+If you'd like to set your prompt such that the command line input and the prompt display together inline, you can configure this under `Settings > Appearance > Input > Input Type > Shell (PS1)` then in the terminal input area right-click on it and select Edit prompt and select `Warp Prompt` and check the box for "Same line prompt."
 
 If you're using a [Shell prompt (PS1)](prompt.md#custom-prompt), Warp will use the same line prompt settings to respect any styles or theme configurations. You may optionally configure a new line prompt with PS1 but you will need to write your configuration, according to your theme of choice.
 
@@ -66,7 +66,7 @@ echo '[line_break]\ndisabled = false' >> ~/.config/starship.toml
 
 ### Shell prompt (PS1)
 
-You can also set up a Shell prompt by configuring the **PS1** variable or installing a supported shell prompt plugin, see [Shell Prompt Compatibility Table](prompt.md#shell-prompt-compatibility-table). Visit `Settings > Appearance > Input > Classic > Current prompt > Shell Prompt (PS1)` to enabled it.
+You can also set up a Shell prompt by configuring the **PS1** variable or installing a supported shell prompt plugin, see [Shell Prompt Compatibility Table](prompt.md#shell-prompt-compatibility-table). Visit `Settings > Appearance > Input > Input Type > Shell (PS1)` then in the terminal input area right-click on it and select Edit prompt and select `Shell(PS1)` to enabled it.
 
 {% hint style="info" %}
 The PS1 is a variable used by the shell to generate the prompt, it represents the primary prompt string (hence the “PS”) - which the terminal typically displays before typing new commands.
@@ -78,17 +78,15 @@ The Shell prompt supports multi-line or right-sided prompts in zsh and fish, not
 
 ## How to access it
 
-* Toggle the prompt by right-clicking on the prompt area above the input and selecting `Settings > Appearance > Input > Classic > Current prompt`. There you will be able to select and customize the Warp prompt or select the Shell prompt (PS1).
+* Toggle the prompt by right-clicking on the prompt area above the input and selecting `Settings > Appearance > Input > Input Type > Shell (PS1)` then in the terminal input area right-click on it and select Edit prompt. There you will be able to select and customize the Warp prompt or select the Shell prompt (PS1).
   * When using Warp prompt, you can right-click the prompt to copy the entire prompt, working directory, current git branch, git uncommitted file count, etc.
   * When using a Shell prompt, you can right-click the prompt to copy the entire prompt or select any part of the custom prompt in previously run blocks in your session.
 
 ## How it works
 
-<figure><img src="../../.gitbook/assets/classic-prompt.gif" alt=""><figcaption><p>Classic input</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/warp-custom-prompt-demo.gif" alt="Warp Prompt + Custom Prompt Demo"><figcaption><p>Warp Prompt | Shell (Ps1) Prompt Demo</p></figcaption></figure>
 
-<figure><img src="../../.gitbook/assets/warp-custom-prompt-demo.gif" alt="Warp Prompt + Custom Prompt Demo"><figcaption><p>Warp Prompt | Shell Prompt Demo</p></figcaption></figure>
-
-<figure><img src="../../.gitbook/assets/edit-prompt-modal (1).png" alt=""><figcaption><p>Prompt edit modal</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/edit-prompt-modal (1).png" alt=""><figcaption><p>Edit Prompt modal</p></figcaption></figure>
 
 ### Shell Prompt Compatibility Table
 
