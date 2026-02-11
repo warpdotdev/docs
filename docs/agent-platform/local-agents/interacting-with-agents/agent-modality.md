@@ -9,7 +9,7 @@ description: >-
 
 Agent modality gives you two distinct ways to work in Warp: a clean terminal for commands, and a dedicated conversation view for multi-turn conversations with [Oz, Warp's AI agent](./).
 
-{% embed url="https://www.loom.com/share/b5b58c5cd3af42748c890680f3f7692d" %}
+{% embed url="https://youtu.be/J715YW5VC18" %}
 
 ***
 
