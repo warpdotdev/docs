@@ -1,3 +1,10 @@
+---
+description: >-
+  Warp provides an integrated utility bar for third-party CLI coding agents
+  like Claude Code, Codex, and Gemini CLI, with built-in voice, image, and
+  code review support.
+---
+
 # Third-Party CLI Agents
 
 Warp can show an agent utility bar when you’re working with third-party CLI coding agents. It provides integrated controls for images, voice, files, and diffs, giving those agents first-class support directly in Warp.

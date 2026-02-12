@@ -1,3 +1,9 @@
+---
+description: >-
+  Enable an audible terminal bell in Warp that can be triggered by CLI tools
+  like ping.
+---
+
 # Audible Bell
 
 Warp allows you to enable an audible terminal bell (disabled by default) that can be triggered by a variety of CLI tools (for example, `ping -a`).

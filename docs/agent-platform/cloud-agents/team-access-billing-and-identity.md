@@ -1,3 +1,10 @@
+---
+description: >-
+  Understand how access to cloud agents works for individuals and teams,
+  how billing and credits apply, and how Warp maps user identities across
+  integrations.
+---
+
 # Access, Billing, and Identity Permissions
 
 This page explains how access to cloud agents works for both individual users and teams, how billing and credits apply, and how Warp maps user identities across integrations.

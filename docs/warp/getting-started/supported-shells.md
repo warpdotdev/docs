@@ -13,7 +13,7 @@ Warp tries to load your login shell by default. Currently, Warp supports bash, f
 
 * On macOS, zsh is the default shell.
 * On Windows, PowerShell (pwsh) is the default shell.
-* On Linux, bash is the the default shell.
+* On Linux, bash is the default shell.
 
 {% hint style="info" %}
 If you run into issues configuring your RC files (`~/.bashrc`, `~/.zshrc`, `config.fish`, `Microsoft.PowerShell_profile.ps1`) with Warp, please see [Configuring and debugging your RC files](https://docs.warp.dev/support-and-community/troubleshooting-and-support/known-issues#configuring-and-debugging-your-rc-files).
@@ -21,7 +21,7 @@ If you run into issues configuring your RC files (`~/.bashrc`, `~/.zshrc`, `conf
 
 ### Changing what shell Warp uses
 
-To change the default shell, e recommend you choose a shell in Warp by going to `Settings > Features` and scrolling to the `Session` section, then select the "Startup shell for new sessions"
+To change the default shell, we recommend you choose a shell in Warp by going to `Settings > Features` and scrolling to the `Session` section, then select the "Startup shell for new sessions"
 
 {% hint style="info" %}
 The changes to your shell will only take effect when you start a new session.

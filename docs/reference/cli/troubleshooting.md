@@ -1,3 +1,9 @@
+---
+description: >-
+  Common troubleshooting steps for Oz CLI environments, integrations, GitHub
+  access, and Docker image issues.
+---
+
 # Troubleshooting
 
 ## Environments

@@ -306,7 +306,7 @@ We're tracking some issues on Linux where a [Warp window doesn't show/render](ht
 
 **Update fails after upgrading Linux**
 
-Some Linux distros may modify Warp's package repository during the the OS upgrades. We're aware of this on Ubuntu, but this may affect other Linux distros. We're tracking this issue on GitHub [here](https://github.com/warpdotdev/Warp/issues/5201).\
+Some Linux distros may modify Warp's package repository during the OS upgrades. We're aware of this on Ubuntu, but this may affect other Linux distros. We're tracking this issue on GitHub [here](https://github.com/warpdotdev/Warp/issues/5201).\
 \
 To workaround this issue, manually add the repository to update Warp. The Ubuntu example is below:
 

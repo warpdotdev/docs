@@ -1,3 +1,10 @@
+---
+description: >-
+  Set a default working directory for new Warp sessions, with options for
+  home directory, previous session, custom path, or per-window/tab/pane
+  configuration.
+---
+
 # Working Directory
 
 ## What is it

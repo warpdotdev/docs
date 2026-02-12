@@ -1,3 +1,9 @@
+---
+description: >-
+  Common architectures for deploying cloud agents, including CLI-only,
+  Oz-hosted, and self-hosted execution patterns.
+---
+
 # Deployment Patterns
 
 Teams adopt cloud agents in a few repeatable ways. This page outlines the most common architectures, what they're good for, and how they fit together.

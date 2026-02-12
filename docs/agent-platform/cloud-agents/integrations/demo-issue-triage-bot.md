@@ -1,3 +1,9 @@
+---
+description: >-
+  A walkthrough demo showing how to trigger a cloud agent from a GitHub Action
+  to automatically triage bug reports and create draft pull requests.
+---
+
 # Demo: Issue Triage Bot
 
 {% embed url="https://www.youtube.com/watch?feature=youtu.be&v=dK2eohQ2Yow" %}

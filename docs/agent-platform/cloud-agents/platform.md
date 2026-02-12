@@ -97,7 +97,7 @@ Teams typically use the API/SDK when:
 
 ### Environments
 
-[Environments](/environments.md) define the execution context an agent should run in.
+[Environments](environments.md) define the execution context an agent should run in.
 
 **An Environment typically includes:**
 

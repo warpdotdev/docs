@@ -1,3 +1,10 @@
+---
+description: >-
+  Monitor and manage cloud agent activity across your team with Warp's
+  centralized management view, including filtering, status tracking, and
+  session inspection.
+---
+
 # Managing Cloud Agents
 
 Warp provides a centralized management view where you can monitor agent activity across your account and (where applicable) your team. You can access this view in the Warp app or through the [Oz web app](oz-web-app.md) at [oz.warp.dev](https://oz.warp.dev), which works on mobile devices.
