@@ -261,7 +261,7 @@ The Oz CLI offers two ways to run agents, depending on where you want the work t
 
 ### Running locally: \`oz agent run\`
 
-To start a Warp agent, use the `oz agent run` subcommand. You'll need to specify a prompt and, optionally, the [MCP servers](https://docs.warp.dev/knowledge-and-collaboration/mcp) and [agent profile](https://docs.warp.dev/agent-platform/capabilities/agent-profiles-permissions) to use.
+To start a Warp agent, use the `oz agent run` subcommand. You'll need to specify a prompt and, optionally, the [MCP servers](https://docs.warp.dev/agent-platform/capabilities/mcp) and [agent profile](https://docs.warp.dev/agent-platform/capabilities/agent-profiles-permissions) to use.
 
 ```sh
 oz agent run --prompt "set up a new Rust crate named warp-cli"
@@ -393,7 +393,7 @@ $ oz agent run --profile CWhozDJPdPCsjJ1pSG0HCN --prompt "update my CI pipeline 
 
 ## Using MCP servers
 
-MCP servers connect cloud agents to interact with external systems like GitHub, Linear, or Sentry. To use a [Model Context Protocol (MCP)](https://docs.warp.dev/knowledge-and-collaboration/mcp) server from the CLI, you need:
+MCP servers connect cloud agents to interact with external systems like GitHub, Linear, or Sentry. To use a [Model Context Protocol (MCP)](https://docs.warp.dev/agent-platform/capabilities/mcp) server from the CLI, you need:
 
 * An MCP server configured in Warp
 * An agent profile that allows for the MCP server you want to use

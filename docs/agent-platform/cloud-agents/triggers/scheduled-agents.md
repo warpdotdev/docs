@@ -180,7 +180,7 @@ oz schedule pause abc123
 #### Unpausing a Schedule
 
 ```bash
-Unpausing a Schedule
+oz schedule unpause SCHEDULE_ID
 ```
 
 Once unpaused, the agent resumes running according to its original cron schedule.

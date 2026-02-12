@@ -180,7 +180,7 @@ Credits are consumed in a similar way as other Warp AI actions that use the same
 
 * Use tighter scopes:
   * “Describe just the orders table.” instead of “Explain the entire database.”
-* Pause autonomy for high-volume tasks with copius terminal output:
+* Pause autonomy for high-volume tasks with copious terminal output:
   * Take over manual control when running large batches or long logs.
 * Use stricter permissions:
   * Set global permissions to "Ask on first write" or "Always ask", then approve only what you need.

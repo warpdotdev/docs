@@ -117,7 +117,7 @@ Choose an environment if any of the following apply:
 
 If your team tags @Oz in Slack to fix a failing CI job, an environment ensures every run uses the same Docker image, clones the same repos, and runs the same setup commands.&#x20;
 
-The fix the agent tests matches what runs in CI and what your teammates see when they review the PR.&#x20;
+The fix the agent applies matches what runs in CI and what your teammates see when they review the PR.&#x20;
 
 ### Where to configure environments
 

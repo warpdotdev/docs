@@ -42,7 +42,7 @@ Run directly in the Warp app for real-time, interactive coding assistance.
 
 Local agents keep you in control. You can review changes, steer the agent mid-task, and approve actions before they execute.
 
-→ [Get started with local agents](https://docs.warp.dev/agent-platform/agent/agents-overview)
+→ [Get started with local agents](https://docs.warp.dev/agent-platform/local-agents/agents-overview)
 
 ### Cloud agents
 
@@ -72,7 +72,7 @@ Warp terminal and Oz provide a unified experience across local and cloud develop
 
 ## Multi-model support
 
-Oz is multi-model by design. You can [choose your preferred LLM](https://docs.warp.dev/agent-platform/agent/using-agents/model-choice) from a curated set of top models, or let Warp automatically select the optimal model for your task. This lets you balance cost, speed, and quality while avoiding lock-in to any single provider.
+Oz is multi-model by design. You can [choose your preferred LLM](https://docs.warp.dev/agent-platform/capabilities/model-choice) from a curated set of top models
 
 ***
 
@@ -89,6 +89,6 @@ Warp's AI features can be globally disabled in `Settings > AI`.
 ## Next steps
 
 * [**Quickstart Guide**](<README (1).md>): Get Warp installed and start coding
-* [**Local Agents Overview**](https://docs.warp.dev/agent-platform/agent/agents-overview): Explore all AI features available in Warp
+* [**Local Agents Overview**](https://docs.warp.dev/agent-platform/local-agents/agents-overview): Explore all AI features available in Warp
 * [**Cloud Agents Overview**](https://docs.warp.dev/agent-platform/cloud-agents/cloud-agents-overview): Set up background automation
-* [**Warp Platform**](https://docs.warp.dev/agent-platform/platform/warp-platform): Learn about the CLI, API, SDK, and infrastructure
+* [**Oz Platform**](https://docs.warp.dev/agent-platform/cloud-agents/platform): Learn about the CLI, API, SDK, and infrastructure

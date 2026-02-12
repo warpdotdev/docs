@@ -119,7 +119,7 @@ To remove the Warp integration from Linear:
 2. In Linear, go to **Settings**.
 3. Navigate to Agents under the Features section.
 4. Select Warp from the list of installed agents.
-5. Click **Revoke acces**s to remove the integration for your workspace.
+5. Click **Revoke access** to remove the integration for your workspace.
 
 {% embed url="https://www.loom.com/share/2f1648586d8148dc80561c00a09ca334" %}
 
