@@ -13,6 +13,7 @@ Warp lets you choose from a curated set of Large Language Models (LLMs) to power
 **Warp supports the following models:**
 
 * OpenAI:
+  * `GPT-5.3 Codex` (_low, medium, high_, and _extra high_ reasoning)
   * `GPT-5.2` (_low, medium,_ _high_ and _extra high_ reasoning)
   * `GPT-5.2 Codex` (_low, medium, high_, and _extra high_ reasoning)
   * `GPT-5.1 Codex Max` (_low, medium, high_, and _extra high_ reasoning)
