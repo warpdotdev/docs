@@ -99,7 +99,7 @@ In addition to local agent conversations, you can start **Oz cloud agent convers
 
 * Running parallel agents across multiple tasks
 * Running agents remotely on hosted computers (offloading compute from your local machine)
-* Building agents that run autonomously (ambient agents)
+* Running agents autonomously in the cloud
 * Checking in on your agents from anywhere
 
 To start a cloud agent conversation, press `⌥⌘↩` (Option+Command+Enter on macOS, or `Ctrl+Alt+Enter` on Windows/Linux) from terminal mode. You can also use the welcome block's "Start cloud project" action.

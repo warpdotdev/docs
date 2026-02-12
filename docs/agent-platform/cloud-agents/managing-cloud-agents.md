@@ -42,13 +42,13 @@ The management view includes two categories of agent activity.
 All usage rolls up into Warp's standard [**credit**](https://docs.warp.dev/support-and-community/plans-and-billing/credits) system.
 {% endhint %}
 
-In the **Personal** tab, you can view all of the interactive and cloud agent conversations that you own. In the **All** tab, you can see everything from the personal tab, as well as any ambient sessions that are shared with you by your teammates; right now, this only includes things triggered from integrations.
+In the **Personal** tab, you can view all of the interactive and cloud agent conversations that you own. In the **All** tab, you can see everything from the personal tab, as well as any cloud agent sessions that are shared with you by your teammates; right now, this only includes things triggered from integrations.
 
 ***
 
 ### The agents list
 
-Each row represents a single item in the management view (either an interactive conversation or an ambient run). The list is intended to be scannable: you should be able to understand “what happened” without opening anything.
+Each row represents a single item in the management view (either an interactive conversation or a cloud agent run). The list is intended to be scannable: you should be able to understand “what happened” without opening anything.
 
 #### Fields you’ll see
 
@@ -66,11 +66,11 @@ Where the agent was launched from. Common sources include:
 
 Warp uses a small set of statuses to help you quickly identify what needs attention:
 
-<table><thead><tr><th width="173.375">Status</th><th width="78.41973876953125">Icon</th><th>Description</th></tr></thead><tbody><tr><td><code>Working</code></td><td>N/A</td><td>in progress (may include queued / running states)</td></tr><tr><td><code>Blocked</code></td><td>🟨</td><td><p><em>(interactive only)</em></p><p><br>the conversation is waiting on user input or a required step</p></td></tr><tr><td><code>Canceled</code></td><td>⬜️</td><td>(interactive only)<br><br>the interactive conversation was canceled before completion</td></tr><tr><td><code>Failed / Errored</code></td><td>🔺</td><td>something went wrong (applies to both interactive and ambient)</td></tr><tr><td><code>Success</code></td><td>✅</td><td>completed successfully (applies to both interactive and ambient)</td></tr></tbody></table>
+<table><thead><tr><th width="173.375">Status</th><th width="78.41973876953125">Icon</th><th>Description</th></tr></thead><tbody><tr><td><code>Working</code></td><td>N/A</td><td>in progress (may include queued / running states)</td></tr><tr><td><code>Blocked</code></td><td>🟨</td><td><p><em>(interactive only)</em></p><p><br>the conversation is waiting on user input or a required step</p></td></tr><tr><td><code>Canceled</code></td><td>⬜️</td><td>(interactive only)<br><br>the interactive conversation was canceled before completion</td></tr><tr><td><code>Failed / Errored</code></td><td>🔺</td><td>something went wrong (applies to both interactive and cloud agent runs)</td></tr><tr><td><code>Success</code></td><td>✅</td><td>completed successfully (applies to both interactive and cloud agent runs)</td></tr></tbody></table>
 
 **Duration (for cloud agent tasks)**
 
-* Shown for ambient runs to indicate how long the task executed.
+* Shown for cloud agent runs to indicate how long the task executed.
 * Note: Interactive conversations generally don’t map cleanly to a single “run duration,” so this is currently omitted.&#x20;
 
 ***
@@ -79,7 +79,7 @@ Warp uses a small set of statuses to help you quickly identify what needs attent
 
 **The primary interaction is simple:**
 
-* Clicking an ambient row opens the [shared session](https://docs.warp.dev/knowledge-and-collaboration/session-sharing/agent-session-sharing) for that run (logs/messages/output).
+* Clicking a cloud agent row opens the [shared session](https://docs.warp.dev/knowledge-and-collaboration/session-sharing/agent-session-sharing) for that run (logs/messages/output).
 * Clicking an interactive row opens the conversation locally in the Warp app.
 
 This makes the management view a navigation surface: find the thing you care about, click once, and you’re in the right context to inspect or continue work.

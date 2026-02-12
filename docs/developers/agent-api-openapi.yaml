@@ -1081,6 +1081,8 @@ components:
         - GITHUB_ACTION: Created from a GitHub action
         - CLOUD_MODE: Created from a Cloud Mode
         - CLI: Created from the CLI
+    # TODO: Rename AmbientAgentConfig to AgentConfig in a future API version.
+    # The "Ambient" prefix is an internal legacy name and should not be user-facing.
     AmbientAgentConfig:
       type: object
       description: Configuration for a cloud agent run

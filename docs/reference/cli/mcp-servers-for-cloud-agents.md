@@ -18,7 +18,7 @@ Use an MCP server when your agent needs access to:
 
 * External tools or APIs wrapped behind an MCP interface
 * Local processes that expose MCP endpoints
-* Internal developer tools that you want integrated into your ambient workflows
+* Internal developer tools that you want integrated into your cloud agent workflows
 
 Agents call MCP tools automatically whenever their workflow requires them.
 

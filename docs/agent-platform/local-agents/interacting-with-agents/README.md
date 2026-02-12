@@ -196,7 +196,7 @@ By default, your agent conversations are stored locally on your machine. You can
 For full details on enabling cloud sync, sharing conversations, and accessing cloud agent conversations, see [Cloud-synced Conversations](../cloud-conversations.md).
 
 {% hint style="info" %}
-To enable cloud sync, go to `Settings > Privacy` and toggle on **"Store AI conversations in the cloud"**. When disabled, conversations are stored locally only and cannot be shared. Note that cloud agent (ambient agent) conversations are always stored in the cloud regardless of this setting.
+To enable cloud sync, go to `Settings > Privacy` and toggle on **"Store AI conversations in the cloud"**. When disabled, conversations are stored locally only and cannot be shared. Note that cloud agent conversations are always stored in the cloud regardless of this setting.
 {% endhint %}
 
 ### Search

@@ -313,7 +313,7 @@ oz agent run-cloud \
 * No `--cwd` — the environment determines the working directory.
 * No `--share` — sharing options are on `run`, not `run-cloud`.
 
-**When ambient runs fail**
+**When cloud runs fail**
 
 * Verify your environment has the correct repository and context.
 * Check that your profile allows the commands and MCP servers needed.

@@ -295,4 +295,4 @@ This is especially useful when the same workflow can be triggered from multiple 
 **If your team also uses Warp’s terminal, you gain an additional workflow:**
 
 * Tasks launched via the CLI can be handed off into an interactive session for review, edits, or continuation.
-* This is useful when you want a human checkpoint (final edits, validation, merge decisions) without losing the audit trail from the ambient run.
+* This is useful when you want a human checkpoint (final edits, validation, merge decisions) without losing the audit trail from the cloud agent run.
