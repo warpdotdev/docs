@@ -62,6 +62,23 @@ Keybinds that conflict with others are highlighted with an orange border.
 | `SHIFT-DOWN`      | Expand Selected Blocks Below      | `terminal:expand_block_selection_below`                |
 | `SHIFT-UP`        | Expand Selected Blocks Above      | `terminal:expand_block_selection_above`                |
 
+**Scrolling**
+
+| Shortcut         | Command                                      | Action                                                    |
+| ---------------- | -------------------------------------------- | --------------------------------------------------------- |
+| `PAGE UP`        | Scroll Up One Page                           | `terminal:page_up`                                        |
+| `PAGE DOWN`      | Scroll Down One Page                         | `terminal:page_down`                                      |
+| `HOME`           | Scroll to Top                                | `terminal:home`                                           |
+| `END`            | Scroll to Bottom                             | `terminal:end`                                            |
+| `SHIFT-CMD-UP`   | Scroll to Top of Selected Block              | `terminal:scroll_to_top_of_selected_block`                |
+| `SHIFT-CMD-DOWN` | Scroll to Bottom of Selected Block           | `terminal:scroll_to_bottom_of_selected_block`             |
+|                  | Scroll Terminal Output Up One Line           | `terminal:scroll_up_one_line`                             |
+|                  | Scroll Terminal Output Down One Line         | `terminal:scroll_down_one_line`                           |
+
+{% hint style="info" %}
+"Scroll Terminal Output Up/Down One Line" has no default keybinding. You can assign one in `Settings > Keyboard Shortcuts` or trigger it from the [Command Palette](../terminal/command-palette.md). During long-running or full-screen commands, `PAGE UP`, `PAGE DOWN`, `HOME`, and `END` are forwarded to the running program.
+{% endhint %}
+
 **Input Editor**
 
 | Shortcut          | Command                                   | Action                                     |
@@ -207,6 +224,23 @@ Keybinds that conflict with others are highlighted with an orange border.
 | `SHIFT-DOWN`       | Expand Selected Blocks Below      | `terminal:expand_block_selection_below`                |
 | `SHIFT-UP`         | Expand Selected Blocks Above      | `terminal:expand_block_selection_above`                |
 
+**Scrolling**
+
+| Shortcut           | Command                                      | Action                                                    |
+| ------------------ | -------------------------------------------- | --------------------------------------------------------- |
+| `PAGE UP`          | Scroll Up One Page                           | `terminal:page_up`                                        |
+| `PAGE DOWN`        | Scroll Down One Page                         | `terminal:page_down`                                      |
+| `HOME`             | Scroll to Top                                | `terminal:home`                                           |
+| `END`              | Scroll to Bottom                             | `terminal:end`                                            |
+| `CTRL-SHIFT-UP`   | Scroll to Top of Selected Block              | `terminal:scroll_to_top_of_selected_block`                |
+| `CTRL-SHIFT-DOWN` | Scroll to Bottom of Selected Block           | `terminal:scroll_to_bottom_of_selected_block`             |
+|                    | Scroll Terminal Output Up One Line           | `terminal:scroll_up_one_line`                             |
+|                    | Scroll Terminal Output Down One Line         | `terminal:scroll_down_one_line`                           |
+
+{% hint style="info" %}
+"Scroll Terminal Output Up/Down One Line" has no default keybinding. You can assign one in `Settings > Keyboard Shortcuts` or trigger it from the [Command Palette](../terminal/command-palette.md). During long-running or full-screen commands, `PAGE UP`, `PAGE DOWN`, `HOME`, and `END` are forwarded to the running program.
+{% endhint %}
+
 **Input Editor**
 
 | Shortcut           | Command                                   | Action                                     |
@@ -350,6 +384,23 @@ Keybinds that conflict with others are highlighted with an orange border.
 | `CTRL-SHIFT-S`     | Share Selected Block              | `terminal:open_share_modal`                            |
 | `SHIFT-DOWN`       | Expand Selected Blocks Below      | `terminal:expand_block_selection_below`                |
 | `SHIFT-UP`         | Expand Selected Blocks Above      | `terminal:expand_block_selection_above`                |
+
+**Scrolling**
+
+| Shortcut           | Command                                      | Action                                                    |
+| ------------------ | -------------------------------------------- | --------------------------------------------------------- |
+| `PAGE UP`          | Scroll Up One Page                           | `terminal:page_up`                                        |
+| `PAGE DOWN`        | Scroll Down One Page                         | `terminal:page_down`                                      |
+| `HOME`             | Scroll to Top                                | `terminal:home`                                           |
+| `END`              | Scroll to Bottom                             | `terminal:end`                                            |
+| `CTRL-SHIFT-UP`   | Scroll to Top of Selected Block              | `terminal:scroll_to_top_of_selected_block`                |
+| `CTRL-SHIFT-DOWN` | Scroll to Bottom of Selected Block           | `terminal:scroll_to_bottom_of_selected_block`             |
+|                    | Scroll Terminal Output Up One Line           | `terminal:scroll_up_one_line`                             |
+|                    | Scroll Terminal Output Down One Line         | `terminal:scroll_down_one_line`                           |
+
+{% hint style="info" %}
+"Scroll Terminal Output Up/Down One Line" has no default keybinding. You can assign one in `Settings > Keyboard Shortcuts` or trigger it from the [Command Palette](../terminal/command-palette.md). During long-running or full-screen commands, `PAGE UP`, `PAGE DOWN`, `HOME`, and `END` are forwarded to the running program.
+{% endhint %}
 
 **Input Editor**
 
