@@ -25,6 +25,18 @@ metaLinks: {}
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
 {% updates format="full" %}
+{% update date="2026-02-11" %}
+## v0.2026.02.11.08.23
+
+**Improvements**
+
+* Updated the tabs UI to be cleaner, more readable, and to make tab focus clearer.
+
+**Bug fixes**
+
+* Show the Input Type setting (Warp/PS1) regardless of global AI setting.
+{% endupdate %}
+
 {% update date="2026-02-10" %}
 ## v0.2026.02.10.11.37
 

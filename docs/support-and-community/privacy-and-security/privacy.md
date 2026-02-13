@@ -175,6 +175,7 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `AmbientAgent.ConcurrencyModal.Dismissed` | User dismissed the cloud agent capacity modal |
 | `AmbientAgent.ConcurrencyModal.Opened` | User opened the cloud agent capacity modal |
 | `AmbientAgent.ConcurrencyModal.UpgradeClicked` | User clicked the upgrade button in the cloud agent capacity modal |
+| `AmbientAgent.DispatchFailed` | Ambient agent failed to dispatch or encountered an error |
 | `AmbientAgent.EnvironmentSettings.CreatedEnvironment` | User created a new environment |
 | `AmbientAgent.EnvironmentSettings.DeletedEnvironment` | User deleted an environment |
 | `AmbientAgent.EnvironmentSettings.Image.Suggested` | Docker image was suggested for an environment |
