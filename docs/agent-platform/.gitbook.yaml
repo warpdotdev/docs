@@ -35,12 +35,13 @@ redirects:
     agents/using-agents/planning: capabilities/planning.md
     agents/using-agents/web-search: capabilities/web-search.md
     agents/voice: local-agents/interacting-with-agents/voice.md
+    agents/agent-modality-beta: local-agents/interacting-with-agents/agent-modality.md
+    agents/using-agents/third-party-cli-agents: local-agents/third-party-cli-agents.md
 
     # Old ambient-agents/ paths
     ambient-agents/agent-secrets: cloud-agents/cloud-agent-secrets.md
     ambient-agents/managing-ambient-agents: cloud-agents/managing-cloud-agents.md
     ambient-agents/managing-ambient-agents/scheduled-agents: cloud-agents/triggers/scheduled-agents.md
-    ambient-agents/mcp-servers-for-agents: ambient-agents/mcp-servers-for-agents.md
 
     # Old integrations/ paths
     integrations/github-actions: cloud-agents/integrations/github-actions.md
@@ -264,3 +265,19 @@ redirects:
     agent-mode/interacting-with-agents/conversation-forking: local-agents/interacting-with-agents/conversation-forking.md
     agent-mode/interacting-with-agents/voice: local-agents/interacting-with-agents/voice.md
     local-agents/ambient-agents-session-sharing: cloud-agents/cloud-agents-session-sharing.md
+
+    # Cross-space legacy paths (old root-level URLs pointing to agent-platform content)
+    features/warp-ai/mcp: capabilities/mcp.md
+    features/warp-ai/knowledge: capabilities/rules.md
+    features/warp-ai/rules: capabilities/rules.md
+    features/knowledge: capabilities/rules.md
+    features/integrations/mcp: capabilities/mcp.md
+    knowledge-and-collaboration/mcp: capabilities/mcp.md
+    knowledge-and-collaboration/rules: capabilities/rules.md
+    knowledge-and-collaboration/warp-drive/model-context-protocol-mcp: capabilities/mcp.md
+    knowledge-and-collaboration/session-sharing/agent-session-sharing: cloud-agents/agent-session-sharing.md
+    knowledge-and-collaboration/session-sharing/ambient-agents-session-sharing: cloud-agents/cloud-agents-session-sharing.md
+    code/codebase-context: capabilities/codebase-context.md
+    code/reviewing-code: local-agents/code-diffs-in-agent-conversations.md
+    code/code-review/interactive-code-review: local-agents/interactive-code-review.md
+    getting-started/quickstart-guide/agents-in-warp: getting-started/agents-in-warp.md

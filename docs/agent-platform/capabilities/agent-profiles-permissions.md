@@ -28,6 +28,10 @@ Agent Profiles let you configure how your Agent behaves in different situations.
 
 Agent Permissions let you define how your Agent in a specific Profile operates — control its autonomy, choose what tools or MCP servers it can access, and set when it should act independently or ask for approval.
 
+{% hint style="warning" %}
+**Still getting approval prompts?** If the Agent keeps asking for permission to run certain commands (like `curl`, `rm`, or `wget`) even though you've set permissions to "Always allow," check your **Command denylist** in `Settings > AI > Agents > Profiles`. The denylist always takes precedence over other permission settings. Remove commands from the denylist to allow them to auto-execute, or use [Run until completion](#run-until-completion) to bypass the denylist for the current task.
+{% endhint %}
+
 You can control how much autonomy the Agent has when performing different types of actions under `Settings > AI > Agents > Profiles > Permissions` . Agent permission types:
 
 * Apply code diffs

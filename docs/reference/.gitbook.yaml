@@ -34,3 +34,6 @@ redirects:
     agent-api-and-sdk: api-and-sdk/README.md
     cli/integrations-and-environments: cli/integrations-and-environments.md
 
+    # Cross-space legacy paths
+    ambient-agents/mcp-servers-for-agents: cli/mcp-servers-for-cloud-agents.md
+

@@ -29,10 +29,6 @@ redirects:
     features/appearance/custom-themes: terminal/appearance/custom-themes.md
     features/appearance/prompt: terminal/appearance/prompt.md
     features/warp-ai/code: code/code-overview.md
-    features/warp-ai/mcp: knowledge-and-collaboration/mcp.md
-    features/warp-ai/knowledge: knowledge-and-collaboration/rules.md
-    features/warp-ai/rules: knowledge-and-collaboration/rules.md
-    features/knowledge: knowledge-and-collaboration/rules.md
     features/command-palette: terminal/command-palette.md
     features/warp-drive: knowledge-and-collaboration/warp-drive/README.md
     features/warp-drive/notebooks: knowledge-and-collaboration/warp-drive/notebooks.md
@@ -113,13 +109,11 @@ redirects:
     code/code-overview: code/code-overview.md
     code/code-review: code/code-review.md
     code/code-review/interactive-code-review: code/code-review.md
-    code/codebase-context: code/codebase-context.md
     code/reviewing-code: code/code-review.md
 
     # Getting started section
     getting-started/keyboard-shortcuts: getting-started/keyboard-shortcuts.md
     getting-started/migrate-to-warp: getting-started/migrate-to-warp.md
-    getting-started/quickstart-guide/agents-in-warp: getting-started/quickstart-guide/agents-in-warp.md
     getting-started/quickstart-guide/coding-in-warp: getting-started/quickstart-guide/coding-in-warp.md
     getting-started/quickstart-guide/customizing-warp: getting-started/quickstart-guide/customizing-warp.md
     getting-started/quickstart-guide/installation-and-setup: getting-started/quickstart-guide/installation-and-setup.md
@@ -128,10 +122,7 @@ redirects:
 
     # Knowledge and collaboration section
     knowledge-and-collaboration/admin-panel: knowledge-and-collaboration/admin-panel.md
-    knowledge-and-collaboration/mcp: knowledge-and-collaboration/mcp.md
-    knowledge-and-collaboration/rules: knowledge-and-collaboration/rules.md
     knowledge-and-collaboration/session-sharing: knowledge-and-collaboration/session-sharing/README.md
-    knowledge-and-collaboration/session-sharing/agent-session-sharing: knowledge-and-collaboration/session-sharing/agent-session-sharing.md
     knowledge-and-collaboration/teams: knowledge-and-collaboration/teams.md
     knowledge-and-collaboration/warp-drive: knowledge-and-collaboration/warp-drive/README.md
     knowledge-and-collaboration/warp-drive/environment-variables: knowledge-and-collaboration/warp-drive/environment-variables.md
@@ -254,7 +245,6 @@ redirects:
     features/customize/custom-keyboard-shortcuts: getting-started/keyboard-shortcuts.md
     features/advanced/settings: terminal/more-features/settings-sync.md
     features/integrations: terminal/integrations-and-plugins.md
-    features/integrations/mcp: knowledge-and-collaboration/mcp.md
     features/integrations/urls-and-deep-links: terminal/more-features/uri-scheme.md
     features/the-input-editor: terminal/editor/README.md
     features/entry/workflows: terminal/entry/yaml-workflows.md
@@ -318,7 +308,6 @@ redirects:
     features/windows/~: terminal/windows/README.md
 
     # knowledge-and-collaboration/* paths
-    knowledge-and-collaboration/warp-drive/model-context-protocol-mcp: knowledge-and-collaboration/mcp.md
     knowledge-and-collaboration/workflows: knowledge-and-collaboration/warp-drive/workflows.md
 
     # settings/* paths
@@ -336,5 +325,3 @@ redirects:
     # appearance/* paths
     appearance/custom-themes.git: terminal/appearance/custom-themes.md
     
-    # integrations/* paths
-    integrations/linear: integrations/linear.md
