@@ -77,7 +77,7 @@ See the [**Agents API**](https://docs.warp.dev/reference/api-and-sdk/agent) for 
 
 You can influence how an agent runs using AmbientAgentConfig, including:
 
-* `name` for traceability and filtering
+* `name` — a human-readable label for grouping, filtering, and traceability. When you run an agent from a [skill](https://docs.warp.dev/agent-platform/capabilities/skills), `name` is automatically set to the skill name. You can also set `name` explicitly via the API, SDK, or CLI (`--name`) to categorize runs by intent — for example, grouping all runs of a particular workflow regardless of how they were triggered. Use the `name` query parameter on `GET /agent/runs` to filter runs by config name.
 * `model_id` for LLM selection
 * `base_prompt` to shape behavior
 * `environment_id` to choose a `CloudEnvironment`

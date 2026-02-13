@@ -302,7 +302,7 @@ oz agent run-cloud \
 
 * `--environment <ENVIRONMENT_ID> (-e)` — select the environment to run in (this is the main knob that makes the run execute in the cloud).
 * `--open` — view the agent's session in Warp once it's available.
-* `--name <NAME>` — name the task (useful for identifying it later).
+* `--name <NAME>` — label the run for grouping and traceability (see [Naming runs](./#naming-runs) below).
 * `--profile <PROFILE_ID>` — select an execution profile (defaults if omitted).
 * `--mcp <SPEC>` — start one or more MCP servers before execution (UUID, JSON file path, or inline JSON).
 * `--model <MODEL_ID>` — override the default model.
@@ -312,6 +312,35 @@ oz agent run-cloud \
 
 * No `--cwd` — the environment determines the working directory.
 * No `--share` — sharing options are on `run`, not `run-cloud`.
+
+#### Naming runs <a href="#naming-runs" id="naming-runs"></a>
+
+The `--name` flag assigns a config name to the run. Use it to group related runs under a shared label so you can filter, search, and track them later.
+
+**How names work:**
+
+* **Skill-based runs** — When you run an agent from a [skill](https://docs.warp.dev/agent-platform/capabilities/skills), the name is automatically set to the skill name. You don't need to pass `--name` explicitly.
+* **Custom runs** — When you build your own automation (via the CLI, API, or SDK), set `--name` to a consistent value that describes the workflow's intent.
+
+**Why naming matters:**
+
+When your team runs many agents across schedules, integrations, and ad-hoc triggers, `name` lets you answer questions like "how many distinct workflows are we running?" and "how often does this particular workflow run?" You can filter runs by name using the `name` query parameter on `GET /agent/runs` in the [Oz Agent API](https://docs.warp.dev/reference/api-and-sdk).
+
+**Examples:**
+
+```sh
+# Name a recurring workflow for easy tracking
+oz agent run-cloud \
+  --environment SVhg783GBFQHk1OfdPfFU9 \
+  --name "nightly-dependency-check" \
+  --prompt "Check for outdated dependencies and open a PR with updates"
+
+# Skill-based runs are named automatically
+oz agent run-cloud \
+  --environment SVhg783GBFQHk1OfdPfFU9 \
+  --skill "myorg/backend:code-review" \
+  --prompt "review the latest PR"
+```
 
 **When cloud runs fail**
 
