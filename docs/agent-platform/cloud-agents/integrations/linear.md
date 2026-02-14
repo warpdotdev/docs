@@ -1,13 +1,13 @@
 ---
 description: >-
-  Automate Linear issues with Warp agents that can read context, run your code
+  Automate Linear issues with Oz agents that can read context, run your code
   in the cloud, and create pull requests while keeping you updated through live
   Session Sharing.
 ---
 
 # Linear
 
-The Linear integration lets your team delegate development work directly to Warp agents from inside Linear. When you tag Warp on an issue or comment, an agent will spin up in the cloud, clone the repos defined in your environment, and begin working through the task.
+The Linear integration lets your team delegate development work directly to agents from inside Linear. When you tag @Oz on an issue or comment, an agent will spin up in the cloud, clone the repos defined in your environment, and begin working through the task.
 
 Agents keep you updated inside Linear, generate pull requests using your GitHub account, and provide a link to join a live remote session so you can watch or steer the workflow in real time.
 
@@ -17,9 +17,9 @@ This guide explains what the integration does, how it works end-to-end, and how 
 
 ***
 
-### Using Warp inside Linear
+### Using Oz inside Linear
 
-Assigning Warp to an issue or tagging @Oz in a Linear comment starts an agent run. Warp clones the repositories defined in your environment, sets up your development environment using your Docker image and setup commands, and begins working through the task with full context from your codebase and the Linear issue. Agents post updates as they progress, including a task list, elapsed time, and checkpoints, so you can follow along without leaving Linear.
+Tagging @Oz on an issue or in a Linear comment starts an agent run. Oz clones the repositories defined in your environment, sets up your development environment using your Docker image and setup commands, and begins working through the task with full context from your codebase and the Linear issue. Agents post updates as they progress, including a task list, elapsed time, and checkpoints, so you can follow along without leaving Linear.
 
 Agents also share a link to an interactive remote session using Warp's [cloud agent session sharing](../cloud-agents-session-sharing.md). Opening this link lets you view the live terminal output for the running agent in Warp or in the browser. From there, you can interrupt or guide the agent with additional instructions when needed. Once the agent finishes, it will create a pull request on your behalf — using your GitHub permissions — and post a summary of its work and the PR link back into Linear.
 
@@ -28,7 +28,7 @@ You can start an agent in two ways:
 * **Tag the Oz agent in a comment** (@Oz) and describe what you want done.
 * **Assign the issue to the Oz agent** as if it were a teammate.
 
-Warp will acknowledge the request directly in the Linear issue and begin working.
+Oz will acknowledge the request directly in the Linear issue and begin working.
 
 Agents keep you informed through:
 
@@ -107,18 +107,18 @@ Alternatively, you can use the CLI:
 oz integration create linear --environment <ENV_ID>
 ```
 
-The CLI will open a browser window prompting you to install the Warp app into your Linear workspace. After installation, the integration becomes available to all members of your Warp team.
+The CLI will open a browser window prompting you to install the Oz app into your Linear workspace. After installation, the integration becomes available to all members of your Warp team.
 
 ***
 
 ### Uninstallation instructions
 
-To remove the Warp integration from Linear:
+To remove the Oz integration from Linear:
 
 1. Only a Linear team admin can manage app permissions.
 2. In Linear, go to **Settings**.
 3. Navigate to Agents under the Features section.
-4. Select Warp from the list of installed agents.
+4. Select Oz from the list of installed agents.
 5. Click **Revoke access** to remove the integration for your workspace.
 
 {% embed url="https://www.loom.com/share/2f1648586d8148dc80561c00a09ca334" %}
@@ -127,4 +127,4 @@ After revoking access, Warp will no longer be able to read issues, receive trigg
 
 ### Troubleshooting
 
-If something isn't working as expected—missing repos, PR failures, Linear not detecting Warp, or environment issues—see our [Integrations Troubleshooting](README.md#troubleshooting) page for detailed guidance on GitHub permissions, environment configuration, and common setup problems.
+If something isn't working as expected—missing repos, PR failures, Linear not detecting Oz, or environment issues—see our [Integrations Troubleshooting](README.md#troubleshooting) page for detailed guidance on GitHub permissions, environment configuration, and common setup problems.

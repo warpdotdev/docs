@@ -11,7 +11,7 @@ description: >-
 
 ## Objects used as context
 
-Warp agents can automatically pull in relevant context from:
+Agents can automatically pull in relevant context from:
 
 * **Workflows** - Saved commands and scripts
 * **Notebooks** - Documentation and notes

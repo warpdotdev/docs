@@ -6,7 +6,7 @@ description: >-
 
 # Codebase Context
 
-Codebase Context helps Warp Agents understand your project by indexing your local codebase. This allows Agents to generate more accurate completions, suggest context-aware edits, and answer questions using real knowledge of your code.
+Codebase Context helps Agents understand your project by indexing your local codebase. This allows Agents to generate more accurate completions, suggest context-aware edits, and answer questions using real knowledge of your code.
 
 {% hint style="info" %}
 Code indexed with Codebase Context is never stored on our servers. Warp's coding agent only works on local repositories. The agent can make changes on remote or docker repositories, but fallback to using terminal commands (i.e. `sed`, `grep` ) to make the changes.
@@ -24,7 +24,7 @@ Feature requests for support are being tracked in the following Github issues: \
 
 ## Indexing your codebase
 
-When you open a directory in Warp, we check if it is part of a Git repository. If it is, Warp begins indexing the source code to provide rich context for Warp Agents.&#x20;
+When you open a directory in Warp, we check if it is part of a Git repository. If it is, Warp begins indexing the source code to provide rich context for Agents.&#x20;
 
 **Codebase indexing intervals and triggers:**
 
@@ -39,7 +39,7 @@ When you open a directory in Warp, we check if it is part of a Git repository. I
 * Generate completions that match your style and patterns
 * Suggest edits in the correct locations based on real context
 
-For large projects, indexing may take a few minutes. Warp Agents will not use codebase context until indexing is complete, but **agentic coding features remain fully available in the meantime**.
+For large projects, indexing may take a few minutes. Agents will not use codebase context until indexing is complete, but **agentic coding features remain fully available in the meantime**.
 
 {% hint style="info" %}
 You can view and manage your indexed codebases under `Settings > Code > Codebase Index`. You can also choose whether to automatically index new folders as you navigate them.

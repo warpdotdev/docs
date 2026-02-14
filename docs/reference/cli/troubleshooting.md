@@ -141,7 +141,7 @@ This usually means the Docker image is missing required dependencies. Fix by eit
 
 #### **I see "VM failed before the agent could run. This is likely an issue with your Docker image"**
 
-This typically means your Docker image uses musl libc instead of glibc. Alpine Linux and other musl-based images are not compatible with the Warp agent runtime.
+This typically means your Docker image uses musl libc instead of glibc. Alpine Linux and other musl-based images are not compatible with the agent runtime.
 
 Fix:
 

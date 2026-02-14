@@ -1,16 +1,16 @@
 ---
 description: >-
-  Learn how to set up environments and integrations so you can trigger Warp
+  Learn how to set up environments and integrations so you can trigger Oz
   agents from external tools.
 ---
 
 # Integrations and Environments
 
-This article describes the environment and integration setup that is required before you can trigger Warp agents from external tools, like Slack or Linear. You will learn how to:
+This article describes the environment and integration setup that is required before you can trigger agents from external tools, like Slack or Linear. You will learn how to:
 
 * Create and configure the environment needed to run agents
 * Connect that environment to your team
-* Trigger Warp agents using Slack or Linear
+* Trigger agents using Slack or Linear
 
 {% hint style="info" %}
 **You only need to complete this setup once per Warp team**. After an integration exists, anyone on the team can use it. For example, the first time a teammate triggers an agent from Slack or Linear, they'll be prompted to authorize GitHub with their own account in order for the agent to write back to repos.
@@ -43,7 +43,7 @@ Warp Integration
 Environment
    (Docker image + repos + setup)
         →
-Warp Agent
+Agent
    (runs workflow, opens PRs, posts results)
 ```
 {% endcode %}
@@ -52,7 +52,7 @@ Setting up an integration consists of three steps.
 
 1. **Create an environment** for the agent to run your code.
 2. **Authorize GitHub** so Warp can clone repositories, write code, debug issues, open pull requests, and more.
-3. **Configure** the Warp app with an integration.
+3. **Configure** the Oz app with an integration.
 
 ***
 
@@ -198,7 +198,7 @@ If you omit `--environment`, the CLI will show a list of environments and prompt
 The CLI then:
 
 1. Links the integration to your Warp team and environment.
-2. Opens a browser flow to install the Warp app into your Slack workspace or Linear workspace.
+2. Opens a browser flow to install the Oz app into your Slack workspace or Linear workspace.
 3. Generates an **integration ID** you can later list or delete.
 
 Optionally, you can attach a custom prompt that is applied to all runs for that integration:
@@ -236,7 +236,7 @@ At a high level, each run works like this:
 
 ## Next steps
 
-You now have everything needed to trigger Warp agents from your team’s tools. From here, you might want to:
+You now have everything needed to trigger agents from your team’s tools. From here, you might want to:
 
 * Add or adjust setup commands
 * Switch to a custom Docker image

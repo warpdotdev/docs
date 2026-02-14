@@ -103,7 +103,7 @@ This ensures runs are scoped to what the user is allowed to see and modify, and 
 
 #### Slack / Linear
 
-Installing the Warp app gives Warp access to the Slack channels or Linear teams where the app is installed. Access cannot be narrowed to individual issues or threads.
+Installing the Oz app gives Warp access to the Slack channels or Linear teams where the app is installed.
 
 **When a run is triggered, Warp receives:**
 

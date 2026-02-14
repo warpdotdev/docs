@@ -2,14 +2,10 @@
 description: >-
   Oz Cloud Agents are cloud-connected background agents that run from
   events, schedules, or integrations, giving teams scalable automation with
-  shared observability and centralized configs (beta)
+  shared observability and centralized configs
 ---
 
 # Oz Cloud Agents Overview
-
-{% hint style="info" %}
-**Beta**: Oz Cloud Agents are currently in beta. APIs, CLI commands, and product behavior may change. If you have feedback, reach out in the [Warp Community Slack](https://go.warp.dev/join-preview).
-{% endhint %}
 
 Oz Cloud Agents are **cloud-connected**, **background agents** that run on the [Oz Platform](platform.md).
 
@@ -136,10 +132,10 @@ If your credit balance reaches zero, cloud agent runs will not be able to execut
 
 * [Oz Platform](platform.md) — CLI, Oz Agent API/SDK, orchestration, tasks, environments, hosts, integrations, and more.
 * [Skills as Agents](skills-as-agents.md) — run agents based on reusable skill definitions from the CLI, web app, API, or on a schedule.
-* [Oz CLI](https://docs.warp.dev/reference/cli) — shows how to run Warp's agent in non-interactive mode from CI, scripts, or remote machines, including auth and common commands.
+* [Oz CLI](https://docs.warp.dev/reference/cli) — shows how to run Oz agents in non-interactive mode from CI, scripts, or remote machines, including auth and common commands.
 * [Environments](environments.md) — explains how environments provide the runtime context (repo, image, startup commands) for agent tasks.
 * [Oz Agent API and SDK](https://docs.warp.dev/reference/api-and-sdk) — documents the REST API for creating, querying, and monitoring agent tasks programmatically.
 * [Agent Secrets](cloud-agent-secrets.md) — covers how to store, scope, and inject credentials into agent runs safely.
 * [MCP Servers for Agents](https://docs.warp.dev/reference/cli/mcp-servers-for-cloud-agents) — describes how to configure MCP servers for agent tool access and how MCP configuration is applied across runs.
-* [Deployment Patterns](deployment-patterns.md) (beta) — compares common ways to deploy cloud agents and when to use each.
+* [Deployment Patterns](deployment-patterns.md) — compares common ways to deploy cloud agents and when to use each.
 * [Access, Billing, and Identity Permissions](team-access-billing-and-identity.md) — explains individual and team-level requirements, credit billing behavior, and the permission model for who can run, view, and steer cloud agent tasks.

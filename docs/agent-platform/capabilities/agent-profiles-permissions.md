@@ -52,7 +52,7 @@ When all Agent permissions are set to **Always allow**, the Agent gains full aut
 
 ### Command allowlist
 
-The Warp Agent lets you define an allowlist of commands that run automatically without confirmation. It’s empty by default, but users often add read-only commands such as:
+The Agent lets you define an allowlist of commands that run automatically without confirmation. It’s empty by default, but users often add read-only commands such as:
 
 * `which .*` - Find executable locations
 * `ls(\s.*)?` - List directory contents

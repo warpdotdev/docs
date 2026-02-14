@@ -1,20 +1,14 @@
 ---
-description: Use Warp Agents from the terminal.
+description: Use Oz agents from the terminal.
 ---
 
 # Oz CLI
-
-{% hint style="info" %}
-The Oz CLI is under development and only supports some operations.
-\
-We welcome [feedback](https://docs.warp.dev/support-and-community/troubleshooting-and-support/sending-us-feedback#sending-warp-feedback) on how you're building with the CLI and on any missing functionality!
-{% endhint %}
 
 ## What is the Oz CLI?
 
 The Oz CLI is the command-line tool that lets you run [Cloud Agents](https://docs.warp.dev/agent-platform/cloud-agents/cloud-agents-overview) from anywhere, including terminals, scripts, automated systems, or services.
 
-It's the standard runtime entry point that turns a **prompt** plus **configuration** into an **executable agent task** that runs on either a **Warp-hosted or self-hosted runner**.&#x20;
+It's the standard runtime entry point that turns a **prompt** plus **configuration** into an **executable agent task** that runs on either a **Warp-hosted or [self-hosted](https://docs.warp.dev/agent-platform/cloud-agents/self-hosting) runner**.&#x20;
 
 With the Oz CLI, you can:
 
@@ -261,7 +255,7 @@ The Oz CLI offers two ways to run agents, depending on where you want the work t
 
 ### Running locally: \`oz agent run\`
 
-To start a Warp agent, use the `oz agent run` subcommand. You'll need to specify a prompt and, optionally, the [MCP servers](https://docs.warp.dev/agent-platform/capabilities/mcp) and [agent profile](https://docs.warp.dev/agent-platform/capabilities/agent-profiles-permissions) to use.
+To start an agent, use the `oz agent run` subcommand. You'll need to specify a prompt and, optionally, the [MCP servers](https://docs.warp.dev/agent-platform/capabilities/mcp) and [agent profile](https://docs.warp.dev/agent-platform/capabilities/agent-profiles-permissions) to use.
 
 ```sh
 oz agent run --prompt "set up a new Rust crate named warp-cli"

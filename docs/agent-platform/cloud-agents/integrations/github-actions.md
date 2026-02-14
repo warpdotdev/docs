@@ -1,13 +1,13 @@
 ---
 description: >-
-  Warp’s GitHub Actions integration lets you run Warp agents directly inside
+  Warp's GitHub Actions integration lets you run Oz agents directly inside
   your CI workflows, using your repo context and GitHub permissions to automate
   coding tasks.
 ---
 
 # Github Actions
 
-Warp’s GitHub Actions integration lets you run Warp agents directly inside your CI workflows. Using the `warp-agent-action` Github Action, you can delegate tasks such as code review, issue triage, bug fixing, or automated maintenance to the agent as part of a standard Actions pipeline.
+Warp’s GitHub Actions integration lets you run agents directly inside your CI workflows. Using the `warp-agent-action` Github Action, you can delegate tasks such as code review, issue triage, bug fixing, or automated maintenance to the agent as part of a standard Actions pipeline.
 
 The agent runs inside your workflow, uses your repository context, and can open pull requests or comment on issues using your GitHub permissions.
 
@@ -32,7 +32,7 @@ In this demo
 
 The `warp-agent-action` is a GitHub Action that wraps the Oz CLI and:
 
-* Runs a Warp agent inside an Actions job
+* Runs an agent inside an Actions job
 * Caches package installation for faster builds
 * Captures the agent’s output for use in subsequent workflow steps
 * Lets you pass workflow context, event data, and previous step outputs into the agent prompt
@@ -41,7 +41,7 @@ The `warp-agent-action` is a GitHub Action that wraps the Oz CLI and:
 
 ### Requirements
 
-To use Warp agents in GitHub Actions, you need:
+To use agents in GitHub Actions, you need:
 
 * A [**Warp API Key**](https://docs.warp.dev/reference/cli/cli#generating-api-keys) stored as a [GitHub secret](https://docs.github.com/en/actions/concepts/security/secrets)
 * A workflow with permissions that match your intended actions (for example, write access to PRs if the agent should commit or comment)
@@ -54,7 +54,7 @@ The agent runs using your GitHub account’s permissions for the workflow run.
 
 _For detailed setup instructions, please refer to the_ [_Warp Agent Actions_](https://github.com/warpdotdev/warp-agent-action) _repo._
 
-To run Warp agents from GitHub Actions, **you must store your Warp API Key as a GitHub Actions secret**. This allows your workflow to authenticate with Warp securely.
+To run agents from GitHub Actions, **you must store your Warp API Key as a GitHub Actions secret**. This allows your workflow to authenticate with Warp securely.
 
 #### Add your Warp API Key to GitHub Secrets
 
@@ -224,7 +224,7 @@ What it does:
 
 * Triggers when a pull request review is submitted
 * Fetches review comments and stores them in review\_comments.json
-* Sends comments and context to a Warp agent to decide which ones are simple, actionable fixes
+* Sends comments and context to an agent to decide which ones are simple, actionable fixes
 * Generates `responses.json` with explanations and suggestion blocks for each fixable comment
 * Replies inline to the original review comments with the generated suggestions
 

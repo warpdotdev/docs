@@ -7,7 +7,7 @@ description: >-
 
 # Integrations Overview
 
-Warp integrations let your team trigger Warp agents directly from the terminal, or from first-party tools like [Slack](slack.md) and [Linear](linear.md). Once everything is set up, agents can:
+Warp integrations let your team trigger agents directly from the terminal, or from first-party tools like [Slack](slack.md) and [Linear](linear.md). Once everything is set up, agents can:
 
 * Read conversation or issue context
 * Run code inside your codebase in a remote environment
@@ -23,7 +23,7 @@ All of this is powered by the [Oz CLI](https://docs.warp.dev/reference/cli).
 
 ## Quickstart
 
-The fastest way to get Warp agents running from Slack or Linear is to create an environment with the guided flow. An **environment** defines everything the agent needs to run your code remotely, including your Docker image, repos, and setup commands.
+The fastest way to get agents running from Slack or Linear is to create an environment with the guided flow. An **environment** defines everything the agent needs to run your code remotely, including your Docker image, repos, and setup commands.
 
 {% embed url="https://www.youtube.com/watch?v=ahFfInVD0HQ" %}
 
@@ -82,7 +82,7 @@ For Linear:
 oz integration create linear --environment <ENV_ID>
 ```
 
-The CLI opens an authorization page where you install Warp into your Slack workspace or Linear team. Once installed, everyone on your Warp team can trigger agents.
+The CLI opens an authorization page where you install Oz into your Slack workspace or Linear team.
 
 #### 4. Start using agents
 

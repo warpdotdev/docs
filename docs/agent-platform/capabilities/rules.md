@@ -110,7 +110,7 @@ To view all Project Rules and open them in Warp, access it via the Warp Drive Ru
 
 ### Rules as Agent context
 
-When relevant, Warp agents automatically pull in applicable rules to guide their responses. Rules used in an interaction will appear in the conversation under **References** or marked as derived from a specific rule.
+When relevant, Agents automatically pull in applicable rules to guide their responses. Rules used in an interaction will appear in the conversation under **References** or marked as derived from a specific rule.
 
 <figure><img src="../.gitbook/assets/context-derived-from-memory.png" alt="Context derived from memory"><figcaption><p>Derived from rules</p></figcaption></figure>
 

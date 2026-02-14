@@ -1,6 +1,6 @@
 ---
 description: >-
-  The Slack integration lets your team trigger Warp agents from Slack to run
+  The Slack integration lets your team trigger Oz agents from Slack to run
   tasks in the cloud, update progress, and create pull requests based on your
   conversations.
 ---
@@ -9,7 +9,7 @@ description: >-
 
 ### Overview
 
-The Slack integration lets your team trigger Warp agents directly from conversations in Slack. When you tag **@Oz** in a message or DM the bot, Warp will start an agent in the cloud, clone the repositories defined in your environment, and begin working through the task with full context from your codebase and the Slack thread.
+The Slack integration lets your team trigger agents directly from conversations in Slack. When you tag **@Oz** in a message or DM the bot, Warp will start an agent in the cloud, clone the repositories defined in your environment, and begin working through the task with full context from your codebase and the Slack thread.
 
 Agents keep you updated as they work, generate pull requests using your GitHub account, and share a link to a live remote session so you can watch or guide the workflow in real time.
 
@@ -17,9 +17,9 @@ This page explains what the integration does, how it behaves inside Slack, and h
 
 ***
 
-### Using Warp inside Slack
+### Using Oz inside Slack
 
-Assigning Warp to a message or tagging @Oz in a thread starts an agent run. The agent clones the repositories in your environment, sets up your development environment using your Docker image and setup commands, and begins working with the context from the Slack conversation. Warp posts updates back into the thread as it progresses so you can follow along without opening your terminal.
+Tagging @Oz in a message or thread starts an agent run. The agent clones the repositories in your environment, sets up your development environment using your Docker image and setup commands, and begins working with the context from the Slack conversation. Oz posts updates back into the thread as it progresses so you can follow along without opening your terminal.
 
 Agents also share a link to an interactive remote session using Warp's [cloud agent session sharing](../cloud-agents-session-sharing.md). Opening this link gives you a live terminal view of the cloud agent running your code. You can interrupt or steer the agent by providing additional instructions, and the agent will pick up where it left off with the new context.
 
@@ -31,15 +31,15 @@ You can start an agent in three ways:
 
 *   **Tag @Oz in a channel message**
 
-    Describe the task, and Warp will begin working with full context from the thread.
+    Describe the task, and Oz will begin working with full context from the thread.
 *   **Tag @Oz inside a thread**
 
-    Warp will automatically collect the thread’s prior messages and use them as context.
+    Oz will automatically collect the thread's prior messages and use them as context.
 *   **DM the Oz agent directly**
 
     Useful for private tasks or experimentation.
 
-Warp will acknowledge the request in Slack and start running the task immediately.
+Oz will acknowledge the request in Slack and start running the task immediately.
 
 ### Monitoring agent progress
 
@@ -130,7 +130,7 @@ Alternatively, use the CLI:
 oz integration create slack --environment <ENV_ID>
 ```
 
-The CLI will open a browser window to install the Warp app into your Slack workspace. After installation, the integration becomes available to all members of your Warp team.
+The CLI will open a browser window to install the Oz app into your Slack workspace. After installation, the integration becomes available to all members of your Warp team.
 
 You can optionally attach a custom prompt that is applied to every agent run:
 
@@ -151,16 +151,16 @@ oz integration create slack \
 
 ### Uninstallation instructions
 
-To remove the Warp app from your Slack workspace:
+To remove the Oz app from your Slack workspace:
 
 1. Open Slack and go to **Apps** in the left sidebar.
-2. Search for Warp.
+2. Search for Oz.
 3. Select the app, then open the **About** tab.
 4. Click **Configuration**. This will open your workspace’s app configuration page in the browser.
 5. Scroll to the bottom and select **Remove App**.
 6. Confirm the removal.
 
-<figure><img src="../../.gitbook/assets/delete-warpy.png" alt=""><figcaption><p>Warpy is just an internal Slackbot, your Warp slackbot should be called Warp.</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/delete-warpy.png" alt=""><figcaption><p>Warpy is just an internal Slackbot, your Warp slackbot should be called Oz.</p></figcaption></figure>
 
 <figure><img src="../../.gitbook/assets/remove-slack-app.png" alt=""><figcaption></figcaption></figure>
 

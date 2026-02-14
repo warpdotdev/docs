@@ -5,7 +5,7 @@ description: >
 
 # API Reference
 
-This section covers the programmatic interfaces for running and managing Warp agents in CI pipelines, scripts, backend services, and custom tooling.
+This section covers the programmatic interfaces for running and managing Oz agents in CI pipelines, scripts, backend services, and custom tooling.
 
 ## CLI
 

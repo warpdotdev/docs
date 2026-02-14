@@ -24,7 +24,7 @@ You can also choose whether Warp automatically opens the [Code Review](https://d
 
 ## **Navigating and applying diffs**
 
-When a Warp Agent generates a code diff, Warp opens it in a built-in text editor with a visual diff view. Changes are grouped into clear hunks for easy inspection.
+When an Agent generates a code diff, Warp opens it in a built-in text editor with a visual diff view. Changes are grouped into clear hunks for easy inspection.
 
 * Use the `UP` and `DOWN` arrow keys (or mouse clicks) to move between hunks.
 * For multi-file changes, use `LEFT` and `RIGHT` arrow keys to switch between files.

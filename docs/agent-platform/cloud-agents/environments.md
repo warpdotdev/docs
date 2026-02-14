@@ -131,7 +131,7 @@ Make sure you have:
 * A publicly-accessible Docker image that can build and run your code. Official images like [node](https://hub.docker.com/_/node), [python](https://hub.docker.com/_/python), or [rust](https://hub.docker.com/_/rust) work for many projects.
 
 {% hint style="warning" %}
-Musl-based Docker images (such as Alpine Linux) are not supported. The Warp agent runtime requires glibc. Use glibc-based images like Debian, Ubuntu, or the default (non-Alpine) variants of official Docker Hub images.
+Musl-based Docker images (such as Alpine Linux) are not supported. The agent runtime requires glibc. Use glibc-based images like Debian, Ubuntu, or the default (non-Alpine) variants of official Docker Hub images.
 {% endhint %}
 
 {% hint style="info" %}
@@ -275,5 +275,5 @@ If your setup commands depend on secrets or credentials, configure them through 
 * **Repo access and GitHub authorization issues** – Runs fail when GitHub doesn't have repo access or the triggering user lacks permissions.
 * Solution: See [Integrations and Environments](https://docs.warp.dev/reference/cli/integrations-and-environments#how-github-authorization-works) for GitHub authorization setup.
 * **Docker image incompatibility** – You see the error: "VM failed before the agent could run. This is likely an issue with your Docker image."
-  * Possible cause: Alpine Linux and other musl-based images are not compatible with the Warp agent runtime, which requires glibc.
+  * Possible cause: Alpine Linux and other musl-based images are not compatible with the agent runtime, which requires glibc.
   * Solution: Switch to a glibc-based image such as Debian, Ubuntu, or the default (non-Alpine) variants of official Docker Hub images (e.g. `node`, `python`, `rust`).
