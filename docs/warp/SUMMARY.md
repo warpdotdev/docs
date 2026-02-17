@@ -5,7 +5,7 @@
 ## Getting started
 
 * [Getting started with Warp and Oz](README.md)
-* [Quickstart Guide](<README (1).md>)
+* [Quick Start](<README (1).md>)
   * [Installation and setup](getting-started/quickstart/installation-and-setup.md)
   * [Coding in Warp](getting-started/quickstart/coding-in-warp.md)
   * [Customizing Warp](getting-started/quickstart/customizing-warp.md)
