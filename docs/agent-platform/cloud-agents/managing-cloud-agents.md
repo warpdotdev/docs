@@ -1,8 +1,8 @@
 ---
 description: >-
   Monitor and manage cloud agent activity across your team with Warp's
-  centralized management view, including filtering, status tracking, and
-  session inspection.
+  centralized management view, including filtering, status tracking, and session
+  inspection.
 ---
 
 # Managing Cloud Agents
@@ -71,7 +71,7 @@ Warp uses a small set of statuses to help you quickly identify what needs attent
 **Duration (for cloud agent tasks)**
 
 * Shown for cloud agent runs to indicate how long the task executed.
-* Note: Interactive conversations generally don’t map cleanly to a single “run duration,” so this is currently omitted.&#x20;
+* Note: Interactive conversations generally don’t map cleanly to a single “run duration,” so this is currently omitted.
 
 ***
 
@@ -79,7 +79,7 @@ Warp uses a small set of statuses to help you quickly identify what needs attent
 
 **The primary interaction is simple:**
 
-* Clicking a cloud agent row opens the [shared session](https://docs.warp.dev/knowledge-and-collaboration/session-sharing/agent-session-sharing) for that run (logs/messages/output).
+* Clicking a cloud agent row opens the [shared session](viewing-cloud-agent-runs.md) for that run (logs/messages/output).
 * Clicking an interactive row opens the conversation locally in the Warp app.
 
 This makes the management view a navigation surface: find the thing you care about, click once, and you’re in the right context to inspect or continue work.
