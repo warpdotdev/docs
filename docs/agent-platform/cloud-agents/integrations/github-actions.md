@@ -7,12 +7,12 @@ description: >-
 
 # Github Actions
 
-Warp’s GitHub Actions integration lets you run agents directly inside your CI workflows. Using the `warp-agent-action` Github Action, you can delegate tasks such as code review, issue triage, bug fixing, or automated maintenance to the agent as part of a standard Actions pipeline.
+Warp's GitHub Actions integration lets you run Oz agents directly inside your CI workflows. Using the `oz-agent-action` Github Action, you can delegate tasks such as code review, issue triage, bug fixing, or automated maintenance to the agent as part of a standard Actions pipeline.
 
 The agent runs inside your workflow, uses your repository context, and can open pull requests or comment on issues using your GitHub permissions.
 
 {% hint style="info" %}
-For more detailed setup instructions, please refer to the [Warp Agent Actions](https://github.com/warpdotdev/warp-agent-action) repo.
+For more detailed setup instructions, please refer to the [Oz Agent Action](https://github.com/warpdotdev/oz-agent-action) repo.
 {% endhint %}
 
 This page explains what the integration does, how to use it in workflows, and common patterns for automating development tasks with Warp.
@@ -30,54 +30,51 @@ In this demo
 
 ### What the GitHub Actions integration does
 
-The `warp-agent-action` is a GitHub Action that wraps the Oz CLI and:
+The `oz-agent-action` is a GitHub Action that wraps the Oz CLI and:
 
-* Runs an agent inside an Actions job
+* Runs an Oz agent inside an Actions job
 * Caches package installation for faster builds
-* Captures the agent’s output for use in subsequent workflow steps
+* Captures the agent's output for use in subsequent workflow steps
 * Lets you pass workflow context, event data, and previous step outputs into the agent prompt
 * Allows the agent to comment on PRs, post results, or open branches via the GitHub CLI
 * Supports inline code suggestions that can be batched and committed directly from the GitHub pull request UI
+* Enables using pre-built skills or custom skills for specialized tasks
 
 ### Requirements
 
-To use agents in GitHub Actions, you need:
+To use Oz agents in GitHub Actions, you need:
 
 * A [**Warp API Key**](https://docs.warp.dev/reference/cli/cli#generating-api-keys) stored as a [GitHub secret](https://docs.github.com/en/actions/concepts/security/secrets)
 * A workflow with permissions that match your intended actions (for example, write access to PRs if the agent should commit or comment)
-* The `warp-agent-action` step added to your workflow
+* The `oz-agent-action` step added to your workflow
 * Familiarity with GitHub Actions concepts — see the official docs for [GitHub Actions](https://docs.github.com/en/actions)
 
 The agent runs using your GitHub account’s permissions for the workflow run.
 
-### Quickstart
+### Quick start
 
-_For detailed setup instructions, please refer to the_ [_Warp Agent Actions_](https://github.com/warpdotdev/warp-agent-action) _repo._
+_For detailed setup instructions, please refer to the_ [_Oz Agent Action_](https://github.com/warpdotdev/oz-agent-action) _repo._
 
 To run agents from GitHub Actions, **you must store your Warp API Key as a GitHub Actions secret**. This allows your workflow to authenticate with Warp securely.
 
 #### Add your Warp API Key to GitHub Secrets
 
 1. Go to your repository on GitHub.
-2. Navigate to: **Settings > Secrets and variables > Actions**
-3. Select **New repository secret**
-4. Set the secret name to `WARP_API_KEY`
-5. Paste your Warp API Key into the **Secret** field
-6. Click **Add secret**
-
-Your secret will now appear in the list of available Actions secrets:
-
-<figure><img src="../../.gitbook/assets/actions-secrets-and-variables.png" alt=""><figcaption></figcaption></figure>
+2. Navigate to: `Settings > Secrets and variables > Actions`.
+3. Click `New repository secret`.
+4. Set the secret name to `WARP_API_KEY`.
+5. Paste your Warp API Key into the **Secret** field.
+6. Click `Add secret`.
 
 <figure><img src="../../.gitbook/assets/actions-add-a-secret.png" alt=""><figcaption></figcaption></figure>
 
-#### Add the Warp Agent Action to your workflow
+#### Add the Oz Agent Action to your workflow
 
 Once your `WARP_API_KEY` secret is set, add a step to your workflow:
 
 ```yaml
-- name: Review code changes in Warp
-  uses: warpdotdev/warp-agent-action@main
+- name: Review code changes in Oz
+  uses: warpdotdev/oz-agent-action@v1
   with:
     prompt: |
       Review the code changes on this branch:
@@ -130,16 +127,57 @@ with:
     | john@example.com
 ```
 
+### Using Skills
+
+Skills provide reusable instructions for Oz agents. You can use pre-built skills from the [oz-skills repository](https://github.com/warpdotdev/oz-skills) or create custom [skills](../../capabilities/skills.md) for your specific workflows. Skills can also be deployed as [standalone agents](../../capabilities/skills.md#skills-as-agents) to run on a schedule or in response to events.
+
+#### How to use skills
+
+You can specify a skill using the `skill` input parameter, either instead of or in combination with prompts:
+
+```yaml
+- name: Run agent with a skill
+  uses: warpdotdev/oz-agent-action@v1
+  with:
+    skill: 'code-review'
+    warp_api_key: ${{ secrets.WARP_API_KEY }}
+```
+
+#### Skill format options
+
+The `skill` parameter supports multiple formats for referencing skills:
+
+* **`skill_name`** - Searches for the skill in your repository's skill directories
+* **`repo:skill_name`** - Uses a skill from a specific repository
+* **`org/repo:skill_name`** - Uses a skill from a specific organization's repository
+
+#### Combining skills with prompts
+
+You can combine skills with prompts to provide specialized context while customizing the specific task:
+
+```yaml
+with:
+  skill: 'code-review'
+  prompt: 'Focus on security vulnerabilities in authentication code'
+  warp_api_key: ${{ secrets.WARP_API_KEY }}
+```
+
+In this example, the `code-review` skill provides the base context and approach for code review, while the prompt narrows the focus to security concerns in authentication code.
+
+{% hint style="info" %}
+Skills help maintain consistency across your workflows and can encapsulate best practices for common tasks like code review, issue triage, or automated testing.
+{% endhint %}
+
 ***
 
 ## Common use cases
 
-The `warp-agent-action` supports several automation patterns commonly used in CI.
+The `oz-agent-action` supports several automation patterns commonly used in CI.
 
 ### 1. Responding to comments with @ mentions
 
-* **File**: [`examples/respond-to-comment.yml`](https://github.com/warpdotdev/warp-agent-action/blob/main/examples/respond-to-comment.yml)
-* **Use case**: Add “@warpdotdev fix this typo” or similar comments to a PR or Issue.
+* **File**: [`examples/respond-to-comment.yml`](https://github.com/warpdotdev/oz-agent-action/blob/main/examples/respond-to-comment.yml)
+* **Use case**: Add "@oz-agent fix this typo" or similar comments to a PR or Issue.
 
 What it does:
 
@@ -154,7 +192,7 @@ What it does:
 
 ### 2. Automated pull request review
 
-* **File**: [`examples/review-pr.yml`](https://github.com/warpdotdev/warp-agent-action/blob/main/examples/review-pr.yml)
+* **File**: [`examples/review-pr.yml`](https://github.com/warpdotdev/oz-agent-action/blob/main/examples/review-pr.yml)
 * **Use case**: Provide automated agent feedback when a PR is opened or marked ready for review.
 
 What it does:
@@ -169,8 +207,8 @@ What it does:
 
 ### 3. Automatically fix issues
 
-* **File**: [`examples/auto-fix-issue.yml`](https://github.com/warpdotdev/warp-agent-action/blob/main/examples/auto-fix-issue.yml)
-* **Use case**: Apply the `warp-agent` label on an Issue to trigger automated fixes.
+* **File**: [`examples/auto-fix-issue.yml`](https://github.com/warpdotdev/oz-agent-action/blob/main/examples/auto-fix-issue.yml)
+* **Use case**: Apply the `oz-agent` label on an Issue to trigger automated fixes.
 
 What it does:
 
@@ -185,7 +223,7 @@ What it does:
 
 ### 4. Daily issue summaries
 
-* **File**: [`examples/daily-issue-summary.yml`](https://github.com/warpdotdev/warp-agent-action/blob/main/examples/daily-issue-summary.yml)
+* **File**: [`examples/daily-issue-summary.yml`](https://github.com/warpdotdev/oz-agent-action/blob/main/examples/daily-issue-summary.yml)
 * **Use case**: Scheduled summaries of newly opened issues.
 
 What it does:
@@ -201,7 +239,7 @@ What it does:
 
 ### 5. Fixing failing CI checks
 
-* **File**: [`examples/fix-failing-checks.yml`](https://github.com/warpdotdev/warp-agent-action/blob/main/examples/fix-failing-checks.yml)
+* **File**: [`examples/fix-failing-checks.yml`](https://github.com/warpdotdev/oz-agent-action/blob/main/examples/fix-failing-checks.yml)
 * **Use case**: Automatically attempt fixes when a workflow or test suite fails.
 
 What it does:
@@ -217,8 +255,8 @@ What it does:
 
 ### 6. Suggest fixes for review comments
 
-* **File**: [`examples/suggest-review-fixes.yml`](https://github.com/warpdotdev/warp-agent-action/blob/main/examples/suggest-review-fixes.yml)
-* Use cases: Automatically propose code suggestions for small, actionable review comments such as typos, naming tweaks, and minor refactors.
+* **File**: [`examples/suggest-review-fixes.yml`](https://github.com/warpdotdev/oz-agent-action/blob/main/examples/suggest-review-fixes.yml)
+* **Use case**: Automatically propose code suggestions for small, actionable review comments such as typos, naming tweaks, and minor refactors.
 
 **What it does:**
 
