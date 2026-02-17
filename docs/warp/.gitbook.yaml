@@ -106,7 +106,6 @@ redirects:
     how-does-warp-compare/terminal-features: terminal/comparisons/terminal-features.md
 
     # Code section (paths that already include code/)
-    code/code-editor: code/code-editor/README.md
     code/code-editor/code-editor-vim-keybindings: code/code-editor/code-editor-vim-keybindings.md
     code/code-editor/file-tree: code/code-editor/file-tree.md
     code/code-editor/find-and-replace: code/code-editor/find-and-replace.md
@@ -127,9 +126,10 @@ redirects:
 
     # Knowledge and collaboration section
     knowledge-and-collaboration/admin-panel: knowledge-and-collaboration/admin-panel.md
-    knowledge-and-collaboration/session-sharing: knowledge-and-collaboration/session-sharing/README.md
+    knowledge-and-collaboration/mcp: knowledge-and-collaboration/mcp.md
+    knowledge-and-collaboration/rules: knowledge-and-collaboration/rules.md
+    knowledge-and-collaboration/session-sharing/agent-session-sharing: knowledge-and-collaboration/session-sharing/agent-session-sharing.md
     knowledge-and-collaboration/teams: knowledge-and-collaboration/teams.md
-    knowledge-and-collaboration/warp-drive: knowledge-and-collaboration/warp-drive/README.md
     knowledge-and-collaboration/warp-drive/environment-variables: knowledge-and-collaboration/warp-drive/environment-variables.md
     knowledge-and-collaboration/warp-drive/notebooks: knowledge-and-collaboration/warp-drive/notebooks.md
     knowledge-and-collaboration/warp-drive/prompts: knowledge-and-collaboration/warp-drive/prompts.md
@@ -138,7 +138,6 @@ redirects:
     knowledge-and-collaboration/warp-drive/workflows: knowledge-and-collaboration/warp-drive/workflows.md
 
     # Terminal section
-    terminal/appearance: terminal/appearance/README.md
     terminal/appearance/app-icons: terminal/appearance/app-icons.md
     terminal/appearance/blocks-behavior: terminal/appearance/blocks-behavior.md
     terminal/appearance/custom-themes: terminal/appearance/custom-themes.md
@@ -149,7 +148,6 @@ redirects:
     terminal/appearance/tabs-behavior: terminal/appearance/tabs-behavior.md
     terminal/appearance/text-fonts-cursor: terminal/appearance/text-fonts-cursor.md
     terminal/appearance/themes: terminal/appearance/themes.md
-    terminal/blocks: terminal/blocks/README.md
     terminal/blocks/background-blocks: terminal/blocks/background-blocks.md
     terminal/blocks/block-actions: terminal/blocks/block-actions.md
     terminal/blocks/block-basics: terminal/blocks/block-basics.md
@@ -157,26 +155,21 @@ redirects:
     terminal/blocks/block-sharing: terminal/blocks/block-sharing.md
     terminal/blocks/find: terminal/blocks/find.md
     terminal/blocks/sticky-command-header: terminal/blocks/sticky-command-header.md
-    terminal/command-completions: terminal/command-completions/README.md
     terminal/command-completions/autosuggestions: terminal/command-completions/autosuggestions.md
     terminal/command-completions/completions: terminal/command-completions/completions.md
     terminal/command-palette: terminal/command-palette.md
-    terminal/comparisons: terminal/comparisons/README.md
     terminal/comparisons/performance: terminal/comparisons/performance.md
     terminal/comparisons/terminal-features: terminal/comparisons/terminal-features.md
-    terminal/editor: terminal/editor/README.md
     terminal/editor/alias-expansion: terminal/editor/alias-expansion.md
     terminal/editor/command-inspector: terminal/editor/command-inspector.md
     terminal/editor/syntax-error-highlighting: terminal/editor/syntax-error-highlighting.md
     terminal/editor/vim: terminal/editor/vim.md
-    terminal/entry: terminal/entry/README.md
     terminal/entry/command-corrections: terminal/entry/command-corrections.md
     terminal/entry/command-history: terminal/entry/command-history.md
     terminal/entry/command-search: terminal/entry/command-search.md
     terminal/entry/synchronized-inputs: terminal/entry/synchronized-inputs.md
     terminal/entry/yaml-workflows: terminal/entry/yaml-workflows.md
     terminal/integrations-and-plugins: terminal/integrations-and-plugins.md
-    terminal/more-features: terminal/more-features/README.md
     terminal/more-features/accessibility: terminal/more-features/accessibility.md
     terminal/more-features/audible-bell: terminal/more-features/audible-bell.md
     terminal/more-features/files-and-links: terminal/more-features/files-and-links.md
@@ -189,17 +182,14 @@ redirects:
     terminal/more-features/text-selection: terminal/more-features/text-selection.md
     terminal/more-features/uri-scheme: terminal/more-features/uri-scheme.md
     terminal/more-features/working-directory: terminal/more-features/working-directory.md
-    terminal/sessions: terminal/sessions/README.md
     terminal/sessions/launch-configurations: terminal/sessions/launch-configurations.md
     terminal/sessions/session-navigation: terminal/sessions/session-navigation.md
     terminal/sessions/session-restoration: terminal/sessions/session-restoration.md
     terminal/universal-input: terminal/input/universal-input.md
     terminal/universal-input/classic-input: terminal/input/classic-input.md
-    terminal/warpify: terminal/warpify/README.md
     terminal/warpify/ssh-legacy: terminal/warpify/ssh-legacy.md
     terminal/warpify/ssh: terminal/warpify/ssh.md
     terminal/warpify/subshells: terminal/warpify/subshells.md
-    terminal/windows: terminal/windows/README.md
     terminal/windows/global-hotkey: terminal/windows/global-hotkey.md
     terminal/windows/split-panes: terminal/windows/split-panes.md
     terminal/windows/tabs: terminal/windows/tabs.md
