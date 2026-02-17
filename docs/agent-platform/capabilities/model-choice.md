@@ -22,6 +22,7 @@ Warp lets you choose from a curated set of Large Language Models (LLMs) to power
   * `GPT-5` (_low, medium,_ and _high_ reasoning)
 * Anthropic:
   * `Claude Opus 4.6` (_default_ and _max_)
+  * `Claude Sonnet 4.6` (_default_ and _max_)
   * `Claude Opus 4.5` with thinking mode
   * `Claude Sonnet 4.5` with thinking mode
   * `Claude Opus 4.1`
