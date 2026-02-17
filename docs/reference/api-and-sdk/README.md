@@ -20,7 +20,7 @@ The Oz Agent API lets you create and inspect [Cloud Agent](https://docs.warp.dev
 {% hint style="warning" %}
 This page is a high-level overview.\
 \
-For full API endpoint details, please refer to the [**Agents API**](https://docs.warp.dev/reference/api-and-sdk/agent)**.** For schema definitions, see the [**Models reference**](https://docs.warp.dev/reference/api-and-sdk/models).
+For full API endpoint details, please refer to the [**Agents API**](https://docs.warp.dev/reference/api-and-sdk/agent)**.** For schema definitions, see the SDK repos: [**Python SDK**](https://github.com/warpdotdev/oz-sdk-python) and [**TypeScript SDK**](https://github.com/warpdotdev/oz-sdk-typescript).
 {% endhint %}
 
 ### Oz Agent SDK
@@ -84,7 +84,7 @@ You can influence how an agent runs using AmbientAgentConfig, including:
 * `skill_spec` to use a [skill](https://docs.warp.dev/agent-platform/capabilities/skills) as the base prompt (format: `owner/repo:skill-name` or `owner/repo:path/to/SKILL.md`)
 * `mcp_servers` to enable specific tools via MCP
 
-See the [**Models reference**](https://docs.warp.dev/reference/api-and-sdk/models) for the full configuration schema.
+See the [**Python SDK**](https://github.com/warpdotdev/oz-sdk-python) or [**TypeScript SDK**](https://github.com/warpdotdev/oz-sdk-typescript) for the full configuration schema.
 
 ***
 
@@ -108,7 +108,7 @@ All endpoint semantics, query parameters, and error codes are documented on the 
 
 #### Models Reference
 
-The API shares a set of reusable models across endpoints. Detailed JSON schemas, types, and enums are documented on the [Models reference](https://docs.warp.dev/reference/api-and-sdk/models), including:
+The API shares a set of reusable models across endpoints. Detailed JSON schemas, types, and enums are available in the SDK repos ([Python](https://github.com/warpdotdev/oz-sdk-python), [TypeScript](https://github.com/warpdotdev/oz-sdk-typescript)). Key models include:
 
 * `RunAgentRequest`
 * `RunAgentResponse`

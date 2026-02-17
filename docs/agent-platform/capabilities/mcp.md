@@ -333,7 +333,7 @@ Note: A Figma account with [Dev Mode](https://www.figma.com/dev-mode/) enabled i
 
 **Figma Local MCP Server**
 
-1. Enable the Official Figma MCP Server. [Figma MCP Docs](https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Dev-Mode-MCP-Server)
+1. Enable the Official Figma MCP Server. [Figma MCP Docs](https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Figma-MCP-server)
 2. Open the [Figma desktop app](https://www.figma.com/downloads/) and make sure you’ve [updated to the latest version](https://help.figma.com/hc/en-us/articles/5601429983767-Guide-to-the-Figma-desktop-app#h_01HE5QD60DG6FEEDTZVJYM82QW).
 3. Create or open a Figma Design file.
 4. In the upper-left corner, open the Figma menu.
@@ -403,7 +403,7 @@ Enter the following configuration into Warp > `Warp Drive` > `MCP Servers` > `+ 
 {% endtab %}
 
 {% tab title="Notion" %}
-[Notion MCP Docs](https://notion.notion.site/Beta-Overview-Notion-MCP-206efdeead058060a59bf2c14202bd0a)
+[Notion MCP Docs](https://developers.notion.com/docs/mcp)
 
 **Notion CLI Server (Command)**
 

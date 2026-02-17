@@ -26,8 +26,11 @@ except ImportError:
     HAS_REQUESTS = False
 
 # Regex patterns for extracting links
-MARKDOWN_LINK = re.compile(r'\[([^\]]*)\]\(([^)]+)\)')
-MARKDOWN_IMAGE = re.compile(r'!\[([^\]]*)\]\(([^)]+)\)')
+# Handle both normal links [text](url) and GitBook angle-bracket links [text](<url with spaces>)
+MARKDOWN_LINK_ANGLE = re.compile(r'\[([^\]]*)\]\(<([^>]+)>\)')
+MARKDOWN_LINK_NORMAL = re.compile(r'\[([^\]]*)\]\(([^)<\s][^)\s]*)\)')
+MARKDOWN_IMAGE_ANGLE = re.compile(r'!\[([^\]]*)\]\(<([^>]+)>\)')
+MARKDOWN_IMAGE_NORMAL = re.compile(r'!\[([^\]]*)\]\(([^)<\s][^)\s]*)\)')
 HTML_LINK = re.compile(r'<a[^>]+href=["\']([^"\']+)["\']', re.IGNORECASE)
 HTML_IMG = re.compile(r'<img[^>]+src=["\']([^"\']+)["\']', re.IGNORECASE)
 GITBOOK_EMBED = re.compile(r'\{%\s*embed\s+url=["\']([^"\']+)["\']')
@@ -76,10 +79,19 @@ class LinkChecker:
             lines = content.splitlines()
             
             for line_num, line in enumerate(lines, 1):
-                for pattern in [MARKDOWN_LINK, MARKDOWN_IMAGE]:
+                # Check angle-bracket links first (they take precedence)
+                for pattern in [MARKDOWN_LINK_ANGLE, MARKDOWN_IMAGE_ANGLE]:
                     for match in pattern.finditer(line):
                         url = match.group(2).strip()
                         links.append({'url': url, 'line': line_num})
+                
+                # Check normal markdown links (excluding positions already matched by angle-bracket)
+                for pattern in [MARKDOWN_LINK_NORMAL, MARKDOWN_IMAGE_NORMAL]:
+                    for match in pattern.finditer(line):
+                        url = match.group(2).strip()
+                        # Skip if this looks like it was part of an angle-bracket link
+                        if not url.startswith('>') and '<' not in url:
+                            links.append({'url': url, 'line': line_num})
                 
                 for pattern in [HTML_LINK, HTML_IMG, GITBOOK_EMBED]:
                     for match in pattern.finditer(line):

@@ -33,7 +33,7 @@ Business and Enterprise plans are covered by our Zero Data Retention (ZDR) agree
 
 Selling usage data will never be part of Warp's business model. This data is used solely to improve the end-user experience. Warp uses Sentry for crash reporting and Rudderstack for app analytics.
 
-You can read our [full privacy policy](https://www.warp.dev/privacy-and-security/policy) as well as [how Warp handles security](https://www.warp.dev/security).
+You can read our [full privacy policy](https://www.warp.dev/legal/privacy-policy) as well as [how Warp handles security](https://www.warp.dev/legal/security).
 
 ### How to disable telemetry and crash reporting
 

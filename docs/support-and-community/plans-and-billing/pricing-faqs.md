@@ -167,7 +167,7 @@ Warp doesn’t currently offer discounts for students, non-profits, or open-sour
 
 Warp Drive data is securely stored on Google Cloud Platform servers located in the United States. All data is encrypted in transit and at rest.
 
-For more details, please [visit the Security Overview](https://www.warp.dev/security) or contact [security@warp.dev](mailto:security@warp.dev).
+For more details, please [visit the Security Overview](https://www.warp.dev/legal/security) or contact [security@warp.dev](mailto:security@warp.dev).
 
 ### What happened to the Lite model?
 

@@ -248,5 +248,5 @@ You now have everything needed to trigger agents from your team’s tools. From 
 
 * [Cloud Agents Overview](https://docs.warp.dev/agent-platform/cloud-agents/cloud-agents-overview)
 * [Oz Platform](https://docs.warp.dev/agent-platform/cloud-agents/platform)
-* [Slack](https://docs.warp.dev/agent-platform/cloud-agents/integrations/slack), [Linear](https://docs.warp.dev/agent-platform/cloud-agents/integrations/linear), and [GitHub Actions](https://docs.warp.dev/agent-platform/cloud-agents/integrations/github-actions/README) integrations
+* [Slack](https://docs.warp.dev/agent-platform/cloud-agents/integrations/slack), [Linear](https://docs.warp.dev/agent-platform/cloud-agents/integrations/linear), and [GitHub Actions](https://docs.warp.dev/agent-platform/cloud-agents/integrations/github-actions) integrations
 * [Troubleshooting](troubleshooting.md)
