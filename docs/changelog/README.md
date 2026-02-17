@@ -24,9 +24,7 @@ metaLinks: {}
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
-{% updates format="full" %}
-{% update date="2026-02-11" %}
-## v0.2026.02.11.08.23
+### 2026.02.11 (v0.2026.02.11.08.23)
 
 **Improvements**
 
@@ -35,14 +33,12 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 **Bug fixes**
 
 * Show the Input Type setting (Warp/PS1) regardless of global AI setting.
-{% endupdate %}
 
-{% update date="2026-02-10" %}
-## v0.2026.02.10.11.37
+### 2026.02.10 (v0.2026.02.10.11.37)
 
 **New features**
 
-### Introducing Oz: orchestration for cloud agents
+#### Introducing Oz: orchestration for cloud agents
 
 <figure><img src="https://releases.warp.dev/changelog_images/v0.2026.02.09.06.06.stable.png" alt="Introducting Oz image showing the new Oz logo and a preview of the oz.warp.dev site"><figcaption></figcaption></figure>
 
@@ -67,10 +63,8 @@ Oz is Warp's orchestration platform for cloud agents: launch parallel agents, au
 
 * **Skills** — reusable instruction sets that agents auto-discover from your project or home directory. Invoke with `/{skill-name}` or run as scheduled cloud agents for repeatable automation. [Skills docs →](https://docs.warp.dev/agent-platform/capabilities/skills)
 * **Computer Use** — agents can interact with desktop environments in sandboxed cloud containers—take screenshots, click, type, and test UI changes. [Computer Use docs →](https://docs.warp.dev/agent-platform/capabilities/computer-use)
-{% endupdate %}
 
-{% update date="2026-02-04" %}
-## v0.2026.02.04.08.20
+### 2026.02.04 (v0.2026.02.04.08.20)
 
 **New features**
 
@@ -97,10 +91,8 @@ Oz is Warp's orchestration platform for cloud agents: launch parallel agents, au
 * Fixed issue where the code review panel would get stuck on "Loading open changes" when multiple repositories are open in the same tab.
 * Fixed a crash caused by orphaned wide character flags in the terminal grid.
 * Fixed clipping issue in terminal message bar.
-{% endupdate %}
 
-{% update date="2026-01-28" %}
-## v0.2026.01.28.08.14
+### 2026.01.28 (v0.2026.01.28.08.14)
 
 **Improvements**
 
@@ -120,10 +112,8 @@ Oz is Warp's orchestration platform for cloud agents: launch parallel agents, au
 * Fixed slash command text not highlighting correctly in some cases.
 * Fixed input mode detection occasionally switching unexpectedly.
 * Fixed /edit command failing when filename had trailing whitespace.
-{% endupdate %}
 
-{% update date="2026-01-21" %}
-## v0.2026.01.21.08.14
+### 2026.01.21 (v0.2026.01.21.08.14)
 
 **New Features**
 
@@ -147,10 +137,8 @@ Oz is Warp's orchestration platform for cloud agents: launch parallel agents, au
 * Hide AI options in the command palette when AI is disabled.
 * Stopped highlighting search matches in reasoning blocks.
 * Fixed session viewer input being cleared when agent runs commands.
-{% endupdate %}
 
-{% update date="2026-01-14" %}
-## v0.2026.01.14.08.15
+### 2026.01.14 (v0.2026.01.14.08.15)
 
 **New features**
 
@@ -169,10 +157,8 @@ Oz is Warp's orchestration platform for cloud agents: launch parallel agents, au
 
 * Fixed a bug where text in the MCP tool call detail wasn't selectable.
 * Fixed agent thread banner text overflow on smaller screens.
-{% endupdate %}
 
-{% update date="2026-01-07" %}
-## v0.2026.01.07.08.13
+### 2026.01.07 (v0.2026.01.07.08.13)
 
 **New Features**
 
@@ -195,10 +181,8 @@ Oz is Warp's orchestration platform for cloud agents: launch parallel agents, au
 * Fixed a configuration error creating team-scoped Warp-managed secrets.
 * Fixed 'parameter not set' error in zsh when users have setopt nounset enabled.
 * Fixed an issue where up arrow history could be ordered incorrectly on quit or restart Warp.
-{% endupdate %}
 
-{% update date="2025-12-17" %}
-## v0.2025.12.17.17.17
+### 2025.12.17 (v0.2025.12.17.17.17)
 
 **Improvements**
 
@@ -211,10 +195,8 @@ Oz is Warp's orchestration platform for cloud agents: launch parallel agents, au
 **Bug fixes**
 
 * Fixed a bug where Oz CLI runs could get stuck trying to run a denylisted command.
-{% endupdate %}
 
-{% update date="2025-12-12" %}
-## v0.2025.12.10.08.12
+### 2025.12.10 (v0.2025.12.10.08.12)
 
 **Improvements**
 
@@ -231,10 +213,8 @@ Oz is Warp's orchestration platform for cloud agents: launch parallel agents, au
 * Fixed a bug where, in `Settings > Billing and usage`, the credit denomination wasn't set to the proper value for teams with auto-reload on.
 * The code editor now opens to the right of the active tab when "Choose a layout to open files in Warp" is set to "New tab".
 * Fixed mouse reporting for apps that don't use the alternate screen buffer, e.g. Radare2.
-{% endupdate %}
 
-{% update date="2025-12-03" %}
-## v0.2025.12.03.08.12
+### 2025.12.03 (v0.2025.12.03.08.12)
 
 **Improvements**
 
@@ -248,10 +228,6 @@ Oz is Warp's orchestration platform for cloud agents: launch parallel agents, au
 * \[Windows] Fixed keybinding for "find in code editor." This is now `CTRL-SHIFT-F` and configurable from Settings > Keyboard shortcuts.
 * Ensured that the Oz CLI is available automatically on macOS.
 * Fixed toast messages showing "Notebook" instead of "Plan" when taking actions on Plans in Warp Drive.
-{% endupdate %}
-{% endupdates %}
-
-***
 
 ### 2025.11.19 (v0.2025.11.19.08.12)
 
