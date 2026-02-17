@@ -31,7 +31,7 @@ Computer Use is **opt-in** and disabled by default. You can enable it through se
 
 ### Warp App Settings
 
-To enable Computer Use for [Cloud Agents](../cloud-agents/cloud-agents-overview.md), navigate to `Settings > AI > Experimental > Computer use in Cloud Agents` and toggle to enable.
+To enable Computer Use for [Cloud Agents](../cloud-agents/overview.md), navigate to `Settings > AI > Experimental > Computer use in Cloud Agents` and toggle to enable.
 
 ### CLI
 

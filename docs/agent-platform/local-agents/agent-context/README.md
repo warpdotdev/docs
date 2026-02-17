@@ -18,4 +18,4 @@ In Warp, you can pass different types of input directly to the Agent to guide it
 
 ***
 
-This is distinct from other persistent or automatic sources of context, such as [Rules](https://docs.warp.dev/knowledge-and-collaboration/rules), [Warp Drive as Agent Mode Context](https://docs.warp.dev/knowledge-and-collaboration/warp-drive/warp-drive-as-agent-mode-context), and [Model Context Protocol (MCP)](https://docs.warp.dev/knowledge-and-collaboration/mcp), which the Agent also uses when available.
+This is distinct from other persistent or automatic sources of context, such as [Rules](https://docs.warp.dev/knowledge-and-collaboration/rules), [Warp Drive as Agent Mode Context](https://docs.warp.dev/knowledge-and-collaboration/warp-drive/agent-mode-context), and [Model Context Protocol (MCP)](https://docs.warp.dev/knowledge-and-collaboration/mcp), which the Agent also uses when available.

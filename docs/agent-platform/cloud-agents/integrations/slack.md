@@ -21,7 +21,7 @@ This page explains what the integration does, how it behaves inside Slack, and h
 
 Tagging @Oz in a message or thread starts an agent run. The agent clones the repositories in your environment, sets up your development environment using your Docker image and setup commands, and begins working with the context from the Slack conversation. Oz posts updates back into the thread as it progresses so you can follow along without opening your terminal.
 
-Agents also share a link to an interactive remote session using Warp's [cloud agent session sharing](../cloud-agents-session-sharing.md). Opening this link gives you a live terminal view of the cloud agent running your code. You can interrupt or steer the agent by providing additional instructions, and the agent will pick up where it left off with the new context.
+Agents also share a link to an interactive remote session using Warp's [cloud agent session sharing](../viewing-cloud-agent-runs.md). Opening this link gives you a live terminal view of the cloud agent running your code. You can interrupt or steer the agent by providing additional instructions, and the agent will pick up where it left off with the new context.
 
 When the work is complete, Warp will create a pull request on your behalf using your GitHub permissions and send a summary and PR link back to the original Slack thread.
 
@@ -50,7 +50,7 @@ Agents keep you informed directly in Slack via:
 * Checkpoints indicating major steps completed
 * A session-sharing link that opens a live terminal view of the remote agent
 
-[Cloud agent session sharing](../cloud-agents-session-sharing.md) works in Warp or in your browser and supports multiple teammates joining the same live session.
+[Cloud agent session sharing](../viewing-cloud-agent-runs.md) works in Warp or in your browser and supports multiple teammates joining the same live session.
 
 ### Joining the live remote session
 
@@ -78,7 +78,7 @@ Because PRs are created as you, the workflow slots seamlessly into your team’s
 
 ### Requirements
 
-* **Team membership** - The Slack integration requires you to be part of a [Warp team](https://docs.warp.dev/warp/knowledge-and-collaboration/teams). Teams can be created on any plan, including Free.
+* **Team membership** - The Slack integration requires you to be part of a [Warp team](https://docs.warp.dev/knowledge-and-collaboration/teams). Teams can be created on any plan, including Free.
 * **Plan and credits** - Your team must be on a plan that supports integrations (Build, Max, or Business) and have at least 20 credits available (any type of Warp credits work). See [Access, Billing, and Identity](../team-access-billing-and-identity.md) for details.
 * **Infrastructure** - By default, agents run on Warp-hosted infrastructure. Enterprise teams can [self-host agents](../self-hosting.md) on their own infrastructure.
 * **Identity** - You must be logged into Warp with the same email used in your Slack workspace.

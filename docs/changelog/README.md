@@ -48,7 +48,7 @@ Oz is Warp's orchestration platform for cloud agents: launch parallel agents, au
 
 #### Oz Cloud Agents
 
-* **Run Cloud Agents from anywhere with built-in tracking** — start agents from Warp or via the CLI, triggers, or schedules. Every run is auditable and steerable. [Cloud Agents docs →](https://docs.warp.dev/agent-platform/cloud-agents/cloud-agents-overview)
+* **Run Cloud Agents from anywhere with built-in tracking** — start agents from Warp or via the CLI, triggers, or schedules. Every run is auditable and steerable. [Cloud Agents docs →](https://docs.warp.dev/agent-platform/cloud-agents/overview)
 * **Cloud environments for consistent execution** — configure Docker-based environments (unlimited repos + setup commands) and run agents in isolated cloud sandboxes. [Environments docs →](https://docs.warp.dev/agent-platform/cloud-agents/environments)
 * **Track agents from the web** — manage runs, create schedules, configure environments, and set up integrations from any browser at [oz.warp.dev](https://oz.warp.dev).
 * **Schedule agents based on Skills** — run agents automatically on a cron schedule for code cleanup, dependency updates, and issue triage. [Scheduled Agents docs →](https://docs.warp.dev/agent-platform/cloud-agents/triggers/scheduled-agents)
@@ -935,7 +935,7 @@ All of this comes with higher AI usage limits on our Pro and Turbo plans, plus n
 
 **New features**
 
-* Warp is now available for Windows! See our [Quickstart Guide](https://docs.warp.dev/getting-started/quickstart-guide/installation-and-setup#windows)
+* Warp is now available for Windows! See our [Quickstart Guide](https://docs.warp.dev/getting-started/quickstart/installation-and-setup#windows)
 * Prompt, plan, and execute fully autonomous tasks from [Agent Mode with Dispatch](https://docs.warp.dev/agent-platform/local-agents/interacting-with-agents) (Beta)
 * Add codebase context support to Agent Mode. Currently enabled for git repositories only.
 * \[macOS] You can now customize your [App Icon](https://docs.warp.dev/terminal/appearance/app-icons) in `Settings > Appearance > Icon`.

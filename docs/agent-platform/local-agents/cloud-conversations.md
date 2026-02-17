@@ -6,7 +6,7 @@ description: >-
 
 # Cloud-synced conversations
 
-Warp can sync your [agent conversations](interacting-with-agents/) to the cloud, making them accessible across devices, shareable with teammates, and persistent even after logging out. This enables you to pick up where you left off on any machine, share context with collaborators, and access past [cloud agent](../cloud-agents/cloud-agents-overview.md) conversations.
+Warp can sync your [agent conversations](interacting-with-agents/) to the cloud, making them accessible across devices, shareable with teammates, and persistent even after logging out. This enables you to pick up where you left off on any machine, share context with collaborators, and access past [cloud agent](../cloud-agents/overview.md) conversations.
 
 ## Key capabilities
 
@@ -95,7 +95,7 @@ Cloud-synced conversations store snapshots of conversation data. For real-time c
 
 ## Cloud agent conversations
 
-[Cloud agents](../cloud-agents/cloud-agents-overview.md) run in the cloud, and their conversations are automatically stored regardless of your local cloud conversations setting.
+[Cloud agents](../cloud-agents/overview.md) run in the cloud, and their conversations are automatically stored regardless of your local cloud conversations setting.
 
 ### Accessing cloud agent conversations
 
@@ -136,5 +136,5 @@ When you delete a conversation, it is removed permanently and immediately. Make 
 
 * [Interacting with Agents](interacting-with-agents/) - Learn about conversation mechanics, follow-ups, and context windows.
 * [Conversation Forking](interacting-with-agents/conversation-forking.md) - Branch conversations to explore different directions.
-* [Agent Session Sharing](../cloud-agents/agent-session-sharing.md) - Collaborate in real time on a live Agent session.
-* [Cloud Agents Overview](../cloud-agents/cloud-agents-overview.md) - Run agents in the cloud from triggers, schedules, or integrations.
+* [Session Sharing](session-sharing.md) - Collaborate in real time on a live Agent session.
+* [Cloud Agents Overview](../cloud-agents/overview.md) - Run agents in the cloud from triggers, schedules, or integrations.

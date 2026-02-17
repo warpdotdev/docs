@@ -3,7 +3,7 @@ description: >-
   Frequently asked questions about cloud agents, including where agents run, how runs work, supported models, security, and common workflows.
 ---
 
-# Cloud agents FAQs
+# FAQs
 
 This page answers common questions about cloud agents, including where they run, how they're configured, and how teams use cloud agents for day-to-day engineering work.
 
@@ -98,7 +98,7 @@ Cloud agents are included in the Build plan. Usage is metered via credits, with 
 
 Secrets are managed via the cloud agents CLI. Secrets are encrypted at rest, scoped to your Warp account, and injected into the agent environment at runtime. They are never hard-coded into agent instructions or logs.
 
-To learn more about how secrets work in practice, see [Cloud Agent Secrets](cloud-agent-secrets.md).
+To learn more about how secrets work in practice, see [Cloud Agent Secrets](secrets.md).
 
 ## Workflows
 

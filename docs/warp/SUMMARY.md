@@ -6,9 +6,9 @@
 
 * [Getting started with Warp and Oz](README.md)
 * [Quickstart Guide](<README (1).md>)
-  * [Installation and setup](getting-started/quickstart-guide/installation-and-setup.md)
-  * [Coding in Warp](getting-started/quickstart-guide/coding-in-warp.md)
-  * [Customizing Warp](getting-started/quickstart-guide/customizing-warp.md)
+  * [Installation and setup](getting-started/quickstart/installation-and-setup.md)
+  * [Coding in Warp](getting-started/quickstart/coding-in-warp.md)
+  * [Customizing Warp](getting-started/quickstart/customizing-warp.md)
 * [What is Warp?](getting-started/what-is-warp.md)
 * [Migrate to Warp](getting-started/migrate-to-warp.md)
 * [Supported Shells](getting-started/supported-shells.md)
@@ -84,7 +84,7 @@
 
 ## Code
 
-* [Code Overview](code/code-overview.md)
+* [Overview](code/overview.md)
 * [Code Editor](code/code-editor/README.md)
   * [File Tree (Project Explorer)](code/code-editor/file-tree.md)
   * [Find and Replace](code/code-editor/find-and-replace.md)
@@ -99,8 +99,8 @@
   * [Prompts](knowledge-and-collaboration/warp-drive/prompts.md)
   * [Environment Variables](knowledge-and-collaboration/warp-drive/environment-variables.md)
   * [AI-Integrated Objects](knowledge-and-collaboration/warp-drive/ai-objects.md)
-  * [Warp Drive on the Web](knowledge-and-collaboration/warp-drive/warp-drive-on-the-web.md)
-  * [Warp Drive as Agent Mode Context](knowledge-and-collaboration/warp-drive/warp-drive-as-agent-mode-context.md)
+  * [Web](knowledge-and-collaboration/warp-drive/web.md)
+  * [Agent Mode Context](knowledge-and-collaboration/warp-drive/agent-mode-context.md)
 * [Teams](knowledge-and-collaboration/teams.md)
 * [Admin Panel](knowledge-and-collaboration/admin-panel.md)
 * [Session Sharing](knowledge-and-collaboration/session-sharing/README.md)

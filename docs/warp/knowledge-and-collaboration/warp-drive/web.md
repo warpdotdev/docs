@@ -4,15 +4,15 @@ description: >-
   screen device, including mobile phones, tablets, and touch-enabled laptops.
 ---
 
-# Warp Drive on the Web
+# Web
 
-## What is Warp Drive on the Web?
+## What is Warp on the web?
 
 Warp Drive on the Web lets you view and edit your Warp Drive objects and shared sessions directly in the browser, on any device.
 
 <figure><img src="../../.gitbook/assets/wd-web-team-workflow.png" alt="" width="375"><figcaption><p>A web-based rendering of a Team Workflow</p></figcaption></figure>
 
-## Accessing Warp Drive on the Web
+## How to access Warp on the web
 
 Warp's web-based viewing experience can currently be accessed via:
 

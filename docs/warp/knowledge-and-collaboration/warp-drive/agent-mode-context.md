@@ -5,7 +5,7 @@ description: >-
   context-aware responses.
 ---
 
-# Warp Drive as Agent Mode Context
+# Agent Mode Context
 
 [Agent Mode](https://docs.warp.dev/agent-platform/local-agents/interacting-with-agents) can leverage your [Warp Drive](./) contents to tailor responses to your personal and team developer workflows and environments.
 

@@ -18,7 +18,7 @@ The management view is designed to answer, at a glance:
 
 {% embed url="https://www.loom.com/share/679c267ddd2d44519abf79edcb1122c7" %}
 
-This management view includes your **local (interactive) agents** and [cloud agent](cloud-agents-overview.md) runs.
+This management view includes your **local (interactive) agents** and [cloud agent](overview.md) runs.
 
 <figure><img src="../.gitbook/assets/management-view-scannable-list.png" alt=""><figcaption><p>Warp's management view showing interactive and cloud agent runs.</p></figcaption></figure>
 
@@ -56,7 +56,7 @@ Each row represents a single item in the management view (either an interactive 
 
 Where the agent was launched from. Common sources include:
 
-* **Interactive:** an [agent conversation](../local-agents/agents-overview.md) started in the Warp app
+* **Interactive:** an [agent conversation](../local-agents/overview.md) started in the Warp app
 * **CLI**: a local run triggered by the [Oz CLI](https://docs.warp.dev/reference/cli/)
 * **API**: a run triggered by [Warp's API](https://docs.warp.dev/reference/api-and-sdk/agent)
 * **Slack / Linear**: runs triggered by [integrations](integrations/)

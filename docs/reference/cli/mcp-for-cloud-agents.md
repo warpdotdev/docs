@@ -4,7 +4,7 @@ description: >-
   external tools, local services, and internal APIs using the MCP JSON standard.
 ---
 
-# MCP Servers for Agents
+# MCP for Cloud Agents
 
 Cloud Agents in Warp can call external tools through [Model Context Protocol (MCP) servers](https://docs.warp.dev/knowledge-and-collaboration/mcp). This enables agents to extend their capabilities beyond the terminal and interact with systems such as GitHub, dbt, or custom internal services.
 

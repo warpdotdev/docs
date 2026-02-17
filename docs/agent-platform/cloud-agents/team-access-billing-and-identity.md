@@ -21,7 +21,7 @@ Cloud agents can be used in two ways:
 * Agents run on Warp-hosted infrastructure
 * Cannot use integrations (Slack, Linear) or self-hosted agents
 
-**Teams** (users who are part of a [Warp team](https://docs.warp.dev/warp/knowledge-and-collaboration/teams)):
+**Teams** (users who are part of a [Warp team](https://docs.warp.dev/knowledge-and-collaboration/teams)):
 * All individual capabilities, plus:
 * Can use integrations (Slack, Linear) to trigger agents
 * Can self-host agents on their own infrastructure (Enterprise only)
@@ -71,7 +71,7 @@ When someone triggers a cloud agent for the first time, Warp may prompt them to 
 
 #### Requirements for integrations
 
-Integrations and [cloud agents](cloud-agents-overview.md) run inside Warp's cloud, which means usage is billed based on [credits](https://docs.warp.dev/support-and-community/plans-and-billing/credits).
+Integrations and [cloud agents](overview.md) run inside Warp's cloud, which means usage is billed based on [credits](https://docs.warp.dev/support-and-community/plans-and-billing/credits).
 
 Your team must meet the following requirements to run integrations:
 

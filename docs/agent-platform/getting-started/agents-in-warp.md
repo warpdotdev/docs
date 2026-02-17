@@ -17,7 +17,7 @@ Oz agents understand your codebase and can execute tasks autonomously while keep
 * **Run commands** - Execute shell commands and use the output to guide next steps
 * **Recover from errors** - Automatically retry failed operations with adjustments
 * **Learn tools** - Integrate with any CLI tool by reading its `--help` or public documentation
-* **Use your context** - Leverage [Warp Drive](https://docs.warp.dev/warp/knowledge-and-collaboration/warp-drive), [MCP servers](../capabilities/mcp.md), [Rules](../capabilities/rules.md), and [codebase indexing](../capabilities/codebase-context.md) for tailored responses
+* **Use your context** - Leverage [Warp Drive](https://docs.warp.dev/knowledge-and-collaboration/warp-drive), [MCP servers](../capabilities/mcp.md), [Rules](../capabilities/rules.md), and [codebase indexing](../capabilities/codebase-context.md) for tailored responses
 
 **Try this prompt** — [_open in Warp_](https://app.warp.dev/drive/prompt/Clone-and-install-Warps-themes-repository-PkK9Zw16SCD3JKzOUoGuj4)
 
@@ -83,7 +83,7 @@ Oz agents work best when they understand your codebase and workflows. Warp provi
 * [**Rules**](../capabilities/rules.md) - Define global and project-level guidelines that shape agent behavior
 * [**Skills**](../capabilities/skills.md) - Reusable instructions that teach agents how to perform specific tasks
 * [**MCP Servers**](../capabilities/mcp.md) - Connect external tools and data sources (GitHub, Linear, databases) to your agents
-* [**Warp Drive**](https://docs.warp.dev/warp/knowledge-and-collaboration/warp-drive) - Save prompts, workflows, and notebooks that agents can reference
+* [**Warp Drive**](https://docs.warp.dev/knowledge-and-collaboration/warp-drive) - Save prompts, workflows, and notebooks that agents can reference
 
 ***
 
@@ -98,14 +98,14 @@ The same Oz agent capabilities that power interactive conversations in Warp also
 
 Cloud agents are ideal for work that doesn't need your immediate attention—PR reviews, issue triage, routine maintenance, and integration-driven workflows.
 
-→ [Learn about Cloud Agents](../cloud-agents/cloud-agents-overview.md)
+→ [Learn about Cloud Agents](../cloud-agents/overview.md)
 
 ***
 
 ## Resources
 
 * [**Oz web app**](https://oz.warp.dev) - Create runs, manage schedules, browse skills, and configure integrations
-* [**Local Agents Overview**](../local-agents/agents-overview.md) - Detailed guide to working with agents in Warp
+* [**Local Agents Overview**](../local-agents/overview.md) - Detailed guide to working with agents in Warp
 * [**Capabilities**](../capabilities/README.md) - All agent capabilities: planning, task lists, model choice, and more
 * [**Oz CLI**](https://docs.warp.dev/reference/cli) - Run agents from the command line
 * [**Oz Agent API & SDK**](https://docs.warp.dev/reference/api-and-sdk/agent) - Programmatic access to agent runs

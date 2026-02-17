@@ -20,7 +20,7 @@ Warp Terminal is where you work — a fast, modern terminal built for coding wit
 
 * [**Agent Modality**](https://docs.warp.dev/agent-platform/local-agents/interacting-with-agents/agent-modality): Switch between a clean terminal for commands and a dedicated conversation view for multi-turn agent workflows.
 * [**Modern terminal UX**](terminal/editor/): Cursor movement, block-based navigation, multi-line editing, syntax highlighting, and rich completions. Built with Rust for high performance.
-* [**Code editor**](code/code-overview.md): File tree, code editor with LSP support, and interactive code review experience.
+* [**Code editor**](code/overview.md): File tree, code editor with LSP support, and interactive code review experience.
 * [**Coding agent integrations**](https://docs.warp.dev/agent-platform/local-agents/third-party-cli-agents): Features like voice input, and @-selection for working with terminal based images. Compatible with Oz or agents like Claude Code and Codex.
 
 ***
@@ -42,7 +42,7 @@ Run directly in the Warp app for real-time, interactive coding assistance.
 
 Local agents keep you in control. You can review changes, steer the agent mid-task, and approve actions before they execute.
 
-→ [Get started with local agents](https://docs.warp.dev/agent-platform/local-agents/agents-overview)
+→ [Get started with local agents](https://docs.warp.dev/agent-platform/local-agents/overview)
 
 ### Cloud agents
 
@@ -55,7 +55,7 @@ Oz Cloud Agents run in the background on Warp's infrastructure (or your own) for
 
 Cloud agents are ideal for work that doesn't need your immediate attention, like PR reviews, issue triage, routine maintenance, and integration-driven workflows.
 
-→ [Learn about cloud agents](https://docs.warp.dev/agent-platform/cloud-agents/cloud-agents-overview)
+→ [Learn about cloud agents](https://docs.warp.dev/agent-platform/cloud-agents/overview)
 
 ***
 
@@ -89,6 +89,6 @@ Warp's AI features can be globally disabled in `Settings > AI`.
 ## Next steps
 
 * [**Quickstart Guide**](<README (1).md>): Get Warp installed and start coding
-* [**Local Agents Overview**](https://docs.warp.dev/agent-platform/local-agents/agents-overview): Explore all AI features available in Warp
-* [**Cloud Agents Overview**](https://docs.warp.dev/agent-platform/cloud-agents/cloud-agents-overview): Set up background automation
+* [**Local Agents Overview**](https://docs.warp.dev/agent-platform/local-agents/overview): Explore all AI features available in Warp
+* [**Cloud Agents Overview**](https://docs.warp.dev/agent-platform/cloud-agents/overview): Set up background automation
 * [**Oz Platform**](https://docs.warp.dev/agent-platform/cloud-agents/platform): Learn about the CLI, API, SDK, and infrastructure

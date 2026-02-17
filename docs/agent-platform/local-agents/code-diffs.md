@@ -4,7 +4,7 @@ description: >-
   the built-in diff editor in Agent Conversations.
 ---
 
-# Code Diffs in Agent Conversations
+# Code Diffs
 
 ## Reviewing Code Diffs
 

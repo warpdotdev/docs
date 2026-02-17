@@ -7,7 +7,7 @@
 * [Oz CLI](cli/README.md)
 * [API Keys](cli/api-keys.md)
 * [Integrations and Environments](cli/integrations-and-environments.md)
-* [MCP Servers for Cloud Agents](cli/mcp-servers-for-cloud-agents.md)
+* [MCP for Cloud Agents](cli/mcp-for-cloud-agents.md)
 * [Troubleshooting](cli/troubleshooting.md)
 
 ## API & SDK

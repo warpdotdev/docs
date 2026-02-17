@@ -9,7 +9,7 @@ description: >-
 
 ### Oz Agent API
 
-The Oz Agent API lets you create and inspect [Cloud Agent](https://docs.warp.dev/agent-platform/cloud-agents/cloud-agents-overview) runs over HTTP from any system (CI, cron, backend services, internal tools), without requiring the Warp desktop app.
+The Oz Agent API lets you create and inspect [Cloud Agent](https://docs.warp.dev/agent-platform/cloud-agents/overview) runs over HTTP from any system (CI, cron, backend services, internal tools), without requiring the Warp desktop app.
 
 **With the API you can:**
 

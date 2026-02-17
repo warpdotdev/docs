@@ -21,7 +21,7 @@ To learn more about Warp Preview, check out our [launch blog post](https://warp.
 ### Getting Started with Warp Preview
 
 1. **Download**: Get the Warp Preview build from [warp.dev/download-preview](https://warp.dev/download-preview).
-2. **Sign in**: [Log in](https://docs.warp.dev/getting-started/quickstart-guide/installation-and-setup#log-in-to-warp-optional) with your Warp account (not optional for Warp Preview).
+2. **Sign in**: [Log in](https://docs.warp.dev/getting-started/quickstart/installation-and-setup#log-in-to-warp-optional) with your Warp account (not optional for Warp Preview).
 3. **Run side-by-side**: You can keep Warp Preview alongside your stable Warp installation.
 
 ### Important Notes

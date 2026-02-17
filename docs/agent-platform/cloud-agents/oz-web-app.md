@@ -237,7 +237,7 @@ For detailed integration setup instructions, see [Slack](integrations/slack.md) 
 
 ## Related resources
 
-* [Cloud Agents Overview](cloud-agents-overview.md) — Learn about cloud agents and when to use them
+* [Cloud Agents Overview](overview.md) — Learn about cloud agents and when to use them
 * [Skills as Agents](skills-as-agents.md) — Run agents based on reusable skill definitions
 * [Scheduled Agents](triggers/scheduled-agents.md) — Run agents automatically on a cron schedule
 * [Environments](environments.md) — Configure runtime context for cloud agents

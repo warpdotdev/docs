@@ -4,16 +4,16 @@ description: >-
   CLI, Slack, Linear, and scheduled runs—without ever exposing secret values.
 ---
 
-# Agent Secrets
+# Secrets
 
 Cloud agents often need to interact with external systems such as APIs, databases, cloud providers, or internal tooling. To do this safely, Warp provides Warp-managed **agent secrets**, a secure way to store, scope, and inject credentials into cloud agent runs without exposing secret values to users or logs.
 
-Warp-managed secrets are designed to work across [cloud agent](cloud-agents-overview.md) and [integration](integrations/README.md) triggers (CLI, Slack, Linear, and schedules), support both team-wide and personal credentials, and give engineering and security teams visibility into what agents can access.
+Warp-managed secrets are designed to work across [cloud agent](overview.md) and [integration](integrations/README.md) triggers (CLI, Slack, Linear, and schedules), support both team-wide and personal credentials, and give engineering and security teams visibility into what agents can access.
 
 **Warp-managed secrets are useful when:**
 
 * An cloud agent needs to call an API or CLI that does not support OAuth
-* You are using [MCP servers](https://docs.warp.dev/reference/cli/mcp-servers-for-cloud-agents) that expect static tokens or keys
+* You are using [MCP servers](https://docs.warp.dev/reference/cli/mcp-for-cloud-agents) that expect static tokens or keys
 * An agent needs credentials for tools like cloud CLIs, databases, monitoring systems, or internal services
 * You want centralized auditing and control over what credentials agents can access
 

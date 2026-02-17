@@ -39,7 +39,7 @@ In practice: **triggers create tasks; tasks execute on a host (optionally in an 
 
 ### Oz CLI
 
-The [Oz CLI](https://docs.warp.dev/reference/cli) is the **headless interface** for running agents in non-interactive mode. It's commonly used in CI, scripts, and server environments where there is no interactive UI. For interactive workflows, use the [agent](../local-agents/agents-overview.md) embedded in Warp's desktop app.
+The [Oz CLI](https://docs.warp.dev/reference/cli) is the **headless interface** for running Warp agents in non-interactive mode. It's commonly used in CI, scripts, and server environments where there is no interactive UI. For interactive workflows, use the [agent](../local-agents/overview.md) embedded in Warp's desktop app.
 
 A key property of the CLI is that it is **cloud-connected**. Even when an agent is started on a local machine or in CI, it reports progress to Warp’s servers. This enables team visibility, session sharing (where supported), and programmatic tracking through the API.
 
@@ -229,7 +229,7 @@ In this model:
 
 ### Secrets
 
-Cloud agents often need credentials to access external systems (APIs, cloud providers, databases, internal tools, MCP servers). Warp provides a [secrets store](cloud-agent-secrets.md) that can inject secrets at runtime so agents can use authenticated tools without exposing secret values in logs or UI.
+Cloud agents often need credentials to access external systems (APIs, cloud providers, databases, internal tools, MCP servers). Warp provides a [secrets store](secrets.md) that can inject secrets at runtime so agents can use authenticated tools without exposing secret values in logs or UI.
 
 #### What secrets are for
 
@@ -258,7 +258,7 @@ While a task is executing, the agent reports progress and status back to Warp. A
 Warp provides multiple surfaces for observability:
 
 * [Management UI](managing-cloud-agents.md): lists tasks, status, timing, metadata, and history.
-* [Agent Session Sharing](agent-session-sharing.md): authorized teammates can attach to a running task to monitor and, where supported, steer it.
+* [Agent Session Sharing](../local-agents/session-sharing.md): authorized teammates can attach to a running task to monitor and, where supported, steer it.
 * [APIs](https://docs.warp.dev/reference/api-and-sdk/agent) and SDKs: query task history, build monitoring, and generate reports.
 
 #### Access control
@@ -272,11 +272,11 @@ Warp provides multiple surfaces for observability:
 
 Cloud agent setups often include shared configuration such as:
 
-* [MCP configuration](https://docs.warp.dev/reference/cli/mcp-servers-for-cloud-agents)
+* [MCP configuration](https://docs.warp.dev/reference/cli/mcp-for-cloud-agents)
 * [rules / guardrails](../capabilities/rules.md)
 * [saved prompts](https://docs.warp.dev/knowledge-and-collaboration/warp-drive/prompts)
 * [environment variables](https://docs.warp.dev/knowledge-and-collaboration/warp-drive/environment-variables)
-* [secrets](cloud-agent-secrets.md)
+* [secrets](secrets.md)
 
 Warp supports centralized configuration so these settings apply consistently regardless of where a task is launched.
 
@@ -284,11 +284,11 @@ This is especially useful when the same workflow can be triggered from multiple 
 
 ### Using the Oz Platform with or without the Warp app
 
-[Cloud agents](cloud-agents-overview.md) do not require Warp's desktop terminal. Teams can operate cloud agent workflows using:
+[Cloud agents](overview.md) do not require Warp's desktop terminal. Teams can operate cloud agent workflows using:
 
 * [Oz CLI](https://docs.warp.dev/reference/cli) — run agents from scripts, CI, or the terminal
 * [Oz web app](oz-web-app.md) — visual interface at [oz.warp.dev](https://oz.warp.dev) for managing runs, schedules, environments, and integrations (works on mobile)
-* [Session sharing](agent-session-sharing.md) — attach to running tasks to monitor or steer
+* [Session sharing](../local-agents/session-sharing.md) — attach to running tasks to monitor or steer
 * [Management UI](managing-cloud-agents.md) — view agent activity and run history
 * [APIs and SDKs](https://docs.warp.dev/reference/api-and-sdk) — programmatic access for custom integrations
 

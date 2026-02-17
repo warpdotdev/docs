@@ -28,14 +28,18 @@ redirects:
     features/appearance/themes: terminal/appearance/themes.md
     features/appearance/custom-themes: terminal/appearance/custom-themes.md
     features/appearance/prompt: terminal/appearance/prompt.md
-    features/warp-ai/code: code/code-overview.md
+    features/warp-ai/code: code/overview.md
+    features/warp-ai/mcp: knowledge-and-collaboration/mcp.md
+    features/warp-ai/knowledge: knowledge-and-collaboration/rules.md
+    features/warp-ai/rules: knowledge-and-collaboration/rules.md
+    features/knowledge: knowledge-and-collaboration/rules.md
     features/command-palette: terminal/command-palette.md
     features/warp-drive: knowledge-and-collaboration/warp-drive/README.md
     features/warp-drive/notebooks: knowledge-and-collaboration/warp-drive/notebooks.md
     features/warp-drive/workflows: knowledge-and-collaboration/warp-drive/workflows.md
     features/warp-drive/prompts: knowledge-and-collaboration/warp-drive/prompts.md
     features/warp-drive/environment-variables: knowledge-and-collaboration/warp-drive/environment-variables.md
-    features/warp-drive/warp-drive-on-the-web: knowledge-and-collaboration/warp-drive/warp-drive-on-the-web.md
+    features/warp-drive/warp-drive-on-the-web: knowledge-and-collaboration/warp-drive/web.md
     features/teams: knowledge-and-collaboration/teams.md
     features/session-sharing: knowledge-and-collaboration/session-sharing/README.md
     features/blocks: terminal/blocks/README.md
@@ -106,7 +110,7 @@ redirects:
     code/code-editor/code-editor-vim-keybindings: code/code-editor/code-editor-vim-keybindings.md
     code/code-editor/file-tree: code/code-editor/file-tree.md
     code/code-editor/find-and-replace: code/code-editor/find-and-replace.md
-    code/code-overview: code/code-overview.md
+    code/code-overview: code/overview.md
     code/code-review: code/code-review.md
     code/code-review/interactive-code-review: code/code-review.md
     code/reviewing-code: code/code-review.md
@@ -114,9 +118,10 @@ redirects:
     # Getting started section
     getting-started/keyboard-shortcuts: getting-started/keyboard-shortcuts.md
     getting-started/migrate-to-warp: getting-started/migrate-to-warp.md
-    getting-started/quickstart-guide/coding-in-warp: getting-started/quickstart-guide/coding-in-warp.md
-    getting-started/quickstart-guide/customizing-warp: getting-started/quickstart-guide/customizing-warp.md
-    getting-started/quickstart-guide/installation-and-setup: getting-started/quickstart-guide/installation-and-setup.md
+    getting-started/quickstart-guide/agents-in-warp: getting-started/quickstart/agents-in-warp.md
+    getting-started/quickstart-guide/coding-in-warp: getting-started/quickstart/coding-in-warp.md
+    getting-started/quickstart-guide/customizing-warp: getting-started/quickstart/customizing-warp.md
+    getting-started/quickstart-guide/installation-and-setup: getting-started/quickstart/installation-and-setup.md
     getting-started/supported-shells: getting-started/supported-shells.md
     getting-started/what-is-warp: getting-started/what-is-warp.md
 
@@ -128,8 +133,8 @@ redirects:
     knowledge-and-collaboration/warp-drive/environment-variables: knowledge-and-collaboration/warp-drive/environment-variables.md
     knowledge-and-collaboration/warp-drive/notebooks: knowledge-and-collaboration/warp-drive/notebooks.md
     knowledge-and-collaboration/warp-drive/prompts: knowledge-and-collaboration/warp-drive/prompts.md
-    knowledge-and-collaboration/warp-drive/warp-drive-as-agent-mode-context: knowledge-and-collaboration/warp-drive/warp-drive-as-agent-mode-context.md
-    knowledge-and-collaboration/warp-drive/warp-drive-on-the-web: knowledge-and-collaboration/warp-drive/warp-drive-on-the-web.md
+    knowledge-and-collaboration/warp-drive/warp-drive-as-agent-mode-context: knowledge-and-collaboration/warp-drive/agent-mode-context.md
+    knowledge-and-collaboration/warp-drive/warp-drive-on-the-web: knowledge-and-collaboration/warp-drive/web.md
     knowledge-and-collaboration/warp-drive/workflows: knowledge-and-collaboration/warp-drive/workflows.md
 
     # Terminal section
@@ -202,7 +207,7 @@ redirects:
     # Since restructure
     features/prompt: terminal/appearance/prompt.md
     features/smart-select: terminal/more-features/text-selection.md
-    getting-started/getting-started-with-warp: getting-started/quickstart-guide/installation-and-setup.md
+    getting-started/getting-started-with-warp: getting-started/quickstart/installation-and-setup.md
     features/settings: terminal/more-features/settings-sync.md
     getting-started/quickstart: README.md
     getting-started/quickstart-guide/README: README.md
@@ -218,8 +223,8 @@ redirects:
     session-sharing: knowledge-and-collaboration/session-sharing/README.md
     readme: README.md
     what-is-warp: getting-started/what-is-warp.md
-    installation: getting-started/quickstart-guide/installation-and-setup.md
-    installation/linux: getting-started/quickstart-guide/installation-and-setup.md
+    installation: getting-started/quickstart/installation-and-setup.md
+    installation/linux: getting-started/quickstart/installation-and-setup.md
     code-editor: code/code-editor/README.md
 
     # features/* additional paths
@@ -252,7 +257,7 @@ redirects:
     features/editor/command-corrections: terminal/entry/command-corrections.md
 
     # features/warp-drive/* paths
-    features/warp-drive/warp-drive-on-the-web-beta: knowledge-and-collaboration/warp-drive/warp-drive-on-the-web.md
+    features/warp-drive/warp-drive-on-the-web-beta: knowledge-and-collaboration/warp-drive/web.md
 
     # features/prompt anchor paths
     features/prompt#how-it-works: terminal/appearance/prompt.md
@@ -261,33 +266,33 @@ redirects:
     features/prompt#custom-prompt-compatibility-table: terminal/appearance/prompt.md
 
     # getting-started/* additional paths
-    getting-started/installation: getting-started/quickstart-guide/installation-and-setup.md
-    getting-started/installation/linux: getting-started/quickstart-guide/installation-and-setup.md
-    getting-started/linux: getting-started/quickstart-guide/installation-and-setup.md
-    getting-started/linux-installation: getting-started/quickstart-guide/installation-and-setup.md
-    getting-started/installing-warp: getting-started/quickstart-guide/installation-and-setup.md
-    getting-started/installing-warp-on-linux: getting-started/quickstart-guide/installation-and-setup.md
-    getting-started/download-and-install: getting-started/quickstart-guide/installation-and-setup.md
-    getting-started/downloading-warp: getting-started/quickstart-guide/installation-and-setup.md
+    getting-started/installation: getting-started/quickstart/installation-and-setup.md
+    getting-started/installation/linux: getting-started/quickstart/installation-and-setup.md
+    getting-started/linux: getting-started/quickstart/installation-and-setup.md
+    getting-started/linux-installation: getting-started/quickstart/installation-and-setup.md
+    getting-started/installing-warp: getting-started/quickstart/installation-and-setup.md
+    getting-started/installing-warp-on-linux: getting-started/quickstart/installation-and-setup.md
+    getting-started/download-and-install: getting-started/quickstart/installation-and-setup.md
+    getting-started/downloading-warp: getting-started/quickstart/installation-and-setup.md
     getting-started/introduction: getting-started/what-is-warp.md
-    getting-started/quickstart-guide: getting-started/quickstart-guide/installation-and-setup.md
-    getting-started/account-and-login: getting-started/quickstart-guide/installation-and-setup.md
-    getting-started/launching-warp: getting-started/quickstart-guide/installation-and-setup.md
+    getting-started/quickstart-guide: getting-started/quickstart/installation-and-setup.md
+    getting-started/account-and-login: getting-started/quickstart/installation-and-setup.md
+    getting-started/launching-warp: getting-started/quickstart/installation-and-setup.md
     getting-started/settings: terminal/more-features/settings-sync.md
     getting-started/customizing-warp/settings: terminal/more-features/settings-sync.md
     getting-started/how-to-use-warp: README.md
     getting-started/guides/shortcuts: getting-started/keyboard-shortcuts.md
     getting-started/syncing-your-terminal: terminal/more-features/settings-sync.md
     getting-started/launch-configurations: terminal/sessions/launch-configurations.md
-    getting-started/mac-permissions: getting-started/quickstart-guide/installation-and-setup.md
+    getting-started/mac-permissions: getting-started/quickstart/installation-and-setup.md
     getting-started/terminal: terminal/blocks/README.md
-    getting-started/getting-started-with-warp-on-linux: getting-started/quickstart-guide/installation-and-setup.md
+    getting-started/getting-started-with-warp-on-linux: getting-started/quickstart/installation-and-setup.md
 
     # getting-started anchor paths
-    getting-started/getting-started-with-warp#appimage: getting-started/quickstart-guide/installation-and-setup.md
-    getting-started/getting-started-with-warp#logging-into-warp: getting-started/quickstart-guide/installation-and-setup.md
-    getting-started/getting-started-with-warp#logging-into-warp-required: getting-started/quickstart-guide/installation-and-setup.md
-    getting-started/getting-started-with-warp#arch-linux-based-distributions: getting-started/quickstart-guide/installation-and-setup.md
+    getting-started/getting-started-with-warp#appimage: getting-started/quickstart/installation-and-setup.md
+    getting-started/getting-started-with-warp#logging-into-warp: getting-started/quickstart/installation-and-setup.md
+    getting-started/getting-started-with-warp#logging-into-warp-required: getting-started/quickstart/installation-and-setup.md
+    getting-started/getting-started-with-warp#arch-linux-based-distributions: getting-started/quickstart/installation-and-setup.md
 
     # terminal/* additional paths
     terminal/shortcuts: getting-started/keyboard-shortcuts.md
@@ -325,3 +330,5 @@ redirects:
     # appearance/* paths
     appearance/custom-themes.git: terminal/appearance/custom-themes.md
     
+    # integrations/* paths
+    integrations/linear: integrations/linear.md

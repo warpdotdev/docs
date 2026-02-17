@@ -27,4 +27,4 @@ Understanding these capabilities helps you get the most out of agents by configu
 
 ## Related
 
-For hands-on agent interactions, see [Local Agents](../local-agents/agents-overview.md).
+For hands-on agent interactions, see [Local Agents](../local-agents/overview.md).

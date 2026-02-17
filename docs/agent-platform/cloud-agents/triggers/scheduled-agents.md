@@ -17,7 +17,7 @@ Scheduled Agents run in the background on Warp’s infrastructure. Each run star
 
 ### What are Scheduled Agents?
 
-A Scheduled Agent is a [cloud agent](../cloud-agents-overview.md) that runs on a cron-based schedule.
+A Scheduled Agent is a [cloud agent](../overview.md) that runs on a cron-based schedule.
 
 **Key characteristics:**
 
@@ -64,7 +64,7 @@ Use `oz schedule create` (with required flags) to define a new Scheduled Agent.
 * A prompt that the agent will execute.
 * An optional environment in which the agent will run.
 * An optional [model selection](https://docs.warp.dev/reference/cli/#using-agent-profiles).
-* [Optional MCP server configuration](https://docs.warp.dev/reference/cli/mcp-servers-for-cloud-agents).
+* [Optional MCP server configuration](https://docs.warp.dev/reference/cli/mcp-for-cloud-agents).
 
 ```bash
 oz schedule create \
@@ -92,7 +92,7 @@ oz schedule create \
 
 Once created, the agent will automatically run at the specified times without further action.
 
-Scheduled Agents support the same [model selection](https://docs.warp.dev/reference/cli/) and [MCP server configuration](https://docs.warp.dev/reference/cli/mcp-servers-for-cloud-agents) as other cloud agent triggers.
+Scheduled Agents support the same [model selection](https://docs.warp.dev/reference/cli/) and [MCP server configuration](https://docs.warp.dev/reference/cli/mcp-for-cloud-agents) as other cloud agent triggers.
 
 #### Cron Schedule Format
 

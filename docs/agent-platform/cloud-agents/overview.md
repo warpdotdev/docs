@@ -5,7 +5,7 @@ description: >-
   shared observability and centralized configs
 ---
 
-# Oz Cloud Agents Overview
+# Overview
 
 Oz Cloud Agents are **cloud-connected**, **background agents** that run on the [Oz Platform](platform.md).
 
@@ -48,7 +48,7 @@ Cloud agents run on the [Oz Platform](platform.md), which provides the primitive
 
 * Something **triggers** an agent task.
 * The **orchestrator creates** and tracks the task.
-* The agent **executes** on a host, optionally inside an [environment](environments.md), with whatever [secrets](cloud-agent-secrets.md) and credentials it needs.
+* The agent **executes** on a host, optionally inside an [environment](environments.md), with whatever [secrets](secrets.md) and credentials it needs.
 The exact way tasks are triggered and executed depends on your deployment model (for example CLI-only, Warp-hosted orchestration, or self-hosted execution). Those options are covered in the [Deployment Patterns](deployment-patterns.md) pages.
 
 ### What you get by default
@@ -59,13 +59,13 @@ Because cloud agents run on the [Oz Platform](platform.md), each run is tracked 
 
 Cloud agent tasks are designed to be inspectable by the team:
 
-* [Agent Session Sharing](agent-session-sharing.md) lets authorized teammates attach to a running task to monitor progress and, where supported, steer the agent while it runs.
+* [Agent Session Sharing](../local-agents/session-sharing.md) lets authorized teammates attach to a running task to monitor progress and, where supported, steer the agent while it runs.
 * Each run produces a session transcript and task metadata, which provides a record of what the agent did.
 * A [management experience](managing-cloud-agents.md) surfaces task status and history.
 
 #### Centralized configuration
 
-Cloud agent workflows often rely on shared configuration such as [MCP servers](https://docs.warp.dev/reference/cli/mcp-servers-for-cloud-agents), rules, saved prompts, environment variables, and [secrets](cloud-agent-secrets.md).
+Cloud agent workflows often rely on shared configuration such as [MCP servers](https://docs.warp.dev/reference/cli/mcp-for-cloud-agents), rules, saved prompts, environment variables, and [secrets](secrets.md).
 
 Warp supports centralized configuration so the same workflow behaves consistently across triggers (for example Slack + CI + schedules), without duplicating setup in every system.
 
@@ -83,7 +83,7 @@ Cloud agents do not require the Warp desktop app. Teams can deploy and operate t
 
 * [Oz CLI](https://docs.warp.dev/reference/cli) — run agents from scripts, CI, or the terminal
 * [Oz web app](oz-web-app.md) — visual interface for managing runs, schedules, environments, and integrations (works on mobile)
-* [Agent Session Sharing](agent-session-sharing.md) — attach to running tasks to monitor or steer
+* [Agent Session Sharing](../local-agents/session-sharing.md) — attach to running tasks to monitor or steer
 * [Agent Management UX](managing-cloud-agents.md) — view agent activity and run history
 * [APIs and SDKs](https://docs.warp.dev/reference/api-and-sdk) — programmatic access for custom integrations
 
@@ -109,7 +109,7 @@ Individual users can run cloud agents without being on a team. Requirements:
 
 #### For Integrations (Slack/Linear)
 
-Integrations require you to be part of a [Warp team](https://docs.warp.dev/warp/knowledge-and-collaboration/teams) and additional requirements:
+Integrations require you to be part of a [Warp team](https://docs.warp.dev/knowledge-and-collaboration/teams) and additional requirements:
 
 * **Plan requirements**
   * **Supported plans**: Build, Max, Business
@@ -135,7 +135,7 @@ If your credit balance reaches zero, cloud agent runs will not be able to execut
 * [Oz CLI](https://docs.warp.dev/reference/cli) — shows how to run Oz agents in non-interactive mode from CI, scripts, or remote machines, including auth and common commands.
 * [Environments](environments.md) — explains how environments provide the runtime context (repo, image, startup commands) for agent tasks.
 * [Oz Agent API and SDK](https://docs.warp.dev/reference/api-and-sdk) — documents the REST API for creating, querying, and monitoring agent tasks programmatically.
-* [Agent Secrets](cloud-agent-secrets.md) — covers how to store, scope, and inject credentials into agent runs safely.
-* [MCP Servers for Agents](https://docs.warp.dev/reference/cli/mcp-servers-for-cloud-agents) — describes how to configure MCP servers for agent tool access and how MCP configuration is applied across runs.
-* [Deployment Patterns](deployment-patterns.md) — compares common ways to deploy cloud agents and when to use each.
+* [Agent Secrets](secrets.md) — covers how to store, scope, and inject credentials into agent runs safely.
+* [MCP Servers for Agents](https://docs.warp.dev/reference/cli/mcp-for-cloud-agents) — describes how to configure MCP servers for agent tool access and how MCP configuration is applied across runs.
+* [Deployment Patterns](deployment-patterns.md) (beta) — compares common ways to deploy cloud agents and when to use each.
 * [Access, Billing, and Identity Permissions](team-access-billing-and-identity.md) — explains individual and team-level requirements, credit billing behavior, and the permission model for who can run, view, and steer cloud agent tasks.

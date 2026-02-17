@@ -116,7 +116,7 @@ with:
   share: true
 ```
 
-This posts a [cloud agent session sharing link](../cloud-agents-session-sharing.md) to the job logs. Anyone with the link can inspect the agent's execution directly.
+This posts a [cloud agent session sharing link](../viewing-cloud-agent-runs.md) to the job logs. Anyone with the link can inspect the agent's execution directly.
 
 The session sharing option also accepts multi-line configuration for the recipients of the share link.
 

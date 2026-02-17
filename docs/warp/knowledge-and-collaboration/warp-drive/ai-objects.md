@@ -74,7 +74,7 @@ When you start an agent conversation, Warp automatically provides relevant conte
 When an object is used as context, it appears in the conversation under "References" or "Derived from."
 
 {% hint style="info" %}
-For more details on how Warp Drive content serves as agent context, see [Warp Drive as Agent Mode Context](warp-drive-as-agent-mode-context.md).
+For more details on how Warp Drive content serves as agent context, see [Warp Drive as Agent Mode Context](agent-mode-context.md).
 {% endhint %}
 
 ## Related

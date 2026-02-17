@@ -119,7 +119,7 @@ sudo zypper remove warp-terminal
 sudo pacman -R warp-terminal
 ```
 
-* Uninstall Warp using the same package manager that you used to [install](https://docs.warp.dev/getting-started/quickstart-guide/installation-and-setup) it.
+* Uninstall Warp using the same package manager that you used to [install](https://docs.warp.dev/getting-started/quickstart/installation-and-setup) it.
 
 **Removing Warp settings, files, logs, and database**
 

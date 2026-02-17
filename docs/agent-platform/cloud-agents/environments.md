@@ -6,7 +6,7 @@ description: >
 
 # Environments
 
-Environments ensure your [cloud agents](cloud-agents-overview.md) run with the same toolchain and setup every time, regardless of where they're triggered from.
+Environments ensure your [cloud agents](overview.md) run with the same toolchain and setup every time, regardless of where they're triggered from.
 
 An environment defines the execution context for automated agent runs: the **Docker image**, **repositories to clone**, **setup commands**, and **runtime configuration** Warp uses to prepare the workspace before the agent starts.
 
@@ -36,7 +36,7 @@ An environment typically includes:
 Configuring runtime settings:
 
 * **Environment variables**: Configure these in your Dockerfile using Docker’s \`ENV\` directives or pass them when running the container.
-* **Secrets**: For credentials and sensitive data, use [Agent Secrets](cloud-agent-secrets.md). These are configured separately from environments and injected securely at runtime.
+* **Secrets**: For credentials and sensitive data, use [Agent Secrets](secrets.md). These are configured separately from environments and injected securely at runtime.
 {% endhint %}
 
 What an environment is not:
@@ -44,7 +44,7 @@ What an environment is not:
 * Host – Hosts determine where execution happens (Warp-hosted vs. self-hosted infrastructure).
 * [Agent Profile](../capabilities/agent-profiles-permissions.md) – Profiles control agent behavior like permissions, model choice, and defaults, not the runtime environment.
 * [Rules](../capabilities/rules.md) – Rules determine agent responses and decisions but don't define the container or toolchain.
-* [MCP](https://docs.warp.dev/reference/cli/mcp-servers-for-cloud-agents) – MCP connects agents to external tools and data.
+* [MCP](https://docs.warp.dev/reference/cli/mcp-for-cloud-agents) – MCP connects agents to external tools and data.
 * Per-run context – Trigger-specific data like Slack threads, PR metadata, or CI logs attach to individual tasks, not the environment configuration.
 
 ## How environments fit into the Oz Platform
@@ -263,7 +263,7 @@ npm install
 ```
 
 {% hint style="info" %}
-If your setup commands depend on secrets or credentials, configure them through Warp's [secrets mechanism](cloud-agent-secrets.md) rather than hardcoding tokens.
+If your setup commands depend on secrets or credentials, configure them through Warp's [secrets mechanism](secrets.md) rather than hardcoding tokens.
 {% endhint %}
 
 ### Common issues
@@ -271,7 +271,7 @@ If your setup commands depend on secrets or credentials, configure them through 
 * **Setup assumes previous state** – Steps that rely on leftover caches, existing directories, or already-cloned repos can make runs unreliable.
   * Solution: Write idempotent setup commands that work on a fresh container.
 * **Missing credentials or secrets** – Builds fail when private repos, package registries, or external services require authorization.
-* Solution: Configure credentials with [Agent Secrets](cloud-agent-secrets.md).
+* Solution: Configure credentials with [Agent Secrets](secrets.md).
 * **Repo access and GitHub authorization issues** – Runs fail when GitHub doesn't have repo access or the triggering user lacks permissions.
 * Solution: See [Integrations and Environments](https://docs.warp.dev/reference/cli/integrations-and-environments#how-github-authorization-works) for GitHub authorization setup.
 * **Docker image incompatibility** – You see the error: "VM failed before the agent could run. This is likely an issue with your Docker image."

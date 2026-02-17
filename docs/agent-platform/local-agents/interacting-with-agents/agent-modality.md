@@ -118,7 +118,7 @@ Cloud agent conversations are always stored in the cloud. For more details on ac
 * **From the management view** - Use the [Agent Management view](../../cloud-agents/managing-cloud-agents.md) to see all cloud agent runs, filter by status, and click any row to open the conversation.
 * **From the Oz web app** - Access your cloud agents at [oz.warp.dev](https://oz.warp.dev) to manage runs from any browser.
 
-For more on cloud agents, see [Cloud Agents Overview](../../cloud-agents/cloud-agents-overview.md).
+For more on cloud agents, see [Cloud Agents Overview](../../cloud-agents/overview.md).
 
 ***
 

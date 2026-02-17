@@ -12,7 +12,7 @@ This section covers the programmatic interfaces for running and managing Oz agen
 The [Oz CLI](cli/README.md) runs agents in non-interactive mode from any environment.
 
 - [Integrations and Environments](cli/integrations-and-environments.md) - configure execution contexts and connect external systems
-- [MCP Servers for Cloud Agents](cli/mcp-servers-for-cloud-agents.md) - extend agent capabilities with external tools
+- [MCP Servers for Cloud Agents](cli/mcp-for-cloud-agents.md) - extend agent capabilities with external tools
 - [Troubleshooting](cli/troubleshooting.md) - common issues and solutions
 
 ## API & SDK

@@ -6,9 +6,9 @@ description: Use Oz agents from the terminal.
 
 ## What is the Oz CLI?
 
-The Oz CLI is the command-line tool that lets you run [Cloud Agents](https://docs.warp.dev/agent-platform/cloud-agents/cloud-agents-overview) from anywhere, including terminals, scripts, automated systems, or services.
+The Oz CLI is the command-line tool that lets you run [Cloud Agents](https://docs.warp.dev/agent-platform/cloud-agents/overview) from anywhere, including terminals, scripts, automated systems, or services.
 
-It's the standard runtime entry point that turns a **prompt** plus **configuration** into an **executable agent task** that runs on either a **Warp-hosted or [self-hosted](https://docs.warp.dev/agent-platform/cloud-agents/self-hosting) runner**.&#x20;
+It's the standard runtime entry point that turns a **prompt** plus **configuration** into an **executable agent task** that runs on either a **Warp-hosted or [self-hosted](https://docs.warp.dev/agent-platform/cloud-agents/self-hosting) runner**.
 
 With the Oz CLI, you can:
 
@@ -23,7 +23,7 @@ Set up and run your first cloud agent in less than 5 minutes.
 
 ### 1. Installing the CLI
 
-If you already have the [Warp desktop app installed](https://docs.warp.dev/getting-started/quickstart-guide/installation-and-setup), the **CLI is included** and available in the Warp terminal.&#x20;
+If you already have the [Warp desktop app installed](https://docs.warp.dev/getting-started/quickstart/installation-and-setup), the **CLI is included** and available in the Warp terminal.
 
 If not, see [Installing the CLI](#installing-the-cli) for installation options for all platforms.
 
@@ -84,7 +84,7 @@ Continue reading to learn how to install the CLI on different platforms, authent
 
 ## Installing the CLI
 
-You can install the Oz CLI as part of the Warp desktop app, or as a standalone package.&#x20;
+You can install the Oz CLI as part of the Warp desktop app, or as a standalone package.
 
 ### Bundled with Warp
 
@@ -94,7 +94,7 @@ The Oz CLI is automatically distributed with the Warp desktop app and can be use
 {% tab title="macOS" %}
 To add the Oz CLI to your `PATH`,:
 
-1. Open the [Command Palette](https://docs.warp.dev/terminal/command-palette) (`CMD+P` )&#x20;
+1. Open the [Command Palette](https://docs.warp.dev/terminal/command-palette) (`CMD+P` )
 2. In the search field, find and select the `Install Oz CLI Command` action.
 
 {% hint style="info" %}
@@ -148,7 +148,7 @@ You can also download the CLI directly from these URLs:
 {% tab title="Linux" %}
 On Linux, we recommend that you install and update the standalone CLI through your distribution's package manager. We support `apt`, `yum`, and `pacman`.
 
-1. Add the Warp package repository for your distribution (see the [installation instructions](https://docs.warp.dev/getting-started/quickstart-guide/installation-and-setup)).&#x20;
+1. Add the Warp package repository for your distribution (see the [installation instructions](https://docs.warp.dev/getting-started/quickstart/installation-and-setup)).
 2. Install either the stable or Preview package (replace `apt` with `yum` or `pacman` as needed):
 
 ```sh
@@ -272,9 +272,9 @@ I'll run a few terminal commands to:
 * `--model <MODEL_ID>` — override the default model (see [Model Choice](https://docs.warp.dev/agent-platform/capabilities/model-choice)).
 * `--skill <SPEC>` — use a skill as the base prompt (see [Using Skills](./#using-skills)).
 
-The agent will automatically carry out the task you gave it, printing out tool calls and responses as it works.&#x20;
+The agent will automatically carry out the task you gave it, printing out tool calls and responses as it works.
 
-By default, the agent runs in your current working directory. To run from a different directory, use the `-C/--cwd` flag.&#x20;
+By default, the agent runs in your current working directory. To run from a different directory, use the `-C/--cwd` flag.
 
 ### Running agents remotely: \`oz agent run-cloud\`
 
@@ -444,7 +444,7 @@ $ oz mcp list
 
 Alternatively, you can copy the server ID from the MCP servers page in Warp:
 
-1. Click your profile photo in the top-right corner, then click **Settings.**&#x20;
+1. Click your profile photo in the top-right corner, then click **Settings.**
 2. In the sidebar, click **MCP Servers**.
 
 <figure><img src="../.gitbook/assets/mcp-server-id.png" alt=""><figcaption><p>MCP servers page, showing a server with its UUID</p></figcaption></figure>
@@ -527,7 +527,7 @@ For more information about creating and managing skills, see [Skills](https://do
 
 ## Collaboration
 
-In addition to text-based output, the CLI can share the agent's session for you to access on other devices or in a browser. To enable [Agent Session Sharing](https://docs.warp.dev/knowledge-and-collaboration/session-sharing/agent-session-sharing), use the `--share` flag.&#x20;
+In addition to text-based output, the CLI can share the agent's session for you to access on other devices or in a browser. To enable [Agent Session Sharing](https://docs.warp.dev/knowledge-and-collaboration/session-sharing/agent-session-sharing), use the `--share` flag.
 
 By default, the session is only accessible to the user running the CLI, but you can also share with [Teams](https://docs.warp.dev/knowledge-and-collaboration/teams) or other Warp users:
 
@@ -544,7 +544,7 @@ $ oz agent run --share team:edit --prompt "fix the compiler error"
 
 The `--share` flag can be repeated, and uses the following syntax:
 
-* `--share user@email.com` or `--share user@email.com:view` — gives specified user read-only access to the session.&#x20;
+* `--share user@email.com` or `--share user@email.com:view` — gives specified user read-only access to the session.
 * `--share user@email.com:edit` — gives specified user `user@email.com` read/write access to the session.
 * `--share team` or `--share team:view` — gives all members of your team read-only access to the session.
 * `--share team:edit` — gives all members of your team read/write access to the session.

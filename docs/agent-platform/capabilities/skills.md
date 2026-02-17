@@ -325,7 +325,7 @@ These same skills also appear as suggested agents in the [Oz web app](../cloud-a
 
 ## Running agents from skills
 
-Skills can be used with both local and [cloud agents](../cloud-agents/cloud-agents-overview.md) to create reusable, automated workflows. When running an agent via the CLI, web app, or API, you can specify a skill to provide the base instructions for the agent.
+Skills can be used with both local and [cloud agents](../cloud-agents/overview.md) to create reusable, automated workflows. When running an agent via the CLI, web app, or API, you can specify a skill to provide the base instructions for the agent.
 
 For a complete guide to running skill-based agents—including CLI usage, the Oz web app, scheduling, skill discovery, and API integration—see [Skills as Agents](../cloud-agents/skills-as-agents.md).
 
@@ -333,5 +333,5 @@ For a complete guide to running skill-based agents—including CLI usage, the Oz
 
 * [**Rules**](rules.md) - Set persistent guidelines and constraints for Agent behavior
 * [**MCP Servers**](mcp.md) - Expose external data sources and tools to Agents
-* [**Cloud Agents**](../cloud-agents/cloud-agents-overview.md) - Run Agents in the cloud on schedules or triggers
+* [**Cloud Agents**](../cloud-agents/overview.md) - Run Agents in the cloud on schedules or triggers
 * [**Agent Profiles**](agent-profiles-permissions.md) - Control Agent permissions and autonomy

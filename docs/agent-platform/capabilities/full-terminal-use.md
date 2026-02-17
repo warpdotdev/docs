@@ -169,7 +169,7 @@ These settings apply to every session that uses Full Terminal Use. You can still
 
 All AI interactions from Full Terminal Use consume [credits](https://docs.warp.dev/support-and-community/plans-and-billing/credits), including understanding your natural language requests
 
-Credits are consumed in a similar way as other Warp AI actions that use the same model and a similar context size.
+Credits are consumed in a similar way as other Oz actions that use the same model and a similar context size.
 
 **Interactive sessions can consume more credits if:**
 

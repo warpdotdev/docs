@@ -35,5 +35,8 @@ redirects:
     cli/integrations-and-environments: cli/integrations-and-environments.md
 
     # Cross-space legacy paths
-    ambient-agents/mcp-servers-for-agents: cli/mcp-servers-for-cloud-agents.md
+    ambient-agents/mcp-servers-for-agents: cli/mcp-for-cloud-agents.md
+
+    # Renamed: simplify filenames
+    cli/mcp-servers-for-cloud-agents: cli/mcp-for-cloud-agents.md
 

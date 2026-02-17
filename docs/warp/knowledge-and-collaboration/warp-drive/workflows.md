@@ -14,7 +14,7 @@ You can create a new workflow from various entry points in Warp:
 
 * From Warp Drive, + > New workflow
 * Using Block Actions, Save as Workflow
-* From Warp AI results, Save as Workflow
+* From Oz agent results, Save as Workflow
 * From the [Command Palette](../../terminal/command-palette.md), Create a New Personal Workflow
 
 Any of these entry points will open the workflow editor where you can:
@@ -76,7 +76,7 @@ Once a workflow has been created, you can edit it at any time, as long as you ha
 
 #### AI Autofill
 
-Workflows also have the option to use [Warp AI](https://docs.warp.dev/agent-platform/local-agents/agents-overview) to automatically generate a title, descriptions, or parameters.
+Workflows also have the option to use an [Oz agent](https://docs.warp.dev/agent-platform/local-agents/overview) to automatically generate a title, descriptions, or parameters.
 
 * Create or edit a Workflow, in the edit view you should see the option to AutoFill.
 * Warp AI will fill in the fields based on the Workflow you're creating.

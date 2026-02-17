@@ -21,7 +21,7 @@ This guide explains what the integration does, how it works end-to-end, and how 
 
 Tagging @Oz on an issue or in a Linear comment starts an agent run. Oz clones the repositories defined in your environment, sets up your development environment using your Docker image and setup commands, and begins working through the task with full context from your codebase and the Linear issue. Agents post updates as they progress, including a task list, elapsed time, and checkpoints, so you can follow along without leaving Linear.
 
-Agents also share a link to an interactive remote session using Warp's [cloud agent session sharing](../cloud-agents-session-sharing.md). Opening this link lets you view the live terminal output for the running agent in Warp or in the browser. From there, you can interrupt or guide the agent with additional instructions when needed. Once the agent finishes, it will create a pull request on your behalf — using your GitHub permissions — and post a summary of its work and the PR link back into Linear.
+Agents also share a link to an interactive remote session using Warp's [cloud agent session sharing](../viewing-cloud-agent-runs.md). Opening this link lets you view the live terminal output for the running agent in Warp or in the browser. From there, you can interrupt or guide the agent with additional instructions when needed. Once the agent finishes, it will create a pull request on your behalf — using your GitHub permissions — and post a summary of its work and the PR link back into Linear.
 
 You can start an agent in two ways:
 
@@ -42,7 +42,7 @@ Session sharing works in Warp or in a browser view and allows multiple teammates
 
 #### Joining the remote session
 
-Selecting [**Open in Warp**](../cloud-agents-session-sharing.md) (or the web option) opens the active session. You'll see:
+Selecting [**Open in Warp**](../viewing-cloud-agent-runs.md) (or the web option) opens the active session. You'll see:
 
 * The agent’s full execution log
 * The plan pane with the task list
@@ -64,7 +64,7 @@ Because PRs are created as _you_, this makes code review, auditing, and team col
 
 ### Requirements
 
-* **Team membership** - The Linear integration requires you to be part of a [Warp team](https://docs.warp.dev/warp/knowledge-and-collaboration/teams). Teams can be created on any plan, including Free.
+* **Team membership** - The Linear integration requires you to be part of a [Warp team](https://docs.warp.dev/knowledge-and-collaboration/teams). Teams can be created on any plan, including Free.
 * **Plan and credits** - Your team must be on a plan that supports integrations (Build, Max, or Business) and have at least 20 credits available (any type of Warp credits work). See [Access, Billing, and Identity](../team-access-billing-and-identity.md) for details.
 * **Infrastructure** - By default, agents run on Warp-hosted infrastructure. Enterprise teams can [self-host agents](../self-hosting.md) on their own infrastructure.
 * **Identity** - You must be logged into Warp with the same email as your Linear workspace.

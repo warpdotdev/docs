@@ -21,8 +21,8 @@ Oz is fully programmable—launch agents manually or build custom logic around t
 
 ## Key capabilities
 
-* [**Local Agents**](local-agents/agents-overview.md) - Interactive Oz agents embedded in the Warp terminal. Use natural language to write code, debug issues, run commands, and automate development tasks with full terminal access.
-* [**Oz Cloud Agents**](cloud-agents/cloud-agents-overview.md) - Autonomous Oz agents that run in the background in response to system events, schedules, or integrations.
+* [**Local Agents**](local-agents/overview.md) - Interactive Oz agents embedded in the Warp terminal. Use natural language to write code, debug issues, run commands, and automate development tasks with full terminal access.
+* [**Oz Cloud Agents**](cloud-agents/overview.md) - Autonomous Oz agents that run in the background in response to system events, schedules, or integrations.
 * [**Integrations**](cloud-agents/integrations/README.md) - Connect external system events to autonomous agent execution. Use [Slack](cloud-agents/integrations/slack.md), [Linear](cloud-agents/integrations/linear.md), [GitHub Actions](cloud-agents/integrations/github-actions.md), and other integrations to trigger agents in the cloud.
 * [**Oz Platform**](cloud-agents/platform.md) - The underlying infrastructure that powers Oz, including the CLI, API/SDK, orchestration layer, environments, secrets, and management/observability.
 
@@ -39,8 +39,8 @@ Oz is fully programmable—launch agents manually or build custom logic around t
 
 ## Learn more
 
-* [Local Agents Overview](local-agents/agents-overview.md) - Interactive agents in the Warp terminal
-* [Cloud Agents Overview](cloud-agents/cloud-agents-overview.md) - Background agents for automation at scale
+* [Local Agents Overview](local-agents/overview.md) - Interactive agents in the Warp terminal
+* [Cloud Agents Overview](cloud-agents/overview.md) - Background agents for automation at scale
 * [Agent Capabilities](capabilities/README.md) - Skills, planning, MCP, rules, and more
 * [Oz Platform](cloud-agents/platform.md) - CLI, API/SDK, orchestration, environments, and hosts
 * [Environments](cloud-agents/environments.md) - Configure execution context for cloud agents
