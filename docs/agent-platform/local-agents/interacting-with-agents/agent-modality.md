@@ -151,7 +151,7 @@ You can control auto-detection separately for terminal mode and agent conversati
 
 There are multiple ways to override auto-detection:
 
-* **Keyboard shortcut** - Press `⌘I` to switch between command and agent mode.
+* **Keyboard shortcut** - Press `⌘I` to switch between command and Agent Mode.
 * **`!` prefix** - In agent view, prepend `!` to your input to force it to run as a shell command (e.g., `!ls` or `!git status`).
 
 Common examples:
@@ -177,7 +177,7 @@ There are several ways to start or enter an Oz agent conversation:
 
 #### A) Use the `/agent` or `/new` slash command
 
-Type `/agent` or `/new` in terminal mode to enter the agent conversation view. This is the recommended way to explicitly switch to agent mode.
+Type `/agent` or `/new` in terminal mode to enter the agent conversation view. This is the recommended way to explicitly switch to Agent Mode.
 
 * `/agent` or `/new` - Opens a new agent conversation view with full controls
 * `/agent <prompt>` - Sends your prompt directly to the agent in a new conversation

@@ -92,7 +92,7 @@ The behavior differs based on where you start the long-running command:
 {% tab title="From terminal view" %}
 1. Run an interactive command (e.g., `python`, `psql`)
 2. Press `⌘↩` (macOS) or `Ctrl+Shift+Enter` (Windows/Linux), or use `⌘I` (macOS) / `Ctrl+I` (Windows/Linux), to tag in the agent
-3. The input switches to agent mode with full controls
+3. The input switches to Agent Mode with full controls
 4. When you exit, an agent conversation block appears in your terminal blocklist
 5. Click the block to reopen the full conversation with your LRC interaction context
 {% endtab %}

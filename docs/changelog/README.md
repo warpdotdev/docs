@@ -99,7 +99,7 @@ Oz is Warp's orchestration platform for cloud agents: launch parallel agents, au
 * Files opened from code review panel, project explorer, and global search now respect your external editor setting.
 * Toggling the plan while the pane is maximized now restores the layout to show the plan.
 * Added "copy path" button to file headers in code review panel.
-* Pasting images into the input now enters agent mode, matching drag and drop behavior.
+* Pasting images into the input now enters Agent Mode, matching drag and drop behavior.
 
 **Bug Fixes**
 
@@ -122,7 +122,7 @@ Oz is Warp's orchestration platform for cloud agents: launch parallel agents, au
 
 **Improvements**
 
-* Save AI prompts as agent mode workflows via context menu.
+* Save AI prompts as Agent Mode workflows via context menu.
 * `/init` now generates AGENTS.md instead of WARP.md.
 * Added horizontal autoscrolling when jumping to line/column.
 * Better language detection for syntax highlighting.
@@ -325,7 +325,7 @@ Oz is Warp's orchestration platform for cloud agents: launch parallel agents, au
 **Improvements**
 
 * Added the ability to sort team members by usage in `Settings > Billing and usage`.
-* Added UI indication of when agent mode conversation summarization is in progress, with a cancellation confirmation dialog.
+* Added UI indication of when Agent Mode conversation summarization is in progress, with a cancellation confirmation dialog.
 * Made the sizing for headings consistent across all collapsible blocks.
 * `@` menu no longer appears when running JS package manager subcommands, like `yarn workspace @org/package add`.
 * \[macOS] Resolved an issue re-mapping keybindings that conflict with MacOS keybindings.
@@ -738,7 +738,7 @@ All of this comes with higher AI usage limits on our Pro and Turbo plans, plus n
 
 **Bug Fixes**
 
-* Fixed incorrect ordering in history of executed commands and agent mode queries.
+* Fixed incorrect ordering in history of executed commands and Agent Mode queries.
 * Copying text from Agent Mode plans and suggested code changes now works more reliable.
 * \[Windows] Made some changes to reduce false-positives from virus scanners.
 
@@ -758,7 +758,7 @@ All of this comes with higher AI usage limits on our Pro and Turbo plans, plus n
 * Stopped showing an unexpected block in the planning output for o3.
 * \[Windows] Fixed a bug when hovering symlinks in WSL sessions.
 * Fixed terminal input remaining hidden after cancelling an env var block.
-* Prevented unexpected empty code fences in agent mode when using Gemini 2.5 Pro or o3.
+* Prevented unexpected empty code fences in Agent Mode when using Gemini 2.5 Pro or o3.
 
 ### 2025.04.30 (v0.2025.04.30.08.11)
 

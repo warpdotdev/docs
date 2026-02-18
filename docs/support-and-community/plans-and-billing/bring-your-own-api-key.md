@@ -62,7 +62,7 @@ In this case:
 
 * No **Warp Credits** are consumed.
 * The cost of the request is billed directly through your provider account.
-* Core agent mode always **prioritizes BYOK usage** over any available Warp Credits.
+* Core Agent Mode always **prioritizes BYOK usage** over any available Warp Credits.
 
 The credit transparency footer will show “0 credits used”, and the `Billing & Usage` page will reflect no deductions from your monthly credit total.
 

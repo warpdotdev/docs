@@ -9,7 +9,7 @@ description: >-
 
 ### Warp prompt
 
-Warp has a native prompt that is customizable and can show a variety of information including cwd, git, svn, kubernetes, pyenv, date, time, an so on. You can visit `ettings > Appearance > Input > Input Type > Shell (PS1)` then in the terminal input area right-click on it and select Edit prompt and select `Warp Prompt` to drag and drop context chips into your Warp prompt until it displays the pieces of information you'd like to include.
+Warp has a native prompt that is customizable and can show a variety of information including cwd, git, svn, kubernetes, pyenv, date, time, and so on. You can visit `Settings > Appearance > Input > Input Type > Shell (PS1)` then in the terminal input area right-click on it and select Edit prompt and select `Warp Prompt` to drag and drop context chips into your Warp prompt until it displays the pieces of information you'd like to include.
 
 #### Git and Subversion
 
