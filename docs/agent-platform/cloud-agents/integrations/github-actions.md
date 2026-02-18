@@ -47,6 +47,7 @@ To use Oz agents in GitHub Actions, you need:
 * A [**Warp API Key**](https://docs.warp.dev/reference/cli/cli#generating-api-keys) stored as a [GitHub secret](https://docs.github.com/en/actions/concepts/security/secrets)
 * A workflow with permissions that match your intended actions (for example, write access to PRs if the agent should commit or comment)
 * The `oz-agent-action` step added to your workflow
+* **For private repositories using `@oz-agent` mention workflows**: The [`oz-agent`](https://github.com/oz-agent) GitHub user must be [invited as a member](https://docs.github.com/en/organizations/managing-membership-in-your-organization/inviting-users-to-join-your-organization) of your GitHub organization (see [Responding to comments with @ mentions](#1-responding-to-comments-with--mentions) for details)
 * Familiarity with GitHub Actions concepts — see the official docs for [GitHub Actions](https://docs.github.com/en/actions)
 
 The agent runs using your GitHub account’s permissions for the workflow run.
@@ -190,6 +191,19 @@ What it does:
 
 * Interactive coding assistance during review or issue triage.
 
+{% hint style="info" %}
+**Private repositories require org membership for `@oz-agent`**
+
+If your repository is in a **private GitHub organization**, you must [invite the `oz-agent` user](https://docs.github.com/en/organizations/managing-membership-in-your-organization/inviting-users-to-join-your-organization) as a member of your organization before using `@oz-agent` mention workflows. Without this:
+
+* `@oz-agent` will not appear in GitHub's autocomplete when writing comments.
+* Comments containing `@oz-agent` will not trigger the workflow, because GitHub does not recognize the mention.
+
+This is a GitHub platform limitation for private organizations — any user must be an org member to be mentioned in comments on private repos.
+
+Public repositories are not affected by this requirement.
+{% endhint %}
+
 ### 2. Automated pull request review
 
 * **File**: [`examples/review-pr.yml`](https://github.com/warpdotdev/oz-agent-action/blob/main/examples/review-pr.yml)
@@ -269,3 +283,21 @@ What it does:
 **When to use:**
 
 * Quickly addressing straightforward review feedback such as typos, naming tweaks, style nits, and small refactors.
+
+***
+
+## Troubleshooting
+
+### `@oz-agent` mention doesn't trigger the workflow
+
+If you're tagging `@oz-agent` in a PR or issue comment and the workflow doesn't run:
+
+1. **Check org membership (private repos only)**: In private organizations, the `oz-agent` GitHub user must be a [member of your organization](https://docs.github.com/en/organizations/managing-membership-in-your-organization/inviting-users-to-join-your-organization). Without this, GitHub won't recognize the mention and the `issue_comment` event won't match the workflow trigger. Ask an org admin to invite [`oz-agent`](https://github.com/oz-agent) via **Settings > People > Invite member**.
+2. **Verify the workflow file**: Ensure your workflow is on the default branch and the trigger condition matches `@oz-agent` (e.g. `contains(github.event.comment.body, '@oz-agent')`).
+3. **Check workflow permissions**: The workflow must have the appropriate permissions (e.g. `issues: read`, `pull-requests: write`) to respond.
+
+### `@oz-agent` doesn't appear in GitHub autocomplete
+
+GitHub only suggests users who are members of the organization when typing `@` in comments on private repositories. [Invite `oz-agent`](https://docs.github.com/en/organizations/managing-membership-in-your-organization/inviting-users-to-join-your-organization) to your organization to make it appear in autocomplete.
+
+Note: Even if `@oz-agent` doesn't autocomplete, you can still type the mention manually — but the workflow will only trigger if the user is an org member (for private repos).
