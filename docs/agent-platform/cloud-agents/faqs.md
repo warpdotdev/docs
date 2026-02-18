@@ -49,9 +49,13 @@ Yes. Cloud agent runs execute in a full Linux environment and behave like a loca
 
 ### Do cloud agents support a fully self-hosted, on-prem, or offline mode?
 
-The cloud agents platform supports self-hosting the **agent sandbox** (the execution environment). The **control plane**—which handles orchestration, tracking, and auditability—is not self-hosted.
+The cloud agents platform supports self-hosting the **agent sandbox** (the execution environment) on your own infrastructure. The **control plane**—which handles orchestration, tracking, and auditability—remains Warp-managed and is not self-hosted.
 
-You can bring your own model API keys through the Build plan and control where execution happens, but full offline control-plane operation is not currently supported.
+Self-hosted execution is available on **Enterprise** plans. See [Self-Hosting](self-hosting.md) and [Deployment Patterns](deployment-patterns.md) for details.
+
+{% hint style="info" %}
+[Bring Your Own Key (BYOK)](https://docs.warp.dev/support-and-community/plans-and-billing/bring-your-own-api-key) does not apply to cloud agents. BYOK keys are stored locally on your device and cannot be passed to cloud-hosted or self-hosted agent runs. All cloud agent runs consume [Warp credits](https://docs.warp.dev/support-and-community/plans-and-billing/credits).
+{% endhint %}
 
 ## Models
 
