@@ -1,0 +1,143 @@
+name: Auto PR Review
+
+on:
+  pull_request:
+    types: [opened, ready_for_review]
+
+jobs:
+  review_pr:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      
+      - name: Review PR with Oz agent
+        uses: warpdotdev/oz-agent-action@v1
+        env:
+          GH_TOKEN: ${{ github.token }}
+        with:
+          warp_api_key: ${{ secrets.WARP_API_KEY }}
+          skill: review-docs-pr
+      
+      - name: Post Review
+        uses: actions/github-script@v7
+        if: always()
+        with:
+          script: |
+            const fs = require('fs');
+            const { owner, repo } = context.repo;
+            const prNumber = context.payload.pull_request.number;
+            
+            try {
+              if (!fs.existsSync('review.json')) {
+                console.log('No review.json found. Skipping review posting.');
+                return;
+              }
+              
+              const reviewContent = fs.readFileSync('review.json', 'utf8');
+              
+              let review;
+              try {
+                review = JSON.parse(reviewContent);
+              } catch (parseError) {
+                core.warning(`Failed to parse review.json: ${parseError.message}`);
+                const sanitized = reviewContent.replace(/[\u0000-\u001F]+/g, ' ');
+                try {
+                  review = JSON.parse(sanitized);
+                } catch (sanitizedError) {
+                  core.setFailed(`Failed to parse review.json even after sanitizing: ${sanitizedError.message}`);
+                  return;
+                }
+              }
+              
+              const decodeNewlines = (text) => {
+                if (typeof text !== 'string') return text;
+                return text.replace(/\r\n/g, '\n').replace(/\\n/g, '\n');
+              };
+              
+              const rawComments = Array.isArray(review.comments) ? review.comments : [];
+              
+              // Fetch valid file paths from the PR
+              const prFiles = await github.paginate(
+                github.rest.pulls.listFiles,
+                { owner, repo, pull_number: prNumber }
+              );
+              const validPaths = new Set(prFiles.map(f => f.filename));
+              
+              const comments = [];
+              
+              for (const c of rawComments) {
+                if (!c || typeof c !== 'object') continue;
+                if (typeof c.body !== 'string' || !c.body.trim()) continue;
+                if (typeof c.path !== 'string' || !c.path.trim()) continue;
+                
+                // Normalize path
+                const normalizedPath = c.path.trim()
+                  .replace(/^([ab]\/)*/, '')
+                  .replace(/^\.\//, '');
+                
+                if (!validPaths.has(normalizedPath)) {
+                  console.log(`Skipping comment with invalid path: ${c.path} -> ${normalizedPath}`);
+                  continue;
+                }
+                
+                const line = Number(c.line);
+                if (!Number.isInteger(line) || line <= 0) {
+                  console.log('Skipping comment with invalid line:', c);
+                  continue;
+                }
+                
+                let side = (c.side || 'RIGHT').toString().toUpperCase();
+                if (side !== 'LEFT' && side !== 'RIGHT') {
+                  console.log(`Invalid side '${c.side}', defaulting to RIGHT`);
+                  side = 'RIGHT';
+                }
+                
+                const commentPayload = {
+                  path: normalizedPath,
+                  line,
+                  side,
+                  body: decodeNewlines(c.body),
+                };
+                
+                comments.push(commentPayload);
+              }
+              
+              const summary = typeof review.summary === 'string' ? decodeNewlines(review.summary).trim() : '';
+              const hasSummary = summary.length > 0;
+              
+              if (!hasSummary && comments.length === 0) {
+                console.log('No valid summary or inline comments found. Skipping review posting.');
+                return;
+              }
+              
+              const payload = {
+                owner,
+                repo,
+                pull_number: prNumber,
+                event: 'COMMENT',
+              };
+              
+              if (hasSummary) {
+                payload.body = summary;
+              } else {
+                payload.body = 'Automated review by Oz Agent';
+              }
+              
+              if (comments.length > 0) {
+                payload.comments = comments;
+              }
+              
+              await github.rest.pulls.createReview(payload);
+              
+              console.log('Review posted successfully.');
+              
+            } catch (error) {
+              console.error('Failed to post review:', error);
+              core.setFailed(`Failed to post review: ${error.message}`);
+            }
