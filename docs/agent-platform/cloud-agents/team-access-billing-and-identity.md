@@ -134,6 +134,10 @@ Warp’s behavior in GitHub is defined by two layers of control:
 
 Cloud agents can run automatically in the background when activated by a trigger such as a Slack mention, a Linear update, or a scheduled task. These runs require compute and model usage, which translates to credit consumption.
 
+**Typical credit usage:**
+
+Cloud agent runs consume credits based on the complexity of the task and whether an environment is used. The exact amount varies by run.
+
 #### How credit usage works
 
 How credits are consumed depends on how the agent run is triggered and authenticated:

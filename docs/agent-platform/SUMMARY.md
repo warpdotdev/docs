@@ -1,9 +1,8 @@
 # Table of contents
 
-* [Overview](README.md)
-
 ## Getting started
 
+* [Overview](README.md)
 * [Agents in Warp](getting-started/agents-in-warp.md)
 * [FAQs](getting-started/faqs.md)
 
@@ -47,6 +46,7 @@
 ## Cloud Agents & Orchestration <a href="#cloud-agents" id="cloud-agents"></a>
 
 * [Overview](cloud-agents/overview.md)
+* [Quick Start](cloud-agents/quickstart.md)
 * [Oz Platform](cloud-agents/platform.md)
 * [Triggers](cloud-agents/triggers/README.md)
   * [Scheduled Agents](cloud-agents/triggers/scheduled-agents.md)

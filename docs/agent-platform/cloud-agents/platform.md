@@ -9,6 +9,10 @@ description: >
 
 Cloud agents run on the **Oz Platform**. First-party [integrations](integrations/README.md) connect external events to cloud agents. The platform gives you a consistent way to **trigger work**, **orchestrate and track tasks**, **execute agents** (in an optional [environment](https://docs.warp.dev/reference/cli/integrations-and-environments), on a host), and inspect outcomes with team visibility.
 
+{% hint style="info" %}
+**New to cloud agents?** Start with the [Cloud Agents Quick Start](quickstart.md) to run your first agent in ~10 minutes.
+{% endhint %}
+
 **Most production setups follow the same flow:**
 
 1. A **trigger** fires (schedule, integration event, CI step, webhook, API call, or manual run).

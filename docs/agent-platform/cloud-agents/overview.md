@@ -9,6 +9,8 @@ description: >-
 
 Oz Cloud Agents are **cloud-connected**, **background agents** that run on the [Oz Platform](platform.md).
 
+**New to cloud agents?** Start with the [Cloud Agents Quick Start](quickstart.md) to run your first cloud agent in ~10 minutes.
+
 ### What cloud agents are designed for
 
 Cloud agents are designed for situations where:
@@ -130,6 +132,7 @@ If your credit balance reaches zero, cloud agent runs will not be able to execut
 
 ### Learn more
 
+* [Cloud Agents Quick Start](quickstart.md) — run your first cloud agent with an environment in ~10 minutes.
 * [Oz Platform](platform.md) — CLI, Oz Agent API/SDK, orchestration, tasks, environments, hosts, integrations, and more.
 * [Skills as Agents](skills-as-agents.md) — run agents based on reusable skill definitions from the CLI, web app, API, or on a schedule.
 * [Oz CLI](https://docs.warp.dev/reference/cli) — shows how to run Oz agents in non-interactive mode from CI, scripts, or remote machines, including auth and common commands.

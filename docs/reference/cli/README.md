@@ -78,6 +78,10 @@ Once you've successfully set up and ran your agent, explore other configurations
 * Authenticate with [API keys](api-keys.md) for automated environments or workflows.
 * Get up-to-date information about the Oz CLI using the [`help` command.](./#getting-help)
 
+{% hint style="info" %}
+**Ready for cloud agents?** This quickstart is focused on local runs. For automated workflows with consistent environments, scheduled tasks, and integrations, see the [Cloud Agents Quick Start](https://docs.warp.dev/agent-platform/cloud-agents/quickstart).
+{% endhint %}
+
 Continue reading to learn how to install the CLI on different platforms, authenticate in different environments, and configure agents for real-world workflows.
 
 ***
