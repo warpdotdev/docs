@@ -91,7 +91,13 @@ Blocks in Warp belong to either the terminal view or a specific agent conversati
 * **Terminal blocks** - Commands you run directly in the terminal always appear in your terminal blocklist and can be attached as context to any conversation.
 * **Agent conversation blocks** - Commands executed within an agent conversation (either by you or the agent) only appear within that specific conversation and don't appear in the terminal blocklist.
 
-This separation keeps your terminal view clean while preserving full context within each conversation. For more details, see [Blocks as Context](../agent-context/blocks-as-context.md).
+In agent conversations, context is managed automatically, with optional manual attachment from terminal view:
+
+* **Automatic context** - Commands executed within an agent conversation are included as context for subsequent prompts.
+* **Manual attachment** - You can attach terminal blocks to bring in outputs from outside the conversation.
+* **Conversation scope** - Agent conversation blocks stay scoped to that conversation, while terminal blocks remain in the terminal blocklist.
+
+This separation keeps your terminal view clean while preserving full context within each conversation. For shortcuts, pending vs. attached context, and block selection behavior, see [Blocks as Context](../agent-context/blocks-as-context.md).
 
 #### Cloud agent conversations
 

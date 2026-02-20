@@ -16,6 +16,8 @@ In Warp, you can pass different types of input directly to the Agent to guide it
 * [Selection as Context](selection-as-context.md) - attach code snippets from the editor or review panel to enrich your prompts with precise context.
 * [Using @ to Add Context](using-to-add-context.md) - reference files, folders, code symbols, or Warp Drive objects directly in your prompts.
 
+Commands you run inside an agent conversation are automatically included as context for your next prompt. For details, see [Blocks as Context](blocks-as-context.md).
+
 ***
 
 This is distinct from other persistent or automatic sources of context, such as [Rules](https://docs.warp.dev/knowledge-and-collaboration/rules), [Warp Drive as Agent Mode Context](https://docs.warp.dev/knowledge-and-collaboration/warp-drive/agent-mode-context), and [Model Context Protocol (MCP)](https://docs.warp.dev/knowledge-and-collaboration/mcp), which the Agent also uses when available.
