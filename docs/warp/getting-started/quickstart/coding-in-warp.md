@@ -4,7 +4,7 @@ description: Agents can generate and edit code directly from within Warp.
 
 # Coding in Warp
 
-When you enter a git repo for the first time, Warp will enter an initialization flow to index your codebase and generate an AGENTS.md file.&#x20;
+When you enter a Git repo for the first time, Warp will enter an initialization flow to index your codebase and generate an AGENTS.md file.&#x20;
 
 As you're in the repo, Warp will enter an advanced code generation flow that supports both single-line and multi-file changes when it detects an opportunity to write code.
 

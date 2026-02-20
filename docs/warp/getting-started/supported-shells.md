@@ -118,7 +118,7 @@ While bash, and zsh come pre-installed on macOS systems, fish shell does not. So
 
 Once you’ve installed fish on your computer, you can set it as your default shell, so Warp will use it every time a new tab, pane, or window is opened. You can either make fish the default shell for only Warp, from the session settings (`Settings > Features > Session`), or for your user account. To change your account's default shell, you need to run two commands.
 
-**If you used Homebrew to install fish on a macOS or if you used the Mac installer** available on fishshell.com to install fish, type the following two commands in Warp:
+**If you used Homebrew to install fish on macOS or if you used the macOS installer** available on fishshell.com to install fish, type the following two commands in Warp:
 
 ```
 echo $(which fish) | sudo tee -a /etc/shells
@@ -130,7 +130,7 @@ If you prefer, you can also manually edit the `/etc/shells` file using the edito
 {% endhint %}
 
 {% hint style="info" %}
-**Why the different locations?** The location of fish depends on how it was installed. Homebrew installs programs under `/usr/local` on Macs running Intel processors, but under `/opt/homebrew` for Macs running Apple Silicon. So, if you used Homebrew to install fish on a Mac with Apple Silicon, the location of the executable is - `/opt/homebrew/bin/fish`.\
+**Why the different locations?** The location of fish depends on how it was installed. Homebrew installs programs under `/usr/local` on macOS with Intel processors, but under `/opt/homebrew` on macOS with Apple Silicon. So, if you used Homebrew to install fish on macOS with Apple Silicon, the location of the executable is - `/opt/homebrew/bin/fish`.\
 You can identify where fish is installed by running `which fish`.
 {% endhint %}
 
@@ -157,7 +157,7 @@ If you prefer, you can also manually edit the `/etc/shells` file using the edito
 {% endhint %}
 
 {% hint style="info" %}
-**Why the different locations?** The location of pwsh depends on how it was installed. Homebrew installs programs under `/usr/local` on Macs running Intel processors, but under `/opt/homebrew` for Macs running Apple Silicon. So, if you used Homebrew to install pwsh on a Mac with Apple Silicon, the location of the executable is - `/opt/homebrew/bin/pwsh`.\
+**Why the different locations?** The location of pwsh depends on how it was installed. Homebrew installs programs under `/usr/local` on macOS with Intel processors, but under `/opt/homebrew` on macOS with Apple Silicon. So, if you used Homebrew to install pwsh on macOS with Apple Silicon, the location of the executable is - `/opt/homebrew/bin/pwsh`.
 You can identify where pwsh is installed by running `which pwsh`.
 {% endhint %}
 

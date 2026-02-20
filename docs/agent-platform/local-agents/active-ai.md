@@ -22,7 +22,7 @@ To disable, please visit `Settings > AI > Active AI > Prompt Suggestions`
 
 #### Accepting a Prompt Suggestion
 
-If you press `CMD-ENTER` (on Mac), `CTRL-SHIFT-ENTER` (on Linux/Windows), or click on the chip, the suggestion will auto-populate into your input and run against [Agent Mode](interacting-with-agents/README.md) (with the most recent block attached).
+If you press `CMD-ENTER` (on macOS), `CTRL-SHIFT-ENTER` (on Linux/Windows), or click on the chip, the suggestion will auto-populate into your input and run against [Agent Mode](interacting-with-agents/README.md) (with the most recent block attached).
 
 {% hint style="info" %}
 Prompt Suggestions use an LLM to generate prompts based on your terminal session, specifically the most recent block. These AI requests do not contribute towards your AI limits, however, any accepted prompts run in Agent Mode contribute as normal. Visit **Settings > AI > Active AI** if you'd like to turn it off.

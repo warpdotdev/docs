@@ -24,15 +24,15 @@ _Example_: You can fork a conversation to explore an alternate solution, ask “
 
 There are five ways to fork an existing conversation:
 
-#### **1. From the command palette**
+#### **1. From the Command Palette**
 
-Open the menu using the command palette (`CMD + Y` on macOS / `CTRL + SHIFT + Y` on Windows/Linux).
+Open the menu using the Command Palette (`CMD + Y` on macOS / `CTRL + SHIFT + Y` on Windows/Linux).
 
 Select **Fork current conversation** to fork your current conversation, or fork a specific conversation from open conversations.
 
 <figure><img src="../../.gitbook/assets/conversation-forking-palette.png" alt=""><figcaption></figcaption></figure>
 
-In addition, when you hover over any open conversation in the command palette, you’ll see a **fork button**. This lets you fork not only active conversations, but also inactive and historical ones.
+In addition, when you hover over any open conversation in the Command Palette, you'll see a **fork button**. This lets you fork not only active conversations, but also inactive and historical ones.
 
 <figure><img src="../../.gitbook/assets/conversation-forking-open-conversations.png" alt=""><figcaption></figcaption></figure>
 
@@ -93,7 +93,7 @@ You can configure the default layout for forked conversations in `Settings > Fea
 * **Split Pane** (default): Opens the forked conversation in a new pane alongside your current view.
 * **New Tab**: Opens the forked conversation in a new tab.
 
-This setting controls the default behavior when forking via the command palette, AI block footer button, or slash commands (when pressing `Enter`).
+This setting controls the default behavior when forking via the Command Palette, AI block footer button, or slash commands (when pressing `Enter`).
 
 ### Using forked conversations <a href="#using-forked-conversations" id="using-forked-conversations"></a>
 

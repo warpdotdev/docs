@@ -20,7 +20,7 @@ Warpifying your SSH session gives you all the features of Warp while connected t
 
 #### Will Warpifying a remote SSH session make changes to the remote machine?
 
-Only to install [`tmux`](ssh.md#why-do-i-need-tmux-on-the-remote-machine) (a popular open source terminal multiplexer) and only with your explicit permission. If `tmux` is not installed, Warp will offer to install it for you and will show you the list of commands that will be run. You can always decline and continue to use your ssh session without some of Warp's features (or install `tmux` yourself and re-run Warpification [via the command palette](ssh.md#what-if-warp-fails-to-detect-my-ssh-session)).
+Only to install [`tmux`](ssh.md#why-do-i-need-tmux-on-the-remote-machine) (a popular open source terminal multiplexer) and only with your explicit permission. If `tmux` is not installed, Warp will offer to install it for you and will show you the list of commands that will be run. You can always decline and continue to use your ssh session without some of Warp's features (or install `tmux` yourself and re-run Warpification [via the Command Palette](ssh.md#what-if-warp-fails-to-detect-my-ssh-session)).
 
 #### Why do I need `tmux` on the remote machine?
 

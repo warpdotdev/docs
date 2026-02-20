@@ -34,10 +34,10 @@ Read more about privacy for cloud features in the [privacy overview](https://www
 
 Not all settings are synced, however. Notably, Warp does not sync:
 
-* Custom keybindings (we may in the future). Alhough, you can set [custom keybinds with a file](../../getting-started/keyboard-shortcuts.md#custom-keyboard-shortcuts)
+* Custom keybindings (we may in the future). Although, you can set [custom keybinds with a file](../../getting-started/keyboard-shortcuts.md#custom-keyboard-shortcuts)
 * Custom themes (we may in the future)
 * Device specific settings (e.g. what editor you prefer using, startup shell)
-* Platform-specific settings are synced across devices on the same platform (e.g. your settings for how to interact with the Linux clipboard are synced across all Linux devices, but not on Mac, Windows or Web).
+* Platform-specific settings are synced across devices on the same platform (e.g. your settings for how to interact with the Linux clipboard are synced across all Linux devices, but not on macOS, Windows, or Web).
 
 You can tell when a setting is not synced because it will have a special cloud strikethrough icon in the settings panel.
 

@@ -31,8 +31,8 @@ With Launch configurations you can save in the app or by adding a yaml file.
 {% tab title="macOS" %}
 * From the [Command Palette](../command-palette.md), enter `Launch Configuration` to open and select Launch Configuration.
 * Right-clicking the new Tab **+** button to open a menu and select saved Launch Configuration.
-* From the Mac Menu, `File > Launch Configurations`, where you can search through and open your saved Launch Configuration.
-  * Single-window launch configs can be launched into the active window from the launch configuration palette using `CMD-ENTER` on Mac.
+* From the macOS menu bar, `File > Launch Configurations`, where you can search through and open your saved Launch Configuration.
+  * Single-window launch configs can be launched into the active window from the launch configuration palette using `CMD-ENTER` on macOS.
 {% endtab %}
 
 {% tab title="Windows" %}
@@ -194,7 +194,7 @@ Sample configuration that shows how a Window and Tab can be activated with a ses
 * Use the `is_focused` field to set which Pane is focused in each tab.
 
 {% hint style="warning" %}
-Not that when you use `- active_tab_index:` the `tabs:` field doesn't need the `-` prefix, as this can cause syntax issues.
+Note that when you use `- active_tab_index:` the `tabs:` field doesn't need the `-` prefix, as this can cause syntax issues.
 {% endhint %}
 
 ```yaml

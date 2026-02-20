@@ -245,7 +245,7 @@ The [@ context chip](https://docs.warp.dev/agent-platform/local-agents/agent-con
 
 This feature allows you to attach specific files, folders, code symbols, Warp Drive objects, or blocks from other sessions as context for a prompt. Typing **@** inside the input also opens a context menu where you can search for and select files or directories to include.
 
-Attaching context with @ works in both Agent mode (when interacting with Agents) and classic Terminal commands (for referencing file paths).
+Attaching context with @ works in both Agent Mode (when interacting with Agents) and classic Terminal commands (for referencing file paths).
 
 **Slash Commands**
 

@@ -18,7 +18,7 @@ The editor is built for fast changes to agent-generated code: renaming a variabl
 **You can open files in the editor in several ways:**
 
 1. **Click a file path** from the terminal output or an AI conversation and select "Open in Warp."
-2.  **Use the file menu in the command palette** (`CMD + O` on macOS, `CTRL + SHIFT + O` on Windows or Linux) when in a Git-tracked repo to search for and open files inside that repo.
+2.  **Use the file menu in the Command Palette** (`CMD + O` on macOS, `CTRL + SHIFT + O` on Windows or Linux) when in a Git-tracked repo to search for and open files inside that repo.
 
     1. You can also access this via the magnifying glass icon in the pane coding toolbelt at the top left of any pane.
 

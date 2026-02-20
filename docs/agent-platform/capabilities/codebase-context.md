@@ -13,7 +13,7 @@ Code indexed with Codebase Context is never stored on our servers. Warp's coding
 {% endhint %}
 
 {% hint style="danger" %}
-**Codebase context doesn't work within SSH or WSL sessions.** \
+**Codebase Context doesn't work within SSH or WSL sessions.** \
 \
 Feature requests for support are being tracked in the following Github issues: \
 \- SSH: [https://github.com/warpdotdev/Warp/issues/6831](https://github.com/warpdotdev/Warp/issues/6831)\
@@ -39,7 +39,7 @@ When you open a directory in Warp, we check if it is part of a Git repository. I
 * Generate completions that match your style and patterns
 * Suggest edits in the correct locations based on real context
 
-For large projects, indexing may take a few minutes. Agents will not use codebase context until indexing is complete, but **agentic coding features remain fully available in the meantime**.
+For large projects, indexing may take a few minutes. Agents will not use Codebase Context until indexing is complete, but **agentic coding features remain fully available in the meantime**.
 
 {% hint style="info" %}
 You can view and manage your indexed codebases under `Settings > Code > Codebase Index`. You can also choose whether to automatically index new folders as you navigate them.

@@ -85,7 +85,7 @@ You only need to create an environment once. It can be reused across Slack, Line
 
 The fastest way to get started is to use the guided environment setup. Use the `/create-environment` [slash command](https://docs.warp.dev/agent-platform/capabilities/slash-commands) if you want Warp to analyze your repos and suggest an environment configuration.&#x20;
 
-You can run the command inside a git repo directory with no argument, or with one or more repo paths or URLs. For example, from Warp:
+You can run the command inside a Git repo directory with no argument, or with one or more repo paths or URLs. For example, from Warp:
 
 ```bash
 # File paths

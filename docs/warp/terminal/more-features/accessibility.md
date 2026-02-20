@@ -41,7 +41,7 @@ Instead, whenever you perform an action and/or something happens in the backgrou
 
 ### A11y specific actions
 
-Some a11y-specific settings are available through the command palette. For example, you can adjust the verbosity level of messages. Simply enter the [Command Palette](../command-palette.md) and type "a11y" to discover related options and their keybindings.
+Some a11y-specific settings are available through the Command Palette. For example, you can adjust the verbosity level of messages. Simply enter the [Command Palette](../command-palette.md) and type "a11y" to discover related options and their keybindings.
 
 ### Voice Input
 

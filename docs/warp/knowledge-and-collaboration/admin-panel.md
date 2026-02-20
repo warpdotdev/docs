@@ -69,7 +69,7 @@ The features available in the Admin Panel vary by billing tier:
 **Free Tier**
 
 * Most settings are fixed and non-toggleable
-* Limited codebase context and sharing features
+* Limited Codebase Context and sharing features
 
 **Business Plans**
 

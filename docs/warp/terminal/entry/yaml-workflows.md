@@ -10,7 +10,7 @@ You can continue to use YAML-based workflows, but we recommend using new [workfl
 
 ## What is it
 
-Workflows are easily parameterized and searchable by name, description, or command arguments. [Common Workflows](https://github.com/warpdotdev/workflows) sourced by the Warp team and community are readily available within the app. Additionally, you can create and scope Workflows locally or to a git repository.
+Workflows are easily parameterized and searchable by name, description, or command arguments. [Common Workflows](https://github.com/warpdotdev/workflows) sourced by the Warp team and community are readily available within the app. Additionally, you can create and scope Workflows locally or to a Git repository.
 
 ## How to use it
 
@@ -153,7 +153,7 @@ The default value for the argument. If specified, the `default_value` replaces t
 
 ### Where to save workflows
 
-Local Workflows are scoped to your machine. Repository Workflows are scoped to a git repository and can be accessed by anyone who has cloned the repo. _Note:_ Repository Workflows will not appear if you are ssh into a remote machine.
+Local Workflows are scoped to your machine. Repository Workflows are scoped to a Git repository and can be accessed by anyone who has cloned the repo.
 
 {% tabs %}
 {% tab title="macOS" %}

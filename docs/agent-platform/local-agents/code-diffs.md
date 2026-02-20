@@ -40,7 +40,7 @@ If the initial suggestion needs more work:
 
 * Press `R` or select the "**Refine**" button to provide follow-up instructions in natural language. The agent will regenerate the diff based on your input.
 * To manually adjust the code, press `E` or click "**Edit**" to switch into an editable view.
-* To cancel a pending operation, use `CTRL-C` (on Mac, Windows, or Linux systems). Similarly, you can exit the editor at any time with `ESC` .
+* To cancel a pending operation, use `CTRL-C` (on macOS, Windows, or Linux). Similarly, you can exit the editor at any time with `ESC` .
 
 {% hint style="info" %}
 You can open up code files in Warp in various different ways, refer to: [Opening files in Warp](https://docs.warp.dev/code/code-editor#opening-files-in-warp)

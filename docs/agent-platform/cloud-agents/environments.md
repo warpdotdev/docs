@@ -144,7 +144,7 @@ Create one environment per codebase, then reuse it across triggers like Slack, L
 
 Use [`/create-environment`](warp://action/create_environment) when you want Warp to inspect your repos and recommend an environment configuration automatically. This is the fastest way to get started: Warp detects your languages, frameworks, and tools, then suggests appropriate images and setup commands.
 
-You can run the command inside a git repo directory with no argument, or with one or more repo paths or URLs.&#x20;
+You can run the command inside a Git repo directory with no argument, or with one or more repo paths or URLs.&#x20;
 
 ```shellscript
 # Local file paths
