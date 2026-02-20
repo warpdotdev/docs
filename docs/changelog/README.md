@@ -24,6 +24,22 @@ metaLinks: {}
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2026.02.18 (v0.2026.02.18.08.22)
+
+**New features**
+
+* Agents can now fetch and read content directly from URLs provided in your query.
+
+**Improvements**
+
+* Enabled multi-select in Notebooks and code editors.
+* Added a new setting under `Appearance > Tabs` to preserve the active tab's color when creating new tabs.
+
+**Bug fixes**
+
+* Fixed Escape key closing the up-arrow menu instead of transitioning to normal mode when in vim insert mode.
+* Fixed Option-left and Option-right keys not working for word navigation in code review comments editor.
+
 ### 2026.02.11 (v0.2026.02.11.08.23)
 
 **Improvements**
