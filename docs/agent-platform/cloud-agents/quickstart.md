@@ -83,7 +83,7 @@ You can view details of your agent's run, including commands executed, files cha
 * In the Warp app, open the [conversations panel](../local-agents/interacting-with-agents#conversation-panel) to see all your agent runs.
 * Click the session link in your terminal output.
 * Go to [oz.warp.dev](https://oz.warp.dev) and navigate to the `Runs` tab.
-* Access from mobile via the [Oz web app](/oz-web-app).
+* Access from mobile via the [Oz web app](oz-web-app.md).
 
 **Breaking it down:** Every cloud agent run is auto-tracked. You get a shareable link, an audit trail, and full visibility into what the agent did. You or your teammates can watch the agent's progress in real-time and even steer it if needed. The run record persists after completion so you can review it later.
 
