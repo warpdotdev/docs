@@ -266,6 +266,7 @@ paths:
             enum:
               - PLAN
               - PULL_REQUEST
+              - SCREENSHOT
         - name: q
           in: query
           description: Fuzzy search query across run title, prompt, and skill_spec
@@ -733,6 +734,93 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 
+  /agent/artifacts/{artifactUid}:
+    get:
+      summary: Get artifact details
+      description: |
+        Retrieve an artifact by its UUID. For screenshot artifacts, returns a
+        time-limited signed download URL.
+      operationId: getArtifact
+      tags:
+        - agent
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: artifactUid
+          in: path
+          description: The unique identifier (UUID) of the artifact
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Artifact details with download information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArtifactResponse'
+        '400':
+          description: Missing artifact UID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: No permission to access artifact
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Artifact not found or unsupported artifact type
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /agent/sessions/{sessionUuid}/redirect:
+    get:
+      summary: Get session redirect
+      description: |
+        Check whether a shared session should redirect to a conversation transcript.
+        Returns a conversation_id if the agent sandbox has finished and conversation
+        data is available, or an empty object if no redirect is needed.
+      operationId: getSessionRedirect
+      tags:
+        - agent
+      parameters:
+        - name: sessionUuid
+          in: path
+          description: The UUID of the shared session
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: |
+            Redirect information. Contains conversation_id if redirect is needed,
+            otherwise an empty object.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  conversation_id:
+                    type: string
+                    description: The conversation ID to redirect to (only present when redirect is needed)
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
 components:
   securitySchemes:
     bearerAuth:
@@ -778,13 +866,13 @@ components:
           description: |
             Optional conversation ID to continue an existing conversation.
             If provided, the agent will continue from where the previous run left off.
-        images:
+        attachments:
           type: array
           items:
-            $ref: '#/components/schemas/ImageInput'
+            $ref: '#/components/schemas/AttachmentInput'
           description: |
-            Optional images to include with the prompt (max 5).
-            Images are uploaded to cloud storage and made available to the agent.
+            Optional file attachments to include with the prompt (max 5).
+            Attachments are uploaded to cloud storage and made available to the agent.
 
     RunAgentResponse:
       type: object
@@ -803,6 +891,9 @@ components:
           description: Unique identifier for the task (same as run_id). Deprecated - use run_id instead.
         state:
           $ref: '#/components/schemas/RunState'
+        at_capacity:
+          type: boolean
+          description: Whether the system is at capacity when the run was created
 
     ListRunsResponse:
       type: object
@@ -896,11 +987,13 @@ components:
       oneOf:
         - $ref: '#/components/schemas/PlanArtifact'
         - $ref: '#/components/schemas/PullRequestArtifact'
+        - $ref: '#/components/schemas/ScreenshotArtifact'
       discriminator:
         propertyName: artifact_type
         mapping:
           PLAN: '#/components/schemas/PlanArtifact'
           PULL_REQUEST: '#/components/schemas/PullRequestArtifact'
+          SCREENSHOT: '#/components/schemas/ScreenshotArtifact'
 
     PlanArtifact:
       type: object
@@ -940,6 +1033,25 @@ components:
         data:
           $ref: '#/components/schemas/PullRequestArtifactData'
 
+    ScreenshotArtifact:
+      type: object
+      required:
+        - artifact_type
+        - created_at
+        - data
+      properties:
+        artifact_type:
+          type: string
+          enum:
+            - SCREENSHOT
+          description: Type of the artifact
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the artifact was created (RFC3339)
+        data:
+          $ref: '#/components/schemas/ScreenshotArtifactData'
+
     PlanArtifactData:
       type: object
       required:
@@ -968,6 +1080,22 @@ components:
         branch:
           type: string
           description: Branch name for the pull request
+
+    ScreenshotArtifactData:
+      type: object
+      required:
+        - artifact_uid
+        - mime_type
+      properties:
+        artifact_uid:
+          type: string
+          description: Unique identifier for the screenshot artifact
+        mime_type:
+          type: string
+          description: MIME type of the screenshot image
+        description:
+          type: string
+          description: Optional description of the screenshot
 
     ScheduleInfo:
       type: object
@@ -1034,6 +1162,9 @@ components:
         display_name:
           type: string
           description: Display name of the creator
+        email:
+          type: string
+          description: Email address of the creator
         photo_url:
           type: string
           format: uri
@@ -1048,6 +1179,8 @@ components:
         - INPROGRESS
         - SUCCEEDED
         - FAILED
+        - BLOCKED
+        - ERROR
         - CANCELLED
       description: |
         Current state of the run:
@@ -1057,6 +1190,8 @@ components:
         - INPROGRESS: Run is actively being executed
         - SUCCEEDED: Run completed successfully
         - FAILED: Run failed
+        - BLOCKED: Run is blocked (e.g., awaiting user input or approval)
+        - ERROR: Run encountered an error
         - CANCELLED: Run was cancelled by user
     RunSourceType:
       type: string
@@ -1166,27 +1301,71 @@ components:
           type: string
           description: Human-readable error message
 
-    ImageInput:
+    ArtifactResponse:
       type: object
-      description: A base64-encoded image to include with the prompt
+      description: Response for artifact retrieval. Currently supports screenshot artifacts.
       required:
+        - artifact_uid
+        - artifact_type
+        - created_at
+        - data
+      properties:
+        artifact_uid:
+          type: string
+          description: Unique identifier (UUID) for the artifact
+        artifact_type:
+          type: string
+          description: Type of the artifact (e.g., SCREENSHOT)
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the artifact was created (RFC3339)
+        data:
+          $ref: '#/components/schemas/ScreenshotArtifactResponseData'
+
+    ScreenshotArtifactResponseData:
+      type: object
+      description: Response data for a screenshot artifact, including a signed download URL.
+      required:
+        - download_url
+        - expires_at
+        - content_type
+      properties:
+        download_url:
+          type: string
+          format: uri
+          description: Time-limited signed URL to download the screenshot
+        expires_at:
+          type: string
+          format: date-time
+          description: Timestamp when the download URL expires (RFC3339)
+        content_type:
+          type: string
+          description: MIME type of the screenshot (e.g., image/png)
+        description:
+          type: string
+          description: Optional description of the screenshot
+
+    AttachmentInput:
+      type: object
+      description: A base64-encoded file attachment to include with the prompt
+      required:
+        - file_name
         - mime_type
         - data
       properties:
+        file_name:
+          type: string
+          description: Name of the attached file
         mime_type:
           type: string
           description: |
-            MIME type of the image.
-            Supported types: image/jpeg, image/png, image/gif, image/webp
-          enum:
-            - image/jpeg
-            - image/png
-            - image/gif
-            - image/webp
+            MIME type of the attachment.
+            Supported image types: image/jpeg, image/png, image/gif, image/webp
         data:
           type: string
           format: byte
-          description: Base64-encoded image data
+          description: Base64-encoded attachment data
 
     ScheduledAgentItem:
       type: object
