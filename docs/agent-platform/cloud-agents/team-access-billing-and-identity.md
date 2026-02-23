@@ -152,6 +152,7 @@ How credits are consumed depends on how the agent run is triggered and authentic
 * Runs are not tied to any individual user
 * Only the team's Reload Credit pool is used—no individual base credits are available
 * Ideal for CI/CD pipelines, scheduled tasks, and other automated workflows
+* For workflows that require code changes (opening pull requests, pushing branches, or writing to a repository), use a [personal API key](https://docs.warp.dev/reference/cli/api-keys) instead.
 
 For more details on creating and using API keys, see [API Keys](https://docs.warp.dev/reference/cli/api-keys).
 

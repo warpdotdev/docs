@@ -169,9 +169,13 @@ This authorization enables agents to clone repositories into the environment, cr
 Depending on how the GitHub app is installed in your organization:
 
 * You may need to grant access to new repositories over time
-* An organization admin may need to update the app’s permissions
+* An organization admin may need to update the app's permissions
 
 You typically only need to handle this once per team, unless your repo access changes.
+
+{% hint style="info" %}
+**Using API keys:** If you're triggering agents via API key rather than through a Slack or Linear integration, use a [personal API key](https://docs.warp.dev/reference/cli/api-keys#personal-vs-team-api-keys) for workflows where the agent needs to write to a repository. Personal keys authenticate as you, so the agent runs with your GitHub permissions.
+{% endhint %}
 
 ***
 
