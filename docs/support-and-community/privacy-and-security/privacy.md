@@ -131,7 +131,7 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `AgentMode.Code.SuggestedCodeEditedByUser` | Agent Mode Code suggestion edited by user |
 | `AgentMode.Code.SuggestedEditReceived` | Agent Mode suggested a code edit |
 | `AgentMode.Code.SuggestedEditResolved` | Agent Mode pending code edit suggestion resolved |
-| `AgentMode.CreatedAIBlock` | Created an AI block in agent mode |
+| `AgentMode.CreatedAIBlock` | Created an AI block in Agent Mode |
 | `AgentMode.Error` | Received an error when getting Agent Mode response |
 | `AgentMode.ExecutedWarpDrivePrompt` | Executed a saved prompt. |
 | `AgentMode.ExitedShellProcess` | An agent-requested command caused the shell process to exit |
@@ -146,14 +146,14 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `AgentMode.MerkleTreeSnapshot.Rebuild.Failed` | Failed to rebuild merkle tree from snapshot |
 | `AgentMode.MerkleTreeSnapshot.Rebuild.Success` | Successfully rebuilt merkle tree from snapshot |
 | `AgentMode.NaturalLanguageDetection.InputBufferSubmitted` | Input buffer submitted |
-| `AgentMode.OpenedCitation` | Opened a citation that was surfaced in agent mode |
+| `AgentMode.OpenedCitation` | Opened a citation that was surfaced in Agent Mode |
 | `AgentMode.PotentialAutoDetectionFalsePositive` | Manually toggled input to shell mode after input was auto-detected as natural language. |
 | `AgentMode.QueryAttemptAtLImit` | Tried to send an Agent Mode query but they already reached the query limit |
 | `AgentMode.RequestRetrySucceeded` | Agent Mode request succeeded after retrying following an initial error |
 | `AgentMode.SearchCodebase.RepoUnavailable` | Tried to use the Search Codebase tool on a repo that is unavailable |
 | `AgentMode.SearchCodebase.Requested` | Ran the Search Codebase tool |
 | `AgentMode.SetupCreateEnvironmentAction` | User clicked a button in the Agent Mode setup create environment step |
-| `AgentMode.SurfacedCitations` | Agent mode used and cited external sources that were used in its response |
+| `AgentMode.SurfacedCitations` | Agent Mode used and cited external sources that were used in its response |
 | `AgentMode.SyncCodebaseContext.BuildTree.Failed` | Failed to build merkle tree for codebase context |
 | `AgentMode.SyncCodebaseContext.BuildTree.Success` | Successfully built merkle tree for codebase context |
 | `AgentMode.SyncCodebaseContext.Failed` | Failed to sync codebase context |

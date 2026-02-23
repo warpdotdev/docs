@@ -236,7 +236,7 @@ At a high level, each run works like this:
 
 ## Next steps
 
-You now have everything needed to trigger agents from your team’s tools. From here, you might want to:
+You now have everything needed to trigger agents from your team's tools. From here, you can:
 
 * Add or adjust setup commands
 * Switch to a custom Docker image

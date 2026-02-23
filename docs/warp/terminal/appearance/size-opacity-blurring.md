@@ -29,7 +29,7 @@ To access it, go to `Settings > Appearance > Themes`
 
 After decreasing Opacity (moving the slider to a value less than `100`), you can also blur the background.
 
-* On MacOS, this is done using the blur slider. Increasing the slider increases the blur radius that's applied to the background image.
+* On macOS, this is done using the blur slider. Increasing the slider increases the blur radius that's applied to the background image.
 * On Windows, this is done by toggling the Acrylic background texture on or off.
 
 {% hint style="warning" %}

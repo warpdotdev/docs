@@ -16,7 +16,7 @@ If nothing happens, it means you already have the latest stable build.
 
 ## macOS: Auto-Update Permissions Issues
 
-Warp cannot auto-update if it does not have the correct permissions to replace the running version of Warp If this is the case, a banner will prompt you to manually update Warp.
+Warp cannot auto-update if it does not have the correct permissions to replace the running version of Warp. If this is the case, a banner will prompt you to manually update Warp.
 
 ![Update Available](../.gitbook/assets/update-available-bar.png)
 
@@ -26,7 +26,7 @@ There are 2 main causes of this:
 2. You are a non-Admin user. This can happen if you use a computer with multiple profiles. If you have admin access on the computer, opening the app with the admin user should fix the auto-update issues.
 
 {% hint style="info" %}
-(Oct 2022): There is a known issue with [auto-update on MacOS Ventura](known-issues.md#auto-update-on-macos-ventura).
+(Oct 2022): There is a known issue with [auto-update on macOS Ventura](known-issues.md#auto-update-on-macos-ventura).
 {% endhint %}
 
 ## Linux: Refreshing the Package Signing Key

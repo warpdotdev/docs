@@ -86,7 +86,7 @@ Oz is Warp's orchestration platform for cloud agents: launch parallel agents, au
 
 * Added full support for the Kitty keyboard enhancement protocol, enabling TUI applications like OpenCode to detect and use enhanced keyboard input.
 * Support agent footer when running Copilot CLI.
-* Added a new paid plan, **Max**, which comes with 12× more monthly AI credits than Build. Upgrade in `Settings > Billing and Usage`.
+* Added a new paid plan, **Max**, which comes with 12× more monthly credits than Build. Upgrade in `Settings > Billing and Usage`.
 
 **Improvements**
 
@@ -344,11 +344,11 @@ Oz is Warp's orchestration platform for cloud agents: launch parallel agents, au
 * Added UI indication of when Agent Mode conversation summarization is in progress, with a cancellation confirmation dialog.
 * Made the sizing for headings consistent across all collapsible blocks.
 * `@` menu no longer appears when running JS package manager subcommands, like `yarn workspace @org/package add`.
-* \[macOS] Resolved an issue re-mapping keybindings that conflict with MacOS keybindings.
+* \[macOS] Resolved an issue re-mapping keybindings that conflict with macOS keybindings.
 
 **Bug Fixes**
 
-* Agent mode requested command previews now only show the first line of multi-line commands.
+* Agent Mode requested command previews now only show the first line of multi-line commands.
 * Removed misleading "auto-approve" button while Warp is generating a fix for failed terminal commands.
 
 ### 2025.10.01 (v0.2025.10.01.08.12)
@@ -364,7 +364,7 @@ Oz is Warp's orchestration platform for cloud agents: launch parallel agents, au
 
 **New features**
 
-* You can now create new files directly in Warp. Search "New File" in the command palette. MacOS users can find it in the app menu under "File".
+* You can now create new files directly in Warp. Search "New File" in the command palette. macOS users can find it in the app menu under "File".
 
 **Improvements**
 
@@ -437,15 +437,15 @@ Oz is Warp's orchestration platform for cloud agents: launch parallel agents, au
 * Revert diff hunks directly from the Code Review Pane.
 * Add lines of a file to the context of a conversation from the Warp code editor.
 * You can now search and restore Agent conversations in your history using the `conversations:` prefix.
-* You can now search and navigate to indexed code bases using the `repos:` prefix.
+* You can now search and navigate to indexed codebases using the `repos:` prefix.
 
 **Improvements**
 
 * Voice transcriptions are no longer cut off when unfocusing an input editor.
 * You can now select the $EDITOR environment variable as the default application for opening file links.
 * Added new header treatment for unfocused Warp windows.
-* \[Mac] A new dock icon option to celebrate Code Country - the Cow icon! (`Appearance > Icon` to change)
-* Pasting images in the terminal input switches to Agent mode and attaches the image as context.
+* \[macOS] A new dock icon option to celebrate Code Country - the Cow icon! (`Appearance > Icon` to change)
+* Pasting images in the terminal input switches to Agent Mode and attaches the image as context.
 * Added support for the Streamable HTTP transport for MCP servers.
 
 **Bug fixes**
@@ -520,7 +520,7 @@ Oz is Warp's orchestration platform for cloud agents: launch parallel agents, au
 **New Features**
 
 * GPT-5 is now available to all users. Use the model selector in the input bar to try it yourself.
-* \[MacOS] Added the ability to attach images as context by drag-and-dropping them or pasting from your clipboard.
+* \[macOS] Added the ability to attach images as context by drag-and-dropping them or pasting from your clipboard.
 
 **Improvements**
 
@@ -766,7 +766,7 @@ All of this comes with higher AI usage limits on our Pro and Turbo plans, plus n
 * Added ability to embed Warp Drive Prompts inside Notebooks.
 * Added AI block loading animation.
 * Added ability to select and continue previous Agent Mode conversations.
-* \[MacOS] Improved time to update and relaunch Warp.
+* \[macOS] Improved time to update and relaunch Warp.
 
 **Bug Fixes**
 
@@ -887,7 +887,7 @@ All of this comes with higher AI usage limits on our Pro and Turbo plans, plus n
 
 **Bug fixes**
 
-* Fixed an issue that caused Agent mode blocks to be incorrectly highlighted when performing rectangular selection.
+* Fixed an issue that caused Agent Mode blocks to be incorrectly highlighted when performing rectangular selection.
 * Fixed an issue where duplicate cloud preferences could be created during sync operations.
 * Fixed keyboard shortcut padding for prompt suggestions.
 * Fixed color contrast issues with light themes for the Pair & Dispatch chip in Prompt Editor.
@@ -916,7 +916,7 @@ All of this comes with higher AI usage limits on our Pro and Turbo plans, plus n
 
 **Bug fixes**
 
-* Control whether Warp starts at login via a setting under Settings > Features > Start Warp at login (MacOS only).
+* Control whether Warp starts at login via a setting under Settings > Features > Start Warp at login (macOS only).
 * \[Windows] Fixed an issue where dynamic enums commands weren't being executed.
 * Fixed a bug with the mouse cursor when hovering over buttons.
 * Fixed a bug that causes high CPU load with codebase context.
@@ -1100,7 +1100,7 @@ All of this comes with higher AI usage limits on our Pro and Turbo plans, plus n
 * Accepting the 'What happened here?' autosuggestion no longer clears AI context blocks.
 * `alt` key now sends meta control codes to the shell in long-running blocks and the alt screen.
 * When secret redaction is disabled, secrets are not redacted in command corrections.
-* \[MacOS] Fixed a bug where assigning `cmd-shift-left` and `cmd-shift-right` to an action sometimes wouldn't work.
+* \[macOS] Fixed a bug where assigning `cmd-shift-left` and `cmd-shift-right` to an action sometimes wouldn't work.
 
 ### 2025.01.02 (v0.2024.12.18.08.02)
 
@@ -1473,7 +1473,7 @@ All of this comes with higher AI usage limits on our Pro and Turbo plans, plus n
 
 **Bug fixes**
 
-* \[MacOS] Completions for commands now work when you type a command name containing capital letters. This does not apply to aliases.
+* \[macOS] Completions for commands now work when you type a command name containing capital letters. This does not apply to aliases.
 
 ### 2024.08.14 (v0.2024.08.13.08.02)
 
@@ -1572,7 +1572,7 @@ All of this comes with higher AI usage limits on our Pro and Turbo plans, plus n
 **Bug fixes**
 
 * Text selection in full screen apps will change as you scroll.
-* \[MacOS] Meta shortcuts, e.g. `OPT-U`, `OPT-I`, will no longer be ignored.
+* \[macOS] Meta shortcuts, e.g. `OPT-U`, `OPT-I`, will no longer be ignored.
 
 ### 2024.06.21 (v0.2024.06.18.08.02)
 
@@ -1643,7 +1643,7 @@ All of this comes with higher AI usage limits on our Pro and Turbo plans, plus n
 
 **Bug fixes**
 
-* The prompt and command should no longer overlap the output (or each other) for multi-line commands in Bash versions earlier than 4.4--such as the default Bash installation for MacOS.
+* The prompt and command should no longer overlap the output (or each other) for multi-line commands in Bash versions earlier than 4.4--such as the default Bash installation for macOS.
 
 ### 2024.05.09 (v0.2024.05.07.08.02)
 
@@ -1952,13 +1952,13 @@ All of this comes with higher AI usage limits on our Pro and Turbo plans, plus n
 
 **Improvements**
 
-* Warp can now support MacOS's proxy settings
+* Warp can now support macOS's proxy settings
 * You can now toggle whether to render Warp using the integrated GPU for dual GPU Macs
 * Warp now escapes the file path of an executable loaded from Finder
 
 **Bug fixes**
 
-* Fixed a crash on startup for some users on MacOS Sonoma
+* Fixed a crash on startup for some users on macOS Sonoma
 * The workflow info box now refreshes when edited
 
 ### 2023.10.05 (v0.2023.10.03.08.03)
@@ -2633,7 +2633,7 @@ All of this comes with higher AI usage limits on our Pro and Turbo plans, plus n
 **Bug fixes**
 
 * Press `CMD-ENTER` within the history menu (`CTRL-R`) to directly execute the highlighted command
-* Fixed crash when opening many tabs (due to MacOS’s default open file descriptor limits)
+* Fixed crash when opening many tabs (due to macOS's default open file descriptor limits)
 * Fixed crash when laying out RTL text
 
 ### 2022.09.08 (v0.2022.09.07.14.56)
@@ -2848,8 +2848,8 @@ All of this comes with higher AI usage limits on our Pro and Turbo plans, plus n
 
 **Bug fixes**
 
-* Warp no longer crashes on MacOS 13 (Ventura)
-* Global Hotkey Window (Quake Mode) no longer overlaps Spotlight, Raycast, Alfred, and the Mac Dock
+* Warp no longer crashes on macOS 13 (Ventura)
+* Global Hotkey Window (Quake Mode) no longer overlaps Spotlight, Raycast, Alfred, and the macOS Dock
 * Now correctly display the user and hostname in the Prompt after exiting an SSH session
 * Fixed a memory leak on window close.
 
