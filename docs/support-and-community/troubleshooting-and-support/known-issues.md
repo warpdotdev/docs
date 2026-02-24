@@ -214,7 +214,7 @@ The following non exhaustive list of plugins, prompts, or tools can cause potent
 **SSH to local network device is denied on macOS**
 
 On macOS, you may be [denied permission to SSH](https://github.com/warpdotdev/Warp/issues/5550) from Warp into other devices in your local network and see an error like: `ssh: connect to host <host_name> port 22: Undefined error: 0`.\
-To resolve this issue, go to `Mac > System Settings > Privacy & Security > Local Network`, and add Warp.
+To resolve this issue, go to ` > System Settings > Privacy & Security > Local Network`, and add Warp.
 
 <figure><img src="../../.gitbook/assets/mac-ssh-permission.png" alt=""><figcaption><p>Mac SSH permission error</p></figcaption></figure>
 
