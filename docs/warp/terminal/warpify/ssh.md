@@ -4,6 +4,10 @@ description: SSH wrapper that enables Warp features in remote sessions.
 
 # SSH
 
+{% hint style="info" %}
+Some coding features — including Codebase Context, code diffs, the code editor, and the file tree — are not yet available over SSH. See [Feature support over SSH](../../code/ssh-feature-support.md) for the full list.
+{% endhint %}
+
 {% hint style="warning" %}
 This page is dedicated to the SSH features powered by `tmux`.
 

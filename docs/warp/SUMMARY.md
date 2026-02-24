@@ -90,6 +90,7 @@
   * [Find and Replace](code/code-editor/find-and-replace.md)
   * [Code Editor Vim Keybindings](code/code-editor/code-editor-vim-keybindings.md)
 * [Code Review](code/code-review.md)
+* [Feature Support over SSH](code/ssh-feature-support.md)
 
 ## Knowledge and collaboration
 
