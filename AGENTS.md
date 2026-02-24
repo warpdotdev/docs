@@ -89,6 +89,19 @@ For important caveats, limitations, or things to watch out for
 {% endhint %}
 ```
 
+### Menu paths
+- Bold each UI element in a menu path; leave the > separator plain: **Settings** > **AI** > **Knowledge**
+- For macOS menu paths, begin the path with the Apple icon (, Unicode `U+F8FF`).
+
+**Use:**
+- ✅ **Settings** > **AI** > **Knowledge**
+- ✅  > **System Settings** > **Privacy & Security** > **Local Network**
+
+**Don't use:**
+- ❌ `macOS > System Settings > Privacy & Security > Local Network` (code format; use Apple icon, not "macOS")
+- ❌ `macOS` > `System Settings` > `Privacy & Security` > `Local Network` (individual backticks; use Apple icon, not "macOS")
+- ❌ **macOS > System Settings > Privacy & Security > Local Network** (entire path bolded including separator; use Apple icon, not "macOS")
+
 ## Content Guidelines
 
 ### Feature Descriptions
@@ -177,7 +190,6 @@ Use these terms consistently throughout all documentation:
 ### UI Elements
 - **Settings** (capitalized when referring to the Settings panel)
 - **Command Palette** (capitalized)
-- Use backticks for menu paths: `Settings > AI > Knowledge`
 
 ## Common Patterns
 
