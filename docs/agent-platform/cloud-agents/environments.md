@@ -22,6 +22,10 @@ What environments give you:
 * **One configuration, many uses** – Define your Docker image and setup once, then reuse it across triggers and hosts without duplicating configuration.
 * **Full visibility into runs** – Inspect the image, repos, and commands used by a run, making it easy to debug failures or reproduce results.
 
+{% hint style="info" %}
+Don't want to bring your own image? Warp provides [prebuilt dev images](https://github.com/warpdotdev/oz-dev-environments) with common languages and tools pre-installed.
+{% endhint %}
+
 ## About environments
 
 Environments define _how_ an agent runs, not _what_ it does. They're required for [Oz Platform](platform.md) automation (cloud agents, integrations, API runs) but are not required for interactive local usage.
@@ -128,7 +132,7 @@ You can create and configure environments with Warp’s guided setup, or through
 Make sure you have:
 
 * One or more GitHub repositories that the agent should clone and work in.
-* A publicly-accessible Docker image that can build and run your code. Official images like [node](https://hub.docker.com/_/node), [python](https://hub.docker.com/_/python), or [rust](https://hub.docker.com/_/rust) work for many projects.
+* A publicly-accessible Docker image that can build and run your code. Official images like [node](https://hub.docker.com/_/node), [python](https://hub.docker.com/_/python), or [rust](https://hub.docker.com/_/rust) work for many projects. You can also use one of [Warp's prebuilt dev images](https://github.com/warpdotdev/oz-dev-environments).
 
 {% hint style="warning" %}
 Musl-based Docker images (such as Alpine Linux) are not supported. The agent runtime requires glibc. Use glibc-based images like Debian, Ubuntu, or the default (non-Alpine) variants of official Docker Hub images.
