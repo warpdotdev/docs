@@ -128,13 +128,12 @@ This command prints a table with details about each schedule, including:
 * Paused
 * Last run time
 * Next scheduled run
-* Current status (active or paused)
 * Scope
 
-| ID     | Name                 | Schedule       | Last Ran                                     | Next Run              | Scope | Paused |
-| ------ | -------------------- | -------------- | -------------------------------------------- | --------------------- | ----- | ------ |
-| abc123 | Feature Flag Cleanup | `10 0 */4 * *` | `2025-11-24 10:00 AM<task id><session link>` | `2025-11-28 10:00 AM` | Team  | No     |
-| def456 | Issue Triage         | `8 0 0 1 * *`  | `2025-11-24 10:00 AM<task id><session link>` | Paused                | -     | Yes    |
+| ID     | Name                 | Schedule        | Paused | Last Ran                                     | Next Run              | Scope |
+| ------ | -------------------- | --------------- | ------ | -------------------------------------------- | --------------------- | ----- |
+| abc123 | Feature Flag Cleanup | `0 10 */4 * *`  | No     | `2025-11-24 10:00 AM<task id><session link>` | `2025-11-28 10:00 AM` | Team  |
+| def456 | Issue Triage         | `0 8 1 * *`     | Yes    | `2025-11-24 08:00 AM<task id><session link>` | Paused                | -     |
 
 Each completed run also includes links to:
 
@@ -202,7 +201,7 @@ You may update one or more properties at a time, including:
 ```bash
 oz schedule update SCHEDULE_ID \
   [--name=NAME] \
-  [--schedule=SCHEDULE] \
+  [--cron=SCHEDULE] \
   [--prompt=PROMPT] \
   [--environment=ENVIRONMENT_ID]
 ```
@@ -212,7 +211,7 @@ oz schedule update SCHEDULE_ID \
 Change when a scheduled agent runs, leaving everything else unchanged:
 
 ```bash
-oz schedule update abc123 --schedule "0 9 */4 * *"
+oz schedule update abc123 --cron "0 9 */4 * *"
 ```
 
 Update the environment used for future runs:
