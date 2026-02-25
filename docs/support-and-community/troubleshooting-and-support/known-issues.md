@@ -286,7 +286,7 @@ We're tracking some issues on Linux where a [Warp window doesn't show/render](ht
 * System
   * Installing or Updating [Xorg](https://www.x.org/wiki/) / [Wayland](https://wayland.freedesktop.org/): `sudo apt install xserver-xorg` / `sudo apt install wayland`
   * Installing [Hack font](https://sourcefoundry.org/hack/) on WSL and VMs: `sudo apt install fonts-hack`
-  * Install [WSL utilities](https://wslutiliti.es/wslu/install.html): `sudo apt install wslu`
+  * Install [WSL utilities](https://github.com/wslutilities/wslu): `sudo apt install wslu`
   * Install Mesa utilities: `sudo apt install mesa-utils`
   * Install Mesa Vulkan drivers: `sudo apt install mesa-vulkan-drivers`
   * If unable to use the file picker: `sudo apt install xdg-desktop-portal xdg-desktop-portal-gtk zenity`

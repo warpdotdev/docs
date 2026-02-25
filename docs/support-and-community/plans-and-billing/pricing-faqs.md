@@ -224,7 +224,7 @@ The team at Warp is standing by and ready to help you with any questions you hav
 
 ### Warp's Pricing Change FAQs (Oct 30, 2025)
 
-For more details, see this blog post on [Warp's plan changes](https://www.warp.dev/blog/changing-pricing).
+For more details, see this blog post on [Warp's plan changes](https://www.warp.dev/blog/warp-new-pricing-flexibility-byok).
 
 #### How do I change from my current plan to the new Build or Business plan?
 

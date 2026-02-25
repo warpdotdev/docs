@@ -90,7 +90,7 @@ Recipients can view shared conversations in two ways:
 When you continue a shared conversation from someone else, Warp creates a fork so you can build on the shared context without modifying the original.
 
 {% hint style="info" %}
-Cloud-synced conversations store snapshots of conversation data. For real-time collaboration on a live session, use [Agent Session Sharing](https://docs.warp.dev/knowledge-and-collaboration/session-sharing/agent-session-sharing).
+Cloud-synced conversations store snapshots of conversation data. For real-time collaboration on a live session, use [Agent Session Sharing](session-sharing.md).
 {% endhint %}
 
 ## Cloud agent conversations

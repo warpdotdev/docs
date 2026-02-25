@@ -561,7 +561,7 @@ For more information about creating and managing skills, see [Skills](https://do
 
 ## Collaboration
 
-In addition to text-based output, the CLI can share the agent's session for you to access on other devices or in a browser. To enable [Agent Session Sharing](https://docs.warp.dev/knowledge-and-collaboration/session-sharing/agent-session-sharing), use the `--share` flag.
+In addition to text-based output, the CLI can share the agent's session for you to access on other devices or in a browser. To enable [Agent Session Sharing](https://docs.warp.dev/agent-platform/local-agents/session-sharing), use the `--share` flag.
 
 By default, the session is only accessible to the user running the CLI, but you can also share with [Teams](https://docs.warp.dev/knowledge-and-collaboration/teams) or other Warp users:
 

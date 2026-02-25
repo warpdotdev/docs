@@ -99,7 +99,7 @@ Follow the prompts to save your task definition. Once created, you can run it ag
 
 **How this works:** Skills capture successful agent workflows as reusable building blocks. Instead of typing the same prompt repeatedly, you define it once. You can use it yourself, share it with teammates, schedule it to run automatically, or trigger it from integrations. Learn more about [Skills as Agents](skills-as-agents.md).
 
-**Prefer using the CLI?** See the [Oz CLI Quick Start](https://docs.warp.dev/reference/cli/README.md#quickstart-guide) for CLI-based workflows.
+**Prefer using the CLI?** See the [Oz CLI Quick Start](https://docs.warp.dev/reference/cli#quickstart-guide) for CLI-based workflows.
 
 ***
 
