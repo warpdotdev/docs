@@ -86,7 +86,7 @@ You can create secrets interactively or from a file.
 **Create a team secret interactively**
 
 ```bash
-oz secret create --team --name "METABASE_API_KEY"
+oz secret create --team METABASE_API_KEY
 ```
 
 You will be prompted to enter the value securely in the terminal.
@@ -94,7 +94,7 @@ You will be prompted to enter the value securely in the terminal.
 **Create a personal secret from a file**
 
 ```bash
-oz secret create --personal --name "METABASE_API_KEY" --value-file api_key.txt
+oz secret create --personal --value-file api_key.txt METABASE_API_KEY
 ```
 
 This is useful for long values such as JSON blobs or private keys.
@@ -105,8 +105,8 @@ Descriptions help with auditing and rotation tracking.
 
 ```bash
 oz secret create --team \
-  --name "MY_SECRET" \
-  --description "Rotate every 2 weeks; owned by platform team"
+  --description "Rotate every 2 weeks; owned by platform team" \
+  MY_SECRET
 ```
 
 Descriptions are visible in listings but never expose the secret value.
@@ -117,8 +117,8 @@ Updating a secret replaces its value while keeping the same name and scope.
 
 ```bash
 oz secret update --team \
-  --name "METABASE_API_KEY" \
-  --value-file new_api_key.txt
+  --value-file new_api_key.txt \
+  METABASE_API_KEY
 ```
 
 This is the recommended way to rotate credentials.
