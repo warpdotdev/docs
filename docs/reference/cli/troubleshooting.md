@@ -76,7 +76,9 @@ If an environment is no longer needed:
 oz environment delete <ID>
 ```
 
-Only do this once you’ve confirmed no active integrations are relying on that environment. If an integration points to a deleted environment, requests from Slack/Linear will fail until you create a new integration with a valid environment.
+Add `--force` to skip confirmation checks for environments used by integrations.
+
+Only do this once you've confirmed no active integrations are relying on that environment. If an integration points to a deleted environment, requests from Slack/Linear will fail until you create a new integration with a valid environment.
 
 ### Integrations
 

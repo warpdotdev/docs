@@ -38,8 +38,8 @@ To enable Computer Use for [Cloud Agents](../cloud-agents/overview.md), navigate
 When running agents in the cloud via the [CLI](https://docs.warp.dev/reference/cli), use flags to control Computer Use per run:
 
 ```bash
-oz agent run-cloud --computer-use <task>
-oz agent run-cloud --no-computer-use <task>
+oz agent run-cloud --computer-use --prompt "<task>"
+oz agent run-cloud --no-computer-use --prompt "<task>"
 ```
 
 ### API

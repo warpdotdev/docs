@@ -61,16 +61,19 @@ What happens:
 * The agent is given access to your current working directory.
 * The agent autonomously executes commands and streams output to your terminal.
 
-### 4. Add GitHub context (optional)
+### 4. Add MCP context (optional)
 
-If the directory is a Git repository, the Oz CLI can use GitHub as an MCP server:
+You can connect MCP servers to give the agent access to external tools like GitHub or Linear. Pass MCP configuration inline or from a file using the `--mcp` flag:
 
 ```sh
-oz mcp add github
-oz agent run --prompt "Open a pull request that fixes TODOs in this repo"
+oz agent run --mcp '{"github": {"url": "https://api.githubcopilot.com/mcp/"}}' --prompt "Open a pull request that fixes TODOs in this repo"
 ```
 
-You'll be prompted to authorize the Warp GitHub App if you haven't already.
+You can also reference an existing MCP server by UUID (find UUIDs with `oz mcp list`):
+
+```sh
+oz agent run --mcp "1deb1b14-b6e5-4996-ae99-233b7555d2d0" --prompt "Open a pull request that fixes TODOs in this repo"
+```
 
 ### 5. Next steps
 
@@ -274,11 +277,14 @@ I'll run a few terminal commands to:
 
 **Key flags:**
 
-* `--cwd <PATH>` — run from a different directory.
+* `--cwd <PATH>` (`-C`) — run from a different directory.
+* `--name <NAME>` (`-n`) — label the run for grouping and traceability.
 * `--share` — share the session with teammates (see [Collaboration](./#collaboration)).
 * `--profile <ID>` — use a specific agent profile (see [Using Agent Profiles](./#using-agent-profiles)).
 * `--model <MODEL_ID>` — override the default model (see [Model Choice](https://docs.warp.dev/agent-platform/capabilities/model-choice)).
 * `--skill <SPEC>` — use a skill as the base prompt (see [Using Skills](./#using-skills)).
+* `--mcp <SPEC>` — start one or more MCP servers before execution (UUID, JSON file path, or inline JSON). Can be repeated.
+* `--file <PATH>` (`-f`) — load run configuration from a YAML or JSON file.
 
 The agent will automatically carry out the task you gave it, printing out tool calls and responses as it works.
 
@@ -302,18 +308,23 @@ oz agent run-cloud \
 
 **Key flags**
 
-* `--environment <ENVIRONMENT_ID> (-e)` — select the environment to run in (this is the main knob that makes the run execute in the cloud).
+* `--environment <ENVIRONMENT_ID>` (`-e`) — select the environment to run in.
+* `--no-environment` — run without an environment (not recommended).
 * `--open` — view the agent's session in Warp once it's available.
-* `--name <NAME>` — label the run for grouping and traceability (see [Naming runs](./#naming-runs) below).
-* `--profile <PROFILE_ID>` — select an execution profile (defaults if omitted).
-* `--mcp <SPEC>` — start one or more MCP servers before execution (UUID, JSON file path, or inline JSON).
+* `--name <NAME>` (`-n`) — label the run for grouping and traceability (see [Naming runs](./#naming-runs) below).
+* `--mcp <SPEC>` — start one or more MCP servers before execution (UUID, JSON file path, or inline JSON). Can be repeated.
 * `--model <MODEL_ID>` — override the default model.
 * `--skill <SPEC>` — use a skill from the environment's repository as the base prompt (see [Using Skills](./#using-skills)).
+* `--host <WORKER_ID>` — run on a specific self-hosted worker instead of Warp-hosted infrastructure.
+* `--attach <PATH>` — attach an image file to the agent query. Can be repeated (maximum 5).
+* `--computer-use` / `--no-computer-use` — enable or disable [Computer Use](https://docs.warp.dev/agent-platform/capabilities/computer-use) for this run.
+* `--file <PATH>` (`-f`) — load run configuration from a YAML or JSON file.
 
 **Key differences from `run`**
 
 * No `--cwd` — the environment determines the working directory.
 * No `--share` — sharing options are on `run`, not `run-cloud`.
+* No `--profile` — cloud runs do not use agent profiles.
 
 #### Naming runs <a href="#naming-runs" id="naming-runs"></a>
 
@@ -424,18 +435,19 @@ $ oz agent run --profile CWhozDJPdPCsjJ1pSG0HCN --prompt "update my CI pipeline 
 
 ## Using MCP servers
 
-MCP servers connect cloud agents to interact with external systems like GitHub, Linear, or Sentry. To use a [Model Context Protocol (MCP)](https://docs.warp.dev/agent-platform/capabilities/mcp) server from the CLI, you need:
+MCP servers connect agents to external systems like GitHub, Linear, or Sentry. To use a [Model Context Protocol (MCP)](https://docs.warp.dev/agent-platform/capabilities/mcp) server from the CLI, use the `--mcp` flag.
 
-* An MCP server configured in Warp
-* An agent profile that allows for the MCP server you want to use
-* Environment variables for authentication (if required)
+The `--mcp` flag accepts three formats:
 
-There are two ways to start MCP servers with the agent:
+* **UUID** — reference an existing MCP server configured in Warp (find UUIDs with `oz mcp list`).
+* **Inline JSON** — pass a full MCP JSON configuration directly.
+* **File path** — path to a JSON file containing the MCP configuration.
 
-1. If the selected agent profile allows _specific_ MCP servers, they will start automatically.
-2. If the selected agent profile allows _any_ MCP server, you must specify the ones to start using the `--mcp-server` flag.
+You can repeat `--mcp` to include multiple servers.
 
-To start specific MCP servers, first get the MCP server ID using  `oz mcp list`:
+### Passing MCP servers by UUID
+
+First, find the MCP server ID using `oz mcp list`:
 
 ```sh
 $ oz mcp list
@@ -457,12 +469,26 @@ Alternatively, you can copy the server ID from the MCP servers page in Warp:
 
 <figure><img src="../.gitbook/assets/mcp-server-id.png" alt=""><figcaption><p>MCP servers page, showing a server with its UUID</p></figcaption></figure>
 
-Next, use `--mcp-server` to start the server:
+Then, pass the UUID to `--mcp`:
 
 ```sh
-$ oz agent run --mcp-server "1deb1b14-b6e5-4996-ae99-233b7555d2d0" --prompt "who last updated the README?"
+$ oz agent run --mcp "1deb1b14-b6e5-4996-ae99-233b7555d2d0" --prompt "who last updated the README?"
 ...
 ```
+
+### Passing MCP servers as inline JSON or file
+
+You can pass the full MCP configuration inline or via a file:
+
+```sh
+# Inline JSON
+$ oz agent run --mcp '{"github": {"url": "https://api.githubcopilot.com/mcp/"}}' --prompt "list open issues"
+
+# From a file
+$ oz agent run --mcp ./my-mcp-config.json --prompt "list open issues"
+```
+
+For details on the MCP JSON configuration schema, see [MCP for Cloud Agents](mcp-for-cloud-agents.md).
 
 ### Environment variables and remote execution
 
@@ -470,7 +496,7 @@ While Warp syncs MCP server configuration between hosts, it **does not** sync en
 
 ```sh
 export MY_MCP_SERVER_ACCESS_TOKEN="..."
-$ oz agent run --mcp-server "904a8936-fa82-4571-b1d6-166c26197981" --prompt "use my MCP server to check for errors"
+$ oz agent run --mcp "904a8936-fa82-4571-b1d6-166c26197981" --prompt "use my MCP server to check for errors"
 ...
 ```
 
@@ -556,6 +582,50 @@ The `--share` flag can be repeated, and uses the following syntax:
 * `--share user@email.com:edit` — gives specified user `user@email.com` read/write access to the session.
 * `--share team` or `--share team:view` — gives all members of your team read-only access to the session.
 * `--share team:edit` — gives all members of your team read/write access to the session.
+
+## Additional commands
+
+The following commands are available for managing and inspecting Oz resources.
+
+### `oz agent list`
+
+List all available skills discovered from your environments. Optionally filter by repository:
+
+```sh
+oz agent list
+oz agent list --repo owner/repo
+```
+
+### `oz run list` / `oz run get`
+
+List and inspect cloud agent runs:
+
+```sh
+# List recent runs (default: 10)
+oz run list
+oz run list --limit 20
+
+# Get details for a specific run
+oz run get <RUN_ID>
+```
+
+### `oz model list`
+
+List all available models:
+
+```sh
+oz model list
+```
+
+### `oz environment image list`
+
+List suggested base images for cloud environments:
+
+```sh
+oz environment image list
+```
+
+***
 
 ## Troubleshooting and help
 

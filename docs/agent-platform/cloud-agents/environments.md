@@ -171,25 +171,24 @@ This produces a ready-to-use environment that can immediately be connected to in
 
 Use the CLI when you already know how you want to configure your environment, you have a custom Docker image you want to use, or when you’re automating environment creation.
 
-```docker
+```sh
 oz environment create \
   --name <name> \
   --docker-image <image> \
   --repo <owner/repo> \
   --repo <owner/repo> \
   --setup-command "<command1>" \
-  --setup-command "<command2>"  
+  --setup-command "<command2>" \
+  --description "Optional description"
 ```
 
-Required flags:
+Key flags:
 
-* `--repo` : repo to clone (repeatable).
-* `--setup-command` : commands run in the order provided (repeatable).
-
-Optional flags:
-
-* `--name` : human-readable label for the environment.
-* `--docker-image` : image name on Docker Hub.
+* `--name` (`-n`) — human-readable label for the environment.
+* `--docker-image` (`-d`) — image name on Docker Hub. If not specified, you'll be prompted to select from available images (see `oz environment image list`).
+* `--repo` (`-r`) — repo to clone (repeatable).
+* `--setup-command` (`-c`) — commands run in the order provided (repeatable).
+* `--description` — optional description (max 240 characters).
 
 ***
 
@@ -211,7 +210,7 @@ oz environment get <ENV_ID>
 
 **Update an environment**
 
-Add/remove repos and setup commands without recreating the environment. Replace \<ENV\_ID> with the ID of the environment you want to modify.
+Add/remove repos, setup commands, and other properties without recreating the environment. Replace \<ENV\_ID> with the ID of the environment you want to modify.
 
 ```sh
 # Add a repo
@@ -225,13 +224,25 @@ oz environment update <ENV_ID> --setup-command "your command"
 
 # Remove a setup command (must match exactly)
 oz environment update <ENV_ID> --remove-setup-command "exact command"
+
+# Update the name, description, or Docker image
+oz environment update <ENV_ID> --name "new name"
+oz environment update <ENV_ID> --description "Updated description"
+oz environment update <ENV_ID> --docker-image node:22
 ```
+
+Additional flags:
+
+* `--remove-description` — clear the description.
+* `--force` — skip confirmation checks for environments used by integrations.
 
 **Delete an environment.** Replace \<ENV\_ID> with the ID of the environment you want to delete.
 
 ```sh
 oz environment delete <ENV_ID>
 ```
+
+Add `--force` to skip confirmation checks for environments used by integrations.
 
 {% hint style="info" %}
 For end-to-end setup, see the [Integrations and Environments](https://docs.warp.dev/reference/cli/integrations-and-environments) guide.

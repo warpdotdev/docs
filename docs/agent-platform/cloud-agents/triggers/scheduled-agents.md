@@ -61,7 +61,7 @@ Use `oz schedule create` (with required flags) to define a new Scheduled Agent.
 
 * A name, for identification.
 * A cron schedule.
-* A prompt that the agent will execute.
+* A prompt or skill that the agent will execute.
 * An optional environment in which the agent will run.
 * An optional [model selection](https://docs.warp.dev/reference/cli/#using-agent-profiles).
 * [Optional MCP server configuration](https://docs.warp.dev/reference/cli/mcp-for-cloud-agents).
@@ -71,8 +71,21 @@ oz schedule create \
   --name=NAME \
   --cron=SCHEDULE \
   --prompt=PROMPT \
-  [--environment=ENVIRONMENT_ID]
+  [--environment=ENVIRONMENT_ID] \
+  [--skill=SPEC] \
+  [--host=WORKER_ID] \
+  [--mcp=SPEC] \
+  [--model=MODEL_ID] \
+  [--file=PATH]
 ```
+
+**Optional flags:**
+
+* `--skill <SPEC>` — use a skill as the base prompt (format: `repo:skill_name` or `org/repo:skill_name`). See [Skills as Agents](../skills-as-agents.md).
+* `--host <WORKER_ID>` — run on a specific self-hosted worker instead of Warp-hosted infrastructure.
+* `--mcp <SPEC>` — attach MCP servers (inline JSON, file path, or UUID). Can be repeated.
+* `--model <MODEL_ID>` — override the default model.
+* `--file <PATH>` — load schedule configuration from a YAML or JSON file.
 
 {% hint style="info" %}
 Currently, environments are never required - if you don't specify one, the scheduled agent runs in a barebones sandbox.
@@ -186,15 +199,16 @@ Once unpaused, the agent resumes running according to its original cron schedule
 
 ### Editing Scheduled Agents
 
-You can modify an existing schedule using oz schedule update.
+You can modify an existing schedule using `oz schedule update`.
 
 You may update one or more properties at a time, including:
 
 * The schedule name.
 * The cron schedule.
 * The prompt used for future runs.
+* The skill used as the base prompt.
 * The environment used for execution.
-* The model and MCP configuration used for future runs.
+* The model, MCP, and host configuration used for future runs.
 
 #### Command
 
@@ -203,8 +217,23 @@ oz schedule update SCHEDULE_ID \
   [--name=NAME] \
   [--cron=SCHEDULE] \
   [--prompt=PROMPT] \
-  [--environment=ENVIRONMENT_ID]
+  [--environment=ENVIRONMENT_ID] \
+  [--skill=SPEC] \
+  [--remove-skill] \
+  [--host=WORKER_ID] \
+  [--mcp=SPEC] \
+  [--remove-mcp=SERVER_NAME] \
+  [--model=MODEL_ID]
 ```
+
+**Additional update flags:**
+
+* `--skill <SPEC>` — update the skill used as the base prompt.
+* `--remove-skill` — remove the skill from this scheduled agent.
+* `--host <WORKER_ID>` — update the execution host.
+* `--mcp <SPEC>` — add MCP servers to this schedule.
+* `--remove-mcp <SERVER_NAME>` — remove an MCP server by name.
+* `--remove-environment` — remove the environment from this schedule.
 
 #### Examples
 

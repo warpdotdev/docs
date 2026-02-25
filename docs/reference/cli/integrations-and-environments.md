@@ -126,17 +126,21 @@ oz environment create \
   --repo <owner/repo> \
   --repo <owner/repo> \
   --setup-command "<command1>" \
-  --setup-command "<command2>"
+  --setup-command "<command2>" \
+  --description "Optional description"
 ```
 
 Key flags:
 
-* `--name` – human-readable label for the environment.
-* `--docker-image` – image name on Docker Hub.
-* `--repo` – can be repeated for each repo.
-* `--setup-command` – can be repeated; commands run in the order provided.
+* `--name` (`-n`) – human-readable label for the environment.
+* `--docker-image` (`-d`) – image name on Docker Hub. If not specified, you'll be prompted to select from available images (see `oz environment image list`).
+* `--repo` (`-r`) – can be repeated for each repo.
+* `--setup-command` (`-c`) – can be repeated; commands run in the order provided.
+* `--description` – optional description (max 240 characters).
 
-You can inspect existing environments with `oz environment list` .
+You can inspect existing environments with `oz environment list`.
+
+To delete an environment, use `oz environment delete <ID>`. Add `--force` to skip confirmation checks for environments used by integrations.
 
 For more details about environment configuration, see the [Slack](https://docs.warp.dev/agent-platform/cloud-agents/integrations/slack) and [Linear](https://docs.warp.dev/agent-platform/cloud-agents/integrations/linear) articles.
 
@@ -205,13 +209,41 @@ The CLI then:
 2. Opens a browser flow to install the Oz app into your Slack workspace or Linear workspace.
 3. Generates an **integration ID** you can later list or delete.
 
-Optionally, you can attach a custom prompt that is applied to all runs for that integration:
+**Additional `integration create` flags:**
+
+* `--prompt` — custom instructions applied to all runs for this integration.
+* `--mcp <SPEC>` — attach MCP servers (inline JSON, file path, or UUID). Can be repeated.
+* `--model <MODEL_ID>` — override the default model.
+* `--host <WORKER_ID>` — run on a specific self-hosted worker.
+* `--file <PATH>` (`-f`) — load configuration from a YAML or JSON file.
+
+**Example with a custom prompt:**
 
 ```bash
 oz integration create slack \
   --environment <ENV_ID> \
   --prompt "Always prefix PR titles with [WARP-AGENT] and add detailed test steps."
 ```
+
+### Updating an integration
+
+You can modify an existing integration using `oz integration update`:
+
+```bash
+oz integration update slack \
+  --environment <ENV_ID> \
+  --prompt "Updated instructions for the integration."
+```
+
+**Update-specific flags:**
+
+* `--environment <ID>` — change the environment.
+* `--remove-environment` — remove the environment from the integration.
+* `--prompt` — update the custom instructions.
+* `--mcp <SPEC>` — add MCP servers to the integration.
+* `--remove-mcp <SERVER_NAME>` — remove an MCP server by name.
+* `--model <MODEL_ID>` — update the default model.
+* `--host <WORKER_ID>` — update the execution host.
 
 {% hint style="info" %}
 For more details, see the dedicated pages for [Slack](https://docs.warp.dev/agent-platform/cloud-agents/integrations/slack) and [Linear](https://docs.warp.dev/agent-platform/cloud-agents/integrations/linear) integrations.
