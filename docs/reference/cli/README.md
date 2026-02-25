@@ -4,6 +4,10 @@ description: Use Oz agents from the terminal.
 
 # Oz CLI
 
+{% hint style="info" %}
+**`warp-cli` is deprecated and has been replaced by `oz`.** If you have `warp-cli` installed, it will auto-update to `oz`. All the same commands are available — replace `warp-cli` with `oz` in your scripts and workflows.
+{% endhint %}
+
 ## What is the Oz CLI?
 
 The Oz CLI is the command-line tool that lets you run [Cloud Agents](https://docs.warp.dev/agent-platform/cloud-agents/overview) from anywhere, including terminals, scripts, automated systems, or services.
