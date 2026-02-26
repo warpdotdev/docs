@@ -8,7 +8,7 @@ description: >-
 
 ## What is it
 
-You can use Warp’s network log to help debug issues or simply use it to understand when information is sent or received over the network throughout a Warp terminal session.
+You can use Warp's network log to help debug issues or simply use it to understand when information is sent or received over the network throughout a Warp session.
 
 Each log item is a timestamped Debug format string for either a request or response object handled by Warp. Messages are logged via pre-request and post-response hooks in Warp’s internal HTTP client.
 

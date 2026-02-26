@@ -1,7 +1,7 @@
 ---
 description: >-
   Warp allows you to configure its Warp prompt or a Shell prompt. A terminal
-  prompt is a text that appears in the command line interface, indicating that
+  prompt is a text that appears in the command-line interface, indicating that
   the terminal is ready to accept commands.
 ---
 
@@ -27,9 +27,9 @@ Warp respects the `KUBECONFIG` environmental variable, make sure you set it to y
 
 #### Same line prompt
 
-By default, Warp's prompt displays on two lines where the command line input is one line below the prompt.
+By default, Warp's prompt displays on two lines where the command-line input is one line below the prompt.
 
-If you'd like to set your prompt such that the command line input and the prompt display together inline, you can configure this under `Settings > Appearance > Input > Input Type > Shell (PS1)` then in the terminal input area right-click on it and select Edit prompt and select `Warp Prompt` and check the box for "Same line prompt."
+If you'd like to set your prompt such that the command-line input and the prompt display together inline, you can configure this under **Settings** > **Appearance** > **Input** > **Input Type** > **Shell (PS1)** then in the terminal input area right-click on it and select Edit prompt and select **Warp Prompt** and check the box for "Same line prompt."
 
 If you're using a [Shell prompt (PS1)](prompt.md#custom-prompt), Warp will use the same line prompt settings to respect any styles or theme configurations. You may optionally configure a new line prompt with PS1 but you will need to write your configuration, according to your theme of choice.
 

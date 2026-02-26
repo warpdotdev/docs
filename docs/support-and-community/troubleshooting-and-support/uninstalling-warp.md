@@ -35,7 +35,7 @@ If you're using Warp Preview, replace "Warp-Stable" with "Warp-Preview" in the c
 **Uninstalling Warp by dmg**
 
 * Remove Warp with `sudo rm -r /Applications/Warp.app`
-* Go to Mac `Finder > Applications` and right-click on Warp, and "Move to Trash"
+* Open **Finder** > **Applications**, right-click on Warp, and select "Move to Trash"
 
 **Uninstalling Warp by Homebrew**
 

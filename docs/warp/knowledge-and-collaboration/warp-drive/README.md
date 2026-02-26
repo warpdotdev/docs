@@ -19,15 +19,15 @@ Warp Drive, Teams, and Workflows Demo
 
 {% tabs %}
 {% tab title="macOS" %}
-Warp Drive is accessible from the status bar in the Warp terminal or you can toggle the Warp Drive side panel with `CMD-\`.
+Warp Drive is accessible from the status bar in Warp or you can toggle the Warp Drive side panel with `CMD-\`.
 {% endtab %}
 
 {% tab title="Windows" %}
-Warp Drive is accessible from the status bar in the Warp terminal or you can toggle the Warp Drive side panel with `CTRL-SHIFT-\`.
+Warp Drive is accessible from the status bar in Warp or you can toggle the Warp Drive side panel with `CTRL-SHIFT-\`.
 {% endtab %}
 
 {% tab title="Linux" %}
-Warp Drive is accessible from the status bar in the Warp terminal or you can toggle the Warp Drive side panel with `CTRL-SHIFT-\`.
+Warp Drive is accessible from the status bar in Warp or you can toggle the Warp Drive side panel with `CTRL-SHIFT-\`.
 {% endtab %}
 {% endtabs %}
 

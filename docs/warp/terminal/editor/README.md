@@ -48,4 +48,4 @@ Warp can automatically complete quotes, brackets, and parentheses like you're us
 Text Editor Input Demo
 {% endembed %}
 
-<figure><img src="../../.gitbook/assets/soft-wrapping.png" alt="soft wrapping text in Warp terminal input editor"><figcaption><p>Soft Wrapping Demo</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/soft-wrapping.png" alt="soft wrapping text in Warp input editor"><figcaption><p>Soft Wrapping Demo</p></figcaption></figure>

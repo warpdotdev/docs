@@ -8,7 +8,7 @@ description: >-
 # Installation and setup
 
 {% hint style="info" %}
-**Platform support:** Warp is supported on macOS (Intel and Mac Silicon), Windows (x86\_64 and ARM64), and Linux (x86\_64 and ARM64).
+**Platform support:** Warp is supported on macOS (Intel and Apple silicon), Windows (x86\_64 and ARM64), and Linux (x86\_64 and ARM64).
 {% endhint %}
 
 ## Install Warp
@@ -184,7 +184,7 @@ Want to try our newest features? [Warp Preview](https://docs.warp.dev/support-an
 
 ### Log in to Warp (Optional)
 
-After installation, you have the option to create a Warp account thru the "Sign up" bottom on the top right or in `Settings > Account > Sign up`. You have the option to skip this step. If you're having issues logging in, you can check out the [Login Troubleshooting](https://docs.warp.dev/support-and-community/troubleshooting-and-support/troubleshooting-login-issues) page.
+After installation, you have the option to create a Warp account through the "Sign up" button (top right), or by navigating to **Settings** > **Account** > **Sign up**. Optionally, you can skip this step. If you're having issues logging in, see the [Login Troubleshooting](https://docs.warp.dev/support-and-community/troubleshooting-and-support/troubleshooting-login-issues) page.
 
 {% hint style="info" %}
 If you sign up using Google or GitHub, Warp only gets access to the associated email address. Visit the [Privacy](https://docs.warp.dev/support-and-community/privacy-and-security/privacy) page for more details on Warp's approach to privacy.

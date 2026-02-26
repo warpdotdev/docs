@@ -1,7 +1,7 @@
 ---
 description: >-
   Use natural language to look up commands or input, accessible either directly
-  from the command line input or inside any interactive command or program.
+  from the command-line input or inside any interactive command or program.
 hidden: true
 ---
 
@@ -19,14 +19,14 @@ Currently, you need to be online to use this feature. If this feature doesn't wo
 
 ## Ways to Generate with AI
 
-### Generate commands as command line input
+### Generate commands as command-line input
 
-Type `#` on the command line input to generate command suggestions.
+Type `#` on the command-line input to generate command suggestions.
 
 <figure><img src="../.gitbook/assets/open-ai-commands.png" alt=""><figcaption><p>Typing '#' on the command line opens the suggestions interface</p></figcaption></figure>
 
 {% embed url="https://www.loom.com/share/424a763ef0c8455e8269e541301968f2" %}
-Generating commands as command line input demo
+Generating commands as command-line input demo
 {% endembed %}
 
 1. Press `` CTRL-` `` or type `#` into the text input editor to search using natural language.
