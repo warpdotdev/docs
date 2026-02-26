@@ -88,7 +88,17 @@ For informational context, tips, or additional details
 For important caveats, limitations, or things to watch out for
 {% endhint %}
 ```
+### Keys and shortcuts
+Keyboard keys and shortcuts use backticks:
+- Single keys: `Enter`, `Esc`, `Tab`, `Space`, `Backspace`, `Delete`
+- Arrow keys: `↑`, `↓`, `←`, `→`
+- Letter/number keys used as shortcuts: `R`, `E`
+- Modifier combos: `⌘I`, `CMD-ENTER`, `Ctrl+Shift+Enter`, `⌥⌘↩`
+- Function keys: `F1`, `F12`
 
+**Examples:**
+- ✅ Press `⌘I` to switch between command and Agent Mode
+- ❌ Press **Enter** (should be `Enter`)
 ### Menu paths
 - Bold each UI element in a menu path; leave the > separator plain: **Settings** > **AI** > **Knowledge**
 - For macOS menu paths, begin the path with the Apple icon (, Unicode `U+F8FF`).
@@ -101,6 +111,18 @@ For important caveats, limitations, or things to watch out for
 - ❌ `macOS > System Settings > Privacy & Security > Local Network` (code format; use Apple icon, not "macOS")
 - ❌ `macOS` > `System Settings` > `Privacy & Security` > `Local Network` (individual backticks; use Apple icon, not "macOS")
 - ❌ **macOS > System Settings > Privacy & Security > Local Network** (entire path bolded including separator; use Apple icon, not "macOS")
+
+### UI elements
+- Use bold for interactive UI elements (e.g., buttons, toggles, dropdowns)
+
+**Use:**
+- ✅ Click your profile photo in the top-right corner, then click **Settings**.
+- ✅ In the sidebar, click **Platform**.
+
+**Don't use:**
+- ❌ In the API Keys section, click `+ Create API Key`.
+- ❌ In the API Keys section, click `+ Create API Key`. (use bold, not backticks)
+- ❌ Click `Create key`. (use bold, not backticks)
 
 ## Content Guidelines
 
