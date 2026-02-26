@@ -92,6 +92,7 @@ Select `Clone Repository` to paste in a repo link or clone directly from GitHub.
 ## Learn More About Code Features:
 
 * [Code Editor](code-editor/) - Warp's built-in code editor lets you make quick, in-context edits with essentials like syntax highlighting, tabs, find and replace, Vim keybindings, and a file tree.
+  * [Language Server Protocol (LSP)](code-editor/language-server-protocol.md) - Warp integrates with language servers to provide hover info, go-to-definition, find references, inline diagnostics, and format-on-save for Rust, Go, Python, TypeScript/JavaScript, and C/C++.
 * [Codebase Context](https://docs.warp.dev/agent-platform/capabilities/codebase-context) - Warp indexes your Git-tracked codebase to help Agents understand your code and generate accurate, context-aware responses. No code is stored on Warp servers.
 * [Code Review](code-review.md) - review, edit, and manage Git diffs in real time, with options to attach, revert, or open files directly.
   * You can also enter [Interactive Code Review](https://docs.warp.dev/agent-platform/local-agents/interactive-code-review) to comment on changes, guide the agent, or adjust individual edits as they happen.

@@ -59,11 +59,16 @@ Rust, Go, YAML, Python, JavaScript/TypeScript, JSX/TSX, Java/Groovy, C++, Shell/
 
 We’re continuously expanding language support.
 
-### Other Editor Features
+### Shared buffers
+
+When you open the same file in multiple tabs or panes, Warp keeps them in sync automatically. Edits made in one view are immediately reflected in all others, and when a file changes on disk (for example, after switching branches), every view updates together.
+
+### Other editor features
 
 Warp's native code editor also supports the following features:
 
-* [File Tree (Project Explorer)](file-tree.md) — Browse, open, and manage your project with Warp’s native file tree.
-* [Find and Replace](find-and-replace.md) — Use Warp’s built-in find and replace to quickly search across a file, jump between matches, and make precise edits with options for regex, case sensitivity, and smart case preservation.
+* [Language Server Protocol (LSP)](language-server-protocol.md) - Get hover info, go-to-definition, find references, inline diagnostics, and format-on-save powered by language servers for Rust, Go, Python, TypeScript/JavaScript, and C/C++.
+* [File Tree (Project Explorer)](file-tree.md) - Browse, open, and manage your project with Warp's native file tree.
+* [Find and Replace](find-and-replace.md) - Use Warp's built-in find and replace to quickly search across a file, jump between matches, and make precise edits with options for regex, case sensitivity, and smart case preservation.
 * [Code Editor Vim Keybindings](code-editor-vim-keybindings.md) - Use Vim keybindings to edit code and text in Warp's native code editor.
 

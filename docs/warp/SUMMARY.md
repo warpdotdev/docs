@@ -86,6 +86,7 @@
 
 * [Overview](code/overview.md)
 * [Code Editor](code/code-editor/README.md)
+  * [Language Server Protocol (LSP)](code/code-editor/language-server-protocol.md)
   * [File Tree (Project Explorer)](code/code-editor/file-tree.md)
   * [Find and Replace](code/code-editor/find-and-replace.md)
   * [Code Editor Vim Keybindings](code/code-editor/code-editor-vim-keybindings.md)
