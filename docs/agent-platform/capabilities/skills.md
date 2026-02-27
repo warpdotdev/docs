@@ -323,6 +323,17 @@ Warp maintains a public collection of ready-to-use skills in the [warpdotdev/oz-
 
 These same skills also appear as suggested agents in the [Oz web app](../cloud-agents/oz-web-app.md), where you can run them directly in the cloud.
 
+## Invoking skills with a prompt
+
+You can pass additional context or instructions to a skill when invoking it with a slash command.
+
+**Using slash commands with a prompt:**
+
+* `/deploy push the latest changes to staging` — Invokes the deploy skill with additional instructions to target staging
+* `/code-review focus on error handling and edge cases` — Invokes the code-review skill with guidance on what to prioritize
+
+This is useful when you want to reuse a skill's workflow but tailor the execution to a specific situation without modifying the skill itself.
+
 ## Running agents from skills
 
 Skills can be used with both local and [cloud agents](../cloud-agents/overview.md) to create reusable, automated workflows. When running an agent via the CLI, web app, or API, you can specify a skill to provide the base instructions for the agent.

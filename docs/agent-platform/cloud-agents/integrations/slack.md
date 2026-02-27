@@ -48,6 +48,7 @@ Agents keep you informed directly in Slack via:
 * Activity updates showing progress throughout the run
 * An evolving task list and timeline
 * Checkpoints indicating major steps completed
+* A direct link to the Oz run in the [Oz web app](../oz-web-app.md), where you can view the full run transcript and metadata
 * A session-sharing link that opens a live terminal view of the remote agent
 
 [Cloud agent session sharing](../viewing-cloud-agent-runs.md) works in Warp or in your browser and supports multiple teammates joining the same live session.

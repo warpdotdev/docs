@@ -85,7 +85,7 @@ The **Runs** page (`/runs`) is your central view for monitoring cloud agent acti
 
 Each run displays the following information:
 
-<table><thead><tr><th width="140">Field</th><th>Description</th></tr></thead><tbody><tr><td><strong>Status</strong></td><td>Working, succeeded, failed, or canceled</td></tr><tr><td><strong>Title</strong></td><td>The run's title or prompt summary</td></tr><tr><td><strong>Environment</strong></td><td>Which environment the agent ran in</td></tr><tr><td><strong>Creator</strong></td><td>Who started the run</td></tr><tr><td><strong>Source</strong></td><td>Where the run was triggered from (CLI, API, Slack, Linear, scheduled)</td></tr><tr><td><strong>Artifacts</strong></td><td>Any outputs like PRs or files created</td></tr><tr><td><strong>Credits</strong></td><td>How many credits the run consumed</td></tr></tbody></table>
+<table><thead><tr><th width="140">Field</th><th>Description</th></tr></thead><tbody><tr><td><strong>Status</strong></td><td>Working, succeeded, failed, canceled, errored, or blocked</td></tr><tr><td><strong>Title</strong></td><td>The run's title or prompt summary</td></tr><tr><td><strong>Environment</strong></td><td>Which environment the agent ran in</td></tr><tr><td><strong>Creator</strong></td><td>Who started the run</td></tr><tr><td><strong>Source</strong></td><td>Where the run was triggered from (CLI, API, Slack, Linear, scheduled)</td></tr><tr><td><strong>Artifacts</strong></td><td>Any outputs like PRs or files created</td></tr><tr><td><strong>Credits</strong></td><td>How many credits the run consumed</td></tr></tbody></table>
 
 Click any run to open the detail pane, where you can view the full transcript, artifacts, and metadata.
 

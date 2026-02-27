@@ -24,7 +24,9 @@ description: >-
 
 ## Gathering Warp Logs
 
-You can retrieve Warp's logs by following the instructions for your platform below. Locate the log file and attach it to your GitHub issue or email.
+You can view Warp's logs directly from inside the app by opening the **Command Palette** (`CMD + P` on macOS / `CTRL + SHIFT + P` on Windows/Linux) and searching for "View Warp Logs", or by selecting it from the profile menu in the top-right corner.
+
+Alternatively, you can retrieve Warp's logs manually by following the instructions for your platform below. Locate the log file and attach it to your GitHub issue or email.
 
 {% hint style="info" %}
 Warp's logs and crash reports _**do not**_ contain any console input or output. See more on how we handle [Crash Reports and Telemetry](../privacy-and-security/privacy.md#what-telemetry-data-are-you-collecting-and-why).

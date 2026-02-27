@@ -48,6 +48,10 @@ You can open up code files in Warp in various different ways, refer to: [Opening
 
 <figure><img src="../.gitbook/assets/editting_diff.png" alt=""><figcaption><p>Editing the code diff directly in Warp's native code editor.</p></figcaption></figure>
 
+## Accepting diffs and continuing in Agent Mode
+
+When the Agent generates a code diff outside of an active conversation — for example, from a suggested code banner or a passive recommendation — you can accept the diff and seamlessly continue in Agent Mode. After accepting, Warp opens (or returns to) the Agent conversation with the applied changes as context, so you can immediately ask follow-up questions or request further modifications without starting a new conversation.
+
 ### Demo: Editing Agent Code in Warp
 
 Here's an example from [Warp University](https://www.warp.dev/university), where Zach demonstrates a how to review and edit Agent code diffs natively in Warp:
