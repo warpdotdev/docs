@@ -15,7 +15,7 @@ Warp offers the option to enable Compact mode, which condenses the spacing betwe
 
 Compact mode is disabled by default, but can be toggled in the following ways:
 
-* Navigate to `Settings > Appearance > Blocks > Compact Mode`.
+* Navigate to **Settings** > **Appearance** > **Blocks** > **Compact Mode**.
 * Utilize the [Command Palette](../command-palette.md), then search for "Compact mode" to toggle.
 
 {% hint style="info" %}
@@ -32,7 +32,7 @@ Warp [Blocks](../blocks/) are divided by horizontal lines that separate individu
 
 Block dividers are enabled by default, but can be toggled in the following ways:
 
-* Navigate to `Settings > Appearance > Blocks > Show block dividers`.
+* Navigate to **Settings** > **Appearance** > **Blocks** > **Show block dividers**.
 * Utilize the [Command Palette](../command-palette.md), then search for "Block Dividers".
 
 <figure><img src="../../.gitbook/assets/block-divider-demo.gif" alt=""><figcaption><p>Block Divider Demo</p></figcaption></figure>

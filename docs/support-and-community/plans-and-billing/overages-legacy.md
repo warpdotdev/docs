@@ -8,7 +8,7 @@ description: >-
 
 Warp offers usage-based pricing for Subscribers, allowing continued access to premium AI models even after reaching the monthly credits limit included in the plan (billed at $0.04 per additional credit).
 
-You can manage usage-based pricing directly in Warp under `Settings > Billing and usage`.
+You can manage usage-based pricing directly in Warp under **Settings** > **Billing and usage**.
 
 <figure><img src="../../.gitbook/assets/overages-settings.png" alt=""><figcaption><p>Billing and usage tab in settings, where admins can manage premium model usage overages</p></figcaption></figure>
 

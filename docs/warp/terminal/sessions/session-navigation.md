@@ -19,7 +19,7 @@ Sessions are ordered by recency, so the most recently focused sessions show up f
 
 ### CTRL-TAB Behaviour
 
-`CTRL-TAB` shortcut defaults to activate the previous / next [Tabs](../windows/tabs.md). You can configure the shortcut to cycle the most recent session, including any [Split Panes](../windows/split-panes.md), in `Settings > Features > Keys > Ctrl-Tab behavior`
+`CTRL-TAB` shortcut defaults to activate the previous / next [Tabs](../windows/tabs.md). You can configure the shortcut to cycle the most recent session, including any [Split Panes](../windows/split-panes.md), in **Settings** > **Features** > **Keys** > **Ctrl-Tab behavior**
 
 ## How Session Navigation Works
 

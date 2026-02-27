@@ -38,7 +38,7 @@ When a model is selected using your own key:
 
 To enable and configure your API keys:
 
-1. Open `Settings > AI > Model API keys`
+1. Open **Settings** > **AI** > **API Keys**
 2. Add your API key(s) for Anthropic, OpenAI, or Google.
 3. Once added, you'll see a **key icon** next to supported models in the model picker in the [Universal Input](https://docs.warp.dev/terminal/universal-input/).
 
@@ -86,7 +86,7 @@ If your key:
 
 * Is invalid: Warp notifies you and halts the request.
 * Hits usage or rate limits: Warp will not retry using Warp Credits.
-* You can update or replace your keys anytime in `Settings > AI > Model API Keys`.
+* You can update or replace your keys anytime in **Settings** > **AI** > **API Keys**.
 
 **Failover and fallback:**
 

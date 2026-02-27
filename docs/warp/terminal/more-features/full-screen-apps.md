@@ -23,10 +23,10 @@ If you want a mouse event to go to Warp instead (for example, for text selection
 
 ### How to access it
 
-* From the Settings panel, `Settings > Features > Enable Mouse Reporting`
+* From the Settings panel, **Settings** > **Features** > **Enable Mouse Reporting**
   * Scroll Reporting can be enabled after toggling `Enable Mouse Reporting`
 * From the [Command Palette](../command-palette.md), search for "Toggle Mouse Reporting"
-* From the macOS Menu, `View > Toggle Mouse Reporting`
+* From the macOS Menu, **View** > **Toggle Mouse Reporting**
 
 ### How it works
 
@@ -44,7 +44,7 @@ Warp allows you to scale your terminal by fractions of a cell width | height. Wh
 
 ### How to access it
 
-* Go to `Settings > Appearance > Full Screen Apps` or from the [Command Palette](../command-palette.md) search for "Appearance"
+* Go to **Settings** > **Appearance** > **Full-screen Apps** or from the [Command Palette](../command-palette.md) search for "Appearance"
   * `Use custom padding in alt-screen` is enabled by default, you can disable it to match the Blocklist padding
     * Set the desired uniform padding (px) pixels, which is set to 0px by default
 

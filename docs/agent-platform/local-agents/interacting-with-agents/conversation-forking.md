@@ -88,7 +88,7 @@ To fork from a specific point, **right-click** on any agent response block or cl
 
 ### Settings
 
-You can configure the default layout for forked conversations in `Settings > Features > Open forked conversation layout`:
+You can configure the default layout for forked conversations in **Settings** > **Features** > **Open forked conversation layout**:
 
 * **Split Pane** (default): Opens the forked conversation in a new pane alongside your current view.
 * **New Tab**: Opens the forked conversation in a new tab.

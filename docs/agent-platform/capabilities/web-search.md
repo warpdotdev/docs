@@ -77,7 +77,7 @@ Web search is controlled per [Profiles & Permissions](../capabilities/agent-prof
 
 **To configure:**
 
-1. Open `Settings > AI`
+1. Open **Settings** > **AI**
 2. Select an **Agent Profile**
 3. Scroll to **Call web tools**
 4. Toggle the **setting on or off**

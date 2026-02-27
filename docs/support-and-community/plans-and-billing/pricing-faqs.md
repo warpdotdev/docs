@@ -14,7 +14,7 @@ When you upgrade from Free to a paid plan, your credit usage resets. If you’re
 
 You can subscribe to a Warp paid plan as an individual or as part of a team. To upgrade:
 
-* In the app: Go to `Settings` > `Billing and usage`, then click the Upgrade link
+* In the app: Go to **Settings** > **Billing and usage**, then click the Upgrade link
 * Online: Visit [warp.dev/pricing](https://www.warp.dev/pricing)
 
 After entering your payment details, you’ll receive an invoice and confirmation via email.
@@ -103,11 +103,11 @@ Note this only applies when switching between legacy plans (Pro, Turbo, Lightspe
 
 The subscription will downgrade to the lower plan limits at the end of the billing cycle. If you’re switching between paid plans, any AI usage you've already accumulated will carry over.\
 \
-To downgrade at any point throughout your subscription through the billing portal by going to `Settings > Billing and usage > Manage billing`.
+To downgrade at any point throughout your subscription through the billing portal by going to **Settings** > **Billing and usage** > **Manage billing**.
 
 ### What happens when I cancel during a billing cycle?
 
-You can cancel at any point throughout your subscription through the billing portal by going to `Settings > Billing and usage > Manage billing`. The subscription will be canceled at the **end of your billing cycle**, monthly or yearly.
+You can cancel at any point throughout your subscription through the billing portal by going to **Settings** > **Billing and usage** > **Manage billing**. The subscription will be canceled at the **end of your billing cycle**, monthly or yearly.
 
 **You can continue to use your Warp paid plan features until the cycle end date**. Any additional team members added to your team will be invoiced at the end of your billing cycle.
 
@@ -115,15 +115,15 @@ You can cancel at any point throughout your subscription through the billing por
 
 When upgrading from a monthly to annual billing cycle the billing is prorated, meaning you only pay for the annual portion of the year you haven't paid for yet. You will be billed for the remaining part of the billing year with the discounted rate.
 
-To upgrade at any point throughout your subscription through the billing portal by going to `Settings > Billing and usage > Manage billing`.
+To upgrade at any point throughout your subscription through the billing portal by going to **Settings** > **Billing and usage** > **Manage billing**.
 
 ### What happens to unused credits?
 
-Unused credits do not rollover to the next cycle and can't be transferred to other accounts. You see when your credits will reset in the `Settings > Billing and usage` menu.
+Unused credits do not rollover to the next cycle and can't be transferred to other accounts. You see when your credits will reset in the **Settings** > **Billing and usage** menu.
 
 ### What happens if my payment fails?
 
-If a payment fails, you will receive an email from Stripe and your Warp Team Settings will show a past-due alert. Certain paid plan features and the ability to invite new members will be locked down while your Team is in a past-due state. Paying the most recent invoice through the billing portal by going to `Settings > Billing and usage > Manage billing` will fully re-enable your paid plan features.
+If a payment fails, you will receive an email from Stripe and your Warp Team Settings will show a past-due alert. Certain paid plan features and the ability to invite new members will be locked down while your Team is in a past-due state. Paying the most recent invoice through the billing portal by going to **Settings** > **Billing and usage** > **Manage billing** will fully re-enable your paid plan features.
 
 ### What counts as a credit?
 
@@ -143,11 +143,11 @@ Warp now abstracts away token usage, so you don't need to manage or track it dir
 
 If you're curious, you can still learn more about tokens [here](https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them), or refer to the pricing page for plan-level credit allocations. If you reach your monthly credit limits on a paid plan, premium models will be temporarily disabled until your quota resets at the start of your next billing cycle.
 
-If you’d like to continue using premium models beyond your included quota, you can enable [pay-as-you-go overages](overages-legacy.md) in `Settings > Billing and usage`.
+If you’d like to continue using premium models beyond your included quota, you can enable [pay-as-you-go overages](overages-legacy.md) in **Settings** > **Billing and usage**.
 
 ### How often do my credits reset?
 
-Allotted credits refill every 30 days from your signup date. When you upgrade to a [paid plan](https://www.warp.dev/pricing), you will be given more credits immediately. You can follow along with your refill period by referencing `Settings > Billing and usage`. Alternatively, you can also set [Overages](overages-legacy.md) to your desired amount to continue to use more premium model credits.
+Allotted credits refill every 30 days from your signup date. When you upgrade to a [paid plan](https://www.warp.dev/pricing), you will be given more credits immediately. You can follow along with your refill period by referencing **Settings** > **Billing and usage**. Alternatively, you can also set [Overages](overages-legacy.md) to your desired amount to continue to use more premium model credits.
 
 {% hint style="info" %}
 Unused credits do not rollover to the next cycle and can't be transferred to other accounts.
@@ -185,13 +185,13 @@ At this time, we do not support ACH transfers, checks, cash, money orders, or cr
 
 ### How do I cancel my subscription?
 
-You can cancel at any point throughout your subscription through the billing portal by going to `Settings > Billing and usage > Manage billing`. Cancelled subscriptions will remain active until the end of the billing cycle.
+You can cancel at any point throughout your subscription through the billing portal by going to **Settings** > **Billing and usage** > **Manage billing**. Cancelled subscriptions will remain active until the end of the billing cycle.
 
 ### How do I get a refund?
 
 For monthly subscriptions, we in general do not issue refunds. Please see [Warp's Refund Policy](pricing-faqs.md#warps-refund-policy) for details and exceptions.
 
-You can remove the users you do not want to pay for in `Settings > Teams > Team Members`. Prorated refunds are issued as Warp credit, not cash.
+You can remove the users you do not want to pay for in **Settings** > **Teams** > **Team Members**. Prorated refunds are issued as Warp credit, not cash.
 
 ### Why doesn't my promo code work or why was it disabled?
 
@@ -228,7 +228,7 @@ For more details, see this blog post on [Warp's plan changes](https://www.warp.d
 
 #### How do I change from my current plan to the new Build or Business plan?
 
-You can switch to the new Warp Build or Business plan anytime from `Settings > Billing and usage > Manage billing > Update subscription` in the Warp app or at [app.warp.dev/upgrade](https://app.warp.dev/upgrade). Select Change plan, then choose the plan that fits your needs.
+You can switch to the new Warp Build or Business plan anytime from **Settings** > **Billing and usage** > **Manage billing** > **Update subscription** in the Warp app or at [app.warp.dev/upgrade](https://app.warp.dev/upgrade). Select Change plan, then choose the plan that fits your needs.
 
 If you take no action, your Pro, Turbo, Lightspeed, or legacy Business plan will automatically move to the new structure on your first renewal after **December 1, 2025**. You’ll receive an email before your renewal with details and other details to make the transition easier.
 
@@ -237,12 +237,12 @@ If you take no action, your Pro, Turbo, Lightspeed, or legacy Business plan will
 If you move from Warp’s legacy Pro, Turbo, Lightspeed, or old Business plans to the new Build or Business plans:
 
 * You’ll receive a prorated credit balance on Stripe for your current plan, based on how far you are into your billing cycle. This balance can be applied toward monthly Build fees or any Add-on Credits you purchase.
-  * You can view your credit balance by going to `Settings > Billing and Usage > Manage Account`. You can also view your credit balance on the Stripe invoice that was sent when your plan changed to Build or Business.
+  * You can view your credit balance by going to**Settings** > **Billing and usage** > **Manage Account**. You can also view your credit balance on the Stripe invoice that was sent when your plan changed to Build or Business.
 * Your credit balance will reset to **0/1,500** when you switch to the Build or Business plan.
 
 If you switched immediately after the rollout, before a subsequent update was applied, we’ll retroactively reset your credit balance to 0/1,500.
 
-* You should see this reflected in `Settings > Billing and Usage`. If you experience any issues, please contact us at **build-priority@warp.dev**.
+* You should see this reflected in**Settings** > **Billing and usage**. If you experience any issues, please contact us at **build-priority@warp.dev**.
 
 {% hint style="info" %}
 We recommend you use all the credits on your legacy plan before you switch over to the new plans. This way you can make best use of them before they are reset to the new plan limits.
@@ -257,7 +257,7 @@ Add-on credit auto reload will be enabled by default for some legacy plan users 
 * **BYOK and Add-on credits**: These are only available on the new Build and Business plans. Switching early gives you immediate access.
 * **Pricing differences**: Depending on your usage, your monthly cost may increase or decrease. You’ll now pay based on what you actually use.
 * **Renewal timing**: You’ll stay on your current plan until your renewal date after December 1. No interruptions to service will occur.
-* **Transparency**: You can view your credit balance, monthly spend limit, and Add-on settings anytime in `Settings > Billing and usage`.
+* **Transparency**: You can view your credit balance, monthly spend limit, and Add-on settings anytime in **Settings** > **Billing and usage**.
 
 For full details, see [warp.dev/pricing](https://www.warp.dev/pricing) or reach out to billing@warp.dev if you have questions about your transition.
 
@@ -317,7 +317,7 @@ If a purchase would exceed your limit, it won’t go through—you’ll need to 
 
 #### I’m an individual developer and need more than 1,500 credits per month. What’s the right plan for me?
 
-If you regularly use more than 1,500 credits per month, the Build plan is designed for you. It includes 1,500 monthly credits and gives you the flexibility to scale further with Add-on Credits, which you can purchase at discounted rates directly under `Settings > Billing and usage`.
+If you regularly use more than 1,500 credits per month, the Build plan is designed for you. It includes 1,500 monthly credits and gives you the flexibility to scale further with Add-on Credits, which you can purchase at discounted rates directly under **Settings** > **Billing and usage**.
 
 Add-on Credits roll over month to month, remain valid for 12 months, and offer up to \~40% savings for larger denominations. You can also enable auto reload to automatically top up your credits when your balance runs low.
 

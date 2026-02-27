@@ -8,7 +8,7 @@ Warp opens with a shortcut screen showing some of the most commonly used keyboar
 
 ## Custom Keyboard Shortcuts
 
-Set custom, clear, or default keyboard shortcuts by navigating to `Settings > Keyboard Shortcuts`. Search through the re-mappable actions or existing shortcuts using the search bar.
+Set custom, clear, or default keyboard shortcuts by navigating to**Settings** > **Keyboard shortcuts**. Search through the re-mappable actions or existing shortcuts using the search bar.
 
 Remap the keyboard shortcuts using a file. See our [keysets repository](https://github.com/warpdotdev/keysets/tree/main) for instructions.
 
@@ -76,7 +76,7 @@ Keybinds that conflict with others are highlighted with an orange border.
 |                  | Scroll Terminal Output Down One Line         | `terminal:scroll_down_one_line`                           |
 
 {% hint style="info" %}
-"Scroll Terminal Output Up/Down One Line" has no default keybinding. You can assign one in `Settings > Keyboard Shortcuts` or trigger it from the [Command Palette](../terminal/command-palette.md). During long-running or full-screen commands, `PAGE UP`, `PAGE DOWN`, `HOME`, and `END` are forwarded to the running program.
+"Scroll Terminal Output Up/Down One Line" has no default keybinding. You can assign one in Settings > Keyboard shortcuts or trigger it from the [Command Palette](../terminal/command-palette.md). During long-running or full-screen commands, `PAGE UP`, `PAGE DOWN`, `HOME`, and `END` are forwarded to the running program.
 {% endhint %}
 
 **Input Editor**
@@ -238,7 +238,7 @@ Keybinds that conflict with others are highlighted with an orange border.
 |                    | Scroll Terminal Output Down One Line         | `terminal:scroll_down_one_line`                           |
 
 {% hint style="info" %}
-"Scroll Terminal Output Up/Down One Line" has no default keybinding. You can assign one in `Settings > Keyboard Shortcuts` or trigger it from the [Command Palette](../terminal/command-palette.md). During long-running or full-screen commands, `PAGE UP`, `PAGE DOWN`, `HOME`, and `END` are forwarded to the running program.
+"Scroll Terminal Output Up/Down One Line" has no default keybinding. You can assign one in Settings > Keyboard shortcuts or trigger it from the [Command Palette](../terminal/command-palette.md). During long-running or full-screen commands, `PAGE UP`, `PAGE DOWN`, `HOME`, and `END` are forwarded to the running program.
 {% endhint %}
 
 **Input Editor**
@@ -399,7 +399,7 @@ Keybinds that conflict with others are highlighted with an orange border.
 |                    | Scroll Terminal Output Down One Line         | `terminal:scroll_down_one_line`                           |
 
 {% hint style="info" %}
-"Scroll Terminal Output Up/Down One Line" has no default keybinding. You can assign one in `Settings > Keyboard Shortcuts` or trigger it from the [Command Palette](../terminal/command-palette.md). During long-running or full-screen commands, `PAGE UP`, `PAGE DOWN`, `HOME`, and `END` are forwarded to the running program.
+"Scroll Terminal Output Up/Down One Line" has no default keybinding. You can assign one in Settings > Keyboard shortcuts or trigger it from the [Command Palette](../terminal/command-palette.md). During long-running or full-screen commands, `PAGE UP`, `PAGE DOWN`, `HOME`, and `END` are forwarded to the running program.
 {% endhint %}
 
 **Input Editor**

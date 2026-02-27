@@ -23,7 +23,7 @@ When a Warp Drive object is pulled as context, it will be displayed in the conve
 
 ## Settings
 
-Enabled by default, this can be toggled in `Settings > AI > Knowledge > Warp Drive as Agent Mode Context`.
+Enabled by default, this can be toggled in **Settings** > **AI** > **Knowledge** > **Warp Drive as Agent Mode Context**.
 
 ## Related
 

@@ -204,4 +204,4 @@ Warp tries to load your login shell by default. Currently, Warp supports bash, f
 
 Zsh is the default login and interactive shell on macOS (starting with macOS Catalina in 2019), replacing the bash shell. For most Linux distributions, the default shell is bash.
 
-You can change your default shell by going to `Settings > Features > Session`. In the Startup shell for new sessions section, you can choose which shell you want Warp to use.
+You can change your default shell by going to **Settings** > **Features** > **Session**. In the Startup shell for new sessions section, you can choose which shell you want Warp to use.

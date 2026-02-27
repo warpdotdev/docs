@@ -101,7 +101,7 @@ You can execute a workflow in several ways:
 {% hint style="info" %}
 When you create two or more arguments with the same name, Warp automatically selects and puts multiple cursors over the arguments in the input editor so they are synced.\
 \
-Also, tailor your Command Search experience by toggling off "Show Global Workflows" in `Settings > Features`. When disabled, your search will exclusively encompass YAML and Warp Drive Workflows.
+Also, tailor your Command Search experience by toggling off "Show Global Workflows" in **Settings** > **Features**. When disabled, your search will exclusively encompass YAML and Warp Drive Workflows.
 {% endhint %}
 
 <figure><img src="../../.gitbook/assets/search-workflow-command-palette.png" alt=""><figcaption><p>Search for any workflow in the Command Palette with <code>CMD + P</code></p></figcaption></figure>

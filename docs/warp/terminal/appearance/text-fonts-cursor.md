@@ -15,7 +15,7 @@ Once a new font is installed in your system, you need to restart Warp for it to 
 
 ### Text and Fonts
 
-To access it, go to `Settings > Appearance > Text`
+To access it, go to **Settings** > **Appearance** > **Text**
 
 From there you can customize:
 
@@ -40,7 +40,7 @@ Enabling ligatures can reduce performance. Warps default font, Hack, doesn't yet
 
 ### Cursor
 
-To access it, go to `Settings > Appearance > Cursor`
+To access it, go to **Settings** > **Appearance** > **Cursor**
 
 From there you can customize:
 

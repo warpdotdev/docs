@@ -31,7 +31,7 @@ With Launch configurations you can save in the app or by adding a yaml file.
 {% tab title="macOS" %}
 * From the [Command Palette](../command-palette.md), enter `Launch Configuration` to open and select Launch Configuration.
 * Right-clicking the new Tab **+** button to open a menu and select saved Launch Configuration.
-* From the macOS menu bar, `File > Launch Configurations`, where you can search through and open your saved Launch Configuration.
+* From the macOS menu bar, **File** > **Launch Configurations**, where you can search through and open your saved Launch Configuration.
   * Single-window launch configs can be launched into the active window from the launch configuration palette using `CMD-ENTER` on macOS.
 {% endtab %}
 
@@ -42,7 +42,7 @@ With Launch configurations you can save in the app or by adding a yaml file.
 
 To open a WSL tab with a Launch Configuration, you must first set WSL as your default shell in Warp:
 
-* Go to `Settings > Features > Session > Startup shell for new sessions`.
+* Go to **Settings** > **Features** > **Session** > **Startup shell for new sessions**.
 * Select your desired WSL distribution (e.g., Ubuntu) as the default shell.
 
 After this, any Launch Configuration you open will use WSL as the shell.

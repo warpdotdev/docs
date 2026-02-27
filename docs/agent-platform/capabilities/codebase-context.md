@@ -31,7 +31,7 @@ When you open a directory in Warp, we check if it is part of a Git repository. I
 * Initially when you have Codebase Context enabled.
 * Warp automatically triggers a codebase index periodically.
 * Whenever a new Agent conversation begins.
-* When you click on the sync 🔄 button in `Settings > Code` menu.
+* When you click on the sync 🔄 button in **Settings** > **Code** menu.
 
 **This embeddings index helps Agents:**
 
@@ -42,14 +42,14 @@ When you open a directory in Warp, we check if it is part of a Git repository. I
 For large projects, indexing may take a few minutes. Agents will not use Codebase Context until indexing is complete, but **agentic coding features remain fully available in the meantime**.
 
 {% hint style="info" %}
-You can view and manage your indexed codebases under `Settings > Code > Codebase Index`. You can also choose whether to automatically index new folders as you navigate them.
+You can view and manage your indexed codebases in **Settings** > **Code** under "Initialized / indexed folders". You can also choose whether to automatically index new folders as you navigate them.
 {% endhint %}
 
 {% embed url="https://youtu.be/11rz9OYQ8Hg" %}
 
 ### **Codebase indexing states**
 
-When viewing indexed codebases in Warp under `Settings > Code`, you may see different status indicators:
+When viewing indexed codebases in Warp under **Settings** > **Code**, you may see different status indicators:
 
 * **Synced** — Indexing is complete and the codebase is ready to be used as context.
 * **Discovering files** – Warp is currently scanning and indexing files in the codebase.
@@ -60,7 +60,7 @@ When viewing indexed codebases in Warp under `Settings > Code`, you may see diff
 
 ### When does codebase syncing happen?
 
-Warp automatically triggers a codebase sync initially and periodically, when you click on the sync 🔄 button in `Settings > Code` menu, or when you start a new Agent conversation. However, if many files have changed or the network is slow, the sync may not complete before the Agent tries to access context.
+Warp automatically triggers a codebase sync initially and periodically, when you click on the sync 🔄 button in **Settings** > **Code** menu, or when you start a new Agent conversation. However, if many files have changed or the network is slow, the sync may not complete before the Agent tries to access context.
 
 {% hint style="info" %}
 In large projects (e.g. after a branch switch), there may be a short delay where the Agent references stale or outdated files.

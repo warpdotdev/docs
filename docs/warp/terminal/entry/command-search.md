@@ -12,7 +12,7 @@ The Command Search panel provides unified search across all your terminal inputs
 ![Command Search Panel](../../.gitbook/assets/command-search-panel.png)
 
 {% hint style="info" %}
-Tailor your Command Search experience by toggling off "Show Global Workflows" in `Settings > Features`. When disabled, your search will exclusively encompass YAML and Warp Drive Workflows.
+Tailor your Command Search experience by toggling off "Show Global Workflows" in **Settings** > **Features**. When disabled, your search will exclusively encompass YAML and Warp Drive Workflows.
 {% endhint %}
 
 ## Quick Start

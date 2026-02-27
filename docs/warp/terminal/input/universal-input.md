@@ -28,7 +28,7 @@ The Universal Input brings together all of Warp's input features into one stream
 * [**Modern text editing**](../editor/): Enjoy IDE-like editing features such as [completions](../command-completions/), [syntax highlighting](../editor/syntax-error-highlighting.md), mouse support, [rectangular selection](../more-features/text-selection.md), and [Next Command](https://docs.warp.dev/agent-platform/local-agents/active-ai) predictions.
 * **Input toolbelt**: Quickly access [@-context](https://docs.warp.dev/agent-platform/local-agents/agent-context/using-to-add-context), [Slash Commands](https://docs.warp.dev/agent-platform/capabilities/slash-commands), [voice input](https://docs.warp.dev/agent-platform/local-agents/interacting-with-agents/voice), [image attachments](https://docs.warp.dev/agent-platform/local-agents/agent-context/images-as-context) as context, and other AI features.
 
-If you prefer a more traditional terminal input experience, you can switch to [Classic Input](classic-input.md) in `Settings > Appearance > Input`. Classic input also supports oh-my-posh, PS1 customizations, and [same line prompt.](../appearance/prompt.md#same-line-prompt)
+If you prefer a more traditional terminal input experience, you can switch to [Classic Input](classic-input.md) in **Settings** > **Appearance** > **Input**. Classic input also supports oh-my-posh, PS1 customizations, and [same line prompt.](../appearance/prompt.md#same-line-prompt)
 
 ## Input Modes
 
@@ -72,7 +72,7 @@ The model Warp uses to detect natural language automatically is completely local
 
 By default, auto-detection is enabled. This means Warp decides whether to treat your input as a command or an Agent prompt.
 
-* **To turn off auto-detection**: go to `Settings > AI > Input > Natural Language Detection`
+* **To turn off auto-detection**: go to **Settings** > **AI** > **Input** > **Natural Language Detection**
 * When disabled: You’ll explicitly be in either Terminal or Agent Mode. Use the following keyboard shortcuts to switch between modes:
   * `CMD+I` (macOS)
   * `CTRL+I` (Windows/Linux)
@@ -169,11 +169,11 @@ Warp can automatically detect when you’re writing in plain English and switch 
 
 #### Fixing false detections
 
-If certain shell commands are mistakenly detected as natural language, you can add them to the denylist: `Settings > AI > Input > Natural language denylist`
+If certain shell commands are mistakenly detected as natural language, you can add them to the denylist: **Settings** > **AI** > **Input** > **Natural language denylist**
 
 #### Turning off auto-detection
 
-To disable natural language detection entirely, go to: `Settings > AI > Input Auto-detection`
+To disable natural language detection entirely, go to: **Settings** > **AI** > **Input Auto-detection**
 
 When auto-detection is turned off, you’ll need to explicitly switch between Terminal Mode and Agent Mode using `CMD + I` (macOS) or `CTRL + I` (Windows/Linux).
 

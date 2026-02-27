@@ -16,7 +16,7 @@ The Vi family of programs (including Vim and Neovim) are modal text editors that
 Vim mode in the code editor uses the same setting toggle as the input editor. To enable:
 
 * Through the [Command Palette](../../terminal/command-palette.md), search for "Vim Keybindings".
-* Through `Settings > Features > General`, toggle "Edit code and commands with Vim keybindings".
+* Through **Settings** > **Features** > **Text Editing**, toggle "Edit code and commands with Vim keybindings".
 
 Unlike the input editor, the Vim implementation in the code editor starts in Normal mode.&#x20;
 
@@ -24,7 +24,7 @@ Unlike the input editor, the Vim implementation in the code editor starts in Nor
 
 At the moment, Warp only supports default Vim keybindings.
 
-One exception is the keyboard shortcut for exiting insert mode, which can be rebound under `Settings > Keyboard Shortcuts > Exit Vim Insert Mode`, or through the [Command Palette](../../terminal/command-palette.md) search for "Exit Vim Insert Mode".
+One exception is the keyboard shortcut for exiting insert mode, which can be rebound under**Settings** > **Keyboard shortcuts** > **Exit Vim Insert Mode**, or through the [Command Palette](../../terminal/command-palette.md) search for "Exit Vim Insert Mode".
 
 ## Supported Keybindings
 

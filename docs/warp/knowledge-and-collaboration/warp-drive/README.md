@@ -117,7 +117,7 @@ To import a local file or directory, `RIGHT-CLICK` on a folder or click `+` on a
 
 ### Exporting files from Warp Drive
 
-To export a single Warp Drive object, `RIGHT-CLICK` on an object and choose "Export" from the menu, then select a directory for export. To export all Warp Drive objects, Open the [Command Palette](../../terminal/command-palette.md#how-to-access-it), search for and select "Export all Warp Drive Objects", then select a directory for export.
+To export a single Warp Drive object, `RIGHT-CLICK` on an object and choose "Export" from the menu, then select a directory for export. To export all Warp Drive objects, Open the [Command Palette](../../terminal/command-palette.md#how-to-access-it), search for and select "Export all Warp Drive objects", then select a directory for export.
 
 ## Sharing Your Drive Objects
 

@@ -24,7 +24,7 @@ When Syntax Highlighting is enabled, Warp's [Input Editor](./) automatically rec
 Syntax highlighting is enabled by default, to toggle it:
 
 * Through the [Command Palette](../command-palette.md), search for the "Syntax Highlighting" option and click it (or press enter) to enable/disable.
-* Through `Settings > Features > Editor` , toggle "Syntax highlighting for commands"
+* Through **Settings** > **Features** > **General** , toggle "Syntax highlighting for commands"
 
 ### How Syntax Highlighting Works
 
@@ -49,7 +49,7 @@ When Error Underlining is enabled, Warp automatically underlines any invalid com
 Error underlining is enabled by default, to toggle it:
 
 * Through the [Command Palette](../command-palette.md), search for the "Syntax Highlighting" option and click it (or press enter) to enable/disable.
-* Through `Settings > Features > Editor` , toggle "Error underlining for commands"
+* Through **Settings** > **Features** > **General** , toggle "Error underlining for commands"
 
 ### How Error Underlining works
 

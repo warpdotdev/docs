@@ -16,7 +16,7 @@ Warp includes a **native file tree** that makes it easy to explore and manage pr
 You can open the file tree from the tools panel on the left hand side:
 
 * **Tools panel**: Click the Tools sidebar button, then open the File Tree tab (first tab in the panel).
-* Press `CMD + \` to open the left panel, then assign your own shortcut for File Tree (and Warp Drive) in `Settings > Keyboard Shortcuts`.
+* Press `CMD + \` to open the left panel, then assign your own shortcut for File Tree (and Warp Drive) in**Settings** > **Keyboard shortcuts**.
 
 <figure><img src="../../.gitbook/assets/file-tree-project-explorer-tools-panel.png" alt="" width="329"><figcaption></figcaption></figure>
 

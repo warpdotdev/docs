@@ -13,7 +13,7 @@ If you quit the app or close a window containing a session with a running proces
 
 ## How to access it
 
-* Open `Settings > Features > General`, there you can toggle the "Show warning before quitting".
+* Open **Settings** > **Features** > **General**, there you can toggle the "Show warning before quitting".
 * You can also toggle the quit warning feature in the [Command Palette](../command-palette.md), by searching for \`Quit Warning'.
 * If enabled, when you try and close Warp you will see a pop-up window with a few options listed below:
   * Yes, quit, which will close all the Warps sessions and running processes.

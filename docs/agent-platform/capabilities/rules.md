@@ -75,9 +75,9 @@ This ensures the most specific, project-relevant rules take priority over broade
 
 ## How to access Rules
 
-* From [Warp Drive](https://docs.warp.dev/knowledge-and-collaboration/warp-drive): Personal > Rules
+* From [Warp Drive](https://docs.warp.dev/knowledge-and-collaboration/warp-drive):**Personal** > **Rules**
 * From the [Command Palette](https://docs.warp.dev/terminal/command-palette): search for "Open AI Rules"
-* From the Settings panel: `Settings > AI > Knowledge > Manage Rules`
+* From the Settings panel: **Settings** > **AI** > **Knowledge** > **Manage Rules**
   * Here, you can manage both Global as well as Project Rules.
 * From the macOS Menu: `AI > Open Rules` &#x20;
 * From the Slash Commands menu: `/open-project-rules`  to open Project Rules directly in Warp's code editor
@@ -88,7 +88,7 @@ This ensures the most specific, project-relevant rules take priority over broade
 
 #### Global Rules
 
-* **From Warp Drive Rules pane:** `Personal > Rules > Global`\
+* **From Warp Drive Rules pane:** **Personal** > **Rules** > **Global**\
   Add, edit, or delete any number of rules. Each rule can include:
   * Name (optional)
   * Description (what the rule does and when to apply it)
@@ -106,7 +106,7 @@ Rules Demo (legacy) with just Global Rules. Project rules can also be found ther
   * Link an existing Rules file to `AGENTS.md`
     * Warp currently supports the following Rules files: `WARP.md`, `CLAUDE.md`, `.cursorrules`, `AGENT.md`, `GEMINI.md`, `.clinerules`, `.windsurfrules`, `.github/copilot-instructions.md`&#x20;
 
-To view all Project Rules and open them in Warp, access it via the Warp Drive Rules pane: `Personal > Rules > Project-based`
+To view all Project Rules and open them in Warp, access it via the Warp Drive Rules pane: **Personal** > **Rules** > **Project-based**
 
 ### Rules as Agent context
 

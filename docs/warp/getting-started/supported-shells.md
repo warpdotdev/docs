@@ -21,7 +21,7 @@ If you run into issues configuring your RC files (`~/.bashrc`, `~/.zshrc`, `conf
 
 ### Changing what shell Warp uses
 
-To change the default shell, we recommend you choose a shell in Warp by going to `Settings > Features` and scrolling to the `Session` section, then select the "Startup shell for new sessions"
+To change the default shell, we recommend you choose a shell in Warp by going to **Settings** > **Features** and scrolling to the `Session` section, then select the "Startup shell for new sessions"
 
 {% hint style="info" %}
 The changes to your shell will only take effect when you start a new session.
@@ -116,7 +116,7 @@ While bash, and zsh come pre-installed on macOS systems, fish shell does not. So
 
 #### Step 2: Switch to fish as the default shell
 
-Once you’ve installed fish on your computer, you can set it as your default shell, so Warp will use it every time a new tab, pane, or window is opened. You can either make fish the default shell for only Warp, from the session settings (`Settings > Features > Session`), or for your user account. To change your account's default shell, you need to run two commands.
+Once you’ve installed fish on your computer, you can set it as your default shell, so Warp will use it every time a new tab, pane, or window is opened. You can either make fish the default shell for only Warp, from the session settings (**Settings** > **Features** > **Session**), or for your user account. To change your account's default shell, you need to run two commands.
 
 **If you used Homebrew to install fish on macOS or if you used the macOS installer** available on fishshell.com to install fish, type the following two commands in Warp:
 
@@ -145,7 +145,7 @@ While bash, and zsh come pre-installed on macOS systems, PowerShell shell does n
 
 #### Step 2: Switch to pwsh as the default shell
 
-Once you’ve installed PowerShell on your computer, you can set it as your default shell, so Warp will use it every time a new tab, pane, or window is opened. You can either make pwsh the default shell for only Warp, from the session settings (`Settings > Features > Session`), or for your user account. To change your account's default shell, you need to run two commands.
+Once you’ve installed PowerShell on your computer, you can set it as your default shell, so Warp will use it every time a new tab, pane, or window is opened. You can either make pwsh the default shell for only Warp, from the session settings (**Settings** > **Features** > **Session**), or for your user account. To change your account's default shell, you need to run two commands.
 
 ```
 echo $(which pwsh) | sudo tee -a /etc/shells

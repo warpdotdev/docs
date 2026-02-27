@@ -56,10 +56,10 @@ The message bar at the bottom of the terminal provides contextual guidance:
 
 If auto-detection is enabled, Warp labels your input as "agent" or "shell" before you submit, showing "(autodetected)" in magenta. See [Understanding auto-detection](#understanding-auto-detection) for configuration and override methods.
 
-**Disabling the message bar:** To hide the terminal mode hint bar while keeping AI features enabled, go to `Settings > Features > Terminal Input` and toggle off **Show terminal input message line**. This only hides the contextual hints—it does not disable any AI functionality.
+**Disabling the message bar:** To hide the terminal mode hint bar while keeping AI features enabled, go to **Settings** > **Features** > **Terminal Input** and toggle off **Show terminal input message line**. This only hides the contextual hints—it does not disable any AI functionality.
 
 {% hint style="warning" %}
-If you disable the message bar while auto-detection is enabled, you won't see the visual indicator that tells you whether Warp detected your input as a shell command or an agent prompt. Consider also disabling auto-detection (`Settings > AI > Input`) if you turn off the message bar.
+If you disable the message bar while auto-detection is enabled, you won't see the visual indicator that tells you whether Warp detected your input as a shell command or an agent prompt. Consider also disabling auto-detection (**Settings** > **AI** > **Input**) if you turn off the message bar.
 {% endhint %}
 
 {% hint style="info" %}
@@ -149,8 +149,8 @@ When auto-detection identifies your input as a shell command, Warp displays a di
 {% hint style="info" %}
 You can control auto-detection separately for terminal mode and agent conversation view:
 
-* **Terminal mode:** Go to `Settings > AI > Input`
-* **Agent conversation view:** Go to `Settings > AI > Agent modality`
+* **Terminal mode:** Go to **Settings** > **AI** > **Input**
+* **Agent conversation view:** Go to **Settings** > **AI** > **Agent modality**
 {% endhint %}
 
 ### Override methods
@@ -329,11 +329,11 @@ In conversation view, press `?` to show/hide the full shortcuts panel. Here are 
 
 ### Customizing keybindings
 
-You can customize keyboard shortcuts for slash commands and other actions in `Settings > Keybindings`. This lets you assign your preferred key combinations to frequently used commands.
+You can customize keyboard shortcuts for slash commands and other actions in **Settings** > **Keyboard shortcuts**. This lets you assign your preferred key combinations to frequently used commands.
 
 For example, to bind a keyboard shortcut to the `/agent` slash command:
 
-1. Open `Settings > Keybindings`
+1. Open **Settings** > **Keyboard shortcuts**
 2. Search for "agent" or the slash command you want to bind
 3. Click the shortcut field and press your desired key combination
 4. The shortcut is saved automatically

@@ -9,7 +9,7 @@ description: >-
 
 ## How to toggle settings sync
 
-* You can toggle Settings Sync within the `Settings > Account` pane
+* You can toggle Settings Sync within the **Settings** > **Account** pane
 * Through the [Command Palette](../command-palette.md) by searching for “Settings Sync”
 
 <figure><img src="../../.gitbook/assets/settings-sync-account.png" alt=""><figcaption><p>Settings Sync in Account pane</p></figcaption></figure>

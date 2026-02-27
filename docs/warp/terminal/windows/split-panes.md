@@ -43,7 +43,7 @@ You can quickly find all the **pane** shortcuts by using the [Command Palette](.
 
 ### CTRL-TAB Behaviour
 
-`CTRL-TAB` shortcut defaults to activate the previous / next [Tabs](tabs.md). You can configure the shortcut to cycle the most recent session, including any Split Panes, in `Settings > Features > Keys > Ctrl-Tab behavior`
+`CTRL-TAB` shortcut defaults to activate the previous / next [Tabs](tabs.md). You can configure the shortcut to cycle the most recent session, including any Split Panes, in **Settings** > **Features** > **Keys** > **Ctrl-Tab behavior**
 
 ## How Split Panes work
 

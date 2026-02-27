@@ -10,7 +10,7 @@ App icons are only available for Warp on macOS. The feature doesn't support cust
 
 ## How to change the app icon
 
-* Navigate to `Settings > Appearance > Icon > Customize your app icon`
+* Navigate to **Settings** > **Appearance** > **Icon** > **Customize your app icon**
 * Select the desired dock icon from the drop down menu
 
 <figure><img src="../../.gitbook/assets/custom-dock-icon-dropdown.png" alt=""><figcaption><p>Icon customization drop-down menu</p></figcaption></figure>

@@ -7,7 +7,7 @@ description: >-
 # Refer a Friend & Earn Rewards
 
 {% hint style="info" %}
-Go to `Settings > Referrals` to open the invite a friend referral dialog.
+Go to **Settings** > **Referrals** to open the invite a friend referral dialog.
 {% endhint %}
 
 **There are two ways you can invite a friend:**

@@ -78,11 +78,11 @@ Learn more about Tab names [here](https://learn.microsoft.com/en-us/windows/term
 
 ### Tab Restoration
 
-Tab Restoration enables you to reopen recently closed tabs for up to 60 seconds. Configure this feature in `Settings > Features > Session > Enable reopening of closed sessions`
+Tab Restoration enables you to reopen recently closed tabs for up to 60 seconds. Configure this feature in **Settings** > **Features** > **Session** > **Enable reopening of closed sessions**
 
 ### CTRL-TAB Behavior
 
-`CTRL-TAB` shortcut defaults to activate the previous / next Tab. You can configure the shortcut to cycle the most recent session, including any [Split Panes](split-panes.md), in `Settings > Features > Keys > Ctrl-Tab behavior`
+`CTRL-TAB` shortcut defaults to activate the previous / next Tab. You can configure the shortcut to cycle the most recent session, including any [Split Panes](split-panes.md), in **Settings** > **Features** > **Keys** > **Ctrl-Tab behavior**
 
 ### Tabs Behavior
 

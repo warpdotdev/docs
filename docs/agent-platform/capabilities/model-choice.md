@@ -64,7 +64,7 @@ Warp uses a model fallback system to ensure uninterrupted service if your select
 
 You can configure the base and planning models for each [Agent Profiles & Permissions](../capabilities/agent-profiles-permissions.md), defining the Agent's autonomy, tool access, and other permissions.
 
-Edit your default profile or more profiles directly in `Settings > AI > Agents > Profiles`.
+Edit your default profile or more profiles directly in **Settings** > **AI** > **Agents** > **Profiles**.
 
 <figure><img src="../.gitbook/assets/base-planning-model-pickers.png" alt=""><figcaption><p>Model choice example, where the base model is Auto (Claude 4 Sonnet) and the planning model is o3.</p></figcaption></figure>
 

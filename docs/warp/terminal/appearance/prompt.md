@@ -9,7 +9,7 @@ description: >-
 
 ### Warp prompt
 
-Warp has a native prompt that is customizable and can show a variety of information including cwd, git, svn, kubernetes, pyenv, date, time, and so on. You can visit `Settings > Appearance > Input > Input Type > Shell (PS1)` then in the terminal input area right-click on it and select Edit prompt and select `Warp Prompt` to drag and drop context chips into your Warp prompt until it displays the pieces of information you'd like to include.
+Warp has a native prompt that is customizable and can show a variety of information including cwd, git, svn, kubernetes, pyenv, date, time, and so on. You can visit **Settings** > **Appearance** > **Input** > **Input Type** > **Shell (PS1)** then in the terminal input area right-click on it and select Edit prompt and select **Warp Prompt** to drag and drop context chips into your Warp prompt until it displays the pieces of information you'd like to include.
 
 #### Git and Subversion
 
@@ -66,7 +66,7 @@ echo '[line_break]\ndisabled = false' >> ~/.config/starship.toml
 
 ### Shell prompt (PS1)
 
-You can also set up a Shell prompt by configuring the **PS1** variable or installing a supported shell prompt plugin, see [Shell Prompt Compatibility Table](prompt.md#shell-prompt-compatibility-table). Visit `Settings > Appearance > Input > Input Type > Shell (PS1)` then in the terminal input area right-click on it and select Edit prompt and select `Shell(PS1)` to enabled it.
+You can also set up a Shell prompt by configuring the **PS1** variable or installing a supported shell prompt plugin, see [Shell Prompt Compatibility Table](prompt.md#shell-prompt-compatibility-table). Visit **Settings** > **Appearance** > **Input** > **Input Type** > **Shell (PS1)** then in the terminal input area right-click on it and select Edit prompt and select `Shell(PS1)` to enabled it.
 
 {% hint style="info" %}
 The PS1 is a variable used by the shell to generate the prompt, it represents the primary prompt string (hence the “PS”) - which the terminal typically displays before typing new commands.
@@ -78,7 +78,7 @@ The Shell prompt supports multi-line or right-sided prompts in zsh and fish, not
 
 ## How to access it
 
-* Toggle the prompt by right-clicking on the prompt area above the input and selecting `Settings > Appearance > Input > Input Type > Shell (PS1)` then in the terminal input area right-click on it and select Edit prompt. There you will be able to select and customize the Warp prompt or select the Shell prompt (PS1).
+* Toggle the prompt by right-clicking on the prompt area above the input and selecting **Settings** > **Appearance** > **Input** > **Input Type** > **Shell (PS1)** then in the terminal input area right-click on it and select Edit prompt. There you will be able to select and customize the Warp prompt or select the Shell prompt (PS1).
   * When using Warp prompt, you can right-click the prompt to copy the entire prompt, working directory, current git branch, git uncommitted file count, etc.
   * When using a Shell prompt, you can right-click the prompt to copy the entire prompt or select any part of the custom prompt in previously run blocks in your session.
 
@@ -164,7 +164,7 @@ Installing Powerlevel10k
 {% endembed %}
 
 {% hint style="warning" %}
-Please note the Installing Powerlevel10k video mentions enabling a custom prompt in `Settings > Features > Honor users custom prompt (PS1)`, but it's now in `Settings > Appearance > Input > Classic > Current prompt > Shell Prompt (PS1)` .
+Please note the Installing Powerlevel10k video mentions enabling a custom prompt in **Settings** > **Features** > **Honor users custom prompt (PS1)**, but it's now in **Settings** > **Appearance** > **Input** > **Classic** > **Current prompt** > **Shell Prompt (PS1)** .
 {% endhint %}
 
 ### Spaceship

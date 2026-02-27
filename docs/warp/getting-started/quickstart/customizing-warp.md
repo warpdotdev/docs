@@ -13,7 +13,7 @@ Warp has many [Appearance](../../terminal/appearance/) settings you can configur
 * [**Text and fonts**](../../terminal/appearance/text-fonts-cursor.md): You can customize your font type and font size. You can also adjust the font to improve readability and accessibility.
 * [**Input position**](../../terminal/appearance/input-position.md): Set your prompt and command line to the top or bottom of your Warp window.
 
-Navigate to `Settings > Appearance` to customize your setup.
+Navigate to **Settings** > **Appearance** to customize your setup.
 
 {% embed url="https://youtu.be/fzb1JcZ0fFA" %}
 
@@ -28,7 +28,7 @@ There are a number of behavior settings and features that will help you customiz
 <figure><img src="../../.gitbook/assets/tab-splitpane-examples.png" alt=""><figcaption><p>Organize tabs and divide them into multiple panels</p></figcaption></figure>
 
 * [Auto suggestions](../../terminal/command-completions/autosuggestions.md): As you type, Warp will automatically suggest commands based on shell history and possible completions.
-* [Completions](../../terminal/command-completions/completions.md): When you press TAB, Warp will suggest commands, option names, and path parameters for you. Customize your TAB key behavior under `Settings > Features`.
+* [Completions](../../terminal/command-completions/completions.md): When you press TAB, Warp will suggest commands, option names, and path parameters for you. Customize your TAB key behavior under **Settings** > **Features**.
 * [Vim keybindings](../../terminal/editor/vim.md): Warp supports default Vim keybindings, allowing for keyboard-driven text editing.
 * [Keyboard shortcuts](../keyboard-shortcuts.md): Warp supports commonly used keyboard shortcuts. You can also set custom keyboard shortcuts by creating new commands or editing existing shortcuts.
 * [Open files and links](../../terminal/more-features/files-and-links.md): Using your cursor, you can open files, folders, and URL links that are within Blocks. You can also [configure the default editor to open files](../../terminal/more-features/files-and-links.md#files-and-links-1).

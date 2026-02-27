@@ -8,7 +8,7 @@ description: >-
 
 ## Agent Profiles
 
-Agent Profiles let you configure how your Agent behaves in different situations. Each profile defines the Agent's autonomy, base models, and tool access. You can create multiple profiles and edit them directly in `Settings > AI > Agents > Profiles`.
+Agent Profiles let you configure how your Agent behaves in different situations. Each profile defines the Agent's autonomy, base models, and tool access. You can create multiple profiles and edit them directly in **Settings** > **AI** > **Agents** > **Profiles**.
 
 * **Default profile**: Every user starts with a default profile, you can edit it at any time, and new profiles will copy its settings as a starting point.
 * **Other profiles**: Set up different profiles for different workflows (e.g., "Safe & cautious", "YOLO mode", etc.). Manage them in the Profiles settings menu.
@@ -29,10 +29,10 @@ Agent Profiles let you configure how your Agent behaves in different situations.
 Agent Permissions let you define how your Agent in a specific Profile operates — control its autonomy, choose what tools or MCP servers it can access, and set when it should act independently or ask for approval.
 
 {% hint style="warning" %}
-**Still getting approval prompts?** If the Agent keeps asking for permission to run certain commands (like `curl`, `rm`, or `wget`) even though you've set permissions to "Always allow," check your **Command denylist** in `Settings > AI > Agents > Profiles`. The denylist always takes precedence over other permission settings. Remove commands from the denylist to allow them to auto-execute, or use [Run until completion](#run-until-completion) to bypass the denylist for the current task.
+**Still getting approval prompts?** If the Agent keeps asking for permission to run certain commands (like `curl`, `rm`, or `wget`) even though you've set permissions to "Always allow," check your **Command denylist** in **Settings** > **AI** > **Agents** > **Profiles**. The denylist always takes precedence over other permission settings. Remove commands from the denylist to allow them to auto-execute, or use [Run until completion](#run-until-completion) to bypass the denylist for the current task.
 {% endhint %}
 
-You can control how much autonomy the Agent has when performing different types of actions under `Settings > AI > Agents > Profiles > Permissions` . Agent permission types:
+You can control how much autonomy the Agent has when performing different types of actions under **Settings** > **AI** > **Agents** > **Profiles** > **Permissions** . Agent permission types:
 
 * Apply code diffs
 * Read files
@@ -60,7 +60,7 @@ The Agent lets you define an allowlist of commands that run automatically withou
 * `find .*` - Search for files
 * `echo(\s.*)?` - Print text output
 
-You can add your own regular expressions to this list in `Settings > AI > Agents > Command allowlist`. Commands in the allowlist will always auto-execute, even if they are not read-only operations.
+You can add your own regular expressions to this list in **Settings** > **AI** > **Agents** > **Command allowlist**. Commands in the allowlist will always auto-execute, even if they are not read-only operations.
 
 <figure><img src="../.gitbook/assets/agent-profiles-allow-and-denylists.png" alt=""><figcaption><p>Command allowlist and denylists as part of an Agent Profile.</p></figcaption></figure>
 
@@ -73,7 +73,7 @@ For safety, the Agent always prompts for confirmation before executing potential
 * `rm(\s.*)?` - File deletion
 * `eval(\s.*)?` - Shell code execution
 
-The denylist takes precedence over both the allowlist and `Agent decides`. If a command matches the denylist, user permission will always be required, regardless of other settings. You can add your own regular expressions to this list in `Settings > AI > Agents > Command denylist`.
+The denylist takes precedence over both the allowlist and `Agent decides`. If a command matches the denylist, user permission will always be required, regardless of other settings. You can add your own regular expressions to this list in **Settings** > **AI** > **Agents** > **Command denylist**.
 
 ### MCP permissions
 

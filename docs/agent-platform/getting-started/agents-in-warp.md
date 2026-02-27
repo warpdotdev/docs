@@ -33,7 +33,7 @@ Then, clone the official Warp themes repository using SSH (git@github.com:warpdo
 
 ## Agent autonomy
 
-Under `Settings > AI > Agents > Permissions`, you can control how much autonomy the agent has when performing different types of actions:
+Under **Settings** > **AI** > **Agents** > **Permissions**, you can control how much autonomy the agent has when performing different types of actions:
 
 * Reading files
 * Creating plans
@@ -53,7 +53,7 @@ You can also configure an **allowlist** and **denylist** for specific commands y
 
 ## Agent profiles
 
-Profiles let you define different permission and model configurations for different contexts. Create and manage profiles in `Settings > AI`, then switch between them by clicking the profile icon in Warp's input area.
+Profiles let you define different permission and model configurations for different contexts. Create and manage profiles in **Settings** > **AI**, then switch between them by clicking the profile icon in Warp's input area.
 
 Common profile patterns:
 

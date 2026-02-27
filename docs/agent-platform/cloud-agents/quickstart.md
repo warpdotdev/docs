@@ -62,8 +62,8 @@ This launches a new cloud agent for you.
 If you don't have an environment yet, the `/cloud-agent` setup flow will guide you through creating one. You will need:
 
 * **Name**: A label to identify this environment (required)
-* **Repo(s)**: Type repo in `owner/repo` format or select from the dropdown. Click `Auth with GitHub` if you need to connect your repos.
-* **Docker image**: Your runtime environment (e.g., `python:3.11`, `node:20`). Not sure? Click `Suggest image` and Warp will recommend one based on your repos.
+* **Repo(s)**: Type repo in `owner/repo` format or select from the dropdown. Click **Auth with GitHub** if you need to connect your repos.
+* **Docker image**: Your runtime environment (e.g., `python:3.11`, `node:20`). Not sure? Click **Suggest image** and Warp will recommend one based on your repos.
 * **Setup command(s)**: Commands to prepare your workspace, like `pip install -r requirements.txt` or `npm ci`. Add each command separately by pressing Enter.
 * **Description**: Optional notes about what this environment is for.
 

@@ -32,8 +32,8 @@ Notes:
 ### Notifications
 
 * Notifications are enabled by default and require system permissions to appear.
-* If you've turned Notifications off before, toggle it back on by going to `Settings > Features > Session`, or quickly toggle Notifications with the [Command Palette](../command-palette.md).
-* Customize Notification triggers for long-running commands or password prompts by going to `Settings > Features`.
+* If you've turned Notifications off before, toggle it back on by going to **Settings** > **Features** > **Session**, or quickly toggle Notifications with the [Command Palette](../command-palette.md).
+* Customize Notification triggers for long-running commands or password prompts by going to **Settings** > **Features**.
 
 {% hint style="info" %}
 On macOS, you will want to **Allow** or **Accept** the request so that Warp can send you desktop notifications. If you accidentally denied it or would like to re-enable Notifications later, check the [troubleshooting guide below](notifications.md#troubleshooting-notifications).
@@ -49,19 +49,19 @@ Notifications Demo
 
 {% tabs %}
 {% tab title="macOS" %}
-Warp requires two distinct notification settings to work. macOS system settings found in `macOS > System Preferences > Notifications & Focus` and Warp app settings found in `Settings > Features > Session` must both be enabled for Notifications to show.\
+Warp requires two distinct notification settings to work. macOS system settings found in `macOS > System Preferences > Notifications & Focus` and Warp app settings found in **Settings** > **Features** > **Session** must both be enabled for Notifications to show.\
 \
 If you have Notifications enabled in the system and Warp, but you still aren't receiving desktop notifications, try the following:
 
 * Make sure that you are navigated away from Warp when you expect to receive the notification.
 * Make sure the **Do Not Disturb** mode is turned off in `macOS > System Preferences > Notifications > Notifications & Focus > Focus`.
 * Go to `macOS > System Preferences > Notifications & Focus > Notifications` and select Warp in the list. Make sure either banner style or alert style notifications are selected, then quit and restart Warp.
-* To get the macOS notification prompt to show again for Warp, run `defaults delete dev.warp.Warp-Stable Notifications`, then restart Warp and toggle on the `Settings > Features > Receive desktop notifications from Warp`.
+* To get the macOS notification prompt to show again for Warp, run `defaults delete dev.warp.Warp-Stable Notifications`, then restart Warp and toggle on the **Settings** > **Features** > **Receive desktop notifications from Warp**.
 * Once all of the above is done, please restart macOS to apply the changes and that should help with restoring notifications in Warp.
 {% endtab %}
 
 {% tab title="Windows" %}
-Warp requires two distinct notification settings to work. Windows system settings found in `Settings > System > Notifications > Warp` and Warp app settings found in `Settings > Features > Session` must both be enabled for Notifications to show.
+Warp requires two distinct notification settings to work. Windows system settings found in `Settings > System > Notifications > Warp` and Warp app settings found in **Settings** > **Features** > **Session** must both be enabled for Notifications to show.
 
 If you have Notifications enabled in the system and Warp, but you still aren't receiving desktop notifications, try the following:
 
@@ -71,7 +71,7 @@ If you have Notifications enabled in the system and Warp, but you still aren't r
 {% endtab %}
 
 {% tab title="Linux" %}
-Warp requires two distinct notification settings to work. Linux system settings found in `Settings > Notifications > Warp` and Warp app settings found in `Settings > Features > Session` must both be enabled for Notifications to show.
+Warp requires two distinct notification settings to work. Linux system settings found in `Settings > Notifications > Warp` and Warp app settings found in **Settings** > **Features** > **Session** must both be enabled for Notifications to show.
 
 If you have Notifications enabled in the system and Warp, but you still aren't receiving desktop notifications, try the following:
 

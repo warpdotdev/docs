@@ -6,7 +6,7 @@ description: Linux specific features.
 
 ## Native Wayland
 
-Warp Wayland support can be enabled in `Settings > Features > System`. Enabling Wayland support may fix issues with blurry text if you have fractional scaling enabled in your window manager.
+Warp Wayland support can be enabled in **Settings** > **Features** > **System**. Enabling Wayland support may fix issues with blurry text if you have fractional scaling enabled in your window manager.
 
 {% hint style="warning" %}
 When native Wayland is enabled, Global Hotkey support will be disabled. Unlike X11, the Wayland protocol does not expose the configuration necessary to support this feature.

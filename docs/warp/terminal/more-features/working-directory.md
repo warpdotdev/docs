@@ -13,7 +13,7 @@ Warp's working directory feature is designed to enhance your workflow by enablin
 
 ## How to access it
 
-* Open `Settings > Features > Session` and go to "Working directory for new sessions".
+* Open **Settings** > **Features** > **Session** and go to "Working directory for new sessions".
 * The drop-down for this feature provides several options discussed below:
   * Home Directory, is the default option for new sessions and opens new sessions in the currently logged-in users home folder `~/`.
   * Previous session's directory, opens new sessions in your active sessions' current directory.

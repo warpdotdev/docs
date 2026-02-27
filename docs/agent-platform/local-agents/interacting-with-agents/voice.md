@@ -9,7 +9,7 @@ description: >-
 Warp's Voice feature transforms how you interact with your terminal, letting you naturally speak commands and questions instead of typing them. This is especially powerful when combined with Agent Mode for complex operations or when you need to explain longer scenarios.
 
 {% hint style="info" %}
-Voice input functionality can be configured in `Settings > AI > Voice`. You can toggle voice input and select your preferred activation hotkey from pre-defined options.
+Voice input functionality can be configured in **Settings** > **AI** > **Voice**. You can toggle voice input and select your preferred activation hotkey from pre-defined options.
 {% endhint %}
 
 {% embed url="https://www.loom.com/share/77399be4e434443488bbe267b3548552?hideEmbedTopBar=true&hide_owner=true&hide_share=true&hide_title=true" %}

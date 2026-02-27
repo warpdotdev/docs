@@ -9,7 +9,7 @@ description: >-
 
 Add-on credits replace Warp's old [pay-as-you-go Overages](overages-legacy.md). They let you continue using premium AI models even after you've reached your monthly credit limit — at lower rates and with more control over spending.
 
-You can manage and purchase Add-on credits directly in `Settings > Billing and usage`.
+You can manage and purchase Add-on credits directly in **Settings** > **Billing and usage**.
 
 <figure><img src="../../.gitbook/assets/reload-credits.png" alt=""><figcaption></figcaption></figure>
 
@@ -27,7 +27,7 @@ You have two options for purchasing more credits:
 
 #### 1. Buy On-Demand
 
-You can purchase additional Add-on credits at any time directly within the app under `Settings > Billing and usage`. Buying more credits upfront provides a larger discount.
+You can purchase additional Add-on credits at any time directly within the app under **Settings** > **Billing and usage**. Buying more credits upfront provides a larger discount.
 
 The table below shows the available credit denominations, their prices, and corresponding discounts:
 
@@ -37,12 +37,12 @@ The table below shows the available credit denominations, their prices, and corr
 
 Auto reload automatically purchases more credits whenever your balance reaches **100 credits**, ensuring uninterrupted access to premium AI features.
 
-By default, **Auto reload is disabled for new subscribers**. When you turn it on, it starts with a **$200 monthly spend limit**, which you can adjust anytime in `Settings > Billing and usage`.
+By default, **Auto reload is disabled for new subscribers**. When you turn it on, it starts with a **$200 monthly spend limit**, which you can adjust anytime in **Settings** > **Billing and usage**.
 
 Auto reload uses the same denominations and discounts as manual purchases. The denomination you select (e.g., 400, 1,000, 3,000, or 6,500 credits) will repeat each time your balance is depleted, up to your monthly spending limit. Larger denominations offer up to \~40% off per credit.
 
 {% hint style="info" %}
-You can opt in and choose your reload amount when subscribing to a paid plan at [app.warp.dev/upgrade](https://app.warp.dev/upgrade), or change your configuration anytime in Settings > Billing and usage.
+You can opt in and choose your reload amount when subscribing to a paid plan at [app.warp.dev/upgrade](https://app.warp.dev/upgrade), or change your configuration anytime in**Settings** > **Billing and usage**.
 {% endhint %}
 
 {% hint style="warning" %}
@@ -53,7 +53,7 @@ Add-on credit auto reload will be enabled by default for some legacy plan users 
 
 Your monthly spend limit sets the maximum amount you can spend on Add-on credits in a single calendar month. This ensures you have full control over your AI usage costs while still allowing flexibility for automatic top-ups when needed, keeping your workflow uninterrupted.
 
-* The default limit is $200, but you can increase or decrease it anytime in `Settings > Billing and usage`.
+* The default limit is $200, but you can increase or decrease it anytime in **Settings** > **Billing and usage**.
 * **If a credit purchase would exceed your limit, it won’t process** — you’ll need to either raise your limit or choose a smaller Add-on credit amount.
 * Once your limit is reached, no additional Add-on Credit purchases (manual or automatic) will occur until:
   * The next calendar month begins, or
@@ -73,7 +73,7 @@ When your monthly credit balance renews:
 2. After those are used, Warp continues to draw from any available Add-on Credits.
 3. If your Add-on Credits run out and Auto reload is enabled, Warp will automatically purchase more up to your monthly limit.
 
-You can track your remaining credits and spending in the credits transparency footer and in `Settings > Billing and usage`.
+You can track your remaining credits and spending in the credits transparency footer and in **Settings** > **Billing and usage**.
 
 #### Teams on Add-on Plans
 

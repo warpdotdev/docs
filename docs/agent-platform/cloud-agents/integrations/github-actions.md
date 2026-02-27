@@ -62,10 +62,10 @@ To run agents from GitHub Actions, **you must store your Warp API Key as a GitHu
 
 1. Go to your repository on GitHub.
 2. Navigate to: `Settings > Secrets and variables > Actions`.
-3. Click `New repository secret`.
+3. Click **New repository secret**.
 4. Set the secret name to `WARP_API_KEY`.
 5. Paste your Warp API Key into the **Secret** field.
-6. Click `Add secret`.
+6. Click **Add secret**.
 
 <figure><img src="../../.gitbook/assets/actions-add-a-secret.png" alt=""><figcaption></figcaption></figure>
 

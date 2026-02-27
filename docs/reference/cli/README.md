@@ -106,7 +106,7 @@ The Oz CLI is automatically distributed with the Warp desktop app and can be use
 To add the Oz CLI to your `PATH`,:
 
 1. Open the [Command Palette](https://docs.warp.dev/terminal/command-palette) (`CMD+P` )
-2. In the search field, find and select the `Install Oz CLI Command` action.
+2. In the search field, find and select the **Install Oz CLI Command** action.
 
 {% hint style="info" %}
 **Note:** Administrator permissions are required to install the CLI into `/usr/local/bin` .
@@ -114,7 +114,7 @@ To add the Oz CLI to your `PATH`,:
 {% endtab %}
 
 {% tab title="Windows" %}
-In the Warp installer, select `Add Warp to PATH`. If you are installing for all users, this will put the CLI on the system path. Otherwise, the CLI is only added to the path for your account.
+In the Warp installer, select **Add Warp to PATH**. If you are installing for all users, this will put the CLI on the system path. Otherwise, the CLI is only added to the path for your account.
 {% endtab %}
 
 {% tab title="Linux" %}

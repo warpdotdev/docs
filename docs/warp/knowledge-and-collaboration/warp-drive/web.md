@@ -38,7 +38,7 @@ If you would like to use Warp locally and do not have it installed, please visit
 
 <figure><img src="../../.gitbook/assets/wd-popup-message.png" alt="" width="563"><figcaption></figcaption></figure>
 
-2.  This preference can be changed at any point in _Settings > Features > General > Open links in desktop app._ Note that this setting is only available while on the web-based version of Warp.
+2.  This preference can be changed at any point in **Settings** > **Features** > **General** > **Open links in desktop app** Note that this setting is only available while on the web-based version of Warp.
 
     <figure><img src="../../.gitbook/assets/wd-open-links-preference.png" alt="" width="563"><figcaption><p>Setting managing how to open links</p></figcaption></figure>
 3. You can always switch between web and desktop views on a case-by-case basis.

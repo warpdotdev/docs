@@ -30,7 +30,7 @@ bash, zsh, or fish (3.6 or above) must be set as the default shell within contai
 
 ### Configuring subshell-compatible commands
 
-To configure subshell-compatible commands, navigate to the Settings > Subshells.
+To configure subshell-compatible commands, navigate to **Settings** > **Warpify** > **Subshells**.
 
 #### Adding compatible commands
 

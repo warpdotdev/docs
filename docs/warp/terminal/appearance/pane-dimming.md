@@ -10,9 +10,9 @@ description: >-
 
 ### Inactive Pane Dimming
 
-The panes that aren't active will be dimmed to better indicate which pane is active. To access it, go to `Settings > Appearance > Panes`
+The panes that aren't active will be dimmed to better indicate which pane is active. To access it, go to **Settings** > **Appearance** > **Panes**
 
-* Toggle on `Dim inactive panes` to enable the feature.
+* Toggle on **Dim inactive panes** to enable the feature.
 
 {% hint style="info" %}
 Split panes show a triangle indicator on the top left corner of the active pane.
@@ -20,9 +20,9 @@ Split panes show a triangle indicator on the top left corner of the active pane.
 
 ### Mouse Focus
 
-The pane with the mouse over it will become active. To access it, go to `Settings > Appearance > Panes`
+The pane with the mouse over it will become active. To access it, go to **Settings** > **Appearance** > **Panes**
 
-* Toggle on `Focus follows mouse` to enable the feature.
+* Toggle on **Focus follows mouse** to enable the feature.
 
 ## How it works
 

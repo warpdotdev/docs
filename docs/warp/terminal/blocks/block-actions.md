@@ -37,7 +37,7 @@ Quickly navigate to important Blocks despite where they are in the terminal hist
 {% tab title="macOS" %}
 Ways to bookmark a Block:
 
-1. Select `Toggle bookmark` in the block context menu
+1. Select **Toggle bookmark** in the block context menu
 2. Use `CMD-B` keybinding to bookmark a selected block
 
 Navigate to a bookmarked Block, by:
@@ -50,7 +50,7 @@ Navigate to a bookmarked Block, by:
 {% tab title="Windows" %}
 There are Ways to bookmark a Block:
 
-1. Select `Toggle bookmark` in the block context menu
+1. Select **Toggle bookmark** in the block context menu
 2. Use `CTRL-SHIFT-B` keybinding to bookmark a selected block
 
 Navigate to a bookmarked Block, by:
@@ -64,7 +64,7 @@ Navigate to a bookmarked Block, by:
 Ways to bookmark a Block:
 
 1. Click on the bookmark icon in the top right corner of a Block
-2. Select `Toggle bookmark` in the block context menu
+2. Select **Toggle bookmark** in the block context menu
 3. Use `CTRL-SHIFT-B` keybinding to bookmark a selected block
 
 Navigate to a bookmarked Block, by:

@@ -10,9 +10,9 @@ API keys let the Oz CLI and cloud agents authenticate without human interaction.
 
 You can create an API key from your settings in Warp:
 
-1. Click your profile photo in the top-right corner, then click `Settings.`&#x20;
-2. In the sidebar, click `Platform`.
-3. In the API Keys section, click `+ Create API Key`.
+1. Click your profile photo in the top-right corner, then click **Settings.**&#x20;
+2. In the sidebar, click **Platform**.
+3. In the API Keys section, click **+ Create API Key**.
 4. Name the key and choose an expiration (1 day, 30 days, 90 days, or never).
 5. Select the key type:
    * `Personal` - Tied to your individual Warp account
@@ -22,7 +22,7 @@ You can create an API key from your settings in Warp:
 When an agent needs to make code changes (e.g., opening pull requests, pushing branches, or writing to a repository) use a **personal API key**. Personal keys authenticate as you, so the agent runs with your GitHub permissions. Team keys are the right fit for automated workflows that don't require writing to GitHub, such as analysis, monitoring, or triage.
 {% endhint %}
 
-6. Click `Create key`.
+6. Click **Create key**.
 7. Copy the raw API key and store it securely. **You won't be able to see it again after closing the dialog.**
 
 <figure><img src="../.gitbook/assets/api-key-management.png" alt=""><figcaption><p>API key management interface in Warp settings</p></figcaption></figure>
@@ -59,7 +59,7 @@ API keys start with the prefix `wk-`. If your key doesn't have this prefix, it m
 
 ## Managing API keys
 
-The API Keys section in `Settings > Platform` displays all your active keys with the following information:
+The API Keys section in **Settings** > **Platform** displays all your active keys with the following information:
 
 * **Name** - The name you assigned when creating the key
 * **Key** - A masked suffix (`wk-**xxxx`) to help identify the key
@@ -72,7 +72,7 @@ The API Keys section in `Settings > Platform` displays all your active keys with
 
 To delete an API key:
 
-1. Go to `Settings > Platform`.
+1. Go to **Settings** > **Platform**.
 2. Find the key you want to delete in the API Keys list.
 3. Click the delete icon next to the key.
 

@@ -20,7 +20,7 @@ Warp will only import settings associated with the Default profile.
 
 Next, you can choose your [prompt](../terminal/appearance/prompt.md) and decide whether or not to inherit your existing prompt configuration. There are two prompt options:
 
-1. [Warp prompt](../terminal/appearance/prompt.md#warp-prompt): This is Warp's native prompt that you can customize to meet your needs. In `Settings > Appearance > Prompt`, you can drag and drop context chips into your Warp prompt to display specific information, like git branches or timestamps.
+1. [Warp prompt](../terminal/appearance/prompt.md#warp-prompt): This is Warp's native prompt that you can customize to meet your needs. In **Settings** > **Appearance** > **Prompt**, you can drag and drop context chips into your Warp prompt to display specific information, like git branches or timestamps.
 2. [Shell prompt (PS1)](../terminal/appearance/prompt.md#custom-prompt): This custom prompt inherits your pre-existing prompt configuration. Select this option if you want your Warp prompt to match your settings from iTerm2.
 
 After choosing a prompt, you’re ready to start using Warp.

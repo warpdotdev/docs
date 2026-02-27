@@ -97,7 +97,7 @@ Select Multiple Blocks
 * **Page scrolling** - Press `PAGE UP` or `PAGE DOWN` to scroll by one page.
 * **Jump to top or bottom** - Press `HOME` or `END` to scroll to the top or bottom of terminal output.
 * **Scroll within a selected Block** - Press `SHIFT-CMD-UP` or `SHIFT-CMD-DOWN` to scroll to the top or bottom of the selected Block.
-* **Scroll one line at a time** - "Scroll Terminal output up/down one line" can be configured with a keyboard shortcut in `Settings > Keyboard Shortcuts` or accessed from the [Command Palette](../command-palette.md).
+* **Scroll one line at a time** - "Scroll Terminal output up/down one line" can be configured with a keyboard shortcut in Settings > Keyboard shortcuts or accessed from the [Command Palette](../command-palette.md).
 * When the output of a command is cut off, Warp keeps the [Sticky Command Header](sticky-command-header.md) pinned at the top that displays the command the Block corresponds to. Clicking the header will scroll the screen to the start of the Block.
 {% endtab %}
 
@@ -107,7 +107,7 @@ Select Multiple Blocks
 * **Page scrolling** - Press `PAGE UP` or `PAGE DOWN` to scroll by one page.
 * **Jump to top or bottom** - Press `HOME` or `END` to scroll to the top or bottom of terminal output.
 * **Scroll within a selected Block** - Press `CTRL-SHIFT-UP` or `CTRL-SHIFT-DOWN` to scroll to the top or bottom of the selected Block.
-* **Scroll one line at a time** - "Scroll Terminal output up/down one line" can be configured with a keyboard shortcut in `Settings > Keyboard Shortcuts` or accessed from the [Command Palette](../command-palette.md).
+* **Scroll one line at a time** - "Scroll Terminal output up/down one line" can be configured with a keyboard shortcut in Settings > Keyboard shortcuts or accessed from the [Command Palette](../command-palette.md).
 * When the output of a command is cut off, Warp keeps the [Sticky Command Header](sticky-command-header.md) pinned at the top that displays the command the Block corresponds to. Clicking the header will scroll the screen to the start of the Block.
 {% endtab %}
 
@@ -117,7 +117,7 @@ Select Multiple Blocks
 * **Page scrolling** - Press `PAGE UP` or `PAGE DOWN` to scroll by one page.
 * **Jump to top or bottom** - Press `HOME` or `END` to scroll to the top or bottom of terminal output.
 * **Scroll within a selected Block** - Press `CTRL-SHIFT-UP` or `CTRL-SHIFT-DOWN` to scroll to the top or bottom of the selected Block.
-* **Scroll one line at a time** - "Scroll Terminal output up/down one line" can be configured with a keyboard shortcut in `Settings > Keyboard Shortcuts` or accessed from the [Command Palette](../command-palette.md).
+* **Scroll one line at a time** - "Scroll Terminal output up/down one line" can be configured with a keyboard shortcut in Settings > Keyboard shortcuts or accessed from the [Command Palette](../command-palette.md).
 * When the output of a command is cut off, Warp keeps the [Sticky Command Header](sticky-command-header.md) pinned at the top that displays the command the Block corresponds to. Clicking the header will scroll the screen to the start of the Block.
 {% endtab %}
 {% endtabs %}

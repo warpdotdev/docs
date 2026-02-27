@@ -20,7 +20,7 @@ This feature was built on top of the open-source project [nvdn/thefuck](https://
 
 ## How to access it
 
-* Command Corrections is enabled by default. You can disable Command Corrections by going to `Settings > Features` > toggle “Suggest corrected commands”.
+* Command Corrections is enabled by default. You can disable Command Corrections by going to **Settings** > **Features** > toggle “Suggest corrected commands”.
 * After an incorrect command is run, a panel with the corrected command suggestion appears above the Input Editor. `CLICK` or press the `RIGHT` arrow to insert the suggestion.
 
 ## How it works

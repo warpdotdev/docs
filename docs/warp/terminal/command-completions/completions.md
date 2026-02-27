@@ -15,7 +15,7 @@ Completions feature fuzzy search capability that provides you with [approximate 
 
 * Type out the beginning of your command, then press `TAB`.
 * To search for options and flags, you must type and press `TAB`.
-* Forgo `TAB` by enabling "Open completions menu as you type" in `Settings > Features`
+* Forgo `TAB` by enabling "Open completions menu as you type" in **Settings** > **Features**
 
 ## How to use it
 
@@ -31,7 +31,7 @@ Completions feature fuzzy search capability that provides you with [approximate 
 
 {% hint style="info" %}
 **Terminal Tip**\
-The "Tab key behavior" setting under `Features > Editor` can change the action that `Tab` is bound to. If `Tab` is not bound to open the completions menu, `ctrl-space` will be assigned as the default keybinding. _Note: You can also enable the "Open completions menu as you type" in `Settings > Features` so that the completions menu opens automatically._
+The "Tab key behavior" setting under `Features > Editor` can change the action that `Tab` is bound to. If `Tab` is not bound to open the completions menu, `ctrl-space` will be assigned as the default keybinding. _Note: You can also enable the "Open completions menu as you type" in **Settings** > **Features** so that the completions menu opens automatically._
 {% endhint %}
 
 ## How it works

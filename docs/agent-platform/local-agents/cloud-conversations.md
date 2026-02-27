@@ -24,7 +24,7 @@ Cloud-synced conversations
 
 Cloud conversation sync is controlled by a setting in Warp:
 
-1. Open `Settings > Privacy`
+1. Open **Settings** > **Privacy**
 2. Enable **Store AI conversations in the cloud**
 
 When enabled, your Agent conversations automatically sync to the cloud as you interact with the Agent. When disabled, conversations are stored locally on your machine only.

@@ -13,7 +13,7 @@ Tab indicators provide visual cues in the tab bar under certain specific conditi
 
 ### How to toggle tab Indicators
 
-* Navigate to `Settings > Appearance > Tabs`, and switch the "Show tab indicators" option.
+* Navigate to **Settings** > **Appearance** > **Tabs**, and switch the "Show tab indicators" option.
 * Utilize the [Command Palette](../command-palette.md), then search for "Tab indicators" to toggle the tab indicators.
 
 <figure><img src="../../.gitbook/assets/tab-indicator-demo.gif" alt=""><figcaption><p>Tab Indicator Demo</p></figcaption></figure>
@@ -24,7 +24,7 @@ The tab bar provides easy navigation between open tabs. By default, the tab bar 
 
 ### How to configure the tab bar
 
-* Navigate to `Settings > Appearance > Tabs > Show the tab bar` to toggle the visibility of the tab bar. Choose from the following options:
+* Navigate to **Settings** > **Appearance** > **Tabs** > **Show the tab bar** to toggle the visibility of the tab bar. Choose from the following options:
   * Always – Keeps the tab bar visible at all times.
   * Only on hover – Hides the tab bar in both modes.
   * When windowed – Displays the tab bar only in windowed mode.
@@ -42,7 +42,7 @@ You can configure the position of the tab close button to be either on the left 
 
 ### How to configure the tab close button
 
-Navigate to `Settings > Appearance > Tabs > Tab close button position`, then choose from the following options:
+Navigate to **Settings** > **Appearance** > **Tabs** > **Tab close button position**, then choose from the following options:
 
 * Left - the close button will be on the left side of the tab (macOS style)
 * Right – the close button will be on the right side of the tab (Windows | Linux style)\

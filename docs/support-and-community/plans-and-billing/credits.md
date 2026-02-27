@@ -25,7 +25,7 @@ In an Agent conversation, a **turn** represents a single exchange (a response fr
 <figure><img src="../../.gitbook/assets/inline-credit-usage-footer.png" alt=""><figcaption><p>The conversation usage footer shows how many credits a conversation has consumed, and breaks down the usage by credits, tool calls, context window, files changed, diffs applied, and more.</p></figcaption></figure>
 
 {% hint style="info" %}
-You can view your total credit usage, along with other billing details, in `Settings > Billing and usage`.
+You can view your total credit usage, along with other billing details, in **Settings** > **Billing and usage**.
 {% endhint %}
 
 #### Credit **limits and billing**

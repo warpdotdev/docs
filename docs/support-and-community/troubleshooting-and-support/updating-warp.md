@@ -8,7 +8,7 @@ Warp automatically checks for updates on startup. A notification will appear in 
 
 ![Update Available](../.gitbook/assets/update-available.png)
 
-To check for updates, search for "update" in the [Command Palette](https://docs.warp.dev/terminal/command-palette) or go to `Settings > Accounts` and click "Check for Update".
+To check for updates, search for "update" in the [Command Palette](https://docs.warp.dev/terminal/command-palette) or go to **Settings** > **Account** and click "Check for Update".
 
 ![Check for Update manually](../../.gitbook/assets/check-for-update.gif)
 

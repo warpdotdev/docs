@@ -37,7 +37,7 @@ You can read our [full privacy policy](https://www.warp.dev/legal/privacy-policy
 
 ### How to disable telemetry and crash reporting
 
-1. Navigate to `Settings > Privacy`, or open the [Command Palette](https://docs.warp.dev/terminal/command-palette/) and search for "privacy"
+1. Navigate to **Settings** > **Privacy**, or open the [Command Palette](https://docs.warp.dev/terminal/command-palette/) and search for "privacy"
 2. Toggle off "Help improve Warp", "Send crash reports", or both
 
 <figure><img src="../../.gitbook/assets/privacy-settings-after-signup.png" alt=""><figcaption><p>Privacy Settings</p></figcaption></figure>
@@ -48,7 +48,7 @@ With telemetry disabled, no console interactions are ever persisted on Warp's se
 
 Warp provides a convenient way for you to delete your account and data. Any active Warp subscriptions associated with the account will also be cancelled when deleted. You can delete your Warp account and data in the following ways:
 
-*   From Warp, go to Settings > Privacy > "Visit the data management page"
+*   From Warp, go to**Settings** > **Privacy** > **"Visit the data management page"**
 
     Click the “Delete” button on the Data Management page to go through the data deletion flow.
 * From the web, log in to your warp account at [https://app.warp.dev/login](https://app.warp.dev/login), then go to the data management page at [https://app.warp.dev/data\_management](https://app.warp.dev/data_management) and click the “Delete” button to go through the data deletion flow.

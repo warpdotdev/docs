@@ -35,7 +35,7 @@ Before setting up a self-hosted worker, ensure you have:
 * **A machine to run the worker** — This can be a VM, a server, or even a local machine. The worker host can run on macOS, Linux, or Windows — any machine that runs Docker. Linux is recommended for production deployments.
 * **Docker installed** — The worker uses Docker to run agent tasks. Verify Docker is installed and running with `docker info`.
 * **Enterprise plan with self-hosting enabled** — [Contact sales](https://warp.dev/contact-sales) if self-hosting is not yet enabled for your team.
-* **A team API key** — In the Warp app, go to `Settings > Platform` to create a team-scoped API key.
+* **A team API key** — In the Warp app, go to **Settings** > **Platform** to create a team-scoped API key.
 
 {% hint style="warning" %}
 Task containers require a **linux/amd64** or **linux/arm64** Docker daemon. The worker host itself can be any OS — Docker Desktop on macOS and Windows runs a Linux VM that satisfies this requirement.
@@ -65,7 +65,7 @@ There are three ways to run the worker: via Docker (recommended), via `go instal
 
 ### Set your API key
 
-In the Warp app, go to `Settings > Platform` to create a team API key. Then export it as an environment variable:
+In the Warp app, go to **Settings** > **Platform** to create a team API key. Then export it as an environment variable:
 
 ```bash
 export WARP_API_KEY="your_team_api_key"
@@ -323,7 +323,7 @@ Self-hosted runs have the same observability as Warp-hosted runs:
 ### Worker won't connect
 
 * Verify your API key is correct, not expired, and has team scope.
-* Regenerate the API key in `Settings > Platform` if you suspect it is invalid.
+* Regenerate the API key in **Settings** > **Platform** if you suspect it is invalid.
 * Ensure the machine has outbound internet access to Oz.
 * Check that no firewall rules are blocking WebSocket connections to `wss://oz.warp.dev`.
 * Increase log verbosity with `--log-level debug` to see connection details.

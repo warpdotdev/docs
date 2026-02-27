@@ -11,7 +11,7 @@ description: >-
 
 ### Window Size
 
-To access size settings, go to `Settings > Appearance > Window`.
+To access size settings, go to **Settings** > **Appearance** > **Window**.
 
 * Enable "Open new windows with custom size", Then configure your preferred columns and rows.
 
@@ -21,7 +21,7 @@ If [Session Restoration](../sessions/session-restoration.md) is enabled, Warp wi
 
 ### Window Opacity
 
-To access it, go to `Settings > Appearance > Themes`
+To access it, go to **Settings** > **Appearance** > **Themes**
 
 * The slider supports setting the opacity value between `1` and `100` where `100` is completely opaque or solid.
 

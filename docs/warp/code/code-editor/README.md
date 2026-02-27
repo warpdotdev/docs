@@ -36,7 +36,7 @@ Warp can group multiple files into a single tabbed viewer, reducing clutter and 
 
 <figure><img src="../../.gitbook/assets/tabbed-file-viewer.png" alt=""><figcaption></figcaption></figure>
 
-* Enabled by default for new users (can be toggled in `Settings > Features > General > Group files into a single editor pane`)
+* Enabled by default for new users (can be toggled in **Settings** > **Features** > **General** > **Group files into a single editor pane**)
 * Reorder, close, or drag file viewers between tabs.
 * Merge entire panes together by dragging one into another.
 
@@ -46,7 +46,7 @@ Warp can group multiple files into a single tabbed viewer, reducing clutter and 
 
 ### **File Layout Options**
 
-Choose how new files open in Warp by default in: `Settings > Features > General > Choose a layout to open files in Warp`
+Choose how new files open in Warp by default in: **Settings** > **Features** > **General** > **Choose a layout to open files in Warp**
 
 * **Split pane**: new files open alongside the current editor
 * **New tab**: new files open in their own tabbed viewer

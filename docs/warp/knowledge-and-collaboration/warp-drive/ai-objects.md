@@ -13,7 +13,7 @@ Warp Drive includes several object types that integrate with Warp's agents to pr
 
 Rules are reusable guidelines that inform how agents respond to your prompts. They help tailor responses to match your coding standards, project conventions, and personal preferences.
 
-**Access from Warp Drive:** `Personal > Rules`
+**Access from Warp Drive:** **Personal** > **Rules**
 
 Warp supports two types of rules:
 
@@ -28,7 +28,7 @@ For complete documentation on creating and managing rules, see [Rules](https://d
 
 MCP (Model Context Protocol) servers extend Warp's agents with custom tools and data sources through a standardized interface. They act as plugins that let agents access external services like GitHub, Sentry, Linear, Slack, and more.
 
-**Access from Warp Drive:** `Personal > MCP Servers`
+**Access from Warp Drive:** **Personal** > **MCP Servers**
 
 MCP servers can be:
 

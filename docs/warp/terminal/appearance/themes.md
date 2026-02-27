@@ -10,7 +10,7 @@ description: >-
 
 The Theme Picker can be accessed by:
 
-1. Navigating to `Settings > Appearance`.
+1. Navigating to **Settings** > **Appearance**.
 2. Clicking the Custom Themes (shaded) box.
 3. Upon selecting a theme, Warp's appearance will update accordingly.
 4. Press the checkmark to save the selection, or the X to revert.
@@ -23,7 +23,7 @@ The Theme setting persists, meaning Warp will open with the same settings in the
 
 Automatically create new themes based on a background image.
 
-1. Go to `Settings > Appearance > Current Theme` or search "Open Theme Picker" within the [Command Palette](../command-palette.md).
+1. Go to **Settings** > **Appearance** > **Current Theme** or search "Open theme picker" within the [Command Palette](../command-palette.md).
 2. Click the `+` button in the theme picker.
 3. Upload the image and select the background color.
 4. Click "Create Theme" to save and accept the new theme.
@@ -32,7 +32,7 @@ Automatically create new themes based on a background image.
 
 Warp supports synchronizing your theme with the OS’s light and dark themes. To enable this:
 
-1. Open the `Settings > Appearance` dialog.
+1. Open the **Settings** > **Appearance** dialog.
 2. Click the toggle "Sync with OS".
 3. You will then be able to select a specific theme for when the OS is in light mode and dark mode.
 

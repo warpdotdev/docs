@@ -143,7 +143,7 @@ Each color is represented in hex and must start with `#`.
 
 ## Create your custom theme, automatically
 
-Automatically create new themes based on a background image. Click the `+` button in the theme picker `Settings > Appearance > Current Theme` or search `Open Theme Picker` within the [Command Palette](../command-palette.md).
+Automatically create new themes based on a background image. Click the `+` button in the theme picker **Settings** > **Appearance** > **Current Theme** or search `Open Theme Picker` within the [Command Palette](../command-palette.md).
 
 ## Create your custom theme, with a tool
 

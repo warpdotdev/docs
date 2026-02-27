@@ -21,7 +21,7 @@ Double-click on text in the input or blocklist. The following patterns are recog
 4. IP addresses
 5. Floating point numbers, including scientific notation.
 
-You can toggle smart selection on the `Settings > Features > Terminal > Double-click smart selection`. If disabled, you can instead manually select specific punctuation characters to be included within word boundaries.
+You can toggle smart selection on the **Settings** > **Features** > **Terminal** > **Double-click smart selection**. If disabled, you can instead manually select specific punctuation characters to be included within word boundaries.
 
 ## Rectangular Selection
 

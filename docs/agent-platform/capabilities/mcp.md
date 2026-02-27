@@ -16,10 +16,10 @@ MCP is an open source protocol. Check out the official [MCP documentation](https
 
 You can navigate to the MCP servers page in any of the following ways:
 
-* From the [Settings Page](warp://settings/mcp): `Settings > MCP Servers`
-* From [Warp Drive](https://docs.warp.dev/knowledge-and-collaboration/warp-drive): under `Personal > MCP Servers`
+* From the [Settings Page](warp://settings/mcp): **Settings** > **MCP Servers**
+* From [Warp Drive](https://docs.warp.dev/knowledge-and-collaboration/warp-drive): under **Personal** > **MCP Servers**
 * From the [Command Palette](https://docs.warp.dev/terminal/command-palette): search for `Open MCP Servers`
-* From the AI settings tab: `Settings > AI > Manage MCP servers`
+* From the AI settings tab: **Settings** > **AI** > **Manage MCP servers**
 
 This will show a list of all configured MCP servers, including which are currently running. If you close Warp with an MCP server running, it will run again on next start of Warp. MCP servers that are stopped will remain so on next launch of Warp.
 
@@ -27,7 +27,7 @@ This will show a list of all configured MCP servers, including which are current
 
 ### Adding an MCP Server
 
-To add a new MCP server, you can click the `+ Add` button. Configurations from most MCP Clients can be directly copied and pasted.
+To add a new MCP server, you can click the **+ Add** button. Configurations from most MCP Clients can be directly copied and pasted.
 
 MCP server types you can add:
 
@@ -69,7 +69,7 @@ Provide a URL where Warp can reach an already-running MCP server that supports S
 
 Warp supports configuring **multiple MCP servers** using a JSON snippet. Each entry under `mcpServers` is keyed by a unique name (`filesystem`, `github`, `notes`, etc). All servers defined in the example are added automatically — no manual setup required.
 
-To add a multiple MCP servers, you can click the `+ Add` button then paste in a JSON snippet like the example below:
+To add a multiple MCP servers, you can click the **+ Add** button then paste in a JSON snippet like the example below:
 
 ```json
 {
@@ -315,7 +315,7 @@ More info in [Chroma's Package Search MCP Docs](https://docs.trychroma.com/cloud
 
 The official Figma remote MCP server supports OAuth for simple, one-click setup.
 
-1. In Warp, go to `Warp Drive` > `MCP Servers` > `+ Add` and paste the configuration below.
+1. In Warp, go to **Warp Drive** > **MCP Servers** > **+ Add** and paste the configuration below.
 2. Warp will open a browser window to authenticate with Figma.
 3. After approving access, credentials are stored securely on your device.
 
@@ -338,7 +338,7 @@ Note: A Figma account with [Dev Mode](https://www.figma.com/dev-mode/) enabled i
 3. Create or open a Figma Design file.
 4. In the upper-left corner, open the Figma menu.
 5. Under **Preferences**, select **Enable local MCP Server**.
-6. Enter the following configuration into Warp > `Warp Drive` > `MCP Servers` > `+ Add`.
+6. Enter the following configuration into **Warp** > **Warp Drive** > **MCP Servers** > **+ Add**.
 
 ```json
 {
@@ -354,7 +354,7 @@ Note: A Figma account with [Dev Mode](https://www.figma.com/dev-mode/) enabled i
 
 **Slack CLI Server (Command)**
 
-Enter the following configuration into Warp > `Warp Drive` > `MCP Servers` > `+ Add`.
+Enter the following configuration into **Warp** > **Warp Drive** > **MCP Servers** > **+ Add**.
 
 ```json
 {
@@ -374,7 +374,7 @@ Enter the following configuration into Warp > `Warp Drive` > `MCP Servers` > `+ 
 
 **Slack SSE Server (URL)**
 
-Enter the following configuration into Warp > `Warp Drive` > `MCP Servers` > `+ Add`.
+Enter the following configuration into **Warp** > **Warp Drive** > **MCP Servers** > **+ Add**.
 
 ```json
 {
@@ -390,7 +390,7 @@ Enter the following configuration into Warp > `Warp Drive` > `MCP Servers` > `+ 
 
 **Atlassian CLI Server (Command)**
 
-Enter the following configuration into Warp > `Warp Drive` > `MCP Servers` > `+ Add`.
+Enter the following configuration into **Warp** > **Warp Drive** > **MCP Servers** > **+ Add**.
 
 ```json
 {
@@ -407,7 +407,7 @@ Enter the following configuration into Warp > `Warp Drive` > `MCP Servers` > `+ 
 
 **Notion CLI Server (Command)**
 
-Enter the following configuration into Warp > `Warp Drive` > `MCP Servers` > `+ Add`.
+Enter the following configuration into **Warp** > **Warp Drive** > **MCP Servers** > **+ Add**.
 
 ```json
 {
@@ -420,7 +420,7 @@ Enter the following configuration into Warp > `Warp Drive` > `MCP Servers` > `+ 
 
 **Notion SSE Server (URL)**
 
-Enter the following configuration into Warp > `Warp Drive` > `MCP Servers` > `+ Add`.
+Enter the following configuration into **Warp** > **Warp Drive** > **MCP Servers** > **+ Add**.
 
 ```json
 {

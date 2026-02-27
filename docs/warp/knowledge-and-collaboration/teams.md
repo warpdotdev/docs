@@ -21,12 +21,12 @@ Teams Demo
 You can create a new team in the following ways:
 
 * Warp Drive, + Create a team
-* `Settings > Teams`
+* **Settings** > **Teams**
 
 Before you can invite team members, you will need to give your team a meaningful name. We suggest using a name to represent your organization, company, or project.&#x20;
 
 {% hint style="info" %}
-You can rename the team by going to `Settings > Teams` and clicking on the team name, entering the new name, and pressing `ENTER` to accept.
+You can rename the team by going to **Settings** > **Teams** and clicking on the team name, entering the new name, and pressing `ENTER` to accept.
 {% endhint %}
 
 <figure><img src="../.gitbook/assets/team-creation-settings.png" alt=""><figcaption></figcaption></figure>
@@ -35,7 +35,7 @@ If you create a team, you become the team’s admin and will be the only person 
 
 ### Inviting new team members
 
-Under `Settings > Teams` you can copy the invite link for your Warp team and paste it to your clipboard.
+Under **Settings** > **Teams** you can copy the invite link for your Warp team and paste it to your clipboard.
 
 {% hint style="warning" %}
 If you’re on a paid plan, upgrading will automatically include all team members in your billing. Adding new members after upgrading will also add them as paid seats.
@@ -61,11 +61,11 @@ If you have received an invite link, you can use that link to sign up or log in 
 
 ## Leaving and deleting teams
 
-If you’re a member of a team, you can visit `Settings > Teams` to leave a team at any time. Team admins (who created teams) may delete a team only after removing all team members.
+If you’re a member of a team, you can visit **Settings** > **Teams** to leave a team at any time. Team admins (who created teams) may delete a team only after removing all team members.
 
 ## Team discoverability
 
-Team admins can make their teams discoverable to colleagues from the same email domain. This feature is available under `Settings > Teams > Make team discoverable`.
+Team admins can make their teams discoverable to colleagues from the same email domain. This feature is available under **Settings** > **Teams** > **Make team discoverable**.
 
 {% hint style="info" %}
 While discoverability is enabled, any new user who joins the team will add a prorated charge to the team's next month's bill. See more in our [pricing docs](https://docs.warp.dev/support-and-community/plans-and-billing/pricing-faqs#what-counts-as-a-team-member-and-how-does-billing-work-for-members).
@@ -73,7 +73,7 @@ While discoverability is enabled, any new user who joins the team will add a pro
 
 ## Transferring team admin
 
-Team admins can transfer their role to another team member by going to `Settings > Teams > Transfer admin` and selecting the member to whom you'd like to transfer the admin role.
+Team admins can transfer their role to another team member by going to **Settings** > **Teams** > **Transfer admin** and selecting the member to whom you'd like to transfer the admin role.
 
 ## Team roles and permissions
 

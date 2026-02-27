@@ -21,7 +21,7 @@ On Linux, the Global Hotkey may not work for some X11 window managers that do no
 
 Dedicated Window allows you to customize the windows' pinned position and its width and height ratio relative to your active screen size (also known as Quake Mode).
 
-1. Open `Settings > Features > Keys` and select "Dedicated hotkey window" from the Global Hotkey dropdown to enable the feature.
+1. Open **Settings** > **Features** > **Keys** and select "Dedicated hotkey window" from the Global Hotkey dropdown to enable the feature.
 2. Configure the keybinding, the windows position, screen, and relative size or uncheck "Autohides on the loss of keyboard focus" which will cause the dedicated Hotkey Window to stay on top when triggered regardless of mouse or keyboard focus.
 
 {% hint style="warning" %}
@@ -32,7 +32,7 @@ On Linux and Windows, Warp does not support the "Autohides on the loss of keyboa
 
 Show/Hide All Windows allows you to configure a shortcut to show/hide all Warp windows.
 
-1. Open `Settings > Features > Keys` and select "Show/hide all windows" from the Global Hotkey dropdown to enable the feature.
+1. Open **Settings** > **Features** > **Keys** and select "Show/hide all windows" from the Global Hotkey dropdown to enable the feature.
 2. Configure your preferred keybinding.
 
 {% hint style="warning" %}

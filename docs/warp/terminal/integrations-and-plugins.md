@@ -75,7 +75,7 @@ Currently, the JetBrains IDE configuration is only available on macOS.
 
 Press a keyboard shortcut of choice while in a JetBrains IDE to open a new session in Warp.
 
-To configure this, use the Apple Menu. Click on `Preferences`, go to `External Tools` , and click `Add`. In this menu, put the following information:
+To configure this, use the Apple Menu. Click on **Preferences**, go to `External Tools` , and click **Add**. In this menu, put the following information:
 
 * _Name_: Open Warp
 * _Program_: `/Applications/Warp.app`
@@ -86,6 +86,6 @@ Then press `Ok`. Now you will be able to `Open Warp` from the Apple Menu under `
 
 ![JetBrains New Session Shortcut](../.gitbook/assets/jetbrains_external_terminal_config.gif)
 
-To attach this configuration to a keyboard shortcut, you must go to the Apple Menu -> `Preferences`. Then go to `Keymap` -> `External Tools`. You will find `Open Warp`. Right-click on it, and select `Add Keyboard Shortcut`. Type your desired shortcut and click save! You're ready to open Warp with a keyboard shortcut.
+To attach this configuration to a keyboard shortcut, you must go to the Apple Menu -> `Preferences`. Then go to `Keymap` -> `External Tools`. You will find `Open Warp`. Right-click on it, and select **Add Keyboard Shortcut**. Type your desired shortcut and click save! You're ready to open Warp with a keyboard shortcut.
 
 ![JetBrains Configure Keyboard Shortcut](../.gitbook/assets/jetbrains_external_window_keymap_config.gif)
