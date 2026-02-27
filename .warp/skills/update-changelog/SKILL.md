@@ -1,6 +1,6 @@
 ---
 name: update-changelog
-description: Update the public changelog at docs.warp.dev/changelog with the latest stable release. Fetches changelog data from GCS and bug fixes from warp-internal PRs, formats a new entry, and opens a PR. Use after a stable release ships (typically Fridays).
+description: Update the public changelog at docs.warp.dev/changelog with the latest stable release. Fetches changelog data from channel-versions, formats a new entry, and opens a PR. Use after a stable release ships (typically Fridays).
 ---
 
 # Update Changelog
@@ -28,7 +28,7 @@ print(d['stable']['version'])
 This returns the full version string, e.g. `v0.2026.02.18.08.22.stable_02`.
 
 Parse it into components:
-- **Full version**: `v0.2026.02.18.08.22.stable_02` (used to fetch changelog.json from GCS)
+- **Full version**: `v0.2026.02.18.08.22.stable_02` (used to look up the changelog entry in channel-versions)
 - **Base version**: `v0.2026.02.18.08.22` (strip everything after the last `.` that starts with a channel name: `stable`, `preview`, `dev`, `canary`, `beta`). The base version is the version without the `{channel}_{patch}` suffix.
 - **Display date**: `2026.02.18` (extract `YYYY.MM.DD` from the base version, stripping the leading `v0.`)
 - **Display version**: Same as base version (e.g. `v0.2026.02.18.08.22`)
@@ -37,74 +37,87 @@ Parse it into components:
 
 Read `docs/changelog/README.md` and search for the base version in existing `### ` header lines. If found, report that the changelog is already up to date and stop.
 
-### Step 3: Fetch changelog data from GCS
+### Step 3: Fetch changelog data from `channel_versions.json` (primary source)
 
-Download the structured changelog:
+The authoritative source for changelog content is the `channel_versions.json` file in the `warpdotdev/channel-versions` repo. This file contains the final, human-reviewed changelog with all sections — New features, Improvements, Bug fixes, and oz_updates.
+
+**IMPORTANT**: The gitbook changelog entry MUST match the content in `channel_versions.json` exactly — 1:1, no additions, removals, or rewording. Use `markdown_sections` values directly.
+
+Fetch the stable changelog entry for the current version:
+
+```bash
+gh api repos/warpdotdev/channel-versions/contents/channel_versions.json \
+  --jq '.content' | base64 -d | python3 -c "
+import sys, json
+d = json.load(sys.stdin)
+entry = d['changelogs']['stable'].get('{full_version}')
+if entry:
+    print(json.dumps(entry, indent=2))
+else:
+    print('NOT_FOUND')
+"
+```
+
+The entry has this structure:
+
+```json
+{
+  "date": "2026-02-26T08:22:00+0000",
+  "markdown_sections": [
+    {"title": "New features", "markdown": "* item 1\n* item 2"},
+    {"title": "Improvements", "markdown": "* item 1\n* item 2"},
+    {"title": "Bug fixes", "markdown": "* item 1\n* item 2"}
+  ],
+  "sections": [],
+  "oz_updates": ["markdown string 1"]
+}
+```
+
+Key fields:
+- `markdown_sections` — pre-formatted bullet lists for ALL sections: New features, Improvements, AND Bug fixes. Use these directly.
+- `oz_updates` — optional. Oz-specific update entries. If present and non-empty, include as a separate **Oz updates** section (not merged into Improvements).
+- `image_url` — optional. If present, include a `<figure>` element.
+
+**Processing the markdown values**: The `markdown` values may have leading whitespace on lines after the first (e.g. ` * item`). Strip leading whitespace from each line so they become `* item`.
+
+Ignore any `"Coming soon"` section — it's always empty and not used in the public changelog.
+
+### Step 4: Fallback — fetch from GCS and warp-internal PRs
+
+**Only use this step if Step 3 returns `NOT_FOUND`** (e.g. the channel-versions release PR hasn't merged yet).
+
+If falling back, note in the PR description that the entry was generated from fallback sources and should be cross-checked against channel-versions once the release PR merges.
+
+#### 4a. Fetch from GCS
+
+Download the structured changelog from GCS:
 
 ```bash
 curl -s "https://releases.warp.dev/stable/{full_version}/changelog.json"
 ```
 
-The response is JSON with this structure:
+This file may contain only New features and Improvements (no bug fixes). Use `markdown_sections` and `oz_updates` from it.
 
-```json
-{
-  "date": "2026-02-19T22:07:03+0000",
-  "sections": [
-    {"title": "New features", "items": ["..."]},
-    {"title": "Improvements", "items": ["..."]}
-  ],
-  "markdown_sections": [
-    {"title": "New features", "markdown": "* item 1\n* item 2"},
-    {"title": "Improvements", "markdown": "* item 1\n* item 2"},
-    {"title": "Coming soon", "markdown": ""}
-  ],
-  "image_url": "https://...",
-  "oz_updates": ["markdown string 1", "markdown string 2"]
-}
-```
+#### 4b. Fetch bug fixes from warp-internal PRs
 
-Key fields:
-- `markdown_sections` — pre-formatted bullet lists for New features and Improvements. Use these directly.
-- `image_url` — optional. If present, include a `<figure>` element.
-- `oz_updates` — optional. Oz-specific update entries.
-- **Bug fixes are NOT included** in this file — they must be fetched separately (Step 4).
+Since the GCS file omits bug fixes, query merged PRs in warp-internal between the current and previous stable release tags.
 
-Ignore the `"Coming soon"` section — it's always empty and not used in the public changelog.
-
-### Step 4: Fetch bug fixes from warp-internal PRs
-
-The GCS changelog.json intentionally omits bug fixes. To get them, query merged PRs in warp-internal between the current and previous stable release tags.
-
-#### 4a. Find the previous stable release tag
-
-List recent releases and filter for stable tags:
+**Find the previous stable release tag:**
 
 ```bash
 gh release list --repo warpdotdev/warp-internal --limit 20 --json tagName --jq '.[].tagName' | grep '\.stable_'
 ```
 
-This gives tags like:
-```
-v0.2026.02.18.08.22.stable_02
-v0.2026.02.11.08.23.stable_02
-v0.2026.02.04.08.20.stable_01
-```
+Group by base version and take the two most recent distinct base versions. The **current** tag matches the version from Step 1; the **previous** tag is the next-oldest base version.
 
-The **current** tag is the one matching the version from Step 1. The **previous** tag is the next one in the list (the one with the next-oldest base version). Note: there may be multiple tags for the same base version (e.g. `_00`, `_01`, `_02`) — group by base version and take the two most recent distinct base versions.
-
-#### 4b. Find PRs merged between the two tags
-
-Use the GitHub compare API to find commits between the two tags, then extract associated PRs:
+**Find PRs merged between the two tags:**
 
 ```bash
 gh api "repos/warpdotdev/warp-internal/compare/{previous_tag}...{current_tag}" \
-  --paginate --jq '.commits[].commit.message' | grep -oP 'Merge pull request #\\K\\d+' | sort -u
+  --paginate --jq '.commits[].commit.message' | grep -oP '\(#\K\d+' | sort -un
 ```
 
-#### 4c. Extract CHANGELOG-BUG-FIX entries from PR bodies
-
-For each PR number, fetch the body and extract changelog lines:
+**Extract CHANGELOG-BUG-FIX entries from PR bodies:**
 
 ```bash
 gh pr view {pr_number} --repo warpdotdev/warp-internal --json body --jq '.body' | \
@@ -113,11 +126,9 @@ gh pr view {pr_number} --repo warpdotdev/warp-internal --json body --jq '.body' 
 
 Collect all extracted bug fix entries. Also extract any `CHANGELOG-OZ:` entries the same way if not already covered by `oz_updates` in the JSON.
 
-Strip the `{{text goes here...}}` placeholder template text — only include entries where the author filled in actual content.
+Strip the `{{text goes here...}}` placeholder template text — only include entries where the author filled in actual content. Deduplicate identical entries.
 
-**Important**: Some PRs may have multiple `CHANGELOG-BUG-FIX:` lines. Collect all of them. Deduplicate identical entries.
-
-#### 4d. Review entries for sensitive content
+#### 4c. Review entries for sensitive content
 
 Before including bug fix entries in the public changelog (docs.warp.dev/changelog), review each one for potentially sensitive information. **Do NOT include entries that reference**:
 - Security vulnerabilities or exploits (e.g. "Fixed authentication bypass", "Fixed XSS in...")
@@ -148,13 +159,17 @@ The standard format is:
 
 **Bug fixes**
 
-* Entry from PR bodies
+* Entry from markdown_sections
+
+**Oz updates**
+
+* Entry from oz_updates
 ```
 
 Formatting rules:
 
 1. **Header**: `### YYYY.MM.DD (vX.YYYY.MM.DD.HH.MM)` — use display_date and display_version from Step 1
-2. **Section order**: New features → Improvements → Bug fixes
+2. **Section order**: New features → Improvements → Bug fixes → Oz updates
 3. **Only include sections that have entries** — skip any section with no content
 4. **Blank lines**: One blank line after the header, one blank line after each `**section title**`, one blank line between sections
 5. **Bullet format**: Each entry is `* Entry text` (single asterisk, space, text)
@@ -206,7 +221,7 @@ Co-Authored-By: Oz <oz-agent@warp.dev>"
 
 If you need to add entries for a specific version (not necessarily the latest), the user will provide the full version string. Use that instead of fetching from `channel_versions.json` in Step 1, then proceed with Steps 2-7 as normal.
 
-If `gh` access to warp-internal is unavailable (e.g. no auth), you can still create the entry with just New features and Improvements from `changelog.json`, and note in the PR description that bug fixes need to be added manually.
+If `gh` access to channel-versions is unavailable, fall back to Step 4 (GCS + warp-internal PRs) and note in the PR description that the entry should be cross-checked against channel-versions.
 
 ## Example
 
@@ -215,6 +230,6 @@ For version `v0.2026.02.18.08.22.stable_02`:
 1. Base version: `v0.2026.02.18.08.22`
 2. Display date: `2026.02.18`
 3. Display version: `v0.2026.02.18.08.22`
-4. GCS URL: `https://releases.warp.dev/stable/v0.2026.02.18.08.22.stable_02/changelog.json`
+4. channel-versions key: `changelogs.stable["v0.2026.02.18.08.22.stable_02"]`
 5. Header: `### 2026.02.18 (v0.2026.02.18.08.22)`
 6. Branch: `changelog/v0.2026.02.18.08.22`

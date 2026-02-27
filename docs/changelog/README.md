@@ -24,6 +24,38 @@ metaLinks: {}
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2026.02.25 (v0.2026.02.25.08.24)
+
+**New features**
+
+* Warp now has language server support in our native code editor. For details on the languages and features we support, check https://docs.warp.dev/code/code-editor/language-server-protocol
+
+**Improvements**
+
+* Reintroduced customization support for the Warp prompt.
+* Maximizing the Code Review panel now opens the file list.
+* Docker image inputs in environment settings now show a link to the Docker Hub page when available.
+* Added `/compact-and` slash command to trigger conversation compaction and automatically send a follow-up prompt when it completes.
+* Added a new `/profile` command that allows you to switch between profiles using an inline menu.
+* Oz CLI now outputs a direct link to the Oz webapp run page when spawning cloud agents.
+
+**Bug fixes**
+
+* Fixed a bug where the Oz CLI would open the Warp GUI app rather than printing help output.
+* Fixed broken documentation links on the Referrals settings page and AI settings page.
+* Fix CLI agent footer detection when commands are prefixed with env var assignments. For example, `OPENCODE_EXPERIMENTAL_PLAN_MODE=1 opencode`.
+* Fixed rendering of codebase search tool calls when restoring conversations
+* Local-only slash commands such as `/open-file` are now disabled automatically in remote sessions
+* Fixed "View all cloud runs" button linking to a specific run instead of the runs list page
+* Fix tab alignment in monospace text blocks by using fixed-width tab stops.
+* Improve cloud-mode modal routing for concurrent-limit vs out-of-credits states.
+* Fix cloud-mode out-of-credits modal flicker and compact CTA alignment.
+* [Linux] The `oz` CLI package is now named `oz-stable`.
+
+**Oz updates**
+
+* Add "Default mode for new sessions" setting to open new tabs and panes in agent view by default.
+
 ### 2026.02.18 (v0.2026.02.18.08.22)
 
 **New features**
