@@ -17,6 +17,7 @@ Skills allow you to create reusable, shareable instructions that agents can invo
 * **Simple markdown format** - Skills are just markdown files with a small amount of metadata
 * **Supporting files** - Include scripts, templates, or other resources alongside your skill instructions
 * **Slash command invocation** - Invoke any skill directly with `/{skill-name}`
+* **Parameterized skills** - Use argument placeholders to create dynamic, reusable skill templates
 
 ## How Skills work
 
@@ -77,6 +78,7 @@ description: Brief description of what this skill does and when to use it
 
 ## Instructions
 Provide clear, step-by-step guidance for the agent.
+You can use argument placeholders like $ARGUMENTS or $0 in the body (see [Skill arguments](#skill-arguments)).
 
 ## Examples
 Show concrete examples of using this skill.
@@ -112,6 +114,92 @@ feature_name:
 - "Add a feature flag for the new checkout flow"
 - "Create a flag to enable dark mode for beta users"
 ```
+
+## Skill arguments
+
+Skills can include argument placeholders that are automatically substituted with values you provide when invoking the skill. This lets you create reusable, parameterized skill templates.
+
+{% embed url="https://www.loom.com/share/4cb0a80e567c41788816cd9b5acbc7ed" %}
+Using Skill Arguments in Warp
+{% endembed %}
+
+### Argument syntax
+
+Three placeholder formats are supported:
+
+* **`$ARGUMENTS`** — Replaced with the full raw argument string (everything after the skill name).
+* **`$ARGUMENTS[N]`** — Replaced with the Nth whitespace-separated argument (0-indexed). For example, `$ARGUMENTS[0]` is the first argument, `$ARGUMENTS[1]` is the second, etc.
+* **`$N`** — Shorthand for `$ARGUMENTS[N]`. For example, `$0` is equivalent to `$ARGUMENTS[0]`.
+
+### How argument substitution works
+
+When you invoke a skill, any text you type after the skill name is treated as the argument string. The argument string is split on whitespace to produce individual indexed arguments.
+
+**If the skill contains argument placeholders** (`$ARGUMENTS`, `$ARGUMENTS[N]`, or `$N`), the placeholders are replaced with the corresponding argument values before the skill instructions are sent to the agent.
+
+**If the skill does not contain any argument placeholders**, the extra text you provide is passed to the agent as a separate user message alongside the skill instructions. This means you can always add context when invoking a skill, whether or not it uses argument placeholders.
+
+{% hint style="info" %}
+If a placeholder references an argument index that wasn't provided (e.g. `$2` when only two arguments were given), the placeholder is left as-is in the skill content.
+{% endhint %}
+
+### Example: Skill with arguments
+
+Here's a skill that uses arguments to explain a topic for a specific audience:
+
+```markdown
+---
+name: explain-topic
+description: Explain a topic for a specific audience in a given tone
+---
+
+# Explain Topic
+
+Explain $0 for an audience of $1 professionals.
+
+Use a $2 tone.
+
+Full request: $ARGUMENTS
+```
+
+Invoking this skill with:
+
+```
+/explain-topic bears engineering fun
+```
+
+Produces the following instructions for the agent:
+
+```
+Explain bears for an audience of engineering professionals.
+
+Use a fun tone.
+
+Full request: bears engineering fun
+```
+
+### Example: Skill without arguments
+
+If a skill has no argument placeholders:
+
+```markdown
+---
+name: greet
+description: Greet the user with an Australian-style hello
+---
+
+# Greet
+
+Greet the user warmly in an Australian style.
+```
+
+Invoking with extra text:
+
+```
+/greet say it in French
+```
+
+The skill instructions are sent first, then "say it in French" is passed as a follow-up user message. The agent sees both and can combine them — in this case, greeting in French with an Australian flair.
 
 ## Skill locations
 
