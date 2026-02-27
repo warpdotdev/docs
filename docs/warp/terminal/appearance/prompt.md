@@ -7,17 +7,41 @@ description: >-
 
 # Prompt
 
-### Warp prompt
+Warp supports two prompt types: the **Warp prompt** and the **Shell prompt (PS1)**. 
 
-Warp has a native prompt that is customizable and can show a variety of information including cwd, git, svn, kubernetes, pyenv, date, time, and so on. You can visit **Settings** > **Appearance** > **Input** > **Input Type** > **Shell (PS1)** then in the terminal input area right-click on it and select Edit prompt and select **Warp Prompt** to drag and drop context chips into your Warp prompt until it displays the pieces of information you'd like to include.
+## Choosing your prompt type
 
-#### Git and Subversion
+To switch your prompt type:
+
+1. Open **Settings > Appearance**.
+2. Under **Input**, set **Input type** to **Warp** or **Shell (PS1)**.
+
+When using the Warp prompt, you can right-click the prompt area to copy the entire prompt, working directory, current git branch, git uncommitted file count, and more.
+
+When using a Shell prompt, you can right-click the prompt area to copy the entire prompt, or select any part of the prompt in previously run blocks in your session.
+
+## Warp prompt
+
+Warp has a native prompt that displays context chips showing information such as your current working directory, git branch, svn status, Kubernetes context, pyenv, date, and time. The Warp prompt is the default when **Input type** is set to **Warp**.
+
+To customize which context chips your Warp prompt displays:
+
+1. Right-click the prompt area and select **Edit prompt**.
+
+<figure><img src="../../.gitbook/assets/edit-prompt-modal.png" alt="Right-click context menu showing the Edit prompt option"><figcaption><p>Right-click the prompt area to access Edit prompt</p></figcaption></figure>
+
+2. Select **Warp Prompt**.
+3. Drag and drop context chips to configure which pieces of information your prompt displays.
+
+<!-- TODO: Add an updated screenshot of the Edit prompt chip customization view (drag-and-drop interface) here, and delete the outdated edit-prompt-modal (1).png from assets. -->
+
+### Git and Subversion
 
 Git and Subversion context chips show which branch you are on locally, as well as the number of uncommitted changed files. This includes any new files, modified files, and deleted files that are staged or unstaged.
 
-#### Kubernetes
+### Kubernetes
 
-Kubernetes context chip shows relevant information when you're using one of the following commands:
+The Kubernetes context chip shows relevant information when you're using one of the following commands:
 
 `kubectl|helm|kubens|kubectx|oc|istioctl|kogito|k9s|helmfile|flux|fluxctl|stern|kubeseal|skaffold|kubent|kubecolor|cmctl|sparkctl|etcd|fubectl`
 
@@ -25,16 +49,39 @@ Kubernetes context chip shows relevant information when you're using one of the 
 Warp respects the `KUBECONFIG` environmental variable, make sure you set it to your preferred configuration file location, if it's not the default path of `~/.kube/config`
 {% endhint %}
 
-#### Same line prompt
+<!-- TODO: Same-line prompt was removed in the current release. May return in a future version (V2/V3). Uncomment when the feature ships. -->
+<!--
+### Same line prompt
 
 By default, Warp's prompt displays on two lines where the command-line input is one line below the prompt.
 
-If you'd like to set your prompt such that the command-line input and the prompt display together inline, you can configure this under **Settings** > **Appearance** > **Input** > **Input Type** > **Shell (PS1)** then in the terminal input area right-click on it and select Edit prompt and select **Warp Prompt** and check the box for "Same line prompt."
+To enable same-line prompt:
 
-If you're using a [Shell prompt (PS1)](prompt.md#custom-prompt), Warp will use the same line prompt settings to respect any styles or theme configurations. You may optionally configure a new line prompt with PS1 but you will need to write your configuration, according to your theme of choice.
+1. Right-click the prompt area and select **Edit prompt**.
+2. Select **Warp Prompt**.
+3. Check the box for **Same line prompt**.
+-->
+
+## Shell prompt (PS1)
+
+You can use a Shell prompt instead of the Warp prompt by configuring the **PS1** variable or installing a supported shell prompt plugin (see [Shell Prompt Compatibility Table](prompt.md#shell-prompt-compatibility-table)).
+
+To enable the Shell prompt:
+
+1. Open **Settings > Appearance**.
+2. Under **Input**, set **Input type** to **Shell (PS1)**.
+3. Configure your PS1 variable in your shell's RC file, or install a supported prompt plugin.
 
 {% hint style="info" %}
-If you want to add back the new line on your Shell prompt, please run the following based on your shell or prompt:
+The PS1 is a variable used by the shell to generate the prompt, it represents the primary prompt string (hence the "PS") - which the terminal typically displays before typing new commands.
+{% endhint %}
+
+### Multi-line and right-sided prompts
+
+The Shell prompt supports multi-line or right-sided prompts in zsh and fish, not bash. However, you can't have a multiline right-side prompt, only a multiline left prompt.
+
+{% hint style="info" %}
+If you want to add a new line to your Shell prompt, run the following based on your shell or prompt:
 
 ```sh
 # Bash
@@ -64,29 +111,11 @@ echo '[line_break]\ndisabled = false' >> ~/.config/starship.toml
 ```
 {% endhint %}
 
-### Shell prompt (PS1)
-
-You can also set up a Shell prompt by configuring the **PS1** variable or installing a supported shell prompt plugin, see [Shell Prompt Compatibility Table](prompt.md#shell-prompt-compatibility-table). Visit **Settings** > **Appearance** > **Input** > **Input Type** > **Shell (PS1)** then in the terminal input area right-click on it and select Edit prompt and select `Shell(PS1)` to enabled it.
-
-{% hint style="info" %}
-The PS1 is a variable used by the shell to generate the prompt, it represents the primary prompt string (hence the “PS”) - which the terminal typically displays before typing new commands.
-{% endhint %}
-
-#### Multi-Line and Right-Sided Prompts
-
-The Shell prompt supports multi-line or right-sided prompts in zsh and fish, not bash. However, you can't have a multiline right-side prompt, only a multiline left prompt.
-
-## How to access it
-
-* Toggle the prompt by right-clicking on the prompt area above the input and selecting **Settings** > **Appearance** > **Input** > **Input Type** > **Shell (PS1)** then in the terminal input area right-click on it and select Edit prompt. There you will be able to select and customize the Warp prompt or select the Shell prompt (PS1).
-  * When using Warp prompt, you can right-click the prompt to copy the entire prompt, working directory, current git branch, git uncommitted file count, etc.
-  * When using a Shell prompt, you can right-click the prompt to copy the entire prompt or select any part of the custom prompt in previously run blocks in your session.
-
 ## How it works
 
 <figure><img src="../../.gitbook/assets/warp-custom-prompt-demo.gif" alt="Warp Prompt + Custom Prompt Demo"><figcaption><p>Warp Prompt | Shell (Ps1) Prompt Demo</p></figcaption></figure>
 
-<figure><img src="../../.gitbook/assets/edit-prompt-modal (1).png" alt=""><figcaption><p>Edit Prompt modal</p></figcaption></figure>
+<!-- Outdated screenshot removed; see TODO after step 3 in the Warp prompt section. -->
 
 ### Shell Prompt Compatibility Table
 
@@ -139,7 +168,7 @@ You may also see an error relating to timeout. You can set the `command_timeout`
 
 #### Starship + bash
 
-Starship prompt may not render properly if your [default shell](../../getting-started/supported-shells.md#changing-default-shell) is `/bin/bash`. To [workaround](https://github.com/warpdotdev/Warp/issues/3066#issuecomment-1548643121) the issue, we recommend you upgrade bash, find the path with `echo $(which bash)`, then put the path in your `Settings > Features > Session > "Startup shell for new sessions" > Custom`.
+Starship prompt may not render properly if your [default shell](../../getting-started/supported-shells.md#changing-what-shell-warp-uses) is `/bin/bash`. To [workaround](https://github.com/warpdotdev/Warp/issues/3066#issuecomment-1548643121) the issue, we recommend you upgrade bash, find the path with `echo $(which bash)`, then put the path in **Settings > Features > Session > "Startup shell for new sessions"**.
 
 #### Starship + zsh
 
@@ -149,11 +178,11 @@ If you want to restore the additional line after the Starship prompt on `zsh`, a
 
 When installing the Powerlevel10k (P10k) prompt, we recommend you use the [Meslo Nerd Font](https://github.com/romkatv/powerlevel10k/blob/master/font.md).\
 \
-P10K may display the arrow dividers as grey instead of color. The color for those chars is rendered grey due to Warp's minimum contrast setting. To [workaround](https://github.com/warpdotdev/Warp/issues/2851#issuecomment-1605005256) this issue, go to `Settings > Appearance > Text > Enforce minimum contrast` and set it to "Never".
+P10K may display the arrow dividers as grey instead of color. The color for those chars is rendered grey due to Warp's minimum contrast setting. To [workaround](https://github.com/warpdotdev/Warp/issues/2851#issuecomment-1605005256) this issue, go to **Settings > Appearance > Text > Enforce minimum contrast** and set it to "Never".
 
 <figure><img src="../../.gitbook/assets/p10k-grey-arrow-prompt.png" alt="" width="563"><figcaption><p>Example of the grey dividers in p10k</p></figcaption></figure>
 
-Warp does support [p10k](https://github.com/romkatv/powerlevel10k#installation) version 1.19.0 and above. Ensure you have the latest version installed and restart Warp after the installation/update of p10k. Then enable the custom prompt as stated [above](prompt.md#how-to-access-it) and it should work.
+Warp does support [p10k](https://github.com/romkatv/powerlevel10k#installation) version 1.19.0 and above. Ensure you have the latest version installed and restart Warp after the installation/update of p10k. Then enable the custom prompt as stated [above](prompt.md#choosing-your-prompt-type) and it should work.
 
 {% hint style="info" %}
 Warp still doesn't fully support some p10k features like transient prompt and visual features like gradients.
@@ -177,7 +206,7 @@ Although Warp does have support for prezto's prompt, enabling the [prezto utilit
 
 ### Disabling unsupported prompts for Warp
 
-We advise using Warp's default prompt or installing one of the supported tools, see [Compatibility Table](prompt.md#custom-prompt-compatibility-table). You can disable unsupported prompts for Warp as such:
+We advise using Warp's default prompt or installing one of the supported tools, see [Compatibility Table](prompt.md#shell-prompt-compatibility-table). You can disable unsupported prompts for Warp as such:
 
 ```
 if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
