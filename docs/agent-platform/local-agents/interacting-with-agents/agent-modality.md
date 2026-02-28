@@ -32,11 +32,17 @@ Agent modality separates your terminal and agent workflows into distinct modes:
 * **Dedicated conversation view** - Multi-turn agent workflow spaces have full controls like model select, voice input, image attachments, and conversation history.
 * **Explicit mode switching** - The current mode is clearly visible, enabling better workflow organization—you can separate, minimize, and expand different conversations.
 
+{% hint style="info" %}
+**Want agent mode by default?** You can set new tabs and panes to open directly in agent view. Go to **Settings** > **Features** > **General** and change **Default mode for new sessions** to **Agent**. This skips the `⌘↩` step and launches every new session straight into the Oz agent conversation view.
+{% endhint %}
+
 ***
 
 ## Two distinct modes
 
 ### Terminal mode (default)
+
+Terminal mode is the default when you open a new tab or pane.
 
 * Looks and behaves like a traditional terminal input.
 * Agent controls are not always visible, keeping the interface clean.
