@@ -147,16 +147,25 @@ Exit code 0 if PR exists, 1 if not.
 
 ### Create a new PR
 
+{% hint style="warning" %}
+**Always use `--body-file` instead of `--body` for PR descriptions.** Documentation PRs frequently contain backticks, quotes, and other special characters that get corrupted by shell escaping when passed inline. Write the description to a file first, then reference it.
+{% endhint %}
+
 ```bash
-# With title and body
-gh pr create --title "docs: Add feature documentation" --body "## Summary
+# 1. Write the description to a temp file using the create_file tool or a heredoc
+cat > /tmp/pr-body.md << 'EOF'
+## Summary
 Description of changes
 
 ## Changes
 - Change 1
 - Change 2
 
-Co-Authored-By: Warp <agent@warp.dev>"
+Co-Authored-By: Oz <oz-agent@warp.dev>
+EOF
+
+# 2. Create the PR using the file
+gh pr create --title "docs: Add feature documentation" --body-file /tmp/pr-body.md
 
 # Open in browser to fill details
 gh pr create --web
@@ -165,11 +174,14 @@ gh pr create --web
 ### Update an existing PR
 
 ```bash
-# Edit title or body
-gh pr edit --title "New title" --body "New body"
+# Edit body using a file (recommended — avoids shell escaping issues)
+gh pr edit 123 --body-file /tmp/pr-body.md
+
+# Edit title only
+gh pr edit 123 --title "New title"
 
 # Add reviewers or labels
-gh pr edit --add-reviewer username --add-label documentation
+gh pr edit 123 --add-reviewer username --add-label documentation
 ```
 
 ### View PR status
