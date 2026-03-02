@@ -284,6 +284,7 @@ I'll run a few terminal commands to:
 * `--model <MODEL_ID>` — override the default model (see [Model Choice](https://docs.warp.dev/agent-platform/capabilities/model-choice)).
 * `--skill <SPEC>` — use a skill as the base prompt (see [Using Skills](./#using-skills)).
 * `--mcp <SPEC>` — start one or more MCP servers before execution (UUID, JSON file path, or inline JSON). Can be repeated.
+* `--environment <ID>` (`-e`) — run in a specific cloud environment.
 * `--file <PATH>` (`-f`) — load run configuration from a YAML or JSON file.
 
 The agent will automatically carry out the task you gave it, printing out tool calls and responses as it works.

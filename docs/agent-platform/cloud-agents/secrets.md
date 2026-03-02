@@ -113,7 +113,17 @@ Descriptions are visible in listings but never expose the secret value.
 
 #### Updating a secret
 
-Updating a secret replaces its value while keeping the same name and scope.
+Updating a secret replaces its value and/or description while keeping the same name and scope.
+
+**Update a secret value interactively**
+
+```bash
+oz secret update --team --value METABASE_API_KEY
+```
+
+You will be prompted to enter the new value securely in the terminal.
+
+**Update a secret value from a file**
 
 ```bash
 oz secret update --team \
@@ -122,6 +132,32 @@ oz secret update --team \
 ```
 
 This is the recommended way to rotate credentials.
+
+**Update a secret's description (`-d`)**
+
+```bash
+oz secret update --team \
+  --description "Rotated 2026-02-26; owned by platform team" \
+  METABASE_API_KEY
+```
+
+#### Deleting a secret
+
+To permanently remove a secret, use `oz secret delete`:
+
+```bash
+oz secret delete --team METABASE_API_KEY
+```
+
+You will be prompted for confirmation before the secret is deleted. Add `--force` to skip the confirmation prompt. Replace `--team` with `--personal` to delete a personal secret.
+
+```bash
+oz secret delete --team --force METABASE_API_KEY
+```
+
+{% hint style="warning" %}
+Deleting a secret is permanent. Any cloud agent runs that depend on the deleted secret will no longer receive it as an environment variable.
+{% endhint %}
 
 #### Listing secrets
 
