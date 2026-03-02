@@ -62,11 +62,12 @@ Using your `.zshrc` or `.bashrc` files on macOS or Linux, you can set a new Tab 
 ```bash
 # Set name, where MyTabName would be whatever you want to see in the Tab ( either a fixed string, $PWD, or something else )
 function set_name () {
+  export WARP_DISABLE_AUTO_TITLE=true
   echo -ne "\033]0;MyTabName\007"
 }
 # Add the function to the environment variable in either Zsh or Bash
 if [ -n "$ZSH_VERSION" ]; then
-  precmd_functions+=(set_name)
+  preexec_functions+=(set_name)
 elif [ -n "$BASH_VERSION" ]; then
   PROMPT_COMMAND='set_name'
 fi

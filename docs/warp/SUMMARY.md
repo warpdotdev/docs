@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Quickstart Guide](<README (1).md>)
+* [Quick Start](<README (1).md>)
 
 ## Getting started
 
