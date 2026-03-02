@@ -175,7 +175,7 @@ If Warp starts working correctly then Warp is incompatible with something in the
 
 #### List of incompatible tools
 
-The following non exhaustive list of plugins, prompts, or tools can cause potential issues in Warp:
+The following non-exhaustive list of plugins, prompts, or tools can cause potential issues in Warp:
 
 * oh-my-fish, oh-my-bash, or other unsupported shell prompts. See our [Custom Prompt Compatibility Table](https://docs.warp.dev/terminal/appearance/prompt#custom-prompt-compatibility-table).
 * [iterm shell integration](https://iterm2.com/documentation-shell-integration.html)
@@ -205,7 +205,7 @@ The following non exhaustive list of plugins, prompts, or tools can cause potent
 * Python virtual environment PS1 [settings](https://github.com/warpdotdev/Warp/issues/2713#issuecomment-1447129449)
 * [Starship settings](https://docs.warp.dev/terminal/appearance/prompt#starship-settings)
 * `zle-line-init`
-* Potentially more — this is an non exhaustive list. If you find an incompatible tool, please email us at [feedback@warp.dev](mailto:feedback@warp.dev)
+* Potentially more — this is a non-exhaustive list. If you find an incompatible tool, please email us at [feedback@warp.dev](mailto:feedback@warp.dev)
 
 ## Operating systems
 
@@ -220,7 +220,7 @@ To resolve this issue, go to ` > System Settings > Privacy & Security > Local
 
 **Unexpected loss of permission on macOS**
 
-On macOS, you may see a `Operation not permitted` error when trying to run commands in directories that have already been granted macOS permissions (Documents, Downloads, Desktop, etc). The best workaround at this time, is to [apply any pending Updates](updating-warp.md) so that the new Warp binary has the correct permissions. We are and tracking this issue [here](https://github.com/warpdotdev/Warp/issues/3009).
+On macOS, you may see an `Operation not permitted` error when trying to run commands in directories that have already been granted macOS permissions (Documents, Downloads, Desktop, etc). The best workaround at this time is to [apply any pending updates](updating-warp.md) so that the new Warp binary has the correct permissions. We are tracking this issue [here](https://github.com/warpdotdev/Warp/issues/3009).
 
 <figure><img src="../../.gitbook/assets/permission-error-macos.png" alt=""><figcaption><p>Permission error on macOS</p></figcaption></figure>
 
@@ -248,7 +248,7 @@ In some cases, [CLI applications only work on x86](https://discord.com/channels/
 {% tab title="Windows" %}
 **Unsupported in Warp on Windows**
 
-The following feature are not supported in Warp on Windows. Please track the relevant GitHub issues linked below for any changes:
+The following features are not supported in Warp on Windows. Please track the relevant GitHub issues linked below for any changes:
 
 * [cmd.exe](https://github.com/warpdotdev/Warp/issues/5882) or [fish](https://github.com/warpdotdev/Warp/issues/6060) shells
 
@@ -262,7 +262,7 @@ We're tracking some issues on Windows where [Warp crashes on startup](https://gi
 
 **Crash on opening a Launch configuration or doesn't become transparent on Windows**
 
-When a user has an Nvidia 572.xx or AMD 23.10.x drivers or above, Warp may [crash when trying to open a Launch Configuration](https://github.com/warpdotdev/Warp/issues/5875), or [Warp fails to become transparent](https://github.com/warpdotdev/Warp/issues/5903) (opacity setting doesn't work). These are known limitations of the graphics drivers. We're investigating the issues and will updated on the GitHub issues above. You can workaround this by forcing the graphics backend to Vulkan or OpenGL by running the following from another terminal and setting your GPU driver Vulkan/OpenGL render method setting to "Prefer Native", or using the [DX12 backend](known-issues.md#warp-wont-run-or-render-on-windows):
+When a user has an Nvidia 572.xx or AMD 23.10.x drivers or above, Warp may [crash when trying to open a Launch Configuration](https://github.com/warpdotdev/Warp/issues/5875), or [Warp fails to become transparent](https://github.com/warpdotdev/Warp/issues/5903) (opacity setting doesn't work). These are known limitations of the graphics drivers. We're investigating the issues and will update the GitHub issues above. You can workaround this by forcing the graphics backend to Vulkan or OpenGL by running the following from another terminal and setting your GPU driver Vulkan/OpenGL render method setting to "Prefer Native", or using the [DX12 backend](known-issues.md#warp-wont-run-or-render-on-windows):
 
 ```powershell
 # Run if Warp on Windows is installed for a single user

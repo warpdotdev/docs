@@ -19,7 +19,7 @@ The cloud agents platform is built around modular, observable execution:
 - The **agent** executes inside an **environment** (either a Warp-hosted cloud sandbox, or a **self-hosted sandbox** on your infrastructure, depending on plan/support).
 - Every step is recorded: **transcripts, tool calls, logs, and outputs**, so work is auditable and debuggable instead of a black box.
 
-The same agent can be invoked consistently across entry points (Warp Terminal conversation, cloud agent web app, the CLI, API/SDK, Slack/GitHub triggers) without rewriting the underlying instructions.
+The same agent can be invoked consistently across entry points (Warp conversation, cloud agent web app, the CLI, API/SDK, Slack/GitHub triggers) without rewriting the underlying instructions.
 
 ### What exactly are cloud agents in Warp?
 

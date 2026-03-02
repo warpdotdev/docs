@@ -103,7 +103,7 @@ The Oz CLI is automatically distributed with the Warp desktop app and can be use
 
 {% tabs %}
 {% tab title="macOS" %}
-To add the Oz CLI to your `PATH`,:
+To add the Oz CLI to your `PATH`:
 
 1. Open the [Command Palette](https://docs.warp.dev/terminal/command-palette) (`CMD+P` )
 2. In the search field, find and select the **Install Oz CLI Command** action.

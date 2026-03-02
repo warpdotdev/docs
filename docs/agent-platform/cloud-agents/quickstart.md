@@ -67,7 +67,7 @@ If you don't have an environment yet, the `/cloud-agent` setup flow will guide y
 * **Setup command(s)**: Commands to prepare your workspace, like `pip install -r requirements.txt` or `npm ci`. Add each command separately by pressing Enter.
 * **Description**: Optional notes about what this environment is for.
 
-**How this works:** Environments are composed of Docker containers + git repos + startup commands. They give your cloud agent a consistent workspace with your code and tools. Warp detects your project automatically and suggests the right setup. Environments can be shared with your team so everyone uses the same configuration.
+**How this works:** Environments are composed of Docker containers + Git repos + startup commands. They give your cloud agent a consistent workspace with your code and tools. Warp detects your project automatically and suggests the right setup. Environments can be shared with your team so everyone uses the same configuration.
 
 ### 4. Describe what you want the agent to do
 
