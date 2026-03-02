@@ -11,7 +11,7 @@ Add-on credits replace Warp's old [pay-as-you-go Overages](overages-legacy.md). 
 
 You can manage and purchase Add-on credits directly in **Settings** > **Billing and usage**.
 
-<figure><img src="../../.gitbook/assets/reload-credits.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/reload-credits.png" alt=""><figcaption></figcaption></figure>
 
 ### How do Add-on credits work?
 
@@ -97,8 +97,12 @@ For example, if your plan includes 1,500 credits per team member:
 
 If you upgrade, downgrade, or switch plans, any purchased Add-on Credits remain in your account and can continue to be used.
 
-If you move to the Free plan, you’ll retain access to any previously purchased Add-on Credits but can’t buy additional ones until you upgrade again.
+If you move to the Free plan, you’ll retain access to any previously purchased Add-on Credits and be able to use them, as long as telemetry is enabled, but can’t buy additional ones until you upgrade again.
+
+{% hint style="warning" %}
+You won't be able to use the remaining Add-on Credits with telemetry disabled since we aren't able to properly track credit usage. See more on the telemetry settings in our [Privacy page](../privacy-and-security/privacy.md).
+{% endhint %}
 
 {% hint style="info" %}
-All unused Add-on Credits remain valid for 12 months from purchase.
+All unused Add-on Credits remain valid for 12 months from purchase.&#x20;
 {% endhint %}

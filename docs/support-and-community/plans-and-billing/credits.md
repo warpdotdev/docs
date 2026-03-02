@@ -22,7 +22,7 @@ Since there's no exact formula for predicting usage, we recommend building an in
 
 In an Agent conversation, a **turn** represents a single exchange (a response from the LLM). To see how many credits a turn consumed, hover over the **credit count chip** at the bottom of the Agent's response:
 
-<figure><img src="../../.gitbook/assets/inline-credit-usage-footer.png" alt=""><figcaption><p>The conversation usage footer shows how many credits a conversation has consumed, and breaks down the usage by credits, tool calls, context window, files changed, diffs applied, and more.</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/inline-credit-usage-footer.png" alt=""><figcaption><p>The conversation usage footer shows how many credits a conversation has consumed, and breaks down the usage by credits, tool calls, context window, files changed, diffs applied, and more.</p></figcaption></figure>
 
 {% hint style="info" %}
 You can view your total credit usage, along with other billing details, in **Settings** > **Billing and usage**.
@@ -31,7 +31,7 @@ You can view your total credit usage, along with other billing details, in **Set
 #### Credit **limits and billing**
 
 * **Seat-level allocation**: On team plans, credit limits apply per seat — each team member has their own allowance. Individual users (not on a team) also have their own credit allocation.
-* **Cloud Agent Credits**: Individual users can run cloud agents via CLI/API using their normal Warp credits, [Cloud Agent Credits](#cloud-agent-credits), or a Build plan with available credits. Integrations (Slack, Linear) require team membership.
+* **Cloud Agent Credits**: Individual users can run cloud agents via CLI/API using their normal Warp credits, [Cloud Agent Credits](credits.md#cloud-agent-credits), or a Build plan with available credits. Integrations (Slack, Linear) require team membership.
 * **Hitting the credit limits**: Once you hit your monthly credit limit, your access will depend on your plan. On the Free plan, AI access stops until your next billing cycle. On paid plans with Add-on credits, you can continue using AI with [**usage-based billing**](add-on-credits.md), charged per extra credit.
 
 #### **Other features that use credits**

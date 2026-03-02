@@ -95,9 +95,9 @@ On Linux and Windows, the default copy-and-paste [Keyboard shortcuts](https://do
 On Linux and WSL you should install and set your default `$BROWSER` to `brave-browser` to workaround any copy-paste issues. Please see the workaround guide below.
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/auth-token-demo.gif" alt=""><figcaption><p>Authentication Token Linux</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/auth-token-demo.gif" alt=""><figcaption><p>Authentication Token Linux</p></figcaption></figure>
 
-![Authentication Token Mac](../../.gitbook/assets/auth-token-flow.png)
+![Authentication Token Mac](../.gitbook/assets/auth-token-flow.png)
 
 If "Take me to Warp" is still not working it may be due to a [proxy issue](troubleshooting-login-issues.md#proxies), please see this article for more information on a workaround [here](https://embiid.blog/post/WARP-does-not-work-after-submitting-an-invite-code/).
 

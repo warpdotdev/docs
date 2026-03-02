@@ -32,7 +32,7 @@ When a model is selected using your own key:
 * Costs are billed directly through your model provider account.
 * Warp does not retain or store your API key on any of its servers.
 
-<figure><img src="../../.gitbook/assets/Pricing-Blog-BYOK.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/Pricing-Blog-BYOK.png" alt=""><figcaption></figcaption></figure>
 
 ## Enabling BYOK
 
@@ -42,7 +42,7 @@ To enable and configure your API keys:
 2. Add your API key(s) for Anthropic, OpenAI, or Google.
 3. Once added, you'll see a **key icon** next to supported models in the model picker in the [Universal Input](https://docs.warp.dev/terminal/universal-input/).
 
-<figure><img src="../../.gitbook/assets/byok-keys.png" alt="" width="304"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/byok-keys.png" alt="" width="304"><figcaption></figcaption></figure>
 
 When you explicitly select a model with a key icon, Warp routes requests through your own API key instead of consuming Warp's credits.
 
@@ -70,11 +70,11 @@ The credit transparency footer will show “0 credits used”, and the `Billing 
 
 Some AI-powered features are not affected by BYOK and are included as part of Warp’s paid plans.
 
-| Feature                                                           | Uses Warp's credits | Description                                         |
-| ----------------------------------------------------------------- | ---------------------- | --------------------------------------------------- |
-| [Active AI](https://docs.warp.dev/agent-platform/local-agents/active-ai) | No                     | Always included with Build and higher plans.        |
-| [Codebase Context](https://docs.warp.dev/code/codebase-context)   | Yes                    | Uses Warp's AI infrastructure and consumes credits. |
-| [Oz Cloud Agents](https://docs.warp.dev/agent-platform/cloud-agents/overview) | Yes                    | BYOK keys are stored locally and not available to cloud-hosted runs. |
+| Feature                                                                       | Uses Warp's credits | Description                                                          |
+| ----------------------------------------------------------------------------- | ------------------- | -------------------------------------------------------------------- |
+| [Active AI](https://docs.warp.dev/agent-platform/local-agents/active-ai)      | No                  | Always included with Build and higher plans.                         |
+| [Codebase Context](https://docs.warp.dev/code/codebase-context)               | Yes                 | Uses Warp's AI infrastructure and consumes credits.                  |
+| [Oz Cloud Agents](https://docs.warp.dev/agent-platform/cloud-agents/overview) | Yes                 | BYOK keys are stored locally and not available to cloud-hosted runs. |
 
 These features will continue to function normally regardless of whether you’ve configured BYOK.
 
@@ -94,7 +94,7 @@ By default, Warp does not fall back to your Warp Credits when a BYOK (Bring Your
 
 You can choose to enable **Warp credit fallback**. When enabled, if an agent request fails with your BYOK model (for example, due to an API error or quota limit), Warp will automatically route the request to one of Warp’s provided models. Warp always prioritizes your API keys first and only uses Warp credits when necessary.
 
-<figure><img src="../../.gitbook/assets/fallback.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/fallback.png" alt=""><figcaption></figcaption></figure>
 
 ### Zero Data Retention (ZDR) and BYOK
 

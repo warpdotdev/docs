@@ -216,13 +216,13 @@ The following non-exhaustive list of plugins, prompts, or tools can cause potent
 On macOS, you may be [denied permission to SSH](https://github.com/warpdotdev/Warp/issues/5550) from Warp into other devices in your local network and see an error like: `ssh: connect to host <host_name> port 22: Undefined error: 0`.\
 To resolve this issue, go to ` > System Settings > Privacy & Security > Local Network`, and add Warp.
 
-<figure><img src="../../.gitbook/assets/mac-ssh-permission.png" alt=""><figcaption><p>Mac SSH permission error</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/mac-ssh-permission.png" alt=""><figcaption><p>Mac SSH permission error</p></figcaption></figure>
 
 **Unexpected loss of permission on macOS**
 
 On macOS, you may see an `Operation not permitted` error when trying to run commands in directories that have already been granted macOS permissions (Documents, Downloads, Desktop, etc). The best workaround at this time is to [apply any pending updates](updating-warp.md) so that the new Warp binary has the correct permissions. We are tracking this issue [here](https://github.com/warpdotdev/Warp/issues/3009).
 
-<figure><img src="../../.gitbook/assets/permission-error-macos.png" alt=""><figcaption><p>Permission error on macOS</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/permission-error-macos.png" alt=""><figcaption><p>Permission error on macOS</p></figcaption></figure>
 
 **Auto-Update error on macOS**
 
@@ -232,7 +232,7 @@ If you experience an error opening Warp, please try the following:
 
 * Go to the macOS Applications folder, right-click on Warp, choose Open, then the '"Warp" is damaged' dialog will have the option to click the Open button.
 
-<figure><img src="../../.gitbook/assets/open-warp-mac.gif" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/open-warp-mac.gif" alt=""><figcaption></figcaption></figure>
 
 * If the above doesn't work, [uninstall Warp](uninstalling-warp.md), then [re-install Warp](https://docs.warp.dev/getting-started/quickstart/installation-and-setup).
 

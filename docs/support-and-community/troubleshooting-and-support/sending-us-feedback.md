@@ -20,7 +20,7 @@ description: >-
 * For subscriber billing issues or questions (refunds, cancellation, etc.), email [billing@warp.dev](mailto:billing@warp.dev).
 * For enterprise, please direct all feedback and issues to your designated Slack Channel.
 
-<figure><img src="../../.gitbook/assets/send-feedback-demo.gif" alt="sending feedback from the mac menu and warp essentials"><figcaption><p>Send Feedback</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/send-feedback-demo.gif" alt="sending feedback from the mac menu and warp essentials"><figcaption><p>Send Feedback</p></figcaption></figure>
 
 ## Gathering Warp Logs
 
@@ -141,4 +141,4 @@ To gather the debugging ID, `RIGHT-CLICK` on the AI conversation block in questi
 
 Whenever there is an error in the Agent Conversation, there will also be an option to directly copy the debugging ID for the bug report.
 
-<figure><img src="../../.gitbook/assets/send-feedback-debugging-information.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/send-feedback-debugging-information.png" alt=""><figcaption></figcaption></figure>

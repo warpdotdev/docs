@@ -2,7 +2,7 @@
 description: How to log out from Warp, and how to uninstall Warp.
 ---
 
-# Logging out & uninstalling
+# Logging Out & Uninstalling
 
 ## Logging out
 
@@ -11,7 +11,7 @@ You can log out of Warp through:
 * **Settings** > **Account**, with the "Log out" button
 * [Command Palette](https://docs.warp.dev/terminal/command-palette), with the "Log out" item.
 
-<figure><img src="../../.gitbook/assets/logout.gif" alt=""><figcaption><p>Logout Demo</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/logout.gif" alt=""><figcaption><p>Logout Demo</p></figcaption></figure>
 
 ### Known issues:
 
