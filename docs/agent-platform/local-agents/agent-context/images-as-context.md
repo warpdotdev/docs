@@ -27,6 +27,10 @@ Warp accepts the following image formats: `.jpg` , `.jpeg` , `.png` , `.gif` , a
 
 You can attach up to **5 images per request**, and up to **20 images across a single conversation**. Each image is sent to the model provider and immediately discarded — nothing is stored on Warp's servers.
 
+{% hint style="warning" %}
+**Cloud agent conversations do not currently support image attachments.** Image attachment is only available in local agent conversations. If you need to provide visual context to a cloud agent, describe the image contents in your prompt or reference the image file path within the cloud agent's [environment](../../cloud-agents/environments.md).
+{% endhint %}
+
 ### Model behavior and image handling
 
 All supported models listed in [Model Choice](../../capabilities/model-choice.md) can interpret image input.
