@@ -65,6 +65,16 @@ paths:
             enum:
               - name
               - last_run
+        - name: include_malformed_skills
+          in: query
+          description: |
+            When true, includes skills whose SKILL.md file exists but is
+            malformed. These variants will have a non-empty `error` field
+            describing the parse failure. Defaults to false.
+          required: false
+          schema:
+            type: boolean
+            default: false
       responses:
         '200':
           description: List of available agents
@@ -149,6 +159,47 @@ paths:
                 $ref: '#/components/schemas/Error'
 
   /agent/runs:
+    post:
+      summary: Run an agent task (preferred)
+      description: |
+        Alias for POST /agent/run. This is the preferred endpoint for creating
+        new agent runs. Behavior is identical to POST /agent/run.
+      operationId: createRun
+      tags:
+        - agent
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RunAgentRequest'
+      responses:
+        '200':
+          description: Run created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RunAgentResponse'
+        '400':
+          description: Invalid request (missing prompt, invalid config)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: No permission to access referenced resources (environment, MCP servers)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     get:
       summary: List agent runs
       description: |
@@ -873,6 +924,11 @@ components:
           description: |
             Optional file attachments to include with the prompt (max 5).
             Attachments are uploaded to cloud storage and made available to the agent.
+        interactive:
+          type: boolean
+          description: |
+            Whether the run should be interactive.
+            If not set, defaults to false.
 
     RunAgentResponse:
       type: object
@@ -1611,6 +1667,12 @@ components:
           format: date-time
           nullable: true
           description: Timestamp of the last time this skill was run (RFC3339)
+        error:
+          type: string
+          description: |
+            Non-empty when the skill's SKILL.md file exists but is malformed.
+            Contains a description of the parse failure. Only present when
+            include_malformed_skills=true is passed to the list agents endpoint.
 
     AgentListSource:
       type: object
