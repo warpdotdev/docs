@@ -17,6 +17,8 @@ layout:
     visible: false
   metadata:
     visible: true
+  tags:
+    visible: true
 metaLinks: {}
 ---
 
@@ -28,7 +30,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 **New features**
 
-* Warp now has language server support in our native code editor. For details on the languages and features we support, check https://docs.warp.dev/code/code-editor/language-server-protocol
+* Warp now has language server support in our native code editor. For details on the languages and features we support, check [https://docs.warp.dev/code/code-editor/language-server-protocol](https://docs.warp.dev/code/code-editor/language-server-protocol)
 
 **Improvements**
 
@@ -50,7 +52,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 * Fix tab alignment in monospace text blocks by using fixed-width tab stops.
 * Improve cloud-mode modal routing for concurrent-limit vs out-of-credits states.
 * Fix cloud-mode out-of-credits modal flicker and compact CTA alignment.
-* [Linux] The `oz` CLI package is now named `oz-stable`.
+* \[Linux] The `oz` CLI package is now named `oz-stable`.
 
 **Oz updates**
 
