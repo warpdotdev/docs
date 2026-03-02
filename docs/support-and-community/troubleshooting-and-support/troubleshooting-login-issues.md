@@ -17,7 +17,7 @@ In some older Ruby development environments, `.dev` domains do not resolve prope
 This error could occur if you installed an ad blocker or have stale browser cookies, including our Firebase auth pop-up. **To fix it:**
 
 1. Disable your ad blocker for `app.warp.dev`
-2. Clear any cookies and cache, or open a incognito / private browser window
+2. Clear any cookies and cache, or open an incognito / private browser window
 3. Try [http://app.warp.dev/login](http://app.warp.dev/login) again
 
 ### Safari
@@ -90,7 +90,7 @@ If the browser does not open from Warp directly when you click "Sign up" or "Sig
 If nothing happens when you click "Take me to Warp" on the logged-in page. If this happens to you, copy the "here" link on the web logged-in page (https://app.warp.dev/logged\_in) to copy the authentication token, then paste it into the app as shown below.
 
 {% hint style="warning" %}
-The on Linux and Windows, the default copy-and-paste [Keyboard shortcuts](https://docs.warp.dev/getting-started/keyboard-shortcuts) are `CTRL+SHIFT+C` and `CTRL+SHIFT+V` respectively.\
+On Linux and Windows, the default copy-and-paste [Keyboard shortcuts](https://docs.warp.dev/getting-started/keyboard-shortcuts) are `CTRL+SHIFT+C` and `CTRL+SHIFT+V` respectively.\
 \
 On Linux and WSL you should install and set your default `$BROWSER` to `brave-browser` to workaround any copy-paste issues. Please see the workaround guide below.
 {% endhint %}

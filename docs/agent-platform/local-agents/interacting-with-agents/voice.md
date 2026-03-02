@@ -16,9 +16,9 @@ Voice input functionality can be configured in **Settings** > **AI** > **Voice**
 Voice Demo
 {% endembed %}
 
-## Getting Started with Voice
+## Getting started with voice
 
-### Initial Setup
+### Initial setup
 
 First-time users will need to grant microphone permissions:
 
@@ -26,7 +26,7 @@ First-time users will need to grant microphone permissions:
 * On Windows: Allow Warp microphone access in `Settings > Privacy & Security > Microphone`
 * On Linux: Configure through system sound settings
 
-### Using Voice
+### Using voice
 
 There are two ways to activate Voice:
 
@@ -68,17 +68,17 @@ Voice input is not limited to just Agent Mode - it works across all of Warp's in
 
 <figure><img src="../../.gitbook/assets/voice-in-find.png" alt=""><figcaption><p>Voice input works across Warp's editor interfaces, including the Find dialog and other input editors</p></figcaption></figure>
 
-## Privacy & Security
+## Privacy & security
 
 The transcription is powered by [Wispr Flow](https://wisprflow.ai/). Voice data is processed in real-time by Wispr Flow and is not retained as a recording after transcription.
 
-## Usage Limits
+## Usage limits
 
 Voice features have anti-abuse limits in place to ensure fair usage. These limits are subject to change as we continue to improve the service.
 
 ## Troubleshooting
 
-### Common Issues
+### Common issues
 
 1. **Microphone not detected** If your microphone isn't being detected, first check your system permissions to ensure Warp has access. You should also verify that your microphone is properly connected to your system. If issues persist, try restarting Warp to reset the connection.
 2. **Poor transcription quality** To improve transcription quality, try to minimize background noise in your environment. Position yourself closer to the microphone while speaking, and verify that your microphone input levels are properly adjusted in your system settings. For best results, speak clearly at a natural pace and use complete sentences to provide better context. When referring to specific file names or commands, enunciate them clearly. It's also recommended to review the transcription before sending to ensure accuracy.

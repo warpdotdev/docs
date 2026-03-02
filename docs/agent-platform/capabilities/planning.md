@@ -27,7 +27,7 @@ Once a plan is generated, you can review it, reorganize steps, or refine details
 
 <figure><img src="../.gitbook/assets/planning-main-view.png" alt=""><figcaption><p>Plan editor in Warp.</p></figcaption></figure>
 
-Any updates made by the agent **creates a new version**. Version history lets you compare past iterations and restore an older version if you want to revert your approach, preserving a clear decision trail as the plan evolves.
+Any update made by the agent **creates a new version**. Version history lets you compare past iterations and restore an older version if you want to revert your approach, preserving a clear decision trail as the plan evolves.
 
 <figure><img src="../.gitbook/assets/agent-plans-versioning.png" alt=""><figcaption><p>Access previous versions of your plan.</p></figcaption></figure>
 
@@ -65,7 +65,7 @@ Because plans persist in Warp Drive, you can return to them later, reuse them fo
 
 <figure><img src="../.gitbook/assets/plans-in-warp-drive-side-panel.png" alt=""><figcaption><p>Plans are accessible directly from the Warp Drive side panel.</p></figcaption></figure>
 
-You can configure whether your plans will be automatically added and synced to Warp drive In your [Agent Profiles & Permissions](agent-profiles-permissions.md) under **Settings** > **AI** > **Agents** > **Profiles**.
+You can configure whether your plans will be automatically added and synced to Warp Drive in your [Agent Profiles & Permissions](agent-profiles-permissions.md) under **Settings** > **AI** > **Agents** > **Profiles**.
 
 <figure><img src="../.gitbook/assets/auto-sync-plans (1).png" alt="" width="371"><figcaption></figcaption></figure>
 
