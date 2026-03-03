@@ -57,7 +57,7 @@ Several factors influence how many credits are counted for a single interaction:
 
 Generally, smaller, faster models typically consume fewer credits than larger, reasoning-based models.
 
-For example, **Claude Opus 4.1** tends to consume the most tokens and credits in Warp, followed by **Claude Sonnet 4.5, GPT-5, Gemini 2.5 Pro**, and others in roughly that order. This generally correlates with model pricing as well.
+For example, **Claude Opus 4.6** and **Claude Opus 4.5** tend to consume the most tokens and credits in Warp, followed by **Claude Sonnet 4.6, GPT-5.2, Gemini 2.5 Pro**, and others in roughly that order. This generally correlates with model pricing as well.
 
 {% hint style="info" %}
 **Tip**: If your task doesn't require deep reasoning, planning, or multi-step problem solving, choose a more lightweight model to reduce credit usage.

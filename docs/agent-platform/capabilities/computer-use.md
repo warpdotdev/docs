@@ -76,7 +76,7 @@ Your cloud environment must include any applications you want the agent to contr
 
 ### Model selection
 
-Computer Use currently uses **Claude Opus 4.6**. Support for choosing your own model is coming soon.
+Computer Use supports multiple Anthropic Claude models, including Claude 4.5 Sonnet, Claude 4.5 Opus, Claude 4.5 Haiku, Claude 4.6 Sonnet, and Claude 4.6 Opus. Warp uses an auto model selector to choose the best-suited model for each Computer Use task.
 
 ***
 

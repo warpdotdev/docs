@@ -14,24 +14,34 @@ Warp lets you choose from a curated set of Large Language Models (LLMs) to power
 
 * OpenAI:
   * `GPT-5.3 Codex` (_low, medium, high_, and _extra high_ reasoning)
-  * `GPT-5.2` (_low, medium,_ _high_ and _extra high_ reasoning)
   * `GPT-5.2 Codex` (_low, medium, high_, and _extra high_ reasoning)
+  * `GPT-5.2` (_low, medium, high_, and _extra high_ reasoning)
+  * `Galapagos` (_low, medium, high_, and _extra high_ reasoning)
   * `GPT-5.1 Codex Max` (_low, medium, high_, and _extra high_ reasoning)
-  * `GPT-5.1 Codex` _(low, medium,_ and _high_ reasoning)
+  * `GPT-5.1 Codex` (_low, medium,_ and _high_ reasoning)
   * `GPT-5.1` (_low, medium,_ and _high_ reasoning)
   * `GPT-5` (_low, medium,_ and _high_ reasoning)
+  * `GPT-5 Mini`
 * Anthropic:
-  * `Claude Opus 4.6` (_default_ and _max_)
-  * `Claude Sonnet 4.6` (_default_ and _max_)
-  * `Claude Opus 4.5` with thinking mode
-  * `Claude Sonnet 4.5` with thinking mode
+  * `Claude Opus 4.6` (_default_ and _max_ effort)
+  * `Claude Sonnet 4.6` (_default_ and _max_ effort)
+  * `Claude Opus 4.5` (_off_ and _thinking_ mode)
+  * `Claude Sonnet 4.5` (_off_ and _thinking_ mode)
   * `Claude Opus 4.1`
   * `Claude Haiku 4.5`
-  * `Claude Sonnet 4`
+  * `Claude Sonnet 4` (_off_ and _thinking_ mode)
 * Google:
+  * `Gemini 3.1 Pro`
   * `Gemini 3 Pro`
   * `Gemini 2.5 Pro`
-* z.ai: `GLM 4.6` (hosted in the US, by [Fireworks AI](https://fireworks.ai/models/fireworks/glm-4p6))
+  * `Gemini 2.5 Flash`
+* xAI:
+  * `Grok 4`
+* z.ai (hosted in the US, by [Fireworks AI](https://fireworks.ai)):
+  * `GLM 5`
+  * `GLM 4.7`
+  * `Kimi K2.5`
+  * `Minimax 2.5`
 
 ### Auto Models
 
@@ -62,11 +72,9 @@ Warp uses a model fallback system to ensure uninterrupted service if your select
 
 ### Configuring models per Agent Profile
 
-You can configure the base and planning models for each [Agent Profiles & Permissions](../capabilities/agent-profiles-permissions.md), defining the Agent's autonomy, tool access, and other permissions.
+You can configure the base model for each [Agent Profiles & Permissions](../capabilities/agent-profiles-permissions.md), defining the Agent's autonomy, tool access, and other permissions. The base model is also used for [Planning](planning.md).
 
 Edit your default profile or more profiles directly in **Settings** > **AI** > **Agents** > **Profiles**.
-
-<figure><img src="../.gitbook/assets/base-planning-model-pickers.png" alt=""><figcaption><p>Model choice example, where the base model is Auto (Claude 4 Sonnet) and the planning model is o3.</p></figcaption></figure>
 
 ### Zero Data Retention Policies
 
@@ -77,7 +85,9 @@ Warp integrates with multiple Large Language Model (LLM) providers to power its 
 * OpenAI
 * Anthropic
 * Google
+* xAI
 * Fireworks AI
+* Baseten
 
 Warp has executed **Zero Data Retention (ZDR)** agreements with these providers. This means that, by default across all plans:
 

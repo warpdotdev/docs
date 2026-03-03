@@ -26,7 +26,7 @@ Warp supports a curated list of LLMs from providers like OpenAI, Anthropic, and 
 
 ### Can I use my own LLM API key?
 
-Organizations on the Enterprise plan can enable a “Bring Your Own LLM” option to meet strict security or compliance requirements. Our team will work closely with you to support your preferred LLM provider. This feature is not currently available on other plans.
+Warp supports [Bring Your Own Key (BYOK)](https://docs.warp.dev/support-and-community/plans-and-billing/bring-your-own-api-key) for users on paid plans (starting with Build). You can connect your own Anthropic, OpenAI, or Google API keys to route requests directly through your account. Organizations on the Enterprise plan can additionally enable managed "Bring Your Own LLM" configurations to meet strict security or compliance requirements.
 
 ## Billing
 
@@ -40,7 +40,7 @@ For questions around what counts as a credit, what counts as a token, and how of
 
 #### **"Message token limit exceeded" error**
 
-This error means your input (plus attached context) exceeds the maximum context window of the model you're using. For example, GPT-4o has a context window limit of 123,904 tokens. If you exceed that, you may receive no output.
+This error means your input (plus attached context) exceeds the maximum context window of the model you're using. For example, GPT-5 has a context window of approximately 272,000 input tokens. If you exceed the limit for your selected model, you may receive no output.
 
 To fix this, try:
 
@@ -49,7 +49,7 @@ To fix this, try:
 
 #### "Monthly request limit exceeded" or "Monthly credit limit exceeded" errors
 
-Once you exceed your credits on the Turbo plan (see [pricing](https://www.warp.dev/pricing) for current limits), premium models will be disabled until your quota resets at the start of your next billing cycle.
+Once you exceed your monthly credit limit (see [pricing](https://www.warp.dev/pricing) for current limits), premium models will be disabled until your quota resets at the start of your next billing cycle. On paid plans with Add-on credits, you can continue using AI with usage-based billing.
 
 **Request failed with error: QuotaLimit**
 
