@@ -2,7 +2,7 @@
 description: Learn about Warp's plans and pricing tiers. Get started for free.
 ---
 
-# Plans & Pricing
+# Plans, Pricing, & Refunds
 
 ## Warp Plans & Pricing
 
@@ -20,8 +20,7 @@ Visit [warp.dev/pricing](https://warp.dev/pricing) to see the latest plans and w
 * [Add-on Credits](add-on-credits.md) — purchase additional credits or enable automatic reloads at discounted rates.
 * [Bring Your Own API Key](bring-your-own-api-key.md) — connect your own model provider API keys for custom usage and billing.
 * [Overages (Legacy)](overages-legacy.md) — information for users on legacy plans with overages enabled.
-* [Pricing FAQs](pricing-faqs.md) — answers to common questions about plans, billing, and usage.
-Don’t have Warp yet? [Download Warp](https://warp.dev/download) and get started for free today.
+* [Pricing FAQs](pricing-faqs.md) — answers to common questions about plans, billing, and usage. Don’t have Warp yet? [Download Warp](https://warp.dev/download) and get started for free today.
 
 ### Warp’s Refund Policies
 
@@ -34,13 +33,13 @@ If you signed up for a paid Warp subscription by mistake, we can issue a refund 
 * **72 hours** of starting a **monthly** plan, or
 * **30 days** of starting an **annual** plan,
 
-_**and**_ you’ve used **fewer than 150 credits** (the Free plan limit).
+_**and**_ you have not yet consumed all of the **allocated free AI credits**.
 
-If you exceed the credit limit usage during your first month on an annual plan, we cannot refund the first month. However, we will refund **months 2–12**.
+If you exceed the free AI credit limit usage during your first 2 months on the annual plan, we cannot process refunds for those months. However, we will refund **months 3–12**.
 
 #### Add-on Credits | Overages Refund Policy
 
-* If you purchased [Add-on Credits](add-on-credits.md) by mistake, you can receive a refund **as long as none of the credits have been used**. Warp cannot refund Add-on Credits if there has been any usage.  Add-on Credits remain available for **12 months** from the date of purchase, and you can continue to use them even if you do not have an active subscription.
+* If you purchased [Add-on Credits](add-on-credits.md) by mistake, you can receive a refund **as long as none of the credits have been used**. Warp cannot refund Add-on Credits if there has been any usage. Add-on Credits remain available for **12 months** from the date of purchase, and you can continue to use them even if you do not have an active subscription, as long as telemetry is enabled.
 * All [Overages (Legacy)](overages-legacy.md) credits are **non-refundable**. Because Overages are charges for credits that were already consumed, we cannot refund resources that have already been used.
 
 {% hint style="warning" %}

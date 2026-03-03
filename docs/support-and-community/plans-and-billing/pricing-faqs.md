@@ -288,7 +288,7 @@ If your total auto-reload monthly spend limit is $80 or above, we will set the A
 
 #### Can I continue to use Warp as my primary terminal?
 
-Yes, the terminal features of Warp will continue to be free to use for developers. Learn more at [Plans And Pricing](plans-and-pricing.md).
+Yes, the terminal features of Warp will continue to be free to use for developers. Learn more at [Plans And Pricing](plans-pricing-refunds.md).
 
 #### How are Add-on credits different from overages?
 
