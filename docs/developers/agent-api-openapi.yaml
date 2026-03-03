@@ -845,6 +845,8 @@ paths:
       operationId: getSessionRedirect
       tags:
         - agent
+      security:
+        - bearerAuth: []
       parameters:
         - name: sessionUuid
           in: path
@@ -1350,12 +1352,42 @@ components:
 
     Error:
       type: object
+      description: |
+        Error response following RFC 7807 (Problem Details for HTTP APIs).
+        Includes backward-compatible extension members.
       required:
+        - type
+        - title
+        - status
         - error
       properties:
+        type:
+          type: string
+          format: uri
+          description: A URI reference that identifies the problem type (RFC 7807)
+        title:
+          type: string
+          description: A short, human-readable summary of the problem type (RFC 7807)
+        status:
+          type: integer
+          description: The HTTP status code for this occurrence of the problem (RFC 7807)
+        detail:
+          type: string
+          description: A human-readable explanation specific to this occurrence of the problem (RFC 7807)
+        instance:
+          type: string
+          description: The request path that generated this error (RFC 7807)
         error:
           type: string
-          description: Human-readable error message
+          description: |
+            Human-readable error message combining title and detail.
+            Backward-compatible extension member for older clients.
+        retryable:
+          type: boolean
+          description: Whether the request can be retried
+        trace_id:
+          type: string
+          description: OpenTelemetry trace ID for debugging and support requests
 
     ArtifactResponse:
       type: object
