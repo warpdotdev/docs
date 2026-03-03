@@ -7,7 +7,7 @@ description: >
 
 # Oz Platform
 
-Cloud agents run on the **Oz Platform**. First-party [integrations](integrations/README.md) connect external events to cloud agents. The platform gives you a consistent way to **trigger work**, **orchestrate and track tasks**, **execute agents** (in an optional [environment](https://docs.warp.dev/reference/cli/integration-setup), on a host), and inspect outcomes with team visibility.
+Cloud agents run on the **Oz Platform**. The platform gives you a consistent way to **trigger work**, **orchestrate and track tasks**, **execute agents** (in an optional [environment](https://docs.warp.dev/reference/cli/integration-setup), on a host), and inspect outcomes with team visibility. First-party [integrations](integrations/README.md) connect external events — like Slack messages, GitHub PRs, or CI failures — to cloud agents automatically.
 
 {% embed url="https://youtu.be/poLkJhO7fdo" %}
 
@@ -190,45 +190,37 @@ With self-hosting:
 
 ### Integrations
 
-[Integrations](integrations/README.md) connect external system events to cloud agent execution. An integration ties a third-party event source to Warp so that when an event occurs, Warp can create a task with the relevant context and start it automatically.
+[Integrations](integrations/README.md) connect external events to cloud agent tasks. When an event occurs in a third-party system, Warp creates a task with the relevant context and starts it automatically.
 
-* **First-party integrations**: Warp owns event subscriptions + context extraction.
-* **Custom integrations**: You own event ingestion/filtering; you call the API/SDK to create tasks.
+Warp supports two integration models:
+
+* **First-party integrations** — Warp manages the event subscription and context extraction end to end.
+* **Custom integrations** — you handle event ingestion and filtering, then call the API or SDK to create tasks.
 
 #### First-party integrations
 
-Warp supports first-party integrations that can be configured with a simple setup flow (for example via CLI):
+First-party integrations can be configured with a simple setup flow (for example via CLI):
 
 ```bash
 oz integration create …
 ```
 
-**In first-party integrations, Warp typically:**
+Warp registers webhooks with the third-party system, receives events, extracts context (payload, metadata, links, logs), and creates a task — optionally in an [Environment](environments.md).
 
-* Registers webhooks (or other event subscriptions) with the third-party system.
-* Receives events and extracts context (payload, metadata, links, logs).
-* Constructs a task and executes it, optionally in an Environment.
+Examples of context extracted by first-party integrations:
 
-Examples of context:
-
-* [Slack](integrations/slack.md): message text + channel + thread + user identity
-* [GitHub](integrations/github-actions.md): PR metadata + diffs + labels + checks
-* CI: logs + job metadata + artifacts
+* [Slack](integrations/slack.md): message text, channel, thread, and user identity
+* [GitHub](integrations/github-actions.md): PR metadata, diffs, labels, and check results
+* CI: logs, job metadata, and artifacts
 
 #### Custom integrations
 
-Warp also supports custom integrations where you own the webhook and event handling logic.
+With custom integrations, you own the webhook and event-handling logic. Your system receives an event, applies any filtering or enrichment you need, and then calls the Oz API (directly or via an SDK) to create a task. The resulting task is still a full Oz agent run — observable, manageable, and auditable like any other.
 
-In this model:
-
-* Your system receives an event.
-* Your system calls Oz's orchestrator API (directly or via an SDK) to create/start a task.
-* The task is still a first-class Oz agent run in Warp (observable, manageable, auditable).
-
-**Custom integrations are ideal when:**
+Custom integrations are a good fit when:
 
 * You have internal event sources (custom tooling, proprietary systems).
-* You need custom filtering, routing, or enrichment before triggering the agent.
+* You need custom filtering, routing, or enrichment before triggering an agent.
 * You want to implement your own permissioning, queueing, or governance around triggers.
 
 ***

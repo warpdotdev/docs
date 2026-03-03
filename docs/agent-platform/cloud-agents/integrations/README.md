@@ -1,13 +1,13 @@
 ---
 description: >-
-  Configure Warp’s first-party integrations by creating environments, connecting
+  Configure Warp's first-party integrations by creating environments, connecting
   GitHub, and enabling agents to run your code and automate development
   workflows.
 ---
 
 # Integrations Overview
 
-Warp integrations let your team trigger agents directly from the terminal, or from first-party tools like [Slack](slack.md) and [Linear](linear.md). Once everything is set up, agents can:
+Warp integrations let your team trigger agents directly from the terminal, or from tools like [Slack](slack.md) and [Linear](linear.md). Once set up, agents can:
 
 * Read conversation or issue context
 * Run code inside your codebase in a remote environment

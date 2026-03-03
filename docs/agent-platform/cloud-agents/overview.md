@@ -11,6 +11,8 @@ Oz Cloud Agents are **cloud-connected**, **background agents** that run on the [
 
 **New to cloud agents?** Start with the [Cloud Agents Quick Start](quickstart.md) to run your first cloud agent in ~10 minutes.
 
+{% embed url="https://youtu.be/poLkJhO7fdo" %}
+
 ### What cloud agents are designed for
 
 Cloud agents are designed for situations where:
