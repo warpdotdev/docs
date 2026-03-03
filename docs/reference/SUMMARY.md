@@ -5,9 +5,13 @@
 ## CLI
 
 * [Oz CLI](cli/README.md)
+* [Quick Start](cli/quickstart.md)
 * [API Keys](cli/api-keys.md)
-* [Integrations and Environments](cli/integrations-and-environments.md)
-* [MCP for Cloud Agents](cli/mcp-for-cloud-agents.md)
+* [Agent Profiles](cli/agent-profiles.md)
+* [MCP Servers](cli/mcp-servers.md)
+* [Skills](cli/skills.md)
+* [Warp Drive Context](cli/warp-drive.md)
+* [Integration Setup](cli/integration-setup.md)
 * [Troubleshooting](cli/troubleshooting.md)
 
 ## API & SDK

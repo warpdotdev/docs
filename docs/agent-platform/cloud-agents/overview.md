@@ -67,9 +67,11 @@ Cloud agent tasks are designed to be inspectable by the team:
 
 #### Centralized configuration
 
-Cloud agent workflows often rely on shared configuration such as [MCP servers](https://docs.warp.dev/reference/cli/mcp-for-cloud-agents), rules, saved prompts, environment variables, and [secrets](secrets.md).
+Cloud agent workflows often rely on shared configuration such as [MCP servers](mcp.md), rules, saved prompts, environment variables, and [secrets](secrets.md).
 
 Warp supports centralized configuration so the same workflow behaves consistently across triggers (for example Slack + CI + schedules), without duplicating setup in every system.
+
+For details on configuring MCP servers for cloud agents, see [MCP Servers](mcp.md).
 
 #### API access to tasks
 
@@ -139,6 +141,6 @@ If your credit balance reaches zero, cloud agent runs will not be able to execut
 * [Environments](environments.md) — explains how environments provide the runtime context (repo, image, startup commands) for agent tasks.
 * [Oz Agent API and SDK](https://docs.warp.dev/reference/api-and-sdk) — documents the REST API for creating, querying, and monitoring agent tasks programmatically.
 * [Agent Secrets](secrets.md) — covers how to store, scope, and inject credentials into agent runs safely.
-* [MCP Servers for Agents](https://docs.warp.dev/reference/cli/mcp-for-cloud-agents) — describes how to configure MCP servers for agent tool access and how MCP configuration is applied across runs.
+* [MCP Servers](mcp.md) — how to configure MCP servers for agent tool access and how MCP configuration is applied across runs.
 * [Deployment Patterns](deployment-patterns.md) (beta) — compares common ways to deploy cloud agents and when to use each.
 * [Access, Billing, and Identity Permissions](team-access-billing-and-identity.md) — explains individual and team-level requirements, credit billing behavior, and the permission model for who can run, view, and steer cloud agent tasks.

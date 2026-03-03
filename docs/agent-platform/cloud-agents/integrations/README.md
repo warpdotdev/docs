@@ -14,7 +14,7 @@ Warp integrations let your team trigger agents directly from the terminal, or fr
 * Open pull requests and perform other multi-step agent workflows on your behalf
 
 {% hint style="info" %}
-For a full walkthrough of Warp's integrations and configurable environments, please refer to [Integrations and Environments](https://docs.warp.dev/reference/cli/integrations-and-environments).
+For a full walkthrough of Warp's integrations and configurable environments, please refer to [Integration setup](https://docs.warp.dev/reference/cli/integration-setup).
 {% endhint %}
 
 All of this is powered by the [Oz CLI](https://docs.warp.dev/reference/cli).
@@ -99,4 +99,4 @@ Warp will read the thread/issue, spin up your environment, run the workflow in t
 
 ***
 
-For more details on configuring integrations and environments in Warp, please refer to [Integrations and Environments](https://docs.warp.dev/reference/cli/integrations-and-environments).
+For more details on configuring integrations and environments in Warp, please refer to [Integration setup](https://docs.warp.dev/reference/cli/integration-setup).

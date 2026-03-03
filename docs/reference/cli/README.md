@@ -1,11 +1,12 @@
 ---
-description: Use Oz agents from the terminal.
+description: >-
+  Use the Oz CLI to run, configure, and manage agents from the terminal.
 ---
 
 # Oz CLI
 
 {% hint style="info" %}
-**`warp-cli` is deprecated and has been replaced by `oz`.** If you have `warp-cli` installed, it will auto-update to `oz`. All the same commands are available — replace `warp-cli` with `oz` in your scripts and workflows.
+**`warp-cli` is deprecated and has been replaced by `oz`.** If you have `warp-cli` installed, it will auto-update to `oz`. All the same commands are available, just replace `warp-cli` with `oz` in your scripts and workflows.
 {% endhint %}
 
 ## What is the Oz CLI?
@@ -20,78 +21,6 @@ With the Oz CLI, you can:
 * Run agents on remote machines
 * Connect agents to MCP servers like GitHub and Linear
 * Configure integrations that connect agents to Slack, Linear, and other trigger surfaces
-
-## Quickstart Guide
-
-Set up and run your first cloud agent in less than 5 minutes.
-
-### 1. Installing the CLI
-
-If you already have the [Warp desktop app installed](https://docs.warp.dev/getting-started/quickstart/installation-and-setup), the **CLI is included** and available in the Warp terminal.
-
-If not, see [Installing the CLI](#installing-the-cli) for installation options for all platforms.
-
-### 2. Authenticate
-
-For local development and first-time setup, authenticate interactively using the `oz login` command. Use the appropriate command name based on your installation method. For command names, refer to the table in [Running the CLI](#running-the-cli).
-
-**For example, on macOS:**
-
-```sh
-oz login
-```
-
-This command prints a sign-in URL in your terminal. Open the URL in your browser to login to Warp. Your credentials will be stored securely for future CLI use.
-
-Interactive login works on both **local** and **remote** machines, and does not require API keys.
-
-### 3. Run an agent
-
-From any directory, run:
-
-```sh
-oz agent run --prompt "summarize this directory"
-```
-
-This uses the default agent profile, loads any available MCP servers, and executes the run locally. The output appears directly in your terminal.
-
-What happens:
-
-* Warp starts a new cloud agent session.
-* The agent is given access to your current working directory.
-* The agent autonomously executes commands and streams output to your terminal.
-
-### 4. Add MCP context (optional)
-
-You can connect MCP servers to give the agent access to external tools like GitHub or Linear. Pass MCP configuration inline or from a file using the `--mcp` flag:
-
-```sh
-oz agent run --mcp '{"github": {"url": "https://api.githubcopilot.com/mcp/"}}' --prompt "Open a pull request that fixes TODOs in this repo"
-```
-
-You can also reference an existing MCP server by UUID (find UUIDs with `oz mcp list`):
-
-```sh
-oz agent run --mcp "1deb1b14-b6e5-4996-ae99-233b7555d2d0" --prompt "Open a pull request that fixes TODOs in this repo"
-```
-
-### 5. Next steps
-
-Once you've successfully set up and ran your agent, explore other configurations and workflows with the Oz CLI:
-
-* Customize behavior with [agent profiles.](./#using-agent-profiles)
-* [Reuse prompts](./#using-saved-prompts) with `--saved-prompt`.
-* Connect agents to external systems [using MCP servers](./#using-mcp-servers).
-* Authenticate with [API keys](api-keys.md) for automated environments or workflows.
-* Get up-to-date information about the Oz CLI using the [`help` command.](./#getting-help)
-
-{% hint style="info" %}
-**Ready for cloud agents?** This quickstart is focused on local runs. For automated workflows with consistent environments, scheduled tasks, and integrations, see the [Cloud Agents Quick Start](https://docs.warp.dev/agent-platform/cloud-agents/quickstart).
-{% endhint %}
-
-Continue reading to learn how to install the CLI on different platforms, authenticate in different environments, and configure agents for real-world workflows.
-
-***
 
 ## Installing the CLI
 
@@ -362,203 +291,27 @@ oz agent run-cloud \
 * Check that your profile allows the commands and MCP servers needed.
 * Ensure environment variables are set in the environment, not your local shell.
 
-#### Reusing saved prompts <a href="#reusing-saved-prompts" id="reusing-saved-prompts"></a>
+#### Reusing saved prompts and Warp Drive objects
 
-When you find prompts that work well, save them in [Warp Drive](https://docs.warp.dev/knowledge-and-collaboration/warp-drive) to reuse across sessions, share with teammates, and integrate into automated workflows. For more information, see [Prompts](https://docs.warp.dev/knowledge-and-collaboration/warp-drive/prompts).
-
-To reuse a prompt, first find its ID. The ID of a saved prompt will be the last part of its Warp Drive [Sharing a drive object using links](https://docs.warp.dev/knowledge-and-collaboration/warp-drive#sharing-a-drive-object-using-links).
-
-For example, in the URL:
-
-```
-https://staging.warp.dev/drive/prompt/Fix-compiler-error-sgNpbUgDkmp2IImUVDc8kR
-```
-
-... the ID is `sgNpbUgDkmp2IImUVDc8kR`.
-
-You can reference [saved prompts](https://docs.warp.dev) using the `--saved-prompt` flag:
-
-```bash
-$ oz agent run --saved-prompt sgNpbUgDkmp2IImUVDc8kR
-...
-```
-
-#### Referencing Warp Drive objects <a href="#referencing-warp-drive-objects" id="referencing-warp-drive-objects"></a>
-
-Use `<workflow:id>`, `<notebook:id>`, or `<rule:id>` in prompts to reference [Warp Drive objects](https://docs.warp.dev/knowledge-and-collaboration/warp-drive) and [rules](https://docs.warp.dev/knowledge-and-collaboration/rules) as attached context. To quickly create these references, use the [@ context menu](https://docs.warp.dev/agent-platform/local-agents/agent-context/using-to-add-context) in Warp to construct a prompt, and then copy it into your CLI command.
-
-```
-$ oz agent run --prompt "Follow the instructions in <notebook:gq1CMAUWLtaL1CpEoTDQ3y>"
-...
-```
+You can reuse saved prompts with `--saved-prompt`, and reference notebooks, workflows, and rules inline in any `--prompt` string. See [Referencing Warp Drive objects](warp-drive.md) for details.
 
 ## Using agent profiles
 
-Agent profiles control three things:
+Agent profiles control what the agent can do, how it behaves, and where it can act. Use the `--profile` flag with `oz agent run` to apply a specific profile.
 
-* **What the agent can do** — file access, command execution, and MCP server usage.
-* **How the agent works** — Model selection, autonomy level, and response style.
-* **Where the agent can act** — Directory allowlists/denylists.
-
-You can create and configure agent profiles in the Warp app. For detailed instructions, see [Agent Profiles & Permissions](https://docs.warp.dev/agent-platform/capabilities/agent-profiles-permissions).
-
-Agent profiles are automatically synced to each host that you have Warp installed on, so you can still use them remotely.
-
-{% hint style="info" %}
-**Tip**: For CLI usage, create a dedicated profile. The CLI will fail if it tries to execute a prohibited action, so make sure your profile allows the directories, commands, and MCP servers that you'd like the agent to use.
-{% endhint %}
-
-{% hint style="warning" %}
-The default profile for CLI usage is broadly permissive and gives the agent the ability to read/write files, apply code diffs, and execute commands (with a default denylist). The agent does not have the ability to use MCP servers by default.
-{% endhint %}
-
-To use an agent profile with the CLI, first find the profile ID using the `oz agent profile list` command:
-
-```sh
-$ oz agent profile list
-+--------------+------------------------+
-| Name         | ID                     |
-+=======================================+
-| Default      | AnTb02PZfrkVC9l4V15eH1 |
-|--------------+------------------------|
-| Coding       | CWhozDJPdPCsjJ1pSG0HCN |
-|--------------+------------------------|
-| Command Line | hV6n5dNm7ThQVlOiPF8DLS |
-+--------------+------------------------+
-```
-
-Then, select that profile using the `--profile` flag:
-
-```sh
-$ oz agent run --profile CWhozDJPdPCsjJ1pSG0HCN --prompt "update my CI pipeline to use nextest"
-...
-```
+See [Agent profiles](agent-profiles.md) for how to find profile IDs and apply them.
 
 ## Using MCP servers
 
-MCP servers connect agents to external systems like GitHub, Linear, or Sentry. To use a [Model Context Protocol (MCP)](https://docs.warp.dev/agent-platform/capabilities/mcp) server from the CLI, use the `--mcp` flag.
+MCP servers connect agents to external systems like GitHub, Linear, or Sentry. Use the `--mcp` flag with any of three formats: a Warp MCP server UUID, inline JSON, or a path to a JSON config file.
 
-The `--mcp` flag accepts three formats:
+See [MCP Servers](mcp-servers.md) for full details, including how to find UUIDs, combine multiple servers, and handle environment variables on remote machines.
 
-* **UUID** — reference an existing MCP server configured in Warp (find UUIDs with `oz mcp list`).
-* **Inline JSON** — pass a full MCP JSON configuration directly.
-* **File path** — path to a JSON file containing the MCP configuration.
+## Using skills
 
-You can repeat `--mcp` to include multiple servers.
+[Skills](https://docs.warp.dev/agent-platform/capabilities/skills) are reusable instruction sets that teach agents how to perform specific tasks. Use the `--skill` flag to run an agent from a skill stored in a repository.
 
-### Passing MCP servers by UUID
-
-First, find the MCP server ID using `oz mcp list`:
-
-```sh
-$ oz mcp list
-+--------------------------------------+--------+
-| UUID                                 | Name   |
-+===============================================+
-| 1deb1b14-b6e5-4996-ae99-233b7555d2d0 | github |
-|--------------------------------------+--------|
-| 65450c32-9eb1-4c57-8804-0861737acbc4 | linear |
-|--------------------------------------+--------|
-| d94ade64-0e73-47a6-b3ee-14e5afec3d90 | Sentry |
-+--------------------------------------+--------+
-```
-
-Alternatively, you can copy the server ID from the MCP servers page in Warp:
-
-1. Click your profile photo in the top-right corner, then click **Settings.**
-2. In the sidebar, click **MCP Servers**.
-
-<figure><img src="../.gitbook/assets/mcp-server-id.png" alt=""><figcaption><p>MCP servers page, showing a server with its UUID</p></figcaption></figure>
-
-Then, pass the UUID to `--mcp`:
-
-```sh
-$ oz agent run --mcp "1deb1b14-b6e5-4996-ae99-233b7555d2d0" --prompt "who last updated the README?"
-...
-```
-
-### Passing MCP servers as inline JSON or file
-
-You can pass the full MCP configuration inline or via a file:
-
-```sh
-# Inline JSON
-$ oz agent run --mcp '{"github": {"url": "https://api.githubcopilot.com/mcp/"}}' --prompt "list open issues"
-
-# From a file
-$ oz agent run --mcp ./my-mcp-config.json --prompt "list open issues"
-```
-
-For details on the MCP JSON configuration schema, see [MCP for Cloud Agents](mcp-for-cloud-agents.md).
-
-### Environment variables and remote execution
-
-While Warp syncs MCP server configuration between hosts, it **does not** sync environment variables. When running on remote machines, you must set any required auth tokens:
-
-```sh
-export MY_MCP_SERVER_ACCESS_TOKEN="..."
-$ oz agent run --mcp "904a8936-fa82-4571-b1d6-166c26197981" --prompt "use my MCP server to check for errors"
-...
-```
-
-{% hint style="info" %}
-Tip: consider using a password or secret manager CLI, such as [`op`](https://developer.1password.com/docs/cli/get-started/), [`pass`](https://www.passwordstore.org/), or [`gcloud secrets versions access`](https://cloud.google.com/secret-manager/docs/create-secret-quickstart#secretmanager-quickstart-gcloud) to fetch MCP secrets on remote hosts.
-{% endhint %}
-
-## Using Skills
-
-[Skills](https://docs.warp.dev/agent-platform/capabilities/skills) are reusable instruction sets that teach agents how to perform specific tasks. You can use skills from repositories in your environment with the `--skill` flag.
-
-### Skill spec format
-
-The `--skill` flag accepts a skill specification that identifies which skill to use:
-
-```sh
-# Fully qualified format (recommended)
-oz agent run-cloud -e <ENV_ID> --skill "owner/repo:skill-name" --prompt "deploy to staging"
-
-# With full path
-oz agent run-cloud -e <ENV_ID> --skill "warpdotdev/warp-server:.warp/skills/deploy/SKILL.md" --prompt "deploy to staging"
-```
-
-Supported formats:
-
-* `owner/repo:skill-name` — skill by name in a specific repository (recommended)
-* `owner/repo:path/to/SKILL.md` — skill by full path in a repository
-* `repo:skill-name` — skill by name (only works when the repo is configured in your environment)
-
-### Using Skills with cloud agents
-
-Skills are particularly useful with cloud agents (`oz agent run-cloud`) because they let you define reusable workflows that run consistently across environments:
-
-```sh
-# Run a deploy skill from a specific repo
-oz agent run-cloud \
-  --environment SVhg783GBFQHk1OfdPfFU9 \
-  --skill "myorg/backend:.warp/skills/deploy/SKILL.md" \
-  --prompt "deploy to staging"
-
-# Run a code review skill
-oz agent run-cloud \
-  --environment SVhg783GBFQHk1OfdPfFU9 \
-  --skill "myorg/backend:code-review" \
-  --prompt "review the latest PR"
-```
-
-{% hint style="info" %}
-When you specify a skill, it provides the base instructions for the agent. The `--prompt` adds additional context or parameters for that specific run.
-{% endhint %}
-
-### Using Skills with local agents
-
-For local agent runs, skills from your current repository are automatically discovered. You can also explicitly specify a skill:
-
-```sh
-# Use a skill from a public or accessible repo
-oz agent run --skill "owner/repo:skill-name" --prompt "additional context"
-```
-
-For more information about creating and managing skills, see [Skills](https://docs.warp.dev/agent-platform/capabilities/skills).
+See [Skills](skills.md) for supported spec formats and examples for both local and cloud agent runs.
 
 ## Collaboration
 
@@ -628,34 +381,6 @@ oz environment image list
 
 ***
 
-## Troubleshooting and help
+## Troubleshooting
 
-The CLI includes built-in documentation for all commands:
-
-```bash
-# See all available commands
-oz help
-
-# Get details on a specific command
-oz help agent run
-
-# Explore MCP-related commands
-oz help mcp
-```
-
-### Common errors
-
-**Command not found / CLI not installed correctly**\
-Verify your installation path and confirm the CLI version:
-
-```bash
-oz --version
-```
-
-**Authentication issues**
-
-* Interactive login: ensure you’ve completed the browser-based flow with `oz login`.
-* API keys: confirm the key is valid, not expired, and exported correctly (`echo $WARP_API_KEY`).
-
-**Agent or MCP errors**\
-Ensure your agent profile and [MCP servers](https://docs.warp.dev/agent-platform/capabilities/mcp) are configured properly, with correct permissions.
+For built-in CLI help commands and solutions to common errors — including authentication issues, agent failures, environment problems, and Docker image issues — see [Troubleshooting](troubleshooting.md).

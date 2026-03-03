@@ -61,6 +61,7 @@
 * [Skills as Agents](cloud-agents/skills-as-agents.md)
 * [Viewing Cloud Agent Runs](cloud-agents/viewing-cloud-agent-runs.md)
 * [Secrets](cloud-agents/secrets.md)
+* [MCP Servers](cloud-agents/mcp.md)
 * [Deployment Patterns](cloud-agents/deployment-patterns.md)
 * [Self-Hosting](cloud-agents/self-hosting.md)
 * [Access, Billing, and Identity](cloud-agents/team-access-billing-and-identity.md)

@@ -1,10 +1,44 @@
 ---
 description: >-
-  Common troubleshooting steps for Oz CLI environments, integrations, GitHub
-  access, and Docker image issues.
+  Solutions for common Oz CLI errors — including authentication issues, agent
+  failures, environments, GitHub access, and Docker image issues.
 ---
 
 # Troubleshooting
+
+## Getting help
+
+The CLI includes built-in documentation for all commands:
+
+```bash
+# See all available commands
+oz help
+
+# Get details on a specific command
+oz help agent run
+
+# Explore MCP-related commands
+oz help mcp
+```
+
+## Common errors
+
+**Command not found / CLI not installed correctly**\
+Verify your installation path and confirm the CLI version:
+
+```bash
+oz --version
+```
+
+**Authentication issues**
+
+* Interactive login: ensure you've completed the browser-based flow with `oz login`.
+* API keys: confirm the key is valid, not expired, and exported correctly.
+
+**Agent or MCP errors**\
+Ensure your agent profile and [MCP servers](https://docs.warp.dev/agent-platform/capabilities/mcp) are configured properly, with correct permissions. See [MCP Servers](mcp-servers.md) and [Agent profiles](agent-profiles.md) for details.
+
+***
 
 ## Environments
 

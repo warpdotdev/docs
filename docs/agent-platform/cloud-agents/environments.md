@@ -48,7 +48,7 @@ What an environment is not:
 * Host – Hosts determine where execution happens (Warp-hosted vs. self-hosted infrastructure).
 * [Agent Profile](../capabilities/agent-profiles-permissions.md) – Profiles control agent behavior like permissions, model choice, and defaults, not the runtime environment.
 * [Rules](../capabilities/rules.md) – Rules determine agent responses and decisions but don't define the container or toolchain.
-* [MCP](https://docs.warp.dev/reference/cli/mcp-for-cloud-agents) – MCP connects agents to external tools and data.
+* [MCP Servers](mcp.md) – connect agents to external tools and data via MCP.
 * Per-run context – Trigger-specific data like Slack threads, PR metadata, or CI logs attach to individual tasks, not the environment configuration.
 
 ## How environments fit into the Oz Platform
@@ -249,7 +249,7 @@ oz environment delete <ENV_ID>
 Add `--force` to skip confirmation checks for environments used by integrations.
 
 {% hint style="info" %}
-For end-to-end setup, see the [Integrations and Environments](https://docs.warp.dev/reference/cli/integrations-and-environments) guide.
+For end-to-end setup, see the [Integration setup](https://docs.warp.dev/reference/cli/integration-setup) guide.
 {% endhint %}
 
 ***
@@ -288,7 +288,7 @@ If your setup commands depend on secrets or credentials, configure them through 
 * **Missing credentials or secrets** – Builds fail when private repos, package registries, or external services require authorization.
 * Solution: Configure credentials with [Agent Secrets](secrets.md).
 * **Repo access and GitHub authorization issues** – Runs fail when GitHub doesn't have repo access or the triggering user lacks permissions.
-* Solution: See [Integrations and Environments](https://docs.warp.dev/reference/cli/integrations-and-environments#how-github-authorization-works) for GitHub authorization setup.
+* Solution: See [Integration setup](https://docs.warp.dev/reference/cli/integration-setup#how-github-authorization-works) for GitHub authorization setup.
 * **Docker image incompatibility** – You see the error: "VM failed before the agent could run. This is likely an issue with your Docker image."
   * Possible cause: Alpine Linux and other musl-based images are not compatible with the agent runtime, which requires glibc.
   * Solution: Switch to a glibc-based image such as Debian, Ubuntu, or the default (non-Alpine) variants of official Docker Hub images (e.g. `node`, `python`, `rust`).

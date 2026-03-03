@@ -210,7 +210,7 @@ Click **New environment** in the header to create a new environment.
 4. **Setup commands** — Define commands to run when the environment starts (e.g., `npm install`)
 
 {% hint style="info" %}
-For advanced environment configuration, see [Environments](environments.md) and the [CLI reference](https://docs.warp.dev/reference/cli/integrations-and-environments).
+For advanced environment configuration, see [Environments](environments.md) and the [CLI reference](https://docs.warp.dev/reference/cli/integration-setup).
 {% endhint %}
 
 ***

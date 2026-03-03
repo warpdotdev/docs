@@ -13,7 +13,7 @@ Warp-managed secrets are designed to work across [cloud agent](overview.md) and 
 **Warp-managed secrets are useful when:**
 
 * An cloud agent needs to call an API or CLI that does not support OAuth
-* You are using [MCP servers](https://docs.warp.dev/reference/cli/mcp-for-cloud-agents) that expect static tokens or keys
+* You are using [MCP servers](mcp.md) that expect static tokens or keys
 * An agent needs credentials for tools like cloud CLIs, databases, monitoring systems, or internal services
 * You want centralized auditing and control over what credentials agents can access
 

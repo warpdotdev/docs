@@ -99,7 +99,7 @@ Follow the prompts to save your task definition. Once created, you can run it ag
 
 **How this works:** Skills capture successful agent workflows as reusable building blocks. Instead of typing the same prompt repeatedly, you define it once. You can use it yourself, share it with teammates, schedule it to run automatically, or trigger it from integrations. Learn more about [Skills as Agents](skills-as-agents.md).
 
-**Prefer using the CLI?** See the [Oz CLI Quick Start](https://docs.warp.dev/reference/cli#quickstart-guide) for CLI-based workflows.
+**Prefer using the CLI?** See the [Oz CLI Quick Start](https://docs.warp.dev/reference/cli/quickstart) for CLI-based workflows.
 
 ***
 
@@ -152,7 +152,7 @@ Use the [Oz Agent API & SDK](https://docs.warp.dev/reference/api-and-sdk) to tri
 Use official Docker Hub images like `node`, `python`, or `rust` for best compatibility. Ensure your GitHub repos are accessible. If using a custom image, avoid Alpine/musl-based images—the Warp agent runtime requires glibc. See [Environments](environments.md) for more guidance on choosing Docker images.
 
 **Agent can't access repos**\
-Warp prompts you to authorize GitHub when you create an environment or trigger your first agent. If authorization fails or needs updating, see [How GitHub Authorization works](https://docs.warp.dev/reference/cli/integrations-and-environments#how-github-authorization-works). Also verify that repos are correctly configured in your environment with `oz environment get <ENV_ID>`.
+Warp prompts you to authorize GitHub when you create an environment or trigger your first agent. If authorization fails or needs updating, see [How GitHub Authorization works](https://docs.warp.dev/reference/cli/integration-setup#how-github-authorization-works). Also verify that repos are correctly configured in your environment with `oz environment get <ENV_ID>`.
 
 **Not enough credits to run cloud agents**\
 Your team needs at least 20 credits available (any type of Warp credits work). Check your credit balance in Settings or see [Access, Billing, and Identity](team-access-billing-and-identity.md) for details on credit requirements and which plans support cloud agents.

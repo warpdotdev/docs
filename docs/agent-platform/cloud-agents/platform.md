@@ -7,7 +7,7 @@ description: >
 
 # Oz Platform
 
-Cloud agents run on the **Oz Platform**. First-party [integrations](integrations/README.md) connect external events to cloud agents. The platform gives you a consistent way to **trigger work**, **orchestrate and track tasks**, **execute agents** (in an optional [environment](https://docs.warp.dev/reference/cli/integrations-and-environments), on a host), and inspect outcomes with team visibility.
+Cloud agents run on the **Oz Platform**. First-party [integrations](integrations/README.md) connect external events to cloud agents. The platform gives you a consistent way to **trigger work**, **orchestrate and track tasks**, **execute agents** (in an optional [environment](https://docs.warp.dev/reference/cli/integration-setup), on a host), and inspect outcomes with team visibility.
 
 {% embed url="https://youtu.be/poLkJhO7fdo" %}
 
@@ -278,7 +278,7 @@ Warp provides multiple surfaces for observability:
 
 Cloud agent setups often include shared configuration such as:
 
-* [MCP configuration](https://docs.warp.dev/reference/cli/mcp-for-cloud-agents)
+* [MCP Servers](mcp.md)
 * [rules / guardrails](../capabilities/rules.md)
 * [saved prompts](https://docs.warp.dev/knowledge-and-collaboration/warp-drive/prompts)
 * [environment variables](https://docs.warp.dev/knowledge-and-collaboration/warp-drive/environment-variables)

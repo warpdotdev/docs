@@ -4,7 +4,7 @@ description: >-
   agents from external tools.
 ---
 
-# Integrations and Environments
+# Integration setup
 
 This article describes the environment and integration setup that is required before you can trigger agents from external tools, like Slack or Linear. You will learn how to:
 

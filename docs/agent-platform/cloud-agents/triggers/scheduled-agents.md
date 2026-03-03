@@ -64,7 +64,7 @@ Use `oz schedule create` (with required flags) to define a new Scheduled Agent.
 * A prompt or skill that the agent will execute.
 * An optional environment in which the agent will run.
 * An optional [model selection](https://docs.warp.dev/reference/cli/#using-agent-profiles).
-* [Optional MCP server configuration](https://docs.warp.dev/reference/cli/mcp-for-cloud-agents).
+* [Optional MCP server configuration](../mcp.md).
 
 ```bash
 oz schedule create \
@@ -105,7 +105,7 @@ oz schedule create \
 
 Once created, the agent will automatically run at the specified times without further action.
 
-Scheduled Agents support the same [model selection](https://docs.warp.dev/reference/cli/) and [MCP server configuration](https://docs.warp.dev/reference/cli/mcp-for-cloud-agents) as other cloud agent triggers.
+Scheduled Agents support the same [model selection](https://docs.warp.dev/reference/cli/) and [MCP server configuration](../mcp.md) as other cloud agent triggers.
 
 #### Cron Schedule Format
 

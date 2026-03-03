@@ -1,0 +1,39 @@
+---
+description: >-
+  Use saved prompts, notebooks, workflows, and rules from Warp Drive
+  as context in CLI agent commands.
+---
+
+# Warp Drive context
+
+## Reusing saved prompts
+
+When you find prompts that work well, save them in [Warp Drive](https://docs.warp.dev/knowledge-and-collaboration/warp-drive) to reuse across sessions, share with teammates, and integrate into automated workflows. For more information, see [Prompts](https://docs.warp.dev/knowledge-and-collaboration/warp-drive/prompts).
+
+To reuse a saved prompt, find its ID. The ID is the last segment of its Warp Drive sharing link.
+
+For example, in the URL:
+
+```
+https://warp.dev/drive/prompt/Fix-compiler-error-sgNpbUgDkmp2IImUVDc8kR
+```
+
+...the ID is `sgNpbUgDkmp2IImUVDc8kR`.
+
+Then pass the ID using the `--saved-prompt` flag:
+
+```bash
+$ oz agent run --saved-prompt sgNpbUgDkmp2IImUVDc8kR
+```
+
+## Referencing Warp Drive objects as context
+
+Use `<workflow:id>`, `<notebook:id>`, or `<rule:id>` in prompts to attach [Warp Drive objects](https://docs.warp.dev/knowledge-and-collaboration/warp-drive) and [rules](https://docs.warp.dev/knowledge-and-collaboration/rules) as context for the agent.
+
+{% hint style="info" %}
+**Tip:** Use the [@ context menu](https://docs.warp.dev/agent-platform/local-agents/agent-context/using-to-add-context) in Warp to construct a prompt with the right references, then copy it into your CLI command.
+{% endhint %}
+
+```bash
+$ oz agent run --prompt "Follow the instructions in <notebook:gq1CMAUWLtaL1CpEoTDQ3y>"
+```

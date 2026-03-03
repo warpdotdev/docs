@@ -2,7 +2,7 @@
 description: Create and manage API keys for authenticating the Oz CLI and cloud agents.
 ---
 
-# API Keys
+# API keys
 
 API keys let the Oz CLI and cloud agents authenticate without human interaction. Use API keys for CI pipelines, headless servers, VMs, Codespaces, containers, and other automated environments.
 

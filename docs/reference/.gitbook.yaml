@@ -4,7 +4,7 @@ redirects:
     platform/warp-platform: README.md
     developers/cli: cli/README.md
     platform/cli: cli/README.md
-    integrations/integrations-overview/integrations-and-environments: cli/integrations-and-environments.md
+    integrations/integrations-overview/integrations-and-environments: cli/integration-setup.md
     developers/cli#api-key-authentication: cli/README.md#api-key-authentication
 
     # Additional developers/* paths
@@ -13,7 +13,7 @@ redirects:
 
     # platform/cli paths
     platform/cli#api-key-authentication: cli/api-keys.md
-    platform/cli/integrations-and-environments: cli/integrations-and-environments.md
+    platform/cli/integrations-and-environments: cli/integration-setup.md
     platform/cli/troubleshooting: cli/troubleshooting.md
     platform/cli/api-keys: cli/api-keys.md
 
@@ -29,14 +29,20 @@ redirects:
     platform/agent-api-and-sdk/agent-1: api-and-sdk/README.md
 
     # integrations/* paths
-    integrations/integrations-overview/integrations-and-environments#creating-an-environment: cli/integrations-and-environments.md#creating-an-environment 
+    integrations/integrations-overview/integrations-and-environments#creating-an-environment: cli/integration-setup.md#creating-an-environment 
     # Root-level paths
     agent-api-and-sdk: api-and-sdk/README.md
-    cli/integrations-and-environments: cli/integrations-and-environments.md
+    cli/integrations-and-environments: cli/integration-setup.md
 
     # Cross-space legacy paths
-    ambient-agents/mcp-servers-for-agents: cli/mcp-for-cloud-agents.md
+    ambient-agents/mcp-servers-for-agents: cli/mcp-servers.md
 
     # Renamed: simplify filenames
-    cli/mcp-servers-for-cloud-agents: cli/mcp-for-cloud-agents.md
+    cli/mcp-servers-for-cloud-agents: cli/mcp-servers.md
+
+    # Reorganized: MCP content split between cloud-agents and CLI sections
+    cli/mcp-for-cloud-agents: cli/mcp-servers.md
+
+    # Extracted: quickstart moved to its own page
+    cli#quickstart-guide: cli/quickstart.md
 
