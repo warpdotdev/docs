@@ -399,7 +399,12 @@ paths:
       summary: Cancel a run
       description: |
         Cancel an agent run that is currently queued or in progress.
-        Once cancelled, the run will transition to a failed state.
+        Once cancelled, the run will transition to a cancelled state.
+
+        Not all runs can be cancelled. Runs that are in a terminal state
+        (SUCCEEDED, FAILED, ERROR, BLOCKED, CANCELLED) return 400. Runs in
+        PENDING state return 409 (retry after a moment). Self-hosted, local,
+        and GitHub Action runs return 422.
       operationId: cancelRun
       tags:
         - agent
@@ -421,7 +426,9 @@ paths:
                 type: string
                 description: The ID of the cancelled run
         '400':
-          description: Missing run ID
+          description: |
+            Missing run ID, or the run is already in a terminal state
+            (error_code: invalid_request)
           content:
             application/json:
               schema:
@@ -440,6 +447,23 @@ paths:
                 $ref: '#/components/schemas/Error'
         '404':
           description: Run not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: |
+            Run is in PENDING state and cannot be cancelled yet.
+            Retry after a moment (error_code: conflict, retryable: true).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: |
+            Run cannot be cancelled because the operation is not supported
+            for this run type (e.g., self-hosted, local, or GitHub Action runs)
+            (error_code: operation_not_supported)
           content:
             application/json:
               schema:
@@ -1187,10 +1211,23 @@ components:
 
     RunStatusMessage:
       type: object
+      description: |
+        Status message for a run. For terminal error states, includes structured
+        error code and retryability info from the platform error catalog.
+      required:
+        - message
       properties:
         message:
           type: string
           description: Human-readable status message
+        error_code:
+          $ref: '#/components/schemas/PlatformErrorCode'
+        retryable:
+          type: boolean
+          description: |
+            Whether the error is transient and the client may retry by submitting
+            a new run. Only present on terminal error states. When false, retrying
+            without addressing the underlying cause will not succeed.
 
     RequestUsage:
       type: object
@@ -1355,6 +1392,10 @@ components:
       description: |
         Error response following RFC 7807 (Problem Details for HTTP APIs).
         Includes backward-compatible extension members.
+
+        The response uses the `application/problem+json` content type.
+        Additional extension members (e.g., `auth_url`, `provider`) may be
+        present depending on the error code.
       required:
         - type
         - title
@@ -1364,7 +1405,10 @@ components:
         type:
           type: string
           format: uri
-          description: A URI reference that identifies the problem type (RFC 7807)
+          description: |
+            A URI reference that identifies the problem type (RFC 7807).
+            Format: `https://docs.warp.dev/agent-platform/troubleshooting/errors/{error_code}`
+            See PlatformErrorCode for the list of possible error codes.
         title:
           type: string
           description: A short, human-readable summary of the problem type (RFC 7807)
@@ -1384,7 +1428,10 @@ components:
             Backward-compatible extension member for older clients.
         retryable:
           type: boolean
-          description: Whether the request can be retried
+          description: |
+            Whether the request can be retried. When true, the error is transient
+            and the request may be retried. When false, retrying without addressing
+            the underlying cause will not succeed.
         trace_id:
           type: string
           description: OpenTelemetry trace ID for debugging and support requests
@@ -1751,6 +1798,50 @@ components:
         uid:
           type: string
           description: UID of the owning user or team
+
+    PlatformErrorCode:
+      type: string
+      description: |
+        Machine-readable error code identifying the problem type.
+        Used in the `type` URI of Error responses and in the `error_code`
+        field of RunStatusMessage.
+
+        User errors (run transitions to FAILED):
+        - `insufficient_credits` — Team has no remaining add-on credits
+        - `feature_not_available` — Required feature not enabled for user's plan
+        - `external_authentication_required` — User hasn't authorized a required external service
+        - `not_authorized` — Principal lacks permission for the requested operation
+        - `invalid_request` — Request is malformed or contains invalid parameters
+        - `resource_not_found` — Referenced resource does not exist
+        - `budget_exceeded` — Spending budget limit has been reached
+        - `integration_disabled` — Integration is disabled and must be enabled
+        - `integration_not_configured` — Integration setup is incomplete
+        - `operation_not_supported` — Requested operation not supported for this resource/state
+        - `environment_setup_failed` — Client-side environment setup failed
+        - `content_policy_violation` — Prompt or setup commands violated content policy
+        - `conflict` — Request conflicts with the current state of the resource
+
+        Warp errors (run transitions to ERROR):
+        - `authentication_required` — Request lacks valid authentication credentials
+        - `resource_unavailable` — Transient infrastructure issue (retryable)
+        - `internal_error` — Unexpected server-side error (retryable)
+      enum:
+        - insufficient_credits
+        - feature_not_available
+        - external_authentication_required
+        - not_authorized
+        - invalid_request
+        - resource_not_found
+        - budget_exceeded
+        - integration_disabled
+        - integration_not_configured
+        - operation_not_supported
+        - environment_setup_failed
+        - content_policy_violation
+        - conflict
+        - authentication_required
+        - resource_unavailable
+        - internal_error
 
     AgentSkill:
       type: object
