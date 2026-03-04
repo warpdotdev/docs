@@ -31,7 +31,7 @@ If the Warp app is installed, links will open on the desktop by default. You can
 {% hint style="info" %}
 The desktop option is only presented if Warp's web service is able to detect the Warp app installed locally. Warp desktop opens localhost port 9277 to accomplish this detection. This is done in a separate process that does not have access to your terminal contents.\
 \
-If you would like to use Warp locally and do not have it installed, please visit our [installation guide.](../../getting-started/quickstart-guide/installation-and-setup.md)
+If you would like to use Warp locally and do not have it installed, please visit our [installation guide.](../../getting-started/quickstart/installation-and-setup.md)
 {% endhint %}
 
 1. The first time you follow a link, if Warp is not installed, you will be prompted to download it. You can dismiss the popup to stay on the web.

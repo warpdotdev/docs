@@ -11,7 +11,7 @@
 
 ## Plans and billing
 
-* [Plans & Pricing](support-and-community/plans-and-billing/plans-and-pricing.md)
+* [Plans & Pricing](support-and-community/plans-and-billing/plans-pricing-refunds.md)
 * [Credits](support-and-community/plans-and-billing/credits.md)
 * [Add-on Credits](support-and-community/plans-and-billing/add-on-credits.md)
 * [Bring Your Own API Key](support-and-community/plans-and-billing/bring-your-own-api-key.md)
