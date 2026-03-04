@@ -149,7 +149,7 @@ Use the [Oz Agent API & SDK](https://docs.warp.dev/reference/api-and-sdk) to tri
 ## Troubleshooting
 
 **Environment creation fails**\
-Use official Docker Hub images like `node`, `python`, or `rust` for best compatibility. Ensure your GitHub repos are accessible. If using a custom image, avoid Alpine/musl-based images—the Warp agent runtime requires glibc. See [Environments](environments.md) for more guidance on choosing Docker images.
+Use official Docker Hub images like `node`, `python`, or `rust` for best compatibility. Ensure your GitHub repos are accessible. If using a custom image, avoid Alpine/musl-based images—the Oz agent runtime requires glibc. See [Environments](environments.md) for more guidance on choosing Docker images.
 
 **Agent can't access repos**\
 Warp prompts you to authorize GitHub when you create an environment or trigger your first agent. If authorization fails or needs updating, see [How GitHub Authorization works](https://docs.warp.dev/reference/cli/integration-setup#how-github-authorization-works). Also verify that repos are correctly configured in your environment with `oz environment get <ENV_ID>`.

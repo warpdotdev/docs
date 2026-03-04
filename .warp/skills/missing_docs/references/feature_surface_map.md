@@ -12,11 +12,12 @@ Lines starting with `#` are comments. Blank lines are ignored.
 
 ## Feature flags -> doc pages
 
-AgentMode -> docs/agent-platform/local-agents/agents-overview.md
-AgentModeHomepage -> docs/agent-platform/local-agents/agents-overview.md
-AgentModeHomepage2 -> docs/agent-platform/local-agents/agents-overview.md
+AgentMode -> docs/agent-platform/local-agents/overview.md
+AgentModeHomepage -> docs/agent-platform/local-agents/overview.md
+AgentModeHomepage2 -> docs/agent-platform/local-agents/overview.md
 AgentManagementPopup -> docs/agent-platform/cloud-agents/managing-cloud-agents.md
 AgentManagementView -> docs/agent-platform/cloud-agents/managing-cloud-agents.md
+AgentManagementDetailsView -> docs/agent-platform/cloud-agents/managing-cloud-agents.md
 AgentModeComputerUse -> docs/agent-platform/capabilities/computer-use.md
 AgentModeWorkflows -> docs/warp/knowledge-and-collaboration/warp-drive/workflows.md
 AgentOnboarding -> docs/agent-platform/getting-started/agents-in-warp.md
@@ -34,15 +35,17 @@ ImageAsContext -> docs/agent-platform/local-agents/agent-context/images-as-conte
 SelectionAsContext -> docs/agent-platform/local-agents/agent-context/selection-as-context.md
 DiffSetAsContext -> docs/agent-platform/local-agents/agent-context/selection-as-context.md
 WebSearchUI -> docs/agent-platform/capabilities/web-search.md
+WebFetchUI -> docs/agent-platform/capabilities/web-search.md
 CodebaseContext -> docs/agent-platform/capabilities/codebase-context.md
 CrossRepoContext -> docs/agent-platform/capabilities/codebase-context.md
 FullSourceCodeEmbedding -> docs/agent-platform/capabilities/codebase-context.md
+SearchCodebaseUI -> docs/agent-platform/capabilities/codebase-context.md
 CloudEnvironments -> docs/agent-platform/cloud-agents/environments.md
-CloudMode -> docs/agent-platform/cloud-agents/cloud-agents-overview.md
-AmbientAgentsCommandLine -> docs/agent-platform/cloud-agents/cloud-agents-overview.md
+CloudMode -> docs/agent-platform/cloud-agents/overview.md
+AmbientAgentsCommandLine -> docs/agent-platform/cloud-agents/overview.md
 ScheduledAmbientAgents -> docs/agent-platform/cloud-agents/triggers/scheduled-agents.md
-WarpManagedSecrets -> docs/agent-platform/cloud-agents/cloud-agent-secrets.md
-IntegrationCommand -> docs/reference/cli/integrations-and-environments.md
+WarpManagedSecrets -> docs/agent-platform/cloud-agents/secrets.md
+IntegrationCommand -> docs/reference/cli/integration-setup.md
 ConversationManagement -> docs/agent-platform/local-agents/cloud-conversations.md
 ConversationManagementV1 -> docs/agent-platform/local-agents/cloud-conversations.md
 ForkConversationFromBlock -> docs/agent-platform/local-agents/interacting-with-agents/conversation-forking.md
@@ -70,26 +73,44 @@ APIKeyAuthentication -> docs/reference/cli/api-keys.md
 APIKeyManagement -> docs/reference/cli/api-keys.md
 SecretRedaction -> docs/support-and-community/privacy-and-security/secret-redaction.md
 CreatingSharedSessions -> docs/warp/knowledge-and-collaboration/session-sharing/README.md
-AgentSharedSessions -> docs/agent-platform/cloud-agents/agent-session-sharing.md
+AgentSharedSessions -> docs/agent-platform/local-agents/session-sharing.md
 ProfilesDesignRevamp -> docs/agent-platform/capabilities/agent-profiles-permissions.md
 MultiProfile -> docs/agent-platform/capabilities/agent-profiles-permissions.md
+InlineProfileSelector -> docs/agent-platform/capabilities/agent-profiles-permissions.md
 ModelChoice -> docs/agent-platform/capabilities/model-choice.md
 Skills -> docs/agent-platform/capabilities/skills.md
+ListSkills -> docs/agent-platform/capabilities/skills.md
+BundledSkills -> docs/agent-platform/capabilities/skills.md
 Planning -> docs/agent-platform/capabilities/planning.md
+SyncAmbientPlans -> docs/agent-platform/capabilities/planning.md
 TaskLists -> docs/agent-platform/capabilities/task-lists.md
 SlashCommands -> docs/agent-platform/capabilities/slash-commands.md
+SuggestedRules -> docs/agent-platform/capabilities/rules.md
+RectSelection -> docs/warp/terminal/more-features/text-selection.md
+ContextWindowUsageV2 -> docs/agent-platform/local-agents/interacting-with-agents/README.md
+ConfigurableBlockLimits -> docs/warp/terminal/blocks/block-basics.md
+CommandCorrectionKey -> docs/warp/terminal/entry/command-corrections.md
+ClassicCompletions -> docs/warp/terminal/command-completions/completions.md
+DynamicWorkflowEnums -> docs/warp/knowledge-and-collaboration/warp-drive/workflows.md
+SharedWithMe -> docs/warp/knowledge-and-collaboration/warp-drive/README.md
+WarpPacks -> docs/warp/knowledge-and-collaboration/warp-drive/README.md
+TabbedEditorView -> docs/warp/code/code-editor/README.md
+ReadImageFiles -> docs/agent-platform/local-agents/agent-context/images-as-context.md
+FileRetrievalTools -> docs/agent-platform/capabilities/codebase-context.md
+ConversationArtifacts -> docs/agent-platform/local-agents/interacting-with-agents/README.md
+OzChangelogUpdates -> docs/changelog/README.md
 
 ## CLI commands -> doc pages
 
 # Top-level Oz CLI commands
 oz agent -> docs/reference/cli/README.md
-oz environment -> docs/reference/cli/integrations-and-environments.md
-oz mcp -> docs/reference/cli/mcp-servers-for-cloud-agents.md
+oz environment -> docs/reference/cli/integration-setup.md
+oz mcp -> docs/reference/cli/mcp-servers.md
 oz run -> docs/reference/cli/README.md
 oz model -> docs/reference/cli/README.md
 oz login -> docs/reference/cli/README.md
 oz logout -> docs/reference/cli/README.md
-oz integration -> docs/reference/cli/integrations-and-environments.md
+oz integration -> docs/reference/cli/integration-setup.md
 oz schedule -> docs/reference/cli/README.md
 oz secret -> docs/reference/cli/README.md
 oz provider -> docs/reference/cli/README.md
@@ -101,11 +122,30 @@ POST /agent/run -> docs/reference/api-and-sdk/README.md
 GET /agent/runs -> docs/reference/api-and-sdk/README.md
 GET /agent/runs/{runId} -> docs/reference/api-and-sdk/README.md
 
+# Internal/infrastructure endpoints (not part of public API, no docs needed)
+GET /block/embed/:id -> internal
+GET /block/:id -> internal
+GET /referral/:id -> internal
+GET /client_version -> internal
+GET /client_version/daily -> internal
+POST /receive_nps_response -> internal
+POST /receive_pmf_response -> internal
+GET /current_time -> internal
+POST /graphql/v2 -> internal
+GET /graphql/v2 -> internal
+GET /graphiql -> internal
+GET /graphiql/v2 -> internal
+GET /download -> internal
+GET /download/brew -> internal
+GET /download/windows -> internal
+GET /download/cli -> internal
+
 ## Flags to ignore (internal-only, not user-facing)
 
 # These flags are internal implementation details and don't need documentation
 CocoaSentry
 CrashReporting
+CrashRecoveryForceX11
 DebugMode
 LogExpensiveFramesInSentry
 WithSandboxTelemetry
@@ -162,3 +202,9 @@ NewTabStyling
 AmbientAgentsRTC
 OzBranding
 OzLaunchModal
+GetStartedTab
+CreateProjectFlow
+CodeLaunchModal
+ValidateAutosuggestions
+ClearAutosuggestionOnEscape
+OzPlatformSkills

@@ -33,9 +33,9 @@ If you signed up for a paid Warp subscription by mistake, we can issue a refund 
 * **72 hours** of starting a **monthly** plan, or
 * **30 days** of starting an **annual** plan,
 
-_**and**_ you have not yet consumed all of the **allocated free AI credits**.
+_**and**_ you have not yet consumed all of the **allocated free credits**.
 
-If you exceed the free AI credit limit usage during your first 2 months on the annual plan, we cannot process refunds for those months. However, we will refund **months 3–12**.
+If you exceed the free credit limit usage during your first 2 months on the annual plan, we cannot process refunds for those months. However, we will refund **months 3–12**.
 
 #### Add-on Credits | Overages Refund Policy
 

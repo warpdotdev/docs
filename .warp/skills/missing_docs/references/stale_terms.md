@@ -22,7 +22,6 @@ natural language command -> Legacy term — now Agent Mode
 
 ai credits -> Use 'credits' without the AI prefix
 mac os -> Use 'macOS'
-git repository -> Capitalize as 'Git repository'
 
 ## Deprecated terminology
 

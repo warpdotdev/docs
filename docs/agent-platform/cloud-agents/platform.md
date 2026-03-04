@@ -45,7 +45,7 @@ In practice: **triggers create tasks; tasks execute on a host (optionally in an 
 
 ### Oz CLI
 
-The [Oz CLI](https://docs.warp.dev/reference/cli) is the **headless interface** for running Warp agents in non-interactive mode. It's commonly used in CI, scripts, and server environments where there is no interactive UI. For interactive workflows, use the [agent](../local-agents/overview.md) embedded in Warp's desktop app.
+The [Oz CLI](https://docs.warp.dev/reference/cli) is the **headless interface** for running Oz agents in non-interactive mode. It's commonly used in CI, scripts, and server environments where there is no interactive UI. For interactive workflows, use the [agent](../local-agents/overview.md) embedded in Warp's desktop app.
 
 A key property of the CLI is that it is **cloud-connected**. Even when an agent is started on a local machine or in CI, it reports progress to Warp’s servers. This enables team visibility, session sharing (where supported), and programmatic tracking through the API.
 

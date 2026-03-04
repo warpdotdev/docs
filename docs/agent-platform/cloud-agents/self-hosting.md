@@ -208,7 +208,7 @@ docker run \
 ```
 
 {% hint style="info" %}
-Sidecar images (the Warp agent binary and dependencies) are pulled from public registries and do not require authentication.
+Sidecar images (the Oz agent binary and dependencies) are pulled from public registries and do not require authentication.
 {% endhint %}
 
 ***
