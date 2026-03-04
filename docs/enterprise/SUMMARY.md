@@ -1,11 +1,17 @@
 # Table of contents
 
-## Getting Started
+## Getting started
 
 * [Overview](README.md)
 * [Quick start](getting-started/quickstart.md)
+* [Getting started for admins](getting-started/getting-started-enterprise.md)
 * [Getting started for developers](getting-started/getting-started-developers.md)
 * [FAQ](getting-started/faq.md)
+
+## Security and compliance
+
+* [Security overview](security-and-compliance/security-overview.md)
+* [Single Sign-On (SSO)](security-and-compliance/sso.md)
 
 ## Team management
 
