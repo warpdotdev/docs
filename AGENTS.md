@@ -16,9 +16,12 @@ This guide establishes standards for writing documentation that matches Warp's v
 
 ### Language Guidelines
 - Use active voice: "Warp detects opportunities" not "opportunities are detected by Warp"
+- Always strive to use active voice rather than passive voice in all documentation
 - Start sentences with strong verbs when giving instructions
 - Avoid hedging language ("might", "could", "perhaps") when describing established features
 - Use consistent terminology throughout (see Terminology section below)
+- Em dashes are acceptable for occasional variation in narrative/conceptual text, but use sparingly
+- Never use em dashes in procedural or instructional text
 
 ## Content Structure
 
@@ -55,6 +58,7 @@ Follow this hierarchy for all documentation pages:
 ### Lists
 - Use bulleted lists for features, benefits, or non-sequential items
 - Use numbered lists only for step-by-step processes
+- End each numbered step in a procedure with a period
 - Bold the key term or feature name at the start of each list item
 - Follow the bold term with a dash and explanation
 
@@ -163,11 +167,11 @@ Use these terms consistently throughout all documentation:
 
 #### Oz vs Warp
 - **Warp** is the terminal and coding surface
-- **Oz** is the orchestration platform for cloud agents that makes running and coordinating agents at scale easy
+- **Oz** is Warp's programmable agent for running and coordinating agents at scale
 - There is typically one Warp environment per user session. Oz can run many agents concurrently, across machines, repos, and teams.
 
 #### Core Oz terms
-- **Oz** - The orchestration platform for cloud agents
+- **Oz** - Warp's programmable agent for running and coordinating agents at scale
 - **Oz agent** - A combination of agent instructions (skill or prompt), trigger (cron, webhook, manual), environment (local, cloud), profile, and host. Agents can be local or cloud, and interactive or ambient.
 - **Oz cloud agent** - An Oz agent running in the cloud, from a trigger, schedule, or started from someone's local machine
 - **Oz subagent** - A child Oz agent created by a parent Oz agent to parallelize or delegate work
@@ -196,6 +200,7 @@ Use these terms consistently throughout all documentation:
 - ❌ "Deploying an Oz" → Use "Deploying an Oz agent"
 - ❌ "The Oz Agent" → Use "An Oz agent" or "A parent Oz agent"
 - ❌ "Oz is running" → Use "An Oz agent is running" or "A run is in progress"
+- ❌ "AI agents" → Use "agents" (the "AI" prefix is redundant)
 
 ### Technical Terms
 - **codebase** (one word, lowercase unless part of feature name)
