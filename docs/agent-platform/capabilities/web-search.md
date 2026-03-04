@@ -45,12 +45,12 @@ Web search is available only for models that offer a native web search integrati
 **Models that support web search**
 
 * Anthropic: `Claude 4.6 Series`, `Claude 4.5 Series`, `Claude 4 Series`
-* OpenAI: `GPT-5.3 Codex`, `GPT-5.2 Codex`, `GPT-5.2`, `Galapagos`, `GPT-5.1 Codex Max`, `GPT-5.1 Codex`, `GPT-5.1`, `GPT-5`&#x20;
-  * _Note: GPT-5 Nano and GPT-5 Mini at minimal reasoning do not support web search_
+* OpenAI: `GPT-5.3 Codex`, `GPT-5.2 Codex`, `GPT-5.2`, `GPT-5.1 Codex Max`, `GPT-5.1 Codex`, `GPT-5.1`, `GPT-5`
+  * _Note: GPT-5 Nano does not support web search._
 
 Warp uses each vendor’s official tool:
 
-* **Claude Web Search**: [https://docs.claude.com/en/docs/agents-and-tools/tool-use/web-search-tool](https://docs.claude.com/en/docs/agents-and-tools/tool-use/web-search-tool)&#x20;
+* **Claude Web Search**: [https://docs.claude.com/en/docs/agents-and-tools/tool-use/web-search-tool](https://docs.claude.com/en/docs/agents-and-tools/tool-use/web-search-tool)
 * **OpenAI Web Search**: [https://platform.openai.com/docs/guides/tools-web-search?api-mode=responses](https://platform.openai.com/docs/guides/tools-web-search?api-mode=responses)
 
 {% hint style="info" %}
@@ -73,7 +73,7 @@ This makes it easy to verify accuracy, audit reasoning, and validate sources.
 
 ### Enabling or Disabling Web Search
 
-Web search is controlled per [Profiles & Permissions](../capabilities/agent-profiles-permissions.md).
+Web search is controlled per [Profiles & Permissions](agent-profiles-permissions.md).
 
 **To configure:**
 

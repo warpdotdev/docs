@@ -20,7 +20,6 @@ Warp lets you choose from a curated set of Large Language Models (LLMs) to power
   * `GPT-5.1 Codex` (_low, medium,_ and _high_ reasoning)
   * `GPT-5.1` (_low, medium,_ and _high_ reasoning)
   * `GPT-5` (_low, medium,_ and _high_ reasoning)
-  * `GPT-5 Mini`
 * Anthropic:
   * `Claude Opus 4.6` (_default_ and _max_ effort)
   * `Claude Sonnet 4.6` (_default_ and _max_ effort)
@@ -28,11 +27,9 @@ Warp lets you choose from a curated set of Large Language Models (LLMs) to power
   * `Claude Sonnet 4.5` (_off_ and _thinking_ mode)
   * `Claude Opus 4.1`
   * `Claude Haiku 4.5`
-  * `Claude Sonnet 4` (_off_ and _thinking_ mode)
 * Google:
   * `Gemini 3 Pro`
   * `Gemini 2.5 Pro`
-  * `Gemini 2.5 Flash`
 * z.ai (hosted in the US, by [Fireworks AI](https://fireworks.ai)):
   * `GLM 4.7`
 
