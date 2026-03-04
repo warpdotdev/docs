@@ -135,6 +135,20 @@ RUST_LOG=wgpu_core=info,wgpu_hal=info MESA_DEBUG=1 EGL_LOG_LEVEL=debug warp-term
 {% endtab %}
 {% endtabs %}
 
+## Collecting crash reports on macOS
+
+If Warp crashes, macOS may generate `.ips` crash report files in `~/Library/Logs/DiagnosticReports/`. Run the following to collect all Warp crash reports into a zip on your Desktop:
+
+```bash
+files=$(find ~/Library/Logs/DiagnosticReports -name "*.ips" -exec grep -l "dev\.warp" {} + 2>/dev/null) && [ -n "$files" ] && echo "$files" | xargs zip -j ~/Desktop/warp-crash-logs.zip || echo "No Warp crash reports found."
+```
+
+Attach the resulting `warp-crash-logs.zip` to your [bug report](sending-us-feedback.md#sending-warp-feedback).
+
+{% hint style="info" %}
+This command searches crash report files for Warp's bundle identifier, so it works across all Warp channels (Stable, Preview).
+{% endhint %}
+
 ## Gathering AI debugging ID <a href="#gathering-ai-debugging-id" id="gathering-ai-debugging-id"></a>
 
 To gather the debugging ID, `RIGHT-CLICK` on the AI conversation block in question and select "Copy debugging ID", then paste that into the [bug report](sending-us-feedback.md#sending-warp-feedback) that you submit so that our team can investigate the issue.
