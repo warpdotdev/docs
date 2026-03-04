@@ -16,7 +16,6 @@ Warp lets you choose from a curated set of Large Language Models (LLMs) to power
   * `GPT-5.3 Codex` (_low, medium, high_, and _extra high_ reasoning)
   * `GPT-5.2 Codex` (_low, medium, high_, and _extra high_ reasoning)
   * `GPT-5.2` (_low, medium, high_, and _extra high_ reasoning)
-  * `Galapagos` (_low, medium, high_, and _extra high_ reasoning)
   * `GPT-5.1 Codex Max` (_low, medium, high_, and _extra high_ reasoning)
   * `GPT-5.1 Codex` (_low, medium,_ and _high_ reasoning)
   * `GPT-5.1` (_low, medium,_ and _high_ reasoning)
@@ -31,17 +30,11 @@ Warp lets you choose from a curated set of Large Language Models (LLMs) to power
   * `Claude Haiku 4.5`
   * `Claude Sonnet 4` (_off_ and _thinking_ mode)
 * Google:
-  * `Gemini 3.1 Pro`
   * `Gemini 3 Pro`
   * `Gemini 2.5 Pro`
   * `Gemini 2.5 Flash`
-* xAI:
-  * `Grok 4`
 * z.ai (hosted in the US, by [Fireworks AI](https://fireworks.ai)):
-  * `GLM 5`
   * `GLM 4.7`
-  * `Kimi K2.5`
-  * `Minimax 2.5`
 
 ### Auto Models
 
@@ -66,13 +59,14 @@ To change models, click the displayed model name (for example, _Claude Sonnet 4.
 Warp uses a model fallback system to ensure uninterrupted service if your selected model becomes temporarily unavailable due to provider outages or capacity issues.
 
 **How it works:**
+
 * If your selected model isn't available, Warp automatically uses a fallback model from a predefined chain to continue your conversation without errors.
 * As soon as your originally selected model becomes available again, Warp automatically switches back to it.
 * The fallback model is selected to provide comparable quality and capabilities to your original choice.
 
 ### Configuring models per Agent Profile
 
-You can configure the base model for each [Agent Profiles & Permissions](../capabilities/agent-profiles-permissions.md), defining the Agent's autonomy, tool access, and other permissions. The base model is also used for [Planning](planning.md).
+You can configure the base model for each [Agent Profiles & Permissions](agent-profiles-permissions.md), defining the Agent's autonomy, tool access, and other permissions. The base model is also used for [Planning](planning.md).
 
 Edit your default profile or more profiles directly in **Settings** > **AI** > **Agents** > **Profiles**.
 
