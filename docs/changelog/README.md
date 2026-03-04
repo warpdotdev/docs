@@ -2,7 +2,6 @@
 description: >-
   Warp auto-updates whenever a new release comes out. We try to ship an update
   every week usually on Thursday!
-icon: clock-rotate-left
 layout:
   width: wide
   title:
