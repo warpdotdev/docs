@@ -1,0 +1,61 @@
+---
+description: >-
+  The request body is malformed, missing required fields, or contains
+  invalid parameter values.
+---
+
+# invalid\_request
+
+The `invalid_request` error occurs when the API request is malformed or contains invalid parameters.
+
+***
+
+## Details
+
+* **HTTP Status:** `400 Bad Request`
+* **Retryable:** No
+* **Task State:** FAILED
+
+***
+
+## When does this occur?
+
+This error is returned when:
+
+* Required fields are missing from the request body (for example, `prompt` or `schedule_id`)
+* Parameter values are invalid or out of range
+* The request body cannot be parsed (malformed JSON)
+* A referenced identifier is in the wrong format
+* A team-owned task references a personal environment (team tasks require team-scoped environments)
+
+The `detail` field in the response will describe the specific validation issue.
+
+***
+
+## Example response
+
+```json
+{
+  "type": "https://docs.warp.dev/reference/api-and-sdk/troubleshooting/errors/invalid-request",
+  "title": "The request contains invalid or missing parameters.",
+  "status": 400,
+  "detail": "schedule_id is required",
+  "instance": "/api/v1/agent/tasks",
+  "error": "The request contains invalid or missing parameters. (schedule_id is required)",
+  "retryable": false
+}
+```
+
+***
+
+## How to resolve
+
+1. Check the `detail` field for the specific validation issue.
+2. Correct the request parameters according to the [API documentation](https://docs.warp.dev/reference/api-and-sdk/agent).
+3. Retry the request.
+
+***
+
+## Related
+
+* [Oz Agent API & SDK](https://docs.warp.dev/reference/api-and-sdk/agent) — API request format and parameters

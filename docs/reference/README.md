@@ -3,7 +3,7 @@ description: >-
   Technical reference documentation for the Oz CLI, API, and SDK.
 ---
 
-# API Reference
+# Reference
 
 This section covers the programmatic interfaces for running and managing Oz agents in CI pipelines, scripts, backend services, and custom tooling.
 

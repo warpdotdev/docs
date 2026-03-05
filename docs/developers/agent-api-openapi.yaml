@@ -1407,7 +1407,7 @@ components:
           format: uri
           description: |
             A URI reference that identifies the problem type (RFC 7807).
-            Format: `https://docs.warp.dev/agent-platform/troubleshooting/errors/{error_code}`
+            Format: `https://docs.warp.dev/reference/api-and-sdk/troubleshooting/errors/{error_code}`
             See PlatformErrorCode for the list of possible error codes.
         title:
           type: string

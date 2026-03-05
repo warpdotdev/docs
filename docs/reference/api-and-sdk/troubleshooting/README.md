@@ -1,0 +1,13 @@
+---
+description: >-
+  Troubleshooting resources for the Oz Agent API and SDK, including a full
+  reference for all platform error codes.
+---
+
+# Troubleshooting
+
+When the Oz platform API encounters an error, it returns a structured response following [RFC 7807 (Problem Details for HTTP APIs)](https://datatracker.ietf.org/doc/html/rfc7807) with a machine-readable error code, HTTP status, and actionable resolution steps.
+
+## Resources
+
+* [**Errors**](errors/README.md) — Full reference for all API error codes, including causes, example responses, and resolution steps
