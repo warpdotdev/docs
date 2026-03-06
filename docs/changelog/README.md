@@ -25,6 +25,55 @@ metaLinks: {}
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2026.03.05 (v0.2026.03.04.08.20)
+
+**New features**
+
+* Adds prompt customization for the new Warp prompt.
+
+**Improvements**
+
+* Adds new built-in skills `generate-figma-content` and `pull-figma-content` invokable by users with Figma's remote MCP server installed.
+* Selected text is no longer auto-attached as agent context to prevent accidental attachment, and instead requires right click > attach as agent context.
+* Cloud conversations now appear in the @conversations context menu.
+* When Settings > MCP Servers > File-based MCP servers is toggled on, we now automatically detect and spawn global and project-scoped MCP servers installed via `codex`.
+* Global search now pre-populates with the active text selection from code, terminal, notebook, and plan views.
+* Warp prompt now has separate chips for git branch and git diff stats.
+* Show pending prompt indicator when using `/fork-and-compact` or `/compact-and` with a follow-up prompt.
+* Oz permission notifications now use "Oz" branding instead of "Agent Mode".
+* \[macOS] The window traffic light buttons now look correct at different zoom levels.
+* Added "Copy plan ID" option to the plan document overflow menu.
+
+**Bug fixes**
+
+* Fixed an issue where changing directories from the prompt chip dropdown cleared the terminal input.
+* Fixed LSP error diagnostics (underlines) persisting on valid symbols after workspace reanalysis.
+* Resolved an issue where duplicate skills installed across multiple provider directories (e.g., `.claude` and `.agents`) would appear twice.
+* Fixed git diff stats chip incorrectly appearing in non-git directories.
+* Fixed global hotkey window opening on the wrong screen after sleep/wake when pinned to a specific display.
+* Fixed cursor position queries (`ESC[6n`) not working when connected via tmux control mode (`-CC`), which caused certain TUI applications to hang when Warpified in SSH (e.g. Codex CLI).
+* Fixed agent driver not waiting for automatic error retry on network failures.
+* Fixed incorrect ANSI colors in the Adeberry theme.
+* Fixed a bug where some MCP servers would fail to connect due to an unsupported `resources/list` method.
+* CLI now exits immediately with an error when credentials are invalid, instead of timing out while syncing Warp Drive.
+* Fixed a crash that could occur when selecting text during rapid terminal output.
+* Fixed ephemeral MCP servers not being included in multi-agent API requests.
+* Fixed settings page not updating profile picture after auth state changes.
+* Fixed the "Open in Warp" button not working for code snippets in restored and forked AI conversations.
+* Hide the free cloud credits banner on shared sessions and WASM builds.
+* Fixed a case where the newest plan created by the agent would not visually replace a previous plan that was open.
+* "Plan synced to Warp Drive" toast no longer appears when the synced plan is in a different tab.
+* Fixed "open file" button in code review diff view not working when the pane is maximized.
+* Fixed git metadata background operations after a terminal is closed.
+* Mobile soft keyboard will now work for LRCs.
+* Oz agents now report more detailed information about session-sharing failures.
+
+**Oz updates**
+
+* Oz agent tasks now report structured error codes to the server, enabling better error tracking and retryability handling.
+* Fixed Oz cloud agent not waiting for automatic error retry on network failures.
+* Added support for passing arguments to skill invocations (`$ARGUMENTS`, `$N`) and for including user queries with the invocation.
+
 ### 2026.02.25 (v0.2026.02.25.08.24)
 
 **New features**

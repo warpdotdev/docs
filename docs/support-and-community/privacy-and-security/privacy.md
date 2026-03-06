@@ -40,7 +40,7 @@ You can read our [full privacy policy](https://www.warp.dev/legal/privacy-policy
 1. Navigate to **Settings** > **Privacy**, or open the [Command Palette](https://docs.warp.dev/terminal/command-palette/) and search for "privacy"
 2. Toggle off "Help improve Warp", "Send crash reports", or both
 
-<figure><img src="../.gitbook/assets/privacy-settings-after-signup.png" alt=""><figcaption><p>Privacy Settings</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/privacy-settings-after-signup.png" alt=""><figcaption><p>Privacy Settings</p></figcaption></figure>
 
 With telemetry disabled, no console interactions are ever persisted on Warp's servers. Each request contains a `X-Warp-Telemetry-Enabled` header to specify whether telemetry is disabled, and even if this is missing from the request, our server assumes it's disabled.
 
@@ -81,7 +81,6 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `AIAutonomy.AutoexecutedRequestedCommand` | Autoexecuted an Agent Mode requested command |
 | `AIAutonomy.ChangedAgentModeCodingPermissions` | Changed Agent Mode permissions for coding tasks |
 | `AIAutonomy.ToggledAutoexecuteReadonlyCommandsSetting` | Toggled setting to autoexecute readonly Agent Mode requested commands |
-| `Active Indexed Repos Changed` | Active indexed repositories changed, affecting codebase context. |
 | `Add Added Subshell Command` | Added a command to be automatically Warpified via Warp's subshell wrapper |
 | `Add Denylisted SSH Tmux Wrapper Host` | Added a SSH host to the denylist for prompting for Tmux Wrapper |
 | `Add Denylisted Subshell Command` | Explicitly prevent a command from being Warpified via Warp's subshell wrapper |
@@ -139,27 +138,15 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `AgentMode.ExitedShellProcess` | An agent-requested command caused the shell process to exit |
 | `AgentMode.FileGlob.Failed` | The file glob tool failed to complete |
 | `AgentMode.FileGlob.Succeeded` | The file glob tool completed successfully |
-| `AgentMode.FullEmbedCodebaseContextSearch.Failed` | Failed to search full embed codebase context |
-| `AgentMode.FullEmbedCodebaseContextSearch.Success` | Successfully searched full embed codebase context |
 | `AgentMode.Grep.Failed` | The grep tool failed to complete |
 | `AgentMode.Grep.Succeeded` | The grep tool completed successfully |
-| `AgentMode.MerkleTreeSnapshot.Diff.Failed` | Failed to diff merkle tree snapshot |
-| `AgentMode.MerkleTreeSnapshot.Diff.Success` | Successfully diffed merkle tree snapshot |
-| `AgentMode.MerkleTreeSnapshot.Rebuild.Failed` | Failed to rebuild merkle tree from snapshot |
-| `AgentMode.MerkleTreeSnapshot.Rebuild.Success` | Successfully rebuilt merkle tree from snapshot |
 | `AgentMode.NaturalLanguageDetection.InputBufferSubmitted` | Input buffer submitted |
 | `AgentMode.OpenedCitation` | Opened a citation that was surfaced in agent mode |
 | `AgentMode.PotentialAutoDetectionFalsePositive` | Manually toggled input to shell mode after input was auto-detected as natural language. |
 | `AgentMode.QueryAttemptAtLImit` | Tried to send an Agent Mode query but they already reached the query limit |
 | `AgentMode.RequestRetrySucceeded` | Agent Mode request succeeded after retrying following an initial error |
-| `AgentMode.SearchCodebase.RepoUnavailable` | Tried to use the Search Codebase tool on a repo that is unavailable |
-| `AgentMode.SearchCodebase.Requested` | Ran the Search Codebase tool |
 | `AgentMode.SetupCreateEnvironmentAction` | User clicked a button in the Agent Mode setup create environment step |
 | `AgentMode.SurfacedCitations` | Agent mode used and cited external sources that were used in its response |
-| `AgentMode.SyncCodebaseContext.BuildTree.Failed` | Failed to build merkle tree for codebase context |
-| `AgentMode.SyncCodebaseContext.BuildTree.Success` | Successfully built merkle tree for codebase context |
-| `AgentMode.SyncCodebaseContext.Failed` | Failed to sync codebase context |
-| `AgentMode.SyncCodebaseContext.Success` | Successfully synced codebase context |
 | `AgentMode.ToggleAutoDetectionSetting` | Toggled the setting that enables or disables natural language auto-detection in the input.  |
 | `AgentTip Clicked` | User clicked a link or action in an Agent Tip |
 | `AgentTip Shown` | Selected an Agent Tip to show in the Agent Mode status bar |
@@ -459,7 +446,6 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `Resource Center Opened` | Opened Resource Center pane |
 | `Resource Center Tips Completed` | Completed resource center tips |
 | `Resource Center Tips Skipped` | Skipped welcome tips for new users |
-| `Reverse Pro Trial Ending Reminder Dismissed` | Reverse pro trial ending expiry reminder banner was dismissed by user |
 | `SSH Bootstrap Attempt` | Attempted bootstrapping for an SSH session |
 | `SSH ControlMaster Error` | Encountered a ControlMaster error during an SSH session |
 | `SSH Install Tmux Block Accepted` | User accepted an ssh install tmux block |
