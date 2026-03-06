@@ -204,7 +204,7 @@ paths:
       summary: List agent runs
       description: |
         Retrieve a paginated list of agent runs with optional filtering.
-        Results are ordered by creation time (newest first).
+        Results default to `sort_by=updated_at` and `sort_order=desc`.
       operationId: listRuns
       tags:
         - agent
@@ -226,6 +226,33 @@ paths:
           required: false
           schema:
             type: string
+        - name: sort_by
+          in: query
+          description: |
+            Sort field for results.
+            - `updated_at`: Sort by last update timestamp (default)
+            - `created_at`: Sort by creation timestamp
+            - `title`: Sort alphabetically by run title
+            - `agent`: Sort alphabetically by skill. Runs without a skill are grouped last.
+          required: false
+          schema:
+            type: string
+            enum:
+              - updated_at
+              - created_at
+              - title
+              - agent
+            default: updated_at
+        - name: sort_order
+          in: query
+          description: Sort direction
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+            default: desc
         - name: state
           in: query
           description: |
