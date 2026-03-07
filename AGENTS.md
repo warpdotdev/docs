@@ -128,6 +128,26 @@ Keyboard keys and shortcuts use backticks:
 - ❌ In the API Keys section, click `+ Create API Key`. (use bold, not backticks)
 - ❌ Click `Create key`. (use bold, not backticks)
 
+#### Verbs for UI interactions
+Use consistent verbs that match the type of UI element:
+- **Click** — buttons, links, tabs, and menu items
+- **Enter** — text fields and input boxes
+- **Select** — checkboxes, list items, and option choices within a grouped list
+- **Choose** — dropdowns, date pickers, and permission levels
+- **Toggle** — switches and toggle controls
+
+**Use:**
+- ✅ Click **Save**.
+- ✅ Enter a name for the token.
+- ✅ Select **read_repository**.
+- ✅ Choose an expiration date.
+- ✅ Toggle **Dark mode** on.
+
+**Don't use:**
+- ❌ Select **Save**. (use Click for buttons)
+- ❌ Set the **Repository** permission to **Read**. (use Choose for permission levels)
+- ❌ Check **read_repository**. (use Select for checkboxes)
+
 ## Content Guidelines
 
 ### Feature Descriptions
@@ -138,6 +158,9 @@ Keyboard keys and shortcuts use backticks:
 
 ### Instructions
 - Write clear, actionable steps
+- Aim for one action per step. Combining two actions with "and" or "then" is acceptable in these cases:
+  - The actions are on the same form (for example, entering a name and choosing an expiration date).
+  - The first action triggers or reveals the target of the second (for example, clicking to expand a menu, then clicking the revealed item). When combined, this can read more naturally than splitting across two steps.
 - Test all instructions for accuracy
 - Include expected outcomes or confirmations
 - Provide troubleshooting for common issues
