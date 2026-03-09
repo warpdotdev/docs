@@ -43,11 +43,11 @@ Here is a list of the recommended regular expressions that Warp uses to identify
 | MAC Address                               | `\b((([a-zA-z0-9]{2}[-:]){5}([a-zA-z0-9]{2}))\|(([a-zA-z0-9]{2}:){5}([a-zA-z0-9]{2})))\b` |
 | Google API Key                            | `\bAIza[0-9A-Za-z-_]{35}\b`                                                               |
 | Google OAuth ID                           | `\b[0-9]+-[0-9A-Za-z_]{32}\.apps\.googleusercontent\.com\b`                               |
-| Github Classic Personal Access Token      | `\bghp_[A-Za-z0-9_]{36}\b`                                                                |
-| Github Fine Grained Personal Access Token | `\bgithub_pat_[A-Za-z0-9_]{82}\b`                                                         |
-| Github OAuth Access Token                 | `\bgho_[A-Za-z0-9_]{36}\b`                                                                |
-| Github User to Server Token               | `\bghu_[A-Za-z0-9_]{36}\b`                                                                |
-| Github Server to Server Token             | `\bghs_[A-Za-z0-9_]{36}\b`                                                                |
+| GitHub Classic Personal Access Token      | `\bghp_[A-Za-z0-9_]{36}\b`                                                                |
+| GitHub Fine Grained Personal Access Token | `\bgithub_pat_[A-Za-z0-9_]{82}\b`                                                         |
+| GitHub OAuth Access Token                 | `\bgho_[A-Za-z0-9_]{36}\b`                                                                |
+| GitHub User to Server Token               | `\bghu_[A-Za-z0-9_]{36}\b`                                                                |
+| GitHub Server to Server Token             | `\bghs_[A-Za-z0-9_]{36}\b`                                                                |
 | Stripe Key                                | `\b(?:r\|s)k_(test\|live)_[0-9a-zA-Z]{24}\b`                                              |
 | Firebase Auth Domain                      | `\b([a-z0-9-]){1,30}(\.firebaseapp\.com)\b`                                               |
 | JSON web token                            | `\b(ey[a-zA-z0-9_\-=]{10,}\.){2}[a-zA-z0-9_\-=]{10,}\b`                                   |

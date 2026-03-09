@@ -15,7 +15,7 @@ Code indexed with Codebase Context is never stored on our servers. Warp's coding
 {% hint style="danger" %}
 **Codebase Context doesn't work within SSH or WSL sessions.** \
 \
-Feature requests for support are being tracked in the following Github issues: \
+Feature requests for support are being tracked in the following GitHub issues: \
 \- SSH: [https://github.com/warpdotdev/Warp/issues/6831](https://github.com/warpdotdev/Warp/issues/6831)\
 \- WSL: [https://github.com/warpdotdev/Warp/issues/6744](https://github.com/warpdotdev/Warp/issues/6744)
 {% endhint %}

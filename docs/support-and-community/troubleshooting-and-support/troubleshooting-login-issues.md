@@ -22,12 +22,12 @@ This error could occur if you installed an ad blocker or have stale browser cook
 
 ### Safari
 
-You are on Safari and you might notice in your console that you get the following messages:
+If you are using Safari, you may see the following messages in your console:
 
 1. `Unable to access localStorage`
 2. And every time you click the "Sign Up" button, you get `Unhandled Promise Rejection: Error: This operation is not supported in the environment the application is running on. "location.protocol" must be http, https, or chrome-extension and web storage must be enabled.`
 
-This error occurs likely because you are blocking all cookies in Safari's security settings, but Firebase Auth requires the cookie to record whether the user is logged in. **To fix it:**
+This error likely occurs because you are blocking all cookies in Safari's security settings, but Firebase Auth requires the cookie to record whether the user is logged in. **To fix it:**
 
 1. Go to Safari Preferences > Privacy
 2. Uncheck the "Block all cookies" checkbox
@@ -63,7 +63,7 @@ When directly launching Warp from Okta or other SSO providers', you may see an e
 In cases where you logged in with another method, please do the following to fix SSO login:
 
 1. Go to [app.warp.dev/login](http://app.warp.dev/login)
-2. Login with the original method that you used to create your Warp account (email, Google, Github).
+2. Login with the original method that you used to create your Warp account (email, Google, GitHub).
 3. Once logged in, go to [app.warp.dev/link\_sso](https://app.warp.dev/link_sso)
 4. This should link your login to SSO. You can now proceed to login with "Continue with SSO".
 

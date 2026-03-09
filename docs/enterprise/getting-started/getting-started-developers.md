@@ -176,7 +176,7 @@ Warp Drive is your workspace for saving and sharing Workflows, Notebooks, Prompt
 2. Select **Workflow**.
 3. Enter a name, description, and command.
 4. Add parameters if needed (e.g., `{{branch_name}}`).
-4. Click **Save**.
+5. Click **Save**.
 
 **Using team resources:**
 

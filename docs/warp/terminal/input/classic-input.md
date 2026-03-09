@@ -44,21 +44,21 @@ You may enter Agent Mode in a few ways:
 * Type any natural language, like a task or a question, in the terminal input. Warp will recognize natural language with a local auto-detection feature and prepare to send your query to an Oz agent.
 * Use keyboard shortcuts to toggle into Agent Mode `CMD-I` or type `ASTERISK-SPACE`.
 * Click the “AI” sparkles icon in the menu bar, and this will open a new terminal pane that starts in Agent Mode.
-* From a block, you want to ask an Oz agent about, You can click the sparkles icon in the toolbelt, or click on its block context menu item “Attach block(s) to AI query”.
+* From a block you want to ask an Oz agent about, you can click the sparkles icon in the toolbelt, or click on its block context menu item "Attach block(s) to AI query".
 {% endtab %}
 
 {% tab title="Windows" %}
 * Type any natural language, like a task or a question, in the terminal input. Warp will recognize natural language with a local auto-detection feature and prepare to send your query to an Oz agent.
 * Use keyboard shortcuts to toggle into Agent Mode `CTRL-I` or type `ASTERISK-SPACE`.
-* Click the “AI” sparkles icon in the menu bar, and this will open a new terminal pane that starts in Agent Mode.
-* From a block, you want to ask an Oz agent about, You can click the sparkles icon in the toolbelt, or click on its block context menu item “Attach block(s) to AI query”.
+* Click the "AI" sparkles icon in the menu bar, and this will open a new terminal pane that starts in Agent Mode.
+* From a block you want to ask an Oz agent about, you can click the sparkles icon in the toolbelt, or click on its block context menu item "Attach block(s) to AI query".
 {% endtab %}
 
 {% tab title="Linux" %}
 * Type any natural language, like a task or a question, in the terminal input. Warp will recognize natural language with a local auto-detection feature and prepare to send your query to an Oz agent.
 * Use keyboard shortcuts to toggle into Agent Mode `CTRL-I` or type `ASTERISK-SPACE`.
-* Click the “AI” sparkles icon in the menu bar, and this will open a new terminal pane that starts in Agent Mode.
-* From a block, you want to ask an Oz agent about, You can click the sparkles icon in the toolbelt, or click on its block context menu item “Attach block(s) to AI query”.
+* Click the "AI" sparkles icon in the menu bar, and this will open a new terminal pane that starts in Agent Mode.
+* From a block you want to ask an Oz agent about, you can click the sparkles icon in the toolbelt, or click on its block context menu item "Attach block(s) to AI query".
 {% endtab %}
 {% endtabs %}
 

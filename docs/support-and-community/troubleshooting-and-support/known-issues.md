@@ -101,7 +101,7 @@ There is an issue in fish shell version 3.6 and below that causes the `read` bui
 
 ### Warp shell loads slowly due to EDR
 
-If you comment out the rc files (i.e. `~/.zshrc`, `~/.bashrc`, `~/.config/fish/config.fish`), and still notice a slowdown on loading the shell. It could be due to an Endpoint Detection and Response or EDR (i.e. Sentinel One, CrowdStrike, Carbon Black) causing the issue. Please restart your system and see if the issue persists. If so, please [Send us Feedback](../../) and provide details of your EDR, OS, shell, etc.
+If you comment out the rc files (i.e. `~/.zshrc`, `~/.bashrc`, `~/.config/fish/config.fish`), and still notice a slowdown on loading the shell, it is likely due to an Endpoint Detection and Response or EDR (i.e. Sentinel One, CrowdStrike, Carbon Black) causing the issue. Please restart your system and see if the issue persists. If so, please [Send us Feedback](../../) and provide details of your EDR, OS, shell, etc.
 
 ### Configuring and debugging your RC files
 

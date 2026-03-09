@@ -54,6 +54,6 @@ When the Agent generates a code diff outside of an active conversation — for e
 
 ### Demo: Editing Agent Code in Warp
 
-Here's an example from [Warp University](https://www.warp.dev/university), where Zach demonstrates a how to review and edit Agent code diffs natively in Warp:
+Here's an example from [Warp University](https://www.warp.dev/university), where Zach demonstrates how to review and edit Agent code diffs natively in Warp:
 
 {% embed url="https://www.youtube.com/watch?time_continue=111&v=dm-P63USsVg" %}

@@ -95,7 +95,7 @@ Your new theme should now be visible on the list of available themes.
 
 Warp supports creating custom themes using .yaml files.
 
-The format itself might expand, but we'll do our best to avoid breaking changes and maintain forward compatibility. We also plan on supporting sharing/creating custom themes directly within Warp.
+The format is subject to change, but we do our best to avoid breaking changes and maintain forward compatibility. We also plan to support sharing and creating custom themes directly within Warp.
 
 A custom theme in Warp has the following `.yaml` structure:
 
