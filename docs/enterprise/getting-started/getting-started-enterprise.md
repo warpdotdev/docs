@@ -158,7 +158,7 @@ See the [MCP documentation](https://docs.warp.dev/agent-platform/capabilities/mc
 Once your team is set up:
 
 * **For developers** - Share the [Getting started for developers](getting-started-developers.md) guide with your team
-* **Agent Profiles** - Configure default [Agent Profiles](https://docs.warp.dev/agent-platform/agent/agent-profiles) for different types of work to give teams appropriate autonomy and control
+* **Agent Profiles** - Configure default [Agent Profiles](https://docs.warp.dev/agent-platform/capabilities/agent-profiles-permissions) for different types of work to give teams appropriate autonomy and control
 * **BYOLLM** - Set up [Bring Your Own LLM](../enterprise-features/bring-your-own-llm.md) to route inference through your cloud infrastructure for data locality and cost control
 * **Monitor usage** - Review usage analytics in the admin panel to track adoption and measure engineering productivity gains
 
@@ -181,7 +181,5 @@ For common SSO problems (login failures, account linking, provider portal errors
 ## Support and resources
 
 * [Admin panel documentation](../team-management/admin-panel.md)
-<!-- TODO: Add link once teams.md is drafted
-* [Teams documentation](../team-management/teams.md) -->
-* [Troubleshooting login issues](https://docs.warp.dev/support-and-community/troubleshooting-and-support/troubleshooting-login-issues)
+* [Troubleshooting login issues]
 * [Contact enterprise support](https://warp.dev/contact-sales) - Priority support via dedicated Slack/Teams channel

@@ -64,7 +64,7 @@ This is a known limitation. Warp cannot be launched directly from SSO provider p
 ## Additional help
 
 For more troubleshooting, see:
-* [Troubleshooting login documentation](https://docs.warp.dev/support-and-community/troubleshooting/login-issues)
+* [Troubleshooting login documentation](https://docs.warp.dev/support-and-community/troubleshooting-and-support/troubleshooting-login-issues)
 * Contact your team admin for organization-specific issues.
 * Reach out to Warp support via your team's dedicated Slack/Teams channel.
 * Join Warp's [Slack community](https://go.warp.dev/join-preview) to connect with other Warp users and engineers.

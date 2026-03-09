@@ -68,7 +68,7 @@ Warp Enterprise is available through annual contracts. [Contact our sales team](
 
 **For developers**: Jump to [Getting started for developers](getting-started/getting-started-developers.md) to download Warp, log in, and start using key features like Codebase Context and Warp Drive. Or try the [Enterprise quickstart](getting-started/quickstart.md) for a 10-minute walkthrough.
 
-**For security teams**: Review our [Security page](https://www.warp.dev/security) and [Privacy documentation](https://docs.warp.dev/support-and-community/privacy-and-security/privacy) to understand how Warp handles data, encryption, and compliance.
+**For security teams**: Review our [Security page](https://www.warp.dev/legal/security) and [Privacy documentation](https://docs.warp.dev/support-and-community/privacy-and-security/privacy) to understand how Warp handles data, encryption, and compliance.
 
 ## Why enterprises choose Warp
 
