@@ -93,7 +93,7 @@ Once your team domain is configured, users who sign in via SSO from your domain 
 
 **Solution:**
 1. Verify SSO configuration in your identity provider.
-2. Have users log in through [app.warp.dev/login](https://app.warp.dev/login) and select `Continue with SSO`.
+2. Have users log in through [app.warp.dev/login](https://app.warp.dev/login) and select **Continue with SSO**.
 3. For existing accounts, follow the [SSO linking process](https://app.warp.dev/link_sso).
 
 ### Warp won't open from SSO provider portal

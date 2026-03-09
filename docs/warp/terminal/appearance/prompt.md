@@ -13,7 +13,7 @@ Warp supports two prompt types: the **Warp prompt** and the **Shell prompt (PS1)
 
 To switch your prompt type:
 
-1. Open **Settings > Appearance**.
+1. Open **Settings** > **Appearance**.
 2. Under **Input**, set **Input type** to **Warp** or **Shell (PS1)**.
 
 When using the Warp prompt, you can right-click the prompt area to copy the entire prompt, working directory, current git branch, git uncommitted file count, and more.
@@ -68,7 +68,7 @@ You can use a Shell prompt instead of the Warp prompt by configuring the **PS1**
 
 To enable the Shell prompt:
 
-1. Open **Settings > Appearance**.
+1. Open **Settings** > **Appearance**.
 2. Under **Input**, set **Input type** to **Shell (PS1)**.
 3. Configure your PS1 variable in your shell's RC file, or install a supported prompt plugin.
 
@@ -168,7 +168,7 @@ You may also see an error relating to timeout. You can set the `command_timeout`
 
 #### Starship + bash
 
-Starship prompt may not render properly if your [default shell](../../getting-started/supported-shells.md#changing-what-shell-warp-uses) is `/bin/bash`. To [workaround](https://github.com/warpdotdev/Warp/issues/3066#issuecomment-1548643121) the issue, we recommend you upgrade bash, find the path with `echo $(which bash)`, then put the path in **Settings > Features > Session > "Startup shell for new sessions"**.
+Starship prompt may not render properly if your [default shell](../../getting-started/supported-shells.md#changing-what-shell-warp-uses) is `/bin/bash`. To [workaround](https://github.com/warpdotdev/Warp/issues/3066#issuecomment-1548643121) the issue, we recommend you upgrade bash, find the path with `echo $(which bash)`, then put the path in **Settings** > **Features** > **Session** > **"Startup shell for new sessions"**.
 
 #### Starship + zsh
 
@@ -178,7 +178,7 @@ If you want to restore the additional line after the Starship prompt on `zsh`, a
 
 When installing the Powerlevel10k (P10k) prompt, we recommend you use the [Meslo Nerd Font](https://github.com/romkatv/powerlevel10k/blob/master/font.md).\
 \
-P10K may display the arrow dividers as grey instead of color. The color for those chars is rendered grey due to Warp's minimum contrast setting. To [workaround](https://github.com/warpdotdev/Warp/issues/2851#issuecomment-1605005256) this issue, go to **Settings > Appearance > Text > Enforce minimum contrast** and set it to "Never".
+P10K may display the arrow dividers as grey instead of color. The color for those chars is rendered grey due to Warp's minimum contrast setting. To [workaround](https://github.com/warpdotdev/Warp/issues/2851#issuecomment-1605005256) this issue, go to **Settings** > **Appearance** > **Text** > **Enforce minimum contrast** and set it to "Never".
 
 <figure><img src="../../.gitbook/assets/p10k-grey-arrow-prompt.png" alt="" width="563"><figcaption><p>Example of the grey dividers in p10k</p></figcaption></figure>
 
