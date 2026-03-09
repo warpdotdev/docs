@@ -36,7 +36,7 @@ When you use agents in Warp, you're using **Oz agents**. Oz is Warp's programmab
 
 ### Index your codebase
 
-1. Navigate to a Git repository in the Warp terminal.
+1. Navigate to a Git repository in Warp.
 2. Warp automatically detects the repo and begins indexing.
 3. Optionally, run `/init` to manually trigger indexing or re-indexing after significant code changes.
 4. Once indexed, Oz agents understand your code structure, patterns, and conventions.
@@ -49,14 +49,14 @@ Start an Oz conversation right in the terminal. Try the following prompt:
 Explain the architecture of this project
 ```
 
-The Oz agent reads your codebase, understands its structure, and responds with a context-aware explanation.
+Oz reads your codebase, understands its structure, and responds with a context-aware explanation.
 
 ### Try more prompts
 
 * **Write code** - "Add input validation to the signup form"
 * **Debug** - "Why is this test failing?" (paste the error output)
 * **Explore** - "What patterns does this repo use for error handling?"
-* **Plan** - Use `/plan` to have the Oz agent create a structured task plan for complex features
+* **Plan** - Use `/plan` to have Oz create a structured task plan for complex features
 
 ## Step 4: Run an Oz cloud agent
 

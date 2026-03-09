@@ -93,7 +93,7 @@ In Slack:
 
 In Linear:
 
-* Tag the Oz agent on an issue
+* Tag @Oz on an issue
 
 Warp will read the thread/issue, spin up your environment, run the workflow in the cloud, and post progress + PRs back into the same conversation.
 

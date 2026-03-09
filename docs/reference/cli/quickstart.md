@@ -9,7 +9,7 @@ This guide walks you through the essentials to get up and running with the Oz CL
 
 ## 1. Install the CLI
 
-If you already have the [Warp desktop app installed](https://docs.warp.dev/getting-started/quickstart/installation-and-setup), the **CLI is included** and available in the Warp terminal.
+If you already have the [Warp desktop app installed](https://docs.warp.dev/getting-started/quickstart/installation-and-setup), the **CLI is included** and available in Warp.
 
 If not, see [Installing the CLI](README.md#installing-the-cli) for installation options for all platforms.
 

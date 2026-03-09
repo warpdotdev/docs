@@ -28,7 +28,7 @@ You can install the Oz CLI as part of the Warp desktop app, or as a standalone p
 
 ### Bundled with Warp
 
-The Oz CLI is automatically distributed with the Warp desktop app and can be used right away with the Warp terminal. To make the CLI globally available, add it your `PATH`.
+The Oz CLI is automatically distributed with the Warp desktop app and can be used right away in Warp. To make the CLI globally available, add it to your `PATH`.
 
 {% tabs %}
 {% tab title="macOS" %}

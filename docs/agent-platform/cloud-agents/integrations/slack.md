@@ -35,7 +35,7 @@ You can start an agent in three ways:
 *   **Tag @Oz inside a thread**
 
     Oz will automatically collect the thread's prior messages and use them as context.
-*   **DM the Oz agent directly**
+*   **DM Oz directly**
 
     Useful for private tasks or experimentation.
 

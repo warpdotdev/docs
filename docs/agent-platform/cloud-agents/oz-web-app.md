@@ -221,7 +221,7 @@ The **Integrations** page (`/integrations`) lets you configure first-party integ
 
 ### Available integrations
 
-<table><thead><tr><th width="120">Integration</th><th>Description</th></tr></thead><tbody><tr><td><strong>Slack</strong></td><td>Tag @Oz in messages or threads to trigger agents directly from Slack conversations</td></tr><tr><td><strong>Linear</strong></td><td>Tag the Oz agent on issues to trigger agents from your issue tracker</td></tr></tbody></table>
+<table><thead><tr><th width="120">Integration</th><th>Description</th></tr></thead><tbody><tr><td><strong>Slack</strong></td><td>Tag @Oz in messages or threads to trigger agents directly from Slack conversations</td></tr><tr><td><strong>Linear</strong></td><td>Tag @Oz on issues to trigger agents from your issue tracker</td></tr></tbody></table>
 
 <figure><img src="../.gitbook/assets/oz-web-app-integrations.png" alt=""><figcaption><p>The Integrations page in the Oz Web App.</p></figcaption></figure>
 

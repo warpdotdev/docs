@@ -25,8 +25,8 @@ Agents also share a link to an interactive remote session using Warp's [cloud ag
 
 You can start an agent in two ways:
 
-* **Tag the Oz agent in a comment** (@Oz) and describe what you want done.
-* **Assign the issue to the Oz agent** as if it were a teammate.
+* **Tag @Oz in a comment** and describe what you want done.
+* **Assign the issue to Oz** as if it were a teammate.
 
 Oz will acknowledge the request directly in the Linear issue and begin working.
 

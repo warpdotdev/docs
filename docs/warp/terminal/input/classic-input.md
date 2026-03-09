@@ -126,12 +126,12 @@ You must explicitly agree and press `ENTER` to run the requested command. When y
 
 If you do not wish to send the command or its output to AI, you can click Cancel or press `CTRL-C` to exit Agent Mode and return to the traditional command line.
 
-<figure><img src="../../.gitbook/assets/warp-ai-permissions.png" alt="The Oz agent asks permission to run a command and read the output."><figcaption><p>The Oz agent asks permission to run a command and read the output.</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/warp-ai-permissions.png" alt="Oz asks permission to run a command and read the output."><figcaption><p>Oz asks permission to run a command and read the output.</p></figcaption></figure>
 
 Once a requested command is executed, you may click to expand the output and view command details.
 
 <figure><img src="../../.gitbook/assets/warp-ai-viewing-commands.png" alt=""><figcaption><p>Viewing command details</p></figcaption></figure>
 
-In the case that a requested command fails, the Oz agent will detect that. Agent Mode is self-correcting. It will request another command until it completes the task for you.
+In the case that a requested command fails, Oz will detect that. Agent Mode is self-correcting. It will request another command until it completes the task for you.
 
 Warp lets you choose from a curated list of LLMs for use in Agent Mode. By default, Warp uses **Claude 4 Sonnet** for auto, but you can switch to other supported models. For all available models, please refer to [Model Choice](https://docs.warp.dev/agent-platform/capabilities/model-choice).
