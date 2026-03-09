@@ -24,7 +24,7 @@ Feature requests for support are being tracked in the following GitHub issues: \
 
 ## Indexing your codebase
 
-When you open a directory in Warp, we check if it is part of a Git repository. If it is, Warp begins indexing the source code to provide rich context for Agents.&#x20;
+When you open a directory in Warp, we check if it is part of a Git repository. If it is, Warp begins indexing the source code to provide rich context for Agents. Warp also detects [Git worktree](https://docs.warp.dev/warp/code/git-worktrees) checkouts — each worktree is indexed as its own repository, so Agents always have accurate context for the branch you're working on.&#x20;
 
 **Codebase indexing intervals and triggers:**
 

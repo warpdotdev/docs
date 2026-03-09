@@ -196,9 +196,3 @@ Cloud agent conversations do not currently support image attachments. Image atta
 
 If you need to provide visual context to a cloud agent, you can describe the image contents in your prompt or reference image file paths within the agent's [environment](environments.md).
 
-
-## Roadmap
-
-### Does Warp have plans to improve workflows around Git worktrees?
-
-This is an active area of interest, but there’s nothing to announce yet.

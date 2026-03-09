@@ -132,4 +132,8 @@ The Code Review panel also lets you discard every uncommitted change on your bra
 
 <figure><img src="../.gitbook/assets/discard-all-changes.png" alt="" width="348"><figcaption></figcaption></figure>
 
-Discarding changes will ask you confirm, but still make sure you’ve saved or backed up anything you want to keep before using it.
+Discarding changes will ask you confirm, but still make sure you've saved or backed up anything you want to keep before using it.
+
+{% hint style="info" %}
+Warp natively supports Git worktrees for Code Review and other features. See [Git worktrees](git-worktrees.md) for details.
+{% endhint %}
