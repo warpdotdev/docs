@@ -168,10 +168,11 @@ The conversation panel is split into two dropdowns (collapsible sections) that h
 
 #### Active
 
-The **Active** dropdown lists the conversations that are currently open in this window/workspace.
+The **Active** dropdown lists conversations where you have sent at least one query since opening them. Simply expanding a conversation does not make it active—you need to interact with the Agent first.
 
 * Select a conversation to switch to it immediately.
 * The conversation you're currently viewing is highlighted.
+* Cloud agent conversations and Oz runs always appear in **Active** while they are open.
 
 #### Past
 

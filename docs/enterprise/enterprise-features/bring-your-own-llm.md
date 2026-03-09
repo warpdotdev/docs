@@ -12,7 +12,7 @@ This gives you control over cloud spend and model hosting, without changing how 
 {% hint style="warning" %}
 BYOLLM currently supports **AWS Bedrock** only. Coming soon: Azure Foundry and Google Vertex support.
 
-BYOLLM applies to interactive Oz agents in the terminal. Oz cloud agents (ambient) do not yet support BYOLLM routing.
+BYOLLM applies to interactive Oz agents in the terminal. Oz cloud agents do not yet support BYOLLM routing.
 {% endhint %}
 
 {% hint style="info" %}

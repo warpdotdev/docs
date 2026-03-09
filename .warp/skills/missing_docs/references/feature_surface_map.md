@@ -99,6 +99,7 @@ ReadImageFiles -> docs/agent-platform/local-agents/agent-context/images-as-conte
 FileRetrievalTools -> docs/agent-platform/capabilities/codebase-context.md
 ConversationArtifacts -> docs/agent-platform/local-agents/interacting-with-agents/README.md
 OzChangelogUpdates -> docs/changelog/README.md
+ActiveConversationRequiresInteraction -> docs/agent-platform/local-agents/interacting-with-agents/README.md
 
 ## CLI commands -> doc pages
 

@@ -266,11 +266,11 @@ Oz is Warp's orchestration platform for cloud agents: launch parallel agents, au
 
 * Users can now create team-scoped API keys.
 * Agent tip now leads with `WARP.md` when mentioning project-scoped rule files.
-* The warp agent run-ambient command can now create cloud agent tasks that are shared with team members.
+* The `oz agent run-cloud` command can now create cloud agent tasks that are shared with team members.
 * Updated agent profile switching tip to better explain why users would want to switch profiles.
 * Comments in the code review flow now render full width when there are 4 or fewer comments, improving readability.
 * When the completions menu is opened (tab), no completion item is selected by default. Pressing enter while no completion is selected directly runs the command currently in the input. Upon selecting a completion, it now automatically shows up in the input. This more closely mirrors behavior in traditional terminals.
-* The Warp agent run-ambient command now supports saved prompts.
+* The `oz agent run-cloud` command now supports saved prompts.
 * We added a new full terminal use model selector in the agents profile page so that you can select a specific model for full terminal use work.
 
 **Bug fixes**

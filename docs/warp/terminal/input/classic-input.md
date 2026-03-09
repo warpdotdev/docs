@@ -132,6 +132,6 @@ Once a requested command is executed, you may click to expand the output and vie
 
 <figure><img src="../../.gitbook/assets/warp-ai-viewing-commands.png" alt=""><figcaption><p>Viewing command details</p></figcaption></figure>
 
-In the case that a requested command fails, Oz will detect that. Agent Mode is self-correcting. It will request another command until it completes the task for you.
+If a requested command fails, Oz detects it. Agent Mode is self-correcting. It will request another command until it completes the task for you.
 
 Warp lets you choose from a curated list of LLMs for use in Agent Mode. By default, Warp uses **Claude 4 Sonnet** for auto, but you can switch to other supported models. For all available models, please refer to [Model Choice](https://docs.warp.dev/agent-platform/capabilities/model-choice).

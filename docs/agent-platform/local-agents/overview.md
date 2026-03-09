@@ -8,7 +8,7 @@ description: >-
 
 ## AI in Warp
 
-Warp includes Oz agents—intelligent agents designed to help you build, test, deploy, and debug while keeping you in control. Interactive Oz agent conversations in the Warp terminal can look up commands, execute tasks, fix bugs, and adapt to your workflows. You can manage agent behavior directly, with full context from your Warp Drive and your team.
+Warp includes Oz agents—intelligent agents designed to help you build, test, deploy, and debug while keeping you in control. Interactive Oz agent conversations in Warp can look up commands, execute tasks, fix bugs, and adapt to your workflows. You can manage agent behavior directly, with full context from your Warp Drive and your team.
 
 {% hint style="info" %}
 Warp's AI features can be globally disabled in **Settings** > **AI** with the AI toggle.\
