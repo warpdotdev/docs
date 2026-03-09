@@ -402,7 +402,7 @@ Oz is Warp's orchestration platform for cloud agents: launch parallel agents, au
 
 **New Features**
 
-* Warp now supports scaling the entire application. Change the zoom level in `Settings > Appearance > Window` or by pressing `CMD-+` on Mac or `CTRL-+` on Windows / Linux.
+* Warp now supports scaling the entire application. Change the zoom level in `Settings > Appearance > Window` or by pressing `CMD-+` on macOS or `CTRL-+` on Windows / Linux.
 
 **Improvements**
 
@@ -541,7 +541,7 @@ Oz is Warp's orchestration platform for cloud agents: launch parallel agents, au
 **New Features**
 
 * [Agent Profiles](https://docs.warp.dev/agent-platform/capabilities/agent-profiles-permissions#agent-profiles): define how your agent operates.
-* New pane to view changes to a git repository.
+* New pane to view changes to a Git repository.
 * Files now open in a tabbed viewer.
 * Syntax highlighting for Scala files in Warp.
 
@@ -713,7 +713,7 @@ Oz is Warp's orchestration platform for cloud agents: launch parallel agents, au
 
 * When AI is disabled, ESC should no longer enter Agent Mode.
 * Fixed an issue on WSL where files created by Agent Mode would have CRLF line endings.
-* \[Mac] Tweaked autoupdate logic to more reliably remove old applications off disk.
+* \[macOS] Tweaked autoupdate logic to more reliably remove old applications off disk.
 * Fixed "Manage plan suggestion setting" link.
 
 ### 2025.06.25 (v0.2025.06.25.08.12)
@@ -754,7 +754,7 @@ Built from the ground up for agentic workflows, Warp is the most powerful tool f
 
 **Still a great command-line**\n-
 
-* A new Universal Input: run commands or prompt agents from a single interface. Lock into command- or agent-mode, or let Warp detect automatically.
+* A new Universal Input: run commands or prompt agents from a single interface. Lock into command mode or Agent Mode, or let Warp detect automatically.
 * Choose your model, continue a conversation, attach images, link URLs, or reference files using `@`.
 * Modern, IDE-like terminal experience with completions, predictions, and mouse support, all built natively in Rust for performance.
 
@@ -799,7 +799,7 @@ All of this comes with higher AI usage limits on our Pro and Turbo plans, plus n
 
 **Bug Fixes**
 
-* Fixed an issue where Agent Mode would sometimes not find untracked files in git repos.
+* Fixed an issue where Agent Mode would sometimes not find untracked files in Git repos.
 * Fixed Agent Mode file editor randomly scrolling to the first line of a file.
 
 ### 2025.05.28 (v0.2025.05.28.08.11)
@@ -837,7 +837,7 @@ All of this comes with higher AI usage limits on our Pro and Turbo plans, plus n
 **Bug Fixes**
 
 * Fixed incorrect ordering in history of executed commands and Agent Mode queries.
-* Copying text from Agent Mode plans and suggested code changes now works more reliable.
+* Copying text from Agent Mode plans and suggested code changes now works more reliably.
 * \[Windows] Made some changes to reduce false-positives from virus scanners.
 
 ### 2025.05.07 (v0.2025.05.07.08.12)
@@ -924,7 +924,7 @@ All of this comes with higher AI usage limits on our Pro and Turbo plans, plus n
 
 * Fixed a bug that prevented copying of selected text of a code block when Agent Mode is enabled.
 * Fixed a bug that allows a selection in the code block and a selection on the text simultaneously.
-* \[Mac] Fixed shells installed via Homebrew not appearing in the list of available shells.
+* \[macOS] Fixed shells installed via Homebrew not appearing in the list of available shells.
 
 ### 2025.04.02 (v0.2025.04.02.08.11)
 
@@ -944,7 +944,7 @@ All of this comes with higher AI usage limits on our Pro and Turbo plans, plus n
 **Bug fixes**
 
 * Minor fixes for iTerm and Kitty images.
-* Fixed regression related to using keyboard shortcuts to navigate a command an empty split pane.
+* Fixed regression related to using keyboard shortcuts to navigate a command in an empty split pane.
 * Fixed some issues with Agent Mode failing to read files.
 * Click targets in scroll views should more reliably click while moving the mouse.
 * \[Linux] Window corners are correctly rounded with themes having background images.
@@ -976,7 +976,7 @@ All of this comes with higher AI usage limits on our Pro and Turbo plans, plus n
 * Agent Mode will no longer default to Windows-style line endings when creating a new file on macOS or Linux.
 * PowerShell sessions will start even if the profile has a terminating error.
 * The numpad `ENTER` key now behaves like the `ENTER` key in Agent Mode.
-* \[Mac] Fixed a scenario where Warp would beachball while updating.
+* \[macOS] Fixed a scenario where Warp would beachball while updating.
 * \[Windows] In WSL, show completions for symlinked files.
 * \[Windows] Fixed completions with `.exe` suffixes.
 * \[Windows] Fixed setting Git Bash custom shell paths.
@@ -1007,7 +1007,7 @@ All of this comes with higher AI usage limits on our Pro and Turbo plans, plus n
 
 **New features**
 
-* iTerm Image Protocol is now supported on Mac and Linux!
+* iTerm Image Protocol is now supported on macOS and Linux!
 * \[macOS] Warp now starts at login (can be disabled in System Settings > Login Items & Extensions).
 
 **Improvements**
@@ -1035,7 +1035,7 @@ All of this comes with higher AI usage limits on our Pro and Turbo plans, plus n
 
 * Warp is now available for Windows! See our [Quickstart Guide](https://docs.warp.dev/getting-started/quickstart/installation-and-setup#windows)
 * Prompt, plan, and execute fully autonomous tasks from [Agent Mode with Dispatch](https://docs.warp.dev/agent-platform/local-agents/interacting-with-agents) (Beta)
-* Add codebase context support to Agent Mode. Currently enabled for git repositories only.
+* Add codebase context support to Agent Mode. Currently enabled for Git repositories only.
 * \[macOS] You can now customize your [App Icon](https://docs.warp.dev/terminal/appearance/app-icons) in `Settings > Appearance > Icon`.
 * Create and store [Rules](https://docs.warp.dev/knowledge-and-collaboration/rules) to use as Agent Mode context.
 * Show default suggestions in Agent Mode input.
@@ -1118,7 +1118,7 @@ All of this comes with higher AI usage limits on our Pro and Turbo plans, plus n
 
 * Generate input for any interactive CLI using ⌘I on macOS and Ctrl-Shift I on Linux.
 * You can now dynamically populate arguments in Workflows with shell commands.
-* Added support for rectangular selection when holding ⌘⌥ on Mac and Ctrl-Alt on Linux.
+* Added support for rectangular selection when holding ⌘⌥ on macOS and Ctrl-Alt on Linux.
 
 **Improvements**
 
@@ -1130,7 +1130,7 @@ All of this comes with higher AI usage limits on our Pro and Turbo plans, plus n
 **Bug fixes**
 
 * Fixed several issues where hovering over URLs in the blocklist sometimes resulted in URLs only being partially detected, or not detected at all.
-* Fixed issue with Prompt Suggestions occasionally remaining visible after subsequent command exeuction.
+* Fixed issue with Prompt Suggestions occasionally remaining visible after subsequent command execution.
 * \[macOS] Changed the download location for new Warp updates to prevent corruption.
 
 ### 2025.01.15 (v0.2025.01.15.08.02)
@@ -1144,7 +1144,7 @@ All of this comes with higher AI usage limits on our Pro and Turbo plans, plus n
 
 * Launch configurations now save focused tab state.
 * Added support for Windsurf as an external editor.
-* Mac-only: added a new AI app menu.
+* macOS-only: added a new AI app menu.
 
 **Bug fixes**
 
