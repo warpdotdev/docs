@@ -75,10 +75,62 @@ class LinkChecker:
     def extract_links(self, filepath):
         links = []
         try:
-            content = filepath.read_text(encoding='utf-8')
-            lines = content.splitlines()
+            lines = filepath.read_text(encoding='utf-8').splitlines()
+            in_html_comment = False
+            in_fenced_code = None
             
-            for line_num, line in enumerate(lines, 1):
+            for line_num, raw_line in enumerate(lines, 1):
+                line = raw_line
+
+                # Skip fenced code blocks (``` or ~~~)
+                if in_fenced_code:
+                    fence_char = in_fenced_code[0]
+                    fence_len = len(in_fenced_code)
+                    if re.match(rf'^\s*{re.escape(fence_char)}{{{fence_len},}}\s*$', line):
+                        in_fenced_code = None
+                    continue
+
+                fence_match = re.match(r'^\s*(`{3,}|~{3,})', line)
+                if fence_match:
+                    in_fenced_code = fence_match.group(1)
+                    continue
+
+                # Strip HTML comments while preserving same-line non-comment text.
+                cleaned_segments = []
+                index = 0
+                while index < len(line):
+                    if in_html_comment:
+                        end_comment = line.find('-->', index)
+                        if end_comment == -1:
+                            index = len(line)
+                            break
+                        in_html_comment = False
+                        index = end_comment + 3
+                        continue
+
+                    start_comment = line.find('<!--', index)
+                    if start_comment == -1:
+                        cleaned_segments.append(line[index:])
+                        break
+
+                    cleaned_segments.append(line[index:start_comment])
+                    end_comment = line.find('-->', start_comment + 4)
+                    if end_comment == -1:
+                        in_html_comment = True
+                        break
+                    index = end_comment + 3
+
+                line = ''.join(cleaned_segments)
+                if not line.strip():
+                    continue
+
+                # Skip inline code spans like `...`
+                # Skip inline code spans like `...` or ``...``
+                line = re.sub(r'(`+)(?:(?!\1).)+\1', '', line)
+                if not line.strip():
+                    continue
+                    continue
+
                 # Check angle-bracket links first (they take precedence)
                 for pattern in [MARKDOWN_LINK_ANGLE, MARKDOWN_IMAGE_ANGLE]:
                     for match in pattern.finditer(line):
