@@ -318,6 +318,10 @@ def inject_imports(content: str) -> str:
         )
     if "<VideoEmbed" in content:
         imports.append("import VideoEmbed from '@components/VideoEmbed.astro';")
+    if "<Steps>" in content:
+        imports.append(
+            "import { Steps } from '@astrojs/starlight/components';"
+        )
 
     if not imports:
         return content
@@ -349,6 +353,59 @@ def convert_html_comments(content: str) -> str:
         return "{/* " + body.strip() + " */}"
 
     return re.sub(r"<!--(.*?)-->", _replace_comment, content, flags=re.DOTALL)
+
+
+# ---------------------------------------------------------------------------
+# Steppers -> Steps component
+# ---------------------------------------------------------------------------
+
+
+def convert_steppers(content: str) -> str:
+    """Convert {% stepper %}...{% endstepper %} to <Steps> with ordered list."""
+
+    def _replace_stepper(m):
+        inner = m.group(1)
+
+        # Split into individual steps
+        step_pattern = r'\{%\s*step\s*%\}(.*?)\{%\s*endstep\s*%\}'
+        steps = re.findall(step_pattern, inner, flags=re.DOTALL)
+
+        if not steps:
+            return inner.strip()
+
+        result_parts = ["<Steps>"]
+        for i, step_content in enumerate(steps, 1):
+            lines = step_content.strip().split("\n")
+            # Indent all content under the list item
+            indented = []
+            for j, line in enumerate(lines):
+                if j == 0:
+                    # First line starts the ordered list item
+                    indented.append(f"{i}. {line}")
+                else:
+                    indented.append(f"   {line}" if line.strip() else "")
+            result_parts.append("\n".join(indented))
+
+        result_parts.append("</Steps>")
+        return "\n\n".join(result_parts)
+
+    pattern = r'\{%\s*stepper\s*%\}(.*?)\{%\s*endstepper\s*%\}'
+    return re.sub(pattern, _replace_stepper, content, flags=re.DOTALL)
+
+
+# ---------------------------------------------------------------------------
+# Strip GitBook card tables
+# ---------------------------------------------------------------------------
+
+
+def strip_gitbook_card_tables(content: str) -> str:
+    """Remove <table data-view='cards'> blocks (GitBook-specific card grids)."""
+    return re.sub(
+        r'<table\s+data-view="cards">.*?</table>',
+        '',
+        content,
+        flags=re.DOTALL,
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -456,8 +513,10 @@ def convert_file(
     body = convert_hints(body)
     body = convert_embeds(body)
     body = convert_tabs(body)
-    body = convert_figures(body, rel_asset_prefix)
     body = convert_code_blocks(body)
+    body = convert_steppers(body)
+    body = strip_gitbook_card_tables(body)
+    body = convert_figures(body, rel_asset_prefix)
     body = convert_links(body, file_rel_dir, space)
     body = convert_html_comments(body)
     body = strip_custom_anchors(body)

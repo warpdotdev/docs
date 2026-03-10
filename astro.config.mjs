@@ -135,6 +135,136 @@ export default defineConfig({
 						],
 					},
 					{
+						label: 'University',
+						link: '/university/',
+						icon: 'puzzle',
+						items: [
+							{
+								label: 'Getting Started',
+								items: [
+									{ slug: 'university', label: 'Overview' },
+								],
+							},
+							{
+								label: 'Warp Runtime',
+								items: [
+									{ slug: 'university/warp-runtime', label: 'Overview' },
+									'university/warp-runtime/building-a-slackbot',
+								],
+							},
+							{
+								label: 'Developer Workflows',
+								items: [
+									{
+										label: 'Beginner',
+										items: [
+											{ slug: 'university/developer-workflows/beginner', label: 'Overview' },
+											'university/developer-workflows/beginner/welcome-to-warp',
+											'university/developer-workflows/beginner/how-to-explain-your-codebase-using-warp-rust-codebase',
+											'university/developer-workflows/beginner/how-to-create-project-rules-for-an-existing-project-astro-typescript-tailwind',
+											'university/developer-workflows/beginner/10-coding-features-you-should-know',
+											'university/developer-workflows/beginner/how-to-customize-warps-appearance',
+											'university/developer-workflows/beginner/how-to-master-warps-code-review-panel',
+											'university/developer-workflows/beginner/trigger-reusable-actions-with-saved-prompts',
+											'university/developer-workflows/beginner/how-to-make-warps-ui-more-minimal',
+										],
+									},
+									{
+										label: 'Power User',
+										items: [
+											{ slug: 'university/developer-workflows/power-user', label: 'Overview' },
+											'university/developer-workflows/power-user/how-to-run-3-agents-in-parallel-summarize-logs-analyze-pr-modify-ui',
+											'university/developer-workflows/power-user/how-to-edit-agent-code-in-warp',
+											'university/developer-workflows/power-user/how-to-configure-yolo-and-strategic-agent-profiles',
+											'university/developer-workflows/power-user/how-to-sync-your-monorepos',
+											'university/developer-workflows/power-user/how-to-review-prs-like-a-senior-dev',
+											'university/developer-workflows/power-user/how-to-set-coding-best-practices',
+											'university/developer-workflows/power-user/how-to-set-tech-stack-preferences-with-rules',
+											'university/developer-workflows/power-user/how-to-set-coding-preferences-with-rules',
+											'university/developer-workflows/power-user/how-to-use-agent-profiles-efficiently',
+											'university/developer-workflows/power-user/warp-vs-claude-code',
+										],
+									},
+									{
+										label: 'DevOps',
+										items: [
+											{ slug: 'university/developer-workflows/devops', label: 'Overview' },
+											'university/developer-workflows/devops/how-to-analyze-cloud-run-logs-gcloud',
+											'university/developer-workflows/devops/how-to-create-a-production-ready-docker-setup',
+										],
+									},
+									{
+										label: 'Backend',
+										items: [
+											{ slug: 'university/developer-workflows/backend', label: 'Overview' },
+											'university/developer-workflows/backend/how-to-write-sql-commands-inside-a-postgres-repl',
+											'university/developer-workflows/backend/how-to-create-priority-matrix-for-database-optimization',
+										],
+									},
+									{
+										label: 'Frontend / UI',
+										items: [
+											{ slug: 'university/developer-workflows/frontend-ui', label: 'Overview' },
+											'university/developer-workflows/frontend-ui/how-to-replace-a-ui-element-in-warp-rust-codebase',
+											'university/developer-workflows/frontend-ui/how-to-actually-code-ui-that-matches-your-mockup-react-tailwind',
+										],
+									},
+									{
+										label: 'Testing & Security',
+										items: [
+											{ slug: 'university/developer-workflows/testing-and-security', label: 'Overview' },
+											'university/developer-workflows/testing-and-security/how-to-generate-unit-and-security-tests-to-debug-faster',
+											'university/developer-workflows/testing-and-security/how-to-prevent-secrets-from-leaking',
+										],
+									},
+								],
+							},
+							{
+								label: 'End-to-End Builds',
+								items: [
+									'university/end-to-end-builds/building-a-real-time-chat-app-github-mcp-railway',
+'university/end-to-end-builds/building-a-chrome-extension-d3js-javascript-html-css',
+								],
+							},
+							{
+								label: 'MCP Servers',
+								items: [
+									'university/mcp-servers/puppeteer-mcp-scraping-amazon-web-reviews',
+									'university/mcp-servers/sentry-mcp-fix-sentry-error-in-empower-website',
+									'university/mcp-servers/context7-mcp-update-astro-project-with-best-practices',
+									'university/mcp-servers/figma-remote-mcp-create-a-website-from-a-figma-file-from-scratch',
+									'university/mcp-servers/linear-mcp-retrieve-issue-data',
+									'university/mcp-servers/linear-mcp-updating-tickets-with-a-lean-build-approach',
+									'university/mcp-servers/sqlite-and-stripe-mcp-basic-queries-you-can-make-after-set-up',
+									'university/mcp-servers/github-mcp-summarizing-open-prs-and-creating-gh-issues',
+								],
+							},
+							{
+								label: 'How Warp Uses Warp',
+								items: [
+									'university/how-warp-uses-warp/building-warps-input-with-warp',
+									'university/how-warp-uses-warp/creating-rules-for-agents',
+									'university/how-warp-uses-warp/understanding-your-codebase',
+									'university/how-warp-uses-warp/using-images-as-context-with-warp',
+									'university/how-warp-uses-warp/using-mcp-servers-with-warp',
+									'university/how-warp-uses-warp/running-multiple-agents-at-once-with-warp',
+								],
+							},
+							{
+								label: 'Integrations',
+								items: [
+									'university/integrations/how-to-set-up-ollama',
+								],
+							},
+							{
+								label: 'Terminal / Command Line Tips',
+								items: [
+									'university/terminal-command-line-tips/improve-your-kubernetes-workflow-kubectl-helm',
+								],
+							},
+						],
+					},
+					{
 						label: 'Reference',
 						link: '/reference/',
 						icon: 'open-book',
