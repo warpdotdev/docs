@@ -1,0 +1,97 @@
+@layer starlight.user {
+	.sl-search-with-kapa {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		width: 100%;
+	}
+
+	.sl-search-with-kapa__search {
+		flex: 1 1 auto;
+		min-width: 0;
+	}
+
+	.sl-kapa-button {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		border: 1px solid var(--sl-color-gray-5);
+		border-radius: 0.5rem;
+		background: var(--sl-color-black);
+		color: var(--sl-color-gray-2);
+		cursor: pointer;
+		font: inherit;
+		font-size: var(--sl-text-sm);
+		font-weight: 600;
+		height: 2.5rem;
+		padding: 0 0.875rem;
+		transition:
+			border-color 0.2s ease,
+			color 0.2s ease,
+			background-color 0.2s ease,
+			transform 0.2s ease;
+	}
+
+	.sl-kapa-button__shortcut {
+		display: inline-flex;
+		align-items: center;
+		margin-inline-start: auto;
+		border-radius: 0.25rem;
+		font-size: var(--sl-text-2xs);
+		gap: 0.25em;
+		padding-inline: 0.375rem;
+		background-color: rgb(15 23 42 / 0.2);
+		border: 1px solid rgb(255 255 255 / 0.12);
+	}
+
+	.sl-kapa-button kbd {
+		font-family: var(--__sl-font);
+	}
+
+	.sl-kapa-button__shortcut kbd {
+		padding: 0;
+		border: 0;
+		background: transparent;
+		font: inherit;
+	}
+
+	.sl-kapa-button:hover {
+		border-color: var(--sl-color-gray-2);
+		color: var(--sl-color-white);
+	}
+
+	.sl-kapa-button:focus-visible {
+		outline: 2px solid var(--sl-color-accent-high);
+		outline-offset: 2px;
+	}
+
+	.sl-kapa-button:active {
+		transform: translateY(1px);
+	}
+
+	.sl-kapa-button--primary {
+		border-color: color-mix(in srgb, var(--sl-color-accent), var(--sl-color-white) 15%);
+		background: color-mix(in srgb, var(--sl-color-accent), var(--sl-color-black) 18%);
+		color: var(--sl-color-white);
+	}
+
+	.sl-kapa-button--primary:hover {
+		border-color: var(--sl-color-accent-high);
+		background: color-mix(in srgb, var(--sl-color-accent-high), var(--sl-color-black) 14%);
+	}
+
+	@media (max-width: 49.999rem) {
+		.sl-search-with-kapa {
+			justify-content: flex-end;
+			gap: 0.5rem;
+		}
+
+		.sl-search-with-kapa__search {
+			flex: 0 0 auto;
+		}
+
+		.sl-kapa-button {
+			padding: 0 0.75rem;
+		}
+	}
+}
