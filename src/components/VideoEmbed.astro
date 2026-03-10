@@ -1,0 +1,66 @@
+---
+interface Props {
+  url: string;
+  title?: string;
+}
+
+const { url, title = '' } = Astro.props;
+
+function getEmbedUrl(url: string): string {
+  // YouTube
+  const ytMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)/);
+  if (ytMatch) {
+    return `https://www.youtube-nocookie.com/embed/${ytMatch[1]}`;
+  }
+
+  // Loom
+  const loomMatch = url.match(/loom\.com\/share\/([\w-]+)/);
+  if (loomMatch) {
+    return `https://www.loom.com/embed/${loomMatch[1]}`;
+  }
+
+  // Google Drive video
+  const driveMatch = url.match(/drive\.google\.com\/file\/d\/([\w-]+)/);
+  if (driveMatch) {
+    return `https://drive.google.com/file/d/${driveMatch[1]}/preview`;
+  }
+
+  // Fallback: return original URL (renders as a link)
+  return '';
+}
+
+const embedUrl = getEmbedUrl(url);
+---
+
+{embedUrl ? (
+  <div class="video-embed">
+    <iframe
+      src={embedUrl}
+      title={title}
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+    />
+  </div>
+) : (
+  <p><a href={url} target="_blank" rel="noopener noreferrer">{title || url}</a></p>
+)}
+
+<style>
+  .video-embed {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+    height: 0;
+    overflow: hidden;
+    margin: 1rem 0;
+    border-radius: 8px;
+  }
+  .video-embed iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+</style>

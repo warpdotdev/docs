@@ -4,7 +4,6 @@ description: >-
   Configure MCP servers in the Warp desktop app to extend local agents with
   custom tools and data sources through a standardized interface.
 ---
-
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 MCP servers extend Warp's [local agents](/agent-platform/local-agents/interacting-with-agents/) in a modular, flexible way by exposing custom tools or data sources through a standardized interface — essentially acting as plugins for Warp. Warp supports a variety of connection protocols, including Streamable HTTPS and SSE, along with custom headers and environmental variables.
@@ -19,10 +18,10 @@ This page covers MCP servers for local agents in the Warp desktop app. If you're
 
 You can navigate to the MCP servers page in any of the following ways:
 
-- From the Settings Page: **Settings** > **MCP Servers**
-- From [Warp Drive](https://docs.warp.dev/knowledge-and-collaboration/warp-drive): under **Personal** > **MCP Servers**
-- From the [Command Palette](https://docs.warp.dev/terminal/command-palette): search for `Open MCP Servers`
-- From the AI settings tab: **Settings** > **AI** > **Manage MCP servers**
+* From the [Settings Page](/agent-platform/capabilities/warp:/settings/mcp/): **Settings** > **MCP Servers**
+* From [Warp Drive](https://docs.warp.dev/knowledge-and-collaboration/warp-drive): under **Personal** > **MCP Servers**
+* From the [Command Palette](https://docs.warp.dev/terminal/command-palette): search for `Open MCP Servers`
+* From the AI settings tab: **Settings** > **AI** > **Manage MCP servers**
 
 This will show a list of all configured MCP servers, including which are currently running. If you close Warp with an MCP server running, it will run again on next start of Warp. MCP servers that are stopped will remain so on next launch of Warp.
 
@@ -46,14 +45,13 @@ MCP server types you can add:
 
     **CLI Server (Command) MCP Configuration Properties**
 
-    | Property | Type | Required | Description |
-    | --- | --- | --- | --- |
-    | `command` | string | Yes | The executable to launch (e.g., `npx`). |
-    | `args` | string[] | Yes | Array of command-line arguments passed to `command` (e.g., module name, paths). |
-    | `env` | object | No | Key-value object of environment variables (e.g., API Tokens). |
-    | `working_directory` | string | No | Working directory path where the command is run, used for resolving relative paths. |
+    | Property            | Type      | Required | Description                                                                         |
+    | ------------------- | --------- | -------- | ----------------------------------------------------------------------------------- |
+    | `command`           | string    | Yes      | The executable to launch (e.g., `npx`).                                             |
+    | `args`              | string\[] | Yes      | Array of command-line arguments passed to `command` (e.g., module name, paths).     |
+    | `env`               | object    | No       | Key-value object of environment variables (e.g., API Tokens).                       |
+    | `working_directory` | string    | No       | Working directory path where the command is run, used for resolving relative paths. |
   </TabItem>
-
   <TabItem label="Streamable HTTP or SSE Server (URL)">
     Provide a URL where Warp can reach an already-running MCP server that supports Server-Sent Events.
 
@@ -61,10 +59,10 @@ MCP server types you can add:
 
     **Streamable HTTP or SSE Server (URL) MCP Configuration Properties**
 
-    | Property | Type | Required | Description |
-    | --- | --- | --- | --- |
-    | `url` | string | Yes | The HTTP endpoint URL to connect to via Server-Sent Events (SSE). |
-    | `headers` | object | No | Key-value object of header variables (e.g., Authorization). |
+    | Property  | Type   | Required | Description                                                       |
+    | --------- | ------ | -------- | ----------------------------------------------------------------- |
+    | `url`     | string | Yes      | The HTTP endpoint URL to connect to via Server-Sent Events (SSE). |
+    | `headers` | object | No       | Key-value object of header variables (e.g., Authorization).       |
   </TabItem>
 </Tabs>
 
@@ -115,11 +113,11 @@ Warp also provides out-of-the-box MCP servers that can be installed by anyone. T
 
 Most MCP servers require authentication to connect to external services. Warp supports the following methods:
 
-- **Environment variables**: pass an API key or access token via the server's environment variables.
-- **OAuth login (one-click installation)**: simplifies configuration by handling authentication through your browser. Warp stores credentials securely on your device and reuses them for future sessions. Re-authentication is required when opening Warp on a new machine.
-  - Starting a server without existing credentials automatically opens a browser-based authentication flow.
-  - Credentials can be revoked at any time from the MCP Servers pane in Warp.
-- **Custom Headers**: pass an Authentication Bearer token via the headers variable.
+* **Environment variables**: pass an API key or access token via the server's environment variables.
+* **OAuth login (one-click installation)**: simplifies configuration by handling authentication through your browser. Warp stores credentials securely on your device and reuses them for future sessions. Re-authentication is required when opening Warp on a new machine.
+  * Starting a server without existing credentials automatically opens a browser-based authentication flow.
+  * Credentials can be revoked at any time from the MCP Servers pane in Warp.
+* **Custom Headers**: pass an Authentication Bearer token via the headers variable.
 
 ### Debugging MCP
 
@@ -143,7 +141,7 @@ In some cases you may need to reset the auth token for some MCP servers. To do t
 Note this will delete all your MCP auth tokens stored locally so you will need to login and re-authenticate.
 :::
 
-If the above doesn't help and you need to reset or change authentication, you may need to switch to a CLI-based MCP server configuration and provide the token via environment variables. See [Sentry CLI MCP Example](#engineering--ops).
+If the above doesn't help and you need to reset or change authentication, you may need to switch to a CLI-based MCP server configuration and provide the token via environment variables. See [Sentry CLI MCP Example](/agent-platform/capabilities/mcp/#sentry).
 
 ### Where MCP Logs Are Stored
 
@@ -171,10 +169,10 @@ Warp saves the MCP logs locally on your computer. You can open the files directl
 
 Below are examples for popular Model Context Protocol (MCP) servers.
 
-- **CLI Server (Command)** — local `npx` or `docker` command based MCP servers.
-- **Streamable HTTP or SSE Server (URL)** — remote or locally hosted MCP endpoints.
+* **CLI Server (Command)** — local `npx` or `docker` command based MCP servers.
+* **Streamable HTTP or SSE Server (URL)** — remote or locally hosted MCP endpoints.
 
-### Engineering & Ops
+### **Engineering & Ops**
 
 <Tabs>
   <TabItem label="GitHub">
@@ -204,7 +202,6 @@ Below are examples for popular Model Context Protocol (MCP) servers.
     }
     ```
   </TabItem>
-
   <TabItem label="Sentry">
     [Sentry MCP Docs](https://docs.sentry.io/product/sentry-mcp/)
 
@@ -229,7 +226,6 @@ Below are examples for popular Model Context Protocol (MCP) servers.
     }
     ```
   </TabItem>
-
   <TabItem label="Grafana">
     [Grafana MCP Docs](https://github.com/grafana/mcp-grafana)
 
@@ -258,7 +254,6 @@ Below are examples for popular Model Context Protocol (MCP) servers.
     }
     ```
   </TabItem>
-
   <TabItem label="Linear">
     [Linear MCP Docs](https://linear.app/docs/mcp)
 
@@ -283,7 +278,6 @@ Below are examples for popular Model Context Protocol (MCP) servers.
     }
     ```
   </TabItem>
-
   <TabItem label="Chroma">
     **Chroma Package Search CLI Server (Command)**
 
@@ -308,7 +302,7 @@ Below are examples for popular Model Context Protocol (MCP) servers.
   </TabItem>
 </Tabs>
 
-### Design & Collaboration
+### **Design & Collaboration**
 
 <Tabs>
   <TabItem label="Figma">
@@ -335,7 +329,7 @@ Below are examples for popular Model Context Protocol (MCP) servers.
     **Figma Local MCP Server**
 
     1. Enable the Official Figma MCP Server. [Figma MCP Docs](https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Figma-MCP-server)
-    2. Open the [Figma desktop app](https://www.figma.com/downloads/) and make sure you've [updated to the latest version](https://help.figma.com/hc/en-us/articles/5601429983767-Guide-to-the-Figma-desktop-app#h_01HE5QD60DG6FEEDTZVJYM82QW).
+    2. Open the [Figma desktop app](https://www.figma.com/downloads/) and make sure you’ve [updated to the latest version](https://help.figma.com/hc/en-us/articles/5601429983767-Guide-to-the-Figma-desktop-app#h_01HE5QD60DG6FEEDTZVJYM82QW).
     3. Create or open a Figma Design file.
     4. In the upper-left corner, open the Figma menu.
     5. Under **Preferences**, select **Enable local MCP Server**.
@@ -344,12 +338,11 @@ Below are examples for popular Model Context Protocol (MCP) servers.
     ```json
     {
       "Figma (Local)": {
-        "url": "http://localhost:3845/mcp"
+        "url": "http://127.0.0.1:3845/mcp"
       }
     }
     ```
   </TabItem>
-
   <TabItem label="Slack">
     [Slack MCP Docs](https://github.com/korotovsky/slack-mcp-server/)
 
@@ -385,7 +378,6 @@ Below are examples for popular Model Context Protocol (MCP) servers.
     }
     ```
   </TabItem>
-
   <TabItem label="Atlassian">
     [Atlassian MCP Docs](https://support.atlassian.com/rovo/docs/setting-up-ides/)
 
@@ -402,7 +394,6 @@ Below are examples for popular Model Context Protocol (MCP) servers.
     }
     ```
   </TabItem>
-
   <TabItem label="Notion">
     [Notion MCP Docs](https://developers.notion.com/docs/mcp)
 
@@ -437,8 +428,8 @@ Below are examples for popular Model Context Protocol (MCP) servers.
 
 [Warp University](https://app.gitbook.com/o/-MbqIZLCtzerswjFm7mh/s/c5dAwvMCRiTxUOdDicqy/) hosts a collection of demos and walkthroughs showing how MCP servers can extend your workflows. Each example highlights practical use cases you can try today:
 
-- [**GitHub**](https://app.gitbook.com/s/c5dAwvMCRiTxUOdDicqy/mcp-servers/github-mcp-summarizing-open-prs-and-creating-gh-issues) — access repositories, issues, and pull requests through MCP.
-- [**Sentry**](https://app.gitbook.com/s/c5dAwvMCRiTxUOdDicqy/mcp-servers/sentry-mcp-fix-sentry-error-in-empower-website) — surface error monitoring and alerts as agent-usable data.
-- [**Linear**](https://app.gitbook.com/s/c5dAwvMCRiTxUOdDicqy/mcp-servers/linear-mcp-retrieve-issue-data) — integrate project management tasks and tickets.
-- [**Puppeteer**](https://app.gitbook.com/s/c5dAwvMCRiTxUOdDicqy/mcp-servers/puppeteer-mcp-scraping-amazon-web-reviews) — run automated browser workflows via MCP.
-- [**Context7**](https://app.gitbook.com/s/c5dAwvMCRiTxUOdDicqy/mcp-servers/context7-mcp-update-astro-project-with-best-practices) — experiment with external data integrations.
+* [**GitHub**](https://app.gitbook.com/s/c5dAwvMCRiTxUOdDicqy/mcp-servers/github-mcp-summarizing-open-prs-and-creating-gh-issues) — access repositories, issues, and pull requests through MCP.
+* [**Sentry**](https://app.gitbook.com/s/c5dAwvMCRiTxUOdDicqy/mcp-servers/sentry-mcp-fix-sentry-error-in-empower-website) — surface error monitoring and alerts as agent-usable data.
+* [**Linear**](https://app.gitbook.com/s/c5dAwvMCRiTxUOdDicqy/mcp-servers/linear-mcp-retrieve-issue-data) — integrate project management tasks and tickets.
+* [**Puppeteer**](https://app.gitbook.com/s/c5dAwvMCRiTxUOdDicqy/mcp-servers/puppeteer-mcp-scraping-amazon-web-reviews) — run automated browser workflows via MCP.
+* [**Context7**](https://app.gitbook.com/s/c5dAwvMCRiTxUOdDicqy/mcp-servers/context7-mcp-update-astro-project-with-best-practices) — experiment with external data integrations.
