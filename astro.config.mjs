@@ -4,6 +4,7 @@ import react from '@astrojs/react';
 import starlight from '@astrojs/starlight';
 import starlightSidebarTopics from 'starlight-sidebar-topics';
 import vercel from '@astrojs/vercel';
+import docsMarkdownIntegration from './src/integrations/docs-markdown-integration.js';
 
 // https://astro.build/config
 export default defineConfig({
@@ -26,12 +27,12 @@ export default defineConfig({
 				dark: './src/assets/warp-logo-dark.svg',
 				replacesTitle: true,
 			},
-			customCss: ['./src/styles/custom.css'],
+			customCss: ['./src/styles/custom.css', './src/styles/kapa.css'],
 			components: {
 				Head: './src/components/CustomHead.astro',
 				Search: './src/components/SearchWithKapa.astro',
 			},
-			customCss: ['./src/styles/kapa.css'],
+			routeMiddleware: './src/routeData.ts',
 			social: [
 				{ icon: 'github', label: 'GitHub', href: 'https://github.com/warpdotdev' },
 			],
@@ -610,6 +611,9 @@ export default defineConfig({
 				]),
 			],
 		}),
+		docsMarkdownIntegration(),
 	],
-	adapter: vercel(),
+	adapter: vercel({
+		edgeMiddleware: true,
+	}),
 });
