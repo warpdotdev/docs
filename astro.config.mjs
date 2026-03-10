@@ -315,6 +315,55 @@ export default defineConfig({
 							},
 						],
 					},
+					{
+						label: 'Support & Community',
+						link: '/support-and-community/',
+						icon: 'heart',
+						items: [
+							{
+								label: 'Troubleshooting & Support',
+								items: [
+									{ slug: 'support-and-community', label: 'Overview' },
+									'support-and-community/troubleshooting-and-support/sending-us-feedback',
+									'support-and-community/troubleshooting-and-support/known-issues',
+									'support-and-community/troubleshooting-and-support/troubleshooting-login-issues',
+									'support-and-community/troubleshooting-and-support/using-warp-offline',
+									'support-and-community/troubleshooting-and-support/updating-warp',
+									'support-and-community/troubleshooting-and-support/logging-out-and-uninstalling',
+									'support-and-community/troubleshooting-and-support/uninstalling-warp',
+								],
+							},
+							{
+								label: 'Plans & Billing',
+								items: [
+									{ slug: 'support-and-community/plans-and-billing', label: 'Overview' },
+									'support-and-community/plans-and-billing/plans-pricing-refunds',
+									'support-and-community/plans-and-billing/credits',
+									'support-and-community/plans-and-billing/add-on-credits',
+									'support-and-community/plans-and-billing/bring-your-own-api-key',
+									'support-and-community/plans-and-billing/overages-legacy',
+									'support-and-community/plans-and-billing/pricing-faqs',
+								],
+							},
+							{
+								label: 'Privacy & Security',
+								items: [
+									'support-and-community/privacy-and-security/privacy',
+									'support-and-community/privacy-and-security/secret-redaction',
+									'support-and-community/privacy-and-security/network-log',
+								],
+							},
+							{
+								label: 'Community',
+								items: [
+									'support-and-community/community/warp-preview-and-alpha-program',
+									'support-and-community/community/refer-a-friend',
+									'support-and-community/community/open-source-partnership',
+									'support-and-community/community/open-source-licenses',
+								],
+							},
+						],
+					},
 				]),
 			],
 		}),
