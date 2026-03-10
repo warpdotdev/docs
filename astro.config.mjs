@@ -10,6 +10,9 @@ export default defineConfig({
 	integrations: [
 		starlight({
 			title: 'Warp Docs',
+			components: {
+				Head: './src/components/CustomHead.astro',
+			},
 			social: [
 				{ icon: 'github', label: 'GitHub', href: 'https://github.com/warpdotdev' },
 			],
