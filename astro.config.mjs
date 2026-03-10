@@ -135,6 +135,43 @@ export default defineConfig({
 						],
 					},
 					{
+						label: 'Enterprise',
+						link: '/enterprise/',
+						icon: 'setting',
+						items: [
+							{
+								label: 'Getting Started',
+								items: [
+									{ slug: 'enterprise', label: 'Overview' },
+									'enterprise/getting-started/quickstart',
+									'enterprise/getting-started/getting-started-enterprise',
+									'enterprise/getting-started/getting-started-developers',
+									'enterprise/getting-started/faq',
+								],
+							},
+							{
+								label: 'Security and Compliance',
+								items: [
+									'enterprise/security-and-compliance/security-overview',
+									'enterprise/security-and-compliance/sso',
+								],
+							},
+							{
+								label: 'Team Management',
+								items: [
+									'enterprise/team-management/admin-panel',
+									'enterprise/team-management/roles-and-permissions',
+								],
+							},
+							{
+								label: 'Enterprise Features',
+								items: [
+									'enterprise/enterprise-features/bring-your-own-llm',
+								],
+							},
+						],
+					},
+					{
 						label: 'Terminal',
 						link: '/',
 						icon: 'laptop',
