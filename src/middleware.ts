@@ -9,9 +9,6 @@ export const onRequest = defineMiddleware((context, next) => {
 	if (!['GET', 'HEAD'].includes(context.request.method)) {
 		return next();
 	}
-	if (context.isPrerendered) {
-		return next();
-	}
 
 	if (!isEligibleDocHtmlPath(context.url.pathname)) {
 		return next();
