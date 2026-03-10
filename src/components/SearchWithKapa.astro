@@ -1,0 +1,11 @@
+---
+import DefaultSearch from '@astrojs/starlight/components/Search.astro';
+import KapaChatLauncher from './KapaChatLauncher';
+---
+
+<div class="sl-search-with-kapa">
+	<div class="sl-search-with-kapa__search">
+		<DefaultSearch />
+	</div>
+	<KapaChatLauncher client:only="react" />
+</div>

@@ -1,5 +1,6 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
+import { defineConfig, envField } from 'astro/config';
+import react from '@astrojs/react';
 import starlight from '@astrojs/starlight';
 import starlightSidebarTopics from 'starlight-sidebar-topics';
 import vercel from '@astrojs/vercel';
@@ -7,12 +8,33 @@ import vercel from '@astrojs/vercel';
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://docs.warp.dev',
+	env: {
+		schema: {
+			PUBLIC_KAPA_INTEGRATION_ID: envField.string({
+				context: 'client',
+				access: 'public',
+			}),
+			PUBLIC_KAPA_PROJECT_NAME: envField.string({
+				context: 'client',
+				access: 'public',
+				optional: true,
+			}),
+			PUBLIC_KAPA_WELCOME_MESSAGE: envField.string({
+				context: 'client',
+				access: 'public',
+				optional: true,
+			}),
+		},
+	},
 	integrations: [
+		react(),
 		starlight({
 			title: 'Warp Docs',
 			components: {
 				Head: './src/components/CustomHead.astro',
+				Search: './src/components/SearchWithKapa.astro',
 			},
+			customCss: ['./src/styles/kapa.css'],
 			social: [
 				{ icon: 'github', label: 'GitHub', href: 'https://github.com/warpdotdev' },
 			],

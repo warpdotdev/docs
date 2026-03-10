@@ -13,6 +13,20 @@ npm run dev
 
 Open [http://localhost:4321](http://localhost:4321) to preview locally.
 
+## Kapa AI setup
+
+The Ask AI header integration requires a public Kapa Custom Frontend integration ID.
+
+Set these environment variables before running the site locally or deploying it:
+
+```bash
+PUBLIC_KAPA_INTEGRATION_ID=your_custom_frontend_integration_id
+PUBLIC_KAPA_PROJECT_NAME="Warp Docs" # optional
+PUBLIC_KAPA_WELCOME_MESSAGE="I can help answer questions about Warp and point you to the most relevant docs." # optional
+```
+
+`PUBLIC_KAPA_INTEGRATION_ID` is required by Astro's env schema, so `npm run dev` and `npm run build` will fail fast if it is missing.
+
 ## Commands
 
 | Command          | Description                              |
