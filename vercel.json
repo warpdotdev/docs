@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/terminal/:path*",
+      "destination": "/:path*",
+      "statusCode": 308
+    }
+  ]
+}

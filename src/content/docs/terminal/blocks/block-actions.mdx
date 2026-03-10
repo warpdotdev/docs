@@ -1,0 +1,115 @@
+---
+title: Block Actions
+description: >-
+  All the cool features Blocks provide.
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import VideoEmbed from '@components/VideoEmbed.astro';
+
+## Accessing Block Actions
+
+There are 2 ways you can access Block actions.
+
+1. Hover over a Block and click the kebab (three dots) button on the right-hand side.
+2. Right-click a Block.
+
+<VideoEmbed url="https://www.loom.com/share/3dec25e548d4484aa3dd6437869e2bbf?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" title="Accessing Block Actions" />
+
+## Copy Input / Output of Block
+
+For command blocks, you can `RIGHT-CLICK` on a Block or click the context menu and copy the Block command, output, or both.
+
+For AI blocks, you can `RIGHT-CLICK` to copy the prompt, output, both or the entire conversation.
+
+<VideoEmbed url="https://www.loom.com/share/9ad67eca0a8d47afb82cc1acba617f3c?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" title="Copy Block Actions" />
+
+## Sharing a Block
+
+Share a block easily with coworkers or teammates by creating a web permalink. This preserves formatting and makes debugging and sharing output easy. [See Block Sharing Page.](/blocks/block-sharing/)
+
+## Bookmarking a Block
+
+Quickly navigate to important Blocks despite where they are in the terminal history.
+
+<Tabs>
+  <TabItem label="macOS">
+    Ways to bookmark a Block:
+
+    1. Select **Toggle bookmark** in the block context menu
+    2. Use `CMD-B` keybinding to bookmark a selected block
+
+    Navigate to a bookmarked Block, by:
+
+    * Clicking on the indicator.\
+      The indicator position reflects the approximate position of the Block in the Block history. Hovering over the indicator will give a snapshot of the Block including its prompt, command, and the last two lines of output.
+    * Pressing `OPTION-UP` and `OPTION-DOWN`
+  </TabItem>
+  <TabItem label="Windows">
+    There are Ways to bookmark a Block:
+
+    1. Select **Toggle bookmark** in the block context menu
+    2. Use `CTRL-SHIFT-B` keybinding to bookmark a selected block
+
+    Navigate to a bookmarked Block, by:
+
+    * Clicking on the indicator.\
+      The indicator position reflects the approximate position of the Block in the Block history. Hovering over the indicator will give a snapshot of the Block including its prompt, command, and the last two lines of output.
+    * Pressing `ALT-UP` and `ALT-DOWN`
+  </TabItem>
+  <TabItem label="Linux">
+    Ways to bookmark a Block:
+
+    1. Click on the bookmark icon in the top right corner of a Block
+    2. Select **Toggle bookmark** in the block context menu
+    3. Use `CTRL-SHIFT-B` keybinding to bookmark a selected block
+
+    Navigate to a bookmarked Block, by:
+
+    * Clicking on the indicator.\
+      The indicator position reflects the approximate position of the Block in the Block history. Hovering over the indicator will give a snapshot of the Block including its prompt, command, and the last two lines of output.
+    * Pressing `ALT-UP` and `ALT-DOWN`
+  </TabItem>
+</Tabs>
+
+:::note
+Bookmarks only persist while the session is open, once you close the session they are lost. If you want to save the command and output for later use, [Share the Block](/blocks/block-sharing/).
+:::
+
+![Bookmarking a Block](/images/terminal/block-bookmarks.gif)
+
+## Search Within A Block
+
+Quickly find important information within a Block. [See Find page](/blocks/find/)
+
+<Tabs>
+  <TabItem label="macOS">
+    With a Block selected, press "Find Within Block" or use `CMD-F` to search within a Block.
+  </TabItem>
+  <TabItem label="Windows">
+    With a Block selected, Press "Find Within Block" or use `CTRL-SHIFT-F` to search within a Block.
+  </TabItem>
+  <TabItem label="Linux">
+    With a Block selected, Press "Find Within Block" or use `CTRL-SHIFT-F` to search within a Block.
+  </TabItem>
+</Tabs>
+
+<VideoEmbed url="https://www.loom.com/share/7dda0e7a6ec144cfb6410d29a586ddd0?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" title="Search within a Block" />
+
+## Filtering a Block
+
+Filter the output lines of a block natively in Warp to quickly focus on a subset of the block. [See Block Filtering Page](/blocks/block-filtering/).
+
+<Tabs>
+  <TabItem label="macOS">
+    * Using the keybinding `OPT-SHIFT-F` by default to toggle filtering on the selected or latest block
+    * Selecting `Toggle Block Filter` in the block context menu
+  </TabItem>
+  <TabItem label="Windows">
+    * Using the keybinding `ALT-SHIFT-F` to toggle filtering on the selected or latest block
+    * Selecting `Toggle Block Filter` in the block context menu
+  </TabItem>
+  <TabItem label="Linux">
+    * Using the keybinding `ALT-SHIFT-F` to toggle filtering on the selected or latest block
+    * Selecting `Toggle Block Filter` in the block context menu
+  </TabItem>
+</Tabs>
