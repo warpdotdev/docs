@@ -1,0 +1,80 @@
+---
+import Default from '@astrojs/starlight/components/Header.astro';
+
+const { topics } = Astro.locals.starlightSidebarTopics;
+---
+
+<Default {...Astro.props}><slot /></Default>
+
+<nav class="topic-tabs" aria-label="Documentation sections">
+	<ul>
+		{topics.map((topic) => (
+			<li>
+				<a
+					href={topic.link}
+					class:list={{ active: topic.isCurrent }}
+					aria-current={topic.isCurrent ? 'true' : undefined}
+				>
+					{topic.label}
+				</a>
+			</li>
+		))}
+	</ul>
+</nav>
+
+<style>
+	.topic-tabs {
+		display: flex;
+		justify-content: flex-start;
+		padding-inline: var(--sl-nav-pad-x);
+		border-top: 1px solid var(--sl-color-hairline-shade);
+	}
+
+	ul {
+		display: flex;
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		gap: 0.25rem;
+		overflow-x: auto;
+	}
+
+	li {
+		flex-shrink: 0;
+	}
+
+	a {
+		display: block;
+		padding: 0.5rem 1rem;
+		font-size: var(--sl-text-sm);
+		font-weight: 600;
+		color: var(--sl-color-gray-2);
+		text-decoration: none;
+		border-bottom: 2px solid transparent;
+		white-space: nowrap;
+		transition: color 0.15s, border-color 0.15s;
+	}
+
+	a:hover {
+		color: var(--sl-color-white);
+		border-bottom-color: var(--sl-color-gray-3);
+	}
+
+	a.active {
+		color: var(--sl-color-white);
+		border-bottom-color: var(--sl-color-accent);
+	}
+
+	:global([data-theme='light']) a {
+		color: var(--sl-color-gray-3);
+	}
+
+	:global([data-theme='light']) a:hover {
+		color: var(--sl-color-gray-1);
+	}
+
+	:global([data-theme='light']) a.active {
+		color: var(--sl-color-black);
+		border-bottom-color: var(--sl-color-accent);
+	}
+</style>
