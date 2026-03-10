@@ -5,46 +5,44 @@ import { parseHTML } from 'linkedom';
 import TurndownService from 'turndown';
 import { gfm } from 'turndown-plugin-gfm';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const projectRoot = path.resolve(__dirname, '..');
-const outputRoots = ['dist', '.vercel/output/static'].map((dir) => path.join(projectRoot, dir));
+export default function docsMarkdownIntegration() {
+	return {
+		name: 'warp-docs-markdown',
+		hooks: {
+			'astro:build:generated': async ({ dir, logger }) => {
+				const outputRoot = fileURLToPath(dir);
+				const markdownCount = await generateMarkdownFiles(outputRoot);
+				logger.info(`Generated ${markdownCount} Markdown docs`);
+			},
+		},
+	};
+}
+
 const turndown = createMarkdownConverter();
 
-for (const outputRoot of outputRoots) {
-	await generateMarkdownFiles(outputRoot);
-}
-
 async function generateMarkdownFiles(outputRoot) {
-	try {
-		const htmlFiles = await collectHtmlFiles(outputRoot);
-		const markdownTargets = new Set();
+	const htmlFiles = await collectHtmlFiles(outputRoot, readdir);
+	let markdownCount = 0;
 
-		for (const htmlFile of htmlFiles) {
-			const relativeHtmlPath = path.relative(outputRoot, htmlFile);
-			if (!isDocHtmlFile(relativeHtmlPath)) continue;
+	for (const htmlFile of htmlFiles) {
+		const relativeHtmlPath = path.relative(outputRoot, htmlFile);
+		if (!isDocHtmlFile(relativeHtmlPath)) continue;
 
-			const markdownPath = getMarkdownOutputPath(outputRoot, relativeHtmlPath);
-			markdownTargets.add(markdownPath);
+		const markdownPath = getMarkdownOutputPath(outputRoot, relativeHtmlPath);
+		const html = await readFile(htmlFile, 'utf8');
+		const markdown = convertHtmlToMarkdown(html);
+		if (!markdown) continue;
 
-			const html = await readFile(htmlFile, 'utf8');
-			const markdown = convertHtmlToMarkdown(html);
-			if (!markdown) continue;
-
-			await mkdir(path.dirname(markdownPath), { recursive: true });
-			await writeFile(markdownPath, markdown, 'utf8');
-		}
-
-		for (const target of markdownTargets) {
-			const htmlPath = `${target}.html`;
-			await rm(htmlPath, { force: true });
-		}
-	} catch (error) {
-		if (/** @type {NodeJS.ErrnoException} */ (error).code === 'ENOENT') return;
-		throw error;
+		await mkdir(path.dirname(markdownPath), { recursive: true });
+		await writeFile(markdownPath, markdown, 'utf8');
+		await rm(`${markdownPath}.html`, { force: true });
+		markdownCount += 1;
 	}
+
+	return markdownCount;
 }
 
-async function collectHtmlFiles(rootDir) {
+async function collectHtmlFiles(rootDir, readdir) {
 	/** @type {string[]} */
 	const htmlFiles = [];
 
@@ -82,13 +80,8 @@ function getMarkdownOutputPath(outputRoot, relativeHtmlPath) {
 
 function convertHtmlToMarkdown(html) {
 	const { document } = parseHTML(html);
-	const title = document
-		.querySelector('h1[data-page-title], main h1')
-		?.textContent?.trim();
-	const description = document
-		.querySelector('meta[name="description"]')
-		?.getAttribute('content')
-		?.trim();
+	const title = document.querySelector('h1[data-page-title], main h1')?.textContent?.trim();
+	const description = document.querySelector('meta[name="description"]')?.getAttribute('content')?.trim();
 	const contentRoot = document.querySelector('main .sl-markdown-content');
 	if (!title || !contentRoot) return '';
 
