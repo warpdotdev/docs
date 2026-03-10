@@ -13,6 +13,7 @@ Warp lets you choose from a curated set of Large Language Models (LLMs) to power
 **Warp supports the following models:**
 
 * OpenAI:
+  * `GPT-5.4` (_low, medium, high_, and _extra high_ reasoning)
   * `GPT-5.3 Codex` (_low, medium, high_, and _extra high_ reasoning)
   * `GPT-5.2 Codex` (_low, medium, high_, and _extra high_ reasoning)
   * `GPT-5.2` (_low, medium, high_, and _extra high_ reasoning)
@@ -25,6 +26,7 @@ Warp lets you choose from a curated set of Large Language Models (LLMs) to power
   * `Claude Sonnet 4.6` (_default_ and _max_ effort)
   * `Claude Opus 4.5` (_off_ and _thinking_ mode)
   * `Claude Sonnet 4.5` (_off_ and _thinking_ mode)
+  * `Claude Sonnet 4`
   * `Claude Opus 4.1`
   * `Claude Haiku 4.5`
 * Google:
