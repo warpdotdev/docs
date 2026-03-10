@@ -134,9 +134,41 @@ body {
   padding-inline-start: 0;
 }
 
+/* Shrink the right "On this page" TOC panel */
+:root {
+  --sl-toc-width: 16rem;
+}
+
+@media (min-width: 72rem) {
+  .right-sidebar-container {
+    width: var(--sl-toc-width);
+  }
+
+  [data-has-sidebar][data-has-toc] .main-pane {
+    width: calc(100% - var(--sl-toc-width));
+  }
+
+  /*
+   * .right-sidebar is position:fixed with width:100vw, so its visible area
+   * is only --sl-toc-width wide. Constrain the content box to that width so
+   * text wraps instead of overflowing off-screen.
+   */
+  .right-sidebar-panel .sl-container {
+    width: calc(var(--sl-toc-width) - 2 * var(--sl-sidebar-pad-x));
+    max-width: 100%;
+  }
+}
+
 /* Accent button / active sidebar item — better contrast */
 :root[data-theme='light'] [aria-current='page'],
 :root[data-theme='light'] [aria-current='page']:hover,
 :root[data-theme='light'] [aria-current='page']:focus {
   color: #faf9f6;
+}
+
+/* Center and constrain main content in article */
+.main-pane .sl-container {
+  max-width: 48rem;
+  margin-left: auto;
+  margin-right: auto;
 }
