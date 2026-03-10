@@ -1,10 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { KapaProvider, useChat } from '@kapaai/react-sdk';
-import {
-	PUBLIC_KAPA_INTEGRATION_ID,
-	PUBLIC_KAPA_PROJECT_NAME,
-	PUBLIC_KAPA_WELCOME_MESSAGE,
-} from 'astro:env/client';
+import { PUBLIC_KAPA_INTEGRATION_ID } from 'astro:env/client';
 import ReactMarkdown from 'react-markdown';
 import {
 	LuBot,
@@ -20,10 +16,8 @@ import {
 import './KapaChatLauncher.css';
 
 const integrationId = PUBLIC_KAPA_INTEGRATION_ID;
-const title = PUBLIC_KAPA_PROJECT_NAME ?? 'Warp Docs';
-const welcomeMessage =
-	PUBLIC_KAPA_WELCOME_MESSAGE ??
-	'I can help answer questions about Warp and point you to the most relevant docs.';
+const title = 'Ask Warp';
+const welcomeMessage = 'What do you want to know about Warp?';
 
 type FeedbackReaction = 'upvote' | 'downvote';
 

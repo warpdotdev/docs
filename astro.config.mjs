@@ -14,16 +14,6 @@ export default defineConfig({
 				context: 'client',
 				access: 'public',
 			}),
-			PUBLIC_KAPA_PROJECT_NAME: envField.string({
-				context: 'client',
-				access: 'public',
-				optional: true,
-			}),
-			PUBLIC_KAPA_WELCOME_MESSAGE: envField.string({
-				context: 'client',
-				access: 'public',
-				optional: true,
-			}),
 		},
 	},
 	integrations: [
