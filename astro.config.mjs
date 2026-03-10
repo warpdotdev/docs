@@ -10,6 +10,12 @@ export default defineConfig({
 	integrations: [
 		starlight({
 			title: 'Warp Docs',
+			logo: {
+				light: './src/assets/warp-logo-light.svg',
+				dark: './src/assets/warp-logo-dark.svg',
+				replacesTitle: true,
+			},
+			customCss: ['./src/styles/custom.css'],
 			components: {
 				Head: './src/components/CustomHead.astro',
 			},
