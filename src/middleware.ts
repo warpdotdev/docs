@@ -16,7 +16,7 @@ export const onRequest = defineMiddleware((context, next) => {
 	if (!isEligibleDocHtmlPath(context.url.pathname)) {
 		return next();
 	}
-
+// Check if request is potentially coming from an agent. If so, serve as Markdown instead
 	if (!shouldServeMarkdown(context.request)) {
 		return next();
 	}
