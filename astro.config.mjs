@@ -164,6 +164,43 @@ export default defineConfig({
 						],
 					},
 					{
+						label: 'Enterprise',
+						link: '/enterprise/',
+						icon: 'setting',
+						items: [
+							{
+								label: 'Getting Started',
+								items: [
+									{ slug: 'enterprise', label: 'Overview' },
+									'enterprise/getting-started/quickstart',
+									'enterprise/getting-started/getting-started-enterprise',
+									'enterprise/getting-started/getting-started-developers',
+									'enterprise/getting-started/faq',
+								],
+							},
+							{
+								label: 'Security and Compliance',
+								items: [
+									'enterprise/security-and-compliance/security-overview',
+									'enterprise/security-and-compliance/sso',
+								],
+							},
+							{
+								label: 'Team Management',
+								items: [
+									'enterprise/team-management/admin-panel',
+									'enterprise/team-management/roles-and-permissions',
+								],
+							},
+							{
+								label: 'Enterprise Features',
+								items: [
+									'enterprise/enterprise-features/bring-your-own-llm',
+								],
+							},
+						],
+					},
+					{
 						label: 'Terminal',
 						link: '/',
 						icon: 'laptop',
@@ -340,6 +377,55 @@ export default defineConfig({
 									'knowledge-and-collaboration/teams',
 									'knowledge-and-collaboration/admin-panel',
 									{ slug: 'knowledge-and-collaboration/session-sharing', label: 'Session Sharing' },
+								],
+							},
+						],
+					},
+					{
+						label: 'Support & Community',
+						link: '/support-and-community/',
+						icon: 'heart',
+						items: [
+							{
+								label: 'Troubleshooting & Support',
+								items: [
+									{ slug: 'support-and-community', label: 'Overview' },
+									'support-and-community/troubleshooting-and-support/sending-us-feedback',
+									'support-and-community/troubleshooting-and-support/known-issues',
+									'support-and-community/troubleshooting-and-support/troubleshooting-login-issues',
+									'support-and-community/troubleshooting-and-support/using-warp-offline',
+									'support-and-community/troubleshooting-and-support/updating-warp',
+									'support-and-community/troubleshooting-and-support/logging-out-and-uninstalling',
+									'support-and-community/troubleshooting-and-support/uninstalling-warp',
+								],
+							},
+							{
+								label: 'Plans & Billing',
+								items: [
+									{ slug: 'support-and-community/plans-and-billing', label: 'Overview' },
+									'support-and-community/plans-and-billing/plans-pricing-refunds',
+									'support-and-community/plans-and-billing/credits',
+									'support-and-community/plans-and-billing/add-on-credits',
+									'support-and-community/plans-and-billing/bring-your-own-api-key',
+									'support-and-community/plans-and-billing/overages-legacy',
+									'support-and-community/plans-and-billing/pricing-faqs',
+								],
+							},
+							{
+								label: 'Privacy & Security',
+								items: [
+									'support-and-community/privacy-and-security/privacy',
+									'support-and-community/privacy-and-security/secret-redaction',
+									'support-and-community/privacy-and-security/network-log',
+								],
+							},
+							{
+								label: 'Community',
+								items: [
+									'support-and-community/community/warp-preview-and-alpha-program',
+									'support-and-community/community/refer-a-friend',
+									'support-and-community/community/open-source-partnership',
+									'support-and-community/community/open-source-licenses',
 								],
 							},
 						],
