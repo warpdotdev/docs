@@ -239,6 +239,7 @@
 }
 
 .sl-kapa-panel__footer {
+	position: relative;
 	border-top: 1px solid var(--sl-color-gray-5);
 }
 
@@ -289,14 +290,99 @@
 	cursor: not-allowed;
 }
 
-.sl-kapa-attribution {
-	margin: 0.75rem 0 0;
+/* Hide the reCAPTCHA badge */
+.grecaptcha-badge {
+	visibility: hidden;
+}
+.sl-kapa-meta {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	margin-top: 0.75rem;
 	font-size: var(--sl-text-xs);
 	color: var(--sl-color-gray-3);
 }
 
-.sl-kapa-attribution a {
+.sl-kapa-attribution,
+.sl-kapa-disclosure {
+	margin: 0;
+	line-height: 1.4;
+}
+.sl-kapa-disclosure-trigger {
+	border: 0;
+	padding: 0;
+	background: transparent;
 	color: inherit;
+	font: inherit;
+	text-decoration: underline;
+	text-underline-offset: 0.12em;
+	cursor: pointer;
+}
+
+.sl-kapa-disclosure-trigger:hover,
+.sl-kapa-disclosure-trigger:focus-visible {
+	color: var(--sl-color-gray-1);
+}
+
+.sl-kapa-disclosure-trigger:focus-visible {
+	outline: 2px solid var(--sl-color-accent-high);
+	outline-offset: 3px;
+	border-radius: 0.2rem;
+}
+
+.sl-kapa-attribution a,
+
+.sl-kapa-disclosure a {
+	color: inherit;
+}
+
+.sl-kapa-popover {
+	max-width: min(22rem, calc(100vw - 2rem));
+	border: 1px solid var(--sl-color-gray-5);
+	border-radius: 0.75rem;
+	background: color-mix(in srgb, var(--sl-color-black), var(--sl-color-gray-6) 18%);
+	box-shadow: var(--sl-shadow-lg);
+	padding: 0.75rem 0.875rem;
+	font-size: var(--sl-text-xs);
+	line-height: 1.5;
+	color: var(--sl-color-gray-2);
+	z-index: 10;
+}
+
+.sl-kapa-popover p {
+	margin: 0;
+}
+
+.sl-kapa-popover a {
+	color: var(--sl-color-text-accent);
+}
+
+.sl-kapa-popover__arrow {
+	fill: color-mix(in srgb, var(--sl-color-black), var(--sl-color-gray-6) 18%);
+}
+
+@keyframes sl-kapa-popover-in {
+	from {
+		opacity: 0;
+		transform: translateY(4px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.sl-kapa-popover[data-state='open'] {
+	animation: sl-kapa-popover-in 120ms ease-out;
+}
+
+@media (max-width: 36rem) {
+	.sl-kapa-meta {
+		flex-direction: column;
+		align-items: flex-start;
+	}
 }
 
 @keyframes sl-kapa-spin {

@@ -1,3 +1,5 @@
+import type { FormEvent, MouseEvent } from 'react';
+import * as Popover from '@radix-ui/react-popover';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { KapaProvider, useChat } from '@kapaai/react-sdk';
 import { PUBLIC_KAPA_INTEGRATION_ID } from 'astro:env/client';
@@ -31,7 +33,6 @@ function ChatSurface({ title, welcomeMessage }: { title: string; welcomeMessage:
 	const triggerRef = useRef<HTMLButtonElement | null>(null);
 	const closeButtonRef = useRef<HTMLButtonElement | null>(null);
 	const inputRef = useRef<HTMLInputElement | null>(null);
-	const previouslyFocusedElementRef = useRef<HTMLElement | null>(null);
 	const {
 		addFeedback,
 		conversation,
@@ -104,7 +105,7 @@ function ChatSurface({ title, welcomeMessage }: { title: string; welcomeMessage:
 		setQuery('');
 	};
 
-	const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+	const onSubmit = (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		submit();
 	};
@@ -112,11 +113,7 @@ function ChatSurface({ title, welcomeMessage }: { title: string; welcomeMessage:
 	const feedback = (questionAnswerId: string, reaction: FeedbackReaction) => {
 		addFeedback(questionAnswerId, reaction);
 	};
-
 	const openPanel = () => {
-		const activeElement = document.activeElement;
-		previouslyFocusedElementRef.current =
-			activeElement instanceof HTMLElement ? activeElement : triggerRef.current;
 		setIsOpen(true);
 	};
 
@@ -125,9 +122,8 @@ function ChatSurface({ title, welcomeMessage }: { title: string; welcomeMessage:
 	};
 
 	const restoreFocus = () => {
-		const focusTarget = previouslyFocusedElementRef.current ?? triggerRef.current;
 		window.requestAnimationFrame(() => {
-			focusTarget?.focus();
+			triggerRef.current?.focus();
 		});
 	};
 
@@ -136,7 +132,7 @@ function ChatSurface({ title, welcomeMessage }: { title: string; welcomeMessage:
 		restoreFocus();
 	};
 
-	const onDialogClick = (event: React.MouseEvent<HTMLDialogElement>) => {
+	const onDialogClick = (event: MouseEvent<HTMLDialogElement>) => {
 		if (event.target === dialogRef.current) {
 			closePanel();
 		}
@@ -265,7 +261,6 @@ function ChatSurface({ title, welcomeMessage }: { title: string; welcomeMessage:
 
 						{error ? <div className="sl-kapa-error">{error}</div> : null}
 					</div>
-
 					<footer className="sl-kapa-panel__footer">
 						<form className="sl-kapa-form" onSubmit={onSubmit}>
 							<input
@@ -291,12 +286,43 @@ function ChatSurface({ title, welcomeMessage }: { title: string; welcomeMessage:
 								</button>
 							)}
 						</form>
-						<p className="sl-kapa-attribution">
-							Powered by{' '}
-							<a href="https://kapa.ai" target="_blank" rel="noreferrer">
-								kapa.ai
-							</a>
-						</p>
+						<div className="sl-kapa-meta">
+							<p className="sl-kapa-attribution">
+								Powered by{' '}
+								<a href="https://kapa.ai" target="_blank" rel="noreferrer">
+									kapa.ai
+								</a>
+							</p>
+							<Popover.Root>
+								<p className="sl-kapa-disclosure">
+									Protected by{' '}
+									<Popover.Trigger asChild>
+										<button type="button" className="sl-kapa-disclosure-trigger">
+											reCAPTCHA
+										</button>
+									</Popover.Trigger>
+								</p>
+								<Popover.Content
+									className="sl-kapa-popover"
+									side="top"
+									align="end"
+									sideOffset={8}
+								>
+									<p>
+										This site is protected by reCAPTCHA and the Google{' '}
+										<a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">
+											Privacy Policy
+										</a>{' '}
+										and{' '}
+										<a href="https://policies.google.com/terms" target="_blank" rel="noreferrer">
+											Terms of Service
+										</a>{' '}
+										apply.
+									</p>
+									<Popover.Arrow className="sl-kapa-popover__arrow" />
+								</Popover.Content>
+							</Popover.Root>
+						</div>
 					</footer>
 				</div>
 			</dialog>
