@@ -19,11 +19,184 @@ export default defineConfig({
 			plugins: [
 				starlightSidebarTopics([
 					{
-						label: 'Changelog',
-						link: '/changelog/',
-						icon: 'document',
+						label: 'Terminal',
+						link: '/',
+						icon: 'laptop',
 						items: [
-							{ slug: 'changelog', label: 'Changelog' },
+							{
+								label: 'Getting Started',
+								items: [
+									{ slug: 'index', label: 'Overview' },
+									'quickstart',
+									'getting-started/what-is-warp',
+									'getting-started/quickstart/installation-and-setup',
+									'getting-started/quickstart/coding-in-warp',
+									'getting-started/quickstart/customizing-warp',
+									'getting-started/migrate-to-warp',
+									'getting-started/supported-shells',
+									'getting-started/keyboard-shortcuts',
+								],
+							},
+							{
+								label: 'Terminal',
+								items: [
+									'terminal/input/universal-input',
+									'terminal/input/classic-input',
+									{
+										label: 'Blocks',
+										items: [
+											{ slug: 'terminal/blocks', label: 'Overview' },
+											'terminal/blocks/block-basics',
+											'terminal/blocks/block-actions',
+											'terminal/blocks/block-sharing',
+											'terminal/blocks/find',
+											'terminal/blocks/block-filtering',
+											'terminal/blocks/background-blocks',
+											'terminal/blocks/sticky-command-header',
+										],
+									},
+									{
+										label: 'Modern Text Editing',
+										items: [
+											{ slug: 'terminal/editor', label: 'Overview' },
+											'terminal/editor/alias-expansion',
+											'terminal/editor/command-inspector',
+											'terminal/editor/syntax-error-highlighting',
+											'terminal/editor/vim',
+										],
+									},
+									{
+										label: 'Command Entry',
+										items: [
+											{ slug: 'terminal/entry', label: 'Overview' },
+											'terminal/entry/command-corrections',
+											'terminal/entry/command-search',
+											'terminal/entry/command-history',
+											'terminal/entry/synchronized-inputs',
+											'terminal/entry/yaml-workflows',
+										],
+									},
+									{
+										label: 'Command Completions',
+										items: [
+											{ slug: 'terminal/command-completions', label: 'Overview' },
+											'terminal/command-completions/completions',
+											'terminal/command-completions/autosuggestions',
+										],
+									},
+									{
+										label: 'Session Management',
+										items: [
+											{ slug: 'terminal/sessions', label: 'Overview' },
+											'terminal/sessions/launch-configurations',
+											'terminal/sessions/session-navigation',
+											'terminal/sessions/session-restoration',
+										],
+									},
+									{
+										label: 'Window Management',
+										items: [
+											{ slug: 'terminal/windows', label: 'Overview' },
+											'terminal/windows/global-hotkey',
+											'terminal/windows/tabs',
+											'terminal/windows/split-panes',
+										],
+									},
+									{
+										label: 'Appearance',
+										items: [
+											{ slug: 'terminal/appearance', label: 'Overview' },
+											'terminal/appearance/themes',
+											'terminal/appearance/custom-themes',
+											'terminal/appearance/prompt',
+											'terminal/appearance/input-position',
+											'terminal/appearance/text-fonts-cursor',
+											'terminal/appearance/size-opacity-blurring',
+											'terminal/appearance/pane-dimming',
+											'terminal/appearance/blocks-behavior',
+											'terminal/appearance/tabs-behavior',
+											'terminal/appearance/app-icons',
+										],
+									},
+									{
+										label: 'Warpify',
+										items: [
+											{ slug: 'terminal/warpify', label: 'Overview' },
+											'terminal/warpify/subshells',
+											'terminal/warpify/ssh',
+											'terminal/warpify/ssh-legacy',
+										],
+									},
+									{
+										label: 'More Features',
+										items: [
+											{ slug: 'terminal/more-features', label: 'Overview' },
+											'terminal/more-features/accessibility',
+											'terminal/more-features/files-and-links',
+											'terminal/more-features/markdown-viewer',
+											'terminal/more-features/working-directory',
+											'terminal/more-features/text-selection',
+											'terminal/more-features/full-screen-apps',
+											'terminal/more-features/notifications',
+											'terminal/more-features/audible-bell',
+											'terminal/more-features/settings-sync',
+											'terminal/more-features/quit-warning',
+											'terminal/more-features/uri-scheme',
+											'terminal/more-features/linux',
+										],
+									},
+									'terminal/command-palette',
+									{
+										label: 'Comparisons',
+										items: [
+											{ slug: 'terminal/comparisons', label: 'Overview' },
+											'terminal/comparisons/performance',
+										],
+									},
+									'terminal/comparisons/terminal-features',
+									'terminal/integrations-and-plugins',
+								],
+							},
+							{
+								label: 'Code',
+								items: [
+									'code/overview',
+									{
+										label: 'Code Editor',
+										items: [
+											{ slug: 'code/code-editor', label: 'Overview' },
+											'code/code-editor/language-server-protocol',
+											'code/code-editor/file-tree',
+											'code/code-editor/find-and-replace',
+											'code/code-editor/code-editor-vim-keybindings',
+										],
+									},
+									'code/code-review',
+									'code/git-worktrees',
+									'code/ssh-feature-support',
+								],
+							},
+							{
+								label: 'Knowledge & Collaboration',
+								items: [
+									{
+										label: 'Warp Drive',
+										items: [
+											{ slug: 'knowledge-and-collaboration/warp-drive', label: 'Overview' },
+											'knowledge-and-collaboration/warp-drive/notebooks',
+											'knowledge-and-collaboration/warp-drive/workflows',
+											'knowledge-and-collaboration/warp-drive/prompts',
+											'knowledge-and-collaboration/warp-drive/environment-variables',
+											'knowledge-and-collaboration/warp-drive/ai-objects',
+											'knowledge-and-collaboration/warp-drive/web',
+											'knowledge-and-collaboration/warp-drive/agent-mode-context',
+										],
+									},
+									'knowledge-and-collaboration/teams',
+									'knowledge-and-collaboration/admin-panel',
+									{ slug: 'knowledge-and-collaboration/session-sharing', label: 'Session Sharing' },
+								],
+							},
 						],
 					},
 					{
@@ -223,7 +396,7 @@ export default defineConfig({
 								label: 'End-to-End Builds',
 								items: [
 									'university/end-to-end-builds/building-a-real-time-chat-app-github-mcp-railway',
-'university/end-to-end-builds/building-a-chrome-extension-d3js-javascript-html-css',
+									'university/end-to-end-builds/building-a-chrome-extension-d3js-javascript-html-css',
 								],
 							},
 							{
@@ -289,226 +462,44 @@ export default defineConfig({
 								items: [
 									{ slug: 'reference/api-and-sdk', label: 'Oz Agent API & SDK' },
 									'reference/api-and-sdk/demo-sentry-monitoring-with-sdk',
+									{
+										label: 'Troubleshooting',
+										items: [
+											{ slug: 'reference/api-and-sdk/troubleshooting', label: 'Overview' },
+											{
+												label: 'Errors',
+												items: [
+													{ slug: 'reference/api-and-sdk/troubleshooting/errors', label: 'Overview' },
+													'reference/api-and-sdk/troubleshooting/errors/insufficient-credits',
+													'reference/api-and-sdk/troubleshooting/errors/feature-not-available',
+													'reference/api-and-sdk/troubleshooting/errors/external-authentication-required',
+													'reference/api-and-sdk/troubleshooting/errors/not-authorized',
+													'reference/api-and-sdk/troubleshooting/errors/invalid-request',
+													'reference/api-and-sdk/troubleshooting/errors/resource-not-found',
+													'reference/api-and-sdk/troubleshooting/errors/budget-exceeded',
+													'reference/api-and-sdk/troubleshooting/errors/integration-disabled',
+													'reference/api-and-sdk/troubleshooting/errors/integration-not-configured',
+													'reference/api-and-sdk/troubleshooting/errors/operation-not-supported',
+													'reference/api-and-sdk/troubleshooting/errors/environment-setup-failed',
+													'reference/api-and-sdk/troubleshooting/errors/content-policy-violation',
+													'reference/api-and-sdk/troubleshooting/errors/conflict',
+													'reference/api-and-sdk/troubleshooting/errors/authentication-required',
+													'reference/api-and-sdk/troubleshooting/errors/resource-unavailable',
+													'reference/api-and-sdk/troubleshooting/errors/internal-error',
+												],
+											},
+										],
+									},
 								],
 							},
 						],
 					},
 					{
-						label: 'Enterprise',
-						link: '/enterprise/',
-						icon: 'setting',
+						label: 'Changelog',
+						link: '/changelog/',
+						icon: 'document',
 						items: [
-							{
-								label: 'Getting Started',
-								items: [
-									{ slug: 'enterprise', label: 'Overview' },
-									'enterprise/getting-started/quickstart',
-									'enterprise/getting-started/getting-started-enterprise',
-									'enterprise/getting-started/getting-started-developers',
-									'enterprise/getting-started/faq',
-								],
-							},
-							{
-								label: 'Security and Compliance',
-								items: [
-									'enterprise/security-and-compliance/security-overview',
-									'enterprise/security-and-compliance/sso',
-								],
-							},
-							{
-								label: 'Team Management',
-								items: [
-									'enterprise/team-management/admin-panel',
-									'enterprise/team-management/roles-and-permissions',
-								],
-							},
-							{
-								label: 'Enterprise Features',
-								items: [
-									'enterprise/enterprise-features/bring-your-own-llm',
-								],
-							},
-						],
-					},
-					{
-						label: 'Terminal',
-						link: '/',
-						icon: 'laptop',
-						items: [
-							{
-								label: 'Getting Started',
-								items: [
-									{ slug: 'index', label: 'Overview' },
-									'quickstart',
-									'getting-started/what-is-warp',
-									'getting-started/quickstart/installation-and-setup',
-									'getting-started/quickstart/coding-in-warp',
-									'getting-started/quickstart/customizing-warp',
-									'getting-started/migrate-to-warp',
-									'getting-started/supported-shells',
-									'getting-started/keyboard-shortcuts',
-								],
-							},
-							{
-								label: 'Terminal',
-								items: [
-									'terminal/input/universal-input',
-									'terminal/input/classic-input',
-									{
-										label: 'Blocks',
-										items: [
-											{ slug: 'terminal/blocks', label: 'Overview' },
-											'terminal/blocks/block-basics',
-											'terminal/blocks/block-actions',
-											'terminal/blocks/block-sharing',
-											'terminal/blocks/find',
-											'terminal/blocks/block-filtering',
-											'terminal/blocks/background-blocks',
-											'terminal/blocks/sticky-command-header',
-										],
-									},
-									{
-										label: 'Modern Text Editing',
-										items: [
-											{ slug: 'terminal/editor', label: 'Overview' },
-											'terminal/editor/alias-expansion',
-											'terminal/editor/command-inspector',
-											'terminal/editor/syntax-error-highlighting',
-											'terminal/editor/vim',
-										],
-									},
-									{
-										label: 'Command Entry',
-										items: [
-											{ slug: 'terminal/entry', label: 'Overview' },
-											'terminal/entry/command-corrections',
-											'terminal/entry/command-search',
-											'terminal/entry/command-history',
-											'terminal/entry/synchronized-inputs',
-											'terminal/entry/yaml-workflows',
-										],
-									},
-									{
-										label: 'Command Completions',
-										items: [
-											{ slug: 'terminal/command-completions', label: 'Overview' },
-											'terminal/command-completions/completions',
-											'terminal/command-completions/autosuggestions',
-										],
-									},
-									{
-										label: 'Session Management',
-										items: [
-											{ slug: 'terminal/sessions', label: 'Overview' },
-											'terminal/sessions/launch-configurations',
-											'terminal/sessions/session-navigation',
-											'terminal/sessions/session-restoration',
-										],
-									},
-									{
-										label: 'Window Management',
-										items: [
-											{ slug: 'terminal/windows', label: 'Overview' },
-											'terminal/windows/global-hotkey',
-											'terminal/windows/tabs',
-											'terminal/windows/split-panes',
-										],
-									},
-									{
-										label: 'Appearance',
-										items: [
-											{ slug: 'terminal/appearance', label: 'Overview' },
-											'terminal/appearance/themes',
-											'terminal/appearance/custom-themes',
-											'terminal/appearance/prompt',
-											'terminal/appearance/input-position',
-											'terminal/appearance/text-fonts-cursor',
-											'terminal/appearance/size-opacity-blurring',
-											'terminal/appearance/pane-dimming',
-											'terminal/appearance/blocks-behavior',
-											'terminal/appearance/tabs-behavior',
-											'terminal/appearance/app-icons',
-										],
-									},
-									{
-										label: 'Warpify',
-										items: [
-											{ slug: 'terminal/warpify', label: 'Overview' },
-											'terminal/warpify/subshells',
-											'terminal/warpify/ssh',
-											'terminal/warpify/ssh-legacy',
-										],
-									},
-									{
-										label: 'More Features',
-										items: [
-											{ slug: 'terminal/more-features', label: 'Overview' },
-											'terminal/more-features/accessibility',
-											'terminal/more-features/files-and-links',
-											'terminal/more-features/markdown-viewer',
-											'terminal/more-features/working-directory',
-											'terminal/more-features/text-selection',
-											'terminal/more-features/full-screen-apps',
-											'terminal/more-features/notifications',
-											'terminal/more-features/audible-bell',
-											'terminal/more-features/settings-sync',
-											'terminal/more-features/quit-warning',
-											'terminal/more-features/uri-scheme',
-											'terminal/more-features/linux',
-										],
-									},
-									'terminal/command-palette',
-									{
-										label: 'Comparisons',
-										items: [
-											{ slug: 'terminal/comparisons', label: 'Overview' },
-											'terminal/comparisons/performance',
-										],
-									},
-									'terminal/comparisons/terminal-features',
-									'terminal/integrations-and-plugins',
-								],
-							},
-							{
-								label: 'Code',
-								items: [
-									'code/overview',
-									{
-										label: 'Code Editor',
-										items: [
-											{ slug: 'code/code-editor', label: 'Overview' },
-											'code/code-editor/language-server-protocol',
-											'code/code-editor/file-tree',
-											'code/code-editor/find-and-replace',
-											'code/code-editor/code-editor-vim-keybindings',
-										],
-									},
-									'code/code-review',
-									'code/git-worktrees',
-									'code/ssh-feature-support',
-								],
-							},
-							{
-								label: 'Knowledge & Collaboration',
-								items: [
-									{
-										label: 'Warp Drive',
-										items: [
-											{ slug: 'knowledge-and-collaboration/warp-drive', label: 'Overview' },
-											'knowledge-and-collaboration/warp-drive/notebooks',
-											'knowledge-and-collaboration/warp-drive/workflows',
-											'knowledge-and-collaboration/warp-drive/prompts',
-											'knowledge-and-collaboration/warp-drive/environment-variables',
-											'knowledge-and-collaboration/warp-drive/ai-objects',
-											'knowledge-and-collaboration/warp-drive/web',
-											'knowledge-and-collaboration/warp-drive/agent-mode-context',
-										],
-									},
-									'knowledge-and-collaboration/teams',
-									'knowledge-and-collaboration/admin-panel',
-									{ slug: 'knowledge-and-collaboration/session-sharing', label: 'Session Sharing' },
-								],
-							},
+							{ slug: 'changelog', label: 'Changelog' },
 						],
 					},
 					{
@@ -556,6 +547,43 @@ export default defineConfig({
 									'support-and-community/community/refer-a-friend',
 									'support-and-community/community/open-source-partnership',
 									'support-and-community/community/open-source-licenses',
+								],
+							},
+						],
+					},
+					{
+						label: 'Enterprise',
+						link: '/enterprise/',
+						icon: 'setting',
+						items: [
+							{
+								label: 'Getting Started',
+								items: [
+									{ slug: 'enterprise', label: 'Overview' },
+									'enterprise/getting-started/quickstart',
+									'enterprise/getting-started/getting-started-enterprise',
+									'enterprise/getting-started/getting-started-developers',
+									'enterprise/getting-started/faq',
+								],
+							},
+							{
+								label: 'Security and Compliance',
+								items: [
+									'enterprise/security-and-compliance/security-overview',
+									'enterprise/security-and-compliance/sso',
+								],
+							},
+							{
+								label: 'Team Management',
+								items: [
+									'enterprise/team-management/admin-panel',
+									'enterprise/team-management/roles-and-permissions',
+								],
+							},
+							{
+								label: 'Enterprise Features',
+								items: [
+									'enterprise/enterprise-features/bring-your-own-llm',
 								],
 							},
 						],
