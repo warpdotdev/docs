@@ -19,6 +19,14 @@ export default defineConfig({
 			plugins: [
 				starlightSidebarTopics([
 					{
+						label: 'Changelog',
+						link: '/changelog/',
+						icon: 'document',
+						items: [
+							{ slug: 'changelog', label: 'Changelog' },
+						],
+					},
+					{
 						label: 'Agent Platform',
 						link: '/agent-platform/',
 						icon: 'rocket',
