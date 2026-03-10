@@ -135,6 +135,35 @@ export default defineConfig({
 						],
 					},
 					{
+						label: 'Reference',
+						link: '/reference/',
+						icon: 'open-book',
+						items: [
+							{ slug: 'reference', label: 'Overview' },
+							{
+								label: 'CLI',
+								items: [
+									{ slug: 'reference/cli', label: 'Oz CLI' },
+									'reference/cli/quickstart',
+									'reference/cli/api-keys',
+									'reference/cli/agent-profiles',
+									'reference/cli/mcp-servers',
+									'reference/cli/skills',
+									'reference/cli/warp-drive',
+									'reference/cli/integration-setup',
+									'reference/cli/troubleshooting',
+								],
+							},
+							{
+								label: 'API & SDK',
+								items: [
+									{ slug: 'reference/api-and-sdk', label: 'Oz Agent API & SDK' },
+									'reference/api-and-sdk/demo-sentry-monitoring-with-sdk',
+								],
+							},
+						],
+					},
+					{
 						label: 'Enterprise',
 						link: '/enterprise/',
 						icon: 'setting',
