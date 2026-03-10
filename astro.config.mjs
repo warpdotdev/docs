@@ -12,9 +12,7 @@ export default defineConfig({
 			title: 'Warp Docs',
 			components: {
 				Head: './src/components/CustomHead.astro',
-				Header: './src/components/Header.astro',
 			},
-			customCss: ['./src/styles/custom.css'],
 			social: [
 				{ icon: 'github', label: 'GitHub', href: 'https://github.com/warpdotdev' },
 			],

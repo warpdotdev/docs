@@ -1,9 +1,0 @@
-/* Hide the sidebar topics list since topics are now displayed as horizontal tabs in the header */
-.starlight-sidebar-topics {
-	display: none;
-}
-
-/* Increase nav height to accommodate the topic tabs bar below the header */
-:root {
-	--sl-nav-height: 6.5rem;
-}
