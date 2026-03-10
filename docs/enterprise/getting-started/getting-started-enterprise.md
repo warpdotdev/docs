@@ -181,5 +181,5 @@ For common SSO problems (login failures, account linking, provider portal errors
 ## Support and resources
 
 * [Admin panel documentation](../team-management/admin-panel.md)
-* [Troubleshooting login issues]
+* [Troubleshooting login issues](https://docs.warp.dev/support-and-community/troubleshooting-and-support/troubleshooting-login-issues)
 * [Contact enterprise support](https://warp.dev/contact-sales) - Priority support via dedicated Slack/Teams channel

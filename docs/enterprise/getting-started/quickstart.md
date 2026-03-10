@@ -10,7 +10,7 @@ This quickstart walks you through the essentials: logging in via SSO, setting up
 ## Step 1: Log in via SSO
 
 1. Go to [app.warp.dev/login](https://app.warp.dev/login).
-3. Click **Continue with SSO**.
+2. Click **Continue with SSO**.
 3. Enter your work email or your organization's domain.
 4. Complete authentication with your identity provider.
 

@@ -74,7 +74,7 @@ You can also reference live blocks, not just those that have already completed e
 Attaching context with @ helps you:
 
 * Reference exact outputs instead of copy-pasting entire logs
-* Attaching relevant files or directories without leaving Warp
+* Attach relevant files or directories without leaving Warp
 * Reuse existing context and knowledge in Warp Drive
 
 This makes Agent interactions more accurate, clearer, and efficient, without additional setup.

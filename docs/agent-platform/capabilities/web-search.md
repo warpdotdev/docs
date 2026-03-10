@@ -36,7 +36,7 @@ Web searches are automatically triggered when the model considers them useful. Y
    * The pages retrieved
 3. **The model reads results and produces a grounded response.**
    * Claude models cite sources in the references footer.
-   * OpenAI models use inline citations and also shows references in the footer.
+   * OpenAI models use inline citations and also show references in the footer.
 
 ### Supported and Unsupported Models
 

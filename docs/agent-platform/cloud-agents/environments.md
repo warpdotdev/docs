@@ -89,7 +89,7 @@ When you trigger an agent, Warp follows this process:
 3. **Repositories are cloned.** GitHub repositories associated with the environment are cloned into the container.
 4. **Setup commands run.** Configured setup commands execute (installing dependencies, running builds, etc.)
 5. **The agent workflow runs.** The agent executes the task using the provided context, tools, and permissions.
-6. **Results are posted back.** Progress updates, summaries, and results post to the trigger source (Slack, Linear, etc.), or are available in the task transcript..
+6. **Results are posted back.** Progress updates, summaries, and results post to the trigger source (Slack, Linear, etc.), or are available in the task transcript.
 7. **The container is destroyed.** After completion, the container is torn down. Each run starts from a clean, isolated environment.
 
 This process ensures every run starts from the same baseline, making results reproducible and debugging straightforward.
@@ -286,9 +286,9 @@ If your setup commands depend on secrets or credentials, configure them through 
 * **Setup assumes previous state** – Steps that rely on leftover caches, existing directories, or already-cloned repos can make runs unreliable.
   * Solution: Write idempotent setup commands that work on a fresh container.
 * **Missing credentials or secrets** – Builds fail when private repos, package registries, or external services require authorization.
-* Solution: Configure credentials with [Agent Secrets](secrets.md).
+  * Solution: Configure credentials with [Agent Secrets](secrets.md).
 * **Repo access and GitHub authorization issues** – Runs fail when GitHub doesn't have repo access or the triggering user lacks permissions.
-* Solution: See [Integration setup](https://docs.warp.dev/reference/cli/integration-setup#how-github-authorization-works) for GitHub authorization setup.
+  * Solution: See [Integration setup](https://docs.warp.dev/reference/cli/integration-setup#how-github-authorization-works) for GitHub authorization setup.
 * **Docker image incompatibility** – You see the error: "VM failed before the agent could run. This is likely an issue with your Docker image."
   * Possible cause: Alpine Linux and other musl-based images are not compatible with the agent runtime, which requires glibc.
   * Solution: Switch to a glibc-based image such as Debian, Ubuntu, or the default (non-Alpine) variants of official Docker Hub images (e.g. `node`, `python`, `rust`).
