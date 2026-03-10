@@ -4,6 +4,76 @@
       "source": "/terminal/:path*",
       "destination": "/:path*",
       "statusCode": 308
+    },
+    {
+      "source": "/reference/platform/warp-platform",
+      "destination": "/reference/",
+      "statusCode": 308
+    },
+    {
+      "source": "/reference/developers/cli",
+      "destination": "/reference/cli/",
+      "statusCode": 308
+    },
+    {
+      "source": "/reference/platform/cli",
+      "destination": "/reference/cli/",
+      "statusCode": 308
+    },
+    {
+      "source": "/reference/platform/cli/integrations-and-environments",
+      "destination": "/reference/cli/integration-setup/",
+      "statusCode": 308
+    },
+    {
+      "source": "/reference/platform/cli/troubleshooting",
+      "destination": "/reference/cli/troubleshooting/",
+      "statusCode": 308
+    },
+    {
+      "source": "/reference/platform/cli/api-keys",
+      "destination": "/reference/cli/api-keys/",
+      "statusCode": 308
+    },
+    {
+      "source": "/reference/platform/agent-api-and-sdk",
+      "destination": "/reference/api-and-sdk/",
+      "statusCode": 308
+    },
+    {
+      "source": "/reference/platform/agent-api-and-sdk/demo-sentry-monitoring-with-sdk",
+      "destination": "/reference/api-and-sdk/demo-sentry-monitoring-with-sdk/",
+      "statusCode": 308
+    },
+    {
+      "source": "/reference/agent-api-and-sdk",
+      "destination": "/reference/api-and-sdk/",
+      "statusCode": 308
+    },
+    {
+      "source": "/reference/integrations/integrations-overview/integrations-and-environments",
+      "destination": "/reference/cli/integration-setup/",
+      "statusCode": 308
+    },
+    {
+      "source": "/reference/cli/integrations-and-environments",
+      "destination": "/reference/cli/integration-setup/",
+      "statusCode": 308
+    },
+    {
+      "source": "/reference/cli/mcp-servers-for-cloud-agents",
+      "destination": "/reference/cli/mcp-servers/",
+      "statusCode": 308
+    },
+    {
+      "source": "/reference/cli/mcp-for-cloud-agents",
+      "destination": "/reference/cli/mcp-servers/",
+      "statusCode": 308
+    },
+    {
+      "source": "/reference/ambient-agents/mcp-servers-for-agents",
+      "destination": "/reference/cli/mcp-servers/",
+      "statusCode": 308
     }
   ]
 }

@@ -7,7 +7,7 @@ description: >-
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
 
-Cloud agents run on the **Oz Platform**. The platform gives you a consistent way to **trigger work**, **orchestrate and track tasks**, **execute agents** (in an optional [environment](https://docs.warp.dev/reference/cli/integration-setup), on a host), and inspect outcomes with team visibility. First-party [integrations](/agent-platform/cloud-agents/integrations/) connect external events — like Slack messages, GitHub PRs, or CI failures — to cloud agents automatically.
+Cloud agents run on the **Oz Platform**. The platform gives you a consistent way to **trigger work**, **orchestrate and track tasks**, **execute agents** (in an optional [environment](/reference/cli/integration-setup/), on a host), and inspect outcomes with team visibility. First-party [integrations](/agent-platform/cloud-agents/integrations/) connect external events — like Slack messages, GitHub PRs, or CI failures — to cloud agents automatically.
 
 <VideoEmbed url="https://youtu.be/poLkJhO7fdo" />
 
@@ -45,7 +45,7 @@ In practice: **triggers create tasks; tasks execute on a host (optionally in an 
 
 ### Oz CLI
 
-The [Oz CLI](https://docs.warp.dev/reference/cli) is the **headless interface** for running Oz agents in non-interactive mode. It's commonly used in CI, scripts, and server environments where there is no interactive UI. For interactive workflows, use the [agent](/agent-platform/local-agents/overview/) embedded in Warp's desktop app.
+The [Oz CLI](/reference/cli/) is the **headless interface** for running Oz agents in non-interactive mode. It's commonly used in CI, scripts, and server environments where there is no interactive UI. For interactive workflows, use the [agent](/agent-platform/local-agents/overview/) embedded in Warp's desktop app.
 
 A key property of the CLI is that it is **cloud-connected**. Even when an agent is started on a local machine or in CI, it reports progress to Warp’s servers. This enables team visibility, session sharing (where supported), and programmatic tracking through the API.
 
@@ -87,7 +87,7 @@ The orchestrator:
 * Runs on Warp's servers (cloud control plane).
 * Creates tasks when triggers fire (integrations, schedules, API calls, or explicit starts).
 * Tracks lifecycle state (created → running → completed/failed) and associated metadata.
-* Exposes task lifecycle operations via the [Oz CLI](https://docs.warp.dev/reference/cli) and a [REST API](https://docs.warp.dev/reference/api-and-sdk/agent) (create tasks, query history, and inspect status/outputs).
+* Exposes task lifecycle operations via the [Oz CLI](/reference/cli/) and a [REST API](https://docs.warp.dev/reference/api-and-sdk/agent) (create tasks, query history, and inspect status/outputs).
 * Powers SDKs (TypeScript/Python) for programmatic usage on top of the orchestrator API.
 
 #### When teams use the API/SDK
@@ -284,11 +284,11 @@ This is especially useful when the same workflow can be triggered from multiple 
 
 [Cloud agents](/agent-platform/cloud-agents/overview/) do not require Warp's desktop terminal. Teams can operate cloud agent workflows using:
 
-* [Oz CLI](https://docs.warp.dev/reference/cli) — run agents from scripts, CI, or the terminal
+* [Oz CLI](/reference/cli/) — run agents from scripts, CI, or the terminal
 * [Oz web app](/agent-platform/cloud-agents/oz-web-app/) — visual interface at [oz.warp.dev](https://oz.warp.dev) for managing runs, schedules, environments, and integrations (works on mobile)
 * [Session sharing](/agent-platform/local-agents/session-sharing/) — attach to running tasks to monitor or steer
 * [Management UI](/agent-platform/cloud-agents/managing-cloud-agents/) — view agent activity and run history
-* [APIs and SDKs](https://docs.warp.dev/reference/api-and-sdk) — programmatic access for custom integrations
+* [APIs and SDKs](/reference/api-and-sdk/) — programmatic access for custom integrations
 
 **If your team also uses Warp’s terminal, you gain an additional workflow:**
 
