@@ -1,0 +1,142 @@
+/* ==========================================================================
+   Warp Brand Theme for Starlight
+   Colors sourced from warp.dev and warp-internal app themes.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Fonts
+   -------------------------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&display=swap');
+
+/* --------------------------------------------------------------------------
+   Dark Mode (default)
+   -------------------------------------------------------------------------- */
+:root {
+  /* Brand fonts */
+  --sl-font: 'Inter', var(--sl-font-system);
+  --sl-font-mono: 'Geist Mono', var(--sl-font-system-mono);
+
+  /* Accent: Warp teal (#34b298 from warp.dev) */
+  --sl-color-accent-low: hsl(163, 30%, 15%);
+  --sl-color-accent: hsl(163, 55%, 45%);
+  --sl-color-accent-high: hsl(163, 50%, 75%);
+
+  /* Backgrounds: near-blacks from warp.dev / Warp app dark theme */
+  --sl-color-black: #121212;
+  --sl-color-bg: var(--sl-color-black);
+  --sl-color-bg-nav: #1a1a1a;
+  --sl-color-bg-sidebar: #1a1a1a;
+
+  /* Gray scale — warmer neutrals to match Warp brand */
+  --sl-color-gray-1: hsl(210, 5%, 92%);
+  --sl-color-gray-2: hsl(210, 4%, 72%);
+  --sl-color-gray-3: hsl(210, 3%, 52%);
+  --sl-color-gray-4: hsl(210, 4%, 35%);
+  --sl-color-gray-5: hsl(210, 5%, 22%);
+  --sl-color-gray-6: hsl(210, 6%, 16%);
+  --sl-color-white: hsl(40, 20%, 97%); /* warm off-white #FAF9F6 */
+
+  /* Text */
+  --sl-color-text: var(--sl-color-gray-2);
+  --sl-color-text-accent: var(--sl-color-accent-high);
+
+  /* Inline code */
+  --sl-color-bg-inline-code: var(--sl-color-gray-5);
+
+  /* Hairlines */
+  --sl-color-hairline-light: var(--sl-color-gray-5);
+  --sl-color-hairline: var(--sl-color-gray-6);
+  --sl-color-hairline-shade: hsl(210, 6%, 12%);
+}
+
+/* --------------------------------------------------------------------------
+   Light Mode
+   -------------------------------------------------------------------------- */
+:root[data-theme='light'],
+[data-theme='light'] ::backdrop {
+  /* Accent: darker teal for readability on light backgrounds */
+  --sl-color-accent-low: hsl(163, 45%, 92%);
+  --sl-color-accent: hsl(163, 60%, 32%);
+  --sl-color-accent-high: hsl(163, 55%, 22%);
+
+  /* Backgrounds: warm white from warp.dev (#FAF9F6) */
+  --sl-color-black: #faf9f6;
+  --sl-color-bg: var(--sl-color-black);
+  --sl-color-bg-nav: #f5f4f0;
+  --sl-color-bg-sidebar: var(--sl-color-black);
+
+  /* Gray scale — warm light neutrals */
+  --sl-color-white: #121212;
+  --sl-color-gray-1: hsl(210, 6%, 16%);
+  --sl-color-gray-2: hsl(210, 5%, 26%);
+  --sl-color-gray-3: hsl(210, 4%, 40%);
+  --sl-color-gray-4: hsl(210, 3%, 56%);
+  --sl-color-gray-5: hsl(210, 4%, 78%);
+  --sl-color-gray-6: hsl(40, 15%, 94%);
+  --sl-color-gray-7: hsl(40, 14%, 97%);
+
+  /* Text */
+  --sl-color-text-accent: var(--sl-color-accent);
+
+  /* Inline code */
+  --sl-color-bg-inline-code: var(--sl-color-gray-6);
+
+  /* Hairlines */
+  --sl-color-hairline-light: var(--sl-color-gray-6);
+  --sl-color-hairline-shade: var(--sl-color-gray-6);
+}
+
+/* --------------------------------------------------------------------------
+   Code block token colors (from Warp's dark terminal ANSI palette)
+   -------------------------------------------------------------------------- */
+:root {
+  --astro-code-token-string: #b4fa72;       /* Warp green */
+  --astro-code-token-string-expression: #b4fa72;
+  --astro-code-token-keyword: #d0d1fe;      /* Warp cyan/purple */
+  --astro-code-token-constant: #a5d5fe;     /* Warp blue */
+  --astro-code-token-function: #ff8ffd;     /* Warp magenta */
+  --astro-code-token-parameter: #fefdc2;    /* Warp yellow */
+  --astro-code-token-comment: hsl(210, 4%, 45%);
+  --astro-code-token-punctuation: hsl(210, 4%, 65%);
+  --astro-code-token-link: #a5d5fe;
+}
+
+:root[data-theme='light'] {
+  --astro-code-token-string: #10a778;
+  --astro-code-token-string-expression: #10a778;
+  --astro-code-token-keyword: #523c79;
+  --astro-code-token-constant: #008ec4;
+  --astro-code-token-function: #c30771;
+  --astro-code-token-parameter: #a89c14;
+  --astro-code-token-comment: hsl(210, 3%, 50%);
+  --astro-code-token-punctuation: hsl(210, 3%, 40%);
+  --astro-code-token-link: #008ec4;
+}
+
+/* --------------------------------------------------------------------------
+   Additional polish
+   -------------------------------------------------------------------------- */
+
+/* Smoother font rendering */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Slightly tighter heading line-height for Inter */
+:root {
+  --sl-line-height-headings: 1.15;
+}
+
+/* Align sidebar topics flush with the sidebar's left edge */
+.starlight-sidebar-topics a {
+  padding-inline-start: 0;
+}
+
+/* Accent button / active sidebar item — better contrast */
+:root[data-theme='light'] [aria-current='page'],
+:root[data-theme='light'] [aria-current='page']:hover,
+:root[data-theme='light'] [aria-current='page']:focus {
+  color: #faf9f6;
+}

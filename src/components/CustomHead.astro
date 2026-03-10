@@ -5,5 +5,10 @@ import SpeedInsights from '@vercel/speed-insights/astro';
 ---
 
 <Default {...Astro.props}><slot /></Default>
+
+<!-- Google Fonts preconnect for faster loading -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
 <Analytics />
 <SpeedInsights />
