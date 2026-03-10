@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { KapaProvider, useChat } from '@kapaai/react-sdk';
 import { PUBLIC_KAPA_INTEGRATION_ID } from 'astro:env/client';
+import { isMac, keymatch } from 'keymatch';
 import ReactMarkdown from 'react-markdown';
 import {
 	LuBot,
@@ -24,6 +25,7 @@ type FeedbackReaction = 'upvote' | 'downvote';
 function ChatSurface({ title, welcomeMessage }: { title: string; welcomeMessage: string }) {
 	const [isOpen, setIsOpen] = useState(false);
 	const [query, setQuery] = useState('');
+	const isAppleDevice = isMac();
 	const messagesRef = useRef<HTMLDivElement | null>(null);
 	const dialogRef = useRef<HTMLDialogElement | null>(null);
 	const triggerRef = useRef<HTMLButtonElement | null>(null);
@@ -73,6 +75,24 @@ function ChatSurface({ title, welcomeMessage }: { title: string; welcomeMessage:
 			dialog.close();
 		}
 	}, [isOpen]);
+
+	useEffect(() => {
+		const onKeyDown = (event: KeyboardEvent) => {
+			if (keymatch(event, 'CmdOrCtrl+I')) {
+				if (dialogRef.current?.open) {
+					closePanel();
+				} else {
+					openPanel();
+				}
+				event.preventDefault();
+			}
+		};
+
+		window.addEventListener('keydown', onKeyDown);
+		return () => {
+			window.removeEventListener('keydown', onKeyDown);
+		};
+	}, []);
 
 	const hasConversation = conversation.length > 0;
 	const isBusy = isGeneratingAnswer || isPreparingAnswer;
@@ -132,9 +152,14 @@ function ChatSurface({ title, welcomeMessage }: { title: string; welcomeMessage:
 				aria-haspopup="dialog"
 				aria-expanded={isOpen}
 				aria-controls="sl-kapa-panel"
+				aria-keyshortcuts={isAppleDevice ? 'Meta+I' : 'Control+I'}
 			>
 				<LuMessageSquare aria-hidden="true" />
-				<span>Ask AI</span>
+				<span className="sl-kapa-button__label">Ask AI</span>
+				<kbd className="sl-kapa-button__shortcut sl-hidden md:sl-flex" aria-hidden="true">
+					<kbd>{isAppleDevice ? '⌘' : 'Ctrl'}</kbd>
+					<kbd>I</kbd>
+				</kbd>
 			</button>
 			<dialog
 				ref={dialogRef}
