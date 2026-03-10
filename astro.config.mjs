@@ -13,6 +13,7 @@ export default defineConfig({
 			PUBLIC_KAPA_INTEGRATION_ID: envField.string({
 				context: 'client',
 				access: 'public',
+				optional: true,
 			}),
 		},
 	},

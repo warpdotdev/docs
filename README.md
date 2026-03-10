@@ -15,15 +15,15 @@ Open [http://localhost:4321](http://localhost:4321) to preview locally.
 
 ## Kapa AI setup
 
-The Ask AI header integration requires a public Kapa Custom Frontend integration ID.
+The Ask AI header integration is optional and can be enabled with a public Kapa Custom Frontend integration ID.
 
-Set these environment variables before running the site locally or deploying it:
+Set this environment variable to enable the Ask AI button locally or in deployed environments:
 
 ```bash
 PUBLIC_KAPA_INTEGRATION_ID=your_custom_frontend_integration_id
 ```
 
-`PUBLIC_KAPA_INTEGRATION_ID` is required by Astro's env schema, so `npm run dev` and `npm run build` will fail fast if it is missing.
+If `PUBLIC_KAPA_INTEGRATION_ID` is not set, the site still runs normally and the Ask AI button is hidden.
 
 ## Commands
 

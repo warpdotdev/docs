@@ -331,6 +331,9 @@ function ChatSurface({ title, welcomeMessage }: { title: string; welcomeMessage:
 }
 
 export default function KapaChatLauncher() {
+	if (!integrationId) {
+		return null;
+	}
 	const callbacks = useMemo(
 		() => ({
 			askAI: {},
