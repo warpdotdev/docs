@@ -33,7 +33,7 @@ To learn more about Warp Preview, check out our [launch blog post](https://warp.
 
 ### Providing Warp Preview Feedback
 
-For details on how to send feedback for Warp Preview, please see [Preview-Specific Feedback](../../#preview-specific-feedback).
+For details on how to send feedback for Warp Preview, please see [Feedback](../troubleshooting-and-support/sending-us-feedback.md#sending-warp-feedback).
 
 ### The Alpha Program
 
