@@ -63,7 +63,7 @@ This produces a ready-to-use environment that Warp can use across Slack, Linear,
 Warp will prompt you to install or update the Warp GitHub app so the agent can read and write to the repos you included. You only need to do this once. Teammates will authorize on their first run as needed.
 
 {% hint style="info" %}
-**Using GitLab or Bitbucket?** Warp doesn't have a native app for these platforms, but you can connect repositories by storing a personal access token as a Warp-managed secret and cloning via a setup command. See [GitLab](gitlab.md) for step-by-step instructions.
+**Using GitLab or Bitbucket?** Warp doesn't have a native app for these platforms, but you can connect repositories by storing a personal access token as a Warp-managed secret and cloning via a setup command. See [GitLab](gitlab.md) or [Bitbucket](bitbucket.md) for step-by-step instructions.
 {% endhint %}
 
 #### 3. Create an integration
