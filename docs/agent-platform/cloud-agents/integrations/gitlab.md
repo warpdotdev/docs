@@ -1,0 +1,129 @@
+---
+description: >-
+  Use Oz cloud agents with GitLab repositories by generating a personal access
+  token, storing it as a Warp-managed secret, and cloning your repo into a
+  cloud agent environment.
+---
+
+# GitLab
+
+Oz cloud agents work with any Git repository, including those hosted on GitLab. Unlike GitHub, GitLab does not have a native Warp integration, but you can grant agents access to your GitLab repositories using a personal access token and Warp-managed secrets. Once configured, your environment works with any Oz trigger—Slack, Linear, schedules, or the CLI.
+
+This page explains how to generate a GitLab personal access token, store it securely, and configure a cloud agent environment that clones your repository at runtime.
+
+{% hint style="info" %}
+This approach works for both GitLab.com and self-hosted GitLab instances.
+{% endhint %}
+
+***
+
+## Prerequisites
+
+* A Warp account ([create an account at oz.warp.dev](https://oz.warp.dev))
+* A repository hosted on GitLab (cloud or self-hosted)
+* The [Oz CLI](https://docs.warp.dev/reference/cli) installed and authenticated
+
+***
+
+## Step 1: Generate a personal access token
+
+{% hint style="info" %}
+These steps generate a personal access token tied to your GitLab account. If your team prefers a shared bot user, [GitLab project access tokens](https://docs.gitlab.com/user/project/settings/project_access_tokens/) work the same way.
+{% endhint %}
+
+1. Sign in to GitLab.
+2. Click your avatar in the top-right corner, then click **Edit profile**.
+3. In the left sidebar, click **Access**, then click **Personal access tokens**.
+4. Click **Add new token**.
+5. Enter a descriptive name for the token (e.g. `warp-oz-agent`), and choose an expiration date that matches your team's rotation policy.
+6. Under **Select scopes**, select **read\_repository**.
+7. Click **Generate token**.
+8. Copy the token value immediately. GitLab will not show it again.
+
+{% hint style="info" %}
+**read\_repository** is the minimum required scope to clone a repository. If a future workflow requires the agent to push commits or open merge requests, you will also need **write\_repository**.
+{% endhint %}
+
+***
+
+## Step 2: Store the token as a Warp-managed secret
+
+Warp injects managed secrets as environment variables at runtime and never exposes them in logs or configuration files. See the [Secrets](../secrets.md) documentation for full details on scoping and managing secrets.
+
+1. Run the following command:
+
+```bash
+oz secret create --team GITLAB_TOKEN
+```
+
+2. When prompted, paste the token.
+
+The value is stored and encrypted, and cannot be retrieved after creation.
+
+{% hint style="info" %}
+Use `--team` to create a shared token available to all teammates and automated triggers (schedules, Slack, Linear). Use `--personal` if each team member should authenticate with their own GitLab token. Personal secrets work with all triggers and take precedence over a team secret of the same name when both exist.
+{% endhint %}
+
+If you need to update a secret value, run:
+
+```bash
+oz secret update --value GITLAB_TOKEN
+```
+
+***
+
+## Step 3: Create an environment with a clone setup command
+
+Create an environment that uses your token to clone the repository at the start of each agent run. Because the `--repo` flag in `oz environment create` is designed for GitHub repositories, you clone your GitLab repo via a setup command instead.
+
+1. Run the following command:
+
+```bash
+oz environment create \
+  --name "my-gitlab-env" \
+  --docker-image <image> \
+  --setup-command 'git clone https://oauth2:$GITLAB_TOKEN@gitlab.com/your-group/your-repo.git' \
+  --setup-command 'cd your-repo && <install dependencies>'
+```
+
+{% hint style="warning" %}
+Use single quotes around setup commands that reference secrets. Double quotes cause your shell to expand `$GITLAB_TOKEN` immediately (to nothing), rather than letting Warp inject the secret at runtime inside the container.
+{% endhint %}
+
+2. Replace the following placeholders:
+   * `<image>` with your Docker image (for example, `node:22`, `python:3.12`, or a [Warp prebuilt dev image](https://github.com/warpdotdev/oz-dev-environments))
+   * `gitlab.com/your-group/your-repo.git` with your actual repository URL
+   * For a self-hosted GitLab instance, replace `gitlab.com` with your server's hostname.
+   * The second `--setup-command` with any dependency install or build steps your project requires. For example, `npm ci` or `pip install -r requirements.txt`.
+
+{% hint style="warning" %}
+Setup commands run on a fresh container for every agent run. Write them to be idempotent — commands that assume existing state (such as a partially cloned repo or a pre-built cache) can fail unpredictably. See [Environment design and best practices](../environments.md#environment-design-and-best-practices) for guidance.
+{% endhint %}
+
+3. Note the environment ID returned. You will need it in the next step.
+
+***
+
+## Step 4: Test your environment
+
+Before connecting to integrations, verify the environment works by running a one-off agent.
+
+1. Run the following command, replacing `<ENV_ID>` with the environment ID from Step 3:
+
+```bash
+oz agent run-cloud --environment <ENV_ID> --prompt "Your task here"
+```
+
+***
+
+## Next steps
+
+With your environment configured, you can connect it to any Warp trigger exactly as you would with a GitHub-backed environment:
+
+* **Slack** — Tag **@Oz** in a message to start an agent run against your GitLab repo. See [Slack](slack.md).
+* **Linear** — Tag the Oz agent on an issue to kick off a workflow. See [Linear](linear.md).
+* **Scheduled agents** — Run agents on a recurring schedule. See [Scheduled Agents](../triggers/scheduled-agents.md).
+
+{% hint style="info" %}
+Native support for opening GitLab merge requests from agent-generated changes is planned as a future enhancement.
+{% endhint %}
