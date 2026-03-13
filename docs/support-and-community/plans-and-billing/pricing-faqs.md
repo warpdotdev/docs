@@ -300,8 +300,6 @@ For existing users on legacy plans, plan credits on Pro, Turbo, and Lightspeed d
 
 For the Build plan, credits will not rollover but Add-on credits will rollover and be valid for 12 months from the date of purchase.
 
-#### Can I purchase Add-on credits on legacy plans (Pro, Turbo, Lightspeed)?
-
 #### Can I purchase Add-on Credits on legacy plans (Pro, Turbo, Lightspeed)?
 
 No. Add-on Credits (including auto-reload) are only available on the Build, Business, and Enterprise plans. If you attempt to purchase Add-on Credits on a legacy plan, the purchase will not go through. To access Add-on Credits, switch to the Build plan at any time from **Settings** > **Billing and usage** or at [app.warp.dev/upgrade](https://app.warp.dev/upgrade). If you need additional usage while on a legacy plan, you can use [Overages (Legacy)](overages-legacy.md) instead.
