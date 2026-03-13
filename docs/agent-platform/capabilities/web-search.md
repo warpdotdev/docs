@@ -51,7 +51,7 @@ Web search is available only for models that offer a native web search integrati
 Warp uses each vendor’s official tool:
 
 * **Claude Web Search**: [https://docs.claude.com/en/docs/agents-and-tools/tool-use/web-search-tool](https://docs.claude.com/en/docs/agents-and-tools/tool-use/web-search-tool)
-* **OpenAI Web Search**: [https://platform.openai.com/docs/guides/tools-web-search?api-mode=responses](https://platform.openai.com/docs/guides/tools-web-search?api-mode=responses)
+* **OpenAI Web Search**: [https://developers.openai.com/api/docs/guides/tools-web-search](https://developers.openai.com/api/docs/guides/tools-web-search)
 
 {% hint style="info" %}
 **Note**: We plan to add native web search for additional models as soon as their APIs fully support it. We’ll continue updating the list of search-capable models as vendors roll out broader tooling. We're also exploring custom web search tools that'll work across all models.
