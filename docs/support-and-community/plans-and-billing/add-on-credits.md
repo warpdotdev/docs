@@ -21,6 +21,10 @@ If you’ve enabled **Auto reload**, new credits will be added automatically and
 
 Add-on credits are available for Build, Business, and Enterprise plans (with custom pricing for Enterprise). These credits **roll over across billing cycles** and remain valid for **12 months from the purchase date**.
 
+{% hint style="warning" %}
+**Legacy plans (Pro, Turbo, Lightspeed) do not support Add-on Credits.** If you're on a legacy plan, you cannot purchase or auto-reload Add-on Credits. To access Add-on Credits, upgrade to the [Build plan](https://app.warp.dev/upgrade). For additional usage on legacy plans, see [Overages (Legacy)](overages-legacy.md).
+{% endhint %}
+
 ### Purchasing Add-on credits
 
 You have two options for purchasing more credits:

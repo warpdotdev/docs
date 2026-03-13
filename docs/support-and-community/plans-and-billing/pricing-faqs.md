@@ -37,7 +37,7 @@ Warp's plans are designed for developers who rely on AI to code, debug, and move
 Legacy plans:
 
 * **Pro**, gets you a higher credit limits than the Free plan, support for larger codebases with [Codebase Context](https://docs.warp.dev/code/codebase-context), and access to premium models with optional pay-as-you-go overages.
-* **Turbo** offers even higher credit limits, larger Codebase Context indexing, and the option to pay for additional usage beyond your included credits.
+* **Turbo** offers even higher credit limits, larger Codebase Context indexing, and the option to pay for additional usage beyond your included credits via [Overages (Legacy)](overages-legacy.md). Add-on Credits are not available on this plan.
 * **Lightspeed** is our most powerful plan, offering the highest credit limits, expanded codebase indexing, access to top-tier models, and pay-as-you-go overages so you can keep working without interruption.
 
 For the most up-to-date feature and usage details, visit [**warp.dev/pricing**](https://www.warp.dev/pricing).
@@ -299,6 +299,12 @@ Add-on credits replace overages with a simpler, prepaid system. They’re up to 
 For existing users on legacy plans, plan credits on Pro, Turbo, and Lightspeed do not rollover.
 
 For the Build plan, credits will not rollover but Add-on credits will rollover and be valid for 12 months from the date of purchase.
+
+#### Can I purchase Add-on credits on legacy plans (Pro, Turbo, Lightspeed)?
+
+#### Can I purchase Add-on Credits on legacy plans (Pro, Turbo, Lightspeed)?
+
+No. Add-on Credits (including auto-reload) are only available on the Build, Business, and Enterprise plans. If you attempt to purchase Add-on Credits on a legacy plan, the purchase will not go through. To access Add-on Credits, switch to the Build plan at any time from **Settings** > **Billing and usage** or at [app.warp.dev/upgrade](https://app.warp.dev/upgrade). If you need additional usage while on a legacy plan, you can use [Overages (Legacy)](overages-legacy.md) instead.
 
 #### Can I bring my own key on legacy plans (Pro, Turbo, Lightspeed)?
 
