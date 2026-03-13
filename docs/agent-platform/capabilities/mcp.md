@@ -67,7 +67,7 @@ Provide a URL where Warp can reach an already-running MCP server that supports S
 {% endtab %}
 {% endtabs %}
 
-### Adding multiple MCP Servers
+### Adding multiple MCP servers
 
 Warp supports configuring **multiple MCP servers** using a JSON snippet. Each entry under `mcpServers` is keyed by a unique name (`filesystem`, `github`, `notes`, etc). All servers defined in the example are added automatically — no manual setup required.
 
@@ -93,6 +93,28 @@ To add a multiple MCP servers, you can click the **+ Add** button then paste in 
   }
 }
 ```
+
+### File-based MCP servers
+
+Warp detects MCP server configurations managed by supported third-party agents and can automatically spawn them alongside your manually configured servers.
+
+To enable, go to **Settings** > **AI** > **MCP Servers** and toggle **File-based MCP Servers** on.
+
+<figure><img src="../.gitbook/assets/file-based-mcp-toggle.gif" alt=""><figcaption><p>File-based MCP Servers toggle</p></figcaption></figure>
+
+When enabled:
+
+* **Global/user-scoped servers** - spawned on Warp startup and available in any session.
+* **Project-scoped servers** - spawned when you enter a repo containing a supported config file, and available within that project only.
+
+Supported providers:
+
+* **Claude Code** - reads user-scoped config (`~/.claude.json`) and project-scoped config (`.mcp.json` at project root). See [user scope](https://code.claude.com/docs/en/mcp#user-scope) and [project scope](https://code.claude.com/docs/en/mcp#project-scope) in the Claude Code docs.
+* **Codex** - reads global config (`~/.codex/config.toml`) and project-scoped config (`.codex/config.toml` at project root). See [Codex MCP docs](https://developers.openai.com/codex/mcp/#connect-codex-to-an-mcp-server).
+
+{% hint style="info" %}
+File-based servers that require OAuth show an authentication modal on their first spawn. Credentials are saved for future spawns, the same as manually configured MCP servers.  
+{% endhint %}
 
 ### Managing MCP servers
 
