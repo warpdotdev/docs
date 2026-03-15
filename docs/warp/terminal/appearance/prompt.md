@@ -46,7 +46,7 @@ The Kubernetes context chip shows relevant information when you're using one of 
 `kubectl|helm|kubens|kubectx|oc|istioctl|kogito|k9s|helmfile|flux|fluxctl|stern|kubeseal|skaffold|kubent|kubecolor|cmctl|sparkctl|etcd|fubectl`
 
 {% hint style="info" %}
-Warp respects the `KUBECONFIG` environmental variable, make sure you set it to your preferred configuration file location, if it's not the default path of `~/.kube/config`
+Warp respects the `KUBECONFIG` environment variable. Make sure you set it to your preferred configuration file location if it's not the default path of `~/.kube/config`.
 {% endhint %}
 
 <!-- TODO: Same-line prompt was removed in the current release. May return in a future version (V2/V3). Uncomment when the feature ships. -->

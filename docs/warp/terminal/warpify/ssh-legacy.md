@@ -5,7 +5,7 @@ description: SSH wrapper that enables Warp features in remote sessions.
 # SSH Legacy
 
 {% hint style="info" %}
-If you are looking to troubleshoot the TMUX SSH feature, see the [SSH](ssh.md).
+If you are looking to troubleshoot the tmux SSH feature, see the [SSH](ssh.md).
 {% endhint %}
 
 When you SSH into a remote box, you get all the features of Warp without any configuration on your part. The input editor, auto-completions, and history search work the same, regardless of machine.
@@ -13,7 +13,7 @@ When you SSH into a remote box, you get all the features of Warp without any con
 {% hint style="warning" %}
 [Limitations of SSH](https://github.com/warpdotdev/Warp/issues/578) (as of May 2024):
 
-* The SSH Wrapper only supports `bash`or `zsh` shells in remote sessions.
+* The SSH Wrapper only supports `bash` or `zsh` shells in remote sessions.
 * If you're using a different shell, you'll want to use `command ssh` directly (see below for more details).
 * For zsh, xxd is required to bootstrap warp.
 * For Windows, [Cygwin](https://www.cygwin.com/) is required to bootstrap the SSH Wrapper.
@@ -57,7 +57,7 @@ Write access in `/etc/ssh/` typically requires sudo access. After any edits, you
 There are several [known issues with SSH Wrapper](https://github.com/warpdotdev/Warp/issues?q=is%3Aissue+is%3Aopen+sort%3Acreated-desc+label%3ABugs+label%3ASSH). As a workaround to the SSH Wrapper, you can add `command ssh` to your `Settings > Subshells > Added commands`, then run `command ssh <user@server>` to connect to a remote session, this will attempt to enable Warp features as a [subshell](subshells.md).
 
 {% hint style="info" %}
-If the subshell workaround helps, we recommend you disable the SSH Wrapper in **Settings** > **Features**You'll need to start a new session before a change is reflected or try invoking the SSH binary directly with `command ssh`.
+If the subshell workaround helps, we recommend you disable the SSH Wrapper in **Settings** > **Features**. You'll need to start a new session before a change is reflected or try invoking the SSH binary directly with `command ssh`.
 {% endhint %}
 
 <figure><img src="../../.gitbook/assets/subshell-ssh-demo.gif" alt="Command SSH subshell workaround"><figcaption><p>Warpify SSH Demo</p></figcaption></figure>

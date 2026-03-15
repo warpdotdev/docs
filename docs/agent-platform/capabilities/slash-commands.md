@@ -38,7 +38,7 @@ In addition to static commands, the menu also shows [Agent Prompts](https://docs
 
 ### Example of using a Slash Command
 
-Below is an example interaction when `/init` is ran:
+Below is an example interaction when `/init` is run:
 
 <figure><img src="../.gitbook/assets/init-setup-flow-1.png" alt=""><figcaption><p>/init setup flow; 1 of 2</p></figcaption></figure>
 

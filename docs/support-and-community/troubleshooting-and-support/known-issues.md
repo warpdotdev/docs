@@ -280,7 +280,7 @@ We're tracking some issues on Linux where a [Warp window doesn't show/render](ht
 
 {% hint style="info" %}
 * Many package install examples are for Ubuntu using `apt`, your distro may use different commands (`dnf`, `pacman`, `zypper`) or package names.
-* GPU Drivers and Default GPU / Graphics API environmental variables are system-dependent. e.g. AMD vs NVIDIA and OpenGL vs Vulkan
+* GPU Drivers and Default GPU / Graphics API environment variables are system-dependent, e.g. AMD vs NVIDIA and OpenGL vs Vulkan.
 {% endhint %}
 
 * System

@@ -135,7 +135,7 @@ Overages allow for pay-as-you-go access to premium AI models after reaching your
 
 ### What counts as an AI token?
 
-Tokens are chunks of text, such as words, parts of code, or characters, that large language models (LLMs) break down to analyze and generate responses. LLMs have a maximum number of tokens they can process at once. credits and suggestions are not the same as tokens, which are limited separately regardless of which plan you're on.
+Tokens are chunks of text, such as words, parts of code, or characters, that large language models (LLMs) break down to analyze and generate responses. LLMs have a maximum number of tokens they can process at once. Credits and suggestions are not the same as tokens, which are limited separately regardless of which plan you're on.
 
 {% hint style="info" %}
 Warp now abstracts away token usage, so you don't need to manage or track it directly. You only need to monitor your **credit usage**, which is what’s measured in your plan limits and overages.
