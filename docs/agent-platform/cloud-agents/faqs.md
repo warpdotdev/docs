@@ -188,6 +188,45 @@ Yes. With cloud agents, agents can:
 
 This is most successful with “docs as code” workflows (GitBook/Mintlify/Docusaurus style), where updates go through normal review.
 
+## Self-hosting
+
+### Where does my source code go with self-hosted agents?
+
+With self-hosting, repositories are cloned and stored only on your infrastructure — Warp never hosts your codebase. Warp uses a split architecture:
+
+* **Execution plane (your infrastructure)** — Repository clones, build artifacts, runtime secrets, and container filesystem state stay on the machines you control.
+* **Control plane (Warp-hosted)** — Session transcripts (which include code context from agent interactions), orchestration metadata, and LLM inference route through Warp's backend under [Zero Data Retention (ZDR)](https://docs.warp.dev/enterprise/security-and-compliance/security-overview#zero-data-retention-zdr) agreements. Warp does not persistently store your source code or use it for model training.
+
+See [Self-Hosting](self-hosting.md) for deployment options and [Security Overview](https://docs.warp.dev/enterprise/security-and-compliance/security-overview) for full details.
+
+### Can I use `oz agent run` in CI or existing runners?
+
+Yes. The [unmanaged architecture](self-hosting.md#unmanaged-architecture) is designed exactly for this. Run `oz agent run` in any environment where you can execute a CLI command — GitHub Actions, Jenkins, Buildkite, Kubernetes pods, or custom orchestrators. This is how the [`warpdotdev/oz-agent-action`](https://github.com/warpdotdev/oz-agent-action) GitHub Action works. The agent runs locally on the runner and its session is tracked on Warp's backend for observability.
+
+### Can self-hosted agents access services behind a VPN?
+
+Yes. Since self-hosted agents run on your infrastructure, they inherit your network access. This means agents can reach self-hosted GitLab/Bitbucket instances, internal APIs, databases, and any other services behind your VPN. This is one of the primary reasons teams choose self-hosting.
+
+### Does self-hosting work with GitLab or other non-GitHub SCMs?
+
+Self-hosted agents can use any SCM accessible from your infrastructure. With the [unmanaged architecture](self-hosting.md#unmanaged-architecture), agents run directly on your host and use whatever Git configuration and SCM access is already available. With the [managed architecture](self-hosting.md#managed-architecture), automatic environment setup currently focuses on GitHub, but you can configure access to other SCMs via volume mounts, environment variables, or setup commands. See the [GitLab](integrations/gitlab.md) and [Bitbucket](integrations/bitbucket.md) setup guides for step-by-step instructions.
+
+### Do LLM requests still go through Warp with self-hosting?
+
+Yes. LLM inference routes through Warp's backend, which has [Zero Data Retention (ZDR)](https://docs.warp.dev/enterprise/security-and-compliance/security-overview#zero-data-retention-zdr) agreements with all contracted model providers. Enterprise teams that need full control over inference routing can use [Bring Your Own LLM (BYOLLM)](https://docs.warp.dev/enterprise/enterprise-features/bring-your-own-llm) to route inference through their own cloud provider accounts. BYOLLM currently applies to interactive (local) agents; cloud agent support is coming.
+
+### What about large monorepos with long environment setup times?
+
+The [unmanaged architecture](self-hosting.md#unmanaged-architecture) is well-suited for large monorepos because agents run directly in your pre-provisioned environment — there is no Docker image build or repo cloning step. For the [managed architecture](self-hosting.md#managed-architecture), the worker supports volume mounts (`-v` flag) to mount a pre-existing repo checkout from the host into task containers, avoiding setup from scratch.
+
+{% hint style="info" %}
+The managed architecture currently requires Docker. A non-Docker execution mode is being explored. If you're interested in alternative self-hosted backends, [contact sales](https://warp.dev/contact-sales).
+{% endhint %}
+
+### Do Kubernetes pods provide enough sandboxing for self-hosted agents?
+
+This depends on your cluster configuration and risk profile. Evaluate your pod security policies, network policies, and RBAC settings based on your organization's security requirements.
+
 ## Current limitations
 
 ### Do cloud agents support image attachments?

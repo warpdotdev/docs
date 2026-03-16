@@ -117,11 +117,11 @@ Warp's operational security practices — including access controls, monitoring,
 
 ### Self-hosted deployments
 
-Enterprise teams can self-host Oz cloud agent execution to keep source code and workloads within their own network boundary.
+Enterprise teams can self-host Oz cloud agent execution to control where agents run and keep repositories on their own infrastructure.
 
 Self-hosted deployments use a split architecture:
-* **Execution plane (customer-hosted)** - Source code, build artifacts, shell commands, and runtime secrets stay entirely on your infrastructure and never transit Warp's cloud
-* **Control plane (Warp-hosted)** - Task orchestration, observability data, and LLM inference route through Warp's servers under Zero Data Retention (ZDR) agreements
+* **Execution plane (customer-hosted)** - Repository clones, build artifacts, runtime secrets, and container filesystem state stay on your infrastructure
+* **Control plane (Warp-hosted)** - Session transcripts (which include code context from agent interactions), orchestration metadata, and LLM inference route through Warp's servers under Zero Data Retention (ZDR) agreements. Warp does not persistently store your source code or use it for model training
 
 Two deployment modes are available:
 * **Unmanaged** - Use `oz agent run` to run agents in your existing orchestrator or CI environment. Supports Linux, macOS, and Windows with no Docker dependency.

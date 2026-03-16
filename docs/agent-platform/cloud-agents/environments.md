@@ -75,7 +75,7 @@ While environments define _how_ an agent runs, hosts determine _where_ the envir
 Host options:
 
 * **Warp-hosted (default)** – Warp provides the infrastructure. Best for most users who want hands-off execution.
-* **Self-hosted** – You provide the infrastructure (runners in your cloud or network). Best for compliance requirements, on-premise execution, or custom hardware needs.
+* **[Self-hosted](self-hosting.md)** – You provide the infrastructure (runners in your cloud or network). Best for compliance requirements, on-premise execution, or custom hardware needs.
 * Local (coming soon) – Run environments on your local machine for sandbox development and testing.
 
 The same environment can run on different hosts with identical behavior. For more details on hosting options, see [Deployment Patterns](deployment-patterns.md) and [execution hosts](platform.md#execution-hosts).

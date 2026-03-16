@@ -39,8 +39,8 @@ This uses the default agent profile, loads any available MCP servers, and execut
 
 What happens:
 
-* Warp starts a new cloud agent session.
-* The agent is given access to your current working directory.
+* The agent runs locally in your current working directory.
+* The session is tracked on Warp's backend for observability and collaboration.
 * The agent autonomously executes commands and streams output to your terminal.
 
 ## 4. Add MCP context (optional)

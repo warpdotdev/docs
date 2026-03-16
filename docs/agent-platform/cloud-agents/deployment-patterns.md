@@ -14,7 +14,7 @@ Oz cloud agent setups usually have four moving parts:
 
 1. **Trigger**: something happens (CI step, webhook, cron, Slack mention).
 2. **Orchestration**: something decides what to run and tracks it (Oz orchestrator, GitHub Actions, your internal system).
-3. **Execution**: where the agent actually runs (your runner, Oz-hosted environment, eventually self-hosted workers).
+3. **Execution**: where the agent actually runs (your runner, Oz-hosted environment, or self-hosted workers).
 4. **Visibility**: how the team monitors and intervenes (Oz dashboard, session sharing, APIs).
 
 ***
@@ -90,10 +90,13 @@ Use this when you want Oz to run agent workloads on Warp-managed infrastructure,
 2. Create a schedule with a fixed prompt for cleanup.
 3. Oz runs the agent on the cadence.
 4. Your team monitors runs in the Oz dashboard, reviews artifacts (PRs, plans), and intervenes when needed.
-5. Define an Oz Environment with the target repo.
-6. Register a Sentry webhook to your handler (server, cloud function, Zapier/n8n).
-7. Handler extracts crash details, constructs a prompt, and calls the Oz orchestrator API/SDK to start a task.
-8. Warp spins up the run in the environment and you monitor progress via UI/API.
+
+#### Example recipe: Crash triage via Sentry webhook
+
+1. Define an Oz Environment with the target repo.
+2. Register a Sentry webhook to your handler (server, cloud function, Zapier/n8n).
+3. Handler extracts crash details, constructs a prompt, and calls the Oz orchestrator API/SDK to start a task.
+4. Warp spins up the run in the environment and you monitor progress via UI/API.
 
 #### Example recipe: Fan-out parallel work (sharding)
 
@@ -113,30 +116,45 @@ If a task is naturally divisible:
 
 ### Pattern 3: Self-hosted execution
 
-Use this when you need execution and code to remain inside your network boundary, but still want Oz orchestration and visibility.
+Use this when you need to control where agent execution happens while still using Oz orchestration and visibility. Repositories are cloned and stored only on your infrastructure. Orchestration metadata, session transcripts, and LLM inference route through Warp's backend under [ZDR](https://docs.warp.dev/enterprise/security-and-compliance/security-overview#zero-data-retention-zdr).
 
 {% hint style="info" %}
 **Enterprise feature**: Self-hosted execution is available exclusively to teams on an Enterprise plan.
 {% endhint %}
 
-#### What it looks like
+Self-hosting supports two deployment modes:
 
-* **Trigger**: same as other patterns (integrations, schedules, CLI, API/SDK)
+* **Managed** — Run the `oz-agent-worker` daemon. Oz orchestrates agents remotely, starting them in isolated Docker containers on your machines. Works like a [GitHub self-hosted runner](https://docs.github.com/en/actions/hosting-your-own-runners).
+* **Unmanaged** — Use `oz agent run` in your existing CI, Kubernetes, or dev environment. You control orchestration; Warp provides tracking.
+
+#### Managed architecture
+
+* **Trigger**: integrations (Slack, Linear), schedules, CLI (`oz agent run-cloud`), API/SDK
 * **Orchestration**: Oz orchestrator
-* **Execution**: your infrastructure, running the self-hosted worker
+* **Execution**: your infrastructure, running the `oz-agent-worker` daemon with Docker
 * **Visibility**: same Oz dashboard, session sharing, and APIs as Oz-hosted
+
+#### Unmanaged architecture
+
+* **Trigger**: your existing system (CI, Kubernetes, scripts, internal orchestrators)
+* **Orchestration**: your system
+* **Execution**: anywhere `oz agent run` can execute (Linux, macOS, Windows)
+* **Visibility**: tracked sessions, session sharing, and APIs
 
 #### Why teams choose it
 
 * You need code and execution to stay within your network boundary.
 * You have compliance or security requirements that prevent using Warp-hosted compute.
-* You want to use your own infrastructure while still benefiting from Oz orchestration.
+* You need agents to access services behind a VPN or self-hosted SCMs like GitLab or Bitbucket. Warp-hosted agents can also access GitLab and Bitbucket repositories over the public internet — see the [GitLab](integrations/gitlab.md) and [Bitbucket](integrations/bitbucket.md) setup guides.
+* You have complex environments (multi-service stacks, heavy resource requirements) that don't fit in a single Docker container.
+* You want to use your own infrastructure while still benefiting from Oz orchestration and observability.
 
 #### How it works
 
-1. You run a worker process on your infrastructure that connects to Oz.
-2. When you create a task with `--host "your-worker-id"`, Oz routes it to your worker.
-3. The worker runs the task locally and reports status back to Oz.
-4. Your team gets the same observability (Oz dashboard, session sharing, APIs) as Oz-hosted runs.
+**Managed:** You run a worker daemon on your infrastructure that connects to Oz. When you create a task with `--host "your-worker-id"`, Oz routes it to your worker, which runs it in an isolated Docker container.
 
-For setup instructions, see [Self-Hosting](self-hosting.md).
+**Unmanaged:** You run `oz agent run` in your CI pipeline, Kubernetes pod, VM, or dev box. The agent runs directly on the host and reports its session back to Warp for tracking and observability.
+
+In both modes, your team gets the same observability (Oz dashboard, session sharing, APIs) as Oz-hosted runs.
+
+For setup instructions and a decision guide, see [Self-Hosting](self-hosting.md).

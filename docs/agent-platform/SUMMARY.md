@@ -66,5 +66,6 @@
 * [MCP Servers](cloud-agents/mcp.md)
 * [Deployment Patterns](cloud-agents/deployment-patterns.md)
 * [Self-Hosting](cloud-agents/self-hosting.md)
+  * [Managed worker reference](cloud-agents/managed-worker-reference.md)
 * [Access, Billing, and Identity](cloud-agents/team-access-billing-and-identity.md)
 * [FAQs](cloud-agents/faqs.md)
