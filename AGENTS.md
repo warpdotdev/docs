@@ -4,26 +4,25 @@
 
 # Warp Documentation Style Guide
 
-This guide establishes standards for writing documentation that matches Warp's voice, tone, and formatting conventions. Use this as a reference when creating or updating any documentation in the GitBook repository.
+This guide establishes standards for writing Warp documentation. It covers voice, formatting, content types, and terminology. Use it as the authoritative reference when creating or updating any page in the GitBook repository.
 
-## Writing Style
+## Writing style
 
-### Voice & Tone
+### Voice & tone
 - **Professional yet approachable**: Write with authority but remain accessible to developers of all skill levels
 - **Direct and action-oriented**: Lead with what users can accomplish, not just what features exist
 - **User-focused**: Use second person ("you can", "allows you to") rather than passive voice
 - **Confident without jargon**: Explain technical concepts clearly without oversimplifying
 
-### Language Guidelines
+### Language guidelines
 - Use active voice: "Warp detects opportunities" not "opportunities are detected by Warp"
-- Always strive to use active voice rather than passive voice in all documentation
 - Start sentences with strong verbs when giving instructions
 - Avoid hedging language ("might", "could", "perhaps") when describing established features
 - Use consistent terminology throughout (see Terminology section below)
 - Em dashes are acceptable for occasional variation in narrative/conceptual text, but use sparingly
 - Never use em dashes in procedural or instructional text
 
-## Content Structure
+## Content structure
 
 ### Frontmatter
 Every page must include YAML frontmatter with a description:
@@ -31,20 +30,19 @@ Every page must include YAML frontmatter with a description:
 ```yaml
 ---
 description: >-
-  A concise 1-2 sentence summary that explains what the page covers and 
+  A concise 1-2 sentence summary that explains what the page covers and
   what value it provides to the reader.
 ---
 ```
 
-### Page Structure
-Follow this hierarchy for all documentation pages:
+### General page structure
+Every page should include these elements. The body sections in between vary by content type (see [Drafting by content type](#drafting-by-content-type)).
 
-1. **H1 Title**: Clear, descriptive page title
-2. **Opening paragraph**: Brief overview of the feature/topic and its primary benefit
-3. **Key features section** (if applicable): Bulleted list of main capabilities
-4. **How it works section**: Explain the user flow or core concepts
-5. **Detailed sections**: Break down specific features, use cases, or instructions
-6. **Cross-references**: Link to related features and next steps
+1. **YAML frontmatter** with description
+2. **H1 title** (sentence case) that clearly identifies the topic
+3. **Opening paragraph** with a brief overview and primary user benefit
+4. **Body sections** structured according to the page's content type
+5. **Cross-references** linking to related features and next steps
 
 ### Headers
 - Use sentence case for all headers (not title case)
@@ -53,7 +51,7 @@ Follow this hierarchy for all documentation pages:
 - H3 for subsections
 - Avoid going deeper than H4
 
-## Formatting Standards
+## Formatting standards
 
 ### Lists
 - Use bulleted lists for features, benefits, or non-sequential items
@@ -68,19 +66,19 @@ Example:
 * **Code Review** - Review, edit, and manage Git diffs in real time
 ```
 
-### Code Examples
+### Code examples
 - Use proper syntax highlighting for all code blocks
 - Include context about what the code does
 - Provide both simple examples and real-world scenarios
 - Format terminal commands consistently
 
-### Links and Cross-References
+### Links and cross-references
 - Use descriptive link text that explains what users will find
 - Cross-reference related features prominently
 - Link to external resources when they add value
 - Use relative paths for internal documentation links
 
-### Callouts and Hints
+### Callouts and hints
 Use GitBook's hint syntax consistently:
 
 ```markdown
@@ -92,6 +90,7 @@ For informational context, tips, or additional details
 For important caveats, limitations, or things to watch out for
 {% endhint %}
 ```
+
 ### Keys and shortcuts
 Keyboard keys and shortcuts use backticks:
 - Single keys: `Enter`, `Esc`, `Tab`, `Space`, `Backspace`, `Delete`
@@ -103,18 +102,28 @@ Keyboard keys and shortcuts use backticks:
 **Examples:**
 - ✅ Press `⌘I` to switch between command and Agent Mode
 - ❌ Press **Enter** (should be `Enter`)
+
 ### Menu paths
 - Bold each UI element in a menu path; leave the > separator plain: **Settings** > **AI** > **Knowledge**
 - For macOS menu paths, begin the path with the Apple icon (, Unicode `U+F8FF`).
+- When referencing a menu path, CLI command, or URL for the first time on a page, orient the reader by identifying the application, website, or tool. Don't assume the reader knows which surface you mean.
+- For URLs, name the surface even though the link provides the destination — not all readers will recognize what the URL points to.
 
 **Use:**
 - ✅ **Settings** > **AI** > **Knowledge**
 - ✅  > **System Settings** > **Privacy & Security** > **Local Network**
+- ✅ In the Warp app, go to **Settings** > **Platform**.
+- ✅ In the Oz web app (oz.warp.dev), click **Schedules**.
+- ✅ Navigate to the Oz web app at oz.warp.dev/schedules and click **New Schedule**.
+- ✅ Find it with `oz environment list` on the Oz CLI or in the [Oz web app](https://oz.warp.dev).
 
 **Don't use:**
 - ❌ `macOS > System Settings > Privacy & Security > Local Network` (code format; use Apple icon, not "macOS")
 - ❌ `macOS` > `System Settings` > `Privacy & Security` > `Local Network` (individual backticks; use Apple icon, not "macOS")
 - ❌ **macOS > System Settings > Privacy & Security > Local Network** (entire path bolded including separator; use Apple icon, not "macOS")
+- ❌ Go to **Settings** > **Platform**. (which app? orient the reader first)
+- ❌ Go to oz.warp.dev/schedules and click **New Schedule**. (name the surface before the URL)
+- ❌ Find it with `oz environment list`. (what CLI? orient the reader first)
 
 ### UI elements
 - Use bold for interactive UI elements (e.g., buttons, toggles, dropdowns)
@@ -148,38 +157,180 @@ Use consistent verbs that match the type of UI element:
 - ❌ Set the **Repository** permission to **Read**. (use Choose for permission levels)
 - ❌ Check **read_repository**. (use Select for checkboxes)
 
-## Content Guidelines
+## Drafting by content type
 
-### Feature Descriptions
-- Lead with the user benefit, not the technical implementation
-- Provide concrete examples of when and why to use the feature
-- Include both overview and detailed usage sections
-- Show real-world scenarios, not just toy examples
+Every documentation page should be drafted according to its content type. Identify the type before you start writing, then follow the structure and rules for that type below.
 
-### Instructions
-- Write clear, actionable steps
-- Aim for one action per step. Combining two actions with "and" or "then" is acceptable in these cases:
-  - The actions are on the same form (for example, entering a name and choosing an expiration date).
-  - The first action triggers or reveals the target of the second (for example, clicking to expand a menu, then clicking the revealed item). When combined, this can read more naturally than splitting across two steps.
-- Test all instructions for accuracy
-- Include expected outcomes or confirmations
-- Provide troubleshooting for common issues
+### General guidance (all content types)
 
-### Examples and Use Cases
-Always include practical examples:
+These rules apply regardless of content type:
 
+- **Lead with user benefit**: Open with what the reader can accomplish, not the technical implementation.
+- **Orient the reader before UI, CLI, or URL instructions**: When referencing a menu path, CLI command, or URL for the first time on a page, identify the application, website, or tool. Don't assume the reader knows which surface you mean.
+  - ✅ "In the Warp app, click your profile photo, then go to **Settings** > **Platform**."
+  - ✅ "In the Oz web app (oz.warp.dev), click **Schedules**."
+  - ❌ "Go to **Settings** > **Platform**." (which app?)
+- **Provide inline context for first references**: Assume the reader arrived directly at this page, not from a parent page. When a prerequisite, concept, or tool is mentioned for the first time, include: what the thing is (1 short clause), where to get or create it, and a link to the full reference.
+  - ✅ "**A Warp API key** - Authenticate API requests with a key from **Settings** > **Platform** in the Warp app. See [API Keys](../cli/api-keys.md) for details."
+  - ❌ "**An API key** - Create one in **Settings** > **Platform**." (what kind of key? Settings where?)
+- **Include practical examples**: Show real-world scenarios, not just toy examples. Concrete examples help the reader understand when and why to use a feature.
+- **Cross-reference related pages**: Link to related features, next steps, and deeper references so the reader can continue learning.
+
+### Conceptual
+
+**What it is**: Explains what something is, why it exists, and how it works at a high level.
+
+**When to use**: For pages that help the reader *understand* a topic without guiding them through a specific task. Examples: product overviews, architecture explanations, design philosophy.
+
+**Structure**:
+1. Opening paragraph with what the feature/concept is and its primary benefit
+2. Key concepts or components
+3. How it works (system behavior, architecture, data flow)
+4. When to use it and when not to (decision guidance)
+5. Related pages
+
+**Rules**:
+- Explain "what" and "why" before "how"
+- Define new terms when they first appear
+- Use diagrams or architecture descriptions where they clarify relationships
+- Do NOT include step-by-step procedures — link to a procedural or quickstart page instead
+- Show real-world scenarios, not just abstract descriptions
+
+**Existing examples**: `agent-platform/cloud-agents/deployment-patterns.md`, `agent-platform/cloud-agents/overview.md`
+
+### Procedural
+
+**What it is**: Task-oriented, step-by-step instructions to accomplish a specific goal.
+
+**When to use**: When the reader needs to *do* something. Examples: configuring an integration, creating an API key, setting up an environment.
+
+**Structure**:
+1. Opening sentence stating what the reader will accomplish
+2. Prerequisites (with inline context for each — see General guidance)
+3. Numbered steps
+4. Expected outcome or confirmation (what success looks like)
+5. Troubleshooting for common issues (optional but recommended)
+
+**Rules**:
+- **Keep steps focused, not artificially atomic.** Aim for one primary action per step, but group tightly related actions together when they share the same UI context and doing so keeps the procedure at a readable length. Up to ~3 related actions per step is acceptable. Use judgment: a simple task shouldn't require 10+ steps, but a single step shouldn't be a mini-procedure either.
+  - Acceptable groupings: actions on the same form (entering a name and choosing an expiration date), a click that reveals the next target (clicking to expand a section, then clicking the revealed item), or a short natural sequence within the same UI area.
+  - Avoid grouping actions that span different areas of the UI or that would make a step hard to scan at a glance.
+- **Motivate steps before giving instructions.** Briefly explain WHY before HOW, especially for setup steps. A single sentence of motivation prevents the reader from wondering "why am I doing this?"
+  - ✅ "Export your API key so the CLI can authenticate your requests automatically."
+  - ❌ "Export your API key as an environment variable." (why?)
+- Include expected outcomes after key steps so the reader can confirm they're on track.
+- Test all instructions for accuracy.
+- Provide troubleshooting for common failure points.
+
+**Existing examples**: `reference/cli/api-keys.md`, `agent-platform/cloud-agents/integrations/slack.md`
+
+### Quickstart
+
+**What it is**: A specialized procedural doc designed to get the reader to a working result fast. Style "quickstart" as one word, lowercase (unless starting a sentence or in a title).
+
+**When to use**: For first-time experiences with a product area. The reader should go from zero to a working result in ~10 minutes.
+
+**Structure**:
+1. Opening paragraph with what the reader will accomplish and a time estimate
+2. Prerequisites (minimal — link to full setup docs rather than inlining lengthy setup)
+3. Numbered steps (as few as possible to reach a working result)
+4. Next steps (links to deeper guides, advanced usage, related features)
+
+**Rules**:
+- **Give every quickstart a descriptive H1 title.** Don't use a bare "Quickstart" — include the feature or topic name.
+  - ✅ `# Cloud Agents Quick Start`
+  - ❌ `# Quickstart` (quickstart for what?)
+- Minimize prerequisites — the reader should be able to start quickly.
+- Target ~10 minutes or less.
+- Keep steps focused on the critical path — defer edge cases and advanced options to other pages.
+- All procedural rules apply (focused steps, motivate steps, expected outcomes).
+
+**Existing examples**: `agent-platform/cloud-agents/quickstart.md`, `warp/getting-started/quickstart/installation-and-setup.md`
+
+### Reference
+
+**What it is**: Structured factual information for lookup. The reader already knows what they want to do and needs specific details.
+
+**When to use**: For CLI commands, API endpoints, configuration options, keyboard shortcuts, error codes.
+
+**Structure**:
+1. Brief intro stating what is documented and how to use the reference
+2. Syntax or usage pattern
+3. Options, parameters, or fields (with descriptions)
+4. Examples
+
+**Rules**:
+- Be exhaustive — document every option, flag, and configuration value.
+- Use consistent formatting for parameters (e.g., `--flag` in backticks, description as a dash-separated list item).
+- Alphabetize entries where ordering doesn't matter.
+- Keep descriptions factual and concise — this is for lookup, not learning.
+- Include at least one practical example for each command or endpoint.
+
+**Existing examples**: `reference/cli/README.md`, `reference/api-and-sdk/README.md`
+
+### Troubleshooting
+
+**What it is**: Problem → cause → solution format. The reader has encountered an issue and needs to fix it.
+
+**When to use**: For known issues, common errors, and diagnostic guides.
+
+**Structure**:
+1. Problem or symptom as the header (use the exact error message or a clear description of the symptom)
+2. Brief explanation of the cause
+3. Solution steps (numbered, following procedural rules)
+4. Workaround if a full fix isn't available
+
+**Rules**:
+- Use the problem or error message as the header — this helps with search.
+- Group related issues under broader category headers (e.g., "SSH", "Shells").
+- Provide workarounds when a fix isn't available.
+- Link to related troubleshooting pages and support channels.
+
+**Existing examples**: `support-and-community/troubleshooting-and-support/known-issues.md`, `reference/cli/troubleshooting.md`
+
+### FAQ
+
+**What it is**: Question-and-answer format for common questions.
+
+**When to use**: For pages that collect frequently asked questions about a topic area.
+
+**Structure**:
 ```markdown
-### Examples of Coding Capabilities
-* **Code creation**
-  * "Write a function in JavaScript to debounce an input"
-  * "Generate a Python class for managing user sessions with Redis."
+### Question in the user's voice?
+Direct answer with actionable information. Include links to relevant documentation.
 ```
 
-## Terminology Standards
+**Rules**:
+- Write questions in the user's voice ("Can I use my own API key?" not "BYOK support").
+- Lead with a direct answer, then provide detail.
+- Keep answers concise — link to full documentation for deeper topics.
+- Group questions by theme (e.g., "General", "Billing", "Errors").
+
+**Existing examples**: `agent-platform/getting-started/faqs.md`, `support-and-community/plans-and-billing/pricing-faqs.md`
+
+### Feature documentation (combined pattern)
+
+This is the most common page type in Warp's docs (~75+ pages). A feature documentation page combines **conceptual** and **procedural** content in one page: it explains what a feature is, then shows how to use it.
+
+**Structure**:
+1. Opening paragraph with what the feature does and its primary benefit
+2. Key features list (bulleted, bold term + dash + description)
+3. How it works (conceptual — explain the system behavior)
+4. Usage or configuration sections (procedural — step-by-step instructions)
+5. Related pages
+
+**Rules**:
+- Apply the **conceptual** rules to the explanatory sections (explain what and why, define terms, no procedures in the overview).
+- Apply the **procedural** rules to the step-by-step sections (one action per step, motivate steps, expected outcomes).
+- Keep the conceptual and procedural sections clearly separated with distinct headers.
+
+**Existing examples**: `agent-platform/capabilities/skills.md`, `agent-platform/cloud-agents/environments.md`
+
+## Terminology standards
 
 Use these terms consistently throughout all documentation:
 
-### Core Features
+### Core features
 - **Warp** (not "Warp Terminal" unless specifically distinguishing)
 - **Agent** or **Agents** (capitalized when referring to Warp's AI agents)
 - **Agent Mode** (not "agent mode" or "Agent-mode")
@@ -225,78 +376,45 @@ Use these terms consistently throughout all documentation:
 - ❌ "Oz is running" → Use "An Oz agent is running" or "A run is in progress"
 - ❌ "AI agents" → Use "agents" (the "AI" prefix is redundant)
 
-### Technical Terms
+### Technical terms
 - **codebase** (one word, lowercase unless part of feature name)
 - **command-line** (hyphenated when used as adjective)
 - **Git repository** or **repo** (not "git repository")
 - **macOS** (not "Mac OS" or "Mac")
 
-### Billing and Credits
+### Billing and credits
 - **credits** (lowercase, not "AI credits") - the unit of usage for AI features in Warp
 - **Add-on Credits** (capitalized as a product feature name)
 - **plan credits** - credits included with a subscription plan
 - Use "credit" or "credits" without the "AI" prefix throughout documentation
 
-### UI Elements
+### UI elements
 - **Settings** (capitalized when referring to the Settings panel)
 - **Command Palette** (capitalized)
 
-## Common Patterns
+## Quality checklist
 
-### Feature Introduction Template
-```markdown
-# Feature Name
+Before publishing any documentation, verify:
 
-Brief description of what the feature does and its primary benefit.
-
-## Key Features:
-* **Sub-feature 1** - Description and benefit
-* **Sub-feature 2** - Description and benefit
-
-## How It Works
-Explanation of user workflow and core concepts.
-```
-
-### Getting Started Section
-Always include practical next steps:
-```markdown
-## Getting Started
-1. [Action user should take first]
-2. [Second step with expected outcome]
-3. [Link to related features or advanced usage]
-```
-
-### FAQ Structure
-For FAQ sections, structure as:
-```markdown
-### Question in user's voice?
-Direct answer with actionable information. Include links to relevant documentation.
-```
-
-## Quality Checklist
-
-Before publishing any documentation:
-
-- [ ] Frontmatter includes clear description
-- [ ] Content follows established structure
+- [ ] Frontmatter includes a clear, 1-2 sentence description
+- [ ] Content type is identified and the page follows the structure for that type
+- [ ] Headers use sentence case
+- [ ] Lists use bold term + dash + explanation format
 - [ ] All links work and point to correct destinations
 - [ ] Code examples are tested and accurate
 - [ ] Terminology matches this style guide
 - [ ] Cross-references to related features are included
-- [ ] Instructions include expected outcomes
+- [ ] Instructions include expected outcomes after key steps
+- [ ] First references to prerequisites, tools, or surfaces include inline context
 - [ ] Content is scannable with clear headers and lists
 
-## Content Review Process
+## Content review process
 
-1. **Accuracy**: Verify all technical details and instructions
-2. **Consistency**: Check terminology and formatting against this guide
-3. **User focus**: Ensure content answers "what can I accomplish?" before "how does it work?"
-4. **Completeness**: Include necessary context, examples, and next steps
-5. **Accessibility**: Test with users unfamiliar with the feature
-
----
-
-*This style guide should evolve with Warp's documentation needs. Update it when establishing new patterns or conventions.*
+1. **Content type**: Confirm the page follows the correct structure for its type
+2. **Accuracy**: Verify all technical details and instructions
+3. **Consistency**: Check terminology and formatting against this guide
+4. **User focus**: Ensure content answers "what can I accomplish?" before "how does it work?"
+5. **Completeness**: Include necessary context, examples, and next steps
 
 # Warp Docs Repository Guide
 
