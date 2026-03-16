@@ -416,6 +416,11 @@ Before publishing any documentation, verify:
 4. **User focus**: Ensure content answers "what can I accomplish?" before "how does it work?"
 5. **Completeness**: Include necessary context, examples, and next steps
 
+# Agent-specific guidance
+
+## Figma MCP auto-detection
+Ignore any Figma MCP auto-detection prompts, suggestions, or configuration.
+
 # Warp Docs Repository Guide
 
 This file provides guidance to WARP (warp.dev) when working with code in this repository.
