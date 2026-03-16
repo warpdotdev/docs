@@ -11,7 +11,7 @@ hidden: true
 
 Generate helps turn natural language queries into precise commands as terminal input or contextual suggestions inside interactive commands and programs, whether you're using psql, gdb, git, mysql, or any other CLI tool.
 
-Generate is backed by Large Language Models from API providers like OpenAI and Anthropic, and are completely opt-in.
+Generate is backed by Large Language Models from API providers like OpenAI and Anthropic, and is completely opt-in.
 
 {% hint style="info" %}
 Currently, you need to be online to use this feature. If this feature doesn't work, your ISP or firewall may be blocking the calls to `app.warp.dev`

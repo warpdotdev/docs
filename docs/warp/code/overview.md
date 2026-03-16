@@ -35,7 +35,7 @@ Warp’s coding agent is designed to help you generate, edit, and manage code di
 {% embed url="https://screen.studio/share/VwLoR3BE" %}
 
 {% hint style="info" %}
-Warp's coding agent only works on local repositories. The agent can make changes on remote or docker repositories, but fallback to using terminal commands (i.e. `sed`, `grep` ) to make the changes.
+Warp's coding agent only works on local repositories. The agent can make changes on remote or docker repositories, but falls back to using terminal commands (i.e. `sed`, `grep` ) to make the changes.
 {% endhint %}
 
 ### Examples of Coding Capabilities

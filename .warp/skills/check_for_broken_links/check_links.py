@@ -129,6 +129,7 @@ class LinkChecker:
                 line = re.sub(r'(`+)(?:(?!\1).)+\1', '', line)
                 if not line.strip():
                     continue
+                if not line.strip():
                     continue
 
                 # Check angle-bracket links first (they take precedence)

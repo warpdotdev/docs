@@ -88,7 +88,7 @@ Reference the documentation for your external secret manager. Then, write a cust
 Your custom command should return the exact string you want loaded into your environment. Please make sure that you are selecting the exact field you want loaded as many secret manager CLIs provide additional formatting by default.
 {% endhint %}
 
-For example, you could write a command using the [Hashicorp Vault CLI](https://developer.hashicorp.com/vault/docs/commands) to retrieve and load the password field for the staging server. When using secret commands, Warp stores the command but never the actual secrets. The secrets will be referenced and loaded into a terminal session at runtime.
+For example, you can write a command using the [Hashicorp Vault CLI](https://developer.hashicorp.com/vault/docs/commands) to retrieve and load the password field for the staging server. When using secret commands, Warp stores the command but never the actual secrets. The secrets will be referenced and loaded into a terminal session at runtime.
 
 ```
 // vault kv get -field=password secret/staging/app/server/creds
@@ -130,7 +130,7 @@ Loading an environment into a subshell reduces the risk of your environment vari
 
 Any time you run a workflow, you can select from existing environment variables. This allows you to dynamically inject environment variables into a parameterized workflow so you can use a single workflow command in multiple environments, such as production and staging.
 
-For example, you might have a workflow to create a new team that uses the environment variable $SERVER\_URL. By using the environment variables dropdown in the workflow card, you can dynamically inject the necessary variables. This ensures the workflow references the appropriate values so the command runs with the relevant environment-specific information.
+For example, you may have a workflow to create a new team that uses the environment variable $SERVER\_URL. By using the environment variables dropdown in the workflow card, you can dynamically inject the necessary variables. This ensures the workflow references the appropriate values so the command runs with the relevant environment-specific information.
 
 These environment variables will now be present for the remainder of your session until you clear them or overwrite them with a different environment.
 

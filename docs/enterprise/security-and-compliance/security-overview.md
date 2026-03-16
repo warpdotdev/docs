@@ -215,7 +215,7 @@ Enterprise customers receive priority security support:
 * **Privacy policy** - [warp.dev/legal/privacy-policy](https://www.warp.dev/legal/privacy-policy)
 * **Trust center** - [trust.warp.dev](https://trust.warp.dev) — security documentation and compliance reports
 * **Subprocessors** - [warp.dev/legal/subprocessors](https://www.warp.dev/legal/subprocessors)
-* **Privacy documentation**
+* **Privacy documentation** - [Privacy guide](https://docs.warp.dev/support-and-community/privacy-and-security/privacy) with complete telemetry table
 * **Contact** - [privacy@warp.dev](mailto:privacy@warp.dev) for privacy questions, [security@warp.dev](mailto:security@warp.dev) for security issues
 
 {% hint style="info" %}

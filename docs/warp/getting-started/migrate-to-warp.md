@@ -27,7 +27,7 @@ After choosing a prompt, you’re ready to start using Warp.
 
 ### Import additional settings
 
-After importing your iTerm2 profile and choosing your prompt, you might have additional settings from iTerm2 that you would like to configure. For example:
+After importing your iTerm2 profile and choosing your prompt, you may have additional settings from iTerm2 to configure. For example:
 
 * Customizing your dedicated hotkey window, allowing you to customize your windows relative to your active screen size.
 * Dividing and organizing tabs into multiple panels or terminal sessions.
