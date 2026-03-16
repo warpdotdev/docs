@@ -121,7 +121,7 @@ oz agent run-cloud --environment <ENV_ID> --prompt "Your task here"
 With your environment configured, you can connect it to any Warp trigger exactly as you would with a GitHub-backed environment:
 
 * **Slack** — Tag **@Oz** in a message to start an agent run against your GitLab repo. See [Slack](slack.md).
-* **Linear** — Tag the Oz agent on an issue to kick off a workflow. See [Linear](linear.md).
+* **Linear** — Tag **@Oz** on an issue to kick off a workflow. See [Linear](linear.md).
 * **Scheduled agents** — Run agents on a recurring schedule. See [Scheduled Agents](../triggers/scheduled-agents.md).
 
 {% hint style="info" %}
