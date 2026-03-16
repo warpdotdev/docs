@@ -26,7 +26,7 @@ If you haven't opted out of "Help improve Warp", we may collect:
 2. AI interactions and console inputs that power our [AI features](https://docs.warp.dev/agent-platform/local-agents/). Warp unconditionally applies [Secret Redaction](secret-redaction.md) in all AI interactions to ensure that any sensitive data is _never_ collected or sent to third parties.
 
 {% hint style="info" %}
-All users can opt-out of this any time and still continue using all of Warp, including AI. The only exception is AI use on the Free plan, which requires telemetry for functionality.
+Subscribers can opt-out of this any time and still continue using all of Warp, including AI. On the Free plan, analytics must be enabled to use AI.
 {% endhint %}
 
 {% hint style="warning" %}
