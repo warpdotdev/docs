@@ -57,4 +57,4 @@ This error is returned when:
 
 * [Cloud Agents Overview](https://docs.warp.dev/agent-platform/cloud-agents/overview) — How cloud agent tasks work
 * [Self-Hosting](https://docs.warp.dev/agent-platform/cloud-agents/self-hosting) — Self-hosted agent configuration
-* [Oz Agent API & SDK](https://docs.warp.dev/reference/api-and-sdk/agent) — API reference for managing agent tasks
+* [Oz API & SDK](https://docs.warp.dev/reference/api-and-sdk/agent) — API reference for managing agent tasks

@@ -243,4 +243,4 @@ For detailed integration setup instructions, see [Slack](integrations/slack.md) 
 * [Environments](environments.md) — Configure runtime context for cloud agents
 * [Managing Cloud Agents](managing-cloud-agents.md) — Monitor agent activity and inspect runs
 * [Oz CLI](https://docs.warp.dev/reference/cli) — Command-line interface for running agents
-* [Oz Agent API & SDK](https://docs.warp.dev/reference/api-and-sdk/agent) — Programmatic access to cloud agents
+* [Oz API & SDK](https://docs.warp.dev/reference/api-and-sdk/agent) — Programmatic access to cloud agents

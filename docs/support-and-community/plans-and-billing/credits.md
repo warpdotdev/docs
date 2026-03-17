@@ -116,7 +116,7 @@ The following scenarios use Cloud Agent Credits:
 
 * **First-party integrations** — Running agents through Slack or Linear integrations
 * **Cloud agent runs** — Using `oz agent run-cloud` via the CLI
-* **Oz Agent API** — Running agents through Warp's Oz Agent API
+* **Oz API** — Running agents through Warp's Oz API
 * **Cloud Mode** — Running an agent from Cloud Mode in the Warp app
 
 #### Not eligible for Cloud Agent Credits

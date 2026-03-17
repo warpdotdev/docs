@@ -84,6 +84,6 @@ When an error response includes a `trace_id`, you can include it when [contactin
 
 ## Related
 
-* [Oz Agent API & SDK](https://docs.warp.dev/reference/api-and-sdk/agent) — API reference for creating and managing agent tasks
+* [Oz API & SDK](https://docs.warp.dev/reference/api-and-sdk/agent) — API reference for creating and managing agent tasks
 * [Cloud Agents Overview](https://docs.warp.dev/agent-platform/cloud-agents/overview) — How cloud agents work
 * [Access, Billing, and Identity](https://docs.warp.dev/agent-platform/cloud-agents/team-access-billing-and-identity) — Plan requirements and billing details

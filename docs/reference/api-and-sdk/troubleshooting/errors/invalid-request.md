@@ -58,4 +58,4 @@ The `detail` field in the response will describe the specific validation issue.
 
 ## Related
 
-* [Oz Agent API & SDK](https://docs.warp.dev/reference/api-and-sdk/agent) — API request format and parameters
+* [Oz API & SDK](https://docs.warp.dev/reference/api-and-sdk/agent) — API request format and parameters

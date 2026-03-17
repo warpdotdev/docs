@@ -1,15 +1,15 @@
 ---
 description: >-
-  Create and inspect cloud agent runs over HTTP with the Oz Agent API, or use
+  Create and inspect cloud agent runs over HTTP with the Oz API, or use
   the official Python and TypeScript SDKs for typed requests, retries, and
   structured error handling.
 ---
 
-# Oz Agent API & SDK
+# Oz API & SDK
 
-### Oz Agent API
+### Oz API
 
-The Oz Agent API lets you create and inspect [Cloud Agent](https://docs.warp.dev/agent-platform/cloud-agents/overview) runs over HTTP from any system (CI, cron, backend services, internal tools), without requiring the Warp desktop app.
+The Oz API lets you create and inspect [Cloud Agent](https://docs.warp.dev/agent-platform/cloud-agents/overview) runs over HTTP from any system (CI, cron, backend services, internal tools), without requiring the Warp desktop app.
 
 **With the API you can:**
 
@@ -25,7 +25,7 @@ For full API endpoint details, please refer to the [**Agents API**](https://docs
 
 ### Oz Agent SDK
 
-Oz provides official [Python](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript](https://github.com/warpdotdev/oz-sdk-typescript) SDKs that wrap the Oz Agent API with:
+Oz provides official [Python](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript](https://github.com/warpdotdev/oz-sdk-typescript) SDKs that wrap the Oz API with:
 
 * **Typed requests and responses** (editor autocomplete, fewer schema mistakes)
 * **Built-in retries and timeouts** (with per-request overrides)
@@ -47,7 +47,7 @@ For the full SDK surface area and latest usage, refer to the GitHub repos: [**Py
 
 ***
 
-## Oz Agent API
+## Oz API
 
 ### REST API Base URL
 
@@ -129,7 +129,7 @@ The API shares a set of reusable models across endpoints. Detailed JSON schemas,
 
 ### Python SDK
 
-The Python SDK is the recommended way to call the Oz Agent API from Python services and scripts. It provides:
+The Python SDK is the recommended way to call the Oz API from Python services and scripts. It provides:
 
 * Sync + async clients
 * Typed request/response models
@@ -139,7 +139,7 @@ See the [**Python SDK GitHub repo**](https://github.com/warpdotdev/oz-sdk-python
 
 ### TypeScript SDK
 
-The TypeScript SDK is the recommended way to call the Oz Agent API from Node.js services and modern TS/JS runtimes. It provides:
+The TypeScript SDK is the recommended way to call the Oz API from Node.js services and modern TS/JS runtimes. It provides:
 
 * Fully typed params/responses
 * First-class error handling, retries/timeouts

@@ -33,7 +33,7 @@ Oz is fully programmable—launch agents manually or build custom logic around t
 * [**Agents in Warp**](getting-started/agents-in-warp.md) - Start using Oz agents interactively in Warp
 * [**Oz web app**](https://oz.warp.dev) - Create runs, manage schedules, browse skills, and configure integrations
 * [**Oz CLI**](https://docs.warp.dev/reference/cli) - Run agents from the command line, in CI, or on remote machines
-* [**Oz Agent API & SDK**](https://docs.warp.dev/reference/api-and-sdk/agent) - Programmatically create and monitor agent runs
+* [**Oz API & SDK**](https://docs.warp.dev/reference/api-and-sdk/agent) - Programmatically create and monitor agent runs
 
 ***
 

@@ -54,7 +54,7 @@ When calling the Warp API to create agent runs, include the `computer_use_enable
 }
 ```
 
-For full API documentation, see the [Oz Agent API & SDK](https://docs.warp.dev/reference/api-and-sdk/) reference.
+For full API documentation, see the [Oz API & SDK](https://docs.warp.dev/reference/api-and-sdk/) reference.
 
 ### Web App
 

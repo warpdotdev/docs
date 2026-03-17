@@ -16,7 +16,8 @@
 
 ## API & SDK
 
-* [Oz Agent API & SDK](api-and-sdk/README.md)
+* [Oz API & SDK](api-and-sdk/README.md)
+* [API & SDK Quickstart](api-and-sdk/quickstart.md)
 * ```yaml
   props:
     models: true

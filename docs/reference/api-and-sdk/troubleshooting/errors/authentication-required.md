@@ -57,5 +57,5 @@ This error is returned when:
 
 ## Related
 
-* [Oz Agent API & SDK](https://docs.warp.dev/reference/api-and-sdk/agent) — API authentication
+* [Oz API & SDK](https://docs.warp.dev/reference/api-and-sdk/agent) — API authentication
 * [Oz Platform](https://docs.warp.dev/agent-platform/cloud-agents/platform) — API key management

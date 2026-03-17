@@ -294,7 +294,7 @@ All tasks created through that integration will be routed to your self-hosted wo
 
 ### From the API / SDKs
 
-When creating a run via the [Oz Agent API](https://docs.warp.dev/reference/api-and-sdk/agent), include `worker_host` in the config:
+When creating a run via the [Oz API](https://docs.warp.dev/reference/api-and-sdk/agent), include `worker_host` in the config:
 
 ```bash
 curl -X POST https://app.warp.dev/api/v1/agent/run \
@@ -341,7 +341,7 @@ Self-hosted runs have the same observability as Warp-hosted runs:
 
 * **Management UI** — View task status, history, and metadata in the [Oz dashboard](https://oz.warp.dev).
 * **Session sharing** — Authorized teammates can attach to running tasks to monitor progress.
-* **APIs and SDKs** — Query task history and build monitoring using the [Oz Agent API](https://docs.warp.dev/reference/api-and-sdk/agent).
+* **APIs and SDKs** — Query task history and build monitoring using the [Oz API](https://docs.warp.dev/reference/api-and-sdk/agent).
 
 ***
 

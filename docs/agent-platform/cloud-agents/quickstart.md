@@ -142,7 +142,7 @@ Integrations require a team on Build, Max, or Business plan.
 
 ### Build automations and apps on top of Oz agents
 
-Use the [Oz Agent API & SDK](https://docs.warp.dev/reference/api-and-sdk) to trigger agents programmatically from your own systems and workflows.
+Use the [Oz API & SDK](https://docs.warp.dev/reference/api-and-sdk) to trigger agents programmatically from your own systems and workflows.
 
 ***
 

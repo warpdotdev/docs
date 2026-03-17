@@ -257,7 +257,7 @@ The `--name` flag assigns a config name to the run. Use it to group related runs
 
 **Why naming matters:**
 
-When your team runs many agents across schedules, integrations, and ad-hoc triggers, `name` lets you answer questions like "how many distinct workflows are we running?" and "how often does this particular workflow run?" You can filter runs by name using the `name` query parameter on `GET /agent/runs` in the [Oz Agent API](https://docs.warp.dev/reference/api-and-sdk).
+When your team runs many agents across schedules, integrations, and ad-hoc triggers, `name` lets you answer questions like "how many distinct workflows are we running?" and "how often does this particular workflow run?" You can filter runs by name using the `name` query parameter on `GET /agent/runs` in the [Oz API](https://docs.warp.dev/reference/api-and-sdk).
 
 **Examples:**
 

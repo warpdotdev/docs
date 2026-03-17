@@ -108,4 +108,4 @@ Cloud agents are ideal for work that doesn't need your immediate attention—PR 
 * [**Local Agents Overview**](../local-agents/overview.md) - Detailed guide to working with agents in Warp
 * [**Capabilities**](../capabilities/README.md) - All agent capabilities: planning, task lists, model choice, and more
 * [**Oz CLI**](https://docs.warp.dev/reference/cli) - Run agents from the command line
-* [**Oz Agent API & SDK**](https://docs.warp.dev/reference/api-and-sdk/agent) - Programmatic access to agent runs
+* [**Oz API & SDK**](https://docs.warp.dev/reference/api-and-sdk/agent) - Programmatic access to agent runs

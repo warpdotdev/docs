@@ -55,4 +55,4 @@ For task cancellation specifically, wait until the task moves from **pending** t
 ## Related
 
 * [Managing Cloud Agents](https://docs.warp.dev/agent-platform/cloud-agents/managing-cloud-agents) — Viewing and managing agent tasks
-* [Oz Agent API & SDK](https://docs.warp.dev/reference/api-and-sdk/agent) — API reference for managing agent tasks
+* [Oz API & SDK](https://docs.warp.dev/reference/api-and-sdk/agent) — API reference for managing agent tasks

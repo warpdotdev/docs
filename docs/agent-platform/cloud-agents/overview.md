@@ -80,7 +80,7 @@ For details on configuring MCP servers for cloud agents, see [MCP Servers](mcp.m
 
 #### API access to tasks
 
-The Oz Platform exposes task visibility via the [**Oz Agent API and SDKs**](https://docs.warp.dev/reference/api-and-sdk), so teams can:
+The Oz Platform exposes task visibility via the [**Oz API and SDKs**](https://docs.warp.dev/reference/api-and-sdk), so teams can:
 
 * Query which tasks are running or have run.
 * Fetch task metadata and outcomes.
@@ -140,11 +140,11 @@ If your credit balance reaches zero, cloud agent runs will not be able to execut
 ### Learn more
 
 * [Cloud Agents Quick Start](quickstart.md) — run your first cloud agent with an environment in ~10 minutes.
-* [Oz Platform](platform.md) — CLI, Oz Agent API/SDK, orchestration, tasks, environments, hosts, integrations, and more.
+* [Oz Platform](platform.md) — CLI, Oz API/SDK, orchestration, tasks, environments, hosts, integrations, and more.
 * [Skills as Agents](skills-as-agents.md) — run agents based on reusable skill definitions from the CLI, web app, API, or on a schedule.
 * [Oz CLI](https://docs.warp.dev/reference/cli) — shows how to run Oz agents in non-interactive mode from CI, scripts, or remote machines, including auth and common commands.
 * [Environments](environments.md) — explains how environments provide the runtime context (repo, image, startup commands) for agent tasks.
-* [Oz Agent API and SDK](https://docs.warp.dev/reference/api-and-sdk) — documents the REST API for creating, querying, and monitoring agent tasks programmatically.
+* [Oz API and SDK](https://docs.warp.dev/reference/api-and-sdk) — documents the REST API for creating, querying, and monitoring agent tasks programmatically.
 * [Agent Secrets](secrets.md) — covers how to store, scope, and inject credentials into agent runs safely.
 * [MCP Servers](mcp.md) — how to configure MCP servers for agent tool access and how MCP configuration is applied across runs.
 * [Deployment Patterns](deployment-patterns.md) (beta) — compares common ways to deploy cloud agents and when to use each.

@@ -36,7 +36,7 @@ Individual users can run cloud agents via the CLI or API without being part of a
 
 **How it works:**
 
-* Run agents using `oz agent run-cloud` or the Oz Agent API
+* Run agents using `oz agent run-cloud` or the Oz API
 * Credits are drawn from your normal Warp credits, Cloud Agent Credits (if available), or Build plan credits
 * Agents execute on Warp-hosted infrastructure
 

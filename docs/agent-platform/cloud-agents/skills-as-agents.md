@@ -45,7 +45,7 @@ For cloud agent runs (`oz agent run-cloud`), skills are discovered from reposito
 3. **The skill appears** in the Agents list in the Oz web app
 
 {% hint style="info" %}
-You can also list available skills programmatically using the `GET /agent` endpoint. See the [Oz Agent API](https://docs.warp.dev/reference/api-and-sdk) reference for details.
+You can also list available skills programmatically using the `GET /agent` endpoint. See the [Oz API](https://docs.warp.dev/reference/api-and-sdk) reference for details.
 {% endhint %}
 
 ***
@@ -140,4 +140,4 @@ Suggested skills appear on the Agents page under the **Suggested** filter.
 * [Scheduled Agents](triggers/scheduled-agents.md) — Run agents automatically on a cron schedule
 * [Oz Web App](oz-web-app.md) — Visual interface for managing cloud agents
 * [Oz CLI](https://docs.warp.dev/reference/cli) — Command-line interface for running agents
-* [Oz Agent API & SDK](https://docs.warp.dev/reference/api-and-sdk) — Programmatic access to cloud agents
+* [Oz API & SDK](https://docs.warp.dev/reference/api-and-sdk) — Programmatic access to cloud agents

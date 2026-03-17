@@ -131,7 +131,7 @@ Environments are recommended when:
 
 ***
 
-### Oz Agent API and SDK
+### Oz API and SDK
 
 The Oz [Agent API](https://docs.warp.dev/reference/api-and-sdk/agent) is the HTTP interface to the Oz Platform. It lets you create and inspect cloud agent tasks from any system (CI, cron, backend services, internal tools), without requiring the Warp desktop app.
 
@@ -143,7 +143,7 @@ The Oz [Agent API](https://docs.warp.dev/reference/api-and-sdk/agent) is the HTT
 
 **Oz Agent SDKs**
 
-Oz provides official [Python](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript SDKs](https://github.com/warpdotdev/oz-sdk-typescript) that wrap the Oz Agent API with:
+Oz provides official [Python](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript SDKs](https://github.com/warpdotdev/oz-sdk-typescript) that wrap the Oz API with:
 
 * Typed requests/responses (autocomplete, fewer schema mistakes)
 * Built-in retries and timeouts (with per-request overrides)

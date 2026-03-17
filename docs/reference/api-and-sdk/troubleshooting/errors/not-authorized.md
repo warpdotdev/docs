@@ -56,4 +56,4 @@ This error is returned when:
 ## Related
 
 * [Access, Billing, and Identity](https://docs.warp.dev/agent-platform/cloud-agents/team-access-billing-and-identity) — Permission model and identity
-* [Oz Agent API & SDK](https://docs.warp.dev/reference/api-and-sdk/agent) — API authentication and authorization
+* [Oz API & SDK](https://docs.warp.dev/reference/api-and-sdk/agent) — API authentication and authorization

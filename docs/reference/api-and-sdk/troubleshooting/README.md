@@ -1,6 +1,6 @@
 ---
 description: >-
-  Troubleshooting resources for the Oz Agent API and SDK, including a full
+  Troubleshooting resources for the Oz API and SDK, including a full
   reference for all platform error codes.
 ---
 

@@ -21,6 +21,6 @@ The [Oz CLI](cli/README.md) lets you run and configure agents from any environme
 
 ## API & SDK
 
-The [Oz Agent API](https://docs.warp.dev/reference/api-and-sdk/agent) lets you create and monitor cloud agent runs over HTTP. Official SDKs for [Python](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript](https://github.com/warpdotdev/oz-sdk-typescript) provide typed clients with built-in retries and error handling.
+The [Oz API](https://docs.warp.dev/reference/api-and-sdk/agent) lets you create and monitor cloud agent runs over HTTP. Official SDKs for [Python](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript](https://github.com/warpdotdev/oz-sdk-typescript) provide typed clients with built-in retries and error handling.
 
 - [Demo: Sentry monitoring with SDK](api-and-sdk/demo-sentry-monitoring-with-sdk.md) - example integration
