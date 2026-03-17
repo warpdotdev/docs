@@ -1,0 +1,54 @@
+---
+description: >-
+  Schedule an Oz cloud agent to run recurring tasks automatically —
+  issue triage, dependency checks, code cleanup, and more.
+---
+
+# Scheduled Agents Quickstart
+
+Scheduled agents are Oz cloud agents that run on a recurring cron schedule, handling recurring tasks automatically without manual triggers. This guide walks you through setting up an agent that triages your GitHub bug reports every week, checks whether each issue has enough detail to investigate, and posts follow-up comments when information is missing. You'll use a prebundled skill and the Oz web app; no CLI or custom code required.
+
+***
+
+## Prerequisites
+
+* **A Warp account on an eligible plan** - Build, Max, or Business, with credits available. See [Access, Billing, and Identity](../team-access-billing-and-identity.md).
+* **An Oz cloud environment** - Agents run inside a configured environment that includes repos and other dependencies. If you don't have one, follow the [Cloud Agents Quickstart](../quickstart.md) to create one first.
+
+***
+
+## 1. Set up a scheduled agent
+
+1. From the [Schedules page](https://oz.warp.dev/schedules) in the Oz web app, click **New schedule**.
+2. Enter a name, e.g. `Weekly bug report triage`.
+3. Under **Agent**, select **github-bug-report-triage** from the suggested skills.
+4. Choose your environment.
+5. Under **Frequency**, choose a preset or enter a custom cron expression (e.g., `0 9 * * 1` for every Monday at 9 AM).
+6. Click **Create schedule**.
+
+**Breaking it down:** The schedule lives in Oz's cloud infrastructure. Unlike a local cron job, it fires even when your machine is off. Each run starts a fresh, isolated session with no state carried over from previous executions, and every run is tracked and auditable in the [Oz web app](../oz-web-app.md).
+
+***
+
+## 2. Watch your first run
+
+To verify your setup without waiting for the schedule to fire, trigger a test run now:
+
+1. From the [Schedules page](https://oz.warp.dev/schedules) in the Oz web app, click the schedule you just created.
+2. Click ⋮ and select **Run now**, then click **Run** to confirm.
+
+Your test run will appear under **All** on the [Runs page](https://oz.warp.dev/runs). Once the schedule fires on its cron, those runs will appear under **Recurring**.
+
+Runs are also accessible from the conversation panel view in the Warp app and on mobile via the Oz web app.
+
+{% hint style="info" %}
+**Prefer the CLI?** See [Scheduled Agents](scheduled-agents.md) for `oz schedule create`, `oz schedule list`, and full schedule management commands. To use a custom skill instead of a prebundled one, see [Skills as Agents](../skills-as-agents.md).
+{% endhint %}
+
+***
+
+## Next steps
+
+* **Trigger agents from your tools** - Connect Oz to Slack or Linear to trigger agents from mentions or issue updates. See [Integrations Quickstart](../integrations/quickstart.md).
+* **Manage and refine your schedule** - Change the frequency, swap skills, or pause and resume the schedule. See [Scheduled Agents](scheduled-agents.md) for the full reference.
+* **Share with your team** - Schedules and environments are shared across your Warp team, so everyone benefits automatically.

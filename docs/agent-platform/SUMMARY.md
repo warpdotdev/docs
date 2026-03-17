@@ -49,6 +49,7 @@
 * [Quick Start](cloud-agents/quickstart.md)
 * [Oz Platform](cloud-agents/platform.md)
 * [Triggers](cloud-agents/triggers/README.md)
+  * [Scheduled agents quickstart](cloud-agents/triggers/scheduled-agents-quickstart.md)
   * [Scheduled Agents](cloud-agents/triggers/scheduled-agents.md)
 * [Integrations](cloud-agents/integrations/README.md)
   * [Integrations Quickstart](cloud-agents/integrations/quickstart.md)

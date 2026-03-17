@@ -88,7 +88,7 @@ oz schedule create \
 * `--file <PATH>` — load schedule configuration from a YAML or JSON file.
 
 {% hint style="info" %}
-Currently, environments are never required - if you don't specify one, the scheduled agent runs in a barebones sandbox.
+Environments are optional — if you don't specify one, the scheduled agent runs in a barebones sandbox. Without an environment, the agent won't have access to your code repositories, pre-installed tools, or setup commands, so this is only suited for tasks that don't need your codebase.
 {% endhint %}
 
 **Example**
