@@ -7,15 +7,13 @@ description: >-
 
 # GitHub Actions
 
-Warp's GitHub Actions integration lets you run Oz agents directly inside your CI workflows. Using the `oz-agent-action` GitHub Action, you can delegate tasks such as code review, issue triage, bug fixing, or automated maintenance to the agent as part of a standard Actions pipeline.
-
-The agent runs inside your workflow, uses your repository context, and can open pull requests or comment on issues using your GitHub permissions.
+Run Oz agents directly in your GitHub Actions workflows using `oz-agent-action`. The agent integrates seamlessly into your CI pipeline, automating tasks like code review, issue triage, bug fixing, and maintenance using your repository context and GitHub permissions. This page covers how the integration works, how to set it up, and common automation patterns for development teams.
 
 {% hint style="info" %}
-For more detailed setup instructions, please refer to the [Oz Agent Action](https://github.com/warpdotdev/oz-agent-action) repo.
+**Getting started?** See the [GitHub Actions quickstart](quickstart-github-actions.md) to set up your first workflow, or visit the [oz-agent-action repository](https://github.com/warpdotdev/oz-agent-action) for detailed setup instructions and ready-to-use workflow templates.
 {% endhint %}
 
-This page explains what the integration does, how to use it in workflows, and common patterns for automating development tasks with Warp.
+Watch this demo to see the integration in action:
 
 {% embed url="https://www.loom.com/share/534f88b6a98e43ca9769ca09de6424b5" %}
 
@@ -44,89 +42,11 @@ The `oz-agent-action` is a GitHub Action that wraps the Oz CLI and:
 
 To use Oz agents in GitHub Actions, you need:
 
-* A [**Warp API Key**](https://docs.warp.dev/reference/cli/cli#generating-api-keys) stored as a [GitHub secret](https://docs.github.com/en/actions/concepts/security/secrets)
-* A workflow with permissions that match your intended actions (for example, write access to PRs if the agent should commit or comment)
+* A [**Warp API Key**](https://docs.warp.dev/reference/cli/cli#generating-api-keys) stored as a [GitHub secret](https://docs.github.com/en/actions/concepts/security/secrets) — this authenticates the agent with Warp
+* Workflow permissions that match your intended actions (for example, `pull-requests: write` if the agent should commit or comment on PRs) — the agent performs actions on your behalf using the GitHub token available to the workflow
 * The `oz-agent-action` step added to your workflow
 * **For private repositories using `@oz-agent` mention workflows**: The [`oz-agent`](https://github.com/oz-agent) GitHub user must be [invited as a member](https://docs.github.com/en/organizations/managing-membership-in-your-organization/inviting-users-to-join-your-organization) of your GitHub organization (see [Responding to comments with @ mentions](#1-responding-to-comments-with--mentions) for details)
 * Familiarity with GitHub Actions concepts — see the official docs for [GitHub Actions](https://docs.github.com/en/actions)
-
-The agent runs using your GitHub account’s permissions for the workflow run.
-
-### Quick start
-
-_For detailed setup instructions, please refer to the_ [_Oz Agent Action_](https://github.com/warpdotdev/oz-agent-action) _repo._
-
-To run agents from GitHub Actions, **you must store your Warp API Key as a GitHub Actions secret**. This allows your workflow to authenticate with Warp securely.
-
-#### Add your Warp API Key to GitHub Secrets
-
-1. Go to your repository on GitHub.
-2. Navigate to: `Settings > Secrets and variables > Actions`.
-3. Click **New repository secret**.
-4. Set the secret name to `WARP_API_KEY`.
-5. Paste your Warp API Key into the **Secret** field.
-6. Click **Add secret**.
-
-<figure><img src="../../.gitbook/assets/actions-add-a-secret.png" alt=""><figcaption></figcaption></figure>
-
-#### Add the Oz Agent Action to your workflow
-
-Once your `WARP_API_KEY` secret is set, add a step to your workflow:
-
-```yaml
-- name: Review code changes in Oz
-  uses: warpdotdev/oz-agent-action@v1
-  with:
-    prompt: |
-      Review the code changes on this branch:
-      1. Use the `git` command to identify changes from the base branch.
-      2. Analyze the diff for style, security, or correctness issues.
-      3. If you have suggestions, use the `gh` command to comment on the PR.
-    warp_api_key: ${{ secrets.WARP_API_KEY }}
-```
-
-The agent will run inside your workflow and return its output to subsequent steps.
-
-#### Working with agent output
-
-The action sets the following output:
-
-```
-steps.<step_id>.outputs.agent_output
-```
-
-Use `output_format: json` for structured, machine-readable results:
-
-```yaml
-with:
-  output_format: json
-```
-
-This allows downstream steps to branch, format messages, or post results programmatically.
-
-{% hint style="info" %}
-Because the agent is fully prompt-driven, you can insert it anywhere in a GitHub Actions workflow, pass in files or event context, and control whether the output is human-readable comments or structured JSON for downstream automation.
-{% endhint %}
-
-#### Debugging and session sharing
-
-For debugging workflows, you can enable session sharing so teammates can open a live interactive agent session:
-
-```yaml
-with:
-  share: true
-```
-
-This posts a [cloud agent session sharing link](../viewing-cloud-agent-runs.md) to the job logs. Anyone with the link can inspect the agent's execution directly.
-
-The session sharing option also accepts multi-line configuration for the recipients of the share link.
-
-```
-with:
-  share:
-    | jane@example.com
-    | john@example.com
-```
 
 ### Using Skills
 

@@ -15,7 +15,7 @@ If not, see [Installing the CLI](README.md#installing-the-cli) for installation 
 
 ## 2. Authenticate
 
-For local development and first-time setup, authenticate interactively using the `oz login` command. Use the appropriate command name based on your installation method. For command names, refer to the table in [Running the CLI](README.md#running-the-cli).
+For local development and first-time setup, authenticate interactively using the `oz login` command.
 
 **For example, on macOS:**
 
@@ -26,6 +26,16 @@ oz login
 This command prints a sign-in URL in your terminal. Open the URL in your browser to login to Warp. Your credentials will be stored securely for future CLI use.
 
 Interactive login works on both **local** and **remote** machines, and does not require API keys.
+
+{% hint style="info" %}
+**Running in CI or a headless environment?** Use an API key instead of `oz login`. Export it before running any `oz` command:
+
+```sh
+export WARP_API_KEY="wk-..."
+```
+
+In the Warp app, create an API key in **Settings** > **Platform**. See [API Keys](api-keys.md) for guidance on personal vs. team keys and security best practices.
+{% endhint %}
 
 ## 3. Run an agent
 
@@ -43,7 +53,19 @@ What happens:
 * The session is tracked on Warp's backend for observability and collaboration.
 * The agent autonomously executes commands and streams output to your terminal.
 
-## 4. Add MCP context (optional)
+## 4. Run a cloud agent (optional)
+
+Cloud agents run in a remote environment with your repositories cloned and dependencies installed, making them useful for tasks that need full codebase access.
+
+If you haven't already created an environment, run `/create-environment` in Warp or follow the [Cloud Agents Quickstart](https://docs.warp.dev/agent-platform/cloud-agents/quickstart). Then run the following command:
+
+```sh
+oz agent run-cloud --environment <ENV_ID> --prompt "Scan this repo for outdated dependencies"
+```
+
+Replace `<ENV_ID>` with your environment ID, which you can find by running `oz environment list` on the Oz CLI.
+
+## 5. Add MCP context (optional)
 
 You can connect MCP servers to give the agent access to external tools like GitHub or Linear. Pass MCP configuration inline or from a file using the `--mcp` flag:
 
@@ -53,18 +75,15 @@ oz agent run --mcp '{"github": {"url": "https://api.githubcopilot.com/mcp/"}}' -
 
 See [MCP Servers](mcp-servers.md) for all supported formats, including UUID references and multi-server configurations.
 
-## 5. Next steps
+## Next steps
 
-Once you've successfully set up and ran your agent, explore other configurations and workflows with the Oz CLI:
+Once you've successfully set up and run your agent, explore other configurations and workflows with the Oz CLI:
 
 * Customize behavior with [agent profiles](agent-profiles.md).
 * [Reuse prompts](warp-drive.md) with `--saved-prompt`.
 * Connect agents to external systems using [MCP Servers](mcp-servers.md).
 * Authenticate with [API keys](api-keys.md) for automated environments or workflows.
 * Get up-to-date information about the Oz CLI using the [`oz help` command](troubleshooting.md#getting-help).
-
-{% hint style="info" %}
-**Ready for cloud agents?** This quickstart is focused on local runs. For automated workflows with consistent environments, scheduled tasks, and integrations, see the [Cloud Agents Quick Start](https://docs.warp.dev/agent-platform/cloud-agents/quickstart).
-{% endhint %}
+* Run agents in CI with the [GitHub Actions quickstart](https://docs.warp.dev/agent-platform/cloud-agents/integrations/quickstart-github-actions).
 
 Continue reading the [Oz CLI reference](README.md) to learn how to install the CLI on different platforms, authenticate in different environments, and configure agents for real-world workflows.

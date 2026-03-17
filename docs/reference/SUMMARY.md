@@ -5,7 +5,7 @@
 ## CLI
 
 * [Oz CLI](cli/README.md)
-* [Quick Start](cli/quickstart.md)
+* [Quickstart](cli/quickstart.md)
 * [API Keys](cli/api-keys.md)
 * [Agent Profiles](cli/agent-profiles.md)
 * [MCP Servers](cli/mcp-servers.md)

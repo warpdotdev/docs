@@ -127,15 +127,7 @@ After installation, see [Bundled with Warp](#bundled-with-warp) for instructions
 
 ## Running the CLI
 
-The command to run the Oz CLI depends on your OS, whether you installed the CLI as part of Warp or as a standalone package, and whether you're using the stable build or [Warp Preview](https://docs.warp.dev/support-and-community/community/warp-preview-and-alpha-program).
-
-| OS      | Installation Method | CLI Command | CLI Command (Preview) |
-| ------- | ------------------- | ----------- | --------------------- |
-| macOS   | Standalone          | `oz`        | `oz-preview`          |
-| macOS   | Bundled             | `oz`        | `oz-preview`          |
-| Linux   | Standalone          | `oz`        | `oz-preview`          |
-| Linux   | Bundled             | `oz`        | `oz-preview`          |
-| Windows | Bundled             | `oz`        | `oz-preview`          |
+Regardless of your OS or installation method, the CLI command is `oz`. If you're using [Warp Preview](https://docs.warp.dev/support-and-community/community/warp-preview-and-alpha-program), use `oz-preview` instead.
 
 ## Logging in
 
@@ -155,8 +147,6 @@ To authenticate interactively:
 ```bash
 oz login
 ```
-
-Replace `oz` with the appropriate command name for your installation method according to the table in [Running the CLI](./#running-the-cli).
 
 The CLI prints out a URL that you can open in any browser to login to Warp.
 

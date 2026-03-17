@@ -54,6 +54,7 @@
   * [Slack](cloud-agents/integrations/slack.md)
   * [Linear](cloud-agents/integrations/linear.md)
   * [GitHub Actions](cloud-agents/integrations/github-actions.md)
+    * [GitHub Actions Quickstart](cloud-agents/integrations/quickstart-github-actions.md)
   * [GitLab](cloud-agents/integrations/gitlab.md)
   * [Bitbucket](cloud-agents/integrations/bitbucket.md)
   * [Demo: Issue Triage Bot](cloud-agents/integrations/demo-issue-triage-bot.md)
