@@ -25,6 +25,12 @@ metaLinks: {}
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2026.03.11 (v0.2026.03.04.08.20.)
+
+**Bug fixes**
+
+* The terminal input now automatically detects references to Figma and encourages the use of the Figma MCP. Images exported from Figma are also detected.
+
 ### 2026.03.05 (v0.2026.03.04.08.20)
 
 **New features**
