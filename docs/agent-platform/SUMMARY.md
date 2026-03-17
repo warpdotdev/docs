@@ -51,6 +51,7 @@
 * [Triggers](cloud-agents/triggers/README.md)
   * [Scheduled Agents](cloud-agents/triggers/scheduled-agents.md)
 * [Integrations](cloud-agents/integrations/README.md)
+  * [Integrations Quickstart](cloud-agents/integrations/quickstart.md)
   * [Slack](cloud-agents/integrations/slack.md)
   * [Linear](cloud-agents/integrations/linear.md)
   * [GitHub Actions](cloud-agents/integrations/github-actions.md)
