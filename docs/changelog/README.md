@@ -25,7 +25,7 @@ metaLinks: {}
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
-### 2026.03.11 (v0.2026.03.04.08.20.)
+### 2026.03.11 (v0.2026.03.04.08.20)
 
 **Bug fixes**
 
