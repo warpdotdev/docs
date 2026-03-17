@@ -179,9 +179,9 @@ If you have any questions or feedback, please connect with us in our [community 
 
 ### What payment options are available for Warp's self-service plans?
 
-Warp processes payments through Stripe. We currently accept credit or debit cards and US bank accounts.
+Warp processes payments through Stripe. We currently accept credit or debit cards and US bank accounts via ACH (typically involves a 3-10 business day delay).
 
-At this time, we do not support ACH transfers, checks, cash, money orders, or cryptocurrency.
+At this time, we do not support checks, cash, money orders, or cryptocurrency.
 
 ### How do I cancel my subscription?
 
