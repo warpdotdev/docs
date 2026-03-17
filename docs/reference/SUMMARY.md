@@ -5,7 +5,7 @@
 ## CLI
 
 * [Oz CLI](cli/README.md)
-* [Quickstart](cli/quickstart.md)
+* [CLI Quickstart](cli/quickstart.md "Quickstart")
 * [API Keys](cli/api-keys.md)
 * [Agent Profiles](cli/agent-profiles.md)
 * [MCP Servers](cli/mcp-servers.md)
@@ -17,7 +17,7 @@
 ## API & SDK
 
 * [Oz API & SDK](api-and-sdk/README.md)
-* [API & SDK Quickstart](api-and-sdk/quickstart.md)
+* [API & SDK Quickstart](api-and-sdk/quickstart.md "Quickstart")
 * ```yaml
   props:
     models: true
