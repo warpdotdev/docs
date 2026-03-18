@@ -34,36 +34,6 @@ Agent modality separates your terminal and agent workflows into distinct modes:
 
 ***
 
-## Recreating the Universal Input experience
-
-If you preferred the previous [Universal Input](https://docs.warp.dev/warp/terminal/input/universal-input) experience — where you could type natural language at any point in a terminal session and have it automatically routed to an agent — you can recreate that workflow using the "default mode for new sessions" setting.
-
-<figure><img src="../../.gitbook/assets/recreate-universal-input.gif" alt="Using Agent as your default for new tab sessions"><figcaption><p>Using Agent as your default for new tab sessions</p></figcaption></figure>
-
-### Step 1 — Set new tabs to open in agent view
-
-By default, new tabs and panes open in terminal mode. To launch directly into an Oz agent conversation instead:
-
-1. Go to **Settings** > **Features** > **General**.
-2. Change **Default mode for new sessions** to **Agent**.
-
-### Step 2 — Enable auto-detection in Agent Mode
-
-With auto-detection enabled in agent view, Warp automatically detects whether your input is natural language or a shell command, routing it to the agent or running it in the terminal accordingly.
-
-Similar to the previous Universal Input experience, you can also use the "toggle input mode" keyboard shortcut to override auto-detection and force either "shell" or "agent" mode.
-
-1. Go to **Settings** > **AI** > **Input**.
-2. Toggle on **Autodetect terminal commands in agent input**.
-
-As with Universal Input, you can also press `⌘I` (macOS) or `Ctrl+I` (Windows/Linux) to manually toggle between shell and agent mode at any time, overriding auto-detection.
-
-{% hint style="info" %}
-Auto-detection is enabled by default for new Warp users.
-{% endhint %}
-
-***
-
 ## Two distinct modes
 
 ### Terminal mode (default)
@@ -319,6 +289,36 @@ Use `/fork from` to choose exactly where in the conversation you want to branch 
 This is helpful when you want to go back to an earlier point and try a different approach.
 
 For more forking methods and use cases, see [Conversation Forking](conversation-forking.md).
+
+***
+
+## Recreating the Universal Input experience
+
+If you preferred the previous [Universal Input](https://docs.warp.dev/warp/terminal/input/universal-input) experience — where you could type natural language at any point in a terminal session and have it automatically routed to an agent — you can recreate that workflow using the "default mode for new sessions" setting.
+
+<figure><img src="../../.gitbook/assets/recreate-universal-input.gif" alt="Using Agent as your default for new tab sessions"><figcaption><p>Using Agent as your default for new tab sessions</p></figcaption></figure>
+
+### Step 1 — Set new tabs to open in agent view
+
+By default, new tabs and panes open in terminal mode. To launch directly into an Oz agent conversation instead:
+
+1. Go to **Settings** > **Features** > **General**.
+2. Change **Default mode for new sessions** to **Agent**.
+
+### Step 2 — Enable auto-detection in Agent Mode
+
+With auto-detection enabled in agent view, Warp automatically detects whether your input is natural language or a shell command, routing it to the agent or running it in the terminal accordingly.
+
+Similar to the previous Universal Input experience, you can also use the "toggle input mode" keyboard shortcut to override auto-detection and force either "shell" or "agent" mode.
+
+1. Go to **Settings** > **AI** > **Input**.
+2. Toggle on **Autodetect terminal commands in agent input**.
+
+As with Universal Input, you can also press `⌘I` (macOS) or `Ctrl+I` (Windows/Linux) to manually toggle between shell and agent mode at any time, overriding auto-detection.
+
+{% hint style="info" %}
+Auto-detection is enabled by default for new Warp users.
+{% endhint %}
 
 ***
 
