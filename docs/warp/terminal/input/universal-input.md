@@ -11,6 +11,8 @@ description: >-
 **This is legacy documentation.** Universal Input has been replaced by [Agent Modality](https://docs.warp.dev/agent-platform/local-agents/interacting-with-agents/agent-modality), which provides a cleaner terminal experience with a dedicated conversation view for agent interactions.
 {% endhint %}
 
+For a guide on recreating this experience using the current Agent Modality, see [Recreating the Universal Input experience](https://docs.warp.dev/agent-platform/local-agents/interacting-with-agents/agent-modality#recreating-the-universal-input-experience).
+
 The **Universal Input** was the main input interface for using Warp.
 
 <figure><img src="../../.gitbook/assets/universal-input-header.png" alt=""><figcaption><p>The Universal Input with an Agent prompt and multiple contextual chips active.</p></figcaption></figure>
