@@ -183,6 +183,11 @@ Warp uses Stripe as our payments processor and currently accept the following pa
 
 We don't support ACH, checks, PayPal, cryptocurrency, or other alternative payment methods at this time.
 
+{% hint style="info" %}
+To checkout with Apple Pay, use the Safari browser on an Apple device.\
+To checkout with Google Pay, use Chrome, make sure you're logged into your Google Wallet account in the browser, and that "Save and fill payment methods" is enabled in the browser settings.
+{% endhint %}
+
 ### How do I cancel my subscription?
 
 You can cancel at any point throughout your subscription through the billing portal by going to **Settings** > **Billing and usage** > **Manage billing**. Cancelled subscriptions will remain active until the end of the billing cycle.
