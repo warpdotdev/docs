@@ -88,7 +88,7 @@ Reference the documentation for your external secret manager. Then, write a cust
 Your custom command should return the exact string you want loaded into your environment. Please make sure that you are selecting the exact field you want loaded as many secret manager CLIs provide additional formatting by default.
 {% endhint %}
 
-For example, you can write a command using the [Hashicorp Vault CLI](https://developer.hashicorp.com/vault/docs/commands) to retrieve and load the password field for the staging server. When using secret commands, Warp stores the command but never the actual secrets. The secrets will be referenced and loaded into a terminal session at runtime.
+For example, you can write a command using the [Hashicorp Vault CLI](https://developer.hashicorp.com/vault/docs/commands) to retrieve and load the password field for the staging server. When using secret commands, Warp stores the command but never the actual secrets. The secrets are referenced and loaded into a terminal session at runtime.
 
 ```
 // vault kv get -field=password secret/staging/app/server/creds

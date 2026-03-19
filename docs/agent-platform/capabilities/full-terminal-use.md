@@ -148,8 +148,8 @@ Each time the agent wants to take an action inside an interactive shell, you’l
 
 This lets you tighten or loosen control for the current task:
 
-* For exploratory work, you might Always allow to reduce friction.
-* For production systems or sensitive operations, you might Allow once and review each step.
+* For exploratory work, use **Always allow** to reduce friction.
+* For production systems or sensitive operations, use **Allow once** and review each step.
 
 #### Global permission settings
 

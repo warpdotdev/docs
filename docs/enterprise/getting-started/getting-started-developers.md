@@ -156,7 +156,7 @@ Warp Drive is your workspace for saving and sharing Workflows, Notebooks, Prompt
 **Accessing Warp Drive:**
 
 1. Click the tools panel icon in the top left of Warp.
-2. Click the Warp drive icon from the top of the tools panel.
+2. Click the Warp Drive icon from the top of the tools panel.
 3. Two Warp Drive sections display:
    * **Team** (top) - Resources shared across your team.
    * **Personal** (bottom) - Your individual resources.
@@ -180,7 +180,7 @@ Warp Drive is your workspace for saving and sharing Workflows, Notebooks, Prompt
 
 **Using team resources:**
 
-Your team admin may have already created shared resources. Explore the Team section of Warp Drive to see what's available—you might find onboarding notebooks, deployment workflows, or coding standards rules.
+Your team admin may have already created shared resources. Explore the Team section of Warp Drive to see what's available—including onboarding notebooks, deployment workflows, and coding standards rules.
 
 ### MCP (Model Context Protocol)
 

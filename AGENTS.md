@@ -109,13 +109,14 @@ Keyboard keys and shortcuts use backticks:
 
 ### Menu paths
 - Bold each UI element in a menu path; leave the > separator plain: **Settings** > **AI** > **Knowledge**
-- For macOS menu paths, begin the path with the Apple icon (, Unicode `U+F8FF`).
+- For macOS menu paths, begin the path with the Apple icon (, Unicode `U+F8FF`).
+  - **IMPORTANT — preserving the Apple icon**: The `U+F8FF` character is in Unicode's Private Use Area. It renders as the Apple logo only on Apple devices and is **invisible in most editors, terminals, and AI contexts**. It is frequently stripped during edits. When editing any line with a macOS menu path, always verify this character (UTF-8 bytes `EF A3 BF`) is present before the first `>`. If it has been stripped, re-insert it with: `printf '\xEF\xA3\xBF'`
 - When referencing a menu path, CLI command, or URL for the first time on a page, orient the reader by identifying the application, website, or tool. Don't assume the reader knows which surface you mean.
 - For URLs, name the surface even though the link provides the destination — not all readers will recognize what the URL points to.
 
 **Use:**
 - ✅ **Settings** > **AI** > **Knowledge**
-- ✅  > **System Settings** > **Privacy & Security** > **Local Network**
+- ✅   > **System Settings** > **Privacy & Security** > **Local Network**
 - ✅ In the Warp app, go to **Settings** > **Platform**.
 - ✅ In the Oz web app (oz.warp.dev), click **Schedules**.
 - ✅ Navigate to the Oz web app at oz.warp.dev/schedules and click **New Schedule**.
@@ -128,6 +129,7 @@ Keyboard keys and shortcuts use backticks:
 - ❌ Go to **Settings** > **Platform**. (which app? orient the reader first)
 - ❌ Go to oz.warp.dev/schedules and click **New Schedule**. (name the surface before the URL)
 - ❌ Find it with `oz environment list`. (what CLI? orient the reader first)
+- ❌ **System Settings** > **Privacy & Security** > **Local Network** (macOS path missing the Apple icon — `U+F8FF` must appear before the first `>`)
 
 ### UI elements
 - Use bold for interactive UI elements (e.g., buttons, toggles, dropdowns)

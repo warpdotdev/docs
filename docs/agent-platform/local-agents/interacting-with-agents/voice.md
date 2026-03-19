@@ -22,8 +22,8 @@ Voice Demo
 
 First-time users will need to grant microphone permissions:
 
-* On macOS: Accept the system permission prompt or allow Warp microphone access in `System Settings > Privacy & Security > Microphone`
-* On Windows: Allow Warp microphone access in `Settings > Privacy & Security > Microphone`
+* On macOS: Accept the system permission prompt or allow Warp microphone access in  > **System Settings** > **Privacy & Security** > **Microphone**
+* On Windows: Allow Warp microphone access in **Settings** > **Privacy & Security** > **Microphone**
 * On Linux: Configure through system sound settings
 
 ### Using voice
@@ -60,9 +60,9 @@ There are two ways to activate Voice:
 
 ### Sample use cases
 
-Voice input makes complex interactions with Agent Mode more natural and efficient. Instead of typing lengthy queries, you can speak naturally to accomplish various tasks. For example, you might ask "Create a new Node.js project, install Express and MongoDB, then set up a basic server with a health check endpoint," or "What's the difference between chmod and chown? Give me examples of when to use each one."
+Voice input makes complex interactions with Agent Mode more natural and efficient. Instead of typing lengthy queries, you can speak naturally to accomplish various tasks. For example, you can say "Create a new Node.js project, install Express and MongoDB, then set up a basic server with a health check endpoint," or "What's the difference between chmod and chown? Give me examples of when to use each one."
 
-You can also describe multi-step system tasks like "Find all log files in my project that contain errors from the last 24 hours, create a summary of the errors, and email it to me." Agent Mode will help break down these requests into the necessary commands and provide detailed explanations.
+You can also describe multi-step system tasks like "Find all log files in my project that contain errors from the last 24 hours, create a summary of the errors, and email it to me." Agent Mode breaks down these requests into the necessary commands and provides detailed explanations.
 
 Voice input is not limited to just Agent Mode - it works across all of Warp's input interfaces. Whether you're using the Find dialog to search through text, entering commands in the terminal, or working with other input editors, you can use voice commands to quickly input your text.
 

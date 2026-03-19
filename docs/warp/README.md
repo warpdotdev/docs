@@ -12,9 +12,9 @@ Warp is an **Agentic Development Environment**, a modern terminal combined with 
 
 ***
 
-## Warp Terminal
+## Warp
 
-Warp Terminal is where you work — a fast, modern terminal built for coding with agents.
+Warp is where you work — a fast, modern terminal built for coding with agents.
 
 **Key capabilities:**
 

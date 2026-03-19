@@ -98,7 +98,7 @@ This setting controls the default behavior when forking via the Command Palette,
 ### Using forked conversations <a href="#using-forked-conversations" id="using-forked-conversations"></a>
 
 * Once forked, you can continue prompting as if you were still in the original conversation. The original conversation remains unchanged, allowing you to reference or continue both in parallel.
-* For example, after forking you might ask _"Could you explain more?"_ and Warp will respond using the inherited context.
+* For example, after forking you can ask _"Could you explain more?"_ and Warp responds using the inherited context.
 
 **Forking is especially useful when:**
 

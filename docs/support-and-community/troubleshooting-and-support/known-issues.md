@@ -214,7 +214,7 @@ The following non-exhaustive list of plugins, prompts, or tools can cause potent
 **SSH to local network device is denied on macOS**
 
 On macOS, you may be [denied permission to SSH](https://github.com/warpdotdev/Warp/issues/5550) from Warp into other devices in your local network and see an error like: `ssh: connect to host <host_name> port 22: Undefined error: 0`.\
-To resolve this issue, go to ` > System Settings > Privacy & Security > Local Network`, and add Warp.
+To resolve this issue, go to  > **System Settings** > **Privacy & Security** > **Local Network** and add Warp.
 
 <figure><img src="../.gitbook/assets/mac-ssh-permission.png" alt=""><figcaption><p>Mac SSH permission error</p></figcaption></figure>
 
@@ -240,7 +240,7 @@ If you experience an error opening Warp, please try the following:
 
 In some cases, [CLI applications only work on x86](https://discord.com/channels/851854972600451112/1204829324847358002) so you can run Warp with Rosetta on macOS to be able to use them by doing the following.
 
-* Go to `Finder > Applications` and search for Warp.
+* Go to **Finder** > **Applications** and search for Warp.
 * Right-click and select Get Info.
 * Then check the box on Open with Rosetta.
 {% endtab %}
@@ -257,8 +257,8 @@ The following features are not supported in Warp on Windows. Please track the re
 We're tracking some issues on Windows where [Warp crashes on startup](https://github.com/warpdotdev/Warp/issues/5840) or doesn't render, with some possible workarounds below. If none of the workarounds help, please open a [new GitHub issue](https://github.com/warpdotdev/warp/issues/new/choose) and include [logs](../../#gathering-warp-logs), installation (Baremetal or VM, x86\_64 or ARM64), and the issue you had.
 
 * Graphics
-  * You can select the graphics backend used to render new Warp windows in the Settings menu, under `Features` > `System` > `Preferred graphics backend`.
-  * You can also opt to render new Warp windows with an integrated GPU, under `Features` > `System` > `Prefer rendering new windows with integrated GPU (low power)`.
+  * You can select the graphics backend used to render new Warp windows in the Settings menu, under **Features** > **System** > **Preferred graphics backend**.
+  * You can also opt to render new Warp windows with an integrated GPU, under **Features** > **System** > **Prefer rendering new windows with integrated GPU (low power)**.
 
 **Crash on opening a Launch configuration or doesn't become transparent on Windows**
 
