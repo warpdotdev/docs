@@ -60,7 +60,7 @@ During an Agent conversation, you can view all changed files in the toolbelt chi
 
 In any Git-tracked repository, you can open the Code Review panel by clicking the `Code review` button in the top-right corner of Warp, next to your avatar.
 
-#### Viewing All Edited Files
+#### Viewing all edited files
 
 Inside the Code Review panel, you can open the file sidebar to browse all changed files in your repository. Clicking on a file will automatically scroll to that file in the panel.
 

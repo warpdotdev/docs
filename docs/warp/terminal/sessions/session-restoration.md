@@ -25,7 +25,7 @@ On Linux, opening windows at a specific position is not supported in Wayland.
 Toggling off Session Restoration will not clear the [SQLite database](session-restoration.md#session-restoration-database); however, Warp will stop recording new output.
 {% endhint %}
 
-## How Session Restoration works
+## How session restoration works
 
 ![Session Restoration Demo](../../.gitbook/assets/sessions-block_restoration.gif)
 

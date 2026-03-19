@@ -41,11 +41,11 @@ description: >-
 You can quickly find all the **pane** shortcuts by using the [Command Palette](../command-palette.md). You can also remap the shortcuts to your liking. See [Custom Keyboard Shortcuts](../../getting-started/keyboard-shortcuts.md#custom-keyboard-shortcuts) for more details.
 {% endhint %}
 
-### CTRL-TAB Behaviour
+### CTRL-TAB behavior
 
 `CTRL-TAB` shortcut defaults to activate the previous / next [Tabs](tabs.md). You can configure the shortcut to cycle the most recent session, including any Split Panes, in **Settings** > **Features** > **Keys** > **Ctrl-Tab behavior**
 
-## How Split Panes work
+## How split panes work
 
 {% embed url="https://www.loom.com/share/c1104b51cab848a9bef6792ec4fd8421?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" %}
 Split Panes Demo

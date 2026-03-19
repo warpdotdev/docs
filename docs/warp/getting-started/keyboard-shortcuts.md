@@ -6,9 +6,9 @@ description: Warps commonly used keyboard shortcuts.
 
 Warp opens with a shortcut screen showing some of the most commonly used keyboard shortcuts. Hide the shortcut screen by clicking the x button. Quickly view keyboard shortcuts via the [Command Palette](../terminal/command-palette.md) or the Resource Center keyboard shortcut sidebar.
 
-## Custom Keyboard Shortcuts
+## Custom keyboard shortcuts
 
-Set custom, clear, or default keyboard shortcuts by navigating to**Settings** > **Keyboard shortcuts**. Search through the re-mappable actions or existing shortcuts using the search bar.
+Set custom, clear, or default keyboard shortcuts by navigating to **Settings** > **Keyboard shortcuts**. Search through the re-mappable actions or existing shortcuts using the search bar.
 
 Remap the keyboard shortcuts using a file. See our [keysets repository](https://github.com/warpdotdev/keysets/tree/main) for instructions.
 
@@ -22,7 +22,7 @@ Keybinds that conflict with others are highlighted with an orange border.
 
 <figure><img src="../.gitbook/assets/keybinds-conflict.png" alt="keybinds that conflict with others are highlighted in orange"><figcaption><p>Keybind Conflict Example</p></figcaption></figure>
 
-## All Available Shortcuts
+## All available shortcuts
 
 {% tabs %}
 {% tab title="macOS" %}
@@ -40,7 +40,7 @@ Keybinds that conflict with others are highlighted with an orange border.
 | `CTRL-I`       | Warpify Subshell             | `terminal:trigger_subshell_bootstrap`          |
 | `CMD-\`        | Warp Drive                   | `terminal:toggle_warp_drive`                   |
 | `CMD-O`        | File search                  |                                                |
-| `CMD-P`        | Open command pallette        |                                                |
+| `CMD-P`        | Open command palette         |
 
 **Blocks**
 

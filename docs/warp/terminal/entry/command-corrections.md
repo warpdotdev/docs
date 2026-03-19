@@ -29,7 +29,7 @@ This feature was built on top of the open-source project [nvdn/thefuck](https://
 Command Corrections Demo
 {% endembed %}
 
-#### Command Correction Rules:
+#### Command correction rules:
 
 | Command                                                       |
 | ------------------------------------------------------------- |

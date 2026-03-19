@@ -37,7 +37,7 @@ Workflows solve some major pain points with aliases, specifically the:
 3. inability to easily search or share
 4. inability to easily parameterize
 
-## Creating Custom Workflows
+## Creating custom workflows
 
 ### How to create a workflow with YAML
 

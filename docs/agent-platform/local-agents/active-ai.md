@@ -46,9 +46,9 @@ Next Command is an LLM-based feature which utilizes your command history (enrich
 [Secret Redaction](https://docs.warp.dev/support-and-community/privacy-and-security/secret-redaction) is automatically applied to any content sent to Active AI features to prevent any sensitive data being leaked.
 {% endhint %}
 
-#### Accepting Next Commands
+#### Accepting Next Command suggestions
 
-Accept a Next Command Suggestion with `TAB` , `→` , or `CTRL-F` to add the suggested next command to your input buffer. `ENTER` executes the accepted command.
+Press `→` or `CTRL-F` to accept a Next Command suggestion into your input buffer, then press `ENTER` to execute it. You can change the accept keybinding (for example, to `TAB`) via the inline keybinding picker that appears next to the suggestion.
 
 #### Billing
 
@@ -74,6 +74,6 @@ You can also view additional details of the diff by pressing `CMD + E` (macOS) o
 
 Suggested Code Diffs do not count toward your AI request limits. There are maximum limits to the number of code diffs surfaced per month, which scales based on your plan tier. For the latest details on plan limits and pricing, please visit [warp.dev/pricing](https://warp.dev/pricing).
 
-## Active AI Privacy
+## Active AI privacy
 
 See our [Privacy Page](https://docs.warp.dev/support-and-community/privacy-and-security/privacy) for more information on how we handle data with Active AI.

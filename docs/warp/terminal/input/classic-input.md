@@ -7,7 +7,7 @@ description: >-
 
 # Classic Input
 
-## Classic Input Style
+## Classic input style
 
 Warp supports two input styles: **Shell (PS1)** and [Warp Input](./). Shell Input is closer to a traditional terminal experience, with support for shell customizations (e.g. Warp or PS1 prompt, same-line prompts, oh-my-zsh themes, and more).
 
@@ -80,7 +80,7 @@ The first time you enter Agent Mode, you will be served a banner with the option
 
 <figure><img src="../../.gitbook/assets/banner_for_auto-detection_first_experience.png" alt="Warp displays an option to toggle natural language detection on / off"><figcaption><p>Warp displays an option to toggle natural language detection on / off</p></figcaption></figure>
 
-### Input Hints
+### Input hints
 
 Warp input occasionally shows hints within the input editor in a light grey text that helps users learn about features. It's enabled by default.
 
@@ -108,7 +108,7 @@ Once you have typed your question or task in the input, press `ENTER` to execute
 
 Unlike a chat panel, Agent Mode can complete tasks for you by running commands directly in your session.
 
-#### Agent Mode Command Suggestions
+#### Agent Mode command suggestions
 
 If Agent Mode finds a suitable command that will accomplish your task, it will describe the command in the AI block. It will also fill your terminal input with the suggested command so you can press `ENTER` to run the command.
 
@@ -118,7 +118,7 @@ If the suggested command fails and you want to resolve the error, you may start 
 
 <figure><img src="../../.gitbook/assets/agent-mode-suggestion (1).png" alt="Agent Mode makes a suggestion to run a command."><figcaption><p>Agent Mode makes a suggestion to run a command.</p></figcaption></figure>
 
-#### Agent Mode Requested Commands
+#### Agent Mode requested commands
 
 If Agent Mode doesn't have enough context to assist with a task, it will ask permission to run a command and read the output of that command.
 

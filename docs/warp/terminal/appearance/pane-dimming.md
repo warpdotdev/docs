@@ -8,7 +8,7 @@ description: >-
 
 ## How to use it
 
-### Inactive Pane Dimming
+### Inactive pane dimming
 
 The panes that aren't active will be dimmed to better indicate which pane is active. To access it, go to **Settings** > **Appearance** > **Panes**
 
@@ -18,7 +18,7 @@ The panes that aren't active will be dimmed to better indicate which pane is act
 Split panes show a triangle indicator on the top left corner of the active pane.
 {% endhint %}
 
-### Mouse Focus
+### Mouse focus
 
 The pane with the mouse over it will become active. To access it, go to **Settings** > **Appearance** > **Panes**
 

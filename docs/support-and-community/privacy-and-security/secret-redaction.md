@@ -29,7 +29,7 @@ Clicking on a secret will display a tooltip that lets you reveal the secret or c
 
 Secret redaction regexes are case-sensitive by default (i.e. the regex `password` will not match the text `Password`). If you want a regex to be case-sensitive, you can prepend `(?i)` like so: `(?i)password` to ensure that `PASSWORD`, `Password`, and `password` would all match.
 
-## Secret Regex List
+## Secret regex list
 
 Here is a list of the recommended regular expressions that Warp uses to identify secrets:
 

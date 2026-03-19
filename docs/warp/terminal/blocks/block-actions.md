@@ -4,7 +4,7 @@ description: All the cool features Blocks provide.
 
 # Block Actions
 
-## Accessing Block Actions
+## Accessing block actions
 
 There are 2 ways you can access Block actions.
 
@@ -15,7 +15,7 @@ There are 2 ways you can access Block actions.
 Accessing Block Actions
 {% endembed %}
 
-## Copy Input / Output of Block
+## Copy input / output of block
 
 For command blocks, you can `RIGHT-CLICK` on a Block or click the context menu and copy the Block command, output, or both.
 
@@ -25,11 +25,11 @@ For AI blocks, you can `RIGHT-CLICK` to copy the prompt, output, both or the ent
 Copy Block Actions
 {% endembed %}
 
-## Sharing a Block
+## Sharing a block
 
 Share a block easily with coworkers or teammates by creating a web permalink. This preserves formatting and makes debugging and sharing output easy. [See Block Sharing Page.](block-sharing.md)
 
-## Bookmarking a Block
+## Bookmarking a block
 
 Quickly navigate to important Blocks despite where they are in the terminal history.
 
@@ -81,7 +81,7 @@ Bookmarks only persist while the session is open, once you close the session the
 
 <figure><img src="../../.gitbook/assets/block-bookmarks.gif" alt=""><figcaption><p>Bookmarking a Block</p></figcaption></figure>
 
-## Search Within A Block
+## Search within a block
 
 Quickly find important information within a Block. [See Find page](find.md)
 
@@ -103,7 +103,7 @@ With a Block selected, Press "Find Within Block" or use `CTRL-SHIFT-F` to search
 Search within a Block
 {% endembed %}
 
-## Filtering a Block
+## Filtering a block
 
 Filter the output lines of a block natively in Warp to quickly focus on a subset of the block. [See Block Filtering Page](block-filtering.md).
 

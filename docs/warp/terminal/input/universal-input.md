@@ -129,7 +129,7 @@ In Classic Input, you’ll also see a ✨ sparkles indicator inline.
 
 By default, entering Agent Mode starts you in _Pair Mode_, where you can continue an ongoing conversation by asking follow-up questions or assigning tasks. From here, you can ask the agent to build, debug, fix, or even deploy code as needed.
 
-### Exiting Agent or Terminal Modes
+### Exiting Agent or Terminal modes
 
 You can leave Agent or Terminal Modes in several ways:
 
@@ -165,7 +165,7 @@ You can leave Agent or Terminal Modes in several ways:
 {% endtab %}
 {% endtabs %}
 
-### Natural Language Auto-detection Settings
+### Natural language auto-detection settings
 
 Warp can automatically detect when you’re writing in plain English and switch you into Agent Mode. If needed, you can customize or disable this behavior.
 
@@ -187,7 +187,7 @@ The first time you enter Agent Mode, Warp will display a banner with the option 
 
 ***
 
-## Contextual Input Chips
+## Contextual input chips
 
 <figure><img src="../../.gitbook/assets/universal-input.png" alt=""><figcaption><p>Universal Input's contextual input chips, from left to right: conversation management, node version, active directory, Git and code diffs, and 2 attached images.</p></figcaption></figure>
 

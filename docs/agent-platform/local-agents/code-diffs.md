@@ -6,7 +6,7 @@ description: >-
 
 # Code Diffs
 
-## Reviewing Code Diffs
+## Reviewing code diffs
 
 During an Agent Conversation, Warp can generate code diffs that open directly in a built-in diff editor.
 

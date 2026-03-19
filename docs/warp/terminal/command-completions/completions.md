@@ -40,7 +40,7 @@ The "Tab key behavior" setting under `Features > Editor` can change the action t
 Completions Demo
 {% endembed %}
 
-### Supported Completion Specs
+### Supported completion specs
 
 | Command Name            | Level of Support |
 | ----------------------- | ---------------- |

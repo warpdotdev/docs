@@ -4,7 +4,7 @@ description: >-
   includes both the prompt and the command line.
 ---
 
-# Input Position
+# Input position
 
 You can select from three different input positions, which each have different modes of behavior for the flow of input/output Blocks.
 

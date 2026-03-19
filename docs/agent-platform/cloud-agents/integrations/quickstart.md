@@ -4,7 +4,7 @@ description: >-
   or thread, watch the agent work in the cloud, and get results back in the conversation.
 ---
 
-# Integrations Quickstart
+# Integrations quickstart
 
 Oz integrations let you trigger cloud agents directly from the tools your team already uses. This guide walks you through connecting Oz to Slack. Once set up, anyone on your team can tag @Oz in a message or thread to kick off a cloud agent that runs the task and posts results back to the conversation.
 

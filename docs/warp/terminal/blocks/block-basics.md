@@ -4,7 +4,7 @@ description: The basics of creating, selecting, and navigating between Blocks.
 
 # Block Basics
 
-## The Basics
+## The basics
 
 * Blocks group your command and command output
 * The Input Editor can pin to the bottom, pin to the top, or start at the top.
@@ -16,7 +16,7 @@ Try it yourself!\
 Type `xyz` (or some other command that doesn’t exist) and hit `ENTER`
 {% endhint %}
 
-## Create A Block
+## Create a block
 
 1. Execute a command (type `ls` and hit `ENTER`) in the Input Editor at the bottom of the screen.
 2. Your command and output are grouped into a Block.
@@ -27,7 +27,7 @@ Type `xyz` (or some other command that doesn’t exist) and hit `ENTER`
 Create a Block
 {% endembed %}
 
-## Select a Single Block
+## Select a single block
 
 {% tabs %}
 {% tab title="macOS" %}
@@ -62,7 +62,7 @@ Create a Block
 Select a Single Block
 {% endembed %}
 
-## Select Multiple Blocks
+## Select multiple blocks
 
 {% tabs %}
 {% tab title="macOS" %}
@@ -88,7 +88,7 @@ Select a Single Block
 Select Multiple Blocks
 {% endembed %}
 
-## Navigate Blocks
+## Navigate blocks
 
 {% tabs %}
 {% tab title="macOS" %}

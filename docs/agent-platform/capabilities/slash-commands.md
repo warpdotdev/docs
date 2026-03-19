@@ -12,7 +12,7 @@ When using Agent Mode or Auto-Detection Mode, typing `/` in the input field open
 
 As you type, the menu filters results in real time, making it easy to find and run the command or prompt you need.
 
-## Static Slash Commands
+## Static slash commands
 
 Warp currently supports the following built-in Slash Commands:
 

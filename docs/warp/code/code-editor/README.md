@@ -13,7 +13,7 @@ Warp comes with a native code editor designed for quick, in-flow edits alongside
 
 The editor is built for fast changes to agent-generated code: renaming a variable, tweaking copy, or rewriting a short function. Having just enough editing power in-context makes it easier to land an agent’s changes and keep momentum.
 
-### Opening Files in Warp
+### Opening files in Warp
 
 **You can open files in the editor in several ways:**
 
@@ -30,7 +30,7 @@ The editor is built for fast changes to agent-generated code: renaming a variabl
 
 **To save your changes to files**: use `CMD + S` on macOS or `CTRL + S` on Windows or Linux.
 
-### Tabbed File Viewer
+### Tabbed file viewer
 
 Warp can group multiple files into a single tabbed viewer, reducing clutter and making it easier to work across multiple files.
 
@@ -51,7 +51,7 @@ Choose how new files open in Warp by default in: **Settings** > **Features** > *
 * **Split pane**: new files open alongside the current editor
 * **New tab**: new files open in their own tabbed viewer
 
-### Supported Languages
+### Supported languages
 
 The editor supports syntax highlighting and editing for a wide range of languages, including:
 

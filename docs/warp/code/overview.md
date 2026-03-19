@@ -26,7 +26,7 @@ In addition to Warp’s modern, [native code editor](code-editor/), it includes:
 
 Warp’s coding agent is designed to help you generate, edit, and manage code directly in the [Agentic Development Environment](https://www.warp.dev/blog/reimagining-coding-agentic-development-environment). It detects opportunities to apply code diffs and surfaces them inline, allowing you to review and apply changes without switching to an external IDE. When you need to make manual edits, you can open Warp’s native code editor.
 
-### How It Works
+### How it works
 
 * **Prompt-driven coding**: You write natural language prompts such as _“Add a retry mechanism to this API call”_ or _“Fix the failing unit test in auth.test.ts.”_
 * **Inline code diffs**: When the agent proposes changes, it shows them as diffs you can inspect, modify, or reject.
@@ -38,7 +38,7 @@ Warp’s coding agent is designed to help you generate, edit, and manage code di
 Warp's coding agent only works on local repositories. The agent can make changes on remote or docker repositories, but falls back to using terminal commands (i.e. `sed`, `grep` ) to make the changes.
 {% endhint %}
 
-### Examples of Coding Capabilities
+### Examples of coding capabilities
 
 Code responds to prompts related to code generation, editing, and analysis. Here are some examples:
 
@@ -67,7 +67,7 @@ How to kick off a coding task
 How to interpret & edit Warp’s coding output
 {% endembed %}
 
-## Getting Started With Coding in Warp
+## Getting started with coding in Warp
 
 Warp provides multiple entry points to begin coding with agents, whether you are starting a new project, opening an existing one, or cloning from GitHub. Each new tab shows a **zero state** that lets you choose how to proceed.
 
@@ -89,7 +89,7 @@ Select **Open Repository** to use your computer's file picker. If you choose a G
 
 Select **Clone Repository** to paste in a repo link or clone directly from GitHub. Warp places you in the cloned folder and automatically runs the `/init` flow to set up project rules and indexing.
 
-## Learn More About Code Features:
+## Learn more about code features:
 
 * [Code Editor](code-editor/) - Warp's built-in code editor lets you make quick, in-context edits with essentials like syntax highlighting, tabs, find and replace, Vim keybindings, and a file tree.
   * [Language Server Protocol (LSP)](code-editor/language-server-protocol.md) - Warp integrates with language servers to provide hover info, go-to-definition, find references, inline diagnostics, and format-on-save for Rust, Go, Python, TypeScript/JavaScript, and C/C++.

@@ -22,7 +22,7 @@ Background blocks are automatically created as needed, in between regular blocks
 Create Background Blocks
 {% endembed %}
 
-## Troubleshooting Background Blocks
+## Troubleshooting background blocks
 
 There are some limitations, because Warp doesn't know _which_ process any given output came from:
 

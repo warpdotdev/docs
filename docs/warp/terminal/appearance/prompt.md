@@ -117,7 +117,7 @@ echo '[line_break]\ndisabled = false' >> ~/.config/starship.toml
 
 <!-- Outdated screenshot removed; see TODO after step 3 in the Warp prompt section. -->
 
-### Shell Prompt Compatibility Table
+### Shell prompt compatibility table
 
 | Shell                       | Tool                                                                      | Does it work?                                                   |
 | --------------------------- | ------------------------------------------------------------------------- | --------------------------------------------------------------- |

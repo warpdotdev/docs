@@ -17,7 +17,7 @@ On Linux, the Global Hotkey may not work for some X11 window managers that do no
 
 ## How to access it
 
-### Dedicated Window
+### Dedicated window
 
 Dedicated Window allows you to customize the windows' pinned position and its width and height ratio relative to your active screen size (also known as Quake Mode).
 
@@ -28,7 +28,7 @@ Dedicated Window allows you to customize the windows' pinned position and its wi
 On Linux and Windows, Warp does not support the "Autohides on the loss of keyboard focus" feature.
 {% endhint %}
 
-### Show/Hide All Windows
+### Show/hide all windows
 
 Show/Hide All Windows allows you to configure a shortcut to show/hide all Warp windows.
 
@@ -45,7 +45,7 @@ On Linux, hidden windows may not appear in your `ALT-TAB` window switcher menu. 
 
 <figure><img src="../../.gitbook/assets/Show-Hide-All-Windows.gif" alt=""><figcaption><p>Global Hotkey - Show/Hide All Windows Demo</p></figcaption></figure>
 
-## Troubleshooting Hotkey Dedicated Window
+## Troubleshooting hotkey dedicated window
 
 Review platform-specific instructions for troubleshooting the global hotkey below
 

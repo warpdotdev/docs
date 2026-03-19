@@ -247,7 +247,7 @@ If you move from Warp’s legacy Pro, Turbo, Lightspeed, or old Business plans t
 
 If you switched immediately after the rollout, before a subsequent update was applied, we’ll retroactively reset your credit balance to 0/1,500.
 
-* You should see this reflected in**Settings** > **Billing and usage**. If you experience any issues, please contact us at **build-priority@warp.dev**.
+* You should see this reflected in **Settings** > **Billing and usage**. If you experience any issues, please contact us at **build-priority@warp.dev**.
 
 {% hint style="info" %}
 We recommend you use all the credits on your legacy plan before you switch over to the new plans. This way you can make best use of them before they are reset to the new plan limits.
