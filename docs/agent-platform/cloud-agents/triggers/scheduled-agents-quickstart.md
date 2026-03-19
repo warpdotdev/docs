@@ -8,6 +8,9 @@ description: >-
 
 Scheduled agents are Oz cloud agents that run on a recurring cron schedule, handling recurring tasks automatically without manual triggers. This guide walks you through setting up an agent that triages your GitHub bug reports every week, checks whether each issue has enough detail to investigate, and posts follow-up comments when information is missing. You'll use a prebundled skill and the Oz web app; no CLI or custom code required.
 
+Watch this short demo of creating and testing a scheduled agent:
+{% embed url="https://youtu.be/M-zyyrGt2ug" %}
+
 ***
 
 ## Prerequisites

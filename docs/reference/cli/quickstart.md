@@ -7,6 +7,9 @@ description: >-
 
 This guide walks you through the essentials to get up and running with the Oz CLI in less than 5 minutes: installing the CLI, authenticating, running your first local agent, and optionally connecting MCP servers to give the agent access to external tools.
 
+Watch this short demo of the Oz CLI workflow:
+{% embed url="https://youtu.be/WpcChBNDCXQ" %}
+
 ## 1. Install the CLI
 
 If you already have the [Warp desktop app installed](https://docs.warp.dev/getting-started/quickstart/installation-and-setup), the **CLI is included** and available in Warp.

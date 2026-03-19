@@ -8,6 +8,9 @@ description: >-
 
 The Oz API lets you run and manage cloud agents from anywhere — CI/CD pipelines, backend services, scripts, or custom tooling — without the Warp desktop app. This quickstart walks you through creating your first run and checking its status.
 
+Watch this short demo of how the REST API can power agent-backed apps like [PowerFixer](https://github.com/warpdotdev/power-fixer-setup), an issue triage bot built by the Warp team:
+{% embed url="https://youtu.be/N6qMe641K34" %}
+
 ***
 
 ## Prerequisites

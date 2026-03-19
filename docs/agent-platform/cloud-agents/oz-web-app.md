@@ -12,7 +12,8 @@ The [Oz web app](https://oz.warp.dev) provides a visual interface for managing c
 The Oz web app works on mobile devices, so you can monitor and manage your cloud agents from anywhere.
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/oz-web-app-welcome.png" alt=""><figcaption><p>The Oz Web App welcome page.</p></figcaption></figure>
+Watch this short demo to create an environment and run an agent using the Oz web app:
+{% embed url="https://youtu.be/h9Wd77leIYg" %}
 
 ## Quick reference
 
