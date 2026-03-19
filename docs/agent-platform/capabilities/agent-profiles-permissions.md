@@ -18,8 +18,7 @@ Agent Profiles let you configure how your Agent behaves in different situations.
 **In each Agent Profile, you can configure:**
 
 * The name of the profile
-* **Base model**: The core engine for your Agent. It handles most interactions and invokes other models when needed (e.g. for code generation).&#x20;
-  * This model is also used for [Planning](planning.md), which is responsible for breaking down complex tasks into actionable steps. It generates structured execution plans and decides how to route work between models.
+* **Base model**: The core engine for your Agent. It handles most interactions and invokes other models when needed (e.g. for code generation). This model is also used for [Planning](planning.md) by default, though you can configure a separate planning model.
 * Agent autonomy and permissions
 
 <figure><img src="../.gitbook/assets/agent-profiles-settings.png" alt=""><figcaption><p>Agent Profiles in Settings: editing a Profile.</p></figcaption></figure>

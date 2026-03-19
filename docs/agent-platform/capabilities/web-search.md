@@ -45,7 +45,8 @@ Web search is available only for models that offer a native web search integrati
 **Models that support web search**
 
 * Anthropic: `Claude 4.6 Series`, `Claude 4.5 Series`, `Claude 4 Series`
-* OpenAI: `GPT-5.3 Codex`, `GPT-5.2 Codex`, `GPT-5.2`, `GPT-5.1 Codex Max`, `GPT-5.1 Codex`, `GPT-5.1`, `GPT-5`
+* OpenAI:
+  * `GPT-5.3 Codex`, `GPT-5.2 Codex`, `GPT-5.2`, `GPT-5.1 Codex Max`, `GPT-5.1 Codex`, `GPT-5.1`, `GPT-5`
   * _Note: GPT-5 Nano does not support web search._
 
 Warp uses each vendor’s official tool:

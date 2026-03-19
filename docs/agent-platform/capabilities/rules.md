@@ -30,6 +30,8 @@ Project Rules live in your codebase and apply automatically when working within 
 
 {% hint style="info" %}
 Warp uses `AGENTS.md` as the default project rules file. Existing `WARP.md` files are still fully supported—if you have `WARP.md`, it will continue to work as expected. You can also rename `WARP.md` to `AGENTS.md` at any time without additional changes.
+
+If both `WARP.md` and `AGENTS.md` exist in the same directory, `WARP.md` takes priority.
 {% endhint %}
 
 {% hint style="warning" %}
@@ -104,7 +106,7 @@ Rules Demo (legacy) with just Global Rules. Project rules can also be found ther
   * Begin indexing your codebase or display indexing status
   * Generate an `AGENTS.md` file with initial context, or
   * Link an existing Rules file to `AGENTS.md`
-    * Warp currently supports the following Rules files: `WARP.md`, `CLAUDE.md`, `.cursorrules`, `AGENT.md`, `GEMINI.md`, `.clinerules`, `.windsurfrules`, `.github/copilot-instructions.md`&#x20;
+    * Warp currently supports linking the following external Rules files: `CLAUDE.md`, `.cursorrules`, `AGENT.md`, `GEMINI.md`, `.clinerules`, `.windsurfrules`, `.github/copilot-instructions.md`&#x20;
 
 To view all Project Rules and open them in Warp, access it via the Warp Drive Rules pane: **Personal** > **Rules** > **Project-based**
 

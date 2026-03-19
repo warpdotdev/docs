@@ -26,11 +26,16 @@ Skill discovery depends on whether you're running a local or cloud agent.
 
 For local agent runs (`oz agent run`), skills are automatically discovered from your current repository. Warp scans these directories in order of precedence:
 
-* `.claude/skills/`
-* `.codex/skills/`
-* `.warp/skills/`
-* `.agents/skills/`
-* `.agent/skills/`
+* **`.warp/skills/`**
+* **`.agents/skills/`**
+* **`.claude/skills/`**
+* **`.codex/skills/`**
+* **`.cursor/skills/`**
+* **`.gemini/skills/`**
+* **`.copilot/skills/`**
+* **`.factory/skills/`**
+* **`.github/skills/`**
+* **`.opencode/skills/`**
 
 You can also specify a skill from any accessible repository using the fully qualified format: `owner/repo:skill-name`.
 

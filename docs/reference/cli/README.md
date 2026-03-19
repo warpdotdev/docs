@@ -220,7 +220,7 @@ Cloud runs dispatch tasks to remote environments. Use cloud runs for:
 
 ```sh
 oz agent run-cloud \
-  --environment SVhg783GBFQHk1OfdPfFU9 \
+  --environment <ENVIRONMENT_ID> \
   --name "Repo summary" \
   --prompt "Summarize this repo and list the top 5 risky areas" \
   --open
@@ -264,13 +264,13 @@ When your team runs many agents across schedules, integrations, and ad-hoc trigg
 ```sh
 # Name a recurring workflow for easy tracking
 oz agent run-cloud \
-  --environment SVhg783GBFQHk1OfdPfFU9 \
+  --environment <ENVIRONMENT_ID> \
   --name "nightly-dependency-check" \
   --prompt "Check for outdated dependencies and open a PR with updates"
 
 # Skill-based runs are named automatically
 oz agent run-cloud \
-  --environment SVhg783GBFQHk1OfdPfFU9 \
+  --environment <ENVIRONMENT_ID> \
   --skill "myorg/backend:code-review" \
   --prompt "review the latest PR"
 ```
