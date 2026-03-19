@@ -175,7 +175,7 @@ These rules apply regardless of content type:
   - ✅ "In the Oz web app (oz.warp.dev), click **Schedules**."
   - ❌ "Go to **Settings** > **Platform**." (which app?)
 - **Provide inline context for first references**: Assume the reader arrived directly at this page, not from a parent page. When a prerequisite, concept, or tool is mentioned for the first time, include: what the thing is (1 short clause), where to get or create it, and a link to the full reference.
-  - ✅ "**A Warp API key** - Authenticate API requests with a key from **Settings** > **Platform** in the Warp app. See [API Keys](../cli/api-keys.md) for details."
+  - ✅ "**A Warp API key** - Authenticate API requests with a key from **Settings** > **Platform** in the Warp app. See [API Keys](docs/reference/cli/api-keys.md) for details."
   - ❌ "**An API key** - Create one in **Settings** > **Platform**." (what kind of key? Settings where?)
 - **Include practical examples**: Show real-world scenarios, not just toy examples. Concrete examples help the reader understand when and why to use a feature.
 - **Cross-reference related pages**: Link to related features, next steps, and deeper references so the reader can continue learning.
