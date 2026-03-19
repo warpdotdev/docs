@@ -25,6 +25,64 @@ metaLinks: {}
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2026.03.18 (v0.2026.03.18.08.24)
+
+**New features**
+
+* Warp now automatically detects global and project-scoped MCP servers configured with `claude` or `codex`. Toggle **File-based MCP servers** in **Settings** > **AI** to auto-spawn servers based on your local configuration. See [docs](https://docs.warp.dev/agent-platform/capabilities/mcp#file-based-mcp-servers) for more.
+* Added Go to Line dialog in the code editor (`CTRL-G`) with line:column support.
+
+**Improvements**
+
+* Added "Leave Agent Thinking expanded" setting to keep agent thinking blocks expanded after streaming.
+* Added "All" and "Current Directory" tabs to the inline conversations menu.
+* Updated settings copy to consistently use "Oz" instead of "the Agent" in MCP Servers and Rules sections.
+* Improved the performance of loading and rendering large AI conversations.
+* Added an inline plan selector for conversations with multiple plans.
+* \[macOS] The window traffic light buttons now look correct at different zoom levels.
+* Kitty keyboard protocol support is now available on Preview builds.
+* The Warp agent management view now links to associated skills for cloud agents.
+* `Ctrl-R` command search now includes AI query history from all past conversations, not just those currently open.
+* Enabled Kitty keyboard protocol support on dev builds.
+* Improved the ranking of items listed in @ context by considering recency.
+* Added new built-in skills `generate-figma-content` and `pull-figma-content` invokable by users with Figma's remote MCP server installed.
+* Hidden directories and files (starting with `.`) now appear at the top of the Project Explorer, matching the convention used by most editors.
+* Updated setup command placeholder to show `cd my-repo &&` example.
+
+**Bug fixes**
+
+* Fixed "for terminal" text in pane header becoming bold when disabled, causing a layout shift.
+* Fixed notebook find bar showing `?/n` instead of proper match counter.
+* Fixed bug where editing a tab title always started with the pane title (instead of the tab's custom title, if it existed).
+* Fixed "View latest changelog" action not appearing in the command palette.
+* Fixed issue where artifacts from cloud agent runs did not update live in the conversation details pane.
+* Fixed intermittent "Failed to update plan" toast appearing without user action when background plan auto-saves encountered transient failures.
+* Fixed tooltip for branch name in code review panel overlapping the truncated text — it now appears above the branch name.
+* Fixed `Ctrl+G` not being bound by default for "Go to line" in the code editor.
+* Fixed `cmd-O` files palette not toggling off when pressed again.
+* Fixed code review panel unnecessarily resetting scroll position and cached state when switching tabs.
+* Fixed some saved prompts not appearing in slash command menu when searching with a single character.
+* Fixed SSH warpification not triggering when using shell aliases for SSH commands.
+* Fixed a bug where SSH sessions run by the agent would incorrectly trigger warpification UI.
+* Fixed issue on macOS where New Window/New Tab menu items and keybindings occasionally became disabled when using global hotkey window.
+* Fixed code review branch dropdown only showing "Uncommitted changes" after closing and reopening the panel.
+* Fixed "New environment" button in Environment settings not opening the setup mode selector popup.
+* Fixed onboarding slides cutting off navigation buttons when the window is too short — content area is now scrollable.
+* \[Windows] Fixed path inconsistencies that caused codebases to fail indexing.
+* Show tooltip on the codebase indexing toggle when it is disabled by an admin policy, explaining why the setting cannot be changed.
+* \[Windows] Fixed rendering issues on old Intel UHD integrated GPUs.
+* Fixed a bug where only the first plan was shown inline when restoring a conversation with multiple plans created.
+* Fixed resume-conversation keybinding not working when a long-running command subagent is active.
+* Fixed broken documentation links in agent tips, settings, and onboarding content.
+* Fixed AI queries in `Ctrl-R` history not being sorted by time.
+
+**Oz updates**
+
+* Conversation search now uses real file tools for faster, more accurate history search.
+* Added `/open-repo` slash command for switching between indexed codebases.
+* Added tabs to the up-arrow history menu to filter to commands or prompts.
+* `oz agent run` now prints the run ID with a link to the Oz dashboard.
+
 ### 2026.03.11 (v0.2026.03.04.08.20)
 
 **Bug fixes**
