@@ -46,6 +46,10 @@ Every page should include these elements. The body sections in between vary by c
 
 ### Headers
 - Use sentence case for all headers (not title case)
+- Proper feature names retain their standard capitalization in headings (e.g., "Admin Panel", "Agent Mode", "Command Palette", "Codebase Context", "Warp Drive"). Sentence case applies to the rest of the heading.
+  - ✅ `## Accessing the Admin Panel`
+  - ✅ `## Admin Panel sections`
+  - ❌ `## Accessing the admin panel` ("Admin Panel" is a proper feature name)
 - H1 for page titles only
 - H2 for major sections
 - H3 for subsections
@@ -331,11 +335,15 @@ This is the most common page type in Warp's docs (~75+ pages). A feature documen
 Use these terms consistently throughout all documentation:
 
 ### Core features
+
+Product feature names retain their standard capitalization. Match the exact casing shown in the UI.
+
 - **Warp** (not "Warp Terminal" unless specifically distinguishing)
 - **Agent** or **Agents** (capitalized when referring to Warp's AI agents)
 - **Agent Mode** (not "agent mode" or "Agent-mode")
-- **Warp Drive** (always capitalized)
-- **Codebase Context** (capitalized as a proper feature name)
+- **Warp Drive** 
+- **Codebase Context**
+- **Admin Panel**
 
 ### Oz terminology
 
