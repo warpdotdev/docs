@@ -50,9 +50,14 @@ This approach ensures access management stays with your cloud provider, giving a
 
 ### Model availability
 
-Model availability on AWS Bedrock may differ from direct API access. Some models may have different version names or regional availability.
+BYOLLM supports the intersection of models that Warp supports and models available on AWS Bedrock. Currently, only **Claude models** (Anthropic) are available through AWS Bedrock. OpenAI and Google models are not available on Bedrock.
 
-See [Model Choice](https://docs.warp.dev/agent-platform/agent/using-agents/model-choice) for the full list of Warp-supported models.
+To determine which models you can use with BYOLLM:
+
+* [Model Choice](https://docs.warp.dev/agent-platform/capabilities/model-choice) - Full list of Warp-supported models.
+* [Supported models in Amazon Bedrock](https://docs.aws.amazon.com/bedrock/latest/userguide/models-supported.html) - AWS Bedrock model availability.
+
+A model must appear on both lists to be available through BYOLLM.
 
 ## Enabling BYOLLM
 
@@ -218,6 +223,6 @@ Yes. Admins can configure routing policies to require specific models to use BYO
 ## Related resources
 
 * [Bring Your Own API Key](https://docs.warp.dev/support-and-community/plans-and-billing/bring-your-own-api-key)
-* [Model Choice](https://docs.warp.dev/agent-platform/agent/using-agents/model-choice) — Full list of supported models
+* [Model Choice](https://docs.warp.dev/agent-platform/capabilities/model-choice) — Full list of supported models
 * [Admin Panel](../team-management/admin-panel.md) — Configure team settings
 * [Contact Sales](https://warp.dev/contact-sales) — Get help with enterprise setup
