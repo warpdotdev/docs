@@ -42,7 +42,7 @@ The `oz-agent-action` is a GitHub Action that wraps the Oz CLI and:
 
 To use Oz agents in GitHub Actions, you need:
 
-* A [**Warp API Key**](https://docs.warp.dev/reference/cli/cli#generating-api-keys) stored as a [GitHub secret](https://docs.github.com/en/actions/concepts/security/secrets) — this authenticates the agent with Warp
+* A [**Warp API Key**](https://docs.warp.dev/reference/cli/cli#generating-api-keys) stored as a [GitHub secret](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions) — this authenticates the agent with Warp
 * Workflow permissions that match your intended actions (for example, `pull-requests: write` if the agent should commit or comment on PRs) — the agent performs actions on your behalf using the GitHub token available to the workflow
 * The `oz-agent-action` step added to your workflow
 * **For private repositories using `@oz-agent` mention workflows**: The [`oz-agent`](https://github.com/oz-agent) GitHub user must be [invited as a member](https://docs.github.com/en/organizations/managing-membership-in-your-organization/inviting-users-to-join-your-organization) of your GitHub organization (see [Responding to comments with @ mentions](#1-responding-to-comments-with--mentions) for details)
