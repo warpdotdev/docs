@@ -3,7 +3,7 @@ description: >-
   Centralized management for team administrators to configure Warp settings, control agent behavior, and enforce security policies across your organization.
 ---
 
-# Admin panel
+# Admin Panel
 
 The Admin Panel provides administrators with centralized control over team settings in Warp. Configure agent behavior, security policies, codebase indexing, and collaboration features for your entire organization from a single interface.
 
@@ -21,7 +21,7 @@ The [Admin Panel](https://app.warp.dev/admin/) is your control center for managi
 Warp restricts Admin Panel access to team administrators. Regular team members can view settings that affect them but cannot modify organization-wide policies.
 {% endhint %}
 
-## Accessing the admin panel
+## Accessing the Admin Panel
 
 ### For team admins
 
@@ -105,9 +105,9 @@ The features available in the Admin Panel scale with your Warp plan:
 
 For complete plan details, visit [warp.dev/pricing](https://www.warp.dev/pricing) or [contact sales](https://warp.dev/contact-sales).
 
-## Admin panel sections
+## Admin Panel sections
 
-The Admin Panel is organized into five main areas:
+The Admin Panel is organized into six main areas:
 
 ### AI settings
 
@@ -242,6 +242,28 @@ Enable public access to shared objects:
 * **Disabled** - Links require team membership to access
 
 For organizations with sensitive internal processes, disable "Anyone with link" sharing to prevent accidental exposure.
+
+### Platform settings
+
+Configure Oz cloud agent settings for your team, including GitHub authorization for automated workflows.
+
+**Enabled GitHub Orgs**
+
+The **Enabled GitHub Orgs** setting associates your Warp team with one or more GitHub App installations, enabling Oz cloud agents initiated with a [team API key](https://docs.warp.dev/reference/cli/api-keys) to clone repositories and open pull requests using the Oz by Warp GitHub App.
+
+To configure:
+
+1. Navigate to the **Platform** section of the Admin Panel.
+2. Under **Enabled GitHub Orgs**, review the list of GitHub organizations where the Oz by Warp GitHub App is installed.
+3. Select which organizations your team should have access to.
+
+<figure><img src="../../agent-platform/.gitbook/assets/admin-panel-enabled-github-orgs.png" alt="Enabled GitHub Orgs setting in the Admin Panel Platform section"><figcaption><p>Enabled GitHub Orgs setting in the Admin Panel.</p></figcaption></figure>
+
+The organizations and repository access shown here reflect the Oz by Warp GitHub App installation scope, which is configured in [GitHub settings](https://github.com/settings/installations). To change which repositories the app can access, edit the installation directly in GitHub.
+
+{% hint style="info" %}
+This setting controls GitHub access for team API key runs only. Runs triggered by individual users (via personal API key, Slack, or Linear) continue to use that user's personal GitHub token. For more details, see [Team GitHub authorization](https://docs.warp.dev/agent-platform/cloud-agents/team-access-billing-and-identity#team-github-authorization).
+{% endhint %}
 
 ## Multi-admin functionality
 

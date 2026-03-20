@@ -19,7 +19,14 @@ You can create an API key from your settings in Warp:
    * `Team` - Tied to your team, not any individual user
 
 {% hint style="info" %}
-When an agent needs to make code changes (e.g., opening pull requests, pushing branches, or writing to a repository) use a **personal API key**. Personal keys authenticate as you, so the agent runs with your GitHub permissions. Team keys are the right fit for automated workflows that don't require writing to GitHub, such as analysis, monitoring, or triage.
+When an agent needs to make code changes (e.g., opening pull requests, pushing branches, or writing to a repository), you have two options:
+
+* Use a **personal API key** to authenticate as you. The agent runs with your GitHub permissions, and code changes are attributed to your GitHub account.
+* Use a **team API key** with [team GitHub authorization](https://docs.warp.dev/agent-platform/cloud-agents/team-access-billing-and-identity#team-github-authorization) configured. The agent authenticates with the Oz by Warp GitHub App, and code changes are not attributed to any individual user.
+{% endhint %}
+
+{% hint style="info" %}
+Team keys without GitHub App authorization are the right fit for automated workflows that don't require writing to GitHub, such as analysis, monitoring, or triage.
 {% endhint %}
 
 6. Click **Create key**.
@@ -32,7 +39,7 @@ When an agent needs to make code changes (e.g., opening pull requests, pushing b
 Warp supports two types of API keys, each with different billing and identity behavior:
 
 * **Personal API keys** - Cloud agent runs authenticate as you. These runs can use your personal base credits before drawing from team add-on credits, just like running an agent from the Warp app or triggering one via Slack or Linear.
-* **Team API keys** - Cloud agent runs are not tied to any individual user. These runs can only draw from your team's pool of add-on credits—they cannot use any individual's base credits.
+* **Team API keys** - Cloud agent runs are not tied to any individual user. These runs can only draw from your team's pool of add-on credits. They cannot use any individual's base credits. When [team GitHub authorization](https://docs.warp.dev/agent-platform/cloud-agents/team-access-billing-and-identity#team-github-authorization) is configured, team key runs can also clone repositories and open pull requests using the Oz by Warp GitHub App.
 
 Team API keys are useful for fully automated workflows, CI/CD pipelines, and scheduled tasks where no specific user context is needed. For billing details, see [Access, Billing, and Identity Permissions](https://docs.warp.dev/agent-platform/cloud-agents/team-access-billing-and-identity).
 
@@ -83,6 +90,6 @@ Deleted keys are immediately invalidated and cannot be recovered. Any services o
 * **Use environment variables** - Avoid passing API keys directly in commands where they may be logged or visible in shell history.
 * **Set appropriate expiration** - Use shorter expiration times for development and testing; consider longer durations for stable production workflows.
 * **Use team keys for automation** - For CI/CD and scheduled tasks, team keys provide cleaner billing attribution and don't depend on any individual user's account.
-* **Use personal keys when agents need to write to GitHub** - For more information, see [Personal vs team API keys](#personal-vs-team-api-keys).
+* **Use personal keys or configure team GitHub authorization when agents need to write to GitHub** - Personal keys authenticate as you; team keys can also write to GitHub when [team GitHub authorization](https://docs.warp.dev/agent-platform/cloud-agents/team-access-billing-and-identity#team-github-authorization) is configured via the Admin Panel.
 * **Rotate keys periodically** - Create new keys and retire old ones on a regular schedule to limit exposure from compromised credentials.
 * **Store securely** - Use secret managers (like 1Password CLI, HashiCorp Vault, or cloud provider secret services) rather than plain text files.

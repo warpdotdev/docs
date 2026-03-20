@@ -177,8 +177,16 @@ Depending on how the GitHub app is installed in your organization:
 
 You typically only need to handle this once per team, unless your repo access changes.
 
+#### Team-level GitHub authorization
+
+For automated workflows that use a [team API key](api-keys.md) (CI/CD pipelines, scheduled agents, SDK-triggered runs), you can configure team GitHub authorization so the agent authenticates with the Oz by Warp GitHub App instead of an individual's personal token.
+
+This requires a Warp team admin to enable the GitHub organization in the Admin Panel (**Settings** > **Admin Panel** > **Platform**). Once configured, tasks initiated with a team API key can clone repos and open pull requests using the GitHub App installation token.
+
+For full setup instructions, see [Team GitHub authorization](https://docs.warp.dev/agent-platform/cloud-agents/team-access-billing-and-identity#team-github-authorization).
+
 {% hint style="info" %}
-**Using API keys:** If you're triggering agents via API key rather than through a Slack or Linear integration, use a [personal API key](https://docs.warp.dev/reference/cli/api-keys#personal-vs-team-api-keys) for workflows where the agent needs to write to a repository. Personal keys authenticate as you, so the agent runs with your GitHub permissions.
+**Using API keys:** Personal API keys authenticate as you, so the agent runs with your GitHub permissions and code changes are attributed to your account. Team API keys with [team GitHub authorization](https://docs.warp.dev/agent-platform/cloud-agents/team-access-billing-and-identity#team-github-authorization) configured use the GitHub App token instead.
 {% endhint %}
 
 ***
