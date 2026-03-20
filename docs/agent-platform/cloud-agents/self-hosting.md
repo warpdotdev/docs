@@ -45,7 +45,7 @@ There are two architectures for self-hosted Oz agents:
 * ✅ Task isolation via Docker containers
 * ✅ Remotely start and stop agents
 * ✅ Runs on all Linux distributions; will support macOS and Windows in the future
-* Requires Docker on the host
+* Requires Docker on the host when using the default Docker backend
 
 **Unmanaged architecture:**
 
@@ -85,6 +85,20 @@ Use these questions to determine which architecture fits your team:
 {% hint style="info" %}
 The two architectures are not mutually exclusive. Some teams use the managed architecture for integration-triggered work (Slack, Linear) and the unmanaged architecture for CI pipelines or dev boxes.
 {% endhint %}
+
+### Choosing a managed backend
+
+The managed architecture supports two backends for task execution:
+
+1. **Is Docker available on your worker host?**
+   * Yes → Use the **Docker backend** (default). Tasks run in isolated containers.
+   * No → Use the **direct backend**. Tasks run directly on the host.
+
+2. **Do you need container-level isolation between tasks?**
+   * Yes → Use the **Docker backend**.
+   * No → Either backend works.
+
+See the [managed worker reference](managed-worker-reference.md) for backend configuration details.
 
 ***
 
@@ -184,24 +198,26 @@ Unmanaged agents are tracked on Warp's backend. Each run creates a persistent se
 
 ## Managed architecture
 
-With the managed architecture, you run the `oz-agent-worker` daemon on your infrastructure. The daemon connects to Warp's backend, waits for agent tasks to be assigned to it, and runs those tasks in isolated Docker containers on its host. This model works similarly to a [GitHub self-hosted runner](https://docs.github.com/en/actions/hosting-your-own-runners).
+With the managed architecture, you run the `oz-agent-worker` daemon on your infrastructure. The daemon connects to Warp's backend, waits for agent tasks to be assigned to it, and executes those tasks on its host — either in isolated Docker containers (default) or directly on the host via the [direct backend](managed-worker-reference.md#direct-backend). This model works similarly to a [GitHub self-hosted runner](https://docs.github.com/en/actions/hosting-your-own-runners).
 
-The managed architecture enables full orchestration by the Oz platform — it can remotely start agents via Slack, Linear, the API/SDK, Cloud Mode, and the `oz agent run-cloud` command. Containerized agents can still access host resources through volume mounts and injected environment variables.
+The managed architecture enables full orchestration by the Oz platform — it can remotely start agents via Slack, Linear, the API/SDK, Cloud Mode, and the `oz agent run-cloud` command. Agents can access host resources through volume mounts (Docker backend) and injected environment variables.
 
 ### Prerequisites
 
 Before setting up a self-hosted worker, ensure you have:
 
-* **A machine to run the worker** — This can be a VM, a server, or even a local machine. The worker host can run on macOS, Linux, or Windows — any machine that runs Docker. Linux is recommended for production deployments. The Docker daemon must run Linux containers (Windows containers are not supported).
-* **Docker installed** — The worker uses Docker to run agent tasks. Verify Docker is installed and running with `docker info`.
+* **A machine to run the worker** — A VM, server, or local machine running Linux (recommended for production), macOS, or Windows. Docker is required for the default Docker backend; the [direct backend](managed-worker-reference.md#direct-backend) runs without it.
+* **Docker installed** (Docker backend only) — The worker uses Docker to run agent tasks in isolated containers. The Docker daemon must run Linux containers (Windows containers are not supported). Verify Docker is installed and running with `docker info`. Skip this if you plan to use the direct backend.
 * **Enterprise plan with self-hosting enabled** — [Contact sales](https://warp.dev/contact-sales) if self-hosting is not yet enabled for your team.
 * **A team API key** — In the Warp app, go to **Settings** > **Platform** to create a team-scoped API key.
 
 {% hint style="warning" %}
-Task containers require a **linux/amd64** or **linux/arm64** Docker daemon. The worker host itself can be any OS — Docker Desktop on macOS and Windows runs a Linux VM that satisfies this requirement.
+When using the Docker backend, task containers require a **linux/amd64** or **linux/arm64** Docker daemon. The worker host itself can be any OS — Docker Desktop on macOS and Windows runs a Linux VM that satisfies this requirement.
 {% endhint %}
 
 ### Install Docker
+
+If you plan to use the Docker backend (the default), install Docker on the worker host. Skip this step if you are using the [direct backend](managed-worker-reference.md#direct-backend).
 
 If Docker is not already installed, follow the [official Docker installation guide](https://docs.docker.com/get-docker/) for your platform.
 
@@ -215,7 +231,9 @@ docker info
 
 The worker is open source. See the [oz-agent-worker repository](https://github.com/warpdotdev/oz-agent-worker) for source code, issues, and contribution guidelines.
 
-There are three ways to run the worker: via Docker (recommended), via `go install`, or by building from source.
+There are three ways to install the worker: via Docker (recommended), via `go install`, or by building from source.
+
+The worker can be configured entirely via CLI flags, or via a YAML [config file](managed-worker-reference.md#config-file) for more complex setups.
 
 ### Set your API key
 
@@ -391,11 +409,12 @@ While repositories are cloned and stored only on your infrastructure, code conte
 
 **Additional considerations:**
 
-* **Docker socket access** (managed only) — The worker requires access to the Docker daemon to create task containers. When running the worker via Docker, this means mounting `/var/run/docker.sock`. Ensure appropriate access controls on the host.
+* **Docker socket access** — *(Docker backend)* The worker requires access to the Docker daemon to create task containers. When running the worker via Docker, this means mounting `/var/run/docker.sock`. Ensure appropriate access controls on the host.
 * **Network egress** — See [Network requirements](#network-requirements) for the full list of required endpoints. No inbound ports need to be opened.
 * **API key management** — Store your `WARP_API_KEY` securely (e.g., in a secrets manager). Avoid hardcoding it in scripts or config files.
-* **Task isolation** (managed only) — Each task runs in its own Docker container. Containers are removed after execution by default (disable with `--no-cleanup` for debugging). All Docker daemon isolation and configuration options are available.
-* **Volume mounts** (managed only) — If using `-v` / `--volumes`, be mindful of what host paths you expose to task containers.
+* **Task isolation** — *Docker backend:* each task runs in its own container. *Direct backend:* each task runs in an isolated workspace directory but shares the host OS. Containers and workspaces are removed after execution by default (disable with `--no-cleanup` for debugging).
+* **Volume mounts** — *(Docker backend)* If using `-v` / `--volumes`, be mindful of what host paths you expose to task containers.
+* **Direct backend environment** — The direct backend intentionally starts tasks with a minimal environment (`HOME`, `TMPDIR`, `PATH` only). Sensitive worker credentials like `WARP_API_KEY` are not passed to tasks unless explicitly configured.
 * **LLM inference** — Enterprise teams needing full inference control can use [BYOLLM](https://docs.warp.dev/enterprise/enterprise-features/bring-your-own-llm) for interactive (local) agents; cloud agent BYOLLM support is coming.
 * **VPN and on-prem access** — Since agents run on your infrastructure, they inherit your network access. This means self-hosted agents can reach services behind VPNs, self-hosted GitLab/Bitbucket instances, and other internal resources.
 
@@ -409,8 +428,8 @@ The troubleshooting steps below apply to the **managed architecture** (`oz-agent
 
 ### Worker won't start
 
-* Verify Docker is running: `docker info`.
-* Ensure the Docker daemon platform is `linux/amd64` or `linux/arm64`.
+* **Docker backend** — Verify Docker is running (`docker info`) and that the daemon platform is `linux/amd64` or `linux/arm64`.
+* **Direct backend** — Verify the Oz CLI is installed and in your `PATH` (or set `oz_path` in the config file).
 
 ### Worker won't connect
 
@@ -428,13 +447,12 @@ The troubleshooting steps below apply to the **managed architecture** (`oz-agent
 
 ### Task failures
 
-* Check Docker is running: `docker info`.
 * Review task logs in the Oz dashboard or via session sharing.
-* Use `--no-cleanup` to keep the container around for inspection after failure.
-* Use `--log-level debug` to see detailed container creation and execution logs.
+* Use `--no-cleanup` to keep the container or workspace around for inspection after failure.
+* Use `--log-level debug` to see detailed execution logs.
 * Ensure the worker machine has sufficient resources (CPU, memory, disk).
-* If using a custom Docker image, verify it is glibc-based (not Alpine/musl).
-* Verify the environment image architecture matches the worker's Docker daemon platform (e.g., an `amd64` image on an `amd64` daemon).
+* **Docker backend** — Verify Docker is running (`docker info`). If using a custom image, confirm it is glibc-based (not Alpine/musl) and that its architecture matches the worker's Docker daemon platform.
+* **Direct backend** — Verify the Oz CLI is accessible and that the workspace root directory has write permissions.
 
 ### Image pull failures
 
