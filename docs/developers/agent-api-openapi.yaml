@@ -985,6 +985,10 @@ components:
 
     RunAgentResponse:
       type: object
+      description: |
+        Response returned when an agent run is successfully created.
+        Contains the unique run ID and the initial state of the run.
+        Use the run_id to poll GET /agent/runs/{runId} for status updates.
       required:
         - run_id
         - task_id
@@ -1006,6 +1010,9 @@ components:
 
     ListRunsResponse:
       type: object
+      description: |
+        Paginated list of agent runs. Use page_info.next_cursor to fetch
+        subsequent pages. Results are sorted by updated_at descending by default.
       required:
         - runs
         - page_info
@@ -1019,6 +1026,11 @@ components:
 
     RunItem:
       type: object
+      description: |
+        Full representation of a single agent run. Includes the run's identity
+        (run_id, title), lifecycle state, original prompt, timestamps, optional
+        session link for viewing the agent's work, the creator's identity, resolved
+        agent configuration, and any artifacts produced during the run.
       required:
         - run_id
         - task_id
@@ -1093,6 +1105,10 @@ components:
           $ref: '#/components/schemas/Scope'
 
     ArtifactItem:
+      description: |
+        A discriminated union representing an artifact produced during an agent run.
+        The artifact_type field determines which variant is present: PLAN, PULL_REQUEST,
+        or SCREENSHOT. Each variant carries a data object with type-specific fields.
       oneOf:
         - $ref: '#/components/schemas/PlanArtifact'
         - $ref: '#/components/schemas/PullRequestArtifact'
@@ -1106,6 +1122,9 @@ components:
 
     PlanArtifact:
       type: object
+      description: |
+        An artifact of type PLAN produced by an agent run. Contains a reference to
+        a plan document created by the agent, identified by document_uid.
       required:
         - artifact_type
         - created_at
@@ -1115,7 +1134,7 @@ components:
           type: string
           enum:
             - PLAN
-          description: Type of the artifact
+          description: Identifies this artifact as a plan
         created_at:
           type: string
           format: date-time
@@ -1125,6 +1144,9 @@ components:
 
     PullRequestArtifact:
       type: object
+      description: |
+        An artifact of type PULL_REQUEST produced by an agent run. Contains
+        the URL and branch name of the pull request opened by the agent.
       required:
         - artifact_type
         - created_at
@@ -1134,7 +1156,7 @@ components:
           type: string
           enum:
             - PULL_REQUEST
-          description: Type of the artifact
+          description: Identifies this artifact as a pull request
         created_at:
           type: string
           format: date-time
@@ -1144,6 +1166,10 @@ components:
 
     ScreenshotArtifact:
       type: object
+      description: |
+        An artifact of type SCREENSHOT captured by an agent run. The data field
+        contains the artifact UID needed to retrieve a signed download URL via
+        GET /agent/artifacts/{artifactUid}.
       required:
         - artifact_type
         - created_at
@@ -1153,7 +1179,7 @@ components:
           type: string
           enum:
             - SCREENSHOT
-          description: Type of the artifact
+          description: Identifies this artifact as a screenshot
         created_at:
           type: string
           format: date-time
@@ -1163,6 +1189,7 @@ components:
 
     PlanArtifactData:
       type: object
+      description: Data payload for a PLAN artifact, containing the document identifier and optional notebook reference.
       required:
         - document_uid
       properties:
@@ -1178,6 +1205,7 @@ components:
 
     PullRequestArtifactData:
       type: object
+      description: Data payload for a PULL_REQUEST artifact, containing the pull request URL and the branch it was opened on.
       required:
         - url
         - branch
@@ -1208,7 +1236,10 @@ components:
 
     ScheduleInfo:
       type: object
-      description: Information about the schedule that triggered this run (only present for scheduled runs)
+      description: |
+        Metadata about the scheduled agent that triggered this run. Only present on
+        runs where source is SCHEDULED_AGENT. Contains the schedule ID, its name,
+        and the cron expression as they were configured at the time the run was created.
       required:
         - schedule_id
         - schedule_name
@@ -1226,6 +1257,10 @@ components:
 
     PageInfo:
       type: object
+      description: |
+        Cursor-based pagination metadata. When has_next_page is true, pass
+        next_cursor as the cursor parameter on the next request to retrieve
+        the following page of results.
       required:
         - has_next_page
       properties:
@@ -1271,6 +1306,9 @@ components:
 
     RunCreatorInfo:
       type: object
+      description: |
+        Identity information about the principal (user or service account) that created a run
+        or scheduled agent. Present when the creator information is available.
       properties:
         type:
           type: string
@@ -1342,7 +1380,12 @@ components:
     # The "Ambient" prefix is an internal legacy name and should not be user-facing.
     AmbientAgentConfig:
       type: object
-      description: Configuration for a cloud agent run
+      description: |
+        Per-run configuration for a cloud agent. Controls which LLM model is used,
+        which skill (SKILL.md) drives the agent's instructions, which environment
+        the agent executes in, any MCP servers to enable, and optional base prompt
+        overrides. All fields are optional; when omitted, the agent uses the system
+        default for each setting.
       properties:
         name:
           type: string
@@ -1386,7 +1429,12 @@ components:
     MCPServerConfig:
       type: object
       description: |
-        Configuration for an MCP server. Must have exactly one of: warp_id, command, or url.
+        Configuration for a single MCP (Model Context Protocol) server to attach to an agent run.
+        Exactly one of warp_id, command, or url must be provided, corresponding to the three
+        supported transports:
+        - warp_id: reference a Warp-managed shared MCP server by UUID
+        - command + args: launch a local stdio-based MCP server process
+        - url: connect to a remote SSE or HTTP MCP server
       properties:
         warp_id:
           type: string
@@ -1658,6 +1706,7 @@ components:
 
     ListScheduledAgentsResponse:
       type: object
+      description: Response containing all scheduled agents accessible to the authenticated user, sorted alphabetically by name.
       required:
         - schedules
       properties:
@@ -1669,6 +1718,7 @@ components:
 
     DeleteScheduledAgentResponse:
       type: object
+      description: Confirmation response returned after a scheduled agent is successfully deleted.
       required:
         - success
       properties:
@@ -1703,6 +1753,7 @@ components:
 
     GitHubRepo:
       type: object
+      description: A GitHub repository identified by owner and repository name, used to specify repositories to clone into a cloud environment.
       required:
         - owner
         - repo
@@ -1716,6 +1767,7 @@ components:
 
     ListAgentsResponse:
       type: object
+      description: Response containing available skills discoverable from the authenticated user's environments or a specific repository.
       required:
         - agents
       properties:
@@ -1727,6 +1779,9 @@ components:
 
     AgentListItem:
       type: object
+      description: |
+        A skill with one or more variants. Variants represent different versions
+        of the same skill sourced from different repositories or environments.
       required:
         - name
         - variants
@@ -1742,6 +1797,10 @@ components:
 
     AgentListVariant:
       type: object
+      description: |
+        A specific skill variant, uniquely identified by its skill path in a repository.
+        Each variant carries its own instructions (base_prompt), source repository
+        metadata, and the list of environments it is available in.
       required:
         - id
         - description
@@ -1782,6 +1841,7 @@ components:
 
     AgentListSource:
       type: object
+      description: Source repository metadata identifying where a skill variant is defined.
       required:
         - owner
         - name
@@ -1799,6 +1859,7 @@ components:
 
     AgentListEnvironment:
       type: object
+      description: An environment in which a skill variant is available and can be executed.
       required:
         - uid
         - name
