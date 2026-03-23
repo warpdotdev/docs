@@ -141,7 +141,7 @@ Tokens are chunks of text, such as words, parts of code, or characters, that lar
 Warp now abstracts away token usage, so you don't need to manage or track it directly. You only need to monitor your **credit usage**, which is what’s measured in your plan limits and overages.
 {% endhint %}
 
-If you're curious, you can still learn more about tokens [here](https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them), or refer to the pricing page for plan-level credit allocations. If you reach your monthly credit limits on a paid plan, premium models will be temporarily disabled until your quota resets at the start of your next billing cycle.
+If you're curious, you can read more about [OpenAI article on tokens](https://help.openai.com/en/articles/4936856-understanding-tokens), or refer to the pricing page for plan-level credit allocations. If you reach your monthly credit limits on a paid plan, premium models will be temporarily disabled until your quota resets at the start of your next billing cycle.
 
 If you’d like to continue using premium models beyond your included quota, you can enable [pay-as-you-go overages](overages-legacy.md) in **Settings** > **Billing and usage**.
 
