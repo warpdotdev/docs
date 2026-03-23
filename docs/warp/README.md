@@ -61,7 +61,7 @@ Cloud agents are ideal for work that doesn't need your immediate attention, like
 
 ## How they work together
 
-Warp Terminal and Oz provide a unified experience across local and cloud development:
+Warp and Oz provide a unified experience across local and cloud development:
 
 * **Same agent, anywhere**: Whether you're working interactively in Warp or running agents in the cloud, you're using the same underlying agent capabilities.
 * **Seamless handoff**: Start a task in the cloud and take over locally in Warp when you want hands-on control, without losing progress or context.

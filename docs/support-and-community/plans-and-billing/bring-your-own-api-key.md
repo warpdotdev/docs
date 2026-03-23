@@ -60,9 +60,9 @@ When you select a model with the key icon in your model picker, Warp routes the 
 
 In this case:
 
-* No **Warp Credits** are consumed.
+* No Warp credits are consumed.
 * The cost of the request is billed directly through your provider account.
-* Core Agent Mode always **prioritizes BYOK usage** over any available Warp Credits.
+* Core Agent Mode always **prioritizes BYOK usage** over any available credits.
 
 The credit transparency footer will show “0 credits used”, and the `Billing & Usage` page will reflect no deductions from your monthly credit total.
 
@@ -85,12 +85,12 @@ If Warp detects an issue with your API key, you’ll see a clear error message c
 If your key:
 
 * Is invalid: Warp notifies you and halts the request.
-* Hits usage or rate limits: Warp will not retry using Warp Credits.
+* Hits usage or rate limits: Warp will not retry using credits.
 * You can update or replace your keys anytime in **Settings** > **AI** > **API Keys**.
 
 **Failover and fallback:**
 
-By default, Warp does not fall back to your Warp Credits when a BYOK (Bring Your Own Key) request fails.
+By default, Warp does not fall back to your credits when a BYOK (Bring Your Own Key) request fails.
 
 You can choose to enable **Warp credit fallback**. When enabled, if an agent request fails with your BYOK model (for example, due to an API error or quota limit), Warp will automatically route the request to one of Warp’s provided models. Warp always prioritizes your API keys first and only uses Warp credits when necessary.
 

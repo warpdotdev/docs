@@ -134,7 +134,7 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `AgentMode.Code.SuggestedEditAcceptClicked` | User selected Accept for a code diff suggestion in Agent Mode |
 | `AgentMode.Code.SuggestedEditReceived` | Agent Mode suggested a code edit |
 | `AgentMode.Code.SuggestedEditResolved` | Agent Mode pending code edit suggestion resolved |
-| `AgentMode.CreatedAIBlock` | Created an AI block in agent mode |
+| `AgentMode.CreatedAIBlock` | Created an AI block in Agent Mode |
 | `AgentMode.Error` | Received an error when getting Agent Mode response |
 | `AgentMode.ExecutedWarpDrivePrompt` | Executed a saved prompt. |
 | `AgentMode.ExitedShellProcess` | An agent-requested command caused the shell process to exit |
@@ -143,12 +143,12 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `AgentMode.Grep.Failed` | The grep tool failed to complete |
 | `AgentMode.Grep.Succeeded` | The grep tool completed successfully |
 | `AgentMode.NaturalLanguageDetection.InputBufferSubmitted` | Input buffer submitted |
-| `AgentMode.OpenedCitation` | Opened a citation that was surfaced in agent mode |
+| `AgentMode.OpenedCitation` | Opened a citation that was surfaced in Agent Mode |
 | `AgentMode.PotentialAutoDetectionFalsePositive` | Manually toggled input to shell mode after input was auto-detected as natural language. |
 | `AgentMode.QueryAttemptAtLImit` | Tried to send an Agent Mode query but they already reached the query limit |
 | `AgentMode.RequestRetrySucceeded` | Agent Mode request succeeded after retrying following an initial error |
 | `AgentMode.SetupCreateEnvironmentAction` | User clicked a button in the Agent Mode setup create environment step |
-| `AgentMode.SurfacedCitations` | Agent mode used and cited external sources that were used in its response |
+| `AgentMode.SurfacedCitations` | Agent Mode used and cited external sources that were used in its response |
 | `AgentMode.ToggleAutoDetectionSetting` | Toggled the setting that enables or disables natural language auto-detection in the input.  |
 | `AgentTip Clicked` | User clicked a link or action in an Agent Tip |
 | `AgentTip Shown` | Selected an Agent Tip to show in the Agent Mode status bar |
