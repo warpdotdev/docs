@@ -5,7 +5,7 @@ description: >-
 
 # Getting started with Warp Enterprise
 
-This guide walks your IT or platform admin through initial Warp setup for your organization: configuring SSO, creating your team, inviting users, and setting admin panel policies.
+This guide walks your IT or platform admin through initial Warp setup for your organization: configuring SSO, creating your team, inviting users, and setting Admin Panel policies.
 
 ## Prerequisites
 
@@ -45,7 +45,7 @@ Some team settings are configured in different places:
 * **Team name** - Configured in **Settings** > **Teams** in the Warp app. Help users identify the right team to join.
 * **Domain restrictions** - Limit team invites to specific email domains (e.g., `@yourcompany.com`)
 * **Auto-join** - Automatically adds users to your team when they sign in via SSO from your configured domain. The domain must be configured by the Warp team during onboarding — contact your account team to set up or update your team domain.
-* **SSO** - Configured through WorkOS, not the admin panel. See [Step 1](#step-1-configure-single-sign-on-sso).
+* **SSO** - Configured through WorkOS, not the Admin Panel. See [Step 1](#step-1-configure-single-sign-on-sso).
 
 ## Step 3: Invite and manage users
 
@@ -75,7 +75,7 @@ Domain configuration is set up by the Warp team during onboarding. Contact your 
 
 Warp has three user roles:
 
-* **Team Owner** - Has full access to the admin panel and can manage team settings, invite users, assign roles, and transfer ownership of the team. There can only be one Owner.
+* **Team Owner** - Has full access to the Admin Panel and can manage team settings, invite users, assign roles, and transfer ownership of the team. There can only be one Owner.
 * **Team Admin** - Same permissions as the Owner, except they can't transfer ownership of the team.
 * **Member** - Standard access to Warp features and team resources
 
@@ -92,19 +92,19 @@ To promote or demote team admins:
 Teams can have multiple admins. We recommend at least one admin in addition to the Team Owner to prevent access issues if one is unavailable.
 {% endhint %}
 
-## Step 4: Configure the admin panel
+## Step 4: Configure the Admin Panel
 
-The admin panel gives you centralized control over Warp features, permissions, and usage across your team.
+The Admin Panel gives you centralized control over Warp features, permissions, and usage across your team.
 
-### Accessing the admin panel
+### Accessing the Admin Panel
 
 1. In Warp, open **Settings**.
 2. Navigate to the **Billing and usage** section.
-3. Click **Open admin panel**.
+3. Click **Open Admin Panel**.
 
 Alternatively, visit [app.warp.dev/admin](https://app.warp.dev/admin) directly.
 
-### Key admin panel sections
+### Key Admin Panel sections
 
 * **Billing** - View your plan type and AI usage limit information
 * **Teams** - Manage team members, roles, and invites — the same controls available in **Settings** > **Teams** in the Warp app
@@ -117,7 +117,7 @@ Alternatively, visit [app.warp.dev/admin](https://app.warp.dev/admin) directly.
 
 ### How settings enforcement works
 
-Settings configured in the admin panel are enforced at the team level:
+Settings configured in the Admin Panel are enforced at the team level:
 
 * **Enforced settings** - Cannot be overridden by individual users (e.g., BYOLLM routing policies)
 * **Respect User Setting** - Defers to each user's own preference, letting individual team members configure that setting themselves
@@ -161,7 +161,7 @@ Once your team is set up:
 * **Agent Profiles** - Configure default [Agent Profiles](https://docs.warp.dev/agent-platform/capabilities/agent-profiles-permissions) for different types of work to give teams appropriate autonomy and control
 * **BYOLLM** - Set up [Bring Your Own LLM](../enterprise-features/bring-your-own-llm.md) to route inference through your cloud infrastructure for data locality and cost control
 * **Self-hosting** - Run Oz agents on your own infrastructure to control where agents run and keep repository clones on your own machines. See [Self-Hosting](https://docs.warp.dev/agent-platform/cloud-agents/self-hosting) for setup instructions
-* **Monitor usage** - Review usage analytics in the admin panel to track adoption and measure engineering productivity gains
+* **Monitor usage** - Review usage analytics in the Admin Panel to track adoption and measure engineering productivity gains
 
 ## Troubleshooting
 
@@ -181,6 +181,6 @@ For common SSO problems (login failures, account linking, provider portal errors
 
 ## Support and resources
 
-* [Admin panel documentation](../team-management/admin-panel.md)
+* [Admin Panel documentation](../team-management/admin-panel.md)
 * [Troubleshooting login issues](https://docs.warp.dev/support-and-community/troubleshooting-and-support/troubleshooting-login-issues)
 * [Contact enterprise support](https://warp.dev/contact-sales) - Priority support via dedicated Slack/Teams channel

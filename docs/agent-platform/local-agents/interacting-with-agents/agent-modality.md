@@ -314,7 +314,7 @@ Similar to the previous Universal Input experience, you can also use the "toggle
 1. Go to **Settings** > **AI** > **Input**.
 2. Toggle on **Autodetect terminal commands in agent input**.
 
-As with Universal Input, you can also press `⌘I` (macOS) or `Ctrl+I` (Windows/Linux) to manually toggle between shell and agent mode at any time, overriding auto-detection.
+As with Universal Input, you can also press `⌘I` (macOS) or `Ctrl+I` (Windows/Linux) to manually toggle between shell and Agent Mode at any time, overriding auto-detection.
 
 {% hint style="info" %}
 Auto-detection is enabled by default for new Warp users.

@@ -34,7 +34,7 @@ Some product features — including cloud conversations and Oz runs — require 
 
 Enterprise subscriptions also include:
 
-* **Team-level enforcement** - Admins configure data collection and telemetry policies for the entire organization through the admin panel
+* **Team-level enforcement** - Admins configure data collection and telemetry policies for the entire organization through the Admin Panel
 * **Secret redaction** - All AI interactions automatically apply [secret redaction](https://docs.warp.dev/support-and-community/privacy-and-security/secret-redaction) to prevent sensitive data exposure
 
 ### Telemetry categories
@@ -58,7 +58,7 @@ Users can opt out of telemetry individually:
 
 With telemetry disabled, Warp stops collecting usage and interaction data for analytics purposes.
 
-Team admins can enforce telemetry settings organization-wide through the admin panel. On Business and Enterprise plans, data collection is disabled by default.
+Team admins can enforce telemetry settings organization-wide through the Admin Panel. On Business and Enterprise plans, data collection is disabled by default.
 
 ## Data handling and privacy
 
@@ -81,7 +81,7 @@ Warp automatically detects and redacts sensitive information before sending any 
 * API keys and tokens
 * Passwords and secrets
 * SSH keys and certificates
-* Custom secret patterns (configurable via admin panel)
+* Custom secret patterns (configurable via Admin Panel)
 
 See [Secret Redaction documentation](https://docs.warp.dev/support-and-community/privacy-and-security/secret-redaction) for details.
 
@@ -143,13 +143,13 @@ See [Single Sign-On (SSO)](sso.md) for setup instructions, SCIM provisioning, ac
 
 ### Team permissions
 
-Warp uses role-based access control with three roles — Team Owner, Team Admin, and Member — to manage team access and admin panel privileges. See [User roles and permissions](../getting-started/getting-started-enterprise.md#user-roles-and-permissions) for details.
+Warp uses role-based access control with three roles — Team Owner, Team Admin, and Member — to manage team access and Admin Panel privileges. See [User roles and permissions](../getting-started/getting-started-enterprise.md#user-roles-and-permissions) for details.
 
 Resource sharing in Warp Drive has granular controls for who can view, edit, and share.
 
-### Admin panel governance
+### Admin Panel governance
 
-The admin panel gives security and IT teams centralized control over AI behavior, data handling, and sharing policies. Settings can be **enforced** (overriding individual user preferences organization-wide) or set to **respect user setting** (deferring to individual preferences).
+The Admin Panel gives security and IT teams centralized control over AI behavior, data handling, and sharing policies. Settings can be **enforced** (overriding individual user preferences organization-wide) or set to **respect user setting** (deferring to individual preferences).
 
 Security-relevant controls include:
 * **Privacy** - Configure user-generated content (UGC) data collection, cloud conversation storage, and enterprise secret redaction

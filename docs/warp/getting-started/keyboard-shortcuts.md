@@ -40,7 +40,7 @@ Keybinds that conflict with others are highlighted with an orange border.
 | `CTRL-I`       | Warpify Subshell             | `terminal:trigger_subshell_bootstrap`          |
 | `CMD-\`        | Warp Drive                   | `terminal:toggle_warp_drive`                   |
 | `CMD-O`        | File search                  |                                                |
-| `CMD-P`        | Open command palette         |
+| `CMD-P`        | Open Command Palette         |
 
 **Blocks**
 

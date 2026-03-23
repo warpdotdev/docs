@@ -72,7 +72,7 @@ Warp Terminal and Oz provide a unified experience across local and cloud develop
 
 ## Multi-model support
 
-Oz is multi-model by design. You can [choose your preferred LLM](https://docs.warp.dev/agent-platform/capabilities/model-choice) from a curated set of top models
+Oz is multi-model by design. You can [choose your preferred LLM](https://docs.warp.dev/agent-platform/capabilities/model-choice) from a curated set of top models.
 
 ***
 

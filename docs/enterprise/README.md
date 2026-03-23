@@ -24,7 +24,7 @@ Warp Enterprise serves three primary audiences:
 
 ### Enterprise administration
 * **Single Sign-On (SSO)** - Authenticate via your existing identity provider (Okta, Microsoft Entra ID, Google Workspace, and more)
-* **Centralized admin panel** - Manage team settings, user permissions, and feature controls from one location
+* **Centralized Admin Panel** - Manage team settings, user permissions, and feature controls from one location
 * **User roles and permissions** - Control access with Team Owner, Team Admin, and Member roles
 * **Usage visibility** - Monitor team adoption and agent usage across your organization
 

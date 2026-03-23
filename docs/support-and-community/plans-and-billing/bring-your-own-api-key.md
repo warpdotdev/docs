@@ -1,6 +1,6 @@
 ---
 description: >-
-  Warp's paid plans includes the ability to bring your own API keys (BYOK) for
+  Warp's paid plans include the ability to bring your own API keys (BYOK) for
   OpenAI, Anthropic, and Google AI models.
 ---
 
@@ -50,11 +50,11 @@ When you explicitly select a model with a key icon, Warp routes requests through
 
 ### Auto Model
 
-Warp's **Auto** models dynamically routes requests across different models based on context and performance. Because this routing logic depends on Warp’s infrastructure, **Auto always consumes Warp's credits**, even if you’ve configured your own API keys.
+Warp's **Auto** models dynamically route requests across different models based on context and performance. Because this routing logic depends on Warp’s infrastructure, **Auto always consumes Warp's credits**, even if you’ve configured your own API keys.
 
 To use your own key, select a specific provider model (for example, Claude Sonnet 4.5, GPT-5, or Gemini 2.5 Pro) directly from the model picker with a key icon.
 
-### Credit Usage
+### Credit usage
 
 When you select a model with the key icon in your model picker, Warp routes the request through your API key.
 
@@ -114,6 +114,6 @@ Currently, BYOK is configured at the **user level**, not the team or admin level
 
 * Each team member can add and manage their own API keys locally.
 * Team admins cannot yet enforce or share API keys across members.
-* There currently is no organization-level admin panel for BYOK management.
+* There is currently no organization-level Admin Panel for BYOK management.
 
 If your organization has specific needs for managed keys or enterprise-level control, please contact us at [warp.dev/contact-sales](https://warp.dev/contact-sales).

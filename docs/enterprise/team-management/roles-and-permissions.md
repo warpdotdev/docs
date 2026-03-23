@@ -11,7 +11,7 @@ Warp uses a role-based access model to control what team members can do within y
 
 Warp has three user roles:
 
-* **Team Owner** - Has full access to the admin panel and can manage team settings, invite users, assign roles, and transfer ownership of the team. There can only be one Owner.
+* **Team Owner** - Has full access to the Admin Panel and can manage team settings, invite users, assign roles, and transfer ownership of the team. There can only be one Owner.
 * **Team Admin** - Same permissions as the Owner, except they can't transfer ownership of the team.
 * **Member** - Standard access to Warp features and team resources. Members can use agents, access shared Warp Drive resources, and configure personal settings within the limits set by admins.
 

@@ -38,7 +38,7 @@ Web searches are automatically triggered when the model considers them useful. Y
    * Claude models cite sources in the references footer.
    * OpenAI models use inline citations and also show references in the footer.
 
-### Supported and Unsupported Models
+### Supported and unsupported models
 
 Web search is available only for models that offer a native web search integration, that works in tandem with other custom tools.
 
@@ -58,7 +58,7 @@ Warp uses each vendor’s official tool:
 **Note**: We plan to add native web search for additional models as soon as their APIs fully support it. We’ll continue updating the list of search-capable models as vendors roll out broader tooling. We're also exploring custom web search tools that'll work across all models.
 {% endhint %}
 
-### Viewing Search Results
+### Viewing search results
 
 You can inspect the web search UI at any time:
 
@@ -72,7 +72,7 @@ You can inspect the web search UI at any time:
 
 This makes it easy to verify accuracy, audit reasoning, and validate sources.
 
-### Enabling or Disabling Web Search
+### Enabling or disabling web search
 
 Web search is controlled per [Profiles & Permissions](agent-profiles-permissions.md).
 
@@ -87,7 +87,7 @@ Web search is controlled per [Profiles & Permissions](agent-profiles-permissions
 
 Disabling this prevents the agent from performing searches, even if a model would normally use them.
 
-### Credit Usage
+### Credit usage
 
 Web search incurs two types of credit usage:
 

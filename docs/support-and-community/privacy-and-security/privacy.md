@@ -63,7 +63,7 @@ Deletion jobs run every 24 hours, so if you deleted your account and want to sig
 If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admin, the deletion flow will require that you assign a team member as the new admin.
 {% endhint %}
 
-### Exhaustive Telemetry Table
+### Exhaustive telemetry table
 
 | Event Name | Description |
 |---|---|
