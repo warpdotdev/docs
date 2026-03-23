@@ -12,6 +12,7 @@
 
 * [Security overview](security-and-compliance/security-overview.md)
 * [Single Sign-On (SSO)](security-and-compliance/sso.md)
+* [Trust Center](security-and-compliance/trust-center.md)
 
 ## Team management
 
