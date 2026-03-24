@@ -22,3 +22,7 @@
 ## Enterprise features
 
 * [Bring your own LLM](enterprise-features/bring-your-own-llm.md)
+
+## Support and resources
+
+* [Feedback and feature requests](support-and-resources/feedback-and-feature-requests.md)
