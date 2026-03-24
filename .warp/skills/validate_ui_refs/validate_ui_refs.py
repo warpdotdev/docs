@@ -1276,14 +1276,14 @@ def main() -> int:
             json.dump(report_data, f, indent=2, default=str)
         print(f"Results saved to {args.output}")
 
+    # Count remaining (unfixed) issues — used for Slack notification and exit code
+    total_issues = len(path_issues) + len(command_issues) + len(format_issues)
+
     # Slack notification (only when issues found)
     if args.slack_notify and total_issues > 0:
         notify_slack(report_data, args.slack_channel, pr_url)
     elif args.slack_notify:
         print("No issues found — skipping Slack notification.")
-
-    # Return non-zero if issues found
-    total_issues = len(path_issues) + len(command_issues) + len(format_issues)
     return 1 if total_issues > 0 else 0
 
 

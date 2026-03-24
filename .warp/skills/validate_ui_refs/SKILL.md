@@ -127,7 +127,22 @@ Fixes that require manual review (e.g. renamed sections, removed features) are r
 
 ## Slack Notifications
 
-To send results to Slack:
+Slack notifications are designed for scheduled/automated runs, not ad-hoc usage. When running the skill manually (e.g., during a PR review or docs update), you can review results directly in the terminal output.
+
+### Current behavior
+
+The `--slack-notify` flag posts a summary to `#growth-docs` when unfixed issues remain after a run. If the scan is clean (0 issues), no notification is sent.
+
+### Intended behavior for scheduled runs
+
+When this skill is configured as a scheduled Oz agent, Slack notifications should alert the team in two cases:
+
+1. **Auto-fixes applied** — the script found and corrected issues, and created a PR. The notification should include the PR link so the team can review and merge.
+2. **Unfixed issues remain** — some issues could not be auto-corrected (e.g., a renamed or removed section) and require manual attention. The notification should list these for triage.
+
+If a scheduled run finds no issues at all, the notification should be skipped (no noise).
+
+> **Note:** This two-condition notification logic is not yet implemented. The current `--slack-notify` flag only covers condition 2 (unfixed issues). When we set up scheduled runs, the script should be updated to also notify on condition 1 (auto-fixes with PR link).
 
 ### Setup (one-time)
 
@@ -153,8 +168,6 @@ For scheduled Oz cloud agent runs:
 2. Keep `valid_paths.json` up-to-date by running `--refresh-valid-paths` as a pre-step (requires `warp-internal` in the environment)
 3. Set the `SLACK_BOT_TOKEN` secret in the environment
 4. Run: `python3 .warp/skills/validate_ui_refs/validate_ui_refs.py --all --fix --create-pr --slack-notify`
-
-The `--slack-notify` flag should always be included — the script only sends a notification when issues are found, so there's no noise when everything is clean.
 
 A typical scheduled agent would:
 1. Run `--refresh-valid-paths` to update the snapshot
