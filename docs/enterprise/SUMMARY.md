@@ -25,5 +25,6 @@
 
 ## Support and resources
 
+* [Billing](support-and-resources/billing.md)
 * [Troubleshooting login](support-and-resources/troubleshooting-login.md)
 * [Feedback and feature requests](support-and-resources/feedback-and-feature-requests.md)
