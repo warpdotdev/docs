@@ -160,6 +160,7 @@ Once your team is set up:
 * **For developers** - Share the [Getting started for developers](getting-started-developers.md) guide with your team
 * **Agent Profiles** - Configure default [Agent Profiles](https://docs.warp.dev/agent-platform/capabilities/agent-profiles-permissions) for different types of work to give teams appropriate autonomy and control
 * **BYOLLM** - Set up [Bring Your Own LLM](../enterprise-features/bring-your-own-llm.md) to route inference through your cloud infrastructure for data locality and cost control
+* **Monitor usage** - Review usage analytics in the Admin Panel to track adoption and measure engineering productivity gains
 * **Self-hosting** - Run Oz agents on your own infrastructure to control where agents run and keep repository clones on your own machines. See [Self-Hosting](https://docs.warp.dev/agent-platform/cloud-agents/self-hosting) for setup instructions
 * **Monitor usage** - Review usage analytics in the Admin Panel to track adoption and measure engineering productivity gains
 
