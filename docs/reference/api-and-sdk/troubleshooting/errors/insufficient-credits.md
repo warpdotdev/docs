@@ -38,8 +38,7 @@ Cloud agent runs consume credits based on usage. When credits are depleted, no n
   "status": 403,
   "instance": "/api/v1/agent/tasks",
   "error": "Your team has run out of add-on credits. Purchase more credits in your team's billing settings to continue.",
-  "retryable": false,
-  "trace_id": "abc123..."
+  "retryable": false
 }
 ```
 
