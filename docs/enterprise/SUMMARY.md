@@ -16,6 +16,7 @@
 
 ## Team management
 
+* [Teams](team-management/teams.md)
 * [Admin panel](team-management/admin-panel.md)
 * [Roles and permissions](team-management/roles-and-permissions.md)
 

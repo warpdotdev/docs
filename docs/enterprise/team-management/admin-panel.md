@@ -367,4 +367,4 @@ Enterprise customers have access to priority support:
 * **Account manager** - Direct contact for escalations and feature requests
 * **Technical support** - Help with Admin Panel configuration and troubleshooting
 
-Reach out through your dedicated support channel or email [enterprise-support@warp.dev](mailto:enterprise-support@warp.dev).
+Reach out through your dedicated Slack/Teams channel or contact your account manager.
