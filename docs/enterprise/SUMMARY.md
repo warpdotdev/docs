@@ -22,6 +22,7 @@
 
 ## Enterprise features
 
+* [Architecture and deployment](enterprise-features/architecture-and-deployment.md)
 * [Bring your own LLM](enterprise-features/bring-your-own-llm.md)
 
 ## Support and resources
