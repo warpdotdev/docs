@@ -46,3 +46,20 @@ redirects:
     # Extracted: quickstart moved to its own page
     cli#quickstart-guide: cli/quickstart.md
 
+    # Error code underscore→hyphen redirects
+    api-and-sdk/troubleshooting/errors/insufficient_credits: api-and-sdk/troubleshooting/errors/insufficient-credits.md
+    api-and-sdk/troubleshooting/errors/feature_not_available: api-and-sdk/troubleshooting/errors/feature-not-available.md
+    api-and-sdk/troubleshooting/errors/external_authentication_required: api-and-sdk/troubleshooting/errors/external-authentication-required.md
+    api-and-sdk/troubleshooting/errors/not_authorized: api-and-sdk/troubleshooting/errors/not-authorized.md
+    api-and-sdk/troubleshooting/errors/invalid_request: api-and-sdk/troubleshooting/errors/invalid-request.md
+    api-and-sdk/troubleshooting/errors/resource_not_found: api-and-sdk/troubleshooting/errors/resource-not-found.md
+    api-and-sdk/troubleshooting/errors/budget_exceeded: api-and-sdk/troubleshooting/errors/budget-exceeded.md
+    api-and-sdk/troubleshooting/errors/integration_disabled: api-and-sdk/troubleshooting/errors/integration-disabled.md
+    api-and-sdk/troubleshooting/errors/integration_not_configured: api-and-sdk/troubleshooting/errors/integration-not-configured.md
+    api-and-sdk/troubleshooting/errors/operation_not_supported: api-and-sdk/troubleshooting/errors/operation-not-supported.md
+    api-and-sdk/troubleshooting/errors/environment_setup_failed: api-and-sdk/troubleshooting/errors/environment-setup-failed.md
+    api-and-sdk/troubleshooting/errors/content_policy_violation: api-and-sdk/troubleshooting/errors/content-policy-violation.md
+    api-and-sdk/troubleshooting/errors/authentication_required: api-and-sdk/troubleshooting/errors/authentication-required.md
+    api-and-sdk/troubleshooting/errors/resource_unavailable: api-and-sdk/troubleshooting/errors/resource-unavailable.md
+    api-and-sdk/troubleshooting/errors/internal_error: api-and-sdk/troubleshooting/errors/internal-error.md
+
