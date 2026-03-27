@@ -20,7 +20,7 @@ description: >-
 * For subscriber billing issues or questions (refunds, cancellation, etc.), email [billing@warp.dev](mailto:billing@warp.dev).
 * For enterprise, please direct all feedback and issues to your designated Slack Channel.
 
-<figure><img src="../.gitbook/assets/send-feedback-demo.gif" alt="sending feedback from the mac menu and warp essentials"><figcaption><p>Send Feedback</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/send-feedback-demo.gif" alt="sending feedback from the macOS menu and Warp Essentials"><figcaption><p>Send Feedback</p></figcaption></figure>
 
 ## Gathering Warp Logs
 

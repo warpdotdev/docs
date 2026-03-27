@@ -6,7 +6,7 @@ description: >-
 
 # Getting started with Warp and Oz
 
-Warp is an **Agentic Development Environment**, a modern terminal combined with powerful AI agents that help you build, test, deploy, and debug code. Warp's AI is powered by **Oz**, the orchestration platform for cloud agents.
+Warp is an **Agentic Development Environment**, a modern terminal combined with powerful agents that help you build, test, deploy, and debug code. Warp's AI is powered by **Oz**, the orchestration platform for cloud agents.
 
 <figure><img src=".gitbook/assets/warp-oz-welcome.png" alt="Warp, the Agentic Development Environment: Warp Terminal (a modern terminal built for coding with agents) and Oz (the orchestration platform for cloud agents)"><figcaption><p>Warp combines a modern terminal with Oz, the orchestration platform for cloud agents</p></figcaption></figure>
 
