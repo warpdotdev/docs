@@ -148,6 +148,22 @@ Attach the resulting `warp-crash-logs.zip` to your [bug report](sending-us-feedb
 This command searches crash report files for Warp's bundle identifier, so it works across all Warp channels (Stable, Preview).
 {% endhint %}
 
+## Collecting debug info on Windows
+
+Occasionally, the Warp team may as you do provide debugging information on Windows OS in particular with one of the following:
+
+```powershell
+# If Warp is in your PATH, Run:
+warp --dump-debug-info
+
+# Otherwise you may need to use an absolute path and ...
+# Warp on Windows is installed for a single user, Run:
+& $env:LOCALAPPDATA\programs\Warp\warp.exe --dump-debug-info
+
+# Warp on Windows is installed for all users, Run:
+& $env:PROGRAMFILES\Warp\warp.exe --dump-debug-info
+```
+
 ## Gathering AI debugging ID <a href="#gathering-ai-debugging-id" id="gathering-ai-debugging-id"></a>
 
 To gather the debugging ID, `RIGHT-CLICK` on the AI conversation block in question and select "Copy debugging ID", then paste that into the [bug report](sending-us-feedback.md#sending-warp-feedback) that you submit so that our team can investigate the issue.
