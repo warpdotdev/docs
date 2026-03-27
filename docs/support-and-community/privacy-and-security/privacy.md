@@ -63,7 +63,7 @@ Deletion jobs run every 24 hours, so if you deleted your account and want to sig
 If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admin, the deletion flow will require that you assign a team member as the new admin.
 {% endhint %}
 
-### Exhaustive telemetry table
+### Exhaustive Telemetry Table
 
 | Event Name | Description |
 |---|---|
@@ -128,13 +128,14 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `AgentMode.Code.FileExceededContextLimit` | File from AI exceeded context limit |
 | `AgentMode.Code.FilesNavigated` | Agent Mode Code files navigated |
 | `AgentMode.Code.InvalidFile` | File(s) in code diff could not be found |
+| `AgentMode.Code.MalformedFinalLineProxy` | Suggested code diff likely required malformed trailing line correction (heuristic) |
 | `AgentMode.Code.MissingLineNumbers` | Code diff was missing line numbers |
 | `AgentMode.Code.SuggestedCodeEditedByUser` | Agent Mode Code suggestion edited by user |
 | `AgentMode.Code.SuggestedEditAcceptAndContinueClicked` | User selected Accept and start conversation for a code diff suggestion in Agent Mode |
 | `AgentMode.Code.SuggestedEditAcceptClicked` | User selected Accept for a code diff suggestion in Agent Mode |
 | `AgentMode.Code.SuggestedEditReceived` | Agent Mode suggested a code edit |
 | `AgentMode.Code.SuggestedEditResolved` | Agent Mode pending code edit suggestion resolved |
-| `AgentMode.CreatedAIBlock` | Created an AI block in Agent Mode |
+| `AgentMode.CreatedAIBlock` | Created an AI block in agent mode |
 | `AgentMode.Error` | Received an error when getting Agent Mode response |
 | `AgentMode.ExecutedWarpDrivePrompt` | Executed a saved prompt. |
 | `AgentMode.ExitedShellProcess` | An agent-requested command caused the shell process to exit |
@@ -143,12 +144,12 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `AgentMode.Grep.Failed` | The grep tool failed to complete |
 | `AgentMode.Grep.Succeeded` | The grep tool completed successfully |
 | `AgentMode.NaturalLanguageDetection.InputBufferSubmitted` | Input buffer submitted |
-| `AgentMode.OpenedCitation` | Opened a citation that was surfaced in Agent Mode |
+| `AgentMode.OpenedCitation` | Opened a citation that was surfaced in agent mode |
 | `AgentMode.PotentialAutoDetectionFalsePositive` | Manually toggled input to shell mode after input was auto-detected as natural language. |
 | `AgentMode.QueryAttemptAtLImit` | Tried to send an Agent Mode query but they already reached the query limit |
 | `AgentMode.RequestRetrySucceeded` | Agent Mode request succeeded after retrying following an initial error |
 | `AgentMode.SetupCreateEnvironmentAction` | User clicked a button in the Agent Mode setup create environment step |
-| `AgentMode.SurfacedCitations` | Agent Mode used and cited external sources that were used in its response |
+| `AgentMode.SurfacedCitations` | Agent mode used and cited external sources that were used in its response |
 | `AgentMode.ToggleAutoDetectionSetting` | Toggled the setting that enables or disables natural language auto-detection in the input.  |
 | `AgentTip Clicked` | User clicked a link or action in an Agent Tip |
 | `AgentTip Shown` | Selected an Agent Tip to show in the Agent Mode status bar |
@@ -261,6 +262,7 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `CodeReview.PaneStateChanged` | Code review pane minimized or maximized |
 | `CodeReview.RevertHunkClicked` | Revert hunk button clicked |
 | `CodeReview.ReviewSubmitted` | Inline code review submitted to agent |
+| `CodeView.SelectionAddedAsContext` | Added selected code as context from the code editor |
 | `CodexModal.Opened` | User opened the Codex modal |
 | `CodexModal.UseCodexClicked` | User clicked 'Use Codex' in the Codex modal |
 | `Command Correction Event` | Accepted command correction |
@@ -554,7 +556,7 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `Updated Sorting Choice` | Modified the sorting scheme for Warp Drive objects |
 | `Upgrade To Pro Modal CTA Clicked` | User clicked the CTA button in the UpgradeToProModal |
 | `Upgrade To Pro Modal Dismissed` | User dismissed the UpgradeToProModal |
-| `UseAgentFooter.SettingToggled` | User toggled the Use Agent footer setting |
+| `UseAgentToolbar.SettingToggled` | User toggled the Use Agent footer setting |
 | `Used Warp AI Prepared Prompt` | Used one of the Warp-provided prompts, like "Show examples" |
 | `User Initiated Closing Something` | Attempted to either quit the app or close a window |
 | `User Initiated Log Out` | Confirms a user has explicitly logged out of the application |

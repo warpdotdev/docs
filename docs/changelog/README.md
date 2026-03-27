@@ -25,6 +25,48 @@ metaLinks: {}
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2026.03.25 (v0.2026.03.25.08.24)
+
+**New features**
+
+* You can now use the pr-comments skill using `/pr-comments` to fetch Pull Request comments from GitHub.
+* Warp now supports the Kitty Keyboard Protocol.
+
+**Improvements**
+
+* Onboarding now shows premium model tiers as disabled with an upgrade path for free users.
+* All inline menus are now resizable, and some inline menus now have tabs.
+* Adds new built-in `edit-figma-design` skill, invokable by users with Figma's remote MCP server installed.
+* MCP server templates can now use dropdown selectors for enums.
+* Added a customizable toolbelt for the agent input footer — drag and drop to rearrange context chips and controls.
+* \[macOS] Migrate to Apple's newest icon format. This will allow Warp's icon to adapt to the chosen "Icon & Widget Style" preference if the default icon is selected.
+* Code review comments can now be sent directly to running CLI agents (Claude Code, Gemini CLI, etc.) from the code review panel.
+* Pressing `esc` now dismisses an empty code review comment composer.
+* Added the ability to always show or always hide agent thinking blocks. Visit **Settings** > **AI** > **Other** to change.
+* Add a `/changelog` command for reopening the latest changelog, and keep the update toast visible until dismissed.
+* Added syntax highlighting for Dockerfiles in the file editor.
+* Added a setting to hide agent-executed commands from shell history, now enabled by default.
+* MCP servers detected from third-party agents (Claude, Codex) are now visible and spawnable from the MCP servers page in Warp's AI settings. For more, see our [docs](https://docs.warp.dev/agent-platform/capabilities/mcp#file-based-mcp-servers) on file-based MCP servers.
+
+**Bug fixes**
+
+* Fixed visual jitter in CLI agent toolbar when opening the rich input composer.
+* Clarified the `/fork` slash command description.
+* MCP resource reads now respect autonomy settings instead of always prompting for approval.
+* You now get completions, syntax highlighting, and hover descriptions when your flag/value pairs are `=`-separated, e.g. `--flag=value`.
+* Fixed stale go-to-definition and symbol outlines when using code review with multiple tabs.
+* Fixed an issue where selecting a shell command from command search (`cmd-r`) while in agent mode with auto-detection disabled would treat the command as an agent prompt instead of executing it as a shell command.
+* Fixed `ctrl-c` not working during conversation search.
+* Fixed an issue where the follow-up prompt in `/compact-and` and `/fork-and-compact` was silently lost when summarization failed or was cancelled.
+* Fixed dismiss button and `ctrl-c` not working on suggested unit tests banner.
+* Git diff chip now appears in remote and subshell sessions.
+* Fixed input scrolling bug where clicks were sometimes applied one line up (instead of on the clicked line).
+* Fixed rendering of programs that use the synchronized output VT extension in shared sessions, such as Claude Code.
+
+**Oz updates**
+* Updated the `create-skill` bundled skill with the latest upstream version, adding eval/iteration workflow, benchmarking, and description optimization capabilities.
+* New chip in AI input mode for GitHub pull requests, whenever you have a pull request open for your current branch.
+
 ### 2026.03.18 (v0.2026.03.18.08.24)
 
 **New features**
