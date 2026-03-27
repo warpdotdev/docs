@@ -10,7 +10,6 @@ description: >-
 
 * Open a new bugs or feature request in our [GitHub repository](https://github.com/warpdotdev/warp/issues/new/choose).
 * Join our [Warp Community Slack](https://go.warp.dev/join-preview) and share feedback in **#feedback-general**, or **#feedback-preview** if it is specific to [Warp Preview](../community/warp-preview-and-alpha-program.md).
-* Join our [Discord](https://discord.com/invite/warpdotdev) server, and ask questions or share feedback in [`#questions-and-feedback`](https://discord.com/channels/851854972600451112/1154432424873296012).
 * For security issues or questions, email [security@warp.dev](mailto:security@warp.dev).
 * For questions about privacy, email [privacy@warp.dev](mailto:privacy@warp.dev).
 

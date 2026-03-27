@@ -4,10 +4,9 @@
 
 ## Community
 
-* [Warp Preview & Alpha Program](community/warp-preview-and-alpha-program.md)
+* [Warp Preview](community/warp-preview-and-alpha-program.md)
 * [Refer a Friend & Earn Rewards](community/refer-a-friend.md)
 * [Oz Open Source Partnership](community/open-source-partnership.md)
-* [Open Source Licenses](community/open-source-licenses.md)
 
 ## Troubleshooting and support
 
@@ -27,8 +26,9 @@
 * [Overages (Legacy)](plans-and-billing/overages-legacy.md)
 * [Pricing FAQs](plans-and-billing/pricing-faqs.md)
 
-## Privacy and security
+## Privacy, security, and licensing
 
 * [Privacy](privacy-and-security/privacy.md)
 * [Secret Redaction](privacy-and-security/secret-redaction.md)
 * [Network Log](privacy-and-security/network-log.md)
+* [Open Source Licenses](community/open-source-licenses.md)

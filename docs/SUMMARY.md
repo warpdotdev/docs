@@ -18,15 +18,15 @@
 * [Overages (Legacy)](support-and-community/plans-and-billing/overages-legacy.md)
 * [Pricing FAQs](support-and-community/plans-and-billing/pricing-faqs.md)
 
-## Privacy and security
+## Privacy, security, and licensing
 
 * [Privacy](support-and-community/privacy-and-security/privacy.md)
 * [Secret Redaction](support-and-community/privacy-and-security/secret-redaction.md)
 * [Network Log](support-and-community/privacy-and-security/network-log.md)
+* [Open Source Licenses](support-and-community/community/open-source-licenses.md)
 
 ## Community
 
 * [Refer a Friend & Earn Rewards](support-and-community/community/refer-a-friend.md)
 * [Oz Open Source Partnership](support-and-community/community/open-source-partnership.md)
-* [Warp Preview & Alpha Program](support-and-community/community/warp-preview-and-alpha-program.md)
-* [Open Source Licenses](support-and-community/community/open-source-licenses.md)
+* [Warp Preview](support-and-community/community/warp-preview-and-alpha-program.md)

@@ -238,7 +238,7 @@ If you experience an error opening Warp, please try the following:
 
 **Running x86 commands with macOS**
 
-In some cases, [CLI applications only work on x86](https://discord.com/channels/851854972600451112/1204829324847358002) so you can run Warp with Rosetta on macOS to be able to use them by doing the following.
+In some cases, CLI applications only work on x86, so you can run Warp with Rosetta on macOS to be able to use them by doing the following.
 
 * Go to **Finder** > **Applications** and search for Warp.
 * Right-click and select Get Info.
