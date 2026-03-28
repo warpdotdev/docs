@@ -20,7 +20,7 @@ Workflows are easily parameterized and searchable by name, description, or comma
 * You can also expand the menu horizontally with the mouse by dragging it on the right edge.
 
 {% hint style="info" %}
-Tailor your [Command Search](command-search.md) experience by toggling off "Show Global Workflows" in **Settings** > **Features**. When disabled, your search will exclusively encompass YAML and Warp Drive Workflows.
+Tailor your [Command Search](command-search.md) experience by toggling off "Show Global Workflows" in **Settings** > **Features** > **Workflows**. When disabled, your search will exclusively encompass YAML and Warp Drive Workflows.
 {% endhint %}
 
 ## How it works

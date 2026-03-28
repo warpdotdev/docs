@@ -12,7 +12,7 @@ The Command Search panel provides unified search across all your terminal inputs
 ![Command Search Panel](../../.gitbook/assets/command-search-panel.png)
 
 {% hint style="info" %}
-Tailor your Command Search experience by toggling off "Show Global Workflows" in **Settings** > **Features**. When disabled, your search will exclusively encompass YAML and Warp Drive Workflows.
+Tailor your Command Search experience by toggling off "Show Global Workflows" in **Settings** > **Features** > **Workflows**. When disabled, your search will exclusively encompass YAML and Warp Drive Workflows.
 {% endhint %}
 
 ## Quick Start
@@ -25,7 +25,7 @@ Tailor your Command Search experience by toggling off "Show Global Workflows" in
 
 You can filter your search results by prepending your search term with any of the following:
 
-<table><thead><tr><th width="215.78436279296875">Filter</th><th>Shortcuts</th></tr></thead><tbody><tr><td>Command History</td><td><code>history:</code>, <code>h:</code>, or <code>H-TAB</code></td></tr><tr><td>Prompts</td><td><code>prompts:</code>, <code>p:</code>, or <code>P-TAB</code></td></tr><tr><td><a href="https://docs.warp.dev/agent-platform/local-agents/interacting-with-agents">Agent Mode</a> History</td><td><code>ai_history:</code>, <code>a:</code>, or <code>A-TAB</code></td></tr>
+<table><thead><tr><th width="215.78436279296875">Filter</th><th>Shortcuts</th></tr></thead><tbody><tr><td>Command History</td><td><code>history:</code>, <code>h:</code>, or <code>H-TAB</code></td></tr><tr><td>Prompts</td><td><code>prompts:</code>, <code>p:</code>, or <code>P-TAB</code></td></tr><tr><td><a href="https://docs.warp.dev/agent-platform/local-agents/interacting-with-agents">Agent Mode</a> History</td><td><code>ai_history:</code>, <code>a:</code>, or <code>A-TAB</code></td></tr></tbody></table>
 
 {% hint style="info" %}
 When a filter is activated, it will be bolded and italicized in the search panel.

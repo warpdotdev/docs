@@ -33,7 +33,7 @@ Notes:
 
 * Notifications are enabled by default and require system permissions to appear.
 * If you've turned Notifications off before, toggle it back on by going to **Settings** > **Features** > **Session**, or quickly toggle Notifications with the [Command Palette](../command-palette.md).
-* Customize Notification triggers for long-running commands or password prompts by going to **Settings** > **Features**.
+* Customize Notification triggers for long-running commands or password prompts by going to **Settings** > **Features** > **Notifications**.
 
 {% hint style="info" %}
 On macOS, you will want to **Allow** or **Accept** the request so that Warp can send you desktop notifications. If you accidentally denied it or would like to re-enable Notifications later, check the [troubleshooting guide below](notifications.md#troubleshooting-notifications).

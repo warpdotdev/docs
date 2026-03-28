@@ -23,7 +23,7 @@ The Theme setting persists, meaning Warp will open with the same settings in the
 
 Automatically create new themes based on a background image.
 
-1. Go to **Settings** > **Appearance** > **Current Theme** or search "Open theme picker" within the [Command Palette](../command-palette.md).
+1. Go to **Settings** > **Appearance** > **Themes** or search "Open theme picker" within the [Command Palette](../command-palette.md).
 2. Click the `+` button in the theme picker.
 3. Upload the image and select the background color.
 4. Click "Create Theme" to save and accept the new theme.

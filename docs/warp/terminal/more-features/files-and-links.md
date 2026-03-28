@@ -43,7 +43,7 @@ Warp parses relative and absolute file paths. Warp also tries to capture line an
 
 * You can also Drag and drop a folder or file onto the Warp dock icon to open a new tab in this directory.
 * You can also right-click on a folder or file in Finder, then select Services, and "Open new Warp Tab | Window here".
-* Configure the default editor to open files by navigating to **Settings** > **Features** > **Choose an editor to open file links**.
+* Configure the default editor to open files by navigating to **Settings** > **Features** > **General** > **Choose an editor to open file links**.
   * Selecting "Default App" uses your system's default application for the file type.
 
 #### List of supported editors

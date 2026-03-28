@@ -13,7 +13,7 @@ description: >-
 {% hint style="info" %}
 **Terminal Tip**
 
-You can change the keybinding for accepting autosuggestions to `Tab`. Configure this in the "Tab key behavior" setting under Features > Editor. _Note: This will update the keybinding for opening the completions menu to `CTRL-SPACE`. You can also enable the "Open completions menu as you type" in Settings > Features so that the completions menu opens automatically._
+You can change the keybinding for accepting autosuggestions to `Tab`. Configure this in the "Tab key behavior" setting under **Settings** > **Features** > **Terminal Input**. _Note: This will update the keybinding for opening the completions menu to `CTRL-SPACE`. You can also enable the "Open completions menu as you type" in **Settings** > **Features** > **Terminal Input** so that the completions menu opens automatically._
 {% endhint %}
 
 ## How to use it

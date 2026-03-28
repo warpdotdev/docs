@@ -16,23 +16,23 @@ For long-running commands that take up the full screen, the sticky header only s
 {% tabs %}
 {% tab title="macOS" %}
 * Sticky Command Header is enabled by default.
-* Toggle Sticky Command Header by going to **Settings** > **Features** > toggle “Show sticky command header”.
+* Toggle Sticky Command Header by going to **Settings** > **Features** > **General** > toggle “Show sticky command header”.
 * Toggle by searching for “Sticky Command Header” within the [Command Palette](../command-palette.md) or by pressing `CTRL-CMD-S`.
 * You can also "Toggle Sticky Command Header in Active Pane" with `CTRL-S`. This won't disable the feature entirely, only minimize it on the active session.
 {% endtab %}
 
 {% tab title="Windows" %}
 * Sticky Command Header is enabled by default.
-* Toggle the Sticky Command Header by going to **Settings** > **Features** > toggle “Show sticky command header”.
+* Toggle the Sticky Command Header by going to **Settings** > **Features** > **General** > toggle “Show sticky command header”.
 * Toggle by searching for “Sticky Command Header” within the [Command Palette](../command-palette.md) or by setting up a key bind in **Settings** > **Keyboard shortcuts**.
-* You can also "Toggle Sticky Command Header in Active Pane" in the Command Palette or by setting up a key bind in **Settings** > **Keyboard shortcuts**. This won't disable the feature entirely, only minimize it on the active session.
+* You can also "Toggle Sticky Command Header in Active Pane" in the Command Palette or by setting up a key bind in **Settings** > **Keyboard shortcuts**. This won’t disable the feature entirely, only minimize it on the active session.
 {% endtab %}
 
 {% tab title="Linux" %}
 * Sticky Command Header is enabled by default.
-* Toggle the Sticky Command Header by going to **Settings** > **Features** > toggle “Show sticky command header”.
-* Toggle by searching for “Sticky Command Header” within the [Command Palette](../command-palette.md) or by setting up a key bind in **Settings** > **Keyboard shortcuts**.
-* You can also "Toggle Sticky Command Header in Active Pane" in the Command Palette or by setting up a key bind in **Settings** > **Keyboard shortcuts**. This won't disable the feature entirely, only minimize it on the active session.
+* Toggle the Sticky Command Header by going to **Settings** > **Features** > **General** > toggle “Show sticky command header”.
+* Toggle by searching for “Sticky Command Header” within the [Command Palette](../command-palette.md) or by setting up a key bind in**Settings** > **Keyboard shortcuts**.
+* You can also "Toggle Sticky Command Header in Active Pane" in the Command Palette or by setting up a key bind in**Settings** > **Keyboard shortcuts**. This won't disable the feature entirely, only minimize it on the active session.
 {% endtab %}
 {% endtabs %}
 
