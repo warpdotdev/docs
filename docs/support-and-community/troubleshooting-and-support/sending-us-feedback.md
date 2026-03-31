@@ -164,6 +164,81 @@ warp --dump-debug-info
 & $env:PROGRAMFILES\Warp\warp.exe --dump-debug-info
 ```
 
+## Collecting CPU samples
+
+Certain conditions can cause Warp to use more CPU than expected or become unresponsive. Collecting a CPU sample while the issue is happening is the best way to report it. The sample provides the information the Warp team needs to identify and fix the root cause.
+
+Collect a sample using the steps for your platform and attach it to a new [GitHub issue](https://github.com/warpdotdev/warp/issues/new/choose).
+
+{% tabs %}
+{% tab title="macOS" %}
+1. Reproduce the high CPU usage or unresponsiveness in Warp.
+2. While the issue is occurring, open **Activity Monitor**, select the **Warp** process, and click **Sample Process**.
+
+<figure><img src="../.gitbook/assets/activity-monitor-sample-process.png" alt="Sampling the Warp process in Activity Monitor"><figcaption><p>Sample Process in Activity Monitor</p></figcaption></figure>
+
+3. Save the resulting sample and attach it to your GitHub issue.
+{% endtab %}
+
+{% tab title="Windows" %}
+Install [`samply`](https://github.com/mstange/samply) to record a CPU trace:
+
+```powershell
+powershell -ExecutionPolicy Bypass -c "irm https://github.com/mstange/samply/releases/download/samply-v0.13.1/samply-installer.ps1 | iex"
+```
+
+1. Find the Warp process ID:
+
+   ```powershell
+   Get-Process *warp*
+   ```
+
+2. Start recording, replacing `<PID>` with the process ID from the previous step:
+
+   ```powershell
+   samply record -p <PID>
+   ```
+
+3. Reproduce the issue that causes high CPU usage or unresponsiveness.
+4. Press `Ctrl+C` to stop recording. `samply` opens the profile in the Firefox Profiler in your browser. Click the upload icon in the top-right corner to generate a shareable link, then paste it into your GitHub issue.
+{% endtab %}
+
+{% tab title="Linux" %}
+Install [`samply`](https://github.com/mstange/samply) to record a CPU trace:
+
+```bash
+curl --proto '=https' --tlsv1.2 -LsSf https://github.com/mstange/samply/releases/download/samply-v0.13.1/samply-installer.sh | sh
+```
+
+{% hint style="warning" %}
+`samply` requires access to Linux perf events. If you get a permission error, run:
+
+```bash
+echo '-1' | sudo tee /proc/sys/kernel/perf_event_paranoid
+```
+{% endhint %}
+
+1. Start recording the Warp process:
+
+   ```bash
+   samply record -p $(pgrep -f warp-terminal)
+   ```
+
+2. Reproduce the issue that causes high CPU usage or unresponsiveness.
+3. Press `Ctrl+C` to stop recording. `samply` opens the profile in the Firefox Profiler in your browser. Click the upload icon in the top-right corner to generate a shareable link, then paste it into your GitHub issue.
+
+{% hint style="info" %}
+If you prefer not to install `samply`, you can use the built-in `perf` tool instead:
+
+```bash
+perf record -g -p $(pgrep -f warp-terminal) -- sleep 30
+```
+
+Attach the resulting `perf.data` file from your current directory to your GitHub issue.
+{% endhint %}
+{% endtab %}
+{% endtabs %}
+
 ## Gathering AI debugging ID <a href="#gathering-ai-debugging-id" id="gathering-ai-debugging-id"></a>
 
 To gather the debugging ID, `RIGHT-CLICK` on the AI conversation block in question and select "Copy debugging ID", then paste that into the [bug report](sending-us-feedback.md#sending-warp-feedback) that you submit so that our team can investigate the issue.
