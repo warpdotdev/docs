@@ -209,7 +209,7 @@ Yes. Since self-hosted agents run on your infrastructure, they inherit your netw
 
 ### Does self-hosting work with GitLab or other non-GitHub SCMs?
 
-Self-hosted agents can use any SCM accessible from your infrastructure. With the [unmanaged architecture](self-hosting.md#unmanaged-architecture), agents run directly on your host and use whatever Git configuration and SCM access is already available. With the [managed architecture](self-hosting.md#managed-architecture), automatic environment setup currently focuses on GitHub, but you can configure access to other SCMs via volume mounts, environment variables, or setup commands. See the [GitLab](integrations/gitlab.md) and [Bitbucket](integrations/bitbucket.md) setup guides for step-by-step instructions.
+Self-hosted agents can use any SCM accessible from your infrastructure. With the [unmanaged architecture](self-hosting.md#unmanaged-architecture), agents run directly on your host and use whatever Git configuration and SCM access is already available. With the [managed architecture](self-hosting.md#managed-architecture), automatic environment setup currently focuses on GitHub, but you can configure access to other SCMs via volume mounts, environment variables, setup commands, or Kubernetes Secrets (when using the [Kubernetes backend](managed-worker-reference.md#kubernetes-backend)). See the [GitLab](integrations/gitlab.md) and [Bitbucket](integrations/bitbucket.md) setup guides for step-by-step instructions.
 
 ### Do LLM requests still go through Warp with self-hosting?
 
@@ -217,10 +217,10 @@ Yes. LLM inference routes through Warp's backend, which has [Zero Data Retention
 
 ### What about large monorepos with long environment setup times?
 
-The [unmanaged architecture](self-hosting.md#unmanaged-architecture) is well-suited for large monorepos because agents run directly in your pre-provisioned environment — there is no Docker image build or repo cloning step. For the [managed architecture](self-hosting.md#managed-architecture), the worker supports volume mounts (`-v` flag) to mount a pre-existing repo checkout from the host into task containers, avoiding setup from scratch.
+The [unmanaged architecture](self-hosting.md#unmanaged-architecture) is well-suited for large monorepos because agents run directly in your pre-provisioned environment — there is no Docker image build or repo cloning step. For the [managed architecture](self-hosting.md#managed-architecture), the Docker backend supports volume mounts (`-v` flag) to mount a pre-existing repo checkout from the host into task containers. With the Kubernetes backend, use `pod_template` to configure persistent volume claims or pre-populated storage for the same purpose.
 
 {% hint style="info" %}
-The managed architecture currently requires Docker. A non-Docker execution mode is being explored. If you're interested in alternative self-hosted backends, [contact sales](https://warp.dev/contact-sales).
+The managed architecture supports three execution backends: **Docker** (default), **Kubernetes**, and **Direct** (no container runtime). The Kubernetes backend runs each task as a Kubernetes Job and includes a Helm chart for deployment. See [Self-Hosting](self-hosting.md#choosing-a-managed-backend) for details on choosing a backend.
 {% endhint %}
 
 ### Do Kubernetes pods provide enough sandboxing for self-hosted agents?

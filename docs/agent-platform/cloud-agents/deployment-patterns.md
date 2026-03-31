@@ -124,14 +124,14 @@ Use this when you need to control where agent execution happens while still usin
 
 Self-hosting supports two deployment modes:
 
-* **Managed** — Run the `oz-agent-worker` daemon. Oz orchestrates agents remotely, starting them in isolated Docker containers on your machines. Works like a [GitHub self-hosted runner](https://docs.github.com/en/actions/hosting-your-own-runners).
+* **Managed** — Run the `oz-agent-worker` daemon. Oz orchestrates agents remotely, starting them in isolated Docker containers, Kubernetes Jobs, or directly on the host. Works like a [GitHub self-hosted runner](https://docs.github.com/en/actions/hosting-your-own-runners).
 * **Unmanaged** — Use `oz agent run` in your existing CI, Kubernetes, or dev environment. You control orchestration; Warp provides tracking.
 
 #### Managed architecture
 
 * **Trigger**: integrations (Slack, Linear), schedules, CLI (`oz agent run-cloud`), API/SDK
 * **Orchestration**: Oz orchestrator
-* **Execution**: your infrastructure, running the `oz-agent-worker` daemon with Docker
+* **Execution**: your infrastructure, running the `oz-agent-worker` daemon with Docker, Kubernetes, or the Direct backend
 * **Visibility**: same Oz dashboard, session sharing, and APIs as Oz-hosted
 
 #### Unmanaged architecture
@@ -151,7 +151,7 @@ Self-hosting supports two deployment modes:
 
 #### How it works
 
-**Managed:** You run a worker daemon on your infrastructure that connects to Oz. When you create a task with `--host "your-worker-id"`, Oz routes it to your worker, which runs it in an isolated Docker container.
+**Managed:** You run a worker daemon on your infrastructure that connects to Oz. When you create a task with `--host "your-worker-id"`, Oz routes it to your worker, which runs it in an isolated Docker container, Kubernetes Job, or directly on the host depending on the configured backend.
 
 **Unmanaged:** You run `oz agent run` in your CI pipeline, Kubernetes pod, VM, or dev box. The agent runs directly on the host and reports its session back to Warp for tracking and observability.
 

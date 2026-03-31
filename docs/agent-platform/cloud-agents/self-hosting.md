@@ -33,7 +33,7 @@ Enterprise teams that need full control over LLM inference routing can use [Brin
 
 There are two architectures for self-hosted Oz agents:
 
-* **Managed** — Run the `oz-agent-worker` daemon on your infrastructure. The Oz platform orchestrates agents remotely, starting them in isolated Docker containers on your machines. Similar to a [GitHub self-hosted runner](https://docs.github.com/en/actions/hosting-your-own-runners).
+* **Managed** — Run the `oz-agent-worker` daemon on your infrastructure. The Oz platform orchestrates agents remotely, starting them in isolated Docker containers, Kubernetes Jobs, or directly on the host. Similar to a [GitHub self-hosted runner](https://docs.github.com/en/actions/hosting-your-own-runners).
 * **Unmanaged** — Use the `oz agent run` command to start agents anywhere — in CI pipelines, Kubernetes pods, VMs, or dev boxes. You control orchestration; Warp provides tracking and observability.
 
 ### Comparison
@@ -42,10 +42,10 @@ There are two architectures for self-hosted Oz agents:
 
 * ✅ Full Oz orchestration — start agents from Slack, Linear, the API/SDK, Cloud Mode, or `oz agent run-cloud`
 * ✅ Automatic environment setup (Docker image, repo cloning, setup commands)
-* ✅ Task isolation via Docker containers
+* ✅ Task isolation via Docker containers or Kubernetes Jobs
 * ✅ Remotely start and stop agents
 * ✅ Runs on all Linux distributions; will support macOS and Windows in the future
-* Requires Docker on the host when using the default Docker backend
+* ✅ Three execution backends: **Docker** (default), **Kubernetes**, and **Direct** (no container runtime required)
 
 **Unmanaged architecture:**
 
@@ -70,9 +70,10 @@ Use these questions to determine which architecture fits your team:
 2. **Do you need agents to run on Windows or macOS?**
    * Yes → Use the **unmanaged** architecture.
 
-3. **Can your development environment run in a Docker container?**
-   * No (for example, complex multi-service stacks, heavy resource requirements, or Docker-in-Docker limitations) → Use the **unmanaged** architecture.
-   * Yes → Either architecture works.
+3. **Can your development environment run in a Docker container or Kubernetes pod?**
+   * Yes, Docker → Use the **managed** architecture with the Docker backend.
+   * Yes, Kubernetes → Use the **managed** architecture with the Kubernetes backend.
+   * No (for example, complex multi-service stacks, heavy resource requirements, or container limitations) → Use the **unmanaged** architecture or the managed architecture with the **Direct** backend.
 
 4. **Do you want to use [BYOLLM](https://docs.warp.dev/enterprise/enterprise-features/bring-your-own-llm) for cloud agent inference?**
    * Yes → Use the **managed** architecture. BYOLLM support for the managed architecture is coming soon.
@@ -88,15 +89,23 @@ The two architectures are not mutually exclusive. Some teams use the managed arc
 
 ### Choosing a managed backend
 
-The managed architecture supports two backends for task execution:
+The managed architecture supports three backends for task execution:
 
-1. **Is Docker available on your worker host?**
+1. **Are you deploying the worker into a Kubernetes cluster?**
+   * Yes → Use the **Kubernetes backend**. Each task runs as a Kubernetes Job in your cluster. Install using the included [Helm chart](#option-4-helm-chart-kubernetes).
+   * No → Continue to the next question.
+
+2. **Is Docker available on your worker host?**
    * Yes → Use the **Docker backend** (default). Tasks run in isolated containers.
-   * No → Use the **direct backend**. Tasks run directly on the host.
+   * No → Use the **Direct backend**. Tasks run directly on the host.
 
-2. **Do you need container-level isolation between tasks?**
-   * Yes → Use the **Docker backend**.
-   * No → Either backend works.
+3. **Do you need container-level isolation between tasks?**
+   * Yes → Use the **Docker backend** or **Kubernetes backend**.
+   * No → Any backend works.
+
+4. **Do you need Kubernetes-native scheduling, resource management, or policy enforcement?**
+   * Yes → Use the **Kubernetes backend**.
+   * No → The Docker or Direct backend is simpler to set up.
 
 See the [managed worker reference](managed-worker-reference.md) for backend configuration details.
 
@@ -198,16 +207,23 @@ Unmanaged agents are tracked on Warp's backend. Each run creates a persistent se
 
 ## Managed architecture
 
-With the managed architecture, you run the `oz-agent-worker` daemon on your infrastructure. The daemon connects to Warp's backend, waits for agent tasks to be assigned to it, and executes those tasks on its host — either in isolated Docker containers (default) or directly on the host via the [direct backend](managed-worker-reference.md#direct-backend). This model works similarly to a [GitHub self-hosted runner](https://docs.github.com/en/actions/hosting-your-own-runners).
+With the managed architecture, you run the `oz-agent-worker` daemon on your infrastructure. The daemon connects to Warp's backend, waits for agent tasks to be assigned to it, and executes those tasks on its host using one of three backends:
 
-The managed architecture enables full orchestration by the Oz platform — it can remotely start agents via Slack, Linear, the API/SDK, Cloud Mode, and the `oz agent run-cloud` command. Agents can access host resources through volume mounts (Docker backend) and injected environment variables.
+* **Docker backend** (default) — Runs each task in an isolated Docker container.
+* **Kubernetes backend** — Runs each task as a Kubernetes Job in your cluster.
+* **Direct backend** — Runs each task directly on the host without a container runtime.
+
+This model works similarly to a [GitHub self-hosted runner](https://docs.github.com/en/actions/hosting-your-own-runners).
+
+The managed architecture enables full orchestration by the Oz platform — it can remotely start agents via Slack, Linear, the API/SDK, Cloud Mode, and the `oz agent run-cloud` command. Agents can access host resources through volume mounts (Docker backend), Kubernetes-native configuration (Kubernetes backend), and injected environment variables.
 
 ### Prerequisites
 
 Before setting up a self-hosted worker, ensure you have:
 
-* **A machine to run the worker** — A VM, server, or local machine running Linux (recommended for production), macOS, or Windows. Docker is required for the default Docker backend; the [direct backend](managed-worker-reference.md#direct-backend) runs without it.
-* **Docker installed** (Docker backend only) — The worker uses Docker to run agent tasks in isolated containers. The Docker daemon must run Linux containers (Windows containers are not supported). Verify Docker is installed and running with `docker info`. Skip this if you plan to use the direct backend.
+* **A machine to run the worker** — A VM, server, or local machine running Linux (recommended for production), macOS, or Windows. For the Kubernetes backend, the worker runs as a Deployment inside your cluster.
+* **Docker installed** (Docker backend only) — The worker uses Docker to run agent tasks in isolated containers. The Docker daemon must run Linux containers (Windows containers are not supported). Verify Docker is installed and running with `docker info`. Skip this if you plan to use the Kubernetes or Direct backend.
+* **A Kubernetes cluster** (Kubernetes backend only) — The worker needs API access to create Jobs and Pods in a target namespace. See the [Kubernetes backend](managed-worker-reference.md#kubernetes-backend) reference for RBAC requirements.
 * **Enterprise plan with self-hosting enabled** — [Contact sales](https://warp.dev/contact-sales) if self-hosting is not yet enabled for your team.
 * **A team API key** — In the Warp app, go to **Settings** > **Platform** to create a team-scoped API key.
 
@@ -217,7 +233,7 @@ When using the Docker backend, task containers require a **linux/amd64** or **li
 
 ### Install Docker
 
-If you plan to use the Docker backend (the default), install Docker on the worker host. Skip this step if you are using the [direct backend](managed-worker-reference.md#direct-backend).
+If you plan to use the Docker backend (the default), install Docker on the worker host. Skip this step if you are using the [Kubernetes backend](managed-worker-reference.md#kubernetes-backend) or [Direct backend](managed-worker-reference.md#direct-backend).
 
 If Docker is not already installed, follow the [official Docker installation guide](https://docs.docker.com/get-docker/) for your platform.
 
@@ -231,7 +247,7 @@ docker info
 
 The worker is open source. See the [oz-agent-worker repository](https://github.com/warpdotdev/oz-agent-worker) for source code, issues, and contribution guidelines.
 
-There are three ways to install the worker: via Docker (recommended), via `go install`, or by building from source.
+There are four ways to install the worker: via Docker (recommended for Docker backend), via the Helm chart (recommended for Kubernetes backend), via `go install`, or by building from source.
 
 The worker can be configured entirely via CLI flags, or via a YAML [config file](managed-worker-reference.md#config-file) for more complex setups.
 
@@ -268,6 +284,37 @@ cd oz-agent-worker
 go build -o oz-agent-worker
 ./oz-agent-worker --api-key "$WARP_API_KEY" --worker-id "my-worker"
 ```
+
+### Option 4: Helm chart (Kubernetes)
+
+For Kubernetes deployments, use the included Helm chart. The chart deploys the worker as a long-lived Deployment that creates one Kubernetes Job per task. It does not require CRDs or cluster-scoped RBAC.
+
+```bash
+# Clone the worker repository
+git clone https://github.com/warpdotdev/oz-agent-worker.git
+
+# Create the namespace
+kubectl create namespace warp-oz
+
+# Create a Secret with your API key (if not using an existing Secret)
+kubectl create secret generic oz-agent-worker \
+  --from-literal=WARP_API_KEY="$WARP_API_KEY" \
+  --namespace warp-oz
+
+# Install the chart (replace the image tag with the latest release from the oz-agent-worker repository)
+helm install oz-agent-worker ./oz-agent-worker/charts/oz-agent-worker \
+  --namespace warp-oz \
+  --set worker.workerId=oz-k8s-worker \
+  --set image.tag=<version>
+```
+
+{% hint style="warning" %}
+Set `image.tag` explicitly to pin the worker image. Check the [oz-agent-worker releases](https://github.com/warpdotdev/oz-agent-worker/releases) for the latest version. Do not rely on `latest`.
+{% endhint %}
+
+The chart includes namespace-scoped RBAC, a ConfigMap for worker configuration, and an optional Secret for the API key. To scale, deploy multiple Helm releases with distinct worker IDs rather than increasing replicas on a single release.
+
+For configuration options and operational notes, see the [Kubernetes backend](managed-worker-reference.md#kubernetes-backend) and [Helm chart](managed-worker-reference.md#helm-chart) sections in the managed worker reference.
 
 For the full list of worker CLI flags, Docker connectivity options, and private registry configuration, see the [managed worker reference](managed-worker-reference.md).
 
@@ -337,14 +384,18 @@ When creating a run, schedule, or integration in the [Oz web app](https://oz.war
 
 Self-hosted workers fully support [environments](environments.md). When a task specifies an environment, the worker:
 
-1. Pulls the Docker image defined in the environment (or falls back to `ubuntu:22.04` if none is specified).
+1. Uses the Docker image defined in the environment (or falls back to `ubuntu:22.04` if none is specified) as the task container image.
 2. Clones the repositories and runs setup commands as configured.
-3. Executes the agent inside the prepared container.
+3. Executes the agent inside the prepared container or Kubernetes Job.
 
 The same environment can be used for both Warp-hosted and self-hosted runs without modification. See [Environments](environments.md) for details on creating and configuring environments.
 
+{% hint style="info" %}
+Environments work the same way across all three backends (Docker, Kubernetes, and Direct). The environment's Docker image is used as the task container image regardless of backend. With the Kubernetes backend, the image is pulled according to the cluster's image pull policy and any configured `imagePullSecrets` in the `pod_template`.
+{% endhint %}
+
 {% hint style="warning" %}
-The architecture of the environment's Docker image must match the architecture of the worker's Docker daemon. For example, an `arm64` image will not run on a worker with an `amd64` Docker daemon.
+The architecture of the environment's Docker image must match the architecture of the execution node. For the Docker backend, this means matching the Docker daemon platform. For the Kubernetes backend, this means matching the node architecture where the task pod is scheduled.
 {% endhint %}
 
 {% hint style="warning" %}
@@ -410,9 +461,11 @@ While repositories are cloned and stored only on your infrastructure, code conte
 **Additional considerations:**
 
 * **Docker socket access** — *(Docker backend)* The worker requires access to the Docker daemon to create task containers. When running the worker via Docker, this means mounting `/var/run/docker.sock`. Ensure appropriate access controls on the host.
+* **Kubernetes RBAC** — *(Kubernetes backend)* The worker needs namespaced permissions to create, get, list, watch, and delete Jobs and Pods. The Helm chart creates a minimal Role/RoleBinding scoped to a single namespace. The task namespace must allow creating Jobs with a root init container, as sidecar materialization currently depends on that pattern. Review your Pod Security Standards and admission policies accordingly.
+* **Kubernetes service accounts** — *(Kubernetes backend)* The worker Deployment's ServiceAccount (used by the long-lived worker process) is separate from the optional task Job `serviceAccountName` you may configure in `pod_template`. Scope each appropriately.
 * **Network egress** — See [Network requirements](#network-requirements) for the full list of required endpoints. No inbound ports need to be opened.
-* **API key management** — Store your `WARP_API_KEY` securely (e.g., in a secrets manager). Avoid hardcoding it in scripts or config files.
-* **Task isolation** — *Docker backend:* each task runs in its own container. *Direct backend:* each task runs in an isolated workspace directory but shares the host OS. Containers and workspaces are removed after execution by default (disable with `--no-cleanup` for debugging).
+* **API key management** — Store your `WARP_API_KEY` securely (e.g., in a Kubernetes Secret or secrets manager). Avoid hardcoding it in scripts or config files. If your organization uses an external secrets manager (HashiCorp Vault, AWS Secrets Manager, GCP Secret Manager, etc.), you can inject secrets into task pods via the CSI Secrets Store Driver or a similar operator — configure the required `volumes`, `volumeMounts`, and annotations in `pod_template`.
+* **Task isolation** — *Docker backend:* each task runs in its own container. *Kubernetes backend:* each task runs as a separate Kubernetes Job/Pod. *Direct backend:* each task runs in an isolated workspace directory but shares the host OS. Containers, Jobs, and workspaces are removed after execution by default (disable with `--no-cleanup` for debugging).
 * **Volume mounts** — *(Docker backend)* If using `-v` / `--volumes`, be mindful of what host paths you expose to task containers.
 * **Direct backend environment** — The direct backend intentionally starts tasks with a minimal environment (`HOME`, `TMPDIR`, `PATH` only). Sensitive worker credentials like `WARP_API_KEY` are not passed to tasks unless explicitly configured.
 * **LLM inference** — Enterprise teams needing full inference control can use [BYOLLM](https://docs.warp.dev/enterprise/enterprise-features/bring-your-own-llm) for interactive (local) agents; cloud agent BYOLLM support is coming.
@@ -429,6 +482,7 @@ The troubleshooting steps below apply to the **managed architecture** (`oz-agent
 ### Worker won't start
 
 * **Docker backend** — Verify Docker is running (`docker info`) and that the daemon platform is `linux/amd64` or `linux/arm64`.
+* **Kubernetes backend** — The worker runs a startup preflight Job to verify cluster connectivity and permissions. If the preflight fails, check the worker logs for details. Common causes: insufficient RBAC permissions, Pod Security policies blocking the root init container, or an unreachable Kubernetes API server. If your cluster restricts image sources, set `preflight_image` to an allowlisted image (defaults to `busybox:1.36`). To pull images from a private container registry, configure `imagePullSecrets` in `pod_template` — these secrets also apply to the preflight Job.
 * **Direct backend** — Verify the Oz CLI is installed and in your `PATH` (or set `oz_path` in the config file).
 
 ### Worker won't connect
@@ -448,15 +502,16 @@ The troubleshooting steps below apply to the **managed architecture** (`oz-agent
 ### Task failures
 
 * Review task logs in the Oz dashboard or via session sharing.
-* Use `--no-cleanup` to keep the container or workspace around for inspection after failure.
+* Use `--no-cleanup` to keep the container, Job, or workspace around for inspection after failure.
 * Use `--log-level debug` to see detailed execution logs.
-* Ensure the worker machine has sufficient resources (CPU, memory, disk).
+* Ensure the worker machine or cluster has sufficient resources (CPU, memory, disk).
 * **Docker backend** — Verify Docker is running (`docker info`). If using a custom image, confirm it is glibc-based (not Alpine/musl) and that its architecture matches the worker's Docker daemon platform.
+* **Kubernetes backend** — Check the task Job and Pod status with `kubectl get jobs,pods -n <namespace>`. Common issues include unschedulable pods (check node selectors, tolerations, and resource requests), image pull failures (check `imagePullSecrets` in `pod_template`), and admission policy rejections. The worker will fail a task early if its pod remains unschedulable beyond `unschedulable_timeout` (default: 30s).
 * **Direct backend** — Verify the Oz CLI is accessible and that the workspace root directory has write permissions.
 
 ### Image pull failures
 
-* If using a private registry, ensure Docker credentials are available to the worker (see [Private Docker registries](managed-worker-reference.md#private-docker-registries)).
-* Try pulling the image manually with `docker pull <image>` on the worker host to verify access and diagnose authentication issues.
+* **Docker backend** — If using a private registry, ensure Docker credentials are available to the worker (see [Private Docker registries](managed-worker-reference.md#private-docker-registries)). Try pulling the image manually with `docker pull <image>` on the worker host.
+* **Kubernetes backend** — Configure `imagePullSecrets` in the `pod_template` section of your worker config. Verify the secret exists in the task namespace and contains valid credentials.
 * Verify the image exists and the tag is correct.
 * Check network connectivity to the registry.
