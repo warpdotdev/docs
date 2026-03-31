@@ -4,7 +4,7 @@ description: >
   interactive and autonomous agents for development workflows.
 ---
 
-# Agents in Warp
+# Agents Overview
 
 Warp includes **Oz**, the orchestration platform for cloud agents. While Warp provides the terminal and coding surface you work in day-to-day, Oz is the underlying orchestration layer that makes running agents at scale possible.
 

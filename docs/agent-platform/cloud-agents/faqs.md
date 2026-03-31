@@ -3,7 +3,7 @@ description: >-
   Frequently asked questions about cloud agents, including where agents run, how runs work, supported models, security, and common workflows.
 ---
 
-# FAQs
+# Cloud Agent FAQs
 
 This page answers common questions about cloud agents, including where they run, how they're configured, and how teams use cloud agents for day-to-day engineering work.
 

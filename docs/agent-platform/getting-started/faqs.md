@@ -4,7 +4,7 @@ description: >-
   models, privacy practices, credit limits, billing, and usage guidelines.
 ---
 
-# AI FAQs
+# Agent FAQs
 
 ## General
 

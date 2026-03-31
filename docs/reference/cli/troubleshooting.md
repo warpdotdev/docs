@@ -4,7 +4,7 @@ description: >-
   failures, environments, GitHub access, and Docker image issues.
 ---
 
-# Troubleshooting
+# CLI Troubleshooting
 
 ## Getting help
 

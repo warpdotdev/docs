@@ -12,7 +12,7 @@
 * [Skills](cli/skills.md)
 * [Warp Drive Context](cli/warp-drive.md)
 * [Integration Setup](cli/integration-setup.md)
-* [Troubleshooting](cli/troubleshooting.md)
+* [CLI Troubleshooting](cli/troubleshooting.md)
 
 ## API & SDK
 
@@ -30,7 +30,7 @@
         spec: warp-public-agent-api
   ```
 * [Demo: Sentry monitoring with SDK](api-and-sdk/demo-sentry-monitoring-with-sdk.md)
-* [Troubleshooting](api-and-sdk/troubleshooting/README.md)
+* [API Troubleshooting](api-and-sdk/troubleshooting/README.md)
   * [Errors](api-and-sdk/troubleshooting/errors/README.md)
     * [insufficient\_credits](api-and-sdk/troubleshooting/errors/insufficient-credits.md)
     * [feature\_not\_available](api-and-sdk/troubleshooting/errors/feature-not-available.md)

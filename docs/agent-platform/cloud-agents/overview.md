@@ -5,7 +5,7 @@ description: >-
   shared observability and centralized configs
 ---
 
-# Overview
+# Cloud Agents Overview
 
 Oz Cloud Agents are **cloud-connected**, **background agents** that run on the [Oz Platform](platform.md).
 

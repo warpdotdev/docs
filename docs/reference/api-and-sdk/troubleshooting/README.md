@@ -4,7 +4,7 @@ description: >-
   reference for all platform error codes.
 ---
 
-# Troubleshooting
+# API Troubleshooting
 
 When the Oz platform API encounters an error, it returns a structured response following [RFC 7807 (Problem Details for HTTP APIs)](https://datatracker.ietf.org/doc/html/rfc7807) with a machine-readable error code, HTTP status, and actionable resolution steps.
 

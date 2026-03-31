@@ -2,13 +2,13 @@
 
 ## Getting started
 
-* [Overview](README.md)
+* [Agents Overview](README.md)
 * [Agents in Warp](getting-started/agents-in-warp.md)
-* [FAQs](getting-started/faqs.md)
+* [Agent FAQs](getting-started/faqs.md)
 
 ## Capabilities
 
-* [Overview](capabilities/README.md)
+* [Capabilities Overview](capabilities/README.md)
 * [Slash Commands](capabilities/slash-commands.md)
 * [Skills](capabilities/skills.md)
 * [Planning](capabilities/planning.md)
@@ -24,7 +24,7 @@
 
 ## Local Agents
 
-* [Overview](local-agents/overview.md)
+* [Local Agents Overview](local-agents/overview.md)
 * [Interacting with Agents](local-agents/interacting-with-agents/README.md)
   * [Agent Modality](local-agents/interacting-with-agents/agent-modality.md)
   * [Conversation Forking](local-agents/interacting-with-agents/conversation-forking.md)
@@ -45,7 +45,7 @@
 
 ## Cloud Agents & Orchestration <a href="#cloud-agents" id="cloud-agents"></a>
 
-* [Overview](cloud-agents/overview.md)
+* [Cloud Agents Overview](cloud-agents/overview.md)
 * [Cloud Agent Quickstart](cloud-agents/quickstart.md "Quickstart")
 * [Oz Platform](cloud-agents/platform.md)
 * [Triggers](cloud-agents/triggers/README.md)
@@ -71,4 +71,4 @@
 * [Self-Hosting](cloud-agents/self-hosting.md)
   * [Managed worker reference](cloud-agents/managed-worker-reference.md)
 * [Access, Billing, and Identity](cloud-agents/team-access-billing-and-identity.md)
-* [FAQs](cloud-agents/faqs.md)
+* [Cloud Agent FAQs](cloud-agents/faqs.md)

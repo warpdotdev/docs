@@ -4,7 +4,7 @@ description: >-
   what context they have access to, and how they execute tasks.
 ---
 
-# Capabilities
+# Capabilities Overview
 
 These capabilities are the foundational building blocks that define how agents operate. These include the context sources agents can access, the rules that guide their behavior, and the tools they can use.
 

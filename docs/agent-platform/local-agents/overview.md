@@ -4,7 +4,7 @@ description: >-
   integrated into the Warp Agentic Development Environment.
 ---
 
-# Overview
+# Local Agents Overview
 
 ## AI in Warp
 
