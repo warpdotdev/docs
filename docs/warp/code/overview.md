@@ -32,7 +32,9 @@ Warp’s coding agent is designed to help you generate, edit, and manage code di
 * **Inline code diffs**: When the agent proposes changes, it shows them as diffs you can inspect, modify, or reject.
 * **Agent steering**: You can refine prompts, interrupt and retry, or attach context (such as a file, diff, or selection) to guide the agent toward better results.
 
-{% embed url="https://screen.studio/share/VwLoR3BE" %}
+{% embed url="https://youtu.be/W8rCsznM5HA" %}
+Coding Features Overview
+{% endembed %}
 
 {% hint style="info" %}
 Warp's coding agent only works on local repositories. The agent can make changes on remote or docker repositories, but falls back to using terminal commands (i.e. `sed`, `grep` ) to make the changes.

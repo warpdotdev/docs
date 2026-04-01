@@ -14,6 +14,10 @@ This page is dedicated to the SSH features powered by `tmux`.
 If you are looking to troubleshoot the legacy SSH implementation, see the [SSH (Legacy)](ssh-legacy.md).
 {% endhint %}
 
+{% embed url="https://youtu.be/S39jxLNfUlc" %}
+Warpify an SSH Session
+{% endembed %}
+
 Warpifying your SSH session gives you all the features of Warp while connected to a remote machine: the input editor, auto-completions, history search, and more. We achieve this by running commands like `ls` on the remote machine on your behalf.
 
 **Warpifying a remote SSH Session** [**will never make lasting changes to the remote machine without your explicit consent**](ssh.md#will-warpifying-a-remote-ssh-session-make-changes-to-the-remote-machine)**.**

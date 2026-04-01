@@ -9,7 +9,9 @@ description: >-
 
 Warp can show an agent utility bar when you’re working with third-party CLI coding agents. It provides integrated controls for images, voice, files, and diffs, giving those agents first-class support directly in Warp.
 
-{% embed url="https://drive.google.com/file/d/1XQ5LpAdi6R36tszV7ZFnOwdqni-W025c/view?usp=sharing" %}
+{% embed url="https://youtu.be/5InYfCq0u_k" %}
+Third-Party CLI Agents in Warp
+{% endembed %}
 
 This includes:
 

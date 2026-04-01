@@ -6,6 +6,10 @@ description: >
 
 # Agents in Warp
 
+{% embed url="https://youtu.be/qiQtD1jPF6s" %}
+Agent Mode Overview
+{% endembed %}
+
 Warp includes Oz agents. These coding agents are designed to help you build, test, deploy, and debug while keeping you in control. Describe what you want to do in natural language (_you can even use your voice_), and Oz will take action using your environment, codebase, and saved context.
 
 ## What Oz agents can do

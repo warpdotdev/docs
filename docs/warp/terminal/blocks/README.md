@@ -19,4 +19,8 @@ Blocks enable us to easily:
 Interested in how we differentiate input and output, or how we implement blocks? Check out our blog post: [How Warp Works.](https://blog.warp.dev/how-warp-works/#implementing-blocks)
 {% endhint %}
 
+{% embed url="https://youtu.be/PH1u0TZ5Lf0" %}
+Intro to Blocks
+{% endembed %}
+
 <figure><img src="../../.gitbook/assets/annotated_blocks (1).png" alt="Blocks"><figcaption><p>Blocks</p></figcaption></figure>
