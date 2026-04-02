@@ -384,11 +384,15 @@ When creating a run, schedule, or integration in the [Oz web app](https://oz.war
 
 Self-hosted workers fully support [environments](environments.md). When a task specifies an environment, the worker:
 
-1. Uses the Docker image defined in the environment (or falls back to `ubuntu:22.04` if none is specified) as the task container image.
+1. Resolves the Docker image for the task. The precedence for image selection is: Warp environment image > worker-configured `default_image` (Kubernetes backend only) > `ubuntu:22.04`.
 2. Clones the repositories and runs setup commands as configured.
 3. Executes the agent inside the prepared container or Kubernetes Job.
 
 The same environment can be used for both Warp-hosted and self-hosted runs without modification. See [Environments](environments.md) for details on creating and configuring environments.
+
+{% hint style="info" %}
+With the Kubernetes backend, setting a [`default_image`](managed-worker-reference.md#kubernetes-backend) on the worker lets you skip creating a Warp environment when all your tasks use the same base image.
+{% endhint %}
 
 {% hint style="info" %}
 Environments work the same way across all three backends (Docker, Kubernetes, and Direct). The environment's Docker image is used as the task container image regardless of backend. With the Kubernetes backend, the image is pulled according to the cluster's image pull policy and any configured `imagePullSecrets` in the `pod_template`.

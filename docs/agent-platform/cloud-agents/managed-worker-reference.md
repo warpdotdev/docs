@@ -107,6 +107,7 @@ max_concurrent_tasks: 4
 backend:
   kubernetes:
     namespace: "warp-oz"
+    default_image: "my-registry.io/dev-image:latest"
     unschedulable_timeout: "2m"
     pod_template:
       nodeSelector:
@@ -160,6 +161,7 @@ backend:
 
 * `namespace` — Kubernetes namespace for task Jobs. Defaults to `default`. This selects the namespace inside the chosen cluster; it does not choose the cluster.
 * `kubeconfig` — Path to an explicit kubeconfig file. If omitted, the worker uses in-cluster config when running inside Kubernetes, or falls back to the default kubeconfig loading rules.
+* `default_image` — Default Docker image for task Jobs when the run has no Warp environment image. Precedence: Warp environment image > `default_image` > `ubuntu:22.04`. Set this to skip creating a Warp environment when all your tasks use the same base image.
 * `image_pull_policy` — One of `Always`, `Never`, or `IfNotPresent`. Defaults to `IfNotPresent`.
 * `preflight_image` — Image used for the startup preflight Job. Defaults to `busybox:1.36`. Override this if your cluster only allows pulling from an internal or allowlisted registry.
 * `setup_command` — Shell command to run before each task.
@@ -366,6 +368,7 @@ Set `image.tag` explicitly to pin the worker image. Check the [oz-agent-worker r
 **Kubernetes backend:**
 
 * `kubernetesBackend.namespace` — Namespace for task Jobs. Defaults to the release namespace.
+* `kubernetesBackend.defaultImage` — Default Docker image for task pods when the run has no Warp environment image. Leave empty (default) to fall back to `ubuntu:22.04`.
 * `kubernetesBackend.imagePullPolicy` — Image pull policy for task pods. Defaults to `IfNotPresent`.
 * `kubernetesBackend.preflightImage` — Image for the startup preflight Job. Set this if your cluster restricts allowed registries.
 * `kubernetesBackend.unschedulableTimeout` — How long a pod may remain unschedulable before failing. Defaults to `30s`.

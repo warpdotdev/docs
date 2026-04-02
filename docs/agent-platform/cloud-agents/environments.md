@@ -32,7 +32,7 @@ Environments define _how_ an agent runs, not _what_ it does. They're required fo
 
 An environment typically includes:
 
-* **Docker image (required)** – The toolchain and runtime the agent runs with.
+* **Docker image (required)** – The toolchain and runtime the agent runs with. For self-hosted Kubernetes workers, a [`default_image`](managed-worker-reference.md#kubernetes-backend) on the worker lets you skip creating an environment entirely.
 * **Repository/workspace** – One or more repos the agent can clone and operate on.
 * **Setup commands** – Commands to prepare the workspace (e.g., dependency install, builds, bootstrapping).
 
