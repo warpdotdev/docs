@@ -8,7 +8,7 @@ metaLinks:
       https://app.gitbook.com/s/c5dAwvMCRiTxUOdDicqy/mcp-servers/sqlite-and-stripe-mcp-basic-queries-you-can-make-after-set-up
 ---
 
-# SQLite and Stripe MCP: Basic Queries You Can Make After Set Up
+# SQLite and Stripe MCP: Basic Queries
 
 This tutorial teaches you how to use **MCP servers** to connect Warp to **Stripe** and **SQLite**, showing how AI transforms the command line into a connected, conversational workspace.
 

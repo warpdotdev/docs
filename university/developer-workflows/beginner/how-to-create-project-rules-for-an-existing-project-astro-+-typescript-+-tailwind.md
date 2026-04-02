@@ -8,7 +8,7 @@ metaLinks:
       https://app.gitbook.com/s/c5dAwvMCRiTxUOdDicqy/developer-workflows/beginner/how-to-create-project-rules-for-an-existing-project-astro-+-typescript-+-tailwind
 ---
 
-# How To: Create Project Rules for an Existing Project (Astro + Typescript + Tailwind)
+# Create Project Rules for an Existing Project
 
 {% hint style="info" %}
 This educational module is built **only** from the transcript. It shows how to create and maintain a `Warp.md` file so Warp agents always understand your project’s setup, commands, architecture, and structure.

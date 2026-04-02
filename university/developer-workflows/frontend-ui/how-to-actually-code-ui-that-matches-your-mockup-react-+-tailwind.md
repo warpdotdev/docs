@@ -8,7 +8,7 @@ metaLinks:
       https://app.gitbook.com/s/c5dAwvMCRiTxUOdDicqy/developer-workflows/frontend-ui/how-to-actually-code-ui-that-matches-your-mockup-react-+-tailwind
 ---
 
-# How To: Actually Code UI That Matches Your Mockup (React + Tailwind)
+# Code UI That Matches Your Mockup
 
 Learn how to prompt Warp’s AI to produce accurate, design-faithful UI code using your preferred framework.
 

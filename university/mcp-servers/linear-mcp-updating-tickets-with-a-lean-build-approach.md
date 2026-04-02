@@ -8,7 +8,7 @@ metaLinks:
       https://app.gitbook.com/s/c5dAwvMCRiTxUOdDicqy/mcp-servers/linear-mcp-updating-tickets-with-a-lean-build-approach
 ---
 
-# Linear MCP: Updating Tickets with a Lean Build Approach
+# Linear MCP: Update Tickets with Lean Build
 
 Learn how to use Warp’s Linear MCP integration to update tickets programmatically while maintaining a lean build strategy.
 

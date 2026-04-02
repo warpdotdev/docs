@@ -8,7 +8,7 @@ metaLinks:
       https://app.gitbook.com/s/c5dAwvMCRiTxUOdDicqy/developer-workflows/frontend-ui/how-to-replace-a-ui-element-in-warp-rust-codebase
 ---
 
-# How To: Replace A UI Element in Warp (Rust Codebase)
+# Replace a UI Element in Warp
 
 Learn how to use Warp’s AI coding features to make live code changes — in this example, replacing an icon throughout Warp’s massive Rust codebase using an agentic workflow.
 

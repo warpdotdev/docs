@@ -8,7 +8,7 @@ metaLinks:
       https://app.gitbook.com/s/c5dAwvMCRiTxUOdDicqy/developer-workflows/backend/how-to-create-priority-matrix-for-database-optimization
 ---
 
-# How To: Create Priority Matrix for Database Optimization
+# Create a Database Optimization Matrix
 
 Learn how to generate a data-driven optimization matrix that ranks database issues by impact, risk, and effort.
 

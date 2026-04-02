@@ -8,7 +8,7 @@ metaLinks:
       https://app.gitbook.com/s/c5dAwvMCRiTxUOdDicqy/mcp-servers/figma-remote-mcp-create-a-website-from-a-figma-file-from-scratch
 ---
 
-# Figma Remote MCP: Create a Website from a Figma File from Scratch
+# Figma MCP: Create a Website from a Figma File
 
 Learn how to connect Warp to Figma’s remote MCP server to generate code directly from your design files — complete with screenshots, metadata, and design system context.
 

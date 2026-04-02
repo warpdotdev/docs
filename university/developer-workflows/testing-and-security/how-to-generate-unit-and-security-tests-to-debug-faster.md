@@ -8,7 +8,7 @@ metaLinks:
       https://app.gitbook.com/s/c5dAwvMCRiTxUOdDicqy/developer-workflows/testing-and-security/how-to-generate-unit-and-security-tests-to-debug-faster
 ---
 
-# How to: Generate Unit and Security Tests to Debug Faster
+# Generate Unit and Security Tests
 
 Learn how to prompt Warp’s AI to generate useful unit and security tests — helping you debug faster and deploy with confidence.
 

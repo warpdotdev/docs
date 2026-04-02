@@ -8,7 +8,7 @@ metaLinks:
       https://app.gitbook.com/s/c5dAwvMCRiTxUOdDicqy/developer-workflows/beginner/how-to-explain-your-codebase-using-warp-rust-codebase
 ---
 
-# How to: Explain Your Codebase Using Warp (Rust Codebase)
+# Explain Your Codebase Using Warp
 
 Learn how to use Warp’s AI agent to explore and understand large, unfamiliar codebases — using semantic and symbol-level search.
 

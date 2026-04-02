@@ -8,7 +8,7 @@ metaLinks:
       https://app.gitbook.com/s/c5dAwvMCRiTxUOdDicqy/end-to-end-builds/building-a-chrome-extension-d3.js-+-javascript-+-html-+-css
 ---
 
-# Building a Chrome Extension (D3.js + Javascript + HTML + CSS)
+# Building a Chrome Extension with D3.js
 
 {% hint style="success" %}
 This educational module teaches you step-by-step how to replicate the process shown in the video — building a **Sankey diagram Chrome extension** using **D3.js**, debugging, coordinating **multiple AI agents**, and deploying to the **Chrome Web Store**.

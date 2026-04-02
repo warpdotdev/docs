@@ -8,7 +8,7 @@ metaLinks:
       https://app.gitbook.com/s/c5dAwvMCRiTxUOdDicqy/end-to-end-builds/building-a-real-time-chat-app-github-mcp-+-railway
 ---
 
-# Building a Real-time Chat App (Github MCP + Railway )
+# Building a Real-time Chat App
 
 {% hint style="info" %}
 In this tutorial, we’ll follow along with Tech With Tim’s _Advanced Vibe Coding Tutorial w/ Warp_ video.\

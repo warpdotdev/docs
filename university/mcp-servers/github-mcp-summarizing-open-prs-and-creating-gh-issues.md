@@ -8,7 +8,7 @@ metaLinks:
       https://app.gitbook.com/s/c5dAwvMCRiTxUOdDicqy/mcp-servers/github-mcp-summarizing-open-prs-and-creating-gh-issues
 ---
 
-# Github MCP: Summarizing Open PRs & Creating GH Issues
+# GitHub MCP: Summarize PRs & Create Issues
 
 {% embed url="https://youtu.be/rrxfS9u1XRA?si=wDU42iXPhGlVn2RM&t=30" %}
 

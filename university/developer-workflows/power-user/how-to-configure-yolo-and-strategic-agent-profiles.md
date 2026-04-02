@@ -8,7 +8,7 @@ metaLinks:
       https://app.gitbook.com/s/c5dAwvMCRiTxUOdDicqy/developer-workflows/power-user/how-to-configure-yolo-and-strategic-agent-profiles
 ---
 
-# How To: Configure YOLO and Strategic Agent Profiles
+# Configure YOLO and Strategic Profiles
 
 {% hint style="info" %}
 This tutorial explains how **Agent Profiles** in Warp influence behavior, autonomy, and planning when coding with AI — demonstrated through the NFL Predictor app example.
