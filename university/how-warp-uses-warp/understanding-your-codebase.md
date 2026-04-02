@@ -1,4 +1,7 @@
 ---
+description: >-
+  Use Warp's Codebase Context to understand large codebases with semantic search
+  across client and server code.
 metaLinks:
   alternates:
     - >-

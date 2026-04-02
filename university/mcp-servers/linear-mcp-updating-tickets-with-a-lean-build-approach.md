@@ -1,4 +1,7 @@
 ---
+description: >-
+  Update Linear tickets and propagate changes to subtasks using Warp's Linear
+  MCP integration.
 metaLinks:
   alternates:
     - >-

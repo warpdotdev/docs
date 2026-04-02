@@ -1,4 +1,7 @@
 ---
+description: >-
+  Compare YOLO and Strategic agent profiles to control planning depth, autonomy,
+  and execution speed in Warp.
 metaLinks:
   alternates:
     - >-

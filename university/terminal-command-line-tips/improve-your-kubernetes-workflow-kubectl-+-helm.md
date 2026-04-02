@@ -1,4 +1,7 @@
 ---
+description: >-
+  Streamline Kubernetes workflows with Warp's AI assistance, custom workflows,
+  and modern terminal features.
 metaLinks:
   alternates:
     - >-

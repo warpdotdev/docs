@@ -1,4 +1,7 @@
 ---
+description: >-
+  Automate browser tasks like web scraping and data extraction using the
+  Puppeteer MCP server in Warp.
 metaLinks:
   alternates:
     - >-

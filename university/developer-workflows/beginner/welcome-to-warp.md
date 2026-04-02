@@ -1,4 +1,7 @@
 ---
+description: >-
+  Get started with Warp, an Agentic Development Environment that blends
+  terminal commands with AI-driven workflows.
 metaLinks:
   alternates:
     - >-

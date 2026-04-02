@@ -1,4 +1,7 @@
 ---
+description: >-
+  Explore Warp University lessons showing real-world developer workflows, MCP
+  integrations, and end-to-end builds.
 layout:
   width: wide
   title:

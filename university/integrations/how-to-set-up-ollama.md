@@ -1,4 +1,7 @@
 ---
+description: >-
+  Install, configure, and integrate Ollama for running AI models locally with
+  Warp.
 metaLinks:
   alternates:
     - >-

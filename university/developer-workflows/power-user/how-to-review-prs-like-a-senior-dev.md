@@ -1,4 +1,7 @@
 ---
+description: >-
+  Prompt Warp's agents to review pull requests with structured risk assessments
+  and prioritized feedback.
 metaLinks:
   alternates:
     - >-

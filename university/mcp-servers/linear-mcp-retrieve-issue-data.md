@@ -1,4 +1,7 @@
 ---
+description: >-
+  Connect the Linear MCP server in Warp to retrieve and manage issue data from
+  your Linear workspace.
 metaLinks:
   alternates:
     - >-

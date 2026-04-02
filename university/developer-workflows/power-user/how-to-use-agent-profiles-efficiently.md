@@ -1,4 +1,7 @@
 ---
+description: >-
+  Learn how agent profiles control planning, autonomy, and execution behavior
+  for different coding contexts.
 metaLinks:
   alternates:
     - >-

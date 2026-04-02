@@ -1,4 +1,7 @@
 ---
+description: >-
+  Connect the Sentry MCP server to Warp to fetch live error data, analyze stack
+  traces, and generate fixes.
 metaLinks:
   alternates:
     - >-

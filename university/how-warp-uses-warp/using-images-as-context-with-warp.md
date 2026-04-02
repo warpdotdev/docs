@@ -1,4 +1,7 @@
 ---
+description: >-
+  Attach screenshots to agent prompts in Warp to provide visual context for UI
+  debugging and code generation.
 metaLinks:
   alternates:
     - >-

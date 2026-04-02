@@ -1,4 +1,7 @@
 ---
+description: >-
+  Advanced workflows for chaining prompts, combining agents, and using context
+  from files and Warp Drive.
 coverY: 0
 metaLinks:
   alternates:

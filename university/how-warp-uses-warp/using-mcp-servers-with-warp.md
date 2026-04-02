@@ -1,4 +1,7 @@
 ---
+description: >-
+  Connect MCP servers in Warp so agents can read, write, and automate tasks in
+  external systems like Linear.
 metaLinks:
   alternates:
     - >-

@@ -1,4 +1,7 @@
 ---
+description: >-
+  Personalize Warp with custom themes, input placement, agent settings, codebase
+  indexing, and more.
 metaLinks:
   alternates:
     - >-

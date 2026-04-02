@@ -1,4 +1,7 @@
 ---
+description: >-
+  Discover 10 essential Warp coding features including file search, inline
+  editing, code review, and codebase indexing.
 metaLinks:
   alternates:
     - >-

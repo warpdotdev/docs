@@ -1,4 +1,7 @@
 ---
+description: >-
+  Run multiple agents simultaneously in Warp to modify UI, analyze PRs, and
+  summarize logs in parallel.
 metaLinks:
   alternates:
     - >-

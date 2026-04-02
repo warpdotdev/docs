@@ -1,4 +1,7 @@
 ---
+description: >-
+  Compare Warp and Claude Code across setup, diff review, model selection,
+  configuration, and performance.
 metaLinks:
   alternates:
     - >-

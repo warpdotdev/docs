@@ -1,4 +1,7 @@
 ---
+description: >-
+  Enforce consistent coding style and documentation standards across projects
+  using Warp's Rules.
 metaLinks:
   alternates:
     - >-

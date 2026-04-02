@@ -1,4 +1,7 @@
 ---
+description: >-
+  Use Warp's Code Review Panel to view diffs, edit code inline, and commit
+  changes without leaving your workspace.
 metaLinks:
   alternates:
     - >-

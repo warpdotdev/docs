@@ -1,4 +1,7 @@
 ---
+description: >-
+  Speed up frontend development with Warp agents for debugging UI, generating
+  components, and connecting design tools.
 coverY: 0
 metaLinks:
   alternates:

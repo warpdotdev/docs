@@ -1,4 +1,7 @@
 ---
+description: >-
+  Generate production-ready Dockerfiles, docker-compose configs, and
+  .dockerignore files using Warp's agents.
 metaLinks:
   alternates:
     - >-

@@ -1,4 +1,7 @@
 ---
+description: >-
+  Use the Context7 MCP server to update your Astro project with the latest best
+  practices automatically.
 metaLinks:
   alternates:
     - >-

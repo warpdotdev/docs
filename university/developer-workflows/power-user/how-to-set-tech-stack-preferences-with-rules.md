@@ -1,4 +1,7 @@
 ---
+description: >-
+  Define your preferred frameworks and tools with Rules so Warp's agents use
+  your tech stack by default.
 metaLinks:
   alternates:
     - >-

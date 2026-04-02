@@ -1,4 +1,7 @@
 ---
+description: >-
+  Prevent API keys and credentials from leaking using Warp's secret reduction
+  and Rules system.
 metaLinks:
   alternates:
     - >-

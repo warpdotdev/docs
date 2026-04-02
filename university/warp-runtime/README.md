@@ -1,4 +1,7 @@
 ---
+description: >-
+  Learn about Warp Runtime, a secure execution layer where agents run commands
+  and interact with your codebase.
 metaLinks:
   alternates:
     - https://app.gitbook.com/s/c5dAwvMCRiTxUOdDicqy/warp-runtime

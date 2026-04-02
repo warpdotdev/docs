@@ -1,4 +1,7 @@
 ---
+description: >-
+  Use Warp's Rules to connect interrelated repositories and automate type
+  updates across your stack.
 metaLinks:
   alternates:
     - >-

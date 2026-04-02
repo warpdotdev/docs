@@ -1,4 +1,7 @@
 ---
+description: >-
+  Run multiple agent tasks simultaneously in Warp with progress tracking and
+  system notifications.
 metaLinks:
   alternates:
     - >-

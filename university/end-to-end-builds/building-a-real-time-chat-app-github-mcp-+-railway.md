@@ -1,4 +1,7 @@
 ---
+description: >-
+  Build and deploy a real-time chat app from scratch using Warp, GitHub MCP,
+  and Railway.
 metaLinks:
   alternates:
     - >-

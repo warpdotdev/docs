@@ -1,4 +1,7 @@
 ---
+description: >-
+  Set persistent environment and tool preferences with Rules so Warp's agents
+  always use your preferred setup.
 metaLinks:
   alternates:
     - >-

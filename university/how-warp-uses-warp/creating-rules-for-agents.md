@@ -1,4 +1,7 @@
 ---
+description: >-
+  Create reusable Rules in Warp so agents follow your team's coding conventions
+  automatically.
 metaLinks:
   alternates:
     - >-

@@ -1,4 +1,7 @@
 ---
+description: >-
+  Automate deployments, log analysis, and environment management with Warp
+  agents and DevOps tooling.
 coverY: 0
 metaLinks:
   alternates:

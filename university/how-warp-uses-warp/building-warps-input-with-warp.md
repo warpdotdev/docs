@@ -1,4 +1,7 @@
 ---
+description: >-
+  See how Warp's design team used Warp itself to locate, edit, and test changes
+  to the universal input.
 metaLinks:
   alternates:
     - >-

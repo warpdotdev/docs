@@ -1,4 +1,7 @@
 ---
+description: >-
+  Review, edit, and refine agent-generated code diffs directly in Warp's
+  built-in editor.
 metaLinks:
   alternates:
     - >-

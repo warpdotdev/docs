@@ -1,4 +1,7 @@
 ---
+description: >-
+  Query Stripe payment data and SQLite databases with natural language prompts
+  using MCP servers in Warp.
 metaLinks:
   alternates:
     - >-

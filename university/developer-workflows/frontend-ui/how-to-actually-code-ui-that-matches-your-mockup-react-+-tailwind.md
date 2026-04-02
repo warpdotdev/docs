@@ -1,4 +1,7 @@
 ---
+description: >-
+  Generate pixel-perfect React and Tailwind code from design mockups using
+  structured prompts in Warp.
 metaLinks:
   alternates:
     - >-

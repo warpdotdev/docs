@@ -1,4 +1,7 @@
 ---
+description: >-
+  Use Warp's agents to explore and understand large codebases with semantic and
+  symbol-level search.
 metaLinks:
   alternates:
     - >-

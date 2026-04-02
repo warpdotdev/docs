@@ -1,4 +1,7 @@
 ---
+description: >-
+  Reduce visual clutter in Warp by toggling UI elements, switching themes, and
+  using the Classic Prompt.
 metaLinks:
   alternates:
     - >-

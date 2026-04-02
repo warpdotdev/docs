@@ -1,4 +1,7 @@
 ---
+description: >-
+  Use natural language prompts inside a Postgres REPL in Warp to generate and
+  run SQL commands.
 metaLinks:
   alternates:
     - >-

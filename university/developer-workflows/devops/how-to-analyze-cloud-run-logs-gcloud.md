@@ -1,4 +1,7 @@
 ---
+description: >-
+  Retrieve and analyze Google Cloud Run production logs with natural language
+  prompts in Warp.
 metaLinks:
   alternates:
     - >-

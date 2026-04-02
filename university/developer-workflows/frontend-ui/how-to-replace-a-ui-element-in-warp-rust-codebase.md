@@ -1,4 +1,7 @@
 ---
+description: >-
+  Replace UI elements across a large Rust codebase using Warp's agentic
+  workflow with live diff review.
 metaLinks:
   alternates:
     - >-

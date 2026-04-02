@@ -1,4 +1,7 @@
 ---
+description: >-
+  Generate a priority matrix that ranks database issues by impact, risk, and
+  effort using Warp's agents.
 metaLinks:
   alternates:
     - >-

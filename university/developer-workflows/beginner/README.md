@@ -1,4 +1,7 @@
 ---
+description: >-
+  Simple, high-impact workflows to help you get started with Warp's agentic
+  platform for everyday developer tasks.
 coverY: 0
 metaLinks:
   alternates:

@@ -1,4 +1,7 @@
 ---
+description: >-
+  Accelerate backend development in Warp with API generation, database
+  optimization, and MCP server automation.
 coverY: 0
 metaLinks:
   alternates:

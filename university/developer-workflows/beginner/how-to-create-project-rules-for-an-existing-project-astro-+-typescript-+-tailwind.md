@@ -1,4 +1,7 @@
 ---
+description: >-
+  Create and maintain a Warp.md rules file so agents always understand your
+  project setup and conventions.
 metaLinks:
   alternates:
     - >-

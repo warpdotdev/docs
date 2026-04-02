@@ -1,4 +1,7 @@
 ---
+description: >-
+  Generate front-end code directly from Figma designs using the remote Figma
+  MCP server in Warp.
 metaLinks:
   alternates:
     - >-

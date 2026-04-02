@@ -1,4 +1,7 @@
 ---
+description: >-
+  Summarize open pull requests and create GitHub issues from TODO comments using
+  the GitHub MCP server.
 metaLinks:
   alternates:
     - >-

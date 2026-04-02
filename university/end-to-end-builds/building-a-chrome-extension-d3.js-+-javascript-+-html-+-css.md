@@ -1,4 +1,7 @@
 ---
+description: >-
+  Build a D3.js Chrome extension from scratch using Warp agents for coding,
+  debugging, and publishing.
 metaLinks:
   alternates:
     - >-

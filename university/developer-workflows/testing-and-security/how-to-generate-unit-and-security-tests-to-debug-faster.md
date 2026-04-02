@@ -1,4 +1,7 @@
 ---
+description: >-
+  Prompt Warp's agents to generate comprehensive unit and security tests for
+  your REST APIs.
 metaLinks:
   alternates:
     - >-

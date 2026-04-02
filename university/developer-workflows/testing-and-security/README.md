@@ -1,4 +1,7 @@
 ---
+description: >-
+  Improve code reliability with Warp agents for automated test generation,
+  vulnerability scanning, and secret protection.
 layout:
   width: default
   title:
