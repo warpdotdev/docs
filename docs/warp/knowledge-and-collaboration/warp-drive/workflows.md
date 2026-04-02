@@ -1,5 +1,7 @@
 ---
-description: Saved parameterized commands to run on-demand.
+description: >-
+  Save parameterized commands as Workflows and execute them on-demand from
+  Warp Drive.
 ---
 
 # Workflows

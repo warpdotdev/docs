@@ -1,5 +1,7 @@
 ---
-description: Steps and help with updating Warp.
+description: >-
+  Check for updates, troubleshoot auto-update permissions, and refresh signing
+  keys.
 ---
 
 # Updating Warp

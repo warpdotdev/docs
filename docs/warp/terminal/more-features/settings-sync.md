@@ -1,8 +1,7 @@
 ---
 description: >-
-  Settings Sync is a cloud feature that keeps your Warp settings and
-  configuration consistent across devices and sessions, including the desktop
-  app and the browser.
+  Keep your Warp settings consistent across devices and sessions with
+  cloud-based sync.
 ---
 
 # Settings Sync

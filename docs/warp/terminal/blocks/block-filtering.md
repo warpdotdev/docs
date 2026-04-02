@@ -1,5 +1,7 @@
 ---
-description: Quickly filter and focus on a subset of a block.
+description: >-
+  Filter Block output by text, regex, or case to focus on specific matching
+  lines.
 ---
 
 # Block Filtering

@@ -1,8 +1,7 @@
 ---
 description: >-
-  Automate Linear issues with Oz agents that can read context, run your code
-  in the cloud, and create pull requests while keeping you updated through live
-  Session Sharing.
+  Automate Linear issues with Oz agents that run code in the cloud and create
+  pull requests on your behalf.
 ---
 
 # Linear

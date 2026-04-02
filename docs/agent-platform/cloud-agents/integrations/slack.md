@@ -1,8 +1,7 @@
 ---
 description: >-
-  The Slack integration lets your team trigger Oz agents from Slack to run
-  tasks in the cloud, update progress, and create pull requests based on your
-  conversations.
+  Trigger Oz agents from Slack to run cloud tasks, track progress, and create
+  pull requests.
 ---
 
 # Slack

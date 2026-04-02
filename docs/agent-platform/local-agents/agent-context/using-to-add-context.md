@@ -1,8 +1,7 @@
 ---
 description: >-
-  Use @ to reference files, folders, code symbols, Warp Drive objects, or even
-  blocks from other sessions as context, giving Warp’s Agent richer and more
-  precise information to work with.
+  Use @ to reference files, folders, code symbols, and Warp Drive objects as
+  agent context.
 layout:
   width: default
   title:

@@ -1,8 +1,7 @@
 ---
 description: >-
-  Warp supports both smart selection and rectangular (column) selection, making
-  it easier to quickly highlight the text you need without tedious dragging or
-  cleanup.
+  Use smart selection and rectangular (column) selection to quickly highlight
+  text in Warp.
 ---
 
 # Text Selection

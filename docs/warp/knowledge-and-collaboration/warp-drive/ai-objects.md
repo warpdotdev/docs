@@ -1,8 +1,7 @@
 ---
 description: >-
-  AI-integrated objects in Warp Drive help agents understand your workflows,
-  preferences, and tools. Access Rules, MCP Servers, and more from the Warp
-  Drive panel.
+  Access Rules, MCP Servers, Skills, and Prompts in Warp Drive to give agents
+  personalized context.
 ---
 
 # AI-Integrated Objects

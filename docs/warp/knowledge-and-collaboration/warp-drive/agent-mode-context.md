@@ -1,8 +1,7 @@
 ---
 description: >-
-  Agent Mode uses your Warp Drive content—like Workflows, Notebooks, Rules, MCP
-  Servers, and Environment Variables—to provide more personalized,
-  context-aware responses.
+  Agents use your Warp Drive content—Workflows, Notebooks, Rules, MCP Servers,
+  and Environment Variables—for context-aware responses.
 ---
 
 # Agent Mode Context

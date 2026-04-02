@@ -1,8 +1,7 @@
 ---
 description: >-
-  Skills are reusable instruction sets that teach agents how to perform specific
-  tasks. Create custom skills to standardize workflows and share expertise
-  across your team.
+  Create reusable instruction sets that teach agents specific tasks and share
+  expertise across your team.
 ---
 
 # Skills

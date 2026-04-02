@@ -1,8 +1,7 @@
 ---
 description: >-
-  The Command Search panel lets you search across Command History, Workflows,
-  Environment Variables, Notebooks, Prompts, and agent conversation history with
-  fuzzy search and ranked results.
+  Search command history, Workflows, Prompts, and agent conversations with
+  fuzzy matching.
 ---
 
 # Command Search

@@ -1,8 +1,7 @@
 ---
 description: >-
-  Warp enables intelligent code generation and editing through AI-powered diffs,
-  allowing you to review, refine, and apply changes seamlessly across your
-  codebase.
+  Generate and edit code with Warp's coding agent, review inline diffs, and
+  apply changes across your codebase.
 ---
 
 # Overview

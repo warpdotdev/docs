@@ -1,8 +1,7 @@
 ---
-description: >
-  Cloud agents and integrations are built on the Oz Platform, which includes
-  the CLI, API/SDK, orchestration, environments and execution, and
-  management/observability.
+description: >-
+  The Oz Platform provides the CLI, API/SDK, orchestration, environments, and
+  observability for cloud agents.
 ---
 
 # Oz Platform

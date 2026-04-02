@@ -1,8 +1,7 @@
 ---
 description: >-
-  Warp lets you customize your Blocks in a variety of ways such as enabling
-  Compact mode, or disabling the Block Dividers for a more custom block
-  experience, and more.
+  Customize Block spacing with Compact mode and toggle Block dividers for a
+  cleaner layout.
 ---
 
 # Blocks Behavior

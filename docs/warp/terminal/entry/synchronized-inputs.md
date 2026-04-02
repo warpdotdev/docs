@@ -1,8 +1,6 @@
 ---
 description: >-
-  Synchronized Inputs allow you to sync your commands from one session to
-  multiple similar panes as you’re typing, so you can easily run the same
-  command in multiple sessions at the same time.
+  Type a command once and sync it to multiple panes simultaneously.
 ---
 
 # Synchronized Inputs

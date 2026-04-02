@@ -1,8 +1,7 @@
 ---
 description: >-
-  Use Oz cloud agents with GitLab repositories by generating a personal access
-  token, storing it as a Warp-managed secret, and cloning your repo into a
-  cloud agent environment.
+  Connect Oz cloud agents to GitLab repos using personal access tokens and
+  Warp-managed secrets.
 ---
 
 # GitLab

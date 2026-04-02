@@ -1,8 +1,7 @@
 ---
 description: >-
-  Conversation forking lets you branch off into a new thread with the full
-  context of the original, so you can explore different directions without
-  changing the first conversation.
+  Branch into a new agent thread with full context to explore alternatives
+  without altering the original conversation.
 ---
 
 # Conversation Forking

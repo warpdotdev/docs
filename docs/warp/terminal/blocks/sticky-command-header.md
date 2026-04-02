@@ -1,8 +1,7 @@
 ---
 description: >-
-  Sticky Command Header shows you the command run for a large Block that is
-  scrolled partially off-screen. This helps you see the command that was
-  previously run or currently running jump to the top.
+  Pin the running command at the top of the screen when scrolling through large
+  Block outputs.
 ---
 
 # Sticky Command Header

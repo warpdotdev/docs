@@ -1,8 +1,7 @@
 ---
 description: >-
-  Attach a public webpage link to your prompt to use its content as
-  context—letting the agent extract and reference information directly from that
-  page in its response.
+  Attach a public URL to your prompt so the agent can reference that page's
+  content.
 ---
 
 # URLs as Context

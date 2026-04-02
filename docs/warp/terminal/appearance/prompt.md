@@ -1,8 +1,7 @@
 ---
 description: >-
-  Warp allows you to configure its Warp prompt or a Shell prompt. A terminal
-  prompt is a text that appears in the command-line interface, indicating that
-  the terminal is ready to accept commands.
+  Configure Warp's native prompt with context chips or use your own Shell
+  prompt (PS1).
 ---
 
 # Prompt

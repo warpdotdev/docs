@@ -1,5 +1,5 @@
 ---
-description: Warp's commonly used keyboard shortcuts.
+description: View, customize, and remap keyboard shortcuts for all Warp features.
 ---
 
 # Keyboard Shortcuts

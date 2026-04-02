@@ -1,8 +1,7 @@
 ---
 description: >-
-  Syntax Highlighting differentiate between sub-commands, options/flags,
-  arguments, and variables. Error Highlighting automatically underlines any
-  invalid commands with a dashed red underline.
+  Color-code commands and underline errors in real time as you type in Warp's
+  input editor.
 ---
 
 # Syntax & Error Highlighting

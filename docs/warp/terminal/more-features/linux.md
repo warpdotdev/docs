@@ -1,5 +1,6 @@
 ---
-description: Linux specific features.
+description: >-
+  Linux-specific features including native Wayland support and crash recovery.
 ---
 
 # Linux

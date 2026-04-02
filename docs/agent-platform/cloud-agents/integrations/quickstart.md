@@ -1,7 +1,7 @@
 ---
 description: >-
-  Trigger your first Oz agent from Slack in ~15 minutes. Tag @Oz in a channel
-  or thread, watch the agent work in the cloud, and get results back in the conversation.
+  Trigger your first Oz agent from Slack in ~15 minutes and get results
+  in-thread.
 ---
 
 # Integrations quickstart

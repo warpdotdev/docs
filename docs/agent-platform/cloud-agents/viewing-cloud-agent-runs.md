@@ -1,8 +1,7 @@
 ---
 description: >-
-  Cloud agent session sharing lets you open, inspect, and continue steering
-  remote agent runs in real time, all from a shared session viewable in Warp, on
-  the web, or by forking into your local env.
+  Open, inspect, and steer remote cloud agent runs in real time from Warp or
+  the web.
 ---
 
 # Cloud agent session sharing

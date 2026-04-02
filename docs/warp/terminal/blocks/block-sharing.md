@@ -1,5 +1,5 @@
 ---
-description: Share a block with your team or community.
+description: Share Blocks with your team as permalinks or embeddable HTML snippets.
 ---
 
 # Block Sharing

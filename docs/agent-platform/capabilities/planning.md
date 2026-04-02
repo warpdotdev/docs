@@ -1,8 +1,7 @@
 ---
 description: >-
-  Planning lets you turn any request into an organized, editable, and executable
-  plan that the agent can run step-by-step with full visibility and version
-  control.
+  Turn requests into structured, editable plans that agents execute
+  step-by-step with version control.
 ---
 
 # Planning

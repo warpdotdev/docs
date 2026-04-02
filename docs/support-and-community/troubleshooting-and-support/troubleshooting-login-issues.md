@@ -1,5 +1,7 @@
 ---
-description: Instructions on how to troubleshoot login issues.
+description: >-
+  Fix common login issues including SSO, proxies, ad blockers, and auth
+  tokens.
 ---
 
 # Troubleshooting Login

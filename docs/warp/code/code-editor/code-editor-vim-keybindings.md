@@ -1,8 +1,7 @@
 ---
 description: >-
-  Warp’s code editor now supports Vim keybindings, offering the same
-  keyboard-driven experience available in the input editor — with a few
-  additional commands tailored for editing code.
+  Use Vim keybindings in Warp's code editor for keyboard-driven navigation
+  and editing.
 ---
 
 # Code Editor Vim Keybindings

@@ -1,8 +1,7 @@
 ---
 description: >-
-  Warp's GitHub Actions integration lets you run Oz agents directly inside
-  your CI workflows, using your repo context and GitHub permissions to automate
-  coding tasks.
+  Run Oz agents in GitHub Actions to automate code review, issue triage, and
+  CI fixes.
 ---
 
 # GitHub Actions

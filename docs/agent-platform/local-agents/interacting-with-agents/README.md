@@ -1,8 +1,7 @@
 ---
 description: >-
-  Warp organizes your Agent interactions into conversations tied to sessions,
-  allowing you to attach context blocks, follow up on previous queries, or begin
-  new threads for distinct tasks.
+  Manage agent conversations across sessions with follow-ups, context blocks,
+  and multi-thread support.
 ---
 
 # Agent Conversations

@@ -1,5 +1,7 @@
 ---
-description: Warp supports subshells for bash, zsh, and fish.
+description: >-
+  Warpify subshells in bash, zsh, and fish to get Warp features in nested
+  sessions.
 ---
 
 # Subshells

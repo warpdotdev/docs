@@ -1,8 +1,7 @@
 ---
 description: >-
-  Our mission is to make Warp the most accessible terminal for all developers.
-  It includes fixing the UI, making it easier to use for experts and new
-  engineers who are starting to use the command line.
+  Warp's accessibility features include VoiceOver support, voice input, and
+  configurable verbosity.
 ---
 
 # Accessibility

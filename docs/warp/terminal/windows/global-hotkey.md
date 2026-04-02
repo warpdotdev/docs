@@ -1,8 +1,7 @@
 ---
 description: >-
-  Warp's Global Hotkey is a configurable shortcut that can show/hide a dedicated
-  Warp window or all Warp windows on your chosen desktop regardless of whether
-  the app is focused.
+  Show or hide Warp instantly with a global hotkey, including a dedicated
+  Quake-style drop-down window.
 ---
 
 # Global Hotkey

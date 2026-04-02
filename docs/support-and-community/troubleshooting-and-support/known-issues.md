@@ -1,5 +1,7 @@
 ---
-description: Warp issues along with workarounds and solutions.
+description: >-
+  Known Warp issues with workarounds, including SSH, shells, and incompatible
+  tools.
 ---
 
 # Known Issues

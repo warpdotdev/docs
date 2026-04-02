@@ -1,8 +1,7 @@
 ---
 description: >-
-  A walkthrough demo showing how to build a Sentry webhook handler that
-  triggers cloud agents via the TypeScript SDK to investigate errors and
-  create draft pull requests.
+  Build a Sentry webhook handler that triggers Oz agents to investigate errors
+  and create draft PRs.
 ---
 
 # Demo: Sentry monitoring with SDK

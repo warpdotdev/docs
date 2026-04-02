@@ -1,8 +1,7 @@
 ---
 description: >-
-  Oz Cloud Agents are cloud-connected background agents that run from
-  events, schedules, or integrations, giving teams scalable automation with
-  shared observability and centralized configs
+  Run background agents in the cloud from events, schedules, or integrations
+  with team-wide observability.
 ---
 
 # Cloud Agents Overview

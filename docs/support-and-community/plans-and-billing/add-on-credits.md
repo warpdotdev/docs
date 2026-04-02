@@ -1,8 +1,7 @@
 ---
 description: >-
-  Add-on credit let you continue using premium AI models after reaching your
-  monthly credit limit, offering flexible, usage-based pricing with lower rates,
-  rollover balance, and full control over spend.
+  Purchase Add-on Credits to keep using premium AI models after reaching your
+  monthly credit limit.
 ---
 
 # Add-on Credits

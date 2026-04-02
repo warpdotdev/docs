@@ -1,8 +1,7 @@
 ---
 description: >-
-  Warp lets you customize the behavior of tabs in a variety of ways such as setting
-  tab indicators, or  hiding the tab bar for a more personalized navigation
-  experience, and more.
+  Customize tab behavior in Warp, including tab indicators, tab bar visibility,
+  and close button position.
 ---
 
 # Tabs Behavior

@@ -1,8 +1,7 @@
 ---
 description: >-
-  The Tabs feature allows you to organize a window into multiple terminal
-  sessions. Tabs can be customized with a title and/or an ANSI color to help
-  identify them.
+  Organize your window into multiple terminal sessions with customizable tabs,
+  complete with titles and ANSI colors.
 ---
 
 # Tabs

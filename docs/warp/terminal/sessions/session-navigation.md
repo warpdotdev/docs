@@ -1,8 +1,7 @@
 ---
 description: >-
-  The Session Navigation Palette helps you speed up your workflow by allowing
-  you to quickly navigate using the keyboard or mouse to the terminal sessions
-  you are looking for across Warp.
+  Quickly navigate to any terminal session across Warp using the Session
+  Navigation palette.
 ---
 
 # Session Navigation

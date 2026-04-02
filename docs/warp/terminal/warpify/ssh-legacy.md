@@ -1,5 +1,7 @@
 ---
-description: SSH wrapper that enables Warp features in remote sessions.
+description: >-
+  Legacy SSH wrapper that bootstraps Warp features on remote machines without
+  tmux.
 ---
 
 # SSH Legacy

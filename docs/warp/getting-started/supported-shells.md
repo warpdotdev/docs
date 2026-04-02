@@ -1,8 +1,8 @@
 ---
 description: >-
-  Warp supports popular shells across macOS, Windows, and Linux. On macOS and
-  Linux, this includes bash, zsh, fish, and PowerShell (pwsh). On Windows, this
-  includes PowerShell 5 & 7, WSL2, and Git Bash.
+  Warp supports bash, zsh, fish, and PowerShell across macOS, Windows, and
+  Warp supports bash, zsh, fish, PowerShell, and WSL2 across macOS, Windows,
+  and Linux.
 ---
 
 # Supported Shells

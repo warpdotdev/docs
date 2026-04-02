@@ -1,8 +1,7 @@
 ---
 description: >-
-  Browse, open, and manage your project with Warp’s native file tree, complete
-  with keyboard shortcuts, file icons, and context menu actions for files and
-  folders.
+  Browse, open, and manage project files with Warp's native file tree and
+  context menu actions.
 ---
 
 # File Tree (Project Explorer)

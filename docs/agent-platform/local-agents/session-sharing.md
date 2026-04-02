@@ -1,8 +1,7 @@
 ---
 description: >-
-  Agent Session Sharing lets collaborators view and interact with live Agent
-  activity inside a shared Warp session, including messages, thinking steps, and
-  the ability to run their own Agent queries
+  Share live agent sessions so collaborators can view, follow, and interact
+  with agent activity.
 ---
 
 # Session Sharing

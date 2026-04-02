@@ -1,8 +1,7 @@
 ---
 description: >-
-  Use Warp’s built-in find and replace to quickly search across a file, jump
-  between matches, and make precise edits with options for regex, case
-  sensitivity, and smart case preservation.
+  Search and replace text in Warp's code editor with regex, case sensitivity,
+  and smart case preservation.
 ---
 
 # Find and Replace

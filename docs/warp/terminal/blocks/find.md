@@ -1,8 +1,7 @@
 ---
 description: >-
-  Find in Warp works unlike how you may have seen in other terminals. Instead of
-  searching from the lowest point in view as with text editors or from the top
-  as with terminals.
+  Search across Blocks from the bottom up, with regex, case-sensitive, and
+  per-Block filtering options.
 ---
 
 # Block Find

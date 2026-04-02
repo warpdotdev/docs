@@ -1,8 +1,7 @@
 ---
 description: >-
-  Warp can send you customizable desktop notifications when you are away from
-  the app and quickly re-focus when something meaningful happens in your
-  terminal sessions.
+  Receive desktop notifications when long-running commands complete or need
+  your input.
 ---
 
 # Desktop Notifications

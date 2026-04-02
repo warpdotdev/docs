@@ -1,5 +1,5 @@
 ---
-description: All the cool features Blocks provide.
+description: Copy, bookmark, share, search, and filter Blocks using built-in actions.
 ---
 
 # Block Actions

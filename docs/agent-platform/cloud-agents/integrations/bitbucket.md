@@ -1,8 +1,7 @@
 ---
 description: >-
-  Use Oz cloud agents with Bitbucket repositories by generating an access
-  token, storing it as a Warp-managed secret, and cloning your repo into a
-  cloud agent environment.
+  Connect Oz cloud agents to Bitbucket repos using access tokens and
+  Warp-managed secrets.
 ---
 
 # Bitbucket

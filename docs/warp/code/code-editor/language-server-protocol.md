@@ -1,8 +1,7 @@
 ---
 description: >-
-  Warp's code editor integrates with Language Server Protocol (LSP) servers to
-  provide hover info, go-to-definition, find references, inline diagnostics, and
-  format-on-save for supported languages.
+  Get hover info, go-to-definition, diagnostics, and format-on-save via
+  built-in LSP support.
 ---
 
 # Language Server Protocol (LSP)

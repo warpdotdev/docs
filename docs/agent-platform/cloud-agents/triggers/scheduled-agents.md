@@ -1,8 +1,7 @@
 ---
 description: >-
-  Warp Scheduled Agents run cloud agents automatically on a cron schedule,
-  enabling repeatable maintenance and cleanup tasks to execute reliably in the
-  background without manual triggers.
+  Run cloud agents on a cron schedule for automated maintenance and recurring
+  tasks.
 ---
 
 # Scheduled Agents

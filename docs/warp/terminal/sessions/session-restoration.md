@@ -1,8 +1,7 @@
 ---
 description: >-
-  The Session Restoration feature enables Warp to restore your session history,
-  specifically windows, tabs, and panes, along with the last few Blocks in each
-  pane.
+  Restore your windows, tabs, panes, and recent Blocks automatically when you
+  relaunch Warp.
 ---
 
 # Session Restoration

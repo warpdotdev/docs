@@ -1,5 +1,5 @@
 ---
-description: Warp's features for Window Management.
+description: Manage Warp windows with global hotkeys, tabs, and split panes.
 ---
 
 # Window Management

@@ -1,8 +1,7 @@
 ---
 description: >-
-  Run Oz agents on your own infrastructure with two deployment options:
-  managed workers for full Oz orchestration, or unmanaged agents that
-  drop into your existing CI and dev environments.
+  Run Oz agents on your own infrastructure with managed workers or unmanaged
+  CLI-based execution.
 ---
 
 # Self-hosting

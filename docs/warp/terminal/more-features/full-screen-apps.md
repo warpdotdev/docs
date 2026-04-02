@@ -1,8 +1,7 @@
 ---
 description: >-
-  Warp runs alt-grid apps like Vim and Emacs in full-screen mode. Warp also
-  supports sending mouse and scroll events directly to the alt-grid or adjusting
-  the padding surrounding the apps.
+  Run Vim, Emacs, and other full-screen apps with configurable mouse reporting
+  and padding.
 ---
 
 # Full-screen Apps

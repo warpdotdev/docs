@@ -1,8 +1,7 @@
 ---
 description: >-
-  Computer Use allows agents to interact with desktop environments by taking
-  screenshots, clicking, typing, and controlling the GUI in sandboxed cloud
-  environments for testing and automation.
+  Let agents interact with desktop GUIs in sandboxed cloud environments for
+  automated UI testing and validation.
 ---
 
 # Computer Use

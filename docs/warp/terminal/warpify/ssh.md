@@ -1,5 +1,7 @@
 ---
-description: SSH wrapper that enables Warp features in remote sessions.
+description: >-
+  Warpify SSH sessions with tmux to get Blocks, completions, and the input
+  editor on remote machines.
 ---
 
 # SSH

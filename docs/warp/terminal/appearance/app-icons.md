@@ -1,5 +1,7 @@
 ---
-description: Warp supports a palette of built-in app icons.
+description: >-
+  Choose from a palette of built-in app icons to customize Warp's dock
+  appearance on macOS.
 ---
 
 # App Icons

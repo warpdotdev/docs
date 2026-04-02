@@ -1,8 +1,7 @@
 ---
 description: >-
-  Warp’s built-in code editor lets you make quick, in-context edits with
-  essentials like syntax highlighting, tabs, find and replace, Vim keybindings,
-  and a file tree.
+  Make in-context code edits with Warp's built-in editor, featuring syntax
+  highlighting, tabs, and Vim keybindings.
 ---
 
 # Code Editor
