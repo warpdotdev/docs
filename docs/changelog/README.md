@@ -25,6 +25,54 @@ metaLinks: {}
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2026.04.01 (v0.2026.04.01.08.39)
+
+**New features**
+
+* \[macOS] Right-clicking on text files in Finder allows you to open in Warp's code editor.
+* Send code review comments, attach diff hunks as context, and send substrings as context (`cmd L`) to 3rd party CLI tools such as Claude Code, Codex, Opencode, etc.
+* Oz agents can now ask users clarifying questions during Agent Mode interactions.
+* Warp's agent now suggests followups when it is done.
+
+**Improvements**
+
+* Replaced warpify banner for subshell and SSH sessions with a footer to either warpify or tag an agent in.
+* Improved error messaging when session sharing times out via CLI `--share` flag, now suggesting that it may be disabled by a team administrator.
+* Added "Copy file path" option to the overflow menu in the file viewer for both code and markdown files.
+* Added "Sign up" option to the settings gear menu for non-logged-in users.
+* MCP config files edited by the agent now show an 'Open config' button in the code diff header, making it easy to jump directly to the config file.
+* Added `/skills` support in CLI agent rich input for browsing and invoking agent-specific skills.
+* Sandboxed Oz agents now have dedicated autonomy settings, instead of inheriting the team-level defaults.
+* Updated settings info icon tooltips to clarify they open documentation.
+* Improved quality and latency of prompt suggestions and suggested code diffs.
+* Cloud agents can now accept images and file attachments as context.
+
+**Bug fixes**
+
+* Fixed stale fallback model messaging persisting across new user queries.
+* Fixed scroll behavior when editing code review comments to properly reveal the comment editor.
+* Fixed WebSocket proxy connections timing out when the proxy listens on port 80.
+* Fixed PowerShell aliases and functions to be matched case-insensitively, matching PowerShell's native behavior.
+* Fixed conversation search temp directory paths using mixed separators on Windows.
+* Fixed keyboard shortcuts settings panel being empty when first navigated to via search.
+* Fixed the `@` context menu dismissing after typing ~6 characters when filtering categories.
+* Fixed a crash with Oz CLI commands that read from stdin.
+* Fixed a production WebAssembly crash caused by native repository detection code being reached from shared Wasm call paths.
+* Fixed links in blocklist code review comments not opening when clicked.
+* Fixed "Out of credits" alert not dismissing when users provide their own API keys.
+* Fixed link detection being offset in AI conversations after conversation summaries or hidden reasoning blocks.
+* Simplified file explorer lazy-loaded folder handling and fixed transitions between standalone folders and indexed git repositories.
+* Fixed inline code snippet colors and underline colors not updating when switching editor themes in notebooks.
+* \[Windows] Fix rendering on an additional set of older Intel iGPU drivers.
+* Fixed web auth flows so session-cookie-authenticated clients can call authenticated server APIs without requiring an Authorization header.
+
+**Oz updates**
+
+* Fixed Oz session sharing failing behind HTTP proxies on port 80.
+* The `OZ_RUN_ID` environment variable is now available inside agent terminal sessions, set to the current task ID.
+* Improved error messages when agent session sharing fails, removing repetitive text and providing clearer guidance.
+* Oz agents can now ask users clarifying questions during Agent Mode interactions.
+
 ### 2026.03.25 (v0.2026.03.25.08.24)
 
 **New features**
