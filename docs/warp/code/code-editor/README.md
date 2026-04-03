@@ -4,9 +4,8 @@ description: >-
   highlighting, tabs, and Vim keybindings.
 ---
 
-# Code Editor
+# Built-in Code Editor
 
-## Built-in Code Editor
 
 Warp comes with a native code editor designed for quick, in-flow edits alongside your Agent conversations. Instead of switching back and forth to an IDE, you can open and edit files directly in Warp — with essentials like syntax highlighting, a tabbed file viewer, find and replace, Vim keybindings, and a file tree for browsing and adding files as context.
 

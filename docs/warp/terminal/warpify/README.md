@@ -4,7 +4,7 @@ description: >-
   sessions.
 ---
 
-# Warpify
+# Warpify overview
 
 1. [Subshells](subshells.md), Warp supports enabling Warp features in subshells for bash, zsh, and fish.
 2. [SSH](ssh.md), Warp supports a tmux powered wrapper that enables Warp features in remote (SSH) sessions.

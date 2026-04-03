@@ -4,7 +4,7 @@ description: >-
   apply changes across your codebase.
 ---
 
-# Overview
+# Code overview
 
 {% hint style="info" %}
 Several coding features — including Codebase Context, code diffs, the code editor, and the file tree — are not yet available in SSH or WSL sessions.

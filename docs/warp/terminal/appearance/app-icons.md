@@ -4,7 +4,7 @@ description: >-
   appearance on macOS.
 ---
 
-# App Icons
+# Custom app icons
 
 {% hint style="info" %}
 App icons are only available for Warp on macOS. The feature doesn't support custom dock icons.

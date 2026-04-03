@@ -4,7 +4,7 @@ description: >-
   per-Block filtering options.
 ---
 
-# Block Find
+# Terminal Block Find
 
 ## What is it
 

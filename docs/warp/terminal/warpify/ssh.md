@@ -4,7 +4,7 @@ description: >-
   editor on remote machines.
 ---
 
-# SSH
+# SSH with Warp features
 
 {% hint style="info" %}
 Some coding features — including Codebase Context, code diffs, the code editor, and the file tree — are not yet available over SSH. See [Feature support over SSH](../../code/ssh-feature-support.md) for the full list.

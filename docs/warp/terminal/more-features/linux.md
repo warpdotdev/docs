@@ -3,7 +3,7 @@ description: >-
   Linux-specific features including native Wayland support and crash recovery.
 ---
 
-# Linux
+# Warp for Linux
 
 ## Native Wayland
 

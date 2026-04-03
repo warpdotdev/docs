@@ -2,7 +2,7 @@
 description: The basics of creating, selecting, and navigating between Blocks.
 ---
 
-# Block Basics
+# Terminal Block Basics
 
 ## The basics
 

@@ -4,7 +4,7 @@ description: >-
   tmux.
 ---
 
-# SSH Legacy
+# Legacy SSH wrapper
 
 {% hint style="info" %}
 If you are looking to troubleshoot the tmux SSH feature, see the [SSH](ssh.md).

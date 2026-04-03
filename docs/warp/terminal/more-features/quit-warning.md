@@ -4,7 +4,7 @@ description: >-
   data loss or lost progress on long-running jobs.
 ---
 
-# Quit Warning
+# Terminal quit warning
 
 ## What is it
 

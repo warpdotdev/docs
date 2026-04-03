@@ -4,7 +4,7 @@ description: >-
   Tab anywhere.
 ---
 
-# Completions
+# Tab completions
 
 ## What is it
 

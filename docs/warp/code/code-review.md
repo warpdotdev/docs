@@ -4,7 +4,7 @@ description: >-
   time, with options to attach, revert, or open files directly.
 ---
 
-# Code Review
+# Code Review panel
 
 ## Overview
 

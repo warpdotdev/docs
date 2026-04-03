@@ -2,7 +2,7 @@
 description: This is a short comparison of different terminals and their performance.
 ---
 
-# Performance
+# Performance benchmarks
 
 ## Terminal apps selected for these benchmarks
 

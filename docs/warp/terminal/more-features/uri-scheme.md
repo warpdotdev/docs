@@ -4,7 +4,7 @@ description: >-
   launch configurations with ease.
 ---
 
-# URI Scheme
+# Warp URI Scheme
 
 ## How to use it
 

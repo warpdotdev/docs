@@ -2,7 +2,7 @@
 description: A Block groups commands and outputs into one atomic unit.
 ---
 
-# Blocks
+# Terminal Blocks
 
 ## What are Blocks?
 

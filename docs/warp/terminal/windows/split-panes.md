@@ -4,7 +4,7 @@ description: >-
   panes, each of which is a unique terminal session.
 ---
 
-# Split Panes
+# Terminal Split Panes
 
 ## How to use Split Panes
 

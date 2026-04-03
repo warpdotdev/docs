@@ -4,7 +4,7 @@ description: >-
   like ping.
 ---
 
-# Audible Bell
+# Audible terminal bell
 
 Warp allows you to enable an audible terminal bell (disabled by default) that can be triggered by a variety of CLI tools (for example, `ping -a`).
 

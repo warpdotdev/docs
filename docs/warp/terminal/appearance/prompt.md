@@ -4,7 +4,7 @@ description: >-
   prompt (PS1).
 ---
 
-# Prompt
+# Terminal prompt
 
 Warp supports two prompt types: the **Warp prompt** and the **Shell prompt (PS1)**. 
 

@@ -2,7 +2,7 @@
 description: Create or join a team to collaborate with others in Warp.
 ---
 
-# Teams
+# Team management
 
 ## What is a team?
 

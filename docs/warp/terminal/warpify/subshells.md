@@ -4,7 +4,7 @@ description: >-
   sessions.
 ---
 
-# Subshells
+# Warpify subshells
 
 ## What is a subshell?
 

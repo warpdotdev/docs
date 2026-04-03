@@ -4,7 +4,7 @@ description: >-
   enforced across all team members.
 ---
 
-# Admin Panel
+# Team Admin Panel
 
 ## What is the Admin Panel?
 

@@ -4,7 +4,7 @@ description: >-
   themes.
 ---
 
-# Themes
+# Terminal themes
 
 ### Theme Picker
 
