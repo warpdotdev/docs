@@ -3,7 +3,7 @@
 ## Getting started
 
 * [Getting started with Warp and Oz](README.md)
-* [Quickstart](<README (1).md>)
+* [Warp quickstart](<README (1).md>)
   * [Installation and setup](getting-started/quickstart/installation-and-setup.md)
   * [Coding in Warp](getting-started/quickstart/coding-in-warp.md)
   * [Customizing Warp](getting-started/quickstart/customizing-warp.md)
@@ -56,7 +56,7 @@
   * [Pane dimming & focus](terminal/appearance/pane-dimming.md)
   * [Blocks behavior](terminal/appearance/blocks-behavior.md)
   * [Tabs behavior](terminal/appearance/tabs-behavior.md)
-  * [App icons](terminal/appearance/app-icons.md)
+  * [Custom app icons](terminal/appearance/app-icons.md)
 * [Warpify overview](terminal/warpify/README.md)
   * [Warpify subshells](terminal/warpify/subshells.md)
   * [SSH with Warp features](terminal/warpify/ssh.md)

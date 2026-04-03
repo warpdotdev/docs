@@ -1,2 +1,8 @@
+---
+description: >-
+  Customize Warp's visual appearance, including themes, fonts, prompts, app
+  icons, input position, and pane behavior.
+---
+
 # Terminal appearance
 

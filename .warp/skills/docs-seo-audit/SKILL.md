@@ -120,6 +120,17 @@ Before making any changes, read these references:
 4. **Changing SUMMARY.md link text has side effects**: it also changes the sidebar label, breadcrumbs, and prev/next pagination. URLs are NOT affected.
 5. **When changing a title, also update the H1** in the markdown file for consistency.
 
+### Title exceptions
+
+Some page titles are intentionally short or specific and must **not** be changed, even if they trigger a `title_too_short` warning. Skip these pages and note them as intentional exceptions in your report:
+
+- **`docs/changelog/README.md`** (`Changelog`) — "Changelog" is a clear, universally understood industry term. Branding prefixes like "Warp changelog" or "Release changelog" add no descriptive value and this title should remain as-is.
+- **`docs/warp/terminal/appearance/app-icons.md`** (`App icons`) — The article explicitly explains that *custom* app icons are not available to users. Renaming to "Custom app icons" directly contradicts the page content and must be avoided.
+
+When the audit flags these pages for `title_too_short`, exclude them from your fix list and include a note in your report explaining they are intentional exceptions.
+
+If you believe a new title should be added to this exceptions list, flag it for human review before proceeding.
+
 ### Fixing duplicate titles
 
 This is the most impactful issue. Common causes:

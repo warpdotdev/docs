@@ -4,7 +4,7 @@ description: >-
   with agents.
 ---
 
-# Quickstart Guide
+# Warp quickstart
 
 ## Key Features:
 
