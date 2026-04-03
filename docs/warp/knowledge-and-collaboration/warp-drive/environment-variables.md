@@ -2,11 +2,11 @@
 description: Save or sync environment variables to load into your terminal sessions.
 ---
 
-# Environment Variables
+# Environment variables
 
-## What are Environment Variables in Warp?
+## What are environment variables in Warp?
 
-Environment Variables in Warp are similar to .env files, except you can:
+Environment variables in Warp are similar to .env files, except you can:
 
 * Load them into your terminal session with a click.
 * Use them in parameterized workflows.

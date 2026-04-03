@@ -4,9 +4,9 @@ description: >-
   text in Warp.
 ---
 
-# Text Selection
+# Text selection
 
-## Smart Selection
+## Smart selection
 
 **Smart selection** goes beyond the typical double-click selection, which only highlights a single word. Instead, it uses semantic rules to treat common patterns (like URLs or file paths) as one unit, even when separated by punctuation or whitespace.
 
@@ -22,9 +22,9 @@ Double-click on text in the input or blocklist. The following patterns are recog
 
 You can toggle smart selection on the **Settings** > **Features** > **Terminal** > **Double-click smart selection**. If disabled, you can instead manually select specific punctuation characters to be included within word boundaries.
 
-## Rectangular Selection
+## Rectangular selection
 
-**Rectangular selection** lets you highlight text in a clean vertical block (also called _column_ or _box_ selection). This is especially useful for copying command output, logs, or prefixed text without grabbing unwanted characters.&#x20;
+**Rectangular selection** lets you highlight text in a clean vertical block (also called _column_ or _box_ selection). This is especially useful for copying command output, logs, or prefixed text without grabbing unwanted characters.
 
 <figure><img src="../../.gitbook/assets/rectangular-selection.png" alt=""><figcaption><p>Using rectangular selection to select by columns in the block output.</p></figcaption></figure>
 
@@ -32,4 +32,3 @@ Hold the modifier keys while dragging your mouse:
 
 * macOS: `CMD-OPT`
 * Windows and Linux: `CTRL-ALT`
-

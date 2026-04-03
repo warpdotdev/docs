@@ -1,8 +1,9 @@
 ---
 description: >-
   Universal Input was the previous default input interface for Warp. It has been
-  replaced by Agent Modality, which provides a cleaner separation between terminal
-  and agent workflows.
+  replaced by Agent Modality, which provides a cleaner separation between
+  terminal and agent workflows.
+hidden: true
 ---
 
 # Universal Input (Legacy)

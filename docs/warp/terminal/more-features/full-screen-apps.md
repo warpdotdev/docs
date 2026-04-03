@@ -4,9 +4,9 @@ description: >-
   and padding.
 ---
 
-# Full-screen Apps
+# Full-screen apps
 
-## Mouse and Scroll Reporting
+## Mouse and scroll reporting
 
 Warp supports configuring how to handle mouse and scroll events. They can be sent to the currently running app, e.g. `vim`, or kept and handled by Warp.
 
