@@ -15,17 +15,81 @@ This guide establishes standards for writing Warp documentation. It covers voice
 - **Confident without jargon**: Explain technical concepts clearly without oversimplifying
 
 ### Language guidelines
-- Use active voice: "Warp detects opportunities" not "opportunities are detected by Warp"
-- Start sentences with strong verbs when giving instructions
-- Avoid hedging language ("might", "could", "perhaps") when describing established features
-- Use consistent terminology throughout (see Terminology section below)
+- Use consistent terminology throughout (see [Terminology standards](#terminology-standards) and the full glossary in `.warp/references/terminology.md`)
 - Em dashes are acceptable for occasional variation in narrative/conceptual text, but use sparingly
 - Never use em dashes in procedural or instructional text
 
+#### Active vs. passive voice
+Use active voice whenever possible. Active voice is clearer and more direct.
+- ✅ "Warp indexes your codebase to help Agents understand your code."
+- ❌ "Your codebase is indexed by Warp to help Agents understand your code."
+
+Passive voice is acceptable when the action's recipient is more important than the agent, or when the agent is unknown or irrelevant:
+- ✅ "A critical security vulnerability was discovered in the authentication module." (emphasis on the vulnerability, not who found it)
+- ✅ "The environment is destroyed after the run completes." (the system does this automatically; no human agent)
+
+#### Ambiguous verbs
+When a task is required, use clear, direct verbs. Avoid ambiguous modal verbs like "may," "might," "should," "could," "would," and "can" — these can be interpreted as either a command or a suggestion.
+- ✅ "Use `oz agent run` to start a local agent." (required action)
+- ✅ "You can optionally specify an Agent Profile." (clearly marked as optional)
+- ❌ "You can use `oz agent run` to start a local agent." (is this required or optional?)
+- ❌ "You should configure an environment before running cloud agents." (must I, or is it just a suggestion?)
+
+#### Vague nouns and pronouns
+If a pronoun could refer to more than one thing, replace it with the specific noun.
+- ✅ "After you merge your pull request, you can delete the branch."
+- ❌ "After you merge your pull request, you can delete it." (delete the PR or the branch?)
+
+#### Stacked modifiers
+Avoid strings of nouns that create ambiguity. Use prepositions to clarify relationships.
+- ✅ "Default permissions for cloud agents"
+- ❌ "Cloud agent default permission settings"
+
+#### Nominalizations
+Avoid turning verbs into nouns. Use the verb form for clearer, shorter sentences.
+- ✅ "After the run completes, the container is destroyed."
+- ❌ "After the completion of the run, the container undergoes destruction."
+
+#### Invisible plurals
+Avoid words that are ambiguous between singular and plural.
+- ✅ "After the file is retrieved, select where to save it."
+- ❌ "After file retrieval, select where to save it." (one file or many?)
+
+### Punctuation and mechanics
+- **Serial comma**: Always use it. "Environments, integrations, and schedules" — not "Environments, integrations and schedules."
+- **Contractions**: Allowed and encouraged to match our approachable tone. Use "you're," "don't," "it's," "can't." Exception: avoid contractions in error messages or formal warnings.
+- **Tense**: Use present tense to describe how things work ("Warp indexes your codebase"). Use imperative for instructions ("Configure your environment").
+- **Person**: Use second person ("you") for instructions. Avoid first person plural ("we") in procedural content. First person is acceptable in conceptual or narrative text when referring to Warp as a company ("We designed Oz to...").
+
+### Inclusive language
+- Use gender-neutral pronouns ("they/them") for unknown users
+- Avoid ableist language ("simple," "easy," "just" — these dismiss the reader's experience)
+- Avoid culturally specific idioms or slang that may not translate across regions
+- Describe UI elements by name and function, not by appearance alone (supports screen readers and non-visual contexts)
+
+### Writing for accessibility and agents
+
+These practices serve both human accessibility needs and AI agent consumption (AEO — Answer Engine Optimization).
+
+**Accessibility:**
+- Include captions or a brief text summary for video embeds so content is accessible without playing the video
+- Don't rely on color alone to convey meaning (e.g., "the green status badge"). Always pair color with a text label (e.g., "the **Active** status badge")
+- Use header rows in tables. Keep tables simple — avoid deeply nested structures
+- Many rules in this guide (active voice, short sentences, plain language, descriptive links, alt text) also serve non-native English speakers and screen reader users
+
+**Writing for agents (AEO):**
+- **Descriptive headers**: Use specific, parseable headers ("Configuring environments") not vague ones ("Getting set up"). Agents use headers as semantic signals to extract answers.
+- **Explicit context**: Don't assume the reader arrived from a parent page. State what a thing is before explaining how to use it. This helps agents extract self-contained answers.
+- **Frontmatter descriptions**: Agents and search engines use the `description` field to determine relevance before reading the full page. Write descriptions as standalone summaries.
+- **Consistent terminology**: Agents struggle when the same concept has multiple names. Use the glossary terms consistently.
+- **Machine-parseable patterns**: Consistent list formats, code block labeling, and parameter tables help agents extract structured information. The templates in `.warp/templates/` enforce this.
+
 ## Content structure
 
+These structural rules apply to all pages regardless of content type. For type-specific page structures, see the templates in `.warp/templates/`.
+
 ### Frontmatter
-Every page must include YAML frontmatter with a description:
+Every page must include YAML frontmatter with a `description` field.
 
 ```yaml
 ---
@@ -35,14 +99,11 @@ description: >-
 ---
 ```
 
-### General page structure
-Every page should include these elements. The body sections in between vary by content type (see [Drafting by content type](#drafting-by-content-type)).
+Write descriptions as standalone summaries that would make sense in a search result. Lead with the user benefit, include key terms for the topic.
+- ✅ `description: Environments ensure your cloud agents run with consistent toolchains across all triggers. Learn when to use environments and how to configure them.`
+- ❌ `description: This page describes environments.`
 
-1. **YAML frontmatter** with description
-2. **H1 title** (sentence case) that clearly identifies the topic
-3. **Opening paragraph** with a brief overview and primary user benefit
-4. **Body sections** structured according to the page's content type
-5. **Cross-references** linking to related features and next steps
+The `description` field is used as the meta description in search results — write it as a summary that would make someone click.
 
 ### Headers
 - Use sentence case for all headers (not title case)
@@ -54,6 +115,26 @@ Every page should include these elements. The body sections in between vary by c
 - H2 for major sections
 - H3 for subsections
 - Avoid going deeper than H4
+
+### File and URL naming
+File names become URL slugs in GitBook. Use lowercase, hyphens, and descriptive names that include key terms.
+- ✅ `environments.md` → `/environments`
+- ✅ `agent-profiles-permissions.md` → `/agent-profiles-permissions`
+- ❌ `setup-guide-v2.md`, `new-page.md`, `doc1.md`
+
+Clean, descriptive URLs rank better in search and are more shareable.
+
+### Page length and scannability
+- Aim for scannable pages. Use clear section headers, short paragraphs (2-4 sentences), and bulleted lists.
+- If a page exceeds ~1500 words, consider breaking it into sub-pages or using clear anchor links.
+- Avoid thin pages with only a sentence or two — consolidate with related content instead. When two pages cover nearly the same topic, merge them.
+
+### Opening paragraphs
+The first paragraph sets expectations for the entire page. Lead with what the feature does and its primary benefit.
+- ✅ "Environments ensure your cloud agents run with the same toolchain and setup every time, regardless of where they're triggered from."
+- ❌ "This page explains environments."
+
+Search engines and AI agents give extra weight to the first paragraph. Lead with the key terms and the user benefit.
 
 ## Formatting standards
 
@@ -70,20 +151,48 @@ Example:
 * **Code Review** - Review, edit, and manage Git diffs in real time
 ```
 
+### Emphasis
+Use formatting consistently to distinguish different types of content:
+- **Bold** — UI elements, key terms on first use in a list, feature names in context
+- *Italic* — introducing a new term inline (not a feature name), titles of external works
+- `Backticks` — code, commands, file paths, keyboard keys, config values, CLI flags
+- Underline — avoid (poor web accessibility, looks like a link)
+
 ### Code examples
-- Use proper syntax highlighting for all code blocks
+- Always specify the language identifier for syntax highlighting (`bash`, `yaml`, `json`, etc.)
+- For terminal commands: use `bash` language. Include `$` prompt only if showing output alongside the command.
+- For file contents: use the appropriate language and add a title with `{% code title="filename" %}`
+- For placeholder values in commands, use ALL_CAPS: `export WARP_API_KEY=YOUR_API_KEY`
+- Use angle brackets in syntax descriptions: `oz agent run <agent-name>`
+- Always explain what a placeholder represents
 - Include context about what the code does
 - Provide both simple examples and real-world scenarios
-- Format terminal commands consistently
+
+### Images and media
+- Always include descriptive alt text (describe what the image shows, not just "screenshot")
+  - ✅ `alt="Creating a new environment in the Oz Web App"`
+  - ❌ `alt="screenshot"` or `alt=""`
+- Use `<figure>` with `<figcaption>` for images that need captions
+- Prefer GIFs for short interactions (under ~15 seconds). Use video embeds for longer demos.
+- File naming: lowercase, hyphens, descriptive (`agent-mode-code-diff.png`, not `Screenshot 2026-03-15.png`)
+- Store images in the section's `.gitbook/assets/` directory
 
 ### Links and cross-references
 - Use descriptive link text that explains what users will find
+  - ✅ "Learn more about [Codebase Context](...)" / "See [configuring environments](...)"
+  - ❌ "Click [here](...)" / "See [this page](...)"
 - Cross-reference related features prominently
 - Link to external resources when they add value
-- Use relative paths for internal documentation links
+- Within a GitBook space, use relative paths. For cross-space links, use absolute URLs (`https://docs.warp.dev/...`)
+- Descriptive anchor text helps search engines understand page relationships. "Click here" provides no signal; "configuring environments" tells search engines what the linked page is about.
 
 ### Callouts and hints
-Use GitBook's hint syntax consistently:
+Use GitBook's hint syntax. Choose the style based on the type of information:
+
+- `info` — supplemental context, tips, "good to know" information
+- `warning` — caveats, limitations, things that could cause confusion or errors
+- `danger` — destructive actions, irreversible operations, security implications
+- `success` — confirmation of expected outcomes, "you're on the right track"
 
 ```markdown
 {% hint style="info" %}
@@ -94,6 +203,14 @@ For informational context, tips, or additional details
 For important caveats, limitations, or things to watch out for
 {% endhint %}
 ```
+
+Use callouts sparingly. A page with 5+ callouts loses its visual impact.
+
+### Placeholders and dynamic text
+- Use ALL_CAPS for placeholder values in commands: `git clone REPO_URL`
+- Use angle brackets in syntax descriptions: `oz agent run <agent-name>`
+- Use ALL_CAPS for text that changes in the UI: Click **Add** USERNAME **to** REPONAME.
+- Always explain what the placeholder represents near where it appears
 
 ### Keys and shortcuts
 Keyboard keys and shortcuts use backticks:
@@ -133,6 +250,8 @@ Keyboard keys and shortcuts use backticks:
 
 ### UI elements
 - Use bold for interactive UI elements (e.g., buttons, toggles, dropdowns)
+- Describe UI elements by name, not just appearance or location. Prefer "In the sidebar, click **Platform**" over "Click the button on the left."
+- Format checkbox names in bold. Omit the word "checkbox." Use "select" or "deselect," not "check" or "uncheck."
 
 **Use:**
 - ✅ Click your profile photo in the top-right corner, then click **Settings**.
@@ -204,6 +323,8 @@ These rules apply regardless of content type:
 
 **Existing examples**: `agent-platform/cloud-agents/deployment-patterns.md`, `agent-platform/cloud-agents/overview.md`
 
+**Template**: `.warp/templates/conceptual.md`
+
 ### Procedural
 
 **What it is**: Task-oriented, step-by-step instructions to accomplish a specific goal.
@@ -230,6 +351,8 @@ These rules apply regardless of content type:
 
 **Existing examples**: `reference/cli/api-keys.md`, `agent-platform/cloud-agents/integrations/slack.md`
 
+**Template**: `.warp/templates/procedural.md`
+
 ### Quickstart
 
 **What it is**: A specialized procedural doc designed to get the reader to a working result fast. Style "quickstart" as one word, lowercase (unless starting a sentence or in a title).
@@ -253,6 +376,8 @@ These rules apply regardless of content type:
 
 **Existing examples**: `agent-platform/cloud-agents/quickstart.md`, `warp/getting-started/quickstart/installation-and-setup.md`
 
+**Template**: `.warp/templates/quickstart.md`
+
 ### Reference
 
 **What it is**: Structured factual information for lookup. The reader already knows what they want to do and needs specific details.
@@ -274,6 +399,8 @@ These rules apply regardless of content type:
 
 **Existing examples**: `reference/cli/README.md`, `reference/api-and-sdk/README.md`
 
+**Template**: `.warp/templates/reference.md`
+
 ### Troubleshooting
 
 **What it is**: Problem → cause → solution format. The reader has encountered an issue and needs to fix it.
@@ -293,6 +420,8 @@ These rules apply regardless of content type:
 - Link to related troubleshooting pages and support channels.
 
 **Existing examples**: `support-and-community/troubleshooting-and-support/known-issues.md`, `reference/cli/troubleshooting.md`
+
+**Template**: `.warp/templates/troubleshooting.md`
 
 ### FAQ
 
@@ -314,6 +443,8 @@ Direct answer with actionable information. Include links to relevant documentati
 
 **Existing examples**: `agent-platform/getting-started/faqs.md`, `support-and-community/plans-and-billing/pricing-faqs.md`
 
+**Template**: `.warp/templates/faq.md`
+
 ### Feature documentation (combined pattern)
 
 This is the most common page type in Warp's docs (~75+ pages). A feature documentation page combines **conceptual** and **procedural** content in one page: it explains what a feature is, then shows how to use it.
@@ -332,9 +463,25 @@ This is the most common page type in Warp's docs (~75+ pages). A feature documen
 
 **Existing examples**: `agent-platform/capabilities/skills.md`, `agent-platform/cloud-agents/environments.md`
 
+**Template**: `.warp/templates/feature-doc.md`
+
+## Page templates
+
+Concrete page scaffolds for each content type are in `.warp/templates/`. Use these as starting points when creating new pages:
+
+- `.warp/templates/conceptual.md`
+- `.warp/templates/procedural.md`
+- `.warp/templates/quickstart.md`
+- `.warp/templates/reference.md`
+- `.warp/templates/troubleshooting.md`
+- `.warp/templates/faq.md`
+- `.warp/templates/feature-doc.md`
+
+Each template includes inline HTML comments explaining what to put in each section and why.
+
 ## Terminology standards
 
-Use these terms consistently throughout all documentation:
+Use these terms consistently throughout all documentation. For the full canonical glossary with usage notes, see `.warp/references/terminology.md`.
 
 ### Core features
 
@@ -343,9 +490,11 @@ Product feature names retain their standard capitalization. Match the exact casi
 - **Warp** (not "Warp Terminal" unless specifically distinguishing)
 - **Agent** or **Agents** (capitalized when referring to Warp's AI agents)
 - **Agent Mode** (not "agent mode" or "Agent-mode")
+- **Ambient Agents** (capitalized as a feature/section name; lowercase "ambient agents" only when describing the generic concept)
 - **Warp Drive** 
 - **Codebase Context**
 - **Admin Panel**
+- **Agent Management Panel** (not "agent dashboard" or "agent manager")
 
 ### Oz terminology
 
@@ -387,6 +536,8 @@ Product feature names retain their standard capitalization. Match the exact casi
 - ❌ "AI agents" → Use "agents" (the "AI" prefix is redundant)
 
 ### Technical terms
+- **AI** (not "A.I.")
+- **allowlist** / **denylist** (not "whitelist" / "blocklist")
 - **codebase** (one word, lowercase unless part of feature name)
 - **command-line** (hyphenated when used as adjective)
 - **Git repository** or **repo** (not "git repository")
@@ -395,6 +546,7 @@ Product feature names retain their standard capitalization. Match the exact casi
 ### Billing and credits
 - **credits** (lowercase, not "AI credits") - the unit of usage for AI features in Warp
 - **Add-on Credits** (capitalized as a product feature name)
+- **Cloud Agent Credits** (capitalized as a billing feature name)
 - **plan credits** - credits included with a subscription plan
 - Use "credit" or "credits" without the "AI" prefix throughout documentation
 
@@ -406,17 +558,19 @@ Product feature names retain their standard capitalization. Match the exact casi
 
 Before publishing any documentation, verify:
 
-- [ ] Frontmatter includes a clear, 1-2 sentence description
-- [ ] Content type is identified and the page follows the structure for that type
-- [ ] Headers use sentence case
+- [ ] Frontmatter includes a clear, 1-2 sentence description written as a standalone summary
+- [ ] Content type is identified and the page follows the structure for that type (see `.warp/templates/`)
+- [ ] Headers use sentence case (with proper feature name capitalization)
 - [ ] Lists use bold term + dash + explanation format
 - [ ] All links work and point to correct destinations
 - [ ] Code examples are tested and accurate
-- [ ] Terminology matches this style guide
+- [ ] Terminology and product names match the glossary (`.warp/references/terminology.md`)
 - [ ] Cross-references to related features are included
 - [ ] Instructions include expected outcomes after key steps
 - [ ] First references to prerequisites, tools, or surfaces include inline context
 - [ ] Content is scannable with clear headers and lists
+- [ ] Images have descriptive alt text (not "screenshot" or empty)
+- [ ] File name is lowercase, hyphenated, and descriptive (it becomes the URL slug)
 
 ## Content review process
 

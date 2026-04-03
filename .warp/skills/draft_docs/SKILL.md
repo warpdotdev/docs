@@ -41,20 +41,26 @@ Also clarify: Is this a new page or an update to an existing page?
 ### 3. Read the style guide
 Read `AGENTS.md` in the gitbook repo root. This is required — it contains all voice/tone rules, formatting standards, content type structures, terminology, and the quality checklist. Do not draft without reading it first.
 
-### 4. Identify the content type
+### 4. Identify the content type and template
 Using the "Drafting by content type" section in `AGENTS.md`, determine which content type the page is:
-- **Conceptual** — explains what/why, no procedures
-- **Procedural** — step-by-step task instructions
-- **Quickstart** — fast path to a working result
-- **Reference** — structured information for lookup
-- **Troubleshooting** — problem → cause → solution
-- **FAQ** — question-and-answer format
-- **Feature documentation** — combined conceptual + procedural (the most common type)
 
-Follow the structure and rules for the identified type.
+| Content type | Use when | Template | Skill |
+|---|---|---|---|
+| **Conceptual** | Explains what/why, no procedures | `.warp/templates/conceptual.md` | `draft_conceptual` |
+| **Procedural** | Step-by-step task instructions | `.warp/templates/procedural.md` | `draft_procedural` |
+| **Quickstart** | Fast path to a working result | `.warp/templates/quickstart.md` | `draft_quickstart` |
+| **Reference** | Structured information for lookup | `.warp/templates/reference.md` | `draft_reference` |
+| **Troubleshooting** | Problem → cause → solution | `.warp/templates/troubleshooting.md` | `draft_troubleshooting` |
+| **FAQ** | Question-and-answer format | `.warp/templates/faq.md` | `draft_faq` |
+| **Feature documentation** | Combined conceptual + procedural (most common) | `.warp/templates/feature-doc.md` | `draft_feature_doc` |
+
+Once the content type is identified:
+- Use the corresponding **template** as the starting scaffold for the page.
+- If a **type-specific skill** exists (listed above), read it for additional rules and examples specific to that content type.
+- Follow the structure and rules for the identified type in `AGENTS.md`.
 
 ### 5. Research existing patterns
-Read 1-2 similar pages in the target section to match existing patterns and conventions.
+Read 2-3 strong examples in the target section to match existing patterns and conventions.
 
 ### 6. Research source code (if needed)
 For technical accuracy, optionally look in Warp's source repositories:
@@ -66,13 +72,31 @@ To find these repos, search for directories named `warp-internal` and `warp-serv
 Use source code to verify technical behavior, understand feature implementation, and find accurate terminology.
 
 ### 7. Draft the doc
-Create the documentation following the structure for its content type and all rules in `AGENTS.md`.
+Create the documentation using the appropriate template from `.warp/templates/`. Follow the structure for the identified content type and all rules in `AGENTS.md`. Each template includes inline HTML comments explaining what to put in each section.
 
-### 8. Review
-Before presenting the draft, run through the Quality Checklist in `AGENTS.md`. Verify every item passes.
+### 8. Run style lint
+Run `python3 .warp/skills/style_lint/style_lint.py --changed` on the drafted file to catch formatting and terminology issues before presenting to the user.
 
-### 9. Update navigation
-If this is a new page, remind the user to add it to the relevant section's `SUMMARY.md`.
+### 9. Review against checklist
+Before presenting the draft, verify against the quality checklist in `AGENTS.md`:
+- [ ] Frontmatter includes clear description written as a standalone summary
+- [ ] Content follows the structure for its content type
+- [ ] Terminology matches the glossary (`.warp/references/terminology.md`)
+- [ ] Headers use sentence case (with proper feature name capitalization)
+- [ ] Lists use bold term + dash + explanation format
+- [ ] Cross-references to related features are included
+- [ ] Instructions include expected outcomes
+- [ ] Images have descriptive alt text
+
+### 10. Update navigation and redirects
+If this is a new page, remind the user to:
+- Add it to the relevant section's `SUMMARY.md`.
+
+If this page replaces, renames, or moves an existing page, remind the user to add a redirect:
+- **Same-space redirect**: Add an entry to the space's `.gitbook.yaml` file under `redirects:`.
+- **Cross-space redirect**: Add the redirect through the GitBook UI (cross-space redirects cannot be managed via `.gitbook.yaml`).
+
+Always check the current list of redirects before adding a new one to avoid duplicates.
 
 ## Output
 

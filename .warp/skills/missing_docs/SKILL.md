@@ -45,7 +45,7 @@ For each gap the user wants to address (prioritize high → medium → low):
 
 1. Read `references/feature_surface_map.md` to determine the target doc section
 2. Read `AGENTS.md` in the gitbook repo root for the complete style guide
-3. Read 1-2 existing pages in the target section to match formatting patterns
+3. Read 2-3 strong examples in the target section to match formatting patterns
 4. Research the relevant source code:
    - **Feature gaps** → read the implementation in warp-internal `app/src/`, check UI code, settings, user-facing strings
    - **CLI gaps** → read command definition in `warp_cli/src/`, extract flags, arguments, help text
