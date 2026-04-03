@@ -59,6 +59,7 @@
     * [GitHub Actions Quickstart](cloud-agents/integrations/quickstart-github-actions.md "Quickstart")
   * [GitLab](cloud-agents/integrations/gitlab.md)
   * [Bitbucket](cloud-agents/integrations/bitbucket.md)
+  * [AWS, GCP, and other cloud providers](cloud-agents/integrations/cloud-providers.md)
   * [Demo: Issue Triage Bot](cloud-agents/integrations/demo-issue-triage-bot.md)
 * [Environments](cloud-agents/environments.md)
 * [Managing Cloud Agents](cloud-agents/managing-cloud-agents.md)
