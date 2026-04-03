@@ -48,7 +48,7 @@ When behind a proxy, a possible workaround is to disable QUIC in the browser. It
   2. In the search bar, type `network.http.http3.enable`.
   3. Double-click on the `network.http.http3.enable` preference to set its value to `false`. This will disable QUIC in Firefox.
   4. Restart Firefox for the changes to take effect.
-* In Safari, Unfortunately, there is no built-in option to disable QUIC in Safari. Safari uses QUIC as its default transport protocol and does not provide a user-accessible setting to disable it.
+* In Safari, unfortunately, there is no built-in option to disable QUIC in Safari. Safari uses QUIC as its default transport protocol and does not provide a user-accessible setting to disable it.
 
 ## SSO login
 
@@ -69,17 +69,17 @@ In cases where you logged in with another method, please do the following to fix
 3. Once logged in, go to [app.warp.dev/link\_sso](https://app.warp.dev/link_sso)
 4. This should link your login to SSO. You can now proceed to login with "Continue with SSO".
 
-## Flagged as Fraudulent
+## Flagged as fraudulent
 
 If you received the message "This account has been flagged as fraudulent.", this means that you have failed one or more checks in our fraud detection system, and you will be unable to authenticate to Warp or leverage AI features.
 
 Please note that creating multiple accounts or using throwaway emails is against our [Terms of Service](https://www.warp.dev/terms-of-service) and increases the chance of triggering this system significantly.
 
-### False Positives
+### False positives
 
 At times, ad-blockers or systems like Pi-hole may falsely trigger this system. You may be able to remediate this error by temporarily disabling these and attempting login again.
 
-### Requesting an Appeal
+### Requesting an appeal
 
 If you are still unable to authenticate, you may email [appeals@warp.dev](mailto:appeals@warp.dev) to request an appeal. Please include the email of the account you are experiencing the issue on so a member of our support team can investigate. This may take 5-10 days.
 
@@ -99,7 +99,7 @@ On Linux and WSL you should install and set your default `$BROWSER` to `brave-br
 
 <figure><img src="../.gitbook/assets/auth-token-demo.gif" alt=""><figcaption><p>Authentication Token Linux</p></figcaption></figure>
 
-![Authentication Token Mac](../.gitbook/assets/auth-token-flow.png)
+![Authentication Token macOS](../.gitbook/assets/auth-token-flow.png)
 
 If "Take me to Warp" is still not working it may be due to a [proxy issue](troubleshooting-login-issues.md#proxies), please see this article for more information on a workaround [here](https://embiid.blog/post/WARP-does-not-work-after-submitting-an-invite-code/).
 

@@ -35,7 +35,7 @@ Warp lets you choose from a curated set of Large Language Models (LLMs) to power
 * z.ai (hosted in the US, by [Fireworks AI](https://fireworks.ai)):
   * `GLM 4.7`
 
-### Auto Models
+### Auto models
 
 Warp also offers three _Auto_ modes that intelligently select the best model for your task based on the context and request type:
 
@@ -69,7 +69,7 @@ You can configure the base model for each [Agent Profiles & Permissions](agent-p
 
 Edit your default profile or more profiles directly in **Settings** > **AI** > **Agents** > **Profiles**.
 
-### Zero Data Retention Policies
+### Zero data retention policies
 
 Warp integrates with multiple Large Language Model (LLM) providers to power its AI-driven features.
 

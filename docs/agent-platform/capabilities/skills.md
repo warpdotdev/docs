@@ -58,14 +58,14 @@ You can invoke skills in two ways:
 
 The Agent recognizes when your request matches a skill's purpose, loads the skill instructions, and follows them to complete the task.
 
-## Skill File Format
+## Skill file format
 
 Skills are markdown files with YAML frontmatter. Each skill must have:
 
 * **name** - A unique identifier for the skill (typically kebab-case)
 * **description** - A brief explanation of what the skill does and when to use it
 
-### Basic Structure
+### Basic structure
 
 ```markdown
 ---
@@ -83,7 +83,7 @@ You can use argument placeholders like $ARGUMENTS or $0 in the body (see [Skill 
 Show concrete examples of using this skill.
 ```
 
-### Example Skill File
+### Example skill file
 
 Here's a complete example of a skill that helps create feature flags:
 

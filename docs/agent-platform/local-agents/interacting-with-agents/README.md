@@ -97,7 +97,7 @@ You can also start a new conversation manually at any time:
 
 <figure><img src="../../.gitbook/assets/universal-input-new-convo.png" alt=""><figcaption><p>Starting a new Agent Conversation in agent conversation view</p></figcaption></figure>
 
-## Context Window Management
+## Context window management
 
 Every conversation with an agent consumes tokens stored in a **context window**. The context window (sometimes called _context length_) is the amount of text (measured in tokens) that a Large Language Model (LLM) can process at one time. **The size of the context window depends on the model you are using.**
 

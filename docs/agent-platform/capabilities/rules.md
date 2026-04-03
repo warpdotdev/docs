@@ -118,6 +118,6 @@ When relevant, Agents automatically pull in applicable rules to guide their resp
 
 <figure><img src="../.gitbook/assets/context-references-memory.png" alt="Context derived from memory"><figcaption><p>Rules as references</p></figcaption></figure>
 
-### Rules Privacy
+### Rules privacy
 
 See our [Privacy Page](https://docs.warp.dev/support-and-community/privacy-and-security/privacy) for more information on how we handle data with Rules.

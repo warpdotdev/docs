@@ -12,7 +12,7 @@ Warp has native planning functionality that helps you break down complex enginee
 
 ***
 
-### Creating a Plan
+### Creating a plan
 
 You can generate a plan using the `/plan` [slash command](slash-commands.md) or by asking the agent in natural language in the [Universal Input](https://docs.warp.dev/terminal/input/universal-input).
 
@@ -20,7 +20,7 @@ You can generate a plan using the `/plan` [slash command](slash-commands.md) or 
 
 The agent then creates a structured plan inside Warp’s native rich text editor, which is designed for long, multi-step workflows. The editor includes clean formatting, inline code blocks, and clickable file paths so you can open referenced files immediately in Warp (see below) or in your external editor.
 
-### Reviewing and Editing
+### Reviewing and editing
 
 Once a plan is generated, you can review it, reorganize steps, or refine details. You can edit the document manually or ask the agent to revise sections for you.
 
@@ -30,7 +30,7 @@ Any update made by the agent **creates a new version**. Version history lets you
 
 <figure><img src="../.gitbook/assets/agent-plans-versioning.png" alt=""><figcaption><p>Access previous versions of your plan.</p></figcaption></figure>
 
-### Executing a Plan
+### Executing a plan
 
 When you’re ready to start implementing, prompt the agent to run the plan. You can ask it to execute the full set of steps or only a specific section, such as “Implement phase 1 of the plan.”
 
@@ -42,7 +42,7 @@ If you revise the plan while the agent is running, you can notify it directly; t
 
 <figure><img src="../.gitbook/assets/update-agent-mid-plan.png" alt="" width="375"><figcaption><p>Option to pass new plan to agent if plan changes during runtime.</p></figcaption></figure>
 
-### Monitoring Progress
+### Monitoring progress
 
 While the agent is running, you can reopen the plan at any time by selecting **View plan** in the input. You can also follow each change in real time through the [Code Review](https://docs.warp.dev/code/code-review) panel and add comments or guidance using [Interactive Code Review](../local-agents/interactive-code-review.md).
 
@@ -50,7 +50,7 @@ While the agent is running, you can reopen the plan at any time by selecting **V
 
 This gives you clear oversight, helps confirm expected behavior, and lets you intervene quickly if something needs correction.
 
-### Saving and Sharing
+### Saving and sharing
 
 Warp automatically saves all plans in the _Plans_ folder in [Warp Drive](https://docs.warp.dev/knowledge-and-collaboration/warp-drive/). You'll see a confirmation when your plan is synced.
 
@@ -68,7 +68,7 @@ You can configure whether your plans will be automatically added and synced to W
 
 <figure><img src="../.gitbook/assets/auto-sync-plans (1).png" alt="" width="371"><figcaption></figcaption></figure>
 
-### Using Plans Across Conversations
+### Using plans across conversations
 
 Plans are reusable across tasks and sessions. You can reference them in future prompts, continue where you left off, or build follow-up plans that rely on earlier work.
 
