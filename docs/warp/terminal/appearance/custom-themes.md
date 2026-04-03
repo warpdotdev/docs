@@ -145,9 +145,9 @@ Each color is represented in hex and must start with `#`.
 
 Automatically create new themes based on a background image. Click the `+` button in the theme picker **Settings** > **Appearance** > **Themes** or search `Open Theme Picker` within the [Command Palette](../command-palette.md).
 
-## Create your custom theme, with a tool
+## Browse themes and use the theme creator
 
-Use [Terminal-Themes](https://terminal-themes.com/) to create a custom theme and generate the appropriate RGB values for your custom theme. Once the YAML file is created, you can edit the file to add the background images or gradients.
+Browse Warp's [theme repository](https://github.com/warpdotdev/themes) for ready-made themes, or use the in-app theme creator to generate the appropriate RGB values for your custom theme. Once the YAML file is created, you can edit the file to add the background images or gradients.
 
 ## Background Images and Gradients
 
