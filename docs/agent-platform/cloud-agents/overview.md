@@ -61,6 +61,10 @@ For teams that need execution to stay within their network boundary, self-hostin
 
 Because cloud agents run on the [Oz Platform](platform.md), each run is tracked and produces a persistent record that can be observed, shared, and audited (even if execution happens outside the Warp app).
 
+#### Codebase Context
+
+Cloud agent runs automatically benefit from [Codebase Context](../capabilities/codebase-context.md) for semantic code understanding and search, as long as Codebase Context is enabled for your account. See [Codebase Context in cloud agent runs](../capabilities/codebase-context.md#codebase-context-in-cloud-agent-runs) for details.
+
 #### Observability and steerability
 
 Cloud agent tasks are designed to be inspectable by the team:

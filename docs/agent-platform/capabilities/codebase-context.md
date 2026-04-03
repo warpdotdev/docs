@@ -9,7 +9,7 @@ description: >-
 Codebase Context helps Agents understand your project by indexing your local codebase. This allows Agents to generate more accurate completions, suggest context-aware edits, and answer questions using real knowledge of your code.
 
 {% hint style="info" %}
-Code indexed with Codebase Context is never stored on our servers. Warp's coding agent only works on local repositories. The agent can make changes on remote or docker repositories, but falls back to using terminal commands (i.e. `sed`, `grep` ) to make the changes.
+Code indexed with Codebase Context is never stored on our servers. Codebase Context works with both local agent sessions and [cloud agent runs](../cloud-agents/overview.md). Without Codebase Context enabled, agents will still be able use terminal commands (i.e. `grep`, `sed`) to navigate your code.
 {% endhint %}
 
 {% hint style="danger" %}
@@ -89,6 +89,12 @@ Use these files to skip indexing of folders, generated files, or any content you
 {% hint style="info" %}
 Files excluded by ignore rules **do not** count toward your codebase's file limit.
 {% endhint %}
+
+## Codebase Context in cloud agent runs
+
+Codebase Context is available in all Oz cloud agent runs — including runs triggered from the CLI, API/SDK, integrations (Slack, Linear, GitHub Actions), and schedules — as long as Codebase Context is enabled for your account.
+
+**No additional configuration is needed.** If Codebase Context is enabled, cloud agents use it automatically.
 
 ## Multi-repo context
 

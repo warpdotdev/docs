@@ -43,6 +43,10 @@ Yes. For **cloud agent runs**, you can:
 
 If you're not happy with where it landed, you can take over to finish the task. That human handoff is a core part of making agents reliable beyond demos.
 
+### Do cloud agents have access to Codebase Context and indexing?
+
+Yes. [Codebase Context](../capabilities/codebase-context.md) is enabled for all Oz cloud agent runs, as long as Codebase Context is enabled for your account. This includes runs triggered from the CLI, API/SDK, integrations (Slack, Linear, GitHub Actions), and schedules. No additional configuration is needed — if Codebase Context is enabled, cloud agents use it automatically.
+
 ### Can I access a shell inside a cloud agent environment? Are there limitations (Docker, Playwright, etc.)?
 
 Yes. Cloud agent runs execute in a full Linux environment and behave like a local development session. You can install dependencies, run Docker, and use headless tools like Playwright, subject to standard sandbox resource limits.
