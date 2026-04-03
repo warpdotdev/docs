@@ -22,7 +22,7 @@ Warp currently supports the following built-in Slash Commands:
 Slash commands marked with a `*` consume credits to complete the task.
 {% endhint %}
 
-#### Using Prompts via Slash Commands
+#### Using Agent Prompts via Slash Commands
 
 In addition to static commands, the menu also shows [Agent Prompts](https://docs.warp.dev/knowledge-and-collaboration/warp-drive/prompts) saved in your [Warp Drive](https://docs.warp.dev/knowledge-and-collaboration/warp-drive/).
 

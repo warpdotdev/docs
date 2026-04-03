@@ -66,7 +66,7 @@ Warp automatically triggers a codebase sync initially and periodically, when you
 In large projects (e.g. after a branch switch), there may be a short delay where the Agent references stale or outdated files.
 {% endhint %}
 
-### File and Codebase Limits
+### File and codebase limits
 
 The number of codebases you can index and the maximum number of files per codebase vary by plan. All plans support indexing **at least 5,000 files per codebase**, with higher tiers including support for more files and additional codebases.
 
@@ -107,7 +107,7 @@ Warp supports referencing context across multiple indexed repositories. Note tha
 
 Agents will only reference other repositories if they are already indexed. During cross-repo tasks, Warp's Agents have access to the file paths of all indexed repos. It is more likely to use cross-repo context when you mention the exact name of the repo in your prompt.
 
-## Demo: Explain My Codebase with Warp
+## Demo: Explain my codebase with Warp
 
 Here's an example from [Warp University](https://www.warp.dev/university), where Zach demonstrates how Warp uses Codebase Context to search for and use the relevant files as context:
 

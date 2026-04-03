@@ -166,7 +166,7 @@ Note this will delete all your MCP auth tokens stored locally so you will need t
 
 If the above doesn't help and you need to reset or change authentication, you may need to switch to a CLI-based MCP server configuration and provide the token via environment variables. See [Sentry CLI MCP Example](mcp.md#sentry).
 
-### Where MCP Logs Are Stored
+### Where MCP logs are stored
 
 Warp saves the MCP logs locally on your computer. You can open the files directly and inspect the full contents in the following location:
 
@@ -190,7 +190,7 @@ cd "${XDG_STATE_HOME:-$HOME/.local/state}/warp-terminal/mcp"
 {% endtab %}
 {% endtabs %}
 
-## MCP Server Configuration Examples
+## MCP server configuration examples
 
 Below are examples for popular Model Context Protocol (MCP) servers.
 
@@ -456,7 +456,7 @@ Enter the following configuration into **Warp** > **Warp Drive** > **MCP Servers
 {% endtab %}
 {% endtabs %}
 
-### MCP Server Demos
+### MCP server demos
 
 [Warp University](https://app.gitbook.com/o/-MbqIZLCtzerswjFm7mh/s/c5dAwvMCRiTxUOdDicqy/) hosts a collection of demos and walkthroughs showing how MCP servers can extend your workflows. Each example highlights practical use cases you can try today:
 

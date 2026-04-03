@@ -215,7 +215,7 @@ Warp does allow tax exempt organizations to subscribe, but there are some additi
 1. Create a Warp account, login, and go to the [upgrade page](https://app.warp.dev/upgrade), and select a plan, but **don't checkout or pay yet.** This will only setup your billing account in the system that will be used in the later steps.
 2. E-mail [billing@warp.dev](mailto:billing@warp.dev) with your proof of your organization tax exempt status and your Warp account email.
 3. Warp's team will verify your tax exempt status and will change your account to tax exempt.
-4. Finally, subscribe to your plan of choice, you will see not taxes applied to the bill.
+4. Finally, subscribe to your plan of choice. You will see no taxes applied to the bill.
 
 ### Why can't I subscribe to Warp?
 
@@ -235,14 +235,14 @@ For more details, see this blog post on [Warp's plan changes](https://www.warp.d
 
 You can switch to the new Warp Build or Business plan anytime from **Settings** > **Billing and usage** > **Manage billing** > **Update subscription** in the Warp app or at [app.warp.dev/upgrade](https://app.warp.dev/upgrade). Select Change plan, then choose the plan that fits your needs.
 
-If you take no action, your Pro, Turbo, Lightspeed, or legacy Business plan will automatically move to the new structure on your first renewal after **December 1, 2025**. You’ll receive an email before your renewal with details and other details to make the transition easier.
+If you take no action, your Pro, Turbo, Lightspeed, or legacy Business plan will automatically move to the new structure on your first renewal after **December 1, 2025**. You’ll receive an email before your renewal with details to make the transition easier.
 
 #### What happens when I change from my legacy plan to the new Build or Business plans?
 
 If you move from Warp’s legacy Pro, Turbo, Lightspeed, or old Business plans to the new Build or Business plans:
 
 * You’ll receive a prorated credit balance on Stripe for your current plan, based on how far you are into your billing cycle. This balance can be applied toward monthly Build fees or any Add-on Credits you purchase.
-  * You can view your credit balance by going to**Settings** > **Billing and usage** > **Manage Account**. You can also view your credit balance on the Stripe invoice that was sent when your plan changed to Build or Business.
+  * You can view your credit balance by going to **Settings** > **Billing and usage** > **Manage Account**. You can also view your credit balance on the Stripe invoice that was sent when your plan changed to Build or Business.
 * Your credit balance will reset to **0/1,500** when you switch to the Build or Business plan.
 
 If you switched immediately after the rollout, before a subsequent update was applied, we’ll retroactively reset your credit balance to 0/1,500.
@@ -278,7 +278,7 @@ If you have any questions, please reach out to us at **billing@warp.dev**.
 
 You will retain your current plan and credits until the first renewal after December 1, 2025. At renewal, all current Pro, Turbo, Lightspeed, and Business plans will transition to the new Warp Build and Business plans.
 
-The Build and new Business plans includes 1,500 monthly credits, the ability to purchase [Add-on Credits](add-on-credits.md) that roll over for 12 months, and the ability to bring your own API key. Learn more at [warp.dev/pricing](https://www.warp.dev/pricing).
+The Build and new Business plans include 1,500 monthly credits, the ability to purchase [Add-on Credits](add-on-credits.md) that roll over for 12 months, and the ability to bring your own API key. Learn more at [warp.dev/pricing](https://www.warp.dev/pricing).
 
 In addition, [Add-on credit auto reload](add-on-credits.md#id-2.-enable-auto-reload) will be automatically enabled for some legacy plan users in the following ways (but can be opted out of or modified at any time). Our goal is to maintain the same maximum monthly spend in line with your legacy plan subscription plus any Overages:
 
