@@ -10,40 +10,67 @@ description: >-
 
 Warp lets you choose from a curated set of Large Language Models (LLMs) to power your Agentic Development Environment.
 
-**Warp supports the following models:**
+**Warp supports the following models.**
 
-* OpenAI:
-  * `GPT-5.4` (_low, medium, high_, and _extra high_ reasoning)
-  * `GPT-5.3 Codex` (_low, medium, high_, and _extra high_ reasoning)
-  * `GPT-5.2 Codex` (_low, medium, high_, and _extra high_ reasoning)
-  * `GPT-5.2` (_low, medium, high_, and _extra high_ reasoning)
-  * `GPT-5.1 Codex Max` (_low, medium, high_, and _extra high_ reasoning)
-  * `GPT-5.1 Codex` (_low, medium,_ and _high_ reasoning)
-  * `GPT-5.1` (_low, medium,_ and _high_ reasoning)
-  * `GPT-5` (_low, medium,_ and _high_ reasoning)
-* Anthropic:
-  * `Claude Opus 4.6` (_default_ and _max_ effort)
-  * `Claude Sonnet 4.6` (_default_ and _max_ effort)
-  * `Claude Opus 4.5` (_off_ and _thinking_ mode)
-  * `Claude Sonnet 4.5` (_off_ and _thinking_ mode)
-  * `Claude Sonnet 4`
-  * `Claude Opus 4.1`
-  * `Claude Haiku 4.5`
-* Google:
-  * `Gemini 3 Pro`
-  * `Gemini 2.5 Pro`
-* z.ai (hosted in the US, by [Fireworks AI](https://fireworks.ai)):
-  * `GLM 4.7`
+The `model_id` values shown below can be used when configuring models via the [Oz Platform](../cloud-agents/platform.md) or [CLI](../../reference/cli/README.md).
 
 ### Auto models
 
-Warp also offers three _Auto_ modes that intelligently select the best model for your task based on the context and request type:
-
-1. **Auto (Cost-efficient)**: Optimizes for lower credit consumption while maintaining strong output quality, helping extend your available usage.
-2. **Auto (Responsive)**: Prioritizes the highest-quality results using the fastest available model, though it may consume credits more quickly.
-3. **Auto (Genius)**: Adapts to the complexity of your task and selects Warp’s most capable model when it’s worth it. Best for deep debugging, architecture decisions, and /plan-style sessions where you want maximum reasoning quality.
+| Model | `model_id` | Description |
+| --- | --- | --- |
+| Auto (Responsive) | `auto` | Selects the highest-quality, fastest available model. May consume credits more quickly. |
+| Auto (Cost-efficient) | `auto-efficient` | Optimizes for lower credit consumption while maintaining strong output quality. |
+| Auto (Genius) | `auto-genius` | Adapts to task complexity and selects Warp's most capable model when it's worth it. Best for deep debugging, architecture decisions, and /plan-style sessions. |
 
 All Auto models perform well across all agent workflows and are ideal if you prefer Warp to manage model selection dynamically.
+
+#### OpenAI
+
+| Model | `model_id` | Reasoning Level |
+| --- | --- | --- |
+| GPT-5.4 | `gpt-5-4-low` | Low |
+| GPT-5.4 | `gpt-5-4-medium` | Medium |
+| GPT-5.4 | `gpt-5-4-high` | High |
+| GPT-5.4 | `gpt-5-4-xhigh` | Extra High |
+| GPT-5.3 Codex | `gpt-5-3-codex-low` | Low |
+| GPT-5.3 Codex | `gpt-5-3-codex-medium` | Medium |
+| GPT-5.3 Codex | `gpt-5-3-codex-high` | High |
+| GPT-5.3 Codex | `gpt-5-3-codex-xhigh` | Extra High |
+| GPT-5.2 Codex | `gpt-5-2-codex-low` | Low |
+| GPT-5.2 Codex | `gpt-5-2-codex-medium` | Medium |
+| GPT-5.2 Codex | `gpt-5-2-codex-high` | High |
+| GPT-5.2 Codex | `gpt-5-2-codex-xhigh` | Extra High |
+| GPT-5.2 | `gpt-5-2-low` | Low |
+| GPT-5.2 | `gpt-5-2-medium` | Medium |
+| GPT-5.2 | `gpt-5-2-high` | High |
+| GPT-5.2 | `gpt-5-2-xhigh` | Extra High |
+
+#### Anthropic
+
+| Model | `model_id` | Variant |
+| --- | --- | --- |
+| Claude Opus 4.6 | `claude-4-6-opus-high` | Default effort |
+| Claude Opus 4.6 | `claude-4-6-opus-max` | Max effort |
+| Claude Sonnet 4.6 | `claude-4-6-sonnet-high` | Default effort |
+| Claude Sonnet 4.6 | `claude-4-6-sonnet-max` | Max effort |
+| Claude Opus 4.5 | `claude-4-5-opus` | Thinking off |
+| Claude Opus 4.5 | `claude-4-5-opus-thinking` | Thinking on |
+| Claude Sonnet 4.5 | `claude-4-5-sonnet` | Thinking off |
+| Claude Sonnet 4.5 | `claude-4-5-sonnet-thinking` | Thinking on |
+| Claude Haiku 4.5 | `claude-4-5-haiku` | — |
+
+#### Google
+
+| Model | `model_id` |
+| --- | --- |
+| Gemini 3.1 Pro | `gemini-3.1-pro` |
+
+#### Hosted models (via [Fireworks AI](https://fireworks.ai))
+
+| Model | `model_id` |
+| --- | --- |
+| GLM 5 | `glm-5-fireworks` |
+| Kimi K2.5 | `kimi-k25-fireworks` |
 
 ### How to change models
 
