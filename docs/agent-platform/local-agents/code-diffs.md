@@ -46,7 +46,7 @@ If the initial suggestion needs more work:
 You can open up code files in Warp in various different ways, refer to: [Opening files in Warp](https://docs.warp.dev/code/code-editor#opening-files-in-warp)
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/editting_diff.png" alt=""><figcaption><p>Editing the code diff directly in Warp's native code editor.</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/editting_diff.png" alt="Editing a code diff directly in Warp's native code editor"><figcaption><p>Editing the code diff directly in Warp's native code editor.</p></figcaption></figure>
 
 ## Accepting diffs and continuing in Agent Mode
 

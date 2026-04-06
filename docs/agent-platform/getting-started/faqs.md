@@ -40,7 +40,7 @@ For questions around what counts as a credit, what counts as a token, and how of
 
 #### **"Message token limit exceeded" error**
 
-This error means your input (plus attached context) exceeds the maximum context window of the model you're using. For example, GPT-5 has a context window of approximately 272,000 input tokens. If you exceed the limit for your selected model, you may receive no output.
+This error means your input (plus attached context) exceeds the maximum context window of the model you're using. If you exceed the limit for your selected model, you may receive no output.
 
 To fix this, try:
 

@@ -6,8 +6,6 @@ description: >-
 
 # Active AI
 
-## Active AI
-
 {% hint style="info" %}
 Active AI features can be disabled in **Settings** > **AI** with the Active AI toggle.
 {% endhint %}

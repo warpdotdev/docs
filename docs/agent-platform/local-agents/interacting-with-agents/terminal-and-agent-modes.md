@@ -64,7 +64,7 @@ If you disable the message bar while auto-detection is enabled, you won't see th
 {% endhint %}
 
 {% hint style="info" %}
-The shortcuts shown on this page use macOS keybindings. For Windows and Linux shortcuts, see [Keyboard Shortcuts](https://docs.warp.dev/getting-started/keyboard-shortcuts.md).
+The shortcuts shown on this page use macOS keybindings. For Windows and Linux shortcuts, see [Keyboard Shortcuts](https://docs.warp.dev/getting-started/keyboard-shortcuts).
 {% endhint %}
 
 ### Oz agent conversation view (expanded UI)

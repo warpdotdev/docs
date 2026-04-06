@@ -77,7 +77,7 @@ This ensures the most specific, project-relevant rules take priority over broade
 
 ## How to access Rules
 
-* From [Warp Drive](https://docs.warp.dev/knowledge-and-collaboration/warp-drive):**Personal** > **Rules**
+* From [Warp Drive](https://docs.warp.dev/knowledge-and-collaboration/warp-drive): **Personal** > **Rules**
 * From the [Command Palette](https://docs.warp.dev/terminal/command-palette): search for "Open AI Rules"
 * From the Settings panel: **Settings** > **AI** > **Knowledge** > **Manage Rules**
   * Here, you can manage both Global as well as Project Rules.
@@ -102,7 +102,7 @@ Rules Demo (legacy) with just Global Rules. Project rules can also be found ther
 
 #### Project Rules
 
-* **When in a directory, set up Project Rules with a slash command:** Use `/init` in Auto or Natural language modes to:
+* **When in a directory, set up Project Rules with a slash command:** Use `/init` in Auto-Detection or Agent Mode to:
   * Begin indexing your codebase or display indexing status
   * Generate an `AGENTS.md` file with initial context, or
   * Link an existing Rules file to `AGENTS.md`

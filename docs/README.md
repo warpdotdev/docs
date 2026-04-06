@@ -1,7 +1,7 @@
 ---
 description: >-
-  Submit your feedback, bugs or feature requests to Warp as well as logs,
-  debugging id, bugs, feature requests, novel ideas, etc.
+  Submit your feedback, bugs, or feature requests to Warp, as well as logs
+  and debugging IDs.
 ---
 
 # Sending Feedback & Logs

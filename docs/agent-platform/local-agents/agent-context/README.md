@@ -20,4 +20,4 @@ Commands you run inside an agent conversation are automatically included as cont
 
 ***
 
-This is distinct from other persistent or automatic sources of context, such as [Rules](https://docs.warp.dev/knowledge-and-collaboration/rules), [Warp Drive as Agent Mode Context](https://docs.warp.dev/knowledge-and-collaboration/warp-drive/agent-mode-context), and [Model Context Protocol (MCP)](https://docs.warp.dev/knowledge-and-collaboration/mcp), which the Agent also uses when available.
+This is distinct from other persistent or automatic sources of context, such as [Rules](../../capabilities/rules.md), [Warp Drive as Agent Mode Context](https://docs.warp.dev/warp/knowledge-and-collaboration/warp-drive/agent-mode-context), and [Model Context Protocol (MCP)](../../capabilities/mcp.md), which the Agent also uses when available.
