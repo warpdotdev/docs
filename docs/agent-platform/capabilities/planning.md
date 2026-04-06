@@ -14,7 +14,7 @@ Warp has native planning functionality that helps you break down complex enginee
 
 ### Creating a plan
 
-You can generate a plan using the `/plan` [slash command](slash-commands.md) or by asking the agent in natural language in the [Universal Input](https://docs.warp.dev/terminal/input/universal-input).
+You can generate a plan using the `/plan` [slash command](slash-commands.md) or by asking the agent in natural language.
 
 <figure><img src="../.gitbook/assets/plan-slash-command.png" alt="" width="375"><figcaption><p>Prompting the agent to create a plan using the slash command.</p></figcaption></figure>
 

@@ -40,7 +40,7 @@ To enable and configure your API keys:
 
 1. Open **Settings** > **AI** > **API Keys**
 2. Add your API key(s) for Anthropic, OpenAI, or Google.
-3. Once added, you'll see a **key icon** next to supported models in the model picker in the [Universal Input](https://docs.warp.dev/terminal/universal-input/).
+3. Once added, you'll see a **key icon** next to supported models in the model picker.
 
 <figure><img src="../.gitbook/assets/byok-keys.png" alt="" width="304"><figcaption></figcaption></figure>
 

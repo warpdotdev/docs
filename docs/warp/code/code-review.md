@@ -85,7 +85,7 @@ You can manually switch between the two views either in the Code Review panel or
 
 <figure><img src="../.gitbook/assets/diff dropdown to change base from the code review pane.png" alt=""><figcaption><p>Changing diff view in the Code Review Panel.</p></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/git diff change base dropdown.png" alt=""><figcaption><p>Changing diff view in the Universal input.</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/git diff change base dropdown.png" alt=""><figcaption><p>Changing diff view from the terminal input.</p></figcaption></figure>
 
 <div data-full-width="false"><figure><img src="../.gitbook/assets/arbitrary-branch-diff.png" alt="" width="298"><figcaption><p>Changing diff view against an arbitrary branch.</p></figcaption></figure></div>
 

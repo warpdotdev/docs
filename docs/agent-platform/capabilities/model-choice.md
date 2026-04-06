@@ -76,7 +76,7 @@ All Auto models perform well across all agent workflows and are ideal if you pre
 
 You can use the model picker in your prompt input to quickly switch between models. The currently active model appears directly in the input editor.
 
-<figure><img src="../.gitbook/assets/new-models-oct-2025.png" alt=""><figcaption><p>Model selector in Warp's Universal Input.</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/model-selector-dropdown.png" alt="Model selector dropdown showing available models with Intelligence, Speed, and Cost benchmarks"><figcaption><p>Model selector in Warp's input.</p></figcaption></figure>
 
 To change models, click the displayed model name (for example, _Claude Sonnet 4.5_) to open a dropdown with all supported options. Your selection will automatically persist for future prompts.
 

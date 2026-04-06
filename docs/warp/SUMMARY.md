@@ -14,8 +14,7 @@
 
 ## Terminal
 
-* [Universal Input (Legacy)](terminal/input/universal-input.md)
-* [Classic input](terminal/input/classic-input.md)
+* [Classic Input](terminal/input/classic-input.md)
 * [Terminal Blocks](terminal/blocks/README.md "Blocks")
   * [Terminal Block basics](terminal/blocks/block-basics.md "Block basics")
   * [Block actions](terminal/blocks/block-actions.md)

@@ -7,27 +7,15 @@ description: >-
 
 # Classic Input
 
-## Classic input style
+Classic Input corresponds to the **Shell (PS1)** option under **Settings** > **Appearance** > **Input**. It provides a traditional terminal experience with support for shell customizations like PS1 prompts, oh-my-zsh themes, same-line prompts, and more.
 
-Warp supports two input styles: **Shell (PS1)** and [Warp Input](./). Shell Input is closer to a traditional terminal experience, with support for shell customizations (e.g. Warp or PS1 prompt, same-line prompts, oh-my-zsh themes, and more).
+Warp's default input uses [Terminal and Agent modes](https://docs.warp.dev/agent-platform/local-agents/interacting-with-agents/terminal-and-agent-modes), which provide a clean terminal by default and a dedicated conversation view for agent interactions. Classic Input is an alternative for users who prefer a more traditional terminal.
 
-You can switch between input styles in **Settings** > **Appearance** > **Input**.
+[Agent Mode](https://docs.warp.dev/agent-platform/local-agents/interacting-with-agents) works in Classic Input with some minor differences from the default input.
 
-{% hint style="info" %}
-Warp now uses [Terminal and Agent modes](https://docs.warp.dev/agent-platform/local-agents/interacting-with-agents/terminal-and-agent-modes), which provide a clean terminal by default and a dedicated conversation view for agent interactions. [Universal Input](universal-input.md) is a legacy option.
+## Features
 
-Classic Input remains supported for users who prefer a traditional terminal experience with shell customizations like PS1 and oh-my-zsh themes.
-{% endhint %}
-
-{% hint style="info" %}
-Warp's AI experience is now powered by Oz. For the latest on how agents work in Warp, see [Agents in Warp](https://docs.warp.dev/agent-platform/local-agents/overview).
-{% endhint %}
-
-[Agent Mode](https://docs.warp.dev/agent-platform/local-agents/interacting-with-agents) works in Classic Input just like it does in Universal Input, with some minor differences.
-
-### Learn more about Classic Input
-
-Classic Input supports all of Warp’s core terminal features, including the following and more:
+Classic Input supports all of Warp's core terminal features, including the following and more:
 
 * [Prompt](../appearance/prompt.md) — Use a fully customizable Warp prompt or your shell prompt, with support for PS1 and same-line prompts.
 * [Input Position](../appearance/input-position.md) — Choose where the input appears in Warp, including both the prompt and the command line.
@@ -35,7 +23,7 @@ Classic Input supports all of Warp’s core terminal features, including the fol
 * [Command Entry](../entry/) — Access Warp's features for command history, synchronized inputs, YAML workflows, and more.
 * [Text Selection](../more-features/text-selection.md) — Use smart selection or rectangular (column) selection to highlight text precisely without tedious cleanup.
 
-### How to enter Agent Mode
+## How to enter Agent Mode
 
 You may enter Agent Mode in a few ways:
 
@@ -68,7 +56,7 @@ When you are in Agent Mode, a ✨ sparkles icon will display in line with your t
 
 <figure><img src="../../.gitbook/assets/undo_my_git_commit.png" alt="The sparkles on the command line indicate Agent Mode is active."><figcaption><p>The sparkles on the command line indicate Agent Mode is active.</p></figcaption></figure>
 
-### Auto-detection for natural language and configurable settings
+## Auto-detection for natural language and configurable settings
 
 The feature Warp uses to detect natural language automatically is completely local. None of your input is sent to AI unless you press `ENTER` in Agent Mode.
 
@@ -80,13 +68,13 @@ The first time you enter Agent Mode, you will be served a banner with the option
 
 <figure><img src="../../.gitbook/assets/banner_for_auto-detection_first_experience.png" alt="Warp displays an option to toggle natural language detection on / off"><figcaption><p>Warp displays an option to toggle natural language detection on / off</p></figcaption></figure>
 
-### Input hints
+## Input hints
 
 Warp input occasionally shows hints within the input editor in a light grey text that helps users learn about features. It's enabled by default.
 
 * Toggle this feature **Settings** > **AI** > **Show input hint text** or search for "Input hint text" in the [Command Palette](../command-palette.md) or Right-click on the input editor.
 
-### How to exit Agent Mode
+## How to exit Agent Mode
 
 {% tabs %}
 {% tab title="macOS" %}
@@ -102,7 +90,7 @@ You can quit Agent Mode at any point with `ESC` or `CTRL-C`, or toggle out of Ag
 {% endtab %}
 {% endtabs %}
 
-### How to run commands in Agent Mode
+## How to run commands in Agent Mode
 
 Once you have typed your question or task in the input, press `ENTER` to execute your AI query. Agent Mode will send your request to Oz and begin streaming output in the form of an AI block.
 

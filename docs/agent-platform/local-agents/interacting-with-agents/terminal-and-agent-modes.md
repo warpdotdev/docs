@@ -291,9 +291,9 @@ For more forking methods and use cases, see [Conversation Forking](conversation-
 
 ***
 
-## Recreating the Universal Input experience
+## Using Agent Mode as the default experience
 
-If you preferred the previous [Universal Input](https://docs.warp.dev/warp/terminal/input/universal-input) experience — where you could type natural language at any point in a terminal session and have it automatically routed to an agent — you can recreate that workflow using the "default mode for new sessions" setting.
+If you prefer to type natural language at any point in a terminal session and have it automatically routed to an agent, you can configure this using the "default mode for new sessions" setting.
 
 <figure><img src="../../.gitbook/assets/recreate-universal-input.gif" alt="Using Agent as your default for new tab sessions"><figcaption><p>Using Agent as your default for new tab sessions</p></figcaption></figure>
 
@@ -308,12 +308,12 @@ By default, new tabs and panes open in terminal mode. To launch directly into an
 
 With auto-detection enabled in agent view, Warp automatically detects whether your input is natural language or a shell command, routing it to the agent or running it in the terminal accordingly.
 
-Similar to the previous Universal Input experience, you can also use the "toggle input mode" keyboard shortcut to override auto-detection and force either "shell" or "agent" mode.
+You can also use the "toggle input mode" keyboard shortcut to override auto-detection and force either "shell" or "agent" mode.
 
 1. Go to **Settings** > **AI** > **Input**.
 2. Toggle on **Autodetect terminal commands in agent input**.
 
-As with Universal Input, you can also press `⌘I` (macOS) or `Ctrl+I` (Windows/Linux) to manually toggle between shell and Agent Mode at any time, overriding auto-detection.
+Press `⌘I` (macOS) or `Ctrl+I` (Windows/Linux) to manually toggle between shell and Agent Mode at any time, overriding auto-detection.
 
 {% hint style="info" %}
 Auto-detection is enabled by default for new Warp users.
