@@ -1,13 +1,12 @@
 ---
 description: >-
-  Agent modality provides two distinct ways to work in Warp: a clean terminal
-  for commands, and a dedicated conversation view for multi-turn agent
-  workflows.
+  Warp provides two distinct modes: a clean terminal for commands, and a
+  dedicated conversation view for multi-turn agent workflows.
 ---
 
-# Agent Modality
+# Terminal and Agent modes
 
-Agent modality gives you two distinct ways to work in Warp: a clean terminal for commands, and a dedicated conversation view for multi-turn conversations with [Oz, Warp's agent](./).
+Warp provides two distinct modes: a clean terminal for commands, and a dedicated conversation view for multi-turn conversations with [Oz, Warp's agent](./).
 
 {% embed url="https://youtu.be/J715YW5VC18" %}
 
@@ -20,13 +19,13 @@ Before diving in, here are two key concepts:
 * **Terminal session** - Your shell environment where you run commands. This is the default mode when you open Warp—a clean, traditional terminal input.
 * **Oz agent conversation** - A multi-turn interaction with Oz. Conversations maintain context across exchanges and have their own dedicated view with richer controls.
 
-Agent modality makes switching between these two contexts seamless while keeping them visually distinct.
+Terminal and Agent modes make switching between these two contexts seamless while keeping them visually distinct.
 
 ***
 
-## Why agent modality
+## Why two modes
 
-Agent modality separates your terminal and agent workflows into distinct modes:
+Terminal and Agent modes separate your terminal and agent workflows into distinct contexts:
 
 * **Clean terminal by default** - Minimal input when you're running commands. Agent controls appear only when you need them.
 * **Dedicated conversation view** - Multi-turn agent workflow spaces have full controls like model select, voice input, image attachments, and conversation history.
@@ -80,7 +79,7 @@ The shortcuts shown on this page use macOS keybindings. For Windows and Linux sh
 
 Agent controls appear only when you're in a conversation, keeping your terminal clean otherwise.
 
-In the previous UI, agent controls were always present. With agent modality, these controls are hidden by default and appear **once you enter an agent conversation.**
+In the previous UI, agent controls were always present. With Terminal and Agent modes, these controls are hidden by default and appear **once you enter an agent conversation.**
 
 {% hint style="info" %}
 Agent conversation views are identified with an alternative background color and the input tool belt showing model selector, voice input, and image attachment buttons.
@@ -149,10 +148,10 @@ When auto-detection identifies your input as a shell command, Warp displays a di
 ### Settings
 
 {% hint style="info" %}
-You can control auto-detection separately for terminal mode and agent conversation view:
+You can control auto-detection separately for terminal mode and agent conversation view. Both toggles are in **Settings** > **AI** > **Input**:
 
-* **Terminal mode:** Go to **Settings** > **AI** > **Input**
-* **Agent conversation view:** Go to **Settings** > **AI** > **Agent modality**
+* **Terminal mode:** Toggle **Autodetect agent prompts in terminal input**
+* **Agent conversation view:** Toggle **Autodetect terminal commands in agent input**
 {% endhint %}
 
 ### Override methods
@@ -173,7 +172,7 @@ Common examples:
 
 ### Defaults for new vs existing users
 
-Auto-detection is enabled by default for new Warp users. For users who had Warp before agent modality was introduced, auto-detection is disabled by default to preserve their existing workflows.
+Auto-detection is enabled by default for new Warp users. For users who had Warp before Terminal and Agent modes were introduced, auto-detection is disabled by default to preserve their existing workflows.
 
 ***
 
@@ -222,7 +221,7 @@ When [Active AI](../active-ai.md) (suggested prompts) is enabled, Warp displays 
 
 ### Navigating conversations
 
-Agent modality introduces the **Conversation Panel** for browsing and managing your agent conversations. For details on the panel layout, navigation, and conversation storage, see [Agent Conversations](./).
+Warp includes a **Conversation Panel** for browsing and managing your agent conversations. For details on the panel layout, navigation, and conversation storage, see [Agent Conversations](./).
 
 ### Using slash commands
 
@@ -237,7 +236,7 @@ While you're in an agent conversation, you can access Warp's [slash commands](..
 * Use `↑` / `↓` to navigate and `Enter` to run
 * Press `esc` to dismiss the menu
 
-**Key slash commands in agent modality:**
+**Key slash commands in Agent Mode:**
 
 * `/new` or `/agent` - Start a new conversation.
 * `/plan` or `/plan <prompt>` - Enter agent view and start a planning conversation. The agent will create an implementation plan before making changes.

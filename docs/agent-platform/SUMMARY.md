@@ -26,7 +26,7 @@
 
 * [Local Agents Overview](local-agents/overview.md)
 * [Interacting with Agents](local-agents/interacting-with-agents/README.md)
-  * [Agent Modality](local-agents/interacting-with-agents/agent-modality.md)
+  * [Terminal and Agent modes](local-agents/interacting-with-agents/terminal-and-agent-modes.md)
   * [Conversation Forking](local-agents/interacting-with-agents/conversation-forking.md)
   * [Code Diffs](local-agents/code-diffs.md)
   * [Voice](local-agents/interacting-with-agents/voice.md)

@@ -14,7 +14,7 @@ Warp supports two input styles: **Shell (PS1)** and [Warp Input](./). Shell Inpu
 You can switch between input styles in **Settings** > **Appearance** > **Input**.
 
 {% hint style="info" %}
-Warp now uses [Agent Modality](https://docs.warp.dev/agent-platform/local-agents/interacting-with-agents/agent-modality), which provides a clean terminal by default and a dedicated conversation view for agent interactions. [Universal Input](universal-input.md) is a legacy option.
+Warp now uses [Terminal and Agent modes](https://docs.warp.dev/agent-platform/local-agents/interacting-with-agents/terminal-and-agent-modes), which provide a clean terminal by default and a dedicated conversation view for agent interactions. [Universal Input](universal-input.md) is a legacy option.
 
 Classic Input remains supported for users who prefer a traditional terminal experience with shell customizations like PS1 and oh-my-zsh themes.
 {% endhint %}

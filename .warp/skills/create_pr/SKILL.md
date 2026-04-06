@@ -117,11 +117,11 @@ Bulleted list of specific changes, organized by file or area:
 
 ```markdown
 ## Summary
-This PR updates the Agent Modality documentation for the Oz launch.
+This PR updates the Terminal and Agent modes documentation for the Oz launch.
 
 ## Changes
 
-### docs/agent-platform/agent/agent-modality-beta.md
+### docs/agent-platform/local-agents/interacting-with-agents/terminal-and-agent-modes.md
 - Added Getting Started section with first-time and existing user experiences
 - Updated keyboard shortcuts with comprehensive tables
 - Added fork functionality documentation

@@ -54,7 +54,7 @@ This behavior mirrors [Conversation Forking](interacting-with-agents/conversatio
 
 Cloud-synced conversations appear in all the usual conversation management entrypoints alongside your local conversations. You can browse, search, restore, and delete them just like any other conversation.
 
-See [Interacting with Agents](interacting-with-agents/) for detailed information on navigating and managing conversations, including keyboard shortcuts and the Conversation Panel in [Agent Modality](interacting-with-agents/agent-modality.md).
+See [Interacting with Agents](interacting-with-agents/) for detailed information on navigating and managing conversations, including keyboard shortcuts and the Conversation Panel in [Terminal and Agent modes](interacting-with-agents/terminal-and-agent-modes.md).
 
 * **Browse** - View all your local and cloud-synced conversations in one place.
 * **Search** - Find conversations by title or content.

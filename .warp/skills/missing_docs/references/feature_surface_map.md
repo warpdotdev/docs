@@ -22,7 +22,7 @@ AgentModeComputerUse -> docs/agent-platform/capabilities/computer-use.md
 AgentModeWorkflows -> docs/warp/knowledge-and-collaboration/warp-drive/workflows.md
 AgentOnboarding -> docs/agent-platform/getting-started/agents-in-warp.md
 AIRules -> docs/agent-platform/capabilities/rules.md
-AIResumeButton -> docs/agent-platform/local-agents/interacting-with-agents/agent-modality.md
+AIResumeButton -> docs/agent-platform/local-agents/interacting-with-agents/terminal-and-agent-modes.md
 CodeReviewView -> docs/warp/code/code-review.md
 InlineCodeReview -> docs/agent-platform/local-agents/interactive-code-review.md
 CodeModeV2 -> docs/warp/code/code-overview.md

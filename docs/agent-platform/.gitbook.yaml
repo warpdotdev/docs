@@ -35,7 +35,7 @@ redirects:
     agents/using-agents/planning: capabilities/planning.md
     agents/using-agents/web-search: capabilities/web-search.md
     agents/voice: local-agents/interacting-with-agents/voice.md
-    agents/agent-modality-beta: local-agents/interacting-with-agents/agent-modality.md
+    agents/agent-modality-beta: local-agents/interacting-with-agents/terminal-and-agent-modes.md
     agents/using-agents/third-party-cli-agents: local-agents/third-party-cli-agents.md
 
     # Old ambient-agents/ paths
@@ -73,7 +73,7 @@ redirects:
     agent-platform/slash-commands: capabilities/slash-commands.md
     agent-platform/active-ai: local-agents/active-ai.md
     agent-platform/generate: local-agents/generate.md
-    agent-platform/agent-modality-beta: local-agents/interacting-with-agents/agent-modality.md
+    agent-platform/agent-modality-beta: local-agents/interacting-with-agents/terminal-and-agent-modes.md
     agent-platform/model-choice: capabilities/model-choice.md
     agent-platform/autonomy: capabilities/agent-profiles-permissions.md
     agent-platform/warp-ai: local-agents/overview.md
@@ -260,8 +260,9 @@ redirects:
     agent-mode/agent-context/urls-as-context: local-agents/agent-context/urls-as-context.md
     agent-mode/agent-context/using-to-add-context: local-agents/agent-context/using-to-add-context.md
     agent-mode/interacting-with-agents: local-agents/interacting-with-agents/README.md
-    agent-mode/interacting-with-agents/agent-modality-beta: local-agents/interacting-with-agents/agent-modality.md
-    local-agents/interacting-with-agents/agent-modality-beta: local-agents/interacting-with-agents/agent-modality.md
+    agent-mode/interacting-with-agents/agent-modality-beta: local-agents/interacting-with-agents/terminal-and-agent-modes.md
+    local-agents/interacting-with-agents/agent-modality-beta: local-agents/interacting-with-agents/terminal-and-agent-modes.md
+    local-agents/interacting-with-agents/agent-modality: local-agents/interacting-with-agents/terminal-and-agent-modes.md
     agent-mode/interacting-with-agents/conversation-forking: local-agents/interacting-with-agents/conversation-forking.md
     agent-mode/interacting-with-agents/voice: local-agents/interacting-with-agents/voice.md
     local-agents/ambient-agents-session-sharing: cloud-agents/viewing-cloud-agent-runs.md

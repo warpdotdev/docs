@@ -18,7 +18,7 @@ Warp is where you work — a fast, modern terminal built for coding with agents.
 
 **Key capabilities:**
 
-* [**Agent Modality**](https://docs.warp.dev/agent-platform/local-agents/interacting-with-agents/agent-modality): Switch between a clean terminal for commands and a dedicated conversation view for multi-turn agent workflows.
+* [**Terminal and Agent modes**](https://docs.warp.dev/agent-platform/local-agents/interacting-with-agents/terminal-and-agent-modes): Switch between a clean terminal for commands and a dedicated conversation view for multi-turn agent workflows.
 * [**Modern terminal UX**](terminal/editor/): Cursor movement, block-based navigation, multi-line editing, syntax highlighting, and rich completions. Built with Rust for high performance.
 * [**Code editor**](code/overview.md): File tree, code editor with LSP support, and interactive code review experience.
 * [**Coding agent integrations**](https://docs.warp.dev/agent-platform/local-agents/third-party-cli-agents): Features like voice input, and @-selection for working with terminal based images. Compatible with Oz or agents like Claude Code and Codex.

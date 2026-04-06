@@ -25,7 +25,7 @@ To access conversations across devices, share them with teammates, or restore pa
 By default, if you ask an AI query immediately after interacting in Agent Mode, your query is sent as a **follow-up** to the current conversation.
 
 * In **Classic Input**, you'll see both the pink highlight bar on the left side of the block and a bent follow-up arrow (↳) next to your input. The conversation input chip also shows which conversation you are in.
-* In **Agent Modality** (the default), the conversation view provides a dedicated space for multi-turn interactions. The conversation panel shows which conversation you are in.
+* In **Terminal and Agent modes** (the default), the conversation view provides a dedicated space for multi-turn interactions. The conversation panel shows which conversation you are in.
 
 **To follow-up on a previous conversation:**
 
@@ -65,14 +65,14 @@ Warp automatically creates a new conversation in a few situations. For example, 
 Visual indicators differ slightly depending on input mode:
 
 * In **Classic Input,** a new conversation begins when there is no follow-up arrow (↳) next to your input.
-* In **Agent Modality**, starting a new conversation opens a fresh conversation view. Use the conversation panel to see all active and past conversations.
+* In **Terminal and Agent modes**, starting a new conversation opens a fresh conversation view. Use the conversation panel to see all active and past conversations.
 
 {% tabs %}
 {% tab title="macOS" %}
 You can also start a new conversation manually at any time:
 
 * In **Classic Input**, press `CMD + I` or press `BACKSPACE` while in follow-up mode.
-* In **Agent Modality**, press `CMD + ↵` to start a new conversation, or use the `/new` slash command.
+* In **Terminal and Agent modes**, press `CMD + ↵` to start a new conversation, or use the `/new` slash command.
 * Open the **Conversations Menu** using `CMD + Y` and select "New Conversation".
 {% endtab %}
 
@@ -80,7 +80,7 @@ You can also start a new conversation manually at any time:
 You can also start a new conversation manually at any time:
 
 * In **Classic Input**, press `CTRL + I` or press `BACKSPACE` while in follow-up mode.
-* In **Agent Modality**, press `CTRL + SHIFT + ↵` to start a new conversation, or use the `/new` slash command.
+* In **Terminal and Agent modes**, press `CTRL + SHIFT + ↵` to start a new conversation, or use the `/new` slash command.
 * Open the **Conversations Menu** using `CTRL + SHIFT + Y` and select "New Conversation".
 {% endtab %}
 
@@ -88,7 +88,7 @@ You can also start a new conversation manually at any time:
 You can also start a new conversation manually at any time:
 
 * In **Classic Input**, press `CTRL + I` or press `BACKSPACE` while in follow-up mode.
-* In **Agent Modality**, press `CTRL + SHIFT + ↵` to start a new conversation, or use the `/new` slash command.
+* In **Terminal and Agent modes**, press `CTRL + SHIFT + ↵` to start a new conversation, or use the `/new` slash command.
 * Open the **Conversations Menu** using `CTRL + SHIFT + Y` and select "New Conversation".
 {% endtab %}
 {% endtabs %}
@@ -214,7 +214,7 @@ Starting a new conversation creates a fresh thread in the **Active** dropdown, w
 
 ### Navigation behavior
 
-In [Agent Modality](agent-modality.md), navigation between terminal mode and agent conversations is designed to be direct:
+Navigation between [Terminal and Agent modes](terminal-and-agent-modes.md) is designed to be direct:
 
 * **Clicking an active conversation** - Takes you directly to that conversation view.
 * **Clicking a past conversation** - Opens the conversation in a **new pane**, preserving your current context.
@@ -228,7 +228,7 @@ In [Agent Modality](agent-modality.md), navigation between terminal mode and age
 
 ### Ways to move around
 
-Use `esc` or the back button to return to terminal mode, `⌘Y` to open the conversation selector, or `⌘↩` to start a new conversation. For a complete list of keyboard shortcuts and slash commands, see [Agent Modality - Keyboard shortcuts](agent-modality.md#keyboard-shortcuts-quick-reference).
+Use `esc` or the back button to return to terminal mode, `⌘Y` to open the conversation selector, or `⌘↩` to start a new conversation. For a complete list of keyboard shortcuts and slash commands, see [Terminal and Agent modes - Keyboard shortcuts](terminal-and-agent-modes.md#keyboard-shortcuts-quick-reference).
 
 ### Exit confirmation for in-progress conversations
 

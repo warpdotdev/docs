@@ -6,7 +6,7 @@ description: >-
 
 # Command Search
 
-The Command Search panel provides unified search across all your terminal inputs, saved commands, and [Agent Modality](https://docs.warp.dev/agent-platform/local-agents/interacting-with-agents/agent-modality) conversation history. Use it to quickly find and reuse commands, workflows, or past agent interactions.
+The Command Search panel provides unified search across all your terminal inputs, saved commands, and [Terminal and Agent modes](https://docs.warp.dev/agent-platform/local-agents/interacting-with-agents/terminal-and-agent-modes) conversation history. Use it to quickly find and reuse commands, workflows, or past agent interactions.
 
 ![Command Search Panel](../../.gitbook/assets/command-search-panel.png)
 

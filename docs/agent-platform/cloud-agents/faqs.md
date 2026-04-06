@@ -235,7 +235,7 @@ This depends on your cluster configuration and risk profile. Evaluate your pod s
 
 ### Do cloud agents support image attachments?
 
-Cloud agent conversations do not currently support image attachments. Image attachment (via the toolbar button, clipboard paste, or drag-and-drop) is only available in [local agent conversations](../local-agents/interacting-with-agents/agent-modality.md).
+Cloud agent conversations do not currently support image attachments. Image attachment (via the toolbar button, clipboard paste, or drag-and-drop) is only available in [local agent conversations](../local-agents/interacting-with-agents/terminal-and-agent-modes.md).
 
 If you need to provide visual context to a cloud agent, you can describe the image contents in your prompt or reference image file paths within the agent's [environment](environments.md).
 

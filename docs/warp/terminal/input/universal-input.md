@@ -1,18 +1,17 @@
 ---
 description: >-
   Universal Input was the previous default input interface for Warp. It has been
-  replaced by Agent Modality, which provides a cleaner separation between
+  replaced by Terminal and Agent modes, which provide a cleaner separation between
   terminal and agent workflows.
-hidden: true
 ---
 
 # Universal Input (Legacy)
 
 {% hint style="warning" %}
-**This is legacy documentation.** Universal Input has been replaced by [Agent Modality](https://docs.warp.dev/agent-platform/local-agents/interacting-with-agents/agent-modality), which provides a cleaner terminal experience with a dedicated conversation view for agent interactions.
+**This is legacy documentation.** Universal Input has been replaced by [Terminal and Agent modes](https://docs.warp.dev/agent-platform/local-agents/interacting-with-agents/terminal-and-agent-modes), which provide a cleaner terminal experience with a dedicated conversation view for agent interactions.
 {% endhint %}
 
-For a guide on recreating this experience using the current Agent Modality, see [Recreating the Universal Input experience](https://docs.warp.dev/agent-platform/local-agents/interacting-with-agents/agent-modality#recreating-the-universal-input-experience).
+For a guide on recreating this experience using Terminal and Agent modes, see [Recreating the Universal Input experience](https://docs.warp.dev/agent-platform/local-agents/interacting-with-agents/terminal-and-agent-modes#recreating-the-universal-input-experience).
 
 The **Universal Input** was the main input interface for using Warp.
 

@@ -490,6 +490,7 @@ Product feature names retain their standard capitalization. Match the exact casi
 - **Warp** (not "Warp Terminal" unless specifically distinguishing)
 - **Agent** or **Agents** (capitalized when referring to Warp's AI agents)
 - **Agent Mode** (not "agent mode" or "Agent-mode")
+- **Terminal and Agent modes** - The two distinct modes in Warp: terminal mode (for shell commands) and Agent Mode (for multi-turn agent conversations). Use "Terminal and Agent modes" on first reference; use "terminal mode" or "Agent Mode" individually in subsequent references. Do not use "agent modality" or "Agent Modality" — this was an internal name that is not user-facing.
 - **Ambient Agents** (capitalized as a feature/section name; lowercase "ambient agents" only when describing the generic concept)
 - **Warp Drive** 
 - **Codebase Context**
@@ -534,6 +535,7 @@ Product feature names retain their standard capitalization. Match the exact casi
 - ❌ "The Oz Agent" → Use "An Oz agent" or "A parent Oz agent"
 - ❌ "Oz is running" → Use "An Oz agent is running" or "A run is in progress"
 - ❌ "AI agents" → Use "agents" (the "AI" prefix is redundant)
+- ❌ "Agent Modality" or "agent modality" → Use "Terminal and Agent modes" (this was an internal name, not user-facing)
 
 ### Technical terms
 - **AI** (not "A.I.")
