@@ -27,23 +27,22 @@ Visit [warp.dev/pricing](https://warp.dev/pricing) to see the latest plans and w
 Please review the details of our refund policies below. To request a refund, email [**billing@warp.dev**](mailto:billing@warp.dev) with information about your situation — the more context you provide, the faster we can resolve your request.
 
 {% hint style="warning" %}
-In case of product defect, we require Debugging ID, Telemetry, and Logs in order for us to identify the issue before we can provide any refunds or credits.
+In case of product defect, we require [Debugging ID](../troubleshooting-and-support/sending-us-feedback.md#gathering-ai-debugging-id), [Logs](../troubleshooting-and-support/sending-us-feedback.md#gathering-warp-logs), and "[Help improve Warp](../privacy-and-security/privacy.md#how-to-disable-telemetry-and-crash-reporting)" must be enabled in order for us to identify the issue before we can provide any refunds or credits.
 {% endhint %}
 
 #### Subscription Refund Policy
 
-##### Monthly plans
+**Monthly plans**
 
 If you signed up for a monthly Warp subscription by mistake, we can issue a full refund if you cancel or downgrade within 24 hours of being charged and no AI credits have been used during that billing cycle.
 
 After 24 hours, or if AI credits have been used, we will cancel your subscription so that no future charges occur, and you can continue to use your plan through the end of the current billing cycle.
 
-##### Annual plans
+**Annual plans**
 
 If you signed up for an annual Warp subscription by mistake, we can issue a full refund if you cancel or downgrade within 15 days of being charged and no AI credits have been used during that billing period.
 
 After 15 days, we will refund you for the remaining full months on your subscription, excluding the first month.
-
 
 #### Add-on Credits | Overages Refund Policy
 
