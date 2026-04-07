@@ -88,7 +88,7 @@ Fully local, offline LLM execution is difficult given the current cloud agents o
 
 ### Will cloud agents support Agent-to-Agent Protocols (A2A)?
 
-It’s something we’re actively exploring. Our focus is on building durable orchestration primitives—runs, environments, audit logs, steering, and coordination—that can support A2A and other emerging standards over time.
+It’s something we’re actively exploring. Our focus is on building durable orchestration primitives—runs, environments, observability, steering, and coordination—that can support A2A and other emerging standards over time.
 
 ## Security and billing
 

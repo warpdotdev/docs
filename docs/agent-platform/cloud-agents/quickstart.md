@@ -85,7 +85,7 @@ You can view details of your agent's run, including commands executed, files cha
 * Go to [oz.warp.dev](https://oz.warp.dev) and navigate to the `Runs` tab.
 * Access from mobile via the [Oz web app](oz-web-app.md).
 
-**Breaking it down:** Every cloud agent run is auto-tracked. You get a shareable link, an audit trail, and full visibility into what the agent did. You or your teammates can watch the agent's progress in real-time and even steer it if needed. The run record persists after completion so you can review it later.
+**Breaking it down:** Every cloud agent run is auto-tracked. You get a shareable link, a run record, and full visibility into what the agent did. You or your teammates can watch the agent's progress in real-time and even steer it if needed. The run record persists after completion so you can review it later.
 
 ### 6. Make it reusable with a skill (optional)
 

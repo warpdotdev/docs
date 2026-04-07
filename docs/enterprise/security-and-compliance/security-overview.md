@@ -187,7 +187,7 @@ Configure what agents can access and execute:
 * **Tool restrictions** - Enable/disable terminal use, code editing, web search, and file system access
 * **Repository scoping** - Limit agents to specific repositories or directories
 * **Execution approvals** - Require manual approval for sensitive commands
-* **Audit logs** - Agent actions are logged with full context for full visibility when cloud conversation storage is enabled
+* **Visibility** - When cloud conversation storage is enabled, agent actions are logged with full context for review
 
 ## Incident response and support
 

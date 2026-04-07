@@ -283,16 +283,6 @@ Team admins can grant or revoke admin privileges:
 We recommend at least one admin in addition to the Team Owner to prevent access issues if one is unavailable. The Team Owner has full access and can transfer ownership; Team Admins have the same permissions except they can't transfer ownership.
 {% endhint %}
 
-### Admin activity tracking
-
-For audit purposes, admin actions are logged and visible to all team admins:
-* Settings changes (what changed, when, by whom)
-* User role modifications
-* Team membership changes
-* Billing and spending limit adjustments
-
-Access admin activity logs through the Admin Panel under **Settings** > **Audit Log**.
-
 ## Common admin workflows
 
 ### Initial enterprise setup
@@ -324,7 +314,7 @@ If an agent performs an unintended action:
 1. **Immediate:** Review agent action logs in the affected user's session.
 2. **Short-term:** Add specific commands to the command denylist.
 3. **Long-term:** Adjust autonomy settings to prevent similar incidents.
-4. **Audit:** Review Admin Panel audit logs to understand what settings were in effect.
+4. **Review:** Check the Admin Panel settings for the affected user's team to confirm what autonomy levels, allowlists, and restrictions were in effect.
 
 Warp logs all agent actions with full context, making incident investigation straightforward.
 

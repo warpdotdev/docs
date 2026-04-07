@@ -70,17 +70,6 @@ Admins control how team members collaborate and share Warp Drive resources:
 
 For organizations with sensitive internal processes, disable public link sharing to prevent accidental exposure.
 
-## Admin activity tracking
-
-For audit purposes, admin actions are logged and visible to all team admins:
-
-* Settings changes (what changed, when, by whom)
-* User role modifications
-* Team membership changes
-* Billing and spending limit adjustments
-
-Access admin activity logs through the Admin Panel under **Settings** > **Audit Log**.
-
 ## Related resources
 
 * [Admin Panel](admin-panel.md) - Configure team settings and enforce policies
