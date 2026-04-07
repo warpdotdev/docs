@@ -26,16 +26,24 @@ Visit [warp.dev/pricing](https://warp.dev/pricing) to see the latest plans and w
 
 Please review the details of our refund policies below. To request a refund, email [**billing@warp.dev**](mailto:billing@warp.dev) with information about your situation — the more context you provide, the faster we can resolve your request.
 
+{% hint style="warning" %}
+In case of product defect, we require Debugging ID, Telemetry, and Logs in order for us to identify the issue before we can provide any refunds or credits.
+{% endhint %}
+
 #### Subscription Refund Policy
 
-If you signed up for a paid Warp subscription by mistake, we can issue a refund if you downgrade within:
+##### Monthly plans
 
-* **72 hours** of starting a **monthly** plan, or
-* **30 days** of starting an **annual** plan,
+If you signed up for a monthly Warp subscription by mistake, we can issue a full refund if you cancel or downgrade within 24 hours of being charged and no AI credits have been used during that billing cycle.
 
-_**and**_ you have not yet consumed all of the **allocated free credits**.
+After 24 hours, or if AI credits have been used, we will cancel your subscription so that no future charges occur, and you can continue to use your plan through the end of the current billing cycle.
 
-If you exceed the free credit limit usage during your first 2 months on the annual plan, we cannot process refunds for those months. However, we will refund **months 3–12**.
+##### Annual plans
+
+If you signed up for an annual Warp subscription by mistake, we can issue a full refund if you cancel or downgrade within 15 days of being charged and no AI credits have been used during that billing period.
+
+After 15 days, we will refund you for the remaining full months on your subscription, excluding the first month.
+
 
 #### Add-on Credits | Overages Refund Policy
 
@@ -43,7 +51,5 @@ If you exceed the free credit limit usage during your first 2 months on the annu
 * All [Overages (Legacy)](overages-legacy.md) credits are **non-refundable**. Because Overages are charges for credits that were already consumed, we cannot refund resources that have already been used.
 
 {% hint style="warning" %}
-While Warp does not provide a formal guaranteed uptime SLA, we may choose to offer refunds or extra credits, on a case-by-case basis, if a severe product defect or problem with uptime availability occurs.\
-\
-You can monitor live incidents on our [**Status Page**](https://status.warp.dev/) and track open issues on our [**GitHub Issues**](https://github.com/warpdotdev/Warp/issues).
+Warp does not offer a formal guaranteed uptime Service Level Agreement (SLA). Live incidents can be monitored on our [**Status Page**](https://status.warp.dev/), and open issues are tracked on our [**GitHub Issues**](https://github.com/warpdotdev/Warp/issues).
 {% endhint %}

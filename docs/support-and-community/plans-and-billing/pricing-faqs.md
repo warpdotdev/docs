@@ -190,13 +190,15 @@ To checkout with Google Pay, use Chrome, make sure you're logged into your Googl
 
 ### How do I cancel my subscription?
 
-You can cancel at any point throughout your subscription through the billing portal by going to **Settings** > **Billing and usage** > **Manage billing**. Cancelled subscriptions will remain active until the end of the billing cycle.
+You can cancel at any point throughout your subscription through the billing portal by going to **Settings** > **Billing and usage** > **Manage billing**.
+
+Cancelled subscriptions will remain active until the end of the billing cycle.
 
 ### How do I get a refund?
 
-For monthly subscriptions, we in general do not issue refunds. Please see [Warp's Refund Policy](pricing-faqs.md#warps-refund-policy) for details and exceptions.
+For monthly subscriptions, we can issue a full refund if you cancel within 24 hours of being charged and no AI credits have been used.
 
-You can remove the users you do not want to pay for in **Settings** > **Teams** > **Team Members**. Prorated refunds are issued as Warp credit, not cash.
+For annual subscriptions, we can issue a full refund within 15 days if no credits have been used, or a prorated refund for remaining months after that. Please see [Warp's Refund Policy](plans-pricing-refunds.md#warps-refund-policies) for full details and exceptions.
 
 ### Why doesn't my promo code work or why was it disabled?
 
