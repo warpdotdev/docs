@@ -29,7 +29,7 @@ The following flags are available when starting the worker:
 * `-v` / `--volumes` — Mount host directories into task containers (Docker backend only). Format: `HOST_PATH:CONTAINER_PATH` or `HOST_PATH:CONTAINER_PATH:MODE` (where MODE is `ro` or `rw`). Can be specified multiple times.
 * `-e` / `--env` — Set environment variables for tasks. Format: `KEY=VALUE` (explicit value) or `KEY` (pass through from host environment). Can be specified multiple times.
 * `--max-concurrent-tasks` — Maximum number of tasks to run concurrently. Defaults to `0` (unlimited). When set, additional tasks wait until a slot is available.
-* `--idle-on-complete` — How long to keep the oz agent process alive after a task's conversation finishes, allowing follow-up interactions via session sharing. Uses duration format (e.g. `45m`, `10m`, `0s`). Defaults to `45m` when not set. Set to `0s` to disable.
+* `--idle-on-complete` — How long to keep the `oz` process alive after a task's conversation finishes, allowing follow-up interactions via session sharing. Uses duration format (e.g. `45m`, `10m`, `0s`). Defaults to `45m` when not set. Set to `0s` to disable.
 
 {% hint style="info" %}
 Worker IDs starting with `warp` are reserved and cannot be used. The worker will refuse to start if `--worker-id` begins with `warp`.
@@ -494,7 +494,7 @@ docker run \
 ```
 
 {% hint style="info" %}
-Sidecar images (the Oz agent binary and dependencies) are pulled from public registries and do not require authentication.
+Sidecar images (the `oz` binary and dependencies) are pulled from public registries and do not require authentication.
 {% endhint %}
 
 ***

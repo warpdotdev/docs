@@ -14,7 +14,7 @@ See our [Privacy Page](https://docs.warp.dev/support-and-community/privacy-and-s
 
 ### What happened to the old Warp AI chat panel?
 
-Agent Mode has replaced the Warp AI chat panel. Agent Mode is more powerful in all of the chat panel's use cases. Not only can Agent Mode run commands for you, it can also gather context without you needing to copy and paste. To start a similar chat panel, click the AI button in the menu bar to open a new AI pane.
+Agent Mode has replaced the previous AI chat panel. Agent Mode is more powerful in all of the chat panel's use cases. Not only can Agent Mode run commands for you, it can also gather context without you needing to copy and paste. To start a similar chat panel, click the AI button in the menu bar to open a new AI pane.
 
 ### Is my data used for model training?
 
