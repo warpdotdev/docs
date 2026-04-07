@@ -167,7 +167,7 @@ Replace `<pool-id>` with the ID you used above, and `<provider-id>` with the des
 for your provider, such as `oz-oidc-provider`.
 
 Replace `<team-uid>` with the UID of your Warp team. This is the last component of your
-[Admin Panel](../../../enterprise/team-management/admin-panel.md) URL. For example, if the admin
+[Admin Panel](https://docs.warp.dev/enterprise/team-management/admin-panel) URL. For example, if the admin
 panel URL is `https://app.warp.dev/admin/abc123def456`, your team UID would be `abc123def456`.
 
 {% hint style="warning" %}

@@ -12,7 +12,7 @@ Warp lets you choose from a curated set of Large Language Models (LLMs) to power
 
 **Warp supports the following models.**
 
-The `model_id` values shown below can be used when configuring models via the [Oz Platform](../cloud-agents/platform.md) or [CLI](../../reference/cli/README.md).
+The `model_id` values shown below can be used when configuring models via the [Oz Platform](../cloud-agents/platform.md) or [CLI](https://docs.warp.dev/reference/cli).
 
 ### Auto models
 
