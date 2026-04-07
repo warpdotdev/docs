@@ -150,7 +150,7 @@ This command searches crash report files for Warp's bundle identifier, so it wor
 
 ## Collecting debug info on Windows
 
-Occasionally, the Warp team may as you do provide debugging information on Windows OS in particular with one of the following:
+Occasionally, the Warp team may ask you to provide debugging information on Windows OS in particular with one of the following:
 
 ```powershell
 # If Warp is in your PATH, Run:

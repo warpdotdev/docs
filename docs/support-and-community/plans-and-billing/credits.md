@@ -47,7 +47,7 @@ Regular shell commands in Warp do not consume or count towards credits.
 
 ### How are Warp credits calculated?
 
-A **credit** in Warp is a unit of work representing the total processing required to complete an interaction with an AI Agent. It is **not** the same as "one user message" — instead, it scales with the number of tokens processed during the interaction.
+A **credit** in Warp is a unit of work representing the total processing required to complete an interaction with an Agent. It is **not** the same as "one user message" — instead, it scales with the number of tokens processed during the interaction.
 
 In short: **the more tokens used, the more credits consumed**.
 

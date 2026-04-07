@@ -60,23 +60,23 @@ If you have Notifications enabled in the system and Warp, but you still aren't r
 {% endtab %}
 
 {% tab title="Windows" %}
-Warp requires two distinct notification settings to work. Windows system settings found in `Settings > System > Notifications > Warp` and Warp app settings found in **Settings** > **Features** > **Session** must both be enabled for Notifications to show.
+Warp requires two distinct notification settings to work. Windows system settings found in **Settings** > **System** > **Notifications** > **Warp** and Warp app settings found in **Settings** > **Features** > **Session** must both be enabled for Notifications to show.
 
 If you have Notifications enabled in the system and Warp, but you still aren't receiving desktop notifications, try the following:
 
 * Make sure that you are navigated away from Warp when you expect to receive the notification.
 * Make sure the **Do Not Disturb** mode or **Focus** is turned off.
-* Go to `System > Notifications` and select Warp in the list. Make sure notifications are turned on, then quit and restart Warp.
+* Go to **System** > **Notifications** and select Warp in the list. Make sure notifications are turned on, then quit and restart Warp.
 {% endtab %}
 
 {% tab title="Linux" %}
-Warp requires two distinct notification settings to work. Linux system settings found in `Settings > Notifications > Warp` and Warp app settings found in **Settings** > **Features** > **Session** must both be enabled for Notifications to show.
+Warp requires two distinct notification settings to work. Linux system settings found in **Settings** > **Notifications** > **Warp** and Warp app settings found in **Settings** > **Features** > **Session** must both be enabled for Notifications to show.
 
 If you have Notifications enabled in the system and Warp, but you still aren't receiving desktop notifications, try the following:
 
 * Make sure that you are navigated away from Warp when you expect to receive the notification.
 * Make sure the **Do Not Disturb** mode (if your distribution supports it) is turned off.
-* Go to `Settings > Notifications` and select Warp in the list. Make sure notifications are turned on, then quit and restart Warp.
+* Go to **Settings** > **Notifications** and select Warp in the list. Make sure notifications are turned on, then quit and restart Warp.
 {% endtab %}
 {% endtabs %}
 
