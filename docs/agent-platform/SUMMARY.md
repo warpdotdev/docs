@@ -40,6 +40,7 @@
 * [Session Sharing](local-agents/session-sharing.md)
 * [Third-Party CLI Agents](local-agents/third-party-cli-agents.md)
 * [Active AI](local-agents/active-ai.md)
+* [Agent Notifications](local-agents/agent-notifications.md)
 * [Generate (Legacy)](local-agents/generate.md)
 * [Cloud-synced Conversations](local-agents/cloud-conversations.md)
 

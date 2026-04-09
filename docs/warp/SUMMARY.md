@@ -38,6 +38,7 @@
   * [Tab completions](terminal/command-completions/completions.md)
   * [Autosuggestions](terminal/command-completions/autosuggestions.md)
 * [Session management](terminal/sessions/README.md)
+  * [Tab Configs](terminal/sessions/tab-configs.md)
   * [Launch configurations](terminal/sessions/launch-configurations.md)
   * [Session navigation](terminal/sessions/session-navigation.md)
   * [Session restoration](terminal/sessions/session-restoration.md)
