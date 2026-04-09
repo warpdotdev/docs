@@ -22,6 +22,15 @@ These rules are specific to conceptual pages (from the "Drafting by content type
 - Show real-world scenarios, not just abstract descriptions
 - Title convention: noun or "About [subject]"
 
+## Heading case
+
+All headings (H1–H4) must use **sentence case**: capitalize only the first word and proper feature names.
+
+- ✅ `## How it works`
+- ✅ `## When to use Codebase Context`
+- ❌ `## How It Works`
+- ❌ `## When To Use Codebase Context`
+
 ## Existing examples
 
 Read 2-3 of these strong examples to match the existing pattern:

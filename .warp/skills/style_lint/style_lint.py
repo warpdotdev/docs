@@ -224,6 +224,39 @@ def check_ui_element_backticks(lines: List[str], filepath: str) -> List[Issue]:
     return issues
 
 
+def _to_sentence_case(text: str) -> str:
+    """Convert header text to sentence case, preserving proper feature names and acronyms."""
+    skip_words = {"I", "A", "API", "CLI", "SDK", "SSH", "UI", "URL", "PR", "CI", "CD"}
+    words = text.split()
+
+    # Mark word positions that are part of a complete proper feature name match.
+    # Only protect words when the full multi-word name appears as a sequence.
+    protected = [False] * len(words)
+    for fn in PROPER_FEATURE_NAMES:
+        fn_words = fn.split()
+        for start in range(len(words) - len(fn_words) + 1):
+            if all(words[start + j].lower() == fn_words[j].lower() for j in range(len(fn_words))):
+                for j in range(len(fn_words)):
+                    protected[start + j] = True
+
+    result = []
+    for idx, w in enumerate(words):
+        if idx == 0 or protected[idx]:
+            result.append(w)
+            continue
+        clean = re.sub(r"[^a-zA-Z]", "", w)
+        if not clean or clean in skip_words or len(clean) <= 1:
+            result.append(w)
+            continue
+        # Preserve all-caps words (acronyms not in skip_words)
+        if clean.isupper() and len(clean) > 1:
+            result.append(w)
+            continue
+        # Lowercase the word
+        result.append(w.lower())
+    return " ".join(result)
+
+
 def check_header_case(lines: List[str], filepath: str) -> List[Issue]:
     """Detect Title Case in H2-H4 headers (should be sentence case)."""
     issues = []
@@ -232,6 +265,7 @@ def check_header_case(lines: List[str], filepath: str) -> List[Issue]:
         m = header_pattern.match(line)
         if not m:
             continue
+        hashes = m.group(1)
         text = m.group(2).strip()
         words = text.split()
         if len(words) < 2:
@@ -250,10 +284,13 @@ def check_header_case(lines: List[str], filepath: str) -> List[Issue]:
             if clean[0].isupper() and clean[1:].islower():
                 title_case_count += 1
         if title_case_count >= 2:
+            fixed_text = _to_sentence_case(text)
+            original_line = f"{hashes} {text}"
+            fixed_line = f"{hashes} {fixed_text}"
             issues.append(Issue(
                 filepath, i, "header-case",
-                f"Possible Title Case header (should be sentence case): \"{text}\"",
-                "warning",
+                f"Possible Title Case header (should be sentence case): \"{text}\" → \"{fixed_text}\"",
+                "warning", fixable=True, fix_from=original_line, fix_to=fixed_line,
             ))
     return issues
 

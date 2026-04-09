@@ -47,6 +47,8 @@ For each error code from Step 1, convert underscores to hyphens (e.g., `insuffic
 
 For each missing code, read `references/error-page-template.md` in this skill directory for the template.
 
+**Heading case:** All headings (H1–H4) must use sentence case — capitalize only the first word and proper feature names. ✅ `## When does this occur?` ❌ `## When Does This Occur?`
+
 To fill in the template accurately:
 1. Read the error code's doc comment and `FromError()` case in `platformerrors.go` to determine:
    - HTTP status code

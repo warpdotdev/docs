@@ -23,6 +23,15 @@ These rules are specific to troubleshooting pages (from the "Drafting by content
 - Include workarounds even when no fix exists — documenting a known issue without a workaround still saves the user time searching.
 - Title convention: "Troubleshooting [feature]" or "Error: [error name]"
 
+## Heading case
+
+All headings (H1–H4) must use **sentence case**: capitalize only the first word and proper feature names.
+
+- ✅ `# Troubleshooting environments`
+- ✅ `## Agent fails to start`
+- ❌ `# Troubleshooting Environments`
+- ❌ `## Agent Fails To Start`
+
 ## Existing examples
 
 Read 2-3 of these strong examples to match the existing pattern:

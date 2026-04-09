@@ -20,6 +20,17 @@ These rules are specific to feature documentation pages (from the "Drafting by c
 - **Keep the conceptual and procedural sections clearly separated with distinct headers.** Don't let explanation creep into procedures or vice versa.
 - Title convention: feature name as noun
 
+## Heading case
+
+All headings (H1–H4) must use **sentence case**: capitalize only the first word and proper feature names.
+
+- ✅ `## How it works`
+- ✅ `## Configuring your environment`
+- ✅ `## Agent Mode settings` ("Agent Mode" is a proper feature name)
+- ❌ `## How It Works`
+- ❌ `## Configuring Your Environment`
+- ❌ `## Agent Mode Settings`
+
 ## Existing examples
 
 Read 2-3 of these strong examples to match the existing pattern:

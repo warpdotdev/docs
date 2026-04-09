@@ -24,6 +24,15 @@ These rules are specific to quickstart pages (from the "Drafting by content type
 - End with 2-3 actionable next steps linking to deeper content.
 - Title convention: "[Feature] quickstart" or "Quickstart for [product]"
 
+## Heading case
+
+All headings (H1–H4) must use **sentence case**: capitalize only the first word and proper feature names.
+
+- ✅ `# Cloud Agents quickstart`
+- ✅ `## Running your first cloud agent`
+- ❌ `# Cloud Agents Quickstart`
+- ❌ `## Running Your First Cloud Agent`
+
 ## Existing examples
 
 Read 2-3 of these strong examples to match the existing pattern:

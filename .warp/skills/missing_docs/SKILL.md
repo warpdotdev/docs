@@ -52,9 +52,11 @@ For each gap the user wants to address (prioritize high → medium → low):
    - **API gaps** → read handler in warp-server `router/handlers/`, route definition, request/response types
 5. Draft the doc following style guide conventions:
    - YAML frontmatter with description
-   - H1 title (sentence case), opening paragraph with user benefit
+   - **All headings (H1–H4) must use sentence case** — capitalize only the first word and proper feature names (e.g., "Agent Mode", "Warp Drive"). ✅ `## How it works` ❌ `## How It Works`
+   - Opening paragraph with user benefit
    - Key features, how it works, detailed sections, cross-references
    - Correct terminology (Agent, Agent Mode, Warp Drive, Oz, etc.)
+   - Bold + dash format for list items: `* **Term** - Description`
 6. Create the markdown file at the suggested path
 7. Remind user to add new pages to the relevant `SUMMARY.md`
 

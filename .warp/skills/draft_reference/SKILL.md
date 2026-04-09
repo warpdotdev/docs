@@ -25,6 +25,15 @@ These rules are specific to reference pages (from the "Drafting by content type"
 - Use H2 for sections, H3 for subsections. Tables for multiple elements, lists for single.
 - Title convention: noun describing contents ("Keyboard shortcuts", "CLI commands")
 
+## Heading case
+
+All headings (H1–H4) must use **sentence case**: capitalize only the first word and proper feature names.
+
+- ✅ `# CLI commands`
+- ✅ `## Running agents`
+- ❌ `# CLI Commands`
+- ❌ `## Running Agents`
+
 ## Existing examples
 
 Read 2-3 of these strong examples to match the existing pattern:

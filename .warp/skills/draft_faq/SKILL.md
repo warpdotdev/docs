@@ -21,6 +21,16 @@ These rules are specific to FAQ pages (from the "Drafting by content type" secti
 - Group questions by theme (e.g., "General", "Billing", "Errors").
 - Title convention: "[Feature] FAQs" or "Frequently asked questions"
 
+## Heading case
+
+All headings (H1–H4) must use **sentence case**: capitalize only the first word and proper feature names.
+
+- ✅ `# Cloud Agents FAQs`
+- ✅ `## Billing`
+- ✅ `### Can I use my own API key?`
+- ❌ `# Cloud Agents FAQS`
+- ❌ `## Billing And Pricing`
+
 ## Existing examples
 
 Read 2-3 of these strong examples to match the existing pattern:
