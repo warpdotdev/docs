@@ -1,7 +1,7 @@
 ---
 description: >-
-  Use natural language prompts inside a Postgres REPL in Warp to generate and
-  run SQL commands.
+  Use Agents in Warp inside a Postgres REPL to translate natural language into
+  SQL queries — works with Node.js, Python, and MySQL too.
 metaLinks:
   alternates:
     - >-

@@ -1,7 +1,7 @@
 ---
 description: >-
-  Connect the Linear MCP server in Warp to retrieve and manage issue data from
-  your Linear workspace.
+  Add the Linear MCP server to Warp and query your issues, tasks, and
+  assignments directly from the terminal.
 metaLinks:
   alternates:
     - >-

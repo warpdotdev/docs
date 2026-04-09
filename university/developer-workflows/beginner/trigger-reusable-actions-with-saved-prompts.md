@@ -1,7 +1,7 @@
 ---
 description: >-
-  Automate commits, code reviews, and PR creation with reusable saved prompts
-  in Warp Drive.
+  Save and share prompts in Warp Drive to automate commits, code reviews, and
+  PR creation across your team.
 metaLinks:
   alternates:
     - >-

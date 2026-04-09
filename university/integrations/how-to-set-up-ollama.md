@@ -1,7 +1,7 @@
 ---
 description: >-
-  Install, configure, and integrate Ollama for running AI models locally with
-  Warp.
+  Install Ollama, run LLMs locally, compare model performance, and integrate
+  local models into your apps using Warp.
 metaLinks:
   alternates:
     - >-

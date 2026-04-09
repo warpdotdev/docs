@@ -1,7 +1,7 @@
 ---
 description: >-
-  Run multiple agent tasks simultaneously in Warp with progress tracking and
-  system notifications.
+  Run multiple agent tasks simultaneously in Warp — revert PRs, edit shortcuts,
+  and add tests across repos without losing context.
 metaLinks:
   alternates:
     - >-

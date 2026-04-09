@@ -1,14 +1,14 @@
 ---
 description: >-
-  Use the Context7 MCP server to update your Astro project with the latest best
-  practices automatically.
+  Use the Context7 MCP server to give Warp agents real-time access to framework
+  documentation for automated project upgrades.
 metaLinks:
   alternates:
     - >-
       https://app.gitbook.com/s/c5dAwvMCRiTxUOdDicqy/mcp-servers/context7-mcp-update-astro-project-with-best-practices
 ---
 
-# Context7 MCP: Update an Astro Project
+# Context7 MCP: Update Astro Project with Best Practices
 
 {% hint style="info" %}
 This tutorial shows how the **Context7 MCP Server** gives Warp agents real‑time access to documentation for upgrading frameworks and codebases automatically.

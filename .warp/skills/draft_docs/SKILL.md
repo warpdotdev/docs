@@ -52,6 +52,7 @@ Using the "Drafting by content type" section in `AGENTS.md`, determine which con
 | **Reference** | Structured information for lookup | `.warp/templates/reference.md` | `draft_reference` |
 | **Troubleshooting** | Problem → cause → solution | `.warp/templates/troubleshooting.md` | `draft_troubleshooting` |
 | **FAQ** | Question-and-answer format | `.warp/templates/faq.md` | `draft_faq` |
+| **Guide** | Task-oriented walkthrough (Guides section) | `.warp/templates/guide-page.md` | `draft_guide` |
 | **Feature documentation** | Combined conceptual + procedural (most common) | `.warp/templates/feature-doc.md` | `draft_feature_doc` |
 
 Once the content type is identified:

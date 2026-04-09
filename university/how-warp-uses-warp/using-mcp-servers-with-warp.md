@@ -1,7 +1,7 @@
 ---
 description: >-
-  Connect MCP servers in Warp so agents can read, write, and automate tasks in
-  external systems like Linear.
+  Connect MCP servers to Warp's agent, add Rules for automatic tool selection,
+  and resolve tickets using external systems like Linear.
 metaLinks:
   alternates:
     - >-

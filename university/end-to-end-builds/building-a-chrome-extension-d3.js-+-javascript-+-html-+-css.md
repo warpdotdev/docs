@@ -1,14 +1,14 @@
 ---
 description: >-
-  Build a D3.js Chrome extension from scratch using Warp agents for coding,
-  debugging, and publishing.
+  Build a D3.js Sankey diagram Chrome extension using Warp — scaffold, debug,
+  coordinate multiple agents, and publish to the Chrome Web Store.
 metaLinks:
   alternates:
     - >-
       https://app.gitbook.com/s/c5dAwvMCRiTxUOdDicqy/end-to-end-builds/building-a-chrome-extension-d3.js-+-javascript-+-html-+-css
 ---
 
-# Building a Chrome Extension with D3.js
+# Building a Chrome Extension (D3.js + Javascript + HTML + CSS)
 
 {% hint style="success" %}
 This educational module teaches you step-by-step how to replicate the process shown in the video — building a **Sankey diagram Chrome extension** using **D3.js**, debugging, coordinating **multiple AI agents**, and deploying to the **Chrome Web Store**.

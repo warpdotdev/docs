@@ -1,7 +1,7 @@
 ---
 description: >-
-  Generate production-ready Dockerfiles, docker-compose configs, and
-  .dockerignore files using Warp's agents.
+  Use Agents in Warp to generate optimized Dockerfiles, docker-compose configs,
+  and .dockerignore files for multi-stage production deployments.
 metaLinks:
   alternates:
     - >-

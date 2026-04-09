@@ -1,7 +1,7 @@
 ---
 description: >-
-  Personalize Warp with custom themes, input placement, agent settings, codebase
-  indexing, and more.
+  Customize Warp's themes, input placement, AI settings, codebase indexing,
+  team collaboration, and visual appearance to fit your workflow.
 metaLinks:
   alternates:
     - >-

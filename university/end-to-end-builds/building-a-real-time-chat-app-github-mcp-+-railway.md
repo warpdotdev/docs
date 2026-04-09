@@ -1,14 +1,14 @@
 ---
 description: >-
-  Build and deploy a real-time chat app from scratch using Warp, GitHub MCP,
-  and Railway.
+  Build and deploy a real-time chat app with Python, FastAPI, and JavaScript —
+  from idea to production, all inside Warp.
 metaLinks:
   alternates:
     - >-
       https://app.gitbook.com/s/c5dAwvMCRiTxUOdDicqy/end-to-end-builds/building-a-real-time-chat-app-github-mcp-+-railway
 ---
 
-# Building a Real-time Chat App
+# Building a Real-time Chat App (Github MCP + Railway )
 
 {% hint style="info" %}
 In this tutorial, we’ll follow along with Tech With Tim’s _Advanced Vibe Coding Tutorial w/ Warp_ video.\

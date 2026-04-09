@@ -1,7 +1,7 @@
 ---
 description: >-
-  Prevent API keys and credentials from leaking using Warp's secret reduction
-  and Rules system.
+  Use Warp Rules and built-in secret reduction to prevent API keys and
+  credentials from leaking in agent output, demos, and shared sessions.
 metaLinks:
   alternates:
     - >-

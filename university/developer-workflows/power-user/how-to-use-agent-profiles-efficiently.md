@@ -1,7 +1,7 @@
 ---
 description: >-
-  Learn how agent profiles control planning, autonomy, and execution behavior
-  for different coding contexts.
+  Compare Strategic and YOLO agent profiles side-by-side to choose the right
+  balance of planning, safety, and speed for your project.
 metaLinks:
   alternates:
     - >-

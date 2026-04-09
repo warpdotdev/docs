@@ -1,14 +1,14 @@
 ---
 description: >-
-  Compare YOLO and Strategic agent profiles to control planning depth, autonomy,
-  and execution speed in Warp.
+  Configure custom agent profiles in Warp to control planning depth, autonomy,
+  and execution speed — demonstrated with YOLO and Strategic examples.
 metaLinks:
   alternates:
     - >-
       https://app.gitbook.com/s/c5dAwvMCRiTxUOdDicqy/developer-workflows/power-user/how-to-configure-yolo-and-strategic-agent-profiles
 ---
 
-# Configure YOLO and Strategic Profiles
+# How To: Configure YOLO and Strategic Agent Profiles
 
 {% hint style="info" %}
 This tutorial explains how **Agent Profiles** in Warp influence behavior, autonomy, and planning when coding with AI — demonstrated through the NFL Predictor app example.

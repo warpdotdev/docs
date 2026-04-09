@@ -441,9 +441,38 @@ Direct answer with actionable information. Include links to relevant documentati
 - Keep answers concise — link to full documentation for deeper topics.
 - Group questions by theme (e.g., "General", "Billing", "Errors").
 
+**Template**: `.warp/templates/faq.md`
+
 **Existing examples**: `agent-platform/getting-started/faqs.md`, `support-and-community/plans-and-billing/pricing-faqs.md`
 
-**Template**: `.warp/templates/faq.md`
+### Guide (Guides section)
+
+**What it is**: A practical, task-oriented walkthrough that helps a developer accomplish a specific goal using Warp. Guides live in the `university/` directory (the "Guides" GitBook space) and can include video, written steps, or both.
+
+**When to use**: For educational content that teaches a workflow or use case — not feature documentation (which belongs in the main docs). Guides focus on the "how" with real prompts and reproducible results.
+
+**Structure**:
+1. Frontmatter with `description` (for SEO and search)
+2. H1 title — task-oriented, reads like a search query (e.g., "How to Set Up Claude Code" not "Claude Code Setup Tutorial")
+3. One-sentence goal — what the reader will accomplish
+4. Video embed (if applicable) — kept but not the primary content
+5. Prerequisites (if any)
+6. Numbered steps with exact prompts/commands
+7. Inline explanation of why at decision points. Link to open-source repos when available.
+8. Productivity tips (optional) — showcase relevant features as natural workflow extensions
+9. "What you achieved" summary at the end with links to related docs
+
+**Rules**:
+- Titles should be task-oriented and scannable. Use shortened titles in the GitBook nav and full descriptive titles in the article H1.
+- For SEO: capture the non-branded query when possible. Write the title a developer would actually search for ("How to Set Up Claude Code" not "How to Set Up Claude Code in Warp").
+- All procedural rules apply (focused steps, motivate steps, expected outcomes).
+- Link to relevant feature documentation in the main docs where concepts need deeper explanation.
+- When a guide has a companion video, the written content should stand alone — a reader should be able to follow the guide without watching the video.
+
+**Template**: A copyable starting template is available at `.warp/templates/guide-page.md`. Use this when creating new guide pages.
+
+**Existing examples**: `university/mcp-servers/sentry-mcp-fix-sentry-error-in-empower-website.md`, `university/end-to-end-builds/building-a-real-time-chat-app-github-mcp-+-railway.md`
+
 
 ### Feature documentation (combined pattern)
 
@@ -475,6 +504,7 @@ Concrete page scaffolds for each content type are in `.warp/templates/`. Use the
 - `.warp/templates/reference.md`
 - `.warp/templates/troubleshooting.md`
 - `.warp/templates/faq.md`
+- `.warp/templates/guide-page.md`
 - `.warp/templates/feature-doc.md`
 
 Each template includes inline HTML comments explaining what to put in each section and why.
@@ -556,6 +586,29 @@ Product feature names retain their standard capitalization. Match the exact casi
 - **Settings** (capitalized when referring to the Settings panel)
 - **Command Palette** (capitalized)
 
+## SEO and AEO (AI Engine Optimization)
+
+All documentation should be written with search discoverability in mind — both for traditional search engines (Google) and AI engines (ChatGPT, Gemini, Perplexity, Copilot).
+
+### Frontmatter descriptions
+- Every page must have a `description` in frontmatter. Write it as a standalone summary (50-160 characters) that includes the primary keyword naturally.
+- Descriptions appear in search results and AI citations. Write for humans, but include the key terms a developer would search for.
+
+### Title framing
+- For guides and educational content: capture the **non-branded query** when possible. Write the title a developer would actually search for.
+  - ✅ "How to Set Up Claude Code"
+  - ❌ "How to Set Up Claude Code in Warp"
+- For feature documentation: use the feature name as the developer knows it.
+
+### SEO data (buzz repo)
+The `warpdotdev/buzz` repo contains SEO and AEO data that should inform content decisions:
+- **Peec AI visibility data** (`buzz/data/peec/`) — tracks how often AI engines mention Warp for specific prompts
+- **Google Search Console data** (`buzz/data/gsc/`) — keyword performance, impressions, click-through rates
+
+When creating or updating content, check the buzz repo for relevant keyword data to inform titles, descriptions, and content coverage. The `docs-seo-audit` skill (`.warp/skills/docs-seo-audit/`) can also identify technical SEO issues.
+
+<!-- TODO: Add specific data lookup instructions once the buzz repo data directory structure is finalized. -->
+
 ## Quality checklist
 
 Before publishing any documentation, verify:
@@ -573,6 +626,7 @@ Before publishing any documentation, verify:
 - [ ] Content is scannable with clear headers and lists
 - [ ] Images have descriptive alt text (not "screenshot" or empty)
 - [ ] File name is lowercase, hyphenated, and descriptive (it becomes the URL slug)
+- [ ] Frontmatter description includes the primary keyword naturally (50-160 chars)
 
 ## Content review process
 

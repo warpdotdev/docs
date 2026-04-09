@@ -1,7 +1,7 @@
 ---
 description: >-
-  Use Warp's Code Review Panel to view diffs, edit code inline, and commit
-  changes without leaving your workspace.
+  Use Warp's Code Review Panel to view file diffs, edit code inline, componentize
+  changes, and commit directly — all without leaving the terminal.
 metaLinks:
   alternates:
     - >-

@@ -1,7 +1,7 @@
 ---
 description: >-
-  Use Warp's Codebase Context to understand large codebases with semantic search
-  across client and server code.
+  Use Warp's Codebase Context to search across client and server repos, generate
+  architecture summaries, and onboard to unfamiliar features fast.
 metaLinks:
   alternates:
     - >-

@@ -1,7 +1,7 @@
 ---
 description: >-
-  Create reusable Rules in Warp so agents follow your team's coding conventions
-  automatically.
+  Create reusable Rules in Warp to encode team conventions — like Dockerfile
+  patterns or dependency management — so agents follow your standards.
 metaLinks:
   alternates:
     - >-

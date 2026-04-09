@@ -1,7 +1,7 @@
 ---
 description: >-
-  Attach screenshots to agent prompts in Warp to provide visual context for UI
-  debugging and code generation.
+  Attach screenshots and design mockups as context for Warp's agent to generate
+  UI code, debug visual issues, and match Figma designs.
 metaLinks:
   alternates:
     - >-

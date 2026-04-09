@@ -1,14 +1,14 @@
 ---
 description: >-
-  Prompt Warp's agents to generate comprehensive unit and security tests for
-  your REST APIs.
+  Prompt Warp to generate comprehensive unit and security tests for REST APIs,
+  including SQL injection, XSS, and auth validation checks.
 metaLinks:
   alternates:
     - >-
       https://app.gitbook.com/s/c5dAwvMCRiTxUOdDicqy/developer-workflows/testing-and-security/how-to-generate-unit-and-security-tests-to-debug-faster
 ---
 
-# Generate Unit and Security Tests
+# How to: Generate Unit and Security Tests to Debug Faster
 
 Learn how to prompt Warp’s AI to generate useful unit and security tests — helping you debug faster and deploy with confidence.
 

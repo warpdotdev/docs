@@ -1,7 +1,7 @@
 ---
 description: >-
-  Prompt Warp's agents to review pull requests with structured risk assessments
-  and prioritized feedback.
+  Prompt Warp's coding agent to generate structured PR reviews with risk
+  assessment, critical issues, and merge confidence scoring.
 metaLinks:
   alternates:
     - >-

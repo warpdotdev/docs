@@ -1,14 +1,15 @@
 ---
 description: >-
-  Use Warp's agents to explore and understand large codebases with semantic and
-  symbol-level search.
+  Use Warp's coding agents with semantic and symbol search to explore,
+  understand, and modify unfamiliar codebases — demonstrated on a large Rust
+  project.
 metaLinks:
   alternates:
     - >-
       https://app.gitbook.com/s/c5dAwvMCRiTxUOdDicqy/developer-workflows/beginner/how-to-explain-your-codebase-using-warp-rust-codebase
 ---
 
-# Explain Your Codebase Using Warp
+# How to: Explain Your Codebase Using Warp (Rust Codebase)
 
 Learn how to use Warp’s AI agent to explore and understand large, unfamiliar codebases — using semantic and symbol-level search.
 

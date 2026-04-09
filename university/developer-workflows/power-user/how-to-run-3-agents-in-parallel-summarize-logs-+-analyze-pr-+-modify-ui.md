@@ -1,14 +1,14 @@
 ---
 description: >-
-  Run multiple agents simultaneously in Warp to modify UI, analyze PRs, and
-  summarize logs in parallel.
+  Run three agent tasks simultaneously in Warp — modify UI, analyze code
+  reviews, and summarize production logs in parallel.
 metaLinks:
   alternates:
     - >-
       https://app.gitbook.com/s/c5dAwvMCRiTxUOdDicqy/developer-workflows/power-user/how-to-run-3-agents-in-parallel-summarize-logs-+-analyze-pr-+-modify-ui
 ---
 
-# Run 3 Agents in Parallel
+# How To: Run 3 Agents in Parallel (Summarize Logs + Analyze PR + Modify UI)
 
 {% hint style="info" %}
 This educational module demonstrates Warp’s multi‑threading features — running coding, debugging, and analysis tasks simultaneously in multiple agent tabs.

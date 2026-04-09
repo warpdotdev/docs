@@ -1,7 +1,7 @@
 ---
 description: >-
-  Review, edit, and refine agent-generated code diffs directly in Warp's
-  built-in editor.
+  Review, edit, and refine AI-generated code diffs directly in Warp — accept,
+  reject, or modify changes before applying them.
 metaLinks:
   alternates:
     - >-

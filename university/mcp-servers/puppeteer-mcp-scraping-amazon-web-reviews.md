@@ -1,7 +1,7 @@
 ---
 description: >-
-  Automate browser tasks like web scraping and data extraction using the
-  Puppeteer MCP server in Warp.
+  Configure the Puppeteer MCP server in Warp to automate browser tasks like
+  navigating sites, scraping product data, and analyzing reviews.
 metaLinks:
   alternates:
     - >-

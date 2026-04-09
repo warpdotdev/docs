@@ -1,7 +1,7 @@
 ---
 description: >-
-  Define your preferred frameworks and tools with Rules so Warp's agents use
-  your tech stack by default.
+  Define your preferred frameworks and tech stack in Warp Rules so agents
+  consistently use Astro, SvelteKit, Vite, or your tools of choice.
 metaLinks:
   alternates:
     - >-

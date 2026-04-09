@@ -1,7 +1,7 @@
 ---
 description: >-
-  Get started with Warp, an Agentic Development Environment that blends
-  terminal commands with AI-driven workflows.
+  Get oriented with Warp's agentic terminal. Learn the basics of prompt-based
+  coding, blending terminal and agent workflows, and navigating the interface.
 metaLinks:
   alternates:
     - >-

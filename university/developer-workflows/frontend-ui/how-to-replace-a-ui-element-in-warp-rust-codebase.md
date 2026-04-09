@@ -1,14 +1,14 @@
 ---
 description: >-
-  Replace UI elements across a large Rust codebase using Warp's agentic
-  workflow with live diff review.
+  Use Agent Mode in Warp to plan and execute icon replacements across a large
+  Rust codebase — with live diffs, auto-compilation, and self-correction.
 metaLinks:
   alternates:
     - >-
       https://app.gitbook.com/s/c5dAwvMCRiTxUOdDicqy/developer-workflows/frontend-ui/how-to-replace-a-ui-element-in-warp-rust-codebase
 ---
 
-# Replace a UI Element in Warp
+# How To: Replace A UI Element in Warp (Rust Codebase)
 
 Learn how to use Warp’s AI coding features to make live code changes — in this example, replacing an icon throughout Warp’s massive Rust codebase using an agentic workflow.
 

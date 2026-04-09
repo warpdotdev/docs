@@ -1,7 +1,7 @@
 ---
 description: >-
-  Discover 10 essential Warp coding features including file search, inline
-  editing, code review, and codebase indexing.
+  Discover 10 essential coding features in Warp — file search, tabbed editor,
+  find and replace, syntax highlighting, code review panel, and more.
 metaLinks:
   alternates:
     - >-

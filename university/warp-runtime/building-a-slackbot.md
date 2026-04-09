@@ -1,5 +1,7 @@
 ---
-hidden: true
+description: >-
+  Set up a self-hosted Warp Slackbot that answers repo questions and opens PRs
+  directly from Slack using Docker and GitHub integration.
 metaLinks:
   alternates:
     - >-

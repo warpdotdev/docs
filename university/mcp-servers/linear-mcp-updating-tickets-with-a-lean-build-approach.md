@@ -1,14 +1,14 @@
 ---
 description: >-
-  Update Linear tickets and propagate changes to subtasks using Warp's Linear
-  MCP integration.
+  Use Warp's Linear MCP integration to update ticket descriptions, propagate
+  changes to subtasks, and maintain a lean build strategy.
 metaLinks:
   alternates:
     - >-
       https://app.gitbook.com/s/c5dAwvMCRiTxUOdDicqy/mcp-servers/linear-mcp-updating-tickets-with-a-lean-build-approach
 ---
 
-# Linear MCP: Update Tickets with Lean Build
+# Linear MCP: Updating Tickets with a Lean Build Approach
 
 Learn how to use Warp’s Linear MCP integration to update tickets programmatically while maintaining a lean build strategy.
 

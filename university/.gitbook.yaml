@@ -1,0 +1,16 @@
+root: ./
+
+redirects:
+    # Old persona-based section landing pages → Guides landing page
+    developer-workflows/beginner: README.md
+    developer-workflows/power-user: README.md
+    developer-workflows/devops: README.md
+    developer-workflows/backend: README.md
+    developer-workflows/frontend-ui: README.md
+    developer-workflows/testing-and-security: README.md
+
+    # Old top-level sections → Guides landing page
+    warp-runtime: README.md
+    how-warp-uses-warp: README.md
+    integrations: README.md
+    terminal-command-line-tips: README.md

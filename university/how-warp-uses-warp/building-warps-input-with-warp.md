@@ -1,7 +1,7 @@
 ---
 description: >-
-  See how Warp's design team used Warp itself to locate, edit, and test changes
-  to the universal input.
+  Watch how a Warp designer uses Warp's own agent to locate, modify, and test
+  a UI component change in a large Rust codebase.
 metaLinks:
   alternates:
     - >-

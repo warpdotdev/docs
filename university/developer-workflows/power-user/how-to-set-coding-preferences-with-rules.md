@@ -1,7 +1,7 @@
 ---
 description: >-
-  Set persistent environment and tool preferences with Rules so Warp's agents
-  always use your preferred setup.
+  Store your package manager, environment tool, and CLI preferences as Warp
+  Rules so agents automatically use pnpm, miniconda, or your preferred tools.
 metaLinks:
   alternates:
     - >-

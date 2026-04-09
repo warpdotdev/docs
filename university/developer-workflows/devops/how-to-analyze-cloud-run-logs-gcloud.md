@@ -1,7 +1,7 @@
 ---
 description: >-
-  Retrieve and analyze Google Cloud Run production logs with natural language
-  prompts in Warp.
+  Use Warp to pull, organize, and analyze Cloud Run production logs by severity
+  with natural language prompts and automated Python scripts.
 metaLinks:
   alternates:
     - >-

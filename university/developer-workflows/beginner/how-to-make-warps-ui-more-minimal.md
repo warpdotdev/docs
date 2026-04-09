@@ -1,7 +1,7 @@
 ---
 description: >-
-  Reduce visual clutter in Warp by toggling UI elements, switching themes, and
-  using the Classic Prompt.
+  Reduce visual noise in Warp by disabling UI elements, switching to a minimal
+  theme, using the classic prompt, and hiding the tab bar.
 metaLinks:
   alternates:
     - >-

@@ -1,14 +1,14 @@
 ---
 description: >-
-  Generate front-end code directly from Figma designs using the remote Figma
-  MCP server in Warp.
+  Connect Warp to Figma's remote MCP server via OAuth and generate front-end
+  code directly from your design files.
 metaLinks:
   alternates:
     - >-
       https://app.gitbook.com/s/c5dAwvMCRiTxUOdDicqy/mcp-servers/figma-remote-mcp-create-a-website-from-a-figma-file-from-scratch
 ---
 
-# Figma MCP: Create a Website from a Figma File
+# Figma Remote MCP: Create a Website from a Figma File from Scratch
 
 Learn how to connect Warp to Figma’s remote MCP server to generate code directly from your design files — complete with screenshots, metadata, and design system context.
 

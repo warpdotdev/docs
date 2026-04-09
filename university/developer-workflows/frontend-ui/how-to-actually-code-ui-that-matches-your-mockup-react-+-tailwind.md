@@ -1,14 +1,14 @@
 ---
 description: >-
-  Generate pixel-perfect React and Tailwind code from design mockups using
-  structured prompts in Warp.
+  Prompt Warp to generate pixel-perfect React + Tailwind code from design
+  mockups, with structured specs and iterative refinement.
 metaLinks:
   alternates:
     - >-
       https://app.gitbook.com/s/c5dAwvMCRiTxUOdDicqy/developer-workflows/frontend-ui/how-to-actually-code-ui-that-matches-your-mockup-react-+-tailwind
 ---
 
-# Code UI That Matches Your Mockup
+# How To: Actually Code UI That Matches Your Mockup (React + Tailwind)
 
 Learn how to prompt Warp’s AI to produce accurate, design-faithful UI code using your preferred framework.
 

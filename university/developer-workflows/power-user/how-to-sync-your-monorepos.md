@@ -1,7 +1,7 @@
 ---
 description: >-
-  Use Warp's Rules to connect interrelated repositories and automate type
-  updates across your stack.
+  Define global Rules in Warp to keep monorepo schemas, server types, and client
+  types automatically synchronized across repositories.
 metaLinks:
   alternates:
     - >-

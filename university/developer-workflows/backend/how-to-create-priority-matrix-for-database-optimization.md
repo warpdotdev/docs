@@ -1,14 +1,14 @@
 ---
 description: >-
-  Generate a priority matrix that ranks database issues by impact, risk, and
-  effort using Warp's agents.
+  Prompt Warp to audit SQL queries, analyze execution plans, and generate a
+  priority matrix ranking database optimizations by impact and effort.
 metaLinks:
   alternates:
     - >-
       https://app.gitbook.com/s/c5dAwvMCRiTxUOdDicqy/developer-workflows/backend/how-to-create-priority-matrix-for-database-optimization
 ---
 
-# Create a Database Optimization Matrix
+# How To: Create Priority Matrix for Database Optimization
 
 Learn how to generate a data-driven optimization matrix that ranks database issues by impact, risk, and effort.
 

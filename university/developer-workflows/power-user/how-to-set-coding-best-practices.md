@@ -1,7 +1,7 @@
 ---
 description: >-
-  Enforce consistent coding style and documentation standards across projects
-  using Warp's Rules.
+  Use Warp Rules to enforce coding style, TypeScript conventions, and
+  documentation quality across AI-generated code.
 metaLinks:
   alternates:
     - >-
