@@ -237,7 +237,7 @@ Warp keeps you in your terminal with agent help across the entire SDLC:
 
 ### Learning resources
 
-* **Warp University** - Short video tutorials at [docs.warp.dev/university](https://docs.warp.dev/university)
+* **Warp Guides** - Short video tutorials at [docs.warp.dev/guides](https://docs.warp.dev/guides)
   * Getting Started with Warp
   * Warp Code features
   * Developer workflows

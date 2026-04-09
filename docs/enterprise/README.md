@@ -85,4 +85,4 @@ Organizations adopt Warp Enterprise to:
 * **Documentation** - Comprehensive guides throughout this enterprise section
 * **Contact sales** - [Schedule a demo or start a trial](https://warp.dev/contact-sales)
 * **Support** - Enterprise customers receive priority support via dedicated Slack/Teams channels
-* **Warp University** - Video tutorials and training at [docs.warp.dev/university](https://docs.warp.dev/university)
+* **Warp Guides** - Video tutorials and training at [docs.warp.dev/guides](https://docs.warp.dev/guides)

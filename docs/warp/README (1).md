@@ -35,5 +35,5 @@ Stay connected to the team at Warp and get updates on the latest releases:
 * Visit Warp's [Blog](https://www.warp.dev/blog) to read about new features and engineering topics.
 * Join Warp's [Slack community](https://go.warp.dev/join-preview) to interact directly with Warp engineers and other developers.
 * Subscribe to Warp's [YouTube](http://www.youtube.com/@warpdotdev) and [TikTok](https://www.tiktok.com/@warp.dev) channels for longer demos and insider stories.
-* Visit [Warp University](https://app.gitbook.com/o/-MbqIZLCtzerswjFm7mh/s/c5dAwvMCRiTxUOdDicqy/) to get end-to-end workflows for coding, deploying, and becoming pro AI developer.
+* Visit [Warp Guides](https://docs.warp.dev/guides) to get end-to-end workflows for coding, deploying, and becoming pro AI developer.
 * Follow Warp on [Twitter](https://twitter.com/warpdotdev) for updates and tips.

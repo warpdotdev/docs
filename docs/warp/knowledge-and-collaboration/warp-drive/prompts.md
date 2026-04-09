@@ -14,11 +14,11 @@ Prompts are searchable and easily accessed from the [Command Palette](../../term
 
 ### Demo: Trigger reusable actions with saved prompts
 
-Here's an example from [Warp University](https://www.warp.dev/university), where Zach walks through what prompts he uses for PRs and Git commits:
+Here's an example from [Warp Guides](https://docs.warp.dev/guides), where Zach walks through what prompts he uses for PRs and Git commits:
 
 {% embed url="https://www.youtube.com/watch?ab_channel=Warp&v=pE15zjJmB4E" %}
 
-There's other great examples of prompts on [Do Things](https://dothings.warp.dev/) and [Warp University](https://www.warp.dev/university).
+There are other great examples of prompts on [Do Things](https://dothings.warp.dev/) and [Warp Guides](https://docs.warp.dev/guides).
 
 ## How to save and edit prompts
 

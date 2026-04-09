@@ -447,7 +447,7 @@ Direct answer with actionable information. Include links to relevant documentati
 
 ### Guide (Guides section)
 
-**What it is**: A practical, task-oriented walkthrough that helps a developer accomplish a specific goal using Warp. Guides live in the `university/` directory (the "Guides" GitBook space) and can include video, written steps, or both.
+**What it is**: A practical, task-oriented walkthrough that helps a developer accomplish a specific goal using Warp. Guides live in the `guides/` directory (the "Guides" GitBook space) and can include video, written steps, or both.
 
 **When to use**: For educational content that teaches a workflow or use case — not feature documentation (which belongs in the main docs). Guides focus on the "how" with real prompts and reproducible results.
 
@@ -471,7 +471,7 @@ Direct answer with actionable information. Include links to relevant documentati
 
 **Template**: A copyable starting template is available at `.warp/templates/guide-page.md`. Use this when creating new guide pages.
 
-**Existing examples**: `university/mcp-servers/sentry-mcp-fix-sentry-error-in-empower-website.md`, `university/end-to-end-builds/building-a-real-time-chat-app-github-mcp-+-railway.md`
+**Existing examples**: `guides/mcp-servers/sentry-mcp-fix-sentry-error-in-empower-website.md`, `guides/end-to-end-builds/building-a-real-time-chat-app-github-mcp-+-railway.md`
 
 
 ### Feature documentation (combined pattern)

@@ -92,4 +92,4 @@ Monitor and steer Oz cloud agents from the Oz dashboard or directly in Warp.
 
 * **Set up key features** - Follow the full [Getting started for developers](getting-started-developers.md) guide to configure Codebase Context, Warp Drive, MCP integrations, and Agent Profiles.
 * **Explore Oz cloud agents** - Learn about [Oz cloud agents](https://docs.warp.dev/agent-platform/cloud-agents/cloud-agents-overview) for background automation and parallel workflows.
-* **Learn more** - Visit [Warp University](https://docs.warp.dev/university) for video tutorials and end-to-end workflows.
+* **Learn more** - Visit [Warp Guides](https://docs.warp.dev/guides) for video tutorials and end-to-end workflows.

@@ -1,6 +1,6 @@
 ---
 name: draft_guide
-description: Draft a new guide page for the Guides section (university/). Use for practical, task-oriented walkthroughs that help developers accomplish a specific goal — like setting up a tool, completing a workflow, or learning a technique. Guides focus on the "how" with real prompts and reproducible results, targeting non-branded search queries.
+description: Draft a new guide page for the Guides section (guides/). Use for practical, task-oriented walkthroughs that help developers accomplish a specific goal — like setting up a tool, completing a workflow, or learning a technique. Guides focus on the "how" with real prompts and reproducible results, targeting non-branded search queries.
 ---
 
 # Draft guide page
@@ -11,13 +11,13 @@ Draft a practical guide that walks a developer through accomplishing a specific 
 
 Follow the workflow in `.warp/skills/draft_docs/SKILL.md`, using the **guide template** at `.warp/templates/guide-page.md`.
 
-Guide pages live in `university/` (the Guides GitBook space), not in `docs/`. When placing the file, use these directories:
-- `university/integrations/` — Setup guides for external tools (Claude Code, Codex, MCP servers)
-- `university/developer-workflows/` — Workflow and technique guides (code review, parallel agents, voice input)
-- `university/end-to-end-builds/` — Full app builds from start to finish
-- `university/mcp-servers/` — MCP-specific guides
+Guide pages live in `guides/` (the Guides GitBook space), not in `docs/`. When placing the file, use these directories:
+- `guides/integrations/` — Setup guides for external tools (Claude Code, Codex, MCP servers)
+- `guides/developer-workflows/` — Workflow and technique guides (code review, parallel agents, voice input)
+- `guides/end-to-end-builds/` — Full app builds from start to finish
+- `guides/mcp-servers/` — MCP-specific guides
 
-The sidebar nav is defined in `university/SUMMARY.md`, which organizes guides into topic-based sections. When adding a new guide, place the file in the appropriate directory above and add the nav entry under the matching section in `SUMMARY.md`:
+The sidebar nav is defined in `guides/SUMMARY.md`, which organizes guides into topic-based sections. When adding a new guide, place the file in the appropriate directory above and add the nav entry under the matching section in `SUMMARY.md`:
 - **Getting started** — First steps with Warp: setup, appearance, key features
 - **Agent workflows** — Using coding agents to explain code, review PRs, run parallel tasks
 - **Configuration** — Rules, agent profiles, saved prompts, monorepo sync
@@ -57,6 +57,6 @@ Every guide should link to:
 ## Existing examples
 
 Read 2-3 of these strong examples to match the existing pattern:
-- `university/mcp-servers/sentry-mcp-fix-sentry-error-in-empower-website.md`
-- `university/end-to-end-builds/building-a-real-time-chat-app-github-mcp-+-railway.md`
-- `university/developer-workflows/beginner/how-to-explain-your-codebase-using-warp-rust-codebase.md`
+- `guides/mcp-servers/sentry-mcp-fix-sentry-error-in-empower-website.md`
+- `guides/end-to-end-builds/building-a-real-time-chat-app-github-mcp-+-railway.md`
+- `guides/developer-workflows/beginner/how-to-explain-your-codebase-using-warp-rust-codebase.md`

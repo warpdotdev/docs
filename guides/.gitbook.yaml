@@ -2,6 +2,7 @@ root: ./
 
 redirects:
     # Old persona-based section landing pages → Guides landing page
+    developer-workflows: README.md
     developer-workflows/beginner: README.md
     developer-workflows/power-user: README.md
     developer-workflows/devops: README.md

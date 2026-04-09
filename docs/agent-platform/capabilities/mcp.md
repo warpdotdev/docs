@@ -458,10 +458,10 @@ Enter the following configuration into **Warp** > **Warp Drive** > **MCP Servers
 
 ### MCP server demos
 
-[Warp University](https://app.gitbook.com/o/-MbqIZLCtzerswjFm7mh/s/c5dAwvMCRiTxUOdDicqy/) hosts a collection of demos and walkthroughs showing how MCP servers can extend your workflows. Each example highlights practical use cases you can try today:
+[Warp Guides](https://docs.warp.dev/guides) hosts a collection of demos and walkthroughs showing how MCP servers can extend your workflows. Each example highlights practical use cases you can try today:
 
-* [**GitHub**](https://app.gitbook.com/s/c5dAwvMCRiTxUOdDicqy/mcp-servers/github-mcp-summarizing-open-prs-and-creating-gh-issues) — access repositories, issues, and pull requests through MCP.
-* [**Sentry**](https://app.gitbook.com/s/c5dAwvMCRiTxUOdDicqy/mcp-servers/sentry-mcp-fix-sentry-error-in-empower-website) — surface error monitoring and alerts as agent-usable data.
-* [**Linear**](https://app.gitbook.com/s/c5dAwvMCRiTxUOdDicqy/mcp-servers/linear-mcp-retrieve-issue-data) — integrate project management tasks and tickets.
-* [**Puppeteer**](https://app.gitbook.com/s/c5dAwvMCRiTxUOdDicqy/mcp-servers/puppeteer-mcp-scraping-amazon-web-reviews) — run automated browser workflows via MCP.
-* [**Context7**](https://app.gitbook.com/s/c5dAwvMCRiTxUOdDicqy/mcp-servers/context7-mcp-update-astro-project-with-best-practices) — experiment with external data integrations.
+* [**GitHub**](https://docs.warp.dev/guides/mcp-servers/github-mcp-summarizing-open-prs-and-creating-gh-issues) — access repositories, issues, and pull requests through MCP.
+* [**Sentry**](https://docs.warp.dev/guides/mcp-servers/sentry-mcp-fix-sentry-error-in-empower-website) — surface error monitoring and alerts as agent-usable data.
+* [**Linear**](https://docs.warp.dev/guides/mcp-servers/linear-mcp-retrieve-issue-data) — integrate project management tasks and tickets.
+* [**Puppeteer**](https://docs.warp.dev/guides/mcp-servers/puppeteer-mcp-scraping-amazon-web-reviews) — run automated browser workflows via MCP.
+* [**Context7**](https://docs.warp.dev/guides/mcp-servers/context7-mcp-update-astro-project-with-best-practices) — experiment with external data integrations.

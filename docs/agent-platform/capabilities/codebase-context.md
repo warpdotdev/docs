@@ -109,6 +109,6 @@ Agents will only reference other repositories if they are already indexed. Durin
 
 ## Demo: Explain my codebase with Warp
 
-Here's an example from [Warp University](https://www.warp.dev/university), where Zach demonstrates how Warp uses Codebase Context to search for and use the relevant files as context:
+Here's an example from [Warp Guides](https://docs.warp.dev/guides), where Zach demonstrates how Warp uses Codebase Context to search for and use the relevant files as context:
 
 {% embed url="https://www.youtube.com/watch?v=11rz9OYQ8Hg" %}
