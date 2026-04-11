@@ -25,6 +25,39 @@ metaLinks: {}
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2026.04.08 (v0.2026.04.08.08.36)
+
+**New features**
+
+* Released a revamped notifications UI, and support for notifications for Claude Code and OpenCode.
+* New Composer available in third-party CLI agents (e.g. Claude Code, Codex, Gemini CLI, OpenCode, etc.). This allows you to use Warp's rich input features with these coding agents.
+* Added support for the coding agent toolbar for auggie and pie.
+* Added a settings entry for the ask question tool to configure when it pauses for user input.
+
+**Improvements**
+
+* Added an `oz whoami` command to get user information.
+* Conversation search now shows what it is searching for and its current activity.
+* Added `warp://settings/appearance` deep link to open Appearance settings directly.
+* Improved AI @context menu to prioritize blocks from the active terminal session and rank items by recency.
+* Added support for rendering markdown tables in notebooks and Warp's built-in Markdown viewer.
+* The command palette file opener now supports `~` (tilde) expansion to the home directory when searching for files.
+* Added completions for `timedatectl`, `ack`, `watch`, `lsof`, `systemctl`, `ros2`, `nextflow`, `tsh`, `codex`, `asdf`, `sdk`, `pass`, `az`, `oc`, `scp`, `claude`, `git show`, `git rm`, `gsutil`, `aws ec2`, `docker-compose`, `yarn`, and `docker run`.
+* Improved dynamic completions for `git switch`, `git diff`, `gt`, `kubectl`, `tf`, `pnpm`, `apt` and SSH hosts.
+
+**Bug fixes**
+
+* Added prompt changes to avoid agents getting stuck navigating pagers in Full Terminal Use.
+* Removed the web inactivity logout that could sign out authenticated users unnecessarily while session-cookie expiration work lands.
+* Skip ask-user-question prompts while auto-approve is enabled in Agent Mode.
+* Fixed `git push` branch completion for force-push and refspec prefixes.
+* Fixed HTML entity rendering in completion specs.
+* Fixed `npm i` short-form command priority.
+
+**Oz updates**
+
+* Added an `oz whoami` command to get user information.
+
 ### 2026.04.01 (v0.2026.04.01.08.39)
 
 **New features**

@@ -53,7 +53,7 @@ Warp provides a convenient way for you to delete your account and data. Any acti
 *   From Warp, go to **Settings** > **Privacy** > **"Visit the data management page"**
 
     Click the “Delete” button on the Data Management page to go through the data deletion flow.
-* From the web, log in to your Warp account at [https://app.warp.dev/login](https://app.warp.dev/login), then go to the data management page at [https://app.warp.dev/data\_management](https://app.warp.dev/data_management) and click the “Delete” button to go through the data deletion flow.
+* From the web, log in to your warp account at [https://app.warp.dev/login](https://app.warp.dev/login), then go to the data management page at [https://app.warp.dev/data\_management](https://app.warp.dev/data_management) and click the “Delete” button to go through the data deletion flow.
 
 {% hint style="info" %}
 Deletion jobs run every 24 hours, so if you deleted your account and want to sign up again with the same email, you won't be able to do so until that deletion job completes.
@@ -63,7 +63,7 @@ Deletion jobs run every 24 hours, so if you deleted your account and want to sig
 If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admin, the deletion flow will require that you assign a team member as the new admin.
 {% endhint %}
 
-### Exhaustive telemetry table
+### Exhaustive Telemetry Table
 
 | Event Name | Description |
 |---|---|
@@ -205,6 +205,9 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `CLI.Execute.Agent.Profile.List` | Listed agent profiles from the Warp CLI |
 | `CLI.Execute.Agent.Run` | Ran an agent from the Warp CLI |
 | `CLI.Execute.Agent.RunAmbient` | Ran an ambient agent from the Warp CLI |
+| `CLI.Execute.Artifact.Download` | Downloaded an artifact from the Warp CLI |
+| `CLI.Execute.Artifact.Upload` | Uploaded an artifact from the Warp CLI |
+| `CLI.Execute.Conversation.Get` | Got conversation by ID from the Warp CLI |
 | `CLI.Execute.Environment.Create` | Created a cloud environment from the Warp CLI |
 | `CLI.Execute.Environment.Delete` | Deleted a cloud environment from the Warp CLI |
 | `CLI.Execute.Environment.Get` | Got cloud environment details from the Warp CLI |
@@ -222,6 +225,7 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `CLI.Execute.Model.List` | Listed models from the Warp CLI |
 | `CLI.Execute.Provider.List` | Listed providers from the Warp CLI |
 | `CLI.Execute.Provider.Setup` | Set up a provider via the Warp CLI |
+| `CLI.Execute.Run.Conversation.Get` | Got run conversation from the Warp CLI |
 | `CLI.Execute.Schedule.Create` | Created a scheduled agent from the Warp CLI |
 | `CLI.Execute.Schedule.Delete` | Deleted a scheduled agent from the Warp CLI |
 | `CLI.Execute.Schedule.Get` | Got scheduled agent configuration from the Warp CLI |
@@ -235,6 +239,7 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `CLI.Execute.Secret.Update` | Updated a secret from the Warp CLI |
 | `CLI.Execute.Task.Get` | Got status of task from the Warp CLI |
 | `CLI.Execute.Task.List` | Listed tasks from the Warp CLI |
+| `CLI.Execute.Whoami` | Printed current user info from the Warp CLI |
 | `CLIAgentFooter.ImageAttached` | User attached an image from the CLI agent footer |
 | `CLIAgentFooter.SettingToggled` | User toggled the CLI agent footer setting |
 | `CLIAgentFooter.Shown` | CLI agent footer was shown to the user |
@@ -506,6 +511,11 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `Tab Operations` | Took operation on a tab: change color, close tab, close adjacent tabs, etc. |
 | `Tab Renamed` | Changed tab title |
 | `Tab Single Result Autocompletion` | Accepted tab completion and inserted into Input Editor |
+| `TabConfigs.ExistingConfigOpened` | User opened an existing saved tab config |
+| `TabConfigs.GuidedModalOpened` | User opened the guided Create a tab config modal |
+| `TabConfigs.GuidedModalSubmitted` | User submitted the guided Create a tab config modal |
+| `TabConfigs.MenuCreateNewTabConfigClicked` | User clicked the New tab config entry from the tab configs menu |
+| `TabConfigs.NewWorktreeConfigOpened` | User opened a new worktree config from the submenu or new worktree modal |
 | `Team Created` | Created a Warp Drive team |
 | `Team Joined` | Joined a Warp Drive team |
 | `Team Left` | Left a Warp Drive team |
@@ -567,6 +577,9 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `User Initiated Closing Something` | Attempted to either quit the app or close a window |
 | `User Initiated Log Out` | Confirms a user has explicitly logged out of the application |
 | `User Menu Upgrade Clicked` | Clicked the 'Upgrade' menu item in the user menu |
+| `VerticalTabs.DiffStatsChipClicked` | User clicked a diff stats chip in the vertical tabs panel or detail sidecar |
+| `VerticalTabs.DisplayOptionChanged` | User updated a display option in the vertical tabs settings popup |
+| `VerticalTabs.PrChipClicked` | User clicked a GitHub PR chip in the vertical tabs panel or detail sidecar |
 | `Vim Keybindings Banner Dismissed` | Dismissed the banner to enable Vim keybindings in the Input Editor |
 | `Vim Keybindings Banner Displayed` | Displayed the banner asking whether Warp should enable Vim keybindings in the Input Editor |
 | `Vim Keybindings Enabled from Banner` | Enabled Vim keybindings in the Input Editor from the banner |
