@@ -1,7 +1,7 @@
 ---
 description: >-
-  Set up your first Oz agent in GitHub Actions in ~10 minutes. Run agents as workflow steps,
-  automate tasks like code review and issue triage, and inspect runs from the Oz dashboard.
+  Set up your first Oz agent in GitHub Actions in ~10 minutes. Run agents as
+  workflow steps to automate code review and issue triage.
 ---
 
 # GitHub Actions quickstart

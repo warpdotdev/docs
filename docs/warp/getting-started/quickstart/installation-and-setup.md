@@ -1,8 +1,7 @@
 ---
 description: >-
-  Learn how to install Warp and get it running on your machine. All installation
-  options support auto-update, ensuring you receive new features, bug fixes, and
-  performance improvements.
+  Install Warp on macOS, Windows, or Linux. All installation options include
+  auto-update for new features, bug fixes, and performance improvements.
 ---
 
 # Installation and setup

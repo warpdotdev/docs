@@ -1,8 +1,7 @@
 ---
 description: >-
-  Create and inspect cloud agent runs over HTTP with the Oz API, or use
-  the official Python and TypeScript SDKs for typed requests, retries, and
-  structured error handling.
+  Create and inspect cloud agent runs over HTTP with the Oz API, or use the
+  Python and TypeScript SDKs for typed requests, retries, and error handling.
 ---
 
 # Oz API & SDK

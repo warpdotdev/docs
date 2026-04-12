@@ -126,6 +126,7 @@ Some page titles are intentionally short or specific and must **not** be changed
 
 - **`docs/changelog/README.md`** (`Changelog`) — "Changelog" is a clear, universally understood industry term. Branding prefixes like "Warp changelog" or "Release changelog" add no descriptive value and this title should remain as-is.
 - **`docs/warp/terminal/appearance/app-icons.md`** (`App icons`) — The article explicitly explains that *custom* app icons are not available to users. Renaming to "Custom app icons" directly contradicts the page content and must be avoided.
+- **`guides/README.md`** (`Guides`) — "Guides" is the landing page for the Guides space. The title is clear and matches the space name; prefixing it (e.g., "Developer Guides") adds no value and creates a mismatch with the space title shown in breadcrumbs.
 
 When the audit flags these pages for `title_too_short`, exclude them from your fix list and include a note in your report explaining they are intentional exceptions.
 
@@ -188,6 +189,14 @@ If instructed to send a report to Slack, post a summary after the audit complete
 1. Check if `BUZZ_SLACK_TOKEN` environment variable exists.
 2. If the token exists, send a summary to the channel the user specified (or the channel configured in the agent's instructions).
 
+**Categorizing issues in the summary:** Before composing the message, cross-reference every issue against the title exceptions list above and check whether the issue has a local source file. Classify each issue into exactly one bucket:
+- **Fixed** — issues you resolved in this run
+- **Unfixable** — issues with no local source file (e.g., auto-generated API pages)
+- **Allowlisted** — issues that match a title exception entry (these are intentional, not problems)
+- **Remaining** — everything else (genuine issues that still need attention)
+
+Only include a section in the Slack message if its count is > 0. Never list allowlisted pages under "Remaining".
+
 **If a PR was opened**, include the PR link and a summary of what was fixed:
 
 ```
@@ -196,7 +205,13 @@ If instructed to send a report to Slack, post a summary after the audit complete
 
 *Fixed (<count>):*
 • Duplicate title "Overview | Agents | Warp" → split into 4 unique titles
-• Duplicate title "FAQs | Agents | Warp" → "Agent FAQs" + "Cloud Agent FAQs"
+• Trimmed 3 overly long descriptions to ≤160 chars
+
+*Unfixable (<count>):*
+• <N> pages missing meta descriptions (auto-generated, no local source)
+
+*Allowlisted (<count>):*
+• <page1>, <page2>, <page3> (intentionally short titles)
 
 *Remaining (<count>):*
 • <N> pages missing meta descriptions
@@ -218,7 +233,13 @@ PR: <pr_url>
 *SEO Audit — <date>*
 <total_pages> pages scanned | <total_issues> issues found (<errors> errors, <warnings> warnings, <info> info)
 
-Top issues:
+*Unfixable (<count>):*
+• <N> pages missing meta descriptions (auto-generated, no local source)
+
+*Allowlisted (<count>):*
+• <page1>, <page2> (intentionally short titles)
+
+*Remaining (<count>):*
 • <N> duplicate titles
 • <N> pages missing meta descriptions
 • <N> titles too short/long

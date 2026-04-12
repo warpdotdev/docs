@@ -1,8 +1,8 @@
 ---
 description: >-
-  Reference documentation for the oz-agent-worker daemon, including CLI flags,
-  backend configuration (Docker, Kubernetes, Direct), Helm chart, and
-  operational details.
+  Reference for the oz-agent-worker daemon, including CLI flags, backend
+  Reference for the oz-agent-worker daemon, including CLI flags, backend
+  configuration (Docker, Kubernetes, Direct), Helm chart, and operational details.
 ---
 
 # Managed worker reference
