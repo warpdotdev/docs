@@ -154,7 +154,7 @@ Replace `<pool-id>` with the desired identifier for your pool, such as `oz-agent
 2. Create a Provider within the pool:
 
 ```bash
-gcloud iam workload-identity-pool-providers create-oidc \
+gcloud iam workload-identity-pools providers create-oidc \
     "<provider-id>" \
     --location=global \
     "--workload-identity-pool=<pool-id>" \
