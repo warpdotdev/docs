@@ -1,12 +1,13 @@
 ---
-description: Manage Warp windows with global hotkeys, tabs, and split panes.
+description: Manage Warp windows with global hotkeys, horizontal and vertical tabs, and split panes.
 ---
 
 # Window Management
 
 1. [Global Hotkey](global-hotkey.md) is a configurable shortcut that can show/hide a dedicated window or all windows on your chosen desktop regardless of whether the app is focused.
 2. [Tabs](tabs.md) allow you to organize a window into multiple terminal sessions.
-3. [Split Panes](split-panes.md) allows you to divide a Tab into multiple rectangular _panes_, each of which is a unique terminal session.
+3. [Vertical tabs](vertical-tabs.md) replace the horizontal tab bar with a sidebar that shows rich metadata and drag-and-drop management for every tab and pane.
+4. [Split Panes](split-panes.md) allows you to divide a Tab into multiple rectangular _panes_, each of which is a unique terminal session.
 
 ## Global Hotkey
 

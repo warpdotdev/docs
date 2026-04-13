@@ -45,6 +45,7 @@
 * [Window management](terminal/windows/README.md)
   * [Global hotkey](terminal/windows/global-hotkey.md)
   * [Terminal tabs](terminal/windows/tabs.md "Tabs")
+  * [Vertical tabs](terminal/windows/vertical-tabs.md)
   * [Terminal split panes](terminal/windows/split-panes.md "Split panes")
 * [Terminal appearance](terminal/appearance/README.md)
   * [Terminal themes](terminal/appearance/themes.md "Themes")
