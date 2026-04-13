@@ -59,6 +59,8 @@ redirects:
     api-and-sdk/troubleshooting/errors/operation_not_supported: api-and-sdk/troubleshooting/errors/operation-not-supported.md
     api-and-sdk/troubleshooting/errors/environment_setup_failed: api-and-sdk/troubleshooting/errors/environment-setup-failed.md
     api-and-sdk/troubleshooting/errors/content_policy_violation: api-and-sdk/troubleshooting/errors/content-policy-violation.md
+    # No underscore→hyphen conversion needed; added for completeness with the error-code audit
+    api-and-sdk/troubleshooting/errors/conflict: api-and-sdk/troubleshooting/errors/conflict.md
     api-and-sdk/troubleshooting/errors/authentication_required: api-and-sdk/troubleshooting/errors/authentication-required.md
     api-and-sdk/troubleshooting/errors/resource_unavailable: api-and-sdk/troubleshooting/errors/resource-unavailable.md
     api-and-sdk/troubleshooting/errors/internal_error: api-and-sdk/troubleshooting/errors/internal-error.md
