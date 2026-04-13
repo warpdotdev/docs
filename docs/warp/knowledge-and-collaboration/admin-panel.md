@@ -106,7 +106,7 @@ Configure how much independence Agents have when performing different actions:
 
 **Apply Code Diffs**
 
-* Agent Decides - Agent acts autonomously when confident, asks for approval when uncertain
+* Agent Decides - Prompt for review before applying code diffs (currently behaves the same as Always Ask)
 * Always Ask - Require explicit approval before applying any code changes
 * Always Allow - Apply code diffs without confirmation
 * Respect User Setting - Allow individual users to control this setting
