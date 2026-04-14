@@ -10,6 +10,8 @@ OpenCode is an open-source terminal-based coding agent. It connects to multiple 
 
 Warp auto-detects OpenCode when you run it, giving you access to rich input controls, code review, agent notifications, and other integrated features.
 
+For a step-by-step walkthrough, see the [How to set up OpenCode](https://docs.warp.dev/guides/integrations/how-to-set-up-opencode) guide. For a product overview, see [OpenCode in Warp](https://warp.dev/agents/opencode).
+
 ## Getting started
 
 1. Install OpenCode using your preferred method (see the [OpenCode installation guide](https://opencode.ai/docs#install) for options).
@@ -52,6 +54,8 @@ OpenCode supports the full set of Warp's agent integration features:
 
 ## Related pages
 
+* [How to set up OpenCode](https://docs.warp.dev/guides/integrations/how-to-set-up-opencode) — step-by-step setup guide
+* [OpenCode in Warp](https://warp.dev/agents/opencode) — product overview
 * [Third-Party CLI Agents Overview](overview.md)
 * [Claude Code](claude-code.md)
 * [Codex](codex.md)

@@ -10,6 +10,8 @@ Claude Code is Anthropic's agentic coding tool that operates directly in your te
 
 Warp auto-detects Claude Code when you run it, giving you access to rich input controls, code review, agent notifications, and other integrated features.
 
+For a step-by-step walkthrough, see the [How to set up Claude Code](https://docs.warp.dev/guides/integrations/how-to-set-up-claude-code) guide. For a product overview, see [Claude Code in Warp](https://warp.dev/agents/claude-code).
+
 ## Getting started
 
 {% hint style="info" %}
@@ -80,6 +82,8 @@ Claude Code supports the full set of Warp's agent integration features:
 
 ## Related pages
 
+* [How to set up Claude Code](https://docs.warp.dev/guides/integrations/how-to-set-up-claude-code) — step-by-step setup guide
+* [Claude Code in Warp](https://warp.dev/agents/claude-code) — product overview
 * [Third-Party CLI Agents Overview](overview.md)
 * [OpenCode](opencode.md)
 * [Codex](codex.md)

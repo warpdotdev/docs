@@ -47,7 +47,7 @@ Run Codex for the first time:
 codex
 ```
 
-Select **Sign in with ChatGPT** and authenticate with your ChatGPT account. This is the recommended method — your Codex usage is included in your ChatGPT plan.
+Select **Sign in with ChatGPT** and authenticate with your ChatGPT account (recommended). Your Codex usage is included in your ChatGPT plan.
 
 For API key authentication (useful for CI/CD or automation):
 
@@ -82,7 +82,12 @@ Codex will read the relevant files, propose changes, and ask for your confirmati
 
 Switch between available models during a session with the `/model` command. See [Codex CLI documentation](https://developers.openai.com/codex/cli/) for the current model list.
 
-Codex has three [approval modes](https://developers.openai.com/codex/cli/features#approval-modes) that control how much autonomy it has. **Auto** (the default) lets Codex read, edit, and run commands within your working directory but asks before anything outside that scope. **Read-only** keeps Codex consultative, and **Full Access** grants broader autonomy including network access. Use `/permissions` inside a session to switch modes as your comfort level changes.
+Codex has three [approval modes](https://developers.openai.com/codex/cli/features#approval-modes) that control how much autonomy it has. 
+* **Auto** (the default) lets Codex read, edit, and run commands within your working directory but asks before anything outside that scope. 
+* **Read-only** keeps Codex consultative
+* **Full Access** grants broader autonomy including network access. 
+
+Use `/permissions` inside a session to switch modes as your comfort level changes.
 
 ## 5. Customize with a configuration file
 
@@ -105,7 +110,7 @@ Create a `codex.md` or `AGENTS.md` file at your project root to teach Codex your
 Codex reads this file at the start of every session and follows your conventions automatically.
 
 {% hint style="info" %}
-Warp automatically sets up notifications for Codex. When you first run Codex in Warp, it installs the necessary hooks into your `~/.codex/` directory, so you'll receive in-app and desktop alerts when Codex needs your input. No manual setup required.
+Warp supports agent notifications for Codex. Add `notification_condition = "always"` under `[tui]` in `~/.codex/config.toml`, then restart Codex. If this config isn't set, Warp displays a setup chip in the terminal with instructions you can follow directly. See [Codex in Warp (docs)](https://docs.warp.dev/agent-platform/cli-agents/codex#setting-up-notifications) for details.
 {% endhint %}
 
 ## Productivity tips
@@ -113,7 +118,7 @@ Warp automatically sets up notifications for Codex. When you first run Codex in 
 * **Use voice to prompt Codex** — Dictate complex instructions instead of typing them. Warp supports [voice transcription](https://docs.warp.dev/agent-platform/local-agents/interacting-with-agents/voice) that works with any CLI agent, including Codex.
 * **Attach images as context** — Paste screenshots of bugs, designs, or error messages into your prompt. Warp's [images as context](https://docs.warp.dev/agent-platform/local-agents/agent-context/images-as-context) feature lets Codex see what you see.
 * **Review diffs visually** — After Codex makes changes, open Warp's [Code Review panel](https://docs.warp.dev/warp/code/code-review) (`⌘+Shift++`) to see a visual diff. You can leave inline comments and send them back to Codex for corrections.
-* **Run Codex alongside Claude Code** — Use [vertical tabs](https://docs.warp.dev/warp/terminal/windows/tabs) <!-- TODO: Update link to vertical-tabs page once HYC's page is live --> to run Claude Code and Codex side by side on the same task. Compare their approaches and pick the best output, or combine elements from both.
+* **Run Codex alongside Claude Code** — Use [vertical tabs](https://docs.warp.dev/warp/terminal/windows/vertical-tabs) to run Claude Code and Codex side by side on the same task. Compare their approaches and pick the best output, or combine elements from both.
 * **Compose richer prompts** — Press `Ctrl+G` to open Warp's rich input editor for Codex, giving you a full text editor experience instead of raw CLI input.
 
 <!-- If a standalone summary feels valuable, add a ## Recap heading above this paragraph. -->
@@ -121,6 +126,7 @@ Warp automatically sets up notifications for Codex. When you first run Codex in 
 ## Next steps
 
 You installed Codex CLI, authenticated, started your first session, and configured it for your project. Codex is now set up as a working AI coding agent in Warp.
+
 Explore related guides and features:
 
 * [Set up Claude Code](how-to-set-up-claude-code.md) to run a second agent alongside Codex
@@ -128,5 +134,5 @@ Explore related guides and features:
 * [Run multiple agents at once](../developer-workflows/how-to-run-multiple-ai-coding-agents.md) — use Codex and Claude Code side by side
 * [Codex CLI documentation](https://developers.openai.com/codex/cli/) — OpenAI's official reference
 * [Codex in Warp](https://warp.dev/agents/codex) — overview of Codex support in Warp
-* [Codex in Warp (docs)](https://docs.warp.dev/agent-platform/third-party-agents/codex) — full reference for Codex's Warp integration, including notification setup <!-- TODO: Verify link once HYC's per-agent pages in PR #761 are live -->
-* [Third-party CLI agents](https://docs.warp.dev/agent-platform/local-agents/third-party-cli-agents) — all supported agents and Warp's universal agent features <!-- TODO: Update to coding-agents/overview once HYC's page is live -->
+* [Codex in Warp (docs)](https://docs.warp.dev/agent-platform/cli-agents/codex) — full reference for Codex's Warp integration, including notification setup
+* [Third-party CLI agents](https://docs.warp.dev/agent-platform/cli-agents/overview) — all supported agents and Warp's universal agent features

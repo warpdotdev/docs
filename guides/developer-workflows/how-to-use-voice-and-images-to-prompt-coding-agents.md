@@ -6,12 +6,12 @@ description: >-
 
 # How to use voice and images to prompt coding agents
 
-Typing detailed prompts for coding agents can be slow. Describing a bug from a screenshot, dictating a complex refactoring plan, or explaining a UI change from a design mockup are examples of tasks that are faster with voice and images than with text alone. This guide shows you how to use multimodal input with any CLI coding agent running in Warp (~5 minutes).
+Typing detailed prompts for coding agents can be slow. Describing a bug from a screenshot, dictating a complex refactoring plan, or explaining a UI change from a design mockup are examples of tasks that are faster with voice and images than with text alone. This guide shows you how to use multimodal input with any CLI coding agent running in Warp in ~5 minutes).
 
 ## Prerequisites
 
 * **Warp** — Voice and image input are built into Warp's agent interface. Download from [warp.dev](https://warp.dev).
-* **A CLI coding agent** — Voice and image input work with any supported agent: [Claude Code](../integrations/how-to-set-up-claude-code.md), [Codex CLI](../integrations/how-to-set-up-codex-cli.md), OpenCode, Gemini CLI, Amp, or Droid. See [Third-party CLI agents](https://docs.warp.dev/agent-platform/local-agents/third-party-cli-agents) for the full list. <!-- TODO: Update to agent-platform/third-party-agents/ once HYC's pages from PR #761 are live -->
+* **A CLI coding agent** — Voice and image input work with any supported agent: [Claude Code](../integrations/how-to-set-up-claude-code.md), [Codex CLI](../integrations/how-to-set-up-codex-cli.md), OpenCode, Gemini CLI, Amp, or Droid. See [Third-party CLI agents](https://docs.warp.dev/agent-platform/cli-agents/overview) for the full list.
 * **A working microphone** (for voice) — Built-in or external, including Bluetooth audio devices.
 
 
@@ -21,7 +21,7 @@ Voice transcription is available in Warp's agent input. To use it:
 
 1. Click the **microphone icon** in the input area, or use the voice input keyboard shortcut.
 
-<figure><img src="../.gitbook/assets/voice-input-microphone.png" alt="Warp input area showing the microphone icon for voice transcription"><figcaption><p>The microphone icon appears in the input area for voice transcription.</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/voice-input-microphone.png" width="563" alt="Warp input area showing the microphone icon for voice transcription"><figcaption><p>The microphone icon appears in the input area for voice transcription.</p></figcaption></figure>
 
 2. Speak your prompt naturally. Warp transcribes your speech and places the text in the input field.
 3. Review the transcription, edit if needed, then submit your prompt.
@@ -56,7 +56,7 @@ Paste (`⌘+V`) or drag images directly into the input area to give the agent vi
 * **Error messages** — Screenshot a stack trace instead of copying and reformatting it.
 * **Visual diffs** — Show the agent what the UI looks like now vs. what it should look like.
 
-<figure><img src="../.gitbook/assets/image-as-context.png" alt="Image attached as context in the Warp input area alongside a text prompt"><figcaption><p>Paste or drag images into the input to give the agent visual context.</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image-as-context.png" width="563" alt="Image attached as context in the Warp input area alongside a text prompt"><figcaption><p>Paste or drag images into the input to give the agent visual context.</p></figcaption></figure>
 
 ## 4. Combine voice and images for design-to-code workflows
 
@@ -104,10 +104,11 @@ If you don't see the utility bar, make sure you're on the latest Warp version an
 
 You can now prompt coding agents using voice transcription and image context — whether you're using Claude Code, Codex, or any other CLI agent in Warp. Voice and images make complex prompts faster to create and more accurate, especially for design-to-code workflows, bug reproduction, and multi-step refactoring plans.
 
+
 Explore related guides and features:
 * [Set up Claude Code](../integrations/how-to-set-up-claude-code.md) or [Set up Codex CLI](../integrations/how-to-set-up-codex-cli.md) to start using third-party agents
 * [How to review AI-generated code](how-to-review-ai-generated-code.md) — review the code your agents produce
 * [Run multiple agents at once](how-to-run-multiple-ai-coding-agents.md) — combine voice/image prompting with parallel agents
 * [Voice input](https://docs.warp.dev/agent-platform/local-agents/interacting-with-agents/voice) — full reference for voice features
 * [Images as context](https://docs.warp.dev/agent-platform/local-agents/agent-context/images-as-context) — full reference for image input
-* [Third-party CLI agents](https://docs.warp.dev/agent-platform/local-agents/third-party-cli-agents) — all supported agents and universal features <!-- TODO: Update to agent-platform/third-party-agents/ once HYC's pages from PR #761 are live -->
+* [Third-party CLI agents](https://docs.warp.dev/agent-platform/cli-agents/overview) — all supported agents and universal features

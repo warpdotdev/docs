@@ -137,7 +137,7 @@ For plugin source and updates, see the [claude-code-warp GitHub repository](http
 * **Use voice to prompt Claude Code** — Instead of typing complex instructions, dictate them. Warp supports [voice transcription](https://docs.warp.dev/agent-platform/local-agents/interacting-with-agents/voice) that works with any CLI agent, including Claude Code. Press the microphone icon or the `fn` key to start recording.
 * **Attach images as context** — Paste screenshots of bug reports, design mockups, or error messages directly into your prompt. Warp's [images as context](https://docs.warp.dev/agent-platform/local-agents/agent-context/images-as-context) feature lets Claude Code see what you see.
 * **Review diffs visually** — After Claude Code makes changes, open Warp's [Code Review panel](https://docs.warp.dev/warp/code/code-review) (`⌘+Shift++`) to see a visual diff of every file changed. You can leave inline comments and send them back to Claude Code for corrections.
-* **Run multiple Claude Code sessions in parallel** — Use [vertical tabs](https://docs.warp.dev/warp/terminal/windows/tabs) <!-- TODO: Update link to vertical-tabs page once HYC's page is live --> to run different Claude Code tasks side by side, one session fixing bugs while another writes tests. Each tab shows which agent is running and its current status.
+* **Run multiple Claude Code sessions in parallel** — Use [vertical tabs](https://docs.warp.dev/warp/terminal/windows/vertical-tabs) to run different Claude Code tasks side by side, one session fixing bugs while another writes tests. Each tab shows which agent is running and its current status.
 * **Compose richer prompts** — Press `Ctrl+G` to open Warp's rich input editor for Claude Code. This gives you a full text editor experience for composing prompts — click to position your cursor, select text, and edit naturally instead of navigating with arrow keys.
 
 <!-- If a standalone summary feels valuable, add a ## Recap heading above this paragraph. -->
@@ -146,11 +146,12 @@ For plugin source and updates, see the [claude-code-warp GitHub repository](http
 
 You installed Claude Code, authenticated, started your first session, configured it for your project, and learned the key productivity features that make it faster to use in Warp.
 
+
 Explore related guides and features:
 * [Set up Codex CLI](how-to-set-up-codex-cli.md) to run a second agent alongside Claude Code
 * [How to review AI-generated code](../developer-workflows/how-to-review-ai-generated-code.md) — a structured workflow for reviewing and refining agent output
 * [Run multiple agents at once](../developer-workflows/how-to-run-multiple-ai-coding-agents.md) — use Claude Code and Codex side by side
 * [Claude Code documentation](https://docs.anthropic.com/en/docs/claude-code/quickstart) — Anthropic's official reference
 * [Claude Code in Warp](https://warp.dev/agents/claude-code) — overview of Claude Code support in Warp
-* [Claude Code in Warp (docs)](https://docs.warp.dev/agent-platform/third-party-agents/claude-code) — full reference for Claude Code's Warp integration, including notification setup <!-- TODO: Verify link once HYC's per-agent pages in PR #761 are live -->
-* [Third-party CLI agents](https://docs.warp.dev/agent-platform/local-agents/third-party-cli-agents) — all supported agents and Warp's universal agent features <!-- TODO: Update to coding-agents/overview once HYC's page is live -->
+* [Claude Code in Warp (docs)](https://docs.warp.dev/agent-platform/cli-agents/claude-code) — full reference for Claude Code's Warp integration, including notification setup
+* [Third-party CLI agents](https://docs.warp.dev/agent-platform/cli-agents/overview) — all supported agents and Warp's universal agent features

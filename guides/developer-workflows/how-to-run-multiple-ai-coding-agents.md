@@ -6,7 +6,7 @@ description: >-
 
 # How to run multiple AI coding agents
 
-Different AI agents have different strengths. Claude Code might handle refactoring well while Codex might excel at test generation. Instead of choosing one, you can run them in parallel. Assign different tasks to different agents, compare their outputs on the same problem, or have one agent build while another reviews. This guide shows you how to set up a multi-agent workflow in Warp and manage it effectively (~15 minutes).
+Different agents have different strengths. Claude Code might handle refactoring well while Codex might excel at test generation. Instead of choosing one, you can run them in parallel. Assign different tasks to different agents, compare their outputs on the same problem, or have one agent build while another reviews. This guide shows you how to set up a multi-agent workflow in Warp and manage it effectively about 15 minutes.
 
 ## Prerequisites
 
@@ -18,7 +18,9 @@ Different AI agents have different strengths. Claude Code might handle refactori
 
 Vertical tabs are the foundation of a multi-agent workflow. Unlike horizontal tabs, they show rich metadata for each session: which agent is running, which branch you're on, which directory, and the current status.
 
-To enable vertical tabs, in the Warp app, go to **Settings** > **Appearance** > **Tabs** and select **Use vertical tab layout**. Alternatively, set this during the onboarding flow.
+To enable vertical tabs:
+1. In the Warp app, go to **Settings** > **Appearance** > **Tabs**.
+2. Select **Use vertical tab layout**. 
 
 You can configure what information to display for each tab:
 * The running agent (Oz, Claude Code, Codex, etc.)
@@ -26,7 +28,7 @@ You can configure what information to display for each tab:
 * The working directory
 * A status indicator showing whether the agent is active, waiting for input, or idle
 
-<figure><img src="../.gitbook/assets/vertical-tabs-multi-agent.png" alt="Warp vertical tabs sidebar showing multiple terminal sessions with branch metadata"><figcaption><p>Vertical tabs show which agent is running, the Git branch, and session status.</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/vertical-tabs-multi-agent.png" width="563" alt="Warp vertical tabs sidebar showing multiple terminal sessions with branch metadata"><figcaption><p>Vertical tabs show which agent is running, the Git branch, and session status.</p></figcaption></figure>
 
 ## 2. Launch agents in separate tabs
 
@@ -56,7 +58,7 @@ Refactor src/auth/ to use async/await instead of callbacks
 Write comprehensive tests for src/auth/ covering edge cases
 ```
 
-<figure><img src="../.gitbook/assets/multi-agents.png" alt="Multiple agent tabs in Warp's vertical sidebar showing session status, branch, and directory metadata"><figcaption><p>Each vertical tab shows the agent name, working directory, branch, and diff stats at a glance.</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/multi-agents.png" width="563" alt="Multiple agent tabs in Warp's vertical sidebar showing session status, branch, and directory metadata"><figcaption><p>Each vertical tab shows the agent name, working directory, branch, and diff stats at a glance.</p></figcaption></figure>
 
 ## 3. Monitor agents with notifications
 
@@ -71,10 +73,10 @@ Notification setup varies by agent:
 * **OpenCode** — Add the [Warp notification plugin](https://github.com/warpdotdev/opencode-warp) to your `opencode.json` configuration.
 
 {% hint style="info" %}
-Agent notifications are currently supported for Claude Code, Codex, and OpenCode. For setup details, see [Agent notifications](https://docs.warp.dev/agent-platform/local-agents/agent-notifications). For a full breakdown of which features work with each agent, see the [third-party CLI agents feature matrix](https://docs.warp.dev/agent-platform/local-agents/third-party-cli-agents). <!-- TODO: Verify both links once HYC's launch docs from PR #742 are live -->
+Agent notifications are currently supported for Claude Code, Codex, and OpenCode. For setup details, see [Agent notifications](https://docs.warp.dev/agent-platform/warp-agents/agent-notifications). For a full breakdown of which features work with each agent, see the [third-party CLI agents feature matrix](https://docs.warp.dev/agent-platform/cli-agents/overview).
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/tab-notification-indicator.png" alt="Warp notification popup showing an agent requesting permission to edit a file"><figcaption><p>Warp surfaces a notification when an agent needs approval, so you can jump directly to the tab that needs input.</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/tab-notification-indicator.png" width="563" alt="Warp notification popup showing an agent requesting permission to edit a file"><figcaption><p>Warp surfaces a notification when an agent needs approval, so you can jump directly to the tab that needs input.</p></figcaption></figure>
 
 ## 4. Compare outputs from different agents
 
@@ -84,19 +86,23 @@ A practical use of parallel agents is running the same task in different Git wor
 Optimize the database query in src/api/users.ts to reduce response time
 ```
 
-After both agents complete, open the [Code Review panel](https://docs.warp.dev/warp/code/code-review) (`⌘+Shift++`) in each tab to compare their diffs side by side. You might find one agent produces cleaner code while the other catches an edge case the first missed.
+After both agents complete, open the [Code Review panel](https://docs.warp.dev/warp/code/code-review) (`⌘+Shift++`) in each tab to compare their diffs side-by-side. You might find one agent produces cleaner code while the other catches an edge case the first missed.
 
 ## 5. Save your workspace with tab configs
 
-If you regularly work with the same multi-agent setup, save it as a tab config so you can recreate it with one click.
+If you regularly work with the same multi-agent setup, save it as a tab config so you can recreate it with one click:
+
+1. Hover over the tab and click the three dots on the right-hand side.
+2. Click **Save as new config**.
+
+<figure><img src="../.gitbook/assets/save-new-tab-config.png" alt="Creating a new tab config from the tab context menu in Warp" width="375"><figcaption><p>Save a tab config to recreate your multi-agent workspace with one click.</p></figcaption></figure>
 
 Tab configs are TOML files that define the directory, startup commands, and layout for a tab. For example, you might create a config that:
 
-* Opens two panes side by side
+* Opens two panes side-by-side
 * Drops you into your project repo automatically
 * Starts Claude Code in one pane and Codex in the other
 
-<!-- TODO: Screenshot needed — tab config creation (feature shipping with launch) -->
 
 {% hint style="info" %}
 Tab configs pair well with [Git worktrees](https://docs.warp.dev/warp/code/git-worktrees). Create a worktree for each agent so they work on isolated branches, then merge the best results.
@@ -132,6 +138,7 @@ git diff feature/claude-refactor..feature/codex-refactor
 ## Next steps
 
 You set up a multi-agent workspace with vertical tabs, launched different agents in parallel, monitored them with notifications, compared their outputs, and learned how to use tab configs and Git worktrees for isolated, reproducible multi-agent workflows.
+
 Explore related guides and features:
 
 * [How to review AI-generated code](how-to-review-ai-generated-code.md) — review and refine the code your agents produced
@@ -140,5 +147,5 @@ Explore related guides and features:
 * [Codex in Warp](https://warp.dev/agents/codex) — overview of Codex support in Warp
 * [Gemini CLI in Warp](https://warp.dev/agents/gemini-cli) — overview of Gemini CLI support in Warp
 * [OpenCode in Warp](https://warp.dev/agents/opencode) — overview of OpenCode support in Warp
-* [Third-party CLI agents](https://docs.warp.dev/agent-platform/local-agents/third-party-cli-agents) — all supported agents and universal agent features <!-- TODO: Update to agent-platform/third-party-agents/ once HYC's pages from PR #761 are live -->
-* [Terminal tabs](https://docs.warp.dev/warp/terminal/windows/tabs) — full reference for tab features <!-- TODO: Update to vertical-tabs page once HYC's page is live -->
+* [Third-party CLI agents](https://docs.warp.dev/agent-platform/cli-agents/overview) — all supported agents and universal agent features
+* [Vertical tabs](https://docs.warp.dev/warp/terminal/windows/vertical-tabs) — full reference for tab features

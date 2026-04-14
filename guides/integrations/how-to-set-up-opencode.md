@@ -6,7 +6,7 @@ description: >-
 
 # How to set up OpenCode
 
-OpenCode is an open-source coding agent that runs in your terminal. It supports 75+ LLM providers, features a built-in TUI, and lets you edit code, execute commands, and manage sessions from natural language prompts. This guide takes you from installation to a working OpenCode session in Warp in about 5 minutes, then shows you how to get the most out of it.
+OpenCode is an open-source coding agent that runs in your terminal. It supports 75+ LLM providers, features a built-in terminal UI (TUI), and lets you edit code, execute commands, and manage sessions from natural language prompts. This guide takes you from installation to a working OpenCode session in Warp in about 5 minutes, then shows you how to get the most out of it.
 
 ## Prerequisites
 
@@ -127,7 +127,7 @@ For plugin source and updates, see the [opencode-warp GitHub repository](https:/
 * **Use voice to prompt OpenCode** — Dictate complex instructions instead of typing them. Warp supports [voice transcription](https://docs.warp.dev/agent-platform/local-agents/interacting-with-agents/voice) that works with any CLI agent, including OpenCode.
 * **Attach images as context** — Paste screenshots of bugs, designs, or error messages into your prompt. Warp's [images as context](https://docs.warp.dev/agent-platform/local-agents/agent-context/images-as-context) feature lets OpenCode see what you see.
 * **Review diffs visually** — After OpenCode makes changes, open Warp's [Code Review panel](https://docs.warp.dev/warp/code/code-review) (`⌘+Shift++`) to see a visual diff. You can leave inline comments and send them back to OpenCode for corrections.
-* **Run OpenCode alongside other agents** — Use [vertical tabs](https://docs.warp.dev/warp/terminal/windows/tabs) <!-- TODO: Update link to vertical-tabs page once HYC's page is live --> to run OpenCode and Claude Code or Codex side by side on the same task. Compare their approaches and pick the best output.
+* **Run OpenCode alongside other agents** — Use [vertical tabs](https://docs.warp.dev/warp/terminal/windows/vertical-tabs) to run OpenCode and Claude Code or Codex side by side on the same task. Compare their approaches and pick the best output.
 * **Compose richer prompts** — Press `Ctrl+G` to open Warp's rich input editor for OpenCode, giving you a full text editor experience instead of raw CLI input.
 
 <!-- If a standalone summary feels valuable, add a ## Recap heading above this paragraph. -->
@@ -140,6 +140,8 @@ Explore related guides and features:
 
 * [Set up Ollama for local models](how-to-set-up-ollama.md) to run OpenCode with local models
 * [Code Review panel](https://docs.warp.dev/warp/code/code-review) — review and refine agent-generated code
-* [Third-party CLI agents](https://docs.warp.dev/agent-platform/local-agents/third-party-cli-agents) — all supported agents and Warp's universal agent features <!-- TODO: Update to agent-platform/cli-agents/overview once PR #742 is live -->
+* [OpenCode in Warp](https://warp.dev/agents/opencode) — overview of OpenCode support in Warp
+* [OpenCode in Warp (docs)](https://docs.warp.dev/agent-platform/cli-agents/opencode) — full reference for OpenCode's Warp integration, including notification setup
+* [Third-party CLI agents](https://docs.warp.dev/agent-platform/cli-agents/overview) — all supported agents and Warp's universal agent features
 * [OpenCode documentation](https://opencode.ai/docs) — official reference
 * [opencode-warp plugin](https://github.com/warpdotdev/opencode-warp) — notification plugin source and updates

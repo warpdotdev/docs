@@ -134,7 +134,7 @@ Gemini CLI does not currently support agent notifications in Warp. You won't rec
 * **Use voice to prompt Gemini CLI** — Dictate complex instructions instead of typing them. Warp supports [voice transcription](https://docs.warp.dev/agent-platform/local-agents/interacting-with-agents/voice) that works with any CLI agent, including Gemini CLI.
 * **Attach images as context** — Paste screenshots of bugs, designs, or error messages into your prompt. Warp's [images as context](https://docs.warp.dev/agent-platform/local-agents/agent-context/images-as-context) feature lets Gemini CLI see what you see.
 * **Review diffs visually** — After Gemini CLI makes changes, open Warp's [Code Review panel](https://docs.warp.dev/warp/code/code-review) (`⌘+Shift++`) to see a visual diff. You can leave inline comments and send them back to Gemini CLI for corrections.
-* **Run Gemini CLI alongside other agents** — Use [vertical tabs](https://docs.warp.dev/warp/terminal/windows/tabs) <!-- TODO: Update link to vertical-tabs page once HYC's page is live --> to run Gemini CLI and Claude Code or Codex side by side on the same task. Compare their approaches and pick the best output.
+* **Run Gemini CLI alongside other agents** — Use [vertical tabs](https://docs.warp.dev/warp/terminal/windows/vertical-tabs) to run Gemini CLI and Claude Code or Codex side by side on the same task. Compare their approaches and pick the best output.
 * **Compose richer prompts** — Press `Ctrl+G` to open Warp's rich input editor for Gemini CLI, giving you a full text editor experience instead of raw CLI input.
 * **Use built-in Google Search** — Gemini CLI can ground responses with real-time web search. Ask it to research current best practices or look up documentation while working on your code.
 
@@ -148,5 +148,6 @@ Explore related guides and features:
 
 * [Set up Ollama for local models](how-to-set-up-ollama.md) to pair Gemini CLI with local model workflows
 * [Code Review panel](https://docs.warp.dev/warp/code/code-review) — review and refine agent-generated code
-* [Third-party CLI agents](https://docs.warp.dev/agent-platform/local-agents/third-party-cli-agents) — all supported agents and Warp's universal agent features <!-- TODO: Update to agent-platform/cli-agents/overview once PR #742 is live -->
+* [Gemini CLI in Warp](https://warp.dev/agents/gemini-cli) — overview of Gemini CLI support in Warp
+* [Third-party CLI agents](https://docs.warp.dev/agent-platform/cli-agents/overview) — all supported agents and Warp's universal agent features
 * [Gemini CLI documentation](https://github.com/google-gemini/gemini-cli) — Google's official reference

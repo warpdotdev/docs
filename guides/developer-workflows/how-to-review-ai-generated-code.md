@@ -11,7 +11,7 @@ Coding agents can produce hundreds of lines of code in seconds, but shipping tha
 ## Prerequisites
 
 * **A Git-tracked project** — Code review in Warp works on any Git repository.
-* **An AI coding agent** — This workflow applies to any CLI agent: [Claude Code](../integrations/how-to-set-up-claude-code.md), [Codex](../integrations/how-to-set-up-codex-cli.md), OpenCode, or Warp's built-in agent. See [Third-party CLI agents](https://docs.warp.dev/agent-platform/local-agents/third-party-cli-agents) for setup. <!-- TODO: Update third-party-cli-agents link to agent-platform/third-party-agents/overview once HYC's pages from PR #761 are live -->
+* **An AI coding agent** — This workflow applies to any CLI agent: [Claude Code](../integrations/how-to-set-up-claude-code.md), [Codex](../integrations/how-to-set-up-codex-cli.md), OpenCode, or Warp's built-in agent. See [Third-party CLI agents](https://docs.warp.dev/agent-platform/cli-agents/overview) for setup.
 
 ## Why review matters
 
@@ -46,15 +46,15 @@ Once the agent has finished the task, open Warp's [Code Review panel](https://do
 * **Review changes button**: After an agent conversation, click **Review changes** at the bottom of the conversation
 * **Tab bar**: Click the Code Review button in the top-right corner of Warp
 
-<figure><img src="../.gitbook/assets/code-review-button.png" alt="Code Review button in the top-right corner of the Warp title bar showing file and line change counts"><figcaption><p>The Code Review button in the top-right corner shows the number of changed files and lines.</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/code-review-button.png" width="563" alt="Code Review button in the top-right corner of the Warp title bar showing file and line change counts"><figcaption><p>The Code Review button in the top-right corner shows the number of changed files and lines.</p></figcaption></figure>
 
 The panel shows all uncommitted changes as a visual diff, grouped by file. Additions are highlighted in green with a `+` prefix, removals in red with a `-` prefix.
 
-<figure><img src="../.gitbook/assets/code-review-panel-with-diffs.png" alt="Code Review panel showing file diffs between branches"><figcaption><p>Code Review panel showing diffs with additions highlighted in green.</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/code-review-panel-with-diffs.png" width="563" alt="Code Review panel showing file diffs between branches"><figcaption><p>Code Review panel showing diffs with additions highlighted in green.</p></figcaption></figure>
 
 ## 3. Review diffs by file
 
-Look at the changes in each file. With the Code Review panel, you can:
+With the Code Review panel, you can review changes file-by-file:
 
 * **Browse all changed files** using the file sidebar.
 * **Switch diff views** to compare against uncommitted changes or against `main`/`master` to see the full scope of what would land in a PR.
@@ -62,7 +62,7 @@ Look at the changes in each file. With the Code Review panel, you can:
 
 Focus on the areas where agents are most likely to make mistakes: imports, error handling, and anything that touches security or authentication.
 
-<figure><img src="../.gitbook/assets/code-review-file-sidebar.png" alt="Code Review panel with file navigation sidebar showing changed files"><figcaption><p>File sidebar lists all changed files with addition and deletion counts.</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/code-review-file-sidebar.png" width="563" alt="Code Review panel with file navigation sidebar showing changed files"><figcaption><p>File sidebar lists all changed files with addition and deletion counts.</p></figcaption></figure>
 
 ## 4. Leave inline comments on issues
 
@@ -107,6 +107,7 @@ If checks fail, you can either fix the issues manually in the Code Review panel 
 ## Next steps
 
 You now have a structured workflow for reviewing AI-generated code in Warp: visual diff review, inline comments that feed back to the agent, and batch feedback submission. This workflow works with any CLI coding agent: Claude Code, Codex, OpenCode, or Warp's built-in agent.
+
 Explore related guides and features:
 
 * [Set up Claude Code](../integrations/how-to-set-up-claude-code.md) or [Set up Codex CLI](../integrations/how-to-set-up-codex-cli.md) to start using third-party agents in Warp
@@ -114,4 +115,4 @@ Explore related guides and features:
 * [Claude Code in Warp](https://warp.dev/agents/claude-code) | [Codex in Warp](https://warp.dev/agents/codex) | [Gemini CLI in Warp](https://warp.dev/agents/gemini-cli) | [OpenCode in Warp](https://warp.dev/agents/opencode) — agent-specific overviews on the Warp marketing site
 * [Code Review panel](https://docs.warp.dev/warp/code/code-review) — full reference for all Code Review features
 * [Interactive Code Review](https://docs.warp.dev/agent-platform/local-agents/interactive-code-review) — detailed docs on inline comments and batch feedback
-* [Third-party CLI agents](https://docs.warp.dev/agent-platform/local-agents/third-party-cli-agents) — all supported agents and Warp's universal agent features <!-- TODO: Update to agent-platform/third-party-agents/ once HYC's pages from PR #761 are live -->
+* [Third-party CLI agents](https://docs.warp.dev/agent-platform/cli-agents/overview) — all supported agents and Warp's universal agent features
