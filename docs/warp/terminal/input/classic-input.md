@@ -9,9 +9,9 @@ description: >-
 
 Classic Input corresponds to the **Shell (PS1)** option under **Settings** > **Appearance** > **Input**. It provides a traditional terminal experience with support for shell customizations like PS1 prompts, oh-my-zsh themes, same-line prompts, and more.
 
-Warp's default input uses [Terminal and Agent modes](https://docs.warp.dev/agent-platform/local-agents/interacting-with-agents/terminal-and-agent-modes), which provide a clean terminal by default and a dedicated conversation view for agent interactions. Classic Input is an alternative for users who prefer a more traditional terminal.
+Warp's default input uses [Terminal and Agent modes](https://docs.warp.dev/agent-platform/warp-agents/interacting-with-agents/terminal-and-agent-modes), which provide a clean terminal by default and a dedicated conversation view for agent interactions. Classic Input is an alternative for users who prefer a more traditional terminal.
 
-[Agent Mode](https://docs.warp.dev/agent-platform/local-agents/interacting-with-agents) works in Classic Input with some minor differences from the default input.
+[Agent Mode](https://docs.warp.dev/agent-platform/warp-agents/interacting-with-agents) works in Classic Input with some minor differences from the default input.
 
 ## Features
 
@@ -122,4 +122,4 @@ Once a requested command is executed, you may click to expand the output and vie
 
 If a requested command fails, Oz detects it. Agent Mode is self-correcting. It will request another command until it completes the task for you.
 
-Warp lets you choose from a curated list of LLMs for use in Agent Mode. By default, Warp uses **Claude 4 Sonnet** for auto, but you can switch to other supported models. For all available models, please refer to [Model Choice](https://docs.warp.dev/agent-platform/capabilities/model-choice).
+Warp lets you choose from a curated list of LLMs for use in Agent Mode. By default, Warp uses **Claude 4 Sonnet** for auto, but you can switch to other supported models. For all available models, please refer to [Model Choice](https://docs.warp.dev/agent-platform/warp-agents/model-choice).

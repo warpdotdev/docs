@@ -15,7 +15,7 @@ You can attach a public URL to any prompt to provide page content as context. Wa
 * Only the specific URL you provide is processed. The agent won’t explore the site, follow links, or crawl beyond that page.
 
 {% hint style="info" %}
-**Important**: URL attachments are different from web search. If you need the agent to look something up, gather real-time information, or pull in multiple sources, use [Web Search](../../capabilities/web-search.md) instead.
+**Important**: URL attachments are different from web search. If you need the agent to look something up, gather real-time information, or pull in multiple sources, use [Web Search](.././web-search.md) instead.
 {% endhint %}
 
 <figure><img src="../../.gitbook/assets/url-as-context.png" alt=""><figcaption><p>Example of referencing docs via a URL</p></figcaption></figure>

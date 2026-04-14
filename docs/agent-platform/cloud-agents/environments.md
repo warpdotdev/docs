@@ -46,8 +46,8 @@ Configuring runtime settings:
 What an environment is not:
 
 * Host – Hosts determine where execution happens (Warp-hosted vs. self-hosted infrastructure).
-* [Agent Profile](../capabilities/agent-profiles-permissions.md) – Profiles control agent behavior like permissions, model choice, and defaults, not the runtime environment.
-* [Rules](../capabilities/rules.md) – Rules determine agent responses and decisions but don't define the container or toolchain.
+* [Agent Profile](../warp-agents/agent-profiles-permissions.md) – Profiles control agent behavior like permissions, model choice, and defaults, not the runtime environment.
+* [Rules](../warp-agents/rules.md) – Rules determine agent responses and decisions but don't define the container or toolchain.
 * [MCP Servers](mcp.md) – connect agents to external tools and data via MCP.
 * Per-run context – Trigger-specific data like Slack threads, PR metadata, or CI logs attach to individual tasks, not the environment configuration.
 

@@ -63,13 +63,13 @@ Because cloud agents run on the [Oz Platform](platform.md), each run is tracked 
 
 #### Codebase Context
 
-Cloud agent runs automatically benefit from [Codebase Context](../capabilities/codebase-context.md) for semantic code understanding and search, as long as Codebase Context is enabled for your account. See [Codebase Context in cloud agent runs](../capabilities/codebase-context.md#codebase-context-in-cloud-agent-runs) for details.
+Cloud agent runs automatically benefit from [Codebase Context](../warp-agents/codebase-context.md) for semantic code understanding and search, as long as Codebase Context is enabled for your account. See [Codebase Context in cloud agent runs](../warp-agents/codebase-context.md#codebase-context-in-cloud-agent-runs) for details.
 
 #### Observability and steerability
 
 Cloud agent tasks are designed to be inspectable by the team:
 
-* [Agent Session Sharing](../local-agents/session-sharing.md) lets authorized teammates attach to a running task to monitor progress and, where supported, steer the agent while it runs.
+* [Agent Session Sharing](../warp-agents/session-sharing.md) lets authorized teammates attach to a running task to monitor progress and, where supported, steer the agent while it runs.
 * Each run produces a session transcript and task metadata, which provides a record of what the agent did.
 * A [management experience](managing-cloud-agents.md) surfaces task status and history.
 
@@ -95,7 +95,7 @@ Cloud agents do not require the Warp desktop app. Teams can deploy and operate t
 
 * [Oz CLI](https://docs.warp.dev/reference/cli) — run agents from scripts, CI, or the terminal
 * [Oz web app](oz-web-app.md) — visual interface for managing runs, schedules, environments, and integrations (works on mobile)
-* [Agent Session Sharing](../local-agents/session-sharing.md) — attach to running tasks to monitor or steer
+* [Agent Session Sharing](../warp-agents/session-sharing.md) — attach to running tasks to monitor or steer
 * [Agent Management UX](managing-cloud-agents.md) — view agent activity and run history
 * [APIs and SDKs](https://docs.warp.dev/reference/api-and-sdk) — programmatic access for custom integrations
 

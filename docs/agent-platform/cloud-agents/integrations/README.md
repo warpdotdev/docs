@@ -44,7 +44,7 @@ You can run it inside any repo, or point it at multiple repos:
 ```
 
 {% hint style="info" %}
-Learn more about slash commands and how to use them in the [Slash Commands](../../capabilities/slash-commands.md) documentation.
+Learn more about slash commands and how to use them in the [Slash Commands](../../warp-agents/slash-commands.md) documentation.
 {% endhint %}
 
 The guided flow will:

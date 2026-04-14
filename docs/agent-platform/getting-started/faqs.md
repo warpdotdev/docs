@@ -22,7 +22,7 @@ Warp reserves the right to use data collected to train models and improve Warp. 
 
 ### What model are you using for Agent Mode?
 
-Warp supports a curated list of LLMs from providers like OpenAI, Anthropic, and Gemini. To view the full list of supported models and learn how to switch between them, visit the [Model Choice](../capabilities/model-choice.md) page.
+Warp supports a curated list of LLMs from providers like OpenAI, Anthropic, and Gemini. To view the full list of supported models and learn how to switch between them, visit the [Model Choice](../warp-agents/model-choice.md) page.
 
 ### Can I use my own LLM API key?
 
@@ -32,7 +32,7 @@ Warp supports [Bring Your Own Key (BYOK)](https://docs.warp.dev/support-and-comm
 
 Every Warp plan includes a set number of credits per user per month. Please refer to [pricing](https://www.warp.dev/pricing) to compare plans.
 
-Credit limits apply to Agent Mode, [Generate](../local-agents/generate.md), and [AI autofill in Workflows](https://docs.warp.dev/knowledge-and-collaboration/warp-drive/workflows#ai-autofill).
+Credit limits apply to Agent Mode, Generate (Legacy), and [AI autofill in Workflows](https://docs.warp.dev/knowledge-and-collaboration/warp-drive/workflows#ai-autofill).
 
 For questions around what counts as a credit, what counts as a token, and how often credits refresh, please refer to [Credits](https://docs.warp.dev/support-and-community/plans-and-billing/credits) and more on the [Plans & Pricing](https://docs.warp.dev/support-and-community/plans-and-billing/plans-and-pricing) page.
 

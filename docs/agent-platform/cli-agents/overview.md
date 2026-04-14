@@ -1,0 +1,64 @@
+---
+description: >-
+  Warp provides first-class support for third-party CLI coding agents with a
+  rich input editor, notifications, code review, and more.
+---
+
+# Third-Party CLI Agents
+
+Warp auto-detects supported CLI agents and enhances them with IDE-level features — a rich input editor, agent notifications, inline code review, remote session control, and more. Run your preferred coding agent inside Warp and get a better experience out of the box.
+
+This feature set is also known as **universal agent support**.
+
+## Supported agents
+
+Warp currently supports the following CLI coding agents:
+
+* [**Claude Code**](claude-code.md) — Anthropic's CLI coding agent
+* [**OpenAI Codex**](codex.md) — OpenAI's CLI coding agent
+* [**OpenCode**](opencode.md) — Open-source CLI coding agent
+* **Amp** — Sourcegraph's CLI coding agent
+* **Auggie** — Augment Code's CLI coding agent
+* **Gemini CLI** — Google's CLI coding agent
+* **Droid** — Factory's CLI coding agent
+* **Pi** — Open-source CLI coding agent
+
+When you launch a supported agent inside Warp, the **agent toolbelt** appears automatically, giving you quick access to Warp's enhanced features.
+
+<figure><img src="../.gitbook/assets/cli-agent-toolbelt.png" alt="The agent toolbelt appearing at the bottom of the pane when a supported CLI agent is running in Warp"><figcaption><p>The agent toolbelt appears automatically when a supported CLI agent is running</p></figcaption></figure>
+
+## Feature support
+
+Not every feature is available for every agent. The table below shows current support.
+
+| Feature&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Claude Code | Codex | OpenCode | Amp | Auggie | Gemini CLI | Droid | Pi |
+|---|---|---|---|---|---|---|---|---|
+| Rich input editor (`Ctrl-G`) | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Agent notifications | ✓ | ✓ | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Code review comments | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Attach code as context | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Vertical tabs + metadata | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Tab Configs | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Remote Control | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+
+{% hint style="info" %}
+Agent notifications require a one-time setup. Claude Code and OpenCode use a Warp notification plugin. Codex uses a native config change. See the individual agent pages for setup instructions. Amp, Auggie, Gemini CLI, Droid, and Pi don't support notifications yet.
+{% endhint %}
+
+## Getting started
+
+Run a supported agent inside Warp — that's it. Warp detects the agent automatically and activates the agent toolbelt with all available features.
+
+For **agent notifications**, each agent requires a one-time setup — either a notification plugin or a config change. See the individual agent pages for instructions.
+
+{% hint style="info" %}
+If you don't see the agent toolbelt, make sure you're on the latest version of Warp.
+{% endhint %}
+
+***
+
+## Related pages
+
+* [Agent Notifications](../warp-agents/agent-notifications.md)
+* [Tabs](../../warp/terminal/windows/tabs.md)
+* [Tab Configs](../../warp/terminal/windows/tab-configs.md)

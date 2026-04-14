@@ -6,7 +6,7 @@ description: >-
 
 # Command Search
 
-The Command Search panel provides unified search across all your terminal inputs, saved commands, and [Terminal and Agent modes](https://docs.warp.dev/agent-platform/local-agents/interacting-with-agents/terminal-and-agent-modes) conversation history. Use it to quickly find and reuse commands, workflows, or past agent interactions.
+The Command Search panel provides unified search across all your terminal inputs, saved commands, and [Terminal and Agent modes](https://docs.warp.dev/agent-platform/warp-agents/interacting-with-agents/terminal-and-agent-modes) conversation history. Use it to quickly find and reuse commands, workflows, or past agent interactions.
 
 ![Command Search Panel](../../.gitbook/assets/command-search-panel.png)
 
@@ -24,7 +24,7 @@ Tailor your Command Search experience by toggling off "Show Global Workflows" in
 
 You can filter your search results by prepending your search term with any of the following:
 
-<table><thead><tr><th width="215.78436279296875">Filter</th><th>Shortcuts</th></tr></thead><tbody><tr><td>Command History</td><td><code>history:</code>, <code>h:</code>, or <code>H-TAB</code></td></tr><tr><td>Prompts</td><td><code>prompts:</code>, <code>p:</code>, or <code>P-TAB</code></td></tr><tr><td><a href="https://docs.warp.dev/agent-platform/local-agents/interacting-with-agents">Agent Mode</a> History</td><td><code>ai_history:</code>, <code>a:</code>, or <code>A-TAB</code></td></tr></tbody></table>
+<table><thead><tr><th width="215.78436279296875">Filter</th><th>Shortcuts</th></tr></thead><tbody><tr><td>Command History</td><td><code>history:</code>, <code>h:</code>, or <code>H-TAB</code></td></tr><tr><td>Prompts</td><td><code>prompts:</code>, <code>p:</code>, or <code>P-TAB</code></td></tr><tr><td><a href="https://docs.warp.dev/agent-platform/warp-agents/interacting-with-agents">Agent Mode</a> History</td><td><code>ai_history:</code>, <code>a:</code>, or <code>A-TAB</code></td></tr></tbody></table>
 
 {% hint style="info" %}
 When a filter is activated, it will be bolded and italicized in the search panel.

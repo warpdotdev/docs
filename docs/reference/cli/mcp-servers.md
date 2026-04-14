@@ -6,7 +6,7 @@ description: >-
 
 # MCP servers
 
-MCP servers connect agents to external systems like GitHub, Linear, or Sentry. To use a [Model Context Protocol (MCP)](https://docs.warp.dev/agent-platform/capabilities/mcp) server from the CLI, use the `--mcp` flag with `oz agent run` or `oz agent run-cloud`.
+MCP servers connect agents to external systems like GitHub, Linear, or Sentry. To use a [Model Context Protocol (MCP)](https://docs.warp.dev/agent-platform/warp-agents/mcp) server from the CLI, use the `--mcp` flag with `oz agent run` or `oz agent run-cloud`.
 
 For a conceptual overview of MCP with cloud agents — including configuration schema, full agent config examples, and limitations — see [MCP Servers](https://docs.warp.dev/agent-platform/cloud-agents/mcp) in the Cloud Agents docs.
 
@@ -106,5 +106,5 @@ For cloud agent workflows, use [Oz-managed secrets](https://docs.warp.dev/agent-
 ## Learn more
 
 * [MCP Servers (cloud agents)](https://docs.warp.dev/agent-platform/cloud-agents/mcp) — configuration schema, full agent config file examples, and cloud agent limitations
-* [Model Context Protocol (MCP)](https://docs.warp.dev/agent-platform/capabilities/mcp) — configuring MCP servers in Warp for local agents
+* [Model Context Protocol (MCP)](https://docs.warp.dev/agent-platform/warp-agents/mcp) — configuring MCP servers in Warp for local agents
 * [Secrets](https://docs.warp.dev/agent-platform/cloud-agents/secrets) — store credentials in Warp so agents can access them at run time without exposing them in config files

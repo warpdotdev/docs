@@ -82,7 +82,7 @@ Agent controls appear only when you're in a conversation, keeping your terminal 
 In the previous UI, agent controls were always present. With Terminal and Agent modes, these controls are hidden by default and appear **once you enter an agent conversation.**
 
 {% hint style="info" %}
-Agent conversation views are identified with an alternative background color and the input tool belt showing model selector, voice input, and image attachment buttons.
+Agent conversation views are identified with an alternative background color and the input toolbelt showing model selector, voice input, and image attachment buttons.
 {% endhint %}
 
 **Block origin and visibility**
@@ -215,7 +215,7 @@ Press `↑` (up arrow) to open an inline history menu. The menu contents vary by
 
 #### E) Click an active AI suggestion
 
-When [Active AI](../active-ai.md) (suggested prompts) is enabled, Warp displays contextual prompt suggestions based on your recent activity. Clicking any of these suggestions opens the agent conversation view and sends that prompt immediately.
+When [Active AI Recommendations](../active-ai.md) is enabled, Warp displays contextual prompt suggestions based on your recent activity. Clicking any of these suggestions opens the agent conversation view and sends that prompt immediately.
 
 ***
 
@@ -229,7 +229,7 @@ Warp includes a **Conversation Panel** for browsing and managing your agent conv
 
 <figure><img src="../../.gitbook/assets/slash-commands-agent-modality.png" alt=""><figcaption></figcaption></figure>
 
-While you're in an agent conversation, you can access Warp's [slash commands](../../capabilities/slash-commands.md) any time by typing `/` in the input.
+While you're in an agent conversation, you can access Warp's [slash commands](.././slash-commands.md) any time by typing `/` in the input.
 
 * Type `/` to open the command menu
 * Keep typing to filter commands (for example: `/conversations`, `/compact`)
@@ -259,7 +259,7 @@ Slash commands aren't just for agent conversations. You can also type `/` in ter
 Agent conversations expose the full set of slash commands (including `/fork`, `/compact`, and `/model`). Terminal mode exposes a reduced set focused on quick actions.
 {% endhint %}
 
-For the complete list of available slash commands, see [Slash Commands](../../capabilities/slash-commands.md).
+For the complete list of available slash commands, see [Slash Commands](.././slash-commands.md).
 
 ### Forking conversations
 

@@ -6,7 +6,7 @@ description: >-
 
 # MCP Servers
 
-Cloud agents can call external tools through [Model Context Protocol (MCP) servers](https://docs.warp.dev/agent-platform/capabilities/mcp). This lets agents reach beyond the terminal to automatically interact with systems like GitHub, dbt, Sentry, or any custom internal service, whenever the workflow requires it.
+Cloud agents can call external tools through [Model Context Protocol (MCP) servers](https://docs.warp.dev/agent-platform/warp-agents/mcp). This lets agents reach beyond the terminal to automatically interact with systems like GitHub, dbt, Sentry, or any custom internal service, whenever the workflow requires it.
 
 ## When to use MCP servers
 
@@ -114,6 +114,6 @@ As a workaround, you can pass Figma mockups as **image context** to the agent, w
 ## Learn more
 
 * [MCP Servers (CLI reference)](https://docs.warp.dev/reference/cli/mcp-servers) — how to pass MCP configuration using the `--mcp` flag
-* [Model Context Protocol (MCP)](https://docs.warp.dev/agent-platform/capabilities/mcp) — configuring MCP servers in Warp for local agents
+* [Model Context Protocol (MCP)](https://docs.warp.dev/agent-platform/warp-agents/mcp) — configuring MCP servers in Warp for local agents
 * [Environments](environments.md) — set up the runtime context (repo, image, startup commands) for cloud agent tasks
 * [Secrets](secrets.md) — store and inject credentials into agent runs safely

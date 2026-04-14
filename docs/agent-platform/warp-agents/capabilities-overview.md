@@ -4,7 +4,7 @@ description: >-
   what context they have access to, and how they execute tasks.
 ---
 
-# Capabilities Overview
+# Capabilities
 
 These capabilities are the foundational building blocks that define how agents operate. These include the context sources agents can access, the rules that guide their behavior, and the tools they can use.
 
@@ -18,7 +18,8 @@ Understanding these capabilities helps you get the most out of agents by configu
 * [Task Lists](task-lists.md) - Track complex workflows with automatic task lists that update progress in real time.
 * [Model Choice](model-choice.md) - Pick your preferred LLM from a curated set of top models, or let Warp choose the optimal one.
 * [Rules](rules.md) - Define global and project-level guidelines that shape agent behavior and responses.
-* [Full Terminal Use](full-terminal-use.md) - Let the agent drive interactive terminal apps, seeing live output and running commands.
+* [Agent Notifications](agent-notifications.md) - Receive in-app and desktop alerts when agents need your attention, finish tasks, or encounter errors.
+* [Full Terminal Use](full-terminal-use.md)
 * [Computer Use](computer-use.md) - Let agents interact with desktop environments by taking screenshots, clicking, typing, and controlling the GUI.
 * [MCP](mcp.md) - Connect external data sources and tools to Warp's agents via the Model Context Protocol.
 * [Codebase Context](codebase-context.md) - Let agents understand your codebase through semantic indexing of your Git-tracked files.
@@ -27,4 +28,4 @@ Understanding these capabilities helps you get the most out of agents by configu
 
 ## Related
 
-For hands-on agent interactions, see [Local Agents](../local-agents/overview.md).
+For hands-on agent interactions, see [Warp's Agent](README.md).

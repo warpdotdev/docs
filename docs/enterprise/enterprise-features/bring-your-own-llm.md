@@ -54,7 +54,7 @@ BYOLLM supports the intersection of models that Warp supports and models availab
 
 To determine which models you can use with BYOLLM:
 
-* [Model Choice](https://docs.warp.dev/agent-platform/capabilities/model-choice) - Full list of Warp-supported models.
+* [Model Choice](https://docs.warp.dev/agent-platform/warp-agents/model-choice) - Full list of Warp-supported models.
 * [Supported models in Amazon Bedrock](https://docs.aws.amazon.com/bedrock/latest/userguide/models-supported.html) - AWS Bedrock model availability.
 
 A model must appear on both lists to be available through BYOLLM.
@@ -223,6 +223,6 @@ Yes. Admins can configure routing policies to require specific models to use BYO
 ## Related resources
 
 * [Bring Your Own API Key](https://docs.warp.dev/support-and-community/plans-and-billing/bring-your-own-api-key)
-* [Model Choice](https://docs.warp.dev/agent-platform/capabilities/model-choice) — Full list of supported models
+* [Model Choice](https://docs.warp.dev/agent-platform/warp-agents/model-choice) — Full list of supported models
 * [Admin Panel](../team-management/admin-panel.md) — Configure team settings
 * [Contact Sales](https://warp.dev/contact-sales) — Get help with enterprise setup

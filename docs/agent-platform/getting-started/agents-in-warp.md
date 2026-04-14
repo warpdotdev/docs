@@ -21,7 +21,7 @@ Oz agents understand your codebase and can execute tasks autonomously while keep
 * **Run commands** - Execute shell commands and use the output to guide next steps
 * **Recover from errors** - Automatically retry failed operations with adjustments
 * **Learn tools** - Integrate with any CLI tool by reading its `--help` or public documentation
-* **Use your context** - Leverage [Warp Drive](https://docs.warp.dev/knowledge-and-collaboration/warp-drive), [MCP servers](../capabilities/mcp.md), [Rules](../capabilities/rules.md), and [codebase indexing](../capabilities/codebase-context.md) for tailored responses
+* **Use your context** - Leverage [Warp Drive](https://docs.warp.dev/knowledge-and-collaboration/warp-drive), [MCP servers](../warp-agents/mcp.md), [Rules](../warp-agents/rules.md), and [codebase indexing](../warp-agents/codebase-context.md) for tailored responses
 
 **Try this prompt** — [_open in Warp_](https://app.warp.dev/drive/prompt/Clone-and-install-Warps-themes-repository-PkK9Zw16SCD3JKzOUoGuj4)
 
@@ -65,7 +65,7 @@ Common profile patterns:
 * **YOLO mode** - Loose permissions for personal projects where you want the agent to move fast
 * **Prod mode** - Restrictive permissions ("Always Ask") for high-risk environments like production servers
 
-For more details, see [Agent Profiles & Permissions](../capabilities/agent-profiles-permissions.md).
+For more details, see [Agent Profiles & Permissions](../warp-agents/agent-profiles-permissions.md).
 
 ***
 
@@ -75,7 +75,7 @@ You can run multiple Oz agents simultaneously in Warp. All active agents—both 
 
 Agents notify you when they need input, such as permission to run a command or approval to apply a code diff. This lets you focus on other work, knowing you'll be alerted when your attention is required.
 
-To access conversations across devices, share them with teammates, or restore past conversations, enable [cloud-synced conversations](../local-agents/cloud-conversations.md).
+To access conversations across devices, share them with teammates, or restore past conversations, enable [cloud-synced conversations](../warp-agents/cloud-conversations.md).
 
 ***
 
@@ -83,11 +83,19 @@ To access conversations across devices, share them with teammates, or restore pa
 
 Oz agents work best when they understand your codebase and workflows. Warp provides several ways to give agents the context they need:
 
-* [**Codebase Context**](../capabilities/codebase-context.md) - Warp indexes your Git-tracked files so agents can search and understand your code
-* [**Rules**](../capabilities/rules.md) - Define global and project-level guidelines that shape agent behavior
-* [**Skills**](../capabilities/skills.md) - Reusable instructions that teach agents how to perform specific tasks
-* [**MCP Servers**](../capabilities/mcp.md) - Connect external tools and data sources (GitHub, Linear, databases) to your agents
+* [**Codebase Context**](../warp-agents/codebase-context.md) - Warp indexes your Git-tracked files so agents can search and understand your code
+* [**Rules**](../warp-agents/rules.md) - Define global and project-level guidelines that shape agent behavior
+* [**Skills**](../warp-agents/skills.md) - Reusable instructions that teach agents how to perform specific tasks
+* [**MCP Servers**](../warp-agents/mcp.md) - Connect external tools and data sources (GitHub, Linear, databases) to your agents
 * [**Warp Drive**](https://docs.warp.dev/knowledge-and-collaboration/warp-drive) - Save prompts, workflows, and notebooks that agents can reference
+
+***
+
+## Third-Party CLI Agents
+
+In addition to Warp's built-in Oz agent, Warp provides first-class support for third-party CLI coding agents like Claude Code, Codex, and OpenCode. Run any supported agent inside Warp and get rich input, code review, agent notifications, vertical tabs with agent metadata, and more.
+
+→ [Learn about Third-Party CLI Agents](../cli-agents/overview.md)
 
 ***
 
@@ -109,7 +117,7 @@ Cloud agents are ideal for work that doesn't need your immediate attention—PR 
 ## Resources
 
 * [**Oz web app**](https://oz.warp.dev) - Create runs, manage schedules, browse skills, and configure integrations
-* [**Local Agents Overview**](../local-agents/overview.md) - Detailed guide to working with agents in Warp
-* [**Capabilities**](../capabilities/README.md) - All agent capabilities: planning, task lists, model choice, and more
+* [**Local Agents Overview**](../warp-agents/README.md) - Detailed guide to working with agents in Warp
+* [**Capabilities**](../warp-agents/capabilities-overview.md) - All agent capabilities: planning, task lists, model choice, and more
 * [**Oz CLI**](https://docs.warp.dev/reference/cli) - Run agents from the command line
 * [**Oz API & SDK**](https://docs.warp.dev/reference/api-and-sdk/agent) - Programmatic access to agent runs

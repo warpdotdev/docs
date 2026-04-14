@@ -138,5 +138,5 @@ Computer Use can also help with general web tasks:
 
 ## Related capabilities
 
-* [Images as Context](../local-agents/agent-context/images-as-context.md) - Pass design mockups and screenshots as context
+* [Images as Context](agent-context/images-as-context.md) - Pass design mockups and screenshots as context
 * [Full Terminal Use](full-terminal-use.md) - Let agents drive interactive terminal apps, see live output, and run commands

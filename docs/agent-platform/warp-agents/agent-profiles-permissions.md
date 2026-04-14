@@ -89,7 +89,7 @@ In this settings menu, you can configure which MCP servers the Agent is allowed 
 <figure><img src="../.gitbook/assets/MCP_servers_agent_permissions.png" alt=""><figcaption><p>Customize how the Agent interacts with MCP servers by choosing between “Agent decides,” allowlist, or denylist settings.</p></figcaption></figure>
 
 {% hint style="info" %}
-To learn how to build and configure your own MCP server, check out the [MCP feature docs](https://docs.warp.dev/agent-platform/capabilities/mcp).
+To learn how to build and configure your own MCP server, check out the [MCP feature docs](https://docs.warp.dev/agent-platform/warp-agents/mcp).
 {% endhint %}
 
 ## Run until completion

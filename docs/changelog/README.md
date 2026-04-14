@@ -31,7 +31,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 * Released a revamped notifications UI, and support for notifications for Claude Code and OpenCode.
 * New Composer available in third-party CLI agents (e.g. Claude Code, Codex, Gemini CLI, OpenCode, etc.). This allows you to use Warp's rich input features with these coding agents.
-* Added support for the coding agent toolbar for auggie and pie.
+* Added support for the agent toolbelt for auggie and pie.
 * Added a settings entry for the ask question tool to configure when it pauses for user input.
 
 **Improvements**
@@ -127,11 +127,11 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 * Add a `/changelog` command for reopening the latest changelog, and keep the update toast visible until dismissed.
 * Added syntax highlighting for Dockerfiles in the file editor.
 * Added a setting to hide agent-executed commands from shell history, now enabled by default.
-* MCP servers detected from third-party agents (Claude, Codex) are now visible and spawnable from the MCP servers page in Warp's AI settings. For more, see our [docs](https://docs.warp.dev/agent-platform/capabilities/mcp#file-based-mcp-servers) on file-based MCP servers.
+* MCP servers detected from third-party agents (Claude, Codex) are now visible and spawnable from the MCP servers page in Warp's AI settings. For more, see our [docs](https://docs.warp.dev/agent-platform/warp-agents/mcp#file-based-mcp-servers) on file-based MCP servers.
 
 **Bug fixes**
 
-* Fixed visual jitter in CLI agent toolbar when opening the rich input composer.
+* Fixed visual jitter in agent toolbelt when opening the rich input composer.
 * Clarified the `/fork` slash command description.
 * MCP resource reads now respect autonomy settings instead of always prompting for approval.
 * You now get completions, syntax highlighting, and hover descriptions when your flag/value pairs are `=`-separated, e.g. `--flag=value`.
@@ -152,7 +152,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 **New features**
 
-* Warp now automatically detects global and project-scoped MCP servers configured with `claude` or `codex`. Toggle **File-based MCP servers** in **Settings** > **AI** to auto-spawn servers based on your local configuration. See [docs](https://docs.warp.dev/agent-platform/capabilities/mcp#file-based-mcp-servers) for more.
+* Warp now automatically detects global and project-scoped MCP servers configured with `claude` or `codex`. Toggle **File-based MCP servers** in **Settings** > **AI** to auto-spawn servers based on your local configuration. See [docs](https://docs.warp.dev/agent-platform/warp-agents/mcp#file-based-mcp-servers) for more.
 * Added Go to Line dialog in the code editor (`CTRL-G`) with line:column support.
 
 **Improvements**
@@ -346,8 +346,8 @@ Oz is Warp's orchestration platform for cloud agents: launch parallel agents, au
 
 #### Agent Capabilities
 
-* **Skills** — reusable instruction sets that agents auto-discover from your project or home directory. Invoke with `/{skill-name}` or run as scheduled cloud agents for repeatable automation. [Skills docs →](https://docs.warp.dev/agent-platform/capabilities/skills)
-* **Computer Use** — agents can interact with desktop environments in sandboxed cloud containers—take screenshots, click, type, and test UI changes. [Computer Use docs →](https://docs.warp.dev/agent-platform/capabilities/computer-use)
+* **Skills** — reusable instruction sets that agents auto-discover from your project or home directory. Invoke with `/{skill-name}` or run as scheduled cloud agents for repeatable automation. [Skills docs →](https://docs.warp.dev/agent-platform/warp-agents/skills)
+* **Computer Use** — agents can interact with desktop environments in sandboxed cloud containers—take screenshots, click, type, and test UI changes. [Computer Use docs →](https://docs.warp.dev/agent-platform/warp-agents/computer-use)
 
 ### 2026.02.04 (v0.2026.02.04.08.20)
 
@@ -526,11 +526,11 @@ Oz is Warp's orchestration platform for cloud agents: launch parallel agents, au
 
 **New features**
 
-* [Full Terminal Use](https://docs.warp.dev/agent-platform/capabilities/full-terminal-use): Let the agent use the terminal as you would: interact with REPLs, debuggers, and full-screen apps like `top`. Warp is the only product on the market with Full Terminal Use capabilities.
-* [`/plan`](https://docs.warp.dev/agent-platform/capabilities/planning): do spec-driven development in Warp. Work with an agent to align on an implementation plan that can be saved, versioned, and even attached to a PR for teammates.
-* [Interactive Code Review](https://docs.warp.dev/agent-platform/local-agents/interactive-code-review): Review an agent's code like you would a teammate's, directly in Warp, and ask the agent to address the comments.
+* [Full Terminal Use](https://docs.warp.dev/agent-platform/warp-agents/full-terminal-use): Let the agent use the terminal as you would: interact with REPLs, debuggers, and full-screen apps like `top`. Warp is the only product on the market with Full Terminal Use capabilities.
+* [`/plan`](https://docs.warp.dev/agent-platform/warp-agents/planning): do spec-driven development in Warp. Work with an agent to align on an implementation plan that can be saved, versioned, and even attached to a PR for teammates.
+* [Interactive Code Review](https://docs.warp.dev/agent-platform/warp-agents/interactive-code-review): Review an agent's code like you would a teammate's, directly in Warp, and ask the agent to address the comments.
 * [Slack and Linear integrations](https://docs.warp.dev/agent-platform/cloud-agents/integrations):\*\* Ask the agent to get to work from the tools you already use, track their progress, and take the wheel via live session sharing.
-* Warp's Agents can now [search the web](https://docs.warp.dev/agent-platform/capabilities/web-search) to retrieve information, when relevant. This capability is configurable via Agent Profiles.
+* Warp's Agents can now [search the web](https://docs.warp.dev/agent-platform/warp-agents/web-search) to retrieve information, when relevant. This capability is configurable via Agent Profiles.
 
 ### 2025.11.12 (v0.2025.11.12.08.12)
 
@@ -727,7 +727,7 @@ Oz is Warp's orchestration platform for cloud agents: launch parallel agents, au
 
 **New Features**
 
-* [Agent Profiles](https://docs.warp.dev/agent-platform/capabilities/agent-profiles-permissions#agent-profiles): define how your agent operates.
+* [Agent Profiles](https://docs.warp.dev/agent-platform/warp-agents/agent-profiles-permissions#agent-profiles): define how your agent operates.
 * New pane to view changes to a Git repository.
 * Files now open in a tabbed viewer.
 * Syntax highlighting for Scala files in Warp.
@@ -740,7 +740,7 @@ Oz is Warp's orchestration platform for cloud agents: launch parallel agents, au
 
 **New features**
 
-* [Suggested Code Diffs](https://docs.warp.dev/agent-platform/local-agents/active-ai#suggested-code-diffs) - Warp now intelligently suggests the appropriate fixes for any simple errors encountered in the command line e.g. compiler errors. Head to `Settings > Active AI` to toggle this feature.
+* [Suggested Code Diffs](https://docs.warp.dev/agent-platform/warp-agents/active-ai#suggested-code-diffs) - Warp now intelligently suggests the appropriate fixes for any simple errors encountered in the command line e.g. compiler errors. Head to `Settings > Active AI` to toggle this feature.
 
 **Improvements**
 
@@ -762,9 +762,9 @@ Oz is Warp's orchestration platform for cloud agents: launch parallel agents, au
 **New Features**
 
 * Agent Mode now displays interactive code blocks when referencing snippets from your codebase. You can easily copy the snippet, add the snippet as Agent Mode context, or open the file in Warp's built-in editor.
-* Agent Mode now creates and tracks task lists for more complex workflows. See [Agent Task Lists](https://docs.warp.dev/agent-platform/capabilities/task-lists).
+* Agent Mode now creates and tracks task lists for more complex workflows. See [Agent Task Lists](https://docs.warp.dev/agent-platform/warp-agents/task-lists).
 * Added support for defining project-scoped rules with a WARP.md file. See [Rules](https://docs.warp.dev/knowledge-and-collaboration/rules#project-scoped-rules).
-* Added Slash Commands (/) in Agent Mode or Auto-Detection Mode to quickly run built-in actions or saved prompts without leaving the input field. See [Slash Commands](https://docs.warp.dev/agent-platform/capabilities/slash-commands).
+* Added Slash Commands (/) in Agent Mode or Auto-Detection Mode to quickly run built-in actions or saved prompts without leaving the input field. See [Slash Commands](https://docs.warp.dev/agent-platform/warp-agents/slash-commands).
 
 **Improvements**
 
@@ -1221,7 +1221,7 @@ All of this comes with higher AI usage limits on our Pro and Turbo plans, plus n
 **New features**
 
 * Warp is now available for Windows! See our [Quickstart Guide](https://docs.warp.dev/getting-started/quickstart/installation-and-setup#windows)
-* Prompt, plan, and execute fully autonomous tasks from [Agent Mode with Dispatch](https://docs.warp.dev/agent-platform/local-agents/interacting-with-agents) (Beta)
+* Prompt, plan, and execute fully autonomous tasks from [Agent Mode with Dispatch](https://docs.warp.dev/agent-platform/warp-agents/interacting-with-agents) (Beta)
 * Add codebase context support to Agent Mode. Currently enabled for Git repositories only.
 * \[macOS] You can now customize your [App Icon](https://docs.warp.dev/terminal/appearance/app-icons) in `Settings > Appearance > Icon`.
 * Create and store [Rules](https://docs.warp.dev/knowledge-and-collaboration/rules) to use as Agent Mode context.

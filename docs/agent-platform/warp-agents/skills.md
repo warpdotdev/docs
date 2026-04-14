@@ -20,7 +20,7 @@ Skills allow you to create reusable, shareable instructions that agents can invo
 
 ## How Skills work
 
-When you start an [Agent conversation](../local-agents/interacting-with-agents/README.md), the Agent receives a list of all available skills with their names and descriptions.
+When you start an [Agent conversation](interacting-with-agents/README.md), the Agent receives a list of all available skills with their names and descriptions.
 
 When the Agent determines that a skill would help accomplish your task, it loads the skill's full instructions and follows them to complete the task.
 

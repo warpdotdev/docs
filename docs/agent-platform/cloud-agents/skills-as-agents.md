@@ -6,7 +6,7 @@ description: >-
 
 # Skills as Agents
 
-You can start an agent from a [skill](../capabilities/skills.md)—a reusable set of instructions that defines what the agent should do. When you run an agent based on a skill, the skill provides the base prompt and behavior, while you supply additional context for that specific run.
+You can start an agent from a [skill](../warp-agents/skills.md)—a reusable set of instructions that defines what the agent should do. When you run an agent based on a skill, the skill provides the base prompt and behavior, while you supply additional context for that specific run.
 
 Skills work with both **local agents** (running on your machine) and **cloud agents** (running in Warp's infrastructure).
 
@@ -45,7 +45,7 @@ For cloud agent runs (`oz agent run-cloud`), skills are discovered from reposito
 
 **Discovery workflow:**
 
-1. **Create a skill** in your repository (see [Creating skills](../capabilities/skills.md#creating-skills))
+1. **Create a skill** in your repository (see [Creating skills](../warp-agents/skills.md#creating-skills))
 2. **Add the repository** to an environment
 3. **The skill appears** in the Agents list in the Oz web app
 
@@ -140,7 +140,7 @@ Suggested skills appear on the Agents page under the **Suggested** filter.
 
 ## Related resources
 
-* [Skills](../capabilities/skills.md) — How to create skills and skill file format
+* [Skills](../warp-agents/skills.md) — How to create skills and skill file format
 * [Environments](environments.md) — Configure repositories and runtime context for cloud agents
 * [Scheduled Agents](triggers/scheduled-agents.md) — Run agents automatically on a cron schedule
 * [Oz Web App](oz-web-app.md) — Visual interface for managing cloud agents

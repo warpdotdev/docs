@@ -44,7 +44,7 @@ In practice: **triggers create tasks; tasks execute on a host (optionally in an 
 
 ### Oz CLI
 
-The [Oz CLI](https://docs.warp.dev/reference/cli) is the **headless interface** for running Oz agents in non-interactive mode. It's commonly used in CI, scripts, and server environments where there is no interactive UI. For interactive workflows, use the [agent](../local-agents/overview.md) embedded in Warp's desktop app.
+The [Oz CLI](https://docs.warp.dev/reference/cli) is the **headless interface** for running Oz agents in non-interactive mode. It's commonly used in CI, scripts, and server environments where there is no interactive UI. For interactive workflows, use the [agent](../warp-agents/README.md) embedded in Warp's desktop app.
 
 A key property of the CLI is that it is **cloud-connected**. Even when an agent is started on a local machine or in CI, it reports progress to Warp’s servers. This enables team visibility, session sharing (where supported), and programmatic tracking through the API.
 
@@ -255,7 +255,7 @@ While a task is executing, the agent reports progress and status back to Warp. A
 Warp provides multiple surfaces for observability:
 
 * [Management UI](managing-cloud-agents.md): lists tasks, status, timing, metadata, and history.
-* [Agent Session Sharing](../local-agents/session-sharing.md): authorized teammates can attach to a running task to monitor and, where supported, steer it.
+* [Agent Session Sharing](../warp-agents/session-sharing.md): authorized teammates can attach to a running task to monitor and, where supported, steer it.
 * [APIs](https://docs.warp.dev/reference/api-and-sdk/agent) and SDKs: query task history, build monitoring, and generate reports.
 
 #### Access control
@@ -270,7 +270,7 @@ Warp provides multiple surfaces for observability:
 Cloud agent setups often include shared configuration such as:
 
 * [MCP Servers](mcp.md)
-* [rules / guardrails](../capabilities/rules.md)
+* [rules / guardrails](../warp-agents/rules.md)
 * [saved prompts](https://docs.warp.dev/knowledge-and-collaboration/warp-drive/prompts)
 * [environment variables](https://docs.warp.dev/knowledge-and-collaboration/warp-drive/environment-variables)
 * [secrets](secrets.md)
@@ -285,7 +285,7 @@ This is especially useful when the same workflow can be triggered from multiple 
 
 * [Oz CLI](https://docs.warp.dev/reference/cli) — run agents from scripts, CI, or the terminal
 * [Oz web app](oz-web-app.md) — visual interface at [oz.warp.dev](https://oz.warp.dev) for managing runs, schedules, environments, and integrations (works on mobile)
-* [Session sharing](../local-agents/session-sharing.md) — attach to running tasks to monitor or steer
+* [Session sharing](../warp-agents/session-sharing.md) — attach to running tasks to monitor or steer
 * [Management UI](managing-cloud-agents.md) — view agent activity and run history
 * [APIs and SDKs](https://docs.warp.dev/reference/api-and-sdk) — programmatic access for custom integrations
 

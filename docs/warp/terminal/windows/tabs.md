@@ -4,7 +4,7 @@ description: >-
   complete with titles and ANSI colors.
 ---
 
-# Terminal tabs
+# Tabs
 
 {% hint style="info" %}
 New Tabs will default to the active Tabs’ current [Working Directory](../more-features/working-directory.md) and the actual color values will be automatically derived from your Warp [Theme](../appearance/themes.md).

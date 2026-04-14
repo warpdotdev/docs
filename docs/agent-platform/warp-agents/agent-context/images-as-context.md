@@ -33,7 +33,7 @@ You can attach up to **5 images per request**, and up to **20 images across a si
 
 ### Model behavior and image handling
 
-All supported models listed in [Model Choice](../../capabilities/model-choice.md) can interpret image input.
+All supported models listed in [Model Choice](.././model-choice.md) can interpret image input.
 
 Attaching images will consume additional requests, proportional to the number of images added. To stay within model limits, Warp will intelligently resize images before passing them as context, minimizing token usage and respecting the model's maximum image dimensions.
 

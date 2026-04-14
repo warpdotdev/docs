@@ -18,10 +18,10 @@ Warp is where you work — a fast, modern terminal built for coding with agents.
 
 **Key capabilities:**
 
-* [**Terminal and Agent modes**](https://docs.warp.dev/agent-platform/local-agents/interacting-with-agents/terminal-and-agent-modes): Switch between a clean terminal for commands and a dedicated conversation view for multi-turn agent workflows.
+* [**Terminal and Agent modes**](https://docs.warp.dev/agent-platform/warp-agents/interacting-with-agents/terminal-and-agent-modes): Switch between a clean terminal for commands and a dedicated conversation view for multi-turn agent workflows.
 * [**Modern terminal UX**](terminal/editor/): Cursor movement, block-based navigation, multi-line editing, syntax highlighting, and rich completions. Built with Rust for high performance.
 * [**Code editor**](code/overview.md): File tree, code editor with LSP support, and interactive code review experience.
-* [**Coding agent integrations**](https://docs.warp.dev/agent-platform/local-agents/third-party-cli-agents): Features like voice input, and @-selection for working with terminal based images. Compatible with Oz or agents like Claude Code and Codex.
+* [**Third-Party CLI Agents**](https://docs.warp.dev/agent-platform/cli-agents/): Run third-party CLI agents like Claude Code, Codex, and OpenCode with Warp's agent toolbelt — rich input, code review, notifications, and more.
 
 {% embed url="https://www.youtube.com/watch?v=xhkoXsE9Wqc" %}
 Deep dive into Warp's core features
@@ -46,7 +46,7 @@ Run directly in the Warp app for real-time, interactive coding assistance.
 
 Local agents keep you in control. You can review changes, steer the agent mid-task, and approve actions before they execute.
 
-→ [Get started with local agents](https://docs.warp.dev/agent-platform/local-agents/overview)
+→ [Get started with local agents](https://docs.warp.dev/agent-platform/warp-agents)
 
 ### Cloud agents
 
@@ -69,14 +69,14 @@ Warp and Oz provide a unified experience across local and cloud development:
 
 * **Same agent, anywhere**: Whether you're working interactively in Warp or running agents in the cloud, you're using the same underlying agent capabilities.
 * **Seamless handoff**: Start a task in the cloud and take over locally in Warp when you want hands-on control, without losing progress or context.
-* **Shared context**: [Warp Drive](knowledge-and-collaboration/warp-drive/), [Rules](https://docs.warp.dev/agent-platform/capabilities/rules), and [MCP servers](https://docs.warp.dev/agent-platform/capabilities/mcp) work across both local and cloud agents, so your team's knowledge and tools are always available.
+* **Shared context**: [Warp Drive](knowledge-and-collaboration/warp-drive/), [Rules](https://docs.warp.dev/agent-platform/warp-agents/rules), and [MCP servers](https://docs.warp.dev/agent-platform/warp-agents/mcp) work across both local and cloud agents, so your team's knowledge and tools are always available.
 * **Team collaboration**: Share agent sessions, review agents' actions, and steer running tasks, regardless of who started them.
 
 ***
 
 ## Multi-model support
 
-Oz is multi-model by design. You can [choose your preferred LLM](https://docs.warp.dev/agent-platform/capabilities/model-choice) from a curated set of top models.
+Oz is multi-model by design. You can [choose your preferred LLM](https://docs.warp.dev/agent-platform/warp-agents/model-choice) from a curated set of top models.
 
 ***
 
@@ -93,6 +93,6 @@ Warp's AI features can be globally disabled in **Settings** > **AI**.
 ## Next steps
 
 * [**Quickstart Guide**](<README (1).md>): Get Warp installed and start coding
-* [**Local Agents Overview**](https://docs.warp.dev/agent-platform/local-agents/overview): Explore all AI features available in Warp
+* [**Local Agents Overview**](https://docs.warp.dev/agent-platform/warp-agents): Explore all AI features available in Warp
 * [**Cloud Agents Overview**](https://docs.warp.dev/agent-platform/cloud-agents/overview): Set up background automation
 * [**Oz Platform**](https://docs.warp.dev/agent-platform/cloud-agents/platform): Learn about the CLI, API, SDK, and infrastructure

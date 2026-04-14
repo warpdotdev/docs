@@ -49,7 +49,7 @@ To use Oz agents in GitHub Actions, you need:
 
 ### Using Skills
 
-Skills provide reusable instructions for Oz agents. You can use pre-built skills from the [oz-skills repository](https://github.com/warpdotdev/oz-skills) or create custom [skills](../../capabilities/skills.md) for your specific workflows. Skills can also be deployed as [standalone agents](../../capabilities/skills.md#skills-as-agents) to run on a schedule or in response to events.
+Skills provide reusable instructions for Oz agents. You can use pre-built skills from the [oz-skills repository](https://github.com/warpdotdev/oz-skills) or create custom [skills](../../warp-agents/skills.md) for your specific workflows. Skills can also be deployed as [standalone agents](../../warp-agents/skills.md#skills-as-agents) to run on a schedule or in response to events.
 
 #### How to use skills
 

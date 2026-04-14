@@ -48,10 +48,10 @@ If your codebase is large, you can exclude specific files by adding them to a `.
 
 You can provide different types of input as context directly to the agent to guide its behavior and improve response quality. This includes:
 
-* [Blocks](https://docs.warp.dev/agent-platform/local-agents/agent-context#attaching-blocks-as-context) from your terminal output
-* [Images](https://docs.warp.dev/agent-platform/local-agents/agent-context#attaching-images-as-context)
-* [Files and code](https://docs.warp.dev/agent-platform/local-agents/agent-context#referencing-files-and-code-using) (using the @ symbol)
-* [Public websites](https://docs.warp.dev/agent-platform/local-agents/agent-context#referencing-websites-via-urls) via URLs
+* [Blocks](https://docs.warp.dev/agent-platform/warp-agents/agent-context#attaching-blocks-as-context) from your terminal output
+* [Images](https://docs.warp.dev/agent-platform/warp-agents/agent-context#attaching-images-as-context)
+* [Files and code](https://docs.warp.dev/agent-platform/warp-agents/agent-context#referencing-files-and-code-using) (using the @ symbol)
+* [Public websites](https://docs.warp.dev/agent-platform/warp-agents/agent-context#referencing-websites-via-urls) via URLs
 
 #### Warp Drive as Context
 

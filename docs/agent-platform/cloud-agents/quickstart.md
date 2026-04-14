@@ -80,7 +80,7 @@ You can continue conversing with the agent in real-time, watch its progress, and
 ### 5. View run details
 
 You can view details of your agent's run, including commands executed, files changed, and environment used, several different ways:
-* In the Warp app, open the [conversations panel](../local-agents/interacting-with-agents#conversation-panel) to see all your agent runs.
+* In the Warp app, open the [conversations panel](../warp-agents/interacting-with-agents#conversation-panel) to see all your agent runs.
 * Click the session link in your terminal output.
 * Go to [oz.warp.dev](https://oz.warp.dev) and navigate to the `Runs` tab.
 * Access from mobile via the [Oz web app](oz-web-app.md).

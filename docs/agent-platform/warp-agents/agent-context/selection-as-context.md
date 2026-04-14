@@ -31,3 +31,11 @@ You can also directly attach context from the [Code Review panel](https://docs.w
 This helps the Agent understand exactly what has been modified, making it easier to request explanations, feedback, or follow-up edits.
 
 <figure><img src="../../.gitbook/assets/git diff full view.png" alt=""><figcaption><p>Code Review panel with diffs for review.</p></figcaption></figure>
+
+### Attaching code to a third-party agent session
+
+You can select code, files, or snippets and feed them directly to a running third-party CLI agent session without copy-pasting or switching tools.
+
+When a third-party agent (Claude Code, Codex, OpenCode, etc.) is running in a Warp tab, select text in Warp's code editor or Code Review panel and attach it as context to that agent's session using `Cmd + L` (macOS) or `CTRL + SHIFT + L` (Windows/Linux). This works the same way as attaching context to Warp's built-in Agent.
+
+For more on third-party agent support, see [Third-Party CLI Agents](../../cli-agents/overview.md).

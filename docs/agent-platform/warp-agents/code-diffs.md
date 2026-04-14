@@ -13,7 +13,7 @@ During an Agent Conversation, Warp can generate code diffs that open directly in
 This lets you review proposed changes line by line, refine them with natural language, or make manual edits before choosing whether to apply them. It’s a fast, transparent way to stay in control of agent-generated code.
 
 {% hint style="warning" %}
-If the `Apply Code Diffs` permission is set to `Always allow` in [Agent Profiles & Permissions](../capabilities/agent-profiles-permissions.md), code diffs are applied automatically without being surfaced for review. If it's set to `Agent decides` or `Always ask`, you'll always be prompted to review diffs before they're applied.
+If the `Apply Code Diffs` permission is set to `Always allow` in [Agent Profiles & Permissions](./agent-profiles-permissions.md), code diffs are applied automatically without being surfaced for review. If it's set to `Agent decides` or `Always ask`, you'll always be prompted to review diffs before they're applied.
 {% endhint %}
 
 {% hint style="info" %}

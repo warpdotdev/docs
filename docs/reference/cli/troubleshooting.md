@@ -36,7 +36,7 @@ oz --version
 * API keys: confirm the key is valid, not expired, and exported correctly.
 
 **Agent or MCP errors**\
-Ensure your agent profile and [MCP servers](https://docs.warp.dev/agent-platform/capabilities/mcp) are configured properly, with correct permissions. See [MCP Servers](mcp-servers.md) and [Agent profiles](agent-profiles.md) for details.
+Ensure your agent profile and [MCP servers](https://docs.warp.dev/agent-platform/warp-agents/mcp) are configured properly, with correct permissions. See [MCP Servers](mcp-servers.md) and [Agent profiles](agent-profiles.md) for details.
 
 ***
 

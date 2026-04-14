@@ -8,7 +8,7 @@ description: >-
 
 Warp supports **Bring Your Own Key (BYOK)** for users who want to connect Warp’s agent to their own Anthropic, OpenAI, or Google API accounts.
 
-This lets you use your own API keys to access models directly, giving you full control over model selection, billing, and data routing. See [Model Choice](https://docs.warp.dev/agent-platform/capabilities/model-choice) for a list of supported models.
+This lets you use your own API keys to access models directly, giving you full control over model selection, billing, and data routing. See [Model Choice](https://docs.warp.dev/agent-platform/warp-agents/model-choice) for a list of supported models.
 
 BYOK provides greater flexibility in model access and ensures Warp **never consumes your** [credits](credits.md) for requests routed through your own keys.
 
@@ -72,7 +72,7 @@ Some AI-powered features are not affected by BYOK and are included as part of Wa
 
 | Feature                                                                       | Uses Warp's credits | Description                                                          |
 | ----------------------------------------------------------------------------- | ------------------- | -------------------------------------------------------------------- |
-| [Active AI](https://docs.warp.dev/agent-platform/local-agents/active-ai)      | No                  | Always included with Build and higher plans.                         |
+| [Active AI Recommendations](https://docs.warp.dev/agent-platform/warp-agents/active-ai) | No                  | Always included with Build and higher plans.                         |
 | [Codebase Context](https://docs.warp.dev/code/codebase-context)               | Yes                 | Uses Warp's AI infrastructure and consumes credits.                  |
 | [Oz Cloud Agents](https://docs.warp.dev/agent-platform/cloud-agents/overview) | Yes                 | BYOK keys are stored locally and not available to cloud-hosted runs. |
 

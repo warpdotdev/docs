@@ -23,7 +23,7 @@ Code Review Demo
 <figure><img src="../.gitbook/assets/code-review-panel-update.png" alt=""><figcaption><p>Full view of Code Review panel and terminal pane.</p></figcaption></figure>
 
 {% hint style="info" %}
-To review agent-generated diffs, leave inline comments, batch your feedback, and have the agent apply all requested changes, see [Interactive Code Review](https://docs.warp.dev/agent-platform/local-agents/interactive-code-review).
+To review agent-generated diffs, leave inline comments, batch your feedback, and have the agent apply all requested changes, see [Interactive Code Review](https://docs.warp.dev/agent-platform/warp-agents/interactive-code-review).
 {% endhint %}
 
 ## Opening the Code Review panel
@@ -42,21 +42,21 @@ In terminal mode, when you're in a Git repository with changes, the Git diff chi
 
 <figure><img src="../.gitbook/assets/git chip tooltip 1.png" alt=""><figcaption></figcaption></figure>
 
-#### 2. Agent Conversation: Review Changes Button
+#### 2. Agent conversation: review changes button
 
-When an Agent makes code edits in an [Agent Conversation](https://docs.warp.dev/agent-platform/local-agents/interacting-with-agents), a `Review changes` button appears at the bottom of the conversation. Click the button to open the code review panel.
+When an Agent makes code edits in an [Agent Conversation](https://docs.warp.dev/agent-platform/warp-agents/interacting-with-agents), a `Review changes` button appears at the bottom of the conversation. Click the button to open the code review panel.
 
 <figure><img src="../.gitbook/assets/Blocklist with review changes.png" alt=""><figcaption><p>Review changes at bottom of Agent Conversation.</p></figcaption></figure>
 
 <figure><img src="../.gitbook/assets/review changes in footer.png" alt=""><figcaption></figcaption></figure>
 
-#### 3. Agent Conversation: Toolbelt (Bottom Right)
+#### 3. Agent conversation: toolbelt (bottom right)
 
 During an Agent conversation, you can view all changed files in the toolbelt chips at the persistent bottom right. From there, you can open the Code Review panel directly.
 
 <figure><img src="../.gitbook/assets/ai_control_panel_buttons_larger_view.png" alt=""><figcaption></figcaption></figure>
 
-#### 4. Warp Tab Bar
+#### 4. Warp tab bar
 
 In any Git-tracked repository, you can open the Code Review panel by clicking the `Code review` button in the top-right corner of Warp, next to your avatar.
 
@@ -97,7 +97,7 @@ The Code Review pane makes it simple to share changes with the Agent. You can at
 
 <figure><img src="../.gitbook/assets/attach-diff-hunk-as-context.png" alt="" width="299"><figcaption><p>Attaching a diff as context from the Code Review panel.</p></figcaption></figure>
 
-This ensures responses are grounded in your latest edits, whether you're asking for feedback, explanations, or follow-up changes. For more details, see [Selection as Context](https://docs.warp.dev/agent-platform/local-agents/agent-context/selection-as-context).
+This ensures responses are grounded in your latest edits, whether you're asking for feedback, explanations, or follow-up changes. For more details, see [Selection as Context](https://docs.warp.dev/agent-platform/warp-agents/agent-context/selection-as-context).
 
 #### Reverting diffs
 
@@ -126,7 +126,17 @@ Alternatively, from the Code Review panel, you are able to click and edit the di
 
 <figure><img src="../.gitbook/assets/directly-editing-diffs.gif" alt=""><figcaption></figcaption></figure>
 
-#### Discarding all changes
+### Sending comments to a running agent
+
+You can leave inline comments in the Code Review panel and send them directly to a running coding agent session, including third-party CLI agents like Claude Code, Codex, and others.
+
+This extends Warp's [Interactive Code Review](https://docs.warp.dev/agent-platform/warp-agents/interactive-code-review) workflow to any supported CLI agent running in Warp. The agent receives your batch of comments and applies the requested changes.
+
+<figure><img src="../../agent-platform/.gitbook/assets/code-review-inline-comment.gif" alt="Adding an inline comment on a diff line and sending it to a running agent"><figcaption><p>Leave inline comments on diffs and send them to any running coding agent.</p></figcaption></figure>
+
+For more on supported agents, see [Third-Party CLI Agents](https://docs.warp.dev/agent-platform/cli-agents/overview).
+
+### Discarding all changes
 
 The Code Review panel also lets you discard every uncommitted change on your branch in one action. Clicking Discard all removes all local modifications shown in the panel and restores each file to its state on the base branch. This is useful when you want to reset your working directory, abandon a set of edits, or start a new iteration from a clean slate.
 

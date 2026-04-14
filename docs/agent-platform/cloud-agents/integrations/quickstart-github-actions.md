@@ -89,5 +89,5 @@ When the run completes, the agent posts feedback as inline review comments on th
 ## Next steps
 
 * **Explore more workflow patterns** - The [oz-agent-action repository](https://github.com/warpdotdev/oz-agent-action) includes ready-to-use consumer workflow templates for responding to `@oz-agent` comments, auto-fixing labeled issues, daily issue summaries, fixing failing CI checks, and suggesting review fixes. Copy any template from `consumer-workflows/` into `.github/workflows/` in your repo.
-* **Use skills for reusable behavior** - Replace the inline `prompt` with a `skill` parameter to apply consistent, version-controlled instructions across all your CI workflows. See [Skills](../../capabilities/skills.md).
+* **Use skills for reusable behavior** - Replace the inline `prompt` with a `skill` parameter to apply consistent, version-controlled instructions across all your CI workflows. See [Skills](../../warp-agents/skills.md).
 * **Read the full reference** - [GitHub Actions](github-actions.md) covers all action inputs, output handling, session sharing for debugging, and troubleshooting.

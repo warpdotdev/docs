@@ -31,7 +31,7 @@ $ oz agent run --saved-prompt sgNpbUgDkmp2IImUVDc8kR
 Use `<workflow:id>`, `<notebook:id>`, or `<rule:id>` in prompts to attach [Warp Drive objects](https://docs.warp.dev/knowledge-and-collaboration/warp-drive) and [rules](https://docs.warp.dev/knowledge-and-collaboration/rules) as context for the agent.
 
 {% hint style="info" %}
-**Tip:** Use the [@ context menu](https://docs.warp.dev/agent-platform/local-agents/agent-context/using-to-add-context) in Warp to construct a prompt with the right references, then copy it into your CLI command.
+**Tip:** Use the [@ context menu](https://docs.warp.dev/agent-platform/warp-agents/agent-context/using-to-add-context) in Warp to construct a prompt with the right references, then copy it into your CLI command.
 {% endhint %}
 
 ```bash

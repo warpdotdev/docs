@@ -16,7 +16,7 @@ Vertical tabs are especially useful when running multiple coding agents side by 
 ### Rich metadata and status
 
 * **Pane metadata** - See working directory, Git branch, agent conversation status, diff stats, and PR badges at a glance for every pane.
-* **Agent status badges** - Pane icons display a colored badge overlay showing agent state (in progress, done, errored, cancelled, or blocked). [Third-party CLI agents](https://docs.warp.dev/agent-platform/local-agents/third-party-cli-agents) like Claude Code, Codex, and Gemini CLI display their brand icon and color alongside badges.
+* **Agent status badges** - Pane icons display a colored badge overlay showing agent state (in progress, done, errored, cancelled, or blocked). [Third-party CLI agents](https://docs.warp.dev/agent-platform/cli-agents/overview) like Claude Code, Codex, and Gemini CLI display their brand icon and color alongside badges.
 * **Notification indicators** - An accent-colored dot appears on pane rows with unread agent activity, so you can spot sessions that need attention without switching tabs.
 
 ### Display modes and customization
@@ -29,7 +29,7 @@ Vertical tabs are especially useful when running multiple coding agents side by 
 ### Tab management
 
 * **Search, drag and drop, and renaming** - Filter panes by title, directory, or branch; reorder tabs or move panes between tabs by dragging; double-click a tab to rename it inline.
-* **New tab menu** - Create agent tabs, terminal tabs, Oz cloud agent sessions, worktree configs, and [Tab Configs](../sessions/tab-configs.md) from a unified **+** menu.
+* **New tab menu** - Create agent tabs, terminal tabs, Oz cloud agent sessions, worktree configs, and [Tab Configs](tab-configs.md) from a unified **+** menu.
 
 ## Enabling vertical tabs
 
@@ -74,8 +74,8 @@ When vertical tabs are enabled, configure their appearance and behavior from the
 |---|---|---|---|
 | **View as** | Always | **Panes** — each split pane gets its own row. **Tabs** — only the focused pane per tab is shown. | Panes |
 | **Density** | Always | **Compact** — smaller rows with title and optional subtitle. **Expanded** — larger rows with title, description, and metadata. | Compact |
-| **Pane title as** | Always | **Command / Conversation** — last command, conversation title, or CLI agent session name. **Working Directory** — pane's working directory. **Branch** — checked-out Git branch. | Command / Conversation |
-| **Additional metadata** | Compact mode only | **Branch**, **Working Directory**, or **Command / Conversation** (options depend on the **Pane title as** setting; duplicates are excluded). | Branch |
+| **Pane title as** | Always | **Command / Conversation** — last command, conversation title, or CLI agent session name.<br>**Working Directory** — pane's working directory.<br>**Branch** — checked-out Git branch. | Command / Conversation |
+| **Additional metadata** | Compact mode only | **Branch**<br>**Working Directory**<br>**Command / Conversation**<br>(options depend on the **Pane title as** setting; duplicates are excluded). | Branch |
 | **Show** | Expanded mode only | **PR link** — pull request and status for the current branch (requires GitHub CLI). **Diff stats** — lines added/removed. | — |
 | **Show details on hover** | Always | On / Off — toggles the hover detail sidecar. | On |
 
@@ -119,7 +119,7 @@ Click the **+** button in the control bar to open the new tab menu. The menu inc
 * **Agent** - Open a new agent tab.
 * **Terminal** - Open a new terminal tab.
 * **Oz cloud agent** - Open a new Oz cloud agent session tab.
-* **Tab Configs** - Any [Tab Configs](../sessions/tab-configs.md) you've created appear as menu items for one-click setup.
+* **Tab Configs** - Any [Tab Configs](tab-configs.md) you've created appear as menu items for one-click setup.
 * **New worktree config** - Create a new worktree-based Tab Config.
 * **New tab config** - Create a new Tab Config from a starter template.
 
@@ -151,7 +151,7 @@ All existing tab keyboard shortcuts continue to work with vertical tabs. The sid
 
 * [Terminal tabs](tabs.md) - Horizontal tab bar usage and keyboard shortcuts
 * [Split panes](split-panes.md) - Divide tabs into multiple terminal panes
-* [Tab Configs](../sessions/tab-configs.md) - Define reusable tab setups in TOML files
+* [Tab Configs](tab-configs.md) - Define reusable tab setups in TOML files
 * [Git Worktrees](../../code/git-worktrees.md) - Worktree support that surfaces in vertical tab metadata
 * [Tabs behavior](../appearance/tabs-behavior.md) - Tab bar visibility, indicators, and close button settings
-* [Third-party CLI agents](https://docs.warp.dev/agent-platform/local-agents/third-party-cli-agents) - Use Claude Code, Codex, Gemini CLI, and other third-party agents with Warp's utility bar, including brand icons and status badges in the vertical tabs panel
+* [Third-party CLI agents](https://docs.warp.dev/agent-platform/cli-agents/overview) - Use Claude Code, Codex, Gemini CLI, and other third-party agents with Warp's utility bar, including brand icons and status badges in the vertical tabs panel

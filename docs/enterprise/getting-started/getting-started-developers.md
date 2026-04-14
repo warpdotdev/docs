@@ -252,7 +252,7 @@ For common login, SSO, and access issues, see the [Enterprise FAQ](faq.md).
 
 Now that you're set up:
 
-* **Explore agent capabilities** - Learn about [agents in Warp](https://docs.warp.dev/agent-platform/local-agents/agents-overview) and [Oz cloud agents](https://docs.warp.dev/agent-platform/cloud-agents/cloud-agents-overview)
+* **Explore agent capabilities** - Learn about [agents in Warp](https://docs.warp.dev/agent-platform/warp-agents/agents-overview) and [Oz cloud agents](https://docs.warp.dev/agent-platform/cloud-agents/cloud-agents-overview)
 * **Contribute to team knowledge** - Add useful Workflows, Prompts, and Rules to your team's Warp Drive to compound productivity gains across your team
 * **Stay updated** - Check the [Warp changelog](https://docs.warp.dev/changelog) for new features
 

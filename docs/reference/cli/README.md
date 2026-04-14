@@ -185,7 +185,7 @@ The Oz CLI offers two ways to run agents, depending on where you want the work t
 
 ### Running locally: \`oz agent run\`
 
-To start an agent, use the `oz agent run` subcommand. You'll need to specify a prompt and, optionally, the [MCP servers](https://docs.warp.dev/agent-platform/capabilities/mcp) and [agent profile](https://docs.warp.dev/agent-platform/capabilities/agent-profiles-permissions) to use.
+To start an agent, use the `oz agent run` subcommand. You'll need to specify a prompt and, optionally, the [MCP servers](https://docs.warp.dev/agent-platform/warp-agents/mcp) and [agent profile](https://docs.warp.dev/agent-platform/warp-agents/agent-profiles-permissions) to use.
 
 ```sh
 oz agent run --prompt "set up a new Rust crate named warp-cli"
@@ -200,7 +200,7 @@ I'll run a few terminal commands to:
 * `--name <NAME>` (`-n`) — label the run for grouping and traceability.
 * `--share` — share the session with teammates (see [Collaboration](./#collaboration)).
 * `--profile <ID>` — use a specific agent profile (see [Using Agent Profiles](./#using-agent-profiles)).
-* `--model <MODEL_ID>` — override the default model (see [Model Choice](https://docs.warp.dev/agent-platform/capabilities/model-choice)).
+* `--model <MODEL_ID>` — override the default model (see [Model Choice](https://docs.warp.dev/agent-platform/warp-agents/model-choice)).
 * `--skill <SPEC>` — use a skill as the base prompt (see [Using Skills](./#using-skills)).
 * `--mcp <SPEC>` — start one or more MCP servers before execution (UUID, JSON file path, or inline JSON). Can be repeated.
 * `--environment <ID>` (`-e`) — run in a specific cloud environment.
@@ -237,7 +237,7 @@ oz agent run-cloud \
 * `--skill <SPEC>` — use a skill from the environment's repository as the base prompt (see [Using Skills](./#using-skills)).
 * `--host <WORKER_ID>` — run on a specific self-hosted worker instead of Warp-hosted infrastructure.
 * `--attach <PATH>` — attach an image file to the agent query. Can be repeated (maximum 5).
-* `--computer-use` / `--no-computer-use` — enable or disable [Computer Use](https://docs.warp.dev/agent-platform/capabilities/computer-use) for this run.
+* `--computer-use` / `--no-computer-use` — enable or disable [Computer Use](https://docs.warp.dev/agent-platform/warp-agents/computer-use) for this run.
 * `--file <PATH>` (`-f`) — load run configuration from a YAML or JSON file.
 
 **Key differences from `run`**
@@ -252,7 +252,7 @@ The `--name` flag assigns a config name to the run. Use it to group related runs
 
 **How names work:**
 
-* **Skill-based runs** — When you run an agent from a [skill](https://docs.warp.dev/agent-platform/capabilities/skills), the name is automatically set to the skill name. You don't need to pass `--name` explicitly.
+* **Skill-based runs** — When you run an agent from a [skill](https://docs.warp.dev/agent-platform/warp-agents/skills), the name is automatically set to the skill name. You don't need to pass `--name` explicitly.
 * **Custom runs** — When you build your own automation (via the CLI, API, or SDK), set `--name` to a consistent value that describes the workflow's intent.
 
 **Why naming matters:**
@@ -299,13 +299,13 @@ See [MCP Servers](mcp-servers.md) for full details, including how to find UUIDs,
 
 ## Using skills
 
-[Skills](https://docs.warp.dev/agent-platform/capabilities/skills) are reusable instruction sets that teach agents how to perform specific tasks. Use the `--skill` flag to run an agent from a skill stored in a repository.
+[Skills](https://docs.warp.dev/agent-platform/warp-agents/skills) are reusable instruction sets that teach agents how to perform specific tasks. Use the `--skill` flag to run an agent from a skill stored in a repository.
 
 See [Skills](skills.md) for supported spec formats and examples for both local and cloud agent runs.
 
 ## Collaboration
 
-In addition to text-based output, the CLI can share the agent's session for you to access on other devices or in a browser. To enable [Agent Session Sharing](https://docs.warp.dev/agent-platform/local-agents/session-sharing), use the `--share` flag.
+In addition to text-based output, the CLI can share the agent's session for you to access on other devices or in a browser. To enable [Agent Session Sharing](https://docs.warp.dev/agent-platform/warp-agents/session-sharing), use the `--share` flag.
 
 By default, the session is only accessible to the user running the CLI, but you can also share with [Teams](https://docs.warp.dev/knowledge-and-collaboration/teams) or other Warp users:
 

@@ -17,13 +17,13 @@ Warp is "Offline" when you aren't connected to the internet, or if you're blocki
 Warp’s cloud-based features which require an internet connection will not work in offline mode. Those features include:
 
 * [Warp Drive](https://docs.warp.dev/knowledge-and-collaboration/warp-drive/#using-warp-drive-offline) (Some files may be read-only in offline mode)
-* [Oz agent](https://docs.warp.dev/agent-platform/local-agents/overview)
-  * [Agent Mode](https://docs.warp.dev/agent-platform/local-agents/interacting-with-agents/)
-  * [Generate](https://docs.warp.dev/agent-platform/local-agents/generate)
+* [Oz agent](https://docs.warp.dev/agent-platform/warp-agents)
+  * [Agent Mode](https://docs.warp.dev/agent-platform/warp-agents/interacting-with-agents/)
+  * [Generate](https://docs.warp.dev/agent-platform/warp-agents)
   * [AI Autofill](https://docs.warp.dev/knowledge-and-collaboration/warp-drive/workflows#warp-ai-autofill)
   * [Prompts](https://docs.warp.dev/knowledge-and-collaboration/warp-drive/prompts)
-  * [Active AI](https://docs.warp.dev/agent-platform/local-agents/active-ai)
-  * [Voice](https://docs.warp.dev/agent-platform/local-agents/interacting-with-agents/voice)
+  * [Active AI Recommendations](https://docs.warp.dev/agent-platform/warp-agents/active-ai)
+  * [Voice](https://docs.warp.dev/agent-platform/warp-agents/interacting-with-agents/voice)
   * [Rules](https://docs.warp.dev/knowledge-and-collaboration/rules)
   * [Model Context Protocol](https://docs.warp.dev/knowledge-and-collaboration/mcp)
 * [Teams](https://docs.warp.dev/knowledge-and-collaboration/teams)

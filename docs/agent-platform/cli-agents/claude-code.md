@@ -1,0 +1,85 @@
+---
+description: >-
+  Set up Claude Code in Warp with full notification support, rich input,
+  code review, and more.
+---
+
+# Claude Code
+
+Claude Code is Anthropic's agentic coding tool that operates directly in your terminal. It understands your codebase, executes commands, edits files, and manages Git workflows — all through natural language. For full documentation, see the [official Claude Code docs](https://code.claude.com/docs).
+
+Warp auto-detects Claude Code when you run it, giving you access to rich input controls, code review, agent notifications, and other integrated features.
+
+## Getting started
+
+{% hint style="info" %}
+The notification plugin requires `jq`. Install it with your package manager (e.g., `brew install jq` on macOS) if it's not already available.
+{% endhint %}
+
+1. Install Claude Code globally via npm:
+
+   ```bash
+   npm install -g @anthropic-ai/claude-code
+   ```
+
+2. Launch Claude Code inside Warp:
+
+   ```bash
+   claude
+   ```
+
+   Warp detects the agent session and surfaces integrated controls automatically.
+
+## Setting up notifications
+
+Warp supports agent notifications for Claude Code through a plugin. Once installed, Warp surfaces in-app and desktop alerts when Claude Code needs your input — such as command approval, code review, or error intervention.
+
+### Auto-install
+
+Each time you run Claude Code in Warp without the notification plugin installed, a notification chip appears offering one-click installation. Click the chip to install the plugin automatically. After installation, Warp immediately starts receiving notifications from Claude Code.
+
+### Manual install
+
+If the auto-install chip doesn't appear or fails to install the plugin, install it manually. From inside Claude Code, run:
+
+```bash
+/plugin marketplace add warpdotdev/claude-code-warp
+/plugin install warp@claude-code-warp
+```
+
+Or from your terminal (outside of Claude Code):
+
+```bash
+claude plugin marketplace add warpdotdev/claude-code-warp
+claude plugin install warp@claude-code-warp
+```
+
+After installing, restart Claude Code or run `/reload-plugins` to activate the plugin.
+
+{% hint style="info" %}
+If installation fails or you have an outdated version of the plugin, remove it first with `claude plugin marketplace remove claude-code-warp`, then re-run the install commands above.
+{% endhint %}
+
+### Installation instructions banner
+
+If the auto-install chip doesn't work, or if you're running Claude Code over SSH or on a remote machine, Warp displays an installation instructions banner directly in the terminal. The banner shows step-by-step commands that you can run in place — no need to switch between tabs or copy-paste from external documentation.
+
+For plugin source and updates, see the [claude-code-warp GitHub repository](https://github.com/warpdotdev/claude-code-warp).
+
+## Supported Warp features
+
+Claude Code supports the full set of Warp's agent integration features:
+
+* **Agent notifications** - Receive in-app and desktop alerts when Claude Code needs your attention. The notification UI displays your current git branch alongside agent status.
+* **Rich input editor** - Press `Ctrl-G` to open an expanded input editor for composing longer prompts.
+* **Code review** - Send inline review comments directly to the agent from Warp's code review panel.
+* **Attach code as context** - Select code and send it to the agent as context.
+* **Vertical tabs with agent metadata** - Monitor Claude Code sessions with status indicators in Warp's tab bar.
+* **Tab Configs** - Save and restore Claude Code session configurations.
+* **Remote Control** - Share your Claude Code session with teammates via session sharing.
+
+## Related pages
+
+* [Third-Party CLI Agents Overview](overview.md)
+* [OpenCode](opencode.md)
+* [Codex](codex.md)

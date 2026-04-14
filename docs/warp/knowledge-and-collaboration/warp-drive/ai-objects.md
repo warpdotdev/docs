@@ -20,7 +20,7 @@ Warp supports two types of rules:
 * **Project Rules** - Live in your codebase (as `AGENTS.md` or `WARP.md` files) and apply automatically when working within that project
 
 {% hint style="info" %}
-For complete documentation on creating and managing rules, see [Rules](https://docs.warp.dev/agent-platform/capabilities/rules).
+For complete documentation on creating and managing rules, see [Rules](https://docs.warp.dev/agent-platform/warp-agents/rules).
 {% endhint %}
 
 ## MCP Servers
@@ -35,7 +35,7 @@ MCP servers can be:
 * **URL-based** - Remote endpoints using Streamable HTTP or SSE
 
 {% hint style="info" %}
-For complete documentation on configuring and using MCP servers, see [Model Context Protocol (MCP)](https://docs.warp.dev/agent-platform/capabilities/mcp).
+For complete documentation on configuring and using MCP servers, see [Model Context Protocol (MCP)](https://docs.warp.dev/agent-platform/warp-agents/mcp).
 {% endhint %}
 
 ## Skills
@@ -48,7 +48,7 @@ Skills are file-based (stored as `SKILL.md` files in your project or home direct
 * **Global Skills** - Live in `~/.agents/skills/` or similar directories in your home folder
 
 {% hint style="info" %}
-For complete documentation on creating and using skills, see [Skills](https://docs.warp.dev/agent-platform/capabilities/skills).
+For complete documentation on creating and using skills, see [Skills](https://docs.warp.dev/agent-platform/warp-agents/skills).
 {% endhint %}
 
 ## Prompts
@@ -78,8 +78,8 @@ For more details on how Warp Drive content serves as agent context, see [Warp Dr
 
 ## Related
 
-* [Rules](https://docs.warp.dev/agent-platform/capabilities/rules) - Create guidelines for agent behavior
-* [MCP Servers](https://docs.warp.dev/agent-platform/capabilities/mcp) - Connect external tools and data sources
-* [Skills](https://docs.warp.dev/agent-platform/capabilities/skills) - Define reusable task workflows
+* [Rules](https://docs.warp.dev/agent-platform/warp-agents/rules) - Create guidelines for agent behavior
+* [MCP Servers](https://docs.warp.dev/agent-platform/warp-agents/mcp) - Connect external tools and data sources
+* [Skills](https://docs.warp.dev/agent-platform/warp-agents/skills) - Define reusable task workflows
 * [Prompts](prompts.md) - Save and reuse parameterized agent prompts
-* [Agent Profiles & Permissions](https://docs.warp.dev/agent-platform/capabilities/agent-profiles-permissions) - Control agent autonomy and tool access
+* [Agent Profiles & Permissions](https://docs.warp.dev/agent-platform/warp-agents/agent-profiles-permissions) - Control agent autonomy and tool access

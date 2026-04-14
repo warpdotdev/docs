@@ -1,10 +1,10 @@
 ---
 description: >-
-  Active AI proactively recommends fixes and next actions based on your command
-  line errors, inputs, and outputs.
+  Active AI Recommendations proactively suggest fixes and next actions based on
+  your command line errors, inputs, and outputs.
 ---
 
-# Active AI
+# Active AI Recommendations
 
 {% hint style="info" %}
 Active AI features can be disabled in **Settings** > **AI** with the Active AI toggle.

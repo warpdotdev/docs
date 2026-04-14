@@ -10,6 +10,10 @@ description: >-
 
 Notifications can be sent when a command completes after a configurable number of seconds or when a running command needs you to enter a password to proceed. For either of these triggers, Warp will only send you a desktop notification if you are using a different app at the time the trigger is fired.
 
+{% hint style="info" %}
+For notifications from coding agents (Warp's built-in Agent and third-party CLI agents like Claude Code and OpenCode), see [Agent Notifications](https://docs.warp.dev/agent-platform/warp-agents/agent-notifications).
+{% endhint %}
+
 ## Custom notification hooks (OSC 9 / OSC 777)
 
 Warp supports pluggable notifications triggered by terminal escape sequences, so scripts and tools can raise desktop notifications without additional dependencies.

@@ -153,7 +153,7 @@ This lets you tighten or loosen control for the current task:
 
 #### Global permission settings
 
-You can configure global defaults from your [Agent Profiles & Permissions](../capabilities/agent-profiles-permissions.md) settings:
+You can configure global defaults from your [Agent Profiles & Permissions](./agent-profiles-permissions.md) settings:
 
 * **Ask on first write**: The first write to a shell process requires approval. After that, all subsequent writes for that specific process/command will be approved.
 * **Always ask**: Every write to the shell process from the agent requires your explicit approval.

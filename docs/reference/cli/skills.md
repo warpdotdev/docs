@@ -6,7 +6,7 @@ description: >-
 
 # Skills
 
-[Skills](https://docs.warp.dev/agent-platform/capabilities/skills) are reusable instruction sets that teach agents how to perform specific tasks. Use the `--skill` flag to run an agent from a skill in a repository accessible to your environment.
+[Skills](https://docs.warp.dev/agent-platform/warp-agents/skills) are reusable instruction sets that teach agents how to perform specific tasks. Use the `--skill` flag to run an agent from a skill in a repository accessible to your environment.
 
 ## Skill spec format
 
@@ -58,4 +58,4 @@ For local agent runs, skills from your current repository are automatically disc
 oz agent run --skill "owner/repo:skill-name" --prompt "additional context"
 ```
 
-For more information about creating and managing skills, see [Skills](https://docs.warp.dev/agent-platform/capabilities/skills).
+For more information about creating and managing skills, see [Skills](https://docs.warp.dev/agent-platform/warp-agents/skills).

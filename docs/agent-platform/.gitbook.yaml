@@ -2,41 +2,41 @@ root: ./
 
 redirects:
     # Old features/warp-ai paths (duplicated from warp space)
-    features/warp-ai: local-agents/overview.md
-    features/warp-ai/agent-mode: local-agents/interacting-with-agents/README.md
-    features/warp-ai/active-ai: local-agents/active-ai.md
-    features/warp-ai/ai-command-search: local-agents/generate.md
-    features/warp-ai/generate: local-agents/generate.md
-    features/ai-command-search: local-agents/generate.md
-    features/generate: local-agents/generate.md
-    features/warp-ai/voice: local-agents/interacting-with-agents/voice.md
-    features/voice: local-agents/interacting-with-agents/voice.md
+    features/warp-ai: warp-agents/README.md
+    features/warp-ai/agent-mode: warp-agents/interacting-with-agents/README.md
+    features/warp-ai/active-ai: warp-agents/active-ai.md
+    features/warp-ai/ai-command-search: warp-agents/README.md
+    features/warp-ai/generate: warp-agents/README.md
+    features/ai-command-search: warp-agents/README.md
+    features/generate: warp-agents/README.md
+    features/warp-ai/voice: warp-agents/interacting-with-agents/voice.md
+    features/voice: warp-agents/interacting-with-agents/voice.md
 
     # Old agents/ paths
-    agents/active-ai: local-agents/active-ai.md
-    agents/agents-overview: local-agents/overview.md
+    agents/active-ai: warp-agents/active-ai.md
+    agents/agents-overview: warp-agents/README.md
     agents/ai-faqs: getting-started/faqs.md
-    agents/full-terminal-use: capabilities/full-terminal-use.md
-    agents/generate: local-agents/generate.md
-    agents/slash-commands: capabilities/slash-commands.md
-    agents/using-agents: local-agents/interacting-with-agents/README.md
-    agents/using-agents/agent-context: local-agents/agent-context/README.md
-    agents/using-agents/agent-context/blocks-as-context: local-agents/agent-context/blocks-as-context.md
-    agents/using-agents/agent-context/images-as-context: local-agents/agent-context/images-as-context.md
-    agents/using-agents/agent-context/selection-as-context: local-agents/agent-context/selection-as-context.md
-    agents/using-agents/agent-context/urls-as-context: local-agents/agent-context/urls-as-context.md
-    agents/using-agents/agent-context/using-to-add-context: local-agents/agent-context/using-to-add-context.md
-    agents/using-agents/agent-conversations: local-agents/interacting-with-agents/README.md
-    agents/using-agents/agent-conversations/conversation-forking: local-agents/interacting-with-agents/conversation-forking.md
-    agents/using-agents/agent-profiles-permissions: capabilities/agent-profiles-permissions.md
-    agents/using-agents/agent-tasklists: capabilities/task-lists.md
+    agents/full-terminal-use: warp-agents/full-terminal-use.md
+    agents/generate: warp-agents/README.md
+    agents/slash-commands: warp-agents/slash-commands.md
+    agents/using-agents: warp-agents/interacting-with-agents/README.md
+    agents/using-agents/agent-context: warp-agents/agent-context/README.md
+    agents/using-agents/agent-context/blocks-as-context: warp-agents/agent-context/blocks-as-context.md
+    agents/using-agents/agent-context/images-as-context: warp-agents/agent-context/images-as-context.md
+    agents/using-agents/agent-context/selection-as-context: warp-agents/agent-context/selection-as-context.md
+    agents/using-agents/agent-context/urls-as-context: warp-agents/agent-context/urls-as-context.md
+    agents/using-agents/agent-context/using-to-add-context: warp-agents/agent-context/using-to-add-context.md
+    agents/using-agents/agent-conversations: warp-agents/interacting-with-agents/README.md
+    agents/using-agents/agent-conversations/conversation-forking: warp-agents/interacting-with-agents/conversation-forking.md
+    agents/using-agents/agent-profiles-permissions: warp-agents/agent-profiles-permissions.md
+    agents/using-agents/agent-tasklists: warp-agents/task-lists.md
     agents/using-agents/managing-agents: cloud-agents/managing-cloud-agents.md
-    agents/using-agents/model-choice: capabilities/model-choice.md
-    agents/using-agents/planning: capabilities/planning.md
-    agents/using-agents/web-search: capabilities/web-search.md
-    agents/voice: local-agents/interacting-with-agents/voice.md
-    agents/agent-modality-beta: local-agents/interacting-with-agents/terminal-and-agent-modes.md
-    agents/using-agents/third-party-cli-agents: local-agents/third-party-cli-agents.md
+    agents/using-agents/model-choice: warp-agents/model-choice.md
+    agents/using-agents/planning: warp-agents/planning.md
+    agents/using-agents/web-search: warp-agents/web-search.md
+    agents/voice: warp-agents/interacting-with-agents/voice.md
+    agents/agent-modality-beta: warp-agents/interacting-with-agents/terminal-and-agent-modes.md
+    agents/using-agents/third-party-cli-agents: cli-agents/overview.md
 
     # Old ambient-agents/ paths
     ambient-agents/agent-secrets: cloud-agents/secrets.md
@@ -58,47 +58,47 @@ redirects:
     # Since restructure
     ambient-agents/ambient-agents-overview: cloud-agents/overview.md
     features/ai: README.md
-    agents/autonomy: capabilities/agent-profiles-permissions.md
-    features/ai/model-choice: capabilities/model-choice.md
+    agents/autonomy: warp-agents/agent-profiles-permissions.md
+    features/ai/model-choice: warp-agents/model-choice.md
     using-agents/managing-agents: cloud-agents/managing-cloud-agents.md
 
     # Root-level agent-platform paths
     agent-platform/cloud-agents/warp-platform: cloud-agents/platform.md
     agent-platform/cloud-agents/cloud-agents-platform: cloud-agents/platform.md
-    agent-platform/using-agents: local-agents/interacting-with-agents/README.md
-    agent-platform/agents-overview: local-agents/overview.md
+    agent-platform/using-agents: warp-agents/interacting-with-agents/README.md
+    agent-platform/agents-overview: warp-agents/README.md
     agent-platform/ai-faqs: getting-started/faqs.md
-    agent-platform/full-terminal-use: capabilities/full-terminal-use.md
-    agent-platform/voice: local-agents/interacting-with-agents/voice.md
-    agent-platform/slash-commands: capabilities/slash-commands.md
-    agent-platform/active-ai: local-agents/active-ai.md
-    agent-platform/generate: local-agents/generate.md
-    agent-platform/agent-modality-beta: local-agents/interacting-with-agents/terminal-and-agent-modes.md
-    agent-platform/model-choice: capabilities/model-choice.md
-    agent-platform/autonomy: capabilities/agent-profiles-permissions.md
-    agent-platform/warp-ai: local-agents/overview.md
+    agent-platform/full-terminal-use: warp-agents/full-terminal-use.md
+    agent-platform/voice: warp-agents/interacting-with-agents/voice.md
+    agent-platform/slash-commands: warp-agents/slash-commands.md
+    agent-platform/active-ai: warp-agents/active-ai.md
+    agent-platform/generate: warp-agents/README.md
+    agent-platform/agent-modality-beta: warp-agents/interacting-with-agents/terminal-and-agent-modes.md
+    agent-platform/model-choice: warp-agents/model-choice.md
+    agent-platform/autonomy: warp-agents/agent-profiles-permissions.md
+    agent-platform/warp-ai: warp-agents/README.md
     agent-platform/ai: README.md
-    agent-platform/ai-model-choice: capabilities/model-choice.md
-    agent-platform/conversation-forking: local-agents/interacting-with-agents/conversation-forking.md
-    agent-platform/agents-md: local-agents/overview.md
+    agent-platform/ai-model-choice: warp-agents/model-choice.md
+    agent-platform/conversation-forking: warp-agents/interacting-with-agents/conversation-forking.md
+    agent-platform/agents-md: warp-agents/README.md
 
     # agent-platform/using-agents/* paths
-    agent-platform/using-agents/model-choice: capabilities/model-choice.md
-    agent-platform/using-agents/agent-profiles-permissions: capabilities/agent-profiles-permissions.md
-    agent-platform/using-agents/agent-conversations: local-agents/interacting-with-agents/README.md
-    agent-platform/using-agents/planning: capabilities/planning.md
-    agent-platform/using-agents/web-search: capabilities/web-search.md
-    agent-platform/using-agents/third-party-cli-agents: local-agents/third-party-cli-agents.md
-    agent-platform/using-agents/agent-tasklists: capabilities/task-lists.md
+    agent-platform/using-agents/model-choice: warp-agents/model-choice.md
+    agent-platform/using-agents/agent-profiles-permissions: warp-agents/agent-profiles-permissions.md
+    agent-platform/using-agents/agent-conversations: warp-agents/interacting-with-agents/README.md
+    agent-platform/using-agents/planning: warp-agents/planning.md
+    agent-platform/using-agents/web-search: warp-agents/web-search.md
+    agent-platform/using-agents/third-party-cli-agents: cli-agents/overview.md
+    agent-platform/using-agents/agent-tasklists: warp-agents/task-lists.md
     agent-platform/using-agents/managing-agents: cloud-agents/managing-cloud-agents.md
-    agent-platform/using-agents/agent-context: local-agents/agent-context/README.md
-    agent-platform/using-agents/agent-conversations/conversation-forking: local-agents/interacting-with-agents/conversation-forking.md
-    agent-platform/using-agents/agent-context/images-as-context: local-agents/agent-context/images-as-context.md
-    agent-platform/using-agents/agent-context/blocks-as-context: local-agents/agent-context/blocks-as-context.md
-    agent-platform/using-agents/agent-context/urls-as-context: local-agents/agent-context/urls-as-context.md
-    agent-platform/using-agents/agent-context/using-to-add-context: local-agents/agent-context/using-to-add-context.md
-    agent-platform/using-agents/agent-context/selection-as-context: local-agents/agent-context/selection-as-context.md
-    agent-platform/using-agents/agent-permissions: capabilities/agent-profiles-permissions.md
+    agent-platform/using-agents/agent-context: warp-agents/agent-context/README.md
+    agent-platform/using-agents/agent-conversations/conversation-forking: warp-agents/interacting-with-agents/conversation-forking.md
+    agent-platform/using-agents/agent-context/images-as-context: warp-agents/agent-context/images-as-context.md
+    agent-platform/using-agents/agent-context/blocks-as-context: warp-agents/agent-context/blocks-as-context.md
+    agent-platform/using-agents/agent-context/urls-as-context: warp-agents/agent-context/urls-as-context.md
+    agent-platform/using-agents/agent-context/using-to-add-context: warp-agents/agent-context/using-to-add-context.md
+    agent-platform/using-agents/agent-context/selection-as-context: warp-agents/agent-context/selection-as-context.md
+    agent-platform/using-agents/agent-permissions: warp-agents/agent-profiles-permissions.md
 
     # agent-platform/ambient-agents/* paths
     agent-platform/ambient-agents/ambient-agents-overview: cloud-agents/overview.md
@@ -108,102 +108,102 @@ redirects:
     agent-platform/integrations/github-actions/readme: cloud-agents/integrations/github-actions.md
 
     # agent-platform/autonomy/* paths
-    agent-platform/autonomy/run-to-completion: capabilities/agent-profiles-permissions.md
-    agent-platform/autonomy/agent-permissions: capabilities/agent-profiles-permissions.md
+    agent-platform/autonomy/run-to-completion: warp-agents/agent-profiles-permissions.md
+    agent-platform/autonomy/agent-permissions: warp-agents/agent-profiles-permissions.md
 
     # agent-platform/agent/* paths (with extra agent prefix)
-    agent-platform/agent/using-agents/agent-profiles-permissions: capabilities/agent-profiles-permissions.md
-    agent-platform/agent/agents-overview: local-agents/overview.md
+    agent-platform/agent/using-agents/agent-profiles-permissions: warp-agents/agent-profiles-permissions.md
+    agent-platform/agent/agents-overview: warp-agents/README.md
 
     # Anchor-specific paths
-    agent-platform/using-agents/model-choice#how-to-change-models: capabilities/model-choice.md
-    agent-platform/using-agents/model-choice#configuring-models-per-agent-profile: capabilities/model-choice.md
-    agent-platform/using-agents/model-choice#available-models: capabilities/model-choice.md
-    agent-platform/using-agents/agent-profiles-permissions#agent-profiles: capabilities/agent-profiles-permissions.md
-    agent-platform/using-agents/agent-profiles-permissions#agent-permissions: capabilities/agent-profiles-permissions.md
+    agent-platform/using-agents/model-choice#how-to-change-models: warp-agents/model-choice.md
+    agent-platform/using-agents/model-choice#configuring-models-per-agent-profile: warp-agents/model-choice.md
+    agent-platform/using-agents/model-choice#available-models: warp-agents/model-choice.md
+    agent-platform/using-agents/agent-profiles-permissions#agent-profiles: warp-agents/agent-profiles-permissions.md
+    agent-platform/using-agents/agent-profiles-permissions#agent-permissions: warp-agents/agent-profiles-permissions.md
     agent-platform/using-agents/managing-agents#in-app-agent-notifications: cloud-agents/managing-cloud-agents.md
-    agent-platform/using-agents/agent-context/blocks-as-context#attaching-blocks-as-context: local-agents/agent-context/blocks-as-context.md
-    agent-platform/full-terminal-use#session-level-approvals: capabilities/full-terminal-use.md
+    agent-platform/using-agents/agent-context/blocks-as-context#attaching-blocks-as-context: warp-agents/agent-context/blocks-as-context.md
+    agent-platform/full-terminal-use#session-level-approvals: warp-agents/full-terminal-use.md
     agent-platform/ai-faqs#gathering-ai-debugging-id: getting-started/faqs.md
-    agent-platform/active-ai#next-command: local-agents/active-ai.md
-    agent-platform/active-ai#suggested-code-diffs: local-agents/active-ai.md
-    agent-platform/using-agents#codebase-context: local-agents/interacting-with-agents/README.md
-    agent-platform/using-agents#windows: local-agents/interacting-with-agents/README.md
-    agent-platform/using-agents/agent-context#attaching-blocks-as-context: local-agents/agent-context/README.md
+    agent-platform/active-ai#next-command: warp-agents/active-ai.md
+    agent-platform/active-ai#suggested-code-diffs: warp-agents/active-ai.md
+    agent-platform/using-agents#codebase-context: warp-agents/interacting-with-agents/README.md
+    agent-platform/using-agents#windows: warp-agents/interacting-with-agents/README.md
+    agent-platform/using-agents/agent-context#attaching-blocks-as-context: warp-agents/agent-context/README.md
 
     # Additional agents/* paths (not duplicating ones already in Old agents/ section)
-    agents/agents-md: local-agents/overview.md
-    agents/warp-ai: local-agents/overview.md
-    agents/warp-ai/agent-mode: local-agents/interacting-with-agents/README.md
+    agents/agents-md: warp-agents/README.md
+    agents/warp-ai: warp-agents/README.md
+    agents/warp-ai/agent-mode: warp-agents/interacting-with-agents/README.md
     agents/ai: README.md
-    agents/ai-commander: local-agents/overview.md
-    agents/ai-commands: local-agents/generate.md
-    agents/ai-getting-started: local-agents/overview.md
-    agents/model-choice: capabilities/model-choice.md
-    agents/autonomy/agent-permissions: capabilities/agent-profiles-permissions.md
-    agents/autonomy/run-to-completion: capabilities/agent-profiles-permissions.md
-    agents/using-agents/profiles: capabilities/agent-profiles-permissions.md
+    agents/ai-commander: warp-agents/README.md
+    agents/ai-commands: warp-agents/README.md
+    agents/ai-getting-started: warp-agents/README.md
+    agents/model-choice: warp-agents/model-choice.md
+    agents/autonomy/agent-permissions: warp-agents/agent-profiles-permissions.md
+    agents/autonomy/run-to-completion: warp-agents/agent-profiles-permissions.md
+    agents/using-agents/profiles: warp-agents/agent-profiles-permissions.md
 
     # features/ai/* paths (within agent-platform space only)
-    features/ai/agents: local-agents/interacting-with-agents/README.md
-    features/ai/agent: local-agents/interacting-with-agents/README.md
-    features/ai/agent-mode: local-agents/interacting-with-agents/README.md
-    features/ai/ai-models-and-providers: capabilities/model-choice.md
-    features/ai/using-ai: local-agents/overview.md
-    features/ai/using-warp-ai: local-agents/overview.md
-    features/ai/get-started-with-warp-ai: local-agents/overview.md
-    features/ai/ai-setup: local-agents/overview.md
-    features/ai/assistant: local-agents/overview.md
-    features/ai/commands: local-agents/generate.md
-    features/ai/commands/agent-mode: local-agents/interacting-with-agents/README.md
-    features/ai/commands/agents: local-agents/interacting-with-agents/README.md
-    features/ai/commands/ai-agent: local-agents/interacting-with-agents/README.md
-    features/ai/commands/ai-commands-overview: local-agents/generate.md
-    features/ai/commands-and-agents: local-agents/overview.md
+    features/ai/agents: warp-agents/interacting-with-agents/README.md
+    features/ai/agent: warp-agents/interacting-with-agents/README.md
+    features/ai/agent-mode: warp-agents/interacting-with-agents/README.md
+    features/ai/ai-models-and-providers: warp-agents/model-choice.md
+    features/ai/using-ai: warp-agents/README.md
+    features/ai/using-warp-ai: warp-agents/README.md
+    features/ai/get-started-with-warp-ai: warp-agents/README.md
+    features/ai/ai-setup: warp-agents/README.md
+    features/ai/assistant: warp-agents/README.md
+    features/ai/commands: warp-agents/README.md
+    features/ai/commands/agent-mode: warp-agents/interacting-with-agents/README.md
+    features/ai/commands/agents: warp-agents/interacting-with-agents/README.md
+    features/ai/commands/ai-agent: warp-agents/interacting-with-agents/README.md
+    features/ai/commands/ai-commands-overview: warp-agents/README.md
+    features/ai/commands-and-agents: warp-agents/README.md
 
     # features/warp-ai/* paths (not duplicating ones already in Old features/warp-ai section)
-    features/ai-agents: local-agents/interacting-with-agents/README.md
-    features/ai-features: local-agents/overview.md
-    features/ai-command: local-agents/generate.md
-    features/ai-commands: local-agents/generate.md
-    features/ai-command-suggestions: local-agents/generate.md
-    features/ai-command-search/limits: local-agents/generate.md
-    features/ai-command-search/model-choice: capabilities/model-choice.md
-    features/ai-command/model-choice: capabilities/model-choice.md
-    features/warp-ai/ai-command-suggestions: local-agents/generate.md
-    features/warp-ai/agent-modea: local-agents/interacting-with-agents/README.md
-    features/warp-ai/agent-mode#examples-of-coding-capabilities: local-agents/interacting-with-agents/README.md
-    features/agent-mode: local-agents/interacting-with-agents/README.md
-    features/agent-mode/agents-md: local-agents/overview.md
-    features/agents: local-agents/interacting-with-agents/README.md
-    features/model-choice: capabilities/model-choice.md
-    features/terminal-ai: local-agents/overview.md
-    features/terminal-ai/ai-models: capabilities/model-choice.md
+    features/ai-agents: warp-agents/interacting-with-agents/README.md
+    features/ai-features: warp-agents/README.md
+    features/ai-command: warp-agents/README.md
+    features/ai-commands: warp-agents/README.md
+    features/ai-command-suggestions: warp-agents/README.md
+    features/ai-command-search/limits: warp-agents/README.md
+    features/ai-command-search/model-choice: warp-agents/model-choice.md
+    features/ai-command/model-choice: warp-agents/model-choice.md
+    features/warp-ai/ai-command-suggestions: warp-agents/README.md
+    features/warp-ai/agent-modea: warp-agents/interacting-with-agents/README.md
+    features/warp-ai/agent-mode#examples-of-coding-capabilities: warp-agents/interacting-with-agents/README.md
+    features/agent-mode: warp-agents/interacting-with-agents/README.md
+    features/agent-mode/agents-md: warp-agents/README.md
+    features/agents: warp-agents/interacting-with-agents/README.md
+    features/model-choice: warp-agents/model-choice.md
+    features/terminal-ai: warp-agents/README.md
+    features/terminal-ai/ai-models: warp-agents/model-choice.md
 
     # features/ai-and-* paths
-    features/ai-and-warpdrive/warp-ai: local-agents/overview.md
-    features/ai-and-session-history/warp-ai: local-agents/overview.md
-    features/ai-and-stack-overflow/agent-mode: local-agents/interacting-with-agents/README.md
-    features/ai-and-agents: local-agents/overview.md
-    features/ai-and-agents/agents: local-agents/interacting-with-agents/README.md
-    features/ai-features/ai-chat: local-agents/overview.md
-    features/ai-and-ask-warp: local-agents/overview.md
-    features/ai-and-ask-warp-ai: local-agents/overview.md
-    ai-features/ai-commands: local-agents/generate.md
-    ai-features/model-choice: capabilities/model-choice.md
+    features/ai-and-warpdrive/warp-ai: warp-agents/README.md
+    features/ai-and-session-history/warp-ai: warp-agents/README.md
+    features/ai-and-stack-overflow/agent-mode: warp-agents/interacting-with-agents/README.md
+    features/ai-and-agents: warp-agents/README.md
+    features/ai-and-agents/agents: warp-agents/interacting-with-agents/README.md
+    features/ai-features/ai-chat: warp-agents/README.md
+    features/ai-and-ask-warp: warp-agents/README.md
+    features/ai-and-ask-warp-ai: warp-agents/README.md
+    ai-features/ai-commands: warp-agents/README.md
+    ai-features/model-choice: warp-agents/model-choice.md
 
     # terminal/ai/* paths
-    terminal/ai: local-agents/overview.md
-    terminal/ai/agent-mode: local-agents/interacting-with-agents/README.md
-    terminal/warp-ai: local-agents/overview.md
-    terminal-ai/getting-started: local-agents/overview.md
+    terminal/ai: warp-agents/README.md
+    terminal/ai/agent-mode: warp-agents/interacting-with-agents/README.md
+    terminal/warp-ai: warp-agents/README.md
+    terminal-ai/getting-started: warp-agents/README.md
 
     # Root-level AI paths
     ai: README.md
-    warp-ai: local-agents/overview.md
-    warp-ai/get-started: local-agents/overview.md
-    warp-ai/assistant: local-agents/overview.md
-    ai/warp-ai: local-agents/overview.md
+    warp-ai: warp-agents/README.md
+    warp-ai/get-started: warp-agents/README.md
+    warp-ai/assistant: warp-agents/README.md
+    ai/warp-ai: warp-agents/README.md
 
     # platform/* paths (not in platform section)
     platform/environments: cloud-agents/environments.md
@@ -222,72 +222,119 @@ redirects:
     ambient-agents: cloud-agents/overview.md
 
     # settings/ai paths
-    settings/ai-agents: capabilities/agent-profiles-permissions.md
+    settings/ai-agents: warp-agents/agent-profiles-permissions.md
 
     # Pages moved from agent-mode to capabilities
-    agent-mode/task-lists: capabilities/task-lists.md
-    agent-mode/model-choice: capabilities/model-choice.md
-    agent-mode/full-terminal-use: capabilities/full-terminal-use.md
-    agent-mode/web-search: capabilities/web-search.md
+    agent-mode/task-lists: warp-agents/task-lists.md
+    agent-mode/model-choice: warp-agents/model-choice.md
+    agent-mode/full-terminal-use: warp-agents/full-terminal-use.md
+    agent-mode/web-search: warp-agents/web-search.md
 
     # Renamed: agent-concepts -> capabilities
-    agent-concepts: capabilities/README.md
-    agent-concepts/agent-profiles-permissions: capabilities/agent-profiles-permissions.md
-    agent-concepts/codebase-context: capabilities/codebase-context.md
-    agent-concepts/full-terminal-use: capabilities/full-terminal-use.md
-    agent-concepts/mcp: capabilities/mcp.md
-    agent-concepts/model-choice: capabilities/model-choice.md
-    agent-concepts/planning: capabilities/planning.md
-    agent-concepts/rules: capabilities/rules.md
-    agent-concepts/skills: capabilities/skills.md
-    agent-concepts/slash-commands: capabilities/slash-commands.md
-    agent-concepts/task-lists: capabilities/task-lists.md
-    agent-concepts/web-search: capabilities/web-search.md
+    agent-concepts: warp-agents/capabilities-overview.md
+    agent-concepts/agent-profiles-permissions: warp-agents/agent-profiles-permissions.md
+    agent-concepts/codebase-context: warp-agents/codebase-context.md
+    agent-concepts/full-terminal-use: warp-agents/full-terminal-use.md
+    agent-concepts/mcp: warp-agents/mcp.md
+    agent-concepts/model-choice: warp-agents/model-choice.md
+    agent-concepts/planning: warp-agents/planning.md
+    agent-concepts/rules: warp-agents/rules.md
+    agent-concepts/skills: warp-agents/skills.md
+    agent-concepts/slash-commands: warp-agents/slash-commands.md
+    agent-concepts/task-lists: warp-agents/task-lists.md
+    agent-concepts/web-search: warp-agents/web-search.md
 
     # Renamed: agent-mode -> local-agents
-    agent-mode: local-agents/overview.md
-    agent-mode/active-ai: local-agents/active-ai.md
-    agent-mode/agents-overview: local-agents/overview.md
+    agent-mode: warp-agents/README.md
+    agent-mode/active-ai: warp-agents/active-ai.md
+    agent-mode/agents-overview: warp-agents/README.md
     agent-mode/ambient-agents-session-sharing: cloud-agents/viewing-cloud-agent-runs.md
-    agent-mode/code-diffs-in-agent-conversations: local-agents/code-diffs.md
-    agent-mode/generate: local-agents/generate.md
-    agent-mode/interactive-code-review: local-agents/interactive-code-review.md
-    agent-mode/third-party-cli-agents: local-agents/third-party-cli-agents.md
-    agent-mode/agent-context: local-agents/agent-context/README.md
-    agent-mode/agent-context/blocks-as-context: local-agents/agent-context/blocks-as-context.md
-    agent-mode/agent-context/images-as-context: local-agents/agent-context/images-as-context.md
-    agent-mode/agent-context/selection-as-context: local-agents/agent-context/selection-as-context.md
-    agent-mode/agent-context/urls-as-context: local-agents/agent-context/urls-as-context.md
-    agent-mode/agent-context/using-to-add-context: local-agents/agent-context/using-to-add-context.md
-    agent-mode/interacting-with-agents: local-agents/interacting-with-agents/README.md
-    agent-mode/interacting-with-agents/agent-modality-beta: local-agents/interacting-with-agents/terminal-and-agent-modes.md
-    local-agents/interacting-with-agents/agent-modality-beta: local-agents/interacting-with-agents/terminal-and-agent-modes.md
-    local-agents/interacting-with-agents/agent-modality: local-agents/interacting-with-agents/terminal-and-agent-modes.md
-    agent-mode/interacting-with-agents/conversation-forking: local-agents/interacting-with-agents/conversation-forking.md
-    agent-mode/interacting-with-agents/voice: local-agents/interacting-with-agents/voice.md
+    agent-mode/code-diffs-in-agent-conversations: warp-agents/code-diffs.md
+    agent-mode/generate: warp-agents/README.md
+    agent-mode/interactive-code-review: warp-agents/interactive-code-review.md
+    agent-mode/third-party-cli-agents: cli-agents/overview.md
+    agent-mode/agent-context: warp-agents/agent-context/README.md
+    agent-mode/agent-context/blocks-as-context: warp-agents/agent-context/blocks-as-context.md
+    agent-mode/agent-context/images-as-context: warp-agents/agent-context/images-as-context.md
+    agent-mode/agent-context/selection-as-context: warp-agents/agent-context/selection-as-context.md
+    agent-mode/agent-context/urls-as-context: warp-agents/agent-context/urls-as-context.md
+    agent-mode/agent-context/using-to-add-context: warp-agents/agent-context/using-to-add-context.md
+    agent-mode/interacting-with-agents: warp-agents/interacting-with-agents/README.md
+    agent-mode/interacting-with-agents/agent-modality-beta: warp-agents/interacting-with-agents/terminal-and-agent-modes.md
+    local-agents/interacting-with-agents/agent-modality-beta: warp-agents/interacting-with-agents/terminal-and-agent-modes.md
+    local-agents/interacting-with-agents/agent-modality: warp-agents/interacting-with-agents/terminal-and-agent-modes.md
+    agent-mode/interacting-with-agents/conversation-forking: warp-agents/interacting-with-agents/conversation-forking.md
+    agent-mode/interacting-with-agents/voice: warp-agents/interacting-with-agents/voice.md
     local-agents/ambient-agents-session-sharing: cloud-agents/viewing-cloud-agent-runs.md
 
     # Cross-space legacy paths (old root-level URLs pointing to agent-platform content)
-    features/warp-ai/mcp: capabilities/mcp.md
-    features/warp-ai/knowledge: capabilities/rules.md
-    features/warp-ai/rules: capabilities/rules.md
-    features/knowledge: capabilities/rules.md
-    features/integrations/mcp: capabilities/mcp.md
-    knowledge-and-collaboration/mcp: capabilities/mcp.md
-    knowledge-and-collaboration/rules: capabilities/rules.md
-    knowledge-and-collaboration/warp-drive/model-context-protocol-mcp: capabilities/mcp.md
-    knowledge-and-collaboration/session-sharing/agent-session-sharing: cloud-agents/agent-session-sharing.md
-    knowledge-and-collaboration/session-sharing/ambient-agents-session-sharing: cloud-agents/cloud-agents-session-sharing.md
-    code/codebase-context: capabilities/codebase-context.md
-    code/reviewing-code: local-agents/code-diffs.md
-    code/code-review/interactive-code-review: local-agents/interactive-code-review.md
+    features/warp-ai/mcp: warp-agents/mcp.md
+    features/warp-ai/knowledge: warp-agents/rules.md
+    features/warp-ai/rules: warp-agents/rules.md
+    features/knowledge: warp-agents/rules.md
+    features/integrations/mcp: warp-agents/mcp.md
+    knowledge-and-collaboration/mcp: warp-agents/mcp.md
+    knowledge-and-collaboration/rules: warp-agents/rules.md
+    knowledge-and-collaboration/warp-drive/model-context-protocol-mcp: warp-agents/mcp.md
+    knowledge-and-collaboration/session-sharing/agent-session-sharing: warp-agents/session-sharing.md
+    knowledge-and-collaboration/session-sharing/ambient-agents-session-sharing: cloud-agents/viewing-cloud-agent-runs.md
+    code/codebase-context: warp-agents/codebase-context.md
+    code/reviewing-code: warp-agents/code-diffs.md
+    code/code-review/interactive-code-review: warp-agents/interactive-code-review.md
     getting-started/quickstart-guide/agents-in-warp: getting-started/agents-in-warp.md
 
     # Renamed: simplify filenames
     cloud-agents/cloud-agents-overview: cloud-agents/overview.md
     cloud-agents/cloud-agents-faqs: cloud-agents/faqs.md
     cloud-agents/cloud-agent-secrets: cloud-agents/secrets.md
-    cloud-agents/agent-session-sharing: local-agents/session-sharing.md
-    local-agents/agents-overview: local-agents/overview.md
-    local-agents/code-diffs-in-agent-conversations: local-agents/code-diffs.md
+    cloud-agents/agent-session-sharing: warp-agents/session-sharing.md
+    local-agents/agents-overview: warp-agents/README.md
+    local-agents/code-diffs-in-agent-conversations: warp-agents/code-diffs.md
     cloud-agents/cloud-agents-session-sharing: cloud-agents/viewing-cloud-agent-runs.md
+
+    # Moved: third-party-cli-agents → cli-agents section
+    local-agents/third-party-cli-agents: cli-agents/overview.md
+
+    # Renamed: third-party-agents → cli-agents
+    third-party-agents/overview: cli-agents/overview.md
+    third-party-agents/claude-code: cli-agents/claude-code.md
+    third-party-agents/codex: cli-agents/codex.md
+    third-party-agents/opencode: cli-agents/opencode.md
+    third-party-agents/rich-input: cli-agents/rich-input.md
+    third-party-agents/remote-control: cli-agents/remote-control.md
+
+    # Renamed: capabilities/* → warp-agents/*
+    capabilities: warp-agents/capabilities-overview.md
+    capabilities/slash-commands: warp-agents/slash-commands.md
+    capabilities/skills: warp-agents/skills.md
+    capabilities/planning: warp-agents/planning.md
+    capabilities/task-lists: warp-agents/task-lists.md
+    capabilities/model-choice: warp-agents/model-choice.md
+    capabilities/rules: warp-agents/rules.md
+    capabilities/full-terminal-use: warp-agents/full-terminal-use.md
+    capabilities/computer-use: warp-agents/computer-use.md
+    capabilities/mcp: warp-agents/mcp.md
+    capabilities/codebase-context: warp-agents/codebase-context.md
+    capabilities/agent-profiles-permissions: warp-agents/agent-profiles-permissions.md
+    capabilities/web-search: warp-agents/web-search.md
+
+    # Renamed: local-agents/* → warp-agents/*
+    local-agents: warp-agents/README.md
+    local-agents/overview: warp-agents/README.md
+    local-agents/active-ai: warp-agents/active-ai.md
+    local-agents/interactive-code-review: warp-agents/interactive-code-review.md
+    local-agents/session-sharing: warp-agents/session-sharing.md
+    local-agents/code-diffs: warp-agents/code-diffs.md
+    local-agents/cloud-conversations: warp-agents/cloud-conversations.md
+    local-agents/generate: warp-agents/README.md
+    local-agents/agent-notifications: warp-agents/agent-notifications.md
+    local-agents/interacting-with-agents: warp-agents/interacting-with-agents/README.md
+    local-agents/interacting-with-agents/terminal-and-agent-modes: warp-agents/interacting-with-agents/terminal-and-agent-modes.md
+    local-agents/interacting-with-agents/conversation-forking: warp-agents/interacting-with-agents/conversation-forking.md
+    local-agents/interacting-with-agents/voice: warp-agents/interacting-with-agents/voice.md
+    local-agents/agent-context: warp-agents/agent-context/README.md
+    local-agents/agent-context/blocks-as-context: warp-agents/agent-context/blocks-as-context.md
+    local-agents/agent-context/images-as-context: warp-agents/agent-context/images-as-context.md
+    local-agents/agent-context/urls-as-context: warp-agents/agent-context/urls-as-context.md
+    local-agents/agent-context/selection-as-context: warp-agents/agent-context/selection-as-context.md
+    local-agents/agent-context/using-to-add-context: warp-agents/agent-context/using-to-add-context.md

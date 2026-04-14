@@ -182,6 +182,7 @@ redirects:
     terminal/more-features/text-selection: terminal/more-features/text-selection.md
     terminal/more-features/uri-scheme: terminal/more-features/uri-scheme.md
     terminal/more-features/working-directory: terminal/more-features/working-directory.md
+    terminal/sessions/tab-configs: terminal/windows/tab-configs.md
     terminal/sessions/launch-configurations: terminal/sessions/launch-configurations.md
     terminal/sessions/session-navigation: terminal/sessions/session-navigation.md
     terminal/sessions/session-restoration: terminal/sessions/session-restoration.md

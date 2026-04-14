@@ -88,7 +88,7 @@ An environment defines everything the agent needs to run your code:
 You can create an environment via:
 
 * The CLI
-* The guided flow using `/create-environment` ([Slash Commands](../../capabilities/slash-commands.md))
+* The guided flow using `/create-environment` ([Slash Commands](../../warp-agents/slash-commands.md))
 
 For full instructions, see our [Environment Setup](README.md) docs.
 

@@ -1,11 +1,14 @@
 ---
 description: >-
-  Launch Configurations enables you to save your configuration of windows, tabs,
-  and panes, so that you can reopen the same set of sessions per project
-  quickly.
+  Launch Configurations (Legacy) let you save a configuration of windows, tabs,
+  and panes. For new setups, use Tab Configs instead.
 ---
 
-# Launch Configurations
+# Launch Configurations (Legacy)
+
+{% hint style="warning" %}
+Launch Configurations have been replaced by [Tab Configs](../windows/tab-configs.md). Existing Launch Configurations continue to work, but new features are not being added. For new setups, use [Tab Configs](../windows/tab-configs.md).
+{% endhint %}
 
 ## What is it
 

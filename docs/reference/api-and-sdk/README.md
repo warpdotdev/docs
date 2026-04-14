@@ -76,11 +76,11 @@ See the [**Agents API**](https://docs.warp.dev/reference/api-and-sdk/agent) for 
 
 You can influence how an agent runs using AmbientAgentConfig, including:
 
-* `name` — a human-readable label for grouping, filtering, and traceability. When you run an agent from a [skill](https://docs.warp.dev/agent-platform/capabilities/skills), `name` is automatically set to the skill name. You can also set `name` explicitly via the API, SDK, or CLI (`--name`) to categorize runs by intent — for example, grouping all runs of a particular workflow regardless of how they were triggered. Use the `name` query parameter on `GET /agent/runs` to filter runs by config name.
+* `name` — a human-readable label for grouping, filtering, and traceability. When you run an agent from a [skill](https://docs.warp.dev/agent-platform/warp-agents/skills), `name` is automatically set to the skill name. You can also set `name` explicitly via the API, SDK, or CLI (`--name`) to categorize runs by intent — for example, grouping all runs of a particular workflow regardless of how they were triggered. Use the `name` query parameter on `GET /agent/runs` to filter runs by config name.
 * `model_id` for LLM selection
 * `base_prompt` to shape behavior
 * `environment_id` to choose a `CloudEnvironment`
-* `skill_spec` to use a [skill](https://docs.warp.dev/agent-platform/capabilities/skills) as the base prompt (format: `owner/repo:skill-name` or `owner/repo:path/to/SKILL.md`)
+* `skill_spec` to use a [skill](https://docs.warp.dev/agent-platform/warp-agents/skills) as the base prompt (format: `owner/repo:skill-name` or `owner/repo:path/to/SKILL.md`)
 * `mcp_servers` to enable specific tools via MCP
 
 See the [**Python SDK**](https://github.com/warpdotdev/oz-sdk-python) or [**TypeScript SDK**](https://github.com/warpdotdev/oz-sdk-typescript) for the full configuration schema.

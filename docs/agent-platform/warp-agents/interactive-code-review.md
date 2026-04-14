@@ -28,6 +28,10 @@ From there, you can leave comments on specific lines or blocks, review your comm
 
 This gives you a familiar pull-request style workflow inside Warp without switching editors or tools.
 
+{% hint style="info" %}
+Interactive Code Review also works with third-party CLI agents like Claude Code, Codex, and others running in Warp. See [Third-Party CLI Agents](../cli-agents/overview.md) for setup and supported features.
+{% endhint %}
+
 ### Leave inline comments
 
 Select any changed line or block and add a comment describing what you want adjusted. Warp anchors each comment to the relevant file and line so the agent understands exactly what to fix.

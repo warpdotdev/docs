@@ -32,7 +32,7 @@ Attaching context with @ works in **both natural language mode** (when interacti
 
 <figure><img src="../../.gitbook/assets/at-context.png" alt=""><figcaption><p>Using the @ symbol to search for and attach a file or folder from the project root.</p></figcaption></figure>
 
-Additionally, no codebase indexing (via [Codebase Context](../../capabilities/codebase-context.md)) is required — file search is available immediately in any Git-initialized directory. The search also respects `.gitignore` rules and will exclude ignored files from the results.
+Additionally, no codebase indexing (via [Codebase Context](.././codebase-context.md)) is required — file search is available immediately in any Git-initialized directory. The search also respects `.gitignore` rules and will exclude ignored files from the results.
 
 <figure><img src="../../.gitbook/assets/at-context-app.png" alt=""><figcaption><p>Filtering files using @app to locate files containing “app” in their name or path.</p></figcaption></figure>
 
@@ -52,7 +52,7 @@ Warp Drive objects are another way to attach context with **@**. You can referen
 
 * [Workflows](https://docs.warp.dev/knowledge-and-collaboration/warp-drive/workflows) — parameterized commands you can name and save in Warp with descriptions and arguments.
 * [Notebooks](https://docs.warp.dev/knowledge-and-collaboration/warp-drive/notebooks) — runnable documentation consisting of markdown text and list elements, code blocks, and runnable shell snippets that can be automatically executed in your terminal session.
-* [Rules](../../capabilities/rules.md) — reusable guidelines and constraints that inform how Agents respond to your prompts.
+* [Rules](.././rules.md) — reusable guidelines and constraints that inform how Agents respond to your prompts.
 
 When you select one of these objects, Warp inserts a reference token into your prompt. The contents of the object are then automatically passed as context to the Agent.
 

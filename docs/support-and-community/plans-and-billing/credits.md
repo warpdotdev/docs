@@ -38,7 +38,7 @@ You can view your total credit usage, along with other billing details, in **Set
 
 In addition to direct Agent conversations, the following features also consume credits:
 
-* [Generate](https://docs.warp.dev/agent-platform/local-agents/generate) helps you look up commands and suggestions as you type. As you refine your input, multiple credits may be used before you select a final suggestion.
+* [Generate](https://docs.warp.dev/agent-platform/warp-agents) helps you look up commands and suggestions as you type. As you refine your input, multiple credits may be used before you select a final suggestion.
 * [AI Autofill in Workflows](https://docs.warp.dev/knowledge-and-collaboration/warp-drive/workflows#ai-autofill) count as a credit each time it is run.
 
 {% hint style="success" %}
@@ -85,7 +85,7 @@ Some tasks are straightforward and may require only a single quick response, wit
 
 #### 4. Amount of context passed to the model
 
-Prompts that include large amounts of context (such as [attached blocks](https://docs.warp.dev/agent-platform/local-agents/agent-context/#attaching-blocks-as-context), long user query messages, etc.) or file attachments like [images](https://docs.warp.dev/agent-platform/local-agents/agent-context/#attaching-images-as-context) may also increase the number of credits used due to increased token consumption.
+Prompts that include large amounts of context (such as [attached blocks](https://docs.warp.dev/agent-platform/warp-agents/agent-context/#attaching-blocks-as-context), long user query messages, etc.) or file attachments like [images](https://docs.warp.dev/agent-platform/warp-agents/agent-context/#attaching-images-as-context) may also increase the number of credits used due to increased token consumption.
 
 {% hint style="info" %}
 **Tip**: When sharing logs, code, or other large pieces of content, attach only the most relevant portions instead of full outputs.

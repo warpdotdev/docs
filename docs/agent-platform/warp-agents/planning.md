@@ -44,7 +44,7 @@ If you revise the plan while the agent is running, you can notify it directly; t
 
 ### Monitoring progress
 
-While the agent is running, you can reopen the plan at any time by selecting **View plan** in the input. You can also follow each change in real time through the [Code Review](https://docs.warp.dev/code/code-review) panel and add comments or guidance using [Interactive Code Review](../local-agents/interactive-code-review.md).
+While the agent is running, you can reopen the plan at any time by selecting **View plan** in the input. You can also follow each change in real time through the [Code Review](https://docs.warp.dev/code/code-review) panel and add comments or guidance using [Interactive Code Review](interactive-code-review.md).
 
 <figure><img src="../.gitbook/assets/agent-plans-tasks.png" alt=""><figcaption><p>Monitoring progress with the task list and plan view.</p></figcaption></figure>
 
@@ -72,6 +72,6 @@ You can configure whether your plans will be automatically added and synced to W
 
 Plans are reusable across tasks and sessions. You can reference them in future prompts, continue where you left off, or build follow-up plans that rely on earlier work.
 
-The **@plans** command helps you quickly search for and reopen previously saved plans, making planning a consistent part of your development workflow rather than a one-off step. Learn more about attaching context using @ [here](../local-agents/agent-context/using-to-add-context.md).
+The **@plans** command helps you quickly search for and reopen previously saved plans, making planning a consistent part of your development workflow rather than a one-off step. Learn more about attaching context using @ [here](agent-context/using-to-add-context.md).
 
 <figure><img src="../.gitbook/assets/@-reference-plans.png" alt="" width="375"><figcaption></figcaption></figure>
