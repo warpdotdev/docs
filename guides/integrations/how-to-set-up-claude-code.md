@@ -113,24 +113,9 @@ This lets Claude read files and run your test/lint commands without prompting, w
 
 ## 6. Set up agent notifications
 
-Warp supports agent notifications for Claude Code through the `warpdotdev/claude-code-warp` plugin. Once installed, Warp surfaces in-app and desktop alerts when Claude Code needs your input, such as command approval, code review, or error intervention.
+Warp supports agent notifications for Claude Code through a plugin. When you run Claude Code in Warp without the plugin installed, a notification chip appears offering one-click installation. Once installed, Warp surfaces in-app and desktop alerts when Claude Code needs your input.
 
-**Auto-install:** When you run Claude Code in Warp without the notification plugin installed, a notification chip appears offering one-click installation. Click the chip and Warp installs the plugin automatically.
-
-**Manual install:** If the auto-install chip doesn't appear, install from inside Claude Code:
-
-```bash
-/plugin marketplace add warpdotdev/claude-code-warp
-/plugin install warp@claude-code-warp
-```
-
-After installing, restart Claude Code or run `/reload-plugins` to activate the plugin.
-
-{% hint style="info" %}
-The notification plugin requires `jq`. Install it with your package manager (e.g., `brew install jq` on macOS) if it's not already available.
-{% endhint %}
-
-For plugin source and updates, see the [claude-code-warp GitHub repository](https://github.com/warpdotdev/claude-code-warp).
+For manual installation steps, troubleshooting, and SSH/remote setup, see [Claude Code in Warp (docs)](https://docs.warp.dev/agent-platform/cli-agents/claude-code#setting-up-notifications).
 
 ## Productivity tips
 

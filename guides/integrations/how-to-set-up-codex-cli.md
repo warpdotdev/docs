@@ -110,7 +110,7 @@ Create a `codex.md` or `AGENTS.md` file at your project root to teach Codex your
 Codex reads this file at the start of every session and follows your conventions automatically.
 
 {% hint style="info" %}
-Warp supports agent notifications for Codex. Add `notification_condition = "always"` under `[tui]` in `~/.codex/config.toml`, then restart Codex. If this config isn't set, Warp displays a setup chip in the terminal with instructions you can follow directly. See [Codex in Warp (docs)](https://docs.warp.dev/agent-platform/cli-agents/codex#setting-up-notifications) for details.
+Warp supports agent notifications for Codex. Add `notification_condition = "always"` under `[tui]` in `~/.codex/config.toml` and restart Codex. See [Codex in Warp (docs)](https://docs.warp.dev/agent-platform/cli-agents/codex#setting-up-notifications) for details. If the config isn't set, Warp displays a setup chip in the terminal.
 {% endhint %}
 
 ## Productivity tips

@@ -108,19 +108,9 @@ Commit the `AGENTS.md` file to Git so your team shares the same project context.
 
 ## 5. Set up agent notifications
 
-Warp supports agent notifications for OpenCode through a plugin. Once installed, Warp surfaces in-app and desktop alerts when OpenCode needs your input.
+Warp supports agent notifications for OpenCode through a plugin. If the plugin isn't installed, Warp displays an installation chip in the terminal when you run OpenCode, with setup steps you can follow directly.
 
-Add `"@warp-dot-dev/opencode-warp"` to the `plugin` array in your `opencode.json` configuration file:
-
-```json
-{
-  "plugin": ["@warp-dot-dev/opencode-warp"]
-}
-```
-
-If the plugin isn't installed, Warp displays an installation chip in the terminal when you run OpenCode, with setup steps you can follow directly.
-
-For plugin source and updates, see the [opencode-warp GitHub repository](https://github.com/warpdotdev/opencode-warp).
+For manual installation and configuration, see [OpenCode in Warp (docs)](https://docs.warp.dev/agent-platform/cli-agents/opencode#setting-up-notifications).
 
 ## Productivity tips
 

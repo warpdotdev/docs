@@ -8,25 +8,9 @@ description: >-
 
 Codex is OpenAI's open-source coding agent that runs in your terminal. It can write and edit code, execute commands, and navigate your codebase through natural language. For full documentation, see the [Codex GitHub repository](https://github.com/openai/codex).
 
-Warp auto-detects Codex when you run it, giving you access to rich input controls, code review, and other integrated features.
+Warp auto-detects Codex when you run it, giving you access to rich input controls, code review, and other integrated features. For a product overview, see [Codex in Warp](https://warp.dev/agents/codex).
 
-For a step-by-step walkthrough, see the [How to set up Codex CLI](https://docs.warp.dev/guides/integrations/how-to-set-up-codex-cli) guide. For a product overview, see [Codex in Warp](https://warp.dev/agents/codex).
-
-## Getting started
-
-1. Install Codex globally via npm:
-
-   ```bash
-   npm install -g @openai/codex
-   ```
-
-2. Launch Codex inside Warp:
-
-   ```bash
-   codex
-   ```
-
-   Warp detects the agent session and surfaces integrated controls automatically.
+For installation, authentication, project configuration, and productivity tips, see the [How to set up Codex CLI](https://docs.warp.dev/guides/integrations/how-to-set-up-codex-cli) guide.
 
 ## Setting up notifications
 

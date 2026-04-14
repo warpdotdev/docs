@@ -8,21 +8,9 @@ description: >-
 
 OpenCode is an open-source terminal-based coding agent. It connects to multiple LLM providers and supports tool use, file editing, and command execution from your terminal. For full documentation, see the [OpenCode docs](https://opencode.ai/docs).
 
-Warp auto-detects OpenCode when you run it, giving you access to rich input controls, code review, agent notifications, and other integrated features.
+Warp auto-detects OpenCode when you run it, giving you access to rich input controls, code review, agent notifications, and other integrated features. For a product overview, see [OpenCode in Warp](https://warp.dev/agents/opencode).
 
-For a step-by-step walkthrough, see the [How to set up OpenCode](https://docs.warp.dev/guides/integrations/how-to-set-up-opencode) guide. For a product overview, see [OpenCode in Warp](https://warp.dev/agents/opencode).
-
-## Getting started
-
-1. Install OpenCode using your preferred method (see the [OpenCode installation guide](https://opencode.ai/docs#install) for options).
-
-2. Launch OpenCode inside Warp:
-
-   ```bash
-   opencode
-   ```
-
-   Warp detects the agent session and surfaces integrated controls automatically.
+For installation, authentication, project configuration, and productivity tips, see the [How to set up OpenCode](https://docs.warp.dev/guides/integrations/how-to-set-up-opencode) guide.
 
 ## Setting up notifications
 

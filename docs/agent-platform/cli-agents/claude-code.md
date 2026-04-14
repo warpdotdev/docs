@@ -8,29 +8,9 @@ description: >-
 
 Claude Code is Anthropic's agentic coding tool that operates directly in your terminal. It understands your codebase, executes commands, edits files, and manages Git workflows — all through natural language. For full documentation, see the [official Claude Code docs](https://code.claude.com/docs).
 
-Warp auto-detects Claude Code when you run it, giving you access to rich input controls, code review, agent notifications, and other integrated features.
+Warp auto-detects Claude Code when you run it, giving you access to rich input controls, code review, agent notifications, and other integrated features. For a product overview, see [Claude Code in Warp](https://warp.dev/agents/claude-code).
 
-For a step-by-step walkthrough, see the [How to set up Claude Code](https://docs.warp.dev/guides/integrations/how-to-set-up-claude-code) guide. For a product overview, see [Claude Code in Warp](https://warp.dev/agents/claude-code).
-
-## Getting started
-
-{% hint style="info" %}
-The notification plugin requires `jq`. Install it with your package manager (e.g., `brew install jq` on macOS) if it's not already available.
-{% endhint %}
-
-1. Install Claude Code globally via npm:
-
-   ```bash
-   npm install -g @anthropic-ai/claude-code
-   ```
-
-2. Launch Claude Code inside Warp:
-
-   ```bash
-   claude
-   ```
-
-   Warp detects the agent session and surfaces integrated controls automatically.
+For installation, authentication, project configuration, and productivity tips, see the [How to set up Claude Code](https://docs.warp.dev/guides/integrations/how-to-set-up-claude-code) guide.
 
 ## Setting up notifications
 
@@ -41,6 +21,10 @@ Warp supports agent notifications for Claude Code through a plugin. Once install
 Each time you run Claude Code in Warp without the notification plugin installed, a notification chip appears offering one-click installation. Click the chip to install the plugin automatically. After installation, Warp immediately starts receiving notifications from Claude Code.
 
 ### Manual install
+
+{% hint style="info" %}
+The notification plugin requires `jq`. Install it with your package manager (e.g., `brew install jq` on macOS) if it's not already available.
+{% endhint %}
 
 If the auto-install chip doesn't appear or fails to install the plugin, install it manually. From inside Claude Code, run:
 
