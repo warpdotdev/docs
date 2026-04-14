@@ -213,16 +213,28 @@ Use callouts sparingly. A page with 5+ callouts loses its visual impact.
 - Always explain what the placeholder represents near where it appears
 
 ### Keys and shortcuts
-Keyboard keys and shortcuts use backticks:
+Keyboard keys and shortcuts use backticks. Use `+` as the separator between keys in a combo. Capitalize only the first letter of each key name (matching keyboard labels). Prefer macOS symbols (`⌘`, `⌥`, `⇧`, `⌃`) when targeting macOS users.
 - Single keys: `Enter`, `Esc`, `Tab`, `Space`, `Backspace`, `Delete`
 - Arrow keys: `↑`, `↓`, `←`, `→`
 - Letter/number keys used as shortcuts: `R`, `E`
-- Modifier combos: `⌘I`, `CMD-ENTER`, `Ctrl+Shift+Enter`, `⌥⌘↩`
+- Modifier combos (macOS symbols): `⌘+I`, `⌘+Shift++`
+- Modifier combos (spelled out): `Ctrl+G`, `Ctrl+Shift+Enter`
+- Cross-platform: `⌘+Shift++` (macOS) or `Ctrl+Shift++` (Windows/Linux)
 - Function keys: `F1`, `F12`
 
+**Rules:**
+- Always use backticks, never bold
+- Use `+` as separator (not `-`), to avoid ambiguity with the minus/hyphen key
+- Capitalize only the first letter: `Ctrl`, `Shift`, `Enter` (not `CTRL`, `SHIFT`, `ENTER`)
+- When a `+` key is part of the shortcut, context makes it clear: `⌘+Shift++` means Cmd, Shift, and the plus key
+
 **Examples:**
-- ✅ Press `⌘I` to switch between command and Agent Mode
+- ✅ Press `⌘+I` to switch between command and Agent Mode
+- ✅ Open the Code Review panel with `⌘+Shift++` (macOS) or `Ctrl+Shift++` (Windows/Linux)
+- ✅ Press `Ctrl+G` to open the rich input editor
 - ❌ Press **Enter** (should be `Enter`)
+- ❌ `CMD-ENTER` (should be `⌘+Enter` or `Cmd+Enter`)
+- ❌ `CTRL+G` (should be `Ctrl+G`)
 
 ### Menu paths
 - Bold each UI element in a menu path; leave the > separator plain: **Settings** > **AI** > **Knowledge**

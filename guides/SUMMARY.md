@@ -12,8 +12,11 @@
 
 ## Agent workflows
 
+* [Review AI-Generated Code](developer-workflows/how-to-review-ai-generated-code.md)
+* [Run Multiple AI Coding Agents](developer-workflows/how-to-run-multiple-ai-coding-agents.md)
+* [Use Voice and Images to Prompt Agents](developer-workflows/how-to-use-voice-and-images-to-prompt-coding-agents.md)
 * [Explain Your Codebase with Agents](developer-workflows/beginner/how-to-explain-your-codebase-using-warp-rust-codebase.md)
-* [Run Multiple Agents in Parallel](developer-workflows/power-user/how-to-run-3-agents-in-parallel-summarize-logs-+-analyze-pr-+-modify-ui.md)
+* [Run Tasks in Parallel](developer-workflows/power-user/how-to-run-3-agents-in-parallel-summarize-logs-+-analyze-pr-+-modify-ui.md)
 * [Edit Agent-Generated Code in Warp](developer-workflows/power-user/how-to-edit-agent-code-in-warp.md)
 * [Review PRs Like a Senior Dev](developer-workflows/power-user/how-to-review-prs-like-a-senior-dev.md)
 * [Use Images as Context for Agents](how-warp-uses-warp/using-images-as-context-with-warp.md)
@@ -34,6 +37,8 @@
 
 ## External tools & integrations
 
+* [Set Up Claude Code](integrations/how-to-set-up-claude-code.md)
+* [Set Up Codex CLI](integrations/how-to-set-up-codex-cli.md)
 * [Set Up Ollama for Local Models](integrations/how-to-set-up-ollama.md)
 * [Sentry MCP: Fix Errors](mcp-servers/sentry-mcp-fix-sentry-error-in-empower-website.md)
 * [Figma Remote MCP: Create a Website from a Figma File](mcp-servers/figma-remote-mcp-create-a-website-from-a-figma-file-from-scratch.md)

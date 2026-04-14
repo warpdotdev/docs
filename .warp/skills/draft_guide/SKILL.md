@@ -47,12 +47,31 @@ When drafting a guide, check for relevant SEO and AEO data:
 
 <!-- TODO: Update this section with specific data lookup instructions once the buzz repo data directory structure is finalized. -->
 
+## Third-party tool accuracy
+
+When a guide documents a third-party tool (Claude Code, Codex, OpenCode, etc.):
+
+- **Always verify claims against the tool's official documentation.** Do not infer implementation details (programming language, architecture, framework) from GitHub repo language stats or third-party blog posts. These are frequently wrong or outdated.
+- **Link to official docs rather than reproducing install steps.** Installation commands, plan names, pricing, model names, and permission/approval modes change frequently. Link to the tool's official quickstart or setup page and keep the guide focused on the Warp-specific workflow.
+- **If you must include specific details** (e.g., exact commands, plan tier names, approval mode names), fetch and verify them from the tool's current official documentation before publishing. Add a note or link so readers can check for updates.
+- **Do not include pricing information** for third-party tools — it changes and is hard to keep evergreen.
+- **Avoid brand-specific product mentions** that date quickly or exclude users. Use generic terms: "Bluetooth audio device" not "AirPods", "code editor" not a specific IDE unless the guide is about that IDE.
+- **Avoid specific model version numbers** (e.g., "GPT-5.4") unless directly relevant. Link to the tool's model documentation instead.
+
+## Link verification
+
+Before adding any internal documentation link:
+
+- **Verify the target page exists.** Check the relevant `SUMMARY.md` file (`docs/warp/SUMMARY.md`, `docs/agent-platform/SUMMARY.md`, `guides/SUMMARY.md`) to confirm the page is listed. Do NOT generate plausible-looking URLs to pages that don't exist.
+- **If a target page is planned but not yet published**, link to the closest existing page and add a TODO comment with the intended future path: `<!-- TODO: Update to [future-path] once [page name] is live -->`
+- **For third-party agent pages**, the current paths are under `docs/agent-platform/third-party-agents/` (e.g., `claude-code.md`, `codex.md`, `opencode.md`). The general agents overview is at `docs/agent-platform/local-agents/third-party-cli-agents.md`.
+
 ## Cross-linking
 
 Every guide should link to:
 - At least one other guide in the Guides section
 - Relevant feature documentation in the main docs (`docs/warp/` or `docs/agent-platform/`)
-- If applicable, pages in the Coding Agents section (`docs/warp/coding-agents/`)
+- If applicable, pages in the Coding Agents section (`docs/agent-platform/third-party-agents/`)
 
 ## Existing examples
 
