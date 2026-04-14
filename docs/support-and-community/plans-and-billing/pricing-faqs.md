@@ -196,7 +196,7 @@ Cancelled subscriptions will remain active until the end of the billing cycle.
 
 ### How do I get a refund?
 
-For monthly subscriptions, we can issue a full refund if you cancel within 24 hours of being charged and no AI credits have been used.
+For monthly subscriptions, we can issue a full refund if you cancel within 24 hours of being charged and no credits have been used.
 
 For annual subscriptions, we can issue a full refund within 15 days if no credits have been used, or a prorated refund for remaining months after that. Please see [Warp's Refund Policy](plans-pricing-refunds.md#warps-refund-policies) for full details and exceptions.
 

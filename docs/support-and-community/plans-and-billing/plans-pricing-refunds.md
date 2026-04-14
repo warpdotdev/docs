@@ -34,13 +34,13 @@ In case of product defect, we require [Debugging ID](../troubleshooting-and-supp
 
 **Monthly plans**
 
-If you signed up for a monthly Warp subscription by mistake, we can issue a full refund if you cancel or downgrade within 24 hours of being charged and no AI credits have been used during that billing cycle.
+If you signed up for a monthly Warp subscription by mistake, we can issue a full refund if you cancel or downgrade within 24 hours of being charged and no credits have been used during that billing cycle.
 
-After 24 hours, or if AI credits have been used, we will cancel your subscription so that no future charges occur, and you can continue to use your plan through the end of the current billing cycle.
+After 24 hours, or if credits have been used, we will cancel your subscription so that no future charges occur, and you can continue to use your plan through the end of the current billing cycle.
 
 **Annual plans**
 
-If you signed up for an annual Warp subscription by mistake, we can issue a full refund if you cancel or downgrade within 15 days of being charged and no AI credits have been used during that billing period.
+If you signed up for an annual Warp subscription by mistake, we can issue a full refund if you cancel or downgrade within 15 days of being charged and no credits have been used during that billing period.
 
 After 15 days, we will refund you for the remaining full months on your subscription, excluding the first month.
 
