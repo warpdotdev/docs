@@ -85,7 +85,7 @@ Some tasks are straightforward and may require only a single quick response, wit
 
 #### 4. Amount of context passed to the model
 
-Prompts that include large amounts of context (such as [attached blocks](https://docs.warp.dev/agent-platform/warp-agents/agent-context/#attaching-blocks-as-context), long user query messages, etc.) or file attachments like [images](https://docs.warp.dev/agent-platform/warp-agents/agent-context/#attaching-images-as-context) may also increase the number of credits used due to increased token consumption.
+Prompts that include large amounts of context (such as [attached blocks](https://docs.warp.dev/agent-platform/warp-agents/agent-context/blocks-as-context), long user query messages, etc.) or file attachments like [images](https://docs.warp.dev/agent-platform/warp-agents/agent-context/images-as-context) may also increase the number of credits used due to increased token consumption.
 
 {% hint style="info" %}
 **Tip**: When sharing logs, code, or other large pieces of content, attach only the most relevant portions instead of full outputs.

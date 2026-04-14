@@ -18,7 +18,7 @@ Warp’s cloud-based features which require an internet connection will not work
 
 * [Warp Drive](https://docs.warp.dev/knowledge-and-collaboration/warp-drive/#using-warp-drive-offline) (Some files may be read-only in offline mode)
 * [Oz agent](https://docs.warp.dev/agent-platform/warp-agents)
-  * [Agent Mode](https://docs.warp.dev/agent-platform/warp-agents/interacting-with-agents/)
+  * [Agent Mode](https://docs.warp.dev/agent-platform/warp-agents/interacting-with-agents)
   * [Generate](https://docs.warp.dev/agent-platform/warp-agents)
   * [AI Autofill](https://docs.warp.dev/knowledge-and-collaboration/warp-drive/workflows#warp-ai-autofill)
   * [Prompts](https://docs.warp.dev/knowledge-and-collaboration/warp-drive/prompts)

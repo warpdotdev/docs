@@ -167,4 +167,4 @@ You can also create a worktree-based Tab Config directly from the `+` menu by cl
 * [Tabs](tabs.md) — tab management, keyboard shortcuts, and behavior settings
 * [Themes](../appearance/themes.md) — customize the colors used by tab color settings
 * [Working Directory](../more-features/working-directory.md) — how Warp resolves working directories
-* [Third-Party CLI Agents](https://docs.warp.dev/agent-platform/cli-agents/) — use the `"agent"` pane type to open tabs in Agent Mode
+* [Third-Party CLI Agents](https://docs.warp.dev/agent-platform/third-party-agents) — use the `"agent"` pane type to open tabs in Agent Mode

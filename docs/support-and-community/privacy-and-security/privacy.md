@@ -23,7 +23,7 @@ Warp collects high-level telemetry and usage data to discover product quality is
 If you haven't opted out of "Help improve Warp", we may collect:
 
 1. High level product usage and analytics data to analyze feature uptake and usage patterns. See the [Exhaustive Telemetry Table](privacy.md#exhaustive-telemetry-table) for the full list of tracked events below. These are all high level metrics and do not include any user generated content.
-2. AI interactions and console inputs that power our [AI features](https://docs.warp.dev/agent-platform/warp-agents/). Warp unconditionally applies [Secret Redaction](secret-redaction.md) in all AI interactions to ensure that any sensitive data is _never_ collected or sent to third parties.
+2. AI interactions and console inputs that power our [AI features](https://docs.warp.dev/agent-platform/warp-agents). Warp unconditionally applies [Secret Redaction](secret-redaction.md) in all AI interactions to ensure that any sensitive data is _never_ collected or sent to third parties.
 
 {% hint style="info" %}
 Telemetry must be enabled to use AI features on the Free plan, while paid plans can opt out at any time and continue using Warp, including AI.
