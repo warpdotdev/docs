@@ -1,0 +1,145 @@
+---
+description: >-
+  Set up OpenCode in Warp, configure it for your project, and learn
+  productivity tips for faster AI-assisted coding workflows.
+---
+
+# How to set up OpenCode
+
+OpenCode is an open-source coding agent that runs in your terminal. It supports 75+ LLM providers, features a built-in TUI, and lets you edit code, execute commands, and manage sessions from natural language prompts. This guide takes you from installation to a working OpenCode session in Warp in about 5 minutes, then shows you how to get the most out of it.
+
+## Prerequisites
+
+* **An LLM provider account** — OpenCode connects to any supported provider (Anthropic, OpenAI, Google, and others) via API key, or use OpenCode Zen for a curated model list. See [OpenCode configuration](https://opencode.ai/docs#configure) for details.
+* **macOS, Linux, or Windows (via WSL)** — WSL is recommended for the best experience on Windows. See [OpenCode docs](https://opencode.ai/docs) for full platform details.
+
+## 1. Install OpenCode
+
+Follow the [official OpenCode installation guide](https://opencode.ai/docs#install) to install OpenCode. The install script is the fastest method:
+
+```bash
+curl -fsSL https://opencode.ai/install | bash
+```
+
+You can also install via npm or Homebrew:
+
+```bash
+npm install -g opencode-ai
+```
+
+```bash
+brew install anomalyco/tap/opencode
+```
+
+See the [OpenCode docs](https://opencode.ai/docs#install) for additional installation methods including Homebrew taps, platform-specific binaries, and Docker.
+
+When you launch OpenCode inside Warp, Warp auto-detects the agent session and surfaces integrated controls, including rich input, code review, vertical tab metadata, and more.
+
+## 2. Authenticate
+
+OpenCode supports multiple LLM providers. Run the `/connect` command inside OpenCode's TUI to configure a provider, or set API keys as environment variables:
+
+```bash
+# For Anthropic models
+export ANTHROPIC_API_KEY=YOUR_API_KEY
+
+# For OpenAI models
+export OPENAI_API_KEY=YOUR_API_KEY
+
+# For Google Gemini models
+export GEMINI_API_KEY=YOUR_API_KEY
+```
+
+Outside the TUI, run `opencode auth login` from the command line for interactive provider setup. Credentials are stored locally in `~/.local/share/opencode/auth.json`.
+
+## 3. Start your first session
+
+Navigate to any project directory and launch OpenCode:
+
+```bash
+cd ~/your-project
+opencode
+```
+
+OpenCode starts its TUI. Try giving it a task, for example:
+
+```
+Explain the architecture of this project
+```
+
+Or something more hands-on:
+
+```
+Add input validation to the user registration endpoint
+```
+
+OpenCode reads the relevant files, proposes changes, and asks for confirmation before modifying anything. Use the `Tab` key to switch between Plan mode (read-only suggestions) and Build mode (applies changes).
+
+## 4. Configure for your project
+
+Initialize OpenCode for your project by running `/init` inside the TUI. This analyzes your codebase and creates an `AGENTS.md` file at your project root:
+
+```
+/init
+```
+
+The `AGENTS.md` file teaches OpenCode your project's structure and conventions. You can also create or edit it manually:
+
+```markdown
+# My Project
+
+## Stack
+- Backend: Python 3.12, FastAPI, SQLAlchemy
+- Frontend: React, TypeScript, Vite
+- Database: PostgreSQL 16
+
+## Commands
+- `npm run dev` starts the dev server
+- `pytest -v` runs the test suite
+- `npm run lint` checks code style
+
+## Conventions
+- Use async/await for all database operations
+- Type hints on all function signatures
+- ESM imports only (no require())
+```
+
+Commit the `AGENTS.md` file to Git so your team shares the same project context.
+
+## 5. Set up agent notifications
+
+Warp supports agent notifications for OpenCode through a plugin. Once installed, Warp surfaces in-app and desktop alerts when OpenCode needs your input.
+
+Add `"@warp-dot-dev/opencode-warp"` to the `plugin` array in your `opencode.json` configuration file:
+
+```json
+{
+  "plugin": ["@warp-dot-dev/opencode-warp"]
+}
+```
+
+If the plugin isn't installed, Warp displays an installation chip in the terminal when you run OpenCode, with setup steps you can follow directly.
+
+For plugin source and updates, see the [opencode-warp GitHub repository](https://github.com/warpdotdev/opencode-warp).
+
+## Productivity tips
+
+* **Use voice to prompt OpenCode** — Dictate complex instructions instead of typing them. Warp supports [voice transcription](https://docs.warp.dev/agent-platform/local-agents/interacting-with-agents/voice) that works with any CLI agent, including OpenCode.
+* **Attach images as context** — Paste screenshots of bugs, designs, or error messages into your prompt. Warp's [images as context](https://docs.warp.dev/agent-platform/local-agents/agent-context/images-as-context) feature lets OpenCode see what you see.
+* **Review diffs visually** — After OpenCode makes changes, open Warp's [Code Review panel](https://docs.warp.dev/warp/code/code-review) (`⌘+Shift++`) to see a visual diff. You can leave inline comments and send them back to OpenCode for corrections.
+* **Run OpenCode alongside other agents** — Use [vertical tabs](https://docs.warp.dev/warp/terminal/windows/tabs) <!-- TODO: Update link to vertical-tabs page once HYC's page is live --> to run OpenCode and Claude Code or Codex side by side on the same task. Compare their approaches and pick the best output.
+* **Compose richer prompts** — Press `Ctrl+G` to open Warp's rich input editor for OpenCode, giving you a full text editor experience instead of raw CLI input.
+
+<!-- If a standalone summary feels valuable, add a ## Recap heading above this paragraph. -->
+
+## Next steps
+
+You installed OpenCode, authenticated with a provider, started your first session, and configured it for your project. OpenCode is now set up as a working coding agent in Warp.
+
+Explore related guides and features:
+
+* [Set up Ollama for local models](how-to-set-up-ollama.md) to run OpenCode with local models
+* [Code Review panel](https://docs.warp.dev/warp/code/code-review) — review and refine agent-generated code
+* [Third-party CLI agents](https://docs.warp.dev/agent-platform/local-agents/third-party-cli-agents) — all supported agents and Warp's universal agent features <!-- TODO: Update to agent-platform/cli-agents/overview once PR #742 is live -->
+* [OpenCode documentation](https://opencode.ai/docs) — official reference
+* [opencode-warp plugin](https://github.com/warpdotdev/opencode-warp) — notification plugin source and updates

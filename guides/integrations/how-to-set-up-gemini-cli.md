@@ -1,0 +1,152 @@
+---
+description: >-
+  Set up Google's Gemini CLI in Warp, configure it for your project, and learn
+  productivity tips for faster AI-assisted coding workflows.
+---
+
+# How to set up Gemini CLI
+
+Gemini CLI is Google's open-source coding agent. It brings Gemini directly into your terminal with built-in tools for file operations, shell commands, web search, and MCP support. This guide takes you from installation to a working Gemini CLI session in Warp in about 5 minutes, then shows you how to get the most out of it.
+
+## Prerequisites
+
+* **A Google account** — Gemini CLI's free tier includes 60 requests per minute and 1,000 requests per day with a personal Google account. Alternatively, use a Gemini API key or Vertex AI. See the [Gemini CLI authentication guide](https://github.com/google-gemini/gemini-cli/blob/main/docs/get-started/authentication.md) for all options.
+* **Node.js 20+** — Required for installation. Check with `node -v`.
+* **macOS, Linux, or Windows** — See [Gemini CLI system requirements](https://github.com/google-gemini/gemini-cli/blob/main/docs/get-started/installation.md) for recommended specifications.
+
+## 1. Install Gemini CLI
+
+Follow Google's [official installation guide](https://github.com/google-gemini/gemini-cli/blob/main/docs/get-started/installation.md) to install Gemini CLI. The two most common methods:
+
+**npm:**
+
+```bash
+npm install -g @google/gemini-cli
+```
+
+**Homebrew (macOS/Linux):**
+
+```bash
+brew install gemini-cli
+```
+
+Verify installation:
+
+```bash
+gemini --version
+```
+
+You can also run without installing using `npx @google/gemini-cli`.
+
+When you launch Gemini CLI inside Warp, Warp auto-detects the agent session and surfaces integrated controls, including rich input, code review, vertical tab metadata, and more.
+
+## 2. Authenticate
+
+The first time you run Gemini CLI, it prompts you to choose an authentication method.
+
+```bash
+gemini
+```
+
+Select **Sign in with Google** and complete the browser authentication flow. Once authenticated, the token is stored locally and you won't need to sign in again.
+
+For API key authentication (useful for CI/CD or higher rate limits):
+
+```bash
+export GEMINI_API_KEY=YOUR_API_KEY
+```
+
+For enterprise environments using Vertex AI, the recommended approach is Application Default Credentials (ADC):
+
+```bash
+export GOOGLE_CLOUD_PROJECT=YOUR_PROJECT_ID
+export GOOGLE_CLOUD_LOCATION=YOUR_LOCATION
+export GOOGLE_GENAI_USE_VERTEXAI=true
+gcloud auth application-default login
+```
+
+See the [Gemini CLI authentication guide](https://github.com/google-gemini/gemini-cli/blob/main/docs/get-started/authentication.md) for all Vertex AI auth methods.
+
+## 3. Start your first session
+
+Navigate to any project directory and launch Gemini CLI:
+
+```bash
+cd ~/your-project
+gemini
+```
+
+Try giving it a task, for example:
+
+```
+Explain the architecture of this project
+```
+
+Or something more hands-on:
+
+```
+Add error handling to the database connection module
+```
+
+Gemini CLI reads the relevant files, proposes changes, and asks for confirmation before modifying anything.
+
+## 4. Configure for your project
+
+Create a `GEMINI.md` file at your project root to teach Gemini CLI your project's conventions. Gemini CLI reads this file at the start of every session.
+
+```markdown
+# My Project
+
+## Stack
+- Backend: Node.js, Express, TypeScript
+- Database: PostgreSQL with Prisma ORM
+- Testing: Vitest for unit tests, Playwright for e2e
+
+## Commands
+- `npm run dev` starts the dev server
+- `npm test` runs the test suite
+- `npm run lint` checks code style
+
+## Conventions
+- Use ESM imports (no require())
+- All API endpoints need Zod input validation
+- Run `npm test` before committing
+```
+
+This prevents Gemini CLI from guessing your conventions and ensures it follows your team's standards from the first prompt.
+
+## 5. Choose a model
+
+Gemini CLI defaults to the latest Gemini model. To use a specific model:
+
+```bash
+gemini -m MODEL_NAME
+```
+
+You can also switch models during a session with the `/model` command. See the [Gemini CLI documentation](https://github.com/google-gemini/gemini-cli) for the current model list.
+
+{% hint style="info" %}
+Gemini CLI does not currently support agent notifications in Warp. You won't receive desktop alerts when Gemini CLI needs input, so keep the tab visible or check back periodically during longer tasks. All other Warp agent features (rich input, code review, vertical tabs) work fully.
+{% endhint %}
+
+## Productivity tips
+
+* **Use voice to prompt Gemini CLI** — Dictate complex instructions instead of typing them. Warp supports [voice transcription](https://docs.warp.dev/agent-platform/local-agents/interacting-with-agents/voice) that works with any CLI agent, including Gemini CLI.
+* **Attach images as context** — Paste screenshots of bugs, designs, or error messages into your prompt. Warp's [images as context](https://docs.warp.dev/agent-platform/local-agents/agent-context/images-as-context) feature lets Gemini CLI see what you see.
+* **Review diffs visually** — After Gemini CLI makes changes, open Warp's [Code Review panel](https://docs.warp.dev/warp/code/code-review) (`⌘+Shift++`) to see a visual diff. You can leave inline comments and send them back to Gemini CLI for corrections.
+* **Run Gemini CLI alongside other agents** — Use [vertical tabs](https://docs.warp.dev/warp/terminal/windows/tabs) <!-- TODO: Update link to vertical-tabs page once HYC's page is live --> to run Gemini CLI and Claude Code or Codex side by side on the same task. Compare their approaches and pick the best output.
+* **Compose richer prompts** — Press `Ctrl+G` to open Warp's rich input editor for Gemini CLI, giving you a full text editor experience instead of raw CLI input.
+* **Use built-in Google Search** — Gemini CLI can ground responses with real-time web search. Ask it to research current best practices or look up documentation while working on your code.
+
+<!-- If a standalone summary feels valuable, add a ## Recap heading above this paragraph. -->
+
+## Next steps
+
+You installed Gemini CLI, authenticated with your Google account, started your first session, and configured it for your project. Gemini CLI is now set up as a working coding agent in Warp.
+
+Explore related guides and features:
+
+* [Set up Ollama for local models](how-to-set-up-ollama.md) to pair Gemini CLI with local model workflows
+* [Code Review panel](https://docs.warp.dev/warp/code/code-review) — review and refine agent-generated code
+* [Third-party CLI agents](https://docs.warp.dev/agent-platform/local-agents/third-party-cli-agents) — all supported agents and Warp's universal agent features <!-- TODO: Update to agent-platform/cli-agents/overview once PR #742 is live -->
+* [Gemini CLI documentation](https://github.com/google-gemini/gemini-cli) — Google's official reference

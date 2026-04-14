@@ -39,6 +39,8 @@
 
 * [Set Up Claude Code](integrations/how-to-set-up-claude-code.md)
 * [Set Up Codex CLI](integrations/how-to-set-up-codex-cli.md)
+* [Set Up OpenCode](integrations/how-to-set-up-opencode.md)
+* [Set Up Gemini CLI](integrations/how-to-set-up-gemini-cli.md)
 * [Set Up Ollama for Local Models](integrations/how-to-set-up-ollama.md)
 * [Sentry MCP: Fix Errors](mcp-servers/sentry-mcp-fix-sentry-error-in-empower-website.md)
 * [Figma Remote MCP: Create a Website from a Figma File](mcp-servers/figma-remote-mcp-create-a-website-from-a-figma-file-from-scratch.md)
