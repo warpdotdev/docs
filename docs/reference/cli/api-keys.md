@@ -38,8 +38,8 @@ Team keys without GitHub App authorization are the right fit for automated workf
 
 Warp supports two types of API keys, each with different billing and identity behavior:
 
-* **Personal API keys** - Cloud agent runs authenticate as you. These runs can use your personal base credits before drawing from team add-on credits, just like running an agent from the Warp app or triggering one via Slack or Linear.
-* **Team API keys** - Cloud agent runs are not tied to any individual user. These runs can only draw from your team's pool of add-on credits. They cannot use any individual's base credits. When [team GitHub authorization](https://docs.warp.dev/agent-platform/cloud-agents/team-access-billing-and-identity#team-github-authorization) is configured, team key runs can also clone repositories and open pull requests using the Oz by Warp GitHub App.
+* **Personal API keys** - Cloud agent runs authenticate as you. These runs can use your personal base credits before drawing from team Add-on Credits, just like running an agent from the Warp app or triggering one via Slack or Linear.
+* **Team API keys** - Cloud agent runs are not tied to any individual user. These runs can only draw from your team's pool of Add-on Credits. They cannot use any individual's base credits. When [team GitHub authorization](https://docs.warp.dev/agent-platform/cloud-agents/team-access-billing-and-identity#team-github-authorization) is configured, team key runs can also clone repositories and open pull requests using the Oz by Warp GitHub App.
 
 Team API keys are useful for fully automated workflows, CI/CD pipelines, and scheduled tasks where no specific user context is needed. For billing details, see [Access, Billing, and Identity Permissions](https://docs.warp.dev/agent-platform/cloud-agents/team-access-billing-and-identity).
 

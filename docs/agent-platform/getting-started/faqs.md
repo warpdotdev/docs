@@ -30,11 +30,11 @@ Warp supports [Bring Your Own Key (BYOK)](https://docs.warp.dev/support-and-comm
 
 ## Billing
 
-Every Warp plan includes a set number of credits per user per month. Please refer to [pricing](https://www.warp.dev/pricing) to compare plans.
+Every Warp plan includes a set number of credits per user per month. See [pricing](https://www.warp.dev/pricing) to compare plans.
 
 Credit limits apply to Agent Mode, Generate (Legacy), and [AI autofill in Workflows](https://docs.warp.dev/knowledge-and-collaboration/warp-drive/workflows#ai-autofill).
 
-For questions around what counts as a credit, what counts as a token, and how often credits refresh, please refer to [Credits](https://docs.warp.dev/support-and-community/plans-and-billing/credits) and more on the [Plans & Pricing](https://docs.warp.dev/support-and-community/plans-and-billing/plans-and-pricing) page.
+For questions about what counts as a credit, what counts as a token, and how often credits refresh, see [Credits](https://docs.warp.dev/support-and-community/plans-and-billing/credits) and the [Plans & Pricing](https://docs.warp.dev/support-and-community/plans-and-billing/plans-and-pricing) page.
 
 ## Common AI error messages
 
@@ -49,7 +49,7 @@ To fix this, try:
 
 #### "Monthly request limit exceeded" or "Monthly credit limit exceeded" errors
 
-Once you exceed your monthly credit limit (see [pricing](https://www.warp.dev/pricing) for current limits), premium models will be disabled until your quota resets at the start of your next billing cycle. On paid plans with Add-on credits, you can continue using AI with usage-based billing.
+Once you exceed your monthly credit limit (see [pricing](https://www.warp.dev/pricing) for current limits), premium models will be disabled until your quota resets at the start of your next billing cycle. On paid plans with Add-on Credits, you can continue using AI with usage-based billing.
 
 **Request failed with error: QuotaLimit**
 

@@ -126,13 +126,13 @@ Integrations require you to be part of a [Warp team](https://docs.warp.dev/knowl
 * **Plan requirements**
   * **Supported plans**: Build, Max, Business
   * Not supported: Pro, Turbo, Lightspeed, legacy Business
-  * Your plan must support add-on credits.
+  * Your plan must support Add-on Credits.
 * **Credit requirements**
   * Your team must have at least 20 credits available (any type of Warp credits work) to run cloud agents and integrations.
   * Usage is billed based on credit type and team configuration.
-  * Normal credits, [Cloud Agent Credits](https://docs.warp.dev/support-and-community/plans-and-billing/credits#cloud-agent-credits), and [add-on credits](https://docs.warp.dev/support-and-community/plans-and-billing/add-on-credits) all work.
+  * Normal credits, [Cloud Agent Credits](https://docs.warp.dev/support-and-community/plans-and-billing/credits#cloud-agent-credits), and [Add-on Credits](https://docs.warp.dev/support-and-community/plans-and-billing/add-on-credits) all work.
 
-For more details, please refer to: [Access, Billing, and Identity Permissions](team-access-billing-and-identity.md)
+For more details, see [Access, Billing, and Identity Permissions](team-access-billing-and-identity.md).
 
 {% hint style="warning" %}
 If your credit balance reaches zero, cloud agent runs will not be able to execute until credits are replenished.

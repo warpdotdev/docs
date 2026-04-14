@@ -36,7 +36,7 @@ Warp's plans are designed for developers who rely on AI to code, debug, and move
 
 Legacy plans:
 
-* **Pro**, gets you a higher credit limits than the Free plan, support for larger codebases with [Codebase Context](https://docs.warp.dev/code/codebase-context), and access to premium models with optional pay-as-you-go overages.
+* **Pro** gets you higher credit limits than the Free plan, support for larger codebases with [Codebase Context](https://docs.warp.dev/code/codebase-context), and access to premium models with optional pay-as-you-go overages.
 * **Turbo** offers even higher credit limits, larger Codebase Context indexing, and the option to pay for additional usage beyond your included credits via [Overages (Legacy)](overages-legacy.md). Add-on Credits are not available on this plan.
 * **Lightspeed** is our most powerful plan, offering the highest credit limits, expanded codebase indexing, access to top-tier models, and pay-as-you-go overages so you can keep working without interruption.
 
@@ -103,7 +103,7 @@ Note this only applies when switching between legacy plans (Pro, Turbo, Lightspe
 
 The subscription will downgrade to the lower plan limits at the end of the billing cycle. If you’re switching between paid plans, any AI usage you've already accumulated will carry over.\
 \
-To downgrade at any point throughout your subscription through the billing portal by going to **Settings** > **Billing and usage** > **Manage billing**.
+You can downgrade at any point throughout your subscription through the billing portal by going to **Settings** > **Billing and usage** > **Manage billing**.
 
 ### What happens when I cancel during a billing cycle?
 
@@ -115,7 +115,7 @@ You can cancel at any point throughout your subscription through the billing por
 
 When upgrading from a monthly to annual billing cycle the billing is prorated, meaning you only pay for the annual portion of the year you haven't paid for yet. You will be billed for the remaining part of the billing year with the discounted rate.
 
-To upgrade at any point throughout your subscription through the billing portal by going to **Settings** > **Billing and usage** > **Manage billing**.
+You can upgrade at any point throughout your subscription through the billing portal by going to **Settings** > **Billing and usage** > **Manage billing**.
 
 ### What happens to unused credits?
 
@@ -179,7 +179,7 @@ If you have any questions or feedback, please connect with us in our [community 
 
 ### What payment options are available for Warp's self-service plans?
 
-Warp uses Stripe as our payments processor and currently accept the following payment methods: credit card, debit card, Link, Apple Pay, Google Pay.
+Warp uses Stripe as our payments processor and currently accepts the following payment methods: credit card, debit card, Link, Apple Pay, Google Pay.
 
 We don't support ACH, checks, PayPal, cryptocurrency, or other alternative payment methods at this time.
 

@@ -1,12 +1,12 @@
 ---
 description: >-
-  Your team has exhausted all add-on credits for cloud agent usage.
+  Your team has exhausted all Add-on Credits for cloud agent usage.
   Purchase more credits from your team's billing settings to continue.
 ---
 
 # insufficient\_credits
 
-The `insufficient_credits` error occurs when your team has no remaining add-on credits to run cloud agents or integrations.
+The `insufficient_credits` error occurs when your team has no remaining Add-on Credits to run cloud agents or integrations.
 
 ***
 
@@ -22,7 +22,7 @@ The `insufficient_credits` error occurs when your team has no remaining add-on c
 
 This error is returned when:
 
-* Your team's add-on credit balance has reached zero
+* Your team's Add-on Credits balance has reached zero
 * A cloud agent task, scheduled run, or integration-triggered run (Slack, Linear) attempts to start but cannot be billed
 
 Cloud agent runs consume credits based on usage. When credits are depleted, no new runs can start until credits are replenished.
@@ -34,6 +34,9 @@ Cloud agent runs consume credits based on usage. When credits are depleted, no n
 ```json
 {
   "type": "https://docs.warp.dev/reference/api-and-sdk/troubleshooting/errors/insufficient-credits",
+  "title": "Your team has run out of Add-on Credits. Purchase more credits in your team's billing settings to continue.",
+  "status": 403,
+  "instance": "/api/v1/agent/tasks",
   "title": "Your team has run out of add-on credits. Purchase more credits in your team's billing settings to continue.",
   "status": 403,
   "instance": "/api/v1/agent/tasks",
@@ -47,7 +50,7 @@ Cloud agent runs consume credits based on usage. When credits are depleted, no n
 ## How to resolve
 
 1. Go to your team's billing settings in the [Oz web app](https://oz.warp.dev) or Warp desktop app.
-2. Purchase additional add-on credits.
+2. Purchase additional Add-on Credits.
 3. Retry the failed operation.
 
 If you are not a team admin, contact your team admin to purchase credits.

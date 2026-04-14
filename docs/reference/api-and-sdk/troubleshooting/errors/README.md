@@ -52,7 +52,7 @@ Errors are split into two categories based on what caused the failure:
 
 These indicate something the caller needs to fix. When a cloud agent task encounters a user error, the task transitions to the **FAILED** state.
 
-* [`insufficient_credits`](insufficient-credits.md) — Team has no remaining add-on credits
+* [`insufficient_credits`](insufficient-credits.md) — Team has no remaining Add-on Credits
 * [`feature_not_available`](feature-not-available.md) — Feature not included in your current plan
 * [`external_authentication_required`](external-authentication-required.md) — External service authorization needed
 * [`not_authorized`](not-authorized.md) — Insufficient permissions for the operation

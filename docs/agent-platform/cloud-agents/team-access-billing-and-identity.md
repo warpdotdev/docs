@@ -75,7 +75,7 @@ Integrations and [cloud agents](overview.md) run inside Warp's cloud, which mean
 
 Your team must meet the following requirements to run integrations:
 
-* You must be on a plan that supports **[Reload Credits (add-on credits)](https://docs.warp.dev/support-and-community/plans-and-billing/add-on-credits)**.
+* You must be on a plan that supports **[Reload Credits (Add-on Credits)](https://docs.warp.dev/support-and-community/plans-and-billing/add-on-credits)**.
   * Supported: **Build, Max, Business**
   * Not supported: Pro, Turbo, Lightspeed, legacy Business.
 * Your team needs at least **20 credits** available to run cloud agents and integrations (any type of Warp credits work)
