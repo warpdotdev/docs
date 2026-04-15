@@ -12,7 +12,7 @@ Watch this short demo of the Oz CLI workflow:
 
 ## 1. Install the CLI
 
-If you already have the [Warp desktop app installed](https://docs.warp.dev/getting-started/quickstart/installation-and-setup), the **CLI is included** and available in Warp.
+If you already have the [Warp desktop app installed](https://docs.warp.dev/getting-started/installation-and-setup), the **CLI is included** and available in Warp.
 
 If not, see [Installing the CLI](README.md#installing-the-cli) for installation options for all platforms.
 

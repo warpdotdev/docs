@@ -55,7 +55,7 @@ You can provide different types of input as context directly to the agent to gui
 
 #### Warp Drive as Context
 
-Agents pull directly from your [**Warp Drive**](../../knowledge-and-collaboration/warp-drive/README.md) contents to generate more accurate responses -- including your **Workflows**, **Notebooks**, **Prompts**, and **Environment Variables**.
+Agents pull directly from your [**Warp Drive**](../knowledge-and-collaboration/warp-drive/README.md) contents to generate more accurate responses -- including your **Workflows**, **Notebooks**, **Prompts**, and **Environment Variables**.
 
 * When used, context appears under the “References” or “Derived from” section in the conversation.
 * This setting is **enabled by default** and can be managed via: **Settings** > **AI** > **Knowledge** > **Warp Drive as Agent Mode Context**.
@@ -64,7 +64,7 @@ Agents pull directly from your [**Warp Drive**](../../knowledge-and-collaboratio
 
 **Rules** let you provide persistent context to Agents, enabling smarter and more personalized responses.&#x20;
 
-You can create global rules (accessed through [Warp Drive](../../knowledge-and-collaboration/warp-drive/README.md) >**Personal** > **Rules**) or project scoped rules, defined in an `AGENTS.md` file. Note: the filename must be in all caps for Warp to recognize it.
+You can create global rules (accessed through [Warp Drive](../knowledge-and-collaboration/warp-drive/README.md) >**Personal** > **Rules**) or project scoped rules, defined in an `AGENTS.md` file. Note: the filename must be in all caps for Warp to recognize it.
 
 **Examples of Rules include:**
 
@@ -79,7 +79,7 @@ How to access project-specific Rules
 
 How to access Global Rules
 
-1. From the [Warp Drive](../../knowledge-and-collaboration/warp-drive/README.md) >**Personal** > **Rules**
-2. From the [Command Palette](../../terminal/command-palette.md), search for "Open AI Rules"
+1. From the [Warp Drive](../knowledge-and-collaboration/warp-drive/README.md) >**Personal** > **Rules**
+2. From the [Command Palette](../terminal/command-palette.md), search for "Open AI Rules"
 3. From the Settings panel, **Settings** > **AI** > **Knowledge** > **Manage Rules**
 4. From the macOS Menu, `AI > Open Rules`

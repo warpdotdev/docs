@@ -1222,7 +1222,7 @@ All of this comes with higher AI usage limits on our Pro and Turbo plans, plus n
 
 **New features**
 
-* Warp is now available for Windows! See our [Quickstart Guide](https://docs.warp.dev/getting-started/quickstart/installation-and-setup#windows)
+* Warp is now available for Windows! See our [Quickstart Guide](https://docs.warp.dev/getting-started/installation-and-setup#windows)
 * Prompt, plan, and execute fully autonomous tasks from [Agent Mode with Dispatch](https://docs.warp.dev/agent-platform/warp-agents/interacting-with-agents) (Beta)
 * Add codebase context support to Agent Mode. Currently enabled for Git repositories only.
 * \[macOS] You can now customize your [App Icon](https://docs.warp.dev/terminal/appearance/app-icons) in `Settings > Appearance > Icon`.

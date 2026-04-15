@@ -3,10 +3,10 @@
 ## Getting started
 
 * [Getting started with Warp and Oz](README.md)
-* [Warp quickstart](<README (1).md>)
-  * [Installation and setup](getting-started/quickstart/installation-and-setup.md)
-  * [Coding in Warp](getting-started/quickstart/coding-in-warp.md)
-  * [Customizing Warp](getting-started/quickstart/customizing-warp.md)
+* [Warp quickstart](getting-started/quickstart.md)
+* [Installation and setup](getting-started/installation-and-setup.md)
+* [Coding in Warp](getting-started/coding-in-warp.md)
+* [Customizing Warp](getting-started/customizing-warp.md)
 * [What is Warp?](getting-started/what-is-warp.md)
 * [Migrate to Warp](getting-started/migrate-to-warp.md)
 * [Supported shells](getting-started/supported-shells.md)

@@ -195,7 +195,7 @@ You will only need an active internet connection when you open the Warp app for 
 
 ### Import your settings
 
-If you are migrating to Warp from a terminal like iTerm2, you can easily import your settings, such as keyboard shortcuts and color themes. For more details, visit the [Migrate to Warp](../migrate-to-warp.md) docs.
+If you are migrating to Warp from a terminal like iTerm2, you can easily import your settings, such as keyboard shortcuts and color themes. For more details, visit the [Migrate to Warp](migrate-to-warp.md) docs.
 
 ### Set up your Warp default shell
 

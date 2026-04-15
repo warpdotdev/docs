@@ -117,10 +117,13 @@ redirects:
     # Getting started section
     getting-started/keyboard-shortcuts: getting-started/keyboard-shortcuts.md
     getting-started/migrate-to-warp: getting-started/migrate-to-warp.md
-    getting-started/quickstart-guide/agents-in-warp: getting-started/quickstart/agents-in-warp.md
-    getting-started/quickstart-guide/coding-in-warp: getting-started/quickstart/coding-in-warp.md
-    getting-started/quickstart-guide/customizing-warp: getting-started/quickstart/customizing-warp.md
-    getting-started/quickstart-guide/installation-and-setup: getting-started/quickstart/installation-and-setup.md
+    getting-started/quickstart-guide/agents-in-warp: getting-started/agents-in-warp.md
+    getting-started/quickstart-guide/coding-in-warp: getting-started/coding-in-warp.md
+    getting-started/quickstart-guide/customizing-warp: getting-started/customizing-warp.md
+    getting-started/quickstart-guide/installation-and-setup: getting-started/installation-and-setup.md
+    getting-started/quickstart/coding-in-warp: getting-started/coding-in-warp.md
+    getting-started/quickstart/customizing-warp: getting-started/customizing-warp.md
+    getting-started/quickstart/installation-and-setup: getting-started/installation-and-setup.md
     getting-started/supported-shells: getting-started/supported-shells.md
     getting-started/what-is-warp: getting-started/what-is-warp.md
 
@@ -199,10 +202,12 @@ redirects:
     # Since restructure
     features/prompt: terminal/appearance/prompt.md
     features/smart-select: terminal/more-features/text-selection.md
-    getting-started/getting-started-with-warp: getting-started/quickstart/installation-and-setup.md
+    getting-started/getting-started-with-warp: getting-started/installation-and-setup.md
     features/settings: terminal/more-features/settings-sync.md
-    getting-started/quickstart: README.md
-    getting-started/quickstart-guide/README: README.md
+    getting-started/quickstart: getting-started/quickstart.md
+    getting-started/quickstart-guide/README: getting-started/quickstart.md
+    warp-quickstart: getting-started/quickstart.md
+    quick-start: getting-started/quickstart.md
     appearance/prompt#custom-prompt-compatibility-table: terminal/appearance/prompt.md#shell-prompt-compatibility-table
 
     # Root-level paths
@@ -215,8 +220,8 @@ redirects:
     session-sharing: knowledge-and-collaboration/session-sharing/README.md
     readme: README.md
     what-is-warp: getting-started/what-is-warp.md
-    installation: getting-started/quickstart/installation-and-setup.md
-    installation/linux: getting-started/quickstart/installation-and-setup.md
+    installation: getting-started/installation-and-setup.md
+    installation/linux: getting-started/installation-and-setup.md
     code-editor: code/code-editor/README.md
 
     # features/* additional paths
@@ -258,33 +263,33 @@ redirects:
     features/prompt#custom-prompt-compatibility-table: terminal/appearance/prompt.md
 
     # getting-started/* additional paths
-    getting-started/installation: getting-started/quickstart/installation-and-setup.md
-    getting-started/installation/linux: getting-started/quickstart/installation-and-setup.md
-    getting-started/linux: getting-started/quickstart/installation-and-setup.md
-    getting-started/linux-installation: getting-started/quickstart/installation-and-setup.md
-    getting-started/installing-warp: getting-started/quickstart/installation-and-setup.md
-    getting-started/installing-warp-on-linux: getting-started/quickstart/installation-and-setup.md
-    getting-started/download-and-install: getting-started/quickstart/installation-and-setup.md
-    getting-started/downloading-warp: getting-started/quickstart/installation-and-setup.md
+    getting-started/installation: getting-started/installation-and-setup.md
+    getting-started/installation/linux: getting-started/installation-and-setup.md
+    getting-started/linux: getting-started/installation-and-setup.md
+    getting-started/linux-installation: getting-started/installation-and-setup.md
+    getting-started/installing-warp: getting-started/installation-and-setup.md
+    getting-started/installing-warp-on-linux: getting-started/installation-and-setup.md
+    getting-started/download-and-install: getting-started/installation-and-setup.md
+    getting-started/downloading-warp: getting-started/installation-and-setup.md
     getting-started/introduction: getting-started/what-is-warp.md
-    getting-started/quickstart-guide: getting-started/quickstart/installation-and-setup.md
-    getting-started/account-and-login: getting-started/quickstart/installation-and-setup.md
-    getting-started/launching-warp: getting-started/quickstart/installation-and-setup.md
+    getting-started/quickstart-guide: getting-started/installation-and-setup.md
+    getting-started/account-and-login: getting-started/installation-and-setup.md
+    getting-started/launching-warp: getting-started/installation-and-setup.md
     getting-started/settings: terminal/more-features/settings-sync.md
     getting-started/customizing-warp/settings: terminal/more-features/settings-sync.md
     getting-started/how-to-use-warp: README.md
     getting-started/guides/shortcuts: getting-started/keyboard-shortcuts.md
     getting-started/syncing-your-terminal: terminal/more-features/settings-sync.md
     getting-started/launch-configurations: terminal/sessions/launch-configurations.md
-    getting-started/mac-permissions: getting-started/quickstart/installation-and-setup.md
+    getting-started/mac-permissions: getting-started/installation-and-setup.md
     getting-started/terminal: terminal/blocks/README.md
-    getting-started/getting-started-with-warp-on-linux: getting-started/quickstart/installation-and-setup.md
+    getting-started/getting-started-with-warp-on-linux: getting-started/installation-and-setup.md
 
     # getting-started anchor paths
-    getting-started/getting-started-with-warp#appimage: getting-started/quickstart/installation-and-setup.md
-    getting-started/getting-started-with-warp#logging-into-warp: getting-started/quickstart/installation-and-setup.md
-    getting-started/getting-started-with-warp#logging-into-warp-required: getting-started/quickstart/installation-and-setup.md
-    getting-started/getting-started-with-warp#arch-linux-based-distributions: getting-started/quickstart/installation-and-setup.md
+    getting-started/getting-started-with-warp#appimage: getting-started/installation-and-setup.md
+    getting-started/getting-started-with-warp#logging-into-warp: getting-started/installation-and-setup.md
+    getting-started/getting-started-with-warp#logging-into-warp-required: getting-started/installation-and-setup.md
+    getting-started/getting-started-with-warp#arch-linux-based-distributions: getting-started/installation-and-setup.md
 
     # terminal/* additional paths
     terminal/shortcuts: getting-started/keyboard-shortcuts.md

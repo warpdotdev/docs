@@ -88,7 +88,7 @@ You can also download the CLI directly from these URLs:
 {% tab title="Linux" %}
 On Linux, we recommend that you install and update the standalone CLI through your distribution's package manager. We support `apt`, `yum`, and `pacman`.
 
-1. Add the Warp package repository for your distribution (see the [installation instructions](https://docs.warp.dev/getting-started/quickstart/installation-and-setup)).
+1. Add the Warp package repository for your distribution (see the [installation instructions](https://docs.warp.dev/getting-started/installation-and-setup)).
 2. Install either the stable or Preview package (replace `apt` with `yum` or `pacman` as needed):
 
 ```sh
