@@ -5,7 +5,7 @@ description: Warp's approach to privacy and your control over your data
 # Privacy
 
 {% hint style="info" %}
-If you have any questions about any of this, please don’t hesitate to reach out at [privacy@warp.dev](mailto:privacy@warp.dev). For security-related issues or questions, please email [security@warp.dev](mailto:security@warp.dev).
+If you have questions, reach out at [privacy@warp.dev](mailto:privacy@warp.dev). For security-related issues, email [security@warp.dev](mailto:security@warp.dev).
 {% endhint %}
 
 ## Transparency and control
@@ -96,7 +96,7 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `Agent Mode Setup Banner Accepted` | Agent Mode setup banner accepted |
 | `Agent Mode Setup Banner Dismissed` | Agent Mode setup banner dismissed |
 | `Agent Mode Setup Project Scoped Rules Action` | User clicked a button in the Agent Mode setup project scoped rules step |
-| `Agent Mode.Setup Codebase Context Action` | User clicked a button in the Agent Mode setup codebase context step |
+| `Agent Mode.Setup Codebase Context Action` | User clicked a button in the Agent Mode setup Codebase Context step |
 | `Agent Predict` | Completed an Agent Predict prediction |
 | `Agent Toolbar Dismissed` | User dismissed the use-agent toolbar |
 | `AgentManagement.AgentTypeSelectorOpened` | User opened the agent type selector from agent management |
@@ -136,7 +136,7 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `AgentMode.Code.SuggestedEditAcceptClicked` | User selected Accept for a code diff suggestion in Agent Mode |
 | `AgentMode.Code.SuggestedEditReceived` | Agent Mode suggested a code edit |
 | `AgentMode.Code.SuggestedEditResolved` | Agent Mode pending code edit suggestion resolved |
-| `AgentMode.CreatedAIBlock` | Created an AI block in agent mode |
+| `AgentMode.CreatedAIBlock` | Created an AI block in Agent Mode |
 | `AgentMode.Error` | Received an error when getting Agent Mode response |
 | `AgentMode.ExecutedWarpDrivePrompt` | Executed a saved prompt. |
 | `AgentMode.ExitedShellProcess` | An agent-requested command caused the shell process to exit |
@@ -145,12 +145,12 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `AgentMode.Grep.Failed` | The grep tool failed to complete |
 | `AgentMode.Grep.Succeeded` | The grep tool completed successfully |
 | `AgentMode.NaturalLanguageDetection.InputBufferSubmitted` | Input buffer submitted |
-| `AgentMode.OpenedCitation` | Opened a citation that was surfaced in agent mode |
+| `AgentMode.OpenedCitation` | Opened a citation that was surfaced in Agent Mode |
 | `AgentMode.PotentialAutoDetectionFalsePositive` | Manually toggled input to shell mode after input was auto-detected as natural language. |
 | `AgentMode.QueryAttemptAtLImit` | Tried to send an Agent Mode query but they already reached the query limit |
 | `AgentMode.RequestRetrySucceeded` | Agent Mode request succeeded after retrying following an initial error |
 | `AgentMode.SetupCreateEnvironmentAction` | User clicked a button in the Agent Mode setup create environment step |
-| `AgentMode.SurfacedCitations` | Agent mode used and cited external sources that were used in its response |
+| `AgentMode.SurfacedCitations` | Agent Mode used and cited external sources that were used in its response |
 | `AgentMode.ToggleAutoDetectionSetting` | Toggled the setting that enables or disables natural language auto-detection in the input.  |
 | `AgentTip Clicked` | User clicked a link or action in an Agent Tip |
 | `AgentTip Shown` | Selected an Agent Tip to show in the Agent Mode status bar |
@@ -278,8 +278,8 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `CodexModal.UseCodexClicked` | User clicked 'Use Codex' in the Codex modal |
 | `Command Correction Event` | Accepted command correction |
 | `Command File Run` | Opened a .cmd or unix executable file and ran it directly in Warp |
-| `Command Palette Search Accepted` | Accepted a command palette search result |
-| `Command Palette Search Exited` | Exited command palette search without accepting a result |
+| `Command Palette Search Accepted` | Accepted a Command Palette search result |
+| `Command Palette Search Exited` | Exited Command Palette search without accepting a result |
 | `Command Search Async Query Completed` | Finished searching for a command in the background |
 | `Command Search Exited` | Exited command search (universal search panel to search) without accepting a result |
 | `Command Search Filter Changed` | Changed command search filter |
@@ -473,7 +473,7 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `SSH Tmux Warpify Block Dismissed` | User dismissed an ssh tmux warpify block |
 | `Save Launch Config` | Saved current launch configuration of windows, tabs, and panes |
 | `Select App Icon` | Selected app icon |
-| `Select Command Palette Option` | Selected option from command palette (i.e. CMD-P) |
+| `Select Command Palette Option` | Selected option from Command Palette (i.e. CMD-P) |
 | `Select Cursor Type` | Selected cursor type |
 | `Select Navigation Palette Item` | Selected session from the Session Navigation Palette (search across panes, tabs, and windows) |
 | `Select Theme` | Selected theme |
@@ -523,7 +523,7 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `Thin Strokes Setting Changed` | Changed thin strokes setting in settings -> Appearance |
 | `Tier Limit Hit` | User hit the tier limit for a feature |
 | `Toggle Active AI Enablement` | Toggled active AI enablement. |
-| `Toggle Agent Mode Codebase Context` | Toggled on/off the enablement of codebase context usage for Agent Mode. |
+| `Toggle Agent Mode Codebase Context` | Toggled on/off the enablement of Codebase Context usage for Agent Mode. |
 | `Toggle Agent Mode Query Suggestions Setting` | Toggled on/off the prompt suggestions setting |
 | `Toggle Approvals Modal` | Opened or closed teams modal |
 | `Toggle Block Filter Case Sensitivity` | Toggled on/off case sensitivity within the block filter editor |
@@ -531,7 +531,7 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `Toggle Block Filter Query` | Toggled on/off a block filter query |
 | `Toggle Block Filter Regex` | Toggled on/off regex within the block filter editor |
 | `Toggle Code Suggestions Setting` | Toggled on/off the code suggestions setting |
-| `Toggle Codebase Context Autoindexing` | Toggled on/off the enablement of autoindexing for codebase context. |
+| `Toggle Codebase Context Autoindexing` | Toggled on/off the enablement of autoindexing for Codebase Context. |
 | `Toggle Dim Inactive Panes` | Whether the dim inactive panes feature has been toggled |
 | `Toggle Focus Pane On Hover` | Toggled on/off focus pane on hover feature, which causes panes to automatically focus when hovering over them |
 | `Toggle Global AI Enablement` | Toggled global AI enablement. |

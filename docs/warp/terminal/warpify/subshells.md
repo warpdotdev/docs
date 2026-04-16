@@ -67,13 +67,13 @@ Under the hood, this snippet prints a Device Control String ([DCS](https://vt100
 
 For this reason, it’s best to ensure the snippet is added to the end of the RC file, so Warp does not attempt to execute the setup script before the shell has finished sourcing your RC file.
 
-To disable automatic integration, simply remove the snippet from the corresponding RC file.
+To disable automatic integration, remove the snippet from the corresponding RC file.
 
-If you happen to encounter issues in subshell sessions where the RC file is sourced, don’t hesitate to [file a GitHub issue](https://github.com/warpdotdev/Warp/issues/new/choose).
+If you encounter issues in subshell sessions where the RC file is sourced, [file a GitHub issue](https://github.com/warpdotdev/Warp/issues/new/choose).
 
 ## Background commands
 
-Warp runs background commands to power useful features like completions, syntax highlighting, and command corrections. For example, in order to provide completions for git checkout, Warp runs a background command that lists all git branches in the current repo.
+Warp runs background commands to power useful features like completions, syntax highlighting, and command corrections. For example, to provide completions for git checkout, Warp runs a background command that lists all git branches in the current repo.
 
 In local subshell sessions, these commands are run in forked shell processes, isolated from your interactive shell session. This is the same implementation used for any non-subshell session.
 
