@@ -57,10 +57,25 @@ For urgent billing issues, email [billing@warp.dev](mailto:billing@warp.dev).
 
 ### Spending controls
 
-Admins can configure spending limits to control costs:
+Administrators can configure monthly spending limits and receive alerts to prevent unexpected charges. Configure these controls in the [Admin Panel](https://app.warp.dev/admin/) under the **Billing** tab.
 
-* **Monthly spending limit** - Cap the total amount that can be spent on Add-on Credits per month. Configure in **Settings** > **Billing and usage**.
-* **Usage monitoring** - Track credit consumption by team in **Settings** > **Billing and usage**.
+#### Monthly spending limits
+
+Enterprise administrators can set monthly spending limits for the entire team across three categories:
+
+* **Cloud spending limit** - Cap monthly spend on Oz cloud agent usage.
+* **Local spending limit** - Cap monthly spend on local agent usage in the Warp app.
+* **Total spending limit** - Cap combined monthly spend across both cloud and local agents.
+
+Spending is tracked across all payment types (Add-on Credits, pay-as-you-go usage) so limits apply consistently regardless of how usage is funded.
+
+#### Monthly spend alerts
+
+Warp sends alerts to administrators as team usage approaches each configured spending limit, so you can adjust caps, purchase more credits, or communicate with your team before agent usage is blocked at the cap.
+
+#### Credit pool depletion alerts
+
+For enterprises with credit pools, administrators receive alerts as the team credit pool approaches full consumption. This gives you time to top up your credits or change your reload configuration before agent usage is interrupted for the entire team.
 
 ## Related resources
 
