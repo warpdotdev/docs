@@ -49,6 +49,11 @@ All Auto models perform well across all agent workflows and are ideal if you pre
 
 | Model | `model_id` | Variant |
 | --- | --- | --- |
+| Claude Opus 4.7 | `claude-4-7-opus-high` | High effort |
+| Claude Opus 4.7 | `claude-4-7-opus-xhigh` | Default effort |
+| Claude Opus 4.7 | `claude-4-7-opus-xhigh` | Default effort |
+| Claude Opus 4.7 | `claude-4-7-opus-high` | High effort |
+| Claude Opus 4.7 | `claude-4-7-opus-max` | Max effort |
 | Claude Opus 4.6 | `claude-4-6-opus-high` | Default effort |
 | Claude Opus 4.6 | `claude-4-6-opus-max` | Max effort |
 | Claude Sonnet 4.6 | `claude-4-6-sonnet-high` | Default effort |
