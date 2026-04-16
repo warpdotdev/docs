@@ -16,7 +16,7 @@ Remote Control is built on top of [Agent Session Sharing](../warp-agents/session
 
 ## Key capabilities
 
-* **One-click publish** - Click the `/remote-control` chip in the agent footer to publish instantly. The shareable link is copied to your clipboard automatically.
+* **One-click publish** - Click the `/remote-control` chip in the agent utility bar to publish instantly. The shareable link is copied to your clipboard automatically.
 * **Monitor from anywhere** - Check on agent progress from a phone, tablet, or another computer — no install required for web viewers
 * **Steer remotely** - Send input, approve commands, or redirect the agent without being at your original machine
 * **Team access** - Share the link with teammates so they can observe or collaborate on the session
@@ -31,11 +31,14 @@ Remote Control differs from standard [Agent Session Sharing](../warp-agents/sess
 ## Publishing a session
 
 1. Start or resume a third-party agent session in Warp (for example, Claude Code or Codex).
-2. Click the **`/remote-control`** chip in the agent session footer. Warp publishes the session to the cloud and copies the shareable link to your clipboard.
-3. A **Remote control active** banner appears in the session, confirming the session is live.
+2. Click the **`/remote-control`** chip in the agent utility bar. Warp publishes the session to the cloud and copies the shareable link to your clipboard.
+
+<figure><img src="../.gitbook/assets/remote-control.png" alt="The /remote-control chip in the agent utility bar with a Start remote control tooltip" width="563"><figcaption><p>Click the <strong><code>/remote-control</code></strong> chip in the agent utility bar to publish the session.</p></figcaption></figure>
+
+3. A **Sharing link copied** toast notification confirms the link is on your clipboard, and the pane's status icon changes to a red broadcast indicator to show that publishing is active.
 4. Open the link on another device, or share it with a teammate.
 
-To stop publishing, click the **Stop sharing** button in the session footer. A **Remote control stopped** banner confirms the session is no longer accessible remotely.
+To stop publishing, click the **Stop sharing** button in the agent utility bar. The status icon returns to its normal state, confirming the session is no longer accessible remotely.
 
 ## Accessing a remote session
 

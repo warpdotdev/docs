@@ -40,7 +40,7 @@ To switch from horizontal tabs to the vertical tabs panel:
 
 The vertical tabs panel appears as a resizable sidebar on the left side of the window. The horizontal tab bar is hidden while vertical tabs are active.
 
-<!-- TODO: Add screenshot showing the vertical tabs panel alongside the terminal -->
+<figure><img src="../../.gitbook/assets/multi-agents.png" alt="A Warp window with the vertical tabs sidebar on the left listing a Claude Code tab and a codex tab alongside the main terminal pane" width="563"><figcaption><p>The vertical tabs panel appears as a resizable sidebar on the left, showing each tab with its agent, working directory, branch, and diff stats.</p></figcaption></figure>
 
 {% hint style="info" %}
 You can also toggle vertical tabs from the [Command Palette](../command-palette.md) by searching for "vertical tab layout."
@@ -54,17 +54,19 @@ The vertical tabs panel supports two display densities that you can switch betwe
 
 Compact mode is the default. Each pane row displays an icon and title on one line, with an optional subtitle below it. The subtitle is configurable via the **Additional metadata** setting in the settings popup.
 
-<!-- TODO: Add screenshot of compact mode -->
+<figure><img src="../../.gitbook/assets/vertical-tabs-condensed.png" alt="Vertical tabs sidebar in compact mode with each pane row showing an icon, title, and a short subtitle below" width="375"><figcaption><p>Compact mode keeps each pane row to a single line with a short subtitle for quick scanning.</p></figcaption></figure>
 
 ### Expanded mode
 
 Expanded mode shows each pane row with a title, description (such as the working directory or file path), and metadata (Git branch, diff stats badge, and PR badge when available).
 
-<!-- TODO: Add screenshot of expanded mode -->
+<figure><img src="../../.gitbook/assets/vertical-tabs-multi-agent.png" alt="Vertical tab rows in expanded mode showing titles, working directories, Git branches, diff stats, and agent status badges" width="563"><figcaption><p>Expanded mode shows each pane row with a title, description, and rich metadata including Git branch, diff stats, and agent status.</p></figcaption></figure>
 
 ### Switching view modes
 
 Click the settings icon (sliders) in the control bar at the top of the vertical tabs panel. In the popup, use the **Density** segmented control to switch between compact and expanded views. The change takes effect immediately.
+
+<figure><img src="../../.gitbook/assets/vertical-tab-settings.png" alt="The vertical tabs settings popup anchored to the sliders icon, showing View as, Density, Pane title as, Additional metadata, and Show details on hover options" width="375"><figcaption><p>The settings popup lets you switch <strong>Density</strong>, customize pane titles and metadata, and toggle the hover detail sidecar.</p></figcaption></figure>
 
 ## Customizing vertical tabs
 
@@ -100,7 +102,7 @@ Agent pane icons display a small circular badge overlay in the bottom-right corn
 | **Cancelled** | Gray stop | The user cancelled the agent's last turn. |
 | **Blocked** | Yellow stop | The agent is waiting for user approval to proceed. |
 
-<!-- TODO: Add screenshot of agent status badges -->
+<figure><img src="../../.gitbook/assets/agent-status-badges.png" alt="Vertical tabs sidebar with four tab rows showing different agent status badges: a yellow blocked square, a magenta in-progress moon on the Claude Code brand icon, and green completion checks" width="375"><figcaption><p>Pane icons in the vertical tabs panel carry a status badge overlay reflecting each agent's current state.</p></figcaption></figure>
 
 Third-party CLI agents (Claude Code, Codex, Gemini CLI, and others) display their brand icon and color inside the circular pane icon, with the same status badge overlay.
 
@@ -139,7 +141,7 @@ Renaming applies to tabs only. Individual panes can't be renamed at this time.
 
 Hover any pane row to open a floating detail card anchored to the right side of the panel. The sidecar shows full, un-clipped metadata (complete directory paths, full branch names, and the full conversation or command title) without changing which pane is focused.
 
-<!-- TODO: Add screenshot of hover detail sidecar -->
+<figure><img src="../../.gitbook/assets/tab-hover-detail-card.png" alt="The vertical tabs panel with a Claude Code tab hovered, showing a floating detail card with the agent's In progress status, working directory, and session title" width="563"><figcaption><p>Hovering a pane row reveals a floating detail card with full metadata — without changing the focused pane.</p></figcaption></figure>
 
 The sidecar stays open as you move the cursor from the row into the card. Move away from both the row and the sidecar to dismiss it. Disable this behavior with the **Show details on hover** toggle in the settings popup.
 

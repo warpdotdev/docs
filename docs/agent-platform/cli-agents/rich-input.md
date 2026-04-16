@@ -4,11 +4,9 @@ description: >-
   attachment, and slash commands for any supported CLI coding agent.
 ---
 
-# Rich Input Editor
+# Rich input editor
 
 Warp's rich input editor lets you write prompts for any CLI coding agent with the same editing experience you'd expect from an IDE — mouse support, context attachment, voice, and more. Press `Ctrl-G` (configurable) or click the **Rich Input** button in the agent utility bar to open it.
-
-<figure><img src="../.gitbook/assets/rich-input-prompt.png" alt="The rich input editor open with a prompt being composed"><figcaption><p>The rich input editor with IDE-style editing and multi-line prompt support</p></figcaption></figure>
 
 ## Key capabilities
 
@@ -25,11 +23,13 @@ There are two ways to open the rich input editor:
 1. **Keyboard shortcut** - Press `Ctrl-G` (configurable) while a supported agent is running in the active pane.
 2. **Rich Input button** - Click the **Rich Input** button in the agent utility bar at the bottom of the pane.
 
+<figure><img src="../.gitbook/assets/rich-input-button.png" alt="The Rich Input button in the agent utility bar at the bottom of the pane" width="563"><figcaption><p>The <strong>Rich Input</strong> button in the agent utility bar</p></figcaption></figure>
+
 The rich input editor also auto-opens when an agent resumes from a blocked state (for example, after you approve a command). This requires the agent's plugin to be supported and installed. Toggle **Auto show/hide based on agent status** in [Rich input settings](#rich-input-settings) to control this behavior.
 
 When the rich input editor is active, Warp hides the cursor inside the CLI agent and moves focus to the editor input. Submit your prompt from here and it goes directly to the running agent.
 
-<figure><img src="../.gitbook/assets/rich-input-button.png" alt="The Rich Input button in the agent utility bar at the bottom of the pane"><figcaption><p>The <strong>Rich Input</strong> button in the agent utility bar</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/rich-input-prompt.png" alt="The rich input editor open with a prompt being composed" width="563"><figcaption><p>The rich input editor with IDE-style editing and multi-line prompt support</p></figcaption></figure>
 
 ## Rich input settings
 
@@ -41,7 +41,7 @@ In the Warp app, go to **Settings** > **AI** > **Coding Agents** to configure th
 * **Keyboard shortcut** - The default shortcut is `Ctrl-G`. Customize this in **Settings** > **Keyboard Shortcuts**.
 * **Disable the Rich Input button** - Right-click the agent utility bar and remove the **Rich Input** chip, or disable the footer entirely in **Settings** > **AI** > **Coding Agents**.
 
-<figure><img src="../.gitbook/assets/rich-input-settings.png" alt="Rich input settings panel"><figcaption><p>Rich input settings </p></figcaption></figure>
+<figure><img src="../.gitbook/assets/rich-input-settings.png" alt="Rich input settings panel" width="563"><figcaption><p>Rich input settings in Warp</p></figcaption></figure>
 
 ## Related pages
 

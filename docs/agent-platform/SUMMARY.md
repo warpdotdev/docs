@@ -45,7 +45,7 @@
 * [Claude Code](cli-agents/claude-code.md)
 * [Codex](cli-agents/codex.md)
 * [OpenCode](cli-agents/opencode.md)
-* [Rich Input Editor](cli-agents/rich-input.md)
+* [Rich input editor](cli-agents/rich-input.md)
 * [Remote Control](cli-agents/remote-control.md)
 
 ## Oz Cloud Agents & Orchestration <a href="#cloud-agents" id="cloud-agents"></a>

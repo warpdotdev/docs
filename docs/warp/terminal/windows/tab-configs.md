@@ -24,13 +24,21 @@ Each Tab Config is a `.toml` file stored in `~/.warp/tab_configs/`. Every file d
 1. Create a new `.toml` file in `~/.warp/tab_configs/`. Use snake_case for the file name (e.g., `dev_server.toml`).
 2. Define the tab layout using the schema below, then save the file. The new config appears in the `+` menu automatically.
 
+### Save an existing tab as a Tab Config
+
+You can also capture a tab's current state as a reusable Tab Config without writing TOML. Right-click any tab in the [vertical tabs](vertical-tabs.md) panel or horizontal tab bar to open the context menu, then click **Save as new config**. Warp generates a `.toml` file from the tab's layout, commands, and directory and adds it to the `+` menu.
+
+<figure><img src="../../.gitbook/assets/save-new-tab-config.png" alt="Tab context menu in Warp's vertical tabs panel with Save as new config highlighted" width="375"><figcaption><p>Right-click a tab and choose <strong>Save as new config</strong> to turn the current tab state into a reusable Tab Config.</p></figcaption></figure>
+
 ## Managing Tab Configs
 
-Saved Tab Configs appear in the `+` menu for quick access. When you select a Tab Config, a **sidecar panel** appears alongside the tab with options to:
+Saved Tab Configs appear in the `+` menu for quick access. When you hover a Tab Config in the menu, a **sidecar panel** appears alongside it with options to:
 
-* **Edit** — Open the underlying `.toml` file for manual editing. The editor also shows a footer to invoke the **update tab config** skill, so you can describe changes in natural language and have Warp's agent apply them.
-* **Delete** — Remove the Tab Config from the `+` menu.
-* **Set as default** — Assign the Tab Config as the default `Cmd T` action for new tabs.
+* **Edit config** — Open the underlying `.toml` file for manual editing. The editor also shows a footer to invoke the **update tab config** skill, so you can describe changes in natural language and have Warp's agent apply them.
+* **Remove** — Remove the Tab Config from the `+` menu.
+* **Make default** — Assign the Tab Config as the default `Cmd T` action for new tabs.
+
+<figure><img src="../../.gitbook/assets/saved-tab-config-menu.png" alt="Warp's + menu open with a saved screenshots_tab_config entry highlighted, and a sidecar panel showing Make default, Edit config, and Remove action buttons" width="563"><figcaption><p>Saved Tab Configs appear in the <code>+</code> menu. Hover a config to reveal the sidecar panel with <strong>Make default</strong>, <strong>Edit config</strong>, and <strong>Remove</strong> actions.</p></figcaption></figure>
 
 ## Using skills to manage Tab Configs
 

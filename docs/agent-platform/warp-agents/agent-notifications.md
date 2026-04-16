@@ -26,13 +26,13 @@ Floating toast notifications appear in the corner of the Warp window when an age
 
 Up to two toasts are visible at a time. If additional notifications arrive, the oldest toast is replaced.
 
-<!-- TODO: Add screenshot showing a toast notification in the corner of the Warp window -->
+<figure><img src="../.gitbook/assets/toast-notification.png" alt="A Warp toast notification in the upper-right corner showing an agent task completed, with an Open conversation action and a keyboard shortcut chip" width="563"><figcaption><p>A toast notification in the corner of the Warp window signals that an agent task has completed. Click the toast to jump to the agent's session.</p></figcaption></figure>
 
 ### Notification mailbox
 
 The notification mailbox is a sidebar panel that collects all agent notifications in one place. Open it from the bell icon in the top-right corner of Warp.
 
-<!-- TODO: Add screenshot showing the notification mailbox sidebar with filter tabs and notification items -->
+<figure><img src="../.gitbook/assets/notification-mailbox.png" alt="The Warp notification mailbox open in the upper-right of the window with All tabs and Unread filter tabs, a Mark all as read action, and a notification entry" width="563"><figcaption><p>The notification mailbox collects all agent notifications in one place. Use the filter tabs to switch between All tabs and Unread.</p></figcaption></figure>
 
 The mailbox includes:
 
@@ -83,6 +83,8 @@ For **third-party CLI agents**, each agent requires a one-time setup. The proces
 * **Claude Code** - one-click auto-install via a chip in Warp, or manual plugin commands. See [Claude Code setup](../cli-agents/claude-code.md#setting-up-notifications).
 * **Codex** - add `notification_condition = "always"` under `[tui]` in `~/.codex/config.toml`, then restart Codex. See [Codex setup](../cli-agents/codex.md#setting-up-notifications).
 * **OpenCode** - add `"@warp-dot-dev/opencode-warp"` to the `plugin` array in your OpenCode config. See [OpenCode setup](../cli-agents/opencode.md#setting-up-notifications).
+
+<figure><img src="../.gitbook/assets/enable-cli-agent-notifications.png" alt="The Enable Claude Code notifications chip in the agent utility bar with a tooltip reading Install the Warp plugin to enable rich agent notifications within Warp" width="563"><figcaption><p>Warp surfaces a one-click install chip in the agent utility bar when a supported CLI agent is running without the notification plugin installed.</p></figcaption></figure>
 
 If auto-install doesn't work or you're running an agent over SSH, Warp displays an installation-instructions chip in the terminal with setup steps you can follow directly.
 
