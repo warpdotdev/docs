@@ -179,7 +179,11 @@ def search_docs_for_terms(docs_text: dict[str, str], terms: list[str]) -> list[s
 
 def parse_feature_flags(warp_internal: Path) -> list[str]:
     """Parse FeatureFlag enum variants from features.rs."""
-    features_rs = warp_internal / "warp_core" / "src" / "features.rs"
+    # The FeatureFlag enum lives in the warp_features crate
+    features_rs = warp_internal / "crates" / "warp_features" / "src" / "lib.rs"
+    if not features_rs.exists():
+        # Fall back to legacy path
+        features_rs = warp_internal / "warp_core" / "src" / "features.rs"
     if not features_rs.exists():
         print(f"Warning: {features_rs} not found", file=sys.stderr)
         return []
