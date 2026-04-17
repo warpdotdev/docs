@@ -1,12 +1,12 @@
 ---
 description: >-
   Tab Configs let you define reusable tab setups — including directory, startup
-  commands, pane layout, and theme — in a simple TOML file.
+  commands, pane layout, shell, and theme — in a simple TOML file.
 ---
 
 # Tab Configs
 
-Tab Configs let you define reusable tab setups — including directory, startup commands, pane layout, and theme — in a simple TOML file. Select a Tab Config from the `+` menu to open a fully configured tab with a single click.
+Tab Configs let you define reusable tab setups — including directory, startup commands, pane layout, shell, and theme — in a simple TOML file. Select a Tab Config from the `+` menu to open a fully configured tab with a single click.
 
 ## How Tab Configs work
 
@@ -67,6 +67,7 @@ All panes are defined in a flat `[[panes]]` array. The first entry is the root o
 * **`type`** (required, string) — `"terminal"` (standard shell), `"agent"` (opens in Agent Mode), or `"cloud"` (cloud mode pane, no local shell).
 * **`directory`** (optional, string) — initial working directory. Supports `~` expansion and `{{param}}` template variables.
 * **`commands`** (optional, array of strings) — commands to run in sequence when the tab opens.
+* **`shell`** (optional, string) — shell executable to use for this pane (e.g. `"pwsh"`, `"zsh"`, `"bash"`, `"fish"`). Only applies to `terminal` and `agent` pane types. If omitted or the specified shell is not installed, the user's default shell is used.
 * **`is_focused`** (optional, bool) — set to `true` on at most one pane to give it initial focus.
 
 #### Split node fields
@@ -132,6 +133,33 @@ id = "server"
 type = "terminal"
 directory = "~/code/my-app"
 commands = ["npm run dev"]
+```
+
+### Cross-shell development
+
+A config that opens two panes side by side, each with a different shell:
+
+```toml
+name = "Cross Shell"
+color = "cyan"
+
+[[panes]]
+id = "root"
+split = "horizontal"
+children = ["bash_pane", "pwsh_pane"]
+
+[[panes]]
+id = "bash_pane"
+type = "terminal"
+shell = "bash"
+directory = "~/code/my-app"
+is_focused = true
+
+[[panes]]
+id = "pwsh_pane"
+type = "terminal"
+shell = "pwsh"
+directory = "~/code/my-app"
 ```
 
 ### Worktree with parameters
