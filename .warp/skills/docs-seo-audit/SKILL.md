@@ -127,10 +127,24 @@ Some page titles are intentionally short or specific and must **not** be changed
 - **`docs/changelog/README.md`** (`Changelog`) — "Changelog" is a clear, universally understood industry term. Branding prefixes like "Warp changelog" or "Release changelog" add no descriptive value and this title should remain as-is.
 - **`docs/warp/terminal/appearance/app-icons.md`** (`App icons`) — The article explicitly explains that *custom* app icons are not available to users. Renaming to "Custom app icons" directly contradicts the page content and must be avoided.
 - **`guides/README.md`** (`Guides`) — "Guides" is the landing page for the Guides space. The title is clear and matches the space name; prefixing it (e.g., "Developer Guides") adds no value and creates a mismatch with the space title shown in breadcrumbs.
+- **`docs/warp/terminal/windows/tabs.md`** (`Tabs`) — The sidebar section header ("Windows and Tabs") already provides terminal context; adding a "Terminal" prefix creates a name not used in the UI or anywhere else in the docs. The `title_too_short` warning is intentionally suppressed — the title is short by design. Do not rename to "Terminal tabs".
+- **`docs/warp/terminal/windows/vertical-tabs.md`** (`Vertical tabs`) — Same rationale: the section header disambiguates the terminal context. The `title_too_short` warning is intentionally suppressed. Do not rename to "Terminal vertical tabs".
+- **`docs/warp/terminal/windows/split-panes.md`** (`Split panes`) — Same rationale: the section header disambiguates the terminal context. The `title_too_short` warning is intentionally suppressed. Do not rename to "Terminal split panes".
+- **`docs/warp/terminal/windows/tab-configs.md`** (`Tab Configs`) — Same rationale: the section header disambiguates the terminal context. Additionally, "Tab Configs" is a proper feature name and should not be prefixed. The `title_too_short` warning is intentionally suppressed. Do not rename to "Terminal Tab Configs".
+- **`docs/warp/terminal/sessions/README.md`** (`Sessions`) — The sidebar section header ("Sessions") already provides terminal context. The `title_too_short` warning is intentionally suppressed. Do not rename to "Terminal sessions".
+- **`docs/agent-platform/cli-agents/overview.md`** (`Third-Party CLI Agents`) — The SUMMARY.md nav label and H1 are intentionally different and managed via the GitBook UI. Do not change the H1 to match the nav label or vice versa.
 
 When the audit flags these pages for `title_too_short`, exclude them from your fix list and include a note in your report explaining they are intentional exceptions.
 
 If you believe a new title should be added to this exceptions list, flag it for human review before proceeding.
+
+### SUMMARY.md nav labels vs. H1 headings
+
+SUMMARY.md nav labels and H1 page headings are **intentionally different** in some cases and are managed through the GitBook UI. Do not change either to match the other unless you are fixing a genuine duplicate title collision. Specifically:
+
+- Do **not** add section-context prefixes (like "Terminal", "Warp", or "Agent") to short but accurate titles just because the title appears generic in isolation. Sidebar context already provides that disambiguation.
+- Do **not** rename SUMMARY.md nav labels for pages in the exceptions list above.
+- Do **not** sync SUMMARY.md link text to match H1 headings (or vice versa) as a standalone change — the two are allowed to differ.
 
 ### Fixing duplicate titles
 
@@ -138,9 +152,9 @@ This is the most impactful issue. Common causes:
 - Multiple pages named `[Overview](...)` under different sections of the same space
 - Generic names like `[Getting Started](...)` or `[FAQs](...)` repeated across sections
 
-Fix by making each SUMMARY.md link text unique and descriptive. The link text should identify the specific topic, not just the page type. Use sentence case and correct terminology per `AGENTS.md` (e.g., capitalize product feature names like "Agent Mode", "Warp Drive", "Codebase Context"). Example:
+Fix by making each SUMMARY.md link text unique and descriptive. The link text should identify the specific topic, not just the page type. Use sentence case and correct terminology per `AGENTS.md` (e.g., capitalize proper feature names like "Agent Mode", "Warp Drive", "Codebase Context" — but not generic terms like "overview", "quickstart", or "agents"). Example:
 - Before: `[Overview](local-agents/overview.md)` + `[Overview](cloud-agents/overview.md)`
-- After: `[Local Agents Overview](local-agents/overview.md)` + `[Cloud Agents Overview](cloud-agents/overview.md)`
+- After: `[Local agents overview](local-agents/overview.md)` + `[Cloud agents overview](cloud-agents/overview.md)`
 
 ### Fixing missing descriptions
 
@@ -168,6 +182,7 @@ After making fixes, review every change before presenting to the user. Run throu
 - **Did I introduce a new duplicate?** Scan the full SUMMARY.md for the space you edited. Verify every link text is unique. This is the most common mistake — fixing one duplicate by picking a name that collides with an existing entry.
 - **Does the H1 match?** Every SUMMARY.md title change needs a corresponding H1 update in the markdown file. Mismatches between sidebar label and page heading confuse readers.
 - **Is the terminology right?** Cross-check against `AGENTS.md` and how the feature is actually referred to in the existing docs. Don't rename things to terms that aren't used elsewhere in the docs.
+- **Is the casing right?** All link text and H1 headings must use sentence case. Proper product feature names (e.g., "Agent Mode", "Codebase Context", "Admin Panel", "Remote Control", "Warp Drive") retain their capitalization, but generic terms ("overview", "quickstart", "agents", "notifications") are lowercase. Never use title case.
 - **Does this read naturally in context?** Consider how the title appears (a) as a sidebar label under its section header, and (b) as a search result: `{Title} | {Space} | Warp`. If it sounds awkward or uses internal jargon that users wouldn't recognize, rephrase.
 - **Are descriptions grounded in page content?** Don't write descriptions based on the title alone. Read the page, then summarize what's actually there.
 - **Any other improvements nearby?** Look at adjacent entries in the SUMMARY.md. Are there other generic titles ("Overview", "Getting Started", "FAQ") that could become duplicates in the future? Flag them proactively.

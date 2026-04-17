@@ -4,7 +4,7 @@ description: >-
   alerts, so you know exactly when an agent needs your attention.
 ---
 
-# Agent Notifications
+# Agent notifications
 
 Warp delivers notifications from any supported coding agent so you always know when an agent finishes a task, encounters an error, or needs your input. Notifications work whether you're in a different tab or a different app.
 

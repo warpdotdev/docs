@@ -40,7 +40,7 @@ Oz is fully programmable—launch agents manually or build custom logic around t
 
 ## Learn more
 
-* [Local Agents Overview](warp-agents/README.md) - Interactive agents in Warp
+* [Warp Agents overview](warp-agents/README.md) - Interactive agents in Warp
 * [Third-Party CLI Agents](cli-agents/overview.md) - Claude Code, Codex, OpenCode, and more
 * [Cloud Agents Overview](cloud-agents/overview.md) - Background agents for automation at scale
 * [Agent Capabilities](warp-agents/capabilities-overview.md) - Skills, planning, MCP, rules, and more

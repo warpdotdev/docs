@@ -93,6 +93,6 @@ Warp's AI features can be globally disabled in **Settings** > **AI**.
 ## Next steps
 
 * [**Quickstart**](getting-started/quickstart.md): Get Warp installed and start coding
-* [**Local Agents Overview**](https://docs.warp.dev/agent-platform/warp-agents): Explore all AI features available in Warp
+* [**Warp Agents overview**](https://docs.warp.dev/agent-platform/warp-agents): Explore all AI features available in Warp
 * [**Cloud Agents Overview**](https://docs.warp.dev/agent-platform/cloud-agents/overview): Set up background automation
 * [**Oz Platform**](https://docs.warp.dev/agent-platform/cloud-agents/platform): Learn about the CLI, API, SDK, and infrastructure

@@ -4,7 +4,7 @@ description: >-
   auto-select the best model).
 ---
 
-# Model Choice
+# Model choice
 
 ## Available models
 

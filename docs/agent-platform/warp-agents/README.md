@@ -4,7 +4,7 @@ description: >-
   recommendations, fully integrated into the Warp Agentic Development Environment.
 ---
 
-# Local Agents Overview
+# Warp Agents overview
 
 ## AI in Warp
 

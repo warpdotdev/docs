@@ -1,7 +1,5 @@
 ---
 description: >-
-  Secret Redaction automatically redacts secrets and sensitive data in terminal
-  Secret Redaction attempts to redact secrets and sensitive data in your
   Secret Redaction detects and redacts secrets, passwords, API keys, IP
   addresses, and PII in your terminal output.
 ---
