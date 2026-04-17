@@ -96,7 +96,7 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `Agent Mode Setup Banner Accepted` | Agent Mode setup banner accepted |
 | `Agent Mode Setup Banner Dismissed` | Agent Mode setup banner dismissed |
 | `Agent Mode Setup Project Scoped Rules Action` | User clicked a button in the Agent Mode setup project scoped rules step |
-| `Agent Mode.Setup Codebase Context Action` | User clicked a button in the Agent Mode setup Codebase Context step |
+| `Agent Mode.Setup Codebase Context Action` | User clicked a button in the Agent Mode setup codebase context step |
 | `Agent Predict` | Completed an Agent Predict prediction |
 | `Agent Toolbar Dismissed` | User dismissed the use-agent toolbar |
 | `AgentManagement.AgentTypeSelectorOpened` | User opened the agent type selector from agent management |
@@ -136,7 +136,7 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `AgentMode.Code.SuggestedEditAcceptClicked` | User selected Accept for a code diff suggestion in Agent Mode |
 | `AgentMode.Code.SuggestedEditReceived` | Agent Mode suggested a code edit |
 | `AgentMode.Code.SuggestedEditResolved` | Agent Mode pending code edit suggestion resolved |
-| `AgentMode.CreatedAIBlock` | Created an AI block in Agent Mode |
+| `AgentMode.CreatedAIBlock` | Created an AI block in agent mode |
 | `AgentMode.Error` | Received an error when getting Agent Mode response |
 | `AgentMode.ExecutedWarpDrivePrompt` | Executed a saved prompt. |
 | `AgentMode.ExitedShellProcess` | An agent-requested command caused the shell process to exit |
@@ -145,13 +145,14 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `AgentMode.Grep.Failed` | The grep tool failed to complete |
 | `AgentMode.Grep.Succeeded` | The grep tool completed successfully |
 | `AgentMode.NaturalLanguageDetection.InputBufferSubmitted` | Input buffer submitted |
-| `AgentMode.OpenedCitation` | Opened a citation that was surfaced in Agent Mode |
+| `AgentMode.OpenedCitation` | Opened a citation that was surfaced in agent mode |
 | `AgentMode.PotentialAutoDetectionFalsePositive` | Manually toggled input to shell mode after input was auto-detected as natural language. |
 | `AgentMode.QueryAttemptAtLImit` | Tried to send an Agent Mode query but they already reached the query limit |
 | `AgentMode.RequestRetrySucceeded` | Agent Mode request succeeded after retrying following an initial error |
 | `AgentMode.SetupCreateEnvironmentAction` | User clicked a button in the Agent Mode setup create environment step |
-| `AgentMode.SurfacedCitations` | Agent Mode used and cited external sources that were used in its response |
+| `AgentMode.SurfacedCitations` | Agent mode used and cited external sources that were used in its response |
 | `AgentMode.ToggleAutoDetectionSetting` | Toggled the setting that enables or disables natural language auto-detection in the input.  |
+| `AgentNotification.Shown` | An agent notification was shown to the user (toast or mailbox) |
 | `AgentTip Clicked` | User clicked a link or action in an Agent Tip |
 | `AgentTip Shown` | Selected an Agent Tip to show in the Agent Mode status bar |
 | `AgentView.Entered` | User entered the Agent View |
@@ -206,6 +207,7 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `CLI.Execute.Agent.Run` | Ran an agent from the Warp CLI |
 | `CLI.Execute.Agent.RunAmbient` | Ran an ambient agent from the Warp CLI |
 | `CLI.Execute.Artifact.Download` | Downloaded an artifact from the Warp CLI |
+| `CLI.Execute.Artifact.Get` | Got artifact metadata from the Warp CLI |
 | `CLI.Execute.Artifact.Upload` | Uploaded an artifact from the Warp CLI |
 | `CLI.Execute.Conversation.Get` | Got conversation by ID from the Warp CLI |
 | `CLI.Execute.Environment.Create` | Created a cloud environment from the Warp CLI |
@@ -244,7 +246,14 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `CLIAgentFooter.SettingToggled` | User toggled the CLI agent footer setting |
 | `CLIAgentFooter.Shown` | CLI agent footer was shown to the user |
 | `CLIAgentFooter.VoiceInputUsed` | User used voice input from the CLI agent footer |
-| `CLIAgentRichInput.Opened` | User opened the CLI agent rich input editor |
+| `CLIAgentPlugin.ChipClicked` | User clicked the plugin install or update chip |
+| `CLIAgentPlugin.ChipDismissed` | User dismissed the plugin install or update chip |
+| `CLIAgentPlugin.Detected` | A CLI agent plugin was detected via a SessionStart event |
+| `CLIAgentPlugin.OperationFailed` | Auto plugin install or update failed |
+| `CLIAgentPlugin.OperationSucceeded` | Auto plugin install or update completed successfully |
+| `CLIAgentRichInput.Closed` | CLI agent Rich Input was closed |
+| `CLIAgentRichInput.Opened` | User opened CLI agent Rich Input |
+| `CLIAgentRichInput.Submitted` | User submitted a prompt via CLI agent Rich Input |
 | `Changed invite view option` | Toggled between link and invite for invite |
 | `Clicked Continue Conversation Button` | User clicked the Continue Conversation button in a block footer |
 | `Clicked Reset to Defaults Button in Settings Import` | Reset the imported settings in the settings import onboarding block |
@@ -278,8 +287,8 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `CodexModal.UseCodexClicked` | User clicked 'Use Codex' in the Codex modal |
 | `Command Correction Event` | Accepted command correction |
 | `Command File Run` | Opened a .cmd or unix executable file and ran it directly in Warp |
-| `Command Palette Search Accepted` | Accepted a Command Palette search result |
-| `Command Palette Search Exited` | Exited Command Palette search without accepting a result |
+| `Command Palette Search Accepted` | Accepted a command palette search result |
+| `Command Palette Search Exited` | Exited command palette search without accepting a result |
 | `Command Search Async Query Completed` | Finished searching for a command in the background |
 | `Command Search Exited` | Exited command search (universal search panel to search) without accepting a result |
 | `Command Search Filter Changed` | Changed command search filter |
@@ -473,7 +482,7 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `SSH Tmux Warpify Block Dismissed` | User dismissed an ssh tmux warpify block |
 | `Save Launch Config` | Saved current launch configuration of windows, tabs, and panes |
 | `Select App Icon` | Selected app icon |
-| `Select Command Palette Option` | Selected option from Command Palette (i.e. CMD-P) |
+| `Select Command Palette Option` | Selected option from command palette (i.e. CMD-P) |
 | `Select Cursor Type` | Selected cursor type |
 | `Select Navigation Palette Item` | Selected session from the Session Navigation Palette (search across panes, tabs, and windows) |
 | `Select Theme` | Selected theme |
@@ -523,7 +532,7 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `Thin Strokes Setting Changed` | Changed thin strokes setting in settings -> Appearance |
 | `Tier Limit Hit` | User hit the tier limit for a feature |
 | `Toggle Active AI Enablement` | Toggled active AI enablement. |
-| `Toggle Agent Mode Codebase Context` | Toggled on/off the enablement of Codebase Context usage for Agent Mode. |
+| `Toggle Agent Mode Codebase Context` | Toggled on/off the enablement of codebase context usage for Agent Mode. |
 | `Toggle Agent Mode Query Suggestions Setting` | Toggled on/off the prompt suggestions setting |
 | `Toggle Approvals Modal` | Opened or closed teams modal |
 | `Toggle Block Filter Case Sensitivity` | Toggled on/off case sensitivity within the block filter editor |
@@ -531,7 +540,7 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `Toggle Block Filter Query` | Toggled on/off a block filter query |
 | `Toggle Block Filter Regex` | Toggled on/off regex within the block filter editor |
 | `Toggle Code Suggestions Setting` | Toggled on/off the code suggestions setting |
-| `Toggle Codebase Context Autoindexing` | Toggled on/off the enablement of autoindexing for Codebase Context. |
+| `Toggle Codebase Context Autoindexing` | Toggled on/off the enablement of autoindexing for codebase context. |
 | `Toggle Dim Inactive Panes` | Whether the dim inactive panes feature has been toggled |
 | `Toggle Focus Pane On Hover` | Toggled on/off focus pane on hover feature, which causes panes to automatically focus when hovering over them |
 | `Toggle Global AI Enablement` | Toggled global AI enablement. |

@@ -25,6 +25,41 @@ metaLinks: {}
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2026.04.15 (v0.2026.04.15.08.45)
+
+**Improvements**
+
+* Agent Mode now shows a "Last seen by agent at" indicator for long-running commands, so you can see how recently the agent received new output.
+* Added completions for npm package search, nx, brew, aws s3, tree, awk, sort, ip, uv, and nmap, and added pnpm workspace filter support.
+* Skill invocations now display with the same purple highlighted text as slash commands in the input and prompt views.
+* Added completions for `timedatectl`, `ack`, `watch`, `lsof`, `systemctl`, `ros2`, `nextflow`, `tsh`, `codex`, `asdf`, `sdk`, `pass`, `az`, `oc`, `scp`, `claude`, `git show`, `git rm`, `gsutil`, `aws ec2`, `docker-compose`, `yarn`, and `docker run`; improved `git switch`, `git diff`, `aws` static flags, `gt`, `kubectl`, `tf`, `pnpm`, `kubectl`, and SSH host completions; added `apt` repo package generator.
+* Code review comment buttons now remain visible when AI is disabled; comments can be sent to CLI agent terminals (e.g. Claude Code).
+* Review comments can now be sent to any available terminal in the tab, not just the focused one. If the focused terminal is busy, Warp will automatically route comments to another idle terminal in the same repo.
+* Skills are now searchable from the @-context menu in Agent Mode, inserting `/{skill_name}` into the prompt.
+* File-based MCP servers can now be configured via `~/.agents/.mcp.json` (global) or `.agents/.mcp.json` (project-local).
+
+**Bug fixes**
+
+* Fixed longer prompts for Claude Code not being fully submitted when using Rich Input in Warp.
+* Fixed settings being reset to defaults when a logged-out user creates a new account.
+* Updated openh264 dependency to resolve a heap overflow security vulnerability (GHSA-5pmw-9j92-3c4c).
+* Show "Resume Conversation" shortcut when agent conversations fail with transport or server errors.
+* Fixed `kubectl` resource completion breaking when `-n`/`--namespace` or other flags are placed before the subcommand.
+* Fixed markdown files with animated GIFs and WebPs using excessive memory by rendering them as first-frame previews.
+* Fixed autosuggestions and completions not appearing after shell bootstrap completes.
+* Fixed excessive CPU usage from redundant `git status` processes when multiple terminal tabs are open in the same repository.
+* Fixed a bug where conversations would stall if a long-running command finished while the user was in control.
+* Fixed thought block headers ("Thought for X >") having a click area that extended to the full width of the pane; only the text and chevron are now clickable.
+* Fixed global search using excessive memory when matching files with very long lines (e.g. minified JavaScript).
+* Window title now respects custom tab names instead of always showing the generated name.
+* Fixed `git push` branch completion for force-push and refspec prefixes, HTML entity rendering in completion specs, and `npm i` short-form command priority.
+* Fixed repeated 403 errors when indexing large codebases.
+* Fixed ask-question option rows changing cursor shape while hovering over option text.
+
+**Oz updates**
+
+* Local child agents now inherit the parent agent's AI profile (model and permissions).
+
 ### 2026.04.08 (v0.2026.04.08.08.36)
 
 **New features**
