@@ -236,7 +236,7 @@ oz agent run-cloud \
 * `--model <MODEL_ID>` — override the default model.
 * `--skill <SPEC>` — use a skill from the environment's repository as the base prompt (see [Using Skills](./#using-skills)).
 * `--host <WORKER_ID>` — run on a specific self-hosted worker instead of Warp-hosted infrastructure.
-* `--attach <PATH>` — attach an image file to the agent query. Can be repeated (maximum 5).
+* `--attach <PATH>` — attach a file to the agent query. Can be repeated (maximum 5).
 * `--computer-use` / `--no-computer-use` — enable or disable [Computer Use](https://docs.warp.dev/agent-platform/warp-agents/computer-use) for this run.
 * `--file <PATH>` (`-f`) — load run configuration from a YAML or JSON file.
 
