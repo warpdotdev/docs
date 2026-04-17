@@ -6,7 +6,7 @@
 * [Agents in Warp](getting-started/agents-in-warp.md)
 * [Agent FAQs](getting-started/faqs.md)
 
-## Warp's Agent
+## Warp Agents
 
 * [Overview](warp-agents/README.md)
 * [Capabilities](warp-agents/capabilities-overview.md)
