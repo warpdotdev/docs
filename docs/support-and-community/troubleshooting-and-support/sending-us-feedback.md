@@ -40,7 +40,7 @@ The Warp log files are located at `~/Library/Logs/`.
 Run the following to zip the Warp logs to your Desktop:
 
 ```bash
-zip -j ~/Desktop/warp-logs.zip ~/Library/Logs/warp.log*
+zip -j ~/Desktop/warp-logs.zip ~/Library/Logs/warp.log* ~/Library/Logs/oz/warp.log*
 ```
 
 **Warp Preview logs on macOS**
@@ -48,7 +48,7 @@ zip -j ~/Desktop/warp-logs.zip ~/Library/Logs/warp.log*
 Run the following to zip the Warp Preview logs to your Desktop:
 
 ```bash
-zip -j ~/Desktop/warp_preview-logs.zip ~/Library/Logs/warp_preview.log*
+zip -j ~/Desktop/warp_preview-logs.zip ~/Library/Logs/warp_preview.log* ~/Library/Logs/oz/warp_preview.log*
 ```
 
 {% hint style="warning" %}
@@ -72,7 +72,7 @@ The Warp log files are located at `$env:LOCALAPPDATA\warp\Warp\data\logs\`.
 Close Warp and run the following from another terminal to zip the logs to your Desktop:
 
 ```powershell
-Compress-Archive -Path "$env:LOCALAPPDATA\warp\Warp\data\logs\warp.log*" -DestinationPath "$([Environment]::GetFolderPath('Desktop'))\warp-logs.zip"
+$logs="$env:LOCALAPPDATA\warp\Warp\data\logs"; $paths=@("$logs\warp.log*","$logs\oz\warp.log*") | Where-Object { Test-Path $_ }; Compress-Archive -Path $paths -DestinationPath "$([Environment]::GetFolderPath('Desktop'))\warp-logs.zip" -Force
 ```
 
 **Warp Preview logs on Windows**
@@ -80,7 +80,7 @@ Compress-Archive -Path "$env:LOCALAPPDATA\warp\Warp\data\logs\warp.log*" -Destin
 Close Warp Preview and run the following from another terminal to zip the logs to your Desktop:
 
 ```powershell
-Compress-Archive -Path "$env:LOCALAPPDATA\warp\WarpPreview\data\logs\warp_preview.log*" -DestinationPath "$([Environment]::GetFolderPath('Desktop'))\warp_preview-logs.zip"
+$logs="$env:LOCALAPPDATA\warp\WarpPreview\data\logs"; $paths=@("$logs\warp_preview.log*","$logs\oz\warp_preview.log*") | Where-Object { Test-Path $_ }; Compress-Archive -Path $paths -DestinationPath "$([Environment]::GetFolderPath('Desktop'))\warp_preview-logs.zip" -Force
 ```
 
 {% hint style="warning" %}
@@ -110,7 +110,7 @@ The Warp log files are located at `~/.local/state/warp-terminal/`.
 Run the following to zip the Warp logs to your home directory:
 
 ```bash
-tar -czf ~/warp-logs.tar.gz -C ~/.local/state/warp-terminal warp.log*
+tar -czf ~/warp-logs.tar.gz -C ~/.local/state/warp-terminal $(ls warp.log* oz/warp.log* 2>/dev/null | tr '\n' ' ')
 ```
 
 **Warp Preview logs on Linux**
@@ -118,18 +118,19 @@ tar -czf ~/warp-logs.tar.gz -C ~/.local/state/warp-terminal warp.log*
 Run the following to zip the Warp Preview logs to your home directory:
 
 ```bash
-tar -czf ~/warp_preview-logs.tar.gz -C ~/.local/state/warp-terminal-preview warp_preview.log*
+tar -czf ~/warp_preview-logs.tar.gz -C ~/.local/state/warp-terminal-preview $(ls warp_preview.log* oz/warp_preview.log* 2>/dev/null | tr '\n' ' ')
 ```
 
 {% hint style="warning" %}
 If your issue is graphical (e.g. no display of windows) or a crash, please run Warp with the following command to capture more log information:
 
-<pre class="language-bash"><code class="lang-bash"># Run if Warp on Linux is installed
-<strong>RUST_LOG=wgpu_core=info,wgpu_hal=info MESA_DEBUG=1 EGL_LOG_LEVEL=debug warp-terminal
-</strong>
+```bash
+# Run if Warp on Linux is installed
+RUST_LOG=wgpu_core=info,wgpu_hal=info MESA_DEBUG=1 EGL_LOG_LEVEL=debug warp-terminal
+
 # Run if Warp Preview on Linux is installed
 RUST_LOG=wgpu_core=info,wgpu_hal=info MESA_DEBUG=1 EGL_LOG_LEVEL=debug warp-terminal-preview
-</code></pre>
+```
 {% endhint %}
 {% endtab %}
 {% endtabs %}
