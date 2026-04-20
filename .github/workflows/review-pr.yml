@@ -32,6 +32,7 @@ jobs:
             const fs = require('fs');
             const { owner, repo } = context.repo;
             const prNumber = context.payload.pull_request.number;
+            const commitSha = context.payload.pull_request.head.sha;
             
             try {
               if (!fs.existsSync('review.json')) {
@@ -69,7 +70,44 @@ jobs:
               );
               const validPaths = new Set(prFiles.map(f => f.filename));
               
+              // Build a map of valid diff line numbers per file and side.
+              // GitHub's createReview API only accepts line numbers that appear
+              // in the PR diff; comments targeting other lines cause a 422.
+              const validLines = new Map(); // key: "path:side" -> Set of line numbers
+              for (const file of prFiles) {
+                if (!file.patch) continue;
+                const rightLines = new Set();
+                const leftLines = new Set();
+                let oldLine = 0;
+                let newLine = 0;
+                for (const raw of file.patch.split('\n')) {
+                  const hunkHeader = raw.match(/^@@ -(?:\d+)(?:,\d+)? \+(\d+)(?:,\d+)? @@/);
+                  if (hunkHeader) {
+                    const parts = raw.match(/^@@ -(\d+)(?:,\d+)? \+(\d+)(?:,\d+)? @@/);
+                    oldLine = parseInt(parts[1], 10);
+                    newLine = parseInt(parts[2], 10);
+                    continue;
+                  }
+                  if (raw.startsWith('+')) {
+                    rightLines.add(newLine);
+                    newLine++;
+                  } else if (raw.startsWith('-')) {
+                    leftLines.add(oldLine);
+                    oldLine++;
+                  } else {
+                    // Context line — valid on both sides
+                    rightLines.add(newLine);
+                    leftLines.add(oldLine);
+                    newLine++;
+                    oldLine++;
+                  }
+                }
+                validLines.set(`${file.filename}:RIGHT`, rightLines);
+                validLines.set(`${file.filename}:LEFT`, leftLines);
+              }
+              
               const comments = [];
+              const displaced = []; // comments whose lines aren't in the diff
               
               for (const c of rawComments) {
                 if (!c || typeof c !== 'object') continue;
@@ -98,17 +136,31 @@ jobs:
                   side = 'RIGHT';
                 }
                 
-                const commentPayload = {
-                  path: normalizedPath,
-                  line,
-                  side,
-                  body: decodeNewlines(c.body),
-                };
+                const body = decodeNewlines(c.body);
                 
-                comments.push(commentPayload);
+                // Validate that this line number exists in the diff for this file/side
+                const key = `${normalizedPath}:${side}`;
+                const lineSet = validLines.get(key);
+                if (!lineSet || !lineSet.has(line)) {
+                  console.log(`Comment targets line ${line} (${side}) in ${normalizedPath} which is outside the diff — moving to summary.`);
+                  displaced.push({ path: normalizedPath, line, side, body });
+                  continue;
+                }
+                
+                comments.push({ path: normalizedPath, line, side, body });
               }
               
-              const summary = typeof review.summary === 'string' ? decodeNewlines(review.summary).trim() : '';
+              let summary = typeof review.summary === 'string' ? decodeNewlines(review.summary).trim() : '';
+              
+              // Append displaced comments to the summary so feedback isn't lost
+              if (displaced.length > 0) {
+                const extra = displaced.map(d =>
+                  `**${d.path}** (line ${d.line}):\n${d.body}`
+                ).join('\n\n---\n\n');
+                const header = '\n\n---\n\n**Additional comments** (targeting lines outside the diff):\n\n';
+                summary = summary ? summary + header + extra : header.trimStart() + extra;
+              }
+              
               const hasSummary = summary.length > 0;
               
               if (!hasSummary && comments.length === 0) {
@@ -120,6 +172,7 @@ jobs:
                 owner,
                 repo,
                 pull_number: prNumber,
+                commit_id: commitSha,
                 event: 'COMMENT',
               };
               
