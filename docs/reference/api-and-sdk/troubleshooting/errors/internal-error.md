@@ -4,7 +4,7 @@ description: >-
   retry. Contact support if the issue persists.
 ---
 
-# internal\_error
+# internal_error
 
 The `internal_error` is a catch-all for unexpected server-side errors. The platform automatically retries these errors before marking the task as failed.
 

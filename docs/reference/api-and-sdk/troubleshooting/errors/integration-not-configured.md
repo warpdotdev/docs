@@ -4,7 +4,7 @@ description: >-
   configuring the integration.
 ---
 
-# integration\_not\_configured
+# integration_not_configured
 
 The `integration_not_configured` error occurs when a task requires an integration whose setup has not been completed (for example, missing OAuth tokens or unfinished configuration steps).
 

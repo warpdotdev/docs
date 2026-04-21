@@ -4,7 +4,7 @@ description: >-
   Upgrade your team's plan to access this capability.
 ---
 
-# feature\_not\_available
+# feature_not_available
 
 The `feature_not_available` error occurs when you attempt to use a feature or capability that is not included in your team's current plan.
 

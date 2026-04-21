@@ -4,7 +4,7 @@ description: >-
   the requested operation.
 ---
 
-# not\_authorized
+# not_authorized
 
 The `not_authorized` error occurs when the authenticated principal (user or API key) does not have sufficient permissions to perform the requested operation.
 

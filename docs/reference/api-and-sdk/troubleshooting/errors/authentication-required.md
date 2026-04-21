@@ -4,7 +4,7 @@ description: >-
   Generate a new key and update your client configuration.
 ---
 
-# authentication\_required
+# authentication_required
 
 The `authentication_required` error occurs when the API request lacks valid authentication credentials.
 

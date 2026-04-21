@@ -4,7 +4,7 @@ description: >-
   Increase the budget or wait for the budget period to reset.
 ---
 
-# budget\_exceeded
+# budget_exceeded
 
 The `budget_exceeded` error occurs when your team has reached the spending budget limit configured in team settings.
 

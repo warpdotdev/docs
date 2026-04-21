@@ -4,7 +4,7 @@ description: >-
   setup commands, and working directory paths.
 ---
 
-# environment\_setup\_failed
+# environment_setup_failed
 
 The `environment_setup_failed` error occurs when the cloud agent's runtime environment could not be initialized. This covers failures during any phase of environment setup, including repository cloning, setup command execution, working directory resolution, and MCP server startup.
 

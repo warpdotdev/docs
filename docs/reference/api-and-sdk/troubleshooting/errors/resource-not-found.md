@@ -4,7 +4,7 @@ description: >-
   does not exist or has been deleted.
 ---
 
-# resource\_not\_found
+# resource_not_found
 
 The `resource_not_found` error occurs when a referenced resource cannot be found. This typically means the resource ID is incorrect, the resource has been deleted, or it belongs to a different team.
 

@@ -4,7 +4,7 @@ description: >-
   Purchase more credits from your team's billing settings to continue.
 ---
 
-# insufficient\_credits
+# insufficient_credits
 
 The `insufficient_credits` error occurs when your team has no remaining Add-on Credits to run cloud agents or integrations.
 

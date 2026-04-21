@@ -4,7 +4,7 @@ description: >-
   The platform will automatically retry. No action is needed.
 ---
 
-# resource\_unavailable
+# resource_unavailable
 
 The `resource_unavailable` error indicates a transient infrastructure issue that prevented the cloud agent task from running. This is automatically retried by the platform.
 

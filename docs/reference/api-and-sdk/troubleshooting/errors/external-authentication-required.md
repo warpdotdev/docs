@@ -4,7 +4,7 @@ description: >-
   that hasn't been authorized. Follow the auth_url to grant access.
 ---
 
-# external\_authentication\_required
+# external_authentication_required
 
 The `external_authentication_required` error occurs when a cloud agent task needs access to an external service that the user hasn't authorized, or when the Warp GitHub App doesn't have access to the required repositories.
 

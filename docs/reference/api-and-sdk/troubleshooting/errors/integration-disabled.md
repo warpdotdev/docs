@@ -4,7 +4,7 @@ description: >-
   settings. Enable it to continue.
 ---
 
-# integration\_disabled
+# integration_disabled
 
 The `integration_disabled` error occurs when a task targets an integration that is currently disabled in the Oz settings.
 

@@ -4,7 +4,7 @@ description: >-
   invalid parameter values.
 ---
 
-# invalid\_request
+# invalid_request
 
 The `invalid_request` error occurs when the API request is malformed or contains invalid parameters.
 

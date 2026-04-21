@@ -4,7 +4,7 @@ description: >-
   platform's automated content policy checks.
 ---
 
-# content\_policy\_violation
+# content_policy_violation
 
 The `content_policy_violation` error occurs when the task prompt or environment setup commands are flagged by the platform's automated content policy checks.
 

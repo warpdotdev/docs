@@ -4,7 +4,7 @@ description: >-
   current state.
 ---
 
-# operation\_not\_supported
+# operation_not_supported
 
 The `operation_not_supported` error occurs when you attempt an operation that is not currently supported for the given resource or its current state.
 
