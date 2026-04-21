@@ -8,9 +8,9 @@ description: >-
 
 ## Tab indicators
 
-Tab indicators provide visual cues in the tab bar under certain specific conditions: When the current pane is maximized, when panes or tabs are syncronized, and when a command exits with an error. These indicators serve as quick references.
+Tab indicators provide visual cues in the tab bar under certain specific conditions: When the current pane is maximized, when panes or tabs are synchronized, and when a command exits with an error. These indicators serve as quick references.
 
-### How to toggle tab Indicators
+### How to toggle tab indicators
 
 * Navigate to **Settings** > **Appearance** > **Tabs**, and switch the "Show tab indicators" option.
 * Utilize the [Command Palette](../command-palette.md), then search for "Tab indicators" to toggle the tab indicators.

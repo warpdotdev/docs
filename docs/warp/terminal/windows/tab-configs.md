@@ -16,7 +16,7 @@ Each Tab Config is a `.toml` file stored in `~/.warp/tab_configs/`. Every file d
 
 ### From the UI
 
-1. Click the `+` button in the tab bar to open the new-tab menu.
+1. Click the **+** button in the tab bar to open the new-tab menu.
 2. Click **+ New tab config**. Warp creates a new `.toml` file in `~/.warp/tab_configs/` and opens it for editing.
 
 ### Manually

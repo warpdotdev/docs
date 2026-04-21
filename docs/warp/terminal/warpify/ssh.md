@@ -54,7 +54,7 @@ At the time of writing, we support macOS and most flavors of Linux as remote hos
 
 If you are ever in a remote SSH Session and would like to manually Warpify, you can do so by using the [Command Palette](../command-palette.md) and searching for "Warpify SSH Session".
 
-#### What triggers SSH Session Detection for Warpification?
+#### What triggers SSH session detection for Warpification?
 
 If SSH Session Detection is enabled, Warp will detect when you run an `ssh` command with arguments that suggest it's starting an interactive session. If you've aliased `ssh` or are running it as part of a script, we will not perform SSH Session Detection.
 

@@ -5,13 +5,13 @@ description: >-
   integrations.
 ---
 
-# Access, Billing, and Identity Permissions
+# Access, billing, and identity permissions
 
 This page explains how access to cloud agents works for both individual users and teams, how billing and credits apply, and how Warp maps user identities across integrations.
 
 ***
 
-## Overview: Individual vs Team Access
+## Overview: individual vs team access
 
 Cloud agents can be used in two ways:
 
@@ -30,7 +30,7 @@ Cloud agents can be used in two ways:
 
 ***
 
-## Individual Access
+## Individual access
 
 Individual users can run cloud agents via the CLI or API without being part of a team.
 
@@ -54,7 +54,7 @@ Individual users can run cloud agents via the CLI or API without being part of a
 
 ***
 
-## Team Access
+## Team access
 
 A [Warp team](https://docs.warp.dev/knowledge-and-collaboration/teams) is a group of users who share configuration and collaborate on cloud agents. Teams can be created on any plan, including Free.
 
@@ -159,7 +159,7 @@ To change which repositories the GitHub App can access, edit the app installatio
 
 ***
 
-## Data & permissions
+## Data and permissions
 
 #### Slack / Linear
 
@@ -190,7 +190,7 @@ Warp’s behavior in GitHub is defined by two layers of control:
 
 ***
 
-## Additional Notes: How cloud agents use credits
+## Additional notes: how cloud agents use credits
 
 Cloud agents can run automatically in the background when activated by a trigger such as a Slack mention, a Linear update, or a scheduled task. These runs require compute and model usage, which translates to credit consumption.
 

@@ -16,7 +16,7 @@ To check for updates, search for "update" in the [Command Palette](https://docs.
 
 If nothing happens, it means you already have the latest stable build.
 
-## macOS: Auto-Update Permissions Issues
+## macOS: Auto-update permissions issues
 
 Warp cannot auto-update if it does not have the correct permissions to replace the running version of Warp. If this is the case, a banner will prompt you to manually update Warp.
 
@@ -31,7 +31,7 @@ There are 2 main causes of this:
 (Oct 2022): There is a known issue with [auto-update on macOS Ventura](known-issues.md#auto-update-on-macos-ventura).
 {% endhint %}
 
-## Linux: Refreshing the Package Signing Key
+## Linux: Refreshing the package signing key
 
 If you encounter signature verification errors when trying to update Warp on Linux, you may need to refresh the package signing key. This can happen if the key on your system has expired.
 

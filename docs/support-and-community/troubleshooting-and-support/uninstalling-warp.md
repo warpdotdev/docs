@@ -48,7 +48,7 @@ If you're using Warp Preview, replace "Warp-Stable" with "Warp-Preview" in the c
 defaults delete dev.warp.Warp-Stable
 # Remove Warp logs
 sudo rm -r $HOME/Library/Logs/warp.log
-# Remove Warp database, codebase context, and mcp logs
+# Remove Warp database, Codebase Context, and MCP logs
 sudo rm -r "$HOME/Library/Group Containers/2BBY89MBSN.dev.warp/Library/Application Support/dev.warp.Warp-Stable"
 # Remove Warp user files, themes, and launch configurations
 sudo rm -r $HOME/.warp
@@ -63,7 +63,7 @@ sudo rm -r $HOME/.warp
 defaults delete dev.warp.Warp-Preview
 # Remove Warp Preview logs
 sudo rm -r $HOME/Library/Logs/warp_preview.log
-# Remove Warp Preview database, codebase context, and mcp logs
+# Remove Warp Preview database, Codebase Context, and MCP logs
 sudo rm -r "$HOME/Library/Group Containers/2BBY89MBSN.dev.warp/Library/Application Support/dev.warp.Warp-Preview"
 # Note: Removing $HOME/.warp will delete files for both Preview and Stable. 
 # If you wish to delete it all, then: sudo rm -r $HOME/.warp
@@ -87,7 +87,7 @@ winget uninstall Warp.Warp
 ```powershell
 # Remove Warp settings in the Windows Registry
 Remove-Item -Path "HKCU:\Software\Warp.dev\Warp" -Recurse -Force
-# Remove Warp user files, logs, database, codebase context, and mcp logs
+# Remove Warp user files, logs, database, Codebase Context, and MCP logs
 Remove-Item -Path "$env:LOCALAPPDATA\warp\Warp" -Recurse -Force
 # Remove Warp themes and launch configurations
 Remove-Item -Path "$env:APPDATA\warp\Warp" -Recurse -Force
@@ -98,7 +98,7 @@ Remove-Item -Path "$env:APPDATA\warp\Warp" -Recurse -Force
 ```powershell
 # Remove Warp Preview settings in the Windows Registry
 Remove-Item -Path "HKCU:\Software\Warp.dev\Warp-Preview" -Recurse -Force
-# Remove Warp Preview user files, logs, database, codebase context, and mcp logs
+# Remove Warp Preview user files, logs, database, Codebase Context, and MCP logs
 Remove-Item -Path "$env:LOCALAPPDATA\warp\Warp-Preview" -Recurse -Force
 # Remove Warp Preview themes and launch configurations
 Remove-Item -Path "$env:APPDATA\warp\Warp-Preview" -Recurse -Force
@@ -126,7 +126,7 @@ sudo pacman -R warp-terminal
 ```bash
 # Remove Warp settings files
 rm -r ${XDG_CONFIG_HOME:-$HOME/.config}/warp-terminal
-# Remove Warp user files, logs, database, codebase context, and mcp logs
+# Remove Warp user files, logs, database, Codebase Context, and MCP logs
 rm -r ${XDG_STATE_HOME:-$HOME/.local/state}/warp-terminal
 # Remove Warp themes and launch configurations
 rm -r ${XDG_STATE_HOME:-$HOME/.local/share}/warp-terminal
@@ -150,7 +150,7 @@ sudo pacman -R warp-terminal-preview
 ```bash
 # Remove Warp Preview settings files
 rm -r ${XDG_CONFIG_HOME:-$HOME/.config}/warp-terminal-preview
-# Remove Warp Preview user files, logs, database, codebase context, and mcp logs
+# Remove Warp Preview user files, logs, database, Codebase Context, and MCP logs
 rm -r ${XDG_STATE_HOME:-$HOME/.local/state}/warp-terminal-preview
 # Remove Warp Preview themes and launch configurations
 rm -r ${XDG_STATE_HOME:-$HOME/.local/share}/warp-terminal-preview

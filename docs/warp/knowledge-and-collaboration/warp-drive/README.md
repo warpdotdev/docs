@@ -111,7 +111,7 @@ Every object in Warp Drive can be exported to or imported from a file. When impo
 
 ### Importing files into Warp Drive
 
-To import a local file or directory, `RIGHT-CLICK` on a folder or click `+` on a workspace and choose "Import." If importing a directory, supported files in the directory and its sub-directories will be imported into a matching folder structure.
+To import a local file or directory, `RIGHT-CLICK` on a folder or click **+** on a workspace and choose "Import." If importing a directory, supported files in the directory and its sub-directories will be imported into a matching folder structure.
 
 <figure><img src="../../.gitbook/assets/notebook-import-modal.png" alt=""><figcaption><p>Import modal</p></figcaption></figure>
 
@@ -119,7 +119,7 @@ To import a local file or directory, `RIGHT-CLICK` on a folder or click `+` on a
 
 To export a single Warp Drive object, `RIGHT-CLICK` on an object and choose "Export" from the menu, then select a directory for export. To export all Warp Drive objects, Open the [Command Palette](../../terminal/command-palette.md#how-to-access-it), search for and select "Export all Warp Drive objects", then select a directory for export.
 
-## Sharing Your Drive Objects
+## Sharing your drive objects
 
 Every object in Warp Drive can be shared. There are three ways to share objects:
 
@@ -127,7 +127,7 @@ Every object in Warp Drive can be shared. There are three ways to share objects:
 * **Direct Sharing:** Objects can be shared directly with individuals by email.
 * **Link-based Sharing:** You can make an object public to anyone with the link, including those without Warp accounts.
 
-### Sharing a Drive Object using Links
+### Sharing a drive object using links
 
 To share a Drive object, navigate to the object's overflow menu, and choose "Copy link". Once the link is successfully copied to your clipboard, you can share it with teammates and reference your object in your codebase, documentation, or communication channels like Slack.
 
@@ -137,7 +137,7 @@ In order to access an object, link-followers must have permission to open it thr
 
 <figure><img src="../../.gitbook/assets/wd-copy-link-menu.png" alt="" width="216"><figcaption><p>Copy link Menu Item</p></figcaption></figure>
 
-### Managing Permissions
+### Managing permissions
 
 To manage a Drive object's permissions, navigate to its overflow menu and choose "Share". If the object is open, you can also use the [Command Palette](../../terminal/command-palette.md#how-to-access-it) and search for "Share Pane" or click the share button in the pane header:
 

@@ -27,7 +27,7 @@ Tailor your [Command Search](command-search.md) experience by toggling off "Show
 
 <figure><img src="../../.gitbook/assets/yaml_workflows_demo.gif" alt="YAML Workflows Demo"><figcaption><p>YAML Workflows Demo</p></figcaption></figure>
 
-### How is this Different from Aliases?
+### How is this different from aliases?
 
 Workflows solve some major pain points with aliases, specifically the:
 

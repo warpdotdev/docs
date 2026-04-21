@@ -10,7 +10,7 @@ description: >-
 Examples and a collection of themes can be found in the [Warp themes repository](https://github.com/warpdotdev/themes).
 {% endhint %}
 
-## Warp's Custom Theme Repository
+## Warp's custom theme repository
 
 We have a [repository of themes hosted on GitHub.](https://github.com/warpdotdev/themes)
 
@@ -143,13 +143,13 @@ Each color is represented in hex and must start with `#`.
 
 ## Create your custom theme, automatically
 
-Automatically create new themes based on a background image. Click the `+` button in the theme picker **Settings** > **Appearance** > **Themes** or search `Open Theme Picker` within the [Command Palette](../command-palette.md).
+Automatically create new themes based on a background image. Click the **+** button in the theme picker **Settings** > **Appearance** > **Themes** or search `Open Theme Picker` within the [Command Palette](../command-palette.md).
 
 ## Browse themes and use the theme creator
 
 Browse Warp's [theme repository](https://github.com/warpdotdev/themes) for ready-made themes, or use the in-app theme creator to generate the appropriate RGB values for your custom theme. Once the YAML file is created, you can edit the file to add the background images or gradients.
 
-## Background Images and Gradients
+## Background images and gradients
 
 To add a background image you can use this attribute: `background_image:` with the name of the image you want to use as the background.
 

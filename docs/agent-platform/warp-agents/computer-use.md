@@ -28,7 +28,7 @@ Computer Use is only available in Warp's sandboxed cloud environments, not in lo
 
 Computer Use is **opt-in** and disabled by default. You can enable it through several entry points:
 
-### Warp App Settings
+### Warp app settings
 
 To enable Computer Use for [Cloud Agents](../cloud-agents/overview.md), navigate to **Settings** > **AI** > **Experimental** > **Computer use in Cloud Agents** and toggle to enable.
 

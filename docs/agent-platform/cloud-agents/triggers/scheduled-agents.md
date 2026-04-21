@@ -29,7 +29,7 @@ A Scheduled Agent is a [cloud agent](../overview.md) that runs on a cron-based s
 
 Scheduled Agents are ideal for work that should happen regularly and predictably, without needing a human to trigger the agent manually.
 
-### Common Use Cases
+### Common use cases
 
 Scheduled Agents are best suited for maintenance-style workflows, including skills that automate recurring tasks. For more on running skill-based agents on schedules, see [Skills as Agents](../skills-as-agents.md).
 
@@ -46,13 +46,13 @@ Because each run is isolated, Scheduled Agents are safe to use for tasks that be
 
 ***
 
-### Scheduling Agents with the Oz CLI
+### Scheduling agents with the Oz CLI
 
 Oz scheduled agents are managed through the Oz `schedule` family of CLI commands.
 
 All scheduling operations require the Oz CLI and an authenticated session
 
-#### Creating a Schedule
+#### Creating a schedule
 
 Use `oz schedule create` (with required flags) to define a new Scheduled Agent.
 
@@ -106,7 +106,7 @@ Once created, the agent will automatically run at the specified times without fu
 
 Scheduled Agents support the same [model selection](https://docs.warp.dev/reference/cli/) and [MCP server configuration](../mcp.md) as other cloud agent triggers.
 
-#### Cron Schedule Format
+#### Cron schedule format
 
 Warp uses standard cron syntax to define schedules.
 
@@ -154,7 +154,7 @@ Each completed run also includes links to:
 
 This makes it easy to audit what ran, when it ran, and what the agent did.
 
-#### Viewing a Specific Scheduled Agent
+#### Viewing a specific Scheduled Agent
 
 Use `oz schedule get` to view detailed information about a single Scheduled Agent.
 
@@ -172,7 +172,7 @@ This command returns additional details not shown in the list view, including:
 
 This is useful when auditing behavior, debugging failures, or reviewing how a Scheduled Agent is configured.
 
-### Pausing and Unpausing Schedules
+### Pausing and unpausing schedules
 
 Scheduled Agents can be temporarily disabled without deleting them.
 
@@ -188,7 +188,7 @@ When paused, the agent will not run at its scheduled times.
 oz schedule pause abc123
 ```
 
-#### Unpausing a Schedule
+#### Unpausing a schedule
 
 ```bash
 oz schedule unpause SCHEDULE_ID
@@ -268,7 +268,7 @@ Deleting a schedule immediately stops all future runs. Previous runs and their s
 
 ***
 
-### Execution Model and Behavior
+### Execution model and behavior
 
 Each scheduled run behaves like a standard cloud agent run, with a few important guarantees:
 
@@ -279,7 +279,7 @@ Each scheduled run behaves like a standard cloud agent run, with a few important
 
 If a scheduled run fails, it does not block future runs. Each execution is independent.
 
-### Permissions and Responsibility
+### Permissions and responsibility
 
 Scheduled Agents are created and managed by authorized users on a Warp team.
 
@@ -292,7 +292,7 @@ By creating a Scheduled Agent, you are responsible for:
 
 Carefully review prompts and schedules before deploying them broadly, especially for agents that can modify production code or infrastructure.
 
-### When to Use Scheduled Agents vs Triggers
+### When to use Scheduled Agents vs triggers
 
 Scheduled Agents are best when work should happen on a predictable cadence.
 

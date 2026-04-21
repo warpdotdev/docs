@@ -28,11 +28,11 @@ Team administrators can access the Admin Panel directly at https://app.warp.dev/
 
 <figure><img src="../.gitbook/assets/admin-panel-overview.png" alt=""><figcaption><p>Admin Panel main interface with sections for AI, privacy, billing, code, and sharing settings</p></figcaption></figure>
 
-## How Settings Enforcement Works
+## How settings enforcement works
 
 The Admin Panel uses a tier-based policy system to determine which settings administrators can control:
 
-### Toggleable vs. Fixed Settings
+### Toggleable vs. fixed settings
 
 **Toggleable settings** can be modified by team administrators. These appear as dropdown menus with options like:
 
@@ -86,7 +86,7 @@ The features available in the Admin Panel vary by billing tier:
 
 For complete details about what's included in each plan, visit [warp.dev/pricing](https://www.warp.dev/pricing).
 
-## Admin Panel Sections
+## Admin Panel sections
 
 The Admin Panel is organized into five main sections, each focused on a specific area of team management:
 

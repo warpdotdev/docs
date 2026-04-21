@@ -42,7 +42,7 @@ Warp can group multiple files into a single tabbed viewer, reducing clutter and 
 
 {% embed url="https://www.loom.com/share/a682461da66944f583e2fa3d27b71189?sid=679ce8f6-e530-4c0d-99ab-0613d1269f8b" %}
 
-### **File Layout Options**
+### **File layout options**
 
 Choose how new files open in Warp by default in: **Settings** > **Features** > **General** > **Choose a layout to open files in Warp**
 

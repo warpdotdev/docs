@@ -18,7 +18,7 @@ To disable, please visit **Settings** > **AI** > **Active AI** > **Prompt Sugges
 
 <figure><img src="../.gitbook/assets/prompt-suggestions-example (1).png" alt=""><figcaption><p>Example of inline banner popping up when relevant contextually.</p></figcaption></figure>
 
-#### Accepting a Prompt Suggestion
+#### Accepting a prompt suggestion
 
 If you press `CMD-ENTER` (on macOS), `CTRL-SHIFT-ENTER` (on Linux/Windows), or click on the chip, the suggestion will auto-populate into your input and run against [Agent Mode](interacting-with-agents/README.md) (with the most recent block attached).
 
@@ -62,7 +62,7 @@ When an error occurs, Warp evaluates whether it is appropriate for an LLM to gen
 
 <figure><img src="../.gitbook/assets/suggested-code-diffs.png" alt=""><figcaption></figcaption></figure>
 
-#### **Using a Suggested Code Diff**
+#### **Using a suggested code diff**
 
 Once the diff is generated, you can either dismiss it or accept it. Acceptance can be done directly via the buttons in the diff view, or with `CMD + ENTER` on macOS and `CTRL + ENTER` on Windows/Linux.
 

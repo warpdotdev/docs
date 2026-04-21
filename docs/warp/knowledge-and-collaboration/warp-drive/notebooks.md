@@ -73,7 +73,7 @@ Once you’ve inserted your code block you can select the language at the bottom
 
 <figure><img src="../../.gitbook/assets/notebook-code-block.png" alt=""><figcaption><p>Example code block</p></figcaption></figure>
 
-#### Special Properties of Command Blocks
+#### Special properties of command blocks
 
 If you insert a Command block or specify the language as “Shell”, Warp provides extra functionality to simplify terminal work.
 
@@ -135,7 +135,7 @@ Once a command block is selected, press `CTRL-ENTER` to insert it into the termi
 {% endtab %}
 {% endtabs %}
 
-#### Adding existing Workflows to Notebooks
+#### Adding existing Workflows to notebooks
 
 If you have existing [Workflows](workflows.md) that you’d like to insert into your notebook rather than duplicating their content, you can select Embedded Workflow from the new element menu and select from the available Workflows. Once embedded in a notebook, the workflow will be executable like a regular command block. To edit the content of the embedded workflow, you will need to edit the source workflow which can be found by searching for the title in the [Command Palette](../../terminal/command-palette.md).
 
@@ -151,6 +151,6 @@ Note that only one editor is allowed at a given time. Opening the notebook while
 
 <figure><img src="../../.gitbook/assets/notebook-view-mode.png" alt=""><figcaption><p>View mode example</p></figcaption></figure>
 
-### Import and Export Notebooks in Warp Drive
+### Import and export notebooks in Warp Drive
 
 Please see our [Warp Drive Import and Export](./#import-and-export) instructions.

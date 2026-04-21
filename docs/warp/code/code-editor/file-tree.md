@@ -27,7 +27,7 @@ Warp supports icons for common file types. If a file type is missing an icon, pl
 
 Clicking on a file opens it directly in Warp’s [**native Code Editor**](./), where you can view and edit code in a separate pane or tab.
 
-## File and Folder Actions
+## File and folder actions
 
 Right-clicking any **file** opens a context menu with several useful options:
 

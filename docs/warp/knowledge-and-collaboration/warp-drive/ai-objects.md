@@ -55,7 +55,7 @@ For complete documentation on creating and using skills, see [Skills](https://do
 
 Prompts are parameterized natural language queries you can save and reuse with Agent Mode. They allow you to save complex AI workflows and execute them quickly from the Command Palette.
 
-**Access from Warp Drive:** Click `+` and select "Prompt", or browse existing prompts in your personal or team workspace.
+**Access from Warp Drive:** Click **+** and select "Prompt", or browse existing prompts in your personal or team workspace.
 
 {% hint style="info" %}
 For complete documentation on Prompts, see [Prompts](prompts.md).

@@ -4,7 +4,7 @@ description: >-
   your team or friends within the app and earn rewards.
 ---
 
-# Refer a Friend & Earn Rewards
+# Refer a friend and earn rewards
 
 {% hint style="info" %}
 Go to **Settings** > **Referrals** to open the invite a friend referral dialog.
@@ -15,7 +15,7 @@ Go to **Settings** > **Referrals** to open the invite a friend referral dialog.
 1. Send them an invite link. They will be directed to our product download page.
 2. Input their email address, which we'll use to email them with your referral link.
 
-## Referral Rewards Program
+## Referral rewards program
 
 We give out themes, swag, and other perks as thanks for helping to grow our community.
 
@@ -32,13 +32,13 @@ The tiers are as follows:
 | 75        | Hydroflask           |              $75              |
 | 100       | North Face Backpack  |              $100             |
 
-By participating in Warp's Referral Program, you agree to the [Referral Program Terms and Conditions](refer-a-friend.md#referral-program-terms-and-conditions).
+By participating in Warp's referral program, you agree to the [Referral program terms and conditions](refer-a-friend.md#referral-program-terms-and-conditions).
 
 ### Your friend gets a theme
 
 If your friend joins and activates their Warp account after clicking your invite link, they will receive a unique theme.
 
-## Referral Program Terms and Conditions
+## Referral program terms and conditions
 
 > **Last Updated:** November 27, 2024
 
@@ -101,7 +101,7 @@ All amounts are listed in USD. Fees are estimates and may vary regardless of pac
 
 \*Note: The approximate customs fees provided are estimates and may vary based on your country's specific import regulations, taxes, and duties. Actual fees can differ due to factors such as package contents, declared value, and current customs policies. We recommend checking with your local customs office or postal service for precise information relevant to your situation.
 
-## Referral Rewards Program FAQs
+## Referral rewards program FAQs
 
 #### **"I have referred people but have not received an email."**
 

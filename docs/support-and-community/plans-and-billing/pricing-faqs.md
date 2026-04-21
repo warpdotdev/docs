@@ -24,7 +24,7 @@ After entering your payment details, you’ll receive an invoice and confirmatio
 {% hint style="warning" %}
 Warp's legacy paid plans included Pro, Turbo, and Lightspeed.
 
-After **Oct 30, 2025**, we have rolled out the new Build plan to replace them. Existing subscribers will start to roll over onto the Build plan starting **Dec 1st, 2025**. For questions related to the new pricing changes, please refer to [Warp's Pricing Change FAQs](pricing-faqs.md#warps-pricing-change-faqs-oct-30-2025).
+After **Oct 30, 2025**, we have rolled out the new Build plan to replace them. Existing subscribers will start to roll over onto the Build plan starting **Dec 1st, 2025**. For questions related to the new pricing changes, please refer to [Warp's pricing change FAQs](pricing-faqs.md#warps-pricing-change-faqs-oct-30-2025).
 
 To see more details on the latest plan, please visit [**warp.dev/pricing**](https://www.warp.dev/pricing).
 {% endhint %}
@@ -229,7 +229,7 @@ The team at Warp is standing by and ready to help you with any questions you hav
 
 ***
 
-### Warp's Pricing Change FAQs (Oct 30, 2025)
+### Warp's pricing change FAQs (Oct 30, 2025)
 
 For more details, see this blog post on [Warp's plan changes](https://www.warp.dev/blog/warp-new-pricing-flexibility-byok).
 

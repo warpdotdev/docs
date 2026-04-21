@@ -74,11 +74,11 @@ Warp provides multiple entry points to begin coding with agents, whether you are
 
 <figure><img src="../.gitbook/assets/code_mode.png" alt=""><figcaption><p>Zero-state tab with 3 starting points for agentic coding in Warp.</p></figcaption></figure>
 
-#### 1. Starting a New Project
+#### 1. Starting a new project
 
 To begin a new project, select **Create a New Project** from the tab. You can start directly with a prompt (Warp will suggest ideas) or configure the project manually. Warp sets up the repository with an `AGENTS.md` file (filename must be in all caps) containing [project rules](https://docs.warp.dev/agent-platform/warp-agents/rules#project-rules) and enables [codebase indexing](https://docs.warp.dev/agent-platform/warp-agents/codebase-context) to provide the agent with full context.
 
-#### 2. Open an Existing Repo
+#### 2. Open an existing repo
 
 Select **Open Repository** to use your computer's file picker. If you choose a Git repository, Warp automatically changes into the directory and runs the `/init` setup command (a built-in "[slash command](https://docs.warp.dev/agent-platform/warp-agents/slash-commands)") if the repo has not already been initialized. Warp will detect the repository, index the codebase, and prepare it for coding.
 
@@ -86,7 +86,7 @@ Select **Open Repository** to use your computer's file picker. If you choose a G
 * If you have an existing project that is not yet initialized, you can run `/init` manually to bootstrap it with a version-controlled `AGENTS.md` file.
 * This view also shows a list of your three most recently used repositories and AI conversations for quick access, as well as a list of recent directories (which behave like running `cd`).
 
-#### 3. Clone a Repo
+#### 3. Clone a repo
 
 Select **Clone Repository** to paste in a repo link or clone directly from GitHub. Warp places you in the cloned folder and automatically runs the `/init` flow to set up project rules and indexing.
 

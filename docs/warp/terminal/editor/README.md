@@ -20,7 +20,7 @@ Warp supports copy on select for selectable text within [Blocks](../blocks/).
 
 * Toggle this feature **Settings** > **Features** > **Terminal** or search for "Copy on select" in the [Command Palette](../command-palette.md).
 
-### Autocomplete Quotes, Parentheses, and Brackets
+### Autocomplete quotes, parentheses, and brackets
 
 Warp can automatically complete quotes, brackets, and parentheses like you're used to in IDEs.
 

@@ -136,6 +136,6 @@ These environment variables will now be present for the remainder of your sessio
 
 <figure><img src="https://lh7-rt.googleusercontent.com/docsz/AD_4nXcuOxH8UeVLSvWRpZwvdoVBgbpFhb2rXKbDw2CnZ5BQCTWSgzjwERe-fzKLEYBQZGKzjV-Pdd_z6tB9BTSWYos9ADRaDbChskSg-MZpjaKme0kG8UwWsJ2HBJk7iBu4SKbGZCobZy0uD2nFkrNoVjNZEEOW?key=q_xMyXgvJVA02ysqZAH4Jw" alt=""><figcaption></figcaption></figure>
 
-### Import and Export Environment Variables in Warp Drive
+### Import and export environment variables in Warp Drive
 
 Please see our [Warp Drive Import and Export](./#import-and-export) instructions.

@@ -27,7 +27,7 @@ Warp will open with the same compact settings in future sessions.
 
 Warp [Blocks](../blocks/) are divided by horizontal lines that separate individual command input and output, they create a visual break between different commands that you run in a session.
 
-### How to toggle Block Dividers
+### How to toggle block dividers
 
 Block dividers are enabled by default, but can be toggled in the following ways:
 

@@ -28,7 +28,7 @@ Add-on credits are available for Build, Business, and Enterprise plans (with cus
 
 You have two options for purchasing more credits:
 
-#### 1. Buy On-Demand
+#### 1. Buy on-demand
 
 You can purchase additional Add-on credits at any time directly within the app under **Settings** > **Billing and usage**. Buying more credits upfront provides a larger discount.
 
@@ -36,7 +36,7 @@ The table below shows the available credit denominations, their prices, and corr
 
 <table><thead><tr><th width="115.21023559570312">Credits</th><th width="194.0745849609375">Price (USD)</th><th>Price per Credit</th><th>Discount</th></tr></thead><tbody><tr><td>400</td><td>$10</td><td>$0.025</td><td>Base rate</td></tr><tr><td>1,000</td><td>$20</td><td>$0.020</td><td>20% off</td></tr><tr><td>3,000</td><td>$50</td><td>$0.016</td><td>~35% off</td></tr><tr><td>6,500</td><td>$100</td><td>$0.0153</td><td>~40% off</td></tr></tbody></table>
 
-#### 2. Enable Auto reload
+#### 2. Enable auto-reload
 
 Auto reload automatically purchases more credits whenever your balance reaches **100 credits**, ensuring uninterrupted access to premium AI features.
 
@@ -52,7 +52,7 @@ You can opt in and choose your reload amount when subscribing to a paid plan at 
 Add-on credit auto reload will be enabled by default for some legacy plan users when they transition to the Build plan. Please see more in our [Pricing FAQs](pricing-faqs.md#what-happens-to-my-current-plan-pro-turbo-lightspeed).
 {% endhint %}
 
-#### **Configuring a Monthly Spend Limit**
+#### **Configuring a monthly spend limit**
 
 Your monthly spend limit sets the maximum amount you can spend on Add-on credits in a single calendar month. This ensures you have full control over your AI usage costs while still allowing flexibility for automatic top-ups when needed, keeping your workflow uninterrupted.
 
@@ -68,7 +68,7 @@ Your monthly spend limit is separate from your billing cycle (which determines w
 The limit resets automatically at the start of each calendar month, so you can manage recurring AI usage with predictable spending and clear visibility into your costs.
 {% endhint %}
 
-### Billing and Credit Usage
+### Billing and credit usage
 
 When your monthly credit balance renews:
 
@@ -78,7 +78,7 @@ When your monthly credit balance renews:
 
 You can track your remaining credits and spending in the credits transparency footer and in **Settings** > **Billing and usage**.
 
-#### Teams on Add-on Plans
+#### Teams using Add-on Credits
 
 For teams on Build or Business plans, **Add-on Credits are shared across all members.** All team credit settings can be managed in `Settings → Billing and usage` by the admin of the team.
 
@@ -96,7 +96,7 @@ For example, if your plan includes 1,500 credits per team member:
 * If **User A** reaches their 1,500 limit, any further usage will draw from shared Add-on Credits.
 * If **User B** has only used 200 credits, their remaining quota is unaffected, but User A will consume the team's shared credits.
 
-### Plan Changes and Cancellations
+### Plan changes and cancellations
 
 If you upgrade, downgrade, or switch plans, any purchased Add-on Credits remain in your account and can continue to be used.
 

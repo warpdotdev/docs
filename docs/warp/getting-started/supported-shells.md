@@ -27,13 +27,13 @@ To change the default shell, we recommend you choose a shell in Warp by going to
 The changes to your shell will only take effect when you start a new session.
 {% endhint %}
 
-## Customizing Your Shell Environment
+## Customizing your shell environment
 
-### Customize Your zsh Shell Environment
+### Customize your zsh shell environment
 
 Zsh can be customized via the `~/.zshrc` file, which runs whenever a new session starts (window, tab, or pane). Use it to set environment variables, aliases, and customize the [prompt](../terminal/appearance/prompt.md).
 
-#### Editing the .zshrc File
+#### Editing the .zshrc file
 
 Edit `~/.zshrc` using `nano ~/.zshrc` or `vi ~/.zshrc`.
 
@@ -41,19 +41,19 @@ Edit `~/.zshrc` using `nano ~/.zshrc` or `vi ~/.zshrc`.
 Files starting with a dot (`.`) are hidden by default. Check your file explorer’s settings to show hidden files.
 {% endhint %}
 
-#### Reloading the zshrc File
+#### Reloading the zshrc file
 
 Apply changes by running `source ~/.zshrc` or restarting Warp/opening a new session.
 
-### Customize Your Bash Shell Environment
+### Customize your Bash shell environment
 
 Bash is pre-installed on macOS and can be customized using `~/.bashrc` (for non-login shells) or `~/.bash_profile` (for login shells). Use these files to set environment variables, aliases, and customize the [prompt](../terminal/appearance/prompt.md).
 
-#### Editing the .bashrc File
+#### Editing the .bashrc file
 
 Edit `~/.bashrc` using `nano ~/.bashrc` or `vi ~/.bashrc`.
 
-#### Reloading the bashrc File
+#### Reloading the bashrc file
 
 Apply changes by running `source ~/.bashrc` or restarting Warp/opening a new session.
 
@@ -61,15 +61,15 @@ Apply changes by running `source ~/.bashrc` or restarting Warp/opening a new ses
 Files starting with a dot (`.`) are hidden by default. Check your file explorer’s settings to show hidden files.
 {% endhint %}
 
-### Customize Your Fish Shell Environment
+### Customize your Fish shell environment
 
 Fish is a user-friendly shell with autosuggestions and syntax highlighting. Its configuration file is `~/.config/fish/config.fish`.
 
-#### Editing the config.fish File
+#### Editing the config.fish file
 
 Edit `~/.config/fish/config.fish` using `nano ~/.config/fish`. Use it to set environment variables, aliases, and functions.
 
-#### Reloading the config.fish File
+#### Reloading the config.fish file
 
 Apply changes by running `source ~/.config/fish` or restarting Warp/opening a new session.
 
@@ -77,15 +77,15 @@ Apply changes by running `source ~/.config/fish` or restarting Warp/opening a ne
 Unlike Bash and Zsh, Fish does not use `export VAR=value`. Use `set -Ux VAR value` for persistent environment variables.
 {% endhint %}
 
-### Customize Your PowerShell Shell Environment
+### Customize your PowerShell shell environment
 
 PowerShell can be customized via its profile script, located at `$PROFILE`. Check if it exists with `Test-Path $PROFILE`, and create it if needed with `New-Item -Path $PROFILE -ItemType File -Force`.
 
-#### Editing the PowerShell Profile
+#### Editing the PowerShell profile
 
 Edit the profile using `code $PROFILE`, and use it to set environment variables, aliases, custom prompts, and scripts.
 
-#### Reloading the PowerShell Profile
+#### Reloading the PowerShell profile
 
 Apply changes by restarting Warp or opening a new session.
 

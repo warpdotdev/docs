@@ -10,7 +10,7 @@ description: >-
 
 The Vi family of programs (including Vim and Neovim) are modal text editors that allow for keyboard-driven text editing. Vi-style keybindings are especially popular among developers for their speed and precision in navigating and manipulating code. Warp’s [code editor](./) now includes native support for Vim keybindings (also known as Vim mode), offering a familiar editing experience directly within your coding workflows.
 
-### How to enable Vim Keybindings
+### How to enable Vim keybindings
 
 Vim mode in the code editor uses the same setting toggle as the input editor. To enable:
 
