@@ -75,3 +75,12 @@ Plans are reusable across tasks and sessions. You can reference them in future p
 The **@plans** command helps you quickly search for and reopen previously saved plans, making planning a consistent part of your development workflow rather than a one-off step. Learn more about attaching context using @ [here](agent-context/using-to-add-context.md).
 
 <figure><img src="../.gitbook/assets/@-reference-plans.png" alt="" width="375"><figcaption></figcaption></figure>
+
+***
+
+## Next steps
+
+As the agent executes your plan, you'll review code changes and may want to scale work to the cloud.
+
+* **[Interactive Code Review](interactive-code-review.md)** - Leave inline comments on agent-generated diffs and have the agent revise in one pass.
+* **[Cloud Agents quickstart](../cloud-agents/quickstart.md)** - Run agents in the cloud for longer tasks, background automation, or parallel work across repos.

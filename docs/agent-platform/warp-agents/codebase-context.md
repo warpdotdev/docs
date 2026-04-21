@@ -8,6 +8,31 @@ description: >-
 
 Codebase Context helps Agents understand your project by indexing your local codebase. This allows Agents to generate more accurate completions, suggest context-aware edits, and answer questions using real knowledge of your code.
 
+## Get started
+
+Index a project and see the difference in agent responses in a few minutes.
+
+{% hint style="info" %}
+**Don't have a project to try?** Clone a popular open-source repo to test out codebase indexing:
+```bash
+git clone https://github.com/vercel/next.js.git && cd next.js
+```
+{% endhint %}
+
+1. **Open a project folder in Warp.** Navigate to a Git repository using `cd` or open a folder from the file tree. Warp automatically detects the Git repo and begins indexing.
+2. **Verify indexing status.** In Warp, go to **Settings** > **Code** and check the status under "Initialized / indexed folders." Once the status shows **Synced**, your codebase is ready.
+3. **Ask the Agent a question about your code.** Start an Agent conversation (`⌘+Enter` on macOS, `Ctrl+Shift+Enter` on Windows/Linux) and try a prompt like:
+   * "Explain the architecture of this project"
+   * "What are the main entry points?"
+   * "Walk me through the most important modules"
+4. **See the difference.** The Agent grounds its responses in actual files, functions, and line numbers from your codebase, producing more accurate and context-aware answers.
+
+***
+
+## Indexing your codebase
+
+When you open a directory in Warp, we check if it is part of a Git repository. If it is, Warp begins indexing the source code to provide rich context for Agents. Warp also detects [Git worktree](https://docs.warp.dev/warp/code/git-worktrees) checkouts — each worktree is indexed as its own repository, so Agents always have accurate context for the branch you're working on.&#x20;
+
 {% hint style="info" %}
 Code indexed with Codebase Context is never stored on our servers. Codebase Context works with both local agent sessions and [cloud agent runs](../cloud-agents/overview.md). Without Codebase Context enabled, agents will still be able use terminal commands (i.e. `grep`, `sed`) to navigate your code.
 {% endhint %}
@@ -21,10 +46,6 @@ Feature requests for support are being tracked in the following GitHub issues: \
 {% endhint %}
 
 <figure><img src="../.gitbook/assets/codebase-context-main.png" alt=""><figcaption><p>Codebase indexing settings in Warp. Easily track sync status and manage which folders are indexed for AI-powered context and suggestions.</p></figcaption></figure>
-
-## Indexing your codebase
-
-When you open a directory in Warp, we check if it is part of a Git repository. If it is, Warp begins indexing the source code to provide rich context for Agents. Warp also detects [Git worktree](https://docs.warp.dev/warp/code/git-worktrees) checkouts — each worktree is indexed as its own repository, so Agents always have accurate context for the branch you're working on.&#x20;
 
 **Codebase indexing intervals and triggers:**
 
@@ -112,3 +133,13 @@ Agents will only reference other repositories if they are already indexed. Durin
 Here's an example from [Warp Guides](https://docs.warp.dev/guides), where Zach demonstrates how Warp uses Codebase Context to search for and use the relevant files as context:
 
 {% embed url="https://www.youtube.com/watch?v=11rz9OYQ8Hg" %}
+
+***
+
+## Next steps
+
+With your codebase indexed, you can browse your project directly in Warp and start letting agents take action on your code.
+
+* **[File Tree](https://docs.warp.dev/warp/code/code-editor/file-tree)** - Browse your project structure in Warp's sidebar and open files directly.
+* **[Code editor](https://docs.warp.dev/warp/code/code-editor)** - Edit files with syntax highlighting, LSP support, and find-and-replace without leaving Warp.
+* **[Agent profiles and permissions](agent-profiles-permissions.md)** - Configure how much autonomy the agent has when working with your code.

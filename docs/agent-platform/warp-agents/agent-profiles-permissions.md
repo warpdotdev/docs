@@ -113,5 +113,15 @@ Auto-approve all Agent actions with: `CTRL + SHIFT + I`
 <figure><img src="../.gitbook/assets/run-until-completion.png" alt=""><figcaption><p>A button overlay in the lower-right corner lets you enable auto-approve or end the Agent interaction.</p></figcaption></figure>
 
 {% hint style="info" %}
-_Run until completion_ ignores the denylist entirely. It’s the purest form of “YOLO” mode and essentially a fully “autonomous mode” where the Agent proceeds without asking for confirmation.
+_Run until completion_ ignores the denylist entirely. It's the purest form of “YOLO” mode and essentially a fully "autonomous mode" where the Agent proceeds without asking for confirmation.
 {% endhint %}
+
+***
+
+## Next steps
+
+Once you've configured how your agent operates, try giving it a larger task to plan and execute.
+
+* **[Planning](planning.md)** - Break down complex tasks into structured, executable plans that the agent runs step by step.
+* **[Code diffs](code-diffs.md)** - Review, refine, and apply code changes the agent generates.
+* **[Interactive Code Review](interactive-code-review.md)** - Leave inline comments on agent-generated diffs and have the agent address your feedback.

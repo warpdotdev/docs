@@ -433,3 +433,12 @@ For a complete guide to running skill-based agents—including CLI usage, the Oz
 * [**MCP Servers**](mcp.md) - Expose external data sources and tools to Agents
 * [**Cloud Agents**](../cloud-agents/overview.md) - Run Agents in the cloud on schedules or triggers
 * [**Agent Profiles**](agent-profiles-permissions.md) - Control Agent permissions and autonomy
+
+***
+
+## Next steps
+
+Skills become even more powerful when you automate and share them.
+
+* **[Scheduled Agents quickstart](../cloud-agents/triggers/scheduled-agents-quickstart.md)** - Run a skill on a recurring cron schedule for tasks like weekly dependency checks or daily code cleanup.
+* **[Integrations quickstart](../cloud-agents/integrations/quickstart.md)** - Trigger skills from Slack or Linear so your team can invoke agent workflows from the tools they already use.

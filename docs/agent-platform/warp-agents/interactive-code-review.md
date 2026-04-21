@@ -58,3 +58,12 @@ In the example from Kevin on the Warp team, you’ll see how to:
 This workflow can be repeated until the code matches your expectations.
 
 {% embed url="https://www.loom.com/share/bdeb2eb1ff3640faa2cbacda9420c3a8" %}
+
+***
+
+## Next steps
+
+Once you're comfortable reviewing agent code locally, try running agents in the cloud for longer or parallel tasks.
+
+* **[Cloud Agents quickstart](../cloud-agents/quickstart.md)** - Run agents on Warp's infrastructure for background tasks like PR review, issue triage, and dependency updates.
+* **[Skills](skills.md)** - Turn successful agent workflows into reusable, shareable instructions.

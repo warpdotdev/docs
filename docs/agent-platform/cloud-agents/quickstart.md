@@ -162,3 +162,13 @@ Your team needs at least 20 credits available (any type of Warp credits work). C
 * [Environments deep dive](environments.md)
 * [Cloud Agents FAQs](faqs.md)
 * [Managing Cloud Agents](managing-cloud-agents.md)
+
+***
+
+## What to explore next
+
+Now that you've run your first cloud agent, automate recurring work or connect agents to your team's tools.
+
+* **[Scheduled Agents quickstart](triggers/scheduled-agents-quickstart.md)** - Set up an agent to run on a cron schedule for recurring tasks like weekly dependency checks.
+* **[Integrations quickstart](integrations/quickstart.md)** - Connect Oz to Slack and Linear so your team can trigger agents from mentions and issues.
+* **[Skills](https://docs.warp.dev/agent-platform/warp-agents/skills)** - Turn successful agent workflows into reusable instructions you can schedule, trigger, or share.
