@@ -19,6 +19,8 @@ Warp currently supports the following CLI coding agents:
 * [**OpenCode**](opencode.md) — Open-source CLI coding agent
 * **Amp** — Sourcegraph's CLI coding agent
 * **Auggie** — Augment Code's CLI coding agent
+* **Copilot CLI** — GitHub's CLI coding agent
+* **Cursor CLI** — Cursor's CLI coding agent
 * **Gemini CLI** — Google's CLI coding agent
 * **Droid** — Factory's CLI coding agent
 * **Pi** — Open-source CLI coding agent
@@ -31,18 +33,18 @@ When you launch a supported agent inside Warp, the **agent toolbelt** appears au
 
 Not every feature is available for every agent. The table below shows current support.
 
-| Feature&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Claude Code | Codex | OpenCode | Amp | Auggie | Gemini CLI | Droid | Pi |
-|---|---|---|---|---|---|---|---|---|
-| Rich input editor (`Ctrl-G`) | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| Agent notifications | ✓ | ✓ | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ |
-| Code review comments | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| Attach code as context | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| Vertical tabs + metadata | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| Tab Configs | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| Remote Control | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Feature&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Claude Code | Codex | OpenCode | Amp | Auggie | Copilot CLI | Cursor | Gemini CLI | Droid | Pi |
+|---|---|---|---|---|---|---|---|---|---|---|
+| Rich input editor (`Ctrl-G`) | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Agent notifications | ✓ | ✓ | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Code review comments | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Attach code as context | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Vertical tabs + metadata | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Tab Configs | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Remote Control | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 
 {% hint style="info" %}
-Agent notifications require a one-time setup. Claude Code and OpenCode use a Warp notification plugin. Codex uses a native config change. See the individual agent pages for setup instructions. Amp, Auggie, Gemini CLI, Droid, and Pi don't support notifications yet.
+Agent notifications require a one-time setup. Claude Code and OpenCode use a Warp notification plugin. Codex uses a native config change. See the individual agent pages for setup instructions. Amp, Auggie, Copilot CLI, Cursor, Gemini CLI, Droid, and Pi don't support notifications yet.
 {% endhint %}
 
 ## Getting started
