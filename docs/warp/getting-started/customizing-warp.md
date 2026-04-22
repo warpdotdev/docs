@@ -20,6 +20,7 @@ Use the quick-reference table to find what you need, or browse the sections belo
 | Keybindings | **Settings** > **Keybindings** | Import from another terminal or set custom shortcuts |
 | Vertical tabs | **Settings** > **Appearance** > **Tabs** | Switch to a sidebar tab layout for more horizontal space |
 | Tab configs | **Settings** > **Features** or `/` menu | Save and restore tab layouts with startup commands |
+| Settings file | **Settings** > **Open settings file** | Edit [`settings.toml`](../terminal/settings/README.md) directly for version control and scripting |
 | Input format | **Settings** > **Appearance** > **Input** | Choose Standard or Classic |
 | App icon | **Settings** > **Appearance** > **Icon** | Pick a custom icon (macOS) |
 | Font & text | **Settings** > **Appearance** > **Text** | Change font, size, and cursor style |

@@ -58,6 +58,8 @@
   * [Blocks behavior](terminal/appearance/blocks-behavior.md)
   * [Tabs behavior](terminal/appearance/tabs-behavior.md)
   * [Custom app icons](terminal/appearance/app-icons.md)
+* [Settings file [Preview-only]](terminal/settings/README.md)
+  * [All settings reference](terminal/settings/all-settings.md)
 * [Warpify overview](terminal/warpify/README.md)
   * [Warpify subshells](terminal/warpify/subshells.md)
   * [SSH with Warp features](terminal/warpify/ssh.md)
