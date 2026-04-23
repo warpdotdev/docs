@@ -84,21 +84,21 @@ Use this when you want Oz to run agent workloads on Warp-managed infrastructure,
 * **Custom triggers** from your own systems using Warp’s API/SDK.
 * **On-demand cloud jobs** using CLI commands like oz agent run-cloud.
 
-#### Example recipe: Daily dead-code cleanup
+#### Example recipe: daily dead-code cleanup
 
 1. Define an Oz Environment with the repo + toolchain.
 2. Create a schedule with a fixed prompt for cleanup.
 3. Oz runs the agent on the cadence.
 4. Your team monitors runs in the Oz dashboard, reviews artifacts (PRs, plans), and intervenes when needed.
 
-#### Example recipe: Crash triage via Sentry webhook
+#### Example recipe: crash triage via Sentry webhook
 
 1. Define an Oz Environment with the target repo.
 2. Register a Sentry webhook to your handler (server, cloud function, Zapier/n8n).
 3. Handler extracts crash details, constructs a prompt, and calls the Oz orchestrator API/SDK to start a task.
 4. Warp spins up the run in the environment and you monitor progress via UI/API.
 
-#### Example recipe: Fan-out parallel work (sharding)
+#### Example recipe: fan-out parallel work (sharding)
 
 If a task is naturally divisible:
 
@@ -107,7 +107,7 @@ If a task is naturally divisible:
   * A shard of the prompt (one responsibility)
 * Aggregate results (PRs, notes, plans) in whatever system you prefer.
 
-#### Example recipe: Same task across multiple models
+#### Example recipe: same task across multiple models
 
 * Launch N runs with the same prompt, but different profiles that map to different models.
 * Compare results and choose the best output (or merge).

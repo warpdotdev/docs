@@ -39,7 +39,7 @@ You can view your total credit usage, along with other billing details, in **Set
 In addition to direct Agent conversations, the following features also consume credits:
 
 * [Generate](https://docs.warp.dev/agent-platform/warp-agents) helps you look up commands and suggestions as you type. As you refine your input, multiple credits may be used before you select a final suggestion.
-* [AI Autofill in Workflows](https://docs.warp.dev/knowledge-and-collaboration/warp-drive/workflows#ai-autofill) count as a credit each time it is run.
+* [AI Autofill in Workflows](https://docs.warp.dev/knowledge-and-collaboration/warp-drive/workflows#ai-autofill) counts as a credit each time it is run.
 
 {% hint style="success" %}
 Regular shell commands in Warp do not consume or count towards credits.

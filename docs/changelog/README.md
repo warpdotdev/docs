@@ -173,7 +173,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 * MCP resource reads now respect autonomy settings instead of always prompting for approval.
 * You now get completions, syntax highlighting, and hover descriptions when your flag/value pairs are `=`-separated, e.g. `--flag=value`.
 * Fixed stale go-to-definition and symbol outlines when using code review with multiple tabs.
-* Fixed an issue where selecting a shell command from command search (`cmd-r`) while in agent mode with auto-detection disabled would treat the command as an agent prompt instead of executing it as a shell command.
+* Fixed an issue where selecting a shell command from command search (`cmd-r`) while in Agent Mode with auto-detection disabled would treat the command as an agent prompt instead of executing it as a shell command.
 * Fixed `ctrl-c` not working during conversation search.
 * Fixed an issue where the follow-up prompt in `/compact-and` and `/fork-and-compact` was silently lost when summarization failed or was cancelled.
 * Fixed dismiss button and `ctrl-c` not working on suggested unit tests banner.
@@ -2181,7 +2181,7 @@ All of this comes with higher AI usage limits on our Pro and Turbo plans, plus n
 * Block hover buttons now have a solid background when they overlap with your prompt
 * The Block filter editor now has a clear button
 * `J` and `K` (Vim Mode) can be used for navigation within a multi-line command
-* Fixed the left alignment of the tab bar when in full-screen mode on Mac
+* Fixed the left alignment of the tab bar when in full-screen mode on macOS
 * Fixed triple-click selection (selecting a line) when filtering a Block
 * Fixed potential crash when using the find bar
 * Fixed potential crash when retrieving accessibility contents

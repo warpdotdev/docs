@@ -233,7 +233,7 @@ federated credentials. Oz uses
 [**executable-sourced credentials**](https://docs.cloud.google.com/iam/docs/workload-identity-federation-with-other-providers#create-credential-config)
 to configure ADC for automatic token rotation.
 
-## Other Providers
+## Other providers
 
 To authenticate from Oz to another provider that supports OIDC federation, you can issue tokens
 directly.
@@ -250,7 +250,7 @@ maximum runtime of an Oz agent.
 
 You may then exchange this token for provider-specific credentials.
 
-## OIDC Token Claims
+## OIDC token claims
 
 All Oz OIDC tokens include standard claims like `iss` (issuer) and `iat` (issued at).
 
@@ -311,7 +311,7 @@ curl https://app.warp.dev/api/v1/agent/runs -H "Authorization: Bearer $WARP_API_
 Every token includes a `teams` claim. The value will be a list with your team UID - currently, this
 list only ever contains a single value.
 
-### Oz Run
+### Oz run
 
 The following claims are derived from an Oz agent run:
 
@@ -322,7 +322,7 @@ The following claims are derived from an Oz agent run:
 * `skill_spec`: the canonical identifier for the skill, such as `github-org/github-repo:.warp/skills/skill-name/SKILL.md`.
 * `host`: the execution host. This will either be `warp`, for Warp-hosted agents, or the worker ID if [self-hosting](../self-hosting.md).
 
-### Example Token
+### Example token
 
 The following OIDC token references an Oz agent running as a specific Warp user:
 
