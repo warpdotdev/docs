@@ -16,6 +16,7 @@
 * [Run Multiple AI Coding Agents](developer-workflows/how-to-run-multiple-ai-coding-agents.md)
 * [Use Voice and Images to Prompt Agents](developer-workflows/how-to-use-voice-and-images-to-prompt-coding-agents.md)
 * [Explain Your Codebase with Agents](developer-workflows/beginner/how-to-explain-your-codebase-using-warp-rust-codebase.md)
+* [5 AI Agent Workflows for Product Managers](developer-workflows/warp-for-product-managers.md)
 * [Run Tasks in Parallel](developer-workflows/power-user/how-to-run-3-agents-in-parallel-summarize-logs-+-analyze-pr-+-modify-ui.md)
 * [Edit Agent-Generated Code in Warp](developer-workflows/power-user/how-to-edit-agent-code-in-warp.md)
 * [Review PRs Like a Senior Dev](developer-workflows/power-user/how-to-review-prs-like-a-senior-dev.md)
