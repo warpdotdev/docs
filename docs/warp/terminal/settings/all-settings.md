@@ -10,10 +10,6 @@ This page lists every setting you can configure in [`settings.toml`](./) organiz
 
 Settings are grouped into sections that correspond to TOML table headers (for example, `[appearance.text]`). Only include the settings you want to change — Warp uses built-in defaults for everything else.
 
-{% hint style="info" %}
-A machine-readable JSON Schema for all settings is available in the repository at `.gitbook/assets/settings-schema.json`.
-{% endhint %}
-
 ## General
 
 Top-level settings that control Warp's startup behavior, session management, and window-level preferences.
