@@ -46,7 +46,7 @@ When the settings file reaches stable, the paths will be:
 
 ## Settings file format
 
-The file uses [TOML v1.1](https://toml.io/en/v1.1.0-rc.1) syntax. Settings are organized into **sections** (TOML tables) that group related options — for example, `[appearance.text]` contains font settings and `[agents.profiles]` contains agent permission settings.
+The file uses [TOML v1.1](https://toml.io/en/v1.1.0) syntax. Settings are organized into **sections** (TOML tables) that group related options — for example, `[appearance.text]` contains font settings and `[agents.profiles]` contains agent permission settings.
 
 Here is a minimal example showing the structure:
 
