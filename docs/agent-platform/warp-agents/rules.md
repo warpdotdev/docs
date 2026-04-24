@@ -79,7 +79,7 @@ This ensures the most specific, project-relevant rules take priority over broade
 
 * From [Warp Drive](https://docs.warp.dev/knowledge-and-collaboration/warp-drive): **Personal** > **Rules**
 * From the [Command Palette](https://docs.warp.dev/terminal/command-palette): search for "Open AI Rules"
-* From the Settings panel: **Settings** > **AI** > **Knowledge** > **Manage Rules**
+* From the Settings panel: **Settings** > **Agents** > **Knowledge** > **Manage Rules**
   * Here, you can manage both Global as well as Project Rules.
 * From the macOS Menu: `AI > Open Rules` &#x20;
 * From the Slash Commands menu: `/open-project-rules`  to open Project Rules directly in Warp's code editor

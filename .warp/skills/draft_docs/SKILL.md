@@ -79,7 +79,7 @@ These rules are frequently violated by agents. Apply them carefully during draft
 - **Sentence case for all headings (H1–H4)** — Capitalize only the first word and proper feature names. ✅ `## How it works` ❌ `## How It Works`
 - **Bold + dash format for list items** — `* **Term** - Description`, not `* Term: Description`
 - **Bold for UI elements** — Use `**Save**` not `` `Save` `` after action verbs like "click"
-- **Bold per-segment for Settings paths** — Use `**Settings** > **AI** > **Knowledge**` not `` `Settings > AI > Knowledge` ``
+- **Bold per-segment for Settings paths** — Use `**Settings** > **Agents** > **Knowledge**` not `` `Settings > Agents > Knowledge` ``. Note that many Settings top-level sections are now **umbrellas** (**Agents**, **Code**, **Cloud platform**) — always pick a specific subpage, e.g. `**Settings** > **Agents** > **Oz**` instead of `**Settings** > **Agents**` alone.
 
 ### 7. Draft the doc
 Create the documentation using the appropriate template from `.warp/templates/`. Follow the structure for the identified content type and all rules in `AGENTS.md`. Each template includes visible bracketed instructions explaining what to put in each section.

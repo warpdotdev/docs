@@ -45,7 +45,7 @@ While Warp’s agent is thinking and processing your request, Warp may surface s
 
 You can enable or disable these tips in two places:
 
-* **Settings**: **Settings** > **AI** > **Input** > **Show agent tips**
+* **Settings**: **Settings** > **Agents** > **Oz** > **Input** > **Show agent tips**
 * **Command Palette**: Open the Command Palette (`CMD + P` on macOS, `CTRL + SHIFT + P` on Windows/Linux), then select "**Show Agent Tips**" or "**Hide Agent Tips**"
 
 ### **Managing conversations**

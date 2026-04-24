@@ -557,7 +557,7 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `Toggle Secret Redaction` | Toggled on/off the setting for Secret Redaction - attempts to redact secrets and sensitive information |
 | `Toggle Settings Sync` | Toggle Settings Sync |
 | `Toggle SharedBlock Title Generation` | Toggled on/off the shared block title generation setting |
-| `Toggle Show Agent Tips` | Toggled the Show Agent Tips setting in AI settings |
+| `Toggle Show Agent Tips` | Toggled the Show Agent Tips setting in the Agents > Oz settings page |
 | `Toggle Show Block Dividers` | Enabled or disabled the Show Block Dividers Button |
 | `Toggle Sticky Command Header in Active Pane` | Expanded or collapsed the sticky command header in the active pane |
 | `Toggle Sync Inputs Across All Panes in All Tabs` | Enable the synchronization of the Input Editor's buffer to all the panes in all the tabs |

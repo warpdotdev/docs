@@ -60,9 +60,9 @@ When you are in Agent Mode, a ✨ sparkles icon will display in line with your t
 
 The feature Warp uses to detect natural language automatically is completely local. None of your input is sent to AI unless you press `ENTER` in Agent Mode.
 
-If you find that certain shell commands are falsely detected as natural language, you can fix the model by adding those commands to a denylist in **Settings** > **AI** > **Auto-detection denylist**.
+If you find that certain shell commands are falsely detected as natural language, you can fix the model by adding those commands to a denylist in **Settings** > **Agents** > **Oz** > **Auto-detection denylist**.
 
-You may also turn autodetection off from **Settings** > **AI** > **Input Auto-detection**.
+You may also turn autodetection off from **Settings** > **Agents** > **Oz** > **Input Auto-detection**.
 
 The first time you enter Agent Mode, you will be served a banner with the option to disable auto-detection for natural language on your command line:
 
@@ -72,7 +72,7 @@ The first time you enter Agent Mode, you will be served a banner with the option
 
 Warp input occasionally shows hints within the input editor in a light grey text that helps users learn about features. It's enabled by default.
 
-* Toggle this feature **Settings** > **AI** > **Show input hint text** or search for "Input hint text" in the [Command Palette](../command-palette.md) or Right-click on the input editor.
+* Toggle this feature **Settings** > **Agents** > **Oz** > **Show input hint text** or search for "Input hint text" in the [Command Palette](../command-palette.md) or Right-click on the input editor.
 
 ## How to exit Agent Mode
 

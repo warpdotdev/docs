@@ -84,7 +84,7 @@ Oz is multi-model by design. You can [choose your preferred LLM](https://docs.wa
 
 Warp is **SOC 2 compliant** and has **Zero Data Retention** policies with all contracted LLM providers. No customer AI data is retained, stored, or used for training.
 
-Warp's AI features can be globally disabled in **Settings** > **AI**.
+Warp's AI features can be globally disabled in **Settings** > **Agents** > **Oz**.
 
 → [Read more about data privacy](https://www.warp.dev/privacy)
 

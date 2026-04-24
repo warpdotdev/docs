@@ -15,7 +15,7 @@ Watch this short demo of how the REST API can power agent-backed apps like [Powe
 
 ## Prerequisites
 
-* **A Warp API key** - In the Warp app, click your profile photo, then go to **Settings** > **Platform** to create a key and copy the raw value. See [API Keys](../cli/api-keys.md) for step-by-step instructions.
+* **A Warp API key** - In the Warp app, click your profile photo, then go to **Settings** > **Cloud platform** > **Oz Cloud API Keys** to create a key and copy the raw value. See [API Keys](../cli/api-keys.md) for step-by-step instructions.
 * **An Oz cloud environment** - Agents run inside a configured environment that includes repos and other dependencies. If you don't have an environment yet, follow the [Cloud Agents Quickstart](https://docs.warp.dev/agent-platform/cloud-agents/quickstart) first.
 
 ***

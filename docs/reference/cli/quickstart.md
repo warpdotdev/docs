@@ -37,7 +37,7 @@ Interactive login works on both **local** and **remote** machines, and does not 
 export WARP_API_KEY="wk-..."
 ```
 
-In the Warp app, create an API key in **Settings** > **Platform**. See [API Keys](api-keys.md) for guidance on personal vs. team keys and security best practices.
+In the Warp app, create an API key in **Settings** > **Cloud platform** > **Oz Cloud API Keys**. See [API Keys](api-keys.md) for guidance on personal vs. team keys and security best practices.
 {% endhint %}
 
 ## 3. Run an agent

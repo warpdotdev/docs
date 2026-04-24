@@ -40,7 +40,7 @@ Once the theme is created and verified, confirm completion by telling me where t
 
 Warp can index your Git-tracked codebases to help agents understand your code and generate accurate, context-aware responses. **No code is stored on Warp servers**.
 
-You can view and manage your indexed codebases in **Settings** > **Code** under "Initialized/ indexed folders". You can also specify whether to automatically index new folders as you navigate them.
+You can view and manage your indexed codebases in **Settings** > **Code** > **Indexing and projects** under "Initialized/ indexed folders". You can also specify whether to automatically index new folders as you navigate them.
 
 If your codebase is large, you can exclude specific files by adding them to a `.warpindexingignore` file.
 
@@ -58,7 +58,7 @@ You can provide different types of input as context directly to the agent to gui
 Agents pull directly from your [**Warp Drive**](../knowledge-and-collaboration/warp-drive/README.md) contents to generate more accurate responses -- including your **Workflows**, **Notebooks**, **Prompts**, and **Environment Variables**.
 
 * When used, context appears under the “References” or “Derived from” section in the conversation.
-* This setting is **enabled by default** and can be managed via: **Settings** > **AI** > **Knowledge** > **Warp Drive as Agent Mode Context**.
+* This setting is **enabled by default** and can be managed via: **Settings** > **Agents** > **Knowledge** > **Warp Drive as Agent Mode Context**.
 
 #### Rules
 
@@ -81,5 +81,5 @@ How to access Global Rules
 
 1. From the [Warp Drive](../knowledge-and-collaboration/warp-drive/README.md) >**Personal** > **Rules**
 2. From the [Command Palette](../terminal/command-palette.md), search for "Open AI Rules"
-3. From the Settings panel, **Settings** > **AI** > **Knowledge** > **Manage Rules**
+3. From the Settings panel, **Settings** > **Agents** > **Knowledge** > **Manage Rules**
 4. From the macOS Menu, `AI > Open Rules`

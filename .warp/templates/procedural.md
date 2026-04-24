@@ -16,7 +16,8 @@ Each item should include: what it is (1 short clause), where to get or
 create it, and a link to the full reference.
 Example:
 * **A Warp API key** - Authenticate API requests with a key from
-  **Settings** > **Platform** in the Warp app. See [API Keys](path) for details.]
+  **Settings** > **Cloud platform** > **Oz Cloud API Keys** in the Warp app.
+  See [API Keys](path) for details.]
 
 ## [Primary task name — sentence case. e.g., "Creating API keys"]
 

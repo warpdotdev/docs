@@ -5,7 +5,7 @@ description: Scan Warp GitBook documentation for UI menu paths and Command Palet
 
 # Validate UI References
 
-This skill scans Warp's GitBook documentation for references to UI paths (e.g. `Settings > AI > Active AI`) and Command Palette command names (e.g. "Open Theme Picker"), then validates them against a snapshot of known-valid paths extracted from the `warp-internal` codebase.
+This skill scans Warp's GitBook documentation for references to UI paths (e.g. `Settings > Agents > Oz > Active AI`) and Command Palette command names (e.g. "Open Theme Picker"), then validates them against a snapshot of known-valid paths extracted from the `warp-internal` codebase. It also catches paths that reference deprecated Settings sections (e.g. the old `Settings > AI` before it became the `Agents` umbrella) and auto-migrates them to the current structure.
 
 ## Running the Check
 
@@ -19,7 +19,7 @@ python3 .warp/skills/validate_ui_refs/validate_ui_refs.py --all
 
 - `--check-paths`: Only validate UI menu paths (Settings, File, View, Warp Drive)
 - `--check-commands`: Only validate Command Palette names
-- `--check-format`: Check that UI paths use the canonical bold format: **Settings** > **AI** > **Active AI**
+- `--check-format`: Check that UI paths use the canonical bold format: **Settings** > **Agents** > **Oz** > **Active AI**
 - `--all`: Run all checks (default)
 - `--fix`: Auto-fix high-confidence issues (e.g. case mismatches)
 - `--create-pr`: Create a branch and PR with auto-fixes (requires `gh` CLI)
@@ -29,6 +29,7 @@ python3 .warp/skills/validate_ui_refs/validate_ui_refs.py --all
 - `--refresh-valid-paths`: Re-extract valid paths from `warp-internal` and update `valid_paths.json`
 - `--warp-internal-path PATH`: Path to the `warp-internal` repo (default: `../warp-internal` relative to gitbook root, or `WARP_INTERNAL_PATH` env var)
 - `--output FILE`: Save results to a JSON file
+- `--self-test`: Run internal sanity checks (snapshot invariants, `_is_external_path` regressions, `refresh_valid_paths` preservation) and exit
 
 ### Quick path-only check:
 
@@ -57,10 +58,10 @@ Files scanned: 174
   Path: Settings > Appearance > Current Theme
   Suggestion: Valid sub-sections: Themes, Icon, Window, Input, Panes, Blocks, Text, Cursor, Tabs, Full-screen Apps
 
-⚠️ "active ai" is not a known sub-section of AI
+⚠️ "Settings > AI" has moved under the "Agents" umbrella
   codebase-context.md:34
-  Path: Settings > AI > active ai
-  Suggestion: Did you mean "Active AI"? (score: 0.92)
+  Path: Settings > AI > Active AI
+  Suggestion: Settings > Agents > Oz > Active AI
 
 ### COMMAND PALETTE ISSUES (1 found)
 ❌ UNMATCHED COMMAND
@@ -79,22 +80,48 @@ python3 .warp/skills/validate_ui_refs/validate_ui_refs.py --refresh-valid-paths 
 
 This parses:
 - `SettingsSection` enum and `Display` impl from `settings_view/mod.rs`
+- `SettingsUmbrella::new("Label", vec![...])` calls from `mod.rs` (resolved to subpage display names via the `Display` impl)
 - `Category::new(...)` and `build_sub_header(...)` calls from settings page files
 - `EditableBinding::new(...)` registrations from `terminal/view/init.rs` and `workspace/mod.rs`
 
-The macOS menu bar and Warp Drive sections are maintained as manual lists in `valid_paths.json` since they change infrequently.
+### Preserved fields
+
+Refreshing is a **merge**, not an overwrite. The following fields in `valid_paths.json` are hand-maintained and preserved across refreshes:
+
+- `umbrellas` — auto-detected umbrellas from `SettingsUmbrella::new(...)` are merged in, but any existing entry in the snapshot wins on conflict so hand-authored `subpages` ordering and notes aren't lost.
+- `deprecated_sections` — the migration rules for old top-level labels (`AI`, `Platform`, `MCP Servers`, `Environments`, etc.) are entirely hand-maintained and copied forward unchanged.
+- `top_level_sidebar` — order of top-level entries in the Settings sidebar.
+- `macos_menu_bar` and `warp_drive` — stable UI surfaces that change infrequently; maintained manually.
+
+If you add a brand-new umbrella in `warp-internal`, `--refresh-valid-paths` will pick it up automatically and stamp `umbrella:` on the affected subpage entries in `settings_sections`. You may still want to review the generated umbrella entry to confirm the subpage order matches the UI.
+
+### Self-test
+
+The `--self-test` flag runs three quick sanity checks against the current snapshot and a synthetic `warp-internal` fixture:
+
+1. `umbrellas` and `deprecated_sections` in the shipped `valid_paths.json` are non-empty.
+2. `_is_external_path()` does NOT suppress a legitimate Warp Settings path in sentences that also mention external products (e.g. a GitHub/Linear callout on the same line as `Settings > MCP Servers`).
+3. `refresh_valid_paths()` preserves the hand-maintained fields above when run against a synthetic warp-internal with the new enum layout, and the new umbrella subpage entries show up in `settings_sections`.
+
+Run it before landing any change to `validate_ui_refs.py` or `valid_paths.json`:
+
+```bash
+python3 .warp/skills/validate_ui_refs/validate_ui_refs.py --self-test
+```
 
 ## What Gets Validated
 
 ### UI Paths
-- **Settings paths**: `Settings > [Section] > [Sub-section]` — validates section and sub-section names against the `SettingsSection` enum
-- **macOS menu bar**: `File > ...`, `View > ...`, `Warp > ...` — validates against known menu items
-- **Warp Drive**: `Warp Drive > ...`, `Personal > ...` — validates against known spaces and object types
-- **Multiple markdown formats**: backtick-wrapped, bold, italic, and bare inline paths
+- **Settings paths**: `Settings > [Section] > [Sub-section]` — validates section and sub-section names against the `SettingsSection` enum.
+- **Settings umbrella paths**: `Settings > [Umbrella] > [Subpage] > [Sub-section]` — validates umbrella + subpage against the `umbrellas` object in `valid_paths.json`. Current umbrellas are **Agents** (Oz / Profiles / MCP servers / Knowledge / Third party CLI agents), **Code** (Indexing and projects / Editor and Code Review), and **Cloud platform** (Environments / Oz Cloud API Keys).
+- **Deprecated Settings sections**: paths that start with deprecated top-level labels (e.g. `Settings > AI`, `Settings > Platform`, `Settings > MCP Servers`, `Settings > Environments`) are flagged as `deprecated_section` with an auto-fixable migration to the current umbrella path.
+- **macOS menu bar**: `File > ...`, `View > ...`, `Warp > ...` — validates against known menu items.
+- **Warp Drive**: `Warp Drive > ...`, `Personal > ...` — validates against known spaces and object types.
+- **Multiple markdown formats**: backtick-wrapped, bold, italic, and bare inline paths.
 
 ### Format Consistency
-- All UI paths should use per-segment bold formatting: **Settings** > **AI** > **Active AI**
-- Backtick formatting (`` `Settings > AI` ``), full bold wrapping (`**Settings > AI**`), italic, and bare formats are flagged
+- All UI paths should use per-segment bold formatting: **Settings** > **Agents** > **Oz** > **Active AI**
+- Backtick formatting (`` `Settings > Agents > Oz` ``), full bold wrapping (`**Settings > Agents > Oz**`), italic, and bare formats are flagged
 - Auto-fix with `--fix` converts non-canonical paths to the correct bold format
 
 ### UI Element Formatting
@@ -118,12 +145,13 @@ The macOS menu bar and Warp Drive sections are maintained as manual lists in `va
 ## Auto-Fix
 
 When run with `--fix`, the script automatically corrects:
-- **Case mismatches**: e.g. `Settings > ai` → `Settings > AI`
-- **Non-canonical UI path formats**: backtick, italic, bare → per-segment bold
+- **Case mismatches**: e.g. `Settings > keyboard shortcuts` → `Settings > Keyboard shortcuts`
+- **Deprecated-section migrations**: e.g. `Settings > AI > Input` → `Settings > Agents > Oz > Input`, `Settings > Platform` → `Settings > Cloud platform > Oz Cloud API Keys`. Governed by the `deprecated_sections` object in `valid_paths.json`.
+- **Non-canonical UI path formats**: backtick, italic, bare → per-segment bold. Deprecated-section migrations also upgrade the formatting to canonical bold in the same replace.
 - **Backtick UI elements**: e.g. Click `Save` → Click **Save**
-- Only path case fixes with confidence ≥ 0.9 are applied; format fixes are always applied
+- Only path case fixes and deprecated-section migrations with confidence ≥ 0.9 are applied; format fixes are always applied.
 
-Fixes that require manual review (e.g. renamed sections, removed features) are reported but not auto-fixed.
+Fixes that require manual review (e.g. umbrella-only paths like `Settings > Code` that need a specific subpage chosen, fuzzy matches below 0.9 confidence, or removed features) are reported but not auto-fixed.
 
 ## Slack Notifications
 

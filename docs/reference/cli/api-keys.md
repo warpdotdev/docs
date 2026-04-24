@@ -10,8 +10,8 @@ API keys let the Oz CLI and cloud agents authenticate without human interaction.
 
 You can create an API key from your settings in Warp:
 
-1. Click your profile photo in the top-right corner, then click **Settings.**&#x20;
-2. In the sidebar, click **Platform**.
+1. Click your profile photo in the top-right corner, then click **Settings**.
+2. In the sidebar, expand **Cloud platform** and click **Oz Cloud API Keys**.
 3. In the API Keys section, click **+ Create API Key**.
 4. Name the key and choose an expiration (1 day, 30 days, 90 days, or never).
 5. Select the key type:
@@ -66,7 +66,7 @@ API keys start with the prefix `wk-`. If your key doesn't have this prefix, it m
 
 ## Managing API keys
 
-The API Keys section in **Settings** > **Platform** displays all your active keys with the following information:
+The API Keys section in **Settings** > **Cloud platform** > **Oz Cloud API Keys** displays all your active keys with the following information:
 
 * **Name** - The name you assigned when creating the key
 * **Key** - A masked suffix (`wk-**xxxx`) to help identify the key
@@ -79,7 +79,7 @@ The API Keys section in **Settings** > **Platform** displays all your active key
 
 To delete an API key:
 
-1. Go to **Settings** > **Platform**.
+1. Go to **Settings** > **Cloud platform** > **Oz Cloud API Keys**.
 2. Find the key you want to delete in the API Keys list.
 3. Click the delete icon next to the key.
 

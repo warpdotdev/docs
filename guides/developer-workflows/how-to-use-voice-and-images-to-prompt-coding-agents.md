@@ -29,7 +29,7 @@ Voice transcription is available in Warp's agent input. To use it:
 Voice input works for both Warp's built-in agent and third-party CLI agents when the agent utility bar is active.
 
 {% hint style="info" %}
-You can configure the voice input keybinding in the Warp app under **Settings** > **AI** > **Voice**. The default uses the `fn` key.
+You can configure the voice input keybinding in the Warp app under **Settings** > **Agents** > **Oz** > **Voice**. The default uses the `fn` key.
 {% endhint %}
 
 ## 2. Prompt with voice instead of typing

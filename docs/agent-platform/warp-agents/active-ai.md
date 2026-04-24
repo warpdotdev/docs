@@ -7,14 +7,14 @@ description: >-
 # Active AI Recommendations
 
 {% hint style="info" %}
-Active AI features can be disabled in **Settings** > **AI** with the Active AI toggle.
+Active AI features can be disabled in **Settings** > **Agents** > **Oz** with the Active AI toggle.
 {% endhint %}
 
 ### Prompt Suggestions
 
 Prompt Suggestions are contextual, AI-powered suggestions that activate Agent Mode. These banners will provide suggestions for what to ask Agent Mode in specific scenarios, similar to how Warp already suggests commands to run.
 
-To disable, please visit **Settings** > **AI** > **Active AI** > **Prompt Suggestions**
+To disable, please visit **Settings** > **Agents** > **Oz** > **Active AI** > **Prompt Suggestions**
 
 <figure><img src="../.gitbook/assets/prompt-suggestions-example (1).png" alt=""><figcaption><p>Example of inline banner popping up when relevant contextually.</p></figcaption></figure>
 
@@ -23,7 +23,7 @@ To disable, please visit **Settings** > **AI** > **Active AI** > **Prompt Sugges
 If you press `CMD-ENTER` (on macOS), `CTRL-SHIFT-ENTER` (on Linux/Windows), or click on the chip, the suggestion will auto-populate into your input and run against [Agent Mode](interacting-with-agents/README.md) (with the most recent block attached).
 
 {% hint style="info" %}
-Prompt Suggestions use an LLM to generate prompts based on your terminal session, specifically the most recent block. These AI requests do not contribute towards your AI limits, however, any accepted prompts run in Agent Mode contribute as normal. Visit **Settings** > **AI** > **Active AI** if you'd like to turn it off.
+Prompt Suggestions use an LLM to generate prompts based on your terminal session, specifically the most recent block. These AI requests do not contribute towards your AI limits, however, any accepted prompts run in Agent Mode contribute as normal. Visit **Settings** > **Agents** > **Oz** > **Active AI** if you'd like to turn it off.
 
 If [Secret Redaction](https://docs.warp.dev/support-and-community/privacy-and-security/secret-redaction) is enabled, any selected regexes are applied to content sent to Active AI features to prevent any sensitive data being leaked.
 {% endhint %}
@@ -34,7 +34,7 @@ If [Secret Redaction](https://docs.warp.dev/support-and-community/privacy-and-se
 
 Next Command uses AI to suggest the next command to run based on your active terminal session and command history. It uses your active terminal session contents and an LLM to generate commands.
 
-To disable, please visit **Settings** > **AI** > **Active AI** > **Next Command**
+To disable, please visit **Settings** > **Agents** > **Oz** > **Active AI** > **Next Command**
 
 <figure><img src="../.gitbook/assets/next-command.png" alt=""><figcaption></figcaption></figure>
 

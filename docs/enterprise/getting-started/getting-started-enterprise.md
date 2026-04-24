@@ -147,7 +147,7 @@ See [Warp Drive documentation](https://docs.warp.dev/knowledge-and-collaboration
 
 ### Configure MCP integrations
 
-Connect Warp to your team's tools for enhanced agent context. Navigate to **Settings** > **MCP Servers** to get started. Some integrations (like Linear, GitHub, and Sentry) are available to enable with a single click, while you can also add any custom MCP server configuration your team needs.
+Connect Warp to your team's tools for enhanced agent context. Navigate to **Settings** > **Agents** > **MCP servers** to get started. Some integrations (like Linear, GitHub, and Sentry) are available to enable with a single click, while you can also add any custom MCP server configuration your team needs.
 
 Once configured, click the share icon on a server to make it available to your team.
 

@@ -37,7 +37,7 @@ Each MCP server entry is keyed by a name you choose. A server config must have *
 
 ### Supported fields
 
-* **`warp_id`** — UUID of a Warp-shared MCP server (find UUIDs with `oz mcp list` or from **Settings** > **MCP Servers**)
+* **`warp_id`** — UUID of a Warp-shared MCP server (find UUIDs with `oz mcp list` or from **Settings** > **Agents** > **MCP servers**)
 * **`command`** — Executable to launch (stdio transport)
 * **`args`** — Arguments passed to `command` (only valid with `command`)
 * **`env`** — Environment variables passed to the process (only valid with `command`)

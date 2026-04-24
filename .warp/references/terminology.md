@@ -48,7 +48,15 @@ For the summary of the most critical terms (core features, Oz terms, terms to av
   *Usage note:* Don't use "session" to mean "conversation."
 
 - **Settings** — Warp's configuration interface.
-  *Usage note:* Capitalize as a UI name.
+  *Usage note:* Capitalize as a UI name. The Settings sidebar has three **umbrellas** (**Agents**, **Code**, and **Cloud platform**) that expand into subpages — always reference the specific subpage in paths, not the umbrella alone.
+  - **Agents** umbrella subpages: **Oz**, **Profiles**, **MCP servers**, **Knowledge**, **Third party CLI agents**.
+  - **Code** umbrella subpages: **Indexing and projects**, **Editor and Code Review**.
+  - **Cloud platform** umbrella subpages: **Environments**, **Oz Cloud API Keys**.
+  - Deprecated labels to avoid:
+    - **Settings** > **AI** — now under the **Agents** umbrella; pick the relevant subpage (**Oz** for the global toggle + Active AI/Input/Voice/Other/Experimental; **Profiles** for permissions and allow/denylists; **Knowledge**; **Third party CLI agents**).
+    - **Settings** > **Platform** — now **Settings** > **Cloud platform** > **Oz Cloud API Keys** for `oz agent` API keys.
+    - **Settings** > **MCP Servers** (top-level) — now **Settings** > **Agents** > **MCP servers**.
+    - **Settings** > **Environments** (top-level) — now **Settings** > **Cloud platform** > **Environments**.
 
 - **Tab** / **Pane** / **Window** — Warp's layout primitives: tabs within windows; panes are splits inside a tab/window.
   *Usage note:* Use precisely to avoid confusing layouts.

@@ -237,16 +237,19 @@ Keyboard keys and shortcuts use backticks. Use `+` as the separator between keys
 - ❌ `CTRL+G` (should be `Ctrl+G`)
 
 ### Menu paths
-- Bold each UI element in a menu path; leave the > separator plain: **Settings** > **AI** > **Knowledge**
-- For macOS menu paths, begin the path with the Apple icon (, Unicode `U+F8FF`).
+- Bold each UI element in a menu path; leave the > separator plain: **Settings** > **Agents** > **Knowledge**
+- Several top-level Settings sections are **umbrellas** that expand into subpages: **Agents** (Oz, Profiles, MCP servers, Knowledge, Third party CLI agents), **Code** (Indexing and projects, Editor and Code Review), and **Cloud platform** (Environments, Oz Cloud API Keys). Always reference a specific subpage, not the umbrella alone — for example, use **Settings** > **Code** > **Indexing and projects**, not **Settings** > **Code**.
+- For macOS menu paths, begin the path with the Apple icon (, Unicode `U+F8FF`).
   - **IMPORTANT — preserving the Apple icon**: The `U+F8FF` character is in Unicode's Private Use Area. It renders as the Apple logo only on Apple devices and is **invisible in most editors, terminals, and AI contexts**. It is frequently stripped during edits. When editing any line with a macOS menu path, always verify this character (UTF-8 bytes `EF A3 BF`) is present before the first `>`. If it has been stripped, re-insert it with: `printf '\xEF\xA3\xBF'`
 - When referencing a menu path, CLI command, or URL for the first time on a page, orient the reader by identifying the application, website, or tool. Don't assume the reader knows which surface you mean.
 - For URLs, name the surface even though the link provides the destination — not all readers will recognize what the URL points to.
 
 **Use:**
-- ✅ **Settings** > **AI** > **Knowledge**
-- ✅   > **System Settings** > **Privacy & Security** > **Local Network**
-- ✅ In the Warp app, go to **Settings** > **Platform**.
+- ✅ **Settings** > **Agents** > **Knowledge**
+- ✅ **Settings** > **Agents** > **Oz** > **Active AI**
+- ✅ **Settings** > **Cloud platform** > **Oz Cloud API Keys**
+- ✅   > **System Settings** > **Privacy & Security** > **Local Network**
+- ✅ In the Warp app, go to **Settings** > **Cloud platform** > **Oz Cloud API Keys**.
 - ✅ In the Oz web app (oz.warp.dev), click **Schedules**.
 - ✅ Navigate to the Oz web app at oz.warp.dev/schedules and click **New Schedule**.
 - ✅ Find it with `oz environment list` on the Oz CLI or in the [Oz web app](https://oz.warp.dev).
@@ -255,19 +258,22 @@ Keyboard keys and shortcuts use backticks. Use `+` as the separator between keys
 - ❌ `macOS > System Settings > Privacy & Security > Local Network` (code format; use Apple icon, not "macOS")
 - ❌ `macOS` > `System Settings` > `Privacy & Security` > `Local Network` (individual backticks; use Apple icon, not "macOS")
 - ❌ **macOS > System Settings > Privacy & Security > Local Network** (entire path bolded including separator; use Apple icon, not "macOS")
-- ❌ Go to **Settings** > **Platform**. (which app? orient the reader first)
+- ❌ Go to **Settings** > **Cloud platform** > **Oz Cloud API Keys**. (which app? orient the reader first)
 - ❌ Go to oz.warp.dev/schedules and click **New Schedule**. (name the surface before the URL)
 - ❌ Find it with `oz environment list`. (what CLI? orient the reader first)
 - ❌ **System Settings** > **Privacy & Security** > **Local Network** (macOS path missing the Apple icon — `U+F8FF` must appear before the first `>`)
+- ❌ **Settings** > **AI** > **Knowledge** (the "AI" section no longer exists — use **Settings** > **Agents** > **Knowledge**)
+- ❌ **Settings** > **Platform** (renamed — use **Settings** > **Cloud platform** > **Oz Cloud API Keys**)
+- ❌ **Settings** > **Agents** (umbrellas are not navigable as leaves — pick a subpage like **Oz** or **Profiles**)
 
 ### UI elements
 - Use bold for interactive UI elements (e.g., buttons, toggles, dropdowns)
-- Describe UI elements by name, not just appearance or location. Prefer "In the sidebar, click **Platform**" over "Click the button on the left."
+- Describe UI elements by name, not just appearance or location. Prefer "In the sidebar, expand **Cloud platform** and click **Oz Cloud API Keys**" over "Click the button on the left."
 - Format checkbox names in bold. Omit the word "checkbox." Use "select" or "deselect," not "check" or "uncheck."
 
 **Use:**
 - ✅ Click your profile photo in the top-right corner, then click **Settings**.
-- ✅ In the sidebar, click **Platform**.
+- ✅ In the sidebar, expand **Cloud platform** and click **Oz Cloud API Keys**.
 
 **Don't use:**
 - ❌ In the API Keys section, click `+ Create API Key`.
@@ -304,12 +310,12 @@ These rules apply regardless of content type:
 
 - **Lead with user benefit**: Open with what the reader can accomplish, not the technical implementation.
 - **Orient the reader before UI, CLI, or URL instructions**: When referencing a menu path, CLI command, or URL for the first time on a page, identify the application, website, or tool. Don't assume the reader knows which surface you mean.
-  - ✅ "In the Warp app, click your profile photo, then go to **Settings** > **Platform**."
+  - ✅ "In the Warp app, click your profile photo, then go to **Settings** > **Cloud platform** > **Oz Cloud API Keys**."
   - ✅ "In the Oz web app (oz.warp.dev), click **Schedules**."
-  - ❌ "Go to **Settings** > **Platform**." (which app?)
+  - ❌ "Go to **Settings** > **Cloud platform** > **Oz Cloud API Keys**." (which app?)
 - **Provide inline context for first references**: Assume the reader arrived directly at this page, not from a parent page. When a prerequisite, concept, or tool is mentioned for the first time, include: what the thing is (1 short clause), where to get or create it, and a link to the full reference.
-  - ✅ "**A Warp API key** - Authenticate API requests with a key from **Settings** > **Platform** in the Warp app. See [API Keys](docs/reference/cli/api-keys.md) for details."
-  - ❌ "**An API key** - Create one in **Settings** > **Platform**." (what kind of key? Settings where?)
+  - ✅ "**A Warp API key** - Authenticate API requests with a key from **Settings** > **Cloud platform** > **Oz Cloud API Keys** in the Warp app. See [API Keys](docs/reference/cli/api-keys.md) for details."
+  - ❌ "**An API key** - Create one in **Settings** > **Cloud platform** > **Oz Cloud API Keys**." (what kind of key? Settings where?)
 - **Include practical examples**: Show real-world scenarios, not just toy examples. Concrete examples help the reader understand when and why to use a feature.
 - **Cross-reference related pages**: Link to related features, next steps, and deeper references so the reader can continue learning.
 

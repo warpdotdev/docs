@@ -11,7 +11,7 @@ description: >-
 Warp includes Oz agents—intelligent agents designed to help you build, test, deploy, and debug while keeping you in control. Interactive Oz agent conversations in Warp can look up commands, execute tasks, fix bugs, and adapt to your workflows. You can manage agent behavior directly, with full context from your Warp Drive and your team.
 
 {% hint style="info" %}
-Warp's AI features can be globally disabled in **Settings** > **AI** with the AI toggle.\
+Warp's AI features can be globally disabled in **Settings** > **Agents** > **Oz** with the AI toggle.\
 \
 These features send input data to various LLM providers through their API. Warp is **SOC 2 compliant** and has **Zero Data Retention** policies with all contracted LLM providers -- no customer AI data is retained, stored, or used for training. Read more about data privacy for Warp features [on our privacy page](https://www.warp.dev/privacy).
 {% endhint %}

@@ -38,9 +38,13 @@ When a model is selected using your own key:
 
 To enable and configure your API keys:
 
-1. Open **Settings** > **AI** > **API Keys**
+1. Open **Settings** and search for `API keys` to jump to the BYOK configuration.
 2. Add your API key(s) for Anthropic, OpenAI, or Google.
 3. Once added, you'll see a **key icon** next to supported models in the model picker.
+
+{% hint style="info" %}
+The BYOK configuration widget doesn't currently live on a dedicated sidebar subpage; searching from the **Settings** window is the quickest way to reach it. We're tracking a follow-up to surface it under a persistent sidebar entry.
+{% endhint %}
 
 <figure><img src="../.gitbook/assets/byok-keys.png" alt="" width="304"><figcaption></figcaption></figure>
 
@@ -86,7 +90,7 @@ If your key:
 
 * Is invalid: Warp notifies you and halts the request.
 * Hits usage or rate limits: Warp will not retry using credits.
-* You can update or replace your keys anytime in **Settings** > **AI** > **API Keys**.
+* You can update or replace your keys anytime by opening **Settings** and searching for `API keys`.
 
 **Failover and fallback:**
 

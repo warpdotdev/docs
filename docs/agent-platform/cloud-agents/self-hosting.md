@@ -224,7 +224,7 @@ Before setting up a self-hosted worker, ensure you have:
 * **Docker installed** (Docker backend only) — The worker uses Docker to run agent tasks in isolated containers. The Docker daemon must run Linux containers (Windows containers are not supported). Verify Docker is installed and running with `docker info`. Skip this if you plan to use the Kubernetes or Direct backend.
 * **A Kubernetes cluster** (Kubernetes backend only) — The worker needs API access to create Jobs and Pods in a target namespace. See the [Kubernetes backend](managed-worker-reference.md#kubernetes-backend) reference for RBAC requirements.
 * **Enterprise plan with self-hosting enabled** — [Contact sales](https://warp.dev/contact-sales) if self-hosting is not yet enabled for your team.
-* **A team API key** — In the Warp app, go to **Settings** > **Platform** to create a team-scoped API key.
+* **A team API key** — In the Warp app, go to **Settings** > **Cloud platform** > **Oz Cloud API Keys** to create a team-scoped API key.
 
 {% hint style="warning" %}
 When using the Docker backend, task containers require a **linux/amd64** or **linux/arm64** Docker daemon. The worker host itself can be any OS — Docker Desktop on macOS and Windows runs a Linux VM that satisfies this requirement.
@@ -252,7 +252,7 @@ The worker can be configured entirely via CLI flags, or via a YAML [config file]
 
 ### Set your API key
 
-In the Warp app, go to **Settings** > **Platform** to create a team API key. Then export it as an environment variable:
+In the Warp app, go to **Settings** > **Cloud platform** > **Oz Cloud API Keys** to create a team API key. Then export it as an environment variable:
 
 ```bash
 export WARP_API_KEY="your_team_api_key"
@@ -491,7 +491,7 @@ The troubleshooting steps below apply to the **managed architecture** (`oz-agent
 ### Worker won't connect
 
 * Verify your API key is correct, not expired, and has team scope.
-* Regenerate the API key in **Settings** > **Platform** if you suspect it is invalid.
+* Regenerate the API key in **Settings** > **Cloud platform** > **Oz Cloud API Keys** if you suspect it is invalid.
 * Ensure the machine has outbound internet access to Oz.
 * Check that no firewall rules are blocking WebSocket connections to `wss://oz.warp.dev`.
 * Increase log verbosity with `--log-level debug` to see connection details.

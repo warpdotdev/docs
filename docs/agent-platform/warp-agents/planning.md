@@ -64,7 +64,7 @@ Because plans persist in Warp Drive, you can return to them later, reuse them fo
 
 <figure><img src="../.gitbook/assets/plans-in-warp-drive-side-panel.png" alt=""><figcaption><p>Plans are accessible directly from the Warp Drive side panel.</p></figcaption></figure>
 
-You can configure whether your plans will be automatically added and synced to Warp Drive in your [Agent Profiles & Permissions](agent-profiles-permissions.md) under **Settings** > **AI** > **Agents** > **Profiles**.
+You can configure whether your plans will be automatically added and synced to Warp Drive in your [Agent Profiles & Permissions](agent-profiles-permissions.md) under **Settings** > **Agents** > **Profiles**.
 
 <figure><img src="../.gitbook/assets/auto-sync-plans (1).png" alt="" width="371"><figcaption></figcaption></figure>
 

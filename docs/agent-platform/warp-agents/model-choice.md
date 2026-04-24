@@ -97,7 +97,7 @@ Warp uses a model fallback system to ensure uninterrupted service if your select
 
 You can configure the base model for each [Agent Profiles & Permissions](agent-profiles-permissions.md), defining the Agent's autonomy, tool access, and other permissions. The base model is also used for [Planning](planning.md).
 
-Edit your default profile or more profiles directly in **Settings** > **AI** > **Agents** > **Profiles**.
+Edit your default profile or more profiles directly in **Settings** > **Agents** > **Profiles**.
 
 ### Zero data retention policies
 

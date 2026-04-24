@@ -17,15 +17,15 @@ Use the quick-reference table to find what you need, or browse the sections belo
 | Theme | **Settings** > **Appearance** | Pick a preset or [create a custom YAML theme](../terminal/appearance/custom-themes.md) |
 | Prompt chips | Right-click prompt area > **Edit prompt** | Drag and drop context chips (directory, git branch, time, etc.) |
 | AI model | Model selector in agent conversation | Choose Claude, GPT, Gemini, or Auto |
-| Keybindings | **Settings** > **Keybindings** | Import from another terminal or set custom shortcuts |
+| Keybindings | **Settings** > **Keyboard shortcuts** | Import from another terminal or set custom shortcuts |
 | Vertical tabs | **Settings** > **Appearance** > **Tabs** | Switch to a sidebar tab layout for more horizontal space |
 | Tab configs | **Settings** > **Features** or `/` menu | Save and restore tab layouts with startup commands |
-| Settings file | **Settings** > **Open settings file** | Edit [`settings.toml`](../terminal/settings/README.md) directly for version control and scripting |
+| Settings file | **Open settings file** button in the Settings footer | Edit [`settings.toml`](../terminal/settings/README.md) directly for version control and scripting |
 | Input format | **Settings** > **Appearance** > **Input** | Choose Standard or Classic |
 | App icon | **Settings** > **Appearance** > **Icon** | Pick a custom icon (macOS) |
 | Font & text | **Settings** > **Appearance** > **Text** | Change font, size, and cursor style |
-| Agent autonomy | **Settings** > **AI** > **Agents** > **Profiles** | Set what the agent can do without asking |
-| Default mode | **Settings** > **AI** > **Input** | Choose whether new tabs open in terminal mode or Agent Mode |
+| Agent autonomy | **Settings** > **Agents** > **Profiles** | Set what the agent can do without asking |
+| Default mode | **Settings** > **Agents** > **Oz** > **Input** | Choose whether new tabs open in terminal mode or Agent Mode |
 
 ***
 
@@ -56,7 +56,7 @@ Organize your workspace with tabs, panes, and window configurations.
 Configure how you type and interact with the terminal input.
 
 * **[Standard vs Classic input](../terminal/input/classic-input.md)** - Standard input provides easier access to AI features and is the default for new users. Classic input resembles a traditional terminal prompt. Switch between them in **Settings** > **Appearance** > **Input**.
-* **[Keyboard shortcuts](keyboard-shortcuts.md)** - Warp supports common shortcuts and lets you create custom ones. Import keybindings from another terminal during [migration](migrate-to-warp.md).
+* **[Keyboard shortcuts](keyboard-shortcuts.md)** - Warp supports common shortcuts and lets you create custom ones. Manage them from **Settings** > **Keyboard shortcuts**, or import keybindings from another terminal during [migration](migrate-to-warp.md).
 * **[Vim keybindings](../terminal/editor/vim.md)** - Enable Vim keybindings for keyboard-driven text editing in the input editor.
 * **Tab key behavior** - Configure what `Tab` does in **Settings** > **Features**. Options include accepting autosuggestions or triggering completions.
 
@@ -66,7 +66,7 @@ Control how Warp's agents behave and which models they use.
 
 * **[Model choice](https://docs.warp.dev/agent-platform/warp-agents/model-choice)** - Choose your preferred AI model (Claude, GPT, Gemini, or Auto) from the model selector in any agent conversation.
 * **[Agent profiles and permissions](https://docs.warp.dev/agent-platform/warp-agents/agent-profiles-permissions)** - Configure how much autonomy the agent has: what it can auto-execute, what requires approval, and command allowlists/denylists.
-* **Default mode for new sessions** - Choose whether new tabs open in terminal mode or Agent Mode by default. Set this in **Settings** > **AI** > **Input**.
+* **Default mode for new sessions** - Choose whether new tabs open in terminal mode or Agent Mode by default. Set this in **Settings** > **Agents** > **Oz** > **Input**.
 
 ## Import and sync
 

@@ -33,13 +33,13 @@ When the rich input editor is active, Warp hides the cursor inside the CLI agent
 
 ## Rich input settings
 
-In the Warp app, go to **Settings** > **AI** > **Coding Agents** to configure the following:
+In the Warp app, go to **Settings** > **Agents** > **Third party CLI agents** to configure the following:
 
 * **Auto show/hide based on agent status** - Automatically open the rich input editor when the agent needs input, and hide it when the agent is working. Works with agents that have plugin support and the plugin installed (Claude Code and OpenCode).
 * **Auto open on session start** - Automatically open the rich input editor when a CLI agent session starts.
 * **Auto dismiss after submission** - Close the editor after you send a prompt.
-* **Keyboard shortcut** - The default shortcut is `Ctrl-G`. Customize this in **Settings** > **Keyboard Shortcuts**.
-* **Disable the Rich Input button** - Right-click the agent utility bar and remove the **Rich Input** chip, or disable the footer entirely in **Settings** > **AI** > **Coding Agents**.
+* **Keyboard shortcut** - The default shortcut is `Ctrl-G`. Customize this in **Settings** > **Keyboard shortcuts**.
+* **Disable the Rich Input button** - Right-click the agent utility bar and remove the **Rich Input** chip, or disable the footer entirely in **Settings** > **Agents** > **Third party CLI agents**.
 
 <figure><img src="../.gitbook/assets/rich-input-settings.png" alt="Rich input settings panel" width="563"><figcaption><p>Rich input settings in Warp</p></figcaption></figure>
 

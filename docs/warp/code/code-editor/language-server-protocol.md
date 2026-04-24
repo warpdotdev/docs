@@ -36,7 +36,7 @@ Warp uses your shell's `PATH` to locate language server binaries. If a server is
 
 Language servers are enabled **per workspace** (per Git repository root). When you open a file in a supported language for the first time, the **editor footer** shows an option to enable the appropriate language server. If the server binary is not installed on your system, Warp offers to install it for you.
 
-You can also manage servers from **Settings** > **Code**, where each initialized workspace shows its enabled language servers and their status.
+You can also manage servers from **Settings** > **Code** > **Indexing and projects**, where each initialized workspace shows its enabled language servers and their status.
 
 ### Server status indicator
 
@@ -51,7 +51,7 @@ Clicking the status icon opens a menu with options to **restart**, **stop**, **s
 
 ### Server logs
 
-Each language server writes logs to a file on disk. Access these logs from the footer menu (click the status icon and select "Open Logs") or from **Settings** > **Code**. Logs are useful for debugging server startup failures or unexpected behavior.
+Each language server writes logs to a file on disk. Access these logs from the footer menu (click the status icon and select "Open Logs") or from **Settings** > **Code** > **Indexing and projects**. Logs are useful for debugging server startup failures or unexpected behavior.
 
 ## Editor features powered by LSP
 

@@ -39,7 +39,7 @@ $ oz mcp list
 +--------------------------------------+--------+
 ```
 
-  Alternatively, copy the UUID from Warp in **Settings** > **MCP Servers**.
+  Alternatively, copy the UUID from Warp in **Settings** > **Agents** > **MCP servers**.
 
 <figure><img src="../.gitbook/assets/mcp-server-id.png" alt=""><figcaption><p>MCP servers page, showing a server with its UUID</p></figcaption></figure>
 

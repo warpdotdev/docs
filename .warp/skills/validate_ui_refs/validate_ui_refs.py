@@ -129,15 +129,43 @@ def _to_canonical_format(normalized: str) -> str:
     return " > ".join(f"**{seg}**" for seg in segments)
 
 
+# Warp Settings sections that unambiguously identify a path as Warp's UI
+# (not an external product's settings), even when the surrounding line mentions
+# external products like GitHub / Slack / Linear. Matched against segments[1]
+# after stripping formatting.
+_WARP_SETTINGS_ROOT_SECTIONS = {
+    "About", "Account", "Agents", "Billing and usage", "Code",
+    "Cloud platform", "Teams", "Appearance", "Features",
+    "Keyboard shortcuts", "Warpify", "Referrals", "Shared blocks",
+    "Warp Drive", "Privacy",
+    # Deprecated-but-unambiguously-Warp top-level labels the validator still
+    # recognizes in order to auto-migrate them:
+    "AI", "MCP Servers", "Environments", "Platform", "Keybindings",
+}
+
+
 def _is_external_path(path: str, line: str) -> bool:
     """Check if a path belongs to an external product, not Warp."""
-    root = path.split(">")[0].strip()
+    segments = [s.strip() for s in path.split(">")]
+    root = segments[0]
     if root in EXTERNAL_ROOTS:
         return True
     # Check against known external Settings paths
     for ext_path in EXTERNAL_SETTINGS_PATHS:
         if path.startswith(ext_path):
             return True
+    # If the Settings path's second segment is a recognized Warp section/umbrella
+    # (or a known deprecated one), the external-product-mention bail-out below
+    # should not fire — the path is unambiguously Warp's UI. This keeps sentences
+    # like "Navigate to **Settings** > **MCP Servers** to get started. Some
+    # integrations (like Linear, GitHub, and Sentry) are available..." from being
+    # silently skipped.
+    if (
+        root == "Settings"
+        and len(segments) >= 2
+        and segments[1] in _WARP_SETTINGS_ROOT_SECTIONS
+    ):
+        return False
     # Check surrounding line for external product keywords
     line_lower = line.lower()
     for kw in EXTERNAL_CONTEXT_KEYWORDS:
@@ -364,6 +392,79 @@ def _best_fuzzy_match(needle: str, haystack: List[str]) -> Tuple[Optional[str], 
     return best_match, best_score
 
 
+def _suggest_migration_for_deprecated_section(
+    segments: List[str],
+    deprecated: Dict[str, Any],
+    umbrellas: Dict[str, Any],
+) -> Optional[Dict[str, Any]]:
+    """If segments[1] is a deprecated section, return an auto-fix suggestion.
+
+    Handles patterns like:
+        Settings > AI > Input        -> Settings > Agents > Oz > Input
+        Settings > AI > Knowledge    -> Settings > Agents > Knowledge
+        Settings > Platform          -> Settings > Cloud platform > Oz Cloud API Keys
+        Settings > Environments      -> Settings > Cloud platform > Environments
+        Settings > MCP Servers       -> Settings > Agents > MCP servers
+    """
+    if len(segments) < 2:
+        return None
+    old_section = segments[1]
+    info = deprecated.get(old_section)
+    if not info:
+        return None
+    umbrella = info["umbrella"]
+    default_subpage = info["default_subpage"]
+    subsection_map = info.get("subsection_to_subpage", {})
+
+    if len(segments) == 2:
+        # Settings > Platform -> Settings > Cloud platform > Oz Cloud API Keys
+        new_path = ["Settings", umbrella, default_subpage]
+        return {
+            "valid": False,
+            "issue": (
+                f"\"{old_section}\" has moved under the \"{umbrella}\" umbrella; "
+                f"use \"{default_subpage}\""
+            ),
+            "suggestion": " > ".join(new_path),
+            "confidence": 0.95,
+            "fix_type": "deprecated_section",
+        }
+
+    # len(segments) >= 3 — check if segments[2] routes to a specific subpage
+    old_sub = segments[2]
+    remaining = segments[3:]
+    mapped_subpage = subsection_map.get(old_sub, default_subpage)
+    aliases = info.get("subsection_aliases", [])
+
+    # If old_sub is an alias for a subpage name (e.g. "AI > Knowledge" where
+    # "Knowledge" is now a subpage under Agents, or "AI > Agents" where "Agents"
+    # was the old label for the "Profiles" subpage), drop it. Otherwise treat
+    # old_sub as a sub-section header that should remain at its deeper level.
+    if old_sub in aliases or old_sub == mapped_subpage:
+        # Also strip any leading alias segments from `remaining` — they come from
+        # paths like `AI > Agents > Profiles` where both `Agents` and `Profiles`
+        # redundantly refer to the new `Profiles` subpage; drop them so we get
+        # `Agents > Profiles` instead of `Agents > Profiles > Profiles`.
+        while remaining and (
+            remaining[0] in aliases
+            or remaining[0] == mapped_subpage
+        ):
+            remaining = remaining[1:]
+        new_path = ["Settings", umbrella, mapped_subpage] + remaining
+    else:
+        new_path = ["Settings", umbrella, mapped_subpage, old_sub] + remaining
+
+    return {
+        "valid": False,
+        "issue": (
+            f"\"Settings > {old_section}\" has moved under the \"{umbrella}\" umbrella"
+        ),
+        "suggestion": " > ".join(new_path),
+        "confidence": 0.95,
+        "fix_type": "deprecated_section",
+    }
+
+
 def validate_ui_path(path: str, valid_paths: Dict[str, Any]) -> Dict[str, Any]:
     """Validate a single UI path against valid_paths data.
 
@@ -373,6 +474,8 @@ def validate_ui_path(path: str, valid_paths: Dict[str, Any]) -> Dict[str, Any]:
     root = segments[0]
 
     settings = valid_paths.get("settings_sections", {})
+    umbrellas = valid_paths.get("umbrellas", {})
+    deprecated = valid_paths.get("deprecated_sections", {})
     menu_bar = valid_paths.get("macos_menu_bar", {})
     warp_drive = valid_paths.get("warp_drive", {})
 
@@ -380,6 +483,124 @@ def validate_ui_path(path: str, valid_paths: Dict[str, Any]) -> Dict[str, Any]:
     if root == "Settings" and len(segments) >= 2:
         section = segments[1]
         section_names = list(settings.keys())
+
+        # Flag deprecated top-level section names BEFORE fuzzy matching
+        # so we suggest the umbrella-based replacement.
+        if section in deprecated:
+            migration = _suggest_migration_for_deprecated_section(
+                segments, deprecated, umbrellas
+            )
+            if migration:
+                return migration
+
+        # --- Umbrella paths (Settings > Agents > Oz > Input, etc.) ---
+        if section in umbrellas:
+            umbrella_data = umbrellas[section]
+            subpages = umbrella_data.get("subpages", [])
+            if len(segments) < 3:
+                # Settings > Agents alone is ambiguous — flag but don't fail hard.
+                return {
+                    "valid": False,
+                    "issue": (
+                        f"\"Settings > {section}\" is an umbrella; pick a subpage"
+                    ),
+                    "suggestion": (
+                        f"Valid subpages: {', '.join(subpages)}"
+                    ),
+                    "confidence": 0.5,
+                    "fix_type": None,
+                }
+            subpage = segments[2]
+            if subpage not in subpages:
+                ci_match = next(
+                    (s for s in subpages if s.lower() == subpage.lower()), None
+                )
+                if ci_match:
+                    return {
+                        "valid": False,
+                        "issue": (
+                            f"Case mismatch: \"{subpage}\" should be \"{ci_match}\""
+                        ),
+                        "suggestion": " > ".join(
+                            ["Settings", section, ci_match] + segments[3:]
+                        ),
+                        "confidence": 0.95,
+                        "fix_type": "case_mismatch",
+                    }
+                best, score = _best_fuzzy_match(subpage, subpages)
+                if score >= FUZZY_MATCH_THRESHOLD:
+                    return {
+                        "valid": False,
+                        "issue": (
+                            f"\"{subpage}\" is not a known subpage of "
+                            f"\"{section}\""
+                        ),
+                        "suggestion": (
+                            f"Did you mean \"{best}\"? (score: {score:.2f})"
+                        ),
+                        "confidence": score,
+                        "fix_type": "fuzzy" if score >= AUTO_FIX_THRESHOLD else None,
+                    }
+                return {
+                    "valid": False,
+                    "issue": (
+                        f"\"{subpage}\" is not a known subpage of "
+                        f"\"{section}\""
+                    ),
+                    "suggestion": (
+                        f"Valid subpages: {', '.join(subpages)}"
+                    ),
+                    "confidence": 0.0,
+                    "fix_type": None,
+                }
+
+            # Valid umbrella > subpage. Now check optional sub-section (segments[3:]).
+            if len(segments) >= 4:
+                subpage_data = settings.get(subpage, {})
+                sub_sections = subpage_data.get("sub_sections", [])
+                sub = segments[3]
+                if sub in sub_sections:
+                    return {
+                        "valid": True,
+                        "issue": None,
+                        "suggestion": None,
+                        "confidence": 1.0,
+                        "fix_type": None,
+                    }
+                if sub_sections:
+                    ci_match = next(
+                        (s for s in sub_sections if s.lower() == sub.lower()),
+                        None,
+                    )
+                    if ci_match:
+                        return {
+                            "valid": False,
+                            "issue": (
+                                f"Case mismatch: \"{sub}\" should be "
+                                f"\"{ci_match}\""
+                            ),
+                            "suggestion": " > ".join(
+                                ["Settings", section, subpage, ci_match]
+                                + segments[4:]
+                            ),
+                            "confidence": 0.95,
+                            "fix_type": "case_mismatch",
+                        }
+                # Unknown sub-section — likely a toggle/setting name; allow.
+                return {
+                    "valid": True,
+                    "issue": None,
+                    "suggestion": None,
+                    "confidence": 0.8,
+                    "fix_type": None,
+                }
+            return {
+                "valid": True,
+                "issue": None,
+                "suggestion": None,
+                "confidence": 1.0,
+                "fix_type": None,
+            }
 
         # Check section (case-insensitive)
         exact = section in section_names
@@ -742,6 +963,33 @@ def scan_docs(
 # Auto-fix
 # ---------------------------------------------------------------------------
 
+# Fix types eligible for auto-fix (case mismatches + deprecated-section migrations).
+_AUTO_FIXABLE_TYPES = {"case_mismatch", "deprecated_section"}
+
+
+def _format_suggestion_like_original(suggestion_path: str, original_format: str) -> str:
+    """Wrap a plain 'Settings > Foo > Bar' suggestion in the same format as the original.
+
+    Always returns canonical bold for non-formatted (bare) originals so that the
+    auto-fix also upgrades the formatting while migrating the path.
+    """
+    segments = [s.strip() for s in suggestion_path.split(">")]
+    if original_format == "canonical":
+        return " > ".join(f"**{s}**" for s in segments)
+    if original_format == "bold":
+        # Original was **Whole Path** — produce canonical bold in the replacement
+        # so the result matches the style guide.
+        return " > ".join(f"**{s}**" for s in segments)
+    if original_format == "seg_backtick":
+        return " > ".join(f"`{s}`" for s in segments)
+    if original_format == "backtick":
+        return " > ".join(f"**{s}**" for s in segments)
+    if original_format == "italic":
+        return " > ".join(f"**{s}**" for s in segments)
+    # bare or unknown
+    return " > ".join(f"**{s}**" for s in segments)
+
+
 def apply_fixes(issues: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     """Apply auto-fixes for high-confidence issues. Returns list of applied fixes."""
     fixes_by_file: Dict[str, List[Dict[str, Any]]] = {}
@@ -752,7 +1000,11 @@ def apply_fixes(issues: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         confidence = issue.get("validation", {}).get("confidence", 0)
         suggestion = issue.get("validation", {}).get("suggestion")
 
-        if fix_type == "case_mismatch" and confidence >= AUTO_FIX_THRESHOLD and suggestion:
+        if (
+            fix_type in _AUTO_FIXABLE_TYPES
+            and confidence >= AUTO_FIX_THRESHOLD
+            and suggestion
+        ):
             file_path = issue["file"]
             fixes_by_file.setdefault(file_path, []).append(issue)
 
@@ -760,8 +1012,11 @@ def apply_fixes(issues: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         try:
             text = Path(file_path).read_text(encoding="utf-8")
             for issue in file_issues:
-                old = issue["raw"]
-                new = issue["validation"]["suggestion"]
+                # Use match_text (full match including wrappers) so the replace
+                # removes the bold/backtick wrappers and they don't become dangling.
+                old = issue.get("match_text", issue["raw"])
+                suggestion = issue["validation"]["suggestion"]
+                new = _format_suggestion_like_original(suggestion, issue.get("format", "bare"))
                 if old in text:
                     text = text.replace(old, new, 1)
                     applied.append({
@@ -925,19 +1180,55 @@ def notify_slack(
 # ---------------------------------------------------------------------------
 
 def refresh_valid_paths(warp_internal_path: Path, output_path: Path) -> None:
-    """Re-extract valid paths from warp-internal Rust sources and save to JSON."""
+    """Re-extract valid paths from warp-internal Rust sources and save to JSON.
+
+    Preserves hand-maintained lists (macos_menu_bar, warp_drive, umbrellas,
+    deprecated_sections, top_level_sidebar) from the existing snapshot.
+    Auto-detected umbrellas from `SettingsUmbrella::new(...)` calls in mod.rs
+    are merged in; if a new umbrella is detected that's not in the existing
+    snapshot, it's added. Existing umbrella entries take precedence on
+    conflict so the hand-authored `subpages` lists aren't lost.
+    """
     print(f"Refreshing valid_paths.json from {warp_internal_path}...")
 
     settings_sections = _extract_settings_sections(warp_internal_path)
     command_palette = _extract_command_palette_commands(warp_internal_path)
 
-    # Load existing for menu bar and warp drive (manual lists)
-    existing = {}
+    # Load existing for menu bar, warp drive, umbrellas, deprecated_sections,
+    # and top_level_sidebar (all manually maintained lists).
+    existing: Dict[str, Any] = {}
     if output_path.exists():
         existing = load_valid_paths(output_path)
 
+    existing_umbrellas: Dict[str, Any] = existing.get("umbrellas", {}) or {}
+
+    # Best-effort: pull umbrellas from `SettingsUmbrella::new(...)` calls in mod.rs
+    # and merge into the existing snapshot (existing entries win on conflict).
+    try:
+        extracted_umbrellas = _extract_umbrellas(warp_internal_path)
+    except Exception as e:  # pragma: no cover - defensive, parser errors
+        print(f"  Warning: umbrella extraction failed: {e}", file=sys.stderr)
+        extracted_umbrellas = {}
+
+    umbrellas: Dict[str, Any] = dict(extracted_umbrellas)
+    for name, payload in existing_umbrellas.items():
+        umbrellas[name] = payload  # existing entries take precedence
+
+    # Stamp `umbrella:` on settings_sections entries whose variant belongs to
+    # an umbrella, so the snapshot stays self-describing.
+    subpage_to_umbrella: Dict[str, str] = {}
+    for umbrella_name, payload in umbrellas.items():
+        for subpage in (payload or {}).get("subpages", []) or []:
+            subpage_to_umbrella[subpage] = umbrella_name
+    for display_name, entry in settings_sections.items():
+        if display_name in subpage_to_umbrella:
+            entry["umbrella"] = subpage_to_umbrella[display_name]
+
     data = {
+        "umbrellas": umbrellas,
+        "deprecated_sections": existing.get("deprecated_sections", {}),
         "settings_sections": settings_sections,
+        "top_level_sidebar": existing.get("top_level_sidebar", []),
         "macos_menu_bar": existing.get("macos_menu_bar", {}),
         "warp_drive": existing.get("warp_drive", {}),
         "command_palette_commands": command_palette,
@@ -946,7 +1237,80 @@ def refresh_valid_paths(warp_internal_path: Path, output_path: Path) -> None:
 
     with open(output_path, "w") as f:
         json.dump(data, f, indent=2)
-    print(f"Wrote {output_path} ({len(settings_sections)} sections, {len(command_palette)} commands)")
+    print(
+        f"Wrote {output_path} ("
+        f"{len(settings_sections)} sections, "
+        f"{len(umbrellas)} umbrellas, "
+        f"{len(data['deprecated_sections'])} deprecated, "
+        f"{len(command_palette)} commands)"
+    )
+
+
+def _extract_umbrellas(warp_internal: Path) -> Dict[str, Any]:
+    """Parse SettingsUmbrella::new("Label", vec![...]) calls from mod.rs.
+
+    Maps each umbrella label to its ordered list of subpage **display names**
+    (resolved via the `Display for SettingsSection` impl). Returns a dict
+    shaped like the `umbrellas` field in valid_paths.json.
+    """
+    mod_rs = warp_internal / "app" / "src" / "settings_view" / "mod.rs"
+    umbrellas: Dict[str, Any] = {}
+    try:
+        mod_text = mod_rs.read_text(encoding="utf-8")
+    except OSError:
+        return umbrellas
+
+    # Build variant -> display_name map from the Display impl.
+    display_map: Dict[str, str] = {}
+    display_impl = re.search(
+        r"impl Display for SettingsSection\s*\{.*?fn fmt.*?\{(.*?)\}\s*\}",
+        mod_text,
+        re.DOTALL,
+    )
+    if display_impl:
+        for m in re.finditer(
+            r'SettingsSection::(\w+)\s*=>\s*write!\(f,\s*"([^"]+)"\)',
+            display_impl.group(1),
+        ):
+            display_map[m.group(1)] = m.group(2)
+
+    def _display(variant: str) -> str:
+        return display_map.get(variant, variant)
+
+    # Parse `SettingsUmbrella::new("Label", <subpages_expr>)`.
+    # We match the label then capture until the *closing* paren of the new call.
+    # The subpages_expr is usually `vec![...]` with SettingsSection::Variant items,
+    # or a call like `SettingsSection::ai_subpages().to_vec()`.
+    for m in re.finditer(
+        r'SettingsUmbrella::new\(\s*"([^"]+)",\s*(.*?)\)\)',
+        mod_text,
+        re.DOTALL,
+    ):
+        label = m.group(1)
+        body = m.group(2)
+        variants = re.findall(r"SettingsSection::(\w+)", body)
+        # Also handle `SettingsSection::ai_subpages()` helpers by looking for the
+        # referenced list function and parsing its body.
+        helper_match = re.search(r"SettingsSection::(\w+_subpages)\(\)", body)
+        if helper_match:
+            helper_name = helper_match.group(1)
+            helper_body_match = re.search(
+                rf"pub fn {re.escape(helper_name)}\(\)[^{{]*\{{(.*?)\}}",
+                mod_text,
+                re.DOTALL,
+            )
+            if helper_body_match:
+                helper_variants = re.findall(
+                    r"Self::(\w+)", helper_body_match.group(1)
+                )
+                variants = helper_variants or variants
+        subpages = [_display(v) for v in variants]
+        if subpages:
+            umbrellas[label] = {
+                "subpages": subpages,
+                "source_file": "app/src/settings_view/mod.rs",
+            }
+    return umbrellas
 
 
 def _extract_settings_sections(warp_internal: Path) -> Dict[str, Any]:
@@ -987,15 +1351,38 @@ def _extract_settings_sections(warp_internal: Path) -> Dict[str, Any]:
         ):
             display_map[m.group(1)] = m.group(2)
 
-    # Map of source files for sub-sections
+    # Map of source files for sub-sections. Includes both the legacy
+    # backing-page variants (`AI`, `Platform`, `Code`) and the new umbrella
+    # subpage variants (`Oz`, `AgentProfiles`, `AgentMCPServers`, `Knowledge`,
+    # `ThirdPartyCLIAgents`, `CodeIndexing`, `EditorAndCodeReview`,
+    # `CloudEnvironments`, `OzCloudAPIKeys`). Variants not listed here fall
+    # through to `mod.rs` and get empty sub_sections, which is fine for simple
+    # top-level pages without their own widget file.
     page_files = {
+        # Legacy backing pages (still exist as internal enum variants).
         "AI": "ai_page.rs",
+        "Platform": "platform_page.rs",
+        "Code": "code_page.rs",
+        # Agents umbrella subpages (all render widgets defined in ai_page.rs).
+        "Oz": "ai_page.rs",
+        "AgentProfiles": "ai_page.rs",
+        "Knowledge": "ai_page.rs",
+        "ThirdPartyCLIAgents": "ai_page.rs",
+        # The standalone MCP servers page is shared between the umbrella
+        # subpage and the legacy top-level MCPServers entry.
+        "AgentMCPServers": "mcp_servers_page.rs",
+        "MCPServers": "mcp_servers_page.rs",
+        # Code umbrella subpages.
+        "CodeIndexing": "code_page.rs",
+        "EditorAndCodeReview": "code_page.rs",
+        # Cloud platform umbrella subpages.
+        "CloudEnvironments": "environments_page.rs",
+        "OzCloudAPIKeys": "platform_page.rs",
+        # Regular top-level pages.
         "Appearance": "appearance_page.rs",
         "Features": "features_page.rs",
         "Warpify": "warpify_page.rs",
-        "Code": "code_page.rs",
         "Privacy": "privacy_page.rs",
-        "Platform": "platform_page.rs",
     }
 
     settings_dir = warp_internal / "app" / "src" / "settings_view"
@@ -1148,6 +1535,194 @@ def generate_report(
 
 
 # ---------------------------------------------------------------------------
+# Self-test
+# ---------------------------------------------------------------------------
+
+_SYNTHETIC_MOD_RS = """
+pub enum SettingsSection {
+    About,
+    Account,
+    MCPServers,
+    BillingAndUsage,
+    Appearance,
+    Features,
+    Keybindings,
+    Privacy,
+    Referrals,
+    SharedBlocks,
+    Teams,
+    WarpDrive,
+    Warpify,
+    AI,
+    Oz,
+    AgentProfiles,
+    AgentMCPServers,
+    Knowledge,
+    ThirdPartyCLIAgents,
+    Code,
+    CodeIndexing,
+    EditorAndCodeReview,
+    CloudEnvironments,
+    OzCloudAPIKeys,
+}
+
+impl Display for SettingsSection {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            SettingsSection::BillingAndUsage => write!(f, "Billing and usage"),
+            SettingsSection::Keybindings => write!(f, "Keyboard shortcuts"),
+            SettingsSection::SharedBlocks => write!(f, "Shared blocks"),
+            SettingsSection::MCPServers => write!(f, "MCP Servers"),
+            SettingsSection::WarpDrive => write!(f, "Warp Drive"),
+            SettingsSection::Oz => write!(f, "Oz"),
+            SettingsSection::AgentProfiles => write!(f, "Profiles"),
+            SettingsSection::AgentMCPServers => write!(f, "MCP servers"),
+            SettingsSection::Knowledge => write!(f, "Knowledge"),
+            SettingsSection::ThirdPartyCLIAgents => write!(f, "Third party CLI agents"),
+            SettingsSection::CodeIndexing => write!(f, "Indexing and projects"),
+            SettingsSection::EditorAndCodeReview => write!(f, "Editor and Code Review"),
+            SettingsSection::CloudEnvironments => write!(f, "Environments"),
+            SettingsSection::OzCloudAPIKeys => write!(f, "Oz Cloud API Keys"),
+            _ => write!(f, "{self:?}"),
+        }
+    }
+}
+
+let mut nav_items = vec![
+    SettingsNavItem::Page(SettingsSection::Account),
+    SettingsNavItem::Umbrella(SettingsUmbrella::new(
+        "Agents",
+        vec![
+            SettingsSection::Oz,
+            SettingsSection::AgentProfiles,
+            SettingsSection::AgentMCPServers,
+            SettingsSection::Knowledge,
+            SettingsSection::ThirdPartyCLIAgents,
+        ],
+    )),
+    SettingsNavItem::Umbrella(SettingsUmbrella::new(
+        "Code",
+        vec![
+            SettingsSection::CodeIndexing,
+            SettingsSection::EditorAndCodeReview,
+        ],
+    )),
+    SettingsNavItem::Umbrella(SettingsUmbrella::new(
+        "Cloud platform",
+        vec![
+            SettingsSection::CloudEnvironments,
+            SettingsSection::OzCloudAPIKeys,
+        ],
+    )),
+];
+"""
+
+
+def _run_self_test(valid_paths_path: Path) -> int:
+    """Lightweight sanity check for the validator. Returns 0 on success, 1 on failure.
+
+    Covers:
+    1. The committed `valid_paths.json` has non-empty `umbrellas` +
+       `deprecated_sections` (would regress silently otherwise).
+    2. `_is_external_path()` no longer suppresses `Settings > MCP Servers` in a
+       sentence containing GitHub / Linear mentions (previous bug).
+    3. `refresh_valid_paths()` preserves umbrellas + deprecated_sections when
+       run against a synthetic warp-internal with the new enum, and populates
+       the new subpage entries.
+    """
+    import textwrap
+
+    failures = []
+
+    # --- 1. Snapshot invariants
+    try:
+        data = load_valid_paths(valid_paths_path)
+    except Exception as e:
+        print(f"FAIL: could not load {valid_paths_path}: {e}")
+        return 1
+
+    if not data.get("umbrellas"):
+        failures.append("valid_paths.json has empty or missing `umbrellas`")
+    if not data.get("deprecated_sections"):
+        failures.append("valid_paths.json has empty or missing `deprecated_sections`")
+
+    # --- 2. _is_external_path regression
+    legit_line = (
+        "Navigate to **Settings** > **MCP Servers** to get started. "
+        "Some integrations (like Linear, GitHub, and Sentry) are available."
+    )
+    if _is_external_path("Settings > MCP Servers", legit_line):
+        failures.append(
+            "_is_external_path() false-positive: "
+            "`Settings > MCP Servers` was suppressed in a GitHub/Linear sentence"
+        )
+    # Also confirm the positive case still works: a GitHub org 'Settings' path
+    # mentioning github on the same line is still suppressed.
+    gh_line = "In GitHub, go to Settings > Secrets and variables to add your token."
+    if not _is_external_path("Settings > Secrets and variables", gh_line):
+        failures.append(
+            "_is_external_path() regression: "
+            "`Settings > Secrets and variables` should still be suppressed"
+        )
+
+    # --- 3. refresh_valid_paths preservation + extraction
+    with tempfile.TemporaryDirectory() as td:
+        wi_root = Path(td) / "warp-internal"
+        mod_rs = wi_root / "app" / "src" / "settings_view" / "mod.rs"
+        mod_rs.parent.mkdir(parents=True)
+        mod_rs.write_text(textwrap.dedent(_SYNTHETIC_MOD_RS))
+
+        # Copy the committed snapshot to a tmp path so we don't clobber it.
+        snap_path = Path(td) / "valid_paths.json"
+        snap_path.write_text(valid_paths_path.read_text())
+
+        refresh_valid_paths(wi_root, snap_path)
+
+        refreshed = load_valid_paths(snap_path)
+
+        if not refreshed.get("umbrellas"):
+            failures.append("refresh dropped `umbrellas`")
+        if not refreshed.get("deprecated_sections"):
+            failures.append("refresh dropped `deprecated_sections`")
+        if "Agents" not in refreshed.get("umbrellas", {}):
+            failures.append("refresh lost the Agents umbrella")
+
+        # The extractor should have picked up the synthetic umbrellas too.
+        extracted = _extract_umbrellas(wi_root)
+        for expected in ("Agents", "Code", "Cloud platform"):
+            if expected not in extracted:
+                failures.append(
+                    f"_extract_umbrellas() did not detect `{expected}` umbrella"
+                )
+
+        # New subpage entries should be present in settings_sections.
+        for expected_subpage in (
+            "Oz",
+            "Profiles",
+            "MCP servers",
+            "Knowledge",
+            "Third party CLI agents",
+            "Indexing and projects",
+            "Editor and Code Review",
+            "Environments",
+            "Oz Cloud API Keys",
+        ):
+            if expected_subpage not in refreshed.get("settings_sections", {}):
+                failures.append(
+                    f"settings_sections missing subpage `{expected_subpage}` after refresh"
+                )
+
+    if failures:
+        print("SELF-TEST FAILED:")
+        for f in failures:
+            print(f"  - {f}")
+        return 1
+
+    print("SELF-TEST PASSED ✅")
+    return 0
+
+
+# ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 
@@ -1173,8 +1748,13 @@ def main() -> int:
     parser.add_argument("--valid-paths", default=str(DEFAULT_VALID_PATHS_FILE), help="Path to valid_paths.json")
     parser.add_argument("--docs-dir", default=str(DEFAULT_DOCS_DIR), help="Path to docs directory")
     parser.add_argument("--output", help="Save results to JSON file")
+    parser.add_argument("--self-test", action="store_true", help="Run internal self-test and exit")
 
     args = parser.parse_args()
+
+    # Self-test short-circuits everything else.
+    if args.self_test:
+        return _run_self_test(Path(args.valid_paths))
 
     # Default to --all if no check flags specified
     if not args.check_paths and not args.check_commands and not args.check_format and not args.refresh_valid_paths:

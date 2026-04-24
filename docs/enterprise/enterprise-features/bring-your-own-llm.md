@@ -42,7 +42,7 @@ Here's the high-level flow:
 
 BYOLLM uses **cloud-native IAM authentication**, not long-lived API keys:
 
-* **Automatic refresh** - Session tokens refresh automatically every ~15 minutes. Users can enable auto-refresh in **Settings** > **AI** > **AWS Bedrock** or when prompted during first credential expiration. With auto-refresh enabled, sessions can run uninterrupted for up to 12 hours (depending on your AWS admin configuration).
+* **Automatic refresh** - Session tokens refresh automatically every ~15 minutes. Users can enable auto-refresh by opening **Settings** and searching for `AWS Bedrock`, or when prompted during first credential expiration. With auto-refresh enabled, sessions can run uninterrupted for up to 12 hours (depending on your AWS admin configuration).
 * **Per-user credentials** - Credentials are not shared across the organization. Your cloud provider's default credential provider chain (e.g., AWS CLI) provisions and refreshes them locally.
 * **No storage or logging** - Warp never stores or logs your cloud session tokens on its servers.
 
@@ -173,7 +173,7 @@ However, when using BYOLLM:
 
 ### Common errors
 
-* **Missing or expired credentials** — Re-authenticate using `aws login`. To avoid interruptions, enable auto-refresh in **Settings** > **AI** > **AWS Bedrock** or when prompted during credential expiration.
+* **Missing or expired credentials** — Re-authenticate using `aws login`. To avoid interruptions, enable auto-refresh by opening **Settings** and searching for `AWS Bedrock`, or when prompted during credential expiration.
 * **Insufficient permissions** — Verify your IAM policy includes the required actions and resources.
 * **Region or model mismatch** — Confirm the model is enabled in your AWS region and that your environment is configured for the correct region.
 * **Provider quota limits** — Check your AWS Bedrock quota and request increases if needed.

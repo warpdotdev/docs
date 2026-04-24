@@ -20,7 +20,7 @@ git clone https://github.com/vercel/next.js.git && cd next.js
 {% endhint %}
 
 1. **Open a project folder in Warp.** Navigate to a Git repository using `cd` or open a folder from the file tree. Warp automatically detects the Git repo and begins indexing.
-2. **Verify indexing status.** In Warp, go to **Settings** > **Code** and check the status under "Initialized / indexed folders." Once the status shows **Synced**, your codebase is ready.
+2. **Verify indexing status.** In Warp, go to **Settings** > **Code** > **Indexing and projects** and check the status under "Initialized / indexed folders." Once the status shows **Synced**, your codebase is ready.
 3. **Ask the Agent a question about your code.** Start an Agent conversation (`⌘+Enter` on macOS, `Ctrl+Shift+Enter` on Windows/Linux) and try a prompt like:
    * "Explain the architecture of this project"
    * "What are the main entry points?"
@@ -52,7 +52,7 @@ Feature requests for support are being tracked in the following GitHub issues: \
 * Initially when you have Codebase Context enabled.
 * Warp automatically triggers a codebase index periodically.
 * Whenever a new Agent conversation begins.
-* When you click on the sync 🔄 button in **Settings** > **Code** menu.
+* When you click on the sync 🔄 button in **Settings** > **Code** > **Indexing and projects**.
 
 **This embeddings index helps Agents:**
 
@@ -63,14 +63,14 @@ Feature requests for support are being tracked in the following GitHub issues: \
 For large projects, indexing may take a few minutes. Agents will not use Codebase Context until indexing is complete, but **agentic coding features remain fully available in the meantime**.
 
 {% hint style="info" %}
-You can view and manage your indexed codebases in **Settings** > **Code** under "Initialized / indexed folders". You can also choose whether to automatically index new folders as you navigate them.
+You can view and manage your indexed codebases in **Settings** > **Code** > **Indexing and projects** under "Initialized / indexed folders". You can also choose whether to automatically index new folders as you navigate them.
 {% endhint %}
 
 {% embed url="https://youtu.be/11rz9OYQ8Hg" %}
 
 ### **Codebase indexing states**
 
-When viewing indexed codebases in Warp under **Settings** > **Code**, you may see different status indicators:
+When viewing indexed codebases in Warp under **Settings** > **Code** > **Indexing and projects**, you may see different status indicators:
 
 * **Synced** — Indexing is complete and the codebase is ready to be used as context.
 * **Discovering files** – Warp is currently scanning and indexing files in the codebase.
@@ -81,7 +81,7 @@ When viewing indexed codebases in Warp under **Settings** > **Code**, you may se
 
 ### When does codebase syncing happen?
 
-Warp automatically triggers a codebase sync initially and periodically, when you click on the sync 🔄 button in **Settings** > **Code** menu, or when you start a new Agent conversation. However, if many files have changed or the network is slow, the sync may not complete before the Agent tries to access context.
+Warp automatically triggers a codebase sync initially and periodically, when you click on the sync 🔄 button in **Settings** > **Code** > **Indexing and projects**, or when you start a new Agent conversation. However, if many files have changed or the network is slow, the sync may not complete before the Agent tries to access context.
 
 {% hint style="info" %}
 In large projects (e.g. after a branch switch), there may be a short delay where the Agent references stale or outdated files.

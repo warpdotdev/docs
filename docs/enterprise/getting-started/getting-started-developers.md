@@ -93,7 +93,7 @@ Codebase Context indexes your Git repositories so agents can understand your cod
 
 First, enable codebase indexing in your settings:
 
-1. Go to **Settings** > **Code** > **Codebase Indexing**.
+1. Go to **Settings** > **Code** > **Indexing and projects**.
 2. Toggle **Enable Codebase Indexing** to turn it on.
 3. Optionally, enable **Index new folders by default** to automatically index repositories as you navigate to them.
 
@@ -132,7 +132,7 @@ Agent Profiles let you configure how Warp's built-in Oz agents behave. Profiles 
 
 **Creating an Agent Profile:**
 
-1. Go to **Settings** > **Agent** > **Agent Profiles**.
+1. Go to **Settings** > **Agents** > **Profiles**.
 2. Click **New Profile**.
 3. Configure:
    * **Name and description**
@@ -188,7 +188,7 @@ MCP connects Warp's agents to external tools and services for enhanced context.
 
 **Configuring MCP servers:**
 
-1. Go to **Settings** > **MCP Servers** or access via Warp Drive.
+1. Go to **Settings** > **Agents** > **MCP servers** or access via Warp Drive.
 2. Browse the library of available MCP servers:
    * **Linear** - Access issues and project context
    * **Sentry** - Pull error tracking and stack trace information

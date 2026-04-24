@@ -18,10 +18,10 @@ This page covers MCP servers for local agents in the Warp desktop app. If you're
 
 You can navigate to the MCP servers page in any of the following ways:
 
-* From the [Settings Page](warp://settings/mcp): **Settings** > **MCP Servers**
+* From the [Settings Page](warp://settings/mcp): **Settings** > **Agents** > **MCP servers**
 * From [Warp Drive](https://docs.warp.dev/knowledge-and-collaboration/warp-drive): under **Personal** > **MCP Servers**
 * From the [Command Palette](https://docs.warp.dev/terminal/command-palette): search for `Open MCP Servers`
-* From the AI settings tab: **Settings** > **AI** > **Manage MCP servers**
+* From the Oz settings page: **Settings** > **Agents** > **Oz** > **Manage MCP servers**
 
 This will show a list of all configured MCP servers, including which are currently running. If you close Warp with an MCP server running, it will run again on next start of Warp. MCP servers that are stopped will remain so on next launch of Warp.
 
@@ -98,7 +98,7 @@ To add a multiple MCP servers, you can click the **+ Add** button then paste in 
 
 Warp detects MCP server configurations managed by supported third-party agents and can automatically spawn them alongside your manually configured servers.
 
-To enable, go to **Settings** > **AI** > **MCP Servers** and toggle **File-based MCP Servers** on.
+To enable, go to **Settings** > **Agents** > **MCP servers** and toggle **File-based MCP Servers** on.
 
 <figure><img src="../.gitbook/assets/file-based-mcp-toggle.gif" alt=""><figcaption><p>File-based MCP Servers toggle</p></figcaption></figure>
 
