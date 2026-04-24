@@ -85,6 +85,12 @@ In the previous UI, agent controls were always present. With Terminal and Agent 
 Agent conversation views are identified with an alternative background color and the input toolbelt showing model selector, voice input, and image attachment buttons.
 {% endhint %}
 
+#### Customizing the input toolbelt
+
+The chips and buttons on the agent input toolbelt can be reordered, hidden, or moved between the left and right sides of the input. Right-click the input in an agent conversation and select **Edit agent toolbelt** to open the editor. Your layout persists across app restarts.
+
+Agent Mode-specific items include the model selector, autodetection toggle, Context Usage, and fast forward toggle. Shared items like voice input, file attachment, and context chips appear in both the Agent Mode toolbelt and the [CLI coding agent toolbelt](../../cli-agents/overview.md#customizing-the-toolbelt).
+
 **Block origin and visibility**
 
 Blocks in Warp belong to either the terminal view or a specific agent conversation:

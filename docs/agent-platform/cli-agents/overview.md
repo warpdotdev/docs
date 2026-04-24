@@ -47,6 +47,15 @@ Not every feature is available for every agent. The table below shows current su
 Agent notifications require a one-time setup. Claude Code and OpenCode use a Warp notification plugin. Codex uses a native config change. See the individual agent pages for setup instructions. Amp, Auggie, Copilot CLI, Cursor, Gemini CLI, Droid, and Pi don't support notifications yet.
 {% endhint %}
 
+## Customizing the toolbelt
+
+The chips and buttons on the CLI agent toolbelt can be reordered, hidden, or moved between the left and right sides. Your layout is saved and persists across app restarts.
+
+In the Warp app, open the **Edit CLI agent toolbelt** modal in one of two ways:
+
+* Right-click the input area while a supported CLI coding agent is running and select **Edit CLI agent toolbelt**.
+* Go to **Settings** > **AI** > **Coding Agents**, then click the **Toolbar layout** preview under **Third party CLI agents**.
+
 ## Getting started
 
 Run a supported agent inside Warp — that's it. Warp detects the agent automatically and activates the agent toolbelt with all available features.
