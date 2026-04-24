@@ -32,7 +32,7 @@ You can view your total credit usage, along with other billing details, in **Set
 
 * **Seat-level allocation**: On team plans, credit limits apply per seat — each team member has their own allowance. Individual users (not on a team) also have their own credit allocation.
 * **Cloud Agent Credits**: Individual users can run cloud agents via CLI/API using their normal Warp credits, [Cloud Agent Credits](credits.md#cloud-agent-credits), or a Build plan with available credits. Integrations (Slack, Linear) require team membership.
-* **Hitting the credit limits**: Once you hit your monthly credit limit, your access will depend on your plan. On the Free plan, AI access stops until your next billing cycle. On paid plans with Add-on credits, you can continue using AI with [**usage-based billing**](add-on-credits.md), charged per extra credit.
+* **Hitting the credit limits**: Once you hit your monthly credit limit, your access will depend on your plan. On the Free plan, AI access stops until your next billing cycle. On paid plans, you can continue using AI with usage-based billing via [Add-on Credits](add-on-credits.md).
 
 #### **Other features that use credits**
 

@@ -98,14 +98,10 @@ For example, if your plan includes 1,500 credits per team member:
 
 ### Plan changes and cancellations
 
-If you upgrade, downgrade, or switch plans, any purchased Add-on Credits remain in your account and can continue to be used.
+Any purchased Add-on Credits remain in your account and can continue to be used for up to 12 months after purchase, as long as you have an active subscription.
 
-If you move to the Free plan, you’ll retain access to any previously purchased Add-on Credits and be able to use them, as long as telemetry is enabled, but can’t buy additional ones until you upgrade again.
-
-{% hint style="warning" %}
-You won't be able to use the remaining Add-on Credits with telemetry disabled since we aren't able to properly track credit usage. See more on the telemetry settings in our [Privacy page](../privacy-and-security/privacy.md).
-{% endhint %}
+If you move to the Free plan, you'll lose access to any previously purchased Add-on Credits and won't be able to use them. You also can't buy additional Add-on Credits until you're subscribed again.
 
 {% hint style="info" %}
-All unused Add-on Credits remain valid for 12 months from purchase.&#x20;
+All unused Add-on Credits remain valid for 12 months from purchase, as long as you have an active subscription.&#x20;
 {% endhint %}
