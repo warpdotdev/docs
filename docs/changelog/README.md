@@ -25,6 +25,67 @@ metaLinks: {}
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2026.04.22 (v0.2026.04.22.08.46)
+
+**New features**
+
+* Toolbar chips can now be re-arranged by right clicking anywhere in the top bar and selecting "re-arrange toolbar items".
+* Mermaid diagrams now render in markdown notebooks.
+
+**Improvements**
+
+* Added support for pasting images into the rich input editor with CLI agents, such as Claude Code or Codex.
+* Typing `_text_` or `__text__` in a code review or rich-text comment now coerces to italic/bold, matching the existing `*text*`/`**text**` behavior.
+* \[Windows] Added a "Start Warp at login" toggle under **Settings** > **Features** > **General** that registers Warp to launch automatically when you sign in to Windows.
+* Add View menu entries (with keyboard shortcuts) for the Global Search and Agent Conversations left panel items on macOS.
+* \[Windows] Added 408 new PowerShell cmdlet completions and improved suggestion quality for existing PowerShell completions.
+* Added completions for `pprof`.
+* `/fork` now opens the forked conversation in a new pane with Enter and in a new tab with Cmd+Enter.
+* Right-click a URL or file-path link inside an AI response to copy it directly from the context menu.
+* Added a setting to hide the lines added/removed counts from the code review button in the tab bar.
+* Reorganized some settings into subpages for Agents, Code, and Cloud platform and improved settings search.
+* Wired branch completion into `git log` argument position.
+* Added notifications for OpenCode's "Ask user question" tool.
+* Show discount chip on models with active promotions in the model picker.
+* Per-query image limit bumped to 20 (from 5) and per-conversation image limits bumped to 200 (from 20).
+* Performance improvement preventing lagginess after logging in when you have many Warp Drive objects.
+* Added support for file artifacts in agent conversations with download functionality and filtering options.
+
+**Bug fixes**
+
+* \[Windows] Fixed image paste into CLI coding agents (Claude Code, OpenCode, etc.).
+* Fixed MCP server tags overflowing off-screen when a server has many chips (e.g. GitHub MCP with many repo scopes).
+* Fixed MCP gallery items not being alphabetized consistently in the MCP servers settings page.
+* Fixed artifacts card clipping the "Continue locally" button on narrow panes.
+* Fixed code review submit button being incorrectly disabled when the terminal's working directory casing didn't match the on-disk repo path on macOS.
+* Fixed new accounts not being marked as onboarded on the server when signing up after completing the onboarding slides from a non-login-slide entrypoint.
+* Fixed Project Explorer getting stuck in loading state when opened after connecting to a remote SSH session.
+* Fixed a bug where the agent's `read_files` tool returned extensionless text files (such as shell scripts) as binary content.
+* Fixed MCP settings page file-based server badges growing unbounded and incorrectly labelling Warp-scoped servers as ".warp" instead of "global".
+* Fixed missing in-progress indicator in agent panes when a shell command is running but no agent message has been sent yet.
+* Fixed MCP OAuth authentication failing with providers that enforce strict redirect URI matching (e.g. Hydra/ORY).
+* Fixed MCP tool calls with integer-typed parameters failing due to being serialized as floats.
+* Fixed file edit tool dropping the end of a line when the LLM's search block ended with a partial line match.
+* First find match now gets correctly selected when using the code editor with vim mode.
+* Fixed code review comments being silently dropped when sent after cancelling a running agent command with Ctrl+C.
+* Toolbar chips in the coding agent footer are no longer hard to read when running alt-screen CLI agents like OpenCode.
+* Fixed MCP servers (e.g. Figma) requiring re-authentication on every app restart.
+* \[Windows] Fixed a race condition that caused auto-updates to fail with file-in-use errors when Warp hadn't fully exited before the installer ran.
+* Improving reliability of Rich Input submission flow for Copilot CLI.
+* \[Windows] Fixed unbounded memory growth when rendering large amounts of CJK text with a primary font that does not include CJK glyphs.
+* Fixed settings search bar text overflowing when typing long queries.
+* Fixed Oz CLI hanging after command completes when the network is unavailable.
+* Fixed Ctrl+C not terminating the Oz CLI during shutdown.
+* Fixed `~` (tilde) not being expanded to the home directory in the `/open-file` slash command.
+* Fixed orchestration events breaking tool call ordering when a CLI subagent is active.
+
+**Oz updates**
+
+* Added a bundled Claude API skill for Claude API and Anthropic SDK development guidance.
+* Added support for `--share public:{access_level}` to oz CLI to set public access level on oz cloud runs.
+* `/feedback` skill now labels created issues with in-app-feedback for tracking.
+* `start_agent` no longer refuses remote child agents when `environment_id` is omitted; within a remote parent, the child inherits the parent's environment automatically.
+
 ### 2026.04.15 (v0.2026.04.15.08.45)
 
 **Improvements**

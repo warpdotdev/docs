@@ -63,7 +63,7 @@ Deletion jobs run every 24 hours, so if you deleted your account and want to sig
 If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admin, the deletion flow will require that you assign a team member as the new admin.
 {% endhint %}
 
-### Exhaustive telemetry table
+### Exhaustive Telemetry Table
 
 | Event Name | Description |
 |---|---|
@@ -136,7 +136,7 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `AgentMode.Code.SuggestedEditAcceptClicked` | User selected Accept for a code diff suggestion in Agent Mode |
 | `AgentMode.Code.SuggestedEditReceived` | Agent Mode suggested a code edit |
 | `AgentMode.Code.SuggestedEditResolved` | Agent Mode pending code edit suggestion resolved |
-| `AgentMode.CreatedAIBlock` | Created an AI block in Agent Mode |
+| `AgentMode.CreatedAIBlock` | Created an AI block in agent mode |
 | `AgentMode.Error` | Received an error when getting Agent Mode response |
 | `AgentMode.ExecutedWarpDrivePrompt` | Executed a saved prompt. |
 | `AgentMode.ExitedShellProcess` | An agent-requested command caused the shell process to exit |
@@ -145,7 +145,8 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `AgentMode.Grep.Failed` | The grep tool failed to complete |
 | `AgentMode.Grep.Succeeded` | The grep tool completed successfully |
 | `AgentMode.NaturalLanguageDetection.InputBufferSubmitted` | Input buffer submitted |
-| `AgentMode.OpenedCitation` | Opened a citation that was surfaced in Agent Mode |
+| `AgentMode.OpenedCitation` | Opened a citation that was surfaced in agent mode |
+| `AgentMode.Orchestration.TeamAgentCommunicationFailed` | Failed to send an orchestration message or lifecycle event for a TeamAgent |
 | `AgentMode.PotentialAutoDetectionFalsePositive` | Manually toggled input to shell mode after input was auto-detected as natural language. |
 | `AgentMode.QueryAttemptAtLImit` | Tried to send an Agent Mode query but they already reached the query limit |
 | `AgentMode.RequestRetrySucceeded` | Agent Mode request succeeded after retrying following an initial error |
@@ -287,8 +288,8 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `CodexModal.UseCodexClicked` | User clicked 'Use Codex' in the Codex modal |
 | `Command Correction Event` | Accepted command correction |
 | `Command File Run` | Opened a .cmd or unix executable file and ran it directly in Warp |
-| `Command Palette Search Accepted` | Accepted a Command Palette search result |
-| `Command Palette Search Exited` | Exited Command Palette search without accepting a result |
+| `Command Palette Search Accepted` | Accepted a command palette search result |
+| `Command Palette Search Exited` | Exited command palette search without accepting a result |
 | `Command Search Async Query Completed` | Finished searching for a command in the background |
 | `Command Search Exited` | Exited command search (universal search panel to search) without accepting a result |
 | `Command Search Filter Changed` | Changed command search filter |
@@ -460,6 +461,13 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `Quit Modal Shown` | Showed an alert modal to warn the user about closing the app/window with a running process |
 | `Received Subshell RC File DCS` | Spawned a subshell to be automatically Warpified |
 | `Recent Menu Item Selected` | User selected an item from the recents list on the new tab zero state |
+| `RemoteServer.BinaryCheck` | Remote server binary check completed (found, not found, or error) |
+| `RemoteServer.ClientRequestError` | A client request to the remote server failed |
+| `RemoteServer.Disconnection` | An established remote server connection was dropped |
+| `RemoteServer.Initialization` | Remote server connection and initialization completed (success or failure) |
+| `RemoteServer.Installation` | Remote server binary installation completed (success or failure) |
+| `RemoteServer.MessageDecodingError` | A server message could not be decoded (no parseable request_id) |
+| `RemoteServer.SetupDuration` | End-to-end duration of the remote server setup flow |
 | `Remove Added Subshell Command` | Removed a command from the list of commands to automatically Warpify via Warp's subshell wrapper |
 | `Remove Denylisted SSH Tmux Wrapper Host` | Removed an SSH host from the denylist from prompting for Tmux Wrapper |
 | `Remove Denylisted Subshell Command` | Removed a command from the list of commands to IGNORE when trying to Warpify via Warp's subshell wrapper |
@@ -476,6 +484,7 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `SSH Install Tmux Block Dismissed` | User dismissed an ssh install tmux block |
 | `SSH Install Tmux Block Displayed` | Displayed an ssh install tmux block |
 | `SSH Interactive Session Detected` | An interactive SSH session was detected |
+| `SSH Remote Server Choice Do Not Ask Again Toggled` | Toggled the 'Don't ask me this again' checkbox on the SSH remote-server choice block |
 | `SSH Tmux Warpification Error Block` | Ssh tmux warpification errored out |
 | `SSH Tmux Warpification Succeeded` | Ssh tmux warpification succeeded |
 | `SSH Tmux Warpify Block Accepted` | User accepted an ssh tmux warpify block |
@@ -490,6 +499,7 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `Session Abandoned Before Bootstrap` | Abandoned session before the bootstrapping completes |
 | `Set Line Height` | Set line height through Settings -> Appearance |
 | `Set New Windows at Custom Size` | Set new windows at custom size through Settings -> Appearance |
+| `Set SSH Extension Install Mode` | Changed the SSH extension install mode (always ask / always allow / always skip) |
 | `Set Window Blur Radius` | Changed the blur radius from the `Settings -> Appearance` dialog |
 | `Set Window Opacity` | Changed the opacity (window transparency) from the `Settings -> Appearance` dialog |
 | `Settings Import Initiated` | Started the import settings flow for new users |
@@ -532,7 +542,7 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `Thin Strokes Setting Changed` | Changed thin strokes setting in settings -> Appearance |
 | `Tier Limit Hit` | User hit the tier limit for a feature |
 | `Toggle Active AI Enablement` | Toggled active AI enablement. |
-| `Toggle Agent Mode Codebase Context` | Toggled on/off the enablement of Codebase Context usage for Agent Mode. |
+| `Toggle Agent Mode Codebase Context` | Toggled on/off the enablement of codebase context usage for Agent Mode. |
 | `Toggle Agent Mode Query Suggestions Setting` | Toggled on/off the prompt suggestions setting |
 | `Toggle Approvals Modal` | Opened or closed teams modal |
 | `Toggle Block Filter Case Sensitivity` | Toggled on/off case sensitivity within the block filter editor |
@@ -540,9 +550,10 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `Toggle Block Filter Query` | Toggled on/off a block filter query |
 | `Toggle Block Filter Regex` | Toggled on/off regex within the block filter editor |
 | `Toggle Code Suggestions Setting` | Toggled on/off the code suggestions setting |
-| `Toggle Codebase Context Autoindexing` | Toggled on/off the enablement of autoindexing for Codebase Context. |
+| `Toggle Codebase Context Autoindexing` | Toggled on/off the enablement of autoindexing for codebase context. |
 | `Toggle Dim Inactive Panes` | Whether the dim inactive panes feature has been toggled |
 | `Toggle Focus Pane On Hover` | Toggled on/off focus pane on hover feature, which causes panes to automatically focus when hovering over them |
+| `Toggle Git Operations Autogen Setting` | Toggled on/off the git operations autogen setting |
 | `Toggle Global AI Enablement` | Toggled global AI enablement. |
 | `Toggle Intelligent Autosuggestions Setting` | Toggled on/off the intelligent autosuggestions setting |
 | `Toggle Jump to Bottom of Block Button` | Enabled or disabled the Jump to Bottom of Block Button |
@@ -557,7 +568,7 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `Toggle Secret Redaction` | Toggled on/off the setting for Secret Redaction - attempts to redact secrets and sensitive information |
 | `Toggle Settings Sync` | Toggle Settings Sync |
 | `Toggle SharedBlock Title Generation` | Toggled on/off the shared block title generation setting |
-| `Toggle Show Agent Tips` | Toggled the Show Agent Tips setting in the Agents > Oz settings page |
+| `Toggle Show Agent Tips` | Toggled the Show Agent Tips setting in AI settings |
 | `Toggle Show Block Dividers` | Enabled or disabled the Show Block Dividers Button |
 | `Toggle Sticky Command Header in Active Pane` | Expanded or collapsed the sticky command header in the active pane |
 | `Toggle Sync Inputs Across All Panes in All Tabs` | Enable the synchronization of the Input Editor's buffer to all the panes in all the tabs |
@@ -579,8 +590,6 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `Update Tab Close Button Position` | Updated the tab close button position |
 | `Updated Alt Screen Padding Mode` | Updated the custom padding setting for the alt-screen |
 | `Updated Sorting Choice` | Modified the sorting scheme for Warp Drive objects |
-| `Upgrade To Pro Modal CTA Clicked` | User clicked the CTA button in the UpgradeToProModal |
-| `Upgrade To Pro Modal Dismissed` | User dismissed the UpgradeToProModal |
 | `UseAgentToolbar.SettingToggled` | User toggled the Use Agent footer setting |
 | `Used Warp AI Prepared Prompt` | Used one of the Warp-provided prompts, like "Show examples" |
 | `User Initiated Closing Something` | Attempted to either quit the app or close a window |
@@ -619,6 +628,7 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `onboarding_slide_viewed` | User viewed a slide in the onboarding flow |
 | `onboarding_slides_completed` | User completed the onboarding slides |
 | `onboarding_started` | User started the onboarding flow |
+| `onboarding_welcome_login_clicked` | User clicked the Log in link on the welcome/intro slide |
 | `perf_metrics.memory_usage_high` | Total application memory usage exceeded a significant threshold |
 | `perf_metrics.resource_usage` | Periodic report on application resource usage statistics |
 | `revenue.AutoReloadModalClosed` | User closed the auto-reload modal (either dismissed or enabled auto-reload) |
