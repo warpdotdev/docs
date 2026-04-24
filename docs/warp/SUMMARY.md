@@ -42,6 +42,7 @@
   * [Vertical Tabs](terminal/windows/vertical-tabs.md)
   * [Split panes](terminal/windows/split-panes.md)
   * [Tab Configs](terminal/windows/tab-configs.md)
+  * [Configurable toolbar](terminal/windows/configurable-toolbar.md)
   * [Global hotkey](terminal/windows/global-hotkey.md)
   * [Launch Configurations (Legacy)](terminal/sessions/launch-configurations.md)
 * [Sessions](terminal/sessions/README.md)

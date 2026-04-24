@@ -134,6 +134,7 @@ InlineRepoMenu -> docs/agent-platform/warp-agents/codebase-context.md
 InlineHistoryMenu -> docs/agent-platform/warp-agents/interacting-with-agents/terminal-and-agent-modes.md
 SkillArguments -> docs/agent-platform/warp-agents/skills.md
 AgentToolbarEditor -> docs/agent-platform/cli-agents/overview.md
+ConfigurableToolbar -> docs/warp/terminal/windows/configurable-toolbar.md
 
 ## CLI commands -> doc pages
 

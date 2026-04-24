@@ -72,6 +72,8 @@ Click the settings icon (sliders) in the control bar at the top of the vertical 
 
 When vertical tabs are enabled, configure their appearance and behavior from the settings popup (click the sliders icon in the control bar) or from **Settings** > **Appearance** > **Tabs**.
 
+You can also rearrange the panel toggle buttons at the top of the Warp window — including the tabs panel, tools panel, agent management, code review, and notifications mailbox — and move them between the left and right sides of the header. See [Configurable toolbar](configurable-toolbar.md) for details.
+
 | Setting | Availability | Options | Default |
 |---|---|---|---|
 | **View as** | Always | **Panes** — each split pane gets its own row. **Tabs** — only the focused pane per tab is shown. | Panes |
