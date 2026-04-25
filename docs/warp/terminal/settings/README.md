@@ -1,7 +1,7 @@
 ---
 description: >-
-  Configure Warp by editing a plain-text TOML settings file. Learn where the
-  file lives, how it works with the Settings panel, and see common configuration
+  Configure Warp with a plain-text TOML settings file. Learn where it lives,
+  how it works with the Settings panel, and see common configuration
   examples.
 ---
 

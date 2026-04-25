@@ -1,8 +1,10 @@
 ---
 description: >-
   The vertical tabs panel replaces Warp's horizontal tab bar with a sidebar
-  that shows rich metadata, drag-and-drop management, and display options
-  for every tab and pane.
+  The vertical tabs panel replaces the horizontal tab bar with a sidebar
+  showing rich metadata, drag-and-drop management, and display options for
+  tabs and panes.
+  and panes.
 ---
 
 # Vertical tabs
