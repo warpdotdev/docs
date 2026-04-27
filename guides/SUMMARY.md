@@ -34,6 +34,7 @@
 * [Use Agent Profiles Efficiently](developer-workflows/power-user/how-to-use-agent-profiles-efficiently.md)
 * [Create Reusable Rules for Your Team](how-warp-uses-warp/creating-rules-for-agents.md)
 * [Trigger Reusable Actions with Saved Prompts](developer-workflows/beginner/trigger-reusable-actions-with-saved-prompts.md)
+* [Set Up Self-Serve Data Analytics with Skills](developer-workflows/power-user/how-to-set-up-self-serve-data-analytics-with-skills.md)
 * [Sync Your Monorepos](developer-workflows/power-user/how-to-sync-your-monorepos.md)
 
 ## External tools & integrations
