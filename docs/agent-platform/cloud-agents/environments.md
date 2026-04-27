@@ -32,7 +32,7 @@ Environments define _how_ an agent runs, not _what_ it does. They're required fo
 
 An environment typically includes:
 
-* **Docker image (required)** – The toolchain and runtime the agent runs with. For self-hosted Kubernetes workers, a [`default_image`](managed-worker-reference.md#kubernetes-backend) on the worker lets you skip creating an environment entirely.
+* **Docker image (required)** – The toolchain and runtime the agent runs with. For self-hosted Kubernetes workers, a [`default_image`](self-hosting/managed-kubernetes.md) on the worker lets you skip creating an environment entirely.
 * **Repository/workspace** – One or more repos the agent can clone and operate on.
 * **Setup commands** – Commands to prepare the workspace (e.g., dependency install, builds, bootstrapping).
 
@@ -75,7 +75,7 @@ While environments define _how_ an agent runs, hosts determine _where_ the envir
 Host options:
 
 * **Warp-hosted (default)** – Warp provides the infrastructure. Best for most users who want hands-off execution.
-* **[Self-hosted](self-hosting.md)** – You provide the infrastructure (runners in your cloud or network). Best for compliance requirements, on-premise execution, or custom hardware needs.
+* **[Self-hosted](self-hosting/README.md)** – You provide the infrastructure (runners in your cloud or network). Best for compliance requirements, on-premise execution, or custom hardware needs.
 * Local (coming soon) – Run environments on your local machine for sandbox development and testing.
 
 The same environment can run on different hosts with identical behavior. For more details on hosting options, see [Deployment Patterns](deployment-patterns.md) and [execution hosts](platform.md#execution-hosts).

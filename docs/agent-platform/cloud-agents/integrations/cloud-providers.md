@@ -320,7 +320,7 @@ The following claims are derived from an Oz agent run:
 * `environment`: the unique identifier for the agent's [Environment](../environments.md).
 * `agent_name`: the name of the [Skill](../skills-as-agents.md) that the agent was invoked with.
 * `skill_spec`: the canonical identifier for the skill, such as `github-org/github-repo:.warp/skills/skill-name/SKILL.md`.
-* `host`: the execution host. This will either be `warp`, for Warp-hosted agents, or the worker ID if [self-hosting](../self-hosting.md).
+* `host`: the execution host. This will either be `warp`, for Warp-hosted agents, or the worker ID if [self-hosting](../self-hosting/README.md).
 
 ### Example token
 

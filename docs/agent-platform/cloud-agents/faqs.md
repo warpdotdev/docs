@@ -55,7 +55,7 @@ Yes. Cloud agent runs execute in a full Linux environment and behave like a loca
 
 The cloud agents platform supports self-hosting the **agent sandbox** (the execution environment) on your own infrastructure. The **control plane**—which handles orchestration, tracking, and auditability—remains Warp-managed and is not self-hosted.
 
-Self-hosted execution is available on **Enterprise** plans. See [Self-Hosting](self-hosting.md) and [Deployment Patterns](deployment-patterns.md) for details.
+Self-hosted execution is available on **Enterprise** plans. See [Self-Hosting](self-hosting/README.md) and [Deployment Patterns](deployment-patterns.md) for details.
 
 {% hint style="info" %}
 [Bring Your Own Key (BYOK)](https://docs.warp.dev/support-and-community/plans-and-billing/bring-your-own-api-key) does not apply to cloud agents. BYOK keys are stored locally on your device and cannot be passed to cloud-hosted or self-hosted agent runs. All cloud agent runs consume [Warp credits](https://docs.warp.dev/support-and-community/plans-and-billing/credits).
@@ -201,11 +201,11 @@ With self-hosting, repositories are cloned and stored only on your infrastructur
 * **Execution plane (your infrastructure)** — Repository clones, build artifacts, runtime secrets, and container filesystem state stay on the machines you control.
 * **Control plane (Warp-hosted)** — Session transcripts (which include code context from agent interactions), orchestration metadata, and LLM inference route through Warp's backend under [Zero Data Retention (ZDR)](https://docs.warp.dev/enterprise/security-and-compliance/security-overview#zero-data-retention-zdr) agreements. Warp does not persistently store your source code or use it for model training.
 
-See [Self-Hosting](self-hosting.md) for deployment options and [Security Overview](https://docs.warp.dev/enterprise/security-and-compliance/security-overview) for full details.
+See [Self-Hosting](self-hosting/README.md) for deployment options and [Security Overview](https://docs.warp.dev/enterprise/security-and-compliance/security-overview) for full details.
 
 ### Can I use `oz agent run` in CI or existing runners?
 
-Yes. The [unmanaged architecture](self-hosting.md#unmanaged-architecture) is designed exactly for this. Run `oz agent run` in any environment where you can execute a CLI command — GitHub Actions, Jenkins, Buildkite, Kubernetes pods, or custom orchestrators. This is how the [`warpdotdev/oz-agent-action`](https://github.com/warpdotdev/oz-agent-action) GitHub Action works. The agent runs locally on the runner and its session is tracked on Warp's backend for observability.
+Yes. The [unmanaged architecture](self-hosting/unmanaged.md) is designed exactly for this. Run `oz agent run` in any environment where you can execute a CLI command — GitHub Actions, Jenkins, Buildkite, Kubernetes pods, or custom orchestrators. This is how the [`warpdotdev/oz-agent-action`](https://github.com/warpdotdev/oz-agent-action) GitHub Action works. The agent runs locally on the runner and its session is tracked on Warp's backend for observability.
 
 ### Can self-hosted agents access services behind a VPN?
 
@@ -213,7 +213,7 @@ Yes. Since self-hosted agents run on your infrastructure, they inherit your netw
 
 ### Does self-hosting work with GitLab or other non-GitHub SCMs?
 
-Self-hosted agents can use any SCM accessible from your infrastructure. With the [unmanaged architecture](self-hosting.md#unmanaged-architecture), agents run directly on your host and use whatever Git configuration and SCM access is already available. With the [managed architecture](self-hosting.md#managed-architecture), automatic environment setup currently focuses on GitHub, but you can configure access to other SCMs via volume mounts, environment variables, setup commands, or Kubernetes Secrets (when using the [Kubernetes backend](managed-worker-reference.md#kubernetes-backend)). See the [GitLab](integrations/gitlab.md) and [Bitbucket](integrations/bitbucket.md) setup guides for step-by-step instructions.
+Self-hosted agents can use any SCM accessible from your infrastructure. With the [unmanaged architecture](self-hosting/unmanaged.md), agents run directly on your host and use whatever Git configuration and SCM access is already available. With the [managed architecture](self-hosting/README.md#managed-architecture), automatic environment setup currently focuses on GitHub, but you can configure access to other SCMs via volume mounts, environment variables, setup commands, or Kubernetes Secrets (when using the [Kubernetes backend](self-hosting/managed-kubernetes.md)). See the [GitLab](integrations/gitlab.md) and [Bitbucket](integrations/bitbucket.md) setup guides for step-by-step instructions.
 
 ### Do LLM requests still go through Warp with self-hosting?
 
@@ -221,10 +221,10 @@ Yes. LLM inference routes through Warp's backend, which has [Zero Data Retention
 
 ### What about large monorepos with long environment setup times?
 
-The [unmanaged architecture](self-hosting.md#unmanaged-architecture) is well-suited for large monorepos because agents run directly in your pre-provisioned environment — there is no Docker image build or repo cloning step. For the [managed architecture](self-hosting.md#managed-architecture), the Docker backend supports volume mounts (`-v` flag) to mount a pre-existing repo checkout from the host into task containers. With the Kubernetes backend, use `pod_template` to configure persistent volume claims or pre-populated storage for the same purpose.
+The [unmanaged architecture](self-hosting/unmanaged.md) is well-suited for large monorepos because agents run directly in your pre-provisioned environment — there is no Docker image build or repo cloning step. For the [managed architecture](self-hosting/README.md#managed-architecture), the Docker backend supports volume mounts (`-v` flag) to mount a pre-existing repo checkout from the host into task containers. With the Kubernetes backend, use `pod_template` to configure persistent volume claims or pre-populated storage for the same purpose.
 
 {% hint style="info" %}
-The managed architecture supports three execution backends: **Docker** (default), **Kubernetes**, and **Direct** (no container runtime). The Kubernetes backend runs each task as a Kubernetes Job and includes a Helm chart for deployment. See [Self-Hosting](self-hosting.md#choosing-a-managed-backend) for details on choosing a backend.
+The managed architecture supports three execution backends: **Docker** (default), **Kubernetes**, and **Direct** (no container runtime). The Kubernetes backend runs each task as a Kubernetes Job and includes a Helm chart for deployment. See [Self-Hosting](self-hosting/README.md#choosing-a-managed-backend) for details on choosing a backend.
 {% endhint %}
 
 ### Do Kubernetes pods provide enough sandboxing for self-hosted agents?

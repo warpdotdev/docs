@@ -116,45 +116,21 @@ If a task is naturally divisible:
 
 ### Pattern 3: Self-hosted execution
 
-Use this when you need to control where agent execution happens while still using Oz orchestration and visibility. Repositories are cloned and stored only on your infrastructure. Orchestration metadata, session transcripts, and LLM inference route through Warp's backend under [ZDR](https://docs.warp.dev/enterprise/security-and-compliance/security-overview#zero-data-retention-zdr).
+Use this when you need to control where agent execution happens while still using Oz orchestration and visibility. Repositories are cloned and stored only on your infrastructure; orchestration metadata, session transcripts, and LLM inference route through Warp's backend under [ZDR](https://docs.warp.dev/enterprise/security-and-compliance/security-overview#zero-data-retention-zdr).
 
 {% hint style="info" %}
 **Enterprise feature**: Self-hosted execution is available exclusively to teams on an Enterprise plan.
 {% endhint %}
 
-Self-hosting supports two deployment modes:
+Self-hosting has two architectures that differ on **who orchestrates agent runs** (both keep code and execution on your infrastructure):
 
-* **Managed** — Run the `oz-agent-worker` daemon. Oz orchestrates agents remotely, starting them in isolated Docker containers, Kubernetes Jobs, or directly on the host. Works like a [GitHub self-hosted runner](https://docs.github.com/en/actions/hosting-your-own-runners).
-* **Unmanaged** — Use `oz agent run` in your existing CI, Kubernetes, or dev environment. You control orchestration; Warp provides tracking.
+* **[Managed](self-hosting/README.md#managed-architecture)** — Oz orchestrates. You run the `oz-agent-worker` daemon; Oz routes runs to it from Slack, Linear, schedules, the API, or `oz agent run-cloud`. Tasks execute in Docker containers, Kubernetes Jobs, or directly on the host.
+* **[Unmanaged](self-hosting/unmanaged.md)** — You orchestrate. Invoke `oz agent run` directly from your CI, Kubernetes, or dev environment. Warp provides session tracking and observability; it does not start or stop agents.
 
-#### Managed architecture
+Why teams choose self-hosted execution:
 
-* **Trigger**: integrations (Slack, Linear), schedules, CLI (`oz agent run-cloud`), API/SDK
-* **Orchestration**: Oz orchestrator
-* **Execution**: your infrastructure, running the `oz-agent-worker` daemon with Docker, Kubernetes, or the Direct backend
-* **Visibility**: same Oz dashboard, session sharing, and APIs as Oz-hosted
+* Code and execution must stay within your network boundary for compliance or security requirements.
+* Agents need to access services behind a VPN or self-hosted SCMs like GitLab or Bitbucket. Warp-hosted agents can also access GitLab and Bitbucket over the public internet — see the [GitLab](integrations/gitlab.md) and [Bitbucket](integrations/bitbucket.md) setup guides.
+* Your environments (multi-service stacks, heavy resource requirements) don't fit in a single Docker container.
 
-#### Unmanaged architecture
-
-* **Trigger**: your existing system (CI, Kubernetes, scripts, internal orchestrators)
-* **Orchestration**: your system
-* **Execution**: anywhere `oz agent run` can execute (Linux, macOS, Windows)
-* **Visibility**: tracked sessions, session sharing, and APIs
-
-#### Why teams choose it
-
-* You need code and execution to stay within your network boundary.
-* You have compliance or security requirements that prevent using Warp-hosted compute.
-* You need agents to access services behind a VPN or self-hosted SCMs like GitLab or Bitbucket. Warp-hosted agents can also access GitLab and Bitbucket repositories over the public internet — see the [GitLab](integrations/gitlab.md) and [Bitbucket](integrations/bitbucket.md) setup guides.
-* You have complex environments (multi-service stacks, heavy resource requirements) that don't fit in a single Docker container.
-* You want to use your own infrastructure while still benefiting from Oz orchestration and observability.
-
-#### How it works
-
-**Managed:** You run a worker daemon on your infrastructure that connects to Oz. When you create a task with `--host "your-worker-id"`, Oz routes it to your worker, which runs it in an isolated Docker container, Kubernetes Job, or directly on the host depending on the configured backend.
-
-**Unmanaged:** You run `oz agent run` in your CI pipeline, Kubernetes pod, VM, or dev box. The agent runs directly on the host and reports its session back to Warp for tracking and observability.
-
-In both modes, your team gets the same observability (Oz dashboard, session sharing, APIs) as Oz-hosted runs.
-
-For setup instructions and a decision guide, see [Self-Hosting](self-hosting.md).
+For setup, decision guides, and a quickstart, start with [Self-hosting](self-hosting/README.md).

@@ -182,7 +182,7 @@ With self-hosting:
 * This is used when teams want code and execution to remain on their own systems rather than being cloned or executed in Warp's cloud.
 
 {% hint style="info" %}
-**Enterprise feature**: Self-hosted execution requires an Enterprise plan. See [Self-Hosting](self-hosting.md) for setup instructions.
+**Enterprise feature**: Self-hosted execution requires an Enterprise plan. See [Self-Hosting](self-hosting/README.md) for setup instructions.
 {% endhint %}
 
 ***

@@ -65,7 +65,7 @@ Because PRs are created as _you_, this makes code review, auditing, and team col
 
 * **Team membership** - The Linear integration requires you to be part of a [Warp team](https://docs.warp.dev/knowledge-and-collaboration/teams). Teams can be created on any plan, including Free.
 * **Plan and credits** - Your team must be on a plan that supports integrations (Build, Max, or Business) and have at least 20 credits available (any type of Warp credits work). See [Access, Billing, and Identity](../team-access-billing-and-identity.md) for details.
-* **Infrastructure** - By default, agents run on Warp-hosted infrastructure. Enterprise teams can [self-host agents](../self-hosting.md) on their own infrastructure.
+* **Infrastructure** - By default, agents run on Warp-hosted infrastructure. Enterprise teams can [self-host agents](../self-hosting/README.md) on their own infrastructure.
 * **Identity** - You must be logged into Warp with the same email as your Linear workspace.
 * **GitHub authorization** - You must authorize the Warp GitHub app the first time you trigger an agent.
   * The repositories involved must be included in your environment and accessible to the Warp GitHub app.

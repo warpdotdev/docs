@@ -55,7 +55,7 @@ Cloud agents run on the [Oz Platform](platform.md), which provides the primitive
 
 The exact way tasks are triggered and executed depends on your deployment model (for example CLI-only, Warp-hosted orchestration, or self-hosted execution). Those options are covered in the [Deployment Patterns](deployment-patterns.md) pages.
 
-For teams that need execution to stay within their network boundary, self-hosting supports two architectures: a **managed** worker daemon that lets Oz orchestrate agents in Docker containers on your machines, and an **unmanaged** mode where you run `oz agent run` directly in your CI, Kubernetes, or dev environment. See [Self-Hosting](self-hosting.md) for details.
+For teams that need execution to stay within their network boundary, self-hosting supports two architectures: a **managed** worker daemon that lets Oz orchestrate agents in Docker containers on your machines, and an **unmanaged** mode where you run `oz agent run` directly in your CI, Kubernetes, or dev environment. See [Self-Hosting](self-hosting/README.md) for details.
 
 ### What you get by default
 

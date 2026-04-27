@@ -198,6 +198,23 @@ redirects:
     terminal/warp-ai: warp-agents/README.md
     terminal-ai/getting-started: warp-agents/README.md
 
+    # Self-hosting restructure (old flat pages -> new subsection)
+    cloud-agents/self-hosting: cloud-agents/self-hosting/README.md
+    cloud-agents/managed-worker-reference: cloud-agents/self-hosting/reference.md
+
+    # Preserve anchors from old self-hosting.md for sections that moved off README
+    cloud-agents/self-hosting#routing-runs-to-self-hosted-workers: cloud-agents/self-hosting/README.md
+    cloud-agents/self-hosting#network-requirements: cloud-agents/self-hosting/security-and-networking.md
+    cloud-agents/self-hosting#security-considerations: cloud-agents/self-hosting/security-and-networking.md
+    cloud-agents/self-hosting#troubleshooting: cloud-agents/self-hosting/troubleshooting.md
+
+    # Preserve anchors from old managed-worker-reference.md for per-backend prose that moved
+    cloud-agents/managed-worker-reference#kubernetes-backend: cloud-agents/self-hosting/managed-kubernetes.md
+    cloud-agents/managed-worker-reference#helm-chart: cloud-agents/self-hosting/managed-kubernetes.md
+    cloud-agents/managed-worker-reference#direct-backend: cloud-agents/self-hosting/managed-direct.md
+    cloud-agents/managed-worker-reference#docker-connectivity: cloud-agents/self-hosting/managed-docker.md
+    cloud-agents/managed-worker-reference#private-docker-registries: cloud-agents/self-hosting/managed-docker.md
+
     # Root-level AI paths
     ai: README.md
     warp-ai: warp-agents/README.md
