@@ -56,7 +56,7 @@ Organize your workspace with tabs, panes, and window configurations.
 Configure how you type and interact with the terminal input.
 
 * **[Standard vs Classic input](../terminal/input/classic-input.md)** - Standard input provides easier access to AI features and is the default for new users. Classic input resembles a traditional terminal prompt. Switch between them in **Settings** > **Appearance** > **Input**.
-* **[Keyboard shortcuts](keyboard-shortcuts.md)** - Warp supports common shortcuts and lets you create custom ones. Manage them from **Settings** > **Keyboard shortcuts**, or import keybindings from another terminal during [migration](migrate-to-warp.md).
+* **[Keyboard shortcuts](keyboard-shortcuts.md)** - Warp supports common shortcuts and lets you create custom ones. Manage them from **Settings** > **Keyboard shortcuts**, or import keybindings from another terminal during [migration](migrate-to-warp/README.md).
 * **[Vim keybindings](../terminal/editor/vim.md)** - Enable Vim keybindings for keyboard-driven text editing in the input editor.
 * **Tab key behavior** - Configure what `Tab` does in **Settings** > **Features**. Options include accepting autosuggestions or triggering completions.
 
@@ -72,7 +72,7 @@ Control how Warp's agents behave and which models they use.
 
 Bring your existing settings into Warp or keep settings synchronized across machines.
 
-* **[Migrate from another terminal](migrate-to-warp.md)** - Import keybindings, color themes, and other settings when switching to Warp. Currently supports iTerm2 profiles.
+* **[Migrate from another terminal](migrate-to-warp/README.md)** - Per-source guides for switching to Warp from iTerm2, Ghostty, macOS Terminal, Windows Terminal, VS Code, Cursor, Claude Code, and more. Includes automatic settings import for iTerm2.
 * **[Settings sync](../terminal/more-features/settings-sync.md)** - Sync your Warp settings across machines (Beta).
 
 ***

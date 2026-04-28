@@ -1,0 +1,71 @@
+---
+description: >-
+  Moving to Warp from Ghostty? Here's how to bring over your themes, fonts, and
+  keybindings, plus where to find Warp's equivalents for Ghostty's native
+  features.
+---
+
+# Migrate to Warp from Ghostty
+
+Warp gives Ghostty users a fast path to bring over themes, fonts, and keybindings — plus native equivalents for the Ghostty features you rely on, from the quick terminal to native tabs and splits.
+
+## What transfers automatically
+
+Warp doesn't ship a Ghostty importer, but it can do most of the work for you agentically. Ghostty stores its configuration in a plain-text key-value file at `~/.config/ghostty/config`.
+
+## Use Warp's agent to migrate your settings (recommended)
+
+The fastest way to bring over your Ghostty setup is to ask Warp's agent to translate your config directly. Warp ships a [`settings.toml` file](../../terminal/settings/README.md) and a bundled `modify-settings` skill that lets the agent read your existing config and write equivalent values into Warp's settings, including translating your Ghostty theme into a Warp [custom theme](../../terminal/appearance/custom-themes.md).
+
+1. In Warp, open a new tab and switch to [Agent Mode](https://docs.warp.dev/agent-platform/warp-agents) with `⌘+I` (macOS) or `Ctrl+I` (Linux/Windows).
+2. Paste a prompt like:
+
+   > Read my Ghostty config at `~/.config/ghostty/config` and any referenced theme files in `~/.config/ghostty/themes/`. Port the equivalent settings (theme, font, keybindings, shell) into my Warp `settings.toml` using the `modify-settings` skill, and create a matching custom theme. Show me a diff before applying.
+
+3. Review the proposed diff and approve. Warp hot-reloads `settings.toml`, so changes take effect immediately.
+
+If you'd rather configure each setting manually through the Settings UI, the steps below cover the most common cases.
+
+## What to reconfigure manually
+
+### Theme and colors
+
+1. Open **Settings** > **Appearance** > **Themes** in Warp.
+2. Pick a built-in theme that matches your Ghostty setup, or [create a custom theme](../../terminal/appearance/custom-themes.md) by translating your Ghostty colors into a YAML theme file.
+3. Ghostty's theme files live in `~/.config/ghostty/themes/`. Open the file named in your Ghostty `theme` setting to copy the foreground, background, and 16 ANSI color values.
+
+### Font and text
+
+1. In **Settings** > **Appearance** > **Text, fonts, & cursor**, match your Ghostty `font-family` and `font-size` values.
+2. If you use font ligatures, ensure **Ligatures** is enabled.
+
+### Keybindings
+
+Warp's [default keyboard shortcuts](../keyboard-shortcuts.md) cover most Ghostty bindings. For custom bindings from your Ghostty `keybind` lines, open **Settings** > **Keyboard shortcuts** and add them manually.
+
+### Shell and prompt
+
+Warp detects your login shell automatically. To override it, go to **Settings** > **Features** > **Session** and pick a shell from **Startup shell for new sessions**.
+
+For prompts, choose between Warp's [native prompt](../../terminal/appearance/prompt.md#warp-prompt) (drag-and-drop context chips) or the [shell prompt (PS1)](../../terminal/appearance/prompt.md#custom-prompt) if you want to keep your existing prompt configuration.
+
+### Quick terminal (Quake mode)
+
+Configure Warp's equivalent via **Settings** > **Features** > **Window** > **Global hotkey**. See [global hotkey](../../terminal/windows/global-hotkey.md) for the full configuration.
+
+## Warp-native equivalents
+
+Features Ghostty users commonly miss, and where they live in Warp:
+
+| From Ghostty | In Warp |
+| --- | --- |
+| Quick terminal / dropdown window | [Global hotkey](../../terminal/windows/global-hotkey.md) |
+| Native tabs and splits | [Tabs](../../terminal/windows/tabs.md), [vertical tabs](../../terminal/windows/vertical-tabs.md), [split panes](../../terminal/windows/split-panes.md) |
+| Command palette | [Command Palette](../../terminal/command-palette.md) (`⌘+P` on macOS, `Ctrl+Shift+P` on Linux) |
+| GPU-accelerated rendering | GPU-rendered natively on all supported platforms |
+| Kitty graphics protocol | Image rendering for most common workflows (see [more features](../../terminal/more-features/README.md)) |
+| Shaders and custom visual effects | Not supported; closest: [size, opacity, and blurring](../../terminal/appearance/size-opacity-blurring.md) + [pane dimming](../../terminal/appearance/pane-dimming.md) |
+
+Beyond parity, Warp adds [Agent Mode](https://docs.warp.dev/agent-platform/warp-agents), [Code Review](../../code/code-review.md), and [Warp Drive](../../knowledge-and-collaboration/warp-drive/README.md) for AI-assisted development and team collaboration.
+
+For more on what you can configure, see [Customizing Warp](../customizing-warp.md).

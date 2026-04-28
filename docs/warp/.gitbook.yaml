@@ -116,7 +116,7 @@ redirects:
 
     # Getting started section
     getting-started/keyboard-shortcuts: getting-started/keyboard-shortcuts.md
-    getting-started/migrate-to-warp: getting-started/migrate-to-warp.md
+    getting-started/migrate-to-warp: getting-started/migrate-to-warp/README.md
     getting-started/quickstart-guide/agents-in-warp: getting-started/agents-in-warp.md
     getting-started/quickstart-guide/coding-in-warp: getting-started/coding-in-warp.md
     getting-started/quickstart-guide/customizing-warp: getting-started/customizing-warp.md

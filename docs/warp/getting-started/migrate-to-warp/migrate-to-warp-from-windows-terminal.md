@@ -1,0 +1,78 @@
+---
+description: >-
+  Switching from Windows Terminal and PowerShell to Warp on Windows? Here's
+  how to reconfigure profiles, shells, fonts, and keybindings, and where to
+  find Warp's equivalents for Windows Terminal features.
+---
+
+# Migrate to Warp from Windows Terminal
+
+Warp on Windows covers everything you use Windows Terminal for today — profiles, PowerShell, color schemes, keybindings — with Agent Mode and blocks on top. This page walks through the migration.
+
+## What transfers automatically
+
+Warp doesn't ship a Windows Terminal importer, but it can do most of the work for you agentically. Windows Terminal stores its settings in a single JSON file at:
+
+```powershell
+%LOCALAPPDATA%\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json
+```
+
+## Use Warp's agent to migrate your settings (recommended)
+
+The fastest way to bring over your Windows Terminal setup is to ask Warp's agent to translate `settings.json` directly. Warp ships a [`settings.toml` file](../../terminal/settings/README.md) and a bundled `modify-settings` skill that lets the agent read your existing config and write equivalent values into Warp's settings, including translating your color schemes into a Warp [custom theme](../../terminal/appearance/custom-themes.md).
+
+1. In Warp, open a new tab and switch to [Agent Mode](https://docs.warp.dev/agent-platform/warp-agents) with `Ctrl+I`.
+2. Paste a prompt like:
+
+   > Read my Windows Terminal `settings.json` at `%LOCALAPPDATA%\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json` and port the active profile and color scheme into my Warp `settings.toml` using the `modify-settings` skill. Create a matching custom theme. Show me a diff before applying.
+
+3. Review the proposed diff and approve. Warp hot-reloads `settings.toml`.
+
+If you'd rather configure each setting manually through the Settings UI, the steps below cover the most common cases.
+
+## What to reconfigure manually
+
+### Default shell
+
+Warp on Windows supports PowerShell (`pwsh` and `powershell.exe`), Command Prompt (`cmd`), bash, zsh, and fish. Warp auto-detects your login shell; to override, go to **Settings** > **Features** > **Session** and pick a shell from **Startup shell for new sessions**.
+
+If you use PowerShell modules or a custom `$PROFILE`, Warp loads them the same way Windows Terminal does.
+
+### Profiles
+
+Windows Terminal uses profiles to group shell, theme, starting directory, and font together. Warp doesn't have a single profile concept; instead, match each dimension separately:
+
+* **Shell** - **Settings** > **Features** > **Session**.
+* **Starting directory** - **Settings** > **Features** > **Session** > Working directory.
+* **Font family, size** - **Settings** > **Appearance** > **Text, fonts, & cursor**.
+* **Color scheme** - **Settings** > **Appearance** > **Themes**. Translate your Windows Terminal color scheme into a [custom Warp theme](../../terminal/appearance/custom-themes.md) using the same 16 ANSI color values.
+* **Reusable layouts** - create a [tab config](../../terminal/windows/tab-configs.md) for each workflow that used to be a profile.
+
+### Color scheme
+
+Windows Terminal's `schemes` array defines foreground, background, cursor, and ANSI colors. To match an existing scheme:
+
+1. Copy the color values from the scheme you use in your `settings.json`.
+2. Open **Settings** > **Appearance** > **Themes** in Warp and either pick a preset that matches or [create a custom theme](../../terminal/appearance/custom-themes.md).
+
+### Keybindings
+
+Warp's [default keyboard shortcuts](../keyboard-shortcuts.md) cover most Windows Terminal bindings. For custom bindings from `settings.json`'s `actions` array, add them in **Settings** > **Keyboard shortcuts**.
+
+### Prompt
+
+If you use `oh-my-posh` or a custom PowerShell prompt, it continues to work in Warp. To choose between Warp's native prompt and your existing shell prompt, go to **Settings** > **Appearance** > **Prompt**. See [prompt](../../terminal/appearance/prompt.md).
+
+## Warp-native equivalents
+
+Features Windows Terminal users commonly look for in Warp:
+
+| From Windows Terminal | In Warp |
+| --- | --- |
+| Profiles | [Tab configs](../../terminal/windows/tab-configs.md) + [themes](../../terminal/appearance/themes.md) + per-session shell settings |
+| Tabs and panes | [Tabs](../../terminal/windows/tabs.md), [vertical tabs](../../terminal/windows/vertical-tabs.md), [split panes](../../terminal/windows/split-panes.md) |
+| Command palette | [Command Palette](../../terminal/command-palette.md) (`Ctrl+Shift+P`) |
+| Oh My Posh prompts | Keep using them; pick [Shell prompt (PS1)](../../terminal/appearance/prompt.md#custom-prompt) in Warp |
+| Quake mode | [Global hotkey](../../terminal/windows/global-hotkey.md) |
+
+Beyond Windows Terminal's feature set, Warp adds [Agent Mode](https://docs.warp.dev/agent-platform/warp-agents), [blocks](../../terminal/blocks/README.md), and [Warp Drive](../../knowledge-and-collaboration/warp-drive/README.md). See [Warp for Windows installation](../installation-and-setup.md) if you haven't installed yet.
