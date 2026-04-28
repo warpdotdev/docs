@@ -10,13 +10,13 @@ Gemini CLI is Google's open-source coding agent. It brings Gemini directly into 
 
 ## Prerequisites
 
-* **A Google account** — Gemini CLI's free tier includes 60 requests per minute and 1,000 requests per day with a personal Google account. Alternatively, use a Gemini API key or Vertex AI. See the [Gemini CLI authentication guide](https://github.com/google-gemini/gemini-cli/blob/main/docs/get-started/authentication.md) for all options.
+* **A Google account** — Gemini CLI's free tier includes 60 requests per minute and 1,000 requests per day with a personal Google account. Alternatively, use a Gemini API key or Vertex AI. See the [Gemini CLI authentication guide](https://geminicli.com/docs/get-started/authentication/) for all options.
 * **Node.js 20+** — Required for installation. Check with `node -v`.
-* **macOS, Linux, or Windows** — See [Gemini CLI system requirements](https://github.com/google-gemini/gemini-cli/blob/main/docs/get-started/installation.md) for recommended specifications.
+* **macOS, Linux, or Windows** — See [Gemini CLI system requirements](https://geminicli.com/docs/get-started/installation/) for recommended specifications.
 
 ## 1. Install Gemini CLI
 
-Follow Google's [official installation guide](https://github.com/google-gemini/gemini-cli/blob/main/docs/get-started/installation.md) to install Gemini CLI. The two most common methods:
+Follow Google's [official installation guide](https://geminicli.com/docs/get-started/installation/) to install Gemini CLI. The two most common methods:
 
 **npm:**
 
@@ -65,7 +65,7 @@ export GOOGLE_GENAI_USE_VERTEXAI=true
 gcloud auth application-default login
 ```
 
-See the [Gemini CLI authentication guide](https://github.com/google-gemini/gemini-cli/blob/main/docs/get-started/authentication.md) for all Vertex AI auth methods.
+See the [Gemini CLI authentication guide](https://geminicli.com/docs/get-started/authentication/) for all Vertex AI auth methods.
 
 ## 3. Start your first session
 
