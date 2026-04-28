@@ -2,7 +2,9 @@
 description: These are the third-party libraries that Warp depends on.
 ---
 
-# Open Source Licenses
+# Open source licenses
+
+This page lists the **third-party** libraries that Warp's client depends on. For Warp's own client source code (open source under AGPL v3), see [Contributing to Warp](contributing.md) and [`warpdotdev/warp`](https://github.com/warpdotdev/warp).
 
 ## Cargo based licenses
 

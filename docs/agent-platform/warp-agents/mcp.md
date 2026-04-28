@@ -21,7 +21,7 @@ You can navigate to the MCP servers page in any of the following ways:
 * From the [Settings Page](warp://settings/mcp): **Settings** > **Agents** > **MCP servers**
 * From [Warp Drive](https://docs.warp.dev/knowledge-and-collaboration/warp-drive): under **Personal** > **MCP Servers**
 * From the [Command Palette](https://docs.warp.dev/terminal/command-palette): search for `Open MCP Servers`
-* From the Oz settings page: **Settings** > **Agents** > **Oz** > **Manage MCP servers**
+* From the Warp app: **Settings** > **Agents** > **Warp Agent** > **Manage MCP servers**
 
 This will show a list of all configured MCP servers, including which are currently running. If you close Warp with an MCP server running, it will run again on next start of Warp. MCP servers that are stopped will remain so on next launch of Warp.
 

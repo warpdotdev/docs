@@ -132,14 +132,14 @@ Every object in Warp Drive can be shared. There are three ways to share objects:
 To share a Drive object, navigate to the object's overflow menu, and choose "Copy link". Once the link is successfully copied to your clipboard, you can share it with teammates and reference your object in your codebase, documentation, or communication channels like Slack.
 
 {% hint style="info" %}
-In order to access an object, link-followers must have permission to open it through one of the sharing methods above. If they do not have permission, they can automatically request access from the object owner or team admin.
+To access an object, link-followers must have permission to open it through one of the sharing methods above. If they do not have permission, they can automatically request access from the object owner or team admin.
 {% endhint %}
 
 <figure><img src="../../.gitbook/assets/wd-copy-link-menu.png" alt="" width="216"><figcaption><p>Copy link Menu Item</p></figcaption></figure>
 
 ### Managing permissions
 
-To manage a Drive object's permissions, navigate to its overflow menu and choose "Share". If the object is open, you can also use the [Command Palette](../../terminal/command-palette.md#how-to-access-it) and search for "Share Pane" or click the share button in the pane header:
+To manage a Drive object's permissions, navigate to its overflow menu and choose "Share". If the object is open, you can also use the [Command Palette](../../terminal/command-palette.md#how-to-access-it) and search for "Share pane", or click the share button in the pane header:
 
 <figure><img src="../../.gitbook/assets/wd-share-button.png" alt="The pane header for a notebook, with the share button circled"><figcaption><p>Pane header share button</p></figcaption></figure>
 

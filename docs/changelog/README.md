@@ -29,25 +29,25 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 **New features**
 
-* Toolbar chips can now be re-arranged by right clicking anywhere in the top bar and selecting "re-arrange toolbar items".
+* Toolbar chips can now be rearranged by right-clicking anywhere in the top bar and selecting "Rearrange toolbar items".
 * Mermaid diagrams now render in markdown notebooks.
 
 **Improvements**
 
 * Added support for pasting images into the rich input editor with CLI agents, such as Claude Code or Codex.
-* Typing `_text_` or `__text__` in a code review or rich-text comment now coerces to italic/bold, matching the existing `*text*`/`**text**` behavior.
+* Typing `_text_` or `__text__` in a code review or rich-text comment now renders as italic or bold, matching the existing `*text*`/`**text**` behavior.
 * \[Windows] Added a "Start Warp at login" toggle under **Settings** > **Features** > **General** that registers Warp to launch automatically when you sign in to Windows.
 * Add View menu entries (with keyboard shortcuts) for the Global Search and Agent Conversations left panel items on macOS.
 * \[Windows] Added 408 new PowerShell cmdlet completions and improved suggestion quality for existing PowerShell completions.
 * Added completions for `pprof`.
 * `/fork` now opens the forked conversation in a new pane with Enter and in a new tab with Cmd+Enter.
-* Right-click a URL or file-path link inside an AI response to copy it directly from the context menu.
+* Right-click a URL or file-path link inside an AI response to copy it directly via the context menu.
 * Added a setting to hide the lines added/removed counts from the code review button in the tab bar.
-* Reorganized some settings into subpages for Agents, Code, and Cloud platform and improved settings search.
+* Reorganized settings into subpages for Agents, Code, and Cloud platform; improved settings search.
 * Wired branch completion into `git log` argument position.
 * Added notifications for OpenCode's "Ask user question" tool.
 * Show discount chip on models with active promotions in the model picker.
-* Per-query image limit bumped to 20 (from 5) and per-conversation image limits bumped to 200 (from 20).
+* Per-query image limit bumped to 20 (from 5) and per-conversation image limit bumped to 200 (from 20).
 * Performance improvement preventing lagginess after logging in when you have many Warp Drive objects.
 * Added support for file artifacts in agent conversations with download functionality and filtering options.
 
@@ -71,7 +71,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 * Toolbar chips in the coding agent footer are no longer hard to read when running alt-screen CLI agents like OpenCode.
 * Fixed MCP servers (e.g. Figma) requiring re-authentication on every app restart.
 * \[Windows] Fixed a race condition that caused auto-updates to fail with file-in-use errors when Warp hadn't fully exited before the installer ran.
-* Improving reliability of Rich Input submission flow for Copilot CLI.
+* Improved reliability of the Rich Input submission flow for Copilot CLI.
 * \[Windows] Fixed unbounded memory growth when rendering large amounts of CJK text with a primary font that does not include CJK glyphs.
 * Fixed settings search bar text overflowing when typing long queries.
 * Fixed Oz CLI hanging after command completes when the network is unavailable.
@@ -83,8 +83,8 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 * Added a bundled Claude API skill for Claude API and Anthropic SDK development guidance.
 * Added support for `--share public:{access_level}` to oz CLI to set public access level on oz cloud runs.
-* `/feedback` skill now labels created issues with in-app-feedback for tracking.
-* `start_agent` no longer refuses remote child agents when `environment_id` is omitted; within a remote parent, the child inherits the parent's environment automatically.
+* `/feedback` skill now adds the `in-app-feedback` label to issues it files, for tracking.
+* `start_agent` no longer rejects remote child agents when `environment_id` is omitted; within a remote parent, the child inherits the parent's environment automatically.
 
 ### 2026.04.15 (v0.2026.04.15.08.45)
 

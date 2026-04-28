@@ -7,6 +7,15 @@ description: Scan Warp GitBook documentation for UI menu paths and Command Palet
 
 This skill scans Warp's GitBook documentation for references to UI paths (e.g. `Settings > Agents > Oz > Active AI`) and Command Palette command names (e.g. "Open Theme Picker"), then validates them against a snapshot of known-valid paths extracted from the `warp-internal` codebase. It also catches paths that reference deprecated Settings sections (e.g. the old `Settings > AI` before it became the `Agents` umbrella) and auto-migrates them to the current structure.
 
+## Source files: UI menu paths vs settings.toml schema
+
+Warp has two separate sources of truth for "settings." Don't conflate them when drafting docs:
+
+- **`.warp/skills/validate_ui_refs/valid_paths.json`** (this skill) — describes the in-app **Settings sidebar**, **umbrellas**, **subpages**, and **sub-section headers** that users click through (e.g. `Settings` > **Agents** > **Profiles**). Extracted from `app/src/settings_view/` (sidebar enum, `SettingsUmbrella`, `Category::new`, `build_sub_header`). Use this when validating a navigation step in a doc.
+- **`.warp/references/settings-schema.json`** (separate reference) — JSON Schema for the user's `settings.toml` file. Section keys here are TOML keys (e.g. `[agents.profiles]`, `[agents.warp_agent.active_ai]`), not what the user clicks. Use this (and `docs/warp/terminal/settings/all-settings.md`) when documenting a `settings.toml` snippet.
+
+The two mostly align after the umbrella migration (top-level `agents` matches the **Agents** umbrella), but they can drift — e.g. the schema groups settings under `agents.warp_agent.active_ai`, while in the UI those settings live on the **Warp Agent** subpage with **Active AI** as a sub-header. This skill only validates the UI-menu side; it does not check whether a `[section.subsection]` TOML path in a doc matches the schema.
+
 ## Running the Check
 
 From the gitbook repo root:
@@ -82,7 +91,7 @@ This parses:
 - `SettingsSection` enum and `Display` impl from `settings_view/mod.rs`
 - `SettingsUmbrella::new("Label", vec![...])` calls from `mod.rs` (resolved to subpage display names via the `Display` impl)
 - `Category::new(...)` and `build_sub_header(...)` calls from settings page files
-- `EditableBinding::new(...)` registrations from `terminal/view/init.rs` and `workspace/mod.rs`
+- `EditableBinding::new(...)` registrations from `terminal/view/init.rs`, `workspace/mod.rs`, and `pane_group/pane/view/mod.rs`
 
 ### Preserved fields
 

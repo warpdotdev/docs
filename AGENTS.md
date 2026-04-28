@@ -29,10 +29,14 @@ Passive voice is acceptable when the action's recipient is more important than t
 - ✅ "The environment is destroyed after the run completes." (the system does this automatically; no human agent)
 
 #### Ambiguous verbs
-When a task is required, use clear, direct verbs. Avoid ambiguous modal verbs like "may," "might," "should," "could," "would," and "can" — these can be interpreted as either a command or a suggestion.
-- ✅ "Use `oz agent run` to start a local agent." (required action)
+When a task is required, use the imperative. Avoid ambiguous modal verbs like "may," "might," "should," "could," "would," and "can" for required actions — they can be interpreted as either a command or a suggestion.
+
+**Prefer "can" over "may."** When describing something the reader has the option to do, use "can." "May" reads as a formal permission grant ("you are permitted to..."), which doesn't match our direct, approachable voice. "Can" is fine for optional actions when the optional nature is clear from context or explicit framing (e.g. "you can optionally...", "you can also...", "if X, you can Y").
+- ✅ "Use `oz agent run` to start a local agent." (required action — imperative)
+- ✅ "You can quit Agent Mode at any point with `Esc`." (optional alternative — "can" reads naturally)
 - ✅ "You can optionally specify an Agent Profile." (clearly marked as optional)
-- ❌ "You can use `oz agent run` to start a local agent." (is this required or optional?)
+- ❌ "You may quit Agent Mode at any point with `Esc`." ("may" implies permission — use "can")
+- ❌ "You can use `oz agent run` to start a local agent." (required action — use the imperative instead)
 - ❌ "You should configure an environment before running cloud agents." (must I, or is it just a suggestion?)
 
 #### Vague nouns and pronouns
@@ -238,7 +242,7 @@ Keyboard keys and shortcuts use backticks. Use `+` as the separator between keys
 
 ### Menu paths
 - Bold each UI element in a menu path; leave the > separator plain: **Settings** > **Agents** > **Knowledge**
-- Several top-level Settings sections are **umbrellas** that expand into subpages: **Agents** (Oz, Profiles, MCP servers, Knowledge, Third party CLI agents), **Code** (Indexing and projects, Editor and Code Review), and **Cloud platform** (Environments, Oz Cloud API Keys). Always reference a specific subpage, not the umbrella alone — for example, use **Settings** > **Code** > **Indexing and projects**, not **Settings** > **Code**.
+- Several top-level Settings sections are **umbrellas** that expand into subpages: **Agents** (Warp Agent, Profiles, MCP servers, Knowledge, Third party CLI agents), **Code** (Indexing and projects, Editor and Code Review), and **Cloud platform** (Environments, Oz Cloud API Keys). Always reference a specific subpage, not the umbrella alone — for example, use **Settings** > **Code** > **Indexing and projects**, not **Settings** > **Code**.
 - For macOS menu paths, begin the path with the Apple icon (, Unicode `U+F8FF`).
   - **IMPORTANT — preserving the Apple icon**: The `U+F8FF` character is in Unicode's Private Use Area. It renders as the Apple logo only on Apple devices and is **invisible in most editors, terminals, and AI contexts**. It is frequently stripped during edits. When editing any line with a macOS menu path, always verify this character (UTF-8 bytes `EF A3 BF`) is present before the first `>`. If it has been stripped, re-insert it with: `printf '\xEF\xA3\xBF'`
 - When referencing a menu path, CLI command, or URL for the first time on a page, orient the reader by identifying the application, website, or tool. Don't assume the reader knows which surface you mean.
@@ -246,7 +250,7 @@ Keyboard keys and shortcuts use backticks. Use `+` as the separator between keys
 
 **Use:**
 - ✅ **Settings** > **Agents** > **Knowledge**
-- ✅ **Settings** > **Agents** > **Oz** > **Active AI**
+- ✅ **Settings** > **Agents** > **Warp Agent** > **Active AI**
 - ✅ **Settings** > **Cloud platform** > **Oz Cloud API Keys**
 - ✅   > **System Settings** > **Privacy & Security** > **Local Network**
 - ✅ In the Warp app, go to **Settings** > **Cloud platform** > **Oz Cloud API Keys**.
@@ -264,7 +268,7 @@ Keyboard keys and shortcuts use backticks. Use `+` as the separator between keys
 - ❌ **System Settings** > **Privacy & Security** > **Local Network** (macOS path missing the Apple icon — `U+F8FF` must appear before the first `>`)
 - ❌ **Settings** > **AI** > **Knowledge** (the "AI" section no longer exists — use **Settings** > **Agents** > **Knowledge**)
 - ❌ **Settings** > **Platform** (renamed — use **Settings** > **Cloud platform** > **Oz Cloud API Keys**)
-- ❌ **Settings** > **Agents** (umbrellas are not navigable as leaves — pick a subpage like **Oz** or **Profiles**)
+- ❌ **Settings** > **Agents** (umbrellas are not navigable as leaves — pick a subpage like **Warp Agent** or **Profiles**)
 
 ### UI elements
 - Use bold for interactive UI elements (e.g., buttons, toggles, dropdowns)

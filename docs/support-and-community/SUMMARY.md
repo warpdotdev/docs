@@ -4,6 +4,7 @@
 
 ## Community
 
+* [Contributing to Warp](community/contributing.md)
 * [Warp Preview](community/warp-preview-and-alpha-program.md)
 * [Refer a Friend & Earn Rewards](community/refer-a-friend.md)
 * [Oz Open Source Partnership](community/open-source-partnership.md)

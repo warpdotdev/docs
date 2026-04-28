@@ -978,6 +978,26 @@
         }
       ]
     },
+    "SshExtensionInstallMode": {
+      "description": "Controls SSH extension installation behavior.",
+      "oneOf": [
+        {
+          "const": "always_ask",
+          "description": "Always prompt the user before installing (default).",
+          "type": "string"
+        },
+        {
+          "const": "always_install",
+          "description": "Automatically install and connect without prompting.",
+          "type": "string"
+        },
+        {
+          "const": "never_install",
+          "description": "Never install; fall back to legacy warpification.",
+          "type": "string"
+        }
+      ]
+    },
     "StartupShell": {
       "description": "Shell to start terminal sessions with. Use null for the system default, or one of \"bash\", \"zsh\", \"fish\", \"pwsh\", or a custom shell command/path.",
       "type": [
@@ -1394,7 +1414,7 @@
     }
   },
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "description": "JSON Schema for Warp settings (preview channel, 182 settings)",
+  "description": "JSON Schema for Warp settings (stable channel, 183 settings)",
   "properties": {
     "accessibility": {
       "properties": {
@@ -1422,16 +1442,6 @@
           "default": true,
           "description": "Whether conversations are stored in the cloud.",
           "type": "boolean"
-        },
-        "display": {
-          "properties": {
-            "use_latest_user_prompt_as_conversation_title_in_tab_names": {
-              "default": false,
-              "description": "Whether vertical tab names for agent conversations use the latest user prompt.",
-              "type": "boolean"
-            }
-          },
-          "type": "object"
         },
         "knowledge": {
           "properties": {
@@ -1462,120 +1472,10 @@
           "properties": {
             "active_ai": {
               "properties": {
-                "agent_mode_query_suggestions_enabled": {
+                "git_operations_autogen_enabled": {
                   "default": true,
-                  "description": "Controls whether prompt suggestions are shown in agent mode.",
+                  "description": "Controls whether AI auto-generates commit messages and PR title/body in the code review dialogs.",
                   "type": "boolean"
-                },
-                "code_suggestions_enabled": {
-                  "default": true,
-                  "description": "Controls whether AI code suggestions are enabled.",
-                  "type": "boolean"
-                },
-                "enabled": {
-                  "default": true,
-                  "description": "Controls whether proactive AI features like suggestions are enabled.",
-                  "type": "boolean"
-                },
-                "intelligent_autosuggestions_enabled": {
-                  "default": true,
-                  "description": "Controls whether AI-powered intelligent autosuggestions are enabled.",
-                  "type": "boolean"
-                },
-                "shared_block_title_generation_enabled": {
-                  "default": true,
-                  "description": "Controls whether titles are auto-generated when sharing blocks.",
-                  "type": "boolean"
-                }
-              },
-              "type": "object"
-            },
-            "input": {
-              "properties": {
-                "agent_toolbar_chip_selection_setting": {
-                  "$ref": "#/$defs/AgentToolbarChipSelection",
-                  "default": "default",
-                  "description": "Controls the layout of context chips in the Agent Mode toolbar."
-                },
-                "ai_auto_detection_enabled": {
-                  "default": true,
-                  "description": "Controls whether AI automatically detects natural language input.",
-                  "type": "boolean"
-                },
-                "ai_command_denylist": {
-                  "default": "",
-                  "description": "Commands to exclude from AI natural language autodetection.",
-                  "type": "string"
-                },
-                "include_agent_commands_in_history": {
-                  "default": false,
-                  "description": "Whether agent-executed commands are included in command history.",
-                  "type": "boolean"
-                },
-                "nld_in_terminal_enabled": {
-                  "default": false,
-                  "description": "Controls whether natural language detection is enabled in the terminal input.",
-                  "type": "boolean"
-                },
-                "show_agent_tips": {
-                  "default": true,
-                  "description": "Whether agent tips are displayed in the input.",
-                  "type": "boolean"
-                },
-                "show_model_selectors_in_prompt": {
-                  "default": true,
-                  "description": "Whether to show AI model selectors in the input prompt.",
-                  "type": "boolean"
-                }
-              },
-              "type": "object"
-            },
-            "is_any_ai_enabled": {
-              "default": true,
-              "description": "Controls whether all AI features are enabled.",
-              "type": "boolean"
-            },
-            "other": {
-              "properties": {
-                "cloud_agent_computer_use_enabled": {
-                  "default": false,
-                  "description": "Whether computer use is enabled for cloud agent conversations.",
-                  "type": "boolean"
-                },
-                "open_conversation_layout_preference": {
-                  "$ref": "#/$defs/OpenConversationPreference",
-                  "default": "new_tab",
-                  "description": "Whether to open agent conversations in a new tab or a split pane."
-                },
-                "orchestration_enabled": {
-                  "default": true,
-                  "description": "Whether multi-agent orchestration is enabled.",
-                  "type": "boolean"
-                },
-                "should_render_use_agent_toolbar_for_user_commands": {
-                  "default": true,
-                  "description": "Whether to show the \"Use Agent\" footer for terminal commands.",
-                  "type": "boolean"
-                },
-                "should_show_oz_updates_in_zero_state": {
-                  "default": true,
-                  "description": "Whether the \"What's new\" section is shown in the agent view.",
-                  "type": "boolean"
-                },
-                "show_agent_notifications": {
-                  "default": true,
-                  "description": "Whether agent notifications are shown.",
-                  "type": "boolean"
-                },
-                "show_conversation_history": {
-                  "default": true,
-                  "description": "Whether conversation history appears in the tools panel.",
-                  "type": "boolean"
-                },
-                "thinking_display_mode": {
-                  "$ref": "#/$defs/ThinkingDisplayMode",
-                  "default": "show_and_collapse",
-                  "description": "Controls how agent thinking traces are displayed after streaming."
                 }
               },
               "type": "object"
@@ -1697,6 +1597,126 @@
             }
           },
           "type": "object"
+        },
+        "warp_agent": {
+          "properties": {
+            "active_ai": {
+              "properties": {
+                "agent_mode_query_suggestions_enabled": {
+                  "default": true,
+                  "description": "Controls whether prompt suggestions are shown in agent mode.",
+                  "type": "boolean"
+                },
+                "code_suggestions_enabled": {
+                  "default": true,
+                  "description": "Controls whether AI code suggestions are enabled.",
+                  "type": "boolean"
+                },
+                "enabled": {
+                  "default": true,
+                  "description": "Controls whether proactive AI features like suggestions are enabled.",
+                  "type": "boolean"
+                },
+                "intelligent_autosuggestions_enabled": {
+                  "default": true,
+                  "description": "Controls whether AI-powered intelligent autosuggestions are enabled.",
+                  "type": "boolean"
+                },
+                "shared_block_title_generation_enabled": {
+                  "default": true,
+                  "description": "Controls whether titles are auto-generated when sharing blocks.",
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            },
+            "input": {
+              "properties": {
+                "agent_toolbar_chip_selection_setting": {
+                  "$ref": "#/$defs/AgentToolbarChipSelection",
+                  "default": "default",
+                  "description": "Controls the layout of context chips in the Agent Mode toolbar."
+                },
+                "ai_auto_detection_enabled": {
+                  "default": true,
+                  "description": "Controls whether AI automatically detects natural language input.",
+                  "type": "boolean"
+                },
+                "ai_command_denylist": {
+                  "default": "",
+                  "description": "Commands to exclude from AI natural language autodetection.",
+                  "type": "string"
+                },
+                "include_agent_commands_in_history": {
+                  "default": false,
+                  "description": "Whether agent-executed commands are included in command history.",
+                  "type": "boolean"
+                },
+                "nld_in_terminal_enabled": {
+                  "default": false,
+                  "description": "Controls whether natural language detection is enabled in the terminal input.",
+                  "type": "boolean"
+                },
+                "show_agent_tips": {
+                  "default": true,
+                  "description": "Whether agent tips are displayed in the input.",
+                  "type": "boolean"
+                },
+                "show_model_selectors_in_prompt": {
+                  "default": true,
+                  "description": "Whether to show AI model selectors in the input prompt.",
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            },
+            "is_any_ai_enabled": {
+              "default": true,
+              "description": "Controls whether all AI features are enabled.",
+              "type": "boolean"
+            },
+            "other": {
+              "properties": {
+                "cloud_agent_computer_use_enabled": {
+                  "default": false,
+                  "description": "Whether computer use is enabled for cloud agent conversations.",
+                  "type": "boolean"
+                },
+                "open_conversation_layout_preference": {
+                  "$ref": "#/$defs/OpenConversationPreference",
+                  "default": "new_tab",
+                  "description": "Whether to open agent conversations in a new tab or a split pane."
+                },
+                "should_render_use_agent_toolbar_for_user_commands": {
+                  "default": true,
+                  "description": "Whether to show the \"Use Agent\" footer for terminal commands.",
+                  "type": "boolean"
+                },
+                "should_show_oz_updates_in_zero_state": {
+                  "default": true,
+                  "description": "Whether the \"What's new\" section is shown in the agent view.",
+                  "type": "boolean"
+                },
+                "show_agent_notifications": {
+                  "default": true,
+                  "description": "Whether agent notifications are shown.",
+                  "type": "boolean"
+                },
+                "show_conversation_history": {
+                  "default": true,
+                  "description": "Whether conversation history appears in the tools panel.",
+                  "type": "boolean"
+                },
+                "thinking_display_mode": {
+                  "$ref": "#/$defs/ThinkingDisplayMode",
+                  "default": "show_and_collapse",
+                  "description": "Controls how agent thinking traces are displayed after streaming."
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
         }
       },
       "type": "object"
@@ -1812,11 +1832,6 @@
             "preserve_active_tab_color": {
               "default": false,
               "description": "Whether to preserve the active tab's color when switching tabs.",
-              "type": "boolean"
-            },
-            "show_code_review_diff_stats": {
-              "default": true,
-              "description": "Whether to show lines added/removed counts on the code review button.",
               "type": "boolean"
             },
             "show_indicators_button": {
@@ -1962,6 +1977,11 @@
               "default": "focused_session",
               "description": "Tab item display mode in vertical tabs."
             },
+            "use_latest_prompt_as_title": {
+              "default": false,
+              "description": "Whether vertical tab names for agent conversations use the latest user prompt.",
+              "type": "boolean"
+            },
             "view_mode": {
               "$ref": "#/$defs/VerticalTabsViewMode",
               "default": "compact",
@@ -2090,6 +2110,11 @@
             "show_code_review_button": {
               "default": true,
               "description": "Whether to show the code review button on tabs.",
+              "type": "boolean"
+            },
+            "show_code_review_diff_stats": {
+              "default": true,
+              "description": "Whether to show lines added/removed counts on the code review button.",
               "type": "boolean"
             },
             "show_global_search": {
@@ -2636,6 +2661,11 @@
               "default": true,
               "description": "Whether to enable Warp features in SSH sessions.",
               "type": "boolean"
+            },
+            "ssh_extension_install_mode": {
+              "$ref": "#/$defs/SshExtensionInstallMode",
+              "default": "always_ask",
+              "description": "Controls SSH extension installation behavior."
             },
             "ssh_hosts_denylist": {
               "default": [],

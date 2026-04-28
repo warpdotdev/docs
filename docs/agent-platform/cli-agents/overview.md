@@ -54,7 +54,7 @@ The chips and buttons on the CLI agent toolbelt can be reordered, hidden, or mov
 In the Warp app, open the **Edit CLI agent toolbelt** modal in one of two ways:
 
 * Right-click the input area while a supported CLI coding agent is running and select **Edit CLI agent toolbelt**.
-* Go to **Settings** > **AI** > **Coding Agents**, then click the **Toolbar layout** preview under **Third party CLI agents**.
+* Go to **Settings** > **Agents** > **Third party CLI agents**, then click the **Toolbar layout** preview.
 
 ## Getting started
 

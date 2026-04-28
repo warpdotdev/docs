@@ -1425,6 +1425,7 @@ def _extract_command_palette_commands(warp_internal: Path) -> List[Dict[str, str
     source_files = [
         warp_internal / "app" / "src" / "terminal" / "view" / "init.rs",
         warp_internal / "app" / "src" / "workspace" / "mod.rs",
+        warp_internal / "app" / "src" / "pane_group" / "pane" / "view" / "mod.rs",
     ]
 
     for source_file in source_files:

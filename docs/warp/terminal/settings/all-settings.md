@@ -101,7 +101,6 @@ theme = { custom = { name = "My Theme", path = "~/.warp/themes/my-theme.yaml" } 
 * `tab_close_button_position` — Position of the close button on tabs. Type: string. Default: `"right"`. Options: `"right"`, `"left"`.
 * `show_indicators_button` — Whether to show activity indicators on tabs. Type: boolean. Default: `true`.
 * `preserve_active_tab_color` — Whether to preserve the active tab's color when switching tabs. Type: boolean. Default: `false`.
-* `show_code_review_diff_stats` — Whether to show lines added/removed counts on the code review button. Type: boolean. Default: `true`.
 * `header_toolbar_chip_selection` — Configuration for the header toolbar chips in the vertical tab panel header. Type: string or object. Default: `"default"`.
 
 ### Vertical tabs
@@ -117,6 +116,7 @@ theme = { custom = { name = "My Theme", path = "~/.warp/themes/my-theme.yaml" } 
 * `show_details_on_hover` — Whether to show a details sidecar when hovering over a vertical tab. Type: boolean. Default: `true`.
 * `show_diff_stats` — Whether to show diff stats on vertical tabs. Type: boolean. Default: `true`.
 * `show_pr_link` — Whether to show PR links on vertical tabs. Type: boolean. Default: `true`.
+* `use_latest_prompt_as_title` — Whether vertical tab names for agent conversations use the latest user prompt. Type: boolean. Default: `false`.
 
 ### Panes
 
@@ -251,17 +251,11 @@ custom_dir = ""
 
 ## Agents
 
-Settings for Warp's AI agents, including model behavior, permissions, knowledge, MCP servers, and voice input.
+Settings for Warp's agents, including model behavior, permissions, knowledge, MCP servers, and voice input.
 
 **Section**: `[agents]`
 
 * `cloud_conversation_storage_enabled` — Whether conversations are stored in the cloud. Type: boolean. Default: `true`.
-
-### Display
-
-**Section**: `[agents.display]`
-
-* `use_latest_user_prompt_as_conversation_title_in_tab_names` — Whether vertical tab names for agent conversations use the latest user prompt. Type: boolean. Default: `false`.
 
 ### Knowledge
 
@@ -286,15 +280,15 @@ Settings for Warp's AI agents, including model behavior, permissions, knowledge,
 * `agent_mode_command_execution_allowlist` — Commands the agent can execute without explicit permission (regex patterns). Type: array of strings. Default: `["cat(\\s.*)?", "echo(\\s.*)?", "find .*", "grep(\\s.*)?", "ls(\\s.*)?", "which .*"]`.
 * `agent_mode_command_execution_denylist` — Commands the agent must always ask before executing (regex patterns). Type: array of strings. Default: `["bash(\\s.*)?", "fish(\\s.*)?", "pwsh(\\s.*)?", "sh(\\s.*)?", "zsh(\\s.*)?", "curl(\\s.*)?", "eval(\\s.*)?", "exec(\\s.*)?", "source(\\s.*)?", "wget(\\s.*)?", "dig(\\s.*)?", "nslookup(\\s.*)?", "host(\\s.*)?", "ssh(\\s.*)?", "scp(\\s.*)?", "rsync(\\s.*)?", "telnet(\\s.*)?", "rm(\\s.*)?"]`.
 
-### Oz (AI features)
+### Warp Agent (AI features)
 
-**Section**: `[agents.oz]`
+**Section**: `[agents.warp_agent]`
 
 * `is_any_ai_enabled` — Controls whether all AI features are enabled. Type: boolean. Default: `true`.
 
 #### Active AI
 
-**Section**: `[agents.oz.active_ai]`
+**Section**: `[agents.warp_agent.active_ai]`
 
 * `enabled` — Controls whether proactive AI features like suggestions are enabled. Type: boolean. Default: `true`.
 * `code_suggestions_enabled` — Controls whether AI code suggestions are enabled. Type: boolean. Default: `true`.
@@ -304,7 +298,7 @@ Settings for Warp's AI agents, including model behavior, permissions, knowledge,
 
 #### Input
 
-**Section**: `[agents.oz.input]`
+**Section**: `[agents.warp_agent.input]`
 
 * `ai_auto_detection_enabled` — Controls whether AI automatically detects natural language input. Type: boolean. Default: `true`.
 * `ai_command_denylist` — Commands to exclude from AI natural language autodetection. Type: string. Default: `""`.
@@ -316,16 +310,23 @@ Settings for Warp's AI agents, including model behavior, permissions, knowledge,
 
 #### Other
 
-**Section**: `[agents.oz.other]`
+**Section**: `[agents.warp_agent.other]`
 
 * `thinking_display_mode` — Controls how agent thinking traces are displayed after streaming. Type: string. Default: `"show_and_collapse"`. Options: `"show_and_collapse"`, `"always_show"`, `"never_show"`.
 * `open_conversation_layout_preference` — Whether to open agent conversations in a new tab or a split pane. Type: string. Default: `"new_tab"`. Options: `"new_tab"`, `"split_pane"`.
-* `orchestration_enabled` — Whether multi-agent orchestration is enabled. Type: boolean. Default: `true`.
 * `show_conversation_history` — Whether conversation history appears in the tools panel. Type: boolean. Default: `true`.
 * `show_agent_notifications` — Whether agent notifications are shown. Type: boolean. Default: `true`.
 * `should_show_oz_updates_in_zero_state` — Whether the "What's new" section is shown in the agent view. Type: boolean. Default: `true`.
 * `should_render_use_agent_toolbar_for_user_commands` — Whether to show the "Use Agent" footer for terminal commands. Type: boolean. Default: `true`.
 * `cloud_agent_computer_use_enabled` — Whether computer use is enabled for cloud agent conversations. Type: boolean. Default: `false`.
+
+### Code review autogeneration
+
+Controls AI-driven autogeneration in the code review dialogs. This setting currently lives under `[agents.oz.active_ai]` rather than alongside the other `[agents.warp_agent.active_ai]` settings.
+
+**Section**: `[agents.oz.active_ai]`
+
+* `git_operations_autogen_enabled` — Controls whether AI auto-generates commit messages and PR title and body in the code review dialogs. Type: boolean. Default: `true`.
 
 ### Third-party (CLI agents)
 
@@ -362,6 +363,7 @@ Settings for Warp's built-in code editor, file handling, and codebase indexing.
 * `prefer_tabbed_editor_view` — Whether to prefer opening files in a tabbed editor view. Type: boolean. Default: `true`.
 * `show_code_review_button` — Whether to show the code review button on tabs. Type: boolean. Default: `true`.
 * `auto_open_code_review_pane_on_first_agent_change` — Whether to automatically open the code review pane when the agent makes its first change. Type: boolean. Default: `false`.
+* `show_code_review_diff_stats` — Whether to show lines added/removed counts on the code review button. Type: boolean. Default: `true`.
 * `show_project_explorer` — Whether the project explorer is shown in the tools panel. Type: boolean. Default: `true`.
 * `show_global_search` — Whether global file search is shown in the tools panel. Type: boolean. Default: `true`.
 * `use_warp_as_default_editor` — Whether Warp is used as the default code editor. Type: boolean. Default: `false`.
@@ -370,7 +372,7 @@ Settings for Warp's built-in code editor, file handling, and codebase indexing.
 
 **Section**: `[code.indexing]`
 
-* `agent_mode_codebase_context` — Whether codebase context is provided to the AI agent. Type: boolean. Default: `true`.
+* `agent_mode_codebase_context` — Whether Codebase Context is provided to the agent. Type: boolean. Default: `true`.
 * `agent_mode_codebase_context_auto_indexing` — Whether automatic codebase indexing is enabled. Type: boolean. Default: `false`.
 
 ## Keys
@@ -468,6 +470,7 @@ Settings for Warp features in SSH sessions and subshells.
 * `enable_ssh_warpification` — Whether to enable Warp features in SSH sessions. Type: boolean. Default: `true`.
 * `enable_legacy_ssh_wrapper` — Whether the legacy SSH wrapper is enabled for SSH sessions. Type: boolean. Default: `true`.
 * `use_ssh_tmux_wrapper` — Whether to use a tmux-based wrapper for SSH warpification. Type: boolean. Default: `false`.
+* `ssh_extension_install_mode` — Controls SSH extension installation behavior. Type: string. Default: `"always_ask"`. Options: `"always_ask"` (always prompt before installing), `"always_install"` (auto-install and connect without prompting), `"never_install"` (fall back to legacy warpification).
 * `ssh_hosts_denylist` — SSH hosts that should not trigger the warpification prompt. Type: array of strings. Default: `[]`.
 
 ### Subshells

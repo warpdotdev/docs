@@ -6,7 +6,7 @@ description: >-
 
 # Getting started with Warp and Oz
 
-Warp is an **Agentic Development Environment**, a modern terminal combined with powerful agents that help you build, test, deploy, and debug code. Warp's AI is powered by **Oz**, the orchestration platform for cloud agents.
+Warp is an [open source](https://github.com/warpdotdev/warp) **Agentic Development Environment**, a modern terminal combined with powerful agents that help you build, test, deploy, and debug code. Warp's AI is powered by **Oz**, the orchestration platform for cloud agents.
 
 <figure><img src=".gitbook/assets/warp-oz-welcome.png" alt="Warp, the Agentic Development Environment: Warp (a modern terminal built for coding with agents) and Oz (the orchestration platform for cloud agents)"><figcaption><p>Warp combines a modern terminal with Oz, the orchestration platform for cloud agents</p></figcaption></figure>
 
@@ -80,11 +80,19 @@ Oz is multi-model by design. You can [choose your preferred LLM](https://docs.wa
 
 ***
 
+## Open source
+
+Warp's client is open source under [AGPL v3](https://github.com/warpdotdev/warp/blob/master/LICENSE). The source lives at [`warpdotdev/warp`](https://github.com/warpdotdev/warp), where you can read the code, file issues, and contribute alongside the Warp team. Development happens in the open with an agent-first workflow managed by Oz.
+
+→ [Contributing to Warp](https://docs.warp.dev/support-and-community/community/contributing) explains how to file issues, claim work, and ship code or themes.
+
+***
+
 ## Privacy and security
 
 Warp is **SOC 2 compliant** and has **Zero Data Retention** policies with all contracted LLM providers. No customer AI data is retained, stored, or used for training.
 
-Warp's AI features can be globally disabled in **Settings** > **Agents** > **Oz**.
+Warp's AI features can be globally disabled in **Settings** > **Agents** > **Warp Agent**.
 
 → [Read more about data privacy](https://www.warp.dev/privacy)
 

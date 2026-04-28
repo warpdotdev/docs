@@ -73,7 +73,7 @@ For example, if a member joins your monthly plan halfway through the month, you 
 If a member leaves part way through the billing cycle, Warp will issue a prorated credit based on the unused portion of their membership. This credit is applied to your team's next invoice, regardless of whether you're on a monthly or annual plan.
 
 {% hint style="warning" %}
-All members of the team will have the same subscription plan, you can't mix and match plans for each member of a team. In order to have different plans, you currently must have separate teams.
+All members of the team will have the same subscription plan, you can't mix and match plans for each member of a team. To have different plans, you currently must have separate teams.
 {% endhint %}
 
 ### What is the value of joining or creating a team on Warp?
@@ -159,7 +159,12 @@ If you need access to advanced collaboration features or higher limits, you may 
 
 ### Are there any Warp discounts for students, non-profits, or open-source teams?
 
-Warp doesn’t currently offer discounts for students, non-profits, or open-source teams. We recommend exploring the Free plan, which includes all core terminal features and is a great starting point for individual or community use.
+Warp doesn’t currently offer discounts for students or non-profits. We recommend exploring the Free plan, which includes all core terminal features and is a great starting point for individual or community use.
+
+For open source teams, two paths are available:
+
+* The [Oz Open Source Partnership](https://docs.warp.dev/support-and-community/community/open-source-partnership) program offers free Oz agent credits to high-impact open source projects.
+* Warp's client itself is open source under [AGPL v3](https://github.com/warpdotdev/warp/blob/master/LICENSE), so you can build, run, and contribute to it directly. See [Contributing to Warp](https://docs.warp.dev/support-and-community/community/contributing) for the flow.
 
 ### Where is Warp Drive data for my team stored?
 
@@ -200,7 +205,7 @@ For annual subscriptions, we can issue a full refund within 15 days if no credit
 
 ### Why doesn't my promo code work or why was it disabled?
 
-Warp's promotions are a way to try Warp before committing to a subscription, not get unlimited free or inexpensive AI. In order to prevent abuse, we're limiting promotion codes to first-time redemptions only, so each account can only use one promotion code.\
+Warp's promotions are a way to try Warp before committing to a subscription, not get unlimited free or inexpensive AI. To prevent abuse, we're limiting promotion codes to first-time redemptions only, so each account can only use one promotion code.\
 \
 In addition certain promo codes we issue are only valid for specific plans (not all plans) and expire after a certain time. If you apply a promo code for a certain plan, then upgrade to another plan, the promotion doesn't transfer to the new plan so you will end up paying full price for the upgrade.
 

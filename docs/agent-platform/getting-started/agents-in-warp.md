@@ -57,7 +57,7 @@ You can also configure an **allowlist** and **denylist** for specific commands y
 
 ## Agent profiles
 
-Profiles let you define different permission and model configurations for different contexts. Create and manage profiles in **Settings** > **Agents** > **Oz**, then switch between them by clicking the profile icon in Warp's input area.
+Profiles let you define different permission and model configurations for different contexts. Create and manage profiles in **Settings** > **Agents** > **Warp Agent**, then switch between them by clicking the profile icon in Warp's input area.
 
 Common profile patterns:
 

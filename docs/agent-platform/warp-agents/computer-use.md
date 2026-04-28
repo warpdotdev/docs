@@ -30,7 +30,7 @@ Computer Use is **opt-in** and disabled by default. You can enable it through se
 
 ### Warp app settings
 
-To enable Computer Use for [Cloud Agents](../cloud-agents/overview.md), navigate to **Settings** > **Agents** > **Oz** > **Experimental** > **Computer use in Cloud Agents** and toggle to enable.
+To enable Computer Use for [Cloud Agents](../cloud-agents/overview.md), navigate to **Settings** > **Agents** > **Warp Agent** > **Experimental** > **Computer use in Cloud Agents** and toggle to enable.
 
 ### CLI
 

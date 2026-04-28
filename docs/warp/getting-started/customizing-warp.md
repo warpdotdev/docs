@@ -8,7 +8,7 @@ description: >-
 
 Warp is deeply customizable. Whether you use Warp primarily as a modern terminal or as an AI-powered development environment, you can tailor the experience to fit how you work. Configure the terminal side (themes, keybindings, vertical tabs, tab configs) and the AI side (model choice, agent autonomy, default mode) independently.
 
-Use the quick-reference table to find what you need, or browse the sections below for more details.
+Use the quick-reference table to find what you need, or browse the sections below for more details. If you want to go further than configuration, Warp's client is open source under [AGPL v3](https://github.com/warpdotdev/warp/blob/master/LICENSE) — see [Contributing to Warp](https://docs.warp.dev/support-and-community/community/contributing) to build a custom variant or contribute changes upstream.
 
 ## Quick reference
 
@@ -25,7 +25,7 @@ Use the quick-reference table to find what you need, or browse the sections belo
 | App icon | **Settings** > **Appearance** > **Icon** | Pick a custom icon (macOS) |
 | Font & text | **Settings** > **Appearance** > **Text** | Change font, size, and cursor style |
 | Agent autonomy | **Settings** > **Agents** > **Profiles** | Set what the agent can do without asking |
-| Default mode | **Settings** > **Agents** > **Oz** > **Input** | Choose whether new tabs open in terminal mode or Agent Mode |
+| Default mode | **Settings** > **Agents** > **Warp Agent** > **Input** | Choose whether new tabs open in terminal mode or Agent Mode |
 
 ***
 
@@ -66,7 +66,7 @@ Control how Warp's agents behave and which models they use.
 
 * **[Model choice](https://docs.warp.dev/agent-platform/warp-agents/model-choice)** - Choose your preferred AI model (Claude, GPT, Gemini, or Auto) from the model selector in any agent conversation.
 * **[Agent profiles and permissions](https://docs.warp.dev/agent-platform/warp-agents/agent-profiles-permissions)** - Configure how much autonomy the agent has: what it can auto-execute, what requires approval, and command allowlists/denylists.
-* **Default mode for new sessions** - Choose whether new tabs open in terminal mode or Agent Mode by default. Set this in **Settings** > **Agents** > **Oz** > **Input**.
+* **Default mode for new sessions** - Choose whether new tabs open in terminal mode or Agent Mode by default. Set this in **Settings** > **Agents** > **Warp Agent** > **Input**.
 
 ## Import and sync
 

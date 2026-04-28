@@ -20,7 +20,8 @@ The `model_id` values shown below can be used when configuring models via the [O
 | --- | --- | --- |
 | Auto (Responsive) | `auto` | Selects the highest-quality, fastest available model. May consume credits more quickly. |
 | Auto (Cost-efficient) | `auto-efficient` | Optimizes for lower credit consumption while maintaining strong output quality. |
-| Auto (Genius) | `auto-genius` | Adapts to task complexity and selects Warp's most capable model when it's worth it. Best for deep debugging, architecture decisions, and /plan-style sessions. |
+| Auto (Genius) | `auto-genius` | Adapts to task complexity and selects Warp's most capable model when it's worth it. Best for deep debugging, architecture decisions, and `/plan` sessions. |
+| Auto (Open-weights) | `auto-open` | Routes between the best open-source models available in Warp. Optimizes for low cost and fast speed using open-weights models. |
 
 All Auto models perform well across all agent workflows and are ideal if you prefer Warp to manage model selection dynamically.
 
@@ -70,6 +71,8 @@ All Auto models perform well across all agent workflows and are ideal if you pre
 
 #### Hosted models (via [Fireworks AI](https://fireworks.ai))
 
+Warp also supports leading open source models hosted via Fireworks AI, so you can run them from inside Warp without setting up your own inference infrastructure.
+
 | Model | `model_id` |
 | --- | --- |
 | GLM 5 | `glm-5-fireworks` |
@@ -95,9 +98,9 @@ Warp uses a model fallback system to ensure uninterrupted service if your select
 
 ### Configuring models per Agent Profile
 
-You can configure the base model for each [Agent Profiles & Permissions](agent-profiles-permissions.md), defining the Agent's autonomy, tool access, and other permissions. The base model is also used for [Planning](planning.md).
+You can configure the base model for each [Agent Profile](agent-profiles-permissions.md), alongside the Agent's autonomy, tool access, and other permissions. The base model is also used for [Planning](planning.md).
 
-Edit your default profile or more profiles directly in **Settings** > **Agents** > **Profiles**.
+Edit your default profile or any other profile directly in **Settings** > **Agents** > **Profiles**.
 
 ### Zero data retention policies
 

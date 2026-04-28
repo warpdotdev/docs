@@ -60,7 +60,7 @@ If auto-detection is enabled, Warp labels your input as "agent" or "shell" befor
 **Disabling the message bar:** To hide the terminal mode hint bar while keeping AI features enabled, go to **Settings** > **Features** > **Terminal Input** and toggle off **Show terminal input message line**. This only hides the contextual hints—it does not disable any AI functionality.
 
 {% hint style="warning" %}
-If you disable the message bar while auto-detection is enabled, you won't see the visual indicator that tells you whether Warp detected your input as a shell command or an agent prompt. Consider also disabling auto-detection (**Settings** > **Agents** > **Oz** > **Input**) if you turn off the message bar.
+If you disable the message bar while auto-detection is enabled, you won't see the visual indicator that tells you whether Warp detected your input as a shell command or an agent prompt. Consider also disabling auto-detection (**Settings** > **Agents** > **Warp Agent** > **Input**) if you turn off the message bar.
 {% endhint %}
 
 {% hint style="info" %}
@@ -154,7 +154,7 @@ When auto-detection identifies your input as a shell command, Warp displays a di
 ### Settings
 
 {% hint style="info" %}
-You can control auto-detection separately for terminal mode and agent conversation view. Both toggles are in **Settings** > **Agents** > **Oz** > **Input**:
+You can control auto-detection separately for terminal mode and agent conversation view. Both toggles are in **Settings** > **Agents** > **Warp Agent** > **Input**:
 
 * **Terminal mode:** Toggle **Autodetect agent prompts in terminal input**
 * **Agent conversation view:** Toggle **Autodetect terminal commands in agent input**
@@ -316,7 +316,7 @@ With auto-detection enabled in agent view, Warp automatically detects whether yo
 
 You can also use the "toggle input mode" keyboard shortcut to override auto-detection and force either "shell" or "agent" mode.
 
-1. Go to **Settings** > **Agents** > **Oz** > **Input**.
+1. Go to **Settings** > **Agents** > **Warp Agent** > **Input**.
 2. Toggle on **Autodetect terminal commands in agent input**.
 
 Press `⌘I` (macOS) or `Ctrl+I` (Windows/Linux) to manually toggle between shell and Agent Mode at any time, overriding auto-detection.

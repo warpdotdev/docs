@@ -67,7 +67,7 @@ You can inspect the web search UI at any time:
   * The text used to answer your question
   * Citations and reference metadata
 
-<figure><img src="../.gitbook/assets/web-search-results.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/web-search-results.png" alt="An agent conversation in Warp showing the expanded Web Search section with the query 'Stripe API latest version 2025' and a list of 10 retrieved URLs"><figcaption></figcaption></figure>
 
 This makes it easy to verify accuracy, audit reasoning, and validate sources.
 
@@ -75,14 +75,13 @@ This makes it easy to verify accuracy, audit reasoning, and validate sources.
 
 Web search is controlled per [Profiles & Permissions](agent-profiles-permissions.md).
 
-**To configure:**
+To configure:
 
-1. Open **Settings** > **Agents** > **Oz**
-2. Select an **Agent Profile**
-3. Scroll to **Call web tools**
-4. Toggle the **setting on or off**
+1. In the Warp app, navigate to **Settings** > **Agents** > **Profiles**.
+2. Next to the agent profile, click **Edit**.
+3. Scroll to **Call web tools** and toggle the setting on or off.
 
-<figure><img src="../.gitbook/assets/web-search-settings.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/web-search-settings.png" alt="The Profiles page in Warp Settings, with the Profile Editor open and the Call web tools toggle enabled"><figcaption></figcaption></figure>
 
 Disabling this prevents the agent from performing searches, even if a model would normally use them.
 

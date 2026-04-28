@@ -5,11 +5,7 @@ description: >-
   examples.
 ---
 
-# Settings file [Preview-only]
-
-{% hint style="info" %}
-The settings file is currently available in [Warp Preview](https://docs.warp.dev/support-and-community/community/warp-preview-and-alpha-program). Settings and behavior described on this page may change before the stable release.
-{% endhint %}
+# Settings file
 
 Warp stores your preferences in a plain-text file called `settings.toml`. You can edit it directly in any text editor, check it into version control, or generate it with a script. Changes take effect immediately — no restart required.
 
@@ -20,7 +16,7 @@ The settings file works alongside the graphical Settings panel. Changes you make
 * **Hot-reload** — Warp watches `settings.toml` for changes and applies them instantly when you save the file.
 * **Error recovery** — If the file contains invalid TOML or an unrecognized value, Warp shows a warning banner and falls back to defaults for the affected settings. Fix the file and the banner clears automatically.
 * **Automatic migration** — When you upgrade to a version of Warp that includes the settings file, Warp automatically migrates your existing preferences into `settings.toml`.
-* **Bidirectional sync with Settings UI** — Changes in the Warp **Settings** panel (`⌘+,` on macOS) write to `settings.toml`, and hand-edits to the file are reflected in the panel.
+* **Bidirectional sync with Settings UI** — Changes in the Warp **Settings** panel (`⌘+,` on macOS, `Ctrl+,` on Linux/Windows) write to `settings.toml`, and hand-edits to the file are reflected in the panel.
 * **Agent-powered editing** — Ask Warp's agent to change settings for you using natural language (for example, "increase my font size to 16"). The bundled `modify-settings` skill handles the file update automatically.
 
 ## Opening your settings file
@@ -28,21 +24,21 @@ The settings file works alongside the graphical Settings panel. Changes you make
 There are several ways to open `settings.toml`:
 
 * In the Warp app, go to **Settings** and click **Open settings file** at the bottom of the panel.
-* Open the file directly in any editor at the path listed below for your platform.
+* Open the file directly in any editor at the path listed below for your platform and Warp release channel.
 
 ## File location
 
-Depending on your platform, `settings.toml` is located at:
+Depending on your platform and Warp release channel, `settings.toml` is located at:
 
-* **macOS** — `~/.warp-preview/settings.toml`
-* **Linux** — `~/.config/warp-terminal-preview/settings.toml`
-* **Windows** — `%LOCALAPPDATA%\warp\WarpPreview\config\settings.toml`
-
-When the settings file reaches stable, the paths will be:
-
-* **macOS** — `~/.warp/settings.toml`
-* **Linux** — `~/.config/warp-terminal/settings.toml`
-* **Windows** — `%LOCALAPPDATA%\warp\Warp\config\settings.toml`
+* **macOS**
+  * Stable — `~/.warp/settings.toml`
+  * Preview — `~/.warp-preview/settings.toml`
+* **Linux**
+  * Stable — `~/.config/warp-terminal/settings.toml`
+  * Preview — `~/.config/warp-terminal-preview/settings.toml`
+* **Windows**
+  * Stable — `%LOCALAPPDATA%\warp\Warp\config\settings.toml`
+  * Preview — `%LOCALAPPDATA%\warp\WarpPreview\config\settings.toml`
 
 ## Settings file format
 
@@ -76,7 +72,7 @@ Each section in the settings file corresponds to a TOML table header in brackets
 
 * `[general]` — Top-level general settings like session restoration and tab placement
 * `[appearance]` — Visual settings, with subsections like `[appearance.text]`, `[appearance.themes]`, `[appearance.cursor]`
-* `[agents]` — Agent and AI settings, with subsections like `[agents.profiles]`, `[agents.oz.input]`
+* `[agents]` — Agent and AI settings, with subsections like `[agents.profiles]`, `[agents.warp_agent.input]`
 * `[terminal]` — Terminal behavior settings, with subsections like `[terminal.input]`
 
 For the complete list of every available setting, see [All settings reference](all-settings.md).
@@ -149,18 +145,29 @@ This banner appears when `settings.toml` has invalid TOML syntax or an unrecogni
 Delete `settings.toml` (or rename it) and restart Warp. Warp falls back to built-in defaults for all settings. The file is re-created the next time you change a setting through the Settings panel.
 
 ```bash
-# macOS (Preview) — back up your current settings, then delete the file
-cp ~/.warp-preview/settings.toml ~/.warp-preview/settings.toml.bak
-rm ~/.warp-preview/settings.toml
+# Uncomment the two lines that match your platform and Warp release
+# channel, then run them to back up and delete settings.toml.
 
-# Linux (Preview)
+# Stable (macOS)
+# cp ~/.warp/settings.toml ~/.warp/settings.toml.bak
+# rm ~/.warp/settings.toml
+
+# Stable (Linux)
+# cp ~/.config/warp-terminal/settings.toml ~/.config/warp-terminal/settings.toml.bak
+# rm ~/.config/warp-terminal/settings.toml
+
+# Preview (macOS)
+# cp ~/.warp-preview/settings.toml ~/.warp-preview/settings.toml.bak
+# rm ~/.warp-preview/settings.toml
+
+# Preview (Linux)
 # cp ~/.config/warp-terminal-preview/settings.toml ~/.config/warp-terminal-preview/settings.toml.bak
 # rm ~/.config/warp-terminal-preview/settings.toml
 ```
 
 ### Settings not applying
 
-Confirm you're editing the correct file for your platform (see [File location](#file-location) above). If you run multiple [Warp release channels](https://docs.warp.dev/support-and-community/community/warp-preview-and-alpha-program), each channel has its own settings directory.
+Confirm you're editing the correct file for your platform and Warp release channel (see [File location](#file-location) above). If you run multiple [Warp release channels](https://docs.warp.dev/support-and-community/community/warp-preview-and-alpha-program), each channel has its own settings directory.
 
 ## Related pages
 

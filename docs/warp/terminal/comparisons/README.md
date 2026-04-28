@@ -6,3 +6,15 @@ description: >-
 
 # Terminal comparisons
 
+Warp is a modern terminal built in Rust with GPU rendering, agent support, and a code-editor-style input. Use this section to see how Warp stacks up against other popular terminals on raw performance and feature coverage.
+
+## How Warp differs
+
+* **Open source under AGPL v3** — Warp's client lives at [`warpdotdev/warp`](https://github.com/warpdotdev/warp). You can read the code, build from source, and contribute. See [Contributing to Warp](https://docs.warp.dev/support-and-community/community/contributing) for the flow.
+* **Built-in agents** — Warp ships with Warp Agent (powered by Oz) and supports third-party CLI agents like Claude Code, Codex, and Gemini CLI from the same terminal.
+* **Modern editing** — Cursor placement, multi-line input, block-based output, and integrated code review work like a text editor instead of a traditional terminal emulator.
+* **Cross-platform Rust core** — Warp ships on macOS, Linux, and Windows from a single Rust + GPU-rendered codebase.
+
+## Benchmarks
+
+* [Performance benchmarks](performance.md) — VTE and Termbench results comparing Warp against Terminal.app, iTerm2, Alacritty, and WezTerm.

@@ -179,7 +179,26 @@ If you installed a package, find Warp in your desktop manager or run `warp-termi
 Want to try our newest features? [Warp Preview](https://docs.warp.dev/support-and-community/community/warp-preview-and-alpha-program) is available on all platforms and architectures (macOS, Windows, Linux) for early access to experimental features.
 {% endhint %}
 
-## Initial Setup
+## Build from source
+
+Warp's client is open source under [AGPL v3](https://github.com/warpdotdev/warp/blob/master/LICENSE), so you can build it yourself from [`warpdotdev/warp`](https://github.com/warpdotdev/warp).
+
+Clone the repo, bootstrap toolchain dependencies, and start a development build:
+
+```bash
+git clone https://github.com/warpdotdev/warp.git
+cd warp
+./script/bootstrap
+cargo run
+```
+
+`cargo run` launches a `warp-oss` binary built from your local checkout. See the repo's `README.md` and `CONTRIBUTING.md` for full prerequisites (Xcode on macOS, the pinned Rust toolchain, `protoc`) and development setup.
+
+{% hint style="info" %}
+Use the official builds for daily use. Self-built `warp-oss` binaries use a separate config and data directory, so they run alongside official Warp without conflicting, but they don't auto-update and don't carry the production code-signing identity. Use them for developing, auditing, or contributing back upstream.
+{% endhint %}
+
+## Initial setup
 
 ### Log in to Warp (Optional)
 

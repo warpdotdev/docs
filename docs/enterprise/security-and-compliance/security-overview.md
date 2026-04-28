@@ -15,6 +15,7 @@ Warp's security philosophy centers on **transparency and developer control**:
 * **Real-time monitoring** - Use Warp's [Network Log](https://docs.warp.dev/support-and-community/privacy-and-security/network-log) to monitor all network requests in real time
 * **Opt-out controls** - Disable telemetry and crash reporting at any time while retaining full functionality
 * **Team-level enforcement** - Admins can configure telemetry and data collection policies for the entire organization
+* **Open source client** - Warp's client code is published under [AGPL v3](https://github.com/warpdotdev/warp/blob/master/LICENSE) at [`warpdotdev/warp`](https://github.com/warpdotdev/warp), so security teams can audit the codebase directly. See [Contributing to Warp](https://docs.warp.dev/support-and-community/community/contributing) for the source repository and the security reporting process.
 
 ## What telemetry does Warp collect and why?
 

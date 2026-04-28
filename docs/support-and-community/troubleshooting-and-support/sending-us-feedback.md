@@ -1,14 +1,15 @@
 ---
 description: >-
-  Submit your feedback, bugs or feature requests to Warp as well as logs,
-  debugging id, bugs, feature requests, novel ideas, etc.
+  Send Warp feedback, bug reports, and feature requests, and gather logs,
+  crash reports, CPU samples, and AI debugging IDs to attach to them.
 ---
 
-# Sending Feedback & Logs
+# Sending feedback and logs
 
 ### Sending Warp feedback
 
-* Open a new bugs or feature request in our [GitHub repository](https://github.com/warpdotdev/warp/issues/new/choose).
+* Use the [`/feedback`](#using-feedback-in-warp) slash command inside Warp to draft and file a GitHub issue without leaving the terminal.
+* Open a new bug or feature request in our [GitHub repository](https://github.com/warpdotdev/warp/issues/new/choose).
 * Join our [Warp Community Slack](https://go.warp.dev/join-preview) and share feedback in **#feedback-general**, or **#feedback-preview** if it is specific to [Warp Preview](../community/warp-preview-and-alpha-program.md).
 * For security issues or questions, email [security@warp.dev](mailto:security@warp.dev).
 * For questions about privacy, email [privacy@warp.dev](mailto:privacy@warp.dev).
@@ -17,15 +18,61 @@ description: >-
 
 * For subscriber technical issues or questions (bugs, credits, etc.), email [support@warp.dev](mailto:support@warp.dev).
 * For subscriber billing issues or questions (refunds, cancellation, etc.), email [billing@warp.dev](mailto:billing@warp.dev).
-* For enterprise, please direct all feedback and issues to your designated Slack Channel.
+* For enterprise, please direct all feedback and issues to your designated Slack channel.
 
 <figure><img src="../.gitbook/assets/send-feedback-demo.gif" alt="sending feedback from the macOS menu and Warp Essentials"><figcaption><p>Send Feedback</p></figcaption></figure>
 
+## Using `/feedback` in Warp
+
+The `/feedback` [slash command](https://docs.warp.dev/agent-platform/warp-agents/slash-commands) is the fastest way to report a Warp bug, flag a regression, or file a feature request from inside the terminal. It files issues against [`warpdotdev/warp`](https://github.com/warpdotdev/warp) so the Warp team can triage reports quickly.
+
+`/feedback` has two flows, and Warp picks the right one automatically based on whether AI is enabled for your account:
+
+* **AI enabled** — the Agent drafts and files the issue for you.
+* **AI disabled** — Warp opens the GitHub new-issue picker in your browser so you can write and submit the report yourself.
+
+### With AI enabled
+
+When AI is enabled, `/feedback` hands your report to the Agent, which polishes and files your issue in a single turn. The Agent:
+
+1. **Classifies** your report by type (bug, regression, UX issue, or feature request).
+2. **Asks clarifying questions** only when the report is too vague to draft responsibly. For example, when expected behavior, reproduction steps, or the affected platform aren't clear.
+3. **Checks for duplicates** in `warpdotdev/warp` and, if a likely duplicate exists, links you to that issue instead of filing a new one.
+4. **Files the issue** in `warpdotdev/warp`, either directly or by opening a prefilled new-issue page in your browser.
+
+{% hint style="info" %}
+This flow uses the Agent to draft your issue, so it consumes [credits](../plans-and-billing/credits.md) like any other Agent conversation.
+{% endhint %}
+
+#### Attaching screenshots
+
+You can attach screenshots to your `/feedback` request the same way you attach images to any other Agent prompt (drag-and-drop into the input, paste from the clipboard, or use the attach button). When one or more images are attached, the Agent:
+
+* Includes a short caption for each screenshot in the drafted issue body, so the report stays coherent even if an image never makes it to the final GitHub issue.
+* Opens the prefilled new-issue page in your browser with placeholder lines (for example, `_Paste screenshot 1 here_`) indicating exactly where to drop each image. Screenshots have to be added in the browser because GitHub doesn't yet support attaching images to issues over its API.
+* Reminds you in its final reply that the issue is drafted but not filed. To complete filing, drop your screenshots into the placeholder lines and click **Submit new issue**.
+
+### With AI disabled
+
+When AI is disabled for your account, `/feedback` (and the **Feedback** button in Warp Essentials) skips the Agent and opens the GitHub new-issue picker for `warpdotdev/warp` directly in your browser, with your current Warp version and operating system prefilled as query parameters. No Agent is invoked and no credits are consumed. You write and submit the issue yourself through GitHub's web UI.
+
+If you're unsure whether AI is enabled for your account, open the Warp app and go to **Settings** > **Agents** > **Warp Agent**.
+
+### What to include
+
+Whether you use the `/feedback` slash command or file an issue manually, a good feedback report answers these questions up front:
+
+* **What happened?** Describe the observed behavior in one or two sentences.
+* **What did you expect?** Describe the behavior you expected instead.
+* **How do we reproduce it?** List numbered steps when possible. If you can't reproduce the issue reliably, mention that too.
+* **What version of Warp are you on?** `/feedback` fills this in automatically; for manual reports, copy it from **Settings** > **Account**.
+* **Logs, screenshots, or debugging IDs.** See [Gathering Warp Logs](#gathering-warp-logs), [Collecting crash reports on macOS](#collecting-crash-reports-on-macos), or [Gathering AI debugging ID](#gathering-ai-debugging-id) below.
+
+See the [Slash Commands reference](https://docs.warp.dev/agent-platform/warp-agents/slash-commands) for the full list of commands available in Warp.
+
 ## Gathering Warp Logs
 
-You can view Warp's logs directly from inside the app by opening the **Command Palette** (`CMD + P` on macOS / `CTRL + SHIFT + P` on Windows/Linux) and searching for "View Warp Logs", or by selecting it from the profile menu in the top-right corner.
-
-Alternatively, you can retrieve Warp's logs manually by following the instructions for your platform below. Locate the log file and attach it to your GitHub issue or email.
+Retrieve Warp's logs by following the instructions for your platform below. Locate the log file and attach it to your GitHub issue or email.
 
 {% hint style="info" %}
 Warp's logs and crash reports _**do not**_ contain any console input or output. See more on how we handle [Crash Reports and Telemetry](../privacy-and-security/privacy.md#what-telemetry-data-are-you-collecting-and-why).

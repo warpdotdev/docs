@@ -25,26 +25,26 @@ Classic Input supports all of Warp's core terminal features, including the follo
 
 ## How to enter Agent Mode
 
-You may enter Agent Mode in a few ways:
+You can enter Agent Mode in a few ways:
 
 {% tabs %}
 {% tab title="macOS" %}
 * Type any natural language, like a task or a question, in the terminal input. Warp will recognize natural language with a local auto-detection feature and prepare to send your query to an Oz agent.
-* Use keyboard shortcuts to toggle into Agent Mode `CMD-I` or type `ASTERISK-SPACE`.
+* Use the keyboard shortcut `⌘+I` to toggle into Agent Mode, or type `*+Space`.
 * Click the “AI” sparkles icon in the menu bar, and this will open a new terminal pane that starts in Agent Mode.
 * From a block you want to ask an Oz agent about, you can click the sparkles icon in the toolbelt, or click on its block context menu item "Attach block(s) to AI query".
 {% endtab %}
 
 {% tab title="Windows" %}
 * Type any natural language, like a task or a question, in the terminal input. Warp will recognize natural language with a local auto-detection feature and prepare to send your query to an Oz agent.
-* Use keyboard shortcuts to toggle into Agent Mode `CTRL-I` or type `ASTERISK-SPACE`.
+* Use the keyboard shortcut `Ctrl+I` to toggle into Agent Mode, or type `*+Space`.
 * Click the "AI" sparkles icon in the menu bar, and this will open a new terminal pane that starts in Agent Mode.
 * From a block you want to ask an Oz agent about, you can click the sparkles icon in the toolbelt, or click on its block context menu item "Attach block(s) to AI query".
 {% endtab %}
 
 {% tab title="Linux" %}
 * Type any natural language, like a task or a question, in the terminal input. Warp will recognize natural language with a local auto-detection feature and prepare to send your query to an Oz agent.
-* Use keyboard shortcuts to toggle into Agent Mode `CTRL-I` or type `ASTERISK-SPACE`.
+* Use the keyboard shortcut `Ctrl+I` to toggle into Agent Mode, or type `*+Space`.
 * Click the "AI" sparkles icon in the menu bar, and this will open a new terminal pane that starts in Agent Mode.
 * From a block you want to ask an Oz agent about, you can click the sparkles icon in the toolbelt, or click on its block context menu item "Attach block(s) to AI query".
 {% endtab %}
@@ -58,11 +58,11 @@ When you are in Agent Mode, a ✨ sparkles icon will display in line with your t
 
 ## Auto-detection for natural language and configurable settings
 
-The feature Warp uses to detect natural language automatically is completely local. None of your input is sent to AI unless you press `ENTER` in Agent Mode.
+The feature Warp uses to detect natural language automatically is completely local. None of your input is sent to AI unless you press `Enter` in Agent Mode.
 
-If you find that certain shell commands are falsely detected as natural language, you can fix the model by adding those commands to a denylist in **Settings** > **Agents** > **Oz** > **Auto-detection denylist**.
+If you find that certain shell commands are falsely detected as natural language, you can fix the model by adding those commands to a denylist in **Settings** > **Agents** > **Warp Agent** > **Natural language denylist**.
 
-You may also turn autodetection off from **Settings** > **Agents** > **Oz** > **Input Auto-detection**.
+You can also turn autodetection off from **Settings** > **Agents** > **Warp Agent** > **Autodetect agent prompts in terminal input**.
 
 The first time you enter Agent Mode, you will be served a banner with the option to disable auto-detection for natural language on your command line:
 
@@ -72,37 +72,37 @@ The first time you enter Agent Mode, you will be served a banner with the option
 
 Warp input occasionally shows hints within the input editor in a light grey text that helps users learn about features. It's enabled by default.
 
-* Toggle this feature **Settings** > **Agents** > **Oz** > **Show input hint text** or search for "Input hint text" in the [Command Palette](../command-palette.md) or Right-click on the input editor.
+* Toggle this feature **Settings** > **Agents** > **Warp Agent** > **Show input hint text** or search for "Input hint text" in the [Command Palette](../command-palette.md) or Right-click on the input editor.
 
 ## How to exit Agent Mode
 
 {% tabs %}
 {% tab title="macOS" %}
-You can quit Agent Mode at any point with `ESC` or `CTRL-C`, or toggle out of Agent Mode with `CMD-I`.
+You can quit Agent Mode at any point with `Esc` or `Ctrl+C`, or toggle out of Agent Mode with `⌘+I`.
 {% endtab %}
 
 {% tab title="Windows" %}
-You can quit Agent Mode at any point with `ESC` or `CTRL-C`, or toggle out of Agent Mode with `CTRL-I`.
+You can quit Agent Mode at any point with `Esc` or `Ctrl+C`, or toggle out of Agent Mode with `Ctrl+I`.
 {% endtab %}
 
 {% tab title="Linux" %}
-You can quit Agent Mode at any point with `ESC` or `CTRL-C`, or toggle out of Agent Mode with `CTRL-I`.
+You can quit Agent Mode at any point with `Esc` or `Ctrl+C`, or toggle out of Agent Mode with `Ctrl+I`.
 {% endtab %}
 {% endtabs %}
 
 ## How to run commands in Agent Mode
 
-Once you have typed your question or task in the input, press `ENTER` to execute your AI query. Agent Mode will send your request to Oz and begin streaming output in the form of an AI block.
+Once you have typed your question or task in the input, press `Enter` to execute your AI query. Agent Mode will send your request to Oz and begin streaming output in the form of an AI block.
 
 Unlike a chat panel, Agent Mode can complete tasks for you by running commands directly in your session.
 
 #### Agent Mode command suggestions
 
-If Agent Mode finds a suitable command that will accomplish your task, it will describe the command in the AI block. It will also fill your terminal input with the suggested command so you can press `ENTER` to run the command.
+If Agent Mode finds a suitable command that will accomplish your task, it will describe the command in the AI block. It will also fill your terminal input with the suggested command so you can press `Enter` to run the command.
 
 When you run a command suggested by Agent Mode, that command will work like a standard command you've written in the terminal. No data will be sent back to the AI.
 
-If the suggested command fails and you want to resolve the error, you may start a new AI query to address the problem.
+If the suggested command fails and you want to resolve the error, you can start a new AI query to address the problem.
 
 <figure><img src="../../.gitbook/assets/agent-mode-suggestion (1).png" alt="Agent Mode makes a suggestion to run a command."><figcaption><p>Agent Mode makes a suggestion to run a command.</p></figcaption></figure>
 
@@ -110,16 +110,16 @@ If the suggested command fails and you want to resolve the error, you may start 
 
 If Agent Mode doesn't have enough context to assist with a task, it will ask permission to run a command and read the output of that command.
 
-You must explicitly agree and press `ENTER` to run the requested command. When you hit enter, both the command input and the output will be sent to Oz.
+You must explicitly agree and press `Enter` to run the requested command. When you hit enter, both the command input and the output will be sent to Oz.
 
-If you do not wish to send the command or its output to AI, you can click Cancel or press `CTRL-C` to exit Agent Mode and return to the traditional command line.
+If you do not wish to send the command or its output to AI, you can click Cancel or press `Ctrl+C` to exit Agent Mode and return to the traditional command line.
 
 <figure><img src="../../.gitbook/assets/warp-ai-permissions.png" alt="Oz asks permission to run a command and read the output."><figcaption><p>Oz asks permission to run a command and read the output.</p></figcaption></figure>
 
-Once a requested command is executed, you may click to expand the output and view command details.
+Once a requested command is executed, you can click to expand the output and view command details.
 
 <figure><img src="../../.gitbook/assets/warp-ai-viewing-commands.png" alt=""><figcaption><p>Viewing command details</p></figcaption></figure>
 
 If a requested command fails, Oz detects it. Agent Mode is self-correcting. It will request another command until it completes the task for you.
 
-Warp lets you choose from a curated list of LLMs for use in Agent Mode. By default, Warp uses **Claude 4 Sonnet** for auto, but you can switch to other supported models. For all available models, please refer to [Model Choice](https://docs.warp.dev/agent-platform/warp-agents/model-choice).
+Warp lets you choose from a curated list of LLMs for use in Agent Mode. By default, Warp uses **Auto (Responsive)**, which routes to the highest-quality, fastest available model. You can switch to other supported models — see [Model choice](https://docs.warp.dev/agent-platform/warp-agents/model-choice) for the full list.

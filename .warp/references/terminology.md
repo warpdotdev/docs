@@ -206,6 +206,22 @@ For the summary of the most critical terms (core features, Oz terms, terms to av
 
 - ❌ **YOLO mode** — Avoid in formal docs and UI copy. Prefer "Run until completion" or "Full autonomy." Acceptable only as a colloquial parenthetical if absolutely necessary.
 
+## Open source
+
+- **`warpdotdev/warp`** — The public, open source repository for Warp's client at [github.com/warpdotdev/warp](https://github.com/warpdotdev/warp). Use this as the canonical link when pointing readers at the source code.
+  *Usage note:* Lowercase `warp` in the repo path. The display org/name appears in code-formatting; do not write "`Warpdotdev/Warp`" or "`warpdotdev/Warp`."
+
+- **AGPL v3** — The license under which Warp's client is published.
+  *Usage note:* Write as "AGPL v3," not "AGPLv3," "AGPL-3.0," or "GNU AGPLv3." Link the first mention to the `LICENSE` file in the repo.
+
+- **open source** — Preferred phrasing when describing Warp.
+  *Usage note:* Lowercase "open source" (no hyphen) in prose, except in quoted feature names. Both "Warp is an open source Agentic Development Environment" and "Warp's client is open source under AGPL v3" are acceptable. Use the shorter framing for landing pages and marketing-adjacent copy; use the longer framing when the client/server distinction matters (security pages, contributor docs).
+
+- **`warp-oss`** / **WarpOss** — The OSS build identity. Lowercase `warp-oss` for the binary, CLI references, and per-channel data dirs (`~/.warp-oss` on macOS, `~/.local/share/warp-oss` on Linux, `AppData\warp\WarpOss` on Windows). CamelCase `WarpOss` for the macOS app bundle name.
+  *Usage note:* Use only when documenting self-built binaries or the OSS channel. Do not use for the official Warp app.
+
+- ❌ **OpenWarp** — Pre-launch internal codename for the OSS build. Replaced by `warp-oss` / `WarpOss` in 2026-04. Do not use anywhere in docs.
+
 ## Billing and credits
 
 - **Add-on Credits** — capitalized as a product feature name

@@ -27,6 +27,7 @@
 
 ## Community
 
+* [Contributing to Warp](support-and-community/community/contributing.md)
 * [Refer a Friend & Earn Rewards](support-and-community/community/refer-a-friend.md)
 * [Oz Open Source Partnership](support-and-community/community/open-source-partnership.md)
 * [Warp Preview](support-and-community/community/warp-preview-and-alpha-program.md)

@@ -15,6 +15,7 @@ Our philosophy is complete transparency and control over any data leaving your m
 * Read a complete list of [all the telemetry events](privacy.md#exhaustive-telemetry-table) that get sent for app analytics
 * Monitor telemetry in real-time with Warp's native [Network Log](network-log.md)
 * [Opt out](privacy.md#how-to-disable-telemetry-and-crash-reporting) of telemetry at any time
+* Read and audit Warp's client source code at [`warpdotdev/warp`](https://github.com/warpdotdev/warp), open source under [AGPL v3](https://github.com/warpdotdev/warp/blob/master/LICENSE)
 
 ## What telemetry data does Warp collect and why?
 
@@ -96,7 +97,7 @@ If you're a [Team](https://docs.warp.dev/knowledge-and-collaboration/teams) admi
 | `Agent Mode Setup Banner Accepted` | Agent Mode setup banner accepted |
 | `Agent Mode Setup Banner Dismissed` | Agent Mode setup banner dismissed |
 | `Agent Mode Setup Project Scoped Rules Action` | User clicked a button in the Agent Mode setup project scoped rules step |
-| `Agent Mode.Setup Codebase Context Action` | User clicked a button in the Agent Mode setup codebase context step |
+| `Agent Mode.Setup Codebase Context Action` | User clicked a button in the Agent Mode setup Codebase Context step |
 | `Agent Predict` | Completed an Agent Predict prediction |
 | `Agent Toolbar Dismissed` | User dismissed the use-agent toolbar |
 | `AgentManagement.AgentTypeSelectorOpened` | User opened the agent type selector from agent management |

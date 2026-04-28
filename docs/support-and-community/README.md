@@ -22,6 +22,8 @@ Bugs, feature requests, and what's shipping next. Your upvotes decide what we pr
 
 [**Open an issue**](https://github.com/warpdotdev/warp/issues)
 
+Warp's client is open source. See [Contributing to Warp](community/contributing.md) for the full set of contribution paths, including opening pull requests, contributing themes and workflows, and sharing Warp Drive objects.
+
 ### Attend events
 
 We host [live events](https://luma.com/warpdotdev) year-round — product demos, launch celebrations, community Q&As, and more. One recurring favorite:

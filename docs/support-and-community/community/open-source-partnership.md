@@ -27,5 +27,5 @@ Have questions about the program? Reach out to us at [support@warp.dev](mailto:s
 Tell us about your open source project by filling out the [application form](https://tally.so/r/LZWxqG). We'll review your submission and follow up with next steps.
 
 {% hint style="info" %}
-The Oz Open Source Partnership program provides free Oz agent credits for open source projects. This is separate from Warp's open source sponsorship efforts. If you're interested in sponsorship opportunities, reach out to [partnerships@warp.dev](mailto:partnerships@warp.dev).
+The Oz Open Source Partnership program provides free Oz agent credits for open source projects. This is separate from Warp's open source client — the Warp client is published under AGPL v3 at [`warpdotdev/warp`](https://github.com/warpdotdev/warp); see [Contributing to Warp](contributing.md). For sponsorship opportunities for your project, reach out to [partnerships@warp.dev](mailto:partnerships@warp.dev).
 {% endhint %}
