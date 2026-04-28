@@ -36,9 +36,11 @@ Warp's plans are designed for developers who rely on AI to code, debug, and move
 
 Legacy plans:
 
-* **Pro** gets you higher credit limits than the Free plan, support for larger codebases with [Codebase Context](https://docs.warp.dev/code/codebase-context), and access to premium models with optional pay-as-you-go overages.
-* **Turbo** offers even higher credit limits, larger Codebase Context indexing, and the option to pay for additional usage beyond your included credits via [Overages (Legacy)](overages-legacy.md). Add-on Credits are not available on this plan.
-* **Lightspeed** is our most powerful plan, offering the highest credit limits, expanded codebase indexing, access to top-tier models, and pay-as-you-go overages so you can keep working without interruption.
+* **Pro** included higher credit limits than the Free plan, support for larger codebases with [Codebase Context](https://docs.warp.dev/code/codebase-context), and access to premium models with optional pay-as-you-go overages.
+* **Turbo** included even higher credit limits, larger Codebase Context indexing, and the option to pay for additional usage beyond included credits via [Overages (Legacy)](overages-legacy.md). Add-on Credits were not available on this plan.
+* **Pro** included higher credit limits than the Free plan, support for larger codebases with [Codebase Context](https://docs.warp.dev/code/codebase-context), and access to premium models with optional pay-as-you-go [Overages (Legacy)](overages-legacy.md).
+* **Turbo** included even higher credit limits, larger Codebase Context indexing, and the option to pay for additional usage beyond included credits via [Overages (Legacy)](overages-legacy.md). Add-on Credits were not available on this plan.
+* **Lightspeed** was Warp's most powerful legacy plan, offering the highest credit limits, expanded codebase indexing, access to top-tier models, and pay-as-you-go [Overages (Legacy)](overages-legacy.md) so you could keep working without interruption.
 
 For the most up-to-date feature and usage details, visit [**warp.dev/pricing**](https://www.warp.dev/pricing).
 
@@ -129,25 +131,21 @@ If a payment fails, you will receive an email from Stripe and your Warp Team Set
 
 Each time you submit a prompt in Warp, whether to generate code, suggest a command, or accomplish a task, you initiate an interaction with the Agent. Please see more details in our [credits](credits.md) page.
 
-### How do overages work?
-
-Overages allow for pay-as-you-go access to premium AI models after reaching your monthly quota on Warp plans. Please see more details in our [Overages](overages-legacy.md) page.
-
 ### What counts as an AI token?
 
 Tokens are chunks of text, such as words, parts of code, or characters, that large language models (LLMs) break down to analyze and generate responses. LLMs have a maximum number of tokens they can process at once. Credits and suggestions are not the same as tokens, which are limited separately regardless of which plan you're on.
 
 {% hint style="info" %}
-Warp now abstracts away token usage, so you don't need to manage or track it directly. You only need to monitor your **credit usage**, which is what’s measured in your plan limits and overages.
+Warp now abstracts away token usage, so you don't need to manage or track it directly. You only need to monitor your **credit usage**, which is what’s measured against your plan limits.
 {% endhint %}
 
 If you're curious, you can read the [OpenAI article on tokens](https://help.openai.com/en/articles/4936856-understanding-tokens), or refer to the pricing page for plan-level credit allocations. If you reach your monthly credit limits on a paid plan, premium models will be temporarily disabled until your quota resets at the start of your next billing cycle.
 
-If you’d like to continue using premium models beyond your included quota, you can enable [pay-as-you-go overages](overages-legacy.md) in **Settings** > **Billing and usage**.
+If you’d like to continue using premium models beyond your included quota, purchase [Add-on Credits](add-on-credits.md) in **Settings** > **Billing and usage** (users still on legacy Pro, Turbo, or Lightspeed plans continue to use [Overages (Legacy)](overages-legacy.md) until their first renewal after December 1, 2025).
 
 ### How often do my credits reset?
 
-Allotted credits refill every 30 days from your signup date. When you upgrade to a [paid plan](https://www.warp.dev/pricing), you will be given more credits immediately. You can follow along with your refill period by referencing **Settings** > **Billing and usage**. Alternatively, you can also set [Overages](overages-legacy.md) to your desired amount to continue to use more premium model credits.
+Allotted credits refill every 30 days from your signup date. When you upgrade to a [paid plan](https://www.warp.dev/pricing), you will be given more credits immediately. You can follow along with your refill period by referencing **Settings** > **Billing and usage**. Alternatively, purchase [Add-on Credits](add-on-credits.md), or enable auto reload with a monthly spend limit, to continue using premium models beyond your included quota. Users still on legacy Pro, Turbo, or Lightspeed plans continue to use [Overages (Legacy)](overages-legacy.md) until their first renewal after December 1, 2025.
 
 {% hint style="info" %}
 Unused credits do not rollover to the next cycle and can't be transferred to other accounts.
