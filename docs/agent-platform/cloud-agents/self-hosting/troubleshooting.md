@@ -128,6 +128,24 @@ See [Security and networking](security-and-networking.md#network-requirements) f
 
 ***
 
+## Metrics not appearing
+
+**Cause:** The worker is running but metrics aren't showing up in Prometheus or your collector.
+
+**Fix:**
+
+1. Verify `OTEL_METRICS_EXPORTER` is set correctly on the worker process. Run `curl -s localhost:9464/metrics` from the worker host (for `prometheus` mode) to confirm the endpoint is serving.
+2. For Prometheus scrape mode, confirm the bind address is `0.0.0.0` (not `localhost`) when running in Docker or Kubernetes. `localhost` is only reachable from inside the container.
+3. Confirm no firewall or network policy blocks the metrics port (default `9464`).
+4. For OTLP push mode, verify `OTEL_EXPORTER_OTLP_ENDPOINT` points to a reachable collector and that the protocol matches (`http/protobuf` vs `grpc`).
+5. When using the Helm chart, confirm `metrics.enabled=true` is set. Check that the `Service` and (optionally) `PodMonitor` were created: `kubectl get svc,podmonitor -n <namespace>`.
+6. If using `metrics.podMonitor.create=true`, verify the `monitoring.coreos.com` CRDs are installed in the cluster. The `PodMonitor` resource requires the Prometheus Operator.
+7. Run `--log-level debug` on the worker and look for metrics-related error messages at startup.
+
+See [Monitoring](monitoring.md) for the full setup guide.
+
+***
+
 ## Related pages
 
 * [Self-hosting overview](README.md) — Architecture and decision guide.

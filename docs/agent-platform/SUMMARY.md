@@ -82,6 +82,7 @@
   * [Managed: Kubernetes](cloud-agents/self-hosting/managed-kubernetes.md)
   * [Managed: Direct](cloud-agents/self-hosting/managed-direct.md)
   * [Self-hosted worker reference](cloud-agents/self-hosting/reference.md)
+  * [Monitoring](cloud-agents/self-hosting/monitoring.md)
   * [Security and networking](cloud-agents/self-hosting/security-and-networking.md)
   * [Troubleshooting](cloud-agents/self-hosting/troubleshooting.md)
 * [Access, billing, and identity](cloud-agents/team-access-billing-and-identity.md)

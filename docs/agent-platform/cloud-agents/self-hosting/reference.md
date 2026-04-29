@@ -176,6 +176,20 @@ Only one backend can be configured at a time. Specifying more than one of `docke
 
 ***
 
+## Metrics configuration
+
+The worker exports metrics over OpenTelemetry. Exporter selection is controlled by standard environment variables, not CLI flags or config file fields. Set these variables on the worker process (or the worker container via Docker `-e` / Kubernetes `env`).
+
+* `OTEL_METRICS_EXPORTER` — Exporter to use: `prometheus`, `otlp`, `console`, or `none`. When unset, defaults to `otlp`.
+* `OTEL_EXPORTER_PROMETHEUS_HOST` — Bind address for the Prometheus exporter. Defaults to `localhost`. Set to `0.0.0.0` when running in Docker or Kubernetes.
+* `OTEL_EXPORTER_PROMETHEUS_PORT` — Port for the Prometheus exporter. Defaults to `9464`.
+* `OTEL_EXPORTER_OTLP_ENDPOINT` — OTLP collector endpoint (e.g., `http://otel-collector.observability.svc:4318`).
+* `OTEL_EXPORTER_OTLP_PROTOCOL` — OTLP protocol: `http/protobuf` (default) or `grpc`.
+
+When deploying with the Helm chart, use the `metrics.*` values instead of setting these variables manually. See [Monitoring](monitoring.md) for the full setup guide, metric catalog, Helm values, and sample PromQL queries.
+
+***
+
 ## Routing runs to self-hosted workers
 
 Once a worker is running, route cloud agent runs to it with the `--host` flag or its equivalents. See [Routing runs to self-hosted workers](README.md#routing-runs-to-self-hosted-workers) for examples across the CLI, schedules, integrations, the API, and the web UI.
@@ -189,4 +203,5 @@ Once a worker is running, route cloud agent runs to it with the `--host` flag or
 * [Managed: Direct](managed-direct.md) — Direct backend setup and workspace model.
 * [Self-hosting overview](README.md) — Architecture, decision guide, and Enterprise requirements.
 * [Environments](../environments.md) — Define the Docker image, repos, and setup commands used by task containers.
+* [Monitoring](monitoring.md) — OpenTelemetry metrics for worker health, task throughput, and capacity.
 * [Troubleshooting](troubleshooting.md) — Worker and task failure diagnostics.

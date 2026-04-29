@@ -232,6 +232,26 @@ Use `kubernetesBackend.setupCommand` (Helm value) or `backend.kubernetes.setup_c
 
 ***
 
+## Metrics
+
+The Helm chart includes built-in support for exporting OpenTelemetry metrics from the worker. Enable metrics by setting `metrics.enabled=true`:
+
+```bash
+helm install oz-agent-worker ./charts/oz-agent-worker \
+  --namespace warp-oz \
+  --set worker.workerId=oz-k8s-worker \
+  --set image.tag=VERSION \
+  --set metrics.enabled=true
+```
+
+With the default `metrics.exporter=prometheus`, the chart creates a `Service` with Prometheus scrape annotations and exposes port `9464`. For clusters using the Prometheus Operator, set `metrics.podMonitor.create=true` to create a `PodMonitor`.
+
+To push metrics to an OTLP collector instead, set `metrics.exporter=otlp` and configure the endpoint via `metrics.extraEnv`.
+
+See [Monitoring](monitoring.md) for the full list of Helm values, the metric catalog, and sample PromQL queries.
+
+***
+
 ## Operational notes
 
 * **Scaling** — The chart always deploys a single replica for a given `worker.workerId`. To run multiple workers, deploy multiple Helm releases with distinct worker IDs rather than scaling a single release horizontally.
@@ -248,5 +268,6 @@ Use `kubernetesBackend.setupCommand` (Helm value) or `backend.kubernetes.setup_c
 * [Self-hosting overview](README.md) — Managed vs unmanaged and the backend decision guide.
 * [Routing runs to self-hosted workers](README.md#routing-runs-to-self-hosted-workers) — How to send tasks to your connected worker from the CLI, schedules, integrations, the API, and the web UI.
 * [Environments](../environments.md) — Define the task image, repos, and setup commands.
+* [Monitoring](monitoring.md) — OpenTelemetry metrics, including Helm chart metrics values.
 * [Security and networking](security-and-networking.md) — RBAC, admission policies, and data boundaries.
 * [Troubleshooting](troubleshooting.md#kubernetes-backend) — Common Kubernetes-backend issues.

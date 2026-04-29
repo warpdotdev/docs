@@ -200,6 +200,8 @@ Self-hosted runs have the same observability as Warp-hosted runs:
 * **Session sharing** — Authorized teammates can attach to running tasks to monitor progress.
 * **APIs and SDKs** — Query task history and build monitoring using the [Oz API](https://docs.warp.dev/reference/api-and-sdk/agent).
 
+For infrastructure-level observability, the `oz-agent-worker` daemon can export OpenTelemetry metrics (worker health, task throughput, capacity saturation) to Prometheus, an OTLP collector, or the console. See [Monitoring](monitoring.md) for setup, the full metric catalog, and sample PromQL queries.
+
 ***
 
 ## Related pages
@@ -210,6 +212,7 @@ Self-hosted runs have the same observability as Warp-hosted runs:
 * [Managed: Kubernetes](managed-kubernetes.md) — Managed setup with the Kubernetes backend and Helm chart.
 * [Managed: Direct](managed-direct.md) — Managed setup with no container runtime.
 * [Self-hosted worker reference](reference.md) — CLI flags and config file schema.
+* [Monitoring](monitoring.md) — OpenTelemetry metrics for worker health, task throughput, and capacity.
 * [Security and networking](security-and-networking.md) — Data boundaries, network egress, and security considerations.
 * [Troubleshooting](troubleshooting.md) — Worker won't start, tasks not picked up, and other common issues.
 * [Deployment patterns](../deployment-patterns.md) — How self-hosting compares to CLI-only and Warp-hosted deployment.
