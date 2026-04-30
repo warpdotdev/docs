@@ -61,11 +61,12 @@ Administrators can configure monthly spending limits and receive alerts to preve
 
 #### Monthly spending limits
 
-Enterprise administrators can set monthly spending limits for the entire team across three categories:
+Enterprise administrators can set monthly spending limits for the entire team across the following categories:
 
 * **Cloud spending limit** - Cap monthly spend on Oz cloud agent usage.
 * **Local spending limit** - Cap monthly spend on local agent usage in the Warp app.
 * **Total spending limit** - Cap combined monthly spend across both cloud and local agents.
+* **Per-user spending limit** - Cap the monthly spend of any individual user. Set a default limit that applies to all users, or override it on a per-user basis for predictable individual spend.
 
 Spending is tracked across all payment types (Add-on Credits, pay-as-you-go usage) so limits apply consistently regardless of how usage is funded.
 
