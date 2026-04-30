@@ -1,0 +1,78 @@
+---
+title: Understanding Your Codebase
+description: >-
+  Use Warp's Codebase Context to search across client and server repos,
+  generate architecture summaries, and onboard to unfamiliar features fast.
+sidebar:
+  label: "Understand your codebase"
+---
+import VideoEmbed from '@components/VideoEmbed.astro';
+
+<VideoEmbed url="https://www.youtube.com/watch?v=pohnoRZas-E" />
+
+### 1. The Challenge
+
+Kevin, who worked on Warp’s Windows and Linux builds, wanted to jump into a feature he hadn’t touched before: Block Sharing.\
+\
+This feature spans two codebases — Warp’s client (Rust) and server (Go) — making onboarding tough.
+
+That’s where Codebase Context comes in.
+
+---
+
+### 2. What Is Codebase Context?
+
+Warp’s Codebase Context uses semantic search to understand your code.\
+It doesn’t rely on exact function or variable names — instead, it searches based on meaning.
+
+You can use it through a shared workflow in Warp Drive.
+
+This prompt tells Warp to:
+
+* Search across both client and server codebases
+* Summarize how a feature works end-to-end
+* Include clickable links to relevant files
+
+---
+
+### 3. Real Example: Block Sharing
+
+Kevin types `block sharing` into Warp’s shared workflow.\
+Warp:
+
+1. Searches the client codebase for the rendering logic
+2. Searches the server codebase for GraphQL handlers
+3. Generates a summary combining both perspectives
+
+The output includes:
+
+* Architecture overview
+* Linked file paths
+* Function and module summaries
+
+No more manual onboarding or guessing file names.
+
+---
+
+### 4. Incremental Syncing
+
+Whenever you change a file in an indexed repo:
+
+* Warp detects the update automatically
+* Re-embeds just that file
+* Keeps your code context fresh
+
+That means agents never reference stale code.
+
+---
+
+### 5. Why It’s Game-Changing
+
+Codebase Context helps teams:
+
+* Understand large or unfamiliar codebases
+* Onboard faster
+* Jump between client and server logic seamlessly
+* Generate accurate, clickable documentation
+
+> “This saved us hours of one-on-one walkthroughs.” — Lucy

@@ -1,0 +1,114 @@
+---
+title: "How To: Actually Code UI That Matches Your Mockup (React + Tailwind)"
+description: >-
+  Prompt Warp to generate pixel-perfect React + Tailwind code from design
+  mockups, with structured specs and iterative refinement.
+sidebar:
+  label: "Actually code UI that matches your mockup"
+---
+import VideoEmbed from '@components/VideoEmbed.astro';
+import { Steps } from '@astrojs/starlight/components';
+
+Learn how to prompt Warp’s AI to produce accurate, design-faithful UI code using your preferred framework.
+
+<VideoEmbed url="https://youtu.be/GA0OO_1o8LA?si=2BLIDNjL5Tr0Nixz" />
+
+---
+
+## Intro
+
+This tutorial walks you through generating pixel-perfect front-end code using Warp.\
+\
+By treating the AI like a **UI engineer**, you can get closer to real implementation fidelity — especially when working from design mockups.
+
+Although this example uses **React** and **Tailwind**, the same method applies to **Vue**, **Next.js**, or **Svelte**.
+
+---
+
+<Steps>
+
+1. #### The Problem
+
+   When designing UI with AI, your intended design often gets lost in translation.\
+   AI struggles with visual fidelity — but structured prompts can help fix that.
+
+2. #### The Prompt
+
+   Step — Generate full specifications:
+
+   ```
+   Analyze this web design mockup as a senior UI engineer would. Create a complete technical specification:
+
+   1. DESIGN SYSTEM TOKENS:
+      - Extract the color palette with semantic naming (primary, secondary, surface, text)
+      - Identify the type scale (heading levels, body text sizes)
+      - Document the spacing scale pattern (4px, 8px, 16px, etc.)
+      - List border radius values used consistently
+
+   2. LAYOUT ARCHITECTURE:
+      - Describe the overall page structure using semantic HTML5 elements
+      - Identify CSS Grid vs Flexbox usage for each section
+
+   3. COMPONENT SPECIFICATIONS:
+      For each unique component, provide:
+      - Semantic HTML structure
+      - CSS layout method
+      - All visual states (default, hover, focus, active, disabled)
+      - Exact dimensions and spacing
+      - Animation/transition properties
+
+   4. RESPONSIVE BEHAVIOR:
+      - Describe how the layout adapts (even if only desktop is shown)
+      - Note which elements stack, hide, or resize
+      - Identify touch targets that need enlarging on mobile
+
+   5. ACCESSIBILITY REQUIREMENTS:
+      - Color contrast ratios for text/background combinations
+      - Interactive element sizes (minimum 44x44px touch targets)
+      - Focus indicator styles
+      - Screen reader considerations for decorative elements
+
+   Format as a structured spec that includes both the visual description AND implementation notes. Flag any ambiguous design decisions that need clarification.
+
+   ```
+
+   Next, give Warp the right prompt to start the code implementation:
+
+   ```
+   Using this design specification, build a responsive React component with Tailwind CSS:
+
+   Requirements:
+   - Create reusable components for each element in the spec
+   - Use CSS variables for the design tokens
+   - Implement all interactive states
+   - Ensure mobile-first responsive design
+   - Add proper semantic HTML and ARIA labels
+   - Include Framer Motion for any animations mentioned
+   - Match the spacing system exactly using Tailwind's spacing scale
+
+   Create a pixel-perfect implementation that matches the original design.
+
+   ```
+
+3. #### Validate and Iterate
+
+   Warp outputs component files and layout structure.\
+   You can review spacing, font weights, and responsive behavior directly in preview.
+
+   If details feel off, prompt again with clarifications like:
+
+   ```
+   Tighten vertical spacing between header and subtext.
+   ```
+
+4. #### Recap
+
+   You’ve learned how to:
+
+   * Prompt AI for structured UI specs
+   * Generate React + Tailwind implementations
+   * Iterate visually for design parity
+
+   > Treating the AI like a teammate — not a tool — yields interfaces that finally match your vision.
+
+</Steps>

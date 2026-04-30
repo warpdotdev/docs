@@ -1,0 +1,40 @@
+name: "Docs content issue"
+description: Report incorrect, outdated, missing, or unclear documentation.
+labels:
+  - improve or update documentation
+body:
+  - type: markdown
+    attributes:
+      value: "Minor fixes like typos, broken links, and short clarifications can go straight to a pull request."
+  - type: input
+    id: subject
+    attributes:
+      label: Subject area or topic
+      description: Which product area or documentation topic does this affect?
+      placeholder: Agent Mode, Warp Drive, cloud agents, API keys, billing, etc.
+    validations:
+      required: true
+  - type: textarea
+    id: pages
+    attributes:
+      label: Page or pages affected
+      description: Provide the URL of each affected page, or suggest where new content should live.
+      placeholder: https://docs.warp.dev/agent-platform/capabilities/skills
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is incorrect, outdated, missing, or unclear?
+      description: Describe the documentation problem and why it matters.
+      placeholder: This page says..., but the current behavior is...
+    validations:
+      required: true
+  - type: textarea
+    id: suggested
+    attributes:
+      label: Suggested update
+      description: Share the correction, source context, or proposed direction if you have one.
+      placeholder: The page should say...
+    validations:
+      required: false

@@ -1,0 +1,364 @@
+---
+// Standalone Scalar API reference — not embedded in Starlight.
+// Accessible at docs.warp.dev/api
+// Spec lives at `developers/agent-api-openapi.yaml`, synced from the
+// upstream Oz Agent API source. Re-sync that file when the API changes
+// and this page picks it up at the next build.
+//
+// Note on `set:html={specJson}` below: the injected value is JSON.stringify()
+// of a YAML file that lives in this repo and is read at build time. It is not
+// user input, so injecting it into a <script type="application/json"> element
+// is safe. JSON.stringify also escapes `</script>` sequences to keep the
+// script tag well-formed.
+import fs from 'node:fs';
+import { parse } from 'yaml';
+import WarpTopbar from '../components/WarpTopbar.astro';
+import FeedbackButtons from '../components/FeedbackButtons.astro';
+const yamlContent = fs.readFileSync('developers/agent-api-openapi.yaml', 'utf-8');
+const specObject = parse(yamlContent);
+const specJson = JSON.stringify(specObject);
+// `PUBLIC_PUSHFEEDBACK_PROJECT_ID` is read directly inside `<FeedbackButtons />`
+// (see `src/components/FeedbackButtons.astro`) — no need to plumb it through
+// here.
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Oz Agent API Reference | Warp</title>
+    <meta name="description" content="Interactive API reference for the Oz Agent API. Create and manage cloud agent runs, schedules, and more." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://docs.warp.dev/api/" />
+    <!-- Open Graph -->
+    <meta property="og:title" content="Oz Agent API Reference | Warp" />
+    <meta property="og:description" content="Interactive API reference for the Oz Agent API. Create and manage cloud agent runs, schedules, and more." />
+    <meta property="og:url" content="https://docs.warp.dev/api/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Warp Docs" />
+    <meta property="og:image" content="https://docs.warp.dev/assets/og/api.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Oz Agent API Reference — Warp" />
+    <!-- Twitter / X card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Oz Agent API Reference | Warp" />
+    <meta name="twitter:description" content="Interactive API reference for the Oz Agent API. Create and manage cloud agent runs, schedules, and more." />
+    <meta name="twitter:image" content="https://docs.warp.dev/assets/og/api.png" />
+    <link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml" />
+    {/* PushFeedback CSS + JS are NOT loaded here — the lazy loader inside
+       `<FeedbackButtons />` (rendered below) injects them on idle so the
+       Scalar reference's first paint isn't blocked on a CDN fetch. */}
+    <script is:inline>
+      // Theme persistence: shared between Starlight pages and this Scalar
+      // /api page. `localStorage['starlight-theme']` is the single source
+      // of truth (`'light'` | `'dark'` | `''` for auto), already managed
+      // by Starlight on the docs side. On this page we resolve auto via
+      // `prefers-color-scheme` and apply both `body.dark-mode` /
+      // `body.light-mode` (Scalar's color contract — our customCss block
+      // below keys all the brand tokens off these classes) and
+      // `<html data-theme>` (PushFeedback's contract).
+      //
+      // Runs synchronously in <head> so the body class is set before
+      // Scalar's bundle parses, avoiding a flash from Scalar's default.
+      // Exposes `window.__warpApplyTheme('auto'|'light'|'dark')` so the
+      // theme select in WarpTopbar can drive everything in one call.
+      (function () {
+        var STORAGE_KEY = 'starlight-theme';
+        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+        var resolve = function (value) {
+          if (value === 'light' || value === 'dark') return value;
+          return prefersDark.matches ? 'dark' : 'light';
+        };
+        var apply = function (resolved) {
+          var b = document.body;
+          if (b) {
+            b.classList.remove(resolved === 'dark' ? 'light-mode' : 'dark-mode');
+            b.classList.add(resolved === 'dark' ? 'dark-mode' : 'light-mode');
+          }
+          document.documentElement.setAttribute('data-theme', resolved);
+        };
+        var read = function () {
+          try { return localStorage.getItem(STORAGE_KEY); } catch (_e) { return null; }
+        };
+        // First paint — if <body> isn't parsed yet, also re-apply on
+        // DOMContentLoaded so the body class definitely lands before
+        // Scalar mounts.
+        apply(resolve(read()));
+        if (!document.body) {
+          document.addEventListener('DOMContentLoaded', function () {
+            apply(resolve(read()));
+          });
+        }
+        // Public helper used by the theme select in WarpTopbar.astro.
+        window.__warpApplyTheme = function (value) {
+          try {
+            localStorage.setItem(STORAGE_KEY, value === 'auto' ? '' : value);
+          } catch (_e) {}
+          apply(resolve(value === 'auto' ? '' : value));
+        };
+        // Re-resolve when the system preference changes, but only if
+        // we're following it (stored value is empty / unknown).
+        prefersDark.addEventListener('change', function () {
+          var v = read();
+          if (v !== 'light' && v !== 'dark') apply(resolve(v));
+        });
+        // Cross-tab sync: another tab updated the preference.
+        window.addEventListener('storage', function (e) {
+          if (e.key !== STORAGE_KEY) return;
+          apply(resolve(e.newValue));
+        });
+        // Belt-and-braces: any other actor that flips body.dark-mode /
+        // body.light-mode (Scalar internals, PushFeedback, future
+        // integrations) should still update html[data-theme] so
+        // PushFeedback's modal stays in sync with the visible page.
+        var mirror = new MutationObserver(function () {
+          var b = document.body;
+          if (!b) return;
+          var isDark = b.classList.contains('dark-mode');
+          document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+        });
+        var startMirror = function () {
+          if (document.body) {
+            mirror.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+          }
+        };
+        if (document.body) startMirror();
+        else document.addEventListener('DOMContentLoaded', startMirror);
+      })();
+    </script>
+  </head>
+  <body>
+    <WarpTopbar crumb="API Reference" />
+    <script
+      is:inline
+      id="api-reference"
+      type="application/json"
+      data-configuration={JSON.stringify({
+        theme: 'none',
+        documentDownloadType: 'none',
+        withDefaultFonts: false,
+        defaultHttpClient: { targetKey: 'shell', clientKey: 'curl' },
+        hiddenClients: ['objc', 'ocaml', 'powershell', 'clojure', 'c', 'r', 'swift', 'kotlin', 'java', 'csharp'],
+        agent: { disabled: true },
+        hideClientButton: true,
+        hideTestRequestButton: true,
+        // Hide Scalar's built-in dark-mode toggle (sidebar bottom-left).
+        // We surface our own select in `WarpTopbar` to keep the toggle in
+        // the same top-right slot as Starlight's `ThemeSelect` and to
+        // share `localStorage['starlight-theme']` with the docs side.
+        hideDarkModeToggle: true,
+        mcp: { disabled: true },
+        // Expand every tag group (`agent`, `schedules`, `Models`) in the sidebar
+        // on first load. Our API surface is small enough that all endpoints fit
+        // without scroll-induced clutter, and the extra click-to-reveal on each
+        // group makes the reference feel hidden by default. Scalar also drops
+        // the chevron caret automatically when this is set, so the sidebar
+        // doesn't show a fake "interactive" affordance (per scalar/scalar#5079).
+        defaultOpenAllTags: true,
+        metaData: {
+          title: 'Oz Agent API Reference',
+          description: 'Interactive API reference for the Oz Agent API.',
+        },
+        // ---------------------------------------------------------------
+        // Scalar consumes `customCss` as a runtime string, so we can't
+        // import token values from src/styles/custom.css here. The HSL
+        // values below MUST stay in sync with the Warp brand tokens in
+        // src/styles/custom.css. Specifically:
+        //   --sl-color-bg                       → --scalar-background-1
+        //   --sl-color-bg-nav (= bg)            → --scalar-sidebar-background-1
+        //   --sl-color-gray-{6,5,4,3,2,1}       → --scalar-color/background-{*}
+        //   --sl-color-accent / -high / -low    → --scalar-color-accent
+        //   --sl-color-hairline-light            → --scalar-border-color
+        // If you change a brand token in custom.css, audit this block too
+        // (search for `hsl(` or `#121212`).
+        // ---------------------------------------------------------------
+        customCss: `
+          @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+          @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+          body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+          }
+          /* Reserve space at the top of the viewport for our Warp topbar.
+             Scalar's --scalar-y-offset shifts its sticky sidebar/operations
+             below the offset (see scalar/scalar#2198). Mirror Starlight's
+             responsive --sl-nav-height (3.5rem mobile / 4rem >=50em) so the
+             logo doesn't jump vertically when navigating between /docs and
+             /api. WarpTopbar.astro reads the same token. */
+          :root {
+            --warp-topbar-height: 3.5rem;
+            --scalar-y-offset: var(--warp-topbar-height);
+          }
+          @media (min-width: 50em) {
+            :root {
+              --warp-topbar-height: 4rem;
+            }
+          }
+          /* Warp brand tokens — dark mode (mirrors src/styles/custom.css).
+             Values map to the Oz webapp ladder; if you adjust them in
+             custom.css, update them here in lockstep. */
+          .dark-mode {
+            --scalar-background-1: #121212;            /* Warp legacy dark canvas */
+            --scalar-background-2: #181d27;            /* Oz gray-900 (raised) */
+            --scalar-background-3: #252b37;            /* Oz gray-800 (hover) */
+            --scalar-background-accent: hsla(207, 80%, 62%, 0.12);
+            --scalar-color-1: hsl(40, 20%, 97%);       /* warp.dev warm off-white — headings */
+            --scalar-color-2: #dbdbdb;                  /* Oz gray-300 — body text */
+            --scalar-color-3: #a4a7ae;                  /* Oz gray-400 — tertiary */
+            --scalar-color-accent: hsl(207, 80%, 62%);
+            --scalar-border-color: #414651;             /* Oz gray-700 */
+            --scalar-font: 'Inter', sans-serif;
+            --scalar-font-code: 'JetBrains Mono', monospace;
+          }
+          .dark-mode .sidebar {
+            --scalar-sidebar-background-1: #121212;
+            --scalar-sidebar-border-color: #414651;
+            --scalar-sidebar-color-1: hsl(40, 20%, 97%);
+            --scalar-sidebar-color-2: #dbdbdb;
+            --scalar-sidebar-color-active: hsl(217, 90%, 84%);
+            --scalar-sidebar-item-active-background: #252b37;
+            --scalar-sidebar-item-hover-background: #252b37;
+          }
+          /* Warp brand tokens — light mode (mirrors src/styles/custom.css).
+             Pure-white canvas matches Oz bg-primary; gray ladder maps
+             to Oz gray-50..gray-950. */
+          .light-mode {
+            --scalar-background-1: #ffffff;             /* Oz bg-primary */
+            --scalar-background-2: #fafafa;             /* Oz gray-50  — raised */
+            --scalar-background-3: #f3f3f3;             /* Oz gray-100 — hover */
+            --scalar-background-accent: hsla(207, 80%, 40%, 0.08);
+            --scalar-color-1: #0a0d12;                  /* Oz gray-950 — headings */
+            --scalar-color-2: #414651;                  /* Oz gray-700 — body text */
+            --scalar-color-3: #535862;                  /* Oz gray-600 — tertiary */
+            --scalar-color-accent: hsl(207, 80%, 40%);
+            --scalar-border-color: #f3f3f3;             /* Oz gray-100 */
+          }
+          .light-mode .sidebar {
+            --scalar-sidebar-background-1: #ffffff;
+            --scalar-sidebar-border-color: #f3f3f3;
+            --scalar-sidebar-color-1: #0a0d12;
+            --scalar-sidebar-color-2: #414651;
+            --scalar-sidebar-color-active: hsl(210, 60%, 28%);
+            --scalar-sidebar-item-active-background: #fafafa;
+            --scalar-sidebar-item-hover-background: #fafafa;
+          }
+          /* Hide Developer Tools toolbar */
+          .references-developer-tools,
+          .api-reference-toolbar { display: none !important; }
+        `,
+      })}
+      set:html={specJson}
+    />
+    <script is:inline>
+      // Sync Scalar's `darkMode` config to the resolved theme before the
+      // Scalar bundle reads `data-configuration`. This keeps Scalar's
+      // internal `useColorMode` state aligned with the body class our
+      // <head> script already set, eliminating the one-frame mismatch
+      // where Scalar would briefly mount in its own default.
+      (function () {
+        var el = document.getElementById('api-reference');
+        if (!el) return;
+        var raw = el.getAttribute('data-configuration');
+        if (!raw) return;
+        try {
+          var cfg = JSON.parse(raw);
+          cfg.darkMode = document.body.classList.contains('dark-mode');
+          el.setAttribute('data-configuration', JSON.stringify(cfg));
+        } catch (_e) {
+          // Malformed config — let Scalar fall back to its own default.
+        }
+      })();
+    </script>
+    <script is:inline src="https://cdn.jsdelivr.net/npm/@scalar/api-reference@1.52.2" integrity="sha384-lQKcRGSJRRAHGfUX6ajRHvcWdCi8lgITkVTftrhsN5rVkWmsjVaW0encVdMEhGhi" crossorigin="anonymous"></script>
+    <FeedbackButtons
+      question="Was this helpful?"
+      class="api-feedback-widget"
+      questionClass="api-feedback-label"
+      buttonClass="api-feedback-btn"
+      page="/api"
+    />
+    <style is:inline>
+      /* `.warp-topbar*` rules ship with `<WarpTopbar />` itself; only the
+         /api-specific feedback widget styling lives here.
+
+         Anchored to the bottom-RIGHT so the widget sits where users naturally
+         look for inline page actions. Scalar's Shell client picker / dark-mode
+         toggle live inside the operations column rather than fixed to the
+         viewport, so the two don't actually collide at this z-index.
+
+         Soft elevation (hairline + shadow) replaces the hard border so the
+         card reads as a layer above the page rather than a flat patch.
+         Light-mode swaps the shadow to a quieter alpha. */
+      .api-feedback-widget {
+        position: fixed;
+        bottom: 1.25rem;
+        right: 1.25rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.4375rem 0.625rem 0.4375rem 0.875rem;
+        border-radius: 0.625rem;
+        background: var(--scalar-background-2);
+        border: 1px solid var(--scalar-border-color);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18), 0 1px 2px rgba(0, 0, 0, 0.12);
+        z-index: 1000;
+        font-family: var(--scalar-font, 'Inter', sans-serif);
+      }
+      .light-mode .api-feedback-widget {
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+      }
+      .api-feedback-label {
+        color: var(--scalar-color-2);
+        font-size: 0.8125rem;
+        font-weight: 500;
+        line-height: 1;
+      }
+      .api-feedback-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.3125rem;
+        padding: 0.25rem 0.5rem;
+        border: none;
+        border-radius: 0.4375rem;
+        background: transparent;
+        color: var(--scalar-color-2);
+        font-size: 0.75rem;
+        font-weight: 500;
+        font-family: var(--scalar-font, 'Inter', sans-serif);
+        line-height: 1;
+        cursor: pointer;
+        transition: color 0.15s ease, background-color 0.15s ease;
+      }
+      .api-feedback-btn svg {
+        width: 13px;
+        height: 13px;
+        opacity: 0.85;
+      }
+      .api-feedback-btn:hover {
+        color: var(--scalar-color-1);
+        background: var(--scalar-background-3);
+      }
+      .api-feedback-btn:hover svg {
+        opacity: 1;
+      }
+      .api-feedback-btn:focus-visible {
+        outline: 2px solid var(--scalar-color-accent);
+        outline-offset: 1px;
+      }
+      @media (max-width: 640px) {
+        .api-feedback-widget {
+          bottom: 1rem;
+          right: 1rem;
+          padding: 0.375rem 0.5rem 0.375rem 0.75rem;
+          gap: 0.375rem;
+        }
+        .api-feedback-label {
+          font-size: 0.75rem;
+        }
+      }
+    </style>
+  </body>
+</html>

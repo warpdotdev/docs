@@ -1,0 +1,224 @@
+---
+title: Monitoring
+description: >-
+  Monitor self-hosted Oz workers with OpenTelemetry metrics. Export to
+  Prometheus, OTLP, or console to track worker health, task throughput,
+  and saturation.
+---
+
+The `oz-agent-worker` daemon exports infrastructure-level metrics over [OpenTelemetry](https://opentelemetry.io/), giving your team real-time visibility into worker health, task throughput, and capacity. Combine these metrics with the [Oz dashboard](https://oz.warp.dev) for full observability across both the orchestration plane and your self-hosted compute.
+
+:::note
+When running the binary directly, metrics export follows the [OpenTelemetry autoexport](https://github.com/open-telemetry/opentelemetry-go-contrib/tree/main/exporters/autoexport) default — if `OTEL_METRICS_EXPORTER` is unset, the worker pushes OTLP to `localhost:4318`. Set `OTEL_METRICS_EXPORTER=none` to disable export. The Helm chart is opt-in: it only enables export when `metrics.enabled=true`.
+:::
+
+## Key features
+
+* **Prometheus scrape** — Expose a `/metrics` endpoint for Prometheus to scrape, with optional `PodMonitor` support for the Prometheus Operator.
+* **OTLP push** — Push metrics to any OpenTelemetry-compatible collector (Grafana Alloy, Datadog Agent, New Relic, etc.).
+* **Standard configuration** — Exporter selection uses the standard [OpenTelemetry environment variables](https://opentelemetry.io/docs/specs/otel/configuration/sdk-environment-variables/), so the worker integrates with your existing observability stack without custom configuration.
+* **Pre-seeded series** — All metric series appear at startup (before any tasks run), so dashboards and alerts can reference them immediately.
+
+## How it works
+
+The worker uses the [`go.opentelemetry.io/contrib/exporters/autoexport`](https://github.com/open-telemetry/opentelemetry-go-contrib/tree/main/exporters/autoexport) package to select an exporter at runtime based on the `OTEL_METRICS_EXPORTER` environment variable. Supported values:
+
+* `prometheus` — Starts an in-process HTTP server serving `/metrics`.
+* `otlp` — Pushes metrics over OTLP (HTTP/protobuf by default).
+* `console` — Writes metrics to stdout (useful for debugging).
+* `none` — Disables metrics export entirely.
+
+When `OTEL_METRICS_EXPORTER` is unset, the worker defaults to OTLP push targeting `OTEL_EXPORTER_OTLP_ENDPOINT` (which itself defaults to `http://localhost:4318` for `http/protobuf` or `http://localhost:4317` for `grpc`).
+
+All metrics carry resource attributes (`service.name=oz-agent-worker`, `service.version`, `worker.id`, `worker.backend`) so each worker process shows up as a distinct series in your monitoring system.
+
+---
+
+## Enable Prometheus scrape
+
+Set these environment variables before starting the worker to expose a Prometheus-compatible `/metrics` endpoint:
+
+```bash
+export OTEL_METRICS_EXPORTER=prometheus
+export OTEL_EXPORTER_PROMETHEUS_HOST=0.0.0.0
+export OTEL_EXPORTER_PROMETHEUS_PORT=9464
+oz-agent-worker --api-key "$WARP_API_KEY" --worker-id "my-worker"
+```
+
+Verify the endpoint is serving metrics:
+
+```bash
+curl -s localhost:9464/metrics | grep oz_worker_
+```
+
+**Expected outcome:** You see `oz_worker_connected`, `oz_worker_tasks_active`, and other `oz_worker_*` metric families in the output.
+
+:::note
+Bind to `0.0.0.0` (not `localhost`) when running in Docker or Kubernetes so the Prometheus server, kubelet, or scrape target can reach the endpoint from outside the container.
+:::
+
+---
+
+## Enable OTLP push
+
+Set these environment variables to push metrics to an OpenTelemetry collector:
+
+```bash
+export OTEL_METRICS_EXPORTER=otlp
+export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+export OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector.observability.svc:4318
+oz-agent-worker --api-key "$WARP_API_KEY" --worker-id "my-worker"
+```
+
+The worker pushes metrics at the SDK's default interval. Configure the collector endpoint, protocol, and headers using standard [OTLP exporter environment variables](https://opentelemetry.io/docs/specs/otel/protocol/exporter/).
+
+---
+
+## Helm chart configuration
+
+The [Helm chart](/agent-platform/cloud-agents/self-hosting/managed-kubernetes/) includes built-in support for metrics. Enable metrics with `metrics.enabled=true`:
+
+```bash
+helm install oz-agent-worker ./charts/oz-agent-worker \
+  --namespace warp-oz \
+  --set worker.workerId=my-worker \
+  --set image.tag=VERSION \
+  --set metrics.enabled=true
+```
+
+With `metrics.enabled=true` and the default `metrics.exporter=prometheus`, the chart adds:
+
+* A `containerPort: metrics` (default 9464) on the worker Deployment.
+* The `OTEL_METRICS_EXPORTER`, `OTEL_EXPORTER_PROMETHEUS_HOST`, and `OTEL_EXPORTER_PROMETHEUS_PORT` environment variables.
+* A namespace-scoped `Service` named `<release>-oz-agent-worker-metrics` with `prometheus.io/scrape` annotations.
+* Optionally, a `PodMonitor` (`metrics.podMonitor.create=true`) for clusters using the Prometheus Operator.
+
+### Helm values
+
+**Core:**
+
+* `metrics.enabled` — Enable metrics export. Defaults to `false`.
+* `metrics.exporter` — Exporter type: `prometheus` (default), `otlp`, `console`, or `none`.
+* `metrics.port` — Port for the Prometheus exporter. Defaults to `9464`. Ignored for `otlp`/`console`.
+* `metrics.extraEnv` — Extra environment variables for the worker container (e.g., `OTEL_EXPORTER_OTLP_ENDPOINT`).
+
+**Service (Prometheus scrape):**
+
+* `metrics.service.create` — Create a metrics `Service`. Defaults to `true`.
+* `metrics.service.type` — Service type. Defaults to `ClusterIP`.
+* `metrics.service.annotations` — Annotations on the Service. Defaults include `prometheus.io/scrape: "true"`.
+
+**PodMonitor (Prometheus Operator):**
+
+* `metrics.podMonitor.create` — Create a `PodMonitor`. Defaults to `false` (avoids requiring `monitoring.coreos.com` CRDs).
+* `metrics.podMonitor.interval` — Scrape interval. Defaults to `30s`.
+* `metrics.podMonitor.scrapeTimeout` — Scrape timeout. Defaults to `10s`.
+* `metrics.podMonitor.additionalLabels` — Extra labels on the `PodMonitor` resource.
+
+### OTLP push via Helm
+
+To push metrics to an OTLP collector instead of exposing a Prometheus endpoint, set `metrics.exporter=otlp` and forward the endpoint via `metrics.extraEnv`:
+
+```yaml
+metrics:
+  enabled: true
+  exporter: otlp
+  extraEnv:
+    - name: OTEL_EXPORTER_OTLP_ENDPOINT
+      value: http://otel-collector.observability.svc:4318
+```
+
+---
+
+## Metric catalog
+
+All metrics use the `oz_worker_` prefix. Each worker process emits a distinct set of series, identified by the resource attributes `service.name`, `service.version`, `worker.id`, and `worker.backend`.
+
+* **`oz_worker_connected`** (gauge) — `1` while the worker has an active WebSocket connection to Oz's backend, `0` otherwise.
+* **`oz_worker_tasks_active`** (gauge / UpDownCounter) — Tasks currently executing on this worker.
+* **`oz_worker_tasks_max_concurrent`** (gauge) — Configured concurrency limit (`0` means unlimited).
+* **`oz_worker_tasks_claimed_total`** (counter) — Total tasks accepted since process start.
+* **`oz_worker_tasks_rejected_total{reason}`** (counter) — Tasks the worker declined (e.g., `reason="at_capacity"`).
+* **`oz_worker_tasks_completed_total{result}`** (counter) — Completed tasks labeled `result="succeeded"` or `result="failed"`.
+* **`oz_worker_task_duration_seconds{result}`** (histogram) — Wall-clock task duration on the worker, labeled by result.
+* **`oz_worker_websocket_reconnects_total{reason}`** (counter) — WebSocket reconnect attempts (e.g., `reason="dial_failed"`, `reason="remote_close"`). Spikes indicate flapping workers.
+* **`oz_worker_info{version,backend,worker_id}`** (gauge, constant `1`) — Build and runtime metadata. Useful for joining other series by labels.
+
+---
+
+## Sample PromQL queries
+
+Direct mappings for common operational questions:
+
+* **Workers available:**
+
+  ```promql
+  sum(oz_worker_connected)
+  ```
+
+* **Workers active (running at least one task):**
+
+  ```promql
+  count(oz_worker_tasks_active > 0)
+  ```
+
+* **Fleet saturation:**
+
+  ```promql
+  sum(oz_worker_tasks_active) / sum(oz_worker_tasks_max_concurrent > 0)
+  ```
+
+  This ratio is only meaningful when every worker has a non-zero `oz_worker_tasks_max_concurrent`. Workers configured with `0` (unlimited) are excluded from the denominator, which can make the saturation result look misleadingly high or undefined for fleets that mix bounded and unlimited workers.
+
+* **Task success rate (5-minute window):**
+
+  ```promql
+  sum(rate(oz_worker_tasks_completed_total{result="succeeded"}[5m]))
+  / sum(rate(oz_worker_tasks_completed_total[5m]))
+  ```
+
+* **Task duration p95:**
+
+  ```promql
+  histogram_quantile(0.95, sum by (le) (rate(oz_worker_task_duration_seconds_bucket[5m])))
+  ```
+
+* **Failure rate:**
+
+  ```promql
+  sum(rate(oz_worker_tasks_completed_total{result="failed"}[5m]))
+  ```
+
+* **Reconnect storms (alert threshold):**
+
+  ```promql
+  sum(rate(oz_worker_websocket_reconnects_total[5m])) > 0.1
+  ```
+
+---
+
+## Disabling metrics
+
+To fully disable metrics export, set `OTEL_METRICS_EXPORTER=none`:
+
+```bash
+export OTEL_METRICS_EXPORTER=none
+oz-agent-worker --api-key "$WARP_API_KEY" --worker-id "my-worker"
+```
+
+Or in the Helm chart:
+
+```yaml
+metrics:
+  enabled: false
+```
+
+---
+
+## Related pages
+
+* [Self-hosting overview](/agent-platform/cloud-agents/self-hosting/) — Architecture, decision guide, and Enterprise requirements.
+* [Self-hosted worker reference](/agent-platform/cloud-agents/self-hosting/reference/) — CLI flags, config file schema, and metrics environment variables.
+* [Managed: Kubernetes](/agent-platform/cloud-agents/self-hosting/managed-kubernetes/) — Helm chart deployment, including metrics values.
+* [Troubleshooting](/agent-platform/cloud-agents/self-hosting/troubleshooting/) — Diagnostics for metrics issues and other common problems.
+* [Security and networking](/agent-platform/cloud-agents/self-hosting/security-and-networking/) — Network egress and data boundaries.

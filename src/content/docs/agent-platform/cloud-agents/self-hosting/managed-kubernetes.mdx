@@ -1,0 +1,272 @@
+---
+title: "Managed: Kubernetes backend"
+description: >-
+  Deploy the Oz managed worker into a Kubernetes cluster with the included
+  Helm chart. Each agent task runs as a Kubernetes Job in your cluster.
+---
+
+Deploy the `oz-agent-worker` daemon into a Kubernetes cluster using the included Helm chart. Each agent task runs as a **Kubernetes Job** in your cluster. Oz orchestrates runs end to end (Slack, Linear, schedules, API, `oz agent run-cloud`); your cluster provides the compute, scheduling, and policy enforcement.
+
+:::note
+This page covers the [managed architecture](/agent-platform/cloud-agents/self-hosting/#managed-architecture) with the Kubernetes backend. For the default Docker backend, see [Managed: Docker](/agent-platform/cloud-agents/self-hosting/managed-docker/). For host execution without a container runtime, see [Managed: Direct](/agent-platform/cloud-agents/self-hosting/managed-direct/). To route runs to a connected worker, see [Routing runs to self-hosted workers](/agent-platform/cloud-agents/self-hosting/managed-docker/#routing-runs-to-self-hosted-workers).
+:::
+
+## When to use the Kubernetes backend
+
+* You already operate a Kubernetes cluster and want agents to run there.
+* You need Kubernetes-native scheduling, resource management, or policy enforcement.
+* You want to use Kubernetes Secrets, ServiceAccounts, and admission policies to control task behavior.
+
+---
+
+## How it works
+
+1. The worker connects to the Kubernetes API server (using in-cluster auth by default, or an explicit kubeconfig).
+2. On startup, the worker runs a short-lived **preflight Job** to verify that cluster permissions, admission policies, and Pod Security Standards are compatible. If the preflight fails, the worker exits with a diagnostic error before accepting any tasks.
+3. For each assigned task, the worker creates a Kubernetes Job in the configured namespace.
+4. The worker monitors the Job and Pod status via Kubernetes Watch (with a 30-second safety-net poll for watch disconnects).
+5. After the task completes, the Job is cleaned up (unless `--no-cleanup` is set).
+
+---
+
+## Prerequisites
+
+* **Enterprise plan with self-hosting enabled** — [Contact sales](https://warp.dev/contact-sales) if self-hosting is not yet enabled for your team.
+* **A Kubernetes cluster** with the worker process able to reach the API server. The cluster must:
+  * Allow the worker's namespace to create Jobs with a **root init container** (sidecar materialization depends on this pattern).
+  * Grant the worker these namespace-scoped permissions: `create`, `get`, `list`, `watch`, `delete` on `jobs`; `get`, `list`, `watch` on `pods`; `get` on `pods/log`; `list` on `events`.
+* **[Helm](https://helm.sh/docs/intro/install/)** installed locally, plus `kubectl` authenticated against the target cluster.
+* **A team API key** — In the Warp app, go to **Settings** > **Cloud platform** > **Oz Cloud API Keys** to create a team-scoped API key. See [API Keys](/reference/cli/api-keys/) for details.
+
+---
+
+## Install with the Helm chart
+
+The `oz-agent-worker` repository includes a namespace-scoped Helm chart at `charts/oz-agent-worker`. This is the recommended way to deploy the worker into a cluster.
+
+### What the chart deploys
+
+* A long-lived `Deployment` running `oz-agent-worker` with the Kubernetes backend.
+* A namespaced `ServiceAccount` for the worker.
+* A namespaced `Role` / `RoleBinding` with the minimum permissions needed to manage task Jobs and Pods.
+* A `ConfigMap` containing the worker config YAML.
+* An optional `Secret` for `WARP_API_KEY` (or a reference to an existing Secret).
+
+The chart does not create CRDs or cluster-scoped RBAC resources.
+
+### 1. Set your API key and namespace
+
+```bash
+export WARP_API_KEY="your_team_api_key"
+```
+
+Create the namespace if it doesn't exist:
+
+```bash
+kubectl create namespace warp-oz
+```
+
+### 2. Create the API key Secret
+
+If you're not using an existing Secret, create one with the API key:
+
+```bash
+kubectl create secret generic oz-agent-worker \
+  --from-literal=WARP_API_KEY="$WARP_API_KEY" \
+  --namespace warp-oz
+```
+
+**Expected outcome:** `kubectl get secret -n warp-oz oz-agent-worker` shows the Secret.
+
+### 3. Install the chart
+
+Clone the worker repo and install the chart:
+
+```bash
+git clone https://github.com/warpdotdev/oz-agent-worker.git
+
+helm install oz-agent-worker ./oz-agent-worker/charts/oz-agent-worker \
+  --namespace warp-oz \
+  --set worker.workerId=oz-k8s-worker \
+  --set image.tag=<version>
+```
+
+:::caution
+Set `image.tag` explicitly to pin the worker image. Check the [oz-agent-worker releases](https://github.com/warpdotdev/oz-agent-worker/releases) for the latest version. Do not rely on `latest`.
+:::
+
+**Expected outcome:** `kubectl get pods -n warp-oz` shows the worker Deployment pod as `Running`, and the worker logs show `Connected to Oz` / `Listening for tasks`.
+
+To scale horizontally, deploy multiple Helm releases with distinct worker IDs rather than increasing replicas on a single release.
+
+---
+
+## Key chart values
+
+**Required:**
+
+* `worker.workerId` — The worker ID (same as `--worker-id`).
+* `image.tag` — The worker image tag to deploy.
+
+**Worker configuration:**
+
+* `worker.logLevel` — Log verbosity (`debug`, `info`, `warn`, `error`). Defaults to `info`.
+* `worker.cleanup` — Whether to clean up task Jobs after execution. Defaults to `true`.
+* `worker.maxConcurrentTasks` — Maximum concurrent tasks. Defaults to `0` (unlimited).
+* `worker.idleOnComplete` — Duration to keep the oz process alive after task completion.
+* `worker.resources` — Resource requests/limits for the worker Deployment. Defaults to `100m` CPU and `128Mi` memory.
+* `worker.livenessProbe` — Liveness probe for the worker Deployment. Defaults to an `exec` probe (`kill -0 1`). Override with a custom probe or set to `null` to disable.
+* `worker.nodeSelector`, `worker.tolerations`, `worker.affinity` — Scheduling constraints for the worker Deployment pod.
+
+**Kubernetes backend:**
+
+* `kubernetesBackend.namespace` — Namespace for task Jobs. Defaults to the release namespace.
+* `kubernetesBackend.defaultImage` — Default Docker image for task pods when the run has no Warp environment image. Leave empty (default) to fall back to `ubuntu:22.04`.
+* `kubernetesBackend.imagePullPolicy` — Image pull policy for task pods. Defaults to `IfNotPresent`.
+* `kubernetesBackend.preflightImage` — Image for the startup preflight Job. Set this if your cluster restricts allowed registries.
+* `kubernetesBackend.unschedulableTimeout` — How long a pod may remain unschedulable before failing. Defaults to `30s`.
+* `kubernetesBackend.setupCommand` — Shell command to run before each task.
+* `kubernetesBackend.teardownCommand` — Shell command to run after each task.
+* `kubernetesBackend.extraLabels` — Additional labels for task Jobs and Pods.
+* `kubernetesBackend.extraAnnotations` — Additional annotations for task Jobs and Pods.
+* `kubernetesBackend.activeDeadlineSeconds` — Maximum task Job lifetime.
+* `kubernetesBackend.workspaceSizeLimit` — Size limit for workspace `emptyDir` volume.
+* `kubernetesBackend.podTemplate` — Raw PodSpec YAML for task Jobs (same as `backend.kubernetes.pod_template` in the [config file](/agent-platform/cloud-agents/self-hosting/reference/#config-file)).
+
+**API key Secret:**
+
+* `warp.apiKeySecret.create` — Set to `true` to have the chart create a Secret from `warp.apiKeySecret.value`. Defaults to `false` (expects a pre-existing Secret).
+* `warp.apiKeySecret.value` — The API key value to store in the chart-managed Secret. Only used when `warp.apiKeySecret.create` is `true`.
+* `warp.apiKeySecret.name` — Name of the Secret containing `WARP_API_KEY`. Defaults to `oz-agent-worker`.
+* `warp.apiKeySecret.key` — Key within the Secret. Defaults to `WARP_API_KEY`.
+
+See the [self-hosted worker reference](/agent-platform/cloud-agents/self-hosting/reference/#kubernetes-backend-config) for the full config file schema.
+
+---
+
+## Cluster selection
+
+Cluster selection follows Kubernetes client config conventions:
+
+* Set `backend.kubernetes.kubeconfig` to use an explicit kubeconfig file.
+* If `kubeconfig` is omitted and the worker runs inside a Kubernetes pod, the worker uses in-cluster config automatically.
+* Otherwise, the worker falls back to the default kubeconfig loading rules and uses the current context.
+
+`namespace` selects the namespace inside the chosen cluster. It defaults to `default` when omitted.
+
+---
+
+## Pod template
+
+The `pod_template` field accepts standard Kubernetes PodSpec YAML and is the declarative way to configure task pod scheduling, service accounts, image pull secrets, resources, and environment variables.
+
+When using `pod_template`, define a container named `task` to customize the main task container directly. Otherwise, the worker appends its own `task` container to the PodSpec.
+
+Use `valueFrom.secretKeyRef` to inject Kubernetes Secret values into task container environment variables:
+
+```yaml
+pod_template:
+  serviceAccountName: agent-task-sa
+  imagePullSecrets:
+    - name: my-registry-creds
+  containers:
+    - name: task
+      resources:
+        requests:
+          cpu: "2"
+          memory: 4Gi
+        limits:
+          memory: 8Gi
+      env:
+        - name: GITHUB_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: my-k8s-secret
+              key: github-token
+  tolerations:
+    - key: "dedicated"
+      operator: "Equal"
+      value: "agents"
+      effect: "NoSchedule"
+```
+
+:::note
+The worker Deployment's ServiceAccount is separate from the task Job `serviceAccountName` you configure in `pod_template`. The Deployment ServiceAccount needs RBAC to manage Jobs and Pods. The task ServiceAccount (if any) controls what the agent process can access at runtime.
+:::
+
+---
+
+## Preflight check
+
+On startup, the worker creates a short-lived preflight Job to verify that:
+
+* The worker has sufficient RBAC permissions in the target namespace.
+* Cluster admission policies (Pod Security Standards, OPA Gatekeeper, Kyverno, etc.) allow the worker's task pod shape.
+* The preflight image can be pulled.
+
+If the preflight fails, the worker logs a diagnostic error and exits before accepting any tasks. This surfaces policy and configuration issues at deploy time rather than at task execution time.
+
+The preflight image defaults to `busybox:1.36`. If your cluster restricts allowed registries or images, set `preflight_image` to an allowlisted image. When `imagePullSecrets` is configured in `pod_template`, those secrets apply to the preflight Job as well, so you can point `preflight_image` at an image in your private registry.
+
+---
+
+## Environment variables for Kubernetes tasks
+
+There are two ways to pass environment variables to Kubernetes task containers:
+
+1. **`pod_template`** (recommended for Kubernetes-native config) — Use standard Kubernetes `env` syntax in the `task` container, including `valueFrom.secretKeyRef` for Kubernetes Secrets.
+2. **`-e` / `--env` flags** — Backend-agnostic runtime overrides that work across all managed backends.
+
+When configuring the Kubernetes backend via YAML or Helm, declarative task-container env belongs in `pod_template` rather than a separate top-level list.
+
+:::note
+If your organization uses an external secrets manager (HashiCorp Vault, AWS Secrets Manager, GCP Secret Manager, etc.), you can inject secrets into task pods via the CSI Secrets Store Driver or a similar operator. Configure the required `volumes`, `volumeMounts`, and annotations in `pod_template` just as you would for any other Kubernetes workload. See your secrets provider's documentation for details.
+:::
+
+---
+
+## Setup and teardown commands
+
+Use `kubernetesBackend.setupCommand` (Helm value) or `backend.kubernetes.setup_command` ([config file](/agent-platform/cloud-agents/self-hosting/reference/#kubernetes-backend-config)) to run a shell command before each task. Use `teardownCommand` / `teardown_command` for cleanup after the task finishes. These run inside the task Pod and are useful for workspace bootstrapping or post-run reporting.
+
+---
+
+## Metrics
+
+The Helm chart includes built-in support for exporting OpenTelemetry metrics from the worker. Enable metrics by setting `metrics.enabled=true`:
+
+```bash
+helm install oz-agent-worker ./charts/oz-agent-worker \
+  --namespace warp-oz \
+  --set worker.workerId=oz-k8s-worker \
+  --set image.tag=VERSION \
+  --set metrics.enabled=true
+```
+
+With the default `metrics.exporter=prometheus`, the chart creates a `Service` with Prometheus scrape annotations and exposes port `9464`. For clusters using the Prometheus Operator, set `metrics.podMonitor.create=true` to create a `PodMonitor`.
+
+To push metrics to an OTLP collector instead, set `metrics.exporter=otlp` and configure the endpoint via `metrics.extraEnv`.
+
+See [Monitoring](/agent-platform/cloud-agents/self-hosting/monitoring/) for the full list of Helm values, the metric catalog, and sample PromQL queries.
+
+---
+
+## Operational notes
+
+* **Scaling** — The chart always deploys a single replica for a given `worker.workerId`. To run multiple workers, deploy multiple Helm releases with distinct worker IDs rather than scaling a single release horizontally.
+* **Security context** — The Deployment defaults to a non-root security context (`runAsUser: 10001`) with `allowPrivilegeEscalation: false` and all capabilities dropped.
+* **Liveness probe** — The Deployment includes a default `exec` liveness probe (`kill -0 1`). Override `worker.livenessProbe` for a custom probe, or set it to `null` to disable.
+* **In-cluster auth** — The chart assumes the worker runs inside the target cluster and uses in-cluster Kubernetes auth by default.
+* **Root init containers** — The worker Deployment itself is non-root, but task Jobs require a root init container for sidecar materialization. Ensure the task namespace's Pod Security Standards allow this.
+
+---
+
+## Related pages
+
+* [Self-hosted worker reference](/agent-platform/cloud-agents/self-hosting/reference/) — Full CLI flag and config file schema, including every Kubernetes backend field.
+* [Self-hosting overview](/agent-platform/cloud-agents/self-hosting/) — Managed vs unmanaged and the backend decision guide.
+* [Routing runs to self-hosted workers](/agent-platform/cloud-agents/self-hosting/#routing-runs-to-self-hosted-workers) — How to send tasks to your connected worker from the CLI, schedules, integrations, the API, and the web UI.
+* [Environments](/agent-platform/cloud-agents/environments/) — Define the task image, repos, and setup commands.
+* [Monitoring](/agent-platform/cloud-agents/self-hosting/monitoring/) — OpenTelemetry metrics, including Helm chart metrics values.
+* [Security and networking](/agent-platform/cloud-agents/self-hosting/security-and-networking/) — RBAC, admission policies, and data boundaries.
+* [Troubleshooting](/agent-platform/cloud-agents/self-hosting/troubleshooting/#kubernetes-backend) — Common Kubernetes-backend issues.

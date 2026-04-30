@@ -1,0 +1,215 @@
+---
+title: "Managed: Docker backend"
+description: >-
+  Run the Oz managed worker daemon with the Docker backend to execute cloud
+  agent tasks in isolated containers on your infrastructure.
+---
+
+Run the `oz-agent-worker` daemon with the **Docker backend** — the default managed path. Each agent task runs in an isolated Docker container spawned from the worker, with full orchestration by Oz (Slack, Linear, schedules, API, `oz agent run-cloud`).
+
+:::note
+This page covers the [managed architecture](/agent-platform/cloud-agents/self-hosting/#managed-architecture) with the Docker backend. For the Kubernetes backend, see [Managed: Kubernetes](/agent-platform/cloud-agents/self-hosting/managed-kubernetes/). For host execution without a container runtime, see [Managed: Direct](/agent-platform/cloud-agents/self-hosting/managed-direct/). If you'd rather invoke agents yourself, see [Unmanaged](/agent-platform/cloud-agents/self-hosting/unmanaged/).
+:::
+
+## When to use the Docker backend
+
+* You want the simplest managed setup and have Docker available on the worker host.
+* You want per-task isolation without running a Kubernetes cluster.
+* You're not already deploying workloads into Kubernetes.
+
+---
+
+## Prerequisites
+
+* **Enterprise plan with self-hosting enabled** — [Contact sales](https://warp.dev/contact-sales) if self-hosting is not yet enabled for your team.
+* **A machine to run the worker** — A VM, server, or local machine running Linux (recommended for production). For testing, macOS and Windows hosts running Docker Desktop work.
+* **Docker installed** — The worker uses Docker to spawn task containers. The Docker daemon must run Linux containers (Windows containers are not supported). Verify with `docker info`.
+* **A team API key** — In the Warp app, go to **Settings** > **Cloud platform** > **Oz Cloud API Keys** to create a team-scoped API key. See [API Keys](/reference/cli/api-keys/) for details.
+
+:::caution
+Task containers require a **linux/amd64** or **linux/arm64** Docker daemon. The worker host itself can be any OS — Docker Desktop on macOS and Windows runs a Linux VM that satisfies this requirement.
+:::
+
+### Install Docker
+
+If Docker is not already installed, follow the [official Docker installation guide](https://docs.docker.com/get-docker/) for your platform. Verify Docker is running:
+
+```bash
+docker info
+```
+
+**Expected outcome:** `docker info` prints daemon details without errors.
+
+---
+
+## Set your API key
+
+Export your team API key so the worker can authenticate to Oz:
+
+```bash
+export WARP_API_KEY="your_team_api_key"
+```
+
+## Install and run the worker
+
+The `oz-agent-worker` is open source. See the [oz-agent-worker repository](https://github.com/warpdotdev/oz-agent-worker) for source code, issues, and contribution guidelines.
+
+There are three ways to install and run the worker with the Docker backend. Docker is recommended for production; `go install` and building from source are primarily useful for contributors and one-off testing.
+
+The worker can be configured entirely via CLI flags, or via a YAML [config file](/agent-platform/cloud-agents/self-hosting/reference/#config-file) for more complex setups.
+
+### Option 1: Docker (recommended)
+
+The worker needs access to the Docker daemon to spawn task containers. Mount the host's Docker socket into the worker container:
+
+```bash
+docker run -v /var/run/docker.sock:/var/run/docker.sock \
+  -e WARP_API_KEY="$WARP_API_KEY" \
+  warpdotdev/oz-agent-worker --worker-id "my-worker"
+```
+
+**Expected outcome:** The worker connects to Oz and logs that it's listening for tasks.
+
+### Option 2: Go install
+
+```bash
+go install github.com/warpdotdev/oz-agent-worker@latest
+oz-agent-worker --api-key "$WARP_API_KEY" --worker-id "my-worker"
+```
+
+### Option 3: Build from source
+
+```bash
+git clone https://github.com/warpdotdev/oz-agent-worker.git
+cd oz-agent-worker
+go build -o oz-agent-worker
+./oz-agent-worker --api-key "$WARP_API_KEY" --worker-id "my-worker"
+```
+
+Once started, the worker connects to Oz, waits for tasks routed to its `--worker-id`, runs each task in an isolated Docker container, and reports status and results back. The worker automatically reconnects if the connection drops.
+
+You can run multiple workers with the same `--worker-id` for redundancy — Oz distributes tasks across connected workers.
+
+---
+
+## Docker backend configuration
+
+The worker can take configuration either via CLI flags or via a YAML [config file](/agent-platform/cloud-agents/self-hosting/reference/#config-file). CLI flags take precedence over config file values.
+
+**Common CLI flags:**
+
+```bash
+docker run -v /var/run/docker.sock:/var/run/docker.sock \
+  -e WARP_API_KEY="$WARP_API_KEY" \
+  warpdotdev/oz-agent-worker \
+  --worker-id "prod-runner-1" \
+  --log-level debug \
+  --max-concurrent-tasks 4 \
+  --idle-on-complete 10m \
+  -v /opt/shared-cache:/cache:ro \
+  -e NPM_TOKEN=your_token \
+  -e GITHUB_TOKEN
+```
+
+:::caution
+When running the worker via Docker, there are two levels of `-e` flags. Docker's `-e` passes env vars to the **worker container** (e.g., `WARP_API_KEY`). The worker's `-e` / `--env` flags pass env vars into the **task containers** the worker spawns. Keep these distinct:
+
+```bash
+# Docker -e: passes WARP_API_KEY to the worker container
+# Worker -e: passes MY_SECRET to task containers
+docker run \
+  -e WARP_API_KEY="$WARP_API_KEY" \
+  warpdotdev/oz-agent-worker \
+  --worker-id "my-worker" \
+  -e MY_SECRET=hunter2
+```
+:::
+
+**Equivalent config file** (`config.yaml`):
+
+```yaml
+worker_id: "prod-runner-1"
+log_level: "debug"
+max_concurrent_tasks: 4
+idle_on_complete: "10m"
+backend:
+  docker:
+    volumes:
+      - "/opt/shared-cache:/cache:ro"
+    environment:
+      - name: NPM_TOKEN
+        value: "your_token"
+      - name: GITHUB_TOKEN  # inherits from host environment
+```
+
+Pass it with `--config-file config.yaml`. See the [self-hosted worker reference](/agent-platform/cloud-agents/self-hosting/reference/) for the full flag and config schema.
+
+---
+
+## Docker connectivity
+
+The worker uses the standard Docker client discovery mechanism to find the Docker daemon:
+
+1. **`DOCKER_HOST`** environment variable (e.g., `unix:///var/run/docker.sock`, `tcp://localhost:2375`).
+2. **Default socket** (`/var/run/docker.sock` on Linux, `~/.docker/run/docker.sock` for rootless Docker).
+3. **Docker context** via `DOCKER_CONTEXT` environment variable.
+4. **Config file** (`~/.docker/config.json`) for context settings.
+
+Additional Docker environment variables the worker respects:
+
+* `DOCKER_API_VERSION` — Specify Docker API version.
+* `DOCKER_CERT_PATH` — Path to TLS certificates.
+* `DOCKER_TLS_VERIFY` — Enable TLS verification.
+
+:::note
+If the worker itself runs in Docker, you must mount any relevant config files (e.g., `~/.docker/config.json`) into the worker container for Docker context and credential discovery to work.
+:::
+
+**Example: Connecting to a remote Docker daemon**
+
+```bash
+export DOCKER_HOST="tcp://remote-host:2376"
+export DOCKER_TLS_VERIFY=1
+export DOCKER_CERT_PATH="/path/to/certs"
+oz-agent-worker --api-key "$WARP_API_KEY" --worker-id "my-worker"
+```
+
+---
+
+## Private Docker registries
+
+The worker automatically uses credentials from your Docker config (`~/.docker/config.json`) when pulling task images. If your [environments](/agent-platform/cloud-agents/environments/) use images from a private registry, authenticate the worker's host first:
+
+```bash
+docker login your-registry.example.com
+```
+
+When running the worker via Docker, mount the Docker config into the container:
+
+```bash
+docker run \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v ~/.docker/config.json:/root/.docker/config.json:ro \
+  -e WARP_API_KEY="$WARP_API_KEY" \
+  warpdotdev/oz-agent-worker --worker-id "my-worker"
+```
+
+:::note
+Sidecar images (the `oz` binary and dependencies) are pulled from public registries and do not require authentication.
+:::
+
+---
+
+## Routing runs to this worker
+
+Once your Docker worker is connected, route tasks to it with `--host "<your-worker-id>"`. Routing is the same across all managed backends — see [Routing runs to self-hosted workers](/agent-platform/cloud-agents/self-hosting/#routing-runs-to-self-hosted-workers) for CLI, scheduled, integration, API, and web UI examples.
+
+---
+
+## Related pages
+
+* [Self-hosting quickstart](/agent-platform/cloud-agents/self-hosting/quickstart/) — ~10-minute path to a running Docker worker.
+* [Self-hosted worker reference](/agent-platform/cloud-agents/self-hosting/reference/) — Full CLI flag and config file schema.
+* [Environments](/agent-platform/cloud-agents/environments/) — Define the Docker image, repos, and setup commands for tasks.
+* [Security and networking](/agent-platform/cloud-agents/self-hosting/security-and-networking/) — Data boundaries, egress, and Docker socket considerations.
+* [Troubleshooting](/agent-platform/cloud-agents/self-hosting/troubleshooting/) — Common issues with the Docker backend.

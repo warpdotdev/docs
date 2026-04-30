@@ -1,0 +1,50 @@
+---
+title: Git worktrees
+description: >-
+  Warp natively supports Git worktrees, letting you work on multiple branches
+  simultaneously with full Code Review, Codebase Context, and Agent support.
+---
+
+Warp natively supports [Git worktrees](https://git-scm.com/docs/git-worktree) — a Git feature that lets you check out multiple branches simultaneously in separate directories, all backed by the same repository. This is different from simply switching branches: with worktrees, you can have `~/project` on `main` and `~/project-wt/feature-x` on `feature-x` at the same time, with no stashing or context-switching required.
+
+## How worktrees work in Warp
+
+Warp automatically detects worktree checkouts. When you open a terminal in a worktree directory, Warp recognizes the `.git` file that points back to the main repository and treats the worktree as a fully functional repository:
+
+* **Code Review panel** — Each worktree has its own Code Review panel showing uncommitted changes for that worktree's branch. You can review diffs, revert hunks, and discard changes independently in each worktree.
+* **Git Status chip** — The Git diff chip and branch indicator in the input bar reflect the correct branch and change counts for whichever worktree your terminal is in.
+* **File watching** — Warp watches both the worktree's working directory and the shared `.git` directory. Changes to shared Git state (such as new commits pushed to the remote) are detected and propagated across all open worktrees.
+* **Codebase Context** — Each worktree is indexed independently for [Codebase Context](/agent-platform/capabilities/codebase-context/), so Agents have accurate context for whichever worktree you're working in.
+* **Repository-scoped features** — Project rules (`AGENTS.md`, `WARP.md`), ignore files, and other repository-scoped settings work correctly within each worktree.
+
+## When to use worktrees
+
+Worktrees are especially useful when:
+
+* **Reviewing a PR while working on your own branch** — Open the PR branch in a separate worktree without disrupting your in-progress work.
+* **Running tests on one branch while coding on another** — Keep a long test suite running in one worktree while continuing development in another.
+* **Parallel local agent work** — When orchestrating multiple local agents on the same repository, each agent can operate in its own worktree to avoid file conflicts.
+
+## Creating a worktree
+
+To create a new worktree from your terminal:
+
+```bash
+# Create a worktree for an existing branch
+git worktree add ../my-feature feature-branch
+
+# Create a worktree with a new branch
+git worktree add -b new-branch ../new-branch main
+
+# List all worktrees
+git worktree list
+
+# Remove a worktree when done
+git worktree remove ../my-feature
+```
+
+Once created, open the worktree directory in a new Warp tab or pane. Warp detects it automatically — no additional configuration is needed.
+
+:::note
+Commit state change notifications (e.g. detecting new commits) may be slightly delayed in worktrees compared to standard repositories. Warp is actively improving this.
+:::

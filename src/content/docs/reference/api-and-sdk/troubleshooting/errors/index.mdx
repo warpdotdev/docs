@@ -1,0 +1,89 @@
+---
+title: Errors Overview
+description: >-
+  Reference for all error codes returned by the Oz platform API. Each error
+  includes an HTTP status, machine-readable code, and actionable resolution
+  steps.
+---
+
+When the Oz platform API encounters an error, it returns a structured JSON response following [RFC 7807 (Problem Details for HTTP APIs)](https://datatracker.ietf.org/doc/html/rfc7807). Every error response includes a machine-readable error code, a human-readable message, and metadata to help you diagnose and resolve the issue.
+
+---
+
+## Response format
+
+All error responses share this structure:
+
+```json
+{
+  "type": "/reference/api-and-sdk/troubleshooting/errors/invalid-request/",
+  "title": "The request contains invalid or missing parameters.",
+  "status": 400,
+  "detail": "schedule_id is required",
+  "instance": "/api/v1/agent/tasks",
+  "error": "The request contains invalid or missing parameters. (schedule_id is required)",
+  "retryable": false,
+  "trace_id": "abc123def456..."
+}
+```
+
+Error responses use the `application/problem+json` content type per RFC 7807.
+
+### Field reference
+
+* **`type`** — A URI identifying the error type. Links to the documentation page for that error.
+* **`title`** — A short, human-readable summary of the problem.
+* **`status`** — The HTTP status code for this response.
+* **`detail`** — Additional context specific to this occurrence of the error. Not always present.
+* **`instance`** — The request path that produced the error.
+* **`error`** — A backward-compatible field combining `title` and `detail` (for older clients). When `detail` is present, formatted as `"title (detail)"`.
+* **`retryable`** — Whether this request can be retried. If `true`, the platform may automatically retry the operation.
+* **`trace_id`** — An OpenTelemetry trace ID, included when available. Reference this when contacting support.
+
+Some errors include additional metadata fields (for example, `auth_url`, `provider`, or `inaccessible_repos`). These are documented on each error's page.
+
+---
+
+## Error categories
+
+Errors are split into two categories based on what caused the failure:
+
+### User errors
+
+These indicate something the caller needs to fix. When a cloud agent task encounters a user error, the task transitions to the **FAILED** state.
+
+* [`insufficient_credits`](/reference/api-and-sdk/troubleshooting/errors/insufficient-credits/) — Team has no remaining Add-on Credits
+* [`feature_not_available`](/reference/api-and-sdk/troubleshooting/errors/feature-not-available/) — Feature not included in your current plan
+* [`external_authentication_required`](/reference/api-and-sdk/troubleshooting/errors/external-authentication-required/) — External service authorization needed
+* [`not_authorized`](/reference/api-and-sdk/troubleshooting/errors/not-authorized/) — Insufficient permissions for the operation
+* [`invalid_request`](/reference/api-and-sdk/troubleshooting/errors/invalid-request/) — Malformed request or invalid parameters
+* [`resource_not_found`](/reference/api-and-sdk/troubleshooting/errors/resource-not-found/) — Referenced resource does not exist
+* [`budget_exceeded`](/reference/api-and-sdk/troubleshooting/errors/budget-exceeded/) — Spending budget limit reached
+* [`integration_disabled`](/reference/api-and-sdk/troubleshooting/errors/integration-disabled/) — Integration is disabled
+* [`integration_not_configured`](/reference/api-and-sdk/troubleshooting/errors/integration-not-configured/) — Integration setup is incomplete
+* [`operation_not_supported`](/reference/api-and-sdk/troubleshooting/errors/operation-not-supported/) — Operation not supported for this resource or state
+* [`environment_setup_failed`](/reference/api-and-sdk/troubleshooting/errors/environment-setup-failed/) — Cloud agent environment failed to initialize
+* [`content_policy_violation`](/reference/api-and-sdk/troubleshooting/errors/content-policy-violation/) — Task flagged by content policy checks
+* [`conflict`](/reference/api-and-sdk/troubleshooting/errors/conflict/) — Request conflicts with the current resource state (retryable)
+
+### Platform errors
+
+These indicate a Warp-side issue. When a cloud agent task encounters a platform error, the task transitions to the **ERROR** state. Retryable errors are automatically retried before the task is marked as failed.
+
+* [`authentication_required`](/reference/api-and-sdk/troubleshooting/errors/authentication-required/) — Invalid or expired API key
+* [`resource_unavailable`](/reference/api-and-sdk/troubleshooting/errors/resource-unavailable/) — Transient infrastructure issue (retryable)
+* [`internal_error`](/reference/api-and-sdk/troubleshooting/errors/internal-error/) — Unexpected server-side error (retryable)
+
+---
+
+## Using the `trace_id`
+
+When an error response includes a `trace_id`, you can include it when [contacting Warp support](/support-and-community/troubleshooting-and-support/sending-us-feedback/) to help the team locate the specific request in internal logs. This is especially useful for `internal_error` and `resource_unavailable` errors.
+
+---
+
+## Related
+
+* [Oz API & SDK](/reference/api-and-sdk/) — API reference for creating and managing agent tasks
+* [Cloud Agents Overview](/agent-platform/cloud-agents/overview/) — How cloud agents work
+* [Access, Billing, and Identity](/agent-platform/cloud-agents/team-access-billing-and-identity/) — Plan requirements and billing details

@@ -1,0 +1,42 @@
+---
+title: Alias Expansion
+description: >-
+  Warp will automatically expand your aliases as you type in the input editor.
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import VideoEmbed from '@components/VideoEmbed.astro';
+
+## How to use it
+
+<Tabs>
+  <TabItem label="macOS">
+    When Alias Expansion is enabled, type an alias and then hit `SPACE` will expand the alias.
+
+    To insert a space without expanding an alias, the default keybinding is `OPT-SPACE`.
+  </TabItem>
+  <TabItem label="Windows">
+    When Alias Expansion is enabled, type an alias and then hit `SPACE` will expand the alias.
+
+    To insert a space without expanding an alias, the default keybinding is `ALT-SPACE`.
+  </TabItem>
+  <TabItem label="Linux">
+    When Alias Expansion is enabled, type an alias and then hit `SPACE` will expand the alias.
+
+    To insert a space without expanding an alias, the default keybinding is `ALT-SPACE`.
+  </TabItem>
+</Tabs>
+
+:::note
+Aliases will not be expanded when the command in the expanded form is the same as the alias itself. e.g. if you have an alias `ls='ls -G'`, `ls` will not be expanded in the input editor.
+:::
+
+## How to access it
+
+Alias expansion is disabled by default. There are two ways to toggle this on and off:
+
+* From Settings: Navigate to **Settings** > **Features** > **Terminal Input** and toggle “Expand aliases as you type”.
+* From the [Command Palette](/terminal/command-palette/#windows): Search for the “Enable/disable alias expansion” option and hit `ENTER`.
+
+## How it works
+
+<VideoEmbed url="https://www.loom.com/share/2267657c033e482890eea75a8a6c5373?hideEmbedTopBar=true&hide_owner=true&hide_share=true&hide_title=true" title="Alias Expansion Demo" />

@@ -1,0 +1,75 @@
+---
+title: resource_unavailable
+description: >-
+  A transient infrastructure issue prevented the task from running. The
+  platform will automatically retry. No action is needed.
+---
+
+The `resource_unavailable` error indicates a transient infrastructure issue that prevented the cloud agent task from running. This is automatically retried by the platform.
+
+---
+
+## Details
+
+* **HTTP Status:** `429 Too Many Requests` or `500 Internal Server Error`
+* **Retryable:** Yes (automatic)
+* **Task State:** ERROR
+
+---
+
+## When does this occur?
+
+This error is returned when:
+
+* **Capacity full (429)** — Cloud agent capacity is temporarily saturated. Your task will be queued and retried automatically.
+* **Sandbox creation failed (500)** — A sandbox instance could not be created for the agent. This is typically a transient issue.
+
+---
+
+## Example responses
+
+### Capacity full
+
+```json
+{
+  "type": "/reference/api-and-sdk/troubleshooting/errors/resource-unavailable/",
+  "title": "Agent capacity is temporarily full. Your task will be retried automatically, or you can try again later.",
+  "status": 429,
+  "instance": "/api/v1/agent/tasks",
+  "error": "Agent capacity is temporarily full. Your task will be retried automatically, or you can try again later.",
+  "retryable": true,
+  "trace_id": "abc123..."
+}
+```
+
+### Sandbox creation failed
+
+```json
+{
+  "type": "/reference/api-and-sdk/troubleshooting/errors/resource-unavailable/",
+  "title": "Failed to create a sandbox instance for your agent. This is typically a transient issue — your task will be retried automatically.",
+  "status": 500,
+  "instance": "/api/v1/agent/tasks",
+  "error": "Failed to create a sandbox instance for your agent. This is typically a transient issue — your task will be retried automatically.",
+  "retryable": true,
+  "trace_id": "abc123..."
+}
+```
+
+---
+
+## How to resolve
+
+No action is typically needed — the platform will automatically retry the task.
+
+If the error persists after retries:
+
+1. Try again later when capacity has freed up.
+2. Contact [Warp support](/support-and-community/troubleshooting-and-support/sending-us-feedback/) and include the `trace_id` from the error response.
+
+---
+
+## Related
+
+* [Cloud Agents Overview](/agent-platform/cloud-agents/overview/) — How cloud agent execution works
+* [Deployment Patterns](/agent-platform/cloud-agents/deployment-patterns/) — Execution models and infrastructure

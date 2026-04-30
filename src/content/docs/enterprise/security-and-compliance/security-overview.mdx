@@ -1,0 +1,225 @@
+---
+title: Security overview
+description: >-
+  Understand Warp's security architecture, data handling practices, and
+  compliance certifications to ensure your organization's requirements are
+  met.
+---
+
+Warp builds security and compliance into its core, keeping **developers in control** while enabling powerful agent workflows. This overview explains how Warp handles your data, what security controls are available, and how Warp meets enterprise security standards.
+
+## Transparency and control
+
+Warp's security philosophy centers on **transparency and developer control**:
+
+* **Complete visibility** - View exactly what telemetry is collected through our [exhaustive telemetry table](/support-and-community/privacy-and-security/privacy/#exhaustive-telemetry-table)
+* **Real-time monitoring** - Use Warp's [Network Log](/support-and-community/privacy-and-security/network-log/) to monitor all network requests in real time
+* **Opt-out controls** - Disable telemetry and crash reporting at any time while retaining full functionality
+* **Team-level enforcement** - Admins can configure telemetry and data collection policies for the entire organization
+* **Open source client** - Warp's client code is published under [AGPL v3](https://github.com/warpdotdev/warp/blob/master/LICENSE) at [`warpdotdev/warp`](https://github.com/warpdotdev/warp), so security teams can audit the codebase directly. See [Contributing to Warp](/support-and-community/community/contributing/) for the source repository and the security reporting process.
+
+## What telemetry does Warp collect and why?
+
+### Zero Data Retention (ZDR)
+
+Warp has **Zero Data Retention (ZDR)** agreements with its contracted LLM providers (Anthropic, OpenAI, Google), meaning they do not store or train on your data. ZDR applies across all Warp plans.
+
+How data collection works by plan:
+
+* **Free tier** - Individual users can disable data collection in **Settings** > **Privacy**.
+* **Paid teams** - Team admins can enforce data collection settings for the entire team. Data collection is enabled by default.
+* **Business and Enterprise** - Team admins can enforce data collection settings for the entire team. Data collection is **disabled by default**.
+
+:::note
+Some product features — including cloud conversations and Oz runs — require storing conversation data to function. This data is stored to power the product experience and is separate from analytics or telemetry data collection.
+:::
+
+Enterprise subscriptions also include:
+
+* **Team-level enforcement** - Admins configure data collection and telemetry policies for the entire organization through the Admin Panel
+* **Secret redaction** - All AI interactions automatically apply [secret redaction](/support-and-community/privacy-and-security/secret-redaction/) to prevent sensitive data exposure
+
+### Telemetry categories
+
+When telemetry is enabled, Warp collects:
+
+1. **Product usage analytics** - High-level metrics on feature adoption and usage patterns (e.g., "Agent Mode was opened," "workflow was executed").
+2. **Performance and stability** - Crash reports, error tracking, and performance metrics to identify and fix issues.
+
+When data collection is disabled, Warp does not collect:
+
+* Personally identifiable information beyond user IDs and email addresses
+* Network traffic or external API calls
+
+### Disabling telemetry
+
+Users can opt out of telemetry individually:
+
+1. Navigate to **Settings** > **Privacy**.
+2. Toggle off **Help improve Warp** and/or **Send crash reports**.
+
+With telemetry disabled, Warp stops collecting usage and interaction data for analytics purposes.
+
+Team admins can enforce telemetry settings organization-wide through the Admin Panel. On Business and Enterprise plans, data collection is disabled by default.
+
+## Data handling and privacy
+
+### Where your data lives
+
+* **Code and files** - Stay on your machine unless you explicitly use features that transmit them (e.g., Codebase Context indexing, session sharing, Warp Drive team resources)
+* **Codebase Context** - During indexing, code is sent to Warp's servers to generate embeddings; the raw code is not stored, only the resulting embeddings are retained
+* **Agent requests** - Warp sends requests to contracted LLM providers (Anthropic, OpenAI, Google) with Zero Data Retention agreements for Enterprise teams
+* **BYOLLM** - Requests are proxied through Warp's servers to your cloud infrastructure, where inference runs. Warp does not store the content of these requests.
+
+### Encryption
+
+* **In transit** - All data transmitted to Warp servers uses TLS 1.2 or higher
+* **At rest** - Warp encrypts all user data at rest using AES-256
+
+### Secret redaction
+
+Warp automatically detects and redacts sensitive information before sending any data to LLM providers, keeping developers in control of what gets shared:
+
+* API keys and tokens
+* Passwords and secrets
+* SSH keys and certificates
+* Custom secret patterns (configurable via Admin Panel)
+
+See [Secret Redaction documentation](/support-and-community/privacy-and-security/secret-redaction/) for details.
+
+### Data retention
+
+* **ZDR** - Warp's contracted LLM providers do not retain or train on your data
+* **Telemetry data** - When collected, Warp retains telemetry data indefinitely for analytics and debugging
+* **User accounts** - Data deletion requests are processed securely within 30 days at no cost, following verified authentication and compliance with legal and contractual obligations
+
+## Compliance and certifications
+
+### SOC 2 Type II
+
+Warp is SOC 2 Type II certified, demonstrating compliance with industry-standard security controls for:
+
+* **Security** - Infrastructure protection, access controls, and monitoring
+* **Availability** - System uptime and disaster recovery
+* **Confidentiality** - Data protection and privacy controls
+* **Processing integrity** - Accurate, complete, and authorized processing
+
+SOC 2 reports are available to Enterprise customers upon request.
+
+## Infrastructure security
+
+### Warp-hosted infrastructure
+
+When using Warp's hosted infrastructure:
+
+* **Cloud provider** - Hosted on GCP with SOC 2 and ISO 27001 certified datacenters
+* **Network isolation** - Workloads run in isolated VPCs with strict network policies
+
+Warp's operational security practices — including access controls, monitoring, and vulnerability management — are validated through SOC 2 Type II certification. See [Compliance and certifications](#compliance-and-certifications) for details.
+
+### Self-hosted deployments
+
+Enterprise teams can self-host Oz cloud agent execution to control where agents run and keep repositories on their own infrastructure.
+
+Self-hosted deployments use a split architecture:
+* **Execution plane (customer-hosted)** - Repository clones, build artifacts, runtime secrets, and container filesystem state stay on your infrastructure
+* **Control plane (Warp-hosted)** - Session transcripts (which include code context from agent interactions), orchestration metadata, and LLM inference route through Warp's servers under Zero Data Retention (ZDR) agreements. Warp does not persistently store your source code or use it for model training
+
+Two deployment modes are available:
+* **Unmanaged** - Use `oz agent run` to run agents in your existing orchestrator or CI environment. Supports Linux, macOS, and Windows with no Docker dependency.
+* **Managed** - Run the `oz-agent-worker` daemon to let the Oz platform orchestrate agents in isolated Docker containers on your infrastructure.
+
+Agent runs are fully tracked and steerable in both modes. No inbound network access is required.
+
+**Network egress requirements**
+
+Self-hosted agents require outbound access to Warp's backend services and, for the managed architecture, Docker Hub and GitHub.
+
+## Access controls and authentication
+
+### Single Sign-On (SSO)
+
+Warp supports SSO via Okta, Microsoft Entra ID, Google Workspace, OneLogin, and any SAML 2.0 or OpenID Connect (OIDC) compatible provider. Admins can require SSO for all team members and enforce MFA through your identity provider.
+
+See [Single Sign-On (SSO)](/enterprise/security-and-compliance/sso/) for setup instructions, SCIM provisioning, account linking, and troubleshooting.
+
+### Team permissions
+
+Warp uses role-based access control with three roles — Team Owner, Team Admin, and Member — to manage team access and Admin Panel privileges. See [User roles and permissions](/enterprise/getting-started/getting-started-enterprise/#user-roles-and-permissions) for details.
+
+Resource sharing in Warp Drive has granular controls for who can view, edit, and share.
+
+### Admin Panel governance
+
+The Admin Panel gives security and IT teams centralized control over AI behavior, data handling, and sharing policies. Settings can be **enforced** (overriding individual user preferences organization-wide) or set to **respect user setting** (deferring to individual preferences).
+
+Security-relevant controls include:
+* **Privacy** - Configure user-generated content (UGC) data collection, cloud conversation storage, and enterprise secret redaction
+* **Sharing** - Restrict or permit direct link sharing and "anyone with link" sharing permissions
+* **AI** - Configure AI autonomy settings and general agent behavior for the team
+* **Models** - Control which LLM models are available to team members, including AWS Bedrock
+* **Platform** - Configure Oz cloud agent access and settings
+
+## Security features for developers
+
+### Bring Your Own LLM (BYOLLM)
+
+Route agent inference through your own cloud infrastructure for complete control:
+
+* **Data locality** - Cloud agent inference runs in your AWS account
+* **Cloud-native IAM** - Authenticate using your user's existing identity and access management process
+* **No key storage** - Warp never stores your cloud credentials or API keys
+* **Billing control** - Inference costs billed directly to your cloud account
+
+See [Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/) for configuration details.
+
+### Docker Sandboxes
+
+Isolate agent execution in containerized environments:
+
+* **Process isolation** - Agents run in separate Docker containers, isolated from your host system
+* **Resource limits** - Configure CPU, memory, and disk quotas per sandbox
+* **Network controls** - Restrict outbound network access from sandboxes
+* **Ephemeral environments** - Sandboxes are destroyed after use, leaving no trace
+
+### Agent permissions
+
+Configure what agents can access and execute:
+
+* **Tool restrictions** - Enable/disable terminal use, code editing, web search, and file system access
+* **Repository scoping** - Limit agents to specific repositories or directories
+* **Execution approvals** - Require manual approval for sensitive commands
+* **Visibility** - When cloud conversation storage is enabled, agent actions are logged with full context for review
+
+## Incident response and support
+
+### Security issue reporting
+
+If you discover a security vulnerability in Warp:
+
+1. Email [security@warp.dev](mailto:security@warp.dev).
+2. Include detailed steps to reproduce.
+3. Do not publicly disclose until Warp has addressed the issue.
+
+Warp follows responsible disclosure practices and works with reporters to coordinate disclosure timelines.
+
+### Enterprise support
+
+Enterprise customers receive priority security support:
+
+* **Dedicated channels** - Private Slack/Teams channels for security questions
+* **Security advisories** - Proactive notifications of security updates
+* **Incident assistance** - Support during security incidents or breach investigations
+* **Compliance assistance** - Help with compliance questionnaires and audits
+
+## Additional resources
+
+* **Privacy policy** - [warp.dev/legal/privacy-policy](https://www.warp.dev/legal/privacy-policy)
+* **Trust center** - [trust.warp.dev](https://trust.warp.dev) — security documentation and compliance reports. See also [Trust Center](/enterprise/security-and-compliance/trust-center/) for details on requesting SOC 2 reports, subprocessors, and vendor security assessments.
+* **Subprocessors** - [warp.dev/legal/subprocessors](https://www.warp.dev/legal/subprocessors)
+* **Privacy documentation** - [Privacy guide](/support-and-community/privacy-and-security/privacy/) with complete telemetry table
+* **Contact** - [privacy@warp.dev](mailto:privacy@warp.dev) for privacy questions, [security@warp.dev](mailto:security@warp.dev) for security issues
+
+:::note
+For vendor security assessments, compliance questionnaires, or access to SOC 2 reports, contact your account manager or email [security@warp.dev](mailto:security@warp.dev).
+:::

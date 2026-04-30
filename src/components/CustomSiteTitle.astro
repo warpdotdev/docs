@@ -1,0 +1,82 @@
+---
+// Custom SiteTitle override.
+//
+// Why this exists:
+// Starlight's default SiteTitle (`@astrojs/starlight/components/SiteTitle.astro`)
+// renders the logo as two `<img>` tags pointing at hashed SVG files (one for
+// light theme, one for dark). Because we have View Transitions disabled in
+// `CustomHead.astro` (so Starlight's sidebar scroll persistence keeps
+// working), every internal link is a full document navigation: the header is
+// torn down and rebuilt on each click. With `<img>`-based SVGs, the surrounding
+// header background paints a frame or two before the image decodes, which
+// reads as a flicker on every nav.
+//
+// This override inlines both SVGs directly into the HTML via Vite's `?raw`
+// import, so the logo paints in the same frame as the rest of the header. We
+// keep Starlight's `light:sl-hidden` / `dark:sl-hidden` toggle classes so the
+// light/dark switch keeps working with zero JS, and we keep the sr-only site
+// title for accessibility.
+import config from 'virtual:starlight/user-config';
+import logoDark from '../assets/warp-logo-dark.svg?raw';
+import logoLight from '../assets/warp-logo-light.svg?raw';
+
+// We deliberately ignore Starlight's `siteTitleHref` (which defaults to `/`)
+// and point the brand wordmark at warp.dev instead. Convention across the
+// product family: the logo is the marketing-site jump; navigation back to
+// docs home lives in the sidebar topic nav.
+const { siteTitle } = Astro.locals.starlightRoute;
+---
+
+<a href="https://warp.dev" class="site-title sl-flex">
+	<span
+		class="logo light:sl-hidden print:hidden"
+		aria-hidden="true"
+		set:html={logoDark}
+	/>
+	<span
+		class="logo dark:sl-hidden print:block"
+		aria-hidden="true"
+		set:html={logoLight}
+	/>
+	<span class:list={{ 'sr-only': config.logo?.replacesTitle }} translate="no">
+		{siteTitle}
+	</span>
+</a>
+
+<style>
+	/* Match Starlight's default SiteTitle layout/sizing exactly so the visual
+	   result is unchanged. */
+	.site-title {
+		align-items: center;
+		gap: var(--sl-nav-gap);
+		font-size: var(--sl-text-h4);
+		font-weight: 600;
+		color: var(--sl-color-text-accent);
+		text-decoration: none;
+		white-space: nowrap;
+		min-width: 0;
+	}
+
+	.logo {
+		/* Use inline-flex so the inlined <svg> child is laid out like an <img>
+		   would be (no extra baseline gap, no shrink).
+		   The light:/dark: sl-hidden utilities (in @layer starlight.utils) set
+		   display:none to toggle logos. Our unlayered display:inline-flex would
+		   override that, showing both logos at once. Scope it inside the same
+		   layer so the hidden utility wins when it applies. */
+		flex-shrink: 0;
+	}
+	@layer starlight.utils {
+		.logo {
+			display: inline-flex;
+			align-items: center;
+		}
+	}
+
+	.logo :global(svg) {
+		height: 1.25rem;
+		width: auto;
+		max-width: 100%;
+		display: block;
+	}
+</style>

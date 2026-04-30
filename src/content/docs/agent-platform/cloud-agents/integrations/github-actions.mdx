@@ -1,0 +1,222 @@
+---
+title: GitHub Actions
+description: >-
+  Run Oz agents in GitHub Actions to automate code review, issue triage, and
+  CI fixes.
+---
+import VideoEmbed from '@components/VideoEmbed.astro';
+
+Run Oz agents directly in your GitHub Actions workflows using `oz-agent-action`. The agent integrates seamlessly into your CI pipeline, automating tasks like code review, issue triage, bug fixing, and maintenance using your repository context and GitHub permissions. This page covers how the integration works, how to set it up, and common automation patterns for development teams.
+
+:::note
+**Getting started?** See the [GitHub Actions quickstart](/agent-platform/cloud-agents/integrations/quickstart-github-actions/) to set up your first workflow, or visit the [oz-agent-action repository](https://github.com/warpdotdev/oz-agent-action) for detailed setup instructions and ready-to-use workflow templates.
+:::
+
+Watch this demo to see the integration in action:
+
+<VideoEmbed url="https://www.loom.com/share/534f88b6a98e43ca9769ca09de6424b5" />
+
+In this demo
+
+* Automated PR reviews with both summary feedback and inline suggestions
+* One-click batching and committing of agent suggestions directly from the GitHub UI
+* Automatically fixing failing CI checks by opening a suggested PR
+* Suggesting fixes for small review comments (“nits”) without checking out code locally
+
+---
+
+### What the GitHub Actions integration does
+
+The `oz-agent-action` is a GitHub Action that wraps the Oz CLI and:
+
+* Runs an Oz agent inside an Actions job
+* Caches package installation for faster builds
+* Captures the agent's output for use in subsequent workflow steps
+* Lets you pass workflow context, event data, and previous step outputs into the agent prompt
+* Allows the agent to comment on PRs, post results, or open branches via the GitHub CLI
+* Supports inline code suggestions that can be batched and committed directly from the GitHub pull request UI
+* Enables using pre-built skills or custom skills for specialized tasks
+
+### Requirements
+
+To use Oz agents in GitHub Actions, you need:
+
+* A [**Warp API Key**](/reference/cli/#generating-api-keys) stored as a [GitHub secret](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions) — this authenticates the agent with Warp
+* Workflow permissions that match your intended actions (for example, `pull-requests: write` if the agent should commit or comment on PRs) — the agent performs actions on your behalf using the GitHub token available to the workflow
+* The `oz-agent-action` step added to your workflow
+* **For private repositories using `@oz-agent` mention workflows**: The [`oz-agent`](https://github.com/oz-agent) GitHub user must be [invited as a member](https://docs.github.com/en/organizations/managing-membership-in-your-organization/inviting-users-to-join-your-organization) of your GitHub organization (see [Responding to comments with @ mentions](#1-responding-to-comments-with--mentions) for details)
+* Familiarity with GitHub Actions concepts — see the official docs for [GitHub Actions](https://docs.github.com/en/actions)
+
+### Using Skills
+
+Skills provide reusable instructions for Oz agents. You can use pre-built skills from the [oz-skills repository](https://github.com/warpdotdev/oz-skills) or create custom [skills](/agent-platform/capabilities/skills/) for your specific workflows. Skills can also be deployed as [standalone agents](/agent-platform/capabilities/skills/#skills-as-agents) to run on a schedule or in response to events.
+
+#### How to use skills
+
+You can specify a skill using the `skill` input parameter, either instead of or in combination with prompts:
+
+```yaml
+- name: Run agent with a skill
+  uses: warpdotdev/oz-agent-action@v1
+  with:
+    skill: 'code-review'
+    warp_api_key: ${{ secrets.WARP_API_KEY }}
+```
+
+#### Skill format options
+
+The `skill` parameter supports multiple formats for referencing skills:
+
+* **`skill_name`** - Searches for the skill in your repository's skill directories
+* **`repo:skill_name`** - Uses a skill from a specific repository
+* **`org/repo:skill_name`** - Uses a skill from a specific organization's repository
+
+#### Combining skills with prompts
+
+You can combine skills with prompts to provide specialized context while customizing the specific task:
+
+```yaml
+with:
+  skill: 'code-review'
+  prompt: 'Focus on security vulnerabilities in authentication code'
+  warp_api_key: ${{ secrets.WARP_API_KEY }}
+```
+
+In this example, the `code-review` skill provides the base context and approach for code review, while the prompt narrows the focus to security concerns in authentication code.
+
+:::note
+Skills help maintain consistency across your workflows and can encapsulate best practices for common tasks like code review, issue triage, or automated testing.
+:::
+
+---
+
+## Common use cases
+
+The `oz-agent-action` supports several automation patterns commonly used in CI.
+
+### 1. Responding to comments with @ mentions
+
+* **File**: [`examples/respond-to-comment.yml`](https://github.com/warpdotdev/oz-agent-action/blob/main/examples/respond-to-comment.yml)
+* **Use case**: Add "@oz-agent fix this typo" or similar comments to a PR or Issue.
+
+What it does:
+
+* Listens for comments containing a trigger phrase
+* Sends the comment and thread context into the agent
+* Agent replies directly to the comment
+* If code changes are requested, the agent commits fixes to the PR branch
+
+**When to use:**
+
+* Interactive coding assistance during review or issue triage.
+
+:::note
+**Private repositories require org membership for `@oz-agent`**
+
+If your repository is in a **private GitHub organization**, you must [invite the `oz-agent` user](https://docs.github.com/en/organizations/managing-membership-in-your-organization/inviting-users-to-join-your-organization) as a member of your organization before using `@oz-agent` mention workflows. Without this:
+
+* `@oz-agent` will not appear in GitHub's autocomplete when writing comments.
+* Comments containing `@oz-agent` will not trigger the workflow, because GitHub does not recognize the mention.
+
+This is a GitHub platform limitation for private organizations — any user must be an org member to be mentioned in comments on private repos.
+
+Public repositories are not affected by this requirement.
+:::
+
+### 2. Automated pull request review
+
+* **File**: [`examples/review-pr.yml`](https://github.com/warpdotdev/oz-agent-action/blob/main/examples/review-pr.yml)
+* **Use case**: Provide automated agent feedback when a PR is opened or marked ready for review.
+
+What it does:
+
+* Automatically runs when PRs open or switch to “ready for review”
+* Agent inspects changed files, analyzes the diff, and comments inline
+* Optionally posts a summary comment
+
+**When to use:**
+
+* Fast initial review before human reviewers step in.
+
+### 3. Automatically fix issues
+
+* **File**: [`examples/auto-fix-issue.yml`](https://github.com/warpdotdev/oz-agent-action/blob/main/examples/auto-fix-issue.yml)
+* **Use case**: Apply the `oz-agent` label on an Issue to trigger automated fixes.
+
+What it does:
+
+* Detects when the label is added
+* Agent analyzes the issue description and repo context
+* Creates a PR with a fix (fix/issue-NUMBER)
+* Or comments explaining why automation wasn’t possible
+
+**When to use:**
+
+* Automating bug fixes, small features, or maintenance tasks.
+
+### 4. Daily issue summaries
+
+* **File**: [`examples/daily-issue-summary.yml`](https://github.com/warpdotdev/oz-agent-action/blob/main/examples/daily-issue-summary.yml)
+* **Use case**: Scheduled summaries of newly opened issues.
+
+What it does:
+
+* Runs daily at 09:00 UTC
+* Fetches issues created in the past 24 hours
+* Generates a categorized summary
+* Sends the summary to Slack via webhook
+
+**When to use:**
+
+* Daily visibility into new work across your repositories.
+
+### 5. Fixing failing CI checks
+
+* **File**: [`examples/fix-failing-checks.yml`](https://github.com/warpdotdev/oz-agent-action/blob/main/examples/fix-failing-checks.yml)
+* **Use case**: Automatically attempt fixes when a workflow or test suite fails.
+
+What it does:
+
+* Triggers when specified CI workflows fail
+* Pulls failure logs
+* Attempts to diagnose and fix the root cause
+* Opens a PR with the fix and comments with a link
+
+**When to use:**
+
+* Reducing downtime from failing builds or flaky tests.
+
+### 6. Suggest fixes for review comments
+
+* **File**: [`examples/suggest-review-fixes.yml`](https://github.com/warpdotdev/oz-agent-action/blob/main/examples/suggest-review-fixes.yml)
+* **Use case**: Automatically propose code suggestions for small, actionable review comments such as typos, naming tweaks, and minor refactors.
+
+**What it does:**
+
+* Triggers when a pull request review is submitted
+* Fetches review comments and stores them in review\_comments.json
+* Sends comments and context to an agent to decide which ones are simple, actionable fixes
+* Generates `responses.json` with explanations and suggestion blocks for each fixable comment
+* Replies inline to the original review comments with the generated suggestions
+
+**When to use:**
+
+* Quickly addressing straightforward review feedback such as typos, naming tweaks, style nits, and small refactors.
+
+---
+
+## Troubleshooting
+
+### `@oz-agent` mention doesn't trigger the workflow
+
+If you're tagging `@oz-agent` in a PR or issue comment and the workflow doesn't run:
+
+1. **Check org membership (private repos only)**: In private organizations, the `oz-agent` GitHub user must be a [member of your organization](https://docs.github.com/en/organizations/managing-membership-in-your-organization/inviting-users-to-join-your-organization). Without this, GitHub won't recognize the mention and the `issue_comment` event won't match the workflow trigger. Ask an org admin to invite [`oz-agent`](https://github.com/oz-agent) via **Settings > People > Invite member**.
+2. **Verify the workflow file**: Ensure your workflow is on the default branch and the trigger condition matches `@oz-agent` (e.g. `contains(github.event.comment.body, '@oz-agent')`).
+3. **Check workflow permissions**: The workflow must have the appropriate permissions (e.g. `issues: read`, `pull-requests: write`) to respond.
+
+### `@oz-agent` doesn't appear in GitHub autocomplete
+
+GitHub only suggests users who are members of the organization when typing `@` in comments on private repositories. [Invite `oz-agent`](https://docs.github.com/en/organizations/managing-membership-in-your-organization/inviting-users-to-join-your-organization) to your organization to make it appear in autocomplete.
+
+Note: Even if `@oz-agent` doesn't autocomplete, you can still type the mention manually — but the workflow will only trigger if the user is an org member (for private repos).

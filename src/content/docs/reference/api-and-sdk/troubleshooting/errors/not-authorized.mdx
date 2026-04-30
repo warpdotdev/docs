@@ -1,0 +1,58 @@
+---
+title: not_authorized
+description: >-
+  The authenticated user or API key does not have permission to perform the
+  requested operation.
+---
+
+The `not_authorized` error occurs when the authenticated principal (user or API key) does not have sufficient permissions to perform the requested operation.
+
+---
+
+## Details
+
+* **HTTP Status:** `403 Forbidden`
+* **Retryable:** No
+* **Task State:** FAILED
+
+---
+
+## When does this occur?
+
+This error is returned when:
+
+* You attempt to access a resource owned by another team or user
+* Your API key does not have the required scope for the operation
+* You try to perform an admin-level operation without admin privileges
+* A team-level operation is attempted by a user who is not a member of the team
+
+---
+
+## Example response
+
+```json
+{
+  "type": "/reference/api-and-sdk/troubleshooting/errors/not-authorized/",
+  "title": "You do not have permission for this operation.",
+  "status": 403,
+  "detail": "user is not a member of the team",
+  "instance": "/api/v1/agent/tasks/abc123",
+  "error": "You do not have permission for this operation. (user is not a member of the team)",
+  "retryable": false
+}
+```
+
+---
+
+## How to resolve
+
+1. Verify that the API key or user account belongs to the correct team.
+2. Check that your role has the necessary permissions for the operation.
+3. Contact a team admin if you need elevated access.
+
+---
+
+## Related
+
+* [Access, Billing, and Identity](/agent-platform/cloud-agents/team-access-billing-and-identity/) — Permission model and identity
+* [Oz API & SDK](/reference/api-and-sdk/) — API authentication and authorization

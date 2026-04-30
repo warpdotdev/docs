@@ -1,0 +1,92 @@
+---
+title: Quick Start
+description: >-
+  Set up and run your first cloud agent via the Oz CLI in less than 5 minutes.
+---
+import VideoEmbed from '@components/VideoEmbed.astro';
+
+This guide walks you through the essentials to get up and running with the Oz CLI in less than 5 minutes: installing the CLI, authenticating, running your first local agent, and optionally connecting MCP servers to give the agent access to external tools.
+
+Watch this short demo of the Oz CLI workflow:
+<VideoEmbed url="https://youtu.be/WpcChBNDCXQ" />
+
+## 1. Install the CLI
+
+If you already have the [Warp desktop app installed](/getting-started/quickstart/installation-and-setup/), the **CLI is included** and available in Warp.
+
+If not, see [Installing the CLI](/reference/cli/#installing-the-cli) for installation options for all platforms.
+
+## 2. Authenticate
+
+For local development and first-time setup, authenticate interactively using the `oz login` command.
+
+**For example, on macOS:**
+
+```sh
+oz login
+```
+
+This command prints a sign-in URL in your terminal. Open the URL in your browser to login to Warp. Your credentials will be stored securely for future CLI use.
+
+Interactive login works on both **local** and **remote** machines, and does not require API keys.
+
+:::note
+**Running in CI or a headless environment?** Use an API key instead of `oz login`. Export it before running any `oz` command:
+
+```sh
+export WARP_API_KEY="wk-..."
+```
+
+In the Warp app, create an API key in **Settings** > **Cloud platform** > **Oz Cloud API Keys**. See [API Keys](/reference/cli/api-keys/) for guidance on personal vs. team keys and security best practices.
+:::
+
+## 3. Run an agent
+
+From any directory, run:
+
+```sh
+oz agent run --prompt "summarize this directory"
+```
+
+This uses the default agent profile, loads any available MCP servers, and executes the run locally. The output appears directly in your terminal.
+
+What happens:
+
+* The agent runs locally in your current working directory.
+* The session is tracked on Warp's backend for observability and collaboration.
+* The agent autonomously executes commands and streams output to your terminal.
+
+## 4. Run a cloud agent (optional)
+
+Cloud agents run in a remote environment with your repositories cloned and dependencies installed, making them useful for tasks that need full codebase access.
+
+If you haven't already created an environment, run `/create-environment` in Warp or follow the [Cloud Agents Quickstart](/agent-platform/cloud-agents/quickstart/). Then run the following command:
+
+```sh
+oz agent run-cloud --environment <ENV_ID> --prompt "Scan this repo for outdated dependencies"
+```
+
+Replace `<ENV_ID>` with your environment ID, which you can find by running `oz environment list` on the Oz CLI.
+
+## 5. Add MCP context (optional)
+
+You can connect MCP servers to give the agent access to external tools like GitHub or Linear. Pass MCP configuration inline or from a file using the `--mcp` flag:
+
+```sh
+oz agent run --mcp '{"github": {"url": "https://api.githubcopilot.com/mcp/"}}' --prompt "Open a pull request that fixes TODOs in this repo"
+```
+
+See [MCP Servers](/reference/cli/mcp-servers/) for all supported formats, including UUID references and multi-server configurations.
+
+## Next steps
+
+Once you've successfully set up and run your agent, explore other configurations and workflows with the Oz CLI:
+
+* Customize behavior with [agent profiles](/reference/cli/agent-profiles/).
+* [Reuse prompts](/reference/cli/warp-drive/) with `--saved-prompt`.
+* Connect agents to external systems using [MCP Servers](/reference/cli/mcp-servers/).
+* Authenticate with [API keys](/reference/cli/api-keys/) for automated environments or workflows.
+* Get up-to-date information about the Oz CLI using the [`oz help` command](/reference/cli/troubleshooting/#getting-help).
+* Run agents in CI with the [GitHub Actions quickstart](/agent-platform/cloud-agents/integrations/quickstart-github-actions/).
+
+Continue reading the [Oz CLI reference](/reference/cli/) to learn how to install the CLI on different platforms, authenticate in different environments, and configure agents for real-world workflows.

@@ -1,0 +1,57 @@
+---
+title: conflict
+description: >-
+  The request conflicts with the current state of the resource. Wait for the
+  resource to reach the expected state and retry.
+---
+
+The `conflict` error occurs when a request cannot be completed because the resource is in a state that conflicts with the requested operation.
+
+---
+
+## Details
+
+* **HTTP Status:** `409 Conflict`
+* **Retryable:** Yes
+* **Task State:** FAILED
+
+---
+
+## When does this occur?
+
+This error is returned when:
+
+* You attempt to cancel a task that is still in the **pending** state (the task has not yet been claimed by a worker)
+
+The operation can typically succeed once the resource transitions to the expected state.
+
+---
+
+## Example response
+
+```json
+{
+  "type": "/reference/api-and-sdk/troubleshooting/errors/conflict/",
+  "title": "Pending agent runs cannot be cancelled, retry after a moment.",
+  "status": 409,
+  "instance": "/api/v1/agent/tasks/abc123/cancel",
+  "error": "Pending agent runs cannot be cancelled, retry after a moment.",
+  "retryable": true
+}
+```
+
+---
+
+## How to resolve
+
+1. Wait a moment for the resource to transition to the expected state.
+2. Retry the request.
+
+For task cancellation specifically, wait until the task moves from **pending** to **in progress** before attempting to cancel.
+
+---
+
+## Related
+
+* [Managing Cloud Agents](/agent-platform/cloud-agents/managing-cloud-agents/) — Viewing and managing agent tasks
+* [Oz API & SDK](/reference/api-and-sdk/) — API reference for managing agent tasks

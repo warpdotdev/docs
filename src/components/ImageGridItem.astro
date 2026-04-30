@@ -1,0 +1,50 @@
+---
+/**
+ * A single image + label card for use inside <ImageGrid>.
+ *
+ * Props:
+ *   src   – path to the image (relative import or public path)
+ *   label – display name shown below the image
+ *   alt   – optional alt text (defaults to "{label} preview")
+ */
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  src: ImageMetadata;
+  label: string;
+  alt?: string;
+}
+
+const { src, label, alt } = Astro.props;
+---
+
+<figure class="image-grid-item">
+  <img src={src.src} alt={alt ?? `${label} preview`} loading="lazy" decoding="async" width={src.width} height={src.height} />
+  <figcaption>{label}</figcaption>
+</figure>
+
+<style>
+  .image-grid-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+  }
+
+  .image-grid-item img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--sl-radius-lg, 0.5rem);
+    border: 1px solid var(--sl-color-gray-5, #e5e7eb);
+    object-fit: cover;
+  }
+
+  .image-grid-item figcaption {
+    font-size: var(--sl-text-sm, 0.875rem);
+    color: var(--sl-color-gray-2, #6b7280);
+    text-align: center;
+    line-height: 1.4;
+  }
+</style>

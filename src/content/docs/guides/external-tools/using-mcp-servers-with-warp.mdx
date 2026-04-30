@@ -1,0 +1,92 @@
+---
+title: Using MCP Servers with Warp
+description: >-
+  Connect MCP servers to Warp's agent, add Rules for automatic tool selection,
+  and resolve tickets using external systems like Linear.
+sidebar:
+  label: "Connect Agents to MCP servers"
+---
+import VideoEmbed from '@components/VideoEmbed.astro';
+
+<VideoEmbed url="https://www.youtube.com/watch?v=8vn2brhJrF8" />
+
+### 1. What Are MCP Servers?
+
+MCP (Model Context Protocol) servers let Warp agents connect to external systems like GitHub, Linear, or Jira — so they can read, write, and reason about those systems natively.
+
+Each MCP server adds its own “tools” to Warp’s agent.\
+For example:
+
+* The Linear MCP Server handles tickets.
+* The GitHub MCP Server handles pull requests and issues.
+
+---
+
+### 2. Problem Setup
+
+Andrew starts with Warp’s universal input, but it doesn’t yet know what a “ticket” is.
+
+> Prompt Example:\
+> “Help me solve this ticket.”
+
+At this point, Warp can’t find or interpret the ticket, because no MCP server is connected.
+
+---
+
+### 3. Adding the Linear MCP Server
+
+To connect Linear:
+
+1. Open the **MCP Panel** in Warp
+2. Click **Add Server**
+3. Paste in the JSON configuration for the Linear MCP Server
+
+Once added, Warp:
+
+* Starts the MCP server
+* Loads its tools (e.g., `get_ticket`, `update_ticket`, `create_ticket`)
+* Makes them available to the agent instantly
+
+---
+
+### 4. Using Rules with MCP Servers
+
+Andrew adds a rule called **check-linear**, which helps the agent automatically associate “tickets” with the Linear MCP Server.
+
+> **Rule Example:**\
+> “When the user says ‘ticket,’ check Linear.”
+
+Rules make context switching between systems seamless — the agent doesn’t need reminders.
+
+---
+
+### 5. Dynamic Context Loading
+
+Warp’s MCP support is **dynamic**:
+
+* You can start a conversation without any connected MCPs
+* Add one mid-session
+* The agent automatically updates its context on the next message
+
+No need to restart Warp or reset your session.
+
+---
+
+### 6. Running the Task
+
+After adding Linear, Andrew runs:
+
+> “Help me solve this ticket.”
+
+Now the agent:
+
+* Queries Linear for the ticket
+* Pulls all related context
+* Reads the codebase for linked references
+* Generates the appropriate fix
+
+He verifies the output by running:
+
+```bash
+cargo run
+```

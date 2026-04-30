@@ -1,0 +1,97 @@
+---
+title: Terminal themes
+description: >-
+  Warp includes several themes (out-of-box) and also supports setting custom
+  themes.
+---
+import DemoVideo from '@components/DemoVideo.astro';
+import ImageGrid from '@components/ImageGrid.astro';
+import ImageGridItem from '@components/ImageGridItem.astro';
+import themeWarpDark from '../../../../assets/terminal/warp-dark.png';
+import themeWarpLight from '../../../../assets/terminal/warp-light.png';
+import themeDracula from '../../../../assets/terminal/dracula.png';
+import themeSolarizedDark from '../../../../assets/terminal/solarized-dark.png';
+import themeSolarizedLight from '../../../../assets/terminal/solarized-light.png';
+import themeGruvboxDark from '../../../../assets/terminal/gruvbox-dark.png';
+import themeGruvboxLight from '../../../../assets/terminal/gruvbox-light.png';
+import themeJellyfish from '../../../../assets/terminal/jellyfish.png';
+import themeKoi from '../../../../assets/terminal/koi.png';
+import themeLeafy from '../../../../assets/terminal/leafy.png';
+import themeMarble from '../../../../assets/terminal/marble.png';
+import themePinkCity from '../../../../assets/terminal/pink-city.png';
+import themeSnowy from '../../../../assets/terminal/snowy.png';
+import themeDarkCity from '../../../../assets/terminal/dark-city.png';
+import themeRedRock from '../../../../assets/terminal/red-rock.png';
+import themeCyberWave from '../../../../assets/terminal/cyber-wave.png';
+import themeWillowDream from '../../../../assets/terminal/willow-dream.png';
+import themeFancyDracula from '../../../../assets/terminal/fancy-dracula.png';
+import themePhenomenon from '../../../../assets/terminal/phenomenon.png';
+import themeSolarFlare from '../../../../assets/terminal/solar-flare.png';
+import themeAdeberry from '../../../../assets/terminal/adeberry.png';
+
+### Theme Picker
+
+The Theme Picker can be accessed by:
+
+1. Navigating to **Settings** > **Appearance**.
+2. Clicking the Custom Themes (shaded) box.
+3. Upon selecting a theme, Warp's appearance will update accordingly.
+4. Press the checkmark to save the selection, or the X to revert.
+
+:::note
+The Theme setting persists, meaning Warp will open with the same settings in the next session.
+:::
+
+### Theme Creator
+
+Automatically create new themes based on a background image.
+
+1. Go to **Settings** > **Appearance** > **Themes** or search "Open theme picker" within the [Command Palette](/terminal/command-palette/).
+2. Click the **+** button in the theme picker.
+3. Upload the image and select the background color.
+4. Click "Create Theme" to save and accept the new theme.
+
+### OS Theme Sync
+
+Warp supports synchronizing your theme with the OS’s light and dark themes. To enable this:
+
+1. Open the **Settings** > **Appearance** dialog.
+2. Click the toggle "Sync with OS".
+3. You will then be able to select a specific theme for when the OS is in light mode and dark mode.
+
+## How it works
+
+<DemoVideo src="/assets/terminal/theme-picker.mp4" label="Theme picker demo" />
+
+<DemoVideo src="/assets/terminal/theme-creator.mp4" label="Theme creator demo" />
+
+<DemoVideo src="/assets/terminal/theme-sync-demo.mp4" label="theme os sync demo" />
+
+## Default Themes
+
+By default, Warp ships with these themes:
+
+<ImageGrid>
+  <ImageGridItem src={themeWarpDark} label="Warp Dark" />
+  <ImageGridItem src={themeWarpLight} label="Warp Light" />
+  <ImageGridItem src={themeDracula} label="Dracula" />
+  <ImageGridItem src={themeSolarizedDark} label="Solarized Dark" />
+  <ImageGridItem src={themeSolarizedLight} label="Solarized Light" />
+  <ImageGridItem src={themeGruvboxDark} label="Gruvbox Dark" />
+  <ImageGridItem src={themeGruvboxLight} label="Gruvbox Light" />
+  <ImageGridItem src={themeJellyfish} label="Jellyfish" />
+  <ImageGridItem src={themeKoi} label="Koi" />
+  <ImageGridItem src={themeLeafy} label="Leafy" />
+  <ImageGridItem src={themeMarble} label="Marble" />
+  <ImageGridItem src={themePinkCity} label="Pink City" />
+  <ImageGridItem src={themeSnowy} label="Snowy" />
+  <ImageGridItem src={themeDarkCity} label="Dark City" />
+  <ImageGridItem src={themeRedRock} label="Red Rock" />
+  <ImageGridItem src={themeCyberWave} label="Cyber Wave" />
+  <ImageGridItem src={themeWillowDream} label="Willow Dream" />
+  <ImageGridItem src={themeFancyDracula} label="Fancy Dracula" />
+  <ImageGridItem src={themePhenomenon} label="Phenomenon" />
+  <ImageGridItem src={themeSolarFlare} label="Solar Flare" />
+  <ImageGridItem src={themeAdeberry} label="Adeberry" />
+</ImageGrid>
+

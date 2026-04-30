@@ -1,0 +1,87 @@
+---
+title: Billing
+description: >-
+  Learn about billing for Warp Enterprise, including credits, cloud agent
+  costs, and billing management.
+---
+
+This page covers general information about credits, cloud agent costs, and BYOLLM billing for enterprise teams. If you have specific questions about custom pricing, credit allocation, or contract terms, contact your Warp account manager.
+
+## Credits
+
+Warp uses a credit-based billing model. Any interaction with Oz agents consumes credits based on the complexity of the task, the model used, and the amount of context processed.
+
+### How credits work
+
+* Each agent interaction consumes **at least one credit**, though complex interactions may use multiple credits.
+* Credit usage is influenced by the LLM model used, the number of tool calls, task complexity, amount of context, and prompt caching behavior.
+* Credit usage is **non-deterministic**. Two similar prompts may consume different numbers of credits.
+
+For details on how credits are calculated, see [Credits](/support-and-community/plans-and-billing/credits/).
+
+### Credit allocation
+
+Enterprise plans include a custom team-wide credit pool as part of your contract. Credits are primarily shared across the entire team rather than allocated per seat. Individual credit grants may also occur (e.g., support refunds), but the core allocation is team-wide.
+
+:::note
+Credit allocations vary by contract. Contact your account manager for details on your team's specific allocation.
+:::
+
+## Cloud agent billing
+
+Oz cloud agents consume credits that include a small hosting fee in addition to AI usage costs.
+
+### How credits are consumed
+
+On Enterprise plans, both local and cloud agent usage draw from the same team credit pool. There are no separate "cloud agent credits" or "local credits" — all agent usage consumes from your available credit sources.
+
+For team API key runs (e.g., CI/CD pipelines, scheduled tasks), credits also draw from the team's shared pool since these runs are not tied to any individual user.
+
+For more details, see [Access, Billing, and Identity](/agent-platform/cloud-agents/team-access-billing-and-identity/).
+
+## BYOLLM billing
+
+When using [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/), Warp routes requests through your cloud infrastructure (AWS Bedrock, Google Vertex, or Azure Foundry). BYOLLM requests **consume credits at a reduced rate** which is approximately 80% slower than standard usage. Inference costs are also billed directly to your cloud account.
+
+If a BYOLLM request fails and Warp falls back to a direct API model, that fallback request consumes Warp credits at the standard rate.
+
+## Managing billing
+
+Your Warp account manager handles all billing for your Enterprise contract. Contact your account manager or dedicated Slack/Teams channel for:
+
+* Invoices and payment changes
+* Contract modifications
+* Credit allocation adjustments
+
+For urgent billing issues, email [billing@warp.dev](mailto:billing@warp.dev).
+
+### Spending controls
+
+Administrators can configure monthly spending limits and receive alerts to prevent unexpected charges. Configure these controls in the [Admin Panel](https://app.warp.dev/admin/) under the **Billing** tab.
+
+#### Monthly spending limits
+
+Enterprise administrators can set monthly spending limits across the following four categories:
+
+* **Cloud spending limit** - Cap monthly spend on Oz cloud agent usage.
+* **Local spending limit** - Cap monthly spend on local agent usage in the Warp app.
+* **Total spending limit** - Cap combined monthly spend across both cloud and local agents.
+* **Per-user spending limit** - Cap monthly spend for any individual user. Set a default that applies to all users, or configure limits on a per-user basis for predictable individual spend.
+
+Spending is tracked across all payment types (Add-on Credits, pay-as-you-go usage) so limits apply consistently regardless of how usage is funded.
+
+#### Monthly spend alerts
+
+Warp sends alerts to administrators as team usage approaches each configured spending limit, so you can adjust caps, purchase more credits, or communicate with your team before agent usage is blocked at the cap.
+
+#### Credit pool depletion alerts
+
+For enterprises with credit pools, administrators receive alerts as the team credit pool approaches full consumption. This gives you time to top up your credits or change your reload configuration before agent usage is interrupted for the entire team.
+
+## Related resources
+
+* [Credits](/support-and-community/plans-and-billing/credits/) - How credits are calculated and consumed
+* [Add-on Credits](/support-and-community/plans-and-billing/add-on-credits/) - Purchase additional credits and configure auto-reload
+* [Pricing FAQs](/support-and-community/plans-and-billing/pricing-faqs/) - Common billing questions
+* [Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/) - BYOLLM billing and configuration
+* [Admin Panel](/enterprise/team-management/admin-panel/) - Configure spending limits and billing settings

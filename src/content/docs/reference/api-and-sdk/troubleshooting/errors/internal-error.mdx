@@ -1,0 +1,60 @@
+---
+title: internal_error
+description: >-
+  An unexpected server-side error occurred. The platform will automatically
+  retry. Contact support if the issue persists.
+---
+
+The `internal_error` is a catch-all for unexpected server-side errors. The platform automatically retries these errors before marking the task as failed.
+
+---
+
+## Details
+
+* **HTTP Status:** `500 Internal Server Error`
+* **Retryable:** Yes (automatic)
+* **Task State:** ERROR
+
+---
+
+## When does this occur?
+
+This error is returned when:
+
+* An unexpected condition occurred on the server that does not match any specific error category
+* An internal service dependency failed or timed out
+* An unclassified error occurred during task processing
+
+---
+
+## Example response
+
+```json
+{
+  "type": "/reference/api-and-sdk/troubleshooting/errors/internal-error/",
+  "title": "An unexpected error occurred. Please try again later. If the issue persists, contact support.",
+  "status": 500,
+  "instance": "/api/v1/agent/tasks",
+  "error": "An unexpected error occurred. Please try again later. If the issue persists, contact support.",
+  "retryable": true,
+  "trace_id": "abc123..."
+}
+```
+
+---
+
+## How to resolve
+
+No action is typically needed — the platform will automatically retry the task.
+
+If the error persists:
+
+1. Wait a few minutes and try again.
+2. Contact [Warp support](/support-and-community/troubleshooting-and-support/sending-us-feedback/) and include the `trace_id` from the error response.
+
+---
+
+## Related
+
+* [Cloud Agents Overview](/agent-platform/cloud-agents/overview/) — How cloud agent tasks work
+* [Cloud Agents FAQs](/agent-platform/cloud-agents/faqs/) — Common questions about cloud agents

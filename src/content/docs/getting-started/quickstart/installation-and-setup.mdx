@@ -1,0 +1,218 @@
+---
+title: Installation and setup
+description: >-
+  Install Warp on macOS, Windows, or Linux. All installation options include
+  auto-update for new features, bug fixes, and performance improvements.
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import VideoEmbed from '@components/VideoEmbed.astro';
+
+:::note
+**Platform support:** Warp is supported on macOS (Intel and Apple silicon), Windows (x86\_64 and ARM64), and Linux (x86\_64 and ARM64).
+:::
+
+## Install Warp
+
+:::caution
+**Visit** [Known Issues](/support-and-community/troubleshooting-and-support/known-issues/) **to get more details on setting up and troubleshooting Warp.**
+:::
+
+<Tabs>
+  <TabItem label="macOS">
+    :::note
+    **Minimum requirements:** Intel or Apple silicon macOS 10.14 or above and hardware that supports [Metal](https://support.apple.com/en-us/HT205073).
+    :::
+
+    **Download Warp and drag into your Applications folder**
+
+    <VideoEmbed url="https://www.warp.dev/download" title="Download Warp" />
+
+    **Install using Homebrew by running the command below**
+
+    ```bash
+    brew install --cask warp
+    ```
+
+    After installation, you can find Warp in your Applications folder.
+  </TabItem>
+  <TabItem label="Windows">
+    :::note
+    **Minimum requirements:** Warp requires Windows 10 version 1809 (build 17763) or later, Windows Server 2019 (build 17763) and Windows Server 2022 (build 20348) or later. This is a requirement for [Windows Pseudo Console (ConPTY)](https://devblogs.microsoft.com/commandline/windows-command-line-introducing-the-windows-pseudo-console-conpty/).
+    :::
+
+    **Download Warp, then open and run the installer**
+
+    <VideoEmbed url="https://www.warp.dev/download" title="Download Warp" />
+
+    **Install using WinGet by running the command below**
+
+    ```powershell
+    winget install Warp.Warp
+    ```
+
+    After installation, you can find Warp in the Start menu.
+  </TabItem>
+  <TabItem label="Linux">
+    :::note
+    **Minimum requirements:** Linux distribution with glibc >= 2.31 (released Feb. 2020) and support for _either_ [OpenGL ES 3.0+ or Vulkan](https://github.com/gfx-rs/wgpu?tab=readme-ov-file#supported-platforms).
+
+    This includes (but is not limited to) the following:
+
+    * Ubuntu 20.04
+    * Debian 11 ("bullseye")
+    * Fedora 32
+    * Arch Linux
+    :::
+
+    **Visit the Warp download page for the full list of Linux installation options**
+
+    <VideoEmbed url="https://www.warp.dev/download" title="Download Warp" />
+
+    **Debian- and Ubuntu-based distributions**
+
+    The easiest way to install Warp is to download [x64 .deb package](https://app.warp.dev/download?package=deb) or [ARM64 deb package](https://app.warp.dev/download?package=deb_arm64). After downloading, you can install the package with:
+
+    ```
+    sudo apt install ./<file>.deb
+    ```
+
+    Installing the .deb package will automatically set up the Warp apt repository and signing key needed to automatically update Warp and verify the integrity of the downloaded packages.
+
+    Alternatively, you can manually configure the Warp apt repository and install Warp by running the following commands:
+
+    ```
+    sudo apt-get install wget gpg
+    wget -qO- https://releases.warp.dev/linux/keys/warp.asc | gpg --dearmor > warpdotdev.gpg
+    sudo install -D -o root -g root -m 644 warpdotdev.gpg /etc/apt/keyrings/warpdotdev.gpg
+    sudo sh -c 'echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/warpdotdev.gpg] https://releases.warp.dev/linux/deb stable main" > /etc/apt/sources.list.d/warpdotdev.list'
+    rm warpdotdev.gpg
+    sudo apt update && sudo apt install warp-terminal
+    ```
+
+    **RHEL-, Fedora-, and CentOS-based distributions**
+
+    The easiest way to install Warp is to download the [x64 .rpm package](https://app.warp.dev/download?package=rpm) or [ARM64 .rpm package](https://app.warp.dev/download?package=rpm_arm64). After downloading, you can install the package with:
+
+    ```bash
+    sudo dnf install ./<file>.rpm
+    ```
+
+    Installing the .rpm package will automatically set up the Warp yum repository. On first update, `dnf` will retrieve the signing key needed to verify the integrity of the downloaded packages.
+
+    Alternatively, you can manually configure the Warp yum repository and install Warp by running the following commands:
+
+    ```bash
+    sudo rpm --import https://releases.warp.dev/linux/keys/warp.asc
+    sudo sh -c 'echo -e "[warpdotdev]\nname=warpdotdev\nbaseurl=https://releases.warp.dev/linux/rpm/stable\nenabled=1\ngpgcheck=1\ngpgkey=https://releases.warp.dev/linux/keys/warp.asc" > /etc/yum.repos.d/warpdotdev.repo'
+    sudo dnf install warp-terminal
+    ```
+
+    **Arch Linux-based distributions**
+
+    The easiest way to install Warp is to download the [x64 .pkg.tar.zst package](https://app.warp.dev/download?package=pacman) or [ARM64 pacman package](https://app.warp.dev/download?package=pacman_arm64). After downloading, you can install the package with:
+
+    ```bash
+    sudo pacman -U ./<file>.pkg.tar.zst
+    ```
+
+    The first time you update Warp through the app, it will guide you through setting up the Warp pacman repository and signing key.
+
+    Alternatively, you can manually configure the Warp pacman repository and install Warp by running the following commands:
+
+    ```bash
+    sudo sh -c "echo -e '\n[warpdotdev]\nServer = https://releases.warp.dev/linux/pacman/\$repo/\$arch' >> /etc/pacman.conf"
+    sudo pacman-key -r "linux-maintainers@warp.dev"
+    sudo pacman-key --lsign-key "linux-maintainers@warp.dev"
+    sudo pacman -Sy warp-terminal
+    ```
+
+    **OpenSUSE- and SLE-based distributions**
+
+    The Warp yum repository also works for OpenSUSE- and SLE-based systems. Download the [x64 .rpm package](https://app.warp.dev/download?package=rpm) or [ARM64 .rpm package](https://app.warp.dev/download?package=rpm_arm64). After downloading, you can install the package with:
+
+    ```bash
+    sudo zypper install ./<file>.rpm
+    ```
+
+    Installing the .rpm package will automatically set up the Warp yum repository. On first update, `zypper` will retrieve the signing key needed to verify the integrity of the downloaded packages.
+
+    Alternatively, you can manually configure the Warp yum repository and install Warp by running the following commands:
+
+    ```bash
+    sudo rpm --import https://releases.warp.dev/linux/keys/warp.asc
+    sudo sh -c 'echo -e "[warpdotdev]\nname=warpdotdev\ntype=rpm-md\nbaseurl=https://releases.warp.dev/linux/rpm/stable\nenabled=1\nautorefresh=1\ngpgcheck=1\ngpgkey=https://releases.warp.dev/linux/keys/warp.asc\nkeeppackages=0" > /etc/zypp/repos.d/warpdotdev.repo'
+    sudo zypper install warp-terminal
+    ```
+
+    **AppImage**
+
+    We also provide an [AppImage](https://appimage.org), a single-file executable version of Warp. Installing Warp via a package manager is recommended, as it will ensure your system has all necessary dependencies installed.
+
+    You can download the Warp AppImage with the following commands:
+
+    ```bash
+    # On x64 systems
+    curl -L "https://app.warp.dev/download?package=appimage" -o Warp-x64.AppImage
+    chmod +x Warp-x64.AppImage
+    ```
+
+    ```bash
+    # On ARM64 systems
+    curl -L "https://app.warp.dev/download?package=appimage_arm64" -o Warp-ARM64.AppImage
+    chmod +x Warp-ARM64.AppImage
+    ```
+
+    **Running Warp on Linux**
+
+    If you installed a package, find Warp in your desktop manager or run `warp-terminal` on your terminal. If you're using the AppImage, you can launch it by navigating to the directory where the AppImage is located and running `./Warp-*.AppImage`.
+  </TabItem>
+</Tabs>
+
+:::note
+Want to try our newest features? [Warp Preview](/support-and-community/community/warp-preview-and-alpha-program/) is available on all platforms and architectures (macOS, Windows, Linux) for early access to experimental features.
+:::
+
+## Build from source
+
+Warp's client is open source under [AGPL v3](https://github.com/warpdotdev/warp/blob/master/LICENSE), so you can build it yourself from [`warpdotdev/warp`](https://github.com/warpdotdev/warp).
+
+Clone the repo, bootstrap toolchain dependencies, and start a development build:
+
+```bash
+git clone https://github.com/warpdotdev/warp.git
+cd warp
+./script/bootstrap
+cargo run
+```
+
+`cargo run` launches a `warp-oss` binary built from your local checkout. See the repo's `README.md` and `CONTRIBUTING.md` for full prerequisites (Xcode on macOS, the pinned Rust toolchain, `protoc`) and development setup.
+
+:::note
+Use the official builds for daily use. Self-built `warp-oss` binaries use a separate config and data directory, so they run alongside official Warp without conflicting, but they don't auto-update and don't carry the production code-signing identity. Use them for developing, auditing, or contributing back upstream.
+:::
+
+## Initial setup
+
+### Log in to Warp (Optional)
+
+After installation, you have the option to create a Warp account through the "Sign up" button (top right), or by navigating to **Settings** > **Account** > **Sign up**. Optionally, you can skip this step. If you're having issues logging in, see the [Login Troubleshooting](/support-and-community/troubleshooting-and-support/troubleshooting-login-issues/) page.
+
+:::note
+If you sign up using Google or GitHub, Warp only gets access to the associated email address. Visit the [Privacy](/support-and-community/privacy-and-security/privacy/) page for more details on Warp's approach to privacy.
+:::
+
+### Use Warp offline
+
+You will only need an active internet connection when you open the Warp app for the first time. Once opened, [Warp is able to run with no internet connection](/support-and-community/troubleshooting-and-support/using-warp-offline/), although certain features that require an internet connection like AI and real-time collaboration features will be unavailable.
+
+### Import your settings
+
+If you are migrating to Warp from another terminal, editor, or AI coding tool, see the [Migrate to Warp](/getting-started/migrate-to-warp/) docs for per-source guides including settings-import steps and feature equivalents.
+
+### Set up your Warp default shell
+
+Warp tries to load your login shell by default. Currently, Warp supports bash, fish, zsh, and PowerShell (pwsh). If your login shell is set to something else (for example, Nushell) Warp will load zsh by default.
+
+Zsh is the default login and interactive shell on macOS (starting with macOS Catalina in 2019), replacing the bash shell. For most Linux distributions, the default shell is bash.
+
+You can change your default shell by going to **Settings** > **Features** > **Session**. In the Startup shell for new sessions section, you can choose which shell you want Warp to use.

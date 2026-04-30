@@ -1,0 +1,262 @@
+---
+// Horizontal topic navigation for the top header (Scalar-style).
+//
+// Renders one link per topic configured in `src/sidebar.ts` (Terminal, Agents,
+// Reference, etc.) as an inline-flex row with a small icon + label. The list
+// is sourced from `starlight-sidebar-topics`'s middleware, which exposes
+// `Astro.locals.starlightSidebarTopics.topics` on every Starlight route.
+// Each topic carries `{ link, label, icon, badge, isCurrent }`; we consume
+// `link`/`label`/`icon`/`isCurrent` and ignore `badge` for now (none of our
+// topics ship one). The plugin's per-topic sidebar filtering lives in its
+// middleware (it rewrites `starlightRoute.sidebar`), so removing the topic
+// list from the sidebar markup does NOT break that filtering — the same
+// filtered nav still renders below this row in the page sidebar.
+//
+// Visual spec:
+//   - 14px label, weight 500, calm gray-3 idle (dim enough that the active
+//     link reads clearly without an outline or background)
+//   - 12×12 icon, color inherits from the link. Sized to roughly match
+//     Inter's cap-height at 14px (≈10.1px) so the icon's element box sits
+//     inside the visible glyph range — geometric centering then equals
+//     optical centering, no per-icon transform needed (Vercel/Stripe nav
+//     pattern).
+//   - Active link: accent-blue text + weight 600 + 2px accent underline
+//     anchored to the header's bottom edge so the line visually replaces the
+//     header hairline under the active item (Scalar pattern). Text and
+//     underline share `--sl-color-text-accent`, which auto-adapts to dark
+//     and light themes.
+//   - No surrounding chip / box / bg — just type + icon
+import { Icon } from '@astrojs/starlight/components';
+
+const { topics } = Astro.locals.starlightSidebarTopics;
+
+// Per-topic icon overrides for topics where Starlight's icon registry doesn't
+// ship the right glyph (only 22 generic UI icons available; no robot/AI). The
+// `sidebar.ts` config keeps the closest Starlight name (e.g. `puzzle` for
+// Agents, `seti:json` for API) so the mobile drawer falls back gracefully;
+// this map points to a custom inline SVG that we render here in the header
+// instead.
+const CUSTOM_TOPIC_ICONS: Record<string, true> = {
+	Agents: true,
+	API: true,
+};
+---
+
+{topics && topics.length > 0 && (
+	<nav class="warp-topic-nav" aria-label="Documentation sections">
+		<ul>
+			{topics.map((topic) => (
+				<li>
+					<a
+						href={topic.link}
+						aria-current={topic.isCurrent ? 'page' : undefined}
+					>
+						{CUSTOM_TOPIC_ICONS[topic.label] ? (
+							<span class="warp-topic-nav__icon" aria-hidden="true">
+								{/* No inline width/height on either custom SVG — the
+								  `.warp-topic-nav__icon :global(svg)` rule below pins
+								  this and the Starlight-rendered icons to a single
+								  uniform size. `currentColor` so each icon inherits the
+								  link's text color and picks up the active-state accent. */}
+								{topic.label === 'API' ? (
+									/* `</>` brackets — the conventional dev-API glyph.
+									   Two chevrons mirrored across center, stroke weight
+									   matched to the other topic icons. */
+									<svg
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									>
+										<path d="M16 18l6-6-6-6" />
+										<path d="M8 6l-6 6 6 6" />
+									</svg>
+								) : (
+									/* Robot icon — stroke-based outline matching the visual
+									   weight of Starlight's other topic icons (laptop, book,
+									   star). Antenna on top, rounded square head, two eyes,
+									   mouth line, two stubby arms. */
+									<svg
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									>
+										<rect x="4" y="7" width="16" height="13" rx="2.5" />
+										<line x1="12" y1="3" x2="12" y2="7" />
+										<circle cx="12" cy="3" r="0.6" fill="currentColor" />
+										<circle cx="9" cy="13" r="1" fill="currentColor" stroke="none" />
+										<circle cx="15" cy="13" r="1" fill="currentColor" stroke="none" />
+										<line x1="9" y1="17" x2="15" y2="17" />
+										<line x1="4" y1="13" x2="2" y2="13" />
+										<line x1="22" y1="13" x2="20" y2="13" />
+									</svg>
+								)}
+							</span>
+						) : topic.icon ? (
+							<span class="warp-topic-nav__icon" aria-hidden="true">
+								<Icon name={topic.icon} />
+							</span>
+						) : null}
+						<span class="warp-topic-nav__label">{topic.label}</span>
+					</a>
+				</li>
+			))}
+		</ul>
+	</nav>
+)}
+
+<style>
+	.warp-topic-nav {
+		/* Sits between SiteTitle and the right control group inside `.header`.
+		   The header itself is `display: flex; align-items: center;` — this
+		   nav uses `align-self: stretch` so its links can pin a 2px accent
+		   underline to the header's bottom edge. */
+		align-self: stretch;
+		display: flex;
+		align-items: stretch;
+		min-width: 0;
+	}
+
+	ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		align-items: stretch;
+		gap: 1.25rem;
+		min-width: 0;
+		overflow: hidden;
+	}
+
+	li {
+		display: flex;
+		align-items: stretch;
+	}
+
+	a {
+		/* Stretches to the full header height so the bottom-anchored `::after`
+		   indicator sits flush with the header hairline (Scalar pattern) —
+		   not under the link's text box. `align-self: stretch` inherits the
+		   parent <li>'s height (which inherits from `<ul>` → nav → header). */
+		position: relative;
+		align-self: stretch;
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0 0.125rem;
+		font-size: var(--sl-text-sm);
+		font-weight: 500;
+		/* `1.25` is just enough to clear Inter's natural ascent + descent
+		   (~1.21em) so descenders in `Changelog` (`g`) and `Reference`
+		   (`f`) aren't clipped, while keeping the line-box close to the
+		   visible text. The link's outer height is set by `align-self:
+		   stretch` on the parent, so this only affects internal text
+		   layout (and the icon's optical centering, see
+		   `.warp-topic-nav__icon` below). */
+		line-height: 1.25;
+		/* Idle color uses `gray-3` so the active link's full-emphasis white
+		   text reads as clearly distinct (and not just "white-on-slightly-
+		   lighter-white"). The accent underline carries the rest of the
+		   active-state weight. */
+		color: var(--sl-color-gray-3);
+		text-decoration: none;
+		white-space: nowrap;
+		transition: color 0.15s ease;
+	}
+
+	a:hover {
+		color: var(--sl-color-white);
+	}
+
+	a:focus-visible {
+		outline: 2px solid var(--sl-color-accent-high);
+		outline-offset: 4px;
+		border-radius: var(--sl-radius-xs);
+	}
+
+	/* Active link picks up the same accent blue as the underline so the
+	   text and indicator read as one unified active state, and it ties
+	   into the rest of the site's blue accents (links, callouts, focus
+	   ring). `--sl-color-text-accent` is theme-aware: a lighter blue in
+	   dark mode, a darker blue in light mode — both keep AA contrast
+	   against the nav background. Weight 600 reinforces it against the
+	   calmer gray-3 idle siblings. */
+	a[aria-current='page'] {
+		color: var(--sl-color-text-accent);
+		font-weight: 600;
+	}
+
+	/* 2px accent underline that REPLACES the header's 1px bottom hairline
+	   under the active topic (Scalar pattern). The outer Starlight
+	   `<header class="header">` owns the hairline
+	   (`border-bottom: 1px solid var(--sl-color-hairline-shade)`) and has
+	   `padding-block: var(--sl-nav-pad-y)` with `box-sizing: border-box`, so
+	   the link's bottom edge sits `--sl-nav-pad-y` above the hairline rather
+	   than directly on it. We anchor the indicator at the hairline by
+	   dropping it through the bottom padding (`-var(--sl-nav-pad-y)`) and the
+	   1px border (`-1px`); `height: 2px` then paints across both, leaving the
+	   blue accent as the only line at that position under the active tab.
+	   The remainder of the header keeps its hairline. */
+	a[aria-current='page']::after {
+		content: '';
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: calc(-1 * var(--sl-nav-pad-y) - 1px);
+		height: 2px;
+		background: var(--sl-color-text-accent);
+	}
+
+	.warp-topic-nav__icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		flex: none;
+		color: inherit;
+		/* No optical-centering transform here. The icon is sized at 12px
+		   (see `:global(svg)` below) which is just under Inter's
+		   cap-height at 14px font (≈10.1px in glyph terms but the icon's
+		   visible mark fills more of its 12px box than Inter's caps fill
+		   their em-box). With the icon's element box ≈ the visible text's
+		   vertical extent, `align-items: center` on the link lands the
+		   icon's geometric center within the glyph range — which reads as
+		   optically centered without any per-icon translateY hack. This
+		   also dodges the issue that different Starlight icons place
+		   their visible mass at slightly different y positions inside
+		   their 24×24 viewBox (e.g. `laptop` is shifted up; `star` and
+		   `open-book` are centered). */
+	}
+
+	.warp-topic-nav__icon :global(svg) {
+		/* 12px is one notch below Inter's cap-height at 14px font, so the
+		   icon's element box sits inside the visible text's vertical
+		   extent rather than straddling it. Pinned via this single rule
+		   so the inline robot SVG above and the Starlight-rendered icons
+		   share a uniform size. */
+		width: 12px;
+		height: 12px;
+		display: block;
+	}
+
+	.warp-topic-nav__label {
+		display: inline-block;
+	}
+
+	/* Mid-width fallback. Below ~80rem (~1280px) the 8 topic items + logo +
+	   right-group start to crowd. Drop the per-item icons first so the labels
+	   keep room. The mobile drawer (rendered separately) takes over below
+	   50rem where this nav is hidden entirely. */
+	@media (max-width: 80rem) {
+		ul {
+			gap: 1rem;
+		}
+		.warp-topic-nav__icon {
+			display: none;
+		}
+	}
+</style>

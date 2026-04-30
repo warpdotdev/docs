@@ -1,0 +1,50 @@
+---
+import Default from '@astrojs/starlight/components/Head.astro';
+import Analytics from '@vercel/analytics/astro';
+import SpeedInsights from '@vercel/speed-insights/astro';
+import RudderStackAnalytics from './RudderStackAnalytics.astro';
+
+// Note: `<ClientRouter />` (Astro View Transitions) is intentionally NOT
+// enabled here. Starlight's sidebar scroll persistence relies on the browser
+// `pagehide` event to save `sessionStorage.sl-sidebar-state` and on inline
+// `<script is:inline>` tags to restore it on the next full page load. With
+// ClientRouter, navigations are client-side swaps: `pagehide` does not fire,
+// inline scripts do not re-execute, and the sidebar pane is replaced with a
+// fresh element whose `scrollTop` is 0 — the sidebar resets on every click.
+// See SidebarPersistState.ts and SidebarPersister.astro in @astrojs/starlight.
+//
+// SEO meta tags (og:image, branded og:title, twitter:title/description/image,
+// markdown alternate) are pushed into Starlight's head via the route
+// middleware in src/routeData.ts so they go through Starlight's de-dup logic
+// and override its bare defaults instead of producing duplicates.
+const fontsHref =
+  'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap';
+---
+
+<Default {...Astro.props}><slot /></Default>
+
+<!--
+  Force the browser's native scroll restoration for back/forward navigation.
+  Defensive: some tools (and the previous `<ClientRouter />` we shipped) can
+  leave `history.scrollRestoration` stuck at `'manual'` in a tab's session,
+  which would make the main-window scroll jump to the top on back/forward.
+-->
+<script is:inline>
+	if ('scrollRestoration' in history) history.scrollRestoration = 'auto';
+</script>
+
+<!-- Google Fonts: preconnect, preload, then non-blocking stylesheet swap. -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preload" as="style" href={fontsHref} />
+<link
+  rel="stylesheet"
+  href={fontsHref}
+  media="print"
+  onload="this.media='all'"
+/>
+<RudderStackAnalytics />
+<noscript><link rel="stylesheet" href={fontsHref} /></noscript>
+
+<Analytics />
+<SpeedInsights />

@@ -1,0 +1,47 @@
+---
+title: Sticky Command Header
+description: >-
+  Pin the running command at the top of the screen when scrolling through
+  large Block outputs.
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import VideoEmbed from '@components/VideoEmbed.astro';
+
+:::note
+For long-running commands that take up the full screen, the sticky header only shows after you start scrolling up. This is to prevent the header from blocking the top part of the output for commands like `git log` that simulate full-screen apps.
+:::
+
+## How to access Sticky Command Header
+
+<Tabs>
+  <TabItem label="macOS">
+    * Sticky Command Header is enabled by default.
+    * Toggle Sticky Command Header by going to **Settings** > **Features** > **General** > toggle “Show sticky command header”.
+    * Toggle by searching for “Sticky Command Header” within the [Command Palette](/terminal/command-palette/) or by pressing `CTRL-CMD-S`.
+    * You can also "Toggle Sticky Command Header in Active Pane" with `CTRL-S`. This won't disable the feature entirely, only minimize it on the active session.
+  </TabItem>
+  <TabItem label="Windows">
+    * Sticky Command Header is enabled by default.
+    * Toggle the Sticky Command Header by going to **Settings** > **Features** > **General** > toggle “Show sticky command header”.
+    * Toggle by searching for “Sticky Command Header” within the [Command Palette](/terminal/command-palette/) or by setting up a key bind in **Settings** > **Keyboard shortcuts**.
+    * You can also "Toggle Sticky Command Header in Active Pane" in the Command Palette or by setting up a key bind in **Settings** > **Keyboard shortcuts**. This won’t disable the feature entirely, only minimize it on the active session.
+  </TabItem>
+  <TabItem label="Linux">
+    * Sticky Command Header is enabled by default.
+    * Toggle the Sticky Command Header by going to **Settings** > **Features** > **General** > toggle “Show sticky command header”.
+    * Toggle by searching for “Sticky Command Header” within the [Command Palette](/terminal/command-palette/) or by setting up a key bind in**Settings** > **Keyboard shortcuts**.
+    * You can also "Toggle Sticky Command Header in Active Pane" in the Command Palette or by setting up a key bind in**Settings** > **Keyboard shortcuts**. This won't disable the feature entirely, only minimize it on the active session.
+  </TabItem>
+</Tabs>
+
+## How to use Sticky Command Header
+
+* If a Block has a large output ( e.g. `seq 1 1000`), the header of the Block will show on the top of the active Window, Tab, or Pane.
+* Click on the Sticky Command Header to quickly jump to the top of the Block.
+* While active you can also minimize the Sticky Command Header on the active pane by clicking the UP/DOWN arrow in the middle of the header.
+
+## How Sticky Command Header works
+
+<VideoEmbed url="https://www.loom.com/share/a86967c057e44ab4bee4860ba80538b9?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" title="Sticky Command Header Demo" />
+
+![Toggle active header and Jump to bottom of block demo](/assets/terminal/sticky-header-toggle-active-demo.gif)

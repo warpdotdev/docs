@@ -1,0 +1,263 @@
+---
+title: Getting started for developers
+description: >-
+  Download Warp, log in to your team, and start using agents, Codebase
+  Context, and collaborative features to accelerate your development workflow.
+---
+
+This guide helps developers get up and running with their team in Warp. You'll learn how to download Warp, log in with your organization's SSO, and configure key features like Codebase Context, Warp Drive, and Agent Profiles to accelerate your work across the entire SDLC (all while staying in your terminal).
+
+When you use agents in Warp, you're using **Oz agents**. Oz is Warp's programmable agent for running and coordinating agents at scale, whether they run locally on your machine or in the cloud. Oz provides the orchestration, tracking, and control plane that makes scaling agent workflows seamless.
+
+:::note
+New to Warp Enterprise? Try the [Enterprise quickstart](/enterprise/getting-started/quickstart/) for a 10-minute walkthrough of SSO login, Warp setup, and running your first Oz agent.
+:::
+
+## Step 1: Download and install Warp
+
+Warp is available for macOS, Linux, and Windows.
+
+### Download Warp
+
+Visit [warp.dev/download](https://warp.dev/download) and select your platform:
+
+* **macOS** - Download the `.dmg` installer (macOS 10.15 Catalina or later)
+* **Linux** - Download the `.deb`, `.rpm`, or use the install script
+* **Windows** - Download the `.exe` installer (Windows 10 or later)
+
+### Install Warp
+
+**macOS:**
+1. Open the downloaded `.dmg` file.
+2. Drag Warp to your Applications folder.
+3. Launch Warp from Applications or Spotlight.
+
+**Linux:**
+```bash
+# Debian/Ubuntu
+sudo dpkg -i warp-terminal_*.deb
+
+# Fedora/RHEL
+sudo rpm -i warp-terminal-*.rpm
+
+# Or use the install script
+curl -fsSL https://warp.dev/install.sh | bash
+```
+
+**Windows:**
+1. Run the downloaded `.exe` installer.
+2. Follow the installation wizard.
+3. Launch Warp from the Start menu.
+
+## Step 2: Log in to your team
+
+### Logging in with SSO
+
+If your organization uses SSO (most enterprise teams do):
+
+1. Launch Warp.
+2. When prompted, log in or create an account.
+3. Click **Continue with SSO**.
+4. Enter your work email or your organization's domain.
+5. Complete authentication with your SSO credentials when redirected to your identity provider.
+
+:::caution
+Do not attempt to launch Warp directly from your SSO provider's app portal (e.g., Okta dashboard). This will result in an error. Always log in through Warp at [app.warp.dev/login](https://app.warp.dev/login).
+:::
+
+### Logging in with an invite link
+
+If you received an invite link from your team admin:
+
+1. Click the invite link in your email or message.
+2. From the signup page, log in using SSO if it's configured for your team, otherwise use one of the other sign in methods (Google, GitHub, or email).
+3. After authentication, you'll automatically join your team.
+
+### Linking an existing account to SSO
+
+If you were using Warp before your organization enabled SSO:
+
+1. Go to [app.warp.dev/login](https://app.warp.dev/login).
+2. Log in with your original method (email, Google, or GitHub).
+3. Once logged in, navigate to [app.warp.dev/link_sso](https://app.warp.dev/link_sso).
+4. Follow the prompts to link your account to SSO.
+5. From now on, use **Continue with SSO** to log in.
+
+## Step 3: Set up key features
+
+### Codebase Context
+
+Codebase Context indexes your Git repositories so agents can understand your code and provide accurate, context-aware responses across large, multi-repo systems.
+
+**Setting up Codebase Context:**
+
+First, enable codebase indexing in your settings:
+
+1. Go to **Settings** > **Code** > **Indexing and projects**.
+2. Toggle **Enable Codebase Indexing** to turn it on.
+3. Optionally, enable **Index new folders by default** to automatically index repositories as you navigate to them.
+
+:::caution
+Codebase Context is a feature your team admin controls. If you don't see these settings or they are disabled, contact your admin to enable this feature for your team.
+:::
+
+**Indexing your repositories:**
+
+Once codebase indexing is enabled, you can index individual repositories:
+
+1. Navigate to a Git repository in your terminal.
+2. Run the `/init` command.
+3. Warp begins indexing your codebase.
+4. You'll be prompted to create an `AGENTS.md` file (optional but recommended).
+
+**What gets indexed:**
+
+* All Git-tracked files in your repository
+* Up to 200,000 files per repository
+* Files excluded in `.gitignore` or `.warpindexingignore` are automatically skipped
+
+**Privacy:**
+
+During indexing, your code is sent to Warp's servers for processing where embeddings are created and stored. The code itself is not saved—only the embeddings are persisted. This allows agents to understand your codebase structure and context without storing your actual source code.
+
+:::note
+For Oz cloud agents: Code snippets may be stored as part of conversation records when agents create or modify files, since diffs are preserved in the conversation history.
+:::
+
+### Agent Profiles
+
+{/* Warp also supports third-party CLI agents (Claude Code, Codex, Copilot), so we say "built-in" rather than "every." */}
+Agent Profiles let you configure how Warp's built-in Oz agents behave. Profiles give you direct control over model selection, autonomy, tools, and permissions for your agent workflows.
+
+**Creating an Agent Profile:**
+
+1. Go to **Settings** > **Agents** > **Profiles**.
+2. Click **New Profile**.
+3. Configure:
+   * **Name and description**
+   * **Model** - Choose which LLM to use
+   * **Autonomy level** - How much agents can do without asking
+   * **Tools** - Enable/disable terminal use, code editing, web search
+   * **Permissions** - What agents can access (repos, files, secrets)
+4. Click **Save**.
+
+**Using profiles:**
+
+Switch between profiles based on your task:
+* **High autonomy** for routine tasks like writing tests or updating docs
+* **Low autonomy** for sensitive operations like infrastructure changes
+* **Specific models** for cost optimization or task requirements
+
+### Warp Drive
+
+Warp Drive is your workspace for saving and sharing Workflows, Notebooks, Prompts, Rules, and Environment Variables.
+
+**Accessing Warp Drive:**
+
+1. Click the tools panel icon in the top left of Warp.
+2. Click the Warp Drive icon from the top of the tools panel.
+3. Two Warp Drive sections display:
+   * **Team** (top) - Resources shared across your team.
+   * **Personal** (bottom) - Your individual resources.
+
+**What you can add to Warp Drive:**
+
+* **Workflows** - Parameterized commands you use repeatedly (e.g., deploy scripts, environment setup)
+* **Notebooks** - Interactive runbooks combining markdown and executable code blocks
+* **Prompts** - Saved agent prompts for recurring tasks (e.g., "review this PR", "write unit tests")
+* **Plans** - Agent-generated execution plans for complex tasks that agents can then run step-by-step
+* **Rules** - Coding standards and conventions agents should follow
+* **Environment Variables** - Configuration that can be loaded into your terminal session
+
+**Creating your first Workflow:**
+
+1. From Warp Drive, click **+** in your Personal or Team section.
+2. Select **Workflow**.
+3. Enter a name, description, and command.
+4. Add parameters if needed (e.g., `{{branch_name}}`).
+5. Click **Save**.
+
+**Using team resources:**
+
+Your team admin may have already created shared resources. Explore the Team section of Warp Drive to see what's available—including onboarding notebooks, deployment workflows, and coding standards rules.
+
+### MCP (Model Context Protocol)
+
+MCP connects Warp's agents to external tools and services for enhanced context.
+
+**Configuring MCP servers:**
+
+1. Go to **Settings** > **Agents** > **MCP servers** or access via Warp Drive.
+2. Browse the library of available MCP servers:
+   * **Linear** - Access issues and project context
+   * **Sentry** - Pull error tracking and stack trace information
+   * **Figma** - Reference designs and specifications
+   * **GitHub** - Access repository and PR context
+   * And more...
+3. Click **+** next to a server to add it.
+4. Configure credentials and connection details.
+5. Toggle the server on/off as needed.
+
+Your team may have shared MCP configurations. Check for a share icon next to team-configured servers to use them without manual setup.
+
+## Step 4: Start using Warp
+
+### Everyday workflows
+
+Warp keeps you in your terminal with agent help across the entire SDLC:
+
+**Environment setup**
+* "Set up Node 20, Python 3.12, and Docker Desktop"
+* Save setup steps as a Workflow in Warp Drive for future use
+
+**Understanding codebases**
+* "How does authentication flow through this system?"
+* "What patterns does this repo use for error handling?"
+
+**Writing code**
+* Use the `/plan` command for complex features
+* Review diffs in real-time with the code review panel
+* Leave comments on specific lines for the agent to address
+
+**Debugging**
+* Start a debugger (`gdb`, `lldb`) and bring in an agent
+* Agents can operate debuggers and REPLs in natural language
+* Attach terminal output to agent conversations for analysis
+
+**Version control**
+* "Stage these changes and write a detailed commit message"
+* "Create a PR with a description following our template"
+* Set up Rules to enforce Git commit conventions
+
+**Testing**
+* "Write unit tests for this function following our existing patterns"
+* "Run the test suite and explain what failed"
+* Configure Oz cloud agents to run test suites and validate coverage on PRs in the background
+
+### Learning resources
+
+* **Warp Guides** - Short video tutorials at [docs.warp.dev/guides](/guides/)
+  * Getting Started with Warp
+  * Warp Code features
+  * Developer workflows
+  * MCP, Rules, and Prompts
+* **Documentation** - Comprehensive guides at [docs.warp.dev](https://docs.warp.dev)
+
+## Troubleshooting
+
+For common login, SSO, and access issues, see the [Enterprise FAQ](/enterprise/getting-started/faq/).
+
+## Next steps
+
+Now that you're set up:
+
+* **Explore agent capabilities** - Learn about [agents in Warp](/agent-platform/local-agents/overview/) and [Oz cloud agents](/agent-platform/cloud-agents/overview/)
+* **Contribute to team knowledge** - Add useful Workflows, Prompts, and Rules to your team's Warp Drive to compound productivity gains across your team
+* **Stay updated** - Check the [Warp changelog](/changelog/) for new features
+
+## Support and feedback
+
+* **Send feedback** - Use `Cmd+Shift+F` (macOS) or `Ctrl+Shift+F` (Linux/Windows) or go to **Help** > **Send Feedback**
+* **Request features** - Share ideas by [sending us feedback](/support-and-community/troubleshooting-and-support/sending-us-feedback/)
+* **Get help** - Enterprise teams have access to priority support via dedicated Slack/Teams channels
+* **Join the community** - Connect with other Warp users in our [Slack community](https://go.warp.dev/join-preview)

@@ -1,0 +1,166 @@
+---
+title: "How To: Write SQL Commands inside a Postgres REPL"
+description: >-
+  Use Agents in Warp inside a Postgres REPL to translate natural language into
+  SQL queries — works with Node.js, Python, and MySQL too.
+sidebar:
+  label: "Write SQL commands inside a Postgres REPL"
+---
+import VideoEmbed from '@components/VideoEmbed.astro';
+import { Steps } from '@astrojs/starlight/components';
+
+:::note
+This tutorial teaches you how to use **Warp’s AI input** to run natural-language prompts inside an interactive **Postgres REPL**, turning plain English into SQL commands.\
+\
+Although the example uses **PostgreSQL**, the same workflow applies to **Node.js**, **Python**, **MySQL**, and other interactive shells.
+:::
+
+<VideoEmbed url="https://www.youtube.com/watch?v=guXQSMq_Yss" />
+
+---
+
+### 🧠 Overview
+
+You’ll learn how to:
+
+* Start a Postgres REPL in Warp.
+* Use **Command + I** (or **Ctrl + I**) to open Warp’s AI input.
+* Speak or type natural-language requests and let Warp translate them into SQL.
+* Run the generated queries directly inside your REPL session.
+
+<Steps>
+
+1. #### Open a Postgres REPL in Warp
+
+   Open Warp and connect to your Postgres database (or a test instance):
+
+   ```bash
+   psql -U postgres -d my_database
+   ```
+
+   You’ll enter the interactive `psql` prompt, where you normally type SQL commands.
+
+2. #### Invoke Warp’s AI Input
+
+   Inside the running REPL, press:
+
+   ```
+   Command + I    (macOS)
+   Ctrl + I       (Windows/Linux)
+   ```
+
+   This opens the **Generate Input** box.
+
+   You can **type or speak** in plain English — Warp will translate your request into valid SQL or shell syntax, depending on the REPL you’re in.
+
+3. #### Ask Warp in Natural Language
+
+   Start with a simple request:
+
+   ```
+   Show me all tables.
+   ```
+
+   Warp translates this to the Postgres command:
+
+   ```sql
+   \dt
+   ```
+
+   Then try a more specific query, as shown in the video:
+
+   ```
+   Show me our users table and our teams table.
+   ```
+
+   Warp generates:
+
+   ```sql
+   SELECT * FROM users;
+   SELECT * FROM teams;
+   ```
+
+   You can run both within your REPL to display the tables.
+
+4. #### Observe How Warp Learns from Context
+
+   As you continue issuing prompts, Warp’s AI agent **learns the structure of your database** by observing what’s printed in the REPL output.
+
+   This means you can ask progressively more complex questions, and Warp will tailor the SQL accordingly.
+
+   ```
+   Show me all of the users who have joined Warp in the last 90 days from public email accounts
+   (like Gmail, Yahoo, Hotmail) and are on teams of more than two people.
+   ```
+
+   Warp generates a multi-clause SQL query such as:
+
+   ```sql
+   SELECT *
+   FROM users
+   WHERE email LIKE '%gmail.com%'
+      OR email LIKE '%yahoo.com%'
+      OR email LIKE '%hotmail.com%'
+     AND joined_at > NOW() - INTERVAL '90 days'
+     AND team_size > 2;
+   ```
+
+   Running this query in `psql` filters users accordingly.
+
+5. #### Apply the Same Workflow to Other REPLs
+
+   This feature works **not just in Postgres** but also in:
+
+   * Node.js
+   * Python
+   * MySQL
+   * GDB (GNU Debugger)
+
+   For any of these environments:
+
+   1. Launch the REPL inside Warp.
+   2. Press **Command + I** to bring up AI input.
+   3. Describe what you want in natural language.
+   4. Warp translates it into the correct syntax for that environment.
+
+   :::note
+   Warp automatically detects the active REPL, so you don’t need to specify “SQL” or “Python” — it knows which language to generate.
+   :::
+
+6. #### Experiment and Iterate
+
+   Try varying your natural-language prompts:
+
+   ```
+   List all databases.
+   ```
+
+   ```sql
+   \l
+   ```
+
+   ```
+   Count how many users signed up this month.
+   ```
+
+   ```sql
+   SELECT COUNT(*) FROM users WHERE joined_at > date_trunc('month', NOW());
+   ```
+
+   The more you experiment, the more context Warp gathers, improving its translations.
+
+</Steps>
+
+---
+
+### 🏁 Key Takeaways
+
+* **Command + I** activates Warp’s AI input within any interactive shell.
+* Warp understands natural language and produces valid commands for the current REPL.
+* It **learns from context** — subsequent prompts become more accurate.
+* Works beyond Postgres: Node, Python, MySQL, and others.
+* A fast way to query or explore systems without memorizing syntax.
+
+:::tip
+Next time you’re stuck remembering a command in Postgres or Python, hit **Command + I** and just ask Warp in plain English.
+:::

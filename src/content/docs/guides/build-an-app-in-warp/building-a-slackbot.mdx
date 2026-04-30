@@ -1,0 +1,122 @@
+---
+title: Building a Slackbot
+description: >-
+  Set up a self-hosted Warp Slackbot that answers repo questions and opens PRs
+  directly from Slack using Docker and GitHub integration.
+sidebar:
+  label: "Build a Slackbot"
+---
+import { Steps } from '@astrojs/starlight/components';
+
+This guide shows you how to spin up a [Warp Slackbo**t**](https://github.com/warpdotdev/warp-slackbot-public) you can mention in Slack to answer questions about your repositories and even open pull requests. It runs securely in Docker and connects directly to your Slack workspace.
+
+The setup takes just a few steps — clone, configure, and run — and requires minimal setup beyond providing your own Slack, GitHub, and Warp credentials.
+
+## Why this is useful
+
+* Run a self-hosted Slack bot that connects your team’s repos and Warp AI agents.
+* Provide your team with a coding assistant that can answer repo questions or help with PRs directly in Slack.
+
+## Quickstart Setup
+
+<Steps>
+
+1. #### Clone the repository
+
+   Clone the public repo and navigate into it:
+
+   ```bash
+   git clone https://github.com/warpdotdev/warp-slackbot-public.git
+   cd warp-slackbot-public
+   ```
+
+   This repository includes all required configuration templates, the Docker setup, and the app manifest you’ll use to create your Slack bot.
+
+2. #### Configure environment variables
+
+   Copy the provided example environment file and fill in your credentials:
+
+   ```bash
+   cp .env.example .env
+   ```
+
+   Then open `.env` and fill in the following values:
+
+   * `SLACK_BOT_TOKEN` – Your bot token from Slack, which starts with `xoxb-`. You can find this under your Slack app’s **OAuth & Permissions** page.
+   * `SLACK_APP_TOKEN` – Your app-level token from Slack, which starts with `xapp-`. Create this in your Slack app’s **Basic Information → App-Level Tokens**, and ensure it has the `connections:write` scope (required for Socket Mode).
+   * `GITHUB_PAT` – Your GitHub Personal Access Token (PAT) with `repo` access, so the bot can read and clone your repositories.
+   * `WARP_API_KEY` – Your Warp API key that allows the bot to connect to Warp’s agentic environment and execute prompts.
+
+   You only need to create these once — after saving your `.env` file, Docker will automatically read them when you run the bot.
+
+3. #### Configure repositories
+
+   Copy the provided repository configuration template:
+
+   ```bash
+   cp repos.yaml.template repos.yaml
+   ```
+
+   Then open `repos.yaml` and list the repositories you want the bot to monitor, for example:
+
+   ```yaml
+   repositories:
+     - url: "myorg/backend"
+       branch: "main"
+     - url: "myorg/frontend"
+       branch: "develop"
+   ```
+
+   This file tells the bot which repositories to clone locally and keep up to date. It’s how the bot knows where to pull context from when you ask it repo-related questions.
+
+   What’s happening behind the scenes:
+
+   * The bot will use your GitHub PAT to clone each listed repo.
+   * It stores the repositories in a persistent Docker volume so you don’t have to re-clone each time.
+   * The bot indexes those repos for context so it can respond intelligently when mentioned in Slack.
+
+4. #### Understand the Slack App Manifest
+
+   The file `slack_app_manifest.json` defines everything needed to create your Slack app quickly — including permissions, event subscriptions, and bot scopes. When creating your Slack app, you can paste the contents of this file directly into the **Slack App → Create from Manifest** interface. It configures the bot to:
+
+   * Listen for mentions and thread replies (`app_mention` events)
+   * Run via Socket Mode (secure WebSocket connection)
+   * Send and receive messages in channels where it’s invited
+
+5. #### Run the bot in Docker
+
+   Once your `.env` and `repos.yaml` files are ready, start the bot:
+
+   ```bash
+   docker-compose up --build
+   ```
+
+   This builds the container, authenticates with Slack and GitHub, and starts listening for messages. It will log all activity in your terminal so you can confirm it’s running.
+
+6. #### Test in Slack
+
+   * Invite your bot to a channel in Slack.
+   * Mention it directly or in a thread to trigger it — for example:
+
+   ```
+   @Warp analyze the recent changes in the main branch
+   @Warp help me review this PR
+   ```
+
+   * The bot will pull context from your configured repositories and reply with AI-assisted insights using Warp’s agentic platform.
+
+</Steps>
+
+## What happens on startup
+
+* Reads `.env` and `repos.yaml`.
+* Authenticates to Slack (Socket Mode and Web API).
+* Authenticates to GitHub and clones the listed repos.
+* Starts listening for `app_mention` events and threaded messages.
+* Routes context and commands to Warp’s AI agent backend.
+
+You can stop the bot anytime with `Ctrl + C` or run it persistently with:
+
+```bash
+docker-compose up -d
+```

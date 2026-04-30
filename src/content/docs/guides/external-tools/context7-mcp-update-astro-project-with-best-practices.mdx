@@ -1,0 +1,80 @@
+---
+title: "Context7 MCP: Update Astro Project with Best Practices"
+description: >-
+  Use the Context7 MCP server to give Warp agents real-time access to
+  framework documentation for automated project upgrades.
+sidebar:
+  label: "Context7 MCP: Update Astro project with best practices"
+---
+import VideoEmbed from '@components/VideoEmbed.astro';
+import { Steps } from '@astrojs/starlight/components';
+
+:::note
+This tutorial shows how the **Context7 MCP Server** gives Warp agents real‑time access to documentation for upgrading frameworks and codebases automatically.
+:::
+
+<VideoEmbed url="https://youtu.be/rrxfS9u1XRA?si=X2CBWW1PD3M8IuFr&t=369" />
+
+---
+
+## 🧠 Overview
+
+The **Context7 MCP Server** lets Warp fetch live documentation from across the web.\
+\
+In the example, the agent updates an older **Astro** project to align with the latest version (Astro 5).
+
+---
+
+<Steps>
+
+1. #### Add the Context7 Server
+
+   * Open Warp’s **MCP Panel** via the Command Palette.
+   * Add the **Context7 JSON config** and click **Save**.
+
+   ```json
+   {
+     "Context7": {
+       "command": "npx",
+       "args": [
+         "-y",
+         "@upstash/context7-mcp"
+       ],
+       "env": {},
+       "working_directory": null
+     }
+   }
+   ```
+
+   * This enables the endpoint `getLibraryDocs`, which retrieves live documentation directly from the official sources.
+
+2. #### Run the Update Prompt
+
+   The developer issues this prompt:
+
+   ```
+   Create a new git branch called update and in that branch update this Astro project to follow all the latest best practices based on all Astro and developer documentation.
+   ```
+
+3. #### Review the Automatic Code Changes
+
+   The transcript shows that Warp automatically:
+
+   * Updates Tailwind import syntax
+   * Improves TypeScript configuration
+   * Optimizes build settings
+   * Enhances accessibility rules
+
+   These edits happen across multiple files — without manually searching docs or changelogs.
+
+4. #### Best Use Cases
+
+   * Migrating old Astro, React, or Vue projects
+   * Refreshing codebases to reflect recent standards
+   * Saving time otherwise spent reading version notes
+
+</Steps>
+
+:::tip
+Context7 MCP automates documentation lookups — letting Warp update your project intelligently based on live references.
+:::

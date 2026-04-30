@@ -1,0 +1,62 @@
+---
+title: "Size, Opacity, & Blurring"
+description: >-
+  Configure window size, opacity, and background blurring to match your visual
+  preferences.
+---
+import DemoVideo from '@components/DemoVideo.astro';
+import VideoEmbed from '@components/VideoEmbed.astro';
+
+## How to use it
+
+### Window Size
+
+To access size settings, go to **Settings** > **Appearance** > **Window**.
+
+* Enable "Open new windows with custom size", Then configure your preferred columns and rows.
+
+:::note
+If [Session Restoration](/terminal/sessions/session-restoration/) is enabled, Warp will restore the size of the last window closed when you quit the app. Either make sure the custom-sized window is the last one closed, or disable Session Restoration to ensure Warp launches with the custom-sized window.
+:::
+
+### Window Opacity
+
+To access it, go to **Settings** > **Appearance** > **Window**
+
+* The slider supports setting the opacity value between `1` and `100` where `100` is completely opaque or solid.
+
+### Window Blurring
+
+After decreasing Opacity (moving the slider to a value less than `100`), you can also blur the background.
+
+* On macOS, this is done using the blur slider. Increasing the slider increases the blur radius that's applied to the background image.
+* On Windows, this is done by toggling the Acrylic background texture on or off.
+
+:::caution
+On macOS, large blur radiuses may affect performance, especially on Retina displays.
+
+On Linux, window blurring is not supported.
+
+On Windows, some graphics drivers may not support rendering transparent or translucent windows. See below for troubleshooting tips.
+:::
+
+## How it works
+
+<DemoVideo src="/assets/terminal/window_size_demo.mp4" label="Window Size Demo" />
+
+<VideoEmbed url="https://www.loom.com/share/22c9ef25392e4a5e80f9e01394c84dc4?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" title="Window Opacity and Blurring Demo" />
+
+### Troubleshooting transparency on Windows
+
+:::note
+At the moment, window opacity in Warp on Windows **does not work** in the following circumstances:
+
+* When using DirectX 12 as the rendering backend
+* When using any rendering backend with an Nvidia GPU when "Auto" or "Prefer layered" is selected as the value for "Vulkan/OpenGL present method" in NVIDIA Control Panel > Manage 3D Settings
+:::
+
+Some graphics drivers and rendering backends may not support rendering transparent windows.
+
+You can select the Vulkan or OpenGL graphics backend to render new Warp windows in the Settings menu, under `Features` > `System` > `Preferred graphics backend`.
+
+You can also opt to render new Warp windows with an integrated GPU, under `Features` > `System` > `Prefer rendering new windows with integrated GPU (low power)`.

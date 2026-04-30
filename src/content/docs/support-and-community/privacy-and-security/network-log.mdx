@@ -1,0 +1,27 @@
+---
+title: Network Log
+description: >-
+  Logs for all network traffic (both requests and responses) originating from
+  the current terminal session.
+---
+import VideoEmbed from '@components/VideoEmbed.astro';
+
+## What is it
+
+You can use Warp's network log to help debug issues or simply use it to understand when information is sent or received over the network throughout a Warp session.
+
+Each log item is a timestamped Debug format string for either a request or response object handled by Warp. Messages are logged via pre-request and post-response hooks in Warp’s internal HTTP client.
+
+## How to use it
+
+1. To access the network log, select the Input in a session and open the [Command Palette](/terminal/command-palette/), then search for “Show Warp Network Log”.
+2. That will insert a command into your Input editor - it should look something like this: `tail -f "some/path/to/warp_network.log"`.
+3. Press Enter to run this command. You’ll then see the corresponding requests and responses logged in the network log.
+
+## How it Works
+
+<VideoEmbed url="https://www.loom.com/share/0d9eaeb8715846f3a96d557abe23e7ac?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" title="Network Log Demo" />
+
+## Known issues with Network Log
+
+At the moment, network traffic originating from crash reports and error messages is not captured in the network log. This is due to our use of the Sentry SDK, which encapsulates all network logic and doesn’t currently expose a hook for handling requests and responses directly. The team is actively investigating a solution to include such traffic in the log in a future release. You may also disable Crash Reporting entirely in Warp’s **Settings** > **Privacy** tab.

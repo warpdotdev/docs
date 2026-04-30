@@ -1,0 +1,265 @@
+---
+title: Launch Configurations (Legacy)
+description: >-
+  Launch Configurations (Legacy) let you save a configuration of windows,
+  tabs, and panes. For new setups, use Tab Configs instead.
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import VideoEmbed from '@components/VideoEmbed.astro';
+
+:::caution
+Launch Configurations have been replaced by [Tab Configs](/terminal/windows/tab-configs/). Existing Launch Configurations continue to work, but new features are not being added. For new setups, use [Tab Configs](/terminal/windows/tab-configs/).
+:::
+
+## What is it
+
+With Launch configurations you can save in the app or by adding a yaml file.
+
+## Creating a Launch Configuration
+
+### From the UI
+
+1. Set up the configuration of windows, tabs, and panes you would like to save.
+2. Open the [Command Palette](/terminal/command-palette/), and type in `Save New Launch Configuration`.
+3. Name the configuration file. The name field cannot be empty.
+4. Click the Save configuration button.
+
+### With a YAML File
+
+* Launch Configurations files are generated when you create them with the UI and can also be created or modified manually.
+* Please see the below for [Launch Configuration YAML file locations, format, and examples](/terminal/sessions/launch-configurations/#launch-configuration-yaml-format).
+
+## Using a Launch Configuration
+
+<Tabs>
+  <TabItem label="macOS">
+    * From the [Command Palette](/terminal/command-palette/), enter `Launch Configuration` to open and select Launch Configuration.
+    * Right-clicking the new Tab **+** button to open a menu and select saved Launch Configuration.
+    * From the macOS menu bar, **File** > **Launch Configurations**, where you can search through and open your saved Launch Configuration.
+      * Single-window launch configs can be launched into the active window from the launch configuration palette using `CMD-ENTER` on macOS.
+  </TabItem>
+  <TabItem label="Windows">
+    * From the [Command Palette](/terminal/command-palette/), enter `Launch Configuration` to open and select Launch Configuration.
+    * Right-clicking the new Tab **+** button to open a menu and select saved Launch Configuration.
+      * Single-window launch configs can be launched into the active window from the launch configuration palette using `CTRL-ENTER` on Linux.
+
+    To open a WSL tab with a Launch Configuration, you must first set WSL as your default shell in Warp:
+
+    * Go to **Settings** > **Features** > **Session** > **Startup shell for new sessions**.
+    * Select your desired WSL distribution (e.g., Ubuntu) as the default shell.
+
+    After this, any Launch Configuration you open will use WSL as the shell.
+  </TabItem>
+  <TabItem label="Linux">
+    * From the [Command Palette](/terminal/command-palette/), enter `Launch Configuration` to open and select Launch Configuration.
+    * Right-clicking the new Tab **+** button to open a menu and select saved Launch Configuration.
+      * Single-window launch configs can be launched into the active window from the launch configuration palette using `CTRL-ENTER` on Linux.
+  </TabItem>
+</Tabs>
+
+:::tip
+**Terminal Tip**\
+You can open saved Launch Configurations via Alfred Workflow or [Raycast](/terminal/integrations-and-plugins/#raycast) Extension. Learn more [here](https://blog.joe.codes/open-warp-launch-configurations-from-raycast-and-alfred). Credit to [@joetannenbaum](https://twitter.com/joetannenbaum/status/1633538768866009115)
+:::
+
+## How it works
+
+<VideoEmbed url="https://www.loom.com/share/daa2a9e55c27458c8bbf722d90078880?hideEmbedTopBar=true&hide_owner=true&hide_share=true&hide_title=true" title="Launch Configuration Demo" />
+
+## Launch Configuration YAML Format
+
+All Launch Configuration yaml files are stored in the following location:
+
+<Tabs>
+  <TabItem label="macOS">
+    ```bash
+    $HOME/.warp/launch_configurations/
+    ```
+  </TabItem>
+  <TabItem label="Windows">
+    ```powershell
+    $env:APPDATA\warp\Warp\data\launch_configurations\
+    ```
+  </TabItem>
+  <TabItem label="Linux">
+    ```bash
+    ${XDG_DATA_HOME:-$HOME/.local/share}/warp-terminal/launch_configurations/
+    ```
+  </TabItem>
+</Tabs>
+
+:::caution
+The `cwd:` value in the yaml code must contain an absolute path or `""`. Note that `~` or empty paths will result in the file not being visible on the list of options for Launch Configurations.
+:::
+
+### Windows
+
+Sample configuration that shows how windows are structured in launch configuration files.
+
+```yaml
+# Warp Launch Configuration
+#
+# This configuration has two windows, 
+# each with one tab in different starting directories.
+
+---
+name: Example Windows
+windows:
+  - tabs:
+      - title: Documents
+        layout:
+          cwd: /Users/warp-user/Documents
+        color: blue
+  - tabs:
+      - title: Warp User
+        layout:
+          cwd: /Users/warp-user
+        color: green
+```
+
+### Tabs
+
+Here's a sample configuration that shows how tabs are structured in launch configuration files.
+
+* Use the `title` field to set a custom tab name
+* Use the `color` field to set the tab color
+  *   We currently support using the terminal colors (ANSI colors):
+
+      `Red | Green | Yellow | Blue | Magenta | Cyan`
+
+      The actual color values will be automatically derived from your Warp theme
+
+```yaml
+# Warp Launch Configuration
+#
+# This configuration has two tabs in the same window.
+
+---
+name: Example Tabs
+windows:
+  - tabs:
+      - title: Documents 
+        layout:
+          cwd: /Users/warp-user/Documents
+        color: blue
+      - title: Warp User
+        layout:
+          cwd: /Users/warp-user
+        color: green
+```
+
+### Panes
+
+Launch Configurations support setting split panes in each tab. Note that Warp also supports nesting split panes in launch configuration files.
+
+```yaml
+# Warp Launch Configuration
+#
+# This configuration is two windows, each with split panes. 
+# The first window contains a vertically split tab with two panes.
+# The second window contains a horizontally split tab, 
+# with a vertically split tab on the right.
+
+---
+name: Example Panes
+windows:
+  - tabs:
+      - title: Downloads and Warp User
+        layout:
+          split_direction: vertical
+          panes:
+            - cwd: /Users/warp-user/Downloads
+            - cwd: /Users/warp-user
+        color: blue
+  - tabs:
+      - title: Desktop, Documents, and Warp User
+        layout:
+          split_direction: horizontal
+          panes:
+            - cwd: /Users/warp-user/Desktop
+            - split_direction: vertical
+              panes:
+                - cwd: /Users/warp-user/Documents
+                - cwd: /Users/warp-user
+        color: green
+```
+
+### Active and Focus
+
+Sample configuration that shows how a Window and Tab can be activated with a session in focus.
+
+* Use the `active_window_index` and `active_tab_index`fields to set your active Window and Tab.
+* Use the `is_focused` field to set which Pane is focused in each tab.
+
+:::caution
+Note that when you use `- active_tab_index:` the `tabs:` field doesn't need the `-` prefix, as this can cause syntax issues.
+:::
+
+```yaml
+# Warp Launch Configuration
+#
+# This configurations has two tabs, with the second tab active.
+# Two vertical split panes in the first tab and the top pane focused.
+# Two horizontal split panes in the second tab and the right pane focused.
+---
+name: Example Active and Focus
+active_window_index: 0
+windows:
+  - active_tab_index: 1
+    tabs:
+      - title: Tab 1
+        layout:
+          split_direction: vertical
+          panes:
+            - cwd: /Users/warp-user/Documents
+              is_focused: true
+            - cwd: /Users/warp-user/Documents/Projects
+      - title: Tab 2
+        layout:
+          split_direction: horizontal
+          panes:
+            - cwd: /Users/warp-user/Downloads
+            - cwd: /Users/warp-user
+              is_focused: true
+```
+
+### Commands
+
+Use the `commands` field to define a set of commands to run when a launch configuration in run.
+
+:::caution
+You may need to use double quotes for commands with special characters. Commands in separate lines are chained together with `&&` when run, as such commands run after `ssh` commands may not execute.
+:::
+
+```yaml
+# Warp Launch Configuration
+#
+# This configuration has two windows,
+# the first window executes two commands on start,
+# the second window has a split pane that executes a command on start.
+
+---
+name: Example Commands
+windows:
+  - tabs:
+      - title: Documents
+        layout:
+          cwd: /Users/warp-user/Documents
+          commands:
+            - exec: ls
+            - exec: code .
+        color: blue
+  - tabs:
+      - title: Downloads
+        layout:
+          split_direction: vertical
+          panes:
+            - cwd: /Users/warp-user/Downloads
+              commands:
+                - exec: curl http://example.com -o my.file
+                - exec: cp my.file my.file2
+            - cwd: /Users/warp-user
+              commands:
+                - exec: ssh user@remote.server.com
+        color: green
+```

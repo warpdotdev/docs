@@ -1,0 +1,152 @@
+---
+title: Warp vs Claude Code
+description: >-
+  Compare Warp and Claude Code across setup, diff review, model selection,
+  configuration, and performance.
+# Unlisted: not in the Guides sidebar yet, pending team feedback. The `topic`
+# field associates the page with the Guides topic so starlight-sidebar-topics
+# can resolve it without listing it under any group.
+topic: guides
+---
+import VideoEmbed from '@components/VideoEmbed.astro';
+
+<VideoEmbed url="https://youtu.be/NUVftxAqZQo" />
+
+### 1. Overview
+
+This walkthrough compares Claude Code and Warp’s built-in coding agent — two tools built for AI-assisted development.\
+Both can:
+
+* Read and edit files
+* Generate code diffs
+* Plan multi-step tasks\
+  \
+  But they differ in experience, configurability, and performance.
+
+---
+
+### 2. Setup and Interface
+
+#### Claude Code
+
+* Runs as a CLI tool, requiring a terminal and the `claude` CLI installed.
+* You type prompts directly into a command box.
+* Supports file reading, search, and diff generation.
+
+#### Warp
+
+* Built directly into the Warp terminal.
+* No installation needed — type a natural-language query or click the Agent button to enter Agent Mode.
+* Handles the same operations as Claude Code but integrated into the environment you already use.
+
+---
+
+### 3. Reviewing Diffs
+
+In Claude Code:
+
+* You manually review diffs via CLI or external editors like VS Code.
+* You can hit Shift + Tab to auto-accept all edits.
+
+In Warp:
+
+* You get a visual diff view built in.
+* Accept, reject, or manually edit diffs inline using Warp’s lightweight editor.
+* The agent automatically updates its context to avoid overwriting your changes.
+
+---
+
+### 4. Planning & Context Gathering
+
+Both support planning mode for complex tasks:
+
+* Claude Code uses a Markdown-style plan view.
+* Warp can either show a similar plan or skip planning for short tasks.
+
+For context:
+
+* Both allow file references with `@filename`.
+* Warp extends this with symbol referencing (`@functionName`) and a file tree explorer, letting you pull in specific lines and symbols as context.
+
+---
+
+### 5. Model Selection
+
+Claude Code lets you pick between Claude 3 models (`Sonnet`, `Opus`, `Haiku`) via the `/model` menu.
+
+Warp supports multiple ecosystems:
+
+* Claude (Sonnet, Opus)
+* GPT-5 (various reasoning levels)
+* Gemini series
+
+Switch models from the dropdown or directly in the agent menu.
+
+---
+
+### 6. Configuration
+
+In Claude Code:
+
+* Everything is configured via `/commands` in the CLI.
+* Includes model switching, tool permissions, and sub-agent creation.
+
+In Warp:
+
+* Configure from Settings → AI & Agents.
+* Add MCP servers, prompts, and global rules.
+* Define Agent Profiles for read/write permissions, autonomy, and planning behavior.
+* Maintain a global rules directory for consistent behavior across projects.
+
+Warp also supports codebase indexing, which creates embeddings for faster semantic search across your repos.
+
+---
+
+### 7. Managing Agents Over Time
+
+Claude Code:
+
+* Shows progress directly in the CLI tab.
+* Displays the current task name in the terminal tab title.
+
+Warp:
+
+* Adds visual indicators for agent status, progress, and toast notifications when blocked.
+* Optional desktop notifications keep you informed when you’re multitasking.
+
+---
+
+### 8. Performance Comparison
+
+Ben ran both tools on the same coding task — fixing a bug in the `renderKeyboardShortcut` function from a Sentry issue.
+
+Claude Code results:
+
+* Took \~2–4 minutes with Claude 3 Sonnet.
+* Found the right issue and produced working code, though some redundant logic remained.
+
+Warp results:
+
+* With GPT-5, average time was \~1 minute 20 seconds.
+* Consistent, high-quality output.
+* Produced concise solutions with fewer redundant checks.
+* Supported multiple models for experimentation.
+
+---
+
+### 9. Conclusions
+
+| Criteria        | Claude Code       | Warp                     |
+| --------------- | ----------------- | ------------------------ |
+| Environment     | CLI tool          | Integrated into terminal |
+| Diff Review     | External / Manual | Built-in panel           |
+| Planning        | Markdown mode     | Inline or Opus-assisted  |
+| Model Options   | Claude only       | Claude, GPT-5, Gemini    |
+| Configurability | CLI-based         | UI + Profiles + Rules    |
+| Performance     | 2–4 min avg       | \~1.2 min avg (GPT-5)    |
+
+**TL;DR:**\
+If you prefer the Claude model suite and CLI workflow — go with Claude Code.\
+If you want richer diff editing, context referencing, and model flexibility — Warp is the better fit.
+
+> “Claude Code gives you an AI terminal. Warp gives you an AI development environment.”

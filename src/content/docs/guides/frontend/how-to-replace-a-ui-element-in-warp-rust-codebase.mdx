@@ -1,0 +1,97 @@
+---
+title: "How To: Replace A UI Element in Warp (Rust Codebase)"
+description: >-
+  Use Agent Mode in Warp to plan and execute icon replacements across a large
+  Rust codebase — with live diffs, auto-compilation, and self-correction.
+sidebar:
+  label: "Replace a UI element in Warp"
+---
+import VideoEmbed from '@components/VideoEmbed.astro';
+import { Steps } from '@astrojs/starlight/components';
+
+Learn how to use Warp’s AI coding features to make live code changes — in this example, replacing an icon throughout Warp’s massive Rust codebase using an agentic workflow.
+
+<VideoEmbed url="https://youtu.be/V2pwBN6Vt7k" />
+
+:::note
+This demo showcases Warp’s ability to safely make intelligent code changes within a multi-million-line codebase by providing structured prompts, reviewing diffs in real time, and letting the agent compile and self-correct.
+:::
+
+<Steps>
+
+1. #### Define the Task
+
+   The goal here is to replace all instances of the **sparkle icon** with the new **agent icon**, especially within the history menu.
+
+   Open your project in Warp and start by prompting the agent directly (either by typing or speaking):
+
+   ```
+   Please create a new branch for me according to the format in the attached Linear URL.
+
+   I’ve attached screenshots of what the agent mode and sparkle icons look like.
+   I would like you to understand those icons, search for their use in the code,
+   and wherever we’re using sparkles, replace them with the agent mode icon.
+   Specifically, make sure this happens in the history menu.
+   Please give me a plan before making any coding changes.
+   ```
+
+   Attach any relevant Linear issue links or screenshots to help the agent identify assets accurately.
+
+2. #### Review the Plan
+
+   Warp’s agent parses your request and generates a plan for code edits.\
+   It identifies files and functions where the sparkle icon is used.
+
+   If the plan looks correct, approve it to proceed.
+
+   Follow-up prompt example:
+
+   ```
+   Yes, proceed — and please rename the function from renderAISparklesIcon
+   to something like renderAgentModeIcon.
+   ```
+
+   Warp automatically updates function names, asset references, and component usage.
+
+3. #### View AI Diffs in Real Time
+
+   Warp lets you view live diffs as the agent edits your files.
+
+   * Diffs show changes to both render logic and function naming.
+   * You can choose to auto-accept or manually review diffs.
+   * These settings can be adjusted under AI Settings → Apply Changes Automatically.
+
+   :::note
+   Note: The demo runs with “auto-accept” enabled, allowing Warp to apply diffs as soon as they’re validated.
+   :::
+
+4. #### Compilation and Fixes
+
+   After editing, Warp’s agent runs:
+
+   ```bash
+   cargo check
+   ```
+
+   to verify compilation.
+
+   If compilation fails (e.g., missing imports), the agent automatically corrects and retries — mimicking a human debugging process.
+
+5. #### Testing the Change
+
+   Once compiled:
+
+   * Run your project locally to confirm visual changes.
+   * Check that the agent icon now replaces the sparkle icon in all targeted locations.
+
+6. #### Recap
+
+   Warp’s agent completed the full flow:
+
+   1. Understood a Linear ticket and visual context
+   2. Created a new branch
+   3. Planned and executed the icon replacement
+   4. Auto-fixed compile issues
+   5. Verified the final result in-app
+
+</Steps>

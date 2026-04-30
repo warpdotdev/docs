@@ -1,0 +1,184 @@
+---
+title: CLI Troubleshooting
+description: >-
+  Solutions for common Oz CLI errors — including authentication issues, agent
+  failures, environments, GitHub access, and Docker image issues.
+---
+
+## Getting help
+
+The CLI includes built-in documentation for all commands:
+
+```bash
+# See all available commands
+oz help
+
+# Get details on a specific command
+oz help agent run
+
+# Explore MCP-related commands
+oz help mcp
+```
+
+## Common errors
+
+**Command not found / CLI not installed correctly**\
+Verify your installation path and confirm the CLI version:
+
+```bash
+oz --version
+```
+
+**Authentication issues**
+
+* Interactive login: ensure you've completed the browser-based flow with `oz login`.
+* API keys: confirm the key is valid, not expired, and exported correctly.
+
+**Agent or MCP errors**\
+Ensure your agent profile and [MCP servers](/agent-platform/capabilities/mcp/) are configured properly, with correct permissions. See [MCP Servers](/reference/cli/mcp-servers/) and [Agent profiles](/reference/cli/agent-profiles/) for details.
+
+---
+
+## Environments
+
+#### How do I see what environment my integration is using?
+
+List your integrations:
+
+```
+oz integration list
+```
+
+This shows each integration, its ID, and the environment it’s linked to. Use this to confirm which environment to inspect or update before making changes.
+
+#### How do I see what’s inside that environment?
+
+Once you know the environment ID, run:
+
+```
+oz environment get <ENV_ID>
+```
+
+This prints the full configuration, including:
+
+* The **environment ID** (used in other commands)
+* The **name**
+* The **Docker image**
+* Associated **repos**
+
+This is the most reliable way to verify what the agent will see when it runs.
+
+#### How do I add or remove repos and setup commands?
+
+Use `oz environment` update. You can modify environments incrementally without recreating them.
+
+**Add a repo:**
+
+```
+oz environment update <ENV_ID> --repo owner/repo
+```
+
+**Remove a repo:**
+
+```
+oz environment update <ENV_ID> --remove-repo owner/repo
+```
+
+**Add a setup command:**
+
+```
+oz environment update <ENV_ID> --setup-command "your command"
+```
+
+**Remove a setup command (must match exactly):**
+
+```
+oz environment update <ENV_ID> --remove-setup-command "exact command"
+```
+
+Notes:
+
+* Warp may prompt you to adjust GitHub app permissions when adding repos.
+* Setup commands run in the order they are defined.
+
+#### **How do I delete an environment?**
+
+If an environment is no longer needed:
+
+```
+oz environment delete <ID>
+```
+
+Add `--force` to skip confirmation checks for environments used by integrations.
+
+Only do this once you've confirmed no active integrations are relying on that environment. If an integration points to a deleted environment, requests from Slack/Linear will fail until you create a new integration with a valid environment.
+
+### Integrations
+
+#### **How do I figure out what environment my integration is using?**
+
+List your integrations:
+
+```
+oz integration list
+```
+
+This shows each integration, its ID, and the environment it’s attached to. Use this when you’re unsure which environment to update or delete.
+
+#### **I created a new environment, but don’t see it when running oz integration create**
+
+Check:
+
+1. Environment exists and is healthy: `oz environment list`
+2. You’re on the correct Warp team. Make sure your local CLI is logged into the same team where the environment was created.
+   1. If both look correct and the environment still doesn’t appear, recreate it and confirm there were no errors during creation.
+
+## GitHub & repo access issues
+
+#### **I’m being asked to authorize GitHub when creating/using an environment**
+
+This happens when:
+
+* You add a repo that Warp doesn’t have access to yet, or
+* You personally haven’t granted the Warp GitHub app permissions for that repo.
+
+Follow the GitHub popup flow to install/adjust the Warp GitHub app.
+
+#### **The agent can’t open PRs or push changes to my repo**
+
+Check the following:
+
+1. **Repo is part of your environment**.
+   1. Make sure the repo is listed in: `oz environment get <id>`
+2. **Warp GitHub app has access to that repo**
+   1. In GitHub’s settings, confirm the Warp app is installed and that the repo is selected.
+3. **You have write access**
+   1. The agent inherits your GitHub permissions. If you only have read access, Warp can’t open PRs or push branches on your behalf.
+
+### Docker image & environment failures
+
+#### **I see errors like “pull access denied” or “repository does not exist”**
+
+Check:
+
+1. The Docker image name and tag are correct.
+2. The image is public on Docker Hub.
+3. You can pull it locally: `docker pull <image_name>`
+
+If local docker pull fails, fix the image visibility/name first, then recreate or update the environment with a working image.
+
+#### **The agent can’t find tools or runtimes inside the environment**
+
+This usually means the Docker image is missing required dependencies. Fix by either:
+
+* Updating the Dockerfile used to build the image, then pushing a new version to Docker Hub and updating the environment with the new image, or
+* Adding additional setup commands to install the missing tools: `oz environment update --setup-command "apt-get update && apt-get install -y "`
+
+#### **I see "VM failed before the agent could run. This is likely an issue with your Docker image"**
+
+This typically means your Docker image uses musl libc instead of glibc. Alpine Linux and other musl-based images are not compatible with the agent runtime.
+
+Fix:
+
+* Switch to a glibc-based image such as Debian, Ubuntu, or the default (non-Alpine) variants of official Docker Hub images (e.g. `node`, `python`, `rust`).
+* If you're using an Alpine variant like `node:20-alpine`, replace it with the default tag (e.g. `node:20`).

@@ -1,0 +1,48 @@
+---
+title: Autosuggestions
+description: >-
+  Warp will automatically suggest commands as you type based on shell history
+  and possible completions.
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import VideoEmbed from '@components/VideoEmbed.astro';
+
+## How to access it
+
+* From the [Command Palette](/terminal/command-palette/), type in "Autosuggestions" to toggle.
+
+:::note
+**Terminal Tip**
+
+You can change the keybinding for accepting autosuggestions to `Tab`. Configure this in the "Tab key behavior" setting under **Settings** > **Features** > **Terminal Input**. _Note: This will update the keybinding for opening the completions menu to `CTRL-SPACE`. You can also enable the "Open completions menu as you type" in **Settings** > **Features** > **Terminal Input** so that the completions menu opens automatically._
+:::
+
+## How to use it
+
+<Tabs>
+  <TabItem label="macOS">
+    There are several ways to accept autosuggestions, either completely or partially:
+
+    * Complete an autosuggestion using the `RIGHT` arrow or `CTRL-F`.
+    * `CTRL-E` also, completes the autosuggestion when your cursor is at the end of the buffer.
+    * `CTRL-RIGHT` can be used to partially complete the autosuggestion one component at a time.
+  </TabItem>
+  <TabItem label="Windows">
+    There are several ways to accept autosuggestions, either completely or partially:
+
+    * Complete an autosuggestion using the `RIGHT` arrow or `CTRL-F`.
+    * `END` jumps to the last character in the Input Editor, then `RIGHT` completes the autosuggestion.
+    * `CTRL-SHIFT-RIGHT` can be used to partially complete the autosuggestion one component at a time.
+  </TabItem>
+  <TabItem label="Linux">
+    There are several ways to accept autosuggestions, either completely or partially:
+
+    * Complete an autosuggestion using the `RIGHT` arrow or `CTRL-F`.
+    * `CTRL-E` jumps to the last character in the Input Editor, then `RIGHT` completes the autosuggestion.
+    * `CTRL-SHIFT-RIGHT` can be used to partially complete the autosuggestion one component at a time.
+  </TabItem>
+</Tabs>
+
+## How it works
+
+<VideoEmbed url="https://www.loom.com/share/5e87c52ae855486ab88ffb2f89aeaf73?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" title="Autosuggestion Demo" />

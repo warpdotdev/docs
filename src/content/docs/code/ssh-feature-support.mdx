@@ -1,0 +1,38 @@
+---
+title: Feature support over SSH
+description: >-
+  A reference for which Warp coding features are available over SSH and which
+  are limited to local sessions.
+---
+
+When you [Warpify an SSH session](/terminal/warpify/ssh/), Warp's core terminal features — the input editor, completions, blocks, history search, and more — work the same as they do locally. However, several coding-specific features are **not yet available** in remote sessions because the Agent cannot directly access the remote filesystem.
+
+:::note
+When a native tool is unavailable, the Agent automatically falls back to terminal commands (e.g. `cat`, `sed`, `grep`) to read and edit files. You can still accomplish most coding tasks over SSH, but the experience may be less seamless than working locally.
+:::
+
+## Features that work over SSH
+
+The following features are fully available in Warpified remote sessions:
+
+* **Agent Mode conversations** — You can chat with the Agent, ask questions, and request code changes. The Agent will use terminal commands to interact with the remote filesystem.
+* **Running shell commands** — The Agent can execute commands on the remote machine on your behalf.
+* **Grep and file glob** — The Agent can search for files and patterns using terminal-based grep and glob tools.
+* **MCP tools** — Model Context Protocol integrations remain available.
+* **Terminal features** — The input editor, command completions, autosuggestions, command history, blocks, and all other core terminal features work as expected.
+
+## Features not yet available over SSH
+
+The following features require local filesystem access and are not yet available in Warpified remote (SSH) sessions:
+
+* **Codebase Context (indexing and search)** — Warp cannot index or semantically search a remote codebase. The Agent will not have access to your full project context when generating responses. Feature request: [GitHub #6831](https://github.com/warpdotdev/Warp/issues/6831)
+* **Native file reading** — The Agent cannot read files through Warp's built-in file reading tool. It falls back to terminal commands like `cat` to read file contents.
+* **Code diffs** — The Agent cannot apply code diffs natively. It falls back to terminal commands like `sed` to make file edits.
+* **Code editor** — Warp's [native code editor](/code/code-editor/) is not yet available in remote sessions. You cannot open, view, or edit files in Warp's built-in editor over SSH.
+* **File tree (Project Explorer)** — The [file tree sidebar](/code/code-editor/file-tree/) is not yet available in remote sessions.
+* **Code review panel** — The [Code Review](/code/code-review/) panel for reviewing Git diffs is not yet available for remote repos.
+* **Computer use** — The Agent cannot take screenshots or interact with the remote machine's desktop.
+
+:::note
+WSL sessions have the same limitations as SSH. Feature request for WSL support: [GitHub #6744](https://github.com/warpdotdev/Warp/issues/6744)
+:::

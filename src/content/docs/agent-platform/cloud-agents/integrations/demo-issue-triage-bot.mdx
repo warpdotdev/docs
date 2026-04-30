@@ -1,0 +1,27 @@
+---
+title: "Demo: Issue Triage Bot"
+description: >-
+  A walkthrough demo showing how to trigger a cloud agent from a GitHub Action
+  to automatically triage bug reports and create draft pull requests.
+---
+import VideoEmbed from '@components/VideoEmbed.astro';
+
+<VideoEmbed url="https://www.youtube.com/watch?feature=youtu.be&v=dK2eohQ2Yow" />
+
+:::note
+Example repository: [**https://github.com/warpdotdev/warp-agents-demo-github-issue-triage**](https://github.com/warpdotdev/warp-agents-demo-github-issue-triage)
+:::
+
+In this demo, Ben shows how to trigger Warp’s coding agent from a GitHub Action to automate bug report handling as soon as issues hit your repository.&#x20;
+
+* The workflow acts like a maintainer-first “front door” for bugs: it evaluates whether a report is actionable, asks for missing details when it isn’t, and escalates directly into a draft pull request when it is
+
+**The first half focuses on triage.**&#x20;
+
+* The agent reads the issue (and optionally your repo’s bug report template) and returns a simple ready/not-ready decision.&#x20;
+* If the report is missing key context like a clear description or reproduction steps, the workflow automatically posts a friendly comment requesting the missing info and applies a “needs info” label for maintainers to track.
+
+**The second half extends the workflow into investigation + fix.**&#x20;
+
+* When a report has sufficient detail, Ben shows the agent investigating the codebase, implementing a fix, adding tests, running verification, and returning a PR-ready summary.&#x20;
+* The GitHub Action then commits the changes and opens a draft PR that follows the repo’s pull request template and links back to the original issue for review.

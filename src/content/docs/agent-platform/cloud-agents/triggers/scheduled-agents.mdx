@@ -1,0 +1,301 @@
+---
+title: Scheduled Agents
+description: >-
+  Run cloud agents on a cron schedule for automated maintenance and recurring
+  tasks.
+---
+import VideoEmbed from '@components/VideoEmbed.astro';
+
+Warp's Scheduled Agents let you run cloud agents automatically on a **recurring schedule**. They are designed for routine, repeatable tasks that should happen without manual intervention, such as dead code cleanup, dependency maintenance, issue triage, or periodic refactors.
+
+<VideoEmbed url="https://www.youtube.com/watch?feature=youtu.be&v=wX9cDbsRXHs" />
+
+Scheduled Agents run in the background on Warp’s infrastructure. Each run starts from a clean session, executes a fixed prompt, and produces its own task and session history that can be inspected after the fact.
+
+---
+
+### What are Scheduled Agents?
+
+A Scheduled Agent is a [cloud agent](/agent-platform/cloud-agents/overview/) that runs on a cron-based schedule.
+
+**Key characteristics:**
+
+* Runs automatically based on a cron expression.
+* Uses a fixed prompt defined at schedule creation time.
+* Starts a fresh agent session for every run.
+* Executes in a specific Warp Environment, if provided.
+* Consumes credits when it runs.
+* Can be paused, updated, or deleted at any time.
+
+Scheduled Agents are ideal for work that should happen regularly and predictably, without needing a human to trigger the agent manually.
+
+### Common use cases
+
+Scheduled Agents are best suited for maintenance-style workflows, including skills that automate recurring tasks. For more on running skill-based agents on schedules, see [Skills as Agents](/agent-platform/cloud-agents/skills-as-agents/).
+
+Common use cases include:
+
+* Dead code or unused feature flag cleanup.
+* Dependency updates or security scans.
+* Issue or PR triage on a recurring cadence.
+* Periodic documentation refreshes.
+* Repository hygiene tasks like formatting or lint checks.
+* Scheduled reporting or audits.
+
+Because each run is isolated, Scheduled Agents are safe to use for tasks that benefit from a clean, repeatable execution environment.
+
+---
+
+### Scheduling agents with the Oz CLI
+
+Oz scheduled agents are managed through the Oz `schedule` family of CLI commands.
+
+All scheduling operations require the Oz CLI and an authenticated session
+
+#### Creating a schedule
+
+Use `oz schedule create` (with required flags) to define a new Scheduled Agent.
+
+**Each schedule requires:**
+
+* A name, for identification.
+* A cron schedule.
+* A prompt or skill that the agent will execute.
+* An optional environment in which the agent will run.
+* An optional [model selection](/reference/cli/#using-agent-profiles).
+* [Optional MCP server configuration](/agent-platform/cloud-agents/mcp/).
+
+```bash
+oz schedule create \
+  --name=NAME \
+  --cron=SCHEDULE \
+  --prompt=PROMPT \
+  [--environment=ENVIRONMENT_ID] \
+  [--skill=SPEC] \
+  [--host=WORKER_ID] \
+  [--mcp=SPEC] \
+  [--model=MODEL_ID] \
+  [--file=PATH]
+```
+
+**Optional flags:**
+
+* `--skill <SPEC>` — use a skill as the base prompt (format: `repo:skill_name` or `org/repo:skill_name`). See [Skills as Agents](/agent-platform/cloud-agents/skills-as-agents/).
+* `--host <WORKER_ID>` — run on a specific self-hosted worker instead of Warp-hosted infrastructure.
+* `--mcp <SPEC>` — attach MCP servers (inline JSON, file path, or UUID). Can be repeated.
+* `--model <MODEL_ID>` — override the default model.
+* `--file <PATH>` — load schedule configuration from a YAML or JSON file.
+
+:::note
+Environments are optional — if you don't specify one, the scheduled agent runs in a barebones sandbox. Without an environment, the agent won't have access to your code repositories, pre-installed tools, or setup commands, so this is only suited for tasks that don't need your codebase.
+:::
+
+**Example**
+
+The following command schedules an agent to clean up old feature flags every four days:
+
+```bash
+oz schedule create \
+  --name "Feature Flag Cleanup" \
+  --cron "0 10 */4 * *" \
+  --prompt "Scan the repository for stale feature flags and remove any that are no longer referenced. Open a PR with the changes and include a summary." \
+  --environment "KB1ndNMQAs5kjPdX2jatA8"
+```
+
+Once created, the agent will automatically run at the specified times without further action.
+
+Scheduled Agents support the same [model selection](/reference/cli/) and [MCP server configuration](/agent-platform/cloud-agents/mcp/) as other cloud agent triggers.
+
+#### Cron schedule format
+
+Warp uses standard cron syntax to define schedules.
+
+A cron expression consists of five fields:
+
+```
+minute hour day-of-month month day-of-week
+```
+
+For example:
+
+* `0 10 * * *` runs every day at 10:00 AM.
+* `0 10 */4 * *` runs every four days at 10:00 AM.
+* `0 8 1 * *` runs at 8:00 AM on the first day of every month.
+
+Make sure your cron expression reflects the cadence you want, as Scheduled Agents will run exactly according to this schedule.
+
+### Listing Scheduled Agents
+
+To view all Scheduled Agents for your team, use:
+
+```bash
+oz schedule list
+```
+
+This command prints a table with details about each schedule, including:
+
+* Schedule ID
+* Name
+* Cron schedule
+* Paused
+* Last run time
+* Next scheduled run
+* Scope
+
+| ID     | Name                 | Schedule        | Paused | Last Ran                                     | Next Run              | Scope |
+| ------ | -------------------- | --------------- | ------ | -------------------------------------------- | --------------------- | ----- |
+| abc123 | Feature Flag Cleanup | `0 10 */4 * *`  | No     | `2025-11-24 10:00 AM<task id><session link>` | `2025-11-28 10:00 AM` | Team  |
+| def456 | Issue Triage         | `0 8 1 * *`     | Yes    | `2025-11-24 08:00 AM<task id><session link>` | Paused                | -     |
+
+Each completed run also includes links to:
+
+* The task created by the agent.
+* The full agent session, including logs and outputs.
+
+This makes it easy to audit what ran, when it ran, and what the agent did.
+
+#### Viewing a specific Scheduled Agent
+
+Use `oz schedule get` to view detailed information about a single Scheduled Agent.
+
+```bash
+oz schedule get SCHEDULE_ID
+```
+
+This command returns additional details not shown in the list view, including:
+
+* Full schedule configuration
+* Prompt and model configuration
+* Environment and MCP settings
+* Recent runs and execution metadata
+* Links to related tasks and agent sessions
+
+This is useful when auditing behavior, debugging failures, or reviewing how a Scheduled Agent is configured.
+
+### Pausing and unpausing schedules
+
+Scheduled Agents can be temporarily disabled without deleting them.
+
+```bash
+oz schedule pause SCHEDULE_ID
+```
+
+When paused, the agent will not run at its scheduled times.
+
+**Example**
+
+```bash
+oz schedule pause abc123
+```
+
+#### Unpausing a schedule
+
+```bash
+oz schedule unpause SCHEDULE_ID
+```
+
+Once unpaused, the agent resumes running according to its original cron schedule.
+
+### Editing Scheduled Agents
+
+You can modify an existing schedule using `oz schedule update`.
+
+You may update one or more properties at a time, including:
+
+* The schedule name.
+* The cron schedule.
+* The prompt used for future runs.
+* The skill used as the base prompt.
+* The environment used for execution.
+* The model, MCP, and host configuration used for future runs.
+
+#### Command
+
+```bash
+oz schedule update SCHEDULE_ID \
+  [--name=NAME] \
+  [--cron=SCHEDULE] \
+  [--prompt=PROMPT] \
+  [--environment=ENVIRONMENT_ID] \
+  [--skill=SPEC] \
+  [--remove-skill] \
+  [--host=WORKER_ID] \
+  [--mcp=SPEC] \
+  [--remove-mcp=SERVER_NAME] \
+  [--model=MODEL_ID]
+```
+
+**Additional update flags:**
+
+* `--skill <SPEC>` — update the skill used as the base prompt.
+* `--remove-skill` — remove the skill from this scheduled agent.
+* `--host <WORKER_ID>` — update the execution host.
+* `--mcp <SPEC>` — add MCP servers to this schedule.
+* `--remove-mcp <SERVER_NAME>` — remove an MCP server by name.
+* `--remove-environment` — remove the environment from this schedule.
+
+#### Examples
+
+Change when a scheduled agent runs, leaving everything else unchanged:
+
+```bash
+oz schedule update abc123 --cron "0 9 */4 * *"
+```
+
+Update the environment used for future runs:
+
+```bash
+oz schedule update abc123 --environment=jkl789
+```
+
+Changes apply only to future runs. Past runs and their session history remain unchanged.
+
+### Deleting a Scheduled Agent
+
+To permanently remove a schedule, use:
+
+```bash
+oz schedule delete SCHEDULE_ID
+```
+
+**Example**
+
+```bash
+oz schedule delete abc123
+```
+
+Deleting a schedule immediately stops all future runs. Previous runs and their session history remain accessible for auditing and review.
+
+---
+
+### Execution model and behavior
+
+Each scheduled run behaves like a standard cloud agent run, with a few important guarantees:
+
+* Every run starts a fresh session.
+* No state is carried over between runs unless your environment explicitly persists data.
+* Runs execute automatically without human intervention.
+* All usage is billed to the team’s shared credit balance.
+
+If a scheduled run fails, it does not block future runs. Each execution is independent.
+
+### Permissions and responsibility
+
+Scheduled Agents are created and managed by authorized users on a Warp team.
+
+By creating a Scheduled Agent, you are responsible for:
+
+* The cron schedule and how often the agent runs.
+* The instructions provided in the prompt.
+* The environment and integrations the agent has access to.
+* The credits consumed by scheduled executions.
+
+Carefully review prompts and schedules before deploying them broadly, especially for agents that can modify production code or infrastructure.
+
+### When to use Scheduled Agents vs triggers
+
+Scheduled Agents are best when work should happen on a predictable cadence.
+
+If you want an agent to run in response to an event, such as a Slack mention, PR update, or issue change, use triggered cloud agents instead.
+
+Many teams use both together: triggers for reactive workflows, and Scheduled Agents for proactive maintenance.

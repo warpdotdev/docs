@@ -1,0 +1,75 @@
+---
+title: How To Master Warp's Code Review Panel
+description: >-
+  Use Warp's Code Review Panel to view file diffs, edit code inline,
+  componentize changes, and commit directly — all without leaving the
+  terminal.
+sidebar:
+  label: "Master Warp's Code Review panel"
+---
+import VideoEmbed from '@components/VideoEmbed.astro';
+
+<VideoEmbed url="https://www.youtube.com/watch?t=47s&v=4JlN0rvoZA8" />
+
+### 1. Why Use the Code Review Panel
+
+Warp’s Code Review Panel helps you stay focused while coding by showing all active file diffs, additions, and deletions — without leaving your workspace.
+
+---
+
+### 2. Start with a Coding Task
+
+The app has a UI issue: the hover text is black on dark gray, making it unreadable.
+
+Warp’s agent generates diffs with proposed fixes — but for larger projects, scrolling through them is inefficient.
+
+---
+
+### 3. Opening the Code Review Panel
+
+Click:
+
+* View Changes (top-left), or
+* The Dirty Chip in your input bar
+
+This opens the Code Review Panel — available only when inside a Git repo.
+
+The panel shows:
+
+* Changed files
+* Lines added/deleted
+* File-by-file diff summaries
+
+---
+
+### 4. Editing and Reviewing Code
+
+You can open any file directly from the panel in Warp’s **built-in editor**:
+
+* Syntax highlighting
+* Find & replace
+* Inline editing
+
+Save changes — and they’ll reflect instantly in the diff view.
+
+---
+
+### 5. Componentizing Changes
+
+Want that same hover fix across the app?\
+Prompt Warp to componentize the hover style.
+
+Attach the recent diff as context so Warp can generalize it.\
+The agent then creates a `Tooltip` component that reuses your schema everywhere.
+
+---
+
+### 6. Reviewing and Committing
+
+Once the fix looks correct:
+
+* Review in the code panel
+* Commit directly from Warp
+* Watch the panel reset to its “no changes” state
+
+You can also click to compare your branch against `main` instantly.

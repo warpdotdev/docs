@@ -1,0 +1,25 @@
+---
+title: Session Navigation
+description: >-
+  Quickly navigate to any terminal session across Warp using the Session
+  Navigation palette.
+---
+import VideoEmbed from '@components/VideoEmbed.astro';
+
+## How to access Session navigation
+
+1. Open the Session Navigation palette with the [Command Palette](/terminal/command-palette/), click on **session >\_** or type in "sessions:".
+2. Jump to a session by using your mouse or the `UP ↑`/`DOWN ↓` arrow keys and `ENTER`.
+3. Refine the session results by searching for sessions by prompt, the currently running command, last run command, and command status (ex: “Running…”, “Completed 10 minutes ago”, “Empty Session”).
+
+:::note
+Sessions are ordered by recency, so the most recently focused sessions show up first. The Session Navigation palette does not have **PS1** support and can only show Warp's native prompt.
+:::
+
+### CTRL-TAB behavior
+
+`CTRL-TAB` shortcut defaults to activate the previous / next [Tabs](/terminal/windows/tabs/). You can configure the shortcut to cycle the most recent session, including any [Split Panes](/terminal/windows/split-panes/), in **Settings** > **Features** > **Keys** > **Ctrl-Tab behavior**
+
+## How session navigation works
+
+<VideoEmbed url="https://www.loom.com/share/2147adc6749c4f4ea5da432eadda7995" title="Session Navigation Demo" />

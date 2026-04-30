@@ -1,0 +1,83 @@
+---
+title: How To Set Up Ollama
+description: >-
+  Install Ollama, run LLMs locally, compare model performance, and integrate
+  local models into your apps using Warp.
+sidebar:
+  label: "Set up Ollama"
+---
+import VideoEmbed from '@components/VideoEmbed.astro';
+
+Running AI models locally just got easier — and faster — with Ollama.\
+\
+In this guide, we’ll walk through how to use Warp to install, profile, and integrate Ollama into your local setup.
+
+<VideoEmbed url="https://youtu.be/Aq8vDxUg4VE?si=wLyHG7S0NTpC6o7B" />
+
+---
+
+### 1. Check Your System Specs
+
+Before running large language models (LLMs) locally, confirm your hardware can handle them.
+
+Example setups:
+
+* Mac: 64GB unified memory — good for larger models but with lower throughput.
+* Windows (NVIDIA RTX 5090): 32GB VRAM — excellent performance, but limited by VRAM capacity.
+
+> 🧠 Rule of thumb: You’ll need roughly 1GB of VRAM per billion parameters.
+
+---
+
+### 2. Run Your First Model
+
+Run a model locally:
+
+> ollama run gpt-oss
+
+For example:
+
+* Try GPT-OSS 20B (requires ≥16GB VRAM, supports tool calling).
+* Then try Mistral 8B for a faster, smaller alternative.
+
+Compare their performance and quality side-by-side.\
+Use Warp to easily monitor GPU usage and model response time.
+
+---
+
+### 3. Understanding Model Terms
+
+Here’s a quick glossary for choosing the right local model:
+
+| Term             | Meaning                                                            |
+| ---------------- | ------------------------------------------------------------------ |
+| **Thinking**     | The model “thinks” before answering; better for complex reasoning. |
+| **Tools**        | Models can use external utilities (e.g., web search).              |
+| **Vision**       | Can process and respond to images.                                 |
+| **Embedding**    | Converts text to numeric form for search or RAG pipelines.         |
+| **Quantization** | Reduces memory use by lowering precision (e.g., 4-bit).            |
+
+---
+
+### 4. Integrate Ollama into Your App
+
+Most apps use OpenAI-compatible APIs, so integration is simple.
+
+1. Open your app’s code in Warp.
+2. Locate the OpenAI client initialization.
+3. Replace the base URL with Ollama's
+4. Update your API key and model name.
+
+Warp helps you quickly locate, edit, and test the integration directly from the terminal.
+
+---
+
+### 6. Customize Model Behavior
+
+Pull and modify a model.
+
+Then save it as a custom model with new settings like temperature or system prompt.
+
+Use Warp to generate a model file automatically.&#x20;
+
+This adds a structured system prompt for that task — ready to use instantly.

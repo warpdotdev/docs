@@ -1,0 +1,66 @@
+---
+title: environment_setup_failed
+description: >-
+  The cloud agent's environment failed to initialize. Check repo URLs, setup
+  commands, and working directory paths.
+---
+
+The `environment_setup_failed` error occurs when the cloud agent's runtime environment could not be initialized. This covers failures during any phase of environment setup, including repository cloning, setup command execution, working directory resolution, and MCP server startup.
+
+:::note
+Although this returns HTTP 500, it is classified as a **user error** (task state → FAILED) because the failure is caused by the environment configuration, not by Warp's infrastructure.
+:::
+
+---
+
+## Details
+
+* **HTTP Status:** `500 Internal Server Error`
+* **Retryable:** No
+* **Task State:** FAILED
+
+---
+
+## When does this occur?
+
+This error is returned when any part of the environment initialization process fails:
+
+* **Git clone failed** — The repository URL is incorrect, the branch does not exist, or the agent does not have access to the repository
+* **Setup command failed** — A command in the environment's setup commands list exited with an error (for example, missing dependencies, script errors)
+* **Working directory not found** — The configured working directory does not exist after cloning
+* **MCP server startup failed** — An MCP server configured for the environment could not start
+
+The `title` field in the response will describe the specific setup failure.
+
+---
+
+## Example response
+
+```json
+{
+  "type": "/reference/api-and-sdk/troubleshooting/errors/environment-setup-failed/",
+  "title": "Failed to clone repository: branch 'main' not found in acme/backend",
+  "status": 500,
+  "instance": "/api/v1/agent/tasks",
+  "error": "Failed to clone repository: branch 'main' not found in acme/backend",
+  "retryable": false
+}
+```
+
+---
+
+## How to resolve
+
+1. **Check repository configuration** — Verify the repository URL and branch name in your [environment settings](/agent-platform/cloud-agents/environments/). Ensure the repository exists and is accessible.
+2. **Check setup commands** — Run the setup commands locally to confirm they work. Look for missing dependencies, incorrect paths, or syntax errors.
+3. **Check working directory** — Ensure the working directory path exists relative to the cloned repository root.
+4. **Check MCP server configuration** — Verify MCP server startup commands and that any required dependencies or credentials are available. See [MCP Servers for Agents](/reference/cli/mcp-servers/).
+5. **Check secrets** — If setup commands reference environment variables from [secrets](/agent-platform/cloud-agents/secrets/), verify the secrets are configured and in scope.
+
+---
+
+## Related
+
+* [Environments](/agent-platform/cloud-agents/environments/) — Configuring cloud agent environments
+* [Secrets](/agent-platform/cloud-agents/secrets/) — Managing credentials for agent environments
+* [MCP Servers for Agents](/reference/cli/mcp-servers/) — Configuring MCP servers

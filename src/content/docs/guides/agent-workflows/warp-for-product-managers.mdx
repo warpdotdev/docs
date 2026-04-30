@@ -1,0 +1,139 @@
+---
+title: "5 AI agent workflows for product managers"
+description: >-
+  Five agent workflows that automate status updates, documentation, Slack search,
+  and meeting prep for product managers.
+---
+Most PM work breaks down into three activities: gathering information, synthesizing it, and communicating the result. These five workflows use Warp's agents and MCP integrations to automate the gathering and speed up the synthesis, so you spend less time switching between tools and more time making decisions. Each workflow takes 5–10 minutes to set up.
+
+## Prerequisites
+
+* **Warp** — installed and signed in. See [Installation and setup](/getting-started/quickstart/installation-and-setup/) to get started.
+* **MCP servers (optional but recommended)** — Slack, Linear, and Notion all have documented MCP configs in Warp. See [MCP](https://docs.warp.dev/agent-platform/capabilities/mcp/) for setup instructions. Each workflow below notes which MCP servers it uses and includes a fallback for users without MCP.
+
+:::note
+These workflows work with Warp's built-in agent or any third-party CLI agent running in Warp, including Claude Code, Codex, OpenCode, and Gemini CLI. See [Third-party CLI agents](https://docs.warp.dev/agent-platform/cli-agents/overview/) for the full list.
+:::
+
+## 1. Pull cross-project status updates
+
+Compiling a status update across multiple projects usually means opening Slack, Linear, Notion, and email in separate tabs, reading through each one, and manually synthesizing a summary. With MCP-connected agents, you can pull context from all of these tools in a single prompt.
+
+1. Tell the agent which projects, tools, and time range to cover. Be specific about the audience and format you need.
+2. Submit a prompt that queries your connected tools. For example:
+
+```
+Pull updates from the last week across #project-atlas and #project-beacon
+in Slack, any Linear tickets that moved to Done or In Review, and the
+latest entries in our Notion launch tracker. Summarize into a status
+update for my skip-level, organized by project. Use bullet points. Flag
+anything blocked or at risk.
+```
+
+3. Review the output and iterate. Ask the agent to adjust the tone (more concise, more formal), reorder sections, or add context for a specific stakeholder.
+
+The result is a formatted status update ready to paste into Slack or email.
+
+**MCP servers used** — Slack, Linear, Notion.
+
+:::note
+**Without MCP**: Copy relevant updates from each tool and paste them into your prompt. Ask the agent to synthesize and format the summary. The workflow is the same; MCP just automates the gathering step.
+:::
+
+## 2. Draft documents from the terminal
+
+Writing a rollout doc, product brief, or strategy doc usually starts with a blank page in Google Docs or Notion. Instead, describe what you need to the agent and iterate on a draft without leaving Warp.
+
+1. Describe the document type, audience, and structure. For example:
+
+```
+Draft a product brief for a new onboarding flow redesign. The audience
+is engineering and design leads. Include sections for problem statement,
+proposed solution, success metrics, and open questions. The problem is
+that 40% of new users drop off before completing setup.
+```
+
+2. Review the draft and iterate. Ask the agent to expand a section, tighten the language, add a competitor comparison, or restructure the outline.
+3. Copy the finished draft into Google Docs, Notion, Confluence, or wherever your team keeps docs. If you have Notion MCP connected, ask the agent to push the content directly.
+
+The result is a structured first draft, grounded in your specific context, ready for review.
+
+**MCP servers used** — Notion (optional, for pushing content directly).
+
+:::note
+**Without MCP**: Copy the finished draft and paste it into your docs tool manually.
+:::
+
+## 3. Search Slack for meeting prep
+
+Before a meeting or project check-in, you often need to catch up on activity across multiple Slack channels. Manually reading through 10+ channels is slow. With the Slack MCP server, you can search and summarize in one prompt.
+
+1. Tell the agent which channels and time range to search. For example:
+
+```
+Search #eng-backend, #design-reviews, #project-atlas, and
+#incidents for the last 3 days. Summarize the key decisions,
+open questions, and anything that was escalated. I have a
+project sync in 30 minutes and need to be caught up.
+```
+
+2. Review the structured summary the agent returns, grouped by topic or channel.
+3. Ask follow-up questions to drill into specific threads. For example: "What was the resolution on the API rate limiting discussion in #eng-backend?"
+
+The result is a briefing doc summarizing recent activity across channels, ready in minutes.
+
+**MCP servers used** — Slack.
+
+:::note
+**Without MCP**: Copy key messages or thread summaries from Slack and paste them into your prompt. Ask the agent to organize and summarize. This works well for a smaller number of channels.
+:::
+
+## 4. Run parallel workstreams in tabs
+
+PM work often involves juggling multiple threads at once: researching a competitor while drafting a brief while reviewing a doc from a teammate. Warp's vertical tabs let you run separate agent sessions side by side, each focused on a different task.
+
+1. To enable vertical tabs, in the Warp app go to **Settings** > **Appearance** > **Tabs** and toggle on **Use vertical tab layout**.
+2. Open a separate tab for each workstream. For example:
+   * **Tab 1** — researching competitor pricing via web search
+   * **Tab 2** — drafting a product brief based on the research
+   * **Tab 3** — summarizing Slack threads for a stakeholder update
+3. Each tab shows which agent is running and its current status. Warp sends notifications when an agent needs your input, so you don't need to watch each tab.
+
+This "thought threads" pattern keeps your workstreams isolated and lets you context-switch without losing progress. For a deeper walkthrough of multi-agent tab setups, including tab configs and Git worktrees, see [Run multiple AI coding agents](/guides/agent-workflows/how-to-run-multiple-ai-coding-agents/).
+
+## 5. Use voice to draft strategy docs
+
+When thinking through a brief, strategy doc, or stakeholder update, talking is often faster than typing. Warp's voice input lets you dictate a rough draft, then ask the agent to clean it up.
+
+1. Click the **microphone icon** in the input area or press the voice input key (default: `fn` key) to start recording.
+2. Talk through your document naturally. Describe the problem, your proposed approach, open questions, and next steps. Don't worry about structure or polish.
+3. After the transcription appears, submit a follow-up prompt:
+
+```
+Clean up that transcription into a structured strategy doc. Add an
+executive summary at the top, organize the body into Problem, Approach,
+Risks, and Next Steps sections, and tighten the language for a
+leadership audience.
+```
+
+The result is a structured first draft from a stream-of-consciousness recording. For full setup details and more use cases, see [Use voice and images to prompt agents](/guides/agent-workflows/how-to-use-voice-and-images-to-prompt-coding-agents/).
+
+## Productivity tips
+
+* **Save Rules for recurring formats** — Save a Rule with your team's status update format, doc templates, or project list so agents start with the right context every time. See [Rules](https://docs.warp.dev/agent-platform/capabilities/rules/).
+* **Create Saved Prompts for recurring workflows** — Turn your weekly status prompt or meeting prep prompt into a reusable Saved Prompt so you can run it with one click. See [Trigger reusable actions with Saved Prompts](/guides/configuration/trigger-reusable-actions-with-saved-prompts/).
+* **Use `Ctrl+G` for complex prompts** — Open the rich input editor for click-to-edit prompt composition instead of navigating with arrow keys. Works with any CLI agent running in Warp. See [Rich Input Editor](https://docs.warp.dev/agent-platform/cli-agents/rich-input/).
+* **Save tab configs for recurring setups** — If you regularly run a research + drafting + review tab layout, save it as a tab config for one-click workspace setup. See [Tab Configs](https://docs.warp.dev/terminal/windows/tab-configs/).
+
+## Next steps
+
+You now have five workflows for automating the information gathering, synthesis, and communication that make up most PM work: cross-project status updates, document drafting, Slack search for meeting prep, parallel workstreams in tabs, and voice-to-text for rough drafts.
+
+To go deeper on any of the tools used in these workflows, explore the related guides below. You can also customize how agents behave across your team with Rules, Saved Prompts, and MCP integrations.
+
+* [Connect agents to MCP servers](/guides/external-tools/using-mcp-servers-with-warp/) — set up Slack, Linear, Notion, and other MCP integrations
+* [Use voice and images to prompt agents](/guides/agent-workflows/how-to-use-voice-and-images-to-prompt-coding-agents/) — full setup and use cases for multimodal input
+* [Run multiple AI coding agents](/guides/agent-workflows/how-to-run-multiple-ai-coding-agents/) — multi-tab workflows, tab configs, and Git worktrees
+* [MCP](https://docs.warp.dev/agent-platform/capabilities/mcp/) — full reference for MCP server configuration
+* [Rules](https://docs.warp.dev/agent-platform/capabilities/rules/) — save persistent context so agents follow your team's conventions
+* [Voice input](/agent-platform/local-agents/interacting-with-agents/voice/) — full reference for voice transcription features

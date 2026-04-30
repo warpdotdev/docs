@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /*?*q=*
+Disallow: /*?*ask=*
+Content-Signal: ai-train=yes, search=yes, ai-input=yes
+
+Sitemap: https://docs.warp.dev/sitemap-index.xml

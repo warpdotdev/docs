@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build, link-check, audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type-check
+        run: npm run typecheck
+
+      - name: Build site
+        run: npm run build
+
+      - name: Check internal links
+        run: python3 .warp/skills/check_for_broken_links/check_links.py --internal-only
+
+      # Production-only audit; gate on high+ so dev-only deprecation chatter
+      # doesn't break PRs. The `|| true` keeps it informational; tighten this
+      # to a hard fail once we're confident the noise is gone.
+      - name: npm audit (production deps)
+        run: npm audit --omit=dev --audit-level=high || true

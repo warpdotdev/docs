@@ -1,0 +1,293 @@
+---
+title: Integration setup
+description: >-
+  Learn how to set up environments and integrations so you can trigger Oz
+  agents from external tools.
+---
+
+This article describes the environment and integration setup that is required before you can trigger agents from external tools, like Slack or Linear. You will learn how to:
+
+* Create and configure the environment needed to run agents
+* Connect that environment to your team
+* Trigger agents using Slack or Linear
+
+:::note
+**You only need to complete this setup once per Warp team**. After an integration exists, anyone on the team can use it. For example, the first time a teammate triggers an agent from Slack or Linear, they'll be prompted to authorize GitHub with their own account in order for the agent to write back to repos.
+
+Note: While cloud agents can be run individually via CLI without a team, integrations (Slack, Linear) require team membership.
+:::
+
+:::note
+For a quick start guide to Warp integrations, please see the [Integrations Overview](/agent-platform/cloud-agents/integrations/).
+:::
+
+## How integrations and environments work
+
+Warp integrations connect external tools, like Slack or Linear, to agents that run your code in the background.
+
+There are three main components to know:
+
+* **Triggers** provide the context that tells Warp _what_ to run. A trigger could be a Slack message where you tag @Oz, or a Linear issue or comment.
+* [**Integrations**](/agent-platform/cloud-agents/integrations/) are what connect the trigger surface (Slack, Linear) to Warp. An integration links the trigger to your [Warp team](/knowledge-and-collaboration/teams/) and handles posting results to the original tool, for example, replying in Slack.
+* **Environments** define how and where agents run your code. When an agent is triggered, Warp uses the environment to spin up a container, clone repositories, and execute the agent's workflow.
+
+```
+Slack or Linear
+   (trigger)
+        →
+Warp Integration
+   (connects tools to Warp)
+        →
+Environment
+   (Docker image + repos + setup)
+        →
+Agent
+   (runs workflow, opens PRs, posts results)
+```
+Setting up an integration consists of three steps.
+
+1. **Create an environment** for the agent to run your code.
+2. **Authorize GitHub** so Warp can clone repositories, write code, debug issues, open pull requests, and more.
+3. **Configure** the Oz app with an integration.
+
+---
+
+## Step 1: Creating an environment
+
+Before you can trigger agents from Slack or Linear, you need an environment. The environment defines how and where Warp runs your code.
+
+At a minimum, an environment includes:
+
+* A Docker image
+* One or more GitHub repositories
+* Optional setup commands
+
+Typically, you'll create **one environment per codebase** (or closely related set of repos) and reuse it across integrations.
+
+You can create environments using a guided Agent flow, or directly through the CLI.
+
+#### Before you begin
+
+Make sure you have:
+
+* A GitHub repository (or repositories) that the agent can work in.
+* A publicly-accessible Docker image that can build and run your code. Official images like `node`, `python`, or `rust` work for many projects.
+
+:::note
+You only need to create an environment once. It can be reused across Slack, Linear, and terminal triggers.
+:::
+
+### Option 1: Guided environment setup (recommended)
+
+The fastest way to get started is to use the guided environment setup. Use the `/create-environment` [slash command](/agent-platform/capabilities/slash-commands/) if you want Warp to analyze your repos and suggest an environment configuration.&#x20;
+
+You can run the command inside a Git repo directory with no argument, or with one or more repo paths or URLs. For example, from Warp:
+
+{/* TODO: Update warp-internal to warp once the repo is open-sourced */}
+```bash
+# File paths
+/create-environment ./warp-internal ./warp-server
+
+# owner/repo
+/create-environment warpdotdev/warp-internal warpdotdev/warp-server
+
+# GitHub URLs
+/create-environment https://github.com/warpdotdev/warp-internal.git
+```
+
+The guided flow will:
+
+1. Detect the repositories you want the agent to work with and identify languages, frameworks, and tools
+2. Look for an existing Dockerfile, recommend an official base image, or help build a custom image (if needed)
+3. Suggest setup commands based on your scripts and package managers
+4. Create the environment through the CLI and return an environment ID
+
+This produces a ready-to-use environment that can immediately be connected to [Slack](/agent-platform/cloud-agents/integrations/slack/) or [Linear](/agent-platform/cloud-agents/integrations/linear/).
+
+### Option 2: Create an environment with the CLI
+
+If you already know how you want to configure your environment, you can create it directly with the CLI.
+
+**Use this approach when:**
+
+* You already have a custom Docker image
+* You want full control over repos and setup commands
+* You’re scripting or automating environment creation
+
+From Warp:
+
+```sh
+oz environment create \
+  --name <name> \
+  --docker-image <image> \
+  --repo <owner/repo> \
+  --repo <owner/repo> \
+  --setup-command "<command1>" \
+  --setup-command "<command2>" \
+  --description "Optional description"
+```
+
+Key flags:
+
+* `--name` (`-n`) – human-readable label for the environment.
+* `--docker-image` (`-d`) – image name on Docker Hub. If not specified, you'll be prompted to select from available images (see `oz environment image list`).
+* `--repo` (`-r`) – can be repeated for each repo.
+* `--setup-command` (`-c`) – can be repeated; commands run in the order provided.
+* `--description` – optional description (max 240 characters).
+
+You can inspect existing environments with `oz environment list`.
+
+To delete an environment, use `oz environment delete <ID>`. Add `--force` to skip confirmation checks for environments used by integrations.
+
+For more details about environment configuration, see the [Slack](/agent-platform/cloud-agents/integrations/slack/) and [Linear](/agent-platform/cloud-agents/integrations/linear/) articles.
+
+#### Example environments
+
+<table><thead><tr><th width="168.47265625">Project type</th><th width="185.828125">Docker image</th><th>Repos</th><th>Example setup commands</th></tr></thead><tbody><tr><td>Web dev project</td><td><code>node:20-bullseye</code></td><td>your-org/frontend-react<br /><br />your-org/backend-api</td><td><p><code>npm install -g pnpm</code></p><p><br /><code>cd frontend-react &#x26;&#x26; pnpm install</code></p><p><br /><code>cd backend-api &#x26;&#x26; pnpm install</code></p></td></tr><tr><td>Python project</td><td>Custom image based on <code>python:3.11</code></td><td>your-org/cool_python_project</td><td><code>cd cool_python_project &#x26;&#x26; pip install -r requirements.txt</code></td></tr></tbody></table>
+
+---
+
+## Step 2: Authorizing GitHub
+
+Warp needs GitHub access so agents can clone your repositories and, when permitted, write code and open pull requests.
+
+#### How GitHub Authorization works
+
+When you create an environment or integration, Warp will prompt you to:
+
+* Install or update the Warp GitHub app
+* Grant access to the repositories in your environment
+
+This authorization enables agents to clone repositories into the environment, create branches and commits, and open pull requests.
+
+**Public vs private repos**
+
+* **Public repos:** Agents can read code without authorization, but cannot write or open PRs.
+* **Private repos:** The Warp GitHub App must have access and the triggering user must have write permissions.&#x20;
+
+#### Ongoing permissions
+
+Depending on how the GitHub app is installed in your organization:
+
+* You may need to grant access to new repositories over time
+* An organization admin may need to update the app's permissions
+
+You typically only need to handle this once per team, unless your repo access changes.
+
+#### Team-level GitHub authorization
+
+For automated workflows that use a [team API key](/reference/cli/api-keys/) (CI/CD pipelines, scheduled agents, SDK-triggered runs), you can configure team GitHub authorization so the agent authenticates with the Oz by Warp GitHub App instead of an individual's personal token.
+
+This requires a Warp team admin to enable the GitHub organization in the Admin Panel (**Settings** > **Admin Panel** > **Platform**). Once configured, tasks initiated with a team API key can clone repos and open pull requests using the GitHub App installation token.
+
+For full setup instructions, see [Team GitHub authorization](/agent-platform/cloud-agents/team-access-billing-and-identity/#team-github-authorization).
+
+:::note
+**Using API keys:** Personal API keys authenticate as you, so the agent runs with your GitHub permissions and code changes are attributed to your account. Team API keys with [team GitHub authorization](/agent-platform/cloud-agents/team-access-billing-and-identity/#team-github-authorization) configured use the GitHub App token instead.
+:::
+
+---
+
+## Step 3: Setting up an integration
+
+Once you have set up at least one environment, you can create integrations that connect it to Slack or Linear.
+
+:::note
+For easier setup, use the [Oz web app](https://oz.warp.dev) to configure integrations with a guided flow.
+:::
+
+Alternatively, use the CLI where `<ENV_ID>` is your environment ID:
+
+```bash
+oz integration create slack --environment <ENV_ID>
+# or
+oz integration create linear --environment <ENV_ID>
+```
+
+:::note
+If you omit `--environment`, the CLI will show a list of environments and prompt you to choose one.
+:::
+
+The CLI then:
+
+1. Links the integration to your Warp team and environment.
+2. Opens a browser flow to install the Oz app into your Slack workspace or Linear workspace.
+3. Generates an **integration ID** you can later list or delete.
+
+**Additional `integration create` flags:**
+
+* `--prompt` — custom instructions applied to all runs for this integration.
+* `--mcp <SPEC>` — attach MCP servers (inline JSON, file path, or UUID). Can be repeated.
+* `--model <MODEL_ID>` — override the default model.
+* `--host <WORKER_ID>` — run on a specific self-hosted worker.
+* `--file <PATH>` (`-f`) — load configuration from a YAML or JSON file.
+
+**Example with a custom prompt:**
+
+```bash
+oz integration create slack \
+  --environment <ENV_ID> \
+  --prompt "Always prefix PR titles with [WARP-AGENT] and add detailed test steps."
+```
+
+### Updating an integration
+
+You can modify an existing integration using `oz integration update`:
+
+```bash
+oz integration update slack \
+  --environment <ENV_ID> \
+  --prompt "Updated instructions for the integration."
+```
+
+**Update-specific flags:**
+
+* `--environment <ID>` — change the environment.
+* `--remove-environment` — remove the environment from the integration.
+* `--prompt` — update the custom instructions.
+* `--mcp <SPEC>` — add MCP servers to the integration.
+* `--remove-mcp <SERVER_NAME>` — remove an MCP server by name.
+* `--model <MODEL_ID>` — update the default model.
+* `--host <WORKER_ID>` — update the execution host.
+
+:::note
+For more details, see the dedicated pages for [Slack](/agent-platform/cloud-agents/integrations/slack/) and [Linear](/agent-platform/cloud-agents/integrations/linear/) integrations.
+:::
+
+## How are environments used at runtime?
+
+When you trigger an agent from Slack or Linear, Warp follows a consistent, repeatable execution process using your environment.
+
+At a high level, each run works like this:
+
+1. **Warp receives the trigger**\
+   Warp captures the message content (for example, a Slack thread or Linear issue), along with any linked context.
+2. **Warp creates an execution container**\
+   Warp spins up a fresh container from the Docker image defined in your environment.
+3. **Repositories are cloned**\
+   The GitHub repositories associated with the environment are cloned into the container.
+4. **Setup commands are run**\
+   Any setup commands you configured, like installing dependencies, are executed.
+5. **The agent workflow runs**\
+   The agent executes the task using the provided context, tools, and permissions.
+6. **Results are posted back**\
+   Progress updates, summaries, and results are posted back to Slack or Linear.
+7. **The container is destroyed**\
+   After the run completes, the container is torn down. Each run starts from a clean, isolated environment.
+
+## Next steps
+
+You now have everything needed to trigger agents from your team's tools. From here, you can:
+
+* Add or adjust setup commands
+* Switch to a custom Docker image
+* Include additional repositories
+* Add custom prompts for consistent agent behavior
+* Create separate environments for different workflows or teams
+
+**Additional reading**
+
+* [Cloud Agents Overview](/agent-platform/cloud-agents/overview/)
+* [Oz Platform](/agent-platform/cloud-agents/platform/)
+* [Slack](/agent-platform/cloud-agents/integrations/slack/), [Linear](/agent-platform/cloud-agents/integrations/linear/), and [GitHub Actions](/agent-platform/cloud-agents/integrations/github-actions/) integrations
+* [Troubleshooting](/reference/cli/troubleshooting/)

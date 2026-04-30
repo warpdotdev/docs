@@ -1,0 +1,570 @@
+---
+title: All settings reference
+description: >-
+  Complete reference for every setting available in Warp's settings.toml file,
+  organized by section with descriptions, types, defaults, and examples.
+---
+
+This page lists every setting you can configure in [`settings.toml`](/terminal/settings/) organized by TOML section. For an introduction to the settings file, how to open it, and common configuration examples, see [Settings file](/terminal/settings/).
+
+Settings are grouped into sections that correspond to TOML table headers (for example, `[appearance.text]`). Only include the settings you want to change — Warp uses built-in defaults for everything else.
+
+## General
+
+Top-level settings that control Warp's startup behavior, session management, and window-level preferences.
+
+**Section**: `[general]`
+
+* `default_session_mode` — The default mode for new terminal sessions. Type: string. Default: `"terminal"`. Options: `"terminal"`, `"agent"`, `"cloud_agent"`, `"tab_config"`, `"docker_sandbox"`.
+* `default_tab_config_path` — Path to the tab config used when `default_session_mode` is `"tab_config"`. Type: string. Default: `""`.
+* `link_tooltip` — Whether to show a tooltip when hovering over links. Type: boolean. Default: `true`.
+* `login_item` — Whether to launch Warp automatically when you log in. Type: boolean. Default: `true`.
+* `mouse_scroll_multiplier` — The scroll speed multiplier for mouse scroll events. Type: number. Default: `3.0`.
+* `new_tab_placement` — Where new tabs are placed in the tab bar. Type: string. Default: `"after_current_tab"`. Options: `"after_current_tab"`, `"after_all_tabs"`.
+* `quit_on_last_window_closed` — Whether to quit Warp when the last window is closed. Type: boolean. Default: `false`.
+* `restore_session` — Whether to restore the previous session when Warp starts up. Type: boolean. Default: `true`.
+* `should_confirm_close_session` — Whether to show a confirmation dialog when closing a session. Type: boolean. Default: `true`.
+* `show_changelog_after_update` — Whether the changelog is shown after an update. Type: boolean. Default: `true`.
+* `show_warning_before_quitting` — Whether to show a warning dialog before quitting Warp. Type: boolean. Default: `true`.
+* `snackbar_enabled` — Whether to show snackbar notifications. Type: boolean. Default: `true`.
+* `user_native_preference` — Whether to prefer the native desktop app or the web app. Type: string. Default: `"not_selected"`. Options: `"not_selected"`, `"web"`, `"desktop"`.
+
+### Undo close
+
+**Section**: `[general.undo_close]`
+
+* `enabled` — Whether the undo close feature is enabled. Type: boolean. Default: `true`.
+* `grace_period` — How long (in seconds) after closing a tab you can still undo the close. Type: integer. Default: `60`.
+
+## Appearance
+
+Visual settings that control how Warp looks, including themes, fonts, cursor, tabs, window, and layout.
+
+**Section**: `[appearance]`
+
+* `spacing` — Controls the spacing between terminal blocks. Type: string. Default: `"normal"`. Options: `"normal"`, `"compact"`.
+
+### Themes
+
+**Section**: `[appearance.themes]`
+
+* `theme` — The color theme. Type: string. Default: `"dark"`. Options: `"adeberry"`, `"phenomenon"`, `"dark"`, `"dracula"`, `"fancy_dracula"`, `"cyber_wave"`, `"solar_flare"`, `"solarized_dark"`, `"willow_dream"`, `"light"`, `"dark_city"`, `"gruvbox_dark"`, `"red_rock"`, `"jelly_fish"`, `"leafy"`, `"koi"`, `"solarized_light"`, `"snowy"`, `"gruvbox_light"`, `"pink_city"`, `"marble"`, or a custom theme object.
+* `system_theme` — Whether to match the system light/dark theme. Type: boolean. Default: `false`.
+* `selected_system_themes` — The themes to use for system light and dark modes. Type: object. Default: `{ dark = "dark", light = "light" }`.
+
+To use a custom theme:
+
+```toml
+[appearance.themes]
+theme = { custom = { name = "My Theme", path = "~/.warp/themes/my-theme.yaml" } }
+```
+
+### Text
+
+**Section**: `[appearance.text]`
+
+* `font_name` — The monospace font used in the terminal. Type: string. Default: `"Hack"`.
+* `font_size` — The size of the monospace font in the terminal. Type: number. Default: `13.0`.
+* `font_weight` — The weight of the monospace font. Type: string. Default: `"normal"`. Options: `"thin"`, `"extra_light"`, `"light"`, `"normal"`, `"medium"`, `"semibold"`, `"bold"`, `"extra_bold"`, `"black"`.
+* `line_height_ratio` — The line height ratio for terminal text. Type: number. Default: `1.2`.
+* `ligature_rendering_enabled` — Whether to render font ligatures in the terminal. Type: boolean. Default: `false`.
+* `ai_font_name` — The font used for AI-generated content. Type: string. Default: `"Hack"`.
+* `match_ai_font` — Whether the AI font automatically matches the terminal font. Type: boolean. Default: `false`.
+* `notebook_font_size` — The font size used in notebooks. Type: number. Default: `14.0`.
+* `match_notebook_to_monospace_font_size` — Whether the notebook font size matches the terminal font size. Type: boolean. Default: `true`.
+* `use_thin_strokes` — Whether to use thin font strokes on macOS. Type: string. Default: `"on_high_dpi_displays"`. Options: `"never"`, `"on_low_dpi_displays"`, `"on_high_dpi_displays"`, `"always"`.
+* `enforce_minimum_contrast` — Whether to enforce minimum contrast for text readability. Type: string. Default: `"only_named_colors"`. Options: `"never"`, `"only_named_colors"`, `"always"`.
+
+### Cursor
+
+**Section**: `[appearance.cursor]`
+
+* `cursor_display_type` — The visual style of the cursor. Type: string. Default: `"bar"`. Options: `"bar"`, `"block"`, `"underline"`.
+* `cursor_blink` — Whether the cursor blinks. Type: string. Default: `"enabled"`. Options: `"enabled"`, `"disabled"`.
+
+### Blocks
+
+**Section**: `[appearance.blocks]`
+
+* `show_block_dividers` — Whether to show dividers between terminal blocks. Type: boolean. Default: `true`.
+* `show_jump_to_bottom_of_block_button` — Whether to show the jump-to-bottom button in long command output. Type: boolean. Default: `true`.
+* `should_show_bootstrap_block` — Whether the bootstrap block is visible in the terminal. Type: boolean. Default: `false`.
+* `should_show_in_band_command_blocks` — Whether in-band command blocks are visible. Type: boolean. Default: `false`.
+* `should_show_ssh_block` — Whether the SSH connection block is visible. Type: boolean. Default: `false`.
+
+### Tabs
+
+**Section**: `[appearance.tabs]`
+
+* `workspace_decoration_visibility` — When workspace decorations such as the tab bar are visible. Type: string. Default: `"hide_fullscreen"`. Options: `"always_show"`, `"hide_fullscreen"`, `"on_hover"`.
+* `tab_close_button_position` — Position of the close button on tabs. Type: string. Default: `"right"`. Options: `"right"`, `"left"`.
+* `show_indicators_button` — Whether to show activity indicators on tabs. Type: boolean. Default: `true`.
+* `preserve_active_tab_color` — Whether to preserve the active tab's color when switching tabs. Type: boolean. Default: `false`.
+* `header_toolbar_chip_selection` — Configuration for the header toolbar chips in the vertical tab panel header. Type: string or object. Default: `"default"`.
+
+### Vertical tabs
+
+**Section**: `[appearance.vertical_tabs]`
+
+* `enabled` — Whether to display tabs vertically instead of horizontally. Type: boolean. Default: `false`.
+* `view_mode` — Display mode for the vertical tab bar. Type: string. Default: `"compact"`. Options: `"compact"`, `"expanded"`.
+* `primary_info` — The primary information displayed on vertical tabs. Type: string. Default: `"command"`. Options: `"command"`, `"working_directory"`, `"branch"`.
+* `compact_subtitle` — Subtitle shown on compact vertical tabs. Type: string. Default: `"branch"`. Options: `"branch"`, `"working_directory"`, `"command"`.
+* `display_granularity` — Granularity of rows displayed in the vertical tabs panel. Type: string. Default: `"panes"`. Options: `"panes"`, `"tabs"`.
+* `tab_item_mode` — Tab item display mode in vertical tabs. Type: string. Default: `"focused_session"`. Options: `"focused_session"`, `"summary"`.
+* `show_details_on_hover` — Whether to show a details sidecar when hovering over a vertical tab. Type: boolean. Default: `true`.
+* `show_diff_stats` — Whether to show diff stats on vertical tabs. Type: boolean. Default: `true`.
+* `show_pr_link` — Whether to show PR links on vertical tabs. Type: boolean. Default: `true`.
+* `use_latest_prompt_as_title` — Whether vertical tab names for agent conversations use the latest user prompt. Type: boolean. Default: `false`.
+
+### Panes
+
+**Section**: `[appearance.panes]`
+
+* `focus_pane_on_hover` — Whether panes are focused when hovered over. Type: boolean. Default: `false`.
+* `should_dim_inactive_panes` — Whether inactive panes are visually dimmed. Type: boolean. Default: `false`.
+
+### Input position
+
+**Section**: `[appearance.input]`
+
+* `input_mode` — The position of the terminal input. Type: string. Default: `"pinned_to_bottom"`. Options: `"pinned_to_bottom"`, `"pinned_to_top"`, `"waterfall"`.
+
+### Full-screen apps
+
+**Section**: `[appearance.full_screen_apps]`
+
+* `alt_screen_padding` — Controls padding around full-screen terminal applications. Type: string or object. Default: `{ custom = { uniform_padding = 0.0 } }`.
+
+### Icon
+
+**Section**: `[appearance.icon]`
+
+* `app_icon` — The app icon displayed in the dock. Type: string. Default: `"default"`. Options: `"default"`, `"aurora"`, `"classic1"`, `"classic2"`, `"classic3"`, `"comets"`, `"cow"`, `"glass_sky"`, `"glitch"`, `"glow"`, `"holographic"`, `"mono"`, `"neon"`, `"original"`, `"starburst"`, `"sticker"`, `"warp_one"`.
+
+### Window
+
+**Section**: `[appearance.window]`
+
+* `override_opacity` — The opacity of the window background, from 1 to 100 percent. Type: integer. Default: `100`.
+* `override_blur` — The blur radius applied to the window background. Type: integer. Default: `1`.
+* `override_blur_texture` — Whether to apply a blur texture to the window background. Type: boolean. Default: `false`.
+* `zoom_level` — The zoom level for the window, as a percentage. Type: integer. Default: `100`.
+* `open_windows_at_custom_size` — Whether to open new windows at a custom size instead of the default. Type: boolean. Default: `false`.
+* `new_windows_num_columns` — The number of columns for new windows when using a custom size. Type: integer. Default: `80`.
+* `new_windows_num_rows` — The number of rows for new windows when using a custom size. Type: integer. Default: `40`.
+* `left_panel_visibility_across_tabs` — Whether the left panel visibility is shared across all tabs. Type: boolean. Default: `true`.
+
+## Terminal
+
+Settings that control terminal behavior, input, and event handling.
+
+**Section**: `[terminal]`
+
+* `copy_on_select` — Whether text is automatically copied to the clipboard when selected. Type: boolean. Default: `true`.
+* `focus_reporting_enabled` — Whether to forward focus and blur events to full-screen terminal applications. Type: boolean. Default: `true`.
+* `mouse_reporting_enabled` — Whether to forward mouse events to full-screen terminal applications. Type: boolean. Default: `true`.
+* `scroll_reporting_enabled` — Whether to forward scroll events to full-screen terminal applications. Type: boolean. Default: `true`.
+* `maximum_grid_size` — The maximum number of rows in the terminal grid. Type: integer. Default: `50000`.
+* `use_audible_bell` — Whether to play an audible bell sound on terminal bell events. Type: boolean. Default: `false`.
+* `show_terminal_zero_state_block` — Whether to show the AI zero-state block in new terminal sessions. Type: boolean. Default: `true`.
+
+### Input
+
+**Section**: `[terminal.input]`
+
+* `syntax_highlighting` — Whether syntax highlighting is enabled in the terminal input. Type: boolean. Default: `true`.
+* `honor_ps1` — Whether to use your shell's PS1 prompt instead of the Warp prompt. Type: boolean. Default: `false`.
+* `input_box_type_setting` — The terminal input style. Type: string. Default: `"classic"`. Options: `"universal"` (AI-first input), `"classic"` (Terminal-first input).
+* `alias_expansion_enabled` — Whether shell alias expansion is enabled in the input. Type: boolean. Default: `false`.
+* `command_corrections` — Whether command corrections are suggested for mistyped commands. Type: boolean. Default: `true`.
+* `error_underlining_enabled` — Whether command errors are underlined in the input. Type: boolean. Default: `true`.
+* `completions_open_while_typing` — Whether the completions menu opens automatically while typing. Type: boolean. Default: `false`.
+* `classic_completions_mode` — Whether classic completions mode is enabled. Type: boolean. Default: `false`.
+* `show_hint_text` — Whether hint text is shown in the terminal input. Type: boolean. Default: `true`.
+* `show_terminal_input_message_bar` — Whether the terminal input message bar is shown. Type: boolean. Default: `true`.
+* `enable_slash_commands_in_terminal` — Whether slash commands are available in the terminal input. Type: boolean. Default: `true`.
+* `at_context_menu_in_terminal_mode` — Whether the @ context menu is available in terminal mode. Type: boolean. Default: `true`.
+* `outline_codebase_symbols_for_at_context_menu` — Whether codebase symbols appear in the @ context menu. Type: boolean. Default: `true`.
+* `middle_click_paste_enabled` — Whether middle-click pastes from the clipboard. Type: boolean. Default: `true`.
+* `extra_meta_keys` — Controls which additional keys are treated as meta keys. Type: object. Default: `{ left_alt = false, right_alt = false }`.
+
+#### Autosuggestions
+
+**Section**: `[terminal.input.autosuggestions]`
+
+* `enabled` — Whether command autosuggestions are shown. Type: boolean. Default: `true`.
+* `keybinding_hint` — Whether autosuggestion keybinding hints are displayed. Type: boolean. Default: `true`.
+* `show_ignore_button` — Whether the ignore button is shown for autosuggestions. Type: boolean. Default: `false`.
+
+### Smart select
+
+**Section**: `[terminal.smart_select]`
+
+* `enabled` — Whether double-click smart selection is enabled for URLs, emails, file paths, and identifiers. Type: boolean. Default: `true`.
+* `word_char_allowlist` — Characters considered part of a word for double-click selection when smart select is disabled. Type: string. Default: `"-.~/\"`.
+
+## Session
+
+Settings that control shell selection and working directory behavior for new sessions.
+
+**Section**: `[session]`
+
+* `startup_shell_override` — The shell to use when Warp starts up. Type: string or null. Default: `null` (uses system default).
+* `new_session_shell_override` — The shell to use when opening a new session. Type: string, object, or null. Default: `null` (uses system default). Options: `"system_default"`, `{ executable = "/path/to/shell" }`, `{ custom = "command" }`.
+
+### Working directory config
+
+**Section**: `[session.working_directory_config]`
+
+* `advanced_mode` — Whether to use separate settings per session source. Type: boolean. Default: `false`.
+
+When `advanced_mode` is `false`, the `[session.working_directory_config.global]` table applies to all session sources. When `true`, you can configure each source independently.
+
+**Section**: `[session.working_directory_config.global]` (also `.split_pane`, `.new_tab`, `.new_window`)
+
+* `mode` — How the working directory is determined. Type: string. Default: `"previous_dir"`. Options: `"home_dir"`, `"previous_dir"`, `"custom_dir"`.
+* `custom_dir` — Custom directory path, used when mode is `"custom_dir"`. Type: string. Default: `""`.
+
+```toml
+# Use a specific directory for split panes, previous directory for everything else
+[session.working_directory_config]
+advanced_mode = true
+
+[session.working_directory_config.global]
+mode = "previous_dir"
+custom_dir = ""
+
+[session.working_directory_config.split_pane]
+mode = "custom_dir"
+custom_dir = "~/projects"
+
+[session.working_directory_config.new_tab]
+mode = "previous_dir"
+custom_dir = ""
+
+[session.working_directory_config.new_window]
+mode = "home_dir"
+custom_dir = ""
+```
+
+## Agents
+
+Settings for Warp's agents, including model behavior, permissions, knowledge, MCP servers, and voice input.
+
+**Section**: `[agents]`
+
+* `cloud_conversation_storage_enabled` — Whether conversations are stored in the cloud. Type: boolean. Default: `true`.
+
+### Knowledge
+
+**Section**: `[agents.knowledge]`
+
+* `rules_enabled` — Whether the agent uses your saved rules during requests. Type: boolean. Default: `true`.
+* `warp_drive_context_enabled` — Whether Warp Drive context is included in AI requests. Type: boolean. Default: `true`.
+
+### MCP servers
+
+**Section**: `[agents.mcp_servers]`
+
+* `file_based_mcp_enabled` — Whether third-party file-based MCP servers are automatically detected. Type: boolean. Default: `false`.
+
+### Profiles (permissions)
+
+**Section**: `[agents.profiles]`
+
+* `agent_mode_coding_permissions` — The file read permission level for the agent. Type: string. Default: `"always_ask_before_reading"`. Options: `"always_ask_before_reading"`, `"always_allow_reading"`, `"allow_reading_specific_files"`.
+* `agent_mode_coding_file_read_allowlist` — File paths the agent can read without asking for permission. Type: array of strings. Default: `[]`.
+* `agent_mode_execute_readonly_commands` — Whether the agent can auto-execute read-only commands without asking. Type: boolean. Default: `false`.
+* `agent_mode_command_execution_allowlist` — Commands the agent can execute without explicit permission (regex patterns). Type: array of strings. Default: `["cat(\\s.*)?", "echo(\\s.*)?", "find .*", "grep(\\s.*)?", "ls(\\s.*)?", "which .*"]`.
+* `agent_mode_command_execution_denylist` — Commands the agent must always ask before executing (regex patterns). Type: array of strings. Default: `["bash(\\s.*)?", "fish(\\s.*)?", "pwsh(\\s.*)?", "sh(\\s.*)?", "zsh(\\s.*)?", "curl(\\s.*)?", "eval(\\s.*)?", "exec(\\s.*)?", "source(\\s.*)?", "wget(\\s.*)?", "dig(\\s.*)?", "nslookup(\\s.*)?", "host(\\s.*)?", "ssh(\\s.*)?", "scp(\\s.*)?", "rsync(\\s.*)?", "telnet(\\s.*)?", "rm(\\s.*)?"]`.
+
+### Warp Agent (AI features)
+
+**Section**: `[agents.warp_agent]`
+
+* `is_any_ai_enabled` — Controls whether all AI features are enabled. Type: boolean. Default: `true`.
+
+#### Active AI
+
+**Section**: `[agents.warp_agent.active_ai]`
+
+* `enabled` — Controls whether proactive AI features like suggestions are enabled. Type: boolean. Default: `true`.
+* `code_suggestions_enabled` — Controls whether AI code suggestions are enabled. Type: boolean. Default: `true`.
+* `intelligent_autosuggestions_enabled` — Controls whether AI-powered intelligent autosuggestions are enabled. Type: boolean. Default: `true`.
+* `agent_mode_query_suggestions_enabled` — Controls whether prompt suggestions are shown in Agent Mode. Type: boolean. Default: `true`.
+* `shared_block_title_generation_enabled` — Controls whether titles are auto-generated when sharing blocks. Type: boolean. Default: `true`.
+
+#### Input
+
+**Section**: `[agents.warp_agent.input]`
+
+* `ai_auto_detection_enabled` — Controls whether AI automatically detects natural language input. Type: boolean. Default: `true`.
+* `ai_command_denylist` — Commands to exclude from AI natural language autodetection. Type: string. Default: `""`.
+* `nld_in_terminal_enabled` — Controls whether natural language detection is enabled in the terminal input. Type: boolean. Default: `false`.
+* `show_model_selectors_in_prompt` — Whether to show AI model selectors in the input prompt. Type: boolean. Default: `true`.
+* `show_agent_tips` — Whether agent tips are displayed in the input. Type: boolean. Default: `true`.
+* `include_agent_commands_in_history` — Whether agent-executed commands are included in command history. Type: boolean. Default: `false`.
+* `agent_toolbar_chip_selection_setting` — Controls the layout of context chips in the Agent Mode toolbar. Type: string or object. Default: `"default"`.
+
+#### Other
+
+**Section**: `[agents.warp_agent.other]`
+
+* `thinking_display_mode` — Controls how agent thinking traces are displayed after streaming. Type: string. Default: `"show_and_collapse"`. Options: `"show_and_collapse"`, `"always_show"`, `"never_show"`.
+* `open_conversation_layout_preference` — Whether to open agent conversations in a new tab or a split pane. Type: string. Default: `"new_tab"`. Options: `"new_tab"`, `"split_pane"`.
+* `show_conversation_history` — Whether conversation history appears in the tools panel. Type: boolean. Default: `true`.
+* `show_agent_notifications` — Whether agent notifications are shown. Type: boolean. Default: `true`.
+* `should_show_oz_updates_in_zero_state` — Whether the "What's new" section is shown in the agent view. Type: boolean. Default: `true`.
+* `should_render_use_agent_toolbar_for_user_commands` — Whether to show the "Use Agent" footer for terminal commands. Type: boolean. Default: `true`.
+* `cloud_agent_computer_use_enabled` — Whether computer use is enabled for cloud agent conversations. Type: boolean. Default: `false`.
+
+### Code review autogeneration
+
+Controls AI-driven autogeneration in the code review dialogs. This setting currently lives under `[agents.oz.active_ai]` rather than alongside the other `[agents.warp_agent.active_ai]` settings.
+
+**Section**: `[agents.oz.active_ai]`
+
+* `git_operations_autogen_enabled` — Controls whether AI auto-generates commit messages and PR title and body in the code review dialogs. Type: boolean. Default: `true`.
+
+### Third-party (CLI agents)
+
+**Section**: `[agents.third_party]`
+
+* `should_render_cli_agent_toolbar` — Whether to show the CLI agent footer for coding agent commands. Type: boolean. Default: `true`.
+* `auto_toggle_composer` — Whether CLI agent Rich Input automatically closes and reopens based on the agent's blocked state. Type: boolean. Default: `true`.
+* `auto_open_composer_on_cli_agent_start` — Whether CLI agent Rich Input automatically opens when a CLI agent session starts. Type: boolean. Default: `false`.
+* `auto_dismiss_composer_after_submit` — Whether CLI agent Rich Input automatically closes after the user submits a prompt. Type: boolean. Default: `false`.
+* `cli_agent_toolbar_chip_selection_setting` — Controls the layout of context chips in the CLI Agent toolbar. Type: string or object. Default: `"default"`.
+* `cli_agent_toolbar_enabled_commands` — Maps custom toolbar command patterns to specific CLI agents. Type: object. Default: `{}`.
+
+### Voice
+
+**Section**: `[agents.voice]`
+
+* `voice_input_enabled` — Controls whether voice input is enabled for AI interactions. Type: boolean. Default: `true`.
+* `voice_input_toggle_key` — The key used to toggle voice input. Type: string. Default: `"none"`. Options: `"none"`, `"fn"`, `"alt_left"`, `"alt_right"`, `"control_left"`, `"control_right"`, `"super_left"`, `"super_right"`, `"shift_left"`, `"shift_right"`.
+
+## Code
+
+Settings for Warp's built-in code editor, file handling, and codebase indexing.
+
+**Section**: `[code]`
+
+### Editor
+
+**Section**: `[code.editor]`
+
+* `open_file_editor` — The editor used to open files. Type: string or object. Default: `"system_default"`. Options: `"system_default"`, `"warp"`, `"env_editor"`, or an external editor object such as `{ external_editor = "v_s_code" }`. Supported external editors: VS Code (`v_s_code`), VS Code Insiders (`v_s_code_insiders`), PyCharm (`py_charm`), IntelliJ IDEA (`intelli_j`), CLion (`c_lion`), RustRover (`rust_rover`), Sublime Text 4 (`sublime4`), Zed (`zed`), Cursor (`cursor`), Windsurf (`windsurf`), and others.
+* `open_code_panels_file_editor` — The editor used to open files from code panels. Type: string or object. Default: `"warp"`.
+* `open_file_layout` — The layout used when opening files in the editor. Type: string. Default: `"split_pane"`. Options: `"split_pane"`, `"new_tab"`.
+* `prefer_markdown_viewer` — Whether to use the Markdown viewer when opening Markdown files. Type: boolean. Default: `true`.
+* `prefer_tabbed_editor_view` — Whether to prefer opening files in a tabbed editor view. Type: boolean. Default: `true`.
+* `show_code_review_button` — Whether to show the code review button on tabs. Type: boolean. Default: `true`.
+* `auto_open_code_review_pane_on_first_agent_change` — Whether to automatically open the code review pane when the agent makes its first change. Type: boolean. Default: `false`.
+* `show_code_review_diff_stats` — Whether to show lines added/removed counts on the code review button. Type: boolean. Default: `true`.
+* `show_project_explorer` — Whether the project explorer is shown in the tools panel. Type: boolean. Default: `true`.
+* `show_global_search` — Whether global file search is shown in the tools panel. Type: boolean. Default: `true`.
+* `use_warp_as_default_editor` — Whether Warp is used as the default code editor. Type: boolean. Default: `false`.
+
+### Indexing
+
+**Section**: `[code.indexing]`
+
+* `agent_mode_codebase_context` — Whether Codebase Context is provided to the agent. Type: boolean. Default: `true`.
+* `agent_mode_codebase_context_auto_indexing` — Whether automatic codebase indexing is enabled. Type: boolean. Default: `false`.
+
+## Keys
+
+Keyboard behavior settings.
+
+**Section**: `[keys]`
+
+* `ctrl_tab_behavior_setting` — Controls the behavior of `Ctrl+Tab`. Type: string. Default: `"activate_prev_next_tab"`. Options: `"activate_prev_next_tab"`, `"cycle_most_recent_session"`.
+
+## Notifications
+
+Settings that control desktop notification behavior.
+
+**Section**: `[notifications]`
+
+* `toast_duration_secs` — How long notification toasts are displayed, in seconds. Type: integer. Default: `8`.
+
+### Preferences
+
+**Section**: `[notifications.preferences]`
+
+* `mode` — Whether notifications are enabled, disabled, or not yet configured. Type: string. Default: `"unset"`. Options: `"unset"`, `"dismissed"`, `"enabled"`, `"disabled"`.
+* `is_long_running_enabled` — Whether to notify when a long-running command completes. Type: boolean. Default: `true`.
+* `long_running_threshold` — Threshold in seconds for long-running command notifications. Type: integer. Default: `30`.
+* `is_agent_task_completed_enabled` — Whether to notify when an agent task completes. Type: boolean. Default: `true`.
+* `is_needs_attention_enabled` — Whether to notify when a session needs attention. Type: boolean. Default: `true`.
+* `is_password_prompt_enabled` — Whether to notify when a password prompt is detected. Type: boolean. Default: `true`.
+* `play_notification_sound` — Whether to play a sound with notifications. Type: boolean. Default: `true`.
+
+## Privacy
+
+Settings that control telemetry, crash reporting, and secret redaction.
+
+**Section**: `[privacy]`
+
+* `telemetry_enabled` — Whether anonymous usage telemetry is collected. Type: boolean. Default: `true`.
+* `crash_reporting_enabled` — Whether crash reports are sent. Type: boolean. Default: `true`.
+* `custom_secret_regex_list` — Custom regex patterns for detecting and redacting secrets. Type: array of objects. Default: `[]`.
+
+Each item in `custom_secret_regex_list` has the format:
+
+```toml
+[[privacy.custom_secret_regex_list]]
+pattern = "sk-[A-Za-z0-9]{48}"
+name = "OpenAI API key"
+```
+
+### Secret redaction
+
+**Section**: `[privacy.secret_redaction]`
+
+* `enabled` — Whether secret redaction is enabled to detect and obscure secrets in terminal output. Type: boolean. Default: `false`.
+* `hide_secrets_in_block_list` — Whether to hide detected secrets in the block list using asterisks. Type: boolean. Default: `false`.
+* `secret_display_mode_setting` — Controls how detected secrets are visually displayed. Type: string. Default: `"strikethrough"`. Options: `"asterisks"`, `"strikethrough"`, `"always_show"`.
+
+## System
+
+Low-level system and rendering settings.
+
+**Section**: `[system]`
+
+* `prefer_low_power_gpu` — Whether to prefer the integrated (low-power) GPU. Type: boolean. Default: `false`.
+* `preferred_graphics_backend` — The preferred graphics backend (Windows). Type: string or null. Default: `null`. Options: `"dx12"`, `"vulkan"`, `"gl"`, `"metal"`, `null`.
+* `linux_selection_clipboard` — Whether the Linux primary selection clipboard is used. Type: boolean. Default: `true`.
+
+## Text editing
+
+Settings that control text editing behavior in the input editor.
+
+**Section**: `[text_editing]`
+
+* `vim_mode_enabled` — Whether Vim keybindings are enabled. Type: boolean. Default: `false`.
+* `vim_status_bar` — Whether the Vim status bar is displayed. Type: boolean. Default: `true`.
+* `vim_unnamed_system_clipboard` — Whether the Vim unnamed register uses the system clipboard. Type: boolean. Default: `false`.
+* `autocomplete_symbols` — Whether matching symbols like brackets and quotes are auto-completed. Type: boolean. Default: `true`.
+
+## Warp Drive
+
+Settings for Warp Drive (shared workflows, notebooks, and prompts).
+
+**Section**: `[warp_drive]`
+
+* `enabled` — Whether Warp Drive is enabled. Type: boolean. Default: `true`.
+* `sorting_choice` — The sort order for items in Warp Drive. Type: string. Default: `"by_object_type"`. Options: `"by_timestamp"`, `"alphabetical_descending"`, `"alphabetical_ascending"`, `"by_object_type"`.
+
+## Warpify
+
+Settings for Warp features in SSH sessions and subshells.
+
+### SSH
+
+**Section**: `[warpify.ssh]`
+
+* `enable_ssh_warpification` — Whether to enable Warp features in SSH sessions. Type: boolean. Default: `true`.
+* `enable_legacy_ssh_wrapper` — Whether the legacy SSH wrapper is enabled for SSH sessions. Type: boolean. Default: `true`.
+* `use_ssh_tmux_wrapper` — Whether to use a tmux-based wrapper for SSH warpification. Type: boolean. Default: `false`.
+* `ssh_extension_install_mode` — Controls SSH extension installation behavior. Type: string. Default: `"always_ask"`. Options: `"always_ask"` (always prompt before installing), `"always_install"` (auto-install and connect without prompting), `"never_install"` (fall back to legacy warpification).
+* `ssh_hosts_denylist` — SSH hosts that should not trigger the warpification prompt. Type: array of strings. Default: `[]`.
+
+### Subshells
+
+**Section**: `[warpify.subshells]`
+
+* `added_subshell_commands` — Additional regex patterns for commands that should be recognized as subshells. Type: array of strings. Default: `[]`.
+* `subshell_commands_denylist` — Commands that should not trigger the subshell warpification prompt. Type: array of strings. Default: `[]`.
+
+## Workflows
+
+Settings for workflow behavior.
+
+**Section**: `[workflows]`
+
+* `show_global_workflows_in_universal_search` — Whether to show global workflows in universal search results. Type: boolean. Default: `false`.
+
+## Accessibility
+
+Settings for screen reader support.
+
+**Section**: `[accessibility]`
+
+* `accessibility_verbosity` — The verbosity level for screen reader announcements. Type: string. Default: `"verbose"`. Options: `"verbose"` (includes help string), `"concise"` (value only).
+
+## Account
+
+Settings related to your Warp account.
+
+**Section**: `[account]`
+
+* `is_settings_sync_enabled` — Whether settings are synced across devices via the cloud. Type: boolean. Default: `false`.
+
+## Cloud platform
+
+Settings for third-party API key integration and cloud model configuration.
+
+### Third-party API keys
+
+**Section**: `[cloud_platform.third_party_api_keys]`
+
+* `aws_bedrock_credentials_enabled` — Whether Warp should use your local AWS credentials for Bedrock-enabled requests. Type: boolean. Default: `false`.
+* `aws_bedrock_profile` — The AWS profile name to use for Bedrock credentials. Type: string. Default: `"default"`.
+* `aws_bedrock_auto_login` — Whether to automatically run the AWS login command when Bedrock credentials expire. Type: boolean. Default: `false`.
+* `aws_bedrock_auth_refresh_command` — The command to run to refresh AWS credentials for Bedrock. Type: string. Default: `"aws login"`.
+* `can_use_warp_credits_with_byok` — Whether Warp credits can be used even when providing your own API key. Type: boolean. Default: `false`.
+
+## Global hotkey
+
+Settings for the global activation hotkey and dedicated hotkey window (Quake Mode).
+
+### Toggle all windows
+
+**Section**: `[global_hotkey.toggle_all_windows]`
+
+* `enabled` — Whether the hotkey that toggles visibility of all windows is enabled. Mutually exclusive with `global_hotkey.dedicated_window.enabled`. Type: boolean. Default: `false`.
+* `keybinding` — The keybinding for the global activation hotkey. Format: modifiers and a key joined by `-`, for example `"cmd-shift-a"` or `"alt-enter"`. Type: string or null. Default: `null`.
+
+### Dedicated window (Quake Mode)
+
+**Section**: `[global_hotkey.dedicated_window]`
+
+* `enabled` — Whether the dedicated hotkey window is enabled. Mutually exclusive with `global_hotkey.toggle_all_windows.enabled`. Type: boolean. Default: `false`.
+
+**Section**: `[global_hotkey.dedicated_window.settings]`
+
+* `active_pin_position` — Screen edge where the hotkey window is pinned. Type: string. Options: `"top"`, `"bottom"`, `"left"`, `"right"`.
+* `hide_window_when_unfocused` — Whether to hide the hotkey window when it loses focus. Type: boolean.
+* `keybinding` — Keyboard shortcut to toggle the hotkey window. Type: string or null.
+* `pin_screen` — Display to pin the hotkey window to. Type: string or object or null. Options: `"primary"`, `{ external = 1 }`, `null`.
+
+Window size percentages are configured per pin position:
+
+```toml
+[global_hotkey.dedicated_window]
+enabled = true
+
+[global_hotkey.dedicated_window.settings]
+active_pin_position = "top"
+hide_window_when_unfocused = true
+keybinding = "ctrl-`"
+
+[global_hotkey.dedicated_window.settings.pin_position_to_size_percentages.top]
+width = 100
+height = 30
+
+[global_hotkey.dedicated_window.settings.pin_position_to_size_percentages.bottom]
+width = 100
+height = 30
+
+[global_hotkey.dedicated_window.settings.pin_position_to_size_percentages.left]
+width = 40
+height = 100
+
+[global_hotkey.dedicated_window.settings.pin_position_to_size_percentages.right]
+width = 40
+height = 100
+```

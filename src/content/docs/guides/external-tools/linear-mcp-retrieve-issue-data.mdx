@@ -1,0 +1,64 @@
+---
+title: "Linear MCP: Retrieve issue data"
+description: >-
+  Add the Linear MCP server to Warp and query your issues, tasks, and
+  assignments directly from the terminal.
+---
+import VideoEmbed from '@components/VideoEmbed.astro';
+
+Learn how to connect the Linear MCP server in Warp so your AI agent can access live data — like issues, tickets, and user assignments — directly from your Linear workspace.
+
+<VideoEmbed url="https://youtu.be/jxeMfuS1pXk" />
+
+---
+
+#### Overview
+
+This tutorial covers how to:
+
+* Add and configure a Linear MCP server in Warp
+* Use MCP to query and retrieve issue data
+
+### 1. Adding the Linear MCP Serve
+
+#### Add a new server in Warp
+
+* In Warp, open Warp Drive → Personal → MCP Servers.\
+  Alternatively, press `⌘P` and type **MCP servers** to open the palette.
+* Click **Add New Server**.
+* Paste in this JSON
+
+```json
+{
+  "linear": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://mcp.linear.app/sse"],
+      "env": {},
+      "working_directory": null
+    } 
+}
+```
+
+* Click Save.
+* Warp will immediately start the server.&#x20;
+* You should now see Linear MCP listed as Running.
+
+---
+
+### 2. Testing the Connection
+
+After saving, retry your earlier query:
+
+```
+Show me all Linear tasks assigned to me.
+```
+
+Warp’s agent will now call the Linear MCP server to fetch your data. You can click inside the response panel to inspect the **raw API response** — ideal for debugging or understanding what’s being fetched.
+
+If the server can’t find your user, it may be due to your Linear login address. Try querying a teammate to confirm the connection:
+
+```
+Show tasks assigned to [teammate name].
+```
+
+Once verified, the agent can display a full list of tasks.

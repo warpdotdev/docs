@@ -1,0 +1,55 @@
+---
+title: integration_disabled
+description: >-
+  The integration (Slack, Linear, etc.) is currently disabled in the Oz
+  settings. Enable it to continue.
+---
+
+The `integration_disabled` error occurs when a task targets an integration that is currently disabled in the Oz settings.
+
+---
+
+## Details
+
+* **HTTP Status:** `403 Forbidden`
+* **Retryable:** No
+* **Task State:** FAILED
+
+---
+
+## When does this occur?
+
+This error is returned when:
+
+* A Slack message, Linear issue, or other integration event triggers a cloud agent, but the corresponding integration has been disabled in the Oz settings
+* The integration was previously active but has been turned off by a team admin
+
+---
+
+## Example response
+
+```json
+{
+  "type": "/reference/api-and-sdk/troubleshooting/errors/integration-disabled/",
+  "title": "This integration is disabled. Please enable it in Oz.",
+  "status": 403,
+  "instance": "/api/v1/agent/tasks",
+  "error": "This integration is disabled. Please enable it in Oz.",
+  "retryable": false
+}
+```
+
+---
+
+## How to resolve
+
+1. Go to the [Oz integrations page](https://oz.warp.dev/integrations).
+2. Enable the integration that was disabled.
+3. Retry the triggering event or task.
+
+---
+
+## Related
+
+* [Integrations](/agent-platform/cloud-agents/integrations/) — Configuring Slack, Linear, and GitHub integrations
+* [Oz Web App](/agent-platform/cloud-agents/oz-web-app/) — Managing integrations via the web interface

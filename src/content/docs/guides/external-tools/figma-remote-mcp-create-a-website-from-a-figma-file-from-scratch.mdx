@@ -1,0 +1,115 @@
+---
+title: "Figma Remote MCP: Create a Website from a Figma File from Scratch"
+description: >-
+  Connect Warp to Figma's remote MCP server via OAuth and generate front-end
+  code directly from your design files.
+sidebar:
+  label: "Figma Remote MCP: Create a website from a Figma file from scratch"
+---
+import VideoEmbed from '@components/VideoEmbed.astro';
+import { Steps } from '@astrojs/starlight/components';
+
+Learn how to connect Warp to Figma’s remote MCP server to generate code directly from your design files — complete with screenshots, metadata, and design system context.
+
+<VideoEmbed url="https://youtu.be/PsM_Y8Pt-1Q?si=wYT-lXf-FYUizrEy" />
+
+---
+
+## Overview
+
+This guide covers how to:
+
+* Connect Warp to the **remote Figma MCP server**
+* Log in securely using OAuth
+* Use the server to pull live context (components, variables, and assets) from your Figma designs
+* Generate front-end code based on your UI files
+* Iterate and refine output directly in Warp
+
+---
+
+<Steps>
+
+1. #### What Is a Remote MCP Server?
+
+   A **remote MCP server** runs outside your local machine — Warp connects to it through a secure network call.\
+   \
+   This means you don’t have to manage processes, ports, or tokens manually. Warp handles setup, authentication, and communication for you.
+
+2. #### Connect Figma MCP to Warp
+
+   * Copy the Figma MCP configuration JSON
+
+   ```
+   {
+     "Figma": {
+       "url": "https://mcp.figma.com/mcp"
+     }
+   }
+   ```
+
+   * In Warp, paste the JSON — Warp will automatically open an OAuth login window.
+   * Log in once with your **Figma account** credentials.
+
+   :::note
+   You will need a Figma Dev account for this to work.
+   :::
+
+3. #### What the Figma MCP Server Provides
+
+   Once connected, the server enables Warp’s AI to understand your design context by fetching:
+
+   | Type                             | Description                                                          |
+   | -------------------------------- | -------------------------------------------------------------------- |
+   | **`get_screenshot`**             | Helps the AI visualize layout and relationships between elements.    |
+   | **`create_design_system_rules`** | Components, variables, and styles for consistent, reusable code.     |
+   | **`get_code`**                   | Extracts code from your Figma design for direct use in projects.     |
+   | **`get_metadata`**               | Includes text, images, and layer names for more realistic mock data. |
+
+4. #### Generate a Website from a Figma File
+
+   Basic flow:
+
+   * Copy your **Figma file link**:
+     * Right-click → _Copy / Paste As → Copy Link to Selection_
+   * In Warp, paste a prompt to create a website based on that design.
+
+   Prompt:
+
+   ```
+   Create a website from this Figma file: <LINK HERE>
+   Follow the design layout and use these guidelines:
+   - Match spacing and typography from the design
+   - Use Tailwind CSS and TypeScript
+   - Make components reusable
+   ```
+   Warp uses the Figma MCP server to pull all necessary context and begin generating code diffs.
+
+5. #### Iterating on Output
+
+   * In under five minutes, Warp generates a working site structure based on the Figma layout.
+   * Missing assets (e.g., logos or images) are automatically referenced in an `assets/` folder.
+   * Warp prompts you to add any missing files before continuing.
+
+6. #### Persistent Input Feature
+
+   Warp’s **persistent input** allows mid-process updates.\
+   If you forget an image (e.g., the Misho logo), simply upload it and notify Warp:
+
+   ```
+   I’ve uploaded the Misho logo to the assets folder.
+   ```
+
+   Warp will automatically detect and use it during the same generation session.
+
+7. #### Recap
+
+   * Warp now supports **remote MCP servers** for Figma (and others like GitHub, Sentry, and Linear).
+   * OAuth login streamlines setup and removes manual token handling.
+   * The Figma MCP integration enables rapid, context-aware code generation.
+   * Persistent input and real-time iteration make design-to-code workflows seamless.
+
+   :::tip
+   In under 20 minutes, you can go from Figma design to a functioning website — all powered by Warp’s AI coding environment.
+   :::
+
+</Steps>

@@ -1,0 +1,372 @@
+---
+title: Oz CLI
+description: >-
+  Use the Oz CLI to run, configure, and manage agents from the terminal.
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+:::note
+**`warp-cli` is deprecated and has been replaced by `oz`.** If you have `warp-cli` installed, it will auto-update to `oz`. All the same commands are available, just replace `warp-cli` with `oz` in your scripts and workflows.
+:::
+
+## What is the Oz CLI?
+
+The Oz CLI is the command-line tool that lets you run [Cloud Agents](/agent-platform/cloud-agents/overview/) from anywhere, including terminals, scripts, automated systems, or services.
+
+It's the standard runtime entry point that turns a **prompt** plus **configuration** into an **executable agent task** that runs on either a **Warp-hosted or [self-hosted](/agent-platform/cloud-agents/self-hosting/) runner**.
+
+With the Oz CLI, you can:
+
+* Run agents locally for development and debugging
+* Run agents on remote machines
+* Connect agents to MCP servers like GitHub and Linear
+* Configure integrations that connect agents to Slack, Linear, and other trigger surfaces
+
+## Installing the CLI
+
+You can install the Oz CLI as part of the Warp desktop app, or as a standalone package.
+
+### Bundled with Warp
+
+The Oz CLI is automatically distributed with the Warp desktop app and can be used right away in Warp. To make the CLI globally available, add it to your `PATH`.
+
+<Tabs>
+  <TabItem label="macOS">
+    To add the Oz CLI to your `PATH`:
+
+    1. Open the [Command Palette](/terminal/command-palette/) (`CMD+P` )
+    2. In the search field, find and select the **Install Oz CLI Command** action.
+
+    :::note
+    **Note:** Administrator permissions are required to install the CLI into `/usr/local/bin` .
+    :::
+  </TabItem>
+  <TabItem label="Windows">
+    In the Warp installer, select **Add Warp to PATH**. If you are installing for all users, this will put the CLI on the system path. Otherwise, the CLI is only added to the path for your account.
+  </TabItem>
+  <TabItem label="Linux">
+    To run the Oz CLI on Linux, use the same command that you'd use to start Warp normally. If you installed Warp via a package manager, it should already be on the system `PATH`.
+  </TabItem>
+</Tabs>
+
+### Standalone package
+
+Warp provides standalone packages for the CLI on macOS and Linux, without the Warp app.
+
+<Tabs>
+  <TabItem label="macOS">
+    On macOS, we recommend that you install and update the standalone CLI with [Homebrew](https://brew.sh/), using the [`warpdotdev/warp` tap](https://github.com/warpdotdev/homebrew-warp):
+
+    ```sh
+    $ brew tap warpdotdev/warp
+    $ brew update
+    $ brew install --cask oz
+    ```
+
+    If you're using Warp Preview, install the preview version of the CLI instead:
+
+    ```sh
+    brew install --cask oz@preview
+    ```
+
+    ***
+
+    You can also download the CLI directly from these URLs:
+
+    * [Apple Silicon](https://app.warp.dev/download/cli?os=macos\&package=tar\&arch=aarch64)
+    * [Intel](https://app.warp.dev/download/cli?os=macos\&package=tar\&arch=x86_64)
+    * [Apple Silicon, Warp Preview](https://app.warp.dev/download/cli?os=macos\&channel=preview\&package=tar\&arch=aarch64)
+    * [Intel, Warp Preview](https://app.warp.dev/download/cli?os=macos\&channel=preview\&package=tar\&arch=x86_64)
+
+    :::note
+    **Note:** These builds do not auto-update.
+    :::
+  </TabItem>
+  <TabItem label="Linux">
+    On Linux, we recommend that you install and update the standalone CLI through your distribution's package manager. We support `apt`, `yum`, and `pacman`.
+
+    1. Add the Warp package repository for your distribution (see the [installation instructions](/getting-started/quickstart/installation-and-setup/)).
+    2. Install either the stable or Preview package (replace `apt` with `yum` or `pacman` as needed):
+
+    ```sh
+    # Stable
+    sudo apt install oz-stable
+
+    # Preview (beta/early-access)
+    sudo apt install oz-preview
+
+    ```
+
+    :::note
+    **Note:** The package name (`oz-stable`) differs from the CLI command executable (`oz`). After installation, use the CLI via `oz` commands.
+    :::
+
+    ***
+
+    You can also install the CLI by downloading a package directly. These installers automatically add the Warp repository, so future updates come through your package manager:
+
+    * x86-64: [`.deb`](https://app.warp.dev/download/cli?os=linux\&package=deb\&arch=x86_64), [`.rpm`](https://app.warp.dev/download/cli?os=linux\&package=rpm\&arch=x86_64), [pacman](https://app.warp.dev/download/cli?os=linux\&package=pacman\&arch=x86_64)
+    * aarch64: [`.deb`](https://app.warp.dev/download/cli?os=linux\&package=deb\&arch=aarch64), [`.rpm`](https://app.warp.dev/download/cli?os=linux\&package=rpm\&arch=aarch64), [pacman](https://app.warp.dev/download/cli?os=linux\&package=pacman\&arch=aarch64)
+  </TabItem>
+  <TabItem label="Windows">
+    A standalone CLI package is not currently available on Windows. To use the Oz CLI on Windows, install the Warp app, which bundles the CLI.
+
+    You can install Warp using [WinGet](https://learn.microsoft.com/en-us/windows/package-manager/winget/):
+
+    ```powershell
+    winget install Warp.Warp
+    ```
+
+    After installation, see [Bundled with Warp](#bundled-with-warp) for instructions on adding the CLI to your `PATH`.
+  </TabItem>
+</Tabs>
+
+## Running the CLI
+
+Regardless of your OS or installation method, the CLI command is `oz`. If you're using [Warp Preview](/support-and-community/community/warp-preview-and-alpha-program/), use `oz-preview` instead.
+
+## Logging in
+
+The Oz CLI supports two authentication methods, depending on where and how you're running agents.
+
+* **Interactive login —** best for local machines where you have Warp installed and can authenticate through a browser.
+* **API keys** — best for automated or remote environments that need to authenticate without human interaction.
+
+### Interactive login (local machines)
+
+Use interactive login when you’re working on a machine where you already use the Warp app, or when you can open a browser to complete authentication.
+
+If you use the CLI on a host where you're already signed in to Warp, it automatically reuses your existing credentials.
+
+To authenticate interactively:
+
+```bash
+oz login
+```
+
+The CLI prints out a URL that you can open in any browser to login to Warp.
+
+### API key authentication
+
+Use an API key when the environment must authenticate on its own, such as CI pipelines, headless servers, VMs, Codespaces, or containers. API keys let the CLI authenticate non-interactively.
+
+For detailed instructions on creating, managing, and using API keys, see [API Keys](/reference/cli/api-keys/).
+
+**Quick start:**
+
+```sh
+$ export WARP_API_KEY="wk-xxx..."
+$ oz agent run --prompt "analyze this codebase"
+```
+
+---
+
+## Running agents
+
+The Oz CLI offers two ways to run agents, depending on where you want the work to happen:
+
+**Use `oz agent run` when:**
+
+* You're developing locally and want immediate feedback
+* You need the agent to work with files in your current directory
+* You want to inspect and modify the agent's work in real time
+* You're debugging or iterating on prompts
+
+**Use `oz agent run-cloud` when:**
+
+* You want the agent to run on a remote machine or standardized environment
+* You're triggering agent work from CI/CD or automated systems
+* You need the agent to run independently of your local session
+* You're delegating work that doesn't require your immediate attention
+
+### Running locally: \`oz agent run\`
+
+To start an agent, use the `oz agent run` subcommand. You'll need to specify a prompt and, optionally, the [MCP servers](/agent-platform/capabilities/mcp/) and [agent profile](/agent-platform/capabilities/agent-profiles-permissions/) to use.
+
+```sh
+oz agent run --prompt "set up a new Rust crate named warp-cli"
+I'll run a few terminal commands to:
+- Check if this is a Git repo and Cargo workspace
+- Create a new binary crate named warp-cli
+```
+
+**Key flags:**
+
+* `--cwd <PATH>` (`-C`) — run from a different directory.
+* `--name <NAME>` (`-n`) — label the run for grouping and traceability.
+* `--share` — share the session with teammates (see [Collaboration](/reference/cli/#collaboration)).
+* `--profile <ID>` — use a specific agent profile (see [Using Agent Profiles](/reference/cli/#using-agent-profiles)).
+* `--model <MODEL_ID>` — override the default model (see [Model Choice](/agent-platform/capabilities/model-choice/)).
+* `--skill <SPEC>` — use a skill as the base prompt (see [Using Skills](/reference/cli/#using-skills)).
+* `--mcp <SPEC>` — start one or more MCP servers before execution (UUID, JSON file path, or inline JSON). Can be repeated.
+* `--environment <ID>` (`-e`) — run in a specific cloud environment.
+* `--file <PATH>` (`-f`) — load run configuration from a YAML or JSON file.
+
+The agent will automatically carry out the task you gave it, printing out tool calls and responses as it works.
+
+By default, the agent runs in your current working directory. To run from a different directory, use the `-C/--cwd` flag.
+
+### Running agents remotely: \`oz agent run-cloud\`
+
+Cloud runs dispatch tasks to remote environments. Use cloud runs for:
+
+* Background processing
+* Standardized team configurations
+* Remote execution on servers you don't directly access
+
+```sh
+oz agent run-cloud \
+  --environment <ENVIRONMENT_ID> \
+  --name "Repo summary" \
+  --prompt "Summarize this repo and list the top 5 risky areas" \
+  --open
+```
+
+**Key flags**
+
+* `--environment <ENVIRONMENT_ID>` (`-e`) — select the environment to run in.
+* `--no-environment` — run without an environment (not recommended).
+* `--open` — view the agent's session in Warp once it's available.
+* `--name <NAME>` (`-n`) — label the run for grouping and traceability (see [Naming runs](/reference/cli/#naming-runs) below).
+* `--mcp <SPEC>` — start one or more MCP servers before execution (UUID, JSON file path, or inline JSON). Can be repeated.
+* `--model <MODEL_ID>` — override the default model.
+* `--skill <SPEC>` — use a skill from the environment's repository as the base prompt (see [Using Skills](/reference/cli/#using-skills)).
+* `--host <WORKER_ID>` — run on a specific self-hosted worker instead of Warp-hosted infrastructure.
+* `--attach <PATH>` — attach an image file to the agent query. Can be repeated (maximum 5).
+* `--computer-use` / `--no-computer-use` — enable or disable [Computer Use](/agent-platform/capabilities/computer-use/) for this run.
+* `--file <PATH>` (`-f`) — load run configuration from a YAML or JSON file.
+
+**Key differences from `run`**
+
+* No `--cwd` — the environment determines the working directory.
+* No `--share` — sharing options are on `run`, not `run-cloud`.
+* No `--profile` — cloud runs do not use agent profiles.
+
+#### Naming runs
+
+The `--name` flag assigns a config name to the run. Use it to group related runs under a shared label so you can filter, search, and track them later.
+
+**How names work:**
+
+* **Skill-based runs** — When you run an agent from a [skill](/agent-platform/capabilities/skills/), the name is automatically set to the skill name. You don't need to pass `--name` explicitly.
+* **Custom runs** — When you build your own automation (via the CLI, API, or SDK), set `--name` to a consistent value that describes the workflow's intent.
+
+**Why naming matters:**
+
+When your team runs many agents across schedules, integrations, and ad-hoc triggers, `name` lets you answer questions like "how many distinct workflows are we running?" and "how often does this particular workflow run?" You can filter runs by name using the `name` query parameter on `GET /agent/runs` in the [Oz API](/reference/api-and-sdk/).
+
+**Examples:**
+
+```sh
+# Name a recurring workflow for easy tracking
+oz agent run-cloud \
+  --environment <ENVIRONMENT_ID> \
+  --name "nightly-dependency-check" \
+  --prompt "Check for outdated dependencies and open a PR with updates"
+
+# Skill-based runs are named automatically
+oz agent run-cloud \
+  --environment <ENVIRONMENT_ID> \
+  --skill "myorg/backend:code-review" \
+  --prompt "review the latest PR"
+```
+
+**When cloud runs fail**
+
+* Verify your environment has the correct repository and context.
+* Check that your profile allows the commands and MCP servers needed.
+* Ensure environment variables are set in the environment, not your local shell.
+
+#### Reusing saved prompts and Warp Drive objects
+
+You can reuse saved prompts with `--saved-prompt`, and reference notebooks, workflows, and rules inline in any `--prompt` string. See [Referencing Warp Drive objects](/reference/cli/warp-drive/) for details.
+
+## Using agent profiles
+
+Agent profiles control what the agent can do, how it behaves, and where it can act. Use the `--profile` flag with `oz agent run` to apply a specific profile.
+
+See [Agent profiles](/reference/cli/agent-profiles/) for how to find profile IDs and apply them.
+
+## Using MCP servers
+
+MCP servers connect agents to external systems like GitHub, Linear, or Sentry. Use the `--mcp` flag with any of three formats: a Warp MCP server UUID, inline JSON, or a path to a JSON config file.
+
+See [MCP Servers](/reference/cli/mcp-servers/) for full details, including how to find UUIDs, combine multiple servers, and handle environment variables on remote machines.
+
+## Using skills
+
+[Skills](/agent-platform/capabilities/skills/) are reusable instruction sets that teach agents how to perform specific tasks. Use the `--skill` flag to run an agent from a skill stored in a repository.
+
+See [Skills](/reference/cli/skills/) for supported spec formats and examples for both local and cloud agent runs.
+
+## Collaboration
+
+In addition to text-based output, the CLI can share the agent's session for you to access on other devices or in a browser. To enable [Agent Session Sharing](/agent-platform/local-agents/session-sharing/), use the `--share` flag.
+
+By default, the session is only accessible to the user running the CLI, but you can also share with [Teams](/knowledge-and-collaboration/teams/) or other Warp users:
+
+```sh
+# Share the agent's session with yourself:
+$ oz agent run --share --prompt "fix the compiler error"
+
+# Give specific users view-only access to a session:
+$ oz agent run --share firstuser@example.com --share otheruser@example.com --prompt "fix the compiler error"
+
+# Let any user on your team edit the session:
+$ oz agent run --share team:edit --prompt "fix the compiler error"
+```
+
+The `--share` flag can be repeated, and uses the following syntax:
+
+* `--share user@email.com` or `--share user@email.com:view` — gives specified user read-only access to the session.
+* `--share user@email.com:edit` — gives specified user `user@email.com` read/write access to the session.
+* `--share team` or `--share team:view` — gives all members of your team read-only access to the session.
+* `--share team:edit` — gives all members of your team read/write access to the session.
+
+## Additional commands
+
+The following commands are available for managing and inspecting Oz resources.
+
+### `oz agent list`
+
+List all available skills discovered from your environments. Optionally filter by repository:
+
+```sh
+oz agent list
+oz agent list --repo owner/repo
+```
+
+### `oz run list` / `oz run get`
+
+List and inspect cloud agent runs:
+
+```sh
+# List recent runs (default: 10)
+oz run list
+oz run list --limit 20
+
+# Get details for a specific run
+oz run get <RUN_ID>
+```
+
+### `oz model list`
+
+List all available models:
+
+```sh
+oz model list
+```
+
+### `oz environment image list`
+
+List suggested base images for cloud environments:
+
+```sh
+oz environment image list
+```
+
+---
+
+## Troubleshooting
+
+For built-in CLI help commands and solutions to common errors — including authentication issues, agent failures, environment problems, and Docker image issues — see [Troubleshooting](/reference/cli/troubleshooting/).

@@ -1,0 +1,62 @@
+---
+title: Global Hotkey
+description: >-
+  Show or hide Warp instantly with a global hotkey, including a dedicated
+  Quake-style drop-down window.
+---
+import DemoVideo from '@components/DemoVideo.astro';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+:::note
+On macOS, [system keyboard shortcuts](https://support.apple.com/en-us/HT201236) like `CMD-ESC`, `CMD-BACKTICK`, `CMD-TAB`, `CMD-PERIOD`, and `CMD-TILDE` need to be [unbound](https://support.apple.com/guide/mac-help/keyboard-shortcuts-mchlp2262/mac) before you can use them in Warp.
+:::
+
+:::caution
+On Linux, the Global Hotkey may not work for some X11 window managers that do not implement [Extended Window Manager Hints](https://en.wikipedia.org/wiki/Extended_Window_Manager_Hints). Some examples include: [sowm](https://github.com/dylanaraps/sowm), [catwm](https://github.com/pyknite/catwm), [Fvwm](https://www.fvwm.org/), [dwm](https://dwm.suckless.org/), [2bWM](https://github.com/venam/2bwm), [monsterwm](https://github.com/c00kiemon5ter/monsterwm), [TinyWM](https://github.com/mackstann/tinywm), [x11fs](https://github.com/sdhand/x11fs), [XMonad](https://xmonad.org/)
+:::
+
+## How to access it
+
+### Dedicated window
+
+Dedicated Window allows you to customize the windows' pinned position and its width and height ratio relative to your active screen size (also known as Quake Mode).
+
+1. Open **Settings** > **Features** > **Keys** and select "Dedicated hotkey window" from the Global Hotkey dropdown to enable the feature.
+2. Configure the keybinding, the windows position, screen, and relative size or uncheck "Autohides on the loss of keyboard focus" which will cause the dedicated Hotkey Window to stay on top when triggered regardless of mouse or keyboard focus.
+
+:::caution
+On Linux and Windows, Warp does not support the "Autohides on the loss of keyboard focus" feature.
+:::
+
+### Show/hide all windows
+
+Show/Hide All Windows allows you to configure a shortcut to show/hide all Warp windows.
+
+1. Open **Settings** > **Features** > **Keys** and select "Show/hide all windows" from the Global Hotkey dropdown to enable the feature.
+2. Configure your preferred keybinding.
+
+:::caution
+On Linux, hidden windows may not appear in your `ALT-TAB` window switcher menu. Furthermore, the ordering of windows beyond the top window may change after toggling.
+:::
+
+## How it works
+
+<DemoVideo src="/assets/terminal/Dedicated-Window.mp4" label="Global Hotkey - Dedicated Window Demo" />
+
+<DemoVideo src="/assets/terminal/Show-Hide-All-Windows.mp4" label="Global Hotkey - Show/Hide All Windows Demo" />
+
+## Troubleshooting hotkey dedicated window
+
+Review platform-specific instructions for troubleshooting the global hotkey below
+
+<Tabs>
+  <TabItem label="macOS">
+    If the keybinding doesn't work, check under `System Preferences > Security & Privacy > Accessibility` and tick the checkbox to grant Warp access.
+  </TabItem>
+  <TabItem label="Windows">
+    On Windows, there are no known issues with Global Hotkey Dedicated Window. If you find an issue, please [send feedback](/support-and-community/troubleshooting-and-support/sending-us-feedback/) to let us know.
+  </TabItem>
+  <TabItem label="Linux">
+    The hotkey window may appear on the incorrect monitor under certain window sizes. For example, with GNOME, if the hotkey window is supposed to show on a monitor having the taskbar (GNOME Panel), and the window height is 100%, causing an overlap, the hotkey window may fallback to showing on an external monitor if you have one. Try working around this by setting a window height to a lesser percentage, e.g. 90%.
+  </TabItem>
+</Tabs>

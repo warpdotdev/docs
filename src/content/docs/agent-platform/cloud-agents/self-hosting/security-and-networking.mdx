@@ -1,0 +1,107 @@
+---
+title: Security and networking
+description: >-
+  Security model, data boundaries, and network requirements for self-hosted Oz
+  cloud agents — including per-backend considerations and BYOLLM.
+---
+
+Self-hosting uses a split-plane architecture. Understanding which data stays on your infrastructure and which data routes through Warp is critical for security evaluation. This page summarizes the data model, network egress requirements, and backend-specific security considerations for self-hosted workers.
+
+:::note
+This page applies to both the [managed](/agent-platform/cloud-agents/self-hosting/#managed-architecture) and [unmanaged](/agent-platform/cloud-agents/self-hosting/unmanaged/) architectures. Backend-specific notes call out Docker-, Kubernetes-, and Direct-only considerations.
+:::
+
+## Data boundaries
+
+**Stored and executed only on your infrastructure:**
+
+* Repository clones and source files.
+* Build artifacts and compiled outputs.
+* Runtime secrets and environment variables.
+* Container filesystem state (managed architecture) or host workspace (Direct backend / unmanaged).
+
+**Routes through Warp's backend** (under [Zero Data Retention (ZDR)](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr)):
+
+* Orchestration metadata (task status, lifecycle events).
+* Session transcripts, which include agent-generated summaries of code context, file contents the agent reads, and command output.
+* LLM inference requests and responses, which include code context from the agent's interactions.
+
+:::note
+While repositories are cloned and stored only on your infrastructure, code content appears in session transcripts and LLM prompts as part of normal agent operation. All data routed through Warp's backend is covered by [ZDR](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr) agreements — Warp does not persistently store your source code or use it for model training.
+:::
+
+---
+
+## Network requirements
+
+Self-hosted Oz agents **do not require any network ingress**. They require outbound (egress) access to the following services:
+
+**Warp's backend (all architectures):**
+
+* `app.warp.dev` — port 443
+* `rtc.app.warp.dev` — port 443
+* `sessions.app.warp.dev` — port 443
+* `oz.warp.dev` — port 443 (managed architecture only)
+
+**Docker Hub** — for pulling task images (managed architecture only).
+
+**GitHub (`github.com`)** — only with the managed architecture, when using a Warp [environment](/agent-platform/cloud-agents/environments/) with configured GitHub repositories.
+
+**Linux distribution-specific package repositories** — only with the managed architecture, when using a Warp environment whose base image does not have Git pre-installed. The exact repositories depend on the package manager configuration in the environment's base image.
+
+:::note
+All traffic uses HTTPS (port 443). No inbound ports need to be opened.
+:::
+
+---
+
+## Backend-specific security considerations
+
+### Docker backend
+
+* **Docker socket access** — The worker requires access to the Docker daemon to create task containers. When running the worker via Docker, this means mounting `/var/run/docker.sock`. Ensure appropriate access controls on the host.
+* **Volume mounts** — If using `-v` / `--volumes`, be mindful of what host paths you expose to task containers.
+* **Task isolation** — Each task runs in its own container. Containers are removed after execution by default (disable with `--no-cleanup` for debugging).
+
+### Kubernetes backend
+
+* **Kubernetes RBAC** — The worker needs namespaced permissions to create, get, list, watch, and delete Jobs and Pods. The Helm chart creates a minimal Role/RoleBinding scoped to a single namespace. The task namespace must allow creating Jobs with a root init container, as sidecar materialization currently depends on that pattern. Review your Pod Security Standards and admission policies accordingly.
+* **Kubernetes service accounts** — The worker Deployment's ServiceAccount (used by the long-lived worker process) is separate from the optional task Job `serviceAccountName` you may configure in `pod_template`. Scope each appropriately.
+* **API key management** — Store `WARP_API_KEY` in a Kubernetes Secret. Avoid hardcoding it in scripts or config files. If your organization uses an external secrets manager (HashiCorp Vault, AWS Secrets Manager, GCP Secret Manager, etc.), you can inject secrets into task pods via the CSI Secrets Store Driver or a similar operator — configure the required `volumes`, `volumeMounts`, and annotations in `pod_template`.
+* **Task isolation** — Each task runs as a separate Kubernetes Job/Pod. Jobs are removed after execution by default (disable with `--no-cleanup` for debugging).
+
+### Direct backend
+
+* **Shared host kernel** — The Direct backend does not provide container-level isolation. Each task runs in an isolated workspace directory but shares the host OS and kernel.
+* **Minimal environment by default** — The Direct backend intentionally starts tasks with a minimal environment (`HOME`, `TMPDIR`, `PATH` only). Sensitive worker credentials like `WARP_API_KEY` are not passed to tasks unless explicitly configured.
+* **Workspace cleanup** — Workspaces under `workspace_root` are removed after execution by default (disable with `--no-cleanup` for debugging).
+
+### Unmanaged
+
+* **Host inheritance** — Agents inherit the host's network access, tools, and credentials. If the host has access to a VPN or internal services, the agent will too. Evaluate accordingly.
+* **Kubernetes pod isolation** — Whether Kubernetes pods provide sufficient sandboxing for agents depends on your cluster configuration and risk profile. Evaluate your pod security policies, network policies, and RBAC settings based on your organization's security requirements.
+
+---
+
+## VPN and on-premises access
+
+Since self-hosted agents run on your infrastructure, they inherit your network access. Self-hosted agents can reach services behind VPNs, self-hosted GitLab/Bitbucket instances, databases, and any other internal resources your host can reach. This is one of the primary reasons teams choose self-hosting.
+
+See [GitLab](/agent-platform/cloud-agents/integrations/gitlab/) and [Bitbucket](/agent-platform/cloud-agents/integrations/bitbucket/) setup guides for SCM integration details.
+
+---
+
+## LLM inference and BYOLLM
+
+LLM inference routes through Warp's backend, which has [ZDR](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr) agreements with all contracted model providers. Enterprise teams that need full control over inference routing can use [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/) to route inference through their own cloud provider accounts.
+
+BYOLLM currently applies to interactive (local) agents; cloud agent BYOLLM support is coming.
+
+---
+
+## Related pages
+
+* [Self-hosting overview](/agent-platform/cloud-agents/self-hosting/) — Managed vs unmanaged and architecture decision guide.
+* [Security overview](/enterprise/security-and-compliance/security-overview/) — Warp's broader security model, including ZDR.
+* [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/) — Route inference through your own cloud provider accounts.
+* [Self-hosted worker reference](/agent-platform/cloud-agents/self-hosting/reference/) — CLI flags and config schema, including every security-relevant option.

@@ -1,0 +1,92 @@
+---
+title: GitHub Actions quickstart
+description: >-
+  Set up your first Oz agent in GitHub Actions in ~10 minutes. Run agents as
+  workflow steps to automate code review and issue triage.
+---
+
+Add Oz agents to your GitHub Actions workflows with [`oz-agent-action`](https://github.com/warpdotdev/oz-agent-action). This quickstart walks you through setting up your first GitHub Actions integration: a PR review workflow that automatically analyzes pull requests and posts inline review comments.
+
+---
+
+## Prerequisites
+
+* **Warp API key** - In the Warp app, click your profile photo, then go to **Settings** > **Cloud platform** > **Oz Cloud API Keys** to create one. Use a personal key if the agent needs to write to your repo. See [API Keys](/reference/cli/api-keys/) for details.
+* **A GitHub repository with Actions enabled** - The workflow file will live in `.github/workflows/` in your repo.
+
+---
+
+## 1. Add your API key as a GitHub Actions secret
+
+Store your Warp API key as a GitHub Actions secret so workflows can authenticate without exposing the key in your code.
+
+1. In your repository on GitHub, go to **Settings** > **Secrets and variables** > **Actions**.
+2. Click **New repository secret**.
+3. Set the name to `WARP_API_KEY`.
+4. Paste your API key into the **Secret** field.
+5. Click **Add secret**.
+
+## 2. Create the workflow file
+
+This workflow triggers an Oz agent whenever a PR is opened or marked ready for review. The agent reviews the diff and posts inline comments.
+
+Create `.github/workflows/oz-pr-review.yml` in your repository with the following content:
+
+```yaml
+name: Oz PR review
+
+on:
+  pull_request:
+    types: [opened, ready_for_review]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Review PR with Oz
+        uses: warpdotdev/oz-agent-action@v1
+        with:
+          prompt: |
+            Review the code changes on this pull request:
+            1. Use `git diff origin/${{ github.base_ref }}...HEAD` to identify changes.
+            2. Analyze the diff for style, security, or correctness issues.
+            3. Use `gh pr review --comment` to post inline suggestions.
+          warp_api_key: ${{ secrets.WARP_API_KEY }}
+```
+
+This workflow listens for pull request events and runs the `oz-agent-action` step, which executes the prompt to review code changes. Commit and push this file to your default branch to activate the workflow.
+
+## 3. Open a pull request
+
+Create a new pull request in your repository to trigger the workflow.
+
+To verify the workflow ran:
+
+1. Go to the **Actions** tab in your repository.
+2. Click **Oz PR review** in the list of workflows.
+3. Select the most recent run to see the agent's output in the job logs.
+
+## 4. View the run
+
+Each `oz-agent-action` step creates a cloud agent run you can inspect from the Oz dashboard:
+
+* **Oz web app** - Go to [oz.warp.dev/runs](https://oz.warp.dev/runs) to see the full run transcript: status, commands executed, files changed, and agent output. See [Viewing Cloud Agent Runs](/agent-platform/cloud-agents/viewing-cloud-agent-runs/) for a complete walkthrough.
+* **Warp app** - Open the conversations panel to see the run alongside your other agent activity.
+
+When the run completes, the agent posts feedback as inline review comments on the PR.
+
+**Breaking it down:** The agent runs in Warp's cloud infrastructure — not on GitHub's runners — using the workflow's GitHub token for repository access. Each run is isolated, tracked, and auditable, just like any manually triggered cloud agent run.
+
+---
+
+## Next steps
+
+* **Explore more workflow patterns** - The [oz-agent-action repository](https://github.com/warpdotdev/oz-agent-action) includes ready-to-use consumer workflow templates for responding to `@oz-agent` comments, auto-fixing labeled issues, daily issue summaries, fixing failing CI checks, and suggesting review fixes. Copy any template from `consumer-workflows/` into `.github/workflows/` in your repo.
+* **Use skills for reusable behavior** - Replace the inline `prompt` with a `skill` parameter to apply consistent, version-controlled instructions across all your CI workflows. See [Skills](/agent-platform/capabilities/skills/).
+* **Read the full reference** - [GitHub Actions](/agent-platform/cloud-agents/integrations/github-actions/) covers all action inputs, output handling, session sharing for debugging, and troubleshooting.

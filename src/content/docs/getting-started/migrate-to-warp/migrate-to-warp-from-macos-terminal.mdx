@@ -1,0 +1,74 @@
+---
+title: Migrate to Warp from macOS Terminal
+description: >-
+  Switching to Warp from the default macOS Terminal app? Here's a quick
+  reference for matching your existing setup and discovering what Warp adds
+  beyond the basics.
+---
+
+Warp gives Terminal.app users everything they already have — shell, theme, font, prompt — plus split panes, tabs, blocks, and Agent Mode for an AI-assisted workflow. This page walks through both an agent-driven migration and the manual GUI steps.
+
+## What transfers automatically
+
+Warp doesn't ship a Terminal.app importer, but it can do most of the work for you agentically. Most Terminal.app users run near-default settings, so the migration usually takes only a few minutes either way.
+
+## Use Warp's agent to migrate your settings (recommended)
+
+The fastest way to bring over a Terminal.app theme is to ask Warp's agent to translate it directly. Warp ships a [`settings.toml` file](/terminal/settings/) and a bundled `modify-settings` skill that lets the agent read your Terminal.app preferences and write equivalent values into Warp's settings, including creating a matching [custom theme](/terminal/appearance/custom-themes/).
+
+1. In Warp, open a new tab and switch to [Agent Mode](/agent-platform/local-agents/overview/) with `⌘+I`.
+2. Paste a prompt like:
+
+   > Read my Terminal.app preferences with `defaults read com.apple.Terminal` and port the active profile (theme, font, window size) into my Warp `settings.toml` using the `modify-settings` skill. Create a matching custom theme. Show me a diff before applying.
+
+3. Review the proposed diff and approve. Warp hot-reloads `settings.toml`.
+
+If you'd rather configure each setting manually through the Settings UI, the steps below cover the most common cases.
+
+## What to reconfigure manually
+
+### Shell
+
+Warp auto-detects your login shell on first launch. macOS has shipped with `zsh` as the default since Catalina (2019); if you changed your shell with `chsh`, Warp picks that up too.
+
+To change it later, go to **Settings** > **Features** > **Session** and pick a shell from **Startup shell for new sessions**.
+
+### Theme and colors
+
+Terminal.app ships with a handful of profiles (Basic, Pro, Homebrew, Ocean, etc.). Match them in Warp:
+
+1. Open **Settings** > **Appearance** > **Themes**.
+2. Pick a preset theme. Warp's built-in library includes many themes similar to Terminal.app's defaults.
+3. For exact color matches, [create a custom theme](/terminal/appearance/custom-themes/) using the ANSI color values you can inspect in Terminal.app's **Settings** > **Profiles** > **Text** tab.
+
+### Font
+
+1. In **Settings** > **Appearance** > **Text, fonts, & cursor**, pick your font family and size to match what you use in Terminal.app.
+
+### Window size and transparency
+
+Configure in **Settings** > **Appearance** > **Size, opacity, & blurring**. See [size, opacity, and blurring](/terminal/appearance/size-opacity-blurring/).
+
+### Prompt
+
+Terminal.app uses whatever prompt your shell's PS1 (or zsh's PROMPT) defines. In Warp, choose:
+
+1. [**Warp prompt**](/terminal/appearance/prompt/#warp-prompt) - Warp's native prompt with drag-and-drop chips for git branch, directory, and more.
+2. [**Shell prompt (PS1)**](/terminal/appearance/prompt/#custom-prompt) - keeps your existing shell prompt exactly as it appears in Terminal.app.
+
+Configure in **Settings** > **Appearance** > **Prompt**.
+
+## Warp-native equivalents
+
+Most Terminal.app features have a Warp equivalent with additional capabilities on top:
+
+| From Terminal.app | In Warp |
+| --- | --- |
+| Profiles | [Tab configs](/terminal/windows/tab-configs/) for layouts and startup commands; [themes](/terminal/appearance/themes/) for appearance (Warp has no single profile object) |
+| Window groups / arrangements | [Tab configs](/terminal/windows/tab-configs/) |
+| Tabs | [Tabs](/terminal/windows/tabs/), [vertical tabs](/terminal/windows/vertical-tabs/) |
+| Split panes | [Split panes](/terminal/windows/split-panes/) (Terminal.app doesn't support) |
+| Copy-on-select | **Settings** > **Features** > **Session** |
+| Inspector | [Command inspector](/terminal/editor/command-inspector/) (exit code, duration, working directory) |
+
+Beyond matching Terminal.app, Warp adds [Agent Mode](/agent-platform/local-agents/overview/) for natural-language commands, [blocks](/terminal/blocks/) for structured command output, and [Warp Drive](/knowledge-and-collaboration/warp-drive/) for shared workflows. New to Warp? Start with the [Warp quickstart](/quickstart/).

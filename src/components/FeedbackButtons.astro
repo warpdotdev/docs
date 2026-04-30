@@ -1,0 +1,162 @@
+---
+/**
+ * Shared PushFeedback thumbs-up/down widget.
+ *
+ * Used by:
+ *   - `FeedbackFooter.astro` — appears at the bottom of every Starlight page
+ *   - `pages/api.astro` — fixed bottom-right on the standalone /api page
+ *
+ * Both call sites previously hand-rolled the same markup (identical SVG
+ * paths, identical `<feedback-button>` props). This consolidates them so
+ * future changes (icons, label, modal-position) land in one place.
+ *
+ * The PushFeedback CDN assets used to ship in the page `<head>` (via
+ * `astro.config.mjs` for Starlight pages and inline for `/api`), which
+ * meant a render-blocking CSS round-trip + a deferred 70 KB+ script on
+ * every page even though the widget only renders below the fold. The
+ * inline `<script is:inline>` below now injects the CSS link + script tag
+ * inside `requestIdleCallback` (or after a short timeout in browsers
+ * without it), keeping the assets off the critical path. The custom
+ * element upgrades any already-rendered `<feedback-button>` elements as
+ * soon as the script registers it, so there's no flash.
+ *
+ * If `PUBLIC_PUSHFEEDBACK_PROJECT_ID` is unset, this component renders
+ * nothing — including the loader — so the assets are never fetched.
+ *
+ * The `<feedback-button>` custom element doesn't have type definitions, so
+ * we render the markup as plain HTML.
+ */
+const PROJECT_ID = import.meta.env.PUBLIC_PUSHFEEDBACK_PROJECT_ID;
+
+interface Props {
+  /** Question text shown next to the buttons. */
+  question?: string;
+  /** Class on the wrapping element so callers can style placement/layout. */
+  class?: string;
+  /** Class on the question label. */
+  questionClass?: string;
+  /** Class on each thumbs button. */
+  buttonClass?: string;
+  /** Optional `page` attribute passed to PushFeedback (defaults to current path on the dashboard). */
+  page?: string;
+}
+
+const {
+  question = 'Was this page helpful?',
+  class: wrapperClass = 'feedback-widget',
+  questionClass = 'feedback-question',
+  buttonClass = 'feedback-btn',
+  page,
+} = Astro.props;
+---
+
+{PROJECT_ID && (
+  <>
+  {/* Lazy loader for the PushFeedback CDN assets. A global flag
+     (`window.__warpFeedbackLoaderQueued`) makes this idempotent across
+     repeated `<FeedbackButtons />` instances on the same page. The CSS
+     and module script are injected during browser idle time so they
+     don't block first paint; the custom element upgrades any
+     already-rendered `<feedback-button>` markup as soon as it registers. */}
+  <script is:inline>
+    (function () {
+      if (typeof window === 'undefined') return;
+      if (window.__warpFeedbackLoaderQueued) return;
+      window.__warpFeedbackLoaderQueued = true;
+      var load = function () {
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = 'https://cdn.jsdelivr.net/npm/pushfeedback@0.1.82/dist/pushfeedback/pushfeedback.css';
+        link.integrity = 'sha384-ApUY3yzqjkYETPrUq54/6LgjrJqExWoRtdaan/l1GlXu9WMcmlamohmmMuOcHpJY';
+        link.crossOrigin = 'anonymous';
+        document.head.appendChild(link);
+        var script = document.createElement('script');
+        script.type = 'module';
+        script.src = 'https://cdn.jsdelivr.net/npm/pushfeedback@0.1.82/dist/pushfeedback/pushfeedback.esm.js';
+        script.integrity = 'sha384-V+NyTgfUiXpY70lXORDYoLb1JOe5bOw4XiN513kc8gD60ksOD7JvXpaSCqCCV6e+';
+        script.crossOrigin = 'anonymous';
+        document.head.appendChild(script);
+      };
+      if (typeof window.requestIdleCallback === 'function') {
+        window.requestIdleCallback(load, { timeout: 3000 });
+      } else {
+        // Safari (≤16.3) fallback — load shortly after first paint.
+        setTimeout(load, 1500);
+      }
+    })();
+  </script>
+  <div class={wrapperClass}>
+    <span class={questionClass}>{question}</span>
+    <feedback-button
+      project={PROJECT_ID}
+      rating="1"
+      page={page}
+      modal-position="center"
+      button-style="default"
+      class={buttonClass}
+    >
+      <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3" />
+      </svg>
+      Yes
+    </feedback-button>
+    <feedback-button
+      project={PROJECT_ID}
+      rating="0"
+      page={page}
+      modal-position="center"
+      button-style="default"
+      class={buttonClass}
+    >
+      <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17" />
+      </svg>
+      No
+    </feedback-button>
+  </div>
+  </>
+)}
+
+<style is:global>
+  /* Default styling for the Starlight-footer placement (matches the prior
+     scoped rules in FeedbackFooter.astro). Marked `is:global` so callers
+     can also pass their own class names without re-declaring these rules.
+     `api.astro` overrides via the `class`/`questionClass`/`buttonClass`
+     props and ships its own styles. */
+  .feedback-widget {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .feedback-question {
+    color: var(--sl-color-gray-3);
+    font-size: var(--sl-text-sm);
+    margin: 0;
+  }
+
+  .feedback-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.25rem 0.6rem;
+    border: none;
+    border-radius: var(--sl-radius-md);
+    background: transparent;
+    color: var(--sl-color-gray-3);
+    font-size: var(--sl-text-xs);
+    font-family: var(--sl-font);
+    cursor: pointer;
+    transition: color 0.15s ease, background-color 0.15s ease;
+  }
+
+  .feedback-btn:hover {
+    color: var(--sl-color-white);
+    background: var(--sl-color-gray-5);
+  }
+
+  .feedback-btn svg {
+    width: 14px;
+    height: 14px;
+  }
+</style>

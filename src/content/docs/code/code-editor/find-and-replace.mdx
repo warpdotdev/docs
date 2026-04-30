@@ -1,0 +1,35 @@
+---
+title: Find and Replace
+description: >-
+  Search and replace text in Warp's code editor with regex, case sensitivity,
+  and smart case preservation.
+---
+import DemoVideo from '@components/DemoVideo.astro';
+
+## Find
+
+Press `CMD-F` on macOS or `CTRL-SHIFT-F` on Windows and Linux to open the find menu. As you type, all matches in the file are highlighted, and the match closest to your cursor is selected.
+
+* Press `ENTER` or use the down arrow to jump to the next match
+* Press `SHIFT-ENTER` or use the up arrow to go to the previous match
+* Click "Select All" to highlight all matches and close the menu
+
+You can toggle regex and case-sensitive search options directly in the query editor.
+
+<DemoVideo src="/assets/terminal/code-find-menu.mp4" label="using find in the code editor" />
+
+## Replace
+
+Click the dropdown to the left of the find menu to open the replace options.
+
+* Press Enter to replace the currently selected match
+* Use Replace All to replace all matches
+
+Toggle Preserve Case to keep the original casing of replaced text. Case is preserved in text that contains PascalCase, camelCase, hyphens, and underscores. For example:
+
+* Replacing “old” with “new” will turn “Old” into “New” and “OLD” into “NEW”
+* Replacing “oldValue” with “NewValue” will result in “newValue”
+* Replacing “OldValue” with “newValue” will result in “NewValue”
+* Replacing “my-Old-VALUE” with “my-new-value” will result in “my-New-VALUE”
+
+<DemoVideo src="/assets/terminal/code-replace-menu.mp4" label="using replace in the code editor" />

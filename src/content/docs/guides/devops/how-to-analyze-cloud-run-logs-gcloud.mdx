@@ -1,0 +1,73 @@
+---
+title: "How to: Analyze Cloud Run Logs (gcloud)"
+description: >-
+  Use Warp to pull, organize, and analyze Cloud Run production logs by
+  severity with natural language prompts and automated Python scripts.
+sidebar:
+  label: "Analyze Cloud Run logs"
+---
+import VideoEmbed from '@components/VideoEmbed.astro';
+import { Steps } from '@astrojs/starlight/components';
+
+Learn how to use Warp to retrieve, organize, and analyze production logs from your cloud servers — all with natural language prompts.
+
+<VideoEmbed url="https://youtu.be/GJ0NepZmmv8?si=MHhAVD2JeTLYc9rM" />
+
+<Steps>
+
+1. #### Setting the Context
+
+   Open Warp and enable **voice input** (optional) for hands-free prompting.
+
+   :::note
+   Voice input is optional — only enable it if you prefer hands-free prompting.
+   :::
+
+   **Prompt**
+
+   ```
+   Use the warp-server-staging gcloud project and pull logs
+   for the last 10 minutes from the warp-server Cloud Run instance.
+   Organize them by info, warning, and error levels.
+   Create a histogram across message types,
+   and highlight the most concerning errors to investigate.
+   ```
+
+2. #### Warp’s Agent in Action
+
+   After you hit Enter:
+
+   * Warp detects the command as an **Agent Mode** request.
+   * It gathers project context (`warp-server-staging`).
+   * Executes the necessary `gcloud` logging queries automatically.
+   * Writes retrieved data to a temporary file for processing.
+
+3. #### Automated Analysis
+
+   Warp’s agent generates a **Python script** on the fly to:
+
+   * Parse logs
+   * Count messages by severity
+   * Output summary metrics
+
+   Example output:
+
+   ```
+   1,000 log entries total
+   980 info
+   11 warning
+   9 errors
+   ```
+
+   You can view or fast-forward execution, or stop the process at any point.
+
+4. #### Reviewing Results
+
+   Warp outputs a readable histogram and highlights anomalies.\
+   For example:
+
+   > “Gemini AI error messages detected — worth reviewing.”
+
+   You can expand each log group interactively or inspect the temporary Python code for debugging.
+
+</Steps>

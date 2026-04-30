@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Ask the Warp community
+    url: https://go.warp.dev/join-preview
+    about: This issue tracker is not for support questions. Join the Warp community Slack for help.
+  - name: Read the contribution guide
+    url: https://github.com/warpdotdev/docs/blob/main/CONTRIBUTING.md
+    about: Learn how to contribute to Warp Docs.

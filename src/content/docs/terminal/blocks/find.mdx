@@ -1,0 +1,37 @@
+---
+title: Terminal Block Find
+description: >-
+  Search across Blocks from the bottom up, with regex, case-sensitive, and
+  per-Block filtering options.
+---
+import DemoVideo from '@components/DemoVideo.astro';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+## What is it
+
+Find searches for matches in all your Blocks from the bottom up and can even be isolated to a specific Block.
+
+:::note
+Since command outputs are contained within Blocks, you can still use the input editor when invoking find.
+:::
+
+## How to access it
+
+<Tabs>
+  <TabItem label="macOS">
+    1. Hitting `CMD-F` opens the find view which searches across the terminal (scoped within the current pane).
+    2. Within the find modal, you can also enable the regex toggle, find on a selected Block, and or toggle case sensitive search.
+  </TabItem>
+  <TabItem label="Windows">
+    1. Hitting `CTRL-SHIFT-F` opens the find view which searches across the terminal (scoped within the current pane).
+    2. Within the find modal, you can also enable the regex toggle, find on a selected Block, and or toggle case sensitive search.
+  </TabItem>
+  <TabItem label="Linux">
+    1. Hitting `CTRL-SHIFT-F` opens the find view which searches across the terminal (scoped within the current pane).
+    2. Within the find modal, you can also enable the regex toggle, find on a selected Block, and or toggle case sensitive search.
+  </TabItem>
+</Tabs>
+
+## How it works
+
+<DemoVideo src="/assets/terminal/find.mp4" label="Searching across Warp's terminal blocks with the Find view" />

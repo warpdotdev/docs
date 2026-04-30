@@ -1,0 +1,118 @@
+---
+title: MCP Servers
+description: >-
+  Connect cloud agents to external tools, APIs, and internal services using
+  MCP servers.
+---
+
+Cloud agents can call external tools through [Model Context Protocol (MCP) servers](/agent-platform/capabilities/mcp/). This lets agents reach beyond the terminal to automatically interact with systems like GitHub, dbt, Sentry, or any custom internal service, whenever the workflow requires it.
+
+## When to use MCP servers
+
+Add MCP servers to a cloud agent when it needs to:
+
+* Read from or write to an external API (issue trackers, monitoring tools, cloud services)
+* Call local processes that expose MCP endpoints
+* Use internal developer tools that you've wrapped in an MCP interface
+
+The agent calls MCP tools automatically based on what the task requires, without the need for explicit instruction.
+
+## How MCP configuration works
+
+You can supply MCP configuration in two ways:
+
+* **At run time** — pass `--mcp` when calling `oz agent run` or `oz agent run-cloud`. See [MCP Servers](/reference/cli/mcp-servers/) in the CLI reference for the full syntax.
+* **In an agent config file** — define `mcp_servers` directly in a YAML or JSON agent config file (passed with `-f / --file`). This is the recommended approach for repeatable workflows.
+
+## Configuration schema
+
+Each MCP server entry is keyed by a name you choose. A server config must have **exactly one** transport type:
+
+| Transport | Field(s) | When to use |
+|-----------|----------|-------------|
+| Warp-shared server | `warp_id` | Reference an MCP server already configured in Warp by its UUID |
+| Stdio (local process) | `command`, `args` | Launch a local executable as an MCP server |
+| Streamable HTTP / SSE | `url` | Connect to a remote or locally hosted MCP endpoint |
+
+### Supported fields
+
+* **`warp_id`** — UUID of a Warp-shared MCP server (find UUIDs with `oz mcp list` or from **Settings** > **Agents** > **MCP servers**)
+* **`command`** — Executable to launch (stdio transport)
+* **`args`** — Arguments passed to `command` (only valid with `command`)
+* **`env`** — Environment variables passed to the process (only valid with `command`)
+* **`url`** — HTTP or HTTPS endpoint URL (streamable HTTP or SSE transport)
+* **`headers`** — HTTP headers sent with requests (only valid with `url`)
+
+You may define any number of MCP servers in a single config.
+
+### Example configuration
+
+```json
+{
+  "github": {
+    "url": "https://mcp.example.com/github"
+  },
+  "dbt": {
+    "command": "uvx",
+    "args": ["dbt-mcp"],
+    "env": {
+      "DBT_HOST": "https://example.us1.dbt.com",
+      "DBT_SERVICE_TOKEN": "${DBT_SERVICE_TOKEN}"
+    }
+  }
+}
+```
+
+## Using MCP servers in an agent config file
+
+For repeatable cloud agent workflows, declare your MCP servers inside the agent config file passed to `-f / --file`:
+
+```json
+{
+  "name": "my-production-agent",
+  "model_id": "claude-sonnet-4",
+  "system_prompt": "You are a helpful assistant focused on backend development.",
+  "environment_id": "SVhg783GBFQHk1OfdPfFU9",
+  "mcp_servers": {
+    "github": {
+      "url": "https://mcp.example.com/github"
+    },
+    "dbt": {
+      "command": "uvx",
+      "args": ["dbt-mcp"],
+      "env": {
+        "DBT_HOST": "https://example.us1.dbt.com",
+        "DBT_SERVICE_TOKEN": "${DBT_SERVICE_TOKEN}"
+      }
+    }
+  }
+}
+```
+
+Pass this file when running a cloud agent:
+
+```sh
+oz agent run-cloud --environment <ENV_ID> -f my-agent-config.json --prompt "Check for regressions in the last deploy"
+```
+
+## Requirements and defaults
+
+* MCP configuration must be valid JSON, or YAML when embedded in a broader agent config file.
+* If `mcp_servers` is omitted, the agent runs with no MCP servers enabled.
+* Each server name must be unique and non-empty.
+* The `warp_id` transport is validated against your Warp account. Referenced servers must be accessible to you.
+
+## Limitations
+
+:::caution
+Warp does not currently support OAuth-based MCP servers for cloud agents. This means MCP servers that require browser-based authentication, like some hosted Figma configurations, cannot be used directly.
+
+As a workaround, you can pass Figma mockups as **image context** to the agent, which can then build and test UI against those images.
+:::
+
+## Learn more
+
+* [MCP Servers (CLI reference)](/reference/cli/mcp-servers/) — how to pass MCP configuration using the `--mcp` flag
+* [Model Context Protocol (MCP)](/agent-platform/capabilities/mcp/) — configuring MCP servers in Warp for local agents
+* [Environments](/agent-platform/cloud-agents/environments/) — set up the runtime context (repo, image, startup commands) for cloud agent tasks
+* [Secrets](/agent-platform/cloud-agents/secrets/) — store and inject credentials into agent runs safely

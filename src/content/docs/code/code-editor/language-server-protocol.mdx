@@ -1,0 +1,88 @@
+---
+title: Language Server Protocol (LSP)
+description: >-
+  Get hover info, go-to-definition, diagnostics, and format-on-save via
+  built-in LSP support.
+---
+
+Warp's code editor includes built-in support for the [Language Server Protocol](https://microsoft.github.io/language-server-protocol/), giving you IDE-grade code intelligence directly in the terminal. When you enable an LSP server for your project, you get hover documentation, go-to-definition, find references, inline diagnostics, and automatic formatting — all without leaving Warp.
+
+## Supported languages
+
+Warp ships with support for the following language servers:
+
+| Language | Server | File extensions |
+| --- | --- | --- |
+| Rust | `rust-analyzer` | `.rs` |
+| Go | `gopls` | `.go` |
+| Python | `pyright` | `.py` |
+| TypeScript / JavaScript | `typescript-language-server` | `.ts`, `.tsx`, `.js`, `.jsx`, `.mjs`, `.cjs` |
+| C / C++ | `clangd` | `.c`, `.C`, `.h`, `.H`, `.hh`, `.cc`, `.cpp`, `.cxx`, `.hpp`, `.hxx` |
+
+We're actively expanding language support. To request a language, [file a GitHub issue](https://github.com/warpdotdev/Warp/issues).
+
+## How it works
+
+When you `cd` into a workspace with enabled language servers, Warp automatically starts them in the background. Features like hover, diagnostics, and go-to-definition become available once a server finishes initializing. As you edit, Warp sends incremental updates to keep everything in sync. If you close all files and terminals for a workspace, Warp shuts down the idle server to free resources.
+
+:::note
+Warp uses your shell's `PATH` to locate language server binaries. If a server isn't found on your `PATH`, Warp can install it for you (see [Enabling a server](#enabling-a-server) below).
+:::
+
+## Enabling and managing language servers
+
+### Enabling a server
+
+Language servers are enabled **per workspace** (per Git repository root). When you open a file in a supported language for the first time, the **editor footer** shows an option to enable the appropriate language server. If the server binary is not installed on your system, Warp offers to install it for you.
+
+You can also manage servers from **Settings** > **Code** > **Indexing and projects**, where each initialized workspace shows its enabled language servers and their status.
+
+### Server status indicator
+
+The code editor footer displays a status icon for the active language server:
+
+* 🟢 **Green** - Server is running and ready.
+* 🟡 **Yellow** - Server is starting or processing a background task.
+* 🔴 **Red** - Server failed to start. Click the icon to see options.
+* ⚪ **Gray** - Server is stopped.
+
+Clicking the status icon opens a menu with options to **restart**, **stop**, **start**, or **view logs** for the server.
+
+### Server logs
+
+Each language server writes logs to a file on disk. Access these logs from the footer menu (click the status icon and select "Open Logs") or from **Settings** > **Code** > **Indexing and projects**. Logs are useful for debugging server startup failures or unexpected behavior.
+
+## Editor features powered by LSP
+
+### Hover information
+
+Hover over a symbol to see its type signature, documentation, and other details provided by the language server. The hover tooltip appears after a brief delay and supports rich content including code blocks and Markdown.
+
+### Go to definition
+
+Hold `CMD` (macOS) or `CTRL` (Windows/Linux) and click a symbol to jump to its definition. If the definition is in a different file, Warp opens it in the code editor. While you hold the modifier key, the symbol is underlined on hover to indicate it is navigable.
+
+### Find references
+
+`CMD`-click (macOS) or `CTRL`-click (Windows/Linux) on a symbol that is already at its definition to see a **Find References** card listing all references across the workspace. Click any reference to navigate to it.
+
+### Inline diagnostics
+
+Warp displays errors and warnings from the language server as dashed underlines directly in the editor. Hover over an underlined range to see the full diagnostic message. Diagnostics update in real time as you edit and are briefly cleared while the server recalculates.
+
+### Format on save
+
+When you save a file (`CMD + S` / `CTRL + S`), Warp requests formatting from the language server before writing to disk. This applies the server's configured formatting rules (indentation, trailing whitespace, final newlines, etc.). If the server doesn't support formatting, the file is saved without formatting changes.
+
+### Right-click context menu
+
+When an LSP server is connected, right-clicking in the editor opens a context menu with LSP-powered actions, including go-to-definition and find references.
+
+LSP features stay in sync across [shared buffers](/code/code-editor/#shared-buffers) — if the same file is open in multiple tabs or panes, diagnostics, hover, and other features reflect the same content regardless of which view you're looking at.
+
+## Limitations
+
+* **Local sessions only** - LSP is not available over SSH or WSL sessions. These are tracked in GitHub issues [#6831](https://github.com/warpdotdev/Warp/issues/6831) (SSH) and [#6744](https://github.com/warpdotdev/Warp/issues/6744) (WSL).
+* **One server per language** - Each language maps to a single server (for example, Rust always uses `rust-analyzer`). Custom server configurations are not yet supported.
+* **Project-scoped** - Language servers operate at the Git repository root level. Files outside a repository may not receive LSP features.
+* **Server availability** - Some features (like formatting) depend on the specific language server's capabilities. Not all servers support all features.

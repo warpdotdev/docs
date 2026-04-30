@@ -1,0 +1,59 @@
+---
+title: operation_not_supported
+description: >-
+  The requested operation is not supported for this resource or its current
+  state.
+---
+
+The `operation_not_supported` error occurs when you attempt an operation that is not currently supported for the given resource or its current state.
+
+---
+
+## Details
+
+* **HTTP Status:** `422 Unprocessable Entity`
+* **Retryable:** No
+* **Task State:** FAILED
+
+---
+
+## When does this occur?
+
+This error is returned when:
+
+* You attempt to cancel a **self-hosted** agent run via the API (self-hosted runs must be cancelled through the hosting infrastructure)
+* You attempt to cancel a **local** agent run via the API (local runs must be cancelled from the source client)
+* You attempt to cancel a run triggered via **GitHub Actions** (these must be cancelled through the GitHub Actions workflow view)
+
+---
+
+## Example response
+
+```json
+{
+  "type": "/reference/api-and-sdk/troubleshooting/errors/operation-not-supported/",
+  "title": "Self-hosted agent runs cannot be cancelled with the API.",
+  "status": 422,
+  "instance": "/api/v1/agent/tasks/abc123/cancel",
+  "error": "Self-hosted agent runs cannot be cancelled with the API.",
+  "retryable": false
+}
+```
+
+---
+
+## How to resolve
+
+1. Check the error message to understand which operation is unsupported and why.
+2. Use the appropriate method for the operation:
+   * **Self-hosted runs** — Cancel through your hosting infrastructure.
+   * **Local runs** — Cancel from the Warp desktop app or terminal session.
+   * **GitHub Actions runs** — Cancel via the GitHub Actions workflow view.
+
+---
+
+## Related
+
+* [Cloud Agents Overview](/agent-platform/cloud-agents/overview/) — How cloud agent tasks work
+* [Self-Hosting](/agent-platform/cloud-agents/self-hosting/) — Self-hosted agent configuration
+* [Oz API & SDK](/reference/api-and-sdk/) — API reference for managing agent tasks
