@@ -1,0 +1,60 @@
+---
+title: "Skills (CLI)"
+description: >-
+  Use skills with the Oz CLI to run agents from reusable skill definitions
+  stored in your repositories.
+---
+
+[Skills](/agent-platform/capabilities/skills/) are reusable instruction sets that teach agents how to perform specific tasks. Use the `--skill` flag to run an agent from a skill in a repository accessible to your environment.
+
+## Skill spec format
+
+The `--skill` flag accepts a skill specification that identifies which skill to use:
+
+```sh
+# Fully qualified (recommended)
+oz agent run-cloud -e <ENV_ID> --skill "owner/repo:skill-name" --prompt "deploy to staging"
+
+# With full path
+oz agent run-cloud -e <ENV_ID> --skill "warpdotdev/warp-server:.warp/skills/deploy/SKILL.md" --prompt "deploy to staging"
+```
+
+Supported formats:
+
+* `owner/repo:skill-name` — skill by name in a specific repository (recommended)
+* `owner/repo:path/to/SKILL.md` — skill by full path in a repository
+* `repo:skill-name` — skill by name (only works when the repo is configured in your environment)
+
+## Using skills with cloud agents
+
+Skills are particularly useful with cloud agents (`oz agent run-cloud`) because they define reusable workflows that run consistently across environments:
+
+```sh
+# Run a deploy skill from a specific repo
+oz agent run-cloud \
+  --environment SVhg783GBFQHk1OfdPfFU9 \
+  --skill "myorg/backend:.warp/skills/deploy/SKILL.md" \
+  --prompt "deploy to staging"
+
+# Run a code review skill
+oz agent run-cloud \
+  --environment SVhg783GBFQHk1OfdPfFU9 \
+  --skill "myorg/backend:code-review" \
+  --prompt "review the latest PR"
+```
+
+:::note
+When you specify a skill, it provides the base instructions for the agent. The `--prompt` adds additional context or parameters for that specific run.
+:::
+
+When you run an agent from a skill, the run `name` is automatically set to the skill name — no need to pass `--name` explicitly.
+
+## Using skills with local agents
+
+For local agent runs, skills from your current repository are automatically discovered. You can also explicitly specify a skill:
+
+```sh
+oz agent run --skill "owner/repo:skill-name" --prompt "additional context"
+```
+
+For more information about creating and managing skills, see [Skills](/agent-platform/capabilities/skills/).

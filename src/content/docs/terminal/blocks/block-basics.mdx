@@ -1,0 +1,119 @@
+---
+title: Terminal Block Basics
+description: >-
+  The basics of creating, selecting, and navigating between Blocks.
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import VideoEmbed from '@components/VideoEmbed.astro';
+
+## The basics
+
+* Blocks group your command and command output
+* The Input Editor can pin to the bottom, pin to the top, or start at the top.
+* Blocks grow from the bottom to the top.
+* Blocks are color-coded. Blocks that quit with a non-zero exit code have a red background and red sidebar.
+
+:::note
+Try it yourself!\
+Type `xyz` (or some other command that doesn’t exist) and hit `ENTER`
+:::
+
+## Create a block
+
+1. Execute a command (type `ls` and hit `ENTER`) in the Input Editor at the bottom of the screen.
+2. Your command and output are grouped into a Block.
+3. Try executing a different command (type `echo hello` and hit `ENTER`).
+4. Warp adds your newly created Block to the bottom (directly above the input editor).
+
+<VideoEmbed url="https://www.loom.com/share/4b435c78344d4dc0bb92af5d1da5e219?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" title="Create a Block" />
+
+## Select a single block
+
+<Tabs>
+  <TabItem label="macOS">
+    * Using your mouse: click on a Block.
+    * Or using your keyboard: hit `CMD-UP` (or `CMD-DOWN` if input as pinned up top) to select the most recently executed Block and use the `UP ↑` and `DOWN ↓` arrow keys to navigate to the desired Block.
+    * For long Blocks:
+      * You can click "Jump to the bottom of this block".
+      * You can press `SHIFT-CMD-UP`/`SHIFT-CMD-DOWN` to Scroll to the top/bottom of the selected block.
+      * From the [Command Palette](/terminal/command-palette/), you can also "Scroll to the top/bottom of selected block".
+  </TabItem>
+  <TabItem label="Windows">
+    * Using your mouse: Click on a Block.
+    * Or using your keyboard: hit `CTRL-UP` (or `CTRL-DOWN` if input as pinned up top) to select the most recently executed Block and use the `UP ↑` and `DOWN ↓` arrow keys to navigate to the desired Block.
+    * For long Blocks:
+      * You can click "Jump to the bottom of this block".
+      * You can press `CTRL-SHIFT-UP`/`CTRL-SHIFT-DOWN` to Scroll to the top/bottom of the selected block.
+      * From the [Command Palette](/terminal/command-palette/), you can also "Scroll to the top/bottom of selected block".
+  </TabItem>
+  <TabItem label="Linux">
+    * Using your mouse: Click on a Block.
+    * Or using your keyboard: hit `CTRL-UP` (or `CTRL-DOWN` if input as pinned up top) to select the most recently executed Block and use the `UP ↑` and `DOWN ↓` arrow keys to navigate to the desired Block.
+    * For long Blocks:
+      * You can click "Jump to the bottom of this block".
+      * You can press `CTRL-SHIFT-UP`/`CTRL-SHIFT-DOWN` to Scroll to the top/bottom of the selected block.
+      * From the [Command Palette](/terminal/command-palette/), you can also "Scroll to the top/bottom of selected block".
+  </TabItem>
+</Tabs>
+
+<VideoEmbed url="https://www.loom.com/share/1cf8546daad548fbbe056c35edb23cdc?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" title="Select a Single Block" />
+
+## Select multiple blocks
+
+<Tabs>
+  <TabItem label="macOS">
+    * Click another Block while holding `CMD` to toggle the selection of that Block, or
+    * Click another Block while holding `SHIFT` to select a range of Block, or
+    * Use `SHIFT-UP ↑` or `SHIFT-DOWN ↓` to expand the active selection (the Block with the thicker border) up or down, respectively.
+  </TabItem>
+  <TabItem label="Windows">
+    * Click another Block while holding `CTRL-SHIFT` to toggle the selection of that Block, or
+    * Click another Block while holding `SHIFT` to select a range of Block, or
+    * Use `SHIFT-UP ↑` or `SHIFT-DOWN ↓` to expand the active selection (the Block with the thicker border) up or down, respectively.
+  </TabItem>
+  <TabItem label="Linux">
+    * Click another Block while holding `CTRL-SHIFT` to toggle the selection of that Block, or
+    * Click another Block while holding `SHIFT` to select a range of Block, or
+    * Use `SHIFT-UP ↑` or `SHIFT-DOWN ↓` to expand the active selection (the Block with the thicker border) up or down, respectively.
+  </TabItem>
+</Tabs>
+
+<VideoEmbed url="https://www.loom.com/share/5058ab0dc3d244d4a2ce576331440821?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" title="Select Multiple Blocks" />
+
+## Navigate blocks
+
+<Tabs>
+  <TabItem label="macOS">
+    * **Mouse or scrollbar** - Scroll using your mouse, trackpad, or the scrollbar.
+    * **Arrow keys** - Select a Block and use `UP ↑` and `DOWN ↓` to move between Blocks.
+    * **Page scrolling** - Press `PAGE UP` or `PAGE DOWN` to scroll by one page.
+    * **Jump to top or bottom** - Press `HOME` or `END` to scroll to the top or bottom of terminal output.
+    * **Scroll within a selected Block** - Press `SHIFT-CMD-UP` or `SHIFT-CMD-DOWN` to scroll to the top or bottom of the selected Block.
+    * **Scroll one line at a time** - "Scroll Terminal output up/down one line" can be configured with a keyboard shortcut in Settings > Keyboard shortcuts or accessed from the [Command Palette](/terminal/command-palette/).
+    * When the output of a command is cut off, Warp keeps the [Sticky Command Header](/terminal/blocks/sticky-command-header/) pinned at the top that displays the command the Block corresponds to. Clicking the header will scroll the screen to the start of the Block.
+  </TabItem>
+  <TabItem label="Windows">
+    * **Mouse or scrollbar** - Scroll using your mouse, trackpad, or the scrollbar.
+    * **Arrow keys** - Select a Block and use `UP ↑` and `DOWN ↓` to move between Blocks.
+    * **Page scrolling** - Press `PAGE UP` or `PAGE DOWN` to scroll by one page.
+    * **Jump to top or bottom** - Press `HOME` or `END` to scroll to the top or bottom of terminal output.
+    * **Scroll within a selected Block** - Press `CTRL-SHIFT-UP` or `CTRL-SHIFT-DOWN` to scroll to the top or bottom of the selected Block.
+    * **Scroll one line at a time** - "Scroll Terminal output up/down one line" can be configured with a keyboard shortcut in Settings > Keyboard shortcuts or accessed from the [Command Palette](/terminal/command-palette/).
+    * When the output of a command is cut off, Warp keeps the [Sticky Command Header](/terminal/blocks/sticky-command-header/) pinned at the top that displays the command the Block corresponds to. Clicking the header will scroll the screen to the start of the Block.
+  </TabItem>
+  <TabItem label="Linux">
+    * **Mouse or scrollbar** - Scroll using your mouse, trackpad, or the scrollbar.
+    * **Arrow keys** - Select a Block and use `UP ↑` and `DOWN ↓` to move between Blocks.
+    * **Page scrolling** - Press `PAGE UP` or `PAGE DOWN` to scroll by one page.
+    * **Jump to top or bottom** - Press `HOME` or `END` to scroll to the top or bottom of terminal output.
+    * **Scroll within a selected Block** - Press `CTRL-SHIFT-UP` or `CTRL-SHIFT-DOWN` to scroll to the top or bottom of the selected Block.
+    * **Scroll one line at a time** - "Scroll Terminal output up/down one line" can be configured with a keyboard shortcut in Settings > Keyboard shortcuts or accessed from the [Command Palette](/terminal/command-palette/).
+    * When the output of a command is cut off, Warp keeps the [Sticky Command Header](/terminal/blocks/sticky-command-header/) pinned at the top that displays the command the Block corresponds to. Clicking the header will scroll the screen to the start of the Block.
+  </TabItem>
+</Tabs>
+
+:::note
+During long-running or full-screen commands, `PAGE UP`, `PAGE DOWN`, `HOME`, and `END` are forwarded to the running program. See the full list of scrolling shortcuts on the [Keyboard Shortcuts](/getting-started/keyboard-shortcuts/) page.
+:::
+
+<VideoEmbed url="https://www.loom.com/share/21ebb0a79c1248a98846cba12a4b7020?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" title="Navigate between Blocks" />

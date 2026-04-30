@@ -1,0 +1,78 @@
+---
+title: Warp Drive prompts
+description: >-
+  Save and reuse parameterized Agent Mode prompts to run on-demand.
+---
+import VideoEmbed from '@components/VideoEmbed.astro';
+
+## What is a prompt?
+
+A prompt is a parameterized natural language query you can name and save in Warp to use with [Agent Mode](/agent-platform/local-agents/interacting-with-agents/).
+
+Prompts are searchable and easily accessed from the [Command Palette](/terminal/command-palette/) so you can find and execute them without switching context. They allow you to save and reuse specific and complex AI workflows, making it easier to repeat multi-step tasks with Agent Mode.
+
+![View of a Prompt in Warp Drive showing the command view interface](../../../../assets/terminal/prompts-command-view.png)
+
+### Demo: Trigger reusable actions with saved prompts
+
+Here's an example from [Warp Guides](/guides/), where Zach walks through what prompts he uses for PRs and Git commits:
+
+<VideoEmbed url="https://www.youtube.com/watch?ab_channel=Warp&v=pE15zjJmB4E" />
+
+There are other great examples of prompts on [Do Things](https://dothings.warp.dev/) and [Warp Guides](/guides/).
+
+## How to save and edit prompts
+
+You can create a new prompt from Warp Drive by clicking the + button and selecting "Prompt".
+
+* Name your prompt
+* Edit the natural language query along with any arguments (also known as parameters)
+* Add a meaningful description that will be indexed for search (optional)
+* Add arguments, descriptions for arguments, and default values (optional)
+
+![View of the Prompt editor interface showing the edit form with fields for name, query, description, and arguments](../../../../assets/terminal/prompts-edit-view.png)
+
+Once a prompt has been created, you can edit it at any time, as long as you have access to an internet connection.
+
+### Working with arguments
+
+In the prompt editor, you can add arguments manually with "New argument" or by typing in double curly braces (`{{argument}}`) within the command field. If you select "New argument" while you have text selected, Warp will wrap that text in curly braces to create an argument.
+
+There are some rules for creating valid arguments:
+
+* Argument names can only include characters `A-Za-z0-9`, hyphens `-` and underscores `_`
+* The first character of an argument cannot be a number
+
+Arguments can be one of two types: text or enum. By default, all new arguments are text type.
+
+#### Enum type arguments
+
+Enums allow you to specify expected inputs to a prompt argument. When you insert a prompt with enums into the input editor, you will be prompted with suggestions for filling in the argument. You can open the suggestions menu by pressing `SHIFT-TAB` while selecting an argument.
+
+For detailed information about creating and using enum type arguments, please see the [Enum type arguments section in Workflows documentation](/knowledge-and-collaboration/warp-drive/workflows/#enum-type-arguments).
+
+### Editing prompts with a team
+
+If the prompt is shared with a team, all team members will have access to edit it and updates will sync immediately for all members of the team.
+
+If a prompt in the Warp Drive has been edited by another team member or a user on another device while you are attempting to edit the same prompt, you will not be able to save changes; you will need to check out the latest version and try again.
+
+## How to execute prompts
+
+You can execute a prompt in several ways:
+
+* From Warp Drive, click the prompt
+* From the [Command Palette](/terminal/command-palette/) or [Command Search](/terminal/entry/command-search/), search for a prompt by name or type "prompts:" to see all available prompts and your prompt history
+* When a prompt is selected, you can use `SHIFT-TAB` to cycle through the arguments.
+
+![Command Palette interface showing a search for Prompts with results displayed](../../../../assets/terminal/prompts-command-palette.png)
+
+![Command Search interface showing a search for Prompts with results displayed](../../../../assets/terminal/prompts-command-search.png)
+
+These options will paste the prompt into your active terminal input. Prompt names and any relevant descriptions and arguments will be displayed in a dialog, so you can understand how to use the prompt.
+
+You can make any adjustments you need to the arguments before running the prompt in your input editor.
+
+### Import and export prompts in Warp Drive
+
+Please see our [Warp Drive Import and Export](/knowledge-and-collaboration/warp-drive/#import-and-export) instructions.

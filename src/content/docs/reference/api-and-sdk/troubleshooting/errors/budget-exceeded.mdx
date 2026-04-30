@@ -1,0 +1,57 @@
+---
+title: budget_exceeded
+description: >-
+  Your team's configured spending budget limit has been reached. Increase the
+  budget or wait for the budget period to reset.
+---
+
+The `budget_exceeded` error occurs when your team has reached the spending budget limit configured in team settings.
+
+---
+
+## Details
+
+* **HTTP Status:** `403 Forbidden`
+* **Retryable:** No
+* **Task State:** FAILED
+
+---
+
+## When does this occur?
+
+This error is returned when:
+
+* Your team has set a spending budget cap, and the current period's usage has reached that cap
+* A cloud agent task, scheduled run, or integration-triggered run attempts to start but would exceed the budget
+
+The `title` field in the response will describe the specific budget constraint.
+
+---
+
+## Example response
+
+```json
+{
+  "type": "/reference/api-and-sdk/troubleshooting/errors/budget-exceeded/",
+  "title": "Monthly spending budget of $50 has been reached.",
+  "status": 403,
+  "instance": "/api/v1/agent/tasks",
+  "error": "Monthly spending budget of $50 has been reached.",
+  "retryable": false
+}
+```
+
+---
+
+## How to resolve
+
+1. Go to your team settings and increase the spending budget, or
+2. Wait for the budget period to reset (for example, at the start of the next billing cycle).
+
+If you are not a team admin, contact your team admin to adjust the budget.
+
+---
+
+## Related
+
+* [Access, Billing, and Identity](/agent-platform/cloud-agents/team-access-billing-and-identity/) — Budget configuration and billing details

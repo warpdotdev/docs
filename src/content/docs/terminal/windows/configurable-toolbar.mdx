@@ -1,0 +1,75 @@
+---
+title: Configurable toolbar
+description: >-
+  Reorder, hide, and move panel toggle buttons between the left and right
+  sides of Warp's header toolbar to match your workflow.
+---
+import VideoEmbed from '@components/VideoEmbed.astro';
+
+The header toolbar holds the panel toggle buttons for the tabs panel, tools panel, agent management, Code Review, and notifications mailbox. Instead of a fixed layout, you can rearrange these buttons, move them between the left and right sides of the header, or hide the ones you don't use. The side a button lives on also determines which side of the window its panel opens on, so you can tune Warp's layout to match how you work.
+
+The configurable toolbar works with both [horizontal tabs](/terminal/windows/tabs/) and [vertical tabs](/terminal/windows/vertical-tabs/).
+
+<VideoEmbed url="https://www.loom.com/share/292d126ecf7148f296fc8685e451790f?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" title="Configurable toolbar demo" />
+
+## Key features
+
+* **Reorder items within a side** - Drag toolbar chips to change the left-to-right order on either side of the header.
+* **Move items across sides** - Drag a chip between the left and right drop zones to move its button (and the panel it opens) to the other side of the window.
+* **Hide items you don't need** - Remove a chip from both sides to hide the button. Removed items become available again, so you can drop them back in later.
+* **Side placement drives panel side** - Moving the tools panel, tabs panel, or code review button flips the corresponding panel to open from the same side, with resize handles, borders, and anchored popups following along.
+* **Persistent across sessions** - Your layout is saved to settings and survives app restarts.
+
+## Configurable items
+
+The following header buttons can be rearranged or hidden:
+
+* **Tabs panel** - Toggles the [vertical tabs](/terminal/windows/vertical-tabs/) sidebar.
+* **Tools panel** - Toggles the panel that contains the project explorer, global search, [Warp Drive](/knowledge-and-collaboration/warp-drive/), and conversation history.
+* **Agent management** - Toggles the agent management view for [cloud agents](/agent-platform/cloud-agents/managing-cloud-agents/).
+* **Code review** - Toggles the [Code Review](/code/code-review/) panel.
+* **Notifications mailbox** - Toggles the [agent notifications](/agent-platform/capabilities/agent-notifications/) mailbox.
+
+The search bar and profile avatar are fixed and can't be repositioned.
+
+An item only appears in the toolbar when its prerequisites are met. For example, the tabs panel button requires [vertical tabs](/terminal/windows/vertical-tabs/) to be enabled, and agent management requires Agent Mode to be enabled. If an item's prerequisite becomes unavailable later, the button disappears but your saved layout is preserved, so the button reappears once the prerequisite is met again.
+
+## Default layout
+
+The default layout matches Warp's standard header:
+
+* **Left** - Tabs panel, tools panel, agent management.
+* **Right** - Code review, notifications mailbox.
+
+## Editing the toolbar
+
+You can open the toolbar editor from the header or from Settings.
+
+### From the header
+
+Right-click any toolbar button (or any empty space between the buttons and the search bar) and select **Rearrange toolbar items**. The configurator modal opens.
+
+### From Settings
+
+1. In the Warp app, navigate to **Settings** > **Appearance** > **Tabs**.
+2. Click **Edit toolbar**.
+
+## How side placement affects panels
+
+Moving a button to the opposite side also moves where its panel opens, and Warp flips associated UI to stay readable:
+
+* **Tabs panel** - Opens its sidebar on whichever side its button sits. The hover detail sidecar, action buttons, and right-click menu flip to face the center of the screen.
+* **Tools panel** - Opens on the side its button sits. Warp Drive hover previews, kebab menus, and dialogs flip toward the center. The resize handle and border switch to the edge facing the main content.
+* **Code review** - Opens on the side its button sits, with a matching resize handle.
+* **Agent management** - Replaces the main content area when opened, so side placement only affects the button's position, not where the view renders.
+* **Notifications mailbox** - The popover anchors under its button, and notification toasts appear on the same side as the mailbox button.
+
+When multiple panels are open on the same side, they render in the order their buttons appear in the toolbar. For example, if the left-side order is code review, tabs panel, tools panel, the panels open in that same order from left to right, with the main content to their right.
+
+## Related pages
+
+* [Vertical tabs](/terminal/windows/vertical-tabs/) - The sidebar toggled by the tabs panel button.
+* [Code Review panel](/code/code-review/) - The panel toggled by the code review button.
+* [Agent notifications](/agent-platform/capabilities/agent-notifications/) - The mailbox toggled by the notifications button.
+* [Managing cloud agents](/agent-platform/cloud-agents/managing-cloud-agents/) - The view toggled by the agent management button.
+* [Warp Drive](/knowledge-and-collaboration/warp-drive/) - One of the views available in the tools panel.

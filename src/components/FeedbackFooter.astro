@@ -1,0 +1,47 @@
+---
+// Custom footer with PushFeedback "Was this helpful?" widget.
+// PushFeedback CDN is loaded via Starlight's `head` config in astro.config.mjs.
+// Dashboard: https://app.pushfeedback.com
+import Pagination from 'virtual:starlight/components/Pagination';
+import config from 'virtual:starlight/user-config';
+import FeedbackButtons from './FeedbackButtons.astro';
+---
+
+<footer class="sl-flex">
+  <FeedbackButtons />
+
+  <Pagination />
+
+  {
+    config.credits && (
+      <a class="kudos sl-flex" href="https://starlight.astro.build">
+        {Astro.locals.t('builtWithStarlight.label')}
+      </a>
+    )
+  }
+</footer>
+
+<style>
+  /* `.feedback-*` rules live alongside the markup in FeedbackButtons.astro
+     so they ship together. Only footer-level layout stays here. */
+  @layer starlight.core {
+    footer {
+      flex-direction: column;
+      gap: 1.25rem;
+      margin-top: 2rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--sl-color-hairline-light);
+    }
+    .kudos {
+      align-items: center;
+      gap: 0.5em;
+      margin: 1.5rem auto;
+      font-size: var(--sl-text-xs);
+      text-decoration: none;
+      color: var(--sl-color-gray-3);
+    }
+    .kudos:hover {
+      color: var(--sl-color-white);
+    }
+  }
+</style>

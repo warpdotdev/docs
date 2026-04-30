@@ -1,0 +1,60 @@
+---
+title: content_policy_violation
+description: >-
+  The task prompt or environment setup commands were flagged by the platform's
+  automated content policy checks.
+---
+
+The `content_policy_violation` error occurs when the task prompt or environment setup commands are flagged by the platform's automated content policy checks.
+
+---
+
+## Details
+
+* **HTTP Status:** `403 Forbidden`
+* **Retryable:** No
+* **Task State:** FAILED
+
+---
+
+## When does this occur?
+
+This error is returned when:
+
+* The task prompt contains content that violates Warp's usage policies
+* The environment setup commands contain patterns flagged as potentially harmful
+* The automated content classifier determines the task should be blocked
+
+:::note
+For security reasons, the error message is intentionally generic and does not describe what specifically was flagged.
+:::
+
+---
+
+## Example response
+
+```json
+{
+  "type": "/reference/api-and-sdk/troubleshooting/errors/content-policy-violation/",
+  "title": "Unable to start cloud agent. Please try again or contact support if the issue persists.",
+  "status": 403,
+  "instance": "/api/v1/agent/tasks",
+  "error": "Unable to start cloud agent. Please try again or contact support if the issue persists.",
+  "retryable": false,
+  "trace_id": "abc123..."
+}
+```
+
+---
+
+## How to resolve
+
+1. Review your task prompt and environment setup commands to ensure they comply with [Warp's usage policies](https://www.warp.dev/terms-of-service).
+2. If you believe this was flagged in error, contact [Warp support](/support-and-community/troubleshooting-and-support/sending-us-feedback/) and include the `trace_id` from the error response.
+
+---
+
+## Related
+
+* [Cloud Agents Overview](/agent-platform/cloud-agents/overview/) — How cloud agent tasks work
+* [Environments](/agent-platform/cloud-agents/environments/) — Configuring setup commands

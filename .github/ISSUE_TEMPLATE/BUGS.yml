@@ -1,0 +1,52 @@
+name: "Docs site bug"
+description: Report a problem with the docs website, not the documentation content.
+labels:
+  - bug
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Issue description
+      description: Describe the problem you experienced while using the Warp Docs website.
+      placeholder: The page does not load, search is not working, navigation is broken, etc.
+    validations:
+      required: true
+  - type: textarea
+    id: pages
+    attributes:
+      label: Page or pages affected
+      description: Provide the URL of each page where the issue occurs.
+      placeholder: https://docs.warp.dev/getting-started/quickstart/installation-and-setup
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: Describe what you expected to happen.
+      placeholder: I expected...
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: Describe what happened instead.
+      placeholder: Instead...
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser
+      description: Include your browser and version if the issue appears browser-specific.
+      placeholder: Chrome 124, Safari 17, Firefox 125, etc.
+    validations:
+      required: false
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional context
+      description: Add screenshots, recordings, error messages, or other details that may help us investigate.
+    validations:
+      required: false

@@ -1,0 +1,140 @@
+---
+title: Teams
+description: >-
+  Create and manage teams in Warp to organize users, share resources, and
+  collaborate across your engineering organization.
+---
+
+## What is a team?
+
+A team is a group of Warp users who collaborate together. Teams share a dedicated workspace in [Warp Drive](/knowledge-and-collaboration/warp-drive/), giving members access to shared Workflows, Notebooks, Prompts, Rules, Plans, and Environment Variables.
+
+Teams are the foundation of Warp's enterprise experience — they enable centralized administration, shared configuration, and team-wide policy enforcement through the [Admin Panel](/enterprise/team-management/admin-panel/).
+
+:::note
+Each Warp user can be an admin or member of one team at a time.
+:::
+
+## Creating a team
+
+You can create a new team in two ways:
+
+{/* TODO: Add screenshots for both team creation entry points */}
+* From the **Warp Drive** side panel, click **+ Create a team**.
+* In Warp, navigate to **Settings** > **Teams** and follow the prompts.
+
+When creating a team, give it a meaningful name that represents your organization, company, or project. The person who creates the team becomes the **Team Owner**.
+
+:::note
+You can rename your team at any time by going to **Settings** > **Teams**, clicking on the team name, entering the new name, and pressing `Enter`.
+:::
+
+### Inviting team members
+
+Under **Settings** > **Teams**, copy the invite link and share it with your teammates through a secure channel like Slack or email.
+
+:::caution
+On paid plans, adding new members automatically adds them as paid seats. New members are billed on a prorated basis for the remainder of the billing cycle. See [Billing](/enterprise/support-and-resources/billing/) for details.
+:::
+
+## Restricting team invites by domain
+
+Team Admins can restrict team membership to users with specific email domains — for example, your company's email domain.
+
+To enable domain restriction:
+
+1. Navigate to **Settings** > **Teams**.
+2. Toggle on **Restrict by domain**.
+3. Add your allowed email domains to the allowlist.
+
+When domain restriction is enabled, users who attempt to join with a non-matching email domain will be prompted to authenticate via an emailed link sent to an email address on an allowed domain.
+
+## Joining a team
+
+If you've received an invite link, use it to sign up or log in and join the team. If the team uses domain restriction, you'll need to verify that you have access to an email address on an allowed domain before joining.
+
+## Leaving and deleting teams
+
+* **Members and Admins** - Can leave a team at any time by visiting **Settings** > **Teams** and clicking **Leave team**.
+* **Team Owners** - Can delete a team, but only after removing all other team members first.
+
+:::caution
+If you're a Team Owner and choose to [delete your Warp account](/support-and-community/privacy-and-security/privacy/#delete-your-account-and-data), you'll need to assign a team member as the new owner before your account can be deleted.
+:::
+
+## Team discoverability
+
+Team admins can make their team discoverable to colleagues who share the same email domain. When enabled, new users with a matching domain can find and join the team without needing a direct invite link.
+
+To enable discoverability, go to **Settings** > **Teams** > **Make team discoverable**.
+
+:::note
+While discoverability is enabled, any new user who joins the team will add a prorated charge to the team's next billing cycle.
+:::
+
+## Transferring team ownership
+
+Team Owners can transfer ownership to another team member:
+
+{/* TODO: Add screenshot of transfer ownership flow */}
+1. Navigate to **Settings** > **Teams** > **Team Members**.
+2. Click the three-dot menu icon next to the member you want to transfer ownership to.
+3. Click **Transfer ownership**.
+
+Only the current Team Owner can initiate an ownership transfer. After the transfer, the previous owner becomes a regular member (or admin, depending on the team's configuration).
+
+:::note
+If the new owner's email is not on a work domain, team discoverability will be automatically disabled as a safety measure.
+:::
+
+## Team roles and permissions
+
+Warp uses three roles to manage team access:
+
+* **Team Owner** - Full access to the Admin Panel and all team settings. Can manage members, assign roles, configure policies, and transfer ownership. There can only be one Owner per team.
+* **Team Admin** - Same permissions as the Owner, except they cannot transfer team ownership. Teams on Enterprise plans can have multiple admins.
+* **Member** - Standard access to Warp features and team resources. Members can use agents, access shared Warp Drive resources, and configure personal settings within the limits set by admins.
+
+:::note
+We recommend having at least one Team Admin in addition to the Team Owner to prevent access issues if one is unavailable.
+:::
+
+### Permissions overview
+
+|  | Owner | Admin | Member |
+| --- | --- | --- | --- |
+|| Create a team | ✓ | ✓ | ✓ |
+| Restrict invites by domain | ✓ | ✓ | |
+| Invite members | ✓ | ✓ | ✓ |
+| Remove team members | ✓ | ✓ | |
+|| Leave a team | | ✓ | ✓ |
+| Delete a team | ✓ | | |
+| Transfer ownership | ✓ | | |
+| Promote/demote admins | ✓ | ✓ | |
+| Manage billing | ✓ | ✓ | |
+| Configure Admin Panel settings | ✓ | ✓ | |
+
+### Multi-admin support
+
+Teams on the **Enterprise** plan can have multiple admins, enabling distributed management and preventing single points of failure.
+
+To promote or demote a team admin:
+
+{/* TODO: Add screenshot of promote/demote admin flow */}
+1. Navigate to **Settings** > **Teams** > **Team Members**.
+2. Find the user you want to modify and click the three-dot menu icon next to their name.
+3. Click **Promote to Admin** or **Demote from Admin**.
+4. Confirm the change when prompted.
+
+:::caution
+Team Admins cannot demote or modify the Team Owner's role. The Owner role can only change through an ownership transfer.
+:::
+
+For detailed information on what each role can do and how settings enforcement works, see [Roles and permissions](/enterprise/team-management/roles-and-permissions/).
+
+## Related resources
+
+* [Admin Panel](/enterprise/team-management/admin-panel/) - Configure team settings and enforce policies
+* [Roles and permissions](/enterprise/team-management/roles-and-permissions/) - Detailed permission breakdowns and settings enforcement
+* [Getting started for admins](/enterprise/getting-started/getting-started-enterprise/) - Admin onboarding guide
+* [Billing](/enterprise/support-and-resources/billing/) - Understand team billing and seat management

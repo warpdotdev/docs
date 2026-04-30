@@ -1,0 +1,79 @@
+---
+title: Integrations quickstart
+description: >-
+  Trigger your first Oz agent from Slack in ~15 minutes and get results
+  in-thread.
+---
+
+Oz integrations let you trigger cloud agents directly from the tools your team already uses. This guide walks you through connecting Oz to Slack. Once set up, anyone on your team can tag @Oz in a message or thread to kick off a cloud agent that runs the task and posts results back to the conversation.
+
+:::note
+**Want to connect with Linear instead?** The setup is the same — just substitute `slack` with `linear` in the CLI commands, or select Linear in the Oz web app. See [Linear](/agent-platform/cloud-agents/integrations/linear/) for details.
+:::
+
+---
+
+## Prerequisites
+
+* **Eligible plan** - The Slack integration requires a Warp team on Build, Max, or Business plan with at least 20 credits available. See [Access, Billing, and Identity](/agent-platform/cloud-agents/team-access-billing-and-identity/).
+* **An Oz cloud environment** - Agents run inside a configured environment that includes repos and other dependencies. If you don't have one yet, follow the [Cloud Agents Quickstart](/agent-platform/cloud-agents/quickstart/) or run `/create-environment` in Warp.
+* **GitHub authorization** - Warp needs access to your repos to clone code and open PRs. You'll be prompted to authorize the Warp GitHub app when you first create the integration.
+
+---
+
+## 1. Connect the Slack integration
+
+The simplest way to set up the integration is **using the Oz web app**:
+
+1. Navigate to the Oz web app at [oz.warp.dev/integrations](https://oz.warp.dev/integrations).
+2. Click **Slack**.
+3. Follow the guided flow to select your environment and authorize Oz in your Slack workspace.
+
+All members of your Warp team can now use the integration.
+
+**Using the Oz CLI instead:**
+
+Run `oz integration create` to connect the Slack integration:
+
+```bash
+oz integration create slack --environment <ENV_ID>
+```
+
+Replace `<ENV_ID>` with your environment ID (see [Environments](/agent-platform/cloud-agents/environments/) if you need to create one). Find it with `oz environment list` on the Oz CLI or in the [Oz web app](https://oz.warp.dev). The CLI opens a browser window to authorize the Oz app in your workspace.
+
+To attach a default prompt that applies to every agent run triggered from this integration, add the `--prompt` flag:
+
+```bash
+oz integration create slack \
+  --environment <ENV_ID> \
+  --prompt "Always open a draft PR and request review from the team-leads group."
+```
+
+## 2. Tag @Oz in Slack
+
+In any channel or thread in your Slack workspace, tag @Oz with a task:
+
+> @Oz scan the authentication module for security issues and summarize what you find
+
+Oz acknowledges the request immediately and starts an agent run in the cloud. You'll see progress updates appear in the thread as the agent works.
+
+You can also tag @Oz inside an existing thread. Oz picks up the full thread history as context automatically, so you can tag it mid-discussion without repeating background.
+
+## 3. Watch the run
+
+While the agent works, progress updates appear directly in the Slack thread. To inspect the run in more detail:
+
+* **Click the session link** - Oz posts a link in the thread to open a live terminal view of the agent. Watch in real time, add follow-up instructions, or let it run to completion.
+* **Go to [oz.warp.dev/runs](https://oz.warp.dev/runs)** - See the full run transcript: status, commands executed, files changed, and agent output. See [Viewing Cloud Agent Runs](/agent-platform/cloud-agents/viewing-cloud-agent-runs/) for a complete walkthrough.
+
+When the task is complete, Oz posts a summary back to the original Slack thread.
+
+**Breaking it down:** Oz reads the Slack thread as context, runs the agent inside the environment you configured — with your repos cloned and Docker image running — and returns results where the conversation started, in Slack, without anyone leaving the thread.
+
+---
+
+## Next steps
+
+* **Customize agent behavior** - Use a [skill](/agent-platform/cloud-agents/skills-as-agents/) as the base prompt for your integration to give Oz consistent, reusable instructions across every run.
+* **Trigger agents programmatically** - Use the [API & SDK](/reference/api-and-sdk/) to build custom automations and integrations on top of Oz agents.
+* **Read the full Slack reference** - [Slack](/agent-platform/cloud-agents/integrations/slack/) covers identity mapping, team access, monitoring runs, troubleshooting, and uninstall instructions.

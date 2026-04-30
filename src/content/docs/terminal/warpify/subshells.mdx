@@ -1,0 +1,118 @@
+---
+title: Warpify subshells
+description: >-
+  Warpify subshells in bash, zsh, and fish to get Warp features in nested
+  sessions.
+---
+import DemoVideo from '@components/DemoVideo.astro';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+## What is a subshell?
+
+Within the context of Warp, a "subshell" is defined as any nested interactive shell session that's spawned and running within the context of an existing, running shell. This can be a nested session running locally on your machine, a shell session running within a Docker container, or a remote server accessed through SSH. [See more on SSH Warpification](/terminal/warpify/ssh/).
+
+Note that Warp's definition of a subshell differs from the more common definition of a Unix subshell, which typically refers to any shell process spawned as a child of the interactive shell. For example, in bash, a command wrapped in parentheses is executed in a subshell with its own PID and addressable memory space.
+
+## How to Warpify the subshell
+
+By default, Warp automatically recognizes the following commands as **subshell-compatible**:
+
+* bash, fish, zsh
+* docker exec
+* gcloud compute ssh
+* eb ssh
+* poetry shell
+
+When you run a command that's subshell-compatible, Warp will prompt you and invite you to "Warpify" the subshell which makes all of the modern IDE features of Warp available in that subshell. The list of subshell-compatible commands is configurable in Subshell settings as described [below](/terminal/warpify/subshells/#configuring-subshell-compatible-commands).
+
+:::note
+bash, zsh, or fish (3.6 or above) must be set as the default shell within containers and ssh sessions for the Warpification of the subshells to work.
+:::
+
+<DemoVideo src="/assets/terminal/subshells-demo.mp4" label="Subshells Demo" />
+
+### Configuring subshell-compatible commands
+
+To configure subshell-compatible commands, navigate to **Settings** > **Warpify** > **Subshells**.
+
+#### Adding compatible commands
+
+You can add any command that spawns a bash, fish, or zsh subshell to ‘Added commands’ to make it eligible for "Warpification."
+
+Furthermore, you can add regular expressions to the Added commands list. Any commands that match an added regex will be eligible for "Warpification."
+
+#### Blocklisting commands
+
+Some types of subshells are not compatible, and you may also want to control Warp so it never invites you to "Warpify" the subshells for specific commands. When you add commands to the Blocklist, Warp will never invite you to "Warpify" subshells spawned by those commands.
+
+### Automatically "Warpify" subshells
+
+To remember your preferences for a command and bypass the confirmation banner, you can manually paste the appropriate snippet to the end of the RC file corresponding to your subshell (bash, fish, or zsh).
+
+```bash
+# For zsh subshells, add to ~/.zshrc.
+printf '\eP$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "zsh"}}\x9c'
+
+# For bash subshells, add to ~/.bashrc or ~/.bash_profile.
+printf '\eP$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "bash"}}\x9c'
+
+# For fish subshells, add to ~/.config/fish/config.fish.
+if status is-interactive
+  printf '\eP$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "fish"}}\x9c'
+end
+```
+
+Once added, Warp will automatically "Warpify" subsequent subshell sessions for the corresponding shell on the machine with the newly updated RC file.
+
+Under the hood, this snippet prints a Device Control String ([DCS](https://vt100.net/docs/vt510-rm/chapter4.html)) to be read by Warp, signaling that a subshell session has started and is ready to be "Warpified." In turn, Warp executes a setup script in the session that enables the full suite of Warp features like blocks, completions, and the input editor.
+
+For this reason, it’s best to ensure the snippet is added to the end of the RC file, so Warp does not attempt to execute the setup script before the shell has finished sourcing your RC file.
+
+To disable automatic integration, remove the snippet from the corresponding RC file.
+
+If you encounter issues in subshell sessions where the RC file is sourced, [file a GitHub issue](https://github.com/warpdotdev/Warp/issues/new/choose).
+
+## Background commands
+
+Warp runs background commands to power useful features like completions, syntax highlighting, and command corrections. For example, to provide completions for git checkout, Warp runs a background command that lists all git branches in the current repo.
+
+In local subshell sessions, these commands are run in forked shell processes, isolated from your interactive shell session. This is the same implementation used for any non-subshell session.
+
+In remote sessions, however, Warp takes a different approach – while a forked shell process is running on your local machine (where the Warp app is running), your remote session might be running on a server elsewhere. In these cases, Warp takes advantage of the session’s “idle time” – when no command is currently running – to run background commands directly in the session itself. These commands are executed in a non-interactive subshell process to prevent modifications to the session state (they cannot modify an environment variable, for instance).
+
+### Show/hide background blocks
+
+By default, blocks for background commands are hidden. To show background command blocks, select ‘Show background blocks’ in the ‘Blocks’ menu of the macOS menu bar.
+
+### Disable background commands in remote sessions
+
+We understand that some developers may want to disable background commands for certain or all environments.
+
+To disable background commands in remote subshell sessions, you can execute the following command in a top-level terminal session:
+
+<Tabs>
+  <TabItem label="macOS">
+    Update the settings defaults located in `dev.warp.Warp-Stable` to include the following name-value pair: `"DisableInBandCommands": "true"`.
+
+    ```bash
+    defaults update dev.warp.Warp-Stable DisableInBandCommands true
+    ```
+  </TabItem>
+  <TabItem label="Windows">
+    Update the settings registry located at `HKCU:\Software\Warp.dev\Warp` to include the following name-value pair: `"DisableInBandCommands": "true"`.
+
+    ```powershell
+    Set-ItemProperty -Path "HKCU:\SOFTWARE\Warp.dev\Warp" -Name DisableInBandCommands -Value true
+    ```
+  </TabItem>
+  <TabItem label="Linux">
+    Update the settings file located at `~/.config/warp-terminal/user_preferences.json` to include the following name-value pair: `"DisableInBandCommands": "true"`.
+
+    ```bash
+    cd ~/.config/warp-terminal/
+    jq '.prefs += {"DisableInBandCommands": "true"}' user_preferences.json > tmp.json && mv tmp.json user_preferences.json
+    ```
+  </TabItem>
+</Tabs>
+
+This will effectively disable tab completions, syntax highlighting, command corrections, and the git status prompt indicator in remote subshells.

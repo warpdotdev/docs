@@ -1,0 +1,89 @@
+---
+title: Self-hosting quickstart
+description: >-
+  Get a managed self-hosted Oz worker running on Docker and route your first
+  cloud agent run to it in under 10 minutes.
+---
+
+Run your first Oz cloud agent on your own infrastructure in ~10 minutes using the managed architecture with the Docker backend — the default and fastest path to self-hosting.
+
+:::note
+This quickstart sets up the [managed architecture](/agent-platform/cloud-agents/self-hosting/#managed-architecture), where Oz orchestrates the agent and your worker provides the compute. **Prefer a CLI-only path with no Docker requirement?** Jump to the [Unmanaged quickstart](/agent-platform/cloud-agents/self-hosting/unmanaged/#unmanaged-quickstart) to run `oz agent run` directly on any host.
+:::
+
+---
+
+## Prerequisites
+
+* **Enterprise plan with self-hosting enabled** — [Contact sales](https://warp.dev/contact-sales) if self-hosting is not yet enabled for your team.
+* **A Linux machine with Docker** — A VM, server, or local machine with the Docker daemon running Linux containers. Verify with `docker info`. Docker Desktop on macOS or Windows works for testing.
+* **A team API key** — In the Warp app, go to **Settings** > **Cloud platform** > **Oz Cloud API Keys** to create a team-scoped API key. See [API Keys](/reference/cli/api-keys/) for details.
+* **The Oz CLI** (for routing a test run) — See [Installing the CLI](/reference/cli/#installing-the-cli).
+
+---
+
+## Run your first self-hosted agent
+
+_~10 minutes_
+
+### 1. Export your API key
+
+Export the team API key so the worker container can authenticate to Oz automatically:
+
+```bash
+export WARP_API_KEY="your_team_api_key"
+```
+
+### 2. Start the worker
+
+Run the `oz-agent-worker` container, mounting the host's Docker socket so the worker can spawn task containers. Choose any `--worker-id` meaningful for your team — you'll use this value to route tasks to this worker.
+
+```bash
+docker run -v /var/run/docker.sock:/var/run/docker.sock \
+  -e WARP_API_KEY="$WARP_API_KEY" \
+  warpdotdev/oz-agent-worker --worker-id "my-worker"
+```
+
+**Expected outcome:** The worker connects to Oz and begins listening for tasks. You should see log output confirming the connection (something like `Connected to Oz` / `Waiting for tasks`).
+
+:::caution
+For production deployments, pin to a specific image digest (e.g., `warpdotdev/oz-agent-worker@sha256:...`) instead of the `latest` tag.
+:::
+
+### 3. Route a run to your worker
+
+In a separate terminal on any machine with the Oz CLI, route a cloud agent run to your worker by passing `--host` with the worker ID you chose:
+
+```bash
+oz agent run-cloud --prompt "List the files in the current directory" --host "my-worker"
+```
+
+**Expected outcome:** Oz accepts the task, routes it to your worker, and the worker spawns a Docker container to execute the agent. You'll see the run appear in the [Oz dashboard](https://oz.warp.dev) with status moving from `QUEUED` → `INPROGRESS` → `SUCCEEDED`.
+
+### 4. Verify the run
+
+Open the [Oz dashboard](https://oz.warp.dev), find the new task, and confirm the session transcript shows the agent running against your worker. You can attach to the session at any time via [Agent Session Sharing](/agent-platform/local-agents/session-sharing/) to monitor or steer it.
+
+---
+
+## Next steps
+
+* [Unmanaged quickstart](/agent-platform/cloud-agents/self-hosting/unmanaged/#unmanaged-quickstart) — ~5-minute CLI-only path: run `oz agent run` in your CI, Kubernetes pod, or dev box with no worker daemon and no Docker requirement.
+* [Managed: Docker](/agent-platform/cloud-agents/self-hosting/managed-docker/) — Full Docker backend setup, including private registries, volume mounts, and runtime configuration.
+* [Environments](/agent-platform/cloud-agents/environments/) — Define a repository, Docker image, and setup commands so agents have a reproducible workspace for every run.
+* [Routing runs to self-hosted workers](/agent-platform/cloud-agents/self-hosting/#routing-runs-to-self-hosted-workers) — How to route tasks from schedules, integrations (Slack, Linear), the API, and the Oz web app.
+* [Managed: Kubernetes](/agent-platform/cloud-agents/self-hosting/managed-kubernetes/) — Deploy workers into a Kubernetes cluster with Helm.
+* [Self-hosted worker reference](/agent-platform/cloud-agents/self-hosting/reference/) — All CLI flags and config file options.
+
+## Troubleshooting
+
+**Worker won't start**\
+Verify Docker is running (`docker info`) and that the daemon platform is `linux/amd64` or `linux/arm64`. Musl-based (Alpine) worker hosts are not supported.
+
+**Worker won't connect**\
+Verify your API key has team scope. Ensure the machine has outbound internet access to `oz.warp.dev:443`. Increase log verbosity with `--log-level debug` to see connection details.
+
+**Task stays queued and never runs**\
+Confirm the `--host` value you passed to `oz agent run-cloud` matches your `--worker-id` exactly (case-sensitive). Check that the worker's team matches the team creating the task.
+
+For more, see [Troubleshooting](/agent-platform/cloud-agents/self-hosting/troubleshooting/).

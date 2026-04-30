@@ -1,0 +1,68 @@
+---
+title: integration_not_configured
+description: >-
+  The integration's setup is incomplete. Visit the setup URL to finish
+  configuring the integration.
+---
+
+The `integration_not_configured` error occurs when a task requires an integration whose setup has not been completed (for example, missing OAuth tokens or unfinished configuration steps).
+
+---
+
+## Details
+
+* **HTTP Status:** `400 Bad Request`
+* **Retryable:** No
+* **Task State:** FAILED
+
+---
+
+## When does this occur?
+
+This error is returned when:
+
+* An integration (Slack, Linear, etc.) was partially set up but the configuration was not completed
+* Required OAuth tokens or credentials for the integration are missing or expired
+* The integration was installed but additional setup steps were not finished
+
+---
+
+## Additional metadata fields
+
+This error includes extra fields beyond the standard response format:
+
+* **`integration_name`** — The name of the integration that needs configuration
+* **`setup_url`** — A URL to the integration setup page where you can complete configuration
+
+---
+
+## Example response
+
+```json
+{
+  "type": "/reference/api-and-sdk/troubleshooting/errors/integration-not-configured/",
+  "title": "Slack integration is not configured",
+  "status": 400,
+  "instance": "/api/v1/agent/tasks",
+  "error": "Slack integration is not configured",
+  "retryable": false,
+  "integration_name": "slack",
+  "setup_url": "https://oz.warp.dev/integrations"
+}
+```
+
+---
+
+## How to resolve
+
+1. Visit the `setup_url` provided in the response metadata (or go to the [Oz integrations page](https://oz.warp.dev/integrations)).
+2. Complete all setup steps for the integration.
+3. Retry the triggering event or task.
+
+---
+
+## Related
+
+* [Integrations](/agent-platform/cloud-agents/integrations/) — Integration setup guides
+* [Slack Integration](/agent-platform/cloud-agents/integrations/slack/) — Slack-specific setup
+* [Linear Integration](/agent-platform/cloud-agents/integrations/linear/) — Linear-specific setup

@@ -1,0 +1,60 @@
+---
+title: authentication_required
+description: >-
+  The API key in the request is invalid, expired, or missing. Generate a new
+  key and update your client configuration.
+---
+
+The `authentication_required` error occurs when the API request lacks valid authentication credentials.
+
+:::note
+This is classified as a **platform error** (task state → ERROR) rather than a user error, because it typically indicates a configuration issue with the API key rather than a problem with the task itself.
+:::
+
+---
+
+## Details
+
+* **HTTP Status:** `401 Unauthorized`
+* **Retryable:** No
+* **Task State:** ERROR
+
+---
+
+## When does this occur?
+
+This error is returned when:
+
+* The `Authorization` header is missing from the request
+* The API key has been revoked or has expired
+* The API key is malformed or invalid
+
+---
+
+## Example response
+
+```json
+{
+  "type": "/reference/api-and-sdk/troubleshooting/errors/authentication-required/",
+  "title": "Your API key is invalid or has expired. Please generate a new key and try again.",
+  "status": 401,
+  "instance": "/api/v1/agent/tasks",
+  "error": "Your API key is invalid or has expired. Please generate a new key and try again.",
+  "retryable": false
+}
+```
+
+---
+
+## How to resolve
+
+1. Generate a new API key from the [Oz web app](https://oz.warp.dev) or via the Oz CLI.
+2. Update your client configuration with the new key.
+3. Retry the request.
+
+---
+
+## Related
+
+* [Oz API & SDK](/reference/api-and-sdk/) — API authentication
+* [Oz Platform](/agent-platform/cloud-agents/platform/) — API key management

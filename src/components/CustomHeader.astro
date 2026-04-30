@@ -1,0 +1,79 @@
+---
+// Custom Header override.
+//
+// Three-region layout: SiteTitle (left) | WarpTopicNav (middle) |
+// SocialIcons + ThemeSelect + LanguageSelect (right).
+//
+// Search + Ask AI live inside the sidebar (Scalar pattern, see
+// CustomSidebar.astro). The middle region carries the topic tabs (Terminal,
+// Agents, Reference, etc.) as a horizontal nav (see WarpTopicNav.astro) —
+// previously these lived in the sidebar but were moved up here for a more
+// app-like top-level navigation.
+//
+// Default at: node_modules/@astrojs/starlight/components/Header.astro
+import LanguageSelect from 'virtual:starlight/components/LanguageSelect';
+import SiteTitle from 'virtual:starlight/components/SiteTitle';
+import SocialIcons from 'virtual:starlight/components/SocialIcons';
+import ThemeSelect from 'virtual:starlight/components/ThemeSelect';
+import WarpTopicNav from './WarpTopicNav.astro';
+---
+
+<div class="header">
+	<div class="title-wrapper sl-flex">
+		<SiteTitle />
+	</div>
+	<div class="topic-nav-slot sl-hidden md:sl-flex print:hidden">
+		<WarpTopicNav />
+	</div>
+	<div class="sl-hidden md:sl-flex print:hidden right-group">
+		<div class="sl-flex social-icons">
+			<SocialIcons />
+		</div>
+		<ThemeSelect />
+		<LanguageSelect />
+	</div>
+</div>
+
+<style>
+	@layer starlight.core {
+		.header {
+			display: flex;
+			gap: var(--sl-nav-gap);
+			align-items: center;
+			height: 100%;
+		}
+
+		.title-wrapper {
+			/* Prevent long titles overflowing and covering the menu button on
+			   narrow viewports. */
+			overflow: clip;
+			/* Avoid clipping focus ring around link inside title wrapper. */
+			padding: 0.25rem;
+			margin: -0.25rem;
+			min-width: 0;
+			flex: none;
+		}
+
+		/* Topic nav slot: takes all remaining width between SiteTitle and the
+		   right group, vertically stretched so its child links can pin a
+		   bottom-edge underline to the header hairline. */
+		.topic-nav-slot {
+			flex: 1 1 auto;
+			align-self: stretch;
+			align-items: stretch;
+			min-width: 0;
+		}
+
+		.right-group,
+		.social-icons {
+			gap: 1rem;
+			align-items: center;
+			flex: none;
+		}
+		.social-icons::after {
+			content: '';
+			height: 2rem;
+			border-inline-end: 1px solid var(--sl-color-gray-5);
+		}
+	}
+</style>

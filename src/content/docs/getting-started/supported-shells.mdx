@@ -1,0 +1,174 @@
+---
+title: Supported Shells
+description: >-
+  Warp supports bash, zsh, fish, and PowerShell across macOS, Windows, and
+  Warp supports bash, zsh, fish, PowerShell, and WSL2 across macOS, Windows,
+  and Linux.
+---
+
+## Warp default shell
+
+Warp tries to load your login shell by default. Currently, Warp supports bash, fish, zsh, and PowerShell (pwsh). If your login shell is set to something else (e.g. Nushell) Warp will show a banner indicating it's not supported and load the default shells listed below:
+
+* On macOS, zsh is the default shell.
+* On Windows, PowerShell (pwsh) is the default shell.
+* On Linux, bash is the default shell.
+
+:::note
+If you run into issues configuring your RC files (`~/.bashrc`, `~/.zshrc`, `config.fish`, `Microsoft.PowerShell_profile.ps1`) with Warp, please see [Configuring and debugging your RC files](/support-and-community/troubleshooting-and-support/known-issues/#configuring-and-debugging-your-rc-files).
+:::
+
+### Changing what shell Warp uses
+
+To change the default shell, we recommend you choose a shell in Warp by going to **Settings** > **Features** and scrolling to the `Session` section, then select the "Startup shell for new sessions"
+
+:::note
+The changes to your shell will only take effect when you start a new session.
+:::
+
+## Customizing your shell environment
+
+### Customize your zsh shell environment
+
+Zsh can be customized via the `~/.zshrc` file, which runs whenever a new session starts (window, tab, or pane). Use it to set environment variables, aliases, and customize the [prompt](/terminal/appearance/prompt/).
+
+#### Editing the .zshrc file
+
+Edit `~/.zshrc` using `nano ~/.zshrc` or `vi ~/.zshrc`.
+
+:::note
+Files starting with a dot (`.`) are hidden by default. Check your file explorer’s settings to show hidden files.
+:::
+
+#### Reloading the zshrc file
+
+Apply changes by running `source ~/.zshrc` or restarting Warp/opening a new session.
+
+### Customize your Bash shell environment
+
+Bash is pre-installed on macOS and can be customized using `~/.bashrc` (for non-login shells) or `~/.bash_profile` (for login shells). Use these files to set environment variables, aliases, and customize the [prompt](/terminal/appearance/prompt/).
+
+#### Editing the .bashrc file
+
+Edit `~/.bashrc` using `nano ~/.bashrc` or `vi ~/.bashrc`.
+
+#### Reloading the bashrc file
+
+Apply changes by running `source ~/.bashrc` or restarting Warp/opening a new session.
+
+:::note
+Files starting with a dot (`.`) are hidden by default. Check your file explorer’s settings to show hidden files.
+:::
+
+### Customize your Fish shell environment
+
+Fish is a user-friendly shell with autosuggestions and syntax highlighting. Its configuration file is `~/.config/fish/config.fish`.
+
+#### Editing the config.fish file
+
+Edit `~/.config/fish/config.fish` using `nano ~/.config/fish`. Use it to set environment variables, aliases, and functions.
+
+#### Reloading the config.fish file
+
+Apply changes by running `source ~/.config/fish` or restarting Warp/opening a new session.
+
+:::note
+Unlike Bash and Zsh, Fish does not use `export VAR=value`. Use `set -Ux VAR value` for persistent environment variables.
+:::
+
+### Customize your PowerShell shell environment
+
+PowerShell can be customized via its profile script, located at `$PROFILE`. Check if it exists with `Test-Path $PROFILE`, and create it if needed with `New-Item -Path $PROFILE -ItemType File -Force`.
+
+#### Editing the PowerShell profile
+
+Edit the profile using `code $PROFILE`, and use it to set environment variables, aliases, custom prompts, and scripts.
+
+#### Reloading the PowerShell profile
+
+Apply changes by restarting Warp or opening a new session.
+
+:::note
+PowerShell’s execution policy may block scripts. Enable profile execution with:
+
+```powershell
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+:::
+
+## Additional shell guidance for macOS
+
+#### Setting up zsh on Warp
+
+By default, macOS ships with [zsh](https://zsh.sourceforge.io/Doc/Release/zsh_toc.html) located in `/bin/zsh`. You can confirm this location by typing `which zsh` in Warp. You can also check the version of zsh installed on your system by simply typing the following:
+
+`$ zsh --version`
+
+### Using fish shell with Warp on macOS
+
+#### Step 1: Install fish
+
+While bash, and zsh come pre-installed on macOS systems, fish shell does not. So before using fish with Warp, you will need to install it. Install fish 3.6 or above using one of the methods listed below -
+
+1. With Homebrew: If you already have homebrew installed, you can simply type `brew install fish`, and follow the instructions.
+2. Download the installer at [fishshell.com](https://fishshell.com/)
+
+#### Step 2: Switch to fish as the default shell
+
+Once you’ve installed fish on your computer, you can set it as your default shell, so Warp will use it every time a new tab, pane, or window is opened. You can either make fish the default shell for only Warp, from the session settings (**Settings** > **Features** > **Session**), or for your user account. To change your account's default shell, you need to run two commands.
+
+**If you used Homebrew to install fish on macOS or if you used the macOS installer** available on fishshell.com to install fish, type the following two commands in Warp:
+
+```
+echo $(which fish) | sudo tee -a /etc/shells
+chsh -s $(which fish)
+```
+
+:::note
+If you prefer, you can also manually edit the `/etc/shells` file using the editor of your choice (you may need sudo privileges).
+:::
+
+:::note
+**Why the different locations?** The location of fish depends on how it was installed. Homebrew installs programs under `/usr/local` on macOS with Intel processors, but under `/opt/homebrew` on macOS with Apple Silicon. So, if you used Homebrew to install fish on macOS with Apple Silicon, the location of the executable is - `/opt/homebrew/bin/fish`.\
+You can identify where fish is installed by running `which fish`.
+:::
+
+### Using PowerShell (pwsh) with Warp on macOS
+
+#### Step 1: Install PowerShell
+
+While bash, and zsh come pre-installed on macOS systems, PowerShell shell does not. So before using PowerShell with Warp, you will need to install it. Install PowerShell 7.0 or above using one of the methods listed below -
+
+1. With Homebrew: If you already have homebrew installed, you can simply type `brew install powershell/tap/powershell`, and follow the instructions.
+2. Download from the [official Microsoft website](https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell).
+
+#### Step 2: Switch to pwsh as the default shell
+
+Once you’ve installed PowerShell on your computer, you can set it as your default shell, so Warp will use it every time a new tab, pane, or window is opened. You can either make pwsh the default shell for only Warp, from the session settings (**Settings** > **Features** > **Session**), or for your user account. To change your account's default shell, you need to run two commands.
+
+```
+echo $(which pwsh) | sudo tee -a /etc/shells
+chsh -s $(which pwsh)
+```
+
+:::note
+If you prefer, you can also manually edit the `/etc/shells` file using the editor of your choice (you may need sudo privileges).
+:::
+
+:::note
+**Why the different locations?** The location of pwsh depends on how it was installed. Homebrew installs programs under `/usr/local` on macOS with Intel processors, but under `/opt/homebrew` on macOS with Apple Silicon. So, if you used Homebrew to install pwsh on macOS with Apple Silicon, the location of the executable is - `/opt/homebrew/bin/pwsh`.
+You can identify where pwsh is installed by running `which pwsh`.
+:::
+
+## Using Warp with shells on Windows
+
+On Windows, Warp's default shell is PowerShell 7 (pwsh). Warp for Windows supports several shells:
+
+* PowerShell 7 (default)
+* PowerShell 5
+* Windows Subsystem for Linux (WSL2)
+* Git Bash
+
+:::note
+Windows Command Prompt (cmd.exe) is not currently supported. For more information and updates about cmd.exe support, please see [this GitHub issue](https://github.com/warpdotdev/Warp/issues/5882).
+:::

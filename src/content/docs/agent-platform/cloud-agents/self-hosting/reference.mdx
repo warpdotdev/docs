@@ -1,0 +1,206 @@
+---
+title: Self-hosted worker reference
+description: >-
+  Complete reference for the oz-agent-worker daemon — CLI flags and config
+  file schema for the Docker, Kubernetes, and Direct backends.
+---
+
+Reference for the `oz-agent-worker` daemon: CLI flags and the full YAML config-file schema for all three [managed backends](/agent-platform/cloud-agents/self-hosting/#managed-architecture) — Docker, Kubernetes, and Direct.
+
+:::note
+This page documents every flag and config option. For installation and backend-specific setup walkthroughs, see [Managed: Docker](/agent-platform/cloud-agents/self-hosting/managed-docker/), [Managed: Kubernetes](/agent-platform/cloud-agents/self-hosting/managed-kubernetes/), or [Managed: Direct](/agent-platform/cloud-agents/self-hosting/managed-direct/). This reference applies to the managed architecture only; the [unmanaged architecture](/agent-platform/cloud-agents/self-hosting/unmanaged/) uses `oz agent run` instead.
+:::
+
+---
+
+## Worker flags
+
+The following flags are available when starting the worker.
+
+### Required
+
+* `--worker-id` — A string identifying this worker. This is the value you pass to `--host` when routing tasks. Choose something meaningful for your team (e.g., `prod-runner-1` or `ci-worker`). Multiple workers can share the same ID for load balancing.
+* `--api-key` or `WARP_API_KEY` env var — Your team API key for authentication. When running via Docker, pass it as `-e WARP_API_KEY="..."`. When running the binary directly, use `--api-key` or the environment variable.
+
+### Optional
+
+* `--config-file` — Path to a YAML [config file](#config-file). CLI flags take precedence over config file values.
+* `--backend` — Backend type: `docker` (default), `kubernetes`, or `direct`. See [Managed: Kubernetes](/agent-platform/cloud-agents/self-hosting/managed-kubernetes/) and [Managed: Direct](/agent-platform/cloud-agents/self-hosting/managed-direct/) for backend-specific setup.
+* `--log-level` — Log verbosity. One of `debug`, `info`, `warn`, `error`. Defaults to `info`.
+* `--no-cleanup` — Keep task containers, Kubernetes Jobs, or workspace directories after execution instead of removing them. Useful for debugging failed tasks.
+* `-v` / `--volumes` — Mount host directories into task containers (Docker backend only). Format: `HOST_PATH:CONTAINER_PATH` or `HOST_PATH:CONTAINER_PATH:MODE` (where MODE is `ro` or `rw`). Can be specified multiple times.
+* `-e` / `--env` — Set environment variables for tasks. Format: `KEY=VALUE` (explicit value) or `KEY` (pass through from host environment). Can be specified multiple times.
+* `--max-concurrent-tasks` — Maximum number of tasks to run concurrently. Defaults to `0` (unlimited). When set, additional tasks wait until a slot is available.
+* `--idle-on-complete` — How long to keep the `oz` process alive after a task's conversation finishes, allowing follow-up interactions via session sharing. Uses duration format (e.g. `45m`, `10m`, `0s`). Defaults to `45m` when not set. Set to `0s` to disable.
+
+:::note
+Worker IDs starting with `warp` are reserved and cannot be used. The worker refuses to start if `--worker-id` begins with `warp`.
+:::
+
+### Example with all flags
+
+```bash
+docker run -v /var/run/docker.sock:/var/run/docker.sock \
+  -e WARP_API_KEY="$WARP_API_KEY" \
+  warpdotdev/oz-agent-worker \
+  --worker-id "prod-runner-1" \
+  --log-level debug \
+  --no-cleanup \
+  --max-concurrent-tasks 4 \
+  --idle-on-complete 10m \
+  -v /opt/shared-cache:/cache:ro \
+  -e NPM_TOKEN=your_token \
+  -e GITHUB_TOKEN
+```
+
+:::caution
+When running the worker via Docker, there are two levels of `-e` flags. Docker's `-e` passes env vars to the **worker container** (e.g., `WARP_API_KEY`). The worker's `-e` / `--env` flags pass env vars into the **task containers** the worker spawns. Keep these distinct.
+:::
+
+---
+
+## Config file
+
+For complex setups, use a YAML config file instead of (or in addition to) CLI flags. Pass it with `--config-file`:
+
+```bash
+oz-agent-worker --api-key "$WARP_API_KEY" --config-file config.yaml
+```
+
+CLI flags always take precedence over config file values.
+
+### Docker backend config
+
+```yaml
+worker_id: "my-worker"
+cleanup: true
+max_concurrent_tasks: 4
+idle_on_complete: "10m"
+backend:
+  docker:
+    volumes:
+      - "/data:/data:ro"
+      - "/cache:/cache"
+    environment:
+      - name: NPM_TOKEN
+        value: "your_token"
+      - name: GITHUB_TOKEN  # inherits from host environment
+```
+
+### Kubernetes backend config
+
+```yaml
+worker_id: "k8s-worker"
+max_concurrent_tasks: 4
+backend:
+  kubernetes:
+    namespace: "warp-oz"
+    default_image: "my-registry.io/dev-image:latest"
+    unschedulable_timeout: "2m"
+    pod_template:
+      nodeSelector:
+        kubernetes.io/os: linux
+      containers:
+        - name: task
+          resources:
+            requests:
+              cpu: "2"
+              memory: 4Gi
+          env:
+            - name: GITHUB_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: my-k8s-secret
+                  key: github-token
+```
+
+### Direct backend config
+
+```yaml
+worker_id: "direct-worker"
+max_concurrent_tasks: 2
+backend:
+  direct:
+    workspace_root: "/var/lib/oz/workspaces"
+    oz_path: "/usr/local/bin/oz"
+    setup_command: "/opt/scripts/setup.sh"
+    teardown_command: "/opt/scripts/teardown.sh"
+    environment:
+      - name: MY_VAR
+        value: "hello"
+```
+
+### Config file fields
+
+**Top-level:**
+
+* `worker_id` — Worker identifier (same as `--worker-id` flag).
+* `cleanup` — Whether to clean up after tasks. Defaults to `true`. Set to `false` to keep containers/workspaces for debugging (equivalent to `--no-cleanup`).
+* `max_concurrent_tasks` — Maximum concurrent tasks. Defaults to unlimited.
+* `idle_on_complete` — Duration to keep the `oz` process alive after task completion (e.g. `"45m"`, `"0s"`).
+* `backend` — Backend configuration block. Only one backend (`docker`, `kubernetes`, or `direct`) may be specified.
+
+**`backend.docker`:**
+
+* `volumes` — List of volume mounts (same format as `-v` flag).
+* `environment` — List of environment variables with `name` and optional `value`. If `value` is omitted, the variable is inherited from the host.
+
+**`backend.kubernetes`:**
+
+* `namespace` — Kubernetes namespace for task Jobs. Defaults to `default`. Selects the namespace inside the chosen cluster; does not choose the cluster.
+* `kubeconfig` — Path to an explicit kubeconfig file. If omitted, the worker uses in-cluster config when running inside Kubernetes, or falls back to the default kubeconfig loading rules.
+* `default_image` — Default Docker image for task Jobs when the run has no Warp environment image. Precedence: Warp environment image > `default_image` > `ubuntu:22.04`. Set this to skip creating a Warp environment when all your tasks use the same base image.
+* `image_pull_policy` — One of `Always`, `Never`, or `IfNotPresent`. Defaults to `IfNotPresent`.
+* `preflight_image` — Image used for the startup preflight Job. Defaults to `busybox:1.36`. Override this if your cluster only allows pulling from an internal or allowlisted registry.
+* `setup_command` — Shell command to run before each task.
+* `teardown_command` — Shell command to run after each task completes.
+* `extra_labels` — Map of additional labels to add to task Jobs and Pods.
+* `extra_annotations` — Map of additional annotations to add to task Jobs and Pods.
+* `active_deadline_seconds` — Maximum lifetime for a task Job (Kubernetes `activeDeadlineSeconds`).
+* `workspace_size_limit` — Size limit for the workspace `emptyDir` volume (e.g., `10Gi`).
+* `unschedulable_timeout` — How long a pod may remain unschedulable before the task is failed early. Defaults to `30s`. Set to `0s` to disable the fail-fast behavior.
+* `pod_template` — Raw Kubernetes PodSpec YAML merged with the worker's required fields at runtime. Use this to configure task pod scheduling, `serviceAccountName`, `imagePullSecrets`, `nodeSelector`, `tolerations`, resources, and environment variables (including `valueFrom.secretKeyRef` for Kubernetes Secrets). Define a container named `task` to customize the main task container directly; otherwise the worker appends its own.
+
+**`backend.direct`:**
+
+* `workspace_root` — Directory where per-task workspaces are created. Defaults to `/var/lib/oz/workspaces`.
+* `oz_path` — Path to the oz CLI binary. If omitted, the worker looks up `oz` in `PATH`.
+* `setup_command` — Shell command to run before each task. Receives `OZ_WORKSPACE_ROOT`, `OZ_RUN_ID`, `OZ_ENVIRONMENT_FILE`, and `OZ_WORKER_BACKEND` as environment variables.
+* `teardown_command` — Shell command to run after each task completes.
+* `environment` — List of environment variables (same format as the Docker backend).
+
+:::note
+Only one backend can be configured at a time. Specifying more than one of `docker`, `kubernetes`, and `direct` in the same config file is an error.
+:::
+
+---
+
+## Metrics configuration
+
+The worker exports metrics over OpenTelemetry. Exporter selection is controlled by standard environment variables, not CLI flags or config file fields. Set these variables on the worker process (or the worker container via Docker `-e` / Kubernetes `env`).
+
+* `OTEL_METRICS_EXPORTER` — Exporter to use: `prometheus`, `otlp`, `console`, or `none`. When unset, defaults to `otlp`.
+* `OTEL_EXPORTER_PROMETHEUS_HOST` — Bind address for the Prometheus exporter. Defaults to `localhost`. Set to `0.0.0.0` when running in Docker or Kubernetes.
+* `OTEL_EXPORTER_PROMETHEUS_PORT` — Port for the Prometheus exporter. Defaults to `9464`.
+* `OTEL_EXPORTER_OTLP_ENDPOINT` — OTLP collector endpoint (e.g., `http://otel-collector.observability.svc:4318`).
+* `OTEL_EXPORTER_OTLP_PROTOCOL` — OTLP protocol: `http/protobuf` (default) or `grpc`.
+
+When deploying with the Helm chart, use the `metrics.*` values instead of setting these variables manually. See [Monitoring](/agent-platform/cloud-agents/self-hosting/monitoring/) for the full setup guide, metric catalog, Helm values, and sample PromQL queries.
+
+---
+
+## Routing runs to self-hosted workers
+
+Once a worker is running, route cloud agent runs to it with the `--host` flag or its equivalents. See [Routing runs to self-hosted workers](/agent-platform/cloud-agents/self-hosting/#routing-runs-to-self-hosted-workers) for examples across the CLI, schedules, integrations, the API, and the web UI.
+
+---
+
+## Related pages
+
+* [Managed: Docker](/agent-platform/cloud-agents/self-hosting/managed-docker/) — Docker backend setup, connectivity, and private registries.
+* [Managed: Kubernetes](/agent-platform/cloud-agents/self-hosting/managed-kubernetes/) — Kubernetes backend setup, Helm chart, pod template, and operational notes.
+* [Managed: Direct](/agent-platform/cloud-agents/self-hosting/managed-direct/) — Direct backend setup and workspace model.
+* [Self-hosting overview](/agent-platform/cloud-agents/self-hosting/) — Architecture, decision guide, and Enterprise requirements.
+* [Environments](/agent-platform/cloud-agents/environments/) — Define the Docker image, repos, and setup commands used by task containers.
+* [Monitoring](/agent-platform/cloud-agents/self-hosting/monitoring/) — OpenTelemetry metrics for worker health, task throughput, and capacity.
+* [Troubleshooting](/agent-platform/cloud-agents/self-hosting/troubleshooting/) — Worker and task failure diagnostics.

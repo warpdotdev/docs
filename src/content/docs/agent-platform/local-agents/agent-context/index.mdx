@@ -1,0 +1,22 @@
+---
+title: Agent Context
+description: >-
+  How to attach various forms of multi-modal context directly to Warp's Agent
+  within a prompt.
+---
+
+In Warp, you can pass different types of input directly to the Agent to guide its behavior and improve response quality. These inputs are known as **Agent Context**: ad-hoc pieces of information you manually supply during a session.
+
+**You can attach context in several ways:**
+
+* [Blocks as Context](/agent-platform/local-agents/agent-context/blocks-as-context/) - share output from your terminal to help the Agent understand errors, logs, or previous commands.
+* [Images as Context](/agent-platform/local-agents/agent-context/images-as-context/) - include screenshots, diagrams, or other visuals to provide additional clarity.
+* [URLs as Context](/agent-platform/local-agents/agent-context/urls-as-context/) - attach public webpages so the Agent can extract and reference their content.
+* [Selection as Context](/agent-platform/local-agents/agent-context/selection-as-context/) - attach code snippets from the editor or review panel to enrich your prompts with precise context.
+* [Using @ to Add Context](/agent-platform/local-agents/agent-context/using-to-add-context/) - reference files, folders, code symbols, or Warp Drive objects directly in your prompts.
+
+Commands you run inside an agent conversation are automatically included as context for your next prompt. For details, see [Blocks as Context](/agent-platform/local-agents/agent-context/blocks-as-context/).
+
+---
+
+This is distinct from other persistent or automatic sources of context, such as [Rules](/agent-platform/capabilities/rules/), [Warp Drive as Agent Mode Context](/knowledge-and-collaboration/warp-drive/agent-mode-context/), and [Model Context Protocol (MCP)](/agent-platform/capabilities/mcp/), which the Agent also uses when available.

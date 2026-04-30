@@ -1,0 +1,27 @@
+---
+title: "Demo: Sentry monitoring with SDK"
+description: >-
+  Build a Sentry webhook handler that triggers Oz agents to investigate errors
+  and create draft PRs.
+---
+import VideoEmbed from '@components/VideoEmbed.astro';
+
+### Turn Production Errors into Draft PRs with Cloud Agents + TypeScript SDK
+
+<VideoEmbed url="https://www.youtube.com/watch?feature=youtu.be&v=fHQXLg9ybi4" />
+
+:::note
+Example repository: [**https://github.com/warpdotdev/warp-agents-sdk-demo-sentry-monitor**](https://github.com/warpdotdev/warp-agents-sdk-demo-sentry-monitor)
+:::
+
+In this demo, Ben builds a small TypeScript “Sentry monitor” service that listens for specific Sentry alerts (like a Go nil pointer dereference) and triggers a Warp cloud agent to investigate. The server validates the webhook, extracts the stack trace, and injects it into an agent run inside a Warp Environment so the agent can inspect the repo and propose a fix.
+
+He also covers the task lifecycle basics in the TypeScript SDK (running an agent, polling task state to fetch a session link for debugging), and shows the end result: a draft GitHub pull request created from the Sentry event for a maintainer to review.
+
+**What Ben covers**
+
+* Using Warp's TypeScript SDK to trigger agent runs and retrieve run details.
+* Handling run lifecycle states (queued → running) to reliably fetch a session link.
+* Running agents inside a Warp Environment so they can investigate real code, run tests, and validate fixes.
+* Building a lightweight Sentry webhook server that filters, validates, and routes only the right errors to an agent.
+* Creating a workflow that results in draft PRs for human review, instead of silent autonomous changes.

@@ -1,0 +1,79 @@
+---
+title: Migrate to Warp from VS Code terminal
+description: >-
+  Replicate your VS Code integrated terminal setup in Warp - shell, fonts,
+  keybindings - or run Warp alongside VS Code as a richer terminal.
+---
+
+Warp lets VS Code users choose their own path: keep VS Code for editing and run Warp as the terminal alongside it, or replace both with Warp's built-in code editor. This page walks through reconfiguring your terminal settings for either path.
+
+## What transfers automatically
+
+Warp doesn't ship a VS Code importer — it's a standalone application, not a VS Code extension — but it can do most of the work for you agentically. Your VS Code terminal settings live in your user `settings.json` under keys like:
+
+```json
+"terminal.integrated.defaultProfile.osx": "zsh",
+"terminal.integrated.fontFamily": "MesloLGS NF",
+"terminal.integrated.fontSize": 14,
+"terminal.integrated.cursorStyle": "line",
+"terminal.integrated.profiles.osx": { ... }
+```
+
+## Use Warp's agent to migrate your settings (recommended)
+
+The fastest way to bring over your VS Code terminal setup is to ask Warp's agent to translate `settings.json` directly. Warp ships a [`settings.toml` file](/terminal/settings/) and a bundled `modify-settings` skill that lets the agent read your existing config and write equivalent values into Warp's settings.
+
+1. In Warp, open a new tab and switch to [Agent Mode](/agent-platform/local-agents/overview/) with `⌘+I` (macOS) or `Ctrl+I` (Linux/Windows).
+2. Paste a prompt like:
+
+   > Read my VS Code `settings.json` (`~/Library/Application Support/Code/User/settings.json` on macOS) and port the equivalent terminal settings (`terminal.integrated.*` keys) into my Warp `settings.toml` using the `modify-settings` skill. Show me a diff before applying.
+
+3. Review the proposed diff and approve. Warp hot-reloads `settings.toml`.
+
+If you'd rather configure each setting manually through the Settings UI, the steps below cover the most common cases.
+
+## What to reconfigure manually
+
+### Shell
+
+Warp auto-detects your login shell. To override - for example, to match `terminal.integrated.defaultProfile.*` - go to **Settings** > **Features** > **Session** and pick a shell from **Startup shell for new sessions**.
+
+### Font and cursor
+
+In Warp's **Settings** > **Appearance** > **Text, fonts, & cursor**, set the font family and size to match `terminal.integrated.fontFamily` and `terminal.integrated.fontSize`.
+
+### Theme
+
+VS Code's terminal uses the color scheme from your overall editor theme. In Warp, pick a comparable theme from **Settings** > **Appearance** > **Themes**, or [create a custom theme](/terminal/appearance/custom-themes/) that matches your VS Code theme's `terminal.*` color tokens.
+
+### Keybindings
+
+Warp's [default keyboard shortcuts](/getting-started/keyboard-shortcuts/) are largely consistent with VS Code terminal shortcuts (splits, new tab, find). For any custom bindings you configured in VS Code, add them in Warp's **Settings** > **Keyboard shortcuts**.
+
+## Choosing your setup
+
+### Use Warp alongside VS Code
+
+Many developers keep VS Code as their editor and use Warp as the terminal they switch to for long-running commands, SSH sessions, or AI-assisted workflows. No changes to VS Code needed - just install Warp and open it when you want a richer terminal.
+
+VS Code's integrated terminal still works; use it for quick one-off commands, and jump to Warp when you need [blocks](/terminal/blocks/), [Agent Mode](/agent-platform/local-agents/overview/), or [persistent sessions](/terminal/sessions/session-restoration/).
+
+### Replace VS Code with Warp
+
+Warp includes a built-in [code editor](/code/code-editor/) with Language Server Protocol (LSP) support, a [file tree](/code/code-editor/file-tree/), [find and replace](/code/code-editor/find-and-replace/), and [Vim keybindings](/code/code-editor/code-editor-vim-keybindings/). Combined with [Code Review](/code/code-review/), many developers use Warp as their primary editor and drop VS Code entirely.
+
+Open a directory with `warp .` from the command line to start editing.
+
+## Warp-native equivalents
+
+VS Code terminal features and their Warp equivalents:
+
+| From VS Code terminal | In Warp |
+| --- | --- |
+| Split terminal | [Split panes](/terminal/windows/split-panes/) |
+| Multiple terminals (tab strip) | [Tabs](/terminal/windows/tabs/), [vertical tabs](/terminal/windows/vertical-tabs/) |
+| Tasks (`tasks.json`) | [YAML workflows](/terminal/entry/yaml-workflows/) or [tab configs](/terminal/windows/tab-configs/) |
+| Terminal profiles | [Tab configs](/terminal/windows/tab-configs/) + per-session shell overrides |
+| Shell integration | Built in via [Warpify](/terminal/warpify/); enables working-directory tracking and command-level [blocks](/terminal/blocks/) |
+
+For an overview of what Warp adds beyond a terminal, see [Coding in Warp](/getting-started/quickstart/coding-in-warp/).

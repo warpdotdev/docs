@@ -1,0 +1,167 @@
+@layer starlight.user {
+	/* "Ask AI" launcher styling.
+
+	   The static button is rendered server-side by `KapaLauncher.astro` and
+	   sits inside `.warp-sidebar-search` next to the search pill. On first
+	   click or `⌘I`/`Ctrl+I`, an inline script lazy-mounts the React island
+	   (`KapaChatLauncher.tsx`) into the same slot, swapping the placeholder
+	   with the live chat trigger. Both surfaces share these `.warp-kapa-*`
+	   styles so the swap is pixel-stable.
+
+	   The button mirrors the search pill in warp-components.css §16: both
+	   consume the shared `--warp-control-*` vars defined on
+	   `.warp-sidebar-search` so surface/border/text/icon colors can never
+	   drift. Hard-coded fallback values in each `var()` call match the same
+	   Scalar tokens — they only kick in if the launcher is ever rendered
+	   outside the wrapper.
+
+	   We deliberately do NOT use `font: inherit;` here. That shorthand resets
+	   ALL font properties to the parent body font; combined with `font-size`
+	   and `font-weight` overrides, that meant the kapa button rendered in
+	   Inter while the Starlight search button (no such reset) fell back to
+	   the browser's default `<button>` font (system). Forcing every font
+	   longhand explicitly here keeps the two buttons rendering the same
+	   typeface no matter what the browser default is. */
+	.warp-kapa-button {
+		/* `position: relative` anchors the `::after` tooltip below — see
+		   `.warp-kapa-button[data-tooltip]:hover::after` further down. */
+		position: relative;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.375rem;
+		border: 1px solid var(--warp-control-border, #414651);
+		border-radius: var(--sl-radius-sm);
+		background: var(--warp-control-bg, #181d27);
+		color: var(--warp-control-text, #dbdbdb);
+		cursor: pointer;
+		font-family: var(--__sl-font, 'Inter', sans-serif);
+		/* Matches the search pill's `--sl-text-sm` (14px) so the two buttons
+		   render at the same type scale and read as a unified row. */
+		font-size: var(--sl-text-sm);
+		font-weight: 400;
+		letter-spacing: 0;
+		line-height: 1;
+		height: 2.25rem;
+		padding: 0 0.625rem;
+		flex: none;
+		transition:
+			border-color 0.2s ease,
+			color 0.2s ease,
+			background-color 0.2s ease,
+			transform 0.2s ease;
+	}
+
+	/* CSS-only tooltip.
+	   Replaces the native `title` attribute (which has a ~1–2s browser-imposed
+	   delay and is sometimes suppressed entirely on macOS Safari/Firefox).
+	   Uses a `data-tooltip` attribute so it stays purely declarative — no JS,
+	   no aria leakage. The button keeps `aria-label` for screen readers, so
+	   AT users get the long form via the accessibility tree. */
+	.warp-kapa-button[data-tooltip]::after {
+		content: attr(data-tooltip);
+		position: absolute;
+		/* Below the button. Anchoring above clipped against the sidebar
+		   pane's `overflow: auto` boundary + the global header's lower edge:
+		   the search row sits flush with the top of the sidebar pane, so
+		   there's not enough vertical clearance for a tooltip to render
+		   cleanly above. Below has unlimited room — the topic-tabs row
+		   below stays visible underneath. */
+		top: calc(100% + 6px);
+		/* Anchor right so a wide tooltip doesn't push past the sidebar's
+		   right edge. */
+		right: 0;
+		padding: 0.375rem 0.5rem;
+		border: 1px solid var(--warp-control-border-hover, #535862);
+		border-radius: var(--sl-radius-sm);
+		background: var(--warp-control-bg, #181d27);
+		color: var(--warp-control-text-hover, hsl(40, 20%, 97%));
+		font-family: var(--__sl-font, 'Inter', sans-serif);
+		font-size: var(--sl-text-2xs);
+		font-weight: 400;
+		letter-spacing: 0;
+		line-height: 1.2;
+		white-space: nowrap;
+		pointer-events: none;
+		opacity: 0;
+		/* Sits 2px above its final resting position so the fade-in
+		   animation slides DOWN into place — motion mirrors the
+		   tooltip's below-button anchor. */
+		transform: translateY(-2px);
+		transition: opacity 0.15s ease, transform 0.15s ease;
+		transition-delay: 0.25s;
+		z-index: 10;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+	}
+
+	.warp-kapa-button[data-tooltip]:hover::after,
+	.warp-kapa-button[data-tooltip]:focus-visible::after {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	/* Pin the icon size + color so the React-island `<LuMessageSquare>`
+	   (lucide-react renders at `1em`) and the static inline `<svg>` always
+	   match the search magnifier rendered next to it. */
+	.warp-kapa-button svg {
+		width: 14px;
+		height: 14px;
+		flex: none;
+		color: var(--warp-control-icon, #a4a7ae);
+		transition: color 0.15s ease;
+	}
+
+	/* Shortcut chip: subtle inset that picks up the button surface, no
+	   competing white border. Background mirrors the inline-code chip alpha
+	   so the chrome feels related, not bolted-on. */
+	.warp-kapa-button__shortcut {
+		display: inline-flex;
+		align-items: center;
+		margin-inline-start: auto;
+		border-radius: var(--sl-radius-sm);
+		font-size: var(--sl-text-2xs);
+		gap: 0.25em;
+		padding-inline: 0.375rem;
+		background-color: rgba(255, 255, 255, 0.08);
+		border: 1px solid transparent;
+	}
+
+	:root[data-theme='light'] .warp-kapa-button__shortcut {
+		background-color: rgba(0, 0, 0, 0.06);
+	}
+
+	.warp-kapa-button kbd {
+		font-family: var(--__sl-font);
+	}
+
+	.warp-kapa-button__shortcut kbd {
+		padding: 0;
+		border: 0;
+		background: transparent;
+		font: inherit;
+	}
+
+	.warp-kapa-button:hover {
+		border-color: var(--warp-control-border-hover, #535862);
+		background: var(--warp-control-bg-hover, #252b37);
+		color: var(--warp-control-text-hover, hsl(40, 20%, 97%));
+	}
+
+	.warp-kapa-button:hover svg {
+		color: var(--warp-control-text-hover, hsl(40, 20%, 97%));
+	}
+
+	.warp-kapa-button:focus-visible {
+		outline: 2px solid var(--sl-color-accent-high);
+		outline-offset: 2px;
+	}
+
+	.warp-kapa-button:active {
+		transform: translateY(1px);
+	}
+
+	@media (max-width: 49.999rem) {
+		.warp-kapa-button {
+			padding: 0 0.5rem;
+		}
+	}
+}

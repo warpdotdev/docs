@@ -1,0 +1,162 @@
+---
+title: Building a Chrome Extension (D3.js + Javascript + HTML + CSS)
+description: >-
+  Build a D3.js Sankey diagram Chrome extension using Warp — scaffold, debug,
+  coordinate multiple agents, and publish to the Chrome Web Store.
+sidebar:
+  label: "Build a Chrome extension"
+---
+import VideoEmbed from '@components/VideoEmbed.astro';
+import { Steps } from '@astrojs/starlight/components';
+
+:::tip
+This educational module teaches you step-by-step how to replicate the process shown in the video — building a **Sankey diagram Chrome extension** using **D3.js**, debugging, coordinating **multiple AI agents**, and deploying to the **Chrome Web Store**.
+:::
+
+<VideoEmbed url="https://youtu.be/xbvE_aoZ508?si=a3-4iKaSr8nn-esx" />
+
+<Steps>
+
+1. #### Set up your environment and create a new Chrome Extension project
+
+   Our goal: build a Chrome extension called **“Sankey Stone”** that visualizes flows using **D3.js**.
+
+   Files created during setup
+
+   * `manifest.json`
+   * `popup.html`
+   * `popup.css`
+   * `popup.js`
+   * Icon images (`icon16.png`, `icon32.png`, `icon48.png`, etc.)
+
+   Enable Developer Mode in Chrome and load the project:
+
+   chrome://extensions → Developer Mode → Load unpacked → Select your project folder
+
+   :::caution
+   If you see errors like “Failed to load extension” or “Could not load icon 16.png,” double‑check your manifest paths and icon filenames. The transcript explicitly shows these initial debugging steps.
+   :::
+
+2. #### Test the initial D3.js rendering
+
+   After fixing missing icons, the extension loads but initially shows only “Loading diagram.”\
+   \
+   Debug this by taking a screenshot and feeding it to an AI agent for context by asking:
+
+   ```
+   It says loading diagram — why isn’t the chart appearing?
+   ```
+
+   An agent reviews the error and regenerates the `popup.js` so the Sankey chart appears using **D3.js**.
+
+   Result: a working, interactive diagram rendered inside the extension popup.
+
+3. #### Version control and GitHub setup
+
+   Initialize a Git repository and commit:
+
+   ```bash
+   git init
+   git add .
+   git commit -m "Initial Sankey Stone extension"
+   ```
+
+   The developer asks the agent to create a GitHub repo and push the code.\
+   \
+   The agent handles authentication, creates the remote repo, and pushes all files automatically.
+
+4. #### Add a local test page and dynamic data
+
+   Launch a simple local web server with a test page that outputs traffic flow data. The extension reads this data and updates the Sankey diagram dynamically.
+
+   Transcript example prompt:
+
+   ```
+   Update the test data page so that it generates random labels and different contexts when I hit the regenerate button.
+   ```
+
+   The agent edits the test page so that clicking the **Regenerate Test Page** button updates the diagram in real time.
+
+5. #### Coordinate multiple agents in parallel
+
+   The video demonstrates running **multiple agents** in parallel. Each agent receives a different task:
+
+   | Agent | Task                                                                          |
+   | ----- | ----------------------------------------------------------------------------- |
+   | #1    | `Update the test data page to randomize labels and values`                    |
+   | #2    | `Change the refresh page button to regenerate the chart in a different style` |
+   | #3    | `Generate a useful README file for the project`                               |
+
+   You can approve actions automatically by enabling **Auto‑approve all agent actions** so background updates run without manual confirmation.
+
+   :::note
+   Running multiple agents in parallel mirrors having a small team: one agent focuses on data generation, another on UI changes, and a third on documentation.
+   :::
+
+6. #### Refine styles and interactions
+
+   After the data layer works, now you can iterate on appearance:
+
+   ```
+   Apply new color themes and improve the layout.
+   ```
+
+   Changes applied:
+
+   * Support for multiple color themes and improved node layout.
+   * Hovering over links highlights connected nodes.
+   * Users can drag nodes to rearrange the layout.
+   * Added a “Switch Style” button to cycle between themes.
+
+   To support exporting diagrams, you can ask:
+
+   ```
+   Add a button to download this image as a PNG.
+   ```
+
+   The Warp agent writes the JS logic for PNG export and verifies that clicking the button saves a screenshot of the diagram.
+
+7. #### Add an API key setup screen
+
+   Create a settings page where users can store API keys:
+
+   ```
+   Add a settings page to enter the Anthropic API key and test it.
+   ```
+
+   * The page allows testing the key to ensure it works.
+   * API keys are stored locally in the browser, not sent to a server.
+
+8. #### Publish to the Chrome Web Store
+
+   Package and submit the extension:
+
+   ```bash
+   zip -r sankey_stone.zip *
+   ```
+
+   Upload the ZIP file to [https://chrome.google.com/webstore/devconsole](https://chrome.google.com/webstore/devconsole) and follow the prompts.
+
+   :::note
+   The review may take a few weeks.
+   :::
+
+</Steps>
+
+---
+
+### Summary
+
+By following these transcript‑based steps, you can recreate the same workflow:
+
+* Scaffold a Chrome extension with D3.js.
+* Debug manifest and icon issues.
+* Use agents to generate and refine code.
+* Introduce multi‑agent parallel tasks for UI, data, and docs.
+* Add interactivity, themes, and export options.
+* Create an API key setup screen.
+* Package and publish to the Chrome Web Store.
+
+:::tip
+You can follow this same pattern with your own idea: start small, scaffold with AI prompts, iterate using parallel agents, and deploy to production all from within Warp.
+:::

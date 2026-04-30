@@ -1,0 +1,32 @@
+---
+/**
+ * Renders a responsive grid of image cards with labels.
+ *
+ * Designed to replace GitBook's `<table data-view="cards">` layout for
+ * visual showcase grids (e.g. app icons, theme previews).
+ *
+ * Usage:
+ *   <ImageGrid>
+ *     <ImageGridItem src="..." label="Name" />
+ *     ...
+ *   </ImageGrid>
+ */
+---
+
+<div class="image-grid"><slot /></div>
+
+<style>
+  .image-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  @media (max-width: 30rem) {
+    .image-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+  }
+</style>

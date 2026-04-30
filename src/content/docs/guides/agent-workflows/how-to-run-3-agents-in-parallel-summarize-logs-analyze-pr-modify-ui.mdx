@@ -1,0 +1,87 @@
+---
+title: "How To: Run 3 Agents in Parallel (Summarize Logs + Analyze PR + Modify UI)"
+description: >-
+  Run three agent tasks simultaneously in Warp — modify UI, analyze code
+  reviews, and summarize production logs in parallel.
+sidebar:
+  label: "Run 3 agents in parallel"
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import VideoEmbed from '@components/VideoEmbed.astro';
+import { Steps } from '@astrojs/starlight/components';
+
+:::note
+This educational module demonstrates Warp’s multi‑threading features — running coding, debugging, and analysis tasks simultaneously in multiple agent tabs.
+:::
+
+<VideoEmbed url="https://youtu.be/3jwus1bfKv4" />
+
+---
+
+### 🧠 Overview
+
+Warp allows you to launch several agents at once, each focused on a separate task.\
+In the demo, we run three parallel workflows:
+
+* Modify UI behavior
+* Analyze team code reviews
+* Summarize logs from production
+
+<Steps>
+
+1. #### Launch Agents in Parallel
+
+   Each agent runs in its own tab.
+
+   <Tabs>
+     <TabItem label="UI Fix">
+       Remove the background and border from unfocused input panes.
+
+           ```
+       I'd like to make a coding change. Please create a new branch to do this.
+
+       What i want to do is for the Universal Developer Input, remove the border and background if it's being rendered in the same pane that is not focused. Please look at the reference file and at the attached screenshot. In the screenshot, you'll see what it looks like right now - there are two equally prominent input areas, even though one is focused and one is not. What I want to do is make the non-focused one not have a border and not have a background. 
+
+       Please check out this linear issue for more information. Also, give me a plan before you make any changes.
+       ```
+       </TabItem>
+     <TabItem label="Code Review Check">
+       Analyze how many pull requests a team member has assigned.
+
+           ```
+       Use the Github CLI tool to summarize all open PRs for review that are assigned to user. I'd like to see who is the author of the PR, when was it opened, how long has it been open for, which repo is it in, are there open an dunaddressed commens on it, and is it ready for review?
+       ```
+       </TabItem>
+     <TabItem label="Log Analysis">
+       Summarize Cloud Run logs by error severity.
+
+           ```
+       Use the gcloud tool to list all my open projects. Once you've done that, let me select a project. Once I've selected a project, we will want to see all the Cloud Run instances that are available. Then once I've picked a Cloud Run instance, I'd like to get a sumary of the last 2000 logs from that Cloud Run instance to see the history histogram of different types of logging on info, warning, and error levels.
+       ```
+       </TabItem>
+   </Tabs>
+
+2. #### Monitor All Agents
+
+   The **task pane** in Warp shows all running agents.\
+   You can view plans, progress, and results live without interrupting other tasks.
+
+3. #### Review Results
+
+   * **Coding Agent:** Implements UI fixes accurately.
+   * **Code Review Agent:** Reports 26 open PRs (identifies bottlenecks).
+   * **Log Agent:** Analyzes 1,000 log entries, categorizing errors and flagging Gemini API issues.
+
+4. #### Why This Matters
+
+   Warp multi‑agent execution allows you to:
+
+   * Run multiple tasks without context switching.
+   * Keep coding, debugging, and ops visible simultaneously.
+   * Use AI assistants collaboratively for faster iteration.
+
+   :::tip
+   Multi‑agent workflows let you debug, code, and analyze in parallel — boosting throughput without leaving the terminal.
+   :::
+
+</Steps>

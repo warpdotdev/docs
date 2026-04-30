@@ -1,0 +1,59 @@
+---
+title: resource_not_found
+description: >-
+  The requested resource (task, environment, schedule, agent, etc.) does not
+  exist or has been deleted.
+---
+
+The `resource_not_found` error occurs when a referenced resource cannot be found. This typically means the resource ID is incorrect, the resource has been deleted, or it belongs to a different team.
+
+---
+
+## Details
+
+* **HTTP Status:** `404 Not Found`
+* **Retryable:** No
+* **Task State:** FAILED
+
+---
+
+## When does this occur?
+
+This error is returned when:
+
+* A task ID, environment UID, schedule ID, or other resource identifier does not match any existing resource
+* The referenced resource has been deleted
+* The resource exists but belongs to a different team or user (and you don't have access)
+
+The `detail` field in the response will describe which resource was not found.
+
+---
+
+## Example response
+
+```json
+{
+  "type": "/reference/api-and-sdk/troubleshooting/errors/resource-not-found/",
+  "title": "The requested resource was not found.",
+  "status": 404,
+  "detail": "environment abc123 not found",
+  "instance": "/api/v1/agent/tasks",
+  "error": "The requested resource was not found. (environment abc123 not found)",
+  "retryable": false
+}
+```
+
+---
+
+## How to resolve
+
+1. Verify the resource ID is correct and properly formatted.
+2. Check that the resource has not been deleted (for example, via the [Oz web app](https://oz.warp.dev) or CLI).
+3. Confirm the resource belongs to your team or that you have access to it.
+
+---
+
+## Related
+
+* [Environments](/agent-platform/cloud-agents/environments/) — Managing cloud agent environments
+* [Managing Cloud Agents](/agent-platform/cloud-agents/managing-cloud-agents/) — Viewing and managing agent tasks

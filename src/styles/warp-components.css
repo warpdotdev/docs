@@ -1,0 +1,880 @@
+/* ==========================================================================
+   Scalar-Inspired Component Refinements
+   Layered styling for sidebar, code blocks, callouts, tables, header, etc.
+   Applied after custom.css — uses the same Warp design tokens.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Sidebar — Scalar treats the sidebar as a first-class surface
+   --------------------------------------------------------------------------
+
+   Information hierarchy (three tiers, in order of prominence):
+
+     Tier 1  Top-level section label   e.g. "CODE"          — eyebrow
+     Tier 2  Nested group label        e.g. "Code Editor"   — quiet header
+     Tier 3  Leaf link                 e.g. "Overview"      — body
+
+   Stock Starlight applies the same `.large` class (16 px / 600 / white) to
+   *both* top-level and nested group `<summary>` spans, which makes nested
+   groups out-shout their parent section. We rebalance by giving each tier
+   a distinct visual treatment so weight mirrors hierarchy, with the active
+   page as the loudest element on screen.
+   -------------------------------------------------------------------------- */
+
+/* Sidebar nav items: tighter; no transition.
+   A 150ms `transition: background-color` on every nav-item caused a visible
+   "flash of blue" when navigating to a new page — the browser smoothly
+   animated through Starlight's layered `aria-current` accent (a pale blue,
+   `var(--sl-color-text-accent)`) before settling on our unlayered override.
+   Removing the transition snaps the state instantly so no transient frame
+   gets animated into. Hover/active changes still read fine without a fade. */
+.sidebar-content a {
+  border-radius: var(--sl-radius-sm);
+}
+
+/* Hover lands as a subtle wash rather than a chunky gray block. With the
+   sidebar fill matching the page background, var(--sl-color-gray-5) was
+   too punchy a jump (~7% → 22% lightness); this scoped rgba reads as a
+   gentle highlight against either dark or light canvas. */
+.sidebar-content a:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+:root[data-theme='light'] .sidebar-content a:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+/* Active sidebar item.
+   Starlight default paints `[aria-current='page']` with
+   `background-color: var(--sl-color-text-accent)`, which in our dark theme
+   is `hsl(217, 90%, 84%)` — a pale blue. On the flush `#121212` canvas
+   that pale slab reads as a washed-out lavender block. Replace with a
+   Scalar-style calm "selected" treatment: neutral tinted surface (one step
+   stronger than hover so the two states differentiate), brightest text
+   token, and 600 weight. Reads as obviously selected without shouting. */
+.sidebar-content a[aria-current='page'],
+.sidebar-content a[aria-current='page']:hover,
+.sidebar-content a[aria-current='page']:focus {
+  background-color: rgba(255, 255, 255, 0.09);
+  color: var(--sl-color-white);
+  font-weight: 600;
+}
+
+:root[data-theme='light'] .sidebar-content a[aria-current='page'],
+:root[data-theme='light'] .sidebar-content a[aria-current='page']:hover,
+:root[data-theme='light'] .sidebar-content a[aria-current='page']:focus {
+  background-color: rgba(0, 0, 0, 0.07);
+  color: var(--sl-color-white);
+}
+
+/* Tier 1 — top-level section label.
+   Editorial uppercase eyebrow at the brightest non-active color so the
+   section anchor is unambiguously the loudest element in its branch. */
+.sidebar-content .top-level > li > details > summary .large,
+.sidebar-content .top-level > li > a.large > span {
+  font-size: var(--sl-text-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--sl-color-white);
+}
+
+/* Tier 2 — nested group label.
+   Quiet header: same size as leaf links so it can never out-size its
+   parent section. Heavier weight separates it from leaves; color drops to
+   gray-2 so it never out-shouts the Tier 1 eyebrow above it. */
+.sidebar-content ul:not(.top-level) .large {
+  font-size: var(--sl-text-sm);
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: normal;
+  color: var(--sl-color-gray-2);
+}
+
+/* Soften the nested-group caret so it doesn't compete with the label. */
+.sidebar-content ul:not(.top-level) > li > details > summary .caret {
+  color: var(--sl-color-gray-3);
+}
+
+/* Tighten spacing between a nested group label and its first child so the
+   header + items read as a single unit. */
+.sidebar-content ul:not(.top-level) > li > details[open] > ul {
+  padding-block-start: 0.125rem;
+}
+
+/* Sidebar right-edge border: with the sidebar fill matching the page,
+   this hairline is the only thing separating the two panes — step it up
+   from --sl-color-hairline (6%) to --sl-color-hairline-light (8%) so it
+   still reads, while keeping the rest of the page's hairlines subtle. */
+.sidebar-pane {
+  border-inline-end: 1px solid var(--sl-color-hairline-light);
+}
+
+/*
+ * Force instant (non-smooth) scroll on the sidebar scroller. Starlight's
+ * persister assigns `scrollTop` imperatively to restore scroll position on
+ * each navigation; if any ancestor cascades `scroll-behavior: smooth` onto
+ * it, that assignment becomes a visible animation from 0 → N that reads as
+ * a scrollbar "reset."
+ */
+#starlight__sidebar {
+  scroll-behavior: auto;
+}
+
+/* --------------------------------------------------------------------------
+   2. Code blocks — Scalar uses refined borders + warm backgrounds
+   -------------------------------------------------------------------------- */
+
+/* Code block frame: one source of truth for the rounded card.
+   Apply the radius + border + clipping to the `.expressive-code` wrapper
+   and let it clip every child. EC's plugin tweaks the inner `<pre>` corners
+   per-mode (`is-terminal`, `has-title`), and previously those tweaks bled
+   through and produced a flat top / rounded bottom. With `overflow: hidden`
+   on the wrapper the inner shape is irrelevant — the card always reads as a
+   uniform 8px rounded rectangle. Suppress EC's own border (`--ec-brdWd: 0`)
+   so we don't double up the hairline. */
+.expressive-code {
+  border-radius: var(--sl-radius-md);
+  overflow: hidden;
+  border: 1px solid var(--sl-color-hairline-light);
+  --ec-brdWd: 0;
+  max-width: 100%;
+}
+
+/* Code block typography — unified with inline code at 0.9375em (15px), one
+   step below the 16px body so monospace lands at roughly the same optical
+   weight as Inter prose without overshooting. Tight line-height keeps
+   single-line blocks compact without feeling cramped. */
+.expressive-code {
+  --ec-codePadBlk: 0.75rem;
+  --ec-codePadInl: 1rem;
+  --ec-codeLineHt: 1.5;
+  --ec-codeFontSize: 0.9375em;
+}
+
+/* Code block surface color. Night Owl's default `#23262f` only lifts ~17
+   brightness levels off our page bg (`#121212`) and shares hue family, so
+   blocks read as a faint patch on the page. Push the dark surface to a
+   slightly cooler, more clearly elevated gray so code reads as a distinct
+   surface (Scalar pattern) and doesn't blur into the chip surface
+   (`--warp-control-bg`, `#1a1a1a`). Bump scrollbar opacity too —
+   macOS auto-hides scrollbars, and the default
+   `#ffffff17` thumb is invisible against the new bg, which is how lines
+   appeared to silently truncate. With wrap enabled globally this only
+   matters for blocks that opt out, but make it discoverable when it kicks in. */
+.expressive-code {
+  --ec-codeBg: #1c1f26;
+  --ec-sbThumbCol: rgba(255, 255, 255, 0.18);
+  --ec-sbThumbHoverCol: rgba(255, 255, 255, 0.32);
+}
+
+:root[data-theme='light'] .expressive-code {
+  /* Light mode keeps Night Owl's default surface, but darken the scrollbar
+     thumb so it's visible against the soft `#f6f7f9` block bg. */
+  --ec-sbThumbCol: rgba(0, 0, 0, 0.18);
+  --ec-sbThumbHoverCol: rgba(0, 0, 0, 0.32);
+}
+
+.expressive-code pre,
+pre.astro-code,
+.sl-markdown-content pre {
+  overflow-x: auto;
+}
+
+/* Code block copy button — frosted glass effect (Scalar pattern) */
+.expressive-code .copy button,
+.expressive-code button.copy {
+  border-radius: var(--sl-radius-sm);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.expressive-code .copy button:hover,
+.expressive-code button.copy:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+:root[data-theme='light'] .expressive-code .copy button,
+:root[data-theme='light'] .expressive-code button.copy {
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+:root[data-theme='light'] .expressive-code .copy button:hover,
+:root[data-theme='light'] .expressive-code button.copy:hover {
+  background: rgba(0, 0, 0, 0.08);
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+/* Inline code — same optical size as fenced blocks (0.9375em / 15px) so
+   prose, callouts, and code blocks share one type scale.
+
+   Starlight's default sets the chip background but leaves text color to
+   inherit the muted body gray, which reads as gray-on-gray on the gray-5
+   chip bg in dark mode (~5.5:1, technically AA but muddy). Force the
+   highest-contrast text token — `--sl-color-white` is mode-aware (off-white
+   in dark, near-black in light) — so chips snap forward at ~10:1. */
+.sl-markdown-content :not(pre) > code {
+  border-radius: var(--sl-radius-sm);
+  padding: 0.15em 0.35em;
+  font-size: 0.9375em;
+  color: var(--sl-color-white);
+  border: 1px solid var(--sl-color-hairline-light);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* Drop the Expressive Code frame chrome on blocks without an explicit
+   `title="…"` fence — the faux terminal title bar (with traffic-light dots)
+   and the empty editor-tab strip read as a meaningless nav bar above each
+   block. Titled fences keep their tab so readers can still see filenames.
+
+   The Frames plugin tags every `<figure>` with `.frame`, adds `.is-terminal`
+   for shell blocks, and adds `.has-title` only when a title is set. */
+.expressive-code .frame:not(.has-title) .header {
+  display: none;
+}
+
+/* For terminal frames specifically, the plugin draws the three dots and the
+   header underline via ::before / ::after on the header. Belt-and-braces
+   nuke them in case browser rendering still allocates space for an empty
+   <figcaption>. */
+.expressive-code .frame.is-terminal:not(.has-title) .header::before,
+.expressive-code .frame.is-terminal:not(.has-title) .header::after {
+  display: none;
+}
+
+/* Code blocks inside asides: keep the standalone padding rhythm so a code
+   block looks identical inside or outside a callout. Pull a small block
+   margin so the card sits flush within the callout's tinted area. */
+.sl-markdown-content .starlight-aside .expressive-code {
+  margin-block: 0.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   3. Callouts / Asides — Scalar uses full background tints, not left-border
+   -------------------------------------------------------------------------- */
+
+/* Base aside styles: Scalar-style flat tint card.
+   No left-rule accent — a single uniform 1px hairline carries the tint hue
+   on all four sides, so the box reads as a calm full-bleed surface rather
+   than an underlined banner.
+
+   Starlight's default applies `border-inline-start: 0.25rem solid …` (a
+   logical longhand) inside `@layer starlight.components`. The physical
+   `border-color` shorthand doesn't always cancel that logical-side width,
+   so we explicitly null `border-inline-start` and rebuild the four-sided
+   border via individual physical longhands. This guarantees a uniform 1px
+   hairline regardless of cascade order. */
+.sl-markdown-content .starlight-aside {
+  border-radius: var(--sl-radius-md);
+  border-inline-start: 0;
+  border-width: 1px;
+  border-style: solid;
+  border-color: transparent;
+  /* 12/16 padding mirrors --ec-codePadBlk on code blocks so callouts and
+     fences share one density rhythm. The cascading <p> margins inside the
+     aside (16px) are zeroed out by the rules below — without those, this
+     padding would compound to ~28px and the box would feel chunky again. */
+  padding: 0.75rem 1rem;
+}
+
+/* Note/Info aside — blue tint */
+.sl-markdown-content .starlight-aside--note {
+  background: rgba(165, 213, 254, 0.07);
+  border-top-color: rgba(165, 213, 254, 0.14);
+  border-right-color: rgba(165, 213, 254, 0.14);
+  border-bottom-color: rgba(165, 213, 254, 0.14);
+  border-left-color: rgba(165, 213, 254, 0.14);
+}
+
+/* Tip aside — purple tint (matches Starlight's purple tip icon/title) */
+.sl-markdown-content .starlight-aside--tip {
+  background: rgba(192, 132, 252, 0.06);
+  border-top-color: rgba(192, 132, 252, 0.12);
+  border-right-color: rgba(192, 132, 252, 0.12);
+  border-bottom-color: rgba(192, 132, 252, 0.12);
+  border-left-color: rgba(192, 132, 252, 0.12);
+}
+
+/* Caution/Warning aside — amber tint */
+.sl-markdown-content .starlight-aside--caution {
+  background: rgba(254, 253, 194, 0.06);
+  border-top-color: rgba(254, 253, 194, 0.12);
+  border-right-color: rgba(254, 253, 194, 0.12);
+  border-bottom-color: rgba(254, 253, 194, 0.12);
+  border-left-color: rgba(254, 253, 194, 0.12);
+}
+
+/* Danger aside — red tint */
+.sl-markdown-content .starlight-aside--danger {
+  background: rgba(255, 120, 120, 0.07);
+  border-top-color: rgba(255, 120, 120, 0.14);
+  border-right-color: rgba(255, 120, 120, 0.14);
+  border-bottom-color: rgba(255, 120, 120, 0.14);
+  border-left-color: rgba(255, 120, 120, 0.14);
+}
+
+/* Light mode overrides for aside tints */
+:root[data-theme='light'] .sl-markdown-content .starlight-aside--note {
+  background: rgba(0, 100, 180, 0.05);
+  border-top-color: rgba(0, 100, 180, 0.12);
+  border-right-color: rgba(0, 100, 180, 0.12);
+  border-bottom-color: rgba(0, 100, 180, 0.12);
+  border-left-color: rgba(0, 100, 180, 0.12);
+}
+
+:root[data-theme='light'] .sl-markdown-content .starlight-aside--tip {
+  background: rgba(126, 34, 206, 0.05);
+  border-top-color: rgba(126, 34, 206, 0.12);
+  border-right-color: rgba(126, 34, 206, 0.12);
+  border-bottom-color: rgba(126, 34, 206, 0.12);
+  border-left-color: rgba(126, 34, 206, 0.12);
+}
+
+:root[data-theme='light'] .sl-markdown-content .starlight-aside--caution {
+  background: rgba(168, 156, 20, 0.05);
+  border-top-color: rgba(168, 156, 20, 0.12);
+  border-right-color: rgba(168, 156, 20, 0.12);
+  border-bottom-color: rgba(168, 156, 20, 0.12);
+  border-left-color: rgba(168, 156, 20, 0.12);
+}
+
+:root[data-theme='light'] .sl-markdown-content .starlight-aside--danger {
+  background: rgba(195, 7, 113, 0.05);
+  border-top-color: rgba(195, 7, 113, 0.12);
+  border-right-color: rgba(195, 7, 113, 0.12);
+  border-bottom-color: rgba(195, 7, 113, 0.12);
+  border-left-color: rgba(195, 7, 113, 0.12);
+}
+
+/* Aside title: smaller, medium weight, tight to its content so a single-
+   paragraph aside reads as one compact block (Scalar one-liner pattern).
+
+   The title is rendered as a `<p>` inside `.sl-markdown-content`, which
+   inherits `margin-block: 1em` from custom.css. Zero out the top margin
+   so the title sits flush with the aside's top padding. */
+.sl-markdown-content .starlight-aside .starlight-aside__title {
+  font-size: var(--sl-text-sm);
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 0.25rem;
+}
+
+/* Inline code inside asides: replace the neutral gray chip with a tinted
+   background that harmonizes with the callout's accent color. Starlight's
+   `color-mix` override is too faint (12%). We bump it to 18% so the chip
+   reads as part of the callout surface, not a foreign gray block. */
+.sl-markdown-content .starlight-aside :not(pre) > code {
+  background-color: color-mix(in srgb, var(--sl-color-asides-text-accent) 18%, transparent);
+  border-color: color-mix(in srgb, var(--sl-color-asides-text-accent) 12%, transparent);
+}
+
+/* Collapse the outermost paragraph margins inside `__content` so the first
+   and last children sit flush with the title and the aside's bottom
+   padding respectively. Without this, the cascading `p { margin-block: 1em }`
+   rule would inflate the box by ~16px at each end. */
+.sl-markdown-content .starlight-aside .starlight-aside__content > :first-child {
+  margin-top: 0;
+}
+
+.sl-markdown-content .starlight-aside .starlight-aside__content > :last-child {
+  margin-bottom: 0;
+}
+
+/* --------------------------------------------------------------------------
+   4. Tables — Scalar: no outer border, subtle rows, tighter padding
+   -------------------------------------------------------------------------- */
+
+.sl-markdown-content table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: var(--sl-text-sm);
+}
+
+.sl-markdown-content table th {
+  font-weight: 600;
+  font-size: var(--sl-text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--sl-color-gray-3);
+  border-bottom: 1px solid var(--sl-color-hairline-light);
+  padding: 0.5rem 0.75rem;
+}
+
+.sl-markdown-content table td {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--sl-color-hairline-shade);
+}
+
+.sl-markdown-content table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Subtle row hover */
+.sl-markdown-content table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+:root[data-theme='light'] .sl-markdown-content table tbody tr:hover {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+/* Remove default outer border that Starlight may add */
+.sl-markdown-content table,
+.sl-markdown-content table th,
+.sl-markdown-content table td {
+  border-left: none;
+  border-right: none;
+}
+
+/* --------------------------------------------------------------------------
+   5. Header — slimmer, blurred, softer border (Scalar pattern)
+   -------------------------------------------------------------------------- */
+
+/* Glassmorphism header: blurred background on scroll */
+header.header {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background: color-mix(in srgb, var(--sl-color-bg) 85%, transparent);
+  border-bottom: 1px solid var(--sl-color-hairline);
+  transition: background-color 0.2s ease;
+}
+
+/* --------------------------------------------------------------------------
+   6. Topic tab hover — full-row highlight instead of just icon fill
+   These rules style the plugin-rendered topic list (`<ul.starlight-sidebar-topics>`).
+   On desktop the topics live in the top header instead (see WarpTopicNav.astro
+   + CustomHeader.astro), so this section now only affects the mobile drawer
+   instance rendered inside `<div class="md:sl-hidden">` in CustomSidebar.astro.
+   -------------------------------------------------------------------------- */
+
+.starlight-sidebar-topics a {
+  border-radius: var(--sl-radius-sm);
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+/* Match the sidebar nav-item hover wash so topic rows and nested links
+   share a single visual language. */
+.starlight-sidebar-topics a:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+:root[data-theme='light'] .starlight-sidebar-topics a:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.starlight-sidebar-topics-icon {
+  /* Tighter than the plugin's default `0.25rem` (4px) so the topic icons
+     read as small architectural chips rather than rounded squares. */
+  border-radius: var(--sl-radius-xs);
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+/* On plain hover (non-active), keep icon default — only highlight the row */
+.starlight-sidebar-topics a:hover:not(.starlight-sidebar-topics-current) .starlight-sidebar-topics-icon {
+  background-color: transparent;
+  border-color: var(--sl-color-gray-4);
+  color: inherit;
+}
+
+/* --------------------------------------------------------------------------
+   7. Logo alignment — flush with sidebar content
+   -------------------------------------------------------------------------- */
+
+.site-title {
+  padding-inline-start: 0;
+}
+
+@media (min-width: 50rem) {
+  /* Match header padding to sidebar so logo aligns with sidebar content */
+  :root {
+    --sl-nav-pad-x: var(--sl-sidebar-pad-x);
+  }
+
+  /* Remove the title-wrapper's focus-ring padding that shifts the logo right */
+  .title-wrapper {
+    padding: 0;
+    margin: 0;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   8. Pagination — lighter, Scalar-style navigation
+   -------------------------------------------------------------------------- */
+
+.pagination-links a {
+  border: 1px solid var(--sl-color-hairline-light);
+  box-shadow: none;
+  border-radius: var(--sl-radius-sm);
+  padding: 0.75rem 1rem;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.pagination-links a:hover {
+  border-color: var(--sl-color-hairline);
+  background-color: var(--sl-color-gray-5);
+}
+
+:root[data-theme='light'] .pagination-links a:hover {
+  background-color: var(--sl-color-gray-6);
+}
+
+.pagination-links .link-title {
+  font-size: var(--sl-text-body);
+}
+
+/* --------------------------------------------------------------------------
+   9. Search box — tighter border radius like Scalar
+   -------------------------------------------------------------------------- */
+
+site-search button[data-open-modal],
+dialog[aria-label] {
+  border-radius: var(--sl-radius-sm);
+}
+
+/* --------------------------------------------------------------------------
+   10. Dark/Light mode smooth transition
+   -------------------------------------------------------------------------- */
+
+body,
+header.header,
+.main-frame {
+  transition: background-color 0.25s ease, color 0.2s ease,
+    border-color 0.25s ease;
+}
+
+/* --------------------------------------------------------------------------
+   11. Links — Scalar uses subtle underlines on hover only
+   -------------------------------------------------------------------------- */
+
+.sl-markdown-content a:not(.starlight-aside a) {
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.sl-markdown-content a:not(.starlight-aside a):hover {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+/* Code-chip links always show an underline at rest. The chip's forced
+   `color: var(--sl-color-white)` (Starlight §2 above) overrides the
+   `--sl-color-text-accent` blue that normally signals "link" on plain prose,
+   so a `[`code`](url)` chip otherwise looks identical to a static code chip
+   until the user hovers. `:has(> code)` matches the canonical Markdown
+   render `<a><code>…</code></a>` and wins specificity (0,2,3) over the
+   `text-decoration: none` rule above (0,2,2) without `!important`. */
+.sl-markdown-content a:not(.starlight-aside a):has(> code) {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+/* --------------------------------------------------------------------------
+   12. Right sidebar (TOC) — more refined
+   -------------------------------------------------------------------------- */
+
+/* TOC heading: editorial treatment */
+.right-sidebar-panel h2 {
+  font-size: var(--sl-text-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--sl-color-gray-3);
+}
+
+/* TOC links: tighter, with smooth hover */
+.right-sidebar-panel a {
+  font-size: var(--sl-text-sm);
+  transition: color 0.15s ease;
+  line-height: 1.5;
+}
+
+/* --------------------------------------------------------------------------
+   13. Cards / details / summary — refined borders
+   -------------------------------------------------------------------------- */
+
+.sl-markdown-content details {
+  border-radius: var(--sl-radius-md);
+  border: 1px solid var(--sl-color-hairline-light);
+}
+
+.sl-markdown-content details summary {
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.sl-markdown-content details summary:hover {
+  color: var(--sl-color-text-accent);
+}
+
+/* --------------------------------------------------------------------------
+   14. Horizontal rules — ultra-subtle like Scalar
+   -------------------------------------------------------------------------- */
+
+.sl-markdown-content hr {
+  border: none;
+  border-top: 1px solid var(--sl-color-hairline-light);
+  margin: 2em 0;
+}
+
+/* --------------------------------------------------------------------------
+   15. File tree — align with code-block / callout rhythm
+   Starlight's defaults sit in `@layer starlight.components`; unlayered rules
+   below win. We match the same surface (`#1c1f26`), hairline border, 6px
+   radius, and `0.75rem 1rem` padding the rest of our cards use, and bump the
+   font-size to `0.9375em` so monospace prose lands at one optical scale.
+   -------------------------------------------------------------------------- */
+
+starlight-file-tree {
+  /* Match the code-block surface so a tree reads as a sibling card, not a
+     darker patch on the page. Light mode gets a soft warm tint that picks
+     up the same family as `--sl-color-gray-7`. */
+  background: #1c1f26;
+  border: 1px solid var(--sl-color-hairline-light);
+  border-radius: var(--sl-radius-md);
+  /* Symmetric padding so the tree reads as a balanced card. The earlier
+     asymmetric value was compensating for nested `<details>` rendering as
+     their own bordered boxes (cascade leak from section 13's
+     `.sl-markdown-content details` rule); now that we suppress that
+     bleed-through below, the tree visually centers on its own. */
+  padding: 0.75rem 1rem;
+  /* One step up so monospace prose matches inline code (`.9375em` ≈ 15px). */
+  font-size: 0.9375em;
+  /* Tiny vertical breathing room within each row without losing density. */
+  --y-pad: 0.125rem;
+}
+
+:root[data-theme='light'] starlight-file-tree {
+  background: var(--sl-color-gray-7);
+}
+
+/* CRITICAL: suppress the section-13 `.sl-markdown-content details` styles
+   (border + border-radius intended for collapsible info boxes) from leaking
+   into the FileTree's directory `<details>` elements. Without this, every
+   `project/`, `api/`, and `ui/` row renders inside its own rounded card,
+   which makes the nested structure feel like a stack of floating boxes
+   instead of a single tree.
+
+   The override needs `.sl-markdown-content` in the selector to beat the
+   original rule's specificity (0,1,1 vs a bare `starlight-file-tree details`
+   at 0,0,2). With it we land at (0,1,2) and win cleanly. */
+.sl-markdown-content starlight-file-tree details {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+/* Soften the indent guides so the structure reads but the gray rules don't
+   compete with the filename text.
+
+   Targeted at NESTED `ul`s only (`ul ul`) so the outermost `ul` keeps
+   Starlight's own `border: 0` reset — otherwise an unlayered rule on
+   `starlight-file-tree ul` wins the cascade against Starlight's layered
+   `> ul { border: 0 }` and we'd render an extra vertical hairline running
+   the full height of the tree on the left. */
+starlight-file-tree ul ul {
+  border-inline-start: 1px solid var(--sl-color-hairline);
+}
+
+/* Pull the inline comment a hair further from the filename so the two read
+   as label + description rather than a fused string at narrow widths. */
+starlight-file-tree .comment {
+  padding-inline-start: 1.5rem;
+  color: var(--sl-color-gray-3);
+}
+
+/* Directory `<summary>` lives inside `.sl-markdown-content`, where stray
+   prose styles can leak underlines onto it. The summary isn't an `<a>` but
+   the hover color rule (`var(--sl-color-text-accent)`) is fine; nuke any
+   underline so the hover state stays clean. */
+starlight-file-tree .directory > details > summary {
+  text-decoration: none;
+}
+
+/* --------------------------------------------------------------------------
+   16. Shared control palette + sidebar search row — Scalar-style
+   --------------------------------------------------------------------------
+
+   `--warp-control-*` is a single set of design tokens consumed by every
+   chrome control we've Scalar-styled: the sidebar search pill, the Kapa
+   "Ask" button, and the page-title Copy dropdown trigger. Promoted to
+   `body` (was originally scoped to `.warp-sidebar-search` only) so any
+   chrome surface can inherit without re-declaring — single source of truth.
+
+   The sidebar search row itself is composed in `CustomSidebar.astro` as
+   `<div.warp-sidebar-search><Search /><KapaLauncher /></div>`. The default
+   `Search.astro` ships its own styles inside `@layer starlight.components`;
+   we override at the unlayered root so the modal/dialog styling stays
+   untouched.
+   -------------------------------------------------------------------------- */
+
+/* Shared chrome palette (Scalar tokens — mirror `src/pages/api.astro`).
+   Inherited by Search, Ask, Copy, and any future chrome surface.
+
+   Dark-mode tokens map directly to the Oz webapp brand ladder (Oz
+   `gray-300`/`gray-400`/`gray-700`/`gray-800`/`gray-900`) so chips read as
+   raised surfaces against the `#121212` canvas with a single source of
+   truth shared with the light-mode block below. `--warp-control-text-hover`
+   keeps the warm-white `warp.dev` brand color (`#faf9f6`, matches
+   `--sl-color-white` in dark mode) for one step of extra accent against
+   `gray-300` body text. */
+body {
+  --warp-control-bg: #181d27;            /* Oz gray-900 — raised surface */
+  --warp-control-bg-hover: #252b37;      /* Oz gray-800 */
+  --warp-control-border: #414651;        /* Oz gray-700 */
+  --warp-control-border-hover: #535862;  /* Oz gray-600 */
+  --warp-control-text: #dbdbdb;          /* Oz gray-300 — text-secondary */
+  --warp-control-text-hover: hsl(40, 20%, 97%); /* warp.dev warm off-white */
+  --warp-control-icon: #a4a7ae;          /* Oz gray-400 — text-tertiary */
+}
+
+:root[data-theme='light'] body {
+  /* Light-mode tokens map directly to the Oz webapp brand surface ladder
+     (`gray-100`/`gray-200`/`gray-300`/`gray-400`) so chips remain visibly
+     distinct against the pure-white canvas. The previous warm-grey chip
+     (`hsl(40, 12%, 92%)`) was tuned against the old `#faf9f6` warm canvas
+     and washed out on `#ffffff`. Hover is one step darker than rest. */
+  --warp-control-bg: #f3f3f3;        /* Oz gray-100 / brand surface.1 */
+  --warp-control-bg-hover: #e7e7e7;  /* Oz gray-200 / brand surface.2 */
+  --warp-control-border: #dbdbdb;    /* Oz gray-300 / brand surface.3 */
+  --warp-control-border-hover: #a4a7ae; /* Oz gray-400 */
+  --warp-control-text: #414651;      /* Oz gray-700 — text-secondary */
+  --warp-control-text-hover: #0a0d12;/* Oz gray-950 */
+  --warp-control-icon: #535862;      /* Oz gray-600 — text-tertiary */
+}
+
+.warp-sidebar-search {
+  /* Flex row pairs the search pill with the Kapa "Ask" button
+     (see KapaLauncher.astro). Search grows; Kapa sits at its natural label
+     width. `align-items: stretch` lets both controls share the same
+     2.25rem row height. The wrapper carries no inline padding so the row
+     spans the full sidebar pane width — visually distinct from the nav
+     items below, which sit at their own inset. */
+  display: flex;
+  align-items: stretch;
+  gap: 0.375rem;
+  padding: 0;
+  /* No vertical margin: the parent `.sidebar-content` already supplies
+     `padding-top: 1rem` (matching the right-rail TOC's `padding: 1rem ...`
+     in CustomPageSidebar so the search bar and "On this page" heading
+     share the same Y position) and `gap: 1rem` between flex children
+     (which provides the spacing to the sidebar nav below). Adding our own
+     margins here previously double-stacked with both, pushing the search
+     down 2rem and leaving an asymmetric 1.5rem gap underneath. */
+  margin-block: 0;
+}
+
+/* The default Search.astro renders <site-search><button[data-open-modal]>
+   ...</button><dialog>...</dialog></site-search>. Style the trigger only;
+   the dialog is portaled to <body> and shouldn't be affected. */
+.warp-sidebar-search site-search {
+  display: block;
+  /* Take all remaining space inside the flex row so the search pill spans
+     edge-to-edge minus the 2.25rem Kapa button on the right. `min-width: 0`
+     lets the inner button shrink without overflowing on narrow viewports. */
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.warp-sidebar-search button[data-open-modal] {
+  /* Surface + typography are kept IDENTICAL to `.warp-kapa-button` (kapa.css)
+     via the shared `--warp-control-*` vars defined above, plus explicit
+     longhand font properties. Without explicit `font-family`, the browser
+     uses its default `<button>` font (system) instead of Inter — that's
+     what made the two buttons look like different typefaces previously. */
+  width: 100%;
+  /* `max-width: none` cancels Starlight's `@media (min-width: 50rem)
+     button[data-open-modal] { max-width: 22rem }` cap from the layered
+     defaults. Without this the pill stops growing past 22rem and looks
+     undersized inside our wider sidebar. */
+  max-width: none;
+  height: 2.25rem;
+  padding: 0 0.625rem;
+  border-radius: var(--sl-radius-sm);
+  border: 1px solid var(--warp-control-border);
+  background: var(--warp-control-bg);
+  color: var(--warp-control-text);
+  font-family: var(--__sl-font, 'Inter', sans-serif);
+  font-size: var(--sl-text-sm);
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1;
+  gap: 0.5rem;
+  transition: border-color 0.15s ease, color 0.15s ease, background-color 0.15s ease;
+}
+
+.warp-sidebar-search button[data-open-modal]:hover {
+  border-color: var(--warp-control-border-hover);
+  background: var(--warp-control-bg-hover);
+  color: var(--warp-control-text-hover);
+}
+
+.warp-sidebar-search button[data-open-modal]:hover svg {
+  color: var(--warp-control-text-hover);
+}
+
+.warp-sidebar-search button[data-open-modal]:focus-visible {
+  outline: 2px solid var(--sl-color-accent-high);
+  outline-offset: 2px;
+}
+
+/* Magnifier pinned at 14×14 (matches the Ask AI icon in `kapa.css`) and at
+   the calmer `--warp-control-icon` color so the icon recedes a step relative
+   to the placeholder text. The default Search component marks it up via
+   `<Icon name="magnifier" />` which renders as an inline svg with no
+   intrinsic dimensions — we pin them here to avoid drift. */
+.warp-sidebar-search button[data-open-modal] svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  color: var(--warp-control-icon);
+  transition: color 0.15s ease;
+}
+
+/* `⌘K` chip: subtle inset that picks up the pill surface, no competing
+   white border. Background mirrors `.warp-kapa-button__shortcut` (kapa.css)
+   so the two trigger surfaces feel like one family. */
+.warp-sidebar-search button[data-open-modal] kbd {
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid transparent;
+  color: var(--warp-control-text);
+  font-size: var(--sl-text-2xs);
+}
+
+:root[data-theme='light'] .warp-sidebar-search button[data-open-modal] kbd {
+  background-color: rgba(0, 0, 0, 0.06);
+}
+
+.warp-sidebar-search button[data-open-modal] kbd kbd {
+  background: transparent;
+  border: 0;
+  padding: 0;
+}
+
+/* --------------------------------------------------------------------------
+   17. Mobile sidebar drawer — keep elevation
+   When the sidebar fill matches the page background, the *mobile* slide-in
+   drawer would lose contrast against the body content underneath. Restore
+   it with a soft elevation shadow so the drawer reads as a layer above the
+   page, while still using the same canvas color (no off-shade fill).
+   Starlight applies `[aria-expanded]` to <starlight-menu-button> when the
+   menu is open and gates the mobile drawer styles via the same
+   `(min-width: 50rem)` breakpoint elsewhere in its stylesheet.
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 50rem) {
+  .sidebar-pane {
+    box-shadow: 8px 0 24px rgba(0, 0, 0, 0.45);
+    border-inline-end: 1px solid var(--sl-color-hairline-light);
+  }
+
+  /* Lighter shadow tone for the warm-white canvas. */
+  :root[data-theme='light'] .sidebar-pane {
+    box-shadow: 8px 0 24px rgba(0, 0, 0, 0.12);
+  }
+}

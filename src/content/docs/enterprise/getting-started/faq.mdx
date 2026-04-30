@@ -1,0 +1,70 @@
+---
+title: FAQ
+description: >-
+  Answers to common questions about Warp Enterprise, including login issues,
+  SSO, and getting started.
+---
+
+## Login and SSO
+
+### I can't log in with SSO
+
+**Problem:** Error message when trying to log in via SSO.
+
+**Solution:**
+1. Make sure you're logging in through [app.warp.dev/login](https://app.warp.dev/login), not your SSO provider's portal.
+2. Select **Continue with SSO** and enter your work email or domain.
+3. If you have an existing Warp account, log in with your original credentials and [link it to SSO first](https://app.warp.dev/link_sso).
+4. Complete the linking process.
+5. Log out and log back in with **Continue with SSO**.
+
+### I logged in with another method before and can't use SSO now
+
+**Problem:** You created a Warp account with email/Google/GitHub, but your organization now requires SSO.
+
+**Solution:**
+1. Go to [app.warp.dev/login](https://app.warp.dev/login).
+2. Log in with your original method.
+3. Navigate to [app.warp.dev/link_sso](https://app.warp.dev/link_sso).
+4. Complete the linking process.
+5. Log out and log back in with **Continue with SSO**.
+
+### Warp won't open from my SSO provider
+
+**Problem:** Clicking Warp in Okta/Microsoft Entra ID portal shows an error.
+
+**Solution:**
+This is a known limitation. Warp cannot be launched directly from SSO provider portals. Instead:
+1. Go to [app.warp.dev/login](https://app.warp.dev/login).
+2. Click **Continue with SSO**.
+3. Complete authentication.
+
+## Team and access
+
+### Team invite links not working
+
+**Common causes:**
+* Invite link expired or was revoked.
+* User's email domain doesn't match configured restrictions.
+
+**Solution:**
+1. Generate a new invite link.
+2. Verify domain restrictions match the user's email.
+
+### Users can't see new admin settings
+
+**Problem:** You changed a setting in the Admin Panel, but users don't see the change.
+
+**Solution:**
+1. Verify the setting is not set to "Respect User Setting."
+2. Ask users to restart Warp to force a settings refresh.
+3. Confirm users are members of the correct team.
+4. Check that users have logged in with SSO (not a personal account).
+
+## Additional help
+
+For more troubleshooting, see:
+* [Troubleshooting login documentation](/support-and-community/troubleshooting-and-support/troubleshooting-login-issues/)
+* Contact your team admin for organization-specific issues.
+* Reach out to Warp support via your team's dedicated Slack/Teams channel.
+* Join Warp's [Slack community](https://go.warp.dev/join-preview) to connect with other Warp users and engineers.

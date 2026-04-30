@@ -1,0 +1,208 @@
+---
+title: Bitbucket
+description: >-
+  Connect Oz cloud agents to Bitbucket repos using access tokens and
+  Warp-managed secrets.
+---
+
+Oz cloud agents work with any Git repository, including those hosted on Bitbucket. Unlike GitHub, Bitbucket does not have a native Warp integration, but you can grant agents access to your Bitbucket repositories using an access token and Warp-managed secrets. Once configured, your environment works with any Oz trigger—Slack, Linear, schedules, or the CLI.
+
+This page explains how to generate a Bitbucket access token, store it securely, and configure a cloud agent environment that clones your repository at runtime.
+
+Bitbucket Cloud and Bitbucket Data Center/Server use different token types:
+
+* **Bitbucket Cloud** uses **API tokens**, created through your Atlassian Account settings.
+* **Bitbucket Data Center/Server** uses **HTTP access tokens**, created through your Bitbucket profile settings.
+
+Follow the section that matches your setup.
+
+---
+
+## Prerequisites
+
+* A Warp account ([create an account at oz.warp.dev](https://oz.warp.dev))
+* A repository hosted on Bitbucket (Cloud or Data Center/Server)
+* The [Oz CLI](/reference/cli/) installed and authenticated
+
+---
+
+## Bitbucket Cloud
+
+### Step 1: Generate an API token
+
+:::note
+Bitbucket Cloud API tokens are managed through your Atlassian Account, which is a separate site from bitbucket.org. The following steps will take you there.
+:::
+
+1. Click your avatar in the upper-right corner of Bitbucket, then click **Account settings**.
+2. On the Atlassian Account page that opens, click the **Security** tab.
+3. Click **Create and manage API tokens**, then click **Create API token with scopes**.
+4. Enter a name for the token (e.g. `warp-oz-agent`) and choose an expiration date.
+5. Click **Next**.
+6. Select **Bitbucket** as the app and click **Next**.
+7. Search for `repository` in the **Select Bitbucket scopes** search box, then select **read:repository:bitbucket** (View your repositories).
+8. Click **Next**.
+9. Click **Create token**.
+10. Copy the token value immediately. It is only shown once and cannot be retrieved later.
+
+:::note
+**read:repository:bitbucket** is the minimum required scope to clone a repository. If a future workflow requires the agent to push commits or open pull requests, you will also need **write:repository:bitbucket**.
+:::
+
+---
+
+### Step 2: Store the token as a Warp-managed secret
+
+Warp injects managed secrets as environment variables at runtime and never exposes them in logs or configuration files. See the [Secrets](/agent-platform/cloud-agents/secrets/) documentation for full details on scoping and managing secrets.
+
+1. Run the following command:
+
+```bash
+oz secret create --team BITBUCKET_API_TOKEN
+```
+
+2. When prompted, paste the token.
+
+The value is stored and encrypted, and cannot be retrieved after creation.
+
+:::note
+Use `--team` to create a shared token available to all teammates and automated triggers (schedules, Slack, Linear). Use `--personal` if each team member should authenticate with their own Atlassian account token. Personal secrets work with all triggers and take precedence over a team secret of the same name when both exist.
+:::
+
+If you need to update a secret value, run:
+
+```bash
+oz secret update --value BITBUCKET_API_TOKEN
+```
+
+---
+
+### Step 3: Create an environment with a clone setup command
+
+Create an environment that uses your token to clone the repository at the start of each agent run. Use the static username `x-bitbucket-api-token-auth` in the clone URL — this is a Bitbucket-specific placeholder that works with API tokens and means you don't need to store your Bitbucket username separately.
+
+1. Run the following command:
+
+```bash
+oz environment create \
+  --name "my-bitbucket-cloud-env" \
+  --docker-image <image> \
+  --setup-command 'git clone https://x-bitbucket-api-token-auth:$BITBUCKET_API_TOKEN@bitbucket.org/your-workspace/your-repo.git' \
+  --setup-command 'cd your-repo && <install dependencies>'
+```
+
+:::caution
+Use single quotes around setup commands that reference secrets. Double quotes cause your shell to expand `$BITBUCKET_API_TOKEN` immediately (to nothing), rather than letting Warp inject the secret at runtime inside the container.
+:::
+
+2. Replace the following placeholders:
+   * `<image>` with your Docker image (for example, `node:22`, `python:3.12`, or a [Warp prebuilt dev image](https://github.com/warpdotdev/oz-dev-environments))
+   * `bitbucket.org/your-workspace/your-repo.git` with your actual repository URL
+   * The second `--setup-command` with any dependency install or build steps your project requires (for example, `npm ci` or `pip install -r requirements.txt`)
+
+:::caution
+Setup commands run on a fresh container for every agent run. Write them to be idempotent — commands that assume existing state (such as a partially cloned repo or a pre-built cache) can fail unpredictably. See [Environment design and best practices](/agent-platform/cloud-agents/environments/#environment-design-and-best-practices) for guidance.
+:::
+
+3. Note the environment ID returned. You will need it in the next step.
+
+---
+
+## Bitbucket Data Center / Server
+
+### Step 1: Generate an HTTP access token
+
+1. Click your profile avatar in Bitbucket, then click **Manage account**.
+2. In the left sidebar, click **HTTP access tokens**.
+3. Click **Create token**.
+4. Enter a name for the token (e.g. `warp-oz-agent`) and choose an expiration date if required by your administrator.
+5. Under **Permissions**, choose **Read** for the **Repository** permission.
+6. Click **Create token**.
+7. Copy the token value immediately. It is only shown once and cannot be retrieved later.
+
+:::note
+**Repository read** is the minimum required permission to clone a repository. If a future workflow requires the agent to push commits, you will also need **Repository write**.
+:::
+
+---
+
+### Step 2: Store the token as a Warp-managed secret
+
+Warp injects managed secrets as environment variables at runtime and never exposes them in logs or configuration files. See the [Secrets](/agent-platform/cloud-agents/secrets/) documentation for full details on scoping and managing secrets.
+
+1. Run the following command:
+
+```bash
+oz secret create --team BITBUCKET_TOKEN
+```
+
+2. When prompted, paste the token.
+
+The value is stored and encrypted, and cannot be retrieved after creation.
+
+:::note
+Use `--team` to create a shared token available to all teammates and automated triggers (schedules, Slack, Linear). Use `--personal` if each team member should authenticate with their own Bitbucket account token. Personal secrets work with all triggers and take precedence over a team secret of the same name when both exist.
+:::
+
+If you need to update a secret value, run:
+
+```bash
+oz secret update --value BITBUCKET_TOKEN
+```
+
+---
+
+### Step 3: Create an environment with a clone setup command
+
+Create an environment that uses your token to clone the repository at the start of each agent run.
+
+1. Run the following command:
+
+```bash
+oz environment create \
+  --name "my-bitbucket-dc-env" \
+  --docker-image <image> \
+  --setup-command 'git clone -c "http.extraHeader=Authorization: Bearer $BITBUCKET_TOKEN" https://your-server.com/scm/your-project/your-repo.git' \
+  --setup-command 'cd your-repo && <install dependencies>'
+```
+
+:::caution
+Use single quotes around setup commands that reference secrets, so `$BITBUCKET_TOKEN` is expanded at runtime inside the container rather than in your current shell.
+:::
+
+2. Replace the following placeholders:
+   * `<image>` with your Docker image (for example, `node:22`, `python:3.12`, or a [Warp prebuilt dev image](https://github.com/warpdotdev/oz-dev-environments))
+   * `your-server.com/scm/your-project/your-repo.git` with your Bitbucket Data Center/Server repository URL. The `/scm/` path segment is standard for Bitbucket Data Center/Server.
+   * The second `--setup-command` with any dependency install or build steps your project requires (for example, `npm ci` or `pip install -r requirements.txt`)
+
+:::caution
+Setup commands run on a fresh container for every agent run. Write them to be idempotent — commands that assume existing state (such as a partially cloned repo or a pre-built cache) can fail unpredictably. See [Environment design and best practices](/agent-platform/cloud-agents/environments/#environment-design-and-best-practices) for guidance.
+:::
+
+3. Note the environment ID returned. You will need it in the next step.
+
+---
+
+## Step 4: Test your environment
+
+Before connecting to integrations, verify the environment works by running a one-off agent.
+
+1. Run the following command, replacing `<ENV_ID>` with the environment ID from Step 3:
+
+```bash
+oz agent run-cloud --environment <ENV_ID> --prompt "Your task here"
+```
+
+---
+
+## Next steps
+
+With your environment configured, you can connect it to any Warp trigger exactly as you would with a GitHub-backed environment:
+
+* **Slack** — Tag **@Oz** in a message to start an agent run against your Bitbucket repo. See [Slack](/agent-platform/cloud-agents/integrations/slack/).
+* **Linear** — Tag **@Oz** on an issue to kick off a workflow. See [Linear](/agent-platform/cloud-agents/integrations/linear/).
+* **Scheduled agents** — Run agents on a recurring schedule. See [Scheduled Agents](/agent-platform/cloud-agents/triggers/scheduled-agents/).
+
+:::note
+Native support for opening Bitbucket pull requests from agent-generated changes is planned as a future enhancement.
+:::

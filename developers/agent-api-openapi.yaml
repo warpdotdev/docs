@@ -1,0 +1,3518 @@
+openapi: 3.0.0
+info:
+  title: Oz Agent API
+  version: 1.0.0
+  description: |
+    API for creating, managing, and querying Oz cloud agent runs.
+    
+    These endpoints allow users to programmatically spawn agents, list runs, 
+    and retrieve detailed run information.
+  contact:
+    name: Warp Support
+    url: https://docs.warp.dev
+    email: support@warp.dev
+  license:
+    name: Proprietary
+servers:
+  - url: https://app.warp.dev/api/v1
+    description: Warp Server
+
+tags:
+  - name: agent
+    description: Operations for running and managing cloud agents
+  - name: schedules
+    description: Operations for creating and managing scheduled agents
+
+paths:
+  /agent:
+    get:
+      summary: List available agents
+      description: |
+        Retrieve a list of available agents (skills) that can be used to run tasks.
+        Agents are discovered from environments or a specific repository.
+      operationId: listAgents
+      tags:
+        - agent
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: repo
+          in: query
+          description: |
+            Optional repository specification to list agents from (format: "owner/repo").
+            If not provided, lists agents from all accessible environments.
+          required: false
+          schema:
+            type: string
+        - name: refresh
+          in: query
+          description: |
+            When true, clears the agent list cache before fetching.
+            Use this to force a refresh of the available agents.
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: sort_by
+          in: query
+          description: |
+            Sort order for the returned agents.
+            - "name": Sort alphabetically by name (default)
+            - "last_run": Sort by most recently used
+          required: false
+          schema:
+            type: string
+            enum:
+              - name
+              - last_run
+        - name: include_malformed_skills
+          in: query
+          description: |
+            When true, includes skills whose SKILL.md file exists but is
+            malformed. These variants will have a non-empty `error` field
+            describing the parse failure. Defaults to false.
+          required: false
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: List of available agents
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAgentsResponse'
+        '400':
+          description: Invalid repository specification
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /agent/runs/{runId}/transcript:
+    get:
+      summary: Get run transcript
+      description: |
+        Retrieve the raw conversation transcript for an agent run.
+        Returns a 302 redirect to a time-limited download URL for the transcript.
+      operationId: getRunTranscript
+      tags:
+        - agent
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: runId
+          in: path
+          description: The unique identifier of the run
+          required: true
+          schema:
+            type: string
+      responses:
+        '302':
+          description: Redirect to a download URL for the transcript
+          headers:
+            Location:
+              description: URL to download the transcript
+              schema:
+                type: string
+                format: uri
+        '400':
+          description: Missing run ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: No permission to access run transcript
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Run not found or has no transcript
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /agent/run:
+    post:
+      summary: Run an agent task
+      description: |
+        Spawn a cloud agent with a prompt and optional configuration.
+        The agent will be queued for execution and assigned a unique run ID.
+      operationId: runAgent
+      tags:
+        - agent
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RunAgentRequest'
+            examples:
+              simple:
+                summary: Simple prompt
+                value:
+                  prompt: "Fix the bug in auth.go"
+              withConfig:
+                summary: With agent config
+                value:
+                  prompt: "Refactor the database layer"
+                  config:
+                    name: "my-agent"
+                    model_id: "gpt-5-4-high"
+                    base_prompt: "Focus on Go backend code"
+                  title: "DB Refactoring Run"
+      responses:
+        '200':
+          description: Run created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RunAgentResponse'
+        '400':
+          description: Invalid request (missing prompt, invalid config)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: No permission to access referenced resources (environment, MCP servers)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /agent/runs:
+    post:
+      summary: Run an agent task (preferred)
+      description: |
+        Alias for POST /agent/run. This is the preferred endpoint for creating
+        new agent runs. Behavior is identical to POST /agent/run.
+      operationId: createRun
+      tags:
+        - agent
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RunAgentRequest'
+      responses:
+        '200':
+          description: Run created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RunAgentResponse'
+        '400':
+          description: Invalid request (missing prompt, invalid config)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: No permission to access referenced resources (environment, MCP servers)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    get:
+      summary: List agent runs
+      description: |
+        Retrieve a paginated list of agent runs with optional filtering.
+        Results default to `sort_by=updated_at` and `sort_order=desc`.
+      operationId: listRuns
+      tags:
+        - agent
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: limit
+          in: query
+          description: Maximum number of runs to return
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 500
+            default: 20
+        - name: cursor
+          in: query
+          description: Pagination cursor from previous response
+          required: false
+          schema:
+            type: string
+        - name: sort_by
+          in: query
+          description: |
+            Sort field for results.
+            - `updated_at`: Sort by last update timestamp (default)
+            - `created_at`: Sort by creation timestamp
+            - `title`: Sort alphabetically by run title
+            - `agent`: Sort alphabetically by skill. Runs without a skill are grouped last.
+          required: false
+          schema:
+            type: string
+            enum:
+              - updated_at
+              - created_at
+              - title
+              - agent
+            default: updated_at
+        - name: sort_order
+          in: query
+          description: Sort direction
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+            default: desc
+        - name: state
+          in: query
+          description: |
+            Filter by run state. Can be specified multiple times to match any of the given states.
+          required: false
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/RunState'
+          style: form
+          explode: true
+        - name: name
+          in: query
+          description: Filter by agent config name
+          required: false
+          schema:
+            type: string
+        - name: model_id
+          in: query
+          description: Filter by model ID
+          required: false
+          schema:
+            type: string
+        - name: creator
+          in: query
+          description: Filter by creator UID (user or service account)
+          required: false
+          schema:
+            type: string
+        - name: source
+          in: query
+          description: Filter by run source type
+          required: false
+          schema:
+            $ref: '#/components/schemas/RunSourceType'
+        - name: execution_location
+          in: query
+          description: Filter by where the run executed
+          required: false
+          schema:
+            $ref: '#/components/schemas/RunExecutionLocation'
+        - name: created_after
+          in: query
+          description: Filter runs created after this timestamp (RFC3339 format)
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: created_before
+          in: query
+          description: Filter runs created before this timestamp (RFC3339 format)
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: updated_after
+          in: query
+          description: Filter runs updated after this timestamp (RFC3339 format)
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: environment_id
+          in: query
+          description: Filter runs by environment ID
+          required: false
+          schema:
+            type: string
+        - name: skill
+          in: query
+          description: |
+            Filter runs by skill spec (e.g., "owner/repo:path/to/SKILL.md").
+            Alias for skill_spec.
+          required: false
+          schema:
+            type: string
+        - name: skill_spec
+          in: query
+          description: Filter runs by skill spec (e.g., "owner/repo:path/to/SKILL.md")
+          required: false
+          schema:
+            type: string
+        - name: schedule_id
+          in: query
+          description: Filter runs by the scheduled agent ID that created them
+          required: false
+          schema:
+            type: string
+        - name: ancestor_run_id
+          in: query
+          description: Filter runs by ancestor run ID. The referenced run must exist and be accessible to the caller.
+          required: false
+          schema:
+            type: string
+        - name: artifact_type
+          in: query
+          description: Filter runs by artifact type
+          required: false
+          schema:
+            type: string
+            enum:
+              - PLAN
+              - PULL_REQUEST
+              - SCREENSHOT
+              - FILE
+        - name: q
+          in: query
+          description: Fuzzy search query across run title, prompt, and skill_spec
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of runs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListRunsResponse'
+        '400':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /agent/runs/{runId}:
+    get:
+      summary: Get run details
+      description: |
+        Retrieve detailed information about a specific agent run, 
+        including the full prompt, session link, and resolved configuration.
+      operationId: getRun
+      tags:
+        - agent
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: runId
+          in: path
+          description: The unique identifier of the run
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Run details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RunItem'
+        '400':
+          description: Missing run ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: No permission to access run
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Run not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /agent/runs/{runId}/conversation:
+    get:
+      summary: Get normalized run conversation
+      description: |
+        Retrieve a run's conversation as a normalized sequence of messages and
+        nested steps.
+        The response groups text, tool activity, and event content into
+        structured blocks.
+      operationId: getRunConversation
+      tags:
+        - agent
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: runId
+          in: path
+          description: The unique identifier of the run
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Normalized conversation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConversationResponse'
+        '400':
+          description: Missing run ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: No permission to access run
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Run not found, or the run has no conversation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: |
+            Conversation format is not yet supported by the normalized endpoint
+            (error_code: operation_not_supported)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /agent/runs/{runId}/cancel:
+    post:
+      summary: Cancel a run
+      description: |
+        Cancel an agent run that is currently queued or in progress.
+        Once cancelled, the run will transition to a cancelled state.
+
+        Not all runs can be cancelled. Runs that are in a terminal state
+        (SUCCEEDED, FAILED, ERROR, BLOCKED, CANCELLED) return 400. Runs in
+        PENDING state return 409 (retry after a moment). Self-hosted, local,
+        and GitHub Action runs return 422.
+      operationId: cancelRun
+      tags:
+        - agent
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: runId
+          in: path
+          description: The unique identifier of the run to cancel
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Run cancelled successfully
+          content:
+            application/json:
+              schema:
+                type: string
+                description: The ID of the cancelled run
+        '400':
+          description: |
+            Missing run ID, or the run is already in a terminal state
+            (error_code: invalid_request)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: No permission to cancel run
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Run not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: |
+            Run is in PENDING state and cannot be cancelled yet.
+            Retry after a moment (error_code: conflict, retryable: true).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: |
+            Run cannot be cancelled because the operation is not supported
+            for this run type (e.g., self-hosted, local, or GitHub Action runs)
+            (error_code: operation_not_supported)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /agent/conversations/{conversation_id}:
+    get:
+      summary: Get normalized conversation
+      description: |
+        Retrieve a conversation directly by conversation ID in Warp's
+        normalized task/message format.
+      operationId: getConversation
+      tags:
+        - agent
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: conversation_id
+          in: path
+          description: The unique identifier of the conversation
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Normalized conversation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConversationResponse'
+        '400':
+          description: Missing conversation ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: No permission to access conversation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Conversation not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: |
+            Conversation format is not yet supported by the normalized endpoint
+            (error_code: operation_not_supported)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /agent/messages:
+    post:
+      summary: Send a message to one or more runs
+      description: |
+        Send a point-to-point message to one or more agent runs.
+        Each recipient gets an independent message row with its own delivery state.
+        Requires the OrchestrationV2 feature flag.
+      operationId: sendAgentMessage
+      x-internal: true
+      tags:
+        - agent
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - to
+                - subject
+                - body
+                - sender_run_id
+              properties:
+                to:
+                  type: array
+                  items:
+                    type: string
+                  description: List of recipient run IDs
+                subject:
+                  type: string
+                  maxLength: 1024
+                  description: Message subject
+                body:
+                  type: string
+                  maxLength: 131072
+                  description: Message body (max 128KB)
+                sender_run_id:
+                  type: string
+                  description: The sender's run ID
+      responses:
+        '200':
+          description: Message sent successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message_ids:
+                    type: array
+                    items:
+                      type: string
+                    description: One message ID per recipient, in the same order as the to array
+        '422':
+          description: One or more recipients are in a terminal state
+
+  /agent/messages/{runId}:
+    get:
+      summary: List inbox message headers
+      operationId: listAgentMessages
+      x-internal: true
+      tags:
+        - agent
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: runId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: unread
+          in: query
+          schema:
+            type: boolean
+        - name: since
+          in: query
+          schema:
+            type: string
+            format: date-time
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 50
+            maximum: 100
+      responses:
+        '200':
+          description: List of message headers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message_id:
+                      type: string
+                    sender_run_id:
+                      type: string
+                    subject:
+                      type: string
+                    sent_at:
+                      type: string
+                      format: date-time
+                    delivered_at:
+                      type: string
+                      format: date-time
+                      nullable: true
+                    read_at:
+                      type: string
+                      format: date-time
+                      nullable: true
+
+  /agent/messages/{messageId}/read:
+    post:
+      summary: Read a message body
+      description: Returns the full message body and sets read_at.
+      operationId: readAgentMessage
+      x-internal: true
+      tags:
+        - agent
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: messageId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Full message content
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message_id:
+                    type: string
+                  sender_run_id:
+                    type: string
+                  subject:
+                    type: string
+                  body:
+                    type: string
+                  sent_at:
+                    type: string
+                    format: date-time
+                  delivered_at:
+                    type: string
+                    format: date-time
+                    nullable: true
+                  read_at:
+                    type: string
+                    format: date-time
+                    nullable: true
+
+  /agent/messages/{messageId}/delivered:
+    post:
+      summary: Mark a message as delivered
+      description: Sets delivered_at if not already set. Idempotent.
+      operationId: markAgentMessageDelivered
+      x-internal: true
+      tags:
+        - agent
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: messageId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Delivered
+
+  /agent/events:
+    get:
+      summary: Poll for events
+      description: |
+        Batch poll for events across multiple watched runs.
+        Returns events ordered by monotonic sequence number.
+        Client advances the cursor (since parameter) on each poll.
+      operationId: pollAgentEvents
+      x-internal: true
+      tags:
+        - agent
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: run_ids
+          in: query
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: array
+            items:
+              type: string
+        - name: since
+          in: query
+          schema:
+            type: integer
+            format: int64
+            default: 0
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 100
+            maximum: 500
+      responses:
+        '200':
+          description: List of events
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    event_type:
+                      type: string
+                    run_id:
+                      type: string
+                    ref_id:
+                      type: string
+                      nullable: true
+                    execution_id:
+                      type: string
+                      nullable: true
+                    occurred_at:
+                      type: string
+                      format: date-time
+                    sequence:
+                      type: integer
+                      format: int64
+
+  /agent/events/{runId}:
+    post:
+      summary: Report a lifecycle event
+      description: |
+        Client reports a lifecycle event for a run.
+        This is the canonical mechanism for all lifecycle events.
+      operationId: reportAgentEvent
+      x-internal: true
+      tags:
+        - agent
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: runId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - event_type
+              properties:
+                event_type:
+                  type: string
+                  enum:
+                    - run_in_progress
+                    - run_succeeded
+                    - run_failed
+                    - run_errored
+                    - run_blocked
+                    - run_cancelled
+                execution_id:
+                  type: string
+                  description: Client-assigned execution ID for correlation
+                ref_id:
+                  type: string
+                  description: Event-type-specific reference (e.g., message ID for new_message events)
+      responses:
+        '200':
+          description: Event recorded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sequence:
+                    type: integer
+                    format: int64
+
+  /agent/schedules:
+    post:
+      summary: Create a scheduled agent
+      description: |
+        Create a new scheduled agent that runs on a cron schedule.
+        The agent will be triggered automatically based on the cron expression.
+      operationId: createScheduledAgent
+      tags:
+        - schedules
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateScheduledAgentRequest'
+            examples:
+              simple:
+                summary: Simple daily schedule
+                value:
+                  name: "Daily Code Review"
+                  cron_schedule: "0 9 * * *"
+                  prompt: "Review open pull requests and provide feedback"
+                  enabled: true
+              withConfig:
+                summary: With agent config
+                value:
+                  name: "Weekly Report"
+                  cron_schedule: "0 10 * * 1"
+                  prompt: "Generate weekly status report"
+                  enabled: true
+                  agent_config:
+                    model_id: "claude-4-6-opus-high"
+      responses:
+        '201':
+          description: Scheduled agent created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduledAgentItem'
+        '400':
+          description: Invalid request (missing required fields, invalid cron expression)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: No permission or feature not available
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    get:
+      summary: List scheduled agents
+      description: |
+        Retrieve all scheduled agents accessible to the authenticated user.
+        Results are sorted alphabetically by name.
+      operationId: listScheduledAgents
+      tags:
+        - schedules
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of scheduled agents
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListScheduledAgentsResponse'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /agent/schedules/{scheduleId}:
+    get:
+      summary: Get scheduled agent details
+      description: |
+        Retrieve detailed information about a specific scheduled agent,
+        including its configuration, history, and next scheduled run time.
+      operationId: getScheduledAgent
+      tags:
+        - schedules
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: scheduleId
+          in: path
+          description: The unique identifier of the scheduled agent
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Scheduled agent details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduledAgentItem'
+        '400':
+          description: Missing schedule ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: No permission to access schedule
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Schedule not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: Update a scheduled agent
+      description: |
+        Update an existing scheduled agent's configuration.
+        All fields except agent_config are required.
+      operationId: updateScheduledAgent
+      tags:
+        - schedules
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: scheduleId
+          in: path
+          description: The unique identifier of the scheduled agent
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateScheduledAgentRequest'
+      responses:
+        '200':
+          description: Scheduled agent updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduledAgentItem'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: No permission to update schedule
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Schedule not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: Delete a scheduled agent
+      description: |
+        Delete a scheduled agent. This will stop all future scheduled runs.
+      operationId: deleteScheduledAgent
+      tags:
+        - schedules
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: scheduleId
+          in: path
+          description: The unique identifier of the scheduled agent
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Scheduled agent deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteScheduledAgentResponse'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: No permission to delete schedule
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Schedule not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /agent/schedules/{scheduleId}/pause:
+    post:
+      summary: Pause a scheduled agent
+      description: |
+        Pause a scheduled agent. The agent will not run until resumed.
+      operationId: pauseScheduledAgent
+      tags:
+        - schedules
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: scheduleId
+          in: path
+          description: The unique identifier of the scheduled agent
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Scheduled agent paused successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduledAgentItem'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: No permission to pause schedule
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Schedule not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /agent/schedules/{scheduleId}/resume:
+    post:
+      summary: Resume a scheduled agent
+      description: |
+        Resume a paused scheduled agent. The agent will start running
+        according to its cron schedule.
+      operationId: resumeScheduledAgent
+      tags:
+        - schedules
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: scheduleId
+          in: path
+          description: The unique identifier of the scheduled agent
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Scheduled agent resumed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduledAgentItem'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: No permission to resume schedule
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Schedule not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /agent/environments:
+    get:
+      summary: List environments
+      description: |
+        Retrieve cloud environments accessible to the authenticated principal.
+        Returns environments the caller owns, has been granted guest access to,
+        or has accessed via link sharing.
+      operationId: listEnvironments
+      tags:
+        - agent
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: sort_by
+          in: query
+          required: false
+          description: |
+            Sort order for the returned environments.
+            - `name`: alphabetical by environment name
+            - `last_updated`: most recently updated first (default)
+          schema:
+            type: string
+            enum:
+              - name
+              - last_updated
+            default: last_updated
+      responses:
+        '200':
+          description: List of accessible environments
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListEnvironmentsResponse'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /agent/models:
+    get:
+      summary: List available models
+      description: |
+        Retrieve the list of LLM models available to the authenticated user for
+        agent runs. The response includes which model is the default, as well as
+        per-model metadata such as provider, cost, and whether the model is
+        currently disabled (and why).
+      operationId: listModels
+      tags:
+        - agent
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of available models
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListModelsResponse'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /agent/artifacts/{artifactUid}:
+    get:
+      summary: Get artifact details
+      description: |
+        Retrieve an artifact by its UUID. For downloadable file-like artifacts,
+        returns a time-limited signed download URL. For plan artifacts, returns
+        the current plan content inline.
+      operationId: getArtifact
+      tags:
+        - agent
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: artifactUid
+          in: path
+          description: The unique identifier (UUID) of the artifact
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Artifact details with download information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArtifactResponse'
+        '400':
+          description: Missing artifact UID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: No permission to access artifact
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Artifact not found or unsupported artifact type
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /agent/identities:
+    post:
+      summary: Create an agent
+      description: |
+        Create a new agent for the caller's team.
+        Agents can be used as the execution principal for team-owned runs.
+      operationId: createAgent
+      tags:
+        - agent
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAgentRequest'
+      responses:
+        '201':
+          description: Agent created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentResponse'
+        '400':
+          description: Invalid request (empty name, user on multiple teams, or on no team)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Only human users can manage agents, or plan limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    get:
+      summary: List agents
+      description: |
+        List all agents for the caller's team. Each agent includes
+        an `available` flag indicating whether it is within the team's plan limit
+        and may be used for runs.
+      operationId: listAgents
+      tags:
+        - agent
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of agents
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAgentIdentitiesResponse'
+        '400':
+          description: User on multiple teams, or on no team
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Only human users can list agents
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /agent/identities/{uid}:
+    put:
+      summary: Update an agent
+      description: |
+        Update an existing agent.
+      operationId: updateAgent
+      tags:
+        - agent
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: uid
+          in: path
+          description: The unique identifier of the agent
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAgentRequest'
+      responses:
+        '200':
+          description: Agent updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentResponse'
+        '400':
+          description: Missing or invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Only human users can manage agents, or plan limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Agent not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: Delete an agent
+      description: |
+        Delete an agent. All API keys associated with the
+        agent are deleted atomically.
+      operationId: deleteAgent
+      tags:
+        - agent
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: uid
+          in: path
+          description: The unique identifier of the agent
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Agent deleted successfully
+        '400':
+          description: Cannot delete the default agent
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Only human users can manage agents
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Agent not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /agent/sessions/{sessionUuid}/redirect:
+    get:
+      summary: Get session redirect
+      description: |
+        Check whether a shared session should redirect to a conversation transcript.
+        Returns a conversation_id if the agent sandbox has finished and conversation
+        data is available, or an empty object if no redirect is needed.
+      operationId: getSessionRedirect
+      tags:
+        - agent
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: sessionUuid
+          in: path
+          description: The UUID of the shared session
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: |
+            Redirect information. Contains conversation_id if redirect is needed,
+            otherwise an empty object.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  conversation_id:
+                    type: string
+                    description: The conversation ID to redirect to (only present when redirect is needed)
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: |
+        Authentication via a Warp API key.
+
+  schemas:
+    RunAgentRequest:
+      type: object
+      description: |
+        Request body for creating a new agent run.
+        Either prompt or skill (via skill field or config.skill_spec) is required.
+      properties:
+        prompt:
+          type: string
+          description: |
+            The prompt/instruction for the agent to execute.
+            Required unless a skill is specified via the skill field or config.skill_spec.
+        skill:
+          type: string
+          description: |
+            Skill specification to use as the base prompt for the agent.
+            Supported formats:
+              - "repo:skill_name" - Simple name in specific repo
+              - "repo:skill_path" - Full path in specific repo
+              - "org/repo:skill_name" - Simple name with org and repo
+              - "org/repo:skill_path" - Full path with org and repo
+            When provided, this takes precedence over config.skill_spec.
+        config:
+          $ref: '#/components/schemas/AmbientAgentConfig'
+        title:
+          type: string
+          description: Custom title for the run (auto-generated if not provided)
+        team:
+          type: boolean
+          description: |
+            Whether to create a team-owned run.
+            Defaults to true for users on a single team.
+          x-go-type-skip-optional-pointer: false
+        agent_identity_uid:
+          type: string
+          description: |
+            Optional agent identity UID to use as the execution principal for the run.
+            This is only valid for runs that are team owned. 
+        conversation_id:
+          type: string
+          description: |
+            Optional conversation ID to continue an existing conversation.
+            If provided, the agent will continue from where the previous run left off.
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttachmentInput'
+          description: |
+            Optional file attachments to include with the prompt (max 5).
+            Attachments are uploaded to cloud storage and made available to the agent.
+        parent_run_id:
+          type: string
+          description: |
+            Optional run ID of the parent that spawned this run.
+            Used for orchestration hierarchies.
+        interactive:
+          type: boolean
+          description: |
+            Whether the run should be interactive.
+            If not set, defaults to false.
+
+    RunAgentResponse:
+      type: object
+      required:
+        - run_id
+        - task_id
+        - state
+      properties:
+        run_id:
+          type: string
+          description: Unique identifier for the created run
+        task_id:
+          type: string
+          deprecated: true
+          x-stainless-deprecation-message: Use run_id instead.
+          description: Unique identifier for the task (same as run_id). Deprecated - use run_id instead.
+        state:
+          $ref: '#/components/schemas/RunState'
+        at_capacity:
+          type: boolean
+          description: Whether the system is at capacity when the run was created
+
+    ListRunsResponse:
+      type: object
+      required:
+        - runs
+        - page_info
+      properties:
+        runs:
+          type: array
+          items:
+            $ref: '#/components/schemas/RunItem'
+        page_info:
+          $ref: '#/components/schemas/PageInfo'
+
+    RunItem:
+      type: object
+      required:
+        - run_id
+        - task_id
+        - title
+        - state
+        - prompt
+        - created_at
+        - updated_at
+      properties:
+        run_id:
+          type: string
+          description: Unique identifier for the run
+        task_id:
+          type: string
+          deprecated: true
+          x-stainless-deprecation-message: Use run_id instead.
+          description: Unique identifier for the task (typically matches run_id). Deprecated - use run_id instead.
+        title:
+          type: string
+          description: Human-readable title for the run
+        state:
+          $ref: '#/components/schemas/RunState'
+        execution_location:
+          $ref: '#/components/schemas/RunExecutionLocation'
+        prompt:
+          type: string
+          description: The prompt/instruction for the agent
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the run was created (RFC3339)
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when the run was last updated (RFC3339)
+        started_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: Timestamp when the agent started working on the run (RFC3339)
+        status_message:
+          $ref: '#/components/schemas/RunStatusMessage'
+        source:
+          $ref: '#/components/schemas/RunSourceType'
+        schedule:
+          $ref: '#/components/schemas/ScheduleInfo'
+        session_id:
+          type: string
+          description: UUID of the shared session (if available)
+        session_link:
+          type: string
+          format: uri
+          description: URL to view the agent session
+        trigger_url:
+          type: string
+          format: uri
+          description: URL to the run trigger (e.g. Slack thread, Linear issue, schedule)
+        creator:
+          $ref: '#/components/schemas/RunCreatorInfo'
+        request_usage:
+          $ref: '#/components/schemas/RequestUsage'
+        agent_config:
+          $ref: '#/components/schemas/AmbientAgentConfig'
+        conversation_id:
+          type: string
+          description: UUID of the conversation associated with the run
+        parent_run_id:
+          type: string
+          description: UUID of the parent run that spawned this run
+        is_sandbox_running:
+          type: boolean
+          description: Whether the sandbox environment is currently running
+        artifacts:
+          type: array
+          items:
+            $ref: '#/components/schemas/ArtifactItem'
+          description: Artifacts created during the run (plans, pull requests, etc.)
+        agent_skill:
+          $ref: '#/components/schemas/AgentSkill'
+        scope:
+          $ref: '#/components/schemas/Scope'
+
+    ConversationResponse:
+      type: object
+      required:
+        - conversation_id
+        - steps
+      properties:
+        conversation_id:
+          type: string
+          description: Unique identifier for the conversation
+        steps:
+          type: array
+          description: Root steps in the conversation
+          items:
+            $ref: '#/components/schemas/ConversationStep'
+
+    ConversationStep:
+      type: object
+      required:
+        - id
+        - messages
+        - steps
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the step
+        description:
+          type: string
+          description: Original instruction or delegated work description for the step
+        summary:
+          type: string
+          description: Summary of the work completed for the step
+        started_at:
+          type: string
+          format: date-time
+          description: Earliest transcript message timestamp contained in this step or any nested step (RFC3339)
+        completed_at:
+          type: string
+          format: date-time
+          description: Latest transcript message timestamp contained in this step or any nested step (RFC3339)
+        messages:
+          type: array
+          description: Ordered normalized messages for this step
+          items:
+            $ref: '#/components/schemas/ConversationMessage'
+        steps:
+          type: array
+          description: Nested delegated work performed as part of this step
+          items:
+            $ref: '#/components/schemas/ConversationStep'
+
+    ConversationMessage:
+      type: object
+      required:
+        - role
+        - content
+      properties:
+        message_ids:
+          type: array
+          description: Underlying transcript message IDs grouped into this normalized message
+          items:
+            type: string
+        request_id:
+          type: string
+          description: Request identifier shared by transcript messages from the same request, when available
+        role:
+          $ref: '#/components/schemas/ConversationMessageRole'
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp of the first transcript message included in this normalized message (RFC3339)
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConversationContentBlock'
+
+    ConversationMessageRole:
+      type: string
+      description: Role of the normalized message
+      enum:
+        - user
+        - assistant
+        - tool
+        - system
+
+    ConversationContentBlock:
+      oneOf:
+        - $ref: '#/components/schemas/TextContentBlock'
+        - $ref: '#/components/schemas/ActionContentBlock'
+        - $ref: '#/components/schemas/ActionResultContentBlock'
+        - $ref: '#/components/schemas/EventContentBlock'
+      discriminator:
+        propertyName: type
+        mapping:
+          text: '#/components/schemas/TextContentBlock'
+          action: '#/components/schemas/ActionContentBlock'
+          action_result: '#/components/schemas/ActionResultContentBlock'
+          event: '#/components/schemas/EventContentBlock'
+
+    TextContentBlock:
+      type: object
+      required:
+        - type
+        - text
+      properties:
+        type:
+          type: string
+          enum:
+            - text
+        message_id:
+          type: string
+          description: Underlying transcript message ID that produced this content block, when available
+        text:
+          type: string
+          description: Plain text content
+
+    ActionCategory:
+      type: string
+      description: High-level category of an action performed during the conversation
+      enum:
+        - command
+        - files
+        - search
+        - integration
+        - documents
+        - computer
+        - review
+        - skill
+
+    ActionState:
+      type: string
+      description: State of an action result
+      enum:
+        - running
+        - completed
+        - failed
+        - denied
+
+    ActionContentBlock:
+      type: object
+      required:
+        - type
+        - id
+        - category
+        - name
+        - input
+      properties:
+        type:
+          type: string
+          enum:
+            - action
+        message_id:
+          type: string
+          description: Underlying transcript message ID that produced this content block, when available
+        id:
+          type: string
+          description: Unique identifier for the action
+        category:
+          $ref: '#/components/schemas/ActionCategory'
+        name:
+          type: string
+          description: Public action name, such as run_command or edit_files
+        input:
+          type: object
+          additionalProperties: true
+          description: Curated public input for this action. This object is owned by the API and is not a raw internal tool payload.
+
+    ActionResultContentBlock:
+      type: object
+      required:
+        - type
+        - action_id
+        - category
+        - name
+        - state
+        - output
+      properties:
+        type:
+          type: string
+          enum:
+            - action_result
+        message_id:
+          type: string
+          description: Underlying transcript message ID that produced this content block, when available
+        action_id:
+          type: string
+          description: Identifier of the corresponding action
+        category:
+          $ref: '#/components/schemas/ActionCategory'
+        name:
+          type: string
+          description: Public action name matching the corresponding action block
+        state:
+          $ref: '#/components/schemas/ActionState'
+        output:
+          type: object
+          additionalProperties: true
+          description: Curated public result for this action. Large or binary internal payloads should be summarized rather than passed through raw.
+
+    EventContentBlock:
+      type: object
+      required:
+        - type
+        - name
+        - data
+      properties:
+        type:
+          type: string
+          enum:
+            - event
+        message_id:
+          type: string
+          description: Underlying transcript message ID that produced this content block, when available
+        name:
+          type: string
+          description: Event type for intentionally exposed non-core transcript events
+        data:
+          type: object
+          additionalProperties: true
+          description: Minimal structured metadata for the event
+
+    ArtifactItem:
+      oneOf:
+        - $ref: '#/components/schemas/PlanArtifact'
+        - $ref: '#/components/schemas/PullRequestArtifact'
+        - $ref: '#/components/schemas/ScreenshotArtifact'
+        - $ref: '#/components/schemas/FileArtifact'
+      discriminator:
+        propertyName: artifact_type
+        mapping:
+          PLAN: '#/components/schemas/PlanArtifact'
+          PULL_REQUEST: '#/components/schemas/PullRequestArtifact'
+          SCREENSHOT: '#/components/schemas/ScreenshotArtifact'
+          FILE: '#/components/schemas/FileArtifact'
+
+    PlanArtifact:
+      type: object
+      required:
+        - artifact_type
+        - created_at
+        - data
+      properties:
+        artifact_type:
+          type: string
+          enum:
+            - PLAN
+          description: Type of the artifact
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the artifact was created (RFC3339)
+        data:
+          $ref: '#/components/schemas/PlanArtifactData'
+
+    PullRequestArtifact:
+      type: object
+      required:
+        - artifact_type
+        - created_at
+        - data
+      properties:
+        artifact_type:
+          type: string
+          enum:
+            - PULL_REQUEST
+          description: Type of the artifact
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the artifact was created (RFC3339)
+        data:
+          $ref: '#/components/schemas/PullRequestArtifactData'
+
+    ScreenshotArtifact:
+      type: object
+      required:
+        - artifact_type
+        - created_at
+        - data
+      properties:
+        artifact_type:
+          type: string
+          enum:
+            - SCREENSHOT
+          description: Type of the artifact
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the artifact was created (RFC3339)
+        data:
+          $ref: '#/components/schemas/ScreenshotArtifactData'
+
+    FileArtifact:
+      type: object
+      required:
+        - artifact_type
+        - created_at
+        - data
+      properties:
+        artifact_type:
+          type: string
+          enum:
+            - FILE
+          description: Type of the artifact
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the artifact was created (RFC3339)
+        data:
+          $ref: '#/components/schemas/FileArtifactData'
+
+    PlanArtifactData:
+      type: object
+      required:
+        - document_uid
+      properties:
+        artifact_uid:
+          type: string
+          description: Unique identifier for the plan artifact, usable with the artifact retrieval endpoint
+        document_uid:
+          type: string
+          description: Unique identifier for the plan document
+        notebook_uid:
+          type: string
+          description: Unique identifier for the associated notebook
+        url:
+          type: string
+          format: uri
+          description: URL to open the plan in Warp Drive
+        title:
+          type: string
+          description: Title of the plan
+
+    PullRequestArtifactData:
+      type: object
+      required:
+        - url
+        - branch
+      properties:
+        url:
+          type: string
+          format: uri
+          description: URL of the pull request
+        branch:
+          type: string
+          description: Branch name for the pull request
+
+    ScreenshotArtifactData:
+      type: object
+      required:
+        - artifact_uid
+        - mime_type
+      properties:
+        artifact_uid:
+          type: string
+          description: Unique identifier for the screenshot artifact
+        mime_type:
+          type: string
+          description: MIME type of the screenshot image
+        description:
+          type: string
+          description: Optional description of the screenshot
+
+    FileArtifactData:
+      type: object
+      required:
+        - artifact_uid
+        - filepath
+        - filename
+        - mime_type
+      properties:
+        artifact_uid:
+          type: string
+          description: Unique identifier for the file artifact
+        filepath:
+          type: string
+          description: Conversation-relative filepath for the uploaded file
+        filename:
+          type: string
+          description: Last path component of filepath
+        description:
+          type: string
+          description: Optional description of the file
+        mime_type:
+          type: string
+          description: MIME type of the uploaded file
+        size_bytes:
+          type: integer
+          format: int64
+          description: Size of the uploaded file in bytes
+          x-go-type-skip-optional-pointer: false
+
+    ScheduleInfo:
+      type: object
+      description: Information about the schedule that triggered this run (only present for scheduled runs)
+      required:
+        - schedule_id
+        - schedule_name
+        - cron_schedule
+      properties:
+        schedule_id:
+          type: string
+          description: Unique identifier for the schedule
+        schedule_name:
+          type: string
+          description: Name of the schedule at the time the run was created
+        cron_schedule:
+          type: string
+          description: Cron expression at the time the run was created
+
+    PageInfo:
+      type: object
+      required:
+        - has_next_page
+      properties:
+        has_next_page:
+          type: boolean
+          description: Whether there are more results available
+        next_cursor:
+          type: string
+          description: Opaque cursor for fetching the next page
+
+    RunStatusMessage:
+      type: object
+      description: |
+        Status message for a run. For terminal error states, includes structured
+        error code and retryability info from the platform error catalog.
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          description: Human-readable status message
+        error_code:
+          $ref: '#/components/schemas/PlatformErrorCode'
+        retryable:
+          type: boolean
+          description: |
+            Whether the error is transient and the client may retry by submitting
+            a new run. Only present on terminal error states. When false, retrying
+            without addressing the underlying cause will not succeed.
+
+    RequestUsage:
+      type: object
+      description: Resource usage information for the run
+      properties:
+        inference_cost:
+          type: number
+          format: double
+          description: Cost of LLM inference for the run
+        compute_cost:
+          type: number
+          format: double
+          description: Cost of compute resources for the run
+
+    RunCreatorInfo:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - user
+            - service_account
+          description: Type of the creator principal
+        uid:
+          type: string
+          description: Unique identifier of the creator
+        display_name:
+          type: string
+          description: Display name of the creator
+        email:
+          type: string
+          description: Email address of the creator
+        photo_url:
+          type: string
+          format: uri
+          description: URL to the creator's photo
+
+    RunState:
+      type: string
+      enum:
+        - QUEUED
+        - PENDING
+        - CLAIMED
+        - INPROGRESS
+        - SUCCEEDED
+        - FAILED
+        - BLOCKED
+        - ERROR
+        - CANCELLED
+      description: |
+        Current state of the run:
+        - QUEUED: Run is waiting to be picked up
+        - PENDING: Run is being prepared
+        - CLAIMED: Run has been claimed by a worker
+        - INPROGRESS: Run is actively being executed
+        - SUCCEEDED: Run completed successfully
+        - FAILED: Run failed
+        - BLOCKED: Run is blocked (e.g., awaiting user input or approval)
+        - ERROR: Run encountered an error
+        - CANCELLED: Run was cancelled by user
+    RunSourceType:
+      type: string
+      enum:
+        - LINEAR
+        - API
+        - SLACK
+        - LOCAL
+        - SCHEDULED_AGENT
+        - WEB_APP
+        - GITHUB_ACTION
+        - CLOUD_MODE
+        - CLI
+      description: |
+        Source that created the run:
+        - LINEAR: Created from Linear integration
+        - API: Created via the Warp API
+        - SLACK: Created from Slack integration
+        - LOCAL: Created from local CLI/app
+        - SCHEDULED_AGENT: Created by a scheduled agent
+        - WEB_APP: Created from the Warp web app
+        - GITHUB_ACTION: Created from a GitHub action
+        - CLOUD_MODE: Created from a Cloud Mode
+        - CLI: Created from the CLI
+    RunExecutionLocation:
+      type: string
+      enum:
+        - LOCAL
+        - REMOTE
+      description: |
+        Where the run executed:
+        - LOCAL: Executed in the user's local Oz environment
+        - REMOTE: Executed by a remote/cloud worker
+    # TODO: Rename AmbientAgentConfig to AgentConfig in a future API version.
+    # The "Ambient" prefix is an internal legacy name and should not be user-facing.
+    AmbientAgentConfig:
+      type: object
+      description: Configuration for a cloud agent run
+      properties:
+        name:
+          type: string
+          description: |
+            Human-readable label for grouping, filtering, and traceability.
+            Automatically set to the skill name when running a skill-based agent.
+            Set this explicitly to categorize runs by intent (e.g., "nightly-dependency-check")
+            so you can filter and track them via the name query parameter on GET /agent/runs.
+        model_id:
+          type: string
+          description: LLM model to use (uses team default if not specified)
+          x-stainless-naming:
+            python:
+              method_argument: "llm_id"
+        base_prompt:
+          type: string
+          description: Custom base prompt for the agent
+        environment_id:
+          type: string
+          description: UID of the environment to run the agent in
+        skill_spec:
+          type: string
+          description: |
+            Skill specification identifying which agent skill to use.
+            Format: "{owner}/{repo}:{skill_path}"
+            Example: "warpdotdev/warp-server:.claude/skills/deploy/SKILL.md"
+            Use the list agents endpoint to discover available skills.
+        mcp_servers:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/MCPServerConfig'
+          description: Map of MCP server configurations by name
+        computer_use_enabled:
+          type: boolean
+          description: |
+            Controls whether computer use is enabled for this agent.
+            If not set, defaults to false.
+          x-go-type-skip-optional-pointer: false
+        idle_timeout_minutes:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 60
+          description: |
+            Number of minutes to keep the agent environment alive after task completion.
+            If not set, defaults to 10 minutes.
+            Maximum allowed value is min(60, floor(max_instance_runtime_seconds / 60) for your billing tier).
+          x-go-type-skip-optional-pointer: false
+        worker_host:
+          type: string
+          description: |
+            Self-hosted worker ID that should execute this task.
+            If not specified or set to "warp", the task runs on Warp-hosted workers.
+        harness:
+          $ref: '#/components/schemas/Harness'
+        harness_auth_secrets:
+          $ref: '#/components/schemas/HarnessAuthSecrets'
+
+    Harness:
+      type: object
+      description: |
+        Specifies which execution harness to use for the agent run.
+        Default (nil/empty) uses Warp's built-in harness.
+      properties:
+        type:
+          type: string
+          enum:
+            - oz
+            - claude
+          description: |
+            The harness type identifier.
+            - oz: Warp's built-in harness (default)
+            - claude: Claude Code harness
+
+    HarnessAuthSecrets:
+      type: object
+      description: |
+        Authentication secrets for third-party harnesses.
+        Only the secret for the harness specified gets injected into the environment.
+      properties:
+        claude_auth_secret_name:
+          type: string
+          description: |
+            Name of a managed secret for Claude Code harness authentication.
+            The secret must exist within the caller's personal or team scope.
+            Only applicable when harness type is "claude".
+
+    MCPServerConfig:
+      type: object
+      description: |
+        Configuration for an MCP server. Must have exactly one of: warp_id, command, or url.
+      properties:
+        warp_id:
+          type: string
+          description: Reference to a Warp shared MCP server by UUID
+        command:
+          type: string
+          description: Stdio transport - command to run
+        args:
+          type: array
+          items:
+            type: string
+          description: Stdio transport - command arguments
+        url:
+          type: string
+          format: uri
+          description: SSE/HTTP transport - server URL
+        env:
+          type: object
+          additionalProperties:
+            type: string
+          description: Environment variables for the server
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+          description: HTTP headers for SSE/HTTP transport
+
+    Error:
+      type: object
+      description: |
+        Error response following RFC 7807 (Problem Details for HTTP APIs).
+        Includes backward-compatible extension members.
+
+        The response uses the `application/problem+json` content type.
+        Additional extension members (e.g., `auth_url`, `provider`) may be
+        present depending on the error code.
+      required:
+        - type
+        - title
+        - status
+        - error
+      properties:
+        type:
+          type: string
+          format: uri
+          description: |
+            A URI reference that identifies the problem type (RFC 7807).
+            Format: `https://docs.warp.dev/reference/api-and-sdk/troubleshooting/errors/{error_code}`
+            See PlatformErrorCode for the list of possible error codes.
+        title:
+          type: string
+          description: A short, human-readable summary of the problem type (RFC 7807)
+        status:
+          type: integer
+          description: The HTTP status code for this occurrence of the problem (RFC 7807)
+        detail:
+          type: string
+          description: A human-readable explanation specific to this occurrence of the problem (RFC 7807)
+        instance:
+          type: string
+          description: The request path that generated this error (RFC 7807)
+        error:
+          type: string
+          description: |
+            Human-readable error message combining title and detail.
+            Backward-compatible extension member for older clients.
+        retryable:
+          type: boolean
+          description: |
+            Whether the request can be retried. When true, the error is transient
+            and the request may be retried. When false, retrying without addressing
+            the underlying cause will not succeed.
+        trace_id:
+          type: string
+          description: OpenTelemetry trace ID for debugging and support requests
+
+    ArtifactResponse:
+      oneOf:
+        - $ref: '#/components/schemas/PlanArtifactResponse'
+        - $ref: '#/components/schemas/ScreenshotArtifactResponse'
+        - $ref: '#/components/schemas/FileArtifactResponse'
+      discriminator:
+        propertyName: artifact_type
+        mapping:
+          PLAN: '#/components/schemas/PlanArtifactResponse'
+          SCREENSHOT: '#/components/schemas/ScreenshotArtifactResponse'
+          FILE: '#/components/schemas/FileArtifactResponse'
+    PlanArtifactResponse:
+      type: object
+      description: Response for retrieving a plan artifact.
+      required:
+        - artifact_uid
+        - artifact_type
+        - created_at
+        - data
+      properties:
+        artifact_uid:
+          type: string
+          description: Unique identifier (UUID) for the artifact
+        artifact_type:
+          type: string
+          enum:
+            - PLAN
+          description: Type of the artifact
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the artifact was created (RFC3339)
+        data:
+          $ref: '#/components/schemas/PlanArtifactResponseData'
+
+    PlanArtifactResponseData:
+      type: object
+      description: Response data for a plan artifact, including current markdown content.
+      required:
+        - document_uid
+        - notebook_uid
+        - content
+        - content_type
+      properties:
+        document_uid:
+          type: string
+          description: Unique identifier for the plan document
+        notebook_uid:
+          type: string
+          description: Unique identifier for the associated notebook
+        url:
+          type: string
+          format: uri
+          description: URL to open the plan in Warp Drive
+        title:
+          type: string
+          description: Current title of the plan
+        content:
+          type: string
+          description: Current markdown content of the plan
+        content_type:
+          type: string
+          description: MIME type of the returned plan content
+
+    ScreenshotArtifactResponse:
+      type: object
+      description: Response for retrieving a screenshot artifact.
+      required:
+        - artifact_uid
+        - artifact_type
+        - created_at
+        - data
+      properties:
+        artifact_uid:
+          type: string
+          description: Unique identifier (UUID) for the artifact
+        artifact_type:
+          type: string
+          enum:
+            - SCREENSHOT
+          description: Type of the artifact
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the artifact was created (RFC3339)
+        data:
+          $ref: '#/components/schemas/ScreenshotArtifactResponseData'
+
+    ScreenshotArtifactResponseData:
+      type: object
+      description: Response data for a screenshot artifact, including a signed download URL.
+      required:
+        - download_url
+        - expires_at
+        - content_type
+      properties:
+        download_url:
+          type: string
+          format: uri
+          description: Time-limited signed URL to download the screenshot
+        expires_at:
+          type: string
+          format: date-time
+          description: Timestamp when the download URL expires (RFC3339)
+        content_type:
+          type: string
+          description: MIME type of the screenshot (e.g., image/png)
+        description:
+          type: string
+          description: Optional description of the screenshot
+
+    FileArtifactResponse:
+      type: object
+      description: Response for retrieving a file artifact.
+      required:
+        - artifact_uid
+        - artifact_type
+        - created_at
+        - data
+      properties:
+        artifact_uid:
+          type: string
+          description: Unique identifier (UUID) for the artifact
+        artifact_type:
+          type: string
+          enum:
+            - FILE
+          description: Type of the artifact
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the artifact was created (RFC3339)
+        data:
+          $ref: '#/components/schemas/FileArtifactResponseData'
+
+    FileArtifactResponseData:
+      type: object
+      description: Response data for a file artifact, including a signed download URL.
+      required:
+        - download_url
+        - expires_at
+        - content_type
+        - filepath
+        - filename
+      properties:
+        download_url:
+          type: string
+          format: uri
+          description: Time-limited signed URL to download the file
+        expires_at:
+          type: string
+          format: date-time
+          description: Timestamp when the download URL expires (RFC3339)
+        content_type:
+          type: string
+          description: MIME type of the uploaded file
+        filepath:
+          type: string
+          description: Conversation-relative filepath for the uploaded file
+        filename:
+          type: string
+          description: Last path component of filepath
+        description:
+          type: string
+          description: Optional description of the file
+        size_bytes:
+          type: integer
+          format: int64
+          description: Size of the uploaded file in bytes
+          x-go-type-skip-optional-pointer: false
+
+    AttachmentInput:
+      type: object
+      description: A base64-encoded file attachment to include with the prompt
+      required:
+        - file_name
+        - mime_type
+        - data
+      properties:
+        file_name:
+          type: string
+          description: Name of the attached file
+        mime_type:
+          type: string
+          description: |
+            MIME type of the attachment.
+            Supported image types: image/jpeg, image/png, image/gif, image/webp
+        data:
+          type: string
+          format: byte
+          description: Base64-encoded attachment data
+
+    ScheduledAgentItem:
+      type: object
+      required:
+        - id
+        - name
+        - cron_schedule
+        - enabled
+        - prompt
+        - created_at
+        - updated_at
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the scheduled agent
+        name:
+          type: string
+          description: Human-readable name for the schedule
+        cron_schedule:
+          type: string
+          description: Cron expression defining when the agent runs (e.g., "0 9 * * *" for daily at 9am UTC)
+        enabled:
+          type: boolean
+          description: Whether the schedule is currently active
+        prompt:
+          type: string
+          description: The prompt/instruction for the agent to execute
+        last_spawn_error:
+          type: string
+          nullable: true
+          description: Error message from the last failed spawn attempt, if any
+        agent_config:
+          $ref: '#/components/schemas/AmbientAgentConfig'
+        environment:
+          allOf:
+            - $ref: '#/components/schemas/CloudEnvironmentConfig'
+          description: Resolved environment configuration (if agent_config references an environment_id)
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the schedule was created (RFC3339)
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when the schedule was last updated (RFC3339)
+        created_by:
+          $ref: '#/components/schemas/RunCreatorInfo'
+        updated_by:
+          $ref: '#/components/schemas/RunCreatorInfo'
+        history:
+          $ref: '#/components/schemas/ScheduledAgentHistoryItem'
+        scope:
+          $ref: '#/components/schemas/Scope'
+
+    ScheduledAgentHistoryItem:
+      type: object
+      description: Scheduler-derived history metadata for a scheduled agent
+      properties:
+        last_ran:
+          type: string
+          format: date-time
+          nullable: true
+          description: Timestamp of the last successful run (RFC3339)
+        next_run:
+          type: string
+          format: date-time
+          nullable: true
+          description: Timestamp of the next scheduled run (RFC3339)
+
+    CreateScheduledAgentRequest:
+      type: object
+      description: |
+        Request body for creating a new scheduled agent.
+        Either prompt or agent_config.skill_spec is required.
+      required:
+        - name
+        - cron_schedule
+      properties:
+        name:
+          type: string
+          description: Human-readable name for the schedule
+        cron_schedule:
+          type: string
+          description: Cron expression defining when the agent runs (e.g., "0 9 * * *" for daily at 9am UTC)
+        prompt:
+          type: string
+          description: |
+            The prompt/instruction for the agent to execute.
+            Required unless agent_config.skill_spec is provided.
+        enabled:
+          type: boolean
+          description: Whether the schedule should be active immediately
+          default: true
+        agent_config:
+          $ref: '#/components/schemas/AmbientAgentConfig'
+        team:
+          type: boolean
+          description: |
+            Whether to create a team-owned schedule.
+            Defaults to true for users on a single team.
+          x-go-type-skip-optional-pointer: false
+
+    UpdateScheduledAgentRequest:
+      type: object
+      description: |
+        Request body for updating a scheduled agent.
+        Either prompt or agent_config.skill_spec is required.
+      required:
+        - name
+        - cron_schedule
+        - enabled
+      properties:
+        name:
+          type: string
+          description: Human-readable name for the schedule
+        cron_schedule:
+          type: string
+          description: Cron expression defining when the agent runs
+        prompt:
+          type: string
+          description: |
+            The prompt/instruction for the agent to execute.
+            Required unless agent_config.skill_spec is provided.
+        enabled:
+          type: boolean
+          description: Whether the schedule should be active
+        agent_config:
+          $ref: '#/components/schemas/AmbientAgentConfig'
+
+    ListScheduledAgentsResponse:
+      type: object
+      required:
+        - schedules
+      properties:
+        schedules:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScheduledAgentItem'
+          description: List of scheduled agents
+
+    DeleteScheduledAgentResponse:
+      type: object
+      required:
+        - success
+      properties:
+        success:
+          type: boolean
+          description: Whether the deletion was successful
+
+    CloudEnvironmentConfig:
+      type: object
+      description: Configuration for a cloud environment used by scheduled agents
+      properties:
+        name:
+          type: string
+          description: Human-readable name for the environment
+        description:
+          type: string
+          nullable: true
+          description: Optional description of the environment
+        docker_image:
+          type: string
+          description: Docker image to use (e.g., "ubuntu:latest" or "registry/repo:tag")
+        github_repos:
+          type: array
+          items:
+            $ref: '#/components/schemas/GitHubRepo'
+          description: List of GitHub repositories to clone into the environment
+        setup_commands:
+          type: array
+          items:
+            type: string
+          description: Shell commands to run during environment setup
+        providers:
+          $ref: '#/components/schemas/ProvidersConfig'
+
+    ProvidersConfig:
+      type: object
+      description: Optional cloud provider configurations for automatic auth
+      properties:
+        gcp:
+          $ref: '#/components/schemas/GcpProviderConfig'
+        aws:
+          $ref: '#/components/schemas/AwsProviderConfig'
+
+    GcpProviderConfig:
+      type: object
+      description: GCP Workload Identity Federation settings
+      required:
+        - project_number
+        - workload_identity_federation_pool_id
+        - workload_identity_federation_provider_id
+      externalDocs:
+        description: Google documentation on Workload Identity Federation
+        url: https://docs.cloud.google.com/iam/docs/workload-identity-federation
+      properties:
+        project_number:
+          type: string
+          description: GCP project number
+        workload_identity_federation_pool_id:
+          type: string
+          description: Workload Identity Federation pool ID
+        workload_identity_federation_provider_id:
+          type: string
+          description: Workload Identity Federation provider ID
+
+    AwsProviderConfig:
+      type: object
+      description: AWS IAM role assumption settings
+      required:
+        - role_arn
+      externalDocs:
+        description: AWS documentation on IAM OIDC federation
+        url: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_oidc.html
+      properties:
+        role_arn:
+          type: string
+          description: AWS IAM role ARN to assume
+
+    GitHubRepo:
+      type: object
+      required:
+        - owner
+        - repo
+      properties:
+        owner:
+          type: string
+          description: GitHub repository owner (user or organization)
+        repo:
+          type: string
+          description: GitHub repository name
+
+    ListAgentsResponse:
+      type: object
+      required:
+        - agents
+      properties:
+        agents:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgentListItem'
+          description: List of available agents
+
+    AgentListItem:
+      type: object
+      required:
+        - name
+        - variants
+      properties:
+        name:
+          type: string
+          description: Human-readable name of the agent
+        variants:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgentListVariant'
+          description: Available variants of this agent
+
+    AgentListVariant:
+      type: object
+      required:
+        - id
+        - description
+        - base_prompt
+        - source
+        - environments
+      properties:
+        id:
+          type: string
+          description: |
+            Stable identifier for this skill variant.
+            Format: "{owner}/{repo}:{skill_path}"
+            Example: "warpdotdev/warp-server:.claude/skills/deploy/SKILL.md"
+        description:
+          type: string
+          description: Description of the agent variant
+        base_prompt:
+          type: string
+          description: Base prompt/instructions for the agent
+        source:
+          $ref: '#/components/schemas/AgentListSource'
+        environments:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgentListEnvironment'
+          description: Environments where this agent variant is available
+        last_run_timestamp:
+          type: string
+          format: date-time
+          nullable: true
+          description: Timestamp of the last time this skill was run (RFC3339)
+        error:
+          type: string
+          description: |
+            Non-empty when the skill's SKILL.md file exists but is malformed.
+            Contains a description of the parse failure. Only present when
+            include_malformed_skills=true is passed to the list agents endpoint.
+
+    AgentListSource:
+      type: object
+      required:
+        - owner
+        - name
+        - skill_path
+      properties:
+        owner:
+          type: string
+          description: GitHub repository owner
+        name:
+          type: string
+          description: GitHub repository name
+        skill_path:
+          type: string
+          description: Path to the skill definition file within the repository
+        worker_host:
+          type: string
+          description: |
+            Self-hosted worker host that reported this skill.
+            Present only for skills discovered from self-hosted workers
+            (as opposed to skills from GitHub repos linked to environments).
+
+    AgentListEnvironment:
+      type: object
+      required:
+        - uid
+        - name
+      properties:
+        uid:
+          type: string
+          description: Unique identifier for the environment
+        name:
+          type: string
+          description: Human-readable name of the environment
+
+    Scope:
+      type: object
+      description: Ownership scope for a resource (team or personal)
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          enum:
+            - User
+            - Team
+          description: Type of ownership ("User" for personal, "Team" for team-owned)
+        uid:
+          type: string
+          description: UID of the owning user or team
+
+    PlatformErrorCode:
+      type: string
+      description: |
+        Machine-readable error code identifying the problem type.
+        Used in the `type` URI of Error responses and in the `error_code`
+        field of RunStatusMessage.
+
+        User errors (run transitions to FAILED):
+        - `insufficient_credits` — Team has no remaining add-on credits
+        - `feature_not_available` — Required feature not enabled for user's plan
+        - `external_authentication_required` — User hasn't authorized a required external service
+        - `not_authorized` — Principal lacks permission for the requested operation
+        - `invalid_request` — Request is malformed or contains invalid parameters
+        - `resource_not_found` — Referenced resource does not exist
+        - `budget_exceeded` — Spending budget limit has been reached
+        - `integration_disabled` — Integration is disabled and must be enabled
+        - `integration_not_configured` — Integration setup is incomplete
+        - `operation_not_supported` — Requested operation not supported for this resource/state
+        - `environment_setup_failed` — Client-side environment setup failed
+        - `content_policy_violation` — Prompt or setup commands violated content policy
+        - `conflict` — Request conflicts with the current state of the resource
+
+        Warp errors (run transitions to ERROR):
+        - `authentication_required` — Request lacks valid authentication credentials
+        - `resource_unavailable` — Transient infrastructure issue (retryable)
+        - `internal_error` — Unexpected server-side error (retryable)
+      enum:
+        - insufficient_credits
+        - feature_not_available
+        - external_authentication_required
+        - not_authorized
+        - invalid_request
+        - resource_not_found
+        - budget_exceeded
+        - integration_disabled
+        - integration_not_configured
+        - operation_not_supported
+        - environment_setup_failed
+        - content_policy_violation
+        - conflict
+        - authentication_required
+        - resource_unavailable
+        - internal_error
+
+    CreateExternalConversationRequest:
+      type: object
+      description: Request body for creating a new external conversation for a third-party harness.
+      required:
+        - format
+      properties:
+        format:
+          type: string
+          x-oapi-codegen-extra-tags:
+            binding: required
+          description: |
+            The conversation format identifying the harness type.
+
+    CreateExternalConversationResponse:
+      type: object
+      required:
+        - conversation_id
+      properties:
+        conversation_id:
+          type: string
+          description: The unique identifier of the newly created conversation.
+
+    ResolvePromptRequest:
+      type: object
+      description: Request body for resolving the effective prompt for a task.
+      properties:
+        skill:
+          type: object
+          description: Optional skill metadata to prepend to the prompt.
+          required:
+            - name
+            - content
+          properties:
+            name:
+              type: string
+              description: Human-readable name of the skill
+            content:
+              type: string
+              description: The resolved skill content
+            path:
+              type: string
+              description: Full path to SKILL.md (optional)
+        attachments_dir:
+          type: string
+          description: Directory where attachments were downloaded locally
+
+    ResolvePromptResponse:
+      type: object
+      required:
+        - prompt
+      properties:
+        prompt:
+          type: string
+          description: The resolved prompt
+        system_prompt:
+          type: string
+          description: Optional system prompt addition for the harness
+
+    GetUploadTargetRequest:
+      type: object
+      description: Request body for obtaining a conversation-scoped upload target.
+      required:
+        - conversation_id
+      properties:
+        conversation_id:
+          type: string
+          x-oapi-codegen-extra-tags:
+            binding: required
+          description: The conversation ID to associate the uploaded data with.
+
+    UploadTarget:
+      type: object
+      description: |
+        A description of where and how to upload a blob.
+        Use the `method` and `url` to upload, including all `headers` in the request.
+        Pass the blob to upload as the request body.
+      required:
+        - url
+        - method
+        - headers
+      properties:
+        url:
+          type: string
+          format: uri
+          description: The presigned URL to upload the blob to.
+        method:
+          type: string
+          enum:
+            - PUT
+            - POST
+          description: The HTTP method to use for the upload.
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+          description: HTTP headers that must be included in the upload request.
+
+    ListModelsResponse:
+      type: object
+      required:
+        - default_model_id
+        - models
+      properties:
+        default_model_id:
+          type: string
+          description: The ID of the default model for agent runs
+        models:
+          type: array
+          items:
+            $ref: '#/components/schemas/ModelInfo'
+          description: List of available models
+
+    ModelInfo:
+      type: object
+      required:
+        - id
+        - display_name
+        - provider
+        - vision_supported
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the model (e.g. "claude-4-6-opus-high" or "gpt-5-4-high")
+        display_name:
+          type: string
+          description: Human-readable name of the model
+        provider:
+          type: string
+          enum:
+            - OPENAI
+            - ANTHROPIC
+            - GOOGLE
+            - UNKNOWN
+          description: The LLM provider
+        vision_supported:
+          type: boolean
+          description: Whether the model supports vision/image inputs
+        description:
+          type: string
+          description: Optional extra descriptor for the model
+        reasoning_level:
+          type: string
+          description: Reasoning level descriptor, if any (e.g. "low", "medium", "high")
+        disable_reason:
+          type: string
+          enum:
+            - PROVIDER_OUTAGE
+            - OUT_OF_REQUESTS
+            - ADMIN_DISABLED
+            - REQUIRES_UPGRADE
+          description: If set, the model is currently unavailable for the given reason
+
+    NotifyUserRequest:
+      type: object
+      description: Request body for sending a progress notification to the task's originating platform.
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          x-oapi-codegen-extra-tags:
+            binding: required
+          description: |
+            The progress update message to send. Supports Markdown formatting.
+
+    FinishTaskRequest:
+      type: object
+      description: |
+        Request body for reporting task completion or failure.
+        Pull request links and branches are derived automatically from artifacts
+        previously reported via the report artifact endpoint.
+      required:
+        - success
+        - summary
+      properties:
+        success:
+          type: boolean
+          description: Whether the task completed successfully.
+        summary:
+          type: string
+          x-oapi-codegen-extra-tags:
+            binding: required
+          description: |
+            A summary of what was accomplished. If there are artifacts like
+            pull requests, describe what was created.
+
+    ReportArtifactRequest:
+      oneOf:
+        - $ref: '#/components/schemas/ReportPullRequestArtifactRequest'
+      discriminator:
+        propertyName: artifact_type
+        mapping:
+          PULL_REQUEST: '#/components/schemas/ReportPullRequestArtifactRequest'
+
+    ReportPullRequestArtifactRequest:
+      type: object
+      description: Request body for reporting a pull request artifact.
+      required:
+        - artifact_type
+        - data
+      properties:
+        artifact_type:
+          type: string
+          enum:
+            - PULL_REQUEST
+          description: Type of artifact being reported.
+        data:
+          $ref: '#/components/schemas/PullRequestArtifactData'
+
+    ReportArtifactResponse:
+      type: object
+      required:
+        - artifact_uid
+      properties:
+        artifact_uid:
+          type: string
+          description: Unique identifier for the created artifact
+
+    AgentSkill:
+      type: object
+      description: |
+        Information about the agent skill used for the run.
+        Either full_path or bundled_skill_id will be set, but not both.
+      properties:
+        name:
+          type: string
+          description: Human-readable name of the skill
+        description:
+          type: string
+          description: Description of the skill
+        full_path:
+          type: string
+          description: Path to the SKILL.md file (for file-based skills)
+        bundled_skill_id:
+          type: string
+          description: Unique identifier for bundled skills
+
+    ListEnvironmentsResponse:
+      type: object
+      required:
+        - environments
+      properties:
+        environments:
+          type: array
+          items:
+            $ref: '#/components/schemas/CloudEnvironment'
+          description: List of accessible cloud environments
+
+    CloudEnvironment:
+      type: object
+      description: A cloud environment for running agents
+      required:
+        - uid
+        - config
+        - last_updated
+        - setup_failed
+      properties:
+        uid:
+          type: string
+          description: Unique identifier for the environment
+        config:
+          $ref: '#/components/schemas/CloudEnvironmentConfig'
+        last_updated:
+          type: string
+          format: date-time
+          description: Timestamp when the environment was last updated (RFC3339)
+        last_task_run_timestamp:
+          type: string
+          format: date-time
+          nullable: true
+          description: Timestamp of the most recent task run in this environment (RFC3339)
+        last_task_created:
+          $ref: '#/components/schemas/EnvironmentLastTask'
+        setup_failed:
+          type: boolean
+          description: True when the most recent task failed during setup before it started running
+        scope:
+          $ref: '#/components/schemas/Scope'
+        creator:
+          $ref: '#/components/schemas/RunCreatorInfo'
+        last_editor:
+          $ref: '#/components/schemas/RunCreatorInfo'
+
+    CreateAgentRequest:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: A name for the agent
+
+    UpdateAgentRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The new name for the agent
+
+    AgentResponse:
+      type: object
+      required:
+        - uid
+        - name
+        - available
+        - created_at
+      properties:
+        uid:
+          type: string
+          description: Unique identifier for the agent
+        name:
+          type: string
+          description: Name of the agent
+        available:
+          type: boolean
+          description: Whether this agent is within the team's plan limit and can be used for runs
+        created_at:
+          type: string
+          format: date-time
+          description: When the agent was created (RFC3339)
+
+    ListAgentIdentitiesResponse:
+      type: object
+      required:
+        - agents
+      properties:
+        agents:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgentResponse'
+
+    EnvironmentLastTask:
+      type: object
+      description: Summary of the most recently created task for an environment
+      required:
+        - id
+        - title
+        - state
+        - created_at
+        - updated_at
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the task
+        title:
+          type: string
+          description: Title of the task
+        state:
+          $ref: '#/components/schemas/RunState'
+        created_at:
+          type: string
+          format: date-time
+          description: When the task was created (RFC3339)
+        updated_at:
+          type: string
+          format: date-time
+          description: When the task was last updated (RFC3339)
+        started_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: When the task started running (RFC3339), null if not yet started

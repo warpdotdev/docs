@@ -1,0 +1,31 @@
+---
+title: Background Blocks
+description: >-
+  How Blocks interact with background process output.
+---
+import VideoEmbed from '@components/VideoEmbed.astro';
+
+## What is it
+
+Commands can start background processes that continue even after they exit. You can also start a background process directly from the shell, such as by running it with `&`.
+
+If Warp receives output that is likely from a background process, the output goes into a _background block_. Background blocks act like regular blocks, except that they don't have an associated command.
+
+This lets you use all of Warp's block features with background output, such as sharing and bookmarking.
+
+## How to use it
+
+Background blocks are automatically created as needed, in between regular blocks running. If you run commands while a background process is still producing output, that output gets split into multiple blocks interleaved with your commands.
+
+## How it works
+
+<VideoEmbed url="https://www.loom.com/share/55bbbd9a8cbf495189260756c717cfb2?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" title="Create Background Blocks" />
+
+## Troubleshooting background blocks
+
+There are some limitations, because Warp doesn't know _which_ process any given output came from:
+
+* If a background process writes output while a foreground command is running in a regular block, the output goes into that block.
+* If there are multiple background processes running at the same time, their output may be mixed together.
+
+In addition, if you start entering a command while another one is running (typeahead), in some cases Warp will mistake the partial command for background output. The most common cause is editing typeahead when using bash versions older than 4.0 (for example, deleting and re-typing part of it).

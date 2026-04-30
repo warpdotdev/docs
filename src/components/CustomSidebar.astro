@@ -1,0 +1,35 @@
+---
+// Custom Sidebar override.
+//
+// Scalar-style: search lives at the top of the sidebar, NOT in the top nav
+// (see CustomHeader.astro for the matching header change). The Kapa "Ask"
+// launcher sits beside the search pill on the same row, rendering as paired
+// chrome via the shared `--warp-control-*` palette in `warp-components.css`
+// §16. Below the row, the default Starlight sidebar nav renders with its
+// items already filtered to the current topic (the
+// `starlight-sidebar-topics` middleware rewrites `starlightRoute.sidebar`
+// upstream).
+//
+// Topics themselves — Terminal, Agents, Reference, etc. — are rendered as
+// horizontal links in the top header (see WarpTopicNav.astro). On narrow
+// viewports (<50rem) the header collapses, so we still render the plugin's
+// vertical topic list inside the mobile drawer via `md:sl-hidden` so users
+// keep a way to switch topics.
+//
+// Reuses Starlight's built-in `<Search />` directly. The `<site-search>`
+// custom element binds `⌘K` to `window`, so the trigger button can live
+// anywhere in the DOM and the dialog (portaled to `<body>`) keeps working.
+import Default from '@astrojs/starlight/components/Sidebar.astro';
+import Search from '@astrojs/starlight/components/Search.astro';
+import StarlightSidebarTopicsSidebar from 'starlight-sidebar-topics/components/Sidebar.astro';
+import KapaLauncher from './KapaLauncher.astro';
+---
+
+<div class="warp-sidebar-search">
+	<Search />
+	<KapaLauncher />
+</div>
+<div class="md:sl-hidden">
+	<StarlightSidebarTopicsSidebar />
+</div>
+<Default><slot /></Default>

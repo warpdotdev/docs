@@ -1,0 +1,347 @@
+---
+/**
+ * Slim Warp brand topbar for standalone pages that don't sit inside Starlight
+ * (currently just `/api`). Renders the Warp wordmark + a breadcrumb + a small
+ * nav so the page reads as part of the same surface as the docs.
+ *
+ * The host page must reserve `--warp-topbar-height` (3.5rem by default) at
+ * the top of the viewport — see `src/pages/api.astro` where the same value
+ * feeds Scalar's `--scalar-y-offset` so its sticky sidebar clears the bar.
+ *
+ * Light/dark logo swap is keyed off the host's `.light-mode`/`.dark-mode`
+ * class on `<body>` (Scalar pattern). If you reuse this on a Starlight-
+ * themed page, wire similar classes or generalise the toggle.
+ */
+import logoDark from '../assets/warp-logo-dark.svg?raw';
+import logoLight from '../assets/warp-logo-light.svg?raw';
+
+interface NavLink {
+  href: string;
+  label: string;
+  /** Hide on narrow screens (≤ 640px). */
+  hideOnNarrow?: boolean;
+  external?: boolean;
+}
+
+interface Props {
+  /** Breadcrumb text after the wordmark (e.g. "API Reference"). */
+  crumb: string;
+  /** Right-side nav links. Defaults match the /api page. */
+  links?: NavLink[];
+}
+
+const {
+  crumb,
+  // No "active" treatment here — every link in this topbar navigates back
+  // into the Starlight docs, so there's no current-page surface to
+  // highlight. The topbar exists to anchor `/api` visually to the rest of
+  // the docs, not to indicate location within a tab set.
+  links = [
+    { href: '/reference/api-and-sdk/', label: 'API & SDK', hideOnNarrow: true },
+    { href: '/reference/api-and-sdk/quickstart/', label: 'Quickstart', hideOnNarrow: true },
+  ],
+} = Astro.props;
+---
+
+<header class="warp-topbar" role="banner">
+  {/* Wordmark links to warp.dev (matches CustomSiteTitle.astro on Starlight
+     pages). Users still get to docs root via the explicit "← Docs" link in
+     the right nav below. */}
+  <a href="https://warp.dev" class="warp-topbar__home" aria-label="Visit warp.dev">
+    <span class="warp-topbar__logo warp-topbar__logo--dark" aria-hidden="true" set:html={logoDark} />
+    <span class="warp-topbar__logo warp-topbar__logo--light" aria-hidden="true" set:html={logoLight} />
+    <span class="warp-topbar__sep" aria-hidden="true">/</span>
+    <span class="warp-topbar__crumb">{crumb}</span>
+  </a>
+  <div class="warp-topbar__right">
+    <nav class="warp-topbar__nav" aria-label="Site">
+      <a href="/" class="warp-topbar__link">
+        <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 12H5"/><path d="m12 19-7-7 7-7"/>
+        </svg>
+        <span>Docs</span>
+      </a>
+      {links.map((link) => (
+        <a
+          href={link.href}
+          class:list={['warp-topbar__link', link.hideOnNarrow && 'warp-topbar__link--hide-narrow']}
+          target={link.external ? '_blank' : undefined}
+          rel={link.external ? 'noopener' : undefined}
+        >
+          {link.label}
+        </a>
+      ))}
+    </nav>
+    {/* Theme select — mirrors Starlight's ThemeSelect (Auto / Light / Dark)
+       so the picker lives in the same top-right slot as on the docs side
+       and shares `localStorage['starlight-theme']` for cross-page persistence.
+       Native `<select>` is positioned over the visible chip with `opacity:0`
+       so we get keyboard semantics + native dropdown UI for free. */}
+    <div class="warp-topbar__theme" data-warp-theme>
+      <span class="warp-topbar__theme-icon" aria-hidden="true" data-warp-theme-icon>
+        {/* Default icon paints the auto/laptop glyph; the inline script
+           below swaps it to sun/moon when the stored value is light/dark. */}
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="4" width="20" height="13" rx="2"/>
+          <path d="M2 21h20"/>
+        </svg>
+      </span>
+      <svg class="warp-topbar__theme-caret" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m6 9 6 6 6-6"/>
+      </svg>
+      <select aria-label="Theme" data-warp-theme-select>
+        <option value="auto">Auto</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+      </select>
+    </div>
+  </div>
+</header>
+
+<style>
+  /* A slim brand bar that mirrors the Starlight site nav so standalone pages
+     feel like part of the same surface. The matching `--warp-topbar-height`
+     token in the host page's CSS feeds `--scalar-y-offset` (or equivalent)
+     so any sticky content clears the bar.
+
+     Default is 3.5rem (matches Starlight's `--sl-nav-height` mobile value);
+     the host page bumps the token to 4rem at >=50em so the bar lines up
+     with Starlight's desktop nav and the logo doesn't jump vertically when
+     you navigate from /docs to /api. */
+  .warp-topbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    height: var(--warp-topbar-height, 3.5rem);
+    padding: 0 1rem;
+    background: var(--scalar-background-1, #121212);
+    border-bottom: 1px solid var(--scalar-border-color, rgba(255, 255, 255, 0.08));
+    font-family: var(--scalar-font, 'Inter', sans-serif);
+    color: var(--scalar-color-1, #fafafa);
+  }
+  .warp-topbar__home {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    text-decoration: none;
+    color: inherit;
+    min-width: 0;
+    padding: 0.25rem 0.375rem;
+    margin-left: -0.375rem;
+    border-radius: var(--sl-radius-md);
+  }
+  .warp-topbar__home:hover { background: var(--scalar-background-2); }
+  .warp-topbar__home:focus-visible {
+    outline: 2px solid var(--scalar-color-accent);
+    outline-offset: 2px;
+  }
+  .warp-topbar__logo {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .warp-topbar__logo :global(svg),
+  .warp-topbar__logo > svg {
+    height: 1.25rem;
+    width: auto;
+    max-width: 100%;
+    display: block;
+  }
+  /* Light/dark logo swap, keyed off the host's .light-mode/.dark-mode class. */
+  .warp-topbar__logo--dark { display: none; }
+  body.dark-mode .warp-topbar__logo--dark { display: inline-flex; }
+  body.dark-mode .warp-topbar__logo--light { display: none; }
+  .warp-topbar__sep {
+    color: var(--scalar-color-3);
+    opacity: 0.6;
+    font-weight: 300;
+    font-size: 1rem;
+  }
+  .warp-topbar__crumb {
+    color: var(--scalar-color-2);
+    font-size: 0.875rem;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  /* Right group wraps the nav and the theme select so the topbar's
+     `justify-content: space-between` keeps the home/crumb pinned left and
+     the whole right cluster pinned right. */
+  .warp-topbar__right {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  /* Right-side nav: every link is an outbound jump to the Starlight docs,
+     so there's no "active" tab to indicate. We keep the calm gray-3 idle
+     → full-emphasis white hover progression from the topic nav, but drop
+     the accent underline + active treatment — nothing here is the
+     current page. */
+  .warp-topbar__nav {
+    display: inline-flex;
+    align-items: center;
+    gap: 1.25rem;
+  }
+  .warp-topbar__link {
+    /* Flat type, no chip surface. `--scalar-color-3` / `-color-1` are the
+       Scalar equivalents of `--sl-color-gray-3` / `-color-white`, mapped
+       to Warp brand tokens in `pages/api.astro`. Visual weight lives
+       entirely in the type color shift on hover. */
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0 0.125rem;
+    text-decoration: none;
+    color: var(--scalar-color-3);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    line-height: 1.25;
+    transition: color 0.15s ease;
+    white-space: nowrap;
+  }
+  .warp-topbar__link:hover {
+    color: var(--scalar-color-1);
+  }
+  .warp-topbar__link:focus-visible {
+    outline: 2px solid var(--scalar-color-accent);
+    outline-offset: 2px;
+    border-radius: var(--sl-radius-xs);
+  }
+  /* Theme select chip. The visible chrome is `[icon] [caret]`; the actual
+     `<select>` sits on top with `opacity: 0` so clicks/keyboard open the
+     native dropdown but the chip carries the styling. We rely on `:has()`
+     for keyboard-only focus (modern browsers, gracefully degrades to no
+     focus ring on older ones — the underlying select still gets the
+     native keyboard outline if the chip's outline doesn't apply). */
+  .warp-topbar__theme {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    height: 2rem;
+    padding: 0 0.375rem;
+    border-radius: var(--sl-radius-sm);
+    color: var(--scalar-color-3);
+    cursor: pointer;
+    transition: color 0.15s ease, background-color 0.15s ease;
+  }
+  .warp-topbar__theme:hover {
+    color: var(--scalar-color-1);
+    background: var(--scalar-background-2);
+  }
+  .warp-topbar__theme:has(select:focus-visible) {
+    outline: 2px solid var(--scalar-color-accent);
+    outline-offset: 2px;
+  }
+  .warp-topbar__theme-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+  }
+  .warp-topbar__theme-icon :global(svg) {
+    width: 14px;
+    height: 14px;
+    display: block;
+  }
+  .warp-topbar__theme-caret {
+    display: inline-flex;
+    opacity: 0.7;
+  }
+  .warp-topbar__theme select {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    opacity: 0;
+    cursor: pointer;
+    appearance: none;
+  }
+  .warp-topbar__theme select:focus {
+    outline: none;
+  }
+  @media (max-width: 640px) {
+    .warp-topbar { padding: 0 0.75rem; }
+    .warp-topbar__sep,
+    .warp-topbar__crumb { display: none; }
+    .warp-topbar__link--hide-narrow { display: none; }
+  }
+</style>
+
+<script is:inline>
+  // Theme select wiring (drives `localStorage['starlight-theme']` so it
+  // round-trips with Starlight's own ThemeSelect on the docs side). The
+  // heavy lifting — resolving auto, applying body class, syncing across
+  // tabs and `prefers-color-scheme` changes — lives in the inline init
+  // script in `pages/api.astro`, exposed as `window.__warpApplyTheme`.
+  // This script just wires the select UI up to that helper and keeps the
+  // visible icon in sync with the stored value.
+  (function () {
+    var root = document.querySelector('[data-warp-theme]');
+    if (!root) return;
+    var select = root.querySelector('[data-warp-theme-select]');
+    var iconWrap = root.querySelector('[data-warp-theme-icon]');
+    if (!select || !iconWrap) return;
+    // Inline SVGs match the visual weight of Starlight's `sun`/`moon`/
+    // `laptop` icons in `node_modules/@astrojs/starlight/components-internals/Icons.ts`.
+    var ICONS = {
+      auto: '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M2 21h20"/></svg>',
+      light: '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>',
+      dark: '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>',
+    };
+    var read = function () {
+      try {
+        var v = localStorage.getItem('starlight-theme');
+        return v === 'light' || v === 'dark' ? v : 'auto';
+      } catch (_e) { return 'auto'; }
+    };
+    var setIcon = function (v) {
+      iconWrap.innerHTML = ICONS[v] || ICONS.auto;
+    };
+    var setValue = function (v) {
+      select.value = v;
+      setIcon(v);
+    };
+    setValue(read());
+    select.addEventListener('change', function () {
+      var v = select.value;
+      setIcon(v);
+      if (typeof window.__warpApplyTheme === 'function') {
+        window.__warpApplyTheme(v);
+      } else {
+        // Fallback: write to storage and apply minimally. Used only if the
+        // page-level helper isn't loaded (e.g. WarpTopbar reused outside
+        // /api in the future).
+        try {
+          localStorage.setItem('starlight-theme', v === 'auto' ? '' : v);
+        } catch (_e) {}
+        var resolved = v === 'auto'
+          ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+          : v;
+        document.body.classList.toggle('dark-mode', resolved === 'dark');
+        document.body.classList.toggle('light-mode', resolved !== 'dark');
+        document.documentElement.setAttribute('data-theme', resolved);
+      }
+    });
+    // Cross-tab sync: another tab updated the preference — mirror it in
+    // our select UI. (The page-level script in api.astro handles
+    // re-applying the resolved theme; we just keep the icon honest here.)
+    window.addEventListener('storage', function (e) {
+      if (e.key !== 'starlight-theme') return;
+      var v = e.newValue;
+      setValue(v === 'light' || v === 'dark' ? v : 'auto');
+    });
+  })();
+</script>

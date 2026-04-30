@@ -1,0 +1,108 @@
+---
+title: Troubleshooting login
+description: >-
+  Resolve common login and SSO issues for Warp Enterprise users and IT admins.
+---
+
+This page covers common login issues for Warp Enterprise users, with a focus on SSO-related problems. For SSO setup and configuration, see [Single Sign-On (SSO)](/enterprise/security-and-compliance/sso/).
+
+## SSO login issues
+
+### Can't open Warp from your SSO provider
+
+When launching Warp directly from Okta or another SSO provider's app dashboard, you may see an error like "Unable to process request due to missing initial state." This is a known limitation with the authentication flow.
+
+**To fix it:**
+
+1. Go to [app.warp.dev/login](https://app.warp.dev/login).
+2. Choose **Continue with SSO**.
+3. Log in with your normal SSO credentials.
+
+### Previously logged in with another method
+
+If you originally created your Warp account with email, Google, or GitHub and now need to use SSO:
+
+1. Go to [app.warp.dev/login](https://app.warp.dev/login).
+2. Log in with your **original** method (email, Google, or GitHub).
+3. Once logged in, visit [app.warp.dev/link_sso](https://app.warp.dev/link_sso).
+4. Click **Link SSO** to connect your existing account. You can now use **Continue with SSO** going forward.
+
+:::note
+IT admins: if multiple team members need to link their accounts to SSO, share these steps during your SSO rollout.
+:::
+
+## Common login issues
+
+### Can't sign up or log in
+
+If clicking the sign-up or login button opens a blank popup or nothing happens:
+
+* Your ISP or firewall may be blocking calls to `*.googleapis.com`. Try using a proxy or allowlisting this domain.
+* In some older Ruby development environments, `.dev` domains don't resolve properly. If applicable, delete `/etc/resolver/dev` ([more info](https://superuser.com/questions/1374892/dev-domains-dont-resolve)).
+
+### Browser-specific issues
+
+If you see authentication errors or blank popups across browsers:
+
+1. **Disable ad blockers** for `app.warp.dev`.
+2. **Clear cookies and cache**, or try an incognito / private browser window.
+3. Try [app.warp.dev/login](https://app.warp.dev/login) again.
+
+**Safari-specific:** If you see "Unable to access localStorage" errors, go to **Safari Preferences** > **Privacy** and uncheck **Block all cookies**. Firebase Auth requires cookies to track login state.
+
+## Proxy issues
+
+If you're behind a proxy, QUIC traffic may not pass through correctly. Disabling QUIC in your browser forces a fallback to TCP, which typically resolves the issue:
+
+**Chrome / Chromium-based browsers (Edge, Opera, Arc):**
+1. Navigate to `chrome://flags`.
+2. Search for **Experimental QUIC protocol**.
+3. Set it to **Disabled**.
+4. Relaunch the browser.
+
+**Firefox:**
+1. Navigate to `about:config`.
+2. Accept the risk warning.
+3. Search for `network.http.http3.enable`.
+4. Double-click to set it to `false`.
+5. Restart Firefox.
+
+**Safari:** There is no built-in option to disable QUIC in Safari.
+
+## Flagged as fraudulent
+
+If you see "This account has been flagged as fraudulent," your account has triggered Warp's fraud detection system. This can happen due to multiple account creation or use of throwaway emails (both against Warp's [Terms of Service](https://www.warp.dev/terms-of-service)).
+
+### False positives
+
+Ad blockers or systems like Pi-hole can sometimes trigger false positives. Try temporarily disabling them and attempting login again.
+
+### Requesting an appeal
+
+If you're still unable to authenticate, email [appeals@warp.dev](mailto:appeals@warp.dev) with the email address of the affected account. Appeals may take 5–10 days.
+
+Enterprise customers can also contact their account manager or dedicated Slack/Teams channel for faster resolution.
+
+## Browser doesn't open when signing in
+
+If the browser doesn't open automatically from Warp when you click "Sign up" or "Sign in":
+
+1. Go to the [Signup](https://app.warp.dev/signup) or [Login](https://app.warp.dev/login) page in your browser.
+2. Complete authentication in the browser.
+3. On the logged-in page, if "Take me to Warp" doesn't work, click the **here** link to copy the authentication token.
+4. Paste the token into Warp.
+
+:::note
+On Linux and Windows, the default paste shortcut is `CTRL+SHIFT+V`.
+:::
+
+## Getting help
+
+* **Enterprise customers** - Contact your dedicated Slack/Teams channel or account manager.
+* **All other users** - Visit [warp.dev/contact](https://www.warp.dev/contact) for support.
+
+## Related resources
+
+* [Single Sign-On (SSO)](/enterprise/security-and-compliance/sso/) - SSO setup and configuration
+* [Feedback and feature requests](/enterprise/support-and-resources/feedback-and-feature-requests/) - Report bugs and request features
+* [Troubleshooting login (full guide)](/support-and-community/troubleshooting-and-support/troubleshooting-login-issues/) - Complete troubleshooting reference

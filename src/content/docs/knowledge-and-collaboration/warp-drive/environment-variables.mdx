@@ -1,0 +1,141 @@
+---
+title: Environment variables
+description: >-
+  Save or sync environment variables to load into your terminal sessions.
+---
+
+## What are environment variables in Warp?
+
+Environment variables in Warp are similar to .env files, except you can:
+
+* Load them into your terminal session with a click.
+* Use them in parameterized workflows.
+* Dynamically reference secrets from external managers.
+
+## How to create and edit environment variables
+
+You can create new environment variables through:
+
+* [Warp Drive](/knowledge-and-collaboration/warp-drive/), + → Environment variable
+* [Command Palette](/terminal/command-palette/), create new team or personal environment variables
+
+Any of these entry points will open the environment variables editor where you can name and describe your environment variables.
+
+![Environment variable editor in Warp Drive showing fields for name and description.](../../../../assets/terminal/env-var-create.png)
+
+## Managing individual environment variables
+
+Warp supports two types of environment variables: static variables and dynamic variables.
+
+### Static variables
+
+Static variables are similar to .env files. You create the variables by entering raw strings of text. Each variable has a variable name and a corresponding value.
+
+![Saving a static environment variable with name and value pairs.](../../../../assets/terminal/env-var-static-variable-save.png)
+
+After you save the environment variable, you can click it to load it into your terminal session.
+
+![Loading a saved static environment variable into the current terminal session.](../../../../assets/terminal/env-var-static-variable-load.png)
+
+When you use static variables, Warp stores them securely in Warp Drive.\
+\
+Note: Static variables should not be used to replace a secret manager. Please use dynamic variables for any sensitive information.
+
+### Dynamic variables
+
+:::note
+Warp never stores secrets used in dynamic variables. Warp only stores the command used to dynamically retrieve the secrets at runtime.
+:::
+
+Dynamic variables let you reference secrets that are stored securely outside of Warp in external secret managers, such as 1Password or LastPass.
+
+You can use custom commands to create dynamic variables for any system with a public API or CLI, such as AWS or Hashicorp Vault.
+
+### **How to create and edit dynamic environment variables**
+
+To create a new dynamic variable:
+
+1. Open the environment variable editor.
+2. Use the key icon to reveal the dynamic variable menu.
+3. Select an integrated password manager or "Command" to write your own custom integration.
+
+![Opening the dynamic environment variable menu via the key icon in the editor.](../../../../assets/terminal/env-var-dynamic-variables.png)
+
+#### **Integrated password managers**
+
+Before you get started, please ensure you have the CLI installed for your tool of choice and follow the instructions to enable the CLI:
+
+* [1Password CLI](https://developer.1password.com/docs/cli/get-started/)
+* [LastPass CLI](https://github.com/lastpass/lastpass-cli)
+
+Then, you can click the key icon and select your manager from the dropdown menu.
+
+![Selecting an integrated password manager from the dynamic variable dropdown.](../../../../assets/terminal/env-var-password-mgrs.png)
+
+The CLI will require you to authenticate and then provide you with a list of available secrets.
+
+:::note
+Selecting a secret name never stores the actual secret. Warp uses your selection to generate a command that dynamically pulls in your selected secret at runtime.
+:::
+
+![Selecting a secret name from the password manager CLI's available list of secrets.](https://lh7-rt.googleusercontent.com/docsz/AD_4nXcqiazhpRvaHxxSW5n3Ql6nFRDDRkyVdlRB9E-Q6HE0lpL2KFgwLM1P1PPrJG_i0KIHWuEKp2PMFq4T1auWvQOxXrpuERpLRZG1h2V4DDYmNRZRqShxjPzWyqGR2VfXYNhttAK0HT2-aQNjAt3xdCA9MwE?key=q_xMyXgvJVA02ysqZAH4Jw)
+
+### **How to write a custom secret command**
+
+Reference the documentation for your external secret manager. Then, write a custom command to retrieve secrets.
+
+:::note
+Your custom command should return the exact string you want loaded into your environment. Please make sure that you are selecting the exact field you want loaded as many secret manager CLIs provide additional formatting by default.
+:::
+
+For example, you can write a command using the [Hashicorp Vault CLI](https://developer.hashicorp.com/vault/docs/commands) to retrieve and load the password field for the staging server. When using secret commands, Warp stores the command but never the actual secrets. The secrets are referenced and loaded into a terminal session at runtime.
+
+```
+// vault kv get -field=password secret/staging/app/server/creds
+```
+
+![Custom command using the Hashicorp Vault CLI to retrieve a password field at runtime.](https://lh7-rt.googleusercontent.com/docsz/AD_4nXcltckpSwesjA1O84nzZhUKc0Wuie0OH3iN6g0WPBojhtY5pckPSZgOZxqIjiV12ppe9t0jtF9z2Yf7d-fIZJhSu8-tLIT8CoG_Xh_NvCzFbrJgD5FA2ounNtHurq9nDLALiOekjPeVoru-FzeYOWkfm9PN?key=q_xMyXgvJVA02ysqZAH4Jw)
+
+### Using environment variables
+
+There are three ways to invoke your environment variables and load them into a terminal session:
+
+1. [Click to load into a current section](/knowledge-and-collaboration/warp-drive/environment-variables/#click-to-load-into-a-current-session)
+2. [Click to load into a subshell](/knowledge-and-collaboration/warp-drive/environment-variables/#click-to-load-into-a-subshell)
+3. [Select to load in with a workflow](/knowledge-and-collaboration/warp-drive/environment-variables/#select-to-load-with-a-workflow)
+
+#### Click to load into a current session
+
+First, click your environment variable from Warp Drive or the Command Palette.
+
+Then, review the confirmation block. If your environment variables are correct, hit enter to load them into your session.
+
+![Confirmation block prompting to load environment variables into the current session.](../../../../assets/terminal/env-var-load-to-input-1.png)
+
+![Environment variables successfully loaded into the current terminal session.](../../../../assets/terminal/env-var-load-in-session.png)
+
+These environment variables will now be present for the remainder of your session.
+
+#### Click to load into a subshell
+
+To load environment variables into a subshell, you will need to open [Warp Drive](/knowledge-and-collaboration/warp-drive/) and locate your environment variable in the Warp Drive index. You can then use the overflow menu to select "Load in subshell."
+
+Loading an environment into a subshell reduces the risk of your environment variables accidentally contaminating your workspace. The subshell is clearly defined and once you exit it, any environment variables set by Warp Environment Variables will be cleared, unless they are already present in the parent session.
+
+![Selecting Load in subshell from an environment variable's overflow menu in Warp Drive.](https://lh7-rt.googleusercontent.com/docsz/AD_4nXeqhj2saz5AJTYUCx-PClwCLX421mKEzXelcnnkeHkqvDexelvBDmPpESHOmV_SjAOEuLKk8YgYaIodX-cOuXm1Nm05wUU88zcIv3otd1HRvXO455EiKEfs5tTB5ft9OoW7qxMK9BV1OPAVIc9AhMqsgweK?key=q_xMyXgvJVA02ysqZAH4Jw)
+
+![Environment variables loaded into a subshell, isolated from the parent terminal session.](https://lh7-rt.googleusercontent.com/docsz/AD_4nXeeXyJEMxJV2DpOBJS7pKOEpBSm6aypAIKd4ygJKT13opDBxeS5k0S5NtM8Cr_Z_lafyj-cn1T-hJ-93AkZhpWTrbvYHYIRs96_V7dr3mfiM3lPx6-kMS_eLjINPHIr6Ex0NaMr-TRCkNQ1fdVv8cApJ0QJ?key=q_xMyXgvJVA02ysqZAH4Jw)
+
+#### Select to load with a workflow
+
+Any time you run a workflow, you can select from existing environment variables. This allows you to dynamically inject environment variables into a parameterized workflow so you can use a single workflow command in multiple environments, such as production and staging.
+
+For example, you may have a workflow to create a new team that uses the environment variable $SERVER\_URL. By using the environment variables dropdown in the workflow card, you can dynamically inject the necessary variables. This ensures the workflow references the appropriate values so the command runs with the relevant environment-specific information.
+
+These environment variables will now be present for the remainder of your session until you clear them or overwrite them with a different environment.
+
+![Selecting environment variables from the dropdown when running a parameterized workflow.](https://lh7-rt.googleusercontent.com/docsz/AD_4nXcuOxH8UeVLSvWRpZwvdoVBgbpFhb2rXKbDw2CnZ5BQCTWSgzjwERe-fzKLEYBQZGKzjV-Pdd_z6tB9BTSWYos9ADRaDbChskSg-MZpjaKme0kG8UwWsJ2HBJk7iBu4SKbGZCobZy0uD2nFkrNoVjNZEEOW?key=q_xMyXgvJVA02ysqZAH4Jw)
+
+### Import and export environment variables in Warp Drive
+
+Please see our [Warp Drive Import and Export](/knowledge-and-collaboration/warp-drive/#import-and-export) instructions.

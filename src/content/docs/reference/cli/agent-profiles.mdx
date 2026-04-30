@@ -1,0 +1,51 @@
+---
+title: Agent profiles
+description: >-
+  Use agent profiles with the Oz CLI to control what the agent can access, how
+  it behaves, and where it can act.
+---
+
+Agent profiles control three things:
+
+* **What the agent can do** — file access, command execution, and MCP server usage
+* **How the agent works** — model selection, autonomy level, and response style
+* **Where the agent can act** — directory allowlists and denylists
+
+You can create and configure agent profiles in the Warp app. For detailed instructions, see [Agent Profiles & Permissions](/agent-platform/capabilities/agent-profiles-permissions/).
+
+Agent profiles are automatically synced to each host where you have Warp installed, so you can use them remotely as well.
+
+:::note
+**Tip:** For CLI usage, create a dedicated profile. The CLI will fail if the agent tries to execute a prohibited action, so make sure your profile allows the directories, commands, and MCP servers you plan to use.
+:::
+
+:::caution
+The default profile for CLI usage is broadly permissive and gives the agent the ability to read and write files, apply code diffs, and execute commands (with a default denylist). The agent does not have the ability to use MCP servers by default.
+:::
+
+## Using a profile with the CLI
+
+1. Find the profile ID using `oz agent profile list`:
+
+```sh
+$ oz agent profile list
++--------------+------------------------+
+| Name         | ID                     |
++=======================================+
+| Default      | AnTb02PZfrkVC9l4V15eH1 |
+|--------------+------------------------|
+| Coding       | CWhozDJPdPCsjJ1pSG0HCN |
+|--------------+------------------------|
+| Command Line | hV6n5dNm7ThQVlOiPF8DLS |
++--------------+------------------------+
+```
+
+2. Pass that ID using the `--profile` flag:
+
+```sh
+$ oz agent run --profile CWhozDJPdPCsjJ1pSG0HCN --prompt "update my CI pipeline to use nextest"
+```
+
+:::note
+The `--profile` flag is available on `oz agent run` only. Cloud runs (`oz agent run-cloud`) do not use agent profiles.
+:::

@@ -1,0 +1,147 @@
+---
+title: "Oz API & SDK"
+description: >-
+  Create and inspect cloud agent runs over HTTP with the Oz API, or use the
+  Python and TypeScript SDKs for typed requests, retries, and error handling.
+---
+import VideoEmbed from '@components/VideoEmbed.astro';
+
+### Oz API
+
+The Oz API lets you create and inspect [Cloud Agent](/agent-platform/cloud-agents/overview/) runs over HTTP from any system (CI, cron, backend services, internal tools), without requiring the Warp desktop app.
+
+**With the API you can:**
+
+* Run an agent by submitting a prompt plus optional config (model, environment, MCP servers, base prompt, etc.)
+* Monitor execution by listing runs and tracking state transitions over time (queued → in progress → succeeded/failed)
+* Inspect results and provenance by fetching a run's full details, including the original prompt, source/creator metadata, session link, and resolved agent configuration
+
+:::caution
+This page is a high-level overview.\
+\
+For full API endpoint details, please refer to the [**Agents API Reference**](/api)**.** For schema definitions, see the SDK repos: [**Python SDK**](https://github.com/warpdotdev/oz-sdk-python) and [**TypeScript SDK**](https://github.com/warpdotdev/oz-sdk-typescript).
+:::
+
+### Oz Agent SDK
+
+Oz provides official [Python](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript](https://github.com/warpdotdev/oz-sdk-typescript) SDKs that wrap the Oz API with:
+
+* **Typed requests and responses** (editor autocomplete, fewer schema mistakes)
+* **Built-in retries and timeouts** (with per-request overrides)
+* **Consistent error type**s that map to API status codes
+* **Helpers for raw responses** when you need headers/status or custom parsing
+
+If you’re building an integration (CI, Slack bots, internal tooling, orchestrators), the SDKs are typically the quickest and safest starting point.
+
+<VideoEmbed url="https://www.youtube.com/watch?v=0cf7383MZSk" />
+
+**SDK vs raw REST**
+
+* Use the SDK when you want strong typing, standardized error handling, and easy concurrency patterns.
+* Use raw REST when you want minimal dependencies or full control over your HTTP client (the SDKs also support calling undocumented endpoints when needed).
+
+:::caution
+For the full SDK surface area and latest usage, refer to the GitHub repos: [**Python SDK**](https://github.com/warpdotdev/oz-sdk-python) and [**TypeScript SDK**](https://github.com/warpdotdev/oz-sdk-typescript).
+:::
+
+---
+
+## Oz API
+
+### REST API Base URL
+
+All endpoints are served over HTTPS:
+
+```http
+https://app.warp.dev/api/v1
+```
+
+### Core Concepts
+
+#### **Agent runs**
+
+An agent run represents a single execution of a cloud agent, created with a prompt and optional configuration. Each run has:
+
+* A unique `run_id`
+* A human-readable `title`
+* A `prompt` that the agent executes
+* A `state` (for example `QUEUED`, `INPROGRESS`, `SUCCEEDED`, `FAILED`)
+* Timestamps (`created_at`, `updated_at`)
+* Optional session information (`session_id`, `session_link`)
+* Optional resolved configuration (`agent_config`)
+
+See the [**Agents API Reference**](/api) for details on how runs are created and listed.
+
+#### **Agent configuration**
+
+You can influence how an agent runs using AmbientAgentConfig, including:
+
+* `name` — a human-readable label for grouping, filtering, and traceability. When you run an agent from a [skill](/agent-platform/capabilities/skills/), `name` is automatically set to the skill name. You can also set `name` explicitly via the API, SDK, or CLI (`--name`) to categorize runs by intent — for example, grouping all runs of a particular workflow regardless of how they were triggered. Use the `name` query parameter on `GET /agent/runs` to filter runs by config name.
+* `model_id` for LLM selection
+* `base_prompt` to shape behavior
+* `environment_id` to choose a `CloudEnvironment`
+* `skill_spec` to use a [skill](/agent-platform/capabilities/skills/) as the base prompt (format: `owner/repo:skill-name` or `owner/repo:path/to/SKILL.md`)
+* `mcp_servers` to enable specific tools via MCP
+
+See the [**Python SDK**](https://github.com/warpdotdev/oz-sdk-python) or [**TypeScript SDK**](https://github.com/warpdotdev/oz-sdk-typescript) for the full configuration schema.
+
+---
+
+### Key Endpoints
+
+**The Agents API exposes three primary endpoints:**
+
+*   `POST /agent/run`
+
+    Create a new agent run with a prompt and optional config and title. Returns run\_id and initial state.
+*   `GET /agent/runs`
+
+    List runs with pagination and filters for state, config\_name, model\_id, creator, source, and creation time.
+*   `GET /agent/runs/{runId}`
+
+    Fetch full details for a single run, including session link and resolved configuration.
+
+All endpoint semantics, query parameters, and error codes are documented on the [Agents API Reference](/api).
+
+---
+
+#### Models Reference
+
+The API shares a set of reusable models across endpoints. Detailed JSON schemas, types, and enums are available in the SDK repos ([Python](https://github.com/warpdotdev/oz-sdk-python), [TypeScript](https://github.com/warpdotdev/oz-sdk-typescript)). Key models include:
+
+* `RunAgentRequest`
+* `RunAgentResponse`
+* `ListRunsResponse`
+* `RunItem`
+* `PageInfo`
+* `RunStatusMessage`
+* `RunCreatorInfo`
+* `RunState`
+* `RunSourceType`
+* `AmbientAgentConfig`
+* `MCPServerConfig`
+* `Error`
+
+---
+
+## Oz Agent SDKs
+
+### Python SDK
+
+The Python SDK is the recommended way to call the Oz API from Python services and scripts. It provides:
+
+* Sync + async clients
+* Typed request/response models
+* Configurable retries/timeouts and structured errors
+
+See the [**Python SDK GitHub repo**](https://github.com/warpdotdev/oz-sdk-python) for installation, full API reference (api.md), and up-to-date examples.
+
+### TypeScript SDK
+
+The TypeScript SDK is the recommended way to call the Oz API from Node.js services and modern TS/JS runtimes. It provides:
+
+* Fully typed params/responses
+* First-class error handling, retries/timeouts
+* Support across common runtimes where fetch is available or polyfilled
+
+See the [**TypeScript SDK GitHub repo**](https://github.com/warpdotdev/oz-sdk-typescript) for installation, full API reference (api.md), and up-to-date examples.

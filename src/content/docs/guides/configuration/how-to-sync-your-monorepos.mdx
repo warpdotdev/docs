@@ -1,0 +1,75 @@
+---
+title: "How To: Sync Your Monorepos"
+description: >-
+  Define global Rules in Warp to keep monorepo schemas, server types, and
+  client types automatically synchronized across repositories.
+sidebar:
+  label: "Sync your monorepos"
+---
+import VideoEmbed from '@components/VideoEmbed.astro';
+import { Steps } from '@astrojs/starlight/components';
+
+Learn how to use Warp’s Rules system to connect interrelated repositories and automate type updates across your stack.
+
+<VideoEmbed url="https://youtu.be/bndY6opaA7w?si=6zZWh4aB8f8kCD5F" />
+
+---
+
+## Intro
+
+This tutorial teaches you how to define **global Rules** in Warp so your coding agent understands how your projects relate to one another.
+
+By linking monorepos (e.g., server, client, and shared API schemas), Warp automatically updates types and schemas across repos when you make a change in one place.
+
+Although this example uses Warp’s internal repos, the same workflow applies to any multi-repo setup.
+
+---
+
+## The Problem
+
+When projects are split into multiple repos — like backend, client, and shared schema — developers often forget to synchronize type changes manually.
+
+That’s error-prone and time-consuming. Warp solves this by teaching your **agent** the relationships between your repos through a global Rule.
+
+---
+
+## The Rule Setup
+
+Describe each repository and its connection to the others.
+
+### Example Rule
+
+```
+We have three inter-related projects in ~/Repos:
+
+warp-internal (client-side application)
+
+warp-server (server application)
+
+warp-proto-apis (shared API schemas for each)
+
+When you update the schema types, push to git and update the installed types in the server and client by the commit hash.
+```
+Once defined, Warp automatically follows these instructions when a schema file is changed.
+
+<Steps>
+
+1. #### When the schema updates — update server types
+
+   `cd` into the server repository and run the appropriate commands to regenerate/update server-side types based on the changed schema.
+
+2. #### When the schema updates — update client types
+
+   `cd` into the client repository and run the appropriate commands to regenerate/update client-side types so the client stays in sync with the schema changes.
+
+</Steps>
+
+---
+
+:::tip
+Benefits
+
+* Keeps your **schema, server, and client** perfectly in sync
+* Reduces merge conflicts and version drift
+* Saves manual steps when committing or deploying
+:::

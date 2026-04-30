@@ -1,0 +1,138 @@
+---
+title: How to set up Codex CLI
+description: >-
+  Set up OpenAI's Codex CLI in Warp, configure it for your project, and learn
+  productivity tips for faster AI-assisted coding workflows in Warp.
+sidebar:
+  label: "Set up Codex CLI"
+---
+
+Codex CLI is OpenAI's open-source coding agent. It reads your codebase, edits files, and executes commands from natural language prompts. This guide takes you from installation to a working Codex session in Warp in about 5 minutes, then shows you how to get the most out of it.
+
+## Prerequisites
+
+* **A ChatGPT account with Codex access** — Included with paid ChatGPT plans, or use an OpenAI API key. See [Codex CLI documentation](https://developers.openai.com/codex/cli/) for eligible plans.
+* **Node.js 18+** (for npm install) or **Homebrew** (for macOS) — Choose your preferred package manager.
+* **macOS or Linux** — Windows support is experimental; for the best Windows experience, use Codex in a WSL workspace.
+
+## 1. Install Codex CLI
+
+Install Codex CLI globally with npm or Homebrew:
+
+**npm:**
+
+```bash
+npm install -g @openai/codex
+```
+
+**Homebrew (macOS):**
+
+```bash
+brew install codex
+```
+
+Verify installation:
+
+```bash
+codex --version
+```
+
+You can also download platform-specific binaries directly from the [GitHub releases](https://github.com/openai/codex/releases).
+
+## 2. Authenticate
+
+Run Codex for the first time:
+
+```bash
+codex
+```
+
+Select **Sign in with ChatGPT** and authenticate with your ChatGPT account (recommended). Your Codex usage is included in your ChatGPT plan.
+
+For API key authentication (useful for CI/CD or automation):
+
+```bash
+export OPENAI_API_KEY=YOUR_API_KEY
+```
+
+## 3. Start your first session
+
+Navigate to a project directory and launch Codex:
+
+```bash
+cd ~/your-project
+codex
+```
+
+Codex starts an interactive terminal session. Try giving it a task, for example:
+
+```
+Explain the structure of this project
+```
+
+Or something more hands-on:
+
+```
+Add error handling to the database connection module
+```
+
+Codex will read the relevant files, propose changes, and ask for your confirmation before modifying anything. You can review changes in a diff view and accept or reject each one.
+
+## 4. Configure model and approval mode
+
+Switch between available models during a session with the `/model` command. See [Codex CLI documentation](https://developers.openai.com/codex/cli/) for the current model list.
+
+Codex has three [approval modes](https://developers.openai.com/codex/cli/features#approval-modes) that control how much autonomy it has. 
+* **Auto** (the default) lets Codex read, edit, and run commands within your working directory but asks before anything outside that scope. 
+* **Read-only** keeps Codex consultative
+* **Full Access** grants broader autonomy including network access. 
+
+Use `/permissions` inside a session to switch modes as your comfort level changes.
+
+## 5. Customize with a configuration file
+
+Create a `codex.md` or `AGENTS.md` file at your project root to teach Codex your project's conventions:
+
+```markdown
+# My Project
+
+## Stack
+- Backend: Node.js, Express, TypeScript
+- Database: PostgreSQL with Prisma ORM
+- Testing: Vitest for unit tests, Playwright for e2e
+
+## Conventions
+- Use ESM imports (no require())
+- All API endpoints need Zod input validation
+- Run `npm test` before committing
+```
+
+Codex reads this file at the start of every session and follows your conventions automatically.
+
+:::note
+Warp supports agent notifications for Codex. Add `notification_condition = "always"` under `[tui]` in `~/.codex/config.toml` and restart Codex. See [Codex in Warp (docs)](/agent-platform/cli-agents/codex/#setting-up-notifications) for details. If the config isn't set, Warp displays a setup chip in the terminal.
+:::
+
+## Productivity tips
+
+* **Use voice to prompt Codex** — Dictate complex instructions instead of typing them. Warp supports [voice transcription](/agent-platform/local-agents/interacting-with-agents/voice/) that works with any CLI agent, including Codex.
+* **Attach images as context** — Paste screenshots of bugs, designs, or error messages into your prompt. Warp's [images as context](/agent-platform/local-agents/agent-context/images-as-context/) feature lets Codex see what you see.
+* **Review diffs visually** — After Codex makes changes, open Warp's [Code Review panel](/code/code-review/) (`⌘+Shift++`) to see a visual diff. You can leave inline comments and send them back to Codex for corrections.
+* **Run Codex alongside Claude Code** — Use [vertical tabs](/terminal/windows/vertical-tabs/) to run Claude Code and Codex side by side on the same task. Compare their approaches and pick the best output, or combine elements from both.
+* **Compose richer prompts** — Press `Ctrl+G` to open Warp's rich input editor for Codex, giving you a full text editor experience instead of raw CLI input.
+
+{/* If a standalone summary feels valuable, add a ## Recap heading above this paragraph. */}
+
+## Next steps
+
+You installed Codex CLI, authenticated, started your first session, and configured it for your project. Codex is now set up as a working AI coding agent in Warp.
+
+Explore related guides and features:
+
+* [Set up Claude Code](/guides/external-tools/how-to-set-up-claude-code/) to run a second agent alongside Codex
+* [How to review AI-generated code](/guides/agent-workflows/how-to-review-ai-generated-code/) — a structured workflow for reviewing agent output
+* [Run multiple agents at once](/guides/agent-workflows/how-to-run-multiple-ai-coding-agents/) — use Codex and Claude Code side by side
+* [Codex CLI documentation](https://developers.openai.com/codex/cli/) — OpenAI's official reference
+* [Codex in Warp](https://warp.dev/agents/codex) — overview of Codex support in Warp
+* [Codex in Warp (docs)](/agent-platform/cli-agents/codex/) — full reference for Codex's Warp integration, including notification setup
+* [Third-party CLI agents](/agent-platform/cli-agents/overview/) — all supported agents and Warp's universal agent features

@@ -1,0 +1,95 @@
+---
+title: "API & SDK quickstart"
+description: >-
+  Create and monitor your first cloud agent run via the Oz API or SDK in ~5
+  minutes.
+---
+import VideoEmbed from '@components/VideoEmbed.astro';
+
+The Oz API lets you run and manage cloud agents from anywhere — CI/CD pipelines, backend services, scripts, or custom tooling — without the Warp desktop app. This quickstart walks you through creating your first run and checking its status.
+
+Watch this short demo of how the REST API can power agent-backed apps like [PowerFixer](https://github.com/warpdotdev/power-fixer-setup), an issue triage bot built by the Warp team:
+<VideoEmbed url="https://youtu.be/N6qMe641K34" />
+
+---
+
+## Prerequisites
+
+* **A Warp API key** - In the Warp app, click your profile photo, then go to **Settings** > **Cloud platform** > **Oz Cloud API Keys** to create a key and copy the raw value. See [API Keys](/reference/cli/api-keys/) for step-by-step instructions.
+* **An Oz cloud environment** - Agents run inside a configured environment that includes repos and other dependencies. If you don't have an environment yet, follow the [Cloud Agents Quickstart](/agent-platform/cloud-agents/quickstart/) first.
+
+---
+
+## 1. Set your API key
+
+Export your API key so the API can authenticate your requests automatically — all commands in this guide reference the `WARP_API_KEY` environment variable.
+
+```bash
+export WARP_API_KEY="wk-..."
+```
+
+Replace `wk-...` with the key you created earlier.
+
+## 2. Create your first run
+
+Submit a prompt to start an agent run:
+
+```bash
+curl -X POST https://app.warp.dev/api/v1/agent/run \
+  -H "Authorization: Bearer $WARP_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "prompt": "Scan the repo for outdated dependencies and summarize the findings.",
+    "config": {
+      "environment_id": "<ENV_ID>"
+    }
+  }'
+```
+
+Replace `<ENV_ID>` with your environment ID. Find it with `oz environment list` on the Oz CLI or in the [Oz web app](https://oz.warp.dev).
+
+:::note
+Prefer typed requests? The official [Python SDK](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript SDK](https://github.com/warpdotdev/oz-sdk-typescript) wrap the same API with typed models, retries, and error handling.
+:::
+
+The API returns a `run_id` immediately. The agent starts asynchronously — you can check its status at any time using the run ID.
+
+## 3. Check run status
+
+Fetch the current state of the run with the following command. Replace `<RUN_ID>` with the `run_id` from step 2.
+
+```bash
+curl "https://app.warp.dev/api/v1/agent/runs/<RUN_ID>" \
+  -H "Authorization: Bearer $WARP_API_KEY"
+```
+
+The `state` has the following possible values:
+
+* `QUEUED` - The run is waiting to start.
+* `INPROGRESS` - The agent is actively running.
+* `SUCCEEDED` - The run completed successfully.
+* `FAILED` - The run encountered an error. Check the `status_message` field in the response for details.
+
+These are the most common states. See the [full API reference](/reference/api-and-sdk/) for all possible values.
+
+To list all recent runs:
+
+```bash
+curl "https://app.warp.dev/api/v1/agent/runs" \
+  -H "Authorization: Bearer $WARP_API_KEY"
+```
+
+## 4. View the results
+
+Once the run reaches `SUCCEEDED`, the response includes a `session_link` — a direct URL to the full run transcript, including commands executed, files changed, and agent output.
+
+You can also view and manage all runs in the [Oz dashboard](https://oz.warp.dev/runs).
+
+---
+
+## Next steps
+
+* **Read the full API reference** - [Oz API](/reference/api-and-sdk/) documents all endpoint parameters, query filters, and response schemas.
+* **Explore the SDKs** - [Python SDK](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript SDK](https://github.com/warpdotdev/oz-sdk-typescript) include typed request/response models, retries, and error handling.
+* **See a real-world example** - [Demo: Sentry monitoring with SDK](/reference/api-and-sdk/demo-sentry-monitoring-with-sdk/) shows how to build a webhook handler that triggers agents from production errors.
+* **Schedule and automate** - See [Scheduled Agents Quickstart](/agent-platform/cloud-agents/triggers/scheduled-agents-quickstart/) to run agents on a cron, or [Integrations Quickstart](/agent-platform/cloud-agents/integrations/quickstart/) to trigger agents from Slack or Linear.

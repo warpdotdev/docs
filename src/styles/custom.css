@@ -1,0 +1,326 @@
+/* ==========================================================================
+   Warp Brand Theme for Starlight
+   Scalar-inspired refinements on top of Warp's warm-dark palette.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Fonts
+   Note: the Google Fonts stylesheet is loaded non-blockingly from
+   src/components/CustomHead.astro (preload + media-swap) instead of via a
+   blocking @import here. See that file for details.
+   -------------------------------------------------------------------------- */
+
+/* --------------------------------------------------------------------------
+   Font metric overrides — eliminate layout shift during font swap.
+   The site loads Google Fonts non-blockingly (media="print" → "all").
+   Until Inter arrives, the browser renders with the system font stack.
+   These @font-face overrides adjust the fallback's metrics to match
+   Inter's so text doesn't reflow when the swap happens.
+   -------------------------------------------------------------------------- */
+@font-face {
+  font-family: 'Inter Fallback';
+  src: local('BlinkMacSystemFont'), local('Segoe UI'), local('Roboto'), local('Helvetica Neue'), local('Arial');
+  size-adjust: 107%;
+  ascent-override: 90%;
+  descent-override: 22%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono Fallback';
+  src: local('SF Mono'), local('Menlo'), local('Consolas'), local('DejaVu Sans Mono');
+  size-adjust: 95%;
+  ascent-override: 99%;
+  descent-override: 26%;
+  line-gap-override: 0%;
+}
+
+/* --------------------------------------------------------------------------
+   Dark Mode (default)
+
+   Token values are the Oz webapp brand ladder
+   (`warp-server/client/packages/agents/src/styles/theme.css`). Mapping:
+     `--sl-color-black`          → Warp legacy dark `#121212` (canvas — a
+                                  hair lighter than Oz `gray-950 #0a0d12`,
+                                  matching the prior warp.dev product surface)
+     `--sl-color-gray-1`         → Oz `gray-50`  (#fafafa, primary text)
+     `--sl-color-gray-2`         → Oz `gray-300` (#dbdbdb, secondary text)
+     `--sl-color-gray-3`         → Oz `gray-400` (#a4a7ae, tertiary)
+     `--sl-color-gray-4`         → Oz `gray-500` (#717680, disabled)
+     `--sl-color-gray-5`         → Oz `gray-700` (#414651, hairlines/inline-code bg)
+     `--sl-color-gray-6`         → Oz `gray-800` (#252b37, hover surfaces)
+   `--sl-color-white` keeps the warm-white `warp.dev` brand color for
+   headings, one step above body text for hierarchy.
+   -------------------------------------------------------------------------- */
+:root {
+  /* Brand fonts */
+  --sl-font: 'Inter', 'Inter Fallback', var(--sl-font-system);
+  --sl-font-mono: 'JetBrains Mono', 'JetBrains Mono Fallback', var(--sl-font-system-mono);
+
+  /* Accent: Warp blue (inspired by Scalar/terminal palette) */
+  --sl-color-accent-low: hsl(210, 40%, 15%);
+  --sl-color-accent: hsl(207, 80%, 62%);
+  --sl-color-accent-high: hsl(217, 90%, 84%);
+
+  /* Backgrounds: a single dark canvas — sidebar, header, and content all
+     share the same fill so the frame reads as one continuous surface, with
+     hairlines (not fills) doing the separation. */
+  --sl-color-black: #121212; /* Warp legacy dark canvas */
+  --sl-color-bg: var(--sl-color-black);
+  --sl-color-bg-nav: var(--sl-color-bg);
+  --sl-color-bg-sidebar: var(--sl-color-bg);
+
+  /* Gray scale — Oz brand ladder, anchored to `text-primary` near-white
+     so prose stops reading as the GitBook mid-grey. */
+  --sl-color-gray-1: #fafafa; /* Oz gray-50  — primary body text */
+  --sl-color-gray-2: #dbdbdb; /* Oz gray-300 — secondary text */
+  --sl-color-gray-3: #a4a7ae; /* Oz gray-400 — tertiary text */
+  --sl-color-gray-4: #717680; /* Oz gray-500 — disabled */
+  --sl-color-gray-5: #414651; /* Oz gray-700 — hairlines / inline-code bg */
+  --sl-color-gray-6: #252b37; /* Oz gray-800 — hover surfaces */
+  --sl-color-white: hsl(40, 20%, 97%); /* warm off-white #faf9f6 — headings */
+
+  /* Text — body lands on `gray-1` (Oz `text-primary`) for high contrast.
+     Headings continue to use `--sl-color-white` for one extra step. */
+  --sl-color-text: var(--sl-color-gray-1);
+  --sl-color-text-accent: var(--sl-color-accent-high);
+
+  /* Inline code */
+  --sl-color-bg-inline-code: var(--sl-color-gray-5);
+
+  /* Hairlines — Scalar-inspired: thinner, lower opacity */
+  --sl-color-hairline-light: rgba(255, 255, 255, 0.08);
+  --sl-color-hairline: rgba(255, 255, 255, 0.06);
+  --sl-color-hairline-shade: rgba(255, 255, 255, 0.04);
+
+  /* Typography scale — clear heading hierarchy */
+  --sl-text-h1: 2rem;      /* 32px */
+  --sl-text-h2: 1.5rem;    /* 24px */
+  --sl-text-h3: 1.25rem;   /* 20px */
+  --sl-text-h4: 1.125rem;  /* 18px */
+  --sl-text-body: 1rem;
+  --sl-text-sm: 0.875rem;
+  --sl-text-xs: 0.8125rem;
+  --sl-text-2xs: 0.75rem;
+  --sl-line-height-headings: 1.2;
+  --sl-line-height: 1.6;  /* tighter than Starlight's 1.75 default */
+
+  /* Radius scale — four tokens cover every chrome surface on the site.
+     Defined here (not duplicated per theme) since radii don't change
+     between dark and light. Consumers should prefer these over literals
+     so the scale can be shifted in one place. */
+  --sl-radius-xs: 2px;   /* small chips, focus rings */
+  --sl-radius-sm: 4px;   /* buttons, leaf links, search pill */
+  --sl-radius-md: 6px;   /* cards, asides, code blocks, file tree */
+  --sl-radius-lg: 8px;   /* dropdown panel, video embeds, Kapa dialog */
+}
+
+/* --------------------------------------------------------------------------
+   Light Mode
+
+   Mirrors the Oz webapp ladder in light theme:
+     `--sl-color-black` (canvas) → Oz `--color-bg-primary` (#ffffff)
+     `--sl-color-white`          → Oz `gray-950` (#0a0d12, headings)
+     `--sl-color-gray-1`         → Oz `gray-900` (#181d27, primary body text)
+     `--sl-color-gray-2`         → Oz `gray-700` (#414651, secondary text)
+     `--sl-color-gray-3`         → Oz `gray-600` (#535862, tertiary)
+     `--sl-color-gray-4`         → Oz `gray-500` (#717680, disabled)
+     `--sl-color-gray-5`         → Oz `gray-300` (#dbdbdb, subtle borders)
+     `--sl-color-gray-6`         → Oz `gray-100` (#f3f3f3, inline-code bg)
+     `--sl-color-gray-7`         → Oz `gray-50`  (#fafafa, soft hover fills)
+   -------------------------------------------------------------------------- */
+:root[data-theme='light'],
+[data-theme='light'] ::backdrop {
+  /* Accent: darker blue for readability on light backgrounds */
+  --sl-color-accent-low: hsl(210, 40%, 92%);
+  --sl-color-accent: hsl(207, 80%, 40%);
+  --sl-color-accent-high: hsl(210, 60%, 28%);
+
+  /* Single pure-white canvas to match the Oz webapp. The previous
+     `#faf9f6` warm tint (warp.dev marketing site bg) read dim against the
+     Oz product surface — pull docs alongside the product chrome. */
+  --sl-color-black: #ffffff; /* Oz bg-primary */
+  --sl-color-bg: var(--sl-color-black);
+  --sl-color-bg-nav: var(--sl-color-bg);
+  --sl-color-bg-sidebar: var(--sl-color-bg);
+
+  /* Gray scale — Oz brand ladder, anchored to `text-primary` near-black
+     so prose contrasts cleanly against pure-white. */
+  --sl-color-white: #0a0d12; /* Oz gray-950 — headings */
+  --sl-color-gray-1: #181d27; /* Oz gray-900 — primary body text */
+  --sl-color-gray-2: #414651; /* Oz gray-700 — secondary text */
+  --sl-color-gray-3: #535862; /* Oz gray-600 — tertiary */
+  --sl-color-gray-4: #717680; /* Oz gray-500 — disabled */
+  --sl-color-gray-5: #dbdbdb; /* Oz gray-300 — subtle borders */
+  --sl-color-gray-6: #f3f3f3; /* Oz gray-100 — inline-code bg / soft fills */
+  --sl-color-gray-7: #fafafa; /* Oz gray-50  — hover surfaces */
+
+  /* Text */
+  --sl-color-text-accent: var(--sl-color-accent);
+
+  /* Inline code */
+  --sl-color-bg-inline-code: var(--sl-color-gray-6);
+
+  /* Hairlines — Scalar-inspired: ultra-subtle */
+  --sl-color-hairline-light: rgba(0, 0, 0, 0.08);
+  --sl-color-hairline: rgba(0, 0, 0, 0.06);
+  --sl-color-hairline-shade: rgba(0, 0, 0, 0.04);
+}
+
+/* --------------------------------------------------------------------------
+   Code block token colors (from Warp's dark terminal ANSI palette)
+   -------------------------------------------------------------------------- */
+:root {
+  --astro-code-token-string: #b4fa72;       /* Warp green */
+  --astro-code-token-string-expression: #b4fa72;
+  --astro-code-token-keyword: #d0d1fe;      /* Warp cyan/purple */
+  --astro-code-token-constant: #a5d5fe;     /* Warp blue */
+  --astro-code-token-function: #ff8ffd;     /* Warp magenta */
+  --astro-code-token-parameter: #fefdc2;    /* Warp yellow */
+  --astro-code-token-comment: hsl(210, 4%, 45%);
+  --astro-code-token-punctuation: hsl(210, 4%, 65%);
+  --astro-code-token-link: #a5d5fe;
+}
+
+:root[data-theme='light'] {
+  --astro-code-token-string: #10a778;
+  --astro-code-token-string-expression: #10a778;
+  --astro-code-token-keyword: #523c79;
+  --astro-code-token-constant: #008ec4;
+  --astro-code-token-function: #c30771;
+  --astro-code-token-parameter: #a89c14;
+  --astro-code-token-comment: hsl(210, 3%, 50%);
+  --astro-code-token-punctuation: hsl(210, 3%, 40%);
+  --astro-code-token-link: #008ec4;
+}
+
+/* --------------------------------------------------------------------------
+   Global polish
+   -------------------------------------------------------------------------- */
+
+/* Smoother font rendering */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Editorial heading treatment — slight negative tracking like Scalar/Warp */
+.sl-markdown-content h1,
+.sl-markdown-content h2,
+.sl-markdown-content h3,
+.sl-markdown-content h4 {
+  letter-spacing: -0.02em;
+}
+
+/* H1 gets heavier weight to separate it from H2-H4 */
+.sl-markdown-content h1 {
+  font-weight: 700;
+}
+
+/* Align sidebar topics flush with the sidebar's left edge */
+.starlight-sidebar-topics a {
+  padding-inline-start: 0;
+}
+
+/* Shrink the right "On this page" TOC panel */
+:root {
+  --sl-toc-width: 16rem;
+}
+
+@media (min-width: 72rem) {
+  .right-sidebar-container {
+    width: var(--sl-toc-width);
+  }
+
+  [data-has-sidebar][data-has-toc] .main-pane {
+    width: calc(100% - var(--sl-toc-width));
+  }
+
+  /*
+   * .right-sidebar is position:fixed with width:100vw, so its visible area
+   * is only --sl-toc-width wide. Constrain the content box to that width so
+   * text wraps instead of overflowing off-screen.
+   */
+  .right-sidebar-panel .sl-container {
+    width: calc(var(--sl-toc-width) - 2 * var(--sl-sidebar-pad-x));
+    max-width: 100%;
+  }
+}
+
+/* Belt-and-braces text color for active items inside the sidebar in light
+   mode. The primary rule lives in warp-components.css §1 (which sets
+   `color: var(--sl-color-white)` = `#0a0d12` against a tinted bg) and
+   wins on specificity. We keep this fallback ONLY for the sidebar so a
+   future refactor of the §1 rule still leaves a sane color in place.
+
+   Critical: the selector MUST stay scoped to `.sidebar-content`. Earlier
+   it was a bare `[aria-current='page']` which leaked into the topic nav
+   in WarpTopicNav.astro and painted the active topic warm-white on the
+   warm-white page bg — invisible. */
+:root[data-theme='light'] .sidebar-content [aria-current='page'],
+:root[data-theme='light'] .sidebar-content [aria-current='page']:hover,
+:root[data-theme='light'] .sidebar-content [aria-current='page']:focus {
+  color: #faf9f6;
+}
+
+/* Center all images in content by default (excluding those inside tables) */
+.sl-markdown-content :not(table) > img,
+.sl-markdown-content p > img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Center and constrain main content — Scalar uses a tighter column */
+.main-pane .sl-container {
+  max-width: 46rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Tighter paragraph spacing for denser, more editorial feel */
+.sl-markdown-content p {
+  margin-block: 1em;
+}
+
+/* Heading spacing — more breathing room between sections (Scalar-inspired) */
+.sl-markdown-content h2 {
+  margin-top: 2.5em;
+  margin-bottom: 0.75em;
+}
+.sl-markdown-content h3 {
+  margin-top: 2em;
+  margin-bottom: 0.5em;
+}
+.sl-markdown-content h4 {
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+/* List spacing — tighter indent (24px vs browser default 40px) and more
+   breathing room between items (8px vs Starlight's 4px).
+
+   Both rules use `:not(:where(.not-content *))` to mirror Starlight's own
+   prose-list scoping (`@astrojs/starlight/style/markdown.css`). Without
+   the exclusion:
+     * The `padding-inline-start` rule overrides Starlight's
+       `[role=tablist] { padding: 0 }` and pushes the first tab in by
+       24px, since the tablist `<ul>` lives inside
+       `<div class="tablist-wrapper not-content">` which itself sits
+       inside `.sl-markdown-content`.
+     * The `li + li` rule re-applies an 8px `margin-top` to every tab
+       `<li>` after the first, which the flex tablist turns into a
+       visible vertical misalignment.
+   The exclusion keeps prose bullets indented and breathing while
+   leaving tab labels (and any other `.not-content` list chrome) on a
+   shared baseline flush with the surrounding content edge. */
+.sl-markdown-content :is(ul, ol):not(:where(.not-content *)) {
+  padding-inline-start: 1.5rem;
+}
+.sl-markdown-content li + li:not(:where(.not-content *)) {
+  margin-top: 0.5rem;
+}
+/* Small gap between a parent item and its nested list */
+.sl-markdown-content li > :is(ul, ol) {
+  margin-top: 0.5rem;
+}

@@ -1,0 +1,48 @@
+---
+title: OpenCode
+description: >-
+  Set up OpenCode in Warp with notification support, rich input, code review,
+  and more.
+---
+
+OpenCode is an open-source terminal-based coding agent. It connects to multiple LLM providers and supports tool use, file editing, and command execution from your terminal. For full documentation, see the [OpenCode docs](https://opencode.ai/docs).
+
+Warp auto-detects OpenCode when you run it, giving you access to rich input controls, code review, agent notifications, and other integrated features. For a product overview, see [OpenCode in Warp](https://warp.dev/agents/opencode).
+
+For installation, authentication, project configuration, and productivity tips, see the [How to set up OpenCode](/guides/external-tools/how-to-set-up-opencode/) guide.
+
+## Setting up notifications
+
+Warp supports agent notifications for OpenCode through a plugin. Once installed, Warp surfaces in-app and desktop alerts when OpenCode needs your input.
+
+To set up the plugin, add `"@warp-dot-dev/opencode-warp"` to the `plugin` array in your `opencode.json` configuration file:
+
+```json
+{
+  "plugin": ["@warp-dot-dev/opencode-warp"]
+}
+```
+
+If the plugin isn't installed, Warp displays an installation chip in the terminal when you run OpenCode, with setup steps you can follow directly.
+
+For plugin source and updates, see the [opencode-warp GitHub repository](https://github.com/warpdotdev/opencode-warp).
+
+## Supported Warp features
+
+OpenCode supports the full set of Warp's agent integration features:
+
+* **Agent notifications** - Receive in-app and desktop alerts when OpenCode needs your attention. The notification UI displays your current git branch alongside agent status.
+* **Rich input editor** - Press `Ctrl-G` to open an expanded input editor for composing longer prompts.
+* **Code review** - Send inline review comments directly to the agent from Warp's code review panel.
+* **Attach code as context** - Select code and send it to the agent as context.
+* **Vertical tabs with agent metadata** - Monitor OpenCode sessions with status indicators in Warp's tab bar.
+* **Tab Configs** - Save and restore OpenCode session configurations.
+* **Remote Control** - Share your OpenCode session with teammates via session sharing.
+
+## Related pages
+
+* [How to set up OpenCode](/guides/external-tools/how-to-set-up-opencode/) — step-by-step setup guide
+* [OpenCode in Warp](https://warp.dev/agents/opencode) — product overview
+* [Third-Party CLI Agents Overview](/agent-platform/cli-agents/overview/)
+* [Claude Code](/agent-platform/cli-agents/claude-code/)
+* [Codex](/agent-platform/cli-agents/codex/)

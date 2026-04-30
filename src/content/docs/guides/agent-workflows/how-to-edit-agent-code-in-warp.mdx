@@ -1,0 +1,77 @@
+---
+title: "How to: Edit Agent Code in Warp"
+description: >-
+  Review, edit, and refine AI-generated code diffs directly in Warp — accept,
+  reject, or modify changes before applying them.
+sidebar:
+  label: "Edit Agent code in Warp"
+---
+import VideoEmbed from '@components/VideoEmbed.astro';
+
+Warp lets you see, edit, and refine AI-generated code diffs directly within the app.\
+This makes debugging and bug-fix workflows fast, transparent, and interactive.
+
+<VideoEmbed url="https://youtu.be/dm-P63USsVg?si=I7Td4EbtbCD1PJ3l" />
+
+---
+
+### 1. Starting an Agent Task
+
+When you start an agent task, Warp:
+
+1. Uses your prompt and context
+2. Builds a task list
+3. Searches across your codebase using tools like:
+   * Grep
+   * Codebase embeddings
+   * Semantic search
+
+Warp shows progress step-by-step, including what it’s searching and which files are being modified.
+
+---
+
+### 2. Reviewing Diffs
+
+Warp generates diffs for every proposed change.\
+You can:
+
+* Accept changes
+* Refine them with a follow-up prompt (`Cmd + R`)
+* Or directly edit the code in the inline editor view
+
+This editor view works like a lightweight IDE — perfect for quick corrections before applying.
+
+---
+
+### 3. Applying or Skipping Changes
+
+Once you’re happy with a diff:
+
+* Click Apply Changes to accept it
+* Or Fast-Forward to let Warp automatically continue the rest of the fix sequence
+
+You can control this level of autonomy globally in Settings → AI → Autonomy.
+
+---
+
+### 4. Compiling and Verifying Fixes
+
+After applying changes, you can immediately test your build, like:
+
+```bash
+cargo run
+```
+
+Warp monitors compilation, verifies results, and runs post-checks automatically.
+
+---
+
+### 5. Visual Verification
+
+In this example, the bug involved a checkbox not being honored in the UI.\
+\
+After the agent’s fix:
+
+* The checkbox logic now works as intended
+* The model picker toggles correctly
+* The UI behaves as expected

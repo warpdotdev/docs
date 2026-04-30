@@ -1,0 +1,57 @@
+---
+import CopyPageButton from './CopyPageButton.astro';
+
+// Starlight types `entry.body` as `string | undefined`; fall back to ''
+// so consumers (CopyPageButton) get a stable `string`.
+const title = Astro.locals.starlightRoute.entry.data.title;
+// Surface the page's `description` frontmatter as a visible subtitle below
+// the H1. Starlight's default `PageTitle` only uses `description` for the
+// `<meta name="description">` tag and OG/Twitter previews, so without this
+// every page is missing the editorial lede that GitBook used to render.
+// All 314 docs MDX files have a populated description today; the
+// `&& <p>` guard keeps any future page that omits the field from emitting
+// an empty paragraph.
+const description = Astro.locals.starlightRoute.entry.data.description;
+const body = Astro.locals.starlightRoute.entry.body ?? '';
+---
+
+<div class="page-title-row">
+  <h1 id="_top">{title}</h1>
+  <CopyPageButton body={body} title={title} />
+</div>
+{description && <p class="page-subtitle">{description}</p>}
+
+<style>
+  .page-title-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .page-title-row h1 {
+    flex: 1;
+    min-width: 0;
+    margin-top: 1rem;
+    font-size: var(--sl-text-h1);
+    line-height: var(--sl-line-height-headings);
+    font-weight: 700;
+    color: var(--sl-color-white);
+  }
+
+  /* Editorial lede beneath the H1. Sized to body-prose scale so the lede
+     reads as a calm summary line a full step below the 32px H1 instead of
+     competing for emphasis. `gray-2` resolves to Oz `gray-300` / `gray-700`
+     (text-secondary) so contrast holds in both modes. `max-width: 42rem`
+     keeps the longest descriptions (≤262 chars across the corpus) wrapping
+     to a comfortable measure instead of stretching across the full column. */
+  .page-subtitle {
+    margin-top: 0.5rem;
+    margin-bottom: 2rem;
+    max-width: 42rem;
+    font-size: var(--sl-text-body);
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--sl-color-gray-2);
+  }
+</style>

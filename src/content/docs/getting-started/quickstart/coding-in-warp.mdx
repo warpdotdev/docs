@@ -1,0 +1,82 @@
+---
+title: Coding in Warp
+description: >-
+  Agents can generate and edit code directly from within Warp.
+---
+
+When you enter a Git repo for the first time, Warp will enter an initialization flow to index your codebase and generate an AGENTS.md file.&#x20;
+
+As you're in the repo, Warp will enter an advanced code generation flow that supports both single-line and multi-file changes when it detects an opportunity to write code.
+
+For example, Warp may write code when you prompt:
+
+* **Code creation**: “Write a function in JavaScript to debounce an input”
+* **Based on error outputs, suggest fixes**: “Fix this TypeScript error.”
+* **Edit a single file**: “Update all instances of ‘var’ to ‘let’ in this file.”
+* **Make batch changes**: “Add headers to all .py files in this directory”
+
+**The best way to experience this is to try it yourself —** [_open the Prompt below in Warp_](https://app.warp.dev/drive/prompt/Generate-a-custom-Warp-theme-K8oloLrCZAHuaYKfz2cNqI)
+
+```text
+Detect the correct Warp themes directory based on the current operating system:
+- On macOS, use ~/.warp/themes/
+- On Linux, use ${XDG_DATA_HOME:-$HOME/.local/share}/warp-terminal/themes/
+- On Windows, use $env:APPDATA\warp\Warp\data\themes\
+
+Create the directory if it doesn’t already exist. 
+
+Then, generate a custom Warp theme named {{theme_name}} in valid YAML format, following the official structure from Warp’s documentation. Exclude the background_image field, and do not include any extra or missing fields. Save the theme as {{theme_name}}.yaml in the detected themes directory.
+
+Once the theme is created and verified, confirm completion by telling me where the theme file was saved.
+```
+---
+
+### Context
+
+#### Codebase Context
+
+Warp can index your Git-tracked codebases to help agents understand your code and generate accurate, context-aware responses. **No code is stored on Warp servers**.
+
+You can view and manage your indexed codebases in **Settings** > **Code** > **Indexing and projects** under "Initialized/ indexed folders". You can also specify whether to automatically index new folders as you navigate them.
+
+If your codebase is large, you can exclude specific files by adding them to a `.warpindexingignore` file.
+
+#### Other types of context
+
+You can provide different types of input as context directly to the agent to guide its behavior and improve response quality. This includes:
+
+* [Blocks](/agent-platform/local-agents/agent-context/blocks-as-context/) from your terminal output
+* [Images](/agent-platform/local-agents/agent-context/images-as-context/)
+* [Files and code](/agent-platform/local-agents/agent-context/using-to-add-context/) (using the @ symbol)
+* [Public websites](/agent-platform/local-agents/agent-context/urls-as-context/) via URLs
+
+#### Warp Drive as Context
+
+Agents pull directly from your [**Warp Drive**](/knowledge-and-collaboration/warp-drive/) contents to generate more accurate responses -- including your **Workflows**, **Notebooks**, **Prompts**, and **Environment Variables**.
+
+* When used, context appears under the “References” or “Derived from” section in the conversation.
+* This setting is **enabled by default** and can be managed via: **Settings** > **Agents** > **Knowledge** > **Warp Drive as Agent Mode Context**.
+
+#### Rules
+
+**Rules** let you provide persistent context to Agents, enabling smarter and more personalized responses.&#x20;
+
+You can create global rules (accessed through [Warp Drive](/knowledge-and-collaboration/warp-drive/) >**Personal** > **Rules**) or project scoped rules, defined in an `AGENTS.md` file. Note: the filename must be in all caps for Warp to recognize it.
+
+**Examples of Rules include:**
+
+* Coding standards and best practices
+* Project- or workspace-specific guidelines
+* Personal preferences for tools, formatting, or behavior
+
+How to access project-specific Rules
+
+1. From the file-searcher, CMD+O and search "AGENTS.md"
+2. From the file tree, click the "code" icon when in a repo
+
+How to access Global Rules
+
+1. From the [Warp Drive](/knowledge-and-collaboration/warp-drive/) >**Personal** > **Rules**
+2. From the [Command Palette](/terminal/command-palette/), search for "Open AI Rules"
+3. From the Settings panel, **Settings** > **Agents** > **Knowledge** > **Manage Rules**
+4. From the macOS Menu, `AI > Open Rules`

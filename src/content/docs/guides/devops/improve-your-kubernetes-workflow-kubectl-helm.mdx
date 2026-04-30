@@ -1,0 +1,92 @@
+---
+title: Improve Your Kubernetes Workflow (kubectl + helm)
+description: >-
+  Streamline kubectl and Helm workflows with Warp's AI assistance, active
+  suggestions, custom workflows, and synchronized panes.
+sidebar:
+  label: "Improve your Kubernetes workflow"
+---
+import VideoEmbed from '@components/VideoEmbed.astro';
+import { Steps } from '@astrojs/starlight/components';
+
+Discover how Warp’s modern terminal features streamline Kubernetes workflows through AI assistance, automation, and intuitive design.
+
+<VideoEmbed url="https://www.youtube.com/watch?v=64TECXZiFb0" />
+
+## Overview
+
+This guide covers 6 key Warp features that enhance Kubernetes productivity:
+
+<Steps>
+
+1. #### AI Integration in the Terminal
+
+   Warp’s **Agent Mode** (`Cmd + I`) lets you run complex Kubernetes operations with plain-English prompts.
+
+   **Examples**
+
+   ```
+   When does my wildcard TLS certificate expire?
+   ```
+
+   Warp auto-detects namespaces, runs `kubectl` commands, and outputs expiration details.
+
+   ```
+   Generate a command to identify all pods running as root across all namespaces.
+   ```
+
+   Warp builds and runs the corresponding `kubectl` + `grep` query, returning a security report.
+
+   :::note
+   Ideal for on-the-fly debugging or compliance checks without leaving your terminal.
+   :::
+
+2. #### Building AI-Aided Context
+
+   You can attach any command’s output as context for follow-up prompts.\
+   For instance, right-click log output → “Attach as Agent Context,” then run:
+
+   ```
+   I’m sending anonymous usage data in Traefik. How can I disable it?
+   ```
+
+   Warp detects the Helm chart and outputs the required YAML config to disable stats reporting.
+
+3. #### Active AI Suggestions
+
+   Warp automatically suggests next actions.\
+   Examples of suggested actions:
+
+   *   After `kubectl describe pod` it might propose:
+
+       > “Check the logs of this pod.”
+   *   When running `sudo apt update` it detects available upgrades and offers:
+
+       > “Run sudo apt upgrade to update packages.”
+
+4. #### Custom Workflows
+
+   Create reusable, parameterized commands for common operations like:
+
+   ```bash
+   helm upgrade <chart> --namespace <namespace> -f <values.yaml>
+   ```
+   Accessible from the **Command Palette (`Cmd + P`)**, workflows make repetitive Kubernetes tasks fast and standardized.
+
+5. #### Synchronized Panes and Tabs
+
+   Link multiple terminal panes or tabs (e.g., master + worker nodes).\
+   When synchronization is active, running:
+
+   ```bash
+   sudo apt update
+   ```
+
+   executes simultaneously across all linked sessions.
+
+6. #### Modern Text Editing
+
+   Warp supports **click-to-edit** for commands — no more arrow key gymnastics.\
+   Hovering shows inline **tooltips** explaining flags and subcommands (e.g., Helm, kubectl, etc.), with autocompletions for 400+ CLI tools.
+
+</Steps>

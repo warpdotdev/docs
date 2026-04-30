@@ -1,0 +1,59 @@
+---
+title: feature_not_available
+description: >-
+  The requested feature is not included in your current plan. Upgrade your
+  team's plan to access this capability.
+---
+
+The `feature_not_available` error occurs when you attempt to use a feature or capability that is not included in your team's current plan.
+
+---
+
+## Details
+
+* **HTTP Status:** `403 Forbidden`
+* **Retryable:** No
+* **Task State:** FAILED
+
+---
+
+## When does this occur?
+
+This error is returned when:
+
+* You attempt to use a feature that requires a higher-tier plan (for example, certain integrations, advanced capabilities, or self-hosted execution)
+* A cloud agent or integration trigger tries to access a feature gated behind a plan upgrade
+
+The `title` field in the response will describe the specific feature that is unavailable.
+
+---
+
+## Example response
+
+```json
+{
+  "type": "/reference/api-and-sdk/troubleshooting/errors/feature-not-available/",
+  "title": "Slack integration requires a Build plan or higher.",
+  "status": 403,
+  "instance": "/api/v1/agent/tasks",
+  "error": "Slack integration requires a Build plan or higher.",
+  "retryable": false
+}
+```
+
+---
+
+## How to resolve
+
+1. Check which plan your team is on in your team's billing settings.
+2. Upgrade to a plan that includes the required feature.
+3. Retry the operation.
+
+For plan comparisons and feature availability, see [Access, Billing, and Identity](/agent-platform/cloud-agents/team-access-billing-and-identity/).
+
+---
+
+## Related
+
+* [Access, Billing, and Identity](/agent-platform/cloud-agents/team-access-billing-and-identity/) — Plan requirements and feature availability
+* [Integrations](/agent-platform/cloud-agents/integrations/) — Integration requirements by plan

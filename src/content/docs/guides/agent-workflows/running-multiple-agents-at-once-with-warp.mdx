@@ -1,0 +1,94 @@
+---
+title: Running Multiple Agents At Once With Warp
+description: >-
+  Run multiple agent tasks simultaneously in Warp — revert PRs, edit
+  shortcuts, and add tests across repos without losing context.
+sidebar:
+  label: "Run multiple agents at once"
+---
+import VideoEmbed from '@components/VideoEmbed.astro';
+
+<VideoEmbed url="https://youtu.be/w0bJFC0u0pE?si=XdP88cSCMXTK6Ec5" />
+
+### 1. Why Multiple Agents Matter
+
+Sometimes you need to work on several coding tasks at once — fix a PR, add a feature, debug a build — without losing context.\
+\
+Warp lets you run multiple agent tasks simultaneously, all within one workspace.
+
+---
+
+### 2. How It Works
+
+Each agent runs in its own thread, complete with:
+
+* Progress tracking
+* Notifications when blocked or completed
+* Separate command histories
+
+Because Warp is a desktop app, it can send system notifications to alert you when an agent finishes or when it needs review.
+
+---
+
+### 3. Example: Reverting a PR and Editing a Shortcut
+
+Ben uses voice mode to quickly start tasks.
+
+Prompt Example:\
+“Find the PR where we added the keyboard shortcut to the UDI input and revert it.”
+
+He pastes in the PR number, and the agent:
+
+* Locates the relevant diff
+* Reverts the change automatically
+* Pushes it to the correct branch
+
+Warp notifies him when the task completes.
+
+Then, he runs another prompt:
+
+Prompt Example:\
+“Change the keyboard shortcut to `Cmd + Shift + I`.”
+
+Warp modifies `input.rs`, previews the diff, and Ben applies the change directly from Warp.
+
+---
+
+### 4. Managing Multiple Tasks
+
+You can switch between concurrent agents:
+
+* Each task appears in a Task List panel
+* Completed, canceled, and running tasks are color-coded
+* Toast notifications appear when tasks are blocked
+
+You can even fast-forward agents to auto-approve all code diffs once you trust their trajectory.
+
+---
+
+### 5. Parallel Contexts
+
+In another repo, Ben adds a new Eval test via a different agent:
+
+Prompt Example:\
+“Create a Python hello world function and verify it prints ‘Hello World.’”
+
+Warp’s second agent:
+
+* Locates the correct file
+* Writes the test code
+* Verifies execution
+
+Meanwhile, the first agent continues working on the keyboard shortcut task.
+
+---
+
+### 6. Reviewing All Active Agents
+
+Open the Agent Mode Dashboard to see:
+
+* Active tasks
+* Completed tasks
+* Logs and outputs
+
+You can refine or cancel tasks mid-run if needed, or switch back to manual commands.

@@ -1,0 +1,128 @@
+---
+title: "Managed: Direct backend"
+description: >-
+  Run the Oz managed worker with the Direct backend to execute cloud agent
+  tasks directly on the host, without Docker or Kubernetes.
+---
+
+Run the `oz-agent-worker` daemon with the **Direct backend** — tasks execute directly on the worker host without Docker or Kubernetes. Oz still orchestrates runs end to end (Slack, Linear, schedules, API, `oz agent run-cloud`); the worker just runs the agent in a per-task workspace on its own filesystem.
+
+:::note
+This page covers the [managed architecture](/agent-platform/cloud-agents/self-hosting/#managed-architecture) with the Direct backend. For container-based task isolation, see [Managed: Docker](/agent-platform/cloud-agents/self-hosting/managed-docker/) or [Managed: Kubernetes](/agent-platform/cloud-agents/self-hosting/managed-kubernetes/). For invocation-driven use cases, see [Unmanaged](/agent-platform/cloud-agents/self-hosting/unmanaged/).
+:::
+
+## When to use the Direct backend
+
+* Neither Docker nor Kubernetes is available on the worker host.
+* Tasks need direct access to host resources that are hard to expose through a container.
+* You want managed orchestration (triggering from Slack, Linear, schedules, API) without the operational overhead of a container runtime.
+
+:::caution
+The Direct backend does not provide per-task container isolation. Each task runs in an isolated workspace directory, but shares the host OS and kernel. Evaluate whether this fits your security requirements before using it in production.
+:::
+
+---
+
+## How it works
+
+1. The worker creates a per-task workspace directory under `workspace_root`.
+2. If a `setup_command` is configured, it runs before the task with environment variables pointing to the workspace.
+3. The `oz` CLI runs the agent task inside the workspace directory.
+4. After the task completes, the optional `teardown_command` runs and the workspace is cleaned up.
+
+---
+
+## Prerequisites
+
+* **Enterprise plan with self-hosting enabled** — [Contact sales](https://warp.dev/contact-sales) if self-hosting is not yet enabled for your team.
+* **A worker host** with write access to `workspace_root` (defaults to `/var/lib/oz/workspaces`).
+* **The Oz CLI** installed and available in `PATH` on the worker host (or specify `oz_path` in the config file). See [Installing the CLI](/reference/cli/#installing-the-cli).
+* **A team API key** — In the Warp app, go to **Settings** > **Cloud platform** > **Oz Cloud API Keys** to create a team-scoped API key. See [API Keys](/reference/cli/api-keys/) for details.
+
+---
+
+## Setup
+
+### 1. Set your API key
+
+Export the API key so the worker can authenticate to Oz:
+
+```bash
+export WARP_API_KEY="your_team_api_key"
+```
+
+### 2. Start the worker with the Direct backend
+
+Pass `--backend direct`:
+
+```bash
+oz-agent-worker --api-key "$WARP_API_KEY" --worker-id "my-worker" --backend direct
+```
+
+Or with a [config file](/agent-platform/cloud-agents/self-hosting/reference/#config-file):
+
+```yaml
+worker_id: "my-worker"
+backend:
+  direct:
+    workspace_root: "/var/lib/oz/workspaces"
+```
+
+**Expected outcome:** The worker connects to Oz and begins listening for tasks. Each assigned task runs in a freshly-created subdirectory of `workspace_root`.
+
+---
+
+## Workspace model
+
+Each task gets its own directory under `workspace_root`. The default is `/var/lib/oz/workspaces`; override it with the `workspace_root` config option shown above.
+
+After the task completes, the workspace is deleted (unless `--no-cleanup` is set, which keeps the directory around for debugging).
+
+---
+
+## Setup and teardown commands
+
+The `setup_command` runs before each task and receives the following environment variables:
+
+* `OZ_WORKSPACE_ROOT` — The workspace directory for the task.
+* `OZ_RUN_ID` — The unique task ID.
+* `OZ_ENVIRONMENT_FILE` — Path to a file where the setup script can write additional `KEY=VALUE` environment variables to inject into the task.
+* `OZ_WORKER_BACKEND` — Always set to `direct`.
+
+The `teardown_command` runs after each task and receives `OZ_WORKSPACE_ROOT`, `OZ_RUN_ID`, and `OZ_WORKER_BACKEND`.
+
+Use the setup command to clone repos, install dependencies, or write task-specific env vars into `OZ_ENVIRONMENT_FILE`. Use the teardown command for cleanup or reporting.
+
+---
+
+## Environment variables for Direct tasks
+
+:::note
+The Direct backend starts tasks with a **minimal environment** (only `HOME`, `TMPDIR`, and `PATH` from the host) to avoid leaking sensitive worker credentials like `WARP_API_KEY` into tasks. Add variables explicitly via `environment` in the config file or `-e` flags on the worker CLI.
+:::
+
+Config file example:
+
+```yaml
+worker_id: "direct-worker"
+max_concurrent_tasks: 2
+backend:
+  direct:
+    workspace_root: "/var/lib/oz/workspaces"
+    oz_path: "/usr/local/bin/oz"
+    setup_command: "/opt/scripts/setup.sh"
+    teardown_command: "/opt/scripts/teardown.sh"
+    environment:
+      - name: MY_VAR
+        value: "hello"
+```
+
+---
+
+## Related pages
+
+* [Self-hosted worker reference](/agent-platform/cloud-agents/self-hosting/reference/#direct-backend-config) — Full config schema for the Direct backend.
+* [Self-hosting overview](/agent-platform/cloud-agents/self-hosting/) — Managed vs unmanaged and the backend decision guide.
+* [Routing runs to self-hosted workers](/agent-platform/cloud-agents/self-hosting/#routing-runs-to-self-hosted-workers) — How to send tasks to your connected worker from the CLI, schedules, integrations, the API, and the web UI.
+* [Security and networking](/agent-platform/cloud-agents/self-hosting/security-and-networking/) — Data boundaries and security considerations for the Direct backend.
+* [Troubleshooting](/agent-platform/cloud-agents/self-hosting/troubleshooting/#direct-backend) — Common Direct-backend issues.

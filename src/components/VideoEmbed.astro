@@ -1,0 +1,219 @@
+---
+interface Props {
+  url: string;
+  title?: string;
+}
+
+const { url, title = '' } = Astro.props;
+
+const ALLOW = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+
+// Match the video id whether it appears as `youtu.be/<ID>`, `youtube.com/watch?v=<ID>`,
+// or anywhere later in the query string (e.g. `?feature=youtu.be&v=<ID>`,
+// `?t=18s&v=<ID>`, `?ab_channel=Warp&v=<ID>`). The previous regex required `?v=`
+// to come immediately after `/watch`, so URLs with any other param first fell
+// through and rendered as a plain link instead of an embed.
+const ytMatch =
+  url.match(/youtu\.be\/([\w-]+)/) ||
+  url.match(/youtube\.com\/watch\?(?:[^#]*&)?v=([\w-]+)/);
+const loomMatch = url.match(/loom\.com\/share\/([\w-]+)/);
+const driveMatch = url.match(/drive\.google\.com\/file\/d\/([\w-]+)/);
+
+// Convert YouTube watch-page time params (`start`, `end`, `t`) into the
+// embed-iframe params so timestamped links keep their start/end behavior.
+// `t` accepts `90`, `90s`, or `1m30s` style values; we normalize to seconds.
+function parseYtTime(raw: string | null): number | null {
+  if (!raw) return null;
+  if (/^\d+$/.test(raw)) return parseInt(raw, 10);
+  const m = raw.match(/(?:(\d+)h)?(?:(\d+)m)?(?:(\d+)s)?/);
+  if (!m) return null;
+  const [, h, mn, s] = m;
+  if (!h && !mn && !s) return null;
+  return (parseInt(h ?? '0', 10) * 3600) + (parseInt(mn ?? '0', 10) * 60) + parseInt(s ?? '0', 10);
+}
+
+let kind: 'youtube' | 'loom' | 'drive' | null = null;
+let videoId = '';
+let iframeSrc = '';
+if (ytMatch) {
+  kind = 'youtube';
+  videoId = ytMatch[1];
+  // Pull start/end/t out of the original URL's query string so we can forward
+  // them to the embed. URL parsing handles both `youtu.be/<ID>?t=…` and
+  // `youtube.com/watch?…` forms.
+  let qs: URLSearchParams | null = null;
+  try {
+    qs = new URL(url).searchParams;
+  } catch {
+    qs = null;
+  }
+  const start = parseYtTime(qs?.get('start') ?? qs?.get('t') ?? null);
+  const end = parseYtTime(qs?.get('end') ?? null);
+  const params = new URLSearchParams();
+  if (start != null) params.set('start', String(start));
+  if (end != null) params.set('end', String(end));
+  const query = params.toString();
+  iframeSrc = `https://www.youtube-nocookie.com/embed/${videoId}${query ? `?${query}` : ''}`;
+} else if (loomMatch) {
+  kind = 'loom';
+  videoId = loomMatch[1];
+  iframeSrc = `https://www.loom.com/embed/${videoId}`;
+} else if (driveMatch) {
+  kind = 'drive';
+  videoId = driveMatch[1];
+  iframeSrc = `https://drive.google.com/file/d/${videoId}/preview`;
+}
+
+const posterAlt = title || (kind === 'youtube' ? 'YouTube video' : '');
+---
+
+{kind === 'youtube' ? (
+  <div class="video-embed video-embed--lazy">
+    {/* Click-to-load facade. Defers ~870KB of YouTube player JS/CSS/fonts
+        until the user actually plays the video. */}
+    <button
+      type="button"
+      class="video-embed__poster"
+      data-video-kind="youtube"
+      data-video-id={videoId}
+      data-video-title={title}
+      data-video-start={(() => {
+        try { return new URL(iframeSrc).searchParams.get('start') ?? undefined; } catch { return undefined; }
+      })()}
+      data-video-end={(() => {
+        try { return new URL(iframeSrc).searchParams.get('end') ?? undefined; } catch { return undefined; }
+      })()}
+      aria-label={`Play video${title ? `: ${title}` : ''}`}
+    >
+      <img
+        src={`https://i.ytimg.com/vi/${videoId}/sddefault.jpg`}
+        alt={posterAlt}
+        loading="lazy"
+        decoding="async"
+        width="640"
+        height="480"
+      />
+      <span class="video-embed__play" aria-hidden="true">
+        <svg viewBox="0 0 68 48" xmlns="http://www.w3.org/2000/svg">
+          <path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="#f00"/>
+          <path d="M45 24 27 14v20" fill="#fff"/>
+        </svg>
+      </span>
+    </button>
+  </div>
+) : kind ? (
+  <div class="video-embed">
+    {/* No `frameborder` attribute — it's removed from HTML5 and the scoped
+       `.video-embed :global(iframe) { border: 0 }` rule below already
+       zeroes the border. */}
+    <iframe
+      src={iframeSrc}
+      title={title}
+      loading="lazy"
+      allow={ALLOW}
+      allowfullscreen
+    />
+  </div>
+) : (
+  <p><a href={url} target="_blank" rel="noopener noreferrer">{title || url}</a></p>
+)}
+
+<script>
+  // Replace any YouTube poster with a real iframe on click. Single delegated
+  // listener per page works for any number of <VideoEmbed url="...youtube...">
+  // instances on the same page.
+  document.addEventListener('click', (event) => {
+    const t = event.target instanceof Element ? event.target.closest('.video-embed__poster') : null;
+    if (!(t instanceof HTMLElement)) return;
+    if (t.dataset.videoKind !== 'youtube') return;
+    const wrapper = t.parentElement;
+    if (!wrapper) return;
+    event.preventDefault();
+    const id = t.dataset.videoId || '';
+    const title = t.dataset.videoTitle || '';
+    // Preserve any start/end params encoded on the poster (set server-side from
+    // the source URL) so the click-to-load path keeps the same timestamp
+    // behavior as the SSR fallback iframe.
+    const startParam = t.dataset.videoStart;
+    const endParam = t.dataset.videoEnd;
+    const params = new URLSearchParams();
+    params.set('autoplay', '1');
+    if (startParam) params.set('start', startParam);
+    if (endParam) params.set('end', endParam);
+    const iframe = document.createElement('iframe');
+    iframe.src = `https://www.youtube-nocookie.com/embed/${id}?${params.toString()}`;
+    iframe.title = title;
+    // No `frameborder` — deprecated in HTML5; visual border is zeroed via CSS.
+    iframe.setAttribute('allow',
+      'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+    );
+    iframe.setAttribute('allowfullscreen', '');
+    wrapper.replaceChild(iframe, t);
+  });
+</script>
+
+<style>
+  .video-embed {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+    height: 0;
+    overflow: hidden;
+    margin: 1rem 0;
+    border-radius: var(--sl-radius-lg);
+    background: #000;
+  }
+  .video-embed :global(iframe) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  .video-embed__poster {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: #000;
+    cursor: pointer;
+    overflow: hidden;
+  }
+  .video-embed__poster img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    opacity: 0.9;
+    transition: opacity 0.15s ease;
+  }
+  .video-embed__poster:hover img,
+  .video-embed__poster:focus-visible img {
+    opacity: 1;
+  }
+  .video-embed__play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 68px;
+    height: 48px;
+    pointer-events: none;
+    transition: transform 0.15s ease;
+  }
+  .video-embed__play svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  .video-embed__poster:hover .video-embed__play,
+  .video-embed__poster:focus-visible .video-embed__play {
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+  .video-embed__poster:focus-visible {
+    outline: 2px solid var(--sl-color-accent-high);
+    outline-offset: 2px;
+  }
+</style>

@@ -1,0 +1,186 @@
+---
+title: "How to set up self-serve data analytics with Skills"
+description: >-
+  Set up a self-serve data analytics workflow in Warp using two community
+  Skills that map questions to dbt models and structure reproducible analyses.
+sidebar:
+  label: "Set up self-serve data analytics with Skills"
+---
+import VideoEmbed from '@components/VideoEmbed.astro';
+
+Self-serve data analytics means anyone on your team can ask a data question and get a trustworthy answer, without pinging the data team. This guide sets up that workflow using two community Skills that chain together: one resolves vague questions to the right BigQuery tables, and the other structures deep-dive analyses into reproducible folders. Plan on about 10 minutes for initial setup, plus time to customize the model index for your warehouse.
+
+## Prerequisites
+
+* **Warp** — Install from [warp.dev](https://www.warp.dev/download) if you don't already have it.
+* **A BigQuery data warehouse with dbt models** — The Skills as published assume BigQuery and dbt. You can adapt them to Snowflake, Redshift, Databricks, or a non-dbt setup. See [Adapting to your stack](#adapting-to-your-stack).
+* **The BigQuery CLI (`bq`)** — Installed as part of the [Google Cloud SDK](https://cloud.google.com/sdk/docs/install). Agents call it directly to query the warehouse, so no MCP server is required.
+* **A Git repository where the Agent will work** — Warp auto-discovers Skills from `.agents/skills/` in your current working directory up through the repo root. See [Skills](https://docs.warp.dev/agent-platform/capabilities/skills/) for the full list of supported directories and how discovery works.
+
+## Walkthrough video
+
+In this 40-minute livestream, Warp's data team demonstrates the workflow end-to-end, including the two Skills you'll install below and a third pattern (running the same Skills from Slack via an Oz cloud agent). Feel free to skip ahead if you prefer to follow the written steps.
+
+<VideoEmbed url="https://www.youtube.com/watch?v=WyMTjXSplRU" />
+
+## 1. Install the two Skills
+
+Warp automatically discovers any Skill stored under `.agents/skills/` in your repo, so committing the two directories makes them available to every teammate's Agent runs. Clone the public [warpdotdev/oz-skills](https://github.com/warpdotdev/oz-skills) repo and copy the two Skill directories into your own dbt repo:
+
+```bash
+cd /path/to/your/dbt-repo
+mkdir -p .agents/skills
+git clone https://github.com/warpdotdev/oz-skills.git /tmp/oz-skills
+cp -r /tmp/oz-skills/.agents/skills/dbt-model-index .agents/skills/
+cp -r /tmp/oz-skills/.agents/skills/analysis-artifacts .agents/skills/
+```
+
+Verify both Skills landed:
+
+```bash
+ls .agents/skills/
+# analysis-artifacts  dbt-model-index
+```
+
+Commit the Skills. Once committed to your repo, they are available to the whole team:
+
+```bash
+git add .agents/skills && git commit -m "Add self-serve analytics skills"
+```
+
+## 2. Customize the dbt model index
+
+The [`dbt-model-index`](https://github.com/warpdotdev/oz-skills/blob/main/.agents/skills/dbt-model-index/SKILL.md) Skill is a template that you will need to fill in with details about your own models. This Skill teaches the Agent which tables answer which question types, so it's important to spend time on customization. Detailed "Useful for" descriptions make the Skill most effective.
+
+Open `.agents/skills/dbt-model-index/SKILL.md` and replace the template placeholders with real models. For each one, include:
+
+* The table name (backtick-formatted)
+* A 1- to 2-sentence description of its grain
+* "Useful for:" bullets covering the question types it answers
+
+A filled-in entry might look like this:
+
+```markdown
+### `users_daily`
+
+One row per user per day, with activity signals and plan type.
+
+**Useful for:**
+
+- Daily, weekly, or monthly active user counts
+- Retention and churn by plan tier
+- Joining to revenue models as the canonical user dimension
+```
+
+Fill in the domains that cover your most common questions first (typically Users, Activity, and Revenue). You can expand the index over time as you notice the Agent guessing at tables.
+
+Don't skip the **Important Notes** section at the bottom of the Skill. Documenting your standard filters (e.g., `where not is_internal_user`), your fully-qualified project path, your partition fields, and any plan or tier values prevents the Agent from accidentally fanning out joins, scanning entire partitioned tables, or returning numbers polluted by test accounts.
+
+After you complete this step, the Agent has a curated map from question to table and will consult it before writing any BigQuery SQL.
+
+## 3. Review the analysis-artifacts Skill
+
+The [`analysis-artifacts`](https://github.com/warpdotdev/oz-skills/blob/main/.agents/skills/analysis-artifacts/SKILL.md) Skill is workflow scaffolding. It tells the Agent how to structure a deep-dive analysis: plan first, save every material SQL query to `assets/queries/`, save visualizations to `assets/visualizations/`, and write a readable README with a Problem Statement, TL;DR, Cohorts Definition, per-step sections, and Key Takeaways.
+
+No customization is needed to start using it. When the Agent invokes it, you'll end up with a directory like:
+
+```
+analyses/
+└── 2026-04-ai-usage-by-os/
+    ├── README.md
+    └── assets/
+        ├── queries/
+        │   └── ai_requests_by_os.sql
+        └── visualizations/
+            ├── os_trend.py
+            └── os_trend.png
+```
+
+That structure is what makes the analysis shareable. A teammate can read the README, click through to any SQL file, and reproduce or extend the work.
+
+## 4. Ask a simple data question
+
+With both Skills in place, start with a concrete lookup prompt. This exercises `dbt-model-index` without pulling in the deep-dive workflow.
+
+Open an Agent conversation inside your dbt repo and ask:
+
+```
+How many unique users made AI requests yesterday?
+```
+
+The Agent will:
+
+1. Consult `dbt-model-index` to find the right activity table.
+2. Write a BigQuery query, applying any standard filters you documented (e.g., excluding internal users).
+3. Run the query via the `bq` CLI.
+4. Return a single number along with the SQL it ran.
+
+Verify the result by reviewing the query. If it used the wrong table or skipped a standard filter, your `dbt-model-index` entries for that domain need more detail. Update the Skill and try again.
+
+## 5. Run a deep-dive analysis
+
+Now try a prompt that goes beyond a single lookup. The Agent recognizes this as a deep dive and invokes `analysis-artifacts`.
+
+```
+Tell me about any recent trends in AI usage across different operating systems in the last month.
+```
+
+The Agent will:
+
+1. Use `dbt-model-index` to resolve the right activity and OS dimensions.
+2. Invoke `analysis-artifacts`, propose a plan, and wait for your approval.
+3. Execute the plan step by step, saving queries and visualizations as artifacts.
+4. Write a README summarizing the analysis end to end.
+
+The resulting README follows a consistent shape, roughly:
+
+```markdown
+# AI usage trends by operating system (last 30 days)
+
+Author: Your Name
+Date: 2026-04-22
+
+## TL;DR
+One or two sentences capturing the headline finding.
+
+## Problem Statement
+What the analysis set out to answer and why.
+
+## Cohorts Definition
+Explicit definition of the groups being compared, including tenure,
+plan type, and observation windows.
+
+## Step 1: Baseline volume by OS
+Narrative, embedded chart, and a link to the query in assets/queries/.
+
+## Step 2: Week-over-week trend
+...
+
+## Key Takeaways
+Bulleted summary of what was learned and any follow-up questions.
+```
+
+Commit the new `analyses/<name>/` directory to your repo so it's reviewable alongside your code. Anyone on the team can read it, verify the queries, or pick up where you left off.
+
+## Adapting to your stack
+
+Both Skills were written for BigQuery and dbt, but the pattern generalizes. Here's what to change:
+
+* **Non-BigQuery warehouse (Snowflake, Redshift, Databricks)** — Update the **Important Notes** section of `dbt-model-index/SKILL.md` with your warehouse's fully-qualified table reference format, partition or clustering conventions, and standard filters. Replace `bq` references with your warehouse's CLI (e.g., `snowsql`, `redshift-data`).
+* **No dbt** — The `dbt-model-index` Skill works for any warehouse schema, not just dbt. Rename it if you like, and treat the entries as a map over raw tables, views, or your semantic layer.
+* **Different modeling conventions** — Document your grain, tier or plan values, and internal-user filters explicitly in the Skill. Agents are good at following documented rules and bad at guessing them.
+
+The `analysis-artifacts` Skill is largely stack-agnostic. It structures outputs, not queries, so it works the same regardless of warehouse.
+
+## Next steps
+
+You installed two community Skills, customized the model index for your warehouse, and ran both a simple lookup and a full deep-dive analysis.
+
+**Extend to Slack.** Wire the same two Skills into an Oz cloud agent configured with your dbt repo, and your teammates can ask data questions by @-mentioning Oz in a Slack channel, without opening a terminal. The Agent clones the repo, picks up the Skills from `.agents/skills/`, and replies in-thread. See the [Slack integration docs](https://docs.warp.dev/agent-platform/cloud-agents/integrations/slack/) and [Skills as Agents](https://docs.warp.dev/agent-platform/cloud-agents/skills-as-agents/) for setup.
+
+Explore related guides and features:
+
+* [Trigger reusable actions with saved prompts](/guides/configuration/trigger-reusable-actions-with-saved-prompts/) — another reusable Agent primitive, useful for scaffolding frequent data questions
+* [Create project rules](/guides/configuration/how-to-create-project-rules-for-an-existing-project-astro-typescript-tailwind/) — pair Skills with Rules to steer Agent behavior across your repo
+* [Skills](https://docs.warp.dev/agent-platform/capabilities/skills/) — full reference on Skills, discovery, arguments, and slash-command invocation
+* [warpdotdev/oz-skills](https://github.com/warpdotdev/oz-skills) — public repo with these two Skills and more

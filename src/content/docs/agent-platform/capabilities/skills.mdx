@@ -1,0 +1,443 @@
+---
+title: Skills
+description: >-
+  Create reusable instruction sets that teach agents specific tasks and share
+  expertise across your team.
+---
+import VideoEmbed from '@components/VideoEmbed.astro';
+import { FileTree } from '@astrojs/starlight/components';
+
+Skills allow you to create reusable, shareable instructions that agents can invoke when performing tasks. Instead of repeating detailed prompts, you can encapsulate common workflows, coding patterns, or domain expertise into skill files that agents automatically discover and use.
+
+## Key features
+
+* **Reusable instructions** - Define a task once and let Agents use it whenever relevant
+* **Project and global scopes** - Create skills specific to a project or available across all projects
+* **Automatic discovery** - Agents are aware of all available skills and invoke them when appropriate
+* **Simple markdown format** - Skills are just markdown files with a small amount of metadata
+* **Supporting files** - Include scripts, templates, or other resources alongside your skill instructions
+* **Slash command invocation** - Invoke any skill directly with `/{skill-name}`
+* **Parameterized skills** - Use argument placeholders to create dynamic, reusable skill templates
+
+## How Skills work
+
+When you start an [Agent conversation](/agent-platform/local-agents/interacting-with-agents/), the Agent receives a list of all available skills with their names and descriptions.
+
+When the Agent determines that a skill would help accomplish your task, it loads the skill's full instructions and follows them to complete the task.
+
+:::caution
+Skill discovery is based on your current working directory. For Git repositories, Warp includes all skills from your current directory up through the repository root. If you're working in project A, you won't have access to skills from project B.
+:::
+
+:::note
+Skills complement Rules, which provide persistent guidelines that Agents always follow. Use Rules for constraints and preferences; use Skills for specific task workflows.
+:::
+
+### Skill name conflicts
+
+If you have skills with the same name in multiple directories, Warp handles the conflict differently depending on how the skill is invoked:
+
+* **Natural language** - The Agent receives a list of all in-scope skills including their names, descriptions, and file paths. The Agent can see all available options and chooses the appropriate skill based on its path.
+* **Slash commands** - When multiple skills share the same name, Warp displays all matching skills in the menu. You select which one to use based on the description.
+* **Background resolution** - When Warp resolves skill names automatically (without direct user selection), it prioritizes home directory (global) skills first, then skills from higher directories (closer to the repository root).
+
+### Example interactions
+
+You can invoke skills in two ways:
+
+**Using natural language** - Describe what you want to accomplish:
+
+* "Use the deploy skill to push to staging"
+* "Check the docs for broken links" (invokes a link-checking skill)
+* "Create a DOCX file with my project's README content"
+* "Draft documentation for the new API endpoint based on this PR"
+
+**Using slash commands** - Invoke a skill directly with `/{skill-name}`:
+
+* `/deploy` - Invokes the deploy skill
+* `/add-feature-flag` - Invokes the add-feature-flag skill
+
+The Agent recognizes when your request matches a skill's purpose, loads the skill instructions, and follows them to complete the task.
+
+## Skill file format
+
+Skills are markdown files with YAML frontmatter. Each skill must have:
+
+* **name** - A unique identifier for the skill (typically kebab-case)
+* **description** - A brief explanation of what the skill does and when to use it
+
+### Basic structure
+
+```markdown
+---
+name: your-skill-name
+description: Brief description of what this skill does and when to use it
+---
+
+# Your Skill Name
+
+## Instructions
+Provide clear, step-by-step guidance for the agent.
+You can use argument placeholders like $ARGUMENTS or $0 in the body (see [Skill arguments](#skill-arguments)).
+
+## Examples
+Show concrete examples of using this skill.
+```
+
+### Example skill file
+
+Here's a complete example of a skill that helps create feature flags:
+
+```markdown
+---
+name: add-feature-flag
+description: Add a new feature flag to the codebase with proper configuration and documentation
+---
+
+# Add Feature Flag
+
+## Instructions
+1. Ask the user for the feature flag name and default value
+2. Add the flag definition to `config/feature_flags.yaml`
+3. Create a helper function in `src/utils/flags.ts`
+4. Update the feature flags documentation in `docs/FEATURE_FLAGS.md`
+
+## Configuration Format
+Feature flags should follow this format in the YAML file:
+
+feature_name:
+  default: false
+  description: "What this flag controls"
+  owner: "team-name"
+
+## Examples
+- "Add a feature flag for the new checkout flow"
+- "Create a flag to enable dark mode for beta users"
+```
+
+## Skill arguments
+
+Skills can include argument placeholders that are automatically substituted with values you provide when invoking the skill. This lets you create reusable, parameterized skill templates.
+
+<VideoEmbed url="https://www.loom.com/share/4cb0a80e567c41788816cd9b5acbc7ed" title="Using Skill Arguments in Warp" />
+
+### Argument syntax
+
+Three placeholder formats are supported:
+
+* **`$ARGUMENTS`** — Replaced with the full raw argument string (everything after the skill name).
+* **`$ARGUMENTS[N]`** — Replaced with the Nth whitespace-separated argument (0-indexed). For example, `$ARGUMENTS[0]` is the first argument, `$ARGUMENTS[1]` is the second, etc.
+* **`$N`** — Shorthand for `$ARGUMENTS[N]`. For example, `$0` is equivalent to `$ARGUMENTS[0]`.
+
+### How argument substitution works
+
+When you invoke a skill, any text you type after the skill name is treated as the argument string. The argument string is split on whitespace to produce individual indexed arguments.
+
+**If the skill contains argument placeholders** (`$ARGUMENTS`, `$ARGUMENTS[N]`, or `$N`), the placeholders are replaced with the corresponding argument values before the skill instructions are sent to the agent.
+
+**If the skill does not contain any argument placeholders**, the extra text you provide is passed to the agent as a separate user message alongside the skill instructions. This means you can always add context when invoking a skill, whether or not it uses argument placeholders.
+
+:::note
+If a placeholder references an argument index that wasn't provided (e.g. `$2` when only two arguments were given), the placeholder is left as-is in the skill content.
+:::
+
+### Example: Skill with arguments
+
+Here's a skill that uses arguments to explain a topic for a specific audience:
+
+```markdown
+---
+name: explain-topic
+description: Explain a topic for a specific audience in a given tone
+---
+
+# Explain Topic
+
+Explain $0 for an audience of $1 professionals.
+
+Use a $2 tone.
+
+Full request: $ARGUMENTS
+```
+
+Invoking this skill with:
+
+```
+/explain-topic bears engineering fun
+```
+
+Produces the following instructions for the agent:
+
+```
+Explain bears for an audience of engineering professionals.
+
+Use a fun tone.
+
+Full request: bears engineering fun
+```
+
+### Example: Skill without arguments
+
+If a skill has no argument placeholders:
+
+```markdown
+---
+name: greet
+description: Greet the user with an Australian-style hello
+---
+
+# Greet
+
+Greet the user warmly in an Australian style.
+```
+
+Invoking with extra text:
+
+```
+/greet say it in French
+```
+
+The skill instructions are sent first, then "say it in French" is passed as a follow-up user message. The agent sees both and can combine them — in this case, greeting in French with an Australian flair.
+
+## Skill locations
+
+Skills can be stored at two levels: project-level (accessible only within that project) and user-level (accessible from any project).
+
+### Project skills
+
+Project skills live in your repository and are available when you're working in that project. We recommend storing them at your project root, but skills in subdirectories are also discovered when you're working within that subdirectory. This is useful for monorepos with separate `./frontend` and `./backend` directories.
+
+Store them in any of these directories:
+
+* **`.agents/skills/`** (recommended)
+* **`.warp/skills/`**
+* **`.claude/skills/`**
+* **`.codex/skills/`**
+* **`.cursor/skills/`**
+* **`.gemini/skills/`**
+* **`.copilot/skills/`**
+* **`.factory/skills/`**
+* **`.github/skills/`**
+* **`.opencode/skills/`**
+
+Each skill must be in its own subdirectory with a `SKILL.md` file. Any supporting files (scripts, templates, configs) should be referenced in `SKILL.md` so the Agent knows they exist:
+
+<FileTree>
+- your-project/
+  - .agents/
+    - skills/
+      - add-feature-flag/
+        - SKILL.md
+      - run-migrations/
+        - SKILL.md
+  - .claude/
+    - skills/
+      - review-code/
+        - SKILL.md
+  - .github/
+    - skills/
+      - create-release/
+        - SKILL.md
+</FileTree>
+
+:::note
+Warp scans all supported skill directory names in your project root, allowing you to maintain skills compatible with multiple AI coding tools in the same repository.
+:::
+
+### Root directory skills (global)
+
+Root directory skills are stored in your home directory and are available across all projects on your machine. These are useful for personal workflows, coding patterns, or procedures you use regardless of the specific project.
+
+Store global skills in any of these directories in your home folder:
+
+* **`~/.agents/skills/`** (recommended)
+* **`~/.warp/skills/`**
+* **`~/.claude/skills/`**
+* **`~/.codex/skills/`**
+* **`~/.cursor/skills/`**
+* **`~/.gemini/skills/`**
+* **`~/.copilot/skills/`**
+* **`~/.factory/skills/`**
+* **`~/.github/skills/`**
+* **`~/.opencode/skills/`**
+
+The directory structure is the same as project skills:
+
+<FileTree>
+- `~/.agents/`
+  - skills/
+    - git-workflow/
+      - SKILL.md
+    - code-review/
+      - SKILL.md
+</FileTree>
+
+### Project vs Root directory skills
+
+Understanding when to use each level:
+
+**Project skills** are best for:
+
+* Project-specific workflows (deployment, testing, migrations)
+* Team-shared procedures and standards
+* Repository-specific automation and tooling
+* Domain-specific patterns for that codebase
+
+**Root directory skills** are best for:
+
+* Personal coding preferences and patterns
+* General-purpose workflows used across all projects
+* Cross-project automation (git workflows, documentation templates)
+* Professional standards you apply everywhere
+
+## Creating skills
+
+### Step 1: Choose a location
+
+Decide whether your skill should be:
+
+* **Project-specific** - Place it in one of your project's skill directories (`.agents/skills/`, `.warp/skills/`, `.claude/skills/`, etc.)
+* **Global** - Place it in one of your home directory's skill folders (`~/.agents/skills/`, `~/.warp/skills/`, `~/.claude/skills/`, etc.)
+
+### Step 2: Create the directory structure
+
+Create a subdirectory for your skill with a descriptive name:
+
+```bash
+mkdir -p .agents/skills/my-new-skill
+```
+
+### Step 3: Write the skill file
+
+Create `SKILL.md` in your skill directory:
+
+```bash
+touch .agents/skills/my-new-skill/SKILL.md
+```
+
+### Step 4: Add content
+
+Write your skill with clear instructions:
+
+```markdown
+---
+name: my-new-skill
+description: One-line description of what this skill does
+---
+
+# My New Skill
+
+## When to use
+Explain the scenarios where this skill is helpful.
+
+## Instructions
+1. First step the Agent should take
+2. Second step with specific details
+3. Continue with clear, actionable steps
+
+## Important notes
+- Any constraints or requirements
+- Common pitfalls to avoid
+```
+
+## Skills with supporting files
+
+Skills can include supporting files like scripts, templates, or configuration files. Place these files in the same directory as your `SKILL.md`:
+
+<FileTree>
+- .agents/skills/
+  - check-broken-links/
+    - SKILL.md
+    - `check_links.py` Supporting script
+    - config.yaml Configuration file
+</FileTree>
+
+In your skill instructions, reference these files using relative paths. For example, in your `SKILL.md`:
+
+```
+## Running the check
+
+From the project root:
+
+python3 .agents/skills/check-broken-links/check_links.py --internal-only
+```
+
+This pattern is useful for:
+
+* **Automation scripts** - Python, shell, or Node scripts that perform complex tasks
+* **Templates** - Boilerplate files the Agent can copy and customize
+* **Configuration** - Default settings or schemas the skill references
+
+## Managing skills
+
+### Viewing available skills
+
+Ask the Agent what skills are available:
+
+```
+What skills do I have?
+```
+
+The Agent lists all discovered skills with their names and descriptions. This includes skills from all supported directories in both your current project and your home directory.
+
+### Editing skills
+
+Use the [`/open-skill`](/agent-platform/capabilities/slash-commands/) slash command to modify existing skills:
+
+```
+/open-skill
+```
+
+This opens an interactive menu where you can:
+
+* Browse project and root directory skills
+* See which directory each skill is located in
+* Open the skill file in your editor
+
+### Best practices
+
+* **Write clear descriptions** - The description is how Agents decide whether to use your skill
+* **Be specific in instructions** - Include exact file paths, command syntax, and expected formats
+* **Include examples** - Show concrete use cases to help Agents understand intent
+* **Keep skills focused** - Each skill should do one thing well
+* **Use consistent naming** - Follow a naming convention like `verb-noun` (e.g., `add-feature-flag`, `run-migrations`)
+* **Version control your skills** - Commit project skills to your repo so the whole team benefits
+
+## Pre-built skills
+
+Warp maintains a public collection of ready-to-use skills in the [warpdotdev/oz-skills](https://github.com/warpdotdev/oz-skills) repository. You can browse these skills for inspiration, copy them directly into your project's `.agents/skills/` directory, or adapt them to fit your team's workflows.
+
+These same skills also appear as suggested agents in the [Oz web app](/agent-platform/cloud-agents/oz-web-app/), where you can run them directly in the cloud.
+
+## Invoking skills with a prompt
+
+You can pass additional context or instructions to a skill when invoking it with a slash command.
+
+**Using slash commands with a prompt:**
+
+* `/deploy push the latest changes to staging` — Invokes the deploy skill with additional instructions to target staging
+* `/code-review focus on error handling and edge cases` — Invokes the code-review skill with guidance on what to prioritize
+
+This is useful when you want to reuse a skill's workflow but tailor the execution to a specific situation without modifying the skill itself.
+
+## Running agents from skills
+
+Skills can be used with both local and [cloud agents](/agent-platform/cloud-agents/overview/) to create reusable, automated workflows. When running an agent via the CLI, web app, or API, you can specify a skill to provide the base instructions for the agent.
+
+For a complete guide to running skill-based agents—including CLI usage, the Oz web app, scheduling, skill discovery, and API integration—see [Skills as Agents](/agent-platform/cloud-agents/skills-as-agents/).
+
+## Related features
+
+* [**Rules**](/agent-platform/capabilities/rules/) - Set persistent guidelines and constraints for Agent behavior
+* [**MCP Servers**](/agent-platform/capabilities/mcp/) - Expose external data sources and tools to Agents
+* [**Cloud Agents**](/agent-platform/cloud-agents/overview/) - Run Agents in the cloud on schedules or triggers
+* [**Agent Profiles**](/agent-platform/capabilities/agent-profiles-permissions/) - Control Agent permissions and autonomy
+
+---
+
+## Next steps
+
+Skills become even more powerful when you automate and share them.
+
+* **[Scheduled Agents quickstart](/agent-platform/cloud-agents/triggers/scheduled-agents-quickstart/)** - Run a skill on a recurring cron schedule for tasks like weekly dependency checks or daily code cleanup.
+* **[Integrations quickstart](/agent-platform/cloud-agents/integrations/quickstart/)** - Trigger skills from Slack or Linear so your team can invoke agent workflows from the tools they already use.

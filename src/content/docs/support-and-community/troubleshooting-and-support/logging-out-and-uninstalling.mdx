@@ -1,0 +1,159 @@
+---
+title: "Logging out & uninstalling"
+description: >-
+  How to log out from Warp, and how to uninstall Warp.
+---
+import DemoVideo from '@components/DemoVideo.astro';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+## Logging out
+
+You can log out of Warp through:
+
+* **Settings** > **Account**, with the "Log out" button
+* [Command Palette](/terminal/command-palette/), with the "Log out" item.
+
+<DemoVideo src="/assets/support-and-community/logout.mp4" label="Logout Demo" />
+
+### Known issues:
+
+1. When you log out, you will lose all running processes and all unsaved objects.
+2. When you log out and log in to Warp with another account, the following preferences will be preserved from the original account:
+   1. Theme
+   2. Keybindings
+   3. Settings (e.g. autosuggestion, notifications, font size, welcome tips status)
+3. Whenever you log in to Warp, you will receive the onboarding survey.
+
+## Uninstalling Warp
+
+Removing Warp from your computer involves uninstalling Warp and then removing any files or data.
+
+:::note
+If you're using Warp Preview, replace "Warp-Stable" with "Warp-Preview" in the commands below (e.g., `defaults delete dev.warp.Warp-Preview`).
+:::
+
+<Tabs>
+  <TabItem label="macOS">
+    **Uninstalling Warp by dmg**
+
+    * Remove Warp with `sudo rm -r /Applications/Warp.app`
+    * Open **Finder** > **Applications**, right-click on Warp, and select "Move to Trash"
+
+    **Uninstalling Warp by Homebrew**
+
+    * Remove Warp with `brew uninstall warp`
+
+    **Removing Warp settings, files, logs, and database**
+
+    ```bash
+    # Remove Warp settings defaults
+    defaults delete dev.warp.Warp-Stable
+    # Remove Warp logs
+    sudo rm -r $HOME/Library/Logs/warp.log
+    # Remove Warp database, Codebase Context, and MCP logs
+    sudo rm -r "$HOME/Library/Group Containers/2BBY89MBSN.dev.warp/Library/Application Support/dev.warp.Warp-Stable"
+    # Remove Warp user files, themes, and launch configurations
+    sudo rm -r $HOME/.warp
+    # Note: Removing $HOME/.warp will delete files for both Stable and Preview.
+    # If you wish to delete it all, then: sudo rm -r $HOME/.warp
+    ```
+
+    **For Warp Preview users:**
+
+    ```bash
+    # Remove Warp Preview settings defaults
+    defaults delete dev.warp.Warp-Preview
+    # Remove Warp Preview logs
+    sudo rm -r $HOME/Library/Logs/warp_preview.log
+    # Remove Warp Preview database, Codebase Context, and MCP logs
+    sudo rm -r "$HOME/Library/Group Containers/2BBY89MBSN.dev.warp/Library/Application Support/dev.warp.Warp-Preview"
+    # Note: Removing $HOME/.warp will delete files for both Preview and Stable. 
+    # If you wish to delete it all, then: sudo rm -r $HOME/.warp
+    ```
+  </TabItem>
+  <TabItem label="Windows">
+    **Uninstalling Warp by WinGet**
+
+    ```powershell
+    winget uninstall Warp.Warp
+    ```
+
+    **Uninstalling Warp installed by Installer**
+
+    * Search for "Installed apps" section of the Control Panel.
+    * Search for and Uninstall the Warp application
+
+    **Removing Warp settings, files, logs, and database**
+
+    ```powershell
+    # Remove Warp settings in the Windows Registry
+    Remove-Item -Path "HKCU:\Software\Warp.dev\Warp" -Recurse -Force
+    # Remove Warp user files, logs, database, Codebase Context, and MCP logs
+    Remove-Item -Path "$env:LOCALAPPDATA\warp\Warp" -Recurse -Force
+    # Remove Warp themes and launch configurations
+    Remove-Item -Path "$env:APPDATA\warp\Warp" -Recurse -Force
+    ```
+
+    **For Warp Preview users:**
+
+    ```powershell
+    # Remove Warp Preview settings in the Windows Registry
+    Remove-Item -Path "HKCU:\Software\Warp.dev\Warp-Preview" -Recurse -Force
+    # Remove Warp Preview user files, logs, database, Codebase Context, and MCP logs
+    Remove-Item -Path "$env:LOCALAPPDATA\warp\Warp-Preview" -Recurse -Force
+    # Remove Warp Preview themes and launch configurations
+    Remove-Item -Path "$env:APPDATA\warp\Warp-Preview" -Recurse -Force
+    ```
+  </TabItem>
+  <TabItem label="Linux">
+    **Uninstalling Warp by package manager**
+
+    ```bash
+    # apt uninstall
+    sudo apt remove warp-terminal
+    # dnf uninstall
+    sudo dnf remove warp-terminal
+    # zypper uninstall
+    sudo zypper remove warp-terminal
+    # pacman uninstall
+    sudo pacman -R warp-terminal
+    ```
+
+    * Uninstall Warp using the same package manager that you used to [install](/getting-started/quickstart/installation-and-setup/) it.
+
+    **Removing Warp settings, files, logs, and database**
+
+    ```bash
+    # Remove Warp settings files
+    rm -r ${XDG_CONFIG_HOME:-$HOME/.config}/warp-terminal
+    # Remove Warp user files, logs, database, Codebase Context, and MCP logs
+    rm -r ${XDG_STATE_HOME:-$HOME/.local/state}/warp-terminal
+    # Remove Warp themes and launch configurations
+    rm -r ${XDG_STATE_HOME:-$HOME/.local/share}/warp-terminal
+    ```
+
+    **For Warp Preview users:**
+
+    ```bash
+    # apt uninstall
+    sudo apt remove warp-terminal-preview
+    # dnf uninstall
+    sudo dnf remove warp-terminal-preview
+    # zypper uninstall
+    sudo zypper remove warp-terminal-preview
+    # pacman uninstall
+    sudo pacman -R warp-terminal-preview
+    ```
+
+    * Uninstall Warp Preview using the same package manager that you used to install it.
+
+    ```bash
+    # Remove Warp Preview settings files
+    rm -r ${XDG_CONFIG_HOME:-$HOME/.config}/warp-terminal-preview
+    # Remove Warp Preview user files, logs, database, Codebase Context, and MCP logs
+    rm -r ${XDG_STATE_HOME:-$HOME/.local/state}/warp-terminal-preview
+    # Remove Warp Preview themes and launch configurations
+    rm -r ${XDG_STATE_HOME:-$HOME/.local/share}/warp-terminal-preview
+    ```
+  </TabItem>
+</Tabs>

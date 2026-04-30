@@ -1,0 +1,93 @@
+---
+title: Session Restoration
+description: >-
+  Restore your windows, tabs, panes, and recent Blocks automatically when you
+  relaunch Warp.
+---
+import DemoVideo from '@components/DemoVideo.astro';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+## What is it
+
+Session restoration allows you to quickly pick up where you left off in your previous terminal session.
+
+## How to access Session Restoration
+
+* Session Restoration comes enabled by default in Warp.
+
+:::note
+On Linux, opening windows at a specific position is not supported in Wayland.
+:::
+
+* You can disable Session Restoration by going to **Settings** > **Features**, then toggling off `Restore windows, tabs, and panes on startup`.
+
+:::caution
+Toggling off Session Restoration will not clear the [SQLite database](/terminal/sessions/session-restoration/#session-restoration-database); however, Warp will stop recording new output.
+:::
+
+## How session restoration works
+
+<DemoVideo src="/assets/terminal/sessions-block_restoration.mp4" label="Session Restoration Demo" />
+
+#### Session Restoration database
+
+Warp saves the data from your previous session's windows, tabs, and panes to a SQLite database on your computer, and every time you quit the app, this data is overwritten by your latest session. You can open the database directly and inspect its full contents like so:
+
+<Tabs>
+  <TabItem label="macOS">
+    ```bash
+    sqlite3 "$HOME/Library/Group Containers/2BBY89MBSN.dev.warp/Library/Application Support/dev.warp.Warp-Stable/warp.sqlite"
+    ```
+  </TabItem>
+  <TabItem label="Windows">
+    ```powershell
+    sqlite3 $env:LOCALAPPDATA\warp\Warp\data\warp.sqlite
+    ```
+  </TabItem>
+  <TabItem label="Linux">
+    ```bash
+    sqlite3 "${XDG_STATE_HOME:-$HOME/.local/state}/warp-terminal/warp.sqlite"
+    ```
+  </TabItem>
+</Tabs>
+
+**How to clear the Session Restoration database**
+
+Sometimes, you may want to prevent a sensitive Block from being saved on your computer, or you may want to clear blocks from a machine entirely.
+
+:::note
+This interferes with the running session's ability to save content and may require you close Warp before running the database removal commands.
+:::
+
+:::danger
+The following guidance is destructive and will delete any sessions and block history.
+:::
+
+There are two ways to do this:
+
+<Tabs>
+  <TabItem label="macOS">
+    * Clear the blocks from your running Warp session with `CMD-K`.
+    * Delete the SQLite file entirely with the following command:
+
+    ```bash
+    rm -f "$HOME/Library/Group Containers/2BBY89MBSN.dev.warp/Library/Application Support/dev.warp.Warp-Stable/warp.sqlite"
+    ```
+  </TabItem>
+  <TabItem label="Windows">
+    * Clear the blocks from your running Warp session with `CTRL-SHIFT-K`.
+    * Delete the SQLite file entirely with the following command:
+
+    ```powershell
+    Remove-Item -Force $env:LOCALAPPDATA\warp\Warp\data\warp.sqlite
+    ```
+  </TabItem>
+  <TabItem label="Linux">
+    * Clear the blocks from your running Warp session with `CTRL-SHIFT-K`.
+    * Delete the SQLite file entirely with the following command:
+
+    ```bash
+    rm -f "${XDG_STATE_HOME:-$HOME/.local/state}/warp-terminal/warp.sqlite"
+    ```
+  </TabItem>
+</Tabs>
