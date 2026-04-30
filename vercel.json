@@ -2177,6 +2177,11 @@
       "statusCode": 308
     },
     {
+      "source": "/getting-started",
+      "destination": "/quickstart/",
+      "statusCode": 308
+    },
+    {
       "source": "/getting-started/account-and-login",
       "destination": "/getting-started/quickstart/installation-and-setup/",
       "statusCode": 308
