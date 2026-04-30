@@ -159,5 +159,14 @@ export default defineConfig({
 	],
 	adapter: vercel({
 		edgeMiddleware: true,
+		// Inject the Vercel Web Analytics + Speed Insights trackers. The
+		// `@vercel/analytics` and `@vercel/speed-insights` packages are
+		// already installed; the adapter is responsible for adding the
+		// `<script>` tags. Without these flags both Vercel dashboards stay
+		// empty (0 visitors / 0 RUM samples) even though the CSP in
+		// vercel.json allowlists va.vercel-scripts.com and
+		// vitals.vercel-insights.com.
+		webAnalytics: { enabled: true },
+		speedInsights: { enabled: true },
 	}),
 });
