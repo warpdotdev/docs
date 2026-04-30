@@ -2352,6 +2352,11 @@
       "statusCode": 308
     },
     {
+      "source": "/getting-started/what-is-warp",
+      "destination": "/",
+      "statusCode": 308
+    },
+    {
       "source": "/guide/ssh-guide",
       "destination": "/terminal/warpify/ssh/",
       "statusCode": 308
