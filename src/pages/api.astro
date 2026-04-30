@@ -98,6 +98,14 @@ const specJson = JSON.stringify(specObject);
           } catch (_e) {}
           apply(resolve(value === 'auto' ? '' : value));
         };
+        // Read-only sibling of __warpApplyTheme: returns the resolved
+        // 'dark' | 'light' value without touching the DOM or localStorage.
+        // Used by the body-top inline script to apply the body class as
+        // soon as <body> is parsed, and by Scalar's config sync script
+        // to compute `cfg.darkMode` independently of body-class state.
+        window.__warpResolveTheme = function () {
+          return resolve(read());
+        };
         // Re-resolve when the system preference changes, but only if
         // we're following it (stored value is empty / unknown).
         prefersDark.addEventListener('change', function () {
@@ -154,6 +162,22 @@ const specJson = JSON.stringify(specObject);
     </style>
   </head>
   <body>
+    <script is:inline>
+      // Apply `body.dark-mode` / `body.light-mode` synchronously, before
+      // any other body-level script runs (specifically, before the Scalar
+      // config sync script and Scalar's bundle below). The <head> script
+      // can't do this itself because `document.body` is null while <head>
+      // parses; without this top-of-body apply, body would have no class
+      // until DOMContentLoaded, Scalar would boot in light mode, the
+      // mirror MutationObserver would briefly flip `html[data-theme]` to
+      // `light`, and the page would visibly flash dark → light → dark.
+      (function () {
+        var resolved = (typeof window.__warpResolveTheme === 'function')
+          ? window.__warpResolveTheme()
+          : 'dark';
+        document.body.classList.add(resolved === 'dark' ? 'dark-mode' : 'light-mode');
+      })();
+    </script>
     <WarpTopbar crumb="API Reference" />
     <script
       is:inline
@@ -278,9 +302,18 @@ const specJson = JSON.stringify(specObject);
     <script is:inline>
       // Sync Scalar's `darkMode` config to the resolved theme before the
       // Scalar bundle reads `data-configuration`. This keeps Scalar's
-      // internal `useColorMode` state aligned with the body class our
-      // <head> script already set, eliminating the one-frame mismatch
-      // where Scalar would briefly mount in its own default.
+      // internal `useColorMode` state aligned with the resolved theme,
+      // eliminating the one-frame mismatch where Scalar would briefly
+      // mount in its own default.
+      //
+      // We read directly from `__warpResolveTheme()` (which resolves
+      // `localStorage['starlight-theme']` + `prefers-color-scheme`)
+      // rather than from `document.body.classList`, because the body
+      // class is intentionally not a reliable boot-time source: the
+      // <head> script can't apply it before <body> exists, and the
+      // top-of-body apply runs in the same parser frame as us. Reading
+      // localStorage decouples Scalar's boot value from any DOM apply
+      // ordering, so dark-mode users never see a transient light boot.
       (function () {
         var el = document.getElementById('api-reference');
         if (!el) return;
@@ -288,7 +321,10 @@ const specJson = JSON.stringify(specObject);
         if (!raw) return;
         try {
           var cfg = JSON.parse(raw);
-          cfg.darkMode = document.body.classList.contains('dark-mode');
+          var resolved = (typeof window.__warpResolveTheme === 'function')
+            ? window.__warpResolveTheme()
+            : (document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+          cfg.darkMode = resolved === 'dark';
           el.setAttribute('data-configuration', JSON.stringify(cfg));
         } catch (_e) {
           // Malformed config — let Scalar fall back to its own default.
