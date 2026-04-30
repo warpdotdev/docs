@@ -2,7 +2,7 @@
 title: Sending feedback and logs
 description: >-
   Send Warp feedback, bug reports, and feature requests, and gather logs,
-  crash reports, CPU samples, and AI debugging IDs to attach to them.
+  crash reports, CPU samples, and AI conversation IDs to attach to them.
 ---
 import DemoVideo from '@components/DemoVideo.astro';
 import { Tabs, TabItem } from '@astrojs/starlight/components';
@@ -67,7 +67,7 @@ Whether you use the `/feedback` slash command or file an issue manually, a good 
 * **What did you expect?** Describe the behavior you expected instead.
 * **How do we reproduce it?** List numbered steps when possible. If you can't reproduce the issue reliably, mention that too.
 * **What version of Warp are you on?** `/feedback` fills this in automatically; for manual reports, copy it from **Settings** > **Account**.
-* **Logs, screenshots, or debugging IDs.** See [Gathering Warp Logs](#gathering-warp-logs), [Collecting crash reports on macOS](#collecting-crash-reports-on-macos), or [Gathering AI debugging ID](#gathering-ai-debugging-id) below.
+* **Logs, screenshots, or conversation IDs.** See [Gathering Warp Logs](#gathering-warp-logs), [Collecting crash reports on macOS](#collecting-crash-reports-on-macos), or [Gathering AI conversation ID](#gathering-ai-conversation-id) below.
 
 See the [Slash Commands reference](/agent-platform/capabilities/slash-commands/) for the full list of commands available in Warp.
 
@@ -284,9 +284,9 @@ Collect a sample using the steps for your platform and attach it to a new [GitHu
   </TabItem>
 </Tabs>
 
-## Gathering AI debugging ID
+## Gathering AI conversation ID
 
-To gather the debugging ID, `RIGHT-CLICK` on the AI conversation block in question and select "Copy conversation ID", then paste that into the [bug report](/support-and-community/troubleshooting-and-support/sending-us-feedback/#sending-warp-feedback) that you submit so that our team can investigate the issue.
+To gather the conversation ID, `RIGHT-CLICK` on the AI conversation block in question and select "Copy conversation ID", then paste that into the [bug report](/support-and-community/troubleshooting-and-support/sending-us-feedback/#sending-warp-feedback) that you submit so that our team can investigate the issue.
 
 Whenever there is an error in the Agent Conversation, there will also be an option to directly copy the conversation ID for the bug report.
 
