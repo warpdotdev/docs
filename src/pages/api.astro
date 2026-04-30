@@ -128,6 +128,30 @@ const specJson = JSON.stringify(specObject);
         else document.addEventListener('DOMContentLoaded', startMirror);
       })();
     </script>
+    <style>
+      /* First-paint canvas color, keyed off the `data-theme` attribute set
+         synchronously by the script above. Without this, `/api` flashes
+         white before mounting because Scalar's themed `customCss` (which
+         keys off `body.dark-mode` / `body.light-mode`) only ships inside
+         the Scalar bundle loaded mid-`<body>`, so nothing paints the
+         page background until that bundle parses + mounts.
+
+         Values mirror `--scalar-background-1` from the customCss block
+         below. If you change the canvas there (or in custom.css), update
+         these in lockstep so the first-paint color matches what Scalar
+         applies a few frames later. */
+      html[data-theme="dark"] {
+        background-color: #121212;
+        color-scheme: dark;
+      }
+      html[data-theme="light"] {
+        background-color: #ffffff;
+        color-scheme: light;
+      }
+      body {
+        background-color: inherit;
+      }
+    </style>
   </head>
   <body>
     <WarpTopbar crumb="API Reference" />
