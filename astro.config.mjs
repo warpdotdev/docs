@@ -157,7 +157,5 @@ export default defineConfig({
 		}),
 		docsMarkdownIntegration(),
 	],
-	adapter: vercel({
-		edgeMiddleware: true,
-	}),
+	adapter: vercel(),
 });
