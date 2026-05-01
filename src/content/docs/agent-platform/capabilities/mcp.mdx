@@ -95,25 +95,46 @@ To add a multiple MCP servers, you can click the **+ Add** button then paste in 
 
 ### File-based MCP servers
 
-Warp detects MCP server configurations managed by supported third-party agents and can automatically spawn them alongside your manually configured servers.
+Warp detects MCP server configurations saved in supported config files and can spawn them alongside your manually configured servers.
 
-To enable, go to **Settings** > **Agents** > **MCP servers** and toggle **File-based MCP Servers** on.
+Warp-managed file-based servers use `.warp/.mcp.json` files. The built-in `/add-mcp-server` skill can help create or update these files for you:
+
+* **Global:** `~/.warp/.mcp.json`
+* **Project-scoped:** `{repo_root}/.warp/.mcp.json`
+
+Global Warp servers are detected and auto-spawned by default, even if the third-party auto-spawn setting is off.
+
+To auto-spawn supported global servers from third-party agents, go to **Settings** > **Agents** > **MCP servers** and toggle **Auto-spawn servers from third-party agents** on.
 
 ![File-based MCP Servers toggle](/assets/agent-platform/file-based-mcp-toggle.gif)
 
-When enabled:
+When this setting is enabled:
 
-* **Global/user-scoped servers** - spawned on Warp startup and available in any session.
-* **Project-scoped servers** - spawned when you enter a repo containing a supported config file, and available within that project only.
+* **Global third-party servers** are spawned on Warp startup and available in any session.
+* **Project-scoped servers** are detected when you enter a repo containing a supported config file, but are not spawned automatically.
 
-Supported providers:
-
-* **Claude Code** - reads user-scoped config (`~/.claude.json`) and project-scoped config (`.mcp.json` at project root). See [user scope](https://code.claude.com/docs/en/mcp#user-scope) and [project scope](https://code.claude.com/docs/en/mcp#project-scope) in the Claude Code docs.
-* **Codex** - reads global config (`~/.codex/config.toml`) and project-scoped config (`.codex/config.toml` at project root). See [Codex MCP docs](https://developers.openai.com/codex/mcp/#connect-codex-to-an-mcp-server).
+Project-scoped servers from any provider, including Warp, must be toggled on individually from the MCP servers page. This is intentional: cloned repositories can contain MCP config files that run arbitrary commands, so Warp never starts project-scoped file-based servers automatically. Project-scoped servers started from the MCP servers page are session-scoped; after restarting Warp, toggle them on again if you still trust the repo and want to use those tools.
 
 :::note
 File-based servers that require OAuth show an authentication modal on their first spawn. Credentials are saved for future spawns, the same as manually configured MCP servers.
 :::
+
+Supported providers:
+
+* **Warp** - reads global config (`~/.warp/.mcp.json`) and project-scoped config (`.warp/.mcp.json` at project root). Global Warp servers auto-spawn by default. Use `/add-mcp-server` in Agent Mode to add or update Warp-managed MCP config files.
+* **Claude Code** - reads user-scoped config (`~/.claude.json`) and project-scoped config (`.mcp.json` at project root). Global Claude Code servers auto-spawn only when **Auto-spawn servers from third-party agents** is enabled. See [user scope](https://code.claude.com/docs/en/mcp#user-scope) and [project scope](https://code.claude.com/docs/en/mcp#project-scope) in the Claude Code docs.
+* **Codex** - reads global config (`~/.codex/config.toml`) and project-scoped config (`.codex/config.toml` at project root). Global Codex servers auto-spawn only when **Auto-spawn servers from third-party agents** is enabled. See [Codex MCP docs](https://developers.openai.com/codex/mcp/#connect-codex-to-an-mcp-server).
+* **Other agents** - reads global config (`~/.agents/.mcp.json`) and project-scoped config (`.agents/.mcp.json` at project root). Global servers from this provider auto-spawn only when **Auto-spawn servers from third-party agents** is enabled.
+
+Warp recognizes MCP servers under the `mcpServers`, `servers`, `mcp.servers`, and `mcp_servers` wrapper keys in JSON config files. Codex configs are read from TOML under `mcp_servers`.
+
+#### Suggested demos
+
+Add short demos for these flows:
+
+* Using `/add-mcp-server` to create a global Warp MCP server, then restarting Warp to show it auto-spawns by default.
+* Enabling **Auto-spawn servers from third-party agents** and showing a global Claude Code or Codex MCP server start automatically.
+* Opening a cloned repo with a project-scoped MCP config and showing that the server appears under the relevant **Detected from** section but must be toggled on manually after each restart.
 
 ### Managing MCP servers
 
