@@ -278,7 +278,9 @@
 	min-width: 0;
 	height: 2.75rem;
 	border: 1px solid var(--sl-color-gray-5);
-	border-radius: var(--sl-radius-md);
+	/* Matches the `--sl-radius-sm` (4px) chrome-control rule shared with
+	   every Search/Ask/Copy trigger and the Pagefind input. */
+	border-radius: var(--sl-radius-sm);
 	background: var(--sl-color-black);
 	color: var(--sl-color-white);
 	padding: 0 0.875rem;
@@ -303,7 +305,9 @@
 	height: 2.75rem;
 	padding: 0;
 	border: 1px solid var(--sl-color-text-accent);
-	border-radius: var(--sl-radius-md);
+	/* Matches the `--sl-radius-sm` (4px) chrome-control rule, paired with
+	   the form input on the same row. */
+	border-radius: var(--sl-radius-sm);
 	background: var(--sl-color-text-accent);
 	color: var(--sl-color-black);
 	font: inherit;
