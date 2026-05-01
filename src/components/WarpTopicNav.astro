@@ -20,11 +20,13 @@
 //     inside the visible glyph range — geometric centering then equals
 //     optical centering, no per-icon transform needed (Vercel/Stripe nav
 //     pattern).
-//   - Active link: accent-blue text + weight 600 + 2px accent underline
-//     anchored to the header's bottom edge so the line visually replaces the
-//     header hairline under the active item (Scalar pattern). Text and
-//     underline share `--sl-color-text-accent`, which auto-adapts to dark
-//     and light themes.
+//   - Active link: full-emphasis white text + weight 600 + 2px white
+//     underline anchored to the header's bottom edge so the line visually
+//     replaces the header hairline under the active item (Scalar pattern).
+//     Both pull from `--sl-color-white`, the brightest neutral text token —
+//     off-white in dark, near-black in light — so the active topic shares
+//     one grayscale visual language with the sidebar's active row
+//     (`warp-components.css` §1) per Warp brand guidelines.
 //   - No surrounding chip / box / bg — just type + icon
 import { Icon } from '@astrojs/starlight/components';
 
@@ -179,19 +181,19 @@ const CUSTOM_TOPIC_ICONS: Record<string, true> = {
 		border-radius: var(--sl-radius-xs);
 	}
 
-	/* Active link picks up the same accent blue as the underline so the
-	   text and indicator read as one unified active state, and it ties
-	   into the rest of the site's blue accents (links, callouts, focus
-	   ring). `--sl-color-text-accent` is theme-aware: a lighter blue in
-	   dark mode, a darker blue in light mode — both keep AA contrast
-	   against the nav background. Weight 600 reinforces it against the
-	   calmer gray-3 idle siblings. */
+	/* Active link uses the brightest neutral text token + weight 600 so
+	   it reads as obviously selected against the calmer gray-3 idle
+	   siblings without introducing a blue accent. `--sl-color-white` is
+	   theme-aware (off-white in dark, near-black in light) and matches
+	   the active text color used by the sidebar's selected row, so the
+	   two navigation surfaces share one grayscale active treatment per
+	   Warp brand guidelines. */
 	a[aria-current='page'] {
-		color: var(--sl-color-text-accent);
+		color: var(--sl-color-white);
 		font-weight: 600;
 	}
 
-	/* 2px accent underline that REPLACES the header's 1px bottom hairline
+	/* 2px neutral underline that REPLACES the header's 1px bottom hairline
 	   under the active topic (Scalar pattern). The outer Starlight
 	   `<header class="header">` owns the hairline
 	   (`border-bottom: 1px solid var(--sl-color-hairline-shade)`) and has
@@ -200,8 +202,10 @@ const CUSTOM_TOPIC_ICONS: Record<string, true> = {
 	   than directly on it. We anchor the indicator at the hairline by
 	   dropping it through the bottom padding (`-var(--sl-nav-pad-y)`) and the
 	   1px border (`-1px`); `height: 2px` then paints across both, leaving the
-	   blue accent as the only line at that position under the active tab.
-	   The remainder of the header keeps its hairline. */
+	   bar as the only line at that position under the active tab. The
+	   remainder of the header keeps its hairline. Color matches the active
+	   link text (`--sl-color-white`) so text and indicator read as one
+	   unified grayscale active state. */
 	a[aria-current='page']::after {
 		content: '';
 		position: absolute;
@@ -209,7 +213,7 @@ const CUSTOM_TOPIC_ICONS: Record<string, true> = {
 		right: 0;
 		bottom: calc(-1 * var(--sl-nav-pad-y) - 1px);
 		height: 2px;
-		background: var(--sl-color-text-accent);
+		background: var(--sl-color-white);
 	}
 
 	.warp-topic-nav__icon {
