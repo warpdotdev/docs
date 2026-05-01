@@ -10,10 +10,6 @@ Warp's **SSH extension** brings the local Warp experience to remote macOS and Li
 
 <VideoEmbed url="https://www.loom.com/share/466d88a1968842c68f66a3b66b94f146" title="SSH extension demo" />
 
-:::note
-The SSH extension is rolling out to Preview on macOS and Linux. Windows remote-host support and a few coding features (Code Review, LSP, Codebase Context) are still on the roadmap. See [Feature support over SSH](/code/ssh-feature-support/) for the current matrix.
-:::
-
 ## What you get over SSH
 
 Once the SSH extension is installed on a remote host, the following features work the same way they do locally:
@@ -23,7 +19,7 @@ Once the SSH extension is installed on a remote host, the following features wor
 * **Native file reads and code diffs** - The Agent reads files and applies edits through Warp's built-in diff tool. Code changes show up as inline diffs you can review and approve, instead of being applied via `sed` or other shell commands. See [Code diffs](/agent-platform/local-agents/code-diffs/).
 * **All core terminal features** - The input editor, blocks, command history, autosuggestions, and history search behave the same as in a local session.
 
-Further coding improvements - including Code Review, LSP, and Codebase Context over SSH - are actively in progress and will land in subsequent Preview releases.
+For a full breakdown of what works over SSH and what doesn't, see [Feature support over SSH](/code/ssh-feature-support/).
 
 ![Warp prompting to Warpify a freshly-connected SSH session.](../../../../assets/terminal/warpify_ssh_prompt.png)
 
