@@ -300,7 +300,11 @@ const claudeUrl = `https://claude.ai/new?q=${prompt}`;
     width: 100%;
     padding: 0.5rem 0.625rem;
     border: none;
-    border-radius: var(--sl-radius-md);
+    /* Matches the `--sl-radius-sm` (4px) chrome-control rule used by every
+       other clickable surface (Search/Ask/Copy triggers, sidebar nav rows,
+       Copy toast). The enclosing `.copy-dropdown-panel` keeps the 8px
+       overlay radius. */
+    border-radius: var(--sl-radius-sm);
     background: transparent;
     color: var(--sl-color-white);
     font-family: var(--sl-font);

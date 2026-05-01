@@ -930,15 +930,26 @@ site-search dialog::backdrop {
 
 /* Pagefind UI custom-property overrides. These cascade into Pagefind's own
    stylesheet (which authors all its surfaces against
-   `--pagefind-ui-background` / `--pagefind-ui-border` / `--pagefind-ui-tag`)
-   so we don't need to chase every internal class. The shared chrome
-   `--warp-control-*` ladder defined in §16 is the source of truth here. */
+   `--pagefind-ui-background` / `--pagefind-ui-border` / `--pagefind-ui-tag`
+   / `--pagefind-ui-border-radius`) so we don't need to chase every
+   internal class. The shared chrome `--warp-control-*` ladder defined in
+   §16 is the source of truth for color; corner radii follow the chrome
+   rule — every clickable control surface lands at `--sl-radius-sm` (4px),
+   matching the trigger button this modal opened from. The dialog frame
+   itself stays at the Starlight default 8px (overlay tier).
+
+   `--sl-search-corners` is Starlight's own knob for the result-card
+   corners (defaults to `0.3125rem` = 5px, between our `sm` and `md`
+   tokens, which never matches anything else). Pin it to `sm` so the
+   list rows match the input above them. */
 site-search #starlight__search {
   --pagefind-ui-background: var(--warp-control-bg);
   --pagefind-ui-border: var(--warp-control-border);
   --pagefind-ui-tag: var(--warp-control-border);
   --pagefind-ui-text: var(--sl-color-gray-2);
   --pagefind-ui-primary: var(--sl-color-white);
+  --pagefind-ui-border-radius: var(--sl-radius-sm);
+  --sl-search-corners: var(--sl-radius-sm);
 }
 
 /* Input focus border: Starlight's default flips `--pagefind-ui-border` to
