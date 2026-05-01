@@ -7,7 +7,11 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
-### 2026.04.29 (v0.2026.04.29.08.45)
+{/*
+TODO: Replace with the dated `### YYYY.MM.DD (vX.YYYY.MM.DD.HH.MM)` heading and version stamp once the Preview release ships. The `update-changelog` skill at `.warp/skills/update-changelog/` is the canonical path for filling this in from `channel-versions`. Until then, leaving the entry under a TBD heading so the build stays clean and a fabricated version can't get merged.
+*/}
+
+### TBD (Preview)
 
 **New features**
 
@@ -16,7 +20,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 **Improvements**
 
 * \[Preview] Completions and autosuggestions over SSH are now multiplexed through the SSH extension over a single connection. This eliminates the remote host's `MaxSessions` ceiling, lets generators run in parallel, and removes the occasional errors that the previous per-command SSH session approach injected into blocks.
-* Added the `warpify.ssh.ssh_extension_install_mode` setting (`always_ask`, `always_install`, `never_install`) under **Settings** > **Features** > **Warpify** to control how the SSH extension install prompt behaves. See [All settings reference](/terminal/settings/all-settings/#ssh).
+* Added the `warpify.ssh.ssh_extension_install_mode` setting (`always_ask`, `always_install`, `never_install`) under **Settings** > **Warpify** to control how the SSH extension install prompt behaves. See [All settings reference](/terminal/settings/all-settings/#ssh).
 
 :::note
 Code Review, LSP, and Codebase Context support over SSH are still in progress and will land in subsequent Preview releases.
