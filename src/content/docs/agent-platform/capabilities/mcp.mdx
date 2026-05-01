@@ -126,16 +126,6 @@ Supported providers:
 * **Codex** - reads global config (`~/.codex/config.toml`) and project-scoped config (`.codex/config.toml` at project root). Global Codex servers auto-spawn only when **Auto-spawn servers from third-party agents** is enabled. See [Codex MCP docs](https://developers.openai.com/codex/mcp/#connect-codex-to-an-mcp-server).
 * **Other agents** - reads global config (`~/.agents/.mcp.json`) and project-scoped config (`.agents/.mcp.json` at project root). Global servers from this provider auto-spawn only when **Auto-spawn servers from third-party agents** is enabled.
 
-Warp recognizes MCP servers under the `mcpServers`, `servers`, `mcp.servers`, and `mcp_servers` wrapper keys in JSON config files. Codex configs are read from TOML under `mcp_servers`.
-
-#### Suggested demos
-
-Add short demos for these flows:
-
-* Using `/add-mcp-server` to create a global Warp MCP server, then restarting Warp to show it auto-spawns by default.
-* Enabling **Auto-spawn servers from third-party agents** and showing a global Claude Code or Codex MCP server start automatically.
-* Opening a cloned repo with a project-scoped MCP config and showing that the server appears under the relevant **Detected from** section but must be toggled on manually after each restart.
-
 ### Managing MCP servers
 
 After MCP servers are registered in Warp, you can **Start** or **Stop** them from the MCP servers page. Each running server will have a list of available tools and resources.
