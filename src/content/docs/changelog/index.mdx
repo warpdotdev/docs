@@ -7,6 +7,58 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2026.04.27 (v0.2026.04.27.15.32)
+
+**New features**
+
+* Warp is now open source.
+* Warp is now configurable via a TOML settings file. Access the file from the settings page or ask Warp's agent to update settings for you.
+
+**Improvements**
+
+* Add setting to disable suggested rules.
+* Added a `/feedback` slash command for submitting feedback about Warp.
+* The `oz run get` and `oz run list` commands now support JSON output, along with filtering via the `--jq` flag.
+* Feedback from the user menu, Help menu, Resource Center footer, and command palette now opens a guided `/feedback` agent flow when AI is available, and falls back to the GitHub issue form otherwise.
+* Middle-clicking a vertical tab now closes it, matching horizontal tabs.
+* Slash commands in the terminal are now available even when AI is disabled.
+* The network log viewer now opens as an in-app read-only pane backed by a 50-item in-memory buffer instead of writing `warp_network.log` to disk.
+* Added a "Check now" button next to the "Last seen by agent" indicator for long-running commands, letting users immediately deliver a fresh snapshot to the agent without waiting for its poll timer.
+* The agent mode input placeholder now reflects conversation state: "Warp anything" for new conversations, "Steer the running agent" while streaming, and "Ask a follow up" once finished.
+* The `/feedback` skill now supports attaching screenshots. When you run `/feedback` with one or more images attached, Warp drafts the issue with per-screenshot captions and opens GitHub's new-issue page so you can drop the images into the issue body before submitting.
+* Pasting an absolute file path (e.g. from "Copy file path" in the Code Review pane) into the Command Palette file picker now correctly finds and opens the file.
+
+**Bug fixes**
+
+* Fixed wide Markdown table scrollbars in block list responses rendering over the terminal input.
+* Fixed vertical tabs close button appearing on the left side when the panel is positioned on the right.
+* Onboarding autonomy selections (Full / Partial / None) now correctly apply to the default execution profile, and existing users' stored cloud profiles are preserved when logging in at the end of onboarding.
+* Fixed a crash that could occur in the project explorer while file-tree metadata was being updated.
+* Fixed issue where clicks in the vertical tabs settings panel were being ignored.
+* Fixed "View in Oz" button in the conversation details panel not responding to clicks.
+* \[Windows] WSL panes in restored sessions have the same PWD when you exited.
+* Restored the API Keys (BYOK) and AWS Bedrock sections in the Agents > Oz settings subpage.
+* Fixed a small memory leak on macOS when reading or writing user preferences.
+* Usernames with an apostrophe no longer break PowerShell sessions.
+* Fixed a hang that could occur when exiting an SSH session with the remote-server feature enabled.
+* Fixed a crash triggered by terminal output containing very long runs of zero-width characters (such as steganographic ZWJ/ZWNJ sequences embedded in HTML piped through the terminal), which could also reproduce at startup via session restoration if the offending output had been persisted into a block.
+* Fixed a small per-call memory leak triggered when opening a file in its default macOS application.
+* Fixed unreadable text in the CLI agent rich input when running alt-screen CLI agents, increasing the contrast against background (e.g. OpenCode).
+* Fixed a one-time startup memory leak in the macOS Services submenu setup.
+* Fixed a per-window memory leak of the window delegate in the macOS ObjC bridge (window.m).
+* Fixed file tree sidebar incorrectly showing remote SSH session directories in local tabs.
+* Fixed a keycode-dictionary per-bucket over-retain in the macOS ObjC bridge (keycode.m).
+* Fixed a small per-window memory leak in the macOS ObjC bridge (host_view.m).
+* Fixed a per-hotkey memory leak when registering global hotkeys on macOS.
+* Tab title no longer changes to an agent-executed command name (e.g. cargo) during agent validation steps.
+* \[macOS] Fixed a memory leak on image pasting and app-icon changes.
+* Reopening a closed cloud-mode tab within the undo-close grace period now restores a live view of the cloud conversation instead of a frozen snapshot with a "session ended" banner.
+* Fixed privacy settings for logged-out users not persisting to the settings file.
+
+**Oz updates**
+
+* The feedback skill is now available on stable — turn rough app feedback into filed GitHub issues directly from Warp.
+
 ### 2026.04.22 (v0.2026.04.22.08.46)
 
 **New features**
