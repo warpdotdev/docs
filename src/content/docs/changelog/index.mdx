@@ -7,21 +7,6 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
-### TBD (Preview)
-
-**New features**
-
-* \[Preview] Warp's new **SSH extension** brings the local Warp experience to remote macOS and Linux hosts. On first connect, choose **Install Warp's SSH extension** to enable a real file tree backed by the remote filesystem and have the coding agent apply edits via Warp's native diff tool instead of `sed`. Choose **Continue without installing** to fall back to the existing tmux-powered Warpification path. See [SSH with Warp features](/terminal/warpify/ssh/) and [Feature support over SSH](/code/ssh-feature-support/).
-
-**Improvements**
-
-* \[Preview] Completions and autosuggestions over SSH are now multiplexed through the SSH extension over a single connection. This eliminates the remote host's `MaxSessions` ceiling, lets generators run in parallel, and removes the occasional errors that the previous per-command SSH session approach injected into blocks.
-* Added the `warpify.ssh.ssh_extension_install_mode` setting (`always_ask`, `always_install`, `never_install`) under **Settings** > **Warpify** to control how the SSH extension install prompt behaves. See [All settings reference](/terminal/settings/all-settings/#ssh).
-
-:::note
-Code Review, LSP, and Codebase Context support over SSH are still in progress and will land in subsequent Preview releases.
-:::
-
 ### 2026.04.22 (v0.2026.04.22.08.46)
 
 **New features**
