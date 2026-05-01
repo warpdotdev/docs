@@ -29,9 +29,9 @@
 		display: inline-flex;
 		align-items: center;
 		gap: 0.375rem;
-		border: 1px solid var(--warp-control-border, #414651);
+		border: 1px solid var(--warp-control-border, #404040);
 		border-radius: var(--sl-radius-sm);
-		background: var(--warp-control-bg, #181d27);
+		background: var(--warp-control-bg, #1e1e1d);
 		color: var(--warp-control-text, #dbdbdb);
 		cursor: pointer;
 		font-family: var(--__sl-font, 'Inter', sans-serif);
@@ -71,9 +71,9 @@
 		   right edge. */
 		right: 0;
 		padding: 0.375rem 0.5rem;
-		border: 1px solid var(--warp-control-border-hover, #535862);
+		border: 1px solid var(--warp-control-border-hover, #585756);
 		border-radius: var(--sl-radius-sm);
-		background: var(--warp-control-bg, #181d27);
+		background: var(--warp-control-bg, #1e1e1d);
 		color: var(--warp-control-text-hover, hsl(40, 20%, 97%));
 		font-family: var(--__sl-font, 'Inter', sans-serif);
 		font-size: var(--sl-text-2xs);
@@ -106,7 +106,7 @@
 		width: 14px;
 		height: 14px;
 		flex: none;
-		color: var(--warp-control-icon, #a4a7ae);
+		color: var(--warp-control-icon, #9d9d9b);
 		transition: color 0.15s ease;
 	}
 
@@ -141,8 +141,8 @@
 	}
 
 	.warp-kapa-button:hover {
-		border-color: var(--warp-control-border-hover, #535862);
-		background: var(--warp-control-bg-hover, #252b37);
+		border-color: var(--warp-control-border-hover, #585756);
+		background: var(--warp-control-bg-hover, #292929);
 		color: var(--warp-control-text-hover, hsl(40, 20%, 97%));
 	}
 
