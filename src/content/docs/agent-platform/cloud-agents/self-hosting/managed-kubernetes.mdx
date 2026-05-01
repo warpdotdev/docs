@@ -3,6 +3,8 @@ title: "Managed: Kubernetes backend"
 description: >-
   Deploy the Oz managed worker into a Kubernetes cluster with the included
   Helm chart. Each agent task runs as a Kubernetes Job in your cluster.
+sidebar:
+  label: "Managed: Kubernetes"
 ---
 
 Deploy the `oz-agent-worker` daemon into a Kubernetes cluster using the included Helm chart. Each agent task runs as a **Kubernetes Job** in your cluster. Oz orchestrates runs end to end (Slack, Linear, schedules, API, `oz agent run-cloud`); your cluster provides the compute, scheduling, and policy enforcement.
