@@ -27,13 +27,13 @@ For a full breakdown of what works over SSH and what doesn't, see [Feature suppo
 
 On the first SSH connection to a host that doesn't already have the SSH extension installed, Warp shows an in-block prompt with two options:
 
-* **Install Warp's SSH extension** - Recommended. Warp downloads the matching `oz` binary for the remote OS and architecture, installs it under `~/.warp/remote-server` (or `~/.warp-preview/remote-server` on Preview builds), launches it, and completes the handshake. Subsequent connections to the same host skip the prompt and reuse the installed binary.
-* **Continue without installing** - Falls back to the existing tmux-powered Warpification path. You still get the input editor, blocks, completions, and history, but the new file tree and native code-diff support are unavailable for this session.
+* **Install Warp's SSH extension** - Recommended. Warp downloads the matching remote server extension for the remote OS and architecture, installs it under `~/.warp/remote-server` (or `~/.warp-preview/remote-server` on Preview builds), launches it, and completes the handshake. Subsequent connections to the same host skip the prompt and reuse the installed binary.
+* **Continue without installing** - Skip installing the extension for this connection. The session continues without the SSH extension, so file tree, native file reads, and native code diffs are unavailable until you install. You can reconnect and install at any time.
 
 Warp never installs anything on a remote host without your explicit consent, and the install only writes under `~/.warp*/`.
 
 :::note
-The extension binary tracks your client's release channel. Stable Warp installs `~/.warp/remote-server`, Preview installs `~/.warp-preview/remote-server`, and Dev installs `~/.warp-dev/remote-server`, so multiple channels can coexist on the same remote host.
+The extension binary tracks your client's release channel. Stable Warp installs the extension under `~/.warp/remote-server`, and Preview installs it under `~/.warp-preview/remote-server`, so both channels can coexist on the same remote host.
 :::
 
 ### Managing the install prompt
@@ -42,23 +42,27 @@ In the Warp app, go to **Settings** > **Warpify** to control how the prompt beha
 
 * **Always ask** (default) - Show the install prompt the first time you connect to each host.
 * **Always install** - Skip the prompt and install the extension automatically when it's missing.
-* **Never install** - Skip the prompt and always fall back to the tmux-powered path.
+* **Never install** - Skip the prompt and connect to the host without installing the SSH extension.
 
 The same setting can also be changed inline from the install prompt by selecting **Don't ask me this again** before clicking either button. The underlying TOML key is `warpify.ssh.ssh_extension_install_mode` - see [All settings reference](/terminal/settings/all-settings/#ssh) for the full list of SSH-related settings, including `ssh_hosts_denylist` for hosts you never want to engage Warpification on.
 
-## Fallback: tmux-powered Warpification
+## Legacy: tmux-based Warpification
 
-If you decline the SSH extension or connect from a build that doesn't ship it (for example, Windows clients), Warp falls back to a tmux-based wrapper that still gives you Blocks, completions, the input editor, and history search.
+:::caution
+Tmux-based Warpification is a legacy alternative to the SSH extension and is being deprecated. Use the SSH extension above whenever possible. Tmux-based Warpification remains available today for clients that don't yet ship the SSH extension (for example, Windows clients).
+:::
+
+Tmux-based Warpification is an older approach to enabling Warp features in SSH sessions. It uses [`tmux`](#why-do-i-need-tmux-on-the-remote-machine) to multiplex commands over your SSH connection and provides Blocks, completions, the input editor, and history search.
 
 ### FAQs
 
 #### Will Warpifying a remote SSH session make changes to the remote machine?
 
-Only with your explicit permission. The SSH extension installs the `oz` binary under `~/.warp*/remote-server` and the tmux fallback installs [`tmux`](#why-do-i-need-tmux-on-the-remote-machine) (a popular open source terminal multiplexer) if it isn't already present. Both flows show you exactly what they're going to run, and you can always decline and continue using SSH without these features.
+Only with your explicit permission. The SSH extension installs the remote server extension under `~/.warp*/remote-server`. Legacy tmux-based Warpification installs [`tmux`](#why-do-i-need-tmux-on-the-remote-machine) (a popular open source terminal multiplexer) if it isn't already present. Both flows show you exactly what they're going to run, and you can always decline and continue using SSH without these features.
 
 #### Why do I need `tmux` on the remote machine?
 
-`tmux` is only required by the fallback path. It's used to asynchronously run commands on the remote machine without disrupting your interactive session. [tmux](https://github.com/tmux/tmux/wiki) is a popular open source terminal multiplexer that lets you run multiple sessions within one SSH connection. It requires minimal permissions and is widely adopted (⭐ 35k+ on GitHub). The fallback uses [tmux Control Mode](https://github.com/tmux/tmux/wiki/Control-Mode) to run ad-hoc background tasks like autocompleting a `cd` command or populating the contents of a custom prompt. The SSH extension supersedes this by speaking a length-delimited protocol over a single SSH connection.
+`tmux` is only required by the legacy tmux-based Warpification path; the SSH extension does not need it. [tmux](https://github.com/tmux/tmux/wiki) is a popular open source terminal multiplexer that lets you run multiple sessions within one SSH connection. It requires minimal permissions and is widely adopted (⭐ 35k+ on GitHub). The legacy path uses [tmux Control Mode](https://github.com/tmux/tmux/wiki/Control-Mode) to run ad-hoc background tasks like autocompleting a `cd` command or populating the contents of a custom prompt. The SSH extension supersedes this by speaking a length-delimited protocol over a single SSH connection.
 
 #### Can I SSH to remote machines that I don't want to Warpify?
 
@@ -72,7 +76,7 @@ After you successfully Warpify an SSH connection manually, Warp provides a brief
 
 #### What shells and operating systems are supported?
 
-Warp supports macOS and most flavors of Linux as remote hosts on both the SSH extension and the tmux fallback. Supported shells are `bash` and `zsh`. Windows remote hosts are not yet supported.
+Warp supports macOS and most flavors of Linux as remote hosts on both the SSH extension and legacy tmux-based Warpification. Supported shells are `bash` and `zsh`. Windows remote hosts are not yet supported.
 
 #### What if Warp fails to detect my SSH session?
 

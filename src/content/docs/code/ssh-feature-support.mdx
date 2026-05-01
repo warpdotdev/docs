@@ -10,10 +10,10 @@ When you [Warpify an SSH session](/terminal/warpify/ssh/), Warp's core terminal 
 This page documents which features are available based on which path you're on:
 
 * **SSH extension** - Installed on first connect when you choose **Install Warp's SSH extension**. Available on macOS and Linux remote hosts.
-* **tmux fallback** - Used when you choose **Continue without installing**, when the extension hasn't shipped to your build (for example, Windows clients), or when the install fails.
+* **Legacy tmux-based Warpification** - An older alternative that's being deprecated. It remains available today for clients that don't yet ship the SSH extension (for example, Windows clients). See [Legacy: tmux-based Warpification](/terminal/warpify/ssh/#legacy-tmux-based-warpification).
 
 :::note
-In the tmux fallback path, the Agent automatically falls back to terminal commands (e.g. `cat`, `sed`, `grep`) when a native tool is unavailable. You can still accomplish most coding tasks, but the experience is less seamless than working locally or through the SSH extension.
+When a native tool isn't available on the current path, the Agent falls back to terminal commands (e.g. `cat`, `sed`, `grep`). You can still accomplish most coding tasks, but the experience is less seamless than working locally or through the SSH extension.
 :::
 
 ## Features that work over SSH
@@ -37,9 +37,6 @@ The following features require the **SSH extension**:
 
 The following features require local filesystem access and are not yet available in Warpified remote (SSH) sessions on either path:
 
-* **Codebase Context (indexing and search)** — Warp cannot yet index or semantically search a remote codebase. The Agent does not have access to your full project context when generating responses. Tracked in [GitHub #6831](https://github.com/warpdotdev/Warp/issues/6831).
-* **Code Review panel** — The [Code Review](/code/code-review/) panel for reviewing Git diffs is not yet available for remote repos.
-* **Language Server Protocol (LSP)** — Warp's [LSP integration](/code/code-editor/language-server-protocol/) (hover info, go-to-definition, diagnostics, format-on-save) is local-only.
 * **Code editor (file open/edit UI)** — Warp's [native code editor](/code/code-editor/) is not yet available in remote sessions. You cannot open, view, or edit remote files in Warp's built-in editor.
 * **Computer use** — The Agent cannot take screenshots or interact with the remote machine's desktop.
 
