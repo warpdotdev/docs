@@ -880,3 +880,113 @@ body {
     box-shadow: 8px 0 24px rgba(0, 0, 0, 0.12);
   }
 }
+
+/* --------------------------------------------------------------------------
+   18. Search dialog (Pagefind modal) — brand-aligned grayscale chrome
+   --------------------------------------------------------------------------
+
+   Starlight's `Search.astro` ships scoped styles inside `@layer
+   starlight.core` plus an inline `@import` of Pagefind's default UI sheet,
+   also at `layer(starlight.core)`. The defaults paint:
+
+     - The dialog frame with `--sl-color-gray-6` / `gray-5` (Oz cool blue
+       grays `#252b37` / `#414651`).
+     - The input focus ring with `--sl-color-accent` (Warp blue).
+     - Result hover/focus with `--sl-color-accent-high` outlines and
+       `--sl-color-accent-low` fills (more blue tint).
+     - Cancel + clear buttons in `--sl-color-text-accent` (blue).
+
+   On the neutral `#121212` canvas + the warp.dev grayscale chrome system
+   (§16 above), all of that read as visibly cool/blue and out of family.
+   Unlayered overrides below win the cascade against `starlight.core` and
+   pull the modal onto the same `--warp-control-*` ladder as the trigger
+   button it just opened from.
+
+   Selectors are scoped to `site-search dialog` (the `<dialog>` that lives
+   inside `<site-search>`) so they don't bleed into the Kapa Ask dialog,
+   which also uses a `<dialog aria-label="…">` element.
+   -------------------------------------------------------------------------- */
+
+/* Dialog surface: drop the cool gray-6 fill and gray-5 border in favor of
+   the page canvas + a hairline. Depth comes from the backdrop blur and the
+   existing `box-shadow`. Same "one canvas, hairlines for separation"
+   pattern the rest of the site already uses (see custom.css §background). */
+site-search dialog {
+  background-color: var(--sl-color-bg);
+  border: 1px solid var(--sl-color-hairline-light);
+}
+
+/* Stronger neutral backdrop. Starlight's `--sl-color-backdrop-overlay`
+   inherits the accent family in some themes; pin it to a flat dark scrim
+   so the modal still pops without a blue cast. Light mode gets a soft
+   warm-white wash instead. */
+site-search dialog::backdrop {
+  background-color: rgba(18, 18, 18, 0.55);
+}
+
+:root[data-theme='light'] site-search dialog::backdrop {
+  background-color: rgba(255, 255, 255, 0.55);
+}
+
+/* Pagefind UI custom-property overrides. These cascade into Pagefind's own
+   stylesheet (which authors all its surfaces against
+   `--pagefind-ui-background` / `--pagefind-ui-border` / `--pagefind-ui-tag`)
+   so we don't need to chase every internal class. The shared chrome
+   `--warp-control-*` ladder defined in §16 is the source of truth here. */
+site-search #starlight__search {
+  --pagefind-ui-background: var(--warp-control-bg);
+  --pagefind-ui-border: var(--warp-control-border);
+  --pagefind-ui-tag: var(--warp-control-border);
+  --pagefind-ui-text: var(--sl-color-gray-2);
+  --pagefind-ui-primary: var(--sl-color-white);
+}
+
+/* Input focus border: Starlight's default flips `--pagefind-ui-border` to
+   the saturated Warp blue accent on focus, which is the bright cyan ring
+   in the screenshot. Replace with the chrome ladder's hover border so the
+   input matches the trigger button's `:hover` affordance. */
+site-search #starlight__search input:focus {
+  --pagefind-ui-border: var(--warp-control-border-hover);
+}
+
+/* Cancel + clear buttons: drop the blue accent color in favor of a calm
+   gray that recedes the way every other secondary chrome action does. */
+site-search button[data-close-modal] {
+  color: var(--sl-color-gray-2);
+}
+
+site-search button[data-close-modal]:hover {
+  color: var(--sl-color-white);
+}
+
+site-search #starlight__search .pagefind-ui__search-clear::before {
+  background-color: var(--sl-color-gray-3);
+}
+
+site-search #starlight__search .pagefind-ui__search-clear:focus {
+  outline: 1px solid var(--warp-control-border-hover);
+}
+
+/* Result cards. Starlight paints the title row + each nested sub-result
+   with `--sl-color-black` (`#121212`), which on the cool gray-6 dialog
+   read as stamped-down patches. With the dialog now sharing the page
+   canvas, raise each result onto the chrome `--warp-control-bg` so the
+   list reads as a stack of tactile chips. A 1px hairline keeps the cards
+   distinct without a heavy outline. */
+site-search #starlight__search .pagefind-ui__result-title:not(:where(.pagefind-ui__result-nested *)),
+site-search #starlight__search .pagefind-ui__result-nested,
+site-search #starlight__search .pagefind-ui__result-tags {
+  background-color: var(--warp-control-bg);
+}
+
+/* Hover / keyboard-focus state. Replace the blue accent outline + tinted
+   fill with the same neutral wash the chrome buttons use on hover. The
+   1px border swap stays inside the existing layout box, so list rows
+   don't shift on hover. */
+site-search #starlight__search .pagefind-ui__result-title:not(:where(.pagefind-ui__result-nested *)):hover,
+site-search #starlight__search .pagefind-ui__result-title:not(:where(.pagefind-ui__result-nested *)):focus-within,
+site-search #starlight__search .pagefind-ui__result-nested:hover,
+site-search #starlight__search .pagefind-ui__result-nested:focus-within {
+  outline: 1px solid var(--warp-control-border-hover);
+  background-color: var(--warp-control-bg-hover);
+}
