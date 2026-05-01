@@ -5,34 +5,44 @@ description: >-
   are limited to local sessions.
 ---
 
-When you [Warpify an SSH session](/terminal/warpify/ssh/), Warp's core terminal features — the input editor, completions, blocks, history search, and more — work the same as they do locally. However, several coding-specific features are **not yet available** in remote sessions because the Agent cannot directly access the remote filesystem.
+When you [Warpify an SSH session](/terminal/warpify/ssh/), Warp's core terminal features — the input editor, completions, blocks, history search, and more — work the same as they do locally. With Warp's [SSH extension](/terminal/warpify/ssh/#installing-the-ssh-extension) installed on the remote host, additional coding features such as the file tree, native file reading, and native code diffs also work over SSH on macOS and Linux.
+
+This page documents which features are available based on which path you're on:
+
+* **SSH extension** - Installed on first connect when you choose **Install Warp's SSH extension**. Available in Preview on macOS and Linux remote hosts.
+* **Tmux fallback** - Used when you choose **Continue without installing**, when the extension hasn't shipped to your build (for example, Windows clients), or when the install fails.
 
 :::note
-When a native tool is unavailable, the Agent automatically falls back to terminal commands (e.g. `cat`, `sed`, `grep`) to read and edit files. You can still accomplish most coding tasks over SSH, but the experience may be less seamless than working locally.
+In the tmux fallback path, the Agent automatically falls back to terminal commands (e.g. `cat`, `sed`, `grep`) when a native tool is unavailable. You can still accomplish most coding tasks, but the experience is less seamless than working locally or through the SSH extension.
 :::
 
 ## Features that work over SSH
 
-The following features are fully available in Warpified remote sessions:
+The following features work in Warpified remote sessions on both paths:
 
-* **Agent Mode conversations** — You can chat with the Agent, ask questions, and request code changes. The Agent will use terminal commands to interact with the remote filesystem.
+* **Agent Mode conversations** — Chat with the Agent, ask questions, and request code changes on the remote host.
 * **Running shell commands** — The Agent can execute commands on the remote machine on your behalf.
 * **Grep and file glob** — The Agent can search for files and patterns using terminal-based grep and glob tools.
 * **MCP tools** — Model Context Protocol integrations remain available.
 * **Terminal features** — The input editor, command completions, autosuggestions, command history, blocks, and all other core terminal features work as expected.
 
+The following features require the **SSH extension**:
+
+* **File tree (Project Explorer)** — The [file tree sidebar](/code/code-editor/file-tree/) reflects the remote project structure and updates as you navigate or change files.
+* **Native file reading** — The Agent reads remote files through Warp's built-in file reading tool instead of shelling out to `cat`.
+* **Native code diffs** — The Agent applies edits as inline [code diffs](/agent-platform/local-agents/code-diffs/) you can review and approve, instead of using `sed` or other shell commands.
+* **Reliable, parallel completions** — Generators run in parallel over a single multiplexed connection, so completions stop hitting the remote host's `MaxSessions` ceiling and stop occasionally injecting errors into your blocks.
+
 ## Features not yet available over SSH
 
-The following features require local filesystem access and are not yet available in Warpified remote (SSH) sessions:
+The following features require local filesystem access and are not yet available in Warpified remote (SSH) sessions on either path. Each is on the SSH roadmap:
 
-* **Codebase Context (indexing and search)** — Warp cannot index or semantically search a remote codebase. The Agent will not have access to your full project context when generating responses. Feature request: [GitHub #6831](https://github.com/warpdotdev/Warp/issues/6831)
-* **Native file reading** — The Agent cannot read files through Warp's built-in file reading tool. It falls back to terminal commands like `cat` to read file contents.
-* **Code diffs** — The Agent cannot apply code diffs natively. It falls back to terminal commands like `sed` to make file edits.
-* **Code editor** — Warp's [native code editor](/code/code-editor/) is not yet available in remote sessions. You cannot open, view, or edit files in Warp's built-in editor over SSH.
-* **File tree (Project Explorer)** — The [file tree sidebar](/code/code-editor/file-tree/) is not yet available in remote sessions.
-* **Code review panel** — The [Code Review](/code/code-review/) panel for reviewing Git diffs is not yet available for remote repos.
+* **Codebase Context (indexing and search)** — Warp cannot yet index or semantically search a remote codebase. The Agent does not have access to your full project context when generating responses. Tracked in [GitHub #6831](https://github.com/warpdotdev/Warp/issues/6831).
+* **Code Review panel** — The [Code Review](/code/code-review/) panel for reviewing Git diffs is not yet available for remote repos.
+* **Language Server Protocol (LSP)** — Warp's [LSP integration](/code/code-editor/language-server-protocol/) (hover info, go-to-definition, diagnostics, format-on-save) is local-only.
+* **Code editor (file open/edit UI)** — Warp's [native code editor](/code/code-editor/) is not yet available in remote sessions. You cannot open, view, or edit remote files in Warp's built-in editor.
 * **Computer use** — The Agent cannot take screenshots or interact with the remote machine's desktop.
 
 :::note
-WSL sessions have the same limitations as SSH. Feature request for WSL support: [GitHub #6744](https://github.com/warpdotdev/Warp/issues/6744)
+WSL sessions have the same limitations as SSH and are not currently covered by the SSH extension. Feature request for WSL support: [GitHub #6744](https://github.com/warpdotdev/Warp/issues/6744).
 :::

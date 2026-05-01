@@ -7,7 +7,7 @@ description: >-
 import VideoEmbed from '@components/VideoEmbed.astro';
 
 :::note
-Several coding features — including Codebase Context, code diffs, the code editor, and the file tree — are not yet available in SSH or WSL sessions.
+On macOS and Linux SSH sessions, Warp's [SSH extension](/terminal/warpify/ssh/#installing-the-ssh-extension) brings the file tree, native file reads, and native code diffs to remote hosts. Codebase Context, Code Review, and LSP support are still local-only — see [Feature support over SSH](/code/ssh-feature-support/).
 :::
 
 ## From prompt to production
@@ -34,7 +34,7 @@ Warp’s coding agent is designed to help you generate, edit, and manage code di
 <VideoEmbed url="https://youtu.be/W8rCsznM5HA" title="Coding Features Overview" />
 
 :::note
-Warp's coding agent only works on local repositories. The agent can make changes on remote or docker repositories, but falls back to using terminal commands (i.e. `sed`, `grep` ) to make the changes.
+With the [SSH extension](/terminal/warpify/ssh/#installing-the-ssh-extension) installed on a remote macOS or Linux host, the coding agent applies edits using Warp's native diff tool over SSH. In sessions where the extension isn't available (Windows clients, declined installs, or Docker-backed sessions), the agent falls back to terminal commands (i.e. `sed`, `grep`) to make changes.
 :::
 
 ### Examples of coding capabilities

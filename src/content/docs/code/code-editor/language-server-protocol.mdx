@@ -82,7 +82,7 @@ LSP features stay in sync across [shared buffers](/code/code-editor/#shared-buff
 
 ## Limitations
 
-* **Local sessions only** - LSP is not available over SSH or WSL sessions. These are tracked in GitHub issues [#6831](https://github.com/warpdotdev/Warp/issues/6831) (SSH) and [#6744](https://github.com/warpdotdev/Warp/issues/6744) (WSL).
+* **Local sessions only** - LSP is not yet available over SSH or WSL sessions; SSH support is on the roadmap. See [Feature support over SSH](/code/ssh-feature-support/) for the current matrix. Tracked in GitHub issues [#6831](https://github.com/warpdotdev/Warp/issues/6831) (SSH) and [#6744](https://github.com/warpdotdev/Warp/issues/6744) (WSL).
 * **One server per language** - Each language maps to a single server (for example, Rust always uses `rust-analyzer`). Custom server configurations are not yet supported.
 * **Project-scoped** - Language servers operate at the Git repository root level. Files outside a repository may not receive LSP features.
 * **Server availability** - Some features (like formatting) depend on the specific language server's capabilities. Not all servers support all features.
