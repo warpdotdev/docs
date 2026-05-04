@@ -3,6 +3,8 @@ title: "Managed: Direct backend"
 description: >-
   Run the Oz managed worker with the Direct backend to execute cloud agent
   tasks directly on the host, without Docker or Kubernetes.
+sidebar:
+  label: "Managed: Direct"
 ---
 
 Run the `oz-agent-worker` daemon with the **Direct backend** — tasks execute directly on the worker host without Docker or Kubernetes. Oz still orchestrates runs end to end (Slack, Linear, schedules, API, `oz agent run-cloud`); the worker just runs the agent in a per-task workspace on its own filesystem.
