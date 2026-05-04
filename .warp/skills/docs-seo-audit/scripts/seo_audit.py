@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
-"""
-SEO audit for docs.warp.dev
+"""SEO audit for docs.warp.dev
 
-Crawls the Astro Starlight sitemap index, fetches every page, and checks for common
+Crawls the docs.warp.dev sitemap index, fetches every page, and checks for common
 SEO issues:
   - Duplicate title tags
   - Duplicate meta descriptions
@@ -24,31 +23,21 @@ from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from html.parser import HTMLParser
 from urllib.error import HTTPError, URLError
-from urllib.request import Request, urlopen
+from urllib.request import Request, urlopen, HTTPRedirectHandler, build_opener
 from xml.etree import ElementTree as ET
 
-SITEMAP_INDEX_URL = "https://docs.warp.dev/sitemap.xml"
+SITEMAP_INDEX_URL = "https://docs.warp.dev/sitemap-index.xml"
 NS = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
 USER_AGENT = "WarpSEOAudit/1.0"
 REQUEST_DELAY = 0.15  # seconds between requests to avoid rate-limiting
 MAX_WORKERS = 6
 
 # ---------------------------------------------------------------------------
-# Astro Starlight space → local directory mapping
+# Astro Starlight content directory
 # ---------------------------------------------------------------------------
-# Astro Starlight publishes each space at a URL prefix. The "warp" space is the site
-# root (no prefix). All others use their directory name as prefix.
-SPACE_MAP = {
-    "agent-platform": "docs/agent-platform",
-    "reference": "docs/reference",
-    "changelog": "docs/changelog",
-    "support-and-community": "docs/support-and-community",
-    "enterprise": "docs/enterprise",
-    "university": "university",
-}
-# The warp space lives at the site root, so pages like /terminal/blocks map
-# to src/content/docs/terminal/blocks.
-ROOT_SPACE_DIR = "docs/warp"
+# All content lives under src/content/docs/. URL paths map directly to this
+# directory (e.g. /agent-platform/cloud-agents → src/content/docs/agent-platform/cloud-agents).
+CONTENT_DIR = "src/content/docs"
 
 # ---------------------------------------------------------------------------
 # HTML parser
@@ -131,12 +120,21 @@ class SEOHTMLParser(HTMLParser):
 # Fetching helpers
 # ---------------------------------------------------------------------------
 
+# Build an opener that follows 308 redirects (Python's default handler
+# only follows 301/302/303/307 but Vercel serves 308 for sitemap URLs).
+class _Redirect308Handler(HTTPRedirectHandler):
+    def http_error_308(self, req, fp, code, msg, headers):
+        return self.http_error_302(req, fp, code, msg, headers)
+
+_opener = build_opener(_Redirect308Handler)
+
+
 def fetch(url, retries=2):
     """Fetch a URL and return its body as a string."""
     req = Request(url, headers={"User-Agent": USER_AGENT})
     for attempt in range(retries + 1):
         try:
-            with urlopen(req, timeout=15) as resp:
+            with _opener.open(req, timeout=15) as resp:
                 return resp.read().decode("utf-8", errors="replace")
         except (HTTPError, URLError, OSError) as exc:
             if attempt == retries:
@@ -196,39 +194,37 @@ def extract_seo(url):
 def url_to_source_path(url, repo_root):
     """Best-effort mapping from a live URL to the local markdown source file.
 
+    Astro Starlight serves content from src/content/docs/. URL paths map
+    directly to that directory. Files use .mdx (preferred) or .md extensions,
+    and directory landing pages are index.mdx (not README.md).
+
     Returns the relative path from repo_root, or None if no file is found.
     """
     from urllib.parse import urlparse
     parsed = urlparse(url)
     path = parsed.path.strip("/")  # e.g. "agent-platform/local-agents/overview"
 
-    # Determine which space this URL belongs to
-    local_dir = None
-    remainder = path
-    for prefix, directory in SPACE_MAP.items():
-        if path == prefix or path.startswith(prefix + "/"):
-            local_dir = directory
-            remainder = path[len(prefix):].strip("/")
-            break
-    if local_dir is None:
-        # Root space (warp)
-        local_dir = ROOT_SPACE_DIR
-        remainder = path
+    base = os.path.join(repo_root, CONTENT_DIR)
 
-    if not remainder:
-        # Space landing page → README.md
-        candidate = os.path.join(repo_root, local_dir, "README.md")
-        return os.path.relpath(candidate, repo_root) if os.path.isfile(candidate) else None
+    if not path:
+        # Site root landing page → index.mdx
+        for ext in (".mdx", ".md"):
+            candidate = os.path.join(base, "index" + ext)
+            if os.path.isfile(candidate):
+                return os.path.relpath(candidate, repo_root)
+        return None
 
-    # Try direct file match: remainder.md
-    candidate = os.path.join(repo_root, local_dir, remainder + ".md")
-    if os.path.isfile(candidate):
-        return os.path.relpath(candidate, repo_root)
+    # Try direct file match: path.mdx, then path.md
+    for ext in (".mdx", ".md"):
+        candidate = os.path.join(base, path + ext)
+        if os.path.isfile(candidate):
+            return os.path.relpath(candidate, repo_root)
 
-    # Try directory landing page: remainder/README.md
-    candidate = os.path.join(repo_root, local_dir, remainder, "README.md")
-    if os.path.isfile(candidate):
-        return os.path.relpath(candidate, repo_root)
+    # Try directory landing page: path/index.mdx, then path/index.md
+    for ext in (".mdx", ".md"):
+        candidate = os.path.join(base, path, "index" + ext)
+        if os.path.isfile(candidate):
+            return os.path.relpath(candidate, repo_root)
 
     return None
 
@@ -238,7 +234,7 @@ def url_to_source_path(url, repo_root):
 # ---------------------------------------------------------------------------
 
 # Title tag length limits (Google typically truncates at ~60 chars).
-# The "page title" portion is what we control; the " | Space | Warp" suffix
+# The "page title" portion is what we control; the " | Topic | Warp" suffix
 # is appended by Astro Starlight.  We check the full rendered title.
 TITLE_MIN = 20
 TITLE_MAX = 70
@@ -370,7 +366,7 @@ def main():
     parser.add_argument("--sitemap", default=SITEMAP_INDEX_URL,
                         help="Sitemap index URL (default: %(default)s)")
     parser.add_argument("--repo-root", default=None,
-                        help="Path to the docs repo root for source-file mapping")
+                        help="Path to the docs repo root (contains src/content/docs/) for source-file mapping")
     parser.add_argument("--output", "-o", default=None,
                         help="Write JSON report to this file instead of stdout")
     parser.add_argument("--max-pages", type=int, default=0,

@@ -22,7 +22,7 @@ python3 .warp/skills/docs-seo-audit/scripts/seo_audit.py \
   --output /tmp/seo-report.json
 ```
 
-The script fetches all pages listed in `https://docs.warp.dev/sitemap.xml` (a sitemap index including sub-sitemaps), extracts SEO metadata from each page's HTML, and checks for issues.
+The script fetches all pages listed in `https://docs.warp.dev/sitemap-index.xml` (a sitemap index including sub-sitemaps), extracts SEO metadata from each page's HTML, and checks for issues.
 
 ### Options
 
@@ -109,38 +109,77 @@ After reporting, ask the user which issues they want to fix before making change
 ## Fixing issues
 
 Before making any changes, read these references:
-1. `references/gitbook-seo.md` in this skill directory — explains the non-obvious way Astro Starlight generates title tags from astro.config.mjs (sidebar config) link text (not the H1 heading).
+1. `references/starlight-seo.md` in this skill directory — explains the non-obvious way Astro Starlight generates title tags from sidebar config label text (not the H1 heading).
 2. `AGENTS.md` at the docs repo root — the single source of truth for documentation style, voice, terminology, and formatting. All titles and descriptions you write must follow these conventions (terminology, sentence case, active voice, frontmatter description format).
 
 ### Key principles
 
-1. **Title tags come from astro.config.mjs (sidebar config) link text**, not the H1 heading. To fix a title, change the link text in the relevant space's `astro.config.mjs (sidebar config)`.
+1. **Title tags come from the frontmatter `title` field if present, otherwise from sidebar config labels in `src/sidebar.ts`** — not the H1 heading. To fix a title without changing the sidebar label, add or update the `title` field in the page's frontmatter (and optionally add `sidebar.label` to preserve the short nav label). To fix a title by changing the nav label, change the `label` property in `src/sidebar.ts`. For pages listed as bare slugs (e.g., `'terminal/windows/tabs'`), add an explicit `{ slug, label }` object to override the label.
 2. **Meta descriptions come from frontmatter**. To fix a description, edit the `description:` field in the page's YAML frontmatter.
 3. **OG and Twitter tags mirror title and description** automatically. No separate fix needed.
-4. **Changing astro.config.mjs (sidebar config) link text has side effects**: it also changes the sidebar label, breadcrumbs, and prev/next pagination. URLs are NOT affected.
+4. **Changing a sidebar config label has side effects**: it also changes the sidebar label, breadcrumbs, and prev/next pagination. URLs are NOT affected (URLs are based on the file path/slug).
 5. **When changing a title, also update the H1** in the markdown file for consistency.
 
 ### Title exceptions
 
 Some page titles are intentionally short or specific and must **not** be changed, even if they trigger a `title_too_short` warning. Skip these pages and note them as intentional exceptions in your report:
 
-- **`src/content/docs/changelog/README.md`** (`Changelog`) — "Changelog" is a clear, universally understood industry term. Branding prefixes like "Warp changelog" or "Release changelog" add no descriptive value and this title should remain as-is.
-- **`src/content/docs/terminal/appearance/app-icons.md`** (`App icons`) — The article explicitly explains that *custom* app icons are not available to users. Renaming to "Custom app icons" directly contradicts the page content and must be avoided.
-- **`src/content/docs/university/README.md`** (`Guides`) — "Guides" is the landing page for the Guides space. The title is clear and matches the space name; prefixing it (e.g., "Developer Guides") adds no value and creates a mismatch with the space title shown in breadcrumbs.
+- **`src/content/docs/changelog/index.mdx`** (`Changelog`) — "Changelog" is a clear, universally understood industry term. Branding prefixes like "Warp changelog" or "Release changelog" add no descriptive value and this title should remain as-is.
+- **`src/content/docs/terminal/appearance/app-icons.mdx`** (`Custom app icons`) — The article explicitly explains that *custom* app icons are not available to users. The sidebar label is intentional and must not be changed.
+- **`src/content/docs/guides/index.mdx`** (`Guides`) — "Guides" is the landing page for the Guides section. The title is clear and matches the section name; prefixing it (e.g., "Developer Guides") adds no value and creates a mismatch with the section title shown in breadcrumbs.
+- **`src/content/docs/terminal/windows/tabs.mdx`** (`Tabs`) — The sidebar section header ("Windows and Tabs") already provides terminal context; adding a "Terminal" prefix creates a name not used in the UI or anywhere else in the docs. The `title_too_short` warning is intentionally suppressed — the title is short by design. Do not rename to "Terminal tabs".
+- **`src/content/docs/terminal/windows/vertical-tabs.mdx`** (`Vertical Tabs`) — Same rationale: the section header disambiguates the terminal context. The `title_too_short` warning is intentionally suppressed. Do not rename to "Terminal vertical tabs".
+- **`src/content/docs/terminal/windows/split-panes.mdx`** (`Split panes`) — Same rationale: the section header disambiguates the terminal context. The `title_too_short` warning is intentionally suppressed. Do not rename to "Terminal split panes".
+- **`src/content/docs/terminal/windows/tab-configs.mdx`** (`Tab Configs`) — Same rationale: the section header disambiguates the terminal context. Additionally, "Tab Configs" is a proper feature name and should not be prefixed. The `title_too_short` warning is intentionally suppressed. Do not rename to "Terminal Tab Configs".
+- **`src/content/docs/terminal/sessions/index.mdx`** (`Sessions`) — The sidebar section header ("Sessions") already provides terminal context. The `title_too_short` warning is intentionally suppressed. Do not rename to "Terminal sessions".
 
 When the audit flags these pages for `title_too_short`, exclude them from your fix list and include a note in your report explaining they are intentional exceptions.
 
 If you believe a new title should be added to this exceptions list, flag it for human review before proceeding.
 
+### Sidebar config labels vs. H1 headings
+
+Sidebar config labels (the `label` property in `src/sidebar.ts`) and H1 page headings are **intentionally different** in some cases. Do not change either to match the other unless you are fixing a genuine duplicate title collision. Specifically:
+
+- Do **not** add section-context prefixes (like "Terminal", "Warp", or "Agent") to short but accurate titles just because the title appears generic in isolation. Sidebar context already provides that disambiguation.
+- Do **not** rename sidebar config labels for pages in the exceptions list above.
+- Do **not** sync sidebar config label text to match H1 headings (or vice versa) as a standalone change — the two are allowed to differ.
+
 ### Fixing duplicate titles
 
 This is the most impactful issue. Common causes:
-- Multiple pages named `[Overview](...)` under different sections of the same space
-- Generic names like `[Getting Started](...)` or `[FAQs](...)` repeated across sections
+- Multiple pages with `label: 'Overview'` under different sections — these all produce the same `<title>` tag
+- Generic labels like `'Getting Started'` or `'FAQs'` repeated across sections
 
-Fix by making each astro.config.mjs (sidebar config) link text unique and descriptive. The link text should identify the specific topic, not just the page type. Use sentence case and correct terminology per `AGENTS.md` (e.g., capitalize product feature names like "Agent Mode", "Warp Drive", "Codebase Context"). Example:
-- Before: `[Overview](local-agents/overview.mdx)` + `[Overview](cloud-agents/overview.md)`
-- After: `[Local Agents Overview](local-agents/overview.mdx)` + `[Cloud Agents Overview](cloud-agents/overview.md)`
+There are two ways to fix duplicate titles, depending on whether the short sidebar label is intentional:
+
+#### Preferred: frontmatter `title` + `sidebar.label` (keep short nav labels)
+
+When a page intentionally uses a short sidebar label like "Overview" because the section header provides context, **do not rename the sidebar config label**. Instead, add a descriptive `title` in the page's frontmatter and use `sidebar.label` to preserve the short nav label:
+
+```yaml
+---
+title: Capabilities overview
+sidebar:
+  label: "Overview"
+---
+```
+
+Astro Starlight uses `title` for the `<title>` tag and `sidebar.label` for the sidebar. This gives each page a unique, SEO-friendly title while keeping the sidebar clean.
+
+Example:
+- `agent-platform/capabilities/index.mdx`: `title: 'Capabilities overview'` + `sidebar.label: 'Overview'`
+- `agent-platform/cloud-agents/integrations/index.mdx`: `title: 'Integrations overview'` + `sidebar.label: 'Overview'`
+
+When using this approach, also update the H1 in the markdown file to match the new `title`.
+
+#### Alternative: rename the sidebar config label
+
+If the short label is not intentional, rename the `label` in `src/sidebar.ts` to be unique and descriptive. Use sentence case and correct terminology per `AGENTS.md` (e.g., capitalize proper feature names like "Agent Mode", "Warp Drive", "Codebase Context" — but not generic terms like "overview", "quickstart", or "agents"). Example:
+- Before: `{ slug: 'agent-platform/local-agents', label: 'Overview' }` + `{ slug: 'agent-platform/cloud-agents', label: 'Overview' }`
+- After: `{ slug: 'agent-platform/local-agents', label: 'Local agents overview' }` + `{ slug: 'agent-platform/cloud-agents', label: 'Cloud agents overview' }`
+
+When changing a sidebar config label, also update the H1 in the markdown file for consistency.
 
 ### Fixing missing descriptions
 
@@ -165,12 +204,13 @@ Write descriptions that:
 After making fixes, review every change before presenting to the user. Run through this checklist, and if anything fails, fix it and re-run the checklist from the top. Only present changes when everything passes.
 
 - **Does this still mean the same thing?** Titles and descriptions must accurately represent the page content. Read the actual page before writing or rewriting anything. Never invent features, capabilities, or details that aren't on the page. If unsure what the page covers, read it first.
-- **Did I introduce a new duplicate?** Scan the full astro.config.mjs (sidebar config) for the space you edited. Verify every link text is unique. This is the most common mistake — fixing one duplicate by picking a name that collides with an existing entry.
-- **Does the H1 match?** Every astro.config.mjs (sidebar config) title change needs a corresponding H1 update in the markdown file. Mismatches between sidebar label and page heading confuse readers.
+- **Did I introduce a new duplicate?** Scan the full sidebar config in `src/sidebar.ts`. Verify every label is unique within the site. This is the most common mistake — fixing one duplicate by picking a name that collides with an existing entry.
+- **Does the H1 match?** Every sidebar config label change needs a corresponding H1 update in the markdown file. Mismatches between sidebar label and page heading confuse readers.
 - **Is the terminology right?** Cross-check against `AGENTS.md` and how the feature is actually referred to in the existing docs. Don't rename things to terms that aren't used elsewhere in the docs.
-- **Does this read naturally in context?** Consider how the title appears (a) as a sidebar label under its section header, and (b) as a search result: `{Title} | {Space} | Warp`. If it sounds awkward or uses internal jargon that users wouldn't recognize, rephrase.
+- **Is the casing right?** All labels and H1 headings must use sentence case. Proper product feature names (e.g., "Agent Mode", "Codebase Context", "Admin Panel", "Remote Control", "Warp Drive") retain their capitalization, but generic terms ("overview", "quickstart", "agents", "notifications") are lowercase. Never use title case.
+- **Does this read naturally in context?** Consider how the title appears (a) as a sidebar label under its section header, and (b) as a search result: `{Title} | {Topic} | Warp`. If it sounds awkward or uses internal jargon that users wouldn't recognize, rephrase.
 - **Are descriptions grounded in page content?** Don't write descriptions based on the title alone. Read the page, then summarize what's actually there.
-- **Any other improvements nearby?** Look at adjacent entries in the astro.config.mjs (sidebar config). Are there other generic titles ("Overview", "Getting Started", "FAQ") that could become duplicates in the future? Flag them proactively.
+- **Any other improvements nearby?** Look at adjacent entries in `src/sidebar.ts`. Are there other generic labels ("Overview", "Getting Started", "FAQ") that could become duplicates in the future? Flag them proactively.
 
 ### Delivering changes
 
