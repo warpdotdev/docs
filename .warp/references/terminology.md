@@ -61,6 +61,12 @@ For the summary of the most critical terms (core features, Oz terms, terms to av
 - **Tab** / **Pane** / **Window** — Warp's layout primitives: tabs within windows; panes are splits inside a tab/window.
   *Usage note:* Use precisely to avoid confusing layouts.
 
+- **Tab Configs** — Reusable TOML-based tab layout definitions that launch preconfigured terminal sessions.
+  *Usage note:* Capitalize as a feature name.
+
+- **Vertical Tabs** — The sidebar-based tab management panel that replaces the horizontal tab bar.
+  *Usage note:* Capitalize as a feature name.
+
 ## Agent concepts
 
 - **Ambient Agents** — Oz agents that run automatically in the background on a schedule or trigger, without interactive input.
