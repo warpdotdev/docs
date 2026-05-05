@@ -32,6 +32,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						'getting-started/quickstart/customizing-warp',
 						{
 							label: 'Migrate to Warp',
+							collapsed: true,
 							items: [
 								{ slug: 'getting-started/migrate-to-warp', label: 'Overview' },
 								'getting-started/migrate-to-warp/migrate-to-warp-from-claude-code',
@@ -54,6 +55,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						'terminal/input/classic-input',
 						{
 							label: 'Blocks',
+							collapsed: true,
 							items: [
 								{ slug: 'terminal/blocks', label: 'Overview' },
 								{ slug: 'terminal/blocks/block-basics', label: 'Block basics' },
@@ -67,6 +69,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						},
 						{
 							label: 'Modern text editing',
+							collapsed: true,
 							items: [
 								{ slug: 'terminal/editor', label: 'Overview' },
 								{ slug: 'terminal/editor/alias-expansion', label: 'Alias expansion' },
@@ -77,6 +80,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						},
 						{
 							label: 'Command entry',
+							collapsed: true,
 							items: [
 								{ slug: 'terminal/entry', label: 'Overview' },
 								{ slug: 'terminal/entry/command-corrections', label: 'Command corrections' },
@@ -88,6 +92,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						},
 						{
 							label: 'Command completions',
+							collapsed: true,
 							items: [
 								{ slug: 'terminal/command-completions', label: 'Overview' },
 								{ slug: 'terminal/command-completions/completions', label: 'Tab completions' },
@@ -96,6 +101,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						},
 						{
 							label: 'Windows and Tabs',
+							collapsed: true,
 							items: [
 								{ slug: 'terminal/windows', label: 'Overview' },
 								'terminal/windows/tabs',
@@ -109,6 +115,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						},
 						{
 							label: 'Sessions',
+							collapsed: true,
 							items: [
 								{ slug: 'terminal/sessions', label: 'Overview' },
 								{ slug: 'terminal/sessions/session-navigation', label: 'Session navigation' },
@@ -117,6 +124,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						},
 						{
 							label: 'Terminal appearance',
+							collapsed: true,
 							items: [
 								{ slug: 'terminal/appearance', label: 'Overview' },
 								{ slug: 'terminal/appearance/themes', label: 'Themes' },
@@ -133,6 +141,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						},
 						{
 							label: 'Settings file',
+							collapsed: true,
 							items: [
 								{ slug: 'terminal/settings', label: 'Overview' },
 								{ slug: 'terminal/settings/all-settings', label: 'All settings reference' },
@@ -140,6 +149,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						},
 						{
 							label: 'Warpify overview',
+							collapsed: true,
 							items: [
 								{ slug: 'terminal/warpify', label: 'Overview' },
 								{ slug: 'terminal/warpify/subshells', label: 'Warpify subshells' },
@@ -149,6 +159,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						},
 						{
 							label: 'More Features',
+							collapsed: true,
 							items: [
 								{ slug: 'terminal/more-features', label: 'Overview' },
 								'terminal/more-features/accessibility',
@@ -168,6 +179,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						'terminal/command-palette',
 						{
 							label: 'Terminal comparisons',
+							collapsed: true,
 							items: [
 								{ slug: 'terminal/comparisons', label: 'Overview' },
 								{ slug: 'terminal/comparisons/performance', label: 'Performance benchmarks' },
@@ -183,6 +195,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'code/overview', label: 'Code overview' },
 						{
 							label: 'Built-in code editor',
+							collapsed: true,
 							items: [
 								{ slug: 'code/code-editor', label: 'Overview' },
 								{ slug: 'code/code-editor/language-server-protocol', label: 'Language Server Protocol (LSP)' },
@@ -201,6 +214,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					items: [
 						{
 							label: 'Warp Drive overview',
+							collapsed: true,
 							items: [
 								{ slug: 'knowledge-and-collaboration/warp-drive', label: 'Overview' },
 								{ slug: 'knowledge-and-collaboration/warp-drive/notebooks', label: 'Notebooks' },
@@ -238,6 +252,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'agent-platform/local-agents/overview', label: 'Warp Agents overview' },
 						{
 							label: 'Capabilities',
+							collapsed: true,
 							items: [
 								{ slug: 'agent-platform/capabilities', label: 'Overview' },
 								{ slug: 'agent-platform/capabilities/slash-commands', label: 'Slash commands' },
@@ -258,6 +273,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						},
 						{
 							label: 'Interacting with agents',
+							collapsed: true,
 							items: [
 								{ slug: 'agent-platform/local-agents/interacting-with-agents', label: 'Overview' },
 								'agent-platform/local-agents/interacting-with-agents/terminal-and-agent-modes',
@@ -268,6 +284,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						},
 						{
 							label: 'Agent context',
+							collapsed: true,
 							items: [
 								{ slug: 'agent-platform/local-agents/agent-context', label: 'Overview' },
 								{ slug: 'agent-platform/local-agents/agent-context/blocks-as-context', label: 'Blocks as context' },
@@ -302,6 +319,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'agent-platform/cloud-agents/platform', label: 'Oz platform' },
 						{
 							label: 'Triggers',
+							collapsed: true,
 							items: [
 								{ slug: 'agent-platform/cloud-agents/triggers', label: 'Overview' },
 								{ slug: 'agent-platform/cloud-agents/triggers/scheduled-agents-quickstart', label: 'Quickstart' },
@@ -310,6 +328,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						},
 						{
 							label: 'Integrations',
+							collapsed: true,
 							items: [
 								{ slug: 'agent-platform/cloud-agents/integrations', label: 'Overview' },
 								{ slug: 'agent-platform/cloud-agents/integrations/quickstart', label: 'Quickstart' },
@@ -317,6 +336,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 								'agent-platform/cloud-agents/integrations/linear',
 								{
 									label: 'GitHub Actions',
+									collapsed: true,
 									items: [
 										{ slug: 'agent-platform/cloud-agents/integrations/github-actions', label: 'Overview' },
 										{ slug: 'agent-platform/cloud-agents/integrations/quickstart-github-actions', label: 'Quickstart' },
@@ -339,6 +359,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'agent-platform/cloud-agents/deployment-patterns', label: 'Deployment patterns' },
 						{
 							label: 'Self-hosting',
+							collapsed: true,
 							items: [
 								{ slug: 'agent-platform/cloud-agents/self-hosting', label: 'Overview' },
 								{ slug: 'agent-platform/cloud-agents/self-hosting/quickstart', label: 'Quickstart' },
@@ -387,10 +408,12 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						'reference/api-and-sdk/demo-sentry-monitoring-with-sdk',
 						{
 							label: 'API Troubleshooting',
+							collapsed: true,
 							items: [
 								{ slug: 'reference/api-and-sdk/troubleshooting', label: 'API Troubleshooting' },
 								{
 									label: 'Errors',
+									collapsed: true,
 									items: [
 										{ slug: 'reference/api-and-sdk/troubleshooting/errors', label: 'Errors' },
 										'reference/api-and-sdk/troubleshooting/errors/insufficient-credits',
