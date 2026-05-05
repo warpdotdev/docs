@@ -152,15 +152,14 @@ These checks require infrastructure or design changes that can't be automated:
 
 ## Applying fixes
 
-1. Create a branch: `git checkout -b automated/afdocs-fixes origin/main`
+1. Create a branch: `git checkout -b afdocs-fixes origin/main`
 2. Apply the fixes for each failing check (skip allowlisted checks).
 3. Validate: `npm run build` (the build must succeed).
-4. Commit with the prefix: `Automated AFDocs fixes: <summary of what was fixed>`
-5. Open a PR with the `afdocs` label: `gh pr create --label afdocs`
+4. Commit with the prefix: `AFDocs fixes: <summary of what was fixed>`
+5. Open a PR: `gh pr create`
 
 ## PR conventions
 
-- Title must be prefixed with `Automated AFDocs fixes:` (e.g., `Automated AFDocs fixes: add llms.txt directive and content negotiation middleware`)
-- Add the `afdocs` label to the PR
+- Title must be prefixed with `AFDocs fixes:` (e.g., `AFDocs fixes: add llms.txt directive and content negotiation middleware`)
 - Include the audit score (before/after if known) in the PR description
 - Include the co-author line: `Co-Authored-By: Oz <oz-agent@warp.dev>`
