@@ -1,61 +1,91 @@
 ---
 title: SSH with Warp features
 description: >-
-  Warpify SSH sessions with tmux to get Blocks, completions, and the input
-  editor on remote machines.
+  Use Warp's SSH extension on remote macOS and Linux hosts to get a real file
+  tree, reliable completions, and native code edits over SSH.
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
 
+Warp's **SSH extension** brings the local Warp experience to remote macOS and Linux hosts. After you opt in on first connect, you get a real file tree backed by the remote filesystem, more reliable completions over a single multiplexed SSH connection, and a coding agent that applies edits with Warp's native diff tool instead of falling back to `sed`.
+
+<VideoEmbed url="https://www.loom.com/share/466d88a1968842c68f66a3b66b94f146" title="SSH extension demo" />
+
+## What you get over SSH
+
+Once the SSH extension is installed on a remote host, the following features work the same way they do locally:
+
+* **File tree (Project Explorer)** - The left panel reflects the remote project's structure and updates as you `cd` between directories or change files. See [File Tree](/code/code-editor/file-tree/).
+* **Reliable completions and autosuggestions** - Generators run in parallel over a single multiplexed connection instead of opening a new SSH session per command, so completions stop hitting the remote host's `MaxSessions` ceiling and stop occasionally injecting errors into your blocks.
+* **Native file reads and code diffs** - The Agent reads files and applies edits through Warp's built-in diff tool. Code changes show up as inline diffs you can review and approve, instead of being applied via `sed` or other shell commands. See [Code diffs](/agent-platform/local-agents/code-diffs/).
+* **All core terminal features** - The input editor, blocks, command history, autosuggestions, and history search behave the same as in a local session.
+
+For a full breakdown of what works over SSH and what doesn't, see [Feature support over SSH](/code/ssh-feature-support/).
+
+![Warp prompting to Warpify a freshly-connected SSH session.](../../../../assets/terminal/warpify_ssh_prompt.png)
+
+## Installing the SSH extension
+
+On the first SSH connection to a host that doesn't already have the SSH extension installed, Warp shows an in-block prompt with two options:
+
+* **Install Warp's SSH extension** - Recommended. Warp downloads the matching remote server extension for the remote OS and architecture, installs it under `~/.warp/remote-server` (or `~/.warp-preview/remote-server` on Preview builds), launches it, and completes the handshake. Subsequent connections to the same host skip the prompt and reuse the installed binary.
+* **Continue without installing** - Skip installing the extension for this connection. The session continues without the SSH extension, so file tree, native file reads, and native code diffs are unavailable until you install. You can reconnect and install at any time.
+
+Warp never installs anything on a remote host without your explicit consent, and the install only writes under `~/.warp*/`.
+
 :::note
-Some coding features — including Codebase Context, code diffs, the code editor, and the file tree — are not yet available over SSH. See [Feature support over SSH](/code/ssh-feature-support/) for the full list.
+The extension binary tracks your client's release channel. Stable Warp installs the extension under `~/.warp/remote-server`, and Preview installs it under `~/.warp-preview/remote-server`, so both channels can coexist on the same remote host.
 :::
+
+### Managing the install prompt
+
+In the Warp app, go to **Settings** > **Warpify** to control how the prompt behaves:
+
+* **Always ask** (default) - Show the install prompt the first time you connect to each host.
+* **Always install** - Skip the prompt and install the extension automatically when it's missing.
+* **Never install** - Skip the prompt and connect to the host without installing the SSH extension.
+
+The same setting can also be changed inline from the install prompt by selecting **Don't ask me this again** before clicking either button. The underlying TOML key is `warpify.ssh.ssh_extension_install_mode` - see [All settings reference](/terminal/settings/all-settings/#ssh) for the full list of SSH-related settings, including `ssh_hosts_denylist` for hosts you never want to engage Warpification on.
+
+## Legacy: tmux-based Warpification
 
 :::caution
-This page is dedicated to the SSH features powered by `tmux`.
-
-If you are looking to troubleshoot the legacy SSH implementation, see the [SSH (Legacy)](/terminal/warpify/ssh-legacy/).
+Tmux-based Warpification is a legacy alternative to the SSH extension and is being deprecated. Use the SSH extension above whenever possible. Tmux-based Warpification remains available today for clients that don't yet ship the SSH extension (for example, Windows clients).
 :::
 
-<VideoEmbed url="https://youtu.be/S39jxLNfUlc" title="Warpify an SSH Session" />
+Tmux-based Warpification is an older approach to enabling Warp features in SSH sessions. It uses [`tmux`](#why-do-i-need-tmux-on-the-remote-machine) to multiplex commands over your SSH connection and provides Blocks, completions, the input editor, and history search.
 
-Warpifying your SSH session gives you all the features of Warp while connected to a remote machine: the input editor, auto-completions, history search, and more. We achieve this by running commands like `ls` on the remote machine on your behalf.
-
-**Warpifying a remote SSH Session** [**will never make lasting changes to the remote machine without your explicit consent**](/terminal/warpify/ssh/#will-warpifying-a-remote-ssh-session-make-changes-to-the-remote-machine)**.**
-
-![SSH](../../../../assets/terminal/warpify_ssh_prompt.png)
-
-## FAQs
+### FAQs
 
 #### Will Warpifying a remote SSH session make changes to the remote machine?
 
-Only to install [`tmux`](/terminal/warpify/ssh/#why-do-i-need-tmux-on-the-remote-machine) (a popular open source terminal multiplexer) and only with your explicit permission. If `tmux` is not installed, Warp will offer to install it for you and will show you the list of commands that will be run. You can always decline and continue to use your ssh session without some of Warp's features (or install `tmux` yourself and re-run Warpification [via the Command Palette](/terminal/warpify/ssh/#what-if-warp-fails-to-detect-my-ssh-session)).
+Only with your explicit permission. The SSH extension installs the remote server extension under `~/.warp*/remote-server`. Legacy tmux-based Warpification installs [`tmux`](#why-do-i-need-tmux-on-the-remote-machine) (a popular open source terminal multiplexer) if it isn't already present. Both flows show you exactly what they're going to run, and you can always decline and continue using SSH without these features.
 
 #### Why do I need `tmux` on the remote machine?
 
-`tmux` is used to asynchronously run commands on the remote machine without disrupting your interactive session. [tmux](https://github.com/tmux/tmux/wiki) is a popular open source terminal multiplexer, which lets you run multiple sessions within one ssh connection. It requires minimal permissions and is widely adopted (⭐ 35k+ on GitHub). Warpifying a remote SSH session uses [tmux Control Mode](https://github.com/tmux/tmux/wiki/Control-Mode) to run adhoc background tasks (like those required to autocomplete a `cd` command, or populate the contents of a custom prompt).
+`tmux` is only required by the legacy tmux-based Warpification path; the SSH extension does not need it. [tmux](https://github.com/tmux/tmux/wiki) is a popular open source terminal multiplexer that lets you run multiple sessions within one SSH connection. It requires minimal permissions and is widely adopted (⭐ 35k+ on GitHub). The legacy path uses [tmux Control Mode](https://github.com/tmux/tmux/wiki/Control-Mode) to run ad-hoc background tasks like autocompleting a `cd` command or populating the contents of a custom prompt. The SSH extension supersedes this by speaking a length-delimited protocol over a single SSH connection.
 
-#### Can I ssh to remote machines that I don't want to Warpify?
+#### Can I SSH to remote machines that I don't want to Warpify?
 
-Yes! You can always cancel Warpification and continue to use SSH, just without some of Warp's additional features. You can also explicitly add hosts to the Denylist to ensure you’re never asked to Warpify that host again.
+Yes. Cancel the prompt to continue without Warp features, or add the host to the denylist (**Settings** > **Warpify** > **SSH hosts denylist**) so you're never prompted again.
 
-### Do I have to manually Warpify every time?
+#### Do I have to manually Warpify every time?
 
-After you successfully Warpify an SSH connection manually, we provide a brief script you can run to append a message at the end of your shell's rcfile. This allows us to know when your shell is ready to be Warpified, and be found at the bottom of your rcfile for the best results.
+After you successfully Warpify an SSH connection manually, Warp provides a brief script you can run to append a marker at the end of your shell's rcfile. This lets Warp know when your remote shell is ready to be Warpified. Place the snippet at the bottom of your rcfile for the best results.
 
 ![Setting up Auto-Warpify](../../../../assets/terminal/warpify_ssh_auto_script.png)
 
 #### What shells and operating systems are supported?
 
-At the time of writing, we support macOS and most flavors of Linux as remote hosts. Supported shells are `bash` and `zsh`.
+Warp supports macOS and most flavors of Linux as remote hosts on both the SSH extension and legacy tmux-based Warpification. Supported shells are `bash` and `zsh`. Windows remote hosts are not yet supported.
 
 #### What if Warp fails to detect my SSH session?
 
-If you are ever in a remote SSH Session and would like to manually Warpify, you can do so by using the [Command Palette](/terminal/command-palette/) and searching for "Warpify SSH Session".
+If you're in a remote SSH session and Warp didn't detect it, you can manually Warpify by opening the [Command Palette](/terminal/command-palette/) and searching for "Warpify SSH Session".
 
 #### What triggers SSH session detection for Warpification?
 
-If SSH Session Detection is enabled, Warp will detect when you run an `ssh` command with arguments that suggest it's starting an interactive session. If you've aliased `ssh` or are running it as part of a script, we will not perform SSH Session Detection.
+With SSH session detection enabled, Warp watches for `ssh` commands whose arguments suggest an interactive session. If you've aliased `ssh` or are running it as part of a script, Warp won't perform SSH session detection.
 
-Once we have confidence you have successfully authenticated (by detecting `Last login:` or something resembling a basic prompt) we will prompt you to Warpify your active SSH session.
+Once Warp is confident you've successfully authenticated (by detecting `Last login:` or something resembling a basic prompt), it prompts you to Warpify the active SSH session.
 
-If SSH Session Detection does not detect your session, you can still [Warpify manually](/terminal/warpify/ssh/#what-if-warp-fails-to-detect-my-ssh-session).
+If SSH session detection doesn't pick up your session, you can still [Warpify manually](#what-if-warp-fails-to-detect-my-ssh-session).

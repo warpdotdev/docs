@@ -37,7 +37,7 @@ jobs:
         run: npm run build
 
       - name: Check internal links
-        run: python3 .warp/skills/check_for_broken_links/check_links.py --internal-only
+        run: python3 .agents/skills/check_for_broken_links/check_links.py --internal-only
 
       # Production-only audit; gate on high+ so dev-only deprecation chatter
       # doesn't break PRs. The `|| true` keeps it informational; tighten this
