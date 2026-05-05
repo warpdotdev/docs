@@ -716,36 +716,38 @@ starlight-file-tree .directory > details > summary {
 /* Shared chrome palette (Scalar tokens — mirror `src/pages/api.astro`).
    Inherited by Search, Ask, Copy, and any future chrome surface.
 
-   Dark-mode tokens map directly to the Oz webapp brand ladder (Oz
-   `gray-300`/`gray-400`/`gray-700`/`gray-800`/`gray-900`) so chips read as
-   raised surfaces against the `#121212` canvas with a single source of
-   truth shared with the light-mode block below. `--warp-control-text-hover`
-   keeps the warm-white `warp.dev` brand color (`#faf9f6`, matches
-   `--sl-color-white` in dark mode) for one step of extra accent against
-   `gray-300` body text. */
+   Dark-mode tokens are sourced from the warp.dev marketing brand ladder
+   (`warp-marketing-site-static/frontend/pages/global.css` §`--color-neutral-*`)
+   instead of the Oz webapp ladder. The Oz tier-700/800/900 greys carry
+   ~11–24% blue saturation, which read as visibly cool chips against the
+   neutral `#121212` canvas; the warp.dev neutrals sit at near-zero saturation
+   with a slight warm tilt (matching `--sl-color-white`'s warm off-white)
+   so the trio looks like one grayscale chrome family rather than blue
+   stickers floating on neutral page bg. Body prose tokens
+   (`--sl-color-gray-*`) intentionally stay on the Oz ladder — only the
+   chrome controls move. */
 body {
-  --warp-control-bg: #181d27;            /* Oz gray-900 — raised surface */
-  --warp-control-bg-hover: #252b37;      /* Oz gray-800 */
-  --warp-control-border: #414651;        /* Oz gray-700 */
-  --warp-control-border-hover: #535862;  /* Oz gray-600 */
-  --warp-control-text: #dbdbdb;          /* Oz gray-300 — text-secondary */
+  --warp-control-bg: #1e1e1d;            /* warp.dev neutral-95 — raised surface */
+  --warp-control-bg-hover: #292929;      /* warp.dev neutral-90 */
+  --warp-control-border: #404040;        /* warp.dev neutral-80 */
+  --warp-control-border-hover: #585756;  /* warp.dev neutral-70 */
+  --warp-control-text: #dbdbdb;          /* Oz gray-300 — text-secondary (kept; already neutral) */
   --warp-control-text-hover: hsl(40, 20%, 97%); /* warp.dev warm off-white */
-  --warp-control-icon: #a4a7ae;          /* Oz gray-400 — text-tertiary */
+  --warp-control-icon: #9d9d9b;          /* warp.dev neutral-40 — text-tertiary */
 }
 
 :root[data-theme='light'] body {
-  /* Light-mode tokens map directly to the Oz webapp brand surface ladder
-     (`gray-100`/`gray-200`/`gray-300`/`gray-400`) so chips remain visibly
-     distinct against the pure-white canvas. The previous warm-grey chip
-     (`hsl(40, 12%, 92%)`) was tuned against the old `#faf9f6` warm canvas
-     and washed out on `#ffffff`. Hover is one step darker than rest. */
-  --warp-control-bg: #f3f3f3;        /* Oz gray-100 / brand surface.1 */
-  --warp-control-bg-hover: #e7e7e7;  /* Oz gray-200 / brand surface.2 */
-  --warp-control-border: #dbdbdb;    /* Oz gray-300 / brand surface.3 */
-  --warp-control-border-hover: #a4a7ae; /* Oz gray-400 */
-  --warp-control-text: #414651;      /* Oz gray-700 — text-secondary */
-  --warp-control-text-hover: #0a0d12;/* Oz gray-950 */
-  --warp-control-icon: #535862;      /* Oz gray-600 — text-tertiary */
+  /* Light-mode tokens keep the neutral surface/border ladder (`gray-100`
+     /`gray-200`/`gray-300`) — those values already sit near zero saturation.
+     The hover/text/icon entries swap from cool Oz tier-600/700 greys to the
+     warp.dev neutral ladder so the trio reads grayscale in both themes. */
+  --warp-control-bg: #f3f3f3;        /* Oz gray-100 / brand surface.1 (kept) */
+  --warp-control-bg-hover: #e7e7e7;  /* Oz gray-200 / brand surface.2 (kept) */
+  --warp-control-border: #dbdbdb;    /* Oz gray-300 / brand surface.3 (kept) */
+  --warp-control-border-hover: #9d9d9b; /* warp.dev neutral-40 */
+  --warp-control-text: #404040;      /* warp.dev neutral-80 — text-secondary */
+  --warp-control-text-hover: #121212;/* warp.dev canvas black */
+  --warp-control-icon: #585756;      /* warp.dev neutral-70 — text-tertiary */
 }
 
 .warp-sidebar-search {
@@ -877,4 +879,125 @@ body {
   :root[data-theme='light'] .sidebar-pane {
     box-shadow: 8px 0 24px rgba(0, 0, 0, 0.12);
   }
+}
+
+/* --------------------------------------------------------------------------
+   18. Search dialog (Pagefind modal) — brand-aligned grayscale chrome
+   --------------------------------------------------------------------------
+
+   Starlight's `Search.astro` ships scoped styles inside `@layer
+   starlight.core` plus an inline `@import` of Pagefind's default UI sheet,
+   also at `layer(starlight.core)`. The defaults paint:
+
+     - The dialog frame with `--sl-color-gray-6` / `gray-5` (Oz cool blue
+       grays `#252b37` / `#414651`).
+     - The input focus ring with `--sl-color-accent` (Warp blue).
+     - Result hover/focus with `--sl-color-accent-high` outlines and
+       `--sl-color-accent-low` fills (more blue tint).
+     - Cancel + clear buttons in `--sl-color-text-accent` (blue).
+
+   On the neutral `#121212` canvas + the warp.dev grayscale chrome system
+   (§16 above), all of that read as visibly cool/blue and out of family.
+   Unlayered overrides below win the cascade against `starlight.core` and
+   pull the modal onto the same `--warp-control-*` ladder as the trigger
+   button it just opened from.
+
+   Selectors are scoped to `site-search dialog` (the `<dialog>` that lives
+   inside `<site-search>`) so they don't bleed into the Kapa Ask dialog,
+   which also uses a `<dialog aria-label="…">` element.
+   -------------------------------------------------------------------------- */
+
+/* Dialog surface: drop the cool gray-6 fill and gray-5 border in favor of
+   the page canvas + a hairline. Depth comes from the backdrop blur and the
+   existing `box-shadow`. Same "one canvas, hairlines for separation"
+   pattern the rest of the site already uses (see custom.css §background). */
+site-search dialog {
+  background-color: var(--sl-color-bg);
+  border: 1px solid var(--sl-color-hairline-light);
+}
+
+/* Stronger neutral backdrop. Starlight's `--sl-color-backdrop-overlay`
+   inherits the accent family in some themes; pin it to a flat dark scrim
+   so the modal still pops without a blue cast. Light mode gets a soft
+   warm-white wash instead. */
+site-search dialog::backdrop {
+  background-color: rgba(18, 18, 18, 0.55);
+}
+
+:root[data-theme='light'] site-search dialog::backdrop {
+  background-color: rgba(255, 255, 255, 0.55);
+}
+
+/* Pagefind UI custom-property overrides. These cascade into Pagefind's own
+   stylesheet (which authors all its surfaces against
+   `--pagefind-ui-background` / `--pagefind-ui-border` / `--pagefind-ui-tag`
+   / `--pagefind-ui-border-radius`) so we don't need to chase every
+   internal class. The shared chrome `--warp-control-*` ladder defined in
+   §16 is the source of truth for color; corner radii follow the chrome
+   rule — every clickable control surface lands at `--sl-radius-sm` (4px),
+   matching the trigger button this modal opened from. The dialog frame
+   itself stays at the Starlight default 8px (overlay tier).
+
+   `--sl-search-corners` is Starlight's own knob for the result-card
+   corners (defaults to `0.3125rem` = 5px, between our `sm` and `md`
+   tokens, which never matches anything else). Pin it to `sm` so the
+   list rows match the input above them. */
+site-search #starlight__search {
+  --pagefind-ui-background: var(--warp-control-bg);
+  --pagefind-ui-border: var(--warp-control-border);
+  --pagefind-ui-tag: var(--warp-control-border);
+  --pagefind-ui-text: var(--sl-color-gray-2);
+  --pagefind-ui-primary: var(--sl-color-white);
+  --pagefind-ui-border-radius: var(--sl-radius-sm);
+  --sl-search-corners: var(--sl-radius-sm);
+}
+
+/* Input focus border: Starlight's default flips `--pagefind-ui-border` to
+   the saturated Warp blue accent on focus, which is the bright cyan ring
+   in the screenshot. Replace with the chrome ladder's hover border so the
+   input matches the trigger button's `:hover` affordance. */
+site-search #starlight__search input:focus {
+  --pagefind-ui-border: var(--warp-control-border-hover);
+}
+
+/* Cancel + clear buttons: drop the blue accent color in favor of a calm
+   gray that recedes the way every other secondary chrome action does. */
+site-search button[data-close-modal] {
+  color: var(--sl-color-gray-2);
+}
+
+site-search button[data-close-modal]:hover {
+  color: var(--sl-color-white);
+}
+
+site-search #starlight__search .pagefind-ui__search-clear::before {
+  background-color: var(--sl-color-gray-3);
+}
+
+site-search #starlight__search .pagefind-ui__search-clear:focus {
+  outline: 1px solid var(--warp-control-border-hover);
+}
+
+/* Result cards. Starlight paints the title row + each nested sub-result
+   with `--sl-color-black` (`#121212`), which on the cool gray-6 dialog
+   read as stamped-down patches. With the dialog now sharing the page
+   canvas, raise each result onto the chrome `--warp-control-bg` so the
+   list reads as a stack of tactile chips. A 1px hairline keeps the cards
+   distinct without a heavy outline. */
+site-search #starlight__search .pagefind-ui__result-title:not(:where(.pagefind-ui__result-nested *)),
+site-search #starlight__search .pagefind-ui__result-nested,
+site-search #starlight__search .pagefind-ui__result-tags {
+  background-color: var(--warp-control-bg);
+}
+
+/* Hover / keyboard-focus state. Replace the blue accent outline + tinted
+   fill with the same neutral wash the chrome buttons use on hover. The
+   1px border swap stays inside the existing layout box, so list rows
+   don't shift on hover. */
+site-search #starlight__search .pagefind-ui__result-title:not(:where(.pagefind-ui__result-nested *)):hover,
+site-search #starlight__search .pagefind-ui__result-title:not(:where(.pagefind-ui__result-nested *)):focus-within,
+site-search #starlight__search .pagefind-ui__result-nested:hover,
+site-search #starlight__search .pagefind-ui__result-nested:focus-within {
+  outline: 1px solid var(--warp-control-border-hover);
+  background-color: var(--warp-control-bg-hover);
 }
