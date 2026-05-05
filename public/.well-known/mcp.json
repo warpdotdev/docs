@@ -1,0 +1,6 @@
+{
+  "name": "Warp Documentation",
+  "description": "Search and retrieve Warp documentation — the agentic development environment and Oz, Warp's programmable agent platform.",
+  "url": "https://warp.mcp.kapa.ai/sse",
+  "transport": "sse"
+}
