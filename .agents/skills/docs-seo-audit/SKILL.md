@@ -17,7 +17,7 @@ Crawl the live docs.warp.dev sitemap to find SEO issues and fix them in the sour
 From the docs repo root:
 
 ```bash
-python3 .warp/skills/docs-seo-audit/scripts/seo_audit.py \
+python3 .agents/skills/docs-seo-audit/scripts/seo_audit.py \
   --repo-root . \
   --output /tmp/seo-report.json
 ```
@@ -34,7 +34,7 @@ The script fetches all pages listed in `https://docs.warp.dev/sitemap-index.xml`
 ### Quick test with a small sample
 
 ```bash
-python3 .warp/skills/docs-seo-audit/scripts/seo_audit.py --repo-root . --max-pages 20 --output /tmp/seo-sample.json
+python3 .agents/skills/docs-seo-audit/scripts/seo_audit.py --repo-root . --max-pages 20 --output /tmp/seo-sample.json
 ```
 
 ## Reading the report
