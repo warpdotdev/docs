@@ -52,6 +52,16 @@ function parseArgs(argv) {
 }
 
 function runAfdocsCheck(url) {
+	// Validate URL to prevent shell injection
+	try {
+		const parsed = new URL(url);
+		if (!['http:', 'https:'].includes(parsed.protocol)) {
+			throw new Error(`Invalid protocol: ${parsed.protocol}`);
+		}
+	} catch (e) {
+		throw new Error(`Invalid URL "${url}": ${e.message}`);
+	}
+
 	try {
 		const stdout = execSync(`npx afdocs check ${url} --format json`, {
 			encoding: 'utf8',

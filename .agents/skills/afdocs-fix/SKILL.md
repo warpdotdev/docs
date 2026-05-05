@@ -133,12 +133,11 @@ grep -A1 "label:" astro.config.mjs | grep "paths:"
 {
   "name": "Warp Documentation",
   "description": "Search and retrieve Warp documentation.",
-  "url": "https://warp.mcp.kapa.ai/sse",
-  "transport": "sse"
+  "url": "https://warp.mcp.kapa.ai"
 }
 ```
 
-This points to the existing Kapa-hosted MCP server. No custom implementation needed.
+This points to the existing Kapa-hosted MCP server (OAuth-protected). No custom implementation needed.
 
 **Files**: `public/.well-known/mcp.json` (new file)
 

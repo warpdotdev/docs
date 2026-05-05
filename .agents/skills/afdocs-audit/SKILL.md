@@ -57,7 +57,7 @@ Only include a section if its count is > 0. Never list allowlisted issues under 
 
 After running the audit, ALWAYS report the results to the user before taking any action. Include:
 
-1. **Score**: Overall score, grade, and comparison to last known score (82/100 B as of 2026-05-05)
+1. **Score**: Overall score and grade
 2. **Failures first**: List every fail-severity check with its message and fix guidance. These are the most impactful.
 3. **Warnings**: List warning-severity checks with context.
 4. **Allowlisted**: Briefly note any known exceptions that were flagged.
