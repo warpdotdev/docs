@@ -139,9 +139,9 @@ export default defineConfig({
 				// widely consumed by AI agents.
 				starlightLlmsTxt({
 					projectName: 'Warp',
-					// Excludes open-source-licenses from llms-full.txt and llms-small.txt.
-					// The file is ~25k lines and causes a stack overflow in hast-util-to-text.
-					// llms-custom sets exclude it separately via explicit path enumeration below.
+					// Excludes pages from llms-small.txt that cause a stack overflow
+					// in hast-util-to-text due to their size. Note: the `exclude`
+					// option only applies to llms-small.txt, not llms-full.txt.
 					exclude: ['support-and-community/community/open-source-licenses'],
 					description:
 						'Documentation for Warp, the agentic development environment, and Oz, Warp\'s programmable agent for running and coordinating agents at scale.',
@@ -153,10 +153,13 @@ export default defineConfig({
 						{ label: 'Getting Started', description: 'Installation, quickstart, and migration guides.', paths: ['getting-started/**'] },
 						{ label: 'Knowledge and Collaboration', description: 'Warp Drive, teams, and the Admin Panel.', paths: ['knowledge-and-collaboration/**'] },
 						{ label: 'Reference', description: 'CLI and API reference.', paths: ['reference/**'] },
-					// Excludes support-and-community/community/ — open-source-licenses.mdx is ~25k
-					// lines and causes a stack overflow in hast-util-to-text during llms-txt generation.
-					{ label: 'Support', description: 'Troubleshooting, billing, and privacy.', paths: ['support-and-community/index', 'support-and-community/plans-and-billing/**', 'support-and-community/privacy-and-security/**', 'support-and-community/troubleshooting-and-support/**'] },
-						{ label: 'Guides (Warp University)', description: 'Task-oriented walkthroughs.', paths: ['university/**'] },
+				// Includes all support-and-community/ pages except open-source-licenses.mdx
+				// (excluded globally above — ~25k lines causes a stack overflow in hast-util-to-text).
+				{ label: 'Support', description: 'Troubleshooting, billing, and privacy.', paths: ['support-and-community/index', 'support-and-community/plans-and-billing/**', 'support-and-community/privacy-and-security/**', 'support-and-community/troubleshooting-and-support/**', 'support-and-community/community/contributing', 'support-and-community/community/open-source-partnership', 'support-and-community/community/refer-a-friend'] },
+					{ label: 'Guides', description: 'Task-oriented walkthroughs and tutorials.', paths: ['guides/**'] },
+					// Changelog excluded — the single page (4k lines) causes a stack overflow
+					// in hast-util-to-text during llms-full.txt generation. The page is still
+					// available at /changelog/ and indexed by the sitemap.
 					],
 				}),
 			],

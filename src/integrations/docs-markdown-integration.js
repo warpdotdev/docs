@@ -88,7 +88,10 @@ function convertHtmlToMarkdown(html) {
 	const clone = /** @type {HTMLElement} */ (contentRoot.cloneNode(true));
 	sanitizeRoot(clone);
 	const markdownBody = turndown.turndown(clone.innerHTML).trim();
-	const sections = [`# ${normalizeWhitespace(title)}`];
+	const llmsDirective =
+		'> For the complete documentation index, see [llms.txt](/llms.txt).\n' +
+		'> Markdown versions of each page are available by appending .md to any URL.';
+	const sections = [llmsDirective, `# ${normalizeWhitespace(title)}`];
 
 	if (description) {
 		sections.push(description);
