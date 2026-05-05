@@ -83,12 +83,12 @@ AFDocs audit complete: 23 checks run, score 82/100 (B).
 
 After reporting, ask the user which issues they want to address.
 
-## Slack notification (optional)
+## Slack notification
 
-If instructed to send a report to Slack, post a summary after the audit completes.
+After the audit completes, post a summary to the **#growth-docs** Slack channel (`C09BVK0PL3Y`).
 
 1. Check if `BUZZ_SLACK_TOKEN` environment variable exists.
-2. If the token exists, send a summary to the specified channel.
+2. If the token exists, send a summary to `#growth-docs`.
 
 **Format:**
 
@@ -113,7 +113,7 @@ curl -X POST https://slack.com/api/chat.postMessage \
   -H "Authorization: Bearer $BUZZ_SLACK_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
-    "channel": "<CHANNEL_ID>",
+    "channel": "C09BVK0PL3Y",
     "text": "<formatted_summary>",
     "unfurl_links": false,
     "unfurl_media": false
