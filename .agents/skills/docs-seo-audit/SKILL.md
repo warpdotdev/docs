@@ -119,6 +119,19 @@ Before making any changes, read these references:
 3. **OG and Twitter tags mirror title and description** automatically. No separate fix needed.
 4. **Changing a sidebar config label has side effects**: it also changes the sidebar label, breadcrumbs, and prev/next pagination. URLs are NOT affected (URLs are based on the file path/slug).
 5. **When changing a title, also update the H1** in the markdown file for consistency.
+6. **All titles, labels, and H1 headings must use sentence case.** Capitalize only the first word and proper nouns. Only recognized proper feature names retain their capitalization — check `AGENTS.md` and `.agents/references/terminology.md` for the canonical list. Common mistakes to avoid:
+   - ✅ `Computer use for agents` — generic term, sentence case
+   - ❌ `Computer Use for Agents` — not a proper feature name, don't capitalize
+   - ✅ `API keys` — generic term, sentence case
+   - ❌ `API Keys` — not a proper feature name
+   - ✅ `Known issues` — generic term, sentence case
+   - ❌ `Known Issues` — not a proper feature name
+   - ✅ `Slack integration` — external product name (Slack) + generic term
+   - ❌ `Slack Integration for Oz` — "Integration" is not a proper feature name; "for Oz" is imprecise (see terminology rules)
+   - ✅ `Agent Mode` — proper feature name, retains capitalization
+   - ✅ `Codebase Context` — proper feature name, retains capitalization
+   - ✅ `Tab Configs` — proper feature name, retains capitalization
+   - ✅ `Warp Drive` — proper feature name, retains capitalization
 
 ### Title exceptions
 
