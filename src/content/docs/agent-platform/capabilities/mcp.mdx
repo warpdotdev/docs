@@ -5,6 +5,7 @@ description: >-
   custom tools and data sources through a standardized interface.
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
+import DemoVideo from '@components/DemoVideo.astro';
 
 MCP servers extend Warp's [local agents](/agent-platform/local-agents/interacting-with-agents/) in a modular, flexible way by exposing custom tools or data sources through a standardized interface — essentially acting as plugins for Warp. Warp supports a variety of connection protocols, including Streamable HTTPS and SSE, along with custom headers and environment variables.
 
@@ -95,21 +96,56 @@ To add a multiple MCP servers, you can click the **+ Add** button then paste in 
 
 ### File-based MCP servers
 
-Warp detects MCP server configurations managed by supported third-party agents and can automatically spawn them alongside your manually configured servers.
+Compared to manually adding a server in the Warp settings, file-based servers are defined in config files that Warp detects and can spawn automatically. They offer a few additional benefits:
 
-To enable, go to **Settings** > **Agents** > **MCP servers** and toggle **File-based MCP Servers** on.
+* **Configurable directly with an agent** - Use the [bundled skill](#using-agent-add-mcp) `/agent-add-mcp` so Warp's agent can add or update an MCP server without leaving the conversation.
+* **Inherited across providers and repos** - Warp reads `.warp/.mcp.json` files and also picks up config from third-party agent providers (Claude Code, Codex, and others). The same server definition follows you across tools and repos.
 
-![File-based MCP Servers toggle](/assets/agent-platform/file-based-mcp-toggle.gif)
+#### Supported providers
 
-When enabled:
+Warp reads MCP server definitions from the following providers:
 
-* **Global/user-scoped servers** - spawned on Warp startup and available in any session.
-* **Project-scoped servers** - spawned when you enter a repo containing a supported config file, and available within that project only.
+| Provider | Global config | Project-scoped config | Auto-spawn |
+| -------- | ------------- | --------------------- | ---------- |
+| Warp | `~/.warp/.mcp.json` | `.warp/.mcp.json` at project root | On by default |
+| Claude Code | `~/.claude.json` | `.mcp.json` at project root | Requires toggle |
+| Codex | `~/.codex/config.toml` | `.codex/config.toml` at project root | Requires toggle |
+| Other agents | `~/.agents/.mcp.json` | `.agents/.mcp.json` at project root | Requires toggle |
 
-Supported providers:
+Global Warp servers auto-spawn by default. Global servers from all other providers auto-spawn only when **Auto-spawn servers from third-party agents** is enabled. Project-scoped servers from any provider require explicit approval.
 
-* **Claude Code** - reads user-scoped config (`~/.claude.json`) and project-scoped config (`.mcp.json` at project root). See [user scope](https://code.claude.com/docs/en/mcp#user-scope) and [project scope](https://code.claude.com/docs/en/mcp#project-scope) in the Claude Code docs.
-* **Codex** - reads global config (`~/.codex/config.toml`) and project-scoped config (`.codex/config.toml` at project root). See [Codex MCP docs](https://developers.openai.com/codex/mcp/#connect-codex-to-an-mcp-server).
+For provider-specific setup, see the [Claude Code MCP docs](https://code.claude.com/docs/en/mcp#user-scope) and [Codex MCP docs](https://developers.openai.com/codex/mcp/#connect-codex-to-an-mcp-server).
+
+#### Auto-spawn behavior
+
+Global Warp servers auto-spawn by default. Third-party agent servers require you to enable auto-spawn first.
+
+To auto-spawn global servers from third-party agents:
+
+1. In the Warp app, go to **Settings** > **Agents** > **MCP servers**.
+2. Toggle **Auto-spawn servers from third-party agents** on.
+
+![Toggle to auto-spawn global file-based MCP servers](/assets/agent-platform/file-based-mcp-setting.png)
+
+Project-scoped servers from any provider must be toggled on individually from the MCP servers page. These are session-scoped — after restarting Warp, toggle them on again if you still trust the repo.
+
+#### Using `/agent-add-mcp`
+
+The built-in `/agent-add-mcp` skill lets Warp's agent create or update file-based MCP server definitions. Choose whether to save globally or in the current project — the skill writes the server definition to the matching file:
+
+* **Global:** `~/.warp/.mcp.json`
+* **Project-scoped:** `{repo_root}/.warp/.mcp.json`
+
+<DemoVideo src="/assets/agent-platform/file-based-mcp-demo.mp4" label="Using the agent-add-mcp skill to create a file-based MCP server configuration" />
+
+The demo shows how to use `/agent-add-mcp` to add an MCP server, choose where Warp saves the file-based configuration, and review the generated `.warp/.mcp.json` file before using the server.
+
+#### Security mitigations
+
+MCP config files can start local commands and send data to external tools. Warp adds approval gates around file-based MCP servers to reduce the risk of untrusted config changes:
+
+* **Config edits require approval** - Warp prevents edits to MCP config files unless you explicitly approve the change. This keeps an agent or automation from silently adding a server that can run commands or access data.
+* **Project-scoped servers never auto-spawn** - Warp detects project-scoped MCP config files in cloned repos, but requires you to start each server manually. This prevents a cloned repo from automatically starting an MCP server that runs arbitrary local commands.
 
 :::note
 File-based servers that require OAuth show an authentication modal on their first spawn. Credentials are saved for future spawns, the same as manually configured MCP servers.
