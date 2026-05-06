@@ -43,8 +43,8 @@ If the year file doesn't exist yet (year rollover), create it using this templat
 ---
 title: "Changelog — {year}"
 description: >-
-  Warp release notes for {year}. Warp auto-updates whenever a new release comes
-  out. We try to ship an update every week usually on Thursday!
+  Warp release notes for {year}. Updates ship weekly, typically on Thursdays.
+  The app auto-updates for each new release.
 ---
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
