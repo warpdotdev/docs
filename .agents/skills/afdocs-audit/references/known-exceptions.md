@@ -25,9 +25,9 @@ This file lists checks from the afdocs-audit skill that may flag as warnings or 
 
 ## page-size-markdown / page-size-html
 
-**Expected status**: warn — but only allowlist `/changelog/`
-**Reason**: The changelog page (`/changelog/`) is intentionally a single long page (~4,000 lines of MDX). It is excluded from `llms-full.txt` generation due to a `hast-util-to-text` stack overflow, but is still accessible at its URL and indexed by the sitemap.
-**Action**: If the only flagged page is `/changelog/`, classify as allowlisted. If other pages are flagged, treat those as genuine issues that may need splitting.
+**Expected status**: pass (after changelog split)
+**Reason**: The changelog was split into yearly pages in May 2026, resolving the page-size issue. No pages should flag this check now.
+**Action**: If any page is flagged, treat it as a genuine issue that may need splitting.
 
 ## section-header-quality
 

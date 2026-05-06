@@ -1,0 +1,923 @@
+---
+title: "Changelog — 2025"
+description: >-
+  Warp release notes for 2025. Warp auto-updates whenever a new release comes
+  out. We try to ship an update every week usually on Thursday!
+---
+
+Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
+
+### 2025.12.17 (v0.2025.12.17.17.17)
+
+**Improvements**
+
+* Warp now specifies what different models were used for in the credit transparency footer.
+* You can choose whether forked conversations open in a split pane or new tab.
+* `warp mcp list`, `warp environment list`, and `warp agent profile list` now support plain-text and JSON output.
+* MCP server configurations are now displayed in integration details (i.e. `warp integration list`).
+* Added support for configuring MCP servers in integrations.
+
+**Bug fixes**
+
+* Fixed a bug where Oz CLI runs could get stuck trying to run a denylisted command.
+
+### 2025.12.10 (v0.2025.12.10.08.12)
+
+**Improvements**
+
+* Added 'Initialize codebase' button to Code Review, which appears when you're in an uninitialized repo, making it easier to set up codebase indexing and LSP.
+* Added a new sub-menu to the model picker for selecting the reasoning level of reasoning models.
+* Added syntax highlighting for Vue template files.
+* Added support for specifying custom models for agents, integrations, and scheduled agents using the `--model` flag.
+* Added support for custom HTTP headers in MCP Streamable HTTP or SSE server connections.
+* Added `/conversations` slash command with a clock-rewind icon to open the conversation history palette.
+* Warp integrations will more proactively signal if the agent is blocked.
+
+**Bug fixes**
+
+* Fixed a bug where, in `Settings > Billing and usage`, the credit denomination wasn't set to the proper value for teams with auto-reload on.
+* The code editor now opens to the right of the active tab when "Choose a layout to open files in Warp" is set to "New tab".
+* Fixed mouse reporting for apps that don't use the alternate screen buffer, e.g. Radare2.
+
+### 2025.12.03 (v0.2025.12.03.08.12)
+
+**Improvements**
+
+* The Oz CLI now displays more detailed information when the agent tries to take a prohibited action.
+* Allow dragging file paths from the Project Explorer into active terminal commands like claude code and gemini for referencing files and folders.
+
+**Bug fixes**
+
+* Fixed a bug that could cause unbounded memory growth when using Warpified subshells or the legacy (non-tmux) SSH Warpify implementation.
+* Fixed a bug that could cause `comm` errors to appear in Warpified subshells.
+* \[Windows] Fixed keybinding for "find in code editor." This is now `CTRL-SHIFT-F` and configurable from Settings > Keyboard shortcuts.
+* Ensured that the Oz CLI is available automatically on macOS.
+* Fixed toast messages showing "Notebook" instead of "Plan" when taking actions on Plans in Warp Drive.
+
+### 2025.11.19 (v0.2025.11.19.08.12)
+
+**New features**
+
+* MCP server configurations can now be shared with others on your team. You can install a server shared by your team with minimal configuration.
+* Warp now provides out-of-box MCP servers for common services like Github and Linear that can be installed and run with a single click.
+* Find now works in the code review pane.
+
+### 2025.11.18 (v0.2025.11.18.12.24)
+
+**New features**
+
+* [Full Terminal Use](https://docs.warp.dev/agent-platform/warp-agents/full-terminal-use): Let the agent use the terminal as you would: interact with REPLs, debuggers, and full-screen apps like `top`. Warp is the only product on the market with Full Terminal Use capabilities.
+* [`/plan`](https://docs.warp.dev/agent-platform/warp-agents/planning): do spec-driven development in Warp. Work with an agent to align on an implementation plan that can be saved, versioned, and even attached to a PR for teammates.
+* [Interactive Code Review](https://docs.warp.dev/agent-platform/warp-agents/interactive-code-review): Review an agent's code like you would a teammate's, directly in Warp, and ask the agent to address the comments.
+* [Slack and Linear integrations](https://docs.warp.dev/agent-platform/cloud-agents/integrations):\*\* Ask the agent to get to work from the tools you already use, track their progress, and take the wheel via live session sharing.
+* Warp's Agents can now [search the web](https://docs.warp.dev/agent-platform/warp-agents/web-search) to retrieve information, when relevant. This capability is configurable via Agent Profiles.
+
+### 2025.11.12 (v0.2025.11.12.08.12)
+
+**Improvements**
+
+* \[Vim mode] Paragraph text objects are now supported, e.g. `dip` to delete a paragraph.
+* \[Vim mode] In terminal mode, press `K` over part of a command to inspect it.
+* Agent notifications now reference conversations' titles instead of their queries.
+
+**Bug Fixes**
+
+* The copy link button now works as expected after shared sessions have been closed.
+
+### 2025.11.05 (v0.2025.11.05.08.12)
+
+**New Features**
+
+* From the code review panel, add file diffs or the entire diff set as context to an agent conversation.
+
+**Improvements**
+
+* Warp now defaults to requiring approval before the agent will execute a command.
+* Shared session links will open in a new tab by default, rather than a new window.
+* Display summarization tokens when conversation summarization is triggered.
+
+### 2025.10.29 (v0.2025.10.29.08.12)
+
+**Improvements**
+
+* Display conversation summaries when summarization is triggered.
+* Added completions for the Oz CLI.
+* Updated community links from Discord to Slack throughout the app.
+
+**Bug Fixes**
+
+* Reduce padding on restored Agent Mode blocks and expanded shell commands.
+* Add support for delete key in vim mode in code editors.
+* Fix rendering for multi-line Agent Mode shell commands.
+
+### 2025.10.22 (v0.2025.10.22.08.13)
+
+**New Features**
+
+* Warp will suggest new unit tests in addition to code fixes via Suggested Code Banners
+
+**Improvements**
+
+* Fixed an issue where the model specs menu would get cut off.
+
+**Bug Fixes**
+
+* Fixed the close icon from becoming too small on the Warp Drive notebook viewer.
+* Fixed an issue where the CLI would report invalid debug IDs in its troubleshooting output.
+
+### 2025.10.15 (v0.2025.10.15.08.12)
+
+**New Features**
+
+* Warp now supports scaling the entire application. Change the zoom level in `Settings > Appearance > Window` or by pressing `CMD-+` on macOS or `CTRL-+` on Windows / Linux.
+
+**Improvements**
+
+* The code review pane can now show diffs against other base branches.
+* Added confirmation dialog when cancelling AI summarization requests.
+* You can now expand Suggested Code Diffs further on down arrow.
+* Restore closed panes using `CMD-SHIFT-T` or `CTRL-ALT-T` on Windows / Linux within 60 seconds of them being closed.
+* Added shell completions for the Oz CLI.
+* Warp Drive Environment Variables are now supported for Warp for Windows (PowerShell, Git Bash, and WSL).
+* Enriched the model picker to include detailed specs of each model's intelligence, speed and cost.
+
+**Bug Fixes**
+
+* Fixed the custom window size setting not reliably applying on startup.
+
+### 2025.10.08 (v0.2025.10.08.08.12)
+
+**Improvements**
+
+* Added the ability to sort team members by usage in `Settings > Billing and usage`.
+* Added UI indication of when Agent Mode conversation summarization is in progress, with a cancellation confirmation dialog.
+* Made the sizing for headings consistent across all collapsible blocks.
+* `@` menu no longer appears when running JS package manager subcommands, like `yarn workspace @org/package add`.
+* \[macOS] Resolved an issue re-mapping keybindings that conflict with macOS keybindings.
+
+**Bug Fixes**
+
+* Agent Mode requested command previews now only show the first line of multi-line commands.
+* Removed misleading "auto-approve" button while Warp is generating a fix for failed terminal commands.
+
+### 2025.10.01 (v0.2025.10.01.08.12)
+
+**Improvements**
+
+* Editing suggested file changes now takes place in the same pane, instead of a new tab.
+* When using the `@` context menu outside of a repo, current folder's contents are now listed.
+* The code mode file picker will now display gitignored files.
+* \[macOS] Warp now stores session restoration data in a more-secure application container.
+
+### 2025.09.24 (v0.2025.09.24.08.11)
+
+**New features**
+
+* You can now create new files directly in Warp. Search "New File" in the command palette. macOS users can find it in the app menu under "File".
+
+**Improvements**
+
+* Change the "Reject" label to "Refine" for code diffs and plans. They're functionally the same, though we think this will clear up some confusion over what hitting "Reject" will do.
+* Added realtime form validation to Environment Variables when secret redaction is enabled.
+* Avoid showing the `@` context completions menu when typing a package name. This covers common installers for JS, Python, Ruby, Go, PHP, and more.
+* Add an "auto-approve" option with a keyboard shortcut for requested commands and MCP tool calls. This makes it easier to accept a command and auto-approve future commands in a single button.
+
+**Bug fixes**
+
+* Fixed error with fish shell v4.
+* Avoid showing multiple "stopped task" banners when toggling a resumed conversation back to stopped before the agent begins responding.
+* Fix input problems with Russian on PowerShell.
+
+### 2025.09.17 (v0.2025.09.17.08.11)
+
+**New Features**
+
+* Warp agents are now available via the command line! [Learn more](https://docs.warp.dev/reference/cli)
+* Added support for custom Regex names in Enterprise Secret Redaction.
+
+**Improvements**
+
+* The @ context menu can now be activated outside of Git repositories (for actions such as attaching blocks/workflows), when in autodetection or AI input mode.
+* move the auto-approve button alongside the agent "stop" button for easier access.
+* Move the "stop" button alongside the "Warping..." indicator. This restores the "stop" button to classic input users, and offers a more intuitive experience for universal input users.
+* Added right-click context menu to code review pane with split pane controls.
+* Files selected in the file tree now open in a preview mode until interacted with.
+* Warp's agent now shows reasoning traces from reasoning models.
+* Ctrl-c during a long running command run by the agent will also stop the agent, not just the command.
+
+**Bug Fixes**
+
+* Fixed nested lists in agent markdown output sometimes not rendering properly.
+* Fix slow scrolling on macOS Tahoe.
+* Fix todo lists overflowing off of the screen for 10 or more items.
+* Fix code review maximize button appearing outside of split pane mode.
+* Fix the stop button unexpectedly disappearing when accepting the "start a new conversation" suggestion.
+
+### 2025.09.10 (v0.2025.09.10.08.11)
+
+**Improvements**
+
+* Added support for ignoring input suggestions. Click the X next to an item in your up-arrow history menu to hide that from showing up again. You can also enable the `Show autosuggestion ignore button` setting to add an X to autosuggestions directly in your input.
+* Git UI detects more changes in git worktrees.
+* You can now rename/delete items in the file picker and open them with the system file explorer.
+* Combine "refine" and "cancel" buttons into a single "reject" button. This lets you give feedback on code diffs, commands, and plans with a single button.
+* You can now switch node versions by clicking on the node version chip.
+* Added a "New Agent" button to the agent management panel to start a new agent conversation more easily."
+
+**Bug fixes**
+
+* Fixed an issue where agent output in a code block could be inserted at the wrong place.
+* Fixed code review diff buttons incorrectly receiving mouse events.
+* Avoid auto-expanding an agent's requested commands while you are using voice dictation.
+* Add back the auto-approve button for classic input mode.
+* Fixed keyboard navigation of chip menus in the input while an agent is running.
+* Properly reset context when user sends query to agent.
+
+### 2025.09.03 (v0.2025.09.03.08.11)
+
+**Improvements**
+
+* Added support for rendering H4-H6 in markdown.
+
+### 2025.09.01 (v0.2025.09.01.20.54)
+
+**New features**
+
+* Revert diff hunks directly from the Code Review Pane.
+* Add lines of a file to the context of a conversation from the Warp code editor.
+* You can now search and restore Agent conversations in your history using the `conversations:` prefix.
+* You can now search and navigate to indexed codebases using the `repos:` prefix.
+
+**Improvements**
+
+* Voice transcriptions are no longer cut off when unfocusing an input editor.
+* You can now select the $EDITOR environment variable as the default application for opening file links.
+* Added new header treatment for unfocused Warp windows.
+* \[macOS] A new dock icon option to celebrate Code Country - the Cow icon! (`Appearance > Icon` to change)
+* Pasting images in the terminal input switches to Agent Mode and attaches the image as context.
+* Added support for the Streamable HTTP transport for MCP servers.
+
+**Bug fixes**
+
+* \[Windows/Linux] Fixed keybinding conflict for split pane down action for the Input, when a code diff is not active.
+* Fixed tab tooltips displaying unwanted leading and trailing whitespace.
+* Pressing the up key while the model picker is open no longer opens the command history. Opening the model picker while the command history is open now closes the command history.
+
+### 2025.08.27 (v0.2025.08.27.08.11)
+
+**New Features**
+
+* [Agent Profiles](https://docs.warp.dev/agent-platform/warp-agents/agent-profiles-permissions#agent-profiles): define how your agent operates.
+* New pane to view changes to a Git repository.
+* Files now open in a tabbed viewer.
+* Syntax highlighting for Scala files in Warp.
+
+**Bug Fixes**
+
+* Fix paths not inserted when pasted images are not attached.
+
+### 2025.08.20 (v0.2025.08.20.08.11)
+
+**New features**
+
+* [Suggested Code Diffs](https://docs.warp.dev/agent-platform/warp-agents/active-ai#suggested-code-diffs) - Warp now intelligently suggests the appropriate fixes for any simple errors encountered in the command line e.g. compiler errors. Head to `Settings > Active AI` to toggle this feature.
+
+**Improvements**
+
+* Added setting to hide fixed prompt suggestions.
+* Updated default input type from 'Classic' to 'Universal'.
+* Improve the styling and usability of tabs for narrow windows.
+
+**Bug fixes**
+
+* Fix failures to start zsh sessions when using prezto.
+* The agent status indicator no longer disappears while a command is running.
+* Selecting a workflow will correctly close the workflows menu.
+* Don't auto-attach image if file pasted as plaintext.
+* Fixed issue with drag-drop images.
+* Fixed display of completions that may have included special characters.
+
+### 2025.08.13 (v0.2025.08.13.08.12)
+
+**New Features**
+
+* Agent Mode now displays interactive code blocks when referencing snippets from your codebase. You can easily copy the snippet, add the snippet as Agent Mode context, or open the file in Warp's built-in editor.
+* Agent Mode now creates and tracks task lists for more complex workflows. See [Agent Task Lists](https://docs.warp.dev/agent-platform/warp-agents/task-lists).
+* Added support for defining project-scoped rules with a WARP.md file. See [Rules](https://docs.warp.dev/knowledge-and-collaboration/rules#project-scoped-rules).
+* Added Slash Commands (/) in Agent Mode or Auto-Detection Mode to quickly run built-in actions or saved prompts without leaving the input field. See [Slash Commands](https://docs.warp.dev/agent-platform/warp-agents/slash-commands).
+
+**Improvements**
+
+* Added syntax highlighting for SQL in Warp's code editor.
+* Added button to dismiss suggestions footer.
+* \[Linux and Windows] Added support for drag-dropping multiple images.
+* New files in Warp open in a pane by default. You can customize this behavior via `Settings > Features > General > Choose a layout to open files in Warp`, where you can switch between opening files in a pane or a new tab.
+* Input stays in Agent Mode after an image is attached, instead of switching to shell mode.
+
+**Bug Fixes**
+
+* Fixed behavior when clicking Agents chip in Classic input mode.
+* Repository-scoped Warp features are now available in git worktrees.
+* Fixed drag-drop of images for long-running commands (eg Claude Code, vim).
+* \[Linux and Windows] Fixed attaching images from pasted files.
+* Fixed "Find in selected block" feature after clicking on an active running block.
+* Fixed text overlap on narrow panes with Classic Warp Prompt with Same Line Prompt.
+* \[macOS] Fixed a bug that would cause text to disappear for very long Agent Mode prompts.
+
+### 2025.08.06 (v0.2025.08.06.08.12)
+
+**New Features**
+
+* GPT-5 is now available to all users. Use the model selector in the input bar to try it yourself.
+* \[macOS] Added the ability to attach images as context by drag-and-dropping them or pasting from your clipboard.
+
+**Improvements**
+
+* You can now open any files within Warp's editor (including txt/csv files)!
+* Warp can now edit Bazel files.
+* Warp can now edit `.bashrc` and `.zshrc` files.
+* Added `Always show secrets` to Secret Redaction for a less obtrusive secret redaction mode.
+* Added reset time to the Billing and usage menu.
+
+**Bug Fixes**
+
+* Fix fish version &lt;= 3.7 when vi keybindings were activated.
+* Fixed bug affecting the "Open in Markdown Viewer by default" setting, you can use this setting to determine whether you'd like to view/edit MD files in Warp by default.
+* Fixed an issue where typeahead for the next command could be lost if you typed really quickly after hitting enter on the previous command.
+* Resolved an issue where stopping voice recording via the button would interrupt transcription.
+
+### 2025.07.30 (v0.2025.07.30.08.12)
+
+**New Features**
+
+* You can now set a configurable block size limit for higher scrollback limits! Head to `Settings > Features > Session > Maximum rows in a block` to configure.
+* \[Linux] Added support for pasting images as context.
+
+**Improvements**
+
+* The "Open in Warp" banner now supports code files.
+* When using Agent Mode, user-configured redaction rules are now applied to the contents of diffs and files, in addition to terminal blocks.
+* Add SHIFT-ENTER keybinding. Claude Code users can use this to add linefeeds to their prompt.
+* Added an overflow menu button in the top right of AI blocks for copying contents.
+
+**Bug Fixes**
+
+* Deleted files no longer appear in the @-context selection box.
+* Users with Turkish locale will no longer see an extra letter "i" between commands.
+* \[Windows] Restored windows will no longer be positioned with the title bar above the top of the display.
+
+### 2025.07.23 (v0.2025.07.23.08.12)
+
+**New Features**
+
+* \[Windows] Added support for pasting images from Clipboard into Agent Mode context.
+
+**Improvements**
+
+* Added image filename when pasting images into Agent Mode context.
+* Added support for restarting MCP servers when Warp restarts.
+* Added support for copying AI block and conversation contents via the context menu.
+* Added Node.js prompt chip.
+
+**Bug Fixes**
+
+* Fixed a bug where attaching a block as AI context would reset the input state.
+* Fixed a spacing issue with horizontal scrollbars in agent planning view.
+* Added support for auto-expanding manually executed Agent Mode suggested commands.
+* Fixed a bug where Warp would hang while updating code symbols in the @-context menu.
+* Modified secret redaction regexes to be case sensitive. Use a `(?i)` prefix to make your regex case insensitive.
+* Modified the Universal Input to no longer exit a conversation via "backspace".
+
+### 2025.07.16 (v0.2025.07.16.08.12)
+
+**New Features**
+
+* \[macOS] Support pasting images from clipboard into Agent Mode context.
+* Migrated Warp's built-in set of Secret Redaction regexes into user's regexes, giving users more fine-grained control over their secret redaction.
+* Added support for Find and Replace using `CMD-F` when viewing diffs or editing files in the built-in code editor.
+
+**Improvements**
+
+* Removed lock icon from Secret Redaction in favor of asterisks when ligatures are enabled.
+* Added individual keybinding shortcuts to change input modes.
+
+**Bug Fixes**
+
+* Fixed an issue where the hover tooltip for disabled prompt suggestions either didn't render at all or was incredibly hard to read.
+* Fixed the background color of inline code in restored AI blocks.
+
+### 2025.07.09 (v0.2025.07.09.08.11)
+
+**New Features**
+
+* New secret redaction strikethrough UI. Comes with new `Settings > Privacy > Hide secrets in block list` setting that defaults to off.
+
+**Improvements**
+
+* You can now resume stopped AI conversations: `CTRL-C` to stop and `CMD-SHIFT-R` to resume on macOS or `CTRL-SHIFT-R` on Windows and Linux.
+* Code Diff view's default Edit and Revise keybindings changed and made configurable.
+* Added syntax highlighting for PowerShell, Kotlin and Swift.
+
+**Bug Fixes**
+
+* Fixed an issue with `.inc` file chunking.
+* Clicking on an active, long running block will no longer select the block, but focus the input.
+
+### 2025.07.02 (v0.2025.07.02.08.36)
+
+**New features**
+
+* Tab close button can now be set to the left.
+
+**Improvements**
+
+* Added syntax highlighting for TOML, PHP, Lua, Ruby, and Groovy (with Java syntax).
+* Added conda chip support to new Universal Input prompt.
+* Increased color contrast on tabs.
+* Added "Upgrade" menu item for free users and "Billing and Usage" menu item for paid users in the user menu for easier access to subscription management.
+
+**Bug fixes**
+
+* When AI is disabled, ESC should no longer enter Agent Mode.
+* Fixed an issue on WSL where files created by Agent Mode would have CRLF line endings.
+* \[macOS] Tweaked autoupdate logic to more reliably remove old applications off disk.
+* Fixed "Manage plan suggestion setting" link.
+
+### 2025.06.25 (v0.2025.06.25.08.12)
+
+**New Features**
+
+* Git branch and directory chip now are searchable.
+
+**Improvements**
+
+* Added support for HCL syntax highlighting in Terraform files.
+
+**Bug Fixes**
+
+* Fixed potential crash when displaying context chips with Unicode characters in file paths.
+* Fixed a rendering issue with line numbers in suggested diffs.
+* Attach context chip no longer appears if there is no context you can attach.
+
+### 2025.06.20 (v0.2025.06.20.22.47)
+
+**New Features**\
+\
+**Warp 2.0 is here - The Agentic Development Environment**
+
+Built from the ground up for agentic workflows, Warp is the most powerful tool for prompting, coding, and collaborating with multiple agents.
+
+**Multithread yourself with agents**
+
+* Launch intelligent tasks (agents) with a prompt. Agents gather context using CLI commands, MCP, Warp Drive, and Codebase Context.
+* New Agent Management Panel to monitor, multitask, and intervene across multiple agents.
+* Set autonomy controls and get notified when agents need your help.
+
+**A state-of-the-art coding platform**
+
+* 70% on SWE-bench, #1 on Terminal-Bench — the highest quality coding agent available.
+* Codebase Context: Warp indexes and understands your codebase, allowing you to debug and write code faster without storing any code on Warp's servers.
+* Review and edit diffs directly in Warp's native code editor.
+
+**Still a great command-line**\n-
+
+* A new Universal Input: run commands or prompt agents from a single interface. Lock into command mode or Agent Mode, or let Warp detect automatically.
+* Choose your model, continue a conversation, attach images, link URLs, or reference files using `@`.
+* Modern, IDE-like terminal experience with completions, predictions, and mouse support, all built natively in Rust for performance.
+
+**Context for your teammates and agents**
+
+* A knowledge store where you can configure MCP, define Rules, and store shared commands, notebooks, env vars, and prompts as context.
+
+All of this comes with higher AI usage limits on our Pro and Turbo plans, plus new pay-as-you-go overages for continued access to premium models.\
+\
+**Watch the full Warp 2.0 launch event →** [**warp.dev/future**](https://warp.dev/future)
+
+### 2025.06.11 (v0.2025.06.11.08.11)
+
+**New Features**
+
+* You can now attach images as context for Agent Mode! Simply use the image icon and select the files you wish to attach.
+
+**Improvements**
+
+* \[Linux] Added support for standard installed Zed and Zed Preview as default code editors.
+* \[macOS] Added support for Zed Preview as a default code editor.
+* Added syntax highlighting support for TSX and JSX.
+* Increased visibility of non-focused diff hunks when navigating diffs.
+* New Agent Mode output will no longer force-scroll.
+
+**Bug Fixes**
+
+* Fixed keybinding being missing for editing requested commands.
+* Removed keybindings for zero-state prompt suggestions, to avoid conflicting with tab switching keybindings.
+
+### 2025.06.04 (v0.2025.06.04.08.11)
+
+**New Features**
+
+* Sonnet 4 is now an available model (enabled by default in the "auto" model).
+
+**Improvements**
+
+* Press the hovering fast-forward button to auto-execute all Agent actions until the task completes.
+* Added ability to share session via `RIGHT-CLICK` on tab.
+* You can now give the Agent permission to auto-execute MCP tool calls.
+
+**Bug Fixes**
+
+* Fixed an issue where Agent Mode would sometimes not find untracked files in Git repos.
+* Fixed Agent Mode file editor randomly scrolling to the first line of a file.
+
+### 2025.05.28 (v0.2025.05.28.08.11)
+
+**New Features**
+
+* Added MCP server support. It's now possible to extend Agent Mode's capabilities using programs that support the [Model Context Protocol](https://docs.warp.dev/knowledge-and-collaboration/mcp).
+
+### 2025.05.21 (v0.2025.05.21.08.11)
+
+**New Features**
+
+* Set new Agent Mode permissions around executing commands, reading files, coding, and planning in AI settings.
+
+**Improvements**
+
+* You can now choose the coding model behind Agent Mode.
+* Agent Mode conversations can now be paused via a hovering control panel in the right corner.
+* Improved maximum block output capacity to 50k lines.
+
+**Bug Fixes**
+
+* Fix edit icon positioning for shared sessions.
+
+### 2025.05.14 (v0.2025.05.14.08.11)
+
+**Improvements**
+
+* Introduced refining functionality for requested commands.
+* Added ability to continue previous Agent Mode conversations directly from response blocks.
+* Overhauled the editing experience for suggested plans.
+* Renamed input auto-detection setting to natural language detection in Command Palette for better clarity.
+* Zero-state prompt suggestion chips are now horizontally clipped instead of being individually shrunk.
+
+**Bug Fixes**
+
+* Fixed incorrect ordering in history of executed commands and Agent Mode queries.
+* Copying text from Agent Mode plans and suggested code changes now works more reliably.
+* \[Windows] Made some changes to reduce false-positives from virus scanners.
+
+### 2025.05.07 (v0.2025.05.07.08.12)
+
+**Improvements**
+
+* Redesigned env var collection block UX.
+* Added ability to embed Warp Drive Prompts inside Notebooks.
+* Added AI block loading animation.
+* Added ability to select and continue previous Agent Mode conversations.
+* \[macOS] Improved time to update and relaunch Warp.
+
+**Bug Fixes**
+
+* Fixed a bug where escape was clearing autosuggestions in Vim's insert mode.
+* Stopped showing an unexpected block in the planning output for o3.
+* \[Windows] Fixed a bug when hovering symlinks in WSL sessions.
+* Fixed terminal input remaining hidden after cancelling an env var block.
+* Prevented unexpected empty code fences in Agent Mode when using Gemini 2.5 Pro or o3.
+
+### 2025.04.30 (v0.2025.04.30.08.11)
+
+**New Features**
+
+* Added desktop notifications for Agent Mode. Now, you can be notified when an agent completes a task, or when an agent needs your attention to continue (i.e. to review a command, to run an unsafe command, etc). You can configure these settings from `Features > Notifications`.
+
+**Improvements**
+
+* Agent Mode is now more robust at applying code diffs.
+* Redesigned requested commands UX.
+* Improved readability for "needs password prompt" desktop notifications.
+
+### 2025.04.23 (v0.2025.04.23.08.11)
+
+**Improvements**
+
+* Restored Agent Mode conversations can now be continued.
+* Agent Mode now has access to a filepath search tool for coding tasks.
+* Improved the reliability and positioning of suggestion dialogs for rules and Agent Mode workflows.
+* We reworked the command palette search to make it more useful.
+
+**Bug Fixes**
+
+* Fix XML parse errors complaining that a "thought" cannot be empty.
+* \[Windows] Fixed an issue where Agent Mode would fail to search when in WSL or Git Bash.
+* Show "copy" button and other text selection tools when right clicking selected environment variable text.
+* Fixed old shortcuts icon appearing in new tab page, if recommended AI prompts are disabled.
+* Fish commands containing syntax errors now correctly "finish" the block.
+
+### 2025.04.16 (v0.2025.04.16.08.11)
+
+**New features**
+
+* After editing a code diff, you will now be returned to your original Agent Mode conversation.
+* Commands with certain invalid arguments will no longer be suggested, such as file paths, git branches, and docker images.
+* \[Windows/Linux] You can now open launch configurations in the current window with `SHIFT-ENTER` or `CTRL-ENTER` on the Command Palette.
+* Added more default regexes for Secret Redaction, pertaining to AI API keys.
+* Typing `ESC` in the terminal input editor now clears any Autosuggestions.
+
+**Bug Fixes**
+
+* Fixed issue with rendering performance for file links in AI output.
+* Fixed an issue that causes Warp to crash when Agent Mode outputs broken links.
+* New tab page no longer falls back to email if display name is not set.
+* Fixed prompt chips not being clickable in new session with prompt pinned to top.
+* Agent Mode now properly greps for queries containing double quotes.
+
+### 2025.04.09 (v0.2025.04.09.08.11)
+
+**New features**
+
+* Recommended AI prompts are shown in new tabs, go to Settings > Features to disable.
+
+**Improvements**
+
+* Agent Mode is now better at searching for exact function / symbol / etc. names in your code.
+* Fix text selection for environment variable blocks.
+* You can now attach select text in a code block as the Agent Mode context.
+* Warp now supports marked text in the IME (non-English keyboards).
+* Make text selectable for non-expandable command outputs (ex. failed agent tasks).
+* Zero-state chips are no longer shown when entering AI input with a non-empty input buffer.
+
+**Bug fixes**
+
+* Fixed a bug that prevented copying of selected text of a code block when Agent Mode is enabled.
+* Fixed a bug that allows a selection in the code block and a selection on the text simultaneously.
+* \[macOS] Fixed shells installed via Homebrew not appearing in the list of available shells.
+
+### 2025.04.02 (v0.2025.04.02.08.11)
+
+**New features**
+
+* Get early access to unreleased and experimental features with [Warp Preview](https://docs.warp.dev/support-and-community/community/warp-preview-and-alpha-program).
+
+**Improvements**
+
+* Improved login item management to respect when users manually remove Warp from login items in System Preferences.
+* The input editor now supports `CMD-SHIFT-UP/DOWN` on macOS or `CTRL-SHIFT-HOME/END` on Windows/ to move and select to the top/bottom of the text buffer.
+* Removed 3-hour conversation timeout, allowing AI conversations to remain active indefinitely.
+* Show a small popup when users who are at AI limits have their quota reset.
+* Display a notification when AI request quota resets after hitting the limit in the previous billing cycle.
+* \[Windows] Added “Open Warp in new tab / window” item for folders in the File Explorer context menu under “Show more options”.
+
+**Bug fixes**
+
+* Minor fixes for iTerm and Kitty images.
+* Fixed regression related to using keyboard shortcuts to navigate a command in an empty split pane.
+* Fixed some issues with Agent Mode failing to read files.
+* Click targets in scroll views should more reliably click while moving the mouse.
+* \[Linux] Window corners are correctly rounded with themes having background images.
+* Fix a few common failure modes for Agent Mode response deserialization errors.
+
+### 2025.03.26 (v0.2025.03.26.08.10)
+
+**New features**
+
+* Kitty Image Protocol is now supported on macOS and Linux!
+
+**Improvements**
+
+* Agents may suggest using Dispatch to create a plan for complex tasks. You can disable suggestions to create plans under `Settings > AI > Dispatch`.
+* You can now resume auto-execution of a previously dispatched plan if your follow-up query is set to "Dispatch", instead of creating a new plan.
+* Added a keyboard shortcut to accept the most recent command correction.
+* Zero-state suggestions are no longer shown when using a saved Prompt or past AI query.
+* Tabs will not resize while hovered, making closing multiple tabs easier.
+* The warning dialog for closing sessions now responds to the `ENTER` and `ESC` keys.
+* Selected text within Agent responses can now be copied via the `RIGHT-CLICK` menu.
+* \[Windows/Linux] You can now toggle whether a block is selected using `CTRL+CLICK`.
+
+**Bug fixes**
+
+* Fixed an issue that caused Agent Mode blocks to be incorrectly highlighted when performing rectangular selection.
+* Fixed an issue where duplicate cloud preferences could be created during sync operations.
+* Fixed keyboard shortcut padding for prompt suggestions.
+* Fixed color contrast issues with light themes for the Pair & Dispatch chip in Prompt Editor.
+* Agent Mode will no longer default to Windows-style line endings when creating a new file on macOS or Linux.
+* PowerShell sessions will start even if the profile has a terminating error.
+* The numpad `ENTER` key now behaves like the `ENTER` key in Agent Mode.
+* \[macOS] Fixed a scenario where Warp would beachball while updating.
+* \[Windows] In WSL, show completions for symlinked files.
+* \[Windows] Fixed completions with `.exe` suffixes.
+* \[Windows] Fixed setting Git Bash custom shell paths.
+
+### 2025.03.12 (v0.2025.03.12.08.02)
+
+**New features**
+
+* Agent Mode output is now rendered with Markdown formatting.
+* You can now change the font used for Agent Mode output (Settings > Appearance).
+
+**Improvements**
+
+* \[Windows] Significantly improved pseudoconsole throughput (\~3x improvement).
+* The Agent Mode model will now automatically select the best model based on your specific task.
+* Ordered lists in Markdown now uses alphabetical or Roman numeral labels when nested.
+* \[Windows] We now search more locations for a PowerShell executable.
+* Reduced the size of Markdown headings.
+
+**Bug fixes**
+
+* Control whether Warp starts at login via a setting under Settings > Features > Start Warp at login (macOS only).
+* \[Windows] Fixed an issue where dynamic enums commands weren't being executed.
+* Fixed a bug with the mouse cursor when hovering over buttons.
+* Fixed a bug that causes high CPU load with codebase context.
+
+### 2025.03.05 (v0.2025.03.05.08.02)
+
+**New features**
+
+* iTerm Image Protocol is now supported on macOS and Linux!
+* \[macOS] Warp now starts at login (can be disabled in System Settings > Login Items & Extensions).
+
+**Improvements**
+
+* Input mode automatically returns to command mode when a command is detected in an AI follow-up request. (Only applies if natural language detection is turned on.)
+* Text selections can now be attached to Agent Mode queries as context.
+* \[Windows] Window transparency now works when using DirectX 12.
+* \[Windows] Added “Open Warp Here” item for folders in the File Explorer context menu under “Show more options”.
+
+**Bug fixes**
+
+* Fixed an issue where `bazel` completions could use up a lot of CPU.
+* \[macOS] Fixed a regression where the title bar would be transparent in fullscreen windows.
+* \[Windows] Fixed children of shell processes not always exiting properly at shell termination.
+* \[Windows] Fixed Warpification for custom-built WSL distributions.
+* \[Windows] Fixed Ctrl-Up and Ctrl-Down shortcuts not working in alt screen programs (e.g. vim and emacs).
+* \[Windows] Fixed last line of output getting truncated with some prompt configs in WSL.
+* \[Windows] Fixed some hangs when using Agent Mode.
+* \[Windows] Fixed issues starting PowerShell in strict mode.
+* \[Windows] Fixed an issue where `.` would turn into n in ZSH when using ohmyzsh in WSL with an Italian keyboard layout.
+
+### 2025.02.26 (v0.2025.02.26.08.02)
+
+**New features**
+
+* Warp is now available for Windows! See our [Quickstart Guide](https://docs.warp.dev/getting-started/installation-and-setup#windows)
+* Prompt, plan, and execute fully autonomous tasks from [Agent Mode with Dispatch](https://docs.warp.dev/agent-platform/warp-agents/interacting-with-agents) (Beta)
+* Add codebase context support to Agent Mode. Currently enabled for Git repositories only.
+* \[macOS] You can now customize your [App Icon](https://docs.warp.dev/terminal/appearance/app-icons) in `Settings > Appearance > Icon`.
+* Create and store [Rules](https://docs.warp.dev/knowledge-and-collaboration/rules) to use as Agent Mode context.
+* Show default suggestions in Agent Mode input.
+
+**Bug fixes**
+
+* Multicursor input is now `ALT` on Linux and Windows.
+* Fix prompt chip misalignment for certain fonts.
+* Autosuggestions remain visible when the input is not focused, to prevent height flickering when the autosuggestion soft wraps.
+
+### 2025.02.19 (v0.2025.02.19.08.02)
+
+**New features**
+
+* Create and store AI memories to use as Agent Mode context.
+
+**Improvements**
+
+* Expanded Prompt Suggestions to cover more use cases.
+
+**Bug fixes**
+
+* Fixed Warp Prompt clipping issues encountered with certain fonts.
+* Fixed inverse and double-underline cell styling not persisting through session restoration.
+
+### 2025.02.12 (v0.2025.02.12.16.51)
+
+**New features**
+
+* `CTRL-TAB` is now configurable under `Settings > Features` to cycle between the most recently used sessions rather than just activating the next tab.
+
+**Improvements**
+
+* The LLM menu is now keyboard-navigable.
+
+**Bug fixes**
+
+* Clearing Blocks now also clears any active Prompt Suggestions.
+* Fix Kali Linux `.bashrc` breaking Warp.
+* Fix bug with Agent Mode in PowerShell sessions with multi-line commands.
+* Fixed a bug that prevented Autosuggestions from being accepted and Agent Mode model from being selected while up arrow history was open.
+* Fixed cases where dragged Warp tabs would get stuck.
+* Restores subshell Warpification script.
+* \[macOS] Fix hotkey keybinding not triggering on non-US keyboard input source.
+
+### 2025.02.05 (v0.2025.02.05.08.02)
+
+**New features**
+
+* You can now talk to Warp to transcribe Agent Mode prompts or any other text! Set up the hotkey in `Settings > AI > Voice` or use the microphone button in AI input mode to trigger this.
+
+**Improvements**
+
+* Autosuggestions in the input now soft-wrap.
+* You can now attach default environment variables to a workflow.
+
+### 2025.01.29 (v0.2025.01.29.08.02)
+
+**New features**
+
+* Added support for DeepSeek R1 and V3 in Agent Mode! Try them out by switching to Agent Mode and clicking on the model name in the prompt.
+* Agent Mode can now auto-execute readonly requested commands. Commands can also be explicitly allowlisted or denylisted. See `Settings` -> `AI` -> `Autonomy` to configure.
+
+**Improvements**
+
+* You can now use `j`/`k` keys to navigate up and down Warp Drive.
+* Agent Mode chip added to Warp prompt.
+* Next Command is preferred over Command Corrections in cases where Corrections has less confidence.
+* Moved the Settings modal to its own tab.
+
+**Bug fixes**
+
+* Fixed a bug that caused double-clicking to select the incorrect range of text when non-ASCII characters are present.
+* Saving workflow aliases no longer deletes aliases from other workflows.
+* Fixed cases where a small part of the bottom of the editor would be cut off at certain appearance settings.
+
+### 2025.01.22 (v0.2025.01.22.08.02)
+
+**New features**
+
+* Generate input for any interactive CLI using ⌘I on macOS and Ctrl-Shift I on Linux.
+* You can now dynamically populate arguments in Workflows with shell commands.
+* Added support for rectangular selection when holding ⌘⌥ on macOS and Ctrl-Alt on Linux.
+
+**Improvements**
+
+* Settings are now searchable and rendered in a separate tab
+* Terminal font weight is now configurable.
+* Launch Configurations now save the focused window state and active pane.
+* Autosuggestions in the input now soft-wrap.
+
+**Bug fixes**
+
+* Fixed several issues where hovering over URLs in the blocklist sometimes resulted in URLs only being partially detected, or not detected at all.
+* Fixed issue with Prompt Suggestions occasionally remaining visible after subsequent command execution.
+* \[macOS] Changed the download location for new Warp updates to prevent corruption.
+
+### 2025.01.15 (v0.2025.01.15.08.02)
+
+**New features**
+
+* Font ligatures in grids! See setting under Settings > Appearance > Text to enable.
+* You can now define aliases that expand to Warp Drive workflows.
+
+**Improvements**
+
+* Launch configurations now save focused tab state.
+* Added support for Windsurf as an external editor.
+* macOS-only: added a new AI app menu.
+
+**Bug fixes**
+
+* Fixed pane navigation when panes are not overlapping.
+* Fixed a bug where Agent Mode LLM choices weren't populated correctly upon logging in.
+* Fixed bug with drag-and-drop files causing duplicated filepaths.
+
+### 2025.01.08 (v0.2025.01.08.08.02)
+
+**New features**
+
+* A percentage of Warp users may now enable cloud syncing of their Warp settings under `Settings` > `Account`. We are gradually enabling this feature for all Warp users starting in this release. See the [documentation](https://docs.warp.dev/terminal/more-features/settings-sync) for more information.
+* Introduced a setting to hide the tab bar (Zen mode). See the [documentation](https://docs.warp.dev/terminal/appearance/tabs-behavior) for more information.
+* Introduced new profile menu.
+
+**Improvements**
+
+* Removed the Command Corrections banner, as there's already an autosuggestion in the input editor.
+* Implemented `_`, `+`, and `-` motions in Vim mode.
+* Warp will now show a warning before closing a session with a long-running process.
+* Pasting multiple lines of content into the terminal's `Find` feature will convert it into a single line of text, rather than hide previous lines.
+* Titles of notebooks imported from Markdown files no longer end in `.md`.
+* "What's new" no longer shows on update.
+* Added the ability to hide blocklist lines.
+* Consolidated top bar navigation items.
+* Settings are now in the profile menu.
+* Scrollbars and pane controls only show on hover.
+
+**Bug fixes**
+
+* Fixed the rendering of keyboard shortcuts at larger font sizes.
+* Tab completion menu now closes after selecting a single remaining suggestion.
+* Warp displays an error if relaunching to apply an update failed.
+* Old prompt suggestions won't reappear when issuing AI queries rapidly or after clearing the blocklist.
+* Accepting the 'What happened here?' autosuggestion no longer clears AI context blocks.
+* `alt` key now sends meta control codes to the shell in long-running blocks and the alt screen.
+* When secret redaction is disabled, secrets are not redacted in command corrections.
+* \[macOS] Fixed a bug where assigning `cmd-shift-left` and `cmd-shift-right` to an action sometimes wouldn't work.
+
+### 2025.01.02 (v0.2024.12.18.08.02)
+
+**Improvements**
+
+* We now immediately show an error when trying to Warpify unsupported shells over SSH.
+
+**Bug fixes**
+
+* Fixed blank lines being appended to some blocks on resize.
+* Fixed an issue where the AI context disappears when accepting the default autosuggestion.

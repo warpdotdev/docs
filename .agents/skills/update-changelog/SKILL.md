@@ -5,7 +5,7 @@ description: Update the public changelog at docs.warp.dev/changelog with the lat
 
 # Update Changelog
 
-Adds a new entry to `src/content/docs/changelog/index.mdx` for the latest stable Warp release, then opens a PR.
+Adds a new entry to the current year's changelog page (e.g. `src/content/docs/changelog/2026.mdx`) for the latest stable Warp release, then opens a PR.
 
 ## Related Skills
 
@@ -35,7 +35,24 @@ Parse it into components:
 
 ### Step 2: Check if already documented
 
-Read `src/content/docs/changelog/index.mdx` and search for the base version in existing `### ` header lines. If found, report that the changelog is already up to date and stop.
+Determine the year from the display date (e.g. `2026` from `2026.02.18`). The target file is `src/content/docs/changelog/{year}.mdx`.
+
+If the year file doesn't exist yet (year rollover), create it using this template:
+
+```markdown
+---
+title: "Changelog — {year}"
+description: >-
+  Warp release notes for {year}. Warp auto-updates whenever a new release comes
+  out. We try to ship an update every week usually on Thursday!
+---
+
+Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
+```
+
+Also update `src/content/docs/changelog/index.mdx` to add a link for the new year at the top of the list, and update `src/sidebar.ts` to add the new year entry.
+
+Read the target year file and search for the base version in existing `### ` header lines. If found, report that the changelog is already up to date and stop.
 
 ### Step 3: Fetch changelog data from `channel_versions.json` (primary source)
 
@@ -190,7 +207,7 @@ Reference the `2026.02.10` entry in the existing changelog for the exact `<figur
 
 ### Step 6: Insert into the changelog file
 
-Edit `src/content/docs/changelog/index.mdx`:
+Edit `src/content/docs/changelog/{year}.mdx` (the year file determined in Step 2):
 - Find the first line that starts with `### ` (this is the most recent existing entry)
 - Insert the new entry **immediately before** that line
 - Ensure there is exactly one blank line between the description paragraph ("Submit bugs and feature requests...") and the new entry's `### ` header
@@ -203,7 +220,7 @@ Edit `src/content/docs/changelog/index.mdx`:
 git checkout -b changelog/{base_version}
 
 # Stage and commit
-git add src/content/docs/changelog/index.mdx
+git add src/content/docs/changelog/
 git commit -m "docs: add changelog entry for {base_version}
 
 Co-Authored-By: Oz <oz-agent@warp.dev>"
