@@ -157,9 +157,7 @@ export default defineConfig({
 				// (excluded globally above — ~25k lines causes a stack overflow in hast-util-to-text).
 				{ label: 'Support', description: 'Troubleshooting, billing, and privacy.', paths: ['support-and-community/index', 'support-and-community/plans-and-billing/**', 'support-and-community/privacy-and-security/**', 'support-and-community/troubleshooting-and-support/**', 'support-and-community/community/contributing', 'support-and-community/community/open-source-partnership', 'support-and-community/community/refer-a-friend'] },
 					{ label: 'Guides', description: 'Task-oriented walkthroughs and tutorials.', paths: ['guides/**'] },
-					// Changelog excluded — the single page (4k lines) causes a stack overflow
-					// in hast-util-to-text during llms-full.txt generation. The page is still
-					// available at /changelog/ and indexed by the sitemap.
+					{ label: 'Changelog', description: 'Warp release notes by year.', paths: ['changelog/**'] },
 					],
 				}),
 			],
