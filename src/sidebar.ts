@@ -510,9 +510,9 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 			],
 		},
 		{
-			label: 'Enterprise',
-			link: '/enterprise/',
-			icon: 'star',
+		label: 'Enterprise',
+		link: '/enterprise/',
+		icon: 'setting',
 			items: [
 				{
 					label: 'Getting started',
@@ -558,10 +558,10 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 			],
 		},
 		{
-			id: 'guides',
-			label: 'Guides',
-			link: '/guides/',
-			icon: 'puzzle',
+		id: 'guides',
+		label: 'Guides',
+		link: '/guides/',
+		icon: 'rocket',
 			items: [
 				{ slug: 'guides', label: 'Guides' },
 				{
