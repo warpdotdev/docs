@@ -271,6 +271,27 @@ body {
   margin-right: auto;
 }
 
+/* Figures — centered block with image and optional caption.
+   GitBook rendered `<figure><img>…<figcaption>` natively; these styles
+   restore that treatment in Astro Starlight. */
+.sl-markdown-content figure {
+  margin: 1.5em 0;
+  text-align: center;
+}
+
+.sl-markdown-content figure img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.sl-markdown-content figcaption {
+  margin-top: 0.5rem;
+  font-size: var(--sl-text-sm);
+  color: var(--sl-color-gray-3);
+  line-height: 1.4;
+}
+
 /* Center and constrain main content — Scalar uses a tighter column */
 .main-pane .sl-container {
   max-width: 46rem;

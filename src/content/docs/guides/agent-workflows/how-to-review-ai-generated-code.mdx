@@ -46,11 +46,17 @@ Once the agent has finished the task, open Warp's [Code Review panel](/code/code
 * **Review changes button**: After an agent conversation, click **Review changes** at the bottom of the conversation
 * **Tab bar**: Click the Code Review button in the top-right corner of Warp
 
+<figure>
 ![Code Review button in the top-right corner of the Warp title bar showing file and line change counts](../../../../assets/guides/code-review-button.png)
+<figcaption>The Code Review button in the top-right corner shows the number of changed files and lines.</figcaption>
+</figure>
 
 The panel shows all uncommitted changes as a visual diff, grouped by file. Additions are highlighted in green with a `+` prefix, removals in red with a `-` prefix.
 
+<figure>
 ![Code Review panel showing file diffs between branches](../../../../assets/guides/code-review-panel-with-diffs.png)
+<figcaption>Code Review panel showing diffs with additions highlighted in green.</figcaption>
+</figure>
 
 ## 3. Review diffs by file
 
@@ -62,14 +68,20 @@ With the Code Review panel, you can review changes file-by-file:
 
 Focus on the areas where agents are most likely to make mistakes: imports, error handling, and anything that touches security or authentication.
 
+<figure>
 ![Code Review panel with file navigation sidebar showing changed files](../../../../assets/guides/code-review-file-sidebar.png)
+<figcaption>File sidebar lists all changed files with addition and deletion counts.</figcaption>
+</figure>
 
 ## 4. Leave inline comments on issues
 
 Click the "Add comment" button on any line or block of code and add a comment describing what needs to change. Warp anchors each comment to the exact file and line, so any agent understands precisely what to fix.
 You can add as many comments as you need before submitting — Warp batches them so the agent receives all your feedback at once instead of processing changes one at a time.
 
+<figure>
 ![Adding an inline comment on a diff line in the Code Review panel](../../../../assets/guides/code-review-inline-comment.png)
+<figcaption>Inline comments anchor to specific lines so the agent knows exactly what to fix.</figcaption>
+</figure>
 
 ## 5. Submit all comments to the agent
 

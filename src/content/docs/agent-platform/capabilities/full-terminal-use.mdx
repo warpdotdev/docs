@@ -33,7 +33,10 @@ You can either ask the agent to run an interactive command, or start one manuall
   * Example:
     * If you’ve already launched an interactive tool (for example `psql` or `npm run dev`), you can bring the agent into the running session using the "Use Agent" button in the terminal footer or via `CMD + I` .
 
+    <figure>
     ![Option to tag the agent into a running command.](../../../../assets/agent-platform/full-terminal-use-tag-hint.png)
+    <figcaption>Option to tag the agent into a running command.</figcaption>
+    </figure>
     *   Once the agent is tagged in, you can follow up with natural-language requests such as:
 
         “Watch this process and help debug the error on the /session endpoint.”
@@ -41,9 +44,15 @@ You can either ask the agent to run an interactive command, or start one manuall
 
 <VideoEmbed url="https://www.loom.com/share/bcedc521071a4b6a9bbcf74b5156f903" title="Tagging in the agent." />
 
+<figure>
 ![Running a build command.](../../../../assets/agent-platform/full-terminal-use-build.png)
+<figcaption>Running a build command.</figcaption>
+</figure>
 
+<figure>
 ![Tagging in the Agent to monitor the dev server.](../../../../assets/agent-platform/full-terminal-use-dev-monitor.png)
+<figcaption>Tagging in the Agent to monitor the dev server.</figcaption>
+</figure>
 
 Warp attaches the agent to the running command so it can see and control the terminal buffer.
 
@@ -68,14 +77,20 @@ You can swap control at any time.
 * Use the Takeover control to stop the agent from typing or performing any actions.
 * The shell stays open, and you can type directly into the same session.
 
+<figure>
 ![Option to take over from agent in the footer.](../../../../assets/agent-platform/full-terminal-use-takeover.png)
+<figcaption>Option to take over from agent in the footer.</figcaption>
+</figure>
 
 **Hand back control**
 
 * When you’re ready for the agent to continue, click the control again.
 * The agent resumes where you left off, with full access to the current terminal state.
 
+<figure>
 ![Option to hand-off to the agent in the conversation footer.](../../../../assets/agent-platform/full-terminal-use-handoff.png)
+<figcaption>Option to hand-off to the agent in the conversation footer.</figcaption>
+</figure>
 
 This makes it easy to:
 
@@ -140,7 +155,10 @@ Each time the agent wants to take an action inside an interactive shell, you’l
 * Refine the request with `CTRL + C`, which clears the proposed action and lets you follow up with a different query.
 * Take over manually with `CMD + I`, which stops the agent from issuing any further PTY writes until you hand control back.
 
+<figure>
 ![Allow, Refine, or Take over an agent response.](../../../../assets/agent-platform/allow-refine-takeover.png)
+<figcaption>Allow, Refine, or Take over an agent response.</figcaption>
+</figure>
 
 ![Ability to accept or auto-approve future interactions.](../../../../assets/agent-platform/full-terminal-use-options-2.png)
 
