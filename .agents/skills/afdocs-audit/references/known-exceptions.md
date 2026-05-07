@@ -2,6 +2,17 @@
 
 This file lists checks from the afdocs-audit skill that may flag as warnings or failures but are expected and intentional. When reporting audit results, classify these as "Allowlisted" rather than "Remaining."
 
+## content-negotiation
+
+**Expected status**: fail
+**Reason**: Vercel serves static files before evaluating rewrites. Since all doc pages are pre-rendered as static HTML, header-conditional rewrites (`Accept: text/markdown`) never fire — the CDN matches the static file first and returns HTML. Astro's `middlewareMode: 'edge'` also doesn't work because the edge function's `next()` forwards to `/_render`, which doesn't exist for static pages.
+**Mitigation**: The practical agent experience is already good despite this check failing:
+- The llms.txt directive on every page tells agents that `.md` URLs are available
+- `<link rel="alternate" type="text/markdown">` in `<head>` provides a machine-readable signal
+- Agents that read either of these (Claude Code, Cursor, OpenCode) get clean markdown
+- The `.md` URL convention works for 92%+ of pages
+**Action**: No fix available on Vercel's static hosting. Would require migrating to a platform where middleware runs before static file serving (e.g., Cloudflare Pages). Accept as a platform limitation.
+
 ## content-start-position
 
 **Expected status**: fail or warn

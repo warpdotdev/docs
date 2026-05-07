@@ -281,6 +281,8 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `CodeReview.FindBarModeChanged` | Search mode changed in code review find bar |
 | `CodeReview.FindBarToggled` | Code review find bar opened or closed |
 | `CodeReview.FindNavigated` | Navigated to next or previous match in code review find bar |
+| `CodeReview.GitButtonTriggered` | User clicked a git operation button in the code review header |
+| `CodeReview.GitDialogCompleted` | Git operation dialog reached a terminal state (succeeded, failed, or cancelled) |
 | `CodeReview.LoadDiffFailed` | Failure when loading diff content |
 | `CodeReview.PaneOpened` | Code review pane opened |
 | `CodeReview.PaneStateChanged` | Code review pane minimized or maximized |
@@ -467,6 +469,7 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `RemoteServer.BinaryCheck` | Remote server binary check completed (found, not found, or error) |
 | `RemoteServer.ClientRequestError` | A client request to the remote server failed |
 | `RemoteServer.Disconnection` | An established remote server connection was dropped |
+| `RemoteServer.HostUnsupported` | Preinstall check classified the remote host as unsupported, falling back to the legacy SSH flow |
 | `RemoteServer.Initialization` | Remote server connection and initialization completed (success or failure) |
 | `RemoteServer.Installation` | Remote server binary installation completed (success or failure) |
 | `RemoteServer.MessageDecodingError` | A server message could not be decoded (no parseable request_id) |

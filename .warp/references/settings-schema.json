@@ -1462,7 +1462,7 @@
           "properties": {
             "file_based_mcp_enabled": {
               "default": false,
-              "description": "Whether third-party file-based MCP servers are automatically detected.",
+              "description": "Whether global file-based MCP servers from third-party agents are automatically spawned. Warp-managed global MCP servers auto-spawn regardless of this setting, and project-scoped servers must be started manually.",
               "type": "boolean"
             }
           },

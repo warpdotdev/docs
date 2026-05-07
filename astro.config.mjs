@@ -164,9 +164,5 @@ export default defineConfig({
 		}),
 		docsMarkdownIntegration(),
 	],
-	// Deploy Astro middleware as a Vercel Edge Function so it runs at
-	// request time for ALL pages, including pre-rendered static pages.
-	// Without this, middleware only runs at build time for static pages
-	// and content negotiation (Accept: text/markdown) doesn't work.
-	adapter: vercel({ middlewareMode: 'edge' }),
+	adapter: vercel(),
 });

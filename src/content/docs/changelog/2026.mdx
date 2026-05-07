@@ -6,6 +6,27 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2026.04.29 (v0.2026.04.29.08.57)
+
+**Improvements**
+
+* New AI setting to control whether Oz adds an attribution co-author line to commit messages and pull requests it creates.
+* Git operation buttons now show tooltips explaining why they're disabled (e.g. "No changes to commit", "Enter a commit message").
+* Long-running shell command indicator now shows a countdown to the agent's next snapshot (e.g. "Next check in 12s") instead of how long it's been since the last one.
+
+**Bug fixes**
+
+* warp://action/new_tab?path=~/foo (and /new_window) now expand ~ to your home directory.
+* Tab configs in the + menu and default session mode dropdown are now sorted alphabetically by name instead of appearing in random order.
+* Fixed an issue where slash commands sent while an agent was still responding were silently dropped. Now, slash commands like /pr-comments run as follow-ups, just like typed messages.
+* Disabled the commit message editor while a git commit is being performed in the git operations dialog.
+* Project-scoped file-based MCP servers now spawn from the repo root by default (and global ones from ~), so configs with relative commands/args (and workspace launchers like pnpm/npm) work without an explicit working_directory.
+* Stopped spamming agent-run metadata fetches on the WASM shared-session viewer, eliminating a flood of 403 responses on `/api/v1/agent/runs/{id}` for non-owner viewers.
+* Fixed dropped keystrokes when typing into a command block that started from a queued/typeahead command.
+* Fixed double-line visual artifacts between workspace panels in all panel arrangements.
+* Fixed a small memory leak on macOS that could accumulate Core Graphics objects during text rendering.
+* Fixed settings popup items (View as / Density) being unclickable (thanks @leozeli!).
+
 ### 2026.04.27 (v0.2026.04.27.15.32)
 
 **New features**
