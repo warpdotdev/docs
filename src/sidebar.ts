@@ -452,14 +452,20 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 			link: '/api',
 			icon: 'seti:json',
 		},
-		{
-			label: 'Changelog',
-			link: '/changelog/',
-			icon: 'document',
-			items: [
-				{ slug: 'changelog', label: 'Changelog' },
-			],
-		},
+	{
+		label: 'Changelog',
+		link: '/changelog/2026/',
+		icon: 'document',
+		items: [
+			{ slug: 'changelog', label: 'All years' },
+			{ slug: 'changelog/2026', label: '2026' },
+			{ slug: 'changelog/2025', label: '2025' },
+			{ slug: 'changelog/2024', label: '2024' },
+			{ slug: 'changelog/2023', label: '2023' },
+			{ slug: 'changelog/2022', label: '2022' },
+			{ slug: 'changelog/2021', label: '2021' },
+		],
+	},
 		{
 			label: 'Support & Community',
 			link: '/support-and-community/',
