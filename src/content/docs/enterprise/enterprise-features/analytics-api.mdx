@@ -280,14 +280,6 @@ To iterate, request `page=1` first, then increment `page` until you've fetched `
 * **Adoption monitoring** - Track per-user `distinct_conversation_count` over time to identify power users, onboard slow adopters, and measure rollout impact.
 * **Compliance audit trails** - Pull the `events` endpoint with `message_type=tool_call` filters to log code-changing actions for security review.
 
-## Roadmap
-
-The Analytics API is actively evolving. Expected near-term changes include:
-
-* **Richer `git_context`** - Today `git_context` is populated with `head` and `branch` when available; expect additional repository identifiers (such as remote URL and pull request) over time.
-* **Schema stabilization** - Field names and shapes may still change before the API leaves Early Access. Treat unknown fields as additive and code defensively for fields that may appear in future responses.
-* **Endpoint expansion** - Additional aggregations and filters may be added based on Early Access feedback.
-
 ## FAQ
 
 ### How fresh is the data?
@@ -305,10 +297,6 @@ Only **personal** Warp API keys created by an admin from **Settings** > **Cloud 
 ### Are these calls billed?
 
 No. Analytics API calls don't consume Warp credits.
-
-### What's not in the data today?
-
-Server-handled internal tool calls (such as `read_todos` and `list_messages_from_agents`) and internal scaffolding messages (such as `model_used`, `server_event`, `messages_received_from_agents`, `events_from_agents`, `debug_output`) are intentionally filtered out at write time — they're internal bookkeeping that never reaches the client and never appear in the events feed.
 
 ### What time range can I query?
 
