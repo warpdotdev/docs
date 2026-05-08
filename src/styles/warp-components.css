@@ -210,13 +210,19 @@ pre.astro-code,
 }
 
 /* Always show copy button at reduced opacity so it's discoverable without
-   hovering. EC hides it with opacity:0 in @media(hover:hover) by default;
+   hovering. EC hides it with opacity:0 in @media (hover: hover) by default;
    override to 0.4 so the button is subtly visible at all times, progressing
    to 0.75 on frame hover and 1.0 when hovering the button itself (both via
-   higher-specificity EC rules that win over this one). */
+   higher-specificity EC rules that win over this one). Light mode bumps to
+   0.6 because the button surface is already very faint (rgba(0,0,0,0.04)
+   background) and 0.4 would render it nearly invisible. */
 @media (hover: hover) {
   .expressive-code .copy button {
     opacity: 0.4;
+  }
+
+  :root[data-theme='light'] .expressive-code .copy button {
+    opacity: 0.6;
   }
 }
 
