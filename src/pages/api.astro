@@ -292,6 +292,14 @@ const specJson = JSON.stringify(specObject);
             --scalar-sidebar-item-active-background: #fafafa;
             --scalar-sidebar-item-hover-background: #fafafa;
           }
+          /* Fix sidebar height: Scalar's --scalar-y-offset shifts the
+             sidebar's top position below the topbar, but doesn't reduce
+             the sidebar's total height. Without this, the sidebar extends
+             past the viewport bottom by the topbar height, causing a
+             slight overscroll at the top and bottom. */
+          .sidebar {
+            max-height: calc(100vh - var(--warp-topbar-height)) !important;
+          }
           /* Hide Developer Tools toolbar */
           .references-developer-tools,
           .api-reference-toolbar { display: none !important; }
