@@ -11,6 +11,8 @@ The Enterprise Analytics API lets enterprise admins pull Warp usage data into th
 
 :::note[Early access]
 The Enterprise Analytics API is in Early Access. It is available to all enterprise teams. To start collecting data for your team, an admin must turn on **Enterprise Usage Reporting (Early Access)** in **Admin Panel** > **Privacy** — no usage data is recorded until that toggle is on.
+
+The API exposes **aggregated usage metrics** only (counts, credit spend, code-change tallies, and message-level metadata). It does not return the raw text of agent conversations. To retain and inspect full conversation contents, enable [cloud-synced conversations](/agent-platform/local-agents/cloud-conversations/) under **Settings** > **Privacy**.
 :::
 
 ## What you can do with the API
@@ -57,6 +59,7 @@ All endpoints share the same base URL, authentication, and shared validation rul
 * **Base URL** - `https://app.warp.dev/api/v1/enterprises/analytics`
 * **Authentication** - `Authorization: Bearer $WARP_API_KEY` header on every request.
 * **Dates** - Pass `start_date` and `end_date` as RFC 3339 timestamps with timezone (for example, `2026-04-01T00:00:00Z` or `2026-04-01T00:00:00-07:00`). When omitted, the API defaults to a 1-day window ending at the current time. `start_date` must be strictly before `end_date`; otherwise the request returns `400 Bad Request`.
+* **Performance** - Wider date ranges and finer `group_by_period` granularity scan more data and can take noticeably longer to return. For dashboards that refresh frequently, prefer narrower windows or coarser grouping.
 
 ### `GET /api/v1/enterprises/analytics/summary`
 
@@ -129,7 +132,7 @@ curl "https://app.warp.dev/api/v1/enterprises/analytics/summary?start_date=2026-
 }
 ```
 
-In the grouped response, every leaf array is the same length as `period_list`, and the index of each value corresponds to the same index in `period_list`.
+In the grouped response, every leaf array is the same length as `period_list`, and the index of each value corresponds to the same index in `period_list`. Periods with no recorded activity are filled with default empty values (`0` for numeric counts and credit totals, and `0`-valued sub-objects for `code_changes`).
 
 ### `GET /api/v1/enterprises/analytics/users`
 
@@ -256,9 +259,10 @@ curl "https://app.warp.dev/api/v1/enterprises/analytics/events?run_type=cloud&me
 
 Fields are populated as follows:
 
-* `llm_request_ids` and `model_ids` are arrays. Most LLM-backed messages have one entry; multi-partition summarization can list several.
+* `llm_request_ids` and `model_ids` are arrays. Most LLM-backed messages have a single entry, but some messages may be backed by multiple LLM requests.
 * `credit_charged` is the per-message proportional share of the backing LLM request's cost. Messages with no LLM call (for example client-submitted `tool_call_result` rows) carry `0`.
-* `code_changes` is omitted (or `null`) for messages that don't suggest or apply file changes. When present, `was_edited_by_user` is `true` when the user edited the diff before accepting, `false` when accepted as-is, and `null` when the message had no acceptance event.
+* `code_changes` is omitted (or `null`) for messages that don't suggest or apply file changes.
+  * `was_edited_by_user` is `true` when the user edited the diff before accepting, `false` when accepted as-is, and `null` when the message had no acceptance event.
 * `git_context` is omitted (or `null`) when no git state was captured for the message.
 * `error_type` is populated only when the backing LLM request errored.
 
