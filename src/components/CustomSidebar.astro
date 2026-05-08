@@ -34,6 +34,90 @@ import KapaLauncher from './KapaLauncher.astro';
 </div>
 <Default><slot /></Default>
 
+<!-- Search UX enhancements:
+     1. Inject an "Ask AI instead" link in the search dialog's empty and
+        no-results states so users can fall back to the Kapa chat.
+     2. When the user presses Enter with no result focused, navigate to
+        the first result link. -->
+<script is:inline>
+	(() => {
+		var dialog = document.querySelector('site-search dialog');
+		if (!dialog) return;
+
+		// --- Ask AI fallback ---
+		// MutationObserver watches for Pagefind rendering the no-results
+		// message (.pagefind-ui__message) and injects a CTA below it.
+		var askAiId = 'warp-search-ask-ai';
+
+		function injectAskAi() {
+			if (document.getElementById(askAiId)) return;
+			var msg = dialog.querySelector('.pagefind-ui__message');
+			if (!msg) return;
+
+			var cta = document.createElement('button');
+			cta.id = askAiId;
+			cta.type = 'button';
+			cta.textContent = 'Ask AI instead';
+			cta.style.cssText = 'display:block;margin:1rem auto 0;padding:0.5rem 1rem;'
+				+ 'border:1px solid var(--warp-control-border,#404040);border-radius:var(--sl-radius-sm);'
+				+ 'background:var(--warp-control-bg,#1e1e1d);color:var(--sl-color-text-accent);'
+				+ 'font-family:var(--__sl-font,Inter,sans-serif);font-size:var(--sl-text-sm);'
+				+ 'font-weight:500;cursor:pointer;transition:border-color 0.15s ease,background 0.15s ease;';
+
+			cta.addEventListener('mouseenter', function () {
+				cta.style.borderColor = 'var(--warp-control-border-hover,#585756)';
+				cta.style.background = 'var(--warp-control-bg-hover,#292929)';
+			});
+			cta.addEventListener('mouseleave', function () {
+				cta.style.borderColor = 'var(--warp-control-border,#404040)';
+				cta.style.background = 'var(--warp-control-bg,#1e1e1d)';
+			});
+
+			cta.addEventListener('click', function () {
+				// Close the search dialog
+				dialog.close();
+				// Open the Kapa chat -- the trigger button is .warp-kapa-button
+				var kapaBtn = document.querySelector('.warp-kapa-button');
+				if (kapaBtn) kapaBtn.click();
+			});
+
+			msg.parentNode.insertBefore(cta, msg.nextSibling);
+		}
+
+		function removeAskAi() {
+			var el = document.getElementById(askAiId);
+			if (el) el.remove();
+		}
+
+		var observer = new MutationObserver(function () {
+			var msg = dialog.querySelector('.pagefind-ui__message');
+			if (msg) { injectAskAi(); } else { removeAskAi(); }
+		});
+
+		// Start observing once the dialog opens.
+		dialog.addEventListener('close', function () { observer.disconnect(); removeAskAi(); });
+		new MutationObserver(function () {
+			if (dialog.open) {
+				var target = dialog.querySelector('#starlight__search') || dialog;
+				observer.observe(target, { childList: true, subtree: true });
+			}
+		}).observe(dialog, { attributes: true, attributeFilter: ['open'] });
+
+		// --- Enter key: navigate to first result ---
+		dialog.addEventListener('keydown', function (e) {
+			if (e.key !== 'Enter') return;
+			// Only act if no specific result is already focused
+			var focused = dialog.querySelector(':focus');
+			if (focused && focused.closest('.pagefind-ui__result')) return;
+			var firstLink = dialog.querySelector('.pagefind-ui__result-link');
+			if (firstLink) {
+				e.preventDefault();
+				firstLink.click();
+			}
+		});
+	})();
+</script>
+
 <!-- Scroll the active sidebar link into view after page load.
      Starlight's SidebarPersister restores scrollTop from sessionStorage,
      but when navigating via crosslink to a different section, the restored
