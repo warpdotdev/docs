@@ -10,7 +10,7 @@ sidebar:
 The Enterprise Analytics API lets enterprise admins pull Warp usage data into their own dashboards, cost-allocation tooling, or audit pipelines. It exposes three read-only endpoints over HTTPS that return aggregated team metrics, per-user rollups, and message-level activity events for the agents your team runs in Warp and Oz.
 
 :::note[Early access]
-The Enterprise Analytics API is in Early Access. Endpoints, query parameters, and response fields may change without notice. Access is granted to enterprise teams on request — contact your Warp account team to enable it for your team. After access is granted, an admin must turn on **Enterprise Usage Reporting (Early Access)** in **Admin Panel** > **Privacy** before any usage data is recorded.
+The Enterprise Analytics API is in Early Access. It is available to all enterprise teams. To start collecting data for your team, an admin must turn on **Enterprise Usage Reporting (Early Access)** in **Admin Panel** > **Privacy** — no usage data is recorded until that toggle is on.
 :::
 
 ## What you can do with the API
@@ -24,7 +24,7 @@ The Enterprise Analytics API is in Early Access. Endpoints, query parameters, an
 
 Before you can call the API, your team must satisfy all of the following:
 
-* **Enterprise plan with Analytics API access** - The Analytics API is gated to enterprise teams enrolled in Early Access. Contact your Warp account team to request access.
+* **Enterprise plan** - The Analytics API is available to all enterprise teams during Early Access; no separate enrollment is required.
 * **Admin role on the team** - Calls are rejected unless the authenticated user has admin-level permissions on the enterprise team. See [Roles and permissions](/enterprise/team-management/roles-and-permissions/).
 * **A personal Warp API key** - Authenticate requests with a key from **Settings** > **Cloud platform** > **Oz Cloud API Keys** in the Warp app. See [API Keys](/reference/cli/api-keys/) for step-by-step instructions. Team API keys are not accepted by these endpoints — only personal API keys belonging to a team admin work.
 * **Enterprise Usage Reporting toggle enabled** - In the Warp app, go to **Admin Panel** > **Privacy** and turn on **Enterprise Usage Reporting (Early Access)**. Until this toggle is on, no usage data is recorded for your team and the endpoints will return empty datasets even if every other prerequisite is met.
@@ -48,7 +48,7 @@ curl "https://app.warp.dev/api/v1/enterprises/analytics/summary" \
   -H "Authorization: Bearer $WARP_API_KEY"
 ```
 
-If your team has Early Access enabled and at least one admin has turned on the **Enterprise Usage Reporting (Early Access)** toggle, you'll get a JSON payload aggregating credit usage and conversation counts across the team. Continue to the [Endpoints](#endpoints) section for per-endpoint details.
+Once an admin has turned on the **Enterprise Usage Reporting (Early Access)** toggle for your team, you'll get a JSON payload aggregating credit usage and conversation counts across the team. Continue to the [Endpoints](#endpoints) section for per-endpoint details.
 
 ## Endpoints
 
@@ -288,7 +288,7 @@ Usage data is recorded as agents run and is typically available within a few min
 
 ### Who can call the API?
 
-Only authenticated users with admin-level permissions on an enterprise team enrolled in Early Access. Calls from non-admin users return `403 Forbidden`.
+Any authenticated user with admin-level permissions on an enterprise team. Calls from non-admin users return `403 Forbidden`.
 
 ### What kind of API key works?
 
