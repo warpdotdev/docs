@@ -209,6 +209,23 @@ pre.astro-code,
   border-color: rgba(0, 0, 0, 0.12);
 }
 
+/* Always show copy button at reduced opacity so it's discoverable without
+   hovering. EC hides it with opacity:0 in @media (hover: hover) by default;
+   override to 0.4 so the button is subtly visible at all times, progressing
+   to 0.75 on frame hover and 1.0 when hovering the button itself (both via
+   higher-specificity EC rules that win over this one). Light mode bumps to
+   0.6 because the button surface is already very faint (rgba(0,0,0,0.04)
+   background) and 0.4 would render it nearly invisible. */
+@media (hover: hover) {
+  .expressive-code .copy button {
+    opacity: 0.4;
+  }
+
+  :root[data-theme='light'] .expressive-code .copy button {
+    opacity: 0.6;
+  }
+}
+
 /* Inline code — same optical size as fenced blocks (0.9375em / 15px) so
    prose, callouts, and code blocks share one type scale.
 
@@ -245,6 +262,17 @@ pre.astro-code,
 .expressive-code .frame.is-terminal:not(.has-title) .header::before,
 .expressive-code .frame.is-terminal:not(.has-title) .header::after {
   display: none;
+}
+
+/* For untitled frames of any type, directly override the copy button's
+   inset-block-start. EC's .is-terminal frames get a large --button-spacing
+   to clear the titlebar we hide; bypassing that variable with an explicit
+   0.5rem offset places the button cleanly inside the top-right corner of
+   every untitled block. Titled frames are unaffected — their button
+   continues to sit below the visible title bar via EC's default spacing. */
+.expressive-code .frame:not(.has-title) .copy {
+  inset-block-start: 0.5rem;
+  inset-inline-end: 0.5rem;
 }
 
 /* Code blocks inside asides: keep the standalone padding rhythm so a code
