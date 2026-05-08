@@ -10,7 +10,7 @@ sidebar:
 The Enterprise Analytics API lets enterprise admins pull Warp usage data into their own dashboards, cost-allocation tooling, or audit pipelines. It exposes three read-only endpoints over HTTPS that return aggregated team metrics, per-user rollups, and message-level activity events for the agents your team runs in Warp and Oz.
 
 :::note[Early access]
-The Enterprise Analytics API is in Early Access. It is available to all enterprise teams. To start collecting data for your team, an admin must turn on **Enterprise Usage Reporting (Early Access)** in **Admin Panel** > **Privacy** — no usage data is recorded until that toggle is on.
+The Enterprise Analytics API is in Early Access. It is available to all enterprise teams. To start collecting data for your team, an admin must open the Warp app and turn on **Enterprise Usage Reporting (Early Access)** in **Admin Panel** > **Privacy** — no usage data is recorded until that toggle is on.
 
 The API exposes **aggregated usage metrics** only (counts, credit spend, code-change tallies, and message-level metadata). It does not return the raw text of agent conversations. To retain and inspect full conversation contents, enable [cloud-synced conversations](/agent-platform/local-agents/cloud-conversations/) under **Settings** > **Privacy**.
 :::
@@ -309,6 +309,6 @@ The `events` endpoint enforces a hard 365-day window between `start_date` and `e
 ## Related resources
 
 * [API Keys](/reference/cli/api-keys/) - Create and manage personal Warp API keys.
-* [Admin panel](/enterprise/team-management/admin-panel/) - Manage team settings, including the **Privacy** section.
+* [Admin Panel](/enterprise/team-management/admin-panel/) - Manage team settings, including the **Privacy** section.
 * [Roles and permissions](/enterprise/team-management/roles-and-permissions/) - Required admin role for Analytics API access.
 * [Architecture and deployment](/enterprise/enterprise-features/architecture-and-deployment/) - Where enterprise data is stored and how it transits Warp's infrastructure.
