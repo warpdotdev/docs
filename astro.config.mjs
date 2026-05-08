@@ -150,14 +150,15 @@ export default defineConfig({
 						{ label: 'Agent Platform', description: 'Warp\'s Agent Platform: capabilities, local agents, CLI agents, cloud agents.', paths: ['agent-platform/**'] },
 						{ label: 'Code', description: 'Code editor, code review, and Git worktrees.', paths: ['code/**'] },
 						{ label: 'Enterprise', description: 'Enterprise features, SSO, team management, and security.', paths: ['enterprise/**'] },
-						{ label: 'Getting Started', description: 'Installation, quickstart, and migration guides.', paths: ['getting-started/**'] },
+						{ label: 'Getting Started', description: 'Installation, quickstart, and migration guides.', paths: ['index', 'quickstart', 'getting-started/**'] },
 						{ label: 'Knowledge and Collaboration', description: 'Warp Drive, teams, and the Admin Panel.', paths: ['knowledge-and-collaboration/**'] },
 						{ label: 'Reference', description: 'CLI and API reference.', paths: ['reference/**'] },
-				// Includes all support-and-community/ pages except open-source-licenses.mdx
-				// (excluded globally above — ~25k lines causes a stack overflow in hast-util-to-text).
-				{ label: 'Support', description: 'Troubleshooting, billing, and privacy.', paths: ['support-and-community/index', 'support-and-community/plans-and-billing/**', 'support-and-community/privacy-and-security/**', 'support-and-community/troubleshooting-and-support/**', 'support-and-community/community/contributing', 'support-and-community/community/open-source-partnership', 'support-and-community/community/refer-a-friend'] },
-					{ label: 'Guides', description: 'Task-oriented walkthroughs and tutorials.', paths: ['guides/**'] },
-					{ label: 'Changelog', description: 'Warp release notes by year.', paths: ['changelog/**'] },
+						// All support-and-community/ pages. open-source-licenses.mdx is excluded
+						// from llms-small.txt globally above (stack overflow in hast-util-to-text)
+						// but still included here for llms-full.txt and the Support set.
+						{ label: 'Support', description: 'Troubleshooting, billing, and privacy.', paths: ['support-and-community/**'] },
+						{ label: 'Guides', description: 'Task-oriented walkthroughs and tutorials.', paths: ['guides/**'] },
+						{ label: 'Changelog', description: 'Warp release notes by year.', paths: ['changelog/**'] },
 					],
 				}),
 			],
