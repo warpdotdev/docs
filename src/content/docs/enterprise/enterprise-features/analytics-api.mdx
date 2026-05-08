@@ -1,0 +1,314 @@
+---
+title: Enterprise Analytics API
+description: >-
+  Programmatically access team-level usage data for Warp's enterprise plans —
+  per-team summaries, per-user rollups, and message-level activity events.
+sidebar:
+  label: "Analytics API"
+---
+
+The Enterprise Analytics API lets enterprise admins pull Warp usage data into their own dashboards, cost-allocation tooling, or audit pipelines. It exposes three read-only endpoints over HTTPS that return aggregated team metrics, per-user rollups, and message-level activity events for the agents your team runs in Warp and Oz.
+
+:::note[Early access]
+The Enterprise Analytics API is in Early Access. It is available to all enterprise teams. To start collecting data for your team, an admin must open the Warp app and turn on **Enterprise Usage Reporting (Early Access)** in **Admin Panel** > **Privacy** — no usage data is recorded until that toggle is on.
+
+The API exposes **aggregated usage metrics** only (counts, credit spend, code-change tallies, and message-level metadata). It does not return the raw text of agent conversations. To retain and inspect full conversation contents, enable [cloud-synced conversations](/agent-platform/local-agents/cloud-conversations/) under **Settings** > **Privacy**.
+:::
+
+## What you can do with the API
+
+* **Build productivity dashboards** - Track adoption across users and teams over time using `summary` and `users`.
+* **Allocate credit spend** - Break down usage by user, model, or run type (`local` vs. `cloud`) to attribute cost to teams or projects.
+* **Audit message-level activity** - Filter the `events` endpoint by `run_type`, `user_id`, `conversation_id`, `message_type`, or `tool_type` for compliance reviews and incident investigation.
+* **Power custom reporting** - Pipe the JSON responses into your own warehouse, BI tool, or alerting system.
+
+## Prerequisites and access
+
+Before you can call the API, your team must satisfy all of the following:
+
+* **Enterprise plan** - The Analytics API is available to all enterprise teams during Early Access; no separate enrollment is required.
+* **Admin role on the team** - Calls are rejected unless the authenticated user has admin-level permissions on the enterprise team. See [Roles and permissions](/enterprise/team-management/roles-and-permissions/).
+* **A personal Warp API key** - Authenticate requests with a key from **Settings** > **Cloud platform** > **Oz Cloud API Keys** in the Warp app. See [API Keys](/reference/cli/api-keys/) for step-by-step instructions. Team API keys are not accepted by these endpoints — only personal API keys belonging to a team admin work.
+* **Enterprise Usage Reporting toggle enabled** - In the Warp app, go to **Admin Panel** > **Privacy** and turn on **Enterprise Usage Reporting (Early Access)**. Until this toggle is on, no usage data is recorded for your team and the endpoints will return empty datasets even if every other prerequisite is met.
+
+:::caution
+Personal API keys inherit the access of the user who created them. Treat them like any other admin credential and rotate them when team membership changes.
+:::
+
+## Quickstart
+
+The following example fetches a team-level summary for the last day. Set your API key first:
+
+```bash
+export WARP_API_KEY="wk-..."
+```
+
+Then call the `summary` endpoint:
+
+```bash
+curl "https://app.warp.dev/api/v1/enterprises/analytics/summary" \
+  -H "Authorization: Bearer $WARP_API_KEY"
+```
+
+Once an admin has turned on the **Enterprise Usage Reporting (Early Access)** toggle for your team, you'll get a JSON payload aggregating credit usage and conversation counts across the team. Continue to the [Endpoints](#endpoints) section for per-endpoint details.
+
+## Endpoints
+
+All endpoints share the same base URL, authentication, and shared validation rules:
+
+* **Base URL** - `https://app.warp.dev/api/v1/enterprises/analytics`
+* **Authentication** - `Authorization: Bearer $WARP_API_KEY` header on every request.
+* **Dates** - Pass `start_date` and `end_date` as RFC 3339 timestamps with timezone (for example, `2026-04-01T00:00:00Z` or `2026-04-01T00:00:00-07:00`). When omitted, the API defaults to a 1-day window ending at the current time. `start_date` must be strictly before `end_date`; otherwise the request returns `400 Bad Request`.
+* **Performance** - Wider date ranges and finer `group_by_period` granularity scan more data and can take noticeably longer to return. For dashboards that refresh frequently, prefer narrower windows or coarser grouping.
+
+### `GET /api/v1/enterprises/analytics/summary`
+
+Returns a single team-level rollup of conversation counts, credit spend, and code-change activity for the requested window. When `group_by_period` is set, the response is a time series with one bucket per period.
+
+**Query parameters:**
+
+* `start_date` (optional) - RFC 3339 timestamp. Defaults to one day before `end_date`.
+* `end_date` (optional) - RFC 3339 timestamp. Defaults to the current time.
+* `group_by_period` (optional) - One of `day`, `week`, or `month`. When set, the resulting `period_list` is capped at 365 periods; longer ranges with finer granularity are rejected with `400 Bad Request`.
+
+**Example:**
+
+```bash
+curl "https://app.warp.dev/api/v1/enterprises/analytics/summary?start_date=2026-04-01T00:00:00Z&end_date=2026-04-30T23:59:59Z&group_by_period=day" \
+  -H "Authorization: Bearer $WARP_API_KEY"
+```
+
+**Ungrouped response shape:**
+
+```json
+{
+  "data": {
+    "local": {
+      "total_conversations_count": 1234,
+      "total_credits_spent": 8421.5,
+      "code_changes": {
+        "file_changes": { "suggested": 412, "accepted": 305 },
+        "lines_of_code": {
+          "suggested": { "added_count": 9821, "removed_count": 2104 },
+          "accepted":  { "added_count": 7102, "removed_count": 1488 }
+        }
+      }
+    },
+    "cloud": {
+      "total_conversations_count": 412,
+      "total_credits_spent": 2310.4,
+      "code_changes": {
+        "file_changes": { "suggested": 88, "accepted": 64 },
+        "lines_of_code": {
+          "suggested": { "added_count": 1450, "removed_count": 320 },
+          "accepted":  { "added_count": 1102, "removed_count": 248 }
+        }
+      }
+    }
+  }
+}
+```
+
+**Grouped response shape (`group_by_period=day`):**
+
+```json
+{
+  "group_by_period": "day",
+  "period_list": ["2026-04-01", "2026-04-02", "..."],
+  "data": {
+    "local": {
+      "total_conversations_count": [42, 51, "..."],
+      "total_credits_spent": [310.1, 412.5, "..."],
+      "code_changes": {
+        "file_changes": { "suggested": [12, 18, "..."], "accepted": [9, 14, "..."] },
+        "lines_of_code": {
+          "suggested": { "added_count": [240, 380, "..."], "removed_count": [55, 90, "..."] },
+          "accepted":  { "added_count": [180, 290, "..."], "removed_count": [40, 70, "..."] }
+        }
+      }
+    },
+    "cloud": { "...": "same shape as local" }
+  }
+}
+```
+
+In the grouped response, every leaf array is the same length as `period_list`, and the index of each value corresponds to the same index in `period_list`. Periods with no recorded activity are filled with default empty values (`0` for numeric counts and credit totals, and `0`-valued sub-objects for `code_changes`).
+
+### `GET /api/v1/enterprises/analytics/users`
+
+Returns per-user aggregated usage, split into `local` (Warp app) and `cloud` (Oz cloud agents) sections. Results are paginated.
+
+**Query parameters:**
+
+* `start_date` (optional) - RFC 3339 timestamp. Defaults to one day before `end_date`.
+* `end_date` (optional) - RFC 3339 timestamp. Defaults to the current time.
+* `group_by_period` (optional) - One of `day`, `week`, or `month`. When set, each user record's per-run-type fields are arrays indexed by the response-level `period_list`.
+* `page` (optional) - Page number, 1-indexed. Default `1`.
+* `page_size` (optional) - Items per page. Default `10`.
+
+**Example:**
+
+```bash
+curl "https://app.warp.dev/api/v1/enterprises/analytics/users?page=1&page_size=25" \
+  -H "Authorization: Bearer $WARP_API_KEY"
+```
+
+**Ungrouped response shape:**
+
+```json
+{
+  "data": [
+    {
+      "user_id": "user-uuid-abc",
+      "email": "alex@example.com",
+      "local": {
+        "distinct_conversation_count": 42,
+        "credits_spent": 310.1,
+        "model_usage": [
+          { "model_id": "claude-4-7-opus", "distinct_conversation_count": 30, "credits_spent": 240.0 }
+        ],
+        "code_changes": {
+          "file_changes": { "suggested": 18, "accepted": 12 },
+          "lines_of_code": {
+            "suggested": { "added_count": 412, "removed_count": 88 },
+            "accepted":  { "added_count": 305, "removed_count": 64 }
+          }
+        }
+      },
+      "cloud": { "...": "same shape as local" }
+    }
+  ],
+  "pagination": {
+    "current_page": 1,
+    "page_size": 25,
+    "total_pages": 4,
+    "total_count": 87
+  }
+}
+```
+
+When `group_by_period` is set, each `local`/`cloud` block's scalars become arrays indexed by the response-level `period_list` (same convention as the grouped `summary` response). Within `model_usage`, each entry's `distinct_conversation_count` and `credits_spent` likewise become arrays.
+
+### `GET /api/v1/enterprises/analytics/events`
+
+Returns paginated, message-level activity events for fine-grained audits and dashboards. Each row corresponds to a single message produced or processed by an agent — the same canonical message stream the client and Warp UI see.
+
+**Query parameters:**
+
+* `start_date` (optional) - RFC 3339 timestamp. Defaults to one day before `end_date`. The window between `start_date` and `end_date` cannot exceed 365 days.
+* `end_date` (optional) - RFC 3339 timestamp. Defaults to the current time.
+* `page` (optional) - Page number, 1-indexed. Default `1`.
+* `page_size` (optional) - Items per page. Default `10`. Maximum `100`.
+* `run_type` (optional) - Filter by `local` or `cloud`.
+* `user_id` (optional) - The unique identifier of a single team member, as returned by the `users` and `events` endpoints.
+* `conversation_id` (optional) - Restrict results to one conversation.
+* `message_type` (optional) - Filter by message variant. Common values include `agent_output`, `tool_call`, `tool_call_result`, `user_query`, and `agent_reasoning`; additional values are emitted as new agent capabilities ship. Internal scaffolding (for example `model_used`, `server_event`, `messages_received_from_agents`, `events_from_agents`, and `debug_output`) is not recorded and never appears here.
+* `tool_type` (optional) - For `tool_call` / `tool_call_result` messages, restrict to a specific tool. Values are the snake_case name of the tool (for example `apply_file_diffs`, `run_shell_command`, `search_codebase`, `grep`, `call_mcp_tool`).
+
+Events are returned newest-first, ordered by `message_end_timestamp DESC, message_id DESC`.
+
+**Example:**
+
+```bash
+curl "https://app.warp.dev/api/v1/enterprises/analytics/events?run_type=cloud&message_type=tool_call&tool_type=apply_file_diffs&page_size=100" \
+  -H "Authorization: Bearer $WARP_API_KEY"
+```
+
+**Response shape:**
+
+```json
+{
+  "data": [
+    {
+      "message_id": "msg-uuid",
+      "llm_request_ids": ["llm-req-uuid"],
+      "message_type": "tool_call",
+      "tool_type": "apply_file_diffs",
+      "message_start_timestamp": "2026-04-15T19:21:08Z",
+      "message_end_timestamp": "2026-04-15T19:21:11Z",
+      "conversation_id": "conv-uuid",
+      "user_id": "user-uuid-abc",
+      "email": "alex@example.com",
+      "user_selected_model": "auto",
+      "run_type": "cloud",
+      "model_ids": ["claude-4-7-opus"],
+      "credit_charged": 0.42,
+      "code_changes": {
+        "file_changes": { "suggested": 3, "accepted": 2 },
+        "lines_of_code": {
+          "suggested": { "added_count": 48, "removed_count": 12 },
+          "accepted":  { "added_count": 36, "removed_count": 8 }
+        },
+        "was_edited_by_user": false
+      },
+      "git_context": {
+        "head": "a1b2c3d",
+        "branch": "feature/analytics-api"
+      },
+      "error_type": null
+    }
+  ],
+  "pagination": {
+    "current_page": 1,
+    "page_size": 100,
+    "total_pages": 12,
+    "total_count": 1180
+  }
+}
+```
+
+Fields are populated as follows:
+
+* `llm_request_ids` and `model_ids` are arrays. Most LLM-backed messages have a single entry, but some messages may be backed by multiple LLM requests.
+* `credit_charged` is the per-message proportional share of the backing LLM request's cost. Messages with no LLM call (for example client-submitted `tool_call_result` rows) carry `0`.
+* `code_changes` is omitted (or `null`) for messages that don't suggest or apply file changes.
+  * `was_edited_by_user` is `true` when the user edited the diff before accepting, `false` when accepted as-is, and `null` when the message had no acceptance event.
+* `git_context` is omitted (or `null`) when no git state was captured for the message.
+* `error_type` is populated only when the backing LLM request errored.
+
+## Pagination
+
+The `users` and `events` endpoints use offset-based pagination with `page` and `page_size` query parameters. Every paginated response includes a `pagination` block:
+
+* `current_page` - The page returned, 1-indexed.
+* `page_size` - The number of items requested per page.
+* `total_pages` - The total number of pages available for the current query.
+* `total_count` - The total number of records matching the query across all pages.
+
+To iterate, request `page=1` first, then increment `page` until you've fetched `total_pages` pages. The `events` endpoint caps `page_size` at `100`; values above that are rejected. The `users` endpoint defaults to `page_size=10`.
+
+## Common use cases
+
+* **Executive dashboards** - Combine the `summary` endpoint's grouped output with your BI tool to chart team-wide adoption and credit spend over time.
+* **Cost allocation** - Use the `users` endpoint to attribute credit spend to individuals, teams, or projects for chargeback or showback.
+* **Adoption monitoring** - Track per-user `distinct_conversation_count` over time to identify power users, onboard slow adopters, and measure rollout impact.
+* **Compliance audit trails** - Pull the `events` endpoint with `message_type=tool_call` filters to log code-changing actions for security review.
+
+## FAQ
+
+### How fresh is the data?
+
+Usage data is recorded as agents run and is typically available within a few minutes. There is no guaranteed SLA on freshness during Early Access.
+
+### Who can call the API?
+
+Any authenticated user with admin-level permissions on an enterprise team. Calls from non-admin users return `403 Forbidden`.
+
+### What kind of API key works?
+
+Only **personal** Warp API keys created by an admin from **Settings** > **Cloud platform** > **Oz Cloud API Keys**. Team API keys are explicitly rejected by these endpoints. See [API Keys](/reference/cli/api-keys/) for how to create one.
+
+### Are these calls billed?
+
+No. Analytics API calls don't consume Warp credits.
+
+### What time range can I query?
+
+The `events` endpoint enforces a hard 365-day window between `start_date` and `end_date`. The `summary` and `users` endpoints don't enforce a fixed window, but the grouped variants are capped at 365 periods.
+
+## Related resources
+
+* [API Keys](/reference/cli/api-keys/) - Create and manage personal Warp API keys.
+* [Admin Panel](/enterprise/team-management/admin-panel/) - Manage team settings, including the **Privacy** section.
+* [Roles and permissions](/enterprise/team-management/roles-and-permissions/) - Required admin role for Analytics API access.
+* [Architecture and deployment](/enterprise/enterprise-features/architecture-and-deployment/) - Where enterprise data is stored and how it transits Warp's infrastructure.
