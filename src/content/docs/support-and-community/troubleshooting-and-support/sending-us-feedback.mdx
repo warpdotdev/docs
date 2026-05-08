@@ -158,7 +158,7 @@ Warp's logs and crash reports _**do not**_ contain any console input or output. 
     Run the following to zip the Warp logs to your home directory:
 
     ```bash
-    tar -czf ~/warp-logs.tar.gz -C ~/.local/state/warp-terminal warp.log*
+    (cd ~/.local/state/warp-terminal && tar -czf ~/warp-logs.tar.gz warp.log*)
     ```
 
     **Warp Preview logs on Linux**
@@ -166,19 +166,19 @@ Warp's logs and crash reports _**do not**_ contain any console input or output. 
     Run the following to zip the Warp Preview logs to your home directory:
 
     ```bash
-    tar -czf ~/warp_preview-logs.tar.gz -C ~/.local/state/warp-terminal-preview warp_preview.log*
+    (cd ~/.local/state/warp-terminal-preview && tar -czf ~/warp_preview-logs.tar.gz warp_preview.log*)
     ```
 
     :::caution
     If your issue is graphical (e.g. no display of windows) or a crash, please run Warp with the following command to capture more log information:
 
     ```bash
-# Run if Warp on Linux is installed
+    # Run if Warp on Linux is installed
     RUST_LOG=wgpu_core=info,wgpu_hal=info MESA_DEBUG=1 EGL_LOG_LEVEL=debug warp-terminal
-    
+
     # Run if Warp Preview on Linux is installed
     RUST_LOG=wgpu_core=info,wgpu_hal=info MESA_DEBUG=1 EGL_LOG_LEVEL=debug warp-terminal-preview
-```
+    ```
     :::
   </TabItem>
 </Tabs>
