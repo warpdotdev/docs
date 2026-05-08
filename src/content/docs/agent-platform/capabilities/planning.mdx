@@ -20,7 +20,7 @@ You can generate a plan using the `/plan` [slash command](/agent-platform/capabi
 
 <figure>
 ![Prompting the agent to create a plan using the slash command.](../../../../assets/agent-platform/plan-slash-command.png)
-<figcaption>Prompting the agent to create a plan using the slash command.</figcaption>
+<figcaption>Creating a plan with the /plan command.</figcaption>
 </figure>
 
 The agent then creates a structured plan inside Warp’s native rich text editor, which is designed for long, multi-step workflows. The editor includes clean formatting, inline code blocks, and clickable file paths so you can open referenced files immediately in Warp (see below) or in your external editor.
@@ -47,7 +47,7 @@ When you’re ready to start implementing, prompt the agent to run the plan. You
 
 <figure>
 ![Manually referencing the plan using @ to kickoff the plan.](../../../../assets/agent-platform/manually-trigger-plan.png)
-<figcaption>Manually referencing the plan using @ to kickoff the plan.</figcaption>
+<figcaption>Referencing a plan using @.</figcaption>
 </figure>
 
 The agent applies changes incrementally and updates files as it proceeds. This makes it easy to validate early steps before moving forward, adjust the plan mid-run, or try alternative paths without committing to the full workflow.
@@ -56,7 +56,7 @@ If you revise the plan while the agent is running, you can notify it directly; t
 
 <figure>
 ![Option to pass new plan to agent if plan changes during runtime.](../../../../assets/agent-platform/update-agent-mid-plan.png)
-<figcaption>Option to pass new plan to agent if plan changes during runtime.</figcaption>
+<figcaption>Prompt to update the agent's plan during execution.</figcaption>
 </figure>
 
 ### Monitoring progress
