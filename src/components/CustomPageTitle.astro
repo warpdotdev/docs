@@ -13,8 +13,17 @@ const title = Astro.locals.starlightRoute.entry.data.title;
 // an empty paragraph.
 const description = Astro.locals.starlightRoute.entry.data.description;
 const body = Astro.locals.starlightRoute.entry.body ?? '';
+
+// Eyebrow: the current topic label (e.g. "Terminal", "Agents", "Enterprise")
+// shown as a small uppercase label above the H1 to orient readers who land
+// directly on a page from search. Uses the same `starlightSidebarTopics`
+// middleware data as WarpTopicNav.astro.
+const topics = Astro.locals.starlightSidebarTopics?.topics;
+const currentTopic = topics?.find((t: { isCurrent: boolean }) => t.isCurrent);
+const eyebrow = currentTopic?.label;
 ---
 
+{eyebrow && <p class="page-eyebrow">{eyebrow}</p>}
 <div class="page-title-row">
   <h1 id="_top">{title}</h1>
   <CopyPageButton body={body} title={title} />
@@ -29,10 +38,20 @@ const body = Astro.locals.starlightRoute.entry.body ?? '';
     gap: 1rem;
   }
 
+  .page-eyebrow {
+    margin-top: 1rem;
+    margin-bottom: 0.25rem;
+    font-size: var(--sl-text-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--sl-color-text-accent);
+  }
+
   .page-title-row h1 {
     flex: 1;
     min-width: 0;
-    margin-top: 1rem;
+    margin-top: 0;
     font-size: var(--sl-text-h1);
     line-height: var(--sl-line-height-headings);
     font-weight: 700;
