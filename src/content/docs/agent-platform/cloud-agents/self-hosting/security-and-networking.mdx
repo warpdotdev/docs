@@ -45,6 +45,13 @@ Self-hosted Oz agents **do not require any network ingress**. They require outbo
 
 **Docker Hub** — for pulling task images (managed architecture only).
 
+Tasks use the following Docker images:
+* [`warpdotdev/warp-agent:latest`](https://hub.docker.com/r/warpdotdev/warp-agent)
+* [`warpdotdev/warp-xvfb-sidecar:latest`](https://hub.docker.com/r/warpdotdev/warp-xvfb-sidecar) (only if [computer use](/agent-platform/capabilities/computer-use/) is enabled)
+* [`warpdotdev/warp-claude-cli-sidecar:latest`](https://hub.docker.com/r/warpdotdev/warp-claude-cli-sidecar) (only if using Claude Code)
+* [`warpdotdev/warp-codex-cli-sidecar:latest`](https://hub.docker.com/r/warpdotdev/warp-codex-cli-sidecar) (only if using Codex)
+* The base image specified by your [environment](/agent-platform/cloud-agents/environments/)
+
 **GitHub (`github.com`)** — only with the managed architecture, when using a Warp [environment](/agent-platform/cloud-agents/environments/) with configured GitHub repositories.
 
 **Linux distribution-specific package repositories** — only with the managed architecture, when using a Warp environment whose base image does not have Git pre-installed. The exact repositories depend on the package manager configuration in the environment's base image.
