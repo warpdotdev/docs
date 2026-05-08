@@ -5,6 +5,76 @@ description: >-
 ---
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
+### 2026.05.06 (v0.2026.05.06.15.42)
+
+**New features**
+
+* Added a /set-tab-color slash command for setting or clearing the current tab's color from the input bar.
+
+**Improvements**
+
+* Added tab context menu actions to copy visible tab and pane metadata when available.
+* The conversation details panel can now be opened and closed with a configurable keyboard shortcut.
+* Conversation details side panel is now available for local Warp Agent conversations, not just cloud Oz runs. Click the info button in the pane header to open it for any active AI conversation.
+* Reduced memory usage and CPU work in the agent runs management view while a conversation is streaming.
+* Added support for drag-and-drop of image files into an active CLI agent session (e.g. Claude Code). Thanks @SagarSDagdu!
+* Recognize Mistral Vibe (vibe / vibe-acp) as a known CLI agent in the terminal, with brand-colored toolbar tile. Thanks @lonexreb!
+* Warp now renders inline local images and Mermaid diagrams in agent block output.
+* Warp now silently falls back to a regular SSH session on remote hosts where the prebuilt remote-server binary is incompatible (e.g. glibc < 2.31), instead of attempting an install that would fail at runtime.
+* Tighten orchestration event subscription scope so SSE runs only for active parent and child agent runs.
+* HTML files using the .htm extension now open with HTML syntax highlighting in Warp's editor.
+* Recognize Block's goose CLI agent — running goose now activates the CLI-agent toolbar, status, brand color, and icon like other recognized third-party agents. Thanks @webdevtodayjason!
+* Added a /continue-locally slash command to continue cloud conversations locally.
+* Added a "Show in Finder" (macOS) / "Show containing folder" (Linux/Windows) option to the tooltip that appears when clicking a detected file link.
+
+**Bug fixes**
+
+* Stop the Code Review pane from re-running gh pr view on every filesystem event when the current branch has no PR. Thanks @croaky!
+* Fixed /feedback recording "Unknown" instead of the installed Warp version on packaged builds. Thanks @SagarSDagdu!
+* Fixed find (cmd+f) selection jumping to a different match when new output streams into the active block. Thanks @amazansky!
+* Fixed a command injection vulnerability when opening files in external editors on Linux.
+* Fix Japanese IME losing the last character of a phrase that ends right before a punctuation mark on macOS. Thanks @s-zaizen!
+* Fixed local file tree blinking/reshuffling when connected to an SSH session
+* Fixed terminal text selection not auto-scrolling when dragging beyond bounds
+* Fixed Ctrl-G not closing CLI agent rich input on linux when editor is focused (fixes #9286). Thanks @nihalxkumar!
+* Pressing backspace in the agent view when the buffer is empty no longer resets the conversation.
+* Fixed unnecessary reconnect attempts for remote SSH sessions after system sleep, reducing error noise
+* Fixes issue with repeated TUI redraws for CLI agents on terminal pane resize.
+* Fix new-session "+" dropdown alignment when the Tabs Panel is placed on the right side of the header toolbar.
+* Copy keybinding now prioritizes selected text in the input over a selected block when both are active.
+* [Windows] Fix hotkey window.
+* [Windows] Symlink traversal fixed.
+* Fixed a crash on Windows when handing off a Web conversation to the native client ("Grid received input but did not receive Reset Grid OSC").
+* Fixed a bug where multiple 'open skill' buttons shared hover state.
+* Fixed Page Up and Page Down from the prompt so they scroll terminal output when the suggestion menu is closed; shortcuts appear under Keyboard Shortcuts as editable scroll actions (terminal:scroll_up_one_page / terminal:scroll_down_one_page). Thanks @fadexadex!
+* Fixed the OSS Linux desktop entry so WarpOss launches through the packaged warp-terminal-oss command. Thanks @lonexreb!
+* Fixed Ctrl/Cmd shortcuts (e.g. copy, paste) failing on Windows when a non-Latin keyboard layout was active.
+* Fix macOS IME candidate popup positioning in code editor panes so it anchors to the editor caret instead of stale terminal/input positions. Thanks @qubaitian!
+* Fixed /open-file handling for relative WSL paths so Unix separators are preserved before opening files on Windows hosts.
+* Fixed background colour bleeding in alt screen programs (e.g. delta, diff-so-fancy) where coloured regions would incorrectly fill the entire viewport when they dominated the visible area. Thanks @JamieMcMillan!
+* Clip the warping indicator's action chips (e.g. "Hide responses", "Take over", auto-approve, queue-next-prompt, stop) onto a new line on narrow panes instead of overflowing into the adjacent pane.
+* Inline .bmp, .tiff / .tif, and .ico images in agent block output now render correctly instead of falling back to plain text. Thanks @anshul-garg27!
+* Notifications and session UI from the community-maintained pi-mono plugin (Pi CLI agent) are now wired through Warp's default session listener. Thanks @lonexreb!
+* if user attaches an image in block input we should lock in agent mode, without running the NLD classifier to remove uncertainty
+* Remote-server installs no longer fail when the staging-directory cleanup hits a "Directory not empty" race after the binary has already been moved into place.
+* .command shell scripts now open with shell syntax highlighting in Warp's editor.
+* Fix git diff chip flickering between tracked-only and all-files count when untracked files are present
+* Open File → Default App now opens files in the running Warp channel instead of routing to a different installed Warp.
+* Fixed vertical tabs settings popup items (View as, Density, Pane title as) being unclickable. Thanks @leozeli!
+* Fixed a macOS memory leak that occurred when Warp enumerated system fonts or built a font fallback chain.
+* Executable shell scripts opened from a file:// URL now run in the terminal instead of opening in the editor. Thanks @amriksingh0786!
+* Fixed Option+Enter, Option+Tab, and Option+Escape sending literal key names instead of correct escape sequences. Thanks @oliver-ni!
+* Fixed read_files tool showing an empty box when the LLM requests line ranges beyond the end of a file.
+* Fixed Linux WarpOSS application-menu launcher pointing to a non-existent warp-oss binary; the .desktop Exec line now matches the installed warp-terminal-oss launcher. Thanks @lonexreb!
+* Prevent Warp from consuming too much memory when identifying filepaths in long block outputs.
+* Don't trigger the agent onboarding tutorial when Warp is running in headless SDK/CLI mode.
+* Added --version flag support in the Oz CLI
+* Fixed file tree flickering when transitioning to an SSH remote session
+* Fixed scroll-to-start/end of selected block keybinding (Cmd/Ctrl+Shift+Up/Down) not working when the input is focused.
+* Fix the terminal pane background appearing darker in horizontal tabs mode when the active theme has a background image or a custom window opacity.
+* AI code blocks tagged vue, xml, dockerfile, jsx, tsx, objective-c, or starlark now render with syntax highlighting. Common aliases like rs, py, js, ts, yml, kt, rb, golang, terraform, and docker are also recognized.
+* Reopen Closed Session is now reachable from the new-session menu on Linux and Windows.
+* Fixed missing syntax highlighting for C++ header files using .hpp, .hxx, or .H extensions.
 
 ### 2026.04.29 (v0.2026.04.29.08.57)
 
