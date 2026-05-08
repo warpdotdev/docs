@@ -39,14 +39,14 @@ import KapaLauncher from './KapaLauncher.astro';
      but when navigating via crosslink to a different section, the restored
      position is stale and the active link ends up off-screen. This script
      runs after Starlight's inline restoration (which fires synchronously
-     before DOMContentLoaded) and uses `block: 'nearest'` so it only
-     scrolls if the active item isn't already visible.
-     Desktop only — on mobile the sidebar is a drawer that scrolls
+     before DOMContentLoaded) and uses `block: 'center'` to place the
+     active link in the middle of the sidebar viewport for orientation.
+     Desktop only -- on mobile the sidebar is a drawer that scrolls
      independently. -->
 <script is:inline>
 	(() => {
 		if (!matchMedia('(min-width: 50em)').matches) return;
 		const active = document.querySelector('.sidebar-content a[aria-current="page"]');
-		if (active) active.scrollIntoView({ block: 'nearest' });
+	if (active) active.scrollIntoView({ block: 'center' });
 	})();
 </script>
