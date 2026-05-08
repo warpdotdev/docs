@@ -159,7 +159,7 @@ curl "https://app.warp.dev/api/v1/enterprises/analytics/users?page=1&page_size=2
 {
   "data": [
     {
-      "user_id": "firebase-uid-abc",
+      "user_id": "user-uuid-abc",
       "email": "alex@example.com",
       "local": {
         "distinct_conversation_count": 42,
@@ -200,7 +200,7 @@ Returns paginated, message-level activity events for fine-grained audits and das
 * `page` (optional) - Page number, 1-indexed. Default `1`.
 * `page_size` (optional) - Items per page. Default `10`. Maximum `100`.
 * `run_type` (optional) - Filter by `local` or `cloud`.
-* `user_id` (optional) - Firebase UID of a single team member.
+* `user_id` (optional) - The unique identifier of a single team member, as returned by the `users` and `events` endpoints.
 * `conversation_id` (optional) - Restrict results to one conversation.
 * `message_type` (optional) - Filter by message variant. Common values include `agent_output`, `tool_call`, `tool_call_result`, `user_query`, and `agent_reasoning`; additional values are emitted as new agent capabilities ship. Internal scaffolding (for example `model_used`, `server_event`, `messages_received_from_agents`, `events_from_agents`, and `debug_output`) is not recorded and never appears here.
 * `tool_type` (optional) - For `tool_call` / `tool_call_result` messages, restrict to a specific tool. Values are the snake_case name of the tool (for example `apply_file_diffs`, `run_shell_command`, `search_codebase`, `grep`, `call_mcp_tool`).
@@ -227,7 +227,7 @@ curl "https://app.warp.dev/api/v1/enterprises/analytics/events?run_type=cloud&me
       "message_start_timestamp": "2026-04-15T19:21:08Z",
       "message_end_timestamp": "2026-04-15T19:21:11Z",
       "conversation_id": "conv-uuid",
-      "user_id": "firebase-uid-abc",
+      "user_id": "user-uuid-abc",
       "email": "alex@example.com",
       "user_selected_model": "auto",
       "run_type": "cloud",
