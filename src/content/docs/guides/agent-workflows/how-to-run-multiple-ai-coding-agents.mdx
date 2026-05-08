@@ -29,7 +29,10 @@ You can configure what information to display for each tab:
 * The working directory
 * A status indicator showing whether the agent is active, waiting for input, or idle
 
+<figure>
 ![Warp vertical tabs sidebar showing multiple terminal sessions with branch metadata](../../../../assets/terminal/vertical-tabs-multi-agent.png)
+<figcaption>Vertical tabs overview.</figcaption>
+</figure>
 
 ## 2. Launch agents in separate tabs
 
@@ -59,7 +62,10 @@ Refactor src/auth/ to use async/await instead of callbacks
 Write comprehensive tests for src/auth/ covering edge cases
 ```
 
+<figure>
 ![Multiple agent tabs in Warp's vertical sidebar showing session status, branch, and directory metadata](../../../../assets/terminal/multi-agents.png)
+<figcaption>Vertical tab with agent details.</figcaption>
+</figure>
 
 ## 3. Monitor agents with notifications
 
@@ -77,7 +83,10 @@ Notification setup varies by agent:
 Agent notifications are currently supported for Claude Code, Codex, and OpenCode. For setup details, see [Agent notifications](/agent-platform/capabilities/agent-notifications/). For a full breakdown of which features work with each agent, see the [third-party CLI agents feature matrix](/agent-platform/cli-agents/overview/).
 :::
 
+<figure>
 ![Warp notification popup showing an agent requesting permission to edit a file](../../../../assets/guides/tab-notification-indicator.png)
+<figcaption>Agent approval notification.</figcaption>
+</figure>
 
 ## 4. Compare outputs from different agents
 
@@ -96,7 +105,10 @@ If you regularly work with the same multi-agent setup, save it as a tab config s
 1. Hover over the tab and click the three dots on the right-hand side.
 2. Click **Save as new config**.
 
+<figure>
 ![Creating a new tab config from the tab context menu in Warp](../../../../assets/terminal/save-new-tab-config.png)
+<figcaption>Saving a tab config.</figcaption>
+</figure>
 
 Tab configs are TOML files that define the directory, startup commands, and layout for a tab. For example, you might create a config that:
 

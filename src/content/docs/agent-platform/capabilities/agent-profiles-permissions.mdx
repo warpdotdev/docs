@@ -13,7 +13,10 @@ Agent Profiles let you configure how your Agent behaves in different situations.
 * **Default profile**: Every user starts with a default profile, you can edit it at any time, and new profiles will copy its settings as a starting point.
 * **Other profiles**: Set up different profiles for different workflows (e.g., "Safe & cautious", "YOLO mode", etc.). Manage them in the Profiles settings menu.
 
+<figure>
 ![Agent Profiles in Settings: define how your Agent operates.](../../../../assets/agent-platform/agent-profiles.png)
+<figcaption>Agent Profile settings.</figcaption>
+</figure>
 
 **In each Agent Profile, you can configure:**
 
@@ -21,7 +24,10 @@ Agent Profiles let you configure how your Agent behaves in different situations.
 * **Base model**: The core engine for your Agent. It handles most interactions and invokes other models when needed (e.g. for code generation). This model is also used for [Planning](/agent-platform/capabilities/planning/) by default, though you can configure a separate planning model.
 * Agent autonomy and permissions
 
+<figure>
 ![Agent Profiles in Settings: editing a Profile.](../../../../assets/agent-platform/agent-profiles-settings.png)
+<figcaption>Editing an Agent Profile.</figcaption>
+</figure>
 
 ## Agent Permissions
 
@@ -63,7 +69,10 @@ The Agent lets you define an allowlist of commands that run automatically withou
 
 You can add your own regular expressions to this list in **Settings** > **Agents** > **Profiles** > **Command allowlist**. Commands in the allowlist will always auto-execute, even if they are not read-only operations.
 
+<figure>
 ![Command allowlist and denylists as part of an Agent Profile.](../../../../assets/agent-platform/agent-profiles-allow-and-denylists.png)
+<figcaption>Command allowlist and denylists as part of an Agent Profile.</figcaption>
+</figure>
 
 ### Command denylist
 
@@ -86,7 +95,10 @@ In this settings menu, you can configure which MCP servers the Agent is allowed 
 * Use the MCP denylist to require approval before calling certain servers, even if they’re also in the allowlist.
 * Or set the Agent to “decide” — it will act autonomously when confident, and ask for confirmation when uncertain.
 
+<figure>
 ![Customize how the Agent interacts with MCP servers by choosing between “Agent decides,” allowlist, or denylist settings.](../../../../assets/agent-platform/MCP_servers_agent_permissions.png)
+<figcaption>MCP server interaction settings in an Agent Profile.</figcaption>
+</figure>
 
 :::note
 To learn how to build and configure your own MCP server, check out the [MCP feature docs](/agent-platform/capabilities/mcp/).
@@ -108,7 +120,10 @@ During an Agent interaction, you can give the Agent full autonomy for the curren
   </TabItem>
 </Tabs>
 
+<figure>
 ![A button overlay in the lower-right corner lets you enable auto-approve or end the Agent interaction.](../../../../assets/agent-platform/run-until-completion.png)
+<figcaption>Auto-approve and take-over controls.</figcaption>
+</figure>
 
 :::note
 _Run until completion_ ignores the denylist entirely. It's the purest form of “YOLO” mode and essentially a fully "autonomous mode" where the Agent proceeds without asking for confirmation.

@@ -26,7 +26,10 @@ You can navigate to the MCP servers page in any of the following ways:
 
 This will show a list of all configured MCP servers, including which are currently running. If you close Warp with an MCP server running, it will run again on next start of Warp. MCP servers that are stopped will remain so on next launch of Warp.
 
+<figure>
 ![MCP servers page](../../../../assets/agent-platform/mcp-servers-list.png)
+<figcaption>MCP servers page.</figcaption>
+</figure>
 
 ### Adding an MCP Server
 
@@ -38,7 +41,10 @@ MCP server types you can add:
   <TabItem label="CLI Server (Command)">
     Provide a startup command. Warp will launch this command when starting up and shut it down on exit.
 
+    <figure>
     ![Adding a CLI MCP Server (Command)](../../../../assets/agent-platform/mcp-servers-add-cli.png)
+    <figcaption>Adding a CLI MCP Server (Command).</figcaption>
+    </figure>
 
     :::note
     Always set `working_directory` explicitly when your MCP server command or args include relative paths. This ensures consistent and predictable behavior across machines and sessions.
@@ -56,7 +62,10 @@ MCP server types you can add:
   <TabItem label="Streamable HTTP or SSE Server (URL)">
     Provide a URL where Warp can reach an already-running MCP server that supports Server-Sent Events.
 
+    <figure>
     ![Adding an SSE MCP Server (URL)](../../../../assets/agent-platform/mcp-servers-add-sse.png)
+    <figcaption>Adding an SSE MCP Server (URL).</figcaption>
+    </figure>
 
     **Streamable HTTP or SSE Server (URL) MCP Configuration Properties**
 
@@ -161,7 +170,10 @@ You can rename and edit a server's name, as well as delete the server. If you ar
 
 MCP servers can be shared with your teammates by clicking the share icon. When sharing, sensitive values in the `env` configuration will be automatically scrubbed and replaced with variables.
 
+<figure>
 ![Sharing a MCP Server](../../../../assets/agent-platform/mcp-servers-share.png)
+<figcaption>Sharing a MCP Server.</figcaption>
+</figure>
 
 Your teammates can find shared MCP servers under the `Shared` section of their MCP settings. When your teammates install your server configuration, they will be prompted to enter any scrubbed `env` values.
 

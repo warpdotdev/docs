@@ -215,13 +215,19 @@ The following non-exhaustive list of plugins, prompts, or tools can cause potent
     On macOS, you may be [denied permission to SSH](https://github.com/warpdotdev/Warp/issues/5550) from Warp into other devices in your local network and see an error like: `ssh: connect to host <host_name> port 22: Undefined error: 0`.\
     To resolve this issue, go to  > **System Settings** > **Privacy & Security** > **Local Network** and add Warp.
 
+    <figure>
     ![macOS SSH permission error](../../../../assets/support-and-community/mac-ssh-permission.png)
+    <figcaption>An SSH permission error on macOS.</figcaption>
+    </figure>
 
     **Unexpected loss of permission on macOS**
 
     On macOS, you may see an `Operation not permitted` error when trying to run commands in directories that have already been granted macOS permissions (Documents, Downloads, Desktop, etc). The best workaround at this time is to [apply any pending updates](/support-and-community/troubleshooting-and-support/updating-warp/) so that the new Warp binary has the correct permissions. We are tracking this issue [here](https://github.com/warpdotdev/Warp/issues/3009).
 
+    <figure>
     ![Permission error on macOS](../../../../assets/support-and-community/permission-error-macos.png)
+    <figcaption>A file permission error dialog on macOS.</figcaption>
+    </figure>
 
     **Auto-Update error on macOS**
 

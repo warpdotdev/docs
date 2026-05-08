@@ -16,13 +16,22 @@ Attaching context with @ works in **both natural language mode** (when interacti
 
 **Note**: the search in the @-context menu is always relative to the root of the Git repository, even when you're working in a subdirectory. This means you can reference _any_ file or folder tracked in the repo, regardless of the current working directory.
 
+<figure>
 ![Using the @ symbol to search for and attach a file or folder from the project root.](../../../../../assets/agent-platform/at-context.png)
+<figcaption>File search using the @ symbol.</figcaption>
+</figure>
 
 Additionally, no codebase indexing (via [Codebase Context](/agent-platform/capabilities/codebase-context/)) is required — file search is available immediately in any Git-initialized directory. The search also respects `.gitignore` rules and will exclude ignored files from the results.
 
+<figure>
 ![Filtering files using @app to locate files containing “app” in their name or path.](../../../../../assets/agent-platform/at-context-app.png)
+<figcaption>Filtering files with @app.</figcaption>
+</figure>
 
+<figure>
 ![Referencing a folder or all files within it by typing @styles.](../../../../../assets/agent-platform/at-context-styles.png)
+<figcaption>Referencing a folder with @styles.</figcaption>
+</figure>
 
 ### Referencing code symbols
 
