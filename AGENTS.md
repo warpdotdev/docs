@@ -182,6 +182,7 @@ Captions orient the reader — they identify what the image shows so the reader 
 
 **Rules:**
 - **Orient, don't instruct** — describe what is shown, not what to do. Procedural steps belong in the body text.
+- **Write complete sentences** — every caption should read as a standalone sentence, not a fragment or label. A reader should understand what the image shows without looking at it.
 - **Keep it short** — aim for 10 words or fewer. Never exceed ~20 words.
 - **No marketing language** — avoid "easily," "quickly," "powerful," "at a glance," or similar.
 - **Don't repeat the prose** — if the paragraph above already describes the image, the caption should add context, not echo it.
