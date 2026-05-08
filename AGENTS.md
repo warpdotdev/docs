@@ -177,6 +177,25 @@ Use formatting consistently to distinguish different types of content:
 - File naming: lowercase, hyphens, descriptive (`agent-mode-code-diff.png`, not `Screenshot 2026-03-15.png`)
 - Store PNGs in `src/assets/<section>/` (Astro optimizes them) and GIFs in `public/assets/<section>/` (to bypass optimization). See the "Assets" section below for the full convention.
 
+#### Image caption guidelines
+Captions orient the reader — they identify what the image shows so the reader knows where to look. They are not a place for instructions, marketing language, or exhaustive descriptions.
+
+**Rules:**
+- **Orient, don't instruct** — describe what is shown, not what to do. Procedural steps belong in the body text.
+- **Keep it short** — aim for 10 words or fewer. Never exceed ~20 words.
+- **No marketing language** — avoid "easily," "quickly," "powerful," "at a glance," or similar.
+- **Don't repeat the prose** — if the paragraph above already describes the image, the caption should add context, not echo it.
+- **Don't list everything visible** — name the subject, not every detail in the screenshot.
+- **Sentence case, end with a period** — consistent with all other text in the docs.
+
+**Examples:**
+- ✅ `<figcaption>The Environments page in the Oz web app.</figcaption>`
+- ✅ `<figcaption>Agent Profile settings.</figcaption>`
+- ✅ `<figcaption>Codebase indexing settings.</figcaption>`
+- ❌ `<figcaption>Codebase indexing settings in Warp. Easily track sync status and manage which folders are indexed for AI-powered context and suggestions.</figcaption>` (marketing language, too long)
+- ❌ `<figcaption>Click the toast to jump to the agent's session.</figcaption>` (procedural — belongs in body text)
+- ❌ `<figcaption>Universal Input's contextual input chips, from left to right: conversation management, node version, active directory, Git and code diffs, and 2 attached images.</figcaption>` (exhaustive list)
+
 ### Links and cross-references
 - Use descriptive link text that explains what users will find
   - ✅ "Learn more about [Codebase Context](...)" / "See [configuring environments](...)"

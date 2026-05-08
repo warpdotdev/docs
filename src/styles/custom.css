@@ -273,7 +273,11 @@ body {
 
 /* Figures — centered block with image and optional caption.
    GitBook rendered `<figure><img>…<figcaption>` natively; these styles
-   restore that treatment in Astro Starlight. */
+   restore that treatment in Astro Starlight.
+
+   Caption editorial rules (see AGENTS.md § "Image caption guidelines"):
+   Orient the reader, don't instruct. Keep under ~20 words. No marketing
+   language. Don't repeat surrounding prose or list everything visible. */
 .sl-markdown-content figure {
   margin: 1.5em 0;
   text-align: center;
