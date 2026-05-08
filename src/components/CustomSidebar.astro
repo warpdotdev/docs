@@ -33,3 +33,20 @@ import KapaLauncher from './KapaLauncher.astro';
 	<StarlightSidebarTopicsSidebar />
 </div>
 <Default><slot /></Default>
+
+<!-- Scroll the active sidebar link into view after page load.
+     Starlight's SidebarPersister restores scrollTop from sessionStorage,
+     but when navigating via crosslink to a different section, the restored
+     position is stale and the active link ends up off-screen. This script
+     runs after Starlight's inline restoration (which fires synchronously
+     before DOMContentLoaded) and uses `block: 'center'` to place the
+     active link in the middle of the sidebar viewport for orientation.
+     Desktop only -- on mobile the sidebar is a drawer that scrolls
+     independently. -->
+<script is:inline>
+	(() => {
+		if (!matchMedia('(min-width: 50em)').matches) return;
+		const active = document.querySelector('.sidebar-content a[aria-current="page"]');
+	if (active) active.scrollIntoView({ block: 'center' });
+	})();
+</script>
