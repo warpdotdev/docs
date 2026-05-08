@@ -1,3 +1,15 @@
+diff --git a/node_modules/starlight-llms-txt/llms-custom.txt.ts b/node_modules/starlight-llms-txt/llms-custom.txt.ts
+index f96dbbd..7f19ab5 100644
+--- a/node_modules/starlight-llms-txt/llms-custom.txt.ts
++++ b/node_modules/starlight-llms-txt/llms-custom.txt.ts
+@@ -30,6 +30,7 @@ export const GET: APIRoute<Props, Params> = async (context) => {
+ 		minify: true,
+ 		description,
+ 		include: context.props.paths,
++		exclude: starlightLllmsTxtContext.exclude,
+ 	});
+ 	return new Response(body);
+ };
 diff --git a/node_modules/starlight-llms-txt/llms-full.txt.ts b/node_modules/starlight-llms-txt/llms-full.txt.ts
 index 03f408b..9907aed 100644
 --- a/node_modules/starlight-llms-txt/llms-full.txt.ts

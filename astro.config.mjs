@@ -139,10 +139,11 @@ export default defineConfig({
 				// widely consumed by AI agents.
 				starlightLlmsTxt({
 					projectName: 'Warp',
-					// Excludes pages from llms-small.txt that cause a stack overflow
-					// in hast-util-to-text due to their size. Note: the `exclude`
-					// option only applies to llms-small.txt, not llms-full.txt.
-					exclude: ['support-and-community/community/open-source-licenses'],
+				// Excludes pages that cause a stack overflow in hast-util-to-text
+				// due to their size. The upstream plugin only applies `exclude` to
+				// llms-small.txt; our patch (patches/starlight-llms-txt+0.8.1.patch)
+				// extends it to llms-full.txt and custom sets as well.
+				exclude: ['support-and-community/community/open-source-licenses'],
 					description:
 						'Documentation for Warp, the agentic development environment, and Oz, Warp\'s programmable agent for running and coordinating agents at scale.',
 					customSets: [
@@ -154,8 +155,8 @@ export default defineConfig({
 						{ label: 'Knowledge and Collaboration', description: 'Warp Drive, teams, and the Admin Panel.', paths: ['knowledge-and-collaboration/**'] },
 						{ label: 'Reference', description: 'CLI and API reference.', paths: ['reference/**'] },
 						// All support-and-community/ pages. open-source-licenses.mdx is excluded
-						// from llms-small.txt globally above (stack overflow in hast-util-to-text)
-						// but still included here for llms-full.txt and the Support set.
+						// globally above (stack overflow in hast-util-to-text); the patch ensures
+						// it's excluded from this custom set as well.
 						{ label: 'Support', description: 'Troubleshooting, billing, and privacy.', paths: ['support-and-community/**'] },
 						{ label: 'Guides', description: 'Task-oriented walkthroughs and tutorials.', paths: ['guides/**'] },
 						{ label: 'Changelog', description: 'Warp release notes by year.', paths: ['changelog/**'] },
