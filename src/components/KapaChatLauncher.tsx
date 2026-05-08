@@ -153,12 +153,12 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 				ref={triggerRef}
 				className="warp-kapa-button"
 				onClick={openPanel}
-				aria-label="Ask Kapa AI"
+				aria-label="Ask AI"
 				aria-haspopup="dialog"
 				aria-expanded={isOpen}
 				aria-controls="sl-kapa-panel"
 				aria-keyshortcuts={isAppleDevice ? 'Meta+I' : 'Control+I'}
-				data-tooltip={isAppleDevice ? 'Ask Kapa AI ⌘I' : 'Ask Kapa AI Ctrl+I'}
+				data-tooltip={isAppleDevice ? 'Ask AI ⌘I' : 'Ask AI Ctrl+I'}
 			>
 				<LuMessageSquare aria-hidden="true" />
 				<span className="warp-kapa-button__label">Ask</span>
