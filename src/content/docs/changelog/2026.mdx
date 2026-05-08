@@ -5,11 +5,12 @@ description: >-
 ---
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
+
 ### 2026.05.06 (v0.2026.05.06.15.42)
 
 **New features**
 
-* Added a /set-tab-color slash command for setting or clearing the current tab's color from the input bar.
+* Added a `/set-tab-color` slash command for setting or clearing the current tab's color from the input bar.
 
 **Improvements**
 
@@ -24,22 +25,22 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 * Tighten orchestration event subscription scope so SSE runs only for active parent and child agent runs.
 * HTML files using the .htm extension now open with HTML syntax highlighting in Warp's editor.
 * Recognize Block's goose CLI agent — running goose now activates the CLI-agent toolbar, status, brand color, and icon like other recognized third-party agents. Thanks @webdevtodayjason!
-* Added a /continue-locally slash command to continue cloud conversations locally.
+* Added a `/continue-locally` slash command to continue cloud conversations locally.
 * Added a "Show in Finder" (macOS) / "Show containing folder" (Linux/Windows) option to the tooltip that appears when clicking a detected file link.
 
 **Bug fixes**
 
-* Stop the Code Review pane from re-running gh pr view on every filesystem event when the current branch has no PR. Thanks @croaky!
-* Fixed /feedback recording "Unknown" instead of the installed Warp version on packaged builds. Thanks @SagarSDagdu!
-* Fixed find (cmd+f) selection jumping to a different match when new output streams into the active block. Thanks @amazansky!
+* Stop the Code Review pane from re-running `gh pr view` on every filesystem event when the current branch has no PR. Thanks @croaky!
+* Fixed `/feedback` recording "Unknown" instead of the installed Warp version on packaged builds. Thanks @SagarSDagdu!
+* Fixed find (`⌘+F`) selection jumping to a different match when new output streams into the active block. Thanks @amazansky!
 * Fixed a command injection vulnerability when opening files in external editors on Linux.
 * Fix Japanese IME losing the last character of a phrase that ends right before a punctuation mark on macOS. Thanks @s-zaizen!
 * Fixed local file tree blinking/reshuffling when connected to an SSH session
 * Fixed terminal text selection not auto-scrolling when dragging beyond bounds
-* Fixed Ctrl-G not closing CLI agent rich input on linux when editor is focused (fixes #9286). Thanks @nihalxkumar!
+* Fixed `Ctrl+G` not closing CLI agent rich input on Linux when editor is focused (fixes #9286). Thanks @nihalxkumar!
 * Pressing backspace in the agent view when the buffer is empty no longer resets the conversation.
 * Fixed unnecessary reconnect attempts for remote SSH sessions after system sleep, reducing error noise
-* Fixes issue with repeated TUI redraws for CLI agents on terminal pane resize.
+* Fixed issue with repeated TUI redraws for CLI agents on terminal pane resize.
 * Fix new-session "+" dropdown alignment when the Tabs Panel is placed on the right side of the header toolbar.
 * Copy keybinding now prioritizes selected text in the input over a selected block when both are active.
 * [Windows] Fix hotkey window.
@@ -50,12 +51,12 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 * Fixed the OSS Linux desktop entry so WarpOss launches through the packaged warp-terminal-oss command. Thanks @lonexreb!
 * Fixed Ctrl/Cmd shortcuts (e.g. copy, paste) failing on Windows when a non-Latin keyboard layout was active.
 * Fix macOS IME candidate popup positioning in code editor panes so it anchors to the editor caret instead of stale terminal/input positions. Thanks @qubaitian!
-* Fixed /open-file handling for relative WSL paths so Unix separators are preserved before opening files on Windows hosts.
+* Fixed `/open-file` handling for relative WSL paths so Unix separators are preserved before opening files on Windows hosts.
 * Fixed background colour bleeding in alt screen programs (e.g. delta, diff-so-fancy) where coloured regions would incorrectly fill the entire viewport when they dominated the visible area. Thanks @JamieMcMillan!
 * Clip the warping indicator's action chips (e.g. "Hide responses", "Take over", auto-approve, queue-next-prompt, stop) onto a new line on narrow panes instead of overflowing into the adjacent pane.
 * Inline .bmp, .tiff / .tif, and .ico images in agent block output now render correctly instead of falling back to plain text. Thanks @anshul-garg27!
 * Notifications and session UI from the community-maintained pi-mono plugin (Pi CLI agent) are now wired through Warp's default session listener. Thanks @lonexreb!
-* if user attaches an image in block input we should lock in agent mode, without running the NLD classifier to remove uncertainty
+* Fixed an issue where attaching an image in block input did not immediately lock into Agent Mode, which could cause the NLD classifier to introduce uncertainty.
 * Remote-server installs no longer fail when the staging-directory cleanup hits a "Directory not empty" race after the binary has already been moved into place.
 * .command shell scripts now open with shell syntax highlighting in Warp's editor.
 * Fix git diff chip flickering between tracked-only and all-files count when untracked files are present
@@ -68,9 +69,9 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 * Fixed Linux WarpOSS application-menu launcher pointing to a non-existent warp-oss binary; the .desktop Exec line now matches the installed warp-terminal-oss launcher. Thanks @lonexreb!
 * Prevent Warp from consuming too much memory when identifying filepaths in long block outputs.
 * Don't trigger the agent onboarding tutorial when Warp is running in headless SDK/CLI mode.
-* Added --version flag support in the Oz CLI
+* Added `--version` flag support in the Oz CLI
 * Fixed file tree flickering when transitioning to an SSH remote session
-* Fixed scroll-to-start/end of selected block keybinding (Cmd/Ctrl+Shift+Up/Down) not working when the input is focused.
+* Fixed scroll-to-start/end of selected block keybinding (`⌘+Shift+↑`/`⌘+Shift+↓` on macOS, `Ctrl+Shift+↑`/`Ctrl+Shift+↓` on Windows/Linux) not working when the input is focused.
 * Fix the terminal pane background appearing darker in horizontal tabs mode when the active theme has a background image or a custom window opacity.
 * AI code blocks tagged vue, xml, dockerfile, jsx, tsx, objective-c, or starlark now render with syntax highlighting. Common aliases like rs, py, js, ts, yml, kt, rb, golang, terraform, and docker are also recognized.
 * Reopen Closed Session is now reachable from the new-session menu on Linux and Windows.
