@@ -46,6 +46,12 @@ This file lists checks from the afdocs-audit skill that may flag as warnings or 
 **Reason**: Only evaluated when tab panels contain section headers. Most sampled pages with tabs don't have headers inside the tab panels, so the check is skipped.
 **Action**: None needed.
 
+## markdown-url-support
+
+**Expected status**: fail (for `/api`)
+**Reason**: `/api` is a custom Astro page (`src/pages/api.astro`), not a Starlight content page. The docs-markdown integration only generates `.md` variants for Starlight doc pages under `src/content/docs/`, so `/api.md` does not exist.
+**Action**: No fix needed. This page is intentionally outside the Starlight content pipeline.
+
 ## auth-alternative-access
 
 **Expected status**: skip
