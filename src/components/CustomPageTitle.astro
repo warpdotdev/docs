@@ -14,13 +14,35 @@ const title = Astro.locals.starlightRoute.entry.data.title;
 const description = Astro.locals.starlightRoute.entry.data.description;
 const body = Astro.locals.starlightRoute.entry.body ?? '';
 
-// Eyebrow: the current topic label (e.g. "Terminal", "Agents", "Enterprise")
-// shown as a small uppercase label above the H1 to orient readers who land
-// directly on a page from search. Uses the same `starlightSidebarTopics`
-// middleware data as WarpTopicNav.astro.
+// Eyebrow: a 2-level breadcrumb (e.g. "Agents > Third-Party CLI Agents")
+// shown above the H1 to orient readers who land directly from search.
+// Level 1 = the current sidebar topic (from starlightSidebarTopics).
+// Level 2 = the immediate parent group of the current page in the sidebar
+// tree (from starlightRoute.sidebar). Truncated to 2 levels max.
 const topics = Astro.locals.starlightSidebarTopics?.topics;
 const currentTopic = topics?.find((t: { isCurrent: boolean }) => t.isCurrent);
-const eyebrow = currentTopic?.label;
+const topicLabel = currentTopic?.label;
+
+// Walk the sidebar tree to find the parent group of the current page.
+type SidebarEntry = { type: string; label: string; isCurrent?: boolean; entries?: SidebarEntry[] };
+function findParentGroup(entries: SidebarEntry[], parentLabel?: string): string | undefined {
+  for (const entry of entries) {
+    if (entry.type === 'link' && entry.isCurrent) return parentLabel;
+    if (entry.type === 'group' && entry.entries) {
+      const found = findParentGroup(entry.entries, entry.label);
+      if (found) return found;
+    }
+  }
+  return undefined;
+}
+const sidebar = Astro.locals.starlightRoute?.sidebar as SidebarEntry[] | undefined;
+const parentGroup = sidebar ? findParentGroup(sidebar) : undefined;
+
+// Build the eyebrow: "Topic > Parent Group" or just "Topic" if the page
+// is at the top level of its topic (no parent group, or parent matches topic).
+const eyebrow = topicLabel && parentGroup && parentGroup !== topicLabel
+  ? `${topicLabel} > ${parentGroup}`
+  : topicLabel;
 ---
 
 {eyebrow && <p class="page-eyebrow">{eyebrow}</p>}
