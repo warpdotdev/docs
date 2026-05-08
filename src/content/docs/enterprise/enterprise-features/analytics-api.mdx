@@ -199,8 +199,8 @@ Returns paginated, message-level activity events for fine-grained audits and das
 * `run_type` (optional) - Filter by `local` or `cloud`.
 * `user_id` (optional) - Firebase UID of a single team member.
 * `conversation_id` (optional) - Restrict results to one conversation.
-* `message_type` (optional) - Filter by message variant. Common values include `agent_output`, `tool_call`, and `tool_call_result`. The full set mirrors the `Message.message` proto oneof, so additional values may appear over time. Internal scaffolding messages (for example `model_used`, `server_event`, `messages_received_from_agents`, `events_from_agents`, `debug_output`) are filtered out at write time and never appear here.
-* `tool_type` (optional) - For `tool_call` / `tool_call_result` messages, restrict to a specific tool. Values are the snake_case proto field names of the tool (for example `apply_file_diffs`, `run_shell_command`, `search_codebase`, `grep`, `call_mcp_tool`).
+* `message_type` (optional) - Filter by message variant. Common values include `agent_output`, `tool_call`, `tool_call_result`, `user_query`, and `agent_reasoning`; additional values are emitted as new agent capabilities ship. Internal scaffolding (for example `model_used`, `server_event`, `messages_received_from_agents`, `events_from_agents`, and `debug_output`) is not recorded and never appears here.
+* `tool_type` (optional) - For `tool_call` / `tool_call_result` messages, restrict to a specific tool. Values are the snake_case name of the tool (for example `apply_file_diffs`, `run_shell_command`, `search_codebase`, `grep`, `call_mcp_tool`).
 
 Events are returned newest-first, ordered by `message_end_timestamp DESC, message_id DESC`.
 
