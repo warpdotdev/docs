@@ -74,24 +74,23 @@ python3 .agents/skills/sync-openapi-spec/scripts/sync_openapi.py \
   --target developers/agent-api-openapi.yaml
 ```
 
-This rewrites `developers/agent-api-openapi.yaml` with the regenerated subset.
+This rewrites `developers/agent-api-openapi.yaml` with the regenerated subset. Apply mode validates every `$ref` in the output before writing the file: if any reference is unresolved, the script exits with code 3 and refuses to write. On success it prints `All $refs resolve in the regenerated spec.`
 
 ### Step 5: Validate the regenerated spec
 
-```bash
-# YAML parses
-python3 -c "import yaml; yaml.safe_load(open('developers/agent-api-openapi.yaml'))"
+Apply mode already catches unresolved `$ref`s (see Step 4). Run these as belt-and-braces integration checks:
 
-# Astro + Scalar boot succeed (catches dangling $refs, malformed paths)
+```bash
+# Astro picks up the new YAML and parses it through Scalar's runtime.
 npm run build
 ```
 
-Optional, recommended when many schemas changed:
+Optional, recommended when many schemas changed (full OpenAPI lint):
 ```bash
 npx @redocly/cli lint developers/agent-api-openapi.yaml
 ```
 
-If `npm run build` fails, inspect the build error, fix the underlying spec issue (most often a `$ref` to a schema that the script pruned because nothing public references it), and re-run.
+If `npm run build` fails, the most common cause is a malformed path or missing `description` field. Schema-ref breakage is already prevented by Step 4's validator.
 
 ### Step 6: Commit and open a PR
 
@@ -136,8 +135,12 @@ Install pyyaml: `pip install pyyaml`. On Debian-based images with externally man
 ### `error: source spec not found at ...`
 The `warp-server` repo isn't where the script expected. Pass `--source /absolute/path/to/warp-server/public_api/openapi.yaml`.
 
-### `npm run build` fails after `--mode apply` with a missing-schema error
-The script's `$ref` walker missed a transitive reference. Inspect the failing `$ref`, confirm the schema exists in the source spec, and check whether the path holding the reference was supposed to be kept. If the path is genuinely public, the schema should follow automatically — file a bug against the script (the walker should be transitive over `allOf`/`oneOf`/`anyOf`/`items`/`additionalProperties`).
+### `--mode apply` exits with code 3 and "unresolved $refs"
+Apply mode refuses to write the target if any `$ref` in the regenerated spec doesn't resolve to a defined component. The script's recursive `$ref` walker is supposed to keep transitive references (`allOf`/`oneOf`/`anyOf`/`items`/`additionalProperties`/etc.) reachable, so this means either:
+- The source spec itself has a dangling reference (fix it in `warp-server`), or
+- The walker is missing a reference shape (file a bug against the script).
+
+The error output lists the offending JSON pointer paths so you can locate the reference quickly. Apply will not overwrite `developers/agent-api-openapi.yaml` while this fails.
 
 ### Diff shows changes that aren't in the source spec
 Make sure `../warp-server` is on the branch you intended to compare against (usually `develop`). Run `cd ../warp-server && git status -sb && git --no-pager log -1` to confirm.

@@ -12,12 +12,16 @@ This script generates the docs subset deterministically:
     ``x-internal: true`` markers
   * components/schemas is pruned to only schemas reachable from the
     surviving paths via $ref walking
+  * the regenerated spec is validated for unresolved $refs before
+    being written; apply will refuse to write a broken spec
 
 Modes:
   diff       Print structural drift between source and target. Exits 1
              if drift is found.
-  apply      Rewrite target with the regenerated docs subset.
-  self-test  Runs a small in-memory test to validate $ref walking.
+  apply      Rewrite target with the regenerated docs subset. Exits 3
+             if any $ref in the output is unresolved.
+  self-test  Runs a small in-memory test to validate $ref walking and
+             output ref resolution.
 
 Usage:
   python3 sync_openapi.py --mode diff
@@ -174,6 +178,48 @@ def _transitive_schemas(
             if ref not in reachable:
                 pending.append(ref)
     return reachable
+
+
+def _validate_output(out: dict[str, Any]) -> list[str]:
+    """Return human-readable errors for any unresolved refs in ``out``.
+
+    Walks the entire output tree and verifies that every ``$ref`` string
+    points at something that actually exists in the output's components
+    section. This catches cases where pruning or filtering leaves a
+    dangling reference behind — a class of bug that would otherwise slip
+    past `npm run build` (Astro just YAML-parses the file) and only
+    surface as an empty schema box at runtime in Scalar.
+    """
+    components = out.get("components") or {}
+    available: dict[str, set[str]] = {}
+    for ck, cv in components.items():
+        if isinstance(cv, dict):
+            available[ck] = set(cv.keys())
+
+    errors: list[str] = []
+
+    def visit(node: Any, path: str) -> None:
+        if isinstance(node, dict):
+            for k, v in node.items():
+                if k == "$ref" and isinstance(v, str):
+                    if v.startswith("#/components/"):
+                        parts = v[len("#/components/") :].split("/", 1)
+                        if len(parts) != 2:
+                            errors.append(f"{path}: malformed $ref `{v}`")
+                            continue
+                        section, name = parts
+                        if name not in available.get(section, set()):
+                            errors.append(
+                                f"{path}: $ref `{v}` is not defined in components.{section}"
+                            )
+                else:
+                    visit(v, f"{path}.{k}")
+        elif isinstance(node, list):
+            for i, item in enumerate(node):
+                visit(item, f"{path}[{i}]")
+
+    visit(out, "")
+    return errors
 
 
 def transform(source: dict[str, Any]) -> dict[str, Any]:
@@ -424,6 +470,9 @@ def _self_test() -> int:
 
     assert out["components"].get("securitySchemes"), "securitySchemes should be preserved"
 
+    ref_errors = _validate_output(out)
+    assert not ref_errors, f"unexpected unresolved refs: {ref_errors}"
+
     print("self-test: OK")
     return 0
 
@@ -492,9 +541,20 @@ def main(argv: list[str] | None = None) -> int:
         return 1
 
     # apply
+    ref_errors = _validate_output(expected)
+    if ref_errors:
+        print(
+            "error: regenerated spec has unresolved $refs. Refusing to write target.",
+            file=sys.stderr,
+        )
+        for err in ref_errors:
+            print(f"  {err}", file=sys.stderr)
+        return 3
+
     target_path.parent.mkdir(parents=True, exist_ok=True)
     _dump_yaml(expected, target_path)
     print(f"Wrote {target_path}")
+    print("All $refs resolve in the regenerated spec.")
     if unknown:
         print("\nWarning: unclassified items the script auto-included or auto-dropped:")
         for n in unknown:
