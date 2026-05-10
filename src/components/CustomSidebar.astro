@@ -35,30 +35,115 @@ import KapaLauncher from './KapaLauncher.astro';
 <Default><slot /></Default>
 
 <!-- Search UX enhancements:
-     1. "Ask AI" row styled like a search result at the bottom of the
-        results area (GitBook-style). Always visible when results or
-        no-results message are shown.
+     1. Persistent dialog footer (GitBook-style):
+          - "Ask AI" CTA whose label interpolates the live search query
+            ("Ask AI" when empty, `Ask AI: "<query>"` once typed) and
+            surfaces the ⌘+I (Ctrl+I on Windows/Linux) shortcut. Clicking
+            it routes the query into the Kapa Ask chat panel.
+          - Keyboard-hint strip (↑↓ Navigate · ↵ Select · Esc Close)
+            hidden under 50rem.
      2. Arrow key navigation through results with visible selection
-        state. Enter opens the selected result. -->
+        state. Enter opens the selected result. Ask AI is the LAST
+        navigable item, so arrow-down past the last doc result lands
+        on it.
+     3. Breadcrumb row injected at the top of each result title,
+        derived from the result URL (first segment maps to the topic
+        label; subsequent segments are humanized). -->
 <script is:inline>
 	(() => {
 		var dialog = document.querySelector('site-search dialog');
 		if (!dialog) return;
 
+		var footerId = 'warp-search-footer';
 		var askAiId = 'warp-search-ask-ai';
+		var breadcrumbClass = 'warp-search-breadcrumb';
 		var selectedIndex = -1;
 
-		// --- Build the Ask AI row (result-card style) ---
-		function buildAskAiRow() {
-			var row = document.createElement('button');
-			row.id = askAiId;
-			row.type = 'button';
-			row.className = 'warp-search-ask-ai-row';
-			row.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>'
+		// Mirrors the top-level sidebar topic labels (see src/sidebar.ts) so
+		// the breadcrumb's first segment reads as the user-facing topic name
+		// rather than the URL slug. Unmapped segments fall back to a humanized
+		// version (e.g. "agent-platform" → "Agents", "foo-bar" → "Foo bar").
+		var TOPIC_LABELS = {
+			'terminal': 'Terminal',
+			'code': 'Code',
+			'getting-started': 'Getting started',
+			'knowledge-and-collaboration': 'Knowledge & collaboration',
+			'agent-platform': 'Agents',
+			'reference': 'Reference',
+			'changelog': 'Changelog',
+			'support-and-community': 'Support',
+			'enterprise': 'Enterprise',
+			'guides': 'Guides',
+			'api': 'API',
+		};
+
+		// Detect Apple platforms once so the Ask AI kbd reads ⌘+I on Macs and
+		// Ctrl+I elsewhere. Mirrors KapaChatLauncher.tsx which binds the same
+		// shortcut via keymatch's `CmdOrCtrl+I`.
+		var isMac = /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform || '');
+		var modKey = isMac ? '\u2318' : 'Ctrl';
+
+		function humanize(slug) {
+			return slug.replace(/-/g, ' ').replace(/^(\w)/, function (c) {
+				return c.toUpperCase();
+			});
+		}
+
+		function labelForSegment(segment, isFirst) {
+			if (isFirst && TOPIC_LABELS[segment]) return TOPIC_LABELS[segment];
+			return humanize(segment);
+		}
+
+		// Build a breadcrumb (`Topic › Section`) from a result URL. We drop
+		// the leaf segment because the result title already carries it, and
+		// cap the breadcrumb at two levels (topic + section) so it stays
+		// scannable at the eyebrow scale.
+		function breadcrumbFromUrl(url) {
+			if (!url) return '';
+			var path = url;
+			try {
+				path = new URL(url, 'https://docs.warp.dev').pathname;
+			} catch (e) {}
+			var segments = path.split('/').filter(function (s) {
+				return s && s !== 'index' && !s.endsWith('.html');
+			});
+			if (segments.length === 0) return TOPIC_LABELS.terminal;
+			// Drop the leaf segment if there's more than one (the title carries it).
+			var parts = segments.length > 1 ? segments.slice(0, -1) : segments;
+			// Cap at the first two parts (topic + section) so we don't sprawl.
+			if (parts.length > 2) parts = parts.slice(0, 2);
+			return parts.map(function (seg, i) { return labelForSegment(seg, i === 0); }).join('\u00a0\u203a\u00a0');
+		}
+
+		function renderAskAiLabel(label) {
+			var query = label && label.trim();
+			if (!query) return 'Ask AI';
+			var escaped = query
+				.replace(/&/g, '&amp;')
+				.replace(/</g, '&lt;')
+				.replace(/>/g, '&gt;')
+				.replace(/"/g, '&quot;');
+			return 'Ask AI: <span class="warp-search-ask-ai-row__query">"' + escaped + '"</span>';
+		}
+
+		// --- Build the persistent footer (Ask AI + keyboard hints) once ---
+		function buildFooter() {
+			var footer = document.createElement('div');
+			footer.id = footerId;
+			footer.className = 'warp-search-footer';
+
+			var askAi = document.createElement('button');
+			askAi.id = askAiId;
+			askAi.type = 'button';
+			askAi.className = 'warp-search-ask-ai-row';
+			askAi.innerHTML =
+				'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+				+ '<path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/>'
+				+ '<path d="M20 3v4"/><path d="M22 5h-4"/><path d="M4 17v2"/><path d="M5 18H3"/>'
+				+ '</svg>'
 				+ '<span class="warp-search-ask-ai-row__label">Ask AI</span>'
-				+ '<kbd class="warp-search-ask-ai-row__kbd" aria-hidden="true">Enter</kbd>';
-			row.addEventListener('click', function () {
-				// Grab the current search query so Kapa can pre-fill it
+				+ '<kbd class="warp-search-ask-ai-row__kbd" aria-hidden="true">' + modKey + '<span style="margin:0 0.0625rem">+</span>I</kbd>';
+			askAi.addEventListener('click', function () {
 				var searchInput = dialog.querySelector('.pagefind-ui__search-input');
 				var searchQuery = searchInput ? searchInput.value.trim() : '';
 				if (searchQuery) {
@@ -68,47 +153,82 @@ import KapaLauncher from './KapaLauncher.astro';
 				var kapaBtn = document.querySelector('.warp-kapa-button');
 				if (kapaBtn) kapaBtn.click();
 			});
-			return row;
+			footer.appendChild(askAi);
+
+			var hints = document.createElement('div');
+			hints.className = 'warp-search-keyboard-hints';
+			hints.innerHTML =
+				'<span class="warp-search-keyboard-hints__group">'
+				+ '<kbd class="warp-search-keyboard-hints__kbd">\u2191</kbd>'
+				+ '<kbd class="warp-search-keyboard-hints__kbd">\u2193</kbd>'
+				+ '<span>Navigate</span>'
+				+ '</span>'
+				+ '<span class="warp-search-keyboard-hints__group">'
+				+ '<kbd class="warp-search-keyboard-hints__kbd">\u21b5</kbd>'
+				+ '<span>Select</span>'
+				+ '</span>'
+				+ '<span class="warp-search-keyboard-hints__group">'
+				+ '<kbd class="warp-search-keyboard-hints__kbd">Esc</kbd>'
+				+ '<span>Close</span>'
+				+ '</span>';
+			footer.appendChild(hints);
+
+			return footer;
 		}
 
-		// --- Inject / remove the Ask AI row ---
-		// Pagefind re-renders the results area on every keystroke, which
-		// removes our injected element. We re-inject on every observer
-		// tick by checking if the element is still in the DOM.
-		// The Ask AI row is always visible when the dialog is open --
-		// even before the user types a query.
-		function injectAskAi() {
-			var existing = document.getElementById(askAiId);
-			// Find the best container: results area if it exists, otherwise
-			// the search container (#starlight__search) for the empty state.
-			var container = dialog.querySelector('.pagefind-ui__results-area')
-				|| dialog.querySelector('#starlight__search');
-			if (!container) return;
-			// If it already exists and is still in the container, skip
-			if (existing && container.contains(existing)) return;
-			// Re-build and append
-			if (existing) existing.remove();
-			container.appendChild(buildAskAiRow());
+		function ensureFooter() {
+			var existing = document.getElementById(footerId);
+			if (existing) return existing;
+			var frame = dialog.querySelector('.dialog-frame');
+			if (!frame) return null;
+			var footer = buildFooter();
+			frame.appendChild(footer);
+			return footer;
 		}
 
-		function removeAskAi() {
-			var el = document.getElementById(askAiId);
+		function removeFooter() {
+			var el = document.getElementById(footerId);
 			if (el) el.remove();
+		}
+
+		function updateAskAiLabel() {
+			var labelEl = dialog.querySelector('.warp-search-ask-ai-row__label');
+			if (!labelEl) return;
+			var searchInput = dialog.querySelector('.pagefind-ui__search-input');
+			var value = searchInput ? searchInput.value : '';
+			labelEl.innerHTML = renderAskAiLabel(value);
+		}
+
+		// --- Breadcrumb injection ---
+		// Pagefind re-renders the results area on every keystroke, so on every
+		// observer tick we (re)inject a small breadcrumb above each result
+		// title. The breadcrumb is idempotent (we skip if already present).
+		function injectBreadcrumbs() {
+			dialog.querySelectorAll('.pagefind-ui__result-title:not(:where(.pagefind-ui__result-nested *))').forEach(function (titleEl) {
+				if (titleEl.querySelector('.' + breadcrumbClass)) return;
+				var link = titleEl.querySelector('.pagefind-ui__result-link');
+				if (!link) return;
+				var crumb = breadcrumbFromUrl(link.getAttribute('href') || '');
+				if (!crumb) return;
+				var span = document.createElement('span');
+				span.className = breadcrumbClass;
+				span.textContent = crumb;
+				titleEl.insertBefore(span, titleEl.firstChild);
+			});
 		}
 
 		// --- Arrow key navigation ---
 		// Navigate per VISIBLE ROW: each .pagefind-ui__result-title and
 		// .pagefind-ui__result-nested is one navigable item (matching the
-		// mouse hover granularity). Ask AI is first (it's at the top).
+		// mouse hover granularity). Ask AI is LAST so arrow-down past the
+		// last result lands on it (mirrors GitBook's persistent CTA).
 		function getNavigableItems() {
 			var items = [];
-			// Ask AI row first (visually at top of results)
-			var askAi = document.getElementById(askAiId);
-			if (askAi) items.push(askAi);
-			// Collect each visible row: title rows and sub-result rows
 			dialog.querySelectorAll('.pagefind-ui__result-title:not(:where(.pagefind-ui__result-nested *)), .pagefind-ui__result-nested').forEach(function (row) {
 				items.push(row);
 			});
+			var askAi = document.getElementById(askAiId);
+			if (askAi) items.push(askAi);
 			return items;
 		}
 
@@ -128,15 +248,7 @@ import KapaLauncher from './KapaLauncher.astro';
 			selectedIndex = index;
 			var item = items[selectedIndex];
 			item.classList.add('warp-search-selected');
-			// When wrapping to the first item (Ask AI at index 0),
-			// scroll the entire dialog frame to the top so the search
-			// box and Ask AI are both visible.
-			if (selectedIndex === 0) {
-				var frame = dialog.querySelector('.dialog-frame');
-				if (frame) frame.scrollTop = 0;
-			} else {
-				item.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-			}
+			item.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
 		}
 
 		// Clear keyboard selection when mouse moves over results
@@ -156,37 +268,54 @@ import KapaLauncher from './KapaLauncher.astro';
 			} else if (e.key === 'ArrowUp') {
 				e.preventDefault();
 				selectItem(selectedIndex - 1);
-		} else if (e.key === 'Enter') {
+			} else if (e.key === 'Enter') {
 				if (selectedIndex >= 0 && selectedIndex < items.length) {
 					e.preventDefault();
-					// For result rows, click the link inside; for Ask AI, click the row
+					// For result rows, click the link inside; for Ask AI, click the button
 					var link = items[selectedIndex].querySelector('.pagefind-ui__result-link');
 					if (link) { link.click(); } else { items[selectedIndex].click(); }
-				} else if (items.length > 1) {
-					// No selection: go to first doc result (skip Ask AI at index 0)
-					e.preventDefault();
-					var firstLink = items[1] && items[1].querySelector('.pagefind-ui__result-link');
-					if (firstLink) firstLink.click();
+				} else {
+					// No keyboard selection: open the first doc result if any.
+					var firstResult = dialog.querySelector('.pagefind-ui__result-link');
+					if (firstResult) {
+						e.preventDefault();
+						firstResult.click();
+					}
 				}
 			}
 		});
 
-		// --- Observer: inject Ask AI + reset selection on results change ---
+		// --- Observer: refresh breadcrumbs + reset selection on results change ---
+		// The footer is built once and lives outside Pagefind's render scope so
+		// it survives every re-render without re-injection.
 		var observer = new MutationObserver(function () {
-			injectAskAi();
+			injectBreadcrumbs();
 			clearSelection();
 		});
 
 		dialog.addEventListener('close', function () {
 			observer.disconnect();
-			removeAskAi();
+			removeFooter();
 			clearSelection();
+		});
+
+		// Wire the input listener at the dialog level (delegated) so it
+		// catches the Pagefind input even though that input is mounted after
+		// the dialog itself exists. Updates the Ask AI label live as the
+		// user types or clears the query.
+		dialog.addEventListener('input', function (e) {
+			if (e.target && e.target.classList && e.target.classList.contains('pagefind-ui__search-input')) {
+				updateAskAiLabel();
+			}
 		});
 
 		new MutationObserver(function () {
 			if (dialog.open) {
+				ensureFooter();
+				updateAskAiLabel();
 				var target = dialog.querySelector('#starlight__search') || dialog;
 				observer.observe(target, { childList: true, subtree: true });
+				injectBreadcrumbs();
 				clearSelection();
 			}
 		}).observe(dialog, { attributes: true, attributeFilter: ['open'] });

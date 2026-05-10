@@ -122,6 +122,16 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 	};
 
 	const openPanel = () => {
+		// Close any open Pagefind search dialog so the two modals don't
+		// stack visually. This covers every path into Kapa: the `⌘+I` /
+		// `Ctrl+I` global shortcut, the trigger button, and the new
+		// "Ask AI" CTA inside the search footer (which also closes its
+		// own dialog before calling us — this is a belt-and-braces guard).
+		const searchDialog = document.querySelector<HTMLDialogElement>('site-search dialog');
+		if (searchDialog?.open) {
+			searchDialog.close();
+		}
+
 		setIsOpen(true);
 		// If a search query was passed from the search dialog's "Ask AI"
 		// button, auto-submit it after the panel opens.
