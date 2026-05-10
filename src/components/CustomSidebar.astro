@@ -142,7 +142,7 @@ import KapaLauncher from './KapaLauncher.astro';
 				+ '<path d="M20 3v4"/><path d="M22 5h-4"/><path d="M4 17v2"/><path d="M5 18H3"/>'
 				+ '</svg>'
 				+ '<span class="warp-search-ask-ai-row__label">Ask AI</span>'
-				+ '<kbd class="warp-search-ask-ai-row__kbd" aria-hidden="true">' + modKey + '<span style="margin:0 0.0625rem">+</span>I</kbd>';
+				+ '<kbd class="warp-search-ask-ai-row__kbd" aria-hidden="true">' + modKey + '<span class="warp-search-ask-ai-row__kbd-plus">+</span>I</kbd>';
 			askAi.addEventListener('click', function () {
 				var searchInput = dialog.querySelector('.pagefind-ui__search-input');
 				var searchQuery = searchInput ? searchInput.value.trim() : '';
