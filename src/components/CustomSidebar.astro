@@ -66,14 +66,21 @@ import KapaLauncher from './KapaLauncher.astro';
 		}
 
 		// --- Inject / remove the Ask AI row ---
+		// Pagefind re-renders the results area on every keystroke, which
+		// removes our injected element. We re-inject on every observer
+		// tick by checking if the element is still in the DOM.
 		function injectAskAi() {
-			if (document.getElementById(askAiId)) return;
+			var existing = document.getElementById(askAiId);
 			var resultsArea = dialog.querySelector('.pagefind-ui__results-area');
 			if (!resultsArea) return;
 			// Only show when there's a query (results or no-results message)
 			var hasResults = dialog.querySelector('.pagefind-ui__result');
 			var hasMessage = dialog.querySelector('.pagefind-ui__message');
-			if (!hasResults && !hasMessage) return;
+			if (!hasResults && !hasMessage) { if (existing) existing.remove(); return; }
+			// If it already exists and is still in the DOM, skip
+			if (existing && resultsArea.contains(existing)) return;
+			// Re-build and append at the bottom of results
+			if (existing) existing.remove();
 			resultsArea.appendChild(buildAskAiRow());
 		}
 
@@ -83,13 +90,14 @@ import KapaLauncher from './KapaLauncher.astro';
 		}
 
 		// --- Arrow key navigation ---
+		// Navigation order: doc results (top to bottom), then Ask AI (last).
 		function getNavigableItems() {
 			var items = [];
-			// Collect all result links
+			// Collect all result links in DOM order
 			dialog.querySelectorAll('.pagefind-ui__result-link').forEach(function (link) {
 				items.push(link);
 			});
-			// Add the Ask AI row if present
+			// Add the Ask AI row as the last navigable item
 			var askAi = document.getElementById(askAiId);
 			if (askAi) items.push(askAi);
 			return items;
@@ -110,11 +118,14 @@ import KapaLauncher from './KapaLauncher.astro';
 			if (index >= items.length) index = 0;
 			selectedIndex = index;
 			var item = items[selectedIndex];
-			// For result links, highlight the parent result card
-			var card = item.closest('.pagefind-ui__result-title, .pagefind-ui__result-nested');
-			var target = card || item;
+			// For result links, highlight the FULL result block (.pagefind-ui__result)
+			// not just the title row. This matches the hover behavior.
+			var block = item.closest('.pagefind-ui__result');
+			var target = block || item;
 			target.classList.add('warp-search-selected');
-			target.scrollIntoView({ block: 'nearest' });
+			// Use block:'center' so wrapping from last->first scrolls
+			// far enough to show the full item, not just its bottom edge.
+			target.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
 		}
 
 		// --- Keyboard handler ---
@@ -142,8 +153,7 @@ import KapaLauncher from './KapaLauncher.astro';
 
 		// --- Observer: inject Ask AI + reset selection on results change ---
 		var observer = new MutationObserver(function () {
-			var hasContent = dialog.querySelector('.pagefind-ui__result') || dialog.querySelector('.pagefind-ui__message');
-			if (hasContent) { injectAskAi(); } else { removeAskAi(); }
+			injectAskAi();
 			clearSelection();
 		});
 
