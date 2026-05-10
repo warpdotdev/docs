@@ -956,18 +956,26 @@ site-search dialog::backdrop {
   background-color: rgba(255, 255, 255, 0.55);
 }
 
-/* Dialog frame: drop the outer padding to 0 so the sticky Pagefind form at
-   the top and our injected footer at the bottom anchor flush against the
-   dialog edges. Padding moves onto `.search-container` instead so the
-   results area keeps its original inset. The frame itself stays a flex
-   column with `overflow: auto` (the Starlight default) — sticky positioning
-   on the form + footer pins them as the body scrolls. */
+/* Dialog frame: convert into a real flex column so the Pagefind-rendered
+   `.search-container` scrolls in the middle and our injected
+   `.warp-search-footer` sits as a sibling pinned by flex flow. The
+   alternative (sticky form + sticky footer on a single scroll container)
+   broke Pagefind's absolutely-positioned magnifier + clear icons — they
+   sit at `top: 13-15px` of the form, so any form-level padding pushes the
+   input down and leaves the icons floating above it. Flex flow keeps the
+   form at its default zero-padding layout. */
 site-search dialog .dialog-frame {
   padding: 0;
   gap: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 site-search dialog .search-container {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
   padding: 1rem;
 }
 
@@ -1021,30 +1029,43 @@ site-search #starlight__search .pagefind-ui__result-nested::before {
   display: none;
 }
 
-/* Pin the Pagefind search form to the top of the scrolling dialog. With
-   `.dialog-frame` carrying the scroll, `position: sticky; top: 0` anchors
-   the form at the dialog's inner top edge as the user scrolls results.
-   The negative `margin-block-start` cancels the parent `.search-container`
-   padding so the form sits flush against the dialog top, and the matching
-   `padding-block-start` restores the visual inset. */
-site-search #starlight__search .pagefind-ui__form {
-  position: sticky;
-  top: 0;
-  z-index: 2;
-  background: var(--sl-color-bg);
-  margin-block-start: -1rem;
-  padding-block: 1rem 0.5rem;
-  margin-inline: -1rem;
-  padding-inline: 1rem;
+/* Results-count message ("12 results for changelog"). Pagefind defaults
+   to a heavy block-margin around it; pull it to a quiet single-line
+   section label flush with the first result card. */
+site-search #starlight__search .pagefind-ui__message {
+  margin: 0.25rem 0 0.75rem;
+  font-size: var(--sl-text-sm);
+  font-weight: 500;
+  color: var(--sl-color-gray-2);
 }
 
-@media (min-width: 50rem) {
-  site-search #starlight__search .pagefind-ui__form {
-    margin-block-start: -1.5rem;
-    padding-block: 1.5rem 0.5rem;
-    margin-inline: -1.5rem;
-    padding-inline: 1.5rem;
-  }
+/* "Load more results" button: match the chrome card system so it reads as
+   a row of the same family as the result list. Pagefind's default is a
+   borderless inline button at body size that floats below the last card
+   on too much air. */
+site-search #starlight__search .pagefind-ui__button {
+  display: block;
+  width: 100%;
+  margin: 0.75rem 0 0;
+  padding: 0.5rem 0.875rem;
+  border: 1px solid var(--warp-control-border);
+  border-radius: var(--sl-radius-sm);
+  background: var(--warp-control-bg);
+  color: var(--warp-control-text);
+  font-family: var(--__sl-font, 'Inter', sans-serif);
+  font-size: var(--sl-text-sm);
+  font-weight: 500;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease, background-color 0.15s ease;
+}
+
+site-search #starlight__search .pagefind-ui__button:hover,
+site-search #starlight__search .pagefind-ui__button:focus-visible {
+  border-color: var(--warp-control-border-hover);
+  background-color: var(--warp-control-bg-hover);
+  color: var(--warp-control-text-hover);
+  outline: none;
 }
 
 /* Input focus border: Starlight's default flips `--pagefind-ui-border` to
@@ -1141,7 +1162,9 @@ site-search #starlight__search .pagefind-ui__result-excerpt {
 /* `<mark>` highlight inside excerpts: the Pagefind default uses a saturated
    yellow that fights the grayscale chrome. Swap to a neutral wash that
    matches the chrome hover surface so the highlight reads as a chip rather
-   than a stamp. */
+   than a stamp. `--sl-color-white` is mode-aware in Starlight (warm off-white
+   in dark, near-black in light) so it gives the right text contrast in both
+   themes — only the background tone needs a light-mode override. */
 site-search #starlight__search .pagefind-ui__result-excerpt mark,
 site-search #starlight__search .pagefind-ui__result-title mark {
   background-color: rgba(255, 255, 255, 0.12);
@@ -1154,7 +1177,19 @@ site-search #starlight__search .pagefind-ui__result-title mark {
 :root[data-theme='light'] site-search #starlight__search .pagefind-ui__result-excerpt mark,
 :root[data-theme='light'] site-search #starlight__search .pagefind-ui__result-title mark {
   background-color: rgba(0, 0, 0, 0.08);
-  color: var(--sl-color-black);
+}
+
+/* Scoped text-selection color so dragging across result text picks up the
+   chrome palette instead of the OS accent (saturated macOS blue read as
+   foreign next to the grayscale dialog). */
+site-search dialog ::selection {
+  background-color: rgba(255, 255, 255, 0.16);
+  color: var(--sl-color-white);
+}
+
+:root[data-theme='light'] site-search dialog ::selection {
+  background-color: rgba(0, 0, 0, 0.10);
+  color: var(--sl-color-white);
 }
 
 /* Breadcrumb row injected by CustomSidebar.astro into each
@@ -1198,21 +1233,23 @@ site-search #starlight__search .pagefind-ui__result-nested .pagefind-ui__result-
    CustomSidebar.astro. */
 
 .warp-search-footer {
-  position: sticky;
-  bottom: 0;
-  z-index: 2;
+  flex: 0 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  margin-block-start: 0.5rem;
-  padding: 0.625rem 1rem 0.875rem;
-  background: var(--sl-color-bg);
-  border-top: 1px solid var(--sl-color-hairline-light);
+  gap: 0.625rem;
+  padding: 0.625rem 1rem 0.75rem;
+  background: var(--sl-color-gray-6);
+  border-top: 1px solid var(--sl-color-hairline);
+  box-shadow: 0 -8px 12px -8px rgba(0, 0, 0, 0.25);
+}
+
+:root[data-theme='light'] .warp-search-footer {
+  box-shadow: 0 -8px 12px -8px rgba(0, 0, 0, 0.08);
 }
 
 @media (min-width: 50rem) {
   .warp-search-footer {
-    padding: 0.75rem 1.5rem 1rem;
+    padding: 0.75rem 1.5rem 0.875rem;
   }
 }
 
@@ -1270,14 +1307,11 @@ site-search #starlight__search .pagefind-ui__result-nested .pagefind-ui__result-
 
 /* Highlighted query inside the Ask AI label (e.g. `Ask AI: "<query>"`).
    Keeps the label color but raises weight so the typed query reads as the
-   subject of the action. */
+   subject of the action. `--sl-color-white` is mode-aware (warm off-white
+   in dark, near-black in light) so one rule covers both themes. */
 .warp-search-ask-ai-row__query {
   font-weight: 600;
   color: var(--sl-color-white);
-}
-
-:root[data-theme='light'] .warp-search-ask-ai-row__query {
-  color: var(--sl-color-black);
 }
 
 /* Keyboard shortcut chip — always visible (replaces the previous Enter
