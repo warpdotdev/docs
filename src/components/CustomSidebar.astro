@@ -69,19 +69,20 @@ import KapaLauncher from './KapaLauncher.astro';
 		// Pagefind re-renders the results area on every keystroke, which
 		// removes our injected element. We re-inject on every observer
 		// tick by checking if the element is still in the DOM.
+		// The Ask AI row is always visible when the dialog is open --
+		// even before the user types a query.
 		function injectAskAi() {
 			var existing = document.getElementById(askAiId);
-			var resultsArea = dialog.querySelector('.pagefind-ui__results-area');
-			if (!resultsArea) return;
-			// Only show when there's a query (results or no-results message)
-			var hasResults = dialog.querySelector('.pagefind-ui__result');
-			var hasMessage = dialog.querySelector('.pagefind-ui__message');
-			if (!hasResults && !hasMessage) { if (existing) existing.remove(); return; }
-			// If it already exists and is still in the DOM, skip
-			if (existing && resultsArea.contains(existing)) return;
-			// Re-build and append at the bottom of results
+			// Find the best container: results area if it exists, otherwise
+			// the search container (#starlight__search) for the empty state.
+			var container = dialog.querySelector('.pagefind-ui__results-area')
+				|| dialog.querySelector('#starlight__search');
+			if (!container) return;
+			// If it already exists and is still in the container, skip
+			if (existing && container.contains(existing)) return;
+			// Re-build and append
 			if (existing) existing.remove();
-			resultsArea.appendChild(buildAskAiRow());
+			container.appendChild(buildAskAiRow());
 		}
 
 		function removeAskAi() {
@@ -120,10 +121,16 @@ import KapaLauncher from './KapaLauncher.astro';
 			if (index >= items.length) index = 0;
 			selectedIndex = index;
 			var item = items[selectedIndex];
-			// Highlight the row directly (title row or sub-result row)
-			// -- matches the same elements the CSS hover rules target.
 			item.classList.add('warp-search-selected');
-			item.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+			// When wrapping to the first item (Ask AI at index 0),
+			// scroll the entire dialog frame to the top so the search
+			// box and Ask AI are both visible.
+			if (selectedIndex === 0) {
+				var frame = dialog.querySelector('.dialog-frame');
+				if (frame) frame.scrollTop = 0;
+			} else {
+				item.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+			}
 		}
 
 		// Clear keyboard selection when mouse moves over results
