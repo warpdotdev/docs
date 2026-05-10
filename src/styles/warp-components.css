@@ -1185,8 +1185,12 @@ site-search #starlight__search .pagefind-ui__form::before {
 }
 
 site-search #starlight__search .pagefind-ui__search-clear::before {
-  width: 16px;
-  height: 16px;
+  /* The Lucide X spans almost the full viewBox while the magnifier circle
+     only fills the inner ~half, so rendering both at 16px makes the X
+     visually outweigh the magnifier. Pull the X down to 13px so the two
+     icons read as the same optical weight. */
+  width: 13px;
+  height: 13px;
   background-color: var(--sl-color-gray-3);
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 6 6 18'/%3E%3Cpath d='m6 6 12 12'/%3E%3C/svg%3E");
   mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 6 6 18'/%3E%3Cpath d='m6 6 12 12'/%3E%3C/svg%3E");
@@ -1202,10 +1206,13 @@ site-search #starlight__search .pagefind-ui__search-clear::before {
    text node alongside the `::before` icon, which renders as visible copy
    stacked under the X. Collapse the label to zero size so only the icon
    shows; the text node stays in the DOM so screen readers still announce
-   the button as "Clear". */
+   the button as "Clear". `inset-inline-end` pushes the button away from
+   the input's right edge so the X has the same breathing room as the
+   magnifier on the left (~20px from the form edge). */
 site-search #starlight__search .pagefind-ui__search-clear {
   font-size: 0;
   line-height: 0;
+  inset-inline-end: 18px;
 }
 
 /* Hover + keyboard focus: brighten just the icon. The form's `:focus-within`
