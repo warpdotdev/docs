@@ -1022,10 +1022,11 @@ site-search #starlight__search {
   --sl-search-result-pad-inline-start: 0.875rem;
   --sl-search-result-pad-inline-end: 0.875rem;
   --sl-search-result-nested-pad-block: 0.375rem;
-  /* Intra-card spacing only. Inter-card spacing comes from the
-     `.pagefind-ui__result` margin-bottom rule below so card-to-card gaps
-     read visibly larger than nested-row gaps. */
-  --sl-search-result-spacing: 0.125rem;
+  /* Intra-card spacing pinned to 0 so the per-row left border on
+     `.pagefind-ui__result-nested` forms one continuous vertical rail
+     across all sub-results inside a card. Inter-card spacing comes from
+     the `.pagefind-ui__result` margin-bottom rule below. */
+  --sl-search-result-spacing: 0;
 }
 
 /* Page card wrapper. Pagefind renders one `<li class="pagefind-ui__result">`
@@ -1150,14 +1151,14 @@ site-search #starlight__search input:focus-visible {
   outline: none;
 }
 
-/* Cancel + clear buttons: drop the blue accent color in favor of a calm
-   gray that recedes the way every other secondary chrome action does. */
+/* Hide Starlight's upstream mobile Cancel button entirely. It renders
+   beside `.pagefind-ui__form` at viewports <50rem (Starlight ships it
+   with `class="sl-flex md:sl-hidden"`) and squashes the search input.
+   Mobile users still close the dialog via backdrop tap (wired by
+   Starlight's `site-search` element) and ESC; the persistent footer +
+   keyboard hints handle desktop. */
 site-search button[data-close-modal] {
-  color: var(--sl-color-gray-2);
-}
-
-site-search button[data-close-modal]:hover {
-  color: var(--sl-color-white);
+  display: none;
 }
 
 /* Unify the in-input magnifier (`.pagefind-ui__form::before`) and clear-X
@@ -1170,6 +1171,8 @@ site-search button[data-close-modal]:hover {
    `background-color` shows through the mask alpha, so the icon color
    tracks `--pagefind-ui-text` / our explicit color rules below. */
 site-search #starlight__search .pagefind-ui__form::before {
+  width: 16px;
+  height: 16px;
   background-color: var(--sl-color-gray-2);
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.3-4.3'/%3E%3C/svg%3E");
   mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.3-4.3'/%3E%3C/svg%3E");
@@ -1182,6 +1185,8 @@ site-search #starlight__search .pagefind-ui__form::before {
 }
 
 site-search #starlight__search .pagefind-ui__search-clear::before {
+  width: 16px;
+  height: 16px;
   background-color: var(--sl-color-gray-3);
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 6 6 18'/%3E%3Cpath d='m6 6 12 12'/%3E%3C/svg%3E");
   mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 6 6 18'/%3E%3Cpath d='m6 6 12 12'/%3E%3C/svg%3E");
@@ -1317,13 +1322,21 @@ site-search dialog ::selection {
   color: var(--sl-color-gray-4);
 }
 
-/* Nested sub-results: indent inside the parent card. No left rule — the
-   indentation + smaller type-scale (.pagefind-ui__result-nested  link
-   below) is enough to signal hierarchy. The previous 1px rule read as a
-   hard outline competing with the card edge. */
+/* Nested sub-results: indent inside the parent card with a continuous
+   2px left rail signaling "these all belong to the page above". With
+   `--sl-search-result-spacing: 0` (above) sub-result rows stack flush,
+   so the per-row `border-inline-start` paints a single unbroken vertical
+   bar from the first sub-result down through the last. The margin pulls
+   the rail one notch inset from the card edge so it reads as structural,
+   not as a card outline. Use `--warp-control-border-hover` (#585756 /
+   #9d9d9b) instead of the lighter `--warp-control-border` so the rail is
+   readable but not loud. */
 site-search #starlight__search .pagefind-ui__result-nested {
-  padding-inline-start: 1rem;
+  margin-inline-start: 0.625rem;
+  padding-inline-start: 0.875rem;
   padding-inline-end: var(--sl-search-result-pad-inline-end);
+  padding-block: 0.375rem;
+  border-inline-start: 2px solid var(--warp-control-border-hover);
   border-radius: 0;
 }
 
