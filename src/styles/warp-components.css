@@ -1245,18 +1245,22 @@ site-search #starlight__search .pagefind-ui__result-nested .pagefind-ui__result-
    CustomSidebar.astro. */
 
 .warp-search-footer {
+  /* Surface stays on the dialog body (`--sl-color-bg`) so the footer is
+     fully neutral — `--sl-color-gray-6` reads visibly blue in dark mode
+     (Oz `#252b37`) and pulls the chrome out of family. The hairline +
+     scrim do the separating work. */
   flex: 0 0 auto;
   display: flex;
   flex-direction: column;
   gap: 0.625rem;
   padding: 0.625rem 1rem 0.75rem;
-  background: var(--sl-color-gray-6);
-  border-top: 1px solid var(--sl-color-hairline);
-  box-shadow: 0 -8px 12px -8px rgba(0, 0, 0, 0.25);
+  background: var(--sl-color-bg);
+  border-top: 1px solid var(--sl-color-hairline-light);
+  box-shadow: 0 -8px 12px -8px rgba(0, 0, 0, 0.35);
 }
 
 :root[data-theme='light'] .warp-search-footer {
-  box-shadow: 0 -8px 12px -8px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 -8px 12px -8px rgba(0, 0, 0, 0.10);
 }
 
 @media (min-width: 50rem) {
