@@ -123,6 +123,17 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 
 	const openPanel = () => {
 		setIsOpen(true);
+		// If a search query was passed from the search dialog's "Ask AI"
+		// button, auto-submit it after the panel opens.
+		const pendingQuery = (window as any).__warpAskAiQuery;
+		if (pendingQuery) {
+			delete (window as any).__warpAskAiQuery;
+			// Wait for the panel to mount and the input to be ready
+			setTimeout(() => {
+				submitQuery(pendingQuery);
+				setHasStartedConversation(true);
+			}, 100);
+		}
 	};
 
 	const closePanel = () => {

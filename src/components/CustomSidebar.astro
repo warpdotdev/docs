@@ -58,6 +58,12 @@ import KapaLauncher from './KapaLauncher.astro';
 				+ '<span class="warp-search-ask-ai-row__label">Ask AI</span>'
 				+ '<kbd class="warp-search-ask-ai-row__kbd" aria-hidden="true">Enter</kbd>';
 			row.addEventListener('click', function () {
+				// Grab the current search query so Kapa can pre-fill it
+				var searchInput = dialog.querySelector('.pagefind-ui__search-input');
+				var searchQuery = searchInput ? searchInput.value.trim() : '';
+				if (searchQuery) {
+					window.__warpAskAiQuery = searchQuery;
+				}
 				dialog.close();
 				var kapaBtn = document.querySelector('.warp-kapa-button');
 				if (kapaBtn) kapaBtn.click();
