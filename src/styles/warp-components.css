@@ -1069,11 +1069,23 @@ site-search #starlight__search .pagefind-ui__button:focus-visible {
 }
 
 /* Input focus border: Starlight's default flips `--pagefind-ui-border` to
-   the saturated Warp blue accent on focus, which is the bright cyan ring
-   in the screenshot. Replace with the chrome ladder's hover border so the
-   input matches the trigger button's `:hover` affordance. */
-site-search #starlight__search input:focus {
+   the saturated Warp blue accent on focus, which renders as a bright cyan
+   ring around the form. Set the variable on every level Pagefind reads it
+   from (form + input) AND set `border-color` directly on the form's
+   `:focus-within` state — belt-and-braces because CSS variables don't
+   cascade upward, so setting `--pagefind-ui-border` on the input alone
+   never affected the form's painted border. Also strip the browser's
+   default focus outline on the input (the form's hover-border swap is
+   the visible focus affordance). */
+site-search #starlight__search .pagefind-ui__form:focus-within {
   --pagefind-ui-border: var(--warp-control-border-hover);
+  border-color: var(--warp-control-border-hover);
+}
+
+site-search #starlight__search input:focus,
+site-search #starlight__search input:focus-visible {
+  --pagefind-ui-border: var(--warp-control-border-hover);
+  outline: none;
 }
 
 /* Cancel + clear buttons: drop the blue accent color in favor of a calm
