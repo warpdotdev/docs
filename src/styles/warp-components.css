@@ -942,6 +942,11 @@ body {
 site-search dialog {
   background-color: var(--sl-color-bg);
   border: 1px solid var(--sl-color-hairline-light);
+  /* Drop Starlight's default `min-height: 15rem` so the empty-state dialog
+     sizes to its actual content (form + footer ≈ 150px) instead of forcing
+     dead space inside the scroll container. `height: max-content` (Starlight
+     default) handles natural sizing; `max-height` is unchanged. */
+  min-height: auto;
 }
 
 /* Stronger neutral backdrop. Starlight's `--sl-color-backdrop-overlay`
@@ -1017,7 +1022,30 @@ site-search #starlight__search {
   --sl-search-result-pad-inline-start: 0.875rem;
   --sl-search-result-pad-inline-end: 0.875rem;
   --sl-search-result-nested-pad-block: 0.5rem;
-  --sl-search-result-spacing: 0.25rem;
+  /* Intra-card spacing only. Inter-card spacing comes from the
+     `.pagefind-ui__result` margin-bottom rule below so card-to-card gaps
+     read visibly larger than nested-row gaps. */
+  --sl-search-result-spacing: 0.125rem;
+}
+
+/* Page card wrapper. Pagefind renders one `<li class="pagefind-ui__result">`
+   per page; inside, the parent title and sub-results are flat siblings.
+   Move the card chrome onto this wrapper so the parent title + its nested
+   rows read as a single grouped card. */
+site-search #starlight__search .pagefind-ui__result {
+  background-color: var(--warp-control-bg);
+  border: 1px solid var(--warp-control-border);
+  border-radius: var(--sl-radius-sm);
+  padding: 0.625rem 0;
+  margin-bottom: 0.75rem;
+}
+
+site-search #starlight__search .pagefind-ui__result:last-child {
+  margin-bottom: 0;
+}
+
+site-search #starlight__search .pagefind-ui__result-inner {
+  width: 100%;
 }
 
 /* Hide Starlight's leading page + tree-diagram icons. They were tuned for
@@ -1031,9 +1059,18 @@ site-search #starlight__search .pagefind-ui__result-nested::before {
 
 /* Results-count message ("12 results for changelog"). Pagefind defaults
    to a heavy block-margin around it; pull it to a quiet single-line
-   section label flush with the first result card. */
+   section label flush with the first result card. The drawer + results
+   resets cancel Pagefind's parent margins so nothing compounds. */
+site-search #starlight__search .pagefind-ui__drawer {
+  margin-top: 0;
+}
+
+site-search #starlight__search .pagefind-ui__results {
+  margin-top: 0;
+}
+
 site-search #starlight__search .pagefind-ui__message {
-  margin: 0.25rem 0 0.75rem;
+  margin: 0.25rem 0 0.5rem;
   font-size: var(--sl-text-sm);
   font-weight: 500;
   color: var(--sl-color-gray-2);
@@ -1106,35 +1143,28 @@ site-search #starlight__search .pagefind-ui__search-clear:focus {
   outline: 1px solid var(--warp-control-border-hover);
 }
 
-/* Result cards. Starlight paints the title row + each nested sub-result
-   with `--sl-color-black` (`#121212`), which on the cool gray-6 dialog
-   read as stamped-down patches. With the dialog now sharing the page
-   canvas, raise each result onto the chrome `--warp-control-bg` so the
-   list reads as a stack of tactile chips. A 1px hairline keeps the cards
-   distinct without a heavy outline. */
+/* Result rows are now transparent siblings inside the page card. The
+   parent title sits at top with its breadcrumb; each `.pagefind-ui__result-nested`
+   sub-result sits below, indented with a left rule that signals "this
+   belongs to the page above." */
 site-search #starlight__search .pagefind-ui__result-title:not(:where(.pagefind-ui__result-nested *)),
 site-search #starlight__search .pagefind-ui__result-nested,
 site-search #starlight__search .pagefind-ui__result-tags {
-  background-color: var(--warp-control-bg);
+  background-color: transparent;
 }
 
-/* Hover / keyboard-focus state. Replace the blue accent outline + tinted
-   fill with the same neutral wash the chrome buttons use on hover. The
-   1px border swap stays inside the existing layout box, so list rows
-   don't shift on hover. */
-site-search #starlight__search .pagefind-ui__result-title:not(:where(.pagefind-ui__result-nested *)):hover,
-site-search #starlight__search .pagefind-ui__result-title:not(:where(.pagefind-ui__result-nested *)):focus-within,
+/* Hover / keyboard-focus state is scoped to nested rows only — the parent
+   title is now visually part of the card, so hovering its own row would
+   give it a second-tier highlight that competes with the card itself. */
 site-search #starlight__search .pagefind-ui__result-nested:hover,
 site-search #starlight__search .pagefind-ui__result-nested:focus-within {
-  outline: 1px solid var(--warp-control-border-hover);
   background-color: var(--warp-control-bg-hover);
 }
 
-/* Arrow-key selection state for search results. Applied by the
-   keyboard navigation script in CustomSidebar.astro. Targets the
-   same per-row elements (.pagefind-ui__result-title and
-   .pagefind-ui__result-nested) that the hover rules above target,
-   so keyboard and mouse highlight produce identical visuals. */
+/* Arrow-key selection state for search results. The keyboard navigation
+   script in CustomSidebar.astro adds `.warp-search-selected` to the
+   currently-focused row (parent title or nested). Same wash as hover
+   plus a 1px border so keyboard selection pops clearly inside the card. */
 site-search #starlight__search .warp-search-selected {
   outline: 1px solid var(--warp-control-border-hover);
   background-color: var(--warp-control-bg-hover);
@@ -1222,11 +1252,16 @@ site-search dialog ::selection {
   color: var(--sl-color-gray-4);
 }
 
-/* Nested sub-results: drop the connecting tree-diagram indent so
-   sub-results sit flush with the parent card. The breadcrumb on the
-   parent title already carries the section context. */
+/* Nested sub-results: indent inside the parent card with a 1px left rule
+   acting as the "tree" indicator that this row belongs to the page above.
+   The margin pulls the rule away from the card edge so the row reads as
+   a child, not as a separate sibling. */
 site-search #starlight__search .pagefind-ui__result-nested {
-  padding-inline-start: var(--sl-search-result-pad-inline-start);
+  margin-inline-start: 0.625rem;
+  padding-inline-start: 0.875rem;
+  padding-inline-end: var(--sl-search-result-pad-inline-end);
+  border-inline-start: 1px solid var(--warp-control-border);
+  border-radius: 0;
 }
 
 site-search #starlight__search .pagefind-ui__result-nested .pagefind-ui__result-link {
