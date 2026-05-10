@@ -1198,12 +1198,27 @@ site-search #starlight__search .pagefind-ui__search-clear::before {
   mask-position: center;
 }
 
-site-search #starlight__search .pagefind-ui__search-clear:hover::before {
+/* The Pagefind clear button ships with a translated "Clear" label as its
+   text node alongside the `::before` icon, which renders as visible copy
+   stacked under the X. Collapse the label to zero size so only the icon
+   shows; the text node stays in the DOM so screen readers still announce
+   the button as "Clear". */
+site-search #starlight__search .pagefind-ui__search-clear {
+  font-size: 0;
+  line-height: 0;
+}
+
+/* Hover + keyboard focus: brighten just the icon. The form's `:focus-within`
+   border already signals that the search input as a whole has focus, so
+   the clear button doesn't need its own wraparound outline (which would
+   read as a chip-within-chip against the input border). */
+site-search #starlight__search .pagefind-ui__search-clear:hover::before,
+site-search #starlight__search .pagefind-ui__search-clear:focus-visible::before {
   background-color: var(--sl-color-white);
 }
 
 site-search #starlight__search .pagefind-ui__search-clear:focus {
-  outline: 1px solid var(--warp-control-border-hover);
+  outline: none;
 }
 
 /* Result rows are transparent siblings inside the page card so the card
