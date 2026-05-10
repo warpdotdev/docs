@@ -122,27 +122,33 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 	};
 
 	const openPanel = () => {
-		// Close any open Pagefind search dialog so the two modals don't
-		// stack visually. This covers every path into Kapa: the `⌘+I` /
-		// `Ctrl+I` global shortcut, the trigger button, and the new
-		// "Ask AI" CTA inside the search footer (which also closes its
-		// own dialog before calling us — this is a belt-and-braces guard).
+		// If the Pagefind search dialog is open with a query typed in, hand
+		// that query off to Kapa's input. Both entry points (the ⌘+I / Ctrl+I
+		// global shortcut and the "Ask AI" footer CTA) route through here, so
+		// this is the single place that owns the search → Kapa handoff. Read
+		// the value BEFORE closing the dialog — closing tears down the input.
 		const searchDialog = document.querySelector<HTMLDialogElement>('site-search dialog');
+		let pendingQuery: string | undefined;
 		if (searchDialog?.open) {
+			const searchInput = searchDialog.querySelector<HTMLInputElement>('.pagefind-ui__search-input');
+			pendingQuery = searchInput?.value.trim() || undefined;
 			searchDialog.close();
+		}
+		// Legacy fallback: earlier callers stashed the query on window before
+		// triggering us. Kept as a belt-and-braces guard in case any path
+		// still uses it.
+		if (!pendingQuery && (window as any).__warpAskAiQuery) {
+			pendingQuery = (window as any).__warpAskAiQuery;
+			delete (window as any).__warpAskAiQuery;
 		}
 
 		setIsOpen(true);
-		// If a search query was passed from the search dialog's "Ask AI"
-		// button, auto-submit it after the panel opens.
-		const pendingQuery = (window as any).__warpAskAiQuery;
+		// Pre-fill (don't auto-submit) so the user can refine before sending.
+		// The input is controlled by `query` state, and the open-dialog effect
+		// focuses inputRef once the dialog mounts — cursor lands at the end
+		// of the pre-filled text, ready for Enter or edits.
 		if (pendingQuery) {
-			delete (window as any).__warpAskAiQuery;
-			// Wait for the panel to mount and the input to be ready
-			setTimeout(() => {
-				submitQuery(pendingQuery);
-				setHasStartedConversation(true);
-			}, 100);
+			setQuery(pendingQuery);
 		}
 	};
 

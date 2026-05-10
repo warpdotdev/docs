@@ -144,12 +144,8 @@ import KapaLauncher from './KapaLauncher.astro';
 				+ '<span class="warp-search-ask-ai-row__label">Ask AI</span>'
 				+ '<kbd class="warp-search-ask-ai-row__kbd" aria-hidden="true">' + modKey + '<span class="warp-search-ask-ai-row__kbd-plus">+</span>I</kbd>';
 			askAi.addEventListener('click', function () {
-				var searchInput = dialog.querySelector('.pagefind-ui__search-input');
-				var searchQuery = searchInput ? searchInput.value.trim() : '';
-				if (searchQuery) {
-					window.__warpAskAiQuery = searchQuery;
-				}
-				dialog.close();
+				// openPanel() in KapaChatLauncher reads the live search input and
+				// closes the search dialog itself, so we just route the click.
 				var kapaBtn = document.querySelector('.warp-kapa-button');
 				if (kapaBtn) kapaBtn.click();
 			});
