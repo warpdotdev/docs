@@ -90,16 +90,18 @@ import KapaLauncher from './KapaLauncher.astro';
 		}
 
 		// --- Arrow key navigation ---
-		// Navigation order: doc results (top to bottom), then Ask AI (last).
+		// Navigate per VISIBLE ROW: each .pagefind-ui__result-title and
+		// .pagefind-ui__result-nested is one navigable item (matching the
+		// mouse hover granularity). Ask AI is first (it's at the top).
 		function getNavigableItems() {
 			var items = [];
-			// Collect all result links in DOM order
-			dialog.querySelectorAll('.pagefind-ui__result-link').forEach(function (link) {
-				items.push(link);
-			});
-			// Add the Ask AI row as the last navigable item
+			// Ask AI row first (visually at top of results)
 			var askAi = document.getElementById(askAiId);
 			if (askAi) items.push(askAi);
+			// Collect each visible row: title rows and sub-result rows
+			dialog.querySelectorAll('.pagefind-ui__result-title:not(:where(.pagefind-ui__result-nested *)), .pagefind-ui__result-nested').forEach(function (row) {
+				items.push(row);
+			});
 			return items;
 		}
 
@@ -118,15 +120,17 @@ import KapaLauncher from './KapaLauncher.astro';
 			if (index >= items.length) index = 0;
 			selectedIndex = index;
 			var item = items[selectedIndex];
-			// For result links, highlight the FULL result block (.pagefind-ui__result)
-			// not just the title row. This matches the hover behavior.
-			var block = item.closest('.pagefind-ui__result');
-			var target = block || item;
-			target.classList.add('warp-search-selected');
-			// Use block:'center' so wrapping from last->first scrolls
-			// far enough to show the full item, not just its bottom edge.
-			target.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+			// Highlight the row directly (title row or sub-result row)
+			// -- matches the same elements the CSS hover rules target.
+			item.classList.add('warp-search-selected');
+			item.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
 		}
+
+		// Clear keyboard selection when mouse moves over results
+		// so hover supersedes arrow-key highlight.
+		dialog.addEventListener('mousemove', function () {
+			if (selectedIndex >= 0) clearSelection();
+		}, { passive: true });
 
 		// --- Keyboard handler ---
 		dialog.addEventListener('keydown', function (e) {
@@ -139,14 +143,17 @@ import KapaLauncher from './KapaLauncher.astro';
 			} else if (e.key === 'ArrowUp') {
 				e.preventDefault();
 				selectItem(selectedIndex - 1);
-			} else if (e.key === 'Enter') {
+		} else if (e.key === 'Enter') {
 				if (selectedIndex >= 0 && selectedIndex < items.length) {
 					e.preventDefault();
-					items[selectedIndex].click();
-				} else if (items.length > 0) {
-					// No selection: go to first result
+					// For result rows, click the link inside; for Ask AI, click the row
+					var link = items[selectedIndex].querySelector('.pagefind-ui__result-link');
+					if (link) { link.click(); } else { items[selectedIndex].click(); }
+				} else if (items.length > 1) {
+					// No selection: go to first doc result (skip Ask AI at index 0)
 					e.preventDefault();
-					items[0].click();
+					var firstLink = items[1] && items[1].querySelector('.pagefind-ui__result-link');
+					if (firstLink) firstLink.click();
 				}
 			}
 		});

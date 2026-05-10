@@ -1003,21 +1003,12 @@ site-search #starlight__search .pagefind-ui__result-nested:focus-within {
 }
 
 /* Arrow-key selection state for search results. Applied by the
-   keyboard navigation script in CustomSidebar.astro. Matches the
-   hover treatment so mouse and keyboard produce the same visual.
-   Targets .pagefind-ui__result (the full result block including
-   title + description) so the entire card highlights, not just
-   the title row. */
+   keyboard navigation script in CustomSidebar.astro. Targets the
+   same per-row elements (.pagefind-ui__result-title and
+   .pagefind-ui__result-nested) that the hover rules above target,
+   so keyboard and mouse highlight produce identical visuals. */
 site-search #starlight__search .warp-search-selected {
   outline: 1px solid var(--warp-control-border-hover);
-  background-color: var(--warp-control-bg-hover);
-}
-
-/* When the full result block is selected, also highlight the
-   title and nested sub-result cards inside it so there's no
-   visual gap between the block outline and the inner cards. */
-site-search #starlight__search .warp-search-selected .pagefind-ui__result-title,
-site-search #starlight__search .warp-search-selected .pagefind-ui__result-nested {
   background-color: var(--warp-control-bg-hover);
 }
 
