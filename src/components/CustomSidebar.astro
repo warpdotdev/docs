@@ -34,6 +34,165 @@ import KapaLauncher from './KapaLauncher.astro';
 </div>
 <Default><slot /></Default>
 
+<!-- Search UX enhancements:
+     1. "Ask AI" row styled like a search result at the bottom of the
+        results area (GitBook-style). Always visible when results or
+        no-results message are shown.
+     2. Arrow key navigation through results with visible selection
+        state. Enter opens the selected result. -->
+<script is:inline>
+	(() => {
+		var dialog = document.querySelector('site-search dialog');
+		if (!dialog) return;
+
+		var askAiId = 'warp-search-ask-ai';
+		var selectedIndex = -1;
+
+		// --- Build the Ask AI row (result-card style) ---
+		function buildAskAiRow() {
+			var row = document.createElement('button');
+			row.id = askAiId;
+			row.type = 'button';
+			row.className = 'warp-search-ask-ai-row';
+			row.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>'
+				+ '<span class="warp-search-ask-ai-row__label">Ask AI</span>'
+				+ '<kbd class="warp-search-ask-ai-row__kbd" aria-hidden="true">Enter</kbd>';
+			row.addEventListener('click', function () {
+				// Grab the current search query so Kapa can pre-fill it
+				var searchInput = dialog.querySelector('.pagefind-ui__search-input');
+				var searchQuery = searchInput ? searchInput.value.trim() : '';
+				if (searchQuery) {
+					window.__warpAskAiQuery = searchQuery;
+				}
+				dialog.close();
+				var kapaBtn = document.querySelector('.warp-kapa-button');
+				if (kapaBtn) kapaBtn.click();
+			});
+			return row;
+		}
+
+		// --- Inject / remove the Ask AI row ---
+		// Pagefind re-renders the results area on every keystroke, which
+		// removes our injected element. We re-inject on every observer
+		// tick by checking if the element is still in the DOM.
+		// The Ask AI row is always visible when the dialog is open --
+		// even before the user types a query.
+		function injectAskAi() {
+			var existing = document.getElementById(askAiId);
+			// Find the best container: results area if it exists, otherwise
+			// the search container (#starlight__search) for the empty state.
+			var container = dialog.querySelector('.pagefind-ui__results-area')
+				|| dialog.querySelector('#starlight__search');
+			if (!container) return;
+			// If it already exists and is still in the container, skip
+			if (existing && container.contains(existing)) return;
+			// Re-build and append
+			if (existing) existing.remove();
+			container.appendChild(buildAskAiRow());
+		}
+
+		function removeAskAi() {
+			var el = document.getElementById(askAiId);
+			if (el) el.remove();
+		}
+
+		// --- Arrow key navigation ---
+		// Navigate per VISIBLE ROW: each .pagefind-ui__result-title and
+		// .pagefind-ui__result-nested is one navigable item (matching the
+		// mouse hover granularity). Ask AI is first (it's at the top).
+		function getNavigableItems() {
+			var items = [];
+			// Ask AI row first (visually at top of results)
+			var askAi = document.getElementById(askAiId);
+			if (askAi) items.push(askAi);
+			// Collect each visible row: title rows and sub-result rows
+			dialog.querySelectorAll('.pagefind-ui__result-title:not(:where(.pagefind-ui__result-nested *)), .pagefind-ui__result-nested').forEach(function (row) {
+				items.push(row);
+			});
+			return items;
+		}
+
+		function clearSelection() {
+			dialog.querySelectorAll('.warp-search-selected').forEach(function (el) {
+				el.classList.remove('warp-search-selected');
+			});
+			selectedIndex = -1;
+		}
+
+		function selectItem(index) {
+			var items = getNavigableItems();
+			if (items.length === 0) return;
+			clearSelection();
+			if (index < 0) index = items.length - 1;
+			if (index >= items.length) index = 0;
+			selectedIndex = index;
+			var item = items[selectedIndex];
+			item.classList.add('warp-search-selected');
+			// When wrapping to the first item (Ask AI at index 0),
+			// scroll the entire dialog frame to the top so the search
+			// box and Ask AI are both visible.
+			if (selectedIndex === 0) {
+				var frame = dialog.querySelector('.dialog-frame');
+				if (frame) frame.scrollTop = 0;
+			} else {
+				item.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+			}
+		}
+
+		// Clear keyboard selection when mouse moves over results
+		// so hover supersedes arrow-key highlight.
+		dialog.addEventListener('mousemove', function () {
+			if (selectedIndex >= 0) clearSelection();
+		}, { passive: true });
+
+		// --- Keyboard handler ---
+		dialog.addEventListener('keydown', function (e) {
+			var items = getNavigableItems();
+			if (items.length === 0) return;
+
+			if (e.key === 'ArrowDown') {
+				e.preventDefault();
+				selectItem(selectedIndex + 1);
+			} else if (e.key === 'ArrowUp') {
+				e.preventDefault();
+				selectItem(selectedIndex - 1);
+		} else if (e.key === 'Enter') {
+				if (selectedIndex >= 0 && selectedIndex < items.length) {
+					e.preventDefault();
+					// For result rows, click the link inside; for Ask AI, click the row
+					var link = items[selectedIndex].querySelector('.pagefind-ui__result-link');
+					if (link) { link.click(); } else { items[selectedIndex].click(); }
+				} else if (items.length > 1) {
+					// No selection: go to first doc result (skip Ask AI at index 0)
+					e.preventDefault();
+					var firstLink = items[1] && items[1].querySelector('.pagefind-ui__result-link');
+					if (firstLink) firstLink.click();
+				}
+			}
+		});
+
+		// --- Observer: inject Ask AI + reset selection on results change ---
+		var observer = new MutationObserver(function () {
+			injectAskAi();
+			clearSelection();
+		});
+
+		dialog.addEventListener('close', function () {
+			observer.disconnect();
+			removeAskAi();
+			clearSelection();
+		});
+
+		new MutationObserver(function () {
+			if (dialog.open) {
+				var target = dialog.querySelector('#starlight__search') || dialog;
+				observer.observe(target, { childList: true, subtree: true });
+				clearSelection();
+			}
+		}).observe(dialog, { attributes: true, attributeFilter: ['open'] });
+	})();
+</script>
+
 <!-- Scroll the active sidebar link into view after page load.
      Starlight's SidebarPersister restores scrollTop from sessionStorage,
      but when navigating via crosslink to a different section, the restored

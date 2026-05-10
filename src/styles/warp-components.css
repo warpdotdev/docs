@@ -1029,3 +1029,76 @@ site-search #starlight__search .pagefind-ui__result-nested:focus-within {
   outline: 1px solid var(--warp-control-border-hover);
   background-color: var(--warp-control-bg-hover);
 }
+
+/* Arrow-key selection state for search results. Applied by the
+   keyboard navigation script in CustomSidebar.astro. Targets the
+   same per-row elements (.pagefind-ui__result-title and
+   .pagefind-ui__result-nested) that the hover rules above target,
+   so keyboard and mouse highlight produce identical visuals. */
+site-search #starlight__search .warp-search-selected {
+  outline: 1px solid var(--warp-control-border-hover);
+  background-color: var(--warp-control-bg-hover);
+}
+
+/* --------------------------------------------------------------------------
+   19. "Ask AI" row in the search dialog
+   --------------------------------------------------------------------------
+   Styled as a result card so it reads as an inline option, not a separate
+   CTA. Sits at the bottom of the results area. Shows an Enter kbd hint
+   when selected via arrow keys. */
+
+.warp-search-ask-ai-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.75rem 1.25rem;
+  margin-top: 0.5rem;
+  border: 0;
+  border-radius: var(--sl-radius-sm);
+  background: var(--warp-control-bg);
+  color: var(--sl-color-text-accent);
+  font-family: var(--__sl-font, 'Inter', sans-serif);
+  font-size: var(--sl-text-sm);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.15s ease, outline-color 0.15s ease;
+}
+
+.warp-search-ask-ai-row:hover,
+.warp-search-ask-ai-row.warp-search-selected {
+  outline: 1px solid var(--warp-control-border-hover);
+  background-color: var(--warp-control-bg-hover);
+}
+
+.warp-search-ask-ai-row svg {
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+.warp-search-ask-ai-row__label {
+  flex: 1;
+  text-align: left;
+}
+
+.warp-search-ask-ai-row__kbd {
+  display: none;
+  padding: 0.125rem 0.375rem;
+  border-radius: var(--sl-radius-xs);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--sl-color-gray-3);
+  font-family: var(--__sl-font);
+  font-size: var(--sl-text-2xs);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+:root[data-theme='light'] .warp-search-ask-ai-row__kbd {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+/* Show the Enter hint only when the row is selected via keyboard */
+.warp-search-selected .warp-search-ask-ai-row__kbd,
+.warp-search-ask-ai-row.warp-search-selected .warp-search-ask-ai-row__kbd {
+  display: inline-block;
+}
