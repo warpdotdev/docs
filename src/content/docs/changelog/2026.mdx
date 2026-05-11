@@ -216,7 +216,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 * \[macOS] Right-clicking on text files in Finder allows you to open in Warp's code editor.
 * Send code review comments, attach diff hunks as context, and send substrings as context (`cmd L`) to 3rd party CLI tools such as Claude Code, Codex, Opencode, etc.
-* Oz agents can now ask users clarifying questions during Agent Mode interactions.
+* Agents can now ask users clarifying questions during Agent Mode interactions.
 * Warp's agent now suggests followups when it is done.
 
 **Improvements**
@@ -227,7 +227,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 * Added "Sign up" option to the settings gear menu for non-logged-in users.
 * MCP config files edited by the agent now show an 'Open config' button in the code diff header, making it easy to jump directly to the config file.
 * Added `/skills` support in CLI agent rich input for browsing and invoking agent-specific skills.
-* Sandboxed Oz agents now have dedicated autonomy settings, instead of inheriting the team-level defaults.
+* Sandboxed agents now have dedicated autonomy settings, instead of inheriting the team-level defaults.
 * Updated settings info icon tooltips to clarify they open documentation.
 * Improved quality and latency of prompt suggestions and suggested code diffs.
 * Cloud agents can now accept images and file attachments as context.
@@ -256,7 +256,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 * Fixed Oz session sharing failing behind HTTP proxies on port 80.
 * The `OZ_RUN_ID` environment variable is now available inside agent terminal sessions, set to the current task ID.
 * Improved error messages when agent session sharing fails, removing repetitive text and providing clearer guidance.
-* Oz agents can now ask users clarifying questions during Agent Mode interactions.
+* Agents can now ask users clarifying questions during Agent Mode interactions.
 
 ### 2026.03.25 (v0.2026.03.25.08.24)
 
@@ -405,12 +405,12 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 * Fixed "open file" button in code review diff view not working when the pane is maximized.
 * Fixed git metadata background operations after a terminal is closed.
 * Mobile soft keyboard will now work for LRCs.
-* Oz agents now report more detailed information about session-sharing failures.
+* Agents now report more detailed information about session-sharing failures.
 
 **Oz updates**
 
-* Oz agent tasks now report structured error codes to the server, enabling better error tracking and retryability handling.
-* Fixed Oz cloud agent not waiting for automatic error retry on network failures.
+* Agent tasks now report structured error codes to the server, enabling better error tracking and retryability handling.
+* Fixed cloud agent not waiting for automatic error retry on network failures.
 * Added support for passing arguments to skill invocations (`$ARGUMENTS`, `$N`) and for including user queries with the invocation.
 
 ### 2026.02.25 (v0.2026.02.25.08.24)
@@ -483,7 +483,7 @@ Oz is Warp's orchestration platform for cloud agents: launch parallel agents, au
 
 [Read the launch post →](https://www.warp.dev/blog/oz-orchestration-platform-cloud-agents)
 
-#### Oz Cloud Agents
+#### Cloud Agents
 
 * **Run Cloud Agents from anywhere with built-in tracking** — start agents from Warp or via the CLI, triggers, or schedules. Every run is auditable and steerable. [Cloud Agents docs →](https://docs.warp.dev/agent-platform/cloud-agents/overview)
 * **Cloud environments for consistent execution** — configure Docker-based environments (unlimited repos + setup commands) and run agents in isolated cloud sandboxes. [Environments docs →](https://docs.warp.dev/agent-platform/cloud-agents/environments)
