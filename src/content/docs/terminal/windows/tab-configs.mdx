@@ -7,11 +7,11 @@ description: >-
 
 Tab Configs let you define reusable tab setups — including directory, startup commands, pane layout, shell, and theme — in a simple TOML file. Select a Tab Config from the `+` menu to open a fully configured tab with a single click.
 
-## How Tab Configs work
+## How tab configs work
 
 Each Tab Config is a `.toml` file stored in `~/.warp/tab_configs/`. Every file defines a single tab layout with optional pane splits, startup commands, and parameterized inputs. Tab Configs appear in the `+` menu alongside your existing tabs, so you can launch a preconfigured workspace instantly.
 
-## Creating a Tab Config
+## Creating a tab config
 
 ### From the UI
 
@@ -23,7 +23,7 @@ Each Tab Config is a `.toml` file stored in `~/.warp/tab_configs/`. Every file d
 1. Create a new `.toml` file in `~/.warp/tab_configs/`. Use snake_case for the file name (e.g., `dev_server.toml`).
 2. Define the tab layout using the schema below, then save the file. The new config appears in the `+` menu automatically.
 
-### Save an existing tab as a Tab Config
+### Save an existing tab as a tab config
 
 You can also capture a tab's current state as a reusable Tab Config without writing TOML. Right-click any tab in the [vertical tabs](/terminal/windows/vertical-tabs/) panel or horizontal tab bar to open the context menu, then click **Save as new config**. Warp generates a `.toml` file from the tab's layout, commands, and directory and adds it to the `+` menu.
 
@@ -32,7 +32,7 @@ You can also capture a tab's current state as a reusable Tab Config without writ
 <figcaption>Saving a tab config.</figcaption>
 </figure>
 
-## Managing Tab Configs
+## Managing tab configs
 
 Saved Tab Configs appear in the `+` menu for quick access. When you hover a Tab Config in the menu, a **sidecar panel** appears alongside it with options to:
 
@@ -45,7 +45,7 @@ Saved Tab Configs appear in the `+` menu for quick access. When you hover a Tab 
 <figcaption>Tab config menu with sidecar options.</figcaption>
 </figure>
 
-## Using skills to manage Tab Configs
+## Using skills to manage tab configs
 
 Warp includes built-in skills for creating and modifying Tab Configs through natural language:
 

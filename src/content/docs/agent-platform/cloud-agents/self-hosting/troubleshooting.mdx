@@ -37,7 +37,7 @@ The steps below apply to the [managed architecture](/agent-platform/cloud-agents
 2. Confirm the worker's namespace has these permissions: `create`, `get`, `list`, `watch`, `delete` on `jobs`; `get`, `list`, `watch` on `pods`; `get` on `pods/log`; `list` on `events`.
 3. Confirm the task namespace allows pods with a **root init container** (required for sidecar materialization).
 4. If your cluster restricts image sources, set `preflight_image` in the worker config to an allowlisted image (default is `busybox:1.36`).
-5. To pull the preflight image from a private registry, configure `imagePullSecrets` in `pod_template` — these secrets also apply to the preflight Job.
+5. To pull the preflight image from a private registry, configure **imagePullSecrets** in `pod_template` — these secrets also apply to the preflight Job.
 
 ### Direct backend
 
@@ -117,7 +117,7 @@ See [Monitoring](/agent-platform/cloud-agents/self-hosting/monitoring/) for the 
 1. Check task Job and Pod status: `kubectl get jobs,pods -n <namespace>`.
 2. Common issues:
    * **Unschedulable pods** — Check node selectors, tolerations, and resource requests in `pod_template`.
-   * **Image pull failures** — Check `imagePullSecrets` in `pod_template`.
+   * **Image pull failures** — Inspect the `imagePullSecrets` value in `pod_template`.
    * **Admission policy rejections** — Review Pod Security Standards, OPA Gatekeeper, Kyverno, or similar admission controllers.
 3. The worker fails a task early if its pod remains unschedulable beyond `unschedulable_timeout` (default `30s`). Raise the timeout or fix the scheduling issue.
 

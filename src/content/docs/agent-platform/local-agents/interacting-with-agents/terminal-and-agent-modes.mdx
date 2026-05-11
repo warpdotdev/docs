@@ -98,14 +98,14 @@ Agent Mode-specific items include the model selector, autodetection toggle, Cont
 
 Blocks in Warp belong to either the terminal view or a specific agent conversation:
 
-* **Terminal blocks** - Commands you run directly in the terminal always appear in your terminal blocklist and can be attached as context to any conversation.
-* **Agent conversation blocks** - Commands executed within an agent conversation (either by you or the agent) only appear within that specific conversation and don't appear in the terminal blocklist.
+* **Terminal blocks** - Commands you run directly in the terminal always appear in your terminal block list and can be attached as context to any conversation.
+* **Agent conversation blocks** - Commands executed within an agent conversation (either by you or the agent) only appear within that specific conversation and don't appear in the terminal block list.
 
 In agent conversations, context is managed automatically, with optional manual attachment from terminal view:
 
 * **Automatic context** - Commands executed within an agent conversation are included as context for subsequent prompts.
 * **Manual attachment** - You can attach terminal blocks to bring in outputs from outside the conversation.
-* **Conversation scope** - Agent conversation blocks stay scoped to that conversation, while terminal blocks remain in the terminal blocklist.
+* **Conversation scope** - Agent conversation blocks stay scoped to that conversation, while terminal blocks remain in the terminal block list.
 
 This separation keeps your terminal view clean while preserving full context within each conversation. For shortcuts, pending vs. attached context, and block selection behavior, see [Blocks as Context](/agent-platform/local-agents/agent-context/blocks-as-context/).
 
@@ -242,7 +242,7 @@ While you're in an agent conversation, you can access Warp's [slash commands](/a
 
 * Type `/` to open the command menu
 * Keep typing to filter commands (for example: `/conversations`, `/compact`)
-* Use `↑` / `↓` to navigate and `Enter` to run
+* Use `↑` / `↓` to navigate and **Enter** to run
 * Press `esc` to dismiss the menu
 
 **Key slash commands in Agent Mode:**
@@ -292,7 +292,7 @@ Use `/fork from` to choose exactly where in the conversation you want to branch 
 1. Type `/fork from` and press `Enter`.
 2. A menu shows your previous queries in the conversation.
 3. Select the query you want to fork from.
-4. Choose `Enter` (existing pane) or `⌘↩` / `Ctrl+Shift+Enter` (new pane).
+4. Press `Enter` for an existing pane, or `⌘↩` / `Ctrl+Shift+Enter` for a new pane.
 
 This is helpful when you want to go back to an earlier point and try a different approach.
 

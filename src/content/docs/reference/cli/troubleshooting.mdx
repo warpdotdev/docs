@@ -174,7 +174,7 @@ This usually means the Docker image is missing required dependencies. Fix by eit
 * Updating the Dockerfile used to build the image, then pushing a new version to Docker Hub and updating the environment with the new image, or
 * Adding additional setup commands to install the missing tools: `oz environment update --setup-command "apt-get update && apt-get install -y "`
 
-#### **I see "VM failed before the agent could run. This is likely an issue with your Docker image"**
+#### **I see "VM failed before the agent could run. this is likely an issue with your docker image"**
 
 This typically means your Docker image uses musl libc instead of glibc. Alpine Linux and other musl-based images are not compatible with the agent runtime.
 

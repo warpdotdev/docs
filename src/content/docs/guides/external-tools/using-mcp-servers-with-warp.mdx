@@ -10,7 +10,7 @@ import VideoEmbed from '@components/VideoEmbed.astro';
 
 <VideoEmbed url="https://www.youtube.com/watch?v=8vn2brhJrF8" />
 
-### 1. What Are MCP Servers?
+### 1. what are MCP servers?
 
 MCP (Model Context Protocol) servers let Warp agents connect to external systems like GitHub, Linear, or Jira — so they can read, write, and reason about those systems natively.
 
@@ -22,7 +22,7 @@ For example:
 
 ---
 
-### 2. Problem Setup
+### 2. problem setup
 
 Andrew starts with Warp’s universal input, but it doesn’t yet know what a “ticket” is.
 
@@ -33,7 +33,7 @@ At this point, Warp can’t find or interpret the ticket, because no MCP server 
 
 ---
 
-### 3. Adding the Linear MCP Server
+### 3. adding the linear MCP server
 
 To connect Linear:
 
@@ -49,7 +49,7 @@ Once added, Warp:
 
 ---
 
-### 4. Using Rules with MCP Servers
+### 4. using rules with MCP servers
 
 Andrew adds a rule called **check-linear**, which helps the agent automatically associate “tickets” with the Linear MCP Server.
 
@@ -60,7 +60,7 @@ Rules make context switching between systems seamless — the agent doesn’t ne
 
 ---
 
-### 5. Dynamic Context Loading
+### 5. dynamic context loading
 
 Warp’s MCP support is **dynamic**:
 
@@ -72,7 +72,7 @@ No need to restart Warp or reset your session.
 
 ---
 
-### 6. Running the Task
+### 6. running the task
 
 After adding Linear, Andrew runs:
 
