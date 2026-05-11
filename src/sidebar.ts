@@ -396,6 +396,8 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'reference/cli/skills', label: 'Skills' },
 						{ slug: 'reference/cli/warp-drive', label: 'Warp Drive Context' },
 						{ slug: 'reference/cli/integration-setup', label: 'Integration Setup' },
+						{ slug: 'reference/cli/artifacts', label: 'Artifacts' },
+						{ slug: 'reference/cli/federate', label: 'Federated identity' },
 						'reference/cli/troubleshooting',
 					],
 				},

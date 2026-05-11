@@ -1,0 +1,98 @@
+---
+title: Federated identity tokens
+description: >-
+  Issue short-lived OIDC identity tokens from a running Oz agent so it can
+  authenticate to cloud providers without long-lived credentials.
+sidebar:
+  label: "Federated identity"
+---
+
+`oz federate` issues short-lived OIDC identity tokens for the agent that's currently running. Use these tokens to authenticate to cloud providers (AWS, GCP, Azure, and other OIDC-aware systems) without baking long-lived credentials into your environment.
+
+This command can only be called from inside a running Oz agent session — typically as part of a [skill](/agent-platform/capabilities/skills/), a tool, or a script the agent executes while a run is in progress.
+
+## When to use federation
+
+Use federated identity tokens when you want an agent to act against a cloud account without storing service-account keys, access keys, or refresh tokens in the environment.
+
+* **Short-lived credentials** - Tokens expire on a schedule you choose. Even if a token leaks, its blast radius is bounded.
+* **No secret rotation** - Federation removes the need to rotate static keys in environments or secrets.
+* **Per-run identity** - Each run can claim a different subject (user, team, environment, skill, run ID), giving you fine-grained IAM policies.
+
+For background on federation, see your cloud provider's workload identity federation guide (for example, [Google Cloud's workload identity federation](https://cloud.google.com/iam/docs/workload-identity-federation) or [AWS IAM Identity Center](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_oidc.html)).
+
+## `oz federate issue-token`
+
+Issue an OIDC identity token for the current run.
+
+```sh
+oz federate issue-token \
+  --run-id <RUN_ID> \
+  --audience <AUDIENCE> \
+  [--duration <DURATION>] \
+  [--subject-template <COMPONENT> ...]
+```
+
+### Flags
+
+* **`--run-id <RUN_ID>`** - The ID of the Oz run requesting the token. The token is bound to this run.
+* **`--audience <AUDIENCE>`** - The `aud` claim for the issued token. Set this to the value your cloud provider's identity pool expects (for example, an AWS IAM Identity Center audience or a GCP workload identity pool URL).
+* **`--duration <DURATION>`** - Requested token lifetime. Accepts human-readable durations like `15m`, `1h`, or `2h30m`. Defaults to `1h`.
+* **`--subject-template <COMPONENT> ...`** - Controls how the OIDC token's `sub` claim is formatted. Pass one or more components, which are joined to form the subject. Defaults to `principal` (for example, `user:my-user-id`).
+
+### Subject template components
+
+The subject claim is what your cloud provider's policy will match on, so pick the combination that gives you the IAM granularity you need. Supported components:
+
+* **`principal`** - The acting principal, like `user:my-user-id` or `service_account:my-sa-id`.
+* **`scoped_principal`** - The principal scoped to a team, like `principal:my-team-id/user:my-user-id`.
+* **`email`** - The principal's email, like `email:user@warp.dev`.
+* **`teams`** - The principal's team, like `teams:my-team-id`.
+* **`environment`** - The [cloud environment](/agent-platform/cloud-agents/environments/) the run is using, like `environment:my-environment-id`.
+* **`agent_name`** - The configured name of the run, like `agent_name:my-agent`.
+* **`skill_spec`** - The skill the run was launched from, like `skill_spec:warpdotdev/repo_path_to_skill`.
+* **`run_id`** - The run's unique ID, like `run_id:abc123`.
+* **`host`** - The self-hosted worker the run is on, like `host:my-worker-id`.
+
+When you pass multiple components, the resulting subject joins them in the order you specified.
+
+### Examples
+
+Issue a one-hour token bound to the current user, for an AWS audience:
+
+```sh
+oz federate issue-token \
+  --run-id "$OZ_RUN_ID" \
+  --audience "sts.amazonaws.com"
+```
+
+Issue a 15-minute token whose subject identifies the team and environment, so a GCP IAM policy can grant access only to that pair:
+
+```sh
+oz federate issue-token \
+  --run-id "$OZ_RUN_ID" \
+  --audience "//iam.googleapis.com/projects/123/locations/global/workloadIdentityPools/oz/providers/oz-oidc" \
+  --duration 15m \
+  --subject-template teams environment
+```
+
+## Using tokens with cloud providers
+
+Once you have a token, exchange it for cloud credentials using your provider's standard OIDC federation flow. The exchange happens between the cloud provider and your script — Oz only issues the OIDC token.
+
+A typical AWS flow:
+
+1. Run `oz federate issue-token` to get the OIDC JWT.
+2. Call `sts:AssumeRoleWithWebIdentity` with the JWT and an IAM role ARN.
+3. Use the temporary AWS credentials returned by STS.
+
+A typical GCP flow:
+
+1. Run `oz federate issue-token` to get the OIDC JWT.
+2. Call the [Security Token Service `token` endpoint](https://cloud.google.com/iam/docs/reference/sts/rest/v1/TopLevel/token) to exchange the JWT for a federated access token.
+3. Optionally impersonate a service account for the final credentials.
+
+## Related
+
+* [Cloud environments](/agent-platform/cloud-agents/environments/) - configure the environment your agent runs in.
+* [Secrets](/agent-platform/cloud-agents/secrets/) - alternative for credentials that can't be federated.
