@@ -1,3 +1,39 @@
+diff --git a/node_modules/starlight-llms-txt/generator.ts b/node_modules/starlight-llms-txt/generator.ts
+index 3a076f3..742f36b 100644
+--- a/node_modules/starlight-llms-txt/generator.ts
++++ b/node_modules/starlight-llms-txt/generator.ts
+@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
+ import micromatch from 'micromatch';
+ import { starlightLllmsTxtContext } from 'virtual:starlight-llms-txt/context';
+ import { entryToSimpleMarkdown } from './entryToSimpleMarkdown';
+-import { defaultLang, isDefaultLocale } from './utils';
++import { defaultLang, ensureTrailingSlash, isDefaultLocale } from './utils';
+ 
+ /** Collator to compare two strings in the default language. */
+ const collator = new Intl.Collator(defaultLang);
+@@ -53,7 +53,11 @@ export async function generateLlmsTxt(
+ 	docs.sort((a, b) => collator.compare(prioritizePages(a.id), prioritizePages(b.id)));
+ 	const segments: string[] = [];
+ 	for (const doc of docs) {
+-		const docSegments = [`# ${doc.data.hero?.title || doc.data.title}`];
++		const docUrl = getDocUrl(doc.id, context);
++		const docSegments = [
++			`# ${doc.data.hero?.title || doc.data.title}`,
++			`Canonical page: [${docUrl.pathname}](${docUrl})`,
++		];
+ 		const description = doc.data.hero?.tagline || doc.data.description;
+ 		if (description) docSegments.push(`> ${description}`);
+ 		docSegments.push(await entryToSimpleMarkdown(doc, context, minify));
+@@ -64,3 +68,9 @@ export async function generateLlmsTxt(
+ 	}
+ 	return segments.join(pageSeparator);
+ }
++
++function getDocUrl(docId: string, context: APIContext): URL {
++	const site = new URL(ensureTrailingSlash(starlightLllmsTxtContext.base), context.site);
++	const path = docId.replace(/(^|\/)index$/, '$1');
++	return new URL(ensureTrailingSlash(path), site);
++}
 diff --git a/node_modules/starlight-llms-txt/llms-custom.txt.ts b/node_modules/starlight-llms-txt/llms-custom.txt.ts
 index f96dbbd..7f19ab5 100644
 --- a/node_modules/starlight-llms-txt/llms-custom.txt.ts
