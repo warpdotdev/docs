@@ -5,3 +5,5 @@ Disallow: /*?*ask=*
 Content-Signal: ai-train=yes, search=yes, ai-input=yes
 
 Sitemap: https://docs.warp.dev/sitemap-index.xml
+Llms-Txt: https://docs.warp.dev/llms.txt
+OpenAPI: https://docs.warp.dev/openapi.yaml
