@@ -148,6 +148,40 @@ oz login
 
 The CLI prints out a URL that you can open in any browser to login to Warp.
 
+### Checking who you're signed in as
+
+Use `oz whoami` to print information about the currently authenticated principal:
+
+```sh
+oz whoami
+```
+
+The output includes your user or service account ID, display name, email, and team (when available). For machine-readable output, set `--output-format json` or `--output-format text`.
+
+```sh
+# JSON output for scripts
+oz whoami --output-format json
+
+# Compact "type:id" output
+oz whoami --output-format text
+```
+
+If `oz whoami` reports that it could not determine your user ID, your credentials are missing or invalid. Run `oz login` (or set `WARP_API_KEY`) and try again.
+
+### Logging out
+
+Use `oz logout` to clear the CLI's cached credentials on this machine:
+
+```sh
+oz logout
+```
+
+If you weren't logged in, the command prints `You are not logged in.` and exits. After logging out, run `oz login` to authenticate again.
+
+:::note
+`oz logout` only affects credentials stored by the CLI. API keys authenticated through `WARP_API_KEY` or `--api-key` are not affected — unset the environment variable or omit the flag to stop using them.
+:::
+
 ### API key authentication
 
 Use an API key when the environment must authenticate on its own, such as CI pipelines, headless servers, VMs, Codespaces, or containers. API keys let the CLI authenticate non-interactively.
@@ -366,6 +400,14 @@ List suggested base images for cloud environments:
 ```sh
 oz environment image list
 ```
+
+### `oz artifact get` / `oz artifact download`
+
+Inspect and retrieve files an agent produced during a run. See [Artifacts](/reference/cli/artifacts/) for details.
+
+### `oz federate issue-token`
+
+Issue a short-lived OIDC identity token from inside a running agent to authenticate to cloud providers without long-lived credentials. See [Federated identity tokens](/reference/cli/federate/) for details.
 
 ---
 
