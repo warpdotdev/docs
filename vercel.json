@@ -9537,6 +9537,41 @@
       "source": "/integrations/integrations-overview/integrations-and-environments",
       "destination": "/reference/cli/integration-setup/",
       "statusCode": 308
+    },
+    {
+      "source": "/features/editor/autosuggestions",
+      "destination": "/terminal/command-completions/autosuggestions/",
+      "statusCode": 308
+    },
+    {
+      "source": "/code/code-permissions",
+      "destination": "/agent-platform/capabilities/agent-profiles-permissions/",
+      "statusCode": 308
+    },
+    {
+      "source": "/getting-started/refer-a-friend",
+      "destination": "/support-and-community/community/refer-a-friend/",
+      "statusCode": 308
+    },
+    {
+      "source": "/help/using-warp-offline",
+      "destination": "/support-and-community/troubleshooting-and-support/using-warp-offline/",
+      "statusCode": 308
+    },
+    {
+      "source": "/features/secret-redaction",
+      "destination": "/support-and-community/privacy-and-security/secret-redaction/",
+      "statusCode": 308
+    },
+    {
+      "source": "/features/warp-ai/active-ai",
+      "destination": "/agent-platform/local-agents/active-ai/",
+      "statusCode": 308
+    },
+    {
+      "source": "/oz",
+      "destination": "/agent-platform/cloud-agents/overview/",
+      "statusCode": 308
     }
   ]
 }
