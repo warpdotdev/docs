@@ -277,8 +277,11 @@ body {
 
    Caption editorial rules (see AGENTS.md § "Image caption guidelines"):
    Orient the reader, don't instruct. Keep under ~20 words. No marketing
-   language. Don't repeat surrounding prose or list everything visible. */
-.sl-markdown-content figure {
+   language. Don't repeat surrounding prose or list everything visible.
+
+   Exclude Expressive Code figures (code blocks) — they render inside a
+   `.expressive-code` wrapper and must not be center-aligned. */
+.sl-markdown-content figure:not(.expressive-code figure) {
   margin: 1.5em 0;
   text-align: center;
 }

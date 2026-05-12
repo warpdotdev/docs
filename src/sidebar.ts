@@ -396,6 +396,8 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'reference/cli/skills', label: 'Skills' },
 						{ slug: 'reference/cli/warp-drive', label: 'Warp Drive Context' },
 						{ slug: 'reference/cli/integration-setup', label: 'Integration Setup' },
+						{ slug: 'reference/cli/artifacts', label: 'Artifacts' },
+						{ slug: 'reference/cli/federate', label: 'Federated identity' },
 						'reference/cli/troubleshooting',
 					],
 				},
@@ -551,6 +553,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					items: [
 						{ slug: 'enterprise/enterprise-features/architecture-and-deployment', label: 'Architecture and deployment' },
 						{ slug: 'enterprise/enterprise-features/bring-your-own-llm', label: 'Bring your own LLM' },
+						{ slug: 'enterprise/enterprise-features/analytics-api', label: 'Analytics API' },
 					],
 				},
 				{

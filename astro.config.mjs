@@ -67,6 +67,15 @@ export default defineConfig({
 				defaultProps: {
 					wrap: true,
 				},
+				// Map languages Shiki doesn't bundle to a safe fallback. PromQL
+				// blocks live in agent-platform/cloud-agents/self-hosting/monitoring.mdx;
+				// without this alias every build emits noisy "language could not be
+				// found" warnings while still falling back to plaintext.
+				shiki: {
+					langAlias: {
+						promql: 'text',
+					},
+				},
 			},
 			head: [
 				// SEO + PWA parity with the legacy GitBook docs. These were emitted
