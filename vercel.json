@@ -1,6 +1,6 @@
 {
   "framework": "astro",
-  "installCommand": "npm install",
+  "installCommand": "npm ci",
   "buildCommand": "npm run build",
   "devCommand": "npm run dev",
   "headers": [
@@ -1611,6 +1611,16 @@
     {
       "source": "/configuration",
       "destination": "/terminal/more-features/settings-sync/",
+      "statusCode": 308
+    },
+    {
+      "source": "/errors",
+      "destination": "/reference/api-and-sdk/troubleshooting/errors/",
+      "statusCode": 308
+    },
+    {
+      "source": "/errors/:code",
+      "destination": "/reference/api-and-sdk/troubleshooting/errors/:code/",
       "statusCode": 308
     },
     {
@@ -5701,6 +5711,16 @@
     {
       "source": "/configuration/",
       "destination": "/terminal/more-features/settings-sync/",
+      "statusCode": 308
+    },
+    {
+      "source": "/errors/",
+      "destination": "/reference/api-and-sdk/troubleshooting/errors/",
+      "statusCode": 308
+    },
+    {
+      "source": "/errors/:code/",
+      "destination": "/reference/api-and-sdk/troubleshooting/errors/:code/",
       "statusCode": 308
     },
     {
