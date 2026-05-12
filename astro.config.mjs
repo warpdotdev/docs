@@ -148,6 +148,13 @@ export default defineConfig({
 				// widely consumed by AI agents.
 				starlightLlmsTxt({
 					projectName: 'Warp',
+					optionalLinks: [
+						{
+							label: 'Oz Agent API (OpenAPI spec)',
+							url: 'https://docs.warp.dev/openapi.yaml',
+							description: 'Machine-readable OpenAPI 3.0 specification for the Oz Agent API.',
+						},
+					],
 				// Excludes pages that cause a stack overflow in hast-util-to-text
 				// due to their size. The upstream plugin only applies `exclude` to
 				// llms-small.txt; our patch (patches/starlight-llms-txt+0.8.1.patch)
