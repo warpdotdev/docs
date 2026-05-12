@@ -1,13 +1,13 @@
 ---
 title: GitHub Actions quickstart
 description: >-
-  Set up your first Oz agent in GitHub Actions in ~10 minutes. Run agents as
+  Set up your first agent in GitHub Actions in ~10 minutes. Run agents as
   workflow steps to automate code review and issue triage.
 sidebar:
   label: "Quickstart"
 ---
 
-Add Oz agents to your GitHub Actions workflows with [`oz-agent-action`](https://github.com/warpdotdev/oz-agent-action). This quickstart walks you through setting up your first GitHub Actions integration: a PR review workflow that automatically analyzes pull requests and posts inline review comments.
+Add agents to your GitHub Actions workflows with [`oz-agent-action`](https://github.com/warpdotdev/oz-agent-action). This quickstart walks you through setting up your first GitHub Actions integration: a PR review workflow that automatically analyzes pull requests and posts inline review comments.
 
 ---
 
@@ -30,7 +30,7 @@ Store your Warp API key as a GitHub Actions secret so workflows can authenticate
 
 ## 2. Create the workflow file
 
-This workflow triggers an Oz agent whenever a PR is opened or marked ready for review. The agent reviews the diff and posts inline comments.
+This workflow triggers an agent whenever a PR is opened or marked ready for review. The agent reviews the diff and posts inline comments.
 
 Create `.github/workflows/oz-pr-review.yml` in your repository with the following content:
 
