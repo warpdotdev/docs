@@ -561,21 +561,21 @@ Product feature names retain their standard capitalization. Match the exact casi
 
 ### Oz terminology
 
-#### Oz vs Warp
-- **Warp** is the terminal and coding surface
-- **Oz** is Warp's programmable agent for running and coordinating agents at scale
+#### Warp Agent vs Oz
+- **Warp Agent** — Warp's built-in agent harness. Use "Warp Agent" when specifically referring to the built-in harness, especially when contrasting with third-party agents (Claude Code, Codex, etc.), or when referencing the Settings label (**Settings** > **Agents** > **Warp Agent**).
+- **Oz** — Warp's programmable platform for running and coordinating agents at scale
 - There is typically one Warp environment per user session. Oz can run many agents concurrently, across machines, repos, and teams.
 
-#### Core Oz terms
-- **Oz** - Warp's programmable agent for running and coordinating agents at scale
-- **Oz agent** - A combination of agent instructions (skill or prompt), trigger (cron, webhook, manual), environment (local, cloud), profile, and host. Agents can be local or cloud, and interactive or ambient.
-- **Oz cloud agent** - An Oz agent running in the cloud, from a trigger, schedule, or started from someone's local machine
-- **Oz subagent** - A child Oz agent created by a parent Oz agent to parallelize or delegate work
-- **Oz run** - A single execution lifecycle of an Oz agent, including actions, outputs, and logs. Always ambient and cloud-based.
-- **Oz conversation** - An interactive execution lifecycle within the Warp Terminal, regardless of whether it's local or in the cloud
-- **Environment** - The execution context for an Oz agent, including repo access, dependencies, secrets, compute, and runtime configuration
+#### Core terms
+- **agent** - A combination of agent instructions (skill or prompt), trigger (cron, webhook, manual), environment (local, cloud), profile, and host. Agents can be local or cloud, and interactive or ambient. Use lowercase "agent" in most contexts; use "Warp Agent" only when referring specifically to the built-in Warp harness.
+- **cloud agent** - An agent running in the cloud, from a trigger, schedule, or started from someone's local machine
+- **subagent** - A child agent created by a parent agent to parallelize or delegate work
+- **conversation** - An interactive execution lifecycle within the Warp Terminal, regardless of whether it's local or in the cloud
+- **Oz** - Warp's programmable platform for running and coordinating agents at scale
+- **Oz run** - A single execution lifecycle of an agent, including actions, outputs, and logs. Always ambient and cloud-based.
+- **Environment** - The execution context for an agent, including repo access, dependencies, secrets, compute, and runtime configuration
 - **Oz dashboard** - The app surface to manage all Oz runs, unified across the Warp app and web
-- **Oz web app** - The web app for configuring Oz agents and managing runs
+- **Oz web app** - The web app for configuring agents and managing runs
 
 #### Oz CLI commands
 - `oz agent run` - Run a local agent
@@ -592,10 +592,14 @@ Product feature names retain their standard capitalization. Match the exact casi
 - ✅ "What would you like Oz to do?"
 
 #### Terms to avoid
-- ❌ "Ozzies" → Use "Oz agents", "instances", or "Oz subagents"
-- ❌ "Deploying an Oz" → Use "Deploying an Oz agent"
-- ❌ "The Oz Agent" → Use "An Oz agent" or "A parent Oz agent"
-- ❌ "Oz is running" → Use "An Oz agent is running" or "A run is in progress"
+- ❌ "Oz agent" / "Oz agents" → Use "agent" / "agents" (or "Warp Agent" / "Warp Agents" when referring to the built-in harness)
+- ❌ "Oz cloud agent" → Use "cloud agent"
+- ❌ "Oz subagent" → Use "subagent"
+- ❌ "Oz conversation" → Use "conversation"
+- ❌ "Ozzies" → Use "agents", "instances", or "subagents"
+- ❌ "Deploying an Oz" → Use "Deploying an agent"
+- ❌ "The Oz Agent" → Use "the agent" or "the Warp Agent"
+- ❌ "Oz is running" → Use "An agent is running" or "A run is in progress"
 - ❌ "AI agents" → Use "agents" (the "AI" prefix is redundant)
 - ❌ "Agent Modality" or "agent modality" → Use "Terminal and Agent modes" (this was an internal name, not user-facing)
 

@@ -34,46 +34,52 @@ When writing about Warp products or features, tie back to at least one of these 
 
 ## Oz Terminology and Capitalization
 
-### Core Oz Terms
+### Core Terms
 
 - **Oz** - Warp's programmable platform for running and coordinating agents at scale
-- **Oz agent** - A combination of agent instructions (skill or prompt), trigger (cron, webhook, manual), environment (local, cloud), profile, and host. Can be local or cloud, interactive or ambient
-- **Oz cloud agent (general)** - An Oz agent running in the cloud, from a trigger, schedule, or started from someone's local machine
-- **Oz subagent** - A child Oz agent created by a parent Oz agent to parallelize or delegate work
-- **Oz run** - A single execution lifecycle of an Oz agent, including actions, outputs, and logs. Always ambient and cloud-based
-- **Oz conversation** - An interactive execution lifecycle within Warp terminal, regardless of whether it's local or in the cloud
-- **Environment** - The execution context for an Oz agent, including repo access, dependencies, secrets, compute, and runtime configuration
+- **Warp Agent** - Warp's built-in agent harness. Use "Warp Agent" when specifically referring to the built-in harness, especially when contrasting with third-party agents (Claude Code, Codex, etc.)
+- **agent** - A combination of agent instructions (skill or prompt), trigger (cron, webhook, manual), environment (local, cloud), profile, and host. Can be local or cloud, interactive or ambient. Use lowercase "agent" in most contexts.
+- **cloud agent** - An agent running in the cloud, from a trigger, schedule, or started from someone's local machine
+- **subagent** - A child agent created by a parent agent to parallelize or delegate work
+- **Oz run** - A single execution lifecycle of an agent, including actions, outputs, and logs. Always ambient and cloud-based
+- **conversation** - An interactive execution lifecycle within Warp terminal, regardless of whether it's local or in the cloud
+- **Environment** - The execution context for an agent, including repo access, dependencies, secrets, compute, and runtime configuration
 - **Oz dashboard** - The app surface to manage all Oz runs, unified across the Warp app and web
-- **Oz web app** - The web app for configuring Oz agents and managing runs
+- **Oz web app** - The web app for configuring agents and managing runs
 
 ### Capitalization Rules
 
 **Cloud agents:**
-- **Product** (capitalized): "Oz Cloud Agent" or "Oz Cloud Agents" when referring to Warp's specific product feature
-  - "Oz Cloud Agents send you session sharing links"
-  - "Launch an Oz Cloud Agent from the CLI"
+- **Product** (capitalized): "Cloud Agent" or "Cloud Agents" when referring to Warp's specific product feature
+  - "Cloud Agents send you session sharing links"
+  - "Launch a Cloud Agent from the CLI"
 - **Concept** (lowercase): "cloud agent" or "cloud agents" when referring to the general concept
   - "Running cloud agents lets you escape the limits of your local machine"
   - "The cloud agent architecture enables scalability"
 
 **Other terms:**
 - Use "agents" not "AI agents" (redundant)
+- Use "agent" not "Oz agent" (deprecated); use "Warp Agent" only when referring to the built-in harness
 - "Skills" not "skills" (capitalized)
 - "AGENTS.md" not "agents.md" (all caps)
 
 ### Terms to Avoid
 
 ❌ **Don't use:**
-- "Ozzies" → Use "Oz agents", "instances", or "Oz subagents"
-- "Deploying an Oz" → Use "Deploying an Oz agent"
-- "The Oz Agent" → Use "An Oz agent" or "A parent Oz agent"
-- "Oz is running" → Use "An Oz agent is running" or "A run is in progress"
+- "Oz agent" / "Oz agents" → Use "agent" / "agents" (or "Warp Agent" / "Warp Agents" when referring to the built-in harness)
+- "Oz cloud agent" → Use "cloud agent"
+- "Oz subagent" → Use "subagent"
+- "Oz conversation" → Use "conversation"
+- "Ozzies" → Use "agents", "instances", or "subagents"
+- "Deploying an Oz" → Use "Deploying an agent"
+- "The Oz Agent" → Use "the agent" or "the Warp Agent"
+- "Oz is running" → Use "An agent is running" or "A run is in progress"
 - "AI agents" → Use "agents"
 - "Warp's terminal" → Use "Warp" or "Warp terminal"
 
 ### Important Context About Oz
 
-**All agents in Warp are Oz agents**, whether they are running in the cloud or running locally.
+Oz is Warp's programmable platform for running and coordinating agents at scale, whether they are running in the cloud or running locally.
 
 Oz exists to take agent workflows beyond a single prompt or a single laptop, making them scalable, autonomous, collaborative, and auditable.
 

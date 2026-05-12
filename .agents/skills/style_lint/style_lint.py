@@ -66,11 +66,15 @@ DEPRECATED_TERMS = [
 
 # Oz terms to avoid (case-insensitive patterns)
 OZ_TERMS_TO_AVOID = [
-    (r"\bOzzies\b", "Use 'Oz agents', 'instances', or 'Oz subagents'"),
-    (r"\bDeploying an Oz\b", "Use 'Deploying an Oz agent'"),
-    (r"\bThe Oz Agent\b", "Use 'An Oz agent' or 'A parent Oz agent'"),
-    (r"\bOz is running\b", "Use 'An Oz agent is running' or 'A run is in progress'"),
+    (r"\bOzzies\b", "Use 'agents', 'instances', or 'subagents'"),
+    (r"\bDeploying an Oz\b", "Use 'Deploying an agent'"),
+    (r"\bThe Oz Agent\b", "Use 'the agent' or 'the Warp Agent'"),
+    (r"\bOz is running\b", "Use 'An agent is running' or 'A run is in progress'"),
     (r"\bAI agents?\b", "Use 'agents' (the 'AI' prefix is redundant)"),
+    (r"\bOz cloud agents?\b", "Use 'cloud agent(s)'"),
+    (r"\bOz subagents?\b", "Use 'subagent(s)'"),
+    (r"\bOz conversation\b", "Use 'conversation'"),
+    (r"\bOz agents?\b", "Use 'agent(s)' or 'Warp Agent(s)' depending on context"),
 ]
 
 # Action verbs that precede UI elements (should be bold, not backtick)

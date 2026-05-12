@@ -2,7 +2,7 @@
 // Standalone Scalar API reference — not embedded in Starlight.
 // Accessible at docs.warp.dev/api
 // Spec lives at `developers/agent-api-openapi.yaml`, synced from the
-// upstream Oz Agent API source. Re-sync that file when the API changes
+// upstream Agent API source. Re-sync that file when the API changes
 // and this page picks it up at the next build.
 //
 // Note on `set:html={specJson}` below: the injected value is JSON.stringify()
@@ -27,24 +27,24 @@ const specJson = JSON.stringify(specObject);
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Oz Agent API Reference | Warp</title>
-    <meta name="description" content="Interactive API reference for the Oz Agent API. Create and manage cloud agent runs, schedules, and more." />
+    <title>Agent API Reference | Warp</title>
+    <meta name="description" content="Interactive API reference for the Agent API. Create and manage cloud agent runs, schedules, and more." />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://docs.warp.dev/api/" />
     <!-- Open Graph -->
-    <meta property="og:title" content="Oz Agent API Reference | Warp" />
-    <meta property="og:description" content="Interactive API reference for the Oz Agent API. Create and manage cloud agent runs, schedules, and more." />
+    <meta property="og:title" content="Agent API Reference | Warp" />
+    <meta property="og:description" content="Interactive API reference for the Agent API. Create and manage cloud agent runs, schedules, and more." />
     <meta property="og:url" content="https://docs.warp.dev/api/" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Warp Docs" />
     <meta property="og:image" content="https://docs.warp.dev/assets/og/api.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Oz Agent API Reference — Warp" />
+    <meta property="og:image:alt" content="Agent API Reference — Warp" />
     <!-- Twitter / X card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Oz Agent API Reference | Warp" />
-    <meta name="twitter:description" content="Interactive API reference for the Oz Agent API. Create and manage cloud agent runs, schedules, and more." />
+    <meta name="twitter:title" content="Agent API Reference | Warp" />
+    <meta name="twitter:description" content="Interactive API reference for the Agent API. Create and manage cloud agent runs, schedules, and more." />
     <meta name="twitter:image" content="https://docs.warp.dev/assets/og/api.png" />
     <link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml" />
     {/* PushFeedback CSS + JS are NOT loaded here — the lazy loader inside
@@ -206,8 +206,8 @@ const specJson = JSON.stringify(specObject);
         // doesn't show a fake "interactive" affordance (per scalar/scalar#5079).
         defaultOpenAllTags: true,
         metaData: {
-          title: 'Oz Agent API Reference',
-          description: 'Interactive API reference for the Oz Agent API.',
+          title: 'Agent API Reference',
+          description: 'Interactive API reference for the Agent API.',
         },
         // ---------------------------------------------------------------
         // Scalar consumes `customCss` as a runtime string, so we can't
