@@ -130,3 +130,22 @@ The following scenarios do **not** use Cloud Agent Credits:
 
 * **Local agent runs** — Using `oz agent run` on your local machine
 * **Self-hosted compute** — Using `oz agent run` on GitHub Actions, CI/CD pipelines, or other self-hosted infrastructure
+
+### Service account and team-scoped API key billing
+
+When a request can't be attributed to an individual user — for example, one driven by a service account or a team-scoped API key — Warp bills the usage to the team admin's account.
+
+#### Self-serve plans
+
+On Build, Max, and Business plans, the billing waterfall for service-account and team-scoped API key requests is:
+
+1. Warp first consumes the admin's included monthly credits.
+2. After those are used, Warp draws from the admin's Reload credits.
+3. If auto-reload is enabled for the team, service-account usage can trigger auto-reload for the admin's Reload pool, subject to the team-wide spend cap.
+4. If the admin has no available credits and auto-reload is off, the request is blocked.
+
+For details on auto-reload, manual purchases, and the team-wide spend cap, see [Add-on Credits](/support-and-community/plans-and-billing/add-on-credits/).
+
+#### Enterprise plans
+
+On Enterprise plans, service-account and team-scoped API key usage draws from the team's Enterprise credit pool. Overage and pay-as-you-go behavior follows the terms of your Enterprise contract.
