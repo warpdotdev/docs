@@ -357,6 +357,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						'agent-platform/cloud-agents/secrets',
 						{ slug: 'agent-platform/cloud-agents/mcp', label: 'MCP servers' },
 						{ slug: 'agent-platform/cloud-agents/deployment-patterns', label: 'Deployment patterns' },
+						{ slug: 'agent-platform/cloud-agents/warp-hosting', label: 'Warp-hosted agents' },
 						{
 							label: 'Self-hosting',
 							collapsed: true,
