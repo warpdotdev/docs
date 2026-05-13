@@ -167,6 +167,8 @@ If you regularly run through your plan's monthly credit allowance, you have a fe
 * **Bring your own API key (BYOK)** — Point Warp at your own OpenAI, Anthropic, or Google API key. Requests routed through BYOK don't consume Warp credits — you're billed directly by the model provider. See [Bring Your Own API Key](/support-and-community/plans-and-billing/bring-your-own-api-key/).
 * **Use a custom inference endpoint** — Route requests through any OpenAI-compatible endpoint (OpenRouter, LiteLLM, z.ai, an internal gateway, etc.) without spending Warp credits. See [Custom Inference Endpoint](/support-and-community/plans-and-billing/custom-inference-endpoint/).
 
+*BYOK and custom inference endpoint availability is subject to organization size — see [Can I bring my own API key?](#can-i-bring-my-own-api-key) for details.*
+
 For organization-scale needs (cloud-provider managed inference, granular admin controls, or higher seat counts), Enterprise plans include [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/).
 
 ### How does auto-reload work for teams?
@@ -232,11 +234,15 @@ Yes. On Free, Build, Max, Business, and Enterprise plans, you can configure your
 
 See [Bring Your Own API Key](/support-and-community/plans-and-billing/bring-your-own-api-key/) for setup steps, the list of supported providers and models, and the differences between BYOK, custom inference endpoints, and BYOLLM.
 
+BYOK and custom inference endpoint support are available for individual users and organizations with 10 or fewer employees, subject to Warp's Terms of Service. Companies or organizations with more than 10 employees require a Warp Business or Enterprise plan to use these features.
+
 ### Does Warp support custom inference endpoints?
 
 Yes. In addition to BYOK, Warp can route requests to any OpenAI-compatible inference endpoint — including OpenRouter, LiteLLM, z.ai, and internal gateways your team already runs. Custom inference endpoint requests also don't consume Warp credits.
 
 Custom inference endpoints are available on Free, Build, Max, Business, and Enterprise. See [Custom Inference Endpoint](/support-and-community/plans-and-billing/custom-inference-endpoint/) for configuration steps, billing behavior, and how custom inference endpoints differ from BYOK and from Enterprise's [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/) managed inference.
+
+BYOK and custom inference endpoint support are available for individual users and organizations with 10 or fewer employees, subject to Warp's Terms of Service. Companies or organizations with more than 10 employees require a Warp Business or Enterprise plan to use these features.
 
 ### What payment options are available for Warp's self-service plans?
 
