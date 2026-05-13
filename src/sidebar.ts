@@ -502,6 +502,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						'support-and-community/plans-and-billing/credits',
 						'support-and-community/plans-and-billing/add-on-credits',
 						'support-and-community/plans-and-billing/bring-your-own-api-key',
+						'support-and-community/plans-and-billing/custom-inference-endpoint',
 						'support-and-community/plans-and-billing/overages-legacy',
 						'support-and-community/plans-and-billing/pricing-faqs',
 					],
