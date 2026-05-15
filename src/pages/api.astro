@@ -159,6 +159,17 @@ const specJson = JSON.stringify(specObject);
       body {
         background-color: inherit;
       }
+      .api-visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
     </style>
   </head>
   <body>
@@ -179,6 +190,7 @@ const specJson = JSON.stringify(specObject);
       })();
     </script>
     <WarpTopbar crumb="API Reference" />
+    <h1 class="api-visually-hidden">Warp & Oz HTTP API reference</h1>
     <script
       is:inline
       id="api-reference"
@@ -339,7 +351,7 @@ const specJson = JSON.stringify(specObject);
         }
       })();
     </script>
-    <script is:inline src="https://cdn.jsdelivr.net/npm/@scalar/api-reference@1.52.2" integrity="sha384-lQKcRGSJRRAHGfUX6ajRHvcWdCi8lgITkVTftrhsN5rVkWmsjVaW0encVdMEhGhi" crossorigin="anonymous"></script>
+    <script is:inline src="https://cdn.jsdelivr.net/npm/@scalar/api-reference@1.57.1" crossorigin="anonymous"></script>
     <FeedbackButtons
       question="Was this helpful?"
       class="api-feedback-widget"
