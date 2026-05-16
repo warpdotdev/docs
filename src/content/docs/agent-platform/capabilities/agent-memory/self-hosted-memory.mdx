@@ -28,31 +28,22 @@ The memory interface is designed to be scoping-agnostic and pluggable. A self-ho
 The pieces that stay on the Warp Agent platform during the research preview:
 
 * **The memory store identity and access model** - User and team ownership, agent attachments, access levels, and instructions are managed centrally so the same agent identities can run across self-hosted and Warp-managed stores.
-* **The consolidation pipeline** - Extraction and planning run on the agent platform and call your backend through the standard store interface to read existing memories and write new versions.
+* **The consolidation pipeline** - Consolidation runs on the agent platform and calls your backend through the standard store interface to read existing memories and write new versions.
 * **Retrieval at session start** - Oz queries your backend through the same interface to gather relevant memories before each run.
 
 The pieces that move into your infrastructure with self-hosting:
 
 * **Memory metadata storage** - Stable identifiers, current-version pointers, and source attribution for each memory.
 * **Immutable version storage** - The append-only history of each memory's content versions.
-* **Search index** - The hybrid semantic and keyword index over the active version of each memory, plus the embedding pipeline that populates it.
+* **Search index** - The hybrid semantic and keyword index over the active version of each memory.
 
 ## Planned interface
 
-Self-hosted backends implement the same memory-store contract used by the Warp-managed backend. The interface is shaped as request and response method pairs so it can evolve without breaking adapters:
-
-* **Create memory** - Insert a new memory record and its first immutable version.
-* **Get memories** - Look up one or more memories by UID and return the active version's content inline.
-* **Search memories** - Hybrid semantic and keyword search over active versions, returning the top results.
-* **Delete memories** - Tombstone a memory so it stops appearing in lists and search results.
-* **Get memory at version** - Read a specific historical version of a memory.
-* **List versions** - Return the version history for a memory.
-
-The interface is intentionally narrow. Authorization, ownership, and attachment policy stay on the Warp Agent platform; the backend handles storage and indexing only.
+Self-hosted backends implement the same memory-store contract used by the Warp-managed backend. At a high level, the contract covers memory CRUD, search over the active version of each memory, and reads against version history. Authorization, ownership, and attachment policy stay on the Warp Agent platform; the backend handles storage and indexing only.
 
 ## Reference adapter
 
-The Warp-managed implementation is the reference adapter for the interface. It combines a relational store for memory metadata and immutable versions with a hybrid semantic and keyword search index over the active version of each memory, plus an embedding pipeline to populate the index.
+The Warp-managed implementation is the reference adapter for the interface. It combines a relational store for memory metadata and immutable versions with a hybrid semantic and keyword search index over the active version of each memory.
 
 A self-hosted adapter substitutes equivalents for each piece — your own database, your own vector index, your own embedding provider — while preserving the same contract.
 

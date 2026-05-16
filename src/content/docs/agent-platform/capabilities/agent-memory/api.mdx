@@ -28,7 +28,7 @@ The research-preview surface covers:
 
 * **Memory stores** - Create user-owned stores, list any stores you can access, get a single store by UID, update a store's description, and delete a store. Team-owned store creation through the API is not available in the research preview — create team-owned stores in the Warp app.
 * **Memories** - List memories in a store, create a memory (writes its first immutable version), update a memory (writes a new version and rotates the active pointer), tombstone a memory, and list a memory's version history.
-* **Agent attachments** - Manage attachments through the existing agent-identity endpoints. Pass a memory-stores array on create or update, or attach a store to a single run by including it in the run config. Each store also exposes a "list agents" endpoint so you can audit who has it attached before changing or deleting it.
+* **Agent attachments** - Manage attachments through the existing agent-identity endpoints. Set memory-store attachments when you create or update the agent identity, or attach a store to a single run by including it in the run config. Each store also exposes a "list agents" endpoint so you can audit who has it attached before changing or deleting it.
 
 The exact paths, parameters, and response shapes are subject to change. [Contact us](https://warp.dev/contact-sales) to join the design partner program and we'll share the current request and response schemas plus give you a heads-up on breaking changes.
 
@@ -41,17 +41,17 @@ A few rules apply across every endpoint that accepts memory-store attachments:
 * **Identity-level vs. run-level** - Stores attached to a named agent identity persist across runs. Stores attached to a single run augment the identity's list for that execution. If the same store UID appears at both levels, the run-level entry wins for that run.
 * **User-owned stores can't be durably attached to team agents** - You can pass a user-owned store as a one-off run attachment, but you can't permanently bind it to a named agent identity.
 
-## Validation errors
+## Common rejection reasons
 
-Common `400 invalid_request` cases across the surface:
+The surface rejects an attachment request when:
 
-* **Empty `instructions`** - The field is required and must be non-empty on every attachment entry.
-* **Unknown access value** - Must be exactly `read_only` or `read_write`.
-* **Duplicate UID** - Each memory store UID may appear at most once per request.
-* **Inaccessible store** - The caller must own the store or be a member of the owning team.
-* **User-owned store on a team agent** - Use a run-level attachment instead.
+* **`instructions` is empty** - The field is required and must be non-empty on every attachment entry.
+* **`access` is unknown** - Must be exactly `read_only` or `read_write`.
+* **A UID appears twice** - Each memory store UID may appear at most once per request.
+* **The store is inaccessible** - The caller must own the store or be a member of the owning team.
+* **A user-owned store is attached to a team agent identity** - Use a run-level attachment instead.
 
-Deleting a store returns `409 Conflict` if any named agent identities still have it attached. The response body lists the blocking agent names so you can detach the store from each agent and retry.
+Deleting a store is rejected when named agent identities still have it attached. The response lists the blocking agent names so you can detach the store from each agent and retry.
 
 ## Status
 

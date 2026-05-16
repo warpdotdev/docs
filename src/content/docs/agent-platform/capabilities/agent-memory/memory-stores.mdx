@@ -65,15 +65,7 @@ Each attachment specifies:
 * **access** - Read-write (the agent can create, update, and tombstone memories) or read-only (the agent can only read).
 * **instructions** - A non-empty string describing the store's purpose for this agent. Required.
 
-Configure attachments through the agent identity create or update endpoints. See the [Agent Memory API](/agent-platform/capabilities/agent-memory/api/) for the request shape.
-
-### Update semantics
-
-The memory-stores field on an agent update follows the same pattern as `secrets` and `skills`:
-
-* **Omitted or `null`** - Leave the existing attachments unchanged.
-* **Empty array `[]`** - Clear all attachments.
-* **Non-empty array** - Replace the full list wholesale, in the order provided.
+Configure attachments through the agent identity create or update endpoints — attachments can be added, replaced wholesale, or cleared. See the [Agent Memory API](/agent-platform/capabilities/agent-memory/api/) for the request shape.
 
 ### Run-level attachments
 
@@ -96,11 +88,11 @@ Memory stores compose with team ownership and agent attachments to support a few
 
 ## Deletion and lifecycle
 
-Deleting a store soft-deletes the store and its memories. Permanent deletion runs in dependency order: versions, memory metadata, agent attachments, then the store itself.
+Deleting a store soft-deletes the store and its memories; both are eventually permanently deleted.
 
 A few guardrails:
 
-* **Active attachments block deletion** - Deleting a store returns `409 Conflict` if any named agent identities have the store attached. The response lists the blocking agents so you know what to detach. Detach the store from those agents and retry.
+* **Active attachments block deletion** - You can't delete a store that named agent identities are still attached to. The response lists the blocking agents — detach the store from those agents and retry.
 * **In-progress runs are unaffected** - Each run snapshots its memory-store attachments at task creation time, so deleting a store doesn't disturb runs that are already executing.
 * **Soft-deletes are reversible** - Until permanent deletion, tombstoned memories and soft-deleted stores can be restored. After permanent deletion, the data is gone.
 

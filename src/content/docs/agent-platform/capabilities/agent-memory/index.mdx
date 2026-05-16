@@ -17,9 +17,9 @@ The goal is to fix the cold-start problem. Every agent run today begins with no 
 ## Key features
 
 * **Cross-harness persistence** - Memories created during a Claude Code run are retrievable in a later Codex, Gemini, or Warp Agent run, because storage lives on Oz rather than inside a single harness.
-* **Automatic consolidation** - After a conversation ends, an extraction pipeline produces durable facts, learnings, and outcomes from the transcript and writes them to the memory store, deduping and resolving contradictions against existing memories.
+* **Automatic consolidation** - After a conversation ends, Warp summarizes the transcript into a small set of durable memories, deduping and resolving contradictions against the store.
 * **Named memory stores** - Group memories by purpose (`deploys`, `team-conventions`, `incident-playbooks`) and attach the right stores to the right agents with per-store instructions.
-* **Hybrid retrieval** - The active version of each memory is indexed for hybrid semantic and keyword search and reranked, so retrieval surfaces the most relevant memories for the current task.
+* **Hybrid retrieval** - Retrieval combines semantic and keyword search over the active version of each memory and surfaces the most relevant memories for the current task.
 * **Versioned content** - Each memory keeps an immutable version history; updates create a new version and rotate the active pointer.
 * **Compounding institutional knowledge** - Every run that writes to a shared store contributes to the team's body of knowledge instead of evaporating when the conversation closes.
 
@@ -33,10 +33,7 @@ A **memory store** is a named, described collection of memories with an owner �
 
 ### Consolidation
 
-Consolidation is the pipeline that turns raw conversations into durable memories. It runs in two stages:
-
-1. **Extraction** - A dedicated LLM reads the finished conversation and emits a small number of candidate items in three buckets: facts, learnings, and outcomes. Most routine conversations produce zero items — extraction is intentionally sparse.
-2. **Planning** - A second LLM compares the candidates against existing memories in the accessible stores. Equivalent items are skipped, refinements become updates, new knowledge becomes creates, and contradictions become deletes.
+Consolidation is the step that turns raw conversations into durable memories. Warp summarizes a finished conversation into a small set of candidate memories and reconciles them against the existing memories in the accessible stores: equivalent items are skipped, refinements become updates, new knowledge becomes new memories, and contradictions are resolved. Consolidation is intentionally sparse — most routine conversations produce zero memories.
 
 Consolidation runs as a background job over recently idle conversations and on demand via the `/consolidate` slash command in a local agent conversation. The result is a small, curated set of memories rather than a verbose transcript dump.
 
@@ -47,7 +44,7 @@ When a cloud agent starts a run, Oz searches the user's memory store for the top
 Retrieval today is intentionally narrow:
 
 * **User-owned memory store** - Personal memories follow the user across harnesses and runs.
-* **Top results, reranked** - Search uses hybrid semantic and keyword retrieval with a reranker.
+* **Top results** - Search uses hybrid semantic and keyword retrieval over the active version of each memory.
 
 :::note
 Retrieval at session start currently surfaces memories from the user's own personal store. Team-owned stores are reachable through the API and writable by consolidation, but session-start retrieval for shared stores is still in progress.
@@ -59,7 +56,7 @@ Today's research preview includes:
 
 * **Memory store management** - Create user-owned stores, then list, update, and delete any store you can access via the REST API.
 * **Memory CRUD with version history** - Create, list, update (new version), and tombstone memories. List versions of a memory.
-* **Automatic consolidation** - Background extraction and planning over recently idle conversations, plus the `/consolidate` slash command for on-demand consolidation in a local conversation.
+* **Automatic consolidation** - Background consolidation over recently idle conversations, plus the `/consolidate` slash command for on-demand consolidation in a local conversation.
 * **Cross-harness retrieval for user-owned memory** - Session-start injection of relevant memories for Claude Code, Codex, Gemini, and the Warp Agent.
 * **Agent attachments** - Attach memory stores to named agent identities with per-store access and instructions.
 * **Run-level overrides** - Attach a memory store to a single run, overriding the named identity's configuration for that store on that run.
