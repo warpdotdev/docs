@@ -33,7 +33,7 @@ Memory stores have two ownership types:
 Beyond the owner's direct access, agents get access to a memory store through an **attachment**. Attaching a store to an agent grants the agent the access level you choose (read-only or read-write) and provides per-attachment instructions that tell the agent when and how to use the store.
 
 :::note
-Only team-owned stores can be durably attached to a named agent identity. User-owned stores are valid as one-off attachments on a single run, but they can't be permanently bound to a team agent.
+Only team-owned stores can be durably attached to an agent identity. User-owned stores are valid as one-off attachments on a single run, but they can't be permanently bound to a team agent.
 :::
 
 ## Naming and describing stores
@@ -55,9 +55,9 @@ A store on its own does nothing. To put it to work, attach it to one or more age
 * **Which stores can this agent see?** - The union of stores attached to the agent identity and stores attached to the specific run.
 * **How should the agent use each store?** - The per-attachment instructions string tells the agent when to read, when to write, and what the store is for.
 
-### Named-identity attachments
+### Agent-identity attachments
 
-For agents you run repeatedly (a deploy bot, a PR reviewer, an incident triage agent), attach stores directly to the named agent identity. The agent inherits the attachment on every run.
+For agents you run repeatedly (a deploy bot, a PR reviewer, an incident triage agent), attach stores directly to the agent identity. The agent inherits the attachment on every run.
 
 Each attachment specifies:
 
@@ -69,13 +69,13 @@ Configure attachments through the agent identity create or update endpoints — 
 
 ### Run-level attachments
 
-For one-off runs, pass memory-store attachments in the run's `config` to add stores for a single execution. Run-level attachments are additive: they augment the named identity's stores rather than replacing them.
+For one-off runs, pass memory-store attachments in the run's `config` to add stores for a single execution. Run-level attachments are additive: they augment the agent identity's stores rather than replacing them.
 
 If the same store UID appears at both the identity level and the run level, the run-level entry wins — its access and instructions override the identity's values for that store on that run. Other identity-level stores are included unchanged.
 
 ### Inspecting attachments
 
-Each memory store exposes a "list agents" endpoint that returns every named agent identity attached to the store, along with each agent's access level and instructions. Use this to audit who's using a store before you change it. See [Agent Memory API](/agent-platform/capabilities/agent-memory/api/) for details.
+Each memory store exposes a "list agents" endpoint that returns every agent identity attached to the store, along with each agent's access level and instructions. Use this to audit who's using a store before you change it. See [Agent Memory API](/agent-platform/capabilities/agent-memory/api/) for details.
 
 ## Sharing patterns
 
@@ -83,7 +83,7 @@ Memory stores compose with team ownership and agent attachments to support a few
 
 * **Personal memory** - A user-owned store, automatically searched at session start across harnesses. Good for personal coding preferences or running notes.
 * **Team knowledge** - A team-owned store attached to every agent the team runs. Good for conventions, runbooks, and lessons learned that should outlive any single agent.
-* **Per-agent specialization** - A team-owned store attached to one named agent identity with focused instructions ("record every deploy outcome here"). Good for narrow, durable knowledge collected by a long-running automation.
+* **Per-agent specialization** - A team-owned store attached to one agent identity with focused instructions ("record every deploy outcome here"). Good for narrow, durable knowledge collected by a long-running automation.
 * **Ad-hoc augmentation** - A user-owned or team-owned store attached only to the current run. Good for experiments and one-off context boosts.
 
 ## Deletion and lifecycle
@@ -92,7 +92,7 @@ Deleting a store soft-deletes the store and its memories; both are eventually pe
 
 A few guardrails:
 
-* **Active attachments block deletion** - You can't delete a store that named agent identities are still attached to. The response lists the blocking agents — detach the store from those agents and retry.
+* **Active attachments block deletion** - You can't delete a store that agent identities are still attached to. The response lists the blocking agents — detach the store from those agents and retry.
 * **In-progress runs are unaffected** - Each run snapshots its memory-store attachments at task creation time, so deleting a store doesn't disturb runs that are already executing.
 * **Soft-deletes are reversible** - Until permanent deletion, tombstoned memories and soft-deleted stores can be restored. After permanent deletion, the data is gone.
 

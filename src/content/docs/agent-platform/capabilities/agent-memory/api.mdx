@@ -38,8 +38,8 @@ A few rules apply across every endpoint that accepts memory-store attachments:
 
 * **Per-attachment instructions are required** - Every attachment entry must include a non-empty instructions string describing the store's purpose for that agent.
 * **Access is read-only or read-write** - Read-only attachments let the agent retrieve memories; read-write attachments also let it create, update, and tombstone memories.
-* **Identity-level vs. run-level** - Stores attached to a named agent identity persist across runs. Stores attached to a single run augment the identity's list for that execution. If the same store UID appears at both levels, the run-level entry wins for that run.
-* **User-owned stores can't be durably attached to team agents** - You can pass a user-owned store as a one-off run attachment, but you can't permanently bind it to a named agent identity.
+* **Identity-level vs. run-level** - Stores attached to an agent identity persist across runs. Stores attached to a single run augment the identity's list for that execution. If the same store UID appears at both levels, the run-level entry wins for that run.
+* **User-owned stores can't be durably attached to team agents** - You can pass a user-owned store as a one-off run attachment, but you can't permanently bind it to an agent identity.
 
 ## Common rejection reasons
 
@@ -51,7 +51,7 @@ The surface rejects an attachment request when:
 * **The store is inaccessible** - The caller must own the store or be a member of the owning team.
 * **A user-owned store is attached to a team agent identity** - Use a run-level attachment instead.
 
-Deleting a store is rejected when named agent identities still have it attached. The response lists the blocking agent names so you can detach the store from each agent and retry.
+Deleting a store is rejected when agent identities still have it attached. The response lists the blocking agent names so you can detach the store from each agent and retry.
 
 ## Status
 
