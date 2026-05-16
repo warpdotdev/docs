@@ -1,83 +1,64 @@
 ---
 title: Handoff from cloud to cloud
 description: >-
-  Send a follow-up to a cloud run whose sandbox has shut down. A new execution
-  starts on the same run with the prior execution's workspace state restored.
+  Send a follow-up to a finished cloud run. The run continues with the prior
+  workspace state restored, so the agent picks up where it left off.
 sidebar:
   label: "Cloud to cloud"
 ---
 
-Hand off a cloud agent run to a fresh cloud execution when the original sandbox has shut down but you still want to push the same unit of work further. A new execution starts on the same run, reuses the same agent conversation, and rehydrates the prior execution's workspace state — so the new agent picks up where the old one left off, not from scratch.
+Hand off a cloud agent run to a fresh cloud session when the original session has ended but you still want to push the same unit of work further. The run continues in the same conversation, with the prior session's workspace state restored, so the agent picks up where it left off instead of starting fresh.
 
 This direction is the right move when:
 
-* A cloud agent finished and you want to send a follow-up after the sandbox has already torn down.
+* A cloud agent finished and you want to send a follow-up after the session has ended.
 * A scheduled or integration-triggered run completed and you want to keep iterating without losing context.
-* You want to continue an ambient agent task across multiple executions while preserving the run as a single unit of work in the [management view](/agent-platform/cloud-agents/managing-cloud-agents/).
+* You want to continue an ambient agent task while preserving the run as a single unit of work in the [management view](/agent-platform/cloud-agents/managing-cloud-agents/).
 
-## How follow-ups route
+## What carries over
 
-When you submit a follow-up to a cloud run, the routing depends on the run's current state:
+When you send a follow-up to a run whose session has ended, the run continues with:
 
-* **The run is still queued and hasn't started.** Your message is added to the prompt the run will pick up when it starts.
-* **The original sandbox is still alive.** Your message is delivered to the running agent in the existing execution.
-* **The original sandbox has ended.** A new execution starts on the same run and rehydrates from the prior execution's workspace snapshot. This is the cloud-to-cloud handoff path.
+* **The same conversation** - The follow-up is appended to the same conversation. From your perspective, the run is one continuous conversation across sessions.
+* **The prior workspace state** - The prior session's repository changes (tracked and untracked) are restored before the agent answers your follow-up.
+* **Stable run identity** - The run's ID, task, creator, environment, schedule trigger, and integration source are preserved. Compute usage is recorded per session but rolls up to the same run.
 
-The user-facing experience is the same — you submit a follow-up and the run continues — but the third case is where handoff happens.
-
-## What the new execution receives
-
-When a new execution starts on an existing run after the prior sandbox has ended, it inherits:
-
-* **The same agent conversation** - The new execution writes to the same agent conversation as the prior execution. From your perspective, the run is one continuous conversation across multiple sandboxes.
-* **The prior workspace state** - The prior execution's repository changes (tracked and untracked) are restored in the new sandbox before the agent answers your follow-up.
-* **Stable run identity** - The run's ID, task, creator, environment, schedule trigger, and integration source are preserved. Compute usage is recorded per execution but rolls up to the same run.
-
-If applying any change fails in the new sandbox, the agent reports what couldn't be applied and proceeds with what it could before continuing to your follow-up.
+If applying any change fails, the agent reports what couldn't be applied and proceeds with what it could before continuing to your follow-up.
 
 ## Prerequisites
 
 * **An ended cloud agent run** - The run must be in a terminal state — for example, succeeded, failed, blocked, or canceled — and have an associated agent conversation. Very old runs that predate the agent conversation model can't be continued via handoff.
-* **A snapshot from the prior execution** - Cloud agent runs capture a workspace snapshot at the end of each execution. If the prior execution couldn't capture one (for example, due to a transient storage error), the new execution still proceeds — it just starts without rehydrated workspace state.
+* **A snapshot from the prior session** - Cloud agent runs capture a workspace snapshot at the end of each session. If the prior session couldn't capture one (for example, due to a transient storage error), the run still continues — it just starts without restored workspace state.
 * **Access to the run** - You need permission to submit follow-ups for the run. For team runs, this is typically any team member.
 
 ## Sending a follow-up
 
-Cloud-to-cloud handoff is automatic. You don't choose between "send a follow-up" and "hand off" — you send a follow-up, and the system handles the routing.
+You don't take a separate "hand off" action — you send a follow-up, and the run continues. The handoff happens automatically when the original session has ended.
 
 ### From the Warp app
 
 1. **Open the ended cloud run.** Find it in the [management view](/agent-platform/cloud-agents/managing-cloud-agents/) or in the conversation panel.
 2. **Send your follow-up.** Type the next message into the conversation's input and submit it.
-3. **Watch the new execution.** A new execution appears in the run's history with its own start time. The conversation continues in the same thread, and the new sandbox's first actions are the workspace rehydration.
+
+The run picks up where it left off, with workspace state restored.
 
 ### From the Oz web app
 
 1. **Open the run.** In the [Oz web app](/agent-platform/cloud-agents/oz-web-app/) at [oz.warp.dev](https://oz.warp.dev), open the run from the **Runs** tab.
-2. **Send the follow-up.** Use the in-page input to send your next message. The same routing rules apply.
+2. **Send the follow-up.** Use the in-page input to send your next message.
 
 ### From an integration
 
-When a Slack-triggered or Linear-triggered cloud run ends, follow-ups posted from the integration are routed the same way. If the sandbox is gone, a new execution starts and rehydrates from the prior snapshot. See the [Slack integration](/agent-platform/cloud-agents/integrations/slack/) and [Linear integration](/agent-platform/cloud-agents/integrations/linear/) for the integration-specific follow-up surfaces.
+When a Slack-triggered or Linear-triggered cloud run ends, follow-ups posted from the integration trigger the same handoff. See the [Slack integration](/agent-platform/cloud-agents/integrations/slack/) and [Linear integration](/agent-platform/cloud-agents/integrations/linear/) for the integration-specific follow-up surfaces.
 
-## Inspecting handoff executions
+## Inspecting a run that's been handed off
 
-The [management view](/agent-platform/cloud-agents/managing-cloud-agents/) shows one row per run, even when the run spans multiple executions. To inspect each execution:
-
-1. **Open the run detail.** Click the run row to open the conversation transcript.
-2. **Review the execution timeline.** The run detail surfaces each execution separately, including which execution wrote each message and how long each execution ran.
-3. **Review the rehydration actions.** The first actions in each new execution are the workspace restore. If any change couldn't be applied, the agent's report appears in that execution's transcript.
+The [management view](/agent-platform/cloud-agents/managing-cloud-agents/) shows one row per run, even when the run spans multiple sessions. Click into the run to see the full transcript and a timeline of each session, including which session wrote each message and how long each one ran.
 
 ## Troubleshooting
 
-**My follow-up didn't trigger a new execution — it just appended to the prompt.**
-The original run hasn't started yet. Your message was added to the prompt the run will pick up when it starts. This isn't a handoff — the run hasn't ended yet, so there's nothing to hand off from.
-
-**My follow-up reached the live session instead of creating a new execution.**
-The original sandbox is still alive. Your message was delivered to the running agent in the existing execution. This is the cheapest path and avoids starting a fresh sandbox; the agent handles the follow-up inline.
-
-**The new execution started but no workspace state was restored.**
-The prior execution didn't capture a snapshot. This is rare but possible — snapshot capture is best-effort. The new execution still proceeds with the same agent conversation, so the agent has the full transcript context even without the workspace state.
+**The run continued but no workspace state was restored.**
+The prior session didn't capture a snapshot. This is rare but possible — snapshot capture is best-effort. The run still continues with the same conversation, so the agent has the full transcript context even without the workspace state.
 
 **The run is in a terminal state with no conversation and follow-ups are rejected.**
 Very old runs predate the agent conversation model and can't be continued via handoff. Start a new cloud agent run with the prompt you want and reference the prior run in the prompt if needed.
