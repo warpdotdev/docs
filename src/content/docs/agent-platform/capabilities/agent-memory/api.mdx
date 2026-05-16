@@ -1,14 +1,14 @@
 ---
 title: Agent Memory API
 description: >-
-  REST endpoints for creating memory stores, managing memories and their
-  version history, and attaching stores to agents. Research preview surface.
+  REST surface for memory stores, memories, and agent attachments — currently
+  a research-preview API for design partners.
 ---
 :::caution
-The Agent Memory API is part of the [Agent Memory](/agent-platform/capabilities/agent-memory/) research preview. The endpoints documented here are reachable today but are not yet part of the published, stable public API. Paths, schemas, and authentication requirements may change before general availability.
+The Agent Memory API is part of the [Agent Memory](/agent-platform/capabilities/agent-memory/) research preview. The endpoints are reachable today but are not yet part of the stable public API. Paths, schemas, and authentication requirements may change before general availability.
 :::
 
-The Agent Memory API exposes REST endpoints for managing memory stores, the memories inside them, and the agents attached to each store. All endpoints live under `/api/v1` on the Warp API host and authenticate with a Warp API key.
+The Agent Memory REST surface covers three things: memory stores, the memories inside them, and the agents attached to each store. All endpoints live under `/api/v1` on the Warp API host and authenticate with a Warp API key.
 
 For a feature overview, see [Agent Memory](/agent-platform/capabilities/agent-memory/). For the scoping and sharing model, see [Memory stores](/agent-platform/capabilities/agent-memory/memory-stores/).
 
@@ -17,205 +17,45 @@ For a feature overview, see [Agent Memory](/agent-platform/capabilities/agent-me
 Every endpoint requires a Warp API key passed as a bearer token:
 
 ```bash
-curl -H "Authorization: Bearer $WARP_API_KEY" https://app.warp.dev/api/v1/memory_stores
+curl -H "Authorization: Bearer $WARP_API_KEY" https://app.warp.dev/api/v1/...
 ```
 
 To create a key, see the [API keys reference](/reference/cli/api-keys/).
 
-## Memory store endpoints
+## What's available today
 
-Memory stores are the named, owner-scoped collections that hold memories. See [Memory stores](/agent-platform/capabilities/agent-memory/memory-stores/) for the conceptual model.
+The research-preview surface covers:
 
-### Create a memory store
+* **Memory stores** - Create user-owned stores, list any stores you can access, get a single store by UID, update a store's description, and delete a store. Team-owned store creation through the API is not available in the research preview — create team-owned stores in the Warp app.
+* **Memories** - List memories in a store, create a memory (writes its first immutable version), update a memory (writes a new version and rotates the active pointer), tombstone a memory, and list a memory's version history.
+* **Agent attachments** - Manage attachments through the existing agent-identity endpoints. Pass a memory-stores array on create or update, or attach a store to a single run by including it in the run config. Each store also exposes a "list agents" endpoint so you can audit who has it attached before changing or deleting it.
 
-```
-POST /api/v1/memory_stores
-```
+The exact paths, parameters, and response shapes are subject to change. [Contact us](https://warp.dev/contact-sales) to join the design partner program and we'll share the current request and response schemas plus give you a heads-up on breaking changes.
 
-Create a user-owned memory store. Team-owned store creation through the API is not available in the research preview.
+## Attachment behavior
 
-Request body:
+A few rules apply across every endpoint that accepts memory-store attachments:
 
-* **owner_type** - Required. `user` is the only supported value.
-* **description** - Optional. Human-readable description of what the store is for.
-
-Returns the new store's `uid`, owner metadata, and timestamps.
-
-### List memory stores
-
-```
-GET /api/v1/memory_stores
-```
-
-Returns every memory store the authenticated user can access — both user-owned stores and team-owned stores for teams the user belongs to. The response is `{ "memory_stores": [...] }`.
-
-### Get a memory store
-
-```
-GET /api/v1/memory_stores/{uid}
-```
-
-Returns the store with the given UID. Returns `404` if the store does not exist or the caller does not have access.
-
-### Update a memory store
-
-```
-PUT /api/v1/memory_stores/{uid}
-```
-
-Update mutable fields on a store. The only mutable field today is `description`.
-
-### Delete a memory store
-
-```
-DELETE /api/v1/memory_stores/{uid}
-```
-
-Soft-deletes the store and its memories. Returns `204` on success.
-
-Returns `409 Conflict` if the store has active agent identity attachments. The response body lists the blocking agent names — detach the store from each agent before retrying. See [Memory stores: Deletion and lifecycle](/agent-platform/capabilities/agent-memory/memory-stores/#deletion-and-lifecycle).
-
-### List agents attached to a memory store
-
-```
-GET /api/v1/memory_stores/{uid}/agents
-```
-
-Returns every named agent identity that has this store attached. Each entry includes the agent's `uid`, `name`, `access` (`read_write` or `read_only`), and per-attachment `instructions`. Use this to audit attachments before changing or deleting a store.
-
-## Memory endpoints
-
-Memories live inside a memory store. Each memory has stable metadata and an append-only history of immutable content versions.
-
-### List memories in a store
-
-```
-GET /api/v1/memory_stores/{uid}/memories
-```
-
-Returns all non-tombstoned memories in the store. Each entry includes the memory's `uid`, the current `content`, the active `version_id`, source metadata, and timestamps.
-
-### Create a memory
-
-```
-POST /api/v1/memory_stores/{uid}/memories
-```
-
-Create a new memory record and its first immutable version. The request body accepts:
-
-* **content** - Required. The memory's content.
-* **version** - Optional. A free-form version label. Omit to let the server assign one.
-* **source** - Optional. Source of the memory (for example, `AI_CONVERSATION` or `MANUAL`).
-* **source_id** - Optional. Source-specific identifier for traceability.
-* **reason** - Optional. Justification for creating this memory, surfaced in version history.
-
-Returns the new `memory_id` and `version_id`.
-
-### Update a memory
-
-```
-PUT /api/v1/memory_stores/{uid}/memories/{memoryUid}
-```
-
-Create a new immutable version of an existing memory. The new version becomes the active version. Returns the `memory_id` and the new `version_id`.
-
-### Tombstone a memory
-
-```
-DELETE /api/v1/memory_stores/{uid}/memories/{memoryUid}
-```
-
-Tombstone the memory so it stops appearing in list and search results. The record and its version history are preserved until permadeletion. Already-tombstoned or unknown memory IDs are a no-op.
-
-### List a memory's version history
-
-```
-GET /api/v1/memory_stores/{uid}/memories/{memoryUid}/versions
-```
-
-Returns every version of the memory in store-defined order. Each entry includes the version `uid`, the `version` label, the immutable `content`, an optional `reason`, and the creation timestamp.
-
-## Agent attachment endpoints
-
-Memory store attachments live on the named agent identity payload, so you manage them via the existing agent endpoints rather than a separate route.
-
-### Attach memory stores to an agent at create time
-
-```
-POST /api/v1/agent/identities
-```
-
-Pass a `memory_stores` array on creation:
-
-```json
-{
-  "name": "deploy-bot",
-  "memory_stores": [
-    {
-      "uid": "STORE_UID",
-      "access": "read_write",
-      "instructions": "Record completed deploys here. Reference past deploys before retrying."
-    }
-  ]
-}
-```
-
-Each entry requires `uid`, `access` (`read_write` or `read_only`), and a non-empty `instructions` string. Duplicate UIDs within a single request are rejected. Only team-owned stores may be attached at the identity level — user-owned stores are valid only as one-off run attachments.
-
-### Update attachments on an existing agent
-
-```
-PUT /api/v1/agent/identities/{uid}
-```
-
-The `memory_stores` field follows the same nil/empty/non-empty pattern as `secrets` and `skills`:
-
-* **Omitted or `null`** - Leave existing attachments unchanged.
-* **Empty array `[]`** - Clear all attachments.
-* **Non-empty array** - Replace the full list wholesale, in the order provided.
-
-### Read attachments
-
-```
-GET /api/v1/agent/identities
-GET /api/v1/agent/identities/{uid}
-```
-
-Every agent response includes a `memory_stores` array (always present, empty when no stores are attached). Each entry has `uid`, `access`, and `instructions`.
-
-## Run-level attachments
-
-To attach a memory store to a single run without binding it permanently to the named agent identity, pass `memory_stores` in the run's `config` when calling the run-creation endpoint:
-
-```json
-{
-  "config": {
-    "memory_stores": [
-      {
-        "uid": "STORE_UID",
-        "access": "read_only",
-        "instructions": "Reference this store for team naming conventions."
-      }
-    ]
-  }
-}
-```
-
-Run-level attachments are additive: they extend the named identity's attachments rather than replacing them. If the same `uid` appears at both the identity level and the run level, the run-level entry wins for that run's `access` and `instructions`. Unlike identity-level attachments, user-owned stores are valid one-off run attachments.
+* **Per-attachment instructions are required** - Every attachment entry must include a non-empty instructions string describing the store's purpose for that agent.
+* **Access is read-only or read-write** - Read-only attachments let the agent retrieve memories; read-write attachments also let it create, update, and tombstone memories.
+* **Identity-level vs. run-level** - Stores attached to a named agent identity persist across runs. Stores attached to a single run augment the identity's list for that execution. If the same store UID appears at both levels, the run-level entry wins for that run.
+* **User-owned stores can't be durably attached to team agents** - You can pass a user-owned store as a one-off run attachment, but you can't permanently bind it to a named agent identity.
 
 ## Validation errors
 
-Common `400 invalid_request` cases across the API surface:
+Common `400 invalid_request` cases across the surface:
 
 * **Empty `instructions`** - The field is required and must be non-empty on every attachment entry.
-* **Unknown `access` value** - Must be exactly `read_write` or `read_only`.
-* **Duplicate `uid`** - Each memory store UID may appear at most once per request.
+* **Unknown access value** - Must be exactly `read_only` or `read_write`.
+* **Duplicate UID** - Each memory store UID may appear at most once per request.
 * **Inaccessible store** - The caller must own the store or be a member of the owning team.
-* **User-owned store on team agent** - User-owned stores cannot be durably attached to a team agent; use a run-level attachment instead.
+* **User-owned store on a team agent** - Use a run-level attachment instead.
+
+Deleting a store returns `409 Conflict` if any named agent identities still have it attached. The response body lists the blocking agent names so you can detach the store from each agent and retry.
 
 ## Status
 
-The endpoints on this page are reachable today on the Warp API host, but they are marked internal in the OpenAPI specification and are not yet covered by the public stability guarantees of `/api/v1`. Expect schema and path changes before general availability. If you're building against this surface for a design partner integration, [contact us](https://warp.dev/contact-sales) so we can flag breaking changes ahead of time.
+Everything on this page is research preview. If you're building against this surface for a design partner integration, [contact us](https://warp.dev/contact-sales) so we can flag breaking changes ahead of time. A stable, generally available version of the API will land in the public OpenAPI specification when the feature graduates from research preview.
 
 ## Related pages
 

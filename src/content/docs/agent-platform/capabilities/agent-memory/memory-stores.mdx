@@ -1,12 +1,11 @@
 ---
 title: Memory stores
 description: >-
-  Named, described collections of agent memories. Memory stores are the unit
-  of authorization and sharing — control which teams, agents, and runs read
-  from or write to each store.
+  Memory stores are named, owner-scoped collections of agent memories — the
+  unit of authorization and sharing in Agent Memory.
 ---
 :::caution
-Memory stores are part of the [Agent Memory](/agent-platform/capabilities/agent-memory/) research preview. The shape of the data model and the attachment behavior may change before general availability.
+Memory stores are part of the [Agent Memory](/agent-platform/capabilities/agent-memory/) research preview. The data model and attachment behavior may change before general availability.
 :::
 
 A **memory store** is a named, described collection of agent memories. Stores are the unit of authorization and sharing in [Agent Memory](/agent-platform/capabilities/agent-memory/): every memory lives in exactly one store, and access to that store determines who and what can read or write it.
@@ -17,21 +16,21 @@ Use memory stores to organize knowledge by purpose, scope it to the right audien
 
 A store has:
 
-* **A UID** - A stable public identifier used in the API and in agent attachments.
+* **A UID** - A stable public identifier used when referencing the store from the API and in agent attachments.
 * **An owner** - Either a user (personal) or a team (shared). The owner controls who can manage the store.
 * **A description** - Human-readable text describing what the store is for. Helps agents (and teammates) decide whether to attach it.
-* **Memories** - Individual knowledge records inside the store. Each memory has its own UID, a current active version, and a version history.
+* **Memories** - Individual knowledge records inside the store. Each memory has its own UID, a current active version, and an append-only version history.
 
-Each memory has stable metadata and an append-only history of immutable content versions. Updating a memory creates a new version and rotates the active pointer; the older versions remain for audit and rollback. Deleting a memory tombstones it — list and search results exclude tombstoned memories, but the record is preserved until permadeletion runs.
+Updating a memory creates a new immutable version and rotates the active pointer. Older versions remain for audit and rollback. Deleting a memory tombstones it: list and search results exclude tombstoned memories, but the record is preserved until permanent deletion runs.
 
 ## Ownership and access
 
 Memory stores have two ownership types:
 
-* **User-owned** - The default for personal memory. Only the owning user can list, read, or write the store directly through the API.
-* **Team-owned** - Shared across a team. Every member of the team can list, read, and write the store directly through the API. Team-owned stores are the primary mechanism for sharing institutional knowledge across teammates and across agents.
+* **User-owned** - The default for personal memory. Only the owning user can list, read, or write the store directly.
+* **Team-owned** - Shared across a team. Every member of the team can list, read, and write the store directly. Team-owned stores are the primary mechanism for sharing institutional knowledge across teammates and across agents.
 
-Beyond the owner's direct access, agents get access to a memory store through an **attachment**. Attaching a store to an agent grants the agent the access level you choose (`read_only` or `read_write`) and provides per-attachment instructions that tell the agent when and how to use the store.
+Beyond the owner's direct access, agents get access to a memory store through an **attachment**. Attaching a store to an agent grants the agent the access level you choose (read-only or read-write) and provides per-attachment instructions that tell the agent when and how to use the store.
 
 :::note
 Only team-owned stores can be durably attached to a named agent identity. User-owned stores are valid as one-off attachments on a single run, but they can't be permanently bound to a team agent.
@@ -54,23 +53,23 @@ Avoid generic descriptions like `team memory` or `notes` — agents have a harde
 A store on its own does nothing. To put it to work, attach it to one or more agents. Attachments answer two questions:
 
 * **Which stores can this agent see?** - The union of stores attached to the agent identity and stores attached to the specific run.
-* **How should the agent use each store?** - The per-attachment `instructions` string tells the agent when to read, when to write, and what the store is for.
+* **How should the agent use each store?** - The per-attachment instructions string tells the agent when to read, when to write, and what the store is for.
 
 ### Named-identity attachments
 
 For agents you run repeatedly (a deploy bot, a PR reviewer, an incident triage agent), attach stores directly to the named agent identity. The agent inherits the attachment on every run.
 
-Each attachment includes:
+Each attachment specifies:
 
 * **uid** - The UID of the memory store.
-* **access** - `read_write` (the agent can create, update, and tombstone memories) or `read_only` (the agent can only read).
+* **access** - Read-write (the agent can create, update, and tombstone memories) or read-only (the agent can only read).
 * **instructions** - A non-empty string describing the store's purpose for this agent. Required.
 
-Use `POST /api/v1/agent/identities` or `PUT /api/v1/agent/identities/{uid}` with a `memory_stores` array to set the attachments. See the [Agent Memory API](/agent-platform/capabilities/agent-memory/api/) for the full request shape.
+Configure attachments through the agent identity create or update endpoints. See the [Agent Memory API](/agent-platform/capabilities/agent-memory/api/) for the request shape.
 
 ### Update semantics
 
-The `memory_stores` field on an agent update follows the same pattern as `secrets` and `skills`:
+The memory-stores field on an agent update follows the same pattern as `secrets` and `skills`:
 
 * **Omitted or `null`** - Leave the existing attachments unchanged.
 * **Empty array `[]`** - Clear all attachments.
@@ -78,13 +77,13 @@ The `memory_stores` field on an agent update follows the same pattern as `secret
 
 ### Run-level attachments
 
-For one-off runs, pass `memory_stores` in the run's `config` to add stores for a single execution. Run-level attachments are additive: they augment the named identity's stores rather than replacing them.
+For one-off runs, pass memory-store attachments in the run's `config` to add stores for a single execution. Run-level attachments are additive: they augment the named identity's stores rather than replacing them.
 
-If the same store UID appears at both the identity level and the run level, the run-level entry wins — its `access` and `instructions` override the identity's values for that store on that run. Other identity-level stores are included unchanged.
+If the same store UID appears at both the identity level and the run level, the run-level entry wins — its access and instructions override the identity's values for that store on that run. Other identity-level stores are included unchanged.
 
 ### Inspecting attachments
 
-Use `GET /api/v1/memory_stores/{uid}/agents` to list every agent identity that has a given store attached, along with each agent's access level and instructions. This is the fastest way to audit who's using a store before you change it.
+Each memory store exposes a "list agents" endpoint that returns every named agent identity attached to the store, along with each agent's access level and instructions. Use this to audit who's using a store before you change it. See [Agent Memory API](/agent-platform/capabilities/agent-memory/api/) for details.
 
 ## Sharing patterns
 
@@ -93,21 +92,20 @@ Memory stores compose with team ownership and agent attachments to support a few
 * **Personal memory** - A user-owned store, automatically searched at session start across harnesses. Good for personal coding preferences or running notes.
 * **Team knowledge** - A team-owned store attached to every agent the team runs. Good for conventions, runbooks, and lessons learned that should outlive any single agent.
 * **Per-agent specialization** - A team-owned store attached to one named agent identity with focused instructions ("record every deploy outcome here"). Good for narrow, durable knowledge collected by a long-running automation.
-* **Ad-hoc augmentation** - A user-owned or team-owned store attached only to the current run via `config.memory_stores`. Good for experiments and one-off context boosts.
+* **Ad-hoc augmentation** - A user-owned or team-owned store attached only to the current run. Good for experiments and one-off context boosts.
 
 ## Deletion and lifecycle
 
-Deleting a store soft-deletes the store and its memories. Permadeletion runs in dependency order: versions, memory metadata, agent attachments, then the store itself.
+Deleting a store soft-deletes the store and its memories. Permanent deletion runs in dependency order: versions, memory metadata, agent attachments, then the store itself.
 
 A few guardrails:
 
-* **Active attachments block deletion** - `DELETE /api/v1/memory_stores/{uid}` returns `409 Conflict` if any named agent identities have the store attached. The response lists the blocking agents so you know what to detach. Detach the store from those agents and retry.
-* **In-progress runs are unaffected** - Each run snapshots its `memory_stores` list at task creation time, so deleting a store doesn't disturb runs that are already executing.
-* **Memory deletion is reversible during the soft-delete window** - Until permadeletion, tombstoned memories and soft-deleted stores can be restored. After permadeletion, the data is gone.
+* **Active attachments block deletion** - Deleting a store returns `409 Conflict` if any named agent identities have the store attached. The response lists the blocking agents so you know what to detach. Detach the store from those agents and retry.
+* **In-progress runs are unaffected** - Each run snapshots its memory-store attachments at task creation time, so deleting a store doesn't disturb runs that are already executing.
+* **Soft-deletes are reversible** - Until permanent deletion, tombstoned memories and soft-deleted stores can be restored. After permanent deletion, the data is gone.
 
 ## Related pages
 
 * [**Agent Memory**](/agent-platform/capabilities/agent-memory/) - Overview, consolidation flow, and retrieval model.
-* [**Agent Memory API**](/agent-platform/capabilities/agent-memory/api/) - REST endpoints for creating stores, managing memories, and listing attachments.
+* [**Agent Memory API**](/agent-platform/capabilities/agent-memory/api/) - Research-preview REST surface for managing stores and memories.
 * [**Self-hosted memory**](/agent-platform/capabilities/agent-memory/self-hosted-memory/) - Running memory storage in your own infrastructure.
-* [**Oz API and SDK**](/reference/api-and-sdk/) - REST surface for managing named agent identities that carry attachments across runs.
