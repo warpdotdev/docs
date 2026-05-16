@@ -1,29 +1,29 @@
 ---
 title: Platform Credits
 description: >-
-  Platform Credits cover Oz orchestration when Warp isn't paying for inference
-  or compute. Learn when they apply, when they don't, and where they appear.
+  Platform Credits charge for the Oz orchestration layer. Learn when they
+  apply, when they don't, and where they appear in your billing.
 ---
 
-Platform Credits are the third credit bucket in Warp, alongside [AI credits](/support-and-community/plans-and-billing/credits/) and [Cloud Agent Credits](/support-and-community/plans-and-billing/credits/#cloud-agent-credits). They cover the orchestration layer that Oz provides — task lifecycle, scheduling, integrations, run history, and the rest of the platform — for the cases where Warp isn't already paying for inference or compute.
+Platform Credits are the third credit bucket in Warp, alongside [AI credits](/support-and-community/plans-and-billing/credits/) and [Cloud Agent Credits](/support-and-community/plans-and-billing/credits/#cloud-agent-credits). They charge for the Oz orchestration layer — task lifecycle, scheduling, integrations, run history, and the rest of the platform that coordinates your agent runs.
 
-Platform Credits exist so that customers who bring their own model provider (BYOLLM via Amazon Bedrock or Google Vertex), connect their own LLM API keys, or run cloud agents on their own infrastructure can still use Oz as the orchestration platform. AI credits and Cloud Agent Credits don't apply in those cases — but Warp is still hosting, coordinating, and tracking the work, and Platform Credits charge for that.
+Platform Credits apply to every cloud agent run, and to local agent runs on Business and Enterprise plans that use customer-supplied inference — [Bring Your Own API Key (BYOK)](/support-and-community/plans-and-billing/bring-your-own-api-key/) or BYOLLM via Amazon Bedrock or Google Vertex. They don't apply to local runs on Free, Build, or Max plans, or to local Business and Enterprise runs where Warp pays for inference through AI credits.
 
 ## The three credit buckets
 
 Warp meters AI and agent usage in three buckets. Each bucket charges for a different part of the system:
 
-* **AI credits** - Charged for inference Warp pays for. Consumed by Agent conversations, [Generate](/agent-platform/local-agents/overview/), Workflow autofill, and other AI features. See [credits](/support-and-community/plans-and-billing/credits/) for how AI credits are calculated.
+* **AI credits** - Charged for inference Warp pays for. Consumed by Agent conversations, [Generate](/agent-platform/local-agents/generate/), Workflow autofill, and other AI features. See [credits](/support-and-community/plans-and-billing/credits/) for how AI credits are calculated.
 * **Cloud Agent Credits** - Charged for cloud agent runs that execute on Warp-hosted compute. Consumed by Slack and Linear integrations, `oz agent run-cloud`, the Oz API, and Cloud Mode in the Warp app. See [Cloud Agent Credits](/support-and-community/plans-and-billing/credits/#cloud-agent-credits).
-* **Platform Credits** - Charged for the Oz orchestration layer when an agent is actively working but Warp isn't paying for inference or compute. Covers BYOLLM, BYOK, and self-hosted cloud agent scenarios.
+* **Platform Credits** - Charged for the Oz orchestration layer that coordinates agent runs. Applies to every cloud agent run, plus local runs on Business and Enterprise plans that use customer-supplied inference.
 
-The three buckets are independent. A single agent run can consume from more than one bucket — for example, a cloud agent run that uses Warp-managed inference consumes AI credits for the model call and Cloud Agent Credits for the hosted compute, with no Platform Credits charged.
+The three buckets are independent and a single run can consume from more than one. A Warp-managed cloud agent run, for example, consumes AI credits for the model call, Cloud Agent Credits for the hosted compute, and Platform Credits for the orchestration layer.
 
 ## How Platform Credits are measured
 
 Platform Credits accrue while an Oz agent is actively working on a task — from when the task starts running to when it finishes, fails, or is cancelled. Idle time, time spent waiting on user input, and time before the task starts don't accrue Platform Credits.
 
-The per-minute rate is published on [warp.dev/pricing](https://warp.dev/pricing). Enterprise plans can negotiate a custom rate as part of their contract.
+See [warp.dev/pricing](https://warp.dev/pricing) for current rates. Enterprise plans can negotiate a custom rate as part of their contract.
 
 ## When Platform Credits apply
 
@@ -31,12 +31,12 @@ Whether Platform Credits are charged depends on where the agent runs and who's p
 
 ### Charged
 
-* **Cloud agents on any plan** - Any cloud agent run, regardless of which harness (Warp Agent, Claude Code, Codex, Gemini) or where the inference comes from (Warp-managed, BYOK, or BYOLLM). Cloud agents always consume Platform Credits because Oz is orchestrating the run.
-* **Local agents on Business or Enterprise with customer-supplied inference** - Local Oz runs on a Business or Enterprise plan that use [Bring Your Own API Key (BYOK)](/support-and-community/plans-and-billing/bring-your-own-api-key/) or BYOLLM (Amazon Bedrock, Google Vertex). In these cases Warp isn't paying for the model call, but Oz is still orchestrating the local agent, so Platform Credits apply.
+* **Cloud agents on any plan** - Every cloud agent run charges Platform Credits, regardless of harness (Warp Agent, Claude Code, Codex, Gemini) or inference source (Warp-managed, BYOK, or BYOLLM). Oz is always orchestrating the run.
+* **Local agents on Business or Enterprise with customer-supplied inference** - Local Oz runs on a Business or Enterprise plan that use [Bring Your Own API Key (BYOK)](/support-and-community/plans-and-billing/bring-your-own-api-key/) or BYOLLM (Amazon Bedrock, Google Vertex). Warp isn't paying for the model call, but Oz is still orchestrating the local agent.
 
 ### Not charged
 
-* **Local agents on Free, Build, or Max plans** - Regardless of whether you're using Warp-managed inference or BYOK.
+* **Local agents on Free, Build, or Max plans** - No Platform Credits charge, regardless of whether you use Warp-managed inference or BYOK.
 * **Local agents on Business or Enterprise using Warp-managed inference** - Warp is already paying for the model call through AI credits, so no separate Platform Credits charge applies.
 * **Regular terminal usage** - Running shell commands and using non-AI Warp features never consumes Platform Credits.
 * **Third-party harnesses run directly** - Running `claude`, `codex`, or another harness as a standalone CLI without going through Oz. Oz isn't in the path, so there's nothing to charge.
@@ -46,8 +46,8 @@ Whether Platform Credits are charged depends on where the agent runs and who's p
 Platform Credits roll into the same surfaces as your other credit usage.
 
 * **Per-user credit totals** - Your total credit usage in **Settings** > **Billing and usage** in the Warp app includes Platform Credits alongside AI and Cloud Agent Credits.
-* **Admin usage breakdown** - For team admins, the Admin Panel billing view shows a per-bucket breakdown for each member and for the team as a whole. Platform Credits appear as their own segment in the stacked usage bar with a `(Platform)` label in the tooltip, distinct from `(AI)` and `(Compute)` segments.
-* **Add-on Credits and limits** - Platform Credits draw from the same plan and [Add-on Credits](/support-and-community/plans-and-billing/add-on-credits/) pools as your other credit usage. Once your monthly plan credits are exhausted, Platform Credits continue to consume from Add-on Credits if you have them.
+* **Admin usage breakdown** - For team admins, the Admin Panel billing view shows a per-bucket breakdown for each member and for the team as a whole. Platform Credits appear as their own segment in the stacked usage bar, distinct from the AI and Compute segments.
+* **Add-on Credits and limits** - Platform Credits draw from the same plan credits and [Add-on Credits](/support-and-community/plans-and-billing/add-on-credits/) pools as your other usage. Once your monthly plan credits are exhausted, Platform Credits continue to consume from Add-on Credits if you have them.
 
 ## Related pages
 
