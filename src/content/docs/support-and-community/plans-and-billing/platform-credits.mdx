@@ -1,29 +1,31 @@
 ---
 title: Platform Credits
 description: >-
-  Platform Credits charge for the Oz orchestration layer. Learn when they
-  apply, when they don't, and where they appear in your billing.
+  Platform Credits charge for Warp's platform infrastructure when Warp isn't
+  paying for inference or compute. Learn when they apply and where they appear.
 ---
 
-Platform Credits are the third credit bucket in Warp, alongside [AI credits](/support-and-community/plans-and-billing/credits/) and [Cloud Agent Credits](/support-and-community/plans-and-billing/credits/#cloud-agent-credits). They charge for the Oz orchestration layer — task lifecycle, scheduling, integrations, run history, and the rest of the platform that coordinates your agent runs.
+Warp meters credits across three types of infrastructure: **inference** (the model call), **compute** (the sandbox an agent runs in), and **platform** (everything that runs around the agent — run lifecycle, integrations, dashboard, APIs, and observability). Each type maps to one credit bucket: [AI credits](/support-and-community/plans-and-billing/credits/), [Cloud Agent Credits](/support-and-community/plans-and-billing/credits/#cloud-agent-credits), and Platform Credits.
+
+Platform Credits charge for Warp's platform infrastructure when Warp isn't paying for the inference or compute. Customers who bring their own model provider (BYOLLM via Amazon Bedrock or Google Vertex), connect their own LLM API keys, or run cloud agents on their own compute still rely on Warp's platform to coordinate, observe, and integrate their agents — and Platform Credits charge for that.
 
 Platform Credits apply to every cloud agent run, and to local agent runs on Business and Enterprise plans that use customer-supplied inference — [Bring Your Own API Key (BYOK)](/support-and-community/plans-and-billing/bring-your-own-api-key/) or BYOLLM via Amazon Bedrock or Google Vertex. They don't apply to local runs on Free, Build, or Max plans, or to local Business and Enterprise runs where Warp pays for inference through AI credits.
 
 ## The three credit buckets
 
-Warp meters AI and agent usage in three buckets. Each bucket charges for a different part of the system:
+Each credit bucket charges for a different layer of the infrastructure Warp provides:
 
-* **AI credits** - Charged for inference Warp pays for. Consumed by Agent conversations, [Generate](/agent-platform/local-agents/generate/), Workflow autofill, and other AI features. See [credits](/support-and-community/plans-and-billing/credits/) for how AI credits are calculated.
-* **Cloud Agent Credits** - Charged for cloud agent runs that execute on Warp-hosted compute. Consumed by Slack and Linear integrations, `oz agent run-cloud`, the Oz API, and Cloud Mode in the Warp app. See [Cloud Agent Credits](/support-and-community/plans-and-billing/credits/#cloud-agent-credits).
-* **Platform Credits** - Charged for the Oz orchestration layer that coordinates agent runs. Applies to every cloud agent run, plus local runs on Business and Enterprise plans that use customer-supplied inference.
+* **AI credits** - Charged for inference infrastructure Warp pays for. Consumed by Agent conversations, [Generate](/agent-platform/local-agents/generate/), Workflow autofill, and other AI features that route through Warp-managed model providers. See [credits](/support-and-community/plans-and-billing/credits/) for how AI credits are calculated.
+* **Cloud Agent Credits** - Charged for compute infrastructure when cloud agents run on Warp-hosted compute. Consumed by Slack and Linear integrations, `oz agent run-cloud`, the Oz API, and Cloud Mode in the Warp app. See [Cloud Agent Credits](/support-and-community/plans-and-billing/credits/#cloud-agent-credits).
+* **Platform Credits** - Charged for platform infrastructure (run lifecycle, integrations, dashboard, APIs, and observability) when an agent is actively working but Warp isn't paying for inference or compute. Applies to every cloud agent run, plus local runs on Business and Enterprise plans that use customer-supplied inference.
 
-The three buckets are independent and a single run can consume from more than one. A Warp-managed cloud agent run, for example, consumes AI credits for the model call, Cloud Agent Credits for the hosted compute, and Platform Credits for the orchestration layer.
+The three buckets are independent and a single run can consume from more than one. A Warp-managed cloud agent run, for example, consumes AI credits for the model call, Cloud Agent Credits for the hosted compute, and Platform Credits for the platform infrastructure that runs the agent.
 
 ## How Platform Credits are measured
 
 Platform Credits accrue while an Oz agent is actively working on a task — from when the task starts running to when it finishes, fails, or is cancelled. Idle time, time spent waiting on user input, and time before the task starts don't accrue Platform Credits.
 
-See [warp.dev/pricing](https://warp.dev/pricing) for current rates. Enterprise plans can negotiate a custom rate as part of their contract.
+See [warp.dev/pricing](https://warp.dev/pricing) for current rates.
 
 ## When Platform Credits apply
 
@@ -31,8 +33,8 @@ Whether Platform Credits are charged depends on where the agent runs and who's p
 
 ### Charged
 
-* **Cloud agents on any plan** - Every cloud agent run charges Platform Credits, regardless of harness (Warp Agent, Claude Code, Codex, Gemini) or inference source (Warp-managed, BYOK, or BYOLLM). Oz is always orchestrating the run.
-* **Local agents on Business or Enterprise with customer-supplied inference** - Local Oz runs on a Business or Enterprise plan that use [Bring Your Own API Key (BYOK)](/support-and-community/plans-and-billing/bring-your-own-api-key/) or BYOLLM (Amazon Bedrock, Google Vertex). Warp isn't paying for the model call, but Oz is still orchestrating the local agent.
+* **Cloud agents on any plan** - Every cloud agent run charges Platform Credits, regardless of harness (Warp Agent, Claude Code, Codex, Gemini) or inference source (Warp-managed, BYOK, or BYOLLM). Warp's platform infrastructure is always running the agent.
+* **Local agents on Business or Enterprise with customer-supplied inference** - Local Oz runs on a Business or Enterprise plan that use [Bring Your Own API Key (BYOK)](/support-and-community/plans-and-billing/bring-your-own-api-key/) or BYOLLM (Amazon Bedrock, Google Vertex). Warp isn't paying for the model call, but Warp's platform infrastructure is still running the local agent.
 
 ### Not charged
 
