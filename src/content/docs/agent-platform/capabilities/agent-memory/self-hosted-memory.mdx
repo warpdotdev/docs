@@ -1,0 +1,74 @@
+---
+title: Self-hosted memory
+description: >-
+  Run Agent Memory storage in your own infrastructure. Keep institutional
+  knowledge inside your perimeter while still using Warp's consolidation and
+  retrieval pipelines.
+---
+:::caution
+Self-hosted memory is part of the [Agent Memory](/agent-platform/capabilities/agent-memory/) research preview and is **not yet shipped**. The shape described on this page reflects the planned interface for design partners. Reach out if you'd like to participate while it's still in development.
+:::
+
+Self-hosted memory keeps the memory data plane inside your own infrastructure. The Warp Agent platform still extracts memories from conversations and retrieves them at the start of each run, but the memories themselves — their content, version history, and vector index — live in storage you operate.
+
+This is the data-plane counterpart to bring-your-own-model deployments: if inference already runs against providers you control, self-hosted memory keeps the institutional knowledge layer in the same perimeter.
+
+## Why self-host memory
+
+Self-hosted memory is the right choice when:
+
+* **Compliance requires data residency** - Memory content is part of your knowledge base. Keeping it inside your VPC keeps it inside the regulatory perimeter you already operate.
+* **You want a single source of truth** - Agent memories sit alongside your existing knowledge stores (wikis, runbooks, ticket histories) rather than in a separate vendor system.
+* **You need full export and portability** - Memory data stays in formats and stores you can query, back up, and migrate without dependency on the Warp platform.
+* **You're standardizing on a model swap** - The same memory layer survives switching models or harnesses, so the data flywheel keeps spinning even when the inference plane changes.
+
+## What's in scope
+
+The memory interface is designed to be scoping-agnostic and pluggable. A self-hosted backend is responsible for the durable storage of memory metadata, memory versions, and the search index over the active version of each memory.
+
+The pieces that stay on the Warp Agent platform during the research preview:
+
+* **The memory store identity and access model** - User and team ownership, agent attachments, access levels, and instructions are managed centrally so the same agent identities can run across self-hosted and Warp-managed stores.
+* **The consolidation pipeline** - Extraction and planning run on the agent platform and call your backend through the standard store interface to read existing memories and write new versions.
+* **Retrieval at session start** - Oz queries your backend through the same interface to gather relevant memories before each run.
+
+The pieces that move into your infrastructure with self-hosting:
+
+* **Memory metadata storage** - Stable identifiers, current-version pointers, and source attribution for each memory.
+* **Immutable version storage** - The append-only history of each memory's content versions.
+* **Search index** - The hybrid vector + BM25 index over the active version of each memory, plus the embedding pipeline that populates it.
+
+## Planned interface
+
+Self-hosted backends implement the same `MemoryStore` contract used by the Warp-managed backend. The interface is shaped as request/response method pairs so it can evolve without breaking adapters:
+
+* **Create memory** - Insert a new memory record and its first immutable version.
+* **Get memories** - Look up one or more memories by UID and return the active version's content inline.
+* **Search memories** - Hybrid vector + BM25 search over active versions, returning the top results.
+* **Delete memories** - Tombstone a memory so it stops appearing in lists and search results.
+* **Get memory at version** - Read a specific historical version of a memory.
+* **List versions** - Return the version history for a memory.
+
+The interface is intentionally narrow. Authorization, ownership, and attachment policy stay on the Warp Agent platform; the backend only handles storage and indexing.
+
+## Reference adapter
+
+The Warp-managed implementation is the reference adapter for the interface. It composes:
+
+* **Postgres** - Durable storage for memory metadata and immutable versions.
+* **Turbopuffer** - Hybrid vector + BM25 index over the active version of each memory.
+* **Voyage AI** - Embedding generation and reranking for search results.
+
+A self-hosted adapter substitutes equivalents for each piece (for example, your own Postgres, your own vector database, your own embedding provider) while preserving the interface contract.
+
+## Status and design partners
+
+Self-hosted memory is in active design. The shipped pieces today are the interface, the Warp-managed backend that implements it, and the consolidation and retrieval pipelines that consume it. The customer-managed adapter and the deployment shape are not yet generally available.
+
+If you want to self-host memory in your VPC, [contact us](https://warp.dev/contact-sales) to join the design partner program. We're prioritizing partners who already self-host inference and have a clear data-residency or knowledge-graph integration requirement.
+
+## Related pages
+
+* [**Agent Memory**](/agent-platform/capabilities/agent-memory/) - Overview of the memory layer.
+* [**Memory stores**](/agent-platform/capabilities/agent-memory/memory-stores/) - Scoping, sharing, and attachments.
+* [**Agent Memory API**](/agent-platform/capabilities/agent-memory/api/) - REST surface for managing stores and memories.

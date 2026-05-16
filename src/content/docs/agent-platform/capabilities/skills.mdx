@@ -411,6 +411,16 @@ Warp maintains a public collection of ready-to-use skills in the [warpdotdev/oz-
 
 These same skills also appear as suggested agents in the [Oz web app](/agent-platform/cloud-agents/oz-web-app/), where you can run them directly in the cloud.
 
+## Suggested Skills from Agent Memory
+
+:::caution
+Suggested Skills from Agent Memory are part of the [Agent Memory](/agent-platform/capabilities/agent-memory/) research preview and are not yet generally available. The shape described here is the planned direction; reach out to join the design partner program.
+:::
+
+As [Agent Memory](/agent-platform/capabilities/agent-memory/) consolidates conversations into durable memories, recurring patterns start to emerge — the same fix applied across several runs, the same setup steps before a deploy, the same review checklist on every PR. Suggested Skills surface those patterns as reviewable skill drafts so the next time a similar task comes up, you can promote the pattern from "something the agent kept rediscovering" to "something the agent does by default".
+
+Memory captures the knowledge; Skills make it executable. Suggested Skills bridge the two: you review the proposed skill, edit it like any other skill file, and commit it to your repo's `.agents/skills/` directory so the whole team picks it up.
+
 ## Invoking skills with a prompt
 
 You can pass additional context or instructions to a skill when invoking it with a slash command.
