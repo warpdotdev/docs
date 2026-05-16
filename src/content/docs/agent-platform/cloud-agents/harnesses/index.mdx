@@ -1,7 +1,7 @@
 ---
 title: Harnesses in Oz
 description: >-
-  Run Warp Agent, Claude Code, or Codex on Oz. Each harness inherits the same
+  Run Warp Agent, Claude Code, or Codex with Oz. Each harness inherits the same
   triggers, environments, secrets, observability, and governance.
 sidebar:
   label: "Overview"
@@ -14,8 +14,8 @@ Whichever harness you pick runs on the [Oz platform](/agent-platform/cloud-agent
 ## Available harnesses
 
 * **Warp Agent** - Oz's default harness, built by Warp. Routes across leading models (Anthropic, OpenAI, Google, Fireworks), has full terminal and tool access, and is the only harness that can act as a parent in a multi-harness orchestration.
-* **Claude Code** - Anthropic's coding agent, running on Oz. Strong at code review, deep bug investigation, large feature planning, and frontend or UI work.
-* **Codex** - OpenAI's coding agent, running on Oz. Strong at codebase migrations, release coordination, batch test generation, and backend or DevOps automation.
+* **Claude Code** - Anthropic's coding agent, running with Oz. Strong at code review, deep bug investigation, large feature planning, and frontend or UI work.
+* **Codex** - OpenAI's coding agent, running with Oz. Strong at codebase migrations, release coordination, batch test generation, and backend or DevOps automation.
 
 :::note
 Gemini is on the roadmap. It's wired through the Oz CLI and the terminal harness selector today but is not yet broadly available. Coverage on this page expands as Gemini ships.
@@ -63,7 +63,7 @@ Where you can choose each harness depends on the surface. Today's coverage:
 
 * **Warp app** - In Cloud Mode, click the **Agent harness** dropdown above the input. Lists Warp Agent, Claude Code, and Gemini.
 * **Oz web app** - On the new run or new schedule pane, the **Harness** field lists every harness available to your team — Warp Agent, Claude Code, Gemini, and Codex.
-* **Oz CLI** - Pass `--harness` to `oz agent run` or `oz agent run-cloud`. Valid values today: `oz`, `claude`, `gemini`. Codex selection from the CLI is a fast-follow.
+* **Oz CLI** - Pass `--harness` to `oz agent run` or `oz agent run-cloud`. Valid values: `oz`, `claude`, `gemini`, or `codex`.
 * **API and SDK** - Set the `harness` field on the agent config to `oz`, `claude`, `gemini`, or `codex` when creating a run.
 
 Schedules, Slack mentions, Linear issues, and GitHub Actions triggers can launch any harness by referencing the agent or run config that picks it.
@@ -72,7 +72,7 @@ Claude Code and Codex runs need credentials. See [Connecting Claude and Codex cr
 
 ## Related pages
 
-* [Warp Agent with Oz](/agent-platform/cloud-agents/harnesses/warp-agent/) — the default Oz harness.
+* [Warp Agent with Oz](/agent-platform/cloud-agents/harnesses/warp-agent/) — Oz's default harness.
 * [Claude Code with Oz](/agent-platform/cloud-agents/harnesses/claude-code/) — Claude Code as a cloud harness.
 * [Codex with Oz](/agent-platform/cloud-agents/harnesses/codex/) — Codex as a cloud harness.
 * [Connecting Claude and Codex credentials](/agent-platform/cloud-agents/harnesses/authentication/) — connect Anthropic or OpenAI credentials to Oz.

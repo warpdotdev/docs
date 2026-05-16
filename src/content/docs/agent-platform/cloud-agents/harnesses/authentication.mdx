@@ -91,10 +91,10 @@ Codex secret creation from the Oz CLI is a fast-follow. For now, use the Oz web 
 
 Once the secret is stored, point a Codex run at it:
 
+* **Warp app** - In Cloud Mode, choose **Codex** in the harness dropdown. Warp prompts for a Codex auth secret if your team has more than one available.
 * **Oz web app** - On the new run or new schedule pane, choose **Codex** in the **Harness** field. A **Codex auth secret** dropdown appears below it; choose the secret you just created.
+* **Oz CLI** - Pass `--harness codex` to `oz agent run-cloud` along with the matching auth-secret flag for your OpenAI secret.
 * **API and SDK** - Set the Codex auth-secret field on the agent config to the secret's name. See the [API reference](/reference/api-and-sdk/) for the exact field name.
-
-The Warp app's Codex harness selector and the `oz agent run-cloud --harness codex` flag are fast-follows. Until they ship, launch Codex runs from the Oz web app, the API, or a trigger that references a Codex-configured agent.
 
 ## Managing harness auth secrets
 

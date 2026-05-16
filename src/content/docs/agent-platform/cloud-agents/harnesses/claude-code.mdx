@@ -1,13 +1,13 @@
 ---
 title: Claude Code with Oz
 description: >-
-  Run Claude Code on Oz. Strong at code review, deep bug investigation, large
+  Run Claude Code with Oz. Strong at code review, deep bug investigation, large
   feature planning, and frontend or UI work.
 sidebar:
   label: "Claude Code"
 ---
 
-Claude Code is Anthropic's agentic coding tool. Running it on Oz puts Claude Code inside a Warp-managed environment and connects it to the rest of the Oz platform — triggers, environments, secrets, observability, and governance — while still behaving like the Claude Code your team already uses.
+Claude Code is Anthropic's agentic coding tool. Running it with Oz puts Claude Code inside a Warp-managed environment and connects it to the rest of the Oz platform — triggers, environments, secrets, observability, and governance — while still behaving like the Claude Code your team already uses.
 
 :::note
 This page covers Claude Code as a **cloud** harness, dispatched and orchestrated by Oz. To run Claude Code locally in your Warp terminal — with the rich input editor, code review, agent notifications, and other in-terminal features — see [Claude Code in Warp](/agent-platform/cli-agents/claude-code/) instead.
@@ -30,6 +30,7 @@ Oz captures the transcript and exposes it through the [Oz dashboard](/agent-plat
 
 The Claude Code harness exposes Anthropic's coding-tuned model lineup. Common picks:
 
+* `best` - Resolves to the current top-of-line Claude model.
 * `opus`, `sonnet`, `haiku` - Aliases that resolve to the current default for that family.
 * `claude-opus-4-7`, `claude-sonnet-4-6`, `claude-haiku-4-5` - Latest pinned full model names.
 
@@ -84,7 +85,7 @@ oz agent run-cloud \
 
 * [Harnesses in Oz](/agent-platform/cloud-agents/harnesses/) — pick between Warp Agent, Claude Code, and Codex.
 * [Connecting Claude and Codex credentials](/agent-platform/cloud-agents/harnesses/authentication/) — store Anthropic credentials as Warp-managed secrets.
-* [Warp Agent with Oz](/agent-platform/cloud-agents/harnesses/warp-agent/) — the default Oz harness, the only one that can orchestrate Claude Code subagents.
+* [Warp Agent with Oz](/agent-platform/cloud-agents/harnesses/warp-agent/) — Oz's default harness, the only one that can orchestrate Claude Code subagents.
 * [Codex with Oz](/agent-platform/cloud-agents/harnesses/codex/) — Codex as a cloud harness.
 * [Claude Code in Warp](/agent-platform/cli-agents/claude-code/) — Claude Code in your local Warp terminal.
 * [Cloud agent secrets](/agent-platform/cloud-agents/secrets/) — the full Warp-managed secrets reference.
