@@ -1,14 +1,14 @@
 ---
 title: Handoff from local to cloud
 description: >-
-  Promote a local Warp Agent conversation to a cloud agent run when you need
-  more compute, longer-running execution, or parallel work — without
-  re-explaining the task.
+  Promote a local Warp Agent conversation to a cloud agent run with the full
+  transcript and your uncommitted workspace changes — without re-explaining
+  the task.
 sidebar:
   label: "Local to cloud"
 ---
 
-Hand off a conversation from the Warp terminal to a cloud agent run when the work outgrows your local session. The cloud agent starts from a fork of your local conversation and a snapshot of your uncommitted workspace state, so it picks up where you left off instead of starting fresh.
+Hand off a conversation from the Warp terminal to a cloud agent run when the work outgrows your local session. The cloud agent inherits a fork of your local conversation and a snapshot of your uncommitted workspace changes, so it picks up where you left off instead of starting fresh.
 
 This direction is the right move when:
 
@@ -19,56 +19,59 @@ This direction is the right move when:
 
 ## What the cloud agent receives
 
-When you hand off from local to cloud, Oz transfers three things to the receiving agent:
+When you hand off from local to cloud, the receiving cloud agent inherits:
 
-* **A forked conversation** - Oz creates a server-side fork of your local conversation so the cloud agent inherits the full transcript without modifying the source. The fork is owned by you, not by the original conversation's owner. See [Cloud-synced conversations](/agent-platform/local-agents/cloud-conversations/) for related conversation-sync behavior.
-* **A workspace snapshot** - Warp captures `git diff --binary HEAD` for every repo in your working directory (tracked and untracked changes), packages it as a set of `.patch` files plus a `snapshot_state.json` manifest, and uploads them to a token-scoped staging area. The cloud sandbox downloads and applies the patches before the agent answers your next prompt.
+* **A forked conversation** - Warp creates a server-side fork of your local conversation so the cloud agent inherits the full transcript without modifying the source. See [Cloud-synced conversations](/agent-platform/local-agents/cloud-conversations/) for related sync behavior.
+* **A workspace snapshot** - Warp captures your uncommitted repository changes — both tracked modifications and untracked files — and packages them for the cloud sandbox. The cloud agent applies them in its sandbox before answering your follow-up.
 * **Conversation attachments** - Files attached to the local conversation remain available in the cloud run.
 
-The receiving agent sees an explicit pre-turn checklist that tells it to read the manifest, apply each patch via `git apply`, and confirm the affected files are dirty before answering your follow-up. If a patch fails to apply, the agent retries with `git apply --3way` and then reports any unrecoverable failures rather than silently dropping changes.
+If applying any change fails in the cloud sandbox, the cloud agent reports what couldn't be applied and proceeds with what it could rather than silently dropping changes.
 
 ## Prerequisites
 
 * **An active local conversation** - Have an [Agent](/agent-platform/local-agents/overview/) conversation open in Warp with the work you want to hand off.
-* **A configured environment** - The cloud agent needs an [environment](/agent-platform/cloud-agents/environments/) that includes the same repository (or repositories) you're working in locally. The environment's repos must match the local checkout so the workspace patches apply cleanly.
-* **Cloud conversation storage enabled** - Cloud conversation storage must be on (**Settings** > **Privacy** > **Store AI conversations in the cloud**) so the conversation can be forked server-side. See [Cloud-synced conversations](/agent-platform/local-agents/cloud-conversations/).
+* **A configured environment** - The cloud agent needs an [environment](/agent-platform/cloud-agents/environments/) that includes the same repositories you're working in locally. The environment's repos must match your local checkout so the workspace snapshot applies cleanly.
+* **Cloud conversation storage enabled** - In the Warp app, go to **Settings** > **Privacy** and turn on **Store AI conversations in the cloud** so the conversation can be forked server-side. See [Cloud-synced conversations](/agent-platform/local-agents/cloud-conversations/).
 * **Sufficient credits** - Cloud agent runs consume credits. See [Access, Billing, and Identity Permissions](/agent-platform/cloud-agents/team-access-billing-and-identity/) for credit requirements.
 
 ## Handing off a conversation to the cloud
 
 The handoff entry point is integrated into the cloud agent launch flow, so the same UI that starts a fresh cloud run can also continue an existing local conversation.
 
-1. **In the active conversation, open the cloud agent launch flow.** In the Warp terminal with the local conversation focused, run the `/cloud-agent` slash command (or press `⌘+Option+Enter` on macOS / `Ctrl+Alt+Enter` on Windows/Linux). When invoked from inside an active conversation, the cloud agent setup view offers to continue the current conversation rather than starting a new one.
-2. **Choose the environment for the cloud run.** Pick the environment whose repos match the directories your local conversation has been editing. If you don't have a matching environment yet, run `/create-environment` first and add the repos you've been working in.
-3. **Confirm the handoff and add a follow-up prompt.** Enter the next message you want the cloud agent to act on. This becomes the first user-facing message in the cloud run; the rehydration checklist runs invisibly before it.
-4. **Submit the run.** Warp captures the workspace snapshot from your current working directory, uploads it to a token-scoped staging area, and creates the cloud run with both the snapshot token and a fork of the local conversation. You see the new cloud run appear in the conversation panel and in the [management view](/agent-platform/cloud-agents/managing-cloud-agents/).
+1. **Open the cloud agent launch flow from your active conversation.** In the Warp terminal with the local conversation focused, start a cloud agent the same way you would for a fresh run — for example, with the `/cloud-agent` slash command. When invoked from inside an active conversation, the launch flow offers to continue the current conversation rather than starting a new one.
+2. **Choose the environment for the cloud run.** Pick the environment whose repositories match the directories your local conversation has been editing. If you don't have a matching environment yet, create one first and add the repos you've been working in.
+3. **Add a follow-up prompt and submit.** Enter the next message you want the cloud agent to act on. This becomes the first user-facing message in the cloud run.
 
-After submission, the cloud agent's first turn applies the patches and addresses your follow-up. The local conversation stays untouched — you can keep working in it locally or close it.
+After submission, the cloud agent applies your workspace snapshot and addresses your follow-up. The local conversation stays untouched — you can keep working in it locally or close it.
+
+:::note
+The exact entry point may evolve during the Oz launch rollout. If the steps above don't match what you see, check the cloud agent launch flow's in-app guidance for the current handoff affordance.
+:::
 
 ## Verifying the handoff
 
 Confirm the handoff is doing what you expect by inspecting the cloud run.
 
 1. **Open the cloud run.** Click the new run in the [management view](/agent-platform/cloud-agents/managing-cloud-agents/) or in the conversation panel.
-2. **Check the agent's first turn.** The first tool calls should be `cat snapshot_state.json` followed by one or more `git apply` invocations. If `git apply` fails for any patch, the agent reports the failure inline before continuing.
-3. **Confirm the workspace is dirty.** The agent runs `git status` in each affected repo after applying patches; the output should show the same files you had modified locally.
+2. **Check the cloud agent's first actions.** Before answering your follow-up, the agent applies the workspace snapshot. You can see those actions at the top of the cloud run's transcript.
+3. **Confirm the workspace is dirty.** The agent reports the modified files after applying changes; the list should match what you had modified locally.
 
-If the snapshot doesn't appear to land, the cloud agent still proceeds with the forked conversation and the agent's history — it just won't have your uncommitted changes. The conversation panel's run detail surfaces the snapshot files so you can confirm what was uploaded.
+If the snapshot doesn't appear to land, the cloud run still proceeds with the forked conversation and full transcript — it just won't have your uncommitted changes.
 
 ## Troubleshooting
 
-**The cloud agent reports `git apply` failures.**
-The most common cause is a repository mismatch between your local checkout and the environment. The patches are generated against the HEAD of your local repo; the environment must check out a compatible base for `git apply` to succeed. If the agent reports a 3-way merge failure, switch the environment's repo to the same branch you were on locally and re-run the handoff.
+**The cloud agent reports that some changes couldn't be applied.**
+The most common cause is a repository mismatch between your local checkout and the environment. Your workspace snapshot is generated against your local repo's `HEAD`; the environment must check out a compatible base for the changes to apply cleanly. Switch the environment's repo to the same branch you were on locally and retry the handoff.
 
 **The cloud agent doesn't see my uncommitted changes.**
-Cloud conversation storage must be enabled for handoff to work. Open **Settings** > **Privacy** in the Warp app and confirm **Store AI conversations in the cloud** is on. Without it, the conversation can't be forked server-side and the run falls back to starting fresh.
+Cloud conversation storage must be enabled for handoff to work. In the Warp app, open **Settings** > **Privacy** and confirm **Store AI conversations in the cloud** is on. Without it, the conversation can't be forked server-side and the run falls back to starting fresh.
 
 **The conversation doesn't appear in the cloud run.**
-The source conversation may not have finished syncing to the cloud when you triggered the handoff. Warp returns a transient error in this case — wait a moment and retry the handoff. If it persists, check the conversation panel to confirm the conversation has a cloud-synced indicator.
+The source conversation may not have finished syncing to the cloud when you triggered the handoff. Wait a moment and retry. If the problem persists, check the conversation panel to confirm the conversation has a cloud-synced indicator.
 
 ## Related pages
 
-* [Handoff overview](/agent-platform/cloud-agents/handoff/) - What handoff is, the three directions, and what carries over.
-* [Handoff from cloud to local](/agent-platform/cloud-agents/handoff/cloud-to-local/) - The reverse direction, for taking over a cloud run locally.
-* [Environments](/agent-platform/cloud-agents/environments/) - Configure the repos, image, and setup commands that the cloud agent starts in.
-* [Cloud agents quickstart](/agent-platform/cloud-agents/quickstart/) - Run your first cloud agent from scratch.
+* [Handoff overview](/agent-platform/cloud-agents/handoff/) - What handoff is, the directions it supports, and what carries over.
+* [Handoff from cloud to cloud](/agent-platform/cloud-agents/handoff/cloud-to-cloud/) - Continue a finished cloud run with a fresh execution.
+* [Environments](/agent-platform/cloud-agents/environments/) - Configure the repos, image, and setup commands the cloud agent starts in.
+* [Cloud Agents quickstart](/agent-platform/cloud-agents/quickstart/) - Run your first cloud agent from scratch.
