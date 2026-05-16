@@ -174,11 +174,11 @@ Click **New agent** to open the **New agent** side pane. The pane is split into 
 2. **Description** (optional) — A summary teammates see when picking the identity in run pickers.
 3. **Prompt** (optional) — Additional instructions appended to every run started as this identity.
 4. **Skills** — Use the multi-select to attach one or more skill specs the identity comes preloaded with.
-5. **Base harness** — Choose the execution harness this identity uses by default (for example, the Oz harness or a supported third-party CLI agent).
+5. **Base harness** — Choose the execution harness for this identity's runs: Oz (the default) or a supported third-party CLI agent.
 6. **Base model** — When the chosen harness uses Warp's model picker, select the primary model the identity uses. You can leave this empty to fall back to the team default.
 7. **Harness auth secret** — When the chosen harness needs its own authentication (for example, a third-party CLI agent), pick the Warp-managed secret to authenticate with. Can be overridden per run.
 8. **Secrets** — Open the **Secrets** section and select the [Warp-managed secrets](/agent-platform/cloud-agents/secrets/) this identity should receive at run time.
-9. **Memory stores** — When memory stores are available to your team, attach the ones this identity should read from or write to.
+9. **Memory stores** — Attach the memory stores this identity should read from or write to.
 
 Click **Create agent** to save. The new identity appears on the Agents page and is immediately available in run and schedule pickers. To edit an existing identity later, click it in the list, then click **Edit**.
 
