@@ -1,0 +1,92 @@
+---
+title: Handoff from cloud to cloud
+description: >-
+  Send a follow-up to a cloud agent run after its sandbox shut down. Oz creates
+  a new execution on the same run and rehydrates the prior workspace state so
+  the agent picks up where it left off.
+sidebar:
+  label: "Cloud to cloud"
+---
+
+Hand off a cloud agent run to a fresh cloud execution when the original sandbox has shut down but you still want to push the same unit of work further. Oz creates a new execution on the same run id, reuses the same agent conversation, and rehydrates the prior execution's workspace state so the new agent picks up where the old one left off — not from scratch.
+
+This direction is the right move when:
+
+* A cloud agent finished and you want to send a follow-up after the sandbox has already torn down.
+* A scheduled or integration-triggered run completed and you want to keep iterating without losing context.
+* You want to continue an ambient agent task across multiple cloud executions while preserving the run as a single unit of work in the [management view](/agent-platform/cloud-agents/managing-cloud-agents/).
+
+## How cloud-to-cloud handoff works
+
+When you submit a follow-up to a cloud run, Oz routes the message based on the run's current state:
+
+* **Appended** - The run hasn't started yet, so the follow-up is appended to the prompt.
+* **Injected** - The current execution is still reachable, so the follow-up is injected into the live shared session.
+* **Requeued** - The sandbox has ended, so Oz creates a new execution on the same run.
+
+Cloud-to-cloud handoff is the **requeued** path. The user-facing effect is the same — you submit a follow-up and the run continues — but the underlying mechanics differ because the new execution starts on a fresh sandbox.
+
+## What the new execution receives
+
+Each cloud agent run captures a snapshot of its workspace at the end of its execution and uploads it to a per-execution prefix in storage (`snapshots/{run_id}/{execution_id}/`). When a new execution starts on the same run, Oz discovers the prior execution's snapshot and rehydrates from it.
+
+* **The same agent conversation** - The new execution writes to the same agent conversation id as the prior execution. From the user's perspective, the run is one continuous conversation across multiple sandboxes.
+* **The prior workspace state** - The prior execution's repository diffs (tracked and untracked) and any orphan files declared in its `snapshot_state.json` manifest are downloaded into the new sandbox and applied via `git apply` before the agent answers the follow-up.
+* **Stable run identity** - The run id, task id, and run metadata (creator, environment, schedule trigger, integration source) are preserved. Compute usage is recorded per execution but rolls up to the same run.
+
+The receiving agent's first turn applies the patches and reports any that failed. If a patch fails outright, the agent retries it with `git apply --3way` and only proceeds to the user's follow-up after every patch has been attempted.
+
+## Prerequisites
+
+* **An ended cloud agent run** - The run must have a `succeeded`, `failed`, `error`, `blocked`, or `cancelled` state and an associated agent conversation id. Runs with no conversation id (rare; mostly legacy) cannot be continued via handoff.
+* **A snapshot from the prior execution** - The agent driver uploads a snapshot at the end of every cloud agent run by default. If the prior execution didn't upload a snapshot (for example, the snapshot upload itself failed), the new execution still proceeds — it just starts without rehydrated workspace state.
+* **Access to the run** - You must have permission to submit follow-ups for the run. For team runs, this is normally any member of the team.
+
+## Sending a follow-up that triggers cloud-to-cloud handoff
+
+Cloud-to-cloud handoff is automatic. You don't choose between "send a follow-up" and "hand off" — you just send a follow-up, and Oz picks the routing.
+
+### From the Warp app
+
+1. **Open the ended cloud run.** Navigate to the run in the [management view](/agent-platform/cloud-agents/managing-cloud-agents/) or via the conversation panel.
+2. **Send your follow-up.** Type the next message into the conversation's input bar and submit it. Oz routes the message and, if the sandbox has ended, creates a new execution on the same run.
+3. **Watch the new execution.** A new execution appears in the run's history with its own start time. The conversation continues in the same thread, and the new sandbox's first tool calls are the rehydration patches.
+
+### From the Oz web app
+
+1. **Open the run at oz.warp.dev.** Click into the run from the **Runs** tab in the [Oz web app](/agent-platform/cloud-agents/oz-web-app/).
+2. **Send the follow-up.** Use the in-page input to send your next message. The same routing rules apply.
+
+### From an integration
+
+When a Slack-triggered or Linear-triggered cloud run ends, the integration can post follow-up messages into the same run. The server treats those follow-ups identically to ones sent from the Warp app — if the sandbox is gone, a new execution starts and rehydrates from the prior snapshot. See [Slack integration](/agent-platform/cloud-agents/integrations/slack/) and [Linear integration](/agent-platform/cloud-agents/integrations/linear/) for the integration-specific follow-up surfaces.
+
+## Inspecting handoff executions
+
+The [management view](/agent-platform/cloud-agents/managing-cloud-agents/) shows a single row per run, even when the run spans multiple executions. To inspect each execution:
+
+1. **Open the run detail.** Click the run row to open the conversation transcript.
+2. **Look at the execution timeline.** The run detail surfaces each execution separately. You can see which execution wrote each message and how long each execution ran.
+3. **Check the rehydration tool calls.** The first tool calls in each requeued execution are the patch-apply commands. If any failed, the agent's report appears in that execution's transcript.
+
+## Troubleshooting
+
+**My follow-up didn't trigger a new execution — it just appended to the prompt.**
+The original run hasn't started yet (state is still `queued` or `pending`). Oz appended your message to the prompt the new execution will pick up. This is the **appended** path, not handoff; the run hasn't ended yet so there's nothing to hand off from.
+
+**My follow-up injected into the live session instead of creating a new execution.**
+The original sandbox is still reachable. Oz injected your message into the live shared session — the **injected** path. This is the cheapest routing and avoids spinning up a fresh sandbox. You don't need to do anything; the agent will handle the follow-up in the existing execution.
+
+**The new execution started but no patches were applied.**
+The prior execution didn't upload a snapshot. This is rare but possible — snapshot upload is best-effort and can fail (for example, on a transient storage error). The new execution still proceeds with the same agent conversation, so the agent has the full transcript context even without the workspace state.
+
+**The run is in a terminal state with no conversation id and follow-ups are rejected.**
+Some very old runs predate the agent conversation model and cannot be continued via handoff. Start a new cloud agent run with the prompt you want and reference the prior run in the prompt if needed.
+
+## Related pages
+
+* [Handoff overview](/agent-platform/cloud-agents/handoff/) - What handoff is, the three directions, and what carries over.
+* [Handoff from local to cloud](/agent-platform/cloud-agents/handoff/local-to-cloud/) - Promote a local conversation to a cloud run.
+* [Handoff from cloud to local](/agent-platform/cloud-agents/handoff/cloud-to-local/) - Take over a cloud run inside the Warp terminal.
+* [Managing Cloud Agents](/agent-platform/cloud-agents/managing-cloud-agents/) - Find runs to send follow-ups to.
+* [Oz API and SDK](/reference/api-and-sdk/) - Programmatic follow-up submission via `POST /agent/runs/{runId}/followups`.

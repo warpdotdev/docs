@@ -1,0 +1,90 @@
+---
+title: Handoff from cloud to local
+description: >-
+  Pick up a cloud agent run inside the Warp terminal to verify, iterate, or
+  polish changes before shipping — without losing the cloud agent's
+  conversation history.
+sidebar:
+  label: "Cloud to local"
+---
+
+Hand off a cloud agent run to your local Warp terminal when you want to take over the work in person. The local session forks the cloud conversation in place, so you keep the full transcript, can ask follow-up questions, and can make manual edits inside the same flow the cloud agent was using.
+
+This direction is the right move when:
+
+* A cloud agent has done the heavy lifting and you want to verify the changes against your local checkout.
+* You want to make manual tweaks before approving a PR.
+* You want to ask follow-up questions to a cloud run interactively rather than waiting on another cloud round-trip.
+* A teammate triggered a cloud run from Slack or a schedule and you want to push it further from your machine.
+
+## What the local conversation receives
+
+When you continue a cloud run locally, the Warp client materializes a fork of the cloud conversation and opens it as a new pane next to your current one. The fork inherits:
+
+* **The full transcript** - Every user turn, agent turn, and tool call from the cloud run is visible in the local conversation.
+* **Conversation attachments** - Files attached during the cloud run remain available to reference locally.
+* **The agent's plan and artifacts** - Any plan documents, branch artifacts, or pull request links the cloud agent produced are accessible from the local view.
+
+Continuing a cloud run locally creates a fork rather than modifying the source. The original cloud run stays intact; your local conversation diverges from it as soon as you send a new prompt or make a manual edit. This matches [Conversation Forking](/agent-platform/local-agents/interacting-with-agents/conversation-forking/) behavior — the cloud run continues to live in the [management view](/agent-platform/cloud-agents/managing-cloud-agents/) and can be revisited later.
+
+:::note
+Cloud-to-local handoff brings the cloud agent's conversation and artifacts into your terminal. It does not automatically apply the cloud agent's uncommitted workspace changes to your local checkout — review the agent's PR or branch artifact to inspect and pull in those changes.
+:::
+
+## Prerequisites
+
+* **A cloud agent run to pick up** - The run can be in any state: still working, completed, failed, or canceled. The conversation must be cloud-synced (cloud agent runs are stored in the cloud by default).
+* **Cloud conversation storage enabled** - **Settings** > **Privacy** > **Store AI conversations in the cloud** must be on. Cloud agent conversations are always synced regardless of this setting, but storage must be on for the local fork to write back.
+* **Warp desktop app** - Cloud-to-local handoff continues the conversation inside the Warp app. From the [Oz web app](/agent-platform/cloud-agents/oz-web-app/), the equivalent action is **Open in Warp**, which launches Warp and starts the local fork.
+
+## Continuing a cloud run locally
+
+There are three entry points to continue a cloud run locally, depending on where you are in the workflow.
+
+### From the conversation details panel
+
+Use this when you're already inspecting a cloud run inside the Warp app.
+
+1. **Open the cloud run.** In the conversation panel or the [management view](/agent-platform/cloud-agents/managing-cloud-agents/), click the run you want to continue.
+2. **Open the conversation details panel.** Click the info button in the pane header to open the side panel that shows run metadata.
+3. **Click Continue locally.** Warp forks the conversation and opens it in a split pane next to the cloud run. The new pane is the local conversation; the cloud run pane remains on its side for reference.
+
+### From the ended-run tombstone
+
+Use this when a cloud run has just finished and you want to take over without leaving the pane.
+
+1. **Wait for the cloud agent to finish.** When the run ends, an ended-run tombstone card appears at the bottom of the pane with the run's metadata and artifacts.
+2. **Click Continue locally on the tombstone.** Warp forks the conversation into a split pane the same way the details panel does.
+
+### Via the `/continue-locally` slash command
+
+Use this when you want to continue a cloud conversation by name without first navigating to it.
+
+1. **Open the cloud conversation in the Warp terminal.** Run `/continue-locally` from inside the cloud conversation pane (or from a fresh pane if the conversation panel surfaces a recent run you want to pick up).
+2. **Confirm the fork.** Warp creates the local fork in a split pane and focuses the input so you can immediately type your follow-up.
+
+## Continuing in your next turn
+
+After the local fork opens, you can interact with the agent the same way you would in any local Warp conversation.
+
+1. **Send a follow-up prompt.** Anything you type in the local pane is now a turn in the forked conversation. The cloud run is unaffected.
+2. **Inspect the agent's workspace changes.** If the cloud agent produced a branch or PR artifact, the local conversation surfaces the same buttons (visible in the artifacts row). Click through to review the changes in your local checkout or in GitHub.
+3. **Make manual edits if needed.** The local conversation is a regular Warp Agent conversation. You can edit files, run commands, or use any other Warp surface alongside the agent.
+
+## Troubleshooting
+
+**The Continue locally button doesn't appear.**
+The button is hidden when AI features are disabled. Confirm in **Settings** > **AI** that AI is enabled and that you're signed in. The button is also hidden while a conversation is still in progress in a few states — wait for the agent to enter a stable state (working, completed, blocked, failed, or canceled) and the button should appear.
+
+**The local fork opens but doesn't show the full transcript.**
+The conversation data may not have finished syncing yet. Cloud agent conversations stream their state in near-real-time, so this is usually a few-second delay. If the transcript still looks truncated after a minute, refresh the conversation panel.
+
+**I'm in the Oz web app on a mobile device — there's no Continue locally button.**
+Continuing locally requires the Warp desktop app. On mobile or in a browser, you'll see **Open in Warp** instead. Clicking it deep-links into the desktop app and runs the same fork-and-open flow.
+
+## Related pages
+
+* [Handoff overview](/agent-platform/cloud-agents/handoff/) - What handoff is, the three directions, and what carries over.
+* [Handoff from local to cloud](/agent-platform/cloud-agents/handoff/local-to-cloud/) - The reverse direction, for promoting a local conversation to a cloud run.
+* [Cloud-synced conversations](/agent-platform/local-agents/cloud-conversations/) - How cloud conversations are stored, shared, and restored locally.
+* [Managing Cloud Agents](/agent-platform/cloud-agents/managing-cloud-agents/) - Find cloud runs to continue locally.

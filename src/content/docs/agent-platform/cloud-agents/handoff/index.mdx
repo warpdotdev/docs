@@ -1,0 +1,55 @@
+---
+title: Handoff between local and cloud agents
+description: >-
+  Move an agent conversation between your terminal and the cloud, or between
+  cloud runs, without losing context. Three handoff directions, one continuous
+  unit of work.
+sidebar:
+  label: "Handoff overview"
+---
+
+Handoff lets you move a single unit of agent work between your local terminal and the cloud, or between two cloud runs, without re-explaining the task. You start where it's convenient, hand the work off when you need different compute or visibility, and pick it back up wherever the agent left off.
+
+## Three directions of handoff
+
+Each direction solves a different gap in the local + cloud workflow.
+
+* **Local to cloud** - Start in the Warp terminal, then promote the conversation to a cloud agent run when you need more compute, longer-running execution, or to parallelize multiple variants. The cloud agent starts from your conversation history and your uncommitted workspace state.
+* **Cloud to local** - Pick up a cloud run inside the Warp terminal to verify, iterate, or polish before shipping. Useful when a cloud agent has done the heavy lifting and you want to take over locally for the final mile.
+* **Cloud to cloud** - Send a follow-up to a cloud run whose sandbox has already shut down. Oz creates a new execution on the same run and rehydrates the prior execution's workspace state so the agent continues the same task instead of starting fresh.
+
+## What carries over
+
+Handoff is designed to preserve enough state that the receiving agent can resume the work, not just read about it.
+
+* **Conversation history** - The receiving agent sees the full transcript of the prior session. For local-to-cloud, Oz materializes a server-side fork of the local conversation so the source isn't modified. For cloud-to-cloud, the same agent conversation id is reused across executions.
+* **Workspace state** - Repository diffs (tracked and untracked changes) from the prior session are captured as patch files and applied in the receiving sandbox before the agent answers the next prompt. Local-to-cloud uploads patches from your local checkout; cloud-to-cloud reuses the snapshot the prior cloud execution wrote at the end of its run.
+* **Snapshot manifest** - A `snapshot_state.json` manifest records the repo name, branch, and HEAD SHA at handoff time so the receiving agent can verify it's applying patches at the right checkout point.
+* **Artifacts and attachments** - Files the prior session attached to the conversation remain available to the receiving agent.
+
+## How handoff works
+
+The three directions share one mechanism: a workspace snapshot stored in Google Cloud Storage plus a forked or continued agent conversation. The receiving agent's first turn applies the patches via `git apply` and then addresses the user's follow-up.
+
+* **Local to cloud** - The Warp client uploads workspace patches and a manifest to a token-scoped staging area (`handoff/{token}/`) and then creates a new cloud run that references both the token and a forked copy of the local conversation. The cloud sandbox downloads the snapshot, applies the patches, and starts the agent on a fresh execution. See [Handoff from local to cloud](/agent-platform/cloud-agents/handoff/local-to-cloud/).
+* **Cloud to local** - The Warp client forks the cloud conversation locally and opens it in a split pane. You continue the conversation from the same point the cloud agent left off. See [Handoff from cloud to local](/agent-platform/cloud-agents/handoff/cloud-to-local/).
+* **Cloud to cloud** - Submitting a follow-up to an ended cloud run creates a new execution on the same run. The new execution discovers the prior execution's snapshot at `snapshots/{run_id}/{execution_id}/` and rehydrates from it. The run id, task id, and agent conversation id stay stable across executions. See [Handoff from cloud to cloud](/agent-platform/cloud-agents/handoff/cloud-to-cloud/).
+
+## When to use handoff
+
+Each direction has a clear motivating workflow.
+
+* **Local to cloud** - Use when a local conversation has spiraled into work that's better done in the cloud. Common reasons include: needing to run a long-running task without tying up your laptop, parallelizing variants of the same task across cloud sandboxes, or steering work from a mobile device once it's running in the cloud.
+* **Cloud to local** - Use when a cloud agent has done the heavy lifting and you want to take over for verification, manual review, or polish before shipping. Also useful for inspecting the agent's changes against your local checkout.
+* **Cloud to cloud** - Use when a cloud agent finished and you want to send a follow-up — even though the sandbox shut down — without losing the prior workspace state. Also useful when a Slack-triggered or scheduled run completes and someone on the team wants to push it further from the Warp terminal.
+
+## Rehydration behavior
+
+Handoff is best-effort. When patches apply cleanly, the receiving agent picks up the work exactly where the prior session left off. When they don't, the agent reports which patches failed and proceeds with what it could apply rather than starting over silently. The same rehydration prompt is used across all three directions so the agent's pre-turn checklist is consistent regardless of where the work originated.
+
+## Related pages
+
+* [Cloud agents overview](/agent-platform/cloud-agents/overview/) - What cloud agents are, when to use them, and how they fit into the Oz Platform.
+* [Managing Cloud Agents](/agent-platform/cloud-agents/managing-cloud-agents/) - Inspect handoff runs from the management view alongside local conversations.
+* [Cloud-synced conversations](/agent-platform/local-agents/cloud-conversations/) - How conversations sync between local and cloud so handoff can find them.
+* [Environments](/agent-platform/cloud-agents/environments/) - The runtime context a cloud agent runs in after a handoff.
