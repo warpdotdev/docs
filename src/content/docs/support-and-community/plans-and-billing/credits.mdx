@@ -12,6 +12,14 @@ Any interaction with Warp's Agent consumes credits. Credits are primarily based 
 
 Credits also include a small hosting fee, charged only when running agents in the cloud, hosted on Warp's infrastructure. For details on cloud agent credits, see [Cloud Agent Credits](/support-and-community/plans-and-billing/credits/#cloud-agent-credits).
 
+Warp meters usage in three buckets:
+
+* **AI credits** - The primary bucket. Consumed by Agent conversations and other AI features whenever Warp pays for the model inference.
+* **Cloud Agent Credits** - Charged for cloud agent runs that execute on Warp-hosted compute. See [Cloud Agent Credits](/support-and-community/plans-and-billing/credits/#cloud-agent-credits).
+* **Platform Credits** - Charged for the Oz orchestration layer when an agent is actively working but Warp isn't paying for inference or compute (for example, BYOLLM via Amazon Bedrock or self-hosted cloud agents). See [Platform Credits](/support-and-community/plans-and-billing/platform-credits/).
+
+All three buckets draw from the same plan credit pool and [Add-on Credits](/support-and-community/plans-and-billing/add-on-credits/), so you can manage them as a single balance in **Settings** > **Billing and usage**.
+
 Each interaction consumes **at least one credit**, though more complex interactions may use **multiple credits**. Because of factors such as codebase size, model choice, number of tool calls, and the nature of LLMs, credit usage is **non-deterministic** — two similar prompts can still use a different number of credits.
 
 :::note
@@ -130,3 +138,25 @@ The following scenarios do **not** use Cloud Agent Credits:
 
 * **Local agent runs** — Using `oz agent run` on your local machine
 * **Self-hosted compute** — Using `oz agent run` on GitHub Actions, CI/CD pipelines, or other self-hosted infrastructure
+
+### Platform Credits
+
+Platform Credits cover the Oz orchestration layer when Warp isn't paying for inference or compute — for example, when you bring your own LLM provider (BYOLLM via Amazon Bedrock or Google Vertex), use [Bring Your Own API Key (BYOK)](/support-and-community/plans-and-billing/bring-your-own-api-key/), or run cloud agents on your own infrastructure.
+
+#### Eligible for Platform Credits
+
+The following scenarios use Platform Credits:
+
+* **Cloud agents on any plan** — Any cloud agent run, regardless of harness or where inference comes from
+* **Local agents on Business or Enterprise with customer-supplied inference** — Local Oz runs that use BYOK or BYOLLM (Amazon Bedrock, Google Vertex) on a Business or Enterprise plan
+
+#### Not eligible for Platform Credits
+
+The following scenarios do **not** use Platform Credits:
+
+* **Local agents on Free, Build, or Max plans** — Regardless of inference source
+* **Local agents on Business or Enterprise using Warp-managed inference** — AI credits already cover the cost
+* **Regular terminal usage** — Shell commands and non-AI features
+* **Third-party harnesses run directly** — Running `claude`, `codex`, or another CLI outside of Oz
+
+For a full breakdown of how Platform Credits work, see [Platform Credits](/support-and-community/plans-and-billing/platform-credits/).
