@@ -13,7 +13,7 @@ This direction is the right move when:
 
 * A cloud agent finished and you want to send a follow-up after the session has ended.
 * A scheduled or integration-triggered run completed and you want to keep iterating without losing context.
-* You want to continue an ambient agent task while preserving the run as a single unit of work in the [management view](/agent-platform/cloud-agents/managing-cloud-agents/).
+* You want to continue an ambient agent run — an agent that runs in the background, such as a scheduled or integration-triggered run — while preserving it as a single unit of work in the [management view](/agent-platform/cloud-agents/managing-cloud-agents/).
 
 ## What carries over
 
@@ -53,7 +53,7 @@ When a Slack-triggered or Linear-triggered cloud run ends, follow-ups posted fro
 
 ## Inspecting a run that's been handed off
 
-The [management view](/agent-platform/cloud-agents/managing-cloud-agents/) shows one row per run, even when the run spans multiple sessions. Click into the run to see the full transcript and a timeline of each session, including which session wrote each message and how long each one ran.
+The [management view](/agent-platform/cloud-agents/managing-cloud-agents/) shows one row per run, even when the run spans multiple sessions. Click into the run to see the full transcript; each execution is recorded as part of the run's history, and you can see when each execution started and ended via the API.
 
 ## Troubleshooting
 
