@@ -2,17 +2,17 @@
 title: Connecting Claude and Codex credentials
 description: >-
   Store Anthropic or OpenAI credentials as Warp-managed secrets so Oz can
-  inject them into Claude Code and Codex cloud agent runs.
+  authenticate Claude Code and Codex cloud runs against the provider.
 sidebar:
   label: "Authentication"
 ---
 
 This page walks through the one-time setup that connects your team's Anthropic or OpenAI credentials to Oz so cloud runs of [Claude Code](/agent-platform/cloud-agents/harnesses/claude-code/) and [Codex](/agent-platform/cloud-agents/harnesses/codex/) can authenticate.
 
-Oz stores credentials as **Warp-managed secrets** (see [Cloud agent secrets](/agent-platform/cloud-agents/secrets/) for the full secrets model). At run time, Oz looks up the secret you select for the run and injects it into the harness container. Secret values are write-once: you can rotate or delete them, but you can't read the value back after creation.
+Oz stores credentials as **Warp-managed secrets** (see [Cloud agent secrets](/agent-platform/cloud-agents/secrets/) for the full secrets model) and uses the one you pick on a run to authenticate the harness with the provider. Secret values are write-once: you can rotate or delete them, but you can't read the value back after creation.
 
 :::note
-[Bring Your Own Key (BYOK)](/support-and-community/plans-and-billing/bring-your-own-api-key/) configured in the Warp desktop app applies to local agent runs only. Cloud runs of Claude Code and Codex always use Warp-managed secrets so credentials are accessible from the cloud container.
+[Bring Your Own Key (BYOK)](/support-and-community/plans-and-billing/bring-your-own-api-key/) configured in the Warp desktop app applies to local agent runs only. Cloud runs of Claude Code and Codex always use Warp-managed secrets.
 :::
 
 ## Prerequisites
@@ -133,6 +133,6 @@ Your team admin has disabled the harness for your workspace. Contact your admin 
 
 * [Claude Code with Oz](/agent-platform/cloud-agents/harnesses/claude-code/) — Claude Code as a cloud harness.
 * [Codex with Oz](/agent-platform/cloud-agents/harnesses/codex/) — Codex as a cloud harness.
-* [Cloud agent secrets](/agent-platform/cloud-agents/secrets/) — full secrets reference, including scoping and rotation.
+* [Cloud agent secrets](/agent-platform/cloud-agents/secrets/) — full secrets reference, including scoping, rotation, and deletion.
 * [Harnesses in Oz](/agent-platform/cloud-agents/harnesses/) — pick between Warp Agent, Claude Code, and Codex.
 * [Bring Your Own Key (BYOK)](/support-and-community/plans-and-billing/bring-your-own-api-key/) — local-only credentials for the Warp desktop app.

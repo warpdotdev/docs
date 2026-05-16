@@ -22,11 +22,9 @@ Warp Agent is the same agent runtime that powers Agent Mode in the Warp terminal
 
 ## How it works
 
-When you start a cloud agent run without specifying a harness — or when you select **Warp Agent** explicitly — Oz launches the run inside a Warp-managed container. The container clones the repos on the environment, runs setup commands, then hands the prompt to the Warp Agent runtime.
+Warp Agent on Oz is the same agent runtime as Agent Mode in the Warp terminal: it plans, calls tools, edits code, runs tests, and reports progress. The cloud platform adds the [environment](/agent-platform/cloud-agents/environments/), triggers, observability, and team governance around the run, and the transcript is inspectable in real time and replayable afterward from the [Oz dashboard](/agent-platform/cloud-agents/managing-cloud-agents/).
 
-From there the runtime behaves like Agent Mode in the Warp terminal: it plans, calls tools, edits code, runs tests, and reports progress. Every step is captured in the run transcript and surfaced in the [Oz dashboard](/agent-platform/cloud-agents/managing-cloud-agents/), so the run is inspectable in real time and replayable afterward.
-
-Warp Agent obeys the same governance as any other harness. Team admins can disable any harness for their workspace; whichever harnesses remain are the ones available to users on that team.
+Team admins can disable any harness for their workspace; whichever harnesses remain are the ones available to users on that team.
 
 ### Available models
 

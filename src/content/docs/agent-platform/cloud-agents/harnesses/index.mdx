@@ -18,7 +18,7 @@ Whichever harness you pick runs on the [Oz platform](/agent-platform/cloud-agent
 * **Codex** - OpenAI's coding agent, running on Oz. Strong at codebase migrations, release coordination, batch test generation, and backend or DevOps automation.
 
 :::note
-Gemini and OpenCode are on the roadmap. Gemini is wired through the Oz CLI and the terminal harness selector today but is not yet broadly available; OpenCode is a fast-follow. Coverage on this page may expand as those harnesses ship.
+Gemini is on the roadmap. It's wired through the Oz CLI and the terminal harness selector today but is not yet broadly available. Coverage on this page expands as Gemini ships.
 :::
 
 ## Harness vs. model
@@ -34,11 +34,11 @@ When you start a cloud agent run, you choose both: a harness (which runtime exec
 
 Switching harnesses doesn't change the surrounding platform. Every harness inherits:
 
-* **Access control and governance** - The same [team permissions and identity model](/agent-platform/cloud-agents/team-access-billing-and-identity/) applies. Admins can disable harnesses for a team in workspace settings.
-* **Orchestration and triggers** - Any [trigger](/agent-platform/cloud-agents/integrations/) (Slack, Linear, schedules, CI, API) can launch any harness. Skills, prompts, and conversations move between harnesses cleanly.
-* **Environments and secrets** - [Environments](/agent-platform/cloud-agents/environments/) and [agent secrets](/agent-platform/cloud-agents/secrets/) are harness-agnostic. The same Docker image, repos, and setup commands work regardless of which harness runs.
-* **Memory, Skills, and Rules** - Saved [Skills](/agent-platform/capabilities/skills/), [Rules](/agent-platform/capabilities/rules/), and saved prompts apply across harnesses. Warp Agent has the deepest native support; Claude Code and Codex receive skill content as part of the run prompt.
-* **Observability** - Every run produces a transcript, status record, and shareable session, surfaced in the [Oz dashboard](/agent-platform/cloud-agents/managing-cloud-agents/), the Warp app, and the [Oz API](/reference/api-and-sdk/).
+* **Access control and governance** - Your existing [team permissions and identity model](/agent-platform/cloud-agents/team-access-billing-and-identity/) applies. Admins can disable harnesses for a team in workspace settings.
+* **Triggers** - Slack, Linear, schedules, CI, and API [triggers](/agent-platform/cloud-agents/integrations/) launch any harness. Skills, prompts, and conversations move between harnesses cleanly.
+* **Environments and secrets** - Reuse the same [environments](/agent-platform/cloud-agents/environments/) and [agent secrets](/agent-platform/cloud-agents/secrets/) regardless of which harness runs the work.
+* **Memory, Skills, and Rules** - Saved [Skills](/agent-platform/capabilities/skills/), [Rules](/agent-platform/capabilities/rules/), and saved prompts apply across harnesses. Warp Agent has the deepest native support; Claude Code and Codex also pick them up.
+* **Observability** - Every run produces a transcript, status record, and shareable session in the [Oz dashboard](/agent-platform/cloud-agents/managing-cloud-agents/), the Warp app, and the [Oz API](/reference/api-and-sdk/).
 
 ## Billing across harnesses
 

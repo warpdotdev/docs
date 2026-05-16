@@ -22,9 +22,9 @@ This page covers Claude Code as a **cloud** harness, dispatched and orchestrated
 
 ## How it works
 
-When a trigger fires for a Claude Code run, Oz prepares the environment (Docker image, repos, setup commands), injects the run's Anthropic credentials, and launches the `claude` CLI inside the container with the user prompt. From that point Claude Code runs the task end-to-end: it plans, reads code, edits files, runs commands, and (by Oz convention) opens a draft PR with the result.
+When a trigger fires for a Claude Code run, Oz hands the prompt and your stored Anthropic credentials to Claude Code inside the run's [environment](/agent-platform/cloud-agents/environments/). Claude Code drives the task end-to-end — plans, reads code, edits files, runs commands, and (by Oz convention) opens a draft PR with the result.
 
-Oz captures the Claude Code transcript and exposes it through the [Oz dashboard](/agent-platform/cloud-agents/managing-cloud-agents/), the Warp app's conversations panel, and the [Oz API](/reference/api-and-sdk/). The transcript shows every step Claude Code took, which makes the run reviewable after the fact and shareable with teammates.
+Oz captures the transcript and exposes it through the [Oz dashboard](/agent-platform/cloud-agents/managing-cloud-agents/), the Warp app's conversations panel, and the [Oz API](/reference/api-and-sdk/), so the run is reviewable after the fact and shareable with teammates.
 
 ### Available models
 
@@ -32,10 +32,8 @@ The Claude Code harness exposes Anthropic's coding-tuned model lineup. Common pi
 
 * `opus`, `sonnet`, `haiku` - Aliases that resolve to the current default for that family.
 * `claude-opus-4-7`, `claude-sonnet-4-6`, `claude-haiku-4-5` - Latest pinned full model names.
-* `opus[1m]`, `sonnet[1m]` - 1M-context variants for very large codebases.
-* `opusplan` - Opus tuned for `/plan`-style planning workflows.
 
-Older pinned models stay available for runs that need them. For the canonical list, open the model picker in the Warp app's Cloud Mode or the **Model** field on the Oz web app's new-run pane.
+For the full list — including 1M-context variants for very large codebases and planning-tuned models — open the model picker in the Warp app's Cloud Mode or the **Model** field on the Oz web app's new-run pane.
 
 ### Credentials and billing
 
@@ -50,7 +48,7 @@ Anthropic bills your account directly for the inference your runs make. Warp cre
 For setup steps, see [Connecting Claude and Codex credentials](/agent-platform/cloud-agents/harnesses/authentication/).
 
 :::note
-[Bring Your Own Key (BYOK)](/support-and-community/plans-and-billing/bring-your-own-api-key/) configured in the Warp desktop app is not used for cloud Claude Code runs. Cloud runs always use credentials stored as Warp-managed secrets so they're available to the cloud container.
+[Bring Your Own Key (BYOK)](/support-and-community/plans-and-billing/bring-your-own-api-key/) configured in the Warp desktop app applies to local agent runs only. Cloud Claude Code runs always use credentials stored as Warp-managed secrets.
 :::
 
 ## Choosing Claude Code
@@ -89,4 +87,4 @@ oz agent run-cloud \
 * [Warp Agent with Oz](/agent-platform/cloud-agents/harnesses/warp-agent/) — the default Oz harness, the only one that can orchestrate Claude Code subagents.
 * [Codex with Oz](/agent-platform/cloud-agents/harnesses/codex/) — Codex as a cloud harness.
 * [Claude Code in Warp](/agent-platform/cli-agents/claude-code/) — Claude Code in your local Warp terminal.
-* [Cloud agent secrets](/agent-platform/cloud-agents/secrets/) — how Warp-managed secrets are scoped and injected at runtime.
+* [Cloud agent secrets](/agent-platform/cloud-agents/secrets/) — the full Warp-managed secrets reference.
