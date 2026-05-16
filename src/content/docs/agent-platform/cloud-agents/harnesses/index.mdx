@@ -1,0 +1,71 @@
+---
+title: Harnesses
+description: >-
+  Run Warp Agent, Claude Code, or Codex as first-class harnesses inside Oz with
+  one access-control, memory, and billing model across every harness.
+sidebar:
+  label: "Overview"
+---
+
+A harness is the agent runtime that executes a cloud agent run. Oz lets you pick the harness that fits the task — [Warp Agent](/agent-platform/cloud-agents/harnesses/warp-agent/), [Claude Code](/agent-platform/cloud-agents/harnesses/claude-code/), or [Codex](/agent-platform/cloud-agents/harnesses/codex/) — without changing how you launch, observe, or govern the run.
+
+Every harness is a first-class citizen on the [Oz Platform](/agent-platform/cloud-agents/platform/). You can launch and steer any harness from the Warp terminal, the [Oz web app](/agent-platform/cloud-agents/oz-web-app/), the [Oz CLI](/reference/cli/), the [REST API or SDK](/reference/api-and-sdk/), and direct it to do work across multiple repos, integrations, and machines. The harness changes; the platform around it does not.
+
+## Available harnesses
+
+* **Warp Agent** - Oz's default harness, built by Warp. Routes across leading models (Anthropic, OpenAI, Google, Fireworks), has full terminal and tool access, and is the only harness that can act as a parent in a cross-harness orchestration.
+* **Claude Code** - Anthropic's coding agent, running as an Oz cloud harness. Strong at code review, deep bug investigation, large feature planning, and frontend or UI work.
+* **Codex** - OpenAI's coding agent, running as an Oz cloud harness. Strong at codebase migrations, release coordination, batch test generation, and backend or DevOps automation.
+
+:::note
+Gemini CLI and OpenCode are fast-follow harnesses. They are not yet available as Oz harnesses but are tracked for a near-term release.
+:::
+
+## Harness vs. model
+
+A harness and a model are not the same thing.
+
+* **Harness** - The agent runtime. It decides how the agent plans, calls tools, manages context, and reports results. Warp Agent, Claude Code, and Codex are different harnesses.
+* **Model** - The LLM the harness calls for inference. A single harness can use many models, and Warp Agent in particular can route between providers (see [Model choice](/agent-platform/capabilities/model-choice/)). Claude Code uses Anthropic models; Codex uses OpenAI models.
+
+When you start an Oz cloud agent run, you choose both: a harness (which runtime to run inside) and a model (which LLM the harness should use). Each harness exposes its own model picker — see the harness-specific pages for the supported models.
+
+## What stays the same across harnesses
+
+Switching harnesses doesn't change the surrounding platform. Every harness inherits:
+
+* **Access control and governance** - The same [team permissions and identity model](/agent-platform/cloud-agents/team-access-billing-and-identity/) applies. Admins can disable harnesses for a team in workspace settings.
+* **Orchestration and triggers** - Any [trigger](/agent-platform/cloud-agents/integrations/) (Slack, Linear, schedules, CI, API) can launch any harness. Skills, prompts, and conversations move between harnesses cleanly.
+* **Environments and secrets** - [Environments](/agent-platform/cloud-agents/environments/) and [agent secrets](/agent-platform/cloud-agents/secrets/) are harness-agnostic. The same Docker image, repos, and setup commands work regardless of which harness runs.
+* **Memory, Skills, and Rules** - Saved [Skills](/agent-platform/capabilities/skills/), [Rules](/agent-platform/capabilities/rules/), and saved prompts apply across harnesses. Warp Agent has the deepest native support; Claude Code and Codex also receive skill content via prompt injection at run start.
+* **Observability** - Every run produces a transcript, status record, and shareable session, surfaced in the [Oz dashboard](/agent-platform/cloud-agents/managing-cloud-agents/), the Warp app, and the [Oz API](/reference/api-and-sdk/).
+* **Billing** - All harnesses bill against the same Warp credit pool. There's no separate metering or contract for third-party harnesses.
+
+## When to choose which harness
+
+Use the harness that fits the task. Strengths are heuristic — every harness can run any task — but using the right one tends to be faster and produce cleaner output.
+
+* **Warp Agent** - Multi-step work that spans repos, tools, or harnesses; tasks that benefit from auto-routing between models; long-running ambient agents that orchestrate Claude Code or Codex subagents.
+* **Claude Code** - Tasks where deep code reading and judgment matter more than execution speed: code review, root-cause investigation, large feature scoping, frontend and UI iteration.
+* **Codex** - High-volume, well-defined coding work where consistency matters: codebase migrations, release notes, batch test generation, backend service changes, and CI/CD automation.
+
+If you're unsure, start with Warp Agent — it can delegate to Claude Code or Codex via subagents when it decides that's the better fit for a step.
+
+## How to switch harnesses
+
+You can choose a harness when starting a cloud agent run from any surface:
+
+* **Warp app** - In Cloud Mode, the harness dropdown appears above the input.
+* **Oz web app** - On the new run or new schedule pane, the **Harness** field lists every harness available to you.
+* **Oz CLI** - Pass `--harness` to `oz agent run` or `oz agent run-cloud`. Valid values today: `oz`, `claude`, `gemini`. (Codex CLI support is fast-follow; use the Warp app or Oz web app to launch a Codex run today.)
+* **API / SDK** - Set the `harness` field on the agent config when creating a run.
+
+Claude Code and Codex runs need credentials. See [Connecting Claude and Codex credentials](/agent-platform/cloud-agents/harnesses/authentication/) for the one-time setup.
+
+## Related pages
+
+* [Warp Agent harness](/agent-platform/cloud-agents/harnesses/warp-agent/) — the default Oz harness.
+* [Claude Code harness](/agent-platform/cloud-agents/harnesses/claude-code/) — Claude Code as a cloud harness.
+* [Codex harness](/agent-platform/cloud-agents/harnesses/codex/) — Codex as a cloud harness.
+* [Connecting Claude and Codex credentials](/agent-platform/cloud-agents/harnesses/authentication/) — connect Anthropic or OpenAI credentials to Oz.
+* [Third-party CLI agents in the Warp terminal](/agent-platform/cli-agents/overview/) — the other context where Claude Code, Codex, and other CLI agents run.
