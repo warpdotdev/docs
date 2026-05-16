@@ -44,7 +44,7 @@ oz federate issue-token \
 
 The subject claim is what your cloud provider's policy will match on, so pick the combination that gives you the IAM granularity you need. Supported components:
 
-* **`principal`** - The acting principal, like `user:my-user-id` or `service_account:my-sa-id`.
+* **`principal`** - The acting principal, like `user:my-user-id` or `service_account:my-sa-id`. A `service_account:` principal corresponds to a [named agent](/agent-platform/cloud-agents/agents/) on your team.
 * **`scoped_principal`** - The principal scoped to a team, like `principal:my-team-id/user:my-user-id`.
 * **`email`** - The principal's email, like `email:user@warp.dev`.
 * **`teams`** - The principal's team, like `teams:my-team-id`.

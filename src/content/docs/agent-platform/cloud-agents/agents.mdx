@@ -1,0 +1,96 @@
+---
+title: Named agents
+description: >-
+  Named agents are team-scoped identities that own and execute cloud agent
+  runs. Use them to separate workflows, scope credentials, and attribute
+  automated work to a specific bot account.
+sidebar:
+  label: "Named agents"
+---
+
+A **named agent** is a team-scoped identity that can own and execute Oz cloud agent runs. Every Warp team starts with a single default agent. Creating additional named agents lets you separate workflows, scope credentials, and attribute automated runs to a specific bot account instead of a person.
+
+Named agents are useful when you want to:
+
+* **Separate workflows** - Give the deploy bot, the dependency-update bot, and the code-review bot distinct identities so runs are easier to filter and audit.
+* **Scope credentials** - Attach a specific set of managed secrets and skills to one identity so its runs receive only the configuration that workflow needs.
+* **Attribute automated work** - Bind an API key to a named agent so CI pipelines and webhooks show up as that bot in run history rather than as a teammate.
+
+## How named agents work
+
+Each team has one default agent that runs receive automatically when no specific identity is chosen. You can create additional named agents on top of that default and run as any of them. Identities are team-scoped, so every member of a team can see and use the same set of named agents.
+
+You can attach the following configuration to a named agent:
+
+* **Description** - A short, human-readable summary teammates see when picking the agent.
+* **Managed secrets** - References (by name) to [team-managed secrets](/agent-platform/cloud-agents/secrets/) the agent should have access to.
+* **Skills** - Skill specs (for example, `org/repo:path/to/SKILL.md`) the agent comes preloaded with. Shorthand specs like `repo:skill_name` are accepted when they resolve unambiguously against the team's cloud environments.
+
+Skill specs are stored in their normalized fully-qualified form, and managed secret references are validated against the team's secret scope at attach time. If a secret is missing or a skill repo is not accessible to the team's GitHub App installation, the request is rejected before anything is saved.
+
+## Plan limits
+
+Each plan caps the number of named agents (including the default) a team can have:
+
+* **Free** - 1 named agent.
+* **Build** - 1 named agent.
+* **Business** - 5 named agents.
+* **Enterprise** - Unlimited.
+
+When a team is over its plan limit (for example, after downgrading), the extra identities remain visible in the list but are marked as unavailable. Unavailable identities cannot be used to start runs, cannot have new API keys generated for them, and cannot be edited.
+
+## Managing named agents
+
+You can create, list, update, and delete named agents through the public API. The full request and response shapes — including error codes — live on the [API Reference](/api) page; the operations to look for are `createAgent`, `listAgents`, `getAgent`, `updateAgent`, and `deleteAgent` under the **agent** tag.
+
+The endpoints behave as follows:
+
+* **Create** - `POST /agent/identities` with a `name` and optional `description`, `secrets`, and `skills`. Returns `201` with the new agent's `uid`, `name`, and `available` flag.
+* **List** - `GET /agent/identities` returns every named agent on the team, including the default. Each entry includes an `available` flag indicating whether it is within the plan limit.
+* **Retrieve** - `GET /agent/identities/{uid}` returns a single agent by its UID.
+* **Update** - `PUT /agent/identities/{uid}` replaces individual fields. Omitting a field preserves the current value; passing an empty string or empty array clears it.
+* **Delete** - `DELETE /agent/identities/{uid}` soft-deletes the agent and atomically deletes every API key bound to it. The default agent cannot be deleted.
+
+### Caller requirements
+
+A few constraints apply across every endpoint:
+
+* **Team-scoped** - Named agents belong to a team. The caller must be a member of exactly one team. If the caller is on zero teams or multiple teams, the request is rejected.
+* **Human callers only** - Only human users can create, update, or delete a named agent. A request authenticated as a named agent itself is rejected.
+* **Availability is enforced on use** - Over-plan-limit agents are returned by the list endpoint but cannot be used to update fields, generate new keys, or start new runs.
+
+## API keys bound to a named agent
+
+A team API key can be bound to a specific named agent at creation time. Calls authenticated with that key run as the chosen agent. The team is resolved automatically from the agent — you don't need to specify a team when generating the key.
+
+To create a key bound to a named agent, pass the agent's UID to the `generateApiKey` mutation. See [API Keys](/reference/cli/api-keys/) for the full key creation flow and for the difference between user-scoped and team-scoped keys.
+
+Once the key exists, the CLI and SDK authenticate as that named agent for every call. There is no extra flag to set; the binding is on the key itself.
+
+## Running as a named agent
+
+There are two ways to run a cloud agent as a specific named agent:
+
+* **Authenticate with a key bound to the agent** - Every run started with that key executes as the bound named agent. This is the typical path for CI pipelines and scheduled work.
+* **Pass `agent_identity_uid` on `POST /agent/runs`** - For one-off runs, send the named agent's `uid` in the request body. The field is only valid for team-owned runs.
+
+When neither path is used, runs execute under the default identity ("Quick run" in the web app).
+
+## Where named agents appear in the product
+
+Named agents surface across several Oz surfaces:
+
+* **Agents page** - The Agents page in the [Oz web app](/agent-platform/cloud-agents/oz-web-app/) is where teams view, create, edit, and delete named agents. The same page lists the skills available to your team.
+* **Agent picker** - Forms that start a new run or schedule include an **Agent** dropdown. **Quick run** is the default option (runs execute as the calling user); selecting a named agent runs as that identity instead.
+* **Run filters and detail** - The Runs view lets you filter by named agent, and individual run detail pages show which identity executed the run.
+* **Admin Panel** - Billing usage in the [Admin Panel](/knowledge-and-collaboration/admin-panel/) attributes credits consumed by named-agent runs to the team rather than to a person.
+
+## Related pages
+
+* [Cloud agent secrets](/agent-platform/cloud-agents/secrets/) - Manage the team-managed secrets you can attach to a named agent.
+* [Deployment patterns](/agent-platform/cloud-agents/deployment-patterns/) - When to use a named agent for automation versus a personal identity.
+* [Oz API & SDK](/reference/api-and-sdk/) - Programmatic access to the named agent endpoints.
+* [API Keys](/reference/cli/api-keys/) - Create keys bound to a specific named agent.
+* [Federated identity tokens](/reference/cli/federate/) - Issue OIDC tokens from inside a run, including ones executing as a named agent.
+* [Oz web app](/agent-platform/cloud-agents/oz-web-app/) - The web surface where you manage named agents and inspect their runs.
+* [Admin Panel](/knowledge-and-collaboration/admin-panel/) - Team-level billing and access controls.
