@@ -36,9 +36,13 @@ If applying any change fails in the cloud run, the cloud agent reports what coul
 
 ## Handing off a conversation to the cloud
 
-1. **Open the cloud agent launch flow from your active conversation.** In the Warp terminal with the local conversation focused, start a cloud agent with the `/cloud-agent` slash command. When invoked from inside an active conversation, the launch flow offers to continue the current conversation rather than starting a new one.
+1. **Open the handoff flow from your active conversation.** With the local conversation focused, trigger handoff with the `&` shortcut or the `/handoff` slash command. Either entry point opens the handoff flow scoped to the current conversation. The `/cloud-agent` slash command always starts a fresh cloud conversation and isn't an entry point for handoff.
 2. **Choose the environment for the cloud run.** Pick the environment whose repositories match the directories your local conversation has been editing. If you don't have a matching environment yet, create one first and add the repos you've been working in.
 3. **Add a follow-up prompt and submit.** Enter the next message you want the cloud agent to act on.
+
+:::note
+The cloud agent runs with the same model your local conversation was using. Changing the model during handoff isn't supported.
+:::
 
 After submission, the cloud agent applies your workspace snapshot and addresses your follow-up. The local conversation stays untouched — you can keep working in it locally or close it.
 

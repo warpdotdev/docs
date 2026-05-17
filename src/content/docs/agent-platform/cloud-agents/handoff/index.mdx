@@ -12,12 +12,18 @@ Handoff lets you move a unit of agent work between your local Warp terminal and 
 
 ## Directions of handoff
 
-Two handoff directions are introduced with the Oz launch:
+Handoff supports three directions:
 
 * **Local to cloud** - Promote a local Warp Agent conversation to a cloud agent run when you need more compute, longer-running work, or to fan out variants in parallel. The cloud agent starts from your conversation history and a snapshot of your uncommitted workspace changes. See [Handoff from local to cloud](/agent-platform/cloud-agents/handoff/local-to-cloud/).
 * **Cloud to cloud** - Send a follow-up to a cloud run after its session has ended. The run continues in the same conversation, with the prior session's workspace state restored. See [Handoff from cloud to cloud](/agent-platform/cloud-agents/handoff/cloud-to-cloud/).
+* **Cloud to local** - Fork a cloud conversation into your local terminal with **Continue locally** or `/continue-locally`. See [Viewing cloud agent runs](/agent-platform/cloud-agents/viewing-cloud-agent-runs/#5-fork-the-session-to-your-local-warp).
 
-A third direction — **cloud to local** — is already supported. Use **Continue locally** or `/continue-locally` to fork a cloud conversation into your local terminal. See [Viewing cloud agent runs](/agent-platform/cloud-agents/viewing-cloud-agent-runs/#5-fork-the-session-to-your-local-warp).
+### Third-party harness coverage
+
+Handoff coverage depends on which agent is running the conversation:
+
+* **Cloud to cloud** works for both the Warp Agent and third-party harnesses. On third-party harnesses, the affordance is a **Continue** button followed by an input prompt, instead of the streamlined follow-up flow you get with the Warp Agent.
+* **Local to cloud** works for the Warp Agent. It isn't available for third-party harnesses.
 
 ## What carries over
 
