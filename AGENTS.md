@@ -601,6 +601,7 @@ Product feature names retain their standard capitalization. Match the exact casi
 - ❌ "The Oz Agent" → Use "the agent" or "the Warp Agent"
 - ❌ "Oz is running" → Use "An agent is running" or "A run is in progress"
 - ❌ "AI agents" → Use "agents" (the "AI" prefix is redundant)
+- ❌ "Ambient Agents" / "ambient agents" → Use "Cloud Agents" / "cloud agents" ("ambient" is no longer a product term)
 - ❌ "Agent Modality" or "agent modality" → Use "Terminal and Agent modes" (this was an internal name, not user-facing)
 
 ### Technical terms

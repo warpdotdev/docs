@@ -79,6 +79,7 @@ OZ_TERMS_TO_AVOID = [
     (r"\bOz subagents?\b", "Use 'subagent(s)'"),
     (r"\bOz conversation\b", "Use 'conversation'"),
     (r"\bOz agents?\b", "Use 'agent(s)' or 'Warp Agent(s)' depending on context"),
+    (r"\b[Aa]mbient [Aa]gents?\b", "Use 'cloud agent(s)' — 'ambient' is no longer a product term"),
 ]
 
 # Action verbs that precede UI elements (should be bold, not backtick)

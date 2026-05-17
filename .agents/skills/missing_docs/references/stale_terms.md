@@ -25,6 +25,8 @@ mac os -> Use 'macOS'
 
 ## Deprecated terminology
 
+ambient agent -> Use 'cloud agent' — 'ambient' is no longer a product term
+ambient agents -> Use 'cloud agents' — 'ambient' is no longer a product term
 ozzies -> Use 'agents', 'instances', or 'subagents'
 oz agent -> Use 'agent' or 'Warp Agent' depending on context
 oz agents -> Use 'agents' or 'Warp Agents' depending on context

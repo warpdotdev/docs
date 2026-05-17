@@ -38,10 +38,10 @@ When writing about Warp products or features, tie back to at least one of these 
 
 - **Oz** - Warp's programmable platform for running and coordinating agents at scale
 - **Warp Agent** - Warp's built-in agent harness. Use "Warp Agent" when specifically referring to the built-in harness, especially when contrasting with third-party agents (Claude Code, Codex, etc.)
-- **agent** - A combination of agent instructions (skill or prompt), trigger (cron, webhook, manual), environment (local, cloud), profile, and host. Can be local or cloud, interactive or ambient. Use lowercase "agent" in most contexts.
+- **agent** - A combination of agent instructions (skill or prompt), trigger (cron, webhook, manual), environment (local, cloud), profile, and host. Can be local or cloud. Use lowercase "agent" in most contexts.
 - **cloud agent** - An agent running in the cloud, from a trigger, schedule, or started from someone's local machine
 - **subagent** - A child agent created by a parent agent to parallelize or delegate work
-- **Oz run** - A single execution lifecycle of an agent, including actions, outputs, and logs. Always ambient and cloud-based
+- **Oz run** - A single execution lifecycle of an agent, including actions, outputs, and logs. Always cloud-based
 - **conversation** - An interactive execution lifecycle within Warp terminal, regardless of whether it's local or in the cloud
 - **Environment** - The execution context for an agent, including repo access, dependencies, secrets, compute, and runtime configuration
 - **Oz dashboard** - The app surface to manage all Oz runs, unified across the Warp app and web
