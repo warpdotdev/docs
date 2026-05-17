@@ -60,7 +60,7 @@ This error is returned when:
 
 ## Related
 
-* [Oz Agent API & SDK](https://docs.warp.dev/reference/api-and-sdk/agent) — API reference
+* [Agent API & SDK](https://docs.warp.dev/reference/api-and-sdk/agent) — API reference
 * [Cloud Agents Overview](https://docs.warp.dev/agent-platform/cloud-agents/overview) — How cloud agents work
 ```
 

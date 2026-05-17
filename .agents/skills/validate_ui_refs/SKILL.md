@@ -135,7 +135,7 @@ The `--slack-notify` flag posts a summary to the configured Slack channel when u
 
 ### Intended behavior for scheduled runs
 
-When this skill is configured as a scheduled Oz agent, Slack notifications should alert the team in two cases:
+When this skill is configured as a scheduled cloud agent, Slack notifications should alert the team in two cases:
 
 1. **Auto-fixes applied** — the script found and corrected issues, and created a PR. The notification should include the PR link so the team can review and merge.
 2. **Unfixed issues remain** — some issues could not be auto-corrected (e.g., a renamed or removed section) and require manual attention. The notification should list these for triage.
@@ -162,7 +162,7 @@ python3 .warp/skills/validate_ui_refs/validate_ui_refs.py --all --slack-notify
 
 ## Cloud Agent / Scheduling
 
-For scheduled Oz cloud agent runs:
+For scheduled cloud agent runs:
 
 1. Configure the environment with the docs repo
 2. Keep `valid_paths.json` up-to-date by running `--refresh-valid-paths` as a pre-step (requires `warp-internal` in the environment)

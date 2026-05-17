@@ -1,7 +1,7 @@
 ---
 description: >-
   [1-2 sentences: what the reader will accomplish + time estimate.
-  Example: "Learn how to run your first Oz cloud agent in ~10 minutes."]
+  Example: "Learn how to run your first cloud agent in ~10 minutes."]
 ---
 
 # [Descriptive title — sentence case. Title convention: "[Feature] quickstart" or "Quickstart for [product]". Do NOT use a bare "Quickstart" — include the feature name.]

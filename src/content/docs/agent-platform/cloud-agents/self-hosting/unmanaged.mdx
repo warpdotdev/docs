@@ -1,7 +1,7 @@
 ---
 title: Unmanaged architecture
 description: >-
-  Run Oz agents in your existing CI, Kubernetes, or dev environments using
+  Run agents in your existing CI, Kubernetes, or dev environments using
   the oz agent run CLI with Warp tracking and observability.
 sidebar:
   label: "Unmanaged"
@@ -72,7 +72,7 @@ The `--share` flag can be repeated to combine multiple sharing targets. If you a
 Warp maintains the [`warpdotdev/oz-agent-action`](https://github.com/warpdotdev/oz-agent-action) action for running agents in GitHub Actions. The action wraps `oz agent run` and is a drop-in for CI workflows:
 
 ```yaml
-- name: Run Oz agent
+- name: Run agent
   uses: warpdotdev/oz-agent-action@v1  # wraps `oz agent run` under the hood
   with:
     prompt: "Review the code changes on this branch"
