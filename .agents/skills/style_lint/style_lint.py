@@ -35,7 +35,7 @@ EXCLUDED_DIRS = {"_book", "node_modules", ".docs"}
 # Feature names that are correctly Title Case (exceptions to sentence-case rule)
 PROPER_FEATURE_NAMES = {
     "Admin Panel", "Agent Management Panel", "Agent Mode", "Agent Profiles",
-    "Ambient Agents", "Auto-detection Mode", "Cloud Agent Credits",
+    "Auto-detection Mode", "Cloud Agent Credits", "Cloud Agents",
     "Codebase Context", "Code Review", "Command Palette", "Global Rules",
     "Oz CLI", "Oz Platform", "Project Rules", "Slash Commands",
     "Terminal Mode", "Universal Input", "Warp Drive", "Warp Platform",

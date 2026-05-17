@@ -553,7 +553,7 @@ Product feature names retain their standard capitalization. Match the exact casi
 - **Agent** or **Agents** (capitalized when referring to Warp's AI agents)
 - **Agent Mode** (not "agent mode" or "Agent-mode")
 - **Terminal and Agent modes** - The two distinct modes in Warp: terminal mode (for shell commands) and Agent Mode (for multi-turn agent conversations). Use "Terminal and Agent modes" on first reference; use "terminal mode" or "Agent Mode" individually in subsequent references. Do not use "agent modality" or "Agent Modality" — this was an internal name that is not user-facing.
-- **Ambient Agents** (capitalized as a feature/section name; lowercase "ambient agents" only when describing the generic concept)
+- **Cloud Agents** (capitalized as a product section/feature name; lowercase "cloud agents" in most contexts)
 - **Warp Drive** - Shared workspace for saving and organizing commands, workflows, and environment variables across your team.
 - **Codebase Context** - Warp indexes your Git-tracked codebase to help Agents understand your code.
 - **Admin Panel** - Team management surface for controlling members, roles, and billing.
@@ -567,12 +567,12 @@ Product feature names retain their standard capitalization. Match the exact casi
 - There is typically one Warp environment per user session. Oz can run many agents concurrently, across machines, repos, and teams.
 
 #### Core terms
-- **agent** - A combination of agent instructions (skill or prompt), trigger (cron, webhook, manual), environment (local, cloud), profile, and host. Agents can be local or cloud, and interactive or ambient. Use lowercase "agent" in most contexts; use "Warp Agent" only when referring specifically to the built-in Warp harness.
+- **agent** - A combination of agent instructions (skill or prompt), trigger (cron, webhook, manual), environment (local, cloud), profile, and host. Agents can be local or cloud. Use lowercase "agent" in most contexts; use "Warp Agent" only when referring specifically to the built-in Warp harness.
 - **cloud agent** - An agent running in the cloud, from a trigger, schedule, or started from someone's local machine
 - **subagent** - A child agent created by a parent agent to parallelize or delegate work
 - **conversation** - An interactive execution lifecycle within the Warp Terminal, regardless of whether it's local or in the cloud
 - **Oz** - Warp's programmable platform for running and coordinating agents at scale
-- **Oz run** - A single execution lifecycle of an agent, including actions, outputs, and logs. Always ambient and cloud-based.
+- **Oz run** - A single execution lifecycle of an agent, including actions, outputs, and logs. Always cloud-based.
 - **Environment** - The execution context for an agent, including repo access, dependencies, secrets, compute, and runtime configuration
 - **Oz dashboard** - The app surface to manage all Oz runs, unified across the Warp app and web
 - **Oz web app** - The web app for configuring agents and managing runs
@@ -582,9 +582,9 @@ Product feature names retain their standard capitalization. Match the exact casi
 - `oz agent run-cloud` - Run an adhoc cloud agent
 - `oz integration create` - Install integrations (Slack, Linear)
 - `oz environment create/list/get/update/delete` - CRUD on environments
-- `oz schedule create/list/get/update/delete` - CRUD on scheduled ambient agents
+- `oz schedule create/list/get/update/delete` - CRUD on scheduled cloud agents
 - `oz secret create/list/update/delete` - CRUD on Warp-managed secrets
-- `oz run list/get` - Get info on ambient agent runs
+- `oz run list/get` - Get info on cloud agent runs
 
 #### Preferred phrases
 - ✅ "Ask Oz to..."

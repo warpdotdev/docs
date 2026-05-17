@@ -69,8 +69,8 @@ For the summary of the most critical terms (core features, Oz terms, terms to av
 
 ## Agent concepts
 
-- **Ambient Agents** — Agents that run automatically in the background on a schedule or trigger, without interactive input.
-  *Usage note:* Capitalize as a feature/section name. Use lowercase "ambient agents" only when describing the generic concept of agents running in the background.
+- **Cloud Agents** — Agents that run in the cloud on a schedule, trigger, or integration, without interactive input. Managed by the Oz Platform.
+  *Usage note:* Use lowercase "cloud agents" in most contexts. Capitalize as "Cloud Agents" only when referring to the product section or feature name.
 
 - **Agent Profiles** — Saved configurations that define how an Agent runs (for example, permissions and model selection).
   *Usage note:* Use when describing "choose how your Agent behaves."
@@ -129,10 +129,10 @@ For the summary of the most critical terms (core features, Oz terms, terms to av
 
 ### Core terms
 
-- **agent** — A combination of agent instructions (skill or prompt), trigger (cron, webhook, manual), environment (local, cloud), profile, and host. Agents can be local or cloud, and interactive or ambient. Use lowercase "agent" in most contexts; use "Warp Agent" only when referring specifically to the built-in Warp harness.
+- **agent** — A combination of agent instructions (skill or prompt), trigger (cron, webhook, manual), environment (local, cloud), profile, and host. Agents can be local or cloud. Use lowercase "agent" in most contexts; use "Warp Agent" only when referring specifically to the built-in Warp harness.
   *Example:* Launch an agent from the CLI, the web app, an API or SDK, or directly inside Warp.
 
-- **cloud agent** — An agent running in the cloud, from a trigger, schedule, or started from someone's local machine. Cloud agents can be interactive or ambient.
+- **cloud agent** — An agent running in the cloud, from a trigger, schedule, or started from someone's local machine.
 
 - **conversation** — An interactive execution lifecycle within the Warp Terminal, regardless of whether it's local or in the cloud.
 
@@ -143,7 +143,7 @@ For the summary of the most critical terms (core features, Oz terms, terms to av
 
 - **Oz dashboard** — The app surface to manage all Oz runs, unified across the Warp app and web.
 
-- **Oz run** — A single execution lifecycle of an agent, including actions, outputs, and logs. An Oz run is always ambient and cloud-based.
+- **Oz run** — A single execution lifecycle of an agent, including actions, outputs, and logs. An Oz run is always cloud-based.
 
 - **Oz web app** — The web app for configuring agents and managing runs.
 
@@ -155,8 +155,8 @@ For the summary of the most critical terms (core features, Oz terms, terms to av
 - `oz agent run-cloud` — Run an adhoc cloud agent
 - `oz environment create/list/get/update/delete` — CRUD on environments
 - `oz integration create` — Install integrations (Slack, Linear)
-- `oz run list/get` — Get info on ambient agent runs
-- `oz schedule create/list/get/update/delete` — CRUD on scheduled ambient agents
+- `oz run list/get` — Get info on cloud agent runs
+- `oz schedule create/list/get/update/delete` — CRUD on scheduled cloud agents
 - `oz secret create/list/update/delete` — CRUD on Warp-managed secrets
 
 ### Preferred phrases
