@@ -173,14 +173,11 @@ Route agent inference through your own cloud infrastructure for complete control
 
 See [Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/) for configuration details.
 
-### Docker Sandboxes
+### Local Sandboxes
 
-Isolate agent execution in containerized environments:
+Run agent conversations and terminal commands in an isolated Docker container on the developer's machine, so the agent can't see or write to the host home directory or current repository by default. Sandboxes are ephemeral — each new sandbox starts in a fresh container with an empty workspace.
 
-* **Process isolation** - Agents run in separate Docker containers, isolated from your host system
-* **Resource limits** - Configure CPU, memory, and disk quotas per sandbox
-* **Network controls** - Restrict outbound network access from sandboxes
-* **Ephemeral environments** - Sandboxes are destroyed after use, leaving no trace
+See [Local Sandboxes](/agent-platform/local-agents/local-sandboxes/) for details and setup.
 
 ### Agent permissions
 

@@ -1,0 +1,87 @@
+---
+title: Local Sandboxes
+description: >-
+  Run agent conversations and terminal commands in an isolated container on
+  your local machine, without exposing your home directory or current repo.
+sidebar:
+  label: "Local Sandboxes"
+---
+
+A **Local Sandbox** is an isolated shell session that runs in a container on your local machine, so the agent (and any commands you run alongside it) can't see or write to your home directory or current repository by default. Use it to try unfamiliar tooling, run risky setup steps, or hand a long-running task to an agent without giving it access to your personal files.
+
+Local Sandboxes are powered by Docker. Each sandbox is a fresh, ephemeral container; closing the pane ends the session.
+
+:::note
+Local Sandboxes are rolling out gradually. The entry points below may not be visible in every build yet.
+:::
+
+## When to use a local sandbox
+
+Reach for a Local Sandbox when you want isolation without leaving your machine:
+
+* **Try risky commands** - Run setup scripts, package installs, or experimental tooling without polluting your host environment.
+* **Hand a task to an agent against an unfamiliar repo** - Give the agent room to clone, build, and run code without exposing your existing checkout.
+* **Test a clean toolchain** - Reproduce a "fresh box" so you can see what your project actually needs to bootstrap.
+* **Isolate experiments from your local working tree** - Keep half-finished work and uncommitted changes from leaking into the next thing you try.
+
+For agent isolation in Warp's cloud infrastructure, see [Cloud agents](/agent-platform/cloud-agents/overview/). For the GUI sandbox used by Computer Use, see [Computer use](/agent-platform/capabilities/computer-use/).
+
+## How local sandboxes work
+
+Each Local Sandbox is a fresh Docker container with a bash shell:
+
+* **Fresh container per sandbox** - Warp creates a new container each time you open a sandbox and gives it its own scratch workspace. Sandboxes don't share filesystem state with each other or with your host shell.
+* **No implicit access to your files** - Your home directory and current working directory aren't mounted in by default. The sandbox starts in an empty workspace inside the container.
+* **Bash shell** - The shell inside the sandbox is bash, regardless of which shell you use on the host.
+* **Warp features work as normal** - Agent conversations, blocks, slash commands, and the rest of the Warp experience work the same way they do in a host shell.
+
+## Prerequisites
+
+* **Docker installed and running locally** - Warp uses Docker to create the sandbox container. Install Docker Desktop (or your distribution's Docker engine) and confirm `docker info` succeeds before launching a sandbox.
+* **Warp's local sandbox helper available on `PATH`** - Warp invokes a bundled helper to drive the container lifecycle. The helper must be on the `PATH` that your interactive shell sees, not just the `PATH` your GUI launcher provides. If launching the sandbox fails with a "binary not found" error, open a regular Warp terminal and confirm the helper resolves there before retrying.
+
+## Starting a local sandbox
+
+You can launch a Local Sandbox from three places in the Warp app.
+
+### Slash command
+
+In any local terminal session, type `/docker-sandbox` and submit. Warp opens a new pane running the sandbox.
+
+### New-session menu
+
+Open the new-session dropdown (the `+` button next to the tab bar) and choose **Local Docker Sandbox**. Warp opens a new tab running the sandbox.
+
+### Default for new sessions
+
+Set the default mode for new sessions to **Local Docker Sandbox** so every new tab launches a sandbox. The setting lives in [`settings.toml`](/terminal/settings/) as the `default_session_mode` key under `[general]`:
+
+```toml title="settings.toml"
+[general]
+default_session_mode = "docker_sandbox"
+```
+
+The same setting is also available in the Warp app under **Settings** > **Features** as **Default session mode**.
+
+## What's available inside the sandbox
+
+* **Bash shell** - A standard bash environment is the starting point. Install whatever tooling you need for the task at hand; changes stay inside the container.
+* **Agent conversations** - Start an agent conversation inside the sandbox the same way you would in any other terminal session. The agent's actions are scoped to the container.
+* **Cloned repositories, when you add them** - The sandbox doesn't mount your local checkout. Clone any code you want to work with (for example, `git clone <repo-url>`) from inside the sandbox.
+
+## Limitations
+
+Local Sandboxes have a few constraints to be aware of today:
+
+* **Local sessions only** - Local Sandboxes aren't available inside remote SSH sessions or in Warp's web client.
+* **Empty workspace by default** - The sandbox starts in an empty directory. Your local repo isn't mounted in; clone it (or any other code) from inside the sandbox if you need it there.
+* **CLI agent plugin install uses the manual flow** - Third-party CLI agent plugin installers run against the host shell, not the container. Inside a sandbox session, Warp shows the manual install instructions so you can run them inside the container yourself.
+* **No automatic cleanup on close** - Closing a sandbox pane stops the session but doesn't remove the underlying container. Stopped sandbox containers stay on disk until you remove them; run `docker container prune` if you want to free up the space.
+
+## Related pages
+
+* [Warp Agents overview](/agent-platform/local-agents/overview/) - Run Warp's agents in any local session, including a Local Sandbox.
+* [Environments](/agent-platform/cloud-agents/environments/) - Define repos, base image, and setup commands for cloud agent runs.
+* [Computer use](/agent-platform/capabilities/computer-use/) - The cloud-side sandbox for desktop GUI automation.
+* [Security overview](/enterprise/security-and-compliance/security-overview/#local-sandboxes) - How Local Sandboxes fit into Warp's broader isolation story.
+* [All settings](/terminal/settings/all-settings/) - Reference for the `default_session_mode` setting and other `settings.toml` keys.

@@ -264,6 +264,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 								{ slug: 'agent-platform/capabilities/agent-notifications', label: 'Agent notifications' },
 								{ slug: 'agent-platform/capabilities/full-terminal-use', label: 'Full terminal use' },
 								{ slug: 'agent-platform/capabilities/computer-use', label: 'Computer use' },
+								{ slug: 'agent-platform/local-agents/local-sandboxes', label: 'Local Sandboxes' },
 								'agent-platform/capabilities/codebase-context',
 								{ slug: 'agent-platform/capabilities/agent-profiles-permissions', label: 'Profiles & permissions' },
 								{ slug: 'agent-platform/capabilities/web-search', label: 'Web search' },
