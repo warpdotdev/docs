@@ -572,6 +572,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				{ slug: 'guides', label: 'Guides' },
 				{
 					label: 'Getting started',
+					collapsed: true,
 					items: [
 						'guides/getting-started/welcome-to-warp',
 						{ slug: 'guides/getting-started/10-coding-features-you-should-know', label: '10 Warp Coding Features You Should Know' },
@@ -582,6 +583,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				},
 				{
 					label: 'Agent workflows',
+					collapsed: true,
 					items: [
 						{ slug: 'guides/agent-workflows/how-to-review-ai-generated-code', label: 'Review AI-Generated Code' },
 						{ slug: 'guides/agent-workflows/how-to-run-multiple-ai-coding-agents', label: 'Run Multiple AI Coding Agents' },
@@ -598,6 +600,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				},
 				{
 					label: 'Configuration',
+					collapsed: true,
 					items: [
 						{ slug: 'guides/configuration/how-to-create-project-rules-for-an-existing-project-astro-typescript-tailwind', label: 'Create Project Rules' },
 						{ slug: 'guides/configuration/how-to-set-coding-best-practices', label: 'Set Coding Best Practices with Rules' },
@@ -613,6 +616,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				},
 				{
 					label: 'External tools & integrations',
+					collapsed: true,
 					items: [
 						{ slug: 'guides/external-tools/how-to-set-up-claude-code', label: 'Set Up Claude Code' },
 						{ slug: 'guides/external-tools/how-to-set-up-codex-cli', label: 'Set Up Codex CLI' },
@@ -632,6 +636,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				},
 				{
 					label: 'Build an app in Warp',
+					collapsed: true,
 					items: [
 						{ slug: 'guides/build-an-app-in-warp/building-a-real-time-chat-app-github-mcp-railway', label: 'Build a Real-time Chat App' },
 						{ slug: 'guides/build-an-app-in-warp/building-a-chrome-extension-d3js-javascript-html-css', label: 'Build a Chrome Extension' },
@@ -641,6 +646,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				},
 				{
 					label: 'DevOps & infrastructure',
+					collapsed: true,
 					items: [
 						{ slug: 'guides/devops/how-to-analyze-cloud-run-logs-gcloud', label: 'Analyze Cloud Run Logs (gcloud)' },
 						{ slug: 'guides/devops/how-to-create-a-production-ready-docker-setup', label: 'Create a Production-Ready Docker Setup' },
@@ -653,6 +659,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				},
 				{
 					label: 'Frontend & UI',
+					collapsed: true,
 					items: [
 						{ slug: 'guides/frontend/how-to-replace-a-ui-element-in-warp-rust-codebase', label: 'Replace a UI Element (Rust Codebase)' },
 						{ slug: 'guides/frontend/how-to-actually-code-ui-that-matches-your-mockup-react-tailwind', label: 'Code UI That Matches Your Mockup (React + Tailwind)' },

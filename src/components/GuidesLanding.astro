@@ -1,0 +1,173 @@
+---
+// Pure Astro component for the Guides card-based discovery page.
+// Renders the full card grid at build time; a small inline script
+// handles filter-pill interactivity on the client.
+import { getCollection } from 'astro:content';
+
+const CATEGORY_LABELS: Record<string, string> = {
+	'getting-started': 'Getting started',
+	'agent-workflows': 'Agent workflows',
+	configuration: 'Configuration',
+	'external-tools': 'External tools',
+	'build-an-app-in-warp': 'Build an app',
+	devops: 'DevOps',
+	frontend: 'Frontend & UI',
+};
+
+const allDocs = await getCollection('docs', (entry) =>
+	entry.id.startsWith('guides/') && entry.id !== 'guides' && !entry.id.endsWith('/index'),
+);
+
+interface GuideData {
+	title: string;
+	description: string;
+	href: string;
+	category: string;
+	categoryLabel: string;
+	tags: string[];
+	featured: boolean;
+}
+
+const guides: GuideData[] = allDocs
+	.filter((doc) => {
+		const parts = doc.id.replace(/^guides\//, '').split('/');
+		return parts.length >= 2;
+	})
+	.map((doc) => {
+		const category = doc.id.replace(/^guides\//, '').split('/')[0];
+		return {
+			title: (doc.data as any).sidebar?.label || doc.data.title,
+			description: doc.data.description || '',
+			href: '/' + doc.id.replace(/\.mdx?$/, '') + '/',
+			category,
+			categoryLabel: CATEGORY_LABELS[category] || category,
+			tags: (doc.data as any).tags || [],
+			featured: (doc.data as any).featured || false,
+		};
+	});
+
+const featured = guides.filter((g) => g.featured);
+
+// Derive ordered categories
+const categories = Object.keys(CATEGORY_LABELS).filter((cat) =>
+	guides.some((g) => g.category === cat),
+);
+---
+
+<div class="warp-guide-grid-container not-content">
+	{/* Filter pills */}
+	<div class="warp-guide-filters" role="tablist" aria-label="Filter guides by category">
+		<button
+			role="tab"
+			aria-selected="true"
+			class="warp-guide-filter-pill active"
+			data-filter="all"
+		>
+			All ({guides.length})
+		</button>
+		{categories.map((cat) => {
+			const count = guides.filter((g) => g.category === cat).length;
+			return (
+				<button
+					role="tab"
+					aria-selected="false"
+					class="warp-guide-filter-pill"
+					data-filter={cat}
+				>
+					{CATEGORY_LABELS[cat]} ({count})
+				</button>
+			);
+		})}
+	</div>
+
+	{/* Featured section */}
+	{featured.length > 0 && (
+		<section class="warp-guide-section" data-section="featured">
+			<h2 class="warp-guide-section-heading">Featured</h2>
+			<div class="warp-guide-card-grid">
+				{featured.map((guide) => (
+					<a href={guide.href} class="warp-guide-card" data-category={guide.category}>
+						<span class="warp-guide-card-category">{guide.categoryLabel}</span>
+						<h3 class="warp-guide-card-title">{guide.title}</h3>
+						{guide.description && <p class="warp-guide-card-desc">{guide.description}</p>}
+						{guide.tags.length > 0 && (
+							<div class="warp-guide-card-tags">
+								{guide.tags.map((tag) => (
+									<span class="warp-guide-card-tag">{tag}</span>
+								))}
+							</div>
+						)}
+					</a>
+				))}
+			</div>
+		</section>
+	)}
+
+	{/* All guides */}
+	<section class="warp-guide-section" data-section="all">
+		{featured.length > 0 && <h2 class="warp-guide-section-heading">All guides</h2>}
+		<div class="warp-guide-card-grid">
+			{guides.map((guide) => (
+				<a href={guide.href} class="warp-guide-card" data-category={guide.category}>
+					<span class="warp-guide-card-category">{guide.categoryLabel}</span>
+					<h3 class="warp-guide-card-title">{guide.title}</h3>
+					{guide.description && <p class="warp-guide-card-desc">{guide.description}</p>}
+					{guide.tags.length > 0 && (
+						<div class="warp-guide-card-tags">
+							{guide.tags.map((tag) => (
+								<span class="warp-guide-card-tag">{tag}</span>
+							))}
+						</div>
+					)}
+				</a>
+			))}
+		</div>
+	</section>
+</div>
+
+<script is:inline>
+	// Client-side filter pill interactivity
+	(() => {
+		const container = document.querySelector('.warp-guide-grid-container');
+		if (!container) return;
+
+		const pills = container.querySelectorAll('.warp-guide-filter-pill');
+		const featuredSection = container.querySelector('[data-section="featured"]');
+		const allSection = container.querySelector('[data-section="all"]');
+		const allCards = allSection?.querySelectorAll('.warp-guide-card') ?? [];
+		const allHeading = allSection?.querySelector('.warp-guide-section-heading');
+
+		pills.forEach((pill) => {
+			pill.addEventListener('click', () => {
+				const filter = pill.getAttribute('data-filter');
+
+				// Update pill states
+				pills.forEach((p) => {
+					p.classList.remove('active');
+					p.setAttribute('aria-selected', 'false');
+				});
+				pill.classList.add('active');
+				pill.setAttribute('aria-selected', 'true');
+
+				// Show/hide featured section
+				if (featuredSection) {
+					featuredSection.style.display = filter === 'all' ? '' : 'none';
+				}
+
+				// Show/hide "All guides" heading
+				if (allHeading) {
+					allHeading.style.display = filter === 'all' ? '' : 'none';
+				}
+
+				// Filter cards
+				allCards.forEach((card) => {
+					if (filter === 'all' || card.getAttribute('data-category') === filter) {
+						card.style.display = '';
+					} else {
+						card.style.display = 'none';
+					}
+				});
+			});
+		});
+	})();
+</script>
