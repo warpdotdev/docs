@@ -9,10 +9,10 @@ sidebar:
 
 A **Local Sandbox** is an isolated shell session that runs in a container on your local machine, so the agent (and any commands you run alongside it) can't see or write to your home directory or current repository by default. Use it to try unfamiliar tooling, run risky setup steps, or hand a long-running task to an agent without giving it access to your personal files.
 
-Local Sandboxes are powered by Docker. Each sandbox is a fresh, ephemeral container; closing the pane ends the session.
+Local Sandboxes are powered by Docker. Each launch starts in a fresh container with an empty workspace. Closing the pane ends the sandbox session, but the stopped container remains on disk until you remove it — see [Limitations](#limitations).
 
 :::note
-Local Sandboxes are rolling out gradually. The entry points below may not be visible in every build yet.
+The entry points below may not be visible to every user yet.
 :::
 
 ## When to use a local sandbox
@@ -20,7 +20,7 @@ Local Sandboxes are rolling out gradually. The entry points below may not be vis
 Reach for a Local Sandbox when you want isolation without leaving your machine:
 
 * **Try risky commands** - Run setup scripts, package installs, or experimental tooling without polluting your host environment.
-* **Hand a task to an agent against an unfamiliar repo** - Give the agent room to clone, build, and run code without exposing your existing checkout.
+* **Give an agent a clean container** - Let the agent clone, build, and run code in a fresh workspace, instead of touching your existing checkout.
 * **Test a clean toolchain** - Reproduce a "fresh box" so you can see what your project actually needs to bootstrap.
 * **Isolate experiments from your local working tree** - Keep half-finished work and uncommitted changes from leaking into the next thing you try.
 
@@ -38,7 +38,8 @@ Each Local Sandbox is a fresh Docker container with a bash shell:
 ## Prerequisites
 
 * **Docker installed and running locally** - Warp uses Docker to create the sandbox container. Install Docker Desktop (or your distribution's Docker engine) and confirm `docker info` succeeds before launching a sandbox.
-* **Warp's local sandbox helper available on `PATH`** - Warp invokes a bundled helper to drive the container lifecycle. The helper must be on the `PATH` that your interactive shell sees, not just the `PATH` your GUI launcher provides. If launching the sandbox fails with a "binary not found" error, open a regular Warp terminal and confirm the helper resolves there before retrying.
+
+Warp resolves the container tooling it needs from your interactive shell `PATH`. If launching a sandbox fails with a "binary not found" error, confirm Docker is running and relaunch Warp from a terminal so it inherits your full `PATH`.
 
 ## Starting a local sandbox
 
@@ -50,7 +51,7 @@ In any local terminal session, type `/docker-sandbox` and submit. Warp opens a n
 
 ### New-session menu
 
-Open the new-session dropdown (the `+` button next to the tab bar) and choose **Local Docker Sandbox**. Warp opens a new tab running the sandbox.
+Open the new-session dropdown (the **+** button next to the tab bar) and choose **Local Docker Sandbox**. Warp opens a new tab running the sandbox.
 
 ### Default for new sessions
 
@@ -65,9 +66,9 @@ The same setting is also available in the Warp app under **Settings** > **Featur
 
 ## What's available inside the sandbox
 
-* **Bash shell** - A standard bash environment is the starting point. Install whatever tooling you need for the task at hand; changes stay inside the container.
 * **Agent conversations** - Start an agent conversation inside the sandbox the same way you would in any other terminal session. The agent's actions are scoped to the container.
-* **Cloned repositories, when you add them** - The sandbox doesn't mount your local checkout. Clone any code you want to work with (for example, `git clone <repo-url>`) from inside the sandbox.
+* **Whatever you install** - Run `apt-get`, `npm install`, `pip install`, or any other tooling from the bash shell. Changes stay inside the container.
+* **Code you clone in** - The sandbox doesn't mount your local checkout. Use `git clone <repo-url>` (or copy files in via `docker cp`) to bring code into the sandbox.
 
 ## Limitations
 
@@ -76,7 +77,7 @@ Local Sandboxes have a few constraints to be aware of today:
 * **Local sessions only** - Local Sandboxes aren't available inside remote SSH sessions or in Warp's web client.
 * **Empty workspace by default** - The sandbox starts in an empty directory. Your local repo isn't mounted in; clone it (or any other code) from inside the sandbox if you need it there.
 * **CLI agent plugin install uses the manual flow** - Third-party CLI agent plugin installers run against the host shell, not the container. Inside a sandbox session, Warp shows the manual install instructions so you can run them inside the container yourself.
-* **No automatic cleanup on close** - Closing a sandbox pane stops the session but doesn't remove the underlying container. Stopped sandbox containers stay on disk until you remove them; run `docker container prune` if you want to free up the space.
+* **No automatic cleanup on close** - Closing a sandbox pane stops the session but doesn't remove the underlying container. Stopped sandbox containers stay on disk until you remove them. Use `docker ps -a` to list stopped containers and `docker rm <container>` to remove specific ones. `docker container prune` also works, but it removes **all** stopped containers on your machine, not only sandbox containers — use it only if you're comfortable with that scope.
 
 ## Related pages
 

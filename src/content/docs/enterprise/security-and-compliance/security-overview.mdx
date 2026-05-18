@@ -175,7 +175,7 @@ See [Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/) fo
 
 ### Local Sandboxes
 
-Run agent conversations and terminal commands in an isolated Docker container on the developer's machine, so the agent can't see or write to the host home directory or current repository by default. Sandboxes are ephemeral — each new sandbox starts in a fresh container with an empty workspace.
+Run agent conversations and terminal commands in an isolated Docker container on the developer's machine, so the agent can't see or write to the host home directory or current repository by default. Each sandbox launches in a fresh container with an empty workspace; stopped containers persist on disk until they're removed via Docker.
 
 See [Local Sandboxes](/agent-platform/local-agents/local-sandboxes/) for details and setup.
 
