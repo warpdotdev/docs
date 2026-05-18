@@ -17,7 +17,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
       
-      - name: Review PR with Oz agent
+      - name: Review PR with Warp Agent
         uses: warpdotdev/oz-agent-action@v1
         env:
           GH_TOKEN: ${{ github.token }}
@@ -179,7 +179,7 @@ jobs:
               if (hasSummary) {
                 payload.body = summary;
               } else {
-                payload.body = 'Automated review by Oz Agent';
+                payload.body = 'Automated review by Warp Agent';
               }
               
               if (comments.length > 0) {

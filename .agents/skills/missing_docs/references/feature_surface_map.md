@@ -8,7 +8,7 @@ Lines starting with `#` are comments. Blank lines are ignored.
 
 # Maintenance: when a new GA feature flag ships, add a mapping here.
 # Run `python3 .warp/skills/missing_docs/scripts/audit_docs.py` to find unmapped flags.
-# This audit is also run as a recurring scheduled Oz agent to catch drift.
+# This audit is also run as a recurring scheduled cloud agent to catch drift.
 
 ## Feature flags -> doc pages
 
@@ -137,17 +137,22 @@ SkillArguments -> src/content/docs/agent-platform/warp-agents/skills.md
 ## CLI commands -> doc pages
 
 # Top-level Oz CLI commands
-oz agent -> src/content/docs/reference/cli/README.md
-oz environment -> src/content/docs/reference/cli/integration-setup.md
-oz mcp -> src/content/docs/reference/cli/mcp-servers.md
-oz run -> src/content/docs/reference/cli/README.md
-oz model -> src/content/docs/reference/cli/README.md
-oz login -> src/content/docs/reference/cli/README.md
-oz logout -> src/content/docs/reference/cli/README.md
-oz integration -> src/content/docs/reference/cli/integration-setup.md
-oz schedule -> src/content/docs/reference/cli/README.md
-oz secret -> src/content/docs/reference/cli/README.md
-oz provider -> src/content/docs/reference/cli/README.md
+oz agent -> src/content/docs/reference/cli/index.mdx
+oz environment -> src/content/docs/reference/cli/integration-setup.mdx
+oz mcp -> src/content/docs/reference/cli/mcp-servers.mdx
+oz run -> src/content/docs/reference/cli/index.mdx
+oz model -> src/content/docs/reference/cli/index.mdx
+oz login -> src/content/docs/reference/cli/index.mdx
+oz logout -> src/content/docs/reference/cli/index.mdx
+oz whoami -> src/content/docs/reference/cli/index.mdx
+oz integration -> src/content/docs/reference/cli/integration-setup.mdx
+oz schedule -> src/content/docs/reference/cli/index.mdx
+oz secret -> src/content/docs/reference/cli/index.mdx
+oz provider -> src/content/docs/reference/cli/index.mdx
+oz federate -> src/content/docs/reference/cli/federate.mdx
+oz artifact -> src/content/docs/reference/cli/artifacts.mdx
+# Internal/hidden command — not a user-facing surface, so no public docs.
+oz harness-support -> internal
 
 ## API endpoints -> doc pages
 
