@@ -24,6 +24,7 @@ BYOLLM is only available on Warp's Enterprise plan. Contact [warp.dev/contact-sa
 * **No API keys** - Warp authenticates to AWS Bedrock by assuming an IAM role you control. Warp does not require or store long-lived provider API keys.
 * **Admin-enforced routing** - Team admins configure which models are available to users in AWS Bedrock, with the ability to disable non-Bedrock model access entirely.
 * **Consolidated billing** - Inference costs are billed directly to your AWS account, leveraging existing cloud commitments.
+* **Per-identity scoping** - Trust policy conditions distinguish between human team members and named agents (service accounts), so admins can scope each independently.
 
 ## How BYOLLM works
 
@@ -89,10 +90,12 @@ The role setup has two parts:
 
 #### Trust policy requirements
 
+This section covers the trust policy for **human team members** assuming the role from the Warp terminal or from Oz cloud agent runs they trigger themselves. For named-agent (service-account) runs, see [BYOLLM on Oz](#byollm-on-oz).
+
 Your trust policy should:
 
 * Use the OIDC provider for your Warp issuer host
-* Restrict `sub` to your team's principals using the `scoped_principal:<team-uid>/*` pattern. This single condition covers both regular users running interactive or cloud agents and named-agent service accounts on the team.
+* Restrict `sub` to your team's human users using the `scoped_principal:<team-uid>/user:*` pattern
 * Require `aud` to equal `sts.amazonaws.com`
 
 **Example trust policy**
@@ -109,7 +112,7 @@ Your trust policy should:
       "Action": "sts:AssumeRoleWithWebIdentity",
       "Condition": {
         "StringLike": {
-          "app.warp.dev:sub": "scoped_principal:<team-uid>/*"
+          "app.warp.dev:sub": "scoped_principal:<team-uid>/user:*"
         },
         "StringEquals": {
           "app.warp.dev:aud": "sts.amazonaws.com"
@@ -122,10 +125,10 @@ Your trust policy should:
 
 Replace the account ID, issuer host, and team UID with values for your environment. If you are configuring a non-production environment, use the corresponding issuer host instead of `app.warp.dev`.
 
-The `<team-uid>` is the Warp team UID for the team that will be allowed to assume this role. You can find it in the Warp [Admin Panel](/enterprise/team-management/admin-panel/) under your team's settings. The trailing `/*` is required and matches any principal on the team (regular users running terminal or cloud agents, plus any named-agent service accounts owned by the team).
+The `<team-uid>` is the Warp team UID for the team that will be allowed to assume this role. You can find it in the Warp [Admin Panel](/enterprise/team-management/admin-panel/) under your team's settings.
 
 :::note
-The full `sub` claim Warp signs has the shape `scoped_principal:<team-uid>/<actor-type>:<principal-uid>`, where `<actor-type>` is `user` for human-triggered runs and `service_account` for named-agent runs. Tighten the trust policy further by replacing `/*` with `/user:*` or `/service_account:*` if you want to restrict which actor types may assume the role.
+The full `sub` claim Warp signs has the shape `scoped_principal:<team-uid>/<actor-type>:<principal-uid>`, where `<actor-type>` is `user` for human-triggered runs and `service_account` for named-agent runs. The `user:*` pattern matches every human user on the team. To also authorize named agents on the same role, see [BYOLLM on Oz](#byollm-on-oz).
 :::
 
 #### Minimum Bedrock permissions policy
@@ -177,7 +180,7 @@ cat > /tmp/warp-bedrock-trust-policy.json <<EOF
       "Action": "sts:AssumeRoleWithWebIdentity",
       "Condition": {
         "StringLike": {
-          "${ISSUER_HOST}:sub": "scoped_principal:${TEAM_UID}/*"
+          "${ISSUER_HOST}:sub": "scoped_principal:${TEAM_UID}/user:*"
         },
         "StringEquals": {
           "${ISSUER_HOST}:aud": "sts.amazonaws.com"
@@ -227,6 +230,100 @@ Run a test prompt in Warp using a model configured for BYOLLM routing. Verify:
 
 * The request completes successfully.
 * Logs appear in AWS CloudWatch.
+
+## BYOLLM on Oz
+
+The sections above set up BYOLLM for **human team members** — both interactive terminal use and Oz cloud agent runs they trigger themselves. Both cases authenticate as the user (`scoped_principal:<team-uid>/user:<user-uid>`).
+
+Oz also runs **named agents**, which are service accounts owned by the team rather than individual humans. A named-agent run authenticates as its service account, not as the user who created or scheduled it. The `sub` claim therefore has a different shape:
+
+* Human run: `scoped_principal:<team-uid>/user:<user-uid>`
+* Named-agent run: `scoped_principal:<team-uid>/service_account:<service-account-uid>`
+
+Because the actor type differs, the trust policy you set up in Step 2 above (`user:*`) does not authorize named-agent runs. You have two options for adding them.
+
+### Option A: Authorize all named agents on the same role
+
+Add a second `StringLike` pattern to the same trust policy condition so the role accepts both human users and any named agent on the team:
+
+```json
+"Condition": {
+  "StringLike": {
+    "app.warp.dev:sub": [
+      "scoped_principal:<team-uid>/user:*",
+      "scoped_principal:<team-uid>/service_account:*"
+    ]
+  },
+  "StringEquals": {
+    "app.warp.dev:aud": "sts.amazonaws.com"
+  }
+}
+```
+
+This is the simplest option when every named agent on the team should be allowed to use BYOLLM.
+
+### Option B: Authorize specific named agents by UID
+
+If you want only a subset of named agents to use BYOLLM, list their UIDs explicitly:
+
+```json
+"Condition": {
+  "StringLike": {
+    "app.warp.dev:sub": [
+      "scoped_principal:<team-uid>/user:*",
+      "scoped_principal:<team-uid>/service_account:<sa-uid-1>",
+      "scoped_principal:<team-uid>/service_account:<sa-uid-2>"
+    ]
+  },
+  "StringEquals": {
+    "app.warp.dev:aud": "sts.amazonaws.com"
+  }
+}
+```
+
+You can also use `StringEquals` instead of `StringLike` for the service-account UIDs if you want strict matching with no wildcards.
+
+### Finding team and agent UIDs
+
+To build the `sub` patterns above, you'll need your team UID and (for Option B) the UID of each named agent.
+
+* **Team UID** - Visible in the Warp [Admin Panel](/enterprise/team-management/admin-panel/) under your team's settings.
+* **Named-agent UID** - Each named agent has a stable `uid` returned by Warp's public API and visible in the Oz web app.
+
+List all named agents on your team via the public API:
+
+```bash
+curl -H "Authorization: Bearer <warp-api-key>" \
+  https://app.warp.dev/api/v1/agent/identities
+```
+
+The response contains an `agents[]` array where each entry has a `uid` field. That `uid` is the value to use in the `service_account:<sa-uid>` portion of the trust policy.
+
+You can also see each agent's UID in the Oz web app at `https://oz.warp.dev/agents/<uid>` — the trailing path segment is the UID.
+
+### Per-agent inference provider overrides
+
+By default, named agents inherit the team-wide BYOLLM routing policy configured in the [Admin Panel](/enterprise/team-management/admin-panel/). You can override the role ARN, AWS region, or disable BYOLLM entirely on a per-agent basis through the public API:
+
+```json
+{
+  "inference_providers": {
+    "aws": {
+      "role_arn": "arn:aws:iam::<account-id>:role/<role-name>",
+      "region": "us-east-1",
+      "disabled": false
+    }
+  }
+}
+```
+
+Set this field on `POST /api/v1/agent/identities` or `PUT /api/v1/agent/identities/<uid>` to give an individual agent its own routing. Common uses:
+
+* Different agents assume different roles (e.g. for separate cost-allocation tags or different model permissions).
+* A specific agent runs in a different AWS region from the team default.
+* A specific agent opts out of BYOLLM entirely (`"disabled": true`) and falls back to Warp-managed inference.
+
+Any override role must have a trust policy that authorizes that agent's `sub` (typically the `service_account:<sa-uid>` form).
 
 ## BYOLLM usage and billing behavior
 
