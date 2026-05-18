@@ -6,7 +6,7 @@ description: >-
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
 
-Warp provides two distinct modes: a clean terminal for commands, and a dedicated conversation view for multi-turn conversations with [Oz, Warp's agent](/agent-platform/local-agents/interacting-with-agents/).
+Warp provides two distinct modes: a clean terminal for running shell commands, and a dedicated conversation view for multi-turn interactions with Oz, Warp's agent. Terminal mode keeps the interface minimal by default, while Agent Mode surfaces full controls for model selection, voice input, image attachments, and conversation management.
 
 <VideoEmbed url="https://youtu.be/J715YW5VC18" />
 
@@ -17,7 +17,7 @@ Warp provides two distinct modes: a clean terminal for commands, and a dedicated
 Before diving in, here are two key concepts:
 
 * **Terminal session** - Your shell environment where you run commands. This is the default mode when you open Warp—a clean, traditional terminal input.
-* **Oz agent conversation** - A multi-turn interaction with Oz. Conversations maintain context across exchanges and have their own dedicated view with richer controls.
+* **Agent conversation** - A multi-turn interaction with Oz. Conversations maintain context across exchanges and have their own dedicated view with richer controls.
 
 Terminal and Agent modes make switching between these two contexts seamless while keeping them visually distinct.
 
@@ -67,7 +67,7 @@ If you disable the message bar while auto-detection is enabled, you won't see th
 The shortcuts shown on this page use macOS keybindings. For Windows and Linux shortcuts, see [Keyboard Shortcuts](/getting-started/keyboard-shortcuts/).
 :::
 
-### Oz agent conversation view (expanded UI)
+### Agent conversation view (expanded UI)
 
 * A dedicated conversation view with richer agent controls including model select, voice input, image attachments, and conversation management.
 * Familiar "charms" (current directory, git branch, diff view entry point, etc.) are still available.
@@ -111,7 +111,7 @@ This separation keeps your terminal view clean while preserving full context wit
 
 #### Cloud agent conversations
 
-In addition to local agent conversations, you can start **Oz cloud agent conversations** that run in an isolated cloud environment. Cloud agents are useful for:
+In addition to local agent conversations, you can start **cloud agent conversations** that run in an isolated cloud environment. Cloud agents are useful for:
 
 * Running parallel agents across multiple tasks
 * Running agents remotely on hosted computers (offloading compute from your local machine)
@@ -124,7 +124,7 @@ Cloud agent conversations have a few differences from local conversations:
 
 * **Environment selector** - Choose which [Warp Environment](/agent-platform/cloud-agents/environments/) to run in
 * **Credits indicator** - Shows your remaining cloud agent credits
-* **Different zero state** - The conversation header indicates "New Oz cloud agent conversation"
+* **Different zero state** - The conversation header indicates "New cloud agent conversation"
 
 Cloud agent conversations are always stored in the cloud. For more details on accessing and sharing cloud conversations, see [Cloud-synced Conversations](/agent-platform/local-agents/cloud-conversations/).
 
@@ -189,7 +189,7 @@ Auto-detection is enabled by default for new Warp users. For users who had Warp 
 
 ### How to enter a conversation
 
-There are several ways to start or enter an Oz agent conversation:
+There are several ways to start or enter an agent conversation:
 
 #### A) Use the `/agent` or `/new` slash command
 
@@ -311,7 +311,7 @@ If you prefer to type natural language at any point in a terminal session and ha
 
 ### Step 1 — Set new tabs to open in agent view
 
-By default, new tabs and panes open in terminal mode. To launch directly into an Oz agent conversation instead:
+By default, new tabs and panes open in terminal mode. To launch directly into an agent conversation instead:
 
 1. Go to **Settings** > **Features** > **General**.
 2. Change **Default mode for new sessions** to **Agent**.

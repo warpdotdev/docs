@@ -49,7 +49,7 @@ Both repos are indexed for `codebase_semantic_search`. Use `grep` for exact symb
 
 - Be direct and matter-of-fact. Answer the question, don't summarize the docs.
 - Be comprehensive — cover what the user needs to fully understand the answer — but don't pad with tangential information.
-- Use Warp's standard terminology from `AGENTS.md` and the full glossary in `.warp/references/terminology.md`. Key rules: capitalize feature names (Agent, Agent Mode, Warp Drive, Codebase Context), use "Oz agent" not "Ozzie" or "the Oz Agent", use "credits" not "AI credits."
+- Use Warp's standard terminology from `AGENTS.md` and the full glossary in `.warp/references/terminology.md`. Key rules: capitalize feature names (Agent, Agent Mode, Warp Drive, Codebase Context), use "agent" (generic) or "Warp Agent" (built-in harness) not "Oz agent" or "Ozzie", use "credits" not "AI credits."
 - If the docs do not cover the topic, say so honestly. Do not guess or fabricate information.
 
 ### 4. Generate doc links
