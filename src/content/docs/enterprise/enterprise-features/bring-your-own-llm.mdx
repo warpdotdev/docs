@@ -12,7 +12,7 @@ This gives you control over cloud spend and model hosting, without changing how 
 :::caution
 BYOLLM currently supports **AWS Bedrock** only. Coming soon: Azure Foundry and Google Vertex support.
 
-BYOLLM applies to interactive Oz agents in the terminal. Oz cloud agents do not yet support BYOLLM routing.
+BYOLLM applies to both interactive Oz agents in the terminal and Oz cloud agent runs.
 :::
 
 :::note
@@ -35,8 +35,8 @@ Here's the high-level flow:
 
 1. **Admin configures routing** - Your team admin sets routing policies in Warp's admin settings (for example, "Route Claude Sonnet 4.5 through AWS Bedrock; disable direct Anthropic API").
 2. **Admin provisions an assumable IAM role** - Your cloud admin creates an AWS IAM role with a trust policy that allows Warp's OIDC identity to assume it.
-3. **Warp routes requests** - When a team member uses an interactive Oz agent in the terminal, Warp assumes the configured role and calls your AWS Bedrock endpoint using short-lived credentials.
-4. **Inference executes in your cloud** - The model runs in your AWS account. Responses return to the Warp client.
+3. **Warp routes requests** - When a team member uses an interactive Oz agent in the terminal or kicks off an Oz cloud agent run, Warp assumes the configured role and calls your AWS Bedrock endpoint using short-lived credentials.
+4. **Inference executes in your cloud** - The model runs in your AWS account. Responses return to the Warp client or cloud worker.
 
 ### Role assumption and credentials
 
@@ -87,7 +87,7 @@ The role setup has two parts:
 Your trust policy should:
 
 * Use the OIDC provider for your Warp issuer host
-* Restrict `sub` to your team's service-account namespace
+* Restrict `sub` to your team's principals using the `scoped_principal:<team-uid>/*` pattern. This single condition covers both regular users running interactive or cloud agents and named-agent service accounts on the team.
 * Require `aud` to equal `sts.amazonaws.com`
 
 **Example trust policy**
@@ -104,7 +104,7 @@ Your trust policy should:
       "Action": "sts:AssumeRoleWithWebIdentity",
       "Condition": {
         "StringLike": {
-          "app.warp.dev:sub": "scoped_principal:<team-uid>/service_account:*"
+          "app.warp.dev:sub": "scoped_principal:<team-uid>/*"
         },
         "StringEquals": {
           "app.warp.dev:aud": "sts.amazonaws.com"
@@ -116,6 +116,12 @@ Your trust policy should:
 ```
 
 Replace the account ID, issuer host, and team UID with values for your environment. If you are configuring a non-production environment, use the corresponding issuer host instead of `app.warp.dev`.
+
+The `<team-uid>` is the Warp team UID for the team that will be allowed to assume this role. You can find it in the Warp [Admin Panel](/enterprise/team-management/admin-panel/) under your team's settings. The trailing `/*` is required and matches any principal on the team (regular users running terminal or cloud agents, plus any named-agent service accounts owned by the team).
+
+:::note
+The full `sub` claim Warp signs has the shape `scoped_principal:<team-uid>/<actor-type>:<principal-uid>`, where `<actor-type>` is `user` for human-triggered runs and `service_account` for named-agent runs. Tighten the trust policy further by replacing `/*` with `/user:*` or `/service_account:*` if you want to restrict which actor types may assume the role.
+:::
 
 #### Minimum Bedrock permissions policy
 
@@ -166,7 +172,7 @@ cat > /tmp/warp-bedrock-trust-policy.json <<EOF
       "Action": "sts:AssumeRoleWithWebIdentity",
       "Condition": {
         "StringLike": {
-          "${ISSUER_HOST}:sub": "scoped_principal:${TEAM_UID}/service_account:*"
+          "${ISSUER_HOST}:sub": "scoped_principal:${TEAM_UID}/*"
         },
         "StringEquals": {
           "${ISSUER_HOST}:aud": "sts.amazonaws.com"
