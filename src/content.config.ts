@@ -15,15 +15,12 @@ export const collections = {
 	docs: defineCollection({
 		loader: docsLoader(),
 		schema: docsSchema({
-			extend: (context) => {
-				const topic = typeof topicSchema === 'function' ? topicSchema(context) : topicSchema;
-				return topic.merge(
-					z.object({
-						tags: z.array(z.string()).optional(),
-						featured: z.boolean().optional().default(false),
-					}),
-				);
-			},
+			extend: topicSchema.merge(
+				z.object({
+					tags: z.array(z.string()).optional(),
+					featured: z.boolean().optional().default(false),
+				}),
+			),
 		}),
 	}),
 };
