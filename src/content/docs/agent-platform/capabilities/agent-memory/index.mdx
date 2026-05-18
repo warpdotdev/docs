@@ -1,82 +1,37 @@
 ---
-title: Agent Memory
+title: Agent Memory (Research Preview)
+description: >-
+  Persistent, cross-harness memory layer that lets cloud agents on Oz carry
+  context from one run to the next.
 sidebar:
   label: "Agent Memory"
-description: >-
-  A persistent, cross-harness memory layer for cloud agents on Oz. Each run
-  starts further along than the last.
 ---
 :::caution
-Agent Memory is in **research preview**. Behavior, storage layout, and APIs may change before general availability. [Contact us](https://warp.dev/contact-sales) if you'd like to join as a design partner.
+Agent Memory is in **research preview**. Behavior, configuration, and any APIs may change before general availability. The feature is enabled per workspace for design partners — [join the waitlist](https://warp.dev/oz/agent-memory#waitlist) to request access for your workspace.
 :::
 
-Agent Memory is a persistent memory layer that lets cloud agents carry context forward from one run to the next. Memories are extracted from finished conversations, stored in named **memory stores**, and retrieved at the start of future runs — across the Warp Agent, Claude Code, Codex, and Gemini.
+Every agent run starts with no recollection of the runs that came before it. Agent Memory is a persistent, cross-harness memory layer for cloud agents on Oz: it captures durable knowledge from finished conversations and surfaces it at the start of future runs, so each run begins further along than the last.
 
-The goal is to fix the cold-start problem. Every agent run today begins with no recollection of past runs. Agent Memory turns each conversation into reusable knowledge so the next run starts further along, even when it's a different harness or a different teammate triggering it.
+## What's available today
 
-## Key features
+* **Cross-harness persistence** - Memories created in one harness are retrievable in another, because storage lives on Oz rather than inside a single harness.
+* **Automatic consolidation** - Durable knowledge is extracted from finished conversations into a small, curated set of memories rather than a verbose transcript dump.
+* **Memory stores** - Named, scoped collections of memories that you attach to an agent identity for repeated runs or to a single run for one-off augmentation.
+* **Session-start retrieval for personal memory** - Your personal memory store is searched at the start of each cloud run, and relevant memories are injected as context regardless of which harness the agent is using.
 
-* **Cross-harness persistence** - Memories created during a Claude Code run are retrievable in a later Codex, Gemini, or Warp Agent run, because storage lives on Oz rather than inside a single harness.
-* **Automatic consolidation** - After a conversation ends, Warp summarizes the transcript into a small set of durable memories, deduping and resolving contradictions against the store.
-* **Named memory stores** - Group memories by purpose (`deploys`, `team-conventions`, `incident-playbooks`) and attach the right stores to the right agents with per-store instructions.
-* **Hybrid retrieval** - Retrieval combines semantic and keyword search over the active version of each memory and surfaces the most relevant memories for the current task.
-* **Versioned content** - Each memory keeps an immutable version history; updates create a new version and rotate the active pointer.
-* **Compounding institutional knowledge** - Every run that writes to a shared store contributes to the team's body of knowledge instead of evaporating when the conversation closes.
+## What's not yet available
 
-## How it works
+* **Self-hosted memory backends** - Today only the Warp-managed backend is available.
+* **Team-store retrieval at session start** - Consolidation can write to team-owned stores, but session-start retrieval is focused on the personal store.
+* **CLI commands for memory store management** - Memory stores are managed through the Warp app today.
+* **Suggested skills surfaced from memory patterns** - Promoting recurring memory patterns into reviewable skill drafts is still in design.
+* **A stable, generally available public API** - The current surface is reachable for design partners, but paths and schemas may change before it lands in the public OpenAPI specification.
 
-Agent Memory has three moving parts: stores, consolidation, and retrieval.
+## How to get involved
 
-### Memory stores
-
-A **memory store** is a named, described collection of memories with an owner — either a user or a team. Access to a store determines who and what can read or write its memories. See [Memory stores](/agent-platform/capabilities/agent-memory/memory-stores/) for the full model.
-
-### Consolidation
-
-Consolidation is the step that turns raw conversations into durable memories. Warp summarizes a finished conversation into a small set of candidate memories and reconciles them against the existing memories in the accessible stores: equivalent items are skipped, refinements become updates, new knowledge becomes new memories, and contradictions are resolved. Consolidation is intentionally sparse — most routine conversations produce zero memories.
-
-Consolidation runs as a background job over recently idle conversations and on demand via the `/consolidate` slash command in a local agent conversation. The result is a small, curated set of memories rather than a verbose transcript dump.
-
-### Retrieval
-
-When a cloud agent starts a run, Oz searches the user's memory store for the top memories that match the run's prompt and injects them as additional context before the agent begins working. The same retrieval applies whether the run is on Claude Code, Codex, Gemini, or the Warp Agent.
-
-Retrieval today is intentionally narrow:
-
-* **User-owned memory store** - Personal memories follow the user across harnesses and runs.
-* **Top results** - Search uses hybrid semantic and keyword retrieval over the active version of each memory.
-
-:::note
-Retrieval at session start currently surfaces memories from the user's own personal store. Team-owned stores are reachable through the API and writable by consolidation, but session-start retrieval for shared stores is still in progress.
-:::
-
-## What's in research preview
-
-Today's research preview includes:
-
-* **Memory store management** - Create user-owned stores, then list, update, and delete any store you can access via the REST API.
-* **Memory CRUD with version history** - Create, list, update (new version), and tombstone memories. List versions of a memory.
-* **Automatic consolidation** - Background consolidation over recently idle conversations, plus the `/consolidate` slash command for on-demand consolidation in a local conversation.
-* **Cross-harness retrieval for user-owned memory** - Session-start injection of relevant memories for Claude Code, Codex, Gemini, and the Warp Agent.
-* **Agent attachments** - Attach memory stores to agent identities with per-store access and instructions.
-* **Run-level overrides** - Attach a memory store to a single run, overriding the agent identity's configuration for that store on that run.
-
-What's not yet generally available and may change:
-
-* **Self-hosted memory backends** - The store interface is designed to support customer-managed backends; today the only shipped implementation is Warp-managed. See [Self-hosted memory](/agent-platform/capabilities/agent-memory/self-hosted-memory/) for the direction of travel.
-* **Team-store retrieval at session start** - Consolidation writes to team-owned stores today, but session-start retrieval focuses on the user-owned store.
-* **Team-owned store creation via the API** - You can create team-owned stores in the Warp app; API creation is user-owned only.
-* **Suggested Skills from memory** - Surfacing recurring patterns from memory as reviewable skill drafts is in early exploration. See the note on [Skills](/agent-platform/capabilities/skills/).
-* **CLI commands for memory store management** - All management today is through the REST API and the Warp app.
-
-## Design partners
-
-Agent Memory is enabled per workspace during the research preview. If you want early access, want to host memory in your own infrastructure, or want to integrate consolidation into a specific workflow, [contact us](https://warp.dev/contact-sales) to join the design partner program.
+Agent Memory is enabled per workspace during the research preview. [Join the waitlist](https://warp.dev/oz/agent-memory#waitlist) to request access for your workspace, share use cases, or participate as a design partner on the pieces that aren't yet shipped.
 
 ## Related pages
 
-* [**Memory stores**](/agent-platform/capabilities/agent-memory/memory-stores/) - Scoping, sharing, and attachment model.
-* [**Self-hosted memory**](/agent-platform/capabilities/agent-memory/self-hosted-memory/) - Running memory storage in your own infrastructure.
-* [**Agent Memory API**](/agent-platform/capabilities/agent-memory/api/) - Research-preview REST surface for managing stores and memories.
-* [**Skills**](/agent-platform/capabilities/skills/) - Durable instructions for agents, complementary to memory.
-* [**Codebase Context**](/agent-platform/capabilities/codebase-context/) - The other long-lived context source available to agents.
+* [**Skills**](/agent-platform/capabilities/skills/) - Durable instructions for agents, including the forward-looking note on suggested skills from memory patterns.
+* [**Agent identities**](https://docs.warp.dev/agent-platform/cloud-agents/agents/) - Where memory stores attach for repeated cloud runs.
