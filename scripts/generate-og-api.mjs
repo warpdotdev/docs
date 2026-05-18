@@ -45,7 +45,7 @@ const svg = `<?xml version="1.0" encoding="UTF-8"?>
   <rect x="285" y="395" width="80" height="4" rx="2" fill="hsl(207, 80%, 62%)"/>
   <!-- Wordmark subtitle -->
   <text x="285" y="450" fill="#FAF9F6" font-family="Inter, 'Helvetica Neue', Arial, sans-serif" font-size="46" font-weight="700" letter-spacing="-1">
-    Oz Agent API Reference
+    Agent API Reference
   </text>
   <text x="285" y="500" fill="hsl(210, 4%, 72%)" font-family="Inter, 'Helvetica Neue', Arial, sans-serif" font-size="26" font-weight="400">
     Create and manage cloud agent runs, schedules, and more.
