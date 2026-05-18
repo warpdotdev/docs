@@ -3,14 +3,14 @@ name: docs-seo-audit
 description: >-
   Audit docs.warp.dev for SEO issues like duplicate titles, missing meta
   descriptions, title length problems, and H1 tag issues. Crawls the live
-  sitemap, generates a report, and fixes issues in the source markdown. Use
+  sitemap, generates a report, and fixes issues in the source files. Use
   when asked to check SEO, fix duplicate titles, audit meta tags, improve
   search rankings, or run an SEO check on the docs site.
 ---
 
 # SEO Audit
 
-Crawl the live docs.warp.dev sitemap to find SEO issues and fix them in the source markdown files.
+Crawl the live docs.warp.dev sitemap to find SEO issues and fix them in the source files.
 
 ## Running the audit
 
@@ -48,7 +48,7 @@ The JSON report contains:
 
 Each issue includes:
 - `url` — The live page URL
-- `source_file` — The local markdown file (if `--repo-root` was provided)
+- `source_file` — The local source file (if `--repo-root` was provided)
 - `severity` — `error` (must fix), `warning` (should fix), or `info` (nice to fix)
 - `type` — Issue category (see below)
 - `message` — Human-readable description
@@ -145,6 +145,7 @@ Some page titles are intentionally short or specific and must **not** be changed
 - **`src/content/docs/terminal/windows/split-panes.mdx`** (`Split panes`) — Same rationale: the section header disambiguates the terminal context. The `title_too_short` warning is intentionally suppressed. Do not rename to "Terminal split panes".
 - **`src/content/docs/terminal/windows/tab-configs.mdx`** (`Tab Configs`) — Same rationale: the section header disambiguates the terminal context. Additionally, "Tab Configs" is a proper feature name and should not be prefixed. The `title_too_short` warning is intentionally suppressed. Do not rename to "Terminal Tab Configs".
 - **`src/content/docs/terminal/sessions/index.mdx`** (`Sessions`) — The sidebar section header ("Sessions") already provides terminal context. The `title_too_short` warning is intentionally suppressed. Do not rename to "Terminal sessions".
+- **`src/content/docs/reference/cli/artifacts.mdx`** (`Artifacts`) — The Reference > CLI section provides context, and "Artifacts" matches the `oz artifact` resource that the page documents. The `title_too_short` warning is intentionally suppressed.
 
 When the audit flags these pages for `title_too_short`, exclude them from your fix list and include a note in your report explaining they are intentional exceptions.
 
@@ -244,7 +245,7 @@ If instructed to send a report to Slack, post a summary after the audit complete
 
 **Categorizing issues in the summary:** Before composing the message, cross-reference every issue against the title exceptions list above and check whether the issue has a local source file. Classify each issue into exactly one bucket:
 - **Fixed** — issues you resolved in this run
-- **Unfixable** — issues with no local source file (e.g., auto-generated API pages)
+- **Unfixable** — issues with no local source file
 - **Allowlisted** — issues that match a title exception entry (these are intentional, not problems)
 - **Remaining** — everything else (genuine issues that still need attention)
 
@@ -261,7 +262,7 @@ Only include a section in the Slack message if its count is > 0. Never list allo
 • Trimmed 3 overly long descriptions to ≤160 chars
 
 *Unfixable (<count>):*
-• <N> pages missing meta descriptions (auto-generated, no local source)
+• <N> pages missing meta descriptions (no local source)
 
 *Allowlisted (<count>):*
 • <page1>, <page2>, <page3> (intentionally short titles)
@@ -287,7 +288,7 @@ PR: <pr_url>
 <total_pages> pages scanned | <total_issues> issues found (<errors> errors, <warnings> warnings, <info> info)
 
 *Unfixable (<count>):*
-• <N> pages missing meta descriptions (auto-generated, no local source)
+• <N> pages missing meta descriptions (no local source)
 
 *Allowlisted (<count>):*
 • <page1>, <page2> (intentionally short titles)

@@ -66,6 +66,7 @@ Deletion jobs run every 24 hours, so if you deleted your account and want to sig
 If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow will require that you assign a team member as the new admin.
 :::
 
+
 ### Exhaustive Telemetry Table
 
 | Event Name | Description |
@@ -85,6 +86,7 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `AI Suggested Rule Content Changed` | Content changed by the user in the suggested rule dialog |
 | `AI Suggested Rule Edited` | Clicked the Edit Suggested Rule button in the AI blocklist |
 | `AIAutonomy.AutoexecutedRequestedCommand` | Autoexecuted an Agent Mode requested command |
+| `AIAutonomy.ChangedAgentModeAskUserQuestionPermission` | Changed Agent Mode permission for asking user questions |
 | `AIAutonomy.ChangedAgentModeCodingPermissions` | Changed Agent Mode permissions for coding tasks |
 | `AIAutonomy.ToggledAutoexecuteReadonlyCommandsSetting` | Toggled setting to autoexecute readonly Agent Mode requested commands |
 | `Add Added Subshell Command` | Added a command to be automatically Warpified via Warp's subshell wrapper |
@@ -142,7 +144,7 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `AgentMode.Code.SuggestedEditAcceptClicked` | User selected Accept for a code diff suggestion in Agent Mode |
 | `AgentMode.Code.SuggestedEditReceived` | Agent Mode suggested a code edit |
 | `AgentMode.Code.SuggestedEditResolved` | Agent Mode pending code edit suggestion resolved |
-| `AgentMode.CreatedAIBlock` | Created an AI block in Agent Mode |
+| `AgentMode.CreatedAIBlock` | Created an AI block in agent mode |
 | `AgentMode.Error` | Received an error when getting Agent Mode response |
 | `AgentMode.ExecutedWarpDrivePrompt` | Executed a saved prompt. |
 | `AgentMode.ExitedShellProcess` | An agent-requested command caused the shell process to exit |
@@ -151,13 +153,13 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `AgentMode.Grep.Failed` | The grep tool failed to complete |
 | `AgentMode.Grep.Succeeded` | The grep tool completed successfully |
 | `AgentMode.NaturalLanguageDetection.InputBufferSubmitted` | Input buffer submitted |
-| `AgentMode.OpenedCitation` | Opened a citation that was surfaced in Agent Mode |
+| `AgentMode.OpenedCitation` | Opened a citation that was surfaced in agent mode |
 | `AgentMode.Orchestration.TeamAgentCommunicationFailed` | Failed to send an orchestration message or lifecycle event for a TeamAgent |
 | `AgentMode.PotentialAutoDetectionFalsePositive` | Manually toggled input to shell mode after input was auto-detected as natural language. |
 | `AgentMode.QueryAttemptAtLImit` | Tried to send an Agent Mode query but they already reached the query limit |
 | `AgentMode.RequestRetrySucceeded` | Agent Mode request succeeded after retrying following an initial error |
 | `AgentMode.SetupCreateEnvironmentAction` | User clicked a button in the Agent Mode setup create environment step |
-| `AgentMode.SurfacedCitations` | Agent Mode used and cited external sources that were used in its response |
+| `AgentMode.SurfacedCitations` | Agent mode used and cited external sources that were used in its response |
 | `AgentMode.ToggleAutoDetectionSetting` | Toggled the setting that enables or disables natural language auto-detection in the input.  |
 | `AgentNotification.Shown` | An agent notification was shown to the user (toast or mailbox) |
 | `AgentTip Clicked` | User clicked a link or action in an Agent Tip |
@@ -225,6 +227,7 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `CLI.Execute.Environment.Update` | Updated a cloud environment from the Warp CLI |
 | `CLI.Execute.Federate.IssueGcpToken` | Issued a GCP federated identity token from the Warp CLI |
 | `CLI.Execute.Federate.IssueToken` | Issued a federated identity token from the Warp CLI |
+| `CLI.Execute.HarnessSupport.ReportShutdown` | Reported agent shutdown via harness-support from the Warp CLI |
 | `CLI.Execute.Integration.Create` | Created an integration from the Warp CLI |
 | `CLI.Execute.Integration.List` | Listed integrations from the Warp CLI |
 | `CLI.Execute.Integration.Update` | Updated an integration from the Warp CLI |
@@ -235,6 +238,11 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `CLI.Execute.Provider.List` | Listed providers from the Warp CLI |
 | `CLI.Execute.Provider.Setup` | Set up a provider via the Warp CLI |
 | `CLI.Execute.Run.Conversation.Get` | Got run conversation from the Warp CLI |
+| `CLI.Execute.Run.Message.List` | Listed run messages from the Warp CLI |
+| `CLI.Execute.Run.Message.MarkDelivered` | Marked a run message as delivered from the Warp CLI |
+| `CLI.Execute.Run.Message.Read` | Read a run message from the Warp CLI |
+| `CLI.Execute.Run.Message.Send` | Sent a run message from the Warp CLI |
+| `CLI.Execute.Run.Message.Watch` | Watched run messages from the Warp CLI |
 | `CLI.Execute.Schedule.Create` | Created a scheduled agent from the Warp CLI |
 | `CLI.Execute.Schedule.Delete` | Deleted a scheduled agent from the Warp CLI |
 | `CLI.Execute.Schedule.Get` | Got scheduled agent configuration from the Warp CLI |
@@ -476,6 +484,8 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `RemoteServer.Initialization` | Remote server connection and initialization completed (success or failure) |
 | `RemoteServer.Installation` | Remote server binary installation completed (success or failure) |
 | `RemoteServer.MessageDecodingError` | A server message could not be decoded (no parseable request_id) |
+| `RemoteServer.ReconnectExhausted` | All reconnection attempts were exhausted after a spontaneous disconnect |
+| `RemoteServer.Reconnection` | A reconnection attempt succeeded after a spontaneous disconnect |
 | `RemoteServer.SetupDuration` | End-to-end duration of the remote server setup flow |
 | `Remove Added Subshell Command` | Removed a command from the list of commands to automatically Warpify via Warp's subshell wrapper |
 | `Remove Denylisted SSH Tmux Wrapper Host` | Removed an SSH host from the denylist from prompting for Tmux Wrapper |

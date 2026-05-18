@@ -102,7 +102,7 @@ jobs:
             const commentBody = context.payload.comment.body;
             const author = context.payload.comment.user.login;
 
-            let prompt = `You are an expert software engineer and the Oz Agent.
+            let prompt = `You are an expert software engineer and the Warp Agent.
             You are responding to a specific request on a Pull Request. This may involve answering questions, providing explanations, or implementing code changes.
 
             **Context**:
@@ -162,12 +162,12 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          git config user.name "Oz Agent"
+          git config user.name "Warp Agent"
           git config user.email "agent@warp.dev"
 
           if [[ -n $(git status --porcelain) ]]; then
             git add .
-            git commit -m "Oz Agent: Address comment"
+            git commit -m "Warp Agent: Address comment"
             git push
           else
             echo "No changes to commit."
