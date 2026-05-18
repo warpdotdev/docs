@@ -40,9 +40,7 @@ Warp Agent is the orchestration host for multi-harness runs. A typical pattern:
 
 Subagents run in the same environment as the parent and share the same secrets, MCP servers, and integrations. The transcript shows the full tree, so reviewers can see exactly which subagent did what.
 
-## Choosing Warp Agent
-
-Pick Warp Agent when:
+## When to choose Warp Agent
 
 * The task spans multiple repos, languages, or domains.
 * You want model auto-routing instead of pinning one provider.
@@ -50,14 +48,14 @@ Pick Warp Agent when:
 * You want the deepest integration with Warp's platform features (Skills, Rules, Memory, Codebase Context).
 * You're not sure which harness fits — Warp Agent is the safe default and can delegate to other harnesses when it decides that's the better fit.
 
-## Starting a Warp Agent run
+## Starting a run
 
-Warp Agent is the default, so there's nothing extra to configure to use it.
+Warp Agent is the default, so there's nothing extra to configure.
 
 * **Warp app** - Start a cloud agent run from the input. The harness dropdown defaults to **Warp Agent**.
 * **Oz web app** - On a new run or new schedule pane, leave the **Harness** field set to **Warp Agent**.
 * **Oz CLI** - Run `oz agent run-cloud --prompt "..."` with no `--harness` flag, or pass `--harness oz` explicitly.
-* **API and SDK** - Omit the `harness` field on the agent config, or set it to `oz`.
+* **API and SDK** - Omit the `harness` field on the agent config, or set it to `oz`. See the [API reference](/reference/api-and-sdk/).
 
 For a complete walkthrough, see the [Cloud agents quickstart](/agent-platform/cloud-agents/quickstart/).
 
