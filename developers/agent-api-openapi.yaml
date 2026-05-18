@@ -1,9 +1,9 @@
 openapi: 3.0.0
 info:
-  title: Oz Agent API
+  title: Agent API
   version: 1.0.0
   description: |
-    API for creating, managing, and querying Oz cloud agent runs.
+    API for creating, managing, and querying cloud agent runs.
     
     These endpoints allow users to programmatically spawn agents, list runs, 
     and retrieve detailed run information.
