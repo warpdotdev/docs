@@ -2,8 +2,7 @@
 title: Agent Memory (Research Preview)
 description: >-
   Agent Memory is a persistent, cross-harness memory layer for agents in
-  Warp — Warp Agent, Claude Code, Codex, Gemini, and others — that learns
-  over time.
+  Oz, including the Warp Agent, Claude Code, and Codex.
 sidebar:
   label: "Agent Memory (Research Preview)"
 ---
@@ -11,7 +10,7 @@ sidebar:
 Agent Memory is in **research preview** and is enabled per team for design partners. [Join the waitlist](https://warp.dev/oz/agent-memory#waitlist) to request access for your team.
 :::
 
-Agent Memory is a persistent memory layer that lives on Warp and is shared across every supported agent harness — the built-in Warp Agent, Claude Code, Codex, Gemini, and others. Agents read from and write to it as they run, so durable facts, decisions, and outcomes from one conversation are available to the next, regardless of which harness, machine, or teammate triggers it.
+Agent Memory is a persistent memory layer that lives on Oz and is shared across every supported agent harness — the built-in Warp Agent, Claude Code, Codex, and others as they're added. Agents read from and write to it as they run, so durable facts, decisions, and outcomes from one conversation are available to the next, regardless of which harness, machine, or teammate triggers it.
 
 Memory creation and retrieval are asynchronous and run in the background, so they don't consume tokens or add latency to the active task.
 
@@ -19,26 +18,30 @@ Memory creation and retrieval are asynchronous and run in the background, so the
 
 ## Key features
 
-* **Cross-harness memory** — Memory is shared across every supported harness (Warp Agent, Claude Code, Codex, Gemini, and others). No per-harness setup, and no separate memory service to maintain.
+* **Cross-harness memory** — One memory layer shared across the Warp Agent, Claude Code, Codex, and other harnesses as they're added. Third-party harnesses are covered when they run as Oz cloud agents.
+* **Both local and cloud agents** — Works for interactive local agents in Warp and for background Oz cloud agents.
 * **Asynchronous by design** — Memory creation runs after a conversation ends. Retrieval runs in the background during a run. Neither consumes tokens or adds latency to the active task.
-* **Automatic memory from conversations** — When a conversation ends, Warp extracts durable facts, learnings, and outcomes and writes them as memories. New knowledge merges with existing memories or supersedes them on conflict.
-* **Personal and team stores** — Stores are owned by a user or a team. Personal stores are private; team stores are shared across the team and any agents the team authorizes.
+* **Automatic memory from conversations** — When a conversation ends, Oz extracts durable facts, learnings, and outcomes and writes them as memories. New knowledge merges with existing memories or supersedes them on conflict.
+* **Agent-scoped, shareable stores** — By default, each agent has its own memory store. Stores can also be shared across agents and across teammates when knowledge should travel together.
 * **Per-agent access and instructions** — Attach stores to specific agents with read-only or read-write access. Per-store instructions tell each agent how and when to use the store.
-* **Deletion safety** — A store can't be deleted while it's attached to a live agent.
+* **Fully accessible via API** — Memories and stores can be read, created, updated, and deleted through the Oz API.
+* **Traceability** — For any agent run, you can see which memories influenced it.
+* **Auditability** — Every change to a memory is recorded, so the full history of any memory can be inspected.
+* **Self-hostable** — Enterprises can run Agent Memory on their own Oz instance to meet security, privacy, and compliance requirements.
 
 ## Where Agent Memory runs
 
-Agent Memory runs entirely on Warp's infrastructure. Storage, memory creation, and retrieval are all hosted services — there's no separate memory backend for you to operate. Because the layer lives on Warp, the same memory is accessible from any agent you run through Warp:
+Agent Memory is part of Oz. Storage, memory creation, and retrieval all run on the same Oz instance that hosts your agents — Warp-hosted Oz by default, or a customer-hosted Oz instance for teams that need to keep memory inside their own perimeter. The same memory is accessible from any agent you run on Oz:
 
 * The local Warp Agent.
 * Oz cloud agents triggered from the CLI, web app, schedules, or integrations.
-* Third-party harnesses on Warp: Claude Code, Codex, Gemini, and others as they're added.
+* Third-party harnesses running as Oz cloud agents — Claude Code, Codex, and others as they're added. (Running third-party harnesses locally isn't supported during the research preview.)
 
 Memory stays bound to its owner (a user or a team), independent of which harness reads or writes.
 
 ## Memory stores
 
-A memory store is a named container of memories. By default, each agent has its own store and writes to it as it runs. Stores can also be shared across multiple agents when they need the same knowledge.
+A memory store is a named container of memories. By default, each agent has its own store and writes to it as it runs. Stores can also be shared across multiple agents when they need the same knowledge — and across teammates when knowledge should travel with the team.
 
 * **Personal stores** — Owned by a user. Hold preferences, working notes, and individual patterns.
 * **Team stores** — Owned by a team. Hold shared knowledge like deployment runbooks, code review conventions, or on-call procedures. Every team member and any team-authorized agent can read from the same store.
@@ -47,16 +50,15 @@ Use multiple stores to keep contexts separate, and share stores across agents wh
 
 ## Automatic memory from conversations
 
-When a conversation finishes, Warp extracts durable facts, learnings, and outcomes from what happened and writes them as memories. Memory creation runs in the background after the conversation ends, so it doesn't consume tokens or add latency during the run that produced it.
+When a conversation finishes, Oz extracts durable facts, learnings, and outcomes from what happened and writes them as memories. Memory creation runs in the background after the conversation ends, so it doesn't consume tokens or add latency during the run that produced it.
 
-* **Sparse by design** — Routine work produces nothing. Only meaningful, reusable knowledge becomes a memory.
-* **Learns over time** — New knowledge merges into existing memories or supersedes them on conflict.
+* **Memories evolve over time** — Agents update and supersede their own memories as new information arrives, including to resolve contradictions with prior memories.
 
-You can also explicitly tell Warp to remember something during a conversation, and it lands in the appropriate store.
+You can also explicitly ask an agent to remember something during a conversation, and it lands in the appropriate store.
 
 ## How agents use memory
 
-When an agent starts a task, Warp searches the stores the agent can access for relevant memories and injects them as context. The search runs in the background, so the agent only sees the memories returned. Agents can also retrieve additional memories on demand mid-conversation when they determine it's relevant, similar to how they consult rules or Codebase Context. You don't need to write retrieval queries or pre-load memory.
+When an agent starts a task, Oz searches the stores the agent can access for relevant memories and injects them as context. The search runs in the background, so the agent only sees the memories returned. Agents can also retrieve additional memories on demand mid-conversation when they determine it's relevant, similar to how they consult rules or Codebase Context. You don't need to write retrieval queries or pre-load memory.
 
 ## Attaching memory to your agents
 
