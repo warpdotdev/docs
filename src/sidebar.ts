@@ -145,7 +145,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 							items: [
 								{ slug: 'terminal/settings', label: 'Overview' },
 								{ slug: 'terminal/settings/all-settings', label: 'All settings reference' },
-								{ slug: 'terminal/settings/file-locations', label: 'File locations' },
 							],
 						},
 						{
@@ -540,6 +539,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						'support-and-community/plans-and-billing/add-on-credits',
 						{ slug: 'support-and-community/plans-and-billing/platform-credits', label: 'Platform credits' },
 						'support-and-community/plans-and-billing/bring-your-own-api-key',
+						'support-and-community/plans-and-billing/custom-inference-endpoint',
 						'support-and-community/plans-and-billing/overages-legacy',
 						'support-and-community/plans-and-billing/pricing-faqs',
 					],
