@@ -66,7 +66,7 @@ Each line has exactly these fields:
 A few rules to follow when writing declarations:
 
 * **Paths must be absolute.** Relative paths are rejected and logged as malformed.
-* **Prefer `repo` over `file` for paths inside a repository.** Warp generates a git diff for each `repo` entry (tracked changes plus untracked files), so individual `file` entries inside that repo are redundant and dropped before upload. Including a `repo` entry is also more extensible than enumerating files.
+* **Prefer `repo` over `file` for paths inside a repository.** Warp generates a git diff for each `repo` entry (tracked changes plus untracked, non-gitignored files), so individual `file` entries inside that repo are redundant and dropped before upload. Including a `repo` entry is also more extensible than enumerating files.
 * **Repos are diffed, not copied wholesale.** Only changed files are uploaded for each `repo` entry, so listing a large repository is cheap when the agent's changes are small.
 * **`file` entries are for paths outside any declared repo** — for example, logs the agent wrote to `/tmp` or scratch files in `$HOME`.
 
