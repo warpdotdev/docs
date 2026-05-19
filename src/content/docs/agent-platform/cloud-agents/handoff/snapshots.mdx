@@ -2,7 +2,7 @@
 title: Customizing workspace snapshots
 description: >-
   Customize which repositories and files Warp snapshots at the end of a cloud
-  agent run, so handoff continues to work outside the bundled warp-agent-docker
+  agent run, so handoff continues to work outside the bundled cloud agent
   image.
 sidebar:
   label: "Snapshots"
@@ -10,11 +10,11 @@ sidebar:
 
 Workspace snapshots are how [handoff](/agent-platform/cloud-agents/handoff/) carries repository changes and other workspace state across cloud agent runs. At the end of every cloud agent run, Warp asks a small declarations script which repositories and files to snapshot, then uploads the resulting git diffs and file contents so the next cloud agent run can apply them.
 
-The bundled [`warp-agent-docker`](https://github.com/warpdotdev/warp-agent-docker) image ships with a declarations script that snapshots every git repository under the agent's workspace, so most cloud agent runs need no configuration. This page is for the cases where you need to customize what gets snapshotted — for example, when running cloud agents in a custom Docker image, on a self-hosted [Direct backend](/agent-platform/cloud-agents/self-hosting/managed-direct/), or as an [unmanaged](/agent-platform/cloud-agents/self-hosting/unmanaged/) `oz agent run` in CI.
+Warp's bundled cloud agent image ships with a declarations script that snapshots every git repository under the agent's workspace, so most cloud agent runs need no configuration. This page is for the cases where you need to customize what gets snapshotted — for example, when running cloud agents in a custom Docker image, on a self-hosted [Direct backend](/agent-platform/cloud-agents/self-hosting/managed-direct/), or as an [unmanaged](/agent-platform/cloud-agents/self-hosting/unmanaged/) `oz agent run` in CI.
 
 ## When to customize snapshots
 
-The default snapshotting behavior is sufficient when your cloud agent runs use the bundled `warp-agent-docker` image and operate entirely inside the assigned workspace. Customize snapshots when:
+The default snapshotting behavior is sufficient when your cloud agent runs use the bundled cloud agent image and operate entirely inside the assigned workspace. Customize snapshots when:
 
 * **You use a custom Docker base image** that doesn't include the bundled `snapshot-declarations.sh` script.
 * **You run cloud agents on a self-hosted Direct backend** or as unmanaged `oz agent run` invocations, where the bundled script isn't on disk.
@@ -45,7 +45,7 @@ In both flows, snapshotting is automatically enabled for cloud agent runs when c
 
 ## Environment variables
 
-* **`OZ_SNAPSHOT_DECLARATIONS_SCRIPT`** - Absolute path to the script Warp invokes at the end of each cloud agent run. The bundled `warp-agent-docker` image sets this automatically. Set it yourself when running outside the bundled image.
+* **`OZ_SNAPSHOT_DECLARATIONS_SCRIPT`** - Absolute path to the script Warp invokes at the end of each cloud agent run. The bundled cloud agent image sets this automatically. Set it yourself when running outside the bundled image.
 * **`OZ_SNAPSHOT_DECLARATIONS_FILE`** - Absolute path to the JSONL file the script writes to (and Warp reads from). Warp sets this to a per-run path by default. Override it only when you want Warp to read from a static, pre-populated declarations file instead of running a script.
 
 ## Declarations file format
@@ -78,7 +78,7 @@ Malformed lines (invalid JSON, missing fields, unknown `kind`, non-absolute path
 
 ## Write a custom declarations script
 
-A custom script writes one JSON line per repository or file it wants Warp to snapshot, then exits. The bundled implementation at [`warpdotdev/warp-agent-docker/snapshot-declarations.sh`](https://github.com/warpdotdev/warp-agent-docker/blob/main/snapshot-declarations.sh) is a good reference; the minimal pattern looks like this:
+A custom script writes one JSON line per repository or file it wants Warp to snapshot, then exits. The minimal pattern looks like this:
 
 ```bash title="snapshot-declarations.sh"
 #!/bin/bash
@@ -113,6 +113,10 @@ export OZ_SNAPSHOT_DECLARATIONS_SCRIPT=/path/to/snapshot-declarations.sh
 ```
 
 For a managed [Direct backend](/agent-platform/cloud-agents/self-hosting/managed-direct/) worker, set it via the worker's `environment` config so it's present when the agent process starts.
+
+:::note
+The declarations script bundled in Warp's cloud agent image is a richer version of the example above: it also honors a colon-separated `OZ_SNAPSHOT_SCAN_ROOTS` override for operators who need to scan repos outside the default workspace, uses `jq` for canonical JSON encoding instead of `sed`-based escaping, and dedupes against repo declarations already written in the same run so repeated invocations stay additive.
+:::
 
 ## Use a static declarations file
 
