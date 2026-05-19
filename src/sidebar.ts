@@ -351,6 +351,14 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						},
 						'agent-platform/cloud-agents/environments',
 						{ slug: 'agent-platform/cloud-agents/managing-cloud-agents', label: 'Managing cloud agents' },
+						{
+							label: 'Orchestration',
+							collapsed: true,
+							items: [
+								{ slug: 'agent-platform/cloud-agents/orchestration', label: 'Multi-agent orchestration' },
+								{ slug: 'agent-platform/cloud-agents/orchestration/multi-agent-runs', label: 'Running orchestrated agents' },
+							],
+						},
 						{ slug: 'agent-platform/cloud-agents/agents', label: 'Agent identities' },
 						{ slug: 'agent-platform/cloud-agents/oz-web-app', label: 'Oz web app' },
 						{ slug: 'agent-platform/cloud-agents/skills-as-agents', label: 'Skills as agents' },
