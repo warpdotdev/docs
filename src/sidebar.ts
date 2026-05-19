@@ -145,6 +145,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 							items: [
 								{ slug: 'terminal/settings', label: 'Overview' },
 								{ slug: 'terminal/settings/all-settings', label: 'All settings reference' },
+								{ slug: 'terminal/settings/file-locations', label: 'File locations' },
 							],
 						},
 						{
