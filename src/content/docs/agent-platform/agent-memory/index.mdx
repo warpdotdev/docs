@@ -43,8 +43,8 @@ Memory stays bound to its owner (a user or a team), independent of which harness
 
 A memory store is a named collection of memories. By default, each agent has its own store that it writes to as it runs. Stores can also be shared across multiple agents when they need the same knowledge, and across teammates when knowledge should travel with the team.
 
-* **Personal stores** - Owned by a user. Hold preferences, working notes, and individual patterns.
-* **Team stores** - Owned by a team. Hold shared knowledge like deployment runbooks, code review conventions, or on-call procedures. Every team member, and any agent the team authorizes, can read from the same store.
+* **Personal stores** - Owned by a user. Store memories about preferences, working notes, and individual patterns.
+* **Team stores** - Owned by a team. Store shared knowledge like deployment runbooks, code review conventions, or on-call procedures. Every team member, and any agent the team authorizes, can read from the same store.
 
 Use multiple stores to keep contexts separate, and share stores across agents when needed. For example, a code review agent can have its own store of review patterns, while a repo-specific store of architectural decisions is shared between the code review agent and a Sentry triage agent so both reason about the same codebase.
 
