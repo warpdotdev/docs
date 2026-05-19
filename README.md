@@ -73,7 +73,7 @@ Read [CONTRIBUTING.md](CONTRIBUTING.md) for the full contribution flow, local se
 
 ## Agent skills
 
-The `.warp/skills/` directory contains [Oz agent skills](https://docs.warp.dev/agent-platform/capabilities/skills) used by the Warp docs team for automated workflows, including style linting, link checking, changelog updates, and terminology syncing. The skills are included for transparency and as examples of how Oz skills can automate documentation workflows. See [`warpdotdev/oz-skills`](https://github.com/warpdotdev/oz-skills) for more examples.
+The `.warp/skills/` directory contains [agent skills](https://docs.warp.dev/agent-platform/capabilities/skills) used by the Warp docs team for automated workflows, including style linting, link checking, changelog updates, and terminology syncing. The skills are included for transparency and as examples of how Oz skills can automate documentation workflows. See [`warpdotdev/oz-skills`](https://github.com/warpdotdev/oz-skills) for more examples.
 
 Some skills depend on internal Warp repositories (`warp-internal`, `warp-server`) and won't run end-to-end without access to those codebases.
 

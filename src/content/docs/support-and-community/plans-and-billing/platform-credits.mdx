@@ -27,7 +27,7 @@ The three buckets are independent and a single run can consume from more than on
 
 ## How platform credits are measured
 
-Platform credits accrue while an Oz agent is actively working on a task — from when the task starts running to when it finishes, fails, or is cancelled. Idle time, time spent waiting on user input, and time before the task starts don't accrue platform credits.
+Platform credits accrue while an agent is actively working on a task — from when the task starts running to when it finishes, fails, or is cancelled. Idle time, time spent waiting on user input, and time before the task starts don't accrue platform credits.
 
 See [warp.dev/pricing](https://warp.dev/pricing) for current rates.
 
@@ -37,7 +37,7 @@ Whether platform credits apply depends on where the agent runs and who's paying 
 
 ### Uses platform credits
 
-* **Cloud agents on any plan** use platform credits for every cloud agent run, regardless of which agent runs the task (Warp Agent, Claude Code, Codex, or Gemini), inference source (Warp-managed, BYOK, or BYOLLM), or compute source (Warp-hosted or self-hosted workers). Warp's platform infrastructure coordinates every cloud agent run.
+* **Cloud agents on any plan** use platform credits for every cloud agent run, regardless of which agent runs the task (Warp Agent, Claude Code, or Codex), inference source (Warp-managed, BYOK, or BYOLLM), or compute source (Warp-hosted or self-hosted workers). Warp's platform infrastructure coordinates every cloud agent run.
 * **Local agents on Business or Enterprise with customer-supplied inference** use platform credits when the local agent run uses [BYOK](/support-and-community/plans-and-billing/bring-your-own-api-key/) or BYOLLM via Amazon Bedrock or Google Vertex. Warp isn't paying for the model call, but Warp's platform infrastructure is still running the local agent. BYOK and customer-supplied inference are subject to plan-size eligibility — see the callout above.
 
 ### Doesn't use platform credits

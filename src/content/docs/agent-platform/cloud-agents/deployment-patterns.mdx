@@ -11,7 +11,7 @@ Teams adopt cloud agents in a few repeatable ways. This page outlines the most c
 
 #### Quick mental model
 
-Oz cloud agent setups usually have four moving parts:
+Cloud agent setups usually have four moving parts:
 
 1. **Trigger**: something happens (CI step, webhook, cron, Slack mention).
 2. **Orchestration**: something decides what to run and tracks it (Oz orchestrator, GitHub Actions, your internal system).
@@ -83,7 +83,7 @@ Use this when you want Oz to run agent workloads on Warp-managed infrastructure,
 * **First-party integrations (Slack, Linear, etc.)** that create tasks automatically from external events.
 * **Scheduled agents** for recurring work (cron-like automation).
 * **Custom triggers** from your own systems using Warp’s API/SDK.
-* **On-demand cloud jobs** using CLI commands like oz agent run-cloud.
+* **On-demand cloud jobs** using CLI commands like `oz agent run-cloud`.
 
 #### Example recipe: daily dead-code cleanup
 
@@ -103,7 +103,7 @@ Use this when you want Oz to run agent workloads on Warp-managed infrastructure,
 
 If a task is naturally divisible:
 
-* Launch multiple cloud agents via oz agent run-cloud, each with:
+* Launch multiple cloud agents via `oz agent run-cloud`, each with:
   * A shard of the repo (directory/module ownership)
   * A shard of the prompt (one responsibility)
 * Aggregate results (PRs, notes, plans) in whatever system you prefer.

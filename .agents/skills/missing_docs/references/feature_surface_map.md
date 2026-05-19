@@ -8,7 +8,7 @@ Lines starting with `#` are comments. Blank lines are ignored.
 
 # Maintenance: when a new GA feature flag ships, add a mapping here.
 # Run `python3 .warp/skills/missing_docs/scripts/audit_docs.py` to find unmapped flags.
-# This audit is also run as a recurring scheduled Oz agent to catch drift.
+# This audit is also run as a recurring scheduled cloud agent to catch drift.
 
 ## Feature flags -> doc pages
 

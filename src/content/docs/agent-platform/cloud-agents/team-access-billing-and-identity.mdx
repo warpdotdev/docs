@@ -102,13 +102,13 @@ This ensures runs are scoped to what the user is allowed to see and modify, and 
 
 ## Team GitHub authorization
 
-By default, Oz cloud agents authenticate with GitHub using the personal token of the user who triggered the run. Team GitHub authorization gives you an alternative: authenticate with the **Oz by Warp** GitHub App instead, so agents can clone repositories and open pull requests without relying on any individual's token.
+By default, cloud agents authenticate with GitHub using the personal token of the user who triggered the run. Team GitHub authorization gives you an alternative: authenticate with the **Oz by Warp** GitHub App instead, so agents can clone repositories and open pull requests without relying on any individual's token.
 
 This is useful for fully automated workflows that use a [team API key](/reference/cli/api-keys/), like CI/CD pipelines, scheduled agents, and SDK-triggered runs, where you want code changes attributed to the GitHub App rather than a specific person.
 
 ### How it works
 
-When an Oz agent task is initiated with a team API key, there is no individual user to authenticate on behalf of. Instead, Warp uses tokens issued by the **Oz by Warp** GitHub App installation to authenticate directly with GitHub.
+When an agent task is initiated with a team API key, there is no individual user to authenticate on behalf of. Instead, Warp uses tokens issued by the **Oz by Warp** GitHub App installation to authenticate directly with GitHub.
 
 The GitHub App token gives the agent access to the repositories included in the app installation — it can clone repos, create branches, push commits, and open pull requests. During installation, you choose whether the app can access **all repositories** or only **selected repositories** in your GitHub organization, and this controls what team API key runs can access.
 
@@ -140,7 +140,7 @@ There are two places you may encounter this installation flow:
 
 ### How this relates to environments
 
-An [environment](/agent-platform/cloud-agents/environments/) is a template for an Oz cloud agent's sandbox — it defines the Docker image, repos, and setup commands, but it does not carry its own GitHub permissions. The same environment can be used by different users or by team API key runs, and each will authenticate to GitHub independently.
+An [environment](/agent-platform/cloud-agents/environments/) is a template for a cloud agent's sandbox — it defines the Docker image, repos, and setup commands, but it does not carry its own GitHub permissions. The same environment can be used by different users or by team API key runs, and each will authenticate to GitHub independently.
 
 The environment configuration and the **Enabled GitHub Orgs** setting in the Admin Panel serve different purposes:
 
