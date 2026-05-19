@@ -18,7 +18,7 @@ Cloud agents can be used in two ways:
 
 **Individual users** (without a team):
 * Can run cloud agents via CLI or API
-* Can use normal Warp credits, [Cloud Agent Credits](/support-and-community/plans-and-billing/credits/#cloud-agent-credits), or a Build plan with available credits
+* Can use Warp credits, including [cloud agent credits](/support-and-community/plans-and-billing/credits/#compute-credits)
 * Agents run on Warp-hosted infrastructure
 * Cannot use integrations (Slack, Linear) or self-hosted agents
 
@@ -27,7 +27,7 @@ Cloud agents can be used in two ways:
 * Can use integrations (Slack, Linear) to trigger agents
 * Can self-host agents on their own infrastructure (Enterprise only)
 * Share team-level configuration (environments, secrets, integrations)
-* Team must be on Build, Max, or Business plan with at least 20 credits (any type) for cloud agents and integrations
+* Team must be on Build, Max, or Business plan with at least 20 credits for cloud agents and integrations
 
 ---
 
@@ -38,7 +38,7 @@ Individual users can run cloud agents via the CLI or API without being part of a
 **How it works:**
 
 * Run agents using `oz agent run-cloud` or the Oz API
-* Credits are drawn from your normal Warp credits, Cloud Agent Credits (if available), or Build plan credits
+* Credits are drawn from your Warp credits (including cloud agent credits, when applicable)
 * Agents execute on Warp-hosted infrastructure
 
 **What you can do:**
@@ -79,9 +79,9 @@ Your team must meet the following requirements to run integrations:
 * You must be on a plan that supports **[Reload Credits (Add-on Credits)](/support-and-community/plans-and-billing/add-on-credits/)**.
   * Supported: **Build, Max, Business**
   * Not supported: Pro, Turbo, Lightspeed, legacy Business.
-* Your team needs at least **20 credits** available to run cloud agents and integrations (any type of Warp credits work)
+* Your team needs at least **20 credits** available to run cloud agents and integrations
 
-When a user triggers an agent through an integration (like Slack or Linear), the run draws from credits in a specific order. It starts with any [Cloud Agent Credits](/support-and-community/plans-and-billing/credits/#cloud-agent-credits) the user has, then moves to the user's base credits, followed by the team's Reload Credits, and finally the user's own Reload Credits. Enterprises may have different payment options and credit plans that affect this flow. If all applicable credit sources are exhausted, integrations and cloud agents will not work until credits are added.
+When a user triggers an agent through an integration (like Slack or Linear), the run draws from credits in a specific order. It starts with any [cloud agent credits](/support-and-community/plans-and-billing/credits/#compute-credits) the user has, then moves to the user's base credits, followed by the team's Reload Credits, and finally the user's own Reload Credits. Enterprises may have different payment options and credit plans that affect this flow. If all applicable credit sources are exhausted, integrations and cloud agents will not work until credits are added.
 
 :::note
 If you're on an Enterprise plan, please reach out to [warp.dev/contact-sales](https://warp.dev/contact-sales) with any billing questions related to integrations.
