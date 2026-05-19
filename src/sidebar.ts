@@ -247,6 +247,12 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					],
 				},
 				{
+					label: 'Memory (Research Preview)',
+					items: [
+						{ slug: 'agent-platform/agent-memory', label: 'Agent Memory' },
+					],
+				},
+				{
 					label: 'Warp Agents',
 					items: [
 						{ slug: 'agent-platform/local-agents/overview', label: 'Warp Agents overview' },
@@ -351,6 +357,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						},
 						'agent-platform/cloud-agents/environments',
 						{ slug: 'agent-platform/cloud-agents/managing-cloud-agents', label: 'Managing cloud agents' },
+						{ slug: 'agent-platform/cloud-agents/agents', label: 'Agent identities' },
 						{ slug: 'agent-platform/cloud-agents/oz-web-app', label: 'Oz web app' },
 						{ slug: 'agent-platform/cloud-agents/skills-as-agents', label: 'Skills as agents' },
 						{ slug: 'agent-platform/cloud-agents/viewing-cloud-agent-runs', label: 'Viewing cloud agent runs' },
@@ -364,6 +371,17 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 							],
 						},
 						'agent-platform/cloud-agents/secrets',
+						{
+							label: 'Harnesses',
+							collapsed: true,
+							items: [
+								{ slug: 'agent-platform/cloud-agents/harnesses', label: 'Overview' },
+								{ slug: 'agent-platform/cloud-agents/harnesses/warp-agent', label: 'Warp Agent' },
+								{ slug: 'agent-platform/cloud-agents/harnesses/claude-code', label: 'Claude Code' },
+								{ slug: 'agent-platform/cloud-agents/harnesses/codex', label: 'Codex' },
+								{ slug: 'agent-platform/cloud-agents/harnesses/authentication', label: 'Authentication' },
+							],
+						},
 						{ slug: 'agent-platform/cloud-agents/mcp', label: 'MCP servers' },
 						{ slug: 'agent-platform/cloud-agents/deployment-patterns', label: 'Deployment patterns' },
 						{ slug: 'agent-platform/cloud-agents/warp-hosting', label: 'Warp-hosted agents' },
@@ -511,6 +529,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'support-and-community/plans-and-billing/plans-pricing-refunds', label: 'Plans, Pricing, & Refunds' },
 						'support-and-community/plans-and-billing/credits',
 						'support-and-community/plans-and-billing/add-on-credits',
+						{ slug: 'support-and-community/plans-and-billing/platform-credits', label: 'Platform credits' },
 						'support-and-community/plans-and-billing/bring-your-own-api-key',
 						'support-and-community/plans-and-billing/overages-legacy',
 						'support-and-community/plans-and-billing/pricing-faqs',

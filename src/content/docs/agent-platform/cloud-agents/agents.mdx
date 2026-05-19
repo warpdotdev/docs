@@ -49,13 +49,12 @@ When a team is over its plan limit (for example, after downgrading), the extra i
 
 ## Managing agent identities
 
-You can create, list, update, and delete agent identities through the public API. The full request and response shapes — including error codes — live on the [API Reference](/api) page; the operations to look for are `createAgent`, `listAgents`, `getAgent`, `updateAgent`, and `deleteAgent` under the **agent** tag.
+You can create, list, update, and delete agent identities through the public API. The full request and response shapes — including error codes — live on the [API Reference](/api) page; the operations to look for are `createAgent`, `listAgents`, `updateAgent`, and `deleteAgent` under the **agent** tag.
 
 The endpoints behave as follows:
 
 * **Create** - `POST /agent/identities` with a `name` and optional `description`, `secrets`, and `skills`. Returns `201` with the new identity's `uid`, `name`, and `available` flag.
 * **List** - `GET /agent/identities` returns every agent identity on the team, including the default. Each entry includes an `available` flag indicating whether it is within the plan limit.
-* **Retrieve** - `GET /agent/identities/{uid}` returns a single identity by its UID.
 * **Update** - `PUT /agent/identities/{uid}` replaces individual fields. Omitting a field preserves the current value; passing an empty string or empty array clears it.
 * **Delete** - `DELETE /agent/identities/{uid}` soft-deletes the identity and atomically deletes every API key bound to it. The default agent identity cannot be deleted.
 
@@ -71,7 +70,7 @@ A few constraints apply across every endpoint:
 
 A team API key can be bound to a specific agent identity at creation time. Calls authenticated with that key run as the chosen identity. The team is resolved automatically from the identity — you don't need to specify a team when generating the key.
 
-To create a key bound to an agent identity, pass the identity's UID to the `generateApiKey` mutation. See [API Keys](/reference/cli/api-keys/) for the full key creation flow and for the difference between user-scoped and team-scoped keys.
+To create a key bound to an agent identity, choose the identity when creating the team API key. See [API Keys](/reference/cli/api-keys/) for the full key creation flow and for the difference between user-scoped and team-scoped keys.
 
 Once the key exists, the CLI and SDK authenticate as that agent identity for every call. There is no extra flag to set; the binding is on the key itself.
 
@@ -82,7 +81,7 @@ There are two ways to run a cloud agent as a specific agent identity:
 * **Authenticate with a key bound to the identity** - Every run started with that key executes as the bound agent identity. This is the typical path for CI pipelines and scheduled work.
 * **Pass `agent_identity_uid` on `POST /agent/runs`** - For one-off runs, send the agent identity's `uid` in the request body. The field is only valid for team-owned runs.
 
-When neither path is used, runs execute under the default identity ("Quick run" in the web app).
+When neither path is used, runs execute under the default identity.
 
 ## Where agent identities appear in the product
 
