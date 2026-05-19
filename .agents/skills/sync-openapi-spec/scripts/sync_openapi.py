@@ -1,0 +1,567 @@
+#!/usr/bin/env python3
+"""Sync the public OpenAPI spec from warp-server into the docs repo.
+
+The canonical OpenAPI spec lives in `warp-server/public_api/openapi.yaml`.
+The Scalar API reference at `docs.warp.dev/api` renders from
+`docs/developers/agent-api-openapi.yaml`, which is a curated subset.
+
+This script generates the docs subset deterministically:
+  * tags listed in EXCLUDED_TAGS are removed (and their paths/schemas)
+  * paths listed in EXCLUDED_PATHS are removed
+  * surviving paths and operations are kept verbatim, including any
+    ``x-internal: true`` markers
+  * components/schemas is pruned to only schemas reachable from the
+    surviving paths via $ref walking
+  * the regenerated spec is validated for unresolved $refs before
+    being written; apply will refuse to write a broken spec
+
+Modes:
+  diff       Print structural drift between source and target. Exits 1
+             if drift is found.
+  apply      Rewrite target with the regenerated docs subset. Exits 3
+             if any $ref in the output is unresolved.
+  self-test  Runs a small in-memory test to validate $ref walking and
+             output ref resolution.
+
+Usage:
+  python3 sync_openapi.py --mode diff
+  python3 sync_openapi.py --mode apply
+  python3 sync_openapi.py --mode self-test
+"""
+
+from __future__ import annotations
+
+import argparse
+import sys
+from pathlib import Path
+from typing import Any
+
+import yaml
+
+# Tags whose paths and tag entry should be removed entirely.
+# `memory_stores` is gated as `x-internal` server-side.
+# `harness-support` is the worker-to-server contract — not a public API.
+EXCLUDED_TAGS: frozenset[str] = frozenset({"memory_stores", "harness-support"})
+
+# Specific paths under otherwise-public tags that should be hidden from
+# the public API reference. Keep in sync with references/sync-policy.md.
+EXCLUDED_PATHS: frozenset[str] = frozenset(
+    {
+        "/agent/runs/{runId}/followups",
+        "/agent/runs/{runId}/handoff/attachments",
+        "/agent/handoff/upload-snapshot",
+        "/agent/conversations/{conversation_id}/fork",
+        "/agent/conversations/{conversationId}/redirect",
+    }
+)
+
+# Default checkout layout: docs/ and warp-server/ as siblings.
+DEFAULT_SOURCE = Path("../warp-server/public_api/openapi.yaml")
+DEFAULT_TARGET = Path("developers/agent-api-openapi.yaml")
+
+
+# ---------------------------------------------------------------------------
+# YAML helpers
+# ---------------------------------------------------------------------------
+
+
+class _PreserveStringDumper(yaml.SafeDumper):
+    """SafeDumper that emits multiline strings as block literals (|).
+
+    Without this, descriptions that contain newlines round-trip through
+    PyYAML as ugly quoted strings with explicit ``\\n`` escapes, which is
+    both unreadable and a noisy diff against the hand-edited source.
+    """
+
+
+def _str_representer(dumper: yaml.SafeDumper, data: str) -> Any:
+    if "\n" in data:
+        return dumper.represent_scalar("tag:yaml.org,2002:str", data, style="|")
+    return dumper.represent_scalar("tag:yaml.org,2002:str", data)
+
+
+_PreserveStringDumper.add_representer(str, _str_representer)
+
+
+def _load_yaml(path: Path) -> dict[str, Any]:
+    with path.open("r", encoding="utf-8") as fh:
+        data = yaml.safe_load(fh)
+    if not isinstance(data, dict):
+        raise SystemExit(f"{path}: expected a YAML mapping at the document root")
+    return data
+
+
+def _dump_yaml(data: dict[str, Any], path: Path) -> None:
+    with path.open("w", encoding="utf-8") as fh:
+        yaml.dump(
+            data,
+            fh,
+            Dumper=_PreserveStringDumper,
+            sort_keys=False,
+            default_flow_style=False,
+            allow_unicode=True,
+            width=10**6,  # avoid line wrapping
+        )
+
+
+# ---------------------------------------------------------------------------
+# Filtering & schema-pruning
+# ---------------------------------------------------------------------------
+
+
+def _operation_tags(operation: dict[str, Any]) -> list[str]:
+    tags = operation.get("tags") or []
+    return [t for t in tags if isinstance(t, str)]
+
+
+def _path_tags(path_item: dict[str, Any]) -> set[str]:
+    """Union of tags across all HTTP operations on a path item."""
+    tags: set[str] = set()
+    for key, op in path_item.items():
+        # OpenAPI methods + a few path-level fields. We only care about
+        # method entries (objects with `operationId`/`tags`).
+        if isinstance(op, dict) and ("tags" in op or "operationId" in op):
+            tags.update(_operation_tags(op))
+    return tags
+
+
+def _should_keep_path(path: str, path_item: dict[str, Any]) -> bool:
+    if path in EXCLUDED_PATHS:
+        return False
+    tags = _path_tags(path_item)
+    if tags and tags.issubset(EXCLUDED_TAGS):
+        return False
+    return True
+
+
+def _collect_refs(node: Any, refs: set[str]) -> None:
+    """Recursively collect every component schema name referenced from ``node``.
+
+    Walks dicts and lists, picking up any string under a ``$ref`` key that
+    points into ``#/components/schemas/``. Captures refs nested anywhere
+    (allOf/oneOf/anyOf, items, additionalProperties, etc.).
+    """
+    if isinstance(node, dict):
+        for k, v in node.items():
+            if (
+                k == "$ref"
+                and isinstance(v, str)
+                and v.startswith("#/components/schemas/")
+            ):
+                refs.add(v[len("#/components/schemas/") :])
+            else:
+                _collect_refs(v, refs)
+    elif isinstance(node, list):
+        for item in node:
+            _collect_refs(item, refs)
+
+
+def _transitive_schemas(
+    seed_refs: set[str], schemas: dict[str, Any]
+) -> set[str]:
+    """Closure of ``seed_refs`` under transitive $ref edges in ``schemas``."""
+    reachable: set[str] = set()
+    pending = list(seed_refs)
+    while pending:
+        name = pending.pop()
+        if name in reachable:
+            continue
+        if name not in schemas:
+            # Dangling ref — skip silently. The diff will surface it via
+            # the resulting schema set comparison.
+            reachable.add(name)
+            continue
+        reachable.add(name)
+        new_refs: set[str] = set()
+        _collect_refs(schemas[name], new_refs)
+        for ref in new_refs:
+            if ref not in reachable:
+                pending.append(ref)
+    return reachable
+
+
+def _validate_output(out: dict[str, Any]) -> list[str]:
+    """Return human-readable errors for any unresolved refs in ``out``.
+
+    Walks the entire output tree and verifies that every ``$ref`` string
+    points at something that actually exists in the output's components
+    section. This catches cases where pruning or filtering leaves a
+    dangling reference behind — a class of bug that would otherwise slip
+    past `npm run build` (Astro just YAML-parses the file) and only
+    surface as an empty schema box at runtime in Scalar.
+    """
+    components = out.get("components") or {}
+    available: dict[str, set[str]] = {}
+    for ck, cv in components.items():
+        if isinstance(cv, dict):
+            available[ck] = set(cv.keys())
+
+    errors: list[str] = []
+
+    def visit(node: Any, path: str) -> None:
+        if isinstance(node, dict):
+            for k, v in node.items():
+                if k == "$ref" and isinstance(v, str):
+                    if v.startswith("#/components/"):
+                        parts = v[len("#/components/") :].split("/", 1)
+                        if len(parts) != 2:
+                            errors.append(f"{path}: malformed $ref `{v}`")
+                            continue
+                        section, name = parts
+                        if name not in available.get(section, set()):
+                            errors.append(
+                                f"{path}: $ref `{v}` is not defined in components.{section}"
+                            )
+                else:
+                    visit(v, f"{path}.{k}")
+        elif isinstance(node, list):
+            for i, item in enumerate(node):
+                visit(item, f"{path}[{i}]")
+
+    visit(out, "")
+    return errors
+
+
+def transform(source: dict[str, Any]) -> dict[str, Any]:
+    """Produce the docs subset of the given source spec."""
+    out: dict[str, Any] = {}
+
+    for top_key in ("openapi", "info", "servers"):
+        if top_key in source:
+            out[top_key] = source[top_key]
+
+    src_tags = source.get("tags") or []
+    out_tags = [
+        t
+        for t in src_tags
+        if isinstance(t, dict) and t.get("name") not in EXCLUDED_TAGS
+    ]
+    if out_tags:
+        out["tags"] = out_tags
+
+    src_paths = source.get("paths") or {}
+    kept_paths = {
+        path: item
+        for path, item in src_paths.items()
+        if isinstance(item, dict) and _should_keep_path(path, item)
+    }
+    out["paths"] = kept_paths
+
+    seed_refs: set[str] = set()
+    _collect_refs(kept_paths, seed_refs)
+
+    src_components = source.get("components") or {}
+    src_schemas = src_components.get("schemas") or {}
+    reachable = _transitive_schemas(seed_refs, src_schemas)
+
+    out_components: dict[str, Any] = {}
+    for ck, cv in src_components.items():
+        if ck == "schemas":
+            out_components["schemas"] = {
+                name: src_schemas[name]
+                for name in src_schemas
+                if name in reachable
+            }
+        else:
+            out_components[ck] = cv
+    if out_components:
+        out["components"] = out_components
+
+    return out
+
+
+# ---------------------------------------------------------------------------
+# Diff reporting
+# ---------------------------------------------------------------------------
+
+
+def _summarize_drift(
+    expected: dict[str, Any], actual: dict[str, Any]
+) -> list[str]:
+    """Return human-readable lines describing how ``actual`` drifts from ``expected``.
+
+    ``expected`` is what the target *should* look like (i.e., the result of
+    transforming the source). ``actual`` is the file currently on disk.
+    """
+    notes: list[str] = []
+
+    exp_paths = set((expected.get("paths") or {}).keys())
+    act_paths = set((actual.get("paths") or {}).keys())
+
+    missing_paths = sorted(exp_paths - act_paths)
+    extra_paths = sorted(act_paths - exp_paths)
+
+    if missing_paths:
+        notes.append("Paths present in source but missing from target:")
+        notes.extend(f"  + {p}" for p in missing_paths)
+    if extra_paths:
+        notes.append("Paths present in target but absent from source subset:")
+        notes.extend(f"  - {p}" for p in extra_paths)
+
+    common_paths = exp_paths & act_paths
+    changed_paths = sorted(p for p in common_paths if expected["paths"][p] != actual["paths"][p])
+    if changed_paths:
+        notes.append("Paths whose operations differ between source and target:")
+        notes.extend(f"  ~ {p}" for p in changed_paths)
+
+    exp_schemas = set(((expected.get("components") or {}).get("schemas") or {}).keys())
+    act_schemas = set(((actual.get("components") or {}).get("schemas") or {}).keys())
+
+    missing_schemas = sorted(exp_schemas - act_schemas)
+    extra_schemas = sorted(act_schemas - exp_schemas)
+
+    if missing_schemas:
+        notes.append("Schemas present in source subset but missing from target:")
+        notes.extend(f"  + {s}" for s in missing_schemas)
+    if extra_schemas:
+        notes.append("Schemas present in target but absent from source subset:")
+        notes.extend(f"  - {s}" for s in extra_schemas)
+
+    common_schemas = exp_schemas & act_schemas
+    schema_changes = sorted(
+        s
+        for s in common_schemas
+        if expected["components"]["schemas"][s] != actual["components"]["schemas"][s]
+    )
+    if schema_changes:
+        notes.append("Schemas whose definitions differ between source subset and target:")
+        notes.extend(f"  ~ {s}" for s in schema_changes)
+
+    for top_key in ("openapi", "info", "servers"):
+        if expected.get(top_key) != actual.get(top_key):
+            notes.append(f"Top-level `{top_key}` differs between source and target.")
+
+    return notes
+
+
+def _unknown_classifications(source: dict[str, Any]) -> list[str]:
+    """Flag tags or paths the policy doesn't already cover.
+
+    The skill's policy currently knows about the `agent` and `schedules`
+    tags (kept) and `memory_stores`/`harness-support` (dropped). Anything
+    else needs human triage.
+    """
+    KNOWN_TAGS = {"agent", "schedules"} | set(EXCLUDED_TAGS)
+
+    notes: list[str] = []
+    for tag in source.get("tags") or []:
+        name = tag.get("name") if isinstance(tag, dict) else None
+        if name and name not in KNOWN_TAGS:
+            notes.append(
+                f"Unknown tag `{name}` — extend EXCLUDED_TAGS or document it as public."
+            )
+
+    for path, item in (source.get("paths") or {}).items():
+        if not isinstance(item, dict):
+            continue
+        tags = _path_tags(item)
+        unknown = tags - KNOWN_TAGS
+        if unknown:
+            notes.append(
+                f"Path `{path}` has unknown tag(s) {sorted(unknown)} — triage before next sync."
+            )
+    return notes
+
+
+# ---------------------------------------------------------------------------
+# Self-test
+# ---------------------------------------------------------------------------
+
+
+def _self_test() -> int:
+    """Sanity-check the transform on a small synthetic spec."""
+    sample = {
+        "openapi": "3.0.0",
+        "info": {"title": "t", "version": "1"},
+        "tags": [
+            {"name": "agent"},
+            {"name": "memory_stores", "x-internal": True},
+            {"name": "harness-support"},
+        ],
+        "paths": {
+            "/agent/run": {
+                "post": {
+                    "tags": ["agent"],
+                    "operationId": "runAgent",
+                    "requestBody": {
+                        "content": {
+                            "application/json": {
+                                "schema": {"$ref": "#/components/schemas/RunReq"}
+                            }
+                        }
+                    },
+                    "responses": {
+                        "200": {
+                            "description": "ok",
+                            "content": {
+                                "application/json": {
+                                    "schema": {"$ref": "#/components/schemas/RunResp"}
+                                }
+                            },
+                        }
+                    },
+                }
+            },
+            "/memory_stores": {
+                "post": {
+                    "tags": ["memory_stores"],
+                    "operationId": "createMS",
+                    "x-internal": True,
+                    "responses": {"201": {"description": "ok"}},
+                }
+            },
+            "/harness-support/transcript": {
+                "get": {
+                    "tags": ["harness-support"],
+                    "operationId": "transcript",
+                    "responses": {"200": {"description": "ok"}},
+                }
+            },
+            "/agent/runs/{runId}/followups": {
+                "post": {
+                    "tags": ["agent"],
+                    "operationId": "followups",
+                    "responses": {"200": {"description": "ok"}},
+                }
+            },
+        },
+        "components": {
+            "securitySchemes": {"bearerAuth": {"type": "http", "scheme": "bearer"}},
+            "schemas": {
+                "RunReq": {
+                    "type": "object",
+                    "properties": {
+                        "config": {"$ref": "#/components/schemas/Config"}
+                    },
+                },
+                "Config": {
+                    "type": "object",
+                    "properties": {
+                        "modes": {
+                            "type": "array",
+                            "items": {"$ref": "#/components/schemas/Mode"},
+                        },
+                        "merged": {
+                            "allOf": [
+                                {"$ref": "#/components/schemas/Mode"},
+                                {"type": "object"},
+                            ]
+                        },
+                    },
+                },
+                "Mode": {"type": "string"},
+                "RunResp": {"type": "object"},
+                "MSItem": {"type": "object"},  # only referenced by dropped path
+                "Followup": {"type": "object"},
+            },
+        },
+    }
+
+    out = transform(sample)
+    paths = set(out["paths"].keys())
+    assert paths == {"/agent/run"}, f"unexpected paths: {paths}"
+
+    schemas = set(out["components"]["schemas"].keys())
+    # Config and Mode are reachable transitively (allOf, items)
+    assert schemas == {"RunReq", "Config", "Mode", "RunResp"}, f"unexpected schemas: {schemas}"
+
+    tag_names = [t["name"] for t in out.get("tags") or []]
+    assert tag_names == ["agent"], f"unexpected tags: {tag_names}"
+
+    assert out["components"].get("securitySchemes"), "securitySchemes should be preserved"
+
+    ref_errors = _validate_output(out)
+    assert not ref_errors, f"unexpected unresolved refs: {ref_errors}"
+
+    print("self-test: OK")
+    return 0
+
+
+# ---------------------------------------------------------------------------
+# CLI
+# ---------------------------------------------------------------------------
+
+
+def _resolve(path: Path) -> Path:
+    return path if path.is_absolute() else (Path.cwd() / path).resolve()
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description=__doc__.split("\n", 1)[0])
+    parser.add_argument(
+        "--mode",
+        choices=("diff", "apply", "self-test"),
+        required=True,
+        help="diff: print drift; apply: write target; self-test: in-memory test.",
+    )
+    parser.add_argument(
+        "--source",
+        type=Path,
+        default=DEFAULT_SOURCE,
+        help="Path to warp-server's public_api/openapi.yaml.",
+    )
+    parser.add_argument(
+        "--target",
+        type=Path,
+        default=DEFAULT_TARGET,
+        help="Path to docs' developers/agent-api-openapi.yaml.",
+    )
+    args = parser.parse_args(argv)
+
+    if args.mode == "self-test":
+        return _self_test()
+
+    source_path = _resolve(args.source)
+    target_path = _resolve(args.target)
+
+    if not source_path.exists():
+        print(f"error: source spec not found at {source_path}", file=sys.stderr)
+        return 2
+
+    source = _load_yaml(source_path)
+    expected = transform(source)
+
+    unknown = _unknown_classifications(source)
+
+    if args.mode == "diff":
+        if not target_path.exists():
+            print(f"error: target spec not found at {target_path}", file=sys.stderr)
+            return 2
+        actual = _load_yaml(target_path)
+        notes = _summarize_drift(expected, actual)
+        if unknown:
+            notes.append("")
+            notes.append("Unclassified tags/paths (require human triage):")
+            notes.extend(f"  ! {n}" for n in unknown)
+        if not notes:
+            print("In sync. No changes needed.")
+            return 0
+        print(f"Drift detected between\n  source: {source_path}\n  target: {target_path}\n")
+        print("\n".join(notes))
+        return 1
+
+    # apply
+    ref_errors = _validate_output(expected)
+    if ref_errors:
+        print(
+            "error: regenerated spec has unresolved $refs. Refusing to write target.",
+            file=sys.stderr,
+        )
+        for err in ref_errors:
+            print(f"  {err}", file=sys.stderr)
+        return 3
+
+    target_path.parent.mkdir(parents=True, exist_ok=True)
+    _dump_yaml(expected, target_path)
+    print(f"Wrote {target_path}")
+    print("All $refs resolve in the regenerated spec.")
+    if unknown:
+        print("\nWarning: unclassified items the script auto-included or auto-dropped:")
+        for n in unknown:
+            print(f"  ! {n}")
+        print("Triage these before merging the PR.")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

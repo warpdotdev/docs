@@ -24,14 +24,18 @@ from typing import List, Optional, Tuple
 # Configuration
 # ---------------------------------------------------------------------------
 
-DOCS_ROOT = Path("docs")
+# Astro Starlight content lives under src/content/docs/, not a top-level docs/.
+# This used to be `Path("docs")`, which silently scanned 0 files in the
+# Astro layout — running --all reported "No issues found" without auditing
+# anything.
+DOCS_ROOT = Path("src/content/docs")
 CHANGELOG_DIR = DOCS_ROOT / "changelog"
 EXCLUDED_DIRS = {"_book", "node_modules", ".docs"}
 
 # Feature names that are correctly Title Case (exceptions to sentence-case rule)
 PROPER_FEATURE_NAMES = {
     "Admin Panel", "Agent Management Panel", "Agent Mode", "Agent Profiles",
-    "Ambient Agents", "Auto-detection Mode", "Cloud Agent Credits",
+    "Auto-detection Mode", "Cloud Agent Credits", "Cloud Agents",
     "Codebase Context", "Code Review", "Command Palette", "Global Rules",
     "Oz CLI", "Oz Platform", "Project Rules", "Slash Commands",
     "Terminal Mode", "Universal Input", "Warp Drive", "Warp Platform",
@@ -66,11 +70,16 @@ DEPRECATED_TERMS = [
 
 # Oz terms to avoid (case-insensitive patterns)
 OZ_TERMS_TO_AVOID = [
-    (r"\bOzzies\b", "Use 'Oz agents', 'instances', or 'Oz subagents'"),
-    (r"\bDeploying an Oz\b", "Use 'Deploying an Oz agent'"),
-    (r"\bThe Oz Agent\b", "Use 'An Oz agent' or 'A parent Oz agent'"),
-    (r"\bOz is running\b", "Use 'An Oz agent is running' or 'A run is in progress'"),
+    (r"\bOzzies\b", "Use 'agents', 'instances', or 'subagents'"),
+    (r"\bDeploying an Oz\b", "Use 'Deploying an agent'"),
+    (r"\bThe Oz Agent\b", "Use 'the agent' or 'the Warp Agent'"),
+    (r"\bOz is running\b", "Use 'An agent is running' or 'A run is in progress'"),
     (r"\bAI agents?\b", "Use 'agents' (the 'AI' prefix is redundant)"),
+    (r"\bOz cloud agents?\b", "Use 'cloud agent(s)'"),
+    (r"\bOz subagents?\b", "Use 'subagent(s)'"),
+    (r"\bOz conversation\b", "Use 'conversation'"),
+    (r"\bOz agents?\b", "Use 'agent(s)' or 'Warp Agent(s)' depending on context"),
+    (r"\b[Aa]mbient [Aa]gents?\b", "Use 'cloud agent(s)' — 'ambient' is no longer a product term"),
 ]
 
 # Action verbs that precede UI elements (should be bold, not backtick)
@@ -134,7 +143,7 @@ class Report:
 def find_all_md_files() -> List[Path]:
     """Find all markdown files in docs/, excluding build artifacts and changelog."""
     files = []
-    for f in DOCS_ROOT.rglob("*.md"):
+    for f in [*DOCS_ROOT.rglob("*.md"), *DOCS_ROOT.rglob("*.mdx")]:
         if any(part in EXCLUDED_DIRS for part in f.parts):
             continue
         # Exclude changelog (historical record)
@@ -148,12 +157,12 @@ def find_changed_md_files() -> List[Path]:
     """Find markdown files changed in the current branch vs main."""
     try:
         result = subprocess.run(
-            ["git", "diff", "--name-only", "origin/main...HEAD", "--", "docs/"],
+            ["git", "diff", "--name-only", "origin/main...HEAD", "--", str(DOCS_ROOT)],
             capture_output=True, text=True, check=True,
         )
         files = []
         for line in result.stdout.strip().split("\n"):
-            if line.endswith(".md") and os.path.exists(line):
+            if (line.endswith(".md") or line.endswith(".mdx")) and os.path.exists(line):
                 p = Path(line)
                 if not any(part in EXCLUDED_DIRS for part in p.parts):
                     files.append(p)
@@ -382,13 +391,23 @@ def check_product_casing(lines: List[str], filepath: str) -> List[Issue]:
 
 
 def check_oz_terms(lines: List[str], filepath: str) -> List[Issue]:
-    """Check for Oz terms to avoid."""
+    """Check for Oz terms to avoid.
+
+    Skips fenced code blocks and strips inline code (backtick-wrapped text)
+    so that legitimate CLI commands like `oz agent run` are not flagged.
+    """
     issues = []
+    in_code_block = False
     for i, line in enumerate(lines, 1):
-        if line.strip().startswith("```") or line.strip().startswith("`"):
+        if line.strip().startswith("```"):
+            in_code_block = not in_code_block
             continue
+        if in_code_block:
+            continue
+        # Strip inline code spans so `oz agent run` is not matched
+        prose_line = re.sub(r"`[^`]+`", "", line)
         for pattern, suggestion in OZ_TERMS_TO_AVOID:
-            for m in re.finditer(pattern, line, re.IGNORECASE):
+            for m in re.finditer(pattern, prose_line, re.IGNORECASE):
                 issues.append(Issue(
                     filepath, i, "oz-term",
                     f"Avoid \"{m.group(0)}\" → {suggestion}",
@@ -658,7 +677,7 @@ def create_pr_with_fixes() -> None:
     """Create a branch and PR with the auto-fixes."""
     branch = "fix/style-lint-auto-fixes"
     subprocess.run(["git", "checkout", "-b", branch], check=True)
-    subprocess.run(["git", "add", "docs/"], check=True)
+    subprocess.run(["git", "add", str(DOCS_ROOT)], check=True)
     result = subprocess.run(["git", "diff", "--cached", "--quiet"])
     if result.returncode == 0:
         print("No changes to commit.")

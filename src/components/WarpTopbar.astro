@@ -1,8 +1,8 @@
 ---
 /**
  * Slim Warp brand topbar for standalone pages that don't sit inside Starlight
- * (currently just `/api`). Renders the Warp wordmark + a breadcrumb + a small
- * nav so the page reads as part of the same surface as the docs.
+ * (currently just `/api`). Renders the Warp wordmark + docs breadcrumb + a
+ * small nav so the page reads as part of the same surface as the docs.
  *
  * The host page must reserve `--warp-topbar-height` (3.5rem by default) at
  * the top of the viewport — see `src/pages/api.astro` where the same value
@@ -44,23 +44,21 @@ const {
 ---
 
 <header class="warp-topbar" role="banner">
-  {/* Wordmark links to warp.dev (matches CustomSiteTitle.astro on Starlight
-     pages). Users still get to docs root via the explicit "← Docs" link in
-     the right nav below. */}
-  <a href="https://warp.dev" class="warp-topbar__home" aria-label="Visit warp.dev">
-    <span class="warp-topbar__logo warp-topbar__logo--dark" aria-hidden="true" set:html={logoDark} />
-    <span class="warp-topbar__logo warp-topbar__logo--light" aria-hidden="true" set:html={logoLight} />
+  <div class="warp-topbar__left">
+    {/* Wordmark links to warp.dev (matches CustomSiteTitle.astro on Starlight
+       pages). Users get to docs root via the adjacent "← Docs" breadcrumb. */}
+    <a href="https://warp.dev" class="warp-topbar__home" aria-label="Visit warp.dev">
+      <span class="warp-topbar__logo warp-topbar__logo--dark" aria-hidden="true" set:html={logoDark} />
+      <span class="warp-topbar__logo warp-topbar__logo--light" aria-hidden="true" set:html={logoLight} />
+    </a>
+    <a href="/" class="warp-topbar__docs">
+      <span>Docs</span>
+    </a>
     <span class="warp-topbar__sep" aria-hidden="true">/</span>
     <span class="warp-topbar__crumb">{crumb}</span>
-  </a>
+  </div>
   <div class="warp-topbar__right">
     <nav class="warp-topbar__nav" aria-label="Site">
-      <a href="/" class="warp-topbar__link">
-        <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M19 12H5"/><path d="m12 19-7-7 7-7"/>
-        </svg>
-        <span>Docs</span>
-      </a>
       {links.map((link) => (
         <a
           href={link.href}
@@ -123,19 +121,24 @@ const {
     font-family: var(--scalar-font, 'Inter', sans-serif);
     color: var(--scalar-color-1, #fafafa);
   }
-  .warp-topbar__home {
+  .warp-topbar__left {
     display: inline-flex;
     align-items: center;
     gap: 0.625rem;
+    min-width: 0;
+  }
+  .warp-topbar__home {
+    display: inline-flex;
+    align-items: center;
     text-decoration: none;
     color: inherit;
-    min-width: 0;
     padding: 0.25rem 0.375rem;
     margin-left: -0.375rem;
     border-radius: var(--sl-radius-md);
   }
   .warp-topbar__home:hover { background: var(--scalar-background-2); }
-  .warp-topbar__home:focus-visible {
+  .warp-topbar__home:focus-visible,
+  .warp-topbar__docs:focus-visible {
     outline: 2px solid var(--scalar-color-accent);
     outline-offset: 2px;
   }
@@ -168,6 +171,23 @@ const {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+  .warp-topbar__docs {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0 0.125rem;
+    text-decoration: none;
+    color: var(--scalar-color-3);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    line-height: 1.25;
+    transition: color 0.15s ease;
+    white-space: nowrap;
+    border-radius: var(--sl-radius-xs);
+  }
+  .warp-topbar__docs:hover {
+    color: var(--scalar-color-1);
   }
   /* Right group wraps the nav and the theme select so the topbar's
      `justify-content: space-between` keeps the home/crumb pinned left and

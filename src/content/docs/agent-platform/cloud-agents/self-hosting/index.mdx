@@ -1,19 +1,19 @@
 ---
 title: Self-hosting overview
 description: >-
-  Run Oz cloud agents on your own infrastructure. Choose between a managed
+  Run cloud agents on your own infrastructure. Choose between a managed
   worker daemon orchestrated by Oz or unmanaged CLI-based execution you
   control.
 ---
 
-Self-hosting lets your team run Oz cloud agent workloads on your own infrastructure instead of Warp-managed servers. You control the execution environment, compute resources, and network access. Repositories are cloned and stored only on your machines, and agents can reach services behind your VPN or firewall.
+Self-hosting lets your team run cloud agent workloads on your own infrastructure instead of Warp-managed servers. You control the execution environment, compute resources, and network access. Repositories are cloned and stored only on your machines, and agents can reach services behind your VPN or firewall.
 
 **New to self-hosting?** Start with the [Self-hosting quickstart](/agent-platform/cloud-agents/self-hosting/quickstart/) to get a managed worker running on Docker in under 10 minutes.
 
 **Want a CLI-only path with no Docker requirement?** Jump straight to the [Unmanaged quickstart](/agent-platform/cloud-agents/self-hosting/unmanaged/#unmanaged-quickstart) to run `oz agent run` directly on any host.
 
 :::note
-**Enterprise feature**: Self-hosted Oz agents are available exclusively to teams on an Enterprise plan. To enable self-hosting for your team, [contact sales](https://warp.dev/contact-sales).
+**Enterprise feature**: Self-hosted agents are available exclusively to teams on an Enterprise plan. To enable self-hosting for your team, [contact sales](https://warp.dev/contact-sales).
 :::
 
 ## Managed vs unmanaged
@@ -115,7 +115,7 @@ You're responsible for executing `oz agent run` on your infrastructure — simil
 
 ## Routing runs to self-hosted workers
 
-This section applies to **all managed backends** (Docker, Kubernetes, and Direct). Once a worker is connected, route Oz cloud agent runs to it by specifying the `--host` flag (or equivalent) with your worker ID. The `--host` value must match the `--worker-id` of a connected worker exactly.
+This section applies to **all managed backends** (Docker, Kubernetes, and Direct). Once a worker is connected, route cloud agent runs to it by specifying the `--host` flag (or equivalent) with your worker ID. The `--host` value must match the `--worker-id` of a connected worker exactly.
 
 :::note
 Unmanaged runs don't need routing — you invoke `oz agent run` directly on the host where you want the agent to execute. Routing is only relevant for managed workers.

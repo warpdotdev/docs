@@ -67,6 +67,15 @@ export default defineConfig({
 				defaultProps: {
 					wrap: true,
 				},
+				// Map languages Shiki doesn't bundle to a safe fallback. PromQL
+				// blocks live in agent-platform/cloud-agents/self-hosting/monitoring.mdx;
+				// without this alias every build emits noisy "language could not be
+				// found" warnings while still falling back to plaintext.
+				shiki: {
+					langAlias: {
+						promql: 'text',
+					},
+				},
 			},
 			head: [
 				// SEO + PWA parity with the legacy GitBook docs. These were emitted
@@ -139,6 +148,13 @@ export default defineConfig({
 				// widely consumed by AI agents.
 				starlightLlmsTxt({
 					projectName: 'Warp',
+					optionalLinks: [
+						{
+							label: 'Oz Agent API (OpenAPI spec)',
+							url: 'https://docs.warp.dev/openapi.yaml',
+							description: 'Machine-readable OpenAPI 3.0 specification for the Oz Agent API.',
+						},
+					],
 				// Excludes pages that cause a stack overflow in hast-util-to-text
 				// due to their size. The upstream plugin only applies `exclude` to
 				// llms-small.txt; our patch (patches/starlight-llms-txt+0.8.1.patch)

@@ -1,7 +1,7 @@
 ---
 description: >-
   [1-2 sentences describing common issues covered on this page.
-  Example: "Solutions for common issues with Oz cloud agents, environments, and integrations."]
+  Example: "Solutions for common issues with cloud agents, environments, and integrations."]
 ---
 
 # [Title — sentence case. Title convention: "Troubleshooting [feature]" or "Known issues with [feature]"]

@@ -1,7 +1,7 @@
 ---
 description: >-
   [1-2 sentences: what topic area these FAQs cover.
-  Example: "Answers to common questions about Oz cloud agents, billing, and environments."]
+  Example: "Answers to common questions about cloud agents, billing, and environments."]
 ---
 
 # [Title — sentence case. Title convention: "[Feature] FAQs" or "Frequently asked questions"]
