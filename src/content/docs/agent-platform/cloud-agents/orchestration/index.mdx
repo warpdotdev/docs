@@ -27,7 +27,7 @@ The parent and child don't have to run in the same place. Orchestration supports
 * **Cloud → cloud** - a cloud parent spawns cloud children that each run in their own environment. This is the canonical pattern for review swarms, large fan-outs, and any orchestration triggered from Slack, Linear, a schedule, or the API.
 * **Cloud → cloud-local** - a cloud parent spawns children that run inside the parent's own cloud environment, rather than each child getting its own environment. Useful when children need to share state with the parent (a filesystem, a long-running process, a shell session) or when spinning up an environment per child would be wasteful.
 
-Children can also run with a different agent runtime than the parent. A parent running with the default Warp Agent can spawn children that run with [Claude Code](/agent-platform/cli-agents/claude-code/) or [Codex](/agent-platform/cli-agents/codex/), and vice versa.
+Children can also run with a different agent runtime than the parent. A parent running with the default Warp Agent can spawn children that run with [Claude Code](/agent-platform/cli-agents/claude-code/) or [Codex](/agent-platform/cli-agents/codex/), and vice versa. Multi-harness orchestration is in beta and available to all users.
 
 ## Run state transitions
 

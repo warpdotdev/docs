@@ -118,6 +118,10 @@ The cloud agents platform is intentionally flexible. As the developer, you decid
 
 Interactive agents can plan work and spawn subagents to parallelize tasks. Cloud agents provide the building blocks for running and coordinating multiple concurrent agents, rather than enforcing a fixed workflow.
 
+### Can a single workflow use more than one harness?
+
+Yes. Multi-harness orchestration lets a Warp Agent parent dispatch Claude Code or Codex subagents inside a single workflow. It's in beta and available to all users. See [Harnesses in Oz](/agent-platform/cloud-agents/harnesses/) and [Multi-agent orchestration](/agent-platform/cloud-agents/orchestration/) for the parent/child model.
+
 ### Why focus on orchestration primitives instead of immediately adopting new agent standards?
 
 We believe durable infrastructure matters more than transient standards. The cloud agents platform is designed to provide stable building blocks—agent runs, environments, auditability, steering, and coordination—that orchestration frameworks and emerging standards can plug into over time.
