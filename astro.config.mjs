@@ -20,11 +20,6 @@ export default defineConfig({
 				access: 'public',
 				optional: true,
 			}),
-			PUBLIC_PUSHFEEDBACK_PROJECT_ID: envField.string({
-				context: 'client',
-				access: 'public',
-				optional: true,
-			}),
 			PUBLIC_RUDDERSTACK_WRITE_KEY: envField.string({
 				context: 'client',
 				access: 'public',
@@ -82,12 +77,6 @@ export default defineConfig({
 				// on every page on docs.warp.dev today; Starlight does not produce
 				// them by default. Per-page OG/Twitter tags (image, branded title,
 				// twitter:title/description) live in src/components/CustomHead.astro.
-				//
-				// PushFeedback CSS + JS used to live here, but they were render-
-				// blocking on every page even though the widget itself only sits
-				// at the bottom of the page in `FeedbackFooter.astro`. The lazy
-				// loader now lives inside `FeedbackButtons.astro` and pulls the
-				// assets in `requestIdleCallback` time — off the critical path.
 				{
 					tag: 'meta',
 					attrs: { name: 'robots', content: 'index, follow' },
