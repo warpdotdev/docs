@@ -72,6 +72,10 @@ A few rules to follow when writing declarations:
 
 Malformed lines (invalid JSON, missing fields, unknown `kind`, non-absolute path) are logged as warnings and skipped; they never abort the upload.
 
+:::caution
+**Declared paths are uploaded to Warp.** `file` entries upload the file's contents verbatim, and `repo` entries upload the repo's git diff (tracked changes plus untracked, non-gitignored files). Before declaring logs, scratch files, or other agent outputs as `file` entries, make sure they don't contain secrets, credentials, API tokens, or other sensitive data.
+:::
+
 ## Write a custom declarations script
 
 A custom script writes one JSON line per repository or file it wants Warp to snapshot, then exits. The bundled implementation at [`warpdotdev/warp-agent-docker/snapshot-declarations.sh`](https://github.com/warpdotdev/warp-agent-docker/blob/main/snapshot-declarations.sh) is a good reference; the minimal pattern looks like this:
@@ -90,11 +94,14 @@ fi
 mkdir -p "$(dirname "$OZ_SNAPSHOT_DECLARATIONS_FILE")"
 
 # Find every git repo under the agent's workspace and emit a JSONL
-# repo declaration for each one.
+# repo declaration for each one. Escape backslashes and double quotes in
+# the path before writing so paths containing those characters don't
+# produce malformed JSON (which Warp skips with a warning).
 find "$PWD" -type d -name .git -prune -print 2>/dev/null \
   | while IFS= read -r git_dir; do
       repo_root="$(cd "$(dirname "$git_dir")" && pwd)"
-      printf '{"version":1,"kind":"repo","path":"%s"}\n' "$repo_root" \
+      repo_json="$(printf '%s' "$repo_root" | sed 's/\\/\\\\/g; s/"/\\"/g')"
+      printf '{"version":1,"kind":"repo","path":"%s"}\n' "$repo_json" \
         >> "$OZ_SNAPSHOT_DECLARATIONS_FILE"
     done
 ```
@@ -141,4 +148,4 @@ Snapshotting is also skipped automatically when cloud conversations are disabled
 * [Handoff from cloud to cloud](/agent-platform/cloud-agents/handoff/cloud-to-cloud/) - Continue a finished cloud run; the prior session's workspace snapshot is what gets restored.
 * [Self-hosting overview](/agent-platform/cloud-agents/self-hosting/) - Architecture decision guide for self-hosted workers, where customizing snapshots is most often needed.
 * [Unmanaged architecture](/agent-platform/cloud-agents/self-hosting/unmanaged/) - Run `oz agent run` in CI, Kubernetes, or your dev environment outside the bundled image.
-* [Oz CLI](/reference/cli/) - Full reference for `oz agent run` and `oz agent run-cloud`, including the `--no-snapshot` flag.
+* [Oz CLI](/reference/cli/) - Full reference for `oz agent run` and `oz agent run-cloud`.
