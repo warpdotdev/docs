@@ -1,0 +1,123 @@
+---
+title: Custom inference endpoint
+description: >-
+  Connect Warp to OpenAI-compatible endpoints (OpenRouter, LiteLLM, z.ai,
+  internal gateways). On Business and Enterprise, platform credits may
+  apply for local runs.
+---
+
+A **Custom inference endpoint (CIE)** lets you connect Warp's agents to any OpenAI-compatible inference endpoint, so you can route AI requests through your preferred model router, hosted gateway, or internal infrastructure.
+
+CIE is the right fit when you want to choose your provider, consolidate billing through a third-party router, or run inference behind your own gateway — without giving up the agent experience inside Warp. When a CIE is configured and selected, Warp **never consumes your** [credits](/support-and-community/plans-and-billing/credits/) for the request.
+
+:::note
+CIE is available on the Free plan and on all eligible paid plans. See [warp.dev/pricing](https://www.warp.dev/pricing) for the current list of eligible plans.
+:::
+
+:::note
+BYOK and custom inference endpoint support are available for individual users and organizations with 10 or fewer employees, subject to Warp's Terms of Service. Companies or organizations with more than 10 employees require a Warp Business or Enterprise plan to use custom inference endpoints.
+:::
+
+## Key features
+
+* **OpenAI-compatible** - Works with any endpoint that implements the OpenAI Chat Completions API.
+* **Provider flexibility** - Use a model router (OpenRouter, LiteLLM), a model provider with an OpenAI-compatible surface (z.ai), or your own internal gateway.
+* **No Warp credits consumed** - Inference is billed directly by your endpoint provider; Warp's metered features remain unaffected.
+* **Local configuration** - Endpoint URLs and credentials are stored locally on your device and never synced to the cloud.
+
+## How it works
+
+CIE expects your endpoint to implement the **OpenAI Chat Completions API** (`POST /v1/chat/completions`). Any service that exposes a compatible surface can be used as a CIE target:
+
+* **OpenRouter** - Aggregates many model providers behind a single OpenAI-compatible API and consolidated billing.
+* **LiteLLM** - A self-hosted proxy that exposes a unified, OpenAI-compatible API across providers.
+* **z.ai** - A model provider with an OpenAI-compatible API surface for its models.
+* **Internal gateways** - Any in-house service that fronts model providers behind an OpenAI-compatible endpoint (for example, a corporate AI gateway with logging, redaction, or access control).
+
+When you configure a CIE, Warp stores the endpoint URL, model identifiers, and credentials **locally on your device**. They are never synced to Warp's servers.
+
+:::caution
+CIE does not apply to [Oz Cloud Agents](/agent-platform/cloud-agents/overview/). Because CIE configuration is stored locally, it is not available to cloud-hosted agent runs. Cloud agent runs always consume [Warp credits](/support-and-community/plans-and-billing/credits/).
+:::
+
+When a CIE-routed model is selected:
+
+* Warp **does not consume** any of your [credits](/support-and-community/plans-and-billing/credits/).
+* Costs are billed directly by your endpoint provider.
+* Warp does not retain or store your endpoint credentials on any of its servers.
+
+## Enabling a custom inference endpoint
+
+To enable and configure a custom inference endpoint:
+
+1. In Warp, open **Settings** and search for `inference endpoint` to jump to the configuration.
+2. Add your endpoint URL (the base URL that exposes `/v1/chat/completions`) and any required credentials (typically an API key).
+3. Specify the model identifier(s) you want to route through this endpoint.
+4. Save the configuration. Once added, you'll see your custom models appear in the model picker.
+
+When you explicitly select a CIE-routed model from the model picker, Warp routes the request through your endpoint instead of consuming Warp's credits.
+
+The CIE configuration flow mirrors the [Bring your own API key](/support-and-community/plans-and-billing/bring-your-own-api-key/) setup, so the steps will feel familiar if you've already configured BYOK.
+
+## Billing behavior
+
+### Warp credits
+
+When you select a CIE-routed model from the model picker:
+
+* No Warp credits are consumed for that request.
+* Inference is billed directly by your endpoint provider, according to their pricing.
+* The credit transparency footer will show "0 credits used" for CIE-routed requests.
+
+:::note
+On Business and Enterprise plans, local agent runs that use a custom inference endpoint still consume platform credits for Warp's platform infrastructure. See [platform credits](/support-and-community/plans-and-billing/platform-credits/) for the full breakdown.
+:::
+
+### Auto routing still uses Warp credits
+
+Warp's **Auto** models dynamically route across providers using Warp's infrastructure. Because Auto routing depends on Warp, **Auto always consumes Warp's credits**, even if you've configured a custom inference endpoint.
+
+To use your endpoint, select the specific CIE-backed model from the model picker rather than an Auto option.
+
+### Other AI features in Warp
+
+Some AI-powered features rely on Warp's infrastructure and are unaffected by CIE configuration. These continue to consume credits according to your plan; see [Credits](/support-and-community/plans-and-billing/credits/) for details.
+
+## Zero Data Retention (ZDR)
+
+Warp is **SOC 2 compliant** and has **Zero Data Retention (ZDR)** agreements with all of its contracted LLM providers.
+
+When you use a custom inference endpoint:
+
+* Data retention is determined by **your endpoint provider** and any upstream model providers they route to.
+* Warp **cannot enforce ZDR** for requests sent through a custom inference endpoint.
+* If your endpoint provider does not have ZDR with the underlying model provider, your requests may be retained according to their terms.
+
+Review your endpoint provider's data handling and retention policies before routing sensitive prompts through a CIE.
+
+## Plan availability
+
+CIE is available on the Free plan and on all eligible paid plans. See [warp.dev/pricing](https://www.warp.dev/pricing) for the current list of eligible plans and any plan-specific limits.
+
+CIE is available to individual users and to organizations with 10 or fewer employees, subject to Warp's Terms of Service. Companies or organizations with more than 10 employees need a Warp Business or Enterprise plan to use custom inference endpoints.
+
+Centrally configured, admin-managed CIE for teams is not yet available. Each user configures their own endpoint locally. Enterprise teams that need centrally managed model routing today should see [Bring your own LLM](/enterprise/enterprise-features/bring-your-own-llm/).
+
+## How CIE differs from BYOK and BYOLLM
+
+Warp offers three ways to bring your own AI infrastructure. Use this table to pick the right one, and follow the links for full details.
+
+| Name | Meaning | Plans |
+| --- | --- | --- |
+| **[Bring your own API key](/support-and-community/plans-and-billing/bring-your-own-api-key/)** (BYOK) | Use your own API key for OpenAI, Anthropic, or Google models. Keys are stored locally on your device. | Free and all eligible paid plans |
+| **Custom inference endpoint** (CIE) | Connect Warp to an OpenAI-compatible endpoint such as OpenRouter, LiteLLM, z.ai, or an internal gateway. | Free and all eligible paid plans |
+| **[Bring your own LLM](/enterprise/enterprise-features/bring-your-own-llm/)** (BYOLLM) | Enterprise-managed inference through your cloud provider (AWS Bedrock, Azure Foundry, Google Vertex) or approved internal infrastructure, with Warp handling routing, orchestration, governance, and observability. | Enterprise only |
+
+Platform credits may apply for local agent runs on Business and Enterprise when using BYOK, CIE, or BYOLLM. See [platform credits](/support-and-community/plans-and-billing/platform-credits/).
+
+## Related resources
+
+* [Bring your own API key](/support-and-community/plans-and-billing/bring-your-own-api-key/) — Use your own OpenAI, Anthropic, or Google API keys.
+* [Bring your own LLM](/enterprise/enterprise-features/bring-your-own-llm/) — Enterprise-managed inference through your cloud provider or approved infrastructure.
+* [Model Choice](/agent-platform/capabilities/model-choice/) — Full list of supported models and `model_id` values.
+* [Credits](/support-and-community/plans-and-billing/credits/) — How Warp credits work and when they're consumed.
