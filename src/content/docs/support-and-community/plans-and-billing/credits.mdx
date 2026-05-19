@@ -10,8 +10,6 @@ description: >-
 
 Any interaction with Warp's Agent consumes credits. Credits are primarily based on AI usage — the number of credits a task consumes varies based on the size and complexity of your codebase, the size of the task, the model you're using, the amount of context the agent needs to gather, and more.
 
-Credits also include a small hosting fee, charged only when running agents in the cloud, hosted on Warp's infrastructure. For details on cloud agent credits, see [Cloud Agent Credits](/support-and-community/plans-and-billing/credits/#cloud-agent-credits).
-
 Warp meters credits across three types of infrastructure — inference, compute, and platform — each with its own bucket:
 
 * **AI credits** cover inference infrastructure that Warp pays for. Agent conversations and other AI features that route through Warp-managed model providers use AI credits.
@@ -44,7 +42,7 @@ You can view your total credit usage, along with other billing details, in **Set
 #### Credit **limits and billing**
 
 * **Seat-level allocation**: On team plans, credit limits apply per seat — each team member has their own allowance. Individual users (not on a team) also have their own credit allocation.
-* **Cloud Agent Credits**: Individual users can run cloud agents via CLI/API using their normal Warp credits, [Cloud Agent Credits](/support-and-community/plans-and-billing/credits/#cloud-agent-credits), or a Build plan with available credits. Integrations (Slack, Linear) require team membership.
+* **Cloud agents and integrations**: Individual users can run cloud agents via the CLI and API, drawing from their plan credits. Slack and Linear integrations require team membership.
 * **Hitting the credit limits**: Once you hit your monthly credit limit, your access will depend on your plan. On the Free plan, AI access stops until your next billing cycle. On paid plans, you can continue using AI with usage-based billing via [Add-on Credits](/support-and-community/plans-and-billing/add-on-credits/).
 
 #### **Other features that use credits**
@@ -121,7 +119,7 @@ These are the most common factors affecting credit usage, though there are other
 
 ### Cloud Agent Credits
 
-Cloud Agent Credits are the compute credits bucket — consumed when an agent run uses Warp-hosted compute. Both local and cloud agent runs can in principle draw from this pool, but in practice only runs that use Warp's compute do.
+Cloud Agent Credits are the compute credits bucket — consumed when an agent run uses Warp-hosted compute. Both local and cloud agent runs are eligible to draw from this pool, but in practice only runs that use Warp's compute do.
 
 #### Eligible for Cloud Agent Credits
 

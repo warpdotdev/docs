@@ -1,16 +1,15 @@
 ---
 title: Platform Credits
 description: >-
-  Platform Credits cover Warp's platform infrastructure on every cloud
-  agent run, plus local agent runs on Business and Enterprise plans that use
-  customer-supplied inference. Learn when they apply and where they appear.
+  Platform Credits cover Warp's platform layer on every cloud agent run
+  and on local runs with customer-supplied inference. Learn when they apply.
 ---
 
 Warp meters credits across three types of infrastructure: **inference** (the model call), **compute** (the sandbox an agent runs in), and **platform** (everything that runs around the agent — run lifecycle, integrations, dashboard, APIs, and observability). Each type maps to one credit bucket: [AI credits](/support-and-community/plans-and-billing/credits/), [Cloud Agent Credits](/support-and-community/plans-and-billing/credits/#cloud-agent-credits), and Platform Credits.
 
 Platform Credits cover Warp's platform infrastructure on every cloud agent run, plus local agent runs on Business and Enterprise plans that use customer-supplied inference. Even when you bring your own model provider, connect your own LLM API keys, or run cloud agents on your own compute, Warp's platform still coordinates, observes, and integrates your agents — and Platform Credits cover that orchestration layer.
 
-Customer-supplied inference covers [Bring Your Own API Key (BYOK)](/support-and-community/plans-and-billing/bring-your-own-api-key/) and BYOLLM via Amazon Bedrock or Google Vertex. Platform Credits don't apply to local runs on Free, Build, or Max plans, or to local Business and Enterprise runs where Warp pays for inference through AI credits.
+Customer-supplied inference covers [Bring Your Own API Key (BYOK)](/support-and-community/plans-and-billing/bring-your-own-api-key/) and BYOLLM via Amazon Bedrock or Google Vertex.
 
 :::caution
 BYOK and customer-supplied inference (BYOLLM via Amazon Bedrock or Google Vertex, plus custom endpoints) are available to individual users and organizations with 10 or fewer employees or users on any plan. Organizations with more than 10 employees or users must be on a Warp Business or Enterprise plan to use BYOK or customer-supplied inference. See Warp's [Terms of Service](https://www.warp.dev/terms-of-service) for details.
@@ -53,7 +52,7 @@ Whether Platform Credits apply depends on where the agent runs and who's paying 
 Platform Credits appear in the same billing views as your other credit usage.
 
 * **Per-user credit totals** - In the Warp app, **Settings** > **Billing and usage** includes Platform Credits alongside AI and Cloud Agent Credits.
-* **Admin usage breakdown** - For team admins, the Admin Panel billing view shows a per-bucket breakdown for each member and for the team as a whole. Platform Credits appear as their own segment in the stacked usage bar, distinct from the AI and Compute segments.
+* **Admin usage breakdown** - For team admins, the Admin Panel billing view shows a per-bucket breakdown for each member and for the team as a whole. Platform Credits appear as their own segment in the stacked usage bar, distinct from the AI credits and Cloud Agent Credits segments.
 * **Add-on Credits and limits** - Platform Credits draw from the same plan credits and [Add-on Credits](/support-and-community/plans-and-billing/add-on-credits/) pools as your other usage. Once your monthly plan credits are exhausted, Platform Credits continue to consume from Add-on Credits if you have them.
 
 ## Related pages
