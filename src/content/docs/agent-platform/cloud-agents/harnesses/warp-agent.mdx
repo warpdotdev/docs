@@ -24,7 +24,7 @@ Warp Agent is the same agent runtime that powers Agent Mode in the Warp terminal
 
 Warp Agent is the same agent runtime as Agent Mode in the Warp terminal: it plans, calls tools, edits code, runs tests, and reports progress. The cloud platform adds the [environment](/agent-platform/cloud-agents/environments/), triggers, observability, and team governance around the run, and the transcript is inspectable in real time and replayable afterward from the [Oz dashboard](/agent-platform/cloud-agents/managing-cloud-agents/).
 
-Team admins can disable any harness for their workspace; whichever harnesses remain are the ones available to users on that team.
+Team admins can disable any harness for their workspace. Users on that team can only start runs with the harnesses that remain enabled.
 
 ### Available models
 
@@ -48,7 +48,7 @@ Subagents run in the same environment as the parent and share the same secrets, 
 * You want the deepest integration with Warp's platform features (Skills, Rules, Memory, Codebase Context).
 * You're not sure which harness fits — Warp Agent is the safe default and can delegate to other harnesses when it decides that's the better fit.
 
-## Starting a run
+## Starting a Warp Agent run
 
 Warp Agent is the default, so there's nothing extra to configure.
 
