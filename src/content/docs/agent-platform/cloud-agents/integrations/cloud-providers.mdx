@@ -1,16 +1,12 @@
 ---
 title: Cloud Providers (Preview)
 description: >-
-  Connect Oz cloud agents to your AWS and GCP services.
+  Connect cloud agents to your AWS and GCP services.
 sidebar:
   label: "AWS, GCP, and other cloud providers"
 ---
 
-Oz cloud agents can securely access cloud providers using short-lived OpenID Connect credentials.
-
-This page explains how to configure a cloud agent environment to automatically authenticate to your
-cloud provider. Oz has built-in support for AWS and GCP, and can work with any provider that
-supports OIDC tokens.
+Cloud agents can securely access AWS, GCP, and other cloud providers using short-lived OpenID Connect (OIDC) credentials. Configure your cloud agent environment to automatically authenticate to your cloud provider without storing long-lived keys, using Warp's built-in OIDC federation support.
 
 ---
 
@@ -119,7 +115,7 @@ To allow multiple specific principals, use a list of subjects:
 ...
 ```
 
-4. Click **Next** and add permissions policies. These policies determine what Oz agents can access
+4. Click **Next** and add permissions policies. These policies determine what agents can access
    in your AWS account.
 5. Click **Next** and enter a role name and optional description.
 6. Click **Create role**, then open the role and note down the role ARN. This will be of the form `arn:aws:iam::<account-id>:role/<role-name>`.
@@ -128,7 +124,7 @@ To allow multiple specific principals, use a list of subjects:
 
 ### Step 3: Enable AWS federation in your cloud agent environment
 
-Finally, configure the Oz cloud agent environment to use your new AWS role.
+Finally, configure the cloud agent environment to use your new AWS role.
 
 1. Open the Oz web app at [https://oz.warp.dev](https://oz.warp.dev).
 2. Create or edit an environment. See [Environments](/agent-platform/cloud-agents/oz-web-app/#environments) for instructions.
@@ -139,7 +135,7 @@ Finally, configure the Oz cloud agent environment to use your new AWS role.
 Currently, AWS federation can only be configured in the Oz web app, not the CLI.
 :::
 
-Oz agents running in this environment will now automatically assume the configured role when using
+Agents running in this environment will now automatically assume the configured role when using
 the `aws` CLI or a compatible SDK.
 
 :::note
@@ -191,16 +187,16 @@ Replace `<team-uid>` with the UID of your Warp team. This is the last component 
 panel URL is `https://app.warp.dev/admin/abc123def456`, your team UID would be `abc123def456`.
 
 :::caution
-If you do not set an attribute condition, then _any_ Oz agent will be able to use your Workload
-Identity Federation provider, even if they do not belong to your team.
+If you do not set an attribute condition, then _any cloud agent_ will be able to use your Workload
+Identity Federation provider, even if it does not belong to your team.
 :::
 
 ### Step 2: Configure IAM policies
 
-You will need to configure IAM policies in GCP that allow Oz agents in the Workload Identity
+You will need to configure IAM policies in GCP that allow agents in the Workload Identity
 Federation pool access to resources.
 
-To give all Oz agents on your team read-only access to all Compute Engine resources in a project,
+To give all agents on your team read-only access to all Compute Engine resources in a project,
 for example, you would run:
 
 ```bash
@@ -214,7 +210,7 @@ for the full syntax supported.
 
 ### Step 3: Enable Workload Identity Federation in your cloud agent environment
 
-Finally, configure the Oz cloud agent environment to use your Workload Identity Federation provider.
+Finally, configure the cloud agent environment to use your Workload Identity Federation provider.
 
 1. Open the Oz web app at [https://oz.warp.dev](https://oz.warp.dev).
 2. Create or edit an environment. See [Environments](/agent-platform/cloud-agents/oz-web-app/#environments) for instructions.
@@ -225,7 +221,7 @@ Finally, configure the Oz cloud agent environment to use your Workload Identity 
 Currently, Workload Identity Federation can only be configured in the Oz web app, not the CLI.
 :::
 
-Oz agents running in this environment will now automatically configure
+Agents running in this environment will now automatically configure
 [Application Default Credentials](https://docs.cloud.google.com/docs/authentication/application-default-credentials)
 to use the configured pool. Both the `GOOGLE_APPLICATION_CREDENTIALS` and `CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE`
 environment variables are set, so both the `gcloud` CLI and official Google SDKs will use the Oz
@@ -246,7 +242,7 @@ oz federate issue-token --audience your-provider.com --output-format json
 ```
 
 Optionally, add `--duration <duration>` to customize the token validity. This cannot exceed the
-maximum runtime of an Oz agent.
+maximum runtime of an agent.
 
 You may then exchange this token for provider-specific credentials.
 
@@ -262,7 +258,7 @@ such as `https://iam.googleapis.com/projects/<project-number>/locations/global/w
 
 ### Subject (`sub`)
 
-The `sub` claim is set to the identity that an Oz agent is executing as. This will either be a
+The `sub` claim is set to the identity that an agent is executing as. This will either be a
 Warp user ID or an autogenerated account ID for team-scoped agent runs.
 
 By default, the `sub` claim uses the format `<principal-type>:<principal-id>`:
@@ -313,7 +309,7 @@ list only ever contains a single value.
 
 ### Oz run
 
-The following claims are derived from an Oz agent run:
+The following claims are derived from an agent run:
 
 * `run_id`: the unique identifier for the individual run. This is not suitable for configuring
   access, but is useful to log for debugging.
@@ -324,7 +320,7 @@ The following claims are derived from an Oz agent run:
 
 ### Example token
 
-The following OIDC token references an Oz agent running as a specific Warp user:
+The following OIDC token references an agent running as a specific Warp user:
 
 ```json
 // JWT Header

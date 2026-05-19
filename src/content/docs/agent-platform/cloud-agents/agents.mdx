@@ -8,7 +8,7 @@ sidebar:
   label: "Agent identities"
 ---
 
-An **agent identity** is a team-scoped identity that can own and execute Oz cloud agent runs. Every Warp team starts with a single default agent identity. Creating additional agent identities lets you separate workflows, scope credentials, and attribute automated runs to a specific bot account instead of a person.
+An **agent identity** is a team-scoped identity that can own and execute cloud agent runs. Every Warp team starts with a single default agent identity. Creating additional agent identities lets you separate workflows, scope credentials, and attribute automated runs to a specific bot account instead of a person.
 
 Agent identities are useful when you want to:
 
@@ -18,7 +18,7 @@ Agent identities are useful when you want to:
 
 ## How agent identities work
 
-Each team has one default agent identity that runs receive automatically when no specific identity is chosen. You can create additional agent identities on top of that default and run as any of them. Identities are team-scoped, so every member of a team can see and use the same set of agent identities.
+Each team has one default agent identity. Headless runs (such as team API key runs that don't specify an identity) execute under this default. User-triggered runs default to running as the calling user — surfaced as **Quick run** in the web app — unless you pick a specific agent identity. You can create additional agent identities on top of the default and run as any of them. Identities are team-scoped, so every member of a team can see and use the same set of agent identities.
 
 You can attach the following configuration to an agent identity:
 
@@ -81,7 +81,7 @@ There are two ways to run a cloud agent as a specific agent identity:
 * **Authenticate with a key bound to the identity** - Every run started with that key executes as the bound agent identity. This is the typical path for CI pipelines and scheduled work.
 * **Pass `agent_identity_uid` on `POST /agent/runs`** - For one-off runs, send the agent identity's `uid` in the request body. The field is only valid for team-owned runs.
 
-When neither path is used, runs execute under the default identity.
+When neither path is used, headless runs (team API key runs without an identity) execute under the team's default agent identity. User-triggered runs (Warp app, personal API key, Slack, Linear) execute as the calling user — surfaced as **Quick run** in the web app.
 
 ## Where agent identities appear in the product
 

@@ -18,8 +18,8 @@ Memory creation and retrieval are asynchronous and run in the background, so the
 
 ## Key features
 
-* **Cross-harness memory** — One memory layer shared across the Warp Agent, Claude Code, Codex, and other harnesses as they're added. Third-party harnesses are covered when they run as Oz cloud agents.
-* **Both local and cloud agents** — Supports interactive local agents in Warp and background Oz cloud agents.
+* **Cross-harness memory** — One memory layer shared across the Warp Agent, Claude Code, Codex, and other harnesses as they're added. Third-party harnesses are covered when they run as cloud agents.
+* **Both local and cloud agents** — Supports interactive local agents in Warp and background cloud agents.
 * **Asynchronous by design** — Memory creation runs after a conversation ends. Retrieval runs in the background during a run. Neither consumes tokens or adds latency to the active task.
 * **Automatic memory from conversations** — When a conversation ends, Oz extracts durable facts, learnings, and outcomes and writes them as memories. New knowledge merges with existing memories or supersedes them on conflict.
 * **Agent-scoped, shareable stores** — By default, each agent has its own memory store. Stores can also be shared across multiple agents, or across an entire team, when the same knowledge should travel with the work.
@@ -34,8 +34,8 @@ Memory creation and retrieval are asynchronous and run in the background, so the
 Agent Memory is part of Oz. Storage, memory creation, and retrieval all run on the same Oz instance that hosts your agents — either Warp-hosted Oz (the default) or a [self-hosted Oz](/agent-platform/cloud-agents/self-hosting/) instance that your team operates inside its own perimeter. The same memory is accessible from any agent you run on Oz:
 
 * The local Warp Agent.
-* Oz cloud agents triggered from the CLI, web app, schedules, or integrations.
-* Third-party harnesses running as Oz cloud agents — Claude Code, Codex, and others as they're added. (Running third-party harnesses locally isn't supported during the research preview.)
+* Cloud agents triggered from the CLI, web app, schedules, or integrations.
+* Third-party harnesses running as cloud agents — Claude Code, Codex, and others as they're added. (Running third-party harnesses locally isn't supported during the research preview.)
 
 Memory stays bound to its owner (a user or a team), independent of which harness reads or writes.
 

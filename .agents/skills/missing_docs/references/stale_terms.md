@@ -25,10 +25,17 @@ mac os -> Use 'macOS'
 
 ## Deprecated terminology
 
-ozzies -> Use 'Oz agents', 'instances', or 'Oz subagents'
-warp agent -> Use 'Agent' or 'Oz agent' depending on context
-warp agents -> Use 'Agents' or 'Oz agents' depending on context
+ambient agent -> Use 'cloud agent' — 'ambient' is no longer a product term
+ambient agents -> Use 'cloud agents' — 'ambient' is no longer a product term
+ozzies -> Use 'agents', 'instances', or 'subagents'
+oz agent -> Use 'agent' or 'Warp Agent' depending on context
+oz agents -> Use 'agents' or 'Warp Agents' depending on context
+oz cloud agent -> Use 'cloud agent'
+oz cloud agents -> Use 'cloud agents'
+oz subagent -> Use 'subagent'
+oz subagents -> Use 'subagents'
+oz conversation -> Use 'conversation'
 agent-mode -> Use 'Agent Mode' (two words, no hyphen)
-deploying an oz -> Use 'Deploying an Oz agent'
-the oz agent -> Use 'An Oz agent' or 'A parent Oz agent'
-oz is running -> Use 'An Oz agent is running' or 'A run is in progress'
+deploying an oz -> Use 'Deploying an agent'
+the oz agent -> Use 'the agent' or 'the Warp Agent'
+oz is running -> Use 'An agent is running' or 'A run is in progress'
