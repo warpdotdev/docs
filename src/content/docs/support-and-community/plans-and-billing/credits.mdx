@@ -134,10 +134,8 @@ The following scenarios use compute credits:
 
 #### Not eligible for compute credits
 
-The following scenarios don't use compute credits because they don't run on Warp-hosted compute:
-
-* **Local agent runs** - Using `oz agent run` on your local machine
-* **Self-hosted compute** - Using `oz agent run` on GitHub Actions, CI/CD pipelines, or other self-hosted infrastructure
+* **Local agent runs** — Using `oz agent run` on your local machine
+* **Self-hosted compute** — Using `oz agent run` on GitHub Actions, CI/CD pipelines, or other self-hosted infrastructure
 
 ### Platform credits
 
@@ -148,7 +146,7 @@ Platform credits cover Warp's platform infrastructure — run lifecycle, schedul
 Platform credits are used in the following scenarios:
 
 * **Cloud agents on any plan** use platform credits for every cloud agent run, regardless of which agent runs the task or which inference source it uses.
-* **Local agents on Business or Enterprise with customer-supplied inference** use platform credits when the local agent run uses [Bring Your Own API Key (BYOK)](/support-and-community/plans-and-billing/bring-your-own-api-key/) or BYOLLM via Amazon Bedrock or Google Vertex.
+* **Local agents on Business or Enterprise with customer-supplied inference** use platform credits when the local agent run uses [Bring Your Own API Key (BYOK)](/support-and-community/plans-and-billing/bring-your-own-api-key/), a [custom inference endpoint](/support-and-community/plans-and-billing/custom-inference-endpoint/), or BYOLLM via Amazon Bedrock or Google Vertex.
 
 #### Not eligible for platform credits
 
@@ -160,3 +158,24 @@ The following scenarios do **not** use platform credits:
 * **Third-party agent CLIs run directly** don't use platform credits when you run `claude`, `codex`, or another agent CLI outside of Oz.
 
 For a full breakdown of how platform credits work, see [platform credits](/support-and-community/plans-and-billing/platform-credits/).
+
+### Service account and team-scoped API key billing
+
+When a request can't be attributed to an individual user — i.e. it has no individual task billing principal — Warp needs another principal to charge the usage to. This applies to team-scoped API keys, scheduled agents, agent identities, and other service accounts.
+
+#### Self-serve plans
+
+On Build, Max, and Business plans, the team owner is the task billing principal for these requests. Attribution stays on the service account, but billing rolls up to the team owner:
+
+1. Warp first consumes the team owner's included monthly credits.
+2. After those are used, Warp draws from the team owner's Reload credits.
+3. If auto-reload is enabled for the team, service-account usage can trigger auto-reload for the team owner's Reload pool, subject to the team-wide spend cap.
+4. If the team owner has no available credits and auto-reload is off, the request is blocked.
+
+[Platform credits](/support-and-community/plans-and-billing/platform-credits/) and compute credits charges also drain through the same Reload credits pool when the team owner is the billing principal — a single balance covers AI credits, platform credits, and compute credits.
+
+For details on auto-reload, manual purchases, and the team-wide spend cap, see [Add-on Credits](/support-and-community/plans-and-billing/add-on-credits/).
+
+#### Enterprise plans
+
+On Enterprise plans, service-account and team-scoped API key usage draws from the team's Enterprise credit pool. When the pool is depleted, traffic falls to pay-as-you-go (PAYG) if enabled in the contract; otherwise the request is blocked. Overage behavior follows your Enterprise contract terms.
