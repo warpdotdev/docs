@@ -17,7 +17,9 @@ Add-on credits extend your AI usage beyond the included monthly quota in your pl
 
 If you’ve enabled **Auto reload**, new credits will be added automatically and billed based on your selected configuration of monthly spending limit and selected purchase amount.
 
-Add-on credits are available for Build, Max, Business, and Enterprise plans (with custom pricing for Enterprise). These credits **roll over across billing cycles** and remain valid for **12 months from the purchase date**.
+Add-on credits are available for Build, Max, Business, and Enterprise plans (with custom pricing for Enterprise). On self-serve plans (Build, Max, and Business), Reload credits are scoped to each individual user; Enterprise uses a team-pooled model. These credits **roll over across billing cycles** and remain valid for **12 months from the purchase date**.
+
+Reload credits draw from the same pool as [platform credits](/support-and-community/plans-and-billing/platform-credits/) and compute credits, so a single balance covers all three credit types.
 
 :::caution
 **Legacy plans (Pro, Turbo, Lightspeed) do not support Add-on Credits.** If you're on a legacy plan, you cannot purchase or auto-reload Add-on Credits. To access Add-on Credits, upgrade to the [Build plan](https://app.warp.dev/upgrade). For additional usage on legacy plans, see [Overages (Legacy)](/support-and-community/plans-and-billing/overages-legacy/).
@@ -85,12 +87,20 @@ Team admins manage Reload credit settings for the team in **Settings** > **Billi
 
 **Service account and team-scoped API key requests**
 
-When a request can't be attributed to an individual user — for example, one driven by a service account or a team-scoped API key — Warp bills the usage to the team admin:
+Some AI requests on Warp can't be tied to an individual user — for example, those made through team-scoped API keys, scheduled agents, agent identities, or other service accounts. For these requests, Warp needs a **task billing principal** to charge usage to. On self-serve plans (Build, Max, and Business), that principal is the **team owner**. Usage attribution stays on the service account, but billing rolls up to the team owner.
 
-1. Warp first consumes the admin's included monthly credits.
-2. After those are used, Warp draws from the admin's Reload credits.
-3. If auto-reload is enabled, service-account usage can trigger auto-reload for the admin's Reload pool, subject to the team-wide spend cap.
-4. If the admin has no available credits and auto-reload is off, the request is blocked.
+**When auto-reload is off:**
+
+1. Warp first consumes the team owner's included monthly plan credits.
+2. After those are used, Warp draws from the team owner's Reload credits.
+3. If both are exhausted, the request is blocked.
+
+**When auto-reload is on:**
+
+1. Warp first consumes the team owner's included monthly plan credits.
+2. After those are used, Warp draws from the team owner's Reload credits.
+3. Service-account usage can trigger auto-reload on the team owner's pool — subject to the team-wide monthly spend cap. Once auto-reload tops up the team owner's pool, further service-account requests deplete that reloaded balance.
+4. If the team-wide spend cap is reached and no credits remain, the request is blocked.
 
 :::caution
 **Grandfathering for pre-May 2026 pooled credits**
@@ -104,10 +114,19 @@ Any purchased Add-on Credits remain in your account and can continue to be used 
 
 If you move to the Free plan, you'll lose access to any previously purchased Add-on Credits and won't be able to use them. You also can't buy additional Add-on Credits until you're subscribed again.
 
-**Leaving a paid team**
+:::caution
+Reload credits require an active subscription. If your subscription lapses, ends, or you're no longer a member of a paying team, you lose access to your Reload credits until you reactivate or rejoin.
+:::
 
-If you leave a paid team, you lose access to the Reload credits attributed to you under that team. If you later rejoin the same paid team, you regain access to any non-expired Reload credits that were attributed to you.
+#### When membership or subscription changes
+
+Your access to Reload credits depends on your subscription status and team membership. The flows below describe what happens in common scenarios:
+
+* **A user leaves a paid team** - When you leave a team, you lose access to any remaining Reload credits tied to it. If you rejoin the same team later, you regain access to any unused, non-expired Reload credits. The admin pays a prorated rate for your seat on rejoin.
+* **An admin removes a member** - When an admin removes a member from the team, the member loses access to any remaining Reload credits tied to that team. If they rejoin later, they regain access to any unused, non-expired Reload credits.
+* **An admin deletes the team** - Deleting a team removes access to any remaining Reload credits tied to it. Team members can no longer use those credits.
+* **A user downgrades to Free** - Downgrading to Free forfeits access to Reload credits tied to your previous team. Reload credits require an active subscription.
 
 :::note
-All unused Add-on Credits remain valid for 12 months from purchase, as long as you have an active subscription.&#x20;
+All unused Reload credits remain valid for 12 months from purchase, as long as you have an active subscription.
 :::
