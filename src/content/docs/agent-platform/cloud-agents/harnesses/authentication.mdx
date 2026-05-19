@@ -9,7 +9,7 @@ sidebar:
 
 Third-party cloud agents — [Claude Code](#connecting-claude-code-credentials) and [Codex](#connecting-codex-credentials) — call their provider directly, so you need to store credentials as Warp-managed secrets before launching a run. This page walks through the one-time setup for each.
 
-Auth secrets can be scoped to a **team** (available to all teammates' runs) or **personal** (only your own runs), just like normal Warp-managed secrets. 
+Auth secrets can be scoped to a **team** (available to all teammates' runs) or **personal** (only your own runs), just like any other Warp-managed secret.
 
 :::note
 [Bring Your Own Key (BYOK)](/support-and-community/plans-and-billing/bring-your-own-api-key/) configured in the Warp desktop app applies to local agent runs only. Cloud runs of Claude Code and Codex always use Warp-managed secrets.
@@ -21,7 +21,7 @@ Claude Code is Anthropic's coding agent. For more on Claude Code authentication,
 
 ### Create an Anthropic API key
 
-1. Go to the [Anthropic Console](https://platform.claude.com/login?returnTo=/?) and sign in (or create an account).
+1. Go to the [Anthropic Console](https://console.anthropic.com/) and sign in (or create an account).
 2. Navigate to **API keys** and create a new key.
 3. Make sure your account has API credits — Claude Code runs are billed against your Anthropic API balance.
 
@@ -40,7 +40,7 @@ Start a new run, choose **Claude Code** as the harness, and add a new key in the
 #### Oz CLI
 
 ```bash
-oz secret create claude api-key <KEY_NAME>
+oz secret create claude api-key --team <KEY_NAME>
 ```
 
 Add `--description "..."` to record rotation notes or owner info. Replace `--team` with `--personal` to make the secret available only to your own runs.
@@ -57,7 +57,7 @@ A ChatGPT subscription (Plus, Pro, Team) does not include API access. You need a
 
 ### Create an OpenAI API key
 
-1. Go to the [OpenAI platform](https://platform.openai.com/home) and sign in (or create an account).
+1. Go to the [OpenAI Platform](https://platform.openai.com/) and sign in (or create an account).
 2. Navigate to **API keys** and click **Create new secret key**.
 3. Make sure your account has API credits — Codex runs are billed against your OpenAI API balance, not a ChatGPT subscription.
 
@@ -74,13 +74,12 @@ Start a new run, choose **Codex** as the harness, and add a new key in the harne
 #### Oz CLI
 
 ```bash
-oz secret create codex api-key <KEY_NAME>
+oz secret create codex api-key --team <KEY_NAME>
 ```
-
 
 Add `--description "..."` to record rotation notes or owner info. Replace `--team` with `--personal` to make the secret available only to your own runs.
 
-**Expected outcome.** `oz secret list` shows the new secret with the matching OpenA credential type. The value is never displayed.
+**Expected outcome.** `oz secret list` shows the new secret with the matching OpenAI credential type. The value is never displayed.
 
 ## Managing harness auth secrets
 
