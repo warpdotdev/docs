@@ -1,0 +1,88 @@
+---
+title: Agent Memory (Research Preview)
+description: >-
+  Agent Memory gives your Warp agents persistent, searchable memory across
+  conversations, so they remember team conventions, past decisions, and what
+  you taught them.
+sidebar:
+  label: "Agent Memory (Research Preview)"
+---
+:::caution
+Agent Memory is in **research preview** and is enabled per team for design partners. [Join the waitlist](https://warp.dev/oz/agent-memory#waitlist) to request access for your team.
+:::
+
+Agent Memory is a persistent, cross-conversation memory layer for Warp agents. Instead of starting from scratch every run, your agents recall durable knowledge — team conventions, past decisions, deployment outcomes, your preferences — and apply it to the work in front of them. Each run begins further along than the last.
+
+[**Join the Agent Memory waitlist →**](https://warp.dev/oz/agent-memory#waitlist)
+
+## What you get with Agent Memory
+
+* **Durable knowledge across conversations** — Agents remember what happened in previous runs and surface it as context for the current task.
+* **Personal and team memory stores** — Keep memories private to you, or share them across your team so every teammate and agent draws from the same well of knowledge.
+* **Automatic memory from conversations** — Warp extracts facts, learnings, and outcomes from finished conversations and writes them as memories, with a recorded reason for every change.
+* **Hybrid semantic and keyword search** — Memory retrieval combines vector similarity and full-text search, reranked for relevance, so the right memory surfaces even when wording shifts.
+* **Versioned history** — Every memory keeps its full version history. Older content is always recoverable, and updates record why the change was made.
+* **Per-agent access control and instructions** — Attach memory stores to an agent identity with read-only or read-write access, and write per-store instructions that tell the agent how and when to use each store.
+* **Cross-harness persistence** — Memories live on Warp, not inside any single agent harness, so the same knowledge follows your work across harnesses and triggers.
+* **Safe by default** — Memory stores in active use can't be accidentally deleted, so shared team knowledge can't disappear out from under live agents.
+
+## Personal and team memory stores
+
+A memory store is a named container for memories. Stores are owned by either a person or a team.
+
+* **Personal stores** capture knowledge that's yours: preferences, working notes, individual patterns. Your agents draw from your personal store automatically.
+* **Team stores** capture shared knowledge: deployment runbooks, code review conventions, customer specifics, on-call procedures. Every team member and every agent the team authorizes can read from the same store.
+
+Use multiple stores to keep contexts clean. A deploy bot has its own store for past deployments, a PR review bot has its own store for team conventions, and a customer-success agent has its own store for account histories.
+
+## Automatic memory from conversations
+
+You don't have to remember to save things. When a conversation finishes, Warp runs a memory synthesis pass that extracts durable facts, learnings, and outcomes from what happened, then writes them as memories.
+
+* **Sparse by design.** Routine work produces nothing. Only meaningful, reusable knowledge becomes a memory.
+* **Reasoned.** Every create, update, or delete records the reason — so future you can see why a memory exists.
+* **Reversible.** Synthesis can merge new knowledge into existing memories, supersede outdated ones, or tombstone memories that no longer hold. Older versions remain in history if you need to look back.
+
+You can also explicitly tell Warp to remember something during a conversation, and it lands in the right store with the right context.
+
+## How agents retrieve memories
+
+When an agent starts a task, Warp searches its accessible memory stores for relevant context and injects what it finds. The retrieval pipeline runs every query through:
+
+1. **Vector search** for semantic similarity, even when the agent's wording doesn't match the memory's wording exactly.
+2. **Keyword (BM25) search** for exact terms, names, IDs, and identifiers that matter to your work.
+3. **Reranking** to score the combined results and pick the few most relevant memories for the task.
+
+The agent sees those memories alongside the rest of its context, just like rules and Codebase Context. You don't have to write retrieval queries or pre-load memory by hand.
+
+## Attaching memory to your agents
+
+You decide which agents can read from which stores.
+
+* **Attach a store to an agent identity** to give a named agent durable access across every one of its runs. Pair it with **read-only** or **read-write** access and free-form **instructions** that tell the agent how to use the store — for example, "Reference this store for team naming conventions" or "Write a new memory after each successful deployment."
+* **Attach a store to a single run** when you want to augment one task without changing the agent's permanent setup. Run-level attachments are additive on top of the agent identity's stores, and they win on conflict if you want to override access or instructions for that run.
+
+Instructions matter. They're how you turn raw storage into a useful tool — the difference between an agent that "has memory" and an agent that knows what to remember and when.
+
+## Built for teams
+
+Agent Memory is designed to be shared.
+
+* **Team-owned stores** are accessible to every member of the team and to the agents the team authorizes, so the whole team builds on the same knowledge base.
+* **Personal stores** stay private. Your memories are yours.
+* **Authorization is explicit.** Stores have to be attached to an agent before that agent can read or write. Nothing is implicit, and you can audit which agents touch which stores.
+* **Deletion safety.** A store with active agent attachments can't be deleted. If you try, Warp tells you which agents are still using it, so shared memory can't quietly vanish.
+
+## Ready to give your agents memory?
+
+Stop watching agents re-learn the same things every run. With Agent Memory, what your agents learn today makes them sharper tomorrow.
+
+[**Join the Agent Memory waitlist →**](https://warp.dev/oz/agent-memory#waitlist)
+
+## Related pages
+
+* [Codebase Context](/agent-platform/capabilities/codebase-context/) — Let agents understand your codebase through semantic indexing.
+* [Rules](/agent-platform/capabilities/rules/) — Define global and project-level guidelines that shape agent behavior.
+* [Skills](/agent-platform/capabilities/skills/) — Reusable, scoped instructions that teach agents how to perform specific tasks.
+* [Agent profiles and permissions](/agent-platform/capabilities/agent-profiles-permissions/) — Control what permissions and autonomy agents have.
+* [Cloud agents overview](/agent-platform/cloud-agents/overview/) — Run background agents with team-wide observability.
