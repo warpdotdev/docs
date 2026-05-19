@@ -51,7 +51,19 @@ Track run state transitions in these places:
 
 ## Messaging between agents
 
-The parent and children can exchange short, durable messages - handoffs, status updates, and final results. Use messages for coordination signals, not for piping full transcripts around: the parent's prompt to the child and the child's final output carry the work itself.
+Orchestration is built on a durable, server-backed message bus. Every agent in an orchestration - parent and children - has its own inbox addressed by its agent ID, and the parent and children send each other short, structured messages to coordinate, hand off work, and stay in sync as they run.
+
+This is how parallel agents stay consistent without sharing mutable state. Each run owns its own conversation, working directory or environment, and credit usage; agents don't read each other's transcripts or live working trees. Instead, they exchange explicit messages whenever they need to communicate a decision, a result, or a question. Messages and run state transitions share a global sequence number so the parent never observes a child's `SUCCEEDED` state before the message that produced the result.
+
+The same messaging infrastructure works across every combination of agent runtimes and execution locations:
+
+* **Harness-agnostic** - the mailbox is the same whether the recipient runs the default Warp Agent, [Claude Code](/agent-platform/cli-agents/claude-code/), [Codex](/agent-platform/cli-agents/codex/), or another agent runtime. A parent running with one harness can message a child running with another, in either direction.
+* **Cross-location** - the agent ID is the only address that matters. A local parent can message a cloud child, a cloud parent can message a local-to-cloud child running inside its own environment, and cloud parents can fan out messages to cloud children running in different environments.
+* **Resumable** - a child whose current run has reached a terminal state (`SUCCEEDED`, `FAILED`, `CANCELLED`, or `ERROR`) is not gone. It is still addressable by its agent ID and will wake up to handle follow-up instructions when the parent sends a new message.
+
+Alongside messages, every run emits **lifecycle events** on the same infrastructure when its state changes - the six states listed in [Run state transitions](#run-state-transitions). The parent observes these events to decide what to do next (keep waiting, send a follow-up, spawn a replacement, finish) without polling any child.
+
+Use messages for coordination signals - handoffs, decisions, blocked-on-input requests, status updates, and final results - rather than for piping full transcripts around. The parent's prompt to a child and the child's final output carry the substance of the work; messages are how the agents talk *about* the work as it happens.
 
 ## Common patterns
 

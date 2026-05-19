@@ -71,7 +71,7 @@ The parent run starts and children appear in the Runs list as the parent spawns 
 
 ## Starting an orchestrated run from the API
 
-Spawn the parent with `POST /agent/runs`. Children can either be spawned by the parent agent at runtime, or you can spawn each child explicitly from your code and link it to the parent with `parent_run_id`.
+Spawn the parent with `POST /agent/runs`. Children can either be spawned by the parent agent at runtime, or you can spawn each child explicitly from your code and link it to the parent with `parent_run_id`. Once they're running, coordination between the parent and its children flows through Warp's durable agent-to-agent messaging - see [Messaging between agents](/agent-platform/cloud-agents/orchestration/#messaging-between-agents) for the model.
 
 ### Agent-driven orchestration
 
