@@ -12,11 +12,11 @@ With BYOLLM, your team uses Warp's agents while Warp manages routing, orchestrat
 :::caution
 **AWS Bedrock** is the GA implementation today. **Google Vertex AI** and **Azure AI Foundry** support is on the roadmap. Approved internal gateways are evaluated on a case-by-case basis with your Warp account team.
 
-BYOLLM applies to interactive Oz agents in the terminal. Oz cloud agents do not yet support BYOLLM routing.
+BYOLLM applies to interactive agents in the terminal. Cloud agents do not yet support BYOLLM routing.
 :::
 
 :::note
-BYOLLM is only available on Warp's Enterprise plan. Contact [warp.dev/contact-sales](https://warp.dev/contact-sales) to learn more.
+BYOLLM is only available on Warp's Enterprise plan. Contact [warp.dev/contact-sales](https://www.warp.dev/contact-sales) to learn more.
 :::
 
 ## How BYOLLM differs from BYOK and Custom inference endpoint
@@ -55,7 +55,7 @@ Here's the high-level flow:
 
 1. **Admin configures routing** - Your team admin sets routing policies in Warp's admin settings (e.g., "Route Claude Sonnet 4.5 through AWS Bedrock; disable direct Anthropic API").
 2. **Team members authenticate** - Each team member authenticates to AWS locally using the AWS CLI (`aws login`).
-3. **Warp routes requests** - When a team member uses an interactive Oz agent in the terminal, Warp uses their short-lived session credentials to authenticate requests to your configured AWS Bedrock API endpoint.
+3. **Warp routes requests** - When a team member uses an interactive agent in the terminal, Warp uses their short-lived session credentials to authenticate requests to your configured AWS Bedrock API endpoint.
 4. **Inference executes in your cloud** - The model runs in your AWS account. Responses return to the Warp client.
 
 ### Credential lifecycle
@@ -242,4 +242,4 @@ Yes. Admins can configure routing policies to require specific models to use BYO
 * [platform credits](/support-and-community/plans-and-billing/platform-credits/) — Warp's platform-infrastructure credit bucket
 * [Model Choice](/agent-platform/capabilities/model-choice/) — Full list of supported models
 * [Admin Panel](/enterprise/team-management/admin-panel/) — Configure team settings
-* [Contact Sales](https://warp.dev/contact-sales) — Get help with enterprise setup
+* [Contact Sales](https://www.warp.dev/contact-sales) — Get help with enterprise setup

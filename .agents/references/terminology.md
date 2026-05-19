@@ -69,8 +69,8 @@ For the summary of the most critical terms (core features, Oz terms, terms to av
 
 ## Agent concepts
 
-- **Ambient Agents** — Oz agents that run automatically in the background on a schedule or trigger, without interactive input.
-  *Usage note:* Capitalize as a feature/section name. Use lowercase "ambient agents" only when describing the generic concept of agents running in the background.
+- **Cloud Agents** — Agents that run in the cloud on a schedule, trigger, or integration, without interactive input. Managed by the Oz Platform.
+  *Usage note:* Use lowercase "cloud agents" in most contexts. Capitalize as "Cloud Agents" only when referring to the product section or feature name.
 
 - **Agent Profiles** — Saved configurations that define how an Agent runs (for example, permissions and model selection).
   *Usage note:* Use when describing "choose how your Agent behaves."
@@ -92,6 +92,15 @@ For the summary of the most critical terms (core features, Oz terms, terms to av
   *Usage note:* Treat as a feature name.
 
 - **Slash Commands** — Built-in commands you run by typing `/` to trigger actions (or run saved prompts).
+
+- **Agent Memory** — Oz's persistent, cross-harness memory layer that lets agents read and write durable knowledge across conversations, harnesses, and devices. Currently in research preview.
+  *Usage note:* Capitalize as a feature name. Lowercase "memory" only when describing the generic concept (e.g., "the memory layer").
+
+- **memory store** — A named collection of memories owned by a user (personal) or team. Multiple agents can share a store, and per-agent attachments control read/write access.
+  *Usage note:* Lowercase common noun. Capitalize the first letter only at the start of a sentence or bullet.
+
+- **Handoff** — The feature for moving an agent's work between a local Warp session and the cloud, or continuing a finished cloud run. Supports local-to-cloud, cloud-to-cloud, and cloud-to-local directions.
+  *Usage note:* Capitalize as a feature name. Use lowercase "hand off" / "handed off" only as a verb.
 
 ## Coding terms (Warp features)
 
@@ -121,33 +130,33 @@ For the summary of the most critical terms (core features, Oz terms, terms to av
 
 ## Oz terminology
 
-### Oz vs Warp
+### Warp Agent vs Oz
 
-- **Warp** is the terminal and coding surface
-- **Oz** is Warp's programmable agent for running and coordinating agents at scale
+- **Warp Agent** — Warp's built-in agent harness. Use "Warp Agent" when specifically referring to the built-in harness, especially when contrasting with third-party agents (Claude Code, Codex, etc.), or when referencing the Settings label (**Settings** > **Agents** > **Warp Agent**).
+- **Oz** — Warp's programmable platform for running and coordinating agents at scale
 - There is typically one Warp environment per user session. Oz can run many agents concurrently, across machines, repos, and teams.
 
-### Core Oz terms
+### Core terms
 
-- **Environment** — The execution context for an Oz agent, including repo access, dependencies, secrets, compute, and runtime configuration.
+- **agent** — A combination of agent instructions (skill or prompt), trigger (cron, webhook, manual), environment (local, cloud), profile, and host. Agents can be local or cloud. Use lowercase "agent" in most contexts; use "Warp Agent" only when referring specifically to the built-in Warp harness.
+  *Example:* Launch an agent from the CLI, the web app, an API or SDK, or directly inside Warp.
 
-- **Oz** — Warp's programmable agent for running and coordinating agents at scale.
+- **cloud agent** — An agent running in the cloud, from a trigger, schedule, or started from someone's local machine.
+
+- **conversation** — An interactive execution lifecycle within the Warp Terminal, regardless of whether it's local or in the cloud.
+
+- **Environment** — The execution context for an agent, including repo access, dependencies, secrets, compute, and runtime configuration.
+
+- **Oz** — Warp's programmable platform for running and coordinating agents at scale.
   *Example:* With Oz, you can orchestrate multiple agents to automate and parallelize complex workflows.
-
-- **Oz agent** — A combination of agent instructions (skill or prompt), trigger (cron, webhook, manual), environment (local, cloud), profile, and host. Agents can be local or cloud, and interactive or ambient.
-  *Example:* Launch an Oz agent from the CLI, the web app, an API or SDK, or directly inside Warp.
-
-- **Oz cloud agent** — An Oz agent running in the cloud, from a trigger, schedule, or started from someone's local machine. Cloud agents can be interactive or ambient.
-
-- **Oz conversation** — An interactive execution lifecycle within the Warp Terminal. An Oz conversation is interactive, started in the terminal regardless of whether it's local or in the cloud.
 
 - **Oz dashboard** — The app surface to manage all Oz runs, unified across the Warp app and web.
 
-- **Oz run** — A single execution lifecycle of an Oz agent, including actions, outputs, and logs. An Oz run is always ambient and cloud-based.
+- **Oz run** — A single execution lifecycle of an agent, including actions, outputs, and logs. An Oz run is always cloud-based.
 
-- **Oz subagent** — A child Oz agent created by a parent Oz agent to parallelize or delegate work.
+- **Oz web app** — The web app for configuring agents and managing runs.
 
-- **Oz web app** — The web app for configuring Oz agents and managing runs.
+- **subagent** — A child agent created by a parent agent to parallelize or delegate work.
 
 ### Oz CLI commands
 
@@ -155,8 +164,8 @@ For the summary of the most critical terms (core features, Oz terms, terms to av
 - `oz agent run-cloud` — Run an adhoc cloud agent
 - `oz environment create/list/get/update/delete` — CRUD on environments
 - `oz integration create` — Install integrations (Slack, Linear)
-- `oz run list/get` — Get info on ambient agent runs
-- `oz schedule create/list/get/update/delete` — CRUD on scheduled ambient agents
+- `oz run list/get` — Get info on cloud agent runs
+- `oz schedule create/list/get/update/delete` — CRUD on scheduled cloud agents
 - `oz secret create/list/update/delete` — CRUD on Warp-managed secrets
 
 ### Preferred phrases
@@ -167,11 +176,16 @@ For the summary of the most critical terms (core features, Oz terms, terms to av
 
 ### Terms to avoid
 
-- ❌ "Ozzies" → Use "Oz agents", "instances", or "Oz subagents"
-- ❌ "Deploying an Oz" → Use "Deploying an Oz agent"
-- ❌ "The Oz Agent" → Use "An Oz agent" or "A parent Oz agent"
-- ❌ "Oz is running" → Use "An Oz agent is running" or "A run is in progress"
+- ❌ "Oz agent" / "Oz agents" → Use "agent" / "agents" (or "Warp Agent" / "Warp Agents" when referring to the built-in harness)
+- ❌ "Oz cloud agent" → Use "cloud agent"
+- ❌ "Oz subagent" → Use "subagent"
+- ❌ "Oz conversation" → Use "conversation"
+- ❌ "Ozzies" → Use "agents", "instances", or "subagents"
+- ❌ "Deploying an Oz" → Use "Deploying an agent"
+- ❌ "The Oz Agent" → Use "the agent" or "the Warp Agent"
+- ❌ "Oz is running" → Use "An agent is running" or "A run is in progress"
 - ❌ "AI agents" → Use "agents" (the "AI" prefix is redundant)
+- ❌ "Ambient Agents" / "ambient agents" → Use "Cloud Agents" / "cloud agents" ("ambient" is no longer a product term; acceptable only in code identifiers like `AmbientAgentConfig`)
 
 ## Platform terms
 
@@ -231,9 +245,11 @@ For the summary of the most critical terms (core features, Oz terms, terms to av
 ## Billing and credits
 
 - **Add-on Credits** — capitalized as a product feature name
-- **Cloud Agent Credits** — capitalized as a billing feature name
+- **compute credits** — lowercase common noun; capitalize the first letter only at the start of a sentence or bullet. The compute bucket, consumed when an agent run uses Warp-hosted compute. Use alongside AI credits and platform credits when describing credit types.
+- **cloud agent credits** — lowercase common noun; capitalize the first letter only at the start of a sentence or bullet. Credits consumed by cloud agents, in contrast with local agent credits. Refers to the same compute bucket as compute credits; choose the term that fits the framing.
+- **platform credits** — lowercase common noun; capitalize the first letter only at the start of a sentence or bullet. The platform-infrastructure bucket, consumed for every cloud agent run plus local runs with customer-supplied inference.
 - **credits** — the unit of usage for AI features in Warp (lowercase, not "AI credits")
-- **plan credits** — credits included with a subscription plan
+- **Warp credits** — credits included with a subscription plan. Use in user-facing copy rather than "plan credits."
 
 ## External product names
 

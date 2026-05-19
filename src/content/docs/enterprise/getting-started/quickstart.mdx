@@ -2,12 +2,12 @@
 title: Enterprise quickstart
 description: >-
   Get up and running with Warp Enterprise in under 10 minutes. Log in, set up
-  your terminal, and run your first Oz agent.
+  your terminal, and run your first agent.
 sidebar:
   label: "Quickstart"
 ---
 
-This quickstart walks you through the essentials: logging in via SSO, setting up Warp, and running your first Oz agent. You can complete this in under 10 minutes.
+This quickstart walks you through the essentials: logging in via SSO, setting up Warp, and running your first agent. You can complete this in under 10 minutes.
 
 ## Step 1: Log in via SSO
 
@@ -24,7 +24,7 @@ If you have an existing Warp account from before your organization enabled SSO, 
 
 ## Step 2: Download and set up Warp
 
-1. Visit [warp.dev/download](https://warp.dev/download) and select your platform (macOS, Linux, or Windows).
+1. Visit [warp.dev/download](https://www.warp.dev/download) and select your platform (macOS, Linux, or Windows).
 2. Install Warp:
    * **macOS** - Open the `.dmg` and drag Warp to Applications.
    * **Linux** - Install via `.deb`, `.rpm`, or the install script.
@@ -32,20 +32,20 @@ If you have an existing Warp account from before your organization enabled SSO, 
 3. Launch Warp and log in with SSO (Step 1).
 4. Verify you see your team name in **Settings** > **Teams**.
 
-## Step 3: Configure and run your first Oz agent
+## Step 3: Configure and run your first agent
 
-When you use agents in Warp, you're using **Oz agents**. Oz is Warp's programmable agent for running and coordinating agents at scale, whether they run locally on your machine or in the cloud.
+When you use agents in Warp, you're working with **Warp's built-in agents**. Oz is Warp's programmable agent for running and coordinating agents at scale, whether they run locally on your machine or in the cloud.
 
 ### Index your codebase
 
 1. Navigate to a Git repository in Warp.
 2. Warp automatically detects the repo and begins indexing.
 3. Optionally, run `/init` to manually trigger indexing or re-indexing after significant code changes.
-4. Once indexed, Oz agents understand your code structure, patterns, and conventions.
+4. Once indexed, agents understand your code structure, patterns, and conventions.
 
-### Run your first Oz agent locally
+### Run your first agent locally
 
-Start an Oz conversation right in the terminal. Try the following prompt:
+Start a conversation right in the terminal. Try the following prompt:
 
 ```
 Explain the architecture of this project
@@ -60,9 +60,9 @@ Oz reads your codebase, understands its structure, and responds with a context-a
 * **Explore** - "What patterns does this repo use for error handling?"
 * **Plan** - Use `/plan` to have Oz create a structured task plan for complex features
 
-## Step 4: Run an Oz cloud agent
+## Step 4: Run a cloud agent
 
-Oz cloud agents run in the cloud for background work, unlimited parallelization, and long-running tasks.
+Cloud agents run in the cloud for background work, unlimited parallelization, and long-running tasks.
 
 ### Create an environment
 
@@ -88,10 +88,10 @@ Once your environment is ready, use the following command to launch a cloud agen
 oz agent run-cloud --env my-env --prompt "Review the open PRs in this repo"
 ```
 
-Monitor and steer Oz cloud agents from the Oz dashboard or directly in Warp.
+Monitor and steer cloud agents from the Oz dashboard or directly in Warp.
 
 ## Next steps
 
 * **Set up key features** - Follow the full [Getting started for developers](/enterprise/getting-started/getting-started-developers/) guide to configure Codebase Context, Warp Drive, MCP integrations, and Agent Profiles.
-* **Explore Oz cloud agents** - Learn about [Oz cloud agents](/agent-platform/cloud-agents/overview/) for background automation and parallel workflows.
+* **Explore cloud agents** - Learn about [cloud agents](/agent-platform/cloud-agents/overview/) for background automation and parallel workflows.
 * **Learn more** - Visit [Warp Guides](/guides/) for video tutorials and end-to-end workflows.

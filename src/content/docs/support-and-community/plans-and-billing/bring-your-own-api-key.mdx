@@ -19,7 +19,7 @@ BYOK is available on the Free plan and on all eligible paid plans. See [warp.dev
 :::
 
 :::note
-BYOK and custom inference endpoint support are available for individual users and organizations with 10 or fewer employees, subject to Warp's Terms of Service. Companies or organizations with more than 10 employees require a Warp Business or Enterprise plan to use BYOK.
+BYOK and custom inference endpoint support are available for individual users and organizations with 10 or fewer employees, subject to Warp's [Terms of Service](https://www.warp.dev/terms-of-service). Companies or organizations with more than 10 employees require a Warp Business or Enterprise plan to use BYOK or customer-supplied inference.
 :::
 
 ## How BYOK differs from Custom inference endpoint and BYOLLM
@@ -43,7 +43,7 @@ When you add your own model API keys in Warp, those keys are stored **locally on
 Warp uses these API keys to route your agent requests directly to the model provider you've configured.
 
 :::caution
-BYOK does not apply to [Oz Cloud Agents](/agent-platform/cloud-agents/overview/). Because your API keys are stored locally on your device, they are not available to cloud-hosted agent runs. Cloud agent runs always consume [Warp credits](/support-and-community/plans-and-billing/credits/).
+BYOK does not apply to [Cloud Agents](/agent-platform/cloud-agents/overview/). Because your API keys are stored locally on your device, they are not available to cloud-hosted agent runs. Cloud agent runs always consume [Warp credits](/support-and-community/plans-and-billing/credits/).
 :::
 
 When a model is selected using your own key:
@@ -98,7 +98,7 @@ Some AI-powered features are not affected by BYOK and are included as part of Wa
 | ----------------------------------------------------------------------------- | ------------------- | -------------------------------------------------------------------- |
 | [Active AI Recommendations](/agent-platform/local-agents/active-ai/) | No                  | Always included with Build and higher plans.                         |
 | [Codebase Context](/agent-platform/capabilities/codebase-context/)               | Yes                 | Uses Warp's AI infrastructure and consumes credits.                  |
-| [Oz Cloud Agents](/agent-platform/cloud-agents/overview/) | Yes                 | BYOK keys are stored locally and not available to cloud-hosted runs. |
+| [Cloud Agents](/agent-platform/cloud-agents/overview/) | Yes                 | BYOK keys are stored locally and not available to cloud-hosted runs. |
 
 These features will continue to function normally regardless of whether you’ve configured BYOK.
 
@@ -134,7 +134,7 @@ Warp itself never stores your LLM API keys.
 
 ### BYOK on Enterprise and Business plans
 
-BYOK is available to individual users and to organizations with 10 or fewer employees, subject to Warp's Terms of Service. Companies or organizations with more than 10 employees need a Warp Business or Enterprise plan to use BYOK.
+BYOK is available to individual users and to organizations with 10 or fewer employees, subject to Warp's [Terms of Service](https://www.warp.dev/terms-of-service). Companies or organizations with more than 10 employees need a Warp Business or Enterprise plan to use BYOK or customer-supplied inference.
 
 Today, BYOK is configured at the **user level** on every plan, including Enterprise and Business:
 
@@ -142,7 +142,7 @@ Today, BYOK is configured at the **user level** on every plan, including Enterpr
 * Centrally configured, admin-managed BYOK is not yet available — admins cannot enforce or share API keys across team members from a single place.
 * There is no organization-level Admin Panel for BYOK management today.
 
-If your organization needs centrally managed model routing now, see [Bring your own LLM](/enterprise/enterprise-features/bring-your-own-llm/) for the Enterprise-managed option. To discuss a fit, contact us at [warp.dev/contact-sales](https://warp.dev/contact-sales).
+If your organization needs centrally managed model routing now, see [Bring your own LLM](/enterprise/enterprise-features/bring-your-own-llm/) for the Enterprise-managed option. To discuss a fit, contact us at [warp.dev/contact-sales](https://www.warp.dev/contact-sales).
 
 ## Related resources
 

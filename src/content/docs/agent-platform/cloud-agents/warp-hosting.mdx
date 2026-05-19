@@ -1,0 +1,54 @@
+---
+title: Warp-hosted agents
+description: >-
+  Run Oz cloud agents on Warp's infrastructure. Warp handles scaling, isolation, and performance for agent execution.
+sidebar:
+  label: "Warp-hosted agents"
+---
+
+Warp's managed infrastructure lets your team easily run Oz cloud agent workloads in fast and secure sandboxes.
+
+Use Warp-hosted agents to quickly get started with Oz, without needing to configure compute resources or maintain services. 
+
+## Sandbox environment
+
+All Warp-hosted agents run in fully-isolated sandboxes. Warp uses a mix of infrastructure providers to ensure reliable sandbox startup.
+
+### OS and architecture
+
+Warp-hosted agents use the container image specified in your [environment](/agent-platform/cloud-agents/environments).
+They are compatible with any Linux x86-64 image that includes a `bash` shell and core utilities like `ls` and `mkdir`.
+
+### Resources
+
+The resources available to Warp-hosted agents depend on your [plan](https://www.warp.dev/pricing) - see the latest details there.
+
+On [enterprise](/enterprise) plans, resources are configurable up to 32 vCPUs and 64 GiB of memory. If additional resources are required, reach out to Warp support about custom provisioning.
+
+### Concurrency
+
+To fairly allocate resources across all Warp users, concurrency of Warp-hosted agents is limited on a per-team basis. If an agent is started while at your concurrency limit, it is automatically queued and will start as soon as another agent completes.
+
+### Networking
+
+Warp's hosted agents have network egress enabled by default. Outgoing requests may come from the following IP addresses:
+
+* `64.6.38.192/26`
+* `64.6.39.192/26`
+* `104.128.70.192/26`
+* `104.128.71.192/26`
+* `216.176.224.192/26`
+* `185.212.186.0/24`
+* `50.31.178.128/26`
+* `50.31.146.192/26`
+* `75.102.37.208/28`
+* `44.253.165.189/32`
+* `16.145.188.113/32`
+* `16.145.133.251/32`
+
+---
+
+## Related pages
+
+* [Oz Platform](/agent-platform/cloud-agents/platform/) - Learn how Warp-hosted agents fit into the Oz Platform.
+* [Self-hosting](/agent-platform/cloud-agents/self-hosting/) - Run agents on infrastructure you manage when execution must stay inside your network.

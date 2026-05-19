@@ -10,7 +10,13 @@ description: >-
 
 Any interaction with Warp's Agent consumes credits. Credits are primarily based on AI usage — the number of credits a task consumes varies based on the size and complexity of your codebase, the size of the task, the model you're using, the amount of context the agent needs to gather, and more.
 
-Credits also include a small hosting fee, charged only when running agents in the cloud, hosted on Warp's infrastructure. For details on cloud agent credits, see [Cloud Agent Credits](/support-and-community/plans-and-billing/credits/#cloud-agent-credits).
+Warp meters credits across three types of infrastructure — inference, compute, and platform — each with its own bucket. Credit types and where an agent runs (local or cloud) are independent: each agent run consumes from whichever credit types apply to it.
+
+* **AI credits** cover inference: the LLM call itself. Consumed when Warp pays for the model call through Warp-managed providers.
+* **Compute credits** cover compute: the sandbox an agent runs in. Consumed when an agent run uses Warp-hosted compute. In practice this is cloud agent runs; local agent runs use your own machine and don't consume compute credits. See [Compute credits](/support-and-community/plans-and-billing/credits/#compute-credits).
+* **Platform credits** cover Warp's platform layer: run lifecycle, integrations, dashboard, APIs, and observability. Apply to every cloud agent run, plus local agent runs on Business and Enterprise plans that use customer-supplied inference (BYOK or BYOLLM via Amazon Bedrock or Google Vertex). See [platform credits](/support-and-community/plans-and-billing/platform-credits/).
+
+All three buckets draw from the same Warp credit pool and [Add-on Credits](/support-and-community/plans-and-billing/add-on-credits/), so you can manage them as a single balance in the Warp app under **Settings** > **Billing and usage**.
 
 Each interaction consumes **at least one credit**, though more complex interactions may use **multiple credits**. Because of factors such as codebase size, model choice, number of tool calls, and the nature of LLMs, credit usage is **non-deterministic** — two similar prompts can still use a different number of credits.
 
@@ -36,7 +42,7 @@ You can view your total credit usage, along with other billing details, in **Set
 #### Credit **limits and billing**
 
 * **Seat-level allocation**: On team plans, credit limits apply per seat — each team member has their own allowance. Individual users (not on a team) also have their own credit allocation.
-* **Cloud Agent Credits**: Individual users can run cloud agents via CLI/API using their normal Warp credits, [Cloud Agent Credits](/support-and-community/plans-and-billing/credits/#cloud-agent-credits), or a Build plan with available credits. Integrations (Slack, Linear) require team membership.
+* **Cloud agents and integrations**: Individual users can run cloud agents via the CLI and API, drawing from their Warp credits. Slack and Linear integrations require team membership.
 * **Hitting the credit limits**: Once you hit your monthly credit limit, your access will depend on your plan. On the Free plan, AI access stops until your next billing cycle. On paid plans, you can continue using AI with usage-based billing via [Add-on Credits](/support-and-community/plans-and-billing/add-on-credits/).
 
 #### **Other features that use credits**
@@ -111,25 +117,47 @@ Because cache results depend on model provider behavior and timing, two similar 
 
 These are the most common factors affecting credit usage, though there are others. Understanding them can help you manage your credits more efficiently and get the most from your plan.
 
-### Cloud Agent Credits
+### Compute credits
 
-Cloud Agent Credits are a type of credit consumed only by cloud agent runs — AI requests that run on Warp-hosted compute.
+Compute credits cover Warp-hosted compute consumed by an agent run. In practice, cloud agent runs consume them because they run on Warp's compute; local agent runs typically don't, since they run on your own machine.
 
-#### Eligible for Cloud Agent Credits
+Compute credits are sometimes referred to as **cloud agent credits** when the conversation is framed around cloud agents vs local agents — they're the same bucket described from a different angle.
 
-The following scenarios use Cloud Agent Credits:
+#### Eligible for compute credits
 
-* **First-party integrations** — Running agents through Slack or Linear integrations
-* **Cloud agent runs** — Using `oz agent run-cloud` via the CLI
-* **Oz API** — Running agents through Warp's Oz API
-* **Cloud Mode** — Running an agent from Cloud Mode in the Warp app
+The following scenarios use compute credits:
 
-#### Not eligible for Cloud Agent Credits
+* **First-party integrations** - Running agents through Slack or Linear integrations
+* **Cloud agent runs** - Using `oz agent run-cloud` via the CLI
+* **Oz API** - Running agents through Warp's Oz API
+* **Cloud Mode** - Running an agent from Cloud Mode in the Warp app
 
-The following scenarios do **not** use Cloud Agent Credits:
+#### Not eligible for compute credits
 
 * **Local agent runs** — Using `oz agent run` on your local machine
 * **Self-hosted compute** — Using `oz agent run` on GitHub Actions, CI/CD pipelines, or other self-hosted infrastructure
+
+### Platform credits
+
+Platform credits cover Warp's platform infrastructure — run lifecycle, scheduling, integrations, dashboard, APIs, and observability — for every cloud agent run, plus local agent runs on Business and Enterprise plans that use customer-supplied inference.
+
+#### Eligible for platform credits
+
+Platform credits are used in the following scenarios:
+
+* **Cloud agents on any plan** use platform credits for every cloud agent run, regardless of which agent runs the task or which inference source it uses.
+* **Local agents on Business or Enterprise with customer-supplied inference** use platform credits when the local agent run uses [Bring Your Own API Key (BYOK)](/support-and-community/plans-and-billing/bring-your-own-api-key/), a [custom inference endpoint](/support-and-community/plans-and-billing/custom-inference-endpoint/), or BYOLLM via Amazon Bedrock or Google Vertex.
+
+#### Not eligible for platform credits
+
+The following scenarios do **not** use platform credits:
+
+* **Local agents on Free, Build, or Max plans** don't use platform credits, regardless of inference source.
+* **Local agents on Business or Enterprise using Warp-managed inference** don't use platform credits because Warp is already paying for the model call through AI credits.
+* **Regular terminal usage** doesn't use platform credits. Shell commands and non-AI Warp features don't consume credits.
+* **Third-party agent CLIs run directly** don't use platform credits when you run `claude`, `codex`, or another agent CLI outside of Oz.
+
+For a full breakdown of how platform credits work, see [platform credits](/support-and-community/plans-and-billing/platform-credits/).
 
 ### Service account and team-scoped API key billing
 

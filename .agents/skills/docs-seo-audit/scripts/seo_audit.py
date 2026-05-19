@@ -192,11 +192,14 @@ def extract_seo(url):
 # ---------------------------------------------------------------------------
 
 def url_to_source_path(url, repo_root):
-    """Best-effort mapping from a live URL to the local markdown source file.
+    """Best-effort mapping from a live URL to the local source file.
 
     Astro Starlight serves content from src/content/docs/. URL paths map
     directly to that directory. Files use .mdx (preferred) or .md extensions,
     and directory landing pages are index.mdx (not README.md).
+
+    Standalone Astro routes are served from src/pages/ and can be edited
+    directly even when their content is generated from a spec or runtime data.
 
     Returns the relative path from repo_root, or None if no file is found.
     """
@@ -223,6 +226,20 @@ def url_to_source_path(url, repo_root):
     # Try directory landing page: path/index.mdx, then path/index.md
     for ext in (".mdx", ".md"):
         candidate = os.path.join(base, path, "index" + ext)
+        if os.path.isfile(candidate):
+            return os.path.relpath(candidate, repo_root)
+    # Standalone Astro routes live outside Starlight content in src/pages/.
+    # This maps pages like /api/ -> src/pages/api.astro and
+    # /openapi.yaml -> src/pages/openapi.yaml.ts so generated docs shells
+    # are treated as locally fixable when their source exists.
+    pages_base = os.path.join(repo_root, "src", "pages")
+    for ext in (".astro", ".ts", ".js", ".tsx", ".jsx"):
+        candidate = os.path.join(pages_base, path + ext)
+        if os.path.isfile(candidate):
+            return os.path.relpath(candidate, repo_root)
+
+    for ext in (".astro", ".ts", ".js", ".tsx", ".jsx"):
+        candidate = os.path.join(pages_base, path, "index" + ext)
         if os.path.isfile(candidate):
             return os.path.relpath(candidate, repo_root)
 

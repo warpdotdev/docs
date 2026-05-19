@@ -7,6 +7,8 @@ sidebar:
   label: "Warp Drive Context"
 ---
 
+Reference saved Warp Drive objects in Oz CLI commands to reuse prompts, notebooks, workflows, and rules as agent context. Pass a saved prompt ID with `--saved-prompt` or inline Warp Drive references using `<workflow:id>`, `<notebook:id>`, or `<rule:id>` syntax.
+
 ## Reusing saved prompts
 
 When you find prompts that work well, save them in [Warp Drive](/knowledge-and-collaboration/warp-drive/) to reuse across sessions, share with teammates, and integrate into automated workflows. For more information, see [Prompts](/knowledge-and-collaboration/warp-drive/prompts/).
@@ -16,7 +18,7 @@ To reuse a saved prompt, find its ID. The ID is the last segment of its Warp Dri
 For example, in the URL:
 
 ```
-https://warp.dev/drive/prompt/Fix-compiler-error-sgNpbUgDkmp2IImUVDc8kR
+https://www.warp.dev/drive/prompt/Fix-compiler-error-sgNpbUgDkmp2IImUVDc8kR
 ```
 
 ...the ID is `sgNpbUgDkmp2IImUVDc8kR`.
