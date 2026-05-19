@@ -41,6 +41,15 @@ You don't need to distinguish the two terms in day-to-day use — pick the agent
 
 Most teams start with the default agent identity and add more as their automation matures. Creating additional agent identities is worth it when distinct workflows have meaningfully different scopes — for example, a `ci-runner` identity that only needs read-only repo access, an `on-call` identity that holds production deploy credentials and is restricted to incident playbooks, and a `nightly-jobs` identity used by scheduled cleanups. Scoping each identity to a single workflow gives every run the minimum credentials it needs, keeps audit trails attributable to the right bot, and lets you revoke or rotate one workflow's access without touching the rest.
 
+## Billing for agent identity runs
+
+Agent identity runs are not tied to an individual user, so they have no individual *task billing principal*. Warp resolves the billing principal based on your plan:
+
+* **Self-serve plans (Build, Max, Business)** - Warp bills the **team owner**. The waterfall on the owner's account is: plan-included monthly credits, then the owner's Reload credits. Attribution stays on the agent identity that initiated the run, but billing rolls up to the owner. With auto-reload off, the request is blocked when both pools are depleted. With auto-reload on, agent identity usage can trigger a reload on the owner's pool subject to the team-wide monthly spend cap.
+* **Enterprise plans** - Agent identity runs draw from the team-scoped credit pool. When the pool is depleted, traffic falls to pay-as-you-go (PAYG) if enabled in the contract.
+
+See [Reload credits](/support-and-community/plans-and-billing/add-on-credits/) for the full self-serve billing model and [Access, billing, and identity](/agent-platform/cloud-agents/team-access-billing-and-identity/) for the cross-plan credit precedence.
+
 ## Plan limits
 
 Every team starts with a default agent identity. Additional identities are subject to plan-based limits — see [warp.dev/pricing](https://warp.dev/pricing) for current limits per plan.
