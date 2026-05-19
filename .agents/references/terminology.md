@@ -235,7 +235,7 @@ For the summary of the most critical terms (core features, Oz terms, terms to av
 - **cloud agent credits** — lowercase common noun; capitalize the first letter only at the start of a sentence or bullet. Credits consumed by cloud agents, in contrast with local agent credits. Refers to the same compute bucket as compute credits; choose the term that fits the framing.
 - **platform credits** — lowercase common noun; capitalize the first letter only at the start of a sentence or bullet. The platform-infrastructure bucket, consumed for every cloud agent run plus local runs with customer-supplied inference.
 - **credits** — the unit of usage for AI features in Warp (lowercase, not "AI credits")
-- **normal Warp credits** — credits included with a subscription plan. Use in user-facing copy rather than "plan credits."
+- **Warp credits** — credits included with a subscription plan. Use in user-facing copy rather than "plan credits."
 
 ## External product names
 

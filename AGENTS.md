@@ -613,7 +613,7 @@ Product feature names retain their standard capitalization. Match the exact casi
 - **compute credits** (lowercase common noun; capitalize the first letter only at the start of a sentence or bullet) - the compute bucket; consumed when an agent run uses Warp-hosted compute. Used alongside AI credits and platform credits when describing credit types.
 - **cloud agent credits** (lowercase common noun; capitalize the first letter only at the start of a sentence or bullet) - credits consumed by cloud agents (in contrast with local agent credits). Refers to the same compute bucket as compute credits; pick the term that fits the framing.
 - **platform credits** (lowercase common noun; capitalize the first letter only at the start of a sentence or bullet) - the platform-infrastructure bucket
-- **normal Warp credits** - credits included with a subscription plan. Use in user-facing copy rather than "plan credits."
+- **Warp credits** - credits included with a subscription plan. Use in user-facing copy rather than "plan credits."
 - Use "credit" or "credits" without the "AI" prefix throughout documentation
 
 ### UI elements
