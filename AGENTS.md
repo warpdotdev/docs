@@ -558,6 +558,8 @@ Product feature names retain their standard capitalization. Match the exact casi
 - **Codebase Context** - Warp indexes your Git-tracked codebase to help Agents understand your code.
 - **Admin Panel** - Team management surface for controlling members, roles, and billing.
 - **Agent Management Panel** - Interface for viewing and managing running agents (not "agent dashboard" or "agent manager").
+- **Agent Memory** - Persistent, cross-harness memory layer for Oz agents that captures durable facts, decisions, and outcomes across conversations (currently in research preview). Capitalize as a feature name; use lowercase "memory store" for individual stores.
+- **Handoff** - Feature for moving agent work between a local Warp session and the cloud, or continuing a finished cloud run; supports local-to-cloud, cloud-to-cloud, and cloud-to-local. Capitalize as a feature name; lowercase "hand off" only as a verb.
 
 ### Oz terminology
 
@@ -615,8 +617,10 @@ Product feature names retain their standard capitalization. Match the exact casi
 ### Billing and credits
 - **credits** (lowercase, not "AI credits") - the unit of usage for AI features in Warp
 - **Add-on Credits** (capitalized as a product feature name)
-- **Cloud Agent Credits** (capitalized as a billing feature name)
-- **plan credits** - credits included with a subscription plan
+- **compute credits** (lowercase common noun; capitalize the first letter only at the start of a sentence or bullet) - the compute bucket; consumed when an agent run uses Warp-hosted compute. Used alongside AI credits and platform credits when describing credit types.
+- **cloud agent credits** (lowercase common noun; capitalize the first letter only at the start of a sentence or bullet) - credits consumed by cloud agents (in contrast with local agent credits). Refers to the same compute bucket as compute credits; pick the term that fits the framing.
+- **platform credits** (lowercase common noun; capitalize the first letter only at the start of a sentence or bullet) - the platform-infrastructure bucket
+- **Warp credits** - credits included with a subscription plan. Use in user-facing copy rather than "plan credits."
 - Use "credit" or "credits" without the "AI" prefix throughout documentation
 
 ### UI elements
