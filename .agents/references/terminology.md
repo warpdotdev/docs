@@ -93,6 +93,15 @@ For the summary of the most critical terms (core features, Oz terms, terms to av
 
 - **Slash Commands** — Built-in commands you run by typing `/` to trigger actions (or run saved prompts).
 
+- **Agent Memory** — Oz's persistent, cross-harness memory layer that lets agents read and write durable knowledge across conversations, harnesses, and devices. Currently in research preview.
+  *Usage note:* Capitalize as a feature name. Lowercase "memory" only when describing the generic concept (e.g., "the memory layer").
+
+- **memory store** — A named collection of memories owned by a user (personal) or team. Multiple agents can share a store, and per-agent attachments control read/write access.
+  *Usage note:* Lowercase common noun. Capitalize the first letter only at the start of a sentence or bullet.
+
+- **Handoff** — The feature for moving an agent's work between a local Warp session and the cloud, or continuing a finished cloud run. Supports local-to-cloud, cloud-to-cloud, and cloud-to-local directions.
+  *Usage note:* Capitalize as a feature name. Use lowercase "hand off" / "handed off" only as a verb.
+
 ## Coding terms (Warp features)
 
 - **Code** — Warp's coding experience for agent-assisted changes (editing, diffs, code review).
