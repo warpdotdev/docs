@@ -247,6 +247,12 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					],
 				},
 				{
+					label: 'Memory (Research Preview)',
+					items: [
+						{ slug: 'agent-platform/agent-memory', label: 'Agent Memory' },
+					],
+				},
+				{
 					label: 'Warp Agents',
 					items: [
 						{ slug: 'agent-platform/local-agents/overview', label: 'Warp Agents overview' },
