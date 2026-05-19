@@ -1,14 +1,13 @@
 ---
 title: Handoff between local and cloud agents
 description: >-
-  Move agent work between a local Warp session and the cloud, or continue a
-  finished cloud run with workspace state restored, without re-explaining the
-  task.
+  Understand how agent handoff moves work between local Warp sessions and cloud
+  agent runs, including what context carries over in each direction.
 sidebar:
   label: "Handoff overview"
 ---
 
-Handoff lets you move a unit of agent work between a local Warp session and the cloud, or continue a finished cloud run, without re-explaining the task. The receiving agent picks up the conversation history, your workspace state, and any conversation attachments from the prior session.
+Handoff in Warp moves agent work between local Warp sessions and cloud agent runs without making you restart the task. Depending on the direction, Warp carries over conversation history, workspace changes, and attachments so the receiving agent can continue from the prior session instead of starting from scratch.
 
 ## Directions of handoff
 
@@ -22,8 +21,8 @@ Handoff supports three directions:
 
 Handoff coverage depends on which agent is running the conversation:
 
-* **Cloud to cloud** works for both the Warp Agent and supported third-party agent runtimes. For supported third-party agent runtimes, the affordance is a **Continue** button followed by an input prompt, instead of the streamlined follow-up flow you get with the Warp Agent.
-* **Local to cloud** works for the Warp Agent. It isn't available for supported third-party agent runtimes.
+* **Cloud to cloud** works for the Warp Agent and the [third-party cloud harnesses currently supported in Oz](/agent-platform/cloud-agents/harnesses/): Claude Code and Codex. For Claude Code and Codex runs, click **Continue**, then enter your follow-up prompt. Warp Agent runs use the streamlined follow-up input.
+* **Local to cloud** works for the Warp Agent. It isn't available for third-party CLI agent sessions.
 
 ## What carries over
 
@@ -33,7 +32,7 @@ Handoff preserves enough state that the receiving agent can resume the work, not
 * **Workspace state** - Local-to-cloud and cloud-to-cloud capture the prior session's repository changes (tracked and untracked) and apply them in the receiving run before the agent answers the next prompt. The cloud-to-local direction doesn't currently apply workspace patches to your local checkout; review the cloud agent's branch or pull request artifact to inspect those changes.
 * **Conversation attachments** - Files attached during the prior session remain available to the receiving agent.
 
-Handoff is best-effort. When the receiving agent can apply the prior session's changes cleanly, it picks up where the prior agent left off. When it can't, the agent reports what failed and proceeds with what it could rather than starting over silently.
+Handoff is best-effort. When the receiving agent can apply the prior session's changes cleanly, it picks up where the prior agent left off. When it can't, the agent reports what failed and continues with the changes it could apply rather than starting over silently.
 
 ## When to use handoff
 
