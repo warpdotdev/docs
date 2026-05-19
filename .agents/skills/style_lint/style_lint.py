@@ -45,7 +45,7 @@ PROPER_FEATURE_NAMES = {
 # Terminology: wrong → right (case-sensitive checks)
 PRODUCT_CASING = {
     "Warp Terminal": ("Warp", "Use 'Warp' unless specifically distinguishing from Oz"),
-    "Cloud Agent Credits": ("Cloud agent credits", "Use sentence case 'Cloud agent credits' (host-context) or 'compute credits' (bucket-context)"),
+    "Cloud Agent Credits": ("cloud agent credits", "Use lowercase 'cloud agent credits' (host-context) or 'compute credits' (bucket-context); capitalize first letter only at start of a sentence/bullet"),
     "agent mode": ("Agent Mode", "Capitalize as a feature name"),
     "agent management panel": ("Agent Management Panel", "Capitalize as a UI surface name"),
     "warp drive": ("Warp Drive", "Capitalize as a feature name"),
