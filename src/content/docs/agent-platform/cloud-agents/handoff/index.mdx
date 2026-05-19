@@ -27,7 +27,7 @@ Handoff coverage depends on which agent is running the conversation:
 
 ## What carries over
 
-Handoff preserves enough state that the receiving agent can resume the work, not just read about it.
+Handoff preserves enough state that the receiving agent can resume the work, not only read about it.
 
 * **Conversation history** - The receiving agent sees the full transcript of the prior session. Local-to-cloud forks the conversation so the source isn't modified; cloud-to-cloud continues in the same conversation.
 * **Workspace state** - Local-to-cloud and cloud-to-cloud capture the prior session's repository changes (tracked and untracked) and apply them in the receiving run before the agent answers the next prompt. The cloud-to-local direction doesn't currently apply workspace patches to your local checkout; review the cloud agent's branch or pull request artifact to inspect those changes.
