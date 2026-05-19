@@ -22,7 +22,7 @@ When you send a follow-up to a run whose session has ended, the run continues wi
 * **The prior workspace state** - The prior session's repository changes (tracked and untracked) are restored before the agent answers your follow-up. For Git-managed sessions, the new session continues on the same Git branch.
 * **Stable run identity** - The run's ID, task, creator, environment, schedule trigger, and integration source are preserved. Compute usage is recorded per session but rolls up to the same run.
 
-If applying any change fails, the agent reports what couldn't be applied and continues with the changes it could apply rather than starting over silently.
+If any changes fail to apply, the agent reports which changes failed and continues with the changes that applied cleanly.
 
 ## Prerequisites
 

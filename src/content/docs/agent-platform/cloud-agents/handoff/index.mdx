@@ -32,7 +32,7 @@ Handoff preserves enough state that the receiving agent can resume the work, not
 * **Workspace state** - Local-to-cloud and cloud-to-cloud capture the prior session's repository changes (tracked and untracked) and apply them in the receiving run before the agent answers the next prompt. The cloud-to-local direction doesn't currently apply workspace patches to your local checkout; review the cloud agent's branch or pull request artifact to inspect those changes.
 * **Conversation attachments** - Files attached during the prior session remain available to the receiving agent.
 
-Handoff is best-effort. When the receiving agent can apply the prior session's changes cleanly, it picks up where the prior agent left off. When it can't, the agent reports what failed and continues with the changes it could apply rather than starting over silently.
+Handoff is best-effort. When the receiving agent can apply the prior session's changes cleanly, it picks up where the prior agent left off. When it can't, the agent reports which changes failed to apply and continues with the changes that applied cleanly.
 
 ## When to use handoff
 

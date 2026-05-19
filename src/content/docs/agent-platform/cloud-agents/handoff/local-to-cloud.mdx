@@ -25,7 +25,7 @@ When you hand off from local to cloud, the receiving cloud agent inherits:
 * **A workspace snapshot** - Warp captures your uncommitted repository changes — both tracked modifications and untracked files — and packages them for the cloud agent. The cloud agent applies them before answering your follow-up.
 * **Conversation attachments** - Files attached to the local conversation remain available in the cloud run.
 
-If applying any change fails in the cloud run, the cloud agent reports what couldn't be applied and proceeds with what it could rather than silently dropping changes.
+If any changes fail to apply in the cloud run, the cloud agent reports which changes failed and continues with the changes that applied cleanly.
 
 ## Prerequisites
 
