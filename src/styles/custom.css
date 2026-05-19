@@ -434,6 +434,12 @@ body {
 .warp-guide-card:hover {
   border-color: var(--sl-color-gray-5);
   background: var(--sl-color-gray-6);
+  text-decoration: none;
+}
+
+/* Prevent Starlight's global link underline from cascading into card text */
+.warp-guide-card:hover * {
+  text-decoration: none;
 }
 
 .warp-guide-card-category {

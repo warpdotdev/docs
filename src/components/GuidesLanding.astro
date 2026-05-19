@@ -55,12 +55,22 @@ const categories = Object.keys(CATEGORY_LABELS).filter((cat) =>
 ---
 
 <div class="warp-guide-grid-container not-content">
-	{/* Filter pills */}
+	{/* Filter pills — Featured is the default; All shows everything flat */}
 	<div class="warp-guide-filters" role="tablist" aria-label="Filter guides by category">
+		{featured.length > 0 && (
+			<button
+				role="tab"
+				aria-selected="true"
+				class="warp-guide-filter-pill active"
+				data-filter="featured"
+			>
+				Featured ({featured.length})
+			</button>
+		)}
 		<button
 			role="tab"
-			aria-selected="true"
-			class="warp-guide-filter-pill active"
+			aria-selected="false"
+			class="warp-guide-filter-pill"
 			data-filter="all"
 		>
 			All ({guides.length})
@@ -80,49 +90,28 @@ const categories = Object.keys(CATEGORY_LABELS).filter((cat) =>
 		})}
 	</div>
 
-	{/* Featured section */}
-	{featured.length > 0 && (
-		<section class="warp-guide-section" data-section="featured">
-			<h2 class="warp-guide-section-heading">Featured</h2>
-			<div class="warp-guide-card-grid">
-				{featured.map((guide) => (
-					<a href={guide.href} class="warp-guide-card" data-category={guide.category}>
-						<span class="warp-guide-card-category">{guide.categoryLabel}</span>
-						<h3 class="warp-guide-card-title">{guide.title}</h3>
-						{guide.description && <p class="warp-guide-card-desc">{guide.description}</p>}
-						{guide.tags.length > 0 && (
-							<div class="warp-guide-card-tags">
-								{guide.tags.map((tag) => (
-									<span class="warp-guide-card-tag">{tag}</span>
-								))}
-							</div>
-						)}
-					</a>
-				))}
-			</div>
-		</section>
-	)}
-
-	{/* All guides */}
-	<section class="warp-guide-section" data-section="all">
-		{featured.length > 0 && <h2 class="warp-guide-section-heading">All guides</h2>}
-		<div class="warp-guide-card-grid">
-			{guides.map((guide) => (
-				<a href={guide.href} class="warp-guide-card" data-category={guide.category}>
-					<span class="warp-guide-card-category">{guide.categoryLabel}</span>
-					<h3 class="warp-guide-card-title">{guide.title}</h3>
-					{guide.description && <p class="warp-guide-card-desc">{guide.description}</p>}
-					{guide.tags.length > 0 && (
-						<div class="warp-guide-card-tags">
-							{guide.tags.map((tag) => (
-								<span class="warp-guide-card-tag">{tag}</span>
-							))}
-						</div>
-					)}
-				</a>
-			))}
-		</div>
-	</section>
+	{/* Single card grid — filtering is handled client-side */}
+	<div class="warp-guide-card-grid">
+		{guides.map((guide) => (
+			<a
+				href={guide.href}
+				class="warp-guide-card"
+				data-category={guide.category}
+				data-featured={guide.featured ? 'true' : undefined}
+			>
+				<span class="warp-guide-card-category">{guide.categoryLabel}</span>
+				<h3 class="warp-guide-card-title">{guide.title}</h3>
+				{guide.description && <p class="warp-guide-card-desc">{guide.description}</p>}
+				{guide.tags.length > 0 && (
+					<div class="warp-guide-card-tags">
+						{guide.tags.map((tag) => (
+							<span class="warp-guide-card-tag">{tag}</span>
+						))}
+					</div>
+				)}
+			</a>
+		))}
+	</div>
 </div>
 
 <script is:inline>
@@ -132,10 +121,7 @@ const categories = Object.keys(CATEGORY_LABELS).filter((cat) =>
 		if (!container) return;
 
 		const pills = container.querySelectorAll('.warp-guide-filter-pill');
-		const featuredSection = container.querySelector('[data-section="featured"]');
-		const allSection = container.querySelector('[data-section="all"]');
-		const allCards = allSection?.querySelectorAll('.warp-guide-card') ?? [];
-		const allHeading = allSection?.querySelector('.warp-guide-section-heading');
+		const cards = container.querySelectorAll('.warp-guide-card');
 
 		pills.forEach((pill) => {
 			pill.addEventListener('click', () => {
@@ -149,25 +135,23 @@ const categories = Object.keys(CATEGORY_LABELS).filter((cat) =>
 				pill.classList.add('active');
 				pill.setAttribute('aria-selected', 'true');
 
-				// Show/hide featured section
-				if (featuredSection) {
-					featuredSection.style.display = filter === 'all' ? '' : 'none';
-				}
-
-				// Show/hide "All guides" heading
-				if (allHeading) {
-					allHeading.style.display = filter === 'all' ? '' : 'none';
-				}
-
 				// Filter cards
-				allCards.forEach((card) => {
-					if (filter === 'all' || card.getAttribute('data-category') === filter) {
-						card.style.display = '';
+				cards.forEach((card) => {
+					let show = false;
+					if (filter === 'all') {
+						show = true;
+					} else if (filter === 'featured') {
+						show = card.hasAttribute('data-featured');
 					} else {
-						card.style.display = 'none';
+						show = card.getAttribute('data-category') === filter;
 					}
+					card.style.display = show ? '' : 'none';
 				});
 			});
 		});
+
+		// Apply initial filter (Featured is default)
+		const defaultPill = container.querySelector('.warp-guide-filter-pill.active');
+		if (defaultPill) defaultPill.click();
 	})();
 </script>
