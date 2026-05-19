@@ -9,7 +9,7 @@ sidebar:
 
 Hand off a cloud agent run to a fresh cloud session when the original session has ended but you still want to push the same unit of work further. The run continues in the same conversation, with the prior session's workspace state restored, so the agent picks up where it left off instead of starting fresh.
 
-This direction is the right move when:
+Use this handoff direction when:
 
 * A cloud agent finished and you want to send a follow-up after the session has ended.
 * You want to continue an ambient agent run — an agent that runs in the background, such as a scheduled or integration-triggered run — while preserving it as a single unit of work in the [management view](/agent-platform/cloud-agents/managing-cloud-agents/).
@@ -38,15 +38,15 @@ Cloud-to-cloud handoff relies on a snapshot from the prior execution. Older clou
 
 You don't take a separate "hand off" action — you send a follow-up, and the run continues. The handoff happens automatically when the original session has ended. Send-follow-up support is available in the Warp app.
 
-1. **Open the ended cloud run.** Find it in the [management view](/agent-platform/cloud-agents/managing-cloud-agents/) or in the conversation panel.
+1. **Open the ended cloud run.** Find it on the [Runs page](https://oz.warp.dev/runs) in the Oz web app or in the conversation panel.
 2. **Send your follow-up.** Type the next message into the conversation's input and submit it.
 
 The run picks up where it left off, with workspace state restored.
 
-### Third-party harnesses
 ### Third-party agent runtimes
 
 Cloud-to-cloud handoff also works for supported third-party agent runtimes, but the affordance is a **Continue** button followed by an input prompt instead of the standard follow-up input. Click **Continue** on the ended run (from the conversation details panel or the end-of-run tombstone) and enter the next message you want the agent to act on.
+
 ## Inspecting a run that's been handed off
 
 The [management view](/agent-platform/cloud-agents/managing-cloud-agents/) shows one row per run, even when the run spans multiple sessions. Click into the run to see the full transcript: each execution appears in order, and you can scan the transcript to see where one execution ended and the next began. Per-execution timestamps aren't currently exposed in the API; the transcript is the source of truth.
@@ -63,4 +63,4 @@ Very old runs predate the agent conversation model and can't be continued via ha
 
 * [Handoff overview](/agent-platform/cloud-agents/handoff/) - What handoff is, the directions it supports, and what carries over.
 * [Handoff from local to cloud](/agent-platform/cloud-agents/handoff/local-to-cloud/) - Promote a local conversation to a cloud run.
-* [Managing Cloud Agents](/agent-platform/cloud-agents/managing-cloud-agents/) - Find runs to send follow-ups to.
+* [Managing cloud agents](/agent-platform/cloud-agents/managing-cloud-agents/) - Find runs to send follow-ups to.

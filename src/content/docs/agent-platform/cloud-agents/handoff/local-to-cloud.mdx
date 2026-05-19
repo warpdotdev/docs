@@ -8,9 +8,9 @@ sidebar:
   label: "Local to cloud"
 ---
 
-Hand off a conversation from the Warp terminal to a cloud agent run when the work outgrows your local session. The cloud agent inherits a fork of your local conversation and a snapshot of your uncommitted workspace changes, so it picks up where you left off instead of starting fresh.
+Hand off a local Warp conversation to a cloud agent run when the work outgrows your local session. The cloud agent inherits a fork of your local conversation and a snapshot of your uncommitted workspace changes, so it picks up where you left off instead of starting fresh.
 
-This direction is the right move when:
+Use this handoff direction when:
 
 * The task is going to run for a long time and you don't want to keep your laptop awake.
 * You want to fan out variants of the same task across multiple cloud agents in parallel.
@@ -46,7 +46,7 @@ The cloud agent runs with the same model your local conversation was using. Chan
 
 After submission, the cloud agent applies your workspace snapshot and addresses your follow-up. The local conversation stays untouched — you can keep working in it locally or close it.
 
-To check on the new run, open it from the [management view](/agent-platform/cloud-agents/managing-cloud-agents/) or the conversation panel.
+To check on the new run, open it from the [Runs page](https://oz.warp.dev/runs) in the Oz web app or the conversation panel.
 
 ## Troubleshooting
 
@@ -64,4 +64,4 @@ The source conversation may not have finished syncing to the cloud when you trig
 * [Handoff overview](/agent-platform/cloud-agents/handoff/) - What handoff is, the directions it supports, and what carries over.
 * [Handoff from cloud to cloud](/agent-platform/cloud-agents/handoff/cloud-to-cloud/) - Continue a finished cloud run with workspace state restored.
 * [Environments](/agent-platform/cloud-agents/environments/) - Configure the repos, image, and setup commands the cloud agent starts in.
-* [Cloud Agents quickstart](/agent-platform/cloud-agents/quickstart/) - Run your first cloud agent from scratch.
+* [Cloud agents quickstart](/agent-platform/cloud-agents/quickstart/) - Run your first cloud agent from scratch.
