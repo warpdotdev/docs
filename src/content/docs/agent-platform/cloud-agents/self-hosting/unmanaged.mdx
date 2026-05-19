@@ -126,6 +126,8 @@ Unmanaged agents are tracked on Warp's backend. Each run creates a persistent se
 
 Unmanaged sessions benefit from the same shared configuration as other cloud agent runs — [MCP servers](/agent-platform/cloud-agents/mcp/), [secrets](/agent-platform/cloud-agents/secrets/), Warp Drive context, and saved prompts all apply.
 
+Unmanaged runs don't ship with the bundled `warp-agent-docker` declarations script, so end-of-run workspace snapshots are a no-op by default. To enable [handoff](/agent-platform/cloud-agents/handoff/) into a follow-up run, see [Customizing workspace snapshots](/agent-platform/cloud-agents/handoff/snapshots/).
+
 ---
 
 ## Related pages

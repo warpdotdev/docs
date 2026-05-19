@@ -19,7 +19,7 @@ Use this handoff direction when:
 When you send a follow-up to a run whose session has ended, the run continues with:
 
 * **The same conversation** - The follow-up is appended to the same conversation. From your perspective, the run is one continuous conversation across sessions.
-* **The prior workspace state** - The prior session's repository changes (tracked and untracked) are restored before the agent answers your follow-up. For git-managed sessions, the new session continues on the same Git branch.
+* **The prior workspace state** - The prior session's repository changes (tracked and untracked) are restored before the agent answers your follow-up. For git-managed sessions, the new session continues on the same Git branch. You can [customize which repositories and files get snapshotted](/agent-platform/cloud-agents/handoff/snapshots/) when running outside the bundled cloud agent image.
 * **Stable run identity** - The run's ID, task, creator, environment, schedule trigger, and integration source are preserved. Compute usage is recorded per session but rolls up to the same run.
 
 If applying any change fails, the agent reports what couldn't be applied and proceeds with what it could rather than starting over silently.

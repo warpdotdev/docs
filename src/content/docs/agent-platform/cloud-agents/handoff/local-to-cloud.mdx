@@ -22,7 +22,7 @@ Use this handoff direction when:
 When you hand off from local to cloud, the receiving cloud agent inherits:
 
 * **A forked conversation** - Warp forks your local conversation so the cloud agent inherits the full transcript without modifying the source. See [Cloud-synced conversations](/agent-platform/local-agents/cloud-conversations/) for related sync behavior.
-* **A workspace snapshot** - Warp captures your uncommitted repository changes — both tracked modifications and untracked files — and packages them for the cloud agent. The cloud agent applies them before answering your follow-up.
+* **A workspace snapshot** - Warp captures your uncommitted repository changes — both tracked modifications and untracked files — and packages them for the cloud agent. The cloud agent applies them before answering your follow-up. You can [customize which repositories and files get snapshotted](/agent-platform/cloud-agents/handoff/snapshots/) when running outside the bundled cloud agent image.
 * **Conversation attachments** - Files attached to the local conversation remain available in the cloud run.
 
 If applying any change fails in the cloud run, the cloud agent reports what couldn't be applied and proceeds with what it could rather than silently dropping changes.
