@@ -15,6 +15,10 @@ BYOK provides greater flexibility in model access and ensures Warp **never consu
 BYOK is currently only available on Warp's paid plans, starting with Build. Learn more about plans and pricing [warp.dev/pricing](https://www.warp.dev/pricing).
 :::
 
+:::caution
+BYOK and customer-supplied inference (BYOLLM via Amazon Bedrock or Google Vertex, plus custom endpoints) are available to individual users and organizations with 10 or fewer employees or users on any plan. Organizations with more than 10 employees or users must be on a Warp Business or Enterprise plan to use BYOK or customer-supplied inference. See Warp's [Terms of Service](https://www.warp.dev/terms-of-service) for details.
+:::
+
 ## How does BYOK work?
 
 When you add your own model API keys in Warp, those keys are stored **locally on your device** and are **never synced to the cloud**.
@@ -112,6 +116,8 @@ However, when you use your own API key:
 Warp itself never stores your LLM API keys.
 
 ### BYOK on Enterprise and Business plans
+
+Organizations with more than 10 employees or users must be on a Warp Business or Enterprise plan to use BYOK or customer-supplied inference. See Warp's [Terms of Service](https://www.warp.dev/terms-of-service) for the full eligibility rule.
 
 Currently, BYOK is configured at the **user level**, not the team or admin level:
 
