@@ -1,16 +1,16 @@
 ---
 title: Bring your own LLM
 description: >-
-  Route Warp's agents through your AWS Bedrock models for billing control and
-  infrastructure flexibility.
+  Route Warp's agents through your organization's managed inference
+  infrastructure for governance, billing control, and model flexibility.
 ---
 
-Warp supports **Bring Your Own LLM (BYOLLM)** for enterprise teams that need to run inference on their own cloud infrastructure. With BYOLLM, your team can use Warp's agents while routing inference through models hosted in your AWS Bedrock environment.
+Warp supports **Bring your own LLM (BYOLLM)** for Enterprise teams that want to run inference on their own managed infrastructure. BYOLLM covers two patterns: cloud-provider Model-as-a-Service (AWS Bedrock, Google Vertex AI, Azure AI Foundry) and approved internal inference gateways.
 
-This gives you control over cloud spend and model hosting, without changing how your team works in Warp.
+With BYOLLM, your team uses Warp's agents while Warp manages routing, orchestration, governance, and observability across the providers you've approved. Inference runs in your environment; admins control which models are available to whom.
 
 :::caution
-BYOLLM currently supports **AWS Bedrock** only. Coming soon: Azure Foundry and Google Vertex support.
+**AWS Bedrock** is the GA implementation today. **Google Vertex AI** and **Azure AI Foundry** support is on the roadmap. Approved internal gateways are evaluated on a case-by-case basis with your Warp account team.
 
 BYOLLM applies to interactive Oz agents in the terminal. Oz cloud agents do not yet support BYOLLM routing.
 :::
@@ -19,9 +19,29 @@ BYOLLM applies to interactive Oz agents in the terminal. Oz cloud agents do not 
 BYOLLM is only available on Warp's Enterprise plan. Contact [warp.dev/contact-sales](https://warp.dev/contact-sales) to learn more.
 :::
 
+## How BYOLLM differs from BYOK and Custom inference endpoint
+
+Warp offers three ways to bring your own inference into the product. BYOLLM is one of them, and it serves a different use case than the others.
+
+| Name | Meaning | Plans |
+| --- | --- | --- |
+| Bring your own API key (BYOK) | User-level API keys for OpenAI, Anthropic, or Google. Each user configures their own key locally; Warp uses it to call the provider directly. | Free, Build, Max (orgs with 10 or fewer employees); Business or Enterprise required for larger orgs |
+| Custom inference endpoint (CIE) | User-level OpenAI-compatible endpoint such as OpenRouter, LiteLLM, z.ai, or an internal gateway. Each user configures the endpoint locally. | Free, Build, Max (orgs with 10 or fewer employees); Business or Enterprise required for larger orgs |
+| Bring your own LLM (BYOLLM) | Enterprise-only managed inference infrastructure: cloud-provider Model-as-a-Service (Bedrock, Vertex, Foundry) or approved internal gateways. Warp manages routing, orchestration, governance, and observability for the whole team. | Enterprise |
+
+:::note
+BYOK and custom inference endpoint support are available for individual users and organizations with 10 or fewer employees, subject to Warp's Terms of Service. Companies or organizations with more than 10 employees require a Warp Business or Enterprise plan to use these features.
+:::
+
+Use [Bring your own API key](/support-and-community/plans-and-billing/bring-your-own-api-key/) or [Custom inference endpoint](/support-and-community/plans-and-billing/custom-inference-endpoint/) when an individual developer wants to authenticate to a provider with their own key or endpoint. Use BYOLLM when an organization wants Warp to manage inference routing across approved providers for the whole team.
+
+:::note
+Centrally configured BYOK and Custom inference endpoint for Enterprise — where admins approve providers or endpoints for the entire organization through the Admin Panel — are a fast-follow after launch, not at launch. Until then, BYOK and CIE remain user-level configurations, and BYOLLM remains the path for admin-managed inference infrastructure.
+:::
+
 ## Key features
 
-* **Cloud-native credentials** - Authenticate using each user’s AWS IAM identity. Warp does not store API keys.
+* **Cloud-native credentials** - Authenticate using each user's cloud-native identity (AWS IAM today; Google Cloud and Azure identities on the roadmap). Warp does not store API keys.
 * **Admin-enforced routing** - Team admins configure which models are available to users in AWS Bedrock, with the ability to disable non-Bedrock model access entirely.
 * **Consolidated billing** - Inference costs are billed directly to your AWS account, leveraging existing cloud commitments.
 
@@ -134,6 +154,10 @@ When a request routes through BYOLLM:
 * **Warp does not consume credits** for that request.
 * Your cloud provider account receives the inference costs directly.
 
+:::note
+BYOLLM-routed local agent runs on Enterprise still consume platform credits for Warp's platform infrastructure (run orchestration, observability, integrations). Inference costs are billed directly to your cloud provider account. See [platform credits](/support-and-community/plans-and-billing/platform-credits/) for the full breakdown.
+:::
+
 ### Routing behavior
 
 Warp's agents automatically select the best model for your task while respecting your admin's routing policies. If you configure a model for BYOLLM, requests for that model route to AWS Bedrock.
@@ -187,18 +211,9 @@ However, when using BYOLLM:
 
 ## FAQ
 
-### How is BYOLLM different from BYOK?
+### How is BYOLLM different from BYOK and Custom inference endpoint?
 
-**BYOK (Bring Your Own Key)** lets individual users add their own API keys for direct model provider access (e.g., Anthropic, OpenAI, Google). Warp stores keys locally on the user's device.
-
-**BYOLLM (Bring Your Own LLM)** routes inference through your organization's cloud infrastructure (AWS Bedrock) using cloud-native IAM. Admins configure it at the admin level and it applies to the entire team.
-
-| Feature | BYOK | BYOLLM |
-| --- | --- | --- |
-| Configuration level | User | Admin/Team |
-| Authentication | API keys (local) | Cloud IAM (per-user) |
-| Billing | Direct to provider | Your cloud account |
-| Data locality | Provider infrastructure | Your cloud infrastructure |
+See [How BYOLLM differs from BYOK and Custom inference endpoint](#how-byollm-differs-from-byok-and-custom-inference-endpoint) at the top of this page for a comparison and plan-availability details. In short: BYOK and CIE are user-level configurations available to individual users and orgs with 10 or fewer employees on Free, Build, and Max, and to all users on Business and Enterprise. BYOLLM is Enterprise-only managed inference infrastructure where Warp routes the whole team's traffic through providers your admins have approved.
 
 ### Does BYOLLM work with Auto?
 
@@ -222,7 +237,9 @@ Yes. Admins can configure routing policies to require specific models to use BYO
 
 ## Related resources
 
-* [Bring Your Own API Key](/support-and-community/plans-and-billing/bring-your-own-api-key/)
+* [Bring Your Own API Key](/support-and-community/plans-and-billing/bring-your-own-api-key/) — User-level keys for OpenAI, Anthropic, and Google
+* [Custom inference endpoint](/support-and-community/plans-and-billing/custom-inference-endpoint/) — Connect an OpenAI-compatible endpoint such as OpenRouter, LiteLLM, z.ai, or an internal gateway
+* [platform credits](/support-and-community/plans-and-billing/platform-credits/) — Warp's platform-infrastructure credit bucket
 * [Model Choice](/agent-platform/capabilities/model-choice/) — Full list of supported models
 * [Admin Panel](/enterprise/team-management/admin-panel/) — Configure team settings
 * [Contact Sales](https://warp.dev/contact-sales) — Get help with enterprise setup
