@@ -35,7 +35,7 @@ EXCLUDED_DIRS = {"_book", "node_modules", ".docs"}
 # Feature names that are correctly Title Case (exceptions to sentence-case rule)
 PROPER_FEATURE_NAMES = {
     "Admin Panel", "Agent Management Panel", "Agent Mode", "Agent Profiles",
-    "Ambient Agents", "Auto-detection Mode", "Cloud Agent Credits",
+    "Ambient Agents", "Auto-detection Mode",
     "Codebase Context", "Code Review", "Command Palette", "Global Rules",
     "Oz CLI", "Oz Platform", "Platform Credits", "Project Rules",
     "Slash Commands", "Terminal Mode", "Universal Input", "Warp Drive",
@@ -45,6 +45,7 @@ PROPER_FEATURE_NAMES = {
 # Terminology: wrong → right (case-sensitive checks)
 PRODUCT_CASING = {
     "Warp Terminal": ("Warp", "Use 'Warp' unless specifically distinguishing from Oz"),
+    "Cloud Agent Credits": ("Cloud agent credits", "Use sentence case 'Cloud agent credits' (host-context) or 'compute credits' (bucket-context)"),
     "agent mode": ("Agent Mode", "Capitalize as a feature name"),
     "agent management panel": ("Agent Management Panel", "Capitalize as a UI surface name"),
     "warp drive": ("Warp Drive", "Capitalize as a feature name"),

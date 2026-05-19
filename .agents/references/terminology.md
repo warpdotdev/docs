@@ -231,10 +231,11 @@ For the summary of the most critical terms (core features, Oz terms, terms to av
 ## Billing and credits
 
 - **Add-on Credits** — capitalized as a product feature name
-- **Cloud Agent Credits** — capitalized as a billing feature name; the compute bucket, consumed when an agent run uses Warp-hosted compute
+- **Compute credits** — sentence case; the compute bucket, consumed when an agent run uses Warp-hosted compute. Use alongside AI credits and Platform Credits when describing credit types.
+- **Cloud agent credits** — sentence case ("Cloud" capitalized); credits consumed by cloud agents, in contrast with local agent credits. Refers to the same compute bucket as Compute credits; choose the term that fits the framing.
 - **Platform Credits** — capitalized as a billing feature name; the platform-infrastructure bucket
 - **credits** — the unit of usage for AI features in Warp (lowercase, not "AI credits")
-- **plan credits** — credits included with a subscription plan
+- **normal Warp credits** — credits included with a subscription plan. Use in user-facing copy rather than "plan credits."
 
 ## External product names
 

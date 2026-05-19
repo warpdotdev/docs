@@ -610,9 +610,10 @@ Product feature names retain their standard capitalization. Match the exact casi
 ### Billing and credits
 - **credits** (lowercase, not "AI credits") - the unit of usage for AI features in Warp
 - **Add-on Credits** (capitalized as a product feature name)
-- **Cloud Agent Credits** (capitalized as a billing feature name) - the compute bucket; consumed when an agent run uses Warp-hosted compute
+- **Compute credits** (sentence case) - the compute bucket; consumed when an agent run uses Warp-hosted compute. Used alongside AI credits and Platform Credits when describing credit types.
+- **Cloud agent credits** (sentence case, "Cloud" capitalized) - credits consumed by cloud agents (in contrast with local agent credits). Refers to the same compute bucket as Compute credits; pick the term that fits the framing.
 - **Platform Credits** (capitalized as a billing feature name) - the platform-infrastructure bucket
-- **plan credits** - credits included with a subscription plan
+- **normal Warp credits** - credits included with a subscription plan. Use in user-facing copy rather than "plan credits."
 - Use "credit" or "credits" without the "AI" prefix throughout documentation
 
 ### UI elements
