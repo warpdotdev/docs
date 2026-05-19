@@ -102,7 +102,7 @@ If you're using Warp Preview, replace "Warp-Stable" with "Warp-Preview" in the c
 
     ```powershell
     # Remove Warp Preview settings in the Windows Registry
-    Remove-Item -Path "HKCU:\Software\Warp.dev\Warp-Preview" -Recurse -Force
+    Remove-Item -Path "HKCU:\Software\Warp.dev\WarpPreview" -Recurse -Force
     # Remove Warp Preview settings, keybindings, logs, database, Codebase Context, and MCP logs
     Remove-Item -Path "$env:LOCALAPPDATA\warp\WarpPreview" -Recurse -Force
     # Remove Warp Preview themes, tab configs, workflows, and launch configurations
