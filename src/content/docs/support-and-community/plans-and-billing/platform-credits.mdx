@@ -12,12 +12,16 @@ Platform Credits cover Warp's platform infrastructure on every cloud agent run, 
 
 Customer-supplied inference covers [Bring Your Own API Key (BYOK)](/support-and-community/plans-and-billing/bring-your-own-api-key/) and BYOLLM via Amazon Bedrock or Google Vertex. Platform Credits don't apply to local runs on Free, Build, or Max plans, or to local Business and Enterprise runs where Warp pays for inference through AI credits.
 
+:::caution
+BYOK and customer-supplied inference (BYOLLM via Amazon Bedrock or Google Vertex, plus custom endpoints) are available to individual users and organizations with 10 or fewer employees or users on any plan. Organizations with more than 10 employees or users must be on a Warp Business or Enterprise plan to use BYOK or customer-supplied inference. See Warp's [Terms of Service](https://www.warp.dev/terms-of-service) for details.
+:::
+
 ## The three credit buckets
 
 Each credit bucket covers a different layer of the infrastructure Warp provides:
 
 * **AI credits** cover inference infrastructure that Warp pays for. Agent conversations, [Generate](/agent-platform/local-agents/generate/), [AI Autofill](/knowledge-and-collaboration/warp-drive/workflows/#ai-autofill), and other AI features that route through Warp-managed model providers use AI credits. See [credits](/support-and-community/plans-and-billing/credits/) for how AI credits are calculated.
-* **Cloud Agent Credits** cover compute infrastructure when cloud agents run on Warp-hosted compute. Slack and Linear integrations, `oz agent run-cloud`, the Oz API, and Cloud Mode in the Warp app use Cloud Agent Credits. See [Cloud Agent Credits](/support-and-community/plans-and-billing/credits/#cloud-agent-credits).
+* **Cloud Agent Credits** are the compute bucket. They cover Warp-hosted compute consumed by any agent run, local or cloud. In practice, cloud agents draw from this bucket because they run on Warp's compute; local agents typically don't, since they run on your own machine. Slack and Linear integrations, `oz agent run-cloud`, the Oz API, and Cloud Mode in the Warp app use Cloud Agent Credits. See [Cloud Agent Credits](/support-and-community/plans-and-billing/credits/#cloud-agent-credits).
 * **Platform Credits** cover Warp's platform infrastructure, including run lifecycle, integrations, dashboard, APIs, and observability. Platform Credits apply to every cloud agent run, plus local agent runs on Business and Enterprise plans that use customer-supplied inference.
 
 The three buckets are independent and a single run can consume from more than one. A Warp-managed cloud agent run, for example, consumes AI credits for the model call, Cloud Agent Credits for the hosted compute, and Platform Credits for the platform infrastructure that runs the agent.
@@ -35,7 +39,7 @@ Whether Platform Credits apply depends on where the agent runs and who's paying 
 ### Uses Platform Credits
 
 * **Cloud agents on any plan** use Platform Credits for every cloud agent run, regardless of which agent runs the task (Warp Agent, Claude Code, Codex, or Gemini), inference source (Warp-managed, BYOK, or BYOLLM), or compute source (Warp-hosted or self-hosted workers). Warp's platform infrastructure coordinates every cloud agent run.
-* **Local agents on Business or Enterprise with customer-supplied inference** use Platform Credits when the local agent run uses [BYOK](/support-and-community/plans-and-billing/bring-your-own-api-key/) or BYOLLM via Amazon Bedrock or Google Vertex. Warp isn't paying for the model call, but Warp's platform infrastructure is still running the local agent.
+* **Local agents on Business or Enterprise with customer-supplied inference** use Platform Credits when the local agent run uses [BYOK](/support-and-community/plans-and-billing/bring-your-own-api-key/) or BYOLLM via Amazon Bedrock or Google Vertex. Warp isn't paying for the model call, but Warp's platform infrastructure is still running the local agent. BYOK and customer-supplied inference are subject to plan-size eligibility — see the callout above.
 
 ### Doesn't use Platform Credits
 

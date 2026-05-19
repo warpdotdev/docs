@@ -15,7 +15,7 @@ Credits also include a small hosting fee, charged only when running agents in th
 Warp meters credits across three types of infrastructure — inference, compute, and platform — each with its own bucket:
 
 * **AI credits** cover inference infrastructure that Warp pays for. Agent conversations and other AI features that route through Warp-managed model providers use AI credits.
-* **Cloud Agent Credits** cover compute infrastructure when cloud agents run on Warp-hosted compute. See [Cloud Agent Credits](/support-and-community/plans-and-billing/credits/#cloud-agent-credits).
+* **Cloud Agent Credits** are the compute bucket. They cover Warp-hosted compute consumed by any agent run, local or cloud. In practice, cloud agents draw from this bucket because they run on Warp's compute; local agents typically don't, since they run on your own machine. See [Cloud Agent Credits](/support-and-community/plans-and-billing/credits/#cloud-agent-credits).
 * **Platform Credits** cover Warp's platform infrastructure, including run lifecycle, integrations, dashboard, APIs, and observability. Platform Credits apply to every cloud agent run, plus local agent runs on Business and Enterprise plans that use customer-supplied inference (BYOK or BYOLLM via Amazon Bedrock or Google Vertex). See [Platform Credits](/support-and-community/plans-and-billing/platform-credits/).
 
 All three buckets draw from the same plan credit pool and [Add-on Credits](/support-and-community/plans-and-billing/add-on-credits/), so you can manage them as a single balance in the Warp app under **Settings** > **Billing and usage**.
@@ -121,7 +121,7 @@ These are the most common factors affecting credit usage, though there are other
 
 ### Cloud Agent Credits
 
-Cloud Agent Credits are a type of credit consumed only by cloud agent runs — AI requests that run on Warp-hosted compute.
+Cloud Agent Credits are the compute credits bucket — consumed when an agent run uses Warp-hosted compute. Both local and cloud agent runs can in principle draw from this pool, but in practice only runs that use Warp's compute do.
 
 #### Eligible for Cloud Agent Credits
 
@@ -134,7 +134,7 @@ The following scenarios use Cloud Agent Credits:
 
 #### Not eligible for Cloud Agent Credits
 
-The following scenarios do **not** use Cloud Agent Credits:
+The following scenarios don't use Cloud Agent Credits because they don't run on Warp-hosted compute:
 
 * **Local agent runs** — Using `oz agent run` on your local machine
 * **Self-hosted compute** — Using `oz agent run` on GitHub Actions, CI/CD pipelines, or other self-hosted infrastructure
