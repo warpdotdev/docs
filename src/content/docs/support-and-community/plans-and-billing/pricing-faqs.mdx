@@ -157,6 +157,17 @@ On the new multi-seat paid plans, credits attribute differently than they did on
 
 Enterprise plans support team-scoped credit pools and per-user spend limits separately — see [enterprise billing](/enterprise/support-and-resources/billing/).
 
+### How do platform credits factor in?
+
+Warp meters credits across three buckets: **AI credits** (the model call), **compute credits** (the sandbox a cloud agent runs in), and **platform credits** (run lifecycle, integrations, dashboard, APIs, and observability). All three draw from the same pool — your monthly Warp credits first, then [Reload credits](/support-and-community/plans-and-billing/add-on-credits/) once those are exhausted.
+
+Platform credits apply in two situations:
+
+* **Every cloud agent run, on every plan.** Warp's platform infrastructure coordinates every cloud run regardless of which agent or inference source it uses.
+* **Local agent runs on Business and Enterprise that use customer-supplied inference** — BYOK, BYOLLM via Amazon Bedrock or Google Vertex, or a custom inference endpoint. Warp isn't paying for the model call, but Warp's platform infrastructure is still running the agent.
+
+Local agent runs on Free, Build, or Max — and local runs on Business or Enterprise that use Warp-managed inference — do not consume platform credits. See [platform credits](/support-and-community/plans-and-billing/platform-credits/) for the full breakdown.
+
 ### What if I need more AI usage than my plan includes?
 
 If you regularly run through your plan's monthly credit allowance, you have a few options:
@@ -164,8 +175,8 @@ If you regularly run through your plan's monthly credit allowance, you have a fe
 * **Upgrade to Max** — Designed for developers with heavier AI usage. Max includes a higher monthly credit allowance than Build, plus a better effective rate for credits than buying [Reload credits](/support-and-community/plans-and-billing/add-on-credits/) on Build. See [warp.dev/pricing](https://www.warp.dev/pricing) for current allowances.
 * **Purchase Reload credits** — Top up your account on demand at $10 / 400 credits, $20 / 1,000 credits, $50 / 3,000 credits, or $100 / 6,500 credits. Larger denominations have a better effective rate. Reload credits roll over month-to-month and remain valid for 12 months.
 * **Enable auto-reload** — Pick a denomination and a monthly spend cap, and Warp will automatically purchase Reload credits when your balance drops below 100 credits, up to your cap.
-* **Bring your own API key (BYOK)** — Point Warp at your own OpenAI, Anthropic, or Google API key. Requests routed through BYOK don't consume Warp credits — you're billed directly by the model provider. See [Bring Your Own API Key](/support-and-community/plans-and-billing/bring-your-own-api-key/).
-* **Use a custom inference endpoint** — Route requests through any OpenAI-compatible endpoint (OpenRouter, LiteLLM, z.ai, an internal gateway, etc.) without spending Warp credits. See [Custom Inference Endpoint](/support-and-community/plans-and-billing/custom-inference-endpoint/).
+* **Bring your own API key (BYOK)** — Point Warp at your own OpenAI, Anthropic, or Google API key. Requests routed through BYOK don't consume Warp credits — you're billed directly by the model provider. See [Bring Your Own API Key](/support-and-community/plans-and-billing/bring-your-own-api-key/). On Business and Enterprise, platform credits may apply for local agent runs — see [platform credits](/support-and-community/plans-and-billing/platform-credits/).
+* **Use a custom inference endpoint** — Route requests through any OpenAI-compatible endpoint (OpenRouter, LiteLLM, z.ai, an internal gateway, etc.) without spending Warp credits. See [Custom Inference Endpoint](/support-and-community/plans-and-billing/custom-inference-endpoint/). On Business and Enterprise, platform credits may apply for local agent runs — see [platform credits](/support-and-community/plans-and-billing/platform-credits/).
 
 *BYOK and custom inference endpoint availability is subject to organization size — see [Can I bring my own API key?](#can-i-bring-my-own-api-key) for details.*
 
@@ -187,16 +198,19 @@ Auto-reload can be enabled, paused, or reconfigured at any time in **Settings** 
 
 ### How are service account / team-scoped API key requests billed on self-serve plans?
 
-Programmatic usage that runs against a Warp team-level API key, scheduled agent, or service account (rather than a specific human user) is billed against the **admin who created the key** on self-serve plans (Build, Max, Business):
+Some AI requests on Warp can't be linked to an individual user — for example, requests made with a team-scoped API key, a scheduled agent, or an agent identity. These requests have no individual *task billing principal*. On self-serve plans (Build, Max, Business), Warp bills these requests against the **team owner**, while attribution stays on the service account.
 
-1. First, the admin's plan-included monthly credits are consumed.
-2. Once those are exhausted, the admin's own Reload credits are consumed (and auto-reload triggers if the admin has it on).
-3. If both are empty and auto-reload can't keep up with the team-wide spend cap, the request is blocked.
+The waterfall on the owner's account is:
 
-This waterfall keeps team-level usage transparent and attributable on self-serve plans, even though credits are user-scoped.
+1. First, the owner's plan-included monthly credits are consumed.
+2. Once those are exhausted, the owner's Reload credits are consumed.
+
+When auto-reload is **off**, the service account is blocked once both buckets are depleted. When auto-reload is **on**, service-account usage can trigger auto-reload on the owner's pool subject to the team-wide spend cap; further service-account requests then deplete that reloaded balance until the cap is reached.
+
+This waterfall keeps usage attributable to the service account in audit logs and usage breakdowns, while making billing predictable for the team owner.
 
 :::note
-Enterprise plans support team-scoped credit pools, so service-account and scheduled-agent traffic can be billed against a dedicated team pool instead of an individual admin. See [enterprise billing](/enterprise/support-and-resources/billing/) for details.
+Enterprise plans support team-scoped credit pools, so service-account and scheduled-agent traffic draws from the team pool rather than an individual admin. When the team pool is depleted, traffic falls to pay-as-you-go (PAYG) if enabled in the contract; otherwise it's blocked. See [enterprise billing](/enterprise/support-and-resources/billing/).
 :::
 
 ### Can I use a Free plan if I'm a developer at a large company or organization?
@@ -236,6 +250,8 @@ See [Bring Your Own API Key](/support-and-community/plans-and-billing/bring-your
 
 BYOK and custom inference endpoint support are available for individual users and organizations with 10 or fewer employees, subject to Warp's Terms of Service. Companies or organizations with more than 10 employees require a Warp Business or Enterprise plan to use these features.
 
+On Business and Enterprise, local agent runs that use BYOK still consume platform credits for Warp's platform infrastructure. See [platform credits](/support-and-community/plans-and-billing/platform-credits/).
+
 ### Does Warp support custom inference endpoints?
 
 Yes. In addition to BYOK, Warp can route requests to any OpenAI-compatible inference endpoint — including OpenRouter, LiteLLM, z.ai, and internal gateways your team already runs. Custom inference endpoint requests also don't consume Warp credits.
@@ -243,6 +259,8 @@ Yes. In addition to BYOK, Warp can route requests to any OpenAI-compatible infer
 Custom inference endpoints are available on Free, Build, Max, Business, and Enterprise. See [Custom Inference Endpoint](/support-and-community/plans-and-billing/custom-inference-endpoint/) for configuration steps, billing behavior, and how custom inference endpoints differ from BYOK and from Enterprise's [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/) managed inference.
 
 BYOK and custom inference endpoint support are available for individual users and organizations with 10 or fewer employees, subject to Warp's Terms of Service. Companies or organizations with more than 10 employees require a Warp Business or Enterprise plan to use these features.
+
+On Business and Enterprise, local agent runs that use a custom inference endpoint still consume platform credits for Warp's platform infrastructure. See [platform credits](/support-and-community/plans-and-billing/platform-credits/).
 
 ### What payment options are available for Warp's self-service plans?
 
