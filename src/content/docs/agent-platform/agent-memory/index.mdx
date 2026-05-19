@@ -1,9 +1,9 @@
 ---
 title: Agent Memory (Research Preview)
 description: >-
-  Agent Memory gives your agents in Warp persistent, cross-harness memory
-  that learns over time, so they carry forward team conventions, past
-  decisions, and what you taught them across every conversation.
+  Agent Memory turns every agent you run on Warp — the built-in Warp Agent,
+  Claude Code, Codex, Gemini, and more — into one that learns over time,
+  with a shared memory layer that lives where your agents already do.
 sidebar:
   label: "Agent Memory (Research Preview)"
 ---
@@ -11,18 +11,22 @@ sidebar:
 Agent Memory is in **research preview** and is enabled per team for design partners. [Join the waitlist](https://warp.dev/oz/agent-memory#waitlist) to request access for your team.
 :::
 
-Agent Memory is a persistent, cross-conversation memory layer that works across every agent harness in Warp — the built-in Warp Agent, Claude Code, Codex, Gemini, and more. Instead of starting from scratch every run, your agents recall durable knowledge — team conventions, past decisions, deployment outcomes, your preferences — and keep learning from each new conversation. Each run begins further along than the last.
+Your agents should learn across every conversation, every harness, every run. Agent Memory makes that real: every agent you run on Warp — the built-in Warp Agent, Claude Code, Codex, Gemini, and any other harness — shares one persistent memory layer that lives on the same platform you already use to run them. No separate memory service to stand up. And because memory creation and retrieval happen in the background, memory doesn't slow down or burn tokens on the task in front of your agent — each run just begins further along than the last.
 
 [**Join the Agent Memory waitlist →**](https://warp.dev/oz/agent-memory#waitlist)
 
 ## What you get with Agent Memory
 
-* **Durable knowledge across conversations** — Agents remember what happened in previous runs and surface it as context for the current task.
-* **Personal and team memory stores** — Keep memories private to you, or share them across your team so every teammate and agent draws from the same well of knowledge.
+* **One memory layer for every agent in Warp** — Memories live on the same platform where your agents already run, so the same knowledge follows your work across the Warp Agent, Claude Code, Codex, Gemini, and any harness you reach for next. No separate memory service to maintain.
+* **Async by design** — Memory creation and retrieval run in the background, so agents stay focused on the task and never burn tokens on memory work during a run.
 * **Automatic memory from conversations** — Warp extracts facts, learnings, and outcomes from finished conversations and combines them into memories your agents can build on over time.
+* **Personal and team memory stores** — Keep memories private to you, or share them across your team so every teammate and agent draws from the same well of knowledge.
 * **Per-agent access control and instructions** — Attach memory stores to an agent identity with read-only or read-write access, and write per-store instructions that tell the agent how and when to use each store.
-* **Cross-harness persistence** — Memories live on Warp, not inside any single agent harness, so the same knowledge follows your work across the Warp Agent, Claude Code, Codex, Gemini, and other harnesses.
 * **Safe by default** — Memory stores in active use can't be accidentally deleted, so shared team knowledge can't disappear out from under live agents.
+
+## Built on the layer your agents already live on
+
+Warp is already where your agents run — the built-in Warp Agent locally, Oz cloud agents in the background, and third-party harnesses like Claude Code, Codex, and Gemini through the same platform. Agent Memory turns that layer into a memory layer too. Because storage and synthesis live where your agents already work, the same memory follows them across harnesses, machines, and teammates, with no new infrastructure to stand up or maintain.
 
 ## Memory stores
 
@@ -35,7 +39,7 @@ Use multiple stores to keep contexts clean, and share stores across agents when 
 
 ## Automatic memory from conversations
 
-You don't have to remember to save things. When a conversation finishes, Warp extracts durable facts, learnings, and outcomes from what happened and writes them as memories — so every agent run leaves your team a little smarter than the last.
+You don't have to remember to save things. When a conversation finishes, Warp extracts durable facts, learnings, and outcomes from what happened and writes them as memories — so every agent run leaves your team a little smarter than the last. Synthesis runs in the background after the conversation ends, so it never costs your agent tokens or attention during the task.
 
 * **Sparse by design.** Routine work produces nothing. Only meaningful, reusable knowledge becomes a memory.
 * **Learns over time.** New knowledge merges into existing memories or supersedes outdated ones, so your team's memory keeps improving as your work evolves.
@@ -44,7 +48,7 @@ You can also explicitly tell Warp to remember something during a conversation, a
 
 ## How agents use memory
 
-When an agent starts a task, Warp pulls the most relevant memories from the stores it can access and injects them as context — automatically. Agents can also retrieve additional memories on demand throughout a conversation whenever they decide it's the right thing to do, just like consulting rules or Codebase Context. You don't have to write retrieval queries or pre-load memory by hand.
+When an agent starts a task, Warp pulls the most relevant memories from the stores it can access and injects them as context — automatically. Retrieval runs off the critical path, so the agent only sees the memories that matter and never spends tokens searching for them. Agents can also retrieve additional memories on demand throughout a conversation whenever they decide it's the right thing to do, just like consulting rules or Codebase Context. You don't have to write retrieval queries or pre-load memory by hand.
 
 ## Attaching memory to your agents
 
@@ -52,7 +56,7 @@ You decide which agents can read from which stores, and at what access level. Pe
 
 ## Ready to give your agents memory?
 
-Stop watching agents re-learn the same things every run. With Agent Memory, what your agents learn today makes them sharper tomorrow.
+Your agents already live on Warp. Give them a memory that lives there too — and watch what they learn today make them sharper tomorrow.
 
 [**Join the Agent Memory waitlist →**](https://warp.dev/oz/agent-memory#waitlist)
 
