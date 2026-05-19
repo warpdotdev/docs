@@ -247,12 +247,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					],
 				},
 				{
-					label: 'Memory (Research Preview)',
-					items: [
-						{ slug: 'agent-platform/agent-memory', label: 'Agent Memory' },
-					],
-				},
-				{
 					label: 'Warp Agents',
 					items: [
 						{ slug: 'agent-platform/local-agents/overview', label: 'Warp Agents overview' },
@@ -403,6 +397,12 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						},
 						{ slug: 'agent-platform/cloud-agents/team-access-billing-and-identity', label: 'Access, billing, and identity' },
 						{ slug: 'agent-platform/cloud-agents/faqs', label: 'Cloud agent FAQs' },
+					],
+				},
+				{
+					label: 'Memory (Research Preview)',
+					items: [
+						{ slug: 'agent-platform/agent-memory', label: 'Agent Memory' },
 					],
 				},
 			],
