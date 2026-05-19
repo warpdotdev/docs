@@ -8,7 +8,7 @@ sidebar:
   label: "Snapshots"
 ---
 
-Workspace snapshots are how [handoff](/agent-platform/cloud-agents/handoff/) carries repository changes and other workspace state across cloud agent runs. At the end of every cloud agent run, Warp asks a small declarations script which repositories and files to snapshot, then uploads the resulting git diffs and file contents so the next run (or a local **Continue locally** session) can apply them.
+Workspace snapshots are how [handoff](/agent-platform/cloud-agents/handoff/) carries repository changes and other workspace state across cloud agent runs. At the end of every cloud agent run, Warp asks a small declarations script which repositories and files to snapshot, then uploads the resulting git diffs and file contents so the next cloud agent run can apply them.
 
 The bundled [`warp-agent-docker`](https://github.com/warpdotdev/warp-agent-docker) image ships with a declarations script that snapshots every git repository under the agent's workspace, so most cloud agent runs need no configuration. This page is for the cases where you need to customize what gets snapshotted — for example, when running cloud agents in a custom Docker image, on a self-hosted [Direct backend](/agent-platform/cloud-agents/self-hosting/managed-direct/), or as an [unmanaged](/agent-platform/cloud-agents/self-hosting/unmanaged/) `oz agent run` in CI.
 
@@ -20,19 +20,28 @@ The default snapshotting behavior is sufficient when your cloud agent runs use t
 * **You run cloud agents on a self-hosted Direct backend** or as unmanaged `oz agent run` invocations, where the bundled script isn't on disk.
 * **You want to snapshot a fixed set of repositories or files** outside the agent's workspace (for example, a sibling repo that the agent reads but doesn't `cd` into).
 
-If you don't customize snapshots in any of these cases, the run still completes — Warp just uploads nothing, and handoff into the next run starts from an empty workspace.
+If you don't customize snapshots in any of these cases, the run still completes — Warp just uploads nothing, and handoff into the next run starts without the prior session's uncommitted changes.
 
 ## How snapshotting works
 
-At the end of every cloud agent run, Warp:
+There are two ways to tell Warp what to snapshot at the end of a cloud agent run:
 
-1. **Invokes your declarations script.** The script path comes from the `OZ_SNAPSHOT_DECLARATIONS_SCRIPT` environment variable. Warp runs it with the agent's workspace as the current directory.
-2. **Passes a per-run output file.** Warp sets `OZ_SNAPSHOT_DECLARATIONS_FILE` to an absolute path the script must write to. Each run gets its own file so concurrent runs don't clobber each other.
-3. **Reads the declarations file.** Warp parses the JSONL output (described below) and uploads the listed repositories and files.
+* **Script-driven** (default in the bundled image) - Warp invokes a declarations script that emits one JSON line per repository or file to snapshot. Use this when the set of repos isn't fixed ahead of time (for example, the agent may `git init` a new directory during its work).
+* **Static** - You pre-populate the declarations file yourself and skip the script. Use this when the same set of repos and files should be snapshotted on every run.
 
-You can skip the script entirely and pre-populate the declarations file yourself — see [Use a static declarations file](#use-a-static-declarations-file) below.
+### Script-driven flow
 
-Snapshotting is automatically enabled for cloud agent runs when cloud conversations are enabled. To turn it off for a specific run, pass `--no-snapshot` to `oz agent run` or `oz agent run-cloud`.
+1. **Warp invokes your declarations script.** The script path comes from the `OZ_SNAPSHOT_DECLARATIONS_SCRIPT` environment variable. Warp runs it with the agent's workspace as the current directory.
+2. **Warp passes a per-run output file.** Warp sets `OZ_SNAPSHOT_DECLARATIONS_FILE` to an absolute path the script must write to. Each run gets its own file so concurrent runs don't clobber each other.
+3. **Warp reads the declarations file.** Warp parses the JSONL output (described below) and uploads the listed repositories and files.
+
+See [Write a custom declarations script](#write-a-custom-declarations-script) for the full pattern.
+
+### Static flow
+
+Set `OZ_SNAPSHOT_DECLARATIONS_FILE` to a path you've already populated and leave `OZ_SNAPSHOT_DECLARATIONS_SCRIPT` unset. Warp reads the file directly with no script invocation. See [Use a static declarations file](#use-a-static-declarations-file) for the full pattern.
+
+In both flows, snapshotting is automatically enabled for cloud agent runs when cloud conversations are enabled, and can be turned off per run with `--no-snapshot`. See [Disable snapshots](#disable-snapshots) below.
 
 ## Environment variables
 
@@ -96,7 +105,7 @@ Then point Warp at it by exporting `OZ_SNAPSHOT_DECLARATIONS_SCRIPT` in the envi
 export OZ_SNAPSHOT_DECLARATIONS_SCRIPT=/path/to/snapshot-declarations.sh
 ```
 
-For a managed [Direct backend](/agent-platform/cloud-agents/self-hosting/managed-direct/) worker, set this in the worker's `setup_command` or via the worker's `environment` config so it's present when the agent process starts.
+For a managed [Direct backend](/agent-platform/cloud-agents/self-hosting/managed-direct/) worker, set it via the worker's `environment` config so it's present when the agent process starts.
 
 ## Use a static declarations file
 
