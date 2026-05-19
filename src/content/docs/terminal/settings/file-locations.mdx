@@ -1,0 +1,151 @@
+---
+title: File and folder locations
+description: >-
+  Reference for where Warp stores config, themes, tab configs, settings,
+  keybindings, logs, and other files on macOS, Windows, and Linux.
+sidebar:
+  label: "File locations"
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+This reference lists every directory and file Warp reads or writes on disk, organized by platform and Warp release channel. Use it when you want to back up your config, edit a file directly, debug a missing setting, or symlink Warp's configuration from another shell (for example, [WSL](#symlinking-warps-config-from-wsl)).
+
+## How Warp organizes files
+
+Warp groups its files into three buckets, and the directory each bucket maps to depends on your platform. Knowing the bucket explains why two files that feel related (themes and settings, for example) live in different roots on Windows and Linux but the same root on macOS.
+
+* **Portable user data** - Files you'd want to copy to a new machine, such as themes, tab configs, workflows, and launch configurations.
+* **Non-portable config** - Local-only configuration that doesn't make sense to roam, such as `settings.toml` and `keybindings.yaml`.
+* **Non-portable state** - Machine-specific state like logs, the local database, and the Codebase Context index.
+
+In addition, a small set of cross-cutting files always live under `~/.warp/` (or `~/.warp-<channel>/` on macOS Preview) on every platform — currently MCP server config and bundled skills. These intentionally sit in the home directory so they're easy to reference from shell config, version control, or other tools.
+
+## File locations by platform
+
+The tables below cover the **Stable** channel. For **Preview**, see [Preview channel paths](#preview-channel-paths).
+
+<Tabs>
+  <TabItem label="macOS">
+    On macOS, Stable keeps every Warp-authored file under `~/.warp/`. Preview uses `~/.warp-preview/` for everything except the cross-platform `~/.warp/` carve-out.
+
+    **Portable user data**
+
+    * **Themes** - `~/.warp/themes/`
+    * **Tab configs** - `~/.warp/tab_configs/`
+    * **Default tab configs** (shipped, user-editable) - `~/.warp/default_tab_configs/`
+    * **Workflows** (local) - `~/.warp/workflows/`
+    * **Launch configurations** - `~/.warp/launch_configurations/`
+
+    **Non-portable config**
+
+    * **Settings file** - `~/.warp/settings.toml`
+    * **Keybindings** - `~/.warp/keybindings.yaml`
+    * **User preferences** (legacy) - macOS `defaults` domain `dev.warp.Warp-Stable`
+
+    **Non-portable state**
+
+    * **Logs** - `~/Library/Logs/warp.log*`
+    * **Crash reports** - `~/Library/Logs/DiagnosticReports/` (Warp `.ips` files)
+    * **Database, Codebase Context index, MCP logs** - `~/Library/Group Containers/2BBY89MBSN.dev.warp/Library/Application Support/dev.warp.Warp-Stable/`
+
+    **Cross-platform (always in your home directory)**
+
+    * **MCP server config** - `~/.warp/.mcp.json`
+    * **Bundled skills** - `~/.warp/skills/`
+    * **Agent config** - `~/.agents/`
+  </TabItem>
+  <TabItem label="Windows">
+    On Windows, Warp follows the platform conventions used by the [`directories`](https://docs.rs/directories) crate, which splits user data across `%APPDATA%` (Roaming) and `%LOCALAPPDATA%` (Local). Themes and tab configs are portable and live in Roaming, while settings, logs, and the local database are machine-specific and live in Local. Two separate `data\` directories exist as a result — one under each root — so check the full path when locating files.
+
+    **Portable user data** (`%APPDATA%\warp\Warp\data\`, Roaming)
+
+    * **Themes** - `%APPDATA%\warp\Warp\data\themes\`
+    * **Tab configs** - `%APPDATA%\warp\Warp\data\tab_configs\`
+    * **Default tab configs** (shipped, user-editable) - `%APPDATA%\warp\Warp\data\default_tab_configs\`
+    * **Workflows** (local) - `%APPDATA%\warp\Warp\data\workflows\`
+    * **Launch configurations** - `%APPDATA%\warp\Warp\data\launch_configurations\`
+
+    **Non-portable config** (`%LOCALAPPDATA%\warp\Warp\config\`)
+
+    * **Settings file** - `%LOCALAPPDATA%\warp\Warp\config\settings.toml`
+    * **Keybindings** - `%LOCALAPPDATA%\warp\Warp\config\keybindings.yaml`
+    * **User preferences** (legacy) - Windows Registry key `HKCU:\Software\Warp.dev\Warp`
+
+    **Non-portable state** (`%LOCALAPPDATA%\warp\Warp\data\`)
+
+    * **Logs** - `%LOCALAPPDATA%\warp\Warp\data\logs\warp.log*`
+    * **Database, Codebase Context index, MCP logs** - other subdirectories under `%LOCALAPPDATA%\warp\Warp\data\`
+    * **Cache** - `%LOCALAPPDATA%\warp\Warp\cache\`
+
+    **Cross-platform (always in your home directory)**
+
+    * **MCP server config** - `%USERPROFILE%\.warp\.mcp.json`
+    * **Bundled skills** - `%USERPROFILE%\.warp\skills\`
+    * **Agent config** - `%USERPROFILE%\.agents\`
+  </TabItem>
+  <TabItem label="Linux">
+    On Linux, Warp follows the [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html). Each path below uses the standard XDG environment variable with its default fallback.
+
+    **Portable user data** (`${XDG_DATA_HOME:-$HOME/.local/share}/warp-terminal/`)
+
+    * **Themes** - `${XDG_DATA_HOME:-$HOME/.local/share}/warp-terminal/themes/`
+    * **Tab configs** - `${XDG_DATA_HOME:-$HOME/.local/share}/warp-terminal/tab_configs/`
+    * **Default tab configs** (shipped, user-editable) - `${XDG_DATA_HOME:-$HOME/.local/share}/warp-terminal/default_tab_configs/`
+    * **Workflows** (local) - `${XDG_DATA_HOME:-$HOME/.local/share}/warp-terminal/workflows/`
+    * **Launch configurations** - `${XDG_DATA_HOME:-$HOME/.local/share}/warp-terminal/launch_configurations/`
+
+    **Non-portable config** (`${XDG_CONFIG_HOME:-$HOME/.config}/warp-terminal/`)
+
+    * **Settings file** - `${XDG_CONFIG_HOME:-$HOME/.config}/warp-terminal/settings.toml`
+    * **Keybindings** - `${XDG_CONFIG_HOME:-$HOME/.config}/warp-terminal/keybindings.yaml`
+
+    **Non-portable state** (`${XDG_STATE_HOME:-$HOME/.local/state}/warp-terminal/`)
+
+    * **Logs** - `${XDG_STATE_HOME:-$HOME/.local/state}/warp-terminal/warp.log*`
+    * **Database, Codebase Context index, MCP logs** - other files under `${XDG_STATE_HOME:-$HOME/.local/state}/warp-terminal/`
+    * **Cache** - `${XDG_CACHE_HOME:-$HOME/.cache}/warp-terminal/`
+
+    **Cross-platform (always in your home directory)**
+
+    * **MCP server config** - `~/.warp/.mcp.json`
+    * **Bundled skills** - `~/.warp/skills/`
+    * **Agent config** - `~/.agents/`
+  </TabItem>
+</Tabs>
+
+## Preview channel paths
+
+Preview uses a separate set of directories so it never overwrites your Stable config:
+
+* **macOS** - Replace `~/.warp/` with `~/.warp-preview/` and `Warp-Stable` with `Warp-Preview` in the macOS paths above. The cross-platform `~/.warp/` carve-out (MCP config, skills) is shared with Stable.
+* **Windows** - Replace `\warp\Warp\` with `\warp\WarpPreview\` in every path. Logs become `%LOCALAPPDATA%\warp\WarpPreview\data\logs\warp_preview.log*`. The Registry key is `HKCU:\Software\Warp.dev\Warp-Preview`.
+* **Linux** - Append `-preview` to each `warp-terminal` directory (for example, `~/.config/warp-terminal-preview/settings.toml`). Logs become `${XDG_STATE_HOME:-$HOME/.local/state}/warp-terminal-preview/warp_preview.log*`.
+
+## Symlinking Warp's config from WSL
+
+If you run Warp on Windows and also use WSL, you can share Warp's portable config with your WSL `$HOME` so that tools running inside WSL can read the same themes and tab configs. Because Warp splits portable data (Roaming) and non-portable config (Local) into two separate roots, you'll need a symlink per root rather than a single top-level link.
+
+From a WSL shell:
+
+```bash
+# Portable data: themes, tab configs, workflows, launch configurations.
+ln -s "/mnt/c/Users/$USER/AppData/Roaming/warp/Warp/data" ~/.warp-windows-data
+
+# Local config: settings.toml, keybindings.yaml.
+ln -s "/mnt/c/Users/$USER/AppData/Local/warp/Warp/config" ~/.warp-windows-config
+```
+
+`~/.warp/` (MCP config, skills) and `~/.agents/` are already shared because both Windows and WSL use the same user home directory layout for those files.
+
+:::note
+Warp on Windows does not currently load config from `~/.warp/tab_configs/` or `~/.warp/themes/` — those paths only work on macOS. If you have config files in those home-directory paths from a different machine, copy or symlink them into the Windows `%APPDATA%\warp\Warp\data\` directory before they take effect.
+:::
+
+## Related pages
+
+* [Settings file](/terminal/settings/) - Format, hot-reload behavior, and common examples for `settings.toml`.
+* [All settings reference](/terminal/settings/all-settings/) - Every setting available in `settings.toml`, organized by section.
+* [Keyboard shortcuts](/getting-started/keyboard-shortcuts/) - How to view and remap shortcuts, including the `keybindings.yaml` file.
+* [Tab Configs](/terminal/windows/tab-configs/) - TOML format and schema for tab config files in `tab_configs/`.
+* [Custom themes](/terminal/appearance/custom-themes/) - YAML format and image conventions for themes in `themes/`.
+* [Uninstalling Warp](/support-and-community/troubleshooting-and-support/logging-out-and-uninstalling/) - Commands for removing all of these files when uninstalling.
