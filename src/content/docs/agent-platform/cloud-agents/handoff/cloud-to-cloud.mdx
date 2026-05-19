@@ -1,13 +1,13 @@
 ---
 title: Handoff from cloud to cloud
 description: >-
-  Send a follow-up to a finished cloud run. The run continues with the prior
-  workspace state restored, so the agent picks up where it left off.
+  Send follow-up instructions to a finished cloud agent run. The run continues
+  with restored workspace state, so the agent picks up where it left off.
 sidebar:
   label: "Cloud to cloud"
 ---
 
-Hand off a cloud agent run to a fresh cloud session when the original session has ended but you still want to push the same unit of work further. The run continues in the same conversation, with the prior session's workspace state restored, so the agent picks up where it left off instead of starting fresh.
+When a cloud session ends before the work is done, cloud-to-cloud handoff lets you continue the same run in a fresh cloud session. The run continues in the same conversation, with the prior session's workspace state restored, so the agent picks up where it left off instead of starting over.
 
 Use this handoff direction when:
 
@@ -19,15 +19,15 @@ Use this handoff direction when:
 When you send a follow-up to a run whose session has ended, the run continues with:
 
 * **The same conversation** - The follow-up is appended to the same conversation. From your perspective, the run is one continuous conversation across sessions.
-* **The prior workspace state** - The prior session's repository changes (tracked and untracked) are restored before the agent answers your follow-up. For git-managed sessions, the new session continues on the same Git branch.
+* **The prior workspace state** - The prior session's repository changes (tracked and untracked) are restored before the agent answers your follow-up. For Git-managed sessions, the new session continues on the same Git branch.
 * **Stable run identity** - The run's ID, task, creator, environment, schedule trigger, and integration source are preserved. Compute usage is recorded per session but rolls up to the same run.
 
-If applying any change fails, the agent reports what couldn't be applied and proceeds with what it could rather than starting over silently.
+If applying any change fails, the agent reports what couldn't be applied and continues with the changes it could apply rather than starting over silently.
 
 ## Prerequisites
 
-* **An ended cloud agent run** - The run must be in a terminal state — for example, succeeded, failed, or canceled — and have an associated agent conversation. Blocked runs that are waiting on user input or approval can't be continued via cloud-to-cloud handoff; respond to the prompt on the original run instead. Very old runs that predate the agent conversation model can't be continued via handoff.
-* **A snapshot from the prior session** - Cloud agent runs capture a workspace snapshot at the end of each session. If the prior session couldn't capture one (for example, due to a transient storage error), the run still continues, just without restored workspace state.
+* **An ended cloud agent run** - The run must be in a terminal state, such as succeeded, failed, or canceled, and have an associated agent conversation. Blocked runs that are waiting on user input or approval can't be continued via cloud-to-cloud handoff; respond to the prompt on the original run instead. Very old runs that predate the agent conversation model can't be continued via handoff.
+* **A snapshot from the prior session** - Cloud agent runs capture a workspace snapshot at the end of each session. If the prior session couldn't capture one (for example, due to a transient storage error), the run still continues but without restored workspace state.
 * **Access to the run** - You need permission to submit follow-ups for the run. For team runs, this is typically any team member. Cloud runs that originated from a local-to-cloud handoff can be continued only by the user who created them, not by other team members.
 
 :::caution
@@ -36,7 +36,7 @@ Cloud-to-cloud handoff relies on a snapshot from the prior session. Older cloud 
 
 ## Sending a follow-up
 
-You don't take a separate "hand off" action — you send a follow-up from the Warp app, and the run continues. The handoff happens automatically when the original session has ended.
+You don't take a separate "hand off" action. Send a follow-up from the Warp app, and the run continues. The handoff happens automatically when the original session has ended.
 
 1. **Open the ended cloud run.** Find it on the [Runs page](https://oz.warp.dev/runs) in the Oz web app or in the conversation panel.
 2. **Send your follow-up.** Enter the next message in the conversation's input and submit it.
@@ -54,7 +54,7 @@ The [management view](/agent-platform/cloud-agents/managing-cloud-agents/) shows
 ## Troubleshooting
 
 **The run continued but no workspace state was restored.**
-The prior session didn't capture a snapshot. This is rare but possible — snapshot capture is best-effort. The run still continues with the same conversation, so the agent has the full transcript context even without the workspace state.
+The prior session didn't capture a snapshot. This is rare but possible because snapshot capture is best-effort. The run still continues with the same conversation, so the agent has the full transcript context even without the workspace state.
 
 **The run is in a terminal state with no conversation and follow-ups are rejected.**
 Very old runs predate the agent conversation model and can't be continued via handoff. Start a new cloud agent run with the prompt you want, referencing the prior run if needed.
