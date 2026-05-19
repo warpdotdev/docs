@@ -26,8 +26,8 @@ If applying any change fails, the agent reports what couldn't be applied and pro
 
 ## Prerequisites
 
-* **An ended cloud agent run** - The run must be in a terminal state — for example, succeeded, failed, or canceled — and have an associated agent conversation. Blocked runs that are waiting on user input or approval aren't continued through cloud-to-cloud handoff; respond to the prompt on the original run instead. Very old runs that predate the agent conversation model can't be continued via handoff.
-* **A snapshot from the prior session** - Cloud agent runs capture a workspace snapshot at the end of each session. If the prior session couldn't capture one (for example, due to a transient storage error), the run still continues — it just starts without restored workspace state.
+* **An ended cloud agent run** - The run must be in a terminal state — for example, succeeded, failed, or canceled — and have an associated agent conversation. Blocked runs that are waiting on user input or approval can't be continued via cloud-to-cloud handoff; respond to the prompt on the original run instead. Very old runs that predate the agent conversation model can't be continued via handoff.
+* **A snapshot from the prior session** - Cloud agent runs capture a workspace snapshot at the end of each session. If the prior session couldn't capture one (for example, due to a transient storage error), the run still continues, just without restored workspace state.
 * **Access to the run** - You need permission to submit follow-ups for the run. For team runs, this is typically any team member. Cloud runs that originated from a local-to-cloud handoff can be continued only by the user who created them, not by other team members.
 
 :::caution
