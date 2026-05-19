@@ -1,9 +1,9 @@
 ---
 title: Handoff between local and cloud agents
 description: >-
-  Move an agent conversation between your terminal and the cloud, or continue
-  a finished cloud run with workspace state restored, without re-explaining
-  the task.
+  Move agent work between a local Warp session and the cloud, or continue a
+  finished cloud run with workspace state restored, without re-explaining the
+  task.
 sidebar:
   label: "Handoff overview"
 ---
@@ -14,7 +14,7 @@ Handoff lets you move a unit of agent work between a local Warp session and the 
 
 Handoff supports three directions:
 
-* **Local to cloud** - Promote a local Warp Agent conversation to a cloud agent run when you need more compute, longer-running work, or to fan out variants in parallel. The cloud agent starts from your conversation history and a snapshot of your uncommitted workspace changes. See [Handoff from local to cloud](/agent-platform/cloud-agents/handoff/local-to-cloud/).
+* **Local to cloud** - Promote a local Warp Agent conversation to a cloud agent run when you need more compute, longer-running work, or parallel variants of the same task. The cloud agent starts from your conversation history and a snapshot of your uncommitted workspace changes. See [Handoff from local to cloud](/agent-platform/cloud-agents/handoff/local-to-cloud/).
 * **Cloud to cloud** - Send a follow-up to a cloud run after its session has ended. The run continues in the same conversation, with the prior session's workspace state restored. See [Handoff from cloud to cloud](/agent-platform/cloud-agents/handoff/cloud-to-cloud/).
 * **Cloud to local** - Fork a cloud conversation into a local Warp session with **Continue locally** or `/continue-locally`. See [Viewing cloud agent runs](/agent-platform/cloud-agents/viewing-cloud-agent-runs/#5-fork-the-session-to-your-local-warp).
 
@@ -30,7 +30,7 @@ Handoff coverage depends on which agent is running the conversation:
 Handoff preserves enough state that the receiving agent can resume the work, not just read about it.
 
 * **Conversation history** - The receiving agent sees the full transcript of the prior session. Local-to-cloud forks the conversation so the source isn't modified; cloud-to-cloud continues in the same conversation.
-* **Workspace state** - Local-to-cloud and cloud-to-cloud capture the prior session's repository changes (tracked and untracked) and apply them in the receiving run before the agent answers the next prompt. The cloud-to-local direction does not currently apply workspace patches to your local checkout; review the cloud agent's branch or pull request artifact to inspect those changes.
+* **Workspace state** - Local-to-cloud and cloud-to-cloud capture the prior session's repository changes (tracked and untracked) and apply them in the receiving run before the agent answers the next prompt. The cloud-to-local direction doesn't currently apply workspace patches to your local checkout; review the cloud agent's branch or pull request artifact to inspect those changes.
 * **Conversation attachments** - Files attached during the prior session remain available to the receiving agent.
 
 Handoff is best-effort. When the receiving agent can apply the prior session's changes cleanly, it picks up where the prior agent left off. When it can't, the agent reports what failed and proceeds with what it could rather than starting over silently.

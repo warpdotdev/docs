@@ -12,7 +12,7 @@ Hand off a local Warp conversation to a cloud agent run when the work outgrows y
 
 Use this handoff direction when:
 
-* The task is going to run for a long time and you don't want to keep your laptop awake.
+* You have a long-running task and don't want to keep your laptop awake.
 * You want to fan out variants of the same task across multiple cloud agents in parallel.
 * You want to walk away and check on the agent from a different device.
 * You want the agent to keep working while you start a new conversation locally.
@@ -36,15 +36,15 @@ If applying any change fails in the cloud run, the cloud agent reports what coul
 
 ## Handing off a conversation to the cloud
 
-1. **Open the handoff flow from your active conversation.** With the local conversation focused, trigger handoff with the `&` shortcut or the `/handoff` slash command. Either entry point opens the handoff flow scoped to the current conversation. The `/cloud-agent` slash command always starts a fresh cloud conversation and isn't an entry point for handoff.
-2. **Choose the environment for the cloud run.** Pick the environment whose repositories match the directories your local conversation has been editing. If you don't have a matching environment yet, create one first and add the repos you've been working in.
+1. **Open the handoff flow from your active conversation.** With the local conversation focused, press `&` or run the `/handoff` slash command. Either entry point opens the handoff flow scoped to the current conversation. The `/cloud-agent` slash command always starts a fresh cloud conversation and isn't an entry point for handoff.
+2. **Choose the environment for the cloud run.** Pick the one whose repositories match the directories your local conversation has been editing. If you don't have a matching environment yet, create one and add the repos you've been working in.
 3. **Add a follow-up prompt and submit.** Enter the next message you want the cloud agent to act on.
 
 :::note
 The cloud agent runs with the same model your local conversation was using. Changing the model during handoff isn't supported.
 :::
 
-After submission, the cloud agent applies your workspace snapshot and addresses your follow-up. The local conversation stays untouched — you can keep working in it locally or close it.
+After you submit, the cloud agent applies your workspace snapshot and addresses your follow-up. The local conversation stays untouched — you can keep working in it locally or close it.
 
 To check on the new run, open it from the [Runs page](https://oz.warp.dev/runs) in the Oz web app or the conversation panel.
 
@@ -54,7 +54,7 @@ To check on the new run, open it from the [Runs page](https://oz.warp.dev/runs) 
 The most common cause is a repository mismatch between your local checkout and the environment. The workspace snapshot is generated against your local repo's current state; the environment must be on a compatible branch and commit for the changes to apply cleanly. Switch the environment's repo to the branch you were on locally and retry the handoff.
 
 **The cloud agent doesn't see my uncommitted changes.**
-Cloud conversation storage must be enabled for handoff to work. In the Warp app, open **Settings** > **Privacy** and confirm **Store AI conversations in the cloud** is on. Without it, the conversation can't be forked and the run falls back to starting fresh.
+Cloud conversation storage must be enabled for handoff to work. In the Warp app, open **Settings** > **Privacy** and confirm **Store AI conversations in the cloud** is on. Otherwise, the conversation can't be forked and the run falls back to starting fresh.
 
 **The conversation doesn't appear in the cloud run.**
 The source conversation may not have finished syncing to the cloud when you triggered the handoff. Wait a moment and retry. If the problem persists, check the conversation panel to confirm the conversation has a cloud-synced indicator.
