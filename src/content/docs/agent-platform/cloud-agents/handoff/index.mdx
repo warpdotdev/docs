@@ -1,0 +1,52 @@
+---
+title: Handoff between local and cloud agents
+description: >-
+  Move agent work between a local Warp session and the cloud, or continue a
+  finished cloud run with workspace state restored, without re-explaining the
+  task.
+sidebar:
+  label: "Handoff overview"
+---
+
+Handoff lets you move a unit of agent work between a local Warp session and the cloud, or continue a finished cloud run, without re-explaining the task. The receiving agent picks up the conversation history, your workspace state, and any conversation attachments from the prior session.
+
+## Directions of handoff
+
+Handoff supports three directions:
+
+* **Local to cloud** - Promote a local Warp Agent conversation to a cloud agent run when you need more compute, longer-running work, or parallel variants of the same task. The cloud agent starts from your conversation history and a snapshot of your uncommitted workspace changes. See [Handoff from local to cloud](/agent-platform/cloud-agents/handoff/local-to-cloud/).
+* **Cloud to cloud** - Send a follow-up to a cloud run after its session has ended. The run continues in the same conversation, with the prior session's workspace state restored. See [Handoff from cloud to cloud](/agent-platform/cloud-agents/handoff/cloud-to-cloud/).
+* **Cloud to local** - Fork a cloud conversation into a local Warp session with **Continue locally** or `/continue-locally`. See [Viewing cloud agent runs](/agent-platform/cloud-agents/viewing-cloud-agent-runs/#5-fork-the-session-to-your-local-warp).
+
+### Third-party agent runtime coverage
+
+Handoff coverage depends on which agent is running the conversation:
+
+* **Cloud to cloud** works for both the Warp Agent and supported third-party agent runtimes. For supported third-party agent runtimes, the affordance is a **Continue** button followed by an input prompt, instead of the streamlined follow-up flow you get with the Warp Agent.
+* **Local to cloud** works for the Warp Agent. It isn't available for supported third-party agent runtimes.
+
+## What carries over
+
+Handoff preserves enough state that the receiving agent can resume the work, not only read about it.
+
+* **Conversation history** - The receiving agent sees the full transcript of the prior session. Local-to-cloud forks the conversation so the source isn't modified; cloud-to-cloud continues in the same conversation.
+* **Workspace state** - Local-to-cloud and cloud-to-cloud capture the prior session's repository changes (tracked and untracked) and apply them in the receiving run before the agent answers the next prompt. The cloud-to-local direction doesn't currently apply workspace patches to your local checkout; review the cloud agent's branch or pull request artifact to inspect those changes.
+* **Conversation attachments** - Files attached during the prior session remain available to the receiving agent.
+
+Handoff is best-effort. When the receiving agent can apply the prior session's changes cleanly, it picks up where the prior agent left off. When it can't, the agent reports what failed and proceeds with what it could rather than starting over silently.
+
+## When to use handoff
+
+Each direction has a clear motivating workflow.
+
+* **Local to cloud** - Use when a local conversation has grown into work that's better done in the cloud: long-running tasks you don't want to keep your laptop awake for, parallel variants of the same task, or steering work from another device once it's running.
+* **Cloud to cloud** - Use when a cloud agent finished and you want to send a follow-up without losing the prior workspace state. Also useful when a Slack-triggered or scheduled run completes and someone on the team wants to push it further.
+* **Cloud to local** - Use when a cloud agent has done the heavy lifting and you want to take over locally to verify, iterate, or polish before shipping.
+
+## Related pages
+
+* [Cloud agents overview](/agent-platform/cloud-agents/overview/) - What cloud agents are, when to use them, and how they fit into the Oz Platform.
+* [Managing cloud agents](/agent-platform/cloud-agents/managing-cloud-agents/) - Inspect handoff runs from the management view alongside local conversations.
+* [Viewing cloud agent runs](/agent-platform/cloud-agents/viewing-cloud-agent-runs/) - Open and continue a cloud run locally with **Continue locally** or `/continue-locally`.
+* [Cloud-synced conversations](/agent-platform/local-agents/cloud-conversations/) - How conversations sync between local and cloud so handoff can find them.
+* [Environments](/agent-platform/cloud-agents/environments/) - The runtime context a cloud agent runs in after a handoff.

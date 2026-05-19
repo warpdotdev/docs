@@ -22,7 +22,7 @@ Cloud agent setups usually have four moving parts:
 
 ### Pattern 1: CLI-only agents (bring your own orchestrator)
 
-Use this when you already have a system that schedules work (CI, dev boxes, internal orchestrators), and you just need a reliable, cloud-connected agent runner.
+Use this when you already have a system that schedules work (CI, dev boxes, internal orchestrators), and you need a reliable, cloud-connected agent runner.
 
 #### What it looks like
 
@@ -53,7 +53,7 @@ Use this when you already have a system that schedules work (CI, dev boxes, inte
 #### Minimal setup checklist
 
 * A Warp team
-* A service account (recommended for automation)
+* An [agent identity](/agent-platform/cloud-agents/agents/) (recommended for automation)
 * The Oz CLI installed on the runner / box
 * Any needed credentials (often via secrets + environment variables)
 
@@ -83,7 +83,7 @@ Use this when you want Oz to run agent workloads on Warp-managed infrastructure,
 * **First-party integrations (Slack, Linear, etc.)** that create tasks automatically from external events.
 * **Scheduled agents** for recurring work (cron-like automation).
 * **Custom triggers** from your own systems using Warp’s API/SDK.
-* **On-demand cloud jobs** using CLI commands like oz agent run-cloud.
+* **On-demand cloud jobs** using CLI commands like `oz agent run-cloud`.
 
 #### Example recipe: daily dead-code cleanup
 
@@ -103,7 +103,7 @@ Use this when you want Oz to run agent workloads on Warp-managed infrastructure,
 
 If a task is naturally divisible:
 
-* Launch multiple cloud agents via oz agent run-cloud, each with:
+* Launch multiple cloud agents via `oz agent run-cloud`, each with:
   * A shard of the repo (directory/module ownership)
   * A shard of the prompt (one responsibility)
 * Aggregate results (PRs, notes, plans) in whatever system you prefer.

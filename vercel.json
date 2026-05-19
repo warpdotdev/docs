@@ -9572,6 +9572,11 @@
       "source": "/oz",
       "destination": "/agent-platform/cloud-agents/overview/",
       "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/capabilities/agent-memory",
+      "destination": "/agent-platform/agent-memory/",
+      "statusCode": 308
     }
   ]
 }
