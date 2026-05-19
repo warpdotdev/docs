@@ -114,9 +114,87 @@ export OZ_SNAPSHOT_DECLARATIONS_SCRIPT=/path/to/snapshot-declarations.sh
 
 For a managed [Direct backend](/agent-platform/cloud-agents/self-hosting/managed-direct/) worker, set it via the worker's `environment` config so it's present when the agent process starts.
 
+### The full bundled script
+
+For reference, this is the canonical declarations script Warp invokes inside the bundled cloud agent image. It's a richer version of the minimal example above: it honors a colon-separated `OZ_SNAPSHOT_SCAN_ROOTS` override for operators who need to scan repos outside the default workspace, uses `jq` for canonical JSON encoding (which handles `"` and `\` escaping for you), and dedupes against repo declarations already written in the same run so repeated invocations stay additive.
+
 :::note
-The declarations script bundled in Warp's cloud agent image is a richer version of the example above: it also honors a colon-separated `OZ_SNAPSHOT_SCAN_ROOTS` override for operators who need to scan repos outside the default workspace, uses `jq` for canonical JSON encoding instead of `sed`-based escaping, and dedupes against repo declarations already written in the same run so repeated invocations stay additive.
+The bundled script defaults `OZ_SNAPSHOT_JQ` to `/agent/tools/jq`, which only exists inside Warp's cloud agent image. If you adapt this script for a different image or for an unmanaged `oz agent run`, put `jq` on `PATH` or set `OZ_SNAPSHOT_JQ` to its absolute path.
 :::
+
+```bash title="snapshot-declarations.sh"
+#!/bin/bash
+# Generates the declarations file consumed by the end-of-run snapshot upload pipeline.
+#
+# Scans one or more roots for `.git` directories and appends one JSON object per
+# newly-discovered repository to the declarations file.
+#
+# Scan root selection (in order of precedence):
+#   - OZ_SNAPSHOT_SCAN_ROOTS: colon-separated list of absolute paths. Operators can use this
+#     to target repos outside the default workspace.
+#   - $PWD: the Rust driver sets this to the agent's workspace via `Command::current_dir`
+#     before invoking the script, so the default scan root is always the assigned workspace.
+#
+# Output file:
+#   - OZ_SNAPSHOT_DECLARATIONS_FILE must be set. The Rust driver sets this to a per-run path
+#     so concurrent runs don't clobber each other.
+#   - The file is created if missing, and appended to if it already exists. Existing lines are
+#     never rewritten, so operator-authored declarations are preserved.
+#   - Repeated invocations within a single run skip already-emitted repo declarations so the
+#     upload pipeline can stay additive without duplicating identical generated entries.
+
+set -euo pipefail
+
+SCAN_ROOTS_RAW="${OZ_SNAPSHOT_SCAN_ROOTS:-$PWD}"
+IFS=':' read -r -a SCAN_ROOTS <<< "$SCAN_ROOTS_RAW"
+
+if [ -z "${OZ_SNAPSHOT_DECLARATIONS_FILE:-}" ]; then
+    echo "OZ_SNAPSHOT_DECLARATIONS_FILE must be set" >&2
+    exit 1
+fi
+
+DECL_FILE="$OZ_SNAPSHOT_DECLARATIONS_FILE"
+JQ="${OZ_SNAPSHOT_JQ:-/agent/tools/jq}"
+mkdir -p "$(dirname "$DECL_FILE")"
+touch "$DECL_FILE"
+
+# Dedup set. Seed from repo declarations already emitted by this script so a repeated
+# invocation within the same run doesn't re-emit repos it already discovered earlier.
+# Keep the full canonical JSON line as the key; this lets us preserve unrelated JSONL entries
+# verbatim while ensuring identical generated declarations are emitted at most once.
+SEEN_FILE="$(mktemp)"
+trap 'rm -f "$SEEN_FILE"' EXIT
+"$JQ" --raw-input --compact-output '
+    fromjson?
+    | select(
+        type == "object"
+        and (. | keys_unsorted | sort == ["kind", "path", "version"])
+        and .version == 1
+        and .kind == "repo"
+        and (.path | type == "string")
+    )
+    | { version: 1, kind: "repo", path: .path }
+' "$DECL_FILE" > "$SEEN_FILE"
+
+repo_declaration_for_path() {
+    "$JQ" --compact-output --null-input \
+        --arg path "$1" \
+        '{ version: 1, kind: "repo", path: $path }'
+}
+
+for root in "${SCAN_ROOTS[@]}"; do
+    [ -d "$root" ] || continue
+    while IFS= read -r git_dir; do
+        repo_root="$(cd "$(dirname "$git_dir")" && pwd)"
+        repo_declaration="$(repo_declaration_for_path "$repo_root")"
+        if grep -Fxq -- "$repo_declaration" "$SEEN_FILE"; then
+            continue
+        fi
+        printf '%s\n' "$repo_declaration" >> "$SEEN_FILE"
+        printf '%s\n' "$repo_declaration" >> "$DECL_FILE"
+    done < <(find "$root" -type d -name .git -prune -print 2>/dev/null)
+done
+```
 
 ## Use a static declarations file
 
