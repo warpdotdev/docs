@@ -76,12 +76,12 @@ Integrations and [cloud agents](/agent-platform/cloud-agents/overview/) run insi
 
 Your team must meet the following requirements to run integrations:
 
-* You must be on a plan that supports **[Reload Credits (Add-on Credits)](/support-and-community/plans-and-billing/add-on-credits/)**.
+* You must be on a plan that supports **[Add-on Credits](/support-and-community/plans-and-billing/add-on-credits/)**.
   * Supported: **Build, Max, Business**
   * Not supported: Pro, Turbo, Lightspeed, legacy Business.
 * Your team needs at least **20 credits** available to run cloud agents and integrations
 
-When a user triggers an agent through an integration (like Slack or Linear), the run draws from credits in a specific order. It starts with any [cloud agent credits](/support-and-community/plans-and-billing/credits/#compute-credits) the user has, then moves to the user's base credits, followed by the team's Reload Credits, and finally the user's own Reload Credits. Enterprises may have different payment options and credit plans that affect this flow. If all applicable credit sources are exhausted, integrations and cloud agents will not work until credits are added.
+When a user triggers an agent through an integration (like Slack or Linear), the run draws from credits in a specific order. It starts with any [cloud agent credits](/support-and-community/plans-and-billing/credits/#compute-credits) the user has, then moves to the user's base credits, followed by the team's Add-on Credits, and finally the user's own Add-on Credits. Enterprises may have different payment options and credit plans that affect this flow. If all applicable credit sources are exhausted, integrations and cloud agents will not work until credits are added.
 
 :::note
 If you're on an Enterprise plan, please reach out to [warp.dev/contact-sales](https://warp.dev/contact-sales) with any billing questions related to integrations.
@@ -212,12 +212,12 @@ How credits are consumed depends on how the agent run is triggered and authentic
 **User-triggered runs** (CLI with personal API key, Slack, Linear, or the Warp app):
 
 * Runs are tied to the triggering user's identity
-* Credits are consumed starting with any credit grants specifically allocated for cloud agent usage, then the user's base credits, followed by the team's Reload Credits, and finally the user's own Reload Credits
+* Credits are consumed starting with any credit grants specifically allocated for cloud agent usage, then the user's base credits, followed by the team's Add-on Credits, and finally the user's own Add-on Credits
 
 **Team API key runs** (fully automated or headless workflows):
 
 * Runs are not tied to any individual user
-* Only the team's Reload Credit pool is used—no individual base credits are available
+* Only the team's Add-on Credit pool is used—no individual base credits are available
 * Ideal for CI/CD pipelines, scheduled tasks, and other automated workflows
 * For workflows that require code changes (opening pull requests, pushing branches, or writing to a repository), configure [team GitHub authorization](#team-github-authorization) so the agent can authenticate with the Oz by Warp GitHub App. Alternatively, use a [personal API key](/reference/cli/api-keys/) to authenticate as an individual user.
 
@@ -236,7 +236,7 @@ All triggers and instructions used by cloud agents are defined and controlled by
 
 #### Staying aware of usage
 
-Because triggers and instructions are configured by your team, any credits used when an agent runs are billed to your team's Reload Credit balance.
+Because triggers and instructions are configured by your team, any credits used when an agent runs are billed to your team's Add-on Credit balance.
 
 * It’s the team’s responsibility to manage triggers, confirm they behave as intended, and monitor usage.
 * Reviewing triggers, prompts, and agent behavior periodically helps ensure that credit usage aligns with expectations.
