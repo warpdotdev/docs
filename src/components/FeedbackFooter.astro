@@ -1,15 +1,11 @@
 ---
-// Custom footer with PushFeedback "Was this helpful?" widget.
-// PushFeedback CDN is loaded via Starlight's `head` config in astro.config.mjs.
-// Dashboard: https://app.pushfeedback.com
+// Custom footer: drops EditLink + LastUpdated from Starlight's default
+// footer and keeps Pagination + the Starlight credits link.
 import Pagination from 'virtual:starlight/components/Pagination';
 import config from 'virtual:starlight/user-config';
-import FeedbackButtons from './FeedbackButtons.astro';
 ---
 
 <footer class="sl-flex">
-  <FeedbackButtons />
-
   <Pagination />
 
   {
@@ -22,8 +18,6 @@ import FeedbackButtons from './FeedbackButtons.astro';
 </footer>
 
 <style>
-  /* `.feedback-*` rules live alongside the markup in FeedbackButtons.astro
-     so they ship together. Only footer-level layout stays here. */
   @layer starlight.core {
     footer {
       flex-direction: column;
