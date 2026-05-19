@@ -18,7 +18,7 @@ Warp groups its files into three buckets, and the directory each bucket maps to 
 * **Non-portable config** - Local-only configuration that doesn't make sense to roam, such as `settings.toml` and `keybindings.yaml`.
 * **Non-portable state** - Machine-specific state like logs, the local database, and the Codebase Context index.
 
-In addition, a small set of cross-cutting files always live under `~/.warp/` (or `~/.warp-<channel>/` on macOS Preview) on every platform — currently MCP server config and bundled skills. These intentionally sit in the home directory so they're easy to reference from shell config, version control, or other tools.
+In addition, a small set of cross-cutting files always live under `~/.warp/` on every platform and channel — currently MCP server config and bundled skills. Stable and Preview share `~/.warp/` for these files (other channels like OSS use a suffixed directory such as `~/.warp-oss/`). They intentionally sit in the home directory so they're easy to reference from shell config, version control, or other tools.
 
 ## File locations by platform
 
@@ -123,19 +123,29 @@ Preview uses a separate set of directories so it never overwrites your Stable co
 
 ## Symlinking Warp's config from WSL
 
-If you run Warp on Windows and also use WSL, you can share Warp's portable config with your WSL `$HOME` so that tools running inside WSL can read the same themes and tab configs. Because Warp splits portable data (Roaming) and non-portable config (Local) into two separate roots, you'll need a symlink per root rather than a single top-level link.
+If you run Warp on Windows and also use WSL, you can share Warp's config with your WSL `$HOME` so that tools running inside WSL can read the same themes, tab configs, settings, MCP servers, and agent config. WSL `$HOME` (typically `/home/<wsl-user>/`) is a separate filesystem from your Windows profile (`%USERPROFILE%`, typically `C:\Users\<Windows-user>\`), so nothing is shared automatically — every Warp directory you want to share needs its own symlink.
 
-From a WSL shell:
+Windows splits Warp's data across four roots (Roaming AppData, Local AppData, and two home-directory paths) and your WSL Linux username is usually different from your Windows account name, so do this from a WSL shell:
 
 ```bash
-# Portable data: themes, tab configs, workflows, launch configurations.
-ln -s "/mnt/c/Users/$USER/AppData/Roaming/warp/Warp/data" ~/.warp-windows-data
+# Set this once to your Windows username. Find it from WSL with:
+#   cmd.exe /C 'echo %USERNAME%' 2>/dev/null | tr -d '\r'
+WIN_USER=YourWindowsUserName
 
-# Local config: settings.toml, keybindings.yaml.
-ln -s "/mnt/c/Users/$USER/AppData/Local/warp/Warp/config" ~/.warp-windows-config
+# Portable data: themes, tab configs, workflows, launch configurations (Roaming AppData).
+ln -s "/mnt/c/Users/$WIN_USER/AppData/Roaming/warp/Warp/data" ~/.warp-windows-data
+
+# Local config: settings.toml, keybindings.yaml (Local AppData).
+ln -s "/mnt/c/Users/$WIN_USER/AppData/Local/warp/Warp/config" ~/.warp-windows-config
+
+# Cross-platform carve-outs: MCP server config and bundled skills.
+ln -s "/mnt/c/Users/$WIN_USER/.warp" ~/.warp
+
+# Agent config (.agents).
+ln -s "/mnt/c/Users/$WIN_USER/.agents" ~/.agents
 ```
 
-`~/.warp/` (MCP config, skills) and `~/.agents/` are already shared because both Windows and WSL use the same user home directory layout for those files.
+If `~/.warp` or `~/.agents` already exist in WSL, remove or back them up before creating the symlinks. To resolve `%USERPROFILE%` programmatically instead of hard-coding the Windows username, use `wslpath "$(cmd.exe /C 'echo %USERPROFILE%' 2>/dev/null | tr -d '\r')"` from WSL.
 
 :::note
 Warp on Windows does not currently load config from `~/.warp/tab_configs/` or `~/.warp/themes/` — those paths only work on macOS. If you have config files in those home-directory paths from a different machine, copy or symlink them into the Windows `%APPDATA%\warp\Warp\data\` directory before they take effect.
