@@ -361,6 +361,15 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'agent-platform/cloud-agents/oz-web-app', label: 'Oz web app' },
 						{ slug: 'agent-platform/cloud-agents/skills-as-agents', label: 'Skills as agents' },
 						{ slug: 'agent-platform/cloud-agents/viewing-cloud-agent-runs', label: 'Viewing cloud agent runs' },
+						{
+							label: 'Handoff',
+							collapsed: true,
+							items: [
+								{ slug: 'agent-platform/cloud-agents/handoff', label: 'Overview' },
+								{ slug: 'agent-platform/cloud-agents/handoff/local-to-cloud', label: 'Local to cloud' },
+								{ slug: 'agent-platform/cloud-agents/handoff/cloud-to-cloud', label: 'Cloud to cloud' },
+							],
+						},
 						'agent-platform/cloud-agents/secrets',
 						{
 							label: 'Harnesses',
