@@ -1,9 +1,9 @@
 ---
 title: Custom inference endpoint
 description: >-
-  Connect Warp to any OpenAI-compatible custom inference endpoint, such as
-  OpenRouter, LiteLLM, z.ai, or an internal gateway. Available on the Free
-  plan and all eligible paid plans.
+  Connect Warp to OpenAI-compatible endpoints (OpenRouter, LiteLLM, z.ai,
+  internal gateways). On Business and Enterprise, platform credits may
+  apply for local runs.
 ---
 
 A **Custom inference endpoint (CIE)** lets you connect Warp's agents to any OpenAI-compatible inference endpoint, so you can route AI requests through your preferred model router, hosted gateway, or internal infrastructure.
@@ -69,6 +69,10 @@ When you select a CIE-routed model from the model picker:
 * Inference is billed directly by your endpoint provider, according to their pricing.
 * The credit transparency footer will show "0 credits used" for CIE-routed requests.
 
+:::note
+On Business and Enterprise plans, local agent runs that use a custom inference endpoint still consume platform credits for Warp's platform infrastructure. See [platform credits](/support-and-community/plans-and-billing/platform-credits/) for the full breakdown.
+:::
+
 ### Auto routing still uses Warp credits
 
 Warp's **Auto** models dynamically route across providers using Warp's infrastructure. Because Auto routing depends on Warp, **Auto always consumes Warp's credits**, even if you've configured a custom inference endpoint.
@@ -108,6 +112,8 @@ Warp offers three ways to bring your own AI infrastructure. Use this table to pi
 | **[Bring your own API key](/support-and-community/plans-and-billing/bring-your-own-api-key/)** (BYOK) | Use your own API key for OpenAI, Anthropic, or Google models. Keys are stored locally on your device. | Free and all eligible paid plans |
 | **Custom inference endpoint** (CIE) | Connect Warp to an OpenAI-compatible endpoint such as OpenRouter, LiteLLM, z.ai, or an internal gateway. | Free and all eligible paid plans |
 | **[Bring your own LLM](/enterprise/enterprise-features/bring-your-own-llm/)** (BYOLLM) | Enterprise-managed inference through your cloud provider (AWS Bedrock, Azure Foundry, Google Vertex) or approved internal infrastructure, with Warp handling routing, orchestration, governance, and observability. | Enterprise only |
+
+Platform credits may apply for local agent runs on Business and Enterprise when using BYOK, CIE, or BYOLLM. See [platform credits](/support-and-community/plans-and-billing/platform-credits/).
 
 ## Related resources
 

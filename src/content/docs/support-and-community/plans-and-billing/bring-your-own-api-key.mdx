@@ -1,14 +1,18 @@
 ---
 title: Bring your own API key
 description: >-
-  Use your own OpenAI, Anthropic, or Google API keys with Warp's agents.
-  BYOK is available on the Free plan and all eligible paid plans, and never
-  consumes Warp credits.
+  Use your own OpenAI, Anthropic, or Google API keys. Never consumes AI
+  credits — on Business and Enterprise, platform credits may apply for
+  local agent runs.
 ---
 
 Warp supports **Bring your own API key (BYOK)** for users who want to connect Warp's agents to their own Anthropic, OpenAI, or Google API accounts.
 
 BYOK gives you full control over model selection, billing, and data routing. See [Model Choice](/agent-platform/capabilities/model-choice/) for the full list of supported models. When you route a request through your own key, Warp **never consumes your** [credits](/support-and-community/plans-and-billing/credits/) for that request.
+
+:::note
+On the Business and Enterprise plans, local agent runs that use BYOK still consume platform credits for Warp's platform infrastructure (run lifecycle, integrations, observability). See [platform credits](/support-and-community/plans-and-billing/platform-credits/) for what's covered.
+:::
 
 :::note
 BYOK is available on the Free plan and on all eligible paid plans. See [warp.dev/pricing](https://www.warp.dev/pricing) for the current list of eligible plans.
@@ -29,6 +33,8 @@ Warp offers three ways to bring your own AI infrastructure. Use this table to pi
 | **[Bring your own LLM](/enterprise/enterprise-features/bring-your-own-llm/)** (BYOLLM) | Enterprise-managed inference through your cloud provider (AWS Bedrock, Azure Foundry, Google Vertex) or approved internal infrastructure, with Warp handling routing, orchestration, governance, and observability. | Enterprise only |
 
 See [warp.dev/pricing](https://www.warp.dev/pricing) for current plan availability.
+
+Platform credits may apply for local agent runs on Business and Enterprise when using BYOK, CIE, or BYOLLM. See [platform credits](/support-and-community/plans-and-billing/platform-credits/).
 
 ## How BYOK works
 
