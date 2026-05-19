@@ -10,7 +10,7 @@ sidebar:
 Agent Memory is in **research preview** and is enabled per team for design partners. [Join the waitlist](https://warp.dev/oz/agent-memory#waitlist) to request access for your team.
 :::
 
-Agent Memory is a persistent memory layer that lives on Oz and is shared across every supported agent harness — the built-in Warp Agent, Claude Code, Codex, and others as they're added. Agents read from and write to it as they run, so durable facts, decisions, and outcomes from one conversation are available to the next, regardless of which harness, machine, or teammate triggers it.
+Agent Memory is a persistent memory layer that lives on Oz and is shared across every supported agent harness — the built-in Warp Agent, Claude Code, Codex, and others as they're added. Agents read from and write to it as they run, so durable facts, decisions, and outcomes from one conversation are available to the next — regardless of which harness, machine, or teammate triggers it.
 
 Memory creation and retrieval are asynchronous and run in the background, so they don't consume tokens or add latency to the active task.
 
@@ -19,7 +19,7 @@ Memory creation and retrieval are asynchronous and run in the background, so the
 ## Key features
 
 * **Cross-harness memory** — One memory layer shared across the Warp Agent, Claude Code, Codex, and other harnesses as they're added. Third-party harnesses are covered when they run as Oz cloud agents.
-* **Both local and cloud agents** — Works for interactive local agents in Warp and for background Oz cloud agents.
+* **Both local and cloud agents** — Supports interactive local agents in Warp and background Oz cloud agents.
 * **Asynchronous by design** — Memory creation runs after a conversation ends. Retrieval runs in the background during a run. Neither consumes tokens or adds latency to the active task.
 * **Automatic memory from conversations** — When a conversation ends, Oz extracts durable facts, learnings, and outcomes and writes them as memories. New knowledge merges with existing memories or supersedes them on conflict.
 * **Agent-scoped, shareable stores** — By default, each agent has its own memory store. Stores can also be shared across agents and across teammates when knowledge should travel together.
@@ -41,7 +41,7 @@ Memory stays bound to its owner (a user or a team), independent of which harness
 
 ## Memory stores
 
-A memory store is a named container of memories. By default, each agent has its own store and writes to it as it runs. Stores can also be shared across multiple agents when they need the same knowledge — and across teammates when knowledge should travel with the team.
+A memory store is a named collection of memories. By default, each agent has its own store and writes to it as it runs. Stores can also be shared across multiple agents when they need the same knowledge, and across teammates when knowledge should travel with the team.
 
 * **Personal stores** — Owned by a user. Hold preferences, working notes, and individual patterns.
 * **Team stores** — Owned by a team. Hold shared knowledge like deployment runbooks, code review conventions, or on-call procedures. Every team member and any team-authorized agent can read from the same store.
@@ -62,7 +62,7 @@ When an agent starts a task, Oz searches the stores the agent can access for rel
 
 ## Attaching memory to your agents
 
-Attach stores to agents with read-only or read-write access. Each attachment includes a free-form instruction string that tells the agent how and when to use the store — for example, "Reference this store for team naming conventions" or "Write a new memory after each successful deployment." Without instructions, the agent has access to the store but no guidance on when to read or write.
+Attach stores to agents with read-only or read-write access. Each attachment carries per-store instructions that tell the agent how and when to use the store — for example, "Reference this store for team naming conventions" or "Write a new memory after each successful deployment." Without instructions, the agent has access to the store but no guidance on when to read or write.
 
 ## Join the waitlist
 
