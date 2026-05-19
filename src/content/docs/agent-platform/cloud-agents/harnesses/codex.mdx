@@ -35,13 +35,13 @@ Codex calls OpenAI directly using credentials your team provides. Oz supports on
 
 * **OpenAI API key** - The Codex harness authenticates to OpenAI using this key for every run.
 
-OpenAI bills your account directly for inference. Warp credits cover the rest of the platform — environment compute, triggers, observability.
+OpenAI bills your account directly for inference. Warp credits cover the rest of the platform — environment compute, triggers, and observability.
 
 For setup steps, see [Connecting Codex credentials](/agent-platform/cloud-agents/harnesses/authentication/#connecting-codex-credentials).
 
 ## Starting a Codex run
 
-* **Warp app** - In Cloud Mode, click the harness dropdown above the input and choose **Codex**.
+* **Warp app** - In Cloud Mode, click the **Agent harness** dropdown above the input and choose **Codex**.
 * **Oz web app** - On the new run or new schedule pane, choose **Codex** in the **Harness** field. A **Codex auth secret** field appears below it; pick the OpenAI secret your team has stored.
 * **API and SDK** - Set the agent config `harness` to `codex` and the OpenAI secret name on the matching auth-secret field. See the [API reference](/reference/api-and-sdk/).
 

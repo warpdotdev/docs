@@ -13,14 +13,14 @@ Oz can run third-party agents — [Claude Code](/agent-platform/cloud-agents/har
 
 Third-party harnesses inherit the same Oz platform features as Warp Agent:
 
-* **Triggers** — Slack, Linear, schedules, CI, and API [triggers](/agent-platform/cloud-agents/integrations/) launch any harness.
+* **Triggers** — Slack, Linear, schedules, CI, and API [triggers](/agent-platform/cloud-agents/triggers/) launch any harness.
 * **Environments and secrets** — Reuse the same [environments](/agent-platform/cloud-agents/environments/) and [agent secrets](/agent-platform/cloud-agents/secrets/).
 * **Skills and Rules** — Saved [Skills](/agent-platform/capabilities/skills/) and [Rules](/agent-platform/capabilities/rules/) apply across harnesses.
 * **Observability** — Every run produces a transcript and shareable session in the [Oz dashboard](/agent-platform/cloud-agents/managing-cloud-agents/).
 
 ## Billing
 
-Claude Code and Codex call Anthropic or OpenAI directly using credentials you supply. The provider bills your account for inference. Warp credits cover the orchestration platform — environment compute, triggers, observability — but not third-party inference.
+Claude Code and Codex each call their provider directly using credentials you supply, and the provider bills your account for inference. Warp credits cover the orchestration platform — environment compute, triggers, and observability — but not third-party inference.
 
 ## How to switch harnesses
 

@@ -36,13 +36,13 @@ Claude Code calls Anthropic directly using credentials your team provides. Oz su
 * **Anthropic Bedrock API key** - For Bedrock-routed inference using an API key.
 * **Anthropic Bedrock access key** - For Bedrock-routed inference using AWS access credentials.
 
-Anthropic bills your account directly for inference. Warp credits cover the rest of the platform — environment compute, triggers, observability.
+Anthropic bills your account directly for inference. Warp credits cover the rest of the platform — environment compute, triggers, and observability.
 
 For setup steps, see [Connecting Claude Code credentials](/agent-platform/cloud-agents/harnesses/authentication/#connecting-claude-code-credentials).
 
 ## Starting a Claude Code run
 
-* **Warp app** - In Cloud Mode, click the harness dropdown above the input and choose **Claude Code**.
+* **Warp app** - In Cloud Mode, click the **Agent harness** dropdown above the input and choose **Claude Code**.
 * **Oz web app** - On the new run or new schedule pane, choose **Claude Code** in the **Harness** field. A **Claude Code auth secret** field appears below it; pick one of your stored Anthropic secrets.
 * **API and SDK** - Set the agent config `harness` to `claude` and the Anthropic secret name on the matching auth-secret field. See the [API reference](/reference/api-and-sdk/).
 
