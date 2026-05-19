@@ -289,9 +289,28 @@ For detailed integration setup instructions, see [Slack](/agent-platform/cloud-a
 
 ---
 
+## Orchestrated runs
+
+The Oz web app renders [multi-agent orchestrations](/agent-platform/cloud-agents/orchestration/) as nested rows on the [**Runs** page](https://oz.warp.dev/runs) so you can follow parent and child execution together.
+
+### Where to start an orchestration
+
+* **New run** - when starting a new run, choose a skill that performs orchestration or write an `orchestrate`-mode prompt. The parent decides how many children to spawn based on the prompt.
+* **Agents page** - the **Suggested** tab on the [**Agents** page](https://oz.warp.dev/agents) includes orchestration skills like review swarms and fan-out runners. Click **Run** on one to dispatch a parent.
+
+### Inspecting an orchestration
+
+Open a parent run from the Runs page. When the run has children, the detail pane adds a **Sub-agents** tab next to **Details**:
+
+* Each child agent row shows the child's current status and title. Click a row to open that child's detail pane; closing it returns you to the parent's **Sub-agents** tab.
+* The parent's own status badge at the top of the detail pane reflects the parent's work, not its children. Open a child to inspect its state directly.
+
+---
+
 ## Related resources
 
 * [Cloud Agents Overview](/agent-platform/cloud-agents/overview/) — Learn about cloud agents and when to use them
+* [Multi-agent orchestration](/agent-platform/cloud-agents/orchestration/) — Parent/child model and common orchestration patterns
 * [Agent identities](/agent-platform/cloud-agents/agents/) — Team-scoped bot accounts that own and execute runs
 * [Skills as Agents](/agent-platform/cloud-agents/skills-as-agents/) — Run agents based on reusable skill definitions
 * [Scheduled Agents](/agent-platform/cloud-agents/triggers/scheduled-agents/) — Run agents automatically on a cron schedule
