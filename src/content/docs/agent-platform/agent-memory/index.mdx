@@ -31,7 +31,7 @@ Memory creation and retrieval are asynchronous and run in the background, so the
 
 ## Where Agent Memory runs
 
-Agent Memory is part of Oz. Storage, memory creation, and retrieval all run on the same Oz instance that hosts your agents — Warp-hosted Oz by default, or a customer-hosted Oz instance for teams that need to keep memory inside their own perimeter. The same memory is accessible from any agent you run on Oz:
+Agent Memory is part of Oz. Storage, memory creation, and retrieval all run on the same Oz instance that hosts your agents — either Warp-hosted Oz (the default) or a self-hosted Oz instance that your team operates inside its own perimeter. The same memory is accessible from any agent you run on Oz:
 
 * The local Warp Agent.
 * Oz cloud agents triggered from the CLI, web app, schedules, or integrations.
@@ -50,7 +50,7 @@ Use multiple stores to keep contexts separate, and share stores across agents wh
 
 ## Automatic memory from conversations
 
-When a conversation finishes, Oz extracts durable facts, learnings, and outcomes from what happened and writes them as memories. Memory creation runs in the background after the conversation ends, so it doesn't consume tokens or add latency during the run that produced it.
+When a conversation finishes, Oz extracts durable facts, learnings, and outcomes from the transcript and writes them as memories. Memory creation runs in the background after the conversation ends, so it doesn't consume tokens or add latency during that run.
 
 * **Memories evolve over time** — Agents update and supersede their own memories as new information arrives, including to resolve contradictions with prior memories.
 
@@ -62,7 +62,7 @@ When an agent starts a task, Oz searches the stores the agent can access for rel
 
 ## Attaching memory to your agents
 
-Attach stores to agents with read-only or read-write access. Each attachment carries per-store instructions that tell the agent how and when to use the store — for example, "Reference this store for team naming conventions" or "Write a new memory after each successful deployment." Without instructions, the agent has access to the store but no guidance on when to read or write.
+Attach stores to agents with read-only or read-write access. Each attachment includes per-store instructions that tell the agent how and when to use the store — for example, "Reference this store for team naming conventions" or "Write a new memory after each successful deployment." Without instructions, the agent can access the store but won't know when to read from or write to it.
 
 ## Join the waitlist
 
