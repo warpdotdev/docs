@@ -43,32 +43,32 @@ Claude Code's authentication (API key or Anthropic account) is handled by Claude
 
 ## Switching to Agent Mode from Claude Code
 
-If you're ready to replace Claude Code with Warp's built-in agent, the core workflow is:
+If you're ready to replace Claude Code with Warp's built-in Agent, the core workflow is:
 
 1. Open a new tab in Warp.
-2. To switch to switch to [Agent Mode](/agent-platform/local-agents/overview/) from terminal mode, press `⌘+Enter` (or `Ctrl+Shift+Enter`)
+2. From terminal mode, press `⌘+Enter` (macOS) or `Ctrl+Shift+Enter` (Linux/Windows) to switch to [Agent Mode](/agent-platform/local-agents/overview/).
 3. Describe what you want in natural language.
 
-Warp's agent reads your codebase, runs commands, and edits files the same way Claude Code does.
+Warp's Agent reads your codebase, runs commands, and edits files the same way Claude Code does.
 
 ### What transfers: context and rules
 
-A recurring question from Claude Code users: **what files and context does Warp's agent read automatically?** Warp picks up project rules from an `AGENTS.md` (or `WARP.md`) at your repo root — the direct equivalent of Claude Code's `CLAUDE.md`. Run `/init` in Agent Mode to generate one, or rename your existing rules file and you're done — no rewriting needed.
+A recurring question from Claude Code users: **what files and context does Warp's Agent read automatically?** Warp picks up project rules from an `AGENTS.md` (or `WARP.md`) at your repo root — the direct equivalent of Claude Code's `CLAUDE.md`. Run `/init` in Agent Mode to generate one, or rename your existing rules file and you're done — no rewriting needed.
 
-Warp's agent also pulls context from several other explicit sources:
+Warp's Agent also pulls context from several other explicit sources:
 
-* **[Codebase Context](/agent-platform/capabilities/codebase-context/)** - when you open a directory, Warp indexes your Git-tracked files so the agent can search and reference your code without you pasting snippets.
+* **[Codebase Context](/agent-platform/capabilities/codebase-context/)** - when you open a directory, Warp indexes your Git-tracked files so the Agent can search and reference your code without you pasting snippets.
 * **[Rules](/agent-platform/capabilities/rules/)** - global and project-scoped rules. `AGENTS.md` and `WARP.md` are automatically picked up at the project root; additional rules live in Warp Drive.
-* **[Warp Drive](/knowledge-and-collaboration/warp-drive/)** - notebooks, workflows, and environment variables you've saved are available to the agent as context.
-* **[Agent Mode context](/knowledge-and-collaboration/warp-drive/agent-mode-context/)** - pin specific files or notebooks to a conversation so the agent always has them in scope.
-* **[MCP](/agent-platform/capabilities/mcp/)** - any MCP servers you've configured give the agent access to external tools and data.
+* **[Warp Drive](/knowledge-and-collaboration/warp-drive/)** - notebooks, workflows, and environment variables you've saved are available to the Agent as context.
+* **[Agent Mode context](/knowledge-and-collaboration/warp-drive/agent-mode-context/)** - pin specific files or notebooks to a conversation so the Agent always has them in scope.
+* **[MCP](/agent-platform/capabilities/mcp/)** - any MCP servers you've configured give the Agent access to external tools and data.
 
 ### What to reconfigure
 
 * **Bring over your `CLAUDE.md`.** Rename it to `AGENTS.md` (or copy it into a Warp [Rule](/agent-platform/capabilities/rules/) if you want it scoped beyond the repo). Warp applies it automatically to new conversations.
 * **Set up [MCP servers](/agent-platform/capabilities/mcp/)** you relied on in Claude Code.
 * **Pick a model** per conversation using the model selector. See [model choice](/agent-platform/capabilities/model-choice/). Warp supports Claude, GPT, Gemini, and Auto.
-* **Configure [agent profiles and permissions](/agent-platform/capabilities/agent-profiles-permissions/)** for what the agent can auto-execute.
+* **Configure [agent profiles and permissions](/agent-platform/capabilities/agent-profiles-permissions/)** for what the Agent can auto-execute.
 
 ### Key differences from Claude Code
 
@@ -79,7 +79,7 @@ Warp's agent also pulls context from several other explicit sources:
 
 ## Warp-native equivalents
 
-Claude Code concepts and their closest Warp analog:
+Use this table to find the closest Warp equivalent for Claude Code concepts:
 
 | From Claude Code | In Warp |
 | --- | --- |

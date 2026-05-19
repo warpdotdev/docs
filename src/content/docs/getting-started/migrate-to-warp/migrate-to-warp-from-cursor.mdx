@@ -5,22 +5,22 @@ description: >-
   Cursor, or run Warp alongside Cursor as your agent terminal.
 ---
 
-Warp gives Cursor users two clean migration paths: keep Cursor as your editor and use Warp for terminal and agent work, or move fully to Warp's built-in code editor and Agent Mode. This page walks through both options.
+Warp gives Cursor users two migration paths: keep Cursor as your editor and use Warp for terminal and Agent work, or move fully to Warp's built-in code editor and Agent Mode. This page walks through both options.
 
-## What transfers automatically
+## What Warp can help transfer
 
-Warp doesn't ship a Cursor importer. Cursor is built on the VS Code codebase, so its terminal settings live in `settings.json` under keys like `terminal.integrated.fontFamily` and `terminal.integrated.defaultProfile.*`. Open your user settings with **Command Palette** > **Preferences: Open User Settings (JSON)** to reference them while you reconfigure Warp.
+Warp doesn't have a one-click Cursor importer. Cursor is built on the VS Code codebase, so its terminal settings live in `settings.json` under keys like `terminal.integrated.fontFamily` and `terminal.integrated.defaultProfile.*`. Because that file is readable, Warp's Agent can translate matching terminal values into Warp's `settings.toml`. In Cursor, open the Command Palette and select **Preferences: Open User Settings (JSON)** to reference your settings while you reconfigure Warp.
 
-## Use Warp's agent to migrate your settings (recommended)
+## Use Warp's Agent to migrate your settings (recommended)
 
-The fastest way to bring over your Cursor terminal setup is to ask Warp's agent to translate your `settings.json` directly. Warp ships a [`settings.toml` file](/terminal/settings/) and a bundled `modify-settings` skill that lets the agent read your existing config and write equivalent values into Warp's settings.
+The fastest way to bring over your Cursor terminal setup is to ask Warp's Agent to translate your `settings.json` directly. Warp ships a [`settings.toml` file](/terminal/settings/) and a bundled `modify-settings` skill that lets the Agent read your existing config and write equivalent values into Warp's settings.
 
-1. In Warp, open a new tab and switch to [Agent Mode](/agent-platform/local-agents/overview/) with `⌘+I` (macOS) or `Ctrl+I` (Linux/Windows).
-2. Paste a prompt like:
+1. In the Warp app, open a new tab and switch to [Agent Mode](/agent-platform/local-agents/overview/) with `⌘+I` (macOS) or `Ctrl+I` (Linux/Windows).
+2. Paste this prompt into Agent Mode, then press `Enter`.
 
    > Read my Cursor `settings.json` (`~/Library/Application Support/Cursor/User/settings.json` on macOS) and port the equivalent terminal settings (font, cursor style, default profile) into my Warp `settings.toml` using the `modify-settings` skill. Show me a diff before applying.
 
-3. Review the proposed diff and approve. Warp hot-reloads `settings.toml`, so changes take effect immediately.
+3. Review the proposed diff, then approve the changes. Warp hot-reloads `settings.toml`, so changes take effect immediately.
 
 If you'd rather configure each setting manually through the Settings UI, the steps below cover the most common cases.
 
@@ -28,19 +28,19 @@ If you'd rather configure each setting manually through the Settings UI, the ste
 
 ### Terminal settings
 
-Terminal settings in Cursor follow the same schema as VS Code. The migration steps are identical to the VS Code terminal migration - see [Migrate to Warp from VS Code terminal](/getting-started/migrate-to-warp/migrate-to-warp-from-vs-code-terminal/) for step-by-step guidance on shell, font, theme, and keybinding setup.
+Terminal settings in Cursor follow the same schema as VS Code. The migration steps are identical to the VS Code terminal migration. See [Migrate to Warp from VS Code terminal](/getting-started/migrate-to-warp/migrate-to-warp-from-vs-code-terminal/) for step-by-step guidance on shell, font, theme, and keybinding setup.
 
 ### Agent and AI settings
 
-Cursor's Composer and Agent features don't have a one-to-one migration path - they map to different Warp concepts.
+Cursor's Composer and Agent features don't have a one-to-one migration path; they map to different Warp concepts.
 
-* **Composer / Agent** in Cursor maps to Warp's [Agent Mode](/agent-platform/local-agents/overview/). Start an agent conversation in any tab.
-* **Rules files** (`.cursorrules`) - Warp uses [Rules](/agent-platform/capabilities/rules/) stored in Warp Drive or committed to your repo as `AGENTS.md` (or `WARP.md`). Run `/init` in Agent Mode to generate an `AGENTS.md`, or copy your `.cursorrules` content directly.
+* **Composer / Agent** - In Cursor, these features map to Warp's [Agent Mode](/agent-platform/local-agents/overview/). Start an Agent conversation in any tab.
+* **Rules files** - Warp uses [Rules](/agent-platform/capabilities/rules/) stored in Warp Drive or committed to your repo as `AGENTS.md` (or `WARP.md`). Run `/init` in Agent Mode to generate an `AGENTS.md`, or copy your `.cursorrules` content directly.
 * **MCP servers** - Warp supports MCP natively. See [MCP](/agent-platform/capabilities/mcp/) for configuration.
 
 ### Model choice
 
-Cursor lets you pick a model per conversation. Warp does the same - use the model selector in any agent conversation. See [model choice](/agent-platform/capabilities/model-choice/).
+Cursor lets you pick a model per conversation. Warp does the same; use the model selector in any Agent conversation. See [model choice](/agent-platform/capabilities/model-choice/).
 
 ### Keybindings
 
@@ -63,11 +63,11 @@ Warp's built-in [code editor](/code/code-editor/) supports Language Server Proto
 
 ## Warp-native equivalents
 
-Cursor features and their Warp counterparts:
+Use this table to find Warp equivalents for Cursor features you might look for after switching:
 
 | From Cursor | In Warp |
 | --- | --- |
-| Composer / Agent panel | [Agent Mode](/agent-platform/local-agents/overview/) in any tab (toggle with `⌘+I`) |
+| Composer / Agent panel | [Agent Mode](/agent-platform/local-agents/overview/) in any tab (toggle with `⌘+I` on macOS or `Ctrl+I` on Linux/Windows) |
 | Agent tabs | Multiple [agents in parallel](/agent-platform/local-agents/overview/) across tabs |
 | `.cursorrules` | `AGENTS.md` / `WARP.md` at the project root, picked up as a [Rule](/agent-platform/capabilities/rules/) |
 | MCP servers | [MCP](/agent-platform/capabilities/mcp/) |
