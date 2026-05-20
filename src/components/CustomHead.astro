@@ -33,6 +33,109 @@ const fontsHref =
 	if ('scrollRestoration' in history) history.scrollRestoration = 'auto';
 </script>
 
+<!--
+  Make Starlight's heading anchor icons behave like GitBook's: clicking the
+  icon copies the absolute section URL to the clipboard instead of only
+  navigating to the fragment. The URL still updates so the page state matches
+  the copied link.
+-->
+<script is:inline>
+	const copiedTimers = new WeakMap();
+
+	function copyText(text) {
+		if (navigator.clipboard?.writeText) {
+			return navigator.clipboard.writeText(text);
+		}
+
+		const textarea = document.createElement('textarea');
+		textarea.value = text;
+		textarea.setAttribute('readonly', '');
+		textarea.style.position = 'fixed';
+		textarea.style.opacity = '0';
+		document.body.appendChild(textarea);
+		textarea.select();
+
+		try {
+			document.execCommand('copy');
+			return Promise.resolve();
+		} finally {
+			textarea.remove();
+		}
+	}
+
+	function showCopiedFeedback(anchor) {
+		const previousTimer = copiedTimers.get(anchor);
+		if (previousTimer) window.clearTimeout(previousTimer);
+
+		const previousLabel = anchor.getAttribute('aria-label');
+		anchor.dataset.copied = 'true';
+		anchor.setAttribute('aria-label', 'Copied section link to clipboard');
+		anchor.setAttribute('title', 'Copied');
+
+		const timer = window.setTimeout(() => {
+			delete anchor.dataset.copied;
+			if (previousLabel) {
+				anchor.setAttribute('aria-label', previousLabel);
+			} else {
+				anchor.removeAttribute('aria-label');
+			}
+			anchor.removeAttribute('title');
+			copiedTimers.delete(anchor);
+		}, 1800);
+
+		copiedTimers.set(anchor, timer);
+	}
+
+	document.addEventListener('click', async (event) => {
+		const target = event.target;
+		if (!(target instanceof Element)) return;
+
+		const anchor = target.closest('a.sl-anchor-link');
+		if (!anchor) return;
+
+		const href = anchor.getAttribute('href');
+		if (!href) return;
+
+		event.preventDefault();
+
+		const url = new URL(href, window.location.href);
+
+		try {
+			await copyText(url.href);
+			history.pushState(null, '', url);
+			showCopiedFeedback(anchor);
+		} catch {
+			window.location.href = href;
+		}
+	});
+</script>
+
+<style is:global>
+	a.sl-anchor-link {
+		position: relative;
+	}
+
+	a.sl-anchor-link[data-copied='true']::after {
+		content: 'Copied';
+		position: absolute;
+		top: 50%;
+		left: 100%;
+		transform: translate(0.35rem, -50%);
+		padding: 0.15rem 0.35rem;
+		border: 1px solid var(--sl-color-hairline-light);
+		border-radius: var(--sl-radius-sm);
+		background: var(--sl-color-bg);
+		color: var(--sl-color-gray-2);
+		font-size: var(--sl-text-xs);
+		font-weight: 500;
+		line-height: 1;
+		letter-spacing: 0;
+		white-space: nowrap;
+		pointer-events: none;
+		box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.2);
+	}
+</style>
+
 <!-- Google Fonts: preconnect, preload, then non-blocking stylesheet swap. -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
