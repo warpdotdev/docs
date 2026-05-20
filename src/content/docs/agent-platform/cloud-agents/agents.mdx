@@ -26,8 +26,6 @@ You can attach the following configuration to an agent identity:
 * **Managed secrets** - References (by name) to [team-managed secrets](/agent-platform/cloud-agents/secrets/) the identity should have access to.
 * **Skills** - Skill specs (for example, `org/repo:path/to/SKILL.md`) the identity comes preloaded with. Shorthand specs like `repo:skill_name` are accepted when they resolve unambiguously against the team's cloud environments.
 
-Skill specs are stored in their normalized fully-qualified form, and managed secret references are validated against the team's secret scope at attach time. If a secret is missing or a skill repo is not accessible to the team's GitHub App installation, the request is rejected before anything is saved.
-
 ## Service accounts and agent identities
 
 "Agent identity" is the user-facing name for what Warp's CLI and REST API internally model as a **service account**. The two terms refer to the same underlying record:
