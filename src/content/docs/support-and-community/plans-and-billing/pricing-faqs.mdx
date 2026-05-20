@@ -151,8 +151,8 @@ Unused credits do not rollover to the next cycle and can't be transferred to oth
 On the new multi-seat paid plans, credits attribute differently than they did on Warp's older pooled-credit teams:
 
 * **Plan-included monthly credits** — Each seat receives its own monthly credit allowance that resets every 30 days based on the team's renewal date. See [warp.dev/pricing](https://www.warp.dev/pricing) for the current per-seat allowance on your plan.
-* **Reload credits** — As of May 14, 2026, [Reload credits](/support-and-community/plans-and-billing/add-on-credits/) are scoped to the individual user who purchased or was allocated them, not pooled across the team. A single heavy user can no longer drain the whole team's purchased credits.
-* **Grandfathered pooled credits** — Teams that purchased Reload credits (formerly Add-on Credits) before May 14, 2026 keep their existing pooled balance until it's exhausted. Pooled credits are spent down first across the team; all new Reload credit purchases after May 14, 2026 are user-scoped.
+* **Reload credits** — As of May 21, 2026, [Reload credits](/support-and-community/plans-and-billing/add-on-credits/) are scoped to the individual user who purchased or was allocated them, not pooled across the team. A single heavy user can no longer drain the whole team's purchased credits.
+* **Grandfathered pooled credits** — Teams that purchased Reload credits (formerly Add-on Credits) before May 21, 2026 keep their existing pooled balance until it's exhausted. Pooled credits are spent down first across the team; all new Reload credit purchases after May 21, 2026 are user-scoped.
 * **Team-wide spend cap** — Admins set a single team-wide monthly spend cap that governs auto-reload across the team. See [How does auto-reload work for teams?](#how-does-auto-reload-work-for-teams) below.
 
 Enterprise plans support team-scoped credit pools and per-user spend limits separately — see [enterprise billing](/enterprise/support-and-resources/billing/).
@@ -314,19 +314,19 @@ The team at Warp is standing by and ready to help. For subscribers technical iss
 
 ---
 
-### Warp's pricing change FAQs (May 14, 2026)
+### Warp's pricing change FAQs (May 21, 2026)
 
-The following questions cover the May 14, 2026 pricing updates: seat limits per plan, Reload credits attribution, Max plan credit allowance changes, BYOK on Free, the new Custom Inference Endpoint feature, and ZDR / data-controls clarifications.
+The following questions cover the May 21, 2026 pricing updates: seat limits per plan, Reload credits attribution, Max plan credit allowance changes, BYOK on Free, the new Custom Inference Endpoint feature, and ZDR / data-controls clarifications.
 
 #### Are there new seat limits per plan?
 
-Yes. As of May 14, 2026, each plan has an explicit seat limit. See [warp.dev/pricing](https://www.warp.dev/pricing) for the current per-plan caps.
+Yes. As of May 21, 2026, each plan has an explicit seat limit. See [warp.dev/pricing](https://www.warp.dev/pricing) for the current per-plan caps.
 
 Teams that already exceed the new seat limit on their current plan remain in good standing — you won't be downgraded or charged differently. However, you **cannot add new members above the seat cap**, including backfilling members who leave. To grow past the cap, switch to the next plan up (or to Enterprise) at any time in **Settings** > **Billing and usage**.
 
 #### How are Reload credits being attributed differently?
 
-Before May 14, 2026, Reload credits (previously called Add-on Credits) on multi-seat teams were **pooled** — every team member drew from a single shared balance. As of May 14, 2026, **Reload credits are user-scoped**: each user has their own balance, and a single heavy user can no longer drain the whole team's purchased credits.
+Before May 21, 2026, Reload credits (previously called Add-on Credits) on multi-seat teams were **pooled** — every team member drew from a single shared balance. As of May 21, 2026, **Reload credits are user-scoped**: each user has their own balance, and a single heavy user can no longer drain the whole team's purchased credits.
 
 **Grandfathering for pre-May 2026 pooled credits**: Existing pooled Reload credit balances are honored. They drain first across the team before any new user-scoped Reload credits are consumed. No new credits will be added to the pooled balance — once it's exhausted, all future Reload credit purchases are user-scoped.
 
@@ -334,7 +334,7 @@ For details, see [Reload credits](/support-and-community/plans-and-billing/add-o
 
 #### Is the Max plan's monthly credit allowance changing?
 
-Yes. The Max plan's monthly credit allowance is decreasing as of May 14, 2026. For the current allowance, see [warp.dev/pricing](https://www.warp.dev/pricing).
+Yes. The Max plan's monthly credit allowance is decreasing as of May 21, 2026. For the current allowance, see [warp.dev/pricing](https://www.warp.dev/pricing).
 
 **Grandfathering for existing Max subscribers**:
 
@@ -346,7 +346,7 @@ Confirm the exact allowance applied to your account in **Settings** > **Billing 
 
 #### Can I bring my own API key on the Free plan now?
 
-Yes. As of May 14, 2026, **bring your own API key (BYOK)** is available on all plans, including Free. Previously, BYOK required a Build, Business, or Enterprise subscription. You can configure your OpenAI, Anthropic, or Google key in **Settings** > **AI** > **Manage models**.
+Yes. As of May 21, 2026, **bring your own API key (BYOK)** is available on all plans, including Free. Previously, BYOK required a Build, Business, or Enterprise subscription. You can configure your OpenAI, Anthropic, or Google key in **Settings** > **AI** > **Manage models**.
 
 See [Bring Your Own API Key](/support-and-community/plans-and-billing/bring-your-own-api-key/) for the full list of supported providers and setup steps.
 
@@ -364,7 +364,7 @@ For setup and details, see [Custom Inference Endpoint](/support-and-community/pl
 
 #### How does Zero Data Retention (ZDR) work on the new plans?
 
-Two distinct things are sometimes both called "ZDR" — May 14, 2026 makes the distinction clearer:
+Two distinct things are sometimes both called "ZDR" — May 21, 2026 makes the distinction clearer:
 
 * **Model provider ZDR** — Warp has Zero Data Retention agreements with the underlying model providers (OpenAI, Anthropic, Google) so your prompts and completions aren't retained by those providers for training or logging. This applies to **all plans, including Free**.
 * **Admin-configurable data controls** — Settings that let admins control what Warp itself retains for the team (data retention windows, training opt-outs, etc.). These are available on **Business and Enterprise**, and replace what was previously described as "automatically enforced team-wide ZDR."
@@ -375,7 +375,7 @@ If you previously relied on the "automatically enforced team-wide ZDR" language 
 
 [Platform credits](/support-and-community/plans-and-billing/platform-credits/) apply to self-serve cloud agent runs and to Business BYOK / custom inference endpoint usage where applicable, but **self-serve billing for platform credits doesn't start until July 1, 2026**.
 
-Between May 14 and June 30, 2026, self-serve plans (Build, Max, Business) are in a **preview period**: platform-credit consumption is visible in the Warp app's usage breakdown for transparency, but **no platform credits are deducted from your Reload pool or counted against your spend cap**.
+Between May 21 and June 30, 2026, self-serve plans (Build, Max, Business) are in a **preview period**: platform-credit consumption is visible in the Warp app's usage breakdown for transparency, but **no platform credits are deducted from your Reload pool or counted against your spend cap**.
 
 On **July 1, 2026**, Warp begins charging self-serve customers platform credits for:
 
@@ -384,4 +384,4 @@ On **July 1, 2026**, Warp begins charging self-serve customers platform credits 
 
 This date lines up with the rest of the May 2026 self-serve pricing transition (seat limits, Max credit allowance change, user-scoped Reload credits, and related grandfathering changes).
 
-Enterprise plans are billed for platform credits per your contract from May 14 and aren't affected by this preview period.
+Enterprise plans are billed for platform credits per your contract from May 21 and aren't affected by this preview period.
