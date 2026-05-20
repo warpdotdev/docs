@@ -41,6 +41,7 @@ const fontsHref =
 -->
 <script is:inline>
 	const copiedTimers = new WeakMap();
+	const originalLabels = new WeakMap();
 
 	function copyText(text) {
 		if (navigator.clipboard?.writeText) {
@@ -66,21 +67,24 @@ const fontsHref =
 	function showCopiedFeedback(anchor) {
 		const previousTimer = copiedTimers.get(anchor);
 		if (previousTimer) window.clearTimeout(previousTimer);
-
-		const previousLabel = anchor.getAttribute('aria-label');
+		if (!originalLabels.has(anchor)) {
+			originalLabels.set(anchor, anchor.getAttribute('aria-label'));
+		}
 		anchor.dataset.copied = 'true';
 		anchor.setAttribute('aria-label', 'Copied section link to clipboard');
 		anchor.setAttribute('title', 'Copied');
 
 		const timer = window.setTimeout(() => {
+			const originalLabel = originalLabels.get(anchor);
 			delete anchor.dataset.copied;
-			if (previousLabel) {
-				anchor.setAttribute('aria-label', previousLabel);
-			} else {
+			if (originalLabel === null || typeof originalLabel === 'undefined') {
 				anchor.removeAttribute('aria-label');
+			} else {
+				anchor.setAttribute('aria-label', originalLabel);
 			}
 			anchor.removeAttribute('title');
 			copiedTimers.delete(anchor);
+			originalLabels.delete(anchor);
 		}, 1800);
 
 		copiedTimers.set(anchor, timer);
