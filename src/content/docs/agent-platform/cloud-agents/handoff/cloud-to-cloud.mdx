@@ -19,7 +19,7 @@ Use this handoff direction when:
 When you send a follow-up to a run whose session has ended, the run continues with:
 
 * **The same conversation** - The follow-up is appended to the same conversation. From your perspective, the run is one continuous conversation across sessions.
-* **The prior workspace state** - The prior session's repository changes (tracked and untracked) are restored before the agent answers your follow-up. For Git-managed sessions, the new session continues on the same Git branch.
+* **The prior workspace state** - The prior session's repository changes (tracked and untracked) are restored before the agent answers your follow-up. For Git-managed sessions, the new session continues on the same Git branch. You can [customize which repositories and files get snapshotted](/agent-platform/cloud-agents/handoff/snapshots/) when running outside the bundled cloud agent image.
 * **Stable run identity** - The run's ID, task, creator, environment, schedule trigger, and integration source are preserved. Compute usage is recorded per session but rolls up to the same run.
 
 If any changes fail to apply, the agent reports which changes failed and continues with the changes that applied cleanly.
@@ -38,7 +38,7 @@ Cloud-to-cloud handoff relies on a snapshot from the prior session. Older cloud 
 
 To continue an ended cloud run, open the run in Warp and send the next message in the conversation. When the original session has ended, Warp automatically starts a fresh cloud session and restores the prior workspace state.
 
-1. **Open the ended cloud run.** Find it on the [Runs page](https://oz.warp.dev/runs) in the Oz web app or in the Conversation Panel in the Warp app.
+1. **Open the ended cloud run.** Find it on the [Runs page](https://oz.warp.dev/runs) in the Oz web app or in the conversation panel in the Warp app.
 2. **Send your follow-up.** Enter the next message in the conversation's input and submit it.
 
 The run picks up where it left off, with workspace state restored.
@@ -47,7 +47,7 @@ The run picks up where it left off, with workspace state restored.
 
 Cloud-to-cloud handoff also works for supported third-party agent runtimes, but the flow is slightly different from Warp Agent runs:
 
-1. Open the ended run from the Conversation Panel in the Warp app, or from the artifacts shown after the run completes.
+1. Open the ended run from the conversation panel in the Warp app, or from the artifacts shown after the run completes.
 2. Click **Continue**.
 3. Type your follow-up prompt and submit it.
 

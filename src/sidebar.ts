@@ -145,6 +145,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 							items: [
 								{ slug: 'terminal/settings', label: 'Overview' },
 								{ slug: 'terminal/settings/all-settings', label: 'All settings reference' },
+								{ slug: 'terminal/settings/file-locations', label: 'File locations' },
 							],
 						},
 						{
@@ -351,6 +352,14 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						},
 						'agent-platform/cloud-agents/environments',
 						{ slug: 'agent-platform/cloud-agents/managing-cloud-agents', label: 'Managing cloud agents' },
+						{
+							label: 'Orchestration',
+							collapsed: true,
+							items: [
+								{ slug: 'agent-platform/cloud-agents/orchestration', label: 'Multi-agent orchestration' },
+								{ slug: 'agent-platform/cloud-agents/orchestration/multi-agent-runs', label: 'Running orchestrated agents' },
+							],
+						},
 						{ slug: 'agent-platform/cloud-agents/agents', label: 'Agent identities' },
 						{ slug: 'agent-platform/cloud-agents/oz-web-app', label: 'Oz web app' },
 						{ slug: 'agent-platform/cloud-agents/skills-as-agents', label: 'Skills as agents' },
@@ -362,6 +371,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 								{ slug: 'agent-platform/cloud-agents/handoff', label: 'Overview' },
 								{ slug: 'agent-platform/cloud-agents/handoff/local-to-cloud', label: 'Local to cloud' },
 								{ slug: 'agent-platform/cloud-agents/handoff/cloud-to-cloud', label: 'Cloud to cloud' },
+								{ slug: 'agent-platform/cloud-agents/handoff/snapshots', label: 'Snapshots' },
 							],
 						},
 						'agent-platform/cloud-agents/secrets',
