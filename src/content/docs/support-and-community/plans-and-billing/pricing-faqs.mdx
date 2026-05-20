@@ -35,13 +35,7 @@ Warp's plans are designed for developers who rely on AI to code, debug, and move
 * **Business** — Multi-seat plan for teams. Includes everything in Build, plus admin-configurable data controls, SAML-based SSO, and centralized billing. Available up to the seat limit listed at [warp.dev/pricing](https://www.warp.dev/pricing).
 * **Enterprise** — Custom plan for organizations that need higher seat counts, [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/) managed inference, granular admin controls, advanced security and compliance, and dedicated support.
 
-Legacy plans (**no longer available for new subscribers**):
-
-* **Pro** included higher credit limits than the Free plan, support for larger codebases with [Codebase Context](/agent-platform/capabilities/codebase-context/), and access to premium models with optional pay-as-you-go [Overages (Legacy)](/support-and-community/plans-and-billing/overages-legacy/).
-* **Turbo** included even higher credit limits, larger Codebase Context indexing, and the option to pay for additional usage beyond included credits via [Overages (Legacy)](/support-and-community/plans-and-billing/overages-legacy/). Add-on Credits were not available on this plan.
-* **Lightspeed** was Warp's most powerful legacy plan, offering the highest credit limits, expanded codebase indexing, access to top-tier models, and pay-as-you-go [Overages (Legacy)](/support-and-community/plans-and-billing/overages-legacy/) so you could keep working without interruption.
-
-For the most up-to-date feature and usage details — including current per-plan seat limits and monthly credit allowances — visit [warp.dev/pricing](https://www.warp.dev/pricing).
+For details on Warp's legacy plans (Pro, Turbo, Lightspeed), see [Overages (Legacy)](/support-and-community/plans-and-billing/overages-legacy/). For the most up-to-date feature and usage details — including current per-plan seat limits and monthly credit allowances — visit [warp.dev/pricing](https://www.warp.dev/pricing).
 
 ### How can I subscribe to a Warp Enterprise plan?
 
@@ -142,11 +136,11 @@ Warp now abstracts away token usage, so you don't need to manage or track it dir
 
 If you're curious, you can read the [OpenAI article on tokens](https://help.openai.com/en/articles/4936856-understanding-tokens), or refer to the pricing page for plan-level credit allocations. If you reach your monthly credit limits on a paid plan, premium models will be temporarily disabled until your quota resets at the start of your next billing cycle.
 
-If you’d like to continue using premium models beyond your included quota, purchase [Reload credits](/support-and-community/plans-and-billing/add-on-credits/) in **Settings** > **Billing and usage** (users still on legacy Pro, Turbo, or Lightspeed plans continue to use [Overages (Legacy)](/support-and-community/plans-and-billing/overages-legacy/) until their first renewal after December 1, 2025).
+If you’d like to continue using premium models beyond your included quota, purchase [Reload credits](/support-and-community/plans-and-billing/add-on-credits/) in **Settings** > **Billing and usage**.
 
 ### How often do my credits reset?
 
-Allotted credits refill every 30 days from your signup date. When you upgrade to a [paid plan](https://www.warp.dev/pricing), you will be given more credits immediately. You can follow along with your refill period by referencing **Settings** > **Billing and usage**. Alternatively, purchase [Reload credits](/support-and-community/plans-and-billing/add-on-credits/), or enable auto-reload with a monthly spend limit, to continue using premium models beyond your included quota. Users still on legacy Pro, Turbo, or Lightspeed plans continue to use [Overages (Legacy)](/support-and-community/plans-and-billing/overages-legacy/) until their first renewal after December 1, 2025.
+Allotted credits refill every 30 days from your signup date. When you upgrade to a [paid plan](https://www.warp.dev/pricing), you will be given more credits immediately. You can follow along with your refill period by referencing **Settings** > **Billing and usage**. Alternatively, purchase [Reload credits](/support-and-community/plans-and-billing/add-on-credits/), or enable auto-reload with a monthly spend limit, to continue using premium models beyond your included quota.
 
 :::note
 Unused credits do not rollover to the next cycle and can't be transferred to other accounts.
@@ -376,3 +370,18 @@ Two distinct things are sometimes both called "ZDR" — May 14, 2026 makes the d
 * **Admin-configurable data controls** — Settings that let admins control what Warp itself retains for the team (data retention windows, training opt-outs, etc.). These are available on **Business and Enterprise**, and replace what was previously described as "automatically enforced team-wide ZDR."
 
 If you previously relied on the "automatically enforced team-wide ZDR" language on Business, your data controls are unchanged — Warp still does not retain your team's data for training, and admins can still configure retention. The terminology change disambiguates Warp's controls from the provider-level ZDR that applies to every plan.
+
+#### When do platform credits start being charged on self-serve plans?
+
+[Platform credits](/support-and-community/plans-and-billing/platform-credits/) apply to self-serve cloud agent runs and to Business BYOK / custom inference endpoint usage where applicable, but **self-serve billing for platform credits doesn't start until July 1, 2026**.
+
+Between May 14 and June 30, 2026, self-serve plans (Build, Max, Business) are in a **preview period**: platform-credit consumption is visible in the Warp app's usage breakdown for transparency, but **no platform credits are deducted from your Reload pool or counted against your spend cap**.
+
+On **July 1, 2026**, Warp begins charging self-serve customers platform credits for:
+
+* Every cloud agent run on Build, Max, or Business.
+* Local agent runs on Business that use BYOK or a custom inference endpoint.
+
+This date lines up with the rest of the May 2026 self-serve pricing transition (seat limits, Max credit allowance change, user-scoped Reload credits, and related grandfathering changes).
+
+Enterprise plans are billed for platform credits per your contract from May 14 and aren't affected by this preview period.
