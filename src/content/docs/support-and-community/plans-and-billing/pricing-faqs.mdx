@@ -196,21 +196,19 @@ When auto-reload is **off**, users keep working as long as they have plan credit
 
 Auto-reload can be enabled, paused, or reconfigured at any time in **Settings** > **Billing and usage**.
 
-### How are service account / team-scoped API key requests billed on self-serve plans?
+### How are cloud agent runs on team plans billed when no individual user triggered them?
 
-Some AI requests on Warp can't be linked to an individual user — for example, requests made with a team-scoped API key, a scheduled agent, or an agent identity. These requests have no individual *task billing principal*. On self-serve plans (Build, Max, Business), Warp bills these requests against the **team owner**, while attribution stays on the service account.
+Some cloud agent runs aren't initiated by a specific team member — for example, scheduled runs or runs triggered through a team API key. On self-serve plans (Build, Max, Business), these runs are billed to the **team owner**.
 
 The waterfall on the owner's account is:
 
 1. First, the owner's plan-included monthly credits are consumed.
 2. Once those are exhausted, the owner's Reload credits are consumed.
 
-When auto-reload is **off**, the service account is blocked once both buckets are depleted. When auto-reload is **on**, service-account usage can trigger auto-reload on the owner's pool subject to the team-wide spend cap; further service-account requests then deplete that reloaded balance until the cap is reached.
-
-This waterfall keeps usage attributable to the service account in audit logs and usage breakdowns, while making billing predictable for the team owner.
+When auto-reload is **off**, the request is blocked once both buckets are depleted. When auto-reload is **on**, cloud agent usage can trigger auto-reload on the owner's pool subject to the team-wide spend cap; further cloud agent runs then draw from that reloaded balance until the cap is reached.
 
 :::note
-Enterprise plans support team-scoped credit pools, so service-account and scheduled-agent traffic draws from the team pool rather than an individual admin. When the team pool is depleted, traffic falls to pay-as-you-go (PAYG) if enabled in the contract; otherwise it's blocked. See [enterprise billing](/enterprise/support-and-resources/billing/).
+Enterprise plans support team-scoped credit pools, so this traffic draws from the team pool rather than an individual admin. When the team pool is depleted, traffic falls to pay-as-you-go (PAYG) if enabled in the contract; otherwise it's blocked. See [enterprise billing](/enterprise/support-and-resources/billing/).
 :::
 
 ### Can I use a Free plan if I'm a developer at a large company or organization?
@@ -361,15 +359,17 @@ If you previously relied on the "automatically enforced team-wide ZDR" language 
 
 #### When do platform credits start being charged on self-serve plans?
 
-[Platform credits](/support-and-community/plans-and-billing/platform-credits/) apply to self-serve cloud agent runs and to Business BYOK / custom inference endpoint usage where applicable, but **self-serve billing for platform credits doesn't start until July 1, 2026**.
+[Platform credits](/support-and-community/plans-and-billing/platform-credits/) apply to every cloud agent run, plus local agent runs on Business that use BYOK or a custom inference endpoint. **For self-serve paid plans (Build, Max, Business), platform-credits billing doesn't start until July 1, 2026.**
 
-Between May 21 and June 30, 2026, self-serve plans (Build, Max, Business) are in a **preview period**: platform-credit consumption is visible in the Warp app's usage breakdown for transparency, but **no platform credits are deducted from your Reload pool or counted against your spend cap**.
+Between May 21 and June 30, 2026, self-serve paid plans are in a **preview period**: platform-credit consumption is visible in the Warp app's usage breakdown for transparency, but **no platform credits are deducted from your Reload pool or counted against your spend cap**.
 
-On **July 1, 2026**, Warp begins charging self-serve customers platform credits for:
+On **July 1, 2026**, Warp begins charging self-serve paid plans for:
 
 * Every cloud agent run on Build, Max, or Business.
 * Local agent runs on Business that use BYOK or a custom inference endpoint.
 
 This date lines up with the rest of the May 2026 self-serve pricing transition (seat limits, user-scoped Reload credits, and related grandfathering changes).
 
-Enterprise plans are billed for platform credits per your contract from May 21 and aren't affected by this preview period.
+**Free plan** cloud agent runs continue to draw from your plan-included credits as they always have — the preview period doesn't apply to Free, and there's no change to how Free is billed for cloud agent runs.
+
+**Enterprise plans** are billed for platform credits per your contract from May 21 and aren't affected by this preview period.
