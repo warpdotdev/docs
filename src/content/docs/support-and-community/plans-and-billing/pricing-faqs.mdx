@@ -222,6 +222,30 @@ Warp Drive data is securely stored on Google Cloud Platform servers located in t
 
 For more details, please [visit the Security Overview](https://www.warp.dev/legal/security) or contact [security@warp.dev](mailto:security@warp.dev).
 
+### Does Warp have a SOC 2 Type 2 attestation?
+
+Yes. Warp has obtained a SOC 2 Type 2 attestation from an accredited third party. See the [Trust Center](/enterprise/security-and-compliance/trust-center/) to request the report.
+
+### Does Warp have Zero Data Retention policies with LLM providers?
+
+Warp integrates with multiple LLM providers — including Anthropic, OpenAI, Google, and Fireworks AI — to power its AI features. Warp has executed Zero Data Retention (ZDR) agreements with these providers. Across all plans, these agreements mean:
+
+* LLM providers commit not to train their models on any customer-generated data processed through Warp's services.
+* LLM providers commit to delete inputs and outputs after generating the relevant output, within a fixed time period.
+
+Warp enforces these commitments through both technical measures and contractual safeguards with the LLM providers.
+
+### How can I enable Zero Data Retention in Warp?
+
+Zero Data Retention (ZDR) can be enabled in two ways:
+
+* **Individual level** — Any user can enable full ZDR for their own account by disabling **Help Improve Warp** in **Settings** > **Privacy**.
+* **Organization-wide** — On Business and Enterprise plans, admins can enforce ZDR for all members from the [Admin Panel](/enterprise/team-management/admin-panel/), so team-wide compliance doesn't rely on individual settings.
+
+To discuss organization-wide ZDR for your team, [contact our sales team](https://www.warp.dev/contact-sales).
+
+Regardless of plan, Warp never allows OpenAI, Anthropic, Google, or other model providers to store, retain, or train their models on your data — see [Does Warp have Zero Data Retention policies with LLM providers?](#does-warp-have-zero-data-retention-policies-with-llm-providers) for details.
+
 ### Can I bring my own API key?
 
 Yes. On Free, Build, Max, Business, and Enterprise plans, you can configure your own OpenAI, Anthropic, or Google API key in **Settings** > **AI** > **Manage models**. Requests routed through your own key don't consume Warp credits — you're billed directly by the model provider.
@@ -241,6 +265,22 @@ Custom inference endpoints are available on Free, Build, Max, Business, and Ente
 BYOK and custom inference endpoint support are available for individual users and organizations with 10 or fewer employees, subject to Warp's Terms of Service. Companies or organizations with more than 10 employees require a Warp Business or Enterprise plan to use these features.
 
 On Business and Enterprise, local agent runs that use a custom inference endpoint still consume platform credits for Warp's platform infrastructure. See [platform credits](/support-and-community/plans-and-billing/platform-credits/).
+
+### Does Warp support other model routers or "Bring Your Own LLM"?
+
+On the Enterprise plan, Warp's [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/) lets you route inference through major cloud-provider Model-as-a-Service offerings — including AWS Bedrock, Google Vertex AI, and Azure AI Foundry. Warp still manages model support, routing, and orchestration, but inference runs in your cloud environment so you can maintain data locality, security controls, and existing cloud spend commitments.
+
+Custom or in-house model routers outside this list aren't supported by default today. If you have specific requirements, [contact our sales team](https://www.warp.dev/contact-sales).
+
+For lighter-weight routing through any OpenAI-compatible endpoint (OpenRouter, LiteLLM, z.ai, internal gateways), see [Does Warp support custom inference endpoints?](#does-warp-support-custom-inference-endpoints) above.
+
+### What features are available during multi-harness orchestration beta?
+
+Multi-harness orchestration is currently in beta and available to all users. You can use the [Warp Agent](/agent-platform/cloud-agents/harnesses/warp-agent/) alongside [Claude Code](/agent-platform/cloud-agents/harnesses/claude-code/) and [Codex](/agent-platform/cloud-agents/harnesses/codex/) in Oz cloud environments, and mix and match harnesses across workflows.
+
+[Agent Memory](/agent-platform/agent-memory/) is currently in Research Preview. It lets preferences, project knowledge, and learnings from past sessions carry across harnesses and future agent runs. [Contact our sales team](https://www.warp.dev/contact-sales) to request access.
+
+As these features move out of beta or Research Preview, availability, limits, and pricing may change.
 
 ### What payment options are available for Warp's self-service plans?
 
@@ -334,8 +374,8 @@ For setup and details, see [Custom Inference Endpoint](/support-and-community/pl
 
 Two distinct things are sometimes both called "ZDR" — May 21, 2026 makes the distinction clearer:
 
-* **Model provider ZDR** — Warp has Zero Data Retention agreements with the underlying model providers (OpenAI, Anthropic, Google) so your prompts and completions aren't retained by those providers for training or logging. This applies to **all plans, including Free**.
-* **Admin-configurable data controls** — Settings that let admins control what Warp itself retains for the team (data retention windows, training opt-outs, etc.). These are available on **Business and Enterprise**, and replace what was previously described as "automatically enforced team-wide ZDR."
+* **Model provider ZDR** applies to **all plans, including Free**. See [Does Warp have Zero Data Retention policies with LLM providers?](#does-warp-have-zero-data-retention-policies-with-llm-providers) for the full provider list and what those agreements cover.
+* **Admin-configurable data controls** are settings that let admins control what Warp itself retains for the team (data retention windows, training opt-outs, etc.). These are available on **Business and Enterprise**, and replace what was previously described as "automatically enforced team-wide ZDR." See [How can I enable Zero Data Retention in Warp?](#how-can-i-enable-zero-data-retention-in-warp) for setup.
 
 If you previously relied on the "automatically enforced team-wide ZDR" language on Business, your data controls are unchanged — Warp still does not retain your team's data for training, and admins can still configure retention. The terminology change disambiguates Warp's controls from the provider-level ZDR that applies to every plan.
 
