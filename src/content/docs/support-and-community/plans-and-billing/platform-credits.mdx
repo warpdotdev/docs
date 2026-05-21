@@ -9,7 +9,7 @@ Platform credits cover Warp's platform infrastructure for coordinating, observin
 
 Warp meters credits across three types of infrastructure: **inference** (the model call), **compute** (the sandbox an agent runs in), and **platform** (everything that runs around the agent — run lifecycle, integrations, dashboard, APIs, and observability). Each type maps to one credit bucket: [AI credits](/support-and-community/plans-and-billing/credits/), [Compute credits](/support-and-community/plans-and-billing/credits/#compute-credits), and platform credits. Credit types and where an agent runs (local or cloud) are independent.
 
-Customer-supplied inference covers [Bring Your Own API Key (BYOK)](/support-and-community/plans-and-billing/bring-your-own-api-key/) and BYOLLM via Amazon Bedrock or Google Vertex.
+Customer-supplied inference covers [Bring Your Own API Key (BYOK)](/agent-platform/inference/bring-your-own-api-key/) and BYOLLM via Amazon Bedrock or Google Vertex.
 
 :::caution
 BYOK and customer-supplied inference (BYOLLM via Amazon Bedrock or Google Vertex, plus custom endpoints) are available to individual users and organizations with 10 or fewer employees or users on any plan. Organizations with more than 10 employees or users must be on a Warp Business or Enterprise plan to use BYOK or customer-supplied inference. See Warp's [Terms of Service](https://www.warp.dev/terms-of-service) for details.
@@ -38,7 +38,7 @@ Whether platform credits apply depends on where the agent runs and who's paying 
 ### Uses platform credits
 
 * **Cloud agents on any plan** use platform credits for every cloud agent run, regardless of which agent runs the task (Warp Agent, Claude Code, or Codex), inference source (Warp-managed, BYOK, or BYOLLM), or compute source (Warp-hosted or self-hosted workers). Warp's platform infrastructure coordinates every cloud agent run.
-* **Local agents on Business or Enterprise with customer-supplied inference** use platform credits when the local agent run uses [BYOK](/support-and-community/plans-and-billing/bring-your-own-api-key/) or BYOLLM via Amazon Bedrock or Google Vertex. Warp isn't paying for the model call, but Warp's platform infrastructure is still running the local agent. BYOK and customer-supplied inference are subject to plan-size eligibility — see the callout above.
+* **Local agents on Business or Enterprise with customer-supplied inference** use platform credits when the local agent run uses [BYOK](/agent-platform/inference/bring-your-own-api-key/) or BYOLLM via Amazon Bedrock or Google Vertex. Warp isn't paying for the model call, but Warp's platform infrastructure is still running the local agent. BYOK and customer-supplied inference are subject to plan-size eligibility — see the callout above.
 
 ### Doesn't use platform credits
 
@@ -59,5 +59,5 @@ Platform credits appear in the same billing views as your other credit usage.
 
 * [Credits](/support-and-community/plans-and-billing/credits/) - How AI credits are measured and calculated.
 * [Add-on Credits](/support-and-community/plans-and-billing/add-on-credits/) - Purchase additional credits or enable auto reload.
-* [Bring Your Own API Key](/support-and-community/plans-and-billing/bring-your-own-api-key/) - Connect your own model provider keys.
+* [Bring Your Own API Key](/agent-platform/inference/bring-your-own-api-key/) - Connect your own model provider keys.
 * [Plans, pricing, and refunds](/support-and-community/plans-and-billing/plans-pricing-refunds/) - Compare plans and refund policies.
