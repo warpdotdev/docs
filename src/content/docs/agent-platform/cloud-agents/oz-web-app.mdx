@@ -109,11 +109,11 @@ You can also search by title, prompt, or skill name, and add advanced filters fo
 Click **New run** in the header to start a cloud agent.
 :::
 
-1. **Select an agent (optional)** — Choose **Quick run** to run as yourself, or choose a saved agent identity from the **Agent** dropdown.
+1. **Select an agent (optional)** — Choose **Quick run** to run as yourself, or choose a saved agent from the **Agent** dropdown.
 2. **Select an environment** — Choose which environment the agent runs in
 3. **Add a prompt** — Provide context and instructions for this specific run
 
-The **Agent** dropdown lets you choose **Quick run** or a saved agent identity before you start the run. **Quick run** runs as your own user. Your prompt adds context for this particular execution.
+The **Agent** dropdown lets you choose **Quick run** or a saved agent before you start the run. **Quick run** runs as your own user. Your prompt adds context for this particular execution.
 
 ---
 
@@ -122,6 +122,8 @@ The **Agent** dropdown lets you choose **Quick run** or a saved agent identity b
 The **Agents** page (`/agents`) is where you browse, create, and run agents. Agents are reusable cloud agent configurations that can include a prompt, skills, harness, model, environment, and secrets.
 
 Skills are reusable instruction sets stored in repositories. You can attach existing skills to an agent through the **Skills** field.
+
+Saved agents are available in new run and schedule forms, so teams can reuse the same configuration without setting up each run from scratch. They use Warp's team-scoped identity model, which lets a saved agent own runs and carry default configuration for teammates. You manage saved agents from the Agents page; for the full reference, including plan limits, API endpoints, and API key binding behavior, see [Agent identities](/agent-platform/cloud-agents/agents/).
 
 ### Agent details
 
@@ -164,19 +166,6 @@ Click **Create agent** to save the agent. The agent appears on the Agents page a
 <figcaption>Creating a new agent in the Oz web app.</figcaption>
 </figure>
 
-### Agent identities
-
-An [agent identity](/agent-platform/cloud-agents/agents/) is a team-scoped identity that can own and execute cloud agent runs. In the Oz web app, agent identities appear as saved agent options in the **Agent** dropdown for new runs and schedules. Skills provide reusable instructions; agent identities define the saved identity you select for a run.
-
-When you start a new run or schedule from the web app, the form's **Agent** dropdown lets you pick which agent identity should execute the run. **Quick run** is the default option and runs as your own user. See [Agent identities](/agent-platform/cloud-agents/agents/) for the full reference.
-
-From the Agents page or the API, you can:
-
-* **Create an agent identity** - Give it a name and optional description, then attach Warp-managed secrets and skills for runs started as that identity.
-* **Edit an existing identity** - Update its description, attached secrets, or attached skills.
-* **Delete an identity** - Soft-deletes the identity and atomically deletes every API key bound to it. The default agent identity cannot be deleted.
-
-For the conceptual model, plan limits, REST endpoints, and API key binding behavior, see [Agent identities](/agent-platform/cloud-agents/agents/).
 
 ---
 
