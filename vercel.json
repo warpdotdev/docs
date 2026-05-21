@@ -2844,6 +2844,11 @@
       "statusCode": 308
     },
     {
+      "source": "/support-and-community/plans-and-billing/overages-legacy",
+      "destination": "/support-and-community/plans-and-billing/add-on-credits/",
+      "statusCode": 308
+    },
+    {
       "source": "/support-and-community/plans-pricing-and-billing",
       "destination": "/support-and-community/plans-and-billing/plans-pricing-refunds/",
       "statusCode": 308
@@ -2865,7 +2870,7 @@
     },
     {
       "source": "/support-and-community/plans-pricing-and-billing/overages-legacy",
-      "destination": "/support-and-community/plans-and-billing/overages-legacy/",
+      "destination": "/support-and-community/plans-and-billing/add-on-credits/",
       "statusCode": 308
     },
     {
@@ -3040,7 +3045,7 @@
     },
     {
       "source": "/support-and-community/support-and-billing/plans-and-pricing/usage-overages",
-      "destination": "/support-and-community/plans-and-billing/overages-legacy/",
+      "destination": "/support-and-community/plans-and-billing/add-on-credits/",
       "statusCode": 308
     },
     {
@@ -3140,7 +3145,7 @@
     },
     {
       "source": "/support-and-community/support-and-community/plans-pricing-and-billing/overages-legacy",
-      "destination": "/support-and-community/plans-and-billing/overages-legacy/",
+      "destination": "/support-and-community/plans-and-billing/add-on-credits/",
       "statusCode": 308
     },
     {
@@ -6784,6 +6789,11 @@
       "statusCode": 308
     },
     {
+      "source": "/support-and-community/plans-and-billing/overages-legacy/",
+      "destination": "/support-and-community/plans-and-billing/add-on-credits/",
+      "statusCode": 308
+    },
+    {
       "source": "/support-and-community/plans-pricing-and-billing/",
       "destination": "/support-and-community/plans-and-billing/plans-pricing-refunds/",
       "statusCode": 308
@@ -6805,7 +6815,7 @@
     },
     {
       "source": "/support-and-community/plans-pricing-and-billing/overages-legacy/",
-      "destination": "/support-and-community/plans-and-billing/overages-legacy/",
+      "destination": "/support-and-community/plans-and-billing/add-on-credits/",
       "statusCode": 308
     },
     {
@@ -6910,7 +6920,7 @@
     },
     {
       "source": "/support-and-community/support-and-billing/plans-and-pricing/usage-overages/",
-      "destination": "/support-and-community/plans-and-billing/overages-legacy/",
+      "destination": "/support-and-community/plans-and-billing/add-on-credits/",
       "statusCode": 308
     },
     {
@@ -6980,7 +6990,7 @@
     },
     {
       "source": "/support-and-community/support-and-community/plans-pricing-and-billing/overages-legacy/",
-      "destination": "/support-and-community/plans-and-billing/overages-legacy/",
+      "destination": "/support-and-community/plans-and-billing/add-on-credits/",
       "statusCode": 308
     },
     {

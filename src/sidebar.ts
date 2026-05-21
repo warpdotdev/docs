@@ -548,7 +548,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						'support-and-community/plans-and-billing/credits',
 						'support-and-community/plans-and-billing/add-on-credits',
 						{ slug: 'support-and-community/plans-and-billing/platform-credits', label: 'Platform credits' },
-						'support-and-community/plans-and-billing/overages-legacy',
 						'support-and-community/plans-and-billing/pricing-faqs',
 					],
 				},
