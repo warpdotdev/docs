@@ -159,23 +159,23 @@ The following scenarios do **not** use platform credits:
 
 For a full breakdown of how platform credits work, see [platform credits](/support-and-community/plans-and-billing/platform-credits/).
 
-### Service account and team-scoped API key billing
+### Cloud agent runs on team plans
 
-When a request can't be attributed to an individual user — i.e. it has no individual task billing principal — Warp needs another principal to charge the usage to. This applies to team-scoped API keys, scheduled agents, agent identities, and other service accounts.
+Cloud agent runs that aren't initiated by a specific team member — for example, scheduled runs or runs triggered through a team API key — follow plan-specific billing rules.
 
 #### Self-serve plans
 
-On Build, Max, and Business plans, the team owner is the task billing principal for these requests. Attribution stays on the service account, but billing rolls up to the team owner:
+On Build, Max, and Business plans, these runs are billed to the team owner:
 
 1. Warp first consumes the team owner's included monthly credits.
 2. After those are used, Warp draws from the team owner's Reload credits.
-3. If auto-reload is enabled for the team, service-account usage can trigger auto-reload for the team owner's Reload pool, subject to the team-wide spend cap.
+3. If auto-reload is enabled for the team, cloud agent usage can trigger auto-reload on the team owner's Reload pool, subject to the team-wide spend cap.
 4. If the team owner has no available credits and auto-reload is off, the request is blocked.
 
-[Platform credits](/support-and-community/plans-and-billing/platform-credits/) and compute credits charges also drain through the same Reload credits pool when the team owner is the billing principal — a single balance covers AI credits, platform credits, and compute credits.
+[Platform credits](/support-and-community/plans-and-billing/platform-credits/) and compute credits draw from the same Reload credits pool, so a single balance covers AI credits, platform credits, and compute credits.
 
 For details on auto-reload, manual purchases, and the team-wide spend cap, see [Add-on Credits](/support-and-community/plans-and-billing/add-on-credits/).
 
 #### Enterprise plans
 
-On Enterprise plans, service-account and team-scoped API key usage draws from the team's Enterprise credit pool. When the pool is depleted, traffic falls to pay-as-you-go (PAYG) if enabled in the contract; otherwise the request is blocked. Overage behavior follows your Enterprise contract terms.
+On Enterprise plans, these runs draw from the team's Enterprise credit pool. When the pool is depleted, traffic falls to pay-as-you-go (PAYG) if enabled in the contract; otherwise the request is blocked. Overage behavior follows your Enterprise contract terms.

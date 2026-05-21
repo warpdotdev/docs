@@ -85,9 +85,9 @@ Team admins manage Reload credit settings for the team in **Settings** > **Billi
 * **Auto-reload** — When enabled, the admin selects a Reload denomination for the team. Warp automatically purchases that denomination for any user whose Reload balance drops below 100 credits, subject to the team-wide spend cap. While auto-reload is on, individual users cannot purchase Reload credits manually.
 * **Manual purchases** — When auto-reload is off, eligible team members can purchase Reload credits for themselves, as long as the team stays below the team-wide spend cap.
 
-**Service account and team-scoped API key requests**
+**Cloud agent runs on team plans**
 
-Some AI requests on Warp can't be tied to an individual user — for example, those made through team-scoped API keys, scheduled agents, agent identities, or other service accounts. For these requests, Warp needs a **task billing principal** to charge usage to. On self-serve plans (Build, Max, and Business), that principal is the **team owner**. Usage attribution stays on the service account, but billing rolls up to the team owner.
+Some cloud agent runs aren't initiated by a specific team member — for example, scheduled runs or runs triggered through a team API key. On self-serve plans (Build, Max, Business), these runs are billed to the **team owner**.
 
 **When auto-reload is off:**
 
@@ -99,7 +99,7 @@ Some AI requests on Warp can't be tied to an individual user — for example, th
 
 1. Warp first consumes the team owner's included monthly plan credits.
 2. After those are used, Warp draws from the team owner's Reload credits.
-3. Service-account usage can trigger auto-reload on the team owner's pool — subject to the team-wide monthly spend cap. Once auto-reload tops up the team owner's pool, further service-account requests deplete that reloaded balance.
+3. Cloud agent usage can trigger auto-reload on the team owner's pool — subject to the team-wide monthly spend cap. Once auto-reload tops up the team owner's pool, further cloud agent runs draw from that reloaded balance.
 4. If the team-wide spend cap is reached and no credits remain, the request is blocked.
 
 :::caution
