@@ -8,7 +8,7 @@ sidebar:
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
 
-The [Oz web app](https://oz.warp.dev) provides a visual interface for managing cloud agents. You can start runs, browse agents, create schedules, configure environments, and set up integrations—all without installing Warp or using the CLI.
+The [Oz web app](https://oz.warp.dev) provides a visual interface for managing cloud agents. You can start runs, browse agents and skills, create schedules, configure environments, and set up integrations—all without installing Warp or using the CLI.
 
 :::note
 The Oz web app works on mobile devices, so you can monitor and manage your cloud agents from anywhere.
@@ -19,7 +19,7 @@ Watch this short demo to create an environment and run an agent using the Oz web
 
 ## Quick reference
 
-<table><thead><tr><th width="150">Page</th><th width="120">Path</th><th>What you can do</th></tr></thead><tbody><tr><td><strong>Dashboard</strong></td><td><code>/dashboard</code></td><td>Quick actions, suggested agents, recent agents, and featured reads</td></tr><tr><td><strong>Runs</strong></td><td><code>/runs</code></td><td>View all runs, filter by status/source/creator, start new runs, inspect transcripts</td></tr><tr><td><strong>Agents</strong></td><td><code>/agents</code></td><td>Browse saved and suggested agents, create agents, and start runs</td></tr><tr><td><strong>Schedules</strong></td><td><code>/schedules</code></td><td>Create scheduled agents, pause/enable schedules, view run history</td></tr><tr><td><strong>Environments</strong></td><td><code>/environments</code></td><td>Create and manage environments with repos, Docker images, and setup commands</td></tr><tr><td><strong>Secrets</strong></td><td><code>/secrets</code></td><td>Create and manage Warp-managed secrets for cloud agent runs</td></tr><tr><td><strong>Integrations</strong></td><td><code>/integrations</code></td><td>Connect Slack and Linear to trigger agents from external tools</td></tr></tbody></table>
+<table><thead><tr><th width="150">Page</th><th width="120">Path</th><th>What you can do</th></tr></thead><tbody><tr><td><strong>Runs</strong></td><td><code>/runs</code></td><td>View all runs, filter by status/source/creator, start new runs, inspect transcripts</td></tr><tr><td><strong>Agents</strong></td><td><code>/agents</code></td><td>Browse saved agents, create agents, configure defaults, and start runs</td></tr><tr><td><strong>Skills</strong></td><td><code>/skills</code></td><td>Browse skills from your environments, view suggested skills, create skills for agents, and start runs</td></tr><tr><td><strong>Schedules</strong></td><td><code>/schedules</code></td><td>Create scheduled agents, pause/enable schedules, view run history</td></tr><tr><td><strong>Environments</strong></td><td><code>/environments</code></td><td>Create and manage environments with repos, Docker images, and setup commands</td></tr><tr><td><strong>Secrets</strong></td><td><code>/secrets</code></td><td>Create and manage Warp-managed secrets for cloud agent runs</td></tr><tr><td><strong>Integrations</strong></td><td><code>/integrations</code></td><td>Connect Slack and Linear to trigger agents from external tools</td></tr></tbody></table>
 
 <figure>
 ![The Oz web app's management view.](../../../../assets/agent-platform/oz-web-app-runs-view.png)
@@ -32,6 +32,7 @@ The Oz web app is ideal when you want to:
 
 * **Monitor agent activity** — View runs, check status, and inspect outputs from any device
 * **Start quick runs** — Dispatch agents without opening a terminal
+* **Manage agents and skills** — Create saved agents, browse skills from connected repositories, and start runs from either configuration
 * **Manage schedules visually** — Create and edit scheduled agents with a guided interface
 * **Configure environments** — Set up repos, Docker images, and setup commands through a form-based flow
 * **Set up integrations** — Connect Slack and Linear with a guided setup flow
@@ -49,33 +50,6 @@ The onboarding asks "What brings you to Oz?" and offers three paths:
 * **Build an app that uses agents** — Links to the [Oz Platform](/agent-platform/cloud-agents/platform/) docs for using the CLI, SDK, or API
 
 You can skip onboarding at any time to go directly to the Runs page.
-
-## Dashboard
-
-The **Dashboard** page (`/dashboard`) is your starting point for common actions and discovery. It provides quick access to the features you use most.
-
-### Quick actions
-
-Four action cards at the top let you immediately:
-
-* **New run** — Start a cloud agent run
-* **New agent** — Create a new agent
-* **New schedule** — Set up a scheduled agent
-* **New environment** — Configure a new execution environment
-
-Each action opens a guided side pane without leaving the Dashboard.
-
-### Suggested agents
-
-A curated list of pre-built agents based on skills from Warp's public [oz-skills repository](https://github.com/warpdotdev/oz-skills). Click **Run** on any suggested agent to start a run from that configuration.
-
-### Recent agents
-
-Shows the last three agents you've run, so you can quickly re-run common workflows. If you haven't run any agents yet, you'll see prompts to start a new run or create your first agent.
-
-### Featured reads
-
-Links to curated articles and documentation to help you get the most out of Oz (visible on desktop).
 
 ## Runs
 
@@ -116,7 +90,7 @@ Open a parent run from the Runs page. When the run has children, the detail pane
 
 ## Agents
 
-The **Agents** page (`/agents`) is where you browse, create, and run agents. Agents are reusable cloud agent configurations that can include a prompt, skills, harness, model, environment, and secrets.
+The **Agents** page (`/agents`) is where you browse, create, and run saved agents. Agents are reusable cloud agent configurations that can include a prompt, skills, harness, model, environment, and secrets.
 
 Skills are reusable instruction sets stored in repositories. You can attach existing skills to an agent through the **Skills** field; for more details, see [Skills as Agents](/agent-platform/cloud-agents/skills-as-agents/).
 
@@ -127,11 +101,11 @@ Saved agents use Warp's team-scoped identity model, which lets a reusable agent 
 <figcaption>The Agents page in the Oz web app.</figcaption>
 </figure>
 
-Open an agent to review its prompt, skills, harness, model, environment, and attached secrets. Filter by environment or switch to the **Suggested** tab to see pre-built agents for common workflows like code review, dependency updates, and documentation sync.
+Open an agent to review its prompt, skills, harness, model, environment, and attached secrets. From the detail pane, you can inspect activity, create schedules, edit configuration, or start a run from the saved agent.
 
 ### Running an agent
 
-Click any agent to view its details, then click **Run** to start a run from that saved configuration. You can also click **New run** from the header to start a run with optional agent selection.
+Click any agent to view its details, then click **New run** to start a run from that saved configuration. You can also click **New run** from the header to start a run with optional agent selection.
 
 ### Creating a new agent
 
@@ -147,6 +121,26 @@ For deeper guidance on reusable skills and team-scoped identities, see [Skills a
 ![Creating a new agent in the Oz web app.](../../../../assets/agent-platform/oz-web-app-new-agent.png)
 <figcaption>Creating a new agent in the Oz web app.</figcaption>
 </figure>
+
+## Skills
+
+The **Skills** page (`/skills`) is where you browse and run skills. Skills are reusable instruction sets stored in repositories, and agents can include one or more skills as part of their default configuration.
+
+Use the **From your Environments** filter to view skills from repositories connected to your environments, or switch to **Suggested** to view recommended skills. Open a skill to view its activity, schedules, and `SKILL.md` configuration.
+
+### Running a skill
+
+Click any skill to view its details, then click **New run** to start a run with that skill attached. You can also click **New run** from the page header to start a run with optional skill selection.
+
+### Creating a skill for agents
+
+Click **New agent** on the Skills page to open the skill creation flow.
+
+1. **Choose a repository** — Select a repository from an existing environment with GitHub access.
+2. **Define the skill** — Add a skill name, description, and instructions.
+3. **Open a Skill PR** — Create a pull request that adds the skill to the selected repository.
+
+After the PR is merged, refresh skills so the new skill appears in the Oz web app.
 
 ## Schedules
 
