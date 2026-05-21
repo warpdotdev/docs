@@ -27,13 +27,13 @@ Warp offers three ways to bring your own AI infrastructure. Use this table to pi
 
 See [warp.dev/pricing](https://www.warp.dev/pricing) for current plan availability.
 
-Platform credits may apply for local agent runs on Business and Enterprise when using BYOK, a custom inference endpoint, or BYOLLM. See [platform credits](/support-and-community/plans-and-billing/platform-credits/).
+Platform credits apply to every cloud agent run on any plan, and to local agent runs on Business and Enterprise when using BYOK, a custom inference endpoint, or BYOLLM. See [platform credits](/support-and-community/plans-and-billing/platform-credits/) for the full breakdown.
 
 ## How BYOK works
 
 When you add your own model API keys in Warp, those keys are stored **locally on your device** and are **never synced to the cloud**.
 
-Warp uses these API keys to route your agent requests directly to the model provider you've configured.
+Warp uses these API keys when routing your agent requests to the model provider you've configured.
 
 :::caution
 BYOK does not apply to [Cloud Agents](/agent-platform/cloud-agents/overview/). Because your API keys are stored locally on your device, they are not available to cloud-hosted agent runs. Cloud agent runs always consume [Warp credits](/support-and-community/plans-and-billing/credits/).
