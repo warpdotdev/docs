@@ -36,7 +36,7 @@ For the most up-to-date feature and usage details — including current per-plan
 Warp offers two options for larger teams and organizations:
 
 * **Business plan**: Self-serve multi-seat plan available for immediate upgrade. Includes admin-configurable data controls and admin-controlled SAML-based SSO. See [warp.dev/pricing](https://www.warp.dev/pricing) for the current seat limit.
-* **Enterprise plan**: Custom pricing, credit allowances, and terms — built for larger engineering organizations or teams with advanced security, compliance, or support needs. Enterprise also includes [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/) managed inference, where Warp routes traffic through your AWS Bedrock, Google Vertex, Azure Foundry, or internal LLM gateway with routing, orchestration, governance, and observability provided by Warp.
+* **Enterprise plan**: Custom pricing, credit allowances, and terms — built for larger engineering organizations or teams with advanced security, compliance, or support needs. Enterprise also includes [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/) managed inference, where Warp routes traffic through AWS Bedrock today — with Azure Foundry and Google Vertex coming soon — with routing, orchestration, governance, and observability provided by Warp.
 
 :::tip
 If you’d like to explore Enterprise, [contact our sales team](https://www.warp.dev/contact-sales) and someone from Warp will follow up.
@@ -124,9 +124,7 @@ Tokens are chunks of text, such as words, parts of code, or characters, that lar
 Warp now abstracts away token usage, so you don't need to manage or track it directly. You only need to monitor your **credit usage**, which is what’s measured against your plan limits.
 :::
 
-If you're curious, you can read the [OpenAI article on tokens](https://help.openai.com/en/articles/4936856-understanding-tokens), or refer to the pricing page for plan-level credit allocations. If you reach your monthly credit limits on a paid plan, premium models will be temporarily disabled until your quota resets at the start of your next billing cycle.
-
-If you’d like to continue using premium models beyond your included quota, purchase [Reload credits](/support-and-community/plans-and-billing/add-on-credits/) in **Settings** > **Billing and usage**.
+If you're curious, you can read the [OpenAI article on tokens](https://help.openai.com/en/articles/4936856-understanding-tokens), or refer to the pricing page for plan-level credit allocations. If you reach your monthly credit limits on the Free plan, premium models pause until your quota resets at the start of your next billing cycle. On paid plans, you can continue using premium models via [Reload credits](/support-and-community/plans-and-billing/add-on-credits/) and auto-reload — see [What if I need more AI usage than my plan includes?](#what-if-i-need-more-ai-usage-than-my-plan-includes) for the full list of options.
 
 ### How often do my credits reset?
 
@@ -154,7 +152,7 @@ Warp meters credits across three buckets: **AI credits** (the model call), **com
 Platform credits apply in two situations:
 
 * **Every cloud agent run, on every plan.** Warp's platform infrastructure coordinates every cloud run regardless of which agent or inference source it uses.
-* **Local agent runs on Business and Enterprise that use customer-supplied inference** — BYOK, BYOLLM via Amazon Bedrock or Google Vertex, or a custom inference endpoint. Warp isn't paying for the model call, but Warp's platform infrastructure is still running the agent.
+* **Local agent runs on Business and Enterprise that use customer-supplied inference** — BYOK, BYOLLM via AWS Bedrock (with Azure Foundry and Google Vertex coming soon), or a custom inference endpoint. Warp isn't paying for the model call, but Warp's platform infrastructure is still running the agent.
 
 Local agent runs on Free, Build, or Max — and local runs on Business or Enterprise that use Warp-managed inference — do not consume platform credits. See [platform credits](/support-and-community/plans-and-billing/platform-credits/) for the full breakdown.
 
@@ -268,7 +266,7 @@ On Business and Enterprise, local agent runs that use a custom inference endpoin
 
 ### Does Warp support other model routers or "Bring Your Own LLM"?
 
-On the Enterprise plan, Warp's [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/) lets you route inference through major cloud-provider Model-as-a-Service offerings — including AWS Bedrock, Google Vertex AI, and Azure AI Foundry. Warp still manages model support, routing, and orchestration, but inference runs in your cloud environment so you can maintain data locality, security controls, and existing cloud spend commitments.
+On the Enterprise plan, Warp's [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/) lets you route inference through major cloud-provider Model-as-a-Service offerings. BYOLLM currently supports AWS Bedrock, with Azure Foundry and Google Vertex coming soon. Warp still manages model support, routing, and orchestration, but inference runs in your cloud environment so you can maintain data locality, security controls, and existing cloud spend commitments.
 
 Custom or in-house model routers outside this list aren't supported by default today. If you have specific requirements, [contact our sales team](https://www.warp.dev/contact-sales).
 
@@ -366,7 +364,7 @@ Custom inference endpoints differ from BYOK and BYOLLM:
 
 * **BYOK** sends requests directly to OpenAI, Anthropic, or Google using your own provider API key.
 * **Custom inference endpoint** sends requests to any OpenAI-compatible URL you control (or that your team runs).
-* **BYOLLM** is an Enterprise-only managed inference feature where Warp routes traffic through your AWS Bedrock, Google Vertex, Azure Foundry, or internal LLM gateway with full routing, orchestration, governance, and observability provided by Warp.
+* **BYOLLM** is an Enterprise-only managed inference feature where Warp routes traffic through your cloud provider — AWS Bedrock today, with Azure Foundry and Google Vertex coming soon — with full routing, orchestration, governance, and observability provided by Warp.
 
 For setup and details, see [Custom Inference Endpoint](/support-and-community/plans-and-billing/custom-inference-endpoint/).
 
