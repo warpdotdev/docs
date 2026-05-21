@@ -32,7 +32,7 @@ A custom inference endpoint expects your endpoint to implement the **OpenAI Chat
 When you configure a custom inference endpoint, Warp stores the endpoint URL, model identifiers, and credentials **locally on your device**. They are never synced to Warp's servers.
 
 :::caution
-Custom inference endpoints don't apply to [Oz Cloud Agents](/agent-platform/cloud-agents/overview/). Because the configuration is stored locally, it isn't available to cloud-hosted agent runs. Cloud agent runs always consume [Warp credits](/support-and-community/plans-and-billing/credits/).
+Custom inference endpoints don't apply to [Cloud Agents](/agent-platform/cloud-agents/overview/). Because the configuration is stored locally, it isn't available to cloud-hosted agent runs. Cloud agent runs always consume [Warp credits](/support-and-community/plans-and-billing/credits/).
 :::
 
 When a model routed through your endpoint is selected:
@@ -72,7 +72,7 @@ To use your endpoint, select the specific endpoint-routed model from the model p
 
 ### Other AI features in Warp
 
-Some AI-powered features rely on Warp's infrastructure and are unaffected by a custom inference endpoint. These continue to consume credits according to your plan; see [Credits](/support-and-community/plans-and-billing/credits/) for details.
+Some AI-powered features (Codebase Context, Active AI recommendations, cloud agent runs) rely on Warp's infrastructure and are unaffected by a custom inference endpoint. See the [feature breakdown on the BYOK page](/agent-platform/inference/bring-your-own-api-key/#byok-usage-and-billing-behavior) for which features still consume Warp credits.
 
 ## Zero Data Retention (ZDR)
 

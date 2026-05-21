@@ -43,7 +43,7 @@ For more details, see [Access, Billing, and Identity](/agent-platform/cloud-agen
 
 ## BYOLLM billing
 
-When using [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/), Warp routes requests through your cloud infrastructure (AWS Bedrock, Google Vertex, or Azure Foundry). BYOLLM requests **consume credits at a reduced rate** which is approximately 80% slower than standard usage. Inference costs are also billed directly to your cloud account.
+When using [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/), Warp routes requests through your cloud infrastructure (AWS Bedrock today; Azure Foundry and Google Vertex coming soon). BYOLLM requests **consume credits at a reduced rate** which is approximately 80% slower than standard usage. Inference costs are also billed directly to your cloud account.
 
 If a BYOLLM request fails and Warp falls back to a direct API model, that fallback request consumes Warp credits at the standard rate.
 
@@ -70,7 +70,7 @@ Enterprise administrators can set monthly spending limits across the following f
 * **Total spending limit** - Cap combined monthly spend across both cloud and local agents.
 * **Per-user spending limit** - Cap monthly spend for any individual user. Set a default that applies to all users, or configure limits on a per-user basis for predictable individual spend.
 
-Spending is tracked across all payment types (Add-on Credits, pay-as-you-go usage) so limits apply consistently regardless of how usage is funded.
+Spending is tracked across all payment types (add-on credits, pay-as-you-go usage) so limits apply consistently regardless of how usage is funded.
 
 :::note
 Team-wide spending limits (cloud, local, and total) are also available on Warp's self-serve paid plans through admin-managed Add-on credit settings. **Per-user spending limits are Enterprise-only.** For deeper visibility into how individual users consume credits, see the [Enterprise Analytics API](/enterprise/enterprise-features/analytics-api/).
@@ -87,7 +87,7 @@ For enterprises with credit pools, administrators receive alerts as the team cre
 ## Related resources
 
 * [Credits](/support-and-community/plans-and-billing/credits/) - How credits are calculated and consumed
-* [Add-on Credits](/support-and-community/plans-and-billing/add-on-credits/) - Purchase additional credits and configure auto-reload
+* [Add-on credits](/support-and-community/plans-and-billing/add-on-credits/) - Purchase additional credits and configure auto-reload
 * [platform credits](/support-and-community/plans-and-billing/platform-credits/) - The third credit bucket alongside AI credits and compute credits, covering Warp's platform infrastructure
 * [Pricing FAQs](/support-and-community/plans-and-billing/pricing-faqs/) - Common billing questions
 * [Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/) - BYOLLM billing and configuration
