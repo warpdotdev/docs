@@ -1,25 +1,16 @@
 ---
 title: Bring your own API key
 description: >-
-  Use your own OpenAI, Anthropic, or Google API keys. Never consumes AI
-  credits — on Business and Enterprise, platform credits may apply for
-  local agent runs.
+  Connect Warp's agents to your own OpenAI, Anthropic, or Google API
+  accounts for direct control over model selection and data routing.
 ---
 
-Warp supports **Bring your own API key (BYOK)** for users who want to connect Warp's agents to their own Anthropic, OpenAI, or Google API accounts.
+**Bring your own API key (BYOK)** lets you connect Warp's agents to your own Anthropic, OpenAI, or Google API accounts. You stay in control of model selection and data routing, and your keys are stored locally on your device.
 
-BYOK gives you full control over model selection, billing, and data routing. See [Model Choice](/agent-platform/capabilities/model-choice/) for the full list of supported models. When you route a request through your own key, Warp **doesn't consume your** [AI credits](/support-and-community/plans-and-billing/credits/) for that request — you're billed directly by your model provider.
-
-:::note
-On the Business and Enterprise plans, local agent runs that use BYOK still consume platform credits for Warp's platform infrastructure (run lifecycle, integrations, observability). See [platform credits](/support-and-community/plans-and-billing/platform-credits/) for what's covered.
-:::
+See [Model Choice](/agent-platform/capabilities/model-choice/) for the full list of supported models.
 
 :::note
-BYOK is available on the Free plan and on all eligible paid plans. See [warp.dev/pricing](https://www.warp.dev/pricing) for the current list of eligible plans.
-:::
-
-:::note
-BYOK and custom inference endpoint support are available for individual users and organizations with 10 or fewer employees, subject to Warp's [Terms of Service](https://www.warp.dev/terms-of-service). Companies or organizations with more than 10 employees require a Warp Business or Enterprise plan to use BYOK or customer-supplied inference.
+BYOK is available on Free and all eligible paid plans for individual users and organizations with 10 or fewer employees, subject to Warp's [Terms of Service](https://www.warp.dev/terms-of-service). Larger organizations need a Business or Enterprise plan. See [warp.dev/pricing](https://www.warp.dev/pricing) for current availability.
 :::
 
 ## How BYOK differs from Custom inference endpoint and BYOLLM
@@ -80,15 +71,17 @@ To use your own key, select a specific provider model (for example, Claude Opus 
 
 ### Credit usage
 
-When you select a model with the key icon in your model picker, Warp routes the request through your API key.
+When you select a model with the key icon in your model picker, Warp routes the request through your API key. In that case:
 
-In this case:
+* No AI credits are consumed.
+* The request is billed directly through your provider account.
+* Agent Mode always **prioritizes BYOK** over any available Warp credits.
 
-* No Warp credits are consumed.
-* The cost of the request is billed directly through your provider account.
-* Core Agent Mode always **prioritizes BYOK usage** over any available credits.
+The credit transparency footer shows “0 credits used”, and the `Billing & Usage` page reflects no deductions from your monthly credit total.
 
-The credit transparency footer will show “0 credits used”, and the `Billing & Usage` page will reflect no deductions from your monthly credit total.
+:::note
+On Business and Enterprise plans, local agent runs that use BYOK still consume platform credits for Warp's platform infrastructure (run lifecycle, integrations, observability). See [platform credits](/support-and-community/plans-and-billing/platform-credits/) for what's covered.
+:::
 
 **Other AI features in Warp**
 
@@ -134,15 +127,13 @@ Warp itself never stores your LLM API keys.
 
 ### BYOK on Enterprise and Business plans
 
-BYOK is available to individual users and to organizations with 10 or fewer employees, subject to Warp's [Terms of Service](https://www.warp.dev/terms-of-service). Companies or organizations with more than 10 employees need a Warp Business or Enterprise plan to use BYOK or customer-supplied inference.
+BYOK is configured at the **user level** on every plan, including Enterprise and Business:
 
-Today, BYOK is configured at the **user level** on every plan, including Enterprise and Business:
-
-* Each team member can add and manage their own API keys locally on their device.
+* Each team member adds and manages their own API keys locally on their device.
 * Centrally configured, admin-managed BYOK is not yet available — admins cannot enforce or share API keys across team members from a single place.
 * There is no organization-level Admin Panel for BYOK management today.
 
-If your organization needs centrally managed model routing now, see [Bring your own LLM](/enterprise/enterprise-features/bring-your-own-llm/) for the Enterprise-managed option. To discuss a fit, contact us at [warp.dev/contact-sales](https://www.warp.dev/contact-sales).
+If your organization needs centrally managed model routing today, see [Bring your own LLM](/enterprise/enterprise-features/bring-your-own-llm/) for the Enterprise-managed option, or [contact sales](https://www.warp.dev/contact-sales).
 
 ## Related resources
 

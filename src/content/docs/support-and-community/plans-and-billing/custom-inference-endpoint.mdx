@@ -1,21 +1,16 @@
 ---
 title: Custom inference endpoint
 description: >-
-  Connect Warp to OpenAI-compatible endpoints (OpenRouter, LiteLLM, z.ai,
-  internal gateways). On Business and Enterprise, platform credits may
-  apply for local runs.
+  Connect Warp's agents to any OpenAI-compatible inference endpoint —
+  OpenRouter, LiteLLM, z.ai, or an internal gateway you already run.
 ---
 
-A **custom inference endpoint** lets you connect Warp's agents to any OpenAI-compatible inference endpoint, so you can route AI requests through your preferred model router, hosted gateway, or internal infrastructure.
+A **custom inference endpoint** lets you connect Warp's agents to any OpenAI-compatible inference endpoint, so you can route AI requests through your preferred model router, hosted gateway, or internal infrastructure — without giving up the agent experience inside Warp.
 
-This is the right fit when you want to choose your provider, consolidate billing through a third-party router, or run inference behind your own gateway — without giving up the agent experience inside Warp. When a custom inference endpoint is configured and selected, Warp **doesn't consume your** [AI credits](/support-and-community/plans-and-billing/credits/) for that request — you're billed directly by your endpoint provider.
-
-:::note
-Custom inference endpoints are available on the Free plan and on all eligible paid plans. See [warp.dev/pricing](https://www.warp.dev/pricing) for the current list of eligible plans.
-:::
+This is the right fit when you want to choose your provider, run inference behind your own gateway, or use a router like OpenRouter or LiteLLM.
 
 :::note
-BYOK and custom inference endpoint support are available for individual users and organizations with 10 or fewer employees, subject to Warp's Terms of Service. Companies or organizations with more than 10 employees require a Warp Business or Enterprise plan to use custom inference endpoints.
+Custom inference endpoints are available on Free and all eligible paid plans for individual users and organizations with 10 or fewer employees, subject to Warp's [Terms of Service](https://www.warp.dev/terms-of-service). Larger organizations need a Business or Enterprise plan. See [warp.dev/pricing](https://www.warp.dev/pricing) for current availability.
 :::
 
 ## Key features
@@ -95,13 +90,11 @@ When you use a custom inference endpoint:
 
 Review your endpoint provider's data handling and retention policies before routing sensitive prompts through a custom inference endpoint.
 
-## Plan availability
+## Centrally managed configuration
 
-Custom inference endpoints are available on the Free plan and on all eligible paid plans. See [warp.dev/pricing](https://www.warp.dev/pricing) for the current list of eligible plans and any plan-specific limits.
+Custom inference endpoints are configured at the **user level** on every plan. Each user adds their own endpoint locally; centrally configured, admin-managed endpoints for teams are not yet available.
 
-Custom inference endpoints are available to individual users and to organizations with 10 or fewer employees, subject to Warp's Terms of Service. Companies or organizations with more than 10 employees need a Warp Business or Enterprise plan to use custom inference endpoints.
-
-Centrally configured, admin-managed custom inference endpoints for teams are not yet available. Each user configures their own endpoint locally. Enterprise teams that need centrally managed model routing today should see [Bring your own LLM](/enterprise/enterprise-features/bring-your-own-llm/).
+Enterprise teams that need centrally managed model routing today should see [Bring your own LLM](/enterprise/enterprise-features/bring-your-own-llm/).
 
 ## How custom inference endpoints differ from BYOK and BYOLLM
 
