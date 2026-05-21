@@ -179,10 +179,11 @@ When auto-reload is **on**:
 * The admin chooses a Reload credit **denomination**. Larger denominations have a better effective per-credit rate.
 * Whenever any individual user's balance (their plan credits plus their user-scoped Reload credits balance) drops below **100 credits**, Warp automatically purchases another bundle of the configured denomination on the team's behalf.
 * All auto-reload purchases count against a single **team-wide monthly spend cap** that the admin sets. Once the team hits the cap in a given month, auto-reload pauses until the next billing cycle or until the admin raises the cap.
+* While auto-reload is on, **individual team members cannot purchase Reload credits manually** — the team-wide auto-reload configuration governs all purchases.
 
 Teams with a pre-May 21, 2026 grandfathered pooled Reload balance: that pooled balance drains first across the team before user-scoped Reload credits and is not counted toward any individual user's 100-credit auto-reload threshold.
 
-When auto-reload is **off**, users keep working as long as they have plan credits, previously purchased Reload credits, or have routed Warp at their own API key or [custom inference endpoint](/agent-platform/inference/custom-inference-endpoint/). Once those run out, premium-model usage is blocked until credits are topped up or the next billing cycle begins.
+When auto-reload is **off**, eligible team members can purchase Reload credits for themselves, as long as the team stays below the team-wide monthly spend cap. Users keep working as long as they have plan credits, previously purchased Reload credits, or have routed Warp at their own API key or [custom inference endpoint](/agent-platform/inference/custom-inference-endpoint/). Once those run out, premium-model usage is blocked until credits are topped up or the next billing cycle begins.
 
 Auto-reload can be enabled, paused, or reconfigured at any time in **Settings** > **Billing and usage**.
 
