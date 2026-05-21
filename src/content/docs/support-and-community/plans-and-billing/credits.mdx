@@ -14,7 +14,7 @@ Warp meters credits across three types of infrastructure — inference, compute,
 
 * **AI credits** cover inference: the LLM call itself. Consumed when Warp pays for the model call through Warp-managed providers.
 * **Compute credits** cover compute: the sandbox an agent runs in. Consumed when an agent run uses Warp-hosted compute. In practice this is cloud agent runs; local agent runs use your own machine and don't consume compute credits. See [Compute credits](/support-and-community/plans-and-billing/credits/#compute-credits).
-* **Platform credits** cover Warp's platform layer: run lifecycle, integrations, dashboard, APIs, and observability. Apply to every cloud agent run, plus local agent runs on Business and Enterprise plans that use customer-supplied inference (BYOK or BYOLLM via Amazon Bedrock or Google Vertex). See [platform credits](/support-and-community/plans-and-billing/platform-credits/).
+* **Platform credits** cover Warp's platform layer: run lifecycle, integrations, dashboard, APIs, and observability. Apply to every cloud agent run, plus local agent runs on Business and Enterprise plans that use customer-supplied inference (BYOK or BYOLLM via AWS Bedrock, with Azure Foundry and Google Vertex coming soon). See [platform credits](/support-and-community/plans-and-billing/platform-credits/).
 
 All three buckets draw from the same Warp credit pool and [Add-on Credits](/support-and-community/plans-and-billing/add-on-credits/), so you can manage them as a single balance in the Warp app under **Settings** > **Billing and usage**.
 
@@ -68,7 +68,7 @@ Several factors influence how many credits are counted for a single interaction:
 
 Generally, smaller, faster models typically consume fewer credits than larger, reasoning-based models.
 
-For example, **Claude Opus 4.6** and **Claude Opus 4.5** tend to consume the most tokens and credits in Warp, followed by **Claude Sonnet 4.6, GPT-5.4, GPT-5.3 Codex, Gemini 3 Pro**, and others in roughly that order. This generally correlates with model pricing as well.
+For example, **Claude Opus 4.7** tends to consume the most tokens and credits in Warp, followed by **Claude Sonnet 4.6, GPT-5.5, Gemini 3.1 Pro**, and others in roughly that order. This generally correlates with model pricing as well.
 
 :::note
 **Tip**: If your task doesn't require deep reasoning, planning, or multi-step problem solving, choose a more lightweight model to reduce credit usage.
@@ -134,10 +134,8 @@ The following scenarios use compute credits:
 
 #### Not eligible for compute credits
 
-The following scenarios don't use compute credits because they don't run on Warp-hosted compute:
-
-* **Local agent runs** - Using `oz agent run` on your local machine
-* **Self-hosted compute** - Using `oz agent run` on GitHub Actions, CI/CD pipelines, or other self-hosted infrastructure
+* **Local agent runs** — Using `oz agent run` on your local machine
+* **Self-hosted compute** — Using `oz agent run` on GitHub Actions, CI/CD pipelines, or other self-hosted infrastructure
 
 ### Platform credits
 
@@ -148,7 +146,7 @@ Platform credits cover Warp's platform infrastructure — run lifecycle, schedul
 Platform credits are used in the following scenarios:
 
 * **Cloud agents on any plan** use platform credits for every cloud agent run, regardless of which agent runs the task or which inference source it uses.
-* **Local agents on Business or Enterprise with customer-supplied inference** use platform credits when the local agent run uses [Bring Your Own API Key (BYOK)](/agent-platform/inference/bring-your-own-api-key/) or BYOLLM via Amazon Bedrock or Google Vertex.
+* **Local agents on Business or Enterprise with customer-supplied inference** use platform credits when the local agent run uses [Bring Your Own API Key (BYOK)](/agent-platform/inference/bring-your-own-api-key/), a [custom inference endpoint](/agent-platform/inference/custom-inference-endpoint/), or BYOLLM via AWS Bedrock (with Azure Foundry and Google Vertex coming soon).
 
 #### Not eligible for platform credits
 
@@ -160,3 +158,24 @@ The following scenarios do **not** use platform credits:
 * **Third-party agent CLIs run directly** don't use platform credits when you run `claude`, `codex`, or another agent CLI outside of Oz.
 
 For a full breakdown of how platform credits work, see [platform credits](/support-and-community/plans-and-billing/platform-credits/).
+
+### Cloud agent runs on team plans
+
+Cloud agent runs that aren't initiated by a specific team member — for example, scheduled runs or runs triggered through a team API key — follow plan-specific billing rules.
+
+#### Self-serve plans
+
+On Build, Max, and Business plans, these runs are billed to the team owner:
+
+1. Warp first consumes the team owner's included monthly credits.
+2. After those are used, Warp draws from the team owner's Add-on credits.
+3. If auto-reload is enabled for the team, cloud agent usage can trigger auto-reload on the team owner's Add-on credit pool, subject to the team-wide spend cap.
+4. If the team owner has no available credits and auto-reload is off, the request is blocked.
+
+[Platform credits](/support-and-community/plans-and-billing/platform-credits/) and compute credits draw from the same Add-on credit pool, so a single balance covers AI credits, platform credits, and compute credits.
+
+For details on auto-reload, manual purchases, and the team-wide spend cap, see [Add-on Credits](/support-and-community/plans-and-billing/add-on-credits/).
+
+#### Enterprise plans
+
+On Enterprise plans, these runs draw from the team's Enterprise credit pool. Overage behavior follows your Enterprise contract terms.
