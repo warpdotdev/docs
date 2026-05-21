@@ -142,10 +142,11 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{
 							label: 'Settings file',
 							collapsed: true,
-							items: [
-								{ slug: 'terminal/settings', label: 'Overview' },
-								{ slug: 'terminal/settings/all-settings', label: 'All settings reference' },
-							],
+					items: [
+					{ slug: 'terminal/settings', label: 'Overview' },
+					{ slug: 'terminal/settings/all-settings', label: 'All settings reference' },
+					{ slug: 'terminal/settings/file-locations', label: 'File locations' },
+					],
 						},
 						{
 							label: 'Warpify overview',

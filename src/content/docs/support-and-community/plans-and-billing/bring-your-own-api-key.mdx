@@ -8,12 +8,10 @@ description: >-
 
 Warp supports **Bring your own API key (BYOK)** for users who want to connect Warp's agents to their own Anthropic, OpenAI, or Google API accounts.
 
-BYOK gives you full control over model selection, billing, and data routing. See [Model Choice](/agent-platform/capabilities/model-choice/) for the full list of supported models. When you route a request through your own key, Warp **never consumes your** [credits](/support-and-community/plans-and-billing/credits/) for that request.
+BYOK gives you full control over model selection, billing, and data routing. See [Model Choice](/agent-platform/capabilities/model-choice/) for the full list of supported models. When you route a request through your own key, Warp **doesn't consume your** [AI credits](/support-and-community/plans-and-billing/credits/) for that request — you're billed directly by your model provider.
 
 :::note
 On the Business and Enterprise plans, local agent runs that use BYOK still consume platform credits for Warp's platform infrastructure (run lifecycle, integrations, observability). See [platform credits](/support-and-community/plans-and-billing/platform-credits/) for what's covered.
-
-**Self-serve preview period.** Self-serve billing for platform credits (including Business BYOK) doesn't start until **July 1, 2026**. Between May 21 and June 30, 2026, platform-credit consumption is visible in the Warp app's usage breakdown for transparency, but no platform credits are deducted from your Reload pool or counted against your spend cap. Enterprise is billed per contract from May 21.
 :::
 
 :::note
@@ -31,12 +29,12 @@ Warp offers three ways to bring your own AI infrastructure. Use this table to pi
 | Name | Meaning | Plans |
 | --- | --- | --- |
 | **Bring your own API key** (BYOK) | Use your own API key for OpenAI, Anthropic, or Google models. Keys are stored locally on your device. | Free and all eligible paid plans |
-| **[Custom inference endpoint](/support-and-community/plans-and-billing/custom-inference-endpoint/)** (CIE) | Connect Warp to an OpenAI-compatible endpoint such as OpenRouter, LiteLLM, z.ai, or an internal gateway. | Free and all eligible paid plans |
+| **[Custom inference endpoint](/support-and-community/plans-and-billing/custom-inference-endpoint/)** | Connect Warp to an OpenAI-compatible endpoint such as OpenRouter, LiteLLM, z.ai, or an internal gateway. | Free and all eligible paid plans |
 | **[Bring your own LLM](/enterprise/enterprise-features/bring-your-own-llm/)** (BYOLLM) | Enterprise-managed inference through your cloud provider (AWS Bedrock, Azure Foundry, Google Vertex) or approved internal infrastructure, with Warp handling routing, orchestration, governance, and observability. | Enterprise only |
 
 See [warp.dev/pricing](https://www.warp.dev/pricing) for current plan availability.
 
-Platform credits may apply for local agent runs on Business and Enterprise when using BYOK, CIE, or BYOLLM. See [platform credits](/support-and-community/plans-and-billing/platform-credits/).
+Platform credits may apply for local agent runs on Business and Enterprise when using BYOK, a custom inference endpoint, or BYOLLM. See [platform credits](/support-and-community/plans-and-billing/platform-credits/).
 
 ## How BYOK works
 
