@@ -33,7 +33,7 @@ This page covers the [managed architecture](/agent-platform/cloud-agents/self-ho
 
 ## Prerequisites
 
-* **Enterprise plan with self-hosting enabled** — [Contact sales](https://warp.dev/contact-sales) if self-hosting is not yet enabled for your team.
+* **Enterprise plan with self-hosting enabled** — [Contact sales](https://www.warp.dev/contact-sales) if self-hosting is not yet enabled for your team.
 * **A Kubernetes cluster** with the worker process able to reach the API server. The cluster must:
   * Allow the worker's namespace to create Jobs with a **root init container** (sidecar materialization depends on this pattern).
   * Grant the worker these namespace-scoped permissions: `create`, `get`, `list`, `watch`, `delete` on `jobs`; `get`, `list`, `watch` on `pods`; `get` on `pods/log`; `list` on `events`.

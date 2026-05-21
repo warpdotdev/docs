@@ -1,7 +1,7 @@
 ---
 title: Federated identity tokens
 description: >-
-  Issue short-lived OIDC identity tokens from a running Oz agent so it can
+  Issue short-lived OIDC identity tokens from a running agent so it can
   authenticate to cloud providers without long-lived credentials.
 sidebar:
   label: "Federated identity"
@@ -9,7 +9,7 @@ sidebar:
 
 `oz federate` issues short-lived OIDC identity tokens for the agent that's currently running. Use these tokens to authenticate to cloud providers (AWS, GCP, Azure, and other OIDC-aware systems) without baking long-lived credentials into your environment.
 
-This command can only be called from inside a running Oz agent session — typically as part of a [skill](/agent-platform/capabilities/skills/), a tool, or a script the agent executes while a run is in progress.
+This command can only be called from inside a running agent session — typically as part of a [skill](/agent-platform/capabilities/skills/), a tool, or a script the agent executes while a run is in progress.
 
 ## When to use federation
 
@@ -44,7 +44,7 @@ oz federate issue-token \
 
 The subject claim is what your cloud provider's policy will match on, so pick the combination that gives you the IAM granularity you need. Supported components:
 
-* **`principal`** - The acting principal, like `user:my-user-id` or `service_account:my-sa-id`.
+* **`principal`** - The acting principal, like `user:my-user-id` or `service_account:my-sa-id`. A `service_account:` principal corresponds to an [agent identity](/agent-platform/cloud-agents/agents/) on your team.
 * **`scoped_principal`** - The principal scoped to a team, like `principal:my-team-id/user:my-user-id`.
 * **`email`** - The principal's email, like `email:user@warp.dev`.
 * **`teams`** - The principal's team, like `teams:my-team-id`.

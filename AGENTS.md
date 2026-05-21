@@ -177,6 +177,35 @@ Use formatting consistently to distinguish different types of content:
 - File naming: lowercase, hyphens, descriptive (`agent-mode-code-diff.png`, not `Screenshot 2026-03-15.png`)
 - Store PNGs in `src/assets/<section>/` (Astro optimizes them) and GIFs in `public/assets/<section>/` (to bypass optimization). See the "Assets" section below for the full convention.
 
+#### Screenshot placement guidelines
+Use screenshots to clarify product surfaces, configuration points, or visual states that are hard to understand from prose alone. Don't add screenshots for every step in a straightforward procedure.
+
+**Good screenshot placements:**
+- **After the concept or behavior is introduced** — Place the screenshot immediately after the paragraph that explains the UI or state it shows.
+- **Near configuration instructions** — Show settings panels, side panes, or menus where users make choices.
+- **Near status or result explanations** — Show outputs, references, badges, progress indicators, or completion states that help users recognize success.
+- **At the start of visual feature pages** — Use a broad orientation screenshot early when the page explains a new surface or layout.
+
+**Avoid:**
+- Repeating the same surface in multiple screenshots unless each image shows a meaningfully different state.
+- Screenshots that duplicate obvious text instructions without adding visual context.
+- Screenshots that include sensitive workspace data, private repo names, tokens, customer data, or personal information.
+- Images with stale UI labels, hidden feature flags, or unfinished internal-only surfaces.
+
+#### Screenshot sizing standards
+Use consistent screenshot widths so docs pages feel visually balanced. Crop unnecessary empty space before resizing, then choose the closest standard size.
+
+**Standard widths:**
+- **Large screenshots: default content width** — Use normal `<figure>` or Markdown image rendering for full-window, full-pane, or broad product-surface screenshots where the surrounding layout matters. In legacy GitBook screenshots, this was usually `563px`.
+- **Medium screenshots: ~375px** — Use for narrow UI surfaces such as popovers, command menus, side panes, dropdowns, and focused interaction flows. This is the preferred constrained size for most small Warp UI screenshots.
+- **Small screenshots: ~300-350px** — Use for tightly cropped controls, chips, buttons, tooltips, and small menus. Use a smaller width only when the UI remains legible and the crop is intentionally compact.
+
+**Rules:**
+- **Avoid arbitrary widths** — Choose the nearest standard size instead of one-off values. If a screenshot needs a different size, the reason should be clear from the UI being shown.
+- **Keep sequences consistent** — Screenshots in the same section or step sequence should use the same width unless they show meaningfully different UI surfaces.
+- **Preserve legibility** — Text in the screenshot must remain readable at the chosen size on the docs page.
+- **Prefer the default figure size for large screenshots** — Only constrain width when the screenshot is a narrow UI element that looks oversized at full content width.
+
 #### Image caption guidelines
 Captions orient the reader — they identify what the image shows so the reader knows where to look. They are not a place for instructions, marketing language, or exhaustive descriptions.
 
@@ -558,6 +587,8 @@ Product feature names retain their standard capitalization. Match the exact casi
 - **Codebase Context** - Warp indexes your Git-tracked codebase to help Agents understand your code.
 - **Admin Panel** - Team management surface for controlling members, roles, and billing.
 - **Agent Management Panel** - Interface for viewing and managing running agents (not "agent dashboard" or "agent manager").
+- **Agent Memory** - Persistent, cross-harness memory layer for Oz agents that captures durable facts, decisions, and outcomes across conversations (currently in research preview). Capitalize as a feature name; use lowercase "memory store" for individual stores.
+- **Handoff** - Feature for moving agent work between a local Warp session and the cloud, or continuing a finished cloud run; supports local-to-cloud, cloud-to-cloud, and cloud-to-local. Capitalize as a feature name; lowercase "hand off" only as a verb.
 
 ### Oz terminology
 
@@ -615,8 +646,10 @@ Product feature names retain their standard capitalization. Match the exact casi
 ### Billing and credits
 - **credits** (lowercase, not "AI credits") - the unit of usage for AI features in Warp
 - **Add-on Credits** (capitalized as a product feature name)
-- **Cloud Agent Credits** (capitalized as a billing feature name)
-- **plan credits** - credits included with a subscription plan
+- **compute credits** (lowercase common noun; capitalize the first letter only at the start of a sentence or bullet) - the compute bucket; consumed when an agent run uses Warp-hosted compute. Used alongside AI credits and platform credits when describing credit types.
+- **cloud agent credits** (lowercase common noun; capitalize the first letter only at the start of a sentence or bullet) - credits consumed by cloud agents (in contrast with local agent credits). Refers to the same compute bucket as compute credits; pick the term that fits the framing.
+- **platform credits** (lowercase common noun; capitalize the first letter only at the start of a sentence or bullet) - the platform-infrastructure bucket
+- **Warp credits** - credits included with a subscription plan. Use in user-facing copy rather than "plan credits."
 - Use "credit" or "credits" without the "AI" prefix throughout documentation
 
 ### UI elements
