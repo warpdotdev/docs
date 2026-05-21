@@ -142,11 +142,11 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{
 							label: 'Settings file',
 							collapsed: true,
-							items: [
-								{ slug: 'terminal/settings', label: 'Overview' },
-								{ slug: 'terminal/settings/all-settings', label: 'All settings reference' },
-								{ slug: 'terminal/settings/file-locations', label: 'File locations' },
-							],
+					items: [
+					{ slug: 'terminal/settings', label: 'Overview' },
+					{ slug: 'terminal/settings/all-settings', label: 'All settings reference' },
+					{ slug: 'terminal/settings/file-locations', label: 'File locations' },
+					],
 						},
 						{
 							label: 'Warpify overview',
@@ -541,6 +541,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						'support-and-community/plans-and-billing/add-on-credits',
 						{ slug: 'support-and-community/plans-and-billing/platform-credits', label: 'Platform credits' },
 						'support-and-community/plans-and-billing/bring-your-own-api-key',
+						'support-and-community/plans-and-billing/custom-inference-endpoint',
 						'support-and-community/plans-and-billing/overages-legacy',
 						'support-and-community/plans-and-billing/pricing-faqs',
 					],
