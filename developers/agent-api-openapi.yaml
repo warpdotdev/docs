@@ -1,12 +1,8 @@
 openapi: 3.0.0
 info:
-  title: Agent API
+  title: Oz Agent API
   version: 1.0.0
-  description: |
-    API for creating, managing, and querying cloud agent runs.
-    
-    These endpoints allow users to programmatically spawn agents, list runs, 
-    and retrieve detailed run information.
+  description: "API for creating, managing, and querying Oz cloud agent runs.\n\nThese endpoints allow users to programmatically spawn agents, list runs, \nand retrieve detailed run information.\n"
   contact:
     name: Warp Support
     url: https://docs.warp.dev
@@ -14,15 +10,13 @@ info:
   license:
     name: Proprietary
 servers:
-  - url: https://app.warp.dev/api/v1
-    description: Warp Server
-
+- url: https://app.warp.dev/api/v1
+  description: Warp Server
 tags:
-  - name: agent
-    description: Operations for running and managing cloud agents
-  - name: schedules
-    description: Operations for creating and managing scheduled agents
-
+- name: agent
+  description: Operations for running and managing cloud agents
+- name: schedules
+  description: Operations for creating and managing scheduled agents
 paths:
   /agent:
     get:
@@ -32,49 +26,49 @@ paths:
         Agents are discovered from environments or a specific repository.
       operationId: listAgents
       tags:
-        - agent
+      - agent
       security:
-        - bearerAuth: []
+      - bearerAuth: []
       parameters:
-        - name: repo
-          in: query
-          description: |
-            Optional repository specification to list agents from (format: "owner/repo").
-            If not provided, lists agents from all accessible environments.
-          required: false
-          schema:
-            type: string
-        - name: refresh
-          in: query
-          description: |
-            When true, clears the agent list cache before fetching.
-            Use this to force a refresh of the available agents.
-          required: false
-          schema:
-            type: boolean
-            default: false
-        - name: sort_by
-          in: query
-          description: |
-            Sort order for the returned agents.
-            - "name": Sort alphabetically by name (default)
-            - "last_run": Sort by most recently used
-          required: false
-          schema:
-            type: string
-            enum:
-              - name
-              - last_run
-        - name: include_malformed_skills
-          in: query
-          description: |
-            When true, includes skills whose SKILL.md file exists but is
-            malformed. These variants will have a non-empty `error` field
-            describing the parse failure. Defaults to false.
-          required: false
-          schema:
-            type: boolean
-            default: false
+      - name: repo
+        in: query
+        description: |
+          Optional repository specification to list agents from (format: "owner/repo").
+          If not provided, lists agents from all accessible environments.
+        required: false
+        schema:
+          type: string
+      - name: refresh
+        in: query
+        description: |
+          When true, clears the agent list cache before fetching.
+          Use this to force a refresh of the available agents.
+        required: false
+        schema:
+          type: boolean
+          default: false
+      - name: sort_by
+        in: query
+        description: |
+          Sort order for the returned agents.
+          - "name": Sort alphabetically by name (default)
+          - "last_run": Sort by most recently used
+        required: false
+        schema:
+          type: string
+          enum:
+          - name
+          - last_run
+      - name: include_malformed_skills
+        in: query
+        description: |
+          When true, includes skills whose SKILL.md file exists but is
+          malformed. These variants will have a non-empty `error` field
+          describing the parse failure. Defaults to false.
+        required: false
+        schema:
+          type: boolean
+          default: false
       responses:
         '200':
           description: List of available agents
@@ -88,7 +82,36 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-
+  /agent/connected-self-hosted-workers:
+    get:
+      summary: List connected self-hosted workers
+      description: |
+        Retrieve currently connected self-hosted workers for the authenticated principal's team.
+        Worker presence is derived from worker websocket heartbeats and may be briefly stale.
+      operationId: listConnectedSelfHostedWorkers
+      tags:
+      - agent
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: List of currently connected self-hosted workers
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListConnectedSelfHostedWorkersResponse'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Not authorized to list connected workers
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /agent/runs/{runId}/transcript:
     get:
       summary: Get run transcript
@@ -97,16 +120,16 @@ paths:
         Returns a 302 redirect to a time-limited download URL for the transcript.
       operationId: getRunTranscript
       tags:
-        - agent
+      - agent
       security:
-        - bearerAuth: []
+      - bearerAuth: []
       parameters:
-        - name: runId
-          in: path
-          description: The unique identifier of the run
-          required: true
-          schema:
-            type: string
+      - name: runId
+        in: path
+        description: The unique identifier of the run
+        required: true
+        schema:
+          type: string
       responses:
         '302':
           description: Redirect to a download URL for the transcript
@@ -146,7 +169,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-
   /agent/run:
     post:
       summary: Run an agent task
@@ -155,9 +177,9 @@ paths:
         The agent will be queued for execution and assigned a unique run ID.
       operationId: runAgent
       tags:
-        - agent
+      - agent
       security:
-        - bearerAuth: []
+      - bearerAuth: []
       requestBody:
         required: true
         content:
@@ -168,16 +190,16 @@ paths:
               simple:
                 summary: Simple prompt
                 value:
-                  prompt: "Fix the bug in auth.go"
+                  prompt: Fix the bug in auth.go
               withConfig:
                 summary: With agent config
                 value:
-                  prompt: "Refactor the database layer"
+                  prompt: Refactor the database layer
                   config:
-                    name: "my-agent"
-                    model_id: "gpt-5-4-high"
-                    base_prompt: "Focus on Go backend code"
-                  title: "DB Refactoring Run"
+                    name: my-agent
+                    model_id: gpt-5-4-high
+                    base_prompt: Focus on Go backend code
+                  title: DB Refactoring Run
       responses:
         '200':
           description: Run created successfully
@@ -203,7 +225,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-
   /agent/runs:
     post:
       summary: Run an agent task (preferred)
@@ -212,9 +233,9 @@ paths:
         new agent runs. Behavior is identical to POST /agent/run.
       operationId: createRun
       tags:
-        - agent
+      - agent
       security:
-        - bearerAuth: []
+      - bearerAuth: []
       requestBody:
         required: true
         content:
@@ -253,163 +274,171 @@ paths:
         Results default to `sort_by=updated_at` and `sort_order=desc`.
       operationId: listRuns
       tags:
-        - agent
+      - agent
       security:
-        - bearerAuth: []
+      - bearerAuth: []
       parameters:
-        - name: limit
-          in: query
-          description: Maximum number of runs to return
-          required: false
-          schema:
-            type: integer
-            minimum: 1
-            maximum: 500
-            default: 20
-        - name: cursor
-          in: query
-          description: Pagination cursor from previous response
-          required: false
-          schema:
-            type: string
-        - name: sort_by
-          in: query
-          description: |
-            Sort field for results.
-            - `updated_at`: Sort by last update timestamp (default)
-            - `created_at`: Sort by creation timestamp
-            - `title`: Sort alphabetically by run title
-            - `agent`: Sort alphabetically by skill. Runs without a skill are grouped last.
-          required: false
-          schema:
-            type: string
-            enum:
-              - updated_at
-              - created_at
-              - title
-              - agent
-            default: updated_at
-        - name: sort_order
-          in: query
-          description: Sort direction
-          required: false
-          schema:
-            type: string
-            enum:
-              - asc
-              - desc
-            default: desc
-        - name: state
-          in: query
-          description: |
-            Filter by run state. Can be specified multiple times to match any of the given states.
-          required: false
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/RunState'
-          style: form
-          explode: true
-        - name: name
-          in: query
-          description: Filter by agent config name
-          required: false
-          schema:
-            type: string
-        - name: model_id
-          in: query
-          description: Filter by model ID
-          required: false
-          schema:
-            type: string
-        - name: creator
-          in: query
-          description: Filter by creator UID (user or service account)
-          required: false
-          schema:
-            type: string
-        - name: source
-          in: query
-          description: Filter by run source type
-          required: false
-          schema:
-            $ref: '#/components/schemas/RunSourceType'
-        - name: execution_location
-          in: query
-          description: Filter by where the run executed
-          required: false
-          schema:
-            $ref: '#/components/schemas/RunExecutionLocation'
-        - name: created_after
-          in: query
-          description: Filter runs created after this timestamp (RFC3339 format)
-          required: false
-          schema:
-            type: string
-            format: date-time
-        - name: created_before
-          in: query
-          description: Filter runs created before this timestamp (RFC3339 format)
-          required: false
-          schema:
-            type: string
-            format: date-time
-        - name: updated_after
-          in: query
-          description: Filter runs updated after this timestamp (RFC3339 format)
-          required: false
-          schema:
-            type: string
-            format: date-time
-        - name: environment_id
-          in: query
-          description: Filter runs by environment ID
-          required: false
-          schema:
-            type: string
-        - name: skill
-          in: query
-          description: |
-            Filter runs by skill spec (e.g., "owner/repo:path/to/SKILL.md").
-            Alias for skill_spec.
-          required: false
-          schema:
-            type: string
-        - name: skill_spec
-          in: query
-          description: Filter runs by skill spec (e.g., "owner/repo:path/to/SKILL.md")
-          required: false
-          schema:
-            type: string
-        - name: schedule_id
-          in: query
-          description: Filter runs by the scheduled agent ID that created them
-          required: false
-          schema:
-            type: string
-        - name: ancestor_run_id
-          in: query
-          description: Filter runs by ancestor run ID. The referenced run must exist and be accessible to the caller.
-          required: false
-          schema:
-            type: string
-        - name: artifact_type
-          in: query
-          description: Filter runs by artifact type
-          required: false
-          schema:
-            type: string
-            enum:
-              - PLAN
-              - PULL_REQUEST
-              - SCREENSHOT
-              - FILE
-        - name: q
-          in: query
-          description: Fuzzy search query across run title, prompt, and skill_spec
-          required: false
-          schema:
-            type: string
+      - name: limit
+        in: query
+        description: Maximum number of runs to return
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 500
+          default: 20
+      - name: cursor
+        in: query
+        description: Pagination cursor from previous response
+        required: false
+        schema:
+          type: string
+      - name: sort_by
+        in: query
+        description: |
+          Sort field for results.
+          - `updated_at`: Sort by last update timestamp (default)
+          - `created_at`: Sort by creation timestamp
+          - `title`: Sort alphabetically by run title
+          - `agent`: Sort alphabetically by skill. Runs without a skill are grouped last.
+        required: false
+        schema:
+          type: string
+          enum:
+          - updated_at
+          - created_at
+          - title
+          - agent
+          default: updated_at
+      - name: sort_order
+        in: query
+        description: Sort direction
+        required: false
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: desc
+      - name: state
+        in: query
+        description: |
+          Filter by run state. Can be specified multiple times to match any of the given states.
+        required: false
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/RunState'
+        style: form
+        explode: true
+      - name: name
+        in: query
+        description: Filter by agent config name
+        required: false
+        schema:
+          type: string
+      - name: model_id
+        in: query
+        description: Filter by model ID
+        required: false
+        schema:
+          type: string
+      - name: creator
+        in: query
+        description: Filter by creator UID (user or service account)
+        required: false
+        schema:
+          type: string
+      - name: executor
+        in: query
+        description: |
+          Filter by the user or agent that executed the run. This will often be the
+          same as the creator, but not always: users may delegate tasks to agents.
+        required: false
+        schema:
+          type: string
+      - name: source
+        in: query
+        description: Filter by run source type
+        required: false
+        schema:
+          $ref: '#/components/schemas/RunSourceType'
+      - name: execution_location
+        in: query
+        description: Filter by where the run executed
+        required: false
+        schema:
+          $ref: '#/components/schemas/RunExecutionLocation'
+      - name: created_after
+        in: query
+        description: Filter runs created after this timestamp (RFC3339 format)
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: created_before
+        in: query
+        description: Filter runs created before this timestamp (RFC3339 format)
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: updated_after
+        in: query
+        description: Filter runs updated after this timestamp (RFC3339 format)
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: environment_id
+        in: query
+        description: Filter runs by environment ID
+        required: false
+        schema:
+          type: string
+      - name: skill
+        in: query
+        description: |
+          Filter runs by skill spec (e.g., "owner/repo:path/to/SKILL.md").
+          Alias for skill_spec.
+        required: false
+        schema:
+          type: string
+      - name: skill_spec
+        in: query
+        description: Filter runs by skill spec (e.g., "owner/repo:path/to/SKILL.md")
+        required: false
+        schema:
+          type: string
+      - name: schedule_id
+        in: query
+        description: Filter runs by the scheduled agent ID that created them
+        required: false
+        schema:
+          type: string
+      - name: ancestor_run_id
+        in: query
+        description: Filter runs by ancestor run ID. The referenced run must exist and be accessible to the caller.
+        required: false
+        schema:
+          type: string
+      - name: artifact_type
+        in: query
+        description: Filter runs by artifact type
+        required: false
+        schema:
+          type: string
+          enum:
+          - PLAN
+          - PULL_REQUEST
+          - SCREENSHOT
+          - FILE
+      - name: q
+        in: query
+        description: Fuzzy search query across run title, prompt, and skill_spec
+        required: false
+        schema:
+          type: string
       responses:
         '200':
           description: List of runs
@@ -429,25 +458,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-
   /agent/runs/{runId}:
     get:
       summary: Get run details
-      description: |
-        Retrieve detailed information about a specific agent run, 
-        including the full prompt, session link, and resolved configuration.
+      description: "Retrieve detailed information about a specific agent run, \nincluding the full prompt, session link, and resolved configuration.\n"
       operationId: getRun
       tags:
-        - agent
+      - agent
       security:
-        - bearerAuth: []
+      - bearerAuth: []
       parameters:
-        - name: runId
-          in: path
-          description: The unique identifier of the run
-          required: true
-          schema:
-            type: string
+      - name: runId
+        in: path
+        description: The unique identifier of the run
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: Run details
@@ -479,7 +505,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-
   /agent/runs/{runId}/conversation:
     get:
       summary: Get normalized run conversation
@@ -490,16 +515,16 @@ paths:
         structured blocks.
       operationId: getRunConversation
       tags:
-        - agent
+      - agent
       security:
-        - bearerAuth: []
+      - bearerAuth: []
       parameters:
-        - name: runId
-          in: path
-          description: The unique identifier of the run
-          required: true
-          schema:
-            type: string
+      - name: runId
+        in: path
+        description: The unique identifier of the run
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: Normalized conversation
@@ -539,7 +564,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-
   /agent/runs/{runId}/cancel:
     post:
       summary: Cancel a run
@@ -553,16 +577,16 @@ paths:
         and GitHub Action runs return 422.
       operationId: cancelRun
       tags:
-        - agent
+      - agent
       security:
-        - bearerAuth: []
+      - bearerAuth: []
       parameters:
-        - name: runId
-          in: path
-          description: The unique identifier of the run to cancel
-          required: true
-          schema:
-            type: string
+      - name: runId
+        in: path
+        description: The unique identifier of the run to cancel
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: Run cancelled successfully
@@ -614,7 +638,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-
   /agent/conversations/{conversation_id}:
     get:
       summary: Get normalized conversation
@@ -623,16 +646,16 @@ paths:
         normalized task/message format.
       operationId: getConversation
       tags:
-        - agent
+      - agent
       security:
-        - bearerAuth: []
+      - bearerAuth: []
       parameters:
-        - name: conversation_id
-          in: path
-          description: The unique identifier of the conversation
-          required: true
-          schema:
-            type: string
+      - name: conversation_id
+        in: path
+        description: The unique identifier of the conversation
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: Normalized conversation
@@ -672,7 +695,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-
   /agent/messages:
     post:
       summary: Send a message to one or more runs
@@ -683,9 +705,9 @@ paths:
       operationId: sendAgentMessage
       x-internal: true
       tags:
-        - agent
+      - agent
       security:
-        - bearerAuth: []
+      - bearerAuth: []
       requestBody:
         required: true
         content:
@@ -693,10 +715,10 @@ paths:
             schema:
               type: object
               required:
-                - to
-                - subject
-                - body
-                - sender_run_id
+              - to
+              - subject
+              - body
+              - sender_run_id
               properties:
                 to:
                   type: array
@@ -729,37 +751,36 @@ paths:
                     description: One message ID per recipient, in the same order as the to array
         '422':
           description: One or more recipients are in a terminal state
-
   /agent/messages/{runId}:
     get:
       summary: List inbox message headers
       operationId: listAgentMessages
       x-internal: true
       tags:
-        - agent
+      - agent
       security:
-        - bearerAuth: []
+      - bearerAuth: []
       parameters:
-        - name: runId
-          in: path
-          required: true
-          schema:
-            type: string
-        - name: unread
-          in: query
-          schema:
-            type: boolean
-        - name: since
-          in: query
-          schema:
-            type: string
-            format: date-time
-        - name: limit
-          in: query
-          schema:
-            type: integer
-            default: 50
-            maximum: 100
+      - name: runId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: unread
+        in: query
+        schema:
+          type: boolean
+      - name: since
+        in: query
+        schema:
+          type: string
+          format: date-time
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          default: 50
+          maximum: 100
       responses:
         '200':
           description: List of message headers
@@ -787,7 +808,6 @@ paths:
                       type: string
                       format: date-time
                       nullable: true
-
   /agent/messages/{messageId}/read:
     post:
       summary: Read a message body
@@ -795,15 +815,15 @@ paths:
       operationId: readAgentMessage
       x-internal: true
       tags:
-        - agent
+      - agent
       security:
-        - bearerAuth: []
+      - bearerAuth: []
       parameters:
-        - name: messageId
-          in: path
-          required: true
-          schema:
-            type: string
+      - name: messageId
+        in: path
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: Full message content
@@ -831,7 +851,6 @@ paths:
                     type: string
                     format: date-time
                     nullable: true
-
   /agent/messages/{messageId}/delivered:
     post:
       summary: Mark a message as delivered
@@ -839,19 +858,18 @@ paths:
       operationId: markAgentMessageDelivered
       x-internal: true
       tags:
-        - agent
+      - agent
       security:
-        - bearerAuth: []
+      - bearerAuth: []
       parameters:
-        - name: messageId
-          in: path
-          required: true
-          schema:
-            type: string
+      - name: messageId
+        in: path
+        required: true
+        schema:
+          type: string
       responses:
         '204':
           description: Delivered
-
   /agent/events:
     get:
       summary: Poll for events
@@ -862,31 +880,31 @@ paths:
       operationId: pollAgentEvents
       x-internal: true
       tags:
-        - agent
+      - agent
       security:
-        - bearerAuth: []
+      - bearerAuth: []
       parameters:
-        - name: run_ids
-          in: query
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: array
-            items:
-              type: string
-        - name: since
-          in: query
-          schema:
-            type: integer
-            format: int64
-            default: 0
-        - name: limit
-          in: query
-          schema:
-            type: integer
-            default: 100
-            maximum: 500
+      - name: run_ids
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: since
+        in: query
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          default: 100
+          maximum: 500
       responses:
         '200':
           description: List of events
@@ -913,7 +931,6 @@ paths:
                     sequence:
                       type: integer
                       format: int64
-
   /agent/events/{runId}:
     post:
       summary: Report a lifecycle event
@@ -923,15 +940,15 @@ paths:
       operationId: reportAgentEvent
       x-internal: true
       tags:
-        - agent
+      - agent
       security:
-        - bearerAuth: []
+      - bearerAuth: []
       parameters:
-        - name: runId
-          in: path
-          required: true
-          schema:
-            type: string
+      - name: runId
+        in: path
+        required: true
+        schema:
+          type: string
       requestBody:
         required: true
         content:
@@ -939,17 +956,17 @@ paths:
             schema:
               type: object
               required:
-                - event_type
+              - event_type
               properties:
                 event_type:
                   type: string
                   enum:
-                    - run_in_progress
-                    - run_succeeded
-                    - run_failed
-                    - run_errored
-                    - run_blocked
-                    - run_cancelled
+                  - run_in_progress
+                  - run_succeeded
+                  - run_failed
+                  - run_errored
+                  - run_blocked
+                  - run_cancelled
                 execution_id:
                   type: string
                   description: Client-assigned execution ID for correlation
@@ -967,7 +984,6 @@ paths:
                   sequence:
                     type: integer
                     format: int64
-
   /agent/schedules:
     post:
       summary: Create a scheduled agent
@@ -976,9 +992,9 @@ paths:
         The agent will be triggered automatically based on the cron expression.
       operationId: createScheduledAgent
       tags:
-        - schedules
+      - schedules
       security:
-        - bearerAuth: []
+      - bearerAuth: []
       requestBody:
         required: true
         content:
@@ -989,19 +1005,19 @@ paths:
               simple:
                 summary: Simple daily schedule
                 value:
-                  name: "Daily Code Review"
-                  cron_schedule: "0 9 * * *"
-                  prompt: "Review open pull requests and provide feedback"
+                  name: Daily Code Review
+                  cron_schedule: 0 9 * * *
+                  prompt: Review open pull requests and provide feedback
                   enabled: true
               withConfig:
                 summary: With agent config
                 value:
-                  name: "Weekly Report"
-                  cron_schedule: "0 10 * * 1"
-                  prompt: "Generate weekly status report"
+                  name: Weekly Report
+                  cron_schedule: 0 10 * * 1
+                  prompt: Generate weekly status report
                   enabled: true
                   agent_config:
-                    model_id: "claude-4-6-opus-high"
+                    model_id: claude-4-6-opus-high
       responses:
         '201':
           description: Scheduled agent created successfully
@@ -1034,9 +1050,9 @@ paths:
         Results are sorted alphabetically by name.
       operationId: listScheduledAgents
       tags:
-        - schedules
+      - schedules
       security:
-        - bearerAuth: []
+      - bearerAuth: []
       responses:
         '200':
           description: List of scheduled agents
@@ -1056,7 +1072,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-
   /agent/schedules/{scheduleId}:
     get:
       summary: Get scheduled agent details
@@ -1065,16 +1080,16 @@ paths:
         including its configuration, history, and next scheduled run time.
       operationId: getScheduledAgent
       tags:
-        - schedules
+      - schedules
       security:
-        - bearerAuth: []
+      - bearerAuth: []
       parameters:
-        - name: scheduleId
-          in: path
-          description: The unique identifier of the scheduled agent
-          required: true
-          schema:
-            type: string
+      - name: scheduleId
+        in: path
+        description: The unique identifier of the scheduled agent
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: Scheduled agent details
@@ -1113,16 +1128,16 @@ paths:
         All fields except agent_config are required.
       operationId: updateScheduledAgent
       tags:
-        - schedules
+      - schedules
       security:
-        - bearerAuth: []
+      - bearerAuth: []
       parameters:
-        - name: scheduleId
-          in: path
-          description: The unique identifier of the scheduled agent
-          required: true
-          schema:
-            type: string
+      - name: scheduleId
+        in: path
+        description: The unique identifier of the scheduled agent
+        required: true
+        schema:
+          type: string
       requestBody:
         required: true
         content:
@@ -1166,16 +1181,16 @@ paths:
         Delete a scheduled agent. This will stop all future scheduled runs.
       operationId: deleteScheduledAgent
       tags:
-        - schedules
+      - schedules
       security:
-        - bearerAuth: []
+      - bearerAuth: []
       parameters:
-        - name: scheduleId
-          in: path
-          description: The unique identifier of the scheduled agent
-          required: true
-          schema:
-            type: string
+      - name: scheduleId
+        in: path
+        description: The unique identifier of the scheduled agent
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: Scheduled agent deleted successfully
@@ -1207,7 +1222,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-
   /agent/schedules/{scheduleId}/pause:
     post:
       summary: Pause a scheduled agent
@@ -1215,16 +1229,16 @@ paths:
         Pause a scheduled agent. The agent will not run until resumed.
       operationId: pauseScheduledAgent
       tags:
-        - schedules
+      - schedules
       security:
-        - bearerAuth: []
+      - bearerAuth: []
       parameters:
-        - name: scheduleId
-          in: path
-          description: The unique identifier of the scheduled agent
-          required: true
-          schema:
-            type: string
+      - name: scheduleId
+        in: path
+        description: The unique identifier of the scheduled agent
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: Scheduled agent paused successfully
@@ -1256,7 +1270,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-
   /agent/schedules/{scheduleId}/resume:
     post:
       summary: Resume a scheduled agent
@@ -1265,16 +1278,16 @@ paths:
         according to its cron schedule.
       operationId: resumeScheduledAgent
       tags:
-        - schedules
+      - schedules
       security:
-        - bearerAuth: []
+      - bearerAuth: []
       parameters:
-        - name: scheduleId
-          in: path
-          description: The unique identifier of the scheduled agent
-          required: true
-          schema:
-            type: string
+      - name: scheduleId
+        in: path
+        description: The unique identifier of the scheduled agent
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: Scheduled agent resumed successfully
@@ -1306,7 +1319,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-
   /agent/environments:
     get:
       summary: List environments
@@ -1316,23 +1328,23 @@ paths:
         or has accessed via link sharing.
       operationId: listEnvironments
       tags:
-        - agent
+      - agent
       security:
-        - bearerAuth: []
+      - bearerAuth: []
       parameters:
-        - name: sort_by
-          in: query
-          required: false
-          description: |
-            Sort order for the returned environments.
-            - `name`: alphabetical by environment name
-            - `last_updated`: most recently updated first (default)
-          schema:
-            type: string
-            enum:
-              - name
-              - last_updated
-            default: last_updated
+      - name: sort_by
+        in: query
+        required: false
+        description: |
+          Sort order for the returned environments.
+          - `name`: alphabetical by environment name
+          - `last_updated`: most recently updated first (default)
+        schema:
+          type: string
+          enum:
+          - name
+          - last_updated
+          default: last_updated
       responses:
         '200':
           description: List of accessible environments
@@ -1352,7 +1364,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-
   /agent/models:
     get:
       summary: List available models
@@ -1363,9 +1374,9 @@ paths:
         currently disabled (and why).
       operationId: listModels
       tags:
-        - agent
+      - agent
       security:
-        - bearerAuth: []
+      - bearerAuth: []
       responses:
         '200':
           description: List of available models
@@ -1385,7 +1396,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-
   /agent/artifacts/{artifactUid}:
     get:
       summary: Get artifact details
@@ -1395,16 +1405,16 @@ paths:
         the current plan content inline.
       operationId: getArtifact
       tags:
-        - agent
+      - agent
       security:
-        - bearerAuth: []
+      - bearerAuth: []
       parameters:
-        - name: artifactUid
-          in: path
-          description: The unique identifier (UUID) of the artifact
-          required: true
-          schema:
-            type: string
+      - name: artifactUid
+        in: path
+        description: The unique identifier (UUID) of the artifact
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: Artifact details with download information
@@ -1436,7 +1446,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-
   /agent/identities:
     post:
       summary: Create an agent
@@ -1445,9 +1454,9 @@ paths:
         Agents can be used as the execution principal for team-owned runs.
       operationId: createAgent
       tags:
-        - agent
+      - agent
       security:
-        - bearerAuth: []
+      - bearerAuth: []
       requestBody:
         required: true
         content:
@@ -1493,9 +1502,9 @@ paths:
         and may be used for runs.
       operationId: listAgents
       tags:
-        - agent
+      - agent
       security:
-        - bearerAuth: []
+      - bearerAuth: []
       responses:
         '200':
           description: List of agents
@@ -1527,24 +1536,66 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-
   /agent/identities/{uid}:
+    get:
+      summary: Retrieve an agent
+      description: |
+        Retrieve a single agent by its unique identifier.
+        The response includes an `available` flag indicating whether the agent
+        is within the team's plan limit and may be used for runs.
+      operationId: getAgent
+      tags:
+      - agent
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: uid
+        in: path
+        description: The unique identifier of the agent
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Agent details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentResponse'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Agent not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     put:
       summary: Update an agent
       description: |
         Update an existing agent.
       operationId: updateAgent
       tags:
-        - agent
+      - agent
       security:
-        - bearerAuth: []
+      - bearerAuth: []
       parameters:
-        - name: uid
-          in: path
-          description: The unique identifier of the agent
-          required: true
-          schema:
-            type: string
+      - name: uid
+        in: path
+        description: The unique identifier of the agent
+        required: true
+        schema:
+          type: string
       requestBody:
         required: true
         content:
@@ -1595,16 +1646,16 @@ paths:
         agent are deleted atomically.
       operationId: deleteAgent
       tags:
-        - agent
+      - agent
       security:
-        - bearerAuth: []
+      - bearerAuth: []
       parameters:
-        - name: uid
-          in: path
-          description: The unique identifier of the agent
-          required: true
-          schema:
-            type: string
+      - name: uid
+        in: path
+        description: The unique identifier of the agent
+        required: true
+        schema:
+          type: string
       responses:
         '204':
           description: Agent deleted successfully
@@ -1638,7 +1689,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-
   /agent/sessions/{sessionUuid}/redirect:
     get:
       summary: Get session redirect
@@ -1646,18 +1696,22 @@ paths:
         Check whether a shared session should redirect to a conversation transcript.
         Returns a conversation_id if the agent sandbox has finished and conversation
         data is available, or an empty object if no redirect is needed.
+
+        This endpoint is public (no authentication required) so that anonymous
+        viewers can resolve a publicly-shared session link before signing in.
+        Access to the underlying conversation transcript is still gated by
+        conversation link-sharing.
       operationId: getSessionRedirect
       tags:
-        - agent
-      security:
-        - bearerAuth: []
+      - agent
+      security: []
       parameters:
-        - name: sessionUuid
-          in: path
-          description: The UUID of the shared session
-          required: true
-          schema:
-            type: string
+      - name: sessionUuid
+        in: path
+        description: The UUID of the shared session
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: |
@@ -1677,7 +1731,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-
 components:
   securitySchemes:
     bearerAuth:
@@ -1685,19 +1738,24 @@ components:
       scheme: bearer
       description: |
         Authentication via a Warp API key.
-
   schemas:
     RunAgentRequest:
       type: object
       description: |
         Request body for creating a new agent run.
-        Either prompt or skill (via skill field or config.skill_spec) is required.
+        Either prompt or skill (via skill field, config.skill_spec, or config.skills) is required.
       properties:
         prompt:
           type: string
           description: |
             The prompt/instruction for the agent to execute.
-            Required unless a skill is specified via the skill field or config.skill_spec.
+            Required unless a skill is specified via the skill field, config.skill_spec, or config.skills.
+        mode:
+          $ref: '#/components/schemas/AgentRunMode'
+          description: |
+            Optional query mode for the run. Defaults to `normal` when omitted.
+            The server does not infer mode from prompt prefixes such as `/plan`,
+            so callers should pass this field explicitly to request non-normal behavior.
         skill:
           type: string
           description: |
@@ -1721,9 +1779,7 @@ components:
           x-go-type-skip-optional-pointer: false
         agent_identity_uid:
           type: string
-          description: |
-            Optional agent identity UID to use as the execution principal for the run.
-            This is only valid for runs that are team owned. 
+          description: "Optional agent identity UID to use as the execution principal for the run.\nThis is only valid for runs that are team owned. \n"
         conversation_id:
           type: string
           description: |
@@ -1746,13 +1802,12 @@ components:
           description: |
             Whether the run should be interactive.
             If not set, defaults to false.
-
     RunAgentResponse:
       type: object
       required:
-        - run_id
-        - task_id
-        - state
+      - run_id
+      - task_id
+      - state
       properties:
         run_id:
           type: string
@@ -1767,12 +1822,23 @@ components:
         at_capacity:
           type: boolean
           description: Whether the system is at capacity when the run was created
-
+    AgentRunMode:
+      type: string
+      description: |
+        Query mode for an agent run.
+          - normal: Standard user query (default).
+          - plan: Planning Mode. The agent researches and creates a plan, then waits for approval before execution.
+          - orchestrate: Orchestration Mode. The agent proposes an orchestration plan and must not start child agents until approved.
+      enum:
+      - normal
+      - plan
+      - orchestrate
+      default: normal
     ListRunsResponse:
       type: object
       required:
-        - runs
-        - page_info
+      - runs
+      - page_info
       properties:
         runs:
           type: array
@@ -1780,17 +1846,16 @@ components:
             $ref: '#/components/schemas/RunItem'
         page_info:
           $ref: '#/components/schemas/PageInfo'
-
     RunItem:
       type: object
       required:
-        - run_id
-        - task_id
-        - title
-        - state
-        - prompt
-        - created_at
-        - updated_at
+      - run_id
+      - task_id
+      - title
+      - state
+      - prompt
+      - created_at
+      - updated_at
       properties:
         run_id:
           type: string
@@ -1842,6 +1907,8 @@ components:
           description: URL to the run trigger (e.g. Slack thread, Linear issue, schedule)
         creator:
           $ref: '#/components/schemas/RunCreatorInfo'
+        executor:
+          $ref: '#/components/schemas/RunCreatorInfo'
         request_usage:
           $ref: '#/components/schemas/RequestUsage'
         agent_config:
@@ -1864,12 +1931,11 @@ components:
           $ref: '#/components/schemas/AgentSkill'
         scope:
           $ref: '#/components/schemas/Scope'
-
     ConversationResponse:
       type: object
       required:
-        - conversation_id
-        - steps
+      - conversation_id
+      - steps
       properties:
         conversation_id:
           type: string
@@ -1879,13 +1945,12 @@ components:
           description: Root steps in the conversation
           items:
             $ref: '#/components/schemas/ConversationStep'
-
     ConversationStep:
       type: object
       required:
-        - id
-        - messages
-        - steps
+      - id
+      - messages
+      - steps
       properties:
         id:
           type: string
@@ -1914,12 +1979,11 @@ components:
           description: Nested delegated work performed as part of this step
           items:
             $ref: '#/components/schemas/ConversationStep'
-
     ConversationMessage:
       type: object
       required:
-        - role
-        - content
+      - role
+      - content
       properties:
         message_ids:
           type: array
@@ -1939,22 +2003,20 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ConversationContentBlock'
-
     ConversationMessageRole:
       type: string
       description: Role of the normalized message
       enum:
-        - user
-        - assistant
-        - tool
-        - system
-
+      - user
+      - assistant
+      - tool
+      - system
     ConversationContentBlock:
       oneOf:
-        - $ref: '#/components/schemas/TextContentBlock'
-        - $ref: '#/components/schemas/ActionContentBlock'
-        - $ref: '#/components/schemas/ActionResultContentBlock'
-        - $ref: '#/components/schemas/EventContentBlock'
+      - $ref: '#/components/schemas/TextContentBlock'
+      - $ref: '#/components/schemas/ActionContentBlock'
+      - $ref: '#/components/schemas/ActionResultContentBlock'
+      - $ref: '#/components/schemas/EventContentBlock'
       discriminator:
         propertyName: type
         mapping:
@@ -1962,59 +2024,55 @@ components:
           action: '#/components/schemas/ActionContentBlock'
           action_result: '#/components/schemas/ActionResultContentBlock'
           event: '#/components/schemas/EventContentBlock'
-
     TextContentBlock:
       type: object
       required:
-        - type
-        - text
+      - type
+      - text
       properties:
         type:
           type: string
           enum:
-            - text
+          - text
         message_id:
           type: string
           description: Underlying transcript message ID that produced this content block, when available
         text:
           type: string
           description: Plain text content
-
     ActionCategory:
       type: string
       description: High-level category of an action performed during the conversation
       enum:
-        - command
-        - files
-        - search
-        - integration
-        - documents
-        - computer
-        - review
-        - skill
-
+      - command
+      - files
+      - search
+      - integration
+      - documents
+      - computer
+      - review
+      - skill
     ActionState:
       type: string
       description: State of an action result
       enum:
-        - running
-        - completed
-        - failed
-        - denied
-
+      - running
+      - completed
+      - failed
+      - denied
     ActionContentBlock:
       type: object
       required:
-        - type
-        - id
-        - category
-        - name
-        - input
+      - type
+      - id
+      - category
+      - name
+      - input
       properties:
         type:
           type: string
           enum:
-            - action
+          - action
         message_id:
           type: string
           description: Underlying transcript message ID that produced this content block, when available
@@ -2030,21 +2088,20 @@ components:
           type: object
           additionalProperties: true
           description: Curated public input for this action. This object is owned by the API and is not a raw internal tool payload.
-
     ActionResultContentBlock:
       type: object
       required:
-        - type
-        - action_id
-        - category
-        - name
-        - state
-        - output
+      - type
+      - action_id
+      - category
+      - name
+      - state
+      - output
       properties:
         type:
           type: string
           enum:
-            - action_result
+          - action_result
         message_id:
           type: string
           description: Underlying transcript message ID that produced this content block, when available
@@ -2062,18 +2119,17 @@ components:
           type: object
           additionalProperties: true
           description: Curated public result for this action. Large or binary internal payloads should be summarized rather than passed through raw.
-
     EventContentBlock:
       type: object
       required:
-        - type
-        - name
-        - data
+      - type
+      - name
+      - data
       properties:
         type:
           type: string
           enum:
-            - event
+          - event
         message_id:
           type: string
           description: Underlying transcript message ID that produced this content block, when available
@@ -2084,13 +2140,12 @@ components:
           type: object
           additionalProperties: true
           description: Minimal structured metadata for the event
-
     ArtifactItem:
       oneOf:
-        - $ref: '#/components/schemas/PlanArtifact'
-        - $ref: '#/components/schemas/PullRequestArtifact'
-        - $ref: '#/components/schemas/ScreenshotArtifact'
-        - $ref: '#/components/schemas/FileArtifact'
+      - $ref: '#/components/schemas/PlanArtifact'
+      - $ref: '#/components/schemas/PullRequestArtifact'
+      - $ref: '#/components/schemas/ScreenshotArtifact'
+      - $ref: '#/components/schemas/FileArtifact'
       discriminator:
         propertyName: artifact_type
         mapping:
@@ -2098,18 +2153,17 @@ components:
           PULL_REQUEST: '#/components/schemas/PullRequestArtifact'
           SCREENSHOT: '#/components/schemas/ScreenshotArtifact'
           FILE: '#/components/schemas/FileArtifact'
-
     PlanArtifact:
       type: object
       required:
-        - artifact_type
-        - created_at
-        - data
+      - artifact_type
+      - created_at
+      - data
       properties:
         artifact_type:
           type: string
           enum:
-            - PLAN
+          - PLAN
           description: Type of the artifact
         created_at:
           type: string
@@ -2117,18 +2171,17 @@ components:
           description: Timestamp when the artifact was created (RFC3339)
         data:
           $ref: '#/components/schemas/PlanArtifactData'
-
     PullRequestArtifact:
       type: object
       required:
-        - artifact_type
-        - created_at
-        - data
+      - artifact_type
+      - created_at
+      - data
       properties:
         artifact_type:
           type: string
           enum:
-            - PULL_REQUEST
+          - PULL_REQUEST
           description: Type of the artifact
         created_at:
           type: string
@@ -2136,18 +2189,17 @@ components:
           description: Timestamp when the artifact was created (RFC3339)
         data:
           $ref: '#/components/schemas/PullRequestArtifactData'
-
     ScreenshotArtifact:
       type: object
       required:
-        - artifact_type
-        - created_at
-        - data
+      - artifact_type
+      - created_at
+      - data
       properties:
         artifact_type:
           type: string
           enum:
-            - SCREENSHOT
+          - SCREENSHOT
           description: Type of the artifact
         created_at:
           type: string
@@ -2155,18 +2207,17 @@ components:
           description: Timestamp when the artifact was created (RFC3339)
         data:
           $ref: '#/components/schemas/ScreenshotArtifactData'
-
     FileArtifact:
       type: object
       required:
-        - artifact_type
-        - created_at
-        - data
+      - artifact_type
+      - created_at
+      - data
       properties:
         artifact_type:
           type: string
           enum:
-            - FILE
+          - FILE
           description: Type of the artifact
         created_at:
           type: string
@@ -2174,11 +2225,10 @@ components:
           description: Timestamp when the artifact was created (RFC3339)
         data:
           $ref: '#/components/schemas/FileArtifactData'
-
     PlanArtifactData:
       type: object
       required:
-        - document_uid
+      - document_uid
       properties:
         artifact_uid:
           type: string
@@ -2196,12 +2246,11 @@ components:
         title:
           type: string
           description: Title of the plan
-
     PullRequestArtifactData:
       type: object
       required:
-        - url
-        - branch
+      - url
+      - branch
       properties:
         url:
           type: string
@@ -2210,12 +2259,11 @@ components:
         branch:
           type: string
           description: Branch name for the pull request
-
     ScreenshotArtifactData:
       type: object
       required:
-        - artifact_uid
-        - mime_type
+      - artifact_uid
+      - mime_type
       properties:
         artifact_uid:
           type: string
@@ -2226,14 +2274,13 @@ components:
         description:
           type: string
           description: Optional description of the screenshot
-
     FileArtifactData:
       type: object
       required:
-        - artifact_uid
-        - filepath
-        - filename
-        - mime_type
+      - artifact_uid
+      - filepath
+      - filename
+      - mime_type
       properties:
         artifact_uid:
           type: string
@@ -2255,14 +2302,13 @@ components:
           format: int64
           description: Size of the uploaded file in bytes
           x-go-type-skip-optional-pointer: false
-
     ScheduleInfo:
       type: object
       description: Information about the schedule that triggered this run (only present for scheduled runs)
       required:
-        - schedule_id
-        - schedule_name
-        - cron_schedule
+      - schedule_id
+      - schedule_name
+      - cron_schedule
       properties:
         schedule_id:
           type: string
@@ -2273,11 +2319,10 @@ components:
         cron_schedule:
           type: string
           description: Cron expression at the time the run was created
-
     PageInfo:
       type: object
       required:
-        - has_next_page
+      - has_next_page
       properties:
         has_next_page:
           type: boolean
@@ -2285,14 +2330,13 @@ components:
         next_cursor:
           type: string
           description: Opaque cursor for fetching the next page
-
     RunStatusMessage:
       type: object
       description: |
         Status message for a run. For terminal error states, includes structured
         error code and retryability info from the platform error catalog.
       required:
-        - message
+      - message
       properties:
         message:
           type: string
@@ -2305,7 +2349,6 @@ components:
             Whether the error is transient and the client may retry by submitting
             a new run. Only present on terminal error states. When false, retrying
             without addressing the underlying cause will not succeed.
-
     RequestUsage:
       type: object
       description: Resource usage information for the run
@@ -2318,15 +2361,18 @@ components:
           type: number
           format: double
           description: Cost of compute resources for the run
-
+        platform_cost:
+          type: number
+          format: double
+          description: Cost of platform usage for the run
     RunCreatorInfo:
       type: object
       properties:
         type:
           type: string
           enum:
-            - user
-            - service_account
+          - user
+          - service_account
           description: Type of the creator principal
         uid:
           type: string
@@ -2341,19 +2387,18 @@ components:
           type: string
           format: uri
           description: URL to the creator's photo
-
     RunState:
       type: string
       enum:
-        - QUEUED
-        - PENDING
-        - CLAIMED
-        - INPROGRESS
-        - SUCCEEDED
-        - FAILED
-        - BLOCKED
-        - ERROR
-        - CANCELLED
+      - QUEUED
+      - PENDING
+      - CLAIMED
+      - INPROGRESS
+      - SUCCEEDED
+      - FAILED
+      - BLOCKED
+      - ERROR
+      - CANCELLED
       description: |
         Current state of the run:
         - QUEUED: Run is waiting to be picked up
@@ -2368,15 +2413,15 @@ components:
     RunSourceType:
       type: string
       enum:
-        - LINEAR
-        - API
-        - SLACK
-        - LOCAL
-        - SCHEDULED_AGENT
-        - WEB_APP
-        - GITHUB_ACTION
-        - CLOUD_MODE
-        - CLI
+      - LINEAR
+      - API
+      - SLACK
+      - LOCAL
+      - SCHEDULED_AGENT
+      - WEB_APP
+      - GITHUB_ACTION
+      - CLOUD_MODE
+      - CLI
       description: |
         Source that created the run:
         - LINEAR: Created from Linear integration
@@ -2391,14 +2436,12 @@ components:
     RunExecutionLocation:
       type: string
       enum:
-        - LOCAL
-        - REMOTE
+      - LOCAL
+      - REMOTE
       description: |
         Where the run executed:
         - LOCAL: Executed in the user's local Oz environment
         - REMOTE: Executed by a remote/cloud worker
-    # TODO: Rename AmbientAgentConfig to AgentConfig in a future API version.
-    # The "Ambient" prefix is an internal legacy name and should not be user-facing.
     AmbientAgentConfig:
       type: object
       description: Configuration for a cloud agent run
@@ -2415,7 +2458,7 @@ components:
           description: LLM model to use (uses team default if not specified)
           x-stainless-naming:
             python:
-              method_argument: "llm_id"
+              method_argument: llm_id
         base_prompt:
           type: string
           description: Custom base prompt for the agent
@@ -2425,10 +2468,21 @@ components:
         skill_spec:
           type: string
           description: |
-            Skill specification identifying which agent skill to use.
+            Skill specification identifying the primary agent skill to use.
             Format: "{owner}/{repo}:{skill_path}"
             Example: "warpdotdev/warp-server:.claude/skills/deploy/SKILL.md"
+            Mutually exclusive with skills in create/update requests.
+            Responses include the first skills entry here for backward compatibility.
             Use the list agents endpoint to discover available skills.
+        skills:
+          type: array
+          items:
+            type: string
+          description: |
+            Ordered skill specifications to attach to the run.
+            Format: "{owner}/{repo}:{skill_path}"
+            Example: "warpdotdev/warp-server:.claude/skills/deploy/SKILL.md"
+            Mutually exclusive with skill_spec in create/update requests.
         mcp_servers:
           type: object
           additionalProperties:
@@ -2459,7 +2513,43 @@ components:
           $ref: '#/components/schemas/Harness'
         harness_auth_secrets:
           $ref: '#/components/schemas/HarnessAuthSecrets'
-
+        session_sharing:
+          $ref: '#/components/schemas/SessionSharingConfig'
+        memory_stores:
+          type: array
+          items:
+            $ref: '#/components/schemas/MemoryStoreRef'
+          description: Memory stores to attach to this run.
+        inference_providers:
+          allOf:
+          - $ref: '#/components/schemas/InferenceProvidersConfig'
+          description: |
+            Optional inference provider settings for this run. Run-level
+            config takes precedence over the agent's stored config and
+            the workspace's admin-configured defaults.
+          x-go-type-skip-optional-pointer: false
+    SessionSharingConfig:
+      type: object
+      description: |
+        Configures sharing behavior for the run's shared session.
+        When set, the worker emits `--share public:<level>` and the bundled Warp
+        client applies an anyone-with-link ACL to the shared session once it has
+        bootstrapped. The same ACL is mirrored onto the backing conversation so
+        link viewers can read the conversation without being on the run's team.
+        Subject to the workspace-level anyone-with-link sharing setting.
+      properties:
+        public_access:
+          type: string
+          enum:
+          - VIEWER
+          - EDITOR
+          description: |
+            Grants anyone-with-link access at the specified level to the run's
+            shared session and backing conversation.
+            - VIEWER: link viewers can read the session and conversation.
+            - EDITOR: link viewers can also interact with the session.
+            Anonymous (unauthenticated) reads are not supported in this release;
+            link viewers must still be authenticated Warp users.
     Harness:
       type: object
       description: |
@@ -2469,13 +2559,16 @@ components:
         type:
           type: string
           enum:
-            - oz
-            - claude
+          - oz
+          - claude
+          - gemini
+          - codex
           description: |
             The harness type identifier.
             - oz: Warp's built-in harness (default)
             - claude: Claude Code harness
-
+            - gemini: Gemini CLI harness
+            - codex: Codex CLI harness
     HarnessAuthSecrets:
       type: object
       description: |
@@ -2488,7 +2581,12 @@ components:
             Name of a managed secret for Claude Code harness authentication.
             The secret must exist within the caller's personal or team scope.
             Only applicable when harness type is "claude".
-
+        codex_auth_secret_name:
+          type: string
+          description: |
+            Name of a managed secret for Codex harness authentication.
+            The secret must exist within the caller's personal or team scope.
+            Only applicable when harness type is "codex".
     MCPServerConfig:
       type: object
       description: |
@@ -2519,7 +2617,6 @@ components:
           additionalProperties:
             type: string
           description: HTTP headers for SSE/HTTP transport
-
     Error:
       type: object
       description: |
@@ -2530,10 +2627,10 @@ components:
         Additional extension members (e.g., `auth_url`, `provider`) may be
         present depending on the error code.
       required:
-        - type
-        - title
-        - status
-        - error
+      - type
+      - title
+      - status
+      - error
       properties:
         type:
           type: string
@@ -2568,12 +2665,11 @@ components:
         trace_id:
           type: string
           description: OpenTelemetry trace ID for debugging and support requests
-
     ArtifactResponse:
       oneOf:
-        - $ref: '#/components/schemas/PlanArtifactResponse'
-        - $ref: '#/components/schemas/ScreenshotArtifactResponse'
-        - $ref: '#/components/schemas/FileArtifactResponse'
+      - $ref: '#/components/schemas/PlanArtifactResponse'
+      - $ref: '#/components/schemas/ScreenshotArtifactResponse'
+      - $ref: '#/components/schemas/FileArtifactResponse'
       discriminator:
         propertyName: artifact_type
         mapping:
@@ -2584,10 +2680,10 @@ components:
       type: object
       description: Response for retrieving a plan artifact.
       required:
-        - artifact_uid
-        - artifact_type
-        - created_at
-        - data
+      - artifact_uid
+      - artifact_type
+      - created_at
+      - data
       properties:
         artifact_uid:
           type: string
@@ -2595,7 +2691,7 @@ components:
         artifact_type:
           type: string
           enum:
-            - PLAN
+          - PLAN
           description: Type of the artifact
         created_at:
           type: string
@@ -2603,15 +2699,14 @@ components:
           description: Timestamp when the artifact was created (RFC3339)
         data:
           $ref: '#/components/schemas/PlanArtifactResponseData'
-
     PlanArtifactResponseData:
       type: object
       description: Response data for a plan artifact, including current markdown content.
       required:
-        - document_uid
-        - notebook_uid
-        - content
-        - content_type
+      - document_uid
+      - notebook_uid
+      - content
+      - content_type
       properties:
         document_uid:
           type: string
@@ -2632,15 +2727,14 @@ components:
         content_type:
           type: string
           description: MIME type of the returned plan content
-
     ScreenshotArtifactResponse:
       type: object
       description: Response for retrieving a screenshot artifact.
       required:
-        - artifact_uid
-        - artifact_type
-        - created_at
-        - data
+      - artifact_uid
+      - artifact_type
+      - created_at
+      - data
       properties:
         artifact_uid:
           type: string
@@ -2648,7 +2742,7 @@ components:
         artifact_type:
           type: string
           enum:
-            - SCREENSHOT
+          - SCREENSHOT
           description: Type of the artifact
         created_at:
           type: string
@@ -2656,14 +2750,13 @@ components:
           description: Timestamp when the artifact was created (RFC3339)
         data:
           $ref: '#/components/schemas/ScreenshotArtifactResponseData'
-
     ScreenshotArtifactResponseData:
       type: object
       description: Response data for a screenshot artifact, including a signed download URL.
       required:
-        - download_url
-        - expires_at
-        - content_type
+      - download_url
+      - expires_at
+      - content_type
       properties:
         download_url:
           type: string
@@ -2679,15 +2772,14 @@ components:
         description:
           type: string
           description: Optional description of the screenshot
-
     FileArtifactResponse:
       type: object
       description: Response for retrieving a file artifact.
       required:
-        - artifact_uid
-        - artifact_type
-        - created_at
-        - data
+      - artifact_uid
+      - artifact_type
+      - created_at
+      - data
       properties:
         artifact_uid:
           type: string
@@ -2695,7 +2787,7 @@ components:
         artifact_type:
           type: string
           enum:
-            - FILE
+          - FILE
           description: Type of the artifact
         created_at:
           type: string
@@ -2703,16 +2795,15 @@ components:
           description: Timestamp when the artifact was created (RFC3339)
         data:
           $ref: '#/components/schemas/FileArtifactResponseData'
-
     FileArtifactResponseData:
       type: object
       description: Response data for a file artifact, including a signed download URL.
       required:
-        - download_url
-        - expires_at
-        - content_type
-        - filepath
-        - filename
+      - download_url
+      - expires_at
+      - content_type
+      - filepath
+      - filename
       properties:
         download_url:
           type: string
@@ -2739,14 +2830,13 @@ components:
           format: int64
           description: Size of the uploaded file in bytes
           x-go-type-skip-optional-pointer: false
-
     AttachmentInput:
       type: object
       description: A base64-encoded file attachment to include with the prompt
       required:
-        - file_name
-        - mime_type
-        - data
+      - file_name
+      - mime_type
+      - data
       properties:
         file_name:
           type: string
@@ -2760,17 +2850,16 @@ components:
           type: string
           format: byte
           description: Base64-encoded attachment data
-
     ScheduledAgentItem:
       type: object
       required:
-        - id
-        - name
-        - cron_schedule
-        - enabled
-        - prompt
-        - created_at
-        - updated_at
+      - id
+      - name
+      - cron_schedule
+      - enabled
+      - prompt
+      - created_at
+      - updated_at
       properties:
         id:
           type: string
@@ -2793,9 +2882,14 @@ components:
           description: Error message from the last failed spawn attempt, if any
         agent_config:
           $ref: '#/components/schemas/AmbientAgentConfig'
+        agent_uid:
+          type: string
+          format: uuid
+          x-go-type-skip-optional-pointer: false
+          description: UID of the agent that this schedule runs as
         environment:
           allOf:
-            - $ref: '#/components/schemas/CloudEnvironmentConfig'
+          - $ref: '#/components/schemas/CloudEnvironmentConfig'
           description: Resolved environment configuration (if agent_config references an environment_id)
         created_at:
           type: string
@@ -2813,7 +2907,6 @@ components:
           $ref: '#/components/schemas/ScheduledAgentHistoryItem'
         scope:
           $ref: '#/components/schemas/Scope'
-
     ScheduledAgentHistoryItem:
       type: object
       description: Scheduler-derived history metadata for a scheduled agent
@@ -2828,15 +2921,14 @@ components:
           format: date-time
           nullable: true
           description: Timestamp of the next scheduled run (RFC3339)
-
     CreateScheduledAgentRequest:
       type: object
       description: |
         Request body for creating a new scheduled agent.
-        Either prompt or agent_config.skill_spec is required.
+        Either prompt or agent_config.skill_spec or agent_config.skills is required.
       required:
-        - name
-        - cron_schedule
+      - name
+      - cron_schedule
       properties:
         name:
           type: string
@@ -2848,11 +2940,24 @@ components:
           type: string
           description: |
             The prompt/instruction for the agent to execute.
-            Required unless agent_config.skill_spec is provided.
+            Required unless agent_config.skill_spec or agent_config.skills is provided.
+        mode:
+          $ref: '#/components/schemas/AgentRunMode'
+          description: |
+            Optional query mode applied to every triggered run. Defaults to
+            `normal` when omitted. The server does not infer mode from prompt
+            prefixes such as `/plan`.
         enabled:
           type: boolean
           description: Whether the schedule should be active immediately
           default: true
+        agent_uid:
+          type: string
+          format: uuid
+          x-go-type-skip-optional-pointer: false
+          description: |
+            Agent UID to use as the execution principal for this schedule.
+            Only valid for team-owned schedules.
         agent_config:
           $ref: '#/components/schemas/AmbientAgentConfig'
         team:
@@ -2861,16 +2966,15 @@ components:
             Whether to create a team-owned schedule.
             Defaults to true for users on a single team.
           x-go-type-skip-optional-pointer: false
-
     UpdateScheduledAgentRequest:
       type: object
       description: |
         Request body for updating a scheduled agent.
-        Either prompt or agent_config.skill_spec is required.
+        Either prompt or agent_config.skill_spec or agent_config.skills is required.
       required:
-        - name
-        - cron_schedule
-        - enabled
+      - name
+      - cron_schedule
+      - enabled
       properties:
         name:
           type: string
@@ -2882,33 +2986,43 @@ components:
           type: string
           description: |
             The prompt/instruction for the agent to execute.
-            Required unless agent_config.skill_spec is provided.
+            Required unless agent_config.skill_spec or agent_config.skills is provided.
+        mode:
+          $ref: '#/components/schemas/AgentRunMode'
+          description: |
+            Optional query mode applied to every triggered run. Defaults to
+            `normal` when omitted. The server does not infer mode from prompt
+            prefixes such as `/plan`.
         enabled:
           type: boolean
           description: Whether the schedule should be active
+        agent_uid:
+          type: string
+          format: uuid
+          x-go-type-skip-optional-pointer: false
+          description: |
+            Agent UID to use as the execution principal for this schedule.
+            Only valid for team-owned schedules.
         agent_config:
           $ref: '#/components/schemas/AmbientAgentConfig'
-
     ListScheduledAgentsResponse:
       type: object
       required:
-        - schedules
+      - schedules
       properties:
         schedules:
           type: array
           items:
             $ref: '#/components/schemas/ScheduledAgentItem'
           description: List of scheduled agents
-
     DeleteScheduledAgentResponse:
       type: object
       required:
-        - success
+      - success
       properties:
         success:
           type: boolean
           description: Whether the deletion was successful
-
     CloudEnvironmentConfig:
       type: object
       description: Configuration for a cloud environment used by scheduled agents
@@ -2935,7 +3049,6 @@ components:
           description: Shell commands to run during environment setup
         providers:
           $ref: '#/components/schemas/ProvidersConfig'
-
     ProvidersConfig:
       type: object
       description: Optional cloud provider configurations for automatic auth
@@ -2944,14 +3057,19 @@ components:
           $ref: '#/components/schemas/GcpProviderConfig'
         aws:
           $ref: '#/components/schemas/AwsProviderConfig'
-
+    InferenceProvidersConfig:
+      type: object
+      description: Inference provider settings used for LLM calls.
+      properties:
+        aws:
+          $ref: '#/components/schemas/AwsInferenceProviderConfig'
     GcpProviderConfig:
       type: object
       description: GCP Workload Identity Federation settings
       required:
-        - project_number
-        - workload_identity_federation_pool_id
-        - workload_identity_federation_provider_id
+      - project_number
+      - workload_identity_federation_pool_id
+      - workload_identity_federation_provider_id
       externalDocs:
         description: Google documentation on Workload Identity Federation
         url: https://docs.cloud.google.com/iam/docs/workload-identity-federation
@@ -2965,25 +3083,41 @@ components:
         workload_identity_federation_provider_id:
           type: string
           description: Workload Identity Federation provider ID
-
     AwsProviderConfig:
       type: object
       description: AWS IAM role assumption settings
-      required:
-        - role_arn
       externalDocs:
         description: AWS documentation on IAM OIDC federation
         url: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_oidc.html
+      required:
+      - role_arn
       properties:
         role_arn:
           type: string
           description: AWS IAM role ARN to assume
-
+    AwsInferenceProviderConfig:
+      type: object
+      description: |
+        Configures AWS Bedrock as the LLM inference provider for this
+        agent or run.
+      externalDocs:
+        description: AWS documentation on IAM OIDC federation
+        url: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_oidc.html
+      properties:
+        disabled:
+          type: boolean
+          description: If true, opt out of Bedrock at this layer.
+        role_arn:
+          type: string
+          description: IAM role ARN to assume when calling Bedrock.
+        region:
+          type: string
+          description: AWS region used for STS when assuming the Bedrock inference role.
     GitHubRepo:
       type: object
       required:
-        - owner
-        - repo
+      - owner
+      - repo
       properties:
         owner:
           type: string
@@ -2991,23 +3125,53 @@ components:
         repo:
           type: string
           description: GitHub repository name
-
     ListAgentsResponse:
       type: object
       required:
-        - agents
+      - agents
       properties:
         agents:
           type: array
           items:
             $ref: '#/components/schemas/AgentListItem'
           description: List of available agents
-
+    ListConnectedSelfHostedWorkersResponse:
+      type: object
+      required:
+      - workers
+      properties:
+        workers:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConnectedSelfHostedWorker'
+          description: Connected self-hosted workers for the authenticated principal's team
+    ConnectedSelfHostedWorker:
+      type: object
+      required:
+      - worker_host
+      - connection_count
+      - connected_at
+      - last_seen_at
+      properties:
+        worker_host:
+          type: string
+          description: Logical host identifier provided by the self-hosted worker
+        connection_count:
+          type: integer
+          description: Number of active websocket connections currently observed for this worker host
+        connected_at:
+          type: string
+          format: date-time
+          description: Earliest connection timestamp across active connections for this worker host
+        last_seen_at:
+          type: string
+          format: date-time
+          description: Most recent heartbeat timestamp across active connections for this worker host
     AgentListItem:
       type: object
       required:
-        - name
-        - variants
+      - name
+      - variants
       properties:
         name:
           type: string
@@ -3017,15 +3181,14 @@ components:
           items:
             $ref: '#/components/schemas/AgentListVariant'
           description: Available variants of this agent
-
     AgentListVariant:
       type: object
       required:
-        - id
-        - description
-        - base_prompt
-        - source
-        - environments
+      - id
+      - description
+      - base_prompt
+      - source
+      - environments
       properties:
         id:
           type: string
@@ -3057,13 +3220,12 @@ components:
             Non-empty when the skill's SKILL.md file exists but is malformed.
             Contains a description of the parse failure. Only present when
             include_malformed_skills=true is passed to the list agents endpoint.
-
     AgentListSource:
       type: object
       required:
-        - owner
-        - name
-        - skill_path
+      - owner
+      - name
+      - skill_path
       properties:
         owner:
           type: string
@@ -3080,12 +3242,11 @@ components:
             Self-hosted worker host that reported this skill.
             Present only for skills discovered from self-hosted workers
             (as opposed to skills from GitHub repos linked to environments).
-
     AgentListEnvironment:
       type: object
       required:
-        - uid
-        - name
+      - uid
+      - name
       properties:
         uid:
           type: string
@@ -3093,23 +3254,21 @@ components:
         name:
           type: string
           description: Human-readable name of the environment
-
     Scope:
       type: object
       description: Ownership scope for a resource (team or personal)
       required:
-        - type
+      - type
       properties:
         type:
           type: string
           enum:
-            - User
-            - Team
+          - User
+          - Team
           description: Type of ownership ("User" for personal, "Team" for team-owned)
         uid:
           type: string
           description: UID of the owning user or team
-
     PlatformErrorCode:
       type: string
       description: |
@@ -3137,125 +3296,27 @@ components:
         - `resource_unavailable` — Transient infrastructure issue (retryable)
         - `internal_error` — Unexpected server-side error (retryable)
       enum:
-        - insufficient_credits
-        - feature_not_available
-        - external_authentication_required
-        - not_authorized
-        - invalid_request
-        - resource_not_found
-        - budget_exceeded
-        - integration_disabled
-        - integration_not_configured
-        - operation_not_supported
-        - environment_setup_failed
-        - content_policy_violation
-        - conflict
-        - authentication_required
-        - resource_unavailable
-        - internal_error
-
-    CreateExternalConversationRequest:
-      type: object
-      description: Request body for creating a new external conversation for a third-party harness.
-      required:
-        - format
-      properties:
-        format:
-          type: string
-          x-oapi-codegen-extra-tags:
-            binding: required
-          description: |
-            The conversation format identifying the harness type.
-
-    CreateExternalConversationResponse:
-      type: object
-      required:
-        - conversation_id
-      properties:
-        conversation_id:
-          type: string
-          description: The unique identifier of the newly created conversation.
-
-    ResolvePromptRequest:
-      type: object
-      description: Request body for resolving the effective prompt for a task.
-      properties:
-        skill:
-          type: object
-          description: Optional skill metadata to prepend to the prompt.
-          required:
-            - name
-            - content
-          properties:
-            name:
-              type: string
-              description: Human-readable name of the skill
-            content:
-              type: string
-              description: The resolved skill content
-            path:
-              type: string
-              description: Full path to SKILL.md (optional)
-        attachments_dir:
-          type: string
-          description: Directory where attachments were downloaded locally
-
-    ResolvePromptResponse:
-      type: object
-      required:
-        - prompt
-      properties:
-        prompt:
-          type: string
-          description: The resolved prompt
-        system_prompt:
-          type: string
-          description: Optional system prompt addition for the harness
-
-    GetUploadTargetRequest:
-      type: object
-      description: Request body for obtaining a conversation-scoped upload target.
-      required:
-        - conversation_id
-      properties:
-        conversation_id:
-          type: string
-          x-oapi-codegen-extra-tags:
-            binding: required
-          description: The conversation ID to associate the uploaded data with.
-
-    UploadTarget:
-      type: object
-      description: |
-        A description of where and how to upload a blob.
-        Use the `method` and `url` to upload, including all `headers` in the request.
-        Pass the blob to upload as the request body.
-      required:
-        - url
-        - method
-        - headers
-      properties:
-        url:
-          type: string
-          format: uri
-          description: The presigned URL to upload the blob to.
-        method:
-          type: string
-          enum:
-            - PUT
-            - POST
-          description: The HTTP method to use for the upload.
-        headers:
-          type: object
-          additionalProperties:
-            type: string
-          description: HTTP headers that must be included in the upload request.
-
+      - insufficient_credits
+      - feature_not_available
+      - external_authentication_required
+      - not_authorized
+      - invalid_request
+      - resource_not_found
+      - budget_exceeded
+      - integration_disabled
+      - integration_not_configured
+      - operation_not_supported
+      - environment_setup_failed
+      - content_policy_violation
+      - conflict
+      - authentication_required
+      - resource_unavailable
+      - internal_error
     ListModelsResponse:
       type: object
       required:
-        - default_model_id
-        - models
+      - default_model_id
+      - models
       properties:
         default_model_id:
           type: string
@@ -3265,14 +3326,13 @@ components:
           items:
             $ref: '#/components/schemas/ModelInfo'
           description: List of available models
-
     ModelInfo:
       type: object
       required:
-        - id
-        - display_name
-        - provider
-        - vision_supported
+      - id
+      - display_name
+      - provider
+      - vision_supported
       properties:
         id:
           type: string
@@ -3283,10 +3343,10 @@ components:
         provider:
           type: string
           enum:
-            - OPENAI
-            - ANTHROPIC
-            - GOOGLE
-            - UNKNOWN
+          - OPENAI
+          - ANTHROPIC
+          - GOOGLE
+          - UNKNOWN
           description: The LLM provider
         vision_supported:
           type: boolean
@@ -3300,78 +3360,11 @@ components:
         disable_reason:
           type: string
           enum:
-            - PROVIDER_OUTAGE
-            - OUT_OF_REQUESTS
-            - ADMIN_DISABLED
-            - REQUIRES_UPGRADE
+          - PROVIDER_OUTAGE
+          - OUT_OF_REQUESTS
+          - ADMIN_DISABLED
+          - REQUIRES_UPGRADE
           description: If set, the model is currently unavailable for the given reason
-
-    NotifyUserRequest:
-      type: object
-      description: Request body for sending a progress notification to the task's originating platform.
-      required:
-        - message
-      properties:
-        message:
-          type: string
-          x-oapi-codegen-extra-tags:
-            binding: required
-          description: |
-            The progress update message to send. Supports Markdown formatting.
-
-    FinishTaskRequest:
-      type: object
-      description: |
-        Request body for reporting task completion or failure.
-        Pull request links and branches are derived automatically from artifacts
-        previously reported via the report artifact endpoint.
-      required:
-        - success
-        - summary
-      properties:
-        success:
-          type: boolean
-          description: Whether the task completed successfully.
-        summary:
-          type: string
-          x-oapi-codegen-extra-tags:
-            binding: required
-          description: |
-            A summary of what was accomplished. If there are artifacts like
-            pull requests, describe what was created.
-
-    ReportArtifactRequest:
-      oneOf:
-        - $ref: '#/components/schemas/ReportPullRequestArtifactRequest'
-      discriminator:
-        propertyName: artifact_type
-        mapping:
-          PULL_REQUEST: '#/components/schemas/ReportPullRequestArtifactRequest'
-
-    ReportPullRequestArtifactRequest:
-      type: object
-      description: Request body for reporting a pull request artifact.
-      required:
-        - artifact_type
-        - data
-      properties:
-        artifact_type:
-          type: string
-          enum:
-            - PULL_REQUEST
-          description: Type of artifact being reported.
-        data:
-          $ref: '#/components/schemas/PullRequestArtifactData'
-
-    ReportArtifactResponse:
-      type: object
-      required:
-        - artifact_uid
-      properties:
-        artifact_uid:
-          type: string
-          description: Unique identifier for the created artifact
-
     AgentSkill:
       type: object
       description: |
@@ -3390,26 +3383,24 @@ components:
         bundled_skill_id:
           type: string
           description: Unique identifier for bundled skills
-
     ListEnvironmentsResponse:
       type: object
       required:
-        - environments
+      - environments
       properties:
         environments:
           type: array
           items:
             $ref: '#/components/schemas/CloudEnvironment'
           description: List of accessible cloud environments
-
     CloudEnvironment:
       type: object
       description: A cloud environment for running agents
       required:
-        - uid
-        - config
-        - last_updated
-        - setup_failed
+      - uid
+      - config
+      - last_updated
+      - setup_failed
       properties:
         uid:
           type: string
@@ -3436,30 +3427,210 @@ components:
           $ref: '#/components/schemas/RunCreatorInfo'
         last_editor:
           $ref: '#/components/schemas/RunCreatorInfo'
-
+    SecretRef:
+      type: object
+      description: |
+        Reference to a managed secret by name.
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Name of the managed secret.
+    MemoryStoreRef:
+      type: object
+      description: Reference to a memory store to attach to an agent.
+      required:
+      - uid
+      - access
+      - instructions
+      properties:
+        uid:
+          type: string
+          description: UID of the memory store.
+        access:
+          type: string
+          enum:
+          - read_write
+          - read_only
+          description: Access level for the store.
+        instructions:
+          type: string
+          description: Instructions for how the agent should use this memory store. Must not be empty.
     CreateAgentRequest:
       type: object
       required:
-        - name
+      - name
       properties:
         name:
           type: string
           description: A name for the agent
-
+        description:
+          type: string
+          nullable: true
+          description: Optional description of the agent
+        prompt:
+          type: string
+          nullable: true
+          description: |
+            Optional base prompt for this agent
+        environment_id:
+          type: string
+          nullable: true
+          description: |
+            Optional default cloud environment ID for runs executed by this agent.
+            The environment must be owned by the same team as the agent.
+        secrets:
+          type: array
+          items:
+            $ref: '#/components/schemas/SecretRef'
+          description: |
+            Optional list of secrets associated with the agent.
+            Duplicate names within a single request are rejected.
+            Each entry is unioned into the run-time secret scope when the agent executes.
+        skills:
+          type: array
+          items:
+            type: string
+          description: |
+            Optional list of skill specs to associate with the agent.
+            Format: "{owner}/{repo}:{skill_path}" (e.g., "warpdotdev/warp-server:.claude/skills/deploy/SKILL.md").
+            Each spec is validated and normalized at attach time using the team's GitHub
+            credentials; inaccessible or malformed specs are rejected.
+        base_model:
+          type: string
+          nullable: true
+          description: |
+            Optional base model for runs executed by this agent.
+        inference_providers:
+          allOf:
+          - $ref: '#/components/schemas/InferenceProvidersConfig'
+          description: |
+            Optional inference provider settings for this agent.
+            Agent-level config takes precedence over the workspace's
+            admin-configured defaults.
+        memory_stores:
+          type: array
+          items:
+            $ref: '#/components/schemas/MemoryStoreRef'
+          description: |
+            Optional list of memory stores to attach to the agent.
+            Each store must be team-owned by the same team as the agent.
+            Duplicate UIDs within a single request are rejected.
+        base_harness:
+          type: string
+          nullable: true
+          description: |
+            Optional default harness for runs executed by this agent.
+        harness_auth_secrets:
+          allOf:
+          - $ref: '#/components/schemas/HarnessAuthSecrets'
+          description: |
+            Optional per-harness authentication secrets for this agent.
+            Each field names a managed secret for the corresponding harness.
+            Secrets are resolved at execution time from the agent's team scope.
     UpdateAgentRequest:
       type: object
+      description: |
+        Partial update for an agent. Each field is optional:
+          * Omitted or `null`: leave the field unchanged.
+          * Empty value: clear the field.
+          * Non-empty: replace the field wholesale with the provided value.
       properties:
         name:
           type: string
           description: The new name for the agent
-
+        description:
+          type: string
+          nullable: true
+          description: |
+            Replacement description. Omit or pass `null` to leave unchanged, or use an empty value to clear.
+          x-go-type-skip-optional-pointer: false
+        prompt:
+          type: string
+          nullable: true
+          description: |
+            Replacement prompt. Omit or pass `null` to leave unchanged, or use an empty value to clear.
+          x-go-type-skip-optional-pointer: false
+        environment_id:
+          type: string
+          nullable: true
+          description: |
+            Replacement default cloud environment ID. Omit or pass `null` to leave unchanged,
+            or pass an empty string to clear.
+          x-go-type-skip-optional-pointer: false
+        secrets:
+          type: array
+          nullable: true
+          items:
+            $ref: '#/components/schemas/SecretRef'
+          description: |
+            Replacement list of secrets. Omit to leave unchanged, pass an
+            empty array to clear, or pass a non-empty array to replace.
+            Duplicate names are rejected.
+          x-go-type-skip-optional-pointer: false
+        skills:
+          type: array
+          nullable: true
+          items:
+            type: string
+          description: |
+            Replacement list of skill specs. Omit to leave unchanged, pass an empty array
+            to clear, or pass a non-empty array to replace.
+          x-go-type-skip-optional-pointer: false
+        base_model:
+          type: string
+          nullable: true
+          description: |
+            Replacement base model. Omit or pass `null` to leave unchanged,
+            or pass an empty string to clear.
+          x-go-type-skip-optional-pointer: false
+        memory_stores:
+          type: array
+          nullable: true
+          items:
+            $ref: '#/components/schemas/MemoryStoreRef'
+          description: |
+            Replacement list of memory stores. Omit to leave unchanged, pass an empty array
+            to clear, or pass a non-empty array to replace.
+          x-go-type-skip-optional-pointer: false
+        inference_providers:
+          type: object
+          allOf:
+          - $ref: '#/components/schemas/InferenceProvidersConfig'
+          nullable: true
+          description: |
+            Replacement inference provider settings for this agent.
+            Agent-level config takes precedence over the workspace's
+            admin-configured defaults. Omit or pass `null` to leave
+            unchanged. Pass an empty object `{}` to clear.
+          x-go-type-skip-optional-pointer: false
+        base_harness:
+          type: string
+          nullable: true
+          description: |
+            Replacement default harness. Omit or pass `null` to leave unchanged,
+            or pass an empty string to clear.
+          x-go-type-skip-optional-pointer: false
+        harness_auth_secrets:
+          allOf:
+          - $ref: '#/components/schemas/HarnessAuthSecrets'
+          nullable: true
+          description: |
+            Replacement per-harness authentication secrets. Omit or pass `null`
+            to leave unchanged, or pass an empty object to clear all secrets.
+          x-go-type-skip-optional-pointer: false
     AgentResponse:
       type: object
       required:
-        - uid
-        - name
-        - available
-        - created_at
+      - uid
+      - name
+      - available
+      - created_at
+      - updated_at
+      - secrets
+      - skills
+      - memory_stores
       properties:
         uid:
           type: string
@@ -3467,6 +3638,22 @@ components:
         name:
           type: string
           description: Name of the agent
+        description:
+          type: string
+          nullable: true
+          description: Optional description of the agent
+        prompt:
+          type: string
+          nullable: true
+          description: |
+            Optional base prompt for this agent
+        environment_id:
+          type: string
+          description: |
+            Default cloud environment ID for runs executed by this agent. The precedence order for environment resolution is:
+            1. The environment specified on the run itself
+            2. The agent's default environment
+            3. An empty environment
         available:
           type: boolean
           description: Whether this agent is within the team's plan limit and can be used for runs
@@ -3474,26 +3661,76 @@ components:
           type: string
           format: date-time
           description: When the agent was created (RFC3339)
-
+        updated_at:
+          type: string
+          format: date-time
+          description: When the agent was last updated (RFC3339)
+        secrets:
+          type: array
+          items:
+            $ref: '#/components/schemas/SecretRef'
+          description: |
+            Secrets that this agent may access by default.
+        skills:
+          type: array
+          items:
+            type: string
+          description: |
+            Ordered list of normalized skill specs associated with this agent.
+            Always present; empty when no skills are attached.
+        base_model:
+          type: string
+          description: |
+            Base model for runs executed by this agent. The precedence order for model resolution is:
+            1. The model specified on the run itself
+            2. The agent's base model
+            3. The team's default model
+        inference_providers:
+          allOf:
+          - $ref: '#/components/schemas/InferenceProvidersConfig'
+          description: |
+            The agent's stored inference provider settings. May be overridden
+            by run-level config; if empty, falls back to the workspace's
+            admin-configured defaults.
+        memory_stores:
+          type: array
+          items:
+            $ref: '#/components/schemas/MemoryStoreRef'
+          description: |
+            Memory stores attached to this agent.
+            Always present; empty when no stores are attached.
+        base_harness:
+          type: string
+          description: |
+            Default harness for runs executed by this agent. The precedence order for harness resolution is:
+            1. The harness specified on the run itself
+            2. The agent's base harness
+            3. Oz
+        harness_auth_secrets:
+          allOf:
+          - $ref: '#/components/schemas/HarnessAuthSecrets'
+          description: |
+            Per-harness authentication secrets configured on this agent.
+            Each field names a managed secret for the corresponding harness.
+            Secrets can be overridden per run.
     ListAgentIdentitiesResponse:
       type: object
       required:
-        - agents
+      - agents
       properties:
         agents:
           type: array
           items:
             $ref: '#/components/schemas/AgentResponse'
-
     EnvironmentLastTask:
       type: object
       description: Summary of the most recently created task for an environment
       required:
-        - id
-        - title
-        - state
-        - created_at
-        - updated_at
+      - id
+      - title
+      - state
+      - created_at
+      - updated_at
       properties:
         id:
           type: string

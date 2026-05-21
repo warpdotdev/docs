@@ -43,10 +43,10 @@ Team keys without GitHub App authorization are the right fit for automated workf
 
 Warp supports two types of API keys, each with different billing and identity behavior:
 
-* **Personal API keys** - Cloud agent runs authenticate as you. These runs can use your personal base credits before drawing from team Add-on Credits, just like running an agent from the Warp app or triggering one via Slack or Linear.
-* **Team API keys** - Cloud agent runs are not tied to any individual user. These runs can only draw from your team's pool of Add-on Credits. They cannot use any individual's base credits. When [team GitHub authorization](/agent-platform/cloud-agents/team-access-billing-and-identity/#team-github-authorization) is configured, team key runs can also clone repositories and open pull requests using the Oz by Warp GitHub App.
+* **Personal API keys** - Cloud agent runs authenticate as you, just like running an agent from the Warp app or triggering one via Slack or Linear. On Build, Max, and Business plans, runs draw from your plan-included credits, then your Add-on credits — both scoped to your individual user. On Enterprise plans, runs draw from the team-scoped credit pool, per your Enterprise contract terms.
+* **Team API keys** - Cloud agent runs are not tied to any individual user. On Build, Max, and Business plans, Warp bills the team owner: the owner's plan-included credits, then the owner's Add-on credits. With auto-reload on, usage can trigger a reload on the owner's pool subject to the team-wide monthly spend cap. On Enterprise plans, team API key runs draw from the team-scoped credit pool. When [team GitHub authorization](/agent-platform/cloud-agents/team-access-billing-and-identity/#team-github-authorization) is configured, team key runs can also clone repositories and open pull requests using the Oz by Warp GitHub App.
 
-Team API keys are useful for fully automated workflows, CI/CD pipelines, and scheduled tasks where no specific user context is needed. For billing details, see [Access, Billing, and Identity Permissions](/agent-platform/cloud-agents/team-access-billing-and-identity/).
+Team API keys are useful for fully automated workflows, CI/CD pipelines, and scheduled tasks where no specific user context is needed. For the full credit waterfall and how it interacts with Add-on credits, see [Access, billing, and identity permissions](/agent-platform/cloud-agents/team-access-billing-and-identity/) and [Add-on Credits](/support-and-community/plans-and-billing/add-on-credits/).
 
 ## Authenticating with API keys
 
