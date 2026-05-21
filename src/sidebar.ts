@@ -142,11 +142,11 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{
 							label: 'Settings file',
 							collapsed: true,
-							items: [
-								{ slug: 'terminal/settings', label: 'Overview' },
-								{ slug: 'terminal/settings/all-settings', label: 'All settings reference' },
-								{ slug: 'terminal/settings/file-locations', label: 'File locations' },
-							],
+					items: [
+					{ slug: 'terminal/settings', label: 'Overview' },
+					{ slug: 'terminal/settings/all-settings', label: 'All settings reference' },
+					{ slug: 'terminal/settings/file-locations', label: 'File locations' },
+					],
 						},
 						{
 							label: 'Warpify overview',
@@ -371,6 +371,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 								{ slug: 'agent-platform/cloud-agents/handoff', label: 'Overview' },
 								{ slug: 'agent-platform/cloud-agents/handoff/local-to-cloud', label: 'Local to cloud' },
 								{ slug: 'agent-platform/cloud-agents/handoff/cloud-to-cloud', label: 'Cloud to cloud' },
+								{ slug: 'agent-platform/cloud-agents/handoff/snapshots', label: 'Snapshots' },
 							],
 						},
 						'agent-platform/cloud-agents/secrets',
@@ -540,6 +541,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						'support-and-community/plans-and-billing/add-on-credits',
 						{ slug: 'support-and-community/plans-and-billing/platform-credits', label: 'Platform credits' },
 						'support-and-community/plans-and-billing/bring-your-own-api-key',
+						'support-and-community/plans-and-billing/custom-inference-endpoint',
 						'support-and-community/plans-and-billing/overages-legacy',
 						'support-and-community/plans-and-billing/pricing-faqs',
 					],
