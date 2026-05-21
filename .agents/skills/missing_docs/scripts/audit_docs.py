@@ -24,6 +24,9 @@ from pathlib import Path
 
 SKIP_DIRECTORIES = {"_book", "node_modules", ".git", ".docs"}
 
+# Mutable holder for the docs repo root, set by main()
+DOCS_REPO_ROOT: list = [None]
+
 # Paths to reference files (relative to this script)
 SCRIPT_DIR = Path(__file__).resolve().parent
 SKILL_DIR = SCRIPT_DIR.parent
@@ -179,13 +182,17 @@ def search_docs_for_terms(docs_text: dict[str, str], terms: list[str]) -> list[s
 
 def parse_feature_flags(warp_internal: Path) -> list[str]:
     """Parse FeatureFlag enum variants from features.rs."""
-    # The FeatureFlag enum lives in the warp_features crate
-    features_rs = warp_internal / "crates" / "warp_features" / "src" / "lib.rs"
-    if not features_rs.exists():
-        # Fall back to legacy path
-        features_rs = warp_internal / "warp_core" / "src" / "features.rs"
-    if not features_rs.exists():
-        print(f"Warning: {features_rs} not found", file=sys.stderr)
+    # Try known locations in order
+    candidates = [
+        warp_internal / "crates" / "warp_features" / "src" / "lib.rs",
+        warp_internal / "crates" / "warp_core" / "src" / "features.rs",
+        warp_internal / "app" / "src" / "features.rs",
+        warp_internal / "warp_core" / "src" / "features.rs",
+    ]
+    features_rs = next((c for c in candidates if c.exists()), None)
+    if features_rs is None:
+        print(f"Warning: features.rs not found. Tried: {[str(c) for c in candidates]}",
+              file=sys.stderr)
         return []
 
     content = features_rs.read_text()
@@ -213,9 +220,14 @@ def parse_feature_flags(warp_internal: Path) -> list[str]:
 
 def parse_default_features(warp_internal: Path) -> set[str]:
     """Parse the default feature list from app/Cargo.toml."""
-    cargo_toml = warp_internal / "app" / "Cargo.toml"
-    if not cargo_toml.exists():
-        print(f"Warning: {cargo_toml} not found", file=sys.stderr)
+    candidates = [
+        warp_internal / "app" / "Cargo.toml",
+        warp_internal / "crates" / "warp_features" / "Cargo.toml",
+    ]
+    cargo_toml = next((c for c in candidates if c.exists()), None)
+    if cargo_toml is None:
+        print(f"Warning: app/Cargo.toml not found. Tried: {[str(c) for c in candidates]}",
+              file=sys.stderr)
         return set()
 
     content = cargo_toml.read_text()
@@ -292,8 +304,14 @@ def audit_features(warp_internal: Path, docs_root: Path, surface_map: dict,
 
 def parse_cli_commands(warp_internal: Path) -> list[dict]:
     """Parse CLI subcommands from warp_cli/src/lib.rs."""
-    lib_rs = warp_internal / "warp_cli" / "src" / "lib.rs"
-    if not lib_rs.exists():
+    candidates = [
+        warp_internal / "crates" / "warp_cli" / "src" / "lib.rs",
+        warp_internal / "warp_cli" / "src" / "lib.rs",
+    ]
+    lib_rs = next((c for c in candidates if c.exists()), None)
+    if lib_rs is None:
+        print(f"Warning: warp_cli/src/lib.rs not found. Tried: {[str(c) for c in candidates]}",
+              file=sys.stderr)
         return []
 
     content = lib_rs.read_text()
@@ -329,8 +347,12 @@ def parse_cli_commands(warp_internal: Path) -> list[dict]:
 
 def parse_subcommands_from_file(warp_internal: Path, filename: str) -> list[str]:
     """Parse subcommand names from a CLI command file (e.g., agent.rs)."""
-    filepath = warp_internal / "warp_cli" / "src" / filename
-    if not filepath.exists():
+    candidates = [
+        warp_internal / "crates" / "warp_cli" / "src" / filename,
+        warp_internal / "warp_cli" / "src" / filename,
+    ]
+    filepath = next((c for c in candidates if c.exists()), None)
+    if filepath is None:
         return []
 
     content = filepath.read_text()
@@ -366,6 +388,10 @@ def audit_cli(warp_internal: Path, docs_root: Path, surface_map: dict,
         # Check surface map
         if cmd_str in cli_to_doc:
             doc_path = cli_to_doc[cmd_str]
+            # `internal` is a sentinel for hidden/internal commands that
+            # intentionally have no public docs (matches API audit semantics).
+            if doc_path == "internal":
+                continue
             if (docs_root.parent / doc_path).exists():
                 continue  # Mapped and exists
 
@@ -437,8 +463,13 @@ def audit_api(warp_server: Path, docs_root: Path, surface_map: dict,
             except Exception:
                 pass
 
-    # Also check OpenAPI spec
-    openapi_path = docs_root / "developers" / "agent-api-openapi.yaml"
+    # Also check OpenAPI spec (lives at repo root, not under content/docs)
+    repo_root = DOCS_REPO_ROOT[0] or docs_root.parent
+    openapi_candidates = [
+        repo_root / "developers" / "agent-api-openapi.yaml",
+        docs_root / "developers" / "agent-api-openapi.yaml",
+    ]
+    openapi_path = next((c for c in openapi_candidates if c.exists()), openapi_candidates[0])
     openapi_text = ""
     if openapi_path.exists():
         try:
@@ -640,12 +671,20 @@ def main():
     args = parser.parse_args()
 
     # Find repos
-    docs_root = SKILL_DIR.parent.parent.parent  # .warp/skills/missing_docs -> docs root
-    docs_root = docs_root / "docs"
-
-    if not docs_root.exists():
-        print(f"Error: docs directory not found at {docs_root}", file=sys.stderr)
+    # SKILL_DIR is at <repo>/.agents/skills/missing_docs (or legacy <repo>/.warp/skills/...)
+    repo_root = SKILL_DIR.parent.parent.parent
+    # Astro Starlight docs live at src/content/docs
+    candidates = [
+        repo_root / "src" / "content" / "docs",
+        repo_root / "docs",
+    ]
+    docs_root = next((c for c in candidates if c.exists()), None)
+    if docs_root is None:
+        print(f"Error: docs directory not found. Tried: {[str(c) for c in candidates]}",
+              file=sys.stderr)
         sys.exit(1)
+    # repo_root carries the developers/ openapi spec etc.
+    DOCS_REPO_ROOT[0] = repo_root
 
     warp_internal = find_repo("warp-internal", args.warp_internal, docs_root)
     warp_server = find_repo("warp-server", args.warp_server, docs_root)

@@ -1,0 +1,190 @@
+---
+title: Running orchestrated agents
+description: Start multi-agent orchestrations from the Warp app, the Oz CLI, the Oz web app, or the Oz API, and inspect parent and child conversations and artifacts.
+sidebar:
+  label: "Running orchestrated agents"
+---
+
+An orchestrated run starts with a parent agent that spawns one or more child agents. You can start a parent from the Warp app, the Oz CLI, the Oz web app, or the Oz API. Use orchestrated runs to review a plan before fan-out, execute children locally or in the cloud, and inspect parent and child conversations as they work.
+
+## Before you start
+
+Pick where the parent will run. Every orchestration starts with a single parent that spawns children:
+
+* **Parent in the Warp app** - use the `/orchestrate` or `/plan` slash command. This is the fastest way to try orchestration.
+* **Parent in the cloud** - trigger the parent through the Oz CLI (`oz agent run-cloud`), the [Oz API](/reference/api-and-sdk/), or any integration (Slack, Linear, schedule). The parent runs in an environment and spawns children from there.
+
+Cloud parents that spawn cloud children need access to one or more [environments](/agent-platform/cloud-agents/environments/) the children can run in.
+
+## Starting an orchestrated run from Warp
+
+In the Warp desktop app, open the agent input and type `/orchestrate` followed by your task. The agent enters `orchestrate` mode and proposes a breakdown before spawning any children.
+
+```text
+/orchestrate Migrate every test file in this repo from Jest to Vitest. Spawn one child per top-level directory under packages/.
+```
+
+The agent responds with a proposal that describes:
+
+* How many children it intends to spawn.
+* Each child's prompt and environment.
+* What it expects each child to return.
+
+Approve the proposal to start spawning children. The parent's transcript renders each child as it spawns, and an **orchestration pill bar** appears above the agent view header showing the parent on the left and one pill per child. Each pill displays the child's name and a live status badge. Click a child pill to switch the pane to that child's conversation in place; click the parent pill - or the breadcrumb that replaces the pill bar while you're viewing a child - to return to the parent.
+
+### Letting the agent propose orchestration during /plan
+
+You can also reach the same approval flow from `/plan`. When you ask the agent to plan a complex task, it considers orchestration as part of planning and proposes it whenever the work would benefit. When that happens, the plan card includes an inline **orchestration config** block above the plan content with model, harness, environment, host, parallelism, and auth pickers. Edit the config as needed, review the plan's orchestration section (number of children, what each child owns), and approve the plan to start spawning children with the configured run-wide settings.
+
+### Spawning cloud children from a local parent
+
+A local parent - a Warp Agent conversation in the desktop app - can spawn cloud children by specifying an environment for each child. The parent asks for the environment if it isn't already clear from context. You can select any environment from your account or team.
+
+Cloud children inherit the parent's authentication; the same credit and credentials rules from the [Cloud agents overview](/agent-platform/cloud-agents/overview/) apply.
+
+## Starting an orchestrated run from the CLI
+
+Use `oz agent run-cloud` to start a parent and let the agent itself spawn children as it works.
+
+```bash
+oz agent run-cloud \
+  --prompt "Review the open pull requests in this repo and post a summary on each. Spawn one child agent per PR." \
+  --environment YOUR_ENVIRONMENT_ID
+```
+
+This is the recommended way to fan work out from the CLI: the parent decides how many children to spawn, links them to itself automatically, and you get a single parent run ID back to follow.
+
+:::note
+If you need to fan out from a script and want each child linked to a specific parent, use the [API](#starting-an-orchestrated-run-from-the-api). `oz agent run-cloud` doesn't currently accept a parent run ID flag, so script-launched runs from the CLI are independent runs.
+:::
+
+## Starting an orchestrated run from the Oz web app
+
+In the Oz web app's [**Runs** page](https://oz.warp.dev/runs):
+
+1. Click **New run** in the header.
+2. Select an environment and, optionally, a skill that performs orchestration. The [oz-skills repo](https://github.com/warpdotdev/oz-skills) includes orchestration skills like review swarms and fan-out runners.
+3. Enter the parent's prompt. Describe both the high-level task and the orchestration shape you want (number of children, parallelism, success criteria).
+4. Click **Run**.
+
+The parent run starts and children appear in the Runs list as the parent spawns them, nested under the parent row.
+
+## Starting an orchestrated run from the API
+
+Spawn the parent with `POST /agent/runs`. Children can either be spawned by the parent agent at runtime, or you can spawn each child explicitly from your code and link it to the parent with `parent_run_id`. Once they're running, coordination between the parent and its children flows through Warp's durable agent-to-agent messaging - see [Messaging between agents](/agent-platform/cloud-agents/orchestration/#messaging-between-agents) for the model.
+
+### Agent-driven orchestration
+
+Start a single parent run with `mode: orchestrate`:
+
+```http
+POST /api/v1/agent/runs
+Authorization: Bearer YOUR_API_KEY
+Content-Type: application/json
+
+{
+  "prompt": "Coordinate a code review across every open PR in the repo. Spawn one child per PR.",
+  "mode": "orchestrate",
+  "config": {
+    "environment_id": "YOUR_ENVIRONMENT_ID"
+  },
+  "title": "PR review swarm"
+}
+```
+
+The parent decides how many children to spawn. Children inherit the parent's authentication and bill to the same account.
+
+### Caller-driven orchestration
+
+Spawn each child explicitly with `parent_run_id` set to the parent's `run_id`:
+
+```http
+POST /api/v1/agent/runs
+Authorization: Bearer YOUR_API_KEY
+Content-Type: application/json
+
+{
+  "prompt": "Review PR #123",
+  "config": {
+    "environment_id": "YOUR_ENVIRONMENT_ID"
+  },
+  "parent_run_id": "YOUR_PARENT_RUN_ID",
+  "title": "Review PR #123"
+}
+```
+
+Setting `parent_run_id` is what links the child to its parent across the management view, the web app, and the descendants query (`?ancestor_run_id=`).
+
+A scripted fan-out, including parent linking, looks like this:
+
+```bash
+PARENT_RUN_ID=$(curl -sS -X POST https://app.warp.dev/api/v1/agent/runs \
+  -H "Authorization: Bearer $WARP_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "prompt": "Coordinate the migration",
+    "mode": "orchestrate",
+    "config": {"environment_id": "YOUR_ENVIRONMENT_ID"},
+    "title": "Jest to Vitest migration"
+  }' | jq -r .run_id)
+
+for shard in pkg-a pkg-b pkg-c; do
+  curl -sS -X POST https://app.warp.dev/api/v1/agent/runs \
+    -H "Authorization: Bearer $WARP_API_KEY" \
+    -H "Content-Type: application/json" \
+    -d "{
+      \"prompt\": \"Migrate $shard from Jest to Vitest\",
+      \"config\": {\"environment_id\": \"YOUR_ENVIRONMENT_ID\"},
+      \"parent_run_id\": \"$PARENT_RUN_ID\",
+      \"title\": \"Migrate $shard\"
+    }"
+done
+```
+
+## Retrieving conversations and artifacts
+
+Every parent and child started through the Oz API is tracked as an Oz run. Run responses include the run's `state`, `parent_run_id` (set on children only), `conversation_id`, `session_link`, and an `artifacts` array of any pull requests, plans, screenshots, or files the run produced. Use the same endpoints you'd use for any other run:
+
+* **List every descendant of a parent** - `GET /api/v1/agent/runs?ancestor_run_id=YOUR_PARENT_RUN_ID`. From the CLI: `oz run list --ancestor-run YOUR_PARENT_RUN_ID`.
+* **Get one run's details and artifacts** - `GET /api/v1/agent/runs/YOUR_RUN_ID`.
+* **Read the normalized conversation** - `GET /api/v1/agent/runs/YOUR_RUN_ID/conversation` returns a structured sequence of messages, tool calls, and events.
+* **Download the raw transcript** - `GET /api/v1/agent/runs/YOUR_RUN_ID/transcript` returns a redirect to a time-limited download URL.
+
+All four endpoints work the same for the parent and any child.
+
+## Cancelling a fleet
+
+Cancel any run with `POST /agent/runs/{runId}/cancel`:
+
+```http
+POST /api/v1/agent/runs/YOUR_RUN_ID/cancel
+Authorization: Bearer YOUR_API_KEY
+```
+
+Cancelling the parent does **not** automatically cancel its children. This is intentional: in many orchestrations, you want children to finish even after the parent ends. To cancel everything, list the descendants and cancel each one, then cancel the parent:
+
+```bash
+# List every descendant of the parent, then cancel each.
+oz --output-format json run list --ancestor-run "$PARENT_RUN_ID" \
+  | jq -r '.runs[].run_id' \
+  | xargs -I{} curl -sS -X POST \
+      https://app.warp.dev/api/v1/agent/runs/{}/cancel \
+      -H "Authorization: Bearer $WARP_API_KEY"
+
+# Finally cancel the parent.
+curl -sS -X POST \
+  "https://app.warp.dev/api/v1/agent/runs/$PARENT_RUN_ID/cancel" \
+  -H "Authorization: Bearer $WARP_API_KEY"
+```
+
+:::caution
+Self-hosted, local, and GitHub Action runs cannot be cancelled through this endpoint and return a `422`. Stop them through your own infrastructure.
+:::
+
+## Related pages
+
+* [Multi-agent orchestration](/agent-platform/cloud-agents/orchestration/) - parent/child model, run state transitions, and common patterns.
+* [Oz CLI](/reference/cli/) - command reference for `oz agent run-cloud` and `oz run`.
+* [Oz API and SDK](/reference/api-and-sdk/) - full HTTP reference and typed SDKs.
+* [Managing cloud agents](/agent-platform/cloud-agents/managing-cloud-agents/) - how parent and child runs appear in the management view.
+* [Environments](/agent-platform/cloud-agents/environments/) - configure the runtime context cloud children execute in.

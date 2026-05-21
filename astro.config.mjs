@@ -20,11 +20,6 @@ export default defineConfig({
 				access: 'public',
 				optional: true,
 			}),
-			PUBLIC_PUSHFEEDBACK_PROJECT_ID: envField.string({
-				context: 'client',
-				access: 'public',
-				optional: true,
-			}),
 			PUBLIC_RUDDERSTACK_WRITE_KEY: envField.string({
 				context: 'client',
 				access: 'public',
@@ -82,12 +77,6 @@ export default defineConfig({
 				// on every page on docs.warp.dev today; Starlight does not produce
 				// them by default. Per-page OG/Twitter tags (image, branded title,
 				// twitter:title/description) live in src/components/CustomHead.astro.
-				//
-				// PushFeedback CSS + JS used to live here, but they were render-
-				// blocking on every page even though the widget itself only sits
-				// at the bottom of the page in `FeedbackFooter.astro`. The lazy
-				// loader now lives inside `FeedbackButtons.astro` and pulls the
-				// assets in `requestIdleCallback` time — off the critical path.
 				{
 					tag: 'meta',
 					attrs: { name: 'robots', content: 'index, follow' },
@@ -148,6 +137,13 @@ export default defineConfig({
 				// widely consumed by AI agents.
 				starlightLlmsTxt({
 					projectName: 'Warp',
+					optionalLinks: [
+						{
+							label: 'Oz Agent API (OpenAPI spec)',
+							url: 'https://docs.warp.dev/openapi.yaml',
+							description: 'Machine-readable OpenAPI 3.0 specification for the Oz Agent API.',
+						},
+					],
 				// Excludes pages that cause a stack overflow in hast-util-to-text
 				// due to their size. The upstream plugin only applies `exclude` to
 				// llms-small.txt; our patch (patches/starlight-llms-txt+0.8.1.patch)

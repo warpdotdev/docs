@@ -35,15 +35,18 @@ EXCLUDED_DIRS = {"_book", "node_modules", ".docs"}
 # Feature names that are correctly Title Case (exceptions to sentence-case rule)
 PROPER_FEATURE_NAMES = {
     "Admin Panel", "Agent Management Panel", "Agent Mode", "Agent Profiles",
-    "Ambient Agents", "Auto-detection Mode", "Cloud Agent Credits",
+    "Auto-detection Mode", "Cloud Agents",
     "Codebase Context", "Code Review", "Command Palette", "Global Rules",
-    "Oz CLI", "Oz Platform", "Project Rules", "Slash Commands",
-    "Terminal Mode", "Universal Input", "Warp Drive", "Warp Platform",
+    "Oz CLI", "Oz Platform", "Project Rules",
+    "Slash Commands", "Terminal Mode", "Universal Input", "Warp Drive",
+    "Warp Platform",
 }
 
 # Terminology: wrong → right (case-sensitive checks)
 PRODUCT_CASING = {
     "Warp Terminal": ("Warp", "Use 'Warp' unless specifically distinguishing from Oz"),
+    "Cloud Agent Credits": ("cloud agent credits", "Use lowercase 'cloud agent credits' (host-context) or 'compute credits' (bucket-context); capitalize first letter only at start of a sentence/bullet"),
+    "Platform Credits": ("platform credits", "Use lowercase 'platform credits'; capitalize first letter only at start of a sentence/bullet/heading"),
     "agent mode": ("Agent Mode", "Capitalize as a feature name"),
     "agent management panel": ("Agent Management Panel", "Capitalize as a UI surface name"),
     "warp drive": ("Warp Drive", "Capitalize as a feature name"),
@@ -70,11 +73,16 @@ DEPRECATED_TERMS = [
 
 # Oz terms to avoid (case-insensitive patterns)
 OZ_TERMS_TO_AVOID = [
-    (r"\bOzzies\b", "Use 'Oz agents', 'instances', or 'Oz subagents'"),
-    (r"\bDeploying an Oz\b", "Use 'Deploying an Oz agent'"),
-    (r"\bThe Oz Agent\b", "Use 'An Oz agent' or 'A parent Oz agent'"),
-    (r"\bOz is running\b", "Use 'An Oz agent is running' or 'A run is in progress'"),
+    (r"\bOzzies\b", "Use 'agents', 'instances', or 'subagents'"),
+    (r"\bDeploying an Oz\b", "Use 'Deploying an agent'"),
+    (r"\bThe Oz Agent\b", "Use 'the agent' or 'the Warp Agent'"),
+    (r"\bOz is running\b", "Use 'An agent is running' or 'A run is in progress'"),
     (r"\bAI agents?\b", "Use 'agents' (the 'AI' prefix is redundant)"),
+    (r"\bOz cloud agents?\b", "Use 'cloud agent(s)'"),
+    (r"\bOz subagents?\b", "Use 'subagent(s)'"),
+    (r"\bOz conversation\b", "Use 'conversation'"),
+    (r"\bOz agents?\b", "Use 'agent(s)' or 'Warp Agent(s)' depending on context"),
+    (r"\b[Aa]mbient [Aa]gents?\b", "Use 'cloud agent(s)' — 'ambient' is no longer a product term"),
 ]
 
 # Action verbs that precede UI elements (should be bold, not backtick)
@@ -386,13 +394,23 @@ def check_product_casing(lines: List[str], filepath: str) -> List[Issue]:
 
 
 def check_oz_terms(lines: List[str], filepath: str) -> List[Issue]:
-    """Check for Oz terms to avoid."""
+    """Check for Oz terms to avoid.
+
+    Skips fenced code blocks and strips inline code (backtick-wrapped text)
+    so that legitimate CLI commands like `oz agent run` are not flagged.
+    """
     issues = []
+    in_code_block = False
     for i, line in enumerate(lines, 1):
-        if line.strip().startswith("```") or line.strip().startswith("`"):
+        if line.strip().startswith("```"):
+            in_code_block = not in_code_block
             continue
+        if in_code_block:
+            continue
+        # Strip inline code spans so `oz agent run` is not matched
+        prose_line = re.sub(r"`[^`]+`", "", line)
         for pattern, suggestion in OZ_TERMS_TO_AVOID:
-            for m in re.finditer(pattern, line, re.IGNORECASE):
+            for m in re.finditer(pattern, prose_line, re.IGNORECASE):
                 issues.append(Issue(
                     filepath, i, "oz-term",
                     f"Avoid \"{m.group(0)}\" → {suggestion}",

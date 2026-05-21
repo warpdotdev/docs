@@ -17,7 +17,7 @@ Our philosophy is complete transparency and control over any data leaving your m
 * Read a complete list of [all the telemetry events](/support-and-community/privacy-and-security/privacy/#exhaustive-telemetry-table) that get sent for app analytics
 * Monitor telemetry in real-time with Warp's native [Network Log](/support-and-community/privacy-and-security/network-log/)
 * [Opt out](/support-and-community/privacy-and-security/privacy/#how-to-disable-telemetry-and-crash-reporting) of telemetry at any time
-* Read and audit Warp's client source code at [`warpdotdev/warp`](https://github.com/warpdotdev/warp), open source under [AGPL v3](https://github.com/warpdotdev/warp/blob/master/LICENSE)
+* Read and audit Warp's client source code at [`warpdotdev/warp`](https://github.com/warpdotdev/warp), open source under [AGPL v3](https://github.com/warpdotdev/warp/blob/master/LICENSE-AGPL)
 
 ## What telemetry data does Warp collect and why?
 
@@ -66,6 +66,7 @@ Deletion jobs run every 24 hours, so if you deleted your account and want to sig
 If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow will require that you assign a team member as the new admin.
 :::
 
+
 ### Exhaustive Telemetry Table
 
 | Event Name | Description |
@@ -85,6 +86,7 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `AI Suggested Rule Content Changed` | Content changed by the user in the suggested rule dialog |
 | `AI Suggested Rule Edited` | Clicked the Edit Suggested Rule button in the AI blocklist |
 | `AIAutonomy.AutoexecutedRequestedCommand` | Autoexecuted an Agent Mode requested command |
+| `AIAutonomy.ChangedAgentModeAskUserQuestionPermission` | Changed Agent Mode permission for asking user questions |
 | `AIAutonomy.ChangedAgentModeCodingPermissions` | Changed Agent Mode permissions for coding tasks |
 | `AIAutonomy.ToggledAutoexecuteReadonlyCommandsSetting` | Toggled setting to autoexecute readonly Agent Mode requested commands |
 | `Add Added Subshell Command` | Added a command to be automatically Warpified via Warp's subshell wrapper |
@@ -100,7 +102,7 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `Agent Mode Setup Banner Accepted` | Agent Mode setup banner accepted |
 | `Agent Mode Setup Banner Dismissed` | Agent Mode setup banner dismissed |
 | `Agent Mode Setup Project Scoped Rules Action` | User clicked a button in the Agent Mode setup project scoped rules step |
-| `Agent Mode.Setup Codebase Context Action` | User clicked a button in the Agent Mode setup codebase context step |
+| `Agent Mode.Setup Codebase Context Action` | User clicked a button in the Agent Mode setup Codebase Context step |
 | `Agent Predict` | Completed an Agent Predict prediction |
 | `Agent Toolbar Dismissed` | User dismissed the use-agent toolbar |
 | `AgentManagement.AgentTypeSelectorOpened` | User opened the agent type selector from agent management |
@@ -112,9 +114,9 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `AgentManagement.ConversationOpened` | User opened a conversation |
 | `AgentManagement.DetailsPanelContinueLocally` | User clicked Continue locally in the details panel |
 | `AgentManagement.DetailsViewed` | User clicked View details |
-| `AgentManagement.DismissSetupGuide` | User dismissed the ambient agent setup guide |
+| `AgentManagement.DismissSetupGuide` | User dismissed the cloud agent setup guide |
 | `AgentManagement.FilterChanged` | User changed a filter in the management view |
-| `AgentManagement.OpenSetupGuide` | User opened the ambient agent setup guide |
+| `AgentManagement.OpenSetupGuide` | User opened the cloud agent setup guide |
 | `AgentManagement.SessionLinkCopied` | User copied a session link |
 | `AgentManagement.SetupGuideDocsLink` | User clicked a docs URL in the setup guide |
 | `AgentManagement.SetupGuideStepCopy` | User copied a workflow step from the setup guide |
@@ -157,7 +159,7 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `AgentMode.QueryAttemptAtLImit` | Tried to send an Agent Mode query but they already reached the query limit |
 | `AgentMode.RequestRetrySucceeded` | Agent Mode request succeeded after retrying following an initial error |
 | `AgentMode.SetupCreateEnvironmentAction` | User clicked a button in the Agent Mode setup create environment step |
-| `AgentMode.SurfacedCitations` | Agent Mode used and cited external sources that were used in its response |
+| `AgentMode.SurfacedCitations` | Agent mode used and cited external sources that were used in its response |
 | `AgentMode.ToggleAutoDetectionSetting` | Toggled the setting that enables or disables natural language auto-detection in the input.  |
 | `AgentNotification.Shown` | An agent notification was shown to the user (toast or mailbox) |
 | `AgentTip Clicked` | User clicked a link or action in an Agent Tip |
@@ -176,7 +178,7 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `AmbientAgent.ConcurrencyModal.Dismissed` | User dismissed the cloud agent capacity modal |
 | `AmbientAgent.ConcurrencyModal.Opened` | User opened the cloud agent capacity modal |
 | `AmbientAgent.ConcurrencyModal.UpgradeClicked` | User clicked the upgrade button in the cloud agent capacity modal |
-| `AmbientAgent.DispatchFailed` | Ambient agent failed to dispatch or encountered an error |
+| `AmbientAgent.DispatchFailed` | Cloud agent failed to dispatch or encountered an error |
 | `AmbientAgent.EnvironmentSettings.CreatedEnvironment` | User created a new environment |
 | `AmbientAgent.EnvironmentSettings.DeletedEnvironment` | User deleted an environment |
 | `AmbientAgent.EnvironmentSettings.Image.Suggested` | Docker image was suggested for an environment |
@@ -212,7 +214,7 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `CLI.Execute.Agent.List` | Listed agents from the Warp CLI |
 | `CLI.Execute.Agent.Profile.List` | Listed agent profiles from the Warp CLI |
 | `CLI.Execute.Agent.Run` | Ran an agent from the Warp CLI |
-| `CLI.Execute.Agent.RunAmbient` | Ran an ambient agent from the Warp CLI |
+| `CLI.Execute.Agent.RunAmbient` | Ran a cloud agent from the Warp CLI |
 | `CLI.Execute.Artifact.Download` | Downloaded an artifact from the Warp CLI |
 | `CLI.Execute.Artifact.Get` | Got artifact metadata from the Warp CLI |
 | `CLI.Execute.Artifact.Upload` | Uploaded an artifact from the Warp CLI |
@@ -225,6 +227,7 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `CLI.Execute.Environment.Update` | Updated a cloud environment from the Warp CLI |
 | `CLI.Execute.Federate.IssueGcpToken` | Issued a GCP federated identity token from the Warp CLI |
 | `CLI.Execute.Federate.IssueToken` | Issued a federated identity token from the Warp CLI |
+| `CLI.Execute.HarnessSupport.ReportShutdown` | Reported agent shutdown via harness-support from the Warp CLI |
 | `CLI.Execute.Integration.Create` | Created an integration from the Warp CLI |
 | `CLI.Execute.Integration.List` | Listed integrations from the Warp CLI |
 | `CLI.Execute.Integration.Update` | Updated an integration from the Warp CLI |
@@ -235,6 +238,11 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `CLI.Execute.Provider.List` | Listed providers from the Warp CLI |
 | `CLI.Execute.Provider.Setup` | Set up a provider via the Warp CLI |
 | `CLI.Execute.Run.Conversation.Get` | Got run conversation from the Warp CLI |
+| `CLI.Execute.Run.Message.List` | Listed run messages from the Warp CLI |
+| `CLI.Execute.Run.Message.MarkDelivered` | Marked a run message as delivered from the Warp CLI |
+| `CLI.Execute.Run.Message.Read` | Read a run message from the Warp CLI |
+| `CLI.Execute.Run.Message.Send` | Sent a run message from the Warp CLI |
+| `CLI.Execute.Run.Message.Watch` | Watched run messages from the Warp CLI |
 | `CLI.Execute.Schedule.Create` | Created a scheduled agent from the Warp CLI |
 | `CLI.Execute.Schedule.Delete` | Deleted a scheduled agent from the Warp CLI |
 | `CLI.Execute.Schedule.Get` | Got scheduled agent configuration from the Warp CLI |
@@ -296,8 +304,8 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `CodexModal.UseCodexClicked` | User clicked 'Use Codex' in the Codex modal |
 | `Command Correction Event` | Accepted command correction |
 | `Command File Run` | Opened a .cmd or unix executable file and ran it directly in Warp |
-| `Command Palette Search Accepted` | Accepted a command palette search result |
-| `Command Palette Search Exited` | Exited command palette search without accepting a result |
+| `Command Palette Search Accepted` | Accepted a Command Palette search result |
+| `Command Palette Search Exited` | Exited Command Palette search without accepting a result |
 | `Command Search Async Query Completed` | Finished searching for a command in the background |
 | `Command Search Exited` | Exited command search (universal search panel to search) without accepting a result |
 | `Command Search Filter Changed` | Changed command search filter |
@@ -476,6 +484,8 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `RemoteServer.Initialization` | Remote server connection and initialization completed (success or failure) |
 | `RemoteServer.Installation` | Remote server binary installation completed (success or failure) |
 | `RemoteServer.MessageDecodingError` | A server message could not be decoded (no parseable request_id) |
+| `RemoteServer.ReconnectExhausted` | All reconnection attempts were exhausted after a spontaneous disconnect |
+| `RemoteServer.Reconnection` | A reconnection attempt succeeded after a spontaneous disconnect |
 | `RemoteServer.SetupDuration` | End-to-end duration of the remote server setup flow |
 | `Remove Added Subshell Command` | Removed a command from the list of commands to automatically Warpify via Warp's subshell wrapper |
 | `Remove Denylisted SSH Tmux Wrapper Host` | Removed an SSH host from the denylist from prompting for Tmux Wrapper |
@@ -500,7 +510,7 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `SSH Tmux Warpify Block Dismissed` | User dismissed an ssh tmux warpify block |
 | `Save Launch Config` | Saved current launch configuration of windows, tabs, and panes |
 | `Select App Icon` | Selected app icon |
-| `Select Command Palette Option` | Selected option from command palette (i.e. CMD-P) |
+| `Select Command Palette Option` | Selected option from Command Palette (i.e. CMD-P) |
 | `Select Cursor Type` | Selected cursor type |
 | `Select Navigation Palette Item` | Selected session from the Session Navigation Palette (search across panes, tabs, and windows) |
 | `Select Theme` | Selected theme |
@@ -551,7 +561,7 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `Thin Strokes Setting Changed` | Changed thin strokes setting in settings -> Appearance |
 | `Tier Limit Hit` | User hit the tier limit for a feature |
 | `Toggle Active AI Enablement` | Toggled active AI enablement. |
-| `Toggle Agent Mode Codebase Context` | Toggled on/off the enablement of codebase context usage for Agent Mode. |
+| `Toggle Agent Mode Codebase Context` | Toggled on/off the enablement of Codebase Context usage for Agent Mode. |
 | `Toggle Agent Mode Query Suggestions Setting` | Toggled on/off the prompt suggestions setting |
 | `Toggle Approvals Modal` | Opened or closed teams modal |
 | `Toggle Block Filter Case Sensitivity` | Toggled on/off case sensitivity within the block filter editor |
@@ -559,7 +569,7 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `Toggle Block Filter Query` | Toggled on/off a block filter query |
 | `Toggle Block Filter Regex` | Toggled on/off regex within the block filter editor |
 | `Toggle Code Suggestions Setting` | Toggled on/off the code suggestions setting |
-| `Toggle Codebase Context Autoindexing` | Toggled on/off the enablement of autoindexing for codebase context. |
+| `Toggle Codebase Context Autoindexing` | Toggled on/off the enablement of autoindexing for Codebase Context. |
 | `Toggle Dim Inactive Panes` | Whether the dim inactive panes feature has been toggled |
 | `Toggle Focus Pane On Hover` | Toggled on/off focus pane on hover feature, which causes panes to automatically focus when hovering over them |
 | `Toggle Git Operations Autogen Setting` | Toggled on/off the git operations autogen setting |

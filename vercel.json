@@ -1,6 +1,6 @@
 {
   "framework": "astro",
-  "installCommand": "npm install",
+  "installCommand": "npm ci",
   "buildCommand": "npm run build",
   "devCommand": "npm run dev",
   "headers": [
@@ -29,7 +29,7 @@
         },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://va.vercel-scripts.com https://vitals.vercel-insights.com https://www.google.com https://www.gstatic.com https://cdn.jsdelivr.net https://cdn.rudderlabs.com https://polyfill-fastly.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net; img-src 'self' data: https:; frame-src https://www.youtube-nocookie.com https://www.loom.com https://drive.google.com https://www.google.com; connect-src 'self' https://va.vercel-scripts.com https://vitals.vercel-insights.com https://*.kapa.ai https://www.google.com https://app.pushfeedback.com https://app.warp.dev https://api.rudderstack.com; frame-ancestors 'none'"
+          "value": "default-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://va.vercel-scripts.com https://vitals.vercel-insights.com https://www.google.com https://www.gstatic.com https://cdn.jsdelivr.net https://cdn.rudderlabs.com https://polyfill-fastly.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net; img-src 'self' data: https:; frame-src https://www.youtube-nocookie.com https://www.loom.com https://drive.google.com https://www.google.com; connect-src 'self' https://va.vercel-scripts.com https://vitals.vercel-insights.com https://*.kapa.ai https://www.google.com https://app.warp.dev https://api.rudderstack.com; frame-ancestors 'none'"
         }
       ]
     },
@@ -38,7 +38,7 @@
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com https://vitals.vercel-insights.com https://www.google.com https://www.gstatic.com https://cdn.jsdelivr.net https://cdn.rudderlabs.com https://polyfill-fastly.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net; img-src 'self' data: https:; frame-src https://www.youtube-nocookie.com https://www.loom.com https://drive.google.com https://www.google.com; connect-src 'self' https://va.vercel-scripts.com https://vitals.vercel-insights.com https://*.kapa.ai https://www.google.com https://app.pushfeedback.com https://app.warp.dev https://api.rudderstack.com; frame-ancestors 'none'"
+          "value": "default-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com https://vitals.vercel-insights.com https://www.google.com https://www.gstatic.com https://cdn.jsdelivr.net https://cdn.rudderlabs.com https://polyfill-fastly.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net; img-src 'self' data: https:; frame-src https://www.youtube-nocookie.com https://www.loom.com https://drive.google.com https://www.google.com; connect-src 'self' https://va.vercel-scripts.com https://vitals.vercel-insights.com https://*.kapa.ai https://www.google.com https://app.warp.dev https://api.rudderstack.com; frame-ancestors 'none'"
         }
       ]
     },
@@ -47,7 +47,7 @@
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com https://vitals.vercel-insights.com https://www.google.com https://www.gstatic.com https://cdn.jsdelivr.net https://cdn.rudderlabs.com https://polyfill-fastly.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net; img-src 'self' data: https:; frame-src https://www.youtube-nocookie.com https://www.loom.com https://drive.google.com https://www.google.com; connect-src 'self' https://va.vercel-scripts.com https://vitals.vercel-insights.com https://*.kapa.ai https://www.google.com https://app.pushfeedback.com https://app.warp.dev https://api.rudderstack.com; frame-ancestors 'none'"
+          "value": "default-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com https://vitals.vercel-insights.com https://www.google.com https://www.gstatic.com https://cdn.jsdelivr.net https://cdn.rudderlabs.com https://polyfill-fastly.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net; img-src 'self' data: https:; frame-src https://www.youtube-nocookie.com https://www.loom.com https://drive.google.com https://www.google.com; connect-src 'self' https://va.vercel-scripts.com https://vitals.vercel-insights.com https://*.kapa.ai https://www.google.com https://app.warp.dev https://api.rudderstack.com; frame-ancestors 'none'"
         }
       ]
     },
@@ -9506,6 +9506,76 @@
     {
       "source": "/warp/terminal/editor",
       "destination": "/terminal/editor/",
+      "statusCode": 308
+    },
+    {
+      "source": "/features/ai-command-search",
+      "destination": "/terminal/entry/command-search/",
+      "statusCode": 308
+    },
+    {
+      "source": "/features/entry/ai-command-search",
+      "destination": "/terminal/entry/command-search/",
+      "statusCode": 308
+    },
+    {
+      "source": "/features/network-log",
+      "destination": "/support-and-community/privacy-and-security/network-log/",
+      "statusCode": 308
+    },
+    {
+      "source": "/features/warp-ai/ai-command-suggestions",
+      "destination": "/agent-platform/local-agents/generate/",
+      "statusCode": 308
+    },
+    {
+      "source": "/help/plans-subscriptions-and-pricing",
+      "destination": "/support-and-community/plans-and-billing/plans-pricing-refunds/",
+      "statusCode": 308
+    },
+    {
+      "source": "/integrations/integrations-overview/integrations-and-environments",
+      "destination": "/reference/cli/integration-setup/",
+      "statusCode": 308
+    },
+    {
+      "source": "/features/editor/autosuggestions",
+      "destination": "/terminal/command-completions/autosuggestions/",
+      "statusCode": 308
+    },
+    {
+      "source": "/code/code-permissions",
+      "destination": "/agent-platform/capabilities/agent-profiles-permissions/",
+      "statusCode": 308
+    },
+    {
+      "source": "/getting-started/refer-a-friend",
+      "destination": "/support-and-community/community/refer-a-friend/",
+      "statusCode": 308
+    },
+    {
+      "source": "/help/using-warp-offline",
+      "destination": "/support-and-community/troubleshooting-and-support/using-warp-offline/",
+      "statusCode": 308
+    },
+    {
+      "source": "/features/secret-redaction",
+      "destination": "/support-and-community/privacy-and-security/secret-redaction/",
+      "statusCode": 308
+    },
+    {
+      "source": "/features/warp-ai/active-ai",
+      "destination": "/agent-platform/local-agents/active-ai/",
+      "statusCode": 308
+    },
+    {
+      "source": "/oz",
+      "destination": "/agent-platform/cloud-agents/overview/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/capabilities/agent-memory",
+      "destination": "/agent-platform/agent-memory/",
       "statusCode": 308
     }
   ]

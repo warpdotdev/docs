@@ -1,0 +1,77 @@
+---
+title: Artifacts
+description: >-
+  Get metadata for and download files produced by an agent run using the
+  `oz artifact` subcommands.
+sidebar:
+  label: "Artifacts"
+---
+
+Artifacts are files that an agent produces during a run and uploads to Oz — screenshots, generated reports, build outputs, logs, or any other file the agent saves alongside its conversation. Use `oz artifact` to inspect those files from outside the run and pull them down to your machine.
+
+## When to use artifacts
+
+Use artifacts when you need to retrieve files an agent produced after a run completes, without re-running the agent or scraping the conversation output.
+
+* **Hand-offs between runs** - A scheduled agent produces a report; a follow-up workflow downloads and processes it.
+* **Local inspection** - Pull a generated file (HTML, image, CSV) onto your laptop to review.
+* **CI integration** - Fetch an agent-produced build artifact from a pipeline step that runs after the agent finishes.
+
+Artifacts are referenced by an artifact UID. You can find UIDs in the agent's run detail view, in the JSON returned by [`oz run get`](/reference/cli/), or in the response from the [Oz API](/reference/api-and-sdk/).
+
+## `oz artifact get`
+
+Print metadata for an artifact without downloading it.
+
+```sh
+oz artifact get <ARTIFACT_UID>
+```
+
+The output describes the artifact (file name, content type, size, the run or conversation it's associated with, and the description supplied when it was uploaded). Use `--output-format json` for a structured response that's easy to parse from a script:
+
+```sh
+oz artifact get <ARTIFACT_UID> --output-format json
+```
+
+This command is useful for confirming an artifact exists and inspecting its size before you decide to download it.
+
+## `oz artifact download`
+
+Download the file contents of an artifact.
+
+```sh
+oz artifact download <ARTIFACT_UID> [--out <PATH>]
+```
+
+### Flags
+
+* **`<ARTIFACT_UID>`** - The UID of the artifact to download. Required positional argument.
+* **`--out <PATH>`** (`-o`) - Write the downloaded artifact to a specific file path. When omitted, the file is written to the current directory using the artifact's stored file name.
+
+### Examples
+
+Download an artifact to the current directory, preserving its original name:
+
+```sh
+oz artifact download <ARTIFACT_UID>
+```
+
+Download to a specific path:
+
+```sh
+oz artifact download <ARTIFACT_UID> --out ./reports/nightly.html
+```
+
+Use the artifact in a pipeline by combining `oz run get` and `oz artifact download`:
+
+```sh
+# Pull the latest run for a scheduled agent, grab its first artifact
+RUN_ID=$(oz run list --limit 1 --output-format json | jq -r '.[0].uid')
+ARTIFACT_UID=$(oz run get "$RUN_ID" --output-format json | jq -r '.artifacts[0].uid')
+oz artifact download "$ARTIFACT_UID" --out ./latest-report.html
+```
+
+## Related
+
+* [Oz API & SDK](/reference/api-and-sdk/) - retrieve artifacts programmatically over HTTP.
+* [Scheduled cloud agents](/agent-platform/cloud-agents/triggers/scheduled-agents/) - common producer of recurring artifacts that downstream tooling consumes.

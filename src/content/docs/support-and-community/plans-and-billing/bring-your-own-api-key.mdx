@@ -15,6 +15,10 @@ BYOK provides greater flexibility in model access and ensures Warp **never consu
 BYOK is currently only available on Warp's paid plans, starting with Build. Learn more about plans and pricing [warp.dev/pricing](https://www.warp.dev/pricing).
 :::
 
+:::caution
+BYOK and customer-supplied inference (BYOLLM via Amazon Bedrock or Google Vertex, plus custom endpoints) are available to individual users and organizations with 10 or fewer employees or users on any plan. Organizations with more than 10 employees or users must be on a Warp Business or Enterprise plan to use BYOK or customer-supplied inference. See Warp's [Terms of Service](https://www.warp.dev/terms-of-service) for details.
+:::
+
 ## How does BYOK work?
 
 When you add your own model API keys in Warp, those keys are stored **locally on your device** and are **never synced to the cloud**.
@@ -22,7 +26,7 @@ When you add your own model API keys in Warp, those keys are stored **locally on
 Warp uses these API keys to directly route your agent requests to the model provider you've configured.
 
 :::caution
-BYOK does not apply to [Oz Cloud Agents](/agent-platform/cloud-agents/overview/). Because your API keys are stored locally on your device, they are not available to cloud-hosted agent runs. Cloud agent runs always consume [Warp credits](/support-and-community/plans-and-billing/credits/).
+BYOK does not apply to [Cloud Agents](/agent-platform/cloud-agents/overview/). Because your API keys are stored locally on your device, they are not available to cloud-hosted agent runs. Cloud agent runs always consume [Warp credits](/support-and-community/plans-and-billing/credits/).
 :::
 
 When a model is selected using your own key:
@@ -77,7 +81,7 @@ Some AI-powered features are not affected by BYOK and are included as part of Wa
 | ----------------------------------------------------------------------------- | ------------------- | -------------------------------------------------------------------- |
 | [Active AI Recommendations](/agent-platform/local-agents/active-ai/) | No                  | Always included with Build and higher plans.                         |
 | [Codebase Context](/agent-platform/capabilities/codebase-context/)               | Yes                 | Uses Warp's AI infrastructure and consumes credits.                  |
-| [Oz Cloud Agents](/agent-platform/cloud-agents/overview/) | Yes                 | BYOK keys are stored locally and not available to cloud-hosted runs. |
+| [Cloud Agents](/agent-platform/cloud-agents/overview/) | Yes                 | BYOK keys are stored locally and not available to cloud-hosted runs. |
 
 These features will continue to function normally regardless of whether you’ve configured BYOK.
 
@@ -113,10 +117,12 @@ Warp itself never stores your LLM API keys.
 
 ### BYOK on Enterprise and Business plans
 
+Organizations with more than 10 employees or users must be on a Warp Business or Enterprise plan to use BYOK or customer-supplied inference. See Warp's [Terms of Service](https://www.warp.dev/terms-of-service) for the full eligibility rule.
+
 Currently, BYOK is configured at the **user level**, not the team or admin level:
 
 * Each team member can add and manage their own API keys locally.
 * Team admins cannot yet enforce or share API keys across members.
 * There is currently no organization-level Admin Panel for BYOK management.
 
-If your organization has specific needs for managed keys or enterprise-level control, please contact us at [warp.dev/contact-sales](https://warp.dev/contact-sales).
+If your organization has specific needs for managed keys or enterprise-level control, please contact us at [warp.dev/contact-sales](https://www.warp.dev/contact-sales).
