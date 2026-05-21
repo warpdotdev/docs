@@ -19,7 +19,7 @@ Watch this short demo to create an environment and run an agent using the Oz web
 
 ## Quick reference
 
-<table><thead><tr><th width="150">Page</th><th width="120">Path</th><th>What you can do</th></tr></thead><tbody><tr><td><strong>Dashboard</strong></td><td><code>/dashboard</code></td><td>Quick actions, suggested agents, recent agents, and featured reads</td></tr><tr><td><strong>Runs</strong></td><td><code>/runs</code></td><td>View all runs, filter by status/source/creator, start new runs, inspect transcripts</td></tr><tr><td><strong>Agents</strong></td><td><code>/agents</code></td><td>Browse skills from your environments, manage agent identities, dispatch skills as agents</td></tr><tr><td><strong>Schedules</strong></td><td><code>/schedules</code></td><td>Create scheduled agents, pause/enable schedules, view run history</td></tr><tr><td><strong>Environments</strong></td><td><code>/environments</code></td><td>Create and manage environments with repos, Docker images, and setup commands</td></tr><tr><td><strong>Secrets</strong></td><td><code>/secrets</code></td><td>Create and manage Warp-managed secrets for cloud agent runs</td></tr><tr><td><strong>Integrations</strong></td><td><code>/integrations</code></td><td>Connect Slack and Linear to trigger agents from external tools</td></tr></tbody></table>
+<table><thead><tr><th width="150">Page</th><th width="120">Path</th><th>What you can do</th></tr></thead><tbody><tr><td><strong>Dashboard</strong></td><td><code>/dashboard</code></td><td>Quick actions, suggested agents, recent agents, and featured reads</td></tr><tr><td><strong>Runs</strong></td><td><code>/runs</code></td><td>View all runs, filter by status/source/creator, start new runs, inspect transcripts</td></tr><tr><td><strong>Agents</strong></td><td><code>/agents</code></td><td>Browse agents from your environments, view suggested agents, create agents, and start runs</td></tr><tr><td><strong>Schedules</strong></td><td><code>/schedules</code></td><td>Create scheduled agents, pause/enable schedules, view run history</td></tr><tr><td><strong>Environments</strong></td><td><code>/environments</code></td><td>Create and manage environments with repos, Docker images, and setup commands</td></tr><tr><td><strong>Secrets</strong></td><td><code>/secrets</code></td><td>Create and manage Warp-managed secrets for cloud agent runs</td></tr><tr><td><strong>Integrations</strong></td><td><code>/integrations</code></td><td>Connect Slack and Linear to trigger agents from external tools</td></tr></tbody></table>
 
 <figure>
 ![The Oz web app's management view.](../../../../assets/agent-platform/oz-web-app-runs-view.png)
@@ -63,7 +63,7 @@ The **Dashboard** page (`/dashboard`) is your starting point for common actions 
 Four action cards at the top let you immediately:
 
 * **New run** — Start a cloud agent run
-* **New agent** — Create a new skill
+* **New agent** — Create a new agent
 * **New schedule** — Set up a scheduled agent
 * **New environment** — Configure a new execution environment
 
@@ -71,7 +71,7 @@ Each action opens a guided side pane without leaving the Dashboard.
 
 ### Suggested agents
 
-A curated list of pre-built skills from Warp's public [oz-skills repository](https://github.com/warpdotdev/oz-skills). Click **Run** on any suggested agent to start a run with that skill.
+A curated list of pre-built agents based on skills from Warp's public [oz-skills repository](https://github.com/warpdotdev/oz-skills). Click **Run** on any suggested agent to start a run from that configuration.
 
 ### Recent agents
 
@@ -109,80 +109,74 @@ You can also search by title, prompt, or skill name, and add advanced filters fo
 Click **New run** in the header to start a cloud agent.
 :::
 
-1. **Select an agent (optional)** — Choose a skill to use as the base instructions, or select "Quick run" to run without a skill
+1. **Select an agent (optional)** — Choose **Quick run** to run as yourself, or choose a saved agent identity from the **Agent** dropdown.
 2. **Select an environment** — Choose which environment the agent runs in
 3. **Add a prompt** — Provide context and instructions for this specific run
 
-The skill provides base instructions; your prompt adds context for this particular execution.
+The **Agent** dropdown lets you choose **Quick run** or a saved agent identity before you start the run. **Quick run** runs as your own user. Your prompt adds context for this particular execution.
 
 ---
 
 ## Agents
 
-The **Agents** page (`/agents`) covers two related but distinct concepts:
+The **Agents** page (`/agents`) is where you browse, create, and run agents. Agents are reusable cloud agent configurations that can include a prompt, skills, harness, model, environment, and secrets.
 
-* **Skills** - Reusable instruction sets stored in repositories that an agent can execute. Browse skills available from your environments, plus suggested skills from Warp's public [oz-skills repository](https://github.com/warpdotdev/oz-skills).
-* **Agent identities** - Team-scoped bot accounts that own and execute runs. The same page is where teams create and manage agent identities, attach descriptions and secrets to them, and bind API keys to a specific identity.
+Skills are reusable instruction sets stored in repositories. You can attach existing skills to an agent through the **Skills** field.
 
-For the full reference on agent identities, including plan limits, the REST endpoints, and how to run as a specific identity, see [Agent identities](/agent-platform/cloud-agents/agents/).
+### Agent details
 
-### Skill details
+Each agent displays:
 
-Each skill displays:
-
-<table><thead><tr><th width="150">Field</th><th>Description</th></tr></thead><tbody><tr><td><strong>Name</strong></td><td>The skill's identifier</td></tr><tr><td><strong>Description</strong></td><td>What the skill does</td></tr><tr><td><strong>Environments</strong></td><td>Which environments have access to this skill</td></tr></tbody></table>
+<table><thead><tr><th width="150">Field</th><th>Description</th></tr></thead><tbody><tr><td><strong>Name</strong></td><td>The agent's identifier</td></tr><tr><td><strong>Description</strong></td><td>What the agent does</td></tr><tr><td><strong>Environment</strong></td><td>Which environment the agent runs in</td></tr></tbody></table>
 
 <figure>
 ![The Agents page in the Oz web app.](../../../../assets/agent-platform/oz-web-app-agents.png)
 <figcaption>The Agents page in the Oz web app.</figcaption>
 </figure>
 
-Filter by environment or switch to the **Suggested** tab to see pre-built skills for common workflows like code review, dependency updates, and documentation sync.
+Filter by environment or switch to the **Suggested** tab to see pre-built agents for common workflows like code review, dependency updates, and documentation sync.
 
-### Running a skill as an agent
+### Running an agent
 
-Click any skill to view its details, then click **Run** to start an agent with that skill. You can also click **New run** from the header to start a run with optional skill selection.
+Click any agent to view its details, then click **Run** to start a run from that saved configuration. You can also click **New run** from the header to start a run with optional agent selection.
 
 :::note
 For more details on how skills work with cloud agents, see [Skills as Agents](/agent-platform/cloud-agents/skills-as-agents/).
 :::
 
-### Creating new skills
+### Creating a new agent
 
-Click **New skill** to create a new skill. The guided flow helps you define the skill's instructions, which are then available for future runs.
+Click **New agent** to open the side pane. The guided flow helps you define a cloud agent and choose its default configuration.
+
+1. **Name** (required) — Enter a short, descriptive identifier for the agent, such as `featureFlagRemover`.
+2. **Description** (optional) — Describe what the agent does.
+3. **Prompt** (optional) — Add instructions the agent uses by default.
+4. **Skills** (optional) — Attach one or more existing skills.
+5. **Harness** — Choose the execution harness the agent uses.
+6. **Model** — Choose the primary model the agent uses.
+7. **Environment** — Choose the team-scoped environment where the agent runs.
+8. **Secrets** (optional) — Attach any secrets the agent needs at run time.
+
+Click **Create agent** to save the agent. The agent appears on the Agents page and is available for future runs.
 
 <figure>
-![Creating a new agent skill in the Oz web app.](../../../../assets/agent-platform/oz-web-app-new-agent.png)
-<figcaption>Creating a new skill in the Oz web app.</figcaption>
+![Creating a new agent in the Oz web app.](../../../../assets/agent-platform/oz-web-app-new-agent.png)
+<figcaption>Creating a new agent in the Oz web app.</figcaption>
 </figure>
 
 ### Agent identities
 
-Agent identities are managed from the same Agents page. From the agent-identities view, you can:
-
-* **Create an agent identity** - Give it a name, an optional description, a default model and harness, and the secrets and skills runs as that identity should receive.
-* **Edit an existing identity** - Update its description, attached secrets, attached skills, or default configuration.
-* **Delete an identity** - Soft-deletes the identity and atomically deletes every API key bound to it. The default agent identity cannot be deleted.
+An [agent identity](/agent-platform/cloud-agents/agents/) is a team-scoped identity that can own and execute cloud agent runs. In the Oz web app, agent identities appear as saved agent options in the **Agent** dropdown for new runs and schedules. Skills provide reusable instructions; agent identities define the saved identity you select for a run.
 
 When you start a new run or schedule from the web app, the form's **Agent** dropdown lets you pick which agent identity should execute the run. **Quick run** is the default option and runs as your own user. See [Agent identities](/agent-platform/cloud-agents/agents/) for the full reference.
 
-#### Creating an agent identity
+From the Agents page or the API, you can:
 
-Click **New agent** to open the **New agent** side pane. The pane is split into collapsible sections; only the name is required. Walk through the fields in order:
+* **Create an agent identity** - Give it a name and optional description, then attach Warp-managed secrets and skills for runs started as that identity.
+* **Edit an existing identity** - Update its description, attached secrets, or attached skills.
+* **Delete an identity** - Soft-deletes the identity and atomically deletes every API key bound to it. The default agent identity cannot be deleted.
 
-1. **Name** (required) — A short, scriptable identifier for the identity, such as `featureFlagRemover` or `deploy-bot`.
-2. **Description** (optional) — A summary teammates see when picking the identity in run pickers.
-3. **Prompt** (optional) — Additional instructions appended to every run started as this identity.
-4. **Skills** — Use the multi-select to attach one or more skill specs the identity comes preloaded with.
-5. **Base harness** — Choose the execution harness for this identity's runs: Oz (the default) or a supported third-party CLI agent.
-6. **Base model** — When the chosen harness uses Warp's model picker, select the primary model the identity uses. You can leave this empty to fall back to the team default.
-7. **Harness auth secret** — When the chosen harness needs its own authentication (for example, a third-party CLI agent), pick the Warp-managed secret to authenticate with. Can be overridden per run.
-8. **Secrets** — Open the **Secrets** section and select the [Warp-managed secrets](/agent-platform/cloud-agents/secrets/) this identity should receive at run time.
-9. **Memory stores** — Attach the memory stores this identity should read from or write to.
-
-Click **Create agent** to save. The new identity appears on the Agents page and is immediately available in run and schedule pickers. To edit an existing identity later, click it in the list, then click **Edit**.
-
-For the conceptual model — plan limits, the REST endpoints, and how API keys are bound to an identity — see [Agent identities](/agent-platform/cloud-agents/agents/).
+For the conceptual model, plan limits, REST endpoints, and API key binding behavior, see [Agent identities](/agent-platform/cloud-agents/agents/).
 
 ---
 
@@ -194,7 +188,7 @@ The **Schedules** page (`/schedules`) lets you create and manage scheduled agent
 
 Each schedule displays:
 
-<table><thead><tr><th width="150">Field</th><th>Description</th></tr></thead><tbody><tr><td><strong>Name</strong></td><td>A descriptive name for the scheduled task</td></tr><tr><td><strong>Frequency</strong></td><td>Human-readable description of the cron schedule (e.g., "Every Monday at 10am")</td></tr><tr><td><strong>Next run</strong></td><td>When the schedule will next execute</td></tr><tr><td><strong>Environment</strong></td><td>Which environment the scheduled agent runs in</td></tr><tr><td><strong>Agent</strong></td><td>Which skill the schedule uses (if any)</td></tr><tr><td><strong>Status</strong></td><td>Whether the schedule is active or paused</td></tr></tbody></table>
+<table><thead><tr><th width="150">Field</th><th>Description</th></tr></thead><tbody><tr><td><strong>Name</strong></td><td>A descriptive name for the scheduled task</td></tr><tr><td><strong>Frequency</strong></td><td>Human-readable description of the cron schedule (e.g., "Every Monday at 10am")</td></tr><tr><td><strong>Next run</strong></td><td>When the schedule will next execute</td></tr><tr><td><strong>Environment</strong></td><td>Which environment the scheduled agent runs in</td></tr><tr><td><strong>Agent</strong></td><td>Which saved agent the schedule uses (if any)</td></tr><tr><td><strong>Status</strong></td><td>Whether the schedule is active or paused</td></tr></tbody></table>
 
 <figure>
 ![The Schedules page in the Oz web app.](../../../../assets/agent-platform/oz-web-app-schedules.png)
@@ -212,7 +206,7 @@ Click **New schedule** in the header to create a scheduled agent.
 1. **Name** — Give the schedule a descriptive name
 2. **Frequency** — Set the cron schedule (with presets for common patterns)
 3. **Environment** — Select the environment to run in
-4. **Agent (optional)** — Choose a skill to use
+4. **Agent (optional)** — Choose a saved agent to use
 5. **Prompt** — Define what the agent should do each time it runs
 
 ---
@@ -311,7 +305,6 @@ Open a parent run from the Runs page. When the run has children, the detail pane
 
 * [Cloud Agents Overview](/agent-platform/cloud-agents/overview/) — Learn about cloud agents and when to use them
 * [Multi-agent orchestration](/agent-platform/cloud-agents/orchestration/) — Parent/child model and common orchestration patterns
-* [Agent identities](/agent-platform/cloud-agents/agents/) — Team-scoped bot accounts that own and execute runs
 * [Skills as Agents](/agent-platform/cloud-agents/skills-as-agents/) — Run agents based on reusable skill definitions
 * [Scheduled Agents](/agent-platform/cloud-agents/triggers/scheduled-agents/) — Run agents automatically on a cron schedule
 * [Environments](/agent-platform/cloud-agents/environments/) — Configure runtime context for cloud agents
