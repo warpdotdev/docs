@@ -59,7 +59,7 @@ You may define any number of MCP servers in a single config.
     "args": ["dbt-mcp"],
     "env": {
       "DBT_HOST": "https://example.us1.dbt.com",
-      "DBT_SERVICE_TOKEN": "${DBT_SERVICE_TOKEN}"
+      "DBT_SERVICE_TOKEN": "{{DBT_SERVICE_TOKEN}}"
     }
   }
 }
@@ -84,7 +84,7 @@ For repeatable cloud agent workflows, declare your MCP servers inside the agent 
       "args": ["dbt-mcp"],
       "env": {
         "DBT_HOST": "https://example.us1.dbt.com",
-        "DBT_SERVICE_TOKEN": "${DBT_SERVICE_TOKEN}"
+        "DBT_SERVICE_TOKEN": "{{DBT_SERVICE_TOKEN}}"
       }
     }
   }
