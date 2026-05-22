@@ -13,7 +13,7 @@ Any interaction with Warp's Agent consumes credits. Credits are primarily based 
 Warp meters credits across three types of infrastructure — inference, compute, and platform — each with its own bucket. Credit types and where an agent runs (local or cloud) are independent: each agent run consumes from whichever credit types apply to it.
 
 * **AI credits** cover inference: the LLM call itself. Consumed when Warp pays for the model call through Warp-managed providers.
-* **Compute credits** cover compute: the sandbox an agent runs in. Consumed when an agent run uses Warp-hosted compute. In practice this is cloud agent runs; local agent runs use your own machine and don't consume compute credits. See [Compute credits](/support-and-community/plans-and-billing/credits/#compute-credits).
+* **Compute credits** cover compute: the sandbox an agent runs in. Consumed when an agent run uses Warp-hosted compute. In practice this is cloud agent runs; local agent runs use your own machine and don't consume compute credits. See [compute credits](/support-and-community/plans-and-billing/credits/#compute-credits).
 * **Platform credits** cover Warp's platform layer: run lifecycle, integrations, dashboard, APIs, and observability. Apply to every cloud agent run, plus local agent runs on Business and Enterprise plans that use customer-supplied inference (BYOK, a custom inference endpoint, or BYOLLM). See [platform credits](/support-and-community/plans-and-billing/platform-credits/).
 
 All three buckets draw from the same Warp credit pool and [add-on credits](/support-and-community/plans-and-billing/add-on-credits/), so you can manage them as a single balance in the Warp app under **Settings** > **Billing and usage**.
@@ -161,6 +161,6 @@ For a full breakdown of how platform credits work, see [platform credits](/suppo
 
 ### Cloud agent runs on team plans
 
-Cloud agent runs that aren't initiated by a specific team member — for example, scheduled runs or runs triggered through a team API key — follow plan-specific billing rules. On self-serve plans (Build, Max, Business), these runs are billed to the team owner: the owner's plan-included credits first, then their add-on credits, with optional auto-reload subject to the team-wide spend cap. On Enterprise plans, these runs draw from the team-scoped credit pool per your contract.
+Cloud agent runs that aren't initiated by a specific team member — for example, scheduled runs or runs triggered through a team API key — follow plan-specific billing rules. On self-serve plans (Build, Max, Business), these runs are billed to the team owner: the owner's plan-included credits first, then their add-on credits. With auto-reload off, the request is blocked when both pools are depleted (insufficient credits error). With auto-reload on, usage can trigger a reload on the owner's pool subject to the team-wide spend cap. On Enterprise plans, these runs draw from the team-scoped credit pool per your contract.
 
 For the full waterfall, see [How are cloud agent runs on team plans billed when no individual user triggered them?](/support-and-community/plans-and-billing/pricing-faqs/#how-are-cloud-agent-runs-on-team-plans-billed-when-no-individual-user-triggered-them) in the Pricing FAQs.
