@@ -33,7 +33,7 @@ When BYOLLM is enabled, Warp redirects inference calls to your AWS Bedrock envir
 
 Here's the high-level flow:
 
-1. **Admin configures routing** - Your team admin sets routing policies in Warp's admin settings (e.g., "Route Claude Sonnet 4.6 through AWS Bedrock; disable direct Anthropic API").
+1. **Admin configures routing** - Your team admin sets routing policies in Warp's admin settings (e.g., "Route Claude Opus 4.7 through AWS Bedrock; disable direct Anthropic API").
 2. **Team members authenticate** - Each team member authenticates to AWS locally using the AWS CLI (`aws login`).
 3. **Warp routes requests** - When a team member uses an interactive agent in the terminal, Warp uses their short-lived session credentials to authenticate requests to your configured AWS Bedrock API endpoint.
 4. **Inference executes in your cloud** - The model runs in your AWS account. Responses return to the Warp client.
@@ -74,7 +74,7 @@ Before configuring BYOLLM, confirm the following:
 In the [Admin Panel](/enterprise/team-management/admin-panel/), configure which models should route through AWS Bedrock:
 
 1. From the [Admin Panel](/enterprise/team-management/admin-panel/), navigate to the BYOLLM or model routing settings.
-2. Select which models should use your cloud provider (e.g., "Claude Sonnet 4.6 via AWS Bedrock").
+2. Select which models should use your cloud provider (e.g., "Claude Opus 4.7 via AWS Bedrock").
 3. Optionally, disable direct API access to enforce provider-only routing.
 
 ### Step 2: Provision IAM roles (cloud admin)
@@ -142,7 +142,7 @@ Warp's agents automatically select the best model for your task while respecting
 
 If a BYOLLM request fails (e.g., due to expired credentials, insufficient permissions, or provider quota limits), Warp attempts to fall back to the next available model your admin has enabled.
 
-For example, if Claude Sonnet 4.6 on Bedrock fails but your admin also enabled it via direct API, Warp falls back to the direct API to avoid disruption. If a fallback uses a direct API model, that request consumes Warp credits.
+For example, if Claude Opus 4.7 on Bedrock fails but your admin also enabled it via direct API, Warp falls back to the direct API to avoid disruption. If a fallback uses a direct API model, that request consumes Warp credits.
 
 If no fallback is available (e.g., the admin disabled all non-Bedrock models), Warp displays a clear error message.
 
