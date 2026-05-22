@@ -343,60 +343,77 @@ The team at Warp is standing by and ready to help. For subscribers technical iss
 
 ### May 2026 pricing changes
 
-The following questions cover the May 21, 2026 pricing updates: seat limits per plan, add-on credits attribution, BYOK on Free, the new custom inference endpoint feature, and ZDR / data-controls clarifications.
+The May 21, 2026 update introduces new seat limits, changes how add-on credits are attributed, opens BYOK to every plan, adds custom inference endpoints, and starts metering platform credits for cloud agent runs. The questions below cover what's changing and what to do if any of it affects you.
 
 #### Are there new seat limits per plan?
 
 Yes. As of May 21, 2026, each plan has an explicit seat limit. See [warp.dev/pricing](https://www.warp.dev/pricing) for the current per-plan caps.
 
-The seat limit governs paid-plan features and credit allocation — it's separate from the unlimited Warp Drive collaborators every plan supports. You can keep inviting unlimited users to share Notebooks, Workflows, and other Warp Drive resources without hitting the seat cap; the cap only applies when a user takes a paid seat on your team.
+The seat limit governs paid-plan features and credit allocation. It's separate from the unlimited Warp Drive collaborators every plan supports. You can keep inviting unlimited users to share Notebooks, Workflows, and other Warp Drive resources without hitting the seat cap. The cap only applies when a user takes a paid seat on your team.
 
-Teams that already exceed the new seat limit on their current plan remain in good standing — you won't be downgraded or charged differently. However, you **cannot add new members above the seat cap**, including backfilling members who leave. To grow past the cap, switch to the next plan up (or to Enterprise) at any time in **Settings** > **Billing and usage**.
+#### What if my team is already above the new seat limit?
+
+Your team's current access doesn't change. Existing members keep their seats and can continue using Warp the same way they do today.
+
+The cap only governs **adding new members**. While your team is at or above the cap, you can't add a new member or backfill a seat after a member leaves. To grow past the cap, switch to the next plan up (or to Enterprise) anytime under **Settings** > **Billing and usage**.
 
 #### How are add-on credits being attributed differently?
 
-Before May 21, 2026, add-on credits on multi-seat teams were **pooled** — every team member drew from a single shared balance. As of May 21, 2026, **add-on credits are user-scoped**: each user has their own balance, and a single heavy user can no longer drain the whole team's purchased credits.
+Before May 21, 2026, add-on credits on multi-seat teams were **pooled**. Every team member drew from a single shared balance. As of May 21, 2026, **add-on credits are user-scoped**. Each user has their own balance, and a single heavy user can no longer drain the whole team's purchased credits.
 
-**Grandfathering for pre-May 2026 pooled credits**: Existing pooled add-on credit balances are honored. They drain first across the team before any new user-scoped add-on credits are consumed. No new credits will be added to the pooled balance — once it's exhausted, all future add-on credit purchases are user-scoped.
+Two practical changes for teams:
+
+* **Anyone on the team can now purchase add-on credits** for their own usage, subject to the team-wide spend cap admins set under **Settings** > **Billing and usage**. Previously, admins typically managed the shared pool on behalf of the team.
+* **Grandfathered pooled credits**: Existing pooled add-on credit balances purchased before May 21, 2026 are honored. They drain first across the team before any user-scoped add-on credits are consumed. No new credits are added to the pooled balance. Once it's exhausted, all future add-on credit purchases are user-scoped.
 
 For details, see [add-on credits](/support-and-community/plans-and-billing/add-on-credits/).
 
+#### What happens to my add-on credits if I leave the team?
+
+Add-on credits are tied to the team that paid for them, so team-membership changes affect access:
+
+* **You leave a team**: You lose access to any add-on credits tied to that team. If you rejoin the same team later, you regain access to any unused, non-expired credits. The admin pays a prorated rate for your seat on rejoin.
+* **An admin removes you from a team**: You lose access to any add-on credits tied to that team. If you rejoin later, you regain access to any unused, non-expired credits.
+* **An admin deletes the team**: Any remaining add-on credits tied to the team are no longer usable by anyone.
+
+Unused add-on credits remain valid for 12 months from purchase, as long as you have an active subscription. See [When team membership changes](/support-and-community/plans-and-billing/add-on-credits/#when-team-membership-changes) on the add-on credits page for full details.
+
 #### Can I bring my own API key on the Free plan now?
 
-Yes. As of May 21, 2026, **Bring Your Own API Key (BYOK)** is available on all plans, including Free. Previously, BYOK required a Build, Business, or Enterprise subscription. You can configure your OpenAI, Anthropic, or Google key in **Settings** > **AI** > **Manage models**.
+Yes. As of May 21, 2026, **Bring Your Own API Key (BYOK)** is available on all plans, including Free. Previously, BYOK required a Build, Business, or Enterprise subscription. You can configure your OpenAI, Anthropic, or Google key under **Settings** > **AI** > **Manage models**.
 
 See [Bring Your Own API Key](/agent-platform/inference/bring-your-own-api-key/) for the full list of supported providers and setup steps.
 
 #### What is the new custom inference endpoint feature?
 
-**Custom inference endpoints** are a new way to route Warp's AI traffic through any OpenAI-compatible inference endpoint — including OpenRouter, LiteLLM, z.ai, and internal gateways your team already runs. Custom inference endpoint support is available on Free, Build, Max, Business, and Enterprise.
+**Custom inference endpoints** let you route Warp's AI traffic through any OpenAI-compatible inference endpoint, including OpenRouter, LiteLLM, z.ai, and internal gateways your team already runs. Support is available on Free, Build, Max, Business, and Enterprise.
 
-Custom inference endpoints differ from BYOK and BYOLLM:
+Here's how custom inference endpoints differ from BYOK and BYOLLM:
 
 * **BYOK** sends requests directly to OpenAI, Anthropic, or Google using your own provider API key.
-* **Custom inference endpoint** sends requests to any OpenAI-compatible URL you control (or that your team runs).
-* **BYOLLM** is an Enterprise-only managed inference feature where Warp routes traffic through your cloud provider — AWS Bedrock today, with Azure Foundry and Google Vertex coming soon — with full routing, orchestration, governance, and observability provided by Warp.
+* **Custom inference endpoint** sends requests to any OpenAI-compatible URL you control or that your team runs.
+* **BYOLLM** is an Enterprise-only managed inference feature. Warp routes traffic through your cloud provider (AWS Bedrock today, with Azure Foundry and Google Vertex coming soon) and handles the routing, orchestration, governance, and observability.
 
 For setup and details, see [Custom inference endpoint](/agent-platform/inference/custom-inference-endpoint/).
 
-#### How does Zero Data Retention (ZDR) work on the new plans?
-
-Two distinct things are sometimes both called "ZDR" — May 21, 2026 makes the distinction clearer:
-
-* **Model provider ZDR** applies to **all plans, including Free**. See [Does Warp have Zero Data Retention policies with LLM providers?](#does-warp-have-zero-data-retention-policies-with-llm-providers) for the full provider list and what those agreements cover.
-* **Admin-configurable data controls** are settings that let admins control what Warp itself retains for the team (data retention windows, training opt-outs, etc.). These are available on **Business and Enterprise**, and replace what was previously described as "automatically enforced team-wide ZDR." See [How can I enable Zero Data Retention in Warp?](#how-can-i-enable-zero-data-retention-in-warp) for setup.
-
-If you previously relied on the "automatically enforced team-wide ZDR" language on Business, your data controls are unchanged — Warp still does not retain your team's data for training, and admins can still configure retention. The terminology change disambiguates Warp's controls from the provider-level ZDR that applies to every plan.
-
 #### When do platform credits start being charged on self-serve plans?
 
-[Platform credits](/support-and-community/plans-and-billing/platform-credits/) apply to every cloud agent run, plus local agent runs on Business that use BYOK or a custom inference endpoint. **For self-serve paid plans (Build, Max, Business), platform-credits billing doesn't start until July 1, 2026.**
+[Platform credits](/support-and-community/plans-and-billing/platform-credits/) apply to every cloud agent run, plus local agent runs on Business that use BYOK or a custom inference endpoint. **For self-serve plans (Free, Build, Max, Business), platform-credits billing doesn't start until July 1, 2026.**
 
-Between May 21 and June 30, 2026, self-serve paid plans are in a **preview period**: platform-credit consumption is visible in the Warp app's usage breakdown for transparency, but **no platform credits are deducted from your add-on credit pool or counted against your spend cap**.
+Between May 21 and June 30, 2026, all self-serve plans are in a **preview period**. Platform credits are not consumed during this window, so they won't draw from your monthly Warp credits, your add-on credit balance, or your spend cap.
 
-The preview period applies only to Build, Max, and Business. On **Free**, cloud agent runs draw platform credits from your monthly Warp credit allowance immediately, without a preview period. On **Enterprise**, platform credit usage is governed by your contract — see [enterprise billing](/enterprise/support-and-resources/billing/).
+On **Enterprise**, platform credit usage is governed by your contract. See [enterprise billing](/enterprise/support-and-resources/billing/) for details.
 
-On **July 1, 2026**, Warp begins charging self-serve paid plans for:
+On **July 1, 2026**, Warp begins consuming platform credits for:
 
-* Every cloud agent run on Build, Max, or Business.
+* Every cloud agent run on Free, Build, Max, or Business.
 * Local agent runs on Business that use BYOK or a custom inference endpoint.
+
+#### I'm a team admin. What do I need to do?
+
+A short checklist to triage the May 2026 changes for your team:
+
+* **Check your seat count.** Go to **Settings** > **Teams** to see whether your team is at or above your plan's new seat limit. If you are, see [What if my team is already above the new seat limit?](#what-if-my-team-is-already-above-the-new-seat-limit).
+* **Set your team's add-on credit spend cap.** Under **Settings** > **Billing and usage**, configure the monthly cap that applies to add-on credit purchases across your team. Team members can now buy their own add-on credits, but every purchase counts against this cap.
+* **Let your team know add-on credits are user-scoped now.** Each member can purchase add-on credits for their own usage without affecting anyone else's balance.
+* **Plan for platform credits on July 1, 2026.** If your team is on Business and uses BYOK or a custom inference endpoint locally, those local runs will start consuming platform credits when the preview period ends. See [When do platform credits start being charged on self-serve plans?](#when-do-platform-credits-start-being-charged-on-self-serve-plans).
