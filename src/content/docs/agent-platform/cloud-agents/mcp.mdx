@@ -97,6 +97,27 @@ Pass this file when running a cloud agent:
 oz agent run-cloud --environment <ENV_ID> -f my-agent-config.json --prompt "Check for regressions in the last deploy"
 ```
 
+## Injecting secrets into MCP env values
+
+Values in the `env` (and `headers`) map support two ways to reference [Warp-managed secrets](/agent-platform/cloud-agents/secrets/):
+
+* **Explicit template syntax** — set the value to `{{SECRET_NAME}}`. Oz resolves the named secret and substitutes its value before the MCP server process starts.
+* **Implicit key-name match** — if the env key matches a managed secret name and the value contains no `{{...}}` placeholder, Oz injects the secret automatically.
+
+The `{{SECRET_NAME}}` syntax is recommended because it makes the secret reference explicit and works regardless of what default value is set.
+
+### Escaping `{{...}}` when using upstream templating systems
+
+Some systems that trigger cloud agent runs — such as Jira/Atlassian Automation — process `{{...}}` as their own smart-value syntax before the payload reaches Oz. This means a webhook body containing `{{MY_SECRET}}` can arrive at Oz as an empty string, and the MCP server never receives the secret.
+
+**Workaround:** Use JSON unicode escapes for the curly braces:
+
+```json
+"MY_ENV_VAR": "\u007b\u007bMY_SECRET\u007d\u007d"
+```
+
+`\u007b` is `{` and `\u007d` is `}`. The upstream system passes the unicode escapes through unchanged, and standard JSON decoding restores `{{MY_SECRET}}` so Oz can resolve the secret normally.
+
 ## Requirements and defaults
 
 * MCP configuration must be valid JSON, or YAML when embedded in a broader agent config file.
