@@ -36,7 +36,7 @@ For the most up-to-date feature and usage details — including current per-plan
 Warp offers two options for larger teams and organizations:
 
 * **Business plan**: Self-serve multi-seat plan available for immediate upgrade. Includes admin-configurable data controls and admin-controlled SAML-based SSO. See [warp.dev/pricing](https://www.warp.dev/pricing) for the current seat limit.
-* **Enterprise plan**: Custom pricing, credit allowances, and terms — built for larger engineering organizations or teams with advanced security, compliance, or support needs. Enterprise also includes [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/) managed inference, where Warp routes traffic through AWS Bedrock today — with Azure Foundry and Google Vertex coming soon — with routing, orchestration, governance, and observability provided by Warp.
+* **Enterprise plan**: Custom pricing, credit allowances, and terms — built for larger engineering organizations or teams with advanced security, compliance, or support needs. Enterprise also includes [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/) managed inference, with routing, orchestration, governance, and observability provided by Warp.
 
 :::tip
 If you’d like to explore Enterprise, [contact our sales team](https://www.warp.dev/contact-sales) and someone from Warp will follow up.
@@ -152,7 +152,7 @@ Warp meters credits across three buckets: **AI credits** (the model call), **com
 Platform credits apply in two situations:
 
 * **Every cloud agent run, on every plan.** Warp's platform infrastructure coordinates every cloud run regardless of which agent or inference source it uses. On self-serve paid plans (Build, Max, Business), platform-credits billing is in a preview period until July 1, 2026 — see [When do platform credits start being charged on self-serve plans?](#when-do-platform-credits-start-being-charged-on-self-serve-plans) for details.
-* **Local agent runs on Business and Enterprise that use customer-supplied inference** — BYOK, BYOLLM via AWS Bedrock (with Azure Foundry and Google Vertex coming soon), or a custom inference endpoint. Warp isn't paying for the model call, but Warp's platform infrastructure is still running the agent. Billing for these runs is also in preview until July 1, 2026 on self-serve paid plans.
+* **Local agent runs on Business and Enterprise that use customer-supplied inference** — BYOK, a custom inference endpoint, or BYOLLM. Warp isn't paying for the model call, but Warp's platform infrastructure is still running the agent. Billing for these runs is also in preview until July 1, 2026 on self-serve paid plans.
 
 Local agent runs on Free, Build, or Max — and local runs on Business or Enterprise that use Warp-managed inference — do not consume platform credits. See [platform credits](/support-and-community/plans-and-billing/platform-credits/) for the full breakdown.
 
