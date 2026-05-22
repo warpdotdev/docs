@@ -1,8 +1,8 @@
 ---
 title: Warp URI Scheme
 description: >-
-  Warps URI scheme enables you to programmatically open new windows, tabs, or
-  launch configurations with ease.
+  Warp's URI scheme enables you to programmatically open new windows, tabs,
+  launch configurations, or tab configs with ease.
 sidebar:
   label: "Warp URI scheme"
 ---
@@ -15,6 +15,7 @@ There are several ways to use the URI scheme:
 * Open new window `warp://action/new_window?path=<path_to_folder>`
 * Open new tab `warp://action/new_tab?path=<path_to_folder>`
 * Open Launch Configuration `warp://launch/<launch_configuration_path>`
+* Open Tab Config `warp://tab_config/<name>` — opens the saved [Tab Config](/terminal/windows/tab-configs/) as a new tab in the active window. Append `?new_window=true` to open it in a new window instead. `<name>` is matched case-insensitively against the file stem of the `.toml`, so both `warp://tab_config/my_tab` and `warp://tab_config/my_tab.toml` resolve to `my_tab.toml`.
 
 :::note
 [Warp Preview](/support-and-community/community/warp-preview-and-alpha-program/) URI scheme begins with `warppreview://`
