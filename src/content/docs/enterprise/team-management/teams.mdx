@@ -21,7 +21,6 @@ Each Warp user can be an admin or member of one team at a time.
 
 You can create a new team in two ways:
 
-{/* TODO: Add screenshots for both team creation entry points */}
 * From the **Warp Drive** side panel, click **+ Create a team**.
 * In Warp, navigate to **Settings** > **Teams** and follow the prompts.
 
@@ -64,6 +63,16 @@ If you've received an invite link, use it to sign up or log in and join the team
 If you're a Team Owner and choose to [delete your Warp account](/support-and-community/privacy-and-security/privacy/#delete-your-account-and-data), you'll need to assign a team member as the new owner before your account can be deleted.
 :::
 
+### Add-on credit consequences when leaving or removing members
+
+On Build, Max, and Business plans, [add-on credits](/support-and-community/plans-and-billing/add-on-credits/) are scoped to each individual user but **tied to the team** they were purchased under. Membership changes affect access:
+
+* **A user leaves a team** - You lose access to any add-on credits tied to that team. If you rejoin the same team later, you regain access to any unused, non-expired credits. The admin pays a prorated rate for your seat on rejoin.
+* **An admin removes a member** - That member loses access to any add-on credits tied to the team. If they rejoin later, they regain access to any unused, non-expired credits. The admin pays a prorated rate for the seat when the user rejoins.
+* **An admin deletes the team** - Any remaining add-on credits tied to the team are no longer usable.
+
+Add-on credits require an active subscription. Downgrading to the Free plan forfeits access to add-on credits tied to your team.
+
 ## Team discoverability
 
 Team admins can make their team discoverable to colleagues who share the same email domain. When enabled, new users with a matching domain can find and join the team without needing a direct invite link.
@@ -78,7 +87,6 @@ While discoverability is enabled, any new user who joins the team will add a pro
 
 Team Owners can transfer ownership to another team member:
 
-{/* TODO: Add screenshot of transfer ownership flow */}
 1. Navigate to **Settings** > **Teams** > **Team Members**.
 2. Click the three-dot menu icon next to the member you want to transfer ownership to.
 3. Click **Transfer ownership**.
@@ -103,13 +111,13 @@ We recommend having at least one Team Admin in addition to the Team Owner to pre
 
 ### Permissions overview
 
-|  | Owner | Admin | Member |
+| Action | Owner | Admin | Member |
 | --- | --- | --- | --- |
-|| Create a team | ✓ | ✓ | ✓ |
+| Create a team | ✓ | ✓ | ✓ |
 | Restrict invites by domain | ✓ | ✓ | |
 | Invite members | ✓ | ✓ | ✓ |
 | Remove team members | ✓ | ✓ | |
-|| Leave a team | | ✓ | ✓ |
+| Leave a team | | ✓ | ✓ |
 | Delete a team | ✓ | | |
 | Transfer ownership | ✓ | | |
 | Promote/demote admins | ✓ | ✓ | |
@@ -122,7 +130,6 @@ Teams on the **Enterprise** plan can have multiple admins, enabling distributed 
 
 To promote or demote a team admin:
 
-{/* TODO: Add screenshot of promote/demote admin flow */}
 1. Navigate to **Settings** > **Teams** > **Team Members**.
 2. Find the user you want to modify and click the three-dot menu icon next to their name.
 3. Click **Promote to Admin** or **Demote from Admin**.
