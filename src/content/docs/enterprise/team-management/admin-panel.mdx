@@ -252,7 +252,7 @@ Configure cloud agent settings for your team, including GitHub authorization for
 
 **Enabled GitHub Orgs**
 
-The **Enabled GitHub Orgs** setting associates your Warp team with one or more GitHub App installations, enabling cloud agents initiated with a [team API key](/reference/cli/api-keys/) to clone repositories and open pull requests using the Oz by Warp GitHub App.
+The **Enabled GitHub Orgs** setting associates your Warp team with one or more GitHub App installations, enabling cloud agents initiated with a team or [agent API key](/reference/cli/api-keys/) to clone repositories and open pull requests using the Oz by Warp GitHub App.
 
 To configure:
 
@@ -268,7 +268,7 @@ To configure:
 The organizations and repository access shown here reflect the Oz by Warp GitHub App installation scope, which is configured in [GitHub settings](https://github.com/settings/installations). To change which repositories the app can access, edit the installation directly in GitHub.
 
 :::note
-This setting controls GitHub access for team API key runs only. Runs triggered by individual users (via personal API key, Slack, or Linear) continue to use that user's personal GitHub token. For more details, see [Team GitHub authorization](/agent-platform/cloud-agents/team-access-billing-and-identity/#team-github-authorization).
+This setting controls GitHub access for team and agent API key runs only. Runs triggered by individual users (via personal API key, Slack, or Linear) continue to use that user's personal GitHub token. For more details, see [Team GitHub authorization](/agent-platform/cloud-agents/team-access-billing-and-identity/#team-github-authorization).
 :::
 
 ## Multi-admin functionality
