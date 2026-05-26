@@ -109,10 +109,9 @@ const fontsHref =
 			history.pushState(null, '', url);
 			showCopiedFeedback(anchor);
 		} catch {
-			// Navigate to the anchor fragment. Avoids `window.location.href = …`
-			// which the afdocs redirect-behavior check misclassifies as a JS
-			// redirect (it heuristically scans for location.href assignments in
-			// the first 10 KB of HTML).
+			// Navigate to the anchor fragment without using href-based
+			// navigation, which the afdocs redirect-behavior check
+			// misclassifies as a JS redirect when scanned in inline scripts.
 			window.location.hash = url.hash;
 		}
 	});
