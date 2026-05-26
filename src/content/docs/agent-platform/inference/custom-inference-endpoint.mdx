@@ -54,6 +54,14 @@ When you explicitly select an endpoint-routed model from the model picker, Warp 
 
 The configuration flow mirrors the [Bring Your Own API Key](/agent-platform/inference/bring-your-own-api-key/) setup, so the steps will feel familiar if you've already configured BYOK.
 
+## Using local models
+
+Warp routes inference requests through its servers, so endpoint URLs must be publicly accessible. `localhost`, `127.0.0.1`, and other private or local network URLs are rejected when configuring a custom inference endpoint.
+
+To route through a model running on your own machine (for example, Ollama, LM Studio, vLLM, or llama.cpp), expose it through a tunneling service like [ngrok](https://ngrok.com/) and use the public tunnel URL as the base URL in your endpoint configuration.
+
+For example, with a default Ollama install listening on port `11434`, run `ngrok http 11434` and use the resulting `https://*.ngrok-free.app` URL as your endpoint. Other tunneling services that produce a publicly reachable HTTPS URL (Cloudflare Tunnel, Tailscale Funnel, and similar) work the same way.
+
 ## Billing behavior
 
 ### Warp AI credits
