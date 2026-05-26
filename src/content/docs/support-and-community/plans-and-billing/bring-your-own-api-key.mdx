@@ -7,7 +7,7 @@ description: >-
 
 Warp supports **Bring Your Own Key (BYOK)** for users who want to connect Warp’s agent to their own Anthropic, OpenAI, or Google API accounts.
 
-This lets you use your own API keys to access models directly, giving you full control over model selection, billing, and data routing. See [Model Choice](/agent-platform/capabilities/model-choice/) for a list of supported models.
+This lets you use your own API keys for model access, giving you control over model selection, billing, and data routing. See [Model Choice](/agent-platform/capabilities/model-choice/) for a list of supported models.
 
 BYOK provides greater flexibility in model access and ensures Warp **never consumes your** [credits](/support-and-community/plans-and-billing/credits/) for requests routed through your own keys.
 
@@ -21,9 +21,19 @@ BYOK and customer-supplied inference (BYOLLM via Amazon Bedrock or Google Vertex
 
 ## How does BYOK work?
 
-When you add your own model API keys in Warp, those keys are stored **locally on your device** and are **never synced to the cloud**.
+When you add your own model API keys in Warp, those keys are stored **locally on your device** (in your OS keychain or equivalent secure storage) and are **never persisted on Warp's servers**.
 
-Warp uses these API keys to directly route your agent requests to the model provider you've configured.
+When you send a prompt using a model with the **key icon**:
+
+1. The Warp Agent runtime on Warp's backend assembles the request, including your prompt, [Codebase Context](/agent-platform/capabilities/codebase-context/), [Rules](/agent-platform/capabilities/rules/), [Secret Redaction](/support-and-community/privacy-and-security/secret-redaction/), and tool definitions.
+2. Your API key is sent up alongside that request and used in-flight to authenticate the call to your chosen model provider (Anthropic, OpenAI, or Google).
+3. The provider's response streams back through Warp's backend to your client.
+
+Your API key is held in memory only for the duration of each request — Warp never writes it to disk or to any database.
+
+:::note
+**Why does the request route through Warp's backend?** The Warp Agent runtime — the same runtime that powers [Agent Mode](/agent-platform/local-agents/interacting-with-agents/terminal-and-agent-modes/) with Warp-billed models — runs server-side so it can apply Codebase Context, Rules, Secret Redaction, and multi-step tool orchestration consistently. BYOK swaps the credential used to call the provider; it does not change where the harness runs.
+:::
 
 :::caution
 BYOK does not apply to [Cloud Agents](/agent-platform/cloud-agents/overview/). Because your API keys are stored locally on your device, they are not available to cloud-hosted agent runs. Cloud agent runs always consume [Warp credits](/support-and-community/plans-and-billing/credits/).
@@ -35,7 +45,7 @@ When a model is selected using your own key:
 * Costs are billed directly through your model provider account.
 * Warp does not retain or store your API key on any of its servers.
 
-![Diagram showing how Warp routes BYOK agent requests directly through your provider API key, bypassing Warp credits.](../../../../assets/support-and-community/Pricing-Blog-BYOK.png)
+![Diagram showing how Warp authenticates BYOK agent requests with your provider API key, bypassing Warp credits.](../../../../assets/support-and-community/Pricing-Blog-BYOK.png)
 
 ## Enabling BYOK
 
@@ -107,9 +117,11 @@ You can choose to enable **Warp credit fallback**. When enabled, if an agent req
 
 Warp is **SOC 2 compliant** and has **Zero Data Retention (ZDR)** policies with all of its contracted LLM providers. No customer AI data is retained, stored, or used for training by the model providers.
 
+BYOK prompts and responses transit Warp's backend (see [How does BYOK work?](#how-does-byok-work)), but Warp does not retain the request body, does not use it for training, and does not log it for analytics — the same posture that applies to Warp-billed traffic.
+
 However, when you use your own API key:
 
-* Data retention policies depend on your provider’s account settings.
+* Data retention policies on the **provider side** depend on your provider’s account settings.
 * Warp cannot enforce ZDR for requests sent through your API keys.
 * If your Anthropic, OpenAI, or Google account does not have ZDR enabled, your requests may be retained by the provider according to their terms.
 
