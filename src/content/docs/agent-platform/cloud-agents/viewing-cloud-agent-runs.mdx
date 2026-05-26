@@ -10,6 +10,8 @@ import VideoEmbed from '@components/VideoEmbed.astro';
 
 Cloud agent session sharing lets you open, inspect, and continue interacting with agent tasks that are running on remote virtual machines. Whether a cloud agent was triggered from [integrations](/agent-platform/cloud-agents/integrations/) like Slack, Linear, GitHub Actions, or the [Oz CLI](/reference/cli/), you can view its full session, follow along in real time, ask follow-up questions, and even "fork" the work into your local Warp environment.
 
+Use this page when you need to audit a cloud agent run, debug a failed automation, or give teammates a shared record of what the agent did. The session is the review surface for the run: it shows the prompt, plan, commands, logs, outputs, and follow-up messages where available.
+
 <VideoEmbed url="https://www.loom.com/share/edd662da8de345ae979c4d39eb19c513" />
 
 This makes cloud agent runs observable, steerable, and collaborative — even if they weren't initiated from your machine.
@@ -22,6 +24,7 @@ With cloud agent session sharing, you can view the full remote session for a clo
 
 * See every command the agent executed in the virtual environment
 * Inspect context, logs, and outputs directly in Warp or the web viewer
+* Review the prompt, plan, task list, and decisions that led to the result
 * Ask follow-up questions or give additional instructions after the task completes
 * Bring the conversation into your local Warp session with Fork to local
 * Continue working on remote-generated code locally
@@ -46,8 +49,10 @@ Once the session loads, you can:
 
 * Scroll through the cloud agent's actions
 * See the prompt, plan, and decisions it made
+* Review commands, logs, terminal output, and generated artifacts
 * Review the code or config changes it produced
 * Understand what environment it executed in
+* Copy the session link into a PR, issue, incident review, or team thread when teammates need the same execution context
 
 You’re viewing a remote VM, but the UI behaves like a local Warp session.
 
@@ -94,3 +99,9 @@ Cloud agent sessions can be viewed from:
 * Local Warp sessions after forking
 
 You get consistent visibility into the work regardless of where you open it.
+
+### Related pages
+
+* [Managing cloud agents](/agent-platform/cloud-agents/managing-cloud-agents/) — Find cloud agent runs by source, status, trigger, or owner.
+* [Attach agent session context to GitHub PRs](/guides/agent-workflows/how-to-attach-agent-session-context-to-github-prs/) — Share a run link with a PR so reviewers can inspect the agent's execution context.
+* [Agent Session Sharing](/agent-platform/local-agents/session-sharing/) — Share local Warp agent or third-party CLI agent sessions.

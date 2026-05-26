@@ -8,6 +8,8 @@ import VideoEmbed from '@components/VideoEmbed.astro';
 
 **Agent Session Sharing** extends Warp's regular [Session Sharing](/knowledge-and-collaboration/session-sharing/) to include full visibility and control over Agent activity. Share any agent session — Oz or third-party — so collaborators can watch progress, review output, and steer the agent from the Warp desktop app, a web browser, or a mobile device.
 
+Use Agent Session Sharing when teammates need the execution context behind an agent's work, not just the final answer or code diff. A shared agent session can show the prompt, responses, thinking states, tool use, planning steps, terminal output, and follow-up messages in one reviewable link.
+
 <VideoEmbed url="https://www.loom.com/share/89e0e99c9bbf463a8a5e5bc2e96dabe4" title="Agent Session Sharing in action — sharing a live session and collaborating across devices." />
 
 ## Key capabilities
@@ -17,6 +19,17 @@ import VideoEmbed from '@components/VideoEmbed.astro';
 * **Collaborative editing** - Grant edit access so collaborators can send their own Agent queries, execute commands, and start new conversations
 * **Multi-viewer support** - Multiple participants can observe and interact with the same session simultaneously, each with their own cursor and avatar
 * **Remote Control** - Publish third-party agent sessions to the cloud for persistent, asynchronous monitoring and steering from anywhere. See [Remote Control](/agent-platform/cli-agents/remote-control/).
+
+## Review and audit agent work with a shared session
+
+When you share an agent session, collaborators can inspect the work at the same level of detail you saw while the agent was running. This is useful when:
+
+* A teammate wants to review how an agent reached a conclusion
+* A reviewer needs the agent's execution context alongside a PR or code diff
+* An agent used a third-party CLI tool and you want a persistent record of the terminal session
+* A workflow needs asynchronous review from a teammate on another machine or mobile device
+
+Share the link only with collaborators who should be able to see the session contents, including prompts, terminal output, and any context visible in the scrollback.
 
 ## How it works
 
@@ -89,4 +102,5 @@ Multiple participants can join the same session from different machines, browser
 * [Remote Control](/agent-platform/cli-agents/remote-control/)
 * [Third-Party CLI Agents](/agent-platform/cli-agents/overview/)
 * [Cloud Agent Session Sharing](/agent-platform/cloud-agents/viewing-cloud-agent-runs/)
+* [Attach agent session context to GitHub PRs](/guides/agent-workflows/how-to-attach-agent-session-context-to-github-prs/)
 * [Session Sharing (terminal)](/knowledge-and-collaboration/session-sharing/)

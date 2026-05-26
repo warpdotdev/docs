@@ -12,6 +12,12 @@ Cloud agents are autonomous, background agents that run on Warp's cloud infrastr
 
 **New to cloud agents?** Start with the [Cloud agents quickstart](/agent-platform/cloud-agents/quickstart/) to run your first cloud agent in ~10 minutes.
 
+### Monitor, audit, and share cloud agent runs
+
+To understand what a cloud agent did, start from the [management view](/agent-platform/cloud-agents/managing-cloud-agents/) or the [Oz web app](/agent-platform/cloud-agents/oz-web-app/). From there, you can find a run by source, status, trigger, or owner; open the run transcript; inspect the prompt, plan, commands, logs, and output; and share the session link with teammates for review.
+
+For a full walkthrough, see [Viewing cloud agent runs](/agent-platform/cloud-agents/viewing-cloud-agent-runs/). If the run came from Slack, Linear, GitHub Actions, a schedule, the CLI, or the API, it still produces a reviewable cloud agent run record.
+
 <VideoEmbed url="https://youtu.be/poLkJhO7fdo" />
 
 ### What cloud agents are designed for
@@ -21,7 +27,7 @@ Cloud agents are designed for situations where:
 * **You need agents to react to system events.**
   * Examples include crashes, bug reports, Slack interactions, cron timers, or CI steps.
 * **You want observability into agent activity across a team or system.**
-  * This includes being able to see what ran, when it ran, and what it did.
+  * This includes being able to see what ran, when it ran, what triggered it, what the agent did, and how teammates can review or share the result.
 * **You need more parallelism than local execution typically allows.**
   * For example, running many agent tasks concurrently in the cloud, sharding a repo-wide task into multiple runs, or fanning out the same task across multiple targets.
 * **You want agents to operate continuously as part of engineering infrastructure.**
@@ -40,7 +46,7 @@ Each task includes:
 * **Inputs**: a prompt, and often additional context from the triggering system (for example a Slack message, PR metadata, or CI logs).
 * **Execution context (optional)**: an [Environment](/agent-platform/cloud-agents/environments/) that defines the repo, image, and startup commands the agent should run with.
 * **Lifecycle state**: created → running → completed / failed.
-* **Persistent record**: status, metadata, and a session transcript that can be reviewed after the task completes.
+* **Persistent record**: status, metadata, and a session transcript that can be reviewed after the task completes, including the prompt, plan, commands, logs, outputs, and follow-up messages where available.
 
 :::note
 If you are evaluating whether something should be a cloud agent, a good test is whether you can define:\
@@ -71,9 +77,9 @@ Cloud agent runs automatically benefit from [Codebase Context](/agent-platform/c
 
 Cloud agent tasks are designed to be inspectable by the team:
 
-* [Agent Session Sharing](/agent-platform/local-agents/session-sharing/) lets authorized teammates attach to a running task to monitor progress and, where supported, steer the agent while it runs.
-* Each run produces a session transcript and task metadata, which provides a record of what the agent did.
-* A [management experience](/agent-platform/cloud-agents/managing-cloud-agents/) surfaces task status and history.
+* A [management experience](/agent-platform/cloud-agents/managing-cloud-agents/) surfaces task status, source, trigger, creator, history, and credit usage.
+* [Cloud agent session sharing](/agent-platform/cloud-agents/viewing-cloud-agent-runs/) opens the run transcript so teammates can inspect the prompt, plan, commands, logs, files changed, outputs, and follow-up messages where available.
+* [Agent Session Sharing](/agent-platform/local-agents/session-sharing/) lets authorized teammates share, monitor, and steer live local or third-party agent sessions.
 
 #### Centralized configuration
 

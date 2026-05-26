@@ -16,6 +16,14 @@ Self-hosting lets your team run cloud agent workloads on your own infrastructure
 **Enterprise feature**: Self-hosted agents are available exclusively to teams on an Enterprise plan. To enable self-hosting for your team, [contact sales](https://www.warp.dev/contact-sales).
 :::
 
+## Can source code stay on your infrastructure?
+
+Yes, self-hosting keeps repository clones, source files, build artifacts, runtime secrets, and agent execution workspaces on infrastructure you control. This is the right deployment pattern when agent workloads need to run inside your network boundary or reach private services behind your VPN or firewall.
+
+Self-hosting is still a split-plane architecture, not a fully offline agent system. Orchestration metadata, session transcripts, and LLM inference requests and responses route through Warp's backend under [Zero Data Retention (ZDR)](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr). Session transcripts and LLM prompts can include code context, file contents the agent reads, command output, and agent-generated summaries.
+
+If your security requirement is "repository clones and execution must stay on our infrastructure," self-hosting is designed for that. If your requirement is "no code context can ever route through Warp or an external LLM provider," review [Security and networking](/agent-platform/cloud-agents/self-hosting/security-and-networking/) with your Warp account team before deploying.
+
 ## Managed vs unmanaged
 
 Self-hosting has two architectures. The core distinction is **who orchestrates agent runs** — not who owns the compute. Both models keep code and execution on your infrastructure.

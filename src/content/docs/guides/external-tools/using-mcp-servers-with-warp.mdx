@@ -1,92 +1,140 @@
 ---
-title: Using MCP Servers with Warp
+title: Connect developer tools to agents with MCP workflows
 description: >-
-  Connect MCP servers to Warp's agent, add Rules for automatic tool selection,
-  and resolve tickets using external systems like Linear.
+  Use Model Context Protocol (MCP) servers to connect Warp agents to developer
+  tools like GitHub, Linear, Sentry, Figma, Notion, and internal services across
+  local and cloud agent workflows.
 sidebar:
   label: "Connect Agents to MCP servers"
+tags:
+  - "mcp"
+featured: true
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
 
 <VideoEmbed url="https://www.youtube.com/watch?v=8vn2brhJrF8" />
 
-### 1. What Are MCP Servers?
+MCP servers let Warp agents use external tools and data sources through a standard interface. Add an MCP server when an agent needs to read issues, inspect pull requests, query incidents, fetch design context, call internal APIs, or update systems outside the terminal.
 
-MCP (Model Context Protocol) servers let Warp agents connect to external systems like GitHub, Linear, or Jira — so they can read, write, and reason about those systems natively.
+Warp supports MCP in two places:
 
-Each MCP server adds its own “tools” to Warp’s agent.\
-For example:
+* **Local agents in the Warp desktop app** use MCP servers configured in **Settings > Agents > MCP servers**, Warp Drive, or file-based config.
+* **Cloud agents** use MCP servers passed through the Oz CLI, agent config files, or Warp-shared MCP server UUIDs.
 
-* The Linear MCP Server handles tickets.
-* The GitHub MCP Server handles pull requests and issues.
+Use this guide to choose the right setup path, then jump to the source docs for exact configuration syntax.
 
----
+## Choose local or cloud MCP
 
-### 2. Problem Setup
+| Workflow | Use it when | Configure MCP with | Source docs |
+| -------- | ----------- | ------------------ | ----------- |
+| Local Warp agent | You are working interactively in Warp and want the agent to use tools from your machine or desktop-authenticated services. | Warp MCP settings, Warp Drive MCP servers, `.warp/.mcp.json`, or provider config files. | [Model Context Protocol (MCP)](/agent-platform/capabilities/mcp/) |
+| Third-party CLI agent in Warp | You run Claude Code, Codex, OpenCode, or another CLI agent in Warp and want shared MCP config across tools. | File-based MCP config that Warp can detect and approve. | [File-based MCP servers](/agent-platform/capabilities/mcp/#file-based-mcp-servers) |
+| Cloud agent run | The agent runs in a cloud environment from Slack, Linear, schedules, GitHub Actions, the CLI, or the API. | `--mcp`, an agent config file, or a Warp-shared MCP UUID. | [MCP Servers for cloud agents](/agent-platform/cloud-agents/mcp/) |
+| Repeatable automation | You need the same MCP tools every time a scheduled agent, integration, or CI workflow runs. | Agent config files plus [Agent Secrets](/agent-platform/cloud-agents/secrets/) for credentials. | [MCP servers (CLI reference)](/reference/cli/mcp-servers/) |
 
-Andrew starts with Warp’s universal input, but it doesn’t yet know what a “ticket” is.
+## Common MCP workflows
 
-> Prompt Example:\
-> “Help me solve this ticket.”
+### Pull GitHub or Linear context into a local coding session
 
-At this point, Warp can’t find or interpret the ticket, because no MCP server is connected.
+Use local MCP when you want an interactive agent to understand an issue, PR, or ticket while you work in Warp.
 
----
+Example workflow:
 
-### 3. Adding the Linear MCP Server
+1. Add a GitHub or Linear MCP server in **Settings > Agents > MCP servers**.
+2. Start a local agent conversation in the repo.
+3. Ask the agent to fetch the issue, inspect linked context, and make a plan.
+4. Review changes in the [Code Review panel](/code/code-review/).
+5. Use [Agent Session Sharing](/agent-platform/local-agents/session-sharing/) if teammates need to inspect the agent context.
 
-To connect Linear:
+For setup details, see [Model Context Protocol (MCP)](/agent-platform/capabilities/mcp/).
 
-1. Open the **MCP Panel** in Warp
-2. Click **Add Server**
-3. Paste in the JSON configuration for the Linear MCP Server
+### Give cloud agents access to developer tools
 
-Once added, Warp:
+Use cloud MCP when an unattended or remote agent needs tool access while it runs away from your machine.
 
-* Starts the MCP server
-* Loads its tools (e.g., `get_ticket`, `update_ticket`, `create_ticket`)
-* Makes them available to the agent instantly
+Example workflow:
 
----
+1. Create or identify the MCP server the cloud agent should use.
+2. Store required credentials as [Agent Secrets](/agent-platform/cloud-agents/secrets/) instead of hardcoding tokens in config files.
+3. Attach the MCP server with `--mcp`, a config file, or a Warp-shared MCP UUID.
+4. Run the cloud agent from the Oz CLI, Slack, Linear, GitHub Actions, a schedule, or the API.
+5. Inspect the run in the [Oz web app](/agent-platform/cloud-agents/oz-web-app/) or [Cloud agent session sharing](/agent-platform/cloud-agents/viewing-cloud-agent-runs/).
 
-### 4. Using Rules with MCP Servers
+For schema and cloud-specific limitations, see [MCP Servers for cloud agents](/agent-platform/cloud-agents/mcp/).
 
-Andrew adds a rule called **check-linear**, which helps the agent automatically associate “tickets” with the Linear MCP Server.
+### Share an MCP server with a team
 
-> **Rule Example:**\
-> “When the user says ‘ticket,’ check Linear.”
+Use shared MCP servers when multiple teammates or workflows need the same tool connection.
 
-Rules make context switching between systems seamless — the agent doesn’t need reminders.
+For local agents, share the server from the MCP settings page. Warp scrubs sensitive environment values and prompts teammates to provide their own values when they install it.
 
----
+For cloud agents, reference a Warp-shared MCP server by UUID with the Oz CLI:
 
-### 5. Dynamic Context Loading
-
-Warp’s MCP support is **dynamic**:
-
-* You can start a conversation without any connected MCPs
-* Add one mid-session
-* The agent automatically updates its context on the next message
-
-No need to restart Warp or reset your session.
-
----
-
-### 6. Running the Task
-
-After adding Linear, Andrew runs:
-
-> “Help me solve this ticket.”
-
-Now the agent:
-
-* Queries Linear for the ticket
-* Pulls all related context
-* Reads the codebase for linked references
-* Generates the appropriate fix
-
-He verifies the output by running:
-
-```bash
-cargo run
+```sh
+oz mcp list
 ```
+
+Then pass the UUID to an agent run:
+
+```sh
+oz agent run-cloud --mcp "<MCP_SERVER_UUID>" --prompt "Summarize the latest production incidents"
+```
+
+See [MCP servers (CLI reference)](/reference/cli/mcp-servers/) for all `--mcp` formats.
+
+## Local MCP setup paths
+
+For local agents, choose one of these paths:
+
+* **Warp settings** - Best for one-off setup and interactive use. Add servers from **Settings > Agents > MCP servers**.
+* **Warp Drive** - Best for MCP servers you want to manage as Warp Drive objects.
+* **File-based config** - Best when MCP config should live with a repo or follow you across Warp, Claude Code, Codex, and other agent tools.
+* **`/agent-add-mcp` skill** - Best when you want Warp's agent to create or update `.warp/.mcp.json` with your approval.
+
+File-based MCP is useful for teams because config can be versioned with a project, but it also needs review. Warp requires approval before project-scoped servers start so cloned repos cannot silently launch commands.
+
+## Cloud MCP setup paths
+
+For cloud agents, choose one of these paths:
+
+* **Warp-shared MCP UUID** - Best when a server is already configured and shared in Warp.
+* **Inline JSON** - Best for quick experiments.
+* **JSON file** - Best for reusable scripts.
+* **Agent config file** - Best for production workflows where model, environment, prompt, and MCP servers should live together.
+
+Cloud agents run away from your desktop. Any secrets required by MCP tools should be available in the cloud run through [Agent Secrets](/agent-platform/cloud-agents/secrets/) or the execution environment, not only in your local shell.
+
+:::caution
+OAuth-based MCP servers are not currently supported directly for cloud agents. If a server requires browser-based OAuth, use it with a local agent, choose a token-based/server-side configuration if the provider supports it, or pass the relevant artifact as context another way.
+:::
+
+## Example tools MCP can connect
+
+Warp supports MCP servers for many developer tools, including:
+
+* **GitHub** - Read issues, PRs, files, and repository metadata.
+* **Linear** - Fetch issues, update tickets, and reason over project context.
+* **Sentry** - Inspect errors, traces, and release context.
+* **Figma** - Pull design context for UI work.
+* **Notion** - Retrieve docs, specs, and project notes.
+* **Internal tools** - Expose your own APIs through a custom MCP server.
+
+For example configurations and demos, see the MCP server examples in [Model Context Protocol (MCP)](/agent-platform/capabilities/mcp/#mcp-server-configuration-examples) and the MCP guides in [External tools & integrations](/guides/external-tools/).
+
+## Security checklist
+
+Before giving an agent tool access through MCP:
+
+* Use the narrowest credentials and scopes that let the workflow run.
+* Prefer service accounts for team or scheduled workflows.
+* Store cloud-run credentials in [Agent Secrets](/agent-platform/cloud-agents/secrets/).
+* Review file-based MCP config before approving it, especially commands, args, environment variables, and URLs.
+* Treat MCP logs as sensitive if they contain API responses, tokens, request headers, or private data.
+* For cloud agents, confirm whether the MCP server can be reached from the cloud environment or self-hosted worker.
+
+## Next steps
+
+* [Model Context Protocol (MCP)](/agent-platform/capabilities/mcp/) - Configure MCP servers for local agents in the Warp desktop app.
+* [MCP Servers for cloud agents](/agent-platform/cloud-agents/mcp/) - Configure MCP servers for cloud runs and automation.
+* [MCP servers (CLI reference)](/reference/cli/mcp-servers/) - Use `--mcp` with UUIDs, inline JSON, or files.
+* [Agent Secrets](/agent-platform/cloud-agents/secrets/) - Store credentials for cloud agent runs.

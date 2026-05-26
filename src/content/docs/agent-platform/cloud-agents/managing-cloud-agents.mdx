@@ -17,6 +17,7 @@ The management view is designed to answer, at a glance:
 * Which runs succeeded, failed, or were canceled
 * Where an agent run was triggered from (a local agent conversation, the Oz CLI, Slack, etc.)
 * How many credits those runs consumed
+* Which session to open when you need to inspect the agent's prompt, plan, commands, logs, outputs, or follow-up messages
 
 <VideoEmbed url="https://www.loom.com/share/679c267ddd2d44519abf79edcb1122c7" />
 
@@ -48,6 +49,20 @@ All usage rolls up into Warp's standard [**credit**](/support-and-community/plan
 :::
 
 In the **Personal** tab, you can view all of the interactive and cloud agent conversations that you own. In the **All** tab, you can see everything from the personal tab, as well as any cloud agent sessions that are shared with you by your teammates; right now, this only includes things triggered from integrations.
+
+---
+
+### Audit or review an agent run
+
+Use the management view as the starting point when a teammate asks, "What did the agent do?"
+
+1. Filter the list by source, day, creator, or status to find the run.
+2. Open the run to view the shared session or local conversation.
+3. Inspect the prompt, plan, commands, logs, outputs, and follow-up messages where available.
+4. Share the session link with teammates if they need to review the same context.
+5. For PR-producing workflows, include the session link alongside the PR link so reviewers can inspect both the code diff and the agent's execution context.
+
+For cloud agent runs, the session opens in [Cloud agent session sharing](/agent-platform/cloud-agents/viewing-cloud-agent-runs/). For local interactive agents, the conversation opens in Warp and can be shared with [Agent Session Sharing](/agent-platform/local-agents/session-sharing/).
 
 ---
 
@@ -84,7 +99,7 @@ Warp uses a small set of statuses to help you quickly identify what needs attent
 
 **The primary interaction is simple:**
 
-* Clicking a cloud agent row opens the [shared session](/agent-platform/cloud-agents/viewing-cloud-agent-runs/) for that run (logs/messages/output).
+* Clicking a cloud agent row opens the [shared session](/agent-platform/cloud-agents/viewing-cloud-agent-runs/) for that run (prompt, plan, commands, logs, messages, and output where available).
 * Clicking an interactive row opens the conversation locally in the Warp app.
 
 This makes the management view a navigation surface: find the thing you care about, click once, and you’re in the right context to inspect or continue work.
