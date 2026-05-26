@@ -18,7 +18,7 @@ Custom inference endpoints are available on Free and all eligible paid plans for
 * **OpenAI-compatible** - Works with any endpoint that implements the OpenAI Chat Completions API.
 * **Provider flexibility** - Use a model router (OpenRouter, LiteLLM), a model provider with an OpenAI-compatible surface (z.ai), or your own internal gateway.
 * **No AI credits consumed for inference** - Inference is billed directly by your endpoint provider. On Business and Enterprise, local agent runs that route through a custom inference endpoint still consume [platform credits](/support-and-community/plans-and-billing/platform-credits/) for Warp's platform infrastructure.
-* **Local API key storage** - Your endpoint API key is stored locally on your device (in your OS keychain or equivalent secure storage) and is **never synced or stored on Warp's servers**. Endpoint URLs and model identifiers may appear in Warp's usage telemetry, but the API key itself never does.
+* **Local API key storage** - Your endpoint API key is stored locally on your device (in your OS keychain or equivalent secure storage) and is **never synced or stored on Warp's servers**.
 
 ## How it works
 
@@ -37,7 +37,7 @@ When you send a prompt using an endpoint-routed model:
 2. Your endpoint URL and API key are sent up alongside that request and used in-flight to call your configured endpoint.
 3. Your endpoint's response streams back through Warp's backend to your client.
 
-Your API key is held in memory only for the duration of each request — Warp never writes it to disk or to any database. Endpoint URLs and model identifiers may be recorded in Warp's usage telemetry; API keys are never included.
+Your API key is held in memory only for the duration of each request — Warp never writes it to disk or to any database.
 
 :::note
 **Why does the request route through Warp's backend?** Warp's agent harness runs server-side — the same runtime that powers [Agent Mode](/agent-platform/local-agents/interacting-with-agents/terminal-and-agent-modes/) with Warp-billed models and [BYOK](/agent-platform/inference/bring-your-own-api-key/). A custom inference endpoint swaps the upstream destination and credential; it does not change where the harness runs.
