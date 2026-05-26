@@ -7,7 +7,7 @@ Format: `CodeIdentifier -> docs/path/to/page.md` (one per line within each secti
 Lines starting with `#` are comments. Blank lines are ignored.
 
 # Maintenance: when a new GA feature flag ships, add a mapping here.
-# Run `python3 .warp/skills/missing_docs/scripts/audit_docs.py` to find unmapped flags.
+# Run `python3 .agents/skills/missing_docs/scripts/audit_docs.py` to find unmapped flags.
 # This audit is also run as a recurring scheduled cloud agent to catch drift.
 
 ## Feature flags -> doc pages
@@ -130,7 +130,7 @@ AIContextMenuEnabled -> src/content/docs/agent-platform/local-agents/agent-conte
 AtMenuOutsideOfAIMode -> src/content/docs/agent-platform/local-agents/agent-context/using-to-add-context.mdx
 AIContextMenuCode -> src/content/docs/agent-platform/local-agents/agent-context/using-to-add-context.mdx
 DriveObjectsAsContext -> src/content/docs/agent-platform/local-agents/agent-context/using-to-add-context.mdx
-KittyKeyboardProtocol -> src/content/docs/terminal/more-features/full-screen-apps.md
+KittyKeyboardProtocol -> src/content/docs/terminal/more-features/full-screen-apps.mdx
 InlineRepoMenu -> src/content/docs/agent-platform/capabilities/codebase-context.mdx
 InlineHistoryMenu -> src/content/docs/agent-platform/local-agents/interacting-with-agents/terminal-and-agent-modes.mdx
 SkillArguments -> src/content/docs/agent-platform/capabilities/skills.mdx
