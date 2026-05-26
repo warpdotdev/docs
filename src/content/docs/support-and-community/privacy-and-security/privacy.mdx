@@ -89,6 +89,7 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `AIAutonomy.ChangedAgentModeAskUserQuestionPermission` | Changed Agent Mode permission for asking user questions |
 | `AIAutonomy.ChangedAgentModeCodingPermissions` | Changed Agent Mode permissions for coding tasks |
 | `AIAutonomy.ToggledAutoexecuteReadonlyCommandsSetting` | Toggled setting to autoexecute readonly Agent Mode requested commands |
+| `Active Indexed Repos Changed` | Active indexed repositories changed, affecting codebase context. |
 | `Add Added Subshell Command` | Added a command to be automatically Warpified via Warp's subshell wrapper |
 | `Add Denylisted SSH Tmux Wrapper Host` | Added a SSH host to the denylist for prompting for Tmux Wrapper |
 | `Add Denylisted Subshell Command` | Explicitly prevent a command from being Warpified via Warp's subshell wrapper |
@@ -150,16 +151,31 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `AgentMode.ExitedShellProcess` | An agent-requested command caused the shell process to exit |
 | `AgentMode.FileGlob.Failed` | The file glob tool failed to complete |
 | `AgentMode.FileGlob.Succeeded` | The file glob tool completed successfully |
+| `AgentMode.FullEmbedCodebaseContextSearch.Failed` | Failed to search full embed codebase context |
+| `AgentMode.FullEmbedCodebaseContextSearch.Success` | Successfully searched full embed codebase context |
 | `AgentMode.Grep.Failed` | The grep tool failed to complete |
 | `AgentMode.Grep.Succeeded` | The grep tool completed successfully |
+| `AgentMode.MerkleTreeSnapshot.Diff.Failed` | Failed to diff merkle tree snapshot |
+| `AgentMode.MerkleTreeSnapshot.Diff.Success` | Successfully diffed merkle tree snapshot |
+| `AgentMode.MerkleTreeSnapshot.Rebuild.Failed` | Failed to rebuild merkle tree from snapshot |
+| `AgentMode.MerkleTreeSnapshot.Rebuild.Success` | Successfully rebuilt merkle tree from snapshot |
 | `AgentMode.NaturalLanguageDetection.InputBufferSubmitted` | Input buffer submitted |
 | `AgentMode.OpenedCitation` | Opened a citation that was surfaced in agent mode |
+| `AgentMode.Orchestration.AgentProposedConfig` | An agent-authored orchestration config snapshot first became visible to the user on a plan card |
+| `AgentMode.Orchestration.Entered` | Orchestration was activated in a conversation via /orchestrate or a run_agents confirmation card surfacing. Plan-card entries are tracked separately via AgentProposedConfig + PlanConfigApprovalToggled. |
+| `AgentMode.Orchestration.PillBarInteraction` | User interacted with the orchestration pill bar (switch, pin, open in pane/tab, stop, kill, etc.) |
+| `AgentMode.Orchestration.PlanConfigApprovalToggled` | User toggled the Use orchestration switch on a plan card |
+| `AgentMode.Orchestration.RunAgentsCardDecision` | User accepted, accepted-without-orchestration, or rejected a run_agents confirmation card. Reports which config fields diverged from the original tool call and/or the active approved config. |
 | `AgentMode.Orchestration.TeamAgentCommunicationFailed` | Failed to send an orchestration message or lifecycle event for a TeamAgent |
 | `AgentMode.PotentialAutoDetectionFalsePositive` | Manually toggled input to shell mode after input was auto-detected as natural language. |
 | `AgentMode.QueryAttemptAtLImit` | Tried to send an Agent Mode query but they already reached the query limit |
 | `AgentMode.RequestRetrySucceeded` | Agent Mode request succeeded after retrying following an initial error |
 | `AgentMode.SetupCreateEnvironmentAction` | User clicked a button in the Agent Mode setup create environment step |
 | `AgentMode.SurfacedCitations` | Agent mode used and cited external sources that were used in its response |
+| `AgentMode.SyncCodebaseContext.BuildTree.Failed` | Failed to build merkle tree for codebase context |
+| `AgentMode.SyncCodebaseContext.BuildTree.Success` | Successfully built merkle tree for codebase context |
+| `AgentMode.SyncCodebaseContext.Failed` | Failed to sync codebase context |
+| `AgentMode.SyncCodebaseContext.Success` | Successfully synced codebase context |
 | `AgentMode.ToggleAutoDetectionSetting` | Toggled the setting that enables or disables natural language auto-detection in the input.  |
 | `AgentNotification.Shown` | An agent notification was shown to the user (toast or mailbox) |
 | `AgentTip Clicked` | User clicked a link or action in an Agent Tip |
@@ -185,6 +201,8 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `AmbientAgent.EnvironmentSettings.Image.SuggestionFailed` | Docker image suggestion failed |
 | `AmbientAgent.EnvironmentSettings.Opened` | User opened the environment management pane |
 | `AmbientAgent.EnvironmentSettings.UpdatedEnvironment` | User updated an existing environment |
+| `AmbientAgent.Handoff.Initiated` | User initiated a local-to-cloud handoff |
+| `AmbientAgents.ThirdPartyHarness.RuntimeError.Detected` | Runtime output scanner detected a known failure substring in a third-party harness block. |
 | `Anonymous User Attempted Login-Gated Feature` | Anonymous user attempted to access a login-gated feature |
 | `Anonymous User Expiration Lockout` | An anonymous user opened Warp after their conversion deadline and was locked out |
 | `Anonymous User Hit Cloud Object Limit` | Anonymous user attempted to create a cloud object past their personal object limit |
@@ -215,6 +233,9 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `CLI.Execute.Agent.Profile.List` | Listed agent profiles from the Warp CLI |
 | `CLI.Execute.Agent.Run` | Ran an agent from the Warp CLI |
 | `CLI.Execute.Agent.RunAmbient` | Ran an ambient agent from the Warp CLI |
+| `CLI.Execute.ApiKey.Create` | Created an API key from the Warp CLI |
+| `CLI.Execute.ApiKey.Expire` | Expired an API key from the Warp CLI |
+| `CLI.Execute.ApiKey.List` | Listed API keys from the Warp CLI |
 | `CLI.Execute.Artifact.Download` | Downloaded an artifact from the Warp CLI |
 | `CLI.Execute.Artifact.Get` | Got artifact metadata from the Warp CLI |
 | `CLI.Execute.Artifact.Upload` | Uploaded an artifact from the Warp CLI |
@@ -227,6 +248,10 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `CLI.Execute.Environment.Update` | Updated a cloud environment from the Warp CLI |
 | `CLI.Execute.Federate.IssueGcpToken` | Issued a GCP federated identity token from the Warp CLI |
 | `CLI.Execute.Federate.IssueToken` | Issued a federated identity token from the Warp CLI |
+| `CLI.Execute.HarnessSupport.FinishTask` | Reported task completion via harness-support from the Warp CLI |
+| `CLI.Execute.HarnessSupport.NotifyUser` | Sent a user notification via harness-support from the Warp CLI |
+| `CLI.Execute.HarnessSupport.Ping` | Pinged harness-support from the Warp CLI |
+| `CLI.Execute.HarnessSupport.ReportArtifact` | Reported an artifact via harness-support from the Warp CLI |
 | `CLI.Execute.HarnessSupport.ReportShutdown` | Reported agent shutdown via harness-support from the Warp CLI |
 | `CLI.Execute.Integration.Create` | Created an integration from the Warp CLI |
 | `CLI.Execute.Integration.List` | Listed integrations from the Warp CLI |
@@ -277,7 +302,6 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `CodePanels.FileOpened` | Opened a file from code review, project explorer, or global search |
 | `CodeReview.AddToContext` | Content added to AI context from code review |
 | `CodeReview.BaseChanged` | Diff base changed in code review |
-| `CodeReview.CalculateDiffMetadataFailed` | Failure when calculating diff metadata |
 | `CodeReview.CommentAdded` | Inline code review comment added |
 | `CodeReview.CommentDeleted` | Inline code review comment deleted |
 | `CodeReview.CommentEdited` | Inline code review comment edited |
@@ -288,6 +312,7 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `CodeReview.CommentResolved` | Inline code review comment resolved |
 | `CodeReview.CommentsAttached` | Newly-imported comments relocated against editor lines |
 | `CodeReview.CommentsReceived` | Agent insert_code_review_comments tool call received and processed |
+| `CodeReview.DiffLoadCompleted` | Diff content loaded successfully |
 | `CodeReview.FileSaved` | File saved in code review pane |
 | `CodeReview.FindBarModeChanged` | Search mode changed in code review find bar |
 | `CodeReview.FindBarToggled` | Code review find bar opened or closed |
@@ -295,6 +320,7 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `CodeReview.GitButtonTriggered` | User clicked a git operation button in the code review header |
 | `CodeReview.GitDialogCompleted` | Git operation dialog reached a terminal state (succeeded, failed, or cancelled) |
 | `CodeReview.LoadDiffFailed` | Failure when loading diff content |
+| `CodeReview.LoadMetadataFailed` | Failure when calculating diff metadata |
 | `CodeReview.PaneOpened` | Code review pane opened |
 | `CodeReview.PaneStateChanged` | Code review pane minimized or maximized |
 | `CodeReview.RevertHunkClicked` | Revert hunk button clicked |
@@ -477,6 +503,8 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `Quit Modal Shown` | Showed an alert modal to warn the user about closing the app/window with a running process |
 | `Received Subshell RC File DCS` | Spawned a subshell to be automatically Warpified |
 | `Recent Menu Item Selected` | User selected an item from the recents list on the new tab zero state |
+| `RemoteCodebaseIndex.AutoIndexRequested` | Remote codebase auto-indexing requested one or more repositories |
+| `RemoteCodebaseIndex.StatusChanged` | The remote codebase index status changed |
 | `RemoteServer.BinaryCheck` | Remote server binary check completed (found, not found, or error) |
 | `RemoteServer.ClientRequestError` | A client request to the remote server failed |
 | `RemoteServer.Disconnection` | An established remote server connection was dropped |

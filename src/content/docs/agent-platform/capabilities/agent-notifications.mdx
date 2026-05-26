@@ -99,10 +99,21 @@ For **third-party CLI agents**, each agent requires a one-time setup. The proces
 
 If auto-install doesn't work or you're running an agent over SSH, Warp displays an installation-instructions chip in the terminal with setup steps you can follow directly.
 
+## Notifications in orchestrated runs
+
+In a [multi-agent orchestration](/agent-platform/cloud-agents/orchestration/), the parent agent and each child agent are separate conversations. Today, in-app notifications fire on the parent's conversation only: child agent conversations are excluded from the toast stream and the notification mailbox so the mailbox doesn't get cluttered with per-child status churn.
+
+That means:
+
+* **Toasts and the mailbox** - watch the parent's conversation for `Complete`, `Request`, and `Error` notifications.
+* **Per-child state** - use the orchestration pill bar above the agent view header (in the Warp app) or the parent's **Sub-agents** tab on the [Runs page](https://oz.warp.dev/runs) (in the Oz web app) to see each child's live status. Both surfaces update as children transition through `INPROGRESS`, `SUCCEEDED`, `BLOCKED`, `FAILED`, `ERROR`, and `CANCELLED`.
+* **Blocked children** - if a child blocks on user input (for example, a command approval request), open that child from the pill bar to resolve the block. The parent's transcript also reflects the child's `BLOCKED` state so the parent can wait, send a follow-up, or cancel the child.
+
 ## Related pages
 
 * [Desktop Notifications](/terminal/more-features/notifications/) - configure system-level notification permissions and troubleshoot delivery
 * [Managing Agents](/agent-platform/cloud-agents/managing-cloud-agents/) - monitor all agent conversations, filter by status, and inspect sessions
+* [Multi-agent orchestration](/agent-platform/cloud-agents/orchestration/) - parent/child model, run state transitions, and the orchestration pill bar
 * [Third-Party CLI Agents](/agent-platform/cli-agents/overview/) - overview of supported CLI agents and Warp features
 * [Claude Code](/agent-platform/cli-agents/claude-code/) - setup and notification plugin installation
 * [Codex](/agent-platform/cli-agents/codex/) - setup and notification configuration
