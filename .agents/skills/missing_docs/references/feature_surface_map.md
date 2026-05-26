@@ -12,40 +12,40 @@ Lines starting with `#` are comments. Blank lines are ignored.
 
 ## Feature flags -> doc pages
 
-AgentMode -> src/content/docs/agent-platform/warp-agents/README.md
+AgentMode -> src/content/docs/agent-platform/local-agents/overview.mdx
 AgentManagementView -> src/content/docs/agent-platform/cloud-agents/managing-cloud-agents.md
 AgentManagementDetailsView -> src/content/docs/agent-platform/cloud-agents/managing-cloud-agents.md
-AgentModeComputerUse -> src/content/docs/agent-platform/warp-agents/computer-use.md
+AgentModeComputerUse -> src/content/docs/agent-platform/capabilities/computer-use.mdx
 AgentModeWorkflows -> src/content/docs/knowledge-and-collaboration/warp-drive/workflows.md
 AgentOnboarding -> src/content/docs/agent-platform/getting-started/agents-in-warp.md
-AIRules -> src/content/docs/agent-platform/warp-agents/rules.md
-AIResumeButton -> src/content/docs/agent-platform/warp-agents/interacting-with-agents/terminal-and-agent-modes.md
+AIRules -> src/content/docs/agent-platform/capabilities/rules.mdx
+AIResumeButton -> src/content/docs/agent-platform/local-agents/interacting-with-agents/terminal-and-agent-modes.mdx
 CodeReviewView -> src/content/docs/code/code-review.md
-InlineCodeReview -> src/content/docs/agent-platform/warp-agents/interactive-code-review.md
+InlineCodeReview -> src/content/docs/agent-platform/local-agents/interactive-code-review.mdx
 FileTree -> src/content/docs/code/code-editor/file-tree.md
 CodeFindReplace -> src/content/docs/code/code-editor/find-and-replace.md
 VimCodeEditor -> src/content/docs/code/code-editor/code-editor-vim-keybindings.md
-McpServer -> src/content/docs/agent-platform/warp-agents/mcp.md
-McpOauth -> src/content/docs/agent-platform/warp-agents/mcp.md
-ImageAsContext -> src/content/docs/agent-platform/warp-agents/agent-context/images-as-context.md
-SelectionAsContext -> src/content/docs/agent-platform/warp-agents/agent-context/selection-as-context.md
-DiffSetAsContext -> src/content/docs/agent-platform/warp-agents/agent-context/selection-as-context.md
-WebSearchUI -> src/content/docs/agent-platform/warp-agents/web-search.md
-WebFetchUI -> src/content/docs/agent-platform/warp-agents/web-search.md
-CodebaseContext -> src/content/docs/agent-platform/warp-agents/codebase-context.md
-CrossRepoContext -> src/content/docs/agent-platform/warp-agents/codebase-context.md
-FullSourceCodeEmbedding -> src/content/docs/agent-platform/warp-agents/codebase-context.md
-SearchCodebaseUI -> src/content/docs/agent-platform/warp-agents/codebase-context.md
+McpServer -> src/content/docs/agent-platform/capabilities/mcp.mdx
+McpOauth -> src/content/docs/agent-platform/capabilities/mcp.mdx
+ImageAsContext -> src/content/docs/agent-platform/local-agents/agent-context/images-as-context.mdx
+SelectionAsContext -> src/content/docs/agent-platform/local-agents/agent-context/selection-as-context.mdx
+DiffSetAsContext -> src/content/docs/agent-platform/local-agents/agent-context/selection-as-context.mdx
+WebSearchUI -> src/content/docs/agent-platform/capabilities/web-search.mdx
+WebFetchUI -> src/content/docs/agent-platform/capabilities/web-search.mdx
+CodebaseContext -> src/content/docs/agent-platform/capabilities/codebase-context.mdx
+CrossRepoContext -> src/content/docs/agent-platform/capabilities/codebase-context.mdx
+FullSourceCodeEmbedding -> src/content/docs/agent-platform/capabilities/codebase-context.mdx
+SearchCodebaseUI -> src/content/docs/agent-platform/capabilities/codebase-context.mdx
 CloudEnvironments -> src/content/docs/agent-platform/cloud-agents/environments.md
 CloudMode -> src/content/docs/agent-platform/cloud-agents/overview.md
 AmbientAgentsCommandLine -> src/content/docs/agent-platform/cloud-agents/overview.md
 ScheduledAmbientAgents -> src/content/docs/agent-platform/cloud-agents/triggers/scheduled-agents.md
 WarpManagedSecrets -> src/content/docs/agent-platform/cloud-agents/secrets.md
 IntegrationCommand -> src/content/docs/reference/cli/integration-setup.md
-ConversationManagement -> src/content/docs/agent-platform/warp-agents/cloud-conversations.md
-ForkConversationFromBlock -> src/content/docs/agent-platform/warp-agents/interacting-with-agents/conversation-forking.md
-Voice -> src/content/docs/agent-platform/warp-agents/interacting-with-agents/voice.md
-WarpDrive -> src/content/docs/knowledge-and-collaboration/warp-drive/README.md
+ConversationManagement -> src/content/docs/agent-platform/local-agents/cloud-conversations.mdx
+ForkConversationFromBlock -> src/content/docs/agent-platform/local-agents/interacting-with-agents/conversation-forking.mdx
+Voice -> src/content/docs/agent-platform/local-agents/interacting-with-agents/voice.mdx
+WarpDrive -> src/content/docs/knowledge-and-collaboration/warp-drive/index.mdx
 EnvVars -> src/content/docs/knowledge-and-collaboration/warp-drive/environment-variables.md
 CommandPaletteFileSearch -> src/content/docs/terminal/command-palette.md
 Themes -> src/content/docs/terminal/appearance/themes.md
@@ -66,73 +66,74 @@ UsageBasedPricing -> src/content/docs/support-and-community/plans-and-billing/cr
 APIKeyAuthentication -> src/content/docs/reference/cli/api-keys.md
 APIKeyManagement -> src/content/docs/reference/cli/api-keys.md
 SecretRedaction -> src/content/docs/support-and-community/privacy-and-security/secret-redaction.md
-CreatingSharedSessions -> src/content/docs/knowledge-and-collaboration/session-sharing/README.md
-AgentSharedSessions -> src/content/docs/agent-platform/warp-agents/session-sharing.md
-ProfilesDesignRevamp -> src/content/docs/agent-platform/warp-agents/agent-profiles-permissions.md
-MultiProfile -> src/content/docs/agent-platform/warp-agents/agent-profiles-permissions.md
-InlineProfileSelector -> src/content/docs/agent-platform/warp-agents/agent-profiles-permissions.md
-ModelChoice -> src/content/docs/agent-platform/warp-agents/model-choice.md
-Skills -> src/content/docs/agent-platform/warp-agents/skills.md
-ListSkills -> src/content/docs/agent-platform/warp-agents/skills.md
-BundledSkills -> src/content/docs/agent-platform/warp-agents/skills.md
-Planning -> src/content/docs/agent-platform/warp-agents/planning.md
-SyncAmbientPlans -> src/content/docs/agent-platform/warp-agents/planning.md
-TaskLists -> src/content/docs/agent-platform/warp-agents/task-lists.md
-SlashCommands -> src/content/docs/agent-platform/warp-agents/slash-commands.md
-SuggestedRules -> src/content/docs/agent-platform/warp-agents/rules.md
+CreatingSharedSessions -> src/content/docs/knowledge-and-collaboration/session-sharing/index.mdx
+AgentSharedSessions -> src/content/docs/agent-platform/local-agents/session-sharing.mdx
+ProfilesDesignRevamp -> src/content/docs/agent-platform/capabilities/agent-profiles-permissions.mdx
+MultiProfile -> src/content/docs/agent-platform/capabilities/agent-profiles-permissions.mdx
+InlineProfileSelector -> src/content/docs/agent-platform/capabilities/agent-profiles-permissions.mdx
+ModelChoice -> src/content/docs/agent-platform/capabilities/model-choice.mdx
+Skills -> src/content/docs/agent-platform/capabilities/skills.mdx
+ListSkills -> src/content/docs/agent-platform/capabilities/skills.mdx
+BundledSkills -> src/content/docs/agent-platform/capabilities/skills.mdx
+Planning -> src/content/docs/agent-platform/capabilities/planning.mdx
+SyncAmbientPlans -> src/content/docs/agent-platform/capabilities/planning.mdx
+TaskLists -> src/content/docs/agent-platform/capabilities/task-lists.mdx
+SlashCommands -> src/content/docs/agent-platform/capabilities/slash-commands.mdx
+SuggestedRules -> src/content/docs/agent-platform/capabilities/rules.mdx
 RectSelection -> src/content/docs/terminal/more-features/text-selection.md
-ContextWindowUsageV2 -> src/content/docs/agent-platform/warp-agents/interacting-with-agents/README.md
+ContextWindowUsageV2 -> src/content/docs/agent-platform/local-agents/interacting-with-agents/index.mdx
 ConfigurableBlockLimits -> src/content/docs/terminal/blocks/block-basics.md
 CommandCorrectionKey -> src/content/docs/terminal/entry/command-corrections.md
 ClassicCompletions -> src/content/docs/terminal/command-completions/completions.md
 DynamicWorkflowEnums -> src/content/docs/knowledge-and-collaboration/warp-drive/workflows.md
-SharedWithMe -> src/content/docs/knowledge-and-collaboration/warp-drive/README.md
-WarpPacks -> src/content/docs/knowledge-and-collaboration/warp-drive/README.md
-TabbedEditorView -> src/content/docs/code/code-editor/README.md
-ReadImageFiles -> src/content/docs/agent-platform/warp-agents/agent-context/images-as-context.md
-FileRetrievalTools -> src/content/docs/agent-platform/warp-agents/codebase-context.md
-ConversationArtifacts -> src/content/docs/agent-platform/warp-agents/interacting-with-agents/README.md
-OzChangelogUpdates -> src/content/docs/changelog/README.md
-ActiveConversationRequiresInteraction -> src/content/docs/agent-platform/warp-agents/interacting-with-agents/README.md
+SharedWithMe -> src/content/docs/knowledge-and-collaboration/warp-drive/index.mdx
+WarpPacks -> src/content/docs/knowledge-and-collaboration/warp-drive/index.mdx
+TabbedEditorView -> src/content/docs/code/code-editor/index.mdx
+ReadImageFiles -> src/content/docs/agent-platform/local-agents/agent-context/images-as-context.mdx
+FileRetrievalTools -> src/content/docs/agent-platform/capabilities/codebase-context.mdx
+ConversationArtifacts -> src/content/docs/agent-platform/local-agents/interacting-with-agents/index.mdx
+OzChangelogUpdates -> src/content/docs/changelog/index.mdx
+ActiveConversationRequiresInteraction -> src/content/docs/agent-platform/local-agents/interacting-with-agents/index.mdx
 
 # Recently shipped GA features
-VerticalTabs -> src/content/docs/terminal/windows/vertical-tabs.md
-TabConfigs -> src/content/docs/terminal/windows/tab-configs.md
+VerticalTabs -> src/content/docs/terminal/windows/vertical-tabs.mdx
+VerticalTabsSummaryMode -> src/content/docs/terminal/windows/vertical-tabs.mdx
+TabConfigs -> src/content/docs/terminal/windows/tab-configs.mdx
 PluggableNotifications -> src/content/docs/terminal/more-features/notifications.md
-RevertToCheckpoints -> src/content/docs/agent-platform/warp-agents/slash-commands.md
-RewindSlashCommand -> src/content/docs/agent-platform/warp-agents/slash-commands.md
-ForkFromCommand -> src/content/docs/agent-platform/warp-agents/slash-commands.md
-SummarizationConversationCommand -> src/content/docs/agent-platform/warp-agents/slash-commands.md
+RevertToCheckpoints -> src/content/docs/agent-platform/capabilities/slash-commands.mdx
+RewindSlashCommand -> src/content/docs/agent-platform/capabilities/slash-commands.mdx
+ForkFromCommand -> src/content/docs/agent-platform/capabilities/slash-commands.mdx
+SummarizationConversationCommand -> src/content/docs/agent-platform/capabilities/slash-commands.mdx
 CodeReviewFind -> src/content/docs/code/code-review.md
 CodeReviewSaveChanges -> src/content/docs/code/code-review.md
 DiscardPerFileAndAllChanges -> src/content/docs/code/code-review.md
 AutoOpenCodeReviewPane -> src/content/docs/code/code-review.md
 GitOperationsInCodeReview -> src/content/docs/code/code-review.md
-AgentView -> src/content/docs/agent-platform/warp-agents/interacting-with-agents/terminal-and-agent-modes.md
-AgentViewBlockContext -> src/content/docs/agent-platform/warp-agents/agent-context/blocks-as-context.md
-CloudConversations -> src/content/docs/agent-platform/warp-agents/cloud-conversations.md
+AgentView -> src/content/docs/agent-platform/local-agents/interacting-with-agents/terminal-and-agent-modes.mdx
+AgentViewBlockContext -> src/content/docs/agent-platform/local-agents/agent-context/blocks-as-context.mdx
+CloudConversations -> src/content/docs/agent-platform/local-agents/cloud-conversations.mdx
 CloudModeFromLocalSession -> src/content/docs/agent-platform/cloud-agents/overview.md
 TeamApiKeys -> src/content/docs/reference/cli/api-keys.md
-PRCommentsSlashCommand -> src/content/docs/agent-platform/warp-agents/slash-commands.md
-PRCommentsV2 -> src/content/docs/agent-platform/warp-agents/interacting-with-agents/README.md
+PRCommentsSlashCommand -> src/content/docs/agent-platform/capabilities/slash-commands.mdx
+PRCommentsV2 -> src/content/docs/agent-platform/local-agents/interacting-with-agents/index.mdx
 CLIAgentRichInput -> src/content/docs/agent-platform/cli-agents/rich-input.md
-HOANotifications -> src/content/docs/agent-platform/warp-agents/agent-notifications.md
+HOANotifications -> src/content/docs/agent-platform/capabilities/agent-notifications.mdx
 OpenCodeNotifications -> src/content/docs/agent-platform/cli-agents/opencode.md
 CodexNotifications -> src/content/docs/agent-platform/cli-agents/codex.md
 HOARemoteControl -> src/content/docs/agent-platform/cli-agents/remote-control.md
 GlobalSearch -> src/content/docs/code/overview.md
-FileBasedMcp -> src/content/docs/agent-platform/warp-agents/mcp.md
-ConversationsAsContext -> src/content/docs/agent-platform/warp-agents/agent-context/blocks-as-context.md
-GithubPrPromptChip -> src/content/docs/agent-platform/warp-agents/agent-notifications.md
-AskUserQuestion -> src/content/docs/agent-platform/warp-agents/interacting-with-agents/README.md
-AIContextMenuEnabled -> src/content/docs/agent-platform/warp-agents/agent-context/using-to-add-context.md
-AtMenuOutsideOfAIMode -> src/content/docs/agent-platform/warp-agents/agent-context/using-to-add-context.md
-AIContextMenuCode -> src/content/docs/agent-platform/warp-agents/agent-context/using-to-add-context.md
-DriveObjectsAsContext -> src/content/docs/agent-platform/warp-agents/agent-context/using-to-add-context.md
+FileBasedMcp -> src/content/docs/agent-platform/capabilities/mcp.mdx
+ConversationsAsContext -> src/content/docs/agent-platform/local-agents/agent-context/blocks-as-context.mdx
+GithubPrPromptChip -> src/content/docs/agent-platform/capabilities/agent-notifications.mdx
+AskUserQuestion -> src/content/docs/agent-platform/local-agents/interacting-with-agents/index.mdx
+AIContextMenuEnabled -> src/content/docs/agent-platform/local-agents/agent-context/using-to-add-context.mdx
+AtMenuOutsideOfAIMode -> src/content/docs/agent-platform/local-agents/agent-context/using-to-add-context.mdx
+AIContextMenuCode -> src/content/docs/agent-platform/local-agents/agent-context/using-to-add-context.mdx
+DriveObjectsAsContext -> src/content/docs/agent-platform/local-agents/agent-context/using-to-add-context.mdx
 KittyKeyboardProtocol -> src/content/docs/terminal/more-features/full-screen-apps.md
-InlineRepoMenu -> src/content/docs/agent-platform/warp-agents/codebase-context.md
-InlineHistoryMenu -> src/content/docs/agent-platform/warp-agents/interacting-with-agents/terminal-and-agent-modes.md
-SkillArguments -> src/content/docs/agent-platform/warp-agents/skills.md
+InlineRepoMenu -> src/content/docs/agent-platform/capabilities/codebase-context.mdx
+InlineHistoryMenu -> src/content/docs/agent-platform/local-agents/interacting-with-agents/terminal-and-agent-modes.mdx
+SkillArguments -> src/content/docs/agent-platform/capabilities/skills.mdx
 
 ## CLI commands -> doc pages
 
@@ -157,9 +158,9 @@ oz harness-support -> internal
 ## API endpoints -> doc pages
 
 # Public API endpoints
-POST /agent/run -> src/content/docs/reference/api-and-sdk/README.md
-GET /agent/runs -> src/content/docs/reference/api-and-sdk/README.md
-GET /agent/runs/{runId} -> src/content/docs/reference/api-and-sdk/README.md
+POST /agent/run -> src/content/docs/reference/api-and-sdk/index.mdx
+GET /agent/runs -> src/content/docs/reference/api-and-sdk/index.mdx
+GET /agent/runs/{runId} -> src/content/docs/reference/api-and-sdk/index.mdx
 
 # Internal/infrastructure endpoints (not part of public API, no docs needed)
 GET /block/embed/:id -> internal
@@ -241,6 +242,10 @@ NewTabStyling
 AmbientAgentsRTC
 OzBranding
 OzLaunchModal
+# One-time launch modal announcing Warp going open-source.
+# The announcement itself is covered in the 2026 changelog ("Warp is now open source.")
+# and the modal has no recurring user-facing surface that warrants its own doc page.
+OpenWarpLaunchModal
 GetStartedTab
 CreateProjectFlow
 CodeLaunchModal

@@ -26,6 +26,7 @@ Vertical tabs are especially useful when running multiple coding agents side by 
 ### Display modes and customization
 
 * **Pane or tab view** - Display every split pane as its own row (**Panes**) or show only the focused pane per tab (**Tabs**).
+* **Focused session or summary tab item** - When viewing as **Tabs**, choose **Focused session** to show the active pane per tab, or **Summary** to show a condensed multi-line digest of every pane in the tab (commands, working directories, branches, and status badges).
 * **Compact and expanded modes** - Choose between a dense single-line view (default) or a detailed multi-line layout with full metadata.
 * **Configurable pane titles** - Control which metadata appears first: last command or conversation, working directory, or Git branch.
 * **Hover detail sidecar** - Hover any pane row to see full, un-clipped metadata in a floating detail card without changing focus.
@@ -92,7 +93,8 @@ You can also rearrange the panel toggle buttons at the top of the Warp window �
 
 | Setting | Availability | Options | Default |
 |---|---|---|---|
-| **View as** | Always | **Panes** — each split pane gets its own row. **Tabs** — only the focused pane per tab is shown. | Panes |
+| **View as** | Always | **Panes** — each split pane gets its own row. **Tabs** — one row per tab, controlled further by the **Tab item** setting. | Panes |
+| **Tab item** | **View as** is set to **Tabs** | **Focused session** — show the focused pane's title and metadata. **Summary** — show a condensed digest of every pane in the tab, with command or conversation titles, working directories, branches, and agent status badges (up to three lines, with a `+ N more` overflow row). | Focused session |
 | **Density** | Always | **Compact** — smaller rows with title and optional subtitle. **Expanded** — larger rows with title, description, and metadata. | Compact |
 | **Pane title as** | Always | **Command / Conversation** — last command, conversation title, or CLI agent session name.<br />**Working Directory** — pane's working directory.<br />**Branch** — checked-out Git branch. | Command / Conversation |
 | **Additional metadata** | Compact mode only | **Branch**<br />**Working Directory**<br />**Command / Conversation**<br />(options depend on the **Pane title as** setting; duplicates are excluded). | Branch |
