@@ -114,7 +114,7 @@ When a task is naturally divisible, use [multi-agent orchestration](/agent-platf
 
 Use this when you need to control where agent execution happens while still using Oz orchestration and visibility. Repositories are cloned and stored only on your infrastructure; orchestration metadata, session transcripts, and LLM inference route through Warp's backend under [ZDR](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr).
 
-Self-hosted execution is best understood as **customer-hosted execution with Warp-hosted orchestration**, not as a fully offline agent stack. Code repositories, build artifacts, runtime secrets, and execution workspaces stay on your infrastructure. Code context can still appear in session transcripts and LLM prompts as the agent works.
+Think of self-hosted execution as **customer-hosted execution with Warp-hosted orchestration**, not as a fully offline agent stack. Code repositories, build artifacts, runtime secrets, and execution workspaces stay on your infrastructure. Code context can still appear in session transcripts and LLM prompts as the agent works.
 
 :::note
 **Enterprise feature**: Self-hosted execution is available exclusively to teams on an Enterprise plan.

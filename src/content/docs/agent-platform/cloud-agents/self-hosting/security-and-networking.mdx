@@ -11,15 +11,9 @@ Self-hosting uses a split-plane architecture. Understanding which data stays on 
 This page applies to both the [managed](/agent-platform/cloud-agents/self-hosting/#managed-architecture) and [unmanaged](/agent-platform/cloud-agents/self-hosting/unmanaged/) architectures. Backend-specific notes call out Docker-, Kubernetes-, and Direct-only considerations.
 :::
 
-## Short answer: what stays on your infrastructure?
+## Data boundaries
 
 Self-hosted execution keeps repository clones, source files, build artifacts, runtime secrets, environment variables, and agent workspaces on infrastructure you control. Agents can also reach internal systems that your host can reach, such as VPN-only services, private databases, or self-hosted source control.
-
-The control plane still routes through Warp. Orchestration metadata, session transcripts, and LLM inference requests and responses route through Warp's backend under [Zero Data Retention (ZDR)](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr). Because agents reason over code while they work, code context can appear in session transcripts and LLM prompts even though repository clones and execution remain on your infrastructure.
-
-Use self-hosting when you need to control where execution happens and where repositories are cloned. Do not describe it as fully local or fully offline LLM inference unless your deployment has been reviewed for that requirement.
-
-## Data boundaries
 
 **Stored and executed only on your infrastructure:**
 
