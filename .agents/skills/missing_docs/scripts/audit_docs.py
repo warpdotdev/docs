@@ -138,6 +138,26 @@ def read_all_docs_text(docs_root: Path) -> dict[str, str]:
     return result
 
 
+def resolve_doc_path(doc_path: str, repo_root: Path) -> Path | None:
+    """Return the first existing variant of a mapped doc path.
+
+    The surface map historically used `.md` and `README.md`, but the live
+    repo is Astro Starlight (`.mdx` files, `index.mdx` landing pages).
+    Treat those variants as equivalent so the audit doesn't flag pages that
+    exist under a sibling extension.
+    """
+    candidates = [repo_root / doc_path]
+    if doc_path.endswith(".md"):
+        candidates.append(repo_root / (doc_path[:-3] + ".mdx"))
+    if doc_path.endswith("README.md"):
+        candidates.append(repo_root / doc_path.replace("README.md", "index.mdx"))
+        candidates.append(repo_root / doc_path.replace("README.md", "index.md"))
+    for candidate in candidates:
+        if candidate.exists():
+            return candidate
+    return None
+
+
 def camel_to_search_terms(flag_name: str) -> list[str]:
     """Convert a CamelCase flag name into searchable terms.
 
@@ -254,6 +274,10 @@ def audit_features(warp_internal: Path, docs_root: Path, surface_map: dict,
     ignore_flags = surface_map.get("ignore_flags", set())
     feature_to_doc = surface_map.get("feature_to_doc", {})
 
+    # Mapped paths in feature_surface_map.md are repo-root relative
+    # (e.g., "src/content/docs/..."), so resolve against the repo root.
+    repo_root = DOCS_REPO_ROOT[0] or docs_root.parent.parent.parent
+
     findings = []
     for flag in flags:
         # Skip ignored flags
@@ -271,18 +295,23 @@ def audit_features(warp_internal: Path, docs_root: Path, surface_map: dict,
         # Check if mapped in surface map
         if flag in feature_to_doc:
             doc_path = feature_to_doc[flag]
-            full_path = docs_root.parent / doc_path
-            if full_path.exists():
+            if resolve_doc_path(doc_path, repo_root) is not None:
                 continue  # Mapped and doc exists — verified
-            else:
-                findings.append({
-                    "flag": flag,
-                    "search_terms": camel_to_search_terms(flag),
-                    "severity": "high",
-                    "suggested_doc_path": doc_path,
-                    "reason": f"Mapped doc {doc_path} does not exist",
-                })
+            # Mapped path missing — before flagging, fall back to a content
+            # search so we don't raise false positives when a doc has merely
+            # been moved.
+            terms = camel_to_search_terms(flag)
+            matches = search_docs_for_terms(docs_text, terms)
+            if matches:
                 continue
+            findings.append({
+                "flag": flag,
+                "search_terms": terms,
+                "severity": "high",
+                "suggested_doc_path": doc_path,
+                "reason": f"Mapped doc {doc_path} does not exist",
+            })
+            continue
 
         # Not in surface map — search docs for mentions
         terms = camel_to_search_terms(flag)
@@ -370,6 +399,7 @@ def audit_cli(warp_internal: Path, docs_root: Path, surface_map: dict,
     """Audit CLI command coverage in docs."""
     commands = parse_cli_commands(warp_internal)
     cli_to_doc = surface_map.get("cli_to_doc", {})
+    repo_root = DOCS_REPO_ROOT[0] or docs_root.parent.parent.parent
 
     # Read all CLI docs content
     cli_docs_dir = docs_root / "reference" / "cli"
@@ -392,7 +422,7 @@ def audit_cli(warp_internal: Path, docs_root: Path, surface_map: dict,
             # intentionally have no public docs (matches API audit semantics).
             if doc_path == "internal":
                 continue
-            if (docs_root.parent / doc_path).exists():
+            if resolve_doc_path(doc_path, repo_root) is not None:
                 continue  # Mapped and exists
 
         # Search CLI docs for the command name
