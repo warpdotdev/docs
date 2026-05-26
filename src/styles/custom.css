@@ -414,15 +414,16 @@ body {
 
 .warp-guide-card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1rem;
+  /* 220px min allows 3 columns in the ~730px content area beside the sidebar */
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0.75rem;
 }
 
 .warp-guide-card {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  padding: 1.25rem;
+  gap: 0.25rem;
+  padding: 0.875rem 1rem;
   border: 1px solid var(--sl-color-hairline-light);
   border-radius: var(--sl-radius-md);
   background: transparent;
@@ -448,6 +449,7 @@ body {
   color: var(--sl-color-accent);
   text-transform: uppercase;
   letter-spacing: 0.04em;
+  line-height: 1.2;
 }
 
 :root[data-theme='light'] .warp-guide-card-category {
@@ -455,7 +457,7 @@ body {
 }
 
 .warp-guide-card-title {
-  font-size: var(--sl-text-body);
+  font-size: var(--sl-text-sm);
   font-weight: 600;
   color: var(--sl-color-white);
   margin: 0;
@@ -463,12 +465,12 @@ body {
 }
 
 .warp-guide-card-desc {
-  font-size: var(--sl-text-sm);
+  font-size: var(--sl-text-2xs);
   color: var(--sl-color-gray-3);
   margin: 0;
-  line-height: 1.5;
+  line-height: 1.45;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
