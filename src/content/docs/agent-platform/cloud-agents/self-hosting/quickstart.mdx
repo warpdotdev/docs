@@ -19,7 +19,7 @@ This quickstart sets up the [managed architecture](/agent-platform/cloud-agents/
 
 * **Enterprise plan with self-hosting enabled** — [Contact sales](https://www.warp.dev/contact-sales) if self-hosting is not yet enabled for your team.
 * **A Linux machine with Docker** — A VM, server, or local machine with the Docker daemon running Linux containers. Verify with `docker info`. Docker Desktop on macOS or Windows works for testing.
-* **A team or agent API key** — Create one in the [Oz web app](https://oz.warp.dev/settings) (**Agent** type bound to the `Default Service Account`) or in the Warp app under **Settings** > **Cloud platform** > **Oz Cloud API Keys** (**Team** type). The two options are equivalent for self-hosting. See [API Keys](/reference/cli/api-keys/) for details.
+* **An agent API key** — In the [Oz web app](https://oz.warp.dev/settings), click **New API key**, pick **Agent**, and bind it to the built-in `Default Service Account` agent identity. The Warp desktop app's equivalent toggle may still show **Team**; see [API Keys](/reference/cli/api-keys/) for the naming-change note and full creation flow.
 * **The Oz CLI** (for routing a test run) — See [Installing the CLI](/reference/cli/#installing-the-cli).
 
 ---
@@ -30,10 +30,10 @@ _~10 minutes_
 
 ### 1. Export your API key
 
-Export the team API key so the worker container can authenticate to Oz automatically:
+Export the agent API key so the worker container can authenticate to Oz automatically:
 
 ```bash
-export WARP_API_KEY="your_team_api_key"
+export WARP_API_KEY="your_agent_api_key"
 ```
 
 ### 2. Start the worker

@@ -8,19 +8,18 @@ sidebar:
 
 API keys let the Oz CLI and cloud agents authenticate without human interaction. Use API keys for CI pipelines, headless servers, VMs, Codespaces, containers, and other automated environments.
 
+:::note
+**Naming change:** What used to be called a **team API key** is now an **agent API key**. They behave identically — an agent API key bound to your team's built-in `Default Service Account` [agent identity](/agent-platform/cloud-agents/agents/) has the same billing, GitHub App auth, and headless-run behavior as the legacy team key. The rename reflects that the broader agent identity model is a superset of the old team-key concept. If your Warp desktop app's API key dialog still labels the toggle `Team`, picking it produces an equivalent agent key bound to the `Default Service Account`. The rest of this page uses "agent API key" throughout.
+:::
+
 ## API key types
 
-Warp supports three types of API keys, each with different billing and identity behavior:
+Warp supports two types of API keys:
 
 * **Personal API keys** - Cloud agent runs authenticate as you, just like running an agent from the Warp app or triggering one via Slack or Linear. On Build, Max, and Business plans, runs draw from your plan-included credits, then your add-on credits — both scoped to your individual user. On Enterprise plans, runs draw from the team-scoped credit pool, per your Enterprise contract terms.
-* **Team API keys** - Cloud agent runs are not tied to any individual user and execute under your team's default [agent identity](/agent-platform/cloud-agents/agents/). On Build, Max, and Business plans, Warp bills the team owner: the owner's plan-included credits, then the owner's add-on credits. With auto-reload off, the request is blocked when both pools are depleted (insufficient credits error). With auto-reload on, usage can trigger a reload on the owner's pool subject to the team-wide monthly spend cap. On Enterprise plans, team API key runs draw from the team-scoped credit pool. When [team GitHub authorization](/agent-platform/cloud-agents/team-access-billing-and-identity/#team-github-authorization) is configured, team key runs can also clone repositories and open pull requests using the Oz by Warp GitHub App.
-* **Agent API keys** - Cloud agent runs execute as a specific [agent identity](/agent-platform/cloud-agents/agents/) you choose at key creation time. Agent keys are a superset of team keys: every team starts with a built-in `Default Service Account` agent identity, and an agent key bound to that identity behaves the same as a team API key (same billing waterfall, same team GitHub App behavior). Create additional agent identities — `ci-runner`, `nightly-jobs`, `on-call` — when you want runs from distinct workflows to be filterable and auditable as that bot in run history. See [Agent identities](/agent-platform/cloud-agents/agents/) for the full model.
+* **Agent API keys** - Cloud agent runs are not tied to any individual user and execute as a specific [agent identity](/agent-platform/cloud-agents/agents/) you choose at key creation time. Every team starts with a built-in `Default Service Account` agent identity; pick it for the same behavior as the legacy team key. Create additional agent identities — `ci-runner`, `nightly-jobs`, `on-call` — when you want runs from distinct workflows to be filterable and auditable as that bot in run history. On Build, Max, and Business plans, Warp bills the team owner: the owner's plan-included credits, then the owner's add-on credits. With auto-reload off, the request is blocked when both pools are depleted (insufficient credits error). With auto-reload on, usage can trigger a reload on the owner's pool subject to the team-wide monthly spend cap. On Enterprise plans, agent API key runs draw from the team-scoped credit pool. When [team GitHub authorization](/agent-platform/cloud-agents/team-access-billing-and-identity/#team-github-authorization) is configured, agent key runs can also clone repositories and open pull requests using the Oz by Warp GitHub App. See [Agent identities](/agent-platform/cloud-agents/agents/) for the full model.
 
-Team and agent API keys are useful for fully automated workflows, CI/CD pipelines, and scheduled tasks where no specific user context is needed. For the full credit waterfall and how it interacts with add-on credits, see [Access, billing, and identity permissions](/agent-platform/cloud-agents/team-access-billing-and-identity/) and [add-on credits](/support-and-community/plans-and-billing/add-on-credits/).
-
-:::note
-**Migrating from a team key to an agent key?** No change is required. An agent API key bound to the `Default Service Account` is functionally identical to a team API key — same downstream billing, same GitHub App resolution, same headless-run behavior. The split into `Personal` / `Team` / `Agent` is a labeling change in the UI; existing team keys continue to work and existing prerequisites that say "create a team-scoped API key" can be satisfied by either option.
-:::
+Agent API keys are useful for fully automated workflows, CI/CD pipelines, and scheduled tasks where no specific user context is needed. For the full credit waterfall and how it interacts with add-on credits, see [Access, billing, and identity permissions](/agent-platform/cloud-agents/team-access-billing-and-identity/) and [add-on credits](/support-and-community/plans-and-billing/add-on-credits/).
 
 ## Creating API keys
 
@@ -42,9 +41,7 @@ You can create an API key in either the [Oz web app](https://oz.warp.dev/setting
 1. In the Warp app, click your profile photo in the top-right corner, then click **Settings**.
 2. In the sidebar, expand **Cloud platform** and click **Oz Cloud API Keys**.
 3. In the API Keys section, click **+ Create API Key**.
-4. Choose the key type:
-   * **Personal** - Tied to your individual Warp account.
-   * **Team** - Tied to your team's default agent identity (`Default Service Account`). Equivalent to creating an agent key bound to the default identity from the Oz web app.
+4. Pick **Personal** for a personal key, or **Agent** / **Team** for an agent key bound to your team's `Default Service Account`. See the naming-change note at the top of this page for details.
 5. Name the key and choose an expiration (1 day, 30 days, 90 days, or never).
 6. Click **Create key**.
 7. Copy the raw API key and store it securely. **You won't be able to see it again after closing the dialog.**
@@ -55,18 +52,18 @@ You can create an API key in either the [Oz web app](https://oz.warp.dev/setting
 </figure>
 
 :::note
-To create or manage **named agent identities** (anything beyond the default), use the Oz web app at [oz.warp.dev/agents](https://oz.warp.dev/agents) or the [`oz agent`](/reference/api-and-sdk/) REST endpoints. The Warp desktop app's API key dialog binds team keys to the default identity automatically and does not expose the named-agent picker.
+To create or manage **named agent identities** (anything beyond the default), use the Oz web app at [oz.warp.dev/agents](https://oz.warp.dev/agents) or the [`oz agent`](/reference/api-and-sdk/) REST endpoints. The Warp desktop app's API key dialog binds keys to the `Default Service Account` automatically and does not expose the named-agent picker.
 :::
 
 :::note
 When an agent needs to make code changes (e.g., opening pull requests, pushing branches, or writing to a repository), you have two options:
 
 * Use a **personal API key** to authenticate as you. The agent runs with your GitHub permissions, and code changes are attributed to your GitHub account.
-* Use a **team or agent API key** with [team GitHub authorization](/agent-platform/cloud-agents/team-access-billing-and-identity/#team-github-authorization) configured. The agent authenticates with the Oz by Warp GitHub App, and code changes are not attributed to any individual user.
+* Use an **agent API key** with [team GitHub authorization](/agent-platform/cloud-agents/team-access-billing-and-identity/#team-github-authorization) configured. The agent authenticates with the Oz by Warp GitHub App, and code changes are attributed to the agent identity rather than any individual user.
 :::
 
 :::note
-Team and agent keys without GitHub App authorization are the right fit for automated workflows that don't require writing to GitHub, such as analysis, monitoring, or triage.
+Agent API keys without GitHub App authorization are the right fit for automated workflows that don't require writing to GitHub, such as analysis, monitoring, or triage.
 :::
 
 ## Authenticating with API keys
@@ -96,7 +93,7 @@ The Oz web app at [oz.warp.dev/settings](https://oz.warp.dev/settings) and the W
 
 * **Name** - The name you assigned when creating the key
 * **Key** - A masked suffix (`wk-**xxxx`) to help identify the key
-* **Scope** - Whether the key is **Personal**, **Team**, or **Agent**. Agent keys also show which [agent identity](/agent-platform/cloud-agents/agents/) the key is bound to.
+* **Scope** - Whether the key is **Personal** or **Agent** (legacy keys may display as **Team**; see the naming-change note at the top of this page). Agent keys also show which [agent identity](/agent-platform/cloud-agents/agents/) the key is bound to.
 * **Created** - When the key was created
 * **Last used** - When the key was last used for authentication
 * **Expires at** - The key's expiration date, or "Never" if it doesn't expire
@@ -115,7 +112,7 @@ Deleting a named [agent identity](/agent-platform/cloud-agents/agents/) atomical
 
 * **Use environment variables** - Avoid passing API keys directly in commands where they may be logged or visible in shell history.
 * **Set appropriate expiration** - Use shorter expiration times for development and testing; consider longer durations for stable production workflows.
-* **Use team or agent keys for automation** - For CI/CD and scheduled tasks, team and agent keys provide cleaner billing attribution and don't depend on any individual user's account. Pick a named agent identity when you want runs from distinct workflows to be filterable in the dashboard.
-* **Use personal keys or configure team GitHub authorization when agents need to write to GitHub** - Personal keys authenticate as you; team and agent keys can also write to GitHub when [team GitHub authorization](/agent-platform/cloud-agents/team-access-billing-and-identity/#team-github-authorization) is configured via the Admin Panel.
+* **Use agent keys for automation** - For CI/CD and scheduled tasks, agent keys provide cleaner billing attribution and don't depend on any individual user's account. Pick a named agent identity when you want runs from distinct workflows to be filterable in the dashboard.
+* **Use personal keys or configure team GitHub authorization when agents need to write to GitHub** - Personal keys authenticate as you; agent keys can also write to GitHub when [team GitHub authorization](/agent-platform/cloud-agents/team-access-billing-and-identity/#team-github-authorization) is configured via the Admin Panel.
 * **Rotate keys periodically** - Create new keys and retire old ones on a regular schedule to limit exposure from compromised credentials.
 * **Store securely** - Use secret managers (like 1Password CLI, HashiCorp Vault, or cloud provider secret services) rather than plain text files.
