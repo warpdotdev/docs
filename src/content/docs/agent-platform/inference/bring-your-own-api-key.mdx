@@ -127,7 +127,7 @@ You can choose to enable **Warp credit fallback**. When enabled, if an agent req
 
 Warp is **SOC 2 compliant** and has **Zero Data Retention (ZDR)** policies with all of its contracted LLM providers. No customer AI data is retained, stored, or used for training by the model providers.
 
-BYOK prompts and responses transit Warp's backend (see [How BYOK works](#how-byok-works)), but Warp does not retain the request body, does not use it for training, and does not log it for analytics — the same posture that applies to Warp-billed traffic.
+BYOK prompts and responses transit Warp's backend (see [How BYOK works](#how-byok-works)). Warp does not use this content for training; retention and analytics handling follow the same account-level privacy and telemetry settings that apply to Warp-billed traffic.
 
 However, when you use your own API key:
 
