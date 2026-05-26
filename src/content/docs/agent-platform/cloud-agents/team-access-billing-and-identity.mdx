@@ -82,7 +82,7 @@ Your team must meet the following requirements to run integrations:
 When a user triggers an agent through an integration (like Slack or Linear), the run draws from credits based on who the run is billed to:
 
 * **User-triggered runs on Build, Max, or Business** - Warp draws from any [cloud agent credits](/support-and-community/plans-and-billing/credits/#compute-credits) the user has, then the user's plan-included credits, then the user's add-on credits. Add-on credits are scoped to the individual user and are not shared across the team.
-* **Team API key or scheduled cloud agent runs on Build, Max, or Business** - Warp bills the team owner. The waterfall is: the owner's plan-included credits, then the owner's add-on credits. With auto-reload off, the request is blocked when both pools are depleted. With auto-reload on, usage can trigger a reload on the owner's pool subject to the team-wide monthly spend cap.
+* **Agent API key or scheduled cloud agent runs on Build, Max, or Business** - Warp bills the team owner. The waterfall is: the owner's plan-included credits, then the owner's add-on credits. With auto-reload off, the request is blocked when both pools are depleted. With auto-reload on, usage can trigger a reload on the owner's pool subject to the team-wide monthly spend cap.
 * **Enterprise plans** - Runs draw from the team-scoped credit pool, per your Enterprise contract terms.
 
 If all applicable credit sources are exhausted and no auto-reload is configured, integrations and cloud agents will not run until credits are added. See [add-on credits](/support-and-community/plans-and-billing/add-on-credits/) for the full self-serve waterfall and [platform credits](/support-and-community/plans-and-billing/platform-credits/) for the third bucket that applies to every cloud agent run.
@@ -108,13 +108,13 @@ This ensures runs are scoped to what the user is allowed to see and modify, and 
 
 By default, cloud agents authenticate with GitHub using the personal token of the user who triggered the run. Team GitHub authorization gives you an alternative: authenticate with the **Oz by Warp** GitHub App instead, so agents can clone repositories and open pull requests without relying on any individual's token.
 
-This is useful for fully automated workflows that use a [team API key](/reference/cli/api-keys/), like CI/CD pipelines, scheduled agents, and SDK-triggered runs, where you want code changes attributed to the GitHub App rather than a specific person.
+This is useful for fully automated workflows that use an [Agent API key](/reference/cli/api-keys/), like CI/CD pipelines, scheduled agents, and SDK-triggered runs, where you want code changes attributed to the GitHub App rather than a specific person.
 
 ### How it works
 
-When an agent task is initiated with a team API key, there is no individual user to authenticate on behalf of. Instead, Warp uses tokens issued by the **Oz by Warp** GitHub App installation to authenticate directly with GitHub.
+When an agent task is initiated with an Agent API key, there is no individual user to authenticate on behalf of. Instead, Warp uses tokens issued by the **Oz by Warp** GitHub App installation to authenticate directly with GitHub.
 
-The GitHub App token gives the agent access to the repositories included in the app installation — it can clone repos, create branches, push commits, and open pull requests. During installation, you choose whether the app can access **all repositories** or only **selected repositories** in your GitHub organization, and this controls what team API key runs can access.
+The GitHub App token gives the agent access to the repositories included in the app installation — it can clone repos, create branches, push commits, and open pull requests. During installation, you choose whether the app can access **all repositories** or only **selected repositories** in your GitHub organization, and this controls what Agent API key runs can access.
 
 ### Setting up team GitHub authorization
 
@@ -140,11 +140,11 @@ There are two places you may encounter this installation flow:
    <figcaption>Enabled GitHub Orgs setting in the Admin Panel.</figcaption>
    </figure>
 
-3. **Use a team API key.** Tasks initiated with a team API key now use tokens from the GitHub App installation to clone repos and push changes. No individual GitHub authorization is needed.
+3. **Use an Agent API key.** Tasks initiated with an Agent API key now use tokens from the GitHub App installation to clone repos and push changes. No individual GitHub authorization is needed. Use **Default Service Account** for the same behavior as the old team API key.
 
 ### How this relates to environments
 
-An [environment](/agent-platform/cloud-agents/environments/) is a template for a cloud agent's sandbox — it defines the Docker image, repos, and setup commands, but it does not carry its own GitHub permissions. The same environment can be used by different users or by team API key runs, and each will authenticate to GitHub independently.
+An [environment](/agent-platform/cloud-agents/environments/) is a template for a cloud agent's sandbox — it defines the Docker image, repos, and setup commands, but it does not carry its own GitHub permissions. The same environment can be used by different users or by Agent API key runs, and each will authenticate to GitHub independently.
 
 The environment configuration and the **Enabled GitHub Orgs** setting in the Admin Panel serve different purposes:
 
@@ -155,13 +155,13 @@ The environment configuration and the **Enabled GitHub Orgs** setting in the Adm
 
 Team GitHub authorization is complementary to the existing personal token flow:
 
-* **User-triggered runs** (personal API key, Slack, Linear, Warp app) - The agent authenticates as Oz acting on the triggering user's behalf. PRs and commits are attributed to that user.
-* **Team API key runs with GitHub App authorization** - The agent authenticates as the GitHub App installation. PRs and commits are not attributed to any individual user.
+* **User-triggered runs** (`oz login`, Slack, Linear, Warp app) - The agent authenticates as Oz acting on the triggering user's behalf. PRs and commits are attributed to that user.
+* **Agent API key runs with GitHub App authorization** - The agent authenticates as the GitHub App installation. PRs and commits are attributed to the agent identity rather than an individual user.
 
-Both flows can coexist on the same team. Personal tokens are still used for user-triggered runs, and the GitHub App installation token is used when a task is initiated with a team API key.
+Both flows can coexist on the same team. Personal tokens are still used for user-triggered runs, and the GitHub App installation token is used when a task is initiated with an Agent API key.
 
 :::caution
-GitHub App installation tokens are scoped to a single GitHub organization at a time. If your team works across repos in multiple GitHub organizations, the agent can only use the installation token for the organization enabled in the Admin Panel. Repos in other organizations require user-triggered runs with a personal API key.
+GitHub App installation tokens are scoped to a single GitHub organization at a time. If your team works across repos in multiple GitHub organizations, the agent can only use the installation token for the organization enabled in the Admin Panel. Repos in other organizations require user-triggered runs with `oz login` or another user-authenticated surface.
 :::
 
 :::note
@@ -213,19 +213,19 @@ Cloud agent runs consume credits based on the complexity of the task and whether
 
 How credits are consumed depends on how the agent run is triggered and authenticated:
 
-**User-triggered runs** (CLI with personal API key, Slack, Linear, or the Warp app):
+**User-triggered runs** (CLI with `oz login`, Slack, Linear, or the Warp app):
 
 * Runs are tied to the triggering user's identity.
 * On Build, Max, and Business plans, credits are consumed starting with any [cloud agent credits](/support-and-community/plans-and-billing/credits/#compute-credits) allocated to the user, then the user's plan-included credits, then the user's add-on credits. Add-on credits are scoped to the individual user.
 * On Enterprise plans, runs draw from the team-scoped credit pool, per your Enterprise contract terms.
 
-**Team API key and scheduled cloud agent runs** (fully automated or headless workflows):
+**Agent API key and scheduled cloud agent runs** (fully automated or headless workflows):
 
 * Runs are not tied to any individual user.
 * On Build, Max, and Business plans, Warp bills the team owner: the owner's plan-included credits, then the owner's add-on credits. With auto-reload off, the request is blocked when both pools are depleted. With auto-reload on, usage can trigger a reload on the owner's add-on credit pool subject to the team-wide monthly spend cap.
 * On Enterprise plans, these runs draw from the team-scoped credit pool, per your Enterprise contract terms.
 * Ideal for CI/CD pipelines, scheduled tasks, and other automated workflows.
-* For workflows that require code changes (opening pull requests, pushing branches, or writing to a repository), configure [team GitHub authorization](#team-github-authorization) so the agent can authenticate with the Oz by Warp GitHub App. Alternatively, use a [personal API key](/reference/cli/api-keys/) to authenticate as an individual user.
+* For workflows that require code changes (opening pull requests, pushing branches, or writing to a repository), configure [team GitHub authorization](#team-github-authorization) so the agent can authenticate with the Oz by Warp GitHub App. Alternatively, use `oz login` for user-authenticated CLI runs.
 
 For more details on creating and using API keys, see [API Keys](/reference/cli/api-keys/).
 
@@ -244,7 +244,7 @@ All triggers and instructions used by cloud agents are defined and controlled by
 
 Because triggers and instructions are configured by your team, the credits consumed when an agent runs are billed according to the model above:
 
-* **Build, Max, Business** - User-triggered runs draw from the triggering user's pools (plan-included credits, then their add-on credits). Team API key and scheduled cloud agent runs are billed to the team owner (the owner's plan-included credits, then the owner's add-on credits, subject to the team-wide spend cap when auto-reload is on).
+* **Build, Max, Business** - User-triggered runs draw from the triggering user's pools (plan-included credits, then their add-on credits). Agent API key and scheduled cloud agent runs are billed to the team owner (the owner's plan-included credits, then the owner's add-on credits, subject to the team-wide spend cap when auto-reload is on).
 * **Enterprise** - All runs draw from the team-scoped credit pool, per your Enterprise contract terms.
 
 It's the team's responsibility to manage triggers, confirm they behave as intended, and monitor usage. Reviewing triggers, prompts, and agent behavior periodically helps ensure that credit usage aligns with expectations.

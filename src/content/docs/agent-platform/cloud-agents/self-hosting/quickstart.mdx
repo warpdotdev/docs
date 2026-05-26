@@ -19,7 +19,7 @@ This quickstart sets up the [managed architecture](/agent-platform/cloud-agents/
 
 * **Enterprise plan with self-hosting enabled** — [Contact sales](https://www.warp.dev/contact-sales) if self-hosting is not yet enabled for your team.
 * **A Linux machine with Docker** — A VM, server, or local machine with the Docker daemon running Linux containers. Verify with `docker info`. Docker Desktop on macOS or Windows works for testing.
-* **A team API key** — In the Warp app, go to **Settings** > **Cloud platform** > **Oz Cloud API Keys** to create a team-scoped API key. See [API Keys](/reference/cli/api-keys/) for details.
+* **An Agent API key** — In the Warp app, go to **Settings** > **Cloud platform** > **Oz Cloud API Keys** to create an Agent API key. Use **Default Service Account** for the same behavior as the old team API key. See [API Keys](/reference/cli/api-keys/) for details.
 * **The Oz CLI** (for routing a test run) — See [Installing the CLI](/reference/cli/#installing-the-cli).
 
 ---
@@ -30,10 +30,10 @@ _~10 minutes_
 
 ### 1. Export your API key
 
-Export the team API key so the worker container can authenticate to Oz automatically:
+Export the Agent API key so the worker container can authenticate to Oz automatically:
 
 ```bash
-export WARP_API_KEY="your_team_api_key"
+export WARP_API_KEY="your_agent_api_key"
 ```
 
 ### 2. Start the worker
@@ -83,7 +83,7 @@ Open the [Oz dashboard](https://oz.warp.dev), find the new task, and confirm the
 Verify Docker is running (`docker info`) and that the daemon platform is `linux/amd64` or `linux/arm64`. Musl-based (Alpine) worker hosts are not supported.
 
 **Worker won't connect**\
-Verify your API key has team scope. Ensure the machine has outbound internet access to `oz.warp.dev:443`. Increase log verbosity with `--log-level debug` to see connection details.
+Verify your API key is an Agent API key for the same Warp team as the worker. Ensure the machine has outbound internet access to `oz.warp.dev:443`. Increase log verbosity with `--log-level debug` to see connection details.
 
 **Task stays queued and never runs**\
 Confirm the `--host` value you passed to `oz agent run-cloud` matches your `--worker-id` exactly (case-sensitive). Check that the worker's team matches the team creating the task.

@@ -178,14 +178,14 @@ You typically only need to handle this once per team, unless your repo access ch
 
 #### Team-level GitHub authorization
 
-For automated workflows that use a [team API key](/reference/cli/api-keys/) (CI/CD pipelines, scheduled agents, SDK-triggered runs), you can configure team GitHub authorization so the agent authenticates with the Oz by Warp GitHub App instead of an individual's personal token.
+For automated workflows that use an [Agent API key](/reference/cli/api-keys/) (CI/CD pipelines, scheduled agents, SDK-triggered runs), you can configure team GitHub authorization so the agent authenticates with the Oz by Warp GitHub App instead of an individual's personal token.
 
-This requires a Warp team admin to enable the GitHub organization in the Admin Panel (**Settings** > **Admin Panel** > **Platform**). Once configured, tasks initiated with a team API key can clone repos and open pull requests using the GitHub App installation token.
+This requires a Warp team admin to enable the GitHub organization in the Admin Panel (**Settings** > **Admin Panel** > **Platform**). Once configured, tasks initiated with an Agent API key can clone repos and open pull requests using the GitHub App installation token.
 
 For full setup instructions, see [Team GitHub authorization](/agent-platform/cloud-agents/team-access-billing-and-identity/#team-github-authorization).
 
 :::note
-**Using API keys:** Personal API keys authenticate as you, so the agent runs with your GitHub permissions and code changes are attributed to your account. Team API keys with [team GitHub authorization](/agent-platform/cloud-agents/team-access-billing-and-identity/#team-github-authorization) configured use the GitHub App token instead.
+**Using API keys:** Agent API keys with [team GitHub authorization](/agent-platform/cloud-agents/team-access-billing-and-identity/#team-github-authorization) configured use the GitHub App token instead of an individual's personal token. Use `oz login` for local or remote user-authenticated CLI runs that should use your GitHub permissions.
 :::
 
 ---
