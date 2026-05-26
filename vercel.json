@@ -3009,6 +3009,11 @@
       "statusCode": 308
     },
     {
+      "source": "/support-and-community/plans-and-billing/bring-your-own-api-key/:path*",
+      "destination": "/agent-platform/inference/bring-your-own-api-key/",
+      "statusCode": 308
+    },
+    {
       "source": "/support-and-community/support-and-billing/plans-and-pricing/bring-your-own-api-key",
       "destination": "/agent-platform/inference/bring-your-own-api-key/",
       "statusCode": 308
