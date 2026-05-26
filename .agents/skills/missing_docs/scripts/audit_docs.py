@@ -6,9 +6,10 @@ Compares documentation coverage against code surfaces in warp-internal and
 warp-server to identify gaps. Produces a structured JSON report.
 
 Usage:
-    python3 .warp/skills/missing_docs/scripts/audit_docs.py
-    python3 .warp/skills/missing_docs/scripts/audit_docs.py --category features
-    python3 .warp/skills/missing_docs/scripts/audit_docs.py --output report.json
+    python3 .agents/skills/missing_docs/scripts/audit_docs.py
+    python3 .agents/skills/missing_docs/scripts/audit_docs.py --category features
+    python3 .agents/skills/missing_docs/scripts/audit_docs.py --output report.json
+    python3 .agents/skills/missing_docs/scripts/audit_docs.py --weak-coverage
 """
 
 import argparse
@@ -267,8 +268,16 @@ def snake_to_pascal(snake: str) -> str:
 
 
 def audit_features(warp_internal: Path, docs_root: Path, surface_map: dict,
-                   docs_text: dict[str, str]) -> list[dict]:
-    """Audit feature flag coverage in docs."""
+                   docs_text: dict[str, str],
+                   weak_coverage: bool = False) -> list[dict]:
+    """Audit feature flag coverage in docs.
+
+    By default, a flag is treated as covered if its mapped doc exists (the
+    surface map maintainer has verified the mapping). When ``weak_coverage``
+    is True, also verify that the target doc actually mentions feature
+    keywords — useful for catching pages that have been renamed or trimmed
+    so the flag is no longer documented in prose.
+    """
     flags = parse_feature_flags(warp_internal)
     default_features = parse_default_features(warp_internal)
     ignore_flags = surface_map.get("ignore_flags", set())
@@ -295,8 +304,34 @@ def audit_features(warp_internal: Path, docs_root: Path, surface_map: dict,
         # Check if mapped in surface map
         if flag in feature_to_doc:
             doc_path = feature_to_doc[flag]
-            if resolve_doc_path(doc_path, repo_root) is not None:
-                continue  # Mapped and doc exists — verified
+            resolved = resolve_doc_path(doc_path, repo_root)
+            if resolved is not None:
+                if not weak_coverage:
+                    # Surface-map presence is treated as verified — the
+                    # maintainer has confirmed the page covers this flag.
+                    continue
+                # Optional weak-coverage check: verify the target page
+                # actually mentions feature keywords. Skip the lowercase
+                # concatenated / snake_case variants since they rarely
+                # match human-written prose.
+                try:
+                    doc_content = resolved.read_text(encoding="utf-8").lower()
+                except Exception:
+                    doc_content = ""
+                terms = camel_to_search_terms(flag)
+                check_terms = [t for t in terms if " " in t or t.startswith("/")]
+                if check_terms and not any(t in doc_content for t in check_terms):
+                    findings.append({
+                        "flag": flag,
+                        "search_terms": terms,
+                        "severity": "low",
+                        "suggested_doc_path": doc_path,
+                        "reason": (
+                            f"Mapped doc {doc_path} exists but does not "
+                            "mention feature keywords (weak coverage)"
+                        ),
+                    })
+                continue
             # Mapped path missing — before flagging, fall back to a content
             # search so we don't raise false positives when a doc has merely
             # been moved.
@@ -698,6 +733,12 @@ def main():
         choices=["high", "medium", "low"],
         help="Filter results by minimum severity",
     )
+    parser.add_argument(
+        "--weak-coverage",
+        action="store_true",
+        help="Also flag features whose mapped doc exists but doesn't mention "
+             "feature keywords (noisy; produces low-severity findings)",
+    )
     args = parser.parse_args()
 
     # Find repos
@@ -737,7 +778,10 @@ def main():
         print(f"Using warp-internal: {warp_internal}", file=sys.stderr)
         if args.category in (None, "features"):
             print("Running feature flag coverage audit...", file=sys.stderr)
-            features_findings = audit_features(warp_internal, docs_root, surface_map, docs_text)
+            features_findings = audit_features(
+                warp_internal, docs_root, surface_map, docs_text,
+                weak_coverage=args.weak_coverage,
+            )
 
         if args.category in (None, "cli"):
             print("Running CLI command coverage audit...", file=sys.stderr)
