@@ -18,7 +18,7 @@ Custom inference endpoints are available on Free and all eligible paid plans for
 * **OpenAI-compatible** - Works with any endpoint that implements the OpenAI Chat Completions API.
 * **Provider flexibility** - Use a model router (OpenRouter, LiteLLM), a model provider with an OpenAI-compatible surface (z.ai), or your own internal gateway.
 * **No AI credits consumed for inference** - Inference is billed directly by your endpoint provider. On Business and Enterprise, local agent runs that route through a custom inference endpoint still consume [platform credits](/support-and-community/plans-and-billing/platform-credits/) for Warp's platform infrastructure.
-* **Local configuration** - Endpoint URLs and credentials are stored locally on your device and never synced to the cloud.
+* **Local API key storage** - Your endpoint API key is stored locally on your device (in your OS keychain or equivalent secure storage) and is **never synced or stored on Warp's servers**. Endpoint URLs and model identifiers may appear in Warp's usage telemetry, but the API key itself never does.
 
 ## How it works
 
@@ -29,7 +29,19 @@ A custom inference endpoint expects your endpoint to implement the **OpenAI Chat
 * **z.ai** - A model provider with an OpenAI-compatible API surface for its models.
 * **Internal gateways** - Any in-house service that fronts model providers behind an OpenAI-compatible endpoint (for example, a corporate AI gateway with logging, redaction, or access control).
 
-When you configure a custom inference endpoint, Warp stores the endpoint URL, model identifiers, and credentials **locally on your device**. They are never synced to Warp's servers.
+When you configure a custom inference endpoint, your endpoint URL, model identifiers, and API key are stored **locally on your device**. The API key itself is **never synced or stored on Warp's servers**.
+
+When you send a prompt using an endpoint-routed model:
+
+1. Warp's agent harness on Warp's backend assembles the request from your prompt and conversation context.
+2. Your endpoint URL and API key are sent up alongside that request and used in-flight to call your configured endpoint.
+3. Your endpoint's response streams back through Warp's backend to your client.
+
+Your API key is held in memory only for the duration of each request — Warp never writes it to disk or to any database. Endpoint URLs and model identifiers may be recorded in Warp's usage telemetry; API keys are never included.
+
+:::note
+**Why does the request route through Warp's backend?** Warp's agent harness runs server-side — the same runtime that powers [Agent Mode](/agent-platform/local-agents/interacting-with-agents/terminal-and-agent-modes/) with Warp-billed models and [BYOK](/agent-platform/inference/bring-your-own-api-key/). A custom inference endpoint swaps the upstream destination and credential; it does not change where the harness runs.
+:::
 
 :::caution
 Custom inference endpoints don't apply to [Cloud Agents](/agent-platform/cloud-agents/overview/). Because the configuration is stored locally, it isn't available to cloud-hosted agent runs. Cloud agent runs always consume [Warp credits](/support-and-community/plans-and-billing/credits/).
@@ -39,7 +51,7 @@ When a model routed through your endpoint is selected:
 
 * Warp **doesn't consume** your [AI credits](/support-and-community/plans-and-billing/credits/) for that request.
 * Costs are billed directly by your endpoint provider.
-* Warp doesn't retain or store your endpoint credentials on any of its servers.
+* Warp doesn't retain or store your API key on any of its servers.
 
 ## Enabling a custom inference endpoint
 
@@ -78,13 +90,15 @@ Some AI-powered features (Codebase Context, Active AI recommendations, cloud age
 
 Warp is **SOC 2 compliant** and has **Zero Data Retention (ZDR)** agreements with all of its contracted LLM providers.
 
+Custom inference endpoint prompts and responses transit Warp's backend (see [How it works](#how-it-works)). Warp does not use this content for training; retention and analytics handling follow the same account-level privacy and telemetry settings that apply to Warp-billed traffic.
+
 When you use a custom inference endpoint:
 
-* Data retention is determined by **your endpoint provider** and any upstream model providers they route to.
+* Data retention on the **provider side** is determined by your endpoint provider and any upstream model providers they route to.
 * Warp **cannot enforce ZDR** for requests sent through a custom inference endpoint.
 * If your endpoint provider does not have ZDR with the underlying model provider, your requests may be retained according to their terms.
 
-Review your endpoint provider's data handling and retention policies before routing sensitive prompts through a custom inference endpoint.
+Warp itself never stores your endpoint API key. Review your endpoint provider's data handling and retention policies before routing sensitive prompts through a custom inference endpoint.
 
 ## Centrally managed configuration
 
