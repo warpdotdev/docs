@@ -38,7 +38,7 @@ This page covers the [managed architecture](/agent-platform/cloud-agents/self-ho
   * Allow the worker's namespace to create Jobs with a **root init container** (sidecar materialization depends on this pattern).
   * Grant the worker these namespace-scoped permissions: `create`, `get`, `list`, `watch`, `delete` on `jobs`; `get`, `list`, `watch` on `pods`; `get` on `pods/log`; `list` on `events`.
 * **[Helm](https://helm.sh/docs/intro/install/)** installed locally, plus `kubectl` authenticated against the target cluster.
-* **A team API key** — In the Warp app, go to **Settings** > **Cloud platform** > **Oz Cloud API Keys** to create a team-scoped API key. See [API Keys](/reference/cli/api-keys/) for details.
+* **A team or agent API key** — Create one in the [Oz web app](https://oz.warp.dev/settings) (`Agent` type bound to the `Default Service Account`) or in the Warp app under **Settings** > **Cloud platform** > **Oz Cloud API Keys** (`Team` type). The two options are equivalent for self-hosting. See [API Keys](/reference/cli/api-keys/) for details.
 
 ---
 
