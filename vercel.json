@@ -115,7 +115,7 @@
     },
     {
       "source": "/agent-platform/agent-concepts/model-choice",
-      "destination": "/agent-platform/capabilities/model-choice/",
+      "destination": "/agent-platform/inference/model-choice/",
       "statusCode": 308
     },
     {
@@ -240,7 +240,7 @@
     },
     {
       "source": "/agent-platform/agent-mode/model-choice",
-      "destination": "/agent-platform/capabilities/model-choice/",
+      "destination": "/agent-platform/inference/model-choice/",
       "statusCode": 308
     },
     {
@@ -315,7 +315,7 @@
     },
     {
       "source": "/agent-platform/agent-platform/ai-model-choice",
-      "destination": "/agent-platform/capabilities/model-choice/",
+      "destination": "/agent-platform/inference/model-choice/",
       "statusCode": 308
     },
     {
@@ -380,7 +380,7 @@
     },
     {
       "source": "/agent-platform/agent-platform/model-choice",
-      "destination": "/agent-platform/capabilities/model-choice/",
+      "destination": "/agent-platform/inference/model-choice/",
       "statusCode": 308
     },
     {
@@ -490,22 +490,22 @@
     },
     {
       "source": "/agent-platform/agent-platform/using-agents/model-choice",
-      "destination": "/agent-platform/capabilities/model-choice/",
+      "destination": "/agent-platform/inference/model-choice/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/agent-platform/using-agents/model-choice#available-models",
-      "destination": "/agent-platform/capabilities/model-choice/",
+      "destination": "/agent-platform/inference/model-choice/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/agent-platform/using-agents/model-choice#configuring-models-per-agent-profile",
-      "destination": "/agent-platform/capabilities/model-choice/",
+      "destination": "/agent-platform/inference/model-choice/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/agent-platform/using-agents/model-choice#how-to-change-models",
-      "destination": "/agent-platform/capabilities/model-choice/",
+      "destination": "/agent-platform/inference/model-choice/",
       "statusCode": 308
     },
     {
@@ -605,7 +605,7 @@
     },
     {
       "source": "/agent-platform/agents/model-choice",
-      "destination": "/agent-platform/capabilities/model-choice/",
+      "destination": "/agent-platform/inference/model-choice/",
       "statusCode": 308
     },
     {
@@ -675,7 +675,7 @@
     },
     {
       "source": "/agent-platform/agents/using-agents/model-choice",
-      "destination": "/agent-platform/capabilities/model-choice/",
+      "destination": "/agent-platform/inference/model-choice/",
       "statusCode": 308
     },
     {
@@ -725,7 +725,7 @@
     },
     {
       "source": "/agent-platform/ai-features/model-choice",
-      "destination": "/agent-platform/capabilities/model-choice/",
+      "destination": "/agent-platform/inference/model-choice/",
       "statusCode": 308
     },
     {
@@ -915,7 +915,7 @@
     },
     {
       "source": "/agent-platform/features/ai-command-search/model-choice",
-      "destination": "/agent-platform/capabilities/model-choice/",
+      "destination": "/agent-platform/inference/model-choice/",
       "statusCode": 308
     },
     {
@@ -925,7 +925,7 @@
     },
     {
       "source": "/agent-platform/features/ai-command/model-choice",
-      "destination": "/agent-platform/capabilities/model-choice/",
+      "destination": "/agent-platform/inference/model-choice/",
       "statusCode": 308
     },
     {
@@ -960,7 +960,7 @@
     },
     {
       "source": "/agent-platform/features/ai/ai-models-and-providers",
-      "destination": "/agent-platform/capabilities/model-choice/",
+      "destination": "/agent-platform/inference/model-choice/",
       "statusCode": 308
     },
     {
@@ -1010,7 +1010,7 @@
     },
     {
       "source": "/agent-platform/features/ai/model-choice",
-      "destination": "/agent-platform/capabilities/model-choice/",
+      "destination": "/agent-platform/inference/model-choice/",
       "statusCode": 308
     },
     {
@@ -1040,7 +1040,7 @@
     },
     {
       "source": "/agent-platform/features/model-choice",
-      "destination": "/agent-platform/capabilities/model-choice/",
+      "destination": "/agent-platform/inference/model-choice/",
       "statusCode": 308
     },
     {
@@ -1050,7 +1050,7 @@
     },
     {
       "source": "/agent-platform/features/terminal-ai/ai-models",
-      "destination": "/agent-platform/capabilities/model-choice/",
+      "destination": "/agent-platform/inference/model-choice/",
       "statusCode": 308
     },
     {
@@ -1420,7 +1420,7 @@
     },
     {
       "source": "/agent-platform/warp-agents/model-choice",
-      "destination": "/agent-platform/capabilities/model-choice/",
+      "destination": "/agent-platform/inference/model-choice/",
       "statusCode": 308
     },
     {
@@ -2740,7 +2740,7 @@
     },
     {
       "source": "/support-and-community/help/ai-features/bring-your-own-llm",
-      "destination": "/support-and-community/plans-and-billing/bring-your-own-api-key/",
+      "destination": "/agent-platform/inference/bring-your-own-api-key/",
       "statusCode": 308
     },
     {
@@ -2844,6 +2844,11 @@
       "statusCode": 308
     },
     {
+      "source": "/support-and-community/plans-and-billing/overages-legacy",
+      "destination": "/support-and-community/plans-and-billing/add-on-credits/",
+      "statusCode": 308
+    },
+    {
       "source": "/support-and-community/plans-pricing-and-billing",
       "destination": "/support-and-community/plans-and-billing/plans-pricing-refunds/",
       "statusCode": 308
@@ -2860,12 +2865,12 @@
     },
     {
       "source": "/support-and-community/plans-pricing-and-billing/bring-your-own-api-key",
-      "destination": "/support-and-community/plans-and-billing/bring-your-own-api-key/",
+      "destination": "/agent-platform/inference/bring-your-own-api-key/",
       "statusCode": 308
     },
     {
       "source": "/support-and-community/plans-pricing-and-billing/overages-legacy",
-      "destination": "/support-and-community/plans-and-billing/overages-legacy/",
+      "destination": "/support-and-community/plans-and-billing/add-on-credits/",
       "statusCode": 308
     },
     {
@@ -2970,7 +2975,7 @@
     },
     {
       "source": "/support-and-community/support-and-billing/plans-and-billing/bring-your-own-api-key",
-      "destination": "/support-and-community/plans-and-billing/bring-your-own-api-key/",
+      "destination": "/agent-platform/inference/bring-your-own-api-key/",
       "statusCode": 308
     },
     {
@@ -3004,18 +3009,23 @@
       "statusCode": 308
     },
     {
+      "source": "/support-and-community/plans-and-billing/bring-your-own-api-key/:path*",
+      "destination": "/agent-platform/inference/bring-your-own-api-key/",
+      "statusCode": 308
+    },
+    {
       "source": "/support-and-community/support-and-billing/plans-and-pricing/bring-your-own-api-key",
-      "destination": "/support-and-community/plans-and-billing/bring-your-own-api-key/",
+      "destination": "/agent-platform/inference/bring-your-own-api-key/",
       "statusCode": 308
     },
     {
       "source": "/support-and-community/support-and-billing/plans-and-pricing/bring-your-own-api-key#enabling-byok",
-      "destination": "/support-and-community/plans-and-billing/bring-your-own-api-key/",
+      "destination": "/agent-platform/inference/bring-your-own-api-key/",
       "statusCode": 308
     },
     {
       "source": "/support-and-community/support-and-billing/plans-and-pricing/bring-your-own-api-key#how-does-byok-work",
-      "destination": "/support-and-community/plans-and-billing/bring-your-own-api-key/",
+      "destination": "/agent-platform/inference/bring-your-own-api-key/",
       "statusCode": 308
     },
     {
@@ -3040,12 +3050,12 @@
     },
     {
       "source": "/support-and-community/support-and-billing/plans-and-pricing/usage-overages",
-      "destination": "/support-and-community/plans-and-billing/overages-legacy/",
+      "destination": "/support-and-community/plans-and-billing/add-on-credits/",
       "statusCode": 308
     },
     {
       "source": "/support-and-community/support-and-billing/plans-and-prilling/bring-your-own-api-key",
-      "destination": "/support-and-community/plans-and-billing/bring-your-own-api-key/",
+      "destination": "/agent-platform/inference/bring-your-own-api-key/",
       "statusCode": 308
     },
     {
@@ -3135,12 +3145,12 @@
     },
     {
       "source": "/support-and-community/support-and-community/plans-pricing-and-billing/bring-your-own-api-key",
-      "destination": "/support-and-community/plans-and-billing/bring-your-own-api-key/",
+      "destination": "/agent-platform/inference/bring-your-own-api-key/",
       "statusCode": 308
     },
     {
       "source": "/support-and-community/support-and-community/plans-pricing-and-billing/overages-legacy",
-      "destination": "/support-and-community/plans-and-billing/overages-legacy/",
+      "destination": "/support-and-community/plans-and-billing/add-on-credits/",
       "statusCode": 308
     },
     {
@@ -4030,7 +4040,7 @@
     },
     {
       "source": "/agent-platform/warp-agents/capabilities-overview/model-choice",
-      "destination": "/agent-platform/capabilities/model-choice/",
+      "destination": "/agent-platform/inference/model-choice/",
       "statusCode": 308
     },
     {
@@ -4395,7 +4405,7 @@
     },
     {
       "source": "/support-and-billing/plans-and-pricing/bring-your-own-api-key",
-      "destination": "/support-and-community/plans-and-billing/bring-your-own-api-key/",
+      "destination": "/agent-platform/inference/bring-your-own-api-key/",
       "statusCode": 308
     },
     {
@@ -4475,7 +4485,7 @@
     },
     {
       "source": "/agent-platform/agent-concepts/model-choice/",
-      "destination": "/agent-platform/capabilities/model-choice/",
+      "destination": "/agent-platform/inference/model-choice/",
       "statusCode": 308
     },
     {
@@ -4600,7 +4610,7 @@
     },
     {
       "source": "/agent-platform/agent-mode/model-choice/",
-      "destination": "/agent-platform/capabilities/model-choice/",
+      "destination": "/agent-platform/inference/model-choice/",
       "statusCode": 308
     },
     {
@@ -4660,7 +4670,7 @@
     },
     {
       "source": "/agent-platform/agent-platform/ai-model-choice/",
-      "destination": "/agent-platform/capabilities/model-choice/",
+      "destination": "/agent-platform/inference/model-choice/",
       "statusCode": 308
     },
     {
@@ -4720,7 +4730,7 @@
     },
     {
       "source": "/agent-platform/agent-platform/model-choice/",
-      "destination": "/agent-platform/capabilities/model-choice/",
+      "destination": "/agent-platform/inference/model-choice/",
       "statusCode": 308
     },
     {
@@ -4795,7 +4805,7 @@
     },
     {
       "source": "/agent-platform/agent-platform/using-agents/model-choice/",
-      "destination": "/agent-platform/capabilities/model-choice/",
+      "destination": "/agent-platform/inference/model-choice/",
       "statusCode": 308
     },
     {
@@ -4895,7 +4905,7 @@
     },
     {
       "source": "/agent-platform/agents/model-choice/",
-      "destination": "/agent-platform/capabilities/model-choice/",
+      "destination": "/agent-platform/inference/model-choice/",
       "statusCode": 308
     },
     {
@@ -4965,7 +4975,7 @@
     },
     {
       "source": "/agent-platform/agents/using-agents/model-choice/",
-      "destination": "/agent-platform/capabilities/model-choice/",
+      "destination": "/agent-platform/inference/model-choice/",
       "statusCode": 308
     },
     {
@@ -5015,7 +5025,7 @@
     },
     {
       "source": "/agent-platform/ai-features/model-choice/",
-      "destination": "/agent-platform/capabilities/model-choice/",
+      "destination": "/agent-platform/inference/model-choice/",
       "statusCode": 308
     },
     {
@@ -5175,7 +5185,7 @@
     },
     {
       "source": "/agent-platform/features/ai-command-search/model-choice/",
-      "destination": "/agent-platform/capabilities/model-choice/",
+      "destination": "/agent-platform/inference/model-choice/",
       "statusCode": 308
     },
     {
@@ -5185,7 +5195,7 @@
     },
     {
       "source": "/agent-platform/features/ai-command/model-choice/",
-      "destination": "/agent-platform/capabilities/model-choice/",
+      "destination": "/agent-platform/inference/model-choice/",
       "statusCode": 308
     },
     {
@@ -5220,7 +5230,7 @@
     },
     {
       "source": "/agent-platform/features/ai/ai-models-and-providers/",
-      "destination": "/agent-platform/capabilities/model-choice/",
+      "destination": "/agent-platform/inference/model-choice/",
       "statusCode": 308
     },
     {
@@ -5270,7 +5280,7 @@
     },
     {
       "source": "/agent-platform/features/ai/model-choice/",
-      "destination": "/agent-platform/capabilities/model-choice/",
+      "destination": "/agent-platform/inference/model-choice/",
       "statusCode": 308
     },
     {
@@ -5300,7 +5310,7 @@
     },
     {
       "source": "/agent-platform/features/model-choice/",
-      "destination": "/agent-platform/capabilities/model-choice/",
+      "destination": "/agent-platform/inference/model-choice/",
       "statusCode": 308
     },
     {
@@ -5310,7 +5320,7 @@
     },
     {
       "source": "/agent-platform/features/terminal-ai/ai-models/",
-      "destination": "/agent-platform/capabilities/model-choice/",
+      "destination": "/agent-platform/inference/model-choice/",
       "statusCode": 308
     },
     {
@@ -6725,7 +6735,7 @@
     },
     {
       "source": "/support-and-community/help/ai-features/bring-your-own-llm/",
-      "destination": "/support-and-community/plans-and-billing/bring-your-own-api-key/",
+      "destination": "/agent-platform/inference/bring-your-own-api-key/",
       "statusCode": 308
     },
     {
@@ -6784,6 +6794,11 @@
       "statusCode": 308
     },
     {
+      "source": "/support-and-community/plans-and-billing/overages-legacy/",
+      "destination": "/support-and-community/plans-and-billing/add-on-credits/",
+      "statusCode": 308
+    },
+    {
       "source": "/support-and-community/plans-pricing-and-billing/",
       "destination": "/support-and-community/plans-and-billing/plans-pricing-refunds/",
       "statusCode": 308
@@ -6800,12 +6815,12 @@
     },
     {
       "source": "/support-and-community/plans-pricing-and-billing/bring-your-own-api-key/",
-      "destination": "/support-and-community/plans-and-billing/bring-your-own-api-key/",
+      "destination": "/agent-platform/inference/bring-your-own-api-key/",
       "statusCode": 308
     },
     {
       "source": "/support-and-community/plans-pricing-and-billing/overages-legacy/",
-      "destination": "/support-and-community/plans-and-billing/overages-legacy/",
+      "destination": "/support-and-community/plans-and-billing/add-on-credits/",
       "statusCode": 308
     },
     {
@@ -6870,7 +6885,7 @@
     },
     {
       "source": "/support-and-community/support-and-billing/plans-and-billing/bring-your-own-api-key/",
-      "destination": "/support-and-community/plans-and-billing/bring-your-own-api-key/",
+      "destination": "/agent-platform/inference/bring-your-own-api-key/",
       "statusCode": 308
     },
     {
@@ -6895,7 +6910,7 @@
     },
     {
       "source": "/support-and-community/support-and-billing/plans-and-pricing/bring-your-own-api-key/",
-      "destination": "/support-and-community/plans-and-billing/bring-your-own-api-key/",
+      "destination": "/agent-platform/inference/bring-your-own-api-key/",
       "statusCode": 308
     },
     {
@@ -6910,12 +6925,12 @@
     },
     {
       "source": "/support-and-community/support-and-billing/plans-and-pricing/usage-overages/",
-      "destination": "/support-and-community/plans-and-billing/overages-legacy/",
+      "destination": "/support-and-community/plans-and-billing/add-on-credits/",
       "statusCode": 308
     },
     {
       "source": "/support-and-community/support-and-billing/plans-and-prilling/bring-your-own-api-key/",
-      "destination": "/support-and-community/plans-and-billing/bring-your-own-api-key/",
+      "destination": "/agent-platform/inference/bring-your-own-api-key/",
       "statusCode": 308
     },
     {
@@ -6975,12 +6990,12 @@
     },
     {
       "source": "/support-and-community/support-and-community/plans-pricing-and-billing/bring-your-own-api-key/",
-      "destination": "/support-and-community/plans-and-billing/bring-your-own-api-key/",
+      "destination": "/agent-platform/inference/bring-your-own-api-key/",
       "statusCode": 308
     },
     {
       "source": "/support-and-community/support-and-community/plans-pricing-and-billing/overages-legacy/",
-      "destination": "/support-and-community/plans-and-billing/overages-legacy/",
+      "destination": "/support-and-community/plans-and-billing/add-on-credits/",
       "statusCode": 308
     },
     {
@@ -7175,7 +7190,7 @@
     },
     {
       "source": "/agent-platform/warp-agents/model-choice/",
-      "destination": "/agent-platform/capabilities/model-choice/",
+      "destination": "/agent-platform/inference/model-choice/",
       "statusCode": 308
     },
     {
@@ -7670,7 +7685,7 @@
     },
     {
       "source": "/agent-platform/warp-agents/capabilities-overview/model-choice/",
-      "destination": "/agent-platform/capabilities/model-choice/",
+      "destination": "/agent-platform/inference/model-choice/",
       "statusCode": 308
     },
     {
@@ -8030,7 +8045,7 @@
     },
     {
       "source": "/support-and-billing/plans-and-pricing/bring-your-own-api-key/",
-      "destination": "/support-and-community/plans-and-billing/bring-your-own-api-key/",
+      "destination": "/agent-platform/inference/bring-your-own-api-key/",
       "statusCode": 308
     },
     {
@@ -8150,7 +8165,7 @@
     },
     {
       "source": "/agents/using-agents/model-choice",
-      "destination": "/agent-platform/capabilities/model-choice/",
+      "destination": "/agent-platform/inference/model-choice/",
       "statusCode": 308
     },
     {
@@ -8185,7 +8200,7 @@
     },
     {
       "source": "/agent-platform/agent/using-agents/model-choice",
-      "destination": "/agent-platform/capabilities/model-choice/",
+      "destination": "/agent-platform/inference/model-choice/",
       "statusCode": 308
     },
     {
@@ -8245,7 +8260,7 @@
     },
     {
       "source": "/agent-platform/warps-agent/capabilities-overview/model-choice",
-      "destination": "/agent-platform/capabilities/model-choice/",
+      "destination": "/agent-platform/inference/model-choice/",
       "statusCode": 308
     },
     {
@@ -8585,12 +8600,12 @@
     },
     {
       "source": "/agents/using-agents/model-choice#available-models",
-      "destination": "/agent-platform/capabilities/model-choice/",
+      "destination": "/agent-platform/inference/model-choice/",
       "statusCode": 308
     },
     {
       "source": "/agents/using-agents/model-choice#how-to-change-models",
-      "destination": "/agent-platform/capabilities/model-choice/",
+      "destination": "/agent-platform/inference/model-choice/",
       "statusCode": 308
     },
     {
@@ -8670,22 +8685,22 @@
     },
     {
       "source": "/agent-platform/agent/using-agents/model-choice#auto-models",
-      "destination": "/agent-platform/capabilities/model-choice/",
+      "destination": "/agent-platform/inference/model-choice/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/agent/using-agents/model-choice#available-models",
-      "destination": "/agent-platform/capabilities/model-choice/",
+      "destination": "/agent-platform/inference/model-choice/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/agent/using-agents/model-choice#how-to-change-models",
-      "destination": "/agent-platform/capabilities/model-choice/",
+      "destination": "/agent-platform/inference/model-choice/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/agent/using-agents/model-choice#model-fallback",
-      "destination": "/agent-platform/capabilities/model-choice/",
+      "destination": "/agent-platform/inference/model-choice/",
       "statusCode": 308
     },
     {
@@ -8840,17 +8855,17 @@
     },
     {
       "source": "/agent-platform/warps-agent/capabilities-overview/model-choice#auto-models",
-      "destination": "/agent-platform/capabilities/model-choice/",
+      "destination": "/agent-platform/inference/model-choice/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/warps-agent/capabilities-overview/model-choice#how-to-change-models",
-      "destination": "/agent-platform/capabilities/model-choice/",
+      "destination": "/agent-platform/inference/model-choice/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/warps-agent/capabilities-overview/model-choice#model-fallback",
-      "destination": "/agent-platform/capabilities/model-choice/",
+      "destination": "/agent-platform/inference/model-choice/",
       "statusCode": 308
     },
     {
@@ -9070,7 +9085,7 @@
     },
     {
       "source": "/agents/using-agents/model-choice#auto-models",
-      "destination": "/agent-platform/capabilities/model-choice/",
+      "destination": "/agent-platform/inference/model-choice/",
       "statusCode": 308
     },
     {
@@ -9576,6 +9591,21 @@
     {
       "source": "/agent-platform/capabilities/agent-memory",
       "destination": "/agent-platform/agent-memory/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/capabilities/model-choice",
+      "destination": "/agent-platform/inference/model-choice/",
+      "statusCode": 308
+    },
+    {
+      "source": "/support-and-community/plans-and-billing/bring-your-own-api-key",
+      "destination": "/agent-platform/inference/bring-your-own-api-key/",
+      "statusCode": 308
+    },
+    {
+      "source": "/support-and-community/plans-and-billing/custom-inference-endpoint",
+      "destination": "/agent-platform/inference/custom-inference-endpoint/",
       "statusCode": 308
     }
   ]

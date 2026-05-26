@@ -57,7 +57,7 @@ Cloud agents run on the [Oz Platform](/agent-platform/cloud-agents/platform/), w
 
 The exact way tasks are triggered and executed depends on your deployment model (for example CLI-only, Warp-hosted orchestration, or self-hosted execution). Those options are covered in the [Deployment Patterns](/agent-platform/cloud-agents/deployment-patterns/) pages.
 
-For teams that need execution to stay within their network boundary, self-hosting supports two architectures: a **managed** worker daemon that lets Oz orchestrate agents in Docker containers on your machines, and an **unmanaged** mode where you run `oz agent run` directly in your CI, Kubernetes, or dev environment. See [Self-Hosting](/agent-platform/cloud-agents/self-hosting/) for details.
+For teams that need execution to stay within their network boundary, self-hosting supports two architectures: a **managed** worker daemon that lets Oz orchestrate agents in Docker containers on your machines, and an **unmanaged** mode where you run `oz agent run` directly in your CI, Kubernetes, or dev environment. See [Self-hosting](/agent-platform/cloud-agents/self-hosting/) for details.
 
 ### What you get by default
 
@@ -110,7 +110,7 @@ If your team also uses Warp's terminal, you get an additional workflow: tasks la
 Cloud agents and [integrations](/agent-platform/cloud-agents/integrations/) run on the [Oz Platform](/agent-platform/cloud-agents/platform/) control plane, and usage is billed using credits.
 
 :::note
-[Bring Your Own Key (BYOK)](/support-and-community/plans-and-billing/bring-your-own-api-key/) is not supported for cloud agent runs. BYOK keys are stored locally on your device and are not accessible to cloud-hosted agents. All cloud agent runs consume Warp credits.
+[Bring Your Own API Key (BYOK)](/agent-platform/inference/bring-your-own-api-key/) is not supported for cloud agent runs. BYOK keys are stored locally on your device and are not accessible to cloud-hosted agents. All cloud agent runs consume Warp credits.
 :::
 
 #### For cloud agents via CLI/API
@@ -127,8 +127,7 @@ Integrations require you to be part of a [Warp team](/knowledge-and-collaboratio
 
 * **Plan requirements**
   * **Supported plans**: Build, Max, Business
-  * Not supported: Pro, Turbo, Lightspeed, legacy Business
-  * Your plan must support Add-on Credits.
+  * Your plan must support add-on credits.
 * **Credit requirements**
   * Your team must have at least 20 credits available to run cloud agents and integrations.
 
@@ -146,6 +145,7 @@ If your credit balance reaches zero, cloud agent runs will not be able to execut
 * [Oz Platform](/agent-platform/cloud-agents/platform/) — CLI, Oz API/SDK, orchestration, tasks, environments, hosts, integrations, and more.
 * [Harnesses](/agent-platform/cloud-agents/harnesses/) — pick between Warp Agent, Claude Code, and Codex for any cloud agent run.
 * [Agent identities](/agent-platform/cloud-agents/agents/) — team-scoped bot accounts that own and execute cloud agent runs.
+* [Multi-agent orchestration](/agent-platform/cloud-agents/orchestration/) — coordinate a parent agent and its child agents across local and cloud runs to build supervisor/worker, fan-out, critic, DAG, and swarm workflows.
 * [Skills as Agents](/agent-platform/cloud-agents/skills-as-agents/) — run agents based on reusable skill definitions from the CLI, web app, API, or on a schedule.
 * [Oz CLI](/reference/cli/) — shows how to run agents in non-interactive mode from CI, scripts, or remote machines, including auth and common commands.
 * [Environments](/agent-platform/cloud-agents/environments/) — explains how environments provide the runtime context (repo, image, startup commands) for agent tasks.

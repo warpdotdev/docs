@@ -145,6 +145,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 							items: [
 								{ slug: 'terminal/settings', label: 'Overview' },
 								{ slug: 'terminal/settings/all-settings', label: 'All settings reference' },
+								{ slug: 'terminal/settings/file-locations', label: 'File locations' },
 							],
 						},
 						{
@@ -259,7 +260,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 								'agent-platform/capabilities/skills',
 								'agent-platform/capabilities/planning',
 								{ slug: 'agent-platform/capabilities/task-lists', label: 'Task lists' },
-								'agent-platform/capabilities/model-choice',
 								'agent-platform/capabilities/rules',
 								{ slug: 'agent-platform/capabilities/agent-notifications', label: 'Agent notifications' },
 								{ slug: 'agent-platform/capabilities/full-terminal-use', label: 'Full terminal use' },
@@ -293,6 +293,15 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 								{ slug: 'agent-platform/local-agents/agent-context/selection-as-context', label: 'Selection as context' },
 								{ slug: 'agent-platform/local-agents/agent-context/using-to-add-context', label: 'Using @ to add context' },
 								'agent-platform/capabilities/mcp',
+							],
+						},
+						{
+							label: 'Inference & providers',
+							collapsed: true,
+							items: [
+								{ slug: 'agent-platform/inference/model-choice', label: 'Model choice' },
+								'agent-platform/inference/bring-your-own-api-key',
+								{ slug: 'agent-platform/inference/custom-inference-endpoint', label: 'Custom inference endpoint' },
 							],
 						},
 						{ slug: 'agent-platform/local-agents/interactive-code-review', label: 'Interactive code review' },
@@ -370,6 +379,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 								{ slug: 'agent-platform/cloud-agents/handoff', label: 'Overview' },
 								{ slug: 'agent-platform/cloud-agents/handoff/local-to-cloud', label: 'Local to cloud' },
 								{ slug: 'agent-platform/cloud-agents/handoff/cloud-to-cloud', label: 'Cloud to cloud' },
+								{ slug: 'agent-platform/cloud-agents/handoff/snapshots', label: 'Snapshots' },
 							],
 						},
 						'agent-platform/cloud-agents/secrets',
@@ -538,8 +548,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						'support-and-community/plans-and-billing/credits',
 						'support-and-community/plans-and-billing/add-on-credits',
 						{ slug: 'support-and-community/plans-and-billing/platform-credits', label: 'Platform credits' },
-						'support-and-community/plans-and-billing/bring-your-own-api-key',
-						'support-and-community/plans-and-billing/overages-legacy',
 						'support-and-community/plans-and-billing/pricing-faqs',
 					],
 				},
