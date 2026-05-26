@@ -79,6 +79,27 @@ Because PRs are created as you, the workflow slots seamlessly into your team’s
 
 ---
 
+### Permissions and data access
+
+When a workspace admin installs the Oz app, Slack prompts them to approve the scopes Oz needs to operate. At a high level, the Oz Slack app requests permission to:
+
+* View messages in public channels, private channels, group DMs, and direct messages that Oz has been added to
+* Send messages as Oz
+* View and upload files in channels Oz has been added to
+* View, add, and edit emoji reactions
+* View email addresses of people in the workspace (used to map Slack users to their Warp accounts)
+
+What Oz actually reads is narrower than what Slack's permission model can express:
+
+* Oz only reads from — and only posts to — threads that it has been explicitly tagged in or messaged directly.
+* Oz does not read the overall contents of channels it is added to, and does not ingest channel history outside of the threads it is participating in.
+
+:::caution
+Because Oz can read the threads it's tagged in, treat its access the same as you would any other workspace integration that handles message content. Be intentional about which channels you add Oz to, especially channels that may contain customer data, billing information, or other sensitive content.
+:::
+
+---
+
 ### Requirements
 
 * **Team membership** - The Slack integration requires you to be part of a [Warp team](/knowledge-and-collaboration/teams/). Teams can be created on any plan, including Free.

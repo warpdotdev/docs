@@ -63,6 +63,29 @@ Because PRs are created as _you_, this makes code review, auditing, and team col
 
 ---
 
+### Permissions and data access
+
+Oz installs into Linear as an [app actor](https://linear.app/developers/agents) (using Linear's `actor=app` OAuth mode), which means it appears as its own user in your workspace rather than acting on behalf of the installer. A Linear workspace admin must complete the installation, and the resulting access is scoped to the workspace.
+
+The Oz Linear app requests the following Linear OAuth scopes:
+
+* `read` — Read access to issues, comments, projects, and other workspace data Oz needs to understand the task it has been given.
+* `write` — Write access to create comments, post agent activities (status updates, plans, results), and attach GitHub pull requests to issues.
+* `app:assignable` — Allow Oz to be assigned as the [delegate](https://linear.app/developers/agents) on an issue. Assigning an issue to Oz sets it as the delegate, not the assignee, so the human assignee retains ownership while Oz acts on their behalf.
+* `app:mentionable` — Allow Oz to be mentioned in issues, comments, and other editor surfaces so users can trigger it with `@Oz`.
+
+What Oz actually reads is narrower than what these scopes can express:
+
+* Oz only acts on issues where it has been explicitly mentioned or assigned as the delegate.
+* Oz does not scan or ingest issues, projects, or comments that it has not been tagged on.
+* Team access for the app can be adjusted or revoked by workspace admins at any time from the Oz app details page in Linear.
+
+:::caution
+Be intentional about which Linear teams the Oz app has access to, especially teams whose issues may contain customer data or other sensitive information. Workspace admins can change team access at any time through the app details page.
+:::
+
+---
+
 ### Requirements
 
 * **Team membership** - The Linear integration requires you to be part of a [Warp team](/knowledge-and-collaboration/teams/). Teams can be created on any plan, including Free.
