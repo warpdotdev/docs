@@ -65,6 +65,10 @@ You may define any number of MCP servers in a single config.
 }
 ```
 
+:::note
+If the config passes through a system that pre-processes `{{...}}` before it reaches Oz (for example, Jira/Atlassian Automation), use JSON unicode escapes for the braces: `\u007b\u007bMY_SECRET\u007d\u007d` decodes to `{{MY_SECRET}}`, which Oz resolves normally.
+:::
+
 ## Using MCP servers in an agent config file
 
 For repeatable cloud agent workflows, declare your MCP servers inside the agent config file passed to `-f / --file`:
