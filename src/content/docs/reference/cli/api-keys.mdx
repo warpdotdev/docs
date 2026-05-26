@@ -14,12 +14,12 @@ Warp supports three types of API keys, each with different billing and identity 
 
 * **Personal API keys** - Cloud agent runs authenticate as you, just like running an agent from the Warp app or triggering one via Slack or Linear. On Build, Max, and Business plans, runs draw from your plan-included credits, then your add-on credits — both scoped to your individual user. On Enterprise plans, runs draw from the team-scoped credit pool, per your Enterprise contract terms.
 * **Team API keys** - Cloud agent runs are not tied to any individual user and execute under your team's default [agent identity](/agent-platform/cloud-agents/agents/). On Build, Max, and Business plans, Warp bills the team owner: the owner's plan-included credits, then the owner's add-on credits. With auto-reload off, the request is blocked when both pools are depleted (insufficient credits error). With auto-reload on, usage can trigger a reload on the owner's pool subject to the team-wide monthly spend cap. On Enterprise plans, team API key runs draw from the team-scoped credit pool. When [team GitHub authorization](/agent-platform/cloud-agents/team-access-billing-and-identity/#team-github-authorization) is configured, team key runs can also clone repositories and open pull requests using the Oz by Warp GitHub App.
-* **Agent API keys** - Cloud agent runs execute as a specific [agent identity](/agent-platform/cloud-agents/agents/) you choose at key creation time. Agent keys are a superset of team keys: every team starts with a built-in `Default Service Account` agent identity, and an Agent key bound to that identity behaves the same as a team API key (same billing waterfall, same team GitHub App behavior). Create additional agent identities — `ci-runner`, `nightly-jobs`, `on-call` — when you want runs from distinct workflows to be filterable and auditable as that bot in run history. See [Agent identities](/agent-platform/cloud-agents/agents/) for the full model.
+* **Agent API keys** - Cloud agent runs execute as a specific [agent identity](/agent-platform/cloud-agents/agents/) you choose at key creation time. Agent keys are a superset of team keys: every team starts with a built-in `Default Service Account` agent identity, and an agent key bound to that identity behaves the same as a team API key (same billing waterfall, same team GitHub App behavior). Create additional agent identities — `ci-runner`, `nightly-jobs`, `on-call` — when you want runs from distinct workflows to be filterable and auditable as that bot in run history. See [Agent identities](/agent-platform/cloud-agents/agents/) for the full model.
 
-Team and Agent API keys are useful for fully automated workflows, CI/CD pipelines, and scheduled tasks where no specific user context is needed. For the full credit waterfall and how it interacts with add-on credits, see [Access, billing, and identity permissions](/agent-platform/cloud-agents/team-access-billing-and-identity/) and [add-on credits](/support-and-community/plans-and-billing/add-on-credits/).
+Team and agent API keys are useful for fully automated workflows, CI/CD pipelines, and scheduled tasks where no specific user context is needed. For the full credit waterfall and how it interacts with add-on credits, see [Access, billing, and identity permissions](/agent-platform/cloud-agents/team-access-billing-and-identity/) and [add-on credits](/support-and-community/plans-and-billing/add-on-credits/).
 
 :::note
-**Migrating from a Team key to an Agent key?** No change is required. An Agent API key bound to the `Default Service Account` is functionally identical to a Team API key — same downstream billing, same GitHub App resolution, same headless-run behavior. The split into Personal/Team/Agent is a labeling change in the UI; existing Team keys continue to work and existing prerequisites that say "create a team-scoped API key" can be satisfied by either option.
+**Migrating from a team key to an agent key?** No change is required. An agent API key bound to the `Default Service Account` is functionally identical to a team API key — same downstream billing, same GitHub App resolution, same headless-run behavior. The split into `Personal` / `Team` / `Agent` is a labeling change in the UI; existing team keys continue to work and existing prerequisites that say "create a team-scoped API key" can be satisfied by either option.
 :::
 
 ## Creating API keys
@@ -32,7 +32,7 @@ You can create an API key in either the [Oz web app](https://oz.warp.dev/setting
 2. In the API Keys section, click **New API key**.
 3. Choose the key type:
    * **Personal** - Tied to your individual Warp account.
-   * **Agent** - Tied to a specific [agent identity](/agent-platform/cloud-agents/agents/) on your team. The dropdown lists every available identity, including the built-in `Default Service Account`. Use the default identity when you want behavior identical to a traditional team key; pick a named identity for workflow-scoped attribution.
+   * **Agent** - Tied to a specific [agent identity](/agent-platform/cloud-agents/agents/) on your team. The dropdown lists every available identity, including the built-in `Default Service Account`. Pick the default identity when you want behavior identical to a traditional team key, or a named identity for workflow-scoped attribution.
 4. Enter a name and choose an expiration (1 day, 30 days, 90 days, or never).
 5. Click **Create key**.
 6. Copy the raw API key and store it securely. **You won't be able to see it again after closing the dialog.**
@@ -44,7 +44,7 @@ You can create an API key in either the [Oz web app](https://oz.warp.dev/setting
 3. In the API Keys section, click **+ Create API Key**.
 4. Choose the key type:
    * **Personal** - Tied to your individual Warp account.
-   * **Team** - Tied to your team's default agent identity (`Default Service Account`). Equivalent to creating an Agent key bound to the default identity from the Oz web app.
+   * **Team** - Tied to your team's default agent identity (`Default Service Account`). Equivalent to creating an agent key bound to the default identity from the Oz web app.
 5. Name the key and choose an expiration (1 day, 30 days, 90 days, or never).
 6. Click **Create key**.
 7. Copy the raw API key and store it securely. **You won't be able to see it again after closing the dialog.**
@@ -96,19 +96,19 @@ The Oz web app at [oz.warp.dev/settings](https://oz.warp.dev/settings) and the W
 
 * **Name** - The name you assigned when creating the key
 * **Key** - A masked suffix (`wk-**xxxx`) to help identify the key
-* **Scope** - Whether the key is Personal, Team, or Agent. Agent keys also show which [agent identity](/agent-platform/cloud-agents/agents/) the key is bound to.
+* **Scope** - Whether the key is **Personal**, **Team**, or **Agent**. Agent keys also show which [agent identity](/agent-platform/cloud-agents/agents/) the key is bound to.
 * **Created** - When the key was created
 * **Last used** - When the key was last used for authentication
 * **Expires at** - The key's expiration date, or "Never" if it doesn't expire
 
 ### Deleting API keys
 
-To delete an API key, find it in the list and click the delete icon next to the key in either surface.
+To delete an API key, find it in either the Oz web app or the Warp desktop app's API Keys list and click the delete icon next to the key.
 
 Deleted keys are immediately invalidated and cannot be recovered. Any services or scripts using the deleted key will lose access.
 
 :::caution
-Deleting a named [agent identity](/agent-platform/cloud-agents/agents/) atomically deletes every Agent API key bound to that identity. To rotate the identity instead of removing it, generate a new key first, swap your automation over, and then delete the old key.
+Deleting a named [agent identity](/agent-platform/cloud-agents/agents/) atomically deletes every agent API key bound to that identity. To rotate the identity instead of removing it, generate a new key first, swap your automation over, and then delete the old key.
 :::
 
 ## Best practices

@@ -82,7 +82,7 @@ Your team must meet the following requirements to run integrations:
 When a user triggers an agent through an integration (like Slack or Linear), the run draws from credits based on who the run is billed to:
 
 * **User-triggered runs on Build, Max, or Business** - Warp draws from any [cloud agent credits](/support-and-community/plans-and-billing/credits/#compute-credits) the user has, then the user's plan-included credits, then the user's add-on credits. Add-on credits are scoped to the individual user and are not shared across the team.
-* **Team or agent API key, or scheduled cloud agent runs on Build, Max, or Business** - Warp bills the team owner. The waterfall is: the owner's plan-included credits, then the owner's add-on credits. With auto-reload off, the request is blocked when both pools are depleted. With auto-reload on, usage can trigger a reload on the owner's pool subject to the team-wide monthly spend cap. On Enterprise plans, these runs draw from the team-scoped credit pool. When [team GitHub authorization](/agent-platform/cloud-agents/team-access-billing-and-identity/#team-github-authorization) is configured, team and agent key runs can also clone repositories and open pull requests using the Oz by Warp GitHub App.
+* **Team or agent API key, or scheduled cloud agent runs on Build, Max, or Business** - Warp bills the team owner. The waterfall is: the owner's plan-included credits, then the owner's add-on credits. With auto-reload off, the request is blocked when both pools are depleted. With auto-reload on, usage can trigger a reload on the owner's pool subject to the team-wide monthly spend cap.
 * **Enterprise plans** - Runs draw from the team-scoped credit pool, per your Enterprise contract terms.
 
 If all applicable credit sources are exhausted and no auto-reload is configured, integrations and cloud agents will not run until credits are added. See [add-on credits](/support-and-community/plans-and-billing/add-on-credits/) for the full self-serve waterfall and [platform credits](/support-and-community/plans-and-billing/platform-credits/) for the third bucket that applies to every cloud agent run.
@@ -140,7 +140,7 @@ There are two places you may encounter this installation flow:
    <figcaption>Enabled GitHub Orgs setting in the Admin Panel.</figcaption>
    </figure>
 
-3. **Use a team or agent API key.** Tasks initiated with a team API key (Warp desktop app) or an Agent API key bound to any agent identity (Oz web app) now use tokens from the GitHub App installation to clone repos and push changes. No individual GitHub authorization is needed.
+3. **Use a team or agent API key.** Tasks initiated with a team API key (Warp desktop app) or an agent API key bound to any agent identity (Oz web app) now use tokens from the GitHub App installation to clone repos and push changes. No individual GitHub authorization is needed.
 
 ### How this relates to environments
 
@@ -156,7 +156,7 @@ The environment configuration and the **Enabled GitHub Orgs** setting in the Adm
 Team GitHub authorization is complementary to the existing personal token flow:
 
 * **User-triggered runs** (personal API key, Slack, Linear, Warp app) - The agent authenticates as Oz acting on the triggering user's behalf. PRs and commits are attributed to that user.
-* **Team or agent API key runs with GitHub App authorization** - The agent authenticates as the GitHub App installation. PRs and commits are attributed to the agent identity (or, for Warp-app-created team keys, the team's `Default Service Account`) rather than any individual user.
+* **Team or agent API key runs with GitHub App authorization** - The agent authenticates as the GitHub App installation. PRs and commits are attributed to the agent identity — or, for team keys created in the Warp desktop app, the team's `Default Service Account` — rather than any individual user.
 
 Both flows can coexist on the same team. Personal tokens are still used for user-triggered runs, and the GitHub App installation token is used when a task is initiated with a team or agent API key.
 

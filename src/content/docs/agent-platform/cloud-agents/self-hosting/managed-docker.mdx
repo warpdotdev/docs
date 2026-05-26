@@ -26,7 +26,7 @@ This page covers the [managed architecture](/agent-platform/cloud-agents/self-ho
 * **Enterprise plan with self-hosting enabled** — [Contact sales](https://www.warp.dev/contact-sales) if self-hosting is not yet enabled for your team.
 * **A machine to run the worker** — A VM, server, or local machine running Linux (recommended for production). For testing, macOS and Windows hosts running Docker Desktop work.
 * **Docker installed** — The worker uses Docker to spawn task containers. The Docker daemon must run Linux containers (Windows containers are not supported). Verify with `docker info`.
-* **A team or agent API key** — Create one in the [Oz web app](https://oz.warp.dev/settings) (`Agent` type bound to the `Default Service Account`) or in the Warp app under **Settings** > **Cloud platform** > **Oz Cloud API Keys** (`Team` type). The two options are equivalent for self-hosting. See [API Keys](/reference/cli/api-keys/) for details.
+* **A team or agent API key** — Create one in the [Oz web app](https://oz.warp.dev/settings) (**Agent** type bound to the `Default Service Account`) or in the Warp app under **Settings** > **Cloud platform** > **Oz Cloud API Keys** (**Team** type). The two options are equivalent for self-hosting. See [API Keys](/reference/cli/api-keys/) for details.
 
 :::caution
 Task containers require a **linux/amd64** or **linux/arm64** Docker daemon. The worker host itself can be any OS — Docker Desktop on macOS and Windows runs a Linux VM that satisfies this requirement.
