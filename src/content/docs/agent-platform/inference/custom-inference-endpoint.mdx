@@ -60,7 +60,7 @@ Warp routes inference requests through its servers, so endpoint URLs must be pub
 
 To route through a model running on your own machine (for example, Ollama, LM Studio, vLLM, or llama.cpp), expose it through a tunneling service like [ngrok](https://ngrok.com/) and use the public tunnel URL as the base URL in your endpoint configuration.
 
-For example, with a default Ollama install listening on port `11434`, run `ngrok http 11434` and use the resulting `https://*.ngrok-free.app` URL as your endpoint. Other tunneling services that produce a publicly reachable HTTPS URL (Cloudflare Tunnel, Tailscale Funnel, and similar) work the same way.
+For example, with a default Ollama install listening on port `11434`, run `ngrok http 11434` and use the resulting `https://*.ngrok-free.app/v1` URL as your endpoint. Other tunneling services that produce a publicly reachable HTTPS URL (Cloudflare Tunnel, Tailscale Funnel, and similar) work the same way.
 
 ## Billing behavior
 
