@@ -13,7 +13,7 @@ Add agents to your GitHub Actions workflows with [`oz-agent-action`](https://git
 
 ## Prerequisites
 
-* **Warp API key** - Create one in the [Oz web app](https://oz.warp.dev/settings) or in the Warp app under **Settings** > **Cloud platform** > **Oz Cloud API Keys**. Personal and agent keys both work; use a personal key if the agent needs to write to your repo as you, or an agent key with [team GitHub authorization](/agent-platform/cloud-agents/team-access-billing-and-identity/#team-github-authorization) for headless workflows. See [API Keys](/reference/cli/api-keys/) for details, including the note on the legacy team-key label.
+* **Warp API key** - Create one in the [Oz web app](https://oz.warp.dev/settings). Use a personal key if the agent should commit as you, or an agent key bound to an [agent identity](/agent-platform/cloud-agents/agents/) with [team GitHub authorization](/agent-platform/cloud-agents/team-access-billing-and-identity/#team-github-authorization) for headless workflows. See [API Keys](/reference/cli/api-keys/) for the full creation flow and principal selection.
 * **A GitHub repository with Actions enabled** - The workflow file will live in `.github/workflows/` in your repo.
 
 ---
