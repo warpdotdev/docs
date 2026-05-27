@@ -181,7 +181,7 @@ When creating a run, schedule, or integration in the [Oz web app](https://oz.war
 
 Self-hosted workers fully support [environments](/agent-platform/cloud-agents/environments/). When a task specifies an environment, the worker resolves the Docker image, clones the repositories, runs setup commands, and executes the agent inside the prepared container or Kubernetes Job.
 
-The same environment can be used for both Warp-hosted and self-hosted runs without modification. See [Environments](/agent-platform/cloud-agents/environments/) for details on creating and configuring them.
+The same environment can be used for both Warp-hosted and self-hosted runs without modification. If your agents need custom tools, binaries, scripts, or system packages, add them to the environment's Docker image. See [Environments](/agent-platform/cloud-agents/environments/) for details on creating and configuring custom images.
 
 :::note
 With the Kubernetes backend, setting a [`default_image`](/agent-platform/cloud-agents/self-hosting/reference/#kubernetes-backend-config) on the worker lets you skip creating a Warp environment when all your tasks use the same base image.
