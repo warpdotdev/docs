@@ -3864,6 +3864,11 @@
       "statusCode": 308
     },
     {
+      "source": "/university/warp-runtime/building-a-slackbot",
+      "destination": "/agent-platform/cloud-agents/integrations/slack/",
+      "statusCode": 308
+    },
+    {
       "source": "/university/how-warp-uses-warp/building-warps-input-with-warp",
       "destination": "/guides/build-an-app-in-warp/building-warps-input-with-warp/",
       "statusCode": 308
@@ -4101,6 +4106,11 @@
     {
       "source": "/guides/build-an-app-in-warp/building-a-chrome-extension-d3.js-\\+-javascript-\\+-html-\\+-css",
       "destination": "/guides/build-an-app-in-warp/building-a-chrome-extension-d3js-javascript-html-css/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/build-an-app-in-warp/building-a-slackbot",
+      "destination": "/agent-platform/cloud-agents/integrations/slack/",
       "statusCode": 308
     },
     {
@@ -7746,6 +7756,11 @@
     {
       "source": "/guides/build-an-app-in-warp/building-a-real-time-chat-app-github-mcp-\\+-railway/",
       "destination": "/guides/build-an-app-in-warp/building-a-real-time-chat-app-github-mcp-railway/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/build-an-app-in-warp/building-a-slackbot/",
+      "destination": "/agent-platform/cloud-agents/integrations/slack/",
       "statusCode": 308
     },
     {
