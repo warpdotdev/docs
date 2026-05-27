@@ -686,7 +686,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'guides/build-an-app-in-warp/building-a-real-time-chat-app-github-mcp-railway', label: 'Build a Real-time Chat App' },
 						{ slug: 'guides/build-an-app-in-warp/building-a-chrome-extension-d3js-javascript-html-css', label: 'Build a Chrome Extension' },
 						{ slug: 'guides/build-an-app-in-warp/building-warps-input-with-warp', label: 'Build Warp\'s Own Input Component' },
-						'guides/build-an-app-in-warp/building-a-slackbot',
 					],
 				},
 				{
