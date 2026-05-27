@@ -11,8 +11,6 @@ This gives you control over cloud spend and model hosting, without changing how 
 
 :::caution
 BYOLLM currently supports **AWS Bedrock** only. Coming soon: Azure Foundry and Google Vertex support.
-
-BYOLLM applies to both interactive Oz agents in the terminal and Oz cloud agent runs.
 :::
 
 :::note
@@ -21,10 +19,10 @@ BYOLLM is only available on Warp's Enterprise plan. Contact [warp.dev/contact-sa
 
 ## Key features
 
-* **No API keys** - Warp authenticates to AWS Bedrock by assuming an IAM role you control. Warp does not require or store long-lived provider API keys.
+* **Cloud-native credentials** - Authenticate using each user’s AWS IAM identity. Warp does not store long-lived API keys.
+* **Identity federation** - Agents access AWS Bedrock via OIDC identity federation, assuming an IAM role you control.
 * **Admin-enforced routing** - Team admins configure which models are available to users in AWS Bedrock, with the ability to disable non-Bedrock model access entirely.
 * **Consolidated billing** - Inference costs are billed directly to your AWS account, leveraging existing cloud commitments.
-* **Per-identity scoping** - Trust policy conditions distinguish between human team members and named agents (service accounts), so admins can scope each independently.
 
 ## How BYOLLM works
 
@@ -68,7 +66,7 @@ Before configuring BYOLLM, confirm the following:
 
 * Your organization has the desired models enabled in AWS Bedrock.
 * You have admin access to both Warp's [Admin Panel](/enterprise/team-management/admin-panel/) and your AWS IAM settings.
-* Your AWS account already has an IAM OIDC provider configured for Warp's issuer host, or you are prepared to create one before creating the role.
+* Team members have the AWS CLI installed locally.
 
 ### Step 1: Configure routing policies (admin)
 
@@ -76,10 +74,77 @@ In the [Admin Panel](/enterprise/team-management/admin-panel/), configure which 
 
 1. From the [Admin Panel](/enterprise/team-management/admin-panel/), navigate to the BYOLLM or model routing settings.
 2. Select which models should use your cloud provider (e.g., "Claude Sonnet 4.5 via AWS Bedrock").
+3. Optionally, disable direct API access to enforce provider-only routing.
+
+### Step 2: Provision IAM roles (cloud admin)
+
+Grant your team members the necessary permissions in AWS. Use least-privilege IAM policies.
+
+**Example: AWS Bedrock minimum IAM policy**
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "BedrockModelAccess",
+      "Effect": "Allow",
+      "Action": [
+        "bedrock:InvokeModel",
+        "bedrock:InvokeModelWithResponseStream"
+      ],
+      "Resource": [
+        "arn:aws:bedrock:*::foundation-model/*",
+        "arn:aws:bedrock:*:*:inference-profile/*",
+        "arn:aws:bedrock:*:*:application-inference-profile/*"
+      ]
+    }
+  ]
+}
+```
+
+:::note
+This policy covers Warp's current usage. Warp uses global inference profiles for models when available.
+:::
+
+### Step 3: Authenticate locally (team member)
+
+Each team member authenticates to AWS using the AWS CLI:
+
+```bash
+aws login
+```
+
+Confirm your AWS environment and region are correctly configured before using Warp.
+
+### Step 4: Validate
+
+Run a test prompt in Warp using a model configured for BYOLLM routing. Verify:
+
+* The request completes successfully.
+* Logs appear in AWS CloudWatch.
+
+## Enabling BYOLLM for Cloud Agents
+
+Cloud agents authenticate to AWS Bedrock differently from the local terminal flow above. Instead of relying on each user's AWS CLI session, Warp assumes an IAM role you provision in your AWS account using OIDC identity federation.
+
+### Prerequisites
+
+Before configuring BYOLLM for cloud agents, confirm the following:
+
+* You have admin access to both Warp's [Admin Panel](/enterprise/team-management/admin-panel/) and your AWS IAM settings.
+* Your AWS account already has an IAM OIDC provider configured for Warp's issuer host, or you are prepared to create one before creating the role.
+
+### Step 1: Configure routing policies (admin)
+
+In the [Admin Panel](/enterprise/team-management/admin-panel/), configure which models should route through AWS Bedrock for cloud agents:
+
+1. From the [Admin Panel](/enterprise/team-management/admin-panel/), navigate to the BYOLLM or model routing settings.
+2. Select which models should use your cloud provider (e.g., "Claude Sonnet 4.5 via AWS Bedrock").
 3. Enter the AWS IAM role ARN Warp should assume for Bedrock requests.
 4. Optionally, disable direct API access to enforce provider-only routing.
 
-### Step 2: Provision IAM roles (cloud admin)
+### Step 2: Provision an assumable IAM role (cloud admin)
 
 Create an IAM role that Warp can assume via OIDC, then attach the minimum Bedrock permissions policy. Use least-privilege IAM policies.
 
@@ -90,7 +155,7 @@ The role setup has two parts:
 
 #### Trust policy requirements
 
-This section covers the trust policy for **human team members** assuming the role from the Warp terminal or from Oz cloud agent runs they trigger themselves. For named-agent (service-account) runs, see [BYOLLM on Oz](#byollm-on-oz).
+This section covers the trust policy for **human-triggered cloud agent runs** — runs a user kicks off themselves. For named-agent (service-account) runs, see [Authorizing named agents](#authorizing-named-agents).
 
 Your trust policy should:
 
@@ -128,7 +193,7 @@ Replace the account ID, issuer host, and team UID with values for your environme
 The `<team-uid>` is the Warp team UID for the team that will be allowed to assume this role. You can find it in the Warp [Admin Panel](/enterprise/team-management/admin-panel/) under your team's settings.
 
 :::note
-The full `sub` claim Warp signs has the shape `scoped_principal:<team-uid>/<actor-type>:<principal-uid>`, where `<actor-type>` is `user` for human-triggered runs and `service_account` for named-agent runs. The `user:*` pattern matches every human user on the team. To also authorize named agents on the same role, see [BYOLLM on Oz](#byollm-on-oz).
+The full `sub` claim Warp signs has the shape `scoped_principal:<team-uid>/<actor-type>:<principal-uid>`, where `<actor-type>` is `user` for human-triggered runs and `service_account` for named-agent runs. The `user:*` pattern matches every human user on the team. To also authorize named agents on the same role, see [Authorizing named agents](#authorizing-named-agents).
 :::
 
 #### Minimum Bedrock permissions policy
@@ -226,23 +291,23 @@ After you create the role, copy its ARN into Warp's BYOLLM or model routing sett
 
 ### Step 3: Validate the configuration
 
-Run a test prompt in Warp using a model configured for BYOLLM routing. Verify:
+Kick off a test cloud agent run using a model configured for BYOLLM routing. Verify:
 
 * The request completes successfully.
 * Logs appear in AWS CloudWatch.
 
-## BYOLLM on Oz
+### Authorizing named agents
 
-The sections above set up BYOLLM for **human team members** — both interactive terminal use and Oz cloud agent runs they trigger themselves. Both cases authenticate as the user (`scoped_principal:<team-uid>/user:<user-uid>`).
+Step 2 above sets up the trust policy for human-triggered cloud agent runs, which authenticate as the user (`scoped_principal:<team-uid>/user:<user-uid>`).
 
 Oz also runs **named agents**, which are service accounts owned by the team rather than individual humans. A named-agent run authenticates as its service account, not as the user who created or scheduled it. The `sub` claim therefore has a different shape:
 
-* Human run: `scoped_principal:<team-uid>/user:<user-uid>`
+* Human-triggered run: `scoped_principal:<team-uid>/user:<user-uid>`
 * Named-agent run: `scoped_principal:<team-uid>/service_account:<service-account-uid>`
 
-Because the actor type differs, the trust policy you set up in Step 2 above (`user:*`) does not authorize named-agent runs. You have two options for adding them.
+Because the actor type differs, the trust policy you set up in Step 2 (`user:*`) does not authorize named-agent runs. You have two options for adding them.
 
-### Option A: Authorize all named agents on the same role
+#### Option A: Authorize all named agents on the same role
 
 Add a second `StringLike` pattern to the same trust policy condition so the role accepts both human users and any named agent on the team:
 
@@ -262,7 +327,7 @@ Add a second `StringLike` pattern to the same trust policy condition so the role
 
 This is the simplest option when every named agent on the team should be allowed to use BYOLLM.
 
-### Option B: Authorize specific named agents by UID
+#### Option B: Authorize specific named agents by UID
 
 If you want only a subset of named agents to use BYOLLM, list their UIDs explicitly:
 
@@ -283,7 +348,7 @@ If you want only a subset of named agents to use BYOLLM, list their UIDs explici
 
 You can also use `StringEquals` instead of `StringLike` for the service-account UIDs if you want strict matching with no wildcards.
 
-### Finding team and agent UIDs
+#### Finding team and agent UIDs
 
 To build the `sub` patterns above, you'll need your team UID and (for Option B) the UID of each named agent.
 
