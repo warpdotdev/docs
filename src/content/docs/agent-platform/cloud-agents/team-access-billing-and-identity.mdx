@@ -219,7 +219,7 @@ How credits are consumed depends on how the agent run is triggered and authentic
 * On Build, Max, and Business plans, credits are consumed starting with any [cloud agent credits](/support-and-community/plans-and-billing/credits/#compute-credits) allocated to the user, then the user's plan-included credits, then the user's add-on credits. Add-on credits are scoped to the individual user.
 * On Enterprise plans, runs draw from the team-scoped credit pool, per your Enterprise contract terms.
 
-**Agent API key and scheduled cloud agent runs** (fully automated or headless workflows):
+**Agent API key and scheduled cloud agent runs** (fully automated workflows):
 
 * Runs are not tied to any individual user.
 * On Build, Max, and Business plans, Warp bills the team owner: the owner's plan-included credits, then the owner's add-on credits. With auto-reload off, the request is blocked when both pools are depleted. With auto-reload on, usage can trigger a reload on the owner's add-on credit pool subject to the team-wide monthly spend cap.

@@ -12,7 +12,7 @@ API keys let the Oz CLI and cloud agents authenticate without human interaction.
 
 Every API key authenticates as a **principal** — either you (the human) or an [agent identity](/agent-platform/cloud-agents/agents/) (a team-scoped bot account). The choice of principal determines who runs are attributed to, which credentials they inherit, and how billing is charged. Pick the principal that matches the workflow, then create the key.
 
-* **Personal API keys** authenticate as you. Runs execute with your GitHub permissions, draw from your credit pool, and inherit your account's [skills](/agent-platform/capabilities/skills/). Use a personal key when the headless workflow should act on your behalf — for example, developer-triggered API automation, or the [Enterprise Analytics API](/enterprise/enterprise-features/analytics-api/), which only accepts personal keys.
+* **Personal API keys** authenticate as you. Runs execute with your GitHub permissions, draw from your credit pool, and inherit your account's [skills](/agent-platform/capabilities/skills/). Use a personal key when the automated workflow should act on your behalf — for example, developer-triggered API automation, or the [Enterprise Analytics API](/enterprise/enterprise-features/analytics-api/), which only accepts personal keys.
 * **Agent API keys** authenticate as a specific [agent identity](/agent-platform/cloud-agents/agents/) on your team. The key is bound to one identity at creation time. Runs inherit that identity's name, managed secrets, and skills, and show up in the [Oz dashboard](https://oz.warp.dev) attributed to that bot rather than to a person.
 
 ## Agent identities power agent API keys
@@ -31,7 +31,7 @@ See [Agent identities](/agent-platform/cloud-agents/agents/) for the full model 
 
 ## The Default Service Account
 
-Every team starts with a built-in agent identity called `Default Service Account`. It's the no-config baseline: it has no attached secrets or skills, and headless runs that don't explicitly bind to a custom identity execute as it.
+Every team starts with a built-in agent identity called `Default Service Account`. It's the no-config baseline: it has no attached secrets or skills, and automated runs that don't pick a specific identity execute as it.
 
 An agent API key bound to the `Default Service Account` is the simplest case of an agent key — it works for most teams that just want a single shared bot for automation. As you add named identities for specific workflows, the default keeps serving as the catch-all for runs that don't pick one.
 
@@ -45,7 +45,7 @@ You can create an API key in either the [Oz web app](https://oz.warp.dev/setting
 
 ### From the Oz web app (recommended)
 
-The Oz web app is the only surface where you can bind a key to a specific agent identity. If you want a workflow-scoped key (e.g., `deploy-bot`), [create the identity](/agent-platform/cloud-agents/agents/) first.
+The Oz web app is the only surface where you can bind a key to a specific agent identity. If you want a key for a specific bot (e.g., `deploy-bot`), [create the identity](/agent-platform/cloud-agents/agents/) first.
 
 1. Open [oz.warp.dev/settings](https://oz.warp.dev/settings).
 2. In the API Keys section, click **New API key**.
@@ -128,7 +128,7 @@ Deleting a named [agent identity](/agent-platform/cloud-agents/agents/) atomical
 ## Best practices
 
 * **Pick the agent identity that matches the workflow** — Instead of using one shared `Default Service Account` key everywhere, create a custom identity per workflow (deploy bot, PR reviewer, dependency upgrader) and bind one key to each. Runs become filterable by identity, credentials stay scoped to the workflow that needs them, and rotation only affects the one workflow.
-* **Use personal keys for personal-attribution workflows** — When a headless run should act on your behalf and code changes should be attributed to your GitHub account, a personal key is the right choice. Use agent keys when the run is automation that runs without a specific person behind it.
+* **Use personal keys for personal-attribution workflows** — When an automated run should act on your behalf and code changes should be attributed to your GitHub account, a personal key is the right choice. Use agent keys when the run is automation that runs without a specific person behind it.
 * **Use environment variables** — Avoid passing API keys directly in commands where they may be logged or visible in shell history.
 * **Set appropriate expiration** — Use shorter expiration times for development and testing; consider longer durations for stable production workflows.
 * **Configure team GitHub authorization for agents that write to GitHub** — Personal keys authenticate as you with your GitHub permissions. Agent keys authenticate via the [Oz by Warp GitHub App](/agent-platform/cloud-agents/team-access-billing-and-identity/#team-github-authorization) when team GitHub authorization is configured in the Admin Panel.

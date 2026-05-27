@@ -10,7 +10,7 @@ sidebar:
 
 An **agent identity** is a team-scoped bot account that can own and execute cloud agent runs. Every Warp team starts with a single default agent identity (`Default Service Account`). Creating additional agent identities lets you separate workflows, scope credentials, and attribute automated runs to a specific bot rather than to a person.
 
-Think of an agent identity like an IAM service account: it has a name, a description, its own set of managed secrets, and its own preloaded skills. When you bind an [API key](/reference/cli/api-keys/) to it, every headless run authenticated by that key executes *as* that bot — with that bot's credentials, that bot's skills, and that bot's name in the dashboard.
+Think of an agent identity like an IAM service account: it has a name, a description, its own set of managed secrets, and its own preloaded skills. When you bind an [API key](/reference/cli/api-keys/) to it, every automated run authenticated by that key executes *as* that bot — with that bot's credentials, that bot's skills, and that bot's name in the dashboard.
 
 Agent identities are useful when you want to:
 
@@ -21,7 +21,7 @@ Agent identities are useful when you want to:
 
 ## How agent identities work
 
-Each team has one default agent identity, called `Default Service Account`. Headless runs (such as agent API key runs that don't specify an identity) execute under this default. User-triggered runs default to running as the calling user, which is surfaced as **Quick run** in the web app, unless you pick a specific agent identity. You can create additional agent identities on top of the default and run as any of them. Identities are team-scoped, so every member of a team can see and use the same set of agent identities.
+Each team has one default agent identity, called `Default Service Account`. Automated runs (such as agent API key runs that don't specify an identity) execute under this default. User-triggered runs default to running as the calling user, which is surfaced as **Quick run** in the web app, unless you pick a specific agent identity. You can create additional agent identities on top of the default and run as any of them. Identities are team-scoped, so every member of a team can see and use the same set of agent identities.
 
 You can attach the following configuration to an agent identity:
 
@@ -63,7 +63,7 @@ The same pattern works for any per-workflow identity: a `pr-reviewer` identity w
 
 ## Agent API keys
 
-An **agent API key** is the credential that lets a headless caller execute as a specific agent identity. The key is bound to one identity at creation time and inherits that identity's secrets and skills for every run.
+An **agent API key** is the credential that lets an automated caller (CI, scheduler, webhook handler) execute as a specific agent identity. The key is bound to one identity at creation time and inherits that identity's secrets and skills for every run.
 
 See [API keys](/reference/cli/api-keys/) for the full creation flow, the per-surface (Oz web app vs. Warp desktop app) differences, and the relationship to legacy "team API keys."
 
@@ -114,7 +114,7 @@ There are two ways to run a cloud agent as a specific agent identity:
 * **Authenticate with a key bound to the identity** - Every run started with that key executes as the bound agent identity. This is the typical path for CI pipelines and scheduled work.
 * **Pass `agent_identity_uid` on `POST /agent/runs`** - For one-off runs, send the agent identity's `uid` in the request body. The field is only valid for team-owned runs.
 
-When neither path is used, headless runs (agent API key runs without an explicit override) execute under the team's default agent identity. User-triggered runs (Warp app, personal API key, Slack, Linear) execute as the calling user and are surfaced as **Quick run** in the web app.
+When neither path is used, automated runs (agent API key runs without an explicit override) execute under the team's default agent identity. User-triggered runs (Warp app, personal API key, Slack, Linear) execute as the calling user and are surfaced as **Quick run** in the web app.
 
 ## Where agent identities appear in the product
 
