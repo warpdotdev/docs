@@ -1,5 +1,5 @@
 ---
-title: Managing Cloud Agents
+title: Managing cloud agents
 description: >-
   Monitor and manage cloud agent activity across your team with Warp's
   centralized management view, including filtering, status tracking, and
@@ -99,3 +99,23 @@ In both _Personal_ and _All_ views, you can open the filter menu and filter by:
 * Status
 
 This is the fastest way to isolate "everything that failed today," "runs from Slack," or "what a specific teammate triggered via integrations."
+
+---
+
+### Orchestrated runs (parent and child)
+
+When a parent agent spawns one or more child agents through [multi-agent orchestration](/agent-platform/cloud-agents/orchestration/), the parent and each child are tracked as separate runs. Where you see them depends on the surface:
+
+* **Local children in the Warp app** - while you're viewing the parent agent, an orchestration pill bar above the agent view header shows one pill per child with a live status badge. Click a child pill to switch the pane to that child's conversation in place; click the parent pill - or the breadcrumb that replaces the pill bar while you're viewing a child - to return. Local children don't appear as separate rows in the management view list.
+* **Cloud children in the Warp app** - appear in the management view list as their own rows alongside the parent and other runs. Filter by source, status, or creator to isolate them.
+* **Cloud children in the [Oz web app](/agent-platform/cloud-agents/oz-web-app/)** - grouped under the parent's row on the Runs page, and surfaced together inside the parent's detail pane on a **Sub-agents** tab.
+
+The parent's own status reflects only its work - a parent can finish successfully while a child is still running or has failed. To verify that an orchestration completed, check each child individually from the pill bar (in the Warp app) or the **Sub-agents** tab (in the Oz web app).
+
+## Related pages
+
+* [Cloud agents overview](/agent-platform/cloud-agents/overview/) — What cloud agents are and when to use them.
+* [Multi-agent orchestration](/agent-platform/cloud-agents/orchestration/) — Parent/child model, run state transitions, and common orchestration patterns.
+* [Viewing cloud agent runs](/agent-platform/cloud-agents/viewing-cloud-agent-runs/) — Open and inspect a remote cloud agent run.
+* [Handoff between local and cloud agents](/agent-platform/cloud-agents/handoff/) — Move agent work between local and cloud, or continue a finished cloud run.
+* [Oz web app](/agent-platform/cloud-agents/oz-web-app/) — Manage runs and schedules from any browser.

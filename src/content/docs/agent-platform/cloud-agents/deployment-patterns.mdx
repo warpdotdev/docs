@@ -1,5 +1,5 @@
 ---
-title: Deployment Patterns
+title: Deployment patterns
 description: >-
   Common architectures for deploying cloud agents, including CLI-only,
   Oz-hosted, and self-hosted execution patterns.
@@ -22,7 +22,7 @@ Cloud agent setups usually have four moving parts:
 
 ### Pattern 1: CLI-only agents (bring your own orchestrator)
 
-Use this when you already have a system that schedules work (CI, dev boxes, internal orchestrators), and you just need a reliable, cloud-connected agent runner.
+Use this when you already have a system that schedules work (CI, dev boxes, internal orchestrators), and you need a reliable, cloud-connected agent runner.
 
 #### What it looks like
 
@@ -53,7 +53,7 @@ Use this when you already have a system that schedules work (CI, dev boxes, inte
 #### Minimal setup checklist
 
 * A Warp team
-* A service account (recommended for automation)
+* An [agent identity](/agent-platform/cloud-agents/agents/) (recommended for automation)
 * The Oz CLI installed on the runner / box
 * Any needed credentials (often via secrets + environment variables)
 
@@ -83,7 +83,7 @@ Use this when you want Oz to run agent workloads on Warp-managed infrastructure,
 * **First-party integrations (Slack, Linear, etc.)** that create tasks automatically from external events.
 * **Scheduled agents** for recurring work (cron-like automation).
 * **Custom triggers** from your own systems using Warp’s API/SDK.
-* **On-demand cloud jobs** using CLI commands like oz agent run-cloud.
+* **On-demand cloud jobs** using CLI commands like `oz agent run-cloud`.
 
 #### Example recipe: daily dead-code cleanup
 
@@ -101,12 +101,7 @@ Use this when you want Oz to run agent workloads on Warp-managed infrastructure,
 
 #### Example recipe: fan-out parallel work (sharding)
 
-If a task is naturally divisible:
-
-* Launch multiple cloud agents via oz agent run-cloud, each with:
-  * A shard of the repo (directory/module ownership)
-  * A shard of the prompt (one responsibility)
-* Aggregate results (PRs, notes, plans) in whatever system you prefer.
+When a task is naturally divisible, use [multi-agent orchestration](/agent-platform/cloud-agents/orchestration/) to spawn one child agent per shard from a single parent run. The parent owns coordination and result aggregation; the children execute in parallel, each with their own repo subset, prompt, and (optionally) model. See [Running orchestrated agents](/agent-platform/cloud-agents/orchestration/multi-agent-runs/) for slash command, CLI, web app, and API examples.
 
 #### Example recipe: same task across multiple models
 

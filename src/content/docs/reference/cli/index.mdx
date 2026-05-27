@@ -158,7 +158,7 @@ Use `oz whoami` to print information about the currently authenticated principal
 oz whoami
 ```
 
-The output includes your user or service account ID, display name, email, and team (when available). For machine-readable output, set `--output-format json` or `--output-format text`.
+The output includes your user or service account ID, display name, email, and team (when available). When the CLI is authenticated as a service account principal, that principal is an [agent identity](/agent-platform/cloud-agents/agents/) on your team. For machine-readable output, set `--output-format json` or `--output-format text`.
 
 ```sh
 # JSON output for scripts
@@ -234,7 +234,7 @@ I'll run a few terminal commands to:
 * `--name <NAME>` (`-n`) — label the run for grouping and traceability.
 * `--share` — share the session with teammates (see [Collaboration](/reference/cli/#collaboration)).
 * `--profile <ID>` — use a specific agent profile (see [Using Agent Profiles](/reference/cli/#using-agent-profiles)).
-* `--model <MODEL_ID>` — override the default model (see [Model Choice](/agent-platform/capabilities/model-choice/)).
+* `--model <MODEL_ID>` — override the default model (see [Model Choice](/agent-platform/inference/model-choice/)).
 * `--skill <SPEC>` — use a skill as the base prompt (see [Using Skills](/reference/cli/#using-skills)).
 * `--mcp <SPEC>` — start one or more MCP servers before execution (UUID, JSON file path, or inline JSON). Can be repeated.
 * `--environment <ID>` (`-e`) — run in a specific cloud environment.
