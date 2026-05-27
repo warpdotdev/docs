@@ -223,16 +223,18 @@ This applies the OIDC role to all cloud agent runs on the team.
 
 This applies the OIDC role only to runs from a specific named agent.
 
-1. In the Oz web app, [create a new agent](/agent-platform/cloud-agents/oz-web-app/#creating-a-new-agent) or edit an existing one.
+:::note
+We recommend using this option to test BYOLLM before rolling it out team-wide via Option A. A misconfiguration here only affects that agent's runs, not your whole team.
+:::
+
+In the Oz web app:
+
+1. [Create a new agent](/agent-platform/cloud-agents/oz-web-app/#creating-a-new-agent) or edit an existing one.
 2. In the agent form, expand the **AWS Bedrock** section.
 3. Choose **Custom** and paste the IAM role ARN from Step 2.
 4. Ensure the agent's default model is one that's enabled for Bedrock under the Admin Panel **Models** page.
 
 New runs for this agent will authenticate to Bedrock using the configured role.
-
-:::note
-BYOLLM-routed runs do not consume Warp credits. For details on how Warp tracks credit usage, see [The three credit buckets](/support-and-community/plans-and-billing/platform-credits/#the-three-credit-buckets).
-:::
 
 ### Step 4: Validate the configuration
 
@@ -241,38 +243,16 @@ Kick off a test cloud agent run using a model configured for BYOLLM routing. Ver
 * The request completes successfully.
 * Logs appear in AWS CloudWatch.
 
-### Per-agent inference provider overrides
-
-By default, named agents inherit the team-wide BYOLLM routing policy configured in the [Admin Panel](/enterprise/team-management/admin-panel/). You can override the role ARN, AWS region, or disable BYOLLM entirely on a per-agent basis through the public API:
-
-```json
-{
-  "inference_providers": {
-    "aws": {
-      "role_arn": "arn:aws:iam::<account-id>:role/<role-name>",
-      "region": "us-east-1",
-      "disabled": false
-    }
-  }
-}
-```
-
-Set this field on `POST /api/v1/agent/identities` or `PUT /api/v1/agent/identities/<uid>` to give an individual agent its own routing. Common uses:
-
-* Different agents assume different roles (e.g. for separate cost-allocation tags or different model permissions).
-* A specific agent runs in a different AWS region from the team default.
-* A specific agent opts out of BYOLLM entirely (`"disabled": true`) and falls back to Warp-managed inference.
-
-Any override role must have a trust policy that authorizes that agent's `sub` (typically the `service_account:<sa-uid>` form).
-
 ## BYOLLM usage and billing behavior
 
 ### Billing
 
 When a request routes through BYOLLM:
 
-* **Warp does not consume credits** for that request.
-* Your cloud provider account receives the inference costs directly.
+* **Warp does not consume AI credits** for that request.
+* Cloud agent runs still consume platform and compute credits for orchestration and the cloud agent's compute.
+
+See [The three credit buckets](/support-and-community/plans-and-billing/platform-credits/#the-three-credit-buckets) for more on credit types.
 
 ### Routing behavior
 
@@ -350,7 +330,7 @@ If all Direct API models remain enabled and BYOLLM is configured, Auto will try 
 
 ### Where does compute run and who pays?
 
-Inference runs in **your AWS account**. You pay AWS directly for compute usage. Warp does not consume credits for BYOLLM-routed requests.
+Inference runs in **your AWS account**, which AWS bills directly. Warp does not consume AI credits for BYOLLM-routed inference. Cloud agent runs continue to consume platform and compute credits for orchestration. See [The three credit buckets](/support-and-community/plans-and-billing/platform-credits/#the-three-credit-buckets) for more.
 
 ### What data does Warp store? Do you store our cloud credentials?
 
