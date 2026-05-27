@@ -31,7 +31,7 @@ Plan on about 15 minutes for the local setup. Cloud orchestration takes longer o
 | Split by file or subsystem | A feature spans independent modules that can be changed in parallel. | Assign each agent a worktree, branch, file boundary, and validation command. |
 | Builder plus reviewer | One agent implements while another reviews, writes tests, or checks edge cases. | Put the reviewer in a read-only or review-focused tab, or use a separate branch for test-only changes. |
 | Cloud fan-out | The work is large, slow, or can run away from your laptop. | Use [Multi-agent orchestration](/agent-platform/cloud-agents/orchestration/) or [Running orchestrated agents](/agent-platform/cloud-agents/orchestration/multi-agent-runs/) to spawn cloud children. |
-| Repeatable fleet workflow | You want the same agent pattern on every PR, issue, schedule, or release. | Use an Oz cloud agent with a trigger, skill, or API workflow, then inspect parent and child runs in the [Oz web app](/agent-platform/cloud-agents/oz-web-app/). |
+| Repeatable fleet workflow | You want the same agent pattern on every PR, issue, schedule, or release. | Use a cloud agent with a trigger, skill, or API workflow, then inspect parent and child runs in the [Oz web app](/agent-platform/cloud-agents/oz-web-app/). |
 
 ## Plan the split before launching agents
 
@@ -223,7 +223,7 @@ For repeatable or unattended workflows, start the parent from the Oz CLI, the Oz
 Cloud orchestration is the best fit when you need:
 
 * **Parallel fan-out** across many files, packages, PRs, issues, or services.
-* **Clear observability** across parent and child runs in the [Oz web app](/agent-platform/cloud-agents/oz-web-app/) or cloud agent management views.
+* **Clear observability** across parent and child runs in the [Oz web app](/agent-platform/cloud-agents/oz-web-app/) or the [Agent Management Panel](/agent-platform/cloud-agents/managing-cloud-agents/) in the Warp app.
 * **Durable handoff** through child run summaries, session links, artifacts, PRs, or messages.
 * **Team-scale execution** from Slack, Linear, schedules, GitHub Actions, the CLI, or the API.
 

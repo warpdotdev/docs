@@ -14,7 +14,7 @@ Cloud agents are autonomous, background agents that run on Warp's cloud infrastr
 
 ### Monitor, inspect, and share cloud agent runs
 
-To understand what a cloud agent did, start from the [management view](/agent-platform/cloud-agents/managing-cloud-agents/) or the [Oz web app](/agent-platform/cloud-agents/oz-web-app/). From there, you can find a run by source, status, trigger, or owner; open the run transcript; inspect the prompt, plan, commands, logs, and output; and share the session link with teammates for review.
+To understand what a cloud agent did, start from the [Agent Management Panel](/agent-platform/cloud-agents/managing-cloud-agents/) in the Warp app or the [Runs page in the Oz web app](/agent-platform/cloud-agents/oz-web-app/#runs). From there, you can find a run by source, status, trigger, or owner; open the run transcript; inspect the prompt, plan, commands, logs, and output; and share the session link with teammates for review.
 
 For a full walkthrough, see [Viewing cloud agent runs](/agent-platform/cloud-agents/viewing-cloud-agent-runs/). If the run came from Slack, Linear, GitHub Actions, a schedule, the CLI, or the API, it still produces a reviewable cloud agent run record.
 
@@ -77,7 +77,7 @@ Cloud agent runs automatically benefit from [Codebase Context](/agent-platform/c
 
 Cloud agent tasks are designed to be inspectable by the team:
 
-* A [management experience](/agent-platform/cloud-agents/managing-cloud-agents/) surfaces task status, source, trigger, creator, history, and credit usage.
+* The [Agent Management Panel](/agent-platform/cloud-agents/managing-cloud-agents/) in the Warp app and the [Runs page in the Oz web app](/agent-platform/cloud-agents/oz-web-app/#runs) surface task status, source, trigger, creator, history, and credit usage.
 * [Cloud agent session sharing](/agent-platform/cloud-agents/viewing-cloud-agent-runs/) opens the run transcript so teammates can inspect the prompt, plan, commands, logs, files changed, outputs, and follow-up messages where available.
 * [Agent Session Sharing](/agent-platform/local-agents/session-sharing/) lets authorized teammates share, monitor, and steer live local or third-party agent sessions.
 
@@ -99,12 +99,12 @@ The Oz Platform exposes task visibility via the [**Oz API and SDKs**](/reference
 
 ### Using cloud agents with or without the Warp app
 
-Cloud agents do not require the Warp desktop app. Teams can deploy and operate them through the [Oz Platform](/agent-platform/cloud-agents/platform/) using:
+Cloud agents do not require the Warp app. Teams can deploy and operate them through the [Oz Platform](/agent-platform/cloud-agents/platform/) using:
 
 * [Oz CLI](/reference/cli/) — run agents from scripts, CI, or the terminal
 * [Oz web app](/agent-platform/cloud-agents/oz-web-app/) — visual interface for managing runs, schedules, environments, and integrations (works on mobile)
 * [Agent Session Sharing](/agent-platform/local-agents/session-sharing/) — attach to running tasks to monitor or steer
-* [Agent Management UX](/agent-platform/cloud-agents/managing-cloud-agents/) — view agent activity and run history
+* [Agent Management Panel](/agent-platform/cloud-agents/managing-cloud-agents/) — view agent activity and run history in the Warp app
 * [APIs and SDKs](/reference/api-and-sdk/) — programmatic access for custom integrations
 
 If your team also uses Warp's terminal, you get an additional workflow: tasks launched via the CLI can be handed off into an interactive session for review, edits, or continuation.
