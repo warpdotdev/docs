@@ -18,7 +18,7 @@ Custom inference endpoints are available on Free and all eligible paid plans for
 * **OpenAI-compatible** - Works with any endpoint that implements the OpenAI Chat Completions API.
 * **Provider flexibility** - Use a model router (OpenRouter, LiteLLM), a model provider with an OpenAI-compatible surface (z.ai), or your own internal gateway.
 * **No AI credits consumed for inference** - Inference is billed directly by your endpoint provider. On Business and Enterprise, local agent runs that route through a custom inference endpoint still consume [platform credits](/support-and-community/plans-and-billing/platform-credits/) for Warp's platform infrastructure.
-* **Local API key storage** - Your endpoint API key is stored locally on your device (in your OS keychain or equivalent secure storage) and is **never synced or stored on Warp's servers**.
+* **Local API key storage** - Your endpoint API key is stored **only on your device** (in your OS keychain or equivalent secure storage) and is used to authenticate requests to your endpoint.
 
 ## How it works
 
@@ -29,7 +29,7 @@ A custom inference endpoint expects your endpoint to implement the **OpenAI Chat
 * **z.ai** - A model provider with an OpenAI-compatible API surface for its models.
 * **Internal gateways** - Any in-house service that fronts model providers behind an OpenAI-compatible endpoint (for example, a corporate AI gateway with logging, redaction, or access control).
 
-When you configure a custom inference endpoint, your endpoint URL, model identifiers, and API key are stored **locally on your device**. The API key itself is **never synced or stored on Warp's servers**.
+When you configure a custom inference endpoint, your endpoint URL, model identifiers, and API key are stored **only on your device**, and the API key is used to authenticate requests to your endpoint.
 
 When you send a prompt using an endpoint-routed model:
 
