@@ -37,7 +37,7 @@ An environment typically includes:
 * **Repository/workspace** – One or more repos the agent can clone and operate on.
 * **Setup commands** – Commands to prepare the workspace (e.g., dependency install, builds, bootstrapping).
 
-Use the Docker image for language runtimes, package managers, system libraries, and scripts needed by your project. Custom images do not need to include or set up `warp-agent`; Warp supplies the agent runtime separately. You can start from an official image or one of Warp's [prebuilt dev images](https://github.com/warpdotdev/oz-dev-environments).
+Use the Docker image for language runtimes, package managers, system libraries, and scripts needed by your project. Custom images do not need to handle installing the Warp CLI binary; Warp supplies the agent runtime separately. You can start from an official image or one of Warp's [prebuilt dev images](https://github.com/warpdotdev/oz-dev-environments).
 
 :::note
 Configuring runtime settings:
