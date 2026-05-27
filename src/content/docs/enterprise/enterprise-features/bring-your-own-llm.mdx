@@ -160,13 +160,7 @@ The role setup has two parts:
 
 #### Trust policy requirements
 
-This trust policy authorizes any cloud agent run from your team, both human-triggered and named-agent runs.
-
-Your trust policy should:
-
-* Use the OIDC provider for your Warp issuer host
-* Restrict `sub` to your team using the `scoped_principal:<team-uid>/*` pattern
-* Require `aud` to equal `sts.amazonaws.com`
+This trust policy authorizes any cloud-hosted run from your team. The `sub` claim Warp signs has the shape `scoped_principal:<team-uid>/<actor-type>:<principal-uid>`, where `<actor-type>` is `user` for user-triggered runs or `service_account` for [agent-identity](/agent-platform/cloud-agents/agents/) runs (also called named agents). The `<team-uid>/*` pattern below covers both.
 
 **Example trust policy**
 
@@ -197,10 +191,6 @@ Replace the account ID, issuer host, and team UID with values for your environme
 
 The `<team-uid>` is the Warp team UID for the team that will be allowed to assume this role. You can find it in your team's [Admin Panel](/enterprise/team-management/admin-panel/) URL as the path segment after `/admin/`. For example, in `https://app.warp.dev/admin/HzjUdNkg8Uiq8gp6FMgfxe/models`, the team UID is `HzjUdNkg8Uiq8gp6FMgfxe`.
 
-:::note
-The full `sub` claim Warp signs has the shape `scoped_principal:<team-uid>/<actor-type>:<principal-uid>`, where `<actor-type>` is `user` for human-triggered runs and `service_account` for named-agent runs. The `<team-uid>/*` pattern matches both.
-:::
-
 #### Permissions policy
 
 See [Step 2: Provision IAM roles (cloud admin)](#step-2-provision-iam-roles-cloud-admin) above for an example of a minimal Bedrock invoke permissions policy you can attach to the role.
@@ -224,7 +214,7 @@ This applies the OIDC role to all cloud agent runs on the team.
 This applies the OIDC role only to runs from a specific named agent.
 
 :::note
-We recommend using this option to test BYOLLM before rolling it out team-wide via Option A. A misconfiguration here only affects that agent's runs, not your whole team.
+To safely test BYOLLM, configure it on a single named agent first. Misconfigurations scoped to one agent only affect that agent's runs, not the whole team.
 :::
 
 In the Oz web app:
@@ -270,9 +260,9 @@ If no fallback is available (e.g., the admin disabled all non-Bedrock models), W
 
 ### Credential security
 
-* **No long-lived API keys** — BYOLLM uses cloud-native IAM with short-lived credentials obtained through role assumption.
-* **Admin-scoped access** — Warp only receives the permissions granted to the IAM role you configure for Bedrock routing.
-* **No storage or logging** — Warp never stores or logs your cloud credentials on its servers.
+* **No long-lived API keys** — BYOLLM uses cloud-native IAM with short-lived session tokens.
+* **Per-user authentication** — Each team member authenticates individually; credentials are not shared.
+* **No storage or logging** — Warp never stores or logs your cloud session tokens on its servers.
 
 ### Zero Data Retention (ZDR)
 
@@ -324,9 +314,9 @@ However, when using BYOLLM:
 
 ### Does BYOLLM work with Auto?
 
-Auto model selection is disabled as soon as your admin disables **any** Direct API model, regardless of your AWS Bedrock configuration.
+Auto model selection is disabled if an admin disables **any** Direct API model, regardless of AWS Bedrock configuration.
 
-If all Direct API models remain enabled and BYOLLM is configured, Auto will try to use your enabled AWS Bedrock models first, falling back to Direct API only if that fails (e.g., role assumption failure, Bedrock outage).
+When Direct API models remain enabled and BYOLLM is configured, Auto picks the best model for the task. If the selected model is also enabled for AWS Bedrock, the request routes through Bedrock; otherwise it routes through the Direct API.
 
 ### Where does compute run and who pays?
 
@@ -334,7 +324,10 @@ Inference runs in **your AWS account**, which AWS bills directly. Warp does not 
 
 ### What data does Warp store? Do you store our cloud credentials?
 
-Warp **does not store or log** your cloud credentials. Temporary AWS credentials are obtained during role assumption and are never persisted on Warp servers.
+Warp **does not store or log** your cloud credentials.
+
+* **Interactive terminal use** — Credentials are used transiently to sign requests and are never persisted on Warp servers.
+* **Cloud agent runs** — Temporary AWS credentials are used only for the duration of the run and are not retained after it ends.
 
 Warp stores standard run metadata (timestamps, model used, etc.) but does not retain the content of your prompts or responses when using BYOLLM.
 
