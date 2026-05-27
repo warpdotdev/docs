@@ -19,8 +19,8 @@ BYOLLM is only available on Warp's Enterprise plan. Contact [warp.dev/contact-sa
 
 ## Key features
 
-* **Cloud-native credentials** - Authenticate using each user’s AWS IAM identity. Warp does not store long-lived API keys.
-* **Identity federation** - Agents access AWS Bedrock via OIDC identity federation, assuming an IAM role you control.
+* **Cloud-native credentials** - No long-lived API keys. Interactive terminal sessions use each user's AWS CLI session credentials; cloud agent runs assume an IAM role in your AWS account via OIDC.
+* **Admin-controlled IAM** - Admins define which IAM role(s) Warp can assume and which models are available via AWS Bedrock, with the ability to disable non-Bedrock model access entirely.
 * **Admin-enforced routing** - Team admins configure which models are available to users in AWS Bedrock, with the ability to disable non-Bedrock model access entirely.
 * **Consolidated billing** - Inference costs are billed directly to your AWS account, leveraging existing cloud commitments.
 
@@ -133,7 +133,7 @@ Run a test prompt in Warp using a model configured for BYOLLM routing. Verify:
 * The request completes successfully.
 * Logs appear in AWS CloudWatch.
 
-## Enabling BYOLLM for Cloud Agents
+## Enabling BYOLLM for cloud agents
 
 Cloud agents authenticate to AWS Bedrock differently from the local terminal flow above. Instead of relying on each user's AWS CLI session, Warp assumes an IAM role you provision in your AWS account using OIDC identity federation.
 
@@ -150,7 +150,7 @@ Before AWS can trust tokens issued by Warp, register Warp as an OpenID Connect (
 1. Open the [Identity providers](https://console.aws.amazon.com/iam/home#/identity_providers) page in the AWS IAM console.
 2. Click **Add provider**.
 3. For **Provider type**, choose **OpenID Connect**.
-4. For **Provider URL**, enter `https://app.warp.dev`
+4. For **Provider URL**, enter `https://app.warp.dev`.
 5. For **Audience**, enter `sts.amazonaws.com`.
 6. Click **Add provider**.
 
@@ -164,12 +164,12 @@ Create an IAM role that Warp can assume via OIDC, then attach the minimum Bedroc
 
 The role setup has two parts:
 
-1. A **trust policy** that allows Warp's OIDC identity to call `sts:AssumeRoleWithWebIdentity`
-2. A **permissions policy** that grants the minimum Bedrock inference permissions
+1. A **trust policy** that allows Warp's OIDC identity to call `sts:AssumeRoleWithWebIdentity`.
+2. A **permissions policy** that grants the minimum Bedrock inference permissions.
 
 #### Trust policy requirements
 
-This trust policy authorizes any cloud-hosted run from your team. The `sub` claim Warp signs has the shape `scoped_principal:<team-uid>/<actor-type>:<principal-uid>`, where `<actor-type>` is `user` for user-triggered runs or `service_account` for [agent-identity](/agent-platform/cloud-agents/agents/) runs (also called named agents). The `<team-uid>/*` pattern below covers both.
+This trust policy authorizes any cloud-hosted run from your team. The `sub` claim Warp signs has the shape `scoped_principal:<team-uid>/<actor-type>:<principal-uid>`, where `<actor-type>` is `user` for user-triggered runs or `service_account` for [agent identity](/agent-platform/cloud-agents/agents/) runs. The `<team-uid>/*` pattern below covers both.
 
 **Example trust policy**
 
@@ -237,7 +237,7 @@ New runs for this agent will authenticate to Bedrock using the configured role.
 
 ### Step 4: Validate the configuration
 
-Kick off a test cloud agent run using a model configured for BYOLLM routing. Verify:
+Start a test cloud agent run using a model configured for BYOLLM routing. Verify:
 
 * The request completes successfully.
 * Logs appear in AWS CloudWatch.
