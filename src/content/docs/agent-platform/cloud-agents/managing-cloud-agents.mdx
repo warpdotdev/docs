@@ -9,15 +9,20 @@ sidebar:
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
 
-Warp provides a centralized management view where you can monitor agent activity across your account and (where applicable) your team. You can access this view in the Warp app or through the [Oz web app](/agent-platform/cloud-agents/oz-web-app/) at [oz.warp.dev](https://oz.warp.dev), which works on mobile devices.
+Warp provides a centralized management view where you can track and observe agent activity across your account and (where applicable) your team. You can access this view in the Warp app or through the [Oz web app](/agent-platform/cloud-agents/oz-web-app/) at [oz.warp.dev](https://oz.warp.dev), which works on mobile devices.
+
+Use the management view as the starting point for real-time agent observability in Warp. It helps you see which agents are active, which runs are blocked or failed, where each run started, and which session link opens the prompt, plan, commands, logs, outputs, and follow-up messages behind the work.
 
 The management view is designed to answer, at a glance:
 
-* Which agents have been running recently (and what's running right now)
-* Which runs succeeded, failed, or were canceled
-* Where an agent run was triggered from (a local agent conversation, the Oz CLI, Slack, etc.)
-* How many credits those runs consumed
-* Which session to open when you need to inspect the agent's prompt, plan, commands, logs, outputs, or follow-up messages
+* Which agents are active or have been running recently.
+* Which runs are working, blocked, failed, succeeded, or canceled.
+* Where an agent run was triggered from, such as a local agent conversation, the Oz CLI, Slack, Linear, a schedule, or the API.
+* How parent and child runs relate in orchestrated workflows.
+* Which session to open when you need prompt, plan, command, log, output, or follow-up context.
+* How many credits those runs consumed.
+
+Warp's agent observability is run- and session-oriented. It is not a replacement for full APM, OpenTelemetry, or Datadog-style tracing across arbitrary agent frameworks. Use Warp to track agent run status, trigger/source, owner, parent-child relationships, transcripts, commands, logs, outputs, and replayable session links.
 
 <VideoEmbed url="https://www.loom.com/share/679c267ddd2d44519abf79edcb1122c7" />
 
@@ -52,7 +57,7 @@ In the **Personal** tab, you can view all of the interactive and cloud agent con
 
 ---
 
-### Audit or review an agent run
+### Inspect or review an agent run
 
 Use the management view as the starting point when a teammate asks, "What did the agent do?"
 
