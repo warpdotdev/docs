@@ -5,10 +5,10 @@ description: >-
   allowed runtime. Retry the task or contact support if it persists.
 ---
 
-The `infrastructure_timeout` error occurs when a task is forcibly terminated by the platform after remaining in a non-terminal state past the maximum allowed task age.
+The `infrastructure_timeout` error occurs when a cloud agent task runs past the platform's maximum allowed runtime and is forcibly terminated.
 
 :::note
-This is classified as a **platform error** (task state → ERROR) rather than a user error, because the timeout is enforced by Warp's infrastructure rather than by the task's own logic.
+This is classified as a **platform error** (task state → ERROR) rather than a user error, because the termination is performed by Warp's infrastructure rather than by the task itself.
 :::
 
 ---
@@ -25,9 +25,9 @@ This is classified as a **platform error** (task state → ERROR) rather than a 
 
 This error is returned when:
 
-* A task runs for longer than the platform's maximum allowed task age and is terminated by the periodic stale-task cleanup job
-* The agent process did not complete or report a terminal status within the allowed time window
-* A networking or infrastructure issue caused the task to stall silently without reporting completion
+* The task runs longer than the platform's maximum allowed runtime and is terminated by the periodic stale-task cleanup job
+* The agent process never reports a terminal status within that window (for example, the process is hung or stuck on a long-running command)
+* A networking or infrastructure issue causes the task to stall silently without reporting completion
 
 ---
 
@@ -49,8 +49,8 @@ This error is returned when:
 
 ## How to resolve
 
-1. Retry the task. If the task regularly times out, consider breaking it into smaller, shorter-running subtasks.
-2. Review the [environment configuration](/agent-platform/cloud-agents/environments/) for resource allocation or networking issues that could be causing the task to stall.
+1. Retry the task. If it regularly times out, break the work into smaller, shorter-running subtasks or scope the prompt down.
+2. Review the [environment configuration](/agent-platform/cloud-agents/environments/) for setup commands or MCP servers that block on user input, long downloads, or unresponsive network calls.
 3. Contact [Warp support](/support-and-community/troubleshooting-and-support/sending-us-feedback/) and include the `trace_id` from the error response if the issue persists.
 
 ---

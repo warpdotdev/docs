@@ -5,10 +5,10 @@ description: >-
   or contact support if it recurs consistently.
 ---
 
-The `agent_process_failed` error occurs when the agent process exits with an unexpected failure during task execution.
+The `agent_process_failed` error occurs when the agent process exits unexpectedly after environment setup has completed, before the task reaches a normal terminal state.
 
 :::note
-This is classified as a **platform error** (task state → ERROR) rather than a user error. It differs from [`environment_setup_failed`](/reference/api-and-sdk/troubleshooting/errors/environment-setup-failed/), which indicates a failure during environment setup steps configured by the caller. `agent_process_failed` indicates a failure during the agent's active execution phase.
+This is classified as a **platform error** (task state → ERROR) rather than a user error. It differs from [`environment_setup_failed`](/reference/api-and-sdk/troubleshooting/errors/environment-setup-failed/), which covers failures that happen while initializing the environment (cloning the repo, running setup commands, starting MCP servers). `agent_process_failed` covers failures that happen during the agent's active execution phase.
 :::
 
 ---
@@ -25,9 +25,9 @@ This is classified as a **platform error** (task state → ERROR) rather than a 
 
 This error is returned when:
 
-* The agent process exits unexpectedly with a non-zero exit code after environment setup has completed
-* An unrecoverable runtime error occurs inside the agent process during task execution
-* The agent process is killed by the operating system (for example, due to an out-of-memory condition)
+* The agent process exits with a non-zero exit code after environment setup has completed
+* An unrecoverable runtime error occurs inside the agent process while it is handling the task
+* The agent process is terminated by the operating system (for example, due to an out-of-memory kill or a segmentation fault)
 
 ---
 
@@ -50,7 +50,7 @@ This error is returned when:
 ## How to resolve
 
 1. Retry the task. Occasional process failures are transient.
-2. If the error recurs consistently, check whether the task prompt or environment configuration is causing the agent to crash.
+2. If the error recurs consistently, look for triggers in the task itself: very large prompts or attached context, memory-heavy tools spawned by the agent, or setup steps that leave the environment in a degraded state.
 3. Contact [Warp support](/support-and-community/troubleshooting-and-support/sending-us-feedback/) and include the `trace_id` from the error response if the issue persists.
 
 ---
