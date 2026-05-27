@@ -1,0 +1,62 @@
+---
+title: agent_process_failed
+description: >-
+  The agent process exited unexpectedly during task execution. Retry the task
+  or contact support if it recurs consistently.
+---
+
+The `agent_process_failed` error occurs when the agent process exits with an unexpected failure during task execution.
+
+:::note
+This is classified as a **platform error** (task state → ERROR) rather than a user error. It differs from [`environment_setup_failed`](/reference/api-and-sdk/troubleshooting/errors/environment-setup-failed/), which indicates a failure during environment setup steps configured by the caller. `agent_process_failed` indicates a failure during the agent's active execution phase.
+:::
+
+---
+
+## Details
+
+* **HTTP Status:** `500 Internal Server Error`
+* **Retryable:** No
+* **Task State:** ERROR
+
+---
+
+## When does this occur?
+
+This error is returned when:
+
+* The agent process exits unexpectedly with a non-zero exit code after environment setup has completed
+* An unrecoverable runtime error occurs inside the agent process during task execution
+* The agent process is killed by the operating system (for example, due to an out-of-memory condition)
+
+---
+
+## Example response
+
+```json
+{
+  "type": "/reference/api-and-sdk/troubleshooting/errors/agent-process-failed/",
+  "title": "The agent process exited unexpectedly.",
+  "status": 500,
+  "instance": "/api/v1/agent/tasks",
+  "error": "The agent process exited unexpectedly.",
+  "retryable": false,
+  "trace_id": "abc123..."
+}
+```
+
+---
+
+## How to resolve
+
+1. Retry the task. Occasional process failures are transient.
+2. If the error recurs consistently, check whether the task prompt or environment configuration is causing the agent to crash.
+3. Contact [Warp support](/support-and-community/troubleshooting-and-support/sending-us-feedback/) and include the `trace_id` from the error response if the issue persists.
+
+---
+
+## Related
+
+* [Cloud Agents Overview](/agent-platform/cloud-agents/overview/) — How cloud agent tasks work
+* [environment_setup_failed](/reference/api-and-sdk/troubleshooting/errors/environment-setup-failed/) — Errors during environment setup
+* [internal_error](/reference/api-and-sdk/troubleshooting/errors/internal-error/) — Catch-all for unexpected server-side errors

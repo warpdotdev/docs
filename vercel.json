@@ -2489,8 +2489,18 @@
       "statusCode": 308
     },
     {
+      "source": "/reference/api-and-sdk/troubleshooting/errors/agent_process_failed",
+      "destination": "/reference/api-and-sdk/troubleshooting/errors/agent-process-failed/",
+      "statusCode": 308
+    },
+    {
       "source": "/reference/api-and-sdk/troubleshooting/errors/feature_not_available",
       "destination": "/reference/api-and-sdk/troubleshooting/errors/feature-not-available/",
+      "statusCode": 308
+    },
+    {
+      "source": "/reference/api-and-sdk/troubleshooting/errors/infrastructure_timeout",
+      "destination": "/reference/api-and-sdk/troubleshooting/errors/infrastructure-timeout/",
       "statusCode": 308
     },
     {
@@ -6539,8 +6549,18 @@
       "statusCode": 308
     },
     {
+      "source": "/reference/api-and-sdk/troubleshooting/errors/agent_process_failed/",
+      "destination": "/reference/api-and-sdk/troubleshooting/errors/agent-process-failed/",
+      "statusCode": 308
+    },
+    {
       "source": "/reference/api-and-sdk/troubleshooting/errors/feature_not_available/",
       "destination": "/reference/api-and-sdk/troubleshooting/errors/feature-not-available/",
+      "statusCode": 308
+    },
+    {
+      "source": "/reference/api-and-sdk/troubleshooting/errors/infrastructure_timeout/",
+      "destination": "/reference/api-and-sdk/troubleshooting/errors/infrastructure-timeout/",
       "statusCode": 308
     },
     {
