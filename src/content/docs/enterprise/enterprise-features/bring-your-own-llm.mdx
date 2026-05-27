@@ -154,7 +154,7 @@ Before AWS can trust tokens issued by Warp, register Warp as an OpenID Connect (
 5. For **Audience**, enter `sts.amazonaws.com`.
 6. Click **Add provider**.
 
-After the provider is created, copy its ARN — it will look like `arn:aws:iam::<account-id>:oidc-provider/app.warp.dev`. You'll reference this ARN in the trust policy in the next step.
+After the provider is created, copy its ARN — it will look like `arn:aws:iam::<aws-account-id>:oidc-provider/app.warp.dev`. You'll reference this ARN in the trust policy in the next step.
 
 For more detail, see AWS's [Create an OpenID Connect (OIDC) identity provider in IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html) guide.
 
@@ -180,7 +180,7 @@ This trust policy authorizes any cloud-hosted run from your team. The `sub` clai
     {
       "Effect": "Allow",
       "Principal": {
-        "Federated": "arn:aws:iam::123456789012:oidc-provider/app.warp.dev"
+        "Federated": "arn:aws:iam::<aws-account-id>:oidc-provider/app.warp.dev"
       },
       "Action": "sts:AssumeRoleWithWebIdentity",
       "Condition": {
@@ -202,7 +202,32 @@ The `<team-uid>` is the Warp team UID for the team that will be allowed to assum
 
 #### Permissions policy
 
-See [Step 2: Provision IAM roles (cloud admin)](#step-2-provision-iam-roles-cloud-admin) above for an example of a minimal Bedrock invoke permissions policy you can attach to the role.
+Attach the minimum Bedrock invoke permissions policy to the role:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "BedrockModelAccess",
+      "Effect": "Allow",
+      "Action": [
+        "bedrock:InvokeModel",
+        "bedrock:InvokeModelWithResponseStream"
+      ],
+      "Resource": [
+        "arn:aws:bedrock:*::foundation-model/*",
+        "arn:aws:bedrock:*:*:inference-profile/*",
+        "arn:aws:bedrock:*:*:application-inference-profile/*"
+      ]
+    }
+  ]
+}
+```
+
+:::note
+This policy covers Warp's current usage. By default, Warp uses [global inference profiles](https://docs.aws.amazon.com/bedrock/latest/userguide/cross-region-inference.html) for models when available. Admins can override the inference profile per model on the **Models** page of the [Admin Panel](/enterprise/team-management/admin-panel/).
+:::
 
 After you create the role, copy its ARN. You'll paste it into the **Models** page in the next step.
 
@@ -292,8 +317,9 @@ However, when using BYOLLM:
 
 ### Common errors
 
-* **Role assumption failed** — Verify the IAM trust policy, issuer host, team UID restriction, and the configured role ARN in Warp.
-* **Missing OIDC provider** — Confirm the OIDC provider exists in your AWS account for the issuer host referenced in the trust policy.
+* **Missing or expired local credentials** (interactive terminal use) — Re-authenticate using `aws login`. To avoid interruptions, enable auto-refresh by opening **Settings** and searching for `AWS Bedrock`, or when prompted during credential expiration.
+* **Role assumption failed** (cloud agent runs) — Verify the IAM trust policy, issuer host, team UID restriction, and the configured role ARN in Warp.
+* **Missing OIDC provider** (cloud agent runs) — Confirm the OIDC provider exists in your AWS account for the issuer host referenced in the trust policy.
 * **Insufficient permissions** — Verify your IAM policy includes the required Bedrock actions and any needed resources.
 * **Region or model mismatch** — Confirm the model is enabled in your AWS region and that your environment is configured for the correct region.
 * **Provider quota limits** — Check your AWS Bedrock quota and request increases if needed.
@@ -337,8 +363,6 @@ Warp **does not store or log** your cloud credentials.
 
 * **Interactive terminal use** — Credentials are used transiently to sign requests and are never persisted on Warp servers.
 * **Cloud agent runs** — Temporary AWS credentials are used only for the duration of the run and are not retained after it ends.
-
-Warp stores standard run metadata (timestamps, model used, etc.) but does not retain the content of your prompts or responses when using BYOLLM.
 
 ### Can admins enforce provider-only routing and disable Warp-managed models?
 
