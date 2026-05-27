@@ -123,7 +123,7 @@ To scale horizontally, deploy multiple Helm releases with distinct worker IDs ra
 **Kubernetes backend:**
 
 * `kubernetesBackend.namespace` — Namespace for task Jobs. Defaults to the release namespace.
-* `kubernetesBackend.defaultImage` — Default Docker image for task pods when the run has no Warp environment image. Use this image for project dependencies, system packages, and scripts. Leave empty (default) to fall back to `ubuntu:22.04`.
+* `kubernetesBackend.defaultImage` — Default Docker image for task pods when no [Warp environment](/agent-platform/cloud-agents/environments/) has been supplied. Leave empty (default) to fall back to `ubuntu:22.04`.
 * `kubernetesBackend.imagePullPolicy` — Image pull policy for task pods. Defaults to `IfNotPresent`.
 * `kubernetesBackend.preflightImage` — Image for the startup preflight Job. Set this if your cluster restricts allowed registries.
 * `kubernetesBackend.unschedulableTimeout` — How long a pod may remain unschedulable before failing. Defaults to `30s`.
