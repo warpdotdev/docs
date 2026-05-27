@@ -368,7 +368,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 								{ slug: 'agent-platform/cloud-agents/orchestration/multi-agent-runs', label: 'Running orchestrated agents' },
 							],
 						},
-						{ slug: 'agent-platform/cloud-agents/agents', label: 'Agent identities' },
+						{ slug: 'agent-platform/cloud-agents/agents', label: 'Agents' },
 						{ slug: 'agent-platform/cloud-agents/oz-web-app', label: 'Oz web app' },
 						{ slug: 'agent-platform/cloud-agents/skills-as-agents', label: 'Skills as agents' },
 						{ slug: 'agent-platform/cloud-agents/viewing-cloud-agent-runs', label: 'Viewing cloud agent runs' },

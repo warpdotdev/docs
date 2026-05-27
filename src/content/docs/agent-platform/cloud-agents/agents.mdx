@@ -9,7 +9,7 @@ sidebar:
 
 A **cloud agent** is an agent that runs in Warp's cloud (or on a self-hosted worker) instead of on your local machine. Cloud agents are how Warp powers automation: scheduled jobs, Slack and Linear integrations, GitHub Actions, the Oz API and SDKs, and `oz agent run-cloud` from the CLI all execute as cloud agents.
 
-Every team starts with a default cloud agent, which is what runs when an automation triggers a task with no other configuration. You can optionally create additional cloud agents through the Oz web app's **Agents** page or the public API — see [Managing cloud agents](#managing-cloud-agents) below.
+Every team starts with a default cloud agent, which is what runs when an automation triggers a task with no other configuration. You can optionally create additional cloud agents through the Oz web app's **Agents** page or the public API. See [Managing cloud agents](#managing-cloud-agents) below.
 
 ## How cloud agents get triggered
 
@@ -18,8 +18,8 @@ Cloud agents are characterized by what triggers them. Common triggers:
 * **Schedules** — Cron-style recurring runs. See [Scheduled agents](/agent-platform/cloud-agents/triggers/scheduled-agents/).
 * **Integrations** — Slack mentions, Linear issue updates, GitHub Actions workflow steps. See [Integrations](/agent-platform/cloud-agents/integrations/).
 * **API and SDK** — Programmatic runs from your own backend, scripts, or webhooks via the [Oz API](/reference/api-and-sdk/).
-* **CLI** — `oz agent run-cloud` from a developer machine, CI pipeline, or self-hosted worker.
-* **Warp app** — `/cloud-agent` and Cloud Mode in the Warp desktop app.
+* **CLI** — `oz agent run-cloud` from a developer machine, CI pipeline, or self-hosted worker. See the [Oz CLI](/reference/cli/).
+* **Warp app** — The `/cloud-agent` slash command in the Warp desktop app. See the [cloud agents quickstart](/agent-platform/cloud-agents/quickstart/).
 
 Each run is tracked in the [Oz dashboard](https://oz.warp.dev/runs) with its trigger source, the environment it ran in, and the full transcript.
 
@@ -29,22 +29,17 @@ Most automation triggers authenticate using an **agent API key** — a credentia
 
 ## Service accounts
 
-In the CLI and REST API, a cloud agent is represented as a **service account**. `oz whoami` reports `service_account:<uid>` when the CLI is authenticated as one, and [`oz federate issue-token`](/reference/cli/federate/) emits the same form in OIDC token subjects.
+In the CLI and REST API, a cloud agent is represented as a **service account**. `oz whoami` reports `service_account:<uid>` when the CLI is authenticated as a service account, and [`oz federate issue-token`](/reference/cli/federate/) emits the same form in OIDC token subjects.
 
 ## Managing cloud agents
 
-You can create, list, update, and delete cloud agents through the public API. The full request and response formats, including error codes, live on the [API Reference](/api) page; the operations to look for are `createAgent`, `listAgents`, `updateAgent`, and `deleteAgent` under the **agent** tag.
+Use the [Oz web app's Agents page](/agent-platform/cloud-agents/oz-web-app/#agents) for day-to-day management. Use the public API when you need to create or update agents from scripts, CI/CD, or internal tooling. Full request and response formats, including error codes, live on the [API Reference](/api) page under the **agent** tag.
 
-The endpoints behave as follows:
-
-* **Create** - `POST /agent/identities` with a `name` and optional `description`, `secrets`, and `skills`. Returns `201` with the new agent's `uid`, `name`, and `available` flag.
-* **List** - `GET /agent/identities` returns every cloud agent on the team, including the default. Each entry includes an `available` flag indicating whether it is within the plan limit.
-* **Update** - `PUT /agent/identities/{uid}` replaces individual fields. Omitting a field preserves the current value; passing an empty string or empty array clears it.
-* **Delete** - `DELETE /agent/identities/{uid}` soft-deletes the agent and atomically deletes every API key bound to it. The team's default agent cannot be deleted.
+<table><thead><tr><th width="120">Action</th><th>Endpoint</th><th>What it does</th></tr></thead><tbody><tr><td><strong>Create</strong></td><td><code>POST /agent/identities</code></td><td>Creates a cloud agent with a <code>name</code> and optional <code>description</code>, <code>secrets</code>, and <code>skills</code>.</td></tr><tr><td><strong>List</strong></td><td><code>GET /agent/identities</code></td><td>Returns every cloud agent on the team, including the default, with an <code>available</code> flag for plan-limit status.</td></tr><tr><td><strong>Update</strong></td><td><code>PUT /agent/identities/&lcub;uid&rcub;</code></td><td>Replaces individual fields. Omitted fields stay unchanged; empty strings or arrays clear the field.</td></tr><tr><td><strong>Delete</strong></td><td><code>DELETE /agent/identities/&lcub;uid&rcub;</code></td><td>Soft-deletes the agent and deletes every API key bound to it. The team's default agent cannot be deleted.</td></tr></tbody></table>
 
 ### Caller requirements
 
-A few constraints apply across every endpoint:
+Across all endpoints:
 
 * **Team-scoped** - Cloud agents belong to a team. The caller must be a member of exactly one team. If the caller is on zero teams or multiple teams, the request is rejected.
 * **Human callers only** - Only human users can create, update, or delete a cloud agent. A request authenticated as a cloud agent itself is rejected.
