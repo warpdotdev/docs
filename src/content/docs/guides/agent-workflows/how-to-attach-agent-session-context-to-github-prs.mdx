@@ -1,5 +1,5 @@
 ---
-title: How to attach agent session context to GitHub PRs
+title: Share agent context in GitHub PRs
 description: >-
   Share a Warp agent session or cloud agent run link in a GitHub pull request
   so reviewers can inspect the prompt, plan, commands, logs, and output behind
@@ -12,11 +12,11 @@ tags:
   - "session-sharing"
 ---
 
-When an agent opens or helps prepare a pull request, reviewers often need more than the diff. They need to know what the agent was asked to do, what it tried, which commands it ran, what changed, what passed, and what still needs human judgment.
+When an agent helps prepare a pull request, reviewers need the execution context behind the diff: the original prompt, plan, commands, validation results, code changes, and decisions that still need human review.
 
-The practical workflow is to share a Warp session or cloud agent run link in the PR description or a PR comment. That link gives reviewers a reviewable record of the agent's execution context alongside the GitHub diff.
+Add a Warp session or cloud agent run link to the PR description or a PR comment. That link gives reviewers a record of the agent's work alongside the GitHub diff.
 
-Use:
+Use these Warp docs and surfaces to collect the right context:
 
 * [Agent Session Sharing](/agent-platform/local-agents/session-sharing/) for local Warp agents or third-party CLI agents running in Warp.
 * [Cloud agent session sharing](/agent-platform/cloud-agents/viewing-cloud-agent-runs/) for cloud agent runs started from Slack, Linear, GitHub Actions, schedules, the Oz CLI, or the API.
@@ -61,7 +61,7 @@ Choose the link based on where the agent ran.
 If the agent ran locally in Warp, share the session:
 
 1. Open the agent session in Warp.
-2. Use the share action from the Command Palette, pane header, right-click menu, or `/remote-control` chip for supported third-party CLI agents.
+2. In the conversation pane header, open the three-dot menu, then click **Share session**. Do not use the top-level **Share** icon if you need the session transcript.
 3. Choose the scrollback range to include.
 4. Copy the shared session link.
 5. Paste the link into the PR description or a PR comment.
@@ -72,8 +72,8 @@ See [Agent Session Sharing](/agent-platform/local-agents/session-sharing/) for t
 
 If the agent ran in the cloud, use the cloud run session link:
 
-1. Open the run from the [Agent Management Panel](/agent-platform/cloud-agents/managing-cloud-agents/) in the Warp app, the [Runs page in the Oz web app](/agent-platform/cloud-agents/oz-web-app/#runs), Slack, Linear, GitHub Actions, or the CLI output.
-2. Confirm the session shows the run context reviewers need: prompt, plan, commands, logs, outputs, and follow-up messages where available.
+1. Open the run from the [Agent Management Panel](/agent-platform/cloud-agents/managing-cloud-agents/) in the Warp app or the [Runs page in the Oz web app](/agent-platform/cloud-agents/oz-web-app/#runs).
+2. Confirm the session shows the run context reviewers need.
 3. Copy the cloud agent session link.
 4. Paste the link into the PR description or a PR comment.
 
