@@ -11,8 +11,6 @@ This gives you control over cloud spend and model hosting, without changing how 
 
 :::caution
 BYOLLM currently supports **AWS Bedrock** only. Coming soon: Azure Foundry and Google Vertex support.
-
-BYOLLM applies to interactive agents in the terminal. Cloud agents do not yet support BYOLLM routing.
 :::
 
 :::note
@@ -21,7 +19,8 @@ BYOLLM is only available on Warp's Enterprise plan. Contact [warp.dev/contact-sa
 
 ## Key features
 
-* **Cloud-native credentials** - Authenticate using each user’s AWS IAM identity. Warp does not store API keys.
+* **Cloud-native credentials** - No long-lived API keys. Interactive terminal sessions use each user's AWS CLI session credentials; cloud agent runs assume an IAM role in your AWS account via OIDC.
+* **Admin-controlled IAM** - Admins define which IAM role(s) Warp can assume and which models are available via AWS Bedrock, with the ability to disable non-Bedrock model access entirely.
 * **Admin-enforced routing** - Team admins configure which models are available to users in AWS Bedrock, with the ability to disable non-Bedrock model access entirely.
 * **Consolidated billing** - Inference costs are billed directly to your AWS account, leveraging existing cloud commitments.
 
@@ -33,10 +32,19 @@ When BYOLLM is enabled, Warp redirects inference calls to your AWS Bedrock envir
 
 Here's the high-level flow:
 
+**Interactive terminal flow**
+
 1. **Admin configures routing** - Your team admin sets routing policies in Warp's admin settings (e.g., "Route Claude Opus 4.7 through AWS Bedrock; disable direct Anthropic API").
 2. **Team members authenticate** - Each team member authenticates to AWS locally using the AWS CLI (`aws login`).
 3. **Warp routes requests** - When a team member uses an interactive agent in the terminal, Warp uses their short-lived session credentials to authenticate requests to your configured AWS Bedrock API endpoint.
 4. **Inference executes in your cloud** - The model runs in your AWS account. Responses return to the Warp client.
+
+**Cloud agent flow**
+
+1. **Admin configures routing** - Your team admin configures BYOLLM in the Admin Panel and provides an IAM role ARN that Warp can assume. See [Enabling BYOLLM for Cloud Agents](#enabling-byollm-for-cloud-agents) for setup details.
+2. **Warp assumes the role** - At run start, Warp mints an OIDC token and assumes the configured IAM role in your AWS account to obtain temporary credentials.
+3. **Warp routes requests** - The cloud agent uses those temporary credentials to call your configured AWS Bedrock endpoint.
+4. **Inference executes in your cloud** - The model runs in your AWS account. Responses return to the cloud agent worker.
 
 ### Credential lifecycle
 
@@ -73,7 +81,7 @@ Before configuring BYOLLM, confirm the following:
 
 In the [Admin Panel](/enterprise/team-management/admin-panel/), configure which models should route through AWS Bedrock:
 
-1. From the [Admin Panel](/enterprise/team-management/admin-panel/), navigate to the BYOLLM or model routing settings.
+1. From the [Admin Panel](/enterprise/team-management/admin-panel/), navigate to the **Models** page.
 2. Select which models should use your cloud provider (e.g., "Claude Opus 4.7 via AWS Bedrock").
 3. Optionally, disable direct API access to enforce provider-only routing.
 
@@ -105,7 +113,7 @@ Grant your team members the necessary permissions in AWS. Use least-privilege IA
 ```
 
 :::note
-This policy covers Warp's current usage. Warp uses global inference profiles for models when available.
+This policy covers Warp's current usage. By default, Warp uses [global inference profiles](https://docs.aws.amazon.com/bedrock/latest/userguide/cross-region-inference.html) for models when available. Admins can override the inference profile per model on the **Models** page of the [Admin Panel](/enterprise/team-management/admin-panel/).
 :::
 
 ### Step 3: Authenticate locally (team member)
@@ -125,14 +133,150 @@ Run a test prompt in Warp using a model configured for BYOLLM routing. Verify:
 * The request completes successfully.
 * Logs appear in AWS CloudWatch.
 
+## Enabling BYOLLM for cloud agents
+
+Cloud agents authenticate to AWS Bedrock differently from the local terminal flow above. Instead of relying on each user's AWS CLI session, Warp assumes an IAM role you provision in your AWS account using OIDC identity federation.
+
+### Prerequisites
+
+Before configuring BYOLLM for cloud agents, confirm the following:
+
+* You have admin access to both Warp's [Admin Panel](/enterprise/team-management/admin-panel/) and your AWS IAM settings.
+
+### Step 1: Set up Warp as an OIDC identity provider in AWS (cloud admin)
+
+Before AWS can trust tokens issued by Warp, register Warp as an OpenID Connect (OIDC) identity provider in IAM. This is a one-time setup per AWS account.
+
+1. Open the [Identity providers](https://console.aws.amazon.com/iam/home#/identity_providers) page in the AWS IAM console.
+2. Click **Add provider**.
+3. For **Provider type**, choose **OpenID Connect**.
+4. For **Provider URL**, enter `https://app.warp.dev`.
+5. For **Audience**, enter `sts.amazonaws.com`.
+6. Click **Add provider**.
+
+After the provider is created, copy its ARN — it will look like `arn:aws:iam::<aws-account-id>:oidc-provider/app.warp.dev`. You'll reference this ARN in the trust policy in the next step.
+
+For more detail, see AWS's [Create an OpenID Connect (OIDC) identity provider in IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html) guide.
+
+### Step 2: Provision an assumable IAM role (cloud admin)
+
+Create an IAM role that Warp can assume via OIDC, then attach the minimum Bedrock permissions policy. Use least-privilege IAM policies.
+
+The role setup has two parts:
+
+1. A **trust policy** that allows Warp's OIDC identity to call `sts:AssumeRoleWithWebIdentity`.
+2. A **permissions policy** that grants the minimum Bedrock inference permissions.
+
+#### Trust policy requirements
+
+This trust policy authorizes any cloud-hosted run from your team. The `sub` claim Warp signs has the shape `scoped_principal:<team-uid>/<actor-type>:<principal-uid>`, where `<actor-type>` is `user` for user-triggered runs or `service_account` for [agent identity](/agent-platform/cloud-agents/agents/) runs. The `<team-uid>/*` pattern below covers both.
+
+**Example trust policy**
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Federated": "arn:aws:iam::<aws-account-id>:oidc-provider/app.warp.dev"
+      },
+      "Action": "sts:AssumeRoleWithWebIdentity",
+      "Condition": {
+        "StringLike": {
+          "app.warp.dev:sub": "scoped_principal:<team-uid>/*"
+        },
+        "StringEquals": {
+          "app.warp.dev:aud": "sts.amazonaws.com"
+        }
+      }
+    }
+  ]
+}
+```
+
+Replace the account ID, issuer host, and team UID with values for your environment.
+
+The `<team-uid>` is the Warp team UID for the team that will be allowed to assume this role. You can find it in your team's [Admin Panel](/enterprise/team-management/admin-panel/) URL as the path segment after `/admin/`. For example, in `https://app.warp.dev/admin/HzjUdNkg8Uiq8gp6FMgfxe/models`, the team UID is `HzjUdNkg8Uiq8gp6FMgfxe`.
+
+#### Permissions policy
+
+Attach the minimum Bedrock invoke permissions policy to the role:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "BedrockModelAccess",
+      "Effect": "Allow",
+      "Action": [
+        "bedrock:InvokeModel",
+        "bedrock:InvokeModelWithResponseStream"
+      ],
+      "Resource": [
+        "arn:aws:bedrock:*::foundation-model/*",
+        "arn:aws:bedrock:*:*:inference-profile/*",
+        "arn:aws:bedrock:*:*:application-inference-profile/*"
+      ]
+    }
+  ]
+}
+```
+
+:::note
+This policy covers Warp's current usage. By default, Warp uses [global inference profiles](https://docs.aws.amazon.com/bedrock/latest/userguide/cross-region-inference.html) for models when available. Admins can override the inference profile per model on the **Models** page of the [Admin Panel](/enterprise/team-management/admin-panel/).
+:::
+
+After you create the role, copy its ARN. You'll paste it into the **Models** page in the next step.
+
+### Step 3: Configure routing policies (admin)
+
+Attach the IAM role from Step 2 to your team or to a specific named agent.
+
+#### Option A: Team-wide
+
+This applies the OIDC role to all cloud agent runs on the team.
+
+1. In the [Admin Panel](/enterprise/team-management/admin-panel/), navigate to the **Models** page.
+2. Under the **AWS Bedrock** host configuration, paste the IAM role ARN from Step 2 into the **Role ARN** field.
+3. Select which models should route through AWS Bedrock.
+
+#### Option B: Per named agent
+
+This applies the OIDC role only to runs from a specific named agent.
+
+:::note
+To safely test BYOLLM, configure it on a single named agent first. Misconfigurations scoped to one agent only affect that agent's runs, not the whole team.
+:::
+
+In the Oz web app:
+
+1. [Create a new agent](/agent-platform/cloud-agents/oz-web-app/#creating-a-new-agent) or edit an existing one.
+2. In the agent form, expand the **AWS Bedrock** section.
+3. Choose **Custom** and paste the IAM role ARN from Step 2.
+4. Ensure the agent's default model is one that's enabled for Bedrock under the Admin Panel **Models** page.
+
+New runs for this agent will authenticate to Bedrock using the configured role.
+
+### Step 4: Validate the configuration
+
+Start a test cloud agent run using a model configured for BYOLLM routing. Verify:
+
+* The request completes successfully.
+* Logs appear in AWS CloudWatch.
+
 ## BYOLLM usage and billing behavior
 
 ### Billing
 
 When a request routes through BYOLLM:
 
-* **Warp does not consume credits** for that request.
-* Your cloud provider account receives the inference costs directly.
+* **Warp does not consume AI credits** for that request.
+* Cloud agent runs still consume platform and compute credits for orchestration and the cloud agent's compute.
+
+See [The three credit buckets](/support-and-community/plans-and-billing/platform-credits/#the-three-credit-buckets) for more on credit types.
 
 ### Routing behavior
 
@@ -140,7 +284,7 @@ Warp's agents automatically select the best model for your task while respecting
 
 ### Failover behavior
 
-If a BYOLLM request fails (e.g., due to expired credentials, insufficient permissions, or provider quota limits), Warp attempts to fall back to the next available model your admin has enabled.
+If a BYOLLM request fails (e.g., due to role assumption errors, insufficient permissions, or provider quota limits), Warp attempts to fall back to the next available model your admin has enabled.
 
 For example, if Claude Opus 4.7 on Bedrock fails but your admin also enabled it via direct API, Warp falls back to the direct API to avoid disruption. If a fallback uses a direct API model, that request consumes Warp credits.
 
@@ -173,17 +317,20 @@ However, when using BYOLLM:
 
 ### Common errors
 
-* **Missing or expired credentials** — Re-authenticate using `aws login`. To avoid interruptions, enable auto-refresh by opening **Settings** and searching for `AWS Bedrock`, or when prompted during credential expiration.
-* **Insufficient permissions** — Verify your IAM policy includes the required actions and resources.
+* **Missing or expired local credentials** (interactive terminal use) — Re-authenticate using `aws login`. To avoid interruptions, enable auto-refresh by opening **Settings** and searching for `AWS Bedrock`, or when prompted during credential expiration.
+* **Role assumption failed** (cloud agent runs) — Verify the IAM trust policy, issuer host, team UID restriction, and the configured role ARN in Warp.
+* **Missing OIDC provider** (cloud agent runs) — Confirm the OIDC provider exists in your AWS account for the issuer host referenced in the trust policy.
+* **Insufficient permissions** — Verify your IAM policy includes the required Bedrock actions and any needed resources.
 * **Region or model mismatch** — Confirm the model is enabled in your AWS region and that your environment is configured for the correct region.
 * **Provider quota limits** — Check your AWS Bedrock quota and request increases if needed.
 
 ### Debugging steps
 
-1. Verify local authentication: run `aws sts get-caller-identity`.
-2. Check your effective IAM policy for the required permissions.
-3. Confirm the model ID and region match your Warp configuration.
-4. Inspect AWS CloudWatch logs for request details and errors.
+1. Confirm the configured role ARN is the one you intended Warp to assume.
+2. Check the IAM trust policy and verify the issuer host, `sub`, and `aud` conditions match your Warp configuration.
+3. Check the attached IAM policy for the required Bedrock permissions.
+4. Confirm the model ID and region match your Warp configuration.
+5. Inspect AWS CloudWatch logs for request details and errors.
 
 ## FAQ
 
@@ -196,25 +343,26 @@ However, when using BYOLLM:
 | Feature | BYOK | BYOLLM |
 | --- | --- | --- |
 | Configuration level | User | Admin/Team |
-| Authentication | API keys (local) | Cloud IAM (per-user) |
+| Authentication | API keys (local) | IAM role assumed by Warp via OIDC |
 | Billing | Direct to provider | Your cloud account |
 | Data locality | Provider infrastructure | Your cloud infrastructure |
 
 ### Does BYOLLM work with Auto?
 
-Auto model selection is disabled as soon as your admin disables **any** Direct API model, regardless of your AWS Bedrock configuration.
+Auto model selection is disabled if an admin disables **any** Direct API model, regardless of AWS Bedrock configuration.
 
-If all Direct API models remain enabled and BYOLLM is configured, Auto will try to use your enabled AWS Bedrock models first, falling back to Direct API only if that fails (e.g., invalid/missing AWS credentials, Bedrock outage).
+When Direct API models remain enabled and BYOLLM is configured, Auto picks the best model for the task. If the selected model is also enabled for AWS Bedrock, the request routes through Bedrock; otherwise it routes through the Direct API.
 
 ### Where does compute run and who pays?
 
-Inference runs in **your AWS account**. You pay AWS directly for compute usage. Warp does not consume credits for BYOLLM-routed requests.
+Inference runs in **your AWS account**, which AWS bills directly. Warp does not consume AI credits for BYOLLM-routed inference. Cloud agent runs continue to consume platform and compute credits for orchestration. See [The three credit buckets](/support-and-community/plans-and-billing/platform-credits/#the-three-credit-buckets) for more.
 
 ### What data does Warp store? Do you store our cloud credentials?
 
-Warp **does not store or log** your cloud session tokens. Credentials are used transiently to sign requests and are never persisted on Warp servers.
+Warp **does not store or log** your cloud credentials.
 
-Warp stores standard run metadata (timestamps, model used, etc.) but does not retain the content of your prompts or responses when using BYOLLM.
+* **Interactive terminal use** — Credentials are used transiently to sign requests and are never persisted on Warp servers.
+* **Cloud agent runs** — Temporary AWS credentials are used only for the duration of the run and are not retained after it ends.
 
 ### Can admins enforce provider-only routing and disable Warp-managed models?
 
