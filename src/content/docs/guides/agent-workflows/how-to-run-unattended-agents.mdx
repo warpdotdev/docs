@@ -16,7 +16,7 @@ Warp cloud agents can run unattended from schedules, team tools, CI, the Oz CLI,
 
 Every unattended workflow creates a cloud agent run that your team can inspect later. Open runs from the [Runs page in the Oz web app](/agent-platform/cloud-agents/oz-web-app/#runs), the [Agent Management Panel](/agent-platform/cloud-agents/managing-cloud-agents/) in the Warp app, or the session link posted back to the tool that triggered the agent.
 
-## Choose the right trigger
+## Choose a trigger
 
 Use this table to decide where an unattended agent should start.
 
@@ -29,11 +29,11 @@ Use this table to decide where an unattended agent should start.
 | Oz CLI | You want to start a named cloud run from a terminal, script, or local automation. | [Oz CLI](/reference/cli/#running-agents-remotely-oz-agent-run-cloud) | CLI output, Oz web app Runs page, Agent Management Panel in the Warp app, and cloud agent session links |
 | Oz API or SDK | Your internal system should create, query, or monitor runs programmatically. | [Oz API and SDK](/reference/api-and-sdk/) | Your system, API results, Oz web app, and run sessions |
 
-## Common unattended workflows
+## Choose a workflow pattern
 
 ### Run recurring maintenance
 
-Use [Scheduled Agents](/agent-platform/cloud-agents/triggers/scheduled-agents/) for tasks that should happen on a fixed cadence:
+Use [Scheduled Agents](/agent-platform/cloud-agents/triggers/scheduled-agents/) for tasks that should happen on a fixed cadence. Good fits include:
 
 * dependency update checks
 * stale issue or PR triage
@@ -45,9 +45,7 @@ Each scheduled run starts a fresh cloud agent session and records its own task h
 
 ### Delegate work from Slack or Linear
 
-Use [Slack](/agent-platform/cloud-agents/integrations/slack/) or [Linear](/agent-platform/cloud-agents/integrations/linear/) when the task starts from team conversation or issue context.
-
-These integrations are best for:
+Use [Slack](/agent-platform/cloud-agents/integrations/slack/) or [Linear](/agent-platform/cloud-agents/integrations/linear/) when the task starts from team conversation or issue context. These integrations are best for:
 
 * turning a Slack thread into an implementation task
 * asking an agent to investigate a Linear issue
@@ -60,7 +58,7 @@ The agent posts progress updates back to the source thread or issue and provides
 
 Use [GitHub Actions](/agent-platform/cloud-agents/integrations/github-actions/) when the trigger should be tied to a repository event.
 
-Examples:
+For example:
 
 * review a PR when it opens
 * respond to an `@oz-agent` comment
@@ -70,11 +68,9 @@ Examples:
 
 The GitHub Action can pass event data, prior step output, and repository context into the agent prompt. The agent can comment, review, or open branches depending on the workflow permissions you grant.
 
-### Start cloud runs from scripts or internal systems
+### Start runs from scripts or internal systems
 
-Use the [Oz CLI](/reference/cli/#running-agents-remotely-oz-agent-run-cloud) for scripts and terminal workflows. Use the [Oz API and SDK](/reference/api-and-sdk/) when another service should create or monitor runs.
-
-This is useful for:
+Use the [Oz CLI](/reference/cli/#running-agents-remotely-oz-agent-run-cloud) for scripts and terminal workflows. Use the [Oz API and SDK](/reference/api-and-sdk/) when another service should create or monitor runs. This is useful for:
 
 * internal dashboards
 * custom webhooks
@@ -84,7 +80,7 @@ This is useful for:
 
 Name cloud runs consistently with `--name` so your team can filter and review related runs later.
 
-## What every unattended run needs
+## Define the run before deploying
 
 Before deploying an unattended agent, define:
 
@@ -97,7 +93,7 @@ Before deploying an unattended agent, define:
 
 If the agent can change code or infrastructure, keep the instructions narrow and make validation explicit.
 
-## Inspect unattended runs
+## Review unattended runs
 
 Unattended does not mean invisible. Use these surfaces to review what happened:
 
@@ -108,7 +104,7 @@ Unattended does not mean invisible. Use these surfaces to review what happened:
 
 When a run creates a PR, include the cloud run link in the PR description or a comment. See [Attach agent session context to GitHub PRs](/guides/agent-workflows/how-to-attach-agent-session-context-to-github-prs/) for a template.
 
-## Start small and make runs reviewable
+## Start with one reviewable workflow
 
 Start with one narrow workflow before deploying many unattended agents:
 
