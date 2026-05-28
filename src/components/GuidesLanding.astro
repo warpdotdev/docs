@@ -2,17 +2,98 @@
 // Pure Astro component for the Guides card-based discovery page.
 // Renders the full card grid at build time; a small inline script
 // handles filter-pill interactivity on the client.
+//
+// Categories use a problem/solution (use-case) taxonomy that cuts across
+// the filesystem directory structure. Each guide is assigned to exactly
+// one category via the GUIDE_CATEGORIES map below.
 import { getCollection } from 'astro:content';
 
+// Use-case categories — ordered as they appear in the filter pill bar.
 const CATEGORY_LABELS: Record<string, string> = {
-	'getting-started': 'Getting started',
-	'agent-workflows': 'Agent workflows',
-	configuration: 'Configuration',
-	'external-tools': 'External tools',
-	'build-an-app-in-warp': 'Build an app',
-	devops: 'DevOps',
-	frontend: 'Frontend & UI',
+	setup: 'Set up your environment',
+	agents: 'Work with agents',
+	automate: 'Automate your workflow',
+	connect: 'Connect external services',
+	'build-deploy': 'Build & deploy apps',
+	'review-debug': 'Review & debug',
 };
+
+// Map guide paths (relative to guides/) to use-case categories.
+// Guides not listed here fall back to a directory-based default.
+const GUIDE_CATEGORIES: Record<string, string> = {
+	// Set up your environment — first steps + tool installation
+	'getting-started/welcome-to-warp': 'setup',
+	'getting-started/10-coding-features-you-should-know': 'setup',
+	'getting-started/how-to-customize-warps-appearance': 'setup',
+	'getting-started/how-to-make-warps-ui-more-minimal': 'setup',
+	'external-tools/how-to-set-up-claude-code': 'setup',
+	'external-tools/how-to-set-up-codex-cli': 'setup',
+	'external-tools/how-to-set-up-gemini-cli': 'setup',
+	'external-tools/how-to-set-up-ollama': 'setup',
+	'external-tools/how-to-set-up-opencode': 'setup',
+
+	// Work with agents — prompting, voice, images, parallel tasks
+	'agent-workflows/how-to-run-multiple-ai-coding-agents': 'agents',
+	'agent-workflows/how-to-use-voice-and-images-to-prompt-coding-agents': 'agents',
+	'agent-workflows/how-to-explain-your-codebase-using-warp-rust-codebase': 'agents',
+	'agent-workflows/how-to-run-3-agents-in-parallel-summarize-logs-analyze-pr-modify-ui': 'agents',
+	'agent-workflows/how-to-edit-agent-code-in-warp': 'agents',
+	'agent-workflows/using-images-as-context-with-warp': 'agents',
+	'agent-workflows/understanding-your-codebase': 'agents',
+	'agent-workflows/running-multiple-agents-at-once-with-warp': 'agents',
+	'agent-workflows/warp-for-product-managers': 'agents',
+	'agent-workflows/warp-vs-claude-code': 'agents',
+
+	// Automate your workflow — rules, profiles, prompts, skills
+	'configuration/how-to-create-project-rules-for-an-existing-project-astro-typescript-tailwind': 'automate',
+	'configuration/how-to-set-coding-best-practices': 'automate',
+	'configuration/how-to-set-tech-stack-preferences-with-rules': 'automate',
+	'configuration/how-to-set-coding-preferences-with-rules': 'automate',
+	'configuration/how-to-configure-yolo-and-strategic-agent-profiles': 'automate',
+	'configuration/how-to-use-agent-profiles-efficiently': 'automate',
+	'configuration/creating-rules-for-agents': 'automate',
+	'configuration/trigger-reusable-actions-with-saved-prompts': 'automate',
+	'configuration/how-to-set-up-self-serve-data-analytics-with-skills': 'automate',
+	'configuration/how-to-sync-your-monorepos': 'automate',
+
+	// Connect external services — MCP servers
+	'external-tools/sentry-mcp-fix-sentry-error-in-empower-website': 'connect',
+	'external-tools/figma-remote-mcp-create-a-website-from-a-figma-file-from-scratch': 'connect',
+	'external-tools/linear-mcp-retrieve-issue-data': 'connect',
+	'external-tools/linear-mcp-updating-tickets-with-a-lean-build-approach': 'connect',
+	'external-tools/github-mcp-summarizing-open-prs-and-creating-gh-issues': 'connect',
+	'external-tools/puppeteer-mcp-scraping-amazon-web-reviews': 'connect',
+	'external-tools/context7-mcp-update-astro-project-with-best-practices': 'connect',
+	'external-tools/sqlite-and-stripe-mcp-basic-queries-you-can-make-after-set-up': 'connect',
+	'external-tools/using-mcp-servers-with-warp': 'connect',
+
+	// Build & deploy apps — end-to-end builds, Docker, K8s, cloud, frontend
+	'build-an-app-in-warp/building-a-real-time-chat-app-github-mcp-railway': 'build-deploy',
+	'build-an-app-in-warp/building-a-chrome-extension-d3js-javascript-html-css': 'build-deploy',
+	'build-an-app-in-warp/building-warps-input-with-warp': 'build-deploy',
+	'build-an-app-in-warp/building-a-slackbot': 'build-deploy',
+	'devops/how-to-analyze-cloud-run-logs-gcloud': 'build-deploy',
+	'devops/how-to-create-a-production-ready-docker-setup': 'build-deploy',
+	'devops/improve-your-kubernetes-workflow-kubectl-helm': 'build-deploy',
+	'frontend/how-to-actually-code-ui-that-matches-your-mockup-react-tailwind': 'build-deploy',
+	'frontend/how-to-replace-a-ui-element-in-warp-rust-codebase': 'build-deploy',
+
+	// Review & debug — PR review, code review, testing, database, secrets
+	'agent-workflows/how-to-review-ai-generated-code': 'review-debug',
+	'agent-workflows/how-to-review-prs-like-a-senior-dev': 'review-debug',
+	'getting-started/how-to-master-warps-code-review-panel': 'review-debug',
+	'devops/how-to-generate-unit-and-security-tests-to-debug-faster': 'review-debug',
+	'devops/how-to-write-sql-commands-inside-a-postgres-repl': 'review-debug',
+	'devops/how-to-create-priority-matrix-for-database-optimization': 'review-debug',
+	'devops/how-to-prevent-secrets-from-leaking': 'review-debug',
+};
+
+/** Resolve a guide's use-case category from its path. */
+function resolveCategory(guideId: string): string {
+	// Strip 'guides/' prefix and file extension to get the lookup key
+	const key = guideId.replace(/^guides\//, '').replace(/\.mdx?$/, '');
+	return GUIDE_CATEGORIES[key] || 'agents'; // fallback
+}
 
 const allDocs = await getCollection('docs', (entry) =>
 	entry.id.startsWith('guides/') && entry.id !== 'guides' && !entry.id.endsWith('/index'),
@@ -34,7 +115,7 @@ const guides: GuideData[] = allDocs
 		return parts.length >= 2;
 	})
 	.map((doc) => {
-		const category = doc.id.replace(/^guides\//, '').split('/')[0];
+		const category = resolveCategory(doc.id);
 		return {
 			title: (doc.data as any).sidebar?.label || doc.data.title,
 			description: doc.data.description || '',
@@ -48,7 +129,7 @@ const guides: GuideData[] = allDocs
 
 const featured = guides.filter((g) => g.featured);
 
-// Derive ordered categories
+// Derive ordered categories (preserving CATEGORY_LABELS order)
 const categories = Object.keys(CATEGORY_LABELS).filter((cat) =>
 	guides.some((g) => g.category === cat),
 );
