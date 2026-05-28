@@ -6,12 +6,11 @@ description: >-
 sidebar:
   label: "Sending Feedback & Logs"
 ---
-import DemoVideo from '@components/DemoVideo.astro';
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 ### Sending Warp feedback
 
-* Use the [`/feedback`](#using-feedback-in-warp) slash command inside Warp to draft and file a GitHub issue without leaving the terminal.
+* Use the [`/feedback`](#using-feedback-in-warp) slash command inside Warp to open the static feedback experience.
 * Open a new bug or feature request in our [GitHub repository](https://github.com/warpdotdev/warp/issues/new/choose).
 * Join our [Warp Community Slack](https://go.warp.dev/join-preview) and share feedback in **#feedback-general**, or **#feedback-preview** if it is specific to [Warp Preview](/support-and-community/community/warp-preview-and-alpha-program/).
 * For security issues or questions, email [security@warp.dev](mailto:security@warp.dev).
@@ -23,43 +22,9 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 * For subscriber billing issues or questions (refunds, cancellation, etc.), email [billing@warp.dev](mailto:billing@warp.dev).
 * For enterprise, please direct all feedback and issues to your designated Slack channel.
 
-<DemoVideo src="/assets/support-and-community/send-feedback-demo.mp4" label="sending feedback from the macOS menu and Warp Essentials" />
-
 ## Using `/feedback` in Warp
 
-The `/feedback` [slash command](/agent-platform/capabilities/slash-commands/) is the fastest way to report a Warp bug, flag a regression, or file a feature request from inside the terminal. It files issues against [`warpdotdev/warp`](https://github.com/warpdotdev/warp) so the Warp team can triage reports quickly.
-
-`/feedback` has two flows, and Warp picks the right one automatically based on whether AI is enabled for your account:
-
-* **AI enabled** — the Agent drafts and files the issue for you.
-* **AI disabled** — Warp opens the GitHub new-issue picker in your browser so you can write and submit the report yourself.
-
-### With AI enabled
-
-When AI is enabled, `/feedback` hands your report to the Agent, which polishes and files your issue in a single turn. The Agent:
-
-1. **Classifies** your report by type (bug, regression, UX issue, or feature request).
-2. **Asks clarifying questions** only when the report is too vague to draft responsibly. For example, when expected behavior, reproduction steps, or the affected platform aren't clear.
-3. **Checks for duplicates** in `warpdotdev/warp` and, if a likely duplicate exists, links you to that issue instead of filing a new one.
-4. **Files the issue** in `warpdotdev/warp`, either directly or by opening a prefilled new-issue page in your browser.
-
-:::note
-This flow uses the Agent to draft your issue, so it consumes [credits](/support-and-community/plans-and-billing/credits/) like any other Agent conversation.
-:::
-
-#### Attaching screenshots
-
-You can attach screenshots to your `/feedback` request the same way you attach images to any other Agent prompt (drag-and-drop into the input, paste from the clipboard, or use the attach button). When one or more images are attached, the Agent:
-
-* Includes a short caption for each screenshot in the drafted issue body, so the report stays coherent even if an image never makes it to the final GitHub issue.
-* Opens the prefilled new-issue page in your browser with placeholder lines (for example, `_Paste screenshot 1 here_`) indicating exactly where to drop each image. Screenshots have to be added in the browser because GitHub doesn't yet support attaching images to issues over its API.
-* Reminds you in its final reply that the issue is drafted but not filed. To complete filing, drop your screenshots into the placeholder lines and click **Submit new issue**.
-
-### With AI disabled
-
-When AI is disabled for your account, `/feedback` (and the **Feedback** button in Warp Essentials) skips the Agent and opens the GitHub new-issue picker for `warpdotdev/warp` directly in your browser, with your current Warp version and operating system prefilled as query parameters. No Agent is invoked and no credits are consumed. You write and submit the issue yourself through GitHub's web UI.
-
-If you're unsure whether AI is enabled for your account, open the Warp app and go to **Settings** > **Agents** > **Warp Agent**.
+The `/feedback` [slash command](/agent-platform/capabilities/slash-commands/) is the fastest way to report a Warp bug, flag a regression, or file a feature request from inside the terminal. `/feedback` opens a static feedback experience and does not start an Agent conversation or consume credits.
 
 ### What to include
 
