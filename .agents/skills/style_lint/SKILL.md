@@ -1,6 +1,6 @@
 ---
 name: style_lint
-description: Scan Warp Astro Starlight documentation for style guide violations including formatting issues (Settings path format, UI element format, header case, missing frontmatter, image alt text, callout syntax) and terminology issues (product name casing, Oz terms to avoid, deprecated terms). Run with --changed for PR workflows or --all for periodic audits. Optionally auto-fix high-confidence issues with --fix.
+description: Scan Warp Astro Starlight documentation for style guide violations including formatting issues (Settings path format, UI element format, header case, missing frontmatter, image alt text, standardized screenshot widths, callout syntax) and terminology issues (product name casing, Oz terms to avoid, deprecated terms). Run with --changed for PR workflows or --all for periodic audits. Optionally auto-fix high-confidence issues with --fix.
 ---
 
 # Style Lint
@@ -46,6 +46,7 @@ python3 .warp/skills/style_lint/style_lint.py --all --fix --create-pr
 - **Header case**: Title Case in H2/H3/H4 headers (should be sentence case, with exceptions for proper feature names)
 - **Missing frontmatter**: Pages without YAML `description` field
 - **Image alt text**: `<img>` or `<figure>` without alt text or with generic alt text ("screenshot", "image")
+- **Screenshot widths**: Likely UI/product screenshots must use `<figure style={{ maxWidth: "..." }}>` with a standard width (`300px`, `350px`, `375px`, or `563px`)
 - **Callout syntax**: Leftover GitBook `{% hint %}` tags that should be migrated to Starlight `:::note` / `:::caution` / `:::danger` asides
 - **List format**: Bulleted feature/capability lists missing the bold term + dash pattern (report only, never auto-fixed)
 

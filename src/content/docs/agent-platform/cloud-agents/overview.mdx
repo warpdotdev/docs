@@ -8,9 +8,15 @@ sidebar:
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
 
-Cloud agents are autonomous, background agents that run on Warp's cloud infrastructure or your own, triggered by system events, schedules, or integrations like Slack and GitHub. They execute tasks with full observability — every run is tracked, auditable, and shareable across your team.
+Cloud agents are autonomous, background agents that run on Warp's cloud infrastructure or your own, triggered by system events, schedules, or integrations like Slack and GitHub. They execute tasks with full observability — every run is tracked, inspectable, and shareable across your team.
 
 **New to cloud agents?** Start with the [Cloud agents quickstart](/agent-platform/cloud-agents/quickstart/) to run your first cloud agent in ~10 minutes.
+
+### Monitor, inspect, and share cloud agent runs
+
+To understand what a cloud agent did, start from the [Agent Management Panel](/agent-platform/cloud-agents/managing-cloud-agents/) in the Warp app or the [Runs page in the Oz web app](/agent-platform/cloud-agents/oz-web-app/#runs). From there, you can find a run by source, status, trigger, or owner; open the run transcript; inspect the prompt, plan, commands, logs, and output; and share the session link with teammates for review.
+
+For a full walkthrough, see [Viewing cloud agent runs](/agent-platform/cloud-agents/viewing-cloud-agent-runs/). If the run came from Slack, Linear, GitHub Actions, a schedule, the CLI, or the API, it still produces a reviewable cloud agent run record.
 
 <VideoEmbed url="https://youtu.be/poLkJhO7fdo" />
 
@@ -21,7 +27,7 @@ Cloud agents are designed for situations where:
 * **You need agents to react to system events.**
   * Examples include crashes, bug reports, Slack interactions, cron timers, or CI steps.
 * **You want observability into agent activity across a team or system.**
-  * This includes being able to see what ran, when it ran, and what it did.
+  * This includes being able to see what ran, when it ran, what triggered it, what the agent did, and how teammates can review or share the result.
 * **You need more parallelism than local execution typically allows.**
   * For example, running many agent tasks concurrently in the cloud, sharding a repo-wide task into multiple runs, or fanning out the same task across multiple targets.
 * **You want agents to operate continuously as part of engineering infrastructure.**
@@ -40,7 +46,7 @@ Each task includes:
 * **Inputs**: a prompt, and often additional context from the triggering system (for example a Slack message, PR metadata, or CI logs).
 * **Execution context (optional)**: an [Environment](/agent-platform/cloud-agents/environments/) that defines the repo, image, and startup commands the agent should run with.
 * **Lifecycle state**: created → running → completed / failed.
-* **Persistent record**: status, metadata, and a session transcript that can be reviewed after the task completes.
+* **Persistent record**: status, metadata, and a session transcript that can be reviewed after the task completes, including the prompt, plan, commands, logs, outputs, and follow-up messages where available.
 
 :::note
 If you are evaluating whether something should be a cloud agent, a good test is whether you can define:\
@@ -61,7 +67,7 @@ For teams that need execution to stay within their network boundary, self-hostin
 
 ### What you get by default
 
-Because cloud agents run on the [Oz Platform](/agent-platform/cloud-agents/platform/), each run is tracked and produces a persistent record that can be observed, shared, and audited (even if execution happens outside the Warp app).
+Because cloud agents run on the [Oz Platform](/agent-platform/cloud-agents/platform/), each run is tracked and produces a persistent record that can be observed, shared, and reviewed (even if execution happens outside the Warp app).
 
 #### Codebase Context
 
@@ -71,9 +77,9 @@ Cloud agent runs automatically benefit from [Codebase Context](/agent-platform/c
 
 Cloud agent tasks are designed to be inspectable by the team:
 
-* [Agent Session Sharing](/agent-platform/local-agents/session-sharing/) lets authorized teammates attach to a running task to monitor progress and, where supported, steer the agent while it runs.
-* Each run produces a session transcript and task metadata, which provides a record of what the agent did.
-* A [management experience](/agent-platform/cloud-agents/managing-cloud-agents/) surfaces task status and history.
+* The [Agent Management Panel](/agent-platform/cloud-agents/managing-cloud-agents/) in the Warp app and the [Runs page in the Oz web app](/agent-platform/cloud-agents/oz-web-app/#runs) surface task status, source, trigger, creator, history, and credit usage.
+* [Cloud agent session sharing](/agent-platform/cloud-agents/viewing-cloud-agent-runs/) opens the run transcript so teammates can inspect the prompt, plan, commands, logs, files changed, outputs, and follow-up messages where available.
+* [Agent Session Sharing](/agent-platform/local-agents/session-sharing/) lets authorized teammates share, monitor, and steer live local or third-party agent sessions.
 
 #### Centralized configuration
 
@@ -93,12 +99,12 @@ The Oz Platform exposes task visibility via the [**Oz API and SDKs**](/reference
 
 ### Using cloud agents with or without the Warp app
 
-Cloud agents do not require the Warp desktop app. Teams can deploy and operate them through the [Oz Platform](/agent-platform/cloud-agents/platform/) using:
+Cloud agents do not require the Warp app. Teams can deploy and operate them through the [Oz Platform](/agent-platform/cloud-agents/platform/) using:
 
 * [Oz CLI](/reference/cli/) — run agents from scripts, CI, or the terminal
 * [Oz web app](/agent-platform/cloud-agents/oz-web-app/) — visual interface for managing runs, schedules, environments, and integrations (works on mobile)
 * [Agent Session Sharing](/agent-platform/local-agents/session-sharing/) — attach to running tasks to monitor or steer
-* [Agent Management UX](/agent-platform/cloud-agents/managing-cloud-agents/) — view agent activity and run history
+* [Agent Management Panel](/agent-platform/cloud-agents/managing-cloud-agents/) — view agent activity and run history in the Warp app
 * [APIs and SDKs](/reference/api-and-sdk/) — programmatic access for custom integrations
 
 If your team also uses Warp's terminal, you get an additional workflow: tasks launched via the CLI can be handed off into an interactive session for review, edits, or continuation.
