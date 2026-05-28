@@ -14,6 +14,8 @@ Warp's Scheduled Agents let you run cloud agents automatically on a **recurring 
 
 Scheduled Agents run in the background on Warp’s infrastructure. Each run starts from a clean session, executes a fixed prompt, and produces its own task and session history that can be inspected after the fact.
 
+If you're deciding whether to use a schedule, Slack or Linear trigger, GitHub Actions, the Oz CLI, or the API, see [Run agents unattended with schedules and triggers](/guides/agent-workflows/how-to-run-unattended-agents/).
+
 ---
 
 ### What are Scheduled Agents?
@@ -154,7 +156,7 @@ Each completed run also includes links to:
 * The task created by the agent.
 * The full agent session, including logs and outputs.
 
-This makes it easy to audit what ran, when it ran, and what the agent did.
+This makes it easy to review what ran, when it ran, and what the agent did.
 
 #### Viewing a specific Scheduled Agent
 
@@ -172,7 +174,7 @@ This command returns additional details not shown in the list view, including:
 * Recent runs and execution metadata
 * Links to related tasks and agent sessions
 
-This is useful when auditing behavior, debugging failures, or reviewing how a Scheduled Agent is configured.
+This is useful when reviewing behavior, debugging failures, or inspecting how a Scheduled Agent is configured.
 
 ### Pausing and unpausing schedules
 
@@ -266,7 +268,7 @@ oz schedule delete SCHEDULE_ID
 oz schedule delete abc123
 ```
 
-Deleting a schedule immediately stops all future runs. Previous runs and their session history remain accessible for auditing and review.
+Deleting a schedule immediately stops all future runs. Previous runs and their session history remain accessible for inspection and review.
 
 ---
 

@@ -638,6 +638,70 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /agent/runs/{runId}/followups:
+    post:
+      summary: Submit a follow-up message for a run
+      description: |
+        Send a follow-up message to an existing run. The server transparently
+        routes the message based on the current state of the run (still
+        queued, actively running, or ended). A 200 response means the follow-up
+        was accepted; updated run state can be observed via
+        `GET /agent/runs/{runId}`.
+      operationId: submitRunFollowup
+      tags:
+      - agent
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: runId
+        in: path
+        description: The unique identifier of the run
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RunFollowupRequest'
+      responses:
+        '200':
+          description: Follow-up accepted
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid request (empty message, no active sandbox without conversation ID, etc.)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: No permission to submit follow-ups for this run
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Run not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /agent/conversations/{conversation_id}:
     get:
       summary: Get normalized conversation
@@ -3312,6 +3376,23 @@ components:
       - authentication_required
       - resource_unavailable
       - internal_error
+    RunFollowupRequest:
+      type: object
+      description: Request body for submitting a follow-up message to an existing run.
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          x-oapi-codegen-extra-tags:
+            binding: required
+          description: The follow-up message to send to the run.
+        mode:
+          $ref: '#/components/schemas/AgentRunMode'
+          description: |
+            Optional query mode for the follow-up. Defaults to `normal` when
+            omitted. The server does not infer mode from prompt prefixes such
+            as `/plan`.
     ListModelsResponse:
       type: object
       required:

@@ -1,9 +1,9 @@
 ---
 title: Run multiple AI coding agents
 description: >-
-  Run Claude Code, Codex, and other AI coding agents in parallel using
-  vertical tabs, tab configs, and notifications to manage multiple sessions at
-  once.
+  Coordinate multiple AI coding agents, including Claude Code and Codex, across
+  separate workspaces, Git worktrees, cloud agents, and orchestrated runs with
+  clear task ownership, validation, and review handoff.
 sidebar:
   label: "Run multiple AI coding agents"
 featured: true
@@ -12,12 +12,42 @@ tags:
 
 ---
 
-Different agents have different strengths. Claude Code might handle refactoring well while Codex might excel at test generation. Instead of choosing one, you can run them in parallel. Assign different tasks to different agents, compare their outputs on the same problem, or have one agent build while another reviews. This guide shows you how to set up a multi-agent workflow in Warp and manage it effectively. Plan on about 15 minutes.
+Use multiple coding agents when work can be split into independent tasks, reviewed from separate branches, or delegated to cloud agents while you keep working locally. In Warp, you can coordinate agents in three ways:
+
+* **Local parallel sessions** - run Warp Agent, Claude Code, Codex, OpenCode, or another CLI agent in separate tabs or panes.
+* **Isolated worktrees** - give each agent its own Git worktree and branch so parallel edits do not collide.
+* **Oz cloud orchestration** - use `/orchestrate`, `/plan`, the Oz CLI, the Oz web app, or the Oz API to fan work out to child agents in cloud environments.
+
+The best multi-agent workflows have one thing in common: each agent owns a clear slice of work, reports back with validation results, and hands off a branch, diff, PR, or concise finding you can review.
+
+Plan on about 15 minutes for the local setup. Cloud orchestration takes longer only if you need to create or select an [environment](/agent-platform/cloud-agents/environments/) first.
 
 ## Prerequisites
 
-* **Any coding agent** — For example, Warp's built-in agent, [Claude Code](/guides/external-tools/how-to-set-up-claude-code/), or [Codex CLI](/guides/external-tools/how-to-set-up-codex-cli/). Any combination of supported agents works well: Oz by Warp, Claude Code, Codex, OpenCode, Gemini CLI, Amp, Pi, Droid, and others.
+* **Any coding agent** — Any combination of supported agents works well: Warp Agent, [Claude Code](/guides/external-tools/how-to-set-up-claude-code/), [Codex CLI](/guides/external-tools/how-to-set-up-codex-cli/), OpenCode, Gemini CLI, Amp, Pi, Droid, and others.
 * **A Git-tracked project** — Notifications and code review work best in a Git repository.
+
+## Choose a multi-agent pattern
+
+| Pattern | Use it when | How to run it in Warp |
+| ------- | ----------- | --------------------- |
+| Same task, different agents | You want to compare approaches or pick the best implementation. | Run each agent in a separate tab and worktree, then compare diffs in the [Code Review panel](/code/code-review/). |
+| Split by file or subsystem | A feature spans independent modules that can be changed in parallel. | Assign each agent a worktree, branch, file boundary, and validation command. |
+| Builder plus reviewer | One agent implements while another reviews, writes tests, or checks edge cases. | Put the reviewer in a read-only or review-focused tab, or use a separate branch for test-only changes. |
+| Cloud fan-out | The work is large, slow, or can run away from your laptop. | Use [Multi-agent orchestration](/agent-platform/cloud-agents/orchestration/) or [Running orchestrated agents](/agent-platform/cloud-agents/orchestration/multi-agent-runs/) to spawn cloud children. |
+| Repeatable fleet workflow | You want the same agent pattern on every PR, issue, schedule, or release. | Use a cloud agent with a trigger, skill, or API workflow, then inspect parent and child runs in the [Oz web app](/agent-platform/cloud-agents/oz-web-app/). |
+
+## Plan the split before launching agents
+
+Before you start agents, decide:
+
+* **Task ownership** - Which files, packages, tests, issues, or PRs each agent owns.
+* **Workspace ownership** - Which branch or Git worktree each agent uses.
+* **Validation ownership** - Which agent runs unit tests, typechecks, lint, smoke tests, or manual verification.
+* **Handoff format** - Whether each agent should leave a local diff, branch, PR, patch, summary, or code review comments.
+* **Merge strategy** - Whether you will keep one winner, cherry-pick changes, merge multiple branches, or open separate PRs.
+
+Use boundaries that minimize overlapping edits. For example, assign one agent to `packages/api`, another to `packages/web`, and a third to tests or docs. If two agents must touch the same files, make one the owner and ask the other to review or propose changes without editing.
 
 ## 1. Switch to vertical tabs
 
@@ -28,12 +58,12 @@ To enable vertical tabs:
 2. Select **Use vertical tab layout**. 
 
 You can configure what information to display for each tab:
-* The running agent (Oz, Claude Code, Codex, etc.)
+* The running agent (Warp Agent, Claude Code, Codex, etc.)
 * The current Git branch
 * The working directory
 * A status indicator showing whether the agent is active, waiting for input, or idle
 
-<figure>
+<figure style={{ maxWidth: "375px" }}>
 ![Warp vertical tabs sidebar showing multiple terminal sessions with branch metadata](../../../../assets/terminal/vertical-tabs-multi-agent.png)
 <figcaption>Vertical tabs overview.</figcaption>
 </figure>
@@ -66,7 +96,19 @@ Refactor src/auth/ to use async/await instead of callbacks
 Write comprehensive tests for src/auth/ covering edge cases
 ```
 
-<figure>
+For split work, include the same operating contract in every prompt:
+
+```
+You own src/auth/ and tests/auth/.
+Do not edit src/billing/ or src/api/payments/.
+Work on branch feature/auth-refactor-claude in ../your-project-claude.
+Run npm test -- auth and npm run typecheck before handing off.
+When done, report changed files, validation results, and any risks.
+```
+
+If one agent depends on another, do not let both edit at once. Ask the first agent to finish and report its branch, patch, or PR before starting the dependent work.
+
+<figure style={{ maxWidth: "563px" }}>
 ![Multiple agent tabs in Warp's vertical sidebar showing session status, branch, and directory metadata](../../../../assets/terminal/multi-agents.png)
 <figcaption>Vertical tab with agent details.</figcaption>
 </figure>
@@ -87,7 +129,7 @@ Notification setup varies by agent:
 Agent notifications are currently supported for Claude Code, Codex, and OpenCode. For setup details, see [Agent notifications](/agent-platform/capabilities/agent-notifications/). For a full breakdown of which features work with each agent, see the [third-party CLI agents feature matrix](/agent-platform/cli-agents/overview/).
 :::
 
-<figure>
+<figure style={{ maxWidth: "350px" }}>
 ![Warp notification popup showing an agent requesting permission to edit a file](../../../../assets/guides/tab-notification-indicator.png)
 <figcaption>Agent approval notification.</figcaption>
 </figure>
@@ -109,7 +151,7 @@ If you regularly work with the same multi-agent setup, save it as a tab config s
 1. Hover over the tab and click the three dots on the right-hand side.
 2. Click **Save as new config**.
 
-<figure>
+<figure style={{ maxWidth: "375px" }}>
 ![Creating a new tab config from the tab context menu in Warp](../../../../assets/terminal/save-new-tab-config.png)
 <figcaption>Saving a tab config.</figcaption>
 </figure>
@@ -126,22 +168,73 @@ Tab configs pair well with [Git worktrees](/code/git-worktrees/). Create a workt
 
 ## 6. Use Git worktrees for isolated agent workspaces
 
-When multiple agents modify the same files, they can create conflicts. Git worktrees solve this by giving each agent its own copy of your repo on a separate branch.
+When multiple agents modify the same files, they can create conflicts. Git worktrees give each agent its own copy of your repo on a separate branch.
 
-Create worktrees for each agent:
+1. Create one worktree per agent so each agent has an isolated branch.
 
-```bash
-git worktree add ../your-project-claude feature/claude-refactor
-git worktree add ../your-project-codex feature/codex-refactor
-```
+   ```bash
+   git worktree add ../your-project-claude feature/claude-refactor
+   git worktree add ../your-project-codex feature/codex-refactor
+   ```
+2. Point each agent tab at its assigned worktree directory.
+3. Give every worktree a branch name that makes ownership obvious:
+   * `agent/claude-auth-refactor`
+   * `agent/codex-auth-tests`
+   * `agent/warp-review-pass`
 
-Then point each agent tab at its own worktree directory. Tab configs complement this workflow. Define each worktree directory and agent startup command in a config, then recreate the full setup with one click.
+4. Keep a merge note somewhere lightweight, such as your parent Warp Agent conversation or PR description:
+   * Which branch each agent owns.
+   * Which tests each agent ran.
+   * Which branch should be merged first.
+   * Which conflicts or follow-up decisions remain.
+5. After both agents finish, compare the branches and merge the best results.
+   ```bash
+   git diff feature/claude-refactor..feature/codex-refactor
+   ```
 
-After both agents finish, compare the branches and merge the best results:
+6. Remove worktrees after you merge or discard the branch.
+   ```bash
+   git worktree remove ../your-project-claude
+   git worktree remove ../your-project-codex
+   ```
 
-```bash
-git diff feature/claude-refactor..feature/codex-refactor
-```
+## 7. Fan out work to cloud agents
+
+Use cloud agents when the work is long-running, resource-intensive, easy to shard, or better handled away from your local machine. For example:
+
+* Review every open PR in a repo.
+* Run a migration across many packages.
+* Ask one child agent per service to inspect logs, tests, or incidents.
+* Let a parent agent coordinate a plan while children research, implement, or validate.
+
+1. Start in the Warp app with `/orchestrate` when you want a parent agent to propose the child-agent breakdown.
+
+   ```text
+   /orchestrate Split this TypeScript monorepo migration by package. Use one child agent per package, require each child to run package tests, and summarize changed files and risks before merge.
+   ```
+
+2. Use `/plan` for larger changes where you want to review the plan, orchestration config, child ownership, and merge strategy before agents launch.
+3. For repeatable or unattended workflows, start the parent from the Oz CLI, the Oz web app, or the Oz API. See [Running orchestrated agents](/agent-platform/cloud-agents/orchestration/multi-agent-runs/) for launch options.
+4. Inspect parent and child runs from the [Oz web app](/agent-platform/cloud-agents/oz-web-app/) or the [Agent Management Panel](/agent-platform/cloud-agents/managing-cloud-agents/) in the Warp app.
+
+Cloud orchestration is the best fit when you need:
+
+* **Parallel fan-out** across many files, packages, PRs, issues, or services.
+* **Clear observability** across parent and child runs.
+* **Durable handoff** through child run summaries, session links, artifacts, PRs, or messages.
+* **Team-scale execution** from Slack, Linear, schedules, GitHub Actions, the CLI, or the API.
+
+## 8. Validate, merge, and hand off
+
+Do not merge every agent's output automatically. Use a fan-in pass:
+
+1. Review each agent's summary, changed files, and validation results.
+2. Open the [Code Review panel](/code/code-review/) for local branches, or inspect cloud run artifacts and session links for cloud children.
+3. Merge or cherry-pick one branch at a time.
+4. Re-run the full validation suite from the final integrated branch.
+5. Attach context for reviewers: agent session links, changed files, validation commands, known risks, and reviewer asks.
+
+For GitHub handoff, see [Attach agent session context to GitHub PRs](/guides/agent-workflows/how-to-attach-agent-session-context-to-github-prs/). For reviewing the generated code itself, see [How to review AI-generated code](/guides/agent-workflows/how-to-review-ai-generated-code/).
 
 ## Productivity tips
 
@@ -157,7 +250,10 @@ You set up a multi-agent workspace with vertical tabs, launched different agents
 Explore related guides and features:
 
 * [How to review AI-generated code](/guides/agent-workflows/how-to-review-ai-generated-code/) — review and refine the code your agents produced
-* [Set up Claude Code](/guides/external-tools/how-to-set-up-claude-code/) or [Set up Codex CLI](/guides/external-tools/how-to-set-up-codex-cli/) if you haven't installed both yet
+* [Attach agent session context to GitHub PRs](/guides/agent-workflows/how-to-attach-agent-session-context-to-github-prs/) — give reviewers the agent context behind a PR
+* [Multi-agent orchestration](/agent-platform/cloud-agents/orchestration/) — coordinate parent and child agents across local and cloud runs
+* [Running orchestrated agents](/agent-platform/cloud-agents/orchestration/multi-agent-runs/) — start orchestrated runs from Warp, the Oz CLI, the Oz web app, or the Oz API
+* [Set up Claude Code](/guides/external-tools/how-to-set-up-claude-code/) or [Set up Codex CLI](/guides/external-tools/how-to-set-up-codex-cli/) — install both agents if you haven't already
 * [Claude Code in Warp](https://www.warp.dev/agents/claude-code) — overview of Claude Code support in Warp
 * [Codex in Warp](https://www.warp.dev/agents/codex) — overview of Codex support in Warp
 * [Gemini CLI in Warp](https://www.warp.dev/agents/gemini-cli) — overview of Gemini CLI support in Warp
