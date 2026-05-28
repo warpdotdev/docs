@@ -47,7 +47,6 @@ EXCLUDED_TAGS: frozenset[str] = frozenset({"memory_stores", "harness-support"})
 # the public API reference. Keep in sync with references/sync-policy.md.
 EXCLUDED_PATHS: frozenset[str] = frozenset(
     {
-        "/agent/runs/{runId}/followups",
         "/agent/runs/{runId}/handoff/attachments",
         "/agent/handoff/upload-snapshot",
         "/agent/conversations/{conversation_id}/fork",
@@ -459,7 +458,10 @@ def _self_test() -> int:
 
     out = transform(sample)
     paths = set(out["paths"].keys())
-    assert paths == {"/agent/run"}, f"unexpected paths: {paths}"
+    assert paths == {
+        "/agent/run",
+        "/agent/runs/{runId}/followups",
+    }, f"unexpected paths: {paths}"
 
     schemas = set(out["components"]["schemas"].keys())
     # Config and Mode are reachable transitively (allOf, items)
