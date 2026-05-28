@@ -346,7 +346,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 								'agent-platform/cloud-agents/integrations/bitbucket',
 								'agent-platform/cloud-agents/integrations/gitlab',
 								{ slug: 'agent-platform/cloud-agents/integrations/cloud-providers', label: 'AWS, GCP, and other cloud providers' },
-								{ slug: 'agent-platform/cloud-agents/integrations/demo-issue-triage-bot', label: 'Demo: Issue triage bot' },
 							],
 						},
 						'agent-platform/cloud-agents/environments',
