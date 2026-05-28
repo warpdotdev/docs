@@ -480,6 +480,8 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 										'reference/api-and-sdk/troubleshooting/errors/authentication-required',
 										'reference/api-and-sdk/troubleshooting/errors/resource-unavailable',
 										'reference/api-and-sdk/troubleshooting/errors/internal-error',
+										'reference/api-and-sdk/troubleshooting/errors/infrastructure-timeout',
+										'reference/api-and-sdk/troubleshooting/errors/agent-process-failed',
 									],
 								},
 							],

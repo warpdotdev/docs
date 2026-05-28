@@ -1,0 +1,62 @@
+---
+title: infrastructure_timeout
+description: >-
+  The task was forcibly terminated because it remained active past the maximum
+  allowed runtime. Retry the task or contact support if it persists.
+---
+
+The `infrastructure_timeout` error occurs when a cloud agent task runs past the platform's maximum allowed runtime and is forcibly terminated.
+
+:::note
+This is classified as a **platform error** (task state → ERROR) rather than a user error, because the termination is performed by Warp's infrastructure rather than by the task itself.
+:::
+
+---
+
+## Details
+
+* **HTTP Status:** `500 Internal Server Error`
+* **Retryable:** No
+* **Task State:** ERROR
+
+---
+
+## When does this occur?
+
+This error is returned when:
+
+* The task runs longer than the platform's maximum allowed runtime and is terminated by the periodic stale-task cleanup job
+* The agent process never reports a terminal status within that window (for example, the process is hung or stuck on a long-running command)
+* A networking or infrastructure issue causes the task to stall silently without reporting completion
+
+---
+
+## Example response
+
+```json
+{
+  "type": "/reference/api-and-sdk/troubleshooting/errors/infrastructure-timeout/",
+  "title": "The task exceeded the maximum allowed runtime and was terminated.",
+  "status": 500,
+  "instance": "/api/v1/agent/tasks",
+  "error": "The task exceeded the maximum allowed runtime and was terminated.",
+  "retryable": false,
+  "trace_id": "abc123..."
+}
+```
+
+---
+
+## How to resolve
+
+1. Retry the task. If it consistently times out, break the work into smaller, shorter-running subtasks or reduce the scope of the prompt.
+2. Review the [environment configuration](/agent-platform/cloud-agents/environments/) for setup commands or MCP servers that block on user input, long downloads, or unresponsive network calls.
+3. Contact [Warp support](/support-and-community/troubleshooting-and-support/sending-us-feedback/) and include the `trace_id` from the error response if the issue persists.
+
+---
+
+## Related
+
+* [Cloud Agents Overview](/agent-platform/cloud-agents/overview/) — How cloud agent tasks work
+* [internal_error](/reference/api-and-sdk/troubleshooting/errors/internal-error/) — Other platform-level errors
+* [Cloud Agents FAQs](/agent-platform/cloud-agents/faqs/) — Common questions about cloud agents
