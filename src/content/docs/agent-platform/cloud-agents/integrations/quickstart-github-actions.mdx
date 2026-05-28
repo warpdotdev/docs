@@ -13,12 +13,12 @@ Add agents to your GitHub Actions workflows with [`oz-agent-action`](https://git
 
 ## Prerequisites
 
-* **Warp API key** - In the Warp app, click your profile photo, then go to **Settings** > **Cloud platform** > **Oz Cloud API Keys** to create one. Use a personal key if the agent needs to write to your repo. See [API Keys](/reference/cli/api-keys/) for details.
+* **Warp API key** - Create an Agent API key for the [agent](/agent-platform/cloud-agents/agents/) that should run the workflow, then store it as a GitHub Actions secret. Use a personal key only when the workflow needs to run with your individual Warp identity. Avoid legacy team keys for GitHub Actions workflows. See [API keys](/reference/cli/api-keys/) for details.
 * **A GitHub repository with Actions enabled** - The workflow file will live in `.github/workflows/` in your repo.
 
 ---
 
-## 1. Add your API key as a GitHub Actions secret
+## Add your API key as a GitHub Actions secret
 
 Store your Warp API key as a GitHub Actions secret so workflows can authenticate without exposing the key in your code.
 
@@ -28,7 +28,7 @@ Store your Warp API key as a GitHub Actions secret so workflows can authenticate
 4. Paste your API key into the **Secret** field.
 5. Click **Add secret**.
 
-## 2. Create the workflow file
+## Create the workflow file
 
 This workflow triggers an agent whenever a PR is opened or marked ready for review. The agent reviews the diff and posts inline comments.
 
@@ -64,7 +64,7 @@ jobs:
 
 This workflow listens for pull request events and runs the `oz-agent-action` step, which executes the prompt to review code changes. Commit and push this file to your default branch to activate the workflow.
 
-## 3. Open a pull request
+## Open a pull request
 
 Create a new pull request in your repository to trigger the workflow.
 
@@ -74,7 +74,7 @@ To verify the workflow ran:
 2. Click **Oz PR review** in the list of workflows.
 3. Select the most recent run to see the agent's output in the job logs.
 
-## 4. View the run
+## View the run
 
 Each `oz-agent-action` step creates a cloud agent run you can inspect from the Oz dashboard:
 

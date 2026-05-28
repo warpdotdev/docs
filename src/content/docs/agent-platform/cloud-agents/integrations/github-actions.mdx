@@ -43,7 +43,7 @@ The `oz-agent-action` is a GitHub Action that wraps the Oz CLI and:
 
 To use agents in GitHub Actions, you need:
 
-* A [**Warp API Key**](/reference/cli/#generating-api-keys) stored as a [GitHub secret](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions) — this authenticates the agent with Warp
+* A [**Warp API key**](/reference/cli/api-keys/) stored as a [GitHub secret](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions) — create an Agent API key for the [agent](/agent-platform/cloud-agents/agents/) that should run the workflow. Use a personal key only when the workflow needs to run with your individual Warp identity. Avoid legacy team keys for GitHub Actions workflows.
 * Workflow permissions that match your intended actions (for example, `pull-requests: write` if the agent should commit or comment on PRs) — the agent performs actions on your behalf using the GitHub token available to the workflow
 * The `oz-agent-action` step added to your workflow
 * **For private repositories using `@oz-agent` mention workflows**: The [`oz-agent`](https://github.com/oz-agent) GitHub user must be [invited as a member](https://docs.github.com/en/organizations/managing-membership-in-your-organization/inviting-users-to-join-your-organization) of your GitHub organization (see [Responding to comments with @ mentions](#1-responding-to-comments-with--mentions) for details)
@@ -208,6 +208,22 @@ What it does:
 ---
 
 ## Troubleshooting
+
+### Authentication fails with a 401
+
+If the action fails with `Authentication failed` or `401 Unauthorized` while fetching user data, check the Warp API key used by the `warp_api_key` input:
+
+1. **Verify the secret value** - Confirm the GitHub Actions secret contains the full Warp API key, including the `wk-` prefix.
+2. **Use an Agent API key for team automation** - For GitHub Actions workflows that run as a team or named agent, create an Agent API key for the agent that should run the workflow. Legacy team keys may not authenticate correctly for new Oz automation flows.
+3. **Use a personal API key only for personal runs** - Personal keys run with your individual Warp identity and are appropriate when the workflow should act as you.
+
+After replacing the secret, rerun the failed GitHub Actions job.
+
+### Warp logs include bundled configuration values
+
+The action prints the Warp log path when a CLI command fails. Those logs can include client configuration metadata used by the packaged Oz CLI. Values with names like `firebase_auth_api_key`, RudderStack `write_key`, `ugc_write_key`, and GitHub OAuth `client_secret` are Warp-owned client configuration values, not secrets from your GitHub repository or Warp team.
+
+Recent Oz CLI versions redact these sensitive-looking channel configuration values when the channel state is written to `warp.log`. Continue to remove any real repository secrets, GitHub tokens, API keys, or environment variables before sharing logs externally.
 
 ### `@oz-agent` mention doesn't trigger the workflow
 
