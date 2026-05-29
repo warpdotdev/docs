@@ -7,7 +7,7 @@ description: >-
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 import VideoEmbed from '@components/VideoEmbed.astro';
 
-Full Terminal Use lets Warp's agent operate directly inside interactive terminal applications, such as database shells, debuggers, text editors, long-running servers, and more.
+Full Terminal Use lets Warp's agent operate directly inside interactive terminal applications like database shells, debuggers, text editors, and long-running servers. The agent can see the live terminal buffer, write commands, respond to prompts, and hand control back to you at any time.
 
 The agent can see the live terminal buffer (terminal state), write to the PTY to run commands, respond to prompts, and continue working inside the running process while you stay in control.
 
@@ -107,14 +107,14 @@ The behavior differs based on where you start the long-running command:
     1. Run an interactive command (e.g., `python`, `psql`)
     2. Press `⌘↩` (macOS) or `Ctrl+Shift+Enter` (Windows/Linux), or use `⌘I` (macOS) / `Ctrl+I` (Windows/Linux), to tag in the agent
     3. The input switches to Agent Mode with full controls
-    4. When you exit, an agent conversation block appears in your terminal blocklist
+    4. When you exit, an agent conversation block appears in your terminal block list
     5. Click the block to reopen the full conversation with your LRC interaction context
   </TabItem>
   <TabItem label="From agent view">
     1. The agent runs an interactive command as part of your conversation
     2. Use `⌘↩` (macOS) or `Ctrl+Shift+Enter` (Windows/Linux) to tag in if the agent isn't already interacting
     3. The UI stays the same since you're already in agent view
-    4. When you exit, the interaction remains part of your conversation. No separate block is created in the terminal blocklist
+    4. When you exit, the interaction remains part of your conversation. No separate block is created in the terminal block list
     5. Commands run in agent view are automatically included as context
   </TabItem>
 </Tabs>

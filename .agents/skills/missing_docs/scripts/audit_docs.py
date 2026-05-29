@@ -6,9 +6,10 @@ Compares documentation coverage against code surfaces in warp-internal and
 warp-server to identify gaps. Produces a structured JSON report.
 
 Usage:
-    python3 .warp/skills/missing_docs/scripts/audit_docs.py
-    python3 .warp/skills/missing_docs/scripts/audit_docs.py --category features
-    python3 .warp/skills/missing_docs/scripts/audit_docs.py --output report.json
+    python3 .agents/skills/missing_docs/scripts/audit_docs.py
+    python3 .agents/skills/missing_docs/scripts/audit_docs.py --category features
+    python3 .agents/skills/missing_docs/scripts/audit_docs.py --output report.json
+    python3 .agents/skills/missing_docs/scripts/audit_docs.py --weak-coverage
 """
 
 import argparse
@@ -23,6 +24,9 @@ from pathlib import Path
 # ---------------------------------------------------------------------------
 
 SKIP_DIRECTORIES = {"_book", "node_modules", ".git", ".docs"}
+
+# Mutable holder for the docs repo root, set by main()
+DOCS_REPO_ROOT: list = [None]
 
 # Paths to reference files (relative to this script)
 SCRIPT_DIR = Path(__file__).resolve().parent
@@ -135,6 +139,26 @@ def read_all_docs_text(docs_root: Path) -> dict[str, str]:
     return result
 
 
+def resolve_doc_path(doc_path: str, repo_root: Path) -> Path | None:
+    """Return the first existing variant of a mapped doc path.
+
+    The surface map historically used `.md` and `README.md`, but the live
+    repo is Astro Starlight (`.mdx` files, `index.mdx` landing pages).
+    Treat those variants as equivalent so the audit doesn't flag pages that
+    exist under a sibling extension.
+    """
+    candidates = [repo_root / doc_path]
+    if doc_path.endswith(".md"):
+        candidates.append(repo_root / (doc_path[:-3] + ".mdx"))
+    if doc_path.endswith("README.md"):
+        candidates.append(repo_root / doc_path.replace("README.md", "index.mdx"))
+        candidates.append(repo_root / doc_path.replace("README.md", "index.md"))
+    for candidate in candidates:
+        if candidate.exists():
+            return candidate
+    return None
+
+
 def camel_to_search_terms(flag_name: str) -> list[str]:
     """Convert a CamelCase flag name into searchable terms.
 
@@ -179,13 +203,17 @@ def search_docs_for_terms(docs_text: dict[str, str], terms: list[str]) -> list[s
 
 def parse_feature_flags(warp_internal: Path) -> list[str]:
     """Parse FeatureFlag enum variants from features.rs."""
-    # The FeatureFlag enum lives in the warp_features crate
-    features_rs = warp_internal / "crates" / "warp_features" / "src" / "lib.rs"
-    if not features_rs.exists():
-        # Fall back to legacy path
-        features_rs = warp_internal / "warp_core" / "src" / "features.rs"
-    if not features_rs.exists():
-        print(f"Warning: {features_rs} not found", file=sys.stderr)
+    # Try known locations in order
+    candidates = [
+        warp_internal / "crates" / "warp_features" / "src" / "lib.rs",
+        warp_internal / "crates" / "warp_core" / "src" / "features.rs",
+        warp_internal / "app" / "src" / "features.rs",
+        warp_internal / "warp_core" / "src" / "features.rs",
+    ]
+    features_rs = next((c for c in candidates if c.exists()), None)
+    if features_rs is None:
+        print(f"Warning: features.rs not found. Tried: {[str(c) for c in candidates]}",
+              file=sys.stderr)
         return []
 
     content = features_rs.read_text()
@@ -213,9 +241,14 @@ def parse_feature_flags(warp_internal: Path) -> list[str]:
 
 def parse_default_features(warp_internal: Path) -> set[str]:
     """Parse the default feature list from app/Cargo.toml."""
-    cargo_toml = warp_internal / "app" / "Cargo.toml"
-    if not cargo_toml.exists():
-        print(f"Warning: {cargo_toml} not found", file=sys.stderr)
+    candidates = [
+        warp_internal / "app" / "Cargo.toml",
+        warp_internal / "crates" / "warp_features" / "Cargo.toml",
+    ]
+    cargo_toml = next((c for c in candidates if c.exists()), None)
+    if cargo_toml is None:
+        print(f"Warning: app/Cargo.toml not found. Tried: {[str(c) for c in candidates]}",
+              file=sys.stderr)
         return set()
 
     content = cargo_toml.read_text()
@@ -235,12 +268,24 @@ def snake_to_pascal(snake: str) -> str:
 
 
 def audit_features(warp_internal: Path, docs_root: Path, surface_map: dict,
-                   docs_text: dict[str, str]) -> list[dict]:
-    """Audit feature flag coverage in docs."""
+                   docs_text: dict[str, str],
+                   weak_coverage: bool = False) -> list[dict]:
+    """Audit feature flag coverage in docs.
+
+    By default, a flag is treated as covered if its mapped doc exists (the
+    surface map maintainer has verified the mapping). When ``weak_coverage``
+    is True, also verify that the target doc actually mentions feature
+    keywords — useful for catching pages that have been renamed or trimmed
+    so the flag is no longer documented in prose.
+    """
     flags = parse_feature_flags(warp_internal)
     default_features = parse_default_features(warp_internal)
     ignore_flags = surface_map.get("ignore_flags", set())
     feature_to_doc = surface_map.get("feature_to_doc", {})
+
+    # Mapped paths in feature_surface_map.md are repo-root relative
+    # (e.g., "src/content/docs/..."), so resolve against the repo root.
+    repo_root = DOCS_REPO_ROOT[0] or docs_root.parent.parent.parent
 
     findings = []
     for flag in flags:
@@ -259,18 +304,49 @@ def audit_features(warp_internal: Path, docs_root: Path, surface_map: dict,
         # Check if mapped in surface map
         if flag in feature_to_doc:
             doc_path = feature_to_doc[flag]
-            full_path = docs_root.parent / doc_path
-            if full_path.exists():
-                continue  # Mapped and doc exists — verified
-            else:
-                findings.append({
-                    "flag": flag,
-                    "search_terms": camel_to_search_terms(flag),
-                    "severity": "high",
-                    "suggested_doc_path": doc_path,
-                    "reason": f"Mapped doc {doc_path} does not exist",
-                })
+            resolved = resolve_doc_path(doc_path, repo_root)
+            if resolved is not None:
+                if not weak_coverage:
+                    # Surface-map presence is treated as verified — the
+                    # maintainer has confirmed the page covers this flag.
+                    continue
+                # Optional weak-coverage check: verify the target page
+                # actually mentions feature keywords. Skip the lowercase
+                # concatenated / snake_case variants since they rarely
+                # match human-written prose.
+                try:
+                    doc_content = resolved.read_text(encoding="utf-8").lower()
+                except Exception:
+                    doc_content = ""
+                terms = camel_to_search_terms(flag)
+                check_terms = [t for t in terms if " " in t or t.startswith("/")]
+                if check_terms and not any(t in doc_content for t in check_terms):
+                    findings.append({
+                        "flag": flag,
+                        "search_terms": terms,
+                        "severity": "low",
+                        "suggested_doc_path": doc_path,
+                        "reason": (
+                            f"Mapped doc {doc_path} exists but does not "
+                            "mention feature keywords (weak coverage)"
+                        ),
+                    })
                 continue
+            # Mapped path missing — before flagging, fall back to a content
+            # search so we don't raise false positives when a doc has merely
+            # been moved.
+            terms = camel_to_search_terms(flag)
+            matches = search_docs_for_terms(docs_text, terms)
+            if matches:
+                continue
+            findings.append({
+                "flag": flag,
+                "search_terms": terms,
+                "severity": "high",
+                "suggested_doc_path": doc_path,
+                "reason": f"Mapped doc {doc_path} does not exist",
+            })
+            continue
 
         # Not in surface map — search docs for mentions
         terms = camel_to_search_terms(flag)
@@ -292,8 +368,14 @@ def audit_features(warp_internal: Path, docs_root: Path, surface_map: dict,
 
 def parse_cli_commands(warp_internal: Path) -> list[dict]:
     """Parse CLI subcommands from warp_cli/src/lib.rs."""
-    lib_rs = warp_internal / "warp_cli" / "src" / "lib.rs"
-    if not lib_rs.exists():
+    candidates = [
+        warp_internal / "crates" / "warp_cli" / "src" / "lib.rs",
+        warp_internal / "warp_cli" / "src" / "lib.rs",
+    ]
+    lib_rs = next((c for c in candidates if c.exists()), None)
+    if lib_rs is None:
+        print(f"Warning: warp_cli/src/lib.rs not found. Tried: {[str(c) for c in candidates]}",
+              file=sys.stderr)
         return []
 
     content = lib_rs.read_text()
@@ -329,8 +411,12 @@ def parse_cli_commands(warp_internal: Path) -> list[dict]:
 
 def parse_subcommands_from_file(warp_internal: Path, filename: str) -> list[str]:
     """Parse subcommand names from a CLI command file (e.g., agent.rs)."""
-    filepath = warp_internal / "warp_cli" / "src" / filename
-    if not filepath.exists():
+    candidates = [
+        warp_internal / "crates" / "warp_cli" / "src" / filename,
+        warp_internal / "warp_cli" / "src" / filename,
+    ]
+    filepath = next((c for c in candidates if c.exists()), None)
+    if filepath is None:
         return []
 
     content = filepath.read_text()
@@ -348,6 +434,7 @@ def audit_cli(warp_internal: Path, docs_root: Path, surface_map: dict,
     """Audit CLI command coverage in docs."""
     commands = parse_cli_commands(warp_internal)
     cli_to_doc = surface_map.get("cli_to_doc", {})
+    repo_root = DOCS_REPO_ROOT[0] or docs_root.parent.parent.parent
 
     # Read all CLI docs content
     cli_docs_dir = docs_root / "reference" / "cli"
@@ -366,7 +453,11 @@ def audit_cli(warp_internal: Path, docs_root: Path, surface_map: dict,
         # Check surface map
         if cmd_str in cli_to_doc:
             doc_path = cli_to_doc[cmd_str]
-            if (docs_root.parent / doc_path).exists():
+            # `internal` is a sentinel for hidden/internal commands that
+            # intentionally have no public docs (matches API audit semantics).
+            if doc_path == "internal":
+                continue
+            if resolve_doc_path(doc_path, repo_root) is not None:
                 continue  # Mapped and exists
 
         # Search CLI docs for the command name
@@ -437,8 +528,13 @@ def audit_api(warp_server: Path, docs_root: Path, surface_map: dict,
             except Exception:
                 pass
 
-    # Also check OpenAPI spec
-    openapi_path = docs_root / "developers" / "agent-api-openapi.yaml"
+    # Also check OpenAPI spec (lives at repo root, not under content/docs)
+    repo_root = DOCS_REPO_ROOT[0] or docs_root.parent
+    openapi_candidates = [
+        repo_root / "developers" / "agent-api-openapi.yaml",
+        docs_root / "developers" / "agent-api-openapi.yaml",
+    ]
+    openapi_path = next((c for c in openapi_candidates if c.exists()), openapi_candidates[0])
     openapi_text = ""
     if openapi_path.exists():
         try:
@@ -637,15 +733,29 @@ def main():
         choices=["high", "medium", "low"],
         help="Filter results by minimum severity",
     )
+    parser.add_argument(
+        "--weak-coverage",
+        action="store_true",
+        help="Also flag features whose mapped doc exists but doesn't mention "
+             "feature keywords (noisy; produces low-severity findings)",
+    )
     args = parser.parse_args()
 
     # Find repos
-    docs_root = SKILL_DIR.parent.parent.parent  # .warp/skills/missing_docs -> docs root
-    docs_root = docs_root / "docs"
-
-    if not docs_root.exists():
-        print(f"Error: docs directory not found at {docs_root}", file=sys.stderr)
+    # SKILL_DIR is at <repo>/.agents/skills/missing_docs (or legacy <repo>/.warp/skills/...)
+    repo_root = SKILL_DIR.parent.parent.parent
+    # Astro Starlight docs live at src/content/docs
+    candidates = [
+        repo_root / "src" / "content" / "docs",
+        repo_root / "docs",
+    ]
+    docs_root = next((c for c in candidates if c.exists()), None)
+    if docs_root is None:
+        print(f"Error: docs directory not found. Tried: {[str(c) for c in candidates]}",
+              file=sys.stderr)
         sys.exit(1)
+    # repo_root carries the developers/ openapi spec etc.
+    DOCS_REPO_ROOT[0] = repo_root
 
     warp_internal = find_repo("warp-internal", args.warp_internal, docs_root)
     warp_server = find_repo("warp-server", args.warp_server, docs_root)
@@ -668,7 +778,10 @@ def main():
         print(f"Using warp-internal: {warp_internal}", file=sys.stderr)
         if args.category in (None, "features"):
             print("Running feature flag coverage audit...", file=sys.stderr)
-            features_findings = audit_features(warp_internal, docs_root, surface_map, docs_text)
+            features_findings = audit_features(
+                warp_internal, docs_root, surface_map, docs_text,
+                weak_coverage=args.weak_coverage,
+            )
 
         if args.category in (None, "cli"):
             print("Running CLI command coverage audit...", file=sys.stderr)

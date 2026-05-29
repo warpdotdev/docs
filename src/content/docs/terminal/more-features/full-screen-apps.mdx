@@ -33,7 +33,7 @@ If you want a mouse event to go to Warp instead (for example, for text selection
 
 ## Padding
 
-Warp supports configuring how much padding surrounds full-screen apps. The default is 0 pixel padding, but this can be changed to a custom padding amount or to match the padding in the Blocklist.
+Warp supports configuring how much padding surrounds full-screen apps. The default is 0 pixel padding, but this can be changed to a custom padding amount or to match the padding in the block list.
 
 :::note
 Warp allows you to scale your terminal by fractions of a cell width | height. When your terminal size is not perfectly aligned to a cell width | height, the extra space appears as padding on the right | bottom.
@@ -42,14 +42,27 @@ Warp allows you to scale your terminal by fractions of a cell width | height. Wh
 ### How to access it
 
 * Go to **Settings** > **Appearance** > **Full-screen Apps** or from the [Command Palette](/terminal/command-palette/) search for "Appearance"
-  * `Use custom padding in alt-screen` is enabled by default, you can disable it to match the Blocklist padding
+  * `Use custom padding in alt-screen` is enabled by default, you can disable it to match the block list padding
     * Set the desired uniform padding (px) pixels, which is set to 0px by default
 
 :::caution
 Some full-screen applications don't behave well when resizing. If you are experiencing rendering issues with full screen apps, try turning this setting off. This will ensure that full-screen apps don't need to resize when starting up.
 :::
 
-<figure>
+<figure style={{ maxWidth: "375px" }}>
 ![alt-screen padding setting](../../../../assets/terminal/padding-settings.png)
 <figcaption>The alt-screen padding setting in appearance preferences.</figcaption>
 </figure>
+
+## Kitty keyboard protocol
+
+Warp supports the [Kitty keyboard protocol](https://sw.kovidgoyal.net/kitty/keyboard-protocol/) (CSI u progressive enhancement) so full-screen apps can read keystrokes that legacy terminal escape sequences can't represent — for example, distinguishing `Ctrl+I` from `Tab`, capturing modifier-only key events, or detecting key release events.
+
+When a running app advertises that it supports the protocol, Warp emits the extended escape sequences automatically. No configuration is required.
+
+* **Supported in**: Vim, Neovim, Emacs, tmux, helix, and other modern TUI apps that opt into CSI u.
+* **Falls back to legacy encoding** when the running app doesn't request progressive enhancement, so older programs keep working unchanged.
+
+:::note
+If a TUI app reports unexpected key events after upgrading Warp, confirm the app itself supports the Kitty keyboard protocol. Most apps require an explicit opt-in (for example, `:set keyprotocol` in Neovim).
+:::

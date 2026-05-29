@@ -5,6 +5,8 @@ description: >-
   can use visual context when generating responses.
 ---
 
+Attach screenshots, diagrams, or other images directly to agent prompts so the agent can use visual context when generating responses. Warp supports drag-and-drop, copy-paste, and file upload for up to 5 images per request across all supported models.
+
 ## **Attaching images as context**
 
 To provide visual context, you can attach images directly to an agent prompt. This is useful for including screenshots, diagrams, or other visual references alongside your query.
@@ -38,7 +40,7 @@ You can attach up to **5 images per request**, and up to **20 images across a si
 
 ### Model behavior and image handling
 
-All supported models listed in [Model Choice](/agent-platform/capabilities/model-choice/) can interpret image input.
+All supported models listed in [Model Choice](/agent-platform/inference/model-choice/) can interpret image input.
 
 Attaching images will consume additional requests, proportional to the number of images added. To stay within model limits, Warp will intelligently resize images before passing them as context, minimizing token usage and respecting the model's maximum image dimensions.
 

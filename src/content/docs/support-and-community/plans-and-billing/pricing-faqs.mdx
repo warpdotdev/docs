@@ -22,43 +22,31 @@ After entering your payment details, you’ll receive an invoice and confirmatio
 
 ### How can I get the most out of my Warp plan?
 
-:::caution
-Warp's legacy paid plans included Pro, Turbo, and Lightspeed.
+Warp's plans are designed for developers who rely on AI to code, debug, and move faster with their team. Pick the plan that matches the scale of your usage and the controls your team needs:
 
-After **Oct 30, 2025**, we have rolled out the new Build plan to replace them. Existing subscribers will start to roll over onto the Build plan starting **Dec 1st, 2025**. For questions related to the new pricing changes, please refer to [Warp's pricing change FAQs](/support-and-community/plans-and-billing/pricing-faqs/#warps-pricing-change-faqs-oct-30-2025).
+* **Build** — Usage-based plan for individuals or small teams with monthly credits, the ability to [Bring Your Own API Key (BYOK)](/agent-platform/inference/bring-your-own-api-key/) or point Warp at a [custom inference endpoint](/agent-platform/inference/custom-inference-endpoint/), and access to [add-on credits](/support-and-community/plans-and-billing/add-on-credits/) with volume-based discounts.
+* **Max** — Plan for individuals or small teams with heavier AI usage. Includes a larger monthly credit allowance than Build, plus a better effective rate for credits than buying add-on credits on Build.
+* **Business** — Multi-seat plan for teams. Includes everything in Build, plus admin-configurable data controls, SAML-based SSO, and centralized billing. Available up to the seat limit listed at [warp.dev/pricing](https://www.warp.dev/pricing).
+* **Enterprise** — Custom plan for organizations that need higher seat counts, [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/) managed inference, granular admin controls, advanced security and compliance, and dedicated support.
 
-To see more details on the latest plan, please visit [**warp.dev/pricing**](https://www.warp.dev/pricing).
-:::
-
-Warp's plans are designed for developers who rely on AI to code, debug, and move faster with their team.
-
-* **Build**, one usage-based plan with a set of credits, ability to Bring Your Own API Key (BYOK), and access to [Add-on credits](/support-and-community/plans-and-billing/add-on-credits/) with volume-based discounts. See more on [Bring Your Own API Key](/support-and-community/plans-and-billing/bring-your-own-api-key/).
-* **Business** includes everything in Build, with advanced features like automatically enforced team-wide Zero Data Retention, SAML-based SSO, and support for teams up to 50 seats.
-
-Legacy plans:
-
-* **Pro** included higher credit limits than the Free plan, support for larger codebases with [Codebase Context](/agent-platform/capabilities/codebase-context/), and access to premium models with optional pay-as-you-go overages.
-* **Turbo** included even higher credit limits, larger Codebase Context indexing, and the option to pay for additional usage beyond included credits via [Overages (Legacy)](/support-and-community/plans-and-billing/overages-legacy/). Add-on Credits were not available on this plan.
-* **Pro** included higher credit limits than the Free plan, support for larger codebases with [Codebase Context](/agent-platform/capabilities/codebase-context/), and access to premium models with optional pay-as-you-go [Overages (Legacy)](/support-and-community/plans-and-billing/overages-legacy/).
-* **Turbo** included even higher credit limits, larger Codebase Context indexing, and the option to pay for additional usage beyond included credits via [Overages (Legacy)](/support-and-community/plans-and-billing/overages-legacy/). Add-on Credits were not available on this plan.
-* **Lightspeed** was Warp's most powerful legacy plan, offering the highest credit limits, expanded codebase indexing, access to top-tier models, and pay-as-you-go [Overages (Legacy)](/support-and-community/plans-and-billing/overages-legacy/) so you could keep working without interruption.
-
-For the most up-to-date feature and usage details, visit [**warp.dev/pricing**](https://www.warp.dev/pricing).
+For the most up-to-date feature and usage details — including current per-plan seat limits and monthly credit allowances — visit [warp.dev/pricing](https://www.warp.dev/pricing).
 
 ### How can I subscribe to a Warp Enterprise plan?
 
 Warp offers two options for larger teams and organizations:
 
-* **Business Plan**: Supports up to 50 seats and is available for immediate upgrade. It includes automatically enforced team-wide Zero Data Retention by default and admin-controlled SAML-based SSO.
-* **Enterprise Plan**: Offers custom pricing, credit limits, and terms. Along with support for larger engineering orgs or teams with advanced security, compliance, or support needs.
+* **Business plan**: Self-serve multi-seat plan available for immediate upgrade. Includes admin-configurable data controls and admin-controlled SAML-based SSO. See [warp.dev/pricing](https://www.warp.dev/pricing) for the current seat limit.
+* **Enterprise plan**: Custom pricing, credit allowances, and terms — built for larger engineering organizations or teams with advanced security, compliance, or support needs. Enterprise also includes [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/) managed inference, with routing, orchestration, governance, and observability provided by Warp.
 
 :::tip
-If you’d like to explore Enterprise, [contact our sales team](https://warp.dev/contact-sales) and someone from Warp will follow up.
+If you’d like to explore Enterprise, [contact our sales team](https://www.warp.dev/contact-sales) and someone from Warp will follow up.
 :::
+
+For Warp-managed model traffic (requests Warp routes to OpenAI, Anthropic, or Google on your behalf), all plans are covered by Warp's Zero Data Retention (ZDR) agreements with the underlying model providers. Traffic you route through your own API key or a custom inference endpoint is governed by that provider's data-retention policies, not Warp's agreements. Admin-configurable data controls — including team-wide retention policies and training opt-outs — are available on Business and Enterprise.
 
 ### What counts as a team member and how does billing work for members?
 
-In Warp, a _team member_ is any seat with access to your Team — including the shared Warp Drive, Notebooks, Workflows, and other team resources. All plans allow you to invite unlimited users, but to unlock higher limits and advanced features, you’ll need to upgrade your team to a plan. Upgrading applies to your entire team, including your own account and all active members.
+In Warp, a _team member_ is any seat with access to your Team — including the shared Warp Drive, Notebooks, Workflows, and other team resources. All plans allow you to invite unlimited Warp Drive collaborators, but paid-plan features and credit allocation are governed by your plan's seat limit (see [Are there new seat limits per plan?](#are-there-new-seat-limits-per-plan) below). Upgrading applies to your entire team, including your own account and all active members.
 
 On the Free plan, you can share a limited number of Notebooks and Workflows with other Free users. If your team exceeds that limit, you’ll be prompted to [upgrade to a plan](https://app.warp.dev/upgrade).\
 \
@@ -100,10 +88,6 @@ You can use your Warp account on multiple personal computers. Warp is designed t
 
 ### What happens when I downgrade during a billing cycle?
 
-:::caution
-Note this only applies when switching between legacy plans (Pro, Turbo, Lightspeed, or the Old Business) or switching the new plans (Build, New Business). When switching between legacy to new plans, the change is immediate, prorated, and the credits are reset. See more in [What happens when I change from my legacy plan to the new Build or Business plans?](/support-and-community/plans-and-billing/pricing-faqs/#what-happens-when-i-change-from-my-legacy-plan-to-the-new-build-or-business-plans).
-:::
-
 The subscription will downgrade to the lower plan limits at the end of the billing cycle. If you’re switching between paid plans, any AI usage you've already accumulated will carry over.\
 \
 You can downgrade at any point throughout your subscription through the billing portal by going to **Settings** > **Billing and usage** > **Manage billing**.
@@ -140,16 +124,88 @@ Tokens are chunks of text, such as words, parts of code, or characters, that lar
 Warp now abstracts away token usage, so you don't need to manage or track it directly. You only need to monitor your **credit usage**, which is what’s measured against your plan limits.
 :::
 
-If you're curious, you can read the [OpenAI article on tokens](https://help.openai.com/en/articles/4936856-understanding-tokens), or refer to the pricing page for plan-level credit allocations. If you reach your monthly credit limits on a paid plan, premium models will be temporarily disabled until your quota resets at the start of your next billing cycle.
-
-If you’d like to continue using premium models beyond your included quota, purchase [Add-on Credits](/support-and-community/plans-and-billing/add-on-credits/) in **Settings** > **Billing and usage** (users still on legacy Pro, Turbo, or Lightspeed plans continue to use [Overages (Legacy)](/support-and-community/plans-and-billing/overages-legacy/) until their first renewal after December 1, 2025).
+If you're curious, you can read the [OpenAI article on tokens](https://help.openai.com/en/articles/4936856-understanding-tokens), or refer to the pricing page for plan-level credit allocations. If you reach your monthly credit limits on the Free plan, premium models pause until your quota resets at the start of your next billing cycle. On paid plans, you can continue using premium models via [add-on credits](/support-and-community/plans-and-billing/add-on-credits/) and auto-reload — see [What if I need more AI usage than my plan includes?](#what-if-i-need-more-ai-usage-than-my-plan-includes) for the full list of options.
 
 ### How often do my credits reset?
 
-Allotted credits refill every 30 days from your signup date. When you upgrade to a [paid plan](https://www.warp.dev/pricing), you will be given more credits immediately. You can follow along with your refill period by referencing **Settings** > **Billing and usage**. Alternatively, purchase [Add-on Credits](/support-and-community/plans-and-billing/add-on-credits/), or enable auto reload with a monthly spend limit, to continue using premium models beyond your included quota. Users still on legacy Pro, Turbo, or Lightspeed plans continue to use [Overages (Legacy)](/support-and-community/plans-and-billing/overages-legacy/) until their first renewal after December 1, 2025.
+Allotted credits refill every 30 days from your signup date. When you upgrade to a [paid plan](https://www.warp.dev/pricing), you will be given more credits immediately. You can follow along with your refill period by referencing **Settings** > **Billing and usage**. Alternatively, purchase [add-on credits](/support-and-community/plans-and-billing/add-on-credits/), or enable auto-reload with a monthly spend limit, to continue using premium models beyond your included quota.
 
 :::note
 Unused credits do not rollover to the next cycle and can't be transferred to other accounts.
+:::
+
+### How do credits work for multi-seat teams?
+
+On the new multi-seat paid plans, credits attribute differently than they did on Warp's older pooled-credit teams:
+
+* **Plan-included monthly credits** — Each seat receives its own monthly credit allowance that resets every 30 days based on the team's renewal date. See [warp.dev/pricing](https://www.warp.dev/pricing) for the current per-seat allowance on your plan.
+* **Add-on credits** — As of May 21, 2026, [add-on credits](/support-and-community/plans-and-billing/add-on-credits/) are scoped to the individual user who purchased or was allocated them, not pooled across the team. A single heavy user can no longer drain the whole team's purchased credits.
+* **Grandfathered pooled credits** — Teams that purchased add-on credits before May 21, 2026 keep their existing pooled balance until it's exhausted. Pooled credits are spent down first across the team; all new add-on credit purchases after May 21, 2026 are user-scoped.
+* **Team-wide spend cap** — Admins set a single team-wide monthly spend cap that governs auto-reload across the team. See [How does auto-reload work for teams?](#how-does-auto-reload-work-for-teams) below.
+
+Enterprise plans support team-scoped credit pools and per-user spend limits separately — see [enterprise billing](/enterprise/support-and-resources/billing/).
+
+### How do platform credits factor in?
+
+Warp meters credits across three buckets: **AI credits** (the model call), **compute credits** (the sandbox a cloud agent runs in), and **platform credits** (run lifecycle, integrations, dashboard, APIs, and observability). All three draw from the same pool — your monthly Warp credits first, then [add-on credits](/support-and-community/plans-and-billing/add-on-credits/) once those are exhausted.
+
+Platform credits apply in two situations:
+
+* **Every cloud agent run, on every plan.** Warp's platform infrastructure coordinates every cloud run regardless of which agent or inference source it uses. On self-serve plans (Free, Build, Max, Business), platform-credits billing is in a preview period through June 30, 2026 — see [When do platform credits start being charged on self-serve plans?](#when-do-platform-credits-start-being-charged-on-self-serve-plans) for details.
+* **Local agent runs on Business and Enterprise that use customer-supplied inference** — BYOK, a custom inference endpoint, or BYOLLM. Warp isn't paying for the model call, but Warp's platform infrastructure is still running the agent. Billing for these runs is also in preview through June 30, 2026 on self-serve plans; metering begins July 1, 2026.
+
+Local agent runs on Free, Build, or Max — and local runs on Business or Enterprise that use Warp-managed inference — do not consume platform credits. See [platform credits](/support-and-community/plans-and-billing/platform-credits/) for the full breakdown.
+
+### What if I need more AI usage than my plan includes?
+
+If you regularly run through your plan's monthly credit allowance, you have a few options:
+
+* **Upgrade to Max** — Designed for developers with heavier AI usage. Max includes a higher monthly credit allowance than Build, plus a better effective rate for credits than buying [add-on credits](/support-and-community/plans-and-billing/add-on-credits/) on Build. See [warp.dev/pricing](https://www.warp.dev/pricing) for current allowances.
+* **Purchase add-on credits** — Top up your account on demand. Larger denominations have a better effective rate. Add-on credits roll over month-to-month and remain valid for 12 months as long as you have an active subscription — if you move to the Free plan, you'll lose access to any remaining add-on credits. See [add-on credits](/support-and-community/plans-and-billing/add-on-credits/) for current denominations.
+* **Enable auto-reload** — Pick a denomination and a monthly spend cap, and Warp will automatically purchase add-on credits when your balance drops below 100 credits, up to your cap.
+* **Bring Your Own API Key (BYOK)** — Point Warp at your own OpenAI, Anthropic, or Google API key. Requests routed through BYOK don't consume Warp credits — you're billed directly by the model provider. See [Bring Your Own API Key](/agent-platform/inference/bring-your-own-api-key/). On Business and Enterprise, platform credits may apply for local agent runs (billing starts July 1, 2026 on self-serve plans — see [When do platform credits start being charged on self-serve plans?](#when-do-platform-credits-start-being-charged-on-self-serve-plans)).
+* **Use a custom inference endpoint** — Route requests through any OpenAI-compatible endpoint (OpenRouter, LiteLLM, z.ai, an internal gateway, etc.) without spending Warp credits. See [Custom inference endpoint](/agent-platform/inference/custom-inference-endpoint/). On Business and Enterprise, platform credits may apply for local agent runs (billing starts July 1, 2026 on self-serve plans — see [When do platform credits start being charged on self-serve plans?](#when-do-platform-credits-start-being-charged-on-self-serve-plans)).
+
+*BYOK and custom inference endpoint availability is subject to organization size — see [Can I bring my own API key?](#can-i-bring-my-own-api-key) for details.*
+
+For organization-scale needs (cloud-provider managed inference, granular admin controls, or higher seat counts), Enterprise plans include [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/).
+
+### How does auto-reload work for teams?
+
+Auto-reload prevents team members from getting blocked by credit exhaustion. It works the same way for individual and multi-seat paid plans, with one extra knob for teams.
+
+When auto-reload is **on**:
+
+* The admin chooses an add-on credit **denomination**. Larger denominations have a better effective per-credit rate.
+* Whenever any individual user's balance (their plan credits plus their user-scoped add-on credits balance) drops below **100 credits**, Warp automatically purchases another bundle of the configured denomination on the team's behalf.
+* All auto-reload purchases count against a single **team-wide monthly spend cap** that the admin sets. Once the team hits the cap in a given month, auto-reload pauses until the next billing cycle or until the admin raises the cap.
+* While auto-reload is on, **individual team members cannot purchase add-on credits manually** — the team-wide auto-reload configuration governs all purchases.
+
+Teams with a pre-May 21, 2026 grandfathered pooled add-on credit balance: that pooled balance drains first across the team before user-scoped add-on credits and is not counted toward any individual user's 100-credit auto-reload threshold.
+
+When auto-reload is **off**, eligible team members can purchase add-on credits for themselves, as long as the team stays below the team-wide monthly spend cap. Users keep working as long as they have plan credits, previously purchased add-on credits, or have routed Warp at their own API key or [custom inference endpoint](/agent-platform/inference/custom-inference-endpoint/). Once those run out, premium-model usage is blocked until credits are topped up or the next billing cycle begins.
+
+Auto-reload can be enabled, paused, or reconfigured at any time in **Settings** > **Billing and usage**.
+
+### How are cloud agent runs on team plans billed when no individual user triggered them?
+
+Some cloud agent runs aren't initiated by a specific team member — for example, scheduled runs or runs triggered through a team API key. On self-serve plans (Build, Max, Business), these runs are billed to the **team owner**.
+
+:::caution
+Team owners: scheduled runs and runs triggered through a team API key draw from your personal credit pool. If auto-reload is enabled on your account, automated jobs can consume your add-on credits and count toward your spend cap. Review your auto-reload settings and team-wide spend cap in **Settings** > **Billing and usage** before relying on scheduled or API-key-triggered cloud agents.
+:::
+
+The waterfall on the owner's account is:
+
+1. First, the owner's plan-included monthly credits are consumed.
+2. Once those are exhausted, the owner's add-on credits are consumed.
+
+When auto-reload is **off**, the request is blocked once both buckets are depleted. When auto-reload is **on**, cloud agent usage can trigger auto-reload on the owner's pool subject to the team-wide spend cap; further cloud agent runs then draw from that reloaded balance until the cap is reached.
+
+"Blocked" means the run fails immediately with an insufficient-credits error rather than queuing or retrying. For unattended runs (scheduled jobs, team-API-key triggers), this manifests as a failed run in the Oz dashboard with an [insufficient credits](/reference/api-and-sdk/troubleshooting/errors/insufficient-credits/) error code; the run won't be retried automatically. Owners should monitor the dashboard and configure spend caps with headroom for critical scheduled workloads.
+
+:::note
+Enterprise plans support team-scoped credit pools, so this traffic draws from the team pool rather than an individual admin. See [enterprise billing](/enterprise/support-and-resources/billing/) for overage and contract terms.
 :::
 
 ### Can I use a Free plan if I'm a developer at a large company or organization?
@@ -164,8 +220,8 @@ Warp doesn’t currently offer discounts for students or non-profits. We recomme
 
 For open source teams, two paths are available:
 
-* The [Oz Open Source Partnership](/support-and-community/community/open-source-partnership/) program offers free Oz agent credits to high-impact open source projects.
-* Warp's client itself is open source under [AGPL v3](https://github.com/warpdotdev/warp/blob/master/LICENSE), so you can build, run, and contribute to it directly. See [Contributing to Warp](/support-and-community/community/contributing/) for the flow.
+* The [Oz Open Source Partnership](/support-and-community/community/open-source-partnership/) program offers free agent credits to high-impact open source projects.
+* Warp's client itself is open source under [AGPL v3](https://github.com/warpdotdev/warp/blob/master/LICENSE-AGPL), so you can build, run, and contribute to it directly. See [Contributing to Warp](/support-and-community/community/contributing/) for the flow.
 
 ### Where is Warp Drive data for my team stored?
 
@@ -173,13 +229,65 @@ Warp Drive data is securely stored on Google Cloud Platform servers located in t
 
 For more details, please [visit the Security Overview](https://www.warp.dev/legal/security) or contact [security@warp.dev](mailto:security@warp.dev).
 
-### What happened to the Lite model?
+### Does Warp have a SOC 2 Type 2 attestation?
 
-Over time, the Lite model—originally designed as a fallback when premium models ran out—began to deliver inconsistent results, especially for users running complex, multi-step prompts.
+Yes. Warp has obtained a SOC 2 Type 2 attestation from an accredited third party. See the [Trust Center](/enterprise/security-and-compliance/trust-center/) to request the report.
 
-For credit-efficient usage, we encourage you to try our new **Auto (cost-efficiency) model**, which automatically selects the optimal model based on task complexity to help extend your credits. To continue AI usage please either add [Add-on Credits](/support-and-community/plans-and-billing/add-on-credits/) or consider [using your own API key](/support-and-community/plans-and-billing/bring-your-own-api-key/).
+### Does Warp have Zero Data Retention policies with LLM providers?
 
-If you have any questions or feedback, please connect with us in our [community Slack](/support-and-community/#sending-warp-feedback).
+Warp integrates with multiple LLM providers — including Anthropic, OpenAI, Google, and Fireworks AI — to power its AI features. Warp has executed Zero Data Retention (ZDR) agreements with these providers. Across all plans, these agreements mean:
+
+* LLM providers commit not to train their models on any customer-generated data processed through Warp's services.
+* LLM providers commit to delete inputs and outputs after generating the relevant output, within a fixed time period.
+
+Warp enforces these commitments through both technical measures and contractual safeguards with the LLM providers.
+
+### How can I enable Zero Data Retention in Warp?
+
+Zero Data Retention (ZDR) can be enabled in two ways:
+
+* **Individual level** — Any user can enable full ZDR for their own account by disabling **Help Improve Warp** in **Settings** > **Privacy**.
+* **Organization-wide** — On Business and Enterprise plans, admins can enforce ZDR for all members from the [Admin Panel](/enterprise/team-management/admin-panel/), so team-wide compliance doesn't rely on individual settings.
+
+To discuss organization-wide ZDR for your team, [contact our sales team](https://www.warp.dev/contact-sales).
+
+Regardless of plan, Warp never allows OpenAI, Anthropic, Google, or other model providers to store, retain, or train their models on your data — see [Does Warp have Zero Data Retention policies with LLM providers?](#does-warp-have-zero-data-retention-policies-with-llm-providers) for details.
+
+### Can I bring my own API key?
+
+Yes. On Free, Build, Max, Business, and Enterprise plans, you can configure your own OpenAI, Anthropic, or Google API key in **Settings** > **AI** > **Manage models**. Requests routed through your own key don't consume Warp credits — you're billed directly by the model provider.
+
+See [Bring Your Own API Key](/agent-platform/inference/bring-your-own-api-key/) for setup steps, the list of supported providers and models, and the differences between BYOK, custom inference endpoints, and BYOLLM.
+
+BYOK and custom inference endpoint support are available for individual users and organizations with 10 or fewer employees, subject to Warp's Terms of Service. Companies or organizations with more than 10 employees need a Warp Business or Enterprise plan to use these features.
+
+On Business and Enterprise, local agent runs that use BYOK still consume platform credits for Warp's platform infrastructure. See [platform credits](/support-and-community/plans-and-billing/platform-credits/).
+
+### Does Warp support custom inference endpoints?
+
+Yes. In addition to BYOK, Warp can route requests to any OpenAI-compatible inference endpoint — including OpenRouter, LiteLLM, z.ai, and internal gateways your team already runs. Custom inference endpoint requests also don't consume Warp credits.
+
+Custom inference endpoints are available on Free, Build, Max, Business, and Enterprise. See [Custom inference endpoint](/agent-platform/inference/custom-inference-endpoint/) for configuration steps, billing behavior, and how custom inference endpoints differ from BYOK and from Enterprise's [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/) managed inference.
+
+BYOK and custom inference endpoint support are available for individual users and organizations with 10 or fewer employees, subject to Warp's Terms of Service. Companies or organizations with more than 10 employees need a Warp Business or Enterprise plan to use these features.
+
+On Business and Enterprise, local agent runs that use a custom inference endpoint still consume platform credits for Warp's platform infrastructure. See [platform credits](/support-and-community/plans-and-billing/platform-credits/).
+
+### Does Warp support other model routers or "Bring Your Own LLM"?
+
+On the Enterprise plan, Warp's [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/) lets you route inference through major cloud-provider Model-as-a-Service offerings. BYOLLM currently supports AWS Bedrock, with Azure Foundry and Google Vertex coming soon. Warp still manages model support, routing, and orchestration, but inference runs in your cloud environment so you can maintain data locality, security controls, and existing cloud spend commitments.
+
+Custom or in-house model routers outside this list aren't supported by default today. If you have specific requirements, [contact our sales team](https://www.warp.dev/contact-sales).
+
+For lighter-weight routing through any OpenAI-compatible endpoint (OpenRouter, LiteLLM, z.ai, internal gateways), see [Does Warp support custom inference endpoints?](#does-warp-support-custom-inference-endpoints) above.
+
+### What features are available during multi-harness orchestration beta?
+
+Multi-harness orchestration is currently in beta and available to all users. You can use the [Warp Agent](/agent-platform/cloud-agents/harnesses/warp-agent/) alongside [Claude Code](/agent-platform/cloud-agents/harnesses/claude-code/) and [Codex](/agent-platform/cloud-agents/harnesses/codex/) in Oz cloud environments, and mix and match harnesses across workflows.
+
+[Agent Memory](/agent-platform/agent-memory/) is currently in Research Preview. It lets preferences, project knowledge, and learnings from past sessions carry across harnesses and future agent runs. [Contact our sales team](https://www.warp.dev/contact-sales) to request access.
+
+As these features move out of beta or Research Preview, availability, limits, and pricing may change.
 
 ### What payment options are available for Warp's self-service plans?
 
@@ -233,122 +341,79 @@ The team at Warp is standing by and ready to help. For subscribers technical iss
 
 ---
 
-### Warp's pricing change FAQs (Oct 30, 2025)
+### May 2026 pricing changes
 
-For more details, see this blog post on [Warp's plan changes](https://www.warp.dev/blog/warp-new-pricing-flexibility-byok).
+The May 21, 2026 update introduces new seat limits, changes how add-on credits are attributed, opens BYOK to every plan, adds custom inference endpoints, and starts metering platform credits for cloud agent runs. The questions below cover what's changing and what to do if any of it affects you.
 
-#### How do I change from my current plan to the new Build or Business plan?
+#### Are there new seat limits per plan?
 
-You can switch to the new Warp Build or Business plan anytime from **Settings** > **Billing and usage** > **Manage billing** > **Update subscription** in the Warp app or at [app.warp.dev/upgrade](https://app.warp.dev/upgrade). Select Change plan, then choose the plan that fits your needs.
+Yes. As of May 21, 2026, each plan has an explicit seat limit. See [warp.dev/pricing](https://www.warp.dev/pricing) for the current per-plan caps.
 
-If you take no action, your Pro, Turbo, Lightspeed, or legacy Business plan will automatically move to the new structure on your first renewal after **December 1, 2025**. You’ll receive an email before your renewal with details to make the transition easier.
+The seat limit governs paid-plan features and credit allocation. It's separate from the unlimited Warp Drive collaborators every plan supports. You can keep inviting unlimited users to share Notebooks, Workflows, and other Warp Drive resources without hitting the seat cap. The cap only applies when a user takes a paid seat on your team.
 
-#### What happens when I change from my legacy plan to the new Build or Business plans?
+#### What if my team is already above the new seat limit?
 
-If you move from Warp’s legacy Pro, Turbo, Lightspeed, or old Business plans to the new Build or Business plans:
+Your team's current access doesn't change. Existing members keep their seats and can continue using Warp the same way they do today.
 
-* You’ll receive a prorated credit balance on Stripe for your current plan, based on how far you are into your billing cycle. This balance can be applied toward monthly Build fees or any Add-on Credits you purchase.
-  * You can view your credit balance by going to **Settings** > **Billing and usage** > **Manage Account**. You can also view your credit balance on the Stripe invoice that was sent when your plan changed to Build or Business.
-* Your credit balance will reset to **0/1,500** when you switch to the Build or Business plan.
+The cap only governs **adding new members**. While your team is at or above the cap, you can't add a new member or backfill a seat after a member leaves. To grow past the cap, switch to the next plan up (or to Enterprise) anytime under **Settings** > **Billing and usage**.
 
-If you switched immediately after the rollout, before a subsequent update was applied, we’ll retroactively reset your credit balance to 0/1,500.
+#### How are add-on credits being attributed differently?
 
-* You should see this reflected in **Settings** > **Billing and usage**. If you experience any issues, please contact us at **build-priority@warp.dev**.
+Before May 21, 2026, add-on credits on multi-seat teams were **pooled**. Every team member drew from a single shared balance. As of May 21, 2026, **add-on credits are user-scoped**. Each user has their own balance, and a single heavy user can no longer drain the whole team's purchased credits.
 
-:::note
-We recommend you use all the credits on your legacy plan before you switch over to the new plans. This way you can make best use of them before they are reset to the new plan limits.
-:::
+Two practical changes for teams:
 
-:::caution
-Add-on credit auto reload will be enabled by default for some legacy plan users when they transition to the Build plan. Please see more in our [Pricing FAQs](/support-and-community/plans-and-billing/pricing-faqs/#what-happens-to-my-current-plan-pro-turbo-lightspeed).
-:::
+* **Anyone on the team can now purchase add-on credits** for their own usage, subject to the team-wide spend cap admins set under **Settings** > **Billing and usage**. Previously, admins typically managed the shared pool on behalf of the team.
+* **Grandfathered pooled credits**: Existing pooled add-on credit balances purchased before May 21, 2026 are honored. They drain first across the team before any user-scoped add-on credits are consumed. No new credits are added to the pooled balance. Once it's exhausted, all future add-on credit purchases are user-scoped.
 
-#### What should I keep in mind about this change?
+For details, see [add-on credits](/support-and-community/plans-and-billing/add-on-credits/).
 
-* **BYOK and Add-on credits**: These are only available on the new Build and Business plans. Switching early gives you immediate access.
-* **Pricing differences**: Depending on your usage, your monthly cost may increase or decrease. You’ll now pay based on what you actually use.
-* **Renewal timing**: You’ll stay on your current plan until your renewal date after December 1. No interruptions to service will occur.
-* **Transparency**: You can view your credit balance, monthly spend limit, and Add-on settings anytime in **Settings** > **Billing and usage**.
+#### What happens to my add-on credits if I leave the team?
 
-For full details, see [warp.dev/pricing](https://www.warp.dev/pricing) or reach out to billing@warp.dev if you have questions about your transition.
+Add-on credits are tied to the team that paid for them, so team-membership changes affect access:
 
-#### For existing paid users: when will the new pricing take effect for my account?
+* **You leave a team**: You lose access to any add-on credits tied to that team. If you rejoin the same team later, you regain access to any unused, non-expired credits. The admin pays a prorated rate for your seat on rejoin.
+* **An admin removes you from a team**: You lose access to any add-on credits tied to that team. If you rejoin later, you regain access to any unused, non-expired credits.
+* **An admin deletes the team**: Any remaining add-on credits tied to the team are no longer usable by anyone.
 
-For **new customers**, the new pricing and packaging take effect immediately on Oct 30, 2025.
+Unused add-on credits remain valid for 12 months from purchase, as long as you have an active subscription. See [When team membership changes](/support-and-community/plans-and-billing/add-on-credits/#when-team-membership-changes) on the add-on credits page for full details.
 
-For **existing monthly subscribers**, changes will apply on your first renewal after **December 1, 2025**; most likely during the month of December 2025. For **annual subscribers**, the new plan and pricing will take effect on your next renewal after December 1, 2025.
+#### Can I bring my own API key on the Free plan now?
 
-If you have any questions, please reach out to us at **billing@warp.dev**.
+Yes. As of May 21, 2026, **Bring Your Own API Key (BYOK)** is available on all plans, including Free. Previously, BYOK required a Build, Business, or Enterprise subscription. You can configure your OpenAI, Anthropic, or Google key under **Settings** > **AI** > **Manage models**.
 
-#### **What happens to my current plan (Pro, Turbo, Lightspeed, Business)?**
+See [Bring Your Own API Key](/agent-platform/inference/bring-your-own-api-key/) for the full list of supported providers and setup steps.
 
-You will retain your current plan and credits until the first renewal after December 1, 2025. At renewal, all current Pro, Turbo, Lightspeed, and Business plans will transition to the new Warp Build and Business plans.
+#### What is the new custom inference endpoint feature?
 
-The Build and new Business plans include 1,500 monthly credits, the ability to purchase [Add-on Credits](/support-and-community/plans-and-billing/add-on-credits/) that roll over for 12 months, and the ability to bring your own API key. Learn more at [warp.dev/pricing](https://www.warp.dev/pricing).
+**Custom inference endpoints** let you route Warp's AI traffic through any OpenAI-compatible inference endpoint, including OpenRouter, LiteLLM, z.ai, and internal gateways your team already runs. Support is available on Free, Build, Max, Business, and Enterprise.
 
-In addition, [Add-on credit auto reload](/support-and-community/plans-and-billing/add-on-credits/#id-2.-enable-auto-reload) will be automatically enabled for some legacy plan users in the following ways (but can be opted out of or modified at any time). Our goal is to maintain the same maximum monthly spend in line with your legacy plan subscription plus any Overages:
+Here's how custom inference endpoints differ from BYOK and BYOLLM:
 
-* **Pro:** Will transition to the Build plan. Auto-reload _**will not**_**&#x20;be enabled by default**.
-* **Turbo:** Will transition to the Build plan. Auto-reload _**will**_**&#x20;be enabled by default**. It will default to $30 auto-reload monthly spending limit for monthly subscribers and $22 for yearly subscribers. A handful of Turbo subscribers received a bulk discount for teams of 3 or more—please check your email for details on the default spending limits for your account.
-* **Lightspeed:** Will transition to the Build plan. Auto-reload _**will**_**&#x20;be enabled by default**. It will default to $205 auto-reload monthly spending limit for monthly subscribers and $182 for yearly subscribers.
-* **Business:** Will transition to the new Business plan. Auto-reload _**will**_**&#x20;be enabled by default**. It will default to $10 auto-reload monthly spending limit for both monthly and yearly subscribers.
+* **BYOK** sends requests directly to OpenAI, Anthropic, or Google using your own provider API key.
+* **Custom inference endpoint** sends requests to any OpenAI-compatible URL you control or that your team runs.
+* **BYOLLM** is an Enterprise-only managed inference feature. Warp routes traffic through your cloud provider (AWS Bedrock today, with Azure Foundry and Google Vertex coming soon) and handles the routing, orchestration, governance, and observability.
 
-In any of the above cases, if Overages were enabled, we will set the monthly auto-reload spending limit equal to your Overage spending limit plus any of the amounts listed above.\
-\
-If your total auto-reload monthly spend limit is $80 or above, we will set the Add-on credit denomination to $20 / 1000 credits by default. If your total auto reload monthly spending limit is below $80, we will set the Add-on credit denomination to $10 / 400 credits by default.
+For setup and details, see [Custom inference endpoint](/agent-platform/inference/custom-inference-endpoint/).
 
-#### Can I continue to use Warp as my primary terminal?
+#### When do platform credits start being charged on self-serve plans?
 
-Yes, the terminal features of Warp will continue to be free to use for developers. Learn more at [Plans And Pricing](/support-and-community/plans-and-billing/plans-pricing-refunds/).
+[Platform credits](/support-and-community/plans-and-billing/platform-credits/) apply to every cloud agent run, plus local agent runs on Business that use BYOK or a custom inference endpoint. **For self-serve plans (Free, Build, Max, Business), platform-credits billing doesn't start until July 1, 2026.**
 
-#### How are Add-on credits different from overages?
+Between May 21 and June 30, 2026, all self-serve plans are in a **preview period**. Platform credits are not consumed during this window, so they won't draw from your monthly Warp credits, your add-on credit balance, or your spend cap.
 
-Add-on credits replace overages with a simpler, prepaid system. They’re up to \~40% cheaper than the old overage rates, roll over month-to-month, and remain valid for 12 months. They also come with Warp’s full SOC 2 / Zero Data Retention protection.
+On **Enterprise**, platform credit usage is governed by your contract. See [enterprise billing](/enterprise/support-and-resources/billing/) for details.
 
-#### Do credits rollover?
+On **July 1, 2026**, Warp begins consuming platform credits for:
 
-For existing users on legacy plans, plan credits on Pro, Turbo, and Lightspeed do not rollover.
+* Every cloud agent run on Free, Build, Max, or Business.
+* Local agent runs on Business that use BYOK or a custom inference endpoint.
 
-For the Build plan, credits will not rollover but Add-on credits will rollover and be valid for 12 months from the date of purchase.
+#### I'm a team admin. What do I need to do?
 
-#### Can I purchase Add-on Credits on legacy plans (Pro, Turbo, Lightspeed)?
+A short checklist to triage the May 2026 changes for your team:
 
-No. Add-on Credits (including auto-reload) are only available on the Build, Business, and Enterprise plans. If you attempt to purchase Add-on Credits on a legacy plan, the purchase will not go through. To access Add-on Credits, switch to the Build plan at any time from **Settings** > **Billing and usage** or at [app.warp.dev/upgrade](https://app.warp.dev/upgrade). If you need additional usage while on a legacy plan, you can use [Overages (Legacy)](/support-and-community/plans-and-billing/overages-legacy/) instead.
-
-#### Can I bring my own key on legacy plans (Pro, Turbo, Lightspeed)?
-
-No, Bring-your-own API key for OpenAI, Anthropic, and Gemini is only available to users on the Warp Build plan. You can choose to switch your existing plan to Warp Build at any time before your applicable renewal date to access BYOK.
-
-#### How does the monthly spend limit on Add-on Credits work?
-
-You set a monthly spend limit that applies to your AI usage for each calendar month. This limit acts as the maximum amount you can spend on credits during that period.
-
-If a purchase would exceed your limit, it won’t go through—you’ll need to either increase your limit or choose a smaller purchase amount.
-
-**For auto reload settings:**
-
-* New users who enable auto reload will start with a $200 spend limit.
-* Existing paid plan users who enable auto reload will have their limit match their existing Overages spend limit (if previously configured, otherwise $200).
-
-#### I’m an individual developer and need more than 1,500 credits per month. What’s the right plan for me?
-
-If you regularly use more than 1,500 credits per month, the Build plan is designed for you. It includes 1,500 monthly credits and gives you the flexibility to scale further with Add-on Credits, which you can purchase at discounted rates directly under **Settings** > **Billing and usage**.
-
-Add-on Credits roll over month to month, remain valid for 12 months, and offer up to \~40% savings for larger denominations. You can also enable auto reload to automatically top up your credits when your balance runs low.
-
-If you’re part of a team that needs shared credit management, SSO, or enforced Zero Data Retention (ZDR), the Business plan provides all the same AI capabilities plus advanced security and administrative features.
-
-#### Should I subscribe to the Build plan or the Business plan?
-
-If you’re an individual developer or part of a small team, the Build plan is the best fit. It includes 1,500 monthly credits, discounted Add-on Credits for additional usage, and the ability to bring your own API key (BYOK) for OpenAI, Anthropic, or Google models. You’ll also get unlimited Warp Drive objects, collaboration tools, and the highest codebase indexing limits.
-
-If you’re part of a larger team (up to 50 members) that needs advanced administrative and security controls, choose the Business plan. It includes everything in Build, plus SSO, enforced Zero Data Retention (ZDR), shared Add-on Credits that can be used by all team members, and centralized billing – ideal for organizations that need stronger security, compliance, and team-wide management.
-
-#### How do credits work for multi-seat teams?
-
-For teams on the Build or Business plans, credits are managed at two levels:
-
-* **Included monthly credits**: Each seat on a paid plan receives 1,500 individual credits per month. These credits are tied to the user and reset every 30 days based on their subscription or renewal date.
-* **Add-on Credits**: Once individual plan credits are used up, team members draw from a shared Add-on Credit balance that can be topped up and managed by team admins.
-
-This shared model gives teams the flexibility to handle variable AI usage – heavy users can consume more when needed, while the entire team benefits from shared value and volume-based discounts.
+* **Check your seat count.** Go to **Settings** > **Teams** to see whether your team is at or above your plan's new seat limit. If you are, see [What if my team is already above the new seat limit?](#what-if-my-team-is-already-above-the-new-seat-limit).
+* **Set your team's add-on credit spend cap.** Under **Settings** > **Billing and usage**, configure the monthly cap that applies to add-on credit purchases across your team. Team members can now buy their own add-on credits, but every purchase counts against this cap.
+* **Let your team know add-on credits are user-scoped now.** Each member can purchase add-on credits for their own usage without affecting anyone else's balance.
+* **Plan for platform credits on July 1, 2026.** If your team is on Business and uses BYOK or a custom inference endpoint locally, those local runs will start consuming platform credits when the preview period ends. See [When do platform credits start being charged on self-serve plans?](#when-do-platform-credits-start-being-charged-on-self-serve-plans).

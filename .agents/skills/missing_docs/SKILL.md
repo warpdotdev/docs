@@ -21,18 +21,23 @@ Find documentation gaps and draft missing pages in one workflow.
 Run the audit script to identify gaps:
 
 ```bash
-python3 .warp/skills/missing_docs/scripts/audit_docs.py
+python3 .agents/skills/missing_docs/scripts/audit_docs.py
 ```
 
 Options:
 - `--category features|cli|api|staleness` — run a single audit category
 - `--severity high|medium|low` — filter by minimum severity
+- `--weak-coverage` — also flag GA features whose mapped doc exists but doesn't mention feature keywords (low-severity, noisy)
 - `--output report.json` — save JSON report to file
 - `--warp-internal PATH` — explicit path to warp-internal (auto-detected from sibling dirs)
 - `--warp-server PATH` — explicit path to warp-server (auto-detected from sibling dirs)
 
+The script resolves doc paths from the docs repo root and accepts `.md` and `.mdx`
+interchangeably (and `README.md` ↔ `index.mdx`), so surface-map entries can use the
+canonical filename even when the on-disk extension differs.
+
 The script performs 4 audits:
-1. **Feature flag coverage** — compares GA flags in `warp_core/src/features.rs` + `app/Cargo.toml` against doc mentions
+1. **Feature flag coverage** — compares GA flags in `crates/warp_features/src/lib.rs` + `app/Cargo.toml` against the surface map; default mode trusts a mapped entry as verified, `--weak-coverage` additionally checks the target page mentions feature keywords
 2. **CLI command coverage** — compares `warp_cli/src/lib.rs` subcommands against `src/content/docs/reference/cli/`
 3. **API endpoint coverage** — compares `router/router.go` routes against `src/content/docs/reference/api-and-sdk/` and the OpenAPI spec
 4. **Docs staleness** — checks for outdated terminology in existing docs

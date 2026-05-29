@@ -1,6 +1,6 @@
 ---
 name: style_lint
-description: Scan Warp Astro Starlight documentation for style guide violations including formatting issues (Settings path format, UI element format, header case, missing frontmatter, image alt text, callout syntax) and terminology issues (product name casing, Oz terms to avoid, deprecated terms). Run with --changed for PR workflows or --all for periodic audits. Optionally auto-fix high-confidence issues with --fix.
+description: Scan Warp Astro Starlight documentation for style guide violations including formatting issues (Settings path format, UI element format, header case, missing frontmatter, image alt text, standardized screenshot widths, callout syntax) and terminology issues (product name casing, Oz terms to avoid, deprecated terms). Run with --changed for PR workflows or --all for periodic audits. Optionally auto-fix high-confidence issues with --fix.
 ---
 
 # Style Lint
@@ -46,13 +46,14 @@ python3 .warp/skills/style_lint/style_lint.py --all --fix --create-pr
 - **Header case**: Title Case in H2/H3/H4 headers (should be sentence case, with exceptions for proper feature names)
 - **Missing frontmatter**: Pages without YAML `description` field
 - **Image alt text**: `<img>` or `<figure>` without alt text or with generic alt text ("screenshot", "image")
+- **Screenshot widths**: Likely UI/product screenshots must use `<figure style={{ maxWidth: "..." }}>` with a standard width (`300px`, `350px`, `375px`, or `563px`)
 - **Callout syntax**: Leftover GitBook `{% hint %}` tags that should be migrated to Starlight `:::note` / `:::caution` / `:::danger` asides
 - **List format**: Bulleted feature/capability lists missing the bold term + dash pattern (report only, never auto-fixed)
 
 ### Terminology checks
 
 - **Product name casing**: "Warp Terminal" (→ "Warp"), "agent mode" (→ "Agent Mode"), "warp drive" (→ "Warp Drive"), "codebase context" (→ "Codebase Context"), "agent management panel" (→ "Agent Management Panel")
-- **Oz terms to avoid**: "Ozzies", "Deploying an Oz", "The Oz Agent", "Oz is running", "AI agents"
+- **Oz terms to avoid**: "Oz agent", "Oz cloud agent", "Oz subagent", "Oz conversation", "Ozzies", "Deploying an Oz", "The Oz Agent", "Oz is running", "AI agents"
 - **Deprecated terminology**: "whitelist" (→ "allowlist"), "blacklist"/"blocklist" (→ "denylist")
 - **External product names**: "Github" (→ "GitHub"), "github actions" (→ "GitHub Actions"), "MacOS" (→ "macOS"), "A.I." (→ "AI")
 - **Unrecognized terms** (warning): Bolded terms that look like product names but aren't in `terminology.md`. Flags candidates for glossary addition — not errors, just suggestions.
@@ -65,7 +66,7 @@ When run with `--fix`:
 
 ## Relationship to validate_ui_refs
 
-This skill checks broader formatting and terminology. The `validate_ui_refs` skill validates UI paths and Command Palette names against the warp-internal codebase. They complement each other with no overlap. Both can run in scheduled Oz agent workflows.
+This skill checks broader formatting and terminology. The `validate_ui_refs` skill validates UI paths and Command Palette names against the warp-internal codebase. They complement each other with no overlap. Both can run in scheduled cloud agent workflows.
 
 ## Dependencies
 
@@ -73,7 +74,7 @@ Requires Python 3.7+. Optional: `requests` (for Slack notifications), `gh` CLI (
 
 ## Cloud agent / scheduling
 
-For scheduled Oz cloud agent runs:
+For scheduled cloud agent runs:
 1. Configure the environment with the docs repo
 2. Set the `SLACK_BOT_TOKEN` secret in the environment (for `--slack-notify`)
 3. Run: `python3 .warp/skills/style_lint/style_lint.py --all --fix --create-pr --slack-notify`

@@ -13,6 +13,8 @@ This page applies to both the [managed](/agent-platform/cloud-agents/self-hostin
 
 ## Data boundaries
 
+Self-hosted execution keeps repository clones, source files, build artifacts, runtime secrets, environment variables, and agent workspaces on infrastructure you control. Agents can also reach internal systems that your host can reach, such as VPN-only services, private databases, or self-hosted source control.
+
 **Stored and executed only on your infrastructure:**
 
 * Repository clones and source files.
@@ -34,7 +36,7 @@ While repositories are cloned and stored only on your infrastructure, code conte
 
 ## Network requirements
 
-Self-hosted Oz agents **do not require any network ingress**. They require outbound (egress) access to the following services:
+Self-hosted agents **do not require any network ingress**. They require outbound (egress) access to the following services:
 
 **Warp's backend (all architectures):**
 

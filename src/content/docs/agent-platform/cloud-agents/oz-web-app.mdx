@@ -1,5 +1,5 @@
 ---
-title: Oz Web App for cloud agents
+title: Oz web app for cloud agents
 description: >-
   Use the Oz web app to manage cloud agents, view runs, create schedules, and
   configure environments and integrations from any browser or mobile device.
@@ -8,7 +8,7 @@ sidebar:
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
 
-The [Oz web app](https://oz.warp.dev) provides a visual interface for managing cloud agents. You can start runs, browse agents, create schedules, configure environments, and set up integrations—all without installing Warp or using the CLI.
+The [Oz web app](https://oz.warp.dev) provides a visual interface for managing cloud agents. You can start runs, browse agents and skills, create schedules, configure environments, and set up integrations—all without installing Warp or using the CLI.
 
 :::note
 The Oz web app works on mobile devices, so you can monitor and manage your cloud agents from anywhere.
@@ -19,11 +19,11 @@ Watch this short demo to create an environment and run an agent using the Oz web
 
 ## Quick reference
 
-<table><thead><tr><th width="150">Page</th><th width="120">Path</th><th>What you can do</th></tr></thead><tbody><tr><td><strong>Dashboard</strong></td><td><code>/dashboard</code></td><td>Quick actions, suggested agents, recent agents, and featured reads</td></tr><tr><td><strong>Runs</strong></td><td><code>/runs</code></td><td>View all runs, filter by status/source/creator, start new runs, inspect transcripts</td></tr><tr><td><strong>Agents</strong></td><td><code>/agents</code></td><td>Browse skills from your environments, view suggested skills, dispatch skills as agents</td></tr><tr><td><strong>Schedules</strong></td><td><code>/schedules</code></td><td>Create scheduled agents, pause/enable schedules, view run history</td></tr><tr><td><strong>Environments</strong></td><td><code>/environments</code></td><td>Create and manage environments with repos, Docker images, and setup commands</td></tr><tr><td><strong>Integrations</strong></td><td><code>/integrations</code></td><td>Connect Slack and Linear to trigger agents from external tools</td></tr></tbody></table>
+<table><thead><tr><th width="150">Page</th><th width="120">Path</th><th>What you can do</th></tr></thead><tbody><tr><td><strong>Runs</strong></td><td><code>/runs</code></td><td>View all runs, filter by status/source/creator, start new runs, inspect transcripts</td></tr><tr><td><strong>Agents</strong></td><td><code>/agents</code></td><td>Browse saved agents, create agents, configure defaults, and start runs</td></tr><tr><td><strong>Skills</strong></td><td><code>/skills</code></td><td>Browse skills from your environments, view suggested skills, create skills for agents, and start runs</td></tr><tr><td><strong>Schedules</strong></td><td><code>/schedules</code></td><td>Create scheduled agents, pause/enable schedules, view run history</td></tr><tr><td><strong>Environments</strong></td><td><code>/environments</code></td><td>Create and manage environments with repos, Docker images, and setup commands</td></tr><tr><td><strong>Secrets</strong></td><td><code>/secrets</code></td><td>Create and manage Warp-managed secrets for cloud agent runs</td></tr><tr><td><strong>Integrations</strong></td><td><code>/integrations</code></td><td>Connect Slack and Linear to trigger agents from external tools</td></tr></tbody></table>
 
-<figure>
-![The Oz Web App's management view.](../../../../assets/agent-platform/oz-web-app-runs-view.png)
-<figcaption>The Oz web app management view.</figcaption>
+<figure style={{ maxWidth: "563px" }}>
+![The Oz web app's Runs page.](../../../../assets/agent-platform/oz-web-app-runs-view.png)
+<figcaption>The Oz web app Runs page.</figcaption>
 </figure>
 
 ## When to use the web app
@@ -32,13 +32,12 @@ The Oz web app is ideal when you want to:
 
 * **Monitor agent activity** — View runs, check status, and inspect outputs from any device
 * **Start quick runs** — Dispatch agents without opening a terminal
+* **Manage agents and skills** — Create saved agents, browse skills from connected repositories, and start runs from either configuration
 * **Manage schedules visually** — Create and edit scheduled agents with a guided interface
 * **Configure environments** — Set up repos, Docker images, and setup commands through a form-based flow
 * **Set up integrations** — Connect Slack and Linear with a guided setup flow
 
 For scripting, automation, and CI/CD workflows, use the [Oz CLI](/reference/cli/) or [API](/reference/api-and-sdk/).
-
----
 
 ## Getting started
 
@@ -47,45 +46,14 @@ When you first sign in to the Oz web app, you'll see a guided onboarding flow th
 The onboarding asks "What brings you to Oz?" and offers three paths:
 
 * **Create an agent automation** — Walks you through setting up a scheduled agent, integration-triggered agent, or other automation
-* **Run Oz Cloud Agents in Warp** — Opens the Warp desktop app (or takes you to the download page) to run cloud agents interactively
+* **Run Cloud Agents in Warp** — Opens the Warp app (or takes you to the download page) to run cloud agents interactively
 * **Build an app that uses agents** — Links to the [Oz Platform](/agent-platform/cloud-agents/platform/) docs for using the CLI, SDK, or API
 
 You can skip onboarding at any time to go directly to the Runs page.
 
----
-
-## Dashboard
-
-The **Dashboard** page (`/dashboard`) is your starting point for common actions and discovery. It provides quick access to the features you use most.
-
-### Quick actions
-
-Four action cards at the top let you immediately:
-
-* **New run** — Start a cloud agent run
-* **New agent** — Create a new skill
-* **New schedule** — Set up a scheduled agent
-* **New environment** — Configure a new execution environment
-
-Each action opens a guided side pane without leaving the Dashboard.
-
-### Suggested agents
-
-A curated list of pre-built skills from Warp's public [oz-skills repository](https://github.com/warpdotdev/oz-skills). Click **Run** on any suggested agent to start a run with that skill.
-
-### Recent agents
-
-Shows the last three agents you've run, so you can quickly re-run common workflows. If you haven't run any agents yet, you'll see prompts to start a new run or create your first agent.
-
-### Featured reads
-
-Links to curated articles and documentation to help you get the most out of Oz (visible on desktop).
-
----
-
 ## Runs
 
-The **Runs** page (`/runs`) is your central view for monitoring cloud agent activity. It shows all runs across your account, including those triggered from the CLI, API, integrations, and schedules.
+The **Runs** page (`/runs`) is your central view for monitoring cloud agent activity. It shows runs across your account and team, where applicable, including those triggered from the CLI, API, integrations, and schedules.
 
 ### Run details
 
@@ -99,59 +67,87 @@ Click any run to open the detail pane, where you can view the full transcript, a
 
 <table><thead><tr><th width="140">Quick filter</th><th>Shows</th></tr></thead><tbody><tr><td><strong>All</strong></td><td>All runs</td></tr><tr><td><strong>Mine</strong></td><td>Only runs you created</td></tr><tr><td><strong>Active</strong></td><td>Runs currently in progress</td></tr><tr><td><strong>Failed</strong></td><td>Runs that failed</td></tr><tr><td><strong>Recurring</strong></td><td>Runs triggered by schedules</td></tr></tbody></table>
 
-You can also search by title, prompt, or skill name, and add advanced filters for source, status, creator, and date range.
-
----
+You can also search by title, prompt, or agent name, and add advanced filters for source, status, creator, and date range.
 
 ### Starting a new run
 
-:::note
-Click **New run** in the header to start a cloud agent.
-:::
+To start a new run:
 
-1. **Select an agent (optional)** — Choose a skill to use as the base instructions, or select "Quick run" to run without a skill
-2. **Select an environment** — Choose which environment the agent runs in
-3. **Add a prompt** — Provide context and instructions for this specific run
+1. Click **New run** in the header to start a cloud agent.
+2. Select an agent, if needed. Choose **Quick run** to run as yourself, or choose a saved agent from the **Agent** dropdown.
+3. Select the environment where the agent should run.
+4. Add a prompt with context and instructions for this specific run.
 
-The skill provides base instructions; your prompt adds context for this particular execution.
+**Quick run** runs as your own user. A saved agent uses its saved defaults, and your prompt adds context for this particular execution.
 
----
+### Inspecting orchestrated runs
+
+The Oz web app renders [multi-agent orchestrations](/agent-platform/cloud-agents/orchestration/) as nested rows on the **Runs** page, so you can follow parent and child execution together.
+
+Open a parent run from the Runs page. When the run has children, the detail pane adds a **Sub-agents** tab next to **Details**:
+
+* Each child agent row shows the child's current status and title. Click a row to open that child's detail pane; closing it returns you to the parent's **Sub-agents** tab.
+* The parent's own status badge at the top of the detail pane reflects the parent's work, not its children. Open a child to inspect its state directly.
 
 ## Agents
 
-The **Agents** page (`/agents`) shows all skills available from your environments, plus suggested skills from Warp's public [oz-skills repository](https://github.com/warpdotdev/oz-skills).
+The **Agents** page (`/agents`) is where you browse, create, and run saved agents. Agents are reusable cloud agent configurations that can include a prompt, skills, harness, model, environment, and secrets.
 
-### Skill details
+Skills are reusable instruction sets stored in repositories. You can attach existing skills to an agent through the **Skills** field; for more details, see [Skills as Agents](/agent-platform/cloud-agents/skills-as-agents/).
 
-Each skill displays:
+Saved agents use Warp's team-scoped identity model, which lets a reusable agent own runs and carry default configuration for teammates. You manage saved agents from the Agents page. For plan limits, API endpoints, and API key binding behavior, see [Agent identities](/agent-platform/cloud-agents/agents/).
 
-<table><thead><tr><th width="150">Field</th><th>Description</th></tr></thead><tbody><tr><td><strong>Name</strong></td><td>The skill's identifier</td></tr><tr><td><strong>Description</strong></td><td>What the skill does</td></tr><tr><td><strong>Environments</strong></td><td>Which environments have access to this skill</td></tr></tbody></table>
-
-<figure>
-![The Agents page in the Oz Web App.](../../../../assets/agent-platform/oz-web-app-agents.png)
+<figure style={{ maxWidth: "563px" }}>
+![The Agents page in the Oz web app.](../../../../assets/agent-platform/oz-web-app-agents.png)
 <figcaption>The Agents page in the Oz web app.</figcaption>
 </figure>
 
-Filter by environment or switch to the **Suggested** tab to see pre-built skills for common workflows like code review, dependency updates, and documentation sync.
+Open an agent to review its prompt, skills, harness, model, environment, and attached secrets. From the detail pane, you can inspect activity, create schedules, edit configuration, or start a run from the saved agent.
 
-### Running a skill as an agent
+### Running an agent
 
-Click any skill to view its details, then click **Run** to start an agent with that skill. You can also click **New run** from the header to start a run with optional skill selection.
+Click any agent to view its details, then click **New run** to start a run from that saved configuration. You can also click **New run** from the header to start a run with optional agent selection.
 
-:::note
-For more details on how skills work with cloud agents, see [Skills as Agents](/agent-platform/cloud-agents/skills-as-agents/).
-:::
+### Creating a new agent
 
-### Creating new agents
+To create a saved agent:
 
-Click **New agent** to create a new skill. The guided flow helps you define the skill's instructions, which are then available for future runs.
+1. Click **New agent** to open the guided creation flow.
+2. Define the instructions and defaults. Add a name, description, prompt, optional skills, harness, model, environment, and secrets.
+3. Click **Create agent**. The saved agent appears on the Agents page and is available for runs.
 
-<figure>
-![Creating a new agent skill in the Oz Web App.](../../../../assets/agent-platform/oz-web-app-new-agent.png)
-<figcaption>Creating a new agent skill in the Oz web app.</figcaption>
+For deeper guidance on reusable skills and team-scoped identities, see [Skills as Agents](/agent-platform/cloud-agents/skills-as-agents/) and [Agent identities](/agent-platform/cloud-agents/agents/).
+
+<figure style={{ maxWidth: "563px" }}>
+![Creating a new agent in the Oz web app.](../../../../assets/agent-platform/oz-web-app-new-agent.png)
+<figcaption>Creating a new agent in the Oz web app.</figcaption>
 </figure>
 
----
+## Skills
+
+The **Skills** page (`/skills`) is where you browse and run skills. Skills are reusable instruction sets stored in repositories, and agents can include one or more skills as part of their default configuration.
+
+Use the **From your Environments** filter to view skills from repositories connected to your environments, or switch to **Suggested** to view recommended skills. Open a skill to view its activity, schedules, and `SKILL.md` configuration.
+
+### Running a skill
+
+Click any skill to view its details, then click **New run** to start a run with that skill attached. You can also click **New run** from the page header to start a run with optional skill selection.
+
+### Creating a skill for agents
+
+To create a skill for agents:
+
+1. Click **New agent** on the Skills page to open the skill creation flow.
+2. Choose a repository from an existing environment with GitHub access.
+3. Define the skill. Add a skill name, description, and instructions.
+4. Click **Open Skill PR** to create a pull request that adds the skill to the selected repository.
+
+<figure style={{ maxWidth: "563px" }}>
+![Creating a skill for agents in the Oz web app.](../../../../assets/agent-platform/oz-web-app-new-skill.png)
+<figcaption>Creating a skill in the Oz web app.</figcaption>
+</figure>
+
+After the PR is merged, refresh skills so the new skill appears in the Oz web app.
 
 ## Schedules
 
@@ -161,28 +157,24 @@ The **Schedules** page (`/schedules`) lets you create and manage scheduled agent
 
 Each schedule displays:
 
-<table><thead><tr><th width="150">Field</th><th>Description</th></tr></thead><tbody><tr><td><strong>Name</strong></td><td>A descriptive name for the scheduled task</td></tr><tr><td><strong>Frequency</strong></td><td>Human-readable description of the cron schedule (e.g., "Every Monday at 10am")</td></tr><tr><td><strong>Next run</strong></td><td>When the schedule will next execute</td></tr><tr><td><strong>Environment</strong></td><td>Which environment the scheduled agent runs in</td></tr><tr><td><strong>Agent</strong></td><td>Which skill the schedule uses (if any)</td></tr><tr><td><strong>Status</strong></td><td>Whether the schedule is active or paused</td></tr></tbody></table>
+<table><thead><tr><th width="150">Field</th><th>Description</th></tr></thead><tbody><tr><td><strong>Name</strong></td><td>A descriptive name for the scheduled task</td></tr><tr><td><strong>Frequency</strong></td><td>Human-readable description of the cron schedule (e.g., "Every Monday at 10am")</td></tr><tr><td><strong>Next run</strong></td><td>When the schedule will next execute</td></tr><tr><td><strong>Environment</strong></td><td>Which environment the scheduled agent runs in</td></tr><tr><td><strong>Agent</strong></td><td>Which saved agent the schedule uses (if any)</td></tr><tr><td><strong>Status</strong></td><td>Whether the schedule is active or paused</td></tr></tbody></table>
 
-<figure>
-![The Schedules page in the Oz Web App.](../../../../assets/agent-platform/oz-web-app-schedules.png)
+<figure style={{ maxWidth: "563px" }}>
+![The Schedules page in the Oz web app.](../../../../assets/agent-platform/oz-web-app-schedules.png)
 <figcaption>The Schedules page in the Oz web app.</figcaption>
 </figure>
 
----
-
 ### Creating a schedule
 
-:::note
-Click **New schedule** in the header to create a scheduled agent.
-:::
+To create a scheduled agent:
 
-1. **Name** — Give the schedule a descriptive name
-2. **Frequency** — Set the cron schedule (with presets for common patterns)
-3. **Environment** — Select the environment to run in
-4. **Agent (optional)** — Choose a skill to use
-5. **Prompt** — Define what the agent should do each time it runs
-
----
+1. Click **New schedule** in the header.
+2. Name the schedule. Use a descriptive name that explains what the scheduled agent does.
+3. Set the frequency. Choose a preset or enter a cron schedule.
+4. Select the environment where the scheduled agent should run.
+5. Choose a saved agent, if needed.
+6. Add the prompt that the agent should follow each time it runs.
+7. Click **Create schedule**. The schedule appears on the Schedules page.
 
 ### Managing schedules
 
@@ -197,8 +189,6 @@ Click any schedule to view its details and recent run history. From the detail p
 For CLI-based schedule management, see [Scheduled Agents](/agent-platform/cloud-agents/triggers/scheduled-agents/).
 :::
 
----
-
 ## Environments
 
 The **Environments** page (`/environments`) shows all environments configured for your account. Environments define the execution context for cloud agents, including repos, Docker images, and setup commands.
@@ -209,29 +199,25 @@ Each environment displays:
 
 <table><thead><tr><th width="170">Field</th><th>Description</th></tr></thead><tbody><tr><td><strong>Name</strong></td><td>The environment's identifier</td></tr><tr><td><strong>Docker image</strong></td><td>The container image used for execution</td></tr><tr><td><strong>Repositories</strong></td><td>Which repos the agent can access</td></tr><tr><td><strong>Setup commands</strong></td><td>Commands run before the agent starts</td></tr></tbody></table>
 
-<figure>
-![The Environments page in the Oz Web App.](../../../../assets/agent-platform/oz-web-app-environments.png)
+<figure style={{ maxWidth: "563px" }}>
+![The Environments page in the Oz web app.](../../../../assets/agent-platform/oz-web-app-environments.png)
 <figcaption>The Environments page in the Oz web app.</figcaption>
 </figure>
 
----
-
 ### Creating an environment
 
-:::note
-Click **New environment** in the header to create a new environment.
-:::
+To create a new environment:
 
-1. **Name** — Give the environment a descriptive name
-2. **Docker image** — Specify a Docker image (Warp provides prebuilt dev images, or use your own)
-3. **Repositories** — Add GitHub repos the agent should have access to
-4. **Setup commands** — Define commands to run when the environment starts (e.g., `npm install`)
+1. Click **New environment** in the header.
+2. Name the environment. Use a descriptive name that explains the runtime context.
+3. Select the repositories the agent should be able to access.
+4. Choose a Docker image. Warp provides prebuilt dev images, or you can use your own.
+5. Add any setup commands that should run when the environment starts, such as `npm install`.
+6. Click **Create environment**. The environment appears on the Environments page.
 
 :::note
 For advanced environment configuration, see [Environments](/agent-platform/cloud-agents/environments/) and the [CLI reference](/reference/cli/integration-setup/).
 :::
-
----
 
 ## Integrations
 
@@ -241,8 +227,8 @@ The **Integrations** page (`/integrations`) lets you configure first-party integ
 
 <table><thead><tr><th width="120">Integration</th><th>Description</th></tr></thead><tbody><tr><td><strong>Slack</strong></td><td>Tag @Oz in messages or threads to trigger agents directly from Slack conversations</td></tr><tr><td><strong>Linear</strong></td><td>Tag @Oz on issues to trigger agents from your issue tracker</td></tr></tbody></table>
 
-<figure>
-![The Integrations page in the Oz Web App.](../../../../assets/agent-platform/oz-web-app-integrations.png)
+<figure style={{ maxWidth: "563px" }}>
+![The Integrations page in the Oz web app.](../../../../assets/agent-platform/oz-web-app-integrations.png)
 <figcaption>The Integrations page in the Oz web app.</figcaption>
 </figure>
 
@@ -254,11 +240,10 @@ Click an integration to start the guided setup flow. You'll authorize Warp to co
 For detailed integration setup instructions, see [Slack](/agent-platform/cloud-agents/integrations/slack/) and [Linear](/agent-platform/cloud-agents/integrations/linear/).
 :::
 
----
-
 ## Related resources
 
 * [Cloud Agents Overview](/agent-platform/cloud-agents/overview/) — Learn about cloud agents and when to use them
+* [Multi-agent orchestration](/agent-platform/cloud-agents/orchestration/) — Parent/child model and common orchestration patterns
 * [Skills as Agents](/agent-platform/cloud-agents/skills-as-agents/) — Run agents based on reusable skill definitions
 * [Scheduled Agents](/agent-platform/cloud-agents/triggers/scheduled-agents/) — Run agents automatically on a cron schedule
 * [Environments](/agent-platform/cloud-agents/environments/) — Configure runtime context for cloud agents

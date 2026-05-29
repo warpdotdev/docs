@@ -16,7 +16,7 @@ Warp's security philosophy centers on **transparency and developer control**:
 * **Real-time monitoring** - Use Warp's [Network Log](/support-and-community/privacy-and-security/network-log/) to monitor all network requests in real time
 * **Opt-out controls** - Disable telemetry and crash reporting at any time while retaining full functionality
 * **Team-level enforcement** - Admins can configure telemetry and data collection policies for the entire organization
-* **Open source client** - Warp's client code is published under [AGPL v3](https://github.com/warpdotdev/warp/blob/master/LICENSE) at [`warpdotdev/warp`](https://github.com/warpdotdev/warp), so security teams can audit the codebase directly. See [Contributing to Warp](/support-and-community/community/contributing/) for the source repository and the security reporting process.
+* **Open source client** - Warp's client code is published under [AGPL v3](https://github.com/warpdotdev/warp/blob/master/LICENSE-AGPL) at [`warpdotdev/warp`](https://github.com/warpdotdev/warp), so security teams can audit the codebase directly. See [Contributing to Warp](/support-and-community/community/contributing/) for the source repository and the security reporting process.
 
 ## What telemetry does Warp collect and why?
 
@@ -70,6 +70,7 @@ Team admins can enforce telemetry settings organization-wide through the Admin P
 * **Codebase Context** - During indexing, code is sent to Warp's servers to generate embeddings; the raw code is not stored, only the resulting embeddings are retained
 * **Agent requests** - Warp sends requests to contracted LLM providers (Anthropic, OpenAI, Google) with Zero Data Retention agreements for Enterprise teams
 * **BYOLLM** - Requests are proxied through Warp's servers to your cloud infrastructure, where inference runs. Warp does not store the content of these requests.
+* **Self-hosted cloud agent execution** - Repository clones, build artifacts, runtime secrets, and execution workspaces stay on your infrastructure. Orchestration metadata, session transcripts, and LLM inference requests and responses route through Warp under ZDR, and can include code context from agent interactions.
 
 ### Encryption
 
@@ -119,7 +120,7 @@ Warp's operational security practices — including access controls, monitoring,
 
 ### Self-hosted deployments
 
-Enterprise teams can self-host Oz cloud agent execution to control where agents run and keep repositories on their own infrastructure.
+Enterprise teams can self-host cloud agent execution to control where agents run and keep repositories on their own infrastructure.
 
 Self-hosted deployments use a split architecture:
 * **Execution plane (customer-hosted)** - Repository clones, build artifacts, runtime secrets, and container filesystem state stay on your infrastructure
@@ -158,7 +159,7 @@ Security-relevant controls include:
 * **Sharing** - Restrict or permit direct link sharing and "anyone with link" sharing permissions
 * **AI** - Configure AI autonomy settings and general agent behavior for the team
 * **Models** - Control which LLM models are available to team members, including AWS Bedrock
-* **Platform** - Configure Oz cloud agent access and settings
+* **Platform** - Configure cloud agent access and settings
 
 ## Security features for developers
 
@@ -166,7 +167,7 @@ Security-relevant controls include:
 
 Route agent inference through your own cloud infrastructure for complete control:
 
-* **Data locality** - Cloud agent inference runs in your AWS account
+* **Data locality** - Interactive agent inference runs in your AWS account
 * **Cloud-native IAM** - Authenticate using your user's existing identity and access management process
 * **No key storage** - Warp never stores your cloud credentials or API keys
 * **Billing control** - Inference costs billed directly to your cloud account

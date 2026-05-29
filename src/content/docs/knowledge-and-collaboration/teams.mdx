@@ -5,6 +5,8 @@ description: >-
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
 
+A Warp team is a group of users who collaborate through a shared workspace in Warp Drive. Teams share Workflows, Notebooks, Prompts, Rules, and Environment Variables, with role-based permissions for admins and members. Each Warp user can belong to one team at a time.
+
 ## What is a team?
 
 A team is a group of Warp users who can collaborate on the command line together. Warp teams can share a dedicated workspace in Warp Drive. [Learn about pricing](https://www.warp.dev/pricing) and see our [Pricing FAQ](/support-and-community/plans-and-billing/pricing-faqs/).
@@ -22,10 +24,10 @@ You can create a new team in the following ways:
 * Warp Drive, + Create a team
 * **Settings** > **Teams**
 
-Before you can invite team members, you will need to give your team a meaningful name. We suggest using a name to represent your organization, company, or project.&#x20;
+Before you can invite team members, you will need to give your team a meaningful name. We suggest using a name to represent your organization, company, or project.
 
 :::note
-You can rename the team by going to **Settings** > **Teams** and clicking on the team name, entering the new name, and pressing `ENTER` to accept.
+You can rename the team by going to **Settings** > **Teams** and clicking on the team name, entering the new name, and pressing `Enter` to accept.
 :::
 
 ![Teams settings panel with a team name input field and Create button](../../../assets/terminal/team-creation-settings.png)
@@ -65,6 +67,14 @@ If you have received an invite link, you can use that link to sign up or log in 
 
 If you’re a member of a team, you can visit **Settings** > **Teams** to leave a team at any time. Team admins (who created teams) may delete a team only after removing all team members.
 
+On Build, Max, and Business plans, [add-on credits](/support-and-community/plans-and-billing/add-on-credits/) are scoped to each individual user but **tied to the team** they were purchased under. Membership changes affect access:
+
+* **A user leaves a team** - You lose access to any add-on credits tied to that team. If you rejoin the same team later, you regain access to any unused, non-expired credits. The admin pays a prorated rate for your seat on rejoin.
+* **An admin removes a member** - That member loses access to any add-on credits tied to the team. If they rejoin later, they regain access to any unused, non-expired credits. The admin pays a prorated rate for the seat when the user rejoins.
+* **An admin deletes the team** - Any remaining add-on credits tied to the team are no longer usable.
+
+Add-on credits require an active subscription. Downgrading to the Free plan forfeits access to add-on credits tied to your team.
+
 ## Team discoverability
 
 Team admins can make their teams discoverable to colleagues from the same email domain. This feature is available under **Settings** > **Teams** > **Make team discoverable**.
@@ -83,14 +93,14 @@ Team admins can transfer their role to another team member by going to **Setting
 If you're a Team admin, and you choose to [delete your Warp](/support-and-community/privacy-and-security/privacy/#manage-your-data) account, the deletion flow will require that you assign a team member as the new admin.
 :::
 
-|                                                               | Admin                                                            | Member                                 |
-| ------------------------------------------------------------- | ---------------------------------------------------------------- | -------------------------------------- |
-|                                                               | This is the Warp user who created a team. There can only be one. | All team members who belong to a team. |
-| Create a team                                                 | ✓                                                                |                                        |
-| Restrict by domain                                            | ✓                                                                |                                        |
-| Invite members                                                | ✓                                                                | ✓                                      |
-| Remove team members                                           | ✓                                                                |                                        |
-| Leave a team                                                  |                                                                  | ✓                                      |
-| Delete a team                                                 | ✓                                                                |                                        |
-| Transfer admin                                                | ✓                                                                |                                        |
-| [Manage billing](/support-and-community/plans-and-billing/plans-pricing-refunds/) | ✓                                                                |                                        |
+| Action | Admin | Member |
+| --- | --- | --- |
+| Description | The Warp user who created the team. There can only be one. | Team members who belong to the team. |
+| Create a team | ✓ | |
+| Restrict by domain | ✓ | |
+| Invite members | ✓ | ✓ |
+| Remove team members | ✓ | |
+| Leave a team | | ✓ |
+| Delete a team | ✓ | |
+| Transfer admin | ✓ | |
+| [Manage billing](/support-and-community/plans-and-billing/plans-pricing-refunds/) | ✓ | |

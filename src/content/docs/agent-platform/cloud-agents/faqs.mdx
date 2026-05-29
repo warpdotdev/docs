@@ -47,7 +47,7 @@ If you're not happy with where it landed, you can take over to finish the task. 
 
 ### Do cloud agents have access to Codebase Context and indexing?
 
-Yes. [Codebase Context](/agent-platform/capabilities/codebase-context/) is enabled for all Oz cloud agent runs, as long as Codebase Context is enabled for your account. This includes runs triggered from the CLI, API/SDK, integrations (Slack, Linear, GitHub Actions), and schedules. No additional configuration is needed — if Codebase Context is enabled, cloud agents use it automatically.
+Yes. [Codebase Context](/agent-platform/capabilities/codebase-context/) is enabled for all cloud agent runs, as long as Codebase Context is enabled for your account. This includes runs triggered from the CLI, API/SDK, integrations (Slack, Linear, GitHub Actions), and schedules. No additional configuration is needed — if Codebase Context is enabled, cloud agents use it automatically.
 
 ### Can I access a shell inside a cloud agent environment? Are there limitations (Docker, Playwright, etc.)?
 
@@ -57,10 +57,10 @@ Yes. Cloud agent runs execute in a full Linux environment and behave like a loca
 
 The cloud agents platform supports self-hosting the **agent sandbox** (the execution environment) on your own infrastructure. The **control plane**—which handles orchestration, tracking, and auditability—remains Warp-managed and is not self-hosted.
 
-Self-hosted execution is available on **Enterprise** plans. See [Self-Hosting](/agent-platform/cloud-agents/self-hosting/) and [Deployment Patterns](/agent-platform/cloud-agents/deployment-patterns/) for details.
+Self-hosted execution is available on **Enterprise** plans. See [Self-hosting](/agent-platform/cloud-agents/self-hosting/) and [Deployment patterns](/agent-platform/cloud-agents/deployment-patterns/) for details.
 
 :::note
-[Bring Your Own Key (BYOK)](/support-and-community/plans-and-billing/bring-your-own-api-key/) does not apply to cloud agents. BYOK keys are stored locally on your device and cannot be passed to cloud-hosted or self-hosted agent runs. All cloud agent runs consume [Warp credits](/support-and-community/plans-and-billing/credits/).
+[Bring Your Own API Key (BYOK)](/agent-platform/inference/bring-your-own-api-key/) does not apply to cloud agents. BYOK keys are stored locally on your device and cannot be passed to cloud-hosted or self-hosted agent runs. All cloud agent runs consume [Warp credits](/support-and-community/plans-and-billing/credits/).
 :::
 
 ## Models
@@ -84,9 +84,9 @@ We're strong proponents of this, but it ultimately depends on model provider pol
 
 ### Do you support local or private LLMs for compliance or air-gapped environments?
 
-Enterprise plans will support managed integrations like AWS Bedrock and Google Vertex.
+Enterprise plans can route inference through your own cloud-provider account via [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/), so prompts stay within your cloud environment.
 
-Fully local, offline LLM execution is difficult given the current cloud agents orchestration and runtime architecture, but private-model support via enterprise cloud providers is on the roadmap.
+Fully local, offline LLM execution is difficult given the current cloud agents orchestration and runtime architecture, but private-model support via enterprise cloud providers is available through BYOLLM.
 
 ### Will cloud agents support Agent-to-Agent Protocols (A2A)?
 
@@ -203,7 +203,7 @@ With self-hosting, repositories are cloned and stored only on your infrastructur
 * **Execution plane (your infrastructure)** — Repository clones, build artifacts, runtime secrets, and container filesystem state stay on the machines you control.
 * **Control plane (Warp-hosted)** — Session transcripts (which include code context from agent interactions), orchestration metadata, and LLM inference route through Warp's backend under [Zero Data Retention (ZDR)](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr) agreements. Warp does not persistently store your source code or use it for model training.
 
-See [Self-Hosting](/agent-platform/cloud-agents/self-hosting/) for deployment options and [Security Overview](/enterprise/security-and-compliance/security-overview/) for full details.
+See [Self-hosting](/agent-platform/cloud-agents/self-hosting/) for deployment options and [Security Overview](/enterprise/security-and-compliance/security-overview/) for full details.
 
 ### Can I use `oz agent run` in CI or existing runners?
 
@@ -226,7 +226,7 @@ Yes. LLM inference routes through Warp's backend, which has [Zero Data Retention
 The [unmanaged architecture](/agent-platform/cloud-agents/self-hosting/unmanaged/) is well-suited for large monorepos because agents run directly in your pre-provisioned environment — there is no Docker image build or repo cloning step. For the [managed architecture](/agent-platform/cloud-agents/self-hosting/#managed-architecture), the Docker backend supports volume mounts (`-v` flag) to mount a pre-existing repo checkout from the host into task containers. With the Kubernetes backend, use `pod_template` to configure persistent volume claims or pre-populated storage for the same purpose.
 
 :::note
-The managed architecture supports three execution backends: **Docker** (default), **Kubernetes**, and **Direct** (no container runtime). The Kubernetes backend runs each task as a Kubernetes Job and includes a Helm chart for deployment. See [Self-Hosting](/agent-platform/cloud-agents/self-hosting/#choosing-a-managed-backend) for details on choosing a backend.
+The managed architecture supports three execution backends: **Docker** (default), **Kubernetes**, and **Direct** (no container runtime). The Kubernetes backend runs each task as a Kubernetes Job and includes a Helm chart for deployment. See [Self-hosting](/agent-platform/cloud-agents/self-hosting/#choosing-a-managed-backend) for details on choosing a backend.
 :::
 
 ### Do Kubernetes pods provide enough sandboxing for self-hosted agents?

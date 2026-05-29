@@ -35,15 +35,18 @@ EXCLUDED_DIRS = {"_book", "node_modules", ".docs"}
 # Feature names that are correctly Title Case (exceptions to sentence-case rule)
 PROPER_FEATURE_NAMES = {
     "Admin Panel", "Agent Management Panel", "Agent Mode", "Agent Profiles",
-    "Ambient Agents", "Auto-detection Mode", "Cloud Agent Credits",
+    "Auto-detection Mode", "Cloud Agents",
     "Codebase Context", "Code Review", "Command Palette", "Global Rules",
-    "Oz CLI", "Oz Platform", "Project Rules", "Slash Commands",
-    "Terminal Mode", "Universal Input", "Warp Drive", "Warp Platform",
+    "Oz CLI", "Oz Platform", "Project Rules",
+    "Slash Commands", "Terminal Mode", "Universal Input", "Warp Drive",
+    "Warp Platform",
 }
 
 # Terminology: wrong → right (case-sensitive checks)
 PRODUCT_CASING = {
     "Warp Terminal": ("Warp", "Use 'Warp' unless specifically distinguishing from Oz"),
+    "Cloud Agent Credits": ("cloud agent credits", "Use lowercase 'cloud agent credits' (host-context) or 'compute credits' (bucket-context); capitalize first letter only at start of a sentence/bullet"),
+    "Platform Credits": ("platform credits", "Use lowercase 'platform credits'; capitalize first letter only at start of a sentence/bullet/heading"),
     "agent mode": ("Agent Mode", "Capitalize as a feature name"),
     "agent management panel": ("Agent Management Panel", "Capitalize as a UI surface name"),
     "warp drive": ("Warp Drive", "Capitalize as a feature name"),
@@ -70,11 +73,16 @@ DEPRECATED_TERMS = [
 
 # Oz terms to avoid (case-insensitive patterns)
 OZ_TERMS_TO_AVOID = [
-    (r"\bOzzies\b", "Use 'Oz agents', 'instances', or 'Oz subagents'"),
-    (r"\bDeploying an Oz\b", "Use 'Deploying an Oz agent'"),
-    (r"\bThe Oz Agent\b", "Use 'An Oz agent' or 'A parent Oz agent'"),
-    (r"\bOz is running\b", "Use 'An Oz agent is running' or 'A run is in progress'"),
+    (r"\bOzzies\b", "Use 'agents', 'instances', or 'subagents'"),
+    (r"\bDeploying an Oz\b", "Use 'Deploying an agent'"),
+    (r"\bThe Oz Agent\b", "Use 'the agent' or 'the Warp Agent'"),
+    (r"\bOz is running\b", "Use 'An agent is running' or 'A run is in progress'"),
     (r"\bAI agents?\b", "Use 'agents' (the 'AI' prefix is redundant)"),
+    (r"\bOz cloud agents?\b", "Use 'cloud agent(s)'"),
+    (r"\bOz subagents?\b", "Use 'subagent(s)'"),
+    (r"\bOz conversation\b", "Use 'conversation'"),
+    (r"\bOz agents?\b", "Use 'agent(s)' or 'Warp Agent(s)' depending on context"),
+    (r"\b[Aa]mbient [Aa]gents?\b", "Use 'cloud agent(s)' — 'ambient' is no longer a product term"),
 ]
 
 # Action verbs that precede UI elements (should be bold, not backtick)
@@ -83,6 +91,31 @@ UI_ACTION_VERBS = r"(?:click|select|toggle|enable|disable|choose|check|uncheck|e
 DEFAULT_SLACK_CHANNEL = os.environ.get("SLACK_CHANNEL_ID", "")
 
 TERMINOLOGY_FILE = Path(".warp/references/terminology.md")
+
+STANDARD_SCREENSHOT_WIDTHS = {"300px", "350px", "375px", "563px"}
+
+SCREENSHOT_PATH_HINTS = (
+    "/assets/",
+    "../../assets/",
+    "../../../assets/",
+    "../../../../assets/",
+    "../../../../../assets/",
+    ".png",
+    ".gif",
+    ".jpg",
+    ".jpeg",
+    ".webp",
+)
+
+NON_SCREENSHOT_HINTS = (
+    "architecture",
+    "diagram",
+    "flowchart",
+    "infra",
+    "infrastructure",
+    "logo",
+    "use-cases",
+)
 
 # Common bolded words that are NOT product terms (false positive suppression)
 COMMON_BOLD_WORDS = {
@@ -325,6 +358,84 @@ def check_image_alt_text(lines: List[str], filepath: str) -> List[Issue]:
     return issues
 
 
+def _is_likely_screenshot(markdown_image_line: str) -> bool:
+    """Return True for UI/product screenshots while avoiding diagrams/logos."""
+    lower = markdown_image_line.lower()
+    if not any(hint in lower for hint in SCREENSHOT_PATH_HINTS):
+        return False
+    if any(hint in lower for hint in NON_SCREENSHOT_HINTS):
+        return False
+    return True
+
+
+def _figure_width(line: str) -> Optional[str]:
+    """Extract a maxWidth value from an MDX figure opening tag."""
+    match = re.search(r"maxWidth:\s*[\"']([^\"']+)[\"']", line)
+    if match:
+        return match.group(1)
+    return None
+
+
+def check_screenshot_widths(lines: List[str], filepath: str) -> List[Issue]:
+    """Check that screenshot images use standardized width-controlled figures.
+
+    The docs style guide asks screenshots to use consistent widths. This check
+    flags likely UI/product screenshots that are standalone Markdown images or
+    figure-wrapped images missing a standard maxWidth. Architecture diagrams,
+    logos, and broad conceptual illustrations are intentionally excluded by
+    filename/alt-text hints because they often need default content width.
+    """
+    issues = []
+    in_code_block = False
+    figure_start_line: Optional[int] = None
+    figure_opening = ""
+    figure_has_likely_screenshot = False
+
+    for i, line in enumerate(lines, 1):
+        stripped = line.strip()
+        if stripped.startswith("```"):
+            in_code_block = not in_code_block
+            continue
+        if in_code_block:
+            continue
+
+        if "<figure" in line:
+            figure_start_line = i
+            figure_opening = line
+            figure_has_likely_screenshot = False
+
+        if "![" in line and _is_likely_screenshot(line):
+            if figure_start_line is None:
+                issues.append(Issue(
+                    filepath, i, "screenshot-width",
+                    "Likely screenshot image should be wrapped in a <figure> with a standard maxWidth (300px, 350px, 375px, or 563px)",
+                    "warning",
+                ))
+            else:
+                figure_has_likely_screenshot = True
+
+        if "</figure>" in line and figure_start_line is not None:
+            if figure_has_likely_screenshot:
+                width = _figure_width(figure_opening)
+                if width is None:
+                    issues.append(Issue(
+                        filepath, figure_start_line, "screenshot-width",
+                        "Screenshot figure is missing a standard maxWidth (300px, 350px, 375px, or 563px)",
+                        "warning",
+                    ))
+                elif width not in STANDARD_SCREENSHOT_WIDTHS:
+                    issues.append(Issue(
+                        filepath, figure_start_line, "screenshot-width",
+                        f"Screenshot figure uses non-standard maxWidth \"{width}\"; use one of {', '.join(sorted(STANDARD_SCREENSHOT_WIDTHS))}",
+                        "warning",
+                    ))
+            figure_start_line = None
+            figure_opening = ""
+            figure_has_likely_screenshot = False
+
+    return issues
+
+
 def check_callout_syntax(lines: List[str], filepath: str) -> List[Issue]:
     """Check for malformed hint/callout syntax."""
     issues = []
@@ -386,13 +497,23 @@ def check_product_casing(lines: List[str], filepath: str) -> List[Issue]:
 
 
 def check_oz_terms(lines: List[str], filepath: str) -> List[Issue]:
-    """Check for Oz terms to avoid."""
+    """Check for Oz terms to avoid.
+
+    Skips fenced code blocks and strips inline code (backtick-wrapped text)
+    so that legitimate CLI commands like `oz agent run` are not flagged.
+    """
     issues = []
+    in_code_block = False
     for i, line in enumerate(lines, 1):
-        if line.strip().startswith("```") or line.strip().startswith("`"):
+        if line.strip().startswith("```"):
+            in_code_block = not in_code_block
             continue
+        if in_code_block:
+            continue
+        # Strip inline code spans so `oz agent run` is not matched
+        prose_line = re.sub(r"`[^`]+`", "", line)
         for pattern, suggestion in OZ_TERMS_TO_AVOID:
-            for m in re.finditer(pattern, line, re.IGNORECASE):
+            for m in re.finditer(pattern, prose_line, re.IGNORECASE):
                 issues.append(Issue(
                     filepath, i, "oz-term",
                     f"Avoid \"{m.group(0)}\" → {suggestion}",
@@ -543,6 +664,7 @@ def run_all_checks(filepath: Path) -> List[Issue]:
     issues.extend(check_ui_element_backticks(lines, str(filepath)))
     issues.extend(check_header_case(lines, str(filepath)))
     issues.extend(check_image_alt_text(lines, str(filepath)))
+    issues.extend(check_screenshot_widths(lines, str(filepath)))
     issues.extend(check_callout_syntax(lines, str(filepath)))
     issues.extend(check_product_casing(lines, str(filepath)))
     issues.extend(check_oz_terms(lines, str(filepath)))

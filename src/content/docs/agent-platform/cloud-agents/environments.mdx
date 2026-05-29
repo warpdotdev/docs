@@ -33,9 +33,11 @@ Environments define _how_ an agent runs, not _what_ it does. They're required fo
 
 An environment typically includes:
 
-* **Docker image (required)** – The toolchain and runtime the agent runs with. For self-hosted Kubernetes workers, a [`default_image`](/agent-platform/cloud-agents/self-hosting/managed-kubernetes/) on the worker lets you skip creating an environment entirely.
+* **Docker image (required)** – The task/workspace image with the toolchain and dependencies your code needs. For self-hosted Kubernetes workers, a [`default_image`](/agent-platform/cloud-agents/self-hosting/managed-kubernetes/) on the worker lets you skip creating an environment entirely.
 * **Repository/workspace** – One or more repos the agent can clone and operate on.
 * **Setup commands** – Commands to prepare the workspace (e.g., dependency install, builds, bootstrapping).
+
+Use the Docker image for language runtimes, package managers, system libraries, and scripts needed by your project. Custom images do not need to handle installing the Warp CLI binary; Warp supplies the agent runtime separately. You can start from an official image or one of Warp's [prebuilt dev images](https://github.com/warpdotdev/oz-dev-environments).
 
 :::note
 Configuring runtime settings:
@@ -66,7 +68,7 @@ Components in the execution flow:
 6. **Outputs** – The run produces PRs, messages, reports, or transcripts
 
 :::note
-**Local agent** runs (using `oz agent run`) don't require an environment. These runs use your current machine's setup. Environments are required for **automated platform** runs like Oz cloud agents and integrations
+**Local agent** runs (using `oz agent run`) don't require an environment. These runs use your current machine's setup. Environments are required for **automated platform** runs like cloud agents and integrations
 :::
 
 ### Hosts and environments

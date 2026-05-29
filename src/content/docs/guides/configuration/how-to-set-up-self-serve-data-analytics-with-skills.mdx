@@ -1,10 +1,13 @@
 ---
-title: "How to set up self-serve data analytics with Skills"
+title: "Set up self-serve data analytics with Skills"
 description: >-
   Set up a self-serve data analytics workflow in Warp using two community
   Skills that map questions to dbt models and structure reproducible analyses.
 sidebar:
   label: "Set up self-serve data analytics with skills"
+tags:
+  - "skills"
+
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
 
@@ -19,7 +22,7 @@ Self-serve data analytics means anyone on your team can ask a data question and 
 
 ## Walkthrough video
 
-In this 40-minute livestream, Warp's data team demonstrates the workflow end-to-end, including the two Skills you'll install below and a third pattern (running the same Skills from Slack via an Oz cloud agent). Feel free to skip ahead if you prefer to follow the written steps.
+In this 40-minute livestream, Warp's data team demonstrates the workflow end-to-end, including the two Skills you'll install below and a third pattern (running the same Skills from Slack via a cloud agent). Feel free to skip ahead if you prefer to follow the written steps.
 
 <VideoEmbed url="https://www.youtube.com/watch?v=WyMTjXSplRU" />
 
@@ -176,7 +179,7 @@ The `analysis-artifacts` Skill is largely stack-agnostic. It structures outputs,
 
 You installed two community Skills, customized the model index for your warehouse, and ran both a simple lookup and a full deep-dive analysis.
 
-**Extend to Slack.** Wire the same two Skills into an Oz cloud agent configured with your dbt repo, and your teammates can ask data questions by @-mentioning Oz in a Slack channel, without opening a terminal. The Agent clones the repo, picks up the Skills from `.agents/skills/`, and replies in-thread. See the [Slack integration docs](https://docs.warp.dev/agent-platform/cloud-agents/integrations/slack/) and [Skills as Agents](https://docs.warp.dev/agent-platform/cloud-agents/skills-as-agents/) for setup.
+**Extend to Slack.** Wire the same two Skills into a cloud agent configured with your dbt repo, and your teammates can ask data questions by @-mentioning Oz in a Slack channel, without opening a terminal. The agent clones the repo, picks up the Skills from `.agents/skills/`, and replies in-thread. See the [Slack integration docs](https://docs.warp.dev/agent-platform/cloud-agents/integrations/slack/) and [Skills as Agents](https://docs.warp.dev/agent-platform/cloud-agents/skills-as-agents/) for setup.
 
 Explore related guides and features:
 

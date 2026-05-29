@@ -46,7 +46,7 @@ In practice: **triggers create tasks; tasks execute on a host (optionally in an 
 
 ### Oz CLI
 
-The [Oz CLI](/reference/cli/) is the **headless interface** for running Oz agents in non-interactive mode. It's commonly used in CI, scripts, and server environments where there is no interactive UI. For interactive workflows, use the [agent](/agent-platform/local-agents/overview/) embedded in Warp's desktop app.
+The [Oz CLI](/reference/cli/) is the **headless interface** for running agents in non-interactive mode. It's commonly used in CI, scripts, and server environments where there is no interactive UI. For interactive workflows, use the [agent](/agent-platform/local-agents/overview/) embedded in Warp's desktop app.
 
 A key property of the CLI is that it is **cloud-connected**. Even when an agent is started on a local machine or in CI, it reports progress to Warp’s servers. This enables team visibility, session sharing (where supported), and programmatic tracking through the API.
 
@@ -142,7 +142,7 @@ The Oz [Agent API](/reference/api-and-sdk/) is the HTTP interface to the Oz Plat
 * Monitor execution by listing tasks and tracking state transitions over time (for example: `QUEUED` → `INPROGRESS` → `SUCCEEDED/FAILED`).
 * Inspect results and provenance by fetching a task’s full details, including the original prompt, creator/source metadata, session link, and resolved agent configuration.
 
-**Oz Agent SDKs**
+**Oz SDKs**
 
 Oz provides official [Python](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript SDKs](https://github.com/warpdotdev/oz-sdk-typescript) that wrap the Oz API with:
 
@@ -174,6 +174,7 @@ With Warp hosting:
 
 * Warp runs the environment on Warp-managed infrastructure.
 * This is the default model for teams that want the simplest setup and do not need execution to occur inside their network boundary.
+* For more details, see [Warp-hosted execution](/agent-platform/cloud-agents/warp-hosting/).
 
 #### Self-hosted execution
 
@@ -184,7 +185,7 @@ With self-hosting:
 * This is used when teams want code and execution to remain on their own systems rather than being cloned or executed in Warp's cloud.
 
 :::note
-**Enterprise feature**: Self-hosted execution requires an Enterprise plan. See [Self-Hosting](/agent-platform/cloud-agents/self-hosting/) for setup instructions.
+**Enterprise feature**: Self-hosted execution requires an Enterprise plan. See [Self-hosting](/agent-platform/cloud-agents/self-hosting/) for setup instructions.
 :::
 
 ---
@@ -216,7 +217,7 @@ Examples of context extracted by first-party integrations:
 
 #### Custom integrations
 
-With custom integrations, you own the webhook and event-handling logic. Your system receives an event, applies any filtering or enrichment you need, and then calls the Oz API (directly or via an SDK) to create a task. The resulting task is still a full Oz agent run — observable, manageable, and auditable like any other.
+With custom integrations, you own the webhook and event-handling logic. Your system receives an event, applies any filtering or enrichment you need, and then calls the Oz API (directly or via an SDK) to create a task. The resulting task is still a full cloud agent run — observable, manageable, and auditable like any other.
 
 Custom integrations are a good fit when:
 
