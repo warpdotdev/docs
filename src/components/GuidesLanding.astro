@@ -138,11 +138,10 @@ const categories = Object.keys(CATEGORY_LABELS).filter((cat) =>
 
 <div class="warp-guide-grid-container not-content">
 	{/* Filter pills — Featured is the default; All shows everything flat */}
-	<div class="warp-guide-filters" role="tablist" aria-label="Filter guides by category">
+	<div class="warp-guide-filters" role="group" aria-label="Filter guides by category">
 		{featured.length > 0 && (
 			<button
-				role="tab"
-				aria-selected="true"
+				aria-pressed="true"
 				class="warp-guide-filter-pill active"
 				data-filter="featured"
 			>
@@ -150,8 +149,7 @@ const categories = Object.keys(CATEGORY_LABELS).filter((cat) =>
 			</button>
 		)}
 		<button
-			role="tab"
-			aria-selected="false"
+			aria-pressed="false"
 			class="warp-guide-filter-pill"
 			data-filter="all"
 		>
@@ -161,8 +159,7 @@ const categories = Object.keys(CATEGORY_LABELS).filter((cat) =>
 			const count = guides.filter((g) => g.category === cat).length;
 			return (
 				<button
-					role="tab"
-					aria-selected="false"
+					aria-pressed="false"
 					class="warp-guide-filter-pill"
 					data-filter={cat}
 				>
@@ -212,10 +209,10 @@ const categories = Object.keys(CATEGORY_LABELS).filter((cat) =>
 				// Update pill states
 				pills.forEach((p) => {
 					p.classList.remove('active');
-					p.setAttribute('aria-selected', 'false');
+					p.setAttribute('aria-pressed', 'false');
 				});
 				pill.classList.add('active');
-				pill.setAttribute('aria-selected', 'true');
+				pill.setAttribute('aria-pressed', 'true');
 
 				// Filter cards
 				cards.forEach((card) => {
