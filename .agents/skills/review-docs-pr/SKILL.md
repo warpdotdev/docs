@@ -1,6 +1,6 @@
 ---
 name: review-docs-pr
-description: Reviews documentation pull requests for the Warp docs repository. Checks for broken links, style guide compliance, content quality, and Astro Starlight structure. Use when reviewing documentation PRs or when you need to provide feedback on markdown documentation changes.
+description: Reviews documentation pull requests for the Warp docs repository. Checks for broken links, style guide compliance, content quality, AEO/source-data fit, and Astro Starlight structure. Use when reviewing documentation PRs or when you need to provide feedback on markdown documentation changes.
 ---
 
 # Review Documentation PR
@@ -13,6 +13,7 @@ Use this skill when reviewing documentation changes in PRs. The skill will:
 - Check for potential broken links
 - Verify style guide compliance
 - Review content quality
+- Review AEO/source-data fit for docs changes that target search or answer-engine visibility
 - Check Astro Starlight structure integrity
 
 ## Review Instructions
@@ -20,11 +21,12 @@ Use this skill when reviewing documentation changes in PRs. The skill will:
 Review this documentation PR for the docs repository.
 
 Focus on:
-1. **Broken links**: Check for potential broken internal links (relative paths, cross-space links). You can run the broken link checker at `python3 .warp/skills/check_for_broken_links/check_links.py --internal-only` if helpful.
+1. **Broken links**: Check for potential broken internal links (relative paths, cross-space links). You can run the broken link checker at `python3 .agents/skills/check_for_broken_links/check_links.py --internal-only` if helpful.
 2. **Style guide compliance**: Reference `AGENTS.md` for documentation standards (voice, formatting, terminology).
 3. **Content quality**: Check for clarity, accuracy, proper frontmatter, and appropriate use of headers/lists.
 4. **Code snippets**: Verify that any code examples, commands, or configuration snippets are correct and will work as documented. If you're unsure about technical details, use the `answer_question` skill to verify against the docs or search the source code.
 5. **Astro Starlight structure**: Verify astro.config.mjs (sidebar config) updates if files were moved/renamed, and that redirects are added to vercel.json (redirects) when needed.
+6. **AEO/source-data fit**: For docs changes that target AEO, SEO, Peec recommendations, AI search prompts, or content gaps, check whether the PR has a clear source-data rationale, uses query vocabulary naturally, avoids junk-drawer coverage, and updates or links existing docs instead of creating duplicative content.
 
 Provide actionable, constructive feedback. Focus on documentation quality issues, not code bugs.
 
@@ -45,6 +47,18 @@ If you encounter:
 - Questions about how something actually works
 
 Use the `answer_question` skill to search the documentation and source code for authoritative information before making your review comment.
+
+### AEO review guidance
+
+For AEO-driven docs PRs, review the diff through these questions:
+- **Source rationale** - Is it clear which Peec prompt, search-query cluster, recommendation, or content gap motivated the change? If not, ask for the source signal or suggest narrowing the scope.
+- **Vocabulary translation** - Does the draft preserve high-intent search terms where useful while translating awkward source-data language into natural docs language?
+- **Reader value** - Would the page help a developer complete or understand a real workflow, or is it collecting loosely related keywords?
+- **Terminology and UI surfaces** - Are product names, settings paths, panel names, and navigation labels consistent with `AGENTS.md`, `.agents/references/terminology.md`, and the actual UI?
+- **Scannability** - Are dense procedures broken into numbered steps, bullets, or concise subsections with expected outcomes?
+- **Duplication risk** - Should the content update an existing page, link to an existing page, or be merged with related content instead of living as a new standalone doc?
+
+When the issue is a judgment call, prefer a `💡 [SUGGESTION]` comment that explains the tradeoff rather than blocking the PR.
 
 ## Output Format
 

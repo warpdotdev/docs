@@ -14,6 +14,7 @@ Invoke this skill with any context that describes what you want to document:
 - Slack threads or meeting notes
 - Existing documentation that needs updating
 - A description of a feature or concept
+- AEO, SEO, Peec, or answer-engine source data that should inform a draft
 
 Example: "Use the draft_docs skill to write docs for [feature name] based on this PRD: [context]"
 
@@ -26,6 +27,14 @@ Review all provided context (PRD, spec, existing doc, etc.). Identify:
 - What feature or topic is being documented
 - Key user benefits and capabilities
 - Technical details that need explaining
+
+### 1.5. Create an AEO brief when source data drives the request
+If the request mentions AEO, SEO, Peec, answer-engine visibility, search-query vocabulary, content gaps, or whether to create a new page versus update an existing page, read `.agents/skills/aeo_brief/SKILL.md` and create the brief before drafting. Use the brief to decide:
+- Which page or section should change
+- Which user/search vocabulary belongs in the draft
+- Which product terms or UI surfaces need precise naming
+- Which topics to avoid because they duplicate existing docs or create a junk-drawer page
+- Which questions require human review before publishing
 
 ### 2. Clarify placement
 Ask the user where the doc should live. The docs are organized into sections, each with its own `astro.config.mjs (sidebar config)`:
@@ -46,14 +55,14 @@ Using the "Drafting by content type" section in `AGENTS.md`, determine which con
 
 | Content type | Use when | Template | Skill |
 |---|---|---|---|
-| **Conceptual** | Explains what/why, no procedures | `.warp/templates/conceptual.md` | `draft_conceptual` |
-| **Procedural** | Step-by-step task instructions | `.warp/templates/procedural.md` | `draft_procedural` |
-| **Quickstart** | Fast path to a working result | `.warp/templates/quickstart.md` | `draft_quickstart` |
-| **Reference** | Structured information for lookup | `.warp/templates/reference.md` | `draft_reference` |
-| **Troubleshooting** | Problem → cause → solution | `.warp/templates/troubleshooting.md` | `draft_troubleshooting` |
-| **FAQ** | Question-and-answer format | `.warp/templates/faq.md` | `draft_faq` |
-| **Guide** | Task-oriented walkthrough (Guides section) | `.warp/templates/guide-page.md` | `draft_guide` |
-| **Feature documentation** | Combined conceptual + procedural (most common) | `.warp/templates/feature-doc.md` | `draft_feature_doc` |
+| **Conceptual** | Explains what/why, no procedures | `.agents/templates/conceptual.md` | `draft_conceptual` |
+| **Procedural** | Step-by-step task instructions | `.agents/templates/procedural.md` | `draft_procedural` |
+| **Quickstart** | Fast path to a working result | `.agents/templates/quickstart.md` | `draft_quickstart` |
+| **Reference** | Structured information for lookup | `.agents/templates/reference.md` | `draft_reference` |
+| **Troubleshooting** | Problem → cause → solution | `.agents/templates/troubleshooting.md` | `draft_troubleshooting` |
+| **FAQ** | Question-and-answer format | `.agents/templates/faq.md` | `draft_faq` |
+| **Guide** | Task-oriented walkthrough (Guides section) | `.agents/templates/guide-page.md` | `draft_guide` |
+| **Feature documentation** | Combined conceptual + procedural (most common) | `.agents/templates/feature-doc.md` | `draft_feature_doc` |
 
 Once the content type is identified:
 - Use the corresponding **template** as the starting scaffold for the page.
@@ -82,20 +91,23 @@ These rules are frequently violated by agents. Apply them carefully during draft
 - **Bold per-segment for Settings paths** — Use `**Settings** > **AI** > **Knowledge**` not `` `Settings > AI > Knowledge` ``
 
 ### 7. Draft the doc
-Create the documentation using the appropriate template from `.warp/templates/`. Follow the structure for the identified content type and all rules in `AGENTS.md`. Each template includes visible bracketed instructions explaining what to put in each section.
+Create the documentation using the appropriate template from `.agents/templates/`. Follow the structure for the identified content type and all rules in `AGENTS.md`. Each template includes visible bracketed instructions explaining what to put in each section.
 
 ### 8. Run style lint
-Run `python3 .warp/skills/style_lint/style_lint.py --changed` on the drafted file to catch formatting and terminology issues before presenting to the user.
+Run `python3 .agents/skills/style_lint/style_lint.py --changed` on the drafted file to catch formatting and terminology issues before presenting to the user.
 
 ### 9. Review against checklist
 Before presenting the draft, verify against the quality checklist in `AGENTS.md`:
 - [ ] Frontmatter includes clear description written as a standalone summary
 - [ ] Content follows the structure for its content type
-- [ ] Terminology matches the glossary (`.warp/references/terminology.md`)
+- [ ] Terminology matches the glossary (`.agents/references/terminology.md`)
 - [ ] Headers use sentence case (with proper feature name capitalization)
 - [ ] Lists use bold term + dash + explanation format
 - [ ] Cross-references to related features are included
 - [ ] Instructions include expected outcomes
+- [ ] Procedures are scannable: dense sections are split into numbered steps, short bullets, or concise subsections
+- [ ] UI surfaces and product terms use canonical names from `.agents/references/terminology.md`
+- [ ] If AEO-driven, the draft follows the AEO brief, uses source vocabulary naturally, and avoids duplicative or junk-drawer coverage
 - [ ] Images have descriptive alt text
 
 ### 10. Update navigation and redirects
