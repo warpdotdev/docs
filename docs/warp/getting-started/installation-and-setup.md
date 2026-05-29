@@ -39,7 +39,7 @@ After installation, you can find Warp in your Applications folder.
 
 {% tab title="Windows" %}
 {% hint style="info" %}
-**Minimum requirements:** Warp requires Windows 10 version 1809 (build 17763) or later, Windows Server 2019 (build 17763) and Windows Server 2022 (build 20348) or later. This is a requirement for [Windows Pseudo Console (ConPTY)](https://devblogs.microsoft.com/commandline/windows-command-line-introducing-the-windows-pseudo-console-conpty/).
+**Minimum requirements:** Warp requires Windows 10 version 1903 (build 18362) or later, and Windows Server 2022 (build 20348) or later. This is a requirement for [Windows Pseudo Console (ConPTY)](https://devblogs.microsoft.com/commandline/windows-command-line-introducing-the-windows-pseudo-console-conpty/).
 {% endhint %}
 
 **Download Warp, then open and run the installer**
