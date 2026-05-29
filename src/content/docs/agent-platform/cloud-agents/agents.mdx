@@ -2,8 +2,8 @@
 title: Agent identities
 description: >-
   Agent identities are team-scoped bot accounts that own and execute cloud
-  agent runs. Use them to separate workflows, scope credentials, and attribute
-  automated work.
+  agent runs. Separate workflows, scope credentials, and attribute automated
+  work.
 sidebar:
   label: "Agent identities"
 ---
@@ -18,15 +18,13 @@ Agent identities are useful when you want to:
 
 ## How agent identities work
 
-Each team has one default agent identity. Headless runs (such as team API key runs that don't specify an identity) execute under this default. User-triggered runs default to running as the calling user — surfaced as **Quick run** in the web app — unless you pick a specific agent identity. You can create additional agent identities on top of the default and run as any of them. Identities are team-scoped, so every member of a team can see and use the same set of agent identities.
+Each team has one default agent identity. Headless runs (such as team API key runs that don't specify an identity) execute under this default. User-triggered runs default to running as the calling user, which is surfaced as **Quick run** in the web app, unless you pick a specific agent identity. You can create additional agent identities on top of the default and run as any of them. Identities are team-scoped, so every member of a team can see and use the same set of agent identities.
 
 You can attach the following configuration to an agent identity:
 
 * **Description** - A short, human-readable summary teammates see when picking the identity.
 * **Managed secrets** - References (by name) to [team-managed secrets](/agent-platform/cloud-agents/secrets/) the identity should have access to.
 * **Skills** - Skill specs (for example, `org/repo:path/to/SKILL.md`) the identity comes preloaded with. Shorthand specs like `repo:skill_name` are accepted when they resolve unambiguously against the team's cloud environments.
-
-Skill specs are stored in their normalized fully-qualified form, and managed secret references are validated against the team's secret scope at attach time. If a secret is missing or a skill repo is not accessible to the team's GitHub App installation, the request is rejected before anything is saved.
 
 ## Service accounts and agent identities
 
@@ -35,21 +33,23 @@ Skill specs are stored in their normalized fully-qualified form, and managed sec
 * When `oz whoami` reports a principal of `service_account:<uid>`, that principal is an agent identity on your team.
 * When [`oz federate issue-token`](/reference/cli/federate/) emits a subject component like `service_account:my-sa-id`, the value identifies the agent identity the run is executing as.
 
-You don't need to distinguish the two terms in day-to-day use — pick the agent identity in the UI or pass its UID to the API, and the CLI surfaces the corresponding `service_account:` principal.
+You don't need to distinguish the two terms in day-to-day use. Pick the agent identity in the UI or pass its UID to the API, and the CLI surfaces the corresponding `service_account:` principal.
 
 ## Supporting multiple agent identities
 
-Most teams start with the default agent identity and add more as their automation matures. Creating additional agent identities is worth it when distinct workflows have meaningfully different scopes — for example, a `ci-runner` identity that only needs read-only repo access, an `on-call` identity that holds production deploy credentials and is restricted to incident playbooks, and a `nightly-jobs` identity used by scheduled cleanups. Scoping each identity to a single workflow gives every run the minimum credentials it needs, keeps audit trails attributable to the right bot, and lets you revoke or rotate one workflow's access without touching the rest.
+Most teams start with the default agent identity and add more as their automation matures. Creating additional agent identities is worth it when distinct workflows have meaningfully different scopes — for example, a `ci-runner` identity that only needs read-only repo access, an `on-call` identity that holds production deploy credentials and is restricted to incident playbooks, and a `nightly-jobs` identity used by scheduled cleanups.
+
+Scoping each identity to a single workflow gives every run the minimum credentials it needs, keeps audit trails attributable to the right bot, and lets you revoke or rotate one workflow's access without touching the rest.
 
 ## Plan limits
 
-Every team starts with a default agent identity. Additional identities are subject to plan-based limits — see [warp.dev/pricing](https://warp.dev/pricing) for current limits per plan.
+Every team starts with a default agent identity. Additional identities are subject to plan-based limits. See [warp.dev/pricing](https://warp.dev/pricing) for current limits per plan.
 
 When a team is over its plan limit (for example, after downgrading), the extra identities remain visible in the list but are marked as unavailable. Unavailable identities cannot be used to start runs, cannot have new API keys generated for them, and cannot be edited.
 
 ## Managing agent identities
 
-You can create, list, update, and delete agent identities through the public API. The full request and response shapes — including error codes — live on the [API Reference](/api) page; the operations to look for are `createAgent`, `listAgents`, `updateAgent`, and `deleteAgent` under the **agent** tag.
+You can create, list, update, and delete agent identities through the public API. The full request and response formats, including error codes, live on the [API Reference](/api) page; the operations to look for are `createAgent`, `listAgents`, `updateAgent`, and `deleteAgent` under the **agent** tag.
 
 The endpoints behave as follows:
 
@@ -68,9 +68,9 @@ A few constraints apply across every endpoint:
 
 ## API keys bound to an agent identity
 
-A team API key can be bound to a specific agent identity at creation time. Calls authenticated with that key run as the chosen identity. The team is resolved automatically from the identity — you don't need to specify a team when generating the key.
+A team API key can be bound to a specific agent identity at creation time. Calls authenticated with that key run as the chosen identity. The team is resolved automatically from the identity, so you don't need to specify a team when generating the key.
 
-To create a key bound to an agent identity, choose the identity when creating the team API key. See [API Keys](/reference/cli/api-keys/) for the full key creation flow and for the difference between user-scoped and team-scoped keys.
+To create a key bound to an agent identity, choose the identity when creating the team API key. See [API keys](/reference/cli/api-keys/) for the full key creation flow and for the difference between user-scoped and team-scoped keys.
 
 Once the key exists, the CLI and SDK authenticate as that agent identity for every call. There is no extra flag to set; the binding is on the key itself.
 
@@ -81,7 +81,7 @@ There are two ways to run a cloud agent as a specific agent identity:
 * **Authenticate with a key bound to the identity** - Every run started with that key executes as the bound agent identity. This is the typical path for CI pipelines and scheduled work.
 * **Pass `agent_identity_uid` on `POST /agent/runs`** - For one-off runs, send the agent identity's `uid` in the request body. The field is only valid for team-owned runs.
 
-When neither path is used, headless runs (team API key runs without an identity) execute under the team's default agent identity. User-triggered runs (Warp app, personal API key, Slack, Linear) execute as the calling user — surfaced as **Quick run** in the web app.
+When neither path is used, headless runs (team API key runs without an identity) execute under the team's default agent identity. User-triggered runs (Warp app, personal API key, Slack, Linear) execute as the calling user and are surfaced as **Quick run** in the web app.
 
 ## Where agent identities appear in the product
 
@@ -97,7 +97,7 @@ Agent identities surface across several Oz surfaces:
 * [Cloud agent secrets](/agent-platform/cloud-agents/secrets/) - Manage the team-managed secrets you can attach to an agent identity.
 * [Deployment patterns](/agent-platform/cloud-agents/deployment-patterns/) - When to use an agent identity for automation versus a personal identity.
 * [Oz API & SDK](/reference/api-and-sdk/) - Programmatic access to the agent identity endpoints.
-* [API Keys](/reference/cli/api-keys/) - Create keys bound to a specific agent identity.
+* [API keys](/reference/cli/api-keys/) - Create keys bound to a specific agent identity.
 * [Federated identity tokens](/reference/cli/federate/) - Issue OIDC tokens from inside a run, including ones executing as an agent identity.
 * [Oz web app](/agent-platform/cloud-agents/oz-web-app/) - The web surface where you manage agent identities and inspect their runs.
 * [Admin Panel](/knowledge-and-collaboration/admin-panel/) - Team-level billing and access controls.

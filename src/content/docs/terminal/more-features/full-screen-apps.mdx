@@ -49,7 +49,20 @@ Warp allows you to scale your terminal by fractions of a cell width | height. Wh
 Some full-screen applications don't behave well when resizing. If you are experiencing rendering issues with full screen apps, try turning this setting off. This will ensure that full-screen apps don't need to resize when starting up.
 :::
 
-<figure>
+<figure style={{ maxWidth: "375px" }}>
 ![alt-screen padding setting](../../../../assets/terminal/padding-settings.png)
 <figcaption>The alt-screen padding setting in appearance preferences.</figcaption>
 </figure>
+
+## Kitty keyboard protocol
+
+Warp supports the [Kitty keyboard protocol](https://sw.kovidgoyal.net/kitty/keyboard-protocol/) (CSI u progressive enhancement) so full-screen apps can read keystrokes that legacy terminal escape sequences can't represent — for example, distinguishing `Ctrl+I` from `Tab`, capturing modifier-only key events, or detecting key release events.
+
+When a running app advertises that it supports the protocol, Warp emits the extended escape sequences automatically. No configuration is required.
+
+* **Supported in**: Vim, Neovim, Emacs, tmux, helix, and other modern TUI apps that opt into CSI u.
+* **Falls back to legacy encoding** when the running app doesn't request progressive enhancement, so older programs keep working unchanged.
+
+:::note
+If a TUI app reports unexpected key events after upgrading Warp, confirm the app itself supports the Kitty keyboard protocol. Most apps require an explicit opt-in (for example, `:set keyprotocol` in Neovim).
+:::

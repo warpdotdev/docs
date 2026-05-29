@@ -26,6 +26,7 @@ Vertical tabs are especially useful when running multiple coding agents side by 
 ### Display modes and customization
 
 * **Pane or tab view** - Display every split pane as its own row (**Panes**) or show only the focused pane per tab (**Tabs**).
+* **Focused session or summary tab item** - When viewing as **Tabs**, choose **Focused session** to show the active pane per tab, or **Summary** to show a condensed multi-line digest of every pane in the tab (commands, working directories, branches, and status badges).
 * **Compact and expanded modes** - Choose between a dense single-line view (default) or a detailed multi-line layout with full metadata.
 * **Configurable pane titles** - Control which metadata appears first: last command or conversation, working directory, or Git branch.
 * **Hover detail sidecar** - Hover any pane row to see full, un-clipped metadata in a floating detail card without changing focus.
@@ -44,7 +45,7 @@ To switch from horizontal tabs to the vertical tabs panel:
 
 The vertical tabs panel appears as a resizable sidebar on the left side of the window. The horizontal tab bar is hidden while vertical tabs are active.
 
-<figure>
+<figure style={{ maxWidth: "563px" }}>
 ![A Warp window with the vertical tabs sidebar on the left listing a Claude Code tab and a codex tab alongside the main terminal pane](../../../../assets/terminal/multi-agents.png)
 <figcaption>Vertical tab with agent details.</figcaption>
 </figure>
@@ -61,7 +62,7 @@ The vertical tabs panel supports two display densities that you can switch betwe
 
 Compact mode is the default. Each pane row displays an icon and title on one line, with an optional subtitle below it. The subtitle is configurable via the **Additional metadata** setting in the settings popup.
 
-<figure>
+<figure style={{ maxWidth: "375px" }}>
 ![Vertical tabs sidebar in compact mode with each pane row showing an icon, title, and a short subtitle below](../../../../assets/terminal/vertical-tabs-condensed.png)
 <figcaption>Vertical tabs in compact mode.</figcaption>
 </figure>
@@ -70,7 +71,7 @@ Compact mode is the default. Each pane row displays an icon and title on one lin
 
 Expanded mode shows each pane row with a title, description (such as the working directory or file path), and metadata (Git branch, diff stats badge, and PR badge when available).
 
-<figure>
+<figure style={{ maxWidth: "375px" }}>
 ![Vertical tab rows in expanded mode showing titles, working directories, Git branches, diff stats, and agent status badges](../../../../assets/terminal/vertical-tabs-multi-agent.png)
 <figcaption>Vertical tabs overview.</figcaption>
 </figure>
@@ -79,7 +80,7 @@ Expanded mode shows each pane row with a title, description (such as the working
 
 Click the settings icon (sliders) in the control bar at the top of the vertical tabs panel. In the popup, use the **Density** segmented control to switch between compact and expanded views. The change takes effect immediately.
 
-<figure>
+<figure style={{ maxWidth: "375px" }}>
 ![The vertical tabs settings popup anchored to the sliders icon, showing View as, Density, Pane title as, Additional metadata, and Show details on hover options](../../../../assets/terminal/vertical-tab-settings.png)
 <figcaption>Vertical tabs settings popup.</figcaption>
 </figure>
@@ -92,7 +93,8 @@ You can also rearrange the panel toggle buttons at the top of the Warp window �
 
 | Setting | Availability | Options | Default |
 |---|---|---|---|
-| **View as** | Always | **Panes** — each split pane gets its own row. **Tabs** — only the focused pane per tab is shown. | Panes |
+| **View as** | Always | **Panes** — each split pane gets its own row. **Tabs** — one row per tab, controlled further by the **Tab item** setting. | Panes |
+| **Tab item** | **View as** is set to **Tabs** | **Focused session** — show the focused pane's title and metadata. **Summary** — show a condensed digest of every pane in the tab, with command or conversation titles, working directories, branches, and agent status badges (up to three lines, with a `+ N more` overflow row). | Focused session |
 | **Density** | Always | **Compact** — smaller rows with title and optional subtitle. **Expanded** — larger rows with title, description, and metadata. | Compact |
 | **Pane title as** | Always | **Command / Conversation** — last command, conversation title, or CLI agent session name.<br />**Working Directory** — pane's working directory.<br />**Branch** — checked-out Git branch. | Command / Conversation |
 | **Additional metadata** | Compact mode only | **Branch**<br />**Working Directory**<br />**Command / Conversation**<br />(options depend on the **Pane title as** setting; duplicates are excluded). | Branch |
@@ -120,7 +122,7 @@ Agent pane icons display a small circular badge overlay in the bottom-right corn
 | **Cancelled** | Gray stop | The user cancelled the agent's last turn. |
 | **Blocked** | Yellow stop | The agent is waiting for user approval to proceed. |
 
-<figure>
+<figure style={{ maxWidth: "375px" }}>
 ![Vertical tabs sidebar with four tab rows showing different agent status badges: a yellow blocked square, a magenta in-progress moon on the Claude Code brand icon, and green completion checks](../../../../assets/terminal/agent-status-badges.png)
 <figcaption>Agent status badges on vertical tabs.</figcaption>
 </figure>
@@ -162,7 +164,7 @@ Renaming applies to tabs only. Individual panes can't be renamed at this time.
 
 Hover any pane row to open a floating detail card anchored to the right side of the panel. The sidecar shows full, un-clipped metadata (complete directory paths, full branch names, and the full conversation or command title) without changing which pane is focused.
 
-<figure>
+<figure style={{ maxWidth: "375px" }}>
 ![The vertical tabs panel with a Claude Code tab hovered, showing a floating detail card with the agent's In progress status, working directory, and session title](../../../../assets/terminal/tab-hover-detail-card.png)
 <figcaption>Hover detail card for a vertical tab.</figcaption>
 </figure>

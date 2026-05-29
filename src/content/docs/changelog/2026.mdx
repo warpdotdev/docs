@@ -6,6 +6,147 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2026.05.27 (v0.2026.05.27.15.44)
+
+**New features**
+
+* Added git operations to the code review pane. ([#11716](https://github.com/warpdotdev/warp/pull/11716))
+
+**Improvements**
+
+* A new, faster implementation of find is now available as an opt-in setting under Settings → Features → Asynchronous find, keeping the UI responsive on large outputs. ([#11555](https://github.com/warpdotdev/warp/pull/11555))
+* Custom inference endpoints now show token usage with friendly alias names in Agent Mode. ([#11496](https://github.com/warpdotdev/warp/pull/11496))
+* Added AWS Bedrock indicators in the model selector for Bedrock-enabled models. ([#11358](https://github.com/warpdotdev/warp/pull/11358))
+* The Oz CLI now has commands for operating over reusable agents. ([#11286](https://github.com/warpdotdev/warp/pull/11286))
+* Added the ability to view attached images in agent conversations. ([#11426](https://github.com/warpdotdev/warp/pull/11426))
+* Markdown files opened from remote SSH sessions now render in the markdown viewer with Rendered/Raw toggle support. ([#11427](https://github.com/warpdotdev/warp/pull/11427))
+* Added a QR code flow for remote-control sessions. ([#11435](https://github.com/warpdotdev/warp/pull/11435))
+* Mermaid diagrams in notebooks can now be opened in a lightbox by clicking the rendered diagram. ([#11548](https://github.com/warpdotdev/warp/pull/11548))
+* Rich text editor newlines now render as line breaks instead of paragraph breaks, fixing unusually large spacing. ([#10293](https://github.com/warpdotdev/warp/pull/10293))
+* Orchestration child agent pills now sort by status, surfacing attention-needed items first. ([#11363](https://github.com/warpdotdev/warp/pull/11363))
+* The orchestrator pill now shows in-progress status while child agents are running. ([#11367](https://github.com/warpdotdev/warp/pull/11367))
+* Added a disconnection banner when remote SSH sessions lose connection. ([#11565](https://github.com/warpdotdev/warp/pull/11565))
+* Improved GitHub authentication error messages with more detailed information. ([#11248](https://github.com/warpdotdev/warp/pull/11248))
+* Warp now exposes a focus URL in terminal session environments so external notification tools can return focus to the originating pane. ([#11130](https://github.com/warpdotdev/warp/pull/11130))
+* Added podman exec/run support for warpify subshells. ([#9831](https://github.com/warpdotdev/warp/pull/9831))
+* Added in-session size-based rotation for warp.log so the log no longer grows unbounded within a session. ([#11000](https://github.com/warpdotdev/warp/pull/11000))
+
+**Bug fixes**
+
+* Stopped tearing down and re-opening the orchestration connection on every status transition, reducing reconnect churn. ([#11574](https://github.com/warpdotdev/warp/pull/11574))
+* Fixed free solo users seeing the legacy Billing and usage settings page instead of the V2 page. ([#11434](https://github.com/warpdotdev/warp/pull/11434))
+* Fixed file edit diff application when a create and delete target the same path. ([#11516](https://github.com/warpdotdev/warp/pull/11516))
+* Fixed an issue that could prevent an AI query and its output from showing up. ([#11494](https://github.com/warpdotdev/warp/pull/11494))
+* Fixed command execution requests being sent while disconnected from a remote server. ([#11558](https://github.com/warpdotdev/warp/pull/11558))
+* Fixed URL redirects not working correctly. ([#11353](https://github.com/warpdotdev/warp/pull/11353))
+* Fixed a Linux file-watcher bug where certain git events were not being sent. ([#11464](https://github.com/warpdotdev/warp/pull/11464))
+* Fixed the code review panel showing \"Unable to load file content\" when opening the same remote SSH repo in multiple tabs. ([#11418](https://github.com/warpdotdev/warp/pull/11418))
+* Fixed the remote control button incorrectly appearing in cloud conversation transcripts. ([#11292](https://github.com/warpdotdev/warp/pull/11292))
+* Fixed notification dots not appearing on vertical tabs when the inbox panel is hidden. ([#11611](https://github.com/warpdotdev/warp/pull/11611))
+* Fixed local-to-cloud handoff for remote SSH sessions, which was previously broken. ([#11453](https://github.com/warpdotdev/warp/pull/11453))
+* Fixed pasting raw image data to CLI agents. ([#11627](https://github.com/warpdotdev/warp/pull/11627))
+* Fixed gitignore rules not being correctly inherited by nested directories during codebase indexing. ([#11698](https://github.com/warpdotdev/warp/pull/11698))
+* Fixed Ctrl+C in certain terminal programs erroneously closing the entire session on Windows. ([#10976](https://github.com/warpdotdev/warp/pull/10976))
+* Fixed rendering issues on the Intel HD Graphics 2500 integrated GPU. ([#11454](https://github.com/warpdotdev/warp/pull/11454))
+* Fixed a zsh bootstrapping issue where commands could be duplicated when using oh-my-zsh with the allexport option. ([#11673](https://github.com/warpdotdev/warp/pull/11673))
+* Fixed warpify using incorrect path separators for shell configuration files on some platforms. ([#10584](https://github.com/warpdotdev/warp/pull/10584))
+* The tab's working directory and git branch indicator now update when a process emits an OSC 7 escape sequence to report a new CWD (e.g. worktrunk's wt switch). ([#9279](https://github.com/warpdotdev/warp/pull/9279))
+* Orchestration child agents are now preserved across restart so agent names and child pills restore correctly. ([#10794](https://github.com/warpdotdev/warp/pull/10794))
+
+**Oz updates**
+
+* Added search to the Oz Cloud API Keys settings page. ([#11307](https://github.com/warpdotdev/warp/pull/11307))
+* Fixed Oz cloud agent GitHub CLI authentication by writing refreshed credentials to gh's expected hosts.yml file. ([#11492](https://github.com/warpdotdev/warp/pull/11492))
+* Added an execution profile permission for controlling whether agents can use run_agents. ([#11225](https://github.com/warpdotdev/warp/pull/11225))
+
+### 2026.05.20 (v0.2026.05.20.09.21)
+
+**Improvements**
+
+* Added support for double-clicking pane dividers to evenly redistribute panes in a split. ([#11293](https://github.com/warpdotdev/warp/pull/11293))
+* The new-tab worktree menu now abbreviates the home directory to ~, left-truncates long paths so the trailing repo name stays visible, and surfaces the full absolute path on hover (#10862). ([#10958](https://github.com/warpdotdev/warp/pull/10958))
+* Added a create-environment flow to the orchestration environment picker. ([#10857](https://github.com/warpdotdev/warp/pull/10857))
+* Added a setting to control terminal clipboard access via OSC 52, with a warning banner shown when access is blocked.
+* Restricted OSC 52 clipboard write access behind a new user-configurable setting.
+* Added confirmation dialogs when reloading credits during team-leave or member-removal flows. ([#11366](https://github.com/warpdotdev/warp/pull/11366))
+* Enabled custom inference endpoint configuration for AI models on stable. ([#11450](https://github.com/warpdotdev/warp/pull/11450))
+* Custom AI model selection is no longer available for cloud agent runs; custom endpoints remain available for local agents and non-cloud conversations. ([#11219](https://github.com/warpdotdev/warp/pull/11219))
+* Enabled solo-user bring-your-own-key (BYOK) support and launched the redesigned Billing & Usage page. ([#11437](https://github.com/warpdotdev/warp/pull/11437))
+* Updated seat-limit messaging on the Teams settings page to direct users to the upgrade page. ([#11288](https://github.com/warpdotdev/warp/pull/11288))
+* Added host labels to remote repository and file displays in code review; removed the Open Repo button for remote sessions. ([#11423](https://github.com/warpdotdev/warp/pull/11423), [#11299](https://github.com/warpdotdev/warp/pull/11299))
+* Added a "Create new branch" option to the branch switcher. ([#10610](https://github.com/warpdotdev/warp/pull/10610))
+* Added CLI commands for managing API keys. ([#10998](https://github.com/warpdotdev/warp/pull/10998))
+* Added a keybinding to toggle file navigation in Code Review. ([#11077](https://github.com/warpdotdev/warp/pull/11077))
+* Enabled the `CMD+O` shortcut and `@` context menu in remote SSH sessions. ([#11295](https://github.com/warpdotdev/warp/pull/11295))
+* Added diff statistics to the diff chip in remote SSH sessions. ([#11214](https://github.com/warpdotdev/warp/pull/11214))
+
+**Bug fixes**
+
+* Fixed a bug where Warp could be restored as a 1px-wide window on macOS after using the green title-bar tile button (#10083). ([#10855](https://github.com/warpdotdev/warp/pull/10855))
+* Fixed code review comments being routed to invisible child agent terminals during orchestration. ([#11340](https://github.com/warpdotdev/warp/pull/11340))
+* Fixed orchestration config picker menus not matching their picker fields. ([#11289](https://github.com/warpdotdev/warp/pull/11289))
+* Fixed the git diff prompt chip flickering on entering a repository, and stale git diff state on the prompt chip and code review button when leaving a repository. ([#11242](https://github.com/warpdotdev/warp/pull/11242))
+* Fixed uninterpolated session ID placeholders appearing in the tmux warpification flow.
+* Fixed DCS sequence validation incorrectly rejecting input from session viewers.
+* Fixed AI being unavailable for users who had auto-reload enabled but zero remaining credits. ([#11420](https://github.com/warpdotdev/warp/pull/11420))
+* Fixed a deadlock in secret redaction that could cause Warp to become unresponsive. ([#11428](https://github.com/warpdotdev/warp/pull/11428))
+* Fixed tab focus to activate the next tab to the right after closing a tab. ([#11197](https://github.com/warpdotdev/warp/pull/11197))
+* Fixed the agent model dropdown rendering in the new API key creation modal. ([#11187](https://github.com/warpdotdev/warp/pull/11187))
+* Fixed broken Oz notifications caused by a stale Claude plugin version. ([#11204](https://github.com/warpdotdev/warp/pull/11204))
+* Fixed broken skill links in the agent details panel. ([#11231](https://github.com/warpdotdev/warp/pull/11231))
+* Fixed asset-loading errors on the WASM build. ([#11195](https://github.com/warpdotdev/warp/pull/11195))
+
+**Oz updates**
+
+* Oz now refreshes GitHub credentials during task runs to keep Git operations authenticated. ([#11338](https://github.com/warpdotdev/warp/pull/11338))
+* Add a View in Oz action to orchestration child-agent pill menus. ([#11309](https://github.com/warpdotdev/warp/pull/11309))
+* Added a macOS setting to automatically hand off active local Warp Agent sessions to Cloud Mode before sleep. ([#11049](https://github.com/warpdotdev/warp/pull/11049))
+
+### 2026.05.18 (v0.2026.05.18.05.32)
+
+**New features**
+
+* You can now hand off local Warp Agent conversations to the cloud. ([#10910](https://github.com/warpdotdev/warp/pull/10910))
+
+**Improvements**
+
+* Cloud conversations are now accessible via `/conversations`. ([#10800](https://github.com/warpdotdev/warp/pull/10800))
+* Refreshed metadata and iconography for the cloud agent view entry block. ([#11088](https://github.com/warpdotdev/warp/pull/11088))
+* Blocklist search now runs asynchronously for snappier command suggestions. ([#9618](https://github.com/warpdotdev/warp/pull/9618))
+* Opening a cloud agent conversation now attaches to its existing session when one is available. ([#11097](https://github.com/warpdotdev/warp/pull/11097))
+* Show the cloud agent environment name and setup status alongside vertical-tabs pwd. ([#11006](https://github.com/warpdotdev/warp/pull/11006))
+* Added a 'Your team is full' alert above the invite header in Settings → Team. ([#10705](https://github.com/warpdotdev/warp/pull/10705))
+* Cloud Mode initial runs now automatically retry after completing GitHub authentication. ([#10973](https://github.com/warpdotdev/warp/pull/10973))
+* [Tab configs] Tab configs now run their commands sequentially. ([#10698](https://github.com/warpdotdev/warp/pull/10698))
+* Show server-provided `user_display_message` text in quota-limit errors. ([#10279](https://github.com/warpdotdev/warp/pull/10279))
+* Added a "Clear" action to the terminal right-click context menu so clearing terminal output is discoverable without using the keyboard shortcut. ([#10612](https://github.com/warpdotdev/warp/pull/10612)) — @wzc520pyfm ✨
+* Added a `warp://tab_config/<name>` deeplink that opens a saved tab config in the active window (or a new one with `?new_window=true`). ([#9379](https://github.com/warpdotdev/warp/pull/9379)) — @haha1903 ✨
+* Skipped the SSH extension install on unsupported remote platforms. ([#10950](https://github.com/warpdotdev/warp/pull/10950))
+* Skipped repo-menu git stats on startup to improve launch performance. ([#10937](https://github.com/warpdotdev/warp/pull/10937))
+* Reduced unnecessary git operations on startup when the Code Review panel is closed. ([#10934](https://github.com/warpdotdev/warp/pull/10934))
+
+**Bug fixes**
+
+* Fixed Mermaid diagram text not rendering in Warp on Web. ([#11141](https://github.com/warpdotdev/warp/pull/11141))
+* Clipped the inline menu header to prevent overflow in split panes. ([#10811](https://github.com/warpdotdev/warp/pull/10811)) — @SagarSDagdu ✨
+* [Windows] Inno Setup now terminates the minidump server process if it fails to exit. ([#10766](https://github.com/warpdotdev/warp/pull/10766))
+* [Linux] Fixed Warp on Raspberry Pi. ([#10688](https://github.com/warpdotdev/warp/pull/10688))
+* Stop waiting for file-based MCP servers we never attempted to start. ([#10969](https://github.com/warpdotdev/warp/pull/10969))
+* Fixed restored command history after closing an SSH session. ([#10713](https://github.com/warpdotdev/warp/pull/10713)) — @fatsolko ✨
+* Fixed local-repo session detection. ([#11019](https://github.com/warpdotdev/warp/pull/11019))
+* Fixed remote-server connection failures when the socket path exceeded the sun_path limit. ([#11009](https://github.com/warpdotdev/warp/pull/11009))
+* The details panel for cloud agent runs now displays any failures fetching the agent metadata ([#10765](https://github.com/warpdotdev/warp/pull/10765))
+* Fixed an MCP OAuth issue by creating the authenticated client before refreshing the token. ([#10984](https://github.com/warpdotdev/warp/pull/10984))
+* Fixed errant task status reporting for cloud agent conversations. ([#10977](https://github.com/warpdotdev/warp/pull/10977))
+* Set a minimum window size in AppKit so windows can no longer be restored at 1px wide. ([#10965](https://github.com/warpdotdev/warp/pull/10965))
+* Improved remote-server install reliability by falling back to a cached client-side tarball upload when remote downloads fail. ([#10925](https://github.com/warpdotdev/warp/pull/10925))
+* Respect the Markdown Viewer preference when opening Markdown file links. ([#9483](https://github.com/warpdotdev/warp/pull/9483)) — @maro20066600 ✨
+
+**Oz updates**
+
+* Run any agent harness in the cloud. Use Oz to spin up Claude Code or Codex agents in the cloud; Oz will help you track and steer the agents.
+* Multi-agent orchestration. Warp Agents will now orchestrate swarms of subagents, allowing you to parallelize tasks.
+
 ### 2026.05.14 (v0.2026.05.13.09.15)
 
 **New features**
@@ -213,13 +354,12 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 * Add setting to disable suggested rules.
 * Added a `/feedback` slash command for submitting feedback about Warp.
 * The `oz run get` and `oz run list` commands now support JSON output, along with filtering via the `--jq` flag.
-* Feedback from the user menu, Help menu, Resource Center footer, and command palette now opens a guided `/feedback` agent flow when AI is available, and falls back to the GitHub issue form otherwise.
+* Feedback from the user menu, Help menu, Resource Center footer, and command palette now opens the `/feedback` flow.
 * Middle-clicking a vertical tab now closes it, matching horizontal tabs.
 * Slash commands in the terminal are now available even when AI is disabled.
 * The network log viewer now opens as an in-app read-only pane backed by a 50-item in-memory buffer instead of writing `warp_network.log` to disk.
 * Added a "Check now" button next to the "Last seen by agent" indicator for long-running commands, letting users immediately deliver a fresh snapshot to the agent without waiting for its poll timer.
 * The agent mode input placeholder now reflects conversation state: "Warp anything" for new conversations, "Steer the running agent" while streaming, and "Ask a follow up" once finished.
-* The `/feedback` skill now supports attaching screenshots. When you run `/feedback` with one or more images attached, Warp drafts the issue with per-screenshot captions and opens GitHub's new-issue page so you can drop the images into the issue body before submitting.
 * Pasting an absolute file path (e.g. from "Copy file path" in the Code Review pane) into the Command Palette file picker now correctly finds and opens the file.
 
 **Bug fixes**
@@ -251,7 +391,6 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 **Oz updates**
 
-* The feedback skill is now available on stable — turn rough app feedback into filed GitHub issues directly from Warp.
 
 ### 2026.04.22 (v0.2026.04.22.08.46)
 
@@ -311,7 +450,6 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 * Added a bundled Claude API skill for Claude API and Anthropic SDK development guidance.
 * Added support for `--share public:{access_level}` to oz CLI to set public access level on oz cloud runs.
-* `/feedback` skill now adds the `in-app-feedback` label to issues it files, for tracking.
 * `start_agent` no longer rejects remote child agents when `environment_id` is omitted; within a remote parent, the child inherits the parent's environment automatically.
 
 ### 2026.04.15 (v0.2026.04.15.08.45)

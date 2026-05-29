@@ -4,8 +4,13 @@ description: Start multi-agent orchestrations from the Warp app, the Oz CLI, the
 sidebar:
   label: "Running orchestrated agents"
 ---
+import VideoEmbed from '@components/VideoEmbed.astro';
 
 An orchestrated run starts with a parent agent that spawns one or more child agents. You can start a parent from the Warp app, the Oz CLI, the Oz web app, or the Oz API. Use orchestrated runs to review a plan before fan-out, execute children locally or in the cloud, and inspect parent and child conversations as they work.
+
+Watch this walkthrough to see how to start and inspect an orchestrated agent run from Warp.
+
+<VideoEmbed url="https://www.youtube.com/watch?v=WNwnZybrp60" title="Orchestrate a team of agents in Warp" />
 
 ## Before you start
 
@@ -18,7 +23,7 @@ Cloud parents that spawn cloud children need access to one or more [environments
 
 ## Starting an orchestrated run from Warp
 
-In the Warp desktop app, open the agent input and type `/orchestrate` followed by your task. The agent enters `orchestrate` mode and proposes a breakdown before spawning any children.
+In the Warp app, open the agent input and type `/orchestrate` followed by your task. The agent enters `orchestrate` mode and proposes a breakdown before spawning any children.
 
 ```text
 /orchestrate Migrate every test file in this repo from Jest to Vitest. Spawn one child per top-level directory under packages/.
@@ -38,7 +43,7 @@ You can also reach the same approval flow from `/plan`. When you ask the agent t
 
 ### Spawning cloud children from a local parent
 
-A local parent - a Warp Agent conversation in the desktop app - can spawn cloud children by specifying an environment for each child. The parent asks for the environment if it isn't already clear from context. You can select any environment from your account or team.
+A local parent - a Warp Agent conversation in the Warp app - can spawn cloud children by specifying an environment for each child. The parent asks for the environment if it isn't already clear from context. You can select any environment from your account or team.
 
 Cloud children inherit the parent's authentication; the same credit and credentials rules from the [Cloud agents overview](/agent-platform/cloud-agents/overview/) apply.
 
@@ -63,7 +68,7 @@ If you need to fan out from a script and want each child linked to a specific pa
 In the Oz web app's [**Runs** page](https://oz.warp.dev/runs):
 
 1. Click **New run** in the header.
-2. Select an environment and, optionally, a skill that performs orchestration. The [oz-skills repo](https://github.com/warpdotdev/oz-skills) includes orchestration skills like review swarms and fan-out runners.
+2. Select an environment and, optionally, a skill that performs orchestration.
 3. Enter the parent's prompt. Describe both the high-level task and the orchestration shape you want (number of children, parallelism, success criteria).
 4. Click **Run**.
 
@@ -113,7 +118,7 @@ Content-Type: application/json
 }
 ```
 
-Setting `parent_run_id` is what links the child to its parent across the management view, the web app, and the descendants query (`?ancestor_run_id=`).
+Setting `parent_run_id` is what links the child to its parent across the Agent Management Panel in the Warp app, the Oz web app Runs page, and the descendants query (`?ancestor_run_id=`).
 
 A scripted fan-out, including parent linking, looks like this:
 
@@ -184,7 +189,8 @@ Self-hosted, local, and GitHub Action runs cannot be cancelled through this endp
 ## Related pages
 
 * [Multi-agent orchestration](/agent-platform/cloud-agents/orchestration/) - parent/child model, run state transitions, and common patterns.
+* [How to run multiple AI coding agents](/guides/agent-workflows/how-to-run-multiple-ai-coding-agents/) - practical task decomposition, worktree ownership, validation, and review handoff guidance.
 * [Oz CLI](/reference/cli/) - command reference for `oz agent run-cloud` and `oz run`.
 * [Oz API and SDK](/reference/api-and-sdk/) - full HTTP reference and typed SDKs.
-* [Managing cloud agents](/agent-platform/cloud-agents/managing-cloud-agents/) - how parent and child runs appear in the management view.
+* [Managing cloud agents](/agent-platform/cloud-agents/managing-cloud-agents/) - how parent and child runs appear in the Agent Management Panel in the Warp app and the Runs page in the Oz web app.
 * [Environments](/agent-platform/cloud-agents/environments/) - configure the runtime context cloud children execute in.
