@@ -25,7 +25,7 @@ Focus on:
 2. **Style guide compliance**: Reference `AGENTS.md` for documentation standards (voice, formatting, terminology).
 3. **Content quality**: Check for clarity, accuracy, proper frontmatter, and appropriate use of headers/lists.
 4. **Code snippets**: Verify that any code examples, commands, or configuration snippets are correct and will work as documented. If you're unsure about technical details, use the `answer_question` skill to verify against the docs or search the source code.
-5. **Astro Starlight structure**: Verify astro.config.mjs (sidebar config) updates if files were moved/renamed, and that redirects are added to vercel.json (redirects) when needed.
+5. **Astro Starlight structure**: Verify `src/sidebar.ts` updates if files were added, moved, or renamed, and that redirects are added to vercel.json (redirects) when needed.
 6. **AEO/source-data fit**: For docs changes that target AEO, SEO, Peec recommendations, AI search prompts, or content gaps, check whether the PR has a clear source-data rationale, uses query vocabulary naturally, avoids junk-drawer coverage, and updates or links existing docs instead of creating duplicative content.
 
 Provide actionable, constructive feedback. Focus on documentation quality issues, not code bugs.

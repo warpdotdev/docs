@@ -16,10 +16,10 @@ Guide pages live in `src/content/docs/guides/` (the Guides Astro Starlight space
 - `src/content/docs/guides/configuration/` — Rules, agent profiles, saved prompts, and related setup guides
 - `src/content/docs/guides/external-tools/` — MCP servers, third-party tools, and integrations
 - `src/content/docs/guides/build-an-app-in-warp/` — End-to-end app builds from start to finish
-- `src/content/docs/guides/devops-and-infrastructure/` — Cloud logs, Docker, Kubernetes, testing, and database optimization
-- `src/content/docs/guides/frontend-and-ui/` — Building and refining UI components with coding agents
+- `src/content/docs/guides/devops/` — Cloud logs, Docker, Kubernetes, testing, and database optimization
+- `src/content/docs/guides/frontend/` — Building and refining UI components with coding agents
 
-The sidebar nav is defined in `src/content/docs/guides/astro.config.mjs (sidebar config)`, which organizes guides into topic-based sections. When adding a new guide, place the file in the appropriate directory above and add the nav entry under the matching section in `astro.config.mjs (sidebar config)`:
+The sidebar nav is defined in `src/sidebar.ts`, which organizes guides into topic-based sections. When adding a new guide, place the file in the appropriate directory above and add the nav entry under the matching section in `src/sidebar.ts`:
 - **Getting started** — First steps with Warp: setup, appearance, key features
 - **Agent workflows** — Using coding agents to explain code, review PRs, run parallel tasks
 - **Configuration** — Rules, agent profiles, saved prompts, monorepo sync
@@ -64,16 +64,16 @@ When a guide documents a third-party tool (Claude Code, Codex, OpenCode, etc.):
 
 Before adding any internal documentation link:
 
-- **Verify the target page exists.** Check the relevant `astro.config.mjs (sidebar config)` file (`src/content/docs/astro.config.mjs (sidebar config)`, `src/content/docs/agent-platform/astro.config.mjs (sidebar config)`, `src/content/docs/guides/astro.config.mjs (sidebar config)`) to confirm the page is listed. Do NOT generate plausible-looking URLs to pages that don't exist.
+- **Verify the target page exists.** Check `src/sidebar.ts` for sidebar entries and the corresponding file under `src/content/docs/` to confirm the page exists. Do NOT generate plausible-looking URLs to pages that don't exist.
 - **If a target page is planned but not yet published**, link to the closest existing page and add a TODO comment with the intended future path: `<!-- TODO: Update to [future-path] once [page name] is live -->`
-- **For third-party agent pages**, the current paths are under `src/content/docs/agent-platform/third-party-agents/` (e.g., `claude-code.mdx`, `codex.mdx`, `opencode.mdx`).
+- **For third-party CLI agent pages**, the current paths are under `src/content/docs/agent-platform/cli-agents/` (e.g., `claude-code.mdx`, `codex.mdx`, `opencode.mdx`).
 
 ## Cross-linking
 
 Every guide should link to:
 - At least one other guide in the Guides section
 - Relevant feature documentation in the main docs (`src/content/docs/` or `src/content/docs/agent-platform/`)
-- If applicable, pages in the Coding Agents section (`src/content/docs/agent-platform/third-party-agents/`)
+- If applicable, pages in the Third-Party CLI Agents section (`src/content/docs/agent-platform/cli-agents/`)
 
 ## Pre-handoff self-review
 

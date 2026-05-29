@@ -37,7 +37,7 @@ If the request mentions AEO, SEO, Peec, answer-engine visibility, search-query v
 - Which questions require human review before publishing
 
 ### 2. Clarify placement
-Ask the user where the doc should live. The docs are organized into sections, each with its own `astro.config.mjs (sidebar config)`:
+Ask the user where the doc should live. The docs are organized into sections, with navigation configured in `src/sidebar.ts`:
 - `src/content/docs/` - Warp Terminal and IDE → `docs.warp.dev/`
 - `src/content/docs/agent-platform/` - Agent Platform → `docs.warp.dev/agent-platform/`
 - `src/content/docs/reference/` - Technical reference (CLI, API & SDK) → `docs.warp.dev/reference/`
@@ -112,7 +112,7 @@ Before presenting the draft, verify against the quality checklist in `AGENTS.md`
 
 ### 10. Update navigation and redirects
 If this is a new page, remind the user to:
-- Add it to the relevant section's `astro.config.mjs (sidebar config)`.
+- Add it to the relevant section in `src/sidebar.ts`.
 
 If this page replaces, renames, or moves an existing page, remind the user to add a redirect:
 - **Same-space redirect**: Add an entry to the space's `vercel.json (redirects)` file under `redirects:`.
