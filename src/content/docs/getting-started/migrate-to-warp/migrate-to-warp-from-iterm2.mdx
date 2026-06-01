@@ -27,21 +27,21 @@ To run the importer:
 3. Select **iTerm2 Profile: Default**. Warp only imports the profile marked as your Default Bookmark in iTerm2.
 4. Choose which settings to keep or skip on the preview screen.
 
-<figure>
+<figure style={{ maxWidth: "563px" }}>
 ![Select a settings profile to import](../../../../assets/terminal/migrate-to-warp.png)
 <figcaption>Select a settings profile to import.</figcaption>
 </figure>
 
-## Use Warp's agent for follow-up settings
+## Use Warp's Agent for follow-up settings
 
-If the importer doesn't pick up something you care about — a non-default profile, an unusual keybinding, a specific setting — ask Warp's agent to translate it directly. Warp ships a [`settings.toml` file](/terminal/settings/) and a bundled `modify-settings` skill that lets the agent read your iTerm2 plist and write equivalent values into Warp's settings.
+If the importer doesn't pick up something you care about, such as a non-default profile, an unusual keybinding, or a specific setting, ask Warp's Agent to translate it directly. Warp ships a [`settings.toml` file](/terminal/settings/) and a bundled `modify-settings` skill that lets the Agent read your iTerm2 plist and write equivalent values into Warp's settings.
 
-1. In Warp, switch to [Agent Mode](/agent-platform/local-agents/overview/) with `⌘+I`.
-2. Paste a prompt like:
+1. In the Warp app, switch to [Agent Mode](/agent-platform/local-agents/overview/) with `⌘+I`.
+2. Paste this prompt into Agent Mode, then press `Enter`.
 
    > Read my iTerm2 preferences with `defaults read com.googlecode.iterm2` and port any settings that the importer didn't cover (extra profiles, custom keybindings) into my Warp `settings.toml` using the `modify-settings` skill. Show me a diff before applying.
 
-3. Review the proposed diff and approve. Warp hot-reloads `settings.toml`.
+3. Review the proposed diff, then approve the changes. Warp hot-reloads `settings.toml`.
 
 ## What to reconfigure manually
 
@@ -61,7 +61,7 @@ After the import, choose which [prompt](/terminal/appearance/prompt/) to use:
 
 ## Warp-native equivalents
 
-Features switchers commonly look for after leaving iTerm2, and where they live in Warp:
+Use this table to find Warp equivalents for iTerm2 features you might look for after switching:
 
 | From iTerm2 | In Warp |
 | --- | --- |
