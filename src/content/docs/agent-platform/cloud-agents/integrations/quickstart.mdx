@@ -43,7 +43,9 @@ oz integration create slack --environment <ENV_ID>
 
 Replace `<ENV_ID>` with your environment ID (see [Environments](/agent-platform/cloud-agents/environments/) if you need to create one). Find it with `oz environment list` on the Oz CLI or in the [Oz web app](https://oz.warp.dev). The CLI opens a browser window to authorize the Oz app in your workspace.
 
-If the integration cannot be created or your first run cannot start, use the returned error code to narrow the fix. Plan or credit issues can return [`feature_not_available`](/reference/api-and-sdk/troubleshooting/errors/feature-not-available/) or [`insufficient_credits`](/reference/api-and-sdk/troubleshooting/errors/insufficient-credits/), while missing GitHub or Slack authorization can return [`external_authentication_required`](/reference/api-and-sdk/troubleshooting/errors/external-authentication-required/).
+:::tip
+**Troubleshooting**: If the integration cannot be created or your first run cannot start, use the returned error code to narrow the fix. Plan or credit issues can return [`feature_not_available`](/reference/api-and-sdk/troubleshooting/errors/feature-not-available/) or [`insufficient_credits`](/reference/api-and-sdk/troubleshooting/errors/insufficient-credits/), while missing GitHub or Slack authorization can return [`external_authentication_required`](/reference/api-and-sdk/troubleshooting/errors/external-authentication-required/).
+:::
 
 To attach a default prompt that applies to every agent run triggered from this integration, add the `--prompt` flag:
 

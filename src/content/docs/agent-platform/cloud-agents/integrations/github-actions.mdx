@@ -65,7 +65,9 @@ You can specify a skill using the `skill` input parameter, either instead of or 
     warp_api_key: ${{ secrets.WARP_API_KEY }}
 ```
 
-If the `warp_api_key` secret is missing, invalid, or expired, the action can return an [`authentication_required` error](/reference/api-and-sdk/troubleshooting/errors/authentication-required/).
+:::tip
+**Troubleshooting**: If the `warp_api_key` secret is missing, invalid, or expired, the action can return an [`authentication_required` error](/reference/api-and-sdk/troubleshooting/errors/authentication-required/).
+:::
 
 #### Skill format options
 
