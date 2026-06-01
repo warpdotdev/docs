@@ -17,6 +17,14 @@ Use this skill when the user asks for docs work based on:
 
 If the task is not AEO-driven, use the normal docs drafting workflow instead.
 
+## Relationship to peec-content-gap
+
+Do not copy Buzz's `peec-content-gap` workflow into docs. Treat that skill as the broader upstream workflow for diagnosing Peec/AEO content gaps across docs, marketing pages, third-party or UGC opportunities, technical SEO, and competitor visibility.
+
+Use this docs-specific `aeo_brief` skill when the likely next step is drafting or revising documentation, or when a broader Peec content-gap analysis already recommends docs work. Reference any `peec-content-gap` findings as source signals in the brief, then translate them into docs scope, existing pages to update or link, terminology, and open questions for review.
+
+If the broader analysis suggests the best fix is not docs, do not force it into docs. Recommend the appropriate non-docs follow-up or note that docs are not the right channel yet.
+
 ## Inputs to gather
 
 Start with the smallest set of inputs that can support a useful brief:
