@@ -1779,7 +1779,9 @@ components:
           x-go-type-skip-optional-pointer: false
         agent_identity_uid:
           type: string
-          description: "Optional agent identity UID to use as the execution principal for the run.\nThis is only valid for runs that are team owned. \n"
+          description: |
+            Optional cloud agent UID to use as the execution principal for the run.
+            This legacy field name is only valid for team-owned runs.
         conversation_id:
           type: string
           description: |
