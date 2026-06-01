@@ -52,6 +52,8 @@ Setting up an integration consists of three steps.
 2. **Authorize GitHub** so Warp can clone repositories, write code, debug issues, open pull requests, and more.
 3. **Configure** the Oz app with an integration.
 
+If setup fails, the returned error code can point to the specific fix: [`environment_setup_failed`](/reference/api-and-sdk/troubleshooting/errors/environment-setup-failed/) for environment initialization, [`external_authentication_required`](/reference/api-and-sdk/troubleshooting/errors/external-authentication-required/) for missing GitHub or external-service authorization, and [`integration_not_configured`](/reference/api-and-sdk/troubleshooting/errors/integration-not-configured/) for incomplete integration setup.
+
 ---
 
 ## Step 1: Creating an environment

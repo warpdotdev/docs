@@ -17,9 +17,9 @@ Oz integrations let you trigger cloud agents directly from the tools your team a
 
 ## Prerequisites
 
-* **Eligible plan** - The Slack integration requires a Warp team on Build, Max, or Business plan with at least 20 credits available. See [Access, Billing, and Identity](/agent-platform/cloud-agents/team-access-billing-and-identity/).
+* **Eligible plan** - The Slack integration requires a Warp team on Build, Max, or Business plan with at least 20 credits available. Plan or credit issues can return [`feature_not_available`](/reference/api-and-sdk/troubleshooting/errors/feature-not-available/) or [`insufficient_credits`](/reference/api-and-sdk/troubleshooting/errors/insufficient-credits/). See [Access, Billing, and Identity](/agent-platform/cloud-agents/team-access-billing-and-identity/).
 * **A cloud environment** - Agents run inside a configured environment that includes repos and other dependencies. If you don't have one yet, follow the [Cloud Agents Quickstart](/agent-platform/cloud-agents/quickstart/) or run `/create-environment` in Warp.
-* **GitHub authorization** - Warp needs access to your repos to clone code and open PRs. You'll be prompted to authorize the Warp GitHub app when you first create the integration.
+* **GitHub authorization** - Warp needs access to your repos to clone code and open PRs. You'll be prompted to authorize the Warp GitHub app when you first create the integration; missing authorization can return [`external_authentication_required`](/reference/api-and-sdk/troubleshooting/errors/external-authentication-required/).
 
 ---
 

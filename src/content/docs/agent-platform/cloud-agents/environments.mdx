@@ -290,12 +290,12 @@ If your setup commands depend on secrets or credentials, configure them through 
 
 ### Common issues
 
-* **Setup assumes previous state** – Steps that rely on leftover caches, existing directories, or already-cloned repos can make runs unreliable.
+* **Setup assumes previous state** – Steps that rely on leftover caches, existing directories, or already-cloned repos can make runs unreliable. Setup failures can surface as [`environment_setup_failed`](/reference/api-and-sdk/troubleshooting/errors/environment-setup-failed/).
   * Solution: Write idempotent setup commands that work on a fresh container.
 * **Missing credentials or secrets** – Builds fail when private repos, package registries, or external services require authorization.
   * Solution: Configure credentials with [Agent Secrets](/agent-platform/cloud-agents/secrets/).
-* **Repo access and GitHub authorization issues** – Runs fail when GitHub doesn't have repo access or the triggering user lacks permissions.
+* **Repo access and GitHub authorization issues** – Runs fail when GitHub doesn't have repo access or the triggering user lacks permissions. Missing external authorization can surface as [`external_authentication_required`](/reference/api-and-sdk/troubleshooting/errors/external-authentication-required/).
   * Solution: See [Integration setup](/reference/cli/integration-setup/#how-github-authorization-works) for GitHub authorization setup.
 * **Docker image incompatibility** – You see the error: "VM failed before the agent could run. This is likely an issue with your Docker image."
-  * Possible cause: Alpine Linux and other musl-based images are not compatible with the agent runtime, which requires glibc.
+  * Possible cause: Alpine Linux and other musl-based images are not compatible with the agent runtime, which requires glibc. This can surface as [`environment_setup_failed`](/reference/api-and-sdk/troubleshooting/errors/environment-setup-failed/).
   * Solution: Switch to a glibc-based image such as Debian, Ubuntu, or the default (non-Alpine) variants of official Docker Hub images (e.g. `node`, `python`, `rust`).

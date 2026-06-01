@@ -66,10 +66,10 @@ Because PRs are created as _you_, this makes code review, auditing, and team col
 ### Requirements
 
 * **Team membership** - The Linear integration requires you to be part of a [Warp team](/knowledge-and-collaboration/teams/). Teams can be created on any plan, including Free.
-* **Plan and credits** - Your team must be on a plan that supports integrations (Build, Max, or Business) and have at least 20 credits available. See [Access, Billing, and Identity](/agent-platform/cloud-agents/team-access-billing-and-identity/) for details.
+* **Plan and credits** - Your team must be on a plan that supports integrations (Build, Max, or Business) and have at least 20 credits available. Plan or credit issues can return [`feature_not_available`](/reference/api-and-sdk/troubleshooting/errors/feature-not-available/) or [`insufficient_credits`](/reference/api-and-sdk/troubleshooting/errors/insufficient-credits/). See [Access, Billing, and Identity](/agent-platform/cloud-agents/team-access-billing-and-identity/) for details.
 * **Infrastructure** - By default, agents run on Warp-hosted infrastructure. Enterprise teams can [self-host agents](/agent-platform/cloud-agents/self-hosting/) on their own infrastructure.
 * **Identity** - You must be logged into Warp with the same email as your Linear workspace.
-* **GitHub authorization** - You must authorize the Warp GitHub app the first time you trigger an agent.
+* **GitHub authorization** - You must authorize the Warp GitHub app the first time you trigger an agent. Missing authorization can return [`external_authentication_required`](/reference/api-and-sdk/troubleshooting/errors/external-authentication-required/).
   * The repositories involved must be included in your environment and accessible to the Warp GitHub app.
   * You must have write access to the repo if you want Warp to create PRs on your behalf.
 
@@ -124,7 +124,7 @@ To remove the Oz integration from Linear:
 
 <VideoEmbed url="https://www.loom.com/share/2f1648586d8148dc80561c00a09ca334" />
 
-After revoking access, Warp will no longer be able to read issues, receive triggers, or create updates in Linear. If you reinstall later, you’ll need to authorize Warp again during setup.
+After revoking access, Warp will no longer be able to read issues, receive triggers, or create updates in Linear. If you reinstall later, you’ll need to authorize Warp again during setup. Events for a disabled integration can return [`integration_disabled`](/reference/api-and-sdk/troubleshooting/errors/integration-disabled/).
 
 ### Troubleshooting
 

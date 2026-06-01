@@ -44,7 +44,7 @@ Team keys without GitHub App authorization are the right fit for automated workf
 Warp supports two types of API keys, each with different billing and identity behavior:
 
 * **Personal API keys** - Cloud agent runs authenticate as you, just like running an agent from the Warp app or triggering one via Slack or Linear. On Build, Max, and Business plans, runs draw from your plan-included credits, then your add-on credits — both scoped to your individual user. On Enterprise plans, runs draw from the team-scoped credit pool, per your Enterprise contract terms.
-* **Team API keys** - Cloud agent runs are not tied to any individual user. On Build, Max, and Business plans, Warp bills the team owner: the owner's plan-included credits, then the owner's add-on credits. With auto-reload off, the request is blocked when both pools are depleted (insufficient credits error). With auto-reload on, usage can trigger a reload on the owner's pool subject to the team-wide monthly spend cap. On Enterprise plans, team API key runs draw from the team-scoped credit pool. When [team GitHub authorization](/agent-platform/cloud-agents/team-access-billing-and-identity/#team-github-authorization) is configured, team key runs can also clone repositories and open pull requests using the Oz by Warp GitHub App.
+* **Team API keys** - Cloud agent runs are not tied to any individual user. On Build, Max, and Business plans, Warp bills the team owner: the owner's plan-included credits, then the owner's add-on credits. With auto-reload off, the request is blocked when both pools are depleted ([insufficient credits error](/reference/api-and-sdk/troubleshooting/errors/insufficient-credits/)). With auto-reload on, usage can trigger a reload on the owner's pool subject to the team-wide monthly spend cap. On Enterprise plans, team API key runs draw from the team-scoped credit pool. When [team GitHub authorization](/agent-platform/cloud-agents/team-access-billing-and-identity/#team-github-authorization) is configured, team key runs can also clone repositories and open pull requests using the Oz by Warp GitHub App.
 
 Team API keys are useful for fully automated workflows, CI/CD pipelines, and scheduled tasks where no specific user context is needed. For the full credit waterfall and how it interacts with add-on credits, see [Access, billing, and identity permissions](/agent-platform/cloud-agents/team-access-billing-and-identity/) and [add-on credits](/support-and-community/plans-and-billing/add-on-credits/).
 
@@ -66,7 +66,7 @@ $ oz agent run --api-key "wk-xxx..." --prompt "analyze this codebase"
 ```
 
 :::note
-API keys start with the prefix `wk-`. If your key doesn't have this prefix, it may be invalid or from an older format.
+API keys start with the prefix `wk-`. If your key doesn't have this prefix, it may be [invalid or from an older format](/reference/api-and-sdk/troubleshooting/errors/authentication-required/).
 :::
 
 ## Managing API keys
@@ -88,7 +88,7 @@ To delete an API key:
 2. Find the key you want to delete in the API Keys list.
 3. Click the delete icon next to the key.
 
-Deleted keys are immediately invalidated and cannot be recovered. Any services or scripts using the deleted key will lose access.
+Deleted keys are immediately invalidated and cannot be recovered. Any services or scripts using the deleted key will lose access and may return an [`authentication_required` error](/reference/api-and-sdk/troubleshooting/errors/authentication-required/).
 
 ## Best practices
 
