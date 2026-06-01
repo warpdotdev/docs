@@ -82,10 +82,10 @@ Because PRs are created as you, the workflow slots seamlessly into your team’s
 ### Requirements
 
 * **Team membership** - The Slack integration requires you to be part of a [Warp team](/knowledge-and-collaboration/teams/). Teams can be created on any plan, including Free.
-* **Plan and credits** - Your team must be on a plan that supports integrations (Build, Max, or Business) and have at least 20 credits available. Plan or credit issues can return [`feature_not_available`](/reference/api-and-sdk/troubleshooting/errors/feature-not-available/) or [`insufficient_credits`](/reference/api-and-sdk/troubleshooting/errors/insufficient-credits/). See [Access, Billing, and Identity](/agent-platform/cloud-agents/team-access-billing-and-identity/) for details.
+* **Plan and credits** - Your team must be on a plan that supports integrations (Build, Max, or Business) and have at least 20 credits available. See [Access, Billing, and Identity](/agent-platform/cloud-agents/team-access-billing-and-identity/) for details.
 * **Infrastructure** - By default, agents run on Warp-hosted infrastructure. Enterprise teams can [self-host agents](/agent-platform/cloud-agents/self-hosting/) on their own infrastructure.
 * **Identity** - You must be logged into Warp with the same email used in your Slack workspace.
-* **GitHub authorization** - You must authorize the **Warp GitHub app** the first time you trigger a Slack integration request. Missing authorization can return [`external_authentication_required`](/reference/api-and-sdk/troubleshooting/errors/external-authentication-required/).
+* **GitHub authorization** - You must authorize the **Warp GitHub app** the first time you trigger a Slack integration request.
   * The repositories involved must be included in your environment and accessible to the Warp GitHub app.
   * You must have write access for Warp to open PRs on your behalf.
 
@@ -134,6 +134,8 @@ oz integration create slack --environment <ENV_ID>
 ```
 
 The CLI will open a browser window to install the Oz app into your Slack workspace. After installation, the integration becomes available to all members of your Warp team.
+
+If the integration cannot be created or a Slack-triggered run cannot start, use the returned error code to narrow the fix. Plan or credit issues can return [`feature_not_available`](/reference/api-and-sdk/troubleshooting/errors/feature-not-available/) or [`insufficient_credits`](/reference/api-and-sdk/troubleshooting/errors/insufficient-credits/), while missing GitHub or Slack authorization can return [`external_authentication_required`](/reference/api-and-sdk/troubleshooting/errors/external-authentication-required/).
 
 You can optionally attach a custom prompt that is applied to every agent run:
 
