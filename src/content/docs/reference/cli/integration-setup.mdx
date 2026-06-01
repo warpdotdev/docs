@@ -53,7 +53,11 @@ Setting up an integration consists of three steps.
 3. **Configure** the Oz app with an integration.
 
 :::tip
-**Troubleshooting**: If setup fails, the returned error code can point to the specific fix: [`environment_setup_failed`](/reference/api-and-sdk/troubleshooting/errors/environment-setup-failed/) for environment initialization, [`external_authentication_required`](/reference/api-and-sdk/troubleshooting/errors/external-authentication-required/) for missing GitHub or external-service authorization, and [`integration_not_configured`](/reference/api-and-sdk/troubleshooting/errors/integration-not-configured/) for incomplete integration setup.
+If setup fails, use the returned error code to narrow the fix.
+
+* [`environment_setup_failed`](/reference/api-and-sdk/troubleshooting/errors/environment-setup-failed/): environment initialization issues
+* [`external_authentication_required`](/reference/api-and-sdk/troubleshooting/errors/external-authentication-required/): missing GitHub or external-service authorization
+* [`integration_not_configured`](/reference/api-and-sdk/troubleshooting/errors/integration-not-configured/): incomplete integration setup
 :::
 
 ---

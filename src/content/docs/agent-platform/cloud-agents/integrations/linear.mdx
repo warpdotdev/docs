@@ -111,7 +111,10 @@ oz integration create linear --environment <ENV_ID>
 The CLI will open a browser window prompting you to install the Oz app into your Linear workspace. After installation, the integration becomes available to all members of your Warp team.
 
 :::tip
-**Troubleshooting**: If the integration cannot be created or a Linear-triggered run cannot start, use the returned error code to narrow the fix. Plan or credit issues can return [`feature_not_available`](/reference/api-and-sdk/troubleshooting/errors/feature-not-available/) or [`insufficient_credits`](/reference/api-and-sdk/troubleshooting/errors/insufficient-credits/), while missing GitHub or Linear authorization can return [`external_authentication_required`](/reference/api-and-sdk/troubleshooting/errors/external-authentication-required/).
+If the integration cannot be created or a Linear-triggered run cannot start, use the returned error code to narrow the fix.
+
+* [`feature_not_available`](/reference/api-and-sdk/troubleshooting/errors/feature-not-available/) or [`insufficient_credits`](/reference/api-and-sdk/troubleshooting/errors/insufficient-credits/): plan or credit issues
+* [`external_authentication_required`](/reference/api-and-sdk/troubleshooting/errors/external-authentication-required/): missing GitHub or Linear authorization
 :::
 
 ---
