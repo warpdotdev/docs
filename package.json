@@ -28,7 +28,7 @@
     "@radix-ui/react-popover": "^1.1.15",
     "@vercel/analytics": "^2.0.0",
     "@vercel/speed-insights": "^2.0.0",
-    "astro": "^6.1.8",
+    "astro": "^6.1.10",
     "keymatch": "^1.0.5",
     "linkedom": "^0.18.12",
     "react": "^19.2.4",
