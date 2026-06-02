@@ -171,15 +171,16 @@ python3 .agents/skills/release_updates/scripts/run_release_updates.py \
   --pr-body-file /tmp/release-pr-body.md
 ```
 
-### Assign primary and secondary client on-call as reviewers (Grafana schedule)
+### Assign primary and secondary client on-call as reviewers (Grafana schedules)
 
-To resolve and assign reviewer automatically:
+To resolve and assign both reviewers automatically, pass both schedules:
 
 ```bash
 python3 .agents/skills/release_updates/scripts/run_release_updates.py \
   --create-pr \
   --assign-oncall-reviewer \
-  --oncall-schedule-id YOUR_GRAFANA_SCHEDULE_ID
+  --oncall-schedule-id CLIENT_PRIMARY_SCHEDULE_ID \
+  --oncall-schedule-id CLIENT_SECONDARY_SCHEDULE_ID
 ```
 
 Notes:
@@ -187,7 +188,20 @@ Notes:
 - Requires `GRAFANA_API_KEY` in the environment.
 - Uses resolver script (by default):
   `.agents/skills/release_updates/scripts/resolve_oncall_reviewers.py`
+- Repeat `--oncall-schedule-id` to resolve one reviewer per schedule, in order.
 - Override with `--oncall-resolver-script` if needed.
+
+To verify reviewer resolution without mutating PR assignments:
+
+```bash
+python3 .agents/skills/release_updates/scripts/run_release_updates.py \
+  --tasks changelog \
+  --create-pr \
+  --assign-oncall-reviewer \
+  --oncall-schedule-id CLIENT_PRIMARY_SCHEDULE_ID \
+  --oncall-schedule-id CLIENT_SECONDARY_SCHEDULE_ID \
+  --dry-run
+```
 
 ### Explicit repo paths
 

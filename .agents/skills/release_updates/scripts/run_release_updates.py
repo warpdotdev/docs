@@ -156,8 +156,14 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--oncall-schedule-id",
-        default=None,
-        help="Grafana IRM schedule ID used to resolve on-call reviewers.",
+        dest="oncall_schedule_ids",
+        action="append",
+        default=[],
+        help=(
+            "Grafana IRM schedule ID used to resolve on-call reviewers. "
+            "Repeat this flag to resolve reviewers from multiple schedules "
+            "(for example, primary + secondary)."
+        ),
     )
     parser.add_argument(
         "--oncall-max-reviewers",
@@ -395,7 +401,7 @@ def _create_or_update_pull_request(
 def _resolve_oncall_reviewers(
     *,
     resolver_script: Path,
-    schedule_id: str,
+    schedule_ids: Sequence[str],
     max_reviewers: int,
     repo_path: Path,
 ) -> list[str]:
@@ -405,53 +411,81 @@ def _resolve_oncall_reviewers(
             f"{resolver_script}",
         )
 
-    result = _run_command(
-        [
-            sys.executable,
-            str(resolver_script),
-            schedule_id,
-            "--max-reviewers",
-            str(max(1, max_reviewers)),
-        ],
-        cwd=repo_path,
-        check=False,
-    )
-    if result.returncode == 0:
-        raw_stdout = result.stdout.strip()
-        if not raw_stdout:
-            raise RuntimeError(
-                "On-call resolver succeeded but returned no stdout.",
-            )
-        payload = json.loads(raw_stdout)
-        reviewers_raw = payload.get("reviewers")
-        if not isinstance(reviewers_raw, list):
-            raise RuntimeError(
-                "On-call resolver succeeded but did not return reviewer list.",
-            )
-        reviewers = [
-            str(reviewer).strip()
-            for reviewer in reviewers_raw
-            if str(reviewer).strip()
-        ]
-        if not reviewers:
-            raise RuntimeError(
-                "On-call resolver succeeded but returned empty reviewer list.",
-            )
-        return list(dict.fromkeys(reviewers))
+    normalized_schedule_ids: list[str] = []
+    for raw_schedule_id in schedule_ids:
+        for candidate in str(raw_schedule_id).split(","):
+            schedule_id = candidate.strip()
+            if schedule_id and schedule_id not in normalized_schedule_ids:
+                normalized_schedule_ids.append(schedule_id)
 
-    stderr = result.stderr.strip()
-    stdout = result.stdout.strip()
-    details = "\n".join(part for part in [stderr, stdout] if part)
-    if result.returncode == 2:
+    if not normalized_schedule_ids:
+        raise RuntimeError("No on-call schedule IDs were provided.")
+
+    per_schedule_reviewer_limit = max(1, max_reviewers)
+    if len(normalized_schedule_ids) > 1:
+        per_schedule_reviewer_limit = 1
+
+    resolved_reviewers: list[str] = []
+    for schedule_id in normalized_schedule_ids:
+        result = _run_command(
+            [
+                sys.executable,
+                str(resolver_script),
+                schedule_id,
+                "--max-reviewers",
+                str(per_schedule_reviewer_limit),
+            ],
+            cwd=repo_path,
+            check=False,
+        )
+        if result.returncode == 0:
+            raw_stdout = result.stdout.strip()
+            if not raw_stdout:
+                raise RuntimeError(
+                    "On-call resolver succeeded but returned no stdout "
+                    f"(schedule: {schedule_id}).",
+                )
+            payload = json.loads(raw_stdout)
+            reviewers_raw = payload.get("reviewers")
+            if not isinstance(reviewers_raw, list):
+                raise RuntimeError(
+                    "On-call resolver succeeded but did not return reviewer list "
+                    f"(schedule: {schedule_id}).",
+                )
+            reviewers = [
+                str(reviewer).strip()
+                for reviewer in reviewers_raw
+                if str(reviewer).strip()
+            ]
+            if not reviewers:
+                raise RuntimeError(
+                    "On-call resolver succeeded but returned empty reviewer list "
+                    f"(schedule: {schedule_id}).",
+                )
+            for reviewer in reviewers:
+                if reviewer not in resolved_reviewers:
+                    resolved_reviewers.append(reviewer)
+            continue
+
+        stderr = result.stderr.strip()
+        stdout = result.stdout.strip()
+        details = "\n".join(part for part in [stderr, stdout] if part)
+        if result.returncode == 2:
+            raise RuntimeError(
+                "On-call reviewer resolution was ambiguous "
+                f"(schedule: {schedule_id}). "
+                "Please resolve manually or update matching overrides.\n"
+                f"{details}",
+            )
         raise RuntimeError(
-            "On-call reviewer resolution was ambiguous. "
-            "Please resolve manually or update matching overrides.\n"
+            "On-call reviewer resolution failed "
+            f"(schedule: {schedule_id}).\n"
             f"{details}",
         )
-    raise RuntimeError(
-        "On-call reviewer resolution failed.\n"
-        f"{details}",
-    )
+
+    if not resolved_reviewers:
+        raise RuntimeError("Could not resolve any on-call reviewers.")
+    return resolved_reviewers[: max(1, max_reviewers)]
 
 
 def _assign_reviewers(
@@ -468,9 +502,16 @@ def _assign_reviewers(
 
 
 def _validate_args(args: argparse.Namespace) -> None:
+    normalized_schedule_ids: list[str] = []
+    for raw_schedule_id in args.oncall_schedule_ids:
+        for candidate in str(raw_schedule_id).split(","):
+            schedule_id = candidate.strip()
+            if schedule_id and schedule_id not in normalized_schedule_ids:
+                normalized_schedule_ids.append(schedule_id)
+    args.oncall_schedule_ids = normalized_schedule_ids
     if args.assign_oncall_reviewers and not args.create_pr:
         raise ValueError("--assign-oncall-reviewer requires --create-pr.")
-    if args.assign_oncall_reviewers and not args.oncall_schedule_id:
+    if args.assign_oncall_reviewers and not args.oncall_schedule_ids:
         raise ValueError(
             "--assign-oncall-reviewer requires --oncall-schedule-id.",
         )
@@ -525,7 +566,7 @@ def _maybe_create_pr(
     if args.assign_oncall_reviewers:
         reviewers = _resolve_oncall_reviewers(
             resolver_script=Path(args.oncall_resolver_script).expanduser().resolve(),
-            schedule_id=str(args.oncall_schedule_id),
+            schedule_ids=args.oncall_schedule_ids,
             max_reviewers=int(args.oncall_max_reviewers),
             repo_path=docs_root,
         )
