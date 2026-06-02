@@ -186,6 +186,7 @@ For the summary of the most critical terms (core features, Oz terms, terms to av
 - ❌ "Oz is running" → Use "An agent is running" or "A run is in progress"
 - ❌ "AI agents" → Use "agents" (the "AI" prefix is redundant)
 - ❌ "Ambient Agents" / "ambient agents" → Use "Cloud Agents" / "cloud agents" ("ambient" is no longer a product term; acceptable only in code identifiers like `AmbientAgentConfig`)
+- ❌ "agent identity" / "agent identities" → Use "agent," "agents," or "cloud agent(s)" in user-facing copy. Use legacy API names such as `agent_identity_uid` or `/agent/identities` only when documenting the exact field, path, or compatibility behavior.
 
 ## Platform terms
 
