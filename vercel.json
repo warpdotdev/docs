@@ -1140,7 +1140,12 @@
     },
     {
       "source": "/agent-platform/integrations/github-actions/demo-issue-triage-bot",
-      "destination": "/agent-platform/cloud-agents/integrations/demo-issue-triage-bot/",
+      "destination": "/agent-platform/cloud-agents/integrations/quickstart-github-actions/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/cloud-agents/integrations/demo-issue-triage-bot",
+      "destination": "/agent-platform/cloud-agents/integrations/quickstart-github-actions/",
       "statusCode": 308
     },
     {
@@ -5420,7 +5425,12 @@
     },
     {
       "source": "/agent-platform/integrations/github-actions/demo-issue-triage-bot/",
-      "destination": "/agent-platform/cloud-agents/integrations/demo-issue-triage-bot/",
+      "destination": "/agent-platform/cloud-agents/integrations/quickstart-github-actions/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/cloud-agents/integrations/demo-issue-triage-bot/",
+      "destination": "/agent-platform/cloud-agents/integrations/quickstart-github-actions/",
       "statusCode": 308
     },
     {

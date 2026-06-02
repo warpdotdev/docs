@@ -34,7 +34,7 @@ oz --version
 **Authentication issues**
 
 * Interactive login: ensure you've completed the browser-based flow with `oz login`.
-* API keys: confirm the key is valid, not expired, and exported correctly.
+* API keys: confirm the key is valid, not expired, and exported correctly. Invalid, expired, or missing keys can return an [`authentication_required` error](/reference/api-and-sdk/troubleshooting/errors/authentication-required/).
 
 **Agent or MCP errors**\
 Ensure your agent profile and [MCP servers](/agent-platform/capabilities/mcp/) are configured properly, with correct permissions. See [MCP Servers](/reference/cli/mcp-servers/) and [Agent profiles](/reference/cli/agent-profiles/) for details.
@@ -113,7 +113,7 @@ oz environment delete <ID>
 
 Add `--force` to skip confirmation checks for environments used by integrations.
 
-Only do this once you've confirmed no active integrations are relying on that environment. If an integration points to a deleted environment, requests from Slack/Linear will fail until you create a new integration with a valid environment.
+Only do this once you've confirmed no active integrations are relying on that environment. If an integration points to a deleted environment, requests from Slack/Linear will fail with a [`resource_not_found` error](/reference/api-and-sdk/troubleshooting/errors/resource-not-found/) until you create a new integration with a valid environment.
 
 ### Integrations
 
@@ -144,7 +144,7 @@ This happens when:
 * You add a repo that Warp doesn’t have access to yet, or
 * You personally haven’t granted the Warp GitHub app permissions for that repo.
 
-Follow the GitHub popup flow to install/adjust the Warp GitHub app.
+Follow the GitHub popup flow to install/adjust the Warp GitHub app. Missing external authorization can return an [`external_authentication_required` error](/reference/api-and-sdk/troubleshooting/errors/external-authentication-required/).
 
 #### **The agent can’t open PRs or push changes to my repo**
 
@@ -155,7 +155,7 @@ Check the following:
 2. **Warp GitHub app has access to that repo**
    1. In GitHub’s settings, confirm the Warp app is installed and that the repo is selected.
 3. **You have write access**
-   1. The agent inherits your GitHub permissions. If you only have read access, Warp can’t open PRs or push branches on your behalf.
+   1. The agent inherits your GitHub permissions. If you only have read access, Warp can’t open PRs or push branches on your behalf, and the run may return a [`not_authorized` error](/reference/api-and-sdk/troubleshooting/errors/not-authorized/).
 
 ### Docker image & environment failures
 
@@ -167,7 +167,7 @@ Check:
 2. The image is public on Docker Hub.
 3. You can pull it locally: `docker pull <image_name>`
 
-If local docker pull fails, fix the image visibility/name first, then recreate or update the environment with a working image.
+If local docker pull fails, fix the image visibility/name first, then recreate or update the environment with a working image. Image pull and setup failures can surface as [`environment_setup_failed`](/reference/api-and-sdk/troubleshooting/errors/environment-setup-failed/).
 
 #### **The agent can’t find tools or runtimes inside the environment**
 
@@ -178,7 +178,7 @@ This usually means the Docker image is missing required dependencies. Fix by eit
 
 #### **I see "VM failed before the agent could run. This is likely an issue with your Docker image"**
 
-This typically means your Docker image uses musl libc instead of glibc. Alpine Linux and other musl-based images are not compatible with the agent runtime.
+This typically means your Docker image uses musl libc instead of glibc. Alpine Linux and other musl-based images are not compatible with the agent runtime, and this can surface as [`environment_setup_failed`](/reference/api-and-sdk/troubleshooting/errors/environment-setup-failed/).
 
 Fix:
 
