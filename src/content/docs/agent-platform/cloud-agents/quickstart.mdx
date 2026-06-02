@@ -151,13 +151,13 @@ Use the [Oz API & SDK](/reference/api-and-sdk/) to trigger agents programmatical
 ## Troubleshooting
 
 **Environment creation fails**\
-Use official Docker Hub images like `node`, `python`, or `rust` for best compatibility. Ensure your GitHub repos are accessible. If using a custom image, avoid Alpine/musl-based images—the agent runtime requires glibc. See [Environments](/agent-platform/cloud-agents/environments/) for more guidance on choosing Docker images.
+Use official Docker Hub images like `node`, `python`, or `rust` for best compatibility. Ensure your GitHub repos are accessible. If using a custom image, avoid Alpine/musl-based images—the agent runtime requires glibc. See [Environments](/agent-platform/cloud-agents/environments/) for more guidance on choosing Docker images and [`environment_setup_failed`](/reference/api-and-sdk/troubleshooting/errors/environment-setup-failed/) for the related API error.
 
 **Agent can't access repos**\
-Warp prompts you to authorize GitHub when you create an environment or trigger your first agent. If authorization fails or needs updating, see [How GitHub Authorization works](/reference/cli/integration-setup/#how-github-authorization-works). For automated workflows using team API keys, make sure [team GitHub authorization](/agent-platform/cloud-agents/team-access-billing-and-identity/#team-github-authorization) is configured in the Admin Panel. Also verify that repos are correctly configured in your environment with `oz environment get <ENV_ID>`.
+Warp prompts you to authorize GitHub when you create an environment or trigger your first agent. If authorization fails or needs updating, see [How GitHub Authorization works](/reference/cli/integration-setup/#how-github-authorization-works) and [`external_authentication_required`](/reference/api-and-sdk/troubleshooting/errors/external-authentication-required/). For automated workflows using team API keys, make sure [team GitHub authorization](/agent-platform/cloud-agents/team-access-billing-and-identity/#team-github-authorization) is configured in the Admin Panel. Also verify that repos are correctly configured in your environment with `oz environment get <ENV_ID>`; permission mismatches can surface as [`not_authorized`](/reference/api-and-sdk/troubleshooting/errors/not-authorized/).
 
 **Not enough credits to run cloud agents**\
-Your team needs at least 20 credits available. Check your credit balance in Settings or see [Access, Billing, and Identity](/agent-platform/cloud-agents/team-access-billing-and-identity/) for details on credit requirements and which plans support cloud agents.
+Your team needs at least 20 credits available. Check your credit balance in Settings or see [Access, Billing, and Identity](/agent-platform/cloud-agents/team-access-billing-and-identity/) for details on credit requirements and which plans support cloud agents. If a run is blocked because the billed principal has no remaining credits, see [`insufficient_credits`](/reference/api-and-sdk/troubleshooting/errors/insufficient-credits/).
 
 **More resources**
 
