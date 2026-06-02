@@ -117,6 +117,40 @@ NON_SCREENSHOT_HINTS = (
     "use-cases",
 )
 
+GENERIC_LINK_ANCHORS = {
+    "click here",
+    "documentation",
+    "docs",
+    "here",
+    "learn more",
+    "link",
+    "more",
+    "page",
+    "read more",
+    "this article",
+    "this documentation",
+    "this guide",
+    "this link",
+    "this page",
+    "website",
+}
+
+GENERIC_VIDEO_TITLES = {
+    "demo",
+    "demo video",
+    "overview video",
+    "tutorial video",
+    "video",
+    "walkthrough video",
+}
+
+RAW_URL_ANCHOR = re.compile(
+    r"^(?:https?://|www\.|(?:[a-z0-9-]+\.)+(?:ai|app|co|com|dev|edu|gov|io|net|org)(?:/|$))",
+    re.IGNORECASE,
+)
+MARKDOWN_LINK = re.compile(r"\[([^\]]*)\]\(([^)]+)\)")
+VIDEO_EMBED_TITLE = re.compile(r"\btitle\s*=\s*([\"'])(.*?)\1", re.DOTALL)
+
 # Common bolded words that are NOT product terms (false positive suppression)
 COMMON_BOLD_WORDS = {
     # General emphasis words
@@ -192,7 +226,7 @@ def find_changed_md_files() -> List[Path]:
         for line in result.stdout.strip().split("\n"):
             if (line.endswith(".md") or line.endswith(".mdx")) and os.path.exists(line):
                 p = Path(line)
-                if not any(part in EXCLUDED_DIRS for part in p.parts):
+                if not any(part in EXCLUDED_DIRS for part in p.parts) and not p.is_relative_to(CHANGELOG_DIR):
                     files.append(p)
         return sorted(files)
     except subprocess.CalledProcessError:
@@ -217,6 +251,104 @@ def check_frontmatter(content: str, filepath: str) -> List[Issue]:
     fm = content[3:end]
     if "description:" not in fm:
         issues.append(Issue(filepath, 1, "frontmatter", "Frontmatter missing 'description' field", "error"))
+    return issues
+
+
+def _strip_markdown_formatting(text: str) -> str:
+    """Remove lightweight Markdown/HTML formatting from link text."""
+    text = re.sub(r"`([^`]*)`", r"\1", text)
+    text = re.sub(r"\*\*([^*]*)\*\*", r"\1", text)
+    text = re.sub(r"__([^_]*)__", r"\1", text)
+    text = re.sub(r"\*([^*]*)\*", r"\1", text)
+    text = re.sub(r"_([^_]*)_", r"\1", text)
+    text = re.sub(r"<[^>]+>", "", text)
+    return text
+
+
+def _normalize_link_text(text: str) -> str:
+    """Normalize link text for generic-anchor comparisons."""
+    text = _strip_markdown_formatting(text)
+    text = re.sub(r"\s+", " ", text).strip().lower()
+    return text.strip(" \t\n\r.,:;!?()[]{}\"'")
+
+
+def _meaningful_words(text: str) -> List[str]:
+    """Return lowercase words that carry semantic meaning for comparisons."""
+    stopwords = {"a", "an", "and", "for", "in", "of", "on", "the", "to", "with", "x"}
+    words = re.findall(r"[a-z0-9]+", text.lower())
+    return [word for word in words if len(word) > 2 and word not in stopwords]
+
+
+def check_link_quality(lines: List[str], filepath: str) -> List[Issue]:
+    """Check Markdown links for descriptive, contextual anchor text."""
+    issues = []
+    in_code_block = False
+    article_pattern = re.compile(
+        r"\b(go to|open|visit|navigate to|view)\s+\[((?:Runs|Integrations|Schedules|Environments|Secrets) page in the Oz web app)\]",
+        re.IGNORECASE,
+    )
+    redundant_prefix = re.compile(
+        r"^\s*[-*]\s+\*\*([^*]+)\*\*\s*[:—-]\s*\[([^\]]+)\]\([^)]+\)\.?\s*$"
+    )
+
+    for i, line in enumerate(lines, 1):
+        stripped = line.strip()
+        if stripped.startswith("```"):
+            in_code_block = not in_code_block
+            continue
+        if in_code_block:
+            continue
+
+        for m in MARKDOWN_LINK.finditer(line):
+            # Skip Markdown images.
+            if m.start() > 0 and line[m.start() - 1] == "!":
+                continue
+
+            anchor = m.group(1).strip()
+            normalized = _normalize_link_text(anchor)
+            if not normalized:
+                issues.append(Issue(
+                    filepath, i, "link-anchor",
+                    "Markdown link has empty anchor text; use descriptive link text that explains the destination",
+                    "error",
+                ))
+                continue
+
+            if RAW_URL_ANCHOR.match(normalized):
+                issues.append(Issue(
+                    filepath, i, "link-anchor",
+                    f"Raw URL used as link text: \"{anchor}\". Name the destination instead.",
+                    "warning",
+                ))
+            elif normalized in GENERIC_LINK_ANCHORS:
+                issues.append(Issue(
+                    filepath, i, "link-anchor",
+                    f"Generic link text: \"{anchor}\". Use descriptive anchor text that explains what users will find.",
+                    "warning",
+                ))
+
+        for m in article_pattern.finditer(line):
+            action = m.group(1)
+            page_name = m.group(2)
+            issues.append(Issue(
+                filepath, i, "link-context",
+                f"Add \"the\" before named destination page: \"{action} the [{page_name}]\"",
+                "warning",
+            ))
+
+        m = redundant_prefix.match(line)
+        if m:
+            prefix = _normalize_link_text(m.group(1))
+            anchor = _normalize_link_text(m.group(2))
+            prefix_words = _meaningful_words(prefix)
+            anchor_words = set(_meaningful_words(anchor))
+            if prefix_words and all(word in anchor_words for word in prefix_words):
+                issues.append(Issue(
+                    filepath, i, "link-context",
+                    f"Link text repeats the bold prefix \"{m.group(1)}\". Remove the prefix or add distinct context.",
+                    "warning",
+                ))
+
     return issues
 
 
@@ -433,6 +565,81 @@ def check_screenshot_widths(lines: List[str], filepath: str) -> List[Issue]:
             figure_opening = ""
             figure_has_likely_screenshot = False
 
+    return issues
+
+
+def _iter_video_embed_tags(lines: List[str]) -> List[Tuple[int, str]]:
+    """Return (line_number, tag_text) for VideoEmbed components."""
+    tags: List[Tuple[int, str]] = []
+    in_code_block = False
+    collecting = False
+    start_line = 0
+    tag_parts: List[str] = []
+
+    for i, line in enumerate(lines, 1):
+        stripped = line.strip()
+        if stripped.startswith("```"):
+            in_code_block = not in_code_block
+            continue
+        if in_code_block:
+            continue
+
+        if not collecting and "<VideoEmbed" in line:
+            collecting = True
+            start_line = i
+            tag_parts = [line]
+            if ">" in line:
+                tags.append((start_line, "\n".join(tag_parts)))
+                collecting = False
+                tag_parts = []
+            continue
+
+        if collecting:
+            tag_parts.append(line)
+            if ">" in line:
+                tags.append((start_line, "\n".join(tag_parts)))
+                collecting = False
+                tag_parts = []
+
+    if collecting and tag_parts:
+        tags.append((start_line, "\n".join(tag_parts)))
+    return tags
+
+
+def _is_generic_video_title(title: str) -> bool:
+    """Return True when a VideoEmbed title is too generic for SEO/accessibility."""
+    normalized = re.sub(r"\s+", " ", title).strip().lower()
+    normalized = normalized.strip(" \t\n\r.,:;!?()[]{}\"'")
+    if normalized in GENERIC_VIDEO_TITLES:
+        return True
+    if re.search(r"\b(?:video|demo)\s+\d+\b", normalized):
+        return True
+    words = re.findall(r"[a-z0-9]+", normalized)
+    if normalized.endswith(" video") and len(words) <= 3:
+        return True
+    return False
+
+
+def check_video_embed_titles(lines: List[str], filepath: str) -> List[Issue]:
+    """Check VideoEmbed components for specific title props."""
+    issues = []
+    for line_number, tag in _iter_video_embed_tags(lines):
+        title_match = VIDEO_EMBED_TITLE.search(tag)
+        if not title_match or not title_match.group(2).strip():
+            issues.append(Issue(
+                filepath, line_number, "video-title",
+                "VideoEmbed missing title prop. Add a specific title that describes the integration, workflow, feature, or task shown.",
+                "error",
+            ))
+            continue
+
+        title = title_match.group(2).strip()
+        if _is_generic_video_title(title):
+            issues.append(Issue(
+                filepath, line_number, "video-title",
+                f"Generic VideoEmbed title: \"{title}\". Use a specific title that describes what the video shows.",
+                "warning",
+            ))
     return issues
 
 
@@ -662,9 +869,11 @@ def run_all_checks(filepath: Path) -> List[Issue]:
     issues.extend(check_frontmatter(content, str(filepath)))
     issues.extend(check_settings_paths(lines, str(filepath)))
     issues.extend(check_ui_element_backticks(lines, str(filepath)))
+    issues.extend(check_link_quality(lines, str(filepath)))
     issues.extend(check_header_case(lines, str(filepath)))
     issues.extend(check_image_alt_text(lines, str(filepath)))
     issues.extend(check_screenshot_widths(lines, str(filepath)))
+    issues.extend(check_video_embed_titles(lines, str(filepath)))
     issues.extend(check_callout_syntax(lines, str(filepath)))
     issues.extend(check_product_casing(lines, str(filepath)))
     issues.extend(check_oz_terms(lines, str(filepath)))

@@ -1,6 +1,6 @@
 ---
 name: style_lint
-description: Scan Warp Astro Starlight documentation for style guide violations including formatting issues (Settings path format, UI element format, header case, missing frontmatter, image alt text, standardized screenshot widths, callout syntax) and terminology issues (product name casing, Oz terms to avoid, deprecated terms). Run with --changed for PR workflows or --all for periodic audits. Optionally auto-fix high-confidence issues with --fix.
+description: Scan Warp Astro Starlight documentation for style guide violations including formatting issues (Settings path format, UI element format, link quality, VideoEmbed titles, header case, missing frontmatter, image alt text, standardized screenshot widths, callout syntax) and terminology issues (product name casing, Oz terms to avoid, deprecated terms). Run with --changed for PR workflows or --all for periodic audits. Optionally auto-fix high-confidence issues with --fix.
 ---
 
 # Style Lint
@@ -45,6 +45,9 @@ python3 .warp/skills/style_lint/style_lint.py --all --fix --create-pr
 - **UI elements after action verbs**: `click \`X\`` → should be `click **X**`
 - **Header case**: Title Case in H2/H3/H4 headers (should be sentence case, with exceptions for proper feature names)
 - **Missing frontmatter**: Pages without YAML `description` field
+- **Link anchor quality**: Empty anchors, raw URL anchors, and generic anchors like "here," "this page," "learn more," or "read more"
+- **Link context quality**: Redundant bold prefixes that repeat the link text, and named Oz web app page links missing articles like "the"
+- **VideoEmbed titles**: Missing `title` props and generic or numbered titles like "Video," "GitHub Actions video," or "Codebase Context video 1"
 - **Image alt text**: `<img>` or `<figure>` without alt text or with generic alt text ("screenshot", "image")
 - **Screenshot widths**: Likely UI/product screenshots must use `<figure style={{ maxWidth: "..." }}>` with a standard width (`300px`, `350px`, `375px`, or `563px`)
 - **Callout syntax**: Leftover GitBook `{% hint %}` tags that should be migrated to Starlight `:::note` / `:::caution` / `:::danger` asides
@@ -62,7 +65,7 @@ python3 .warp/skills/style_lint/style_lint.py --all --fix --create-pr
 
 When run with `--fix`:
 - **High-confidence fixes applied automatically**: Settings path format, UI element format, product name casing, external product name casing
-- **Low-confidence issues reported but not auto-fixed**: list format, header case (due to feature name exceptions), ambiguous terminology
+- **Low-confidence issues reported but not auto-fixed**: link quality, VideoEmbed title specificity, list format, header case (due to feature name exceptions), ambiguous terminology
 
 ## Relationship to validate_ui_refs
 

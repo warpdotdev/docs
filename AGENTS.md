@@ -226,14 +226,32 @@ Captions orient the reader — they identify what the image shows so the reader 
 - ❌ `<figcaption>Click the toast to jump to the agent's session.</figcaption>` (procedural — belongs in body text)
 - ❌ `<figcaption>Universal Input's contextual input chips, from left to right: conversation management, node version, active directory, Git and code diffs, and 2 attached images.</figcaption>` (exhaustive list)
 
-### Links and cross-references
-- Use descriptive link text that explains what users will find
+### Links, embeds, and cross-references
+- Use descriptive link text that explains what users will find. The anchor text should describe the destination or task, not the action of clicking.
   - ✅ "Learn more about [Codebase Context](...)" / "See [configuring environments](...)"
-  - ❌ "Click [here](...)" / "See [this page](...)"
-- Cross-reference related features prominently
-- Link to external resources when they add value
-- Within an Astro Starlight space, use relative paths. For cross-space links, use absolute URLs (`https://docs.warp.dev/...`)
+  - ❌ "Click [here](...)" / "See [this page](...)" / "Read [more](...)"
+- Don't use raw URLs as link text. Name the destination so readers, search engines, and agents understand what the link points to.
+  - ✅ "See the [Warp pricing page](https://www.warp.dev/pricing)"
+  - ❌ "See [https://www.warp.dev/pricing](https://www.warp.dev/pricing)"
+- Add context before a link when the anchor text alone doesn't explain why the reader should open it. The sentence should make the relationship between the current page and destination clear.
+  - ✅ "To inspect completed runs, go to the [Runs page in the Oz web app](https://oz.warp.dev/runs)."
+  - ❌ "Go to [Runs page](https://oz.warp.dev/runs)."
+- Avoid redundant bold prefixes when the link text already contains the same context. Start with the link when the link is the complete item.
+  - ✅ "* [Claude web search tool documentation](...)"
+  - ❌ "* **Claude Web Search**: [Claude web search tool documentation](...)"
+- Use articles before named destination pages when the sentence requires one.
+  - ✅ "Go to the [Runs page in the Oz web app](...)."
+  - ❌ "Go to [Runs page in the Oz web app](...)."
+- Cross-reference related features prominently. Add internal links where they help the reader continue a workflow or understand a related concept, not as generic link lists added only for SEO.
+- Link to external resources when they add value.
+- Within an Astro Starlight space, use relative paths. For cross-space links, use absolute URLs (`https://docs.warp.dev/...`).
 - Descriptive anchor text helps search engines understand page relationships. "Click here" provides no signal; "configuring environments" tells search engines what the linked page is about.
+- Every `VideoEmbed` must include a specific `title` prop that describes the integration, workflow, feature, or task shown.
+  - ✅ `<VideoEmbed url="..." title="Warp x GitHub Actions integration video" />`
+  - ✅ `<VideoEmbed url="..." title="Codebase Context indexing settings demo" />`
+  - ❌ `<VideoEmbed url="..." />`
+  - ❌ `<VideoEmbed url="..." title="GitHub Actions video" />`
+  - ❌ `<VideoEmbed url="..." title="Codebase Context video 1" />`
 
 ### Callouts and hints
 Use Astro Starlight's hint syntax. Choose the style based on the type of information:
@@ -682,6 +700,9 @@ Before publishing any documentation, verify:
 - [ ] Headers use sentence case (with proper feature name capitalization)
 - [ ] Lists use bold term + dash + explanation format
 - [ ] All links work and point to correct destinations
+- [ ] Link text is descriptive, not generic text like "here," "this page," or "learn more"
+- [ ] Link sentences provide enough context for readers, search engines, and agents to understand the destination
+- [ ] `VideoEmbed` components include specific `title` props that describe the video content
 - [ ] Code examples are tested and accurate
 - [ ] Terminology and product names match the glossary (`.warp/references/terminology.md`)
 - [ ] Cross-references to related features are included
