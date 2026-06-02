@@ -12,6 +12,9 @@ from urllib.request import urlopen
 
 USER_AGENT = "Mozilla/5.0 (release-updates-skill)"
 DEFAULT_WORK_DIR = Path("/tmp/release-updates")
+DEFAULT_ONCALL_RESOLVER_SCRIPT = (
+    Path(__file__).resolve().parent / "resolve_oncall_reviewers.py"
+).resolve()
 
 
 def eprint(message: str) -> None:

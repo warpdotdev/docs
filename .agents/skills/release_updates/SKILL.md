@@ -19,12 +19,64 @@ They support the following:
   (`/channel-versions`, sibling repo)
 - running one task or all tasks in the required order
 
+## Environment requirements (Oz cloud)
+
+### Required
+
+- **Repo**: docs repo (this repo) containing the `release_updates` skill.
+- **Runtime**: glibc-based Linux image (Debian/Ubuntu-style image recommended).
+- **Commands**: `python3`, `git`.
+- **Network access**: `releases.warp.dev` (channel versions fallback) and
+  `app.warp.dev` (Warp AppImage download).
+
+### Required for PR mode
+
+- **Command**: `gh` CLI
+- **Auth**: `gh auth status` must be healthy in the run environment.
+- **GitHub repo write access** for branch push + PR create/update.
+
+### Required for on-call reviewer assignment
+
+- Resolver script path (default):
+  `.agents/skills/release_updates/scripts/resolve_oncall_reviewers.py`
+- `GRAFANA_API_KEY` environment variable.
+
+### Recommended
+
+- Local checkout of `warpdotdev/channel-versions` so changelog updates read local
+  `channel_versions.json` instead of URL fallback.
+
+## Bootstrap/check the environment
+
+Use this helper script before running release updates:
+
+```bash
+python3 .agents/skills/release_updates/scripts/setup_environment.py \
+  --docs-repo /docs \
+  --clone-channel-versions-if-missing \
+  --require-pr-flow
+```
+
+If you also want automatic reviewer assignment checks:
+
+```bash
+python3 .agents/skills/release_updates/scripts/setup_environment.py \
+  --docs-repo /docs \
+  --clone-channel-versions-if-missing \
+  --require-pr-flow \
+  --require-oncall-reviewer
+```
+
 ## Scripts
 
 All scripts are in `.agents/skills/release_updates/scripts/`:
-
+- `setup_environment.py` - Validate/prepare repos, CLI auth, and reviewer
+  assignment prerequisites before release runs
+- `resolve_oncall_reviewers.py` - Resolve primary/secondary Grafana on-call
+  users to GitHub reviewers
 - `update_warp_app.py` - Download latest stable + preview Linux AppImages and
-  build a manifest for downstream tasks
+  build a manifest for downstream tasks. On Linux, it preflights
+  `libasound.so.2` before telemetry usage.
 - `update_changelog.py` - Incrementally update
   `src/content/docs/changelog/{year}.mdx` from channel versions
 - `update_licenses.py` - Regenerate
@@ -76,11 +128,66 @@ python3 .agents/skills/release_updates/scripts/run_release_updates.py \
   --tasks changelog
 ```
 
+On Linux/Oz, let `warp_app_update` auto-install a missing ALSA runtime package:
+
+```bash
+python3 .agents/skills/release_updates/scripts/run_release_updates.py \
+  --tasks warp_app_update \
+  --auto-install-missing-dependency
+```
+
+If your environment already guarantees dependencies, you can skip the check:
+
+```bash
+python3 .agents/skills/release_updates/scripts/run_release_updates.py \
+  --tasks warp_app_update \
+  --skip-dependency-preflight
+```
+
 Dry run:
 
 ```bash
 python3 .agents/skills/release_updates/scripts/run_release_updates.py --dry-run
 ```
+
+### Create or update a PR at the end
+
+`run_release_updates.py` can commit generated changes, push the branch, and
+create/update a PR automatically:
+
+```bash
+python3 .agents/skills/release_updates/scripts/run_release_updates.py \
+  --create-pr \
+  --pr-base main
+```
+
+You can customize commit/PR metadata:
+
+```bash
+python3 .agents/skills/release_updates/scripts/run_release_updates.py \
+  --create-pr \
+  --commit-message "docs: weekly release updates" \
+  --pr-title "docs: weekly release updates" \
+  --pr-body-file /tmp/release-pr-body.md
+```
+
+### Assign primary and secondary client on-call as reviewers (Grafana schedule)
+
+To resolve and assign reviewer automatically:
+
+```bash
+python3 .agents/skills/release_updates/scripts/run_release_updates.py \
+  --create-pr \
+  --assign-oncall-reviewer \
+  --oncall-schedule-id YOUR_GRAFANA_SCHEDULE_ID
+```
+
+Notes:
+
+- Requires `GRAFANA_API_KEY` in the environment.
+- Uses resolver script (by default):
+  `.agents/skills/release_updates/scripts/resolve_oncall_reviewers.py`
+- Override with `--oncall-resolver-script` if needed.
 
 ### Explicit repo paths
 

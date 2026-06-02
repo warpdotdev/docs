@@ -2,7 +2,9 @@
 from __future__ import annotations
 
 import argparse
+import ctypes
 import platform
+import shutil
 import subprocess
 from pathlib import Path
 from typing import Any
@@ -27,6 +29,137 @@ APP_DOWNLOAD_CONFIG = {
         "package_arm64": "appimage_arm64",
     },
 }
+
+
+def _run_command(command: list[str]) -> subprocess.CompletedProcess[str]:
+    return subprocess.run(  # nosec B603
+        command,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+
+
+def _has_libasound() -> bool:
+    try:
+        ctypes.CDLL("libasound.so.2")
+        return True
+    except OSError:
+        return False
+
+
+def _install_with_apt() -> str:
+    update_result = _run_command(["apt-get", "update"])
+    if update_result.returncode != 0:
+        raise RuntimeError(
+            "apt-get update failed while preflighting libasound dependency:\n"
+            f"{update_result.stderr.strip() or update_result.stdout.strip()}",
+        )
+
+    for package_name in ("libasound2", "libasound2t64"):
+        install_result = _run_command(["apt-get", "install", "-y", package_name])
+        if install_result.returncode == 0:
+            return package_name
+
+    raise RuntimeError(
+        "Unable to install an apt package providing libasound.so.2. "
+        "Tried: libasound2, libasound2t64.",
+    )
+
+
+def _install_with_dnf_like(package_manager: str) -> str:
+    package_name = "alsa-lib"
+    install_result = _run_command([package_manager, "install", "-y", package_name])
+    if install_result.returncode != 0:
+        raise RuntimeError(
+            f"{package_manager} install failed while preflighting libasound:\n"
+            f"{install_result.stderr.strip() or install_result.stdout.strip()}",
+        )
+    return package_name
+
+
+def _install_with_apk() -> str:
+    package_name = "alsa-lib"
+    install_result = _run_command(["apk", "add", "--no-cache", package_name])
+    if install_result.returncode != 0:
+        raise RuntimeError(
+            "apk add failed while preflighting libasound:\n"
+            f"{install_result.stderr.strip() or install_result.stdout.strip()}",
+        )
+    return package_name
+
+
+def _install_with_pacman() -> str:
+    package_name = "alsa-lib"
+    install_result = _run_command(["pacman", "-Sy", "--noconfirm", package_name])
+    if install_result.returncode != 0:
+        raise RuntimeError(
+            "pacman install failed while preflighting libasound:\n"
+            f"{install_result.stderr.strip() or install_result.stdout.strip()}",
+        )
+    return package_name
+
+
+def _install_libasound_dependency() -> str:
+    if shutil.which("apt-get"):
+        return _install_with_apt()
+    if shutil.which("dnf"):
+        return _install_with_dnf_like(package_manager="dnf")
+    if shutil.which("yum"):
+        return _install_with_dnf_like(package_manager="yum")
+    if shutil.which("apk"):
+        return _install_with_apk()
+    if shutil.which("pacman"):
+        return _install_with_pacman()
+
+    raise RuntimeError(
+        "Could not detect a supported package manager to install libasound "
+        "(tried apt-get, dnf, yum, apk, pacman).",
+    )
+
+
+def _preflight_telemetry_dependency(
+    *,
+    enabled: bool,
+    auto_install: bool,
+    dry_run: bool,
+) -> None:
+    if not enabled:
+        return
+
+    if platform.system() != "Linux":
+        return
+
+    if _has_libasound():
+        eprint("Preflight passed: libasound.so.2 is available.")
+        return
+
+    if dry_run:
+        eprint(
+            "[dry-run] Preflight detected missing libasound.so.2. "
+            "Install it or rerun with --auto-install-missing-dependency.",
+        )
+        return
+
+    if not auto_install:
+        raise RuntimeError(
+            "Missing required runtime dependency: libasound.so.2. "
+            "Install an ALSA package for your distro "
+            "(apt commonly: libasound2 or libasound2t64), "
+            "or rerun with --auto-install-missing-dependency.",
+        )
+
+    installed_package = _install_libasound_dependency()
+    eprint(
+        "Preflight installed missing ALSA runtime package: "
+        f"{installed_package}",
+    )
+    if not _has_libasound():
+        raise RuntimeError(
+            "Attempted to install libasound dependency, but libasound.so.2 "
+            "is still unavailable.",
+        )
+    eprint("Preflight passed after installation: libasound.so.2 is available.")
 
 
 def _detect_arch() -> str:
@@ -123,6 +256,22 @@ def parse_args() -> argparse.Namespace:
         help="Skip AppImage extraction even on Linux.",
     )
     parser.add_argument(
+        "--skip-dependency-preflight",
+        action="store_true",
+        help=(
+            "Skip preflight checks for Linux telemetry runtime dependencies "
+            "(libasound.so.2)."
+        ),
+    )
+    parser.add_argument(
+        "--auto-install-missing-dependency",
+        action="store_true",
+        help=(
+            "If libasound.so.2 is missing on Linux, attempt automatic installation "
+            "using an available package manager."
+        ),
+    )
+    parser.add_argument(
         "--dry-run",
         action="store_true",
         help="Print actions without downloading or extracting.",
@@ -147,6 +296,11 @@ def main() -> int:
             "Non-Linux system detected; extraction is skipped by default. "
             "Use Linux/Oz for full extraction + telemetry/license discovery.",
         )
+    _preflight_telemetry_dependency(
+        enabled=("preview" in args.apps and not args.skip_dependency_preflight),
+        auto_install=args.auto_install_missing_dependency,
+        dry_run=args.dry_run,
+    )
 
     manifest: dict[str, Any] = {
         "generated_at_utc": utc_now_iso(),
