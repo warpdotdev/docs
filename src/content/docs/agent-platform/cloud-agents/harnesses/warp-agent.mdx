@@ -17,7 +17,7 @@ Warp Agent is the same agent runtime that powers Agent Mode in the Warp terminal
 * **Full terminal and tool access** - Runs commands, edits files, reads logs, executes tests, navigates repos, and calls MCP servers, giving cloud runs the same toolbelt Warp Agent uses locally.
 * **Platform-native context** - Reads [Codebase Context](/agent-platform/capabilities/codebase-context/), applies [Rules](/agent-platform/capabilities/rules/), reuses saved [Skills](/agent-platform/capabilities/skills/), and respects Memory and Warp Drive context with no extra setup.
 * **Multi-repo execution** - Clones every repo configured on the [environment](/agent-platform/cloud-agents/environments/) and works across them in a single run.
-* **Cross-harness orchestration parent** - A Warp Agent parent run can spawn Claude Code or Codex [subagents](/agent-platform/cloud-agents/overview/) and coordinate their outputs. Other harnesses cannot act as parents in a multi-harness orchestration.
+* **Cross-harness orchestration parent** - A Warp Agent parent run can spawn Claude Code or Codex [subagents](/agent-platform/cloud-agents/orchestration/) and coordinate their outputs. Other harnesses cannot act as parents in a multi-harness orchestration.
 * **No extra credentials** - Warp Agent uses your existing Warp account and credits. There's no separate API key to configure.
 
 ## How it works
@@ -38,7 +38,7 @@ Warp Agent is the orchestration host for multi-harness runs. A typical pattern l
 2. The parent dispatches Claude Code subagents for steps that need careful review and Codex subagents for high-volume edits.
 3. The parent collects results, resolves conflicts, and returns a single final output (a PR, a report, a Slack reply).
 
-Subagents run in the same environment as the parent and share the same secrets, MCP servers, and integrations. The transcript shows the full tree, so reviewers can see exactly which subagent did what.
+Subagents run in the same environment as the parent and share the same secrets, MCP servers, and integrations. The transcript shows the full tree, so reviewers can see exactly which subagent did what. For the full parent/child model, run state transitions, messaging, and common patterns, see [Multi-agent orchestration](/agent-platform/cloud-agents/orchestration/). To start an orchestrated run, see [Running orchestrated agents](/agent-platform/cloud-agents/orchestration/multi-agent-runs/).
 
 ## When to choose Warp Agent
 

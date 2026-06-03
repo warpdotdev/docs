@@ -79,7 +79,9 @@ oz agent run ...
 
 ### Warp Orchestrator
 
-The orchestration layer manages the lifecycle of cloud agent tasks. It creates tasks, tracks state transitions, and is the system of record for what’s running and what ran.
+The orchestration layer manages the lifecycle of cloud agent tasks. It creates tasks, tracks state transitions, and is the system of record for what's running and what ran.
+
+The orchestrator also powers [multi-agent orchestration](/agent-platform/cloud-agents/orchestration/), where a parent agent spawns and coordinates child agents across local and cloud runs. See [Running orchestrated agents](/agent-platform/cloud-agents/orchestration/multi-agent-runs/) for how to start orchestrated runs from the CLI, slash commands, the web app, or the API.
 
 #### What the orchestrator does
 
