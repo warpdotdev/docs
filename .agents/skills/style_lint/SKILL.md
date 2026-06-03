@@ -12,12 +12,12 @@ Scan Warp Astro Starlight documentation for formatting and terminology issues de
 From the docs repo root:
 
 ```bash
-python3 .warp/skills/style_lint/style_lint.py
+python3 .agents/skills/style_lint/style_lint.py
 ```
 
 ### Options
 
-- `--all`: Scan all markdown files in `docs/` (default)
+- `--all`: Scan all markdown files in `src/content/docs/` (default)
 - `--changed`: Scan only files changed in the current branch (fast, for PR workflows)
 - `--fix`: Auto-fix high-confidence issues (optional, off by default)
 - `--create-pr`: Create a branch and PR with auto-fixes (requires `gh` CLI, implies `--fix`)
@@ -28,13 +28,13 @@ python3 .warp/skills/style_lint/style_lint.py
 ### Quick check on changed files:
 
 ```bash
-python3 .warp/skills/style_lint/style_lint.py --changed
+python3 .agents/skills/style_lint/style_lint.py --changed
 ```
 
 ### Full audit with auto-fix and PR:
 
 ```bash
-python3 .warp/skills/style_lint/style_lint.py --all --fix --create-pr
+python3 .agents/skills/style_lint/style_lint.py --all --fix --create-pr
 ```
 
 ## What it checks
@@ -53,7 +53,7 @@ python3 .warp/skills/style_lint/style_lint.py --all --fix --create-pr
 ### Terminology checks
 
 - **Product name casing**: "Warp Terminal" (→ "Warp"), "agent mode" (→ "Agent Mode"), "warp drive" (→ "Warp Drive"), "codebase context" (→ "Codebase Context"), "agent management panel" (→ "Agent Management Panel")
-- **Oz terms to avoid**: "Oz agent", "Oz cloud agent", "Oz subagent", "Oz conversation", "Ozzies", "Deploying an Oz", "The Oz Agent", "Oz is running", "AI agents"
+- **Oz terms to avoid**: "agent identity", "agent identities", "Oz agent", "Oz cloud agent", "Oz subagent", "Oz conversation", "Ozzies", "Deploying an Oz", "The Oz Agent", "Oz is running", "AI agents"
 - **Deprecated terminology**: "whitelist" (→ "allowlist"), "blacklist"/"blocklist" (→ "denylist")
 - **External product names**: "Github" (→ "GitHub"), "github actions" (→ "GitHub Actions"), "MacOS" (→ "macOS"), "A.I." (→ "AI")
 - **Unrecognized terms** (warning): Bolded terms that look like product names but aren't in `terminology.md`. Flags candidates for glossary addition — not errors, just suggestions.
@@ -77,4 +77,4 @@ Requires Python 3.7+. Optional: `requests` (for Slack notifications), `gh` CLI (
 For scheduled cloud agent runs:
 1. Configure the environment with the docs repo
 2. Set the `SLACK_BOT_TOKEN` secret in the environment (for `--slack-notify`)
-3. Run: `python3 .warp/skills/style_lint/style_lint.py --all --fix --create-pr --slack-notify`
+3. Run: `python3 .agents/skills/style_lint/style_lint.py --all --fix --create-pr --slack-notify`

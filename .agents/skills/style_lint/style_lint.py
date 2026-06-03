@@ -73,6 +73,8 @@ DEPRECATED_TERMS = [
 
 # Oz terms to avoid (case-insensitive patterns)
 OZ_TERMS_TO_AVOID = [
+    (r"\bagent identities\b", "Use 'agents' or 'cloud agents' unless referring to legacy API names in code"),
+    (r"\bagent identity\b", "Use 'agent' or 'cloud agent' unless referring to legacy API names in code"),
     (r"\bOzzies\b", "Use 'agents', 'instances', or 'subagents'"),
     (r"\bDeploying an Oz\b", "Use 'Deploying an agent'"),
     (r"\bThe Oz Agent\b", "Use 'the agent' or 'the Warp Agent'"),

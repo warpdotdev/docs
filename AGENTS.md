@@ -634,6 +634,7 @@ Product feature names retain their standard capitalization. Match the exact casi
 - ❌ "AI agents" → Use "agents" (the "AI" prefix is redundant)
 - ❌ "Ambient Agents" / "ambient agents" → Use "Cloud Agents" / "cloud agents" ("ambient" is no longer a product term)
 - ❌ "Agent Modality" or "agent modality" → Use "Terminal and Agent modes" (this was an internal name, not user-facing)
+- ❌ "agent identity" / "agent identities" → Use "agent," "agents," or "cloud agent(s)" in user-facing copy. Use legacy API names such as `agent_identity_uid` or `/agent/identities` only when documenting the exact field, path, or compatibility behavior.
 
 ### Technical terms
 - **AI** (not "A.I.")
