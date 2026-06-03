@@ -5,8 +5,10 @@ import argparse
 import re
 from datetime import datetime
 from datetime import timezone
+from html import escape
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlparse
 
 from common import docs_repo_root
 from common import eprint
@@ -116,6 +118,53 @@ def _ensure_year_in_changelog_index(index_file: Path, year: int, dry_run: bool) 
     return True
 
 
+def _ensure_year_in_sidebar(sidebar_file: Path, year: int, dry_run: bool) -> bool:
+    if not sidebar_file.exists():
+        return False
+
+    content = sidebar_file.read_text(encoding="utf-8")
+    updated = content
+    changed = False
+
+    year_item_pattern = re.compile(
+        rf"(?m)^\s*\{{ slug: 'changelog/{year}', label: '{year}' \}},$",
+    )
+    if not year_item_pattern.search(updated):
+        all_years_match = re.search(
+            r"(?m)^(\s*)\{ slug: 'changelog', label: 'All years' \},$",
+            updated,
+        )
+        if all_years_match:
+            indent = all_years_match.group(1)
+            insertion = f"\n{indent}{{ slug: 'changelog/{year}', label: '{year}' }},"
+            updated = (
+                updated[: all_years_match.end()]
+                + insertion
+                + updated[all_years_match.end() :]
+            )
+            changed = True
+
+    desired_link = f"/changelog/{year}/"
+    if desired_link not in updated:
+        updated, link_count = re.subn(
+            r"(label:\s*'Changelog',\s*\n\s*link:\s*'/changelog/)\d{4}(/',)",
+            rf"\g<1>{year}\g<2>",
+            updated,
+            count=1,
+        )
+        if link_count > 0:
+            changed = True
+
+    if not changed:
+        return False
+
+    if dry_run:
+        eprint(f"[dry-run] Would update changelog sidebar year navigation in {sidebar_file}")
+    else:
+        sidebar_file.write_text(updated, encoding="utf-8")
+    return True
+
+
 def _coerce_markdown_sections(changelog: dict[str, Any]) -> list[dict[str, str]]:
     raw_sections = changelog.get("markdown_sections")
     if isinstance(raw_sections, list):
@@ -160,12 +209,23 @@ def _normalize_bullets(markdown_blob: str) -> list[str]:
     return lines
 
 
+def _sanitize_image_url(image_url: Any) -> str | None:
+    if not isinstance(image_url, str):
+        return None
+    candidate = image_url.strip()
+    if not candidate:
+        return None
+    parsed = urlparse(candidate)
+    if parsed.scheme != "https" or not parsed.netloc:
+        return None
+    return candidate
+
+
 def _render_entry(version_key: str, changelog: dict[str, Any]) -> str:
     display_date = _parse_datetime(str(changelog["date"])).strftime("%Y.%m.%d")
     display_version = _display_version(version_key=version_key)
     lines: list[str] = [f"### {display_date} ({display_version})", ""]
-
-    image_url = changelog.get("image_url")
+    image_url = _sanitize_image_url(changelog.get("image_url"))
     sections = _coerce_markdown_sections(changelog=changelog)
     for section in sections:
         title = section["title"].strip()
@@ -176,9 +236,11 @@ def _render_entry(version_key: str, changelog: dict[str, Any]) -> str:
             continue
         lines.append(f"**{title}**")
         lines.append("")
-        if title == "New features" and isinstance(image_url, str) and image_url.strip():
+        if title == "New features" and image_url:
+            safe_image_url = escape(image_url, quote=True)
+            safe_alt_text = escape(f"Release image for {display_date}", quote=True)
             lines.append(
-                f"<figure><img src=\"{image_url.strip()}\" alt=\"Release image for {display_date}\"><figcaption></figcaption></figure>",
+                f"<figure><img src=\"{safe_image_url}\" alt=\"{safe_alt_text}\"><figcaption></figcaption></figure>",
             )
             lines.append("")
         lines.extend(bullets)
@@ -321,9 +383,15 @@ def main() -> int:
         eprint(f"Wrote changelog file: {output_file}")
 
     index_file = docs_root / "src/content/docs/changelog/index.mdx"
+    sidebar_file = docs_root / "src/sidebar.ts"
     if created_new_file:
         _ensure_year_in_changelog_index(
             index_file=index_file,
+            year=year,
+            dry_run=args.dry_run,
+        )
+        _ensure_year_in_sidebar(
+            sidebar_file=sidebar_file,
             year=year,
             dry_run=args.dry_run,
         )

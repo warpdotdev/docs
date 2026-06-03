@@ -47,7 +47,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--telemetry-output-file",
         default=None,
-        help="Where to store fetched telemetry JSON (default: <docs-repo>/telemetry.json).",
+        help="Where to store fetched telemetry JSON (default: <work-dir>/telemetry.json).",
     )
     parser.add_argument(
         "--output-file",
@@ -150,7 +150,7 @@ def main() -> int:
     telemetry_output_file = (
         Path(args.telemetry_output_file).expanduser().resolve()
         if args.telemetry_output_file
-        else docs_root / "telemetry.json"
+        else work_dir / "telemetry.json"
     )
 
     manifest_command, manifest_telemetry_json = _events_from_manifest(

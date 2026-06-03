@@ -24,16 +24,36 @@ def chunks_equal(left: list[str], right: list[str]) -> bool:
     return set(left) == set(right)
 
 
-_EMAIL_TO_GITHUB: dict[str, str] = {
-    "david@warp.dev": "vorporeal",
-    "ian@warp.dev": "ianhodge",
-    "zach@warp.dev": "zachlloyd",
-    "kevin@warp.dev": "kevinyang372",
-    "andy@warp.dev": "acarl005",
-    "john@warp.dev": "johnarector",
-    "ben@warp.dev": "bnavetta",
-    "mac@warp.dev": "tpmbenny",
-}
+def _load_email_to_github_overrides() -> dict[str, str]:
+    raw_value = os.environ.get("ONCALL_EMAIL_TO_GITHUB_OVERRIDES")
+    if not raw_value:
+        return {}
+
+    try:
+        payload = json.loads(raw_value)
+    except json.JSONDecodeError:
+        print(
+            "Warning: ONCALL_EMAIL_TO_GITHUB_OVERRIDES must be valid JSON; "
+            "ignoring overrides.",
+            file=sys.stderr,
+        )
+        return {}
+
+    if not isinstance(payload, dict):
+        print(
+            "Warning: ONCALL_EMAIL_TO_GITHUB_OVERRIDES must be a JSON object "
+            "mapping email -> GitHub login; ignoring overrides.",
+            file=sys.stderr,
+        )
+        return {}
+
+    overrides: dict[str, str] = {}
+    for email, login in payload.items():
+        normalized_email = str(email).strip().lower()
+        normalized_login = str(login).strip()
+        if normalized_email and normalized_login:
+            overrides[normalized_email] = normalized_login
+    return overrides
 
 
 def _normalize_username(username: str) -> str:
@@ -166,28 +186,59 @@ def search_github_email(email: str) -> str | None:
 
 def get_org_members(org: str) -> list[dict[str, Any]]:
     query = (
-        '{ organization(login: "'
-        + org
-        + '") { membersWithRole(first: 100) { nodes { login name } } } }'
+        "query($org:String!,$cursor:String){"
+        "organization(login:$org){"
+        "membersWithRole(first:100, after:$cursor){"
+        "nodes{login name}"
+        "pageInfo{hasNextPage endCursor}"
+        "}"
+        "}"
+        "}"
     )
-    result = _run_command(
-        [
+
+    cursor: str | None = None
+    members: list[dict[str, Any]] = []
+    seen_logins: set[str] = set()
+    while True:
+        command = [
             "gh",
             "api",
             "graphql",
             "-f",
             f"query={query}",
+            "-F",
+            f"org={org}",
             "--jq",
-            ".data.organization.membersWithRole.nodes",
-        ],
-    )
-    payload = json.loads(result.stdout)
-    if not isinstance(payload, list):
-        return []
-    members: list[dict[str, Any]] = []
-    for item in payload:
-        if isinstance(item, dict):
-            members.append(item)
+            ".data.organization.membersWithRole",
+        ]
+        if cursor is not None:
+            command.extend(["-F", f"cursor={cursor}"])
+
+        result = _run_command(command)
+        payload = json.loads(result.stdout)
+        if not isinstance(payload, dict):
+            break
+
+        nodes = payload.get("nodes", [])
+        if isinstance(nodes, list):
+            for item in nodes:
+                if not isinstance(item, dict):
+                    continue
+                login = str(item.get("login", "")).strip()
+                if not login or login in seen_logins:
+                    continue
+                seen_logins.add(login)
+                members.append(item)
+
+        page_info = payload.get("pageInfo", {})
+        if not isinstance(page_info, dict) or not page_info.get("hasNextPage"):
+            break
+
+        next_cursor = page_info.get("endCursor")
+        if not isinstance(next_cursor, str) or not next_cursor.strip():
+            break
+        cursor = next_cursor
+
     return members
 
 
@@ -195,12 +246,12 @@ def resolve_user_to_login(
     *,
     user: dict[str, str],
     members: list[dict[str, Any]],
+    email_to_github_overrides: dict[str, str],
 ) -> tuple[str | None, dict[str, Any] | None]:
     email = user.get("email", "").lower()
     username = user.get("username", "")
-
-    if email in _EMAIL_TO_GITHUB:
-        return _EMAIL_TO_GITHUB[email], None
+    if email in email_to_github_overrides:
+        return email_to_github_overrides[email], None
 
     if email:
         from_email = search_github_email(email)
@@ -291,6 +342,7 @@ def main() -> int:
     max_reviewers = max(1, int(args.max_reviewers))
     selected_users = users[:max_reviewers]
     members = get_org_members(args.github_org)
+    email_to_github_overrides = _load_email_to_github_overrides()
 
     reviewers: list[str] = []
     unresolved_users: list[dict[str, Any]] = []
@@ -298,6 +350,7 @@ def main() -> int:
         reviewer, unresolved = resolve_user_to_login(
             user=user,
             members=members,
+            email_to_github_overrides=email_to_github_overrides,
         )
         if reviewer:
             if reviewer not in reviewers:
