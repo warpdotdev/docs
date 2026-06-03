@@ -225,6 +225,15 @@ def main() -> int:
         licenses_path = _licenses_path_from_manifest(manifest_path=manifest_path)
 
     if licenses_path is None:
+        if args.dry_run:
+            eprint(
+                "[dry-run] No THIRD_PARTY_LICENSES source found from manifest or "
+                "--licenses-file. Skipping source-dependent license preview.",
+            )
+            eprint(
+                f"[dry-run] Would write {output_file} once a licenses source is available.",
+            )
+            return 0
         raise FileNotFoundError(
             "Unable to find THIRD_PARTY_LICENSES.txt. "
             "Run update_warp_app.py first, or pass --licenses-file explicitly.",

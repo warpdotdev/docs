@@ -177,6 +177,19 @@ def main() -> int:
             command = manifest_command
 
         if command:
+            if args.dry_run:
+                eprint(
+                    "[dry-run] Would execute telemetry command: "
+                    f"{shlex.join(command)}",
+                )
+                eprint(
+                    f"[dry-run] Would write telemetry JSON file: {telemetry_output_file}",
+                )
+                eprint(
+                    f"[dry-run] Would write {output_privacy_file} "
+                    "from telemetry command output.",
+                )
+                return 0
             events = _run_telemetry_command(command=command)
             source_description = "telemetry command output"
             if args.dry_run:
@@ -194,6 +207,16 @@ def main() -> int:
             source_description = str(telemetry_output_file)
 
     if events is None:
+        if args.dry_run:
+            eprint(
+                "[dry-run] No telemetry source available from manifest, "
+                "--telemetry-command, --telemetry-json-file, or telemetry.json.",
+            )
+            eprint(
+                f"[dry-run] Would write {output_privacy_file} "
+                "once telemetry source input is available.",
+            )
+            return 0
         raise RuntimeError(
             "No telemetry source available. "
             "Run update_warp_app.py first, pass --telemetry-command, "

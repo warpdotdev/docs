@@ -203,6 +203,7 @@ def _render_entry(version_key: str, changelog: dict[str, Any]) -> str:
 def _new_entries(
     stable_changelogs: dict[str, Any],
     cutoff_date: str | None,
+    year: int,
 ) -> list[str]:
     sortable: list[tuple[datetime, str, dict[str, Any]]] = []
     for version_key, payload in stable_changelogs.items():
@@ -218,6 +219,8 @@ def _new_entries(
     seen_dates: set[str] = set()
     entries: list[str] = []
     for parsed_date, version_key, payload in sortable:
+        if parsed_date.astimezone(timezone.utc).year != year:
+            continue
         display_date = parsed_date.strftime("%Y.%m.%d")
         if cutoff_date is not None and display_date <= cutoff_date:
             continue
@@ -292,7 +295,11 @@ def main() -> int:
         existing_body = ""
         cutoff_date = None
 
-    entries = _new_entries(stable_changelogs=stable_changelogs, cutoff_date=cutoff_date)
+    entries = _new_entries(
+        stable_changelogs=stable_changelogs,
+        cutoff_date=cutoff_date,
+        year=year,
+    )
     if entries:
         merged_body = "".join(entries)
         if existing_body.strip():
