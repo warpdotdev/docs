@@ -35,7 +35,7 @@ Use the following labels when triaging docs issues:
 
 **Status labels:**
 - `triage` — Always apply on new issues. Signals the issue needs human review.
-- `ready-to-implement` — Apply only when the issue is clear, the affected page is identified, and the fix is straightforward enough to implement without further discussion. Do not apply when the issue needs product clarification, design input, or significant investigation.
+- `ready-to-implement` — Reserved for human maintainers. Do not apply automatically; mention implementation readiness in the triage analysis instead.
 
 **Existing template labels** (applied automatically by issue templates — do not remove):
 - `bug` — Applied by the "Docs site bug" template
