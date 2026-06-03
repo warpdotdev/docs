@@ -82,7 +82,7 @@ Your team must meet the following requirements to run integrations:
 When a user triggers an agent through an integration (like Slack or Linear), the run draws from credits based on who the run is billed to:
 
 * **User-triggered runs on Build, Max, or Business** - Warp draws from any [cloud agent credits](/support-and-community/plans-and-billing/credits/#compute-credits) the user has, then the user's plan-included credits, then the user's add-on credits. Add-on credits are scoped to the individual user and are not shared across the team.
-* **Agent API key or scheduled cloud agent runs on Build, Max, or Business** - Warp bills the team owner. The waterfall is: the owner's plan-included credits, then the owner's add-on credits. With auto-reload off, the request is blocked when both pools are depleted. With auto-reload on, usage can trigger a reload on the owner's pool subject to the team-wide monthly spend cap.
+* **Agent API key or scheduled cloud agent runs on Build, Max, or Business** - Warp bills the team owner. The waterfall is: the owner's plan-included credits, then the owner's add-on credits. With auto-reload off, the request is blocked when both pools are depleted. With auto-reload on, usage can trigger a reload on the owner's pool subject to the team-wide monthly spend cap; once the cap is reached, runs are blocked until the cap resets or increases.
 * **Enterprise plans** - Runs draw from the team-scoped credit pool, per your Enterprise contract terms.
 
 If all applicable credit sources are exhausted and no auto-reload is configured, integrations and cloud agents will not run until credits are added. See [add-on credits](/support-and-community/plans-and-billing/add-on-credits/) for the full self-serve waterfall and [platform credits](/support-and-community/plans-and-billing/platform-credits/) for the third bucket that applies to every cloud agent run.
@@ -197,7 +197,7 @@ Warp’s behavior in GitHub is defined by two layers of control:
 **In practice, agents can only operate on repositories that:**
 
 * Are included in the environment configuration
-* Are accessible to both the GitHub app and the triggering user
+* Are accessible to both the GitHub app and the triggering user.
 
 ---
 
@@ -248,6 +248,16 @@ Because triggers and instructions are configured by your team, the credits consu
 * **Enterprise** - All runs draw from the team-scoped credit pool, per your Enterprise contract terms.
 
 It's the team's responsibility to manage triggers, confirm they behave as intended, and monitor usage. Reviewing triggers, prompts, and agent behavior periodically helps ensure that credit usage aligns with expectations.
+
+---
+
+## Troubleshooting
+
+If a cloud agent or integration run fails with an error code, use the error reference to narrow the fix:
+
+* **Missing GitHub or external authorization** - See [`external_authentication_required`](/reference/api-and-sdk/troubleshooting/errors/external-authentication-required/) when a user needs to authorize GitHub, Slack, or Linear before a run can continue.
+* **Insufficient repo permissions** - See [`not_authorized`](/reference/api-and-sdk/troubleshooting/errors/not-authorized/) when the triggering user or GitHub App lacks access to the repo the agent needs.
+* **Credits or spend caps block a run** - See [`insufficient_credits`](/reference/api-and-sdk/troubleshooting/errors/insufficient-credits/) or [`budget_exceeded`](/reference/api-and-sdk/troubleshooting/errors/budget-exceeded/) when the billed account has depleted credits or reached a configured spend cap.
 
 ---
 

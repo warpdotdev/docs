@@ -94,6 +94,31 @@ DEFAULT_SLACK_CHANNEL = os.environ.get("SLACK_CHANNEL_ID", "")
 
 TERMINOLOGY_FILE = Path(".warp/references/terminology.md")
 
+STANDARD_SCREENSHOT_WIDTHS = {"300px", "350px", "375px", "563px"}
+
+SCREENSHOT_PATH_HINTS = (
+    "/assets/",
+    "../../assets/",
+    "../../../assets/",
+    "../../../../assets/",
+    "../../../../../assets/",
+    ".png",
+    ".gif",
+    ".jpg",
+    ".jpeg",
+    ".webp",
+)
+
+NON_SCREENSHOT_HINTS = (
+    "architecture",
+    "diagram",
+    "flowchart",
+    "infra",
+    "infrastructure",
+    "logo",
+    "use-cases",
+)
+
 # Common bolded words that are NOT product terms (false positive suppression)
 COMMON_BOLD_WORDS = {
     # General emphasis words
@@ -335,6 +360,84 @@ def check_image_alt_text(lines: List[str], filepath: str) -> List[Issue]:
     return issues
 
 
+def _is_likely_screenshot(markdown_image_line: str) -> bool:
+    """Return True for UI/product screenshots while avoiding diagrams/logos."""
+    lower = markdown_image_line.lower()
+    if not any(hint in lower for hint in SCREENSHOT_PATH_HINTS):
+        return False
+    if any(hint in lower for hint in NON_SCREENSHOT_HINTS):
+        return False
+    return True
+
+
+def _figure_width(line: str) -> Optional[str]:
+    """Extract a maxWidth value from an MDX figure opening tag."""
+    match = re.search(r"maxWidth:\s*[\"']([^\"']+)[\"']", line)
+    if match:
+        return match.group(1)
+    return None
+
+
+def check_screenshot_widths(lines: List[str], filepath: str) -> List[Issue]:
+    """Check that screenshot images use standardized width-controlled figures.
+
+    The docs style guide asks screenshots to use consistent widths. This check
+    flags likely UI/product screenshots that are standalone Markdown images or
+    figure-wrapped images missing a standard maxWidth. Architecture diagrams,
+    logos, and broad conceptual illustrations are intentionally excluded by
+    filename/alt-text hints because they often need default content width.
+    """
+    issues = []
+    in_code_block = False
+    figure_start_line: Optional[int] = None
+    figure_opening = ""
+    figure_has_likely_screenshot = False
+
+    for i, line in enumerate(lines, 1):
+        stripped = line.strip()
+        if stripped.startswith("```"):
+            in_code_block = not in_code_block
+            continue
+        if in_code_block:
+            continue
+
+        if "<figure" in line:
+            figure_start_line = i
+            figure_opening = line
+            figure_has_likely_screenshot = False
+
+        if "![" in line and _is_likely_screenshot(line):
+            if figure_start_line is None:
+                issues.append(Issue(
+                    filepath, i, "screenshot-width",
+                    "Likely screenshot image should be wrapped in a <figure> with a standard maxWidth (300px, 350px, 375px, or 563px)",
+                    "warning",
+                ))
+            else:
+                figure_has_likely_screenshot = True
+
+        if "</figure>" in line and figure_start_line is not None:
+            if figure_has_likely_screenshot:
+                width = _figure_width(figure_opening)
+                if width is None:
+                    issues.append(Issue(
+                        filepath, figure_start_line, "screenshot-width",
+                        "Screenshot figure is missing a standard maxWidth (300px, 350px, 375px, or 563px)",
+                        "warning",
+                    ))
+                elif width not in STANDARD_SCREENSHOT_WIDTHS:
+                    issues.append(Issue(
+                        filepath, figure_start_line, "screenshot-width",
+                        f"Screenshot figure uses non-standard maxWidth \"{width}\"; use one of {', '.join(sorted(STANDARD_SCREENSHOT_WIDTHS))}",
+                        "warning",
+                    ))
+            figure_start_line = None
+            figure_opening = ""
+            figure_has_likely_screenshot = False
+
+    return issues
+
+
 def check_callout_syntax(lines: List[str], filepath: str) -> List[Issue]:
     """Check for malformed hint/callout syntax."""
     issues = []
@@ -563,6 +666,7 @@ def run_all_checks(filepath: Path) -> List[Issue]:
     issues.extend(check_ui_element_backticks(lines, str(filepath)))
     issues.extend(check_header_case(lines, str(filepath)))
     issues.extend(check_image_alt_text(lines, str(filepath)))
+    issues.extend(check_screenshot_widths(lines, str(filepath)))
     issues.extend(check_callout_syntax(lines, str(filepath)))
     issues.extend(check_product_casing(lines, str(filepath)))
     issues.extend(check_oz_terms(lines, str(filepath)))

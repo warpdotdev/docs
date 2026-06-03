@@ -12,6 +12,8 @@ Run agents directly in your GitHub Actions workflows using `oz-agent-action`. Th
 **Getting started?** See the [GitHub Actions quickstart](/agent-platform/cloud-agents/integrations/quickstart-github-actions/) to set up your first workflow, or visit the [oz-agent-action repository](https://github.com/warpdotdev/oz-agent-action) for detailed setup instructions and ready-to-use workflow templates.
 :::
 
+If you're comparing GitHub Actions with schedules, Slack, Linear, the Oz CLI, or API-triggered runs, see [Run agents unattended with schedules and triggers](/guides/agent-workflows/how-to-run-unattended-agents/).
+
 Watch this demo to see the integration in action:
 
 <VideoEmbed url="https://www.loom.com/share/534f88b6a98e43ca9769ca09de6424b5" />
@@ -62,6 +64,12 @@ You can specify a skill using the `skill` input parameter, either instead of or 
     skill: 'code-review'
     warp_api_key: ${{ secrets.WARP_API_KEY }}
 ```
+
+:::tip
+If the action fails, use the returned error code to narrow the fix. Common errors include:
+
+* [`authentication_required`](/reference/api-and-sdk/troubleshooting/errors/authentication-required/) (missing, invalid, or expired `warp_api_key` secret)
+:::
 
 #### Skill format options
 

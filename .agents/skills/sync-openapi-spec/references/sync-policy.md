@@ -22,9 +22,8 @@ The `/harness-support/*` endpoints form the worker-to-server contract used by Oz
 
 ## Excluded paths (within otherwise-public tags)
 
-These five `agent`-tag paths are excluded individually because the `agent` tag itself remains public:
+These four `agent`-tag paths are excluded individually because the `agent` tag itself remains public:
 
-- `/agent/runs/{runId}/followups` — internal followup-prompt mechanism used by the harness; not for direct customer use.
 - `/agent/runs/{runId}/handoff/attachments` — handoff plumbing tied to local-to-cloud session handoff.
 - `/agent/handoff/upload-snapshot` — handoff plumbing (snapshot upload from a local worker).
 - `/agent/conversations/{conversation_id}/fork` — conversation-forking primitive used by the harness, not stable public API.

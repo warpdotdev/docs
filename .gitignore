@@ -23,3 +23,6 @@ pnpm-debug.log*
 __pycache__/
 .vercel
 .env*.local
+
+# Trunk tools cache
+.trunk/tools

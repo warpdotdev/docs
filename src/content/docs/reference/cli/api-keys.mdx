@@ -81,7 +81,7 @@ $ oz agent run --api-key "wk-xxx..." --prompt "analyze this codebase"
 ```
 
 :::note
-API keys start with the prefix `wk-`. If your key doesn't have this prefix, it may be invalid or from an older format.
+API keys start with the prefix `wk-`. If your key doesn't have this prefix, it may be [invalid or from an older format](/reference/api-and-sdk/troubleshooting/errors/authentication-required/).
 :::
 
 ## Managing API keys
@@ -102,7 +102,7 @@ The Warp app also shows additional metadata that isn't surfaced in the Oz web ap
 
 To delete an API key, find it in either the Oz web app or the Warp app's API Keys list and click the delete icon next to the key.
 
-Deleted keys are immediately invalidated and cannot be recovered. Any services or scripts using the deleted key will lose access.
+Deleted keys are immediately invalidated and cannot be recovered. Any services or scripts using the deleted key will lose access and may return an [`authentication_required` error](/reference/api-and-sdk/troubleshooting/errors/authentication-required/).
 
 ## Best practices
 

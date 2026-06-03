@@ -1,7 +1,7 @@
 ---
 title: Model Context Protocol (MCP)
 description: >-
-  Configure MCP servers in the Warp desktop app to extend local agents with
+  Configure MCP servers in the Warp app to extend local agents with
   custom tools and data sources through a standardized interface.
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
@@ -12,7 +12,7 @@ MCP servers extend Warp's [local agents](/agent-platform/local-agents/interactin
 MCP is an open source protocol. Check out the official [MCP documentation](https://modelcontextprotocol.io/introduction) for more detailed information on how this protocol is engineered.
 
 :::note
-This page covers MCP servers for local agents in the Warp desktop app. If you're using cloud agents, see [MCP Servers for cloud agents](/agent-platform/cloud-agents/mcp/).
+This page covers MCP servers for local agents in the Warp app. For help choosing between local, cloud, and shared MCP workflows, see [Connect developer tools to agents with MCP workflows](/guides/external-tools/using-mcp-servers-with-warp/). If you're using cloud agents, see [MCP Servers for cloud agents](/agent-platform/cloud-agents/mcp/).
 :::
 
 ### How to access MCP Server settings
@@ -26,7 +26,7 @@ You can navigate to the MCP servers page in any of the following ways:
 
 This will show a list of all configured MCP servers, including which are currently running. If you close Warp with an MCP server running, it will run again on next start of Warp. MCP servers that are stopped will remain so on next launch of Warp.
 
-<figure>
+<figure style={{ maxWidth: "563px" }}>
 ![MCP servers page](../../../../assets/agent-platform/mcp-servers-list.png)
 <figcaption>MCP servers page.</figcaption>
 </figure>
@@ -41,7 +41,7 @@ MCP server types you can add:
   <TabItem label="CLI Server (Command)">
     Provide a startup command. Warp will launch this command when starting up and shut it down on exit.
 
-    <figure>
+    <figure style={{ maxWidth: "375px" }}>
     ![Adding a CLI MCP Server (Command)](../../../../assets/agent-platform/mcp-servers-add-cli.png)
     <figcaption>Adding a CLI MCP Server (Command).</figcaption>
     </figure>
@@ -62,7 +62,7 @@ MCP server types you can add:
   <TabItem label="Streamable HTTP or SSE Server (URL)">
     Provide a URL where Warp can reach an already-running MCP server that supports Server-Sent Events.
 
-    <figure>
+    <figure style={{ maxWidth: "375px" }}>
     ![Adding an SSE MCP Server (URL)](../../../../assets/agent-platform/mcp-servers-add-sse.png)
     <figcaption>Adding an SSE MCP Server (URL).</figcaption>
     </figure>
@@ -134,7 +134,10 @@ To auto-spawn global servers from third-party agents:
 1. In the Warp app, go to **Settings** > **Agents** > **MCP servers**.
 2. Toggle **Auto-spawn servers from third-party agents** on.
 
+<figure style={{ maxWidth: "375px" }}>
 ![Toggle to auto-spawn global file-based MCP servers](/assets/agent-platform/file-based-mcp-setting.png)
+<figcaption>File-based MCP server settings.</figcaption>
+</figure>
 
 Project-scoped servers from any provider must be toggled on individually from the MCP servers page. These are session-scoped — after restarting Warp, toggle them on again if you still trust the repo.
 
@@ -170,7 +173,7 @@ You can rename and edit a server's name, as well as delete the server. If you ar
 
 MCP servers can be shared with your teammates by clicking the share icon. When sharing, sensitive values in the `env` configuration will be automatically scrubbed and replaced with variables.
 
-<figure>
+<figure style={{ maxWidth: "375px" }}>
 ![Sharing a MCP Server](../../../../assets/agent-platform/mcp-servers-share.png)
 <figcaption>Sharing a MCP Server.</figcaption>
 </figure>

@@ -70,6 +70,7 @@ Team admins can enforce telemetry settings organization-wide through the Admin P
 * **Codebase Context** - During indexing, code is sent to Warp's servers to generate embeddings; the raw code is not stored, only the resulting embeddings are retained
 * **Agent requests** - Warp sends requests to contracted LLM providers (Anthropic, OpenAI, Google) with Zero Data Retention agreements for Enterprise teams
 * **BYOLLM** - Requests are proxied through Warp's servers to your cloud infrastructure, where inference runs. Warp does not store the content of these requests.
+* **Self-hosted cloud agent execution** - Repository clones, build artifacts, runtime secrets, and execution workspaces stay on your infrastructure. Orchestration metadata, session transcripts, and LLM inference requests and responses route through Warp under ZDR, and can include code context from agent interactions.
 
 ### Encryption
 
@@ -166,7 +167,7 @@ Security-relevant controls include:
 
 Route agent inference through your own cloud infrastructure for complete control:
 
-* **Data locality** - Cloud agent inference runs in your AWS account
+* **Data locality** - Interactive agent inference runs in your AWS account
 * **Cloud-native IAM** - Authenticate using your user's existing identity and access management process
 * **No key storage** - Warp never stores your cloud credentials or API keys
 * **Billing control** - Inference costs billed directly to your cloud account

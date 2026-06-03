@@ -6,7 +6,7 @@ description: >-
   control.
 ---
 
-Self-hosting lets your team run cloud agent workloads on your own infrastructure instead of Warp-managed servers. You control the execution environment, compute resources, and network access. Repositories are cloned and stored only on your machines, and agents can reach services behind your VPN or firewall.
+Self-hosting lets your team run cloud agent workloads on your own infrastructure instead of Warp-managed servers. You control the execution environment, compute resources, and network access. Repository clones, source files, build artifacts, runtime secrets, and agent execution workspaces stay on your infrastructure, and agents can reach services behind your VPN or firewall.
 
 **New to self-hosting?** Start with the [Self-hosting quickstart](/agent-platform/cloud-agents/self-hosting/quickstart/) to get a managed worker running on Docker in under 10 minutes.
 
@@ -39,6 +39,8 @@ The two architectures are not mutually exclusive. Some teams run managed workers
 ## How self-hosting works
 
 Warp uses a split-plane architecture: **execution happens on your infrastructure**, while **orchestration, session management, and LLM inference route through Warp's backend**. Agent interactions — including code context in session transcripts and LLM prompts — transit Warp's control plane under [Zero Data Retention (ZDR)](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr) agreements. Warp does not persistently store your source code or train on it.
+
+If your security requirement is "repository clones and execution must stay on our infrastructure," self-hosting is designed for that. If your requirement is "no code context can ever route through Warp or an external LLM provider," review [Security and networking](/agent-platform/cloud-agents/self-hosting/security-and-networking/) with your Warp account team before deploying.
 
 ![Self-hosted Oz architecture showing customer-managed execution with Oz orchestration](../../../../../assets/agent-platform/customer-dedicated-saas.png)
 
@@ -181,7 +183,7 @@ When creating a run, schedule, or integration in the [Oz web app](https://oz.war
 
 Self-hosted workers fully support [environments](/agent-platform/cloud-agents/environments/). When a task specifies an environment, the worker resolves the Docker image, clones the repositories, runs setup commands, and executes the agent inside the prepared container or Kubernetes Job.
 
-The same environment can be used for both Warp-hosted and self-hosted runs without modification. See [Environments](/agent-platform/cloud-agents/environments/) for details on creating and configuring them.
+The same environment can be used for both Warp-hosted and self-hosted runs without modification. If your agents need custom tools, binaries, scripts, or system packages, add them to the environment's Docker image. See [Environments](/agent-platform/cloud-agents/environments/) for details on creating and configuring custom images.
 
 :::note
 With the Kubernetes backend, setting a [`default_image`](/agent-platform/cloud-agents/self-hosting/reference/#kubernetes-backend-config) on the worker lets you skip creating a Warp environment when all your tasks use the same base image.

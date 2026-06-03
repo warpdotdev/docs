@@ -1,0 +1,62 @@
+---
+title: agent_process_failed
+description: >-
+  The agent process exited unexpectedly during task execution. Retry the task
+  or contact support if it recurs consistently.
+---
+
+The `agent_process_failed` error occurs when the agent process exits unexpectedly after environment setup has completed, before the task reaches a normal terminal state.
+
+:::note
+This is classified as a **platform error** (task state → ERROR) rather than a user error. It differs from [`environment_setup_failed`](/reference/api-and-sdk/troubleshooting/errors/environment-setup-failed/), which covers failures that happen while initializing the environment (cloning the repo, running setup commands, starting MCP servers). `agent_process_failed` covers failures that happen during the agent's active execution phase.
+:::
+
+---
+
+## Details
+
+* **HTTP Status:** `500 Internal Server Error`
+* **Retryable:** No
+* **Task State:** ERROR
+
+---
+
+## When does this occur?
+
+This error is returned when:
+
+* The agent process exits with a non-zero exit code after environment setup has completed
+* An unrecoverable runtime error occurs inside the agent process while it is handling the task
+* The agent process is terminated by the operating system (for example, due to an out-of-memory kill or a segmentation fault)
+
+---
+
+## Example response
+
+```json
+{
+  "type": "/reference/api-and-sdk/troubleshooting/errors/agent-process-failed/",
+  "title": "The agent process exited unexpectedly.",
+  "status": 500,
+  "instance": "/api/v1/agent/tasks",
+  "error": "The agent process exited unexpectedly.",
+  "retryable": false,
+  "trace_id": "abc123..."
+}
+```
+
+---
+
+## How to resolve
+
+1. Retry the task. Occasional process failures are transient.
+2. If the error recurs consistently, look for triggers in the task itself: very large prompts or attached context, memory-heavy tools spawned by the agent, or setup steps that leave the environment in a degraded state.
+3. Contact [Warp support](/support-and-community/troubleshooting-and-support/sending-us-feedback/) and include the `trace_id` from the error response if the issue persists.
+
+---
+
+## Related
+
+* [Cloud Agents Overview](/agent-platform/cloud-agents/overview/) — How cloud agent tasks work
+* [environment_setup_failed](/reference/api-and-sdk/troubleshooting/errors/environment-setup-failed/) — Errors during environment setup
+* [internal_error](/reference/api-and-sdk/troubleshooting/errors/internal-error/) — Catch-all for unexpected server-side errors
