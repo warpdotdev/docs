@@ -50,6 +50,11 @@ You can create an API key in either the [Oz web app](https://oz.warp.dev/setting
 The key type determines who the run is attributed to, which credit pool is billed, and which GitHub credentials the agent can use.
 
 **Personal API keys**
+## How key type affects billing and GitHub access
+
+The key type determines who the run is attributed to, which credit pool is billed, and which GitHub credentials the agent can use.
+
+**Personal API keys**
 
 * Run as you.
 * On Build, Max, and Business plans, use your plan-included credits, then your add-on credits. On Enterprise plans, use the team-scoped credit pool.
@@ -62,7 +67,6 @@ The key type determines who the run is attributed to, which credit pool is bille
 * Use the **Oz by Warp** GitHub App when [team GitHub authorization](/agent-platform/cloud-agents/team-access-billing-and-identity/#team-github-authorization) is configured. Without team GitHub authorization, agent keys are still useful for tasks that don't need to write to GitHub, such as analysis, monitoring, or triage.
 
 For the full credit waterfall, see [Access, billing, and identity permissions](/agent-platform/cloud-agents/team-access-billing-and-identity/) and [add-on credits](/support-and-community/plans-and-billing/add-on-credits/).
-
 ## Authenticating with API keys
 
 You can authenticate with an API key in the CLI using either an environment variable or a command flag. Environment variables are recommended for security and easier reuse across multiple commands.
