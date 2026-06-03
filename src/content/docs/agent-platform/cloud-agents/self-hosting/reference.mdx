@@ -20,7 +20,7 @@ The following flags are available when starting the worker.
 ### Required
 
 * `--worker-id` — A string identifying this worker. This is the value you pass to `--host` when routing tasks. Choose something meaningful for your team (e.g., `prod-runner-1` or `ci-worker`). Multiple workers can share the same ID for load balancing.
-* `--api-key` or `WARP_API_KEY` env var — Your agent API key for authentication. When running via Docker, pass it as `-e WARP_API_KEY="..."`. When running the binary directly, use `--api-key` or the environment variable.
+* `--api-key` or `WARP_API_KEY` env var — Your agent API key for authentication. You can bind the key to any cloud agent — that choice doesn't restrict which agents can run on the worker. When running via Docker, pass it as `-e WARP_API_KEY="..."`. When running the binary directly, use `--api-key` or the environment variable.
 
 ### Optional
 
