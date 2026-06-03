@@ -14,7 +14,7 @@ BYOLLM currently supports **AWS Bedrock** only. Coming soon: Azure Foundry and G
 :::
 
 :::note
-BYOLLM is only available on Warp's Enterprise plan. Contact [warp.dev/contact-sales](https://www.warp.dev/contact-sales) to learn more.
+BYOLLM is only available on Warp's Enterprise plan. Contact [contact sales](https://www.warp.dev/contact-sales) to learn more.
 :::
 
 ## Key features
@@ -169,7 +169,7 @@ The role setup has two parts:
 
 #### Trust policy requirements
 
-This trust policy authorizes any cloud-hosted run from your team. The `sub` claim Warp signs has the shape `scoped_principal:<team-uid>/<actor-type>:<principal-uid>`, where `<actor-type>` is `user` for user-triggered runs or `service_account` for [agent identity](/agent-platform/cloud-agents/agents/) runs. The `<team-uid>/*` pattern below covers both.
+This trust policy authorizes any cloud-hosted run from your team. The `sub` claim Warp signs has the shape `scoped_principal:<team-uid>/<actor-type>:<principal-uid>`, where `<actor-type>` is `user` for user-triggered runs or `service_account` for [cloud agent](/agent-platform/cloud-agents/agents/) runs. The `<team-uid>/*` pattern below covers both.
 
 **Example trust policy**
 

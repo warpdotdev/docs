@@ -105,7 +105,7 @@ If you comment out the rc files (i.e. `~/.zshrc`, `~/.bashrc`, `~/.config/fish/c
 
 ### Configuring and debugging your RC files
 
-To support Blocks ([custom hooks](https://www.warp.dev/blog/how-warp-works/#implementing-blocks)), a native Input Editor experience, AI blocks, etc. we have built custom support for a subset of shell functionality (decouple functionality from the shell and move to the terminal). This leads to Warp being incompatible with various tools and plugins. Please see the [list of incompatible](/support-and-community/troubleshooting-and-support/known-issues/#list-of-incompatible-tools) tools to find the tools that are known not to work with Warp.
+To support Blocks ([custom hooks](https://www.warp.dev/blog/how-warp-works#implementing-blocks)), a native Input Editor experience, AI blocks, etc. we have built custom support for a subset of shell functionality (decouple functionality from the shell and move to the terminal). This leads to Warp being incompatible with various tools and plugins. Please see the [list of incompatible](/support-and-community/troubleshooting-and-support/known-issues/#list-of-incompatible-tools) tools to find the tools that are known not to work with Warp.
 
 Unlike typical terminals which are essentially continuous character grids, each section of Warp is its own (separate) UI element. Please see our [Prompt](/terminal/appearance/prompt/) page for more information on custom prompts.
 
@@ -222,7 +222,7 @@ The following non-exhaustive list of plugins, prompts, or tools can cause potent
 
     **Unexpected loss of permission on macOS**
 
-    On macOS, you may see an `Operation not permitted` error when trying to run commands in directories that have already been granted macOS permissions (Documents, Downloads, Desktop, etc). The best workaround at this time is to [apply any pending updates](/support-and-community/troubleshooting-and-support/updating-warp/) so that the new Warp binary has the correct permissions. We are tracking this issue [here](https://github.com/warpdotdev/Warp/issues/3009).
+    On macOS, you may see an `Operation not permitted` error when trying to run commands in directories that have already been granted macOS permissions (Documents, Downloads, Desktop, etc). The best workaround at this time is to [apply any pending updates](/support-and-community/troubleshooting-and-support/updating-warp/) so that the new Warp binary has the correct permissions. We are tracking this issue in [GitHub issue #3009](https://github.com/warpdotdev/Warp/issues/3009).
 
     <figure>
     ![Permission error on macOS](../../../../assets/support-and-community/permission-error-macos.png)
@@ -309,7 +309,7 @@ The following non-exhaustive list of plugins, prompts, or tools can cause potent
 
     **Update fails after upgrading Linux**
 
-    Some Linux distros may modify Warp's package repository during the OS upgrades. We're aware of this on Ubuntu, but this may affect other Linux distros. We're tracking this issue on GitHub [here](https://github.com/warpdotdev/Warp/issues/5201).\
+    Some Linux distros may modify Warp's package repository during the OS upgrades. We're aware of this on Ubuntu, but this may affect other Linux distros. We're tracking this issue in [GitHub issue #5201](https://github.com/warpdotdev/Warp/issues/5201).\
     \
     To workaround this issue, manually add the repository to update Warp. The Ubuntu example is below:
 

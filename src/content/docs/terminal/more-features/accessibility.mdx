@@ -6,7 +6,7 @@ description: >-
 ---
 
 :::note
-Note that currently, these instructions are for macOS only. Warp doesn't support screen readers on Linux or Windows and it's being tracked here: [https://github.com/warpdotdev/Warp/issues/3847](https://github.com/warpdotdev/Warp/issues/3847)
+Note that currently, these instructions are for macOS only. Warp doesn't support screen readers on Linux or Windows. We're tracking screen reader support in [GitHub issue #3847](https://github.com/warpdotdev/Warp/issues/3847).
 :::
 
 We recognize the need to improve the experience for those visually impaired, as - to our best knowledge - other terminal emulator apps didn't do a good job in this area. This doc summarizes what we've done so far, how Warp works with VoiceOver, and outlines the main changes from the typical workflow. For the features documentation and its keyboard shortcuts, please go to the feature-specific page in the documentation.
@@ -35,7 +35,7 @@ A main entry point for discovering new features and actions is our Command Palet
 
 As you may notice, typical Voice Over navigation keys or settings do not currently work in Warp. In short - it's related to how our UI Framework is currently implemented and that as of now we don't yet offer a keyboard-accessible way to navigate the UI elements.
 
-Instead, whenever you perform an action and/or something happens in the background, Warp announces it to you, letting you know what's going on and what possible actions you can take. Since it's a terminal, we care about all user actions being keyboard accessible from the start, so pretty much all our features have the assigned keybindings already. You can adjust the default keybindings following the guide from this GitHub repository: [https://github.com/warpdotdev/keysets](https://github.com/warpdotdev/keysets). You can also always fall back to using cmd-p to check the keybinding or execute the specific action.
+Instead, whenever you perform an action and/or something happens in the background, Warp announces it to you, letting you know what's going on and what possible actions you can take. Since it's a terminal, we care about all user actions being keyboard accessible from the start, so pretty much all our features have the assigned keybindings already. You can adjust the default keybindings by following the [Warp keysets repository](https://github.com/warpdotdev/keysets). You can also always fall back to using cmd-p to check the keybinding or execute the specific action.
 
 ### A11y specific actions
 
