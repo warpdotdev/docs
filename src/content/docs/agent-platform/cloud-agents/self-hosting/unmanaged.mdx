@@ -2,7 +2,7 @@
 title: Unmanaged architecture
 description: >-
   Run agents in your existing CI, Kubernetes, or dev environments using
-  the oz agent run CLI with Warp tracking and observability.
+  the `oz agent run` CLI with Warp tracking and observability.
 sidebar:
   label: "Unmanaged"
 ---
@@ -33,14 +33,14 @@ No Docker, no worker daemon, no environment required — just the Oz CLI on any 
 ### Prerequisites
 
 * **The Oz CLI** installed on the machine where agents will run. See [Installing the CLI](/reference/cli/#installing-the-cli) for platform-specific instructions.
-* **A Warp API key** — For automation, create a team-scoped API key in the Warp app at **Settings** > **Cloud platform** > **Oz Cloud API Keys**. See [API Keys](/reference/cli/api-keys/) for details.
+* **A Warp API key** — For automation, create an agent API key in the [Oz web app](https://oz.warp.dev/settings). See [API Keys](/reference/cli/api-keys/) for personal vs. agent guidance.
 
 ### 1. Authenticate
 
 Export your API key so the CLI can authenticate requests automatically:
 
 ```bash
-export WARP_API_KEY="your_team_api_key"
+export WARP_API_KEY="your_agent_api_key"
 ```
 
 ### 2. Run an agent
@@ -63,7 +63,7 @@ Use `--share` to control who can attach to the session and steer the agent:
 * `--share user@example.com` — Give a specific user read-only access.
 * `--share user@example.com:edit` — Give a specific user read/write access.
 
-The `--share` flag can be repeated to combine multiple sharing targets. If you authenticate with a team API key, agents are automatically team-scoped.
+The `--share` flag can be repeated to combine multiple sharing targets. If you authenticate with an agent API key, runs are automatically team-scoped.
 
 ---
 
