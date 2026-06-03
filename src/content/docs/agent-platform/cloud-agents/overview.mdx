@@ -18,20 +18,20 @@ To understand what a cloud agent did, start from the [Agent Management Panel](/a
 
 For a full walkthrough, see [Viewing cloud agent runs](/agent-platform/cloud-agents/viewing-cloud-agent-runs/). If the run came from Slack, Linear, GitHub Actions, a schedule, the CLI, or the API, it still produces a reviewable cloud agent run record.
 
-<VideoEmbed url="https://youtu.be/poLkJhO7fdo" />
+<VideoEmbed url="https://youtu.be/poLkJhO7fdo" title="Cloud agents overview" />
 
 ### What cloud agents are designed for
 
 Cloud agents are designed for situations where:
 
 * **You need agents to react to system events.**
-  * Examples include crashes, bug reports, Slack interactions, cron timers, or CI steps.
+  * Examples include crashes, bug reports, [Slack interactions](/agent-platform/cloud-agents/integrations/slack/), cron timers, or CI steps.
 * **You want observability into agent activity across a team or system.**
   * This includes being able to see what ran, when it ran, what triggered it, what the agent did, and how teammates can review or share the result.
 * **You need more parallelism than local execution typically allows.**
   * For example, running many agent tasks concurrently in the cloud, sharding a repo-wide task into multiple runs, or fanning out the same task across multiple targets.
 * **You want agents to operate continuously as part of engineering infrastructure.**
-  * This includes scheduled maintenance tasks and integration-driven automation.
+  * This includes [scheduled maintenance tasks](/agent-platform/cloud-agents/triggers/scheduled-agents/) and integration-driven automation.
 
 ![Oz use cases across the development lifecycle: Plan, Prototype, Build, Validate, Review + Merge, Deploy + Monitor](../../../../assets/agent-platform/oz-use-cases.png)
 
