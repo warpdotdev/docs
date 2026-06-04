@@ -10,7 +10,7 @@ import VideoEmbed from '@components/VideoEmbed.astro';
 
 Warp includes native web search for models that support first-party search tools. When enabled, agents can look up information in real time, consult documentation, retrieve current version numbers, and cite the sources used to generate responses.
 
-<VideoEmbed url="https://www.loom.com/share/06a4ba98f2e0446d80cb37aa4c23848c" />
+<VideoEmbed url="https://www.loom.com/share/06a4ba98f2e0446d80cb37aa4c23848c" title="Web search in Warp" />
 
 This page covers how web search works, supported models, what you can expect inside Warp, configuration options, and how this differs from attaching URLs directly to a prompt.
 
@@ -52,8 +52,8 @@ Web search is available only for models that offer a native web search integrati
 
 Warp uses each vendor’s official tool:
 
-* **Claude Web Search**: [https://docs.claude.com/en/docs/agents-and-tools/tool-use/web-search-tool](https://docs.claude.com/en/docs/agents-and-tools/tool-use/web-search-tool)
-* **OpenAI Web Search**: [https://developers.openai.com/api/docs/guides/tools-web-search](https://developers.openai.com/api/docs/guides/tools-web-search)
+* [Claude web search tool documentation](https://docs.claude.com/en/docs/agents-and-tools/tool-use/web-search-tool)
+* [OpenAI web search tool documentation](https://developers.openai.com/api/docs/guides/tools-web-search)
 
 :::note
 **Note**: We plan to add native web search for additional models as soon as their APIs fully support it. We’ll continue updating the list of search-capable models as vendors roll out broader tooling. We're also exploring custom web search tools that'll work across all models.

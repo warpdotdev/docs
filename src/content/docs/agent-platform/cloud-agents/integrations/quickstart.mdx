@@ -27,7 +27,7 @@ Oz integrations let you trigger cloud agents directly from the tools your team a
 
 The simplest way to set up the integration is **using the Oz web app**:
 
-1. Navigate to the Oz web app at [oz.warp.dev/integrations](https://oz.warp.dev/integrations).
+1. Navigate to the [Integrations page in the Oz web app](https://oz.warp.dev/integrations).
 2. Click **Slack**.
 3. Follow the guided flow to select your environment and authorize Oz in your Slack workspace.
 
@@ -42,6 +42,13 @@ oz integration create slack --environment <ENV_ID>
 ```
 
 Replace `<ENV_ID>` with your environment ID (see [Environments](/agent-platform/cloud-agents/environments/) if you need to create one). Find it with `oz environment list` on the Oz CLI or in the [Oz web app](https://oz.warp.dev). The CLI opens a browser window to authorize the Oz app in your workspace.
+
+:::tip
+If the integration cannot be created or your first run cannot start, use the returned error code to narrow the fix. Common errors include:
+
+* [`feature_not_available`](/reference/api-and-sdk/troubleshooting/errors/feature-not-available/) (plan does not support integrations)
+* [`external_authentication_required`](/reference/api-and-sdk/troubleshooting/errors/external-authentication-required/) (missing GitHub or Slack authorization)
+:::
 
 To attach a default prompt that applies to every agent run triggered from this integration, add the `--prompt` flag:
 
@@ -66,7 +73,7 @@ You can also tag @Oz inside an existing thread. Oz picks up the full thread hist
 While the agent works, progress updates appear directly in the Slack thread. To inspect the run in more detail:
 
 * **Click the session link** - Oz posts a link in the thread to open a live terminal view of the agent. Watch in real time, add follow-up instructions, or let it run to completion.
-* **Go to [oz.warp.dev/runs](https://oz.warp.dev/runs)** - See the full run transcript: status, commands executed, files changed, and agent output. See [Viewing Cloud Agent Runs](/agent-platform/cloud-agents/viewing-cloud-agent-runs/) for a complete walkthrough.
+* **Go to the [Runs page in the Oz web app](https://oz.warp.dev/runs)** - See the full run transcript: status, commands executed, files changed, and agent output. See [Viewing Cloud Agent Runs](/agent-platform/cloud-agents/viewing-cloud-agent-runs/) for a complete walkthrough.
 
 When the task is complete, Oz posts a summary back to the original Slack thread.
 

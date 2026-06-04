@@ -8,10 +8,10 @@ import VideoEmbed from '@components/VideoEmbed.astro';
 
 ### Turn Production Errors into Draft PRs with Cloud Agents + TypeScript SDK
 
-<VideoEmbed url="https://www.youtube.com/watch?feature=youtu.be&v=fHQXLg9ybi4" />
+<VideoEmbed url="https://www.youtube.com/watch?feature=youtu.be&v=fHQXLg9ybi4" title="Monitoring Sentry with the Oz SDK demo video" />
 
 :::note
-Example repository: [**https://github.com/warpdotdev/warp-agents-sdk-demo-sentry-monitor**](https://github.com/warpdotdev/warp-agents-sdk-demo-sentry-monitor)
+Example repository: [**Sentry monitor example repository**](https://github.com/warpdotdev/warp-agents-sdk-demo-sentry-monitor)
 :::
 
 In this demo, Ben builds a small TypeScript “Sentry monitor” service that listens for specific Sentry alerts (like a Go nil pointer dereference) and triggers a Warp cloud agent to investigate. The server validates the webhook, extracts the stack trace, and injects it into an agent run inside a Warp Environment so the agent can inspect the repo and propose a fix.
