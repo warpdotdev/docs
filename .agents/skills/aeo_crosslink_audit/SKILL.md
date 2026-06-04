@@ -56,6 +56,9 @@ When adding links, follow the link style guidance in `AGENTS.md` and validate wi
 - **Avoid redundant prefixes** - Do not add a bold term or label immediately before a link if the link text already provides the context.
 - **Keep links reader-first** - The link should help a developer continue the task or understand the concept, not exist only for SEO/AEO coverage.
 - **Avoid link stuffing** - Do not add multiple links to the same nearby destination or turn a paragraph into a dense cluster of links.
+- **Limit link density** - Prefer 1-2 link additions per page. Do not add more than 3 links to a single page unless the page is an overview or hub, or the page currently has very few existing links and each new link supports a distinct reader next step.
+- **Avoid related-link lists by default** - Do not add new "Related pages," "See also," or link-list sections unless the page already uses that pattern or the list clearly improves a reader's next step.
+- **Justify each link as a reader journey** - In the PR body, explain what the reader is likely trying to do next and why the destination helps. Do not justify links only with AEO or search coverage.
 - **Resolve redirects** - Link directly to the final destination page when known. Do not add redirecting URLs or old paths.
 
 ## Self-review before opening a PR
@@ -66,6 +69,8 @@ Before opening a PR, verify every proposed change:
 - **Natural language** - The added link text reads naturally in context and is not keyword-stuffed.
 - **Anchor quality** - Link text is descriptive and specific; no raw URL anchors or generic anchors like "here," "this page," "learn more," or "read more."
 - **Link context** - The surrounding sentence explains why the destination is relevant when the link target is not obvious.
+- **Link density** - The page does not feel visually noisy after the edit. Avoid clusters of links in one paragraph or section.
+- **Reader journey** - Each link has a clear next-step rationale in the PR body.
 - **Existing target** - Every internal link points to an existing file under `src/content/docs/`.
 - **Anchor and route validation** - If a link includes a heading anchor or route path, verify that the route and anchor resolve. Do not rely only on the target file existing.
 - **Navigation awareness** - Check `src/sidebar.ts` when a linked page is expected to appear in navigation.
@@ -96,6 +101,7 @@ The PR body must include an AEO brief. Use `.agents/skills/aeo_brief/SKILL.md` a
 - **Source signals** - Peec prompts/recommendations, Google Search Console queries/pages, or existing-docs signals that justified the links.
 - **Pages touched** - Files edited and why.
 - **Links added** - Source page, target page, and rationale for each link.
+- **Reader next step** - What the reader is likely trying to do next and why each destination helps.
 - **Open questions for human review** - Anything that affects product accuracy, terminology, or placement.
 
 Request review from docs and growth-docs reviewers where possible, including:
