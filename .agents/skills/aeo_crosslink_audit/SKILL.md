@@ -42,9 +42,21 @@ If Peec or Google Search Console data is unavailable, say what could not be veri
    - The target page exists.
    - The link helps a reader continue a real workflow.
    - The edit can be made with a small, natural copy change.
-4. **Make only safe edits.** Add links with minimal surrounding copy changes. Preserve the existing page structure and voice.
+4. **Make only safe edits.** Add links with minimal surrounding copy changes. Preserve the existing page structure and voice. Follow the link quality rules below when choosing anchor text and surrounding context.
 5. **Run self-review.** Apply the quality gates in this skill before opening a PR or writing a no-change report.
 6. **Open a PR or report no changes.** Open a PR only when there are at least 2 high-confidence link additions. Otherwise, write a no-change report in the Oz run output.
+
+## Link quality rules
+
+When adding links, follow the link style guidance in `AGENTS.md` and validate with `style_lint`.
+
+- **Use descriptive anchors** - Link meaningful destination text, not generic phrases like "here," "this page," "learn more," "read more," or raw URLs.
+- **Add context before the link when needed** - If the destination page is not obvious from the sentence, introduce why the reader should follow it. Do not drop a link into a sentence without explaining its relevance.
+- **Use natural destination-page phrasing** - Prefer wording like "the Runs page in the Oz web app," "the Scheduled Agents guide," or "the Slack integration guide" when naming a destination.
+- **Avoid redundant prefixes** - Do not add a bold term or label immediately before a link if the link text already provides the context.
+- **Keep links reader-first** - The link should help a developer continue the task or understand the concept, not exist only for SEO/AEO coverage.
+- **Avoid link stuffing** - Do not add multiple links to the same nearby destination or turn a paragraph into a dense cluster of links.
+- **Resolve redirects** - Link directly to the final destination page when known. Do not add redirecting URLs or old paths.
 
 ## Self-review before opening a PR
 
@@ -52,6 +64,8 @@ Before opening a PR, verify every proposed change:
 - **Real signal** - Each link is backed by a Peec, Google Search Console, or existing-docs signal, not generic SEO advice.
 - **Reader value** - Each link helps a developer understand or complete a real workflow.
 - **Natural language** - The added link text reads naturally in context and is not keyword-stuffed.
+- **Anchor quality** - Link text is descriptive and specific; no raw URL anchors or generic anchors like "here," "this page," "learn more," or "read more."
+- **Link context** - The surrounding sentence explains why the destination is relevant when the link target is not obvious.
 - **Existing target** - Every internal link points to an existing file under `src/content/docs/`.
 - **Navigation awareness** - Check `src/sidebar.ts` when a linked page is expected to appear in navigation.
 - **Small scope** - The diff is limited to cross-linking and small copy changes needed to make links natural.
@@ -61,6 +75,7 @@ Before opening a PR, verify every proposed change:
 Run:
 
 ```bash
+python3 .agents/skills/style_lint/style_lint.py --changed
 git diff --check
 ```
 
