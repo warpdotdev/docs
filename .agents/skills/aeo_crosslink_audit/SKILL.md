@@ -28,7 +28,7 @@ Do not:
 
 Use the smallest reliable set of source data needed to justify link changes:
 - **Peec MCP** - Review recent prompts, recommendations, source URLs, and query vocabulary related to agents, cloud agents, and orchestration.
-- **Google Search Console** - When available, use the environment's `GSC_SERVICE_ACCOUNT_CREDENTIALS_JSON` secret to inspect recent queries and pages related to agents, cloud agents, and orchestration.
+- **Google Search Console** - When available, use the environment's `GSC_SERVICE_ACCOUNT_CREDENTIALS_JSON` secret to inspect recent queries and pages related to agents, cloud agents, and orchestration. Never print, log, commit, or include the secret value in reports. If a GSC client requires a credentials file path, write the secret to a restricted temporary file, use it for the run, and remove it before finishing.
 - **Docs repo** - Search existing pages under `src/content/docs/` for relevant source pages, link targets, and related terminology.
 
 If Peec or Google Search Console data is unavailable, say what could not be verified and proceed only with repo-grounded recommendations. Do not invent source signals.
@@ -67,6 +67,7 @@ Before opening a PR, verify every proposed change:
 - **Anchor quality** - Link text is descriptive and specific; no raw URL anchors or generic anchors like "here," "this page," "learn more," or "read more."
 - **Link context** - The surrounding sentence explains why the destination is relevant when the link target is not obvious.
 - **Existing target** - Every internal link points to an existing file under `src/content/docs/`.
+- **Anchor and route validation** - If a link includes a heading anchor or route path, verify that the route and anchor resolve. Do not rely only on the target file existing.
 - **Navigation awareness** - Check `src/sidebar.ts` when a linked page is expected to appear in navigation.
 - **Small scope** - The diff is limited to cross-linking and small copy changes needed to make links natural.
 - **No broad rewrites** - Remove any edit that becomes a rewrite, strategy recommendation, or new content proposal.
@@ -76,6 +77,7 @@ Run:
 
 ```bash
 python3 .agents/skills/style_lint/style_lint.py --changed
+python3 .agents/skills/check_for_broken_links/check_links.py --internal-only
 git diff --check
 ```
 
