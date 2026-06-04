@@ -281,7 +281,7 @@ Each scheduled run behaves like a standard cloud agent run, with a few important
 * Runs execute automatically without human intervention.
 * All usage is billed to the team’s shared credit balance.
 
-If a scheduled run fails, it does not block future runs. Each execution is independent. Use the [API error reference](/reference/api-and-sdk/troubleshooting/errors/) to interpret any returned error code.
+If a scheduled run fails, it does not block future runs. Each execution is independent. Use the [API error reference](/reference/api-and-sdk/troubleshooting/errors/) to interpret any returned error code. To review what a scheduled run did, use the [Agent Management Panel](/agent-platform/cloud-agents/managing-cloud-agents/) to find the run by status or trigger, then open the session with [cloud agent session sharing](/agent-platform/cloud-agents/viewing-cloud-agent-runs/) to inspect the prompt, commands, logs, and output.
 
 ### Permissions and responsibility
 
@@ -300,6 +300,6 @@ Carefully review prompts and schedules before deploying them broadly, especially
 
 Scheduled Agents are best when work should happen on a predictable cadence.
 
-If you want an agent to run in response to an event, such as a Slack mention, PR update, or issue change, use triggered cloud agents instead.
+If you want an agent to run in response to an event, such as a Slack mention, PR update, or issue change, use [triggered cloud agents](/agent-platform/cloud-agents/integrations/) instead.
 
 Many teams use both together: triggers for reactive workflows, and Scheduled Agents for proactive maintenance.
