@@ -6,6 +6,82 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2026.06.03 (v0.2026.06.03.09.49)
+
+**New features**
+
+* Added the installation path into de Windows App Paths Registry ([#10805](https://github.com/warpdotdev/warp/pull/10805)) — [@Cocodrulo](https://github.com/Cocodrulo) ✨
+* Queue multiple follow-up prompts while the agent is working either by using the /queue command, prompt queueing mode (activated via a chip in the warping line), and/or by changing your default prompt submission mode to "Queue until response finishes" in settings. ([#12081](https://github.com/warpdotdev/warp/pull/12081))
+
+**Improvements**
+
+* Add configurable absolute and relative line numbers for code editors. ([#10012](https://github.com/warpdotdev/warp/pull/10012))
+* Added support for warp://action/open_file_editor URIs to open files at specific locations from external apps ([#10233](https://github.com/warpdotdev/warp/pull/10233))
+* Agent requests now include PR and repository metadata, enabling better context-aware responses ([#10391](https://github.com/warpdotdev/warp/pull/10391))
+* Cloud environment creation modal now auto-focuses the name field for quicker setup ([#11233](https://github.com/warpdotdev/warp/pull/11233))
+* Authentication secrets for agent orchestration can now be deleted directly from the selector menu ([#11241](https://github.com/warpdotdev/warp/pull/11241))
+* Conversation usage breakdown now surfaces inference vs. platform credit split ([#11441](https://github.com/warpdotdev/warp/pull/11441))
+* Added command palette entries for toggle settings that were missing across Appearance, Features, Code, Privacy, AI, and other settings pages ([#11512](https://github.com/warpdotdev/warp/pull/11512))
+* Cloud agent setup mode now uses the improved queued prompt UI ([#11547](https://github.com/warpdotdev/warp/pull/11547))
+* Cloud agent sessions can now be started without an initial prompt ([#11573](https://github.com/warpdotdev/warp/pull/11573))
+* Updated /compact-and and /fork-and-compact commands to use the new queued prompts UI ([#11575](https://github.com/warpdotdev/warp/pull/11575))
+* Polished the orchestration pill bar and segmented control UI to better match design specs ([#11578](https://github.com/warpdotdev/warp/pull/11578))
+* Remote project skill locations are now correctly propagated through the UI ([#11581](https://github.com/warpdotdev/warp/pull/11581))
+* Cloud agent conversations now always display the fast-forward chip as enabled, reflecting actual behavior ([#11690](https://github.com/warpdotdev/warp/pull/11690))
+* Added setting to control whether mid-conversation prompts interrupt or queue the agent ([#11746](https://github.com/warpdotdev/warp/pull/11746))
+* Added missing flag completions for `gh pr merge`. ([#11764](https://github.com/warpdotdev/warp/pull/11764))
+* Enabled handoff for locally orchestrated conversations. ([#11768](https://github.com/warpdotdev/warp/pull/11768))
+* Maximized orchestration pane now stays maximized when opening sub-agent conversations ([#11776](https://github.com/warpdotdev/warp/pull/11776))
+* Improved lightbox UX: background click now dismisses correctly, and light theme button rendering is fixed ([#11783](https://github.com/warpdotdev/warp/pull/11783))
+* Reordered the tools panel to show the project explorer first and conversation list second ([#11843](https://github.com/warpdotdev/warp/pull/11843))
+* Remote project skill locations are now correctly resolved in tool output ([#11863](https://github.com/warpdotdev/warp/pull/11863))
+* Added 'Send Now' button to queued prompts for immediate execution ([#11880](https://github.com/warpdotdev/warp/pull/11880))
+* Vertical tab agent icons now reflect active child-agent status for orchestration sessions. ([#11895](https://github.com/warpdotdev/warp/pull/11895))
+* Added dotnet CLI completions ([#11919](https://github.com/warpdotdev/warp/pull/11919))
+* Improved queued prompt hover behavior and drag handle UX ([#12067](https://github.com/warpdotdev/warp/pull/12067))
+
+**Bug fixes**
+
+* Fixed custom themes not syncing correctly across machines when using Settings Sync ([#9728](https://github.com/warpdotdev/warp/pull/9728)) — [@nisavid](https://github.com/nisavid) ✨
+* Fixed MCP install/update modal primary buttons using incorrect button styling ([#10586](https://github.com/warpdotdev/warp/pull/10586))
+* AI responses that contain Markdown tables now render as structured tables in Stable instead of monospaced pipe-table blocks. ([#10683](https://github.com/warpdotdev/warp/pull/10683))
+* Fixed MCP server log files growing unbounded; logs are now rotated to cap disk usage ([#10874](https://github.com/warpdotdev/warp/pull/10874)) — [@david-engelmann](https://github.com/david-engelmann) ✨
+* Fix Windows PowerShell command discovery when localized executable names are emitted in a non-UTF-8 code page. ([#11203](https://github.com/warpdotdev/warp/pull/11203)) — [@cesaryuan](https://github.com/cesaryuan) ✨
+* Fixed 'Maximize Pane' option missing from the overflow menu in Rendered Markdown mode ([#11258](https://github.com/warpdotdev/warp/pull/11258)) — [@wzc520pyfm](https://github.com/wzc520pyfm) ✨
+* Artifact upload failures now surface actionable quota-limit details when upload limits are reached. ([#11386](https://github.com/warpdotdev/warp/pull/11386))
+* Fixed Tab configs: pressing Space while a parameter dropdown is focused now selects the item instead of switching fields ([#11412](https://github.com/warpdotdev/warp/pull/11412))
+* Fixed find highlights lingering on AI blocks after closing the find bar. ([#11458](https://github.com/warpdotdev/warp/pull/11458))
+* Fixed custom LLM models being reset to defaults during preference reconciliation on app startup ([#11655](https://github.com/warpdotdev/warp/pull/11655))
+* Fixed new model choices popup banner overflowing on mobile/thin devices ([#11685](https://github.com/warpdotdev/warp/pull/11685))
+* Shared cloud-agent session details now show a muted no-access notice when run metadata is restricted instead of displaying a raw permission error. ([#11686](https://github.com/warpdotdev/warp/pull/11686))
+* Fixed the team settings owner badge being unreadable on some themes. ([#11689](https://github.com/warpdotdev/warp/pull/11689))
+* Fixed terminal input being incorrectly active during GitHub Actions session shares ([#11691](https://github.com/warpdotdev/warp/pull/11691))
+* Fixed Windows terminal startup failures caused by REG_MULTI_SZ registry environment variables being passed to CreateProcessW ([#11714](https://github.com/warpdotdev/warp/pull/11714))
+* Fixed orchestration session restoration so the pill bar, child transcript name resolution, restored remote-child cloud transcripts, and cloud-parent panes all work correctly after a Warp restart. ([#11722](https://github.com/warpdotdev/warp/pull/11722))
+* Fixed conversation creator profiles not displaying correctly in shared conversations ([#11725](https://github.com/warpdotdev/warp/pull/11725))
+* Fixed a crash when rendering AI reasoning or summaries that contain multiple markdown images. ([#11766](https://github.com/warpdotdev/warp/pull/11766))
+* Clarify BYOK / Custom inference settings copy: API keys are stored only on your device, never on Warp's servers, and used to make requests to your chosen model provider. ([#11780](https://github.com/warpdotdev/warp/pull/11780))
+* Fixed `/app` in Warp-on-Web opening the wrong Agent experience instead of the Cloud Agent start page. ([#11781](https://github.com/warpdotdev/warp/pull/11781))
+* Fixed working directories not being cleaned up correctly after code review sessions ([#11789](https://github.com/warpdotdev/warp/pull/11789))
+* Fixed duplicate codebase indexing entries appearing for remote server connections ([#11792](https://github.com/warpdotdev/warp/pull/11792))
+* Fixed orchestration pill bar hover card showing the wrong harness for non-Warp child agents (e.g. Claude Code). ([#11800](https://github.com/warpdotdev/warp/pull/11800))
+* Fixed Continue button remaining active when the New API key form is incomplete ([#11802](https://github.com/warpdotdev/warp/pull/11802))
+* Removed built-in feedback skill; the /feedback command now consistently opens the external feedback form ([#11806](https://github.com/warpdotdev/warp/pull/11806))
+* Fixed a crash when the agent's context window limit is exceeded ([#11813](https://github.com/warpdotdev/warp/pull/11813))
+* Fixed agent conversations sometimes failing to restore after restarting Warp ([#11814](https://github.com/warpdotdev/warp/pull/11814))
+* Fix find match highlight position in initial /agent queries ([#11823](https://github.com/warpdotdev/warp/pull/11823)) — [@AndreKalberer](https://github.com/AndreKalberer) ✨
+* Fixed queued prompts panel appearing alongside inline menus, causing visual overlap ([#11848](https://github.com/warpdotdev/warp/pull/11848))
+* Fixed symlinked gitignored paths not being handled correctly in code review ([#11856](https://github.com/warpdotdev/warp/pull/11856))
+* Fixed duplicated leading characters in wrapped zsh command blocks when using the Warp prompt. ([#11868](https://github.com/warpdotdev/warp/pull/11868))
+* Fixed the Accept button staying enabled in the multi-agent run card when "New API key" was selected in the harness API key picker without a key being created. ([#11904](https://github.com/warpdotdev/warp/pull/11904))
+* Fixed billing usage display showing incorrect per-user base credit limits ([#11910](https://github.com/warpdotdev/warp/pull/11910))
+* Fixed apply-diff/edit-file sending full file contents instead of only changed ranges after accepting edits ([#11987](https://github.com/warpdotdev/warp/pull/11987))
+* Fixed duplicate command palette entries for mouse reporting. ([#12011](https://github.com/warpdotdev/warp/pull/12011))
+* Fixed project skill refreshes causing UI stalls when unrelated files change in large repositories. ([#12040](https://github.com/warpdotdev/warp/pull/12040))
+* Fixed the orchestration pill bar's scrollbar overlapping the agent chips. ([#12045](https://github.com/warpdotdev/warp/pull/12045))
+* Fixed a crash when trying to use the microphone on macOS ([#12074](https://github.com/warpdotdev/warp/pull/12074))
+* Fixed several queued prompt issues: /queue command behavior in empty conversations and other paper cuts ([#12105](https://github.com/warpdotdev/warp/pull/12105))
+
 ### 2026.05.27 (v0.2026.05.27.15.44)
 
 **New features**

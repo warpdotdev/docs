@@ -6,7 +6,6 @@ sidebar:
   label: "Open Source Licenses"
 ---
 
-
 ## Dependencies
 
 | Dependency | License |
@@ -24,6 +23,7 @@ sidebar:
 | ctutils 0.4.2 | Apache License 2.0 |
 | embed_plist 1.2.2 | Apache License 2.0 |
 | encoding_rs 0.8.35 | Apache License 2.0 |
+| fragile 2.0.0 | Apache License 2.0 |
 | hound 3.5.1 | Apache License 2.0 |
 | iri-string 0.7.8 | Apache License 2.0 |
 | kurbo 0.13.0 | Apache License 2.0 |
@@ -125,6 +125,7 @@ sidebar:
 | bytecount 0.6.9 | Apache License 2.0 |
 | notify-rust 4.11.7 | Apache License 2.0 |
 | pinned 0.1.0 | Apache License 2.0 |
+| predicates 3.1.3 | Apache License 2.0 |
 | unicode-general-category 1.1.0 | Apache License 2.0 |
 | winapi 0.3.9 | Apache License 2.0 |
 | wio 0.2.2 | Apache License 2.0 |
@@ -341,8 +342,9 @@ sidebar:
 | markup5ever 0.35.0 | Apache License 2.0 |
 | markup5ever_rcdom 0.35.0+unofficial | Apache License 2.0 |
 | memo-map 0.3.2 | Apache License 2.0 |
-| metal 0.33.0 | Apache License 2.0 |
 | mime 0.3.17 | Apache License 2.0 |
+| mockall 0.13.1 | Apache License 2.0 |
+| mockall_derive 0.13.1 | Apache License 2.0 |
 | num-bigint 0.4.6 | Apache License 2.0 |
 | num-complex 0.4.6 | Apache License 2.0 |
 | num-derive 0.4.2 | Apache License 2.0 |
@@ -649,7 +651,8 @@ sidebar:
 | num_enum_derive 0.7.4 | Apache License 2.0 |
 | objc2-app-kit 0.3.2 | Apache License 2.0 |
 | objc2-audio-toolbox 0.3.0 | Apache License 2.0 |
-| objc2-avf-audio 0.3.0 | Apache License 2.0 |
+| objc2-av-foundation 0.3.2 | Apache License 2.0 |
+| objc2-avf-audio 0.3.2 | Apache License 2.0 |
 | objc2-core-audio-types 0.3.2 | Apache License 2.0 |
 | objc2-core-audio 0.3.2 | Apache License 2.0 |
 | objc2-core-foundation 0.3.2 | Apache License 2.0 |
@@ -670,6 +673,8 @@ sidebar:
 | pin-project 1.1.3 | Apache License 2.0 |
 | portable-atomic-util 0.2.4 | Apache License 2.0 |
 | portable-atomic 1.11.1 | Apache License 2.0 |
+| predicates-core 1.0.6 | Apache License 2.0 |
+| predicates-tree 1.0.9 | Apache License 2.0 |
 | prettyplease 0.2.37 | Apache License 2.0 |
 | proc-macro2 1.0.106 | Apache License 2.0 |
 | process-wrap 9.1.0 | Apache License 2.0 |
@@ -823,6 +828,7 @@ sidebar:
 | kqueue-sys 1.0.4 | MIT License |
 | kqueue 1.0.8 | MIT License |
 | async-tungstenite 0.28.2 | MIT License |
+| termtree 0.4.1 | MIT License |
 | memoffset 0.7.1 | MIT License |
 | memoffset 0.9.0 | MIT License |
 | redox_syscall 0.2.16 | MIT License |
@@ -1031,6 +1037,7 @@ sidebar:
 | crossterm_winapi 0.9.1 | MIT License |
 | line-span 0.1.5 | MIT License |
 | fluent-uri 0.1.4 | MIT License |
+| downcast 0.11.0 | MIT License |
 | endi 1.1.0 | MIT License |
 | is-terminal 0.4.17 | MIT License |
 | unsafe-libyaml 0.2.11 | MIT License |
@@ -2454,6 +2461,7 @@ Apache License 2.0
   - ctutils 0.4.2
   - embed_plist 1.2.2
   - encoding_rs 0.8.35
+  - fragile 2.0.0
   - hound 3.5.1
   - iri-string 0.7.8
   - kurbo 0.13.0
@@ -6443,6 +6451,7 @@ Apache License 2.0
   - bytecount 0.6.9
   - notify-rust 4.11.7
   - pinned 0.1.0
+  - predicates 3.1.3
   - unicode-general-category 1.1.0
   - winapi 0.3.9
   - wio 0.2.2
@@ -12573,8 +12582,9 @@ Apache License 2.0
   - markup5ever 0.35.0
   - markup5ever_rcdom 0.35.0+unofficial
   - memo-map 0.3.2
-  - metal 0.33.0
   - mime 0.3.17
+  - mockall 0.13.1
+  - mockall_derive 0.13.1
   - num-bigint 0.4.6
   - num-complex 0.4.6
   - num-derive 0.4.2
@@ -17725,7 +17735,8 @@ Apache License 2.0
   - num_enum_derive 0.7.4
   - objc2-app-kit 0.3.2
   - objc2-audio-toolbox 0.3.0
-  - objc2-avf-audio 0.3.0
+  - objc2-av-foundation 0.3.2
+  - objc2-avf-audio 0.3.2
   - objc2-core-audio-types 0.3.2
   - objc2-core-audio 0.3.2
   - objc2-core-foundation 0.3.2
@@ -17746,6 +17757,8 @@ Apache License 2.0
   - pin-project 1.1.3
   - portable-atomic-util 0.2.4
   - portable-atomic 1.11.1
+  - predicates-core 1.0.6
+  - predicates-tree 1.0.9
   - prettyplease 0.2.37
   - proc-macro2 1.0.106
   - process-wrap 9.1.0
@@ -19422,6 +19435,31 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+
+
+MIT License
+  - termtree 0.4.1
+--------------------------------------------------------------------------------
+Copyright (c) 2017 Doug Tangren
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
 MIT License
@@ -21858,6 +21896,20 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+MIT License
+  - downcast 0.11.0
+--------------------------------------------------------------------------------
+MIT License (MIT)
+
+Copyright (c) 2017 Felix Köpge
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
 
 MIT License
   - endi 1.1.0
