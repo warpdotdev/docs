@@ -285,7 +285,7 @@ body {
 /* Link-wrapped images render as <p><a><img></a></p>. The inline <a>
    shrink-wraps the image, so auto margins on the <img> alone can't pull it
    to the page center — center the anchor's inline box via the paragraph. */
-.sl-markdown-content p:has(> a > img) {
+.sl-markdown-content p:has(> a > img):not(:where(table *)) {
   text-align: center;
 }
 
