@@ -276,7 +276,7 @@ body {
    specificity, so the exclusion never fights the rest of the selector.
    Code-block figures are handled separately below. */
 .sl-markdown-content :not(table) > img:not(:where(table *)),
-.sl-markdown-content p > img {
+.sl-markdown-content p > img:not(:where(table *)) {
   display: block;
   margin-left: auto;
   margin-right: auto;
