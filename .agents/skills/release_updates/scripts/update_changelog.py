@@ -327,6 +327,14 @@ def _new_entries(
     return entries
 
 
+def _normalize_changelog_body(body: str) -> str:
+    if not body.strip():
+        return body
+    normalized = _normalize_changelog_prose(text=body)
+    normalized = _wrap_curly_braces_in_backticks(text=normalized)
+    return normalized
+
+
 def _load_channel_versions(
     docs_root: Path,
     channel_versions_file: str | None,
@@ -402,6 +410,7 @@ def main() -> int:
             merged_body = merged_body.rstrip() + "\n\n" + existing_body.lstrip()
     else:
         merged_body = existing_body
+    merged_body = _normalize_changelog_body(body=merged_body)
 
     final_content = intro.rstrip() + "\n\n"
     if merged_body.strip():

@@ -77,7 +77,12 @@ def _table_markdown(events: dict[str, Any]) -> str:
         "|---|---|",
     ]
     for event_name, event_description in events.items():
-        lines.append(f"| `{event_name}` | {event_description} |")
+        event_name_text = str(event_name).strip()
+        if event_description is None:
+            event_description_text = ""
+        else:
+            event_description_text = str(event_description).rstrip()
+        lines.append(f"| `{event_name_text}` | {event_description_text} |")
     lines.append("")
     lines.append("")
     return "\n".join(lines)
