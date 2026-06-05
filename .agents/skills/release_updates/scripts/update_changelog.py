@@ -330,9 +330,23 @@ def _new_entries(
 def _normalize_changelog_body(body: str) -> str:
     if not body.strip():
         return body
-    normalized = _normalize_changelog_prose(text=body)
-    normalized = _wrap_curly_braces_in_backticks(text=normalized)
-    return normalized
+    first_entry = RE_CHANGELOG_DATE.search(body)
+    if not first_entry:
+        return body
+    next_entry = RE_CHANGELOG_DATE.search(body, first_entry.end())
+    if next_entry:
+        latest_entry_block = body[: next_entry.start()]
+        remaining_body = body[next_entry.start() :]
+    else:
+        latest_entry_block = body
+        remaining_body = ""
+    normalized_latest_entry = _normalize_changelog_prose(text=latest_entry_block)
+    normalized_latest_entry = _wrap_curly_braces_in_backticks(
+        text=normalized_latest_entry,
+    )
+    if remaining_body:
+        return normalized_latest_entry.rstrip() + "\n\n" + remaining_body.lstrip("\n")
+    return normalized_latest_entry
 
 
 def _load_channel_versions(
