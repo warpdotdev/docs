@@ -64,7 +64,7 @@ Components in the execution flow:
 2. **Task** – Warp creates a tracked task for the run
 3. **Environment** – The task uses an environment to define execution context
 4. **Host** – The environment runs on a host (Warp-hosted or self-hosted infrastructure).
-5. **Agent execution** – The workflow runs in the prepared environment
+5. **Agent execution** – The workflow runs in the prepared environment. In [orchestrated runs](/agent-platform/cloud-agents/orchestration/), each child agent gets its own environment so that parallel agents are isolated from each other.
 6. **Outputs** – The run produces PRs, messages, reports, or transcripts
 
 :::note
