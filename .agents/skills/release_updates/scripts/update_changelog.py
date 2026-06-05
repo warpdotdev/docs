@@ -17,6 +17,12 @@ from common import resolve_channel_versions_file
 
 DEFAULT_CHANNEL_VERSIONS_URL = "https://releases.warp.dev/channel_versions.json"
 RE_CHANGELOG_DATE = re.compile(r"^### (\d{4}\.\d{2}\.\d{2})\s", re.MULTILINE)
+RE_BARE_CURLY_PATTERN = re.compile(
+    r"(?<!`)(\S*\{[^}]+\}\S*)(?!`)",
+)
+RE_SLASH_COMMAND = re.compile(r"(?<![`\w/])(/[a-z][a-z0-9-]+)(?![`\w/])")
+RE_CLI_FLAG = re.compile(r"(?<![`\w-])(--[a-z][a-z0-9-]*)(?![`\w-])")
+RE_FIXES_TENSE = re.compile(r"^(\* )Fixes ", re.MULTILINE)
 
 
 def parse_args() -> argparse.Namespace:
@@ -209,6 +215,31 @@ def _normalize_bullets(markdown_blob: str) -> list[str]:
     return lines
 
 
+def _normalize_changelog_prose(text: str) -> str:
+    normalized = RE_FIXES_TENSE.sub(r"\1Fixed ", text)
+    parts: list[str] = re.split(r"(`[^`]+`)", normalized)
+    output: list[str] = []
+    for part in parts:
+        if part.startswith("`") and part.endswith("`"):
+            output.append(part)
+            continue
+        candidate = RE_SLASH_COMMAND.sub(r"`\1`", part)
+        candidate = RE_CLI_FLAG.sub(r"`\1`", candidate)
+        output.append(candidate)
+    return "".join(output)
+
+
+def _wrap_curly_braces_in_backticks(text: str) -> str:
+    parts: list[str] = re.split(r"(`[^`]+`)", text)
+    output: list[str] = []
+    for part in parts:
+        if part.startswith("`") and part.endswith("`"):
+            output.append(part)
+            continue
+        output.append(RE_BARE_CURLY_PATTERN.sub(r"`\1`", part))
+    return "".join(output)
+
+
 def _sanitize_image_url(image_url: Any) -> str | None:
     if not isinstance(image_url, str):
         return None
@@ -259,7 +290,10 @@ def _render_entry(version_key: str, changelog: dict[str, Any]) -> str:
             lines.extend(bullets)
             lines.append("")
 
-    return "\n".join(lines).rstrip() + "\n"
+    rendered = "\n".join(lines).rstrip() + "\n"
+    rendered = _normalize_changelog_prose(text=rendered)
+    rendered = _wrap_curly_braces_in_backticks(text=rendered)
+    return rendered
 
 
 def _new_entries(

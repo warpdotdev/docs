@@ -12,7 +12,6 @@ from common import DEFAULT_WORK_DIR
 from common import docs_repo_root
 from common import eprint
 from common import read_json_file
-from common import sanitize_table_cell
 
 
 def parse_args() -> argparse.Namespace:
@@ -78,9 +77,8 @@ def _table_markdown(events: dict[str, Any]) -> str:
         "|---|---|",
     ]
     for event_name, event_description in events.items():
-        safe_name = sanitize_table_cell(str(event_name))
-        safe_desc = sanitize_table_cell(str(event_description))
-        lines.append(f"| `{safe_name}` | {safe_desc} |")
+        lines.append(f"| `{event_name}` | {event_description} |")
+    lines.append("")
     lines.append("")
     return "\n".join(lines)
 
@@ -226,7 +224,7 @@ def main() -> int:
     existing_privacy = output_privacy_file.read_text(encoding="utf-8")
     intro = _extract_intro(content=existing_privacy)
     telemetry_section = _table_markdown(events=events)
-    final_output = intro.rstrip() + "\n\n" + telemetry_section.rstrip() + "\n"
+    final_output = intro.rstrip() + "\n\n" + telemetry_section
 
     if args.dry_run:
         eprint(
