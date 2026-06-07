@@ -24,6 +24,7 @@ Global Rules apply across all projects and contexts. They're ideal for:
 * Tool configurations or preferences you want applied everywhere
 
 Warp may also suggest Global Rules based on your usage patterns to make future interactions smarter and more consistent.
+
 ## Project Rules
 
 Project Rules live in your codebase and apply automatically when working within that project. They're stored in an `AGENTS.md` file (or `WARP.md` for backwards compatibility) and can be:
@@ -66,7 +67,7 @@ How Warp applies these Project Rules:
   * Automatically applied: `project/AGENTS.md` and `project/api/AGENTS.md`
   * Best effort: `project/ui/AGENTS.md` if editing files there
 
-### **Rules precedence**
+### Rules precedence
 
 When multiple rules apply, Warp follows this order of precedence:
 
@@ -84,8 +85,8 @@ This ensures the most specific, project-relevant rules take priority over broade
 * From the [Command Palette](/terminal/command-palette/): search for "Open AI Rules"
 * From the Settings panel: **Settings** > **Agents** > **Knowledge** > **Manage Rules**
   * Here, you can manage both Global as well as Project Rules.
-* From the macOS Menu: `AI > Open Rules` &#x20;
-* From the Slash Commands menu: `/open-project-rules`  to open Project Rules directly in Warp's code editor
+* From the Warp menu bar: **AI** > **Open Rules**
+* From the Slash Commands menu: `/open-project-rules` to open Project Rules directly in Warp's code editor
 
 <figure>
 ![Project Rules UI open in a Rules pane](../../../../assets/agent-platform/project-scoped-rules-pane.png)
@@ -110,7 +111,7 @@ This ensures the most specific, project-relevant rules take priority over broade
   * Begin indexing your codebase or display indexing status
   * Generate an `AGENTS.md` file with initial context, or
   * Link an existing Rules file to `AGENTS.md`
-    * Warp currently supports linking the following external Rules files: `CLAUDE.md`, `.cursorrules`, `AGENT.md`, `GEMINI.md`, `.clinerules`, `.windsurfrules`, `.github/copilot-instructions.md`&#x20;
+    * Warp currently supports linking the following external Rules files: `CLAUDE.md`, `.cursorrules`, `AGENT.md`, `GEMINI.md`, `.clinerules`, `.windsurfrules`, `.github/copilot-instructions.md`
 
 To view all Project Rules and open them in Warp, access it via the Warp Drive Rules pane: **Personal** > **Rules** > **Project-based**
 
@@ -130,4 +131,4 @@ When relevant, Agents automatically pull in applicable rules to guide their resp
 
 ### Rules privacy
 
-See our [Privacy Page](/support-and-community/privacy-and-security/privacy/) for more information on how we handle data with Rules.
+See our [Privacy page](/support-and-community/privacy-and-security/privacy/) for more information on how we handle data with Rules.

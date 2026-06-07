@@ -32,7 +32,7 @@ git clone https://github.com/vercel/next.js.git && cd next.js
 
 ## Indexing your codebase
 
-When you open a directory in Warp, we check if it is part of a Git repository. If it is, Warp begins indexing the source code to provide rich context for Agents. Warp also detects [Git worktree](/code/git-worktrees/) checkouts — each worktree is indexed as its own repository, so Agents always have accurate context for the branch you're working on.&#x20;
+When you open a directory in Warp, we check if it is part of a Git repository. If it is, Warp begins indexing the source code to provide rich context for Agents. Warp also detects [Git worktree](/code/git-worktrees/) checkouts — each worktree is indexed as its own repository, so Agents always have accurate context for the branch you're working on.
 
 :::note
 Code indexed with Codebase Context is never stored on our servers. Codebase Context works with both local agent sessions and [cloud agent runs](/agent-platform/cloud-agents/overview/). Without Codebase Context enabled, agents will still be able use terminal commands (i.e. `grep`, `sed`) to navigate your code.
@@ -73,7 +73,7 @@ You can view and manage your indexed codebases in **Settings** > **Code** > **In
 
 <VideoEmbed url="https://youtu.be/11rz9OYQ8Hg" title="Codebase Context indexing settings demo" />
 
-### **Codebase indexing states**
+### Codebase indexing states
 
 When viewing indexed codebases in Warp under **Settings** > **Code** > **Indexing and projects**, you may see different status indicators:
 
@@ -127,7 +127,7 @@ Codebase Context is available in all cloud agent runs — including runs trigger
 
 ## Multi-repo context
 
-Warp supports referencing context across multiple indexed repositories. Note that you don’t need to be inside a specific repo for agents to use its context.&#x20;
+Warp supports referencing context across multiple indexed repositories. Note that you don’t need to be inside a specific repo for agents to use its context.
 
 **This is especially useful when:**
 
