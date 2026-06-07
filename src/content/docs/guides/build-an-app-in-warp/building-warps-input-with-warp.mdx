@@ -16,7 +16,7 @@ _Speaker: Dave, Product Design Lead at Warp_
 
 <VideoEmbed url="https://youtu.be/ySzUj7kMZ64?si=MBhB4s_6lMDWHeS6" title="Building Warp's input UI with Warp video" />
 
-### The Challenge
+### The challenge
 
 Redesigning the input was tricky because it’s the primary interface developers use all day, every day.\
 Everyone had opinions — and expectations — about how it should look and behave.
@@ -24,11 +24,11 @@ Everyone had opinions — and expectations — about how it should look and beha
 So, Peter (a product designer on my team) and I iterated on multiple designs using Figma.
 
 Once we landed on a version we liked, we shared it internally.\
-Most people were excited, but engineering resources were stretched thin — focused on improving agent-mode quality and prepping the Agentic Development Environment.
+Most people were excited, but engineering resources were stretched thin — focused on improving Agent Mode quality and prepping the Agentic Development Environment.
 
 So I thought: _“What if I just Warp it?”_
 
-#### Step 1. Locating the Git Diff Chip Code
+#### Step 1. Locating the Git Diff chip code
 
 Inside the universal input, there’s a small Git Diff chip — it shows your current branch and open changes. It was one pixel too tall. That tiny visual bug drove me nuts, so I used Warp to find where it lived.
 
@@ -41,7 +41,7 @@ It used a combination of semantic search, code indexing, and traditional grep to
 
 ---
 
-#### Step 2. Modifying the Font Size
+#### Step 2. Modifying the font size
 
 Once Warp located the implementation, I asked it to reduce the font size by 1 pixel.
 
@@ -54,7 +54,7 @@ I reviewed the diffs to confirm everything looked good.
 
 ---
 
-#### Step 3. Building and Testing the Change
+#### Step 3. Building and testing the change
 
 Next, I rebuilt the app using:
 

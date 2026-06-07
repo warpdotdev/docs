@@ -20,10 +20,10 @@ Each log item is a timestamped Debug format string for either a request or respo
 2. That will insert a command into your Input editor - it should look something like this: `tail -f "some/path/to/warp_network.log"`.
 3. Press Enter to run this command. You’ll then see the corresponding requests and responses logged in the network log.
 
-## How it Works
+## How it works
 
 <VideoEmbed url="https://www.loom.com/share/0d9eaeb8715846f3a96d557abe23e7ac?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" title="Network Log Demo" />
 
-## Known issues with Network Log
+## Known issues with network log
 
 At the moment, network traffic originating from crash reports and error messages is not captured in the network log. This is due to our use of the Sentry SDK, which encapsulates all network logic and doesn’t currently expose a hook for handling requests and responses directly. The team is actively investigating a solution to include such traffic in the log in a future release. You may also disable Crash Reporting entirely in Warp’s **Settings** > **Privacy** tab.
