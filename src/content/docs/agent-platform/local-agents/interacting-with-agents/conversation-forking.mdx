@@ -23,7 +23,7 @@ _Example_: You can fork a conversation to explore an alternate solution, ask “
 
 There are five ways to fork an existing conversation:
 
-#### **1. From the Command Palette**
+#### 1. From the Command Palette
 
 Open the menu using the Command Palette (`CMD + Y` on macOS / `CTRL + SHIFT + Y` on Windows/Linux).
 
@@ -39,13 +39,13 @@ You can also access this conversation view from the conversation chip in the cur
 
 ![Conversation chip in the input area showing the Manage conversations shortcut](../../../../../assets/agent-platform/conversation-forking-chip.png)
 
-#### **2. From the footer of the most recent AI response block**
+#### 2. From the footer of the most recent AI response block
 
 In any conversation in the block list, click the **fork button** in the footer of the most recent AI block. A new conversation opens in a separate pane with the full context of the original.
 
 ![Fork conversation button in the footer of the most recent agent response block](../../../../../assets/agent-platform/conversation-forking-footer.png)
 
-#### **3. Using the `/fork` slash command**
+#### 3. Using the `/fork` slash command
 
 Type `/fork` in the input to fork the current conversation. You can optionally include a prompt after the command, and Warp will send that prompt in the newly forked conversation.
 
@@ -54,7 +54,7 @@ Type `/fork` in the input to fork the current conversation. You can optionally i
 
 _Example_: `/fork Can you try a different approach?` Forks the selected conversation and immediately sends `Can you try a different approach?` in the forked conversation.
 
-#### **4. Using the /fork-and-compact slash command**
+#### 4. Using the `/fork-and-compact` slash command
 
 Type `/fork-and-compact` to fork the current conversation and automatically compact the forked version. This combines forking with [context window management](/agent-platform/local-agents/interacting-with-agents/#context-window-management), giving you a fresh start with a summarized context.
 
@@ -63,7 +63,7 @@ Type `/fork-and-compact` to fork the current conversation and automatically comp
 
 ![Using the /fork-and-compact slash command to fork and summarize a conversation](../../../../../assets/agent-platform/conversation-fork-and-compact.png)
 
-#### **5. Using the `/fork-from` slash command**
+#### 5. Using the `/fork-from` slash command
 
 Type `/fork-from` to open a searchable menu of all queries in the current conversation. Select a query to fork the conversation from that specific point—everything up to and including that exchange is included in the fork, but subsequent messages are excluded.
 
@@ -75,7 +75,7 @@ In addition to forking from the end of a conversation, you can fork from any poi
 
 <VideoEmbed url="https://youtu.be/SlhF4_0bBxY" title="Conversation forking workflow demo" />
 
-To fork from a specific point, **right-click** on any agent response block or click the three-dot menu in the top-right corner of the block.&#x20;
+To fork from a specific point, **right-click** on any agent response block or click the three-dot menu in the top-right corner of the block.
 
 * Select **Fork conversation from here** to create a new conversation that includes everything up to and including that response, but excludes any queries or responses that came after it.
 
