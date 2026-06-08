@@ -13,7 +13,7 @@ The following environment secrets must be set in the Oz cloud agent environment:
 
 - `METABASE_API_KEY` — Metabase API key for BigQuery queries. If unavailable, the run must fail fast with a clear error.
 - `SLACK_BOT_TOKEN` — Slack bot token for posting to the docs channel. If unavailable, write a no-post report to the run output instead.
-- `SLACK_CHANNEL_ID` — Slack channel ID for the docs team (e.g. `#docs` or `#growth-docs`). Fall back to `SLACK_CHANNEL_ID=C0123456789` if not set explicitly.
+- `SLACK_CHANNEL_ID` — Slack channel ID for **`#growth-docs`**. Find it in Slack by right-clicking the channel → Copy link (the ID begins with `C`). There is no fallback — the run will skip Slack posting if this is unset.
 
 Do NOT print, log, or include secret values in reports, commits, or Slack messages.
 
@@ -128,8 +128,12 @@ This skill is designed for an Oz scheduled agent with a weekly cron trigger: eve
 
 To deploy:
 1. Push this skill to `main` in the docs repo.
-2. In the Oz web app (oz.warp.dev), create a new scheduled agent:
+2. Verify the **`buzz`** Oz environment (oz.warp.dev → Environments) has these secrets set:
+   - `METABASE_API_KEY` — Metabase API key for BigQuery
+   - `SLACK_BOT_TOKEN` — Slack bot token
+   - `SLACK_CHANNEL_ID` — ID for `#growth-docs` (right-click channel in Slack → Copy link; the ID starts with `C`)
+3. In the Oz web app (oz.warp.dev), create a new scheduled agent:
    - **Skill**: `weekly-404-monitor` from `warpdotdev/docs`
-   - **Schedule**: `0 17 * * 1` (UTC) = 9am PT
-   - **Environment**: docs-monitoring (must include `METABASE_API_KEY`, `SLACK_BOT_TOKEN`, `SLACK_CHANNEL_ID`)
-   - **Repo**: `warpdotdev/docs` (main branch)
+   - **Schedule**: `0 17 * * 1` (UTC) = 9am PT (Mondays)
+   - **Environment**: `buzz` (already has `warpdotdev/docs` checked out)
+   - **Branch**: `main`
