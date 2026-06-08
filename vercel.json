@@ -9857,47 +9857,17 @@
     },
     {
       "source": "/guides/integrations/:slug*",
-      "destination": "/guides/external-tools/:slug/",
+      "destination": "/guides/external-tools/:slug*/",
       "statusCode": 308
     },
     {
       "source": "/guides/mcp-servers/:slug*",
-      "destination": "/guides/external-tools/:slug/",
+      "destination": "/guides/external-tools/:slug*/",
       "statusCode": 308
     },
     {
       "source": "/guides/developer-workflows/devops/:slug*",
-      "destination": "/guides/devops/:slug/",
-      "statusCode": 308
-    },
-    {
-      "source": "/guides/developer-workflows/beginner/how-to-create-project-rules-for-an-existing-project-astro-%2B-typescript-%2B-tailwind",
-      "destination": "/guides/configuration/how-to-create-project-rules-for-an-existing-project-astro-typescript-tailwind/",
-      "statusCode": 308
-    },
-    {
-      "source": "/guides/developer-workflows/frontend-ui/how-to-actually-code-ui-that-matches-your-mockup-react-%2B-tailwind",
-      "destination": "/guides/frontend/how-to-actually-code-ui-that-matches-your-mockup-react-tailwind/",
-      "statusCode": 308
-    },
-    {
-      "source": "/guides/developer-workflows/power-user/how-to-run-3-agents-in-parallel-summarize-logs-%2B-analyze-pr-%2B-modify-ui",
-      "destination": "/guides/agent-workflows/how-to-run-3-agents-in-parallel-summarize-logs-analyze-pr-modify-ui/",
-      "statusCode": 308
-    },
-    {
-      "source": "/guides/end-to-end-builds/building-a-chrome-extension-d3.js-%2B-javascript-%2B-html-%2B-css",
-      "destination": "/guides/build-an-app-in-warp/building-a-chrome-extension-d3js-javascript-html-css/",
-      "statusCode": 308
-    },
-    {
-      "source": "/guides/end-to-end-builds/building-a-real-time-chat-app-github-mcp-%2B-railway",
-      "destination": "/guides/build-an-app-in-warp/building-a-real-time-chat-app-github-mcp-railway/",
-      "statusCode": 308
-    },
-    {
-      "source": "/guides/terminal-command-line-tips/improve-your-kubernetes-workflow-kubectl-%2B-helm",
-      "destination": "/guides/devops/improve-your-kubernetes-workflow-kubectl-helm/",
+      "destination": "/guides/devops/:slug*/",
       "statusCode": 308
     }
   ]
