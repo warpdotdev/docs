@@ -44,8 +44,8 @@ import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 -->
 <script is:inline>
 	(function () {
-		var brokenUrl = window.location.href;
-		var referrer = document.referrer || '';
+		var brokenUrl = window.location.origin + window.location.pathname;
+		var referrer = document.referrer ? new URL(document.referrer).origin : '';
 
 		// rudderanalytics is guaranteed to be a queue array at this point
 		// (the stub in RudderStackAnalytics.astro sets it up before this runs).
