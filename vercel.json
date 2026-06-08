@@ -9681,11 +9681,6 @@
       "statusCode": 308
     },
     {
-      "source": "/guides/developer-workflows/beginner/how-to-create-project-rules-for-an-existing-project-astro-+-typescript-+-tailwind",
-      "destination": "/guides/configuration/how-to-create-project-rules-for-an-existing-project-astro-typescript-tailwind/",
-      "statusCode": 308
-    },
-    {
       "source": "/guides/developer-workflows/beginner/how-to-customize-warps-appearance",
       "destination": "/guides/getting-started/how-to-customize-warps-appearance/",
       "statusCode": 308
@@ -9713,11 +9708,6 @@
     {
       "source": "/guides/developer-workflows/beginner/welcome-to-warp",
       "destination": "/guides/getting-started/welcome-to-warp/",
-      "statusCode": 308
-    },
-    {
-      "source": "/guides/developer-workflows/frontend-ui/how-to-actually-code-ui-that-matches-your-mockup-react-+-tailwind",
-      "destination": "/guides/frontend/how-to-actually-code-ui-that-matches-your-mockup-react-tailwind/",
       "statusCode": 308
     },
     {
@@ -9761,11 +9751,6 @@
       "statusCode": 308
     },
     {
-      "source": "/guides/developer-workflows/power-user/how-to-run-3-agents-in-parallel-summarize-logs-+-analyze-pr-+-modify-ui",
-      "destination": "/guides/agent-workflows/how-to-run-3-agents-in-parallel-summarize-logs-analyze-pr-modify-ui/",
-      "statusCode": 308
-    },
-    {
       "source": "/guides/developer-workflows/power-user/how-to-set-coding-best-practices",
       "destination": "/guides/configuration/how-to-set-coding-best-practices/",
       "statusCode": 308
@@ -9806,16 +9791,6 @@
       "statusCode": 308
     },
     {
-      "source": "/guides/end-to-end-builds/building-a-chrome-extension-d3.js-+-javascript-+-html-+-css",
-      "destination": "/guides/build-an-app-in-warp/building-a-chrome-extension-d3js-javascript-html-css/",
-      "statusCode": 308
-    },
-    {
-      "source": "/guides/end-to-end-builds/building-a-real-time-chat-app-github-mcp-+-railway",
-      "destination": "/guides/build-an-app-in-warp/building-a-real-time-chat-app-github-mcp-railway/",
-      "statusCode": 308
-    },
-    {
       "source": "/guides/how-warp-uses-warp/building-warps-input-with-warp",
       "destination": "/guides/build-an-app-in-warp/building-warps-input-with-warp/",
       "statusCode": 308
@@ -9843,11 +9818,6 @@
     {
       "source": "/guides/how-warp-uses-warp/using-mcp-servers-with-warp",
       "destination": "/guides/external-tools/using-mcp-servers-with-warp/",
-      "statusCode": 308
-    },
-    {
-      "source": "/guides/terminal-command-line-tips/improve-your-kubernetes-workflow-kubectl-+-helm",
-      "destination": "/guides/devops/improve-your-kubernetes-workflow-kubectl-helm/",
       "statusCode": 308
     },
     {
