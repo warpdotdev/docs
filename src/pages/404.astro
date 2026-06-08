@@ -1,0 +1,71 @@
+---
+/**
+ * Custom 404 page.
+ *
+ * Overrides Starlight's built-in 404 so we can fire a Rudderstack `docs_404`
+ * track event with the originally-requested URL. Without this, every 404
+ * visit logs `https://docs.warp.dev/404/` — hiding which paths are actually
+ * broken.
+ *
+ * Uses StarlightPage so the full site chrome (nav, head, Rudderstack snippet,
+ * Vercel Analytics) is inherited automatically.
+ */
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+---
+
+<StarlightPage
+	frontmatter={{
+		title: 'Page not found',
+		description: 'The page you are looking for does not exist or has moved.',
+		template: 'splash',
+	}}
+>
+	<div class="not-found">
+		<p>
+			The page you are looking for does not exist or has been moved. Use the search or navigation
+			to find what you need.
+		</p>
+		<p>
+			<a href="/">Go to the docs home</a>
+		</p>
+	</div>
+</StarlightPage>
+
+<!--
+	Fire a docs_404 track event with the broken URL.
+
+	`window.location.href` is the actual URL the visitor tried to reach — not
+	`/404/`. This fires through the RudderStack queue so it works even before
+	the async SDK has fully loaded. Once the SDK initialises, all queued calls
+	are flushed in order.
+
+	We read the values synchronously in is:inline so they are captured before
+	any navigation or history manipulation could change them.
+-->
+<script is:inline>
+	(function () {
+		var brokenUrl = window.location.href;
+		var referrer = document.referrer || '';
+
+		// rudderanalytics is guaranteed to be a queue array at this point
+		// (the stub in RudderStackAnalytics.astro sets it up before this runs).
+		// Calling .track() on the queue simply pushes the call; once the real
+		// SDK loads it replays the queue automatically.
+		if (window.rudderanalytics) {
+			window.rudderanalytics.track('docs_404', {
+				broken_url: brokenUrl,
+				referrer: referrer,
+			});
+		}
+	})();
+</script>
+
+<style>
+	.not-found {
+		max-width: 40rem;
+	}
+
+	.not-found p {
+		margin-block: 1rem;
+	}
+</style>
