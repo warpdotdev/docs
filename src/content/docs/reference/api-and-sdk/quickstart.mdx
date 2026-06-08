@@ -91,6 +91,7 @@ You can also view and manage all runs in the [Oz dashboard](https://oz.warp.dev/
 
 ## Next steps
 
+* **Send a follow-up to a run** - Use `POST /agent/runs/{runId}/followups` (or `runs.submit_followup` in the SDKs) to send a follow-up message to a run, the same way the Slack and Linear integrations continue a run. The server routes the message based on the run's current state. See the [Oz API reference](/reference/api-and-sdk/) and the [Agents API Reference](/api).
 * **Read the full API reference** - [Oz API](/reference/api-and-sdk/) documents all endpoint parameters, query filters, and response schemas.
 * **Explore the SDKs** - [Python SDK](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript SDK](https://github.com/warpdotdev/oz-sdk-typescript) include typed request/response models, retries, and error handling.
 * **See a real-world example** - [Demo: Sentry monitoring with SDK](/reference/api-and-sdk/demo-sentry-monitoring-with-sdk/) shows how to build a webhook handler that triggers agents from production errors.
