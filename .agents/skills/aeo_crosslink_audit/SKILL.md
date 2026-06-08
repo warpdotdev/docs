@@ -27,15 +27,15 @@ Do not:
 ## Source data
 
 Use the smallest reliable set of source data needed to justify link changes:
-- **Peec MCP** - Review recent prompts, recommendations, source URLs, and query vocabulary related to agents, cloud agents, and orchestration.
+- **Peec snapshot** - Read the Peec snapshot files at `/workspace/buzz/aeo-snapshots/docs/agents-orchestration/latest.json` and `/workspace/buzz/aeo-snapshots/docs/agents-orchestration/latest.md`. These contain pre-exported Peec data (prompts, recommendations, source URLs, query vocabulary, and visibility scores) for agents, cloud agents, and orchestration. The snapshots are generated locally (where Peec OAuth works) and committed to the buzz repo so cloud agents can use them. If the snapshot files do not exist or are empty, note that Peec data was unavailable and proceed with other sources.
 - **Google Search Console** - When available, use the environment's `GSC_SERVICE_ACCOUNT_CREDENTIALS_JSON` secret to inspect recent queries and pages related to agents, cloud agents, and orchestration. Never print, log, commit, or include the secret value in reports. If a GSC client requires a credentials file path, write the secret to a restricted temporary file, use it for the run, and remove it before finishing.
 - **Docs repo** - Search existing pages under `src/content/docs/` for relevant source pages, link targets, and related terminology.
 
-If Peec or Google Search Console data is unavailable, say what could not be verified and proceed only with repo-grounded recommendations. Do not invent source signals.
+If Peec snapshot or Google Search Console data is unavailable, say what could not be verified and proceed only with repo-grounded recommendations. Do not invent source signals.
 
 ## Workflow
 
-1. **Gather source signals.** Use Peec MCP and Google Search Console data, when available, to identify relevant user language, prompts, recommendations, or pages.
+1. **Gather source signals.** Read the Peec snapshot files and use Google Search Console data, when available, to identify relevant user language, prompts, recommendations, or pages.
 2. **Search existing docs.** Look for pages under `src/content/docs/` that already mention or imply related concepts in agents, cloud agents, or orchestration.
 3. **Identify link opportunities.** Find up to 5 internal cross-link opportunities where:
    - The source page already mentions or implies the related concept.
