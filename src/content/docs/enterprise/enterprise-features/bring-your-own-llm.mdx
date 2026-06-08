@@ -77,7 +77,7 @@ Before configuring BYOLLM, confirm the following:
 * You have admin access to both Warp's [Admin Panel](/enterprise/team-management/admin-panel/) and your AWS IAM settings.
 * Team members have the AWS CLI installed locally.
 
-### Step 1: Configure routing policies (admin)
+### 1. Configure routing policies (admin)
 
 In the [Admin Panel](/enterprise/team-management/admin-panel/), configure which models should route through AWS Bedrock:
 
@@ -85,7 +85,7 @@ In the [Admin Panel](/enterprise/team-management/admin-panel/), configure which 
 2. Select which models should use your cloud provider (e.g., "Claude Opus 4.7 via AWS Bedrock").
 3. Optionally, disable direct API access to enforce provider-only routing.
 
-### Step 2: Provision IAM roles (cloud admin)
+### 2. Provision IAM roles (cloud admin)
 
 Grant your team members the necessary permissions in AWS. Use least-privilege IAM policies.
 
@@ -116,7 +116,7 @@ Grant your team members the necessary permissions in AWS. Use least-privilege IA
 This policy covers Warp's current usage. By default, Warp uses [global inference profiles](https://docs.aws.amazon.com/bedrock/latest/userguide/cross-region-inference.html) for models when available. Admins can override the inference profile per model on the **Models** page of the [Admin Panel](/enterprise/team-management/admin-panel/).
 :::
 
-### Step 3: Authenticate locally (team member)
+### 3. Authenticate locally (team member)
 
 Each team member authenticates to AWS using the AWS CLI:
 
@@ -126,7 +126,7 @@ aws login
 
 Confirm your AWS environment and region are correctly configured before using Warp.
 
-### Step 4: Validate
+### 4. Validate
 
 Run a test prompt in Warp using a model configured for BYOLLM routing. Verify:
 
@@ -143,7 +143,7 @@ Before configuring BYOLLM for cloud agents, confirm the following:
 
 * You have admin access to both Warp's [Admin Panel](/enterprise/team-management/admin-panel/) and your AWS IAM settings.
 
-### Step 1: Set up Warp as an OIDC identity provider in AWS (cloud admin)
+### 1. Set up Warp as an OIDC identity provider in AWS (cloud admin)
 
 Before AWS can trust tokens issued by Warp, register Warp as an OpenID Connect (OIDC) identity provider in IAM. This is a one-time setup per AWS account.
 
@@ -158,7 +158,7 @@ After the provider is created, copy its ARN — it will look like `arn:aws:iam::
 
 For more detail, see AWS's [Create an OpenID Connect (OIDC) identity provider in IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html) guide.
 
-### Step 2: Provision an assumable IAM role (cloud admin)
+### 2. Provision an assumable IAM role (cloud admin)
 
 Create an IAM role that Warp can assume via OIDC, then attach the minimum Bedrock permissions policy. Use least-privilege IAM policies.
 
@@ -231,7 +231,7 @@ This policy covers Warp's current usage. By default, Warp uses [global inference
 
 After you create the role, copy its ARN. You'll paste it into the **Models** page in the next step.
 
-### Step 3: Configure routing policies (admin)
+### 3. Configure routing policies (admin)
 
 Attach the IAM role from Step 2 to your team or to a specific named agent.
 
@@ -260,7 +260,7 @@ In the Oz web app:
 
 New runs for this agent will authenticate to Bedrock using the configured role.
 
-### Step 4: Validate the configuration
+### 4. Validate the configuration
 
 Start a test cloud agent run using a model configured for BYOLLM routing. Verify:
 

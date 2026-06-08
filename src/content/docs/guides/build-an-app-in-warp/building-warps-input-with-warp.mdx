@@ -28,7 +28,7 @@ Most people were excited, but engineering resources were stretched thin — focu
 
 So I thought: _“What if I just Warp it?”_
 
-#### Step 1. Locating the Git Diff chip code
+#### 1. Locating the Git Diff chip code
 
 Inside the universal input, there’s a small Git Diff chip — it shows your current branch and open changes. It was one pixel too tall. That tiny visual bug drove me nuts, so I used Warp to find where it lived.
 
@@ -41,7 +41,7 @@ It used a combination of semantic search, code indexing, and traditional grep to
 
 ---
 
-#### Step 2. Modifying the font size
+#### 2. Modifying the font size
 
 Once Warp located the implementation, I asked it to reduce the font size by 1 pixel.
 
@@ -54,7 +54,7 @@ I reviewed the diffs to confirm everything looked good.
 
 ---
 
-#### Step 3. Building and testing the change
+#### 3. Building and testing the change
 
 Next, I rebuilt the app using:
 
