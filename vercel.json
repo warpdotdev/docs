@@ -9716,16 +9716,6 @@
       "statusCode": 308
     },
     {
-      "source": "/guides/developer-workflows/devops/how-to-analyze-cloud-run-logs-gcloud",
-      "destination": "/guides/devops/how-to-analyze-cloud-run-logs-gcloud/",
-      "statusCode": 308
-    },
-    {
-      "source": "/guides/developer-workflows/devops/how-to-create-a-production-ready-docker-setup",
-      "destination": "/guides/devops/how-to-create-a-production-ready-docker-setup/",
-      "statusCode": 308
-    },
-    {
       "source": "/guides/developer-workflows/frontend-ui/how-to-actually-code-ui-that-matches-your-mockup-react-+-tailwind",
       "destination": "/guides/frontend/how-to-actually-code-ui-that-matches-your-mockup-react-tailwind/",
       "statusCode": 308
@@ -9856,61 +9846,6 @@
       "statusCode": 308
     },
     {
-      "source": "/guides/integrations/how-to-set-up-codex-cli",
-      "destination": "/guides/external-tools/how-to-set-up-codex-cli/",
-      "statusCode": 308
-    },
-    {
-      "source": "/guides/integrations/how-to-set-up-gemini-cli",
-      "destination": "/guides/external-tools/how-to-set-up-gemini-cli/",
-      "statusCode": 308
-    },
-    {
-      "source": "/guides/integrations/how-to-set-up-ollama",
-      "destination": "/guides/external-tools/how-to-set-up-ollama/",
-      "statusCode": 308
-    },
-    {
-      "source": "/guides/mcp-servers/context7-mcp-update-astro-project-with-best-practices",
-      "destination": "/guides/external-tools/context7-mcp-update-astro-project-with-best-practices/",
-      "statusCode": 308
-    },
-    {
-      "source": "/guides/mcp-servers/figma-remote-mcp-create-a-website-from-a-figma-file-from-scratch",
-      "destination": "/guides/external-tools/figma-remote-mcp-create-a-website-from-a-figma-file-from-scratch/",
-      "statusCode": 308
-    },
-    {
-      "source": "/guides/mcp-servers/github-mcp-summarizing-open-prs-and-creating-gh-issues",
-      "destination": "/guides/external-tools/github-mcp-summarizing-open-prs-and-creating-gh-issues/",
-      "statusCode": 308
-    },
-    {
-      "source": "/guides/mcp-servers/linear-mcp-retrieve-issue-data",
-      "destination": "/guides/external-tools/linear-mcp-retrieve-issue-data/",
-      "statusCode": 308
-    },
-    {
-      "source": "/guides/mcp-servers/linear-mcp-updating-tickets-with-a-lean-build-approach",
-      "destination": "/guides/external-tools/linear-mcp-updating-tickets-with-a-lean-build-approach/",
-      "statusCode": 308
-    },
-    {
-      "source": "/guides/mcp-servers/puppeteer-mcp-scraping-amazon-web-reviews",
-      "destination": "/guides/external-tools/puppeteer-mcp-scraping-amazon-web-reviews/",
-      "statusCode": 308
-    },
-    {
-      "source": "/guides/mcp-servers/sentry-mcp-fix-sentry-error-in-empower-website",
-      "destination": "/guides/external-tools/sentry-mcp-fix-sentry-error-in-empower-website/",
-      "statusCode": 308
-    },
-    {
-      "source": "/guides/mcp-servers/sqlite-and-stripe-mcp-basic-queries-you-can-make-after-set-up",
-      "destination": "/guides/external-tools/sqlite-and-stripe-mcp-basic-queries-you-can-make-after-set-up/",
-      "statusCode": 308
-    },
-    {
       "source": "/guides/terminal-command-line-tips/improve-your-kubernetes-workflow-kubectl-+-helm",
       "destination": "/guides/devops/improve-your-kubernetes-workflow-kubectl-helm/",
       "statusCode": 308
@@ -9918,6 +9853,51 @@
     {
       "source": "/guides/warp-runtime/building-a-slackbot",
       "destination": "/guides/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/integrations/:slug*",
+      "destination": "/guides/external-tools/:slug/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/mcp-servers/:slug*",
+      "destination": "/guides/external-tools/:slug/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/developer-workflows/devops/:slug*",
+      "destination": "/guides/devops/:slug/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/developer-workflows/beginner/how-to-create-project-rules-for-an-existing-project-astro-%2B-typescript-%2B-tailwind",
+      "destination": "/guides/configuration/how-to-create-project-rules-for-an-existing-project-astro-typescript-tailwind/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/developer-workflows/frontend-ui/how-to-actually-code-ui-that-matches-your-mockup-react-%2B-tailwind",
+      "destination": "/guides/frontend/how-to-actually-code-ui-that-matches-your-mockup-react-tailwind/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/developer-workflows/power-user/how-to-run-3-agents-in-parallel-summarize-logs-%2B-analyze-pr-%2B-modify-ui",
+      "destination": "/guides/agent-workflows/how-to-run-3-agents-in-parallel-summarize-logs-analyze-pr-modify-ui/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/end-to-end-builds/building-a-chrome-extension-d3.js-%2B-javascript-%2B-html-%2B-css",
+      "destination": "/guides/build-an-app-in-warp/building-a-chrome-extension-d3js-javascript-html-css/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/end-to-end-builds/building-a-real-time-chat-app-github-mcp-%2B-railway",
+      "destination": "/guides/build-an-app-in-warp/building-a-real-time-chat-app-github-mcp-railway/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/terminal-command-line-tips/improve-your-kubernetes-workflow-kubectl-%2B-helm",
+      "destination": "/guides/devops/improve-your-kubernetes-workflow-kubectl-helm/",
       "statusCode": 308
     }
   ]
