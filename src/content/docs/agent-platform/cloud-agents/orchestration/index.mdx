@@ -88,7 +88,7 @@ The parent (the "writer") proposes a solution, then spawns a critic child to rev
 
 ### Review swarm (cloud → cloud)
 
-A scheduled or webhook-triggered parent spawns one cloud child per open pull request to run reviews in parallel. Each child posts its findings as a comment and exits. The parent fans in the results and posts a summary back to the triggering system.
+A [scheduled](/agent-platform/cloud-agents/triggers/scheduled-agents/) or webhook-triggered parent spawns one cloud child per open pull request to run reviews in parallel. Each child posts its findings as a comment and exits. The parent fans in the results and posts a summary back to the triggering system.
 
 ### DAG
 
