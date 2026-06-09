@@ -10,7 +10,7 @@ import VideoEmbed from '@components/VideoEmbed.astro';
 
 Warp's Scheduled Agents let you run cloud agents automatically on a **recurring schedule**. They are designed for routine, repeatable tasks that should happen without manual intervention, such as dead code cleanup, dependency maintenance, issue triage, or periodic refactors.
 
-<VideoEmbed url="https://www.youtube.com/watch?feature=youtu.be&v=wX9cDbsRXHs" />
+<VideoEmbed url="https://www.youtube.com/watch?feature=youtu.be&v=wX9cDbsRXHs" title="Scheduled agents overview video" />
 
 Scheduled Agents run in the background on Warp’s infrastructure. Each run starts from a clean session, executes a fixed prompt, and produces its own task and session history that can be inspected after the fact.
 
@@ -54,7 +54,7 @@ Because each run is isolated, Scheduled Agents are safe to use for tasks that be
 
 Oz scheduled agents are managed through the Oz `schedule` family of CLI commands.
 
-All scheduling operations require the Oz CLI and an authenticated session
+All scheduling operations require the Oz CLI and an authenticated session.
 
 #### Creating a schedule
 
@@ -281,7 +281,7 @@ Each scheduled run behaves like a standard cloud agent run, with a few important
 * Runs execute automatically without human intervention.
 * All usage is billed to the team’s shared credit balance.
 
-If a scheduled run fails, it does not block future runs. Each execution is independent.
+If a scheduled run fails, it does not block future runs. Each execution is independent. Use the [API error reference](/reference/api-and-sdk/troubleshooting/errors/) to interpret any returned error code.
 
 ### Permissions and responsibility
 
@@ -300,6 +300,6 @@ Carefully review prompts and schedules before deploying them broadly, especially
 
 Scheduled Agents are best when work should happen on a predictable cadence.
 
-If you want an agent to run in response to an event, such as a Slack mention, PR update, or issue change, use triggered cloud agents instead.
+If you want an agent to run in response to an event, such as a Slack mention, PR update, or issue change, use [integrations](/agent-platform/cloud-agents/integrations/) to trigger cloud agents instead.
 
-Many teams use both together: triggers for reactive workflows, and Scheduled Agents for proactive maintenance.
+Many teams use both together: [triggers](/agent-platform/cloud-agents/triggers/) for reactive workflows, and Scheduled Agents for proactive maintenance.

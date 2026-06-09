@@ -14,7 +14,7 @@ import { Steps } from '@astrojs/starlight/components';
 
 Learn how to use Warp’s AI coding features to make live code changes — in this example, replacing an icon throughout Warp’s massive Rust codebase using an agentic workflow.
 
-<VideoEmbed url="https://youtu.be/V2pwBN6Vt7k" />
+<VideoEmbed url="https://youtu.be/V2pwBN6Vt7k" title="Replacing a UI element in the Warp Rust codebase video" />
 
 :::note
 This demo showcases Warp’s ability to safely make intelligent code changes within a multi-million-line codebase by providing structured prompts, reviewing diffs in real time, and letting the agent compile and self-correct.
@@ -22,7 +22,7 @@ This demo showcases Warp’s ability to safely make intelligent code changes wit
 
 <Steps>
 
-1. #### Define the Task
+1. #### Define the task
 
    The goal here is to replace all instances of the **sparkle icon** with the new **agent icon**, especially within the history menu.
 
@@ -40,7 +40,7 @@ This demo showcases Warp’s ability to safely make intelligent code changes wit
 
    Attach any relevant Linear issue links or screenshots to help the agent identify assets accurately.
 
-2. #### Review the Plan
+2. #### Review the plan
 
    Warp’s agent parses your request and generates a plan for code edits.\
    It identifies files and functions where the sparkle icon is used.
@@ -56,19 +56,19 @@ This demo showcases Warp’s ability to safely make intelligent code changes wit
 
    Warp automatically updates function names, asset references, and component usage.
 
-3. #### View AI Diffs in Real Time
+3. #### View AI diffs in real time
 
    Warp lets you view live diffs as the agent edits your files.
 
    * Diffs show changes to both render logic and function naming.
    * You can choose to auto-accept or manually review diffs.
-   * These settings can be adjusted under AI Settings → Apply Changes Automatically.
+   * These settings can be adjusted under **AI Settings** > **Apply Changes Automatically**.
 
    :::note
    Note: The demo runs with “auto-accept” enabled, allowing Warp to apply diffs as soon as they’re validated.
    :::
 
-4. #### Compilation and Fixes
+4. #### Compilation and fixes
 
    After editing, Warp’s agent runs:
 
@@ -80,7 +80,7 @@ This demo showcases Warp’s ability to safely make intelligent code changes wit
 
    If compilation fails (e.g., missing imports), the agent automatically corrects and retries — mimicking a human debugging process.
 
-5. #### Testing the Change
+5. #### Testing the change
 
    Once compiled:
 

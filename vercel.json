@@ -73,12 +73,24 @@
   "rewrites": [
     {
       "source": "/",
-      "has": [{ "type": "header", "key": "accept", "value": ".*text/markdown.*" }],
+      "has": [
+        {
+          "type": "header",
+          "key": "accept",
+          "value": ".*text/markdown.*"
+        }
+      ],
       "destination": "/index.md"
     },
     {
       "source": "/:path+",
-      "has": [{ "type": "header", "key": "accept", "value": ".*text/markdown.*" }],
+      "has": [
+        {
+          "type": "header",
+          "key": "accept",
+          "value": ".*text/markdown.*"
+        }
+      ],
       "destination": "/:path+.md"
     }
   ],
@@ -1140,7 +1152,12 @@
     },
     {
       "source": "/agent-platform/integrations/github-actions/demo-issue-triage-bot",
-      "destination": "/agent-platform/cloud-agents/integrations/demo-issue-triage-bot/",
+      "destination": "/agent-platform/cloud-agents/integrations/quickstart-github-actions/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/cloud-agents/integrations/demo-issue-triage-bot",
+      "destination": "/agent-platform/cloud-agents/integrations/quickstart-github-actions/",
       "statusCode": 308
     },
     {
@@ -5420,7 +5437,12 @@
     },
     {
       "source": "/agent-platform/integrations/github-actions/demo-issue-triage-bot/",
-      "destination": "/agent-platform/cloud-agents/integrations/demo-issue-triage-bot/",
+      "destination": "/agent-platform/cloud-agents/integrations/quickstart-github-actions/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/cloud-agents/integrations/demo-issue-triage-bot/",
+      "destination": "/agent-platform/cloud-agents/integrations/quickstart-github-actions/",
       "statusCode": 308
     },
     {
@@ -9636,6 +9658,186 @@
     {
       "source": "/support-and-community/plans-and-billing/custom-inference-endpoint",
       "destination": "/agent-platform/inference/custom-inference-endpoint/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/warp-agents",
+      "destination": "/agent-platform/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/developer-workflows/backend/how-to-create-priority-matrix-for-database-optimization",
+      "destination": "/guides/devops/how-to-create-priority-matrix-for-database-optimization/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/developer-workflows/backend/how-to-write-sql-commands-inside-a-postgres-repl",
+      "destination": "/guides/devops/how-to-write-sql-commands-inside-a-postgres-repl/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/developer-workflows/beginner/10-coding-features-you-should-know",
+      "destination": "/guides/getting-started/10-coding-features-you-should-know/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/developer-workflows/beginner/how-to-customize-warps-appearance",
+      "destination": "/guides/getting-started/how-to-customize-warps-appearance/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/developer-workflows/beginner/how-to-explain-your-codebase-using-warp-rust-codebase",
+      "destination": "/guides/agent-workflows/how-to-explain-your-codebase-using-warp-rust-codebase/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/developer-workflows/beginner/how-to-make-warps-ui-more-minimal",
+      "destination": "/guides/getting-started/how-to-make-warps-ui-more-minimal/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/developer-workflows/beginner/how-to-master-warps-code-review-panel",
+      "destination": "/guides/getting-started/how-to-master-warps-code-review-panel/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/developer-workflows/beginner/trigger-reusable-actions-with-saved-prompts",
+      "destination": "/guides/configuration/trigger-reusable-actions-with-saved-prompts/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/developer-workflows/beginner/welcome-to-warp",
+      "destination": "/guides/getting-started/welcome-to-warp/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/developer-workflows/frontend-ui/how-to-replace-a-ui-element-in-warp-rust-codebase",
+      "destination": "/guides/frontend/how-to-replace-a-ui-element-in-warp-rust-codebase/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/developer-workflows/how-to-review-ai-generated-code",
+      "destination": "/guides/agent-workflows/how-to-review-ai-generated-code/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/developer-workflows/how-to-run-multiple-ai-coding-agents",
+      "destination": "/guides/agent-workflows/how-to-run-multiple-ai-coding-agents/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/developer-workflows/how-to-use-voice-and-images-to-prompt-coding-agents",
+      "destination": "/guides/agent-workflows/how-to-use-voice-and-images-to-prompt-coding-agents/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/developer-workflows/warp-for-product-managers",
+      "destination": "/guides/agent-workflows/warp-for-product-managers/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/developer-workflows/power-user/how-to-configure-yolo-and-strategic-agent-profiles",
+      "destination": "/guides/configuration/how-to-configure-yolo-and-strategic-agent-profiles/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/developer-workflows/power-user/how-to-edit-agent-code-in-warp",
+      "destination": "/guides/agent-workflows/how-to-edit-agent-code-in-warp/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/developer-workflows/power-user/how-to-review-prs-like-a-senior-dev",
+      "destination": "/guides/agent-workflows/how-to-review-prs-like-a-senior-dev/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/developer-workflows/power-user/how-to-set-coding-best-practices",
+      "destination": "/guides/configuration/how-to-set-coding-best-practices/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/developer-workflows/power-user/how-to-set-coding-preferences-with-rules",
+      "destination": "/guides/configuration/how-to-set-coding-preferences-with-rules/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/developer-workflows/power-user/how-to-set-tech-stack-preferences-with-rules",
+      "destination": "/guides/configuration/how-to-set-tech-stack-preferences-with-rules/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/developer-workflows/power-user/how-to-set-up-self-serve-data-analytics-with-skills",
+      "destination": "/guides/configuration/how-to-set-up-self-serve-data-analytics-with-skills/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/developer-workflows/power-user/how-to-sync-your-monorepos",
+      "destination": "/guides/configuration/how-to-sync-your-monorepos/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/developer-workflows/power-user/how-to-use-agent-profiles-efficiently",
+      "destination": "/guides/configuration/how-to-use-agent-profiles-efficiently/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/developer-workflows/testing-and-security/how-to-generate-unit-and-security-tests-to-debug-faster",
+      "destination": "/guides/devops/how-to-generate-unit-and-security-tests-to-debug-faster/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/developer-workflows/testing-and-security/how-to-prevent-secrets-from-leaking",
+      "destination": "/guides/devops/how-to-prevent-secrets-from-leaking/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/how-warp-uses-warp/building-warps-input-with-warp",
+      "destination": "/guides/build-an-app-in-warp/building-warps-input-with-warp/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/how-warp-uses-warp/creating-rules-for-agents",
+      "destination": "/guides/configuration/creating-rules-for-agents/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/how-warp-uses-warp/running-multiple-agents-at-once-with-warp",
+      "destination": "/guides/agent-workflows/running-multiple-agents-at-once-with-warp/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/how-warp-uses-warp/understanding-your-codebase",
+      "destination": "/guides/agent-workflows/understanding-your-codebase/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/how-warp-uses-warp/using-images-as-context-with-warp",
+      "destination": "/guides/agent-workflows/using-images-as-context-with-warp/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/how-warp-uses-warp/using-mcp-servers-with-warp",
+      "destination": "/guides/external-tools/using-mcp-servers-with-warp/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/warp-runtime/building-a-slackbot",
+      "destination": "/guides/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/integrations/:slug*",
+      "destination": "/guides/external-tools/:slug*/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/mcp-servers/:slug*",
+      "destination": "/guides/external-tools/:slug*/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/developer-workflows/devops/:slug*",
+      "destination": "/guides/devops/:slug*/",
       "statusCode": 308
     }
   ]

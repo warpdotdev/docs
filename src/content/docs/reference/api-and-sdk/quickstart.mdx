@@ -11,13 +11,13 @@ import VideoEmbed from '@components/VideoEmbed.astro';
 The Oz API lets you run and manage cloud agents from anywhere — CI/CD pipelines, backend services, scripts, or custom tooling — without the Warp desktop app. This quickstart walks you through creating your first run and checking its status.
 
 Watch this short demo of how the REST API can power agent-backed apps like [PowerFixer](https://github.com/warpdotdev/power-fixer-setup), an issue triage bot built by the Warp team:
-<VideoEmbed url="https://youtu.be/N6qMe641K34" />
+<VideoEmbed url="https://youtu.be/N6qMe641K34" title="Oz API and SDK quickstart video" />
 
 ---
 
 ## Prerequisites
 
-* **A Warp API key** - In the Warp app, click your profile photo, then go to **Settings** > **Cloud platform** > **Oz Cloud API Keys** to create a key and copy the raw value. See [API Keys](/reference/cli/api-keys/) for step-by-step instructions.
+* **A Warp API key** - Create one in the [Oz web app](https://oz.warp.dev/settings) and copy the raw value. Use a personal key if you want runs attributed to you, or an agent key to attribute runs to a [cloud agent](/agent-platform/cloud-agents/agents/). See [API Keys](/reference/cli/api-keys/) for the full flow.
 * **An Oz cloud environment** - Agents run inside a configured environment that includes repos and other dependencies. If you don't have an environment yet, follow the [Cloud Agents Quickstart](/agent-platform/cloud-agents/quickstart/) first.
 
 ---
@@ -70,7 +70,7 @@ The `state` has the following possible values:
 * `QUEUED` - The run is waiting to start.
 * `INPROGRESS` - The agent is actively running.
 * `SUCCEEDED` - The run completed successfully.
-* `FAILED` - The run encountered an error. Check the `status_message` field in the response for details.
+* `FAILED` - The run encountered an error. Check the `status_message` field in the response for details, then use the [API error reference](/reference/api-and-sdk/troubleshooting/errors/) to interpret the error code.
 
 These are the most common states. See the [full API reference](/reference/api-and-sdk/) for all possible values.
 

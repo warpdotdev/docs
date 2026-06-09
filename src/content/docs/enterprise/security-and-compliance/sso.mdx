@@ -31,7 +31,7 @@ SSO is configured through [WorkOS](https://workos.com) in coordination with Warp
 2. Warp creates an organization for your team in WorkOS and sets your team domain.
 3. Your IT admin receives an email invite from WorkOS.
 4. Follow the WorkOS setup wizard to connect your identity provider (configure SAML attributes or OAuth scopes, provide your SSO URL and certificate).
-5. Once complete, team members can log in via **Continue with SSO** at [app.warp.dev/login](https://app.warp.dev/login).
+5. Once complete, team members can log in via **Continue with SSO** on the [Warp login page](https://app.warp.dev/login).
 
 :::note
 After enabling SSO, existing users who signed up with email or OAuth need to link their accounts. See [Linking existing accounts](#linking-existing-accounts) below.
@@ -42,13 +42,13 @@ After enabling SSO, existing users who signed up with email or OAuth need to lin
 Before rolling out to your team:
 
 1. Open an incognito/private browser window.
-2. Navigate to [app.warp.dev/login](https://app.warp.dev/login).
+2. Navigate to the [Warp login page](https://app.warp.dev/login).
 3. Click **Continue with SSO**.
 4. Enter your organization's domain.
 5. Verify you're redirected to your identity provider and can log in successfully.
 
 :::caution
-Warp cannot be launched directly from your SSO provider's app portal (e.g., Okta dashboard). Users must log in through [app.warp.dev/login](https://app.warp.dev/login) and select **Continue with SSO**.
+Warp cannot be launched directly from your SSO provider's app portal (e.g., Okta dashboard). Users must log in through the [Warp login page](https://app.warp.dev/login) and select **Continue with SSO**.
 :::
 
 ## SCIM provisioning
@@ -68,7 +68,7 @@ Warp does not currently support SCIM group sync. User provisioning is handled vi
 Users who created a Warp account before your organization enabled SSO need to link their accounts:
 
 1. Log in to Warp with the original method (email, Google, or GitHub).
-2. Navigate to [app.warp.dev/link_sso](https://app.warp.dev/link_sso).
+2. Navigate to the [SSO linking page](https://app.warp.dev/link_sso).
 3. Complete the linking process.
 4. Log out and log back in with **Continue with SSO**.
 
@@ -93,7 +93,7 @@ Once your team domain is configured, users who sign in via SSO from your domain 
 
 **Solution:**
 1. Verify SSO configuration in your identity provider.
-2. Have users log in through [app.warp.dev/login](https://app.warp.dev/login) and select **Continue with SSO**.
+2. Have users log in through the [Warp login page](https://app.warp.dev/login) and select **Continue with SSO**.
 3. For existing accounts, follow the [SSO linking process](https://app.warp.dev/link_sso).
 
 ### Warp won't open from SSO provider portal
@@ -101,7 +101,7 @@ Once your team domain is configured, users who sign in via SSO from your domain 
 **Problem:** Clicking Warp in Okta/Microsoft Entra ID portal shows an error.
 
 **Solution:**
-Log in directly through [app.warp.dev/login](https://app.warp.dev/login) and select **Continue with SSO** instead.
+Log in directly through the [Warp login page](https://app.warp.dev/login) and select **Continue with SSO** instead.
 
 ## Related resources
 

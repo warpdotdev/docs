@@ -36,6 +36,8 @@ By default, if you ask an AI query immediately after interacting in Agent Mode, 
 * Open the **Conversations menu** (`CMD + Y` on macOS, `CTRL + SHIFT + Y` on Windows/Linux), select a conversation, and then enter your query.
 * Alternatively, click the pink conversation chip in the input field to resume.
 
+You don't have to wait for the agent to finish before lining up your next prompt. With [prompt queueing](/agent-platform/local-agents/interacting-with-agents/prompt-queueing/), you can queue follow-ups while the agent is still responding and have them send automatically in order.
+
 <figure>
 ![Continuing an Agent conversation in Classic Input (with indicator)](../../../../../assets/agent-platform/classic-input-follow-up.png)
 <figcaption>Continuing an agent conversation in Classic Input.</figcaption>
@@ -57,17 +59,17 @@ You can enable or disable these tips in two places:
 * **Settings**: **Settings** > **Agents** > **Warp Agent** > **Input** > **Show agent tips**
 * **Command Palette**: Open the Command Palette (`CMD + P` on macOS, `CTRL + SHIFT + P` on Windows/Linux), then select "**Show Agent Tips**" or "**Hide Agent Tips**"
 
-### **Managing conversations**
+### Managing conversations
 
 You can view previous conversations or start a new conversation via the **Conversations Menu** (`CMD + Y` on macOS, `CTRL + SHIFT + Y` on Windows/Linux).
 
-<VideoEmbed url="https://www.loom.com/share/9cc2451412be43e389a6b1414ea185e4?sid=4457ba14-4876-4988-ade6-1dca43dda96a" />
+<VideoEmbed url="https://www.loom.com/share/9cc2451412be43e389a6b1414ea185e4?sid=4457ba14-4876-4988-ade6-1dca43dda96a" title="Agent interaction controls walkthrough" />
 
 :::note
 The "New Conversation" item disappears once you start searching for an actual conversation.
 :::
 
-### **Starting a new conversation**
+### Starting a new conversation
 
 Warp automatically creates a new conversation in a few situations. For example, if you ask an AI query after running a shell command or if three hours pass without activity, Agent Mode will start a fresh conversation.
 
@@ -112,7 +114,7 @@ Visual indicators differ slightly depending on input mode:
 
 ## Context window management
 
-Every conversation with an agent consumes tokens stored in a **context window**. The context window (sometimes called _context length_) is the amount of text (measured in tokens) that a Large Language Model (LLM) can process at one time. **The size of the context window depends on the model you are using.**
+Every conversation with an agent consumes tokens stored in a **context window**. The context window (sometimes called _context length_) is the amount of text (measured in tokens) that a large language model (LLM) can process at one time. **The size of the context window depends on the model you are using.**
 
 As tokens accumulate and exceed the context window, performance and response quality may degrade. If the context window is exceeded, the model may lose track of earlier parts of the conversation, and **Warp will automatically summarize the conversation to free up space**.
 

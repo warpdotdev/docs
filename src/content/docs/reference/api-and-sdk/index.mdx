@@ -23,7 +23,7 @@ The Oz API lets you create and inspect [Cloud Agent](/agent-platform/cloud-agent
 :::caution
 This page is a high-level overview.\
 \
-For full API endpoint details, please refer to the [**Agents API Reference**](/api)**.** For schema definitions, see the SDK repos: [**Python SDK**](https://github.com/warpdotdev/oz-sdk-python) and [**TypeScript SDK**](https://github.com/warpdotdev/oz-sdk-typescript).
+For full API endpoint details, refer to the [**Agents API Reference**](/api). For schema definitions, see the SDK repos: [**Python SDK**](https://github.com/warpdotdev/oz-sdk-python) and [**TypeScript SDK**](https://github.com/warpdotdev/oz-sdk-typescript).
 :::
 
 ### Oz SDK
@@ -32,12 +32,12 @@ Oz provides official [Python](https://github.com/warpdotdev/oz-sdk-python) and [
 
 * **Typed requests and responses** (editor autocomplete, fewer schema mistakes)
 * **Built-in retries and timeouts** (with per-request overrides)
-* **Consistent error type**s that map to API status codes
+* [**Consistent error types**](/reference/api-and-sdk/troubleshooting/errors/) that map to API status codes
 * **Helpers for raw responses** when you need headers/status or custom parsing
 
 If you’re building an integration (CI, Slack bots, internal tooling, orchestrators), the SDKs are typically the quickest and safest starting point.
 
-<VideoEmbed url="https://www.youtube.com/watch?v=0cf7383MZSk" />
+<VideoEmbed url="https://www.youtube.com/watch?v=0cf7383MZSk" title="Oz API and SDK reference overview video" />
 
 **SDK vs raw REST**
 
@@ -52,7 +52,7 @@ For the full SDK surface area and latest usage, refer to the GitHub repos: [**Py
 
 ## Oz API
 
-### REST API Base URL
+### REST API base URL
 
 All endpoints are served over HTTPS:
 
@@ -60,7 +60,7 @@ All endpoints are served over HTTPS:
 https://app.warp.dev/api/v1
 ```
 
-### Core Concepts
+### Core concepts
 
 #### **Agent runs**
 
@@ -91,7 +91,7 @@ See the [**Python SDK**](https://github.com/warpdotdev/oz-sdk-python) or [**Type
 
 ---
 
-### Key Endpoints
+### Key endpoints
 
 **The Agents API exposes three primary endpoints:**
 
@@ -105,11 +105,11 @@ See the [**Python SDK**](https://github.com/warpdotdev/oz-sdk-python) or [**Type
 
     Fetch full details for a single run, including session link and resolved configuration.
 
-All endpoint semantics, query parameters, and error codes are documented on the [Agents API Reference](/api).
+All endpoint semantics, query parameters, and [error codes](/reference/api-and-sdk/troubleshooting/errors/) are documented on the [Agents API Reference](/api).
 
 ---
 
-#### Models Reference
+#### Models reference
 
 The API shares a set of reusable models across endpoints. Detailed JSON schemas, types, and enums are available in the SDK repos ([Python](https://github.com/warpdotdev/oz-sdk-python), [TypeScript](https://github.com/warpdotdev/oz-sdk-typescript)). Key models include:
 

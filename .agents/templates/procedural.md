@@ -9,6 +9,8 @@ description: >-
 [Opening paragraph: What the reader will accomplish and why.
 1-2 sentences. Focus on the goal, not the tool.]
 
+[AEO GUIDANCE: If this procedure is based on Peec, answer-engine prompts, search-query data, or AEO goals, create an AEO brief first using `.agents/skills/aeo_brief/SKILL.md`. Use the brief to translate source-data vocabulary into precise, natural docs language and confirm whether this belongs in a new page or an existing page.]
+
 ## Prerequisites
 
 [Only if needed. Bulleted list with inline context for each prerequisite.
@@ -16,7 +18,7 @@ Each item should include: what it is (1 short clause), where to get or
 create it, and a link to the full reference.
 Example:
 * **A Warp API key** - Authenticate API requests with a key from
-  **Settings** > **Platform** in the Warp app. See [API Keys](path) for details.]
+  **Settings** > **Cloud platform** > **Oz Cloud API Keys** in the Warp app. See [API Keys](path) for details.]
 
 ## [Primary task name — sentence case. e.g., "Creating API keys"]
 
@@ -49,3 +51,5 @@ Format: symptom/error as bold text, then cause and fix.]
 Bold the key action at the start of each item.]
 
 * **Use environment variables** - Avoid passing secrets directly in commands.
+
+[PRE-HANDOFF REVIEW: Before presenting the draft, check whether steps are easy to scan, whether each important step has an expected outcome, whether UI names and Settings paths are current, whether AEO vocabulary is natural rather than stuffed, and whether any step needs human product testing.]

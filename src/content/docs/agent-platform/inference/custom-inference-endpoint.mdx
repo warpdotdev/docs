@@ -2,21 +2,23 @@
 title: Custom inference endpoint
 description: >-
   Connect Warp's agents to any OpenAI-compatible inference endpoint —
-  OpenRouter, LiteLLM, z.ai, or an internal gateway you already run.
+  OpenRouter, LiteLLM, z.ai, or an internal gateway exposed at a public URL.
 ---
 
 Warp supports **custom inference endpoints** for users who want to power Warp's agents with any OpenAI-compatible inference endpoint — a model router, hosted gateway, or internal infrastructure they already run.
 
 This lets you route AI requests through your preferred provider, run inference behind your own gateway, or use a router like OpenRouter or LiteLLM, while keeping the agent experience inside Warp.
 
+**Your endpoint must be reachable at a public URL.** Requests route through Warp's servers (see [How it works](#how-it-works)), so Warp must be able to reach your endpoint over the public internet. `localhost`, private or internal network addresses, and internal-only services — such as a LiteLLM proxy that's only reachable inside your network — are rejected. To use an internal or local endpoint, first expose it at a public HTTPS URL. See [Network requirements](#network-requirements) for details.
+
 :::note
-Custom inference endpoints are available on Free and all eligible paid plans for individual users and organizations with 10 or fewer employees, subject to Warp's [Terms of Service](https://www.warp.dev/terms-of-service). Larger organizations need a Business or Enterprise plan. See [warp.dev/pricing](https://www.warp.dev/pricing) for current availability.
+Custom inference endpoints are available on Free and all eligible paid plans for individual users and organizations with 10 or fewer employees, subject to Warp's [Terms of Service](https://www.warp.dev/legal/terms-of-service). Larger organizations need a Business or Enterprise plan. See [Warp pricing](https://www.warp.dev/pricing) for current availability.
 :::
 
 ## Key features
 
 * **OpenAI-compatible** - Works with any endpoint that implements the OpenAI Chat Completions API.
-* **Provider flexibility** - Use a model router (OpenRouter, LiteLLM), a model provider with an OpenAI-compatible surface (z.ai), or your own internal gateway.
+* **Provider flexibility** - Use a model router (OpenRouter, LiteLLM), a model provider with an OpenAI-compatible surface (z.ai), or your own internal gateway exposed at a public URL.
 * **No AI credits consumed for inference** - Inference is billed directly by your endpoint provider. On Business and Enterprise, local agent runs that route through a custom inference endpoint still consume [platform credits](/support-and-community/plans-and-billing/platform-credits/) for Warp's platform infrastructure.
 * **Local API key storage** - Your endpoint API key is stored **only on your device** (in your OS keychain or equivalent secure storage), never on Warp's servers. It's used to make requests to your configured endpoint.
 
@@ -27,7 +29,7 @@ A custom inference endpoint expects your endpoint to implement the **OpenAI Chat
 * **OpenRouter** - Aggregates many model providers behind a single OpenAI-compatible API and consolidated billing.
 * **LiteLLM** - A self-hosted proxy that exposes a unified, OpenAI-compatible API across providers.
 * **z.ai** - A model provider with an OpenAI-compatible API surface for its models.
-* **Internal gateways** - Any in-house service that fronts model providers behind an OpenAI-compatible endpoint (for example, a corporate AI gateway with logging, redaction, or access control).
+* **Internal gateways (exposed at a public URL)** - An in-house service that fronts model providers behind an OpenAI-compatible endpoint (for example, a corporate AI gateway with logging, redaction, or access control). The gateway must be reachable from the public internet — an internal-only service, such as a LiteLLM proxy that only resolves inside your network or VPN, won't work until it's exposed at a public URL (see [Network requirements](#network-requirements)).
 
 When you configure a custom inference endpoint, your endpoint URL, model identifiers, and API key are stored **only on your device**, never on Warp's servers. Your API key is used to make requests to your configured endpoint.
 
@@ -66,11 +68,14 @@ When you explicitly select an endpoint-routed model from the model picker, Warp 
 
 The configuration flow mirrors the [Bring Your Own API Key](/agent-platform/inference/bring-your-own-api-key/) setup, so the steps will feel familiar if you've already configured BYOK.
 
-## Using local models
+## Network requirements
 
-Warp routes inference requests through its servers, so endpoint URLs must be publicly accessible. `localhost`, `127.0.0.1`, and other private or local network URLs are rejected when configuring a custom inference endpoint.
+Warp routes inference requests through its servers, so **your endpoint must be reachable from the public internet**. `localhost`, `127.0.0.1`, and other private or local network URLs are rejected when configuring a custom inference endpoint.
 
-To route through a model running on your own machine (for example, Ollama, LM Studio, vLLM, or llama.cpp), expose it through a tunneling service like [ngrok](https://ngrok.com/) and use the public tunnel URL as the base URL in your endpoint configuration.
+This requirement applies to any endpoint that isn't already publicly accessible:
+
+* **Internal gateways and proxies** - An internal LiteLLM proxy, corporate AI gateway, or other service that only resolves inside your private network or VPN can't be reached by Warp. Expose it at a public HTTPS URL — for example, through a load balancer, an API gateway, or a tunneling service — before configuring it in Warp.
+* **Local models** - To route through a model running on your own machine (for example, Ollama, LM Studio, vLLM, or llama.cpp), expose it through a tunneling service like [ngrok](https://ngrok.com/) and use the public tunnel URL as the base URL in your endpoint configuration.
 
 For example, with a default Ollama install listening on port `11434`, run `ngrok http 11434` and use the resulting `https://*.ngrok-free.app/v1` URL as your endpoint. Other tunneling services that produce a publicly reachable HTTPS URL (Cloudflare Tunnel, Tailscale Funnel, and similar) work the same way.
 

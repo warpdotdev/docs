@@ -16,7 +16,7 @@ If you're comparing GitHub Actions with schedules, Slack, Linear, the Oz CLI, or
 
 Watch this demo to see the integration in action:
 
-<VideoEmbed url="https://www.loom.com/share/534f88b6a98e43ca9769ca09de6424b5" />
+<VideoEmbed url="https://www.loom.com/share/534f88b6a98e43ca9769ca09de6424b5" title="Warp x GitHub Actions integration video" />
 
 In this demo
 
@@ -43,7 +43,7 @@ The `oz-agent-action` is a GitHub Action that wraps the Oz CLI and:
 
 To use agents in GitHub Actions, you need:
 
-* A [**Warp API Key**](/reference/cli/#generating-api-keys) stored as a [GitHub secret](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions) — this authenticates the agent with Warp
+* A [**Warp API Key**](/reference/cli/api-keys/) stored as a [GitHub secret](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions) — this authenticates the agent with Warp. Pick a personal key if you want commits attributed to you, or an agent key to run as a [cloud agent](/agent-platform/cloud-agents/agents/) on your team. See [API keys](/reference/cli/api-keys/) for when to pick each.
 * Workflow permissions that match your intended actions (for example, `pull-requests: write` if the agent should commit or comment on PRs) — the agent performs actions on your behalf using the GitHub token available to the workflow
 * The `oz-agent-action` step added to your workflow
 * **For private repositories using `@oz-agent` mention workflows**: The [`oz-agent`](https://github.com/oz-agent) GitHub user must be [invited as a member](https://docs.github.com/en/organizations/managing-membership-in-your-organization/inviting-users-to-join-your-organization) of your GitHub organization (see [Responding to comments with @ mentions](#1-responding-to-comments-with--mentions) for details)
@@ -64,6 +64,12 @@ You can specify a skill using the `skill` input parameter, either instead of or 
     skill: 'code-review'
     warp_api_key: ${{ secrets.WARP_API_KEY }}
 ```
+
+:::tip
+If the action fails, use the returned error code to narrow the fix. Common errors include:
+
+* [`authentication_required`](/reference/api-and-sdk/troubleshooting/errors/authentication-required/) (missing, invalid, or expired `warp_api_key` secret)
+:::
 
 #### Skill format options
 

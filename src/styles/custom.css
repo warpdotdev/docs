@@ -263,12 +263,30 @@ body {
   color: #faf9f6;
 }
 
-/* Center all images in content by default (excluding those inside tables) */
-.sl-markdown-content :not(table) > img,
-.sl-markdown-content p > img {
+/* Center images in content by default.
+
+   Covers every standard embed pattern used in the docs:
+     * standalone markdown images  → <p><img>
+     * link-wrapped images         → <p><a><img></a></p>
+     * raw/standalone <img> in any other non-table wrapper
+
+   The `:not(:where(table *))` guard genuinely excludes images inside
+   tables (an in-cell image's parent is <td>, not <table>, so the old
+   `:not(table)` never actually excluded them). `:where()` has zero
+   specificity, so the exclusion never fights the rest of the selector.
+   Code-block figures are handled separately below. */
+.sl-markdown-content :not(table) > img:not(:where(table *)),
+.sl-markdown-content p > img:not(:where(table *)) {
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+
+/* Link-wrapped images render as <p><a><img></a></p>. The inline <a>
+   shrink-wraps the image, so auto margins on the <img> alone can't pull it
+   to the page center — center the anchor's inline box via the paragraph. */
+.sl-markdown-content p:has(> a > img):not(:where(table *)) {
+  text-align: center;
 }
 
 /* Figures — centered block with image and optional caption.
@@ -280,9 +298,15 @@ body {
    language. Don't repeat surrounding prose or list everything visible.
 
    Exclude Expressive Code figures (code blocks) — they render inside a
-   `.expressive-code` wrapper and must not be center-aligned. */
+   `.expressive-code` wrapper and must not be center-aligned.
+
+   Horizontal margins are `auto` so a width-constrained figure (e.g.
+   `<figure style={{ maxWidth: "563px" }}>`) centers on the page. With
+   `margin: 1.5em 0` such a figure keeps zero side margins and sits flush
+   left, since `text-align: center` only centers content inside the box,
+   not the box itself. Full-width figures resolve auto margins to 0. */
 .sl-markdown-content figure:not(.expressive-code figure) {
-  margin: 1.5em 0;
+  margin: 1.5em auto;
   text-align: center;
 }
 
