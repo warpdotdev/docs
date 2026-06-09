@@ -1,13 +1,11 @@
 ---
 title: Agent questions
 description: >-
-  Learn how Warp's Agent questions and AskUserQuestion tool pause conversations
-  for clarifying input, how answers work, and how to control the behavior.
+  Learn how Warp's Agent asks questions for clarification, how to
+  answer or skip them, and how to interact with them when the Agent asks.
 ---
 
-Agent questions are clarifying prompts that let Warp's Agent pause a conversation and ask for your input before continuing. In tool-call history, API traces, or source code, this behavior may appear as `AskUserQuestion`, `ask_user_question`, or user-question handling; in Warp, it appears as an **Agent questions** card.
-
-Use this page to understand when the Agent asks questions, what kinds of answers are supported, and how Agent Profile permissions change the behavior.
+Agent questions let Warp's Agent pause and ask for your input when it needs a decision before continuing. Instead of guessing and risking the wrong approach, the Agent presents a few options in an **Agent questions** card right inside the conversation and waits for your answer.
 
 ## Key features
 
@@ -20,20 +18,21 @@ Use this page to understand when the Agent asks questions, what kinds of answers
 
 ## How it works
 
-When the Agent needs a decision from you before it can continue confidently, it can call the `ask_user_question` tool. Warp renders that tool call as an **Agent questions** card inside the conversation.
+When the Agent needs a decision from you before it can continue confidently, it pauses and shows an **Agent questions** card in the conversation instead of guessing.
 
-Each question has a fixed list of options. The Agent can mark a question as single-select or multi-select, recommend one option for a single-select question, and allow an **Other** answer. Warp sends your selected options, any **Other** answer text, or the skipped status back to the Agent so it can continue with your response in mind.
+Each question comes with a set list of options. Some accept a single answer, others let you pick several, and the Agent can flag a recommended option or let you add your own under **Other**. When you answer or skip, Warp passes that straight back to the Agent so it can keep going with your response in mind.
 
-The Agent should only ask questions when the task cannot be completed safely or accurately without additional input. If you skip a question, the Agent should not ask the same question again; it should continue using the context it already has.
+The Agent saves questions for moments when it genuinely can't move forward safely or accurately on its own. And if you skip a question, it won't ask the same one again—it continues with the context it already has.
 
 ## Answering Agent questions
 
 When an **Agent questions** card appears, choose the option or options that best match your intent.
 
-1. Select one or more options in the card. Multi-select questions show “select all that apply” next to the question text.
-2. If **Other** appears and none of the listed options fit, click **Other**, enter your answer, and press `Enter`.
-3. Click **Next** or press `Enter` to continue. For a single-select question, Warp may advance to the next question after you choose an option.
-4. To skip the remaining questions, click **Skip all** or press `Ctrl+C`.
+1. Select one or more options in the card. Options are numbered, so press the matching number key (`1`, `2`, `3`, and so on) or click an option to select it. Multi-select questions show “select all that apply” next to the question text.
+2. If **Other** appears and none of the listed options fit, click **Other** or press its number key, enter your answer, and press `Enter`.
+3. Click **Next** or press `Enter` to continue. For a single-select question, Warp automatically advances to the next question after you choose an option.
+4. When a card contains more than one question, press `←` to revisit the previous question or `→` to move to the next one. A question counter and **prev** / **next** controls appear at the bottom of the card.
+5. To skip the remaining questions, click **Skip all** or press `Ctrl+C`.
 
 After you answer or skip the questions, Warp summarizes the result in the conversation. You can expand the completed card to review the answers that were sent to the Agent.
 
