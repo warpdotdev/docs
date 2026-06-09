@@ -4,7 +4,7 @@ description: >-
   Connect the Sentry MCP server to Warp, fetch live error data, diagnose stack
   traces, and auto-generate fixes for production issues.
 sidebar:
-  label: "Sentry MCP: fix Sentry error in empower website"
+  label: "Sentry MCP: fix Sentry error in Empower website"
 tags:
   - "mcp"
 
@@ -32,12 +32,12 @@ You’ll learn how to:
 
 <Steps>
 
-1. #### Set Up the Sentry MCP Server
+1. #### Set up the Sentry MCP server
 
    Open the MCP panel in Warp:
 
-   * Mac: Cmd + Shift + P
-   * Windows/Linux: Ctrl + Shift + P\
+   * macOS: `Cmd+Shift+P`
+   * Windows/Linux: `Ctrl+Shift+P`\
      Search for “MCP” and select the **MCP Panel**.
 
    Click **Add**, then paste your configuration:
@@ -58,7 +58,7 @@ You’ll learn how to:
    ```
    Save the configuration and ensure it appears in the MCP panel.
 
-2. #### Run Your App and Trigger an Error
+2. #### Run your app and trigger an error
 
    We're using the [**Empower Plant** repository](https://github.com/sentry-demos/empower) — Sentry’s official demo project. This fake e-commerce app includes a React frontend and multiple backends, each containing intentional bugs for testing.
 
@@ -71,7 +71,7 @@ You’ll learn how to:
 
    Open the site in your browser and trigger a few known errors.
 
-3. #### Capture the Error in Sentry
+3. #### Capture the error in Sentry
 
    1. Go to your **Sentry Dashboard**.
    2. Locate the triggered issue (for example, a `TypeError`).
@@ -83,7 +83,7 @@ You’ll learn how to:
    https://sentry.io/organizations/demo/issues/12345/
    ```
 
-4. #### Diagnose the Error Using Warp
+4. #### Diagnose the error using Warp
 
    Back in Warp, prompt the agent to fetch and analyze the issue:
 
@@ -100,11 +100,11 @@ You’ll learn how to:
 
    Warp’s agent automatically writes a fix — changing the code to handle the array properly.
 
-5. #### Apply the Generated Fix
+5. #### Apply the generated fix
 
    Warp produces a suggested code change inline. Review the diff and apply it automatically with one click.
 
-6. #### Integrate Into Your Workflow
+6. #### Integrate into your workflow
 
    Use Sentry MCP whenever you encounter production or staging errors. Warp can pull the latest issues, analyze them, and suggest patches.
 
