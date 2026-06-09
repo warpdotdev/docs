@@ -32,7 +32,7 @@ In the demo, we run three parallel workflows:
 
 <Steps>
 
-1. #### Launch Agents in Parallel
+1. #### Launch agents in parallel
 
    Each agent runs in its own tab.
 
@@ -52,30 +52,30 @@ In the demo, we run three parallel workflows:
        Analyze how many pull requests a team member has assigned.
 
            ```
-       Use the GitHub CLI tool to summarize all open PRs for review that are assigned to user. I'd like to see who is the author of the PR, when was it opened, how long has it been open for, which repo is it in, are there open an dunaddressed commens on it, and is it ready for review?
+       Use the GitHub CLI tool to summarize all open PRs for review that are assigned to user. I'd like to see who is the author of the PR, when was it opened, how long has it been open for, which repo is it in, are there open and unaddressed comments on it, and is it ready for review?
        ```
        </TabItem>
      <TabItem label="Log Analysis">
        Summarize Cloud Run logs by error severity.
 
            ```
-       Use the gcloud tool to list all my open projects. Once you've done that, let me select a project. Once I've selected a project, we will want to see all the Cloud Run instances that are available. Then once I've picked a Cloud Run instance, I'd like to get a sumary of the last 2000 logs from that Cloud Run instance to see the history histogram of different types of logging on info, warning, and error levels.
+       Use the gcloud tool to list all my open projects. Once you've done that, let me select a project. Once I've selected a project, we will want to see all the Cloud Run instances that are available. Then once I've picked a Cloud Run instance, I'd like to get a summary of the last 2000 logs from that Cloud Run instance to see the history histogram of different types of logging on info, warning, and error levels.
        ```
        </TabItem>
    </Tabs>
 
-2. #### Monitor All Agents
+2. #### Monitor all agents
 
    The **task pane** in Warp shows all running agents.\
    You can view plans, progress, and results live without interrupting other tasks.
 
-3. #### Review Results
+3. #### Review results
 
    * **Coding Agent:** Implements UI fixes accurately.
    * **Code Review Agent:** Reports 26 open PRs (identifies bottlenecks).
    * **Log Agent:** Analyzes 1,000 log entries, categorizing errors and flagging Gemini API issues.
 
-4. #### Why This Matters
+4. #### Why this matters
 
    Warp multi‑agent execution allows you to:
 
