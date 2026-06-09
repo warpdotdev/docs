@@ -106,12 +106,12 @@ See the [**Python SDK**](https://github.com/warpdotdev/oz-sdk-python) or [**Type
     Fetch full details for a single run, including session link and resolved configuration.
 *   `POST /agent/runs/{runId}/followups`
 
-    Send a follow-up message to an existing run, the same capability the Slack and Linear integrations use to continue a run. The server routes the message based on the run's current state (queued, running, or ended), so you can steer or continue a run programmatically. A `200` response means the follow-up was accepted; observe the updated state with `GET /agent/runs/{runId}`. The follow-up message and optional query `mode` are described by the `RunFollowupRequest` model.
+    Send a follow-up message to an existing run to steer or continue it, the same way the Slack and Linear integrations do.
 *   `POST /agent/runs/{runId}/cancel`
 
     Cancel a run that is currently queued or in progress. Returns the ID of the cancelled run.
 
-The follow-up and cancel endpoints are also available in the SDKs (for example, `runs.submit_followup` and `runs.cancel`). All endpoint semantics, query parameters, and [error codes](/reference/api-and-sdk/troubleshooting/errors/) are documented on the [Agents API Reference](/api).
+All endpoint semantics, query parameters, and [error codes](/reference/api-and-sdk/troubleshooting/errors/) are documented on the [Agents API Reference](/api).
 
 ---
 
