@@ -217,13 +217,7 @@ Control which LLM models are available to your team and how inference is routed.
 
 **Models with provider-specific data retention requirements**
 
-Some models require limited data retention from the model provider and are therefore not available under [Zero Data Retention (ZDR)](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr). For Enterprise teams, these models are **disabled by default**. A workspace admin must explicitly enable them before team members can use them.
-
-For example, [Claude Fable 5](/agent-platform/inference/model-choice/#anthropic) requires data retention. When you enable it, Warp surfaces a helper note:
-
-> Anthropic requires data retention for this model for a limited time for safety, abuse monitoring, and compliance reasons.
-
-Leave these models disabled if your organization has strict ZDR requirements. Enabling a model applies only to that model and does not change the ZDR behavior of other supported models.
+Some models require data retention from the model provider and are therefore not available under [Zero Data Retention (ZDR)](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr). For Enterprise teams, these models are **disabled by default**. A workspace admin must explicitly enable them before team members can use them. For example, [Claude Fable 5](/agent-platform/inference/model-choice/#anthropic) requires data retention.
 
 ### Billing settings
 
