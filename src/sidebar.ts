@@ -278,6 +278,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 								{ slug: 'agent-platform/local-agents/interacting-with-agents', label: 'Overview' },
 								'agent-platform/local-agents/interacting-with-agents/terminal-and-agent-modes',
 								{ slug: 'agent-platform/local-agents/interacting-with-agents/prompt-queueing', label: 'Prompt queueing' },
+                { slug: 'agent-platform/local-agents/interacting-with-agents/agent-questions', label: 'Agent questions' },
 								{ slug: 'agent-platform/local-agents/interacting-with-agents/conversation-forking', label: 'Conversation forking' },
 								{ slug: 'agent-platform/local-agents/code-diffs', label: 'Code diffs' },
 								'agent-platform/local-agents/interacting-with-agents/voice',
