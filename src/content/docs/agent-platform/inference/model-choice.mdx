@@ -55,8 +55,13 @@ All Auto models perform well across all agent workflows and are ideal if you pre
 
 #### Anthropic
 
+Claude Fable 5 is Anthropic's newest generally available model for autonomous, long-running coding and knowledge work.
+
 | Model | `model_id` | Variant |
 | --- | --- | --- |
+| Claude Fable 5 | `claude-5-fable-xhigh` | Default effort |
+| Claude Fable 5 | `claude-5-fable-high` | High effort |
+| Claude Fable 5 | `claude-5-fable-max` | Max effort |
 | Claude Opus 4.7 | `claude-4-7-opus-xhigh` | Default effort |
 | Claude Opus 4.7 | `claude-4-7-opus-high` | High effort |
 | Claude Opus 4.7 | `claude-4-7-opus-max` | Max effort |
@@ -69,6 +74,10 @@ All Auto models perform well across all agent workflows and are ideal if you pre
 | Claude Sonnet 4.5 | `claude-4-5-sonnet` | Thinking off |
 | Claude Sonnet 4.5 | `claude-4-5-sonnet-thinking` | Thinking on |
 | Claude Haiku 4.5 | `claude-4-5-haiku` | — |
+
+:::caution
+Anthropic requires limited data retention for Claude Fable 5 for safety, abuse monitoring, and compliance reasons. As a result, Claude Fable 5 is **not available under Zero Data Retention (ZDR)**. This requirement is specific to Claude Fable 5 and does not change the ZDR behavior of any other supported model. For Enterprise teams, Claude Fable 5 is off by default and a workspace admin must enable it — see [Admin Panel](/enterprise/team-management/admin-panel/#models) and the [Security overview](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr).
+:::
 
 #### Google
 
@@ -133,3 +142,5 @@ Warp has executed **Zero Data Retention (ZDR)** agreements with these providers.
 * LLM providers commit to delete inputs and outputs after generating the relevant output, within a fixed time period.
 
 Warp enforces these commitments through both technical measures and contractual safeguards with the LLM providers.
+
+Zero data retention is available for supported models. Model availability may vary where providers require limited data retention for safety, abuse monitoring, or compliance reasons. For example, Anthropic requires limited data retention for [Claude Fable 5](#anthropic), so it is not available under ZDR; this applies only to that model and does not change the ZDR behavior of other supported models.

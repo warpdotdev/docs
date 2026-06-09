@@ -242,6 +242,8 @@ Warp integrates with multiple LLM providers — including Anthropic, OpenAI, Goo
 
 Warp enforces these commitments through both technical measures and contractual safeguards with the LLM providers.
 
+Zero data retention is available for supported models. Model availability may vary where providers require limited data retention for safety, abuse monitoring, or compliance reasons. For example, Anthropic requires limited data retention for [Claude Fable 5](/agent-platform/inference/model-choice/#anthropic), so it isn't available under ZDR. This applies only to that model and doesn't change the ZDR behavior of other supported models.
+
 ### How can I enable Zero Data Retention in Warp?
 
 Zero Data Retention (ZDR) can be enabled in two ways:
@@ -251,7 +253,7 @@ Zero Data Retention (ZDR) can be enabled in two ways:
 
 To discuss organization-wide ZDR for your team, [contact our sales team](https://www.warp.dev/contact-sales).
 
-Regardless of plan, Warp never allows OpenAI, Anthropic, Google, or other model providers to store, retain, or train their models on your data — see [Does Warp have Zero Data Retention policies with LLM providers?](#does-warp-have-zero-data-retention-policies-with-llm-providers) for details.
+Regardless of plan, Warp never allows OpenAI, Anthropic, Google, or other model providers to store, retain, or train their models on your data — see [Does Warp have Zero Data Retention policies with LLM providers?](#does-warp-have-zero-data-retention-policies-with-llm-providers) for details. A small number of models are an exception where the provider requires limited data retention for safety, abuse monitoring, or compliance reasons (for example, [Claude Fable 5](/agent-platform/inference/model-choice/#anthropic)); these are clearly identified and, for Enterprise teams, off by default.
 
 ### Can I bring my own API key?
 
