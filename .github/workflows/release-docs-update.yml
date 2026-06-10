@@ -69,7 +69,7 @@ jobs:
               raw = {
                   "channel_versions_ref": os.environ.get("DISPATCH_CHANNEL_VERSIONS_REF") or "main",
                   "task_set": os.environ.get("DISPATCH_TASK_SET") or "changelog",
-                  "create_draft_pr": os.environ.get("DISPATCH_CREATE_DRAFT_PR") or "true",
+                  "create_draft_pr": os.environ.get("DISPATCH_CREATE_DRAFT_PR") or "false",
                   "assign_oncall_reviewers": os.environ.get("DISPATCH_ASSIGN_ONCALL_REVIEWERS") or "false",
               }
           else:
@@ -140,7 +140,7 @@ jobs:
             3. Use `warpdotdev/channel-versions` at channel_versions_ref as the source of `channel_versions.json`.
             4. Create and switch to a release docs feature branch before invoking `run_release_updates.py --create-pr`; the script refuses to create a PR from `main`.
             5. Create or update a PR against `warpdotdev/docs` `main` only if generated changes exist.
-            6. Use a draft PR when the active trigger's create_draft_pr value is true.
+            6. Use a draft PR when create_draft_pr is true. Note: --pr-draft and --pr-auto-merge are mutually exclusive; never pass both.
             7. Assign on-call reviewers only when the active trigger's assign_oncall_reviewers value is true and the required Grafana schedule IDs and `GRAFANA_API_KEY` are available.
             8. Run `npm run build` before considering the PR ready for review.
             9. If no docs changes are needed, report a no-op result and do not open a PR.
@@ -151,4 +151,8 @@ jobs:
             - all tasks: `python3 .agents/skills/release_updates/scripts/run_release_updates.py --create-pr --pr-base main`
 
             Include `--pr-draft` when create_draft_pr is true.
-            Include `--assign-oncall-reviewer` and repeated `--oncall-schedule-id` values only when reviewer assignment is enabled and configured.
+            Always include `--pr-auto-merge` (marks the PR ready for review and enables squash auto-merge).
+            When assign_oncall_reviewers is true, include:
+              --assign-oncall-reviewer --oncall-schedule-id S1BRQ4BYUP5WN --oncall-max-reviewers 2
+            This resolves up to 2 reviewers (primary + secondary) from the client on-call schedule.
+            If GRAFANA_API_KEY is not set, skip reviewer assignment and log a warning.
