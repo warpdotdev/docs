@@ -39,7 +39,7 @@ They support the following:
 
 - Resolver script path (default):
   `.agents/skills/release_updates/scripts/resolve_oncall_reviewers.py`
-- `GRAFANA_API_KEY` environment variable.
+- `DOCS_AGENT_GRAFANA_TOKEN` environment variable.
 
 ### Recommended
 
@@ -185,7 +185,7 @@ python3 .agents/skills/release_updates/scripts/run_release_updates.py \
 
 Notes:
 
-- Requires `GRAFANA_API_KEY` in the environment.
+- Requires `DOCS_AGENT_GRAFANA_TOKEN` in the environment.
 - Uses resolver script (by default):
   `.agents/skills/release_updates/scripts/resolve_oncall_reviewers.py`
 - Repeat `--oncall-schedule-id` to resolve one reviewer per schedule, in order.
