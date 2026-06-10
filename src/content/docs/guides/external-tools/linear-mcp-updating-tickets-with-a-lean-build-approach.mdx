@@ -1,17 +1,20 @@
 ---
-title: "Linear MCP: Updating Tickets with a Lean Build Approach"
+title: "Linear MCP: update tickets with a lean build approach"
 description: >-
   Use Warp's Linear MCP integration to update ticket descriptions, propagate
   changes to subtasks, and maintain a lean build strategy.
 sidebar:
   label: "Linear MCP: update tickets with a lean build approach"
+tags:
+  - "mcp"
+
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
 import { Steps } from '@astrojs/starlight/components';
 
 Learn how to use Warp’s Linear MCP integration to update tickets programmatically while maintaining a lean build strategy.
 
-<VideoEmbed url="https://www.youtube.com/watch?v=hqleW6jDCbY" />
+<VideoEmbed url="https://www.youtube.com/watch?v=hqleW6jDCbY" title="Using Linear MCP to update tickets with a lean build workflow video" />
 
 ---
 
@@ -26,14 +29,14 @@ This walkthrough demonstrates:
 
 <Steps>
 
-1. #### Setting Up the Scenario
+1. #### Setting up the scenario
 
    The goal is to use Warp’s agent to update a Linear epic with a new, leaner build approach and reflect the changes in related subtasks.
 
    First, open your Linear project and locate the target epic.\
    Copy the **ticket ID** (e.g. “Empty Studio 36”).
 
-2. #### Define the Update Prompt
+2. #### Define the update prompt
 
    Within Warp, run the MCP command to edit the Linear issue.
 
@@ -46,7 +49,7 @@ This walkthrough demonstrates:
    ```
    Warp parses the issue context and updates the ticket’s fields accordingly.
 
-3. #### Observing the Changes
+3. #### Observing the changes
 
    After execution:
 
@@ -55,7 +58,7 @@ This walkthrough demonstrates:
    * Time estimates automatically adjust from _4–6 weeks_ to _2–3 weeks_.
    * Complex integrations (AI and Linear App) are deferred to a future phase.
 
-4. #### Propagating Updates to Child Tasks
+4. #### Propagating updates to child tasks
 
    Warp’s agent can cascade changes to linked subtasks.\
    If it begins editing other epics unexpectedly, you can constrain its scope by specifying task IDs in the prompt:
@@ -65,7 +68,7 @@ This walkthrough demonstrates:
    Do not modify other epics or related tickets.
    ```
 
-5. #### Review and Verification
+5. #### Review and verification
 
    Re-open the Linear epic to confirm updates:
 

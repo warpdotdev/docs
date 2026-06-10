@@ -12,7 +12,7 @@ The Linear integration lets your team delegate development work directly to agen
 
 Agents keep you updated inside Linear, generate pull requests using your GitHub account, and provide a link to join a live remote session so you can watch or steer the workflow in real time.
 
-<VideoEmbed url="https://youtu.be/FNefNmbSdmg?si=PxvDuW6OfNZBvhSl" />
+<VideoEmbed url="https://youtu.be/FNefNmbSdmg?si=PxvDuW6OfNZBvhSl" title="Warp x Linear integration overview video" />
 
 This guide explains what the integration does, how it works end-to-end, and how to configure it for your Warp team.
 
@@ -140,6 +140,13 @@ oz integration create linear --environment <ENV_ID>
 
 The CLI will open a browser window prompting you to install the Oz app into your Linear workspace. After installation, the integration becomes available to all members of your Warp team.
 
+:::tip
+If the integration cannot be created or a Linear-triggered run cannot start, use the returned error code to narrow the fix. Common errors include:
+
+* [`feature_not_available`](/reference/api-and-sdk/troubleshooting/errors/feature-not-available/) (plan does not support integrations)
+* [`external_authentication_required`](/reference/api-and-sdk/troubleshooting/errors/external-authentication-required/) (missing GitHub or Linear authorization)
+:::
+
 ---
 
 ### Uninstallation instructions
@@ -152,9 +159,9 @@ To remove the Oz integration from Linear:
 4. Select Oz from the list of installed agents.
 5. Click **Revoke access** to remove the integration for your workspace.
 
-<VideoEmbed url="https://www.loom.com/share/2f1648586d8148dc80561c00a09ca334" />
+<VideoEmbed url="https://www.loom.com/share/2f1648586d8148dc80561c00a09ca334" title="Uninstalling the Warp Linear integration video" />
 
-After revoking access, Warp will no longer be able to read issues, receive triggers, or create updates in Linear. If you reinstall later, you’ll need to authorize Warp again during setup.
+After revoking access, Warp will no longer be able to read issues, receive triggers, or create updates in Linear. If you reinstall later, you’ll need to authorize Warp again during setup. Events for a disabled integration can return [`integration_disabled`](/reference/api-and-sdk/troubleshooting/errors/integration-disabled/).
 
 ### Troubleshooting
 

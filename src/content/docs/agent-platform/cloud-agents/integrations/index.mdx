@@ -13,6 +13,8 @@ Warp integrations let your team trigger agents directly from the terminal, or fr
 * Run code inside your codebase in a remote environment
 * Open pull requests and perform other multi-step agent workflows on your behalf
 
+If you're deciding whether an agent should run from a schedule, Slack, Linear, GitHub Actions, the Oz CLI, or the API, see [Run agents unattended with schedules and triggers](/guides/agent-workflows/how-to-run-unattended-agents/).
+
 :::note
 For a full walkthrough of Warp's integrations and configurable environments, please refer to [Integration setup](/reference/cli/integration-setup/).
 :::
@@ -21,86 +23,15 @@ All of this is powered by the [Oz CLI](/reference/cli/).
 
 ---
 
-## Quickstart
+## Get started
 
-The fastest way to get agents running from Slack or Linear is to create an environment with the guided flow. An **environment** defines everything the agent needs to run your code remotely, including your Docker image, repos, and setup commands.
+Use the setup walkthrough below for a quick look at how environments connect to integrations, then choose the guide that matches what you want to do next.
 
-<VideoEmbed url="https://www.youtube.com/watch?v=ahFfInVD0HQ" />
+<VideoEmbed url="https://www.youtube.com/watch?v=ahFfInVD0HQ" title="Cloud agents integrations overview video" />
 
-#### 1. Run /create-environment
-
-From Warp, run the following slash command:
-
-```
-/create-environment
-```
-
-You can run it inside any repo, or point it at multiple repos:
-
-```
-/create-environment ./frontend ./backend
-/create-environment your-org/repo-name
-/create-environment https://github.com/your-org/api.git
-```
-
-:::note
-Learn more about slash commands and how to use them in the [Slash Commands](/agent-platform/capabilities/slash-commands/) documentation.
-:::
-
-The guided flow will:
-
-* Detect which repos you want the agent to work with
-* Identify languages, frameworks, and tools
-* Suggest a Docker image (or build/push one if needed)
-  * The Docker image can be your own custom image, an official base image (e.g. node, python), or one of Warp's prebuilt dev images (see [repo](https://github.com/warpdotdev/oz-dev-environments)).
-* Recommend setup commands
-* Create the environment and return an environment ID
-
-This produces a ready-to-use environment that Warp can use across Slack, Linear, and terminal triggers.
-
-#### 2. Authorize GitHub
-
-Warp will prompt you to install or update the Warp GitHub app so the agent can read and write to the repos you included. You only need to do this once. Teammates will authorize on their first run as needed.
-
-:::note
-**Using Azure DevOps, GitLab, or Bitbucket?** Native integrations for these platforms are not yet available, but you can connect repositories by storing a personal access token as a Warp-managed secret and cloning via a setup command. See [Azure DevOps](/agent-platform/cloud-agents/integrations/azure-devops/), [GitLab](/agent-platform/cloud-agents/integrations/gitlab/), or [Bitbucket](/agent-platform/cloud-agents/integrations/bitbucket/) for step-by-step instructions.
-:::
-
-#### 3. Create an integration
-
-:::note
-For easier setup, use the [Oz web app](/agent-platform/cloud-agents/oz-web-app/) at [oz.warp.dev](https://oz.warp.dev) to configure integrations with a guided flow. The web app works on mobile devices.
-:::
-
-Alternatively, use the CLI:
-
-For Slack:
-
-```
-oz integration create slack --environment <ENV_ID>
-```
-
-For Linear:
-
-```
-oz integration create linear --environment <ENV_ID>
-```
-
-The CLI opens an authorization page where you install Oz into your Slack workspace or Linear team.
-
-#### 4. Start using agents
-
-In Slack:
-
-* Tag **@Oz** in a message or thread
-* Or DM the bot
-
-In Linear:
-
-* Tag @Oz on an issue
-
-Warp will read the thread/issue, spin up your environment, run the workflow in the cloud, and post progress + PRs back into the same conversation.
-
----
-
-For more details on configuring integrations and environments in Warp, please refer to [Integration setup](/reference/cli/integration-setup/).
+* [Integrations quickstart](/agent-platform/cloud-agents/integrations/quickstart/) - Trigger your first agent from Slack and watch the run from start to finish.
+* [Integration setup](/reference/cli/integration-setup/) - Configure environments, GitHub authorization, CLI flags, and integrations in more detail.
+* [Slack](/agent-platform/cloud-agents/integrations/slack/) and [Linear](/agent-platform/cloud-agents/integrations/linear/) - Trigger agents from team conversations, issues, and comments.
+* [GitHub Actions](/agent-platform/cloud-agents/integrations/github-actions/) - Run agents from CI workflows and repository events.
+* [GitLab](/agent-platform/cloud-agents/integrations/gitlab/), [Bitbucket](/agent-platform/cloud-agents/integrations/bitbucket/), and [Azure DevOps](/agent-platform/cloud-agents/integrations/azure-devops/) - Connect non-GitHub repositories with tokens and Warp-managed secrets.
+* [AWS, GCP, and other cloud providers](/agent-platform/cloud-agents/integrations/cloud-providers/) - Give cloud agents short-lived access to cloud services.

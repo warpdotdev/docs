@@ -33,14 +33,16 @@ Environments define _how_ an agent runs, not _what_ it does. They're required fo
 
 An environment typically includes:
 
-* **Docker image (required)** – The toolchain and runtime the agent runs with. For self-hosted Kubernetes workers, a [`default_image`](/agent-platform/cloud-agents/self-hosting/managed-kubernetes/) on the worker lets you skip creating an environment entirely.
+* **Docker image (required)** – The task/workspace image with the toolchain and dependencies your code needs. For self-hosted Kubernetes workers, a [`default_image`](/agent-platform/cloud-agents/self-hosting/managed-kubernetes/) on the worker lets you skip creating an environment entirely.
 * **Repository/workspace** – One or more repos the agent can clone and operate on.
 * **Setup commands** – Commands to prepare the workspace (e.g., dependency install, builds, bootstrapping).
+
+Use the Docker image for language runtimes, package managers, system libraries, and scripts needed by your project. Custom images do not need to handle installing the Warp CLI binary; Warp supplies the agent runtime separately. You can start from an official image or one of Warp's [prebuilt dev images](https://github.com/warpdotdev/oz-dev-environments).
 
 :::note
 Configuring runtime settings:
 
-* **Environment variables**: Configure these in your Dockerfile using Docker’s \`ENV\` directives or pass them when running the container.
+* **Environment variables**: Configure these in your Dockerfile using Docker’s `ENV` directives or pass them when running the container.
 * **Secrets**: For credentials and sensitive data, use [Agent Secrets](/agent-platform/cloud-agents/secrets/). These are configured separately from environments and injected securely at runtime.
 :::
 
@@ -116,13 +118,13 @@ Choose an environment if any of the following apply:
 
 * Runs must be consistent across triggers/hosts. The workflow should behave the same regardless of where it is triggered from.
 * The toolchain must be fixed. You need a known image and deterministic setup steps to avoid “it works on my machine” drift.
-* The workflow is shared across a team. Multiple people, or systems, will run the workflow and expect repeatable results.&#x20;
+* The workflow is shared across a team. Multiple people, or systems, will run the workflow and expect repeatable results.
 
 **Example:**
 
-If your team tags @Oz in Slack to fix a failing CI job, an environment ensures every run uses the same Docker image, clones the same repos, and runs the same setup commands.&#x20;
+If your team tags @Oz in Slack to fix a failing CI job, an environment ensures every run uses the same Docker image, clones the same repos, and runs the same setup commands.
 
-The fix the agent applies matches what runs in CI and what your teammates see when they review the PR.&#x20;
+The fix the agent applies matches what runs in CI and what your teammates see when they review the PR.
 
 ### Where to configure environments
 
@@ -133,7 +135,7 @@ You can create and configure environments with Warp’s guided setup, or through
 Make sure you have:
 
 * One or more GitHub repositories that the agent should clone and work in.
-* **GitHub authorization configured** so the agent can access your repos. For user-triggered runs, each user authorizes GitHub individually. For automated workflows using team API keys, configure [team GitHub authorization](/agent-platform/cloud-agents/team-access-billing-and-identity/#team-github-authorization) in the Admin Panel.
+* **GitHub authorization configured** so the agent can access your repos. For user-triggered runs, each user authorizes GitHub individually. For automated workflows using an agent API key, configure [team GitHub authorization](/agent-platform/cloud-agents/team-access-billing-and-identity/#team-github-authorization) in the Admin Panel.
 * A publicly-accessible Docker image that can build and run your code. Official images like [node](https://hub.docker.com/_/node), [python](https://hub.docker.com/_/python), or [rust](https://hub.docker.com/_/rust) work for many projects. You can also use one of [Warp's prebuilt dev images](https://github.com/warpdotdev/oz-dev-environments).
 
 :::caution
@@ -153,7 +155,7 @@ Create one environment per codebase, then reuse it across triggers like Slack, L
 
 Use [`/create-environment`](warp://action/create_environment) when you want Warp to inspect your repos and recommend an environment configuration automatically. This is the fastest way to get started: Warp detects your languages, frameworks, and tools, then suggests appropriate images and setup commands.
 
-You can run the command inside a Git repo directory with no argument, or with one or more repo paths or URLs.&#x20;
+You can run the command inside a Git repo directory with no argument, or with one or more repo paths or URLs.
 
 ```shellscript
 # Local file paths
@@ -261,12 +263,12 @@ For end-to-end setup, see the [Integration setup](/reference/cli/integration-set
 
 ## Environment design and best practices
 
-A well-designed environment removes guesswork by giving every run the same starting conditions. When an agent opens a PR from Slack or fixes a failed CI job, the result matches what your team can reproduce locally and in CI.&#x20;
+A well-designed environment removes guesswork by giving every run the same starting conditions. When an agent opens a PR from Slack or fixes a failed CI job, the result matches what your team can reproduce locally and in CI.
 
 **Design guidelines**<br />
 
 * **Keep setup repeatable** – Write setup steps that are safe to rerun and that produce the same toolchain and workspace state for a given repo revision. This keeps agent runs reliable across triggers and hosts.
-* **Pin versions in the toolchain** – Prefer a Docker or base image that pins language runtimes and core tools, then use lockfiles (\`package-lock.json\`, etc.) for dependencies.
+* **Pin versions in the toolchain** – Prefer a Docker or base image that pins language runtimes and core tools, then use lockfiles (`package-lock.json`, etc.) for dependencies.
 * **Define a clear workspace boundary** – In multi-repo environments, explicitly state which repos are cloned and where setup commands run so the agent doesn’t “guess” the working directory.
 * **Make prerequisites explicit** – If the agent must run a build step, generate code, or install system packages before it can do meaningful work, encode that as setup.
 
@@ -288,12 +290,12 @@ If your setup commands depend on secrets or credentials, configure them through 
 
 ### Common issues
 
-* **Setup assumes previous state** – Steps that rely on leftover caches, existing directories, or already-cloned repos can make runs unreliable.
+* **Setup assumes previous state** – Steps that rely on leftover caches, existing directories, or already-cloned repos can make runs unreliable. Setup failures can surface as [`environment_setup_failed`](/reference/api-and-sdk/troubleshooting/errors/environment-setup-failed/).
   * Solution: Write idempotent setup commands that work on a fresh container.
 * **Missing credentials or secrets** – Builds fail when private repos, package registries, or external services require authorization.
   * Solution: Configure credentials with [Agent Secrets](/agent-platform/cloud-agents/secrets/).
-* **Repo access and GitHub authorization issues** – Runs fail when GitHub doesn't have repo access or the triggering user lacks permissions.
+* **Repo access and GitHub authorization issues** – Runs fail when GitHub doesn't have repo access or the triggering user lacks permissions. Missing external authorization can surface as [`external_authentication_required`](/reference/api-and-sdk/troubleshooting/errors/external-authentication-required/).
   * Solution: See [Integration setup](/reference/cli/integration-setup/#how-github-authorization-works) for GitHub authorization setup.
 * **Docker image incompatibility** – You see the error: "VM failed before the agent could run. This is likely an issue with your Docker image."
-  * Possible cause: Alpine Linux and other musl-based images are not compatible with the agent runtime, which requires glibc.
+  * Possible cause: Alpine Linux and other musl-based images are not compatible with the agent runtime, which requires glibc. This can surface as [`environment_setup_failed`](/reference/api-and-sdk/troubleshooting/errors/environment-setup-failed/).
   * Solution: Switch to a glibc-based image such as Debian, Ubuntu, or the default (non-Alpine) variants of official Docker Hub images (e.g. `node`, `python`, `rust`).

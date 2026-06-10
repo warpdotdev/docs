@@ -1,30 +1,33 @@
 ---
-title: "How to: Generate Unit and Security Tests to Debug Faster"
+title: "Generate unit and security tests to debug faster"
 description: >-
   Prompt Warp to generate comprehensive unit and security tests for REST APIs,
   including SQL injection, XSS, and auth validation checks.
 sidebar:
   label: "Generate unit and security tests to debug faster"
+tags:
+  - "testing"
+
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
 import { Steps } from '@astrojs/starlight/components';
 
 Learn how to prompt Warp’s AI to generate useful unit and security tests — helping you debug faster and deploy with confidence.
 
-<VideoEmbed url="https://youtu.be/YzZmrusN8Cw?si=64ZsLu6e76rv-nI6" />
+<VideoEmbed url="https://youtu.be/YzZmrusN8Cw?si=64ZsLu6e76rv-nI6" title="Generating unit and security tests with Warp video" />
 
 ---
 
 <Steps>
 
-1. #### The Problem
+1. #### The problem
 
    Building REST APIs involves a lot of overhead: validation, testing, and security.\
    Most “auto-generated tests” from AI end up generic and incomplete — leaving gaps in reliability.
 
    To solve this, Warp lets you run **precise, context-aware test generation** using better-structured prompts.
 
-2. #### The Prompt
+2. #### The prompt
 
    Paste this into Warp’s AI input:
 
@@ -98,7 +101,7 @@ Learn how to prompt Warp’s AI to generate useful unit and security tests — h
    Keep these tests simple and focused - each test should verify ONE thing
    ```
 
-3. #### Add to Rules File
+3. #### Add to Rules file
 
    Once you’ve validated the prompt, add it to your Warp Rules file so Warp can automatically reuse it.
 

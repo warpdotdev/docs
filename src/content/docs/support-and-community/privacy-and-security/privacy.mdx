@@ -56,7 +56,7 @@ Warp provides a convenient way for you to delete your account and data. Any acti
 *   From Warp, go to **Settings** > **Privacy** > **"Visit the data management page"**
 
     Click the “Delete” button on the Data Management page to go through the data deletion flow.
-* From the web, log in to your warp account at [https://app.warp.dev/login](https://app.warp.dev/login), then go to the data management page at [https://app.warp.dev/data\_management](https://app.warp.dev/data_management) and click the “Delete” button to go through the data deletion flow.
+* From the web, log in to your Warp account on the [Warp login page](https://app.warp.dev/login), then go to the [data management page](https://app.warp.dev/data_management) and click the “Delete” button to go through the data deletion flow.
 
 :::note
 Deletion jobs run every 24 hours, so if you deleted your account and want to sign up again with the same email, you won't be able to do so until that deletion job completes.
@@ -67,7 +67,7 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 :::
 
 
-### Exhaustive Telemetry Table
+### Exhaustive telemetry table
 
 | Event Name | Description |
 |---|---|
@@ -229,10 +229,15 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `CLI Subagent Control State Changed` | Control state changed in CLI subagent (agent in control, agent blocked, user in control, or agent tagged in) |
 | `CLI Subagent Input Dismissed` | User dismissed the input in the CLI subagent |
 | `CLI Subagent Responses Toggled` | User toggled the visibility of agent responses in CLI subagent |
+| `CLI.Execute.Agent.Create` | Created an agent from the Warp CLI |
+| `CLI.Execute.Agent.Delete` | Deleted an agent from the Warp CLI |
+| `CLI.Execute.Agent.Get` | Got agent details from the Warp CLI |
 | `CLI.Execute.Agent.List` | Listed agents from the Warp CLI |
 | `CLI.Execute.Agent.Profile.List` | Listed agent profiles from the Warp CLI |
 | `CLI.Execute.Agent.Run` | Ran an agent from the Warp CLI |
 | `CLI.Execute.Agent.RunAmbient` | Ran an ambient agent from the Warp CLI |
+| `CLI.Execute.Agent.Skills` | Listed agent skills from the Warp CLI |
+| `CLI.Execute.Agent.Update` | Updated an agent from the Warp CLI |
 | `CLI.Execute.ApiKey.Create` | Created an API key from the Warp CLI |
 | `CLI.Execute.ApiKey.Expire` | Expired an API key from the Warp CLI |
 | `CLI.Execute.ApiKey.List` | Listed API keys from the Warp CLI |
@@ -375,6 +380,7 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `Dismiss Welcome Tips` | Dismissed Welcome tips |
 | `Don't Show Sharer Grant Modal Again` | When you check don't show again on the confirmation modal for granting a role |
 | `Drag and Drop Tab` | Tab dragged and dropped |
+| `Drag and Drop Tab Group` | Tab group dragged and dropped |
 | `Duplicate Object` | Cloned a Warp Drive object |
 | `Edited Input Before Precmd` | Input edited before precmd hook completes |
 | `Edited Workflow Alias Argument` | Edited an argument in a Warp Drive workflow alias |
@@ -498,6 +504,10 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `Prompt Edited` | Edited the prompt using the built-in prompt editor |
 | `Prompt Editor Opened` | Opened the prompt editor |
 | `Pty Spawned` | Tracks the manner by which we create a new shell process (new codepath vs. old codepath).  Used to ensure nothing breaks as we change parts of our infrastructure. |
+| `QueuedPrompt.Deleted` | User deleted a queued prompt row |
+| `QueuedPrompt.Edited` | User committed a non-empty edit to a queued prompt row |
+| `QueuedPrompt.PanelCollapseToggled` | User toggled the queued prompts panel collapse state |
+| `QueuedPrompt.Reordered` | User reordered a queued prompt row via drag-and-drop |
 | `Quit Modal Cancel Pressed` | `Cancel` button on the alert modal was pressed |
 | `Quit Modal Disabled` | The quit modal dialog has been disabled and will not popup when a user closes Warp while a session is running |
 | `Quit Modal Shown` | Showed an alert modal to warn the user about closing the app/window with a running process |
@@ -507,6 +517,7 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `RemoteCodebaseIndex.StatusChanged` | The remote codebase index status changed |
 | `RemoteServer.BinaryCheck` | Remote server binary check completed (found, not found, or error) |
 | `RemoteServer.ClientRequestError` | A client request to the remote server failed |
+| `RemoteServer.DaemonStartup` | Remote server daemon startup completed and socket bound |
 | `RemoteServer.Disconnection` | An established remote server connection was dropped |
 | `RemoteServer.HostUnsupported` | Preinstall check classified the remote host as unsupported, falling back to the legacy SSH flow |
 | `RemoteServer.Initialization` | Remote server connection and initialization completed (success or failure) |

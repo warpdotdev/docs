@@ -46,6 +46,7 @@ You can control how much autonomy the Agent has when performing different types 
 * Create plans
 * Execute commands
 * Interact with running commands (via [Full Terminal Use](/agent-platform/capabilities/full-terminal-use/))
+* Ask clarifying questions (via [Agent questions](/agent-platform/local-agents/interacting-with-agents/agent-questions/))
 
 <div align="center">![Fine-tuning agent control: This permissions panel lets users customize how much autonomy the Agent has when applying code diffs, reading files, creating plans, and executing commands.](../../../../assets/agent-platform/agent-permissions-with-full-terminal-use.png)</div>
 
@@ -58,6 +59,18 @@ For **Apply code diffs**, `Agent decides` currently behaves the same as `Always 
 
 When all Agent permissions are set to **Always allow**, the Agent gains full autonomy (“YOLO mode”); however, any denylist rules will still override these settings.
 :::
+
+### Ask questions
+
+The **Ask questions** permission controls whether the Agent can pause a conversation to ask you clarifying questions before continuing.
+
+The available settings are:
+
+* **Never ask** - The Agent does not pause for clarifying questions and continues with its best judgment.
+* **Ask unless auto-approve** - The Agent can ask during normal conversations, but questions are skipped while auto-approve is on.
+* **Always ask** - The Agent can pause for your answer even when auto-approve is on.
+
+For the full user flow, see [Agent questions](/agent-platform/local-agents/interacting-with-agents/agent-questions/).
 
 ### Command allowlist
 

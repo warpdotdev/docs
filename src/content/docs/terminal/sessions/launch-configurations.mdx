@@ -13,7 +13,7 @@ Launch Configurations have been replaced by [Tab Configs](/terminal/windows/tab-
 
 ## What is it
 
-With Launch configurations you can save in the app or by adding a yaml file.
+You can create Launch Configurations in the app or by adding a YAML file.
 
 ## Creating a Launch Configuration
 
@@ -41,7 +41,7 @@ With Launch configurations you can save in the app or by adding a yaml file.
   <TabItem label="Windows">
     * From the [Command Palette](/terminal/command-palette/), enter `Launch Configuration` to open and select Launch Configuration.
     * Right-clicking the new Tab **+** button to open a menu and select saved Launch Configuration.
-      * Single-window launch configs can be launched into the active window from the launch configuration palette using `CTRL-ENTER` on Linux.
+      * Single-window launch configs can be launched into the active window from the launch configuration palette using `CTRL-ENTER` on Windows.
 
     To open a WSL tab with a Launch Configuration, you must first set WSL as your default shell in Warp:
 
@@ -59,14 +59,14 @@ With Launch configurations you can save in the app or by adding a yaml file.
 
 :::tip
 **Terminal Tip**\
-You can open saved Launch Configurations via Alfred Workflow or [Raycast](/terminal/integrations-and-plugins/#raycast) Extension. Learn more [here](https://blog.joe.codes/open-warp-launch-configurations-from-raycast-and-alfred). Credit to [@joetannenbaum](https://twitter.com/joetannenbaum/status/1633538768866009115)
+You can open saved Launch Configurations via Alfred Workflow or [Raycast](/terminal/integrations-and-plugins/#raycast) Extension. See Joe Tannenbaum's guide to [opening Warp Launch Configurations from Raycast and Alfred](https://blog.joe.codes/open-warp-launch-configurations-from-raycast-and-alfred). Credit to [@joetannenbaum](https://twitter.com/joetannenbaum/status/1633538768866009115)
 :::
 
 ## How it works
 
 <VideoEmbed url="https://www.loom.com/share/daa2a9e55c27458c8bbf722d90078880?hideEmbedTopBar=true&hide_owner=true&hide_share=true&hide_title=true" title="Launch Configuration Demo" />
 
-## Launch Configuration YAML Format
+## Launch Configuration YAML format
 
 All Launch Configuration yaml files are stored in the following location:
 
@@ -188,7 +188,7 @@ windows:
 
 Sample configuration that shows how a Window and Tab can be activated with a session in focus.
 
-* Use the `active_window_index` and `active_tab_index`fields to set your active Window and Tab.
+* Use the `active_window_index` and `active_tab_index` fields to set your active Window and Tab.
 * Use the `is_focused` field to set which Pane is focused in each tab.
 
 :::caution
@@ -198,7 +198,7 @@ Note that when you use `- active_tab_index:` the `tabs:` field doesn't need the 
 ```yaml
 # Warp Launch Configuration
 #
-# This configurations has two tabs, with the second tab active.
+# This configuration has two tabs, with the second tab active.
 # Two vertical split panes in the first tab and the top pane focused.
 # Two horizontal split panes in the second tab and the right pane focused.
 ---
@@ -225,7 +225,7 @@ windows:
 
 ### Commands
 
-Use the `commands` field to define a set of commands to run when a launch configuration in run.
+Use the `commands` field to define a set of commands to run when a launch configuration is run.
 
 :::caution
 You may need to use double quotes for commands with special characters. Commands in separate lines are chained together with `&&` when run, as such commands run after `ssh` commands may not execute.

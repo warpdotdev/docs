@@ -1,16 +1,19 @@
 ---
-title: Running Multiple Agents At Once With Warp
+title: Run multiple agents at once with Warp
 description: >-
   Run multiple agent tasks simultaneously in Warp — revert PRs, edit
   shortcuts, and add tests across repos without losing context.
 sidebar:
   label: "Run multiple agents at once"
+tags:
+  - "agents"
+
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
 
-<VideoEmbed url="https://youtu.be/w0bJFC0u0pE?si=XdP88cSCMXTK6Ec5" />
+<VideoEmbed url="https://youtu.be/w0bJFC0u0pE?si=XdP88cSCMXTK6Ec5" title="Running multiple agents at once in Warp video" />
 
-### 1. Why Multiple Agents Matter
+### 1. Why multiple agents matter
 
 Sometimes you need to work on several coding tasks at once — fix a PR, add a feature, debug a build — without losing context.\
 \
@@ -18,7 +21,7 @@ Warp lets you run multiple agent tasks simultaneously, all within one workspace.
 
 ---
 
-### 2. How It Works
+### 2. How it works
 
 Each agent runs in its own thread, complete with:
 
@@ -30,7 +33,7 @@ Because Warp is a desktop app, it can send system notifications to alert you whe
 
 ---
 
-### 3. Example: Reverting a PR and Editing a Shortcut
+### 3. Example: reverting a PR and editing a shortcut
 
 Ben uses voice mode to quickly start tasks.
 
@@ -48,13 +51,13 @@ Warp notifies him when the task completes.
 Then, he runs another prompt:
 
 Prompt Example:\
-“Change the keyboard shortcut to `Cmd + Shift + I`.”
+“Change the keyboard shortcut to `Cmd+Shift+I`.”
 
 Warp modifies `input.rs`, previews the diff, and Ben applies the change directly from Warp.
 
 ---
 
-### 4. Managing Multiple Tasks
+### 4. Managing multiple tasks
 
 You can switch between concurrent agents:
 
@@ -66,7 +69,7 @@ You can even fast-forward agents to auto-approve all code diffs once you trust t
 
 ---
 
-### 5. Parallel Contexts
+### 5. Parallel contexts
 
 In another repo, Ben adds a new Eval test via a different agent:
 
@@ -83,7 +86,7 @@ Meanwhile, the first agent continues working on the keyboard shortcut task.
 
 ---
 
-### 6. Reviewing All Active Agents
+### 6. Reviewing all active agents
 
 Open the Agent Mode Dashboard to see:
 
@@ -92,3 +95,5 @@ Open the Agent Mode Dashboard to see:
 * Logs and outputs
 
 You can refine or cancel tasks mid-run if needed, or switch back to manual commands.
+
+For a workflow-oriented setup guide that covers task decomposition, worktrees, cloud orchestration, validation, and review handoff, see [How to run multiple AI coding agents](/guides/agent-workflows/how-to-run-multiple-ai-coding-agents/).

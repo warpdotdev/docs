@@ -1,17 +1,21 @@
 ---
-title: "Figma Remote MCP: Create a Website from a Figma File"
+title: "Figma remote MCP: create a website from a Figma file"
 description: >-
   Connect Warp to Figma's remote MCP server via OAuth and generate front-end
   code directly from your design files.
 sidebar:
   label: "Figma remote MCP: create a website from a Figma file"
+tags:
+  - "mcp"
+  - "frontend"
+
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
 import { Steps } from '@astrojs/starlight/components';
 
 Learn how to connect Warp to Figma’s remote MCP server to generate code directly from your design files — complete with screenshots, metadata, and design system context.
 
-<VideoEmbed url="https://youtu.be/PsM_Y8Pt-1Q?si=wYT-lXf-FYUizrEy" />
+<VideoEmbed url="https://youtu.be/PsM_Y8Pt-1Q?si=wYT-lXf-FYUizrEy" title="Using Figma remote MCP to create a website video" />
 
 ---
 
@@ -29,7 +33,7 @@ This guide covers how to:
 
 <Steps>
 
-1. #### What Is a Remote MCP Server?
+1. #### What is a remote MCP server?
 
    A **remote MCP server** runs outside your local machine — Warp connects to it through a secure network call.\
    \
@@ -54,7 +58,7 @@ This guide covers how to:
    You will need a Figma Dev account for this to work.
    :::
 
-3. #### What the Figma MCP Server Provides
+3. #### What the Figma MCP server provides
 
    Once connected, the server enables Warp’s AI to understand your design context by fetching:
 
@@ -65,7 +69,7 @@ This guide covers how to:
    | **`get_code`**                   | Extracts code from your Figma design for direct use in projects.     |
    | **`get_metadata`**               | Includes text, images, and layer names for more realistic mock data. |
 
-4. #### Generate a Website from a Figma File
+4. #### Generate a website from a Figma file
 
    Basic flow:
 
@@ -84,13 +88,13 @@ This guide covers how to:
    ```
    Warp uses the Figma MCP server to pull all necessary context and begin generating code diffs.
 
-5. #### Iterating on Output
+5. #### Iterating on output
 
    * In under five minutes, Warp generates a working site structure based on the Figma layout.
    * Missing assets (e.g., logos or images) are automatically referenced in an `assets/` folder.
    * Warp prompts you to add any missing files before continuing.
 
-6. #### Persistent Input Feature
+6. #### Persistent input feature
 
    Warp’s **persistent input** allows mid-process updates.\
    If you forget an image (e.g., the Misho logo), simply upload it and notify Warp:

@@ -10,6 +10,8 @@ description: >-
 
 [One sentence: what you'll accomplish by following this guide. Mention Warp by name. Include a time estimate if possible (e.g., "takes about 10 minutes").]
 
+[AEO GUIDANCE: If this guide is based on Peec, answer-engine prompts, search-query data, or AEO goals, create an AEO brief first using `.agents/skills/aeo_brief/SKILL.md`. Use the brief to preserve high-intent vocabulary naturally, translate awkward source-data phrasing into developer-friendly docs language, and decide whether this should be a new guide or an update to an existing page.]
+
 import VideoEmbed from '@components/VideoEmbed.astro';
 
 <VideoEmbed url="[YouTube or Loom URL — remove this block if no video]" />
@@ -52,10 +54,12 @@ import VideoEmbed from '@components/VideoEmbed.astro';
 
 ## Next steps
 
-[2-3 sentence summary of what the reader accomplished. Then list links to related content. CROSS-LINKING: Always link to at least one other guide in the Guides section and one feature documentation page in the main docs. If this guide relates to features covered in the Coding Agents section (src/content/docs/coding-agents/), link there too. If a standalone summary section feels valuable, add a ## Recap heading above the summary paragraph.]
+[2-3 sentence summary of what the reader accomplished. Then list links to related content. CROSS-LINKING: Always link to at least one other guide in the Guides section and one feature documentation page in the main docs. If this guide relates to features covered in the Third-Party CLI Agents section (src/content/docs/agent-platform/cli-agents/), link there too. If a standalone summary section feels valuable, add a ## Recap heading above the summary paragraph.]
 
 * [Link to related guide in the Guides section]
 * [Link to relevant feature documentation in the main docs]
 * [Link to deeper reference or advanced usage]
 
-[LINK VERIFICATION: Before publishing, verify every internal link points to an existing page by checking the relevant astro.config.mjs (sidebar config). If a target page is planned but not live, use the closest existing page and add a TODO comment.]
+[LINK VERIFICATION: Before publishing, verify every internal link points to an existing file under `src/content/docs/` and, when the page should appear in navigation, a matching entry in `src/sidebar.ts`. If a target page is planned but not live, use the closest existing page and add a TODO comment.]
+
+[PRE-HANDOFF REVIEW: Before presenting the draft, check whether procedures are easy to scan, whether dense sections should become numbered steps or bullets, whether UI surfaces use canonical product names, whether the page adds value beyond existing docs, and whether any product behavior needs human testing.]

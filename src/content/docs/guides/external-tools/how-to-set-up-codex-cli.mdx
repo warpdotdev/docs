@@ -1,10 +1,13 @@
 ---
-title: How to set up Codex CLI
+title: Set up Codex CLI
 description: >-
   Set up OpenAI's Codex CLI in Warp, configure it for your project, and learn
   productivity tips for faster AI-assisted coding workflows in Warp.
 sidebar:
   label: "Set up Codex CLI"
+tags:
+  - "third-party-tools"
+
 ---
 
 Codex CLI is OpenAI's open-source coding agent. It reads your codebase, edits files, and executes commands from natural language prompts. This guide takes you from installation to a working Codex session in Warp in about 5 minutes, then shows you how to get the most out of it.
@@ -84,7 +87,7 @@ Switch between available models during a session with the `/model` command. See 
 
 Codex has three [approval modes](https://developers.openai.com/codex/cli/features#approval-modes) that control how much autonomy it has. 
 * **Auto** (the default) lets Codex read, edit, and run commands within your working directory but asks before anything outside that scope. 
-* **Read-only** keeps Codex consultative
+* **Read-only** keeps Codex consultative.
 * **Full Access** grants broader autonomy including network access. 
 
 Use `/permissions` inside a session to switch modes as your comfort level changes.

@@ -1,17 +1,20 @@
 ---
-title: "How To: Create Priority Matrix for Database Optimization"
+title: "Create a priority matrix for database optimization"
 description: >-
   Prompt Warp to audit SQL queries, analyze execution plans, and generate a
   priority matrix ranking database optimizations by impact and effort.
 sidebar:
   label: "Create a priority matrix for database optimization"
+tags:
+  - "database"
+
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
 import { Steps } from '@astrojs/starlight/components';
 
 Learn how to generate a data-driven optimization matrix that ranks database issues by impact, risk, and effort.
 
-<VideoEmbed url="https://youtu.be/VgE5wgtDSnk?si=ndvN2k86RguHAs4w" />
+<VideoEmbed url="https://youtu.be/VgE5wgtDSnk?si=ndvN2k86RguHAs4w" title="Creating a database optimization priority matrix with Warp video" />
 
 <Steps>
 
@@ -21,12 +24,12 @@ Learn how to generate a data-driven optimization matrix that ranks database issu
 
    It analyzes SQL queries, identifies common inefficiencies, and generates a **priority matrix** for improvements.
 
-2. #### The Problem
+2. #### The problem
 
    When you tell AI to “optimize a query,” that could mean _anything_ — faster, safer, or simpler.\
    Instead, use Warp to clarify intent and return measurable outcomes.
 
-3. #### The Prompt
+3. #### The prompt
 
    Paste this into Warp’s AI input:
 
@@ -286,7 +289,7 @@ Learn how to generate a data-driven optimization matrix that ranks database issu
    ````
    Warp will locate all SQL usage, test each query, and score them using explain-plan data.
 
-4. #### Review the Matrix
+4. #### Review the matrix
 
    The output includes:
 

@@ -263,12 +263,30 @@ body {
   color: #faf9f6;
 }
 
-/* Center all images in content by default (excluding those inside tables) */
-.sl-markdown-content :not(table) > img,
-.sl-markdown-content p > img {
+/* Center images in content by default.
+
+   Covers every standard embed pattern used in the docs:
+     * standalone markdown images  → <p><img>
+     * link-wrapped images         → <p><a><img></a></p>
+     * raw/standalone <img> in any other non-table wrapper
+
+   The `:not(:where(table *))` guard genuinely excludes images inside
+   tables (an in-cell image's parent is <td>, not <table>, so the old
+   `:not(table)` never actually excluded them). `:where()` has zero
+   specificity, so the exclusion never fights the rest of the selector.
+   Code-block figures are handled separately below. */
+.sl-markdown-content :not(table) > img:not(:where(table *)),
+.sl-markdown-content p > img:not(:where(table *)) {
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+
+/* Link-wrapped images render as <p><a><img></a></p>. The inline <a>
+   shrink-wraps the image, so auto margins on the <img> alone can't pull it
+   to the page center — center the anchor's inline box via the paragraph. */
+.sl-markdown-content p:has(> a > img):not(:where(table *)) {
+  text-align: center;
 }
 
 /* Figures — centered block with image and optional caption.
@@ -280,9 +298,15 @@ body {
    language. Don't repeat surrounding prose or list everything visible.
 
    Exclude Expressive Code figures (code blocks) — they render inside a
-   `.expressive-code` wrapper and must not be center-aligned. */
+   `.expressive-code` wrapper and must not be center-aligned.
+
+   Horizontal margins are `auto` so a width-constrained figure (e.g.
+   `<figure style={{ maxWidth: "563px" }}>`) centers on the page. With
+   `margin: 1.5em 0` such a figure keeps zero side margins and sits flush
+   left, since `text-align: center` only centers content inside the box,
+   not the box itself. Full-width figures resolve auto margins to 0. */
 .sl-markdown-content figure:not(.expressive-code figure) {
-  margin: 1.5em 0;
+  margin: 1.5em auto;
   text-align: center;
 }
 
@@ -351,4 +375,148 @@ body {
 /* Small gap between a parent item and its nested list */
 .sl-markdown-content li > :is(ul, ol) {
   margin-top: 0.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   Guides: Card-based discovery page
+
+   Filter pills + card grid for the /guides/ landing page.
+   Visually distinct from the site-wide topic nav: smaller rounded pills
+   placed below the page intro, clearly scoped to filtering the grid below.
+   -------------------------------------------------------------------------- */
+.warp-guide-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--sl-color-hairline-light);
+}
+
+.warp-guide-filter-pill {
+  appearance: none;
+  border: 1px solid var(--sl-color-gray-5);
+  border-radius: 9999px;
+  background: transparent;
+  color: var(--sl-color-gray-3);
+  font-family: var(--sl-font);
+  font-size: var(--sl-text-xs);
+  font-weight: 500;
+  padding: 0.3rem 0.75rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.warp-guide-filter-pill:hover {
+  color: var(--sl-color-white);
+  border-color: var(--sl-color-gray-3);
+}
+
+.warp-guide-filter-pill.active {
+  background: var(--sl-color-accent);
+  border-color: var(--sl-color-accent);
+  color: #fff;
+}
+
+:root[data-theme='light'] .warp-guide-filter-pill.active {
+  color: #fff;
+}
+
+.warp-guide-section {
+  margin-bottom: 2rem;
+}
+
+.warp-guide-section-heading {
+  font-size: var(--sl-text-sm);
+  font-weight: 600;
+  color: var(--sl-color-gray-3);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+}
+
+.warp-guide-card-grid {
+  display: grid;
+  /* 220px min allows 3 columns in the ~730px content area beside the sidebar */
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0.75rem;
+}
+
+.warp-guide-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.875rem 1rem;
+  border: 1px solid var(--sl-color-hairline-light);
+  border-radius: var(--sl-radius-md);
+  background: transparent;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.warp-guide-card:hover {
+  border-color: var(--sl-color-gray-5);
+  background: var(--sl-color-gray-6);
+  text-decoration: none;
+}
+
+/* Prevent Starlight's global link underline from cascading into card text */
+.warp-guide-card:hover * {
+  text-decoration: none;
+}
+
+.warp-guide-card-category {
+  font-size: var(--sl-text-2xs);
+  font-weight: 600;
+  color: var(--sl-color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+}
+
+:root[data-theme='light'] .warp-guide-card-category {
+  color: var(--sl-color-accent);
+}
+
+.warp-guide-card-title {
+  font-size: var(--sl-text-sm);
+  font-weight: 600;
+  color: var(--sl-color-white);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.warp-guide-card-desc {
+  font-size: var(--sl-text-2xs);
+  color: var(--sl-color-gray-3);
+  margin: 0;
+  line-height: 1.45;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.warp-guide-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  margin-top: auto;
+  padding-top: 0.25rem;
+}
+
+.warp-guide-card-tag {
+  font-size: var(--sl-text-2xs);
+  color: var(--sl-color-gray-4);
+  border: 1px solid var(--sl-color-gray-5);
+  border-radius: var(--sl-radius-sm);
+  padding: 0.125rem 0.5rem;
+  line-height: 1.4;
+}
+
+.warp-guide-empty {
+  color: var(--sl-color-gray-4);
+  font-style: italic;
 }

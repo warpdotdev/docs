@@ -1,30 +1,33 @@
 ---
-title: "How To: Set Coding Preferences with Rules"
+title: "Set coding preferences with Rules"
 description: >-
   Store your package manager, environment tool, and CLI preferences as Warp
   Rules so agents automatically use pnpm, miniconda, or your preferred tools.
 sidebar:
   label: "Set coding preferences with Rules"
+tags:
+  - "rules"
+
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
 import { Steps } from '@astrojs/starlight/components';
 
 Learn how to use Warp’s Rules feature to define your personal environment and tool preferences for every coding session.
 
-<VideoEmbed url="https://youtu.be/zWvRB2zWr-4?si=tv-TIhsqEtLG9iDs" />
+<VideoEmbed url="https://youtu.be/zWvRB2zWr-4?si=tv-TIhsqEtLG9iDs" title="Setting coding preferences with rules video" />
 
 This tutorial teaches you how to customize your development setup using **Warp’s Rules** — ensuring agents always work in your preferred environment. Instead of constantly reminding them which package manager or environment to use, you can **store those preferences as persistent Rules** that apply automatically across projects.
 
 <Steps>
 
-1. #### The Problem
+1. #### The problem
 
    When using AI tools to write or modify code, they often default to outdated or undesired tools.\
    For example, many agents still use **npm** instead of **pnpm** — or **pip** instead of **miniconda**.
 
    Warp fixes this by letting you define your preferences once, and then applying them automatically whenever your agent runs commands.
 
-2. #### The Rule Setup
+2. #### The Rule setup
 
    You can set Rules for how you want the AI to handle environments, dependencies, and commands.
 
@@ -38,7 +41,7 @@ This tutorial teaches you how to customize your development setup using **Warp�
    ```
    This ensures the agent automatically chooses the right package manager or environment — no extra prompts required.
 
-3. #### Supported Use Cases
+3. #### Supported use cases
 
    You can apply Rules to:
 

@@ -1,0 +1,135 @@
+---
+title: Share agent context in GitHub PRs
+description: >-
+  Share a Warp agent session or cloud agent run link in a GitHub pull request so
+  reviewers can inspect the context behind agent-generated changes.
+sidebar:
+  label: "Attach agent context to PRs"
+tags:
+  - "agents"
+  - "code-review"
+  - "session-sharing"
+---
+
+When an agent helps prepare a pull request, reviewers need the execution context behind the diff: the original prompt, plan, commands, validation results, code changes, and decisions that still need human review.
+
+Add a Warp session or cloud agent run link to the PR description or a PR comment. That link gives reviewers a record of the agent's work alongside the GitHub diff.
+
+Use these Warp docs and surfaces to collect the right context:
+
+* [Agent Session Sharing](/agent-platform/local-agents/session-sharing/) for local Warp agents or third-party CLI agents running in Warp.
+* [Cloud agent session sharing](/agent-platform/cloud-agents/viewing-cloud-agent-runs/) for cloud agent runs started from Slack, Linear, GitHub Actions, schedules, the Oz CLI, or the API.
+* The [Code Review panel](/code/code-review/) and [Interactive Code Review](/agent-platform/local-agents/interactive-code-review/) to inspect and refine the actual code diff before or after you share the PR.
+
+## What to include in the PR
+
+Add the shared session link near the top of the PR description or as a pinned PR comment. Pair it with a short review summary so teammates can decide what to inspect first.
+
+At minimum, include:
+
+* **Goal** - What the agent was asked to do.
+* **Agent context** - Link to the shared Warp session or cloud agent run.
+* **Changed files** - The main areas reviewers should inspect.
+* **Validation** - Tests, lint, typecheck, build, or manual checks the agent or author ran.
+* **Known risks** - Anything the agent could not verify, skipped, or changed speculatively.
+* **Reviewer asks** - Specific files, behaviors, or decisions that need human review.
+
+## PR comment template
+
+```markdown
+## Agent-generated change summary
+
+**Goal:** <what the agent was asked to do>
+**Agent session:** <shared Warp session or cloud agent run link>
+**Changed files:** <key files or directories>
+**Validation:** <commands run and results>
+**Known risks:** <untested areas, assumptions, follow-ups>
+**Reviewer asks:** <specific review focus>
+
+Notes:
+- The session link contains the agent prompt, plan, commands, logs, output, and follow-up messages where available.
+- Please review the code diff and the agent context before merging.
+```
+
+## 1. Share the agent session or cloud run
+
+Choose the link based on where the agent ran.
+
+### Local agent or third-party CLI agent in Warp
+
+If the agent ran locally in Warp, share the session:
+
+1. Open the agent session in Warp.
+2. In the conversation pane header, open the three-dot menu, then click **Share session**. Do not use the top-level **Share** icon if you need the session transcript.
+3. Choose the scrollback range to include.
+4. Copy the shared session link.
+5. Paste the link into the PR description or a PR comment.
+
+See [Agent Session Sharing](/agent-platform/local-agents/session-sharing/) for the full sharing flow.
+
+### Cloud agent run
+
+If the agent ran in the cloud, use the cloud run session link:
+
+1. Open the run from the [Agent Management Panel](/agent-platform/cloud-agents/managing-cloud-agents/) in the Warp app or the [Runs page in the Oz web app](/agent-platform/cloud-agents/oz-web-app/#runs).
+2. Confirm the session shows the run context reviewers need.
+3. Copy the cloud agent session link.
+4. Paste the link into the PR description or a PR comment.
+
+See [Viewing cloud agent runs](/agent-platform/cloud-agents/viewing-cloud-agent-runs/) for details.
+
+## 2. Review the diff before handing it off
+
+Before asking teammates to review the PR, inspect the code yourself in Warp:
+
+1. Open the [Code Review panel](/code/code-review/).
+2. Compare the branch against the PR base branch, not just uncommitted changes.
+3. Review the changed files, revert obvious mistakes, and leave inline comments for the agent if it should revise anything.
+4. Run your project's tests, lint, typecheck, or build.
+5. Add validation results to the PR summary.
+
+For a detailed local workflow, see [How to review AI-generated code](/guides/agent-workflows/how-to-review-ai-generated-code/) and [Interactive Code Review](/agent-platform/local-agents/interactive-code-review/).
+
+## 3. Make the agent context easy to review
+
+Reviewers should not have to read an entire transcript to understand what happened. In the PR summary, call out the most important parts of the session:
+
+* The original prompt or task source.
+* The plan the agent followed.
+* Commands that changed or validated the code.
+* Files or directories that need extra attention.
+* Any failed commands and how they were resolved.
+* Any assumptions the agent made.
+
+If the PR came from an automated workflow, include the trigger source too. For example: Slack thread, Linear issue, GitHub Actions workflow, scheduled agent, Oz CLI command, or API call.
+
+## 4. Watch for sensitive context before sharing
+
+Shared sessions can include prompts, terminal output, logs, command history, environment details, and other scrollback. Before putting a session link in a PR:
+
+* Check whether the session includes secrets, tokens, private customer data, or unrelated terminal output.
+* Choose the narrowest useful scrollback range for local session sharing.
+* Prefer links visible only to the reviewers who need the context.
+* If the agent produced logs or artifacts with sensitive values, remove or rotate those values before broader sharing.
+
+See [Secret Redaction](/support-and-community/privacy-and-security/secret-redaction/) for more on how Warp helps detect secrets.
+
+## 5. Keep the PR review focused
+
+Use the session link to make review faster, not to replace review. The GitHub diff is still the source of truth for what will merge.
+
+Good reviewer asks:
+
+* "Check the migration and rollback path in `db/migrations/`."
+* "Verify the agent's test coverage for the auth edge cases."
+* "Review the session commands around the failing lint step and the final fix."
+* "Confirm whether the agent's assumption about the API contract is correct."
+
+Avoid vague asks like "review the agent output." Point reviewers to the decision, file, or validation result that needs human judgment.
+
+## Next steps
+
+* Use [Agent Session Sharing](/agent-platform/local-agents/session-sharing/) to share local or third-party agent sessions.
+* Use [Cloud agent session sharing](/agent-platform/cloud-agents/viewing-cloud-agent-runs/) to inspect cloud agent runs.
+* Use [Code Review panel](/code/code-review/) to review Git diffs in Warp.
+* Use [Interactive Code Review](/agent-platform/local-agents/interactive-code-review/) to leave inline comments and send feedback back to an agent.

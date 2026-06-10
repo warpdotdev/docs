@@ -11,7 +11,7 @@ import VideoEmbed from '@components/VideoEmbed.astro';
 Scheduled agents are cloud agents that run on a recurring cron schedule, handling recurring tasks automatically without manual triggers. This guide walks you through setting up an agent that triages your GitHub bug reports every week, checks whether each issue has enough detail to investigate, and posts follow-up comments when information is missing. You'll use a prebundled skill and the Oz web app; no CLI or custom code required.
 
 Watch this short demo of creating and testing a scheduled agent:
-<VideoEmbed url="https://youtu.be/M-zyyrGt2ug" />
+<VideoEmbed url="https://youtu.be/M-zyyrGt2ug" title="Scheduled agents quickstart walkthrough" />
 
 ---
 
@@ -31,7 +31,7 @@ Watch this short demo of creating and testing a scheduled agent:
 5. Under **Frequency**, choose a preset or enter a custom cron expression (e.g., `0 9 * * 1` for every Monday at 9 AM).
 6. Click **Create schedule**.
 
-**Breaking it down:** The schedule lives in Oz's cloud infrastructure. Unlike a local cron job, it fires even when your machine is off. Each run starts a fresh, isolated session with no state carried over from previous executions, and every run is tracked and auditable in the [Oz web app](/agent-platform/cloud-agents/oz-web-app/).
+**Breaking it down:** The schedule lives in Oz's cloud infrastructure. Unlike a local cron job, it fires even when your machine is off. Each run starts a fresh, isolated session with no state carried over from previous executions, and every run is tracked and reviewable in the [Oz web app](/agent-platform/cloud-agents/oz-web-app/).
 
 ---
 
@@ -54,6 +54,7 @@ Runs are also accessible from the conversation panel view in the Warp app and on
 
 ## Next steps
 
+* **Choose the right unattended trigger** - Compare schedules, Slack, Linear, GitHub Actions, CLI, and API workflows in [Run agents unattended with schedules and triggers](/guides/agent-workflows/how-to-run-unattended-agents/).
 * **Trigger agents from your tools** - Connect Oz to Slack or Linear to trigger agents from mentions or issue updates. See [Integrations Quickstart](/agent-platform/cloud-agents/integrations/quickstart/).
 * **Manage and refine your schedule** - Change the frequency, swap skills, or pause and resume the schedule. See [Scheduled Agents](/agent-platform/cloud-agents/triggers/scheduled-agents/) for the full reference.
 * **Share with your team** - Schedules and environments are shared across your Warp team, so everyone benefits automatically.

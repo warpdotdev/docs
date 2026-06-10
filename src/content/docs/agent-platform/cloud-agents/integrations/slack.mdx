@@ -57,7 +57,7 @@ Agents keep you informed directly in Slack via:
 
 ### Joining the live remote session
 
-Selecting `View agent` opens the active agent session. Inside the session you’ll see:
+Selecting **View Agent** opens the active agent session. Inside the session you’ll see:
 
 * The agent’s full execution log
 * The plan/task list
@@ -156,6 +156,13 @@ oz integration create slack --environment <ENV_ID>
 
 The CLI will open a browser window to install the Oz app into your Slack workspace. After installation, the integration becomes available to all members of your Warp team.
 
+:::tip
+If the integration cannot be created or a Slack-triggered run cannot start, use the returned error code to narrow the fix. Common errors include:
+
+* [`feature_not_available`](/reference/api-and-sdk/troubleshooting/errors/feature-not-available/) (plan does not support integrations)
+* [`external_authentication_required`](/reference/api-and-sdk/troubleshooting/errors/external-authentication-required/) (missing GitHub or Slack authorization)
+:::
+
 You can optionally attach a custom prompt that is applied to every agent run:
 
 ```
@@ -191,7 +198,7 @@ To remove the Oz app from your Slack workspace:
 
 ![Confirmation dialog to remove the Oz app from a Slack workspace.](../../../../../assets/agent-platform/remove-slack-app.png)
 
-Once removed, Slack will immediately disable the integration for all teammates.
+Once removed, Slack will immediately disable the integration for all teammates. Events for a disabled integration can return [`integration_disabled`](/reference/api-and-sdk/troubleshooting/errors/integration-disabled/).
 
 ### Troubleshooting
 

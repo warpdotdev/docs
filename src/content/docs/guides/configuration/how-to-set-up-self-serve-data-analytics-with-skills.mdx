@@ -1,10 +1,13 @@
 ---
-title: "How to set up self-serve data analytics with Skills"
+title: "Set up self-serve data analytics with Skills"
 description: >-
   Set up a self-serve data analytics workflow in Warp using two community
   Skills that map questions to dbt models and structure reproducible analyses.
 sidebar:
   label: "Set up self-serve data analytics with skills"
+tags:
+  - "skills"
+
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
 
@@ -12,7 +15,7 @@ Self-serve data analytics means anyone on your team can ask a data question and 
 
 ## Prerequisites
 
-* **Warp** — Install from [warp.dev](https://www.warp.dev/download) if you don't already have it.
+* **Warp** — Install from [Warp download page](https://www.warp.dev/download) if you don't already have it.
 * **A BigQuery data warehouse with dbt models** — The Skills as published assume BigQuery and dbt. You can adapt them to Snowflake, Redshift, Databricks, or a non-dbt setup. See [Adapting to your stack](#adapting-to-your-stack).
 * **The BigQuery CLI (`bq`)** — Installed as part of the [Google Cloud SDK](https://cloud.google.com/sdk/docs/install). Agents call it directly to query the warehouse, so no MCP server is required.
 * **A Git repository where the Agent will work** — Warp auto-discovers Skills from `.agents/skills/` in your current working directory up through the repo root. See [Skills](https://docs.warp.dev/agent-platform/capabilities/skills/) for the full list of supported directories and how discovery works.
@@ -21,7 +24,7 @@ Self-serve data analytics means anyone on your team can ask a data question and 
 
 In this 40-minute livestream, Warp's data team demonstrates the workflow end-to-end, including the two Skills you'll install below and a third pattern (running the same Skills from Slack via a cloud agent). Feel free to skip ahead if you prefer to follow the written steps.
 
-<VideoEmbed url="https://www.youtube.com/watch?v=WyMTjXSplRU" />
+<VideoEmbed url="https://www.youtube.com/watch?v=WyMTjXSplRU" title="Setting up self-serve data analytics with skills video" />
 
 ## 1. Install the two Skills
 

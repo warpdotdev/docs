@@ -38,7 +38,7 @@ This page covers the [managed architecture](/agent-platform/cloud-agents/self-ho
   * Allow the worker's namespace to create Jobs with a **root init container** (sidecar materialization depends on this pattern).
   * Grant the worker these namespace-scoped permissions: `create`, `get`, `list`, `watch`, `delete` on `jobs`; `get`, `list`, `watch` on `pods`; `get` on `pods/log`; `list` on `events`.
 * **[Helm](https://helm.sh/docs/intro/install/)** installed locally, plus `kubectl` authenticated against the target cluster.
-* **A team API key** — In the Warp app, go to **Settings** > **Cloud platform** > **Oz Cloud API Keys** to create a team-scoped API key. See [API Keys](/reference/cli/api-keys/) for details.
+* **An agent API key** — Create one in the [Oz web app](https://oz.warp.dev/settings) so the worker can authenticate to Oz. You can bind the key to any cloud agent — that choice doesn't restrict which agents can run on the worker. See [API Keys](/reference/cli/api-keys/) for the full creation flow.
 
 ---
 
@@ -59,7 +59,7 @@ The chart does not create CRDs or cluster-scoped RBAC resources.
 ### 1. Set your API key and namespace
 
 ```bash
-export WARP_API_KEY="your_team_api_key"
+export WARP_API_KEY="your_agent_api_key"
 ```
 
 Create the namespace if it doesn't exist:
@@ -123,7 +123,7 @@ To scale horizontally, deploy multiple Helm releases with distinct worker IDs ra
 **Kubernetes backend:**
 
 * `kubernetesBackend.namespace` — Namespace for task Jobs. Defaults to the release namespace.
-* `kubernetesBackend.defaultImage` — Default Docker image for task pods when the run has no Warp environment image. Leave empty (default) to fall back to `ubuntu:22.04`.
+* `kubernetesBackend.defaultImage` — Default Docker image for task pods when no [Warp environment](/agent-platform/cloud-agents/environments/) has been supplied. Leave empty (default) to fall back to `ubuntu:22.04`.
 * `kubernetesBackend.imagePullPolicy` — Image pull policy for task pods. Defaults to `IfNotPresent`.
 * `kubernetesBackend.preflightImage` — Image for the startup preflight Job. Set this if your cluster restricts allowed registries.
 * `kubernetesBackend.unschedulableTimeout` — How long a pod may remain unschedulable before failing. Defaults to `30s`.
