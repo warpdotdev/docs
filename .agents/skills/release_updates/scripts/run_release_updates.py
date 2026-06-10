@@ -145,6 +145,14 @@ def parse_args() -> argparse.Namespace:
         help="Create pull requests as draft.",
     )
     parser.add_argument(
+        "--pr-auto-merge",
+        action="store_true",
+        help=(
+            "Enable auto-merge (squash) on the PR after creation and mark it ready "
+            "for review. Requires --create-pr. Incompatible with --pr-draft."
+        ),
+    )
+    parser.add_argument(
         "--assign-oncall-reviewer",
         "--assign-oncall-reviewers",
         dest="assign_oncall_reviewers",
@@ -501,6 +509,22 @@ def _assign_reviewers(
         )
 
 
+def _enable_auto_merge(
+    *,
+    repo_path: Path,
+    pr_url: str,
+) -> None:
+    # Mark ready for review first (required before auto-merge can be enabled).
+    _run_command(
+        ["gh", "pr", "ready", pr_url],
+        cwd=repo_path,
+    )
+    _run_command(
+        ["gh", "pr", "merge", "--auto", "--squash", pr_url],
+        cwd=repo_path,
+    )
+
+
 def _validate_args(args: argparse.Namespace) -> None:
     normalized_schedule_ids: list[str] = []
     for raw_schedule_id in args.oncall_schedule_ids:
@@ -515,6 +539,10 @@ def _validate_args(args: argparse.Namespace) -> None:
         raise ValueError(
             "--assign-oncall-reviewer requires --oncall-schedule-id.",
         )
+    if args.pr_auto_merge and not args.create_pr:
+        raise ValueError("--pr-auto-merge requires --create-pr.")
+    if args.pr_auto_merge and args.pr_draft:
+        raise ValueError("--pr-auto-merge is incompatible with --pr-draft.")
 
 
 def _maybe_create_pr(
@@ -594,6 +622,8 @@ def _maybe_create_pr(
                 "[dry-run] Would assign reviewers: "
                 + ", ".join(f"@{reviewer}" for reviewer in reviewers),
             )
+        if args.pr_auto_merge:
+            eprint("[dry-run] Would enable auto-merge (squash) on PR.")
         return
 
     if not args.skip_pr_push:
@@ -618,6 +648,10 @@ def _maybe_create_pr(
             "Assigned reviewers to PR: "
             + ", ".join(f"@{reviewer}" for reviewer in reviewers),
         )
+
+    if args.pr_auto_merge:
+        _enable_auto_merge(repo_path=docs_root, pr_url=pr_url)
+        eprint(f"Auto-merge (squash) enabled on PR: {pr_url}")
 
 
 def main() -> int:
