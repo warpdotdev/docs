@@ -23,10 +23,12 @@ The audit compares docs against code, so both source repos must be available:
   `/workspace/warp-server`), or passed explicitly via `--warp-internal PATH` /
   `--warp-server PATH`.
 
-The script FAILS LOUD when a repo is missing: it exits with code 2 and lists the
-skipped audits in the report's `audits_skipped` field. Never treat an exit-2 run
-as a clean audit — fix the repo paths and re-run. Exit 0 means all requested
-audits ran (findings may still exist).
+The script FAILS LOUD when a repo is missing OR when an extraction sanity guard
+trips (a parser returning implausibly few surfaces means the source layout
+changed and the parser needs fixing): it exits with code 2 and lists the skipped
+audits in the report's `audits_skipped` field (`extraction:*` entries identify
+broken parsers). Never treat an exit-2 run as a clean audit — fix the problem
+and re-run. Exit 0 means all requested audits ran (findings may still exist).
 
 ## Workflows
 
@@ -39,7 +41,7 @@ python3 .agents/skills/missing_docs/scripts/audit_docs.py
 ```
 
 Options:
-- `--category features|cli|api|slash|staleness|map` — run a single audit category
+- `--category features|cli|api|slash|settings|structure|staleness|map` — run a single audit category
 - `--severity high|medium|low` — filter by minimum severity
 - `--weak-coverage` — also flag GA features whose mapped doc exists but doesn't mention feature keywords (low-severity, noisy)
 - `--output report.json` — save JSON report to file
@@ -51,41 +53,71 @@ The script resolves doc paths from the docs repo root and accepts `.md` and `.md
 interchangeably (and `README.md` ↔ `index.mdx`), so surface-map entries can use the
 canonical filename even when the on-disk extension differs.
 
-The script performs 6 coverage audits:
+The script performs these coverage audits:
 1. **Feature flag coverage** — classifies every `FeatureFlag` by rollout status using
    the cargo-feature→flag bridge in warp-internal `app/src/features.rs` plus
    `RELEASE_FLAGS`/`PREVIEW_FLAGS`/`DOGFOOD_FLAGS` in `crates/warp_features/src/lib.rs`.
    GA flags must be mapped in the surface map or covered in docs; Preview flags produce
    low-severity "docs needed soon" findings; dogfood/other flags are tracked by the
    snapshot only.
-2. **CLI command coverage** — parses the full `oz` command tree (top-level commands and
-   subcommands, skipping `hide = true`) from `crates/warp_cli/src/` and checks the CLI
-   reference docs.
+2. **CLI command coverage** — parses the full `oz` command tree from
+   `crates/warp_cli/src/` (recursive subcommands like `oz run message send`, skipping
+   `hide = true`) and checks the CLI reference docs. Per-module `--long` flags are
+   additionally tracked in the snapshot for change detection.
 3. **API endpoint coverage** — extracts public routes from warp-server
-   `router/handlers/public_api/*.go` (nested gin groups resolved) and checks them
-   against `developers/agent-api-openapi.yaml` and the API reference docs. For spec
-   drift, run the docs `sync-openapi-spec` skill (or warp-server's
-   `update-open-api-spec`) instead of hand-editing the YAML.
+   `router/handlers/public_api/*.go` (nested gin groups resolved, caller-passed group
+   prefixes matched positionally) and checks them against
+   `developers/agent-api-openapi.yaml` (param-name-insensitive: `{runId}` matches
+   `{run_id}`) and the API reference docs. For spec drift, run the docs
+   `sync-openapi-spec` skill (or warp-server's `update-open-api-spec`) instead of
+   hand-editing the YAML.
 4. **Slash command coverage** — parses the static registry in warp-internal
    `app/src/search/slash_command_menu/static_commands/` and checks each `/command`
    is mentioned in docs.
-5. **Docs staleness** — flags renamed/removed-feature terminology in prose (code
+5. **Settings coverage** — parses every `toml_path: "section.key"` setting
+   registration in warp-internal (the same registry the JSON-schema generator uses)
+   and checks the all-settings reference page documents it. Private and
+   dogfood/other-flagged settings are exempt; object-typed settings documented as
+   their own `[section]` count as covered.
+6. **Docs staleness** — flags renamed/removed-feature terminology in prose (code
    spans stripped; historical changelog pages excluded). Broader terminology and
    style enforcement is owned by the `style_lint` skill — delegate pure wording
    issues there.
-6. **Surface map hygiene** — flags map entries whose flag/command no longer exists in
-   code, and mapped doc targets that no longer exist. Verify the doc page is still
-   accurate, then prune or update the entry.
+7. **Stale doc references** — reverse checks: settings keys documented in
+   all-settings.mdx that no longer exist in code (catches renames like
+   `agents.oz.*` → `agents.warp_agent.*`), and keybinding actions (`scope:action`)
+   on the keyboard-shortcuts page that no longer exist anywhere in warp-internal.
+8. **Docs structure** — pages on disk that are missing from `src/sidebar.ts`
+   (built but unreachable through navigation). Intentionally unlisted pages go in
+   the surface map's "Unlisted docs pages" section.
+9. **Surface map hygiene** — flags map entries whose flag/command/route/setting no
+   longer exists in code, and mapped doc targets that no longer exist. Verify the
+   doc page is still accurate, then prune or update the entry.
+
+Snapshot-only surfaces (no standing coverage audit, but added/removed/changed items
+are reported by `--diff`): Oz web app routes (`AgentsApp.tsx`), server-side agent
+tools (multi_agent tool registries), bundled + channel-gated skills
+(`resources/bundled/skills`, `resources/channel-gated-skills`), and per-module CLI
+flags.
 
 Present the report to the user, grouped by category and sorted by severity.
+
+Adjacent checks owned by other skills (do not duplicate them here):
+- UI menu paths and Command Palette names → `validate_ui_refs`
+- Platform error-code pages → `sync-error-docs`
+- Broken links and 404s/redirects → `check_for_broken_links` / `weekly-404-monitor`
+- Terminology/style sweeps → `style_lint`
 
 ### Phase 2: Change detection (diff mode)
 
 The snapshot at `references/surface_snapshot.json` records all extracted surfaces
-(flags + rollout status, CLI commands, API routes, slash commands) plus the last-seen
-docs-changelog version. It makes change detection possible: a feature flag that is
-deleted after stabilizing (per warp-internal's remove-feature-flag policy) would
-otherwise vanish from the audit's universe silently.
+(flags + rollout status, CLI commands and per-module flags, API routes, slash
+commands, settings + status, Oz web app routes, server-side agent tools, bundled
+skills) plus the last-seen docs-changelog version. It makes change detection
+possible: a feature flag that is deleted after stabilizing (per warp-internal's
+remove-feature-flag policy) would otherwise vanish from the audit's universe
+silently. When a new surface type is introduced, diffing against an older snapshot
+emits a one-time "surface type newly tracked" note instead of false positives.
 
 ```bash
 python3 .agents/skills/missing_docs/scripts/audit_docs.py --diff
@@ -94,12 +126,15 @@ python3 .agents/skills/missing_docs/scripts/audit_docs.py --diff
 Diff mode reports, since the snapshot was last updated:
 - **Added / removed / promoted surfaces** — e.g. a new GA flag (high), a flag promoted
   dogfood→ga (high), a removed flag ("feature stabilized or killed — verify docs and
-  map entry"), new CLI/API/slash surfaces.
-- **Changelog items to verify** — "New features" and "Improvements" bullets from
-  `src/content/docs/changelog/<year>.mdx` entries newer than the snapshot's last-seen
-  version. This is the best signal for launches no static code parse can see
-  (server-side features, Oz web app, experiment rollouts). A changelog mention is NOT
-  documentation — verify each item has real doc coverage.
+  map entry"), new/removed CLI commands and `--flags`, API routes, slash commands,
+  settings (with status promotions), Oz web app routes, server-side agent tools, and
+  bundled skills.
+- **Changelog items to verify** — "New features", "Improvements", and "Oz updates"
+  bullets from `src/content/docs/changelog/<year>.mdx` entries newer than the
+  snapshot's last-seen version. This is the best signal for launches no static code
+  parse can see (server-side features, Oz web app, experiment rollouts). A changelog
+  mention is NOT documentation — verify each item has real doc coverage. ("Bug fixes"
+  bullets are deliberately untracked to keep weekly triage volume manageable.)
 
 After triaging and addressing diff findings, refresh the snapshot and commit it with
 your PR so the next run diffs against the new baseline:
@@ -150,10 +185,12 @@ with the product. Each run:
      --diff --output /tmp/docs_audit.json
    ```
 2. **Triage**: work through `surface_changes` and `changelog_review` first (what
-   changed since last run), then standing coverage findings (high → medium → low).
-   For each item decide: draft/update a doc page, update the OpenAPI spec via
-   `sync-openapi-spec`, add a surface-map entry (documented elsewhere), or add an
-   ignore/`internal` entry with a comment (internal-only).
+   changed since last run), then standing coverage findings (high → medium → low)
+   across all categories: features, CLI, API, slash commands, settings, stale doc
+   references, unlisted pages, map hygiene, staleness. For each item decide:
+   draft/update a doc page, update the OpenAPI spec via `sync-openapi-spec`, add a
+   surface-map entry (documented elsewhere), or add an ignore/`internal`/allowlist
+   entry with a comment (internal-only or intentionally unlisted).
 3. **Draft**: follow Phase 3 for every item that needs docs.
 4. **Update references**: apply surface-map edits, then regenerate the snapshot:
    ```bash
@@ -197,9 +234,10 @@ The user can trigger any subset:
 ## References
 
 - `references/feature_surface_map.md` — curated mapping of flags/commands/routes/slash
-  commands to doc pages, ignore list for internal flags, and the `internal` sentinel
-  for surfaces that intentionally have no public docs. Update it with every docs PR
-  that ships a feature.
+  commands/settings to doc pages, ignore list for internal flags, allowlist for
+  intentionally unlisted pages, and the `internal` sentinel for surfaces that
+  intentionally have no public docs. Update it with every docs PR that ships a
+  feature.
 - `references/surface_snapshot.json` — generated snapshot of all code surfaces used by
   `--diff`. Regenerate with `--update-snapshot`; never hand-edit.
 - `references/stale_terms.md` — renamed/removed-feature terms to flag during staleness

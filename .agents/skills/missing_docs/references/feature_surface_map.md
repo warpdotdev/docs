@@ -1,7 +1,8 @@
 # Feature Surface Map
 
-Curated mapping of feature flags, CLI commands, API endpoints, and slash commands
-to their expected documentation pages.
+Curated mapping of feature flags, CLI commands, API endpoints, slash commands,
+and settings to their expected documentation pages, plus an allowlist for
+intentionally unlisted docs pages.
 The audit script reads this file to reduce false positives — entries here are
 verified rather than flagged.
 
@@ -220,6 +221,18 @@ POST /harness-support/upload-snapshot -> internal
 # slash-commands page content; add entries here only for exceptions.
 # Gated by the dogfood-only LocalDockerSandbox flag — not user-facing yet.
 /docker-sandbox -> internal
+
+## Settings -> doc pages
+
+# Settings are matched automatically against the all-settings reference
+# (terminal/settings/all-settings.mdx) by section + key; add entries here only
+# for exceptions: settings documented on another page (`section.key -> path`)
+# or intentionally undocumented (`section.key -> internal`).
+
+## Unlisted docs pages to ignore
+
+# Pages intentionally absent from src/sidebar.ts (one slug per line, e.g.
+# `guides/some-page`). Everything else on disk must be reachable via the sidebar.
 
 ## Flags to ignore (internal-only, not user-facing)
 
