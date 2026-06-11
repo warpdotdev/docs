@@ -321,9 +321,9 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> int:
     args = parse_args()
-    api_key = os.environ.get("GRAFANA_API_KEY")
+    api_key = os.environ.get("DOCS_AGENT_GRAFANA_TOKEN")
     if not api_key:
-        print("GRAFANA_API_KEY env var required", file=sys.stderr)
+        print("DOCS_AGENT_GRAFANA_TOKEN env var required", file=sys.stderr)
         return 1
 
     users = get_oncall_users(
