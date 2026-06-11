@@ -2,8 +2,9 @@
 """
 Missing Docs Audit Script for Warp Astro Starlight Documentation
 
-Compares documentation coverage against code surfaces in warp-internal and
-warp-server to identify gaps, and (in --diff mode) detects surface changes
+Compares documentation coverage against code surfaces in the warp client
+repo (the public warpdotdev/warp checkout; a warp-internal checkout also
+works) and warp-server to identify gaps, and (in --diff mode) detects surface changes
 since the last committed snapshot. Produces a structured JSON report.
 
 Audited surfaces:
@@ -167,10 +168,12 @@ def parse_stale_terms(path: Path) -> list[tuple[str, str]]:
 # Generic helpers
 # ---------------------------------------------------------------------------
 
-def find_repo(name: str, explicit_path: str | None, repo_root: Path) -> Path | None:
+def find_repo(names: list[str], explicit_path: str | None, repo_root: Path) -> Path | None:
     """Find a source repo by explicit path or as a sibling of the docs repo root.
 
-    e.g. docs at /workspace/docs -> look for /workspace/<name>.
+    Candidate names are tried in order, e.g. docs at /workspace/docs with
+    names ["warp", "warp-internal"] -> prefer /workspace/warp (the public
+    warpdotdev/warp checkout) and fall back to /workspace/warp-internal.
     """
     if explicit_path:
         p = Path(explicit_path).resolve()
@@ -179,9 +182,10 @@ def find_repo(name: str, explicit_path: str | None, repo_root: Path) -> Path | N
         print(f"Warning: explicit path {explicit_path} does not exist", file=sys.stderr)
         return None
 
-    sibling = repo_root.parent / name
-    if sibling.exists():
-        return sibling
+    for name in names:
+        sibling = repo_root.parent / name
+        if sibling.exists():
+            return sibling
     return None
 
 
@@ -409,24 +413,24 @@ def _iter_attr_blocks(content: str, names: tuple[str, ...]):
         yield content[match.start():i]
 
 # ---------------------------------------------------------------------------
-# Extraction: feature flags (warp-internal)
+# Extraction: feature flags (warp client repo)
 # ---------------------------------------------------------------------------
 
-def _features_lib_rs(warp_internal: Path) -> Path | None:
+def _features_lib_rs(warp_repo: Path) -> Path | None:
     candidates = [
-        warp_internal / "crates" / "warp_features" / "src" / "lib.rs",
-        warp_internal / "crates" / "warp_core" / "src" / "features.rs",
-        warp_internal / "app" / "src" / "features.rs",
-        warp_internal / "warp_core" / "src" / "features.rs",
+        warp_repo / "crates" / "warp_features" / "src" / "lib.rs",
+        warp_repo / "crates" / "warp_core" / "src" / "features.rs",
+        warp_repo / "app" / "src" / "features.rs",
+        warp_repo / "warp_core" / "src" / "features.rs",
     ]
     return next((c for c in candidates if c.exists()), None)
 
 
-def parse_feature_flags(warp_internal: Path) -> list[str]:
+def parse_feature_flags(warp_repo: Path) -> list[str]:
     """Parse FeatureFlag enum variants from the features lib (brace-safe)."""
-    features_rs = _features_lib_rs(warp_internal)
+    features_rs = _features_lib_rs(warp_repo)
     if features_rs is None:
-        print("Warning: FeatureFlag enum source not found in warp-internal", file=sys.stderr)
+        print("Warning: FeatureFlag enum source not found in the warp client repo", file=sys.stderr)
         return []
 
     enum_body = _extract_enum_block(features_rs.read_text(), "FeatureFlag")
@@ -436,9 +440,9 @@ def parse_feature_flags(warp_internal: Path) -> list[str]:
     return [v["name"] for v in _parse_enum_variants(enum_body)]
 
 
-def parse_flag_list_const(warp_internal: Path, const_name: str) -> set[str]:
+def parse_flag_list_const(warp_repo: Path, const_name: str) -> set[str]:
     """Parse a `pub const <NAME>: &[FeatureFlag] = &[...]` block into flag names."""
-    features_rs = _features_lib_rs(warp_internal)
+    features_rs = _features_lib_rs(warp_repo)
     if features_rs is None:
         return set()
     content = features_rs.read_text()
@@ -452,8 +456,8 @@ def parse_flag_list_const(warp_internal: Path, const_name: str) -> set[str]:
     return set(re.findall(r"FeatureFlag::(\w+)", match.group(1)))
 
 
-def parse_features_bridge(warp_internal: Path) -> dict[str, dict]:
-    """Parse the cargo-feature -> FeatureFlag bridge from app/src/features.rs.
+def parse_features_bridge(warp_repo: Path) -> dict[str, dict]:
+    """Parse the cargo-feature -> FeatureFlag bridge from the warp client repo\'s app/src/features.rs.
 
     The authoritative mapping is the `enabled_features()` extend block:
 
@@ -466,7 +470,7 @@ def parse_features_bridge(warp_internal: Path) -> dict[str, dict]:
 
     Returns {flag_name: {"cargo_feature": str, "debug_only": bool}}.
     """
-    bridge_rs = warp_internal / "app" / "src" / "features.rs"
+    bridge_rs = warp_repo / "app" / "src" / "features.rs"
     if not bridge_rs.exists():
         print(f"Warning: {bridge_rs} not found; GA detection will be incomplete",
               file=sys.stderr)
@@ -486,11 +490,11 @@ def parse_features_bridge(warp_internal: Path) -> dict[str, dict]:
     return bridge
 
 
-def parse_default_features(warp_internal: Path) -> set[str]:
+def parse_default_features(warp_repo: Path) -> set[str]:
     """Parse the default feature list from app/Cargo.toml."""
     candidates = [
-        warp_internal / "app" / "Cargo.toml",
-        warp_internal / "crates" / "warp_features" / "Cargo.toml",
+        warp_repo / "app" / "Cargo.toml",
+        warp_repo / "crates" / "warp_features" / "Cargo.toml",
     ]
     cargo_toml = next((c for c in candidates if c.exists()), None)
     if cargo_toml is None:
@@ -507,7 +511,7 @@ def parse_default_features(warp_internal: Path) -> set[str]:
     return set(re.findall(r'"(\w+)"', features_block))
 
 
-def compute_flag_statuses(warp_internal: Path) -> dict[str, str]:
+def compute_flag_statuses(warp_repo: Path) -> dict[str, str]:
     """Classify every FeatureFlag by rollout status.
 
     - "ga": gating cargo feature is in app/Cargo.toml default features, or the
@@ -518,12 +522,12 @@ def compute_flag_statuses(warp_internal: Path) -> dict[str, str]:
       may still be enabled via server-side experiments; the docs changelog
       cross-check covers those launches.
     """
-    flags = parse_feature_flags(warp_internal)
-    bridge = parse_features_bridge(warp_internal)
-    default_features = parse_default_features(warp_internal)
-    release_flags = parse_flag_list_const(warp_internal, "RELEASE_FLAGS")
-    preview_flags = parse_flag_list_const(warp_internal, "PREVIEW_FLAGS")
-    dogfood_flags = parse_flag_list_const(warp_internal, "DOGFOOD_FLAGS")
+    flags = parse_feature_flags(warp_repo)
+    bridge = parse_features_bridge(warp_repo)
+    default_features = parse_default_features(warp_repo)
+    release_flags = parse_flag_list_const(warp_repo, "RELEASE_FLAGS")
+    preview_flags = parse_flag_list_const(warp_repo, "PREVIEW_FLAGS")
+    dogfood_flags = parse_flag_list_const(warp_repo, "DOGFOOD_FLAGS")
 
     statuses: dict[str, str] = {}
     for flag in flags:
@@ -542,7 +546,7 @@ def compute_flag_statuses(warp_internal: Path) -> dict[str, str]:
     return statuses
 
 # ---------------------------------------------------------------------------
-# Extraction: CLI command tree + flags (warp-internal)
+# Extraction: CLI command tree + flags (warp client repo)
 # ---------------------------------------------------------------------------
 
 def _resolve_subcommand_enum(module_content: str, referenced_type: str | None) -> str | None:
@@ -590,24 +594,24 @@ def _collect_subcommands(src_dir: Path, module_content: str, enum_body: str,
     return subs
 
 
-def _cli_src_dir(warp_internal: Path) -> Path | None:
+def _cli_src_dir(warp_repo: Path) -> Path | None:
     candidates = [
-        warp_internal / "crates" / "warp_cli" / "src",
-        warp_internal / "warp_cli" / "src",
+        warp_repo / "crates" / "warp_cli" / "src",
+        warp_repo / "warp_cli" / "src",
     ]
     return next((c for c in candidates if c.exists()), None)
 
 
-def parse_cli_commands(warp_internal: Path) -> list[dict]:
+def parse_cli_commands(warp_repo: Path) -> list[dict]:
     """Parse the full `oz` CLI command tree (recursive subcommands).
 
     Returns [{"command": "oz agent", "hidden": bool, "source_file": str,
               "module": str|None,
               "subcommands": [{"command": "oz agent run", "hidden": bool}]}]
     """
-    src_dir = _cli_src_dir(warp_internal)
+    src_dir = _cli_src_dir(warp_repo)
     if src_dir is None:
-        print("Warning: warp_cli/src not found in warp-internal", file=sys.stderr)
+        print("Warning: warp_cli/src not found in the warp client repo", file=sys.stderr)
         return []
 
     lib_rs = src_dir / "lib.rs"
@@ -648,7 +652,7 @@ def parse_cli_commands(warp_internal: Path) -> list[dict]:
     return commands
 
 
-def parse_cli_flags(warp_internal: Path, cli_commands: list[dict]) -> dict[str, list[str]]:
+def parse_cli_flags(warp_repo: Path, cli_commands: list[dict]) -> dict[str, list[str]]:
     """Extract visible `--long` flags per CLI module for change tracking.
 
     Attribution of flags to specific subcommands would require full clap
@@ -656,7 +660,7 @@ def parse_cli_flags(warp_internal: Path, cli_commands: list[dict]) -> dict[str, 
     flag was added or removed (the drift agent then reads the module to see
     which command it belongs to).
     """
-    src_dir = _cli_src_dir(warp_internal)
+    src_dir = _cli_src_dir(warp_repo)
     if src_dir is None:
         return {}
 
@@ -924,13 +928,13 @@ def parse_openapi_paths(openapi_text: str) -> set[str]:
     return paths
 
 # ---------------------------------------------------------------------------
-# Extraction: slash commands (warp-internal)
+# Extraction: slash commands (warp client repo)
 # ---------------------------------------------------------------------------
 
-def parse_slash_commands(warp_internal: Path) -> list[str]:
+def parse_slash_commands(warp_repo: Path) -> list[str]:
     """Parse static slash command names from the registry."""
     registry_dir = (
-        warp_internal / "app" / "src" / "search" / "slash_command_menu" / "static_commands"
+        warp_repo / "app" / "src" / "search" / "slash_command_menu" / "static_commands"
     )
     if not registry_dir.exists():
         print(f"Warning: {registry_dir} not found", file=sys.stderr)
@@ -945,7 +949,7 @@ def parse_slash_commands(warp_internal: Path) -> list[str]:
     return sorted(names)
 
 # ---------------------------------------------------------------------------
-# Extraction: settings (warp-internal)
+# Extraction: settings (warp client repo)
 # ---------------------------------------------------------------------------
 
 _SETTING_TOML_PATH_RE = re.compile(r'toml_path:\s*"([^"]+)"')
@@ -955,7 +959,7 @@ def _is_test_rs(path: Path) -> bool:
     return path.name.endswith("_tests.rs") or path.name == "tests.rs" or "/tests/" in str(path)
 
 
-def parse_settings(warp_internal: Path) -> dict[str, dict]:
+def parse_settings(warp_repo: Path) -> dict[str, dict]:
     """Parse user-facing settings from `define_setting!`-style registrations.
 
     Every settings.toml-backed setting declares `toml_path: "section.key"`
@@ -966,7 +970,7 @@ def parse_settings(warp_internal: Path) -> dict[str, dict]:
     Returns {toml_path: {"private": bool, "feature_flag": str|None}}.
     """
     settings: dict[str, dict] = {}
-    roots = [warp_internal / "app" / "src", warp_internal / "crates"]
+    roots = [warp_repo / "app" / "src", warp_repo / "crates"]
     for rs_file in iter_source_files(roots, ".rs"):
         if _is_test_rs(rs_file):
             continue
@@ -1076,19 +1080,19 @@ def parse_server_tools(warp_server: Path) -> list[str]:
     return sorted(names)
 
 
-def parse_bundled_skills(warp_internal: Path) -> dict[str, str]:
+def parse_bundled_skills(warp_repo: Path) -> dict[str, str]:
     """List bundled skills shipped with the client, keyed by channel gating.
 
     resources/bundled/skills/<name> ships on all channels ("bundled");
     resources/channel-gated-skills/<channel>/<name> ships per channel.
     """
     skills: dict[str, str] = {}
-    bundled = warp_internal / "resources" / "bundled" / "skills"
+    bundled = warp_repo / "resources" / "bundled" / "skills"
     if bundled.exists():
         for entry in sorted(bundled.iterdir()):
             if entry.is_dir():
                 skills[entry.name] = "bundled"
-    gated = warp_internal / "resources" / "channel-gated-skills"
+    gated = warp_repo / "resources" / "channel-gated-skills"
     if gated.exists():
         for channel_dir in sorted(gated.iterdir()):
             if not channel_dir.is_dir():
@@ -1200,7 +1204,7 @@ def parse_changelog_entries(repo_root: Path) -> list[dict]:
 # Audit 1: Feature flag coverage
 # ---------------------------------------------------------------------------
 
-def audit_features(warp_internal: Path, docs_root: Path, surface_map: dict,
+def audit_features(warp_repo: Path, docs_root: Path, surface_map: dict,
                    docs_text: dict[str, str],
                    flag_statuses: dict[str, str] | None = None,
                    weak_coverage: bool = False) -> list[dict]:
@@ -1212,7 +1216,7 @@ def audit_features(warp_internal: Path, docs_root: Path, surface_map: dict,
     the snapshot diff instead).
     """
     if flag_statuses is None:
-        flag_statuses = compute_flag_statuses(warp_internal)
+        flag_statuses = compute_flag_statuses(warp_repo)
     ignore_flags = surface_map.get("ignore_flags", set())
     feature_to_doc = surface_map.get("feature_to_doc", {})
     repo_root = DOCS_REPO_ROOT[0] or docs_root.parent.parent.parent
@@ -1323,11 +1327,11 @@ def audit_features(warp_internal: Path, docs_root: Path, surface_map: dict,
 # Audit 2: CLI command coverage
 # ---------------------------------------------------------------------------
 
-def audit_cli(warp_internal: Path, docs_root: Path, surface_map: dict,
+def audit_cli(warp_repo: Path, docs_root: Path, surface_map: dict,
               docs_text: dict[str, str],
               cli_commands: list[dict] | None = None) -> list[dict]:
     """Audit CLI command and subcommand coverage in docs."""
-    commands = cli_commands if cli_commands is not None else parse_cli_commands(warp_internal)
+    commands = cli_commands if cli_commands is not None else parse_cli_commands(warp_repo)
     cli_to_doc = surface_map.get("cli_to_doc", {})
     repo_root = DOCS_REPO_ROOT[0] or docs_root.parent.parent.parent
 
@@ -1481,11 +1485,11 @@ def _slash_mention_re(name: str) -> re.Pattern:
     return re.compile(r"(?<!\w)" + re.escape(name) + r"(?![\w-])")
 
 
-def audit_slash_commands(warp_internal: Path, docs_root: Path, surface_map: dict,
+def audit_slash_commands(warp_repo: Path, docs_root: Path, surface_map: dict,
                          docs_text: dict[str, str],
                          slash_commands: list[str] | None = None) -> list[dict]:
     """Audit static slash command coverage in docs."""
-    names = slash_commands if slash_commands is not None else parse_slash_commands(warp_internal)
+    names = slash_commands if slash_commands is not None else parse_slash_commands(warp_repo)
     slash_to_doc = surface_map.get("slash_to_doc", {})
     repo_root = DOCS_REPO_ROOT[0] or docs_root.parent.parent.parent
 
@@ -1576,14 +1580,14 @@ def audit_settings(docs_root: Path, surface_map: dict,
 # Audit 6: Stale doc references (docs pointing at removed code surfaces)
 # ---------------------------------------------------------------------------
 
-def audit_stale_doc_references(warp_internal: Path, docs_root: Path,
+def audit_stale_doc_references(warp_repo: Path, docs_root: Path,
                                settings: dict[str, dict]) -> list[dict]:
     """Find doc references to code surfaces that no longer exist.
 
     - Settings keys documented in all-settings.mdx but absent from the code
       settings registry (renamed/removed settings).
     - Keybinding action names (`scope:action`) documented on the keyboard
-      shortcuts page but absent from warp-internal source.
+      shortcuts page but absent from the warp client repo source.
     """
     findings = []
 
@@ -1629,7 +1633,7 @@ def audit_stale_doc_references(warp_internal: Path, docs_root: Path,
         actions = sorted(set(re.findall(r"`([a-z0-9_]+:[a-z0-9_]+)`", text)))
         remaining = set(actions)
         if remaining:
-            roots = [warp_internal / "app" / "src", warp_internal / "crates"]
+            roots = [warp_repo / "app" / "src", warp_repo / "crates"]
             for rs_file in iter_source_files(roots, ".rs"):
                 if not remaining:
                     break
@@ -1646,7 +1650,7 @@ def audit_stale_doc_references(warp_internal: Path, docs_root: Path,
                 "severity": "low",
                 "reason": (
                     "Documented keybinding action not found anywhere in "
-                    "warp-internal source — it was renamed or removed; update "
+                    "the warp client repo source — it was renamed or removed; update "
                     "the keyboard shortcuts page"
                 ),
             })
@@ -1657,7 +1661,7 @@ def audit_stale_doc_references(warp_internal: Path, docs_root: Path,
 # Audit 7: Docs staleness (terminology)
 # ---------------------------------------------------------------------------
 
-def audit_staleness(warp_internal: Path, docs_root: Path,
+def audit_staleness(warp_repo: Path, docs_root: Path,
                     docs_text: dict[str, str],
                     stale_terms_path: Path = STALE_TERMS_PATH) -> list[dict]:
     """Check existing docs for stale terminology.
@@ -2550,8 +2554,15 @@ def main():
         description="Audit Warp documentation coverage against code surfaces"
     )
     parser.add_argument(
+        "--warp",
+        dest="warp_repo",
+        help="Path to the public warp client repo (auto-detected as a sibling "
+             "of the docs repo named 'warp', with 'warp-internal' as fallback)",
+    )
+    parser.add_argument(
         "--warp-internal",
-        help="Path to warp-internal repo (auto-detected as a sibling of the docs repo)",
+        dest="warp_repo",
+        help="Deprecated alias for --warp",
     )
     parser.add_argument(
         "--warp-server",
@@ -2618,8 +2629,8 @@ def main():
     # repo_root carries the developers/ openapi spec etc.
     DOCS_REPO_ROOT[0] = repo_root
 
-    warp_internal = find_repo("warp-internal", args.warp_internal, repo_root)
-    warp_server = find_repo("warp-server", args.warp_server, repo_root)
+    warp_repo = find_repo(["warp", "warp-internal"], args.warp_repo, repo_root)
+    warp_server = find_repo(["warp-server"], args.warp_server, repo_root)
 
     # Parse surface map
     surface_map = parse_surface_map(SURFACE_MAP_PATH)
@@ -2666,15 +2677,15 @@ def main():
     server_tools: list[str] = []
     bundled_skills: dict[str, str] = {}
 
-    if warp_internal and needs_internal:
-        print(f"Using warp-internal: {warp_internal}", file=sys.stderr)
-        flag_statuses = compute_flag_statuses(warp_internal)
-        cli_commands = parse_cli_commands(warp_internal)
-        cli_flags = parse_cli_flags(warp_internal, cli_commands)
-        slash_commands = parse_slash_commands(warp_internal)
+    if warp_repo and needs_internal:
+        print(f"Using warp client repo: {warp_repo}", file=sys.stderr)
+        flag_statuses = compute_flag_statuses(warp_repo)
+        cli_commands = parse_cli_commands(warp_repo)
+        cli_flags = parse_cli_flags(warp_repo, cli_commands)
+        slash_commands = parse_slash_commands(warp_repo)
         print("Parsing settings registry...", file=sys.stderr)
-        settings = parse_settings(warp_internal)
-        bundled_skills = parse_bundled_skills(warp_internal)
+        settings = parse_settings(warp_repo)
+        bundled_skills = parse_bundled_skills(warp_repo)
 
         flags_ok = guard("feature flags", len(flag_statuses))
         cli_ok = guard("CLI commands", len(cli_commands))
@@ -2684,7 +2695,7 @@ def main():
         if args.category in (None, "features") and flags_ok:
             print("Running feature flag coverage audit...", file=sys.stderr)
             findings["undocumented_features"] = audit_features(
-                warp_internal, docs_root, surface_map, docs_text,
+                warp_repo, docs_root, surface_map, docs_text,
                 flag_statuses=flag_statuses, weak_coverage=args.weak_coverage,
             )
             audits_run.append("features")
@@ -2692,14 +2703,14 @@ def main():
         if args.category in (None, "cli") and cli_ok:
             print("Running CLI command coverage audit...", file=sys.stderr)
             findings["undocumented_cli_commands"] = audit_cli(
-                warp_internal, docs_root, surface_map, docs_text,
+                warp_repo, docs_root, surface_map, docs_text,
                 cli_commands=cli_commands)
             audits_run.append("cli")
 
         if args.category in (None, "slash") and slash_ok:
             print("Running slash command coverage audit...", file=sys.stderr)
             findings["undocumented_slash_commands"] = audit_slash_commands(
-                warp_internal, docs_root, surface_map, docs_text,
+                warp_repo, docs_root, surface_map, docs_text,
                 slash_commands=slash_commands)
             audits_run.append("slash")
 
@@ -2712,20 +2723,20 @@ def main():
         if args.category in (None, "staleness"):
             print("Running docs staleness audit...", file=sys.stderr)
             findings["potentially_stale_docs"] = audit_staleness(
-                warp_internal, docs_root, docs_text)
+                warp_repo, docs_root, docs_text)
             # The reverse checks compare docs against extracted code surfaces,
             # so they are only meaningful when extraction is healthy.
             if flags_ok and settings_ok:
                 print("Running stale doc reference audit...", file=sys.stderr)
                 findings["stale_doc_references"] = audit_stale_doc_references(
-                    warp_internal, docs_root, settings)
+                    warp_repo, docs_root, settings)
             audits_run.append("staleness")
     elif needs_internal:
         for audit in ("features", "cli", "slash", "settings", "staleness"):
             if args.category in (None, audit):
                 audits_skipped.append({
                     "audit": audit,
-                    "reason": "warp-internal repo not found (pass --warp-internal)",
+                    "reason": "warp client repo not found (pass --warp)",
                 })
 
     if warp_server and needs_server:
@@ -2755,7 +2766,7 @@ def main():
         audits_run.append("structure")
 
     if args.category in (None, "map"):
-        if warp_internal and warp_server and extraction_ok:
+        if warp_repo and warp_server and extraction_ok:
             print("Running surface map hygiene audit...", file=sys.stderr)
             findings["map_hygiene"] = audit_map_hygiene(
                 surface_map, flag_statuses, cli_commands, api_routes,
@@ -2765,7 +2776,7 @@ def main():
             audits_skipped.append({
                 "audit": "map",
                 "reason": (
-                    "requires both warp-internal and warp-server with healthy "
+                    "requires both the warp client repo and warp-server with healthy "
                     "extraction (dead-entry checks against empty extraction "
                     "would flag everything)"
                 ),
@@ -2775,7 +2786,7 @@ def main():
     changelog_entries = parse_changelog_entries(repo_root)
     snapshot_path = Path(args.snapshot)
     if args.diff or args.update_snapshot:
-        if warp_internal and warp_server and extraction_ok:
+        if warp_repo and warp_server and extraction_ok:
             current_snapshot = build_snapshot(
                 flag_statuses, cli_commands, cli_flags, api_routes,
                 slash_commands, settings, web_routes, server_tools,
@@ -2807,10 +2818,10 @@ def main():
             audits_skipped.append({
                 "audit": "diff" if args.diff else "update-snapshot",
                 "reason": (
-                    "requires both warp-internal and warp-server with healthy "
+                    "requires both the warp client repo and warp-server with healthy "
                     "extraction (see extraction:* skips above)"
                     if not extraction_ok
-                    else "requires both warp-internal and warp-server"
+                    else "requires both the warp client repo and warp-server"
                 ),
             })
 
@@ -2819,7 +2830,7 @@ def main():
     # extraction; any unaccounted item means an audit-logic regression and
     # the run is treated as incomplete.
     accounting = None
-    if args.category is None and warp_internal and warp_server and extraction_ok:
+    if args.category is None and warp_repo and warp_server and extraction_ok:
         accounting = compute_accounting(
             docs_root, surface_map, findings, flag_statuses, cli_commands,
             api_routes, slash_commands, settings, docs_text)
