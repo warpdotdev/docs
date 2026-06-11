@@ -125,6 +125,31 @@ ConfigurableToolbar -> src/content/docs/terminal/windows/configurable-toolbar.md
 SettingsFile -> src/content/docs/terminal/settings/index.mdx
 Changelog -> src/content/docs/changelog/index.mdx
 Autoupdate -> src/content/docs/support-and-community/troubleshooting-and-support/updating-warp.mdx
+ShellSelector -> src/content/docs/getting-started/supported-shells.mdx
+WorkflowAliases -> src/content/docs/terminal/entry/yaml-workflows.mdx
+KittyImages -> src/content/docs/terminal/more-features/full-screen-apps.mdx
+UndoClosedPanes -> src/content/docs/terminal/windows/tabs.mdx
+RevertDiffHunk -> src/content/docs/code/code-review.md
+SshRemoteServer -> src/content/docs/terminal/warpify/ssh.md
+
+# Session sharing (viewing + ACLs are part of the documented session sharing feature)
+ViewingSharedSessions -> src/content/docs/knowledge-and-collaboration/session-sharing/index.mdx
+SessionSharingAcls -> src/content/docs/knowledge-and-collaboration/session-sharing/index.mdx
+SharedSessionWriteToLongRunningCommands -> src/content/docs/knowledge-and-collaboration/session-sharing/index.mdx
+
+# CLI-gated features documented in the CLI reference
+ArtifactCommand -> src/content/docs/reference/cli/artifacts.mdx
+OzIdentityFederation -> src/content/docs/reference/cli/federate.mdx
+
+# Third-party harness support
+AgentHarness -> src/content/docs/agent-platform/cloud-agents/harnesses/index.mdx
+
+# Image context for cloud agents
+AmbientAgentsImageUpload -> src/content/docs/agent-platform/local-agents/agent-context/images-as-context.mdx
+CloudModeImageContext -> src/content/docs/agent-platform/local-agents/agent-context/images-as-context.mdx
+
+# Skills on the Oz platform
+OzPlatformSkills -> src/content/docs/agent-platform/capabilities/skills.mdx
 
 # Handoff (local <-> cloud, cloud <-> cloud) and snapshots
 OzHandoff -> src/content/docs/agent-platform/cloud-agents/handoff/index.mdx
@@ -144,6 +169,8 @@ NamedAgents -> src/content/docs/agent-platform/cloud-agents/agents.mdx
 # Inference: BYOK and custom endpoints
 SoloUserByok -> src/content/docs/agent-platform/inference/bring-your-own-api-key.mdx
 CustomInferenceEndpoints -> src/content/docs/agent-platform/inference/custom-inference-endpoint.mdx
+# Connect a SuperGrok subscription instead of pasting an xAI API key.
+SuperGrok -> src/content/docs/agent-platform/inference/bring-your-own-api-key.mdx
 
 # Billing & Usage settings page (redesigned)
 BillingAndUsagePageV2 -> src/content/docs/support-and-community/plans-and-billing/index.mdx
@@ -233,6 +260,9 @@ POST /harness-support/upload-snapshot -> internal
 
 # Pages intentionally absent from src/sidebar.ts (one slug per line, e.g.
 # `guides/some-page`). Everything else on disk must be reachable via the sidebar.
+# Per the page's frontmatter comment: not in the Guides sidebar yet, pending
+# team feedback.
+guides/agent-workflows/warp-vs-claude-code
 
 ## Flags to ignore (internal-only, not user-facing)
 
@@ -280,7 +310,6 @@ DefaultAdeberryTheme
 AutoupdateUIRevamp
 MinimalistUI
 AvatarInTabBar
-SessionSharingAcls
 ImeMarkedText
 NewTabStyling
 AmbientAgentsRTC
@@ -297,9 +326,9 @@ CreateProjectFlow
 CodeLaunchModal
 ValidateAutosuggestions
 ClearAutosuggestionOnEscape
-OzPlatformSkills
-# Rendering detail for markdown tables in notebooks/AI output; no dedicated doc surface.
+# Rendering details for markdown tables/Mermaid in notebooks/AI output; no dedicated doc surface.
 MarkdownTables
+MarkdownMermaid
 
 # UI implementation details (not user-facing features)
 FallbackModelLoadOutputMessaging
@@ -338,36 +367,27 @@ GitCredentialRefresh
 OrchestrationViewerStreamer
 OwnerOrchestrationAncestorStreamer
 
-# Non-GA flags in dogfood/preview only
+# Sub-feature toggles and pre-launch flags. Section placement does NOT assert
+# rollout status (the audit computes that from code); entries here are ignored
+# because the toggle itself isn't a documentable surface, or because the
+# feature isn't user-facing yet — the snapshot diff flags promotions.
 LSPAsATool
-SshRemoteServer
 EmbeddedCodeReviewComments
 InteractiveConversationManagementView
 MarkdownImages
-MarkdownMermaid
 EditableMarkdownMermaid
-OzIdentityFederation
-AgentHarness
+# Directory-based tab colors: the user-facing knob is the setting
+# appearance.tabs.directory_tab_colors, documented in the all-settings reference.
 DirectoryTabColors
-ArtifactCommand
-CloudModeImageContext
 CloudModeHostSelector
-AmbientAgentsImageUpload
 CodebaseIndexSpeedbump
 CodebaseIndexPersistence
-SharedSessionWriteToLongRunningCommands
 AgentTips
 AgentViewPromptChip
 AllowOpeningFileLinksUsingEditorEnv
 AllowIgnoringInputSuggestions
 CodeModeChip
-UndoClosedPanes
-RevertDiffHunk
-ViewingSharedSessions
-ShellSelector
-FullScreenZenMode
-WorkflowAliases
-KittyImages
+# Internal agent file-search tool plumbing (read tools are not individually documented).
 GrepTool
 NativeShellCompletions
 WelcomeTab
@@ -384,5 +404,7 @@ PredictAMQueries
 UseTantivySearch
 CommandCorrectionsHistoryRule
 SuggestedAgentModeWorkflows
+# Implementation toggle choosing skill-based vs slash-command PR comments;
+# the user-facing /pr-comments command is mapped via PRCommentsSlashCommand.
 PRCommentsSkill
 FigmaDetection
