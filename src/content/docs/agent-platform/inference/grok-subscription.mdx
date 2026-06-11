@@ -1,18 +1,16 @@
 ---
-title: Bring your Grok subscription
-sidebar:
-  label: "Grok subscription"
+title: SuperGrok subscription
 description: >-
-  Connect your Grok (SuperGrok) subscription to Warp and use Grok models like
-  Grok 4.3 and Grok Build 0.1 through your xAI account instead of Warp credits.
+  Connect your SuperGrok subscription to Warp and use Grok models through
+  your xAI account instead of Warp credits.
 ---
 
-Warp lets you connect your **Grok subscription** (SuperGrok) to use Grok models in Warp's agents through your xAI account. If you already subscribe to Grok, you can run Grok models like Grok 4.3 and Grok Build 0.1 in Warp without consuming your Warp [credits](/support-and-community/plans-and-billing/credits/).
+Warp lets you connect your **SuperGrok subscription** to use Grok models in Warp's agents through your xAI account. If you already subscribe to Grok, you can run Grok models in Warp without consuming your Warp [credits](/support-and-community/plans-and-billing/credits/).
 
 Connecting a subscription works like [Bring Your Own API Key (BYOK)](/agent-platform/inference/bring-your-own-api-key/), except you sign in to your xAI account instead of pasting an API key. There is no xAI API key field in Warp today — the subscription is the way to bring your own Grok access.
 
 :::note
-Like BYOK, connecting a Grok subscription is available on Free and all eligible paid plans for individual users and organizations with 10 or fewer employees, subject to Warp's [Terms of Service](https://www.warp.dev/legal/terms-of-service). Larger organizations need a Business or Enterprise plan, and workspace admins can disable BYO keys for their organization. See [Warp pricing](https://www.warp.dev/pricing) for current availability.
+Like BYOK, connecting a SuperGrok subscription is available on Free and all eligible paid plans for individual users and organizations with 10 or fewer employees, subject to Warp's [Terms of Service](https://www.warp.dev/legal/terms-of-service). See [Warp pricing](https://www.warp.dev/pricing) for current availability.
 :::
 
 ## How it works
@@ -27,33 +25,29 @@ When you send a prompt with a Grok model selected and a subscription connected:
 
 Your token passes through Warp's servers on each request but is used only in-flight to call xAI, then discarded — the same model as [BYOK](/agent-platform/inference/bring-your-own-api-key/#how-byok-works).
 
-Once connected, supported Grok models show a **key icon** in the model picker, indicating requests will route through your xAI account. Usage and rate limits for these requests are governed by your Grok subscription with xAI.
+Once connected, supported Grok models show a **key icon** in the model picker, indicating requests will route through your xAI account. Usage and rate limits for these requests are governed by your SuperGrok subscription with xAI.
 
-## Connecting your Grok subscription
+## Connecting your SuperGrok subscription
 
 1. In the Warp app, open **Settings** and search for `SuperGrok` to jump to the **Connect SuperGrok subscription** row in your AI settings.
 2. Click **Connect**. Warp opens your browser to xAI's consent screen and shows a toast with a **Copy URL** fallback in case the browser doesn't open.
 3. Approve the connection in your browser. The page confirms with "Grok connected," and back in Warp the row shows a "Connected on..." timestamp.
-4. Select a Grok model with the key icon from the model picker in your prompt input, such as **Grok 4.3** or **Grok Build 0.1**. Connecting a subscription doesn't change your selected model, so this last step is what actually routes your requests through your subscription. See [Model choice](/agent-platform/inference/model-choice/) for the full list of models.
+4. Select a Grok model with the key icon from the model picker in your prompt input. Connecting a subscription doesn't change your selected model, so this last step is what actually routes your requests through your subscription. See [Model choice](/agent-platform/inference/model-choice/) for the list of available models.
 
 ## Usage and billing behavior
 
 When a Grok model with the key icon is selected:
 
 * Warp **does not consume** any of your [credits](/support-and-community/plans-and-billing/credits/) for the request.
-* Inference runs through your xAI account, within your Grok subscription's usage limits.
+* Inference runs through your xAI account, within your SuperGrok subscription's usage limits.
 * If a request fails because your subscription hits a limit, Warp does not retry with Warp credits unless you enable **Warp credit fallback** in the same settings section. See [failover and fallback behavior](/agent-platform/inference/bring-your-own-api-key/#failover-and-fallback-behavior).
 
 ### Auto models
 
-Warp's **Auto** models always use Warp's own inference and **always consume Warp credits**, even with a Grok subscription connected. Auto never routes requests through your subscription. To use your subscription, select a specific Grok model from the model picker.
+Warp's **Auto** models always use Warp's own inference and **always consume Warp credits**, even with a SuperGrok subscription connected. Auto never routes requests through your subscription. To use your subscription, select a specific Grok model from the model picker.
 
 :::caution
-A connected Grok subscription does not apply to [Cloud Agents](/agent-platform/cloud-agents/overview/). Because tokens are stored locally on your device, they are not available to cloud-hosted agent runs, which always consume [Warp credits](/support-and-community/plans-and-billing/credits/).
-:::
-
-:::note
-On Business and Enterprise plans, local agent runs that use a connected subscription still consume [platform credits](/support-and-community/plans-and-billing/platform-credits/) for Warp's platform infrastructure, the same as BYOK.
+A connected SuperGrok subscription does not apply to [Cloud Agents](/agent-platform/cloud-agents/overview/). Because tokens are stored locally on your device, they are not available to cloud-hosted agent runs, which always consume [Warp credits](/support-and-community/plans-and-billing/credits/).
 :::
 
 ### Zero data retention (ZDR)
@@ -78,13 +72,9 @@ Click **Copy URL** on the toast that appears after clicking **Connect**, then pa
 
 Warp waits 5 minutes for you to approve the connection in your browser. Click **Connect** and approve the consent screen within that window.
 
-### The Connect button is disabled
-
-The button follows the same policy as BYO API keys: it's disabled when AI is turned off in your settings, or when BYO keys aren't available on your plan or have been disabled by your workspace admin. See the [BYOK availability note](/agent-platform/inference/bring-your-own-api-key/) for details.
-
 ## Related resources
 
-* [Model choice](/agent-platform/inference/model-choice/) — Full list of supported models, including Grok 4.3 and Grok Build 0.1.
+* [Model choice](/agent-platform/inference/model-choice/) — Full list of supported models and `model_id` values.
 * [Bring Your Own API Key](/agent-platform/inference/bring-your-own-api-key/) — Use your own Anthropic, OpenAI, or Google API keys.
 * [Custom inference endpoint](/agent-platform/inference/custom-inference-endpoint/) — Route Warp through any OpenAI-compatible endpoint.
 * [Credits](/support-and-community/plans-and-billing/credits/) — How Warp credits work and when they're consumed.
