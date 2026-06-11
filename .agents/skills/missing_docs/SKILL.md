@@ -2,7 +2,7 @@
 name: missing_docs
 description: >-
   Find and fill documentation gaps in Warp's Astro Starlight docs by auditing coverage
-  against code surfaces in warp-internal and warp-server, then drafting missing
+  against code surfaces in the public warp client repo and warp-server, then drafting missing
   pages. Use when asked to find missing docs, audit documentation coverage,
   identify undocumented features, draft docs for new features, detect doc-impacting
   code changes since the last audit, or do a docs coverage check. Runs a Python
@@ -18,10 +18,11 @@ Find documentation gaps, detect doc-impacting code changes, and draft missing pa
 ## Requirements
 
 The audit compares docs against code, so both source repos must be available:
-- `warp-internal` and `warp-server`, auto-detected as siblings of the docs repo
-  root (e.g. `/workspace/docs` next to `/workspace/warp-internal` and
-  `/workspace/warp-server`), or passed explicitly via `--warp-internal PATH` /
-  `--warp-server PATH`.
+- the public warp client repo ([warpdotdev/warp](https://github.com/warpdotdev/warp))
+  and `warp-server`, auto-detected as siblings of the docs repo root (e.g.
+  `/workspace/docs` next to `/workspace/warp` and `/workspace/warp-server`; a
+  sibling named `warp-internal` is accepted as a fallback), or passed explicitly
+  via `--warp PATH` / `--warp-server PATH` (`--warp-internal` is a deprecated alias).
 
 The script FAILS LOUD when a repo is missing OR when an extraction sanity guard
 trips (a parser returning implausibly few surfaces means the source layout
@@ -45,7 +46,7 @@ Options:
 - `--severity high|medium|low` — filter by minimum severity
 - `--weak-coverage` — also flag GA features whose mapped doc exists but doesn't mention feature keywords (low-severity, noisy)
 - `--output report.json` — save JSON report to file
-- `--warp-internal PATH` / `--warp-server PATH` — explicit repo paths
+- `--warp PATH` / `--warp-server PATH` — explicit repo paths (`--warp-internal` is a deprecated alias)
 - `--diff` — change detection against the committed snapshot (see Phase 2)
 - `--update-snapshot` — regenerate `references/surface_snapshot.json` (full runs only)
 
@@ -55,7 +56,7 @@ canonical filename even when the on-disk extension differs.
 
 The script performs these coverage audits:
 1. **Feature flag coverage** — classifies every `FeatureFlag` by rollout status using
-   the cargo-feature→flag bridge in warp-internal `app/src/features.rs` plus
+   the cargo-feature→flag bridge in the warp client repo's `app/src/features.rs` plus
    `RELEASE_FLAGS`/`PREVIEW_FLAGS`/`DOGFOOD_FLAGS` in `crates/warp_features/src/lib.rs`.
    GA flags must be mapped in the surface map or covered in docs; Preview flags produce
    low-severity "docs needed soon" findings; dogfood/other flags are tracked by the
@@ -71,11 +72,11 @@ The script performs these coverage audits:
    `{run_id}`) and the API reference docs. For spec drift, run the docs
    `sync-openapi-spec` skill (or warp-server's `update-open-api-spec`) instead of
    hand-editing the YAML.
-4. **Slash command coverage** — parses the static registry in warp-internal
+4. **Slash command coverage** — parses the static registry in the warp client repo's
    `app/src/search/slash_command_menu/static_commands/` and checks each `/command`
    is mentioned in docs.
 5. **Settings coverage** — parses every `toml_path: "section.key"` setting
-   registration in warp-internal (the same registry the JSON-schema generator uses)
+   registration in the warp client repo (the same registry the JSON-schema generator uses)
    and checks the all-settings reference page documents it. Private and
    dogfood/other-flagged settings are exempt; object-typed settings documented as
    their own `[section]` count as covered.
@@ -86,7 +87,7 @@ The script performs these coverage audits:
 7. **Stale doc references** — reverse checks: settings keys documented in
    all-settings.mdx that no longer exist in code (catches renames like
    `agents.oz.*` → `agents.warp_agent.*`), and keybinding actions (`scope:action`)
-   on the keyboard-shortcuts page that no longer exist anywhere in warp-internal.
+   on the keyboard-shortcuts page that no longer exist anywhere in the warp client repo.
 8. **Docs structure** — pages on disk that are missing from `src/sidebar.ts`
    (built but unreachable through navigation). Intentionally unlisted pages go in
    the surface map's "Unlisted docs pages" section.
@@ -159,7 +160,7 @@ The snapshot at `references/surface_snapshot.json` records all extracted surface
 (flags + rollout status, CLI commands and per-module flags, API routes, slash
 commands, settings + status, Oz web app routes, server-side agent tools, bundled
 skills) plus the last-seen docs-changelog version. It makes change detection
-possible: a feature flag that is deleted after stabilizing (per warp-internal's
+possible: a feature flag that is deleted after stabilizing (per the warp repo's
 remove-feature-flag policy) would otherwise vanish from the audit's universe
 silently. When a new surface type is introduced, diffing against an older snapshot
 emits a one-time "surface type newly tracked" note instead of false positives.
@@ -196,7 +197,7 @@ For each gap to address (prioritize high → medium → low):
 2. Read `AGENTS.md` in the docs repo root for the complete style guide
 3. Read 2-3 strong examples in the target section to match formatting patterns
 4. Research the relevant source code:
-   - **Feature gaps** → read the implementation in warp-internal `app/src/`, check UI code, settings, user-facing strings
+   - **Feature gaps** → read the implementation in the warp client repo's `app/src/`, check UI code, settings, user-facing strings
    - **CLI gaps** → read command definition in `crates/warp_cli/src/`, extract flags, arguments, help text
    - **API gaps** → read handler in warp-server `router/handlers/public_api/`, route definition, request/response types; prefer fixing the OpenAPI spec via the `sync-openapi-spec` skill
    - **Slash command gaps** → read the registry entry and gating flags in `app/src/search/slash_command_menu/`
@@ -226,7 +227,7 @@ with the product. Each run:
    instead of concluding "no gaps":
    ```bash
    python3 .agents/skills/missing_docs/scripts/audit_docs.py \
-     --warp-internal ../warp-internal --warp-server ../warp-server \
+     --warp ../warp --warp-server ../warp-server \
      --diff --output /tmp/docs_audit.json
    ```
 2. **Triage**: work through `surface_changes` and `changelog_review` first (what
@@ -250,7 +251,7 @@ with the product. Each run:
 Recommended scheduled-agent prompt (copy when setting up the agent):
 
 > Run the missing_docs skill in drift-watch mode. Use the audit script with explicit
-> --warp-internal and --warp-server paths and --diff. If the script exits non-zero with
+> --warp (public warpdotdev/warp checkout) and --warp-server paths and --diff. If the script exits non-zero with
 > skipped audits, report the environment problem and stop. Otherwise triage all
 > surface_changes and changelog_review findings plus high/medium coverage findings:
 > draft or update doc pages, update the surface map (mapping or ignore entry with a
