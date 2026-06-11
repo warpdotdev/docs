@@ -1,0 +1,670 @@
+{
+  "schema_version": 1,
+  "flags": {
+    "AIBlockOverflowMenu": "other",
+    "AIContextMenuCode": "ga",
+    "AIContextMenuCommands": "other",
+    "AIContextMenuEnabled": "ga",
+    "AIGeneratedOnboardingSuggestions": "other",
+    "AIMemories": "other",
+    "AIResumeButton": "ga",
+    "AIRules": "ga",
+    "APIKeyAuthentication": "ga",
+    "APIKeyManagement": "ga",
+    "ActiveConversationRequiresInteraction": "ga",
+    "AgentDecidesCommandExecution": "ga",
+    "AgentHarness": "ga",
+    "AgentManagementDetailsView": "ga",
+    "AgentManagementView": "ga",
+    "AgentMode": "ga",
+    "AgentModeAnalytics": "dogfood",
+    "AgentModeComputerUse": "ga",
+    "AgentModePrePlanXML": "ga",
+    "AgentModePrimaryXML": "ga",
+    "AgentModeWorkflows": "ga",
+    "AgentOnboarding": "ga",
+    "AgentPredict": "other",
+    "AgentSharedSessions": "ga",
+    "AgentTips": "ga",
+    "AgentToolbarEditor": "ga",
+    "AgentView": "ga",
+    "AgentViewBlockContext": "ga",
+    "AgentViewConversationListView": "ga",
+    "AgentViewPromptChip": "other",
+    "AlacrittySettingsImport": "other",
+    "AllowIgnoringInputSuggestions": "ga",
+    "AllowOpeningFileLinksUsingEditorEnv": "ga",
+    "AmbientAgentsCommandLine": "ga",
+    "AmbientAgentsImageUpload": "ga",
+    "AmbientAgentsRTC": "ga",
+    "ArtifactCommand": "ga",
+    "AskUserQuestion": "ga",
+    "AsyncFind": "dogfood",
+    "AtMenuOutsideOfAIMode": "ga",
+    "AutoOpenCodeReviewPane": "ga",
+    "Autoupdate": "ga",
+    "AutoupdateUIRevamp": "ga",
+    "AvatarInTabBar": "ga",
+    "BillingAndUsagePageV2": "ga",
+    "BlocklistMarkdownImages": "ga",
+    "BlocklistMarkdownTableRendering": "ga",
+    "BuildPlanAutoReloadBannerToggle": "other",
+    "BuildPlanAutoReloadPostPurchaseModal": "other",
+    "BundledSkills": "ga",
+    "CLIAgentRichInput": "ga",
+    "Changelog": "ga",
+    "ClassicCompletions": "ga",
+    "ClearAutosuggestionOnEscape": "ga",
+    "CloudConversations": "ga",
+    "CloudEnvironments": "ga",
+    "CloudMode": "ga",
+    "CloudModeFromLocalSession": "ga",
+    "CloudModeHostSelector": "other",
+    "CloudModeImageContext": "ga",
+    "CloudModeInputV2": "ga",
+    "CloudModeSetupV2": "ga",
+    "CloudObjects": "other",
+    "CocoaSentry": "other",
+    "CodeFindReplace": "ga",
+    "CodeLaunchModal": "ga",
+    "CodeModeChip": "other",
+    "CodeReviewFind": "ga",
+    "CodeReviewSaveChanges": "ga",
+    "CodeReviewScrollPreservation": "dogfood",
+    "CodebaseIndexPersistence": "dogfood",
+    "CodebaseIndexSpeedbump": "dogfood",
+    "CodexNotifications": "ga",
+    "CodexPlugin": "dogfood",
+    "CommandCorrectionKey": "ga",
+    "CommandCorrectionsHistoryRule": "other",
+    "CommandPaletteFileSearch": "ga",
+    "ConfigurableToolbar": "ga",
+    "ContextChips": "other",
+    "ContextLineReviewComments": "dogfood",
+    "ContextWindowUsageV2": "ga",
+    "ConversationApi": "ga",
+    "ConversationArtifacts": "ga",
+    "ConversationsAsContext": "ga",
+    "CrashReporting": "ga",
+    "CreateEnvironmentSlashCommand": "ga",
+    "CreateProjectFlow": "ga",
+    "CreatingSharedSessions": "dogfood",
+    "CrossRepoContext": "dogfood",
+    "CustomInferenceEndpoints": "ga",
+    "CustomInferenceEndpointsEnterprise": "other",
+    "CycleNextCommandSuggestion": "other",
+    "DebugMode": "other",
+    "DefaultAdeberryTheme": "other",
+    "DefaultWaterfallMode": "ga",
+    "DiffSetAsContext": "ga",
+    "DirectoryTabColors": "ga",
+    "DiscardPerFileAndAllChanges": "ga",
+    "DragTabsToWindows": "preview",
+    "DriveObjectsAsContext": "ga",
+    "DynamicWorkflowEnums": "ga",
+    "EditableMarkdownMermaid": "dogfood",
+    "EmbeddedCodeReviewComments": "other",
+    "ExpandEditToPane": "ga",
+    "FallbackModelLoadOutputMessaging": "ga",
+    "FastForwardAutoexecuteButton": "ga",
+    "FetchChannelVersionsFromWarpServer": "other",
+    "FetchGenericStringObjects": "other",
+    "FigmaDetection": "ga",
+    "FileAndDiffSetComments": "dogfood",
+    "FileBasedMcp": "ga",
+    "FileGlobV2Warnings": "dogfood",
+    "FileRetrievalTools": "ga",
+    "FileTree": "ga",
+    "ForceClassicCompletions": "ga",
+    "ForceLogin": "other",
+    "ForkFromCommand": "ga",
+    "FreeUserNoAi": "other",
+    "FullScreenZenMode": "ga",
+    "FullSourceCodeEmbedding": "dogfood",
+    "GPTConfigurableContextWindow": "dogfood",
+    "GeminiNotifications": "dogfood",
+    "GetStartedTab": "ga",
+    "GitCredentialRefresh": "ga",
+    "GitOperationsInCodeReview": "ga",
+    "GithubPrPromptChip": "ga",
+    "GlobalAIAnalyticsBanner": "other",
+    "GlobalAIAnalyticsCollection": "ga",
+    "GlobalSearch": "ga",
+    "GrepTool": "ga",
+    "GroupedTabs": "preview",
+    "HOANotifications": "ga",
+    "HOAOnboardingFlow": "ga",
+    "HOARemoteControl": "ga",
+    "HandoffCloudCloud": "ga",
+    "HandoffLocalCloud": "ga",
+    "HarnessSessionHeader": "other",
+    "HoaCodeReview": "ga",
+    "ITermImages": "other",
+    "ImageAsContext": "ga",
+    "ImeMarkedText": "ga",
+    "InBandGeneratorsForSSH": "other",
+    "IncrementalAutoReload": "ga",
+    "InlineCodeReview": "ga",
+    "InlineHistoryMenu": "ga",
+    "InlineMenuHeaders": "ga",
+    "InlineProfileSelector": "ga",
+    "InlineRepoMenu": "ga",
+    "IntegratedGPU": "other",
+    "IntegrationCommand": "ga",
+    "InteractiveConversationManagementView": "ga",
+    "KittyImages": "ga",
+    "KittyKeyboardProtocol": "ga",
+    "KnowledgeSidebar": "other",
+    "LSPAsATool": "other",
+    "LazySceneBuilding": "dogfood",
+    "Ligatures": "ga",
+    "LinkedCodeBlocks": "ga",
+    "ListSkills": "ga",
+    "LocalClaudeCodexChildHarnesses": "other",
+    "LocalComputerUse": "dogfood",
+    "LocalDockerSandbox": "dogfood",
+    "LogExpensiveFramesInSentry": "dogfood",
+    "MCPGroupedServerContext": "ga",
+    "MSYS2Shells": "dogfood",
+    "MarkdownImages": "dogfood",
+    "MarkdownMermaid": "ga",
+    "MarkdownTables": "ga",
+    "MaximizeFlatStorage": "other",
+    "McpDebuggingIds": "other",
+    "McpOauth": "ga",
+    "McpServer": "ga",
+    "MinimalistUI": "ga",
+    "MultiProfile": "ga",
+    "MultiWorkspace": "dogfood",
+    "NamedAgents": "ga",
+    "NativeShellCompletions": "other",
+    "NewTabStyling": "ga",
+    "OpenCodeNotifications": "ga",
+    "OpenWarpLaunchModal": "ga",
+    "OpenWarpNewSettingsModes": "ga",
+    "OrchestrationLaunchModal": "ga",
+    "OrchestrationViewerStreamer": "ga",
+    "OwnerOrchestrationAncestorStreamer": "ga",
+    "OzChangelogUpdates": "ga",
+    "OzHandoff": "ga",
+    "OzIdentityFederation": "ga",
+    "OzLaunchModal": "ga",
+    "OzPlatformSkills": "ga",
+    "PRCommentsSkill": "ga",
+    "PRCommentsSlashCommand": "ga",
+    "PRCommentsV2": "ga",
+    "PartialNextCommandSuggestions": "other",
+    "PendingUserQueryIndicator": "ga",
+    "PinnedTabs": "other",
+    "PluggableNotifications": "ga",
+    "PredictAMQueries": "other",
+    "ProfilesDesignRevamp": "ga",
+    "Projects": "dogfood",
+    "PromptSuggestionsViaMAA": "other",
+    "ProviderCommand": "dogfood",
+    "QueueSlashCommand": "ga",
+    "QueuedPromptsV2": "ga",
+    "ReadImageFiles": "ga",
+    "RecordAppActiveEvents": "other",
+    "RecordPtyThroughput": "other",
+    "RectSelection": "ga",
+    "ReloadStaleConversationFiles": "ga",
+    "RememberFastForwardState": "dogfood",
+    "RemoteCodeReview": "ga",
+    "RemoteCodebaseIndexing": "ga",
+    "RemoveAutosuggestionDuringTabCompletions": "dogfood",
+    "ResizeFix": "dogfood",
+    "RestorePromptOnInlineModelSelectorSearch": "dogfood",
+    "RetryTruncatedCodeResponses": "dogfood",
+    "RevertDiffHunk": "ga",
+    "RevertToCheckpoints": "ga",
+    "RewindSlashCommand": "ga",
+    "RichTextMultiselect": "ga",
+    "RunAgentsTool": "ga",
+    "RunGeneratorsWithCmdExe": "dogfood",
+    "RuntimeFeatureFlags": "other",
+    "SSHTmuxWrapper": "dogfood",
+    "ScheduledAmbientAgents": "ga",
+    "SearchCodebaseUI": "ga",
+    "SelectablePrompt": "other",
+    "SelectionAsContext": "ga",
+    "SendTelemetryToFile": "other",
+    "SequentialStorage": "other",
+    "SessionSharingAcls": "ga",
+    "SettingsFile": "ga",
+    "SharedBlockTitleGeneration": "ga",
+    "SharedSessionWriteToLongRunningCommands": "ga",
+    "SharedWithMe": "ga",
+    "ShellSelector": "ga",
+    "SimulateGithubUnauthed": "other",
+    "SkillArguments": "ga",
+    "SkipFirebaseAnonymousUser": "ga",
+    "SoloUserByok": "ga",
+    "SshDragAndDrop": "dogfood",
+    "SshRemoteServer": "ga",
+    "SuggestedAgentModeWorkflows": "other",
+    "SuggestedRules": "ga",
+    "SummarizationCancellationConfirmation": "ga",
+    "SummarizationConversationCommand": "ga",
+    "SummarizationViaMessageReplacement": "dogfood",
+    "SuperGrok": "dogfood",
+    "SyncAmbientPlans": "ga",
+    "TabCloseButtonOnLeft": "ga",
+    "TabConfigs": "ga",
+    "TabbedEditorView": "ga",
+    "TeamApiKeys": "ga",
+    "ThinStrokes": "other",
+    "ToggleBootstrapBlock": "dogfood",
+    "TransferControlTool": "ga",
+    "TrimTrailingBlankLines": "ga",
+    "UIZoom": "ga",
+    "UndoClosedPanes": "ga",
+    "UsageBasedPricing": "ga",
+    "UseTantivySearch": "other",
+    "V4AFileDiffs": "ga",
+    "ValidateAutosuggestions": "ga",
+    "VerticalTabs": "ga",
+    "VerticalTabsSummaryMode": "ga",
+    "ViewingSharedSessions": "ga",
+    "VimCodeEditor": "ga",
+    "WarpControlCli": "other",
+    "WarpManagedSecrets": "ga",
+    "WarpPacks": "ga",
+    "WarpifyFooter": "ga",
+    "WebFetchUI": "ga",
+    "WebSearchUI": "ga",
+    "WelcomeBlock": "other",
+    "WelcomeTab": "other",
+    "WelcomeTips": "other",
+    "WithSandboxTelemetry": "other",
+    "WorkflowAliases": "ga"
+  },
+  "cli_commands": [
+    {
+      "command": "oz agent",
+      "hidden": false
+    },
+    {
+      "command": "oz agent create",
+      "hidden": false
+    },
+    {
+      "command": "oz agent delete",
+      "hidden": false
+    },
+    {
+      "command": "oz agent get",
+      "hidden": false
+    },
+    {
+      "command": "oz agent list",
+      "hidden": false
+    },
+    {
+      "command": "oz agent profile",
+      "hidden": false
+    },
+    {
+      "command": "oz agent run",
+      "hidden": false
+    },
+    {
+      "command": "oz agent run-cloud",
+      "hidden": false
+    },
+    {
+      "command": "oz agent skills",
+      "hidden": false
+    },
+    {
+      "command": "oz agent update",
+      "hidden": false
+    },
+    {
+      "command": "oz api-key",
+      "hidden": false
+    },
+    {
+      "command": "oz api-key create",
+      "hidden": false
+    },
+    {
+      "command": "oz api-key expire",
+      "hidden": false
+    },
+    {
+      "command": "oz api-key list",
+      "hidden": false
+    },
+    {
+      "command": "oz artifact",
+      "hidden": false
+    },
+    {
+      "command": "oz artifact download",
+      "hidden": false
+    },
+    {
+      "command": "oz artifact get",
+      "hidden": false
+    },
+    {
+      "command": "oz artifact upload",
+      "hidden": true
+    },
+    {
+      "command": "oz environment",
+      "hidden": false
+    },
+    {
+      "command": "oz environment create",
+      "hidden": false
+    },
+    {
+      "command": "oz environment delete",
+      "hidden": false
+    },
+    {
+      "command": "oz environment get",
+      "hidden": false
+    },
+    {
+      "command": "oz environment image",
+      "hidden": false
+    },
+    {
+      "command": "oz environment list",
+      "hidden": false
+    },
+    {
+      "command": "oz environment update",
+      "hidden": false
+    },
+    {
+      "command": "oz federate",
+      "hidden": false
+    },
+    {
+      "command": "oz federate issue-gcp-token",
+      "hidden": true
+    },
+    {
+      "command": "oz federate issue-token",
+      "hidden": false
+    },
+    {
+      "command": "oz harness-support",
+      "hidden": true
+    },
+    {
+      "command": "oz harness-support finish-task",
+      "hidden": true
+    },
+    {
+      "command": "oz harness-support notify-user",
+      "hidden": true
+    },
+    {
+      "command": "oz harness-support ping",
+      "hidden": true
+    },
+    {
+      "command": "oz harness-support report-artifact",
+      "hidden": true
+    },
+    {
+      "command": "oz harness-support report-shutdown",
+      "hidden": true
+    },
+    {
+      "command": "oz integration",
+      "hidden": false
+    },
+    {
+      "command": "oz integration create",
+      "hidden": false
+    },
+    {
+      "command": "oz integration list",
+      "hidden": false
+    },
+    {
+      "command": "oz integration update",
+      "hidden": false
+    },
+    {
+      "command": "oz login",
+      "hidden": false
+    },
+    {
+      "command": "oz logout",
+      "hidden": false
+    },
+    {
+      "command": "oz mcp",
+      "hidden": false
+    },
+    {
+      "command": "oz mcp list",
+      "hidden": false
+    },
+    {
+      "command": "oz model",
+      "hidden": false
+    },
+    {
+      "command": "oz model list",
+      "hidden": false
+    },
+    {
+      "command": "oz provider",
+      "hidden": false
+    },
+    {
+      "command": "oz provider list",
+      "hidden": false
+    },
+    {
+      "command": "oz provider setup",
+      "hidden": false
+    },
+    {
+      "command": "oz run",
+      "hidden": false
+    },
+    {
+      "command": "oz run conversation",
+      "hidden": false
+    },
+    {
+      "command": "oz run get",
+      "hidden": false
+    },
+    {
+      "command": "oz run list",
+      "hidden": false
+    },
+    {
+      "command": "oz run message",
+      "hidden": false
+    },
+    {
+      "command": "oz schedule",
+      "hidden": false
+    },
+    {
+      "command": "oz schedule create",
+      "hidden": false
+    },
+    {
+      "command": "oz schedule delete",
+      "hidden": false
+    },
+    {
+      "command": "oz schedule get",
+      "hidden": false
+    },
+    {
+      "command": "oz schedule list",
+      "hidden": false
+    },
+    {
+      "command": "oz schedule pause",
+      "hidden": false
+    },
+    {
+      "command": "oz schedule unpause",
+      "hidden": false
+    },
+    {
+      "command": "oz schedule update",
+      "hidden": false
+    },
+    {
+      "command": "oz secret",
+      "hidden": false
+    },
+    {
+      "command": "oz secret create",
+      "hidden": false
+    },
+    {
+      "command": "oz secret delete",
+      "hidden": false
+    },
+    {
+      "command": "oz secret list",
+      "hidden": false
+    },
+    {
+      "command": "oz secret update",
+      "hidden": false
+    },
+    {
+      "command": "oz whoami",
+      "hidden": false
+    }
+  ],
+  "api_routes": [
+    "DELETE /api/v1/agent/identities/{uid}",
+    "DELETE /api/v1/agent/schedules/{id}",
+    "DELETE /api/v1/memory_stores/{uid}",
+    "DELETE /api/v1/memory_stores/{uid}/memories/{memoryUid}",
+    "GET /.well-known/openid-configuration",
+    "GET /api/v1/agent",
+    "GET /api/v1/agent/artifacts/{uid}",
+    "GET /api/v1/agent/connected-self-hosted-workers",
+    "GET /api/v1/agent/conversations/{conversation_id}/block-snapshot",
+    "GET /api/v1/agent/conversations/{conversation_id}/redirect",
+    "GET /api/v1/agent/environments",
+    "GET /api/v1/agent/events",
+    "GET /api/v1/agent/events/stream",
+    "GET /api/v1/agent/identities",
+    "GET /api/v1/agent/identities/{uid}",
+    "GET /api/v1/agent/messages/{run_id}",
+    "GET /api/v1/agent/models",
+    "GET /api/v1/agent/runs",
+    "GET /api/v1/agent/runs/{runId}",
+    "GET /api/v1/agent/runs/{runId}/handoff/attachments",
+    "GET /api/v1/agent/runs/{runId}/timeline",
+    "GET /api/v1/agent/runs/{runId}/transcript",
+    "GET /api/v1/agent/schedules",
+    "GET /api/v1/agent/schedules/{id}",
+    "GET /api/v1/agent/sessions/{session_uuid}/redirect",
+    "GET /api/v1/agent/tasks",
+    "GET /api/v1/agent/tasks/{id}",
+    "GET /api/v1/harness-support/transcript",
+    "GET /api/v1/memory_stores",
+    "GET /api/v1/memory_stores/{uid}",
+    "GET /api/v1/memory_stores/{uid}/agents",
+    "GET /api/v1/memory_stores/{uid}/memories",
+    "GET /api/v1/memory_stores/{uid}/memories/{memoryUid}/versions",
+    "GET /oauth/authorize",
+    "GET /oauth/jwks.json",
+    "PATCH /api/v1/agent/runs/{runId}/event-sequence",
+    "POST /api/v1/agent/events/{run_id}",
+    "POST /api/v1/agent/handoff/upload-snapshot",
+    "POST /api/v1/agent/identities",
+    "POST /api/v1/agent/messages",
+    "POST /api/v1/agent/messages/{id}/delivered",
+    "POST /api/v1/agent/messages/{id}/read",
+    "POST /api/v1/agent/run",
+    "POST /api/v1/agent/runs",
+    "POST /api/v1/agent/runs/{runId}/attachments/download",
+    "POST /api/v1/agent/runs/{runId}/attachments/prepare",
+    "POST /api/v1/agent/runs/{runId}/cancel",
+    "POST /api/v1/agent/runs/{runId}/client-events",
+    "POST /api/v1/agent/runs/{runId}/followups",
+    "POST /api/v1/agent/schedules",
+    "POST /api/v1/agent/schedules/{id}/pause",
+    "POST /api/v1/agent/schedules/{id}/resume",
+    "POST /api/v1/agent/tasks/{id}/cancel",
+    "POST /api/v1/harness-support/block-snapshot",
+    "POST /api/v1/harness-support/external-conversation",
+    "POST /api/v1/harness-support/finish-task",
+    "POST /api/v1/harness-support/notify-user",
+    "POST /api/v1/harness-support/report-artifact",
+    "POST /api/v1/harness-support/report-shutdown",
+    "POST /api/v1/harness-support/resolve-prompt",
+    "POST /api/v1/harness-support/transcript",
+    "POST /api/v1/harness-support/upload-snapshot",
+    "POST /api/v1/memory_stores",
+    "POST /api/v1/memory_stores/{uid}/memories",
+    "POST /oauth/device/auth",
+    "POST /oauth/session",
+    "POST /oauth/token",
+    "PUT /api/v1/agent/identities/{uid}",
+    "PUT /api/v1/agent/schedules/{id}",
+    "PUT /api/v1/memory_stores/{uid}",
+    "PUT /api/v1/memory_stores/{uid}/memories/{memoryUid}"
+  ],
+  "slash_commands": [
+    "/add-mcp",
+    "/add-prompt",
+    "/add-rule",
+    "/agent",
+    "/changelog",
+    "/cloud-agent",
+    "/compact",
+    "/compact-and",
+    "/continue-locally",
+    "/conversations",
+    "/cost",
+    "/create-environment",
+    "/create-new-project",
+    "/docker-sandbox",
+    "/environment",
+    "/export-to-clipboard",
+    "/export-to-file",
+    "/feedback",
+    "/fork",
+    "/fork-and-compact",
+    "/fork-from",
+    "/handoff",
+    "/harness",
+    "/host",
+    "/index",
+    "/init",
+    "/model",
+    "/new",
+    "/open-code-review",
+    "/open-file",
+    "/open-mcp-servers",
+    "/open-project-rules",
+    "/open-repo",
+    "/open-rules",
+    "/open-settings-file",
+    "/open-skill",
+    "/pr-comments",
+    "/profile",
+    "/prompts",
+    "/queue",
+    "/remote-control",
+    "/rename-tab",
+    "/rewind",
+    "/set-tab-color",
+    "/skills",
+    "/usage"
+  ],
+  "changelog_last_version": "2026.06.03"
+}

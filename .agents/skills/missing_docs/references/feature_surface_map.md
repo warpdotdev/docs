@@ -1,14 +1,23 @@
 # Feature Surface Map
 
-Curated mapping of feature flags, CLI commands, and code modules to their expected documentation pages.
-The audit script reads this file to reduce false positives — entries here are verified rather than flagged.
+Curated mapping of feature flags, CLI commands, API endpoints, and slash commands
+to their expected documentation pages.
+The audit script reads this file to reduce false positives — entries here are
+verified rather than flagged.
 
-Format: `CodeIdentifier -> docs/path/to/page.md` (one per line within each section).
+Format: `CodeIdentifier -> src/content/docs/path/to/page.md` (one per line within each section).
 Lines starting with `#` are comments. Blank lines are ignored.
+The sentinel target `internal` marks surfaces that intentionally have no public docs.
 
-# Maintenance: when a new GA feature flag ships, add a mapping here.
-# Run `python3 .agents/skills/missing_docs/scripts/audit_docs.py` to find unmapped flags.
-# This audit is also run as a recurring scheduled cloud agent to catch drift.
+# Maintenance policy:
+# - When a feature ships (GA or Preview), add a mapping here in the same PR that
+#   adds/updates its doc page.
+# - When a flag/command/route is removed from code, the audit's map-hygiene check
+#   flags the dead entry — verify the doc page is still accurate, then prune it.
+# - Run `python3 .agents/skills/missing_docs/scripts/audit_docs.py` to find unmapped
+#   surfaces, and `--update-snapshot` to refresh references/surface_snapshot.json.
+# - This audit also runs as a recurring scheduled cloud agent to catch drift
+#   (see the drift-watch workflow in SKILL.md).
 
 ## Feature flags -> doc pages
 
@@ -20,7 +29,6 @@ AgentModeWorkflows -> src/content/docs/knowledge-and-collaboration/warp-drive/wo
 AgentOnboarding -> src/content/docs/agent-platform/getting-started/agents-in-warp.md
 AIRules -> src/content/docs/agent-platform/capabilities/rules.mdx
 AIResumeButton -> src/content/docs/agent-platform/local-agents/interacting-with-agents/terminal-and-agent-modes.mdx
-CodeReviewView -> src/content/docs/code/code-review.md
 InlineCodeReview -> src/content/docs/agent-platform/local-agents/interactive-code-review.mdx
 FileTree -> src/content/docs/code/code-editor/file-tree.md
 CodeFindReplace -> src/content/docs/code/code-editor/find-and-replace.md
@@ -32,57 +40,33 @@ SelectionAsContext -> src/content/docs/agent-platform/local-agents/agent-context
 DiffSetAsContext -> src/content/docs/agent-platform/local-agents/agent-context/selection-as-context.mdx
 WebSearchUI -> src/content/docs/agent-platform/capabilities/web-search.mdx
 WebFetchUI -> src/content/docs/agent-platform/capabilities/web-search.mdx
-CodebaseContext -> src/content/docs/agent-platform/capabilities/codebase-context.mdx
 CrossRepoContext -> src/content/docs/agent-platform/capabilities/codebase-context.mdx
 FullSourceCodeEmbedding -> src/content/docs/agent-platform/capabilities/codebase-context.mdx
 SearchCodebaseUI -> src/content/docs/agent-platform/capabilities/codebase-context.mdx
+RemoteCodebaseIndexing -> src/content/docs/agent-platform/capabilities/codebase-context.mdx
 CloudEnvironments -> src/content/docs/agent-platform/cloud-agents/environments.md
 CloudMode -> src/content/docs/agent-platform/cloud-agents/overview.md
 AmbientAgentsCommandLine -> src/content/docs/agent-platform/cloud-agents/overview.md
 ScheduledAmbientAgents -> src/content/docs/agent-platform/cloud-agents/triggers/scheduled-agents.md
 WarpManagedSecrets -> src/content/docs/agent-platform/cloud-agents/secrets.md
 IntegrationCommand -> src/content/docs/reference/cli/integration-setup.md
-ConversationManagement -> src/content/docs/agent-platform/local-agents/cloud-conversations.mdx
-ForkConversationFromBlock -> src/content/docs/agent-platform/local-agents/interacting-with-agents/conversation-forking.mdx
-Voice -> src/content/docs/agent-platform/local-agents/interacting-with-agents/voice.mdx
-WarpDrive -> src/content/docs/knowledge-and-collaboration/warp-drive/index.mdx
-EnvVars -> src/content/docs/knowledge-and-collaboration/warp-drive/environment-variables.md
 CommandPaletteFileSearch -> src/content/docs/terminal/command-palette.md
-Themes -> src/content/docs/terminal/appearance/themes.md
 Ligatures -> src/content/docs/terminal/appearance/text-fonts-cursor.md
 UIZoom -> src/content/docs/terminal/appearance/size-opacity-blurring.md
-SSH -> src/content/docs/terminal/warpify/ssh.md
-SplitPanes -> src/content/docs/terminal/windows/split-panes.md
-Tabs -> src/content/docs/terminal/windows/tabs.md
-GlobalHotkey -> src/content/docs/terminal/windows/global-hotkey.md
-LaunchConfigurations -> src/content/docs/terminal/sessions/launch-configurations.md
-SessionRestoration -> src/content/docs/terminal/sessions/session-restoration.md
-BlockBasics -> src/content/docs/terminal/blocks/block-basics.md
-Autosuggestions -> src/content/docs/terminal/command-completions/autosuggestions.md
-Completions -> src/content/docs/terminal/command-completions/completions.md
-CommandHistory -> src/content/docs/terminal/entry/command-history.md
-CommandCorrections -> src/content/docs/terminal/entry/command-corrections.md
 UsageBasedPricing -> src/content/docs/support-and-community/plans-and-billing/credits.md
 APIKeyAuthentication -> src/content/docs/reference/cli/api-keys.md
 APIKeyManagement -> src/content/docs/reference/cli/api-keys.md
-SecretRedaction -> src/content/docs/support-and-community/privacy-and-security/secret-redaction.md
 CreatingSharedSessions -> src/content/docs/knowledge-and-collaboration/session-sharing/index.mdx
 AgentSharedSessions -> src/content/docs/agent-platform/local-agents/session-sharing.mdx
 ProfilesDesignRevamp -> src/content/docs/agent-platform/capabilities/agent-profiles-permissions.mdx
 MultiProfile -> src/content/docs/agent-platform/capabilities/agent-profiles-permissions.mdx
 InlineProfileSelector -> src/content/docs/agent-platform/capabilities/agent-profiles-permissions.mdx
-ModelChoice -> src/content/docs/agent-platform/capabilities/model-choice.mdx
-Skills -> src/content/docs/agent-platform/capabilities/skills.mdx
 ListSkills -> src/content/docs/agent-platform/capabilities/skills.mdx
 BundledSkills -> src/content/docs/agent-platform/capabilities/skills.mdx
-Planning -> src/content/docs/agent-platform/capabilities/planning.mdx
 SyncAmbientPlans -> src/content/docs/agent-platform/capabilities/planning.mdx
-TaskLists -> src/content/docs/agent-platform/capabilities/task-lists.mdx
-SlashCommands -> src/content/docs/agent-platform/capabilities/slash-commands.mdx
 SuggestedRules -> src/content/docs/agent-platform/capabilities/rules.mdx
 RectSelection -> src/content/docs/terminal/more-features/text-selection.md
 ContextWindowUsageV2 -> src/content/docs/agent-platform/local-agents/interacting-with-agents/index.mdx
-ConfigurableBlockLimits -> src/content/docs/terminal/blocks/block-basics.md
 CommandCorrectionKey -> src/content/docs/terminal/entry/command-corrections.md
 ClassicCompletions -> src/content/docs/terminal/command-completions/completions.md
 DynamicWorkflowEnums -> src/content/docs/knowledge-and-collaboration/warp-drive/workflows.md
@@ -104,11 +88,13 @@ RevertToCheckpoints -> src/content/docs/agent-platform/capabilities/slash-comman
 RewindSlashCommand -> src/content/docs/agent-platform/capabilities/slash-commands.mdx
 ForkFromCommand -> src/content/docs/agent-platform/capabilities/slash-commands.mdx
 SummarizationConversationCommand -> src/content/docs/agent-platform/capabilities/slash-commands.mdx
+CreateEnvironmentSlashCommand -> src/content/docs/agent-platform/capabilities/slash-commands.mdx
 CodeReviewFind -> src/content/docs/code/code-review.md
 CodeReviewSaveChanges -> src/content/docs/code/code-review.md
 DiscardPerFileAndAllChanges -> src/content/docs/code/code-review.md
 AutoOpenCodeReviewPane -> src/content/docs/code/code-review.md
 GitOperationsInCodeReview -> src/content/docs/code/code-review.md
+RemoteCodeReview -> src/content/docs/code/code-review.md
 AgentView -> src/content/docs/agent-platform/local-agents/interacting-with-agents/terminal-and-agent-modes.mdx
 AgentViewBlockContext -> src/content/docs/agent-platform/local-agents/agent-context/blocks-as-context.mdx
 CloudConversations -> src/content/docs/agent-platform/local-agents/cloud-conversations.mdx
@@ -134,6 +120,32 @@ KittyKeyboardProtocol -> src/content/docs/terminal/more-features/full-screen-app
 InlineRepoMenu -> src/content/docs/agent-platform/capabilities/codebase-context.mdx
 InlineHistoryMenu -> src/content/docs/agent-platform/local-agents/interacting-with-agents/terminal-and-agent-modes.mdx
 SkillArguments -> src/content/docs/agent-platform/capabilities/skills.mdx
+ConfigurableToolbar -> src/content/docs/terminal/windows/configurable-toolbar.mdx
+SettingsFile -> src/content/docs/terminal/settings/index.mdx
+Changelog -> src/content/docs/changelog/index.mdx
+Autoupdate -> src/content/docs/support-and-community/troubleshooting-and-support/updating-warp.mdx
+
+# Handoff (local <-> cloud, cloud <-> cloud) and snapshots
+OzHandoff -> src/content/docs/agent-platform/cloud-agents/handoff/index.mdx
+HandoffLocalCloud -> src/content/docs/agent-platform/cloud-agents/handoff/local-to-cloud.mdx
+HandoffCloudCloud -> src/content/docs/agent-platform/cloud-agents/handoff/cloud-to-cloud.mdx
+
+# Orchestration / multi-agent runs
+RunAgentsTool -> src/content/docs/agent-platform/cloud-agents/orchestration/multi-agent-runs.mdx
+
+# Prompt queueing
+QueueSlashCommand -> src/content/docs/agent-platform/local-agents/interacting-with-agents/prompt-queueing.mdx
+QueuedPromptsV2 -> src/content/docs/agent-platform/local-agents/interacting-with-agents/prompt-queueing.mdx
+
+# Reusable agents (named agents + agent-scoped API keys)
+NamedAgents -> src/content/docs/agent-platform/cloud-agents/agents.mdx
+
+# Inference: BYOK and custom endpoints
+SoloUserByok -> src/content/docs/agent-platform/inference/bring-your-own-api-key.mdx
+CustomInferenceEndpoints -> src/content/docs/agent-platform/inference/custom-inference-endpoint.mdx
+
+# Billing & Usage settings page (redesigned)
+BillingAndUsagePageV2 -> src/content/docs/support-and-community/plans-and-billing/index.mdx
 
 ## CLI commands -> doc pages
 
@@ -152,40 +164,68 @@ oz secret -> src/content/docs/reference/cli/index.mdx
 oz provider -> src/content/docs/reference/cli/index.mdx
 oz federate -> src/content/docs/reference/cli/federate.mdx
 oz artifact -> src/content/docs/reference/cli/artifacts.mdx
+oz api-key -> src/content/docs/reference/cli/api-keys.mdx
 # Internal/hidden command — not a user-facing surface, so no public docs.
 oz harness-support -> internal
 
 ## API endpoints -> doc pages
 
-# Public API endpoints
+# Paths are relative to /api/v1 and use OpenAPI-style {param} segments.
+# Public API endpoints documented via the OpenAPI spec (developers/agent-api-openapi.yaml).
 POST /agent/run -> src/content/docs/reference/api-and-sdk/index.mdx
 GET /agent/runs -> src/content/docs/reference/api-and-sdk/index.mdx
 GET /agent/runs/{runId} -> src/content/docs/reference/api-and-sdk/index.mdx
 
-# Internal/infrastructure endpoints (not part of public API, no docs needed)
-GET /block/embed/:id -> internal
-GET /block/:id -> internal
-GET /referral/:id -> internal
-GET /client_version -> internal
-GET /client_version/daily -> internal
-POST /receive_nps_response -> internal
-POST /receive_pmf_response -> internal
-GET /current_time -> internal
-POST /graphql/v2 -> internal
-GET /graphql/v2 -> internal
-GET /graphiql -> internal
-GET /graphiql/v2 -> internal
-GET /download -> internal
-GET /download/brew -> internal
-GET /download/windows -> internal
-GET /download/cli -> internal
+# OAuth device-flow / OIDC plumbing used by `oz login` — not a public REST surface.
+GET /oauth/authorize -> internal
+POST /oauth/device/auth -> internal
+POST /oauth/session -> internal
+POST /oauth/token -> internal
+GET /oauth/jwks.json -> internal
+GET /.well-known/openid-configuration -> internal
+
+# Anonymous-viewer redirect probes (documented exceptions to auth, not API surfaces).
+GET /agent/sessions/{session_uuid}/redirect -> internal
+GET /agent/conversations/{conversation_id}/redirect -> internal
+
+# Legacy aliases of /agent/runs kept for compatibility.
+GET /agent/tasks -> internal
+GET /agent/tasks/{id} -> internal
+POST /agent/tasks/{id}/cancel -> internal
+
+# Handoff/worker attachment plumbing (driven by clients and workers, not end users).
+POST /agent/runs/{runId}/attachments/prepare -> internal
+POST /agent/runs/{runId}/attachments/download -> internal
+GET /agent/runs/{runId}/handoff/attachments -> internal
+POST /agent/handoff/upload-snapshot -> internal
+PATCH /agent/runs/{runId}/event-sequence -> internal
+POST /agent/runs/{runId}/client-events -> internal
+GET /agent/conversations/{conversation_id}/block-snapshot -> internal
+
+# Support endpoints for third-party harnesses (hidden `oz harness-support` CLI).
+POST /harness-support/external-conversation -> internal
+POST /harness-support/block-snapshot -> internal
+POST /harness-support/transcript -> internal
+GET /harness-support/transcript -> internal
+POST /harness-support/resolve-prompt -> internal
+POST /harness-support/report-artifact -> internal
+POST /harness-support/notify-user -> internal
+POST /harness-support/finish-task -> internal
+POST /harness-support/report-shutdown -> internal
+POST /harness-support/upload-snapshot -> internal
+
+## Slash commands -> doc pages
+
+# Most documented commands are matched automatically against the
+# slash-commands page content; add entries here only for exceptions.
+# Gated by the dogfood-only LocalDockerSandbox flag — not user-facing yet.
+/docker-sandbox -> internal
 
 ## Flags to ignore (internal-only, not user-facing)
 
 # These flags are internal implementation details and don't need documentation
 CocoaSentry
 CrashReporting
-CrashRecoveryForceX11
 DebugMode
 LogExpensiveFramesInSentry
 WithSandboxTelemetry
@@ -199,19 +239,14 @@ RecordPtyThroughput
 FetchGenericStringObjects
 IntegratedGPU
 LazySceneBuilding
-RemoveAltScreenPadding
 MaximizeFlatStorage
 SharedBlockTitleGeneration
 RetryTruncatedCodeResponses
 ReloadStaleConversationFiles
-NLDClassifierModelEnabled
-ChangedLinesOnlyApplyDiffResult
 SendTelemetryToFile
-SendEvalMetadata
 FileGlobV2Warnings
 ExpandEditToPane
 MCPGroupedServerContext
-MultiAgentParallelToolCalls
 AgentDecidesCommandExecution
 AgentModePrimaryXML
 AgentModePrePlanXML
@@ -221,12 +256,9 @@ GlobalAIAnalyticsCollection
 FastForwardAutoexecuteButton
 LinkedCodeBlocks
 V4AFileDiffs
-NewWarpingAnimation
-NewDiffModel
 SummarizationViaMessageReplacement
 SummarizationCancellationConfirmation
 TabCloseButtonOnLeft
-LessHorizontalTerminalPadding
 RemoveAutosuggestionDuringTabCompletions
 ResizeFix
 ForceClassicCompletions
@@ -237,21 +269,24 @@ MinimalistUI
 AvatarInTabBar
 SessionSharingAcls
 ImeMarkedText
-ConvertLegacyMcps
 NewTabStyling
 AmbientAgentsRTC
-OzBranding
 OzLaunchModal
 # One-time launch modal announcing Warp going open-source.
 # The announcement itself is covered in the 2026 changelog ("Warp is now open source.")
 # and the modal has no recurring user-facing surface that warrants its own doc page.
 OpenWarpLaunchModal
+# One-time launch modal announcing multi-agent orchestration; the feature itself
+# is documented via RunAgentsTool -> orchestration/multi-agent-runs.mdx.
+OrchestrationLaunchModal
 GetStartedTab
 CreateProjectFlow
 CodeLaunchModal
 ValidateAutosuggestions
 ClearAutosuggestionOnEscape
 OzPlatformSkills
+# Rendering detail for markdown tables in notebooks/AI output; no dedicated doc surface.
+MarkdownTables
 
 # UI implementation details (not user-facing features)
 FallbackModelLoadOutputMessaging
@@ -273,26 +308,27 @@ HOAOnboardingFlow
 AgentViewConversationListView
 BuildPlanAutoReloadBannerToggle
 BuildPlanAutoReloadPostPurchaseModal
-UpgradeToProModal
-UpgradeToProModalPromo
 FreeUserNoAi
-SoloUserByok
 ForceLogin
 SimulateGithubUnauthed
 ConversationApi
 McpDebuggingIds
 ContextLineReviewComments
 RichTextMultiselect
-ActiveConversationRequiresInteraction
+# Redux iterations of the cloud mode setup/input UI; the cloud agents feature
+# itself is documented via CloudMode -> cloud-agents/overview.md.
+CloudModeSetupV2
+CloudModeInputV2
+# Internal GitHub credential refresh during task runs (changelog-only behavior fix).
+GitCredentialRefresh
+# Internal SSE streaming infrastructure for orchestration viewers/owners.
+OrchestrationViewerStreamer
+OwnerOrchestrationAncestorStreamer
 
 # Non-GA flags in dogfood/preview only
-Orchestration
-OrchestrationV2
-OrchestrationEventPush
 LSPAsATool
 SshRemoteServer
 EmbeddedCodeReviewComments
-AgentManagementDetailsView
 InteractiveConversationManagementView
 MarkdownImages
 MarkdownMermaid
@@ -301,11 +337,9 @@ OzIdentityFederation
 AgentHarness
 DirectoryTabColors
 ArtifactCommand
-AgentViewBlockContext
 CloudModeImageContext
 CloudModeHostSelector
 AmbientAgentsImageUpload
-NldImprovements
 CodebaseIndexSpeedbump
 CodebaseIndexPersistence
 SharedSessionWriteToLongRunningCommands
@@ -317,8 +351,6 @@ CodeModeChip
 UndoClosedPanes
 RevertDiffHunk
 ViewingSharedSessions
-SettingsImport
-BlockToolbeltSaveAsWorkflow
 ShellSelector
 FullScreenZenMode
 WorkflowAliases
@@ -339,7 +371,5 @@ PredictAMQueries
 UseTantivySearch
 CommandCorrectionsHistoryRule
 SuggestedAgentModeWorkflows
-ConversationArtifacts
-ConversationApi
 PRCommentsSkill
 FigmaDetection
