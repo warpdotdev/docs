@@ -38,13 +38,8 @@ When you open a directory in Warp, we check if it is part of a Git repository. I
 Code indexed with Codebase Context is never stored on our servers. Codebase Context works with both local agent sessions and [cloud agent runs](/agent-platform/cloud-agents/overview/). Without Codebase Context enabled, agents will still be able use terminal commands (i.e. `grep`, `sed`) to navigate your code.
 :::
 
-:::caution
-**Codebase Context (semantic indexing and search) is not yet available in SSH or WSL sessions.**
-
-Feature requests:
-
-* SSH: [GitHub #6831](https://github.com/warpdotdev/Warp/issues/6831)
-* WSL: [GitHub #6744](https://github.com/warpdotdev/Warp/issues/6744)
+:::note
+Codebase Context works in SSH sessions when [Warp's SSH extension](/terminal/warpify/ssh/) is installed on the remote host — the remote repository is indexed directly on the remote machine. WSL sessions are not yet supported ([GitHub #6744](https://github.com/warpdotdev/Warp/issues/6744)).
 :::
 
 <figure>
