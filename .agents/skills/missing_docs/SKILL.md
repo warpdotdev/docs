@@ -108,6 +108,51 @@ Adjacent checks owned by other skills (do not duplicate them here):
 - Broken links and 404s/redirects → `check_for_broken_links` / `weekly-404-monitor`
 - Terminology/style sweeps → `style_lint`
 
+### Completeness accounting (the no-slip guarantee)
+
+Every full run computes a completeness accounting and embeds it in the report
+(`summary.accounting` in JSON, a `COMPLETENESS ACCOUNTING` block in the printed
+output). It partitions every extracted surface item into exactly one
+accountability bucket and proves totality:
+- **Feature flags**: every GA/Preview flag is `mapped` (surface map verified),
+  `ignored` (curated internal list), or a visible `finding`; every dogfood/other
+  flag is `tracked_non_ga` (snapshot diff fires on promotion or removal).
+- **CLI commands**: `mapped`, `doc_covered`, `finding`, `parent_flagged`
+  (suppressed because the parent command is already flagged), or `hidden`.
+- **API routes**: `mapped`, `spec_covered`, `docs_covered`, or `finding`.
+- **Slash commands**: `mapped`, `doc_covered`, or `finding`.
+- **Settings**: `private`, `tracked_non_ga`, `mapped`, `doc_covered`, or `finding`.
+
+If any item escapes every bucket, the run reports `integrity:accounting` in
+`audits_skipped` and exits 2 — an unaccounted item means the audit logic itself
+regressed, never that the item is fine. Map hygiene additionally rejects
+integrity bugs in the surface map: entries that are both mapped and ignored
+(the ignore silently wins) and duplicate keys within a section.
+
+How every change path is caught, end to end:
+1. **New surface item appears** (flag, command, route, slash, setting, web
+   route, tool, bundled skill) → the snapshot `--diff` reports it AND, once
+   GA/user-facing, the coverage audit produces a standing finding until it is
+   documented + mapped or ignored with a comment.
+2. **Item is promoted** (dogfood→preview→ga, setting status change, skill
+   channel change) → `--diff` status-change finding + coverage finding appears.
+3. **Item is removed/renamed** → `--diff` removal finding + map hygiene flags
+   the dead map entry + stale-doc-reference checks flag docs still naming it.
+4. **Launch with no client-code change** (server-side experiment flips to 100%,
+   Oz web app backend feature) → the changelog cross-check is the net: every
+   "New features"/"Improvements"/"Oz updates" bullet newer than the snapshot
+   becomes a verification finding.
+5. **The audit itself rots** (source layout moves, parser breaks) → extraction
+   sanity guards trip, dependent audits skip, exit 2.
+6. **The map rots** (dead entries, conflicts, duplicates, missing doc targets,
+   unmapped-but-mentioned features) → map hygiene + fallback-transparency
+   findings keep pressure until fixed.
+
+The mapping is updated through three enforced paths: Phase 3 step 8 makes the
+map+snapshot update a mandatory part of drafting; the drift-watch triage step
+requires a mapping/ignore/allowlist decision for every finding; and map hygiene
+findings force pruning when code moves underneath the map.
+
 ### Phase 2: Change detection (diff mode)
 
 The snapshot at `references/surface_snapshot.json` records all extracted surfaces

@@ -79,7 +79,11 @@ EXTRACTION_FLOORS = {
 # ---------------------------------------------------------------------------
 
 def parse_surface_map(path: Path) -> dict:
-    """Parse the feature_surface_map.md into structured data."""
+    """Parse the feature_surface_map.md into structured data.
+
+    Duplicate keys within a section are recorded in `duplicates` so map
+    hygiene can flag them (the last occurrence silently wins otherwise).
+    """
     result = {
         "feature_to_doc": {},
         "cli_to_doc": {},
@@ -88,6 +92,7 @@ def parse_surface_map(path: Path) -> dict:
         "settings_to_doc": {},
         "ignore_flags": set(),
         "unlisted_ignore": set(),
+        "duplicates": [],
     }
     if not path.exists():
         return result
@@ -113,9 +118,13 @@ def parse_surface_map(path: Path) -> dict:
             continue
 
         if current_section == "ignore":
+            if line in result["ignore_flags"]:
+                result["duplicates"].append(("Flags to ignore", line))
             result["ignore_flags"].add(line)
             continue
         if current_section == "unlisted":
+            if line in result["unlisted_ignore"]:
+                result["duplicates"].append(("Unlisted docs pages", line))
             result["unlisted_ignore"].add(line)
             continue
 
@@ -123,16 +132,18 @@ def parse_surface_map(path: Path) -> dict:
             key, doc_path = line.split(" -> ", 1)
             key = key.strip()
             doc_path = doc_path.strip()
-            if current_section == "features":
-                result["feature_to_doc"][key] = doc_path
-            elif current_section == "cli":
-                result["cli_to_doc"][key] = doc_path
-            elif current_section == "api":
-                result["api_to_doc"][key] = doc_path
-            elif current_section == "slash":
-                result["slash_to_doc"][key] = doc_path
-            elif current_section == "settings":
-                result["settings_to_doc"][key] = doc_path
+            section_targets = {
+                "features": ("Feature flags", result["feature_to_doc"]),
+                "cli": ("CLI commands", result["cli_to_doc"]),
+                "api": ("API endpoints", result["api_to_doc"]),
+                "slash": ("Slash commands", result["slash_to_doc"]),
+                "settings": ("Settings", result["settings_to_doc"]),
+            }
+            if current_section in section_targets:
+                section_name, mapping = section_targets[current_section]
+                if key in mapping:
+                    result["duplicates"].append((section_name, key))
+                mapping[key] = doc_path
 
     return result
 
@@ -1742,6 +1753,31 @@ def audit_map_hygiene(surface_map: dict, flag_statuses: dict[str, str],
     repo_root = DOCS_REPO_ROOT[0] or docs_root.parent.parent.parent
     known_flags = set(flag_statuses)
 
+    # Map integrity: a flag must not be both mapped and ignored (the audit
+    # checks the ignore list first, so the mapping would silently lose).
+    for flag in sorted(set(surface_map.get("feature_to_doc", {}))
+                       & surface_map.get("ignore_flags", set())):
+        findings.append({
+            "entry": flag,
+            "section": "Feature flags + Flags to ignore",
+            "severity": "medium",
+            "reason": (
+                f"'{flag}' appears in BOTH the feature mapping and the ignore "
+                "list — the ignore entry wins silently; remove one"
+            ),
+        })
+    # Map integrity: duplicate keys within a section (last occurrence wins).
+    for section_name, key in surface_map.get("duplicates", []):
+        findings.append({
+            "entry": key,
+            "section": section_name,
+            "severity": "medium",
+            "reason": (
+                f"Duplicate entry '{key}' in the {section_name} section — the "
+                "last occurrence silently wins; remove the extra line"
+            ),
+        })
+
     for flag in sorted(surface_map.get("feature_to_doc", {})):
         if flag not in known_flags:
             findings.append({
@@ -2203,6 +2239,183 @@ def changelog_review_findings(changelog_entries: list[dict],
     return findings
 
 # ---------------------------------------------------------------------------
+# Completeness accounting
+# ---------------------------------------------------------------------------
+
+def compute_accounting(docs_root: Path, surface_map: dict, findings: dict,
+                       flag_statuses: dict[str, str], cli_commands: list[dict],
+                       api_routes: list[dict], slash_commands: list[str],
+                       settings: dict[str, dict],
+                       docs_text: dict[str, str]) -> dict:
+    """Partition every extracted surface item into exactly one accountability
+    bucket and prove totality.
+
+    Every item must be mapped, ignored, covered by docs, a visible finding, or
+    snapshot-tracked (non-GA). `unaccounted` lists anything that escapes all
+    buckets — it must be empty; a non-empty list means the audit logic
+    regressed and the run is treated as incomplete (exit 2).
+    """
+    repo_root = DOCS_REPO_ROOT[0] or docs_root.parent.parent.parent
+    acc: dict = {}
+    unaccounted: dict[str, list[str]] = {}
+
+    # Feature flags ---------------------------------------------------------
+    mapped = set(surface_map.get("feature_to_doc", {}))
+    ignored = surface_map.get("ignore_flags", set())
+    flag_findings = {f.get("flag") for f in findings.get("undocumented_features", [])}
+    fb = {"total": len(flag_statuses), "ga_preview": 0, "ignored": 0,
+          "mapped": 0, "finding": 0, "tracked_non_ga": 0}
+    missing = []
+    for flag, status in flag_statuses.items():
+        if status not in ("ga", "preview"):
+            fb["tracked_non_ga"] += 1
+            continue
+        fb["ga_preview"] += 1
+        if flag in ignored:
+            fb["ignored"] += 1
+        elif flag in mapped:
+            fb["mapped"] += 1
+        elif flag in flag_findings:
+            fb["finding"] += 1
+        else:
+            missing.append(flag)
+    if missing:
+        unaccounted["feature_flags"] = missing
+    acc["feature_flags"] = fb
+
+    # CLI commands -----------------------------------------------------------
+    cli_map = surface_map.get("cli_to_doc", {})
+    cli_findings = {f.get("command") for f in findings.get("undocumented_cli_commands", [])}
+    cli_text = {}
+    cli_docs_dir = docs_root / "reference" / "cli"
+    if cli_docs_dir.exists():
+        for f in find_markdown_files(cli_docs_dir):
+            try:
+                cli_text[str(f)] = f.read_text(encoding="utf-8").lower()
+            except Exception:
+                pass
+    cb = {"total": 0, "hidden": 0, "mapped": 0, "doc_covered": 0,
+          "finding": 0, "parent_flagged": 0}
+    missing = []
+    for cmd in cli_commands:
+        entries = [(cmd["command"], cmd["hidden"], None)] + [
+            (s["command"], s["hidden"], cmd["command"]) for s in cmd["subcommands"]]
+        for name, hidden, parent in entries:
+            cb["total"] += 1
+            if hidden:
+                cb["hidden"] += 1
+            elif name in cli_map:
+                cb["mapped"] += 1
+            elif any(name.split(" ", 1)[1] in t for t in cli_text.values()):
+                cb["doc_covered"] += 1
+            elif name in cli_findings:
+                cb["finding"] += 1
+            elif parent in cli_findings:
+                cb["parent_flagged"] += 1
+            else:
+                missing.append(name)
+    if missing:
+        unaccounted["cli_commands"] = missing
+    acc["cli_commands"] = cb
+
+    # API routes -------------------------------------------------------------
+    api_map = surface_map.get("api_to_doc", {})
+    api_findings = {f.get("route") for f in findings.get("undocumented_api_endpoints", [])}
+    openapi_candidates = [
+        repo_root / "developers" / "agent-api-openapi.yaml",
+        docs_root / "developers" / "agent-api-openapi.yaml",
+    ]
+    openapi_path = next((c for c in openapi_candidates if c.exists()), openapi_candidates[0])
+    openapi_text = ""
+    if openapi_path.exists():
+        try:
+            openapi_text = openapi_path.read_text(encoding="utf-8").lower()
+        except Exception:
+            pass
+    spec_paths = parse_openapi_paths(openapi_text)
+    api_docs_text = {}
+    api_docs_dir = docs_root / "reference" / "api-and-sdk"
+    if api_docs_dir.exists():
+        for f in find_markdown_files(api_docs_dir):
+            try:
+                api_docs_text[str(f)] = f.read_text(encoding="utf-8").lower()
+            except Exception:
+                pass
+    ab = {"total": len(api_routes), "mapped": 0, "spec_covered": 0,
+          "docs_covered": 0, "finding": 0}
+    missing = []
+    for route in api_routes:
+        rel = route["path"]
+        if rel.startswith("/api/v1"):
+            rel = rel[len("/api/v1"):] or "/"
+        rel_str = f"{route['method']} {rel}"
+        if route["route"] in api_map or rel_str in api_map:
+            ab["mapped"] += 1
+        elif (_normalize_path_params(rel) in spec_paths
+              or _normalize_path_params(route["path"]) in spec_paths):
+            ab["spec_covered"] += 1
+        elif any(c in openapi_text or any(c in t for t in api_docs_text.values())
+                 for c in {route["path"].lower(), rel.lower()}):
+            ab["docs_covered"] += 1
+        elif rel_str in api_findings:
+            ab["finding"] += 1
+        else:
+            missing.append(rel_str)
+    if missing:
+        unaccounted["api_routes"] = missing
+    acc["api_routes"] = ab
+
+    # Slash commands ----------------------------------------------------------
+    slash_map = surface_map.get("slash_to_doc", {})
+    slash_findings = {f.get("command") for f in findings.get("undocumented_slash_commands", [])}
+    sb = {"total": len(slash_commands), "mapped": 0, "doc_covered": 0, "finding": 0}
+    missing = []
+    for name in slash_commands:
+        if name in slash_map:
+            sb["mapped"] += 1
+        elif any(_slash_mention_re(name).search(t) for t in docs_text.values()):
+            sb["doc_covered"] += 1
+        elif name in slash_findings:
+            sb["finding"] += 1
+        else:
+            missing.append(name)
+    if missing:
+        unaccounted["slash_commands"] = missing
+    acc["slash_commands"] = sb
+
+    # Settings ----------------------------------------------------------------
+    settings_map = surface_map.get("settings_to_doc", {})
+    setting_findings = {f.get("setting") for f in findings.get("undocumented_settings", [])}
+    doc_sections, _ = parse_settings_doc(docs_root)
+    tb = {"total": len(settings), "private": 0, "tracked_non_ga": 0,
+          "mapped": 0, "doc_covered": 0, "finding": 0}
+    missing = []
+    for path, info in settings.items():
+        status = setting_status(info, flag_statuses)
+        if status == "private":
+            tb["private"] += 1
+            continue
+        if status in ("dogfood", "other"):
+            tb["tracked_non_ga"] += 1
+            continue
+        hierarchy, _, key = path.rpartition(".")
+        if path in settings_map:
+            tb["mapped"] += 1
+        elif (key in doc_sections.get(hierarchy, set()) or path in doc_sections
+              or any(s.startswith(path + ".") for s in doc_sections)):
+            tb["doc_covered"] += 1
+        elif path in setting_findings:
+            tb["finding"] += 1
+        else:
+            missing.append(path)
+    if missing:
+        unaccounted["settings"] = missing
+    acc["settings"] = tb
+
+    acc["unaccounted"] = unaccounted
+    return acc
+
+# ---------------------------------------------------------------------------
 # Report generation
 # ---------------------------------------------------------------------------
 
@@ -2233,7 +2446,8 @@ REPORT_CATEGORIES = [
 
 
 def generate_report(findings_by_category: dict[str, list], audits_run: list[str],
-                    audits_skipped: list[dict], mode: str) -> dict:
+                    audits_skipped: list[dict], mode: str,
+                    accounting: dict | None = None) -> dict:
     """Assemble the full audit report."""
     total = sum(len(v) for v in findings_by_category.values())
     report = {
@@ -2248,6 +2462,8 @@ def generate_report(findings_by_category: dict[str, list], audits_run: list[str]
             },
         },
     }
+    if accounting is not None:
+        report["summary"]["accounting"] = accounting
     for key, _, _ in REPORT_CATEGORIES:
         report[key] = findings_by_category.get(key, [])
     return report
@@ -2270,6 +2486,24 @@ def print_report(report: dict) -> None:
         if count:
             print(f"  {category}: {count}")
     print()
+
+    accounting = summary.get("accounting")
+    if accounting:
+        print("-" * 60)
+        print("COMPLETENESS ACCOUNTING (every item in exactly one bucket)")
+        print("-" * 60)
+        for surface, buckets in accounting.items():
+            if surface == "unaccounted":
+                continue
+            parts = ", ".join(f"{k}={v}" for k, v in buckets.items())
+            print(f"  {surface}: {parts}")
+        if accounting.get("unaccounted"):
+            print("  !! UNACCOUNTED ITEMS (audit logic regression):")
+            for surface, items in accounting["unaccounted"].items():
+                print(f"    {surface}: {items}")
+        else:
+            print("  unaccounted: none — every extracted surface item is accounted for")
+        print()
 
     severity_order = {"high": 0, "medium": 1, "low": 2}
 
@@ -2580,6 +2814,24 @@ def main():
                 ),
             })
 
+    # Completeness accounting: prove every extracted surface item lands in
+    # exactly one accountability bucket. Runs on full audits with healthy
+    # extraction; any unaccounted item means an audit-logic regression and
+    # the run is treated as incomplete.
+    accounting = None
+    if args.category is None and warp_internal and warp_server and extraction_ok:
+        accounting = compute_accounting(
+            docs_root, surface_map, findings, flag_statuses, cli_commands,
+            api_routes, slash_commands, settings, docs_text)
+        if accounting["unaccounted"]:
+            audits_skipped.append({
+                "audit": "integrity:accounting",
+                "reason": (
+                    "surface items escaped every accountability bucket "
+                    f"(audit logic regression): {accounting['unaccounted']}"
+                ),
+            })
+
     # Filter by severity
     if args.severity:
         severity_order = {"high": 0, "medium": 1, "low": 2}
@@ -2591,7 +2843,8 @@ def main():
             ]
 
     mode = "diff" if args.diff else "audit"
-    report = generate_report(findings, audits_run, audits_skipped, mode)
+    report = generate_report(findings, audits_run, audits_skipped, mode,
+                             accounting=accounting)
 
     print_report(report)
 
