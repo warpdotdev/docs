@@ -120,6 +120,8 @@ jobs:
       # 1. workflow_dispatch succeeds.
       # 2. the channel-versions dispatch sender is tested.
       # 3. required secrets, variables, and cross-repo permissions are configured.
+      # WARP_AGENT_PROFILE should be set to the Docs Agent on prod Oz (oz.warp.dev).
+      # That agent has GRAFANA_API_KEY configured for on-call reviewer assignment.
       - name: Run release docs update with Oz
         uses: warpdotdev/oz-agent-action@v1
         with:
@@ -151,8 +153,8 @@ jobs:
             - all tasks: `python3 .agents/skills/release_updates/scripts/run_release_updates.py --create-pr --pr-base main`
 
             Include `--pr-draft` when create_draft_pr is true.
-            Always include `--pr-auto-merge` (marks the PR ready for review and enables squash auto-merge).
+            Include `--pr-auto-merge` when create_draft_pr is false (enables squash auto-merge and marks PR ready for review).
+            Never pass both --pr-draft and --pr-auto-merge together.
             When assign_oncall_reviewers is true, include:
               --assign-oncall-reviewer --oncall-schedule-id S1BRQ4BYUP5WN --oncall-max-reviewers 2
             This resolves up to 2 reviewers (primary + secondary) from the client on-call schedule.
-            If GRAFANA_API_KEY is not set, skip reviewer assignment and log a warning.
