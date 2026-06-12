@@ -6,6 +6,57 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2026.06.10 (v0.2026.06.10.09.27)
+
+**New features**
+
+* Git operations are now supported on remote sessions ([#12230](https://github.com/warpdotdev/warp/pull/12230))
+
+**Improvements**
+
+* Added a toggle to show hidden files in the Project Explorer. ([#9532](https://github.com/warpdotdev/warp/pull/9532))
+* Remote sessions now discover and apply project rules such as `WARP.md` and `AGENTS.md`. ([#11460](https://github.com/warpdotdev/warp/pull/11460))
+* Added a setting to submit Rich Input on Ctrl+Enter, so Enter inserts a newline for easier multi-line prompt composition with CLI agents. ([#11723](https://github.com/warpdotdev/warp/pull/11723))
+* Added keyboard shortcuts for cycling through orchestrator and subagent sessions in Agent Mode. ([#11760](https://github.com/warpdotdev/warp/pull/11760))
+* Added a way to jump directly to the latest agent message in the terminal. ([#11924](https://github.com/warpdotdev/warp/pull/11924))
+* Mermaid diagrams now tolerate and apply supported frontmatter formatting directives when rendered in Warp. ([#12155](https://github.com/warpdotdev/warp/pull/12155))
+* Queued prompt rows now render at the same text size as the prompt input. ([#12171](https://github.com/warpdotdev/warp/pull/12171))
+* Added a setting to hide the title bar search bar in the vertical tab layout. ([#12249](https://github.com/warpdotdev/warp/pull/12249))
+* Terminal commands can now be queued in addition to prompts. ([#12259](https://github.com/warpdotdev/warp/pull/12259))
+* Improved detection of natural-language input versus shell commands in the input editor. ([#12273](https://github.com/warpdotdev/warp/pull/12273))
+* Enabled input method editor (IME) support on Linux X11 for composing non-Latin text. ([#12277](https://github.com/warpdotdev/warp/pull/12277))
+* Improved the error message shown when Warp loses connection while receiving an agent response. ([#12382](https://github.com/warpdotdev/warp/pull/12382))
+
+**Bug fixes**
+
+* Fixed terminal secret redaction when multibyte UTF-8 characters appear before a custom redaction regex match. ([#9521](https://github.com/warpdotdev/warp/pull/9521))
+* Fix block navigation with arrow keys, when focused a block (no longer triggers input editor dropdown navigation). Introduced a setting for this as well, to configure whether input takes back focus. ([#10095](https://github.com/warpdotdev/warp/pull/10095))
+* Fixed the IME composition cursor area not refreshing after a terminal redraw. ([#10443](https://github.com/warpdotdev/warp/pull/10443))
+* Fixed the MCP server “+ Add” flow bypassing the secret redaction check. ([#11297](https://github.com/warpdotdev/warp/pull/11297))
+* Fixed browser keyboard shortcuts being intercepted in WASM (browser) sessions. ([#11778](https://github.com/warpdotdev/warp/pull/11778))
+* Fixed focus reporting events not being emitted for normal-screen terminal applications. ([#11946](https://github.com/warpdotdev/warp/pull/11946))
+* Fixed latency between commands caused by the Node.js version prompt chip running `node --version` on every prompt; detection is now skipped when the chip is disabled and cached otherwise. ([#11986](https://github.com/warpdotdev/warp/pull/11986))
+* Fix discovery and refresh of symlinked project skills in remote repositories. ([#12051](https://github.com/warpdotdev/warp/pull/12051))
+* Fixed the Nix flake build by correcting the enabled build features. ([#12070](https://github.com/warpdotdev/warp/pull/12070))
+* Fixed a crash that could occur after clearing and resizing a terminal with scrollback. ([#12085](https://github.com/warpdotdev/warp/pull/12085))
+* Fixed focus jumping to the prompt input while navigating an AI block's code diff hunks with the arrow keys during an agent turn. ([#12107](https://github.com/warpdotdev/warp/pull/12107))
+* Reduced memory usage of the file watcher on large projects by no longer watching gitignored directories (e.g. node_modules, build output). ([#12122](https://github.com/warpdotdev/warp/pull/12122))
+* Fixed a “cannot detect diffs” error in the code review view for some repositories. ([#12126](https://github.com/warpdotdev/warp/pull/12126))
+* Fixed excessive memory usage (and inotify watch exhaustion) on Linux when a Warp session navigated into a large non-git directory; lazy directory roots are now watched incrementally as folders are expanded instead of recursively up front. ([#12176](https://github.com/warpdotdev/warp/pull/12176))
+* Fixed the app hanging when switching tabs in very large repositories. ([#12221](https://github.com/warpdotdev/warp/pull/12221))
+* Fixed file search returning no results for very large repositories. ([#12226](https://github.com/warpdotdev/warp/pull/12226))
+* Discover project skills under force-included paths when repo metadata is lazily loaded. ([#12235](https://github.com/warpdotdev/warp/pull/12235))
+* Fixed skill path normalization on Windows when paths use backslash separators. ([#12281](https://github.com/warpdotdev/warp/pull/12281))
+* Fixed incorrect results in file search filtering. ([#12379](https://github.com/warpdotdev/warp/pull/12379))
+* Applied the latest security patches. ([#12411](https://github.com/warpdotdev/warp/pull/12411))
+
+**Oz updates**
+
+* Agent handoff surfaces now accept empty prompts and support handing off in a single click. ([#11576](https://github.com/warpdotdev/warp/pull/11576))
+* Added a setting to control whether orchestration messages are expanded or collapsed by default. ([#12219](https://github.com/warpdotdev/warp/pull/12219))
+* Long-running command agent boxes can now be resized by dragging their top or left edge. ([#12236](https://github.com/warpdotdev/warp/pull/12236))
+* Fixed CLI subagent interactions being unexpectedly cancelled for Oz agents. ([#12384](https://github.com/warpdotdev/warp/pull/12384))
+
 ### 2026.06.03 (v0.2026.06.03.09.49)
 
 **New features**
