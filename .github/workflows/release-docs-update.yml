@@ -121,7 +121,7 @@ jobs:
       - name: Run release docs update with Oz
         uses: warpdotdev/oz-agent-action@v1
         with:
-          skill: warpdotdev/docs:release_updates
+          skill: release_updates
           warp_api_key: ${{ secrets.WARP_API_KEY }}
           prompt: |
             Run the release docs update workflow from the `release_updates` skill.
