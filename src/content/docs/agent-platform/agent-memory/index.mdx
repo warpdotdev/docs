@@ -28,16 +28,14 @@ Watch this short preview to see Agent Memory in context.
 * **Both local and cloud agents** - Supports interactive local agents in Warp and background cloud agents.
 * **Asynchronous by design** - Memory creation runs after a conversation ends. Retrieval runs in the background during a run. Neither consumes tokens or adds latency to the active task.
 * **Automatic memory from conversations** - When a conversation ends, Oz extracts durable facts, learnings, and outcomes and writes them as memories. New knowledge merges with existing memories or supersedes them on conflict.
-* **Agent-scoped, shareable stores** - By default, each agent has its own memory store. Stores can also be shared across multiple agents, or across an entire team, when the same knowledge should travel with the work.
+* **Shareable stores** - Memory is organized into stores that can be attached to specific agents, shared across multiple agents, or shared across an entire team when the same knowledge should travel with the work.
 * **Per-agent access and instructions** - Attach stores to specific agents with read-only or read-write access. Per-store instructions tell each agent how and when to use the store.
-* **Fully accessible via API** - Memories and stores can be read, created, updated, and deleted through the [Oz API](/reference/api-and-sdk/).
-* **Traceability** - Memory retrievals are recorded so teams can inspect which memories contributed to a run's context.
+* **Traceability** - Each memory records where it came from, so teams can trace a memory back to its source.
 * **Auditability** - Every change to a memory is recorded so teams can inspect how a memory has changed over time.
-* **Self-hosting support** - Enterprises can run Agent Memory on a [self-hosted Oz](/agent-platform/cloud-agents/self-hosting/) instance to meet security, privacy, and compliance requirements.
 
 ## Where Agent Memory runs
 
-Agent Memory is part of Oz. Storage, memory creation, and retrieval all run on the same Oz instance that hosts your agents. That instance can be Warp-hosted Oz (the default) or a [self-hosted Oz](/agent-platform/cloud-agents/self-hosting/) instance that your team operates inside its own perimeter. The same memory is accessible from any agent you run on Oz:
+Agent Memory is part of Oz. Storage, memory creation, and retrieval all run on Oz alongside your agents. The same memory is accessible from any agent you run on Oz:
 
 * The local Warp Agent.
 * Cloud agents triggered from the CLI, web app, schedules, or integrations.
@@ -47,7 +45,7 @@ Memory stays bound to its owner (a user or a team), independent of which harness
 
 ## Memory stores
 
-A memory store is a named collection of memories. By default, each agent has its own store that it writes to as it runs. Stores can also be shared across multiple agents when they need the same knowledge, and across teammates when knowledge should travel with the team.
+A memory store is a named collection of memories. Stores can be attached to individual agents, shared across multiple agents when they need the same knowledge, and shared across teammates when knowledge should travel with the team.
 
 * **Personal stores** - Owned by a user. Store memories about preferences, working notes, and individual patterns.
 * **Team stores** - Owned by a team. Store shared knowledge like deployment runbooks, code review conventions, or on-call procedures. Every team member, and any agent the team authorizes, can read from the same store.
@@ -81,5 +79,3 @@ Agent Memory is rolling out to design partner teams during research preview. [Jo
 * [Skills](/agent-platform/capabilities/skills/) - Reusable, scoped instructions that teach agents how to perform specific tasks.
 * [Agent profiles and permissions](/agent-platform/capabilities/agent-profiles-permissions/) - Control what permissions and autonomy agents have.
 * [Cloud agents overview](/agent-platform/cloud-agents/overview/) - Run background agents with team-wide observability.
-* [Self-hosting overview](/agent-platform/cloud-agents/self-hosting/) - Run Oz, and Agent Memory along with it, on your own infrastructure.
-* [Oz API and SDK](/reference/api-and-sdk/) - Read, create, update, and delete memories and stores programmatically.
