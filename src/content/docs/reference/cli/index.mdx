@@ -367,11 +367,62 @@ The following commands are available for managing and inspecting Oz resources.
 
 ### `oz agent list`
 
-List all available skills discovered from your environments. Optionally filter by repository:
+List your team's [cloud agents](/agent-platform/cloud-agents/agents/):
 
 ```sh
 oz agent list
-oz agent list --repo owner/repo
+oz agent list --sort-by created-at --sort-order desc
+```
+
+**Key flags**
+
+* `--sort-by <FIELD>` — sort by `name` or `created-at`.
+* `--sort-order <ORDER>` — sort in `asc` or `desc` order.
+
+### `oz agent get` / `oz agent create` / `oz agent update` / `oz agent delete`
+
+Manage [cloud agents](/agent-platform/cloud-agents/agents/) — named agents with attached skills, secrets, a base model, and a default environment:
+
+```sh
+# Create an agent with a skill and a secret attached
+oz agent create --name "release-bot" \
+  --description "Cuts weekly releases" \
+  --skill myorg/tools:release-notes \
+  --secret GH_TOKEN \
+  --base-model auto \
+  --environment <ENVIRONMENT_ID>
+
+# Inspect, modify, and delete an agent by its UID
+oz agent get <AGENT_UID>
+oz agent update <AGENT_UID> --add-skill myorg/tools:changelog --remove-secret OLD_TOKEN
+oz agent delete <AGENT_UID>
+```
+
+**Key flags for `create`**
+
+* `--name <NAME>` (`-n`) — required; name for the agent.
+* `--base-model <MODEL_ID>` — base model the agent uses. Use `oz model list` to see available models.
+* `--description <TEXT>` — description of what the agent does.
+* `--environment <ENVIRONMENT_ID>` (`-e`) — default environment for the agent's runs.
+* `--secret <NAME>` — attach a [secret](/agent-platform/cloud-agents/secrets/) by name. Can be repeated.
+* `--skill <SKILL>` — attach a [skill](/agent-platform/capabilities/skills/). Can be repeated.
+
+**Key flags for `update`**
+
+* `--name <NAME>` (`-n`) — rename the agent.
+* `--add-secret <NAME>` / `--remove-secret <NAME>` — attach or detach a secret. Can be repeated. Use `--remove-all-secrets` to detach every secret.
+* `--add-skill <SKILL>` / `--remove-skill <SKILL>` — attach or detach a skill. Can be repeated. Use `--remove-all-skills` to detach every skill.
+* `--base-model <MODEL_ID>` / `--remove-base-model` — set or clear the base model.
+* `--description <TEXT>` / `--remove-description` — set or clear the description.
+* `--environment <ENVIRONMENT_ID>` (`-e`) / `--remove-environment` — set or clear the default environment.
+
+### `oz agent skills`
+
+List all available skills discovered from your environments. Optionally filter by repository:
+
+```sh
+oz agent skills
+oz agent skills --repo owner/repo
 ```
 
 ### `oz run list` / `oz run get`
@@ -386,6 +437,42 @@ oz run list --limit 20
 # Get details for a specific run
 oz run get <RUN_ID>
 ```
+
+### `oz run conversation get`
+
+Retrieve the conversation transcript for a run's conversation:
+
+```sh
+oz run conversation get <CONVERSATION_ID>
+```
+
+### `oz run message`
+
+Send and inspect messages between agent runs — the same inbox agents use for [multi-agent coordination](/agent-platform/cloud-agents/orchestration/multi-agent-runs/):
+
+```sh
+# Send a message to one or more runs
+oz run message send --sender-run-id <RUN_ID> --to <RECIPIENT_RUN_ID> \
+  --subject "Tests passed" --body "All tests green; safe to merge."
+
+# List a run's inbox
+oz run message list <RUN_ID> --unread --limit 20
+
+# Read a full message body, then acknowledge it
+oz run message read <MESSAGE_ID>
+oz run message mark-delivered <MESSAGE_ID>
+
+# Stream new messages as they arrive
+oz run message watch <RUN_ID>
+```
+
+**Subcommands**
+
+* `send` — send a message. Flags: `--to <RUN_ID>` (required; can be repeated), `--subject <TEXT>`, `--body <TEXT>`, and `--sender-run-id <RUN_ID>`.
+* `list <RUN_ID>` — list messages in a run's inbox. Flags: `--unread` (only undelivered messages), `--since <TIMESTAMP>` (RFC 3339), and `--limit <N>` (`-L`, default 50).
+* `read <MESSAGE_ID>` — print a message's full body.
+* `mark-delivered <MESSAGE_ID>` — mark a message as delivered so it no longer appears as unread. Alias: `delivered`.
+* `watch <RUN_ID>` — stream new messages for a run as they arrive. Use `--since-sequence <N>` to resume from a sequence cursor after a disconnect.
 
 ### `oz model list`
 
@@ -402,6 +489,92 @@ List suggested base images for cloud environments:
 ```sh
 oz environment image list
 ```
+
+### `oz schedule`
+
+Create and manage [scheduled agents](/agent-platform/cloud-agents/triggers/scheduled-agents/) that run on a cron cadence. Running `oz schedule` with no subcommand is shorthand for `oz schedule create`:
+
+```sh
+# Create a schedule that runs a skill every Monday at 9 AM
+oz schedule create --name "weekly-dep-check" --cron "0 9 * * 1" \
+  --skill myorg/backend:dependency-check --environment <ENVIRONMENT_ID>
+
+# Inspect and manage schedules
+oz schedule list
+oz schedule get <SCHEDULE_ID>
+oz schedule update <SCHEDULE_ID> --cron "0 9 * * 2"
+oz schedule pause <SCHEDULE_ID>
+oz schedule unpause <SCHEDULE_ID>
+oz schedule delete <SCHEDULE_ID>
+```
+
+**Key flags for `create`**
+
+* `--name <NAME>` — required; name for the schedule.
+* `--cron <EXPR>` — required; cron expression for the cadence (for example, `"0 9 * * 1"` runs at 9 AM every Monday).
+* `--prompt <TEXT>` (`-p`) — prompt to run on each trigger. At least one of `--prompt` or `--skill` is required.
+* `--skill <SPEC>` — skill to run on each trigger (see [Using skills](/reference/cli/#using-skills)).
+* `--environment <ENVIRONMENT_ID>` (`-e`) — environment for the scheduled runs; `--no-environment` runs without one (not recommended).
+* `--file <PATH>` (`-f`) — load configuration from a YAML or JSON file.
+* `--host <WORKER_ID>` — run on a specific self-hosted worker.
+* `--mcp <SPEC>` — start one or more MCP servers before execution. Can be repeated.
+* `--model <MODEL_ID>` — override the default model.
+* `--team` / `--personal` — create the schedule in your team's scope or your personal scope.
+
+**Key flags for `update`**
+
+* `--name <NAME>`, `--cron <EXPR>`, `--prompt <TEXT>`, and `--host <WORKER_ID>` — update the corresponding setting.
+* `--skill <SPEC>` / `--remove-skill` — set or clear the skill.
+* `--mcp <SPEC>` / `--remove-mcp <SERVER_NAME>` — add or remove MCP servers.
+
+`pause` stops future runs without deleting the schedule; `unpause` (alias: `resume`) restarts them.
+
+### `oz secret`
+
+Manage [secrets](/agent-platform/cloud-agents/secrets/) that cloud agents can use at runtime:
+
+```sh
+# Create a secret (value read from stdin unless --value-file is set)
+oz secret create MY_TOKEN --description "Deploy token" --team
+oz secret create MY_TOKEN --value-file ./token.txt
+
+# Create provider auth secrets for third-party harnesses
+oz secret create claude api-key <NAME>
+oz secret create codex api-key <NAME>
+
+# Inspect and manage secrets
+oz secret list
+oz secret update MY_TOKEN --value
+oz secret delete MY_TOKEN --force
+```
+
+**Key flags for `create`**
+
+* `--description <TEXT>` (`-d`) — description of the secret.
+* `--team` / `--personal` — store the secret in your team's scope or your personal scope.
+* `--type <TYPE>` (`-t`) — secret type: `raw-value` (default) or `anthropic-api-key`.
+* `--value-file <PATH>` (`-f`) — read the value from a file instead of standard input.
+
+Provider-specific forms create harness auth secrets: `oz secret create claude api-key|bedrock-api-key|bedrock-access-key <NAME>` and `oz secret create codex api-key <NAME> [--base-url <URL>]`. See [Bring your own API key](/agent-platform/inference/bring-your-own-api-key/) for how these secrets are used.
+
+**Key flags for `update`**
+
+* `--value` — prompt for a new value, or `--value-file <PATH>` to read it from a file.
+* `--description <TEXT>` (`-d`) — update the description.
+
+`delete <NAME>` removes a secret; `--force` skips the confirmation prompt.
+
+### `oz provider setup` / `oz provider list`
+
+Connect trigger providers so external tools can dispatch agents, and list configured providers:
+
+```sh
+oz provider setup linear
+oz provider setup slack
+oz provider list
+```
+
+`setup` takes a provider type (`linear` or `slack`) and walks you through authorizing the [integration](/agent-platform/cloud-agents/integrations/) for your team.
 
 ### `oz artifact get` / `oz artifact download`
 

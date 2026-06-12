@@ -1025,6 +1025,7 @@
     "warp_drive.sorting_choice": "always_on",
     "warpify.ssh.enable_legacy_ssh_wrapper": "always_on",
     "warpify.ssh.enable_ssh_warpification": "always_on",
+    "warpify.ssh.reuse_existing_control_master": "always_on",
     "warpify.ssh.ssh_extension_install_mode": "always_on",
     "warpify.ssh.ssh_hosts_denylist": "always_on",
     "warpify.ssh.use_ssh_tmux_wrapper": "always_on",

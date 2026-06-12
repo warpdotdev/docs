@@ -98,6 +98,28 @@ The Warp app also shows additional metadata that isn't surfaced in the Oz web ap
 * **Created** — When the key was created.
 * **Last used** — When the key was last used for authentication.
 
+### From the CLI
+
+The Oz CLI can list, create, and expire API keys directly — useful for scripting key rotation:
+
+```sh
+# List active keys
+oz api-key list --sort-by created-at --sort-order desc
+
+# Create a personal key that expires in 30 days
+oz api-key create ci-key --expires-in 30d
+
+# Create an agent key tied to a cloud agent
+oz api-key create release-bot-key --agent <AGENT_UID> --no-expiration
+
+# Immediately expire a key by name or UID
+oz api-key expire ci-key
+```
+
+* `oz api-key list` — list your keys. Flags: `--sort-by <FIELD>` (`name`, `created-at`, `last-used-at`, `expires-at`, or `scope`) and `--sort-order <ORDER>` (`asc` or `desc`).
+* `oz api-key create <NAME>` — create a key. Exactly one expiration flag is required: `--expires-in <DURATION>` (for example, `30d` or `12h`), `--expires-at <TIMESTAMP>` (RFC 3339), or `--no-expiration`. Pass `--agent <AGENT_UID>` to create an agent key that runs as a [cloud agent](/agent-platform/cloud-agents/agents/); omit it for a personal key.
+* `oz api-key expire <NAME_OR_UID>` — immediately expire a key. `--force` skips the confirmation prompt. Alias: `delete`.
+
 ### Deleting API keys
 
 To delete an API key, find it in either the Oz web app or the Warp app's API Keys list and click the delete icon next to the key.
