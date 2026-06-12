@@ -179,7 +179,7 @@ def main() -> int:
     checks: dict[str, Any] = {
         "commands": {},
         "gh_authenticated": None,
-        "grafana_api_key_present": None,
+        "docs_agent_grafana_token_present": None,
         "oncall_resolver_exists": None,
         "local_channel_versions_present": None,
     }
@@ -252,10 +252,10 @@ def main() -> int:
             f"{resolver_path}. Pass --oncall-resolver-script.",
         )
 
-    grafana_api_key_present = bool(os.environ.get("GRAFANA_API_KEY"))
-    checks["grafana_api_key_present"] = grafana_api_key_present
-    if args.require_oncall_reviewer and not grafana_api_key_present:
-        errors.append("Missing required env var for reviewer assignment: GRAFANA_API_KEY")
+    docs_agent_grafana_token_present = bool(os.environ.get("DOCS_AGENT_GRAFANA_TOKEN"))
+    checks["docs_agent_grafana_token_present"] = docs_agent_grafana_token_present
+    if args.require_oncall_reviewer and not docs_agent_grafana_token_present:
+        errors.append("Missing required env var for reviewer assignment: DOCS_AGENT_GRAFANA_TOKEN")
 
     report: dict[str, Any] = {
         "generated_at_utc": utc_now_iso(),
