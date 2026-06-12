@@ -5,20 +5,15 @@ description: >-
   are limited to local sessions.
 ---
 
-When you [Warpify an SSH session](/terminal/warpify/ssh/), Warp's core terminal features — the input editor, completions, blocks, history search, and more — work the same as they do locally. With Warp's [SSH extension](/terminal/warpify/ssh/#installing-the-ssh-extension) installed on the remote host, additional coding features such as the file tree, native file reading, and native code diffs also work over SSH on macOS and Linux.
-
-This page documents which features are available based on which path you're on:
-
-* **SSH extension** - Installed on first connect when you choose **Install Warp's SSH extension**. Available on macOS and Linux remote hosts.
-* **Legacy tmux-based Warpification** - An older alternative that's being deprecated. It remains available today for clients that don't yet ship the SSH extension (for example, Windows clients). See [Legacy: tmux-based Warpification](/terminal/warpify/ssh/#legacy-tmux-based-warpification).
+When you [Warpify an SSH session](/terminal/warpify/ssh/), Warp's core terminal features — the input editor, completions, blocks, history search, and more — work the same as they do locally. With Warp's [SSH extension](/terminal/warpify/ssh/#installing-the-ssh-extension) installed on the remote host, coding features such as the file tree, the code editor, code review, codebase indexing, and native code diffs also work over SSH on macOS and Linux. The extension is installed on first connect when you choose **Install Warp's SSH extension** — see [Requirements](/terminal/warpify/ssh/#requirements) for supported hosts.
 
 :::note
-When a native tool isn't available on the current path, the Agent falls back to terminal commands (e.g. `cat`, `sed`, `grep`). You can still accomplish most coding tasks, but the experience is less seamless than working locally or through the SSH extension.
+When a native tool isn't available (for example, if you continue without installing the SSH extension), the Agent falls back to terminal commands (e.g. `cat`, `sed`, `grep`). You can still accomplish most coding tasks, but the experience is less seamless than working locally or through the SSH extension.
 :::
 
 ## Features that work over SSH
 
-The following features work in Warpified remote sessions on both paths:
+The following features work in all Warpified remote sessions, with or without the SSH extension:
 
 * **Agent Mode conversations** — Chat with the Agent, ask questions, and request code changes on the remote host.
 * **Running shell commands** — The Agent can execute commands on the remote machine on your behalf.
@@ -29,15 +24,21 @@ The following features work in Warpified remote sessions on both paths:
 The following features require the **SSH extension**:
 
 * **File tree (Project Explorer)** — The [file tree sidebar](/code/code-editor/file-tree/) reflects the remote project structure and updates as you navigate or change files.
+* **Code editor** — Open, view, and edit remote files in Warp's [code editor](/code/code-editor/) from the file tree or the Command Palette, then save back to the remote host. Warp detects conflicting changes on disk and prompts you to resolve them.
+* **Code review and git operations** — The [code review panel](/code/code-review/) works on remote repositories: review diffs, discard files, commit, push, and create PRs. AI-generated commit messages and PR descriptions are produced on the remote host.
+* **Codebase indexing** — Warp indexes the remote repository so Agents can semantically search it, the same as [Codebase Context](/agent-platform/capabilities/codebase-context/) locally.
+* **File search** — Search for remote files by name from the [Command Palette](/terminal/command-palette/).
+* **Project rules and skills** — Agents discover and use the remote project's rules (`WARP.md`) and skills.
 * **Native file reading** — The Agent reads remote files through Warp's built-in file reading tool instead of shelling out to `cat`.
 * **Native code diffs** — The Agent applies edits as inline [code diffs](/agent-platform/local-agents/code-diffs/) you can review and approve, instead of using `sed` or other shell commands.
 * **Reliable, parallel completions** — Generators run in parallel over a single multiplexed connection, so completions stop hitting the remote host's `MaxSessions` ceiling and stop occasionally injecting errors into your blocks.
 
 ## Features not yet available over SSH
 
-The following features require local filesystem access and are not yet available in Warpified remote (SSH) sessions on either path:
+The following features are not yet available in Warpified remote (SSH) sessions:
 
-* **Code editor (file open/edit UI)** — Warp's [native code editor](/code/code-editor/) is not yet available in remote sessions. You cannot open, view, or edit remote files in Warp's built-in editor.
+* **Language Server Protocol (LSP)** — [LSP features](/code/code-editor/language-server-protocol/) such as hover info, go-to-definition, and inline diagnostics are not available for remote files. SSH support is tracked in [GitHub #6831](https://github.com/warpdotdev/Warp/issues/6831).
+* **Agent orchestration** — [Multi-agent runs](/agent-platform/cloud-agents/orchestration/) cannot be launched from a remote session; the Agent works as a single agent on the remote host.
 * **Computer use** — The Agent cannot take screenshots or interact with the remote machine's desktop.
 
 :::note
