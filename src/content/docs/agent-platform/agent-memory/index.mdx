@@ -45,12 +45,12 @@ Memory stays bound to its owner (a user or a team), independent of which harness
 
 ## Memory stores
 
-A memory store is a named collection of memories. Stores can be attached to individual agents, shared across multiple agents when they need the same knowledge, and shared across teammates when knowledge should travel with the team.
+A memory store is a collection of memories. Stores can be attached to individual agents, shared across multiple agents when they need the same knowledge, and shared across teammates when knowledge should travel with the team.
 
 * **Personal stores** - Owned by a user. Store memories about preferences, working notes, and individual patterns.
 * **Team stores** - Owned by a team. Store shared knowledge like deployment runbooks, code review conventions, or on-call procedures. Every team member, and any agent the team authorizes, can read from the same store.
 
-Use multiple stores to keep contexts separate, and share stores across agents when needed. For example, a code review agent can have its own store of review patterns, while a repo-specific store of architectural decisions is shared between the code review agent and a Sentry triage agent so both reason about the same codebase.
+Teams can use multiple stores to keep contexts separate, and share stores across agents when needed. For example, a code review agent can use a dedicated store of review patterns, while a repo-specific store of architectural decisions is shared between the code review agent and a Sentry triage agent so both reason about the same codebase.
 
 ## Automatic memory from conversations
 
@@ -66,7 +66,7 @@ When an agent starts a task, Oz searches the stores the agent can access for rel
 
 ## Attaching memory to your agents
 
-Attach stores to agents with read-only or read-write access. Each attachment can include per-store instructions that tell the agent how and when to use the store. For example, use instructions like "Reference this store for team naming conventions" or "Write a new memory after each successful deployment." Without instructions, the agent can access the store but won't know when to read from or write to it.
+Attach stores to agents with read-only or read-write access. Each attachment includes per-store instructions that tell the agent how and when to use the store. For example, use instructions like "Reference this store for team naming conventions" or "Write a new memory after each successful deployment." Instructions are required on every attachment so the agent knows the purpose of each store.
 
 ## Join the waitlist
 
