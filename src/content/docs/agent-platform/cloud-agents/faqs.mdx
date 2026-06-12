@@ -116,7 +116,7 @@ To learn more about how secrets work in practice, see [Cloud Agent Secrets](/age
 
 The cloud agents platform is intentionally flexible. As the developer, you decide how agents should branch, coordinate, and resolve conflicts.
 
-Interactive agents can plan work and spawn subagents to parallelize tasks. Cloud agents provide the building blocks for running and coordinating multiple concurrent agents, rather than enforcing a fixed workflow.
+Interactive agents can plan work and spawn subagents to parallelize tasks. Cloud agents provide the building blocks for [multi-agent orchestration](/agent-platform/cloud-agents/orchestration/), running and coordinating multiple concurrent agents, rather than enforcing a fixed workflow.
 
 ### Why focus on orchestration primitives instead of immediately adopting new agent standards?
 
@@ -168,7 +168,7 @@ Agents are strongest when they can continuously validate progress (tests, lint, 
 
 Yes. A common cloud agent workflow:
 
-- When a ticket/issue is created (via integration trigger), a cloud agent gathers context (recent changes, logs/metrics links, ownership).
+- When a ticket/issue is created (via an [integration trigger](/agent-platform/cloud-agents/integrations/)), a cloud agent gathers context (recent changes, logs/metrics links, ownership).
 - Proposes labels/priority and likely causes.
 - Drafts next steps or a response.
 - Asks clarifying questions back to the reporter when needed.
@@ -182,7 +182,7 @@ Yes. Scheduled dependency bumps are a classic cloud agent use case:
 - Resolve simple conflicts.
 - Attach a risk summary (optional).
 
-This is usually implemented as a scheduled **cloud agent** producing recurring **runs**.
+This is usually implemented as a [scheduled cloud agent](/agent-platform/cloud-agents/triggers/scheduled-agents/) producing recurring **runs**.
 
 ### Can cloud agents keep docs up to date?
 
