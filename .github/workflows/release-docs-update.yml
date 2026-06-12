@@ -115,19 +115,14 @@ jobs:
               print("TRIGGER_CONTEXT_JSON", file=output)
           PY
 
-      # This workflow intentionally has no automatic push trigger yet.
-      # Enable automatic execution only after:
-      # 1. workflow_dispatch succeeds.
-      # 2. the channel-versions dispatch sender is tested.
-      # 3. required secrets, variables, and cross-repo permissions are configured.
-      # WARP_AGENT_PROFILE should be set to the Docs Agent on prod Oz (oz.warp.dev).
-      # That agent has DOCS_AGENT_GRAFANA_TOKEN configured for on-call reviewer assignment.
+      # WARP_API_KEY is the Docs Agent's API key on prod Oz
+      # (oz.warp.dev/agents/019eb332-2ee0-7417-8ecc-89260cf5b850).
+      # That agent has DOCS_AGENT_GRAFANA_TOKEN for on-call reviewer assignment.
       - name: Run release docs update with Oz
         uses: warpdotdev/oz-agent-action@v1
         with:
           skill: warpdotdev/docs:release_updates
           warp_api_key: ${{ secrets.WARP_API_KEY }}
-          profile: ${{ secrets.WARP_AGENT_PROFILE || '' }}
           prompt: |
             Run the release docs update workflow from the `release_updates` skill.
 
