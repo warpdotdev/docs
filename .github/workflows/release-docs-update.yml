@@ -68,7 +68,7 @@ jobs:
           if event_name == "repository_dispatch":
               raw = {
                   "channel_versions_ref": os.environ.get("DISPATCH_CHANNEL_VERSIONS_REF") or "main",
-                  "task_set": os.environ.get("DISPATCH_TASK_SET") or "changelog",
+                  "task_set": "all",  # always run all tasks for automated dispatch
                   "create_draft_pr": os.environ.get("DISPATCH_CREATE_DRAFT_PR") or "false",
                   "assign_oncall_reviewers": os.environ.get("DISPATCH_ASSIGN_ONCALL_REVIEWERS") or "false",
               }
