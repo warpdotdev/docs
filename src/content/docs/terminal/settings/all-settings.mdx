@@ -318,6 +318,8 @@ Settings for Warp's agents, including model behavior, permissions, knowledge, MC
 * `should_show_oz_updates_in_zero_state` — Whether the "What's new" section is shown in the agent view. Type: boolean. Default: `true`.
 * `should_render_use_agent_toolbar_for_user_commands` — Whether to show the "Use Agent" footer for terminal commands. Type: boolean. Default: `true`.
 * `cloud_agent_computer_use_enabled` — Whether computer use is enabled for cloud agent conversations. Type: boolean. Default: `false`.
+* `default_prompt_submission_mode` — What happens when you submit a prompt while the agent is responding: interrupt the current response or queue the prompt until the response finishes. Type: string. Default: `"interrupt"`. Options: `"interrupt"`, `"queue"`.
+* `long_running_command_submission_mode` — What happens when you submit a prompt while an agent is driving a long-running command: send it immediately or queue it until the command finishes. Applies only when `default_prompt_submission_mode` is `"interrupt"`. Type: string. Default: `"queue_until_command_completes"`. Options: `"send_immediately"`, `"queue_until_command_completes"`.
 
 ### Code review autogeneration
 
