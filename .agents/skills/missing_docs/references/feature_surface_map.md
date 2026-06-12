@@ -256,6 +256,10 @@ POST /harness-support/upload-snapshot -> internal
 # for exceptions: settings documented on another page (`section.key -> path`)
 # or intentionally undocumented (`section.key -> internal`).
 
+# One-shot internal UI state for the tmux SSH deprecation notice (description
+# is marked "Internal:" in the settings registry); not a user preference.
+warpify.ssh.ssh_tmux_deprecation_notice_pending -> internal
+
 ## Unlisted docs pages to ignore
 
 # Pages intentionally absent from src/sidebar.ts (one slug per line, e.g.
