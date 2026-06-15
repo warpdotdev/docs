@@ -62,7 +62,7 @@ is safe once the targeted attack is over.
 
 - Dashboard: project → **Firewall** → **Bot Management** → **Attack Mode** →
   **Disable**.
-- CLI: `vercel firewall attack-mode` (applies immediately).
+- CLI: `vercel firewall attack-mode disable` (applies immediately).
 
 Verify with the `curl` command above — a healthy response is `HTTP 200` with
 no `x-vercel-mitigated` header.

@@ -89,8 +89,7 @@ async function detectVercelChallenge(url) {
 
 	const mitigated = res.headers.get('x-vercel-mitigated');
 	const challengeToken = res.headers.get('x-vercel-challenge-token');
-	const isChallenge =
-		mitigated === 'challenge' || challengeToken != null || res.status === 429;
+	const isChallenge = mitigated === 'challenge' || challengeToken != null;
 
 	if (!isChallenge) return null;
 
