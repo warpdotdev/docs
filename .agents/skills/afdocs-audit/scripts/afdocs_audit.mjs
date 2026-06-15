@@ -51,6 +51,56 @@ function parseArgs(argv) {
 	return args;
 }
 
+/**
+ * Detect whether the target site is behind a Vercel Firewall bot challenge
+ * (Attack Challenge Mode or the Bot Protection managed ruleset in challenge
+ * mode). When active, Vercel returns HTTP 429 with an `x-vercel-mitigated:
+ * challenge` header and a `x-vercel-challenge-token` to every non-browser
+ * client — including the `afdocs` crawler. The crawler cannot solve the
+ * JavaScript challenge, so every page "fails" to fetch and the resulting
+ * scorecard is meaningless (all checks become false positives).
+ *
+ * Detecting this up front lets us abort with a clear "audit invalid" status
+ * instead of publishing a misleading score. The remediation is on the Vercel
+ * side (see references/vercel-firewall-challenge.md), since the `afdocs` CLI
+ * cannot send a bypass header.
+ *
+ * Returns `null` when no challenge is detected, or an object describing the
+ * block when one is found. Network errors are treated as "not a challenge"
+ * so an unrelated transient failure doesn't mask a real audit.
+ */
+async function detectVercelChallenge(url) {
+	const probeUrl = new URL('/llms.txt', url).toString();
+	let res;
+	try {
+		res = await fetch(probeUrl, {
+			redirect: 'manual',
+			headers: {
+				// Mimic a browser UA; the Vercel challenge still fires for
+				// non-browser clients even with a spoofed UA, so this only
+				// avoids unrelated UA-based blocks.
+				'user-agent':
+					'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36',
+			},
+		});
+	} catch {
+		return null; // Network error — let the real audit surface the problem.
+	}
+
+	const mitigated = res.headers.get('x-vercel-mitigated');
+	const challengeToken = res.headers.get('x-vercel-challenge-token');
+	const isChallenge = mitigated === 'challenge' || challengeToken != null;
+
+	if (!isChallenge) return null;
+
+	return {
+		probeUrl,
+		status: res.status,
+		mitigated: mitigated || null,
+		server: res.headers.get('server') || null,
+	};
+}
+
 function runAfdocsCheck(url) {
 	// Validate URL to prevent shell injection
 	try {
@@ -179,6 +229,45 @@ function printSummary(report) {
 
 // Main
 const args = parseArgs(process.argv.slice(2));
+
+// Preflight: if the site is behind a Vercel Firewall bot challenge, the
+// afdocs crawler can't reach any real content and every check becomes a false
+// positive. Bail out with a clear "invalid" status so we never publish a
+// misleading score.
+const challenge = await detectVercelChallenge(args.url);
+if (challenge) {
+	const invalidReport = {
+		url: args.url,
+		timestamp: new Date().toISOString(),
+		status: 'invalid',
+		reason: 'vercel-firewall-challenge',
+		detail: challenge,
+	};
+
+	console.error(
+		`\n⛔ AFDocs audit INVALID — ${args.url} is behind a Vercel Firewall bot challenge.`
+	);
+	console.error(
+		`   Probe ${challenge.probeUrl} returned HTTP ${challenge.status}` +
+			(challenge.mitigated ? ` (x-vercel-mitigated: ${challenge.mitigated})` : '') +
+			'.'
+	);
+	console.error(
+		'   The afdocs crawler cannot solve the JavaScript challenge, so a score cannot be computed.'
+	);
+	console.error(
+		'   Fix: see .agents/skills/afdocs-audit/references/vercel-firewall-challenge.md'
+	);
+
+	if (args.output) {
+		const outputPath = resolve(args.output);
+		writeFileSync(outputPath, JSON.stringify(invalidReport, null, 2));
+		console.error(`\nInvalid-audit report written to ${outputPath}`);
+	}
+
+	process.exit(2);
+}
+
 console.log(`Running AFDocs check on ${args.url}...`);
 
 const raw = runAfdocsCheck(args.url);

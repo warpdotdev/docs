@@ -341,8 +341,23 @@ def main() -> int:
 
     max_reviewers = max(1, int(args.max_reviewers))
     selected_users = users[:max_reviewers]
-    members = get_org_members(args.github_org)
     email_to_github_overrides = _load_email_to_github_overrides()
+
+    # Only fetch org members if needed — skip if all emails are covered by overrides
+    # (org member GraphQL requires read:org which may not be available in all environments)
+    emails_needing_lookup = [
+        u.get("email", "").lower()
+        for u in selected_users
+        if u.get("email", "").lower() not in email_to_github_overrides
+    ]
+    if emails_needing_lookup:
+        try:
+            members = get_org_members(args.github_org)
+        except Exception as exc:
+            print(f"org member lookup failed (will rely on overrides/email search): {exc}", file=sys.stderr)
+            members = []
+    else:
+        members = []
 
     reviewers: list[str] = []
     unresolved_users: list[dict[str, Any]] = []
