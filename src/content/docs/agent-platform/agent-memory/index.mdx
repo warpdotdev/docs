@@ -28,7 +28,8 @@ Watch this short preview to see Agent Memory in context.
 * **Both local and cloud agents** - Supports interactive local agents in Warp and background cloud agents.
 * **Asynchronous by design** - Memory creation runs after a conversation ends. Retrieval runs in the background during a run. Neither consumes tokens or adds latency to the active task.
 * **Automatic memory from conversations** - When a conversation ends, Oz extracts durable facts, learnings, and outcomes and writes them as memories. New knowledge merges with existing memories or supersedes them on conflict.
-* **Shareable stores** - Memory is organized into stores that can be attached to specific agents, shared across multiple agents, or shared across an entire team when the same knowledge should travel with the work.
+* **Shareable stores** - Memory is organized into stores. A store can be attached to one or more agents, so the same knowledge is available wherever those agents run. To share knowledge across a team, attach a store to an agent the whole team uses.
+* **Auto-memory for new agents** - New agents get a dedicated, agent-owned memory store by default, so they start building long-term memory from their first run. You can turn this off when you create the agent.
 * **Per-agent access and instructions** - Attach stores to specific agents with read-only or read-write access. Per-store instructions tell each agent how and when to use the store.
 * **Traceability** - Each memory records where it came from, so teams can trace a memory back to its source.
 * **Auditability** - Every change to a memory is recorded so teams can inspect how a memory has changed over time.
@@ -41,16 +42,27 @@ Agent Memory is part of Oz. Storage, memory creation, and retrieval all run on O
 * Cloud agents triggered from the CLI, web app, schedules, or integrations.
 * Third-party harnesses running as cloud agents: Claude Code, Codex, and others as they're added. (Running third-party harnesses locally isn't supported during the research preview.)
 
-Memory stays bound to its owner (a user or a team), independent of which harness reads or writes.
+Memory stays bound to its owner (a user, an agent, or a team), independent of which harness reads or writes.
 
 ## Memory stores
 
-A memory store is a collection of memories. Stores can be attached to individual agents, shared across multiple agents when they need the same knowledge, and shared across teammates when knowledge should travel with the team.
+A memory store is a collection of memories. Stores are used by attaching them to agents: a store can be attached to a single agent or to several agents that need the same knowledge. To make knowledge available across a team, attach a store to an agent the whole team uses; there's no separate step for sharing a store with individual teammates.
 
-* **Personal stores** - Owned by a user. Store memories about preferences, working notes, and individual patterns.
-* **Team stores** - Owned by a team. Store shared knowledge like deployment runbooks, code review conventions, or on-call procedures. Every team member, and any agent the team authorizes, can read from the same store.
+Stores differ by who owns them:
 
-Teams can use multiple stores to keep contexts separate, and share stores across agents when needed. For example, a code review agent can use a dedicated store of review patterns, while a repo-specific store of architectural decisions is shared between the code review agent and a Sentry triage agent so both reason about the same codebase.
+* **Personal stores** - Owned by a user. Hold memories about preferences, working notes, and individual patterns.
+* **Agent stores** - Owned by an agent. A new agent gets one by default as its auto-memory store (see below).
+* **Team stores** - Owned by a team. Hold shared knowledge like deployment runbooks, code review conventions, or on-call procedures. Attach a team store to any agent the team uses so everyone's work draws on the same knowledge.
+
+Teams can use multiple stores to keep contexts separate, and attach the same store to several agents when needed. For example, a code review agent can use a dedicated store of review patterns, while a repo-specific store of architectural decisions is attached to both the code review agent and a Sentry triage agent so both reason about the same codebase.
+
+### Auto-memory for new agents
+
+When you create an agent in the Oz web app, **Auto-memory** is on by default. With it enabled, Oz creates a dedicated memory store owned by that agent and uses it as the agent's default long-term memory: the agent reads relevant memories before it acts and writes durable facts, decisions, and preferences for future runs. Each agent has a single auto-memory store.
+
+Auto-memory is different from automatic memory from conversations, described below: auto-memory is the store an agent gets by default, while automatic memory from conversations is how memories are written to a store after a conversation ends.
+
+You can turn Auto-memory off when you create the agent, and you can attach existing team stores at the same time, each with its own access level and instructions.
 
 ## Automatic memory from conversations
 
