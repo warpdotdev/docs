@@ -55,7 +55,7 @@ If Peec snapshot or Google Search Console data is unavailable, say what could no
 5. **Run self-review.** Apply the quality gates in this skill before opening a PR or writing a no-change report.
 6. **Open a PR or report no changes.** Open a PR only when there are at least 2 high-confidence link additions. Otherwise, write a no-change report in the Oz run output.
 
-7. **Write run log entry.** After completing step 6, prepend a new entry to `.agents/logs/aeo_crosslink_audit_runs.md` using the format in the "Run log format" section below. Commit the updated log file directly to `main` with this commit message:
+7. **Write run log entry.** After completing step 6, update `.agents/logs/aeo_crosslink_audit_runs.md` from a clean checkout or worktree based on the latest `main`, prepend the new entry using the format in the "Run log format" section below, stage only `.agents/logs/aeo_crosslink_audit_runs.md`, and commit it directly to `main` with this commit message:
 
    ```text
    chore: log aeo crosslink audit run YYYY-MM-DD
