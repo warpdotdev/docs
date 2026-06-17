@@ -24,6 +24,15 @@ Do not:
 - Add keyword-stuffed text.
 - Force Peec or Google Search Console signals into docs when they do not support a useful reader journey.
 
+## Environment requirements
+
+The following environment secrets should be set in the Oz cloud agent environment:
+
+- `SLACK_BOT_TOKEN` — Slack bot token for posting to `#growth-docs`. If unavailable, write the notification body to the run output instead and skip Slack posting.
+- `SLACK_CHANNEL_ID` — Slack channel ID for `#growth-docs`. Find it in Slack by right-clicking the channel → Copy link (the ID begins with `C`). If unavailable, skip Slack posting.
+
+Do NOT print, log, commit, or include secret values in reports or Slack messages.
+
 ## Source data
 
 Use the smallest reliable set of source data needed to justify link changes:
@@ -45,6 +54,16 @@ If Peec snapshot or Google Search Console data is unavailable, say what could no
 4. **Make only safe edits.** Add links with minimal surrounding copy changes. Preserve the existing page structure and voice. Follow the link quality rules below when choosing anchor text and surrounding context.
 5. **Run self-review.** Apply the quality gates in this skill before opening a PR or writing a no-change report.
 6. **Open a PR or report no changes.** Open a PR only when there are at least 2 high-confidence link additions. Otherwise, write a no-change report in the Oz run output.
+
+7. **Write run log entry.** After completing step 6, update `.agents/logs/aeo_crosslink_audit_runs.md` from a clean checkout or worktree based on the latest `main`, prepend the new entry using the format in the "Run log format" section below, stage only `.agents/logs/aeo_crosslink_audit_runs.md`, and commit it directly to `main` with this commit message:
+
+   ```text
+   chore: log aeo crosslink audit run YYYY-MM-DD
+   ```
+
+   If the git push fails, write the log entry to the run output instead and continue to step 8.
+
+8. **Post Slack notification.** After writing the log entry, post a brief message to `#growth-docs` using `SLACK_BOT_TOKEN` and `SLACK_CHANNEL_ID`. Use the format in the "Slack notification format" section below. If either secret is unavailable, write the notification body to the run output instead.
 
 ## Link quality rules
 
@@ -140,7 +159,7 @@ Use this format:
 - [One specific improvement for the next run.]
 ```
 
-For the pilot, no-change reports stay in the Oz run output. If team input is needed, share the Oz run link manually in `#growth-docs`.
+No-change reports stay in the Oz run output. The Oz run link is posted automatically to `#growth-docs` as part of step 8.
 
 ## Human review expectations
 
@@ -149,6 +168,52 @@ The human reviewer should be able to understand the PR or no-change report witho
 - Explain the source signal behind each link.
 - Flag any uncertainty directly.
 - Avoid hiding product or terminology questions in the diff.
+
+## Run log format
+
+Prepend each new entry at the top of `.agents/logs/aeo_crosslink_audit_runs.md`, immediately after the `---` separator line. Use this format:
+
+```markdown
+## YYYY-MM-DD — [PR opened | No change]
+
+- **Run**: [Oz run URL if available, otherwise the run ID]
+- **Source signals**: Peec [available | unavailable], GSC [available | unavailable]
+- **PR**: [PR URL | N/A]
+- **Links proposed / added**: [N proposed, N added | N/A]
+- **Pages touched**: [comma-separated file paths | N/A]
+- **Themes**: [one sentence on recurring content gaps or topics observed, or "none observed"]
+- **No-change reason**: [low confidence | lack of signals | [other reason] | N/A]
+```
+
+Keep each entry to 7 fields and under 10 lines. Do not add narrative prose.
+
+## Slack notification format
+
+Use a simple text message (not Block Kit). The message should be scannable in under 30 seconds.
+
+**PR opened:**
+
+```
+✅ AEO crosslink audit · YYYY-MM-DD
+PR opened: [PR URL]
+Links added: [N links] across [N pages]: [page names]
+Signals: [Peec | GSC | Peec + GSC]
+Oz run: [run URL]
+```
+
+**No change:**
+
+```
+ℹ️ AEO crosslink audit · YYYY-MM-DD — No changes
+Checked: agents, cloud agents, and orchestration docs
+No PR: [brief reason — e.g., "fewer than 2 high-confidence opportunities"]
+Oz run: [run URL]
+```
+
+Rules:
+- Post on every run, including no-change runs.
+- Never include raw secret values, personal access tokens, or credential file paths in the Slack message.
+- If the Oz run URL is unavailable, omit that line rather than posting a broken link.
 
 ## Future expansion boundaries
 
