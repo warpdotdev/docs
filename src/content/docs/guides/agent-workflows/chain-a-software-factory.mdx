@@ -1,0 +1,168 @@
+---
+title: "How to chain a software factory: from triage to PR"
+description: >-
+  Connect specialized agents through the full development loop — triage, spec, implement, and review — so new issues become reviewable PRs with minimal manual execution.
+sidebar:
+  label: "Chain a software factory"
+tags:
+  - "agents"
+  - "software-factory"
+  - "cloud-agents"
+---
+
+# How to chain a software factory: from triage to PR
+
+A software factory chains four specialized agents through the full development loop: a triage agent classifies new issues, a spec agent drafts product and tech specs, an implementation agent builds against those specs, and a reviewer agent validates the result. The output of each agent becomes the input for the next. You review pull requests — not individual steps.
+
+This guide shows how to connect those agents into a working loop using GitHub labels as the state machine, skills as the agent instructions, and Oz as the orchestration layer.
+
+## Prerequisites
+
+* Each agent role working individually. Follow the individual guides first:
+  * [How to build a triage agent](/guides/agent-workflows/build-a-triage-agent)
+  * [How to write product and tech specs with agents](/guides/agent-workflows/write-product-and-tech-specs-with-agents)
+* **Oz environment** — A cloud environment with your repository checked out. See [Environments](/agent-platform/cloud-agents/environments).
+* **`warpdotdev/oz-agent-action`** installed — See [GitHub Actions integration](/agent-platform/cloud-agents/integrations/github-actions).
+
+## How the loop works
+
+GitHub labels serve as the state machine that connects the agents. Each agent watches for a specific label, does its work, and sets the next label:
+
+| Label | Agent triggered | What it does | Sets next label |
+|-------|-----------------|--------------|-----------------|
+| *(new issue filed)* | Triage agent | Reviews the issue, flags questions | `ready-to-spec` or `needs-info` |
+| `ready-to-spec` | Spec agent | Writes PRODUCT.md and TECH.md | *(human sets `ready-to-implement` after review)* |
+| `ready-to-implement` | Implementation agent | Opens a PR with code and specs | *(PR opening triggers reviewer)* |
+| *(PR opened)* | Reviewer agent | Reviews PR against specs and conventions | Posts inline review comments |
+
+A human intervenes at two points: approving the spec before implementation begins, and merging the PR after review. Everything else runs automatically.
+
+## 1. Wire up the triage agent
+
+Your triage agent runs on `issues: [opened]` via GitHub Actions. When it completes, it applies a `ready-to-spec` label if the issue is clear and actionable, or `needs-info` if it needs more detail from the reporter.
+
+See [How to build a triage agent](/guides/agent-workflows/build-a-triage-agent) for the full setup.
+
+## 2. Trigger the spec agent on label change
+
+Add a GitHub Actions workflow that runs when the `ready-to-spec` label is applied:
+
+```yaml
+name: Write specs for ready issues
+
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  write-specs:
+    if: github.event.label.name == 'ready-to-spec'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: warpdotdev/oz-agent-action@v1
+        with:
+          skill: spec-driven-implementation
+          prompt: |
+            Write a product spec and tech spec for GitHub issue #${{ github.event.issue.number }} in ${{ github.repository }}.
+            Issue title: ${{ github.event.issue.title }}
+            Issue body: ${{ github.event.issue.body }}
+          environment: YOUR_OZ_ENVIRONMENT_SLUG
+        env:
+          WARP_API_KEY: ${{ secrets.WARP_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```
+
+The `spec-driven-implementation` skill from [`warpdotdev/common-skills`](https://github.com/warpdotdev/common-skills) guides the full spec-first workflow. It writes `PRODUCT.md` and `TECH.md`, then opens a draft PR so you can review and approve the specs before implementation begins.
+
+## 3. Human review: approve the specs
+
+When the spec agent opens a draft PR, review the `PRODUCT.md` and `TECH.md` files. This is the most important human checkpoint in the loop — an accurate spec leads to a correct implementation; a wrong spec leads to a correct implementation of the wrong thing.
+
+When the specs look right, apply the `ready-to-implement` label to the original issue.
+
+## 4. Trigger the implementation agent
+
+Add a workflow that triggers when `ready-to-implement` is applied:
+
+```yaml
+name: Implement from approved specs
+
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  implement:
+    if: github.event.label.name == 'ready-to-implement'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: warpdotdev/oz-agent-action@v1
+        with:
+          skill: implement-specs
+          prompt: |
+            Implement the approved specs for GitHub issue #${{ github.event.issue.number }} in ${{ github.repository }}.
+            The specs are in specs/${{ github.event.issue.number }}/.
+          environment: YOUR_OZ_ENVIRONMENT_SLUG
+        env:
+          WARP_API_KEY: ${{ secrets.WARP_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```
+
+The `implement-specs` skill from [`warpdotdev/common-skills`](https://github.com/warpdotdev/common-skills) reads `PRODUCT.md` and `TECH.md` and builds against them. It opens a PR with the code changes and the spec files committed together.
+
+## 5. Trigger the reviewer agent on PR open
+
+Add a workflow that triggers when a PR is opened or updated:
+
+```yaml
+name: Review new pull requests
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: warpdotdev/oz-agent-action@v1
+        with:
+          skill: review-pr
+          prompt: |
+            Review pull request #${{ github.event.pull_request.number }} in ${{ github.repository }}.
+            If specs are available in specs/${{ github.event.pull_request.number }}/, validate the implementation against them.
+          environment: YOUR_OZ_ENVIRONMENT_SLUG
+        env:
+          WARP_API_KEY: ${{ secrets.WARP_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```
+
+The `review-pr` skill from [`warpdotdev/common-skills`](https://github.com/warpdotdev/common-skills) reviews the PR diff against your codebase conventions and, when spec files are available, validates the implementation against the specs. It posts inline review comments.
+
+## 6. Human review: merge the PR
+
+After the reviewer agent posts its comments, a human reviews the PR — the diff, the agent's inline comments, and the spec files. Address any gaps, run the project's tests, and merge.
+
+The reviewer agent surfaces issues and inconsistencies; the human makes the final call on quality and correctness. See [Review AI-generated code](/guides/agent-workflows/how-to-review-ai-generated-code) for the full human review workflow.
+
+## Reference implementation
+
+[`warpdotdev/oz-for-oss`](https://github.com/warpdotdev/oz-for-oss) is Warp's complete, deployable software factory for GitHub-hosted repositories. It includes all four agent roles, a Vercel webhook layer that handles GitHub events without GitHub Actions boilerplate, and self-improvement loops that propose skill updates based on maintainer feedback. If you want a production-grade system rather than individual GitHub Actions workflows, start there instead.
+
+## Productivity tips
+
+* **Start with triage only** — Get your triage agent running well before adding spec and implementation. A groomed, labeled backlog is immediately useful to every developer on the team.
+* **Use `@oz-agent` for one-off requests** — Teammates can mention `@oz-agent` in an issue comment to kick off an agent run directly, bypassing the label workflow for urgent requests.
+* **Monitor runs in the Oz web app** — Every cloud agent run appears in the [Oz web app](https://oz.warp.dev) with a session link. Use it to inspect what each agent did, steer a stuck run, or hand work back to a local session.
+
+## Next steps
+
+* [What is a software factory?](/agent-platform/cloud-agents/software-factory) — The conceptual overview of the full loop.
+* [How to run a software factory in the cloud](/guides/agent-workflows/run-a-software-factory-in-the-cloud) — Move the loop into a managed Oz deployment.
+* [How to build a self-improving agent](/guides/agent-workflows/build-a-self-improving-agent) — Add the outer improvement loop.
+* [Review AI-generated code](/guides/agent-workflows/how-to-review-ai-generated-code) — The human review workflow for agent-generated PRs.
+* [`warpdotdev/oz-for-oss`](https://github.com/warpdotdev/oz-for-oss) — The complete reference implementation.
+* [GitHub Actions integration](/agent-platform/cloud-agents/integrations/github-actions) — Full documentation for triggering Oz agents from CI.

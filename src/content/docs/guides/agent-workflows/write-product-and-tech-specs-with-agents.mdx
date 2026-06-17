@@ -1,0 +1,100 @@
+---
+title: How to write product and tech specs with agents
+description: >-
+  Use agents to turn a ready-to-implement issue into a product spec and a tech spec — the blueprints that guide implementation and anchor code review.
+sidebar:
+  label: "Write specs with agents"
+tags:
+  - "agents"
+  - "software-factory"
+---
+
+# How to write product and tech specs with agents
+
+Use agents to turn a triaged GitHub issue into two spec files: a product spec that describes what the feature should do from the user's perspective, and a tech spec that describes how to implement it. Implementation agents use these specs as blueprints; reviewers use them as acceptance criteria. The agent does the drafting — you do the reviewing.
+
+:::note
+Writing a good spec requires understanding the problem. The agent can draft the spec and fill in structure, but you need to read and approve it before implementation begins. A well-reviewed spec saves more time in implementation than it takes to write.
+:::
+
+## Prerequisites
+
+* **Warp with Oz** — [Sign in and set up Oz](/agent-platform/getting-started/agents-in-warp) if you haven't already.
+* **A triaged issue** — An issue labeled `ready-to-spec` or equivalent. See [How to build a triage agent](/guides/agent-workflows/build-a-triage-agent) to set up triaging.
+* **`common-skills` installed** — The spec skills live in `warpdotdev/common-skills`. Install them globally:
+
+  ```bash
+  npx skills@latest add warpdotdev/common-skills --skill write-product-spec --agent warp --global
+  npx skills@latest add warpdotdev/common-skills --skill write-tech-spec --agent warp --global
+  ```
+
+  See [`warpdotdev/common-skills`](https://github.com/warpdotdev/common-skills) for all available skills and installation options.
+
+## 1. Write the product spec
+
+A product spec defines what the feature should do from the user's perspective: user stories, acceptance criteria, and edge cases. It is the "what," not the "how."
+
+Open the issue you want to spec in Warp and run:
+
+```
+/write-product-spec
+```
+
+The agent creates a `PRODUCT.md` file in a `specs/[issue-number]/` directory in your repository. The file includes:
+
+* A summary of the feature
+* User stories in the format "As a [user], I want [behavior] so that [outcome]"
+* Acceptance criteria the implementation agent and reviewers can verify
+* Edge cases and constraints
+
+Review the draft carefully. The agent makes reasonable assumptions, but you know your users. Correct any misunderstandings before moving to the tech spec — a wrong product spec leads to a correct implementation of the wrong thing.
+
+## 2. Write the tech spec
+
+A tech spec defines how the feature will be implemented: architecture decisions, relevant code locations, API shapes, and implementation notes. It is the "how."
+
+After reviewing the product spec, run:
+
+```
+/write-tech-spec
+```
+
+The agent reads your codebase (using [Codebase Context](/agent-platform/capabilities/codebase-context)), the product spec you just approved, and creates a `TECH.md` file in the same `specs/[issue-number]/` directory.
+
+The file includes:
+
+* An overview of the implementation approach
+* The specific files and functions that need to change
+* Any new data structures, API endpoints, or interfaces
+* Testing strategy
+* Known risks or tradeoffs
+
+Review the tech spec with the same care as the product spec. An accurate `TECH.md` reduces the number of implementation iterations and gives reviewers the context to understand why the code looks the way it does.
+
+## 3. Validate that the implementation matches the specs
+
+When an implementation agent opens a PR for this issue, run the validation skill to check the diff against both spec files:
+
+```
+/validate-changes-match-specs
+```
+
+The agent checks the PR diff against `PRODUCT.md` and `TECH.md` and returns a list of any inconsistencies for you to review before submitting the PR for human review. This skill is also available from [`warpdotdev/common-skills`](https://github.com/warpdotdev/common-skills).
+
+## 4. Include specs in the implementation PR
+
+The `specs/[issue-number]/` directory should be committed alongside the code changes in the implementation PR. This gives reviewers the full picture: what was intended (PRODUCT.md), how it was planned (TECH.md), and what was built (the code diff). There is no need to cross-reference separately.
+
+## Productivity tips
+
+* **Spec before you code, not after** — The biggest value from specs is catching misaligned assumptions before any code is written. Running `/write-product-spec` first forces that alignment to happen early, when fixing it is cheap.
+* **Attach Figma mocks** — If your feature has a UI component, attach a Figma screenshot or mockup to your prompt when running `/write-product-spec`. The agent incorporates visual context into the acceptance criteria.
+* **Use `/plan` for smaller tasks** — For changes that don't warrant a full PRODUCT.md and TECH.md, use Warp's built-in [planning feature](/agent-platform/capabilities/planning). Plans can be saved, versioned, and attached to PRs without a full spec workflow.
+
+## Next steps
+
+* [What is a software factory?](/agent-platform/cloud-agents/software-factory) — How specs fit into the full development loop.
+* [How to chain a software factory: from triage to PR](/guides/agent-workflows/chain-a-software-factory) — Connect the spec role to implementation and review.
+* [`warpdotdev/common-skills`](https://github.com/warpdotdev/common-skills) — The full set of shared skills including `write-product-spec`, `write-tech-spec`, and `validate-changes-match-specs`.
+* [Planning](/agent-platform/capabilities/planning) — Warp's built-in planning feature for smaller tasks.
+* [Skills](/agent-platform/capabilities/skills) — How skill files work in Warp and Oz.

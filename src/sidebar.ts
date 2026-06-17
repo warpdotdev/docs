@@ -396,8 +396,9 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 							],
 						},
 						{ slug: 'agent-platform/cloud-agents/mcp', label: 'MCP servers' },
-						{ slug: 'agent-platform/cloud-agents/deployment-patterns', label: 'Deployment patterns' },
-						{ slug: 'agent-platform/cloud-agents/warp-hosting', label: 'Warp-hosted agents' },
+					{ slug: 'agent-platform/cloud-agents/deployment-patterns', label: 'Deployment patterns' },
+					{ slug: 'agent-platform/cloud-agents/software-factory', label: 'Software factory' },
+					{ slug: 'agent-platform/cloud-agents/warp-hosting', label: 'Warp-hosted agents' },
 						{
 							label: 'Self-hosting',
 							collapsed: true,
@@ -649,6 +650,17 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'guides/agent-workflows/using-images-as-context-with-warp', label: 'Use images as context for agents' },
 						{ slug: 'guides/agent-workflows/understanding-your-codebase', label: 'Understand a large codebase with agents' },
 						{ slug: 'guides/agent-workflows/running-multiple-agents-at-once-with-warp', label: 'Coordinate agents on separate tasks' },
+					],
+				},
+				{
+					label: 'Build a software factory',
+					collapsed: true,
+					items: [
+						{ slug: 'guides/agent-workflows/build-a-triage-agent', label: 'Build a triage agent' },
+						{ slug: 'guides/agent-workflows/write-product-and-tech-specs-with-agents', label: 'Write specs with agents' },
+						{ slug: 'guides/agent-workflows/chain-a-software-factory', label: 'Chain a software factory' },
+						{ slug: 'guides/agent-workflows/run-a-software-factory-in-the-cloud', label: 'Run a software factory in the cloud' },
+						{ slug: 'guides/agent-workflows/build-a-self-improving-agent', label: 'Build a self-improving agent' },
 					],
 				},
 				{

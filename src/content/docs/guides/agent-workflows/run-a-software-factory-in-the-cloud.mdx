@@ -1,0 +1,112 @@
+---
+title: How to run a software factory in the cloud
+description: >-
+  Move your software factory loop off developer machines and into Oz — with cloud environments, event-driven triggers, least-privilege permissions, and full run auditability.
+sidebar:
+  label: "Run a software factory in the cloud"
+tags:
+  - "agents"
+  - "cloud-agents"
+  - "software-factory"
+  - "orchestration"
+---
+
+# How to run a software factory in the cloud
+
+A software factory running on a developer's machine is limited by local compute, requires the machine to be on, and is invisible to the rest of the team. Moving it to Oz gives you parallel cloud runs, event-driven triggers, team-visible sessions with sharing links, and a control plane that runs around the clock.
+
+This guide covers the four things you need to move the factory loop into Oz: environments, secrets and permissions, triggers, and observability.
+
+## Prerequisites
+
+* **A working factory loop** — Follow [How to chain a software factory: from triage to PR](/guides/agent-workflows/chain-a-software-factory) to set up the individual agent roles first.
+* **An Oz team** — Sign into [oz.warp.dev](https://oz.warp.dev) or access Oz from within Warp.
+
+## Why cloud agents, not cloud computers
+
+A common approach to cloud-based agents is to spin up a persistent virtual machine — a "cloud computer" — that the agent logs into and uses like a developer's laptop. Oz uses a different model: each agent run is a short-lived, scoped execution with its own environment and permissions, similar to a cloud function rather than a long-running server.
+
+The practical difference:
+
+* **Per-agent permissions** — Your triage agent only needs to read issues and post comments. Your implementation agent needs to push branches and open PRs. Each agent gets exactly the permissions it needs, not a single shared credential that everything uses.
+* **Audit trails** — Every cloud agent run is logged separately. You can see exactly what the triage agent did versus what the implementation agent did, when it ran, and what it produced.
+* **Team visibility** — Any teammate can open a run in the Oz web app to inspect the session transcript, steer a stuck agent, or pick up where the agent left off.
+* **Scale without contention** — Multiple triage runs can execute in parallel without fighting over a shared dev box, local git checkouts, or CPU.
+
+See [Deployment patterns](/agent-platform/cloud-agents/deployment-patterns) for a full comparison of Oz-hosted, CLI-based, and self-hosted execution patterns.
+
+## 1. Set up a cloud environment
+
+An Oz environment is a Docker-based sandbox with your repository, secrets, and any tools the agents need. Create one from the Oz web app or the CLI:
+
+```bash
+oz environment create \
+  --name my-factory \
+  --repo https://github.com/YOUR_ORG/YOUR_REPO \
+  --branch main
+```
+
+For repositories that need language toolchains, databases, or other dependencies, start from a predefined environment in [`warpdotdev/oz-dev-environments`](https://github.com/warpdotdev/oz-dev-environments). These are Docker images pre-configured for common stacks. Copy the relevant Dockerfile into your repository and reference it when creating the environment.
+
+See [Environments](/agent-platform/cloud-agents/environments) for the full reference.
+
+## 2. Add secrets and permissions
+
+Each agent role in your factory needs access to different secrets. Add them at the environment level rather than embedding them in prompts:
+
+```bash
+oz secret create --name GITHUB_TOKEN --value YOUR_TOKEN
+```
+
+Secrets are scoped to your team, injected into cloud runs at execution time, and never visible in session transcripts.
+
+Grant each agent role only the GitHub permissions it needs:
+
+* **Triage agent** — Read issues and post comments
+* **Spec agent** — Push branches and open draft PRs
+* **Implementation agent** — Push branches and open PRs
+* **Reviewer agent** — Post review comments on PRs
+
+Use fine-grained personal access tokens or separate GitHub App installations to enforce least privilege per role. See [Secrets](/agent-platform/cloud-agents/secrets) for management details and [GitHub Actions integration](/agent-platform/cloud-agents/integrations/github-actions) for token setup patterns.
+
+## 3. Configure triggers
+
+With GitHub Actions, your factory already has event-based triggers. Oz also provides first-party integrations that handle triggering without GitHub Actions boilerplate:
+
+* **Slack** — Teammates can kick off a run by mentioning `@warp` in a Slack thread. Useful for one-off requests that don't need the full label workflow. See [Slack integration](/agent-platform/cloud-agents/integrations/slack).
+* **Linear** — When an issue in Linear reaches a specific status, a cloud agent run starts automatically. Useful for teams that track work in Linear rather than GitHub Issues. See [Linear integration](/agent-platform/cloud-agents/integrations/linear).
+* **Scheduled agents** — For the outer improvement loop (which runs on a cadence rather than an event), use a scheduled cloud agent. See [Scheduled agents](/agent-platform/cloud-agents/triggers/scheduled-agents).
+* **Oz API and SDK** — For custom triggers — webhooks, internal dashboards, other events — use the [Oz API and SDK](/reference/api-and-sdk) to start runs programmatically.
+
+## 4. Monitor factory runs
+
+Every cloud agent run in your factory appears in the Oz dashboard with:
+
+* A session transcript showing every action the agent took
+* Artifacts: PRs, branches, plans, and reports the agent produced
+* Status history: queued, in progress, succeeded, or failed with error details
+* A session sharing link any teammate can open to inspect or steer the run
+
+Open runs from [oz.warp.dev](https://oz.warp.dev) or from the **Agent Management Panel** in the Warp app. Include the session link in PR descriptions so reviewers can see exactly how the agent built the change — see [Attach agent context to GitHub PRs](/guides/agent-workflows/how-to-attach-agent-session-context-to-github-prs).
+
+See [Viewing cloud agent runs](/agent-platform/cloud-agents/viewing-cloud-agent-runs) for the full reference.
+
+## 5. Use multi-agent orchestration for large backlogs
+
+When a sprint starts and you want to process many issues in parallel, Oz can fan out to child agents — one per issue — from a single parent run. The parent coordinates; the children execute in parallel, each with their own environment, prompt, and permissions.
+
+See [Multi-agent orchestration](/agent-platform/cloud-agents/orchestration) for fan-out, sharding, and result aggregation patterns.
+
+## Productivity tips
+
+* **Start with one agent role in the cloud** — Get the triage agent running as a cloud run before moving all four roles. Confirm that the environment, secrets, and permissions work correctly before expanding.
+* **Add session links to PR descriptions** — When the implementation agent opens a PR, include the Oz run link so reviewers get the full context. See [Attach agent context to GitHub PRs](/guides/agent-workflows/how-to-attach-agent-session-context-to-github-prs) for a template.
+* **Monitor credit usage** — Cloud agent runs consume credits. Monitor usage in the Oz web app and adjust run scope if needed. See [Credits](/support-and-community/plans-and-billing/credits).
+
+## Next steps
+
+* [What is a software factory?](/agent-platform/cloud-agents/software-factory) — The conceptual overview of the full loop.
+* [How to build a self-improving agent](/guides/agent-workflows/build-a-self-improving-agent) — Add the outer improvement loop on a schedule.
+* [Environments](/agent-platform/cloud-agents/environments) — Full reference for cloud agent environments.
+* [Deployment patterns](/agent-platform/cloud-agents/deployment-patterns) — Choose the right architecture for your team.
+* [Self-hosting](/agent-platform/cloud-agents/self-hosting) — Run Oz agent workers on your own infrastructure when code must stay on-premises.

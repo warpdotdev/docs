@@ -1,0 +1,70 @@
+---
+title: Software factory
+description: >-
+  A software factory chains specialized agents through the full development loop — from issue triage through spec, implementation, and review — so teams get PRs to review instead of executing every step.
+sidebar:
+  label: "Software factory"
+---
+
+# Software factory
+
+A software factory is a development system where specialized agents handle the full cycle from a new issue to a reviewable pull request. Instead of every developer executing every step — reading each issue, writing specs, implementing changes, reviewing output — agents handle the execution and humans review the results. The team's job shifts from doing the work to defining the process and raising the quality bar over time.
+
+Warp uses this model to build Warp itself. The [agent dashboard at build.warp.dev](https://build.warp.dev) shows the work Warp's agents are tackling across the open source repository in real time. Rectangle Health's Rex agent — built on Oz — ships 35,000 lines of production code per week and has written more than 50% of its own codebase.
+
+## The two loops
+
+Every software factory has two loops that work together.
+
+The **inner loop** is the execution loop. A new issue enters the backlog. A triage agent reviews it for clarity, labels it, and flags open questions before any implementation starts. A spec agent drafts a product spec (what the feature should do) and a tech spec (how to implement it). An implementation agent builds against the approved specs. A reviewer agent checks the result for correctness, style, and spec compliance. The output is a pull request in GitHub for a human to review and merge.
+
+The **outer loop** is the improvement loop. A scheduled cloud agent runs on a cadence, reviews past inner-loop runs, and observes where maintainers corrected the agents — relabeled issues, revised comments, adjusted code. It opens a pull request to improve the skill files that drive the inner-loop agents. Over time, the factory gets better without anyone manually rewriting prompts.
+
+The inner loop ships software. The outer loop improves the factory that ships it.
+
+## Agent roles
+
+A software factory delegates work to specialized agents, each with a narrow responsibility:
+
+* **Triage agent** - Reviews new issues for clarity and completeness. Labels issues as ready to implement, needs more information, or a duplicate. Flags open questions for the reporter before implementation starts, so the backlog stays clean and actionable.
+* **Spec agent** - Drafts a product spec (user stories and acceptance criteria) and a tech spec (implementation strategy, relevant code locations, and edge cases). The specs serve as the blueprint for the implementation agent and the review criteria for the reviewer agent.
+* **Implementation agent** - Builds against approved specs. Uses spec context to make better architectural decisions and raises a blocked status when specs are missing or ambiguous rather than guessing.
+* **Reviewer agent** - Checks the implementation against specs, code conventions, and security requirements. Posts inline review comments and validates that acceptance criteria are met before a human reviewer opens the PR.
+
+In practice, a single agent often covers multiple roles in early-stage setups, and most teams start with just a triage agent before adding the rest. The [`warpdotdev/oz-for-oss`](https://github.com/warpdotdev/oz-for-oss) repository is the complete reference implementation with all four roles deployed in a working system.
+
+## How it works
+
+Each agent role is backed by a **skill** — a markdown file checked into a Git repository that defines the agent's behavior: what to check, how to classify results, what to output, and when to escalate. Skills are versioned, reviewed as code changes, and composable across repositories.
+
+When a new issue is filed on GitHub, a webhook or GitHub Action triggers the triage agent. The agent runs in a cloud environment using the triage skill, analyzes the issue, and applies labels and comments. When an issue is labeled `ready-to-spec`, the spec agent runs and creates `PRODUCT.md` and `TECH.md` files in a `specs/` directory in the repository. A human reviews and approves those specs. When the implementation label is applied, the implementation agent runs and opens a PR that includes the spec files alongside the code.
+
+Oz orchestrates each agent as a cloud run. Every run has its own environment (repository checkout, secrets, toolchain), its own permissions, and a session link your team can use to inspect what the agent did, steer it mid-run, or hand work back to a local session.
+
+The outer improvement loop runs as a scheduled cloud agent. It collects signals from past inner-loop runs — maintainer relabels, edits to agent-written comments, code changes after agent PRs — and generates a diff to the relevant skill files. That diff goes through a normal pull request review before merging. Humans decide what improves; agents propose it.
+
+## When to use a software factory
+
+A software factory is a strong fit when:
+
+* Your team has a repeatable development workflow — a backlog of issues with consistent shape, and a process you can write down and teach to an agent.
+* The cost of a missed edge case in agent output is recoverable — the agent opens a pull request, not a deploy, so humans stay in control of what ships.
+* You want to scale throughput without scaling headcount linearly, or you want to move faster on a large backlog with a small team.
+
+Start with one agent role. Most teams start with a triage agent — it is the simplest loop to close correctly, and a well-groomed backlog immediately benefits every developer on the team. Add spec, implementation, and reviewer agents as you build confidence in each step.
+
+## Reference implementation
+
+[`warpdotdev/oz-for-oss`](https://github.com/warpdotdev/oz-for-oss) is Warp's open-source software factory platform for GitHub-hosted repositories. It includes a Vercel webhook layer, GitHub App, and skill files for every agent role in the loop: triage, spec, implementation, review, verification, and self-improvement. Deploy it to your repository in about 30 minutes using the [onboarding guide](https://github.com/warpdotdev/oz-for-oss/blob/main/docs/onboarding.md).
+
+## Related pages
+
+{/* TODO: Update guide links once software-factory guide PRs are merged */}
+* [How to build a triage agent for your issue backlog](/guides/agent-workflows/build-a-triage-agent) — Start the series with the simplest agent role.
+* [How to write product and tech specs with agents](/guides/agent-workflows/write-product-and-tech-specs-with-agents) — Write specs that guide implementation agents.
+* [How to chain a software factory: from triage to PR](/guides/agent-workflows/chain-a-software-factory) — Connect the four roles into a working loop.
+* [How to run a software factory in the cloud](/guides/agent-workflows/run-a-software-factory-in-the-cloud) — Move the loop off your laptop with Oz.
+* [How to build a self-improving agent](/guides/agent-workflows/build-a-self-improving-agent) — Add the outer improvement loop.
+* [Skills](/agent-platform/capabilities/skills) — How skill files work in Warp and Oz.
+* [Cloud agents overview](/agent-platform/cloud-agents/overview) — Setting up cloud agents on Oz.
+* [Deployment patterns](/agent-platform/cloud-agents/deployment-patterns) — Common architectures for cloud agent deployment.
