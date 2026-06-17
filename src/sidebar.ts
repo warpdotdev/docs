@@ -397,9 +397,9 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 							],
 						},
 						{ slug: 'agent-platform/cloud-agents/mcp', label: 'MCP servers' },
-					{ slug: 'agent-platform/cloud-agents/deployment-patterns', label: 'Deployment patterns' },
-					{ slug: 'agent-platform/cloud-agents/software-factory', label: 'Software factory' },
-					{ slug: 'agent-platform/cloud-agents/warp-hosting', label: 'Warp-hosted agents' },
+						{ slug: 'agent-platform/cloud-agents/deployment-patterns', label: 'Deployment patterns' },
+						{ slug: 'agent-platform/cloud-agents/software-factory', label: 'Software factory' },
+						{ slug: 'agent-platform/cloud-agents/warp-hosting', label: 'Warp-hosted agents' },
 						{
 							label: 'Self-hosting',
 							collapsed: true,
