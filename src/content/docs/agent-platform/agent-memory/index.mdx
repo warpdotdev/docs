@@ -27,7 +27,7 @@ Watch this short preview to see Agent Memory in context.
 * **Cross-harness memory** - One memory system is shared across the Warp Agent, Claude Code, Codex, and other harnesses as they're added. Third-party harnesses are covered when they run as cloud agents.
 * **Both local and cloud agents** - Supports interactive local agents in Warp and background cloud agents.
 * **Asynchronous by design** - Memory creation runs after a conversation ends. Retrieval runs in the background during a run. Neither consumes tokens or adds latency to the active task.
-* **Automatic memory from conversations** - When a conversation ends, Oz extracts durable facts, learnings, and outcomes and writes them as memories. New knowledge merges with existing memories or supersedes them on conflict.
+* **Automatic memory creation from conversations** - When a conversation ends, Oz extracts durable facts, learnings, and outcomes and writes them as memories. New knowledge merges with existing memories or supersedes them on conflict.
 * **Shareable stores** - Memory is organized into stores. A store can be attached to one or more agents, so the same knowledge is available wherever those agents run. To share knowledge across a team, attach a store to an agent the whole team uses.
 * **Auto-memory for new agents** - New agents get a dedicated, agent-owned memory store by default, so they start building long-term memory from their first run. You can turn this off when you create the agent.
 * **Per-agent access and instructions** - Attach stores to specific agents with read-only or read-write access. Per-store instructions tell each agent how and when to use the store.
@@ -60,11 +60,11 @@ Teams can use multiple stores to keep contexts separate, and attach the same sto
 
 When you create an agent in the Oz web app, **Auto-memory** is on by default. With it enabled, Oz creates a dedicated memory store owned by that agent and uses it as the agent's default long-term memory: the agent reads relevant memories before it acts and writes durable facts, decisions, and preferences for future runs. Each agent has a single auto-memory store.
 
-Auto-memory is different from automatic memory from conversations, described below: auto-memory is the store an agent gets by default, while automatic memory from conversations is how memories are written to a store after a conversation ends.
+Auto-memory is different from automatic memory creation from conversations, described below: auto-memory is the store an agent gets by default, while automatic memory creation from conversations is how memories are written to a store after a conversation ends.
 
 You can turn Auto-memory off when you create the agent, and you can attach existing team stores at the same time, each with its own access level and instructions.
 
-## Automatic memory from conversations
+## Automatic memory creation from conversations
 
 When a conversation finishes, Oz extracts durable facts, learnings, and outcomes from the transcript and writes them as memories. Memory creation runs in the background after the conversation ends, so it doesn't consume tokens or add latency during that run.
 
