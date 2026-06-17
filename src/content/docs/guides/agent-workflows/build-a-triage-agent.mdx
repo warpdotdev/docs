@@ -81,6 +81,9 @@ on:
   issues:
     types: [opened]
 
+permissions:
+  issues: write
+
 jobs:
   triage:
     runs-on: ubuntu-latest
@@ -94,8 +97,8 @@ jobs:
             Issue title: ${{ github.event.issue.title }}
             Issue body: ${{ github.event.issue.body }}
           environment: YOUR_OZ_ENVIRONMENT_SLUG
+          warp_api_key: ${{ secrets.WARP_API_KEY }}
         env:
-          WARP_API_KEY: ${{ secrets.WARP_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 

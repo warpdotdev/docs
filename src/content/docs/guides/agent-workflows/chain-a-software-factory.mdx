@@ -54,6 +54,11 @@ on:
   issues:
     types: [labeled]
 
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
 jobs:
   write-specs:
     if: github.event.label.name == 'ready-to-spec'
@@ -68,8 +73,8 @@ jobs:
             Issue title: ${{ github.event.issue.title }}
             Issue body: ${{ github.event.issue.body }}
           environment: YOUR_OZ_ENVIRONMENT_SLUG
+          warp_api_key: ${{ secrets.WARP_API_KEY }}
         env:
-          WARP_API_KEY: ${{ secrets.WARP_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
@@ -92,6 +97,10 @@ on:
   issues:
     types: [labeled]
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   implement:
     if: github.event.label.name == 'ready-to-implement'
@@ -105,8 +114,8 @@ jobs:
             Implement the approved specs for GitHub issue #${{ github.event.issue.number }} in ${{ github.repository }}.
             The specs are in specs/${{ github.event.issue.number }}/.
           environment: YOUR_OZ_ENVIRONMENT_SLUG
+          warp_api_key: ${{ secrets.WARP_API_KEY }}
         env:
-          WARP_API_KEY: ${{ secrets.WARP_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
@@ -123,6 +132,9 @@ on:
   pull_request:
     types: [opened, synchronize]
 
+permissions:
+  pull-requests: write
+
 jobs:
   review:
     runs-on: ubuntu-latest
@@ -133,10 +145,10 @@ jobs:
           skill: review-pr
           prompt: |
             Review pull request #${{ github.event.pull_request.number }} in ${{ github.repository }}.
-            If specs are available in specs/${{ github.event.pull_request.number }}/, validate the implementation against them.
+            If spec files are included in this PR, locate the changed specs/*/PRODUCT.md and specs/*/TECH.md files and validate the implementation against them.
           environment: YOUR_OZ_ENVIRONMENT_SLUG
+          warp_api_key: ${{ secrets.WARP_API_KEY }}
         env:
-          WARP_API_KEY: ${{ secrets.WARP_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 

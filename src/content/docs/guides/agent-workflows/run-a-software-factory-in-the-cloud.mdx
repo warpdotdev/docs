@@ -42,8 +42,7 @@ An Oz environment is a Docker-based sandbox with your repository, secrets, and a
 ```bash
 oz environment create \
   --name my-factory \
-  --repo https://github.com/YOUR_ORG/YOUR_REPO \
-  --branch main
+  --repo YOUR_ORG/YOUR_REPO
 ```
 
 For repositories that need language toolchains, databases, or other dependencies, start from a predefined environment in [`warpdotdev/oz-dev-environments`](https://github.com/warpdotdev/oz-dev-environments). These are Docker images pre-configured for common stacks. Copy the relevant Dockerfile into your repository and reference it when creating the environment.
@@ -55,10 +54,10 @@ See [Environments](/agent-platform/cloud-agents/environments) for the full refer
 Each agent role in your factory needs access to different secrets. Add them at the environment level rather than embedding them in prompts:
 
 ```bash
-oz secret create --name GITHUB_TOKEN --value YOUR_TOKEN
+oz secret create --name GITHUB_TOKEN
 ```
 
-Secrets are scoped to your team, injected into cloud runs at execution time, and never visible in session transcripts.
+The CLI prompts for the value interactively so it never appears in shell history or process arguments. Secrets are scoped to your team, injected into cloud runs at execution time, and never visible in session transcripts.
 
 Grant each agent role only the GitHub permissions it needs:
 
