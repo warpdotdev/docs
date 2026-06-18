@@ -26,7 +26,7 @@ The inner loop ships software. The outer loop improves the factory that ships it
 
 A software factory delegates work to specialized agents, each with a narrow responsibility:
 
-* **Triage agent** - Reviews new issues for clarity and completeness. Labels issues as ready to implement, needs more information, or a duplicate. Flags open questions for the reporter before implementation starts, so the backlog stays clean and actionable.
+* **Triage agent** - Reviews new issues for clarity and completeness. Labels issues as ready to implement, needs more information, or a duplicate. Flags open questions for the reporter before implementation begins, so the backlog stays clean and actionable.
 * **Spec agent** - Drafts a product spec (user stories and acceptance criteria) and a tech spec (implementation strategy, relevant code locations, and edge cases). The specs serve as the blueprint for the implementation agent and the review criteria for the reviewer agent.
 * **Implementation agent** - Builds against approved specs. Uses spec context to make better architectural decisions and raises a blocked status when specs are missing or ambiguous rather than guessing.
 * **Reviewer agent** - Checks the implementation against specs, code conventions, and security requirements. Posts inline review comments and validates that acceptance criteria are met before a human reviewer opens the PR.
@@ -46,7 +46,9 @@ The inner loop runs when a new issue is filed:
 
 Oz orchestrates each agent as a cloud run. Every run has its own environment (repository checkout, secrets, toolchain), its own permissions, and a session link your team can use to inspect what the agent did, steer it mid-run, or hand work back to a local session.
 
-The outer improvement loop runs as a scheduled cloud agent. It collects signals from past inner-loop runs and generates a diff to the relevant skill files. That diff goes through a normal pull request review before merging. Humans decide what improves; agents propose it.
+The outer loop runs on a schedule, not in response to events.
+
+A scheduled cloud agent collects signals from past inner-loop runs and generates a diff to the relevant skill files. That diff goes through a normal pull request review before merging. Humans decide what improves; agents propose it.
 
 ## When to use a software factory
 
