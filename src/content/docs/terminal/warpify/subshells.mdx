@@ -61,7 +61,7 @@ if [[ "$TERM_PROGRAM" == "WarpTerminal" ]]; then
 fi
 
 # For fish subshells, add to ~/.config/fish/config.fish.
-if status is-interactive and test "$TERM_PROGRAM" = "WarpTerminal"
+if status is-interactive; and test "$TERM_PROGRAM" = "WarpTerminal"
   printf '\eP$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "fish"}}\x9c'
 end
 ```
