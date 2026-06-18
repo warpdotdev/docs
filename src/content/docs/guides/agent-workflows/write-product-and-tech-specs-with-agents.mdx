@@ -1,5 +1,5 @@
 ---
-title: How to write product and tech specs with agents
+title: Write product and tech specs with agents
 description: >-
   Use agents to turn a ready-to-implement issue into a product spec and a tech spec — the blueprints that guide implementation and anchor code review.
 sidebar:
@@ -9,8 +9,6 @@ tags:
   - "software-factory"
 ---
 
-# How to write product and tech specs with agents
-
 Use agents to turn a triaged GitHub issue into two spec files: a product spec that describes what the feature should do from the user's perspective, and a tech spec that describes how to implement it. Implementation agents use these specs as blueprints; reviewers use them as acceptance criteria. The agent does the drafting — you do the reviewing.
 
 :::note
@@ -19,8 +17,8 @@ Writing a good spec requires understanding the problem. The agent can draft the 
 
 ## Prerequisites
 
-* **Warp with Oz** — [Sign in and set up Oz](/agent-platform/getting-started/agents-in-warp) if you haven't already.
-* **A triaged issue** — An issue labeled `ready-to-spec` or equivalent. See [How to build a triage agent](/guides/agent-workflows/build-a-triage-agent) to set up triaging.
+* **A Warp account** — Oz is included with Warp. [Sign up at warp.dev](https://www.warp.dev) if you don't have an account.
+* **A triaged issue** — An issue labeled `ready-to-spec` or equivalent. See [Build a triage agent](/guides/agent-workflows/build-a-triage-agent) to set up triaging.
 * **`common-skills` installed** — The spec skills live in `warpdotdev/common-skills`. Install them globally:
 
   ```bash
@@ -34,42 +32,38 @@ Writing a good spec requires understanding the problem. The agent can draft the 
 
 A product spec defines what the feature should do from the user's perspective: user stories, acceptance criteria, and edge cases. It is the "what," not the "how."
 
-Open the issue you want to spec in Warp and run:
+1. Open the issue you want to spec in Warp and run:
 
-```bash
-/write-product-spec
-```
+   ```bash
+   /write-product-spec
+   ```
 
-The agent creates a `PRODUCT.md` file in a `specs/[issue-number]/` directory in your repository. The file includes:
+2. Review the generated `PRODUCT.md` in `specs/[issue-number]/`. The file includes:
+   * A summary of the feature
+   * User stories in the format "As a [user], I want [behavior] so that [outcome]"
+   * Acceptance criteria the implementation agent and reviewers can verify
+   * Edge cases and constraints
 
-* A summary of the feature
-* User stories in the format "As a [user], I want [behavior] so that [outcome]"
-* Acceptance criteria the implementation agent and reviewers can verify
-* Edge cases and constraints
-
-Review the draft carefully. The agent makes reasonable assumptions, but you know your users. Correct any misunderstandings before moving to the tech spec — a wrong product spec leads to a correct implementation of the wrong thing.
+   Correct any misunderstandings before moving to the tech spec. A wrong product spec leads to a correct implementation of the wrong thing.
 
 ## 2. Write the tech spec
 
 A tech spec defines how the feature will be implemented: architecture decisions, relevant code locations, API shapes, and implementation notes. It is the "how."
 
-After reviewing the product spec, run:
+1. After reviewing the product spec, run:
 
-```bash
-/write-tech-spec
-```
+   ```bash
+   /write-tech-spec
+   ```
 
-The agent reads your codebase (using [Codebase Context](/agent-platform/capabilities/codebase-context)), the product spec you just approved, and creates a `TECH.md` file in the same `specs/[issue-number]/` directory.
+2. Review the generated `TECH.md` in the same `specs/[issue-number]/` directory. The file includes:
+   * An overview of the implementation approach
+   * The specific files and functions that need to change
+   * Any new data structures, API endpoints, or interfaces
+   * Testing strategy
+   * Known risks or tradeoffs
 
-The file includes:
-
-* An overview of the implementation approach
-* The specific files and functions that need to change
-* Any new data structures, API endpoints, or interfaces
-* Testing strategy
-* Known risks or tradeoffs
-
-Review the tech spec with the same care as the product spec. An accurate `TECH.md` reduces the number of implementation iterations and gives reviewers the context to understand why the code looks the way it does.
+   An accurate `TECH.md` reduces the number of implementation iterations and gives reviewers context for why the code looks the way it does.
 
 ## 3. Validate that the implementation matches the specs
 
@@ -94,7 +88,7 @@ The `specs/[issue-number]/` directory should be committed alongside the code cha
 ## Next steps
 
 * [What is a software factory?](/agent-platform/cloud-agents/software-factory) — How specs fit into the full development loop.
-* [How to chain a software factory: from triage to PR](/guides/agent-workflows/chain-a-software-factory) — Connect the spec role to implementation and review.
+* [Set up your software factory: from triage to PR](/guides/agent-workflows/set-up-a-software-factory) — Connect the spec role to implementation and review.
 * [`warpdotdev/common-skills`](https://github.com/warpdotdev/common-skills) — The full set of shared skills including `write-product-spec`, `write-tech-spec`, and `validate-changes-match-specs`.
 * [Planning](/agent-platform/capabilities/planning) — Warp's built-in planning feature for smaller tasks.
 * [Skills](/agent-platform/capabilities/skills) — How skill files work in Warp and Oz.

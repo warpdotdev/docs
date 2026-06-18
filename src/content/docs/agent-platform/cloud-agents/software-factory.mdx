@@ -6,8 +6,6 @@ sidebar:
   label: "Software factory"
 ---
 
-# Software factory
-
 A software factory is a development system where specialized agents take new issues through triage, spec, implementation, and review, producing pull requests for your team to merge. Instead of every developer executing every step — reading each issue, writing specs, implementing changes, reviewing output — agents do the execution and humans review the results. The team's job shifts from doing the work to defining the process and raising the quality bar over time.
 
 Warp uses this model to build Warp itself. The [agent dashboard at build.warp.dev](https://build.warp.dev) shows the work Warp's agents are tackling across the open source repository in real time.
@@ -57,15 +55,15 @@ Start with one agent role. Most teams start with a triage agent, which is the si
 
 ## Reference implementation
 
-[`warpdotdev/oz-for-oss`](https://github.com/warpdotdev/oz-for-oss) is Warp's open-source software factory platform for GitHub-hosted repositories. It includes a Vercel webhook layer, GitHub App, and skill files for every agent role in the loop: triage, spec, implementation, review, verification, and self-improvement. Deploy it to your repository in about 30 minutes using the [onboarding guide](https://github.com/warpdotdev/oz-for-oss/blob/main/docs/onboarding.md).
+[`warpdotdev/oz-for-oss`](https://github.com/warpdotdev/oz-for-oss) is Warp's open-source software factory platform for GitHub-hosted repositories. It includes a Vercel webhook layer, GitHub App, and skill files for every agent role in the loop: triage, spec, implementation, review, verification, and self-improvement. Get started with the [onboarding guide](https://github.com/warpdotdev/oz-for-oss/blob/main/docs/onboarding.md).
 
 ## Related pages
 
-* [How to build a triage agent for your issue backlog](/guides/agent-workflows/build-a-triage-agent) — Start the series with the simplest agent role.
-* [How to write product and tech specs with agents](/guides/agent-workflows/write-product-and-tech-specs-with-agents) — Write specs that guide implementation agents.
-* [How to chain a software factory: from triage to PR](/guides/agent-workflows/chain-a-software-factory) — Connect the four roles into a working loop.
-* [How to run a software factory in the cloud](/guides/agent-workflows/run-a-software-factory-in-the-cloud) — Move the loop off your laptop with Oz.
-* [How to build a self-improving agent](/guides/agent-workflows/build-a-self-improving-agent) — Add the outer improvement loop.
+* [Build a triage agent for your issue backlog](/guides/agent-workflows/build-a-triage-agent) — Start the series with the simplest agent role.
+* [Write product and tech specs with agents](/guides/agent-workflows/write-product-and-tech-specs-with-agents) — Write specs that guide implementation agents.
+* [Set up your software factory: from triage to PR](/guides/agent-workflows/set-up-a-software-factory) — Connect the four roles into a working loop.
+* [Run a software factory in the cloud](/guides/agent-workflows/run-a-software-factory-in-the-cloud) — Move the loop off your laptop with Oz.
+* [Build a self-improving agent](/guides/agent-workflows/build-a-self-improving-agent) — Add the outer improvement loop.
 * [Skills](/agent-platform/capabilities/skills) — How skill files work in Warp and Oz.
 * [Cloud agents overview](/agent-platform/cloud-agents/overview) — Setting up cloud agents on Oz.
 * [Deployment patterns](/agent-platform/cloud-agents/deployment-patterns) — Common architectures for cloud agent deployment.

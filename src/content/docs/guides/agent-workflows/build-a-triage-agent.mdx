@@ -1,7 +1,7 @@
 ---
-title: How to build a triage agent for your issue backlog
+title: Build a triage agent for your issue backlog
 description: >-
-  Create a triage agent that reviews new GitHub issues, applies labels, and flags open questions — so your backlog stays actionable without manual effort.
+  Create a triage agent that reviews new GitHub issues, applies labels, and flags open questions. Your backlog stays actionable without manual effort.
 sidebar:
   label: "Build a triage agent"
 tags:
@@ -10,16 +10,14 @@ tags:
   - "software-factory"
 ---
 
-# How to build a triage agent for your issue backlog
-
-Build a triage agent that reviews every new GitHub issue for clarity, applies labels, and flags open questions before any implementation starts. By the end of this guide, you will have a working triage skill deployed as a GitHub Action that runs automatically whenever someone files an issue.
+Learn how to build a triage agent that reviews each new GitHub issue for clarity, applies labels, and flags open questions before any implementation starts. After completing the steps in this guide, you will have a working triage skill deployed as a GitHub Action that runs automatically whenever someone opens an issue.
 
 ## Prerequisites
 
-* **Warp with Oz** — Oz is Warp's cloud agent platform. [Sign in and set up Oz](/agent-platform/getting-started/agents-in-warp) if you haven't already.
-* **GitHub repository** — Your repository needs Issues enabled. The triage agent will read issues and post comments.
+* **A Warp account** — Oz is included with Warp. [Sign up at warp.dev](https://www.warp.dev) if you don't have an account.
+* **GitHub repository** — Your repository with Issues enabled. The triage agent will read issues and post comments.
 * **Oz environment** — A cloud environment with your repository checked out. See [Environments](/agent-platform/cloud-agents/environments) to create one.
-* **`WARP_API_KEY`** — A Warp API key with permission to start cloud runs. Generate one in the Oz web app under **Settings** > **API Keys**.
+* **Warp API key** — Required to start cloud agent runs. See [API keys](/reference/cli/api-keys) to create one and add it to your CI secrets as `WARP_API_KEY`.
 
 ## 1. Define your triage criteria
 
@@ -27,32 +25,32 @@ Before writing a skill, decide what your triage agent should do. A good triage a
 
 1. Is the report clear enough to act on?
 2. Is it a duplicate of an existing issue?
-3. What label should it get?
+3. What label should it have?
 
 Write down:
 
-* The label taxonomy for your repository (for example: `bug`, `enhancement`, `ready-to-implement`, `needs-info`, `duplicate`)
-* Who owns each area of the codebase — this becomes your STAKEHOLDERS file
-* What makes an issue "ready to implement": does it need a reproduction step? A version number? A proposed approach?
+* The label taxonomy for your repository (for example: `bug`, `enhancement`, `ready-to-implement`, `needs-info`, `duplicate`).
+* Who owns each area of the codebase. This becomes your `STAKEHOLDERS` file.
+* What makes an issue "ready to implement": does it need a reproduction step, version number, or proposed approach?
 
 You will encode these decisions in a skill file in the next step.
 
 ## 2. Create the triage skill
 
-A skill is a markdown file that tells the agent what to do, how to classify results, and what to output. Create a `.agents/skills/triage-issue/` directory in your repository with a `SKILL.md` file.
+A skill is a markdown file that defines the agent's behavior: what to check, how to classify results, and what to output.
 
-Use the [`triage-issue` skill from `warpdotdev/oz-for-oss`](https://github.com/warpdotdev/oz-for-oss/blob/main/.agents/skills/triage-issue/SKILL.md) as the starting point — it is the production triage skill Warp uses for its own open source repository. Copy it into your repository and adapt:
-
-* Replace the label taxonomy with your labels
-* Update the ownership section to reflect your codebase
-* Adjust the definition of "ready to implement" to match your team's bar
+1. Create a `.agents/skills/triage-issue/` directory in your repository with a `SKILL.md` file.
+2. Copy the [`triage-issue` skill from `warpdotdev/oz-for-oss`](https://github.com/warpdotdev/oz-for-oss/blob/main/.agents/skills/triage-issue/SKILL.md) into your repository. This is the production triage skill Warp uses for its own open source repository.
+3. Adapt the skill for your repository:
+   * Replace the label taxonomy with your labels.
+   * Update the ownership section to reflect your codebase.
+   * Adjust the definition of "ready to implement" to match your team's bar.
+4. Create `.github/issue-triage/config.json` with your label taxonomy. See the [`config.json` from `warpdotdev/oz-for-oss`](https://github.com/warpdotdev/oz-for-oss/blob/main/.github/issue-triage/config.json) for the format.
 
 Write the skill file in terms of principles, not rules. A rule says "if the reporter doesn't include a reproduction step, add `needs-info`." A principle says "confirm that a bug report includes enough context for a fresh contributor to reproduce the issue." Principles transfer to situations the original rules didn't cover; long rule lists overfit and become harder to maintain.
 
-Also create `.github/issue-triage/config.json` with your label taxonomy. See the [`config.json` from `warpdotdev/oz-for-oss`](https://github.com/warpdotdev/oz-for-oss/blob/main/.github/issue-triage/config.json) for the format.
-
 :::tip
-The [`bootstrap-issue-config`](https://github.com/warpdotdev/oz-for-oss/blob/main/.agents/skills/bootstrap-issue-config/SKILL.md) skill from `oz-for-oss` can generate an initial `config.json` and STAKEHOLDERS file by analyzing your existing labels and CODEOWNERS file. Run it once when setting up a new repository.
+The [`bootstrap-issue-config`](https://github.com/warpdotdev/oz-for-oss/blob/main/.agents/skills/bootstrap-issue-config/SKILL.md) skill from `oz-for-oss` can generate an initial `config.json` and `STAKEHOLDERS` file by analyzing your existing labels and CODEOWNERS file. Run it once when setting up a new repository.
 :::
 
 ## 3. Test the triage agent locally
@@ -66,13 +64,15 @@ oz agent run \
   --share
 ```
 
-The `--share` flag generates a session link your team can use to inspect what the agent did. Review the session output — check that the labels and comments match what you would write manually. If something is off, refine the skill file and run again.
+The `--share` flag generates a session link your team can use to inspect what the agent did. Review the session output: check that the labels and comments match what you would write manually. If something is wrong, refine the skill file and run again.
 
 For the full reference of `oz agent run` flags, see the [Oz CLI reference](/reference/cli/).
 
 ## 4. Deploy with GitHub Actions
 
-Once the skill output looks right, deploy it as a GitHub Action that triggers automatically when a new issue is opened. Create `.github/workflows/triage-issue.yml`:
+Once the skill output looks correct, deploy it as a GitHub Action that triggers automatically when a new issue is opened.
+
+1. Create `.github/workflows/triage-issue.yml` with the following content:
 
 ```yaml
 name: Triage new issues
@@ -102,22 +102,22 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-Replace `YOUR_OZ_ENVIRONMENT_SLUG` with the slug of the Oz environment you created in the prerequisites.
+2. Replace `YOUR_OZ_ENVIRONMENT_SLUG` with the slug of the Oz environment you created in the prerequisites.
 
-Add `WARP_API_KEY` to your repository's GitHub Actions secrets under **Settings** > **Secrets and variables** > **Actions**.
+3. Add `WARP_API_KEY` to your repository's GitHub Actions secrets under **Settings** > **Secrets and variables** > **Actions**.
 
 See [GitHub Actions integration](/agent-platform/cloud-agents/integrations/github-actions) for the full setup guide for `warpdotdev/oz-agent-action`.
 
 ## 5. Review and improve
 
-Watch the first few runs in the [Oz web app](https://oz.warp.dev) to verify the agent is labeling and commenting correctly. When you disagree with the agent — when you relabel an issue or edit a comment — note the pattern. Patterns you see repeatedly are signals to update your skill file.
+Watch the first few runs in the [Oz web app](https://oz.warp.dev) to verify the agent is labeling and commenting correctly. When you disagree with the agent, e.g. when you relabel an issue or edit a comment, note the pattern. Patterns you see repeatedly are signals to update your skill file.
 
-Add repo-specific context without forking the core skill by creating a `triage-issue-local` companion skill. This file specializes the base skill for your repository — your label taxonomy, your ownership map, your definition of readiness — while keeping the shared skill stable. See the [docs repo example](https://github.com/warpdotdev/docs/blob/main/.agents/skills/triage-issue-local/SKILL.md) for the companion skill pattern.
+Add repo-specific context without forking the core skill by creating a `triage-issue-local` companion skill. This file specializes the base skill for your repository (your label taxonomy, ownership map, and definition of readiness) while keeping the shared skill stable. See the [docs repo example](https://github.com/warpdotdev/docs/blob/main/.agents/skills/triage-issue-local/SKILL.md) for the companion skill pattern.
 
 ## Next steps
 
 * [What is a software factory?](/agent-platform/cloud-agents/software-factory) — How the triage agent fits into the full development loop.
-* [How to write product and tech specs with agents](/guides/agent-workflows/write-product-and-tech-specs-with-agents) — Add the spec role once your backlog is well-triaged.
-* [How to build a self-improving agent](/guides/agent-workflows/build-a-self-improving-agent) — Automate skill improvement based on your corrections.
+* [Write product and tech specs with agents](/guides/agent-workflows/write-product-and-tech-specs-with-agents) — Add the spec role once your backlog is well-triaged.
+* [Build a self-improving agent](/guides/agent-workflows/build-a-self-improving-agent) — Automate skill improvement based on your corrections.
 * [GitHub Actions integration](/agent-platform/cloud-agents/integrations/github-actions) — Full documentation for `warpdotdev/oz-agent-action`.
 * [Run agents unattended](/guides/agent-workflows/how-to-run-unattended-agents) — Broader patterns for cloud agents triggered by external events.

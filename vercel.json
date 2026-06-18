@@ -96,6 +96,11 @@
   ],
   "redirects": [
     {
+      "source": "/guides/agent-workflows/chain-a-software-factory",
+      "destination": "/guides/agent-workflows/set-up-a-software-factory",
+      "statusCode": 308
+    },
+    {
       "source": "/advanced/command-line-flags",
       "destination": "/terminal/sessions/launch-configurations/",
       "statusCode": 308

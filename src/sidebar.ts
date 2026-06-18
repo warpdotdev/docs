@@ -659,7 +659,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					items: [
 						{ slug: 'guides/agent-workflows/build-a-triage-agent', label: 'Build a triage agent' },
 						{ slug: 'guides/agent-workflows/write-product-and-tech-specs-with-agents', label: 'Write specs with agents' },
-						{ slug: 'guides/agent-workflows/chain-a-software-factory', label: 'Chain a software factory' },
+						{ slug: 'guides/agent-workflows/set-up-a-software-factory', label: 'Set up your software factory' },
 						{ slug: 'guides/agent-workflows/run-a-software-factory-in-the-cloud', label: 'Run a software factory in the cloud' },
 						{ slug: 'guides/agent-workflows/build-a-self-improving-agent', label: 'Build a self-improving agent' },
 					],

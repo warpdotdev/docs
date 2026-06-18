@@ -1,26 +1,22 @@
 ---
-title: "How to chain a software factory: from triage to PR"
+title: "Set up your software factory: from triage to PR"
 description: >-
-  Connect specialized agents through the full development loop — triage, spec, implement, and review — so new issues become reviewable PRs with minimal manual execution.
+  Add the implementation and reviewer agents to complete your software factory, then wire all four agent roles together using GitHub labels as the state machine.
 sidebar:
-  label: "Chain a software factory"
+  label: "Set up your software factory"
 tags:
   - "agents"
   - "software-factory"
   - "cloud-agents"
 ---
 
-# How to chain a software factory: from triage to PR
-
-A software factory chains four specialized agents through the full development loop: a triage agent classifies new issues, a spec agent drafts product and tech specs, an implementation agent builds against those specs, and a reviewer agent validates the result. The output of each agent becomes the input for the next. You review pull requests — not individual steps.
-
-This guide shows how to connect those agents into a working loop using GitHub labels as the state machine, skills as the agent instructions, and Oz as the orchestration layer.
+By the time you reach this guide, you have a triage agent that labels new issues and a spec agent that drafts specs for approved issues. This guide adds the remaining two roles — an implementation agent that builds against approved specs, and a reviewer agent that validates the result — and wires all four together using GitHub labels as the state machine. Issues flow automatically from triage to a reviewable pull request.
 
 ## Prerequisites
 
 * Each agent role working individually. Follow the individual guides first:
-  * [How to build a triage agent](/guides/agent-workflows/build-a-triage-agent)
-  * [How to write product and tech specs with agents](/guides/agent-workflows/write-product-and-tech-specs-with-agents)
+  * [Build a triage agent](/guides/agent-workflows/build-a-triage-agent)
+  * [Write product and tech specs with agents](/guides/agent-workflows/write-product-and-tech-specs-with-agents)
 * **Oz environment** — A cloud environment with your repository checked out. See [Environments](/agent-platform/cloud-agents/environments).
 * **`warpdotdev/oz-agent-action`** installed — See [GitHub Actions integration](/agent-platform/cloud-agents/integrations/github-actions).
 
@@ -41,7 +37,7 @@ A human intervenes at two points: approving the spec before implementation begin
 
 Your triage agent runs on `issues: [opened]` via GitHub Actions. When it completes, it applies a `ready-to-spec` label if the issue is clear and actionable, or `needs-info` if it needs more detail from the reporter.
 
-See [How to build a triage agent](/guides/agent-workflows/build-a-triage-agent) for the full setup.
+See [Build a triage agent](/guides/agent-workflows/build-a-triage-agent) for the full setup.
 
 ## 2. Trigger the spec agent on label change
 
@@ -173,8 +169,8 @@ The reviewer agent surfaces issues and inconsistencies; the human makes the fina
 ## Next steps
 
 * [What is a software factory?](/agent-platform/cloud-agents/software-factory) — The conceptual overview of the full loop.
-* [How to run a software factory in the cloud](/guides/agent-workflows/run-a-software-factory-in-the-cloud) — Move the loop into a managed Oz deployment.
-* [How to build a self-improving agent](/guides/agent-workflows/build-a-self-improving-agent) — Add the outer improvement loop.
+* [Run a software factory in the cloud](/guides/agent-workflows/run-a-software-factory-in-the-cloud) — Move the loop into a managed Oz deployment.
+* [Build a self-improving agent](/guides/agent-workflows/build-a-self-improving-agent) — Add the outer improvement loop.
 * [Review AI-generated code](/guides/agent-workflows/how-to-review-ai-generated-code) — The human review workflow for agent-generated PRs.
 * [`warpdotdev/oz-for-oss`](https://github.com/warpdotdev/oz-for-oss) — The complete reference implementation.
 * [GitHub Actions integration](/agent-platform/cloud-agents/integrations/github-actions) — Full documentation for triggering Oz agents from CI.
