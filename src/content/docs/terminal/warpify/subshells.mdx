@@ -56,7 +56,7 @@ if [[ "$TERM_PROGRAM" == "WarpTerminal" ]]; then
 fi
 
 # For bash subshells, add to ~/.bashrc or ~/.bash_profile.
-if [[ "$TERM_PROGRAM" == "WarpTerminal" ]];
+if [[ "$TERM_PROGRAM" == "WarpTerminal" ]]; then
   printf '\eP$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "bash"}}\x9c'
 fi
 
