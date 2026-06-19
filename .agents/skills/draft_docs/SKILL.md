@@ -96,6 +96,22 @@ Create the documentation using the appropriate template from `.agents/templates/
 ### 8. Run style lint
 Run `python3 .agents/skills/style_lint/style_lint.py --changed` on the drafted file to catch formatting and terminology issues before presenting to the user.
 
+If this skill is running as a cloud agent producing an agent-authored PR, also capture a violation summary for the self-improvement loop **after the PR is created**:
+
+1. Re-run with `--output /tmp/style_lint_out.json` to get machine-readable output.
+2. Aggregate the `issues` array by `check` field to get violation counts per check name.
+3. Append one record to `.agents/logs/style_lint_runs.jsonl`:
+   ```json
+   {"date":"YYYY-MM-DD","pr":"NNN","branch":"BRANCH_NAME","authored_by":"agent","skill_used":"SKILL_NAME","files_scanned":N,"violations":{"check_name":count}}
+   ```
+4. From a clean checkout or worktree based on the latest `main`, stage only `.agents/logs/style_lint_runs.jsonl` and commit directly to `main`:
+   ```text
+   chore: log style lint run for PR #NNN
+   ```
+   If the git push fails, write the record to the run output instead and continue.
+
+Skip steps 2–4 in local/interactive sessions.
+
 ### 9. Review against checklist
 Before presenting the draft, verify against the quality checklist in `AGENTS.md`:
 - [ ] Frontmatter includes clear description written as a standalone summary

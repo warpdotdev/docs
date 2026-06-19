@@ -1,0 +1,3 @@
+# Style lint run log — one JSON record per line, appended after each agent-authored PR.
+# Fields: date, pr, branch, authored_by, skill_used, files_scanned, violations (object: check_name → count).
+# See improve-drafting-skills/SKILL.md for the schema and the outer loop that reads this file.

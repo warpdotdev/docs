@@ -1,0 +1,4 @@
+# Human review feedback log — one JSON record per line, appended by the feedback collector step.
+# Populated after agent-authored PRs are closed or merged using gh pr view --json reviews,comments.
+# Fields: date, pr, skill_used, file, feedback_type, severity, comment, tag, resolved_by.
+# See improve-drafting-skills/SKILL.md for the schema and the outer loop that reads this file.

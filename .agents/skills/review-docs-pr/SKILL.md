@@ -118,3 +118,25 @@ After creating `review.json`:
 - Verify all paths exist in the PR diff and match the changed files
 - Check that line numbers are within the changed files and reference lines that were actually modified
 - Ensure comment spans don't exceed 10 lines
+
+## Signal logging
+
+After submitting the PR review, append a summary entry to `.agents/logs/pr_review_runs.md` for the `improve-drafting-skills` outer loop. Apply this step only when reviewing an agent-authored PR (branch created by a drafting skill, or commit author is `oz-agent@warp.dev`).
+
+1. Count comments in `review.json` by severity label (`🚨 [CRITICAL]`, `⚠️ [IMPORTANT]`, `💡 [SUGGESTION]`, `🧹 [NIT]`).
+2. Identify the top 3 issue categories by frequency (use the `check` name if available from style lint output, or infer a short category from the comment body).
+3. Determine the skill used from the PR branch name or PR description if available.
+4. Prepend a new entry to `.agents/logs/pr_review_runs.md` using this format:
+   ```markdown
+   ## YYYY-MM-DD — PR #NNN [Approve | Approve with nits | Request changes]
+   - **Branch**: branch-name
+   - **Skill used**: draft_feature_doc
+   - **Critical**: N · **Important**: N · **Suggestions**: N · **Nits**: N
+   - **Top issue categories**: category (N), category (N), category (N)
+   - **Oz run**: [Oz run URL if available]
+   ```
+5. From a clean checkout or worktree based on the latest `main`, stage only `.agents/logs/pr_review_runs.md` and commit directly to `main`:
+   ```text
+   chore: log review-docs-pr run for PR #NNN
+   ```
+   If the git push fails, write the log entry to the run output instead and continue.
