@@ -717,7 +717,6 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `AIAutonomy.ToggledAutoexecuteReadonlyCommandsSetting` | Toggled setting to autoexecute readonly Agent Mode requested commands |
 | `Active Indexed Repos Changed` | Active indexed repositories changed, affecting codebase context. |
 | `Add Added Subshell Command` | Added a command to be automatically Warpified via Warp's subshell wrapper |
-| `Add Denylisted SSH Tmux Wrapper Host` | Added a SSH host to the denylist for prompting for Tmux Wrapper |
 | `Add Denylisted Subshell Command` | Explicitly prevent a command from being Warpified via Warp's subshell wrapper |
 | `Add Tab With Shell` | Added a tab with specific shell |
 | `Added Workflow Alias` | Added an alias to a Warp Drive workflow |
@@ -828,6 +827,9 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `AmbientAgent.EnvironmentSettings.Opened` | User opened the environment management pane |
 | `AmbientAgent.EnvironmentSettings.UpdatedEnvironment` | User updated an existing environment |
 | `AmbientAgent.Handoff.Initiated` | User initiated a local-to-cloud handoff |
+| `AmbientAgent.Handoff.SleepPrompt.Dismissed` | User dismissed the auto-handoff sleep discoverability prompt |
+| `AmbientAgent.Handoff.SleepPrompt.Enabled` | User enabled auto-handoff on sleep from the discoverability prompt |
+| `AmbientAgent.Handoff.SleepPrompt.Shown` | The auto-handoff sleep discoverability prompt was shown on wake |
 | `AmbientAgent.Handoff.SnapshotPrepared` | Handoff snapshot upload settled; reports whether it carried content |
 | `AmbientAgents.ThirdPartyHarness.RuntimeError.Detected` | Runtime output scanner detected a known failure substring in a third-party harness block. |
 | `Anonymous User Attempted Login-Gated Feature` | Anonymous user attempted to access a login-gated feature |
@@ -1021,6 +1023,9 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `FileTree.ItemCreated` | Created a new file from the file tree |
 | `Find Option Toggled` | Changed settings in Find Toggle |
 | `Focused Config in Settings Import` | Selected a terminal in the settings import onboarding block |
+| `FreeAiRemovalModal.CtaClicked` | The user clicked a CTA in the free AI removal notice modal |
+| `FreeAiRemovalModal.Dismissed` | The user dismissed the free AI removal notice modal |
+| `FreeAiRemovalModal.Shown` | The free AI removal notice modal was shown to the user |
 | `FreeTierLimitHitInterstitial.Closed` | User closed the free tier limit hit interstitial |
 | `FreeTierLimitHitInterstitial.Displayed` | The free tier limit hit interstitial was displayed |
 | `FreeTierLimitHitInterstitial.UpgradeButtonClicked` | User clicked the 'Upgrade' button in the free tier limit hit interstitial |
@@ -1136,6 +1141,7 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `QueuedPrompt.Edited` | User committed a non-empty edit to a queued prompt row |
 | `QueuedPrompt.PanelCollapseToggled` | User toggled the queued prompts panel collapse state |
 | `QueuedPrompt.Reordered` | User reordered a queued prompt row via drag-and-drop |
+| `QueuedPrompt.SentNow` | User sent a queued prompt row immediately (send-now button or Enter on empty input) |
 | `Quit Modal Cancel Pressed` | `Cancel` button on the alert modal was pressed |
 | `Quit Modal Disabled` | The quit modal dialog has been disabled and will not popup when a user closes Warp while a session is running |
 | `Quit Modal Shown` | Showed an alert modal to warn the user about closing the app/window with a running process |
@@ -1147,7 +1153,7 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `RemoteServer.ClientRequestError` | A client request to the remote server failed |
 | `RemoteServer.DaemonStartup` | Remote server daemon startup completed and socket bound |
 | `RemoteServer.Disconnection` | An established remote server connection was dropped |
-| `RemoteServer.HostUnsupported` | Preinstall check classified the remote host as unsupported, falling back to the legacy SSH flow |
+| `RemoteServer.HostUnsupported` | Preinstall check classified the remote host as unsupported, falling back to the wrapper-only SSH flow |
 | `RemoteServer.Initialization` | Remote server connection and initialization completed (success or failure) |
 | `RemoteServer.Installation` | Remote server binary installation completed (success or failure) |
 | `RemoteServer.MessageDecodingError` | A server message could not be decoded (no parseable request_id) |
@@ -1155,7 +1161,6 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `RemoteServer.Reconnection` | A reconnection attempt succeeded after a spontaneous disconnect |
 | `RemoteServer.SetupDuration` | End-to-end duration of the remote server setup flow |
 | `Remove Added Subshell Command` | Removed a command from the list of commands to automatically Warpify via Warp's subshell wrapper |
-| `Remove Denylisted SSH Tmux Wrapper Host` | Removed an SSH host from the denylist from prompting for Tmux Wrapper |
 | `Remove Denylisted Subshell Command` | Removed a command from the list of commands to IGNORE when trying to Warpify via Warp's subshell wrapper |
 | `Removed Workflow Alias` | Removed an alias from a Warp Drive workflow |
 | `Removed user from team` | Remove user from Warp Drive team |
@@ -1166,15 +1171,7 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `Resource Center Tips Skipped` | Skipped welcome tips for new users |
 | `SSH Bootstrap Attempt` | Attempted bootstrapping for an SSH session |
 | `SSH ControlMaster Error` | Encountered a ControlMaster error during an SSH session |
-| `SSH Install Tmux Block Accepted` | User accepted an ssh install tmux block |
-| `SSH Install Tmux Block Dismissed` | User dismissed an ssh install tmux block |
-| `SSH Install Tmux Block Displayed` | Displayed an ssh install tmux block |
-| `SSH Interactive Session Detected` | An interactive SSH session was detected |
 | `SSH Remote Server Choice Do Not Ask Again Toggled` | Toggled the 'Don't ask me this again' checkbox on the SSH remote-server choice block |
-| `SSH Tmux Warpification Error Block` | Ssh tmux warpification errored out |
-| `SSH Tmux Warpification Succeeded` | Ssh tmux warpification succeeded |
-| `SSH Tmux Warpify Block Accepted` | User accepted an ssh tmux warpify block |
-| `SSH Tmux Warpify Block Dismissed` | User dismissed an ssh tmux warpify block |
 | `Save Launch Config` | Saved current launch configuration of windows, tabs, and panes |
 | `Select App Icon` | Selected app icon |
 | `Select Command Palette Option` | Selected option from command palette (i.e. CMD-P) |
@@ -1195,7 +1192,6 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `Shell Terminated Prematurely` | The shell process terminated prematurely |
 | `Show Alias Expansion Banner` | Displayed the banner asking whether Warp should automatically expand aliases within the Input Editor |
 | `Show Subshell Banner` | Displayed the banner asking whether Warp should Warpify the current session via Warp's subshell wrapper |
-| `Show Warpify SSH Banner` | Displayed the banner asking whether Warp should Warpify the current SSH session via Warp's SSH Wrapper |
 | `ShowNotificationsDiscoveryBanner` | Showed notifications discovery banner in the block list |
 | `ShowNotificationsErrorBanner` | Showed error banner for notifications feature |
 | `Showed File in File Explorer` | Opened a file in Finder by using "Show in Finder" |
@@ -1250,7 +1246,6 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `Toggle Obfuscate Secret` | Revealed or hid a secret |
 | `Toggle Preserve Active Tab Color` | Enabled or disabled preserving the active tab color |
 | `Toggle Restore Session` | Toggled session restoration ("Restore windows, tabs, panes, on startup") |
-| `Toggle SSH Tmux Wrapper` | Changed the setting for SSH sessions to prompt for Tmux Wrapper |
 | `Toggle SSH Warpification` | Changed the setting for SSH sessions to be warified |
 | `Toggle Same Line Prompt` | Toggled on/off same line prompt |
 | `Toggle Secret Redaction` | Toggled on/off the setting for Secret Redaction - attempts to redact secrets and sensitive information |
@@ -1308,8 +1303,10 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `onboarding_callout_next` | User clicked next on a callout |
 | `onboarding_folder_selected` | User selected a folder |
 | `onboarding_folder_selection_started` | User started folder selection |
-| `onboarding_free_user_no_ai_upgrade_clicked` | User clicked the upgrade button on the free-user no-AI experiment slide |
 | `onboarding_get_started_clicked` | User clicked the Get Started button |
+| `onboarding_no_ai_confirmation_cancelled` | User chose to keep AI in the confirmation modal |
+| `onboarding_no_ai_confirmation_shown` | User was shown the no-AI confirmation modal |
+| `onboarding_no_ai_confirmed` | User confirmed they don't want AI in the confirmation modal |
 | `onboarding_setting_changed` | User changed a setting during onboarding |
 | `onboarding_slide_navigated_back` | User navigated to the previous slide |
 | `onboarding_slide_navigated_next` | User navigated to the next slide |
