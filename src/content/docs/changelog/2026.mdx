@@ -6,6 +6,75 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2026.06.17 (v0.2026.06.17.09.49)
+
+**New features**
+
+* Adds support for git chips over remote environments. ([#12542](https://github.com/warpdotdev/warp/pull/12542))
+* Added a "Format on save" setting (Settings → Code) to disable automatic LSP formatting on save while keeping other LSP features enabled. ([#12254](https://github.com/warpdotdev/warp/pull/12254))
+* Conversations can now be renamed using the `/rename-conversation` command. ([#12323](https://github.com/warpdotdev/warp/pull/12323))
+
+**Improvements**
+
+* Added a warp://settings/warp_agent deep link that opens the Warp Agent settings page directly. ([#12720](https://github.com/warpdotdev/warp/pull/12720))
+* Added hover tooltips to all git dialog action buttons (Commit, Push, Publish, Create PR, View PR) so their purpose is clear at a glance. ([#12709](https://github.com/warpdotdev/warp/pull/12709))
+* Transient network error banners now surface the underlying error details to aid in debugging connection issues. ([#12497](https://github.com/warpdotdev/warp/pull/12497))
+* Warp now offers a one-time prompt to enable automatic local-to-cloud handoff when your computer sleeps during a local agent run, and shows a confirmation toast when an automatic handoff completes. ([#12514](https://github.com/warpdotdev/warp/pull/12514))
+* [Windows] Reduced lag when switching tabs to a WSL tab. ([#12492](https://github.com/warpdotdev/warp/pull/12492))
+* The experimental tmux-based SSH warpification flow has been removed in favor of Warp's SSH extension. Users who had opted into the tmux wrapper see a one-time notice on their next SSH session. ([#12478](https://github.com/warpdotdev/warp/pull/12478))
+* Hitting enter with an empty input and queued prompt(s) now automatically sends your top queued prompt. ([#12536](https://github.com/warpdotdev/warp/pull/12536))
+* Conversations can now be renamed by double-clicking their title in the conversation list. ([#12409](https://github.com/warpdotdev/warp/pull/12409))
+* Double-click the empty area of the vertical tabs panel to open a new tab. ([#12506](https://github.com/warpdotdev/warp/pull/12506))
+* Added an opt-in setting (`warpify.ssh.reuse_existing_control_master`) that makes Warp's SSH wrapper attach to an existing SSH ControlMaster for the destination host instead of always creating its own, preserving user-managed masters and their port forwards. ([#12465](https://github.com/warpdotdev/warp/pull/12465))
+* Mermaid diagrams in AI responses now scale to the full available width instead of being constrained to a fixed height. ([#12488](https://github.com/warpdotdev/warp/pull/12488))
+* Agent completion notifications are no longer shown when a follow-up prompt is queued to auto-send. ([#12461](https://github.com/warpdotdev/warp/pull/12461))
+* SuperGrok: connecting an xAI Grok subscription to use Grok models in the agent is now available on stable (previously dogfood only). ([#12494](https://github.com/warpdotdev/warp/pull/12494))
+* Agent questions now size to their content, allowing a single question to use more vertical room. ([#11719](https://github.com/warpdotdev/warp/pull/11719))
+* Cloud agents that pause to wait for inbound events from child agents are now correctly held in a "waiting" state instead of being prematurely treated as completed. ([#12084](https://github.com/warpdotdev/warp/pull/12084))
+
+**Bug fixes**
+
+* Added a fallback to paste the xAI authorization code when connecting a SuperGrok subscription, so sign-in can complete even when the browser can't reach the loopback redirect. ([#12599](https://github.com/warpdotdev/warp/pull/12599))
+* Fixed several tab group bugs affecting special system-managed tabs. ([#12706](https://github.com/warpdotdev/warp/pull/12706))
+* Fixed macOS native window chrome events (e.g. window close/minimize) being dropped in certain situations. ([#12557](https://github.com/warpdotdev/warp/pull/12557))
+* Project explorer now sorts numbered files in natural (numeric-aware) order — e.g. file2 before file10. ([#11991](https://github.com/warpdotdev/warp/pull/11991))
+* Cloud agent runs and local agent conversations now automatically recover from transient network failures mid-turn (showing a "Reconnecting" status) instead of failing the run. ([#12431](https://github.com/warpdotdev/warp/pull/12431))
+* Fixed an issue where pressing Ctrl-C to stop a command monitored by Warp Agent could leave the conversation stuck showing `Warping…`. ([#12623](https://github.com/warpdotdev/warp/pull/12623))
+* Warp now immediately surfaces a clear error message when a required platform plugin is not installed correctly, instead of silently failing. ([#12471](https://github.com/warpdotdev/warp/pull/12471))
+* Fixed child agent status chips lingering in the UI when agent runs fail immediately on start. ([#12649](https://github.com/warpdotdev/warp/pull/12649))
+* Fixed a crash and mis-rendering when parsing certain Markdown content with very long delimiter runs. ([#12644](https://github.com/warpdotdev/warp/pull/12644))
+* Fixed vertical tabs toolbar buttons appearing underneath macOS traffic light buttons when the tools panel is open. ([#12660](https://github.com/warpdotdev/warp/pull/12660))
+* Fixed a regression where pane layout was not saved correctly when closing the app. ([#12672](https://github.com/warpdotdev/warp/pull/12672))
+* Fixed double-slash prefix (e.g. `//home/user/...`) shown in the read_skill action header when the skill is not yet indexed by Warp. ([#12668](https://github.com/warpdotdev/warp/pull/12668))
+* [Windows] Fixed pasted CRLF line endings breaking multi-line commands in POSIX shells. ([#12446](https://github.com/warpdotdev/warp/pull/12446))
+* Fixed attaching files or context blocks via CLI rich input not working correctly. ([#11509](https://github.com/warpdotdev/warp/pull/11509))
+* Command search in the terminal (Ctrl-R) now prioritizes commands in your history. ([#12600](https://github.com/warpdotdev/warp/pull/12600))
+* Fixed a rare reversed line range when an AI file read truncated a file whose first line exceeded the remaining byte budget. ([#12642](https://github.com/warpdotdev/warp/pull/12642))
+* Fixed queued prompts in sub-agent conversations sometimes not being sent when a sibling agent block obscured the turn-end signal. ([#12573](https://github.com/warpdotdev/warp/pull/12573))
+* Fixed the code review file section header rendering opaque square corners behind its rounded background. ([#12447](https://github.com/warpdotdev/warp/pull/12447))
+* Fixed inline images emitted during shell startup (e.g. `fastfetch`) being dropped instead of rendered. ([#10478](https://github.com/warpdotdev/warp/pull/10478))
+* Fixed git diff status chips not appearing in the prompt when untracked directories (e.g. nested repos or worktrees) are present. ([#12590](https://github.com/warpdotdev/warp/pull/12590))
+* Fixed custom inference endpoint and BYO API key settings inputs becoming unreadable after switching themes. ([#12521](https://github.com/warpdotdev/warp/pull/12521))
+* Fixed the theme picker causing the top tab bar to pass underneath macOS traffic light buttons. ([#11052](https://github.com/warpdotdev/warp/pull/11052))
+* Fixed header text alignment in markdown viewer — headers now share the same left edge as paragraph text. ([#12371](https://github.com/warpdotdev/warp/pull/12371))
+* Fixed "Open skill" buttons sharing hover and click state when multiple skills are read in one agent block. ([#12429](https://github.com/warpdotdev/warp/pull/12429))
+* Fixed code review "attach as context" actions (diff hunk, selection, and diff set) sometimes targeting a different agent conversation than the one in focus when using orchestrated agents. ([#12524](https://github.com/warpdotdev/warp/pull/12524))
+* Fixed Cmd+Enter incorrectly starting new agent conversations instead of submitting the current prompt. ([#12540](https://github.com/warpdotdev/warp/pull/12540))
+* Fixed launch crashes on Macs with legacy Metal driver stacks by pinning the Metal AIR bytecode target to the app's minimum macOS deployment target. ([#12496](https://github.com/warpdotdev/warp/pull/12496))
+* Fixed CLI environment updates resetting secret selection to "All Secrets". ([#12280](https://github.com/warpdotdev/warp/pull/12280))
+* Fixed Shift+Backspace deleting a whole word instead of one character on Windows. ([#11563](https://github.com/warpdotdev/warp/pull/11563))
+* Fixed connected SuperGrok subscriptions silently failing to authenticate once the OAuth access token expired; tokens are now refreshed automatically. ([#12516](https://github.com/warpdotdev/warp/pull/12516))
+* Fixed user-installed CLIs (e.g. `gcloud`, `gh`) and language servers failing to resolve when shell startup files print output on launch. ([#12473](https://github.com/warpdotdev/warp/pull/12473))
+* Fixed commands rendering with duplicated or missing characters when using the Warp prompt with zsh themes (e.g. oh-my-zsh's robbyrussell) alongside plugins such as zsh-syntax-highlighting. ([#12438](https://github.com/warpdotdev/warp/pull/12438))
+* Fixed `/fork` with an attached image — attachments are now sent with the initial prompt in the new forked conversation. ([#12376](https://github.com/warpdotdev/warp/pull/12376))
+* [Windows] Fixed terminal response sequences getting dropped, which caused `edit.exe` to hang indefinitely and NeoVim 0.12 to start slowly. ([#11906](https://github.com/warpdotdev/warp/pull/11906))
+* Orchestrated child agents can now correctly read plans from parent agents. ([#12359](https://github.com/warpdotdev/warp/pull/12359))
+* Fixed MCP tool argument coercion not applying integer conversion recursively to nested object, array, and oneOf schemas. ([#10640](https://github.com/warpdotdev/warp/pull/10640))
+
+**Oz updates**
+
+* By default, cloud agent runs now continue without configured MCP servers that fail to start within the 20-second startup window, instead of failing the run. ([#12470](https://github.com/warpdotdev/warp/pull/12470))
+
 ### 2026.06.10 (v0.2026.06.10.09.27)
 
 **New features**
