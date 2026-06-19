@@ -121,22 +121,14 @@ After creating `review.json`:
 
 ## Signal logging
 
-After submitting the PR review, append a summary entry to `.agents/logs/pr_review_runs.md` for the `improve-drafting-skills` outer loop. Apply this step only when reviewing an agent-authored PR (branch created by a drafting skill, or commit author is `oz-agent@warp.dev`).
+After submitting the PR review, emit a summary record for the `improve-drafting-skills` outer loop. Apply this step only when reviewing an agent-authored PR (branch created by a drafting skill, or commit author is `oz-agent@warp.dev`).
 
 1. Count comments in `review.json` by severity label (`🚨 [CRITICAL]`, `⚠️ [IMPORTANT]`, `💡 [SUGGESTION]`, `🧹 [NIT]`).
 2. Identify the top 3 issue categories by frequency (use the `check` name if available from style lint output, or infer a short category from the comment body).
 3. Determine the skill used from the PR branch name or PR description if available.
-4. Prepend a new entry to `.agents/logs/pr_review_runs.md` using this format:
-   ```markdown
-   ## YYYY-MM-DD — PR #NNN [Approve | Approve with nits | Request changes]
-   - **Branch**: branch-name
-   - **Skill used**: draft_feature_doc
-   - **Critical**: N · **Important**: N · **Suggestions**: N · **Nits**: N
-   - **Top issue categories**: category (N), category (N), category (N)
-   - **Oz run**: [Oz run URL if available]
+4. Print the following structured marker to stdout:
    ```
-5. From a clean checkout or worktree based on the latest `main`, stage only `.agents/logs/pr_review_runs.md` and commit directly to `main`:
-   ```text
-   chore: log review-docs-pr run for PR #NNN
+   [SIGNAL:pr-review] {"date":"YYYY-MM-DD","pr":"NNN","branch":"branch-name","skill_used":"draft_feature_doc","verdict":"Request changes","critical":N,"important":N,"suggestions":N,"nits":N,"top_categories":["category (N)","category (N)","category (N)"]}
    ```
-   If the git push fails, write the log entry to the run output instead and continue.
+
+The `improve-drafting-skills` outer loop reads this signal from Oz run artifacts via `oz run get`. No git operations are required.
