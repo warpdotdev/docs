@@ -1,8 +1,8 @@
 # PR review run log
 
-New entries are prepended by each `review-docs-pr` agent run on an agent-authored PR. Most recent entry first.
+New entries are written by the `improve-drafting-skills` outer loop during its monthly feedback collector step. Most recent entry first.
 
-This log tracks every review of an agent-authored PR so the `improve-drafting-skills` outer loop can identify recurring patterns in agent drafting errors over time.
+This is a human-readable audit trail of `review-docs-pr` runs on agent-authored PRs. It is **not** written directly by `review-docs-pr` — that skill emits `[SIGNAL:pr-review]` markers to stdout. The outer loop reads those markers from Oz run artifacts and appends entries here as part of its Step A collection.
 
 **Format**:
 ```markdown

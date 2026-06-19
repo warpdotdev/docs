@@ -121,7 +121,7 @@ After creating `review.json`:
 
 ## Signal logging
 
-After submitting the PR review, emit a summary record for the `improve-drafting-skills` outer loop. Apply this step only when reviewing an agent-authored PR (branch created by a drafting skill, or commit author is `oz-agent@warp.dev`).
+After creating and validating `review.json` (immediately after the Validation section above), emit a summary record for the `improve-drafting-skills` outer loop. Do this before any step that submits or hands off the review — the marker must appear in the Oz run output regardless of how the review is ultimately published. Apply only when reviewing an agent-authored PR (branch created by a drafting skill, or commit author is `oz-agent@warp.dev`).
 
 1. Count comments in `review.json` by severity label (`🚨 [CRITICAL]`, `⚠️ [IMPORTANT]`, `💡 [SUGGESTION]`, `🧹 [NIT]`).
 2. Identify the top 3 issue categories by frequency (use the `check` name if available from style lint output, or infer a short category from the comment body).
