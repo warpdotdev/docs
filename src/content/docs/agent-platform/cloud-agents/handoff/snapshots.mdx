@@ -10,11 +10,11 @@ sidebar:
 
 Workspace snapshots are how [handoff](/agent-platform/cloud-agents/handoff/) carries repository changes and other workspace state across cloud agent runs. At the end of every cloud agent run, Warp asks a small declarations script which repositories and files to snapshot, then uploads the resulting git diffs and file contents so the next cloud agent run can apply them.
 
-Warp's bundled cloud agent image ships with a declarations script that snapshots every git repository under the agent's workspace, so most cloud agent runs need no configuration. This page is for the cases where you need to customize what gets snapshotted — for example, when running cloud agents in a custom Docker image, on a self-hosted [Direct backend](/agent-platform/cloud-agents/self-hosting/managed-direct/), or as an [unmanaged](/agent-platform/cloud-agents/self-hosting/unmanaged/) `oz agent run` in CI.
+Warp's bundled cloud agent image ships with a declarations script that snapshots every Git repository under the agent's workspace, so most cloud agent runs need no configuration. This page is for the cases where you need to customize what gets snapshotted — for example, when running cloud agents in a custom Docker image, on a self-hosted [Direct backend](/agent-platform/cloud-agents/self-hosting/managed-direct/), or as an [unmanaged](/agent-platform/cloud-agents/self-hosting/unmanaged/) `oz agent run` in CI.
 
 ## When to customize snapshots
 
-The default snapshotting behavior covers the most common case: snapshot every git repository the agent worked on, inside the bundled cloud agent image. Customize snapshots when you need different behavior:
+The default snapshotting behavior covers the most common case: snapshot every Git repository the agent worked on, inside the bundled cloud agent image. Customize snapshots when you need different behavior:
 
 * **You're running outside the bundled image** — for example, a custom Docker base image, a self-hosted Direct backend, or unmanaged `oz agent run` invocations — where Warp's default `snapshot-declarations.sh` isn't on disk.
 * **You want to snapshot repos or files outside the agent's workspace** — for example, a sibling repo the agent reads but doesn't `cd` into, or a log file the agent writes to `/tmp`.

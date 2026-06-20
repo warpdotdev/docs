@@ -32,19 +32,14 @@ git clone https://github.com/vercel/next.js.git && cd next.js
 
 ## Indexing your codebase
 
-When you open a directory in Warp, we check if it is part of a Git repository. If it is, Warp begins indexing the source code to provide rich context for Agents. Warp also detects [Git worktree](/code/git-worktrees/) checkouts — each worktree is indexed as its own repository, so Agents always have accurate context for the branch you're working on.&#x20;
+When you open a directory in Warp, we check if it is part of a Git repository. If it is, Warp begins indexing the source code to provide rich context for Agents. Warp also detects [Git worktree](/code/git-worktrees/) checkouts — each worktree is indexed as its own repository, so Agents always have accurate context for the branch you're working on.
 
 :::note
 Code indexed with Codebase Context is never stored on our servers. Codebase Context works with both local agent sessions and [cloud agent runs](/agent-platform/cloud-agents/overview/). Without Codebase Context enabled, agents will still be able use terminal commands (i.e. `grep`, `sed`) to navigate your code.
 :::
 
-:::caution
-**Codebase Context (semantic indexing and search) is not yet available in SSH or WSL sessions.**
-
-Feature requests:
-
-* SSH: [GitHub #6831](https://github.com/warpdotdev/Warp/issues/6831)
-* WSL: [GitHub #6744](https://github.com/warpdotdev/Warp/issues/6744)
+:::note
+Codebase Context works in SSH sessions when [Warp's SSH extension](/terminal/warpify/ssh/) is installed on the remote host — the remote repository is indexed directly on the remote machine. WSL sessions are not yet supported ([GitHub #6744](https://github.com/warpdotdev/Warp/issues/6744)).
 :::
 
 <figure>
@@ -71,9 +66,9 @@ For large projects, indexing may take a few minutes. Agents will not use Codebas
 You can view and manage your indexed codebases in **Settings** > **Code** > **Indexing and projects** under "Initialized / indexed folders". You can also choose whether to automatically index new folders as you navigate them.
 :::
 
-<VideoEmbed url="https://youtu.be/11rz9OYQ8Hg" />
+<VideoEmbed url="https://youtu.be/11rz9OYQ8Hg" title="Codebase Context indexing settings demo" />
 
-### **Codebase indexing states**
+### Codebase indexing states
 
 When viewing indexed codebases in Warp under **Settings** > **Code** > **Indexing and projects**, you may see different status indicators:
 
@@ -127,7 +122,7 @@ Codebase Context is available in all cloud agent runs — including runs trigger
 
 ## Multi-repo context
 
-Warp supports referencing context across multiple indexed repositories. Note that you don’t need to be inside a specific repo for agents to use its context.&#x20;
+Warp supports referencing context across multiple indexed repositories. Note that you don’t need to be inside a specific repo for agents to use its context.
 
 **This is especially useful when:**
 
@@ -140,7 +135,7 @@ Agents will only reference other repositories if they are already indexed. Durin
 
 Here's an example from [Warp Guides](/guides/), where Zach demonstrates how Warp uses Codebase Context to search for and use the relevant files as context:
 
-<VideoEmbed url="https://www.youtube.com/watch?v=11rz9OYQ8Hg" />
+<VideoEmbed url="https://www.youtube.com/watch?v=11rz9OYQ8Hg" title="Codebase Context codebase explanation demo" />
 
 ---
 

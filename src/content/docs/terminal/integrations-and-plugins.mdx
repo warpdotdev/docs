@@ -18,7 +18,7 @@ Currently, the Docker extension is only available on macOS.
 
 [Warp’s Docker extension](https://hub.docker.com/extensions/warpdotdev/warp) makes it more convenient to open Docker containers in Warp. With the extension, you can click to open any Docker container in a [Warpified subshell](/terminal/warpify/subshells/), without manually running `docker exec` or typing out lengthy container IDs.
 
-Select a container from the list and specify a shell type. Note, that only `bash|zsh|fish` are supported shells for docker containers. Then, select a user (optional) and finally click “Open in Warp” to run commands within the Docker container.
+Select a container from the list and specify a shell type. Note that only `bash|zsh|fish` are supported shells for Docker containers. Then, select a user (optional) and finally click “Open in Warp” to run commands within the Docker container.
 
 <figure>
 ![Warp's extension for Docker lists available containers](../../../assets/terminal/docker-extension.png)
@@ -81,14 +81,14 @@ Currently, the JetBrains IDE configuration is only available on macOS.
 
 Press a keyboard shortcut of choice while in a JetBrains IDE to open a new session in Warp.
 
-To configure this, use the Apple Menu. Click on **Preferences**, go to `External Tools` , and click **Add**. In this menu, put the following information:
+To configure this, use the Apple Menu. Click on **Preferences**, go to **External Tools**, and click **Add**. In this menu, put the following information:
 
 * _Name_: Open Warp
 * _Program_: `/Applications/Warp.app`
 * _Arguments_: `$ProjectFileDir$`
 * _Working Directory_: `/Applications`
 
-Then press `Ok`. Now you will be able to `Open Warp` from the Apple Menu under `Tools` -> `External Tools`.
+Then press **OK**. Now you will be able to `Open Warp` from the Apple Menu under `Tools` -> `External Tools`.
 
 <DemoVideo src="/assets/terminal/jetbrains_external_terminal_config.mp4" label="JetBrains New Session Shortcut" />
 

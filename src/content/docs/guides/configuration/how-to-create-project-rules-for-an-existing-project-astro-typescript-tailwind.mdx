@@ -16,11 +16,11 @@ import { Steps, FileTree } from '@astrojs/starlight/components';
 This educational module is built **only** from the transcript. It shows how to create and maintain a `Warp.md` file so Warp agents always understand your project’s setup, commands, architecture, and structure.
 :::
 
-<VideoEmbed url="https://youtu.be/SCYovBn4TnM?si=7wZEuTQAFUpcoFJx" />
+<VideoEmbed url="https://youtu.be/SCYovBn4TnM?si=7wZEuTQAFUpcoFJx" title="Creating project rules for an Astro TypeScript Tailwind project video" />
 
 ---
 
-## What Project Rules Are
+## What Project Rules are
 
 A **Project Rules** file (`Warp.md`) acts as your project’s AI onboarding guide. Instead of re‑explaining your setup on every prompt, you document it once and Warp will always have that context. The transcript demo walks through creating the file, opening it in a side editor, and organizing it with standard Markdown headings for clear sections.
 
@@ -203,15 +203,15 @@ Uses TypeScript path mapping with `@/*` pointing to `./src/*` for clean imports.
 
 ---
 
-## Keep the File Lean and Intentional
+## Keep the file lean and intentional
 
 <Steps>
 
-1. #### Start Lean
+1. #### Start lean
 
    Everything in `warp.md` is **prepended to your prompt**. A longer file consumes more tokens and can increase compute cost. Keep only what truly matters.
 
-2. #### Iterate and Maintain
+2. #### Iterate and maintain
 
    Start with `/init` boilerplate, then treat the file as a **living document**. Add the rules that help your team ship faster (e.g., branching, PR guidelines) and prune anything redundant.
 
@@ -223,7 +223,7 @@ If the file grows large (e.g., **500+ lines**), run it through a **prompt optimi
 
 ---
 
-## Use Sub‑directory Rules for Monorepos
+## Use sub‑directory Rules for monorepos
 
 For large repos, you can generate localized rule files in sub‑trees. Navigate into a subfolder and run `/init` again to create a **directory‑scoped `Warp.md`** tailored to that area:
 

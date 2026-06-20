@@ -12,7 +12,7 @@ The Admin Panel gives team administrators centralized control over organization-
 The [Admin Panel](https://app.warp.dev/admin/) provides team administrators with centralized control over organization-wide settings in Warp. It allows you to manage workspace settings that are enforced across all members of your team.
 
 :::note
-Admin Panel access is restricted to team administrators. Right now, only the creator of a team is the designated admin. If your admin has setup styles that override user preferences, you will not be able to control them inside of Warp, and you'll see a note that your admin has configured this setting.
+Admin Panel access is restricted to team administrators. Right now, only the creator of a team is the designated admin. If your admin has set up styles that override user preferences, you will not be able to control them inside of Warp, and you'll see a note that your admin has configured this setting.
 :::
 
 **Key features:**
@@ -25,7 +25,7 @@ Admin Panel access is restricted to team administrators. Right now, only the cre
 
 ## Accessing the Admin Panel
 
-Team administrators can access the Admin Panel directly at https://app.warp.dev/admin/
+Team administrators can access the Admin Panel directly from the [Warp Admin Panel](https://app.warp.dev/admin/).
 
 <figure>
 ![Admin Panel main interface with sections for AI, privacy, billing, code, and sharing settings](../../../assets/terminal/admin-panel-overview.png)
@@ -46,7 +46,7 @@ The Admin Panel uses a tier-based policy system to determine which settings admi
 
 **Fixed settings** are determined by your billing tier and cannot be changed. These appear with a message: "Configuring this setting is not available on your plan."
 
-### Setting Inheritance
+### Setting inheritance
 
 When administrators configure organization-wide settings:
 
@@ -54,7 +54,7 @@ When administrators configure organization-wide settings:
 2. **Respect user setting** - Allows individual team members to control the setting themselves
 3. **Tier restricted** - Setting is locked to default values based on billing plan
 
-### User Experience
+### User experience
 
 :::note
 Any changes made in the Admin Panel can take effect immediately for all team members. Consider testing settings in Warp before applying organization-wide policies.
@@ -66,7 +66,7 @@ When organization settings override individual preferences:
 * A message indicates "your organization has configured this setting"
 * Users cannot modify settings that are organizationally enforced
 
-## Plan Limitations
+## Plan limitations
 
 The features available in the Admin Panel vary by billing tier:
 
@@ -88,23 +88,23 @@ The features available in the Admin Panel vary by billing tier:
 * Custom LLM integration
 * Advanced compliance features
 
-For complete details about what's included in each plan, visit [warp.dev/pricing](https://www.warp.dev/pricing).
+For complete details about what's included in each plan, see [Warp pricing](https://www.warp.dev/pricing).
 
 ## Admin Panel sections
 
 The Admin Panel is organized into five main sections, each focused on a specific area of team management:
 
-### AI Settings
+### AI settings
 
 Configure how Agents behave across your organization, including autonomy levels and command permissions.
 
-#### General AI Settings
+#### General AI settings
 
 **AI in Remote Sessions** Controls whether AI features are available during SSH sessions and remote connections. Enterprise plans can toggle this setting, while Free tier teams have it enabled by default.
 
 **Prompt Summarization Caching** When conversations become long enough to require summarization, this setting allows the summary to be cached temporarily by the LLM provider to improve performance.
 
-#### Autonomy Settings
+#### Autonomy settings
 
 Configure how much independence Agents have when performing different actions:
 
@@ -121,7 +121,7 @@ Configure how much independence Agents have when performing different actions:
 
 **Read Files** Controls Agent access to reading files in the codebase.
 
-#### Directory and Command Control
+#### Directory and command control
 
 **Directory Allowlist** Specify directories where Agents can read files without restriction. Use paths like `~/git/repo1` to grant access to specific project folders.
 
@@ -141,7 +141,7 @@ Configure how much independence Agents have when performing different actions:
 Command denylist rules take precedence over allowlist rules and agent autonomy settings. If a command matches the denylist, user permission will always be required.
 :::
 
-### Privacy Settings
+### Privacy settings
 
 Manage data collection and security policies for your organization.
 
@@ -157,7 +157,7 @@ Manage data collection and security policies for your organization.
 * Custom regex patterns for organization-specific secrets
 * Unconditional application across all team members
 
-### Code Settings
+### Code settings
 
 Control codebase indexing and AI code features for your team.
 
@@ -169,7 +169,7 @@ Control codebase indexing and AI code features for your team.
 
 Higher tier plans support more indexed repositories and larger file limits per codebase.
 
-### Billing Settings
+### Billing settings
 
 Configure billing preferences and spending controls.
 
@@ -180,7 +180,7 @@ Configure billing preferences and spending controls.
 * Total overage credits used
 * Current month's overage costs
 
-### Sharing Settings
+### Sharing settings
 
 Control how team members can share Warp Drive objects and collaborate.
 

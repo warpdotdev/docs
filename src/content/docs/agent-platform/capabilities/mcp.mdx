@@ -7,7 +7,7 @@ description: >-
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 import DemoVideo from '@components/DemoVideo.astro';
 
-MCP servers extend Warp's [local agents](/agent-platform/local-agents/interacting-with-agents/) in a modular, flexible way by exposing custom tools or data sources through a standardized interface — essentially acting as plugins for Warp. Warp supports a variety of connection protocols, including Streamable HTTPS and SSE, along with custom headers and environment variables.
+MCP servers extend Warp's [local agents](/agent-platform/local-agents/interacting-with-agents/) in a modular, flexible way by exposing custom tools or data sources through a standardized interface — essentially acting as plugins for Warp. Warp supports a variety of connection protocols, including Streamable HTTP and SSE, along with custom headers and environment variables.
 
 MCP is an open source protocol. Check out the official [MCP documentation](https://modelcontextprotocol.io/introduction) for more detailed information on how this protocol is engineered.
 
@@ -33,7 +33,7 @@ This will show a list of all configured MCP servers, including which are current
 
 ### Adding an MCP Server
 
-To add a new MCP server, you can click the **+ Add** button. Configurations from most MCP Clients can be directly copied and pasted.
+To add a new MCP server, you can click the **+ Add** button. Configurations from most MCP clients can be directly copied and pasted.
 
 MCP server types you can add:
 
@@ -78,9 +78,9 @@ MCP server types you can add:
 
 ### Adding multiple MCP servers
 
-Warp supports configuring **multiple MCP servers** using a JSON snippet. Each entry under `mcpServers` is keyed by a unique name (`filesystem`, `github`, `notes`, etc). All servers defined in the example are added automatically — no manual setup required.
+Warp supports configuring **multiple MCP servers** using a JSON snippet. Each entry under `mcpServers` is keyed by a unique name (`filesystem`, `github`, `notes`, etc.). All servers defined in the example are added automatically — no manual setup required.
 
-To add a multiple MCP servers, you can click the **+ Add** button then paste in a JSON snippet like the example below:
+To add multiple MCP servers, you can click the **+ Add** button then paste in a JSON snippet like the example below:
 
 ```json
 {
@@ -167,15 +167,15 @@ File-based servers that require OAuth show an authentication modal on their firs
 
 After MCP servers are registered in Warp, you can **Start** or **Stop** them from the MCP servers page. Each running server will have a list of available tools and resources.
 
-You can rename and edit a server's name, as well as delete the server. If you are a part of a Team, you can also share a MCP with your teammates.
+You can rename and edit a server's name, as well as delete the server. If you are a part of a Team, you can also share an MCP server with your teammates.
 
 ### Sharing MCP servers
 
 MCP servers can be shared with your teammates by clicking the share icon. When sharing, sensitive values in the `env` configuration will be automatically scrubbed and replaced with variables.
 
 <figure style={{ maxWidth: "375px" }}>
-![Sharing a MCP Server](../../../../assets/agent-platform/mcp-servers-share.png)
-<figcaption>Sharing a MCP Server.</figcaption>
+![Sharing an MCP Server](../../../../assets/agent-platform/mcp-servers-share.png)
+<figcaption>Sharing an MCP Server.</figcaption>
 </figure>
 
 Your teammates can find shared MCP servers under the `Shared` section of their MCP settings. When your teammates install your server configuration, they will be prompted to enter any scrubbed `env` values.
@@ -194,7 +194,7 @@ Most MCP servers require authentication to connect to external services. Warp su
 
 ### Debugging MCP
 
-If you're having trouble with an MCP server, you can check the logs for any errors or messages to help you diagnose the problem by clicking the `View Logs` button on a server from the MCP servers page.
+If you're having trouble with an MCP server, you can check the logs for any errors or messages to help you diagnose the problem by clicking the **View Logs** button on a server from the MCP servers page.
 
 :::caution
 If you choose to share your MCP server logs with anybody, **make sure to remove any sensitive information before sharing**, as they may contain API keys.
@@ -206,9 +206,9 @@ Many SSE based MCP servers will state that your URL should be treated like a pas
 Tip: We've noticed that some models often work better with MCP servers than others. If you're having trouble calling or using an MCP server, try using a different model.
 :::
 
-#### Debugging MCP Authentication issues
+#### Debugging MCP authentication issues
 
-In some cases you may need to reset the auth token for some MCP servers. To do this delete the local MCP auth files by running the following: `rm -rf ~/.mcp-auth`
+In some cases you may need to reset the auth token for some MCP servers. To do this, delete the local MCP auth files by running the following: `rm -rf ~/.mcp-auth`
 
 :::caution
 Note this will delete all your MCP auth tokens stored locally so you will need to login and re-authenticate.
@@ -289,12 +289,12 @@ Below are examples for popular Model Context Protocol (MCP) servers.
     }
     ```
 
-    **Sentry SSE Server (URL)**
+    **Sentry Streamable HTTP Server (URL)**
 
     ```json
     {
       "Sentry": {
-        "url": "https://mcp.sentry.dev/sse"
+        "url": "https://mcp.sentry.dev/mcp"
       }
     }
     ```

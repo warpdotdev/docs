@@ -53,6 +53,33 @@ Before reporting, cross-reference every issue against the known exceptions in `r
 
 Only include a section if its count is > 0. Never list allowlisted issues under "Remaining."
 
+## Invalid audits (Vercel Firewall challenge)
+
+Before trusting any failures, confirm the audit was actually able to reach the
+site. If `docs.warp.dev` is behind a **Vercel Firewall bot challenge** (Attack
+Challenge Mode or the Bot Protection ruleset in challenge mode), every request
+returns HTTP 429 with an `x-vercel-mitigated: challenge` header, the `afdocs`
+crawler can't solve the JavaScript challenge, and **every check becomes a false
+positive**. The score is meaningless and must not be reported as a regression.
+
+The wrapper script (`scripts/afdocs_audit.mjs`) now runs a preflight check and
+exits early with `status: "invalid"` (exit code `2`) when it detects this. If
+you see that, do **not** post a score — report that the audit was blocked and
+link the fix.
+
+Confirm manually with:
+
+```bash
+curl -sS -D - -o /dev/null https://docs.warp.dev/llms.txt
+```
+
+A `429` plus `x-vercel-mitigated: challenge` (or an `x-vercel-challenge-token`
+header) means the firewall is blocking the crawler. The fix is on the Vercel
+side (disable Attack Mode, switch Bot Protection to log mode, or add a WAF
+bypass rule for the runner) — the `afdocs` CLI can't send a bypass header. See
+`references/vercel-firewall-challenge.md` for the full diagnosis and
+remediation steps.
+
 ## Reporting results
 
 After running the audit, ALWAYS report the results to the user before taking any action. Include:

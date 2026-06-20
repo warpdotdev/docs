@@ -62,7 +62,7 @@ If setup fails, use the returned error code to narrow the fix. Common errors inc
 
 ---
 
-## Step 1: Creating an environment
+## 1. Creating an environment
 
 Before you can trigger agents from Slack or Linear, you need an environment. The environment defines how and where Warp runs your code.
 
@@ -157,11 +157,11 @@ For more details about environment configuration, see the [Slack](/agent-platfor
 
 ---
 
-## Step 2: Authorizing GitHub
+## 2. Authorizing GitHub
 
 Warp needs GitHub access so agents can clone your repositories and, when permitted, write code and open pull requests.
 
-#### How GitHub Authorization works
+#### How GitHub authorization works
 
 When you create an environment or integration, Warp will prompt you to:
 
@@ -186,19 +186,19 @@ You typically only need to handle this once per team, unless your repo access ch
 
 #### Team-level GitHub authorization
 
-For automated workflows that use a [team API key](/reference/cli/api-keys/) (CI/CD pipelines, scheduled agents, SDK-triggered runs), you can configure team GitHub authorization so the agent authenticates with the Oz by Warp GitHub App instead of an individual's personal token.
+For automated workflows that use an [agent API key](/reference/cli/api-keys/) (CI/CD pipelines, scheduled agents, SDK-triggered runs), you can configure team GitHub authorization so the agent authenticates with the Oz by Warp GitHub App instead of an individual's personal token.
 
-This requires a Warp team admin to enable the GitHub organization in the Admin Panel (**Settings** > **Admin Panel** > **Platform**). Once configured, tasks initiated with a team API key can clone repos and open pull requests using the GitHub App installation token.
+This requires a Warp team admin to enable the GitHub organization in the Admin Panel (**Settings** > **Admin Panel** > **Platform**). Once configured, tasks initiated with an agent API key can clone repos and open pull requests using the GitHub App installation token.
 
 For full setup instructions, see [Team GitHub authorization](/agent-platform/cloud-agents/team-access-billing-and-identity/#team-github-authorization).
 
 :::note
-**Using API keys:** Personal API keys authenticate as you, so the agent runs with your GitHub permissions and code changes are attributed to your account. Team API keys with [team GitHub authorization](/agent-platform/cloud-agents/team-access-billing-and-identity/#team-github-authorization) configured use the GitHub App token instead.
+**Using API keys:** Personal API keys authenticate as you, so the agent runs with your GitHub permissions and code changes are attributed to your account. Agent API keys with [team GitHub authorization](/agent-platform/cloud-agents/team-access-billing-and-identity/#team-github-authorization) configured use the GitHub App token instead.
 :::
 
 ---
 
-## Step 3: Setting up an integration
+## 3. Setting up an integration
 
 Once you have set up at least one environment, you can create integrations that connect it to Slack or Linear.
 

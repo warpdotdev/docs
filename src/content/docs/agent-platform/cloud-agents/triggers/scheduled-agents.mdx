@@ -10,9 +10,11 @@ import VideoEmbed from '@components/VideoEmbed.astro';
 
 Warp's Scheduled Agents let you run cloud agents automatically on a **recurring schedule**. They are designed for routine, repeatable tasks that should happen without manual intervention, such as dead code cleanup, dependency maintenance, issue triage, or periodic refactors.
 
-<VideoEmbed url="https://www.youtube.com/watch?feature=youtu.be&v=wX9cDbsRXHs" />
+<VideoEmbed url="https://www.youtube.com/watch?feature=youtu.be&v=wX9cDbsRXHs" title="Scheduled agents overview video" />
 
 Scheduled Agents run in the background on Warp’s infrastructure. Each run starts from a clean session, executes a fixed prompt, and produces its own task and session history that can be inspected after the fact.
+
+For a guided, no-CLI walkthrough that creates a recurring agent from the Oz web app, see the [Scheduled Agents quickstart](/agent-platform/cloud-agents/triggers/scheduled-agents-quickstart/). This page is the full reference for managing schedules with the Oz CLI.
 
 If you're deciding whether to use a schedule, Slack or Linear trigger, GitHub Actions, the Oz CLI, or the API, see [Run agents unattended with schedules and triggers](/guides/agent-workflows/how-to-run-unattended-agents/).
 
@@ -54,7 +56,7 @@ Because each run is isolated, Scheduled Agents are safe to use for tasks that be
 
 Oz scheduled agents are managed through the Oz `schedule` family of CLI commands.
 
-All scheduling operations require the Oz CLI and an authenticated session
+All scheduling operations require the Oz CLI and an authenticated session.
 
 #### Creating a schedule
 
@@ -156,7 +158,7 @@ Each completed run also includes links to:
 * The task created by the agent.
 * The full agent session, including logs and outputs.
 
-This makes it easy to review what ran, when it ran, and what the agent did.
+This makes it easy to review what ran, when it ran, and what the agent did. You can also monitor scheduled runs alongside your other agents in the [Agent Management Panel](/agent-platform/cloud-agents/managing-cloud-agents/) in the Warp app, where you can filter by the **Scheduled** source to isolate them.
 
 #### Viewing a specific Scheduled Agent
 
@@ -300,6 +302,6 @@ Carefully review prompts and schedules before deploying them broadly, especially
 
 Scheduled Agents are best when work should happen on a predictable cadence.
 
-If you want an agent to run in response to an event, such as a Slack mention, PR update, or issue change, use triggered cloud agents instead.
+If you want an agent to run in response to an event, such as a Slack mention, PR update, or issue change, use [integrations](/agent-platform/cloud-agents/integrations/) to trigger cloud agents instead.
 
-Many teams use both together: triggers for reactive workflows, and Scheduled Agents for proactive maintenance.
+Many teams use both together: [triggers](/agent-platform/cloud-agents/triggers/) for reactive workflows, and Scheduled Agents for proactive maintenance.

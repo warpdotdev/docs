@@ -9,7 +9,7 @@ Draft a procedural documentation page with step-by-step instructions to accompli
 
 ## Workflow
 
-Follow the workflow in `.warp/skills/draft_docs/SKILL.md`, using the **procedural template** at `.warp/templates/procedural.md`.
+Follow the workflow in `.agents/skills/draft_docs/SKILL.md`, using the **procedural template** at `.agents/templates/procedural.md`.
 
 ## Content type rules
 
@@ -22,6 +22,23 @@ These rules are specific to procedural pages (from the "Drafting by content type
 - Provide troubleshooting for common failure points.
 - Don't over-explain — link to conceptual pages for the "why."
 - Title convention: gerund ("Configuring X", "Managing X")
+
+## AEO-driven procedures
+
+If the request is driven by AEO, Peec, AI search prompts, answer-engine visibility, or search-query vocabulary, read `.agents/skills/aeo_brief/SKILL.md` before drafting. Use the brief to:
+- Translate source-data language into precise procedure titles, headings, and descriptions
+- Preserve accurate high-intent phrases without keyword stuffing
+- Decide whether the procedure belongs in a new page or as a tighter update to an existing page
+- Surface product or UI terminology questions before presenting the draft
+
+## Pre-handoff self-review
+
+Before presenting the draft, check:
+- **Scannability** - Long procedure sections should use numbered steps, short bullets, or concise subsections. Do not leave dense paragraphs that hide actions.
+- **Expected outcomes** - Readers should know what success looks like after important steps.
+- **UI accuracy** - Product surfaces, buttons, settings paths, and command names should match the current product terminology.
+- **Value over coverage** - AEO-driven procedures should solve a real task, not collect loosely related keywords.
+- **Open questions** - Flag any steps that still need human product testing or UI verification.
 
 ## Heading case
 

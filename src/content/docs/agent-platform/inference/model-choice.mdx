@@ -11,7 +11,7 @@ Warp lets you choose from a curated set of large language models to power your a
 
 ## Available models
 
-Warp lets you choose from a curated set of Large Language Models (LLMs) to power your Agentic Development Environment.
+Warp lets you choose from a curated set of large language models (LLMs) to power your Agentic Development Environment.
 
 **Warp supports the following models.**
 
@@ -57,6 +57,9 @@ All Auto models perform well across all agent workflows and are ideal if you pre
 
 | Model | `model_id` | Variant |
 | --- | --- | --- |
+| Claude Fable 5 | `claude-5-fable-xhigh` | Default effort |
+| Claude Fable 5 | `claude-5-fable-high` | High effort |
+| Claude Fable 5 | `claude-5-fable-max` | Max effort |
 | Claude Opus 4.7 | `claude-4-7-opus-xhigh` | Default effort |
 | Claude Opus 4.7 | `claude-4-7-opus-high` | High effort |
 | Claude Opus 4.7 | `claude-4-7-opus-max` | Max effort |
@@ -70,11 +73,26 @@ All Auto models perform well across all agent workflows and are ideal if you pre
 | Claude Sonnet 4.5 | `claude-4-5-sonnet-thinking` | Thinking on |
 | Claude Haiku 4.5 | `claude-4-5-haiku` | — |
 
+:::caution
+Anthropic requires data retention for Claude Fable 5 for safety, abuse monitoring, and compliance reasons, so it is **not available under Zero Data Retention (ZDR)**. This requirement is specific to Claude Fable 5 and doesn't change the ZDR behavior of any other supported model. For Enterprise teams, the model is off by default and a workspace admin must enable it — see the [Admin Panel](/enterprise/team-management/admin-panel/#models-settings) and the [Security overview](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr).
+:::
+
 #### Google
 
 | Model | `model_id` |
 | --- | --- |
 | Gemini 3.1 Pro | `gemini-3.1-pro` |
+
+#### xAI
+
+| Model | `model_id` | Reasoning Level |
+| --- | --- | --- |
+| Grok 4.3 | `grok-4-3-low` | Low |
+| Grok 4.3 | `grok-4-3-medium` | Medium |
+| Grok 4.3 | `grok-4-3-high` | High |
+| Grok Build 0.1 | `grok-build-0.1` | — |
+
+You can run Grok models through your own SuperGrok subscription instead of Warp credits by connecting your xAI account. See [SuperGrok subscription](/agent-platform/inference/grok-subscription/).
 
 #### Hosted models (via [Fireworks AI](https://fireworks.ai))
 
@@ -117,7 +135,7 @@ Edit your default profile or any other profile directly in **Settings** > **Agen
 
 ### Zero data retention policies
 
-Warp integrates with multiple Large Language Model (LLM) providers to power its AI-driven features.
+Warp integrates with multiple large language model (LLM) providers to power its AI-driven features.
 
 **These providers include, but are not limited to:**
 
@@ -133,3 +151,5 @@ Warp has executed **Zero Data Retention (ZDR)** agreements with these providers.
 * LLM providers commit to delete inputs and outputs after generating the relevant output, within a fixed time period.
 
 Warp enforces these commitments through both technical measures and contractual safeguards with the LLM providers.
+
+Zero data retention is available for supported models. Model availability may vary where providers require data retention for safety, abuse monitoring, or compliance reasons.

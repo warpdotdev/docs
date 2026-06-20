@@ -1,103 +1,72 @@
 ---
-title: Agent identities
+title: Cloud agents
 description: >-
-  Agent identities are team-scoped bot accounts that own and execute cloud
-  agent runs. Separate workflows, scope credentials, and attribute automated
-  work.
+  Cloud agents are how Warp runs scheduled jobs, integration triggers, CI/CD
+  automation, and API-driven tasks against your team's environments.
 sidebar:
-  label: "Agent identities"
+  label: "Agents"
 ---
 
-An **agent identity** is a team-scoped identity that can own and execute cloud agent runs. Every Warp team starts with a single default agent identity. Creating additional agent identities lets you separate workflows, scope credentials, and attribute automated runs to a specific bot account instead of a person.
+A **cloud agent** is an agent that runs in Warp's cloud (or on a self-hosted worker) instead of on your local machine. Use a cloud agent when you want to give an automation its own settings, secrets, skills, and permissions instead of having it act as a user on your team.
 
-Agent identities are useful when you want to:
+Every team starts with a default cloud agent, which is what runs when an automation triggers a task with no other configuration. You can optionally create additional cloud agents through the Oz web app's **Agents** page or the public API. See [Managing cloud agents](#managing-cloud-agents) below.
 
-* **Separate workflows** - Give the deploy bot, the dependency-update bot, and the code-review bot distinct identities so runs are easier to filter and audit.
-* **Scope credentials** - Attach a specific set of managed secrets and skills to one identity so its runs receive only the configuration that workflow needs.
-* **Attribute automated work** - Bind an API key to an agent identity so CI pipelines and webhooks show up as that bot in run history rather than as a teammate.
+## How cloud agents get triggered
 
-## How agent identities work
+A run executes as a cloud agent when it's authenticated with an [agent API key](/reference/cli/api-keys/) or when an agent is explicitly selected; otherwise it runs as the calling user. The triggers that can run as a cloud agent are:
 
-Each team has one default agent identity. Headless runs (such as team API key runs that don't specify an identity) execute under this default. User-triggered runs default to running as the calling user, which is surfaced as **Quick run** in the web app, unless you pick a specific agent identity. You can create additional agent identities on top of the default and run as any of them. Identities are team-scoped, so every member of a team can see and use the same set of agent identities.
+* **Schedules** — Cron-style recurring runs. See [Scheduled agents](/agent-platform/cloud-agents/triggers/scheduled-agents/).
+* **Integrations** — Slack mentions, Linear issue updates, GitHub Actions workflow steps. See [Integrations](/agent-platform/cloud-agents/integrations/).
+* **API and SDK** — Programmatic runs from your own backend, scripts, or webhooks via the [Oz API](/reference/api-and-sdk/).
+* **CLI** — `oz agent run-cloud` from a developer machine, CI pipeline, or self-hosted worker. See the [Oz CLI](/reference/cli/).
 
-You can attach the following configuration to an agent identity:
+Each run is tracked in the [Oz dashboard](https://oz.warp.dev/runs) with its trigger source, the environment it ran in, and the full transcript.
 
-* **Description** - A short, human-readable summary teammates see when picking the identity.
-* **Managed secrets** - References (by name) to [team-managed secrets](/agent-platform/cloud-agents/secrets/) the identity should have access to.
-* **Skills** - Skill specs (for example, `org/repo:path/to/SKILL.md`) the identity comes preloaded with. Shorthand specs like `repo:skill_name` are accepted when they resolve unambiguously against the team's cloud environments.
+## Agent API keys
 
-## Service accounts and agent identities
+Most automation triggers authenticate using an **agent API key** — a credential that runs as a cloud agent on your team rather than as an individual user. See [API keys](/reference/cli/api-keys/) for how personal and agent keys differ, and how to create one.
 
-"Agent identity" is the user-facing name for what Warp's CLI and REST API internally model as a **service account**. The two terms refer to the same underlying record:
+## Service accounts
 
-* When `oz whoami` reports a principal of `service_account:<uid>`, that principal is an agent identity on your team.
-* When [`oz federate issue-token`](/reference/cli/federate/) emits a subject component like `service_account:my-sa-id`, the value identifies the agent identity the run is executing as.
+In the CLI and REST API, a cloud agent is represented as a **service account**. `oz whoami` reports `service_account:<uid>` when the CLI is authenticated as a service account, and [`oz federate issue-token`](/reference/cli/federate/) emits the same form in OIDC token subjects.
 
-You don't need to distinguish the two terms in day-to-day use. Pick the agent identity in the UI or pass its UID to the API, and the CLI surfaces the corresponding `service_account:` principal.
+## Managing cloud agents
 
-## Supporting multiple agent identities
+Use the [Oz web app's Agents page](/agent-platform/cloud-agents/oz-web-app/#agents) for day-to-day management. Use the public API when you need to create or update agents from scripts, CI/CD, or internal tooling. Full request and response formats, including error codes, live on the [API Reference](/api) page under the **agent** tag.
 
-Most teams start with the default agent identity and add more as their automation matures. Creating additional agent identities is worth it when distinct workflows have meaningfully different scopes — for example, a `ci-runner` identity that only needs read-only repo access, an `on-call` identity that holds production deploy credentials and is restricted to incident playbooks, and a `nightly-jobs` identity used by scheduled cleanups.
-
-Scoping each identity to a single workflow gives every run the minimum credentials it needs, keeps audit trails attributable to the right bot, and lets you revoke or rotate one workflow's access without touching the rest.
-
-## Plan limits
-
-Every team starts with a default agent identity. Additional identities are subject to plan-based limits. See [warp.dev/pricing](https://warp.dev/pricing) for current limits per plan.
-
-When a team is over its plan limit (for example, after downgrading), the extra identities remain visible in the list but are marked as unavailable. Unavailable identities cannot be used to start runs, cannot have new API keys generated for them, and cannot be edited.
-
-## Managing agent identities
-
-You can create, list, update, and delete agent identities through the public API. The full request and response formats, including error codes, live on the [API Reference](/api) page; the operations to look for are `createAgent`, `listAgents`, `updateAgent`, and `deleteAgent` under the **agent** tag.
-
-The endpoints behave as follows:
-
-* **Create** - `POST /agent/identities` with a `name` and optional `description`, `secrets`, and `skills`. Returns `201` with the new identity's `uid`, `name`, and `available` flag.
-* **List** - `GET /agent/identities` returns every agent identity on the team, including the default. Each entry includes an `available` flag indicating whether it is within the plan limit.
-* **Update** - `PUT /agent/identities/{uid}` replaces individual fields. Omitting a field preserves the current value; passing an empty string or empty array clears it.
-* **Delete** - `DELETE /agent/identities/{uid}` soft-deletes the identity and atomically deletes every API key bound to it. The default agent identity cannot be deleted.
+| Action | Endpoint | What it does |
+| --- | --- | --- |
+| **Create** | `POST /agent/identities` | Creates a cloud agent with a `name` and optional `description`, `secrets`, and `skills`. |
+| **List** | `GET /agent/identities` | Returns every cloud agent on the team, including the default, with an `available` flag for plan-limit status. |
+| **Update** | `PUT /agent/identities/{uid}` | Replaces individual fields. Omitted fields stay unchanged; empty strings or arrays clear the field. |
+| **Delete** | `DELETE /agent/identities/{uid}` | Soft-deletes the agent and deletes every API key bound to it. The team's default agent cannot be deleted. |
 
 ### Caller requirements
 
-A few constraints apply across every endpoint:
+Across all endpoints:
 
-* **Team-scoped** - Agent identities belong to a team. The caller must be a member of exactly one team. If the caller is on zero teams or multiple teams, the request is rejected.
-* **Human callers only** - Only human users can create, update, or delete an agent identity. A request authenticated as an agent identity itself is rejected.
-* **Availability is enforced on use** - Over-plan-limit identities are returned by the list endpoint but cannot be used to update fields, generate new keys, or start new runs.
+* **Human callers only** - Only human users can create, update, or delete a cloud agent. A request authenticated as a cloud agent itself is rejected.
+* **Availability is enforced on use** - Over-plan-limit agents are returned by the list endpoint but cannot be used to update fields, generate new keys, or start new runs.
 
-## API keys bound to an agent identity
+## Plan limits
 
-A team API key can be bound to a specific agent identity at creation time. Calls authenticated with that key run as the chosen identity. The team is resolved automatically from the identity, so you don't need to specify a team when generating the key.
+Every team starts with a default cloud agent. Additional agents are subject to plan-based limits. See [Warp pricing](https://www.warp.dev/pricing) for current limits per plan.
 
-To create a key bound to an agent identity, choose the identity when creating the team API key. See [API keys](/reference/cli/api-keys/) for the full key creation flow and for the difference between user-scoped and team-scoped keys.
+When a team is over its plan limit (for example, after downgrading), the extra agents remain visible in the list but are marked as unavailable. Unavailable agents cannot be used to start runs, cannot have new API keys generated for them, and cannot be edited.
 
-Once the key exists, the CLI and SDK authenticate as that agent identity for every call. There is no extra flag to set; the binding is on the key itself.
+## Where cloud agents appear in the product
 
-## Running as an agent identity
-
-There are two ways to run a cloud agent as a specific agent identity:
-
-* **Authenticate with a key bound to the identity** - Every run started with that key executes as the bound agent identity. This is the typical path for CI pipelines and scheduled work.
-* **Pass `agent_identity_uid` on `POST /agent/runs`** - For one-off runs, send the agent identity's `uid` in the request body. The field is only valid for team-owned runs.
-
-When neither path is used, headless runs (team API key runs without an identity) execute under the team's default agent identity. User-triggered runs (Warp app, personal API key, Slack, Linear) execute as the calling user and are surfaced as **Quick run** in the web app.
-
-## Where agent identities appear in the product
-
-Agent identities surface across several Oz surfaces:
-
-* **Agents page** - The Agents page in the [Oz web app](/agent-platform/cloud-agents/oz-web-app/) is where teams view, create, edit, and delete agent identities. The same page lists the skills available to your team.
-* **Agent picker** - Forms that start a new run or schedule include an **Agent** dropdown. **Quick run** is the default option (runs execute as the calling user); selecting an agent identity runs as that identity instead.
-* **Run filters and detail** - The Runs view lets you filter by agent identity, and individual run detail pages show which identity executed the run.
-* **Admin Panel** - Billing usage in the [Admin Panel](/knowledge-and-collaboration/admin-panel/) attributes credits consumed by agent identity runs to the team rather than to a person.
+* **Agents page** - The Agents page in the [Oz web app](/agent-platform/cloud-agents/oz-web-app/) is where teams view, create, edit, and delete cloud agents.
+* **Agent picker** - Forms that start a new run or schedule include an **Agent** dropdown. **Quick run** is the default (runs execute as the calling user); picking a cloud agent runs as the cloud agent instead.
+* **Run filters and detail** - The Runs view lets you filter by cloud agent, and individual run detail pages show which agent executed the run.
+* **Admin Panel** - Billing usage in the [Admin Panel](/knowledge-and-collaboration/admin-panel/) attributes credits consumed by cloud agent runs to the team rather than to a person.
 
 ## Related pages
 
-* [Cloud agent secrets](/agent-platform/cloud-agents/secrets/) - Manage the team-managed secrets you can attach to an agent identity.
-* [Deployment patterns](/agent-platform/cloud-agents/deployment-patterns/) - When to use an agent identity for automation versus a personal identity.
-* [Oz API & SDK](/reference/api-and-sdk/) - Programmatic access to the agent identity endpoints.
-* [API keys](/reference/cli/api-keys/) - Create keys bound to a specific agent identity.
-* [Federated identity tokens](/reference/cli/federate/) - Issue OIDC tokens from inside a run, including ones executing as an agent identity.
-* [Oz web app](/agent-platform/cloud-agents/oz-web-app/) - The web surface where you manage agent identities and inspect their runs.
+* [Triggers](/agent-platform/cloud-agents/triggers/) - How schedules, integrations, and API calls invoke cloud agents.
+* [Environments](/agent-platform/cloud-agents/environments/) - The runtime context (Docker image, repos, setup commands) a cloud agent uses.
+* [API keys](/reference/cli/api-keys/) - Create personal and agent API keys.
+* [Oz API & SDK](/reference/api-and-sdk/) - Programmatic access to the cloud agent endpoints.
+* [Federated identity tokens](/reference/cli/federate/) - Issue OIDC tokens from inside a run.
+* [Oz web app](/agent-platform/cloud-agents/oz-web-app/) - Manage cloud agents and inspect their runs in the web UI.
 * [Admin Panel](/knowledge-and-collaboration/admin-panel/) - Team-level billing and access controls.
