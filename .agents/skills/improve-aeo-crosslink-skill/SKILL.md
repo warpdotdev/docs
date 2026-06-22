@@ -1,19 +1,19 @@
 ---
 name: improve-aeo-crosslink-skill
-description: Quarterly outer loop agent that reads the aeo_crosslink_audit run log and proposes targeted improvements to the aeo_crosslink_audit skill itself. Part of the docs self-improvement loop architecture. Deploy after at least 8 entries exist in the run log (roughly month 3 of aeo_crosslink_audit operation).
+description: Monthly outer loop agent that reads the aeo_crosslink_audit run log and proposes targeted improvements to the aeo_crosslink_audit skill itself. Part of the docs self-improvement loop architecture. Deploy after at least 8 entries exist in the run log (roughly month 3 of aeo_crosslink_audit operation).
 ---
 
 # Improve AEO crosslink audit skill
 
-Quarterly outer loop agent. Reads `.agents/logs/aeo_crosslink_audit_runs.md` to identify systematic patterns in how the `aeo_crosslink_audit` skill performs over time, and opens a draft PR with targeted edits to `aeo_crosslink_audit/SKILL.md`.
+Monthly outer loop agent. Reads `.agents/logs/aeo_crosslink_audit_runs.md` to identify systematic patterns in how the `aeo_crosslink_audit` skill performs over time, and opens a draft PR with targeted edits to `aeo_crosslink_audit/SKILL.md`.
 
 This skill is part of the self-improvement loop architecture. The `aeo_crosslink_audit` skill already writes structured run log entries after every run — this skill reads those entries and acts on patterns.
 
 ## Schedule
 
-Quarterly (every 12 weeks). Start this agent on month 3 after `aeo_crosslink_audit` is running regularly (requires at least 8 run log entries for meaningful pattern analysis).
+Monthly, first Monday of each month, 9am PT. Start this agent on month 3 after `aeo_crosslink_audit` is running regularly (requires at least 8 run log entries for meaningful pattern analysis).
 
-Suggested cron: `0 17 1-7 1,4,7,10 1` (UTC) = first Monday of January, April, July, October at 9am PT.
+Suggested cron: `0 17 1-7 * 1` (UTC) = first Monday of each month at 9am PT.
 
 ## Prerequisites
 
@@ -123,13 +123,13 @@ Oz run: [run URL]
 
 ## Deployment
 
-This skill is designed for a quarterly Oz scheduled agent. Start it on month 3 after `aeo_crosslink_audit` has been running regularly.
+This skill is designed for a monthly Oz scheduled agent. Start it on month 3 after `aeo_crosslink_audit` has been running regularly.
 
 To deploy:
 1. Push this skill to `main` in the docs repo.
 2. Verify the Oz environment has `SLACK_BOT_TOKEN` and `SLACK_CHANNEL_ID` set.
 3. In the Oz web app (oz.warp.dev), create a new scheduled agent:
    - **Skill**: `improve-aeo-crosslink-skill` from `warpdotdev/docs`
-   - **Schedule**: `0 17 1-7 1,4,7,10 1` (UTC) = first Monday of Jan, Apr, Jul, Oct at 9am PT
+   - **Schedule**: `0 17 1-7 * 1` (UTC) = first Monday of each month at 9am PT
    - **Environment**: the same environment used for `aeo_crosslink_audit` (has `warpdotdev/docs` and buzz workspace checked out)
    - **Branch**: `main`
