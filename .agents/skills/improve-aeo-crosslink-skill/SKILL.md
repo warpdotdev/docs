@@ -63,9 +63,9 @@ Cause: the same content gap or topic keeps appearing but isn't being acted on. T
 Fix: move the recurring theme from `## Future expansion boundaries` to the active scope, or add it to the pilot topic area.
 
 **PR acceptance rate** (compare "PR opened" entries to PRs that were merged without human corrections vs. PRs that were corrected or closed)
-Note: this requires checking GitHub PR history. Use `gh pr list --repo warpdotdev/docs --search "AEO cross-links" --state merged` to find and inspect closed PRs.
-- If merged without corrections: confidence scoring is well-calibrated; no change needed.
-- If frequently corrected: tighten the confidence scoring or add more specific exclusion rules.
+Note: this requires checking GitHub PR history. Use `gh pr list --repo warpdotdev/docs --search "AEO cross-links" --state all` to find both merged and closed-without-merge PRs. Check each closed PR's reason and comments to classify it as "accepted", "corrected before merge", or "closed without merge".
+- If mostly accepted without corrections: confidence scoring is well-calibrated; no change needed.
+- If frequently corrected or closed: tighten the confidence scoring or add more specific exclusion rules.
 
 ### 3. Draft targeted edits to aeo_crosslink_audit/SKILL.md
 
@@ -85,7 +85,9 @@ Before opening a PR, verify:
 - Each edit is grounded in a specific pattern from the run log (cite the entry count and dates)
 - No edit changes the fundamental goal or scope of the skill without clear justification from the data
 - The proposed changes would not cause the skill to produce lower-quality outputs
-- Run `python3 .agents/skills/style_lint/style_lint.py --changed` to confirm edits are clean
+- Run `git diff --check` to catch whitespace or encoding issues in the changed files
+- Verify the YAML frontmatter of any changed `.md` file is parseable: `python3 -c "import sys; content = open(sys.argv[1]).read(); parts = content.split('---', 2); assert len(parts) >= 3" .agents/skills/aeo_crosslink_audit/SKILL.md`
+- Note: `style_lint.py --changed` only scans `src/content/docs/` and does not cover `.agents/skills/`; do not rely on it to validate skill file edits
 
 ### 5. Open a draft PR
 
