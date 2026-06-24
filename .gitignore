@@ -3,6 +3,8 @@ dist/
 .vercel/
 # generated types
 .astro/
+# generated from developers/agent-api-openapi.yaml via scripts/generate-openapi-json.mjs
+public/openapi.json
 
 # dependencies
 node_modules/

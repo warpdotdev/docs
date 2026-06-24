@@ -95,6 +95,68 @@ Rules:
 - If total 404s this week is less than 50, add a brief positive note: "404 volume is low — good signal that redirect coverage is working."
 - Never include raw user data (e.g. query strings with user IDs, tokens) in the Slack message. Strip query params from broken_url before displaying.
 
+## Phase 2: Redirect drafter
+
+After the Slack summary is posted and the CSV artifact is written, continue with Phase 2. Phase 2 proposes redirect entries for high-confidence uncovered 404 gaps, reducing the manual work required from the docs team.
+
+### Threshold and confidence scoring
+
+Only process gaps where `hits_this_week >= 10`. This threshold reduces noise; review and adjust after the first four weeks of data.
+
+For each qualifying uncovered URL, attempt to find a redirect target using these heuristics in order:
+
+1. **Exact path match** (HIGH confidence) — strip legacy prefixes (`/docs/`, `/warp-docs/`, `/warp/`) and check if the remainder matches a current file path under `src/content/docs/` (convert `.mdx`/`.md` to URL slug).
+2. **GitBook-to-Starlight migration** (HIGH confidence) — check a known path mapping for common patterns from the GitBook-era URL structure (e.g., `/getting-started/` → `/getting-started/quickstart/`, `/features/warp-drive/` → `/knowledge-and-collaboration/warp-drive/`). Infer from patterns already in `vercel.json`.
+3. **Fuzzy slug match** (MEDIUM confidence) — tokenize the broken URL path and find the closest matching file path in `src/content/docs/` by segment similarity.
+4. **No match** (LOW confidence) — cannot propose a redirect target.
+
+### Actions by confidence level
+
+- **HIGH**: Include in draft PR against `vercel.json`.
+- **MEDIUM**: List in the Slack message as "Suggested redirects needing human review" with the proposed target and confidence reason. Do not include in the PR.
+- **LOW**: Log to run output only. Do not include in Slack or PR.
+
+### PR requirements
+
+Open a draft PR only when at least 1 HIGH-confidence redirect is found.
+
+PR title:
+```text
+docs: add redirects for top uncovered 404 paths — YYYY-MM-DD
+```
+
+For each proposed redirect, add an entry to the `redirects` array in `vercel.json`:
+```json
+{"source": "/old/path", "destination": "/new/path", "permanent": true}
+```
+
+PR body must include:
+- The broken URL, hit count, proposed destination, and confidence reason for each redirect
+- The hit threshold used (`hits_this_week >= N`)
+- A note that MEDIUM-confidence suggestions are in the Slack message and require human review before adding
+
+Run `python3 .agents/skills/check_for_broken_links/check_links.py --internal-only` after editing `vercel.json` to catch any malformed destinations.
+
+### Slack update
+
+Append to the existing Slack message (or post a follow-up in the same thread):
+```
+🔀 *Redirect drafter results*
+HIGH-confidence PRs: N redirects → [PR URL]
+MEDIUM-confidence suggestions: N paths (listed below for human review)
+{path} → {suggested destination} [{reason}]
+...
+```
+
+If no gaps meet the threshold or no HIGH-confidence matches are found, post:
+```
+🔀 *Redirect drafter*: No high-confidence redirects found this week.
+```
+
+### Threshold calibration note
+
+After the first 4 weeks, review: if HIGH-confidence PRs contain redirects that are merged without changes, the threshold or confidence scoring is working. If PRs are frequently corrected or closed, raise the `hits_this_week` threshold or tighten the match heuristics.
+
 ## Self-review before posting
 
 Before posting to Slack, verify:

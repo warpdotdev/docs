@@ -57,9 +57,6 @@ All Auto models perform well across all agent workflows and are ideal if you pre
 
 | Model | `model_id` | Variant |
 | --- | --- | --- |
-| Claude Fable 5 | `claude-5-fable-xhigh` | Default effort |
-| Claude Fable 5 | `claude-5-fable-high` | High effort |
-| Claude Fable 5 | `claude-5-fable-max` | Max effort |
 | Claude Opus 4.7 | `claude-4-7-opus-xhigh` | Default effort |
 | Claude Opus 4.7 | `claude-4-7-opus-high` | High effort |
 | Claude Opus 4.7 | `claude-4-7-opus-max` | Max effort |
@@ -73,9 +70,18 @@ All Auto models perform well across all agent workflows and are ideal if you pre
 | Claude Sonnet 4.5 | `claude-4-5-sonnet-thinking` | Thinking on |
 | Claude Haiku 4.5 | `claude-4-5-haiku` | — |
 
+{/* Claude Fable 5 was removed from the product and may return in a future release.
+    To restore it, re-add the three Claude Fable 5 rows to the Anthropic table above
+    and uncomment the caution below. */}
+{/*
+| Claude Fable 5 | `claude-5-fable-xhigh` | Default effort |
+| Claude Fable 5 | `claude-5-fable-high` | High effort |
+| Claude Fable 5 | `claude-5-fable-max` | Max effort |
+
 :::caution
 Anthropic requires data retention for Claude Fable 5 for safety, abuse monitoring, and compliance reasons, so it is **not available under Zero Data Retention (ZDR)**. This requirement is specific to Claude Fable 5 and doesn't change the ZDR behavior of any other supported model. For Enterprise teams, the model is off by default and a workspace admin must enable it — see the [Admin Panel](/enterprise/team-management/admin-panel/#models-settings) and the [Security overview](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr).
 :::
+*/}
 
 #### Google
 
@@ -100,6 +106,7 @@ Warp also supports leading open source models hosted via Fireworks AI, so you ca
 
 | Model | `model_id` |
 | --- | --- |
+| GLM 5.2 | `glm-5.2-fireworks` |
 | GLM 5.1 | `glm-5.1-fireworks` |
 | Kimi K2.5 | `kimi-k25-fireworks` |
 | Kimi K2.6 | `kimi-k26-fireworks` |
