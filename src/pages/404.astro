@@ -47,10 +47,13 @@ import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 		var brokenUrl = window.location.origin + window.location.pathname;
 		var referrer = document.referrer ? new URL(document.referrer).origin : '';
 
-		// rudderanalytics is guaranteed to be a queue array at this point
-		// (the stub in RudderStackAnalytics.astro sets it up before this runs).
-		// Calling .track() on the queue simply pushes the call; once the real
-		// SDK loads it replays the queue automatically.
+		// If PUBLIC_RUDDERSTACK_WRITE_KEY and PUBLIC_RUDDERSTACK_DATA_PLANE_URL are
+		// set, RudderStackAnalytics.astro (loaded via CustomHead.astro in <head>)
+		// stubs window.rudderanalytics as a queue array before this script runs.
+		// Calling .track() on the queue pushes the call; once the real SDK loads it
+		// replays the queue automatically. If either env var is missing, the stub is
+		// not emitted and window.rudderanalytics is undefined — the guard below
+		// prevents a runtime error in that case.
 		if (window.rudderanalytics) {
 			window.rudderanalytics.track('docs_404', {
 				broken_url: brokenUrl,
