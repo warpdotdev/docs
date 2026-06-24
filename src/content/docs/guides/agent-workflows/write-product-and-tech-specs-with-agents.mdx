@@ -9,10 +9,12 @@ tags:
   - "software-factory"
 ---
 
-Use agents to turn a triaged GitHub issue into two spec files: a product spec that describes what the feature should do from the user's perspective, and a tech spec that describes how to implement it. Implementation agents use these specs as blueprints; reviewers use them as acceptance criteria. The agent does the drafting — you do the reviewing.
+Once your [triage agent](/guides/agent-workflows/build-a-triage-agent) is labeling issues as `ready-to-spec`, use agents to turn those issues into two spec files: a product spec that describes what the feature should do from the user's perspective, and a tech spec that describes how to implement it. Implementation agents use these specs as blueprints; reviewers use them as acceptance criteria. The agent does the drafting — you do the reviewing.
+
+Specs serve two purposes: they give implementation agents the context they need to make good decisions, and they give human reviewers a benchmark to judge the result against. Without a spec, an agent implements what it infers from the issue — which may not be what you intended. With one, it implements against an explicit contract you've approved.
 
 :::note
-Writing a good spec requires understanding the problem. The agent can draft the spec and fill in structure, but you need to read and approve it before implementation begins. A well-reviewed spec saves more time in implementation than it takes to write.
+Writing a good spec requires understanding the problem. The agent drafts the structure, but you need to read and approve it before implementation begins. A wrong spec produces a correct implementation of the wrong thing — catching that after the code is written is more expensive than catching it in the spec.
 :::
 
 ## Prerequisites
