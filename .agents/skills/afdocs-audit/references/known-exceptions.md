@@ -45,11 +45,11 @@ This file lists checks from the afdocs-audit skill that may flag as warnings or 
 
 ## page-size-markdown / page-size-html
 
-**Expected status**: pass (after changelog split)
-**Reason**: The changelog was split into yearly pages in May 2026, resolving the page-size issue. The one page that may appear in this check is `all-settings.mdx` (50,088 markdown chars — 88 chars over the 50K warn threshold). This is the comprehensive settings reference page; splitting it would harm usability for a trivial overage.
+**Expected status**: pass for page-size-markdown; warn for page-size-html (`all-settings.mdx` only)
+**Reason**: The changelog was split into yearly pages in May 2026, resolving the markdown page-size issue. `all-settings.mdx` may still appear in `page-size-html` at 50,088 markdown chars — 88 chars over the 50K warn threshold. This is the comprehensive settings reference page; splitting it would harm usability for a trivial overage.
 **Affected pages** (as of 2026-06-24):
 - `/terminal/settings/all-settings/` — settings reference (50,088 md chars, borderline warn)
-**Action**: Monitor. If it grows substantially past 50K, consider splitting by TOML section. For now, accept as a platform limitation of having a comprehensive reference page.
+**Action**: Monitor. If it grows substantially past 50K, consider splitting by TOML section. For now, accept as a known exception for the borderline HTML page-size warning.
 
 ## section-header-quality
 
