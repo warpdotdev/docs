@@ -47,7 +47,8 @@
   "overrides": {
     "path-to-regexp": "^6.3.0",
     "esbuild": "^0.28.1",
-    "vite": "7.3.5"
+    "vite": "7.3.5",
+    "tar": "^7.5.16"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.8",
