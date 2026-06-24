@@ -34,11 +34,22 @@ This file lists checks from the afdocs-audit skill that may flag as warnings or 
 - `/guides/getting-started/10-coding-features-you-should-know/` — numbered feature headings
 **Action**: No fix needed. Content is intact.
 
+## llms-txt-links-markdown
+
+**Expected status**: fail
+**Reason**: False positive. The llms.txt file links to `openapi.yaml` and `openapi.json` (the Oz Agent API OpenAPI spec) in its Optional section. The `afdocs` checker classifies YAML/JSON files as "non-markdown" (the same bucket as HTML pages) and looks for `.md` variants that don't exist and shouldn't. Machine-readable spec files have no markdown equivalent by design.
+**Affected links** (2 of 14 in llms.txt):
+- `https://docs.warp.dev/openapi.yaml`
+- `https://docs.warp.dev/openapi.json`
+**Action**: No fix needed. The OpenAPI specs are intentionally YAML/JSON and don't need markdown variants.
+
 ## page-size-markdown / page-size-html
 
 **Expected status**: pass (after changelog split)
-**Reason**: The changelog was split into yearly pages in May 2026, resolving the page-size issue. No pages should flag this check now.
-**Action**: If any page is flagged, treat it as a genuine issue that may need splitting.
+**Reason**: The changelog was split into yearly pages in May 2026, resolving the page-size issue. The one page that may appear in this check is `all-settings.mdx` (50,088 markdown chars — 88 chars over the 50K warn threshold). This is the comprehensive settings reference page; splitting it would harm usability for a trivial overage.
+**Affected pages** (as of 2026-06-24):
+- `/terminal/settings/all-settings/` — settings reference (50,088 md chars, borderline warn)
+**Action**: Monitor. If it grows substantially past 50K, consider splitting by TOML section. For now, accept as a platform limitation of having a comprehensive reference page.
 
 ## section-header-quality
 
