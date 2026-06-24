@@ -139,9 +139,14 @@ export default defineConfig({
 					projectName: 'Warp',
 					optionalLinks: [
 						{
-							label: 'Oz Agent API (OpenAPI spec)',
+							label: 'Oz Agent API (OpenAPI spec, YAML)',
 							url: 'https://docs.warp.dev/openapi.yaml',
 							description: 'Machine-readable OpenAPI 3.0 specification for the Oz Agent API.',
+						},
+						{
+							label: 'Oz Agent API (OpenAPI spec, JSON)',
+							url: 'https://docs.warp.dev/openapi.json',
+							description: 'Machine-readable OpenAPI 3.0 specification (JSON format) for the Oz Agent API.',
 						},
 					],
 				// Excludes pages that cause a stack overflow in hast-util-to-text
