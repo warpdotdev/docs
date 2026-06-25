@@ -1,7 +1,7 @@
 ---
 title: Run a software factory in the cloud
 description: >-
-  Set up the Oz-native production path for your software factory: dedicated cloud environments, team-scoped secrets, native event triggers, and full run auditability for every agent.
+  Set up the Oz-native production path for your software factory: dedicated cloud environments, team-scoped secrets, native event triggers, and full audit trails for every agent run.
 sidebar:
   label: "Run a software factory in the cloud"
 tags:
@@ -11,18 +11,16 @@ tags:
   - "orchestration"
 ---
 
-The GitHub Actions approach in [Set up your software factory](/guides/agent-workflows/set-up-a-software-factory) gets the four-agent loop working. This guide covers the Oz-native production setup for teams running the factory at scale: dedicated cloud environments, team-scoped secrets, native triggers beyond GitHub Actions, and full run auditability.
-
-This guide covers four things: environments, secrets and permissions, triggers, and observability.
+The GitHub Actions approach in [Set up your software factory](/guides/agent-workflows/set-up-a-software-factory) gets the four-agent loop working. This guide covers the Oz-native production setup for teams running the factory at scale: cloud environments, secrets and permissions, triggers, and observability.
 
 ## Prerequisites
 
 * A working software factory loop ([set one up](/guides/agent-workflows/set-up-a-software-factory))
-* A Warp account ([sign in at oz.warp.dev](https://oz.warp.dev) or access Oz from within Warp)
+* A Warp account ([sign up at warp.dev](https://www.warp.dev))
 
 ## Why cloud agents, not cloud computers
 
-A common approach to cloud-based agents is to spin up a persistent virtual machine — a "cloud computer" — that the agent logs into and uses like a developer's laptop. Oz uses a different model: each agent run is a short-lived, scoped execution with its own environment and permissions, similar to a cloud function rather than a long-running server.
+A common approach to cloud-based agents is to spin up a persistent virtual machine, or "cloud computer", that the agent logs into and uses like a developer's laptop. Oz uses a different model where each agent run is a short-lived, scoped execution with its own environment and permissions, similar to a cloud function rather than a long-running server.
 
 The practical difference:
 
@@ -35,15 +33,9 @@ See [Deployment patterns](/agent-platform/cloud-agents/deployment-patterns) for 
 
 ## 1. Set up a cloud environment
 
-An Oz environment is a Docker-based sandbox with your repository, secrets, and any tools the agents need. Create one from the Oz web app or the CLI:
+An Oz environment is a Docker-based sandbox with your repository, secrets, and any tools the agents need. If you don't already have one from the previous guides, create one now: run [`/create-environment`](warp://action/create_environment) in Warp and Oz detects your stack, suggests a Docker image, and creates the environment automatically.
 
-```bash
-oz environment create \
-  --name my-factory \
-  --repo YOUR_ORG/YOUR_REPO
-```
-
-For repositories that need language toolchains, databases, or other dependencies, start from a predefined environment in [`warpdotdev/oz-dev-environments`](https://github.com/warpdotdev/oz-dev-environments). These are Docker images pre-configured for common stacks. Copy the relevant Dockerfile into your repository and reference it when creating the environment.
+For repositories that need specific toolchains or dependencies, [`warpdotdev/oz-dev-environments`](https://github.com/warpdotdev/oz-dev-environments) has prebuilt Docker images for common stacks.
 
 See [Environments](/agent-platform/cloud-agents/environments) for the full reference.
 

@@ -9,13 +9,11 @@ tags:
   - "software-factory"
 ---
 
-Once your [triage agent](/guides/agent-workflows/build-a-triage-agent) is labeling issues as `ready-to-spec`, use agents to turn those issues into two spec files: a product spec that describes what the feature should do from the user's perspective, and a tech spec that describes how to implement it. Implementation agents use these specs as blueprints; reviewers use them as acceptance criteria. The agent does the drafting — you do the reviewing.
+Once your [triage agent](/guides/agent-workflows/build-a-triage-agent) is labeling issues as `ready-to-spec`, use agents to turn those issues into two spec files: a product spec that describes what the feature should do from the user's perspective, and a tech spec that describes how to implement it.
 
-Specs serve two purposes: they give implementation agents the context they need to make good decisions, and they give human reviewers a benchmark to judge the result against. Without a spec, an agent implements what it infers from the issue — which may not be what you intended. With one, it implements against an explicit contract you've approved.
+Implementation agents use these specs as blueprints; reviewers use them as acceptance criteria. The agent does the drafting while you do the reviewing.
 
-:::note
-Writing a good spec requires understanding the problem. The agent drafts the structure, but you need to read and approve it before implementation begins. A wrong spec produces a correct implementation of the wrong thing — catching that after the code is written is more expensive than catching it in the spec.
-:::
+Specs give implementation agents the context they need to make good decisions, and they also give human reviewers a benchmark to judge the result against. With a spec, the agent implements against an explicit contract you've approved, instead of what it inferred from the issue.
 
 ## Prerequisites
 
@@ -30,7 +28,7 @@ Writing a good spec requires understanding the problem. The agent drafts the str
 
 ## 1. Write the product spec
 
-A product spec defines what the feature should do from the user's perspective: user stories, acceptance criteria, and edge cases. It is the "what," not the "how."
+A product spec defines what the feature should do from the user's perspective, including user stories, acceptance criteria, and edge cases. It is the "what," not the "how."
 
 1. Open the issue you want to spec in Warp and run:
 
@@ -48,7 +46,7 @@ A product spec defines what the feature should do from the user's perspective: u
 
 ## 2. Write the tech spec
 
-A tech spec defines how the feature will be implemented: architecture decisions, relevant code locations, API shapes, and implementation notes. It is the "how."
+A tech spec defines how the feature will be implemented, including architecture decisions, relevant code locations, API shapes, and implementation notes. It is the "how."
 
 1. After reviewing the product spec, run:
 
@@ -65,30 +63,16 @@ A tech spec defines how the feature will be implemented: architecture decisions,
 
    An accurate `TECH.md` reduces the number of implementation iterations and gives reviewers context for why the code looks the way it does.
 
-## 3. Validate that the implementation matches the specs
-
-When an implementation agent opens a PR for this issue, run the validation skill to check the diff against both spec files:
-
-```bash
-/validate-changes-match-specs
-```
-
-The agent checks the PR diff against `PRODUCT.md` and `TECH.md` and returns a list of any inconsistencies for you to review before submitting the PR for human review. This skill is also available from [`warpdotdev/common-skills`](https://github.com/warpdotdev/common-skills).
-
-## 4. Include specs in the implementation PR
-
-The `specs/[issue-number]/` directory should be committed alongside the code changes in the implementation PR. This gives reviewers the full picture: what was intended (PRODUCT.md), how it was planned (TECH.md), and what was built (the code diff). There is no need to cross-reference separately.
-
 ## Productivity tips
 
 * **Spec before you code, not after** — The biggest value from specs is catching misaligned assumptions before any code is written. Running `/write-product-spec` first forces that alignment to happen early, when fixing it is cheap.
 * **Attach Figma mocks** — If your feature has a UI component, attach a Figma screenshot or mockup to your prompt when running `/write-product-spec`. The agent incorporates visual context into the acceptance criteria.
-* **Use `/plan` for smaller tasks** — For changes that don't warrant a full PRODUCT.md and TECH.md, use Warp's built-in [planning feature](/agent-platform/capabilities/planning). Plans can be saved, versioned, and attached to PRs without a full spec workflow.
+* **Use `/plan` for smaller tasks** — For changes that don't warrant full specs, use Warp's built-in [planning feature](/agent-platform/capabilities/planning). Plans can be saved, versioned, and attached to PRs without a full spec workflow.
 
 ## Next steps
 
 * [What is a software factory?](/agent-platform/cloud-agents/software-factory) — How specs fit into the full development loop.
-* [Set up your software factory: from triage to PR](/guides/agent-workflows/set-up-a-software-factory) — Connect the spec role to implementation and review.
+* [Set up your software factory](/guides/agent-workflows/set-up-a-software-factory) — Connect the spec role to implementation and review.
 * [`warpdotdev/common-skills`](https://github.com/warpdotdev/common-skills) — The full set of shared skills including `write-product-spec`, `write-tech-spec`, and `validate-changes-match-specs`.
 * [Planning](/agent-platform/capabilities/planning) — Warp's built-in planning feature for smaller tasks.
 * [Skills](/agent-platform/capabilities/skills) — How skill files work in Warp and Oz.
