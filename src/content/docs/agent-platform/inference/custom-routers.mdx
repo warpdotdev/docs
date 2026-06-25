@@ -67,11 +67,11 @@ A complexity router uses `type: complexity`. `default` is required and is used f
 ```yaml title="~/.warp/custom_model_routers/cost-saver.yaml"
 name: Cost saver
 type: complexity
-default: claude-4-5-sonnet
+default: claude-4-6-sonnet-high
 routing:
   easy: claude-4-5-haiku
-  medium: claude-4-5-sonnet
-  hard: claude-4-7-opus-high
+  medium: claude-4-6-sonnet-high
+  hard: claude-4-8-opus-high
 ```
 
 A rule-based router uses `type: prompt`. `default` is the required catch-all used when no rule matches, and `routing` is the ordered list of rules:
@@ -79,10 +79,10 @@ A rule-based router uses `type: prompt`. `default` is the required catch-all use
 ```yaml title="~/.warp/custom_model_routers/by-task.yaml"
 name: By task
 type: prompt
-default: claude-4-5-sonnet
+default: claude-4-6-sonnet-high
 routing:
   - description: debugging or fixing failing tests
-    model: claude-4-7-opus-high
+    model: claude-4-8-opus-high
   - description: writing documentation or comments
     model: gpt-5-5-low
   - description: simple one-line edits or renames
