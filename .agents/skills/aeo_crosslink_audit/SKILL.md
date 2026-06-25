@@ -38,7 +38,7 @@ Do NOT print, log, commit, or include secret values in reports or Slack messages
 Use the smallest reliable set of source data needed to justify link changes:
 - **Peec snapshot** - Check freshness before using any data:
   1. Read `generated_at` from `/workspace/buzz/aeo-snapshots/docs/agents-orchestration/latest.json`.
-  2. If the file is missing, `generated_at` is absent, or the snapshot is **14 days old or older**: write the stale-snapshot report (see "Stale snapshot report" below), post the stale Slack alert (step 8), and exit. Do not continue the audit or open a PR.
+  2. If the file is missing, `generated_at` is absent, or the snapshot is **14 days old or older**: write the stale-snapshot report (see "Stale snapshot report" below), write a run log entry (step 7) with the appropriate `No-change reason` (see "Stale snapshot report" for exact wording), post the stale Slack alert (step 8), and exit. Do not continue the audit or open a PR.
   3. If the snapshot is fewer than 14 days old, read both `latest.json` and `latest.md` as source signals. These contain pre-exported Peec data (prompts, recommendations, source URLs, query vocabulary, and visibility scores) for agents, cloud agents, and orchestration. The snapshots are generated locally (where Peec OAuth works) and committed to the buzz repo so cloud agents can use them.
 - **Google Search Console** - When available, use the environment's `GSC_SERVICE_ACCOUNT_CREDENTIALS_JSON` secret to inspect recent queries and pages related to agents, cloud agents, and orchestration. Never print, log, commit, or include the secret value in reports. If a GSC client requires a credentials file path, write the secret to a restricted temporary file, use it for the run, and remove it before finishing.
 - **Docs repo** - Search existing pages under `src/content/docs/` for relevant source pages, link targets, and related terminology.
@@ -47,7 +47,7 @@ If Google Search Console data is unavailable, say what could not be verified and
 
 ## Workflow
 
-1. **Check snapshot freshness, then gather source signals.** Read `generated_at` from `latest.json`. If the snapshot is missing or 14 days old or older, write the stale-snapshot report, post the stale Slack alert, and exit — do not proceed further. If fresh, read both snapshot files and use Google Search Console data, when available, to identify relevant user language, prompts, recommendations, or pages.
+1. **Check snapshot freshness, then gather source signals.** Read `generated_at` from `latest.json`. If the snapshot is missing or 14 days old or older, write the stale-snapshot report, write a run log entry (step 7), post the stale Slack alert (step 8), and exit — do not proceed further. If fresh, read both snapshot files and use Google Search Console data, when available, to identify relevant user language, prompts, recommendations, or pages.
 2. **Search existing docs.** Look for pages under `src/content/docs/` that already mention or imply related concepts in agents, cloud agents, or orchestration.
 3. **Identify link opportunities.** Find up to 5 internal cross-link opportunities where:
    - The source page already mentions or implies the related concept.
@@ -66,21 +66,42 @@ If Google Search Console data is unavailable, say what could not be verified and
 
    If the git push fails, write the log entry to the run output instead and continue to step 8.
 
-8. **Post Slack notification.** After writing the log entry, post the formatted message to `#growth-docs` using the curl command below. If either secret is unavailable, write the notification body to the run output instead.
+8. **Post Slack notification.** After writing the log entry, post the formatted message to `#growth-docs` using the Python snippet below. Python is preferred over curl because it reads `SLACK_BOT_TOKEN` from the environment (keeping the token out of process argv) and JSON-encodes the payload correctly regardless of newlines or special characters. If either secret is unavailable, write the notification body to the run output instead.
 
    ```bash
-   curl -s -X POST https://slack.com/api/chat.postMessage \
-     -H "Authorization: Bearer $SLACK_BOT_TOKEN" \
-     -H "Content-Type: application/json" \
-     -d "{
-       \"channel\": \"$SLACK_CHANNEL_ID\",
-       \"text\": \"<message text here>\",
-       \"unfurl_links\": false,
-       \"unfurl_media\": false
-     }"
+   python3 - <<'SLACK_EOF'
+   import os, json, urllib.request, sys
+
+   token = os.environ.get("SLACK_BOT_TOKEN", "")
+   channel = os.environ.get("SLACK_CHANNEL_ID", "")
+   if not token or not channel:
+       print("SLACK_BOT_TOKEN or SLACK_CHANNEL_ID not set — skipping Slack notification", file=sys.stderr)
+       sys.exit(0)
+
+   # Replace the triple-quoted string with the message from the Slack notification format section.
+   # Newlines and special characters are handled automatically by json.dumps.
+   message = """<message text here>"""
+
+   payload = json.dumps({
+       "channel": channel,
+       "text": message,
+       "unfurl_links": False,
+       "unfurl_media": False,
+   }).encode()
+   req = urllib.request.Request(
+       "https://slack.com/api/chat.postMessage",
+       data=payload,
+       headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"},
+   )
+   with urllib.request.urlopen(req) as resp:
+       result = json.load(resp)
+   if not result.get("ok"):
+       print(f"Slack error: {result.get('error')}", file=sys.stderr)
+       sys.exit(1)
+   SLACK_EOF
    ```
 
-   Substitute `<message text here>` with the appropriate format from the "Slack notification format" section below. Escape double quotes inside the message text with `\"`. Do not print `SLACK_BOT_TOKEN` or `SLACK_CHANNEL_ID` values in the run output or in any file.
+   Replace `<message text here>` with the message from the appropriate format in the "Slack notification format" section. Do not print `SLACK_BOT_TOKEN` or `SLACK_CHANNEL_ID` values in the run output or in any file.
 
 ## Link quality rules
 
@@ -186,7 +207,7 @@ If the Peec snapshot is missing or 14 days old or older, stop immediately. Write
 ## AEO cross-link audit — snapshot stale
 
 **Date:** YYYY-MM-DD
-**Snapshot age:** N days (generated YYYY-MM-DD)
+**Snapshot age:** [N days (generated YYYY-MM-DD) | file not found | generated_at field missing]
 **Threshold:** 14 days
 
 The Peec snapshot is too old to support a high-confidence audit. No PR was opened and no docs were changed.
@@ -198,7 +219,17 @@ Skill: buzz/.agents/skills/refresh-peec-aeo-snapshot/SKILL.md
 The audit will run normally on the next scheduled execution once a fresh snapshot is committed to the buzz repo.
 ```
 
-Then post the stale Slack alert (step 8) and write a run log entry (step 7) with `No-change reason: snapshot stale — N days old`. Exit. Do not write a no-change report. Do not open a PR.
+Fill in the `Snapshot age` field as follows — do not invent values:
+- File exists and `generated_at` is present: `N days (generated YYYY-MM-DD)` — compute `N` from today's date minus `generated_at`.
+- File does not exist: `file not found`.
+- File exists but `generated_at` is absent or unparseable: `generated_at field missing`.
+
+Use the same wording in the `No-change reason` field of the run log entry:
+- File stale: `snapshot stale — N days old`
+- File missing: `snapshot missing — file not found`
+- Field missing: `snapshot missing — generated_at field absent`
+
+Then post the stale Slack alert (step 8). Exit. Do not write a no-change report. Do not open a PR.
 
 ## Human review expectations
 
@@ -253,7 +284,7 @@ Oz run: [run URL]
 
 ```
 ⚠️ AEO crosslink audit · YYYY-MM-DD — Snapshot stale
-Snapshot: N days old (generated YYYY-MM-DD, threshold: 14 days)
+Snapshot: [N days old (generated YYYY-MM-DD) | file not found | generated_at missing], threshold: 14 days
 No audit ran. Refresh the snapshot before the next run.
 How: run refresh-peec-aeo-snapshot in a local Warp session
 Skill: buzz/.agents/skills/refresh-peec-aeo-snapshot/SKILL.md
