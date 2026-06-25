@@ -7,7 +7,7 @@ description: >-
   auto-select the best model).
 ---
 
-Warp lets you choose from a curated set of large language models to power your agents, or let Warp auto-select the best model for each task. Models from OpenAI, Anthropic, Google, and open source providers are available, with configurable reasoning levels and per-profile defaults.
+Warp lets you choose from a curated set of large language models to power your agents, or let Warp auto-select the best model for each task. Models from OpenAI, Anthropic, Google, and open source providers are available, with configurable reasoning levels and per-profile defaults. You can also define [custom routers](/agent-platform/inference/custom-routers/) that pick a model for each task using your own logic.
 
 ## Available models
 
@@ -123,6 +123,12 @@ You can use the model picker in your prompt input to quickly switch between mode
 </figure>
 
 To change models, click the displayed model name (for example, _Claude Sonnet 4.5_) to open a dropdown with all supported options. Your selection will automatically persist for future prompts.
+
+### Custom routers
+
+Beyond the built-in Auto models, you can define your own custom routers that automatically pick a concrete model for each task, based on task complexity or rules you write. Custom routers appear in the model picker alongside Auto and individual models.
+
+See [Custom routers](/agent-platform/inference/custom-routers/) to create one.
 
 ### Model fallback
 
