@@ -5,7 +5,9 @@
   "license": "MIT",
   "scripts": {
     "dev": "astro dev",
+    "predev": "node scripts/generate-openapi-json.mjs",
     "build": "astro build",
+    "prebuild": "node scripts/generate-openapi-json.mjs",
     "preview": "astro preview",
     "astro": "astro",
     "typecheck": "astro check",
