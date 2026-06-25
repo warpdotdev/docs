@@ -60,7 +60,7 @@ Your router now appears in the model picker. Saving also writes a file: use **Op
 
 Custom routers are stored as YAML files in `~/.warp/custom_model_routers/`, with one router per file. Warp loads every file in that directory and reloads automatically when you add, edit, or remove one, with no restart required. Routers you create in settings are saved here too.
 
-Routing targets use the same `model_id` values listed on the [Model choice](/agent-platform/inference/model-choice/) page. Every target must be a concrete, Warp-supported model. You can't route to an Auto model, another router, or a model from a [custom inference endpoint](/agent-platform/inference/custom-inference-endpoint/).
+Routing targets use the same `model_id` values listed on the [Model choice](/agent-platform/inference/model-choice/#available-models) page. Every target must be a concrete, Warp-supported model. You can't route to an Auto model, another router, or a model from a [custom inference endpoint](/agent-platform/inference/custom-inference-endpoint/).
 
 A complexity router uses `type: complexity`. `default` is required and is used for any bucket you omit:
 
