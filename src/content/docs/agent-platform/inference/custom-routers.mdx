@@ -5,21 +5,21 @@ description: >-
   based on task complexity or rules you write, and use it from the model picker.
 ---
 
-Custom routers let you define your own router that automatically picks the right model for each task. Instead of committing to a single model up front, you set the routing logic once, and Warp resolves a concrete model each time you send a prompt, based on either task complexity or rules you write.
+Custom routers automatically pick the right model for each task, using routing logic you define. Instead of committing to a single model up front, you set the logic once, and Warp resolves a concrete model each time you send a prompt, based on either task complexity or rules you write.
 
 ## Key features
 
 * **Complexity-based routing** - Warp classifies each task's difficulty and routes to the model you mapped to that level.
 * **Rule-based routing** - Write natural-language rules that describe when to use each model.
-* **Your models, your choice** - Route to any concrete model you have access to, across providers.
-* **Built in the app or as a file** - Create a router in settings, or author it as a YAML file that Warp picks up automatically.
-* **Team-synced routers** - Admins can publish a router to an entire team (Enterprise).
+* **Any supported model** - Route to any concrete model you have access to, across providers.
+* **Settings or file** - Create a router in settings, or author it as a YAML file that Warp loads automatically.
+* **Team-synced routers** - Admins can share a router with an entire team (Enterprise).
 
 ## How it works
 
 A custom router appears in the [model picker](/agent-platform/inference/model-choice/#how-to-change-models) as its own entry, alongside Warp's built-in Auto models and individual models. You select it like any other model.
 
-When you send a prompt, the router resolves to a single concrete model and runs the task on it, the same end-to-end experience as Warp's built-in Auto models. You can always see which model actually ran.
+When you send a prompt, the router resolves to a single concrete model and runs the task on it, just like Warp's built-in Auto models. You can always see which model actually ran.
 
 Warp chooses a model when you start a conversation and keeps using it for the rest of that conversation. Very short, trivial prompts (like a quick "hello") don't lock in the choice.
 
@@ -35,7 +35,7 @@ A router uses one of two routing types. You choose the type when you create the 
 
 Warp classifies each task as easy, medium, or hard and routes to the model you assigned to that level. You also set a default model, which Warp uses for any level you leave unset or when it can't determine complexity.
 
-Use complexity-based routing to put cheaper models on simple work and stronger models on hard work, without describing tasks yourself.
+Use complexity-based routing to put lower-cost models on simple work and more capable models on harder tasks, without describing tasks yourself.
 
 ### Rule-based routing
 
@@ -54,7 +54,7 @@ Rule-based routing routes each task using rules you write. Each rule pairs a cla
    * **Rule-based** - Select a **Default model**, then click **Add rule** for each rule, write a **Classification prompt** describing when to use the model, and select the model. Rules are matched top to bottom, so order them by precedence.
 5. Click **Save**.
 
-Your router now appears in the model picker. Saving also writes a file you can reopen with **Open file**, edit, or remove with **Delete**.
+Your router now appears in the model picker. Saving also writes a file: use **Open file** to edit it directly, or **Delete** to remove the router.
 
 ## Author a router as a file
 
@@ -96,7 +96,7 @@ If a file can't be parsed, Warp shows a non-blocking error identifying the file 
 1. In the prompt input, open the model picker by clicking the current model name.
 2. Choose your router from the list.
 
-Your selection persists for future prompts, like any model choice. Each time the router runs, Warp shows the concrete model it resolved to.
+Your selection persists for future prompts, like any other model choice.
 
 ## Team-synced routers
 
