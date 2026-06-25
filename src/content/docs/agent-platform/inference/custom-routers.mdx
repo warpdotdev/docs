@@ -60,7 +60,7 @@ Your router now appears in the model picker. Saving also writes a file: use **Op
 
 Custom routers are stored as YAML files in `~/.warp/custom_model_routers/`, with one router per file. Warp loads every file in that directory and reloads automatically when you add, edit, or remove one, with no restart required. Routers you create in settings are saved here too.
 
-Routing targets use the same `model_id` values listed on the [Model choice](/agent-platform/inference/model-choice/) page. Every target must be a concrete model.
+Routing targets use the same `model_id` values listed on the [Model choice](/agent-platform/inference/model-choice/) page. Every target must be a concrete, Warp-supported model. You can't route to an Auto model, another router, or a model from a [custom inference endpoint](/agent-platform/inference/custom-inference-endpoint/).
 
 A complexity router uses `type: complexity`. `default` is required and is used for any bucket you omit:
 
@@ -113,6 +113,8 @@ Team-synced routers appear in the model picker for every team member, who can se
 ## Credits and model availability
 
 A custom router resolves to a concrete model, so credit usage matches whichever model the router selects for each task. See [Credits](/support-and-community/plans-and-billing/credits/) for how credits are consumed.
+
+Like Warp's built-in Auto models, custom routers consume Warp credits and don't draw on your own provider keys, even if you've configured [Bring Your Own API Key (BYOK)](/agent-platform/inference/bring-your-own-api-key/). To run a model on your own key, select that model directly instead of a router.
 
 If a router targets a model you don't have access to or that's disabled for your organization, Warp falls back to the router's default model. If no usable model remains, Warp falls back to a built-in default and tells you.
 
