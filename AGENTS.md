@@ -400,7 +400,7 @@ These rules apply regardless of content type:
 - Do NOT include step-by-step procedures — link to a procedural or quickstart page instead
 - Show real-world scenarios, not just abstract descriptions
 
-**Existing examples**: `agent-platform/cloud-agents/deployment-patterns.mdx`, `agent-platform/cloud-agents/overview.mdx`
+**Existing examples**: `platform/deployment-patterns.mdx`, `platform.mdx`
 
 **Template**: `.warp/templates/conceptual.md`
 
@@ -428,7 +428,7 @@ These rules apply regardless of content type:
 - Test all instructions for accuracy.
 - Provide troubleshooting for common failure points.
 
-**Existing examples**: `reference/cli/api-keys.mdx`, `agent-platform/cloud-agents/integrations/slack.mdx`
+**Existing examples**: `reference/cli/api-keys.mdx`, `platform/integrations/slack.mdx`
 
 **Template**: `.warp/templates/procedural.md`
 
@@ -453,7 +453,7 @@ These rules apply regardless of content type:
 - Keep steps focused on the critical path — defer edge cases and advanced options to other pages.
 - All procedural rules apply (focused steps, motivate steps, expected outcomes).
 
-**Existing examples**: `agent-platform/cloud-agents/quickstart.mdx`, `getting-started/quickstart/installation-and-setup.mdx`
+**Existing examples**: `platform/quickstart.mdx`, `getting-started/quickstart/installation-and-setup.mdx`
 
 **Template**: `.warp/templates/quickstart.md`
 
@@ -569,7 +569,7 @@ This is the most common page type in Warp's docs (~75+ pages). A feature documen
 - Apply the **procedural** rules to the step-by-step sections (one action per step, motivate steps, expected outcomes).
 - Keep the conceptual and procedural sections clearly separated with distinct headers.
 
-**Existing examples**: `agent-platform/capabilities/skills.mdx`, `agent-platform/cloud-agents/environments.mdx`
+**Existing examples**: `agent-platform/capabilities/skills.mdx`, `platform/environments.mdx`
 
 **Template**: `.warp/templates/feature-doc.md`
 

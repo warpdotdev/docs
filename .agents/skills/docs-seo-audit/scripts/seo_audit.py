@@ -36,7 +36,7 @@ MAX_WORKERS = 6
 # Astro Starlight content directory
 # ---------------------------------------------------------------------------
 # All content lives under src/content/docs/. URL paths map directly to this
-# directory (e.g. /agent-platform/cloud-agents → src/content/docs/agent-platform/cloud-agents).
+# directory (e.g. /platform → src/content/docs/platform).
 CONTENT_DIR = "src/content/docs"
 
 # ---------------------------------------------------------------------------

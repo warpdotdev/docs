@@ -207,7 +207,7 @@
     },
     {
       "source": "/agent-platform/agent-mode/ambient-agents-session-sharing",
-      "destination": "/agent-platform/cloud-agents/viewing-cloud-agent-runs/",
+      "destination": "/platform/viewing-cloud-agent-runs/",
       "statusCode": 308
     },
     {
@@ -332,7 +332,7 @@
     },
     {
       "source": "/agent-platform/agent-platform/ambient-agents/ambient-agents-overview",
-      "destination": "/agent-platform/cloud-agents/overview/",
+      "destination": "/platform/",
       "statusCode": 308
     },
     {
@@ -352,12 +352,12 @@
     },
     {
       "source": "/agent-platform/agent-platform/cloud-agents/cloud-agents-platform",
-      "destination": "/agent-platform/cloud-agents/platform/",
+      "destination": "/platform/overview/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/agent-platform/cloud-agents/warp-platform",
-      "destination": "/agent-platform/cloud-agents/platform/",
+      "destination": "/platform/overview/",
       "statusCode": 308
     },
     {
@@ -382,12 +382,12 @@
     },
     {
       "source": "/agent-platform/agent-platform/integrations/github-actions/readme",
-      "destination": "/agent-platform/cloud-agents/integrations/github-actions/",
+      "destination": "/platform/integrations/github-actions/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/agent-platform/integrations/integrations-overview",
-      "destination": "/agent-platform/cloud-agents/integrations/",
+      "destination": "/platform/integrations/",
       "statusCode": 308
     },
     {
@@ -492,12 +492,12 @@
     },
     {
       "source": "/agent-platform/agent-platform/using-agents/managing-agents",
-      "destination": "/agent-platform/cloud-agents/managing-cloud-agents/",
+      "destination": "/platform/managing-cloud-agents/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/agent-platform/using-agents/managing-agents#in-app-agent-notifications",
-      "destination": "/agent-platform/cloud-agents/managing-cloud-agents/",
+      "destination": "/platform/managing-cloud-agents/",
       "statusCode": 308
     },
     {
@@ -682,7 +682,7 @@
     },
     {
       "source": "/agent-platform/agents/using-agents/managing-agents",
-      "destination": "/agent-platform/cloud-agents/managing-cloud-agents/",
+      "destination": "/platform/managing-cloud-agents/",
       "statusCode": 308
     },
     {
@@ -747,27 +747,27 @@
     },
     {
       "source": "/agent-platform/ambient-agents",
-      "destination": "/agent-platform/cloud-agents/overview/",
+      "destination": "/platform/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/ambient-agents/agent-secrets",
-      "destination": "/agent-platform/cloud-agents/secrets/",
+      "destination": "/platform/secrets/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/ambient-agents/ambient-agents-overview",
-      "destination": "/agent-platform/cloud-agents/overview/",
+      "destination": "/platform/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/ambient-agents/managing-ambient-agents",
-      "destination": "/agent-platform/cloud-agents/managing-cloud-agents/",
+      "destination": "/platform/managing-cloud-agents/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/ambient-agents/managing-ambient-agents/scheduled-agents",
-      "destination": "/agent-platform/cloud-agents/triggers/scheduled-agents/",
+      "destination": "/platform/triggers/scheduled-agents/",
       "statusCode": 308
     },
     {
@@ -777,62 +777,62 @@
     },
     {
       "source": "/agent-platform/cloud-agents/cloud-agent-secrets",
-      "destination": "/agent-platform/cloud-agents/secrets/",
+      "destination": "/platform/secrets/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/cloud-agents/cloud-agents-faqs",
-      "destination": "/agent-platform/cloud-agents/faqs/",
+      "destination": "/platform/faqs/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/cloud-agents/cloud-agents-overview",
-      "destination": "/agent-platform/cloud-agents/overview/",
+      "destination": "/platform/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/cloud-agents/cloud-agents-platform",
-      "destination": "/agent-platform/cloud-agents/platform/",
+      "destination": "/platform/overview/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/cloud-agents/cloud-agents-session-sharing",
-      "destination": "/agent-platform/cloud-agents/viewing-cloud-agent-runs/",
+      "destination": "/platform/viewing-cloud-agent-runs/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/cloud-agents/managed-worker-reference",
-      "destination": "/agent-platform/cloud-agents/self-hosting/reference/",
+      "destination": "/platform/self-hosting/reference/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/cloud-agents/managed-worker-reference/direct-backend",
-      "destination": "/agent-platform/cloud-agents/self-hosting/managed-direct/",
+      "destination": "/platform/self-hosting/managed-direct/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/cloud-agents/managed-worker-reference/docker-connectivity",
-      "destination": "/agent-platform/cloud-agents/self-hosting/managed-docker/",
+      "destination": "/platform/self-hosting/managed-docker/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/cloud-agents/managed-worker-reference/helm-chart",
-      "destination": "/agent-platform/cloud-agents/self-hosting/managed-kubernetes/",
+      "destination": "/platform/self-hosting/managed-kubernetes/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/cloud-agents/managed-worker-reference/kubernetes-backend",
-      "destination": "/agent-platform/cloud-agents/self-hosting/managed-kubernetes/",
+      "destination": "/platform/self-hosting/managed-kubernetes/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/cloud-agents/managed-worker-reference/private-docker-registries",
-      "destination": "/agent-platform/cloud-agents/self-hosting/managed-docker/",
+      "destination": "/platform/self-hosting/managed-docker/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/cloud-agents/warp-platform",
-      "destination": "/agent-platform/cloud-agents/platform/",
+      "destination": "/platform/overview/",
       "statusCode": 308
     },
     {
@@ -1137,47 +1137,47 @@
     },
     {
       "source": "/agent-platform/integrations",
-      "destination": "/agent-platform/cloud-agents/integrations/",
+      "destination": "/platform/integrations/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/integrations-overview",
-      "destination": "/agent-platform/cloud-agents/integrations/",
+      "destination": "/platform/integrations/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/integrations/github-actions",
-      "destination": "/agent-platform/cloud-agents/integrations/github-actions/",
+      "destination": "/platform/integrations/github-actions/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/integrations/github-actions/demo-issue-triage-bot",
-      "destination": "/agent-platform/cloud-agents/integrations/quickstart-github-actions/",
+      "destination": "/platform/integrations/quickstart-github-actions/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/cloud-agents/integrations/demo-issue-triage-bot",
-      "destination": "/agent-platform/cloud-agents/integrations/quickstart-github-actions/",
+      "destination": "/platform/integrations/quickstart-github-actions/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/integrations/integrations-overview",
-      "destination": "/agent-platform/cloud-agents/integrations/",
+      "destination": "/platform/integrations/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/integrations/integrations-overview/team-access-billing-and-identity-permissions",
-      "destination": "/agent-platform/cloud-agents/team-access-billing-and-identity/",
+      "destination": "/platform/team-access-billing-and-identity/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/integrations/linear",
-      "destination": "/agent-platform/cloud-agents/integrations/linear/",
+      "destination": "/platform/integrations/linear/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/integrations/slack",
-      "destination": "/agent-platform/cloud-agents/integrations/slack/",
+      "destination": "/platform/integrations/slack/",
       "statusCode": 308
     },
     {
@@ -1197,7 +1197,7 @@
     },
     {
       "source": "/agent-platform/knowledge-and-collaboration/session-sharing/ambient-agents-session-sharing",
-      "destination": "/agent-platform/cloud-agents/viewing-cloud-agent-runs/",
+      "destination": "/platform/viewing-cloud-agent-runs/",
       "statusCode": 308
     },
     {
@@ -1222,7 +1222,7 @@
     },
     {
       "source": "/agent-platform/local-agents/ambient-agents-session-sharing",
-      "destination": "/agent-platform/cloud-agents/viewing-cloud-agent-runs/",
+      "destination": "/platform/viewing-cloud-agent-runs/",
       "statusCode": 308
     },
     {
@@ -1252,32 +1252,32 @@
     },
     {
       "source": "/agent-platform/platform",
-      "destination": "/agent-platform/cloud-agents/platform/",
+      "destination": "/platform/overview/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/platform/deployment-patterns",
-      "destination": "/agent-platform/cloud-agents/deployment-patterns/",
+      "destination": "/platform/deployment-patterns/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/platform/environments",
-      "destination": "/agent-platform/cloud-agents/environments/",
+      "destination": "/platform/environments/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/platform/integrations/integrations-overview",
-      "destination": "/agent-platform/cloud-agents/integrations/",
+      "destination": "/platform/integrations/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/platform/team-access-billing-and-identity-permissions",
-      "destination": "/agent-platform/cloud-agents/team-access-billing-and-identity/",
+      "destination": "/platform/team-access-billing-and-identity/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/platform/warp-platform",
-      "destination": "/agent-platform/cloud-agents/platform/",
+      "destination": "/platform/overview/",
       "statusCode": 308
     },
     {
@@ -1337,7 +1337,7 @@
     },
     {
       "source": "/agent-platform/using-agents/managing-agents",
-      "destination": "/agent-platform/cloud-agents/managing-cloud-agents/",
+      "destination": "/platform/managing-cloud-agents/",
       "statusCode": 308
     },
     {
@@ -1492,7 +1492,7 @@
     },
     {
       "source": "/agent-platform/warp-platform",
-      "destination": "/agent-platform/cloud-agents/platform/",
+      "destination": "/platform/overview/",
       "statusCode": 308
     },
     {
@@ -3892,7 +3892,7 @@
     },
     {
       "source": "/university/warp-runtime/building-a-slackbot",
-      "destination": "/agent-platform/cloud-agents/integrations/slack/",
+      "destination": "/platform/integrations/slack/",
       "statusCode": 308
     },
     {
@@ -4022,7 +4022,7 @@
     },
     {
       "source": "/agent-platform/cloud-agents/integrations/github-actions/quickstart-github-actions",
-      "destination": "/agent-platform/cloud-agents/integrations/github-actions/",
+      "destination": "/platform/integrations/github-actions/",
       "statusCode": 308
     },
     {
@@ -4137,7 +4137,7 @@
     },
     {
       "source": "/guides/build-an-app-in-warp/building-a-slackbot",
-      "destination": "/agent-platform/cloud-agents/integrations/slack/",
+      "destination": "/platform/integrations/slack/",
       "statusCode": 308
     },
     {
@@ -4362,7 +4362,7 @@
     },
     {
       "source": "/agents/using-agents/managing-agents",
-      "destination": "/agent-platform/cloud-agents/managing-cloud-agents/",
+      "destination": "/platform/managing-cloud-agents/",
       "statusCode": 308
     },
     {
@@ -4372,12 +4372,12 @@
     },
     {
       "source": "/ambient-agents/ambient-agents-overview",
-      "destination": "/agent-platform/cloud-agents/overview/",
+      "destination": "/platform/",
       "statusCode": 308
     },
     {
       "source": "/ambient-agents/managing-ambient-agents",
-      "destination": "/agent-platform/cloud-agents/managing-cloud-agents/",
+      "destination": "/platform/managing-cloud-agents/",
       "statusCode": 308
     },
     {
@@ -4597,7 +4597,7 @@
     },
     {
       "source": "/agent-platform/agent-mode/ambient-agents-session-sharing/",
-      "destination": "/agent-platform/cloud-agents/viewing-cloud-agent-runs/",
+      "destination": "/platform/viewing-cloud-agent-runs/",
       "statusCode": 308
     },
     {
@@ -4707,7 +4707,7 @@
     },
     {
       "source": "/agent-platform/agent-platform/ambient-agents/ambient-agents-overview/",
-      "destination": "/agent-platform/cloud-agents/overview/",
+      "destination": "/platform/",
       "statusCode": 308
     },
     {
@@ -4727,12 +4727,12 @@
     },
     {
       "source": "/agent-platform/agent-platform/cloud-agents/cloud-agents-platform/",
-      "destination": "/agent-platform/cloud-agents/platform/",
+      "destination": "/platform/overview/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/agent-platform/cloud-agents/warp-platform/",
-      "destination": "/agent-platform/cloud-agents/platform/",
+      "destination": "/platform/overview/",
       "statusCode": 308
     },
     {
@@ -4752,12 +4752,12 @@
     },
     {
       "source": "/agent-platform/agent-platform/integrations/github-actions/readme/",
-      "destination": "/agent-platform/cloud-agents/integrations/github-actions/",
+      "destination": "/platform/integrations/github-actions/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/agent-platform/integrations/integrations-overview/",
-      "destination": "/agent-platform/cloud-agents/integrations/",
+      "destination": "/platform/integrations/",
       "statusCode": 308
     },
     {
@@ -4832,7 +4832,7 @@
     },
     {
       "source": "/agent-platform/agent-platform/using-agents/managing-agents/",
-      "destination": "/agent-platform/cloud-agents/managing-cloud-agents/",
+      "destination": "/platform/managing-cloud-agents/",
       "statusCode": 308
     },
     {
@@ -5002,7 +5002,7 @@
     },
     {
       "source": "/agent-platform/agents/using-agents/managing-agents/",
-      "destination": "/agent-platform/cloud-agents/managing-cloud-agents/",
+      "destination": "/platform/managing-cloud-agents/",
       "statusCode": 308
     },
     {
@@ -5067,27 +5067,27 @@
     },
     {
       "source": "/agent-platform/ambient-agents/",
-      "destination": "/agent-platform/cloud-agents/overview/",
+      "destination": "/platform/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/ambient-agents/agent-secrets/",
-      "destination": "/agent-platform/cloud-agents/secrets/",
+      "destination": "/platform/secrets/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/ambient-agents/ambient-agents-overview/",
-      "destination": "/agent-platform/cloud-agents/overview/",
+      "destination": "/platform/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/ambient-agents/managing-ambient-agents/",
-      "destination": "/agent-platform/cloud-agents/managing-cloud-agents/",
+      "destination": "/platform/managing-cloud-agents/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/ambient-agents/managing-ambient-agents/scheduled-agents/",
-      "destination": "/agent-platform/cloud-agents/triggers/scheduled-agents/",
+      "destination": "/platform/triggers/scheduled-agents/",
       "statusCode": 308
     },
     {
@@ -5097,32 +5097,32 @@
     },
     {
       "source": "/agent-platform/cloud-agents/cloud-agent-secrets/",
-      "destination": "/agent-platform/cloud-agents/secrets/",
+      "destination": "/platform/secrets/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/cloud-agents/cloud-agents-faqs/",
-      "destination": "/agent-platform/cloud-agents/faqs/",
+      "destination": "/platform/faqs/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/cloud-agents/cloud-agents-overview/",
-      "destination": "/agent-platform/cloud-agents/overview/",
+      "destination": "/platform/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/cloud-agents/cloud-agents-platform/",
-      "destination": "/agent-platform/cloud-agents/platform/",
+      "destination": "/platform/overview/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/cloud-agents/cloud-agents-session-sharing/",
-      "destination": "/agent-platform/cloud-agents/viewing-cloud-agent-runs/",
+      "destination": "/platform/viewing-cloud-agent-runs/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/cloud-agents/warp-platform/",
-      "destination": "/agent-platform/cloud-agents/platform/",
+      "destination": "/platform/overview/",
       "statusCode": 308
     },
     {
@@ -5422,47 +5422,47 @@
     },
     {
       "source": "/agent-platform/integrations/",
-      "destination": "/agent-platform/cloud-agents/integrations/",
+      "destination": "/platform/integrations/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/integrations-overview/",
-      "destination": "/agent-platform/cloud-agents/integrations/",
+      "destination": "/platform/integrations/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/integrations/github-actions/",
-      "destination": "/agent-platform/cloud-agents/integrations/github-actions/",
+      "destination": "/platform/integrations/github-actions/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/integrations/github-actions/demo-issue-triage-bot/",
-      "destination": "/agent-platform/cloud-agents/integrations/quickstart-github-actions/",
+      "destination": "/platform/integrations/quickstart-github-actions/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/cloud-agents/integrations/demo-issue-triage-bot/",
-      "destination": "/agent-platform/cloud-agents/integrations/quickstart-github-actions/",
+      "destination": "/platform/integrations/quickstart-github-actions/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/integrations/integrations-overview/",
-      "destination": "/agent-platform/cloud-agents/integrations/",
+      "destination": "/platform/integrations/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/integrations/integrations-overview/team-access-billing-and-identity-permissions/",
-      "destination": "/agent-platform/cloud-agents/team-access-billing-and-identity/",
+      "destination": "/platform/team-access-billing-and-identity/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/integrations/linear/",
-      "destination": "/agent-platform/cloud-agents/integrations/linear/",
+      "destination": "/platform/integrations/linear/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/integrations/slack/",
-      "destination": "/agent-platform/cloud-agents/integrations/slack/",
+      "destination": "/platform/integrations/slack/",
       "statusCode": 308
     },
     {
@@ -5482,7 +5482,7 @@
     },
     {
       "source": "/agent-platform/knowledge-and-collaboration/session-sharing/ambient-agents-session-sharing/",
-      "destination": "/agent-platform/cloud-agents/viewing-cloud-agent-runs/",
+      "destination": "/platform/viewing-cloud-agent-runs/",
       "statusCode": 308
     },
     {
@@ -5507,7 +5507,7 @@
     },
     {
       "source": "/agent-platform/local-agents/ambient-agents-session-sharing/",
-      "destination": "/agent-platform/cloud-agents/viewing-cloud-agent-runs/",
+      "destination": "/platform/viewing-cloud-agent-runs/",
       "statusCode": 308
     },
     {
@@ -5527,32 +5527,32 @@
     },
     {
       "source": "/agent-platform/platform/",
-      "destination": "/agent-platform/cloud-agents/platform/",
+      "destination": "/platform/overview/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/platform/deployment-patterns/",
-      "destination": "/agent-platform/cloud-agents/deployment-patterns/",
+      "destination": "/platform/deployment-patterns/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/platform/environments/",
-      "destination": "/agent-platform/cloud-agents/environments/",
+      "destination": "/platform/environments/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/platform/integrations/integrations-overview/",
-      "destination": "/agent-platform/cloud-agents/integrations/",
+      "destination": "/platform/integrations/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/platform/team-access-billing-and-identity-permissions/",
-      "destination": "/agent-platform/cloud-agents/team-access-billing-and-identity/",
+      "destination": "/platform/team-access-billing-and-identity/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/platform/warp-platform/",
-      "destination": "/agent-platform/cloud-agents/platform/",
+      "destination": "/platform/overview/",
       "statusCode": 308
     },
     {
@@ -5612,7 +5612,7 @@
     },
     {
       "source": "/agent-platform/using-agents/managing-agents/",
-      "destination": "/agent-platform/cloud-agents/managing-cloud-agents/",
+      "destination": "/platform/managing-cloud-agents/",
       "statusCode": 308
     },
     {
@@ -5632,7 +5632,7 @@
     },
     {
       "source": "/agent-platform/warp-platform/",
-      "destination": "/agent-platform/cloud-agents/platform/",
+      "destination": "/platform/overview/",
       "statusCode": 308
     },
     {
@@ -7687,7 +7687,7 @@
     },
     {
       "source": "/agent-platform/cloud-agents/integrations/github-actions/quickstart-github-actions/",
-      "destination": "/agent-platform/cloud-agents/integrations/github-actions/",
+      "destination": "/platform/integrations/github-actions/",
       "statusCode": 308
     },
     {
@@ -7802,7 +7802,7 @@
     },
     {
       "source": "/guides/build-an-app-in-warp/building-a-slackbot/",
-      "destination": "/agent-platform/cloud-agents/integrations/slack/",
+      "destination": "/platform/integrations/slack/",
       "statusCode": 308
     },
     {
@@ -8022,7 +8022,7 @@
     },
     {
       "source": "/agents/using-agents/managing-agents/",
-      "destination": "/agent-platform/cloud-agents/managing-cloud-agents/",
+      "destination": "/platform/managing-cloud-agents/",
       "statusCode": 308
     },
     {
@@ -8032,12 +8032,12 @@
     },
     {
       "source": "/ambient-agents/ambient-agents-overview/",
-      "destination": "/agent-platform/cloud-agents/overview/",
+      "destination": "/platform/",
       "statusCode": 308
     },
     {
       "source": "/ambient-agents/managing-ambient-agents/",
-      "destination": "/agent-platform/cloud-agents/managing-cloud-agents/",
+      "destination": "/platform/managing-cloud-agents/",
       "statusCode": 308
     },
     {
@@ -8132,32 +8132,32 @@
     },
     {
       "source": "/agent-platform/cloud-agents/managed-worker-reference/",
-      "destination": "/agent-platform/cloud-agents/self-hosting/reference/",
+      "destination": "/platform/self-hosting/reference/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/cloud-agents/managed-worker-reference/direct-backend/",
-      "destination": "/agent-platform/cloud-agents/self-hosting/managed-direct/",
+      "destination": "/platform/self-hosting/managed-direct/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/cloud-agents/managed-worker-reference/docker-connectivity/",
-      "destination": "/agent-platform/cloud-agents/self-hosting/managed-docker/",
+      "destination": "/platform/self-hosting/managed-docker/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/cloud-agents/managed-worker-reference/helm-chart/",
-      "destination": "/agent-platform/cloud-agents/self-hosting/managed-kubernetes/",
+      "destination": "/platform/self-hosting/managed-kubernetes/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/cloud-agents/managed-worker-reference/kubernetes-backend/",
-      "destination": "/agent-platform/cloud-agents/self-hosting/managed-kubernetes/",
+      "destination": "/platform/self-hosting/managed-kubernetes/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/cloud-agents/managed-worker-reference/private-docker-registries/",
-      "destination": "/agent-platform/cloud-agents/self-hosting/managed-docker/",
+      "destination": "/platform/self-hosting/managed-docker/",
       "statusCode": 308
     },
     {
@@ -8212,7 +8212,7 @@
     },
     {
       "source": "/platform/environments",
-      "destination": "/agent-platform/cloud-agents/environments/",
+      "destination": "/platform/environments/",
       "statusCode": 308
     },
     {
@@ -8302,7 +8302,7 @@
     },
     {
       "source": "/integrations/integrations-overview",
-      "destination": "/agent-platform/cloud-agents/integrations/",
+      "destination": "/platform/integrations/",
       "statusCode": 308
     },
     {
@@ -8377,12 +8377,12 @@
     },
     {
       "source": "/ambient-agents/agent-secrets",
-      "destination": "/agent-platform/cloud-agents/secrets/",
+      "destination": "/platform/secrets/",
       "statusCode": 308
     },
     {
       "source": "/integrations/slack",
-      "destination": "/agent-platform/cloud-agents/integrations/slack/",
+      "destination": "/platform/integrations/slack/",
       "statusCode": 308
     },
     {
@@ -8402,7 +8402,7 @@
     },
     {
       "source": "/integrations/github-actions",
-      "destination": "/agent-platform/cloud-agents/integrations/github-actions/",
+      "destination": "/platform/integrations/github-actions/",
       "statusCode": 308
     },
     {
@@ -8442,12 +8442,12 @@
     },
     {
       "source": "/integrations/linear",
-      "destination": "/agent-platform/cloud-agents/integrations/linear/",
+      "destination": "/platform/integrations/linear/",
       "statusCode": 308
     },
     {
       "source": "/platform/cli/integrations-and-environments",
-      "destination": "/agent-platform/cloud-agents/integrations/",
+      "destination": "/platform/integrations/",
       "statusCode": 308
     },
     {
@@ -8472,7 +8472,7 @@
     },
     {
       "source": "/ambient-agents/mcp-servers-for-agents",
-      "destination": "/agent-platform/cloud-agents/overview/",
+      "destination": "/platform/",
       "statusCode": 308
     },
     {
@@ -8517,7 +8517,7 @@
     },
     {
       "source": "/platform/deployment-patterns",
-      "destination": "/agent-platform/cloud-agents/deployment-patterns/",
+      "destination": "/platform/deployment-patterns/",
       "statusCode": 308
     },
     {
@@ -8567,7 +8567,7 @@
     },
     {
       "source": "/agent-platform/cloud-agents/self-hosting/managed-worker-reference",
-      "destination": "/agent-platform/cloud-agents/self-hosting/",
+      "destination": "/platform/self-hosting/",
       "statusCode": 308
     },
     {
@@ -8597,7 +8597,7 @@
     },
     {
       "source": "/integrations/github-actions/demo-issue-triage-bot",
-      "destination": "/agent-platform/cloud-agents/integrations/",
+      "destination": "/platform/integrations/",
       "statusCode": 308
     },
     {
@@ -8792,7 +8792,7 @@
     },
     {
       "source": "/agent-platform/cloud-agents-and-orchestration/team-access-billing-and-identity",
-      "destination": "/agent-platform/cloud-agents/team-access-billing-and-identity/",
+      "destination": "/platform/team-access-billing-and-identity/",
       "statusCode": 308
     },
     {
@@ -9272,87 +9272,87 @@
     },
     {
       "source": "/integrations/github-actions#id-1.-responding-to-comments-with-mentions",
-      "destination": "/agent-platform/cloud-agents/integrations/github-actions/",
+      "destination": "/platform/integrations/github-actions/",
       "statusCode": 308
     },
     {
       "source": "/integrations/github-actions#id-2.-automated-pull-request-review",
-      "destination": "/agent-platform/cloud-agents/integrations/github-actions/",
+      "destination": "/platform/integrations/github-actions/",
       "statusCode": 308
     },
     {
       "source": "/integrations/github-actions#id-3.-automatically-fix-issues",
-      "destination": "/agent-platform/cloud-agents/integrations/github-actions/",
+      "destination": "/platform/integrations/github-actions/",
       "statusCode": 308
     },
     {
       "source": "/integrations/github-actions#quickstart",
-      "destination": "/agent-platform/cloud-agents/integrations/github-actions/",
+      "destination": "/platform/integrations/github-actions/",
       "statusCode": 308
     },
     {
       "source": "/integrations/github-actions#requirements",
-      "destination": "/agent-platform/cloud-agents/integrations/github-actions/",
+      "destination": "/platform/integrations/github-actions/",
       "statusCode": 308
     },
     {
       "source": "/integrations/github-actions#what-the-github-actions-integration-does",
-      "destination": "/agent-platform/cloud-agents/integrations/github-actions/",
+      "destination": "/platform/integrations/github-actions/",
       "statusCode": 308
     },
     {
       "source": "/integrations/integrations-and-plugins",
-      "destination": "/agent-platform/cloud-agents/integrations/",
+      "destination": "/platform/integrations/",
       "statusCode": 308
     },
     {
       "source": "/integrations/linear#how-to-configure-the-integration",
-      "destination": "/agent-platform/cloud-agents/integrations/linear/",
+      "destination": "/platform/integrations/linear/",
       "statusCode": 308
     },
     {
       "source": "/integrations/linear#requirements",
-      "destination": "/agent-platform/cloud-agents/integrations/linear/",
+      "destination": "/platform/integrations/linear/",
       "statusCode": 308
     },
     {
       "source": "/integrations/linear#using-warp-inside-linear",
-      "destination": "/agent-platform/cloud-agents/integrations/linear/",
+      "destination": "/platform/integrations/linear/",
       "statusCode": 308
     },
     {
       "source": "/integrations/slack#joining-the-live-remote-session",
-      "destination": "/agent-platform/cloud-agents/integrations/slack/",
+      "destination": "/platform/integrations/slack/",
       "statusCode": 308
     },
     {
       "source": "/integrations/slack#monitoring-agent-progress",
-      "destination": "/agent-platform/cloud-agents/integrations/slack/",
+      "destination": "/platform/integrations/slack/",
       "statusCode": 308
     },
     {
       "source": "/integrations/slack#overview",
-      "destination": "/agent-platform/cloud-agents/integrations/slack/",
+      "destination": "/platform/integrations/slack/",
       "statusCode": 308
     },
     {
       "source": "/integrations/slack#pull-requests-and-output",
-      "destination": "/agent-platform/cloud-agents/integrations/slack/",
+      "destination": "/platform/integrations/slack/",
       "statusCode": 308
     },
     {
       "source": "/integrations/slack#requirements",
-      "destination": "/agent-platform/cloud-agents/integrations/slack/",
+      "destination": "/platform/integrations/slack/",
       "statusCode": 308
     },
     {
       "source": "/integrations/slack#triggering-an-agent",
-      "destination": "/agent-platform/cloud-agents/integrations/slack/",
+      "destination": "/platform/integrations/slack/",
       "statusCode": 308
     },
     {
       "source": "/integrations/slack#using-warp-inside-slack",
-      "destination": "/agent-platform/cloud-agents/integrations/slack/",
+      "destination": "/platform/integrations/slack/",
       "statusCode": 308
     },
     {
@@ -9477,67 +9477,67 @@
     },
     {
       "source": "/platform/cli/integrations-and-environments#how-integrations-and-environments-work",
-      "destination": "/agent-platform/cloud-agents/integrations/",
+      "destination": "/platform/integrations/",
       "statusCode": 308
     },
     {
       "source": "/platform/cli/integrations-and-environments#option-1-guided-environment-setup-recommended",
-      "destination": "/agent-platform/cloud-agents/integrations/",
+      "destination": "/platform/integrations/",
       "statusCode": 308
     },
     {
       "source": "/platform/cli/integrations-and-environments#option-2-create-an-environment-with-the-cli",
-      "destination": "/agent-platform/cloud-agents/integrations/",
+      "destination": "/platform/integrations/",
       "statusCode": 308
     },
     {
       "source": "/platform/cli/integrations-and-environments#step-1-creating-an-environment",
-      "destination": "/agent-platform/cloud-agents/integrations/",
+      "destination": "/platform/integrations/",
       "statusCode": 308
     },
     {
       "source": "/platform/cli/integrations-and-environments#step-2-authorizing-github",
-      "destination": "/agent-platform/cloud-agents/integrations/",
+      "destination": "/platform/integrations/",
       "statusCode": 308
     },
     {
       "source": "/platform/environments#about-environments",
-      "destination": "/agent-platform/cloud-agents/environments/",
+      "destination": "/platform/environments/",
       "statusCode": 308
     },
     {
       "source": "/platform/environments#create-an-environment-with-guided-setup-recommended",
-      "destination": "/agent-platform/cloud-agents/environments/",
+      "destination": "/platform/environments/",
       "statusCode": 308
     },
     {
       "source": "/platform/environments#hosts-and-environments",
-      "destination": "/agent-platform/cloud-agents/environments/",
+      "destination": "/platform/environments/",
       "statusCode": 308
     },
     {
       "source": "/platform/environments#how-environments-fit-into-the-warp-platform",
-      "destination": "/agent-platform/cloud-agents/environments/",
+      "destination": "/platform/environments/",
       "statusCode": 308
     },
     {
       "source": "/platform/environments#key-features",
-      "destination": "/agent-platform/cloud-agents/environments/",
+      "destination": "/platform/environments/",
       "statusCode": 308
     },
     {
       "source": "/platform/environments#what-happens-at-runtime",
-      "destination": "/agent-platform/cloud-agents/environments/",
+      "destination": "/platform/environments/",
       "statusCode": 308
     },
     {
       "source": "/platform/environments#when-to-use-environments",
-      "destination": "/agent-platform/cloud-agents/environments/",
+      "destination": "/platform/environments/",
       "statusCode": 308
     },
     {
       "source": "/platform/environments#where-to-configure-environments",
-      "destination": "/agent-platform/cloud-agents/environments/",
+      "destination": "/platform/environments/",
       "statusCode": 308
     },
     {
@@ -9637,7 +9637,7 @@
     },
     {
       "source": "/oz",
-      "destination": "/agent-platform/cloud-agents/overview/",
+      "destination": "/platform/",
       "statusCode": 308
     },
     {
@@ -9863,6 +9863,41 @@
     {
       "source": "/help/licenses/",
       "destination": "/support-and-community/community/open-source-licenses/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/cloud-agents/overview",
+      "destination": "/platform/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/cloud-agents/overview/",
+      "destination": "/platform/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/cloud-agents/platform",
+      "destination": "/platform/overview/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/cloud-agents/platform/",
+      "destination": "/platform/overview/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/cloud-agents",
+      "destination": "/platform/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/cloud-agents/",
+      "destination": "/platform/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/cloud-agents/:path*",
+      "destination": "/platform/:path*/",
       "statusCode": 308
     }
   ]

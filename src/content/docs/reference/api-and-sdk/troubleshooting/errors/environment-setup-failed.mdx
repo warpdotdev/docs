@@ -51,16 +51,16 @@ The `title` field in the response will describe the specific setup failure.
 
 ## How to resolve
 
-1. **Check repository configuration** — Verify the repository URL and branch name in your [environment settings](/agent-platform/cloud-agents/environments/). Ensure the repository exists and is accessible.
+1. **Check repository configuration** — Verify the repository URL and branch name in your [environment settings](/platform/environments/). Ensure the repository exists and is accessible.
 2. **Check setup commands** — Run the setup commands locally to confirm they work. Look for missing dependencies, incorrect paths, or syntax errors.
 3. **Check working directory** — Ensure the working directory path exists relative to the cloned repository root.
 4. **Check MCP server configuration** — Verify MCP server startup commands and that any required dependencies or credentials are available. See [MCP Servers for Agents](/reference/cli/mcp-servers/).
-5. **Check secrets** — If setup commands reference environment variables from [secrets](/agent-platform/cloud-agents/secrets/), verify the secrets are configured and in scope.
+5. **Check secrets** — If setup commands reference environment variables from [secrets](/platform/secrets/), verify the secrets are configured and in scope.
 
 ---
 
 ## Related
 
-* [Environments](/agent-platform/cloud-agents/environments/) — Configuring cloud agent environments
-* [Secrets](/agent-platform/cloud-agents/secrets/) — Managing credentials for agent environments
+* [Environments](/platform/environments/) — Configuring cloud agent environments
+* [Secrets](/platform/secrets/) — Managing credentials for agent environments
 * [MCP Servers for Agents](/reference/cli/mcp-servers/) — Configuring MCP servers

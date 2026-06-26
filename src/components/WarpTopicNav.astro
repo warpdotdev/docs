@@ -40,6 +40,7 @@ const CUSTOM_TOPIC_ICONS: Record<string, true> = {
 	Agents: true,
 	API: true,
 	Enterprise: true,
+	Oz: true,
 };
 ---
 
@@ -95,6 +96,19 @@ const CUSTOM_TOPIC_ICONS: Record<string, true> = {
 										<line x1="15" y1="14" x2="15" y2="14.01" />
 										<path d="M10 22v-4h4v4" />
 									</svg>
+								) : topic.label === 'Oz' ? (
+									/* Cloud icon — Feather-style cloud outline, stroke weight
+									   matched to the other topic icons. */
+									<svg
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									>
+										<path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" />
+									</svg>
 								) : (
 									/* Robot icon — stroke-based outline matching the visual
 									   weight of Starlight's other topic icons (laptop, book,
@@ -149,10 +163,12 @@ const CUSTOM_TOPIC_ICONS: Record<string, true> = {
 		margin: 0;
 		padding: 0;
 		display: flex;
+		flex-wrap: wrap;
 		align-items: stretch;
-		gap: 1.25rem;
+		/* Row gap applies only once the nav wraps to a second row on crowded
+		   mid-width viewports; column gap keeps the single-row spacing. */
+		gap: 0.25rem 1.25rem;
 		min-width: 0;
-		overflow: hidden;
 	}
 
 	li {
@@ -269,13 +285,13 @@ const CUSTOM_TOPIC_ICONS: Record<string, true> = {
 		display: inline-block;
 	}
 
-	/* Mid-width fallback. Below ~80rem (~1280px) the 8 topic items + logo +
+	/* Mid-width fallback. Below ~80rem (~1280px) the topic items + logo +
 	   right-group start to crowd. Drop the per-item icons first so the labels
 	   keep room. The mobile drawer (rendered separately) takes over below
 	   50rem where this nav is hidden entirely. */
 	@media (max-width: 80rem) {
 		ul {
-			gap: 1rem;
+			gap: 0.25rem 1rem;
 		}
 		.warp-topic-nav__icon {
 			display: none;

@@ -13,7 +13,7 @@ API keys let the Oz CLI and cloud agents authenticate without human interaction.
 Every API key is either a **personal API key** or an **agent API key**.
 
 * **Personal API keys** authenticate as you. Runs use your GitHub permissions, draw from your credit pool, and inherit your account's [skills](/agent-platform/capabilities/skills/). Use a personal key when the run should act on your behalf — for example, developer-triggered API automation, or the [Enterprise Analytics API](/enterprise/enterprise-features/analytics-api/), which only accepts personal keys.
-* **Agent API keys** run as a [cloud agent](/agent-platform/cloud-agents/agents/) on your team. Use an agent key for scheduled jobs, integrations (Slack, Linear, GitHub Actions), SDK-triggered runs, and other automation that isn't tied to a specific user. Billing and GitHub permissions are scoped to the team rather than to you.
+* **Agent API keys** run as a [cloud agent](/platform/agents/) on your team. Use an agent key for scheduled jobs, integrations (Slack, Linear, GitHub Actions), SDK-triggered runs, and other automation that isn't tied to a specific user. Billing and GitHub permissions are scoped to the team rather than to you.
 
 ## Creating an API key
 
@@ -59,9 +59,9 @@ The key type determines who the run is attributed to, which credit pool is bille
 
 * Run as a cloud agent on your team.
 * On Build, Max, and Business plans, bill the team owner: the owner's plan-included credits, then the owner's add-on credits. With auto-reload on, usage can trigger a reload on the owner's pool, subject to the team-wide monthly spend cap. On Enterprise plans, use the team-scoped credit pool.
-* Use the **Oz by Warp** GitHub App when [team GitHub authorization](/agent-platform/cloud-agents/team-access-billing-and-identity/#team-github-authorization) is configured. Without team GitHub authorization, agent keys are still useful for tasks that don't need to write to GitHub, such as analysis, monitoring, or triage.
+* Use the **Oz by Warp** GitHub App when [team GitHub authorization](/platform/team-access-billing-and-identity/#team-github-authorization) is configured. Without team GitHub authorization, agent keys are still useful for tasks that don't need to write to GitHub, such as analysis, monitoring, or triage.
 
-For the full credit waterfall, see [Access, billing, and identity permissions](/agent-platform/cloud-agents/team-access-billing-and-identity/) and [add-on credits](/support-and-community/plans-and-billing/add-on-credits/).
+For the full credit waterfall, see [Access, billing, and identity permissions](/platform/team-access-billing-and-identity/) and [add-on credits](/support-and-community/plans-and-billing/add-on-credits/).
 
 ## Authenticating with API keys
 
@@ -109,6 +109,6 @@ Deleted keys are immediately invalidated and cannot be recovered. Any services o
 * **Use personal keys for runs that should act as you.** When code changes should be attributed to your GitHub account, a personal key is the right choice. Use agent keys for automation that isn't tied to a specific user.
 * **Use environment variables.** Avoid passing API keys directly in commands where they may be logged or visible in shell history.
 * **Set appropriate expiration.** Use shorter expiration times for development and testing; consider longer durations for stable production workflows.
-* **Configure team GitHub authorization for agents that write to GitHub.** Personal keys authenticate as you with your GitHub permissions. Agent keys authenticate via the [Oz by Warp GitHub App](/agent-platform/cloud-agents/team-access-billing-and-identity/#team-github-authorization) when team GitHub authorization is configured in the Admin Panel.
+* **Configure team GitHub authorization for agents that write to GitHub.** Personal keys authenticate as you with your GitHub permissions. Agent keys authenticate via the [Oz by Warp GitHub App](/platform/team-access-billing-and-identity/#team-github-authorization) when team GitHub authorization is configured in the Admin Panel.
 * **Rotate keys periodically.** Create new keys and retire old ones on a regular schedule to limit exposure from compromised credentials.
 * **Store securely.** Use secret managers (like 1Password CLI, HashiCorp Vault, or cloud provider secret services) rather than plain text files.

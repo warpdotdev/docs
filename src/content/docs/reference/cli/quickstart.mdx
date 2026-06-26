@@ -39,7 +39,7 @@ Interactive login works on both **local** and **remote** machines, and does not 
 export WARP_API_KEY="wk-..."
 ```
 
-Create an API key in the [Oz web app](https://oz.warp.dev/settings). See [API Keys](/reference/cli/api-keys/) for guidance on personal vs. [agent keys](/agent-platform/cloud-agents/agents/) and on security best practices.
+Create an API key in the [Oz web app](https://oz.warp.dev/settings). See [API Keys](/reference/cli/api-keys/) for guidance on personal vs. [agent keys](/platform/agents/) and on security best practices.
 :::
 
 ## 3. Run an agent
@@ -62,7 +62,7 @@ What happens:
 
 Cloud agents run in a remote environment with your repositories cloned and dependencies installed, making them useful for tasks that need full codebase access.
 
-If you haven't already created an environment, run `/create-environment` in Warp or follow the [Cloud Agents Quickstart](/agent-platform/cloud-agents/quickstart/). Then run the following command:
+If you haven't already created an environment, run `/create-environment` in Warp or follow the [Cloud Agents Quickstart](/platform/quickstart/). Then run the following command:
 
 ```sh
 oz agent run-cloud --environment <ENV_ID> --prompt "Scan this repo for outdated dependencies"
@@ -89,6 +89,6 @@ Once you've successfully set up and run your agent, explore other configurations
 * Connect agents to external systems using [MCP Servers](/reference/cli/mcp-servers/).
 * Authenticate with [API keys](/reference/cli/api-keys/) for automated environments or workflows.
 * Get up-to-date information about the Oz CLI using the [`oz help` command](/reference/cli/troubleshooting/#getting-help).
-* Run agents in CI with the [GitHub Actions quickstart](/agent-platform/cloud-agents/integrations/quickstart-github-actions/).
+* Run agents in CI with the [GitHub Actions quickstart](/platform/integrations/quickstart-github-actions/).
 
 Continue reading the [Oz CLI reference](/reference/cli/) to learn how to install the CLI on different platforms, authenticate in different environments, and configure agents for real-world workflows.
