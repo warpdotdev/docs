@@ -30,7 +30,7 @@
     "@radix-ui/react-popover": "^1.1.15",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
-    "astro": "^6.1.10",
+    "astro": "^6.4.6",
     "keymatch": "^1.0.5",
     "linkedom": "^0.18.12",
     "react": "^19.2.4",
@@ -48,6 +48,8 @@
     "path-to-regexp": "^6.3.0",
     "esbuild": "^0.28.1",
     "vite": "7.3.5",
+    "@babel/core": ">=7.29.6",
+    "@astrojs/markdown-remark": "^7.2.0",
     "tar": "^7.5.16"
   },
   "devDependencies": {

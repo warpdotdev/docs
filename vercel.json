@@ -9839,6 +9839,31 @@
       "source": "/guides/developer-workflows/devops/:slug*",
       "destination": "/guides/devops/:slug*/",
       "statusCode": 308
+    },
+    {
+      "source": "/support-and-community/plans-and-billing/bring-your-own-api-key/",
+      "destination": "/agent-platform/inference/bring-your-own-api-key/",
+      "statusCode": 308
+    },
+    {
+      "source": "/help/updating-warp",
+      "destination": "/support-and-community/troubleshooting-and-support/updating-warp/",
+      "statusCode": 308
+    },
+    {
+      "source": "/help/updating-warp/",
+      "destination": "/support-and-community/troubleshooting-and-support/updating-warp/",
+      "statusCode": 308
+    },
+    {
+      "source": "/help/licenses",
+      "destination": "/support-and-community/community/open-source-licenses/",
+      "statusCode": 308
+    },
+    {
+      "source": "/help/licenses/",
+      "destination": "/support-and-community/community/open-source-licenses/",
+      "statusCode": 308
     }
   ]
 }
