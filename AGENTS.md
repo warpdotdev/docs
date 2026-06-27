@@ -400,7 +400,7 @@ These rules apply regardless of content type:
 - Do NOT include step-by-step procedures — link to a procedural or quickstart page instead
 - Show real-world scenarios, not just abstract descriptions
 
-**Existing examples**: `platform/deployment-patterns.mdx`, `platform.mdx`
+**Existing examples**: `platform/deployment-patterns.mdx`, `platform/index.mdx`
 
 **Template**: `.warp/templates/conceptual.md`
 

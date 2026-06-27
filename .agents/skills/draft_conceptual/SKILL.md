@@ -35,4 +35,4 @@ All headings (H1–H4) must use **sentence case**: capitalize only the first wor
 
 Read 2-3 of these strong examples to match the existing pattern:
 - `src/content/docs/platform/deployment-patterns.md`
-- `src/content/docs/platform.md`
+- `src/content/docs/platform/index.mdx`

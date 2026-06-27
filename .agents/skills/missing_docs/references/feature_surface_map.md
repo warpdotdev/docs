@@ -37,8 +37,8 @@ CrossRepoContext -> src/content/docs/agent-platform/capabilities/codebase-contex
 FullSourceCodeEmbedding -> src/content/docs/agent-platform/capabilities/codebase-context.mdx
 SearchCodebaseUI -> src/content/docs/agent-platform/capabilities/codebase-context.mdx
 CloudEnvironments -> src/content/docs/platform/environments.md
-CloudMode -> src/content/docs/platform.md
-AmbientAgentsCommandLine -> src/content/docs/platform.md
+CloudMode -> src/content/docs/platform/index.mdx
+AmbientAgentsCommandLine -> src/content/docs/platform/index.mdx
 ScheduledAmbientAgents -> src/content/docs/platform/triggers/scheduled-agents.md
 WarpManagedSecrets -> src/content/docs/platform/secrets.md
 IntegrationCommand -> src/content/docs/reference/cli/integration-setup.md
@@ -112,7 +112,7 @@ GitOperationsInCodeReview -> src/content/docs/code/code-review.md
 AgentView -> src/content/docs/agent-platform/local-agents/interacting-with-agents/terminal-and-agent-modes.mdx
 AgentViewBlockContext -> src/content/docs/agent-platform/local-agents/agent-context/blocks-as-context.mdx
 CloudConversations -> src/content/docs/agent-platform/local-agents/cloud-conversations.mdx
-CloudModeFromLocalSession -> src/content/docs/platform.md
+CloudModeFromLocalSession -> src/content/docs/platform/index.mdx
 TeamApiKeys -> src/content/docs/reference/cli/api-keys.md
 PRCommentsSlashCommand -> src/content/docs/agent-platform/capabilities/slash-commands.mdx
 PRCommentsV2 -> src/content/docs/agent-platform/local-agents/interacting-with-agents/index.mdx
