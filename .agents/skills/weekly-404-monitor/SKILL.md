@@ -52,7 +52,7 @@ Compare this week's uncovered gaps against last week's uncovered gaps (from step
 **New gaps** = uncovered this week AND not seen as uncovered last week.
 **Resolved** = uncovered last week AND now either covered (has redirect) or no longer generating 404s.
 
-**Significant vs long-tail.** Split uncovered URLs by the reporting threshold (`REPORT_MIN_HITS`, default 5):
+**Significant vs long-tail.** Split uncovered URLs by the reporting threshold (`REPORT_MIN_HITS`, default 5; must be a positive integer — invalid or non-positive values fall back to 5):
 - **Significant gaps** = uncovered URLs with `hits_this_week >= REPORT_MIN_HITS`. These are worth a redirect and belong in the headline.
 - **Long-tail noise** = uncovered URLs below the threshold. Because the monitor is only weeks old (low sample), most broken URLs are hit once by bots, crawlers, or stale bookmarks, so the raw uncovered and "new gap" counts churn heavily week-over-week and overstate the problem. Roll these up into a single count — never list them individually or put them in the headline.
 
@@ -81,7 +81,7 @@ Use Slack Block Kit. The message should be scannable in under 30 seconds.
 ```
 📊 *docs.warp.dev 404 Report* — week of {YYYY-MM-DD}
 
-*404 volume:* {total_404s_this_week} this week — {▼|▲} {abs(trend_delta)} ({trend_pct}%) vs {total_404s_last_week} last week
+*404 volume:* {trend_summary}
 {one-line read, e.g. "Down — redirect coverage is holding." or "Up — check the gaps below."}
 
 *Gaps worth fixing (≥{report_min_hits} hits):* {significant_uncovered_count} ({significant_new_gaps_count} new)
@@ -96,7 +96,7 @@ _+{long_tail_count} other uncovered URLs under {report_min_hits} hits each (most
 ```
 
 Rules:
-- **Lead with volume trend, not distinct-URL counts.** The first line is always the total-404 trend (`trend_delta` / `trend_pct`) — the metric that reflects real user impact. Use ▼ when `trend_delta` is negative (fewer 404s — good) and ▲ when positive.
+- **Lead with volume trend, not distinct-URL counts.** The first line is always `trend_summary` — the pre-formatted total-404 trend, which reflects real user impact. It already includes the direction arrow (▼ fewer 404s, ▲ more, → no change) and falls back to a "no prior-week baseline yet" message when last week had no data, so the percentage is never rendered as null.
 - **Only list significant gaps.** List `top_significant_uncovered` (URLs with `hits_this_week >= report_min_hits`), capped at 10. If there are more, note "and N more — see full CSV in the run." If `significant_uncovered_count` is 0, write "None this week — remaining 404s are all low-hit long-tail traffic." and omit the list.
 - **Roll up the long tail.** Never list sub-threshold URLs individually; collapse them into the single `long_tail_count` line so noise doesn't dominate the report.
 - Mark new gaps with 🆕.

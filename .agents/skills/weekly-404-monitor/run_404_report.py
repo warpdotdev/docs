@@ -27,6 +27,7 @@ import urllib.error
 import urllib.request
 from datetime import date, timedelta
 from pathlib import Path
+from typing import Optional
 
 
 BASE = "https://warp.metabaseapp.com/api"
@@ -168,6 +169,44 @@ def aggregate_by_norm(rows: list[dict]) -> dict[str, int]:
     return agg
 
 
+def parse_min_hits(raw: str, default: int = 5) -> int:
+    """Parse the REPORT_MIN_HITS env value as a positive integer.
+
+    Falls back to `default` (with a warning) for non-numeric, zero, or negative
+    values, which would otherwise crash or reintroduce long-tail noise.
+    """
+    try:
+        value = int(raw)
+    except (TypeError, ValueError):
+        value = None
+    if value is None or value < 1:
+        print(f"WARNING: REPORT_MIN_HITS={raw!r} is not a positive integer; "
+              f"falling back to {default}.", file=sys.stderr)
+        return default
+    return value
+
+
+def format_trend(total_current: int, total_prior: int) -> tuple[int, Optional[float], str]:
+    """Return (trend_delta, trend_pct, trend_summary) for the headline.
+
+    trend_pct is None when there is no prior-week baseline (total_prior == 0),
+    and trend_summary is pre-formatted so the Slack template never has to render
+    a null percentage.
+    """
+    trend_delta = total_current - total_prior
+    trend_pct: Optional[float] = None
+    if total_prior:
+        trend_pct = round(trend_delta / total_prior * 100, 1)
+        arrow = "▼" if trend_delta < 0 else ("▲" if trend_delta > 0 else "→")
+        trend_summary = (
+            f"{total_current} this week — {arrow} {abs(trend_delta)} "
+            f"({trend_pct}%) vs {total_prior} last week"
+        )
+    else:
+        trend_summary = f"{total_current} this week (no prior-week baseline yet)"
+    return trend_delta, trend_pct, trend_summary
+
+
 def main():
     vercel_path = Path(os.environ.get("VERCEL_JSON_PATH", "vercel.json"))
     report_dir = Path(os.environ.get("REPORT_DIR", "data/404-reports"))
@@ -175,7 +214,7 @@ def main():
     # in the Slack headline. Anything below this is long-tail noise (one-off
     # bot/crawler/old-bookmark traffic) and is rolled up into a single count so
     # it doesn't dominate the report. Tunable via env; see SKILL.md.
-    report_min_hits = int(os.environ.get("REPORT_MIN_HITS", "5"))
+    report_min_hits = parse_min_hits(os.environ.get("REPORT_MIN_HITS", "5"))
     today = date.today()
 
     print(f"Running weekly 404 report for week ending {today}", file=sys.stderr)
@@ -256,18 +295,16 @@ def main():
     significant_new_gaps = [r for r in significant if r["is_new_gap"]]
     long_tail_count = len(uncovered) - len(significant)
 
-    trend_pct = (
-        round((total_current - total_prior) / total_prior * 100, 1)
-        if total_prior else None
-    )
+    trend_delta, trend_pct, trend_summary = format_trend(total_current, total_prior)
 
     summary = {
         "report_date": today.isoformat(),
         # --- Headline: overall 404 volume trend (the metric that matters) ---
         "total_404s_this_week": total_current,
         "total_404s_last_week": total_prior,
-        "trend_delta": total_current - total_prior,
+        "trend_delta": trend_delta,
         "trend_pct": trend_pct,
+        "trend_summary": trend_summary,
         # --- Signal: uncovered URLs with enough hits to be worth a redirect ---
         "report_min_hits": report_min_hits,
         "significant_uncovered_count": len(significant),
