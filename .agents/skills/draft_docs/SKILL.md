@@ -86,7 +86,9 @@ Use source code to verify technical behavior, understand feature implementation,
 These rules are frequently violated by agents. Apply them carefully during drafting:
 
 - **Sentence case for all headings (H1–H4)** — Capitalize only the first word and proper feature names. ✅ `## How it works` ❌ `## How It Works`
+- **Descriptive, specific headings** — Beyond correct case, a heading should name the specific topic so readers and agents can scan the page and extract a self-contained answer. ✅ `## How key type affects billing and GitHub access` ❌ `## More details`
 - **Bold + dash format for list items** — `* **Term** - Description`, not `* Term: Description`
+- **Tables or parallel bullets for comparison and reference data** — When you present two or more parallel items (key types, plan tiers, environments) or structured reference data (API endpoints, parameters), use a Markdown table or tightly parallel bullets instead of one dense paragraph. ✅ a table with one row per API endpoint, or parallel `**Personal API keys**` / `**Agent API keys**` bullet groups ❌ a single paragraph mixing both key types and their billing rules
 - **Bold for UI elements** — Use `**Save**` not `` `Save` `` after action verbs like "click"
 - **Bold per-segment for Settings paths** — Use `**Settings** > **AI** > **Knowledge**` not `` `Settings > AI > Knowledge` ``
 
