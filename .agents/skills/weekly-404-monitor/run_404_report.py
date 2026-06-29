@@ -153,6 +153,11 @@ def normalise_url(url: str) -> str:
 def main():
     vercel_path = Path(os.environ.get("VERCEL_JSON_PATH", "vercel.json"))
     report_dir = Path(os.environ.get("REPORT_DIR", "data/404-reports"))
+    # Minimum weekly hits for an uncovered URL to count as a "gap worth fixing"
+    # in the Slack headline. Anything below this is long-tail noise (one-off
+    # bot/crawler/old-bookmark traffic) and is rolled up into a single count so
+    # it doesn't dominate the report. Tunable via env; see SKILL.md.
+    report_min_hits = int(os.environ.get("REPORT_MIN_HITS", "5"))
     today = date.today()
 
     print(f"Running weekly 404 report for week ending {today}", file=sys.stderr)
@@ -231,15 +236,38 @@ def main():
     uncovered = [r for r in report_rows if not r["is_covered_by_redirect"]]
     new_gaps = [r for r in uncovered if r["is_new_gap"]]
 
+    # Split uncovered URLs into "signal" (enough hits to be worth a redirect)
+    # and long-tail "noise" (below the reporting threshold). In a low-sample
+    # dataset most broken URLs are hit once by bots/old links, so the raw
+    # uncovered and new-gap counts churn heavily week-over-week and overstate
+    # the problem. The headline leads with volume trend + significant gaps;
+    # the long tail is reported only as a single rolled-up count.
+    significant = [r for r in uncovered if r["hits_this_week"] >= report_min_hits]
+    significant_new_gaps = [r for r in significant if r["is_new_gap"]]
+    long_tail_count = len(uncovered) - len(significant)
+
+    trend_pct = (
+        round((total_current - total_prior) / total_prior * 100, 1)
+        if total_prior else None
+    )
+
     summary = {
         "report_date": today.isoformat(),
+        # --- Headline: overall 404 volume trend (the metric that matters) ---
         "total_404s_this_week": total_current,
         "total_404s_last_week": total_prior,
         "trend_delta": total_current - total_prior,
+        "trend_pct": trend_pct,
+        # --- Signal: uncovered URLs with enough hits to be worth a redirect ---
+        "report_min_hits": report_min_hits,
+        "significant_uncovered_count": len(significant),
+        "significant_new_gaps_count": len(significant_new_gaps),
+        "top_significant_uncovered": significant[:10],
+        # --- Context only: raw/long-tail counts (do NOT headline these) ---
         "uncovered_count": len(uncovered),
         "new_gaps_count": len(new_gaps),
+        "long_tail_count": long_tail_count,
         "resolved_count": resolved_count,
-        "top_10_uncovered": uncovered[:10],
         "csv_path": str(csv_path),
         "has_data": len(current_week) > 0,
     }
