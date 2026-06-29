@@ -150,6 +150,24 @@ def normalise_url(url: str) -> str:
     return url or "/"
 
 
+def aggregate_by_norm(rows: list[dict]) -> dict[str, int]:
+    """Collapse raw broken_url rows into one entry per normalised path.
+
+    The SQL groups by the raw broken_url, so trailing-slash, case, and
+    scheme/host variants (e.g. /foo, /foo/, /Foo) arrive as separate rows.
+    Merging them by normalise_url means each logical page is counted once and
+    its hits are summed — otherwise hits split across variants can fall below
+    the reporting threshold and the same page can appear multiple times.
+    """
+    agg: dict[str, int] = {}
+    for row in rows:
+        norm = normalise_url(row.get("broken_url") or "")
+        if not norm:
+            continue
+        agg[norm] = agg.get(norm, 0) + int(row.get("hits") or 0)
+    return agg
+
+
 def main():
     vercel_path = Path(os.environ.get("VERCEL_JSON_PATH", "vercel.json"))
     report_dir = Path(os.environ.get("REPORT_DIR", "data/404-reports"))
@@ -165,10 +183,15 @@ def main():
     # 1. Query current and prior week
     print("Querying current week (past 7 days)...", file=sys.stderr)
     current_week = query_404_events(1, 8)
-    print(f"  {len(current_week)} unique broken URLs found", file=sys.stderr)
+    # Collapse trailing-slash / case / host variants so each logical page is
+    # counted once and its hits are summed (see aggregate_by_norm).
+    current_agg = aggregate_by_norm(current_week)
+    print(f"  {len(current_week)} raw rows -> {len(current_agg)} unique pages",
+          file=sys.stderr)
 
     print("Querying prior week (days 8-14)...", file=sys.stderr)
     prior_week = query_404_events(8, 15)
+    prior_agg = aggregate_by_norm(prior_week)
 
     total_current = total_404_count(1, 8)
     total_prior = total_404_count(8, 15)
@@ -178,38 +201,25 @@ def main():
     redirect_sources = load_redirect_sources(vercel_path)
 
     # 3. Build prior-week gap set for delta calculation
-    prior_gaps: set[str] = set()
-    for row in prior_week:
-        norm = normalise_url(row["broken_url"])
-        if norm and norm not in redirect_sources:
-            prior_gaps.add(norm)
+    prior_gaps = {u for u in prior_agg if u not in redirect_sources}
 
-    # 4. Build current-week report
+    # 4. Build current-week report (one row per normalised page)
     report_rows = []
-    for row in current_week:
-        raw_url = row.get("broken_url") or ""
-        norm = normalise_url(raw_url)
-        if not norm:
-            continue
-        hits_current = int(row.get("hits") or 0)
-        hits_prior = next(
-            (int(r["hits"]) for r in prior_week
-             if normalise_url(r.get("broken_url") or "") == norm),
-            0
-        )
+    for norm, hits_current in current_agg.items():
         is_covered = norm in redirect_sources
         is_new_gap = (not is_covered) and (norm not in prior_gaps)
-
         report_rows.append({
             "broken_url": norm,
             "hits_this_week": hits_current,
-            "hits_last_week": hits_prior,
+            "hits_last_week": prior_agg.get(norm, 0),
             "is_covered_by_redirect": is_covered,
             "is_new_gap": is_new_gap,
         })
+    # Summing variants can change ordering, so re-sort by hits descending.
+    report_rows.sort(key=lambda r: r["hits_this_week"], reverse=True)
 
     # 5. Compute resolved (was a gap last week, is no longer generating hits)
-    current_urls = {normalise_url(r["broken_url"]) for r in current_week}
+    current_urls = set(current_agg)
     newly_covered = {
         g for g in prior_gaps
         if g in redirect_sources  # redirect was added

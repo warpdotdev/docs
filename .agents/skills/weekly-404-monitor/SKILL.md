@@ -27,7 +27,8 @@ The script:
 - Queries `warp-data-357114.prod.stg_website_events` via the Metabase API
 - Extracts `broken_url` from `event_properties` for all `event_name = 'docs_404'` events in the past 7 days
 - Groups by `broken_url`, sorted by hit count descending
-- Returns a ranked list of broken URLs and their hit counts for the current week
+- Aggregates those rows by normalised path (lowercase, no trailing slash, no scheme/host) so trailing-slash, case, and host variants of the same page are counted once with their hits summed
+- Returns a ranked list of broken pages and their hit counts for the current week
 - Computes the same for the prior week (days 8–14) for trend comparison
 - Total weekly 404 count (current + prior) for the trend line
 
@@ -39,7 +40,7 @@ Extract all `source` values from the `redirects` array. Normalise: lowercase, st
 
 ### 3. Find uncovered URLs
 
-For each broken URL in the current week's data:
+Broken URLs are first aggregated by their normalised form, so `/foo`, `/foo/`, and `/Foo` collapse into one page with summed hits (this prevents the same page being reported as several separate gaps). For each aggregated page:
 - Normalise (lowercase, strip trailing slash, strip query params and fragments)
 - Check if it exists as a `source` in `vercel.json` redirects
 - If not covered, it is a **gap**
@@ -63,7 +64,7 @@ If `SLACK_BOT_TOKEN` is unavailable, write the full Slack message body to the ru
 
 ### 6. Write CSV artifact
 
-Write `404-report-YYYY-MM-DD.csv` to `data/404-reports/` in the docs repo working directory. Format:
+Write `404-report-YYYY-MM-DD.csv` to `data/404-reports/` in the docs repo working directory. Each row is one normalised page (hits summed across trailing-slash/case/host variants). Format:
 
 ```
 broken_url,hits_this_week,hits_last_week,is_covered_by_redirect,is_new_gap
