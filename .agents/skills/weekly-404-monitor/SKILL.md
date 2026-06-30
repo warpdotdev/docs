@@ -5,7 +5,7 @@ description: Weekly recurring agent that surfaces broken docs.warp.dev URLs by q
 
 # Weekly 404 monitor
 
-Runs every Monday at 9am PT. Identifies new broken URL patterns on docs.warp.dev, surfaces the top uncovered paths, and posts a concise Slack summary so the docs team can prioritize redirect additions.
+Runs every Monday at 9am PT. Leads with the overall 404 volume trend, surfaces the uncovered paths that get enough traffic to be worth a redirect, and posts a concise Slack summary so the docs team can prioritize redirect additions without being distracted by long-tail bot/old-link noise.
 
 ## Prerequisites
 
@@ -26,8 +26,9 @@ Run `python3 .agents/skills/weekly-404-monitor/run_404_report.py` in the docs re
 The script:
 - Queries `warp-data-357114.prod.stg_website_events` via the Metabase API
 - Extracts `broken_url` from `event_properties` for all `event_name = 'docs_404'` events in the past 7 days
-- Groups by `broken_url`, sorted by hit count descending
-- Returns a ranked list of broken URLs and their hit counts for the current week
+- Normalises and groups by path **in SQL** (lowercase, no trailing slash, no scheme/host, no query/fragment) so trailing-slash, case, and host variants of the same page are summed into one row *before* the top-500 cap is applied — a page whose hits are split across variants can't be dropped by the cap and undercounted
+- Returns a ranked list of broken pages and their hit counts for the current week, sorted by hit count descending
+- Re-applies the same normalisation in Python as an idempotent safety net
 - Computes the same for the prior week (days 8–14) for trend comparison
 - Total weekly 404 count (current + prior) for the trend line
 
@@ -39,7 +40,7 @@ Extract all `source` values from the `redirects` array. Normalise: lowercase, st
 
 ### 3. Find uncovered URLs
 
-For each broken URL in the current week's data:
+Broken URLs are first aggregated by their normalised form, so `/foo`, `/foo/`, and `/Foo` collapse into one page with summed hits (this prevents the same page being reported as several separate gaps). For each aggregated page:
 - Normalise (lowercase, strip trailing slash, strip query params and fragments)
 - Check if it exists as a `source` in `vercel.json` redirects
 - If not covered, it is a **gap**
@@ -51,6 +52,10 @@ Compare this week's uncovered gaps against last week's uncovered gaps (from step
 **New gaps** = uncovered this week AND not seen as uncovered last week.
 **Resolved** = uncovered last week AND now either covered (has redirect) or no longer generating 404s.
 
+**Significant vs long-tail.** Split uncovered URLs by the reporting threshold (`REPORT_MIN_HITS`, default 5; must be a positive integer — invalid or non-positive values fall back to 5):
+- **Significant gaps** = uncovered URLs with `hits_this_week >= REPORT_MIN_HITS`. These are worth a redirect and belong in the headline.
+- **Long-tail noise** = uncovered URLs below the threshold. Because the monitor is only weeks old (low sample), most broken URLs are hit once by bots, crawlers, or stale bookmarks, so the raw uncovered and "new gap" counts churn heavily week-over-week and overstate the problem. Roll these up into a single count — never list them individually or put them in the headline.
+
 ### 5. Post Slack summary
 
 Post a Slack message using the Block Kit format defined in the "Slack message format" section below.
@@ -59,7 +64,7 @@ If `SLACK_BOT_TOKEN` is unavailable, write the full Slack message body to the ru
 
 ### 6. Write CSV artifact
 
-Write `404-report-YYYY-MM-DD.csv` to `data/404-reports/` in the docs repo working directory. Format:
+Write `404-report-YYYY-MM-DD.csv` to `data/404-reports/` in the docs repo working directory. Each row is one normalised page (hits summed across trailing-slash/case/host variants). Format:
 
 ```
 broken_url,hits_this_week,hits_last_week,is_covered_by_redirect,is_new_gap
@@ -76,24 +81,89 @@ Use Slack Block Kit. The message should be scannable in under 30 seconds.
 ```
 📊 *docs.warp.dev 404 Report* — week of {YYYY-MM-DD}
 
-*Total 404s this week:* {N} ({+N / -N vs last week})
-*Uncovered broken URLs:* {M} ({+N new this week})
+*404 volume:* {trend_summary}
+{one-line read, e.g. "Down — redirect coverage is holding." or "Up — check the gaps below."}
 
-*Top 10 uncovered URLs (by hits):*
+*Gaps worth fixing (≥{report_min_hits} hits):* {significant_uncovered_count} ({significant_new_gaps_count} new)
 {hit_count}  `/path` {🆕 if new this week}
 ...
 
-*{K} resolved since last week* (redirect added or traffic stopped)
+_+{long_tail_count} other uncovered URLs under {report_min_hits} hits each (mostly bots/old links) — see CSV._
+*{resolved_count} resolved since last week* (redirect added or traffic stopped)
 
-→ Add missing redirects: `vercel.json` › `redirects` array (PR against `main`)
+→ Add redirects for the gaps above: `vercel.json` › `redirects` array (PR against `main`)
 → Full breakdown: {oz_run_url}
 ```
 
 Rules:
-- Cap the list at 10 entries. If there are more, note "and N more — see full CSV in the run."
+- **Lead with volume trend, not distinct-URL counts.** The first line is always `trend_summary` — the pre-formatted total-404 trend, which reflects real user impact. It already includes the direction arrow (▼ fewer 404s, ▲ more, → no change) and falls back to a "no prior-week baseline yet" message when last week had no data, so the percentage is never rendered as null.
+- **Only list significant gaps.** List `top_significant_uncovered` (URLs with `hits_this_week >= report_min_hits`), capped at 10. If there are more, note "and N more — see full CSV in the run." If `significant_uncovered_count` is 0, write "None this week — remaining 404s are all low-hit long-tail traffic." and omit the list.
+- **Roll up the long tail.** Never list sub-threshold URLs individually; collapse them into the single `long_tail_count` line so noise doesn't dominate the report.
 - Mark new gaps with 🆕.
-- If total 404s this week is less than 50, add a brief positive note: "404 volume is low — good signal that redirect coverage is working."
+- If `total_404s_this_week` is less than 50, add a brief positive note: "404 volume is low — good signal that redirect coverage is working."
 - Never include raw user data (e.g. query strings with user IDs, tokens) in the Slack message. Strip query params from broken_url before displaying.
+
+## Phase 2: Redirect drafter
+
+After the Slack summary is posted and the CSV artifact is written, continue with Phase 2. Phase 2 proposes redirect entries for high-confidence uncovered 404 gaps, reducing the manual work required from the docs team.
+
+### Threshold and confidence scoring
+
+Only process gaps where `hits_this_week >= 10`. This is the **automation** threshold for opening redirect PRs — deliberately higher than the **reporting** threshold (`REPORT_MIN_HITS`, default 5) used for the Phase 1 Slack summary. This threshold reduces noise; review and adjust after the first four weeks of data.
+
+For each qualifying uncovered URL, attempt to find a redirect target using these heuristics in order:
+
+1. **Exact path match** (HIGH confidence) — strip legacy prefixes (`/docs/`, `/warp-docs/`, `/warp/`) and check if the remainder matches a current file path under `src/content/docs/` (convert `.mdx`/`.md` to URL slug).
+2. **GitBook-to-Starlight migration** (HIGH confidence) — check a known path mapping for common patterns from the GitBook-era URL structure (e.g., `/getting-started/` → `/getting-started/quickstart/`, `/features/warp-drive/` → `/knowledge-and-collaboration/warp-drive/`). Infer from patterns already in `vercel.json`.
+3. **Fuzzy slug match** (MEDIUM confidence) — tokenize the broken URL path and find the closest matching file path in `src/content/docs/` by segment similarity.
+4. **No match** (LOW confidence) — cannot propose a redirect target.
+
+### Actions by confidence level
+
+- **HIGH**: Include in draft PR against `vercel.json`.
+- **MEDIUM**: List in the Slack message as "Suggested redirects needing human review" with the proposed target and confidence reason. Do not include in the PR.
+- **LOW**: Log to run output only. Do not include in Slack or PR.
+
+### PR requirements
+
+Open a draft PR only when at least 1 HIGH-confidence redirect is found.
+
+PR title:
+```text
+docs: add redirects for top uncovered 404 paths — YYYY-MM-DD
+```
+
+For each proposed redirect, add an entry to the `redirects` array in `vercel.json`:
+```json
+{"source": "/old/path", "destination": "/new/path", "permanent": true}
+```
+
+PR body must include:
+- The broken URL, hit count, proposed destination, and confidence reason for each redirect
+- The hit threshold used (`hits_this_week >= N`)
+- A note that MEDIUM-confidence suggestions are in the Slack message and require human review before adding
+
+Run `python3 .agents/skills/check_for_broken_links/check_links.py --internal-only` after editing `vercel.json` to catch any malformed destinations.
+
+### Slack update
+
+Append to the existing Slack message (or post a follow-up in the same thread):
+```
+🔀 *Redirect drafter results*
+HIGH-confidence PRs: N redirects → [PR URL]
+MEDIUM-confidence suggestions: N paths (listed below for human review)
+{path} → {suggested destination} [{reason}]
+...
+```
+
+If no gaps meet the threshold or no HIGH-confidence matches are found, post:
+```
+🔀 *Redirect drafter*: No high-confidence redirects found this week.
+```
+
+### Threshold calibration note
+
+After the first 4 weeks, review: if HIGH-confidence PRs contain redirects that are merged without changes, the threshold or confidence scoring is working. If PRs are frequently corrected or closed, raise the `hits_this_week` threshold or tighten the match heuristics.
 
 ## Self-review before posting
 
@@ -103,6 +173,7 @@ Before posting to Slack, verify:
 - The `broken_url` field was present in the event properties for at least some rows. If it is consistently null, the `docs_404` tracking implementation has a bug — report it in the Slack message and tag the docs team.
 - The vercel.json redirect list was loaded successfully and contains more than 500 entries (sanity check that the file is not truncated).
 - The CSV artifact was written before posting to Slack.
+- The Slack summary leads with the volume trend and lists only significant gaps (`hits_this_week >= report_min_hits`); long-tail URLs are rolled up into the `long_tail_count` line, never listed individually.
 
 ## No-data report
 

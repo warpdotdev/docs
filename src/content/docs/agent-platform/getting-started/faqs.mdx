@@ -29,11 +29,22 @@ Warp supports a curated list of LLMs from providers like OpenAI, Anthropic, and 
 
 ### Can I use my own LLM API key?
 
-Warp supports [Bring Your Own Key (BYOK)](/agent-platform/inference/bring-your-own-api-key/) for users on paid plans (starting with Build). You can connect your own Anthropic, OpenAI, or Google API keys to route requests directly through your account. Organizations on the Enterprise plan can additionally enable managed "Bring Your Own LLM" configurations to meet strict security or compliance requirements.
+Yes. Warp supports [Bring Your Own API Key (BYOK)](/agent-platform/inference/bring-your-own-api-key/) on the Free plan and all eligible paid plans, so you can connect your own Anthropic, OpenAI, or Google API keys to route requests directly through your account. Because the Free plan doesn't include bundled AI usage for the Warp Agent, BYOK is one way to keep using the Warp Agent on the Free plan. BYOK and [custom inference endpoints](/agent-platform/inference/custom-inference-endpoint/) are available for individual users and organizations with 10 or fewer employees, subject to Warp's Terms of Service; larger organizations need a Warp Business or Enterprise plan. Organizations on the Enterprise plan can additionally enable managed [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/) configurations to meet strict security or compliance requirements.
+
+### Can I use my ChatGPT or Claude subscription with Warp?
+
+No. Warp doesn't support signing in with a ChatGPT (OpenAI) or Claude (Anthropic) consumer subscription to power its agents. OpenAI and Anthropic don't currently allow their subscription plans to be used in third-party clients like Warp. Warp has raised this with both providers and is open to supporting these subscriptions if that changes.
+
+Note that a ChatGPT or Claude subscription is different from API access. To use your own OpenAI or Anthropic account in Warp, you have two options:
+
+* **[Bring Your Own API Key (BYOK)](/agent-platform/inference/bring-your-own-api-key/)** — Add your own OpenAI, Anthropic, or Google API key and pay your provider directly instead of using Warp credits.
+* **[Custom inference endpoint](/agent-platform/inference/custom-inference-endpoint/)** — Route Warp through any OpenAI-compatible endpoint, such as OpenRouter or LiteLLM.
+
+For xAI's Grok models, you can connect a [SuperGrok subscription](/agent-platform/inference/grok-subscription/) directly through your xAI account.
 
 ## Billing
 
-Every Warp plan includes a set number of credits per user per month. See [pricing](https://www.warp.dev/pricing) to compare plans.
+Paid Warp plans include a set number of credits per user per month for Warp-provided AI usage. The Free plan doesn't include bundled AI usage for the Warp Agent; to use the Warp Agent, [upgrade to a paid plan](https://www.warp.dev/pricing) or bring your own inference (BYOK, a [custom inference endpoint](/agent-platform/inference/custom-inference-endpoint/), or a [SuperGrok or X Premium subscription](/agent-platform/inference/grok-subscription/)). See [pricing](https://www.warp.dev/pricing) to compare plans.
 
 Credit limits apply to Agent Mode, Generate (Legacy), and [AI autofill in Workflows](/knowledge-and-collaboration/warp-drive/workflows/#ai-autofill).
 

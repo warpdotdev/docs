@@ -327,11 +327,11 @@ Settings for Warp's agents, including model behavior, permissions, knowledge, MC
 * `should_render_use_agent_toolbar_for_user_commands` — Whether to show the "Use Agent" footer for terminal commands. Type: boolean. Default: `true`.
 * `cloud_agent_computer_use_enabled` — Whether computer use is enabled for cloud agent conversations. Type: boolean. Default: `false`.
 * `agent_attribution_enabled` — Whether the Warp Agent adds an attribution co-author line to commit messages and pull requests it creates. Type: boolean. Default: `true`.
-* `auto_handoff_on_sleep_enabled` — Whether Warp automatically hands off local agent conversations to the cloud when your computer is about to sleep (macOS). See [local-to-cloud handoff](/agent-platform/cloud-agents/handoff/local-to-cloud/). Type: boolean. Default: `false`.
+* `auto_handoff_on_sleep_enabled` — Whether Warp automatically hands off local agent conversations to the cloud when your computer is about to sleep (macOS). See [local-to-cloud handoff](/platform/handoff/local-to-cloud/). Type: boolean. Default: `false`.
 * `default_prompt_submission_mode` — Default behavior when submitting a new prompt while the agent is still responding. See [Prompt Queueing](/agent-platform/local-agents/interacting-with-agents/prompt-queueing/). Type: string. Default: `"interrupt"`. Options: `"interrupt"`, `"queue"`.
 * `long_running_command_submission_mode` — What happens when you submit a prompt while the agent is running an agent-requested long-running command. Only applies when `default_prompt_submission_mode` is `"interrupt"`. See [Prompt Queueing](/agent-platform/local-agents/interacting-with-agents/prompt-queueing/). Type: string. Default: `"queue_until_command_completes"`. Options: `"send_immediately"`, `"queue_until_command_completes"`.
-* `orchestration_message_display_mode` — How child-agent message bodies are displayed during [multi-agent runs](/agent-platform/cloud-agents/orchestration/multi-agent-runs/). Type: string. Default: `"always_collapse"`. Options: `"show_and_collapse"`, `"always_show"`, `"always_collapse"`.
-* `should_force_disable_cloud_handoff` — Whether to force-disable [local-to-cloud handoff](/agent-platform/cloud-agents/handoff/local-to-cloud/). Type: boolean. Default: `false`.
+* `orchestration_message_display_mode` — How child-agent message bodies are displayed during [multi-agent runs](/platform/orchestration/multi-agent-runs/). Type: string. Default: `"always_collapse"`. Options: `"show_and_collapse"`, `"always_show"`, `"always_collapse"`.
+* `should_force_disable_cloud_handoff` — Whether to force-disable [local-to-cloud handoff](/platform/handoff/local-to-cloud/). Type: boolean. Default: `false`.
 * `should_force_disable_ampersand_handoff` — Whether to force-disable the `&` prefix that composes a prompt for cloud handoff. Type: boolean. Default: `false`.
 
 ### Third-party (CLI agents)

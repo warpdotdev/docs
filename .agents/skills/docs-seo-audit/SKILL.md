@@ -183,15 +183,15 @@ Astro Starlight uses `title` for the `<title>` tag and `sidebar.label` for the s
 
 Example:
 - `agent-platform/capabilities/index.mdx`: `title: 'Capabilities overview'` + `sidebar.label: 'Overview'`
-- `agent-platform/cloud-agents/integrations/index.mdx`: `title: 'Integrations overview'` + `sidebar.label: 'Overview'`
+- `platform/integrations/index.mdx`: `title: 'Integrations overview'` + `sidebar.label: 'Overview'`
 
 When using this approach, also update the H1 in the markdown file to match the new `title`.
 
 #### Alternative: rename the sidebar config label
 
 If the short label is not intentional, rename the `label` in `src/sidebar.ts` to be unique and descriptive. Use sentence case and correct terminology per `AGENTS.md` (e.g., capitalize proper feature names like "Agent Mode", "Warp Drive", "Codebase Context" — but not generic terms like "overview", "quickstart", or "agents"). Example:
-- Before: `{ slug: 'agent-platform/local-agents', label: 'Overview' }` + `{ slug: 'agent-platform/cloud-agents', label: 'Overview' }`
-- After: `{ slug: 'agent-platform/local-agents', label: 'Local agents overview' }` + `{ slug: 'agent-platform/cloud-agents', label: 'Cloud agents overview' }`
+- Before: `{ slug: 'agent-platform/local-agents', label: 'Overview' }` + `{ slug: 'platform', label: 'Overview' }`
+- After: `{ slug: 'agent-platform/local-agents', label: 'Local agents overview' }` + `{ slug: 'platform', label: 'Cloud agents overview' }`
 
 When changing a sidebar config label, also update the H1 in the markdown file for consistency.
 

@@ -71,7 +71,7 @@ Key rules:
 - **`src/content/docs/` is the homepage space** — the `warp/` prefix is NOT included in URLs. Example: `src/content/docs/terminal/blocks/block-basics.mdx` → `https://docs.warp.dev/terminal/blocks/block-basics`
 - All other spaces include the space name in the URL. Example: `src/content/docs/agent-platform/capabilities/skills.mdx` → `https://docs.warp.dev/agent-platform/capabilities/skills`
 - Strip the `.mdx` extension.
-- `index.mdx` resolves to the parent directory path. Example: `src/content/docs/agent-platform/cloud-agents/integrations/index.mdx` → `https://docs.warp.dev/agent-platform/cloud-agents/integrations`
+- `index.mdx` resolves to the parent directory path. Example: `src/content/docs/platform/integrations/index.mdx` → `https://docs.warp.dev/platform/integrations`
 
 ### 5. Output format
 

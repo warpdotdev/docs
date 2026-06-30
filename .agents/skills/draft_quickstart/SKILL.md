@@ -36,5 +36,5 @@ All headings (H1–H4) must use **sentence case**: capitalize only the first wor
 ## Existing examples
 
 Read 2-3 of these strong examples to match the existing pattern:
-- `src/content/docs/agent-platform/cloud-agents/quickstart.md`
+- `src/content/docs/platform/quickstart.md`
 - `src/content/docs/getting-started/quickstart/installation-and-setup.md`

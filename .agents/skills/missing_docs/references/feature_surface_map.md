@@ -23,8 +23,8 @@ The sentinel target `internal` marks surfaces that intentionally have no public 
 ## Feature flags -> doc pages
 
 AgentMode -> src/content/docs/agent-platform/local-agents/overview.mdx
-AgentManagementView -> src/content/docs/agent-platform/cloud-agents/managing-cloud-agents.md
-AgentManagementDetailsView -> src/content/docs/agent-platform/cloud-agents/managing-cloud-agents.md
+AgentManagementView -> src/content/docs/platform/managing-cloud-agents.md
+AgentManagementDetailsView -> src/content/docs/platform/managing-cloud-agents.md
 AgentModeComputerUse -> src/content/docs/agent-platform/capabilities/computer-use.mdx
 AgentModeWorkflows -> src/content/docs/knowledge-and-collaboration/warp-drive/workflows.md
 AgentOnboarding -> src/content/docs/agent-platform/getting-started/agents-in-warp.md
@@ -45,11 +45,11 @@ CrossRepoContext -> src/content/docs/agent-platform/capabilities/codebase-contex
 FullSourceCodeEmbedding -> src/content/docs/agent-platform/capabilities/codebase-context.mdx
 SearchCodebaseUI -> src/content/docs/agent-platform/capabilities/codebase-context.mdx
 RemoteCodebaseIndexing -> src/content/docs/agent-platform/capabilities/codebase-context.mdx
-CloudEnvironments -> src/content/docs/agent-platform/cloud-agents/environments.md
-CloudMode -> src/content/docs/agent-platform/cloud-agents/overview.md
-AmbientAgentsCommandLine -> src/content/docs/agent-platform/cloud-agents/overview.md
-ScheduledAmbientAgents -> src/content/docs/agent-platform/cloud-agents/triggers/scheduled-agents.md
-WarpManagedSecrets -> src/content/docs/agent-platform/cloud-agents/secrets.md
+CloudEnvironments -> src/content/docs/platform/environments.md
+CloudMode -> src/content/docs/platform/index.mdx
+AmbientAgentsCommandLine -> src/content/docs/platform/index.mdx
+ScheduledAmbientAgents -> src/content/docs/platform/triggers/scheduled-agents.md
+WarpManagedSecrets -> src/content/docs/platform/secrets.md
 IntegrationCommand -> src/content/docs/reference/cli/integration-setup.md
 CommandPaletteFileSearch -> src/content/docs/terminal/command-palette.md
 Ligatures -> src/content/docs/terminal/appearance/text-fonts-cursor.md
@@ -99,7 +99,7 @@ RemoteCodeReview -> src/content/docs/code/code-review.md
 AgentView -> src/content/docs/agent-platform/local-agents/interacting-with-agents/terminal-and-agent-modes.mdx
 AgentViewBlockContext -> src/content/docs/agent-platform/local-agents/agent-context/blocks-as-context.mdx
 CloudConversations -> src/content/docs/agent-platform/local-agents/cloud-conversations.mdx
-CloudModeFromLocalSession -> src/content/docs/agent-platform/cloud-agents/overview.md
+CloudModeFromLocalSession -> src/content/docs/platform/index.mdx
 TeamApiKeys -> src/content/docs/reference/cli/api-keys.md
 PRCommentsSlashCommand -> src/content/docs/agent-platform/capabilities/slash-commands.mdx
 PRCommentsV2 -> src/content/docs/agent-platform/local-agents/interacting-with-agents/index.mdx
@@ -151,7 +151,7 @@ ArtifactCommand -> src/content/docs/reference/cli/artifacts.mdx
 OzIdentityFederation -> src/content/docs/reference/cli/federate.mdx
 
 # Third-party harness support
-AgentHarness -> src/content/docs/agent-platform/cloud-agents/harnesses/index.mdx
+AgentHarness -> src/content/docs/platform/harnesses/index.mdx
 
 # Image context for cloud agents
 AmbientAgentsImageUpload -> src/content/docs/agent-platform/local-agents/agent-context/images-as-context.mdx
@@ -161,19 +161,19 @@ CloudModeImageContext -> src/content/docs/agent-platform/local-agents/agent-cont
 OzPlatformSkills -> src/content/docs/agent-platform/capabilities/skills.mdx
 
 # Handoff (local <-> cloud, cloud <-> cloud) and snapshots
-OzHandoff -> src/content/docs/agent-platform/cloud-agents/handoff/index.mdx
-HandoffLocalCloud -> src/content/docs/agent-platform/cloud-agents/handoff/local-to-cloud.mdx
-HandoffCloudCloud -> src/content/docs/agent-platform/cloud-agents/handoff/cloud-to-cloud.mdx
+OzHandoff -> src/content/docs/platform/handoff/index.mdx
+HandoffLocalCloud -> src/content/docs/platform/handoff/local-to-cloud.mdx
+HandoffCloudCloud -> src/content/docs/platform/handoff/cloud-to-cloud.mdx
 
 # Orchestration / multi-agent runs
-RunAgentsTool -> src/content/docs/agent-platform/cloud-agents/orchestration/multi-agent-runs.mdx
+RunAgentsTool -> src/content/docs/platform/orchestration/multi-agent-runs.mdx
 
 # Prompt queueing
 QueueSlashCommand -> src/content/docs/agent-platform/local-agents/interacting-with-agents/prompt-queueing.mdx
 QueuedPromptsV2 -> src/content/docs/agent-platform/local-agents/interacting-with-agents/prompt-queueing.mdx
 
 # Reusable agents (named agents + agent-scoped API keys)
-NamedAgents -> src/content/docs/agent-platform/cloud-agents/agents.mdx
+NamedAgents -> src/content/docs/platform/agents.mdx
 
 # Inference: BYOK and custom endpoints
 SoloUserByok -> src/content/docs/agent-platform/inference/bring-your-own-api-key.mdx
@@ -372,7 +372,7 @@ McpDebuggingIds
 ContextLineReviewComments
 RichTextMultiselect
 # Redux iterations of the cloud mode setup/input UI; the cloud agents feature
-# itself is documented via CloudMode -> cloud-agents/overview.md.
+# itself is documented via CloudMode -> platform/index.mdx.
 CloudModeSetupV2
 CloudModeInputV2
 # Internal GitHub credential refresh during task runs (changelog-only behavior fix).

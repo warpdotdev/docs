@@ -1,0 +1,125 @@
+---
+title: Multi-agent orchestration
+description: Coordinate parent and child agents across local and cloud runs to build supervisor/worker, fan-out, critic, DAG, and swarm workflows on the Oz Platform.
+sidebar:
+  label: "Orchestration"
+---
+import VideoEmbed from '@components/VideoEmbed.astro';
+
+Multi-agent orchestration lets one agent spawn and coordinate other agents to parallelize work, delegate specialized tasks, or verify another agent's output. The parent/child model works from the Warp app, the [Oz CLI](/reference/cli/), and the [Oz API](/reference/api-and-sdk/), and supports local, cloud, and mixed execution.
+
+Watch this walkthrough to see how a cloud agent can coordinate a team of agents in the cloud.
+
+<VideoEmbed url="https://www.youtube.com/watch?v=qeR79bhyFOw" title="How to orchestrate a team of agents in the cloud with Warp" />
+
+This page covers the orchestration model and the patterns it supports. To learn how to start an orchestrated run, see [Running orchestrated agents](/platform/orchestration/multi-agent-runs/).
+
+## The parent/child model
+
+An orchestrated workflow always has one **parent agent** and one or more **child agents**.
+
+* **Parent agent** - the agent that decides what work needs to be done, spawns child agents, and (optionally) merges their results. Any agent can become a parent the first time it spawns a child.
+* **Child agent** - an agent spawned by a parent with its own prompt, environment, and (optionally) a different model or agent runtime. A child runs its own work and reports back; it does not spawn its own children.
+
+Orchestrations today are exactly one level deep: a parent and its direct children. The Warp app, the [Oz web app](/platform/oz-web-app/), and the [Oz API](/reference/api-and-sdk/) render that single level. The parent and each child each have an independent **run** with its own lifecycle, transcript, conversation, and credit usage.
+
+### Where parent and child agents can run
+
+The parent and child don't have to run in the same place. Orchestration supports four combinations:
+
+* **Local → local** - a [Warp Agent](/agent-platform/local-agents/overview/) conversation in the Warp app spawns child Warp Agent conversations on the same machine. Useful for trying orchestration patterns without spinning up cloud infrastructure.
+* **Local → cloud** - a local parent spawns one or more cloud children that run in [environments](/platform/environments/) on Warp-hosted or self-hosted infrastructure. The parent keeps working while children execute in parallel.
+* **Cloud → cloud** - a cloud parent spawns cloud children that each run in their own environment. This is the canonical pattern for review swarms, large fan-outs, and any orchestration triggered from Slack, Linear, a schedule, or the API.
+* **Cloud → cloud-local** - a cloud parent spawns children that run inside the parent's own cloud environment, rather than each child getting its own environment. Useful when children need to share state with the parent (a filesystem, a long-running process, a shell session) or when spinning up an environment per child would be wasteful.
+
+Children can also run with a different agent runtime than the parent. A parent running with the default Warp Agent can spawn children that run with [Claude Code](/agent-platform/cli-agents/claude-code/) or [Codex](/agent-platform/cli-agents/codex/), and vice versa.
+
+## Run state transitions
+
+Each run progresses through a small set of states. The parent observes these transitions to decide what to do next - keep waiting, send a follow-up, spawn a replacement, or finish.
+
+The main user-visible states a child run can reach are:
+
+* **`INPROGRESS`** - the run is actively executing (or has restarted after being blocked).
+* **`SUCCEEDED`** - the run completed successfully.
+* **`FAILED`** - the run hit a terminal failure.
+* **`BLOCKED`** - the run is waiting on a user action (for example, command approval or a permission request).
+* **`ERROR`** - the run encountered an error during startup or execution.
+* **`CANCELLED`** - the run was cancelled before reaching a terminal state.
+
+Track run state transitions in these places:
+
+* **The parent's transcript** - the parent agent receives child state transitions as it runs and reflects them in its own conversation.
+* **The orchestration pill bar** - in the Warp app, while you're viewing the parent agent, a horizontal pill bar above the agent view header shows the parent on the left and one pill per child. Each pill displays the child's name and a status badge that updates live. Click a pill to switch the pane to that child's conversation in place; click the parent pill to switch back.
+* **The Oz web app** - cloud children appear under the parent on the [Runs page](https://oz.warp.dev/runs) and in the parent's **Sub-agents** tab, with their status updating live.
+* **The Oz API** - `GET /agent/runs/{runId}` returns the latest state of any run, and `GET /agent/runs?ancestor_run_id=PARENT_RUN_ID` lists every descendant in one call.
+
+## Messaging between agents
+
+Orchestration is built on a durable, server-backed message bus. Every agent in an orchestration - parent and children - has its own inbox addressed by its agent ID, and the parent and children send each other short, structured messages to coordinate, hand off work, and stay in sync as they run.
+
+This is how parallel agents stay consistent without sharing mutable state. Each run owns its own conversation, working directory or environment, and credit usage; agents don't read each other's transcripts or live working trees. Instead, they exchange explicit messages whenever they need to communicate a decision, a result, or a question. Messages and run state transitions share a global sequence number so the parent never observes a child's `SUCCEEDED` state before the message that produced the result.
+
+The same messaging infrastructure works across every combination of agent runtimes and execution locations:
+
+* **Harness-agnostic** - the mailbox is the same whether the recipient runs the default Warp Agent, [Claude Code](/agent-platform/cli-agents/claude-code/), [Codex](/agent-platform/cli-agents/codex/), or another agent runtime. A parent running with one harness can message a child running with another, in either direction.
+* **Cross-location** - the agent ID is the only address that matters. A local parent can message a cloud child, a cloud parent can message a local-to-cloud child running inside its own environment, and cloud parents can fan out messages to cloud children running in different environments.
+* **Resumable** - a child whose current run has reached a terminal state (`SUCCEEDED`, `FAILED`, `CANCELLED`, or `ERROR`) is not gone. It is still addressable by its agent ID and will wake up to handle follow-up instructions when the parent sends a new message.
+
+Alongside messages, every run emits **lifecycle events** on the same infrastructure when its state changes - the six states listed in [Run state transitions](#run-state-transitions). The parent observes these events to decide what to do next (keep waiting, send a follow-up, spawn a replacement, finish) without polling any child.
+
+Use messages for coordination signals - handoffs, decisions, blocked-on-input requests, status updates, and final results - rather than for piping full transcripts around. The parent's prompt to a child and the child's final output carry the substance of the work; messages are how the agents talk *about* the work as it happens.
+
+## Common patterns
+
+The following patterns show common ways to structure parent and child agents, depending on whether you need parallel execution, review, dependency ordering, or loose coordination.
+
+### Supervisor / worker
+
+A parent supervisor agent breaks the task into a queue of work items, spawns worker children to claim and complete each item, and writes a summary when the queue is empty. Use this when the task is naturally divisible and you want a single agent to own coordination.
+
+### Fan-out / fan-in
+
+The parent spawns N children in parallel, each with a sharded prompt (one module, one file set, one test target, one model), then waits for all of them to complete and merges their results. Use this for large refactors, repo-wide migrations, or running the same task across multiple targets.
+
+### Critic / verifier
+
+The parent (the "writer") proposes a solution, then spawns a critic child to review it. The critic returns notes; the writer revises; the cycle repeats until the critic approves or a budget is exhausted. Useful when correctness matters more than throughput.
+
+### Review swarm (cloud → cloud)
+
+A [scheduled](/platform/triggers/scheduled-agents/) or webhook-triggered parent spawns one cloud child per open pull request to run reviews in parallel. Each child posts its findings as a comment and exits. The parent fans in the results and posts a summary back to the triggering system.
+
+### DAG
+
+The parent encodes a directed acyclic graph of subtasks where some nodes depend on the outputs of others. It spawns ready nodes, waits on their state transitions, and spawns dependents as upstream nodes complete. Use this when the workflow has explicit ordering constraints (build → test → deploy, for example).
+
+### Swarm
+
+A flat group of peer agents discover each other through messaging and coordinate without a strict hierarchy. The parent acts more like a coordinator than a supervisor. Use sparingly - swarms are powerful but harder to debug than hierarchical patterns.
+
+## Approval mode
+
+Two slash commands surface orchestration in the Warp app, and both require explicit user approval before any children launch:
+
+* **`/orchestrate`** asks the agent to apply orchestration to the task. The agent proposes a breakdown - number of children, prompts, environments, parallelism - and waits for approval. The API equivalent is setting `mode: orchestrate` on `POST /agent/runs`.
+* **`/plan`** asks the agent to research and produce a plan for a complex task. The agent always considers orchestration while planning, and proposes it as part of the plan when the work would benefit. When orchestration is part of the plan, the plan card surfaces an inline **orchestration config** block above the plan with model, harness, environment, host, and parallelism pickers; you can adjust the config and then approve the plan to start spawning children. The API equivalent is `mode: plan`.
+
+In both cases, approval is required before the parent launches children. Approving an orchestration also approves the run-wide config (model, harness, environment, host) that every child inherits unless the parent overrides it per child.
+
+## Observability
+
+Because every parent and child is tracked as its own conversation or run, the existing observability surfaces work without changes:
+
+* **[Managing cloud agents](/platform/managing-cloud-agents/)** - in the Warp app, the orchestration pill bar above the agent view header lets you switch between the parent and each child while you're viewing the parent. Cloud children also appear as their own rows in the Agent Management Panel list.
+* **[Oz web app](/platform/oz-web-app/)** - the Runs page groups cloud children under the parent's row, and the parent's detail pane adds a **Sub-agents** tab.
+* **[Oz API](/reference/api-and-sdk/)** - list every descendant of a parent in one call and fetch any run with its conversation, transcript, and artifacts. See [Running orchestrated agents](/platform/orchestration/multi-agent-runs/#retrieving-conversations-and-artifacts).
+* **[Agent notifications](/agent-platform/capabilities/agent-notifications/)** - in-app notifications fire on the parent agent's conversation only. Use the pill bar or the **Sub-agents** tab to drill into a specific child.
+
+## Related pages
+
+* [Running orchestrated agents](/platform/orchestration/multi-agent-runs/) - how to start an orchestrated run from the CLI, slash command, web app, or API.
+* [How to run multiple AI coding agents](/guides/agent-workflows/how-to-run-multiple-ai-coding-agents/) - practical guidance for splitting tasks, assigning worktrees, validating child output, and handing work off for review.
+* [Oz API and SDK](/reference/api-and-sdk/) - REST endpoints for runs, conversations, and artifacts.
+* [Cloud agents overview](/platform/) - what a cloud agent run is and how it fits into the Oz Platform.
+* [Deployment patterns](/platform/deployment-patterns/) - higher-level deployment models that orchestration composes with.

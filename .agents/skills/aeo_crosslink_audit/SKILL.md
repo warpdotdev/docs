@@ -24,18 +24,30 @@ Do not:
 - Add keyword-stuffed text.
 - Force Peec or Google Search Console signals into docs when they do not support a useful reader journey.
 
+## Environment requirements
+
+The following environment secrets should be set in the Oz cloud agent environment:
+
+- `SLACK_BOT_TOKEN` — Slack bot token for posting to `#growth-docs`. If unavailable, write the notification body to the run output instead and skip Slack posting.
+- `SLACK_CHANNEL_ID` — Slack channel ID for `#growth-docs`. Find it in Slack by right-clicking the channel → Copy link (the ID begins with `C`). If unavailable, skip Slack posting.
+
+Do NOT print, log, commit, or include secret values in reports or Slack messages.
+
 ## Source data
 
 Use the smallest reliable set of source data needed to justify link changes:
-- **Peec snapshot** - Read the Peec snapshot files at `/workspace/buzz/aeo-snapshots/docs/agents-orchestration/latest.json` and `/workspace/buzz/aeo-snapshots/docs/agents-orchestration/latest.md`. These contain pre-exported Peec data (prompts, recommendations, source URLs, query vocabulary, and visibility scores) for agents, cloud agents, and orchestration. The snapshots are generated locally (where Peec OAuth works) and committed to the buzz repo so cloud agents can use them. If the snapshot files do not exist or are empty, note that Peec data was unavailable and proceed with other sources.
+- **Peec snapshot** - Check freshness before using any data:
+  1. Read `generated_at` from `/workspace/buzz/aeo-snapshots/docs/agents-orchestration/latest.json`.
+  2. If the file is missing, `generated_at` is absent, or the snapshot is **14 days old or older**: write the stale-snapshot report (see "Stale snapshot report" below), write a run log entry (step 7) with the appropriate `No-change reason` (see "Stale snapshot report" for exact wording), post the stale Slack alert (step 8), and exit. Do not continue the audit or open a PR.
+  3. If the snapshot is fewer than 14 days old, read both `latest.json` and `latest.md` as source signals. These contain pre-exported Peec data (prompts, recommendations, source URLs, query vocabulary, and visibility scores) for agents, cloud agents, and orchestration. The snapshots are generated locally (where Peec OAuth works) and committed to the buzz repo so cloud agents can use them.
 - **Google Search Console** - When available, use the environment's `GSC_SERVICE_ACCOUNT_CREDENTIALS_JSON` secret to inspect recent queries and pages related to agents, cloud agents, and orchestration. Never print, log, commit, or include the secret value in reports. If a GSC client requires a credentials file path, write the secret to a restricted temporary file, use it for the run, and remove it before finishing.
 - **Docs repo** - Search existing pages under `src/content/docs/` for relevant source pages, link targets, and related terminology.
 
-If Peec snapshot or Google Search Console data is unavailable, say what could not be verified and proceed only with repo-grounded recommendations. Do not invent source signals.
+If Google Search Console data is unavailable, say what could not be verified and proceed with Peec and docs-only analysis. If the Peec snapshot is stale or missing, exit via the staleness path above instead of proceeding. Do not invent source signals.
 
 ## Workflow
 
-1. **Gather source signals.** Read the Peec snapshot files and use Google Search Console data, when available, to identify relevant user language, prompts, recommendations, or pages.
+1. **Check snapshot freshness, then gather source signals.** Read `generated_at` from `latest.json`. If the snapshot is missing or 14 days old or older, write the stale-snapshot report, write a run log entry (step 7), post the stale Slack alert (step 8), and exit — do not proceed further. If fresh, read both snapshot files and use Google Search Console data, when available, to identify relevant user language, prompts, recommendations, or pages.
 2. **Search existing docs.** Look for pages under `src/content/docs/` that already mention or imply related concepts in agents, cloud agents, or orchestration.
 3. **Identify link opportunities.** Find up to 5 internal cross-link opportunities where:
    - The source page already mentions or implies the related concept.
@@ -45,6 +57,51 @@ If Peec snapshot or Google Search Console data is unavailable, say what could no
 4. **Make only safe edits.** Add links with minimal surrounding copy changes. Preserve the existing page structure and voice. Follow the link quality rules below when choosing anchor text and surrounding context.
 5. **Run self-review.** Apply the quality gates in this skill before opening a PR or writing a no-change report.
 6. **Open a PR or report no changes.** Open a PR only when there are at least 2 high-confidence link additions. Otherwise, write a no-change report in the Oz run output.
+
+7. **Write run log entry.** After completing step 6, update `.agents/logs/aeo_crosslink_audit_runs.md` from a clean checkout or worktree based on the latest `main`, prepend the new entry using the format in the "Run log format" section below, stage only `.agents/logs/aeo_crosslink_audit_runs.md`, and commit it directly to `main` with this commit message:
+
+   ```text
+   chore: log aeo crosslink audit run YYYY-MM-DD
+   ```
+
+   If the git push fails, write the log entry to the run output instead and continue to step 8.
+
+8. **Post Slack notification.** After writing the log entry, post the formatted message to `#growth-docs` using the Python snippet below. Python is preferred over curl because it reads `SLACK_BOT_TOKEN` from the environment (keeping the token out of process argv) and JSON-encodes the payload correctly regardless of newlines or special characters. If either secret is unavailable, write the notification body to the run output instead.
+
+   ```bash
+   python3 - <<'SLACK_EOF'
+   import os, json, urllib.request, sys
+
+   token = os.environ.get("SLACK_BOT_TOKEN", "")
+   channel = os.environ.get("SLACK_CHANNEL_ID", "")
+   if not token or not channel:
+       print("SLACK_BOT_TOKEN or SLACK_CHANNEL_ID not set — skipping Slack notification", file=sys.stderr)
+       sys.exit(0)
+
+   # Replace the triple-quoted string with the message from the Slack notification format section.
+   # Newlines and special characters are handled automatically by json.dumps.
+   message = """<message text here>"""
+
+   payload = json.dumps({
+       "channel": channel,
+       "text": message,
+       "unfurl_links": False,
+       "unfurl_media": False,
+   }).encode()
+   req = urllib.request.Request(
+       "https://slack.com/api/chat.postMessage",
+       data=payload,
+       headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"},
+   )
+   with urllib.request.urlopen(req) as resp:
+       result = json.load(resp)
+   if not result.get("ok"):
+       print(f"Slack error: {result.get('error')}", file=sys.stderr)
+       sys.exit(1)
+   SLACK_EOF
+   ```
+
+   Replace `<message text here>` with the message from the appropriate format in the "Slack notification format" section. Do not print `SLACK_BOT_TOKEN` or `SLACK_CHANNEL_ID` values in the run output or in any file.
 
 ## Link quality rules
 
@@ -140,7 +197,39 @@ Use this format:
 - [One specific improvement for the next run.]
 ```
 
-For the pilot, no-change reports stay in the Oz run output. If team input is needed, share the Oz run link manually in `#growth-docs`.
+No-change reports stay in the Oz run output. The Oz run link is posted automatically to `#growth-docs` as part of step 8.
+
+## Stale snapshot report
+
+If the Peec snapshot is missing or 14 days old or older, stop immediately. Write this report to the Oz run output:
+
+```text
+## AEO cross-link audit — snapshot stale
+
+**Date:** YYYY-MM-DD
+**Snapshot age:** [N days (generated YYYY-MM-DD) | file not found | generated_at field missing]
+**Threshold:** 14 days
+
+The Peec snapshot is too old to support a high-confidence audit. No PR was opened and no docs were changed.
+
+**Action required:**
+Run the `refresh-peec-aeo-snapshot` skill in a local Warp agent session where Peec MCP is authenticated.
+Skill: buzz/.agents/skills/refresh-peec-aeo-snapshot/SKILL.md
+
+The audit will run normally on the next scheduled execution once a fresh snapshot is committed to the buzz repo.
+```
+
+Fill in the `Snapshot age` field as follows — do not invent values:
+- File exists and `generated_at` is present: `N days (generated YYYY-MM-DD)` — compute `N` from today's date minus `generated_at`.
+- File does not exist: `file not found`.
+- File exists but `generated_at` is absent or unparseable: `generated_at field missing`.
+
+Use the same wording in the `No-change reason` field of the run log entry:
+- File stale: `snapshot stale — N days old`
+- File missing: `snapshot missing — file not found`
+- Field missing: `snapshot missing — generated_at field absent`
+
+Then post the stale Slack alert (step 8). Exit. Do not write a no-change report. Do not open a PR.
 
 ## Human review expectations
 
@@ -149,6 +238,63 @@ The human reviewer should be able to understand the PR or no-change report witho
 - Explain the source signal behind each link.
 - Flag any uncertainty directly.
 - Avoid hiding product or terminology questions in the diff.
+
+## Run log format
+
+Prepend each new entry at the top of `.agents/logs/aeo_crosslink_audit_runs.md`, immediately after the `---` separator line. Use this format:
+
+```markdown
+## YYYY-MM-DD — [PR opened | No change | Snapshot stale]
+
+- **Run**: [Oz run URL if available, otherwise the run ID]
+- **Source signals**: Peec [available | unavailable], GSC [available | unavailable]
+- **PR**: [PR URL | N/A]
+- **Links proposed / added**: [N proposed, N added | N/A]
+- **Pages touched**: [comma-separated file paths | N/A]
+- **Themes**: [one sentence on recurring content gaps or topics observed, or "none observed"]
+- **No-change reason**: [low confidence | lack of signals | snapshot stale — N days old | N/A]
+```
+
+Keep each entry to 7 fields and under 10 lines. Do not add narrative prose.
+
+## Slack notification format
+
+Use a simple text message (not Block Kit). The message should be scannable in under 30 seconds.
+
+**PR opened:**
+
+```
+✅ AEO crosslink audit · YYYY-MM-DD
+PR opened: [PR URL]
+Links added: [N links] across [N pages]: [page names]
+Signals: [Peec | GSC | Peec + GSC]
+Oz run: [run URL]
+```
+
+**No change:**
+
+```
+ℹ️ AEO crosslink audit · YYYY-MM-DD — No changes
+Checked: agents, cloud agents, and orchestration docs
+No PR: [brief reason — e.g., "fewer than 2 high-confidence opportunities"]
+Oz run: [run URL]
+```
+
+**Snapshot stale:**
+
+```
+⚠️ AEO crosslink audit · YYYY-MM-DD — Snapshot stale
+Snapshot: [N days old (generated YYYY-MM-DD) | file not found | generated_at missing], threshold: 14 days
+No audit ran. Refresh the snapshot before the next run.
+How: run refresh-peec-aeo-snapshot in a local Warp session
+Skill: buzz/.agents/skills/refresh-peec-aeo-snapshot/SKILL.md
+Oz run: [run URL]
+```
+
+Rules:
+- Post on every run, including no-change runs.
+- Never include raw secret values, personal access tokens, or credential file paths in the Slack message.
+- If the Oz run URL is unavailable, omit that line rather than posting a broken link.
 
 ## Future expansion boundaries
 

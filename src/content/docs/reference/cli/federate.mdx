@@ -44,11 +44,11 @@ oz federate issue-token \
 
 The subject claim is what your cloud provider's policy will match on, so pick the combination that gives you the IAM granularity you need. Supported components:
 
-* **`principal`** - The acting principal, like `user:my-user-id` or `service_account:my-sa-id`. A `service_account:` principal corresponds to a [cloud agent](/agent-platform/cloud-agents/agents/) on your team.
+* **`principal`** - The acting principal, like `user:my-user-id` or `service_account:my-sa-id`. A `service_account:` principal corresponds to a [cloud agent](/platform/agents/) on your team.
 * **`scoped_principal`** - The principal scoped to a team, like `principal:my-team-id/user:my-user-id`.
 * **`email`** - The principal's email, like `email:user@warp.dev`.
 * **`teams`** - The principal's team, like `teams:my-team-id`.
-* **`environment`** - The [cloud environment](/agent-platform/cloud-agents/environments/) the run is using, like `environment:my-environment-id`.
+* **`environment`** - The [cloud environment](/platform/environments/) the run is using, like `environment:my-environment-id`.
 * **`agent_name`** - The configured name of the run, like `agent_name:my-agent`.
 * **`skill_spec`** - The skill the run was launched from, like `skill_spec:warpdotdev/repo_path_to_skill`.
 * **`run_id`** - The run's unique ID, like `run_id:abc123`.
@@ -94,5 +94,5 @@ A typical GCP flow:
 
 ## Related
 
-* [Cloud environments](/agent-platform/cloud-agents/environments/) - configure the environment your agent runs in.
-* [Secrets](/agent-platform/cloud-agents/secrets/) - alternative for credentials that can't be federated.
+* [Cloud environments](/platform/environments/) - configure the environment your agent runs in.
+* [Secrets](/platform/secrets/) - alternative for credentials that can't be federated.

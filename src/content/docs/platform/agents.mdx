@@ -1,0 +1,72 @@
+---
+title: Cloud agents
+description: >-
+  Cloud agents are how Warp runs scheduled jobs, integration triggers, CI/CD
+  automation, and API-driven tasks against your team's environments.
+sidebar:
+  label: "Agents"
+---
+
+A **cloud agent** is an agent that runs in Warp's cloud (or on a self-hosted worker) instead of on your local machine. Use a cloud agent when you want to give an automation its own settings, secrets, skills, and permissions instead of having it act as a user on your team.
+
+Every team starts with a default cloud agent, which is what runs when an automation triggers a task with no other configuration. You can optionally create additional cloud agents through the Oz web app's **Agents** page or the public API. See [Managing cloud agents](#managing-cloud-agents) below.
+
+## How cloud agents get triggered
+
+A run executes as a cloud agent when it's authenticated with an [agent API key](/reference/cli/api-keys/) or when an agent is explicitly selected; otherwise it runs as the calling user. The triggers that can run as a cloud agent are:
+
+* **Schedules** — Cron-style recurring runs. See [Scheduled agents](/platform/triggers/scheduled-agents/).
+* **Integrations** — Slack mentions, Linear issue updates, GitHub Actions workflow steps. See [Integrations](/platform/integrations/).
+* **API and SDK** — Programmatic runs from your own backend, scripts, or webhooks via the [Oz API](/reference/api-and-sdk/).
+* **CLI** — `oz agent run-cloud` from a developer machine, CI pipeline, or self-hosted worker. See the [Oz CLI](/reference/cli/).
+
+Each run is tracked in the [Oz dashboard](https://oz.warp.dev/runs) with its trigger source, the environment it ran in, and the full transcript.
+
+## Agent API keys
+
+Most automation triggers authenticate using an **agent API key** — a credential that runs as a cloud agent on your team rather than as an individual user. See [API keys](/reference/cli/api-keys/) for how personal and agent keys differ, and how to create one.
+
+## Service accounts
+
+In the CLI and REST API, a cloud agent is represented as a **service account**. `oz whoami` reports `service_account:<uid>` when the CLI is authenticated as a service account, and [`oz federate issue-token`](/reference/cli/federate/) emits the same form in OIDC token subjects.
+
+## Managing cloud agents
+
+Use the [Oz web app's Agents page](/platform/oz-web-app/#agents) for day-to-day management. Use the public API when you need to create or update agents from scripts, CI/CD, or internal tooling. Full request and response formats, including error codes, live on the [API Reference](/api) page under the **agent** tag.
+
+| Action | Endpoint | What it does |
+| --- | --- | --- |
+| **Create** | `POST /agent/identities` | Creates a cloud agent with a `name` and optional `description`, `secrets`, and `skills`. |
+| **List** | `GET /agent/identities` | Returns every cloud agent on the team, including the default, with an `available` flag for plan-limit status. |
+| **Update** | `PUT /agent/identities/{uid}` | Replaces individual fields. Omitted fields stay unchanged; empty strings or arrays clear the field. |
+| **Delete** | `DELETE /agent/identities/{uid}` | Soft-deletes the agent and deletes every API key bound to it. The team's default agent cannot be deleted. |
+
+### Caller requirements
+
+Across all endpoints:
+
+* **Human callers only** - Only human users can create, update, or delete a cloud agent. A request authenticated as a cloud agent itself is rejected.
+* **Availability is enforced on use** - Over-plan-limit agents are returned by the list endpoint but cannot be used to update fields, generate new keys, or start new runs.
+
+## Plan limits
+
+Every team starts with a default cloud agent. Additional agents are subject to plan-based limits. See [Warp pricing](https://www.warp.dev/pricing) for current limits per plan.
+
+When a team is over its plan limit (for example, after downgrading), the extra agents remain visible in the list but are marked as unavailable. Unavailable agents cannot be used to start runs, cannot have new API keys generated for them, and cannot be edited.
+
+## Where cloud agents appear in the product
+
+* **Agents page** - The Agents page in the [Oz web app](/platform/oz-web-app/) is where teams view, create, edit, and delete cloud agents.
+* **Agent picker** - Forms that start a new run or schedule include an **Agent** dropdown. **Quick run** is the default (runs execute as the calling user); picking a cloud agent runs as the cloud agent instead.
+* **Run filters and detail** - The Runs view lets you filter by cloud agent, and individual run detail pages show which agent executed the run.
+* **Admin Panel** - Billing usage in the [Admin Panel](/knowledge-and-collaboration/admin-panel/) attributes credits consumed by cloud agent runs to the team rather than to a person.
+
+## Related pages
+
+* [Triggers](/platform/triggers/) - How schedules, integrations, and API calls invoke cloud agents.
+* [Environments](/platform/environments/) - The runtime context (Docker image, repos, setup commands) a cloud agent uses.
+* [API keys](/reference/cli/api-keys/) - Create personal and agent API keys.
+* [Oz API & SDK](/reference/api-and-sdk/) - Programmatic access to the cloud agent endpoints.
+* [Federated identity tokens](/reference/cli/federate/) - Issue OIDC tokens from inside a run.
+* [Oz web app](/platform/oz-web-app/) - Manage cloud agents and inspect their runs in the web UI.
+* [Admin Panel](/knowledge-and-collaboration/admin-panel/) - Team-level billing and access controls.

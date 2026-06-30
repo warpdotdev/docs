@@ -215,6 +215,8 @@ When enabled, agents understand your code patterns, architecture, and convention
 
 Control which LLM models are available to your team and how inference is routed. From the **Models** page, admins can enable or disable individual models and configure [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/) routing through AWS Bedrock.
 
+From the **Models** page, admins can also create team-synced [custom routers](/agent-platform/inference/custom-routers/) that route each task to a model based on complexity or rules. Team-synced routers appear in the model picker for every team member.
+
 **Models with provider-specific data retention requirements**
 
 Some models require data retention from the model provider and are therefore not available under [Zero Data Retention (ZDR)](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr). For Enterprise teams, these models are **disabled by default**. A workspace admin must explicitly enable them before team members can use them.
@@ -276,7 +278,7 @@ To configure:
 The organizations and repository access shown here reflect the Oz by Warp GitHub App installation scope, which is configured in [GitHub settings](https://github.com/settings/installations). To change which repositories the app can access, edit the installation directly in GitHub.
 
 :::note
-This setting controls GitHub access for agent API key runs only. Runs triggered by individual users (via personal API key, Slack, or Linear) continue to use that user's personal GitHub token. For more details, see [Team GitHub authorization](/agent-platform/cloud-agents/team-access-billing-and-identity/#team-github-authorization).
+This setting controls GitHub access for agent API key runs only. Runs triggered by individual users (via personal API key, Slack, or Linear) continue to use that user's personal GitHub token. For more details, see [Team GitHub authorization](/platform/team-access-billing-and-identity/#team-github-authorization).
 :::
 
 ## Multi-admin functionality

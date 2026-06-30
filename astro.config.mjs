@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig, envField } from 'astro/config';
+import remarkGfm from 'remark-gfm';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import starlight from '@astrojs/starlight';
@@ -13,6 +14,12 @@ import docsMarkdownIntegration from './src/integrations/docs-markdown-integratio
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://docs.warp.dev',
+	// Explicitly register remark-gfm so GitHub-Flavored Markdown (notably
+	// pipe tables) is reliably applied to .mdx content. Astro enables gfm by
+	// default, but the @astrojs/mdx 5.x + @astrojs/markdown-remark 7.2.0
+	// version pairing stopped auto-applying it, which made markdown tables
+	// render as raw `| ... |` text. Registering the plugin here restores it.
+	markdown: { remarkPlugins: [remarkGfm] },
 	env: {
 		schema: {
 			PUBLIC_KAPA_INTEGRATION_ID: envField.string({
@@ -63,7 +70,7 @@ export default defineConfig({
 					wrap: true,
 				},
 				// Map languages Shiki doesn't bundle to a safe fallback. PromQL
-				// blocks live in agent-platform/cloud-agents/self-hosting/monitoring.mdx;
+				// blocks live in platform/self-hosting/monitoring.mdx;
 				// without this alias every build emits noisy "language could not be
 				// found" warnings while still falling back to plaintext.
 				shiki: {
@@ -139,9 +146,14 @@ export default defineConfig({
 					projectName: 'Warp',
 					optionalLinks: [
 						{
-							label: 'Oz Agent API (OpenAPI spec)',
+							label: 'Oz Agent API (OpenAPI spec, YAML)',
 							url: 'https://docs.warp.dev/openapi.yaml',
 							description: 'Machine-readable OpenAPI 3.0 specification for the Oz Agent API.',
+						},
+						{
+							label: 'Oz Agent API (OpenAPI spec, JSON)',
+							url: 'https://docs.warp.dev/openapi.json',
+							description: 'Machine-readable OpenAPI 3.0 specification (JSON format) for the Oz Agent API.',
 						},
 					],
 				// Excludes pages that cause a stack overflow in hast-util-to-text
@@ -153,7 +165,8 @@ export default defineConfig({
 						'Documentation for Warp, the agentic development environment, and Oz, Warp\'s programmable agent for running and coordinating agents at scale.',
 					customSets: [
 						{ label: 'Terminal', description: 'Warp Terminal features and configuration.', paths: ['terminal/**'] },
-						{ label: 'Agent Platform', description: 'Warp\'s Agent Platform: capabilities, local agents, CLI agents, cloud agents.', paths: ['agent-platform/**'] },
+						{ label: 'Agent Platform', description: 'Warp\'s Agent Platform: capabilities, local agents, and CLI agents.', paths: ['agent-platform/**'] },
+						{ label: 'Oz Platform', description: 'Warp\'s Oz platform: cloud agents, orchestration, triggers, integrations, environments, harnesses, and self-hosting.', paths: ['platform/**'] },
 						{ label: 'Code', description: 'Code editor, code review, and Git worktrees.', paths: ['code/**'] },
 						{ label: 'Enterprise', description: 'Enterprise features, SSO, team management, and security.', paths: ['enterprise/**'] },
 						{ label: 'Getting Started', description: 'Installation, quickstart, and migration guides.', paths: ['index', 'quickstart', 'getting-started/**'] },
