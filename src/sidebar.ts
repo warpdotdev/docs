@@ -302,8 +302,10 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 							collapsed: true,
 							items: [
 								{ slug: 'agent-platform/inference/model-choice', label: 'Model choice' },
+								{ slug: 'agent-platform/inference/custom-routers', label: 'Custom routers' },
 								'agent-platform/inference/bring-your-own-api-key',
 								{ slug: 'agent-platform/inference/custom-inference-endpoint', label: 'Custom inference endpoint' },
+								{ slug: 'agent-platform/inference/grok-subscription', label: 'SuperGrok subscription' },
 							],
 						},
 						{ slug: 'agent-platform/local-agents/interactive-code-review', label: 'Interactive code review' },
