@@ -118,3 +118,17 @@ After creating `review.json`:
 - Verify all paths exist in the PR diff and match the changed files
 - Check that line numbers are within the changed files and reference lines that were actually modified
 - Ensure comment spans don't exceed 10 lines
+
+## Signal logging
+
+After creating and validating `review.json` (immediately after the Validation section above), emit a summary record for the `improve-drafting-skills` outer loop. Do this before any step that submits or hands off the review — the marker must appear in the Oz run output regardless of how the review is ultimately published. Apply only when reviewing an agent-authored PR (branch created by a drafting skill, or commit author is `oz-agent@warp.dev`).
+
+1. Count comments in `review.json` by severity label (`🚨 [CRITICAL]`, `⚠️ [IMPORTANT]`, `💡 [SUGGESTION]`, `🧹 [NIT]`).
+2. Identify the top 3 issue categories by frequency (use the `check` name if available from style lint output, or infer a short category from the comment body).
+3. Determine the skill used from the PR branch name or PR description if available.
+4. Print the following structured marker to stdout:
+   ```
+   [SIGNAL:pr-review] {"date":"YYYY-MM-DD","pr":"NNN","branch":"branch-name","skill_used":"draft_feature_doc","verdict":"Request changes","critical":N,"important":N,"suggestions":N,"nits":N,"top_categories":["category (N)","category (N)","category (N)"]}
+   ```
+
+The `improve-drafting-skills` outer loop reads this signal from Oz run artifacts via `oz run get`. No git operations are required.

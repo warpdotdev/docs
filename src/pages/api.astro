@@ -16,6 +16,18 @@ import WarpTopbar from '../components/WarpTopbar.astro';
 const yamlContent = fs.readFileSync('developers/agent-api-openapi.yaml', 'utf-8');
 const specObject = parse(yamlContent);
 const specJson = JSON.stringify(specObject);
+
+// Pre-typed data for the server-rendered endpoint index.
+// Typed here in the frontmatter so the JSX below stays clean.
+type OpInfo = {
+  summary?: string;
+  description?: string;
+  parameters?: Array<{ name: string; in: string; description?: string; required?: boolean }>;
+};
+const HTTP_METHODS = new Set(['get', 'post', 'put', 'patch', 'delete', 'head', 'options', 'trace']);
+const specPaths = (specObject.paths ?? {}) as Record<string, Record<string, OpInfo>>;
+const specInfo = specObject.info as { title?: string; description?: string } | undefined;
+const specBaseUrl = (specObject.servers as Array<{ url?: string }> | undefined)?.[0]?.url;
 ---
 
 <!doctype html>
@@ -184,7 +196,40 @@ const specJson = JSON.stringify(specObject);
       })();
     </script>
     <WarpTopbar crumb="API Reference" />
+    <!-- llms.txt directive: machine-readable signal for agents and AI tools. -->
+    <span class="api-visually-hidden" aria-hidden="true">For the complete documentation in markdown, see <a href="/llms.txt" tabindex="-1">llms.txt</a>.</span>
     <h1 class="api-visually-hidden">Warp & Oz HTTP API reference</h1>
+    <!--
+      Server-rendered API index for crawlers and agents that don't execute JS.
+      Scalar (below) provides the interactive experience for browser users.
+      This section is visually hidden but fully in the DOM and accessible to
+      any HTTP client that reads HTML — including AI crawlers, scanners and agents.
+    -->
+    <section aria-label="Oz Agent API endpoint index" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;">
+      <h1>{specInfo?.title}</h1>
+      <p>{specInfo?.description}</p>
+      <p>Base URL: {specBaseUrl}</p>
+      <p>Authentication: Bearer token (Warp API key). Obtain from account settings. Pass as Authorization: Bearer YOUR_API_KEY.</p>
+      <p>Full machine-readable spec: <a href="/openapi.json">openapi.json</a></p>
+      {Object.entries(specPaths).map(([endpointPath, methods]) => (
+        <article>
+          {Object.entries(methods).filter(([method]) => HTTP_METHODS.has(method)).map(([method, op]) => (
+            <section>
+              <h2>{method.toUpperCase()} {endpointPath}</h2>
+              {op.summary && <p>{op.summary}</p>}
+              {op.description && <p>{op.description}</p>}
+              {op.parameters && op.parameters.length > 0 && (
+                <ul>
+                  {op.parameters.map((p) => (
+                    <li><strong>{p.name}</strong> ({p.in}{p.required ? ', required' : ''}){p.description ? ': ' + p.description : ''}</li>
+                  ))}
+                </ul>
+              )}
+            </section>
+          ))}
+        </article>
+      ))}
+    </section>
     <script
       is:inline
       id="api-reference"

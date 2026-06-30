@@ -7,7 +7,7 @@ description: >-
   auto-select the best model).
 ---
 
-Warp lets you choose from a curated set of large language models to power your agents, or let Warp auto-select the best model for each task. Models from OpenAI, Anthropic, Google, and open source providers are available, with configurable reasoning levels and per-profile defaults.
+Warp lets you choose from a curated set of large language models to power your agents, or let Warp auto-select the best model for each task. Models from OpenAI, Anthropic, Google, and open source providers are available, with configurable reasoning levels and per-profile defaults. You can also define [custom routers](/agent-platform/inference/custom-routers/) that pick a model for each task using your own logic.
 
 ## Available models
 
@@ -57,9 +57,9 @@ All Auto models perform well across all agent workflows and are ideal if you pre
 
 | Model | `model_id` | Variant |
 | --- | --- | --- |
-| Claude Fable 5 | `claude-5-fable-xhigh` | Default effort |
-| Claude Fable 5 | `claude-5-fable-high` | High effort |
-| Claude Fable 5 | `claude-5-fable-max` | Max effort |
+| Claude Opus 4.8 | `claude-4-8-opus-xhigh` | Default effort |
+| Claude Opus 4.8 | `claude-4-8-opus-high` | High effort |
+| Claude Opus 4.8 | `claude-4-8-opus-max` | Max effort |
 | Claude Opus 4.7 | `claude-4-7-opus-xhigh` | Default effort |
 | Claude Opus 4.7 | `claude-4-7-opus-high` | High effort |
 | Claude Opus 4.7 | `claude-4-7-opus-max` | Max effort |
@@ -73,15 +73,25 @@ All Auto models perform well across all agent workflows and are ideal if you pre
 | Claude Sonnet 4.5 | `claude-4-5-sonnet-thinking` | Thinking on |
 | Claude Haiku 4.5 | `claude-4-5-haiku` | — |
 
+{/* Claude Fable 5 was removed from the product and may return in a future release.
+    To restore it, re-add the three Claude Fable 5 rows to the Anthropic table above
+    and uncomment the caution below. */}
+{/*
+| Claude Fable 5 | `claude-5-fable-xhigh` | Default effort |
+| Claude Fable 5 | `claude-5-fable-high` | High effort |
+| Claude Fable 5 | `claude-5-fable-max` | Max effort |
+
 :::caution
 Anthropic requires data retention for Claude Fable 5 for safety, abuse monitoring, and compliance reasons, so it is **not available under Zero Data Retention (ZDR)**. This requirement is specific to Claude Fable 5 and doesn't change the ZDR behavior of any other supported model. For Enterprise teams, the model is off by default and a workspace admin must enable it — see the [Admin Panel](/enterprise/team-management/admin-panel/#models-settings) and the [Security overview](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr).
 :::
+*/}
 
 #### Google
 
 | Model | `model_id` |
 | --- | --- |
 | Gemini 3.1 Pro | `gemini-3.1-pro` |
+| Gemini 3.5 Flash | `gemini-3.5-flash` |
 
 #### xAI
 
@@ -100,11 +110,15 @@ Warp also supports leading open source models hosted via Fireworks AI, so you ca
 
 | Model | `model_id` |
 | --- | --- |
+| GLM 5.2 | `glm-5.2-fireworks` |
 | GLM 5.1 | `glm-5.1-fireworks` |
-| Kimi K2.5 | `kimi-k25-fireworks` |
+| Kimi K2.7 Code | `kimi-k27-code-fireworks` |
 | Kimi K2.6 | `kimi-k26-fireworks` |
+| Minimax 3 | `minimax-3-fireworks` |
 | Minimax 2.7 | `minimax-2.7-fireworks` |
+| Qwen 3.7 Plus | `qwen-3.7-plus-fireworks` |
 | Qwen 3.6 Plus | `qwen-3.6-plus-fireworks` |
+| DeepSeek V4 Pro | `deepseek-v4-pro-fireworks` |
 
 ### How to change models
 
@@ -115,7 +129,13 @@ You can use the model picker in your prompt input to quickly switch between mode
 <figcaption>Model selector in Warp's input.</figcaption>
 </figure>
 
-To change models, click the displayed model name (for example, _Claude Sonnet 4.5_) to open a dropdown with all supported options. Your selection will automatically persist for future prompts.
+To change models, click the displayed model name (for example, _Claude Sonnet 4.6_) to open a dropdown with all supported options. Your selection will automatically persist for future prompts.
+
+### Custom routers
+
+Beyond the built-in Auto models, you can define your own custom routers that automatically pick a concrete model for each task, based on task complexity or rules you write. Custom routers appear in the model picker alongside Auto and individual models.
+
+See [Custom routers](/agent-platform/inference/custom-routers/) to create one.
 
 ### Model fallback
 
