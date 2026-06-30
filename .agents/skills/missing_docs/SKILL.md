@@ -320,6 +320,18 @@ The user can trigger any subset:
 - For API docs: include request/response schemas, auth requirements, curl examples
 - Use `codebase_semantic_search` and `grep` on source repos for technical accuracy
 
+## Tests
+
+The skill's scripts have a stdlib-only test suite (no third-party dependencies):
+
+```bash
+python3 .agents/skills/missing_docs/scripts/test_suggest_reviewers.py
+python3 .agents/skills/missing_docs/scripts/test_audit_docs.py
+```
+
+- `test_suggest_reviewers.py` unit-tests reviewer resolution (CODEOWNERS matching, last-match-wins, user/team split, dedup, unresolved paths).
+- `test_audit_docs.py` runs behavioral checks against the sibling code repos — clean exit, completeness accounting (`unaccounted` empty), category/severity scoping, fail-loud (exit 2) on a missing repo, and snapshot round-trip — and skips gracefully when those repos aren't checked out.
+
 ## References
 
 - `references/feature_surface_map.md` — curated mapping of flags/commands/routes/slash
