@@ -19,7 +19,7 @@ Use multiple coding agents, including Warp Agent, Claude Code, Codex, and other 
 
 The best multi-agent workflows have one thing in common: each agent owns a clear slice of work, reports back with validation results, and hands off a branch, diff, PR, or concise finding you can review.
 
-Plan on about 15 minutes for the local setup. Cloud orchestration takes longer only if you need to create or select an [environment](/agent-platform/cloud-agents/environments/) first.
+Plan on about 15 minutes for the local setup. Cloud orchestration takes longer only if you need to create or select an [environment](/platform/environments/) first.
 
 ## Prerequisites
 
@@ -33,8 +33,8 @@ Plan on about 15 minutes for the local setup. Cloud orchestration takes longer o
 | Same task, different agents | You want to compare approaches or pick the best implementation. | Run each agent in a separate tab and worktree, then compare diffs in the [Code Review panel](/code/code-review/). |
 | Split by file or subsystem | A feature spans independent modules that can be changed in parallel. | Assign each agent a worktree, branch, file boundary, and validation command. |
 | Builder plus reviewer | One agent implements while another reviews, writes tests, or checks edge cases. | Put the reviewer in a read-only or review-focused tab, or use a separate branch for test-only changes. |
-| Cloud fan-out | The work is large, slow, or can run away from your laptop. | Use [Multi-agent orchestration](/agent-platform/cloud-agents/orchestration/) or [Running orchestrated agents](/agent-platform/cloud-agents/orchestration/multi-agent-runs/) to spawn cloud children. |
-| Repeatable fleet workflow | You want the same agent pattern on every PR, issue, schedule, or release. | Use a cloud agent with a trigger, skill, or API workflow, then inspect parent and child runs in the [Oz web app](/agent-platform/cloud-agents/oz-web-app/). |
+| Cloud fan-out | The work is large, slow, or can run away from your laptop. | Use [Multi-agent orchestration](/platform/orchestration/) or [Running orchestrated agents](/platform/orchestration/multi-agent-runs/) to spawn cloud children. |
+| Repeatable fleet workflow | You want the same agent pattern on every PR, issue, schedule, or release. | Use a cloud agent with a trigger, skill, or API workflow, then inspect parent and child runs in the [Oz web app](/platform/oz-web-app/). |
 
 ## Plan the split before launching agents
 
@@ -213,8 +213,8 @@ Use cloud agents when the work is long-running, resource-intensive, easy to shar
    ```
 
 2. Use `/plan` for larger changes where you want to review the plan, orchestration config, child ownership, and merge strategy before agents launch.
-3. For repeatable or unattended workflows, start the parent from the Oz CLI, the Oz web app, or the Oz API. See [Running orchestrated agents](/agent-platform/cloud-agents/orchestration/multi-agent-runs/) for launch options.
-4. Inspect parent and child runs from the [Oz web app](/agent-platform/cloud-agents/oz-web-app/) or the [Agent Management Panel](/agent-platform/cloud-agents/managing-cloud-agents/) in the Warp app.
+3. For repeatable or unattended workflows, start the parent from the Oz CLI, the Oz web app, or the Oz API. See [Running orchestrated agents](/platform/orchestration/multi-agent-runs/) for launch options.
+4. Inspect parent and child runs from the [Oz web app](/platform/oz-web-app/) or the [Agent Management Panel](/platform/managing-cloud-agents/) in the Warp app.
 
 Cloud orchestration is the best fit when you need:
 
@@ -250,8 +250,8 @@ Explore related guides and features:
 
 * [How to review AI-generated code](/guides/agent-workflows/how-to-review-ai-generated-code/) — review and refine the code your agents produced
 * [Attach agent session context to GitHub PRs](/guides/agent-workflows/how-to-attach-agent-session-context-to-github-prs/) — give reviewers the agent context behind a PR
-* [Multi-agent orchestration](/agent-platform/cloud-agents/orchestration/) — coordinate parent and child agents across local and cloud runs
-* [Running orchestrated agents](/agent-platform/cloud-agents/orchestration/multi-agent-runs/) — start orchestrated runs from Warp, the Oz CLI, the Oz web app, or the Oz API
+* [Multi-agent orchestration](/platform/orchestration/) — coordinate parent and child agents across local and cloud runs
+* [Running orchestrated agents](/platform/orchestration/multi-agent-runs/) — start orchestrated runs from Warp, the Oz CLI, the Oz web app, or the Oz API
 * [Set up Claude Code](/guides/external-tools/how-to-set-up-claude-code/) or [Set up Codex CLI](/guides/external-tools/how-to-set-up-codex-cli/) — install both agents if you haven't already
 * [Claude Code in Warp](https://www.warp.dev/agents/claude-code) — overview of Claude Code support in Warp
 * [Codex in Warp](https://www.warp.dev/agents/codex) — overview of Codex support in Warp

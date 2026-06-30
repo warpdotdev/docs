@@ -472,6 +472,21 @@ header.header {
   transition: background-color 0.2s ease;
 }
 
+/* Reserve header height for a wrapped second row of topic tabs on crowded
+   mid-width viewports. The desktop topic nav (WarpTopicNav.astro) wraps
+   instead of clipping; the header is a fixed-height bar whose height
+   (`--sl-nav-height`) also drives the sidebar and main-content offsets
+   (see Starlight PageFrame), so bumping the variable across the wrap-prone
+   range keeps a second row from overlapping the page content below. The
+   desktop nav shows at >=50rem and per-item icons drop at <=80rem; above
+   80rem the tabs fit on one row, and below 50rem the mobile drawer takes
+   over (this nav is hidden). */
+@media (min-width: 50rem) and (max-width: 80rem) {
+  :root {
+    --sl-nav-height: 5rem;
+  }
+}
+
 /* --------------------------------------------------------------------------
    6. Topic tab hover — full-row highlight instead of just icon fill
    These rules style the plugin-rendered topic list (`<ul.starlight-sidebar-topics>`).

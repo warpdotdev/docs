@@ -15,9 +15,9 @@ The Oz CLI is the command-line tool for running and managing Warp's cloud agents
 
 ## What is the Oz CLI?
 
-The Oz CLI is the command-line tool that lets you run [Cloud Agents](/agent-platform/cloud-agents/overview/) from anywhere, including terminals, scripts, automated systems, or services.
+The Oz CLI is the command-line tool that lets you run [Cloud Agents](/platform/) from anywhere, including terminals, scripts, automated systems, or services.
 
-It's the standard runtime entry point that turns a **prompt** plus **configuration** into an **executable agent task** that runs on either a **Warp-hosted or [self-hosted](/agent-platform/cloud-agents/self-hosting/) runner**.
+It's the standard runtime entry point that turns a **prompt** plus **configuration** into an **executable agent task** that runs on either a **Warp-hosted or [self-hosted](/platform/self-hosting/) runner**.
 
 With the Oz CLI, you can:
 
@@ -158,7 +158,7 @@ Use `oz whoami` to print information about the currently authenticated principal
 oz whoami
 ```
 
-The output includes your user or service account ID, display name, email, and team (when available). When the CLI is authenticated as a service account principal, that principal is a [cloud agent](/agent-platform/cloud-agents/agents/) on your team. For machine-readable output, set `--output-format json` or `--output-format text`.
+The output includes your user or service account ID, display name, email, and team (when available). When the CLI is authenticated as a service account principal, that principal is a [cloud agent](/platform/agents/) on your team. For machine-readable output, set `--output-format json` or `--output-format text`.
 
 ```sh
 # JSON output for scripts
