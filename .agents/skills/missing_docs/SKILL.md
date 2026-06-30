@@ -31,6 +31,17 @@ audits in the report's `audits_skipped` field (`extraction:*` entries identify
 broken parsers). Never treat an exit-2 run as a clean audit — fix the problem
 and re-run. Exit 0 means all requested audits ran (findings may still exist).
 
+## Public vs. private surfaces (what you may document)
+
+Only document surfaces that are **publicly released**. This is the most important guardrail in this skill: do not reveal private or unreleased surfaces in public docs. Two independent gates, both required:
+
+1. **Source / exposure.** The OSS warp client repo ([warpdotdev/warp](https://github.com/warpdotdev/warp); locally `warp`, or the `warp-internal` fallback) is public — its feature flags, CLI commands, settings, and slash commands are documentable. **`warp-server` is a private repo** and is not public until released; its source and most of its surfaces must NOT be documented. The one exception is the public **Oz Agent API**, whose released surface is exactly the set of endpoints already present in the OpenAPI spec (`developers/agent-api-openapi.yaml`).
+2. **Rollout status.** Even for public-repo surfaces, only document **GA** features. Never document dogfood, preview, or research-preview surfaces (for example, Agent Memory is research preview, so its `oz memory*` CLI and `/memory_stores` API must not be documented yet).
+
+Rules of thumb:
+- A `warp-server` API endpoint that is **not already in the OpenAPI spec** is treated as not-yet-public: do NOT hand-write docs for it. Either confirm it has been publicly released and let the `sync-openapi-spec` skill bring it into the spec, or map it `-> internal` / defer it. When unsure, defer — never expose an unreleased endpoint or feature in public docs.
+- The audit still *detects* these as gaps (useful signal), but detection is not permission to document. Every resolution must respect this boundary.
+
 ## Workflows
 
 ### Phase 1: Audit (coverage)
@@ -71,7 +82,11 @@ The script performs these coverage audits:
    `developers/agent-api-openapi.yaml` (param-name-insensitive: `{runId}` matches
    `{run_id}`) and the API reference docs. For spec drift, run the docs
    `sync-openapi-spec` skill (or warp-server's `update-open-api-spec`) instead of
-   hand-editing the YAML.
+   hand-editing the YAML. **warp-server is private** (see Public vs. private
+   surfaces): a flagged endpoint is documentable only once it is part of the
+   released public Oz Agent API. Never hand-draft API docs or reveal an unreleased
+   endpoint — resolve released endpoints via `sync-openapi-spec`, and `-> internal`/
+   defer the rest.
 4. **Slash command coverage** — parses the static registry in the warp client repo's
    `app/src/search/slash_command_menu/static_commands/` and checks each `/command`
    is mentioned in docs.
@@ -199,7 +214,7 @@ For each gap to address (prioritize high → medium → low):
 4. Research the relevant source code:
    - **Feature gaps** → read the implementation in the warp client repo's `app/src/`, check UI code, settings, user-facing strings
    - **CLI gaps** → read command definition in `crates/warp_cli/src/`, extract flags, arguments, help text
-   - **API gaps** → read handler in warp-server `router/handlers/public_api/`, route definition, request/response types; prefer fixing the OpenAPI spec via the `sync-openapi-spec` skill
+   - **API gaps** → read handler in warp-server `router/handlers/public_api/`, route definition, request/response types; prefer fixing the OpenAPI spec via the `sync-openapi-spec` skill. Only act on endpoints already publicly released (see Public vs. private surfaces); never draft docs for unreleased warp-server endpoints.
    - **Slash command gaps** → read the registry entry and gating flags in `app/src/search/slash_command_menu/`
 5. Draft the doc following style guide conventions:
    - YAML frontmatter with description
@@ -227,6 +242,7 @@ Not every finding needs a new doc page — pick the lightest correct fix and ver
 - **Feature flag whose only user-facing surface is an already-documented setting** — map the flag to that setting's doc page rather than writing a new page (for example, a tab-bar visibility flag maps to the all-settings reference).
 - **Preview or pre-launch feature with no docs yet** — add it to the surface-map ignore list with a comment; the snapshot diff re-flags it when it promotes to GA.
 - **Stale map entry or doc reference** (map hygiene) — confirm the surface is gone from code, then prune the dead entry.
+- **warp-server API endpoint not in the released OpenAPI spec** — do not hand-document it (warp-server is private). If it is part of the released public Oz Agent API, hand it to the `sync-openapi-spec` skill; if it is unreleased or internal, map it `-> internal` with a comment. Never expose an unreleased endpoint or feature in public docs.
 
 ### Reviewer routing
 

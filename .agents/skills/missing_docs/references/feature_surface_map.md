@@ -220,6 +220,20 @@ oz secret list -> src/content/docs/platform/secrets.mdx
 oz secret update -> src/content/docs/platform/secrets.mdx
 oz secret delete -> src/content/docs/platform/secrets.mdx
 
+# Agent Memory is in research preview — not publicly released, so its CLI is
+# intentionally undocumented for now (see "Public vs. private surfaces" in SKILL.md).
+oz memory -> internal
+oz memory create -> internal
+oz memory delete -> internal
+oz memory list -> internal
+oz memory update -> internal
+oz memory versions -> internal
+oz memory-store -> internal
+oz memory-store get -> internal
+oz memory-store list -> internal
+oz memory-store list-store-agents -> internal
+oz memory-store update -> internal
+
 # Internal/hidden command — not a user-facing surface, so no public docs.
 oz harness-support -> internal
 
@@ -227,6 +241,13 @@ oz harness-support -> internal
 
 # Paths are relative to /api/v1 and use OpenAPI-style {param} segments.
 # Public API endpoints documented via the OpenAPI spec (developers/agent-api-openapi.yaml).
+#
+# POLICY: warp-server is a private repo. Only endpoints that are part of the
+# released public Oz Agent API (already in the OpenAPI spec) may be documented.
+# Endpoints not in the spec are NOT auto-documentable: confirm release status and
+# route released ones through the sync-openapi-spec skill, or mark `-> internal`
+# (unreleased/internal). Never document an unreleased endpoint. See SKILL.md
+# "Public vs. private surfaces".
 POST /agent/run -> src/content/docs/reference/api-and-sdk/index.mdx
 GET /agent/runs -> src/content/docs/reference/api-and-sdk/index.mdx
 GET /agent/runs/{runId} -> src/content/docs/reference/api-and-sdk/index.mdx
@@ -268,6 +289,20 @@ POST /harness-support/notify-user -> internal
 POST /harness-support/finish-task -> internal
 POST /harness-support/report-shutdown -> internal
 POST /harness-support/upload-snapshot -> internal
+
+# Agent Memory REST API — research preview, not publicly released. Intentionally
+# undocumented until GA (see "Public vs. private surfaces" in SKILL.md).
+GET /memory_stores -> internal
+POST /memory_stores -> internal
+GET /memory_stores/{uid} -> internal
+PUT /memory_stores/{uid} -> internal
+DELETE /memory_stores/{uid} -> internal
+GET /memory_stores/{uid}/agents -> internal
+GET /memory_stores/{uid}/memories -> internal
+POST /memory_stores/{uid}/memories -> internal
+DELETE /memory_stores/{uid}/memories/{memoryUid} -> internal
+PUT /memory_stores/{uid}/memories/{memoryUid} -> internal
+GET /memory_stores/{uid}/memories/{memoryUid}/versions -> internal
 
 ## Slash commands -> doc pages
 
