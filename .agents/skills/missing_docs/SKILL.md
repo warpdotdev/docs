@@ -228,6 +228,32 @@ Not every finding needs a new doc page — pick the lightest correct fix and ver
 - **Preview or pre-launch feature with no docs yet** — add it to the surface-map ignore list with a comment; the snapshot diff re-flags it when it promotes to GA.
 - **Stale map entry or doc reference** (map hygiene) — confirm the surface is gone from code, then prune the dead entry.
 
+### Reviewer routing
+
+Assign the engineer who owns the *code* behind each change, so a human with real context reviews the PR. Every finding traces to a source surface; map that surface's defining file to its owner using the ownership files that already live in the code repos (CODEOWNERS format, last-match-wins):
+- warp client repo: `.github/STAKEHOLDERS`
+- warp-server: `.github/STAKEHOLDERS` (advisory) + `.github/CODEOWNERS` (enforced)
+
+These are the source of truth (warp-server keeps STAKEHOLDERS fresh via the `sync-stakeholders` skill), so never hardcode owner lists here.
+
+For each addressed finding, note the defining source file you already consulted in Phase 3 step 4:
+- **Setting** → the file holding its `toml_path` registration (usually under `app/src/settings/`).
+- **Slash command** → `app/src/search/slash_command_menu/static_commands/`.
+- **Feature flag** → the flag's primary usage site in `app/src/` (grep the flag name); fall back to `crates/warp_features/src/lib.rs`.
+- **CLI command** → `crates/warp_cli/src/`.
+- **API route** → warp-server `router/handlers/public_api/` (API gaps usually go to `sync-openapi-spec`).
+
+Resolve owners and get a ready-to-run assignment command:
+
+```bash
+python3 .agents/skills/missing_docs/scripts/suggest_reviewers.py \
+  --warp ../warp --warp-server ../warp-server \
+  warp:app/src/settings/ssh.rs \
+  warp:app/src/search/slash_command_menu/static_commands/commands.rs
+```
+
+Then assign the resolved reviewers on the PR with `gh pr edit <PR> --add-reviewer <logins/teams>`. Unresolved paths are non-fatal — leave them for manual assignment rather than blocking the run.
+
 ### Drift-watch mode (recurring scheduled agent)
 
 This is the end-to-end workflow for the scheduled cloud agent that keeps docs in sync
@@ -255,9 +281,13 @@ with the product. Each run:
    ```
 5. **Validate**: `npm run build` if doc pages changed; re-run the audit and confirm
    the addressed findings are gone.
-6. **Open a PR** with the doc pages + map + snapshot changes together, using the
-   `create_pr` skill. Summarize remaining (deferred) findings in the PR body so
-   nothing is silently dropped.
+6. **Route reviewers**: run `scripts/suggest_reviewers.py` (see Reviewer routing)
+   with the source files behind the addressed findings to resolve the owning
+   engineers for the PR.
+7. **Open a PR** with the doc pages + map + snapshot changes together, using the
+   `create_pr` skill. Assign the reviewers from step 6 (`gh pr edit <PR>
+   --add-reviewer ...`), and summarize remaining (deferred) findings in the PR body
+   so nothing is silently dropped.
 
 Recommended scheduled-agent prompt (copy when setting up the agent):
 
@@ -267,9 +297,11 @@ Recommended scheduled-agent prompt (copy when setting up the agent):
 > surface_changes and changelog_review findings plus high/medium coverage findings:
 > draft or update doc pages, update the surface map (mapping or ignore entry with a
 > comment) for every triaged flag, and use the sync-openapi-spec skill for API spec
-> gaps. Regenerate the surface snapshot with --update-snapshot. Open a single PR with
-> the doc pages, feature_surface_map.md, and surface_snapshot.json changes, and list
-> any findings you deferred in the PR body.
+> gaps. Regenerate the surface snapshot with --update-snapshot. Resolve reviewers by
+> running scripts/suggest_reviewers.py against the source files behind each addressed
+> finding. Open a single PR with the doc pages, feature_surface_map.md, and
+> surface_snapshot.json changes, assign the resolved owners as reviewers, and list any
+> findings you deferred in the PR body.
 
 ### Invocation modes
 
@@ -299,4 +331,7 @@ The user can trigger any subset:
   `--diff`. Regenerate with `--update-snapshot`; never hand-edit.
 - `references/stale_terms.md` — renamed/removed-feature terms to flag during staleness
   audits. Pure terminology/style policing belongs to the `style_lint` skill.
+- `scripts/suggest_reviewers.py` — resolves PR reviewers from the warp and warp-server
+  `.github/STAKEHOLDERS` and `CODEOWNERS` files (CODEOWNERS-format, last-match-wins),
+  given the source files behind each finding. Used by the drift-watch reviewer-routing step.
 - `AGENTS.md` (docs repo root) — full documentation style guide
