@@ -6,6 +6,71 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2026.06.24 (v0.2026.06.24.09.19)
+
+**New features**
+
+* Warp Agent now supports custom model routers. Custom routers can be complexity-based, where tasks are routed based on how difficult they are, or rule-based, where they are routed based on a set of natural language prompts. ([#13052](https://github.com/warpdotdev/warp/pull/13052))
+* [macOS] Added an option to hide Warp from the Dock while using the dedicated hotkey window (Settings → Features → Global hotkey). ([#9926](https://github.com/warpdotdev/warp/pull/9926)) — [@ShankyJS](https://github.com/ShankyJS) ✨
+
+**Improvements**
+
+* A richer notifications plugin for Codex is now supported. ([#12978](https://github.com/warpdotdev/warp/pull/12978)) — [@liliwilson](https://github.com/liliwilson) ✨
+* Made the Agent picker in the New API key modal searchable. ([#12972](https://github.com/warpdotdev/warp/pull/12972))
+* Unified legacy and SSH warpification settings for a more consistent experience. ([#12946](https://github.com/warpdotdev/warp/pull/12946))
+* PR chips in vertical tabs Summary mode are now clickable. ([#12945](https://github.com/warpdotdev/warp/pull/12945))
+* Third-party agent harnesses (Codex, Claude Code) now support local continuation when a cloud run is interrupted. ([#12076](https://github.com/warpdotdev/warp/pull/12076))
+* Connected AI provider labels are now shown in the host picker when choosing between available agents. ([#12214](https://github.com/warpdotdev/warp/pull/12214)) — [@dmichelin](https://github.com/dmichelin) ✨
+* Shell integration now passes command completion metadata via Precmd for more accurate completions. ([#12853](https://github.com/warpdotdev/warp/pull/12853)) — [@vorporeal](https://github.com/vorporeal) ✨
+* The Maximize / Minimize pane action now shows its keyboard shortcut in the pane-header overflow menu. ([#12811](https://github.com/warpdotdev/warp/pull/12811)) — [@roor0](https://github.com/roor0) ✨
+* Made the cloud credits banner in Agent Conversations dismissible. ([#11975](https://github.com/warpdotdev/warp/pull/11975))
+* Updated Claude Code agent to use the public Claude platform plugin for multi-harness support. ([#12879](https://github.com/warpdotdev/warp/pull/12879)) — [@liliwilson](https://github.com/liliwilson) ✨
+* Remote SSH Agent conversations now use bundled skills, home skills, and file-based global rules from the remote host. ([#12669](https://github.com/warpdotdev/warp/pull/12669)) — [@moirahuang](https://github.com/moirahuang) ✨
+* Applied a file size limit on tree-sitter parsing to prevent memory spikes with very large files. ([#12696](https://github.com/warpdotdev/warp/pull/12696)) — [@acarl005](https://github.com/acarl005) ✨
+* Added a Git Branch Status prompt chip that shows branch name with ahead/behind commit counts. ([#11938](https://github.com/warpdotdev/warp/pull/11938)) — [@BobbyWang0120](https://github.com/BobbyWang0120) ✨
+* Shipped channel-specific warpctrl CLI wrappers with PATH install/uninstall support on macOS. ([#12705](https://github.com/warpdotdev/warp/pull/12705)) — [@zachlloyd](https://github.com/zachlloyd) ✨
+* Enabled cross-window tab dragging on stable for Windows and macOS. ([#12795](https://github.com/warpdotdev/warp/pull/12795)) — [@peicodes](https://github.com/peicodes) ✨
+* Added eza completions. ([#12798](https://github.com/warpdotdev/warp/pull/12798)) — [@acarl005](https://github.com/acarl005) ✨
+* Deferred PowerShell function name loading in the bootstrap to reduce startup latency. ([#12764](https://github.com/warpdotdev/warp/pull/12764)) — [@acarl005](https://github.com/acarl005) ✨
+* Agent run CLI now resolves managed MCPs correctly. ([#12754](https://github.com/warpdotdev/warp/pull/12754)) — [@Legoben](https://github.com/Legoben) ✨
+* Added a setting to auto-queue prompts until the end of a long-running command, preventing premature agent steering (enabled by default). ([#12587](https://github.com/warpdotdev/warp/pull/12587)) — [@harryalbert](https://github.com/harryalbert) ✨
+* Suppressed transient “lost connection” banners during auto-recovery to reduce noise. ([#12757](https://github.com/warpdotdev/warp/pull/12757))
+* Agent sessions now fail fast with specific error messages when PTY spawning fails. ([#12663](https://github.com/warpdotdev/warp/pull/12663)) — [@seemeroland](https://github.com/seemeroland) ✨
+* Added a "Show hidden files" toggle to the Settings UI. ([#12710](https://github.com/warpdotdev/warp/pull/12710)) — [@moirahuang](https://github.com/moirahuang) ✨
+* Local orchestration subagents now render with the local agent icon for clearer visual distinction. ([#12608](https://github.com/warpdotdev/warp/pull/12608)) — [@vkodithala](https://github.com/vkodithala) ✨
+* Added a "Continue locally" button for in-progress cloud Oz runs so you can seamlessly switch to local execution. ([#12626](https://github.com/warpdotdev/warp/pull/12626)) — [@vkodithala](https://github.com/vkodithala) ✨
+
+**Bug fixes**
+
+* Fixed copying selected text from AI response blocks producing an empty clipboard. ([#12892](https://github.com/warpdotdev/warp/pull/12892))
+* Fixed Ctrl+C not cancelling an in-progress AI stream. ([#12944](https://github.com/warpdotdev/warp/pull/12944))
+* Fixed a panic when processing OSC 1337 escape sequences with a missing second parameter. ([#12889](https://github.com/warpdotdev/warp/pull/12889))
+* Fixed a panic that could occur when restoring a conversation due to an invalid grid assertion. ([#12761](https://github.com/warpdotdev/warp/pull/12761)) — [@acarl005](https://github.com/acarl005) ✨
+* Fixed a bug with cross-window drag and pinned tabs. ([#12926](https://github.com/warpdotdev/warp/pull/12926)) — [@peicodes](https://github.com/peicodes) ✨
+* Fixed Codex plugin installation failing in some cases. ([#12919](https://github.com/warpdotdev/warp/pull/12919)) — [@liliwilson](https://github.com/liliwilson) ✨
+* Re-displaying a local image in an AI response now reflects edits made to the file on disk instead of showing a stale cached copy. ([#12840](https://github.com/warpdotdev/warp/pull/12840)) — [@zachlloyd](https://github.com/zachlloyd) ✨
+* Prevented auto-update from using a 0-byte corrupted installer file. ([#12806](https://github.com/warpdotdev/warp/pull/12806)) — [@acarl005](https://github.com/acarl005) ✨
+* Fixed strong model handle captures in subscriptions that could cause memory leaks. ([#12914](https://github.com/warpdotdev/warp/pull/12914)) — [@acarl005](https://github.com/acarl005) ✨
+* Fixed the Ctrl+Tab switcher to show tab colors on icons and lead with the tab title. ([#12776](https://github.com/warpdotdev/warp/pull/12776)) — [@GeekLuffy](https://github.com/GeekLuffy) ✨
+* Fixed focus stealing when a prompt is queued. ([#12833](https://github.com/warpdotdev/warp/pull/12833)) — [@harryalbert](https://github.com/harryalbert) ✨
+* Fixed mouse down events being dispatched even when already handled by a child element. ([#12079](https://github.com/warpdotdev/warp/pull/12079)) — [@adrawbond-alto](https://github.com/adrawbond-alto) ✨
+* Fixed AI being unavailable on the free plan for users whose only credential was a connected SuperGrok (xAI/Grok) subscription. ([#12831](https://github.com/warpdotdev/warp/pull/12831)) — [@jefflloyd](https://github.com/jefflloyd) ✨
+* Fixed fork button tooltip, command insertion behavior, and `/continue-locally` button visibility in AI blocks. ([#12704](https://github.com/warpdotdev/warp/pull/12704)) — [@harryalbert](https://github.com/harryalbert) ✨
+* Fixed opening a markdown file always creating a new pane instead of focusing an existing one. ([#12489](https://github.com/warpdotdev/warp/pull/12489))
+* Fixed several cross-window tab dragging bugs. ([#12746](https://github.com/warpdotdev/warp/pull/12746)) — [@peicodes](https://github.com/peicodes) ✨
+* Fixed Cmd+K (clear conversation) not cancelling in-progress agent tasks and tool calls. ([#12555](https://github.com/warpdotdev/warp/pull/12555)) — [@acarl005](https://github.com/acarl005) ✨
+* Fixed cross-window tab dragging incorrectly splitting tab groups. ([#12753](https://github.com/warpdotdev/warp/pull/12753)) — [@johnturcoo](https://github.com/johnturcoo) ✨
+* Fixed rewind restoring an empty input after slash/skill-command agent prompts. ([#12149](https://github.com/warpdotdev/warp/pull/12149)) — [@vkodithala](https://github.com/vkodithala) ✨
+* Fixed missing LC_RPATH in the macOS standalone CLI binary causing dyld failures on startup. ([#12739](https://github.com/warpdotdev/warp/pull/12739))
+* Fixed file saves not working in remote sessions. ([#12742](https://github.com/warpdotdev/warp/pull/12742)) — [@MaggieShan](https://github.com/MaggieShan) ✨
+* Fixed editor find/replace not matching non-ASCII text (e.g. Chinese characters). ([#12547](https://github.com/warpdotdev/warp/pull/12547)) — [@maxmilian](https://github.com/maxmilian) ✨
+* Fixed up/down arrow keys not being captured inside the queued-prompt inline editor. ([#12591](https://github.com/warpdotdev/warp/pull/12591)) — [@harryalbert](https://github.com/harryalbert) ✨
+* Fixed an issue where focus would not return to the input box after running a command while blocks were selected in the block list. ([#12583](https://github.com/warpdotdev/warp/pull/12583))
+
+**Oz updates**
+
+* Support cloning GitLab repositories during cloud environment setup. ([#12659](https://github.com/warpdotdev/warp/pull/12659)) — [@captainsafia](https://github.com/captainsafia) ✨
+
 ### 2026.06.17 (v0.2026.06.17.09.49)
 
 **New features**
@@ -993,10 +1058,10 @@ Oz is Warp's orchestration platform for cloud agents: launch parallel agents, au
 
 #### Cloud Agents
 
-* **Run Cloud Agents from anywhere with built-in tracking** — start agents from Warp or via the CLI, triggers, or schedules. Every run is auditable and steerable. [Cloud Agents docs →](https://docs.warp.dev/agent-platform/cloud-agents/overview)
-* **Cloud environments for consistent execution** — configure Docker-based environments (unlimited repos + setup commands) and run agents in isolated cloud sandboxes. [Environments docs →](https://docs.warp.dev/agent-platform/cloud-agents/environments)
+* **Run Cloud Agents from anywhere with built-in tracking** — start agents from Warp or via the CLI, triggers, or schedules. Every run is auditable and steerable. [Cloud Agents docs →](https://docs.warp.dev/platform/)
+* **Cloud environments for consistent execution** — configure Docker-based environments (unlimited repos + setup commands) and run agents in isolated cloud sandboxes. [Environments docs →](https://docs.warp.dev/platform/environments)
 * **Track agents from the web** — manage runs, create schedules, configure environments, and set up integrations from any browser in the [Oz web app](https://oz.warp.dev).
-* **Schedule agents based on Skills** — run agents automatically on a cron schedule for code cleanup, dependency updates, and issue triage. See [Scheduled Agents](/agent-platform/cloud-agents/triggers/scheduled-agents/).
+* **Schedule agents based on Skills** — run agents automatically on a cron schedule for code cleanup, dependency updates, and issue triage. See [Scheduled Agents](/platform/triggers/scheduled-agents/).
 * **Programmable by default** — orchestrate agents via the CLI and integrate Oz into tools and services via the [API and CLI reference](/reference/).
 
 #### Warp Upgrades
