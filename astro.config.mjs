@@ -60,6 +60,10 @@ export default defineConfig({
 				baseUrl: 'https://github.com/warpdotdev/docs/edit/main/',
 			},
 			lastUpdated: true,
+			// Disables Starlight's generated 404 route so it doesn't collide with
+			// the custom src/pages/404.astro, which fires a docs_404 analytics event
+			// with the real broken URL.
+			disable404Route: true,
 			// Soft-wrap long lines by default. Expressive Code defaults to
 			// `overflow-x: auto` for `<pre>`, which combined with macOS's
 			// auto-hidden scrollbars made wide lines silently truncate.
