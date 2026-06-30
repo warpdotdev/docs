@@ -2,7 +2,7 @@
 title: "Reduce token usage with AI coding agents"
 description: >-
   Reduce the tokens and credits your coding agents consume in Warp using model
-  choice, focused context, conversation management, and Rules.
+  choice and routing, focused context, conversation management, and Rules.
 sidebar:
   label: "Reduce token usage"
 tags:
@@ -12,7 +12,7 @@ tags:
 ---
 Warp measures agent usage in credits, and credits scale directly with the number of tokens each task processes. The fewer tokens your agents use, the fewer credits you spend.
 
-This guide covers practical ways to lower token usage in Warp: choosing the right model, keeping context tight, managing conversations, and configuring your agents to work efficiently.
+This guide covers practical ways to lower token usage in Warp: choosing the right model, routing tasks to cost-appropriate models, keeping context tight, managing conversations, and configuring your agents to work efficiently.
 
 Credit usage is non-deterministic, so treat these as habits that bring your usage down over time rather than exact, guaranteed savings. For a full breakdown of what drives usage, see [Warp credits and billing](/support-and-community/plans-and-billing/credits/).
 
@@ -35,6 +35,16 @@ Larger reasoning models process more tokens per turn than lighter ones, so the m
 * **Pick a model and stay with it** - Switching models mid-conversation can reset prompt caching and reprocess your context. Choose a model at the start of a task and keep it for the duration when you can.
 
 Change models with the model picker in the input, or run `/model`. See [Agent model choice](/agent-platform/inference/model-choice/) for the full model list.
+
+## Automate model selection with custom routers
+
+Choosing a model by hand works, but a custom router does it for you: you define the routing logic once, and Warp resolves a concrete model for each prompt instead of defaulting every task to your most expensive model.
+
+* **Route by complexity** - Warp classifies each task as easy, medium, or hard and routes to the model you mapped to that level. Simple work runs on a lightweight model and only difficult tasks reach a high-reasoning one.
+* **Route by rules** - Write natural-language rules that pair a description (such as "debugging or fixing failing tests") with a model. Warp matches rules top to bottom and uses the first one that fits.
+* **Set a cost-efficient default** - Every router falls back to a default model for anything your tiers or rules don't cover, so choose a lighter model there.
+
+A router appears in the model picker like any other model and resolves per conversation, so credit usage matches whichever model it picks. Create one in the Warp app under **Settings** > **Agents** > **Warp Agent** in the **Custom Routers** section. See [Custom routers](/agent-platform/inference/custom-routers/) for setup steps and YAML examples.
 
 ## Keep each conversation focused
 
@@ -86,4 +96,5 @@ Together, these habits lower your token and credit usage over time: match the mo
 * [Use Agent Profiles efficiently](/guides/configuration/how-to-use-agent-profiles-efficiently/)
 * [Warp credits and billing](/support-and-community/plans-and-billing/credits/)
 * [Agent model choice](/agent-platform/inference/model-choice/)
+* [Custom routers](/agent-platform/inference/custom-routers/)
 * [Slash Commands](/agent-platform/capabilities/slash-commands/)
