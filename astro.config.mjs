@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig, envField } from 'astro/config';
+import remarkGfm from 'remark-gfm';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import starlight from '@astrojs/starlight';
@@ -13,6 +14,12 @@ import docsMarkdownIntegration from './src/integrations/docs-markdown-integratio
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://docs.warp.dev',
+	// Explicitly register remark-gfm so GitHub-Flavored Markdown (notably
+	// pipe tables) is reliably applied to .mdx content. Astro enables gfm by
+	// default, but the @astrojs/mdx 5.x + @astrojs/markdown-remark 7.2.0
+	// version pairing stopped auto-applying it, which made markdown tables
+	// render as raw `| ... |` text. Registering the plugin here restores it.
+	markdown: { remarkPlugins: [remarkGfm] },
 	env: {
 		schema: {
 			PUBLIC_KAPA_INTEGRATION_ID: envField.string({
