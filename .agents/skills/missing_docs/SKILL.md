@@ -134,9 +134,11 @@ accountability bucket and proves totality:
 - **Feature flags**: every GA/Preview flag is `mapped` (surface map verified),
   `ignored` (curated internal list), or a visible `finding`; every dogfood/other
   flag is `tracked_non_ga` (snapshot diff fires on promotion or removal).
-- **CLI commands**: `mapped`, `doc_covered`, `finding`, `parent_flagged`
+- **CLI commands**: `mapped`, `doc_covered`, `gated_non_ga` (deferred via
+  `gated:<Flag>` while its gating flag is non-GA), `finding`, `parent_flagged`
   (suppressed because the parent command is already flagged), or `hidden`.
-- **API routes**: `mapped`, `spec_covered`, `docs_covered`, or `finding`.
+- **API routes**: `mapped`, `spec_covered`, `docs_covered`, `gated_non_ga`
+  (deferred via `gated:<Flag>` while its gating flag is non-GA), or `finding`.
 - **Slash commands**: `mapped`, `doc_covered`, or `finding`.
 - **Settings**: `private`, `tracked_non_ga`, `mapped`, `doc_covered`, or `finding`.
 
@@ -354,9 +356,10 @@ python3 .agents/skills/missing_docs/scripts/test_audit_docs.py
 
 - `references/feature_surface_map.md` — curated mapping of flags/commands/routes/slash
   commands/settings to doc pages, ignore list for internal flags, allowlist for
-  intentionally unlisted pages, and the `internal` sentinel for surfaces that
-  intentionally have no public docs. Update it with every docs PR that ships a
-  feature.
+  intentionally unlisted pages, the `internal` sentinel for surfaces that
+  intentionally have no public docs, and the `gated:<Flag>` sentinel for CLI/API
+  surfaces deferred until their gating flag goes GA. Update it with every docs PR
+  that ships a feature.
 - `references/surface_snapshot.json` — generated snapshot of all code surfaces used by
   `--diff`. Regenerate with `--update-snapshot`; never hand-edit.
 - `references/stale_terms.md` — renamed/removed-feature terms to flag during staleness
