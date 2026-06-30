@@ -37,7 +37,12 @@ At the start of each monthly run, the feedback collector gathers signal data fro
 ### Step A: Collect style lint and PR review signals from Oz run artifacts
 
 1. Use `oz run list` to find all Oz runs in the past 30 days whose skill name matches a drafting skill (`draft_docs`, `draft_feature_doc`, `draft_conceptual`, etc.) or `review-docs-pr`.
-2. For each run, use `oz run get --conversation RUN_ID --output-format json` to retrieve the full conversation. Scan `messages[].content[]` items where `type` is `text` and `role` is `assistant` for lines matching `[SIGNAL:style-lint]` or `[SIGNAL:pr-review]`. Do not rely on `oz run get` without `--conversation` — that returns only the brief `status_message` field, not conversation content or shell stdout.
+2. For each run, retrieve the full conversation and extract agent text messages:
+   ```bash
+   oz-dev run get --conversation RUN_ID --output-format json | \
+     jq -r '[.. | objects | select(.role? == "assistant") | .content[]? | select(.type? == "text") | .text] | .[]'
+   ```
+   The top-level response is `{steps: [...]}`, not `{messages: [...]}`, and steps can be nested — use recursive descent (`..`) to reach all assistant messages at any depth. Do not rely on `oz run get` without `--conversation` — that returns only the brief `status_message` field, not conversation content or shell stdout.
 3. Parse any lines matching `[SIGNAL:style-lint] {JSON}` or `[SIGNAL:pr-review] {JSON}` and parse the JSON payload as the structured record.
 4. Accumulate all parsed records in memory for the analysis step.
 5. For `[SIGNAL:pr-review]` records, also prepend a human-readable entry to `.agents/logs/pr_review_runs.md` (using the format in that file's header). Commit the updated file directly to `main`:
