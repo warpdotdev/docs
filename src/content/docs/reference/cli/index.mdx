@@ -266,6 +266,7 @@ oz agent run-cloud \
 * `--no-environment` — run without an environment (not recommended).
 * `--open` — view the agent's session in Warp once it's available.
 * `--name <NAME>` (`-n`) — label the run for grouping and traceability (see [Naming runs](/reference/cli/#naming-runs) below).
+* `--agent <UID>` — run as a saved [named agent](/platform/agents/), applying its configuration (skills, secrets, base model, and default environment) and attributing credit usage to it (see [Managing named agents](/reference/cli/#managing-named-agents) below).
 * `--mcp <SPEC>` — start one or more MCP servers before execution (UUID, JSON file path, or inline JSON). Can be repeated.
 * `--model <MODEL_ID>` — override the default model.
 * `--skill <SPEC>` — use a skill from the environment's repository as the base prompt (see [Using Skills](/reference/cli/#using-skills)).
