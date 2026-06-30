@@ -26,9 +26,9 @@ Run `python3 .agents/skills/weekly-404-monitor/run_404_report.py` in the docs re
 The script:
 - Queries `warp-data-357114.prod.stg_website_events` via the Metabase API
 - Extracts `broken_url` from `event_properties` for all `event_name = 'docs_404'` events in the past 7 days
-- Groups by `broken_url`, sorted by hit count descending
-- Aggregates those rows by normalised path (lowercase, no trailing slash, no scheme/host) so trailing-slash, case, and host variants of the same page are counted once with their hits summed
-- Returns a ranked list of broken pages and their hit counts for the current week
+- Normalises and groups by path **in SQL** (lowercase, no trailing slash, no scheme/host, no query/fragment) so trailing-slash, case, and host variants of the same page are summed into one row *before* the top-500 cap is applied — a page whose hits are split across variants can't be dropped by the cap and undercounted
+- Returns a ranked list of broken pages and their hit counts for the current week, sorted by hit count descending
+- Re-applies the same normalisation in Python as an idempotent safety net
 - Computes the same for the prior week (days 8–14) for trend comparison
 - Total weekly 404 count (current + prior) for the trend line
 

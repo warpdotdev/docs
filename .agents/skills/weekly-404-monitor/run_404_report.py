@@ -74,23 +74,50 @@ def query_404_events(days_start: int, days_end: int) -> list[dict]:
     Return broken_url counts for the window [days_start, days_end) days ago.
     days_start=1, days_end=8  → past 7 days (current week)
     days_start=8, days_end=15 → 8-14 days ago (prior week)
+
+    Normalisation and aggregation happen in SQL so trailing-slash, case, and
+    scheme/host variants of the same page are summed into a single row BEFORE
+    the LIMIT is applied. If we grouped by the raw broken_url and capped first,
+    a page whose hits are split across variants could fall outside the top 500
+    and be dropped before its hits were summed, undercounting it against the
+    reporting threshold. The normalisation below mirrors normalise_url().
     """
     sql = f"""
-SELECT
-  REGEXP_REPLACE(
-    SPLIT(JSON_VALUE(event_properties, '$.broken_url'), '?')[OFFSET(0)],
-    r'#.*$', ''
-  ) AS broken_url,
-  COUNT(*) AS hits
-FROM `warp-data-357114.prod.stg_website_events`
-WHERE event_type = 'track'
-  AND event_name = 'docs_404'
-  AND JSON_VALUE(event_properties, '$.broken_url') IS NOT NULL
-  AND event_date >= DATE_SUB(CURRENT_DATE(), INTERVAL {days_end - 1} DAY)
-  AND event_date < DATE_SUB(CURRENT_DATE(), INTERVAL {days_start - 1} DAY)
-GROUP BY 1
-HAVING broken_url IS NOT NULL AND broken_url != ''
-ORDER BY 2 DESC
+WITH normalised AS (
+  SELECT
+    COALESCE(
+      NULLIF(
+        REGEXP_REPLACE(
+          LOWER(
+            REGEXP_REPLACE(
+              SPLIT(
+                REGEXP_REPLACE(
+                  JSON_VALUE(event_properties, '$.broken_url'),
+                  r'^https?://[^/]+', ''
+                ),
+                '?'
+              )[OFFSET(0)],
+              r'#.*$', ''
+            )
+          ),
+          r'/+$', ''
+        ),
+        ''
+      ),
+      '/'
+    ) AS broken_url
+  FROM `warp-data-357114.prod.stg_website_events`
+  WHERE event_type = 'track'
+    AND event_name = 'docs_404'
+    AND JSON_VALUE(event_properties, '$.broken_url') IS NOT NULL
+    AND JSON_VALUE(event_properties, '$.broken_url') != ''
+    AND event_date >= DATE_SUB(CURRENT_DATE(), INTERVAL {days_end - 1} DAY)
+    AND event_date < DATE_SUB(CURRENT_DATE(), INTERVAL {days_start - 1} DAY)
+)
+SELECT broken_url, COUNT(*) AS hits
+FROM normalised
+GROUP BY broken_url
+ORDER BY hits DESC
 LIMIT 500
 """
     return run_query(sql)
@@ -152,13 +179,13 @@ def normalise_url(url: str) -> str:
 
 
 def aggregate_by_norm(rows: list[dict]) -> dict[str, int]:
-    """Collapse raw broken_url rows into one entry per normalised path.
+    """Collapse broken_url rows into one entry per normalised path.
 
-    The SQL groups by the raw broken_url, so trailing-slash, case, and
-    scheme/host variants (e.g. /foo, /foo/, /Foo) arrive as separate rows.
-    Merging them by normalise_url means each logical page is counted once and
-    its hits are summed — otherwise hits split across variants can fall below
-    the reporting threshold and the same page can appear multiple times.
+    query_404_events already normalises and aggregates in SQL (so the LIMIT is
+    applied to normalised pages, not raw variants). This step re-applies
+    normalise_url() in Python as an idempotent safety net: it reconciles any
+    rows that SQL normalisation and normalise_url() would treat differently,
+    guaranteeing each logical page is counted once with its hits summed.
     """
     agg: dict[str, int] = {}
     for row in rows:
@@ -222,10 +249,10 @@ def main():
     # 1. Query current and prior week
     print("Querying current week (past 7 days)...", file=sys.stderr)
     current_week = query_404_events(1, 8)
-    # Collapse trailing-slash / case / host variants so each logical page is
-    # counted once and its hits are summed (see aggregate_by_norm).
+    # query_404_events already normalises + aggregates in SQL; this is an
+    # idempotent safety net that reconciles any normalisation drift.
     current_agg = aggregate_by_norm(current_week)
-    print(f"  {len(current_week)} raw rows -> {len(current_agg)} unique pages",
+    print(f"  {len(current_week)} pages (SQL) -> {len(current_agg)} pages (normalised)",
           file=sys.stderr)
 
     print("Querying prior week (days 8-14)...", file=sys.stderr)
