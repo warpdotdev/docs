@@ -203,7 +203,6 @@ oz whoami -> src/content/docs/reference/cli/index.mdx
 oz integration -> src/content/docs/reference/cli/integration-setup.mdx
 oz schedule -> src/content/docs/reference/cli/index.mdx
 oz secret -> src/content/docs/reference/cli/index.mdx
-oz provider -> src/content/docs/reference/cli/index.mdx
 oz federate -> src/content/docs/reference/cli/federate.mdx
 oz artifact -> src/content/docs/reference/cli/artifacts.mdx
 oz api-key -> src/content/docs/reference/cli/api-keys.mdx
@@ -237,6 +236,14 @@ oz memory-store get -> gated:AIMemories
 oz memory-store list -> gated:AIMemories
 oz memory-store list-store-agents -> gated:AIMemories
 oz memory-store update -> gated:AIMemories
+
+# `oz provider` (link third-party services like Slack and Linear) is gated by
+# ProviderCommand, which is non-GA (dogfood), so the whole command group is
+# deferred via `gated:` — it auto-surfaces for docs when ProviderCommand goes
+# GA. See "Public vs. private surfaces" in SKILL.md.
+oz provider -> gated:ProviderCommand
+oz provider setup -> gated:ProviderCommand
+oz provider list -> gated:ProviderCommand
 
 # Internal/hidden command — not a user-facing surface, so no public docs.
 oz harness-support -> internal

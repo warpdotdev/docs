@@ -365,13 +365,68 @@ The `--share` flag can be repeated, and uses the following syntax:
 
 The following commands are available for managing and inspecting Oz resources.
 
-### `oz agent list`
+### Managing named agents
 
-List all available skills discovered from your environments. Optionally filter by repository:
+[Named agents](/platform/agents/) are reusable agent configurations — a name, description, skills, secrets, base model, and default environment — that you can run with `oz agent run-cloud --agent <UID>` and scope API keys to.
+
+List the named agents on your team, optionally sorting by name or creation time:
 
 ```sh
 oz agent list
-oz agent list --repo owner/repo
+oz agent list --sort-by created-at --sort-order desc
+```
+
+Show the full configuration for a single agent by its UID:
+
+```sh
+oz agent get <UID>
+```
+
+Create a named agent. Only `--name` is required; attach skills and secrets by repeating the flags:
+
+```sh
+oz agent create \
+  --name "release-notes" \
+  --description "Drafts release notes from merged PRs" \
+  --skill "myorg/repo:release-notes" \
+  --secret GITHUB_TOKEN \
+  --base-model <MODEL_ID> \
+  --environment <ENVIRONMENT_ID>
+```
+
+Update an existing agent. Each attribute has an explicit add/remove flag so changes are unambiguous:
+
+```sh
+# Rename the agent and swap one of its skills
+oz agent update <UID> --name "weekly-release-notes" \
+  --remove-skill "myorg/repo:old" --add-skill "myorg/repo:release-notes"
+
+# Clear attributes entirely
+oz agent update <UID> --remove-description --remove-all-secrets
+```
+
+Common `oz agent update` flags:
+
+* `--name <NAME>` (`-n`) — rename the agent.
+* `--description <TEXT>` / `--remove-description` — set or clear the description.
+* `--add-secret <NAME>` / `--remove-secret <NAME>` / `--remove-all-secrets` — manage attached secrets.
+* `--add-skill <SKILL>` / `--remove-skill <SKILL>` / `--remove-all-skills` — manage attached skills.
+* `--base-model <MODEL_ID>` / `--remove-base-model` — set or clear the base model.
+* `--environment <ENVIRONMENT_ID>` (`-e`) / `--remove-environment` — set or clear the default cloud environment.
+
+Delete a named agent by its UID:
+
+```sh
+oz agent delete <UID>
+```
+
+### `oz agent skills`
+
+List the agent skills discovered across your environments. Pass `--repo` (`-r`) to list skills from a specific GitHub repository instead:
+
+```sh
+oz agent skills
+oz agent skills --repo owner/repo
 ```
 
 ### `oz run list` / `oz run get`
@@ -386,6 +441,45 @@ oz run list --limit 20
 # Get details for a specific run
 oz run get <RUN_ID>
 ```
+
+### Run conversations and messages
+
+Read an agent run's transcript and exchange messages between runs — for example, between a parent orchestrator and its [child agents](/platform/orchestration/multi-agent-runs/).
+
+Retrieve a conversation transcript by its ID:
+
+```sh
+oz run conversation get <CONVERSATION_ID>
+```
+
+List and read the messages in a run's inbox:
+
+```sh
+# List inbox message headers
+oz run message list <RUN_ID>
+oz run message list <RUN_ID> --unread --since 2026-01-01T00:00:00Z --limit 100
+
+# Read one message body
+oz run message read <MESSAGE_ID>
+
+# Stream new messages as they arrive (resume reconnects with --since-sequence)
+oz run message watch <RUN_ID>
+oz run message watch <RUN_ID> --since-sequence 42
+```
+
+Send a message from one run to one or more recipient runs, then mark it delivered once handled:
+
+```sh
+oz run message send \
+  --sender-run-id <RUN_ID> \
+  --to <RECIPIENT_RUN_ID> \
+  --subject "build status" \
+  --body "tests are green"
+
+oz run message mark-delivered <MESSAGE_ID>
+```
+
+Repeat `--to` to fan a message out to multiple recipient runs.
 
 ### `oz model list`
 
