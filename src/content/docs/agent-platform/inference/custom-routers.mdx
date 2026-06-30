@@ -67,26 +67,28 @@ A complexity router uses `type: complexity`. `default` is required and is used f
 ```yaml title="~/.warp/custom_model_routers/cost-saver.yaml"
 name: Cost saver
 type: complexity
-default: claude-4-6-sonnet-high
+default: glm-5.2-fireworks
 routing:
-  easy: claude-4-5-haiku
-  medium: claude-4-6-sonnet-high
-  hard: claude-4-8-opus-high
+  easy: minimax-3-fireworks
+  medium: glm-5.2-fireworks
+  hard: deepseek-v4-pro-fireworks
 ```
 
-A rule-based router uses `type: prompt`. `default` is the required catch-all used when no rule matches, and `routing` is the ordered list of rules:
+A rule-based router uses `type: prompt`. `default` is the required catch-all used when no rule matches, and `routing` is the ordered list of rules. Rules can describe your team's specific workflows, so you can send routine work to cheaper models and reserve a frontier model for the tasks that need it:
 
 ```yaml title="~/.warp/custom_model_routers/by-task.yaml"
 name: By task
 type: prompt
 default: claude-4-6-sonnet-high
 routing:
-  - description: debugging or fixing failing tests
+  - description: writing or reviewing database migrations for the acme-payments service
+    model: glm-5.2-fireworks
+  - description: debugging production incidents or fixing failing CI tests
     model: claude-4-8-opus-high
-  - description: writing documentation or comments
-    model: gpt-5-5-low
-  - description: simple one-line edits or renames
-    model: claude-4-5-haiku
+  - description: scaffolding new services or boilerplate from our internal templates
+    model: kimi-k27-code-fireworks
+  - description: drafting release notes, runbooks, or API documentation
+    model: qwen-3.7-plus-fireworks
 ```
 
 If a file can't be parsed, Warp shows a non-blocking error identifying the file and skips it; your other routers keep working.
