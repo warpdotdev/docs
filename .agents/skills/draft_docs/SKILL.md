@@ -102,12 +102,12 @@ If this skill is running as a cloud agent producing an agent-authored PR, captur
 
 1. Re-run with `--output /tmp/style_lint_out.json` to get machine-readable output.
 2. Aggregate the `issues` array by `check` field to get violation counts per check name.
-3. Print the following structured marker to stdout so the `improve-drafting-skills` collector can retrieve it from the Oz run output:
+3. Include the following structured marker in your **text response** (write it as part of your agent message, not via a shell `echo` command). This ensures it appears as a `TextContentBlock` in the conversation, where `oz run get --conversation` can reliably retrieve it:
    ```
    [SIGNAL:style-lint] {"date":"YYYY-MM-DD","pr":"NNN","branch":"BRANCH_NAME","authored_by":"agent","skill_used":"SKILL_NAME","files_scanned":N,"violations":{"check_name":count}}
    ```
 
-The `improve-drafting-skills` outer loop reads this signal from Oz run artifacts via `oz run get`. No git operations are required.
+The `improve-drafting-skills` outer loop reads this signal from the conversation via `oz run get --conversation`, scanning assistant `TextContentBlock` messages for the marker. No git operations are required.
 
 Skip steps 1–3 in local/interactive sessions.
 
