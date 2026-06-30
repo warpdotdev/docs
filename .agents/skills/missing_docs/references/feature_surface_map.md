@@ -204,6 +204,22 @@ oz provider -> src/content/docs/reference/cli/index.mdx
 oz federate -> src/content/docs/reference/cli/federate.mdx
 oz artifact -> src/content/docs/reference/cli/artifacts.mdx
 oz api-key -> src/content/docs/reference/cli/api-keys.mdx
+
+# Scheduled-agent CLI subcommands are fully documented in the scheduled-agents feature page.
+oz schedule create -> src/content/docs/platform/triggers/scheduled-agents.mdx
+oz schedule list -> src/content/docs/platform/triggers/scheduled-agents.mdx
+oz schedule get -> src/content/docs/platform/triggers/scheduled-agents.mdx
+oz schedule update -> src/content/docs/platform/triggers/scheduled-agents.mdx
+oz schedule pause -> src/content/docs/platform/triggers/scheduled-agents.mdx
+oz schedule unpause -> src/content/docs/platform/triggers/scheduled-agents.mdx
+oz schedule delete -> src/content/docs/platform/triggers/scheduled-agents.mdx
+
+# Warp-managed secret CLI subcommands are documented in the secrets feature page.
+oz secret create -> src/content/docs/platform/secrets.mdx
+oz secret list -> src/content/docs/platform/secrets.mdx
+oz secret update -> src/content/docs/platform/secrets.mdx
+oz secret delete -> src/content/docs/platform/secrets.mdx
+
 # Internal/hidden command — not a user-facing surface, so no public docs.
 oz harness-support -> internal
 
