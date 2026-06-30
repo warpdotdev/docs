@@ -39,7 +39,7 @@
     "AmbientAgentsRTC": "ga",
     "ArtifactCommand": "ga",
     "AskUserQuestion": "ga",
-    "AsyncFind": "dogfood",
+    "AsyncFind": "preview",
     "AtMenuOutsideOfAIMode": "ga",
     "AutoOpenCodeReviewPane": "ga",
     "Autoupdate": "ga",
@@ -64,6 +64,7 @@
     "CloudModeInputV2": "ga",
     "CloudModeSetupV2": "ga",
     "CloudObjects": "other",
+    "CloudRunners": "dogfood",
     "CocoaSentry": "other",
     "CodeFindReplace": "ga",
     "CodeLaunchModal": "ga",
@@ -74,13 +75,14 @@
     "CodebaseIndexPersistence": "dogfood",
     "CodebaseIndexSpeedbump": "dogfood",
     "CodexNotifications": "ga",
-    "CodexPlugin": "dogfood",
+    "CodexPlugin": "ga",
     "CommandCorrectionKey": "ga",
     "CommandCorrectionsHistoryRule": "other",
     "CommandPaletteFileSearch": "ga",
     "ConfigurableToolbar": "ga",
     "ContextChips": "other",
     "ContextLineReviewComments": "dogfood",
+    "ContextWindowUsageBreakdown": "dogfood",
     "ContextWindowUsageV2": "ga",
     "ConversationApi": "ga",
     "ConversationArtifacts": "ga",
@@ -92,6 +94,7 @@
     "CrossRepoContext": "dogfood",
     "CustomInferenceEndpoints": "ga",
     "CustomInferenceEndpointsEnterprise": "other",
+    "CustomModelRouters": "ga",
     "CycleNextCommandSuggestion": "other",
     "DebugMode": "other",
     "DefaultAdeberryTheme": "other",
@@ -118,10 +121,10 @@
     "ForceClassicCompletions": "ga",
     "ForceLogin": "other",
     "ForkFromCommand": "ga",
-    "FreeUserNoAi": "other",
     "FullScreenZenMode": "ga",
     "FullSourceCodeEmbedding": "dogfood",
     "GPTConfigurableContextWindow": "dogfood",
+    "GeminiEnterprise": "other",
     "GeminiNotifications": "dogfood",
     "GetStartedTab": "ga",
     "GitCredentialRefresh": "ga",
@@ -195,11 +198,12 @@
     "PRCommentsV2": "ga",
     "PartialNextCommandSuggestions": "other",
     "PendingUserQueryIndicator": "ga",
-    "PinnedTabs": "other",
+    "PinnedTabs": "dogfood",
     "PluggableNotifications": "ga",
     "PredictAMQueries": "other",
     "ProfilesDesignRevamp": "ga",
     "Projects": "dogfood",
+    "PromptCacheExpiryWarning": "dogfood",
     "PromptSuggestionsViaMAA": "other",
     "ProviderCommand": "dogfood",
     "QueueSlashCommand": "ga",
@@ -223,7 +227,6 @@
     "RunAgentsTool": "ga",
     "RunGeneratorsWithCmdExe": "dogfood",
     "RuntimeFeatureFlags": "other",
-    "SSHTmuxWrapper": "dogfood",
     "ScheduledAmbientAgents": "ga",
     "SearchCodebaseUI": "ga",
     "SelectablePrompt": "other",
@@ -267,14 +270,14 @@
     "VerticalTabsSummaryMode": "ga",
     "ViewingSharedSessions": "ga",
     "VimCodeEditor": "ga",
-    "WarpControlCli": "other",
+    "WaitForEventsParentRegistration": "dogfood",
+    "WarpControlCli": "dogfood",
     "WarpManagedSecrets": "ga",
     "WarpPacks": "ga",
     "WarpifyFooter": "ga",
     "WebFetchUI": "ga",
     "WebSearchUI": "ga",
     "WelcomeBlock": "other",
-    "WelcomeTab": "other",
     "WelcomeTips": "other",
     "WithSandboxTelemetry": "other",
     "WorkflowAliases": "ga"
@@ -457,6 +460,50 @@
       "hidden": false
     },
     {
+      "command": "oz memory",
+      "hidden": false
+    },
+    {
+      "command": "oz memory create",
+      "hidden": false
+    },
+    {
+      "command": "oz memory delete",
+      "hidden": false
+    },
+    {
+      "command": "oz memory list",
+      "hidden": false
+    },
+    {
+      "command": "oz memory update",
+      "hidden": false
+    },
+    {
+      "command": "oz memory versions",
+      "hidden": false
+    },
+    {
+      "command": "oz memory-store",
+      "hidden": false
+    },
+    {
+      "command": "oz memory-store get",
+      "hidden": false
+    },
+    {
+      "command": "oz memory-store list",
+      "hidden": false
+    },
+    {
+      "command": "oz memory-store list-store-agents",
+      "hidden": false
+    },
+    {
+      "command": "oz memory-store update",
+      "hidden": false
+    },
+    {
       "command": "oz model",
       "hidden": false
     },
@@ -606,6 +653,7 @@
       "--remove-secret",
       "--remove-skill",
       "--repo",
+      "--runner",
       "--saved-prompt",
       "--secret",
       "--skill",
@@ -651,6 +699,13 @@
       "--mcp",
       "--prompt",
       "--remove-mcp"
+    ],
+    "memory_store": [
+      "--content",
+      "--description",
+      "--reason",
+      "--store",
+      "--version"
     ],
     "model": [
       "--model"
@@ -710,6 +765,7 @@
   "api_routes": [
     "DELETE /api/v1/agent/identities/{uid}",
     "DELETE /api/v1/agent/schedules/{id}",
+    "DELETE /api/v1/factory/{uid}",
     "DELETE /api/v1/memory_stores/{uid}",
     "DELETE /api/v1/memory_stores/{uid}/memories/{memoryUid}",
     "GET /.well-known/openid-configuration",
@@ -735,6 +791,8 @@
     "GET /api/v1/agent/sessions/{session_uuid}/redirect",
     "GET /api/v1/agent/tasks",
     "GET /api/v1/agent/tasks/{id}",
+    "GET /api/v1/factory",
+    "GET /api/v1/factory/{uid}",
     "GET /api/v1/harness-support/transcript",
     "GET /api/v1/memory_stores",
     "GET /api/v1/memory_stores/{uid}",
@@ -744,6 +802,7 @@
     "GET /api/v1/oauth/authorize",
     "GET /api/v1/oauth/jwks.json",
     "PATCH /api/v1/agent/runs/{runId}/event-sequence",
+    "PATCH /api/v1/factory/{uid}",
     "POST /api/v1/agent/events/{run_id}",
     "POST /api/v1/agent/handoff/upload-snapshot",
     "POST /api/v1/agent/identities",
@@ -761,6 +820,7 @@
     "POST /api/v1/agent/schedules/{id}/pause",
     "POST /api/v1/agent/schedules/{id}/resume",
     "POST /api/v1/agent/tasks/{id}/cancel",
+    "POST /api/v1/factory",
     "POST /api/v1/harness-support/block-snapshot",
     "POST /api/v1/harness-support/external-conversation",
     "POST /api/v1/harness-support/finish-task",
@@ -870,6 +930,7 @@
     "agents.warp_agent.other.auto_handoff_on_sleep_enabled": "always_on",
     "agents.warp_agent.other.cloud_agent_computer_use_enabled": "always_on",
     "agents.warp_agent.other.default_prompt_submission_mode": "ga",
+    "agents.warp_agent.other.long_running_command_submission_mode": "ga",
     "agents.warp_agent.other.open_conversation_layout_preference": "always_on",
     "agents.warp_agent.other.orchestration_message_display_mode": "always_on",
     "agents.warp_agent.other.should_force_disable_ampersand_handoff": "always_on",
@@ -888,6 +949,7 @@
     "appearance.cursor.cursor_display_type": "always_on",
     "appearance.full_screen_apps.alt_screen_padding": "always_on",
     "appearance.icon.app_icon": "always_on",
+    "appearance.icon.show_dock_icon": "always_on",
     "appearance.input.input_mode": "always_on",
     "appearance.panes.focus_pane_on_hover": "always_on",
     "appearance.panes.should_dim_inactive_panes": "always_on",
@@ -937,7 +999,9 @@
     "cloud_platform.third_party_api_keys.aws_bedrock_credentials_enabled": "always_on",
     "cloud_platform.third_party_api_keys.aws_bedrock_profile": "always_on",
     "cloud_platform.third_party_api_keys.can_use_warp_credits_with_byok": "always_on",
+    "cloud_platform.third_party_api_keys.gemini_enterprise_credentials_enabled": "always_on",
     "code.editor.auto_open_code_review_pane_on_first_agent_change": "always_on",
+    "code.editor.format_on_save": "always_on",
     "code.editor.open_code_panels_file_editor": "always_on",
     "code.editor.open_file_editor": "always_on",
     "code.editor.open_file_layout": "always_on",
@@ -1025,8 +1089,10 @@
     "warp_drive.sorting_choice": "always_on",
     "warpify.ssh.enable_legacy_ssh_wrapper": "always_on",
     "warpify.ssh.enable_ssh_warpification": "always_on",
+    "warpify.ssh.reuse_existing_control_master": "always_on",
     "warpify.ssh.ssh_extension_install_mode": "always_on",
     "warpify.ssh.ssh_hosts_denylist": "always_on",
+    "warpify.ssh.ssh_tmux_deprecation_notice_pending": "always_on",
     "warpify.ssh.use_ssh_tmux_wrapper": "always_on",
     "warpify.subshells.added_subshell_commands": "always_on",
     "warpify.subshells.subshell_commands_denylist": "always_on",
@@ -1035,6 +1101,7 @@
   "web_routes": [
     ":agentId",
     ":envId",
+    ":managedMcpServerId",
     ":runId",
     ":scheduleId",
     ":secretId",
@@ -1090,6 +1157,7 @@
     "mark_todo_as_done",
     "notify_user",
     "open_code_review",
+    "openai_web_search",
     "read_executed_shell_command_output",
     "read_files",
     "read_mcp_resource",
@@ -1118,6 +1186,7 @@
     "transfer_control_to_user",
     "upload_artifact",
     "wait_for_events",
+    "web_search",
     "write_block",
     "write_line",
     "write_raw_bytes"
@@ -1135,7 +1204,8 @@
     "test-warp-ui": "dogfood",
     "triage-vulnerabilities": "dogfood",
     "update-tab-config": "bundled",
-    "verify-ui-change-in-cloud": "dogfood"
+    "verify-ui-change-in-cloud": "dogfood",
+    "warpctrl": "bundled"
   },
-  "changelog_last_version": "2026.06.03"
+  "changelog_last_version": "2026.06.24"
 }

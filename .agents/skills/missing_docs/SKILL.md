@@ -209,7 +209,7 @@ For each gap to address (prioritize high → medium → low):
    - Correct terminology (Agent, Agent Mode, Warp Drive, Oz, etc.)
    - Bold + dash format for list items: `* **Term** - Description`
 6. Create the markdown file at the suggested path
-7. Add new pages to the sidebar config in `astro.config.mjs`
+7. Add new pages to the sidebar in `src/sidebar.ts` (only a brand-new top-level topic also needs an `astro.config.mjs` change)
 8. **Update `references/feature_surface_map.md` in the same PR**: add a
    `Flag -> src/content/docs/...` mapping for every feature you documented (or add the
    flag to the ignore list with a comment if you confirmed it is internal-only). This
