@@ -107,12 +107,26 @@ Follow the prompts to save your task definition. Once created, you can run it ag
 
 ## Next steps
 
-Now that you've run your first cloud agent, use these dedicated docs to keep building:
+Now that you've run your first cloud agent, try these next steps:
 
 * [**Schedule recurring work**](/agent-platform/cloud-agents/triggers/scheduled-agents-quickstart/) - Create a scheduled agent for maintenance tasks like dependency checks, cleanup, or triage.
 * [**Trigger agents from Slack or Linear**](/agent-platform/cloud-agents/integrations/quickstart/) - Connect Oz to team tools so mentions and issue updates can launch cloud agent runs.
 * [**Turn successful prompts into reusable skills**](/agent-platform/cloud-agents/skills-as-agents/) - Save repeatable agent workflows and run them again from the CLI, web app, API, or a schedule.
 * [**Build programmatic automations**](/reference/api-and-sdk/quickstart/) - Start cloud agent runs from your own systems with the Oz API or SDKs.
+
+For example, schedule a recurring agent from the CLI:
+
+```bash
+oz schedule create \
+  --name "weekly-dependency-check" \
+  --cron "0 10 * * 1" \
+  --environment <ENV_ID> \
+  --prompt "check for dependency updates and open PR"
+```
+
+:::note
+Integrations require a team on Build, Max, or Business plan.
+:::
 
 ---
 
@@ -132,6 +146,3 @@ Your team needs at least 20 credits available. Check your credit balance in Sett
 * [Environments deep dive](/agent-platform/cloud-agents/environments/)
 * [Cloud Agents FAQs](/agent-platform/cloud-agents/faqs/)
 * [Managing Cloud Agents](/agent-platform/cloud-agents/managing-cloud-agents/)
-* [Scheduled Agents quickstart](/agent-platform/cloud-agents/triggers/scheduled-agents-quickstart/) - Set up an agent to run on a cron schedule for recurring tasks like weekly dependency checks.
-* [Integrations quickstart](/agent-platform/cloud-agents/integrations/quickstart/) - Connect Oz to Slack and Linear so your team can trigger agents from mentions and issues.
-* [Skills](/agent-platform/capabilities/skills/) - Turn successful agent workflows into reusable instructions you can schedule, trigger, or share.
