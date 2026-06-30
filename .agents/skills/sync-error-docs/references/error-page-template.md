@@ -61,7 +61,6 @@ This error is returned when:
 ## Related
 
 * [Agent API & SDK](https://docs.warp.dev/reference/api-and-sdk/agent) — API reference
-* [Cloud Agents Overview](https://docs.warp.dev/platform) — How cloud agents work
 ```
 
 ## Placeholder reference
