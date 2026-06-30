@@ -9,6 +9,9 @@ verified rather than flagged.
 Format: `CodeIdentifier -> src/content/docs/path/to/page.md` (one per line within each section).
 Lines starting with `#` are comments. Blank lines are ignored.
 The sentinel target `internal` marks surfaces that intentionally have no public docs.
+The sentinel target `gated:<Flag>` (CLI commands and API routes) ties a surface to
+its gating FeatureFlag's rollout: it is deferred while the flag is non-GA and
+auto-surfaces for docs once the flag goes GA.
 
 # Maintenance policy:
 # - When a feature ships (GA or Preview), add a mapping here in the same PR that
@@ -220,19 +223,20 @@ oz secret list -> src/content/docs/platform/secrets.mdx
 oz secret update -> src/content/docs/platform/secrets.mdx
 oz secret delete -> src/content/docs/platform/secrets.mdx
 
-# Agent Memory is in research preview — not publicly released, so its CLI is
-# intentionally undocumented for now (see "Public vs. private surfaces" in SKILL.md).
-oz memory -> internal
-oz memory create -> internal
-oz memory delete -> internal
-oz memory list -> internal
-oz memory update -> internal
-oz memory versions -> internal
-oz memory-store -> internal
-oz memory-store get -> internal
-oz memory-store list -> internal
-oz memory-store list-store-agents -> internal
-oz memory-store update -> internal
+# Agent Memory is research preview (gating flag AIMemories is non-GA), so its CLI
+# is deferred via `gated:` — it auto-surfaces for docs when AIMemories goes GA.
+# See "Public vs. private surfaces" in SKILL.md.
+oz memory -> gated:AIMemories
+oz memory create -> gated:AIMemories
+oz memory delete -> gated:AIMemories
+oz memory list -> gated:AIMemories
+oz memory update -> gated:AIMemories
+oz memory versions -> gated:AIMemories
+oz memory-store -> gated:AIMemories
+oz memory-store get -> gated:AIMemories
+oz memory-store list -> gated:AIMemories
+oz memory-store list-store-agents -> gated:AIMemories
+oz memory-store update -> gated:AIMemories
 
 # Internal/hidden command — not a user-facing surface, so no public docs.
 oz harness-support -> internal
@@ -290,19 +294,20 @@ POST /harness-support/finish-task -> internal
 POST /harness-support/report-shutdown -> internal
 POST /harness-support/upload-snapshot -> internal
 
-# Agent Memory REST API — research preview, not publicly released. Intentionally
-# undocumented until GA (see "Public vs. private surfaces" in SKILL.md).
-GET /memory_stores -> internal
-POST /memory_stores -> internal
-GET /memory_stores/{uid} -> internal
-PUT /memory_stores/{uid} -> internal
-DELETE /memory_stores/{uid} -> internal
-GET /memory_stores/{uid}/agents -> internal
-GET /memory_stores/{uid}/memories -> internal
-POST /memory_stores/{uid}/memories -> internal
-DELETE /memory_stores/{uid}/memories/{memoryUid} -> internal
-PUT /memory_stores/{uid}/memories/{memoryUid} -> internal
-GET /memory_stores/{uid}/memories/{memoryUid}/versions -> internal
+# Agent Memory REST API — research preview (gating flag AIMemories is non-GA),
+# deferred via `gated:` and auto-surfaces when AIMemories goes GA. See
+# "Public vs. private surfaces" in SKILL.md.
+GET /memory_stores -> gated:AIMemories
+POST /memory_stores -> gated:AIMemories
+GET /memory_stores/{uid} -> gated:AIMemories
+PUT /memory_stores/{uid} -> gated:AIMemories
+DELETE /memory_stores/{uid} -> gated:AIMemories
+GET /memory_stores/{uid}/agents -> gated:AIMemories
+GET /memory_stores/{uid}/memories -> gated:AIMemories
+POST /memory_stores/{uid}/memories -> gated:AIMemories
+DELETE /memory_stores/{uid}/memories/{memoryUid} -> gated:AIMemories
+PUT /memory_stores/{uid}/memories/{memoryUid} -> gated:AIMemories
+GET /memory_stores/{uid}/memories/{memoryUid}/versions -> gated:AIMemories
 
 ## Slash commands -> doc pages
 

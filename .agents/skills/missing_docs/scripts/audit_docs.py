@@ -149,6 +149,24 @@ def parse_surface_map(path: Path) -> dict:
     return result
 
 
+# Gating statuses that mean "not publicly released" — a `gated:<Flag>` surface
+# whose flag has one of these statuses is intentionally deferred (undocumented).
+_NON_GA_STATUSES = ("preview", "dogfood", "other")
+
+
+def _gated_flag(value) -> str | None:
+    """Return the gating FeatureFlag name for a `gated:<Flag>` surface-map target.
+
+    `gated:<Flag>` ties a CLI command or API route to its gating feature flag's
+    rollout: while the flag is non-GA the surface is intentionally undocumented
+    (private/unreleased), and once the flag goes GA the surface auto-surfaces as
+    a normal coverage finding. Returns None for plain doc paths and `internal`.
+    """
+    if isinstance(value, str) and value.startswith("gated:"):
+        return value[len("gated:"):].strip()
+    return None
+
+
 def parse_stale_terms(path: Path) -> list[tuple[str, str]]:
     """Parse stale_terms.md into a list of (term, reason) tuples."""
     terms = []
@@ -1329,7 +1347,8 @@ def audit_features(warp_repo: Path, docs_root: Path, surface_map: dict,
 
 def audit_cli(warp_repo: Path, docs_root: Path, surface_map: dict,
               docs_text: dict[str, str],
-              cli_commands: list[dict] | None = None) -> list[dict]:
+              cli_commands: list[dict] | None = None,
+              flag_statuses: dict[str, str] | None = None) -> list[dict]:
     """Audit CLI command and subcommand coverage in docs."""
     commands = cli_commands if cli_commands is not None else parse_cli_commands(warp_repo)
     cli_to_doc = surface_map.get("cli_to_doc", {})
@@ -1352,7 +1371,13 @@ def audit_cli(warp_repo: Path, docs_root: Path, surface_map: dict,
             # intentionally have no public docs (matches API audit semantics).
             if doc_path == "internal":
                 return True
-            if resolve_doc_path(doc_path, repo_root) is not None:
+            gflag = _gated_flag(doc_path)
+            if gflag is not None:
+                # Defer while the gating flag is non-GA; once GA, fall through so
+                # the command must be documented (auto-surfaces as a finding).
+                if (flag_statuses or {}).get(gflag) in _NON_GA_STATUSES:
+                    return True
+            elif resolve_doc_path(doc_path, repo_root) is not None:
                 return True
         return any(search_phrase in content for content in cli_docs_text.values())
 
@@ -1395,7 +1420,8 @@ def audit_cli(warp_repo: Path, docs_root: Path, surface_map: dict,
 
 def audit_api(warp_server: Path, docs_root: Path, surface_map: dict,
               docs_text: dict[str, str],
-              api_routes: list[dict] | None = None) -> list[dict]:
+              api_routes: list[dict] | None = None,
+              flag_statuses: dict[str, str] | None = None) -> list[dict]:
     """Audit public API endpoint coverage in the OpenAPI spec and API docs.
 
     The public docs API reference (docs.warp.dev/api) renders
@@ -1442,8 +1468,17 @@ def audit_api(warp_server: Path, docs_root: Path, surface_map: dict,
         if rel_path.startswith("/api/v1"):
             rel_path = rel_path[len("/api/v1"):] or "/"
         rel_route_str = f"{route['method']} {rel_path}"
-        if route_str in api_to_doc or rel_route_str in api_to_doc:
-            continue
+        map_val = api_to_doc.get(route_str)
+        if map_val is None:
+            map_val = api_to_doc.get(rel_route_str)
+        if map_val is not None:
+            gflag = _gated_flag(map_val)
+            if gflag is None:
+                continue  # plain doc path or `internal` sentinel: suppressed
+            # Defer while the gating flag is non-GA; once GA, fall through so the
+            # endpoint must reach the OpenAPI spec (auto-surfaces as a finding).
+            if (flag_statuses or {}).get(gflag) in _NON_GA_STATUSES:
+                continue
 
         # Match against the spec's path keys (param-name-insensitive), then
         # fall back to substring search in API docs prose.
@@ -1867,6 +1902,24 @@ def audit_map_hygiene(surface_map: dict, flag_statuses: dict[str, str],
                 ),
             })
 
+    # Gated surface-map targets must reference a real FeatureFlag.
+    for section_name, mapping in (
+        ("CLI commands", surface_map.get("cli_to_doc", {})),
+        ("API endpoints", surface_map.get("api_to_doc", {})),
+    ):
+        for key, val in sorted(mapping.items()):
+            gflag = _gated_flag(val)
+            if gflag is not None and gflag not in known_flags:
+                findings.append({
+                    "entry": key,
+                    "section": section_name,
+                    "severity": "medium",
+                    "reason": (
+                        f"Gated target 'gated:{gflag}' references a FeatureFlag that "
+                        "does not exist in code \u2014 fix the flag name or remove the gate"
+                    ),
+                })
+
     # Mapped doc targets that no longer exist (any section).
     for section, mapping in (
         ("Feature flags", surface_map.get("feature_to_doc", {})),
@@ -1876,7 +1929,7 @@ def audit_map_hygiene(surface_map: dict, flag_statuses: dict[str, str],
         ("Settings", surface_map.get("settings_to_doc", {})),
     ):
         for key, doc_path in sorted(mapping.items()):
-            if doc_path == "internal":
+            if doc_path == "internal" or _gated_flag(doc_path) is not None:
                 continue
             if resolve_doc_path(doc_path, repo_root) is None:
                 findings.append({
@@ -2299,16 +2352,21 @@ def compute_accounting(docs_root: Path, surface_map: dict, findings: dict,
             except Exception:
                 pass
     cb = {"total": 0, "hidden": 0, "mapped": 0, "doc_covered": 0,
-          "finding": 0, "parent_flagged": 0}
+          "finding": 0, "parent_flagged": 0, "gated_non_ga": 0}
     missing = []
     for cmd in cli_commands:
         entries = [(cmd["command"], cmd["hidden"], None)] + [
             (s["command"], s["hidden"], cmd["command"]) for s in cmd["subcommands"]]
         for name, hidden, parent in entries:
             cb["total"] += 1
+            val = cli_map.get(name)
+            gflag = _gated_flag(val)
+            deferred = gflag is not None and flag_statuses.get(gflag) in _NON_GA_STATUSES
             if hidden:
                 cb["hidden"] += 1
-            elif name in cli_map:
+            elif deferred:
+                cb["gated_non_ga"] += 1
+            elif val is not None and gflag is None:
                 cb["mapped"] += 1
             elif any(name.split(" ", 1)[1] in t for t in cli_text.values()):
                 cb["doc_covered"] += 1
@@ -2346,14 +2404,21 @@ def compute_accounting(docs_root: Path, surface_map: dict, findings: dict,
             except Exception:
                 pass
     ab = {"total": len(api_routes), "mapped": 0, "spec_covered": 0,
-          "docs_covered": 0, "finding": 0}
+          "docs_covered": 0, "finding": 0, "gated_non_ga": 0}
     missing = []
     for route in api_routes:
         rel = route["path"]
         if rel.startswith("/api/v1"):
             rel = rel[len("/api/v1"):] or "/"
         rel_str = f"{route['method']} {rel}"
-        if route["route"] in api_map or rel_str in api_map:
+        map_val = api_map.get(route["route"])
+        if map_val is None:
+            map_val = api_map.get(rel_str)
+        gflag = _gated_flag(map_val)
+        deferred = gflag is not None and flag_statuses.get(gflag) in _NON_GA_STATUSES
+        if deferred:
+            ab["gated_non_ga"] += 1
+        elif map_val is not None and gflag is None:
             ab["mapped"] += 1
         elif (_normalize_path_params(rel) in spec_paths
               or _normalize_path_params(route["path"]) in spec_paths):
@@ -2704,7 +2769,7 @@ def main():
             print("Running CLI command coverage audit...", file=sys.stderr)
             findings["undocumented_cli_commands"] = audit_cli(
                 warp_repo, docs_root, surface_map, docs_text,
-                cli_commands=cli_commands)
+                cli_commands=cli_commands, flag_statuses=flag_statuses)
             audits_run.append("cli")
 
         if args.category in (None, "slash") and slash_ok:
@@ -2746,10 +2811,14 @@ def main():
         server_tools = parse_server_tools(warp_server)
         api_ok = guard("API routes", len(api_routes))
         if args.category in (None, "api") and api_ok:
+            # gated:<Flag> deferral needs flag rollout statuses; compute them if a
+            # full run hasn't already (e.g. an isolated `--category api` run).
+            if not flag_statuses and warp_repo:
+                flag_statuses = compute_flag_statuses(warp_repo)
             print("Running API endpoint coverage audit...", file=sys.stderr)
             findings["undocumented_api_endpoints"] = audit_api(
                 warp_server, docs_root, surface_map, docs_text,
-                api_routes=api_routes)
+                api_routes=api_routes, flag_statuses=flag_statuses)
             audits_run.append("api")
     elif needs_server:
         if args.category in (None, "api"):

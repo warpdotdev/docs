@@ -40,6 +40,7 @@ Only document surfaces that are **publicly released**. This is the most importan
 
 Rules of thumb:
 - A `warp-server` API endpoint that is **not already in the OpenAPI spec** is treated as not-yet-public: do NOT hand-write docs for it. Either confirm it has been publicly released and let the `sync-openapi-spec` skill bring it into the spec, or map it `-> internal` / defer it. When unsure, defer — never expose an unreleased endpoint or feature in public docs.
+- A CLI command or API route gated by a **non-GA feature flag** should be mapped `-> gated:<Flag>` (for example, `gated:AIMemories`) rather than `-> internal`: the audit auto-defers it while the flag is non-GA and auto-surfaces it for docs once the flag goes GA. (Feature flags and settings already auto-defer by rollout status; `gated:` extends that to CLI/API.)
 - The audit still *detects* these as gaps (useful signal), but detection is not permission to document. Every resolution must respect this boundary.
 
 ## Workflows
@@ -243,6 +244,7 @@ Not every finding needs a new doc page — pick the lightest correct fix and ver
 - **Preview or pre-launch feature with no docs yet** — add it to the surface-map ignore list with a comment; the snapshot diff re-flags it when it promotes to GA.
 - **Stale map entry or doc reference** (map hygiene) — confirm the surface is gone from code, then prune the dead entry.
 - **warp-server API endpoint not in the released OpenAPI spec** — do not hand-document it (warp-server is private). If it is part of the released public Oz Agent API, hand it to the `sync-openapi-spec` skill; if it is unreleased or internal, map it `-> internal` with a comment. Never expose an unreleased endpoint or feature in public docs.
+- **CLI command or API route gated by a non-GA feature flag** — map it `-> gated:<Flag>` so it auto-defers while the flag is non-GA and auto-surfaces for docs when it GAs (e.g. Agent Memory's `oz memory*` and `/memory_stores/*` use `gated:AIMemories`). Prefer this over `-> internal`, which never re-surfaces.
 
 ### Reviewer routing
 
