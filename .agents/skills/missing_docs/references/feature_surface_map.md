@@ -131,8 +131,8 @@ ShellSelector -> src/content/docs/getting-started/supported-shells.mdx
 WorkflowAliases -> src/content/docs/terminal/entry/yaml-workflows.mdx
 KittyImages -> src/content/docs/terminal/more-features/full-screen-apps.mdx
 UndoClosedPanes -> src/content/docs/terminal/windows/tabs.mdx
-RevertDiffHunk -> src/content/docs/code/code-review.md
-SshRemoteServer -> src/content/docs/terminal/warpify/ssh.md
+RevertDiffHunk -> src/content/docs/code/code-review.mdx
+SshRemoteServer -> src/content/docs/terminal/warpify/ssh.mdx
 
 # Feature flags whose only user-facing surface is a documented setting in the
 # all-settings reference (terminal/settings/all-settings.mdx).
