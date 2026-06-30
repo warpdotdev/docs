@@ -62,7 +62,7 @@ Custom routers are stored as YAML files in `~/.warp/custom_model_routers/`, with
 
 Routing targets use the same `model_id` values listed on the [Model choice](/agent-platform/inference/model-choice/#available-models) page. Every target must be a concrete, Warp-supported model. You can't route to an Auto model, another router, or a model from a [custom inference endpoint](/agent-platform/inference/custom-inference-endpoint/).
 
-A complexity router uses `type: complexity`. `default` is required and is used for any bucket you omit. This example keeps every task on lower-cost open-source models, stepping up in capability as complexity increases:
+A complexity router uses `type: complexity`. `default` is required and is used for any bucket you omit:
 
 ```yaml title="~/.warp/custom_model_routers/cost-saver.yaml"
 name: Cost saver
@@ -71,7 +71,7 @@ default: glm-5.2-fireworks
 routing:
   easy: minimax-3-fireworks
   medium: glm-5.2-fireworks
-  hard: deepseek-v4-pro-fireworks
+  hard: claude-4-6-sonnet-high
 ```
 
 A rule-based router uses `type: prompt`. `default` is the required catch-all used when no rule matches, and `routing` is the ordered list of rules. Rules can describe your team's specific workflows, so you can send routine work to cheaper models and reserve a frontier model for the tasks that need it:
