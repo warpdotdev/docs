@@ -64,4 +64,6 @@ redirects:
     api-and-sdk/troubleshooting/errors/authentication_required: api-and-sdk/troubleshooting/errors/authentication-required.md
     api-and-sdk/troubleshooting/errors/resource_unavailable: api-and-sdk/troubleshooting/errors/resource-unavailable.md
     api-and-sdk/troubleshooting/errors/internal_error: api-and-sdk/troubleshooting/errors/internal-error.md
+    api-and-sdk/troubleshooting/errors/infrastructure_timeout: api-and-sdk/troubleshooting/errors/infrastructure-timeout.md
+    api-and-sdk/troubleshooting/errors/agent_process_failed: api-and-sdk/troubleshooting/errors/agent-process-failed.md
 

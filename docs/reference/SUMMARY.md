@@ -48,3 +48,5 @@
     * [authentication\_required](api-and-sdk/troubleshooting/errors/authentication-required.md)
     * [resource\_unavailable](api-and-sdk/troubleshooting/errors/resource-unavailable.md)
     * [internal\_error](api-and-sdk/troubleshooting/errors/internal-error.md)
+    * [infrastructure\_timeout](api-and-sdk/troubleshooting/errors/infrastructure-timeout.md)
+    * [agent\_process\_failed](api-and-sdk/troubleshooting/errors/agent-process-failed.md)
