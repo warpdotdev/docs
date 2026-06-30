@@ -98,11 +98,11 @@ This makes it easy to:
 * Step in for delicate or security-sensitive actions
 * Then let the agent continue once the critical step is done
 
-#### Prompts queue while the agent drives the command
+#### Prompts queue while the agent drives a command it started
 
-By default, prompts you submit while the agent is driving a long-running command are queued instead of steering the agent mid-command. They appear in the queued prompts panel with a *(queued until the command finishes)* suffix, and Warp sends them to the agent automatically when the command finishes.
+When the agent starts a long-running command itself, prompts you submit while it drives that command are queued by default instead of steering the agent mid-command. They appear in the queued prompts panel with a *(queued until the command finishes)* suffix, and Warp sends them to the agent automatically when the command finishes. This applies only to commands the agent started; if you start a command and tag the agent in, your prompts keep steering the agent immediately.
 
-To steer the agent immediately instead, toggle auto-queue off for the remainder of the command, or change the **Default long-running command submission mode** setting in the Warp app under **Settings** > **Agents** > **Warp Agent** > **Input**. For the full behavior, including the setting's options and when it applies, see [Queueing during long-running commands](/agent-platform/local-agents/interacting-with-agents/prompt-queueing/#queueing-during-long-running-commands).
+To steer the agent immediately during an agent-started command, toggle auto-queue off for the remainder of the command, or change the **Default long-running command submission mode** setting in the Warp app under **Settings** > **Agents** > **Warp Agent** > **Input**. For the full behavior, including the setting's options and when it applies, see [Queueing during long-running commands](/agent-platform/local-agents/interacting-with-agents/prompt-queueing/#queueing-during-long-running-commands).
 
 #### Long-running commands in terminal vs agent view
 

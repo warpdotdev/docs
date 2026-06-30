@@ -19,7 +19,7 @@ Prompt queueing lets you line up follow-up prompts while an agent is still worki
 * **Queued prompts panel** - View, reorder, edit, and remove every pending prompt from one collapsible panel above the input.
 * **Automatic sequential sending** - Queued prompts fire one at a time as the agent finishes each response, in the order you set.
 * **Send the next prompt with Enter** - When the input is empty, press `Enter` to send the top queued row immediately.
-* **Auto-queue during long-running commands** - By default, prompts submitted while an agent is driving a long-running command are queued and sent when the command finishes.
+* **Auto-queue during long-running commands** - By default, prompts submitted while an agent is driving a long-running command it started are queued and sent when the command finishes.
 * **Per-conversation queues** - Each conversation keeps its own queue and auto-queue state, which persist when you leave and re-enter the conversation.
 * **Cloud agent support** - Queue follow-ups for cloud agents, even while the environment is still setting up.
 
@@ -84,19 +84,19 @@ When **Interrupt response** is selected, a second dropdown, **Default long-runni
 
 ## Queueing during long-running commands
 
-When an agent is driving a long-running command (a dev server, REPL, database shell, or other interactive program it has attached to via [Full Terminal Use](/agent-platform/capabilities/full-terminal-use/)), prompts you submit are queued by default instead of steering the agent mid-command. Warp sends them to the agent automatically when the command finishes.
+When an agent is driving a long-running command it started (a dev server, REPL, database shell, or other interactive program it launched through [Full Terminal Use](/agent-platform/capabilities/full-terminal-use/)), prompts you submit are queued by default instead of steering the agent mid-command. Warp sends them to the agent automatically when the command finishes. This auto-queueing applies only to commands the agent started; if you start a command yourself and tag the agent in, your prompts keep steering the agent immediately.
 
 While the agent is in control of the command (including while it's blocked waiting for an approval):
 
 * **Prompts queue instead of interrupting.** Submitting a prompt adds it to the conversation's queue and clears the input so you can keep typing. These rows show an italic *(queued until the command finishes)* suffix after the prompt text, indicating they fire when the command ends rather than when the full response finishes.
-* **Queued prompts send at command end.** When the command finishes, all the suffixed prompts are sent to the agent immediately, in queue order, even if you manually took over the command before it finished. Prompts queued in other ways (`/queue`, the auto-queue toggle, or the queue default mode) are untouched and still send under the normal end-of-response rules.
+* **Suffixed prompts send when the command finishes.** When the command finishes, Warp sends the suffixed prompts at the front of the queue, in order, even if you manually took over the command first. A suffixed prompt sends this way only while it stays at the front: if you reorder a prompt queued another way ahead of it, that suffixed prompt waits and sends later under the normal end-of-response rules. Prompts queued in other ways (`/queue`, the auto-queue toggle, or the queue default mode) always follow those normal rules.
 * **Shell commands queue as regular commands.** Shell commands you submit during a long-running command are queued without the suffix and run in the terminal as usual; they are not sent to the agent when the command ends.
 * **The UI reflects the queue state.** The auto-queue toggle in the warping indicator appears in its active, accent-colored state, and the empty input's ghost text shows the queue hint instead of the steer hint.
 * **All queue interactions still work.** You can reorder, edit, delete, use send now, or press `Enter` on an empty input to send the top row early.
 
 This queueing is per-conversation and derived from the running command rather than a sticky toggle: when the command ends or control transfers back to you, the conversation reverts to whatever queue state it had before the command (its own toggle state, or the app-wide default). It applies only while the agent is in control of the command, not while you are.
 
-To steer the agent mid-command instead, turn the auto-queue toggle off: click the clock-plus icon, or press `⌘+Shift+J` (macOS) or `Ctrl+Shift+J` (Windows/Linux). Prompts then send immediately for the remainder of that command only; the override doesn't change the conversation's persistent toggle state, and the next agent-controlled command auto-queues again. Toggling it back on re-enables queueing for the rest of the command.
+To steer the agent mid-command instead, turn the auto-queue toggle off: click the clock-plus icon, or press `⌘+Shift+J` (macOS) or `Ctrl+Shift+J` (Windows/Linux). Prompts then send immediately for the remainder of that command only; the override doesn't change the conversation's persistent toggle state, and the next command the agent starts auto-queues again. Toggling it back on re-enables queueing for the rest of the command.
 
 ### Change the long-running command submission mode
 
@@ -104,7 +104,7 @@ You can change this behavior app-wide:
 
 1. In the Warp app, go to **Settings** > **Agents** > **Warp Agent** > **Input**.
 2. For **Default long-running command submission mode**, choose one of:
-   * **Queue until command finishes** - Queue prompts submitted while an agent is driving a long-running command, and send them to the agent when the command finishes (the default).
+   * **Queue until command finishes** - Queue prompts submitted while an agent is driving a long-running command it started, and send them to the agent when the command finishes (the default).
    * **Send immediately** - Send the prompt to the agent right away, steering it mid-command.
 
 The dropdown appears directly below **Default prompt submission mode**, and only when that setting is **Interrupt response**. When the default prompt submission mode is **Queue until response finishes**, this setting is hidden and ignored, because prompts already queue until the entire response finishes.
