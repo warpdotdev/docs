@@ -28,8 +28,8 @@ Use this guide to choose the right setup path, then jump to the source docs for 
 | -------- | ----------- | ------------------ | ----------- |
 | Local Warp agent | You are working interactively in Warp and want the agent to use tools from your machine or desktop-authenticated services. | Warp MCP settings, Warp Drive MCP servers, `.warp/.mcp.json`, or provider config files. | [Model Context Protocol (MCP)](/agent-platform/capabilities/mcp/) |
 | Third-party CLI agent in Warp | You run Claude Code, Codex, OpenCode, or another CLI agent in Warp and want shared MCP config across tools. | File-based MCP config that Warp can detect and approve. | [File-based MCP servers](/agent-platform/capabilities/mcp/#file-based-mcp-servers) |
-| Cloud agent run | The agent runs in a cloud environment from Slack, Linear, schedules, GitHub Actions, the CLI, or the API. | `--mcp`, an agent config file, or a Warp-shared MCP UUID. | [MCP Servers for cloud agents](/agent-platform/cloud-agents/mcp/) |
-| Repeatable automation | You need the same MCP tools every time a scheduled agent, integration, or CI workflow runs. | Agent config files plus [Agent Secrets](/agent-platform/cloud-agents/secrets/) for credentials. | [MCP servers (CLI reference)](/reference/cli/mcp-servers/) |
+| Cloud agent run | The agent runs in a cloud environment from Slack, Linear, schedules, GitHub Actions, the CLI, or the API. | `--mcp`, an agent config file, or a Warp-shared MCP UUID. | [MCP Servers for cloud agents](/platform/mcp/) |
+| Repeatable automation | You need the same MCP tools every time a scheduled agent, integration, or CI workflow runs. | Agent config files plus [Agent Secrets](/platform/secrets/) for credentials. | [MCP servers (CLI reference)](/reference/cli/mcp-servers/) |
 
 ## Common MCP workflows
 
@@ -54,12 +54,12 @@ Use cloud MCP when an unattended or remote agent needs tool access while it runs
 Example workflow:
 
 1. Create or identify the MCP server the cloud agent should use.
-2. Store required credentials as [Agent Secrets](/agent-platform/cloud-agents/secrets/) instead of hardcoding tokens in config files.
+2. Store required credentials as [Agent Secrets](/platform/secrets/) instead of hardcoding tokens in config files.
 3. Attach the MCP server with `--mcp`, a config file, or a Warp-shared MCP UUID.
 4. Run the cloud agent from the Oz CLI, Slack, Linear, GitHub Actions, a schedule, or the API.
-5. Inspect the run in the [Oz web app](/agent-platform/cloud-agents/oz-web-app/) or [Cloud agent session sharing](/agent-platform/cloud-agents/viewing-cloud-agent-runs/).
+5. Inspect the run in the [Oz web app](/platform/oz-web-app/) or [Cloud agent session sharing](/platform/viewing-cloud-agent-runs/).
 
-For schema and cloud-specific limitations, see [MCP Servers for cloud agents](/agent-platform/cloud-agents/mcp/).
+For schema and cloud-specific limitations, see [MCP Servers for cloud agents](/platform/mcp/).
 
 ### Share an MCP server with a team
 
@@ -101,7 +101,7 @@ For cloud agents, choose one of these paths:
 * **JSON file** - Best for reusable scripts.
 * **Agent config file** - Best for production workflows where model, environment, prompt, and MCP servers should live together.
 
-Cloud agents run away from your desktop. Any secrets required by MCP tools should be available in the cloud run through [Agent Secrets](/agent-platform/cloud-agents/secrets/) or the execution environment, not only in your local shell.
+Cloud agents run away from your desktop. Any secrets required by MCP tools should be available in the cloud run through [Agent Secrets](/platform/secrets/) or the execution environment, not only in your local shell.
 
 :::caution
 OAuth-based MCP servers are not currently supported directly for cloud agents. If a server requires browser-based OAuth, use it with a local agent, choose a token-based/server-side configuration if the provider supports it, or pass the relevant artifact as context another way.
@@ -126,7 +126,7 @@ Before giving an agent tool access through MCP:
 
 * Use the narrowest credentials and scopes that let the workflow run.
 * Prefer service accounts for team or scheduled workflows.
-* Store cloud-run credentials in [Agent Secrets](/agent-platform/cloud-agents/secrets/).
+* Store cloud-run credentials in [Agent Secrets](/platform/secrets/).
 * Review file-based MCP config before approving it, especially commands, args, environment variables, and URLs.
 * Treat MCP logs as sensitive if they contain API responses, tokens, request headers, or private data.
 * For cloud agents, confirm whether the MCP server can be reached from the cloud environment or self-hosted worker.
@@ -134,6 +134,6 @@ Before giving an agent tool access through MCP:
 ## Next steps
 
 * [Model Context Protocol (MCP)](/agent-platform/capabilities/mcp/) - Configure MCP servers for local agents in the Warp app.
-* [MCP Servers for cloud agents](/agent-platform/cloud-agents/mcp/) - Configure MCP servers for cloud runs and automation.
+* [MCP Servers for cloud agents](/platform/mcp/) - Configure MCP servers for cloud runs and automation.
 * [MCP servers (CLI reference)](/reference/cli/mcp-servers/) - Use `--mcp` with UUIDs, inline JSON, or files.
-* [Agent Secrets](/agent-platform/cloud-agents/secrets/) - Store credentials for cloud agent runs.
+* [Agent Secrets](/platform/secrets/) - Store credentials for cloud agent runs.

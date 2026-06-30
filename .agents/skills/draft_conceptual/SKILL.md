@@ -34,5 +34,5 @@ All headings (H1–H4) must use **sentence case**: capitalize only the first wor
 ## Existing examples
 
 Read 2-3 of these strong examples to match the existing pattern:
-- `src/content/docs/agent-platform/cloud-agents/deployment-patterns.md`
-- `src/content/docs/agent-platform/cloud-agents/overview.md`
+- `src/content/docs/platform/deployment-patterns.md`
+- `src/content/docs/platform/index.mdx`
