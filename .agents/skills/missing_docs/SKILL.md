@@ -217,6 +217,17 @@ For each gap to address (prioritize high → medium → low):
    map is how gaps get lost.
 9. Run `--update-snapshot` and commit the refreshed snapshot with the same PR.
 
+### Resolution patterns
+
+Not every finding needs a new doc page — pick the lightest correct fix and verify it against source before applying:
+
+- **User-facing setting** — document it in `terminal/settings/all-settings.mdx` under its TOML section (type/default/options come from the `toml_path` registration).
+- **Internal or state-only setting** (one-time banners, migration flags, telemetry-modeled state) — map `section.key -> internal` in the surface map instead of documenting it.
+- **Feature flag with a dedicated doc page** — map the flag to that page.
+- **Feature flag whose only user-facing surface is an already-documented setting** — map the flag to that setting's doc page rather than writing a new page (for example, a tab-bar visibility flag maps to the all-settings reference).
+- **Preview or pre-launch feature with no docs yet** — add it to the surface-map ignore list with a comment; the snapshot diff re-flags it when it promotes to GA.
+- **Stale map entry or doc reference** (map hygiene) — confirm the surface is gone from code, then prune the dead entry.
+
 ### Drift-watch mode (recurring scheduled agent)
 
 This is the end-to-end workflow for the scheduled cloud agent that keeps docs in sync
