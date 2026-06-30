@@ -145,6 +145,7 @@ theme = { custom = { name = "My Theme", path = "~/.warp/themes/my-theme.yaml" } 
 **Section**: `[appearance.icon]`
 
 * `app_icon` — The app icon displayed in the dock. Type: string. Default: `"default"`. Options: `"default"`, `"aurora"`, `"classic1"`, `"classic2"`, `"classic3"`, `"comets"`, `"cow"`, `"glass_sky"`, `"glitch"`, `"glow"`, `"holographic"`, `"mono"`, `"neon"`, `"original"`, `"starburst"`, `"sticker"`, `"warp_one"`.
+* `show_dock_icon` — Whether Warp is shown in the macOS Dock and `Cmd-Tab` switcher. Type: boolean. Default: `true`. macOS only.
 
 ### Window
 
@@ -328,6 +329,7 @@ Settings for Warp's agents, including model behavior, permissions, knowledge, MC
 * `agent_attribution_enabled` — Whether the Warp Agent adds an attribution co-author line to commit messages and pull requests it creates. Type: boolean. Default: `true`.
 * `auto_handoff_on_sleep_enabled` — Whether Warp automatically hands off local agent conversations to the cloud when your computer is about to sleep (macOS). See [local-to-cloud handoff](/agent-platform/cloud-agents/handoff/local-to-cloud/). Type: boolean. Default: `false`.
 * `default_prompt_submission_mode` — Default behavior when submitting a new prompt while the agent is still responding. See [Prompt Queueing](/agent-platform/local-agents/interacting-with-agents/prompt-queueing/). Type: string. Default: `"interrupt"`. Options: `"interrupt"`, `"queue"`.
+* `long_running_command_submission_mode` — What happens when you submit a prompt while the agent is running an agent-requested long-running command. Only applies when `default_prompt_submission_mode` is `"interrupt"`. See [Prompt Queueing](/agent-platform/local-agents/interacting-with-agents/prompt-queueing/). Type: string. Default: `"queue_until_command_completes"`. Options: `"send_immediately"`, `"queue_until_command_completes"`.
 * `orchestration_message_display_mode` — How child-agent message bodies are displayed during [multi-agent runs](/agent-platform/cloud-agents/orchestration/multi-agent-runs/). Type: string. Default: `"always_collapse"`. Options: `"show_and_collapse"`, `"always_show"`, `"always_collapse"`.
 * `should_force_disable_cloud_handoff` — Whether to force-disable [local-to-cloud handoff](/agent-platform/cloud-agents/handoff/local-to-cloud/). Type: boolean. Default: `false`.
 * `should_force_disable_ampersand_handoff` — Whether to force-disable the `&` prefix that composes a prompt for cloud handoff. Type: boolean. Default: `false`.
@@ -373,6 +375,7 @@ Settings for Warp's built-in code editor, file handling, and codebase indexing.
 * `show_global_search` — Whether global file search is shown in the tools panel. Type: boolean. Default: `true`.
 * `show_hidden_files` — Whether hidden files (dotfiles) are shown in the project explorer. Type: boolean. Default: `false`.
 * `use_warp_as_default_editor` — Whether Warp is used as the default code editor. Type: boolean. Default: `false`.
+* `format_on_save` — Whether the language server automatically formats the file on save. Other LSP features (hover, go-to-definition, references, diagnostics) are unaffected. Type: boolean. Default: `true`.
 
 ### Indexing
 
@@ -486,6 +489,7 @@ Settings for Warp features in SSH sessions and subshells.
 * `enable_ssh_warpification` — Whether to enable Warp features in SSH sessions. Type: boolean. Default: `true`.
 * `enable_legacy_ssh_wrapper` — Whether the legacy SSH wrapper is enabled for SSH sessions. Type: boolean. Default: `true`.
 * `use_ssh_tmux_wrapper` — Whether to use a tmux-based wrapper for SSH warpification. Type: boolean. Default: `false`.
+* `reuse_existing_control_master` — Whether the legacy SSH wrapper attaches to an existing SSH `ControlMaster` for the destination host instead of always creating its own. Type: boolean. Default: `false`.
 * `ssh_extension_install_mode` — Controls SSH extension installation behavior. Type: string. Default: `"always_ask"`. Options: `"always_ask"` (always prompt before installing), `"always_install"` (auto-install and connect without prompting), `"never_install"` (fall back to legacy warpification).
 * `ssh_hosts_denylist` — SSH hosts that should not trigger the warpification prompt. Type: array of strings. Default: `[]`.
 
@@ -532,6 +536,7 @@ Settings for third-party API key integration and cloud model configuration.
 * `aws_bedrock_profile` — The AWS profile name to use for Bedrock credentials. Type: string. Default: `"default"`.
 * `aws_bedrock_auto_login` — Whether to automatically run the AWS login command when Bedrock credentials expire. Type: boolean. Default: `false`.
 * `aws_bedrock_auth_refresh_command` — The command to run to refresh AWS credentials for Bedrock. Type: string. Default: `"aws login"`.
+* `gemini_enterprise_credentials_enabled` — Whether Warp routes eligible requests through your workspace's Gemini Enterprise Google Cloud project. Requires a workspace admin to configure Gemini Enterprise. Type: boolean. Default: `false`.
 * `can_use_warp_credits_with_byok` — Whether Warp credits can be used even when providing your own API key. Type: boolean. Default: `false`.
 
 ## Global hotkey

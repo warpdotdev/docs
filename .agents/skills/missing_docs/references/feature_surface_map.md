@@ -107,6 +107,8 @@ CLIAgentRichInput -> src/content/docs/agent-platform/cli-agents/rich-input.md
 HOANotifications -> src/content/docs/agent-platform/capabilities/agent-notifications.mdx
 OpenCodeNotifications -> src/content/docs/agent-platform/cli-agents/opencode.md
 CodexNotifications -> src/content/docs/agent-platform/cli-agents/codex.md
+# Codex Warp plugin marketplace integration; documented alongside Codex notifications.
+CodexPlugin -> src/content/docs/agent-platform/cli-agents/codex.md
 HOARemoteControl -> src/content/docs/agent-platform/cli-agents/remote-control.md
 GlobalSearch -> src/content/docs/code/overview.md
 FileBasedMcp -> src/content/docs/agent-platform/capabilities/mcp.mdx
@@ -131,6 +133,13 @@ KittyImages -> src/content/docs/terminal/more-features/full-screen-apps.mdx
 UndoClosedPanes -> src/content/docs/terminal/windows/tabs.mdx
 RevertDiffHunk -> src/content/docs/code/code-review.md
 SshRemoteServer -> src/content/docs/terminal/warpify/ssh.md
+
+# Feature flags whose only user-facing surface is a documented setting in the
+# all-settings reference (terminal/settings/all-settings.mdx).
+# - FullScreenZenMode: the "zen mode" tab-bar visibility knob appearance.tabs.workspace_decoration_visibility
+# - AsyncFind: experimental.async_find_enabled
+FullScreenZenMode -> src/content/docs/terminal/settings/all-settings.mdx
+AsyncFind -> src/content/docs/terminal/settings/all-settings.mdx
 
 # Session sharing (viewing + ACLs are part of the documented session sharing feature)
 ViewingSharedSessions -> src/content/docs/knowledge-and-collaboration/session-sharing/index.mdx
@@ -171,6 +180,8 @@ SoloUserByok -> src/content/docs/agent-platform/inference/bring-your-own-api-key
 CustomInferenceEndpoints -> src/content/docs/agent-platform/inference/custom-inference-endpoint.mdx
 # Connect a SuperGrok subscription instead of pasting an xAI API key.
 SuperGrok -> src/content/docs/agent-platform/inference/bring-your-own-api-key.mdx
+# Custom model routers (Settings > AI > Custom Routers) surface in the model picker.
+CustomModelRouters -> src/content/docs/agent-platform/inference/model-choice.mdx
 
 # Billing & Usage settings page (redesigned)
 BillingAndUsagePageV2 -> src/content/docs/support-and-community/plans-and-billing/index.mdx
@@ -255,6 +266,10 @@ POST /harness-support/upload-snapshot -> internal
 # (terminal/settings/all-settings.mdx) by section + key; add entries here only
 # for exceptions: settings documented on another page (`section.key -> path`)
 # or intentionally undocumented (`section.key -> internal`).
+
+# One-time internal state for the deprecated tmux SSH wrapper migration banner;
+# not a user-configurable setting.
+warpify.ssh.ssh_tmux_deprecation_notice_pending -> internal
 
 ## Unlisted docs pages to ignore
 
@@ -350,7 +365,6 @@ HOAOnboardingFlow
 AgentViewConversationListView
 BuildPlanAutoReloadBannerToggle
 BuildPlanAutoReloadPostPurchaseModal
-FreeUserNoAi
 ForceLogin
 SimulateGithubUnauthed
 ConversationApi
@@ -371,6 +385,10 @@ OwnerOrchestrationAncestorStreamer
 # rollout status (the audit computes that from code); entries here are ignored
 # because the toggle itself isn't a documentable surface, or because the
 # feature isn't user-facing yet — the snapshot diff flags promotions.
+# Grouped Tabs is a macOS-only Preview feature (organize tabs into named,
+# collapsible groups); public docs are pending GA promotion, which the snapshot
+# diff will flag.
+GroupedTabs
 LSPAsATool
 EmbeddedCodeReviewComments
 InteractiveConversationManagementView
@@ -390,7 +408,6 @@ CodeModeChip
 # Internal agent file-search tool plumbing (read tools are not individually documented).
 GrepTool
 NativeShellCompletions
-WelcomeTab
 DragTabsToWindows
 SshDragAndDrop
 ITermImages
