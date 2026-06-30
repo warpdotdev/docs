@@ -128,7 +128,7 @@ The fix the agent applies matches what runs in CI and what your teammates see wh
 
 ### Where to configure environments
 
-You can create and configure environments with Warp’s guided setup, or through the CLI. Use the guided flow when you’re first getting started, and use the CLI when you want full control or need to automate environment creation.
+You can create environments in three ways: from the Oz web app, using the guided setup in Warp, or through the CLI.
 
 **Before you begin**
 
@@ -146,14 +146,25 @@ Musl-based Docker images (such as Alpine Linux) are not supported. The agent run
 Create one environment per codebase, then reuse it across triggers like Slack, Linear, and CLI runs.
 :::
 
+### Create an environment from the Oz web app
+
 <figure>
 ![Creating a new environment in the Oz Web App.](../../../assets/agent-platform/oz-web-app-new-environment.png)
-<figcaption>Creating a new environment in the Oz web app.</figcaption>
+<figcaption>The Create environment panel in the Oz web app.</figcaption>
 </figure>
 
-### Create an environment with guided setup (recommended)
+1. Open the [Environments page in the Oz web app](https://oz.warp.dev/environments) and click **New environment**.
+2. Enter a name, select one or more repositories, and enter a **Docker image reference**. Click **Suggest** to have Oz recommend an image based on your repos, or start from one of [Warp's prebuilt dev images](https://github.com/warpdotdev/oz-dev-environments).
+3. Optionally, add setup commands, configure cloud provider access (AWS or GCP), or add a description.
+4. Click **Create environment**.
 
-Use [`/create-environment`](warp://action/create_environment) when you want Warp to inspect your repos and recommend an environment configuration automatically. This is the fastest way to get started: Warp detects your languages, frameworks, and tools, then suggests appropriate images and setup commands.
+:::tip
+The **Easy Setup in Warp** button at the bottom of the form opens the guided setup in the Warp desktop app, which inspects your repos and suggests configuration automatically.
+:::
+
+### Create an environment with guided setup in Warp
+
+Use [`/create-environment`](warp://action/create_environment) when you want Warp to inspect your repos and recommend an environment configuration automatically. Warp detects your languages, frameworks, and tools, then suggests appropriate images and setup commands.
 
 You can run the command inside a Git repo directory with no argument, or with one or more repo paths or URLs.
 
