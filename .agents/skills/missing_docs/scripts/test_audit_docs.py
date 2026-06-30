@@ -148,6 +148,22 @@ class TestAuditBehavior(unittest.TestCase):
             self.assertEqual(rc2, 0)
             self.assertEqual(report2["summary"]["by_category"].get("surface_changes", 0), 0)
 
+    def test_research_preview_surfaces_are_deferred(self):
+        # Public vs. private boundary: Agent Memory is research preview (not public),
+        # so its CLI (`oz memory*`) and REST API (`/memory_stores/*`) must never be
+        # flagged for documentation. Guards the surface-map deferrals from regressing.
+        rc, report, _ = _run_audit([])
+        self.assertEqual(rc, 0)
+        flagged = []
+        for cat in ("undocumented_cli_commands", "undocumented_api_endpoints"):
+            for item in report.get(cat, []):
+                name = item.get("command") or item.get("endpoint") or ""
+                if "memory" in name.lower():
+                    flagged.append(name)
+        self.assertEqual(
+            flagged, [], f"research-preview Agent Memory surfaces must stay deferred, found: {flagged}"
+        )
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

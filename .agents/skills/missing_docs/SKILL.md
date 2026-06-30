@@ -346,7 +346,7 @@ python3 .agents/skills/missing_docs/scripts/test_audit_docs.py
 ```
 
 - `test_suggest_reviewers.py` unit-tests reviewer resolution (CODEOWNERS matching, last-match-wins, user/team split, dedup, unresolved paths).
-- `test_audit_docs.py` runs behavioral checks against the sibling code repos — clean exit, completeness accounting (`unaccounted` empty), category/severity scoping, fail-loud (exit 2) on a missing repo, and snapshot round-trip — and skips gracefully when those repos aren't checked out.
+- `test_audit_docs.py` runs behavioral checks against the sibling code repos — clean exit, completeness accounting (`unaccounted` empty), category/severity scoping, fail-loud (exit 2) on a missing repo, snapshot round-trip, and research-preview deferral (the public/private boundary) — and skips gracefully when those repos aren't checked out.
 
 ## References
 
