@@ -7,12 +7,6 @@ description: Run a narrow AEO cross-link audit for Warp docs using Peec, Google 
 
 Identify small, high-confidence internal cross-linking improvements for the Warp docs. This skill is designed for a recurring Oz scheduled agent that audits one narrow topic area, opens a small PR when there are safe changes, or writes a no-change report when there are not enough high-confidence opportunities.
 
-## Schedule
-
-Run this audit **biweekly** (every two weeks). The narrow pilot scope — agents, cloud agents, and orchestration, cross-links only — saturates quickly, so a biweekly cadence keeps net-new link opportunities meaningful and reduces automated-PR noise.
-
-Suggested cron: `0 15 1,15 * *` (UTC) — 15:00 UTC on the 1st and 15th of each month, matching the current Monday 15:00 UTC run time. Standard cron cannot express "every other Monday," so a fixed twice-monthly schedule is the simplest biweekly approximation. The live cadence is configured on the scheduled agent in the Oz web app (or via `oz schedule update`), not in this file; update it there to match.
-
 ## Scope
 
 Use this skill only for the pilot topic area:
