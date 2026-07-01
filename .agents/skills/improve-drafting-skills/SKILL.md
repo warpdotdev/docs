@@ -162,6 +162,16 @@ PR body must include:
 - **Patterns reviewed but not acted on** — any patterns that met the threshold but were already covered or had insufficient signal
 - **Open questions for human review** — any judgment calls about whether a proposed rule change is correct
 
+Write the body to a file and verify it before opening the PR — this catches repetition-loop corruption that has reached PR descriptions before (see the `create_pr` skill for details):
+```bash
+python3 .agents/skills/create_pr/check_pr_body.py /tmp/pr-body.md \
+  --require-heading "## Patterns addressed" \
+  --require-heading "## Improvement targets" \
+  --require-heading "## Patterns reviewed but not acted on" \
+  --require-heading "## Open questions for human review"
+```
+Run `gh pr create --draft --body-file /tmp/pr-body.md` only if the check passes. If you later edit this PR's body (for example, to record a human-review follow-up), fetch the current body first and apply a minimal, additive edit rather than regenerating it, then re-run the check — see the `create_pr` skill's "Update an existing PR" section.
+
 Post a Slack summary to `#growth-docs`:
 ```
 ✅ Drafting skills improvement · YYYY-MM-DD
