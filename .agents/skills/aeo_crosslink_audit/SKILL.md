@@ -7,6 +7,12 @@ description: Run a narrow AEO cross-link audit for Warp docs using Peec, Google 
 
 Identify small, high-confidence internal cross-linking improvements for the Warp docs. This skill is designed for a recurring Oz scheduled agent that audits one narrow topic area, opens a small PR when there are safe changes, or writes a no-change report when there are not enough high-confidence opportunities.
 
+## Schedule
+
+Run this audit **biweekly** (every two weeks). The narrow pilot scope — agents, cloud agents, and orchestration, cross-links only — saturates quickly, so a biweekly cadence keeps net-new link opportunities meaningful and reduces automated-PR noise.
+
+Suggested cron: `0 9 1,15 * *` (UTC) — 09:00 UTC on the 1st and 15th of each month, matching the historical ~09:00 UTC run time. The live cadence is configured on the scheduled agent in the Oz web app, not in this file; update it there to match.
+
 ## Scope
 
 Use this skill only for the pilot topic area:
@@ -45,6 +51,8 @@ Use the smallest reliable set of source data needed to justify link changes:
 
 If Google Search Console data is unavailable, say what could not be verified and proceed with Peec and docs-only analysis. If the Peec snapshot is stale or missing, exit via the staleness path above instead of proceeding. Do not invent source signals.
 
+**Low-signal runs.** If neither live signal is usable for a run — the Peec snapshot has no usable prompt or recommendation data for these topics *and* Google Search Console is unavailable (missing credentials or a 403) — prefer a no-change report over a docs-only PR. Only open a PR in this case when there are at least 3 link additions that are each strongly grounded in existing on-page content and a clear reader journey. This prevents shipping weak, docs-only PRs that reviewers close.
+
 ## Workflow
 
 1. **Check snapshot freshness, then gather source signals.** Read `generated_at` from `latest.json`. If the snapshot is missing or 14 days old or older, write the stale-snapshot report, write a run log entry (step 7), post the stale Slack alert (step 8), and exit — do not proceed further. If fresh, read both snapshot files and use Google Search Console data, when available, to identify relevant user language, prompts, recommendations, or pages.
@@ -56,15 +64,25 @@ If Google Search Console data is unavailable, say what could not be verified and
    - The edit can be made with a small, natural copy change.
 4. **Make only safe edits.** Add links with minimal surrounding copy changes. Preserve the existing page structure and voice. Follow the link quality rules below when choosing anchor text and surrounding context.
 5. **Run self-review.** Apply the quality gates in this skill before opening a PR or writing a no-change report.
-6. **Open a PR or report no changes.** Open a PR only when there are at least 2 high-confidence link additions. Otherwise, write a no-change report in the Oz run output.
+6. **Deduplicate, re-validate, then open a PR or report no changes.**
+   - **Deduplicate first.** Check for an existing open AEO cross-link PR before opening one: `gh pr list --repo warpdotdev/docs --search 'docs: add AEO cross-links in:title' --state open`. Never leave two open AEO cross-link PRs. If one already exists, either skip this run (note it in the run output) or, if the existing PR is stale or superseded, close it with an explanatory comment before opening the new one.
+   - **Re-validate against the latest `main`.** Fetch `origin/main` and confirm every edited file still exists at its path and every link target resolves to a current page (see "Self-review before opening a PR"). If a restructure moved your targets, rebase onto the latest `main` and fix paths before opening.
+   - **Open a PR** only when there are at least 2 high-confidence link additions (at least 3 for low-signal runs; see "Source data"). Otherwise, write a no-change report in the Oz run output.
 
-7. **Write run log entry.** After completing step 6, update `.agents/logs/aeo_crosslink_audit_runs.md` from a clean checkout or worktree based on the latest `main`, prepend the new entry using the format in the "Run log format" section below, stage only `.agents/logs/aeo_crosslink_audit_runs.md`, and commit it directly to `main` with this commit message:
+7. **Write run log entry (never commit to protected `main`).** `main` is a protected branch, so do not commit the log to it directly — this silently failed in early runs and left the log empty. Instead, record the entry through a single, long-lived log PR:
 
-   ```text
-   chore: log aeo crosslink audit run YYYY-MM-DD
-   ```
+   1. Fetch and check out the remote branch `chore/aeo-crosslink-audit-log`. If it does not exist, create it from the latest `origin/main`.
+   2. Prepend the new entry to `.agents/logs/aeo_crosslink_audit_runs.md` using the "Run log format" section below.
+   3. Stage only that file and commit with this message:
 
-   If the git push fails, write the log entry to the run output instead and continue to step 8.
+      ```text
+      chore: log aeo crosslink audit run YYYY-MM-DD
+      ```
+
+   4. Push the branch.
+   5. Ensure exactly one open PR exists from `chore/aeo-crosslink-audit-log` into `main`, titled `chore: aeo crosslink audit run log`. Create it if missing; otherwise the push updates the existing PR. Keep this log PR separate from any cross-link docs PR.
+
+   This produces one perpetual, low-noise PR that accumulates every run's entry regardless of outcome. Reviewers merge it periodically (at minimum before each monthly `improve-aeo-crosslink-skill` run) so the log reaches `main`. If any git step fails, write the log entry to the run output instead and continue to step 8.
 
 8. **Post Slack notification.** After writing the log entry, post the formatted message to `#growth-docs` using the Python snippet below. Python is preferred over curl because it reads `SLACK_BOT_TOKEN` from the environment (keeping the token out of process argv) and JSON-encodes the payload correctly regardless of newlines or special characters. If either secret is unavailable, write the notification body to the run output instead.
 
@@ -131,6 +149,8 @@ Before opening a PR, verify every proposed change:
 - **Existing target** - Every internal link points to an existing file under `src/content/docs/`.
 - **Anchor and route validation** - If a link includes a heading anchor or route path, verify that the route and anchor resolve. Do not rely only on the target file existing.
 - **Navigation awareness** - Check `src/sidebar.ts` when a linked page is expected to appear in navigation.
+- **Fresh-tree validation** - Immediately before opening the PR, fetch the latest `origin/main` and confirm every edited file and every link target still exists there. A docs restructure can move or rename target pages after the run starts.
+- **Redirect resolution** - Check `vercel.json`. If a link target path appears as a redirect `source`, link to its final `destination` instead of the redirecting path.
 - **Small scope** - The diff is limited to cross-linking and small copy changes needed to make links natural.
 - **No broad rewrites** - Remove any edit that becomes a rewrite, strategy recommendation, or new content proposal.
 - **No duplication** - Do not add links that create repetitive related-links lists or duplicate nearby links.
@@ -138,6 +158,7 @@ Before opening a PR, verify every proposed change:
 Run:
 
 ```bash
+git fetch origin main
 python3 .agents/skills/style_lint/style_lint.py --changed
 python3 .agents/skills/check_for_broken_links/check_links.py --internal-only
 git diff --check
