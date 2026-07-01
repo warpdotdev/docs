@@ -10,19 +10,21 @@ tags:
   - "agents"
 
 ---
-Every task your agents run consumes tokens, the units of text a model processes to read your request, your context, and its own output. The more tokens a task uses, the more it costs and the slower it can get, so trimming token usage keeps your agent workflows lean.
+Every agent task consumes tokens. Tokens are the unit of text a model reads and generates. The more tokens a task uses, the more it costs and the longer it takes, so trimming token usage keeps your agent workflows lean and fast.
 
-This guide covers practical ways to lower token usage in Warp: choosing the right model, routing tasks to cost-appropriate models, keeping context tight, managing conversations, and configuring your agents to work efficiently.
+This guide covers practical ways to lower token usage in Warp. You'll learn how to choose the right model, route tasks to cost-appropriate models, keep context tight, manage conversations, and configure your agents to work efficiently.
 
-Token usage is non-deterministic, so treat these as habits that bring your usage down over time rather than exact, guaranteed savings. For a full breakdown of what drives usage, see [what affects usage](/support-and-community/plans-and-billing/credits/).
+Token usage is non-deterministic, so treat these as habits that bring your usage down over time rather than precise savings. For a full breakdown of what drives usage, see [what affects usage](/support-and-community/plans-and-billing/credits/).
 
 ## Track your usage first
 
-You can't reduce what you can't see. Before optimizing, build an intuition for which prompts, models, and workflows use the most tokens.
+You can't reduce what you can't see. Before optimizing, get a sense of which prompts, models, and workflows use the most tokens.
 
-* **Per-turn breakdown** - Hover over the usage chip at the bottom of any agent response to see the tokens, tool calls, context window, and diffs that turn used.
+* **Per-turn breakdown** - Expand the usage chip at the bottom of any agent response to open its **Usage Summary**, which shows the model, tool calls, context window used, and diffs applied for that turn.
 * **In-conversation details** - Run `/cost` to toggle usage details directly in the conversation.
 * **Total usage and reset date** - In the Warp app, open **Settings** > **Billing and usage**, or run `/usage`, to track your overall consumption and when your usage resets.
+
+{/* TODO: Add a Usage Summary screenshot for the per-turn breakdown once the credits-to-tokens UI update ships. Today's UI is credit-labeled (candidate capture: usage-summary-panel.png), which conflicts with this guide's token framing. */}
 
 Once you know where your tokens go, the techniques below help you bring them down.
 
@@ -38,17 +40,17 @@ Change models with the model picker in the input, or run `/model`. See [Agent mo
 
 ## Automate model selection with custom routers
 
-Choosing a model by hand works, but a custom router does it for you: you define the routing logic once, and Warp resolves a concrete model for each prompt instead of defaulting every task to your most expensive model.
+Use a custom router to automatically choose a model. You define the routing logic once, and Warp resolves a concrete model for each prompt instead of defaulting every task to your most expensive model.
 
-* **Route by complexity** - Warp classifies each task as easy, medium, or hard and routes to the model you mapped to that level. Simple work runs on a lightweight model and only difficult tasks reach a high-reasoning one.
+* **Route by complexity** - Warp classifies each task as easy, medium, or hard and routes to the model you mapped to that level. Simple tasks run on a lightweight model; only difficult tasks reach a high-reasoning model.
 * **Route by rules** - Write natural-language rules that pair a description (such as "debugging or fixing failing tests") with a model. Warp matches rules top to bottom and uses the first one that fits.
-* **Set a cost-efficient default** - Every router falls back to a default model for anything your tiers or rules don't cover, so choose a lighter model there.
+* **Set a cost-efficient default** - Every router falls back to a default model for anything your tiers or rules don't cover, so choose a lighter model for the default.
 
 A router appears in the model picker like any other model and resolves per conversation, so token usage matches whichever model it picks. Create one in the Warp app under **Settings** > **Agents** > **Warp Agent** in the **Custom Routers** section. See [Custom routers](/agent-platform/inference/custom-routers/) for setup steps and YAML examples.
 
 ## Keep each conversation focused
 
-Every turn re-sends the conversation so far, so long, unfocused threads pay for the same context again and again. Tight, well-scoped conversations keep token usage low.
+Because every turn re-sends the current conversation to the model, long or unfocused threads keep paying for the same context. Tight, well-scoped conversations keep token usage low.
 
 * **Scope tasks and work incrementally** - Break large changes into smaller, contained steps instead of one sprawling request. Well-scoped tasks need less back-and-forth and fewer correction cycles.
 * **Start a new conversation for a new task** - Run `/new` when you switch topics so unrelated history doesn't ride along in every turn.
@@ -85,13 +87,15 @@ For examples, see [Set coding best practices with Rules](/guides/configuration/h
 
 For big or ambiguous tasks, jumping straight to implementation often leads to wrong turns and expensive rework. A short planning pass keeps execution on track.
 
-* **Create a plan before executing** - Run `/plan` to have the agent research and outline the work in phases before it changes code. A clear plan reduces wasted exploratory work and redo cycles on large tasks.
+* **Create a plan before executing** - Run `/plan` to have the agent research and outline the work in phases before it changes code. A clear plan reduces wasted exploratory work and backtracking on large tasks.
 
 See [Planning](/agent-platform/capabilities/planning/) for details.
 
 ## Next steps
 
 Together, these habits lower your token usage over time: match the model to the task, keep conversations and context tight, and configure Rules and Codebase Context. Pair them with the right Agent Profile, and keep an eye on your usage as you go.
+
+Explore these related guides and references:
 
 * [Use Agent Profiles efficiently](/guides/configuration/how-to-use-agent-profiles-efficiently/)
 * [Agent model choice](/agent-platform/inference/model-choice/)
