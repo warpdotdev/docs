@@ -1,0 +1,59 @@
+---
+title: Jira integration
+sidebar:
+  label: "Jira"
+description: >-
+  Trigger Oz agents directly from Jira issues using the oz-agent label.
+---
+
+The Jira integration lets your team kick off Oz agent runs directly from Jira Cloud issues. When you add the `oz-agent` label to an issue, an agent starts in the cloud and gets to work — then posts status updates and a summary back as Jira comments when it's done.
+
+:::caution[Early access]
+The Jira integration is in active development. Functionality may change, and some features are still being built out. We welcome feedback and suggestions.
+:::
+
+---
+
+### How to start a run
+
+Add the label **`oz-agent`** to any Jira issue. Oz will pick it up, post a comment to let you know it's started, and begin working through the task using the issue title, description, and recent comments as context.
+
+When the run finishes, Oz posts a summary comment to the issue with links to any pull requests or branches it created, along with a link to the full conversation in Warp.
+
+---
+
+### Setup
+
+#### 1. Install the Warp app in Jira
+
+Install the Warp Forge app into your Jira Cloud site using the link provided by your Warp team admin. Only Jira site admins can install apps.
+
+#### 2. Connect your Jira workspace to Warp
+
+After installing the app, open the app's **Configure** screen inside Jira. This takes you to a Warp page where you select which Warp workspace to connect. If you're on a single workspace, the connection happens automatically.
+
+Once connected, the integration is active for all members of your Warp team.
+
+#### 3. (Optional) Configure the default environment, model, and harness
+
+In Warp's agent settings, you can configure the default environment, model, and harness that Oz will use for runs triggered from Jira. If none is set, Oz uses your team's default configuration.
+
+---
+
+### Requirements
+
+- **Jira Cloud** — Jira Server and Data Center are not supported.
+- **Warp Build plan or above** — The integration requires a plan that includes cloud agents.
+- **Jira site admin** — Installing the Warp app in Jira requires site admin permissions.
+
+---
+
+### Troubleshooting
+
+If Oz doesn't respond after adding the label, check that:
+
+- The Warp app is installed and the workspace is connected (see the app's Configure screen in Jira).
+- Your team's `JiraEnabled` flag is on — contact your Warp team admin if you're not sure.
+- The issue is in Jira Cloud (not Server or Data Center).
+
+For other issues, reach out to your Warp contact or post in our community.
