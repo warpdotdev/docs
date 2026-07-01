@@ -11,7 +11,7 @@ Identify small, high-confidence internal cross-linking improvements for the Warp
 
 Run this audit **biweekly** (every two weeks). The narrow pilot scope — agents, cloud agents, and orchestration, cross-links only — saturates quickly, so a biweekly cadence keeps net-new link opportunities meaningful and reduces automated-PR noise.
 
-Suggested cron: `0 9 1,15 * *` (UTC) — 09:00 UTC on the 1st and 15th of each month, matching the historical ~09:00 UTC run time. The live cadence is configured on the scheduled agent in the Oz web app, not in this file; update it there to match.
+Suggested cron: `0 15 1,15 * *` (UTC) — 15:00 UTC on the 1st and 15th of each month, matching the current Monday 15:00 UTC run time. Standard cron cannot express "every other Monday," so a fixed twice-monthly schedule is the simplest biweekly approximation. The live cadence is configured on the scheduled agent in the Oz web app (or via `oz schedule update`), not in this file; update it there to match.
 
 ## Scope
 
