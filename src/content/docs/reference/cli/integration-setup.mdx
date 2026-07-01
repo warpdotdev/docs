@@ -20,7 +20,7 @@ Note: While cloud agents can be run individually via CLI without a team, integra
 :::
 
 :::note
-For a quickstart guide to Warp integrations, see the [Integrations overview](/agent-platform/cloud-agents/integrations/).
+For a quickstart guide to Warp integrations, see the [Integrations overview](/platform/integrations/).
 :::
 
 ## How integrations and environments work
@@ -30,7 +30,7 @@ Warp integrations connect external tools, like Slack or Linear, to agents that r
 There are three main components to know:
 
 * **Triggers** provide the context that tells Warp _what_ to run. A trigger could be a Slack message where you tag @Oz, or a Linear issue or comment.
-* [**Integrations**](/agent-platform/cloud-agents/integrations/) are what connect the trigger surface (Slack, Linear) to Warp. An integration links the trigger to your [Warp team](/knowledge-and-collaboration/teams/) and handles posting results to the original tool, for example, replying in Slack.
+* [**Integrations**](/platform/integrations/) are what connect the trigger surface (Slack, Linear) to Warp. An integration links the trigger to your [Warp team](/knowledge-and-collaboration/teams/) and handles posting results to the original tool, for example, replying in Slack.
 * **Environments** define how and where agents run your code. When an agent is triggered, Warp uses the environment to spin up a container, clone repositories, and execute the agent's workflow.
 
 ```
@@ -112,7 +112,7 @@ The guided flow will:
 3. Suggest setup commands based on your scripts and package managers
 4. Create the environment through the CLI and return an environment ID
 
-This produces a ready-to-use environment that can immediately be connected to [Slack](/agent-platform/cloud-agents/integrations/slack/) or [Linear](/agent-platform/cloud-agents/integrations/linear/).
+This produces a ready-to-use environment that can immediately be connected to [Slack](/platform/integrations/slack/) or [Linear](/platform/integrations/linear/).
 
 ### Option 2: Create an environment with the CLI
 
@@ -149,7 +149,7 @@ You can inspect existing environments with `oz environment list`.
 
 To delete an environment, use `oz environment delete <ID>`. Add `--force` to skip confirmation checks for environments used by integrations.
 
-For more details about environment configuration, see the [Slack](/agent-platform/cloud-agents/integrations/slack/) and [Linear](/agent-platform/cloud-agents/integrations/linear/) articles.
+For more details about environment configuration, see the [Slack](/platform/integrations/slack/) and [Linear](/platform/integrations/linear/) articles.
 
 #### Example environments
 
@@ -190,10 +190,10 @@ For automated workflows that use an [agent API key](/reference/cli/api-keys/) (C
 
 This requires a Warp team admin to enable the GitHub organization in the Admin Panel (**Settings** > **Admin Panel** > **Platform**). Once configured, tasks initiated with an agent API key can clone repos and open pull requests using the GitHub App installation token.
 
-For full setup instructions, see [Team GitHub authorization](/agent-platform/cloud-agents/team-access-billing-and-identity/#team-github-authorization).
+For full setup instructions, see [Team GitHub authorization](/platform/team-access-billing-and-identity/#team-github-authorization).
 
 :::note
-**Using API keys:** Personal API keys authenticate as you, so the agent runs with your GitHub permissions and code changes are attributed to your account. Agent API keys with [team GitHub authorization](/agent-platform/cloud-agents/team-access-billing-and-identity/#team-github-authorization) configured use the GitHub App token instead.
+**Using API keys:** Personal API keys authenticate as you, so the agent runs with your GitHub permissions and code changes are attributed to your account. Agent API keys with [team GitHub authorization](/platform/team-access-billing-and-identity/#team-github-authorization) configured use the GitHub App token instead.
 :::
 
 ---
@@ -261,7 +261,7 @@ oz integration update slack \
 * `--host <WORKER_ID>` — update the execution host.
 
 :::note
-For more details, see the dedicated pages for [Slack](/agent-platform/cloud-agents/integrations/slack/) and [Linear](/agent-platform/cloud-agents/integrations/linear/) integrations.
+For more details, see the dedicated pages for [Slack](/platform/integrations/slack/) and [Linear](/platform/integrations/linear/) integrations.
 :::
 
 ## How are environments used at runtime?
@@ -297,7 +297,7 @@ You now have everything needed to trigger agents from your team's tools. From he
 
 **Additional reading**
 
-* [Cloud Agents Overview](/agent-platform/cloud-agents/overview/)
-* [Oz Platform](/agent-platform/cloud-agents/platform/)
-* [Slack](/agent-platform/cloud-agents/integrations/slack/), [Linear](/agent-platform/cloud-agents/integrations/linear/), and [GitHub Actions](/agent-platform/cloud-agents/integrations/github-actions/) integrations
+* [Cloud Agents Overview](/platform/)
+* [Oz Platform](/platform/overview/)
+* [Slack](/platform/integrations/slack/), [Linear](/platform/integrations/linear/), and [GitHub Actions](/platform/integrations/github-actions/) integrations
 * [Troubleshooting](/reference/cli/troubleshooting/)
