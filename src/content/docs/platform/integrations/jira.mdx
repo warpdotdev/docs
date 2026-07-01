@@ -30,7 +30,7 @@ The Oz app is not yet published to the Atlassian marketplace. Install the Oz app
 
 #### 2. Connect your Jira workspace to Warp
 
-After installing the app, open the app's **Configure** screen inside Jira. This takes you to a Warp page where you select which Warp workspace to connect. If you're on a single workspace, the connection happens automatically.
+After installing the app, open the app's **Configure** screen inside Jira. This takes you to a Warp page to connect your app installation to your Warp workspace.
 
 Once connected, the integration is active for all members of your Warp team.
 
@@ -42,9 +42,11 @@ In your integration settings, you can configure the default environment, model, 
 
 ### Requirements
 
-- **Jira Cloud** — Jira Server and Data Center are not supported.
-- **Plan and credits** - Your team must be on a **Build, Max, or Business** plan with at least **20 credits** available, or on an **Enterprise** plan with a team credit pool. See [Access, Billing, and Identity](/platform/team-access-billing-and-identity/) for details.
-- **Jira site admin** — Installing the Oz app in Jira requires site admin permissions.
+- **Jira Cloud** - Jira Server and Data Center are not supported.
+- **Warp team and eligible plan** - Your team must be on a **Build, Max, or Business** plan with at least **20 credits** available, or on an **Enterprise** plan with a team credit pool. See [Access, Billing, and Identity](/platform/team-access-billing-and-identity/) for details.
+- **A configured cloud environment** - Agents run inside an [environment](/platform/environments/) that includes the repositories and dependencies they need. Configure a Jira-specific default environment or confirm your team's default configuration includes one.
+- **GitHub authorization** - Warp needs access to your repositories to clone code and open pull requests. Authorize the Warp GitHub app before using the integration for code tasks.
+- **Jira site admin** - Installing the Oz app in Jira requires site admin permissions.
 
 ---
 
