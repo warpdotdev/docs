@@ -1,28 +1,28 @@
 ---
 title: "Reduce token usage with AI coding agents"
 description: >-
-  Reduce the tokens and credits your coding agents consume in Warp using model
-  choice and routing, focused context, conversation management, and Rules.
+  Reduce the tokens your coding agents consume in Warp using model choice and
+  routing, focused context, conversation management, and Rules.
 sidebar:
   label: "Reduce token usage"
 tags:
-  - "credits"
+  - "tokens"
   - "agents"
 
 ---
-Warp measures agent usage in credits, and credits scale directly with the number of tokens each task processes. The fewer tokens your agents use, the fewer credits you spend.
+Every task your agents run consumes tokens, the units of text a model processes to read your request, your context, and its own output. The more tokens a task uses, the more it costs and the slower it can get, so trimming token usage keeps your agent workflows lean.
 
 This guide covers practical ways to lower token usage in Warp: choosing the right model, routing tasks to cost-appropriate models, keeping context tight, managing conversations, and configuring your agents to work efficiently.
 
-Credit usage is non-deterministic, so treat these as habits that bring your usage down over time rather than exact, guaranteed savings. For a full breakdown of what drives usage, see [Warp credits and billing](/support-and-community/plans-and-billing/credits/).
+Token usage is non-deterministic, so treat these as habits that bring your usage down over time rather than exact, guaranteed savings. For a full breakdown of what drives usage, see [what affects usage](/support-and-community/plans-and-billing/credits/).
 
 ## Track your usage first
 
-You can't reduce what you can't see. Before optimizing, build an intuition for which prompts, models, and workflows cost the most.
+You can't reduce what you can't see. Before optimizing, build an intuition for which prompts, models, and workflows use the most tokens.
 
-* **Per-turn breakdown** - Hover over the credit count chip at the bottom of any agent response to see the credits, tool calls, context window, and diffs that turn used.
-* **In-conversation details** - Run `/cost` to toggle credit usage details directly in the conversation.
-* **Total usage and reset date** - In the Warp app, open **Settings** > **Billing and usage**, or run `/usage`, to track your overall consumption and when your credits reset.
+* **Per-turn breakdown** - Hover over the usage chip at the bottom of any agent response to see the tokens, tool calls, context window, and diffs that turn used.
+* **In-conversation details** - Run `/cost` to toggle usage details directly in the conversation.
+* **Total usage and reset date** - In the Warp app, open **Settings** > **Billing and usage**, or run `/usage`, to track your overall consumption and when your usage resets.
 
 Once you know where your tokens go, the techniques below help you bring them down.
 
@@ -30,7 +30,7 @@ Once you know where your tokens go, the techniques below help you bring them dow
 
 Larger reasoning models process more tokens per turn than lighter ones, so the model you choose has one of the biggest effects on usage.
 
-* **Use a cost-efficient model for routine work** - Switch to **Auto (Cost-efficient)** (`auto-efficient`), which optimizes for lower credit consumption while keeping output quality high. Lightweight models like Claude Haiku also use fewer credits for simple edits, lookups, and quick questions.
+* **Use a cost-efficient model for routine work** - Switch to **Auto (Cost-efficient)** (`auto-efficient`), which optimizes for lower token consumption while keeping output quality high. Lightweight models like Claude Haiku also use fewer tokens for simple edits, lookups, and quick questions.
 * **Reserve high-reasoning models for hard problems** - Save heavier models like Claude Opus for deep debugging, architecture decisions, and planning, where the extra reasoning is worth the cost.
 * **Pick a model and stay with it** - Switching models mid-conversation can reset prompt caching and reprocess your context. Choose a model at the start of a task and keep it for the duration when you can.
 
@@ -44,7 +44,7 @@ Choosing a model by hand works, but a custom router does it for you: you define 
 * **Route by rules** - Write natural-language rules that pair a description (such as "debugging or fixing failing tests") with a model. Warp matches rules top to bottom and uses the first one that fits.
 * **Set a cost-efficient default** - Every router falls back to a default model for anything your tiers or rules don't cover, so choose a lighter model there.
 
-A router appears in the model picker like any other model and resolves per conversation, so credit usage matches whichever model it picks. Create one in the Warp app under **Settings** > **Agents** > **Warp Agent** in the **Custom Routers** section. See [Custom routers](/agent-platform/inference/custom-routers/) for setup steps and YAML examples.
+A router appears in the model picker like any other model and resolves per conversation, so token usage matches whichever model it picks. Create one in the Warp app under **Settings** > **Agents** > **Warp Agent** in the **Custom Routers** section. See [Custom routers](/agent-platform/inference/custom-routers/) for setup steps and YAML examples.
 
 ## Keep each conversation focused
 
@@ -91,10 +91,9 @@ See [Planning](/agent-platform/capabilities/planning/) for details.
 
 ## Next steps
 
-Together, these habits lower your token and credit usage over time: match the model to the task, keep conversations and context tight, and configure Rules and Codebase Context. Pair them with the right Agent Profile, and keep an eye on your usage as you go.
+Together, these habits lower your token usage over time: match the model to the task, keep conversations and context tight, and configure Rules and Codebase Context. Pair them with the right Agent Profile, and keep an eye on your usage as you go.
 
 * [Use Agent Profiles efficiently](/guides/configuration/how-to-use-agent-profiles-efficiently/)
-* [Warp credits and billing](/support-and-community/plans-and-billing/credits/)
 * [Agent model choice](/agent-platform/inference/model-choice/)
 * [Custom routers](/agent-platform/inference/custom-routers/)
 * [Slash Commands](/agent-platform/capabilities/slash-commands/)
