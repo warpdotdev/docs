@@ -25,8 +25,8 @@ This file lists checks from the afdocs-audit skill that may flag as warnings or 
 **Expected status**: warn (several pages, ~2% average difference)
 **Reason**: False positive. The "missing" segments are numbered heading text like "2. Tabbed File Viewer" where Turndown correctly escapes the period (`### 2\. Tabbed File Viewer`) to prevent markdown parsers from interpreting it as a list item. The content IS present in the markdown — the AFDocs checker's text comparison doesn't account for markdown escaping.
 **Affected pages** (as of 2026-05-05):
-- `/agent-platform/cloud-agents/triggers/scheduled-agents-quickstart/` — step headings
-- `/agent-platform/cloud-agents/integrations/github-actions/` — numbered use case headings
+- `/platform/triggers/scheduled-agents-quickstart/` — step headings
+- `/platform/integrations/github-actions/` — numbered use case headings
 - `/support-and-community/troubleshooting-and-support/troubleshooting-login-issues/` — URLs with special chars
 - `/reference/cli/quickstart/` — optional step headings
 - `/guides/getting-started/welcome-to-warp/` — numbered section headings
