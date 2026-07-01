@@ -7,7 +7,7 @@ description: >-
   auto-select the best model).
 ---
 
-Warp lets you choose from a curated set of large language models to power your agents, or let Warp auto-select the best model for each task. Models from OpenAI, Anthropic, Google, and open source providers are available, with configurable reasoning levels and per-profile defaults.
+Warp lets you choose from a curated set of large language models to power your agents, or let Warp auto-select the best model for each task. Models from OpenAI, Anthropic, Google, and open source providers are available, with configurable reasoning levels and per-profile defaults. You can also define [custom routers](/agent-platform/inference/custom-routers/) that pick a model for each task using your own logic.
 
 ## Available models
 
@@ -15,7 +15,7 @@ Warp lets you choose from a curated set of large language models (LLMs) to power
 
 **Warp supports the following models.**
 
-The `model_id` values shown below can be used when configuring models via the [Oz Platform](/agent-platform/cloud-agents/platform/) or [CLI](/reference/cli/).
+The `model_id` values shown below can be used when configuring models via the [Oz Platform](/platform/overview/) or [CLI](/reference/cli/).
 
 ### Auto models
 
@@ -57,6 +57,12 @@ All Auto models perform well across all agent workflows and are ideal if you pre
 
 | Model | `model_id` | Variant |
 | --- | --- | --- |
+| Claude Sonnet 5 | `claude-5-sonnet-xhigh` | Default effort |
+| Claude Sonnet 5 | `claude-5-sonnet-high` | High effort |
+| Claude Sonnet 5 | `claude-5-sonnet-max` | Max effort |
+| Claude Opus 4.8 | `claude-4-8-opus-xhigh` | Default effort |
+| Claude Opus 4.8 | `claude-4-8-opus-high` | High effort |
+| Claude Opus 4.8 | `claude-4-8-opus-max` | Max effort |
 | Claude Opus 4.7 | `claude-4-7-opus-xhigh` | Default effort |
 | Claude Opus 4.7 | `claude-4-7-opus-high` | High effort |
 | Claude Opus 4.7 | `claude-4-7-opus-max` | Max effort |
@@ -126,7 +132,13 @@ You can use the model picker in your prompt input to quickly switch between mode
 <figcaption>Model selector in Warp's input.</figcaption>
 </figure>
 
-To change models, click the displayed model name (for example, _Claude Sonnet 4.5_) to open a dropdown with all supported options. Your selection will automatically persist for future prompts.
+To change models, click the displayed model name (for example, _Claude Sonnet 5_) to open a dropdown with all supported options. Your selection will automatically persist for future prompts.
+
+### Custom routers
+
+Beyond the built-in Auto models, you can define your own custom routers that automatically pick a concrete model for each task, based on task complexity or rules you write. Custom routers appear in the model picker alongside Auto and individual models.
+
+See [Custom routers](/agent-platform/inference/custom-routers/) to create one.
 
 ### Model fallback
 

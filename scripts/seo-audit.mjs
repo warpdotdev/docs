@@ -11,13 +11,13 @@
  *   node scripts/seo-audit.mjs --dist ./dist
  *
  *   # Audit live URLs (handy for spot-checking the legacy GitBook output)
- *   node scripts/seo-audit.mjs --base https://docs.warp.dev /agent-platform/cloud-agents/oz-web-app /changelog
+ *   node scripts/seo-audit.mjs --base https://docs.warp.dev /platform/oz-web-app /changelog
  *
  *   # Diff between two sources, e.g. legacy vs. our preview deploy
  *   node scripts/seo-audit.mjs \\
  *     --base https://docs.warp.dev \\
  *     --compare https://docs-preview.warp.dev \\
- *     /agent-platform/cloud-agents/oz-web-app
+ *     /platform/oz-web-app
  *
  * The script is intentionally dependency-free (uses regex over the raw HTML
  * head) so it runs in CI without installing extra packages.
@@ -29,7 +29,7 @@ const DEFAULT_PATHS = [
 	'/',
 	'/quickstart/',
 	'/agent-platform/',
-	'/agent-platform/cloud-agents/oz-web-app/',
+	'/platform/oz-web-app/',
 	'/agent-platform/capabilities/skills/',
 	'/reference/cli/',
 	'/reference/api-and-sdk/',

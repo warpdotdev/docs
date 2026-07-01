@@ -13,8 +13,8 @@ Lines starting with `#` are comments. Blank lines are ignored.
 ## Feature flags -> doc pages
 
 AgentMode -> src/content/docs/agent-platform/local-agents/overview.mdx
-AgentManagementView -> src/content/docs/agent-platform/cloud-agents/managing-cloud-agents.md
-AgentManagementDetailsView -> src/content/docs/agent-platform/cloud-agents/managing-cloud-agents.md
+AgentManagementView -> src/content/docs/platform/managing-cloud-agents.md
+AgentManagementDetailsView -> src/content/docs/platform/managing-cloud-agents.md
 AgentModeComputerUse -> src/content/docs/agent-platform/capabilities/computer-use.mdx
 AgentModeWorkflows -> src/content/docs/knowledge-and-collaboration/warp-drive/workflows.md
 AgentOnboarding -> src/content/docs/agent-platform/getting-started/agents-in-warp.md
@@ -36,11 +36,11 @@ CodebaseContext -> src/content/docs/agent-platform/capabilities/codebase-context
 CrossRepoContext -> src/content/docs/agent-platform/capabilities/codebase-context.mdx
 FullSourceCodeEmbedding -> src/content/docs/agent-platform/capabilities/codebase-context.mdx
 SearchCodebaseUI -> src/content/docs/agent-platform/capabilities/codebase-context.mdx
-CloudEnvironments -> src/content/docs/agent-platform/cloud-agents/environments.md
-CloudMode -> src/content/docs/agent-platform/cloud-agents/overview.md
-AmbientAgentsCommandLine -> src/content/docs/agent-platform/cloud-agents/overview.md
-ScheduledAmbientAgents -> src/content/docs/agent-platform/cloud-agents/triggers/scheduled-agents.md
-WarpManagedSecrets -> src/content/docs/agent-platform/cloud-agents/secrets.md
+CloudEnvironments -> src/content/docs/platform/environments.md
+CloudMode -> src/content/docs/platform/index.mdx
+AmbientAgentsCommandLine -> src/content/docs/platform/index.mdx
+ScheduledAmbientAgents -> src/content/docs/platform/triggers/scheduled-agents.md
+WarpManagedSecrets -> src/content/docs/platform/secrets.md
 IntegrationCommand -> src/content/docs/reference/cli/integration-setup.md
 ConversationManagement -> src/content/docs/agent-platform/local-agents/cloud-conversations.mdx
 ForkConversationFromBlock -> src/content/docs/agent-platform/local-agents/interacting-with-agents/conversation-forking.mdx
@@ -112,7 +112,7 @@ GitOperationsInCodeReview -> src/content/docs/code/code-review.md
 AgentView -> src/content/docs/agent-platform/local-agents/interacting-with-agents/terminal-and-agent-modes.mdx
 AgentViewBlockContext -> src/content/docs/agent-platform/local-agents/agent-context/blocks-as-context.mdx
 CloudConversations -> src/content/docs/agent-platform/local-agents/cloud-conversations.mdx
-CloudModeFromLocalSession -> src/content/docs/agent-platform/cloud-agents/overview.md
+CloudModeFromLocalSession -> src/content/docs/platform/index.mdx
 TeamApiKeys -> src/content/docs/reference/cli/api-keys.md
 PRCommentsSlashCommand -> src/content/docs/agent-platform/capabilities/slash-commands.mdx
 PRCommentsV2 -> src/content/docs/agent-platform/local-agents/interacting-with-agents/index.mdx
