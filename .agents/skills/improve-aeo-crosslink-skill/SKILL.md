@@ -18,6 +18,7 @@ Suggested cron: `0 17 1-7 * 1` (UTC) = first Monday of each month at 9am PT.
 ## Prerequisites
 
 - Docs repo checked out at `main`, with at least 8 entries in `.agents/logs/aeo_crosslink_audit_runs.md`
+- The standing log PR (`chore: aeo crosslink audit run log`) merged into `main` so the entries are present there. If it is unmerged, merge it first (or read the log from the `chore/aeo-crosslink-audit-log` branch) before analyzing.
 - `gh` CLI authenticated with write access to `warpdotdev/docs`
 - `SLACK_BOT_TOKEN` — for posting summary to `#growth-docs`
 - `SLACK_CHANNEL_ID` — channel ID for `#growth-docs`
