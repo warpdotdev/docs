@@ -206,7 +206,7 @@ const specBaseUrl = (specObject.servers as Array<{ url?: string }> | undefined)?
       any HTTP client that reads HTML — including AI crawlers, scanners and agents.
     -->
     <section aria-label="Oz Agent API endpoint index" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;">
-      <h1>{specInfo?.title}</h1>
+      <h2>{specInfo?.title}</h2>
       <p>{specInfo?.description}</p>
       <p>Base URL: {specBaseUrl}</p>
       <p>Authentication: Bearer token (Warp API key). Obtain from account settings. Pass as Authorization: Bearer YOUR_API_KEY.</p>
@@ -215,7 +215,7 @@ const specBaseUrl = (specObject.servers as Array<{ url?: string }> | undefined)?
         <article>
           {Object.entries(methods).filter(([method]) => HTTP_METHODS.has(method)).map(([method, op]) => (
             <section>
-              <h2>{method.toUpperCase()} {endpointPath}</h2>
+              <h3>{method.toUpperCase()} {endpointPath}</h3>
               {op.summary && <p>{op.summary}</p>}
               {op.description && <p>{op.description}</p>}
               {op.parameters && op.parameters.length > 0 && (

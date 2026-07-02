@@ -10,13 +10,13 @@ tags:
   - "software-factory"
 ---
 
-Learn how to use Oz to build a triage agent that reviews each new GitHub issue for clarity, applies labels, and flags open questions before implementation begins. After completing the steps in this guide, you will have a working triage skill deployed as a GitHub Action. This is the first agent in your [software factory](/agent-platform/cloud-agents/software-factory).
+Learn how to use Oz to build a triage agent that reviews each new GitHub issue for clarity, applies labels, and flags open questions before implementation begins. After completing the steps in this guide, you will have a working triage skill deployed as a GitHub Action. This is the first agent in your [software factory](/platform/software-factory).
 
 ## Prerequisites
 
 * A Warp account ([sign up at warp.dev](https://www.warp.dev))
 * A GitHub repository with Issues enabled
-* An Oz cloud environment with access to your repository ([create one](/agent-platform/cloud-agents/environments#create-an-environment-with-guided-setup-recommended))
+* An Oz cloud environment with access to your repository ([create one](/platform/environments#create-an-environment-with-guided-setup-recommended))
 * A Warp API key added to your CI secrets as `WARP_API_KEY` ([create one](/reference/cli/api-keys#from-the-oz-web-app-recommended))
 
 ## 1. Define your triage criteria
@@ -110,7 +110,7 @@ jobs:
 
 3. Add `WARP_API_KEY` to your repository's GitHub Actions secrets under **Settings** > **Secrets and variables** > **Actions**.
 
-See [GitHub Actions integration](/agent-platform/cloud-agents/integrations/github-actions) for the full setup guide for `warpdotdev/oz-agent-action`.
+See [GitHub Actions integration](/platform/integrations/github-actions) for the full setup guide for `warpdotdev/oz-agent-action`.
 
 ## 5. Review and improve
 
@@ -120,8 +120,8 @@ Add repo-specific context without forking the core skill by creating a `triage-i
 
 ## Next steps
 
-* [What is a software factory?](/agent-platform/cloud-agents/software-factory) — How the triage agent fits into the full development loop.
+* [What is a software factory?](/platform/software-factory) — How the triage agent fits into the full development loop.
 * [Write product and tech specs with agents](/guides/agent-workflows/write-product-and-tech-specs-with-agents) — Add the spec role once your backlog is well-triaged.
 * [Build a self-improving agent](/guides/agent-workflows/build-a-self-improving-agent) — Automate skill improvement based on your corrections.
-* [GitHub Actions integration](/agent-platform/cloud-agents/integrations/github-actions) — Full documentation for `warpdotdev/oz-agent-action`.
+* [GitHub Actions integration](/platform/integrations/github-actions) — Full documentation for `warpdotdev/oz-agent-action`.
 * [Run agents unattended](/guides/agent-workflows/how-to-run-unattended-agents) — Broader patterns for cloud agents triggered by external events.
