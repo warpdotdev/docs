@@ -1,0 +1,78 @@
+---
+title: Write product and tech specs with agents
+description: >-
+  Use agents to turn a ready-to-implement issue into a product spec and a tech spec — the blueprints that guide implementation and anchor code review.
+sidebar:
+  label: "Write specs with agents"
+tags:
+  - "agents"
+  - "software-factory"
+---
+
+Once your [triage agent](/guides/agent-workflows/build-a-triage-agent) is labeling issues as `ready-to-spec`, use agents to turn those issues into two spec files: a product spec that describes what the feature should do from the user's perspective, and a tech spec that describes how to implement it.
+
+Implementation agents use these specs as blueprints; reviewers use them as acceptance criteria. The agent does the drafting while you do the reviewing.
+
+Specs give implementation agents the context they need to make good decisions, and they also give human reviewers a benchmark to judge the result against. With a spec, the agent implements against an explicit contract you've approved, instead of what it inferred from the issue.
+
+## Prerequisites
+
+* A Warp account ([sign up at warp.dev](https://www.warp.dev))
+* A triaged issue labeled `ready-to-spec` or equivalent ([set up triaging](/guides/agent-workflows/build-a-triage-agent))
+* `common-skills` installed globally from [`warpdotdev/common-skills`](https://github.com/warpdotdev/common-skills):
+
+  ```bash
+  npx skills@latest add warpdotdev/common-skills --skill write-product-spec --agent warp --global
+  npx skills@latest add warpdotdev/common-skills --skill write-tech-spec --agent warp --global
+  ```
+
+## 1. Write the product spec
+
+A product spec defines what the feature should do from the user's perspective, including user stories, acceptance criteria, and edge cases. It is the "what," not the "how."
+
+1. Open the issue you want to spec in Warp and run:
+
+   ```bash
+   /write-product-spec
+   ```
+
+2. Review the generated `PRODUCT.md` in `specs/[issue-number]/`. The file includes:
+   * A summary of the feature
+   * User stories in the format "As a [user], I want [behavior] so that [outcome]"
+   * Acceptance criteria the implementation agent and reviewers can verify
+   * Edge cases and constraints
+
+   Correct any misunderstandings before moving to the tech spec. A wrong product spec leads to a correct implementation of the wrong thing.
+
+## 2. Write the tech spec
+
+A tech spec defines how the feature will be implemented, including architecture decisions, relevant code locations, API shapes, and implementation notes. It is the "how."
+
+1. After reviewing the product spec, run:
+
+   ```bash
+   /write-tech-spec
+   ```
+
+2. Review the generated `TECH.md` in the same `specs/[issue-number]/` directory. The file includes:
+   * An overview of the implementation approach
+   * The specific files and functions that need to change
+   * Any new data structures, API endpoints, or interfaces
+   * Testing strategy
+   * Known risks or tradeoffs
+
+   An accurate `TECH.md` reduces the number of implementation iterations and gives reviewers context for why the code looks the way it does.
+
+## Productivity tips
+
+* **Spec before you code, not after** — The biggest value from specs is catching misaligned assumptions before any code is written. Running `/write-product-spec` first forces that alignment to happen early, when fixing it is cheap.
+* **Attach Figma mocks** — If your feature has a UI component, attach a Figma screenshot or mockup to your prompt when running `/write-product-spec`. The agent incorporates visual context into the acceptance criteria.
+* **Use `/plan` for smaller tasks** — For changes that don't warrant full specs, use Warp's built-in [planning feature](/agent-platform/capabilities/planning). Plans can be saved, versioned, and attached to PRs without a full spec workflow.
+
+## Next steps
+
+* [What is a software factory?](/platform/software-factory) — How specs fit into the full development loop.
+* [Set up your software factory](/guides/agent-workflows/set-up-a-software-factory) — Connect the spec role to implementation and review.
+* [`warpdotdev/common-skills`](https://github.com/warpdotdev/common-skills) — The full set of shared skills including `write-product-spec`, `write-tech-spec`, and `validate-changes-match-specs`.
+* [Planning](/agent-platform/capabilities/planning) — Warp's built-in planning feature for smaller tasks.
+* [Skills](/agent-platform/capabilities/skills) — How skill files work in Warp and Oz.
