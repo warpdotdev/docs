@@ -107,20 +107,14 @@ Follow the prompts to save your task definition. Once created, you can run it ag
 
 ## Next steps
 
-{/* TODO: When advanced guides exist, refactor this section to link to them instead of providing instructions here.
-     Goal: Create a chain of "next steps" throughout docs that users can "fall into" and keep learning.
-     Each next step should link to a dedicated guide where they can learn more, rather than explaining everything here.
-     Example structure:
-     - "Schedule agents for recurring tasks" -> link to scheduling guide
-     - "Connect integrations" -> link to integrations guide
-     - "Build with the API" -> link to API guide
-     This creates a learning path rather than a single long quickstart. */}
+Now that you've run your first cloud agent, try these next steps:
 
-Now that you've run your first cloud agent, here are some next steps:
+* [**Schedule recurring work**](/platform/triggers/scheduled-agents-quickstart/) - Create a scheduled agent for maintenance tasks like dependency checks, cleanup, or triage.
+* [**Trigger agents from Slack or Linear**](/platform/integrations/quickstart/) - Connect Oz to team tools so mentions and issue updates can launch cloud agent runs.
+* [**Turn successful prompts into reusable skills**](/platform/skills-as-agents/) - Save repeatable agent workflows and run them again from the CLI, web app, API, or a schedule.
+* [**Build programmatic automations**](/reference/api-and-sdk/quickstart/) - Start cloud agent runs from your own systems with the Oz API or SDKs.
 
-### Automate recurring tasks
-
-[Schedule agents](/platform/triggers/scheduled-agents/) to run on cron schedules for maintenance tasks like weekly dependency checks or daily dead code cleanup.
+For example, schedule a recurring agent from the CLI:
 
 ```bash
 oz schedule create \
@@ -130,21 +124,9 @@ oz schedule create \
   --prompt "check for dependency updates and open PR"
 ```
 
-### Trigger agents from integrations
-
-**Slack integration** - Tag @Oz in any Slack channel to get immediate help with code reviews, debugging, or incident response. Your team can discuss problems in Slack while Oz analyzes code, opens PRs, or investigates issues in the background. Results post directly back to the thread. See [Slack integration setup](/platform/integrations/slack/).
-
-**Linear integration** - Connect Oz to Linear to automate bug triage and fixes. Tag @Oz on an issue to reproduce the bug, identify root causes, and open a PR with a fix—closing the loop from bug report to resolution without leaving Linear. See [Linear integration setup](/platform/integrations/linear/).
-
-**GitHub Actions** - Run agents in CI/CD pipelines to automate tasks like generating release notes, running security audits, or validating migrations. Trigger agents on PRs, commits, or releases to keep workflows moving without manual intervention. See [GitHub Actions integration setup](/platform/integrations/github-actions/).
-
 :::note
 Integrations require a team on Build, Max, or Business plan.
 :::
-
-### Build automations and apps on top of agents
-
-Use the [Oz API & SDK](/reference/api-and-sdk/) to trigger agents programmatically from your own systems and workflows.
 
 ---
 
@@ -164,13 +146,3 @@ Your team needs at least 20 credits available. Check your credit balance in Sett
 * [Environments deep dive](/platform/environments/)
 * [Cloud Agents FAQs](/platform/faqs/)
 * [Managing Cloud Agents](/platform/managing-cloud-agents/)
-
----
-
-## What to explore next
-
-Now that you've run your first cloud agent, automate recurring work or connect agents to your team's tools.
-
-* **[Scheduled Agents quickstart](/platform/triggers/scheduled-agents-quickstart/)** - Set up an agent to run on a cron schedule for recurring tasks like weekly dependency checks.
-* **[Integrations quickstart](/platform/integrations/quickstart/)** - Connect Oz to Slack and Linear so your team can trigger agents from mentions and issues.
-* **[Skills](/agent-platform/capabilities/skills/)** - Turn successful agent workflows into reusable instructions you can schedule, trigger, or share.

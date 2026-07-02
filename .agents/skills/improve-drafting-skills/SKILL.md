@@ -26,7 +26,7 @@ The following must be available in the cloud agent environment:
 
 Three inputs, combined during the feedback collector step:
 
-- **Oz run artifacts** (style lint + PR review signals) — parsed from `[SIGNAL:style-lint]` and `[SIGNAL:pr-review]` markers in the stdout of drafting skill and `review-docs-pr` runs. **Primary automated signal.** No committed file needed; read directly from Oz run output via `oz run get`.
+- **Oz run artifacts** (style lint + PR review signals) — parsed from `[SIGNAL:style-lint]` and `[SIGNAL:pr-review]` markers in agent text messages of drafting skill and `review-docs-pr` runs. **Primary automated signal.** No committed file needed; read directly from the conversation via `oz run get --conversation`. Note: `oz run get` without `--conversation` returns only the brief `status_message` field and does not expose conversation content or shell stdout.
 - **GitHub API** (human feedback) — inline review comments (`gh api repos/warpdotdev/docs/pulls/NNN/comments`), top-level reviews (`gh pr view --json reviews`), and human-authored commits after the agent's last commit. **Primary human signal.** Accumulated into `.agents/logs/human_review_feedback.jsonl` by this skill during the feedback collector step.
 - `.agents/logs/human_review_feedback.jsonl` — durable log written by this outer loop. Fields: `date`, `pr`, `skill_used`, `file`, `feedback_type`, `severity`, `comment`, `tag`, `resolved_by`.
 
@@ -37,7 +37,12 @@ At the start of each monthly run, the feedback collector gathers signal data fro
 ### Step A: Collect style lint and PR review signals from Oz run artifacts
 
 1. Use `oz run list` to find all Oz runs in the past 30 days whose skill name matches a drafting skill (`draft_docs`, `draft_feature_doc`, `draft_conceptual`, etc.) or `review-docs-pr`.
-2. For each run, use `oz run get RUN_ID` to read the run output.
+2. For each run, retrieve the full conversation and extract agent text messages:
+   ```bash
+   oz-dev run get --conversation RUN_ID --output-format json | \
+     jq -r '[.. | objects | select(.role? == "assistant") | .content[]? | select(.type? == "text") | .text] | .[]'
+   ```
+   The top-level response is `{steps: [...]}`, not `{messages: [...]}`, and steps can be nested — use recursive descent (`..`) to reach all assistant messages at any depth. Do not rely on `oz run get` without `--conversation` — that returns only the brief `status_message` field, not conversation content or shell stdout.
 3. Parse any lines matching `[SIGNAL:style-lint] {JSON}` or `[SIGNAL:pr-review] {JSON}` and parse the JSON payload as the structured record.
 4. Accumulate all parsed records in memory for the analysis step.
 5. For `[SIGNAL:pr-review]` records, also prepend a human-readable entry to `.agents/logs/pr_review_runs.md` (using the format in that file's header). Commit the updated file directly to `main`:
@@ -156,6 +161,16 @@ PR body must include:
 - **Improvement targets** — which files were edited and why
 - **Patterns reviewed but not acted on** — any patterns that met the threshold but were already covered or had insufficient signal
 - **Open questions for human review** — any judgment calls about whether a proposed rule change is correct
+
+Write the body to a file and verify it before opening the PR — this catches repetition-loop corruption that has reached PR descriptions before (see the `create_pr` skill for details):
+```bash
+python3 .agents/skills/create_pr/check_pr_body.py /tmp/pr-body.md \
+  --require-heading "## Patterns addressed" \
+  --require-heading "## Improvement targets" \
+  --require-heading "## Patterns reviewed but not acted on" \
+  --require-heading "## Open questions for human review"
+```
+Run `gh pr create --draft --body-file /tmp/pr-body.md` only if the check passes. If you later edit this PR's body (for example, to record a human-review follow-up), fetch the current body first and apply a minimal, additive edit rather than regenerating it, then re-run the check — see the `create_pr` skill's "Update an existing PR" section.
 
 Post a Slack summary to `#growth-docs`:
 ```

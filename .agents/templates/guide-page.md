@@ -1,12 +1,9 @@
 ---
+title: [Task-oriented title in sentence case — reads like a search query. Capture the non-branded query a developer would actually search for, not "How to do X in Warp." The title field renders as the page H1; do not add a separate H1 in the body.]
 description: >-
   [1-2 sentence summary of what this guide covers and what the reader will
   achieve. Keep under 160 characters for SEO.]
 ---
-
-# [Task-oriented title in sentence case — reads like a search query]
-
-[TITLE GUIDANCE: Title should describe what the reader will DO, not what the feature IS. For SEO, capture the non-branded query — write the title a developer would actually search for, not "How to do X in Warp." Good: "How to set up Claude Code". Bad: "How to set up Claude Code in Warp".]
 
 [One sentence: what you'll accomplish by following this guide. Mention Warp by name. Include a time estimate if possible (e.g., "takes about 10 minutes").]
 
