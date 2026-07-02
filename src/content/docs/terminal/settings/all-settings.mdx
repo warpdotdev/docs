@@ -21,6 +21,7 @@ Top-level settings that control Warp's startup behavior, session management, and
 * `login_item` — Whether to launch Warp automatically when you log in. Type: boolean. Default: `true`.
 * `mouse_scroll_multiplier` — The scroll speed multiplier for mouse scroll events. Type: number. Default: `3.0`.
 * `new_tab_placement` — Where new tabs are placed in the tab bar. Type: string. Default: `"after_current_tab"`. Options: `"after_current_tab"`, `"after_all_tabs"`.
+* `preserve_input_focus_on_block_selection` — Whether the input box keeps focus when you select a block. Type: boolean. Default: `false`.
 * `quit_on_last_window_closed` — Whether to quit Warp when the last window is closed. Type: boolean. Default: `false`.
 * `restore_session` — Whether to restore the previous session when Warp starts up. Type: boolean. Default: `true`.
 * `should_confirm_close_session` — Whether to show a confirmation dialog when closing a session. Type: boolean. Default: `true`.
@@ -100,6 +101,7 @@ theme = { custom = { name = "My Theme", path = "~/.warp/themes/my-theme.yaml" } 
 * `tab_close_button_position` — Position of the close button on tabs. Type: string. Default: `"right"`. Options: `"right"`, `"left"`.
 * `show_indicators_button` — Whether to show activity indicators on tabs. Type: boolean. Default: `true`.
 * `preserve_active_tab_color` — Whether to preserve the active tab's color when switching tabs. Type: boolean. Default: `false`.
+* `directory_tab_colors` — Mapping of directory paths to their tab color assignments, populated when you assign tab colors by directory. Type: object. Default: `{}`.
 * `header_toolbar_chip_selection` — Configuration for the header toolbar chips in the vertical tab panel header. Type: string or object. Default: `"default"`.
 
 ### Vertical tabs
@@ -116,6 +118,8 @@ theme = { custom = { name = "My Theme", path = "~/.warp/themes/my-theme.yaml" } 
 * `show_diff_stats` — Whether to show diff stats on vertical tabs. Type: boolean. Default: `true`.
 * `show_pr_link` — Whether to show PR links on vertical tabs. Type: boolean. Default: `true`.
 * `use_latest_prompt_as_title` — Whether vertical tab names for agent conversations use the latest user prompt. Type: boolean. Default: `false`.
+* `hide_title_bar_search_bar` — Whether to hide the title bar search bar when using the vertical tab layout. Search stays available via the Command Palette and keyboard shortcuts. Type: boolean. Default: `false`.
+* `show_panel_in_restored_windows` — Whether restored windows open the vertical tabs panel even if it was closed when the session was saved. Type: boolean. Default: `false`.
 
 ### Panes
 
@@ -141,6 +145,7 @@ theme = { custom = { name = "My Theme", path = "~/.warp/themes/my-theme.yaml" } 
 **Section**: `[appearance.icon]`
 
 * `app_icon` — The app icon displayed in the dock. Type: string. Default: `"default"`. Options: `"default"`, `"aurora"`, `"classic1"`, `"classic2"`, `"classic3"`, `"comets"`, `"cow"`, `"glass_sky"`, `"glitch"`, `"glow"`, `"holographic"`, `"mono"`, `"neon"`, `"original"`, `"starburst"`, `"sticker"`, `"warp_one"`.
+* `show_dock_icon` — Whether Warp is shown in the macOS Dock and `Cmd-Tab` switcher. Type: boolean. Default: `true`. macOS only.
 
 ### Window
 
@@ -166,6 +171,7 @@ Settings that control terminal behavior, input, and event handling.
 * `mouse_reporting_enabled` — Whether to forward mouse events to full-screen terminal applications. Type: boolean. Default: `true`.
 * `scroll_reporting_enabled` — Whether to forward scroll events to full-screen terminal applications. Type: boolean. Default: `true`.
 * `maximum_grid_size` — The maximum number of rows in the terminal grid. Type: integer. Default: `50000`.
+* `osc52_clipboard_access` — Whether terminal programs can access the system clipboard via OSC 52 escape sequences. Type: string. Default: `"deny"`. Options: `"deny"`, `"write_only"`, `"read_write"`.
 * `use_audible_bell` — Whether to play an audible bell sound on terminal bell events. Type: boolean. Default: `false`.
 * `show_terminal_zero_state_block` — Whether to show the AI zero-state block in new terminal sessions. Type: boolean. Default: `true`.
 
@@ -293,6 +299,8 @@ Settings for Warp's agents, including model behavior, permissions, knowledge, MC
 * `code_suggestions_enabled` — Controls whether AI code suggestions are enabled. Type: boolean. Default: `true`.
 * `intelligent_autosuggestions_enabled` — Controls whether AI-powered intelligent autosuggestions are enabled. Type: boolean. Default: `true`.
 * `agent_mode_query_suggestions_enabled` — Controls whether prompt suggestions are shown in Agent Mode. Type: boolean. Default: `true`.
+* `git_operations_autogen_enabled` — Whether AI auto-generates commit messages and PR titles and bodies in the code review dialogs. Type: boolean. Default: `true`.
+* `rule_suggestions_enabled` — Whether the agent suggests rules to save after responses. Type: boolean. Default: `true`.
 * `shared_block_title_generation_enabled` — Controls whether titles are auto-generated when sharing blocks. Type: boolean. Default: `true`.
 
 #### Input
@@ -318,14 +326,13 @@ Settings for Warp's agents, including model behavior, permissions, knowledge, MC
 * `should_show_oz_updates_in_zero_state` — Whether the "What's new" section is shown in the agent view. Type: boolean. Default: `true`.
 * `should_render_use_agent_toolbar_for_user_commands` — Whether to show the "Use Agent" footer for terminal commands. Type: boolean. Default: `true`.
 * `cloud_agent_computer_use_enabled` — Whether computer use is enabled for cloud agent conversations. Type: boolean. Default: `false`.
-
-### Code review autogeneration
-
-Controls AI-driven autogeneration in the code review dialogs. This setting currently lives under `[agents.oz.active_ai]` rather than alongside the other `[agents.warp_agent.active_ai]` settings.
-
-**Section**: `[agents.oz.active_ai]`
-
-* `git_operations_autogen_enabled` — Controls whether AI auto-generates commit messages and PR title and body in the code review dialogs. Type: boolean. Default: `true`.
+* `agent_attribution_enabled` — Whether the Warp Agent adds an attribution co-author line to commit messages and pull requests it creates. Type: boolean. Default: `true`.
+* `auto_handoff_on_sleep_enabled` — Whether Warp automatically hands off local agent conversations to the cloud when your computer is about to sleep (macOS). See [local-to-cloud handoff](/platform/handoff/local-to-cloud/). Type: boolean. Default: `false`.
+* `default_prompt_submission_mode` — Default behavior when submitting a new prompt while the agent is still responding. See [Prompt Queueing](/agent-platform/local-agents/interacting-with-agents/prompt-queueing/). Type: string. Default: `"interrupt"`. Options: `"interrupt"`, `"queue"`.
+* `long_running_command_submission_mode` — What happens when you submit a prompt while the agent is running an agent-requested long-running command. Only applies when `default_prompt_submission_mode` is `"interrupt"`. See [Prompt Queueing](/agent-platform/local-agents/interacting-with-agents/prompt-queueing/). Type: string. Default: `"queue_until_command_completes"`. Options: `"send_immediately"`, `"queue_until_command_completes"`.
+* `orchestration_message_display_mode` — How child-agent message bodies are displayed during [multi-agent runs](/platform/orchestration/multi-agent-runs/). Type: string. Default: `"always_collapse"`. Options: `"show_and_collapse"`, `"always_show"`, `"always_collapse"`.
+* `should_force_disable_cloud_handoff` — Whether to force-disable [local-to-cloud handoff](/platform/handoff/local-to-cloud/). Type: boolean. Default: `false`.
+* `should_force_disable_ampersand_handoff` — Whether to force-disable the `&` prefix that composes a prompt for cloud handoff. Type: boolean. Default: `false`.
 
 ### Third-party (CLI agents)
 
@@ -337,6 +344,7 @@ Controls AI-driven autogeneration in the code review dialogs. This setting curre
 * `auto_dismiss_composer_after_submit` — Whether CLI agent Rich Input automatically closes after the user submits a prompt. Type: boolean. Default: `false`.
 * `cli_agent_toolbar_chip_selection_setting` — Controls the layout of context chips in the CLI Agent toolbar. Type: string or object. Default: `"default"`.
 * `cli_agent_toolbar_enabled_commands` — Maps custom toolbar command patterns to specific CLI agents. Type: object. Default: `{}`.
+* `submit_on_ctrl_enter` — Whether the CLI agent Rich Input editor submits on `Ctrl+Enter` instead of `Enter` (with `Enter` inserting a newline). Type: boolean. Default: `false`.
 
 ### Voice
 
@@ -365,7 +373,9 @@ Settings for Warp's built-in code editor, file handling, and codebase indexing.
 * `show_code_review_diff_stats` — Whether to show lines added/removed counts on the code review button. Type: boolean. Default: `true`.
 * `show_project_explorer` — Whether the project explorer is shown in the tools panel. Type: boolean. Default: `true`.
 * `show_global_search` — Whether global file search is shown in the tools panel. Type: boolean. Default: `true`.
+* `show_hidden_files` — Whether hidden files (dotfiles) are shown in the project explorer. Type: boolean. Default: `true`.
 * `use_warp_as_default_editor` — Whether Warp is used as the default code editor. Type: boolean. Default: `false`.
+* `format_on_save` — Whether the language server automatically formats the file on save. Other LSP features (hover, go-to-definition, references, diagnostics) are unaffected. Type: boolean. Default: `true`.
 
 ### Indexing
 
@@ -437,6 +447,7 @@ Low-level system and rendering settings.
 * `prefer_low_power_gpu` — Whether to prefer the integrated (low-power) GPU. Type: boolean. Default: `false`.
 * `preferred_graphics_backend` — The preferred graphics backend (Windows). Type: string or null. Default: `null`. Options: `"dx12"`, `"vulkan"`, `"gl"`, `"metal"`, `null`.
 * `linux_selection_clipboard` — Whether the Linux primary selection clipboard is used. Type: boolean. Default: `true`.
+* `force_x11` — Whether to force X11 instead of Wayland on Linux. Type: boolean. Default: `true` (`false` under WSL).
 
 ## Text editing
 
@@ -444,10 +455,19 @@ Settings that control text editing behavior in the input editor.
 
 **Section**: `[text_editing]`
 
+* `code_editor_line_number_mode` — How line numbers are displayed in code editors. Type: string. Default: `"absolute"`. Options: `"absolute"`, `"relative"`.
 * `vim_mode_enabled` — Whether Vim keybindings are enabled. Type: boolean. Default: `false`.
 * `vim_status_bar` — Whether the Vim status bar is displayed. Type: boolean. Default: `true`.
 * `vim_unnamed_system_clipboard` — Whether the Vim unnamed register uses the system clipboard. Type: boolean. Default: `false`.
 * `autocomplete_symbols` — Whether matching symbols like brackets and quotes are auto-completed. Type: boolean. Default: `true`.
+
+## Experimental
+
+Opt-in settings for features that are still being refined.
+
+**Section**: `[experimental]`
+
+* `async_find_enabled` — Use an improved implementation of find that keeps the UI responsive while searching large outputs. Type: boolean. Default: `false`.
 
 ## Warp Drive
 
@@ -469,6 +489,7 @@ Settings for Warp features in SSH sessions and subshells.
 * `enable_ssh_warpification` — Whether to enable Warp features in SSH sessions. Type: boolean. Default: `true`.
 * `enable_legacy_ssh_wrapper` — Whether the legacy SSH wrapper is enabled for SSH sessions. Type: boolean. Default: `true`.
 * `use_ssh_tmux_wrapper` — Whether to use a tmux-based wrapper for SSH warpification. Type: boolean. Default: `false`.
+* `reuse_existing_control_master` — Whether the legacy SSH wrapper attaches to an existing SSH `ControlMaster` for the destination host instead of always creating its own. Type: boolean. Default: `false`.
 * `ssh_extension_install_mode` — Controls SSH extension installation behavior. Type: string. Default: `"always_ask"`. Options: `"always_ask"` (always prompt before installing), `"always_install"` (auto-install and connect without prompting), `"never_install"` (fall back to legacy warpification).
 * `ssh_hosts_denylist` — SSH hosts that should not trigger the warpification prompt. Type: array of strings. Default: `[]`.
 
@@ -515,6 +536,7 @@ Settings for third-party API key integration and cloud model configuration.
 * `aws_bedrock_profile` — The AWS profile name to use for Bedrock credentials. Type: string. Default: `"default"`.
 * `aws_bedrock_auto_login` — Whether to automatically run the AWS login command when Bedrock credentials expire. Type: boolean. Default: `false`.
 * `aws_bedrock_auth_refresh_command` — The command to run to refresh AWS credentials for Bedrock. Type: string. Default: `"aws login"`.
+* `gemini_enterprise_credentials_enabled` — Whether Warp routes eligible requests through your workspace's Gemini Enterprise Google Cloud project. Requires a workspace admin to configure Gemini Enterprise. Type: boolean. Default: `false`.
 * `can_use_warp_credits_with_byok` — Whether Warp credits can be used even when providing your own API key. Type: boolean. Default: `false`.
 
 ## Global hotkey

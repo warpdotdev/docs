@@ -107,14 +107,14 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 * Fixed an issue where pressing Ctrl-C to stop a command monitored by Warp Agent could leave the conversation stuck showing `Warping…`. ([#12623](https://github.com/warpdotdev/warp/pull/12623))
 * Warp now immediately surfaces a clear error message when a required platform plugin is not installed correctly, instead of silently failing. ([#12471](https://github.com/warpdotdev/warp/pull/12471))
 * Fixed child agent status chips lingering in the UI when agent runs fail immediately on start. ([#12649](https://github.com/warpdotdev/warp/pull/12649))
-* Fixed a crash and mis-rendering when parsing certain Markdown content with very long delimiter runs. ([#12644](https://github.com/warpdotdev/warp/pull/12644))
+* Fixed a crash and mis-rendering when parsing certain Markdown content with very long delimiter runs.
 * Fixed vertical tabs toolbar buttons appearing underneath macOS traffic light buttons when the tools panel is open. ([#12660](https://github.com/warpdotdev/warp/pull/12660))
 * Fixed a regression where pane layout was not saved correctly when closing the app. ([#12672](https://github.com/warpdotdev/warp/pull/12672))
 * Fixed double-slash prefix (e.g. `//home/user/...`) shown in the read_skill action header when the skill is not yet indexed by Warp. ([#12668](https://github.com/warpdotdev/warp/pull/12668))
 * [Windows] Fixed pasted CRLF line endings breaking multi-line commands in POSIX shells. ([#12446](https://github.com/warpdotdev/warp/pull/12446))
 * Fixed attaching files or context blocks via CLI rich input not working correctly. ([#11509](https://github.com/warpdotdev/warp/pull/11509))
 * Command search in the terminal (Ctrl-R) now prioritizes commands in your history. ([#12600](https://github.com/warpdotdev/warp/pull/12600))
-* Fixed a rare reversed line range when an AI file read truncated a file whose first line exceeded the remaining byte budget. ([#12642](https://github.com/warpdotdev/warp/pull/12642))
+* Fixed a rare reversed line range when an AI file read truncated a file whose first line exceeded the remaining byte budget.
 * Fixed queued prompts in sub-agent conversations sometimes not being sent when a sibling agent block obscured the turn-end signal. ([#12573](https://github.com/warpdotdev/warp/pull/12573))
 * Fixed the code review file section header rendering opaque square corners behind its rounded background. ([#12447](https://github.com/warpdotdev/warp/pull/12447))
 * Fixed inline images emitted during shell startup (e.g. `fastfetch`) being dropped instead of rendered. ([#10478](https://github.com/warpdotdev/warp/pull/10478))
@@ -1050,7 +1050,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 #### Introducing Oz: orchestration for cloud agents
 
-![Introducting Oz image showing the new Oz logo and a preview of the oz.warp.dev site](https://releases.warp.dev/changelog_images/v0.2026.02.09.06.06.stable.png)
+![Introducing Oz image showing the new Oz logo and a preview of the oz.warp.dev site](https://releases.warp.dev/changelog_images/v0.2026.02.09.06.06.stable.png)
 
 Oz is Warp's orchestration platform for cloud agents: launch parallel agents, automate recurring engineering work, and build apps on top of agents with full visibility and control.
 
@@ -1058,10 +1058,10 @@ Oz is Warp's orchestration platform for cloud agents: launch parallel agents, au
 
 #### Cloud Agents
 
-* **Run Cloud Agents from anywhere with built-in tracking** — start agents from Warp or via the CLI, triggers, or schedules. Every run is auditable and steerable. [Cloud Agents docs →](https://docs.warp.dev/agent-platform/cloud-agents/overview)
-* **Cloud environments for consistent execution** — configure Docker-based environments (unlimited repos + setup commands) and run agents in isolated cloud sandboxes. [Environments docs →](https://docs.warp.dev/agent-platform/cloud-agents/environments)
+* **Run Cloud Agents from anywhere with built-in tracking** — start agents from Warp or via the CLI, triggers, or schedules. Every run is auditable and steerable. [Cloud Agents docs →](https://docs.warp.dev/platform/)
+* **Cloud environments for consistent execution** — configure Docker-based environments (unlimited repos + setup commands) and run agents in isolated cloud sandboxes. [Environments docs →](https://docs.warp.dev/platform/environments)
 * **Track agents from the web** — manage runs, create schedules, configure environments, and set up integrations from any browser in the [Oz web app](https://oz.warp.dev).
-* **Schedule agents based on Skills** — run agents automatically on a cron schedule for code cleanup, dependency updates, and issue triage. See [Scheduled Agents](/agent-platform/cloud-agents/triggers/scheduled-agents/).
+* **Schedule agents based on Skills** — run agents automatically on a cron schedule for code cleanup, dependency updates, and issue triage. See [Scheduled Agents](/platform/triggers/scheduled-agents/).
 * **Programmable by default** — orchestrate agents via the CLI and integrate Oz into tools and services via the [API and CLI reference](/reference/).
 
 #### Warp Upgrades

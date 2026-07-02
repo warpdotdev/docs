@@ -11,6 +11,8 @@ This lets you use your own API keys for model access, giving you control over mo
 
 BYOK provides greater flexibility in model access and ensures Warp **never consumes your** [AI credits](/support-and-community/plans-and-billing/credits/) for requests routed through your own keys.
 
+For xAI's Grok models, you can also connect your SuperGrok subscription instead of entering an API key. In the Warp app, go to **Settings** > **AI** and choose to connect your SuperGrok subscription — Warp opens your browser to complete the connection.
+
 :::note
 BYOK is available on Free and all eligible paid plans for individual users and organizations with 10 or fewer employees, subject to Warp's [Terms of Service](https://www.warp.dev/legal/terms-of-service). Larger organizations need a Business or Enterprise plan. See [Warp pricing](https://www.warp.dev/pricing) for current availability.
 :::
@@ -30,6 +32,10 @@ See [Warp pricing](https://www.warp.dev/pricing) for current plan availability.
 
 Platform credits apply to every cloud agent run on any plan, and to local agent runs on Business and Enterprise when using BYOK, a custom inference endpoint, or BYOLLM. See [platform credits](/support-and-community/plans-and-billing/platform-credits/) for the full breakdown.
 
+:::note
+**Can I sign in with a ChatGPT or Claude subscription?** No. A ChatGPT (OpenAI) or Claude (Anthropic) consumer subscription can't be connected to Warp the way a [SuperGrok subscription](/agent-platform/inference/grok-subscription/) can. OpenAI and Anthropic don't currently allow their subscription plans to be used in third-party clients like Warp. To use your own OpenAI or Anthropic account, add an API key with BYOK and pay your provider directly. A subscription and API access are billed separately by the provider.
+:::
+
 ## How BYOK works
 
 When you add your own model API keys in Warp, those keys are stored **only on your device** (in your OS keychain or equivalent secure storage), never on Warp's servers. They're used to make requests to your chosen model provider.
@@ -47,7 +53,7 @@ Your API key passes through Warp's servers each time you send a request, but War
 :::
 
 :::caution
-BYOK does not apply to [Cloud Agents](/agent-platform/cloud-agents/overview/). Because your API keys are stored locally on your device, they are not available to cloud-hosted agent runs. Cloud agent runs always consume [Warp credits](/support-and-community/plans-and-billing/credits/).
+BYOK does not apply to [Cloud Agents](/platform/). Because your API keys are stored locally on your device, they are not available to cloud-hosted agent runs. Cloud agent runs always consume [Warp credits](/support-and-community/plans-and-billing/credits/).
 :::
 
 When a model is selected using your own key:
@@ -101,7 +107,7 @@ Some AI-powered features are not affected by BYOK and are included as part of Wa
 | ----------------------------------------------------------------------------- | ------------------- | -------------------------------------------------------------------- |
 | [Active AI Recommendations](/agent-platform/local-agents/active-ai/) | No                  | Always included with Build and higher plans.                         |
 | [Codebase Context](/agent-platform/capabilities/codebase-context/)               | Yes                 | Uses Warp's AI infrastructure and consumes credits.                  |
-| [Cloud Agents](/agent-platform/cloud-agents/overview/) | Yes                 | BYOK keys are stored locally and not available to cloud-hosted runs. |
+| [Cloud Agents](/platform/) | Yes                 | BYOK keys are stored locally and not available to cloud-hosted runs. |
 
 These features will continue to function normally regardless of whether you’ve configured BYOK.
 
