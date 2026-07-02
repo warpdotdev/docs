@@ -261,6 +261,7 @@ Settings for Warp's agents, including model behavior, permissions, knowledge, MC
 **Section**: `[agents]`
 
 * `cloud_conversation_storage_enabled` — Whether conversations are stored in the cloud. Type: boolean. Default: `true`.
+* `model` — The default model for the Warp Agent in the terminal. The desktop app's Agent Mode selects its model through [agent profiles](/agent-platform/capabilities/agent-profiles-permissions/) instead, so this key applies only to the terminal agent's settings file. Type: string. Default: `"auto"` (defers to Warp's automatic model selection).
 
 ### Knowledge
 
