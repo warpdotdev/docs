@@ -86,7 +86,9 @@ Use source code to verify technical behavior, understand feature implementation,
 These rules are frequently violated by agents. Apply them carefully during drafting:
 
 - **Sentence case for all headings (H1–H4)** — Capitalize only the first word and proper feature names. ✅ `## How it works` ❌ `## How It Works`
+- **Descriptive, specific headings** — Beyond correct case, a heading should name the specific topic so readers and agents can scan the page and extract a self-contained answer. ✅ `## How key type affects billing and GitHub access` ❌ `## More details`
 - **Bold + dash format for list items** — `* **Term** - Description`, not `* Term: Description`
+- **Tables or parallel bullets for comparison and reference data** — When you present two or more parallel items (key types, plan tiers, environments) or structured reference data (API endpoints, parameters), use a Markdown table or tightly parallel bullets instead of one dense paragraph. ✅ a table with one row per API endpoint, or parallel `**Personal API keys**` / `**Agent API keys**` bullet groups ❌ a single paragraph mixing both key types and their billing rules
 - **Bold for UI elements** — Use `**Save**` not `` `Save` `` after action verbs like "click"
 - **Bold per-segment for Settings paths** — Use `**Settings** > **AI** > **Knowledge**` not `` `Settings > AI > Knowledge` ``
 
@@ -100,12 +102,12 @@ If this skill is running as a cloud agent producing an agent-authored PR, captur
 
 1. Re-run with `--output /tmp/style_lint_out.json` to get machine-readable output.
 2. Aggregate the `issues` array by `check` field to get violation counts per check name.
-3. Print the following structured marker to stdout so the `improve-drafting-skills` collector can retrieve it from the Oz run output:
+3. Include the following structured marker in your **text response** (write it as part of your agent message, not via a shell `echo` command). This ensures it appears as a `TextContentBlock` in the conversation, where `oz run get --conversation` can reliably retrieve it:
    ```
    [SIGNAL:style-lint] {"date":"YYYY-MM-DD","pr":"NNN","branch":"BRANCH_NAME","authored_by":"agent","skill_used":"SKILL_NAME","files_scanned":N,"violations":{"check_name":count}}
    ```
 
-The `improve-drafting-skills` outer loop reads this signal from Oz run artifacts via `oz run get`. No git operations are required.
+The `improve-drafting-skills` outer loop reads this signal from the conversation via `oz run get --conversation`, scanning assistant `TextContentBlock` messages for the marker. No git operations are required.
 
 Skip steps 1–3 in local/interactive sessions.
 
