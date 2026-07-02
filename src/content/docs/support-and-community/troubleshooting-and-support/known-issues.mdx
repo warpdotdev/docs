@@ -23,7 +23,7 @@ To enable Blocks over SSH, Warp uses an SSH Wrapper function; navigate to **Sett
 
 ### Online features don't work
 
-There is a known issue that can occur that causes online features to break ([Agent](/agent-platform/local-agents/overview/), [Generate](/agent-platform/local-agents/overview/), [Block Sharing](/terminal/blocks/block-sharing/), [Refer a Friend](/support-and-community/community/refer-a-friend/) ). This is due to the login token going stale, typically due to a password change, and can be resolved by the following steps:
+There is a known issue that can occur that causes online features to break ([Agent](/agent-platform/local-agents/overview/), [Generate](/agent-platform/local-agents/generate/), [Block Sharing](/terminal/blocks/block-sharing/), [Refer a Friend](/support-and-community/community/refer-a-friend/) ). This is due to the login token going stale, typically due to a password change, and can be resolved by the following steps:
 
 <Tabs>
   <TabItem label="macOS">
@@ -117,7 +117,7 @@ If Warp is not working with your dotfile configuration, you can run your shell i
   <TabItem label="bash">
     You can set up clean configs for Bash (Bourne Again SHell) by moving or commenting out your `.bashrc`\
     \
-    If Warp starts working correctly then Warp is incompatible with something in the current dotfiles. We can isolate what is incompatible by iteratively disabling sections of our dotfiles with the `WarpTerminal` flag until we find the culprit. See the list of incompatible tools below and comment them out just for Warp with the following conditionals:
+    If Warp starts working correctly then Warp is incompatible with something in the current dotfiles. We can isolate what is incompatible by iteratively disabling sections of your dotfiles with the `WarpTerminal` flag until we find the culprit. See the list of incompatible tools below and comment them out just for Warp with the following conditionals:
 
     ```bash
 # bash (See ~/.bashrc)
@@ -131,7 +131,7 @@ If Warp is not working with your dotfile configuration, you can run your shell i
   <TabItem label="zsh">
     You can set up clean configs for Zsh (Z SHell) by moving or commenting out your `.zshrc`\
     \
-    If Warp starts working correctly then Warp is incompatible with something in the current dotfiles. We can isolate what is incompatible by iteratively disabling sections of our dotfiles with the `WarpTerminal` flag until we find the culprit. See the list of incompatible tools below and comment them out just for Warp with the following conditional:
+    If Warp starts working correctly then Warp is incompatible with something in the current dotfiles. We can isolate what is incompatible by iteratively disabling sections of your dotfiles with the `WarpTerminal` flag until we find the culprit. See the list of incompatible tools below and comment them out just for Warp with the following conditional:
 
     ```bash
     # zsh (See ~/.zshrc)
@@ -145,7 +145,7 @@ If Warp is not working with your dotfile configuration, you can run your shell i
   <TabItem label="fish">
     You can set up clean configs for Fish (Friendly Interactive SHell) by moving or commenting out your `config.fish`\
     \
-    If Warp starts working correctly then Warp is incompatible with something in the current config file. We can isolate what is incompatible by iteratively disabling sections of our config file with the `WarpTerminal` flag until we find the culprit. See the list of incompatible tools below and comment them out just for Warp with the following conditional:
+    If Warp starts working correctly then Warp is incompatible with something in the current config file. We can isolate what is incompatible by iteratively disabling sections of your config file with the `WarpTerminal` flag until we find the culprit. See the list of incompatible tools below and comment them out just for Warp with the following conditional:
 
     ```bash
     # fish (see ~/.config/fish/config.fish)
@@ -159,7 +159,7 @@ If Warp is not working with your dotfile configuration, you can run your shell i
   <TabItem label="pwsh">
     You can set up clean configs for pwsh (PowerShell) by moving or commenting out your `$PROFILE`
 
-    If Warp starts working correctly then Warp is incompatible with something in the current profile. We can isolate what is incompatible by iteratively disabling sections of our profile with the WarpTerminal flag until we find the culprit. See the list of incompatible tools below and comment them out just for Warp with the following conditional:
+    If Warp starts working correctly then Warp is incompatible with something in the current profile. We can isolate what is incompatible by iteratively disabling sections of your profile with the WarpTerminal flag until we find the culprit. See the list of incompatible tools below and comment them out just for Warp with the following conditional:
 
     ```powershell
 # pwsh (see $PROFILE)

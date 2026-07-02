@@ -152,6 +152,8 @@ Exit code 0 if PR exists, 1 if not.
 
 :::caution
 **Always use `--body-file` instead of `--body` for PR descriptions.** Documentation PRs frequently contain backticks, quotes, and other special characters that get corrupted by shell escaping when passed inline. Write the description to a file first, then reference it.
+
+`--body-file` avoids shell-escaping corruption, but it does **not** catch repetition-loop degeneration — a failure mode where the model repeats a phrase or bullet several times and cuts off mid-token (e.g. a sentence ending in an unclosed inline-code span like `` because `m ``). That corrupted text is already in the generated body and survives `--body-file` unchanged. Always run the body integrity checker (`check_pr_body.py`) before creating or editing a PR.
 :::
 
 ```bash
@@ -167,7 +169,10 @@ Description of changes
 Co-Authored-By: Oz <oz-agent@warp.dev>
 EOF
 
-# 2. Create the PR using the file
+# 2. Verify the body for corruption before submitting (exits non-zero on failure)
+python3 .agents/skills/create_pr/check_pr_body.py /tmp/pr-body.md
+
+# 3. Create the PR using the file (only if the check passed)
 gh pr create --title "docs: Add feature documentation" --body-file /tmp/pr-body.md
 
 # Open in browser to fill details
@@ -176,8 +181,19 @@ gh pr create --web
 
 ### Update an existing PR
 
+When updating the body of an existing PR, make the **smallest** change rather than regenerating the whole description from memory — re-emitting a long body is what invites repetition-loop degeneration. Fetch the current body, apply a minimal or additive edit, verify it, then submit.
+
 ```bash
-# Edit body using a file (recommended — avoids shell escaping issues)
+# 1. Fetch the current body to a file
+gh pr view 123 --json body --jq .body > /tmp/pr-body.md
+
+# 2. Make a minimal/additive edit to /tmp/pr-body.md (e.g. append a new section)
+#    with the edit_files or create_file tools — do not rewrite untouched sections.
+
+# 3. Verify the body for corruption before submitting (exits non-zero on failure)
+python3 .agents/skills/create_pr/check_pr_body.py /tmp/pr-body.md
+
+# 4. Edit the body using the file (only if the check passed)
 gh pr edit 123 --body-file /tmp/pr-body.md
 
 # Edit title only

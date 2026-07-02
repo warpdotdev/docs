@@ -49,6 +49,29 @@ When drafting a guide, check for relevant SEO and AEO data:
 4. **Frame the title for non-branded search.** The page should answer the user's actual question, with Warp features as the natural solution in the guide body.
 5. **Avoid keyword stuffing.** Preserve high-intent query terms only where they make the guide clearer or more discoverable. Rewrite awkward source-data phrasing into natural developer language.
 
+## Oz CLI and GitHub Actions accuracy
+
+When a guide includes Oz CLI commands or GitHub Actions workflows using `warpdotdev/oz-agent-action`:
+
+- **Verify Oz CLI commands against `/reference/cli/`.** Do not infer flag names or argument formats. Use only flags documented in the CLI reference. When in doubt, link to the reference page instead of showing a command.
+- **`oz-agent-action` input format**: `warp_api_key` is a `with:` input to the action, not an `env:` variable. `GITHUB_TOKEN` goes in `env:`. The correct pattern is:
+  ```yaml
+  - uses: warpdotdev/oz-agent-action@v1
+    with:
+      skill: SKILL_NAME
+      environment: YOUR_OZ_ENVIRONMENT_SLUG
+      warp_api_key: ${{ secrets.WARP_API_KEY }}
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  ```
+- **Every GitHub Actions workflow example that performs write operations must include a `permissions:` block** at the workflow level, before `jobs:`. Use the minimum permissions for the task:
+  - Triage (label/comment on issues): `issues: write`
+  - Spec/implementation (push branches, open PRs): `contents: write`, `pull-requests: write`
+  - Review (post PR comments): `pull-requests: write`
+  Without an explicit `permissions:` block, workflows fail in repositories with restricted default permissions.
+- **`oz secret create` must not include `--value` on the command line.** The `--value` flag exposes secrets in shell history and process arguments. Show `oz secret create --name SECRET_NAME` and note that the CLI prompts for the value interactively.
+- **Slash commands** (`/command-name`) in standalone code fences should use `bash` as the language identifier, consistent with the docs style guide for terminal input.
+
 ## Third-party tool accuracy
 
 When a guide documents a third-party tool (Claude Code, Codex, OpenCode, etc.):
