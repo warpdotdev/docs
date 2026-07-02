@@ -152,7 +152,7 @@ Before opening a PR, verify every proposed change:
 Run:
 
 ```bash
-git fetch origin main
+git fetch origin main:refs/remotes/origin/main
 python3 .agents/skills/style_lint/style_lint.py --changed
 python3 .agents/skills/check_for_broken_links/check_links.py --internal-only
 git diff --check
