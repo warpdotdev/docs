@@ -15,7 +15,7 @@ Our philosophy is complete transparency and control over any data leaving your m
 * Read a complete list of [all the telemetry events](privacy.md#exhaustive-telemetry-table) that get sent for app analytics
 * Monitor telemetry in real-time with Warp's native [Network Log](network-log.md)
 * [Opt out](privacy.md#how-to-disable-telemetry-and-crash-reporting) of telemetry at any time
-* Read and audit Warp's client source code at [`warpdotdev/warp`](https://github.com/warpdotdev/warp), open source under [AGPL v3](https://github.com/warpdotdev/warp/blob/master/LICENSE)
+* Read and audit Warp's client source code at [`warpdotdev/warp`](https://github.com/warpdotdev/warp), open source under [AGPL v3](https://github.com/warpdotdev/warp/blob/master/LICENSE-AGPL)
 
 ## What telemetry data does Warp collect and why?
 
