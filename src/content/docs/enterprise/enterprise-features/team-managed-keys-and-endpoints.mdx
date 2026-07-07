@@ -56,7 +56,7 @@ What syncs to a member's client is display metadata only: whether a key is confi
 
 ### Member key precedence
 
-For any provider or endpoint, a member's own key always takes precedence over the team's:
+When the admin allows member-managed keys and endpoints, a member's own provider or endpoint configuration takes precedence over the team's:
 
 * **First-party keys** - If a member has their own key for a provider, requests route through the member's key; otherwise the team key is used; otherwise Warp-managed inference is used (if allowed).
 * **Custom endpoints** - A member's own endpoint and a team endpoint never collide, even if they share a name. The member's endpoint is used when they select it; team endpoints resolve to the team's stored credential.
