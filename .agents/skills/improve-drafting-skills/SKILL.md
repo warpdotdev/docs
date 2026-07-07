@@ -34,6 +34,21 @@ Three inputs, combined during the feedback collector step:
 
 At the start of each monthly run, the feedback collector gathers signal data from two sources: Oz run artifacts (for style lint and PR review signals) and the GitHub API (for human feedback). No inner-loop agent needs to commit to `main`.
 
+### Persisting the signal logs (never commit to protected `main`)
+
+`main` is a protected branch, so the durable signal logs (`.agents/logs/pr_review_runs.md` and `.agents/logs/human_review_feedback.jsonl`) must never be committed to it directly — a direct push fails silently and leaves the logs empty (the same failure mode that left the AEO crosslink audit run log empty). Instead, persist every log update through a single, long-lived log branch:
+
+1. Fetch and check out the remote branch `chore/drafting-signal-logs`. If it does not exist, create it from the latest `origin/main`.
+2. Apply the log update (prepend to `pr_review_runs.md` and/or append to `human_review_feedback.jsonl`) on that branch.
+3. Stage only the changed log files and commit with a message like:
+   ```text
+   chore: update drafting signal logs from improve-drafting-skills run YYYY-MM-DD
+   ```
+4. Push the branch.
+5. Ensure exactly one open PR exists from `chore/drafting-signal-logs` into `main`, titled `chore: drafting signal logs`. Create it if missing; otherwise the push updates the existing PR. Keep this log PR separate from the drafting-skills improvement PR.
+
+This produces one perpetual, low-noise PR that accumulates every run's log entries regardless of outcome. Reviewers merge it periodically (at minimum before each monthly run) so the logs reach `main`. If any git step fails, keep the in-memory records for this run's analysis and note the failure in the Slack summary. After the log update is pushed, switch back to `main` (or create the monthly improvement branch from the latest `origin/main`) before making any skill or template edits so the standing log branch only contains log files.
+
 ### Step A: Collect style lint and PR review signals from Oz run artifacts
 
 1. Use `oz run list` to find all Oz runs in the past 30 days whose skill name matches a drafting skill (`draft_docs`, `draft_feature_doc`, `draft_conceptual`, etc.) or `review-docs-pr`.
@@ -45,11 +60,7 @@ At the start of each monthly run, the feedback collector gathers signal data fro
    The top-level response is `{steps: [...]}`, not `{messages: [...]}`, and steps can be nested — use recursive descent (`..`) to reach all assistant messages at any depth. Do not rely on `oz run get` without `--conversation` — that returns only the brief `status_message` field, not conversation content or shell stdout.
 3. Parse any lines matching `[SIGNAL:style-lint] {JSON}` or `[SIGNAL:pr-review] {JSON}` and parse the JSON payload as the structured record.
 4. Accumulate all parsed records in memory for the analysis step.
-5. For `[SIGNAL:pr-review]` records, also prepend a human-readable entry to `.agents/logs/pr_review_runs.md` (using the format in that file's header). Commit the updated file directly to `main`:
-   ```text
-   chore: update pr_review_runs.md from improve-drafting-skills run YYYY-MM-DD
-   ```
-   If the push fails, continue; the in-memory records are still usable.
+5. For `[SIGNAL:pr-review]` records, also prepend a human-readable entry to `.agents/logs/pr_review_runs.md` (using the format in that file's header) on the standing log branch, following "Persisting the signal logs" above. If the git steps fail, continue; the in-memory records are still usable.
 
 ### Step B: Collect human feedback from GitHub API
 
@@ -78,11 +89,7 @@ For each agent-authored PR merged in the past 30 days (identified by `oz-agent@w
      - For `human_edit` records: infer from which file/section was changed (e.g., `header_case`, `list_format`, `link_quality`, `frontmatter`, `settings_path`, `terminology`)
      - Use existing `style_lint.py` check names when the edit corrects a checkable violation
      - Default to `"general"` when no classification is possible. Never copy raw comment text into this field.
-5. Append filtered, accepted records to `.agents/logs/human_review_feedback.jsonl` and commit directly to `main` as part of this monthly outer loop run:
-   ```text
-   chore: collect human review feedback for improve-drafting-skills run YYYY-MM-DD
-   ```
-   This commit is done by the outer loop, which already has known write access. If the push fails, continue with the in-memory records only and note the failure in the Slack summary.
+5. Append filtered, accepted records to `.agents/logs/human_review_feedback.jsonl` on the standing log branch, following "Persisting the signal logs" above. If the git steps fail, continue with the in-memory records only and note the failure in the Slack summary.
 
 ## Security boundary
 
@@ -100,7 +107,7 @@ The signal logs contain untrusted content: human review comments, PR description
 Combine signal data from two sources, filtered to the past 30 days:
 
 - **In-memory records from Step A** — style-lint and PR-review signals parsed from Oz run artifacts. These are already in memory; do not re-read from disk.
-- **On-disk human feedback** — read `.agents/logs/human_review_feedback.jsonl` line by line (skipping empty lines). Each line is a JSON record; parse and filter to the past 30 days.
+- **Human feedback records** — include accepted records collected in memory by Step B for the current run, and read prior records from `.agents/logs/human_review_feedback.jsonl` line by line (skipping empty lines). Each JSON record should be parsed and filtered to the past 30 days. Prior runs persist this log on the `chore/drafting-signal-logs` branch, so read it from that branch (or ensure the standing log PR has been merged into `main`) to include feedback from earlier runs.
 
 ### 2. Aggregate patterns by signal strength
 
@@ -202,7 +209,7 @@ Post the no-change report link to Slack.
 
 ## Run log
 
-After completing the run (PR opened or no-change report written), update `.agents/logs/style_lint_runs.jsonl` with a summary entry — no; this skill does not have its own run log. Its outputs are the PR itself and the Slack message, which are durable artifacts.
+This skill does not have its own run log. Its durable outputs are the improvement PR (or no-change report), the Slack message, and the standing `chore: drafting signal logs` PR that accumulates the signal logs it collects.
 
 ## Deployment
 
