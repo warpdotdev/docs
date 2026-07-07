@@ -180,7 +180,8 @@ NamedAgents -> src/content/docs/platform/agents.mdx
 
 # Inference: BYOK and custom endpoints
 SoloUserByok -> src/content/docs/agent-platform/inference/bring-your-own-api-key.mdx
-CustomInferenceEndpoints -> src/content/docs/agent-platform/inference/custom-inference-endpoint.mdx
+# CustomInferenceEndpoints flag was removed after the feature stabilized (GA);
+# the feature remains documented at inference/custom-inference-endpoint.mdx.
 # Connect a SuperGrok subscription instead of pasting an xAI API key.
 SuperGrok -> src/content/docs/agent-platform/inference/bring-your-own-api-key.mdx
 # Custom model routers (Settings > AI > Custom Routers) surface in the model picker.
@@ -452,6 +453,10 @@ OwnerOrchestrationAncestorStreamer
 # collapsible groups); public docs are pending GA promotion, which the snapshot
 # diff will flag.
 GroupedTabs
+# Pinned Tabs is a Preview feature (pin individual tabs and whole tab groups to
+# the front of the tab list); public docs are pending GA promotion, which the
+# snapshot diff will flag.
+PinnedTabs
 LSPAsATool
 EmbeddedCodeReviewComments
 InteractiveConversationManagementView
