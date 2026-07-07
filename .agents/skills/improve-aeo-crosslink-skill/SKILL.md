@@ -21,7 +21,7 @@ Suggested cron: `0 17 1-7 * 1` (UTC) = first Monday of each month at 9am PT.
 - The standing log PR (`chore: aeo crosslink audit run log`) merged into `main` so the entries are present there. If it is unmerged, merge it first (or read the log from the `chore/aeo-crosslink-audit-log` branch) before analyzing.
 - `gh` CLI authenticated with write access to `warpdotdev/docs`
 - `SLACK_BOT_TOKEN` — for posting summary to `#growth-docs`
-- `SLACK_CHANNEL_ID` — channel ID for `#growth-docs`
+- `GROWTH_DOCS_SLACK_CHANNEL_ID` — channel ID for `#growth-docs`
 
 ## Signal
 
@@ -123,6 +123,11 @@ Entries analyzed: N
 No actionable patterns found: [brief reason]
 Oz run: [run URL]
 ```
+In both messages, build the `Oz run` link at runtime — never hard-code the Oz host (for example `app.warp.dev` or `oz.warp.dev`). This agent may run on staging or production, and a hard-coded host resolves to the wrong environment (or a generic Runs page). Resolve the environment-correct link from your current run, substituting the run ID this agent is executing as:
+```bash
+oz-dev run get "<your run ID>" --output-format json | jq -r '.session_link'
+```
+If the command fails or returns an empty value, omit the `Oz run` line rather than posting a hard-coded or broken URL.
 
 ## Deployment
 
@@ -130,8 +135,8 @@ This skill is designed for a monthly Oz scheduled agent. Start it on month 3 aft
 
 To deploy:
 1. Push this skill to `main` in the docs repo.
-2. Verify the Oz environment has `SLACK_BOT_TOKEN` and `SLACK_CHANNEL_ID` set.
-3. In the Oz web app (oz.warp.dev), create a new scheduled agent:
+2. Verify the Oz environment has `SLACK_BOT_TOKEN` and `GROWTH_DOCS_SLACK_CHANNEL_ID` set.
+3. In the Oz web app, create a new scheduled agent:
    - **Skill**: `improve-aeo-crosslink-skill` from `warpdotdev/docs`
    - **Schedule**: `0 17 1-7 * 1` (UTC) = first Monday of each month at 9am PT
    - **Environment**: the same environment used for `aeo_crosslink_audit` (has `warpdotdev/docs` and buzz workspace checked out)

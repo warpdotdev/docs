@@ -20,7 +20,7 @@ The following must be available in the cloud agent environment:
 - Docs repo checked out at `main`
 - `gh` CLI authenticated with write access to `warpdotdev/docs`
 - `SLACK_BOT_TOKEN` — for posting a summary to `#growth-docs`
-- `SLACK_CHANNEL_ID` — channel ID for `#growth-docs`
+- `GROWTH_DOCS_SLACK_CHANNEL_ID` — channel ID for `#growth-docs`
 
 ## Signal sources
 
@@ -180,6 +180,11 @@ Patterns addressed: N (human feedback: N, agent review: N, style lint: N)
 Top patterns: [pattern 1], [pattern 2], [pattern 3]
 Oz run: [run URL]
 ```
+Build the `Oz run` link at runtime — never hard-code the Oz host (for example `app.warp.dev` or `oz.warp.dev`). This agent may run on staging or production, and a hard-coded host resolves to the wrong environment (or a generic Runs page). Resolve the environment-correct link from your current run, substituting the run ID this agent is executing as:
+```bash
+oz-dev run get "<your run ID>" --output-format json | jq -r '.session_link'
+```
+If the command fails or returns an empty value, omit the `Oz run` line rather than posting a hard-coded or broken URL.
 
 If fewer than 2 actionable patterns are found, do not open a PR. Write a no-change report to the run output instead:
 
@@ -205,8 +210,8 @@ This skill is designed for a monthly Oz scheduled agent.
 
 To deploy:
 1. Push this skill to `main` in the docs repo.
-2. Verify the Oz environment has `SLACK_BOT_TOKEN` and `SLACK_CHANNEL_ID` set.
-3. In the Oz web app (oz.warp.dev), create a new scheduled agent:
+2. Verify the Oz environment has `SLACK_BOT_TOKEN` and `GROWTH_DOCS_SLACK_CHANNEL_ID` set.
+3. In the Oz web app, create a new scheduled agent:
    - **Skill**: `improve-drafting-skills` from `warpdotdev/docs`
    - **Schedule**: `0 17 1-7 * 1` (UTC) = first Monday of each month at 9am PT
    - **Environment**: the same environment used for `weekly-404-monitor` (already has `warpdotdev/docs` checked out)

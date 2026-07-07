@@ -90,7 +90,7 @@ OZ_TERMS_TO_AVOID = [
 # Action verbs that precede UI elements (should be bold, not backtick)
 UI_ACTION_VERBS = r"(?:click|select|toggle|enable|disable|choose|check|uncheck|expand|collapse|open|close|tap)"
 
-DEFAULT_SLACK_CHANNEL = os.environ.get("SLACK_CHANNEL_ID", "")
+DEFAULT_SLACK_CHANNEL = os.environ.get("GROWTH_DOCS_SLACK_CHANNEL_ID", "")
 
 TERMINOLOGY_FILE = Path(".warp/references/terminology.md")
 
