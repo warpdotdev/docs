@@ -22,6 +22,7 @@ Prompt queueing lets you line up follow-up prompts while an agent is still worki
 * **Auto-queue during long-running commands** - By default, prompts submitted while an agent is driving a long-running command it started are queued and sent when the command finishes.
 * **Per-conversation queues** - Each conversation keeps its own queue and auto-queue state, which persist when you leave and re-enter the conversation.
 * **Cloud agent support** - Queue follow-ups for cloud agents, even while the environment is still setting up.
+* **Attachment capture** - When you queue a prompt that has images or files staged in the input, those attachments move onto the queued row and fire with the prompt automatically.
 
 ## How it works
 
@@ -136,6 +137,28 @@ When the queued prompts panel is showing and the input box is empty, pressing `E
 This works for both row types: queued prompts are sent to the agent, and queued shell commands run in the terminal. If the input has any text, `Enter` keeps its normal behavior and submits the typed input, leaving the queue untouched. `Enter` also keeps its normal behavior while the CLI agent Rich Input composer is open.
 
 The panel header shows this shortcut: next to the queued count, an **⏎ to send** hint appears whenever pressing `Enter` would send the top row. The hint is hidden when it wouldn't, for example while you're editing a row inline, while the input has text, or when the top row is a cloud run's locked initial prompt. That locked prompt can never be sent this way; `Enter` does nothing while it sits at the head of the queue, and the rows behind it wait until it's removed.
+
+## Prompts with attachments
+
+When you queue a prompt while images or files are staged in the input, Warp captures those attachments onto the queued row. The attachment chips clear from the input immediately, leaving it ready for your next prompt. When the queued row fires, the prompt is sent with its stored attachments — images inline and files as references.
+
+Each queued row owns its own attachment set. Queuing two prompts with different attachments produces two independent rows, and firing or removing one never affects the other's attachments.
+
+:::note
+If a queued row has multiple files that share the same filename, Warp disambiguates them automatically by appending `(1)`, `(2)`, and so on.
+:::
+
+**Staging attachments after queuing** — Attachments you stage after queuing a prompt remain in the input and send with your next prompt. A firing queued row never consumes attachments from the live input — it always uses only what was captured at queue time.
+
+**Restoring a queued row** — When a queued row is returned to the input — for example, when auto-fire reaches a row in edit mode — its attachments are re-staged in the input. A re-submit includes them.
+
+:::caution
+Queued prompts sent to a cloud follow-up include the prompt text but not the attachments. Attachments are silently dropped when the row fires into a cloud follow-up prompt.
+:::
+
+Shell command rows (prefixed with `!`) cannot carry attachments.
+
+[TODO: docs reviewer — screenshot of the queued prompts panel with a row that has attachments staged, showing the input cleared and the row in place]
 
 ## When sending pauses
 
