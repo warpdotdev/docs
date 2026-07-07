@@ -16,7 +16,7 @@ Team-managed API keys and endpoints are available only on Warp's Enterprise plan
 ## Key features
 
 * **Admin-configured, shared across the team** - An admin sets provider keys and custom endpoints once in the Admin Panel, and they appear automatically in every member's model picker.
-* **Works for interactive sessions and cloud agents** - Because credentials are stored by Warp, team-managed providers power both interactive terminal requests and cloud agent runs. Self-serve, member-managed keys never leave the member's device and can't be used by cloud agents.
+* **Works for interactive sessions and cloud agents** - Because credentials are stored by Warp, team-managed providers power both interactive terminal requests and cloud agent runs. Self-serve, member-managed keys and endpoints are stored locally and passed to Warp only in-flight for interactive requests, so they aren't available to cloud agents.
 * **First-party keys and custom endpoints** - Configure API keys for OpenAI, Anthropic, and Google, and add one or more OpenAI-compatible custom endpoints (for example, OpenRouter or LiteLLM).
 * **Secrets stored server-side, never synced to devices** - Keys and endpoint URLs are encrypted and stored by Warp. They're never synced to member devices and never delivered to cloud agent environments.
 * **Optional member-managed keys** - Admins choose whether members may also add their own keys and endpoints on top of the team's.
