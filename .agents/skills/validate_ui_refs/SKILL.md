@@ -23,7 +23,7 @@ python3 .warp/skills/validate_ui_refs/validate_ui_refs.py --all
 - `--all`: Run all checks (default)
 - `--fix`: Auto-fix high-confidence issues (e.g. case mismatches)
 - `--create-pr`: Create a branch and PR with auto-fixes (requires `gh` CLI)
-- `--slack-notify`: Post results to Slack (only sends when issues are found; requires `SLACK_BOT_TOKEN` and `SLACK_CHANNEL_ID` env vars)
+- `--slack-notify`: Post results to Slack (only sends when issues are found; requires `SLACK_BOT_TOKEN` and `GROWTH_DOCS_SLACK_CHANNEL_ID` env vars)
 - `--slack-channel ID`: Override default Slack channel
 - `--include-changelog`: Include `changelog/` in the scan (excluded by default since it's a historical record)
 - `--refresh-valid-paths`: Re-extract valid paths from `warp-internal` and update `valid_paths.json`
