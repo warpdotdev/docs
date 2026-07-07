@@ -101,7 +101,7 @@
     "DiffSetAsContext": "ga",
     "DirectoryTabColors": "ga",
     "DiscardPerFileAndAllChanges": "ga",
-    "DragTabsToWindows": "preview",
+    "DragTabsToWindows": "ga",
     "DriveObjectsAsContext": "ga",
     "DynamicWorkflowEnums": "ga",
     "EditableMarkdownMermaid": "dogfood",
@@ -154,6 +154,7 @@
     "IntegratedGPU": "other",
     "IntegrationCommand": "ga",
     "InteractiveConversationManagementView": "ga",
+    "JupyterNotebookRendering": "dogfood",
     "KittyImages": "ga",
     "KittyKeyboardProtocol": "ga",
     "KnowledgeSidebar": "other",
@@ -269,6 +270,7 @@
     "ValidateAutosuggestions": "ga",
     "VerticalTabs": "ga",
     "VerticalTabsSummaryMode": "ga",
+    "VideoRecording": "dogfood",
     "ViewingSharedSessions": "ga",
     "VimCodeEditor": "ga",
     "WaitForEventsParentRegistration": "dogfood",
@@ -1019,6 +1021,7 @@
     "code.indexing.agent_mode_codebase_context": "always_on",
     "code.indexing.agent_mode_codebase_context_auto_indexing": "always_on",
     "experimental.async_find_enabled": "always_on",
+    "general.autoupdate_enabled": "always_on",
     "general.default_session_mode": "always_on",
     "general.default_tab_config_path": "always_on",
     "general.link_tooltip": "always_on",
@@ -1214,5 +1217,5 @@
     "verify-ui-change-in-cloud": "dogfood",
     "warpctrl": "bundled"
   },
-  "changelog_last_version": "2026.06.24"
+  "changelog_last_version": "2026.07.03"
 }
