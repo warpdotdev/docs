@@ -104,6 +104,50 @@ To delete an API key, find it in either the Oz web app or the Warp app's API Key
 
 Deleted keys are immediately invalidated and cannot be recovered. Any services or scripts using the deleted key will lose access and may return an [`authentication_required` error](/reference/api-and-sdk/troubleshooting/errors/authentication-required/).
 
+## Manage API keys from the CLI
+
+In addition to the web and Warp app surfaces, you can manage API keys directly with the [Oz CLI](/reference/cli/). These commands are useful for scripting key rotation and for headless environments.
+
+### List keys
+
+`oz api-key list` prints your active API keys.
+
+* `--sort-by <FIELD>` — Sort by `name`, `created-at`, `last-used-at`, `expires-at`, or `scope`.
+* `--sort-order <DIR>` — Sort direction: `asc` or `desc`.
+* `--jq <FILTER>` — Filter the JSON output with a jq expression (for example, `--jq '.[].name'`).
+
+```bash
+oz api-key list --sort-by last-used-at --sort-order desc
+```
+
+### Create a key
+
+`oz api-key create <NAME>` creates a key and prints the raw secret once. Store it securely — you can't retrieve it again.
+
+* `<NAME>` — A name to identify the key (required).
+* `--agent <UID>` — Create an agent key that runs as the given cloud agent, instead of a personal key.
+* One expiration choice is required: `--expires-in <DURATION>` (for example, `30d`, `12h`, or `90m`), `--expires-at <RFC3339>` (an exact timestamp), or `--no-expiration`.
+* `--jq <FILTER>` — Filter the JSON output with a jq expression.
+
+```bash
+# A personal key that expires in 30 days
+oz api-key create "ci-pipeline" --expires-in 30d
+
+# An agent key scoped to a cloud agent, with no expiration
+oz api-key create "nightly-triage" --agent AGENT_UID --no-expiration
+```
+
+### Expire a key
+
+`oz api-key expire <NAME_OR_UID>` immediately invalidates a key (also available as `oz api-key delete`). Expired keys can't be recovered.
+
+* `<NAME_OR_UID>` — The name or UID of the key to expire (required).
+* `--force` — Skip the confirmation prompt.
+
+```bash
+oz api-key expire "ci-pipeline" --force
+```
+
 ## Best practices
 
 * **Use personal keys for runs that should act as you.** When code changes should be attributed to your GitHub account, a personal key is the right choice. Use agent keys for automation that isn't tied to a specific user.

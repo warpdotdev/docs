@@ -1,10 +1,9 @@
 ---
+title: [Feature or concept name — sentence case. Title convention: noun or "About [subject]". The title field renders as the page H1; do not add a separate H1 in the body.]
 description: >-
   [1-2 sentences: what the concept/feature is + why it matters.
   Write as a standalone summary for search results. Lead with user benefit.]
 ---
-
-# [Feature or concept name — sentence case. Title convention: noun or "About [subject]"]
 
 [Opening paragraph: What this feature/concept is and its primary benefit.
 1-3 sentences. Lead with what the user gains from understanding this.]

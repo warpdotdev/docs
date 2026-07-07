@@ -395,6 +395,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					items: [
 						{ slug: 'platform/orchestration', label: 'Multi-agent orchestration' },
 						{ slug: 'platform/orchestration/multi-agent-runs', label: 'Running orchestrated agents' },
+						{ slug: 'platform/software-factory', label: 'Software factory' },
 					],
 				},
 				{
@@ -684,6 +685,17 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'guides/agent-workflows/using-images-as-context-with-warp', label: 'Use images as context for agents' },
 						{ slug: 'guides/agent-workflows/understanding-your-codebase', label: 'Understand a large codebase with agents' },
 						{ slug: 'guides/agent-workflows/running-multiple-agents-at-once-with-warp', label: 'Coordinate agents on separate tasks' },
+					],
+				},
+				{
+					label: 'Build a software factory',
+					collapsed: true,
+					items: [
+						{ slug: 'guides/agent-workflows/build-a-triage-agent', label: 'Build a triage agent' },
+						{ slug: 'guides/agent-workflows/write-product-and-tech-specs-with-agents', label: 'Write specs with agents' },
+						{ slug: 'guides/agent-workflows/set-up-a-software-factory', label: 'Set up your software factory' },
+						{ slug: 'guides/agent-workflows/run-a-software-factory-in-the-cloud', label: 'Run a software factory in the cloud' },
+						{ slug: 'guides/agent-workflows/build-a-self-improving-agent', label: 'Build a self-improving agent' },
 					],
 				},
 				{

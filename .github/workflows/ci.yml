@@ -39,6 +39,14 @@ jobs:
       - name: Check internal links
         run: python3 .agents/skills/check_for_broken_links/check_links.py --internal-only
 
+      # Stdlib-only tests for the missing_docs skill scripts. The reviewer-resolver
+      # unit tests run fully here; the audit integration tests skip gracefully
+      # because the warp/warp-server code repos aren't checked out in docs CI.
+      - name: Test missing_docs skill scripts
+        run: |
+          python3 .agents/skills/missing_docs/scripts/test_suggest_reviewers.py
+          python3 .agents/skills/missing_docs/scripts/test_audit_docs.py
+
       # Production-only audit; gate on high+ so dev-only deprecation chatter
       # doesn't break PRs. The `|| true` keeps it informational; tighten this
       # to a hard fail once we're confident the noise is gone.
