@@ -340,6 +340,8 @@ However, when using BYOLLM:
 
 **BYOLLM (Bring Your Own LLM)** routes inference through your organization's cloud infrastructure (AWS Bedrock) using cloud-native IAM. Admins configure it at the admin level and it applies to the entire team.
 
+Enterprise admins can also centrally manage BYOK itself: [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) let an admin configure shared provider keys and OpenAI-compatible endpoints that are stored server-side and work for both interactive requests and cloud agents. The table below compares BYOLLM with the self-serve, user-level form of BYOK.
+
 | Feature | BYOK | BYOLLM |
 | --- | --- | --- |
 | Configuration level | User | Admin/Team |
@@ -371,6 +373,7 @@ Yes. Admins can configure routing policies to require specific models to use BYO
 ## Related resources
 
 * [Bring Your Own API Key](/agent-platform/inference/bring-your-own-api-key/)
+* [Team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) — Enterprise admins configure shared provider keys and custom endpoints for the team
 * [Model Choice](/agent-platform/inference/model-choice/) — Full list of supported models
 * [Admin Panel](/enterprise/team-management/admin-panel/) — Configure team settings
 * [Contact Sales](https://www.warp.dev/contact-sales) — Get help with enterprise setup
