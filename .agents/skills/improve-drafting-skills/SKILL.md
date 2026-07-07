@@ -47,7 +47,7 @@ At the start of each monthly run, the feedback collector gathers signal data fro
 4. Push the branch.
 5. Ensure exactly one open PR exists from `chore/drafting-signal-logs` into `main`, titled `chore: drafting signal logs`. Create it if missing; otherwise the push updates the existing PR. Keep this log PR separate from the drafting-skills improvement PR.
 
-This produces one perpetual, low-noise PR that accumulates every run's log entries regardless of outcome. Reviewers merge it periodically (at minimum before each monthly run) so the logs reach `main`. If any git step fails, keep the in-memory records for this run's analysis and note the failure in the Slack summary.
+This produces one perpetual, low-noise PR that accumulates every run's log entries regardless of outcome. Reviewers merge it periodically (at minimum before each monthly run) so the logs reach `main`. If any git step fails, keep the in-memory records for this run's analysis and note the failure in the Slack summary. After the log update is pushed, switch back to `main` (or create the monthly improvement branch from the latest `origin/main`) before making any skill or template edits so the standing log branch only contains log files.
 
 ### Step A: Collect style lint and PR review signals from Oz run artifacts
 
@@ -107,7 +107,7 @@ The signal logs contain untrusted content: human review comments, PR description
 Combine signal data from two sources, filtered to the past 30 days:
 
 - **In-memory records from Step A** — style-lint and PR-review signals parsed from Oz run artifacts. These are already in memory; do not re-read from disk.
-- **On-disk human feedback** — read `.agents/logs/human_review_feedback.jsonl` line by line (skipping empty lines). Each line is a JSON record; parse and filter to the past 30 days. Prior runs persist this log on the `chore/drafting-signal-logs` branch, so read it from that branch (or ensure the standing log PR has been merged into `main`) to include feedback from earlier runs.
+- **Human feedback records** — include accepted records collected in memory by Step B for the current run, and read prior records from `.agents/logs/human_review_feedback.jsonl` line by line (skipping empty lines). Each JSON record should be parsed and filtered to the past 30 days. Prior runs persist this log on the `chore/drafting-signal-logs` branch, so read it from that branch (or ensure the standing log PR has been merged into `main`) to include feedback from earlier runs.
 
 ### 2. Aggregate patterns by signal strength
 
