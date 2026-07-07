@@ -134,6 +134,13 @@ ShellSelector -> src/content/docs/getting-started/supported-shells.mdx
 WorkflowAliases -> src/content/docs/terminal/entry/yaml-workflows.mdx
 KittyImages -> src/content/docs/terminal/more-features/full-screen-apps.mdx
 UndoClosedPanes -> src/content/docs/terminal/windows/tabs.mdx
+# Tab groups (organize tabs into named, collapsible groups) — GA (in the default
+# feature set). Pinning tab groups is still Preview (PinnedTabs), so it stays out
+# of the docs for now.
+GroupedTabs -> src/content/docs/terminal/windows/tabs.mdx
+# Drag a tab out to its own window or between windows. GA on macOS and Windows
+# (RELEASE_FLAGS, cfg-gated), documented with that platform caveat.
+DragTabsToWindows -> src/content/docs/terminal/windows/tabs.mdx
 RevertDiffHunk -> src/content/docs/code/code-review.mdx
 SshRemoteServer -> src/content/docs/terminal/warpify/ssh.mdx
 
@@ -313,6 +320,7 @@ DELETE /memory_stores/{uid} -> gated:AIMemories
 GET /memory_stores/{uid}/agents -> gated:AIMemories
 GET /memory_stores/{uid}/memories -> gated:AIMemories
 POST /memory_stores/{uid}/memories -> gated:AIMemories
+GET /memory_stores/{uid}/memories/{memoryUid} -> gated:AIMemories
 DELETE /memory_stores/{uid}/memories/{memoryUid} -> gated:AIMemories
 PUT /memory_stores/{uid}/memories/{memoryUid} -> gated:AIMemories
 GET /memory_stores/{uid}/memories/{memoryUid}/versions -> gated:AIMemories
@@ -334,6 +342,11 @@ GET /memory_stores/{uid}/memories/{memoryUid}/versions -> gated:AIMemories
 # One-time internal state for the deprecated tmux SSH wrapper migration banner;
 # not a user-configurable setting.
 warpify.ssh.ssh_tmux_deprecation_notice_pending -> internal
+
+# TUI-only (warp-tui) background auto-updater toggle (surface: TUI). It isn't
+# present in the GUI settings UI, so it isn't documented in the all-settings
+# reference.
+general.autoupdate_enabled -> internal
 
 ## Unlisted docs pages to ignore
 
@@ -449,10 +462,6 @@ OwnerOrchestrationAncestorStreamer
 # rollout status (the audit computes that from code); entries here are ignored
 # because the toggle itself isn't a documentable surface, or because the
 # feature isn't user-facing yet — the snapshot diff flags promotions.
-# Grouped Tabs is a macOS-only Preview feature (organize tabs into named,
-# collapsible groups); public docs are pending GA promotion, which the snapshot
-# diff will flag.
-GroupedTabs
 # Pinned Tabs is a Preview feature (pin individual tabs and whole tab groups to
 # the front of the tab list); public docs are pending GA promotion, which the
 # snapshot diff will flag.
@@ -476,7 +485,6 @@ CodeModeChip
 # Internal agent file-search tool plumbing (read tools are not individually documented).
 GrepTool
 NativeShellCompletions
-DragTabsToWindows
 SshDragAndDrop
 ITermImages
 AIGeneratedOnboardingSuggestions
