@@ -1,7 +1,7 @@
 ---
-title: Team-managed API keys and endpoints
+title: Team-managed LLM API keys and endpoints
 description: >-
-  Configure shared provider API keys and custom endpoints for your whole team
+  Configure shared LLM provider API keys and custom inference endpoints for your whole team
   from the Admin Panel, available in both interactive sessions and cloud agents.
 ---
 
@@ -42,7 +42,7 @@ Team-managed configuration is split into public display metadata and secrets, an
 ### First-party keys and custom endpoints
 
 * **First-party keys (BYOK)** - The admin adds an API key for a provider Warp supports (OpenAI, Anthropic, or Google). Members select the normal Warp model for that provider, and the server routes the request through the team key when the member has no key of their own.
-* **Custom endpoints (BYOE)** - The admin adds one or more OpenAI-compatible Chat Completions endpoints. Each endpoint has a name, a base URL, an API key, and one or more models, where each model has a model name (sent to the endpoint) and an optional alias (shown to members). Team endpoint models appear in the picker as distinct entries labeled `Team · <endpoint name>`.
+* **Custom endpoints (BYOE)** - The admin adds one or more OpenAI-compatible Chat Completions endpoints. Each endpoint has a name, a base URL, an API key, and one or more models, where each model has a model name (sent to the endpoint) and an optional alias (shown to members). Team endpoint models appear in every member's model picker as their own entries, labeled with the endpoint name.
 
 ### How secrets are stored and used
 
@@ -93,17 +93,18 @@ By default, members can still choose Warp-managed models even when team provider
 
 ## Member experience
 
-Members don't configure anything for team providers. In their AI settings, a read-only **Provided by your team** group lists the team's configured providers and endpoints. For each first-party provider, members see whether a team key is configured and whether it's active or overridden by their own key — the stored key value is never shown.
+Members don't configure anything for team providers — they just select a model. Team-managed configuration syncs to each member's client automatically:
 
-In the model picker, team endpoint models appear as distinct entries labeled `Team · <endpoint name>`, and a member's own endpoints appear as `Custom · <endpoint name>`. The active model indicator makes the source clear: whether inference uses the member's key, the team's key, or Warp-managed inference.
+* **Custom endpoints** - Each enabled team endpoint model appears in the model picker as its own entry, showing the model's name (or alias) and the endpoint name. Members select it like any other model.
+* **First-party keys** - Members select the standard model for a provider (for example, a Claude, GPT, or Gemini model), and requests route through the team key automatically. If a member has added their own key for that provider, their own key takes precedence.
 
-If the admin allows members to add their own keys and endpoints, members also see the standard self-serve [BYOK](/agent-platform/inference/bring-your-own-api-key/) and [custom inference endpoint](/agent-platform/inference/custom-inference-endpoint/) controls under a separate group.
+If the admin allows members to add their own keys and endpoints, members can still do so through the standard self-serve [BYOK](/agent-platform/inference/bring-your-own-api-key/) and [custom inference endpoint](/agent-platform/inference/custom-inference-endpoint/) settings.
 
 ## Billing behavior
 
 * **No AI credits for team-routed inference** - When a request routes through a team key or team endpoint, Warp doesn't consume your [AI credits](/support-and-community/plans-and-billing/credits/). Inference is billed directly by your provider or endpoint.
 * **Auto still uses Warp credits** - Warp's **Auto** models route across providers using Warp's infrastructure, so Auto always consumes Warp credits. To use a team provider, select a specific model or endpoint from the picker.
-* **Platform credits still apply** - Local and cloud agent runs still consume [platform credits](/support-and-community/plans-and-billing/platform-credits/) for Warp's platform infrastructure (run lifecycle, orchestration, and observability). Cloud agent runs consume compute credits when they use Warp-hosted compute.
+* **Platform and compute credits still apply** - On Enterprise, local agent runs still consume [platform credits](/support-and-community/plans-and-billing/platform-credits/) for Warp's platform infrastructure (run lifecycle, orchestration, and observability). Cloud agent runs consume platform credits too, plus [compute credits](/support-and-community/plans-and-billing/credits/#compute-credits) when they use Warp-hosted compute.
 
 See [The three credit buckets](/support-and-community/plans-and-billing/platform-credits/#the-three-credit-buckets) for more on credit types.
 
