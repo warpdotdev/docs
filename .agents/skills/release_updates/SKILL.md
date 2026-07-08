@@ -38,8 +38,6 @@ They support the following:
 ### Required for Slack PR notification
 
 - `SLACK_BOT_TOKEN` environment variable (Oz team secret — add to the docs agent environment).
-- `GROWTH_DOCS_SLACK_CHANNEL_ID` environment variable — the `#growth-docs` channel ID.
-  Find it in Slack: right-click the channel → **Copy link**; the ID begins with `C`.
 
 ### Recommended
 
@@ -173,15 +171,15 @@ python3 .agents/skills/release_updates/scripts/run_release_updates.py \
 
 ### Post Slack notification after creating a PR
 
-After the PR is created, post a notification to the `#growth-docs` Slack channel:
+After the PR is created, post a notification to the `#oncall-client` Slack channel (`C06MT1NRBFV`):
 
 ```python
 import json, os, urllib.request
 
 token = os.environ.get('SLACK_BOT_TOKEN')
-channel = os.environ.get('GROWTH_DOCS_SLACK_CHANNEL_ID')
-if not token or not channel:
-    print('SLACK_BOT_TOKEN or GROWTH_DOCS_SLACK_CHANNEL_ID not set — skipping Slack notification')
+channel = 'C06MT1NRBFV'  # #oncall-client
+if not token:
+    print('SLACK_BOT_TOKEN not set — skipping Slack notification')
 else:
     # Resolve the oncall-client-primary user group ID
     req = urllib.request.Request(
