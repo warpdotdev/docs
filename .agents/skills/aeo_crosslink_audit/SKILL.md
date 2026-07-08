@@ -29,7 +29,7 @@ Do not:
 The following environment secrets should be set in the Oz cloud agent environment:
 
 - `SLACK_BOT_TOKEN` — Slack bot token for posting to `#growth-docs`. If unavailable, write the notification body to the run output instead and skip Slack posting.
-- `SLACK_CHANNEL_ID` — Slack channel ID for `#growth-docs`. Find it in Slack by right-clicking the channel → Copy link (the ID begins with `C`). If unavailable, skip Slack posting.
+- `GROWTH_DOCS_SLACK_CHANNEL_ID` — Slack channel ID for `#growth-docs`. Find it in Slack by right-clicking the channel → Copy link (the ID begins with `C`). If unavailable, skip Slack posting.
 
 Do NOT print, log, commit, or include secret values in reports or Slack messages.
 
@@ -85,9 +85,9 @@ If Google Search Console data is unavailable, say what could not be verified and
    import os, json, urllib.request, sys
 
    token = os.environ.get("SLACK_BOT_TOKEN", "")
-   channel = os.environ.get("SLACK_CHANNEL_ID", "")
+   channel = os.environ.get("GROWTH_DOCS_SLACK_CHANNEL_ID", "")
    if not token or not channel:
-       print("SLACK_BOT_TOKEN or SLACK_CHANNEL_ID not set — skipping Slack notification", file=sys.stderr)
+       print("SLACK_BOT_TOKEN or GROWTH_DOCS_SLACK_CHANNEL_ID not set — skipping Slack notification", file=sys.stderr)
        sys.exit(0)
 
    # Replace the triple-quoted string with the message from the Slack notification format section.
@@ -113,7 +113,7 @@ If Google Search Console data is unavailable, say what could not be verified and
    SLACK_EOF
    ```
 
-   Replace `<message text here>` with the message from the appropriate format in the "Slack notification format" section. Do not print `SLACK_BOT_TOKEN` or `SLACK_CHANNEL_ID` values in the run output or in any file.
+   Replace `<message text here>` with the message from the appropriate format in the "Slack notification format" section. Do not print `SLACK_BOT_TOKEN` or `GROWTH_DOCS_SLACK_CHANNEL_ID` values in the run output or in any file.
 
 ## Link quality rules
 
@@ -309,6 +309,7 @@ Oz run: [run URL]
 Rules:
 - Post on every run, including no-change runs.
 - Never include raw secret values, personal access tokens, or credential file paths in the Slack message.
+- Build the `Oz run` link at runtime — never hard-code the Oz host (for example `app.warp.dev` or `oz.warp.dev`). This agent may run on staging or production, and a hard-coded host resolves to the wrong environment (or a generic Runs page). Resolve the environment-correct link from your current run with `oz-dev run get "<your run ID>" --output-format json | jq -r '.session_link'`, substituting the run ID this agent is executing as.
 - If the Oz run URL is unavailable, omit that line rather than posting a broken link.
 
 ## Future expansion boundaries

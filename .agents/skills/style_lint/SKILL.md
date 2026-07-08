@@ -22,7 +22,7 @@ python3 .agents/skills/style_lint/style_lint.py
 - `--fix`: Auto-fix high-confidence issues (optional, off by default)
 - `--create-pr`: Create a branch and PR with auto-fixes (requires `gh` CLI, implies `--fix`)
 - `--output FILE`: Save results to JSON file
-- `--slack-notify`: Send results to Slack (only sends when issues are found; requires `SLACK_BOT_TOKEN` and `SLACK_CHANNEL_ID` env vars)
+- `--slack-notify`: Send results to Slack (only sends when issues are found; requires `SLACK_BOT_TOKEN` and `GROWTH_DOCS_SLACK_CHANNEL_ID` env vars)
 - `--slack-channel ID`: Override the default Slack channel
 
 ### Quick check on changed files:
