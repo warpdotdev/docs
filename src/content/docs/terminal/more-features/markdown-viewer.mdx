@@ -1,7 +1,7 @@
 ---
 title: Markdown Viewer
 description: >-
-  Open Markdown files in your terminal and run commands.
+  Open Markdown files in your terminal, run shell commands, and view rendered Mermaid diagrams.
 sidebar:
   label: "Markdown viewer"
 ---
@@ -87,6 +87,33 @@ If the command contains any arguments using the curly brace `{{param}}` syntax, 
 
 <DemoVideo src="/assets/terminal/run-markdown-file-command.mp4" label="Demo of running two commands from a Markdown file in Warp" />
 
-In addition, all shell and code blocks have a copy button to quickly copy the block’s text to the clipboard.
+In addition, all shell and code blocks have a copy button to quickly copy the block's text to the clipboard.
 
 Code blocks without a set language, or one of the following languages, are treated as shell commands: `sh`, `shell`, `bash`, `fish`, `zsh`, `warp-runnable-command`.
+
+## Mermaid diagrams
+
+Warp renders [Mermaid](https://mermaid.js.org/) diagrams in the markdown viewer. Add a fenced code block with the `mermaid` language tag and Warp converts it to a rendered SVG diagram automatically.
+
+````
+```mermaid
+graph LR
+  A[Start] --> B[End]
+```
+````
+
+[TODO: docs reviewer — screenshot of a rendered Mermaid diagram in the markdown viewer]
+
+### Switching between raw and rendered
+
+Each Mermaid block includes a **Raw** and **Rendered** toggle. Use it to switch between the rendered diagram and the original Mermaid source without leaving the viewer.
+
+### Render failures and timeouts
+
+If a Mermaid diagram cannot be rendered — for example, due to invalid syntax — Warp replaces the loading placeholder with a **Failed to render Mermaid diagram** notice. The same notice appears if rendering takes longer than 10 seconds.
+
+The notice is localized to the affected block; the rest of the document continues to render normally. Multiple Mermaid diagrams in the same file are independent — a failure in one does not affect others.
+
+Your original Mermaid source is always preserved. Copying, exporting, and undo/redo all operate on the authored code, not the failure notice.
+
+If rendering eventually succeeds after a timeout, Warp replaces the notice with the rendered diagram automatically.
