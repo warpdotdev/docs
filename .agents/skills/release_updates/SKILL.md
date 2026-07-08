@@ -181,17 +181,19 @@ channel = 'C06MT1NRBFV'  # #oncall-client
 if not token:
     print('SLACK_BOT_TOKEN not set — skipping Slack notification')
 else:
-    # Resolve the oncall-client-primary user group ID
+    # Resolve the oncall-client-primary and oncall-client-secondary user group IDs
     req = urllib.request.Request(
         'https://slack.com/api/usergroups.list',
         headers={'Authorization': f'Bearer {token}'}
     )
     with urllib.request.urlopen(req) as resp:
         groups = json.loads(resp.read()).get('usergroups', [])
-    group_id = next((g['id'] for g in groups if g.get('handle') == 'oncall-client-primary'), None)
-    mention = f'<!subteam^{group_id}|oncall-client-primary>' if group_id else '@oncall-client-primary'
+    primary_id = next((g['id'] for g in groups if g.get('handle') == 'oncall-client-primary'), None)
+    secondary_id = next((g['id'] for g in groups if g.get('handle') == 'oncall-client-secondary'), None)
+    primary = f'<!subteam^{primary_id}|oncall-client-primary>' if primary_id else '@oncall-client-primary'
+    secondary = f'<!subteam^{secondary_id}|oncall-client-secondary>' if secondary_id else '@oncall-client-secondary'
 
-    message = f':books: New release docs PR ready for review\n{pr_url}\n{mention} please take a look when you get a chance.'
+    message = f':books: New release docs PR ready for review\n{pr_url}\n{primary} {secondary} please take a look when you get a chance.'
     body = json.dumps({'channel': channel, 'text': message, 'mrkdwn': True}).encode()
     req = urllib.request.Request(
         'https://slack.com/api/chat.postMessage',
