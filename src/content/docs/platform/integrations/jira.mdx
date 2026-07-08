@@ -3,22 +3,20 @@ title: Jira integration
 sidebar:
   label: "Jira"
 description: >-
-  Trigger cloud agent runs directly from Jira issues.
+  Trigger cloud agent runs directly from Jira issues using the oz-agent label.
 ---
 
 The Jira integration lets your team kick off cloud agent runs directly from Jira Cloud issues. When you add the `oz-agent` label to an issue, an agent starts in the cloud and gets to work — then posts status updates and a summary back as Jira comments when it's done.
 
-:::caution[Early access]
-The Jira integration is in active development. Functionality may change, and some features are still being built out. We welcome feedback and suggestions.
-:::
-
 ---
 
-### How to start a run
+### Requirements
 
-Add the label **`oz-agent`** to any Jira issue. Oz will pick it up, post a comment to let you know it's started, and begin working through the task using the issue title, description, and recent comments as context.
-
-When the run finishes, Oz posts a summary comment to the issue with links to any pull requests or branches it created, along with a link to the full conversation in Warp.
+* **Jira Cloud** - Jira Server and Data Center are not supported.
+* **Team membership** - The Jira integration requires you to be part of a [Warp team](/knowledge-and-collaboration/teams/). Teams can be created on any plan, including Free.
+* **Plan and credits** - Your team must be on a plan that supports integrations (Build, Max, or Business) and have at least 20 credits available. See [Access, Billing, and Identity](/platform/team-access-billing-and-identity/) for details.
+* **Infrastructure** - By default, agents run on Warp-hosted infrastructure. Enterprise teams can [self-host agents](/platform/self-hosting/) on their own infrastructure.
+* **Jira site admin** - Installing the Oz app in Jira requires site admin permissions.
 
 ---
 
@@ -28,7 +26,7 @@ When the run finishes, Oz posts a summary comment to the issue with links to any
 
 The Oz app is not yet published to the Atlassian marketplace. Install the Oz app into your Jira Cloud site using the link provided by your Warp contact. Only Jira site admins can install apps.
 
-#### 2. Connect your Jira workspace to Warp
+#### 2. Connect your Jira site to Warp
 
 After installing the app, open the app's **Configure** screen inside Jira. This takes you to a Warp page to connect your app installation to your Warp workspace.
 
@@ -36,17 +34,15 @@ Once connected, the integration is active for all members of your Warp team.
 
 #### 3. (Optional) Configure the default environment, model, and harness
 
-In your integration settings, you can configure the default environment, model, and harness that Oz will use for runs triggered from Jira. If none is set, Oz uses your team's default configuration.
+In the [Oz web app](https://oz.warp.dev/integrations), open your Jira integration to set the default [environment](/platform/environments/), model, and harness Oz uses for Jira-triggered runs. If you don't set these, Oz uses your team's default configuration.
 
 ---
 
-### Requirements
+### How to start a run
 
-- **Jira Cloud** - Jira Server and Data Center are not supported.
-- **Warp team and eligible plan** - Your team must be on a **Build, Max, or Business** plan with at least **20 credits** available, or on an **Enterprise** plan with a team credit pool. See [Access, Billing, and Identity](/platform/team-access-billing-and-identity/) for details.
-- **A configured cloud environment** - Agents run inside an [environment](/platform/environments/) that includes the repositories and dependencies they need. Configure a Jira-specific default environment or confirm your team's default configuration includes one.
-- **GitHub authorization** - Warp needs access to your repositories to clone code and open pull requests. Authorize the Warp GitHub app before using the integration for code tasks.
-- **Jira site admin** - Installing the Oz app in Jira requires site admin permissions.
+Add the label **`oz-agent`** to any Jira issue. Oz will pick it up, post a comment to let you know it's started, and begin working through the task using the issue title, description, and recent comments as context.
+
+When the run finishes, Oz posts a summary comment to the issue with links to any pull requests or branches it created, along with a link to the full conversation in Warp. To track runs across your team, open the [Agent Management Panel](/platform/managing-cloud-agents/) in the Warp app, where Jira-triggered runs appear in the **All** tab.
 
 ---
 
@@ -54,7 +50,23 @@ In your integration settings, you can configure the default environment, model, 
 
 If Oz doesn't respond after adding the label, check that:
 
-- The Oz app is installed and the workspace is connected (see the app's Configure screen in Jira).
-- The issue is in Jira Cloud (not Server or Data Center).
+* The Oz app is installed and the workspace is connected (see the app's **Configure** screen in Jira).
+* The issue is in Jira Cloud (not Server or Data Center).
 
-For other issues, reach out to your Warp contact or post in our community.
+:::tip
+When a Jira-triggered run can't start, Oz posts an error comment on the issue. Common codes:
+
+* [`feature_not_available`](/reference/api-and-sdk/troubleshooting/errors/feature-not-available/) - your plan doesn't support integrations.
+* [`integration_disabled`](/reference/api-and-sdk/troubleshooting/errors/integration-disabled/) - the integration was removed or disabled.
+:::
+
+For other issues, reach out to your Warp contact or join the [Warp community on Slack](https://go.warp.dev/join-preview).
+
+---
+
+### Related pages
+
+* [Integrations overview](/platform/integrations/) - How environments and integrations work together.
+* [Slack](/platform/integrations/slack/) and [Linear](/platform/integrations/linear/) - Other chat- and issue-triggered integrations.
+* [Managing cloud agents](/platform/managing-cloud-agents/) - Monitor Jira-triggered runs across your team.
+* [Environments](/platform/environments/) - Configure where agents run.
