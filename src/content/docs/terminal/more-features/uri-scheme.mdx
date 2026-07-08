@@ -16,10 +16,26 @@ There are several ways to use the URI scheme:
 * Open new tab `warp://action/new_tab?path=<path_to_folder>`
 * Open Launch Configuration `warp://launch/<launch_configuration_path>`
 * Open Tab Config `warp://tab_config/<name>` — opens the saved [Tab Config](/terminal/windows/tab-configs/) as a new tab in the active window. Append `?new_window=true` to open it in a new window instead. `<name>` is matched case-insensitively against the file stem of the `.toml`, so both `warp://tab_config/my_tab` and `warp://tab_config/my_tab.toml` resolve to `my_tab.toml`.
+* Open Settings `warp://settings` — opens the Settings window. See [Settings deep links](#settings-deep-links) for search, widget, and sub-page options.
 
 :::note
 [Warp Preview](/support-and-community/community/warp-preview-and-alpha-program/) URI scheme begins with `warppreview://`
 :::
+
+## Settings deep links
+
+Open the Settings window directly, optionally jumping to a specific page, widget, or search:
+
+* `warp://settings` — open Settings on the default page.
+* `warp://settings?q=<query>` — open Settings with the search bar pre-filled.
+* `warp://settings?widget=<widget_id>` — open Settings scrolled to a specific setting.
+* `warp://settings/appearance` — open the Appearance page (themes, fonts, and more).
+* `warp://settings/mcp` — open the MCP servers page. Append `?autoinstall=<name>` to install a gallery MCP server by name.
+* `warp://settings/warp_agent` — open the Warp Agent page (inference and API keys).
+* `warp://settings/environments` — open the Cloud environments page.
+* `warp://settings/platform` — open the Platform page.
+* `warp://settings/billing_and_usage` — open the Billing & usage page.
+* `warp://settings/teams` — open Team settings. Append `?invite=<email>` to open the invite dialog with the email pre-filled.
 
 ## How it works
 

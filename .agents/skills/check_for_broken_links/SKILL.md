@@ -21,7 +21,7 @@ python3 .warp/skills/check_for_broken_links/check_links.py
 - `--external-only`: Only check external links
 - `--timeout N`: HTTP timeout in seconds (default: 10)
 - `--output FILE`: Save results to JSON file
-- `--slack-notify`: Send results to Slack (requires `SLACK_BOT_TOKEN` and `SLACK_CHANNEL_ID` env vars)
+- `--slack-notify`: Send results to Slack (requires `SLACK_BOT_TOKEN` and `GROWTH_DOCS_SLACK_CHANNEL_ID` env vars)
 - `--slack-channel ID`: Override the default Slack channel
 
 ### Quick internal-only check:

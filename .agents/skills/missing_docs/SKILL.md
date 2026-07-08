@@ -228,12 +228,14 @@ For each gap to address (prioritize high → medium → low):
    - Bold + dash format for list items: `* **Term** - Description`
 6. Create the markdown file at the suggested path
 7. Add new pages to the sidebar in `src/sidebar.ts` (only a brand-new top-level topic also needs an `astro.config.mjs` change)
-8. **Update `references/feature_surface_map.md` in the same PR**: add a
-   `Flag -> src/content/docs/...` mapping for every feature you documented (or add the
-   flag to the ignore list with a comment if you confirmed it is internal-only). This
-   step is NOT optional — unmapped features become repeat findings, and an unmaintained
-   map is how gaps get lost.
-9. Run `--update-snapshot` and commit the refreshed snapshot with the same PR.
+8. **Update `references/feature_surface_map.md`** for every feature you document: add a
+   `Flag -> src/content/docs/...` mapping (or an ignore-list entry with a comment if you
+   confirmed it is internal-only). This step is NOT optional — unmapped features become
+   repeat findings, and an unmaintained map is how gaps get lost. Per the PR strategy
+   below, collect all map edits into the single companion audit-bookkeeping PR (only fold
+   them into a feature PR when the run documents exactly one feature).
+9. Run `--update-snapshot` and commit the refreshed `surface_snapshot.json` in that same
+   bookkeeping PR. Never split the snapshot across multiple PRs.
 
 ### Resolution patterns
 
@@ -274,6 +276,39 @@ python3 .agents/skills/missing_docs/scripts/suggest_reviewers.py \
 
 Then assign the resolved reviewers on the PR with `gh pr edit <PR> --add-reviewer <logins/teams>`. Unresolved paths are non-fatal — leave them for manual assignment rather than blocking the run.
 
+### PR strategy: one PR per feature
+
+Ship each documented feature as its own focused PR so the owning engineer reviews only
+their area. Do NOT bundle unrelated features into a single mega PR.
+
+- **One feature → one PR.** Each documented feature (or standalone correction, e.g. a
+  duplicate-heading fix) gets its own branch and PR, titled and scoped to that item, with
+  the owning reviewer assigned. This is the default; the rules below are the only
+  exceptions.
+- **Group only when features share a doc file or owner.** Two features that edit the same
+  page (e.g. tab groups and drag-a-tab-to-another-window, both in
+  `terminal/windows/tabs.mdx`) go in one PR — separate PRs touching the same file would
+  conflict, and they usually share an owner anyway. Prefer grouping by owning engineer
+  when the same file is involved.
+- **Collect all surface-map + snapshot edits into a single companion "audit bookkeeping"
+  PR.** `references/feature_surface_map.md` and `references/surface_snapshot.json` are
+  shared files; editing them across many feature PRs causes merge conflicts, and the
+  snapshot is a wholesale regen. Put every `Flag -> page` mapping, ignore/`internal`/
+  `gated:` entry, and the `--update-snapshot` regen into one bookkeeping PR. Its mappings
+  may point at pages that land in the sibling feature PRs — map hygiene only requires the
+  target page to exist on the base branch, so the bookkeeping PR is independently
+  mergeable in any order. If a run documents exactly one feature, fold its map + snapshot
+  changes into that single PR and skip the companion.
+- **API spec gaps stay separate** — released endpoints go through the `sync-openapi-spec`
+  skill as their own change, never bundled into a feature PR.
+- **Validate once, then split.** Run `npm run build` on the combined working tree (all
+  features together) to confirm everything compiles, then peel each feature onto its own
+  branch off `main` (e.g. `git checkout <base> -b <branch>` then
+  `git checkout <combined-ref> -- <files>`). Each feature branch is then a strict subset
+  of the already-validated tree.
+- List any deferred findings in the most relevant PR body (or the bookkeeping PR) so
+  nothing is silently dropped.
+
 ### Drift-watch mode (recurring scheduled agent)
 
 This is the end-to-end workflow for the scheduled cloud agent that keeps docs in sync
@@ -304,10 +339,12 @@ with the product. Each run:
 6. **Route reviewers**: run `scripts/suggest_reviewers.py` (see Reviewer routing)
    with the source files behind the addressed findings to resolve the owning
    engineers for the PR.
-7. **Open a PR** with the doc pages + map + snapshot changes together, using the
-   `create_pr` skill. Assign the reviewers from step 6 (`gh pr edit <PR>
-   --add-reviewer ...`), and summarize remaining (deferred) findings in the PR body
-   so nothing is silently dropped.
+7. **Open one PR per feature** following the PR strategy above (not a single mega PR):
+   one focused PR per documented feature (grouping only features that share a doc file or
+   owner), plus a single companion audit-bookkeeping PR for all `feature_surface_map.md`
+   and `surface_snapshot.json` changes. Use the `create_pr` skill, assign each PR's owning
+   reviewer from step 6 (`gh pr edit <PR> --add-reviewer ...`), and summarize remaining
+   (deferred) findings in the relevant PR body so nothing is silently dropped.
 
 Recommended scheduled-agent prompt (copy when setting up the agent):
 
@@ -319,9 +356,10 @@ Recommended scheduled-agent prompt (copy when setting up the agent):
 > comment) for every triaged flag, and use the sync-openapi-spec skill for API spec
 > gaps. Regenerate the surface snapshot with --update-snapshot. Resolve reviewers by
 > running scripts/suggest_reviewers.py against the source files behind each addressed
-> finding. Open a single PR with the doc pages, feature_surface_map.md, and
-> surface_snapshot.json changes, assign the resolved owners as reviewers, and list any
-> findings you deferred in the PR body.
+> finding. Open one focused PR per documented feature (grouping only features that share a
+> doc file or owner), plus a single companion bookkeeping PR for the feature_surface_map.md
+> and surface_snapshot.json changes; assign each PR's resolved owner as reviewer, and list
+> any findings you deferred in the relevant PR body.
 
 ### Invocation modes
 
