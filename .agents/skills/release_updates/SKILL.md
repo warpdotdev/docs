@@ -37,7 +37,7 @@ They support the following:
 
 ### Required for Slack PR notification
 
-- `SLACK_BOT_TOKEN` environment variable (Oz team secret — add to the docs agent environment).
+- `DOCS_SLACK_BOT_TOKEN` environment variable (Oz team secret — add to the docs agent environment).
 
 ### Recommended
 
@@ -176,10 +176,10 @@ After the PR is created, post a notification to the `#oncall-client` Slack chann
 ```python
 import json, os, urllib.request
 
-token = os.environ.get('SLACK_BOT_TOKEN')
+token = os.environ.get('DOCS_SLACK_BOT_TOKEN')
 channel = 'C06MT1NRBFV'  # #oncall-client
 if not token:
-    print('SLACK_BOT_TOKEN not set — skipping Slack notification')
+    print('DOCS_SLACK_BOT_TOKEN not set — skipping Slack notification')
 else:
     # Resolve the oncall-client-primary and oncall-client-secondary user group IDs
     req = urllib.request.Request(

@@ -148,9 +148,9 @@ jobs:
           6. Run `npm run build` before considering the PR ready for review.
           7. If no docs changes are needed, report a no-op result and do not open a PR.
           8. After creating the PR: post a Slack notification to the #oncall-client Slack channel (ID: C06MT1NRBFV).
-             - Resolve the oncall-client-primary and oncall-client-secondary Slack user groups via the Slack usergroups.list API (SLACK_BOT_TOKEN).
+             - Resolve the oncall-client-primary and oncall-client-secondary Slack user groups via the Slack usergroups.list API (DOCS_SLACK_BOT_TOKEN).
              - Message format: ":books: New release docs PR ready for review\n<PR_URL>\n<!subteam^PRIMARY_ID|oncall-client-primary> <!subteam^SECONDARY_ID|oncall-client-secondary> please take a look when you get a chance."
-             - If SLACK_BOT_TOKEN is unset, skip silently and log a warning.
+             - If DOCS_SLACK_BOT_TOKEN is unset, skip silently and log a warning.
           Expected command (adjust flags per trigger values above):
           python3 .agents/skills/release_updates/scripts/run_release_updates.py {task_flag} --create-pr --pr-base main {pr_flag} {auto_install}
           """
