@@ -33,7 +33,7 @@ from typing import Any, Dict, List, Optional, Tuple
 SCRIPT_DIR = Path(__file__).resolve().parent
 DEFAULT_VALID_PATHS_FILE = SCRIPT_DIR / "valid_paths.json"
 DEFAULT_DOCS_DIR = SCRIPT_DIR.parents[2] / "docs"
-DEFAULT_SLACK_CHANNEL = os.environ.get("SLACK_CHANNEL_ID", "")
+DEFAULT_SLACK_CHANNEL = os.environ.get("GROWTH_DOCS_SLACK_CHANNEL_ID", "")
 
 # Known Warp UI roots — paths starting with these are Warp UI paths
 WARP_UI_ROOTS = {"Settings", "File", "View", "Warp", "Warp Drive", "Personal"}

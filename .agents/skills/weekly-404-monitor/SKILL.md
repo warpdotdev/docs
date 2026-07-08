@@ -13,7 +13,7 @@ The following environment secrets must be set in the Oz cloud agent environment:
 
 - `METABASE_API_KEY` — Metabase API key for BigQuery queries. If unavailable, the run must fail fast with a clear error.
 - `SLACK_BOT_TOKEN` — Slack bot token for posting to the docs channel. If unavailable, write a no-post report to the run output instead.
-- `SLACK_CHANNEL_ID` — Slack channel ID for **`#growth-docs`**. Find it in Slack by right-clicking the channel → Copy link (the ID begins with `C`). There is no fallback — the run will skip Slack posting if this is unset.
+- `GROWTH_DOCS_SLACK_CHANNEL_ID` — Slack channel ID for **`#growth-docs`**. Find it in Slack by right-clicking the channel → Copy link (the ID begins with `C`). There is no fallback — the run will skip Slack posting if this is unset.
 
 Do NOT print, log, or include secret values in reports, commits, or Slack messages.
 
@@ -94,6 +94,12 @@ _+{long_tail_count} other uncovered URLs under {report_min_hits} hits each (most
 → Add redirects for the gaps above: `vercel.json` › `redirects` array (PR against `main`)
 → Full breakdown: {oz_run_url}
 ```
+
+Build `{oz_run_url}` at runtime — never hard-code the Oz host (for example `app.warp.dev` or `oz.warp.dev`). This agent may run on staging or production, and a hard-coded host resolves to the wrong environment (or a generic Runs page). Resolve the environment-correct link from your current run, substituting the run ID this agent is executing as:
+```bash
+oz-dev run get "<your run ID>" --output-format json | jq -r '.session_link'
+```
+If the command fails or returns an empty value, omit the `→ Full breakdown` line rather than posting a hard-coded or broken URL.
 
 Rules:
 - **Lead with volume trend, not distinct-URL counts.** The first line is always `trend_summary` — the pre-formatted total-404 trend, which reflects real user impact. It already includes the direction arrow (▼ fewer 404s, ▲ more, → no change) and falls back to a "no prior-week baseline yet" message when last week had no data, so the percentage is never rendered as null.
@@ -199,11 +205,11 @@ This skill is designed for an Oz scheduled agent with a weekly cron trigger: eve
 
 To deploy:
 1. Push this skill to `main` in the docs repo.
-2. Verify the **`buzz`** Oz environment (oz.warp.dev → Environments) has these secrets set:
+2. Verify the **`buzz`** Oz environment (in the Oz web app → Environments) has these secrets set:
    - `METABASE_API_KEY` — Metabase API key for BigQuery
    - `SLACK_BOT_TOKEN` — Slack bot token
-   - `SLACK_CHANNEL_ID` — ID for `#growth-docs` (right-click channel in Slack → Copy link; the ID starts with `C`)
-3. In the Oz web app (oz.warp.dev), create a new scheduled agent:
+   - `GROWTH_DOCS_SLACK_CHANNEL_ID` — ID for `#growth-docs` (right-click channel in Slack → Copy link; the ID starts with `C`)
+3. In the Oz web app, create a new scheduled agent:
    - **Skill**: `weekly-404-monitor` from `warpdotdev/docs`
    - **Schedule**: `0 17 * * 1` (UTC) = 9am PT (Mondays)
    - **Environment**: `buzz` (already has `warpdotdev/docs` checked out)

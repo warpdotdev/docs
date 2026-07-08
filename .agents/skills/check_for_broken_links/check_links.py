@@ -17,7 +17,7 @@ import time
 from pathlib import Path
 from urllib.parse import urlparse, unquote
 
-DEFAULT_SLACK_CHANNEL = os.environ.get("SLACK_CHANNEL_ID", "")
+DEFAULT_SLACK_CHANNEL = os.environ.get("GROWTH_DOCS_SLACK_CHANNEL_ID", "")
 
 try:
     import requests
@@ -496,8 +496,8 @@ def main():
     parser.add_argument('--external-only', action='store_true', help='Only check external links')
     parser.add_argument('--timeout', type=int, default=10, help='HTTP timeout (default: 10)')
     parser.add_argument('--output', help='Output JSON file')
-    parser.add_argument('--slack-notify', action='store_true', 
-                        help='Send results to Slack (requires SLACK_BOT_TOKEN and SLACK_CHANNEL_ID env vars)')
+    parser.add_argument('--slack-notify', action='store_true',
+                        help='Send results to Slack (requires SLACK_BOT_TOKEN and GROWTH_DOCS_SLACK_CHANNEL_ID env vars)')
     parser.add_argument('--slack-channel', default=DEFAULT_SLACK_CHANNEL,
                         help=f'Slack channel ID (default: {DEFAULT_SLACK_CHANNEL})')
     

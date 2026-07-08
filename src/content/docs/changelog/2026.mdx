@@ -6,6 +6,71 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2026.07.03 (v0.2026.07.01.09.21)
+
+**New features**
+
+* Add native support for the agy (Antigravity) CLI agent. ([#12380](https://github.com/warpdotdev/warp/pull/12380)) — [@jgfurlan](https://github.com/jgfurlan) ✨
+* Custom model routers - define your own routing rules to send agent requests to different models. ([#13052](https://github.com/warpdotdev/warp/pull/13052))
+* Tab Groups - organize tabs into named, collapsible groups in both the horizontal and vertical tab bars. Drag tabs into groups and reorder groups within the tab bar. Customize groups with colors and names, and use keyboard shortcuts to manage them. ([#13230](https://github.com/warpdotdev/warp/pull/13230))
+
+**Improvements**
+
+* Add Droid rich status listener support for structured CLI agent notifications. ([#12640](https://github.com/warpdotdev/warp/pull/12640)) — [@senseFy](https://github.com/senseFy) ✨
+* The Warp CLI and warpctl binaries are now statically compiled on Linux for better compatibility. ([#12813](https://github.com/warpdotdev/warp/pull/12813))
+* New File can now be assigned a custom keyboard shortcut from Settings -> Keybindings. ([#12979](https://github.com/warpdotdev/warp/pull/12979)) — [@SkyNotSilent](https://github.com/SkyNotSilent) ✨
+* Improved PowerShell startup time on Windows by deferring cmdlet loading during bootstrap. ([#12981](https://github.com/warpdotdev/warp/pull/12981))
+* Code review comments can now be sent to the agent with the keyboard (Ctrl/Cmd+Enter), and the shortcut is shown on the "Send to Agent" button. ([#12982](https://github.com/warpdotdev/warp/pull/12982))
+* Streamlined the new agent-onboarding flow — removed the post-setup "I don't want AI" buttons, moved the progress dots inline with the Back/Next controls, and simplified the "don't want AI" confirmation dialog. ([#12991](https://github.com/warpdotdev/warp/pull/12991))
+* Agent onboarding now ties AI features to having a Warp account — creating an account (including when you use third-party agents) keeps AI on, while skipping sign-in defers it; the login screen no longer has a "disable AI" option. ([#12992](https://github.com/warpdotdev/warp/pull/12992))
+* The onboarding "Choose how to access AI" step now offers "Subscription" or "Set up later" and can be skipped without subscribing; choosing Subscription and pressing Next opens the upgrade page directly. ([#12993](https://github.com/warpdotdev/warp/pull/12993))
+* Custom model routers can now be created and edited directly in Warp Agent settings, without manual YAML file editing. ([#13010](https://github.com/warpdotdev/warp/pull/13010))
+* After saving a BYOK API key, Warp now suggests a provider-appropriate default model. ([#13018](https://github.com/warpdotdev/warp/pull/13018))
+* Custom models are no longer shown in the inline model picker for cloud agent panes. ([#13023](https://github.com/warpdotdev/warp/pull/13023))
+* Add a Copy as Markdown action to AI planning document menus. ([#13082](https://github.com/warpdotdev/warp/pull/13082)) — [@SkyNotSilent](https://github.com/SkyNotSilent) ✨
+* Artifact download notifications now include links to open the file or its location. ([#13096](https://github.com/warpdotdev/warp/pull/13096))
+* The agent context window indicator now shows how much context remains instead of how much is used. ([#13097](https://github.com/warpdotdev/warp/pull/13097))
+* Clearer command palette labels for installing/uninstalling the Oz and Warp Control CLIs (they now describe global, outside-Warp use vs. in-Warp use). ([#13155](https://github.com/warpdotdev/warp/pull/13155))
+* The Billing & Usage legend no longer lists credit buckets that have zero credits. ([#13181](https://github.com/warpdotdev/warp/pull/13181))
+* Added `warp://settings` deep links - open settings, pre-fill the search bar with `?q=`, or jump to a specific setting with `?widget=`. ([#13232](https://github.com/warpdotdev/warp/pull/13232))
+
+**Bug fixes**
+
+* Fixed MCP server configuration failing to save when secret redaction was enabled. ([#10839](https://github.com/warpdotdev/warp/pull/10839)) — [@david-engelmann](https://github.com/david-engelmann) ✨
+* Fixed tab titles getting stuck on "Wants to run AskUserQuestion: ..." after answering a Claude Code question. ([#12341](https://github.com/warpdotdev/warp/pull/12341)) — [@christophercolumbusdog](https://github.com/christophercolumbusdog) ✨
+* Warp no longer blocks system-initiated logout, shutdown, or scheduled OS updates while a process is running. ([#12480](https://github.com/warpdotdev/warp/pull/12480)) — [@maxmilian](https://github.com/maxmilian) ✨
+* Fixed the profile switcher clearing typed terminal input. ([#12714](https://github.com/warpdotdev/warp/pull/12714))
+* Fixed a crash when rejecting and then confirming a requested command. ([#12747](https://github.com/warpdotdev/warp/pull/12747))
+* Fixed terminal file links capturing a trailing sentence period, which prevented Markdown files referenced at the end of a sentence from opening in the Markdown viewer. ([#12965](https://github.com/warpdotdev/warp/pull/12965))
+* Fixed quota and credit errors being misclassified as Warp faults. ([#12966](https://github.com/warpdotdev/warp/pull/12966))
+* Fixed long file paths split across wrapped terminal lines not being detected as clickable file links. ([#12968](https://github.com/warpdotdev/warp/pull/12968))
+* Fixed unreadable agent toolbelt chip text after changing themes. ([#12970](https://github.com/warpdotdev/warp/pull/12970))
+* Fixed double-click and drag text selection running past word boundaries into the next word. ([#12985](https://github.com/warpdotdev/warp/pull/12985))
+* Fixed conversation-list hover tooltips showing through modal dialogs. ([#13011](https://github.com/warpdotdev/warp/pull/13011))
+* Fixed `/open-file` not allowing the argument to be cleared when the current directory contains a single file. ([#13017](https://github.com/warpdotdev/warp/pull/13017)) — [@AndreKalberer](https://github.com/AndreKalberer) ✨
+* Fixed inline-code links in agent output having their underline hidden by the block background. ([#13030](https://github.com/warpdotdev/warp/pull/13030))
+* Slash commands that emit an action (like `/fork`) now run immediately instead of being captured as a queued prompt when queued-prompts mode is on. ([#13060](https://github.com/warpdotdev/warp/pull/13060))
+* Fixed `/fork-and-compact` so its new pane / new tab options match `/fork` (Enter opens a new pane, Cmd/Ctrl+Enter opens a new tab). ([#13061](https://github.com/warpdotdev/warp/pull/13061))
+* Fixed clicking Markdown links in AI block output doing nothing. ([#13065](https://github.com/warpdotdev/warp/pull/13065))
+* Fixed "New group with tab" being offered for a tab that is already in a group. ([#13080](https://github.com/warpdotdev/warp/pull/13080))
+* Fixed a crash when viewing shared sessions that used conversation search. ([#13108](https://github.com/warpdotdev/warp/pull/13108))
+* Fixed Claude Code cloud agents not reporting successful completion. ([#13110](https://github.com/warpdotdev/warp/pull/13110))
+* Warp no longer registers itself as an alternate handler for common file types on macOS. ([#13121](https://github.com/warpdotdev/warp/pull/13121))
+* Fix the rotating agent tips not appearing below the "Warping..." indicator in Agent Mode. ([#13122](https://github.com/warpdotdev/warp/pull/13122))
+* Closing the active vertical tab now activates the tab below it instead of the one above. ([#13142](https://github.com/warpdotdev/warp/pull/13142)) — [@elviskahoro](https://github.com/elviskahoro) ✨
+* Fixed Vim visual-mode paste losing the selection after recalling a command from history. ([#13152](https://github.com/warpdotdev/warp/pull/13152))
+* Fixed grep and file-glob tool-call headers in the agent view showing doubled file separators (e.g. `C:\\Users\\...`) on Windows. ([#13160](https://github.com/warpdotdev/warp/pull/13160))
+* Fixed cloud agent follow-up messages creating a local session instead of continuing in the cloud. ([#13162](https://github.com/warpdotdev/warp/pull/13162))
+* Fixed agent chips overflowing the orchestrate "start additional agents" card; they now wrap onto multiple lines. ([#13197](https://github.com/warpdotdev/warp/pull/13197))
+* Fixed `?` opening the help panel instead of being typed when editing a queued prompt. ([#13202](https://github.com/warpdotdev/warp/pull/13202))
+* Fixed severe UI lag on Windows systems with Intel UHD Graphics 770 by downranking that GPU adapter. ([#13204](https://github.com/warpdotdev/warp/pull/13204))
+* Fixed local Oz/ambient agent runs reporting "Cancelled by user" when an agent-issued command exited the shell; the run now reports as failed with an explanation. ([#13210](https://github.com/warpdotdev/warp/pull/13210))
+
+**Oz updates**
+
+* Added Oz CLI commands for memory store management: list/get/update stores, list store agents, list/create/update/delete memories, and view memory version history. ([#12973](https://github.com/warpdotdev/warp/pull/12973))
+* Agent responses now surface fetched memories as citations. ([#13199](https://github.com/warpdotdev/warp/pull/13199))
+
 ### 2026.06.24 (v0.2026.06.24.09.19)
 
 **New features**

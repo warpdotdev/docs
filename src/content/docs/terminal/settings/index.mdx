@@ -38,6 +38,21 @@ Depending on your platform and Warp release channel, `settings.toml` is located 
   * Stable — `%LOCALAPPDATA%\warp\Warp\config\settings.toml`
   * Preview — `%LOCALAPPDATA%\warp\WarpPreview\config\settings.toml`
 
+The JSON schema for `settings.toml` is bundled with the app (read-only) and can be used to enable autocompletion and validation in your editor:
+
+* **macOS**
+  * Stable — `/Applications/Warp.app/Contents/Resources/settings_schema.json`
+  * Preview — `/Applications/WarpPreview.app/Contents/Resources/settings_schema.json`
+* **Linux**
+  * Stable — `/opt/warpdotdev/warp-terminal/resources/settings_schema.json`
+  * Preview — `/opt/warpdotdev/warp-terminal-preview/resources/settings_schema.json`
+* **Windows** (user install)
+  * Stable — `%LOCALAPPDATA%\Programs\Warp\resources\settings_schema.json`
+  * Preview — `%LOCALAPPDATA%\Programs\WarpPreview\resources\settings_schema.json`
+* **Windows** (system install)
+  * Stable — `%PROGRAMFILES%\Warp\resources\settings_schema.json`
+  * Preview — `%PROGRAMFILES%\WarpPreview\resources\settings_schema.json`
+
 For the locations of every other Warp file — themes, tab configs, keybindings, logs, the local database, and more — see [File and folder locations](/terminal/settings/file-locations/).
 
 ## Settings file format
