@@ -2,7 +2,8 @@
 title: Prompt queueing
 description: >-
   Queue follow-up prompts while an agent is still responding, then have Warp
-  send them automatically and in order as each response finishes.
+  send them automatically and in order as each response finishes. Supports
+  images, files, and other attachments per queued row.
 ---
 
 Prompt queueing lets you line up follow-up prompts while an agent is still working. Instead of waiting for the agent to finish—or interrupting it to send your next idea—you queue prompts and Warp sends them automatically, one at a time, as each response completes.
@@ -22,6 +23,7 @@ Prompt queueing lets you line up follow-up prompts while an agent is still worki
 * **Auto-queue during long-running commands** - By default, prompts submitted while an agent is driving a long-running command it started are queued and sent when the command finishes.
 * **Per-conversation queues** - Each conversation keeps its own queue and auto-queue state, which persist when you leave and re-enter the conversation.
 * **Cloud agent support** - Queue follow-ups for cloud agents, even while the environment is still setting up.
+* **Attachments travel with the prompt** - Images and files staged in the input are captured onto the queued row when you queue the prompt, cleared from the input, and sent with the prompt when it fires. Each row's attachments are independent.
 
 ## How it works
 
@@ -111,6 +113,26 @@ The dropdown appears directly below **Default prompt submission mode**, and only
 
 Changing the setting takes effect immediately, including in the middle of a running command. You can also change it from the Command Palette using **Set long-running command submission: send immediately** or **Set long-running command submission: queue until command finishes**, which are available while the default prompt submission mode is **Interrupt response**.
 
+## Queuing with attachments
+
+You can attach images and files to queued prompts the same way you attach them to any other prompt. When you stage attachments in the input and queue a prompt, Warp captures those attachments onto the queued row and clears the input. The input returns empty and ready for your next prompt.
+
+Each queued row owns its own attachments. Queuing two prompts with different attachments produces two independent rows — firing or removing one row never affects the other's attachments.
+
+When a queued row fires, Warp sends its attachments with the prompt: images are sent inline as image context, and files are sent as file references. If two files share the same filename, Warp disambiguates them by appending `(1)`, `(2)`, and so on.
+
+:::note
+Shell commands in the queue never carry attachments. Attachments are captured only onto queued agent prompts.
+:::
+
+When you click **Edit** on a queued row, its attachments are re-staged in the input alongside the prompt text so a re-submit keeps them. When you **Delete** a row, its attachments are dropped — they do not move to the input with the prompt text.
+
+### Cloud agent limitation
+
+:::caution
+When a queued row fires into a cloud follow-up prompt, the prompt text is sent but the row's attachments are dropped. [TODO: docs reviewer — confirm the user-facing label for this cloud scenario and whether Warp shows a visible warning when attachments are dropped]
+:::
+
 ## Managing queued prompts
 
 When a conversation has at least one queued prompt, the queued prompts panel appears between the warping indicator and the input box. Its header shows the count, such as **2 queued**, with a chevron to collapse or expand the list. The panel is expanded by default, and prompts are listed from top (next to send) to bottom (last to send).
@@ -119,8 +141,8 @@ Hovering a row reveals controls for that prompt:
 
 * **Reorder** - Drag a row up or down by its handle to change the order. The row at the top of the list always sends next.
 * **Send now** - Click the up-arrow icon to send that prompt immediately instead of waiting for the agent to finish the current response. You can also press `Enter` while the input box is empty to send the top row. See [Send the next prompt with Enter](#send-the-next-prompt-with-enter) below.
-* **Edit** - Click the pencil icon to edit the prompt inline. Press `Enter` to save your changes or `Esc` to cancel.
-* **Delete** - Click the trash icon to remove the prompt from the queue. If the input is empty, Warp moves the deleted prompt into the input so you can revise and resend it. If the input already has text, the deleted prompt is discarded.
+* **Edit** - Click the pencil icon to edit the prompt inline. Press `Enter` to save your changes or `Esc` to cancel. Any attachments on the row are re-staged in the input while editing.
+* **Delete** - Click the trash icon to remove the prompt from the queue. If the input is empty, Warp moves the deleted prompt's text into the input so you can revise and resend it; any attachments on the row are dropped and do not move with the text. If the input already has text, the deleted prompt is discarded.
 
 <figure style={{ maxWidth: "563px" }}>
 ![A queued prompt row showing the drag handle on the left and send now, edit, and delete controls on the right.](../../../../../assets/agent-platform/prompt-queueing-row-controls.png)
