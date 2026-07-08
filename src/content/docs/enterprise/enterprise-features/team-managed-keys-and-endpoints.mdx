@@ -4,10 +4,13 @@ description: >-
   Configure shared LLM provider API keys and custom inference endpoints for your whole team
   from the Admin Panel, available in both interactive sessions and cloud agents.
 ---
+import VideoEmbed from '@components/VideoEmbed.astro';
 
 Warp lets an **Enterprise team admin** configure shared provider API keys and OpenAI-compatible custom endpoints once, so every member can use them without pasting anything locally. Unlike the self-serve [Bring Your Own API Key](/agent-platform/inference/bring-your-own-api-key/) and [custom inference endpoint](/agent-platform/inference/custom-inference-endpoint/) features — which each member configures on their own device and which work only for interactive requests — team-managed providers are stored server-side by Warp and work for **both interactive terminal requests and [cloud agents](/platform/)**.
 
 This gives your organization one place to provision approved model providers, control spend, and keep inference on your own accounts across your whole team.
+
+<VideoEmbed url="https://www.loom.com/share/fcc462503a524f52b5363feca8cf4cf7" title="Team-managed API keys and endpoints demo" />
 
 :::note
 Team-managed API keys and endpoints are available only on Warp's Enterprise plan. [Contact sales](https://www.warp.dev/contact-sales) to learn more.
@@ -19,8 +22,8 @@ Team-managed API keys and endpoints are available only on Warp's Enterprise plan
 * **Works for interactive sessions and cloud agents** - Because credentials are stored by Warp, team-managed providers power both interactive terminal requests and cloud agent runs. Self-serve, member-managed keys and endpoints are stored locally and passed to Warp only in-flight for interactive requests, so they aren't available to cloud agents.
 * **First-party keys and custom endpoints** - Configure API keys for OpenAI, Anthropic, and Google, and add one or more OpenAI-compatible custom endpoints (for example, OpenRouter or LiteLLM).
 * **Secrets stored server-side, never synced to devices** - Keys and endpoint URLs are encrypted and stored by Warp. They're never synced to member devices and never delivered to cloud agent environments.
-* **Optional member-managed keys** - Admins choose whether members may also add their own keys and endpoints on top of the team's.
-* **Member key precedence** - When a member has their own key or endpoint for the same provider, their key is used instead of the team's.
+* **Optional member-managed keys** - Admins choose whether members may also add their own [self-serve API keys](/agent-platform/inference/bring-your-own-api-key/) and [custom endpoints](/agent-platform/inference/custom-inference-endpoint/) on top of the team's.
+* **Member key precedence** - When a member has their own key for the same provider, their key is used instead of the team's. (Custom endpoints don't need precedence — a member's endpoint and a team endpoint are always distinct.)
 
 ## How team-managed providers differ from self-serve BYOK and BYOLLM
 
@@ -56,7 +59,7 @@ What syncs to a member's client is display metadata only: whether a key is confi
 
 ### Member key precedence
 
-When the admin allows member-managed keys and endpoints, a member's own provider or endpoint configuration takes precedence over the team's:
+When the admin allows member-managed keys and endpoints, a member's own key for a provider takes precedence over the team's. Custom endpoints don't require precedence, because a member's endpoint and a team endpoint are always distinct:
 
 * **First-party keys** - If a member has their own key for a provider, requests route through the member's key; otherwise the team key is used; otherwise Warp-managed inference is used (if allowed).
 * **Custom endpoints** - A member's own endpoint and a team endpoint never collide, even if they share a name. The member's endpoint is used when they select it; team endpoints resolve to the team's stored credential.
@@ -74,12 +77,12 @@ Because team-managed keys and endpoints are stored by Warp rather than on a memb
 
 ### Configure keys and endpoints
 
-Configure team providers from the [Admin Panel](/enterprise/team-management/admin-panel/) **Models** page, where a **Bring Your Own Keys & Endpoints** card sits alongside the Direct API and AWS Bedrock cards.
+Configure team providers from the [Admin Panel](/enterprise/team-management/admin-panel/) **Models** page, where a **First-party API keys** card and a **Custom endpoints** card sit alongside the Direct API and AWS Bedrock cards.
 
-1. In the [Admin Panel](/enterprise/team-management/admin-panel/), go to the **Models** page and find the **Bring Your Own Keys & Endpoints** card.
-2. To add a team API key, enter the key for a provider (OpenAI, Anthropic, or Google) and save it. Each provider row shows whether a key is configured without revealing the stored value.
-3. To add a team custom endpoint, enter a name, a base URL, an API key, and at least one model (a model name plus an optional alias), then save. An endpoint can't be saved without a name, a valid base URL, an API key, and at least one model.
-4. Choose whether members may add their own keys and endpoints. When this is off, the member-facing self-serve controls are disabled, but any keys a member saved earlier are preserved for when it's turned back on.
+1. In the [Admin Panel](/enterprise/team-management/admin-panel/), go to the **Models** page.
+2. To add a team API key, use the **First-party API keys** card: enter the key for a provider (OpenAI, Anthropic, or Google) and save it. Each provider row shows whether a key is configured without revealing the stored value.
+3. To add a team custom endpoint, use the **Custom endpoints** card: enter a name, a base URL, an API key, and at least one model (a model name plus an optional alias), then save. An endpoint can't be saved without a name, a valid base URL, an API key, and at least one model.
+4. Choose whether members may add their own keys and endpoints. When this is off, Warp won't use any key or endpoint a member adds, even if they've saved one — their saved keys are preserved for when it's turned back on.
 
 Saved configuration propagates to members the next time their client loads team settings — the team's providers appear in their model picker, and disabled endpoints or models are removed automatically.
 
