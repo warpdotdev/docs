@@ -10,9 +10,11 @@ tags:
   - "agents"
 
 ---
-Every agent task consumes tokens. Tokens are the unit of text a model reads and generates. The more tokens a task uses, the more it costs and the longer it takes, so trimming token usage keeps your agent workflows lean and fast.
+Every agent task consumes tokens. Tokens are the unit of text a model reads and generates. The more tokens a task uses, the more it costs and the longer it takes, so using tokens efficiently keeps your agent workflows lean and fast.
 
-This guide covers practical ways to lower token usage in Warp. You'll learn how to choose the right model, route tasks to cost-appropriate models, keep context tight, manage conversations, and configure your agents to work efficiently.
+In Warp, this usage is measured in credits. Credits package tokens into a single, consistent unit that accounts for the different token rates and prices across models and providers, so you don't have to track raw tokens per model yourself.
+
+This guide covers practical ways to get more out of every token in Warp. You'll learn how to choose the right model, route tasks to cost-appropriate models, keep context tight, manage conversations, and configure your agents to work efficiently.
 
 Token usage is non-deterministic, so treat these as habits that bring your usage down over time rather than precise savings. For a full breakdown of what drives usage, see [what affects usage](/support-and-community/plans-and-billing/credits/).
 
@@ -33,6 +35,7 @@ Once you know where your tokens go, the techniques below help you bring them dow
 Larger reasoning models process more tokens per turn than lighter ones, so the model you choose has one of the biggest effects on usage.
 
 * **Use a cost-efficient model for routine work** - Switch to **Auto (Cost-efficient)** (`auto-efficient`), which optimizes for lower token consumption while keeping output quality high. Lightweight models like Claude Haiku also use fewer tokens for simple edits, lookups, and quick questions.
+* **Prefer open-weight models** - If you'd rather run open-source models, choose **Auto (Open-weights)** (`auto-open`), which routes among the best open-weight models for low cost and fast speed.
 * **Reserve high-reasoning models for hard problems** - Save heavier models like Claude Opus for deep debugging, architecture decisions, and planning, where the extra reasoning is worth the cost.
 * **Pick a model and stay with it** - Switching models mid-conversation can reset prompt caching and reprocess your context. Choose a model at the start of a task and keep it for the duration when you can.
 
