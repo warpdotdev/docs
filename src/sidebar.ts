@@ -637,6 +637,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					items: [
 						{ slug: 'enterprise/enterprise-features/architecture-and-deployment', label: 'Architecture and deployment' },
 						{ slug: 'enterprise/enterprise-features/bring-your-own-llm', label: 'Bring your own LLM' },
+						{ slug: 'enterprise/enterprise-features/team-managed-keys-and-endpoints', label: 'Team-managed LLM keys and endpoints' },
 						{ slug: 'enterprise/enterprise-features/analytics-api', label: 'Analytics API' },
 					],
 				},
