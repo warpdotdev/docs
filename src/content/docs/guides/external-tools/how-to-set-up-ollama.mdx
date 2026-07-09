@@ -33,26 +33,20 @@ On Apple Silicon Macs, unified memory is shared between CPU and GPU — an M2 Ma
 
 **Software requirements**
 
-- macOS 12+, Windows 10+, or Ubuntu 20.04+
+- macOS 14 Sonoma+, Windows 10+, or Ubuntu 20.04+
 - No account required — Ollama is free and open source
 
 ## 1. Install Ollama
 
 **macOS**
 
-Download the macOS app from [ollama.com/download](https://ollama.com/download). Once installed, Ollama runs as a background service and appears in your menu bar.
-
-Alternatively, install via Homebrew:
+Run the install script in your terminal:
 
 ```bash
-brew install ollama
+curl -fsSL https://ollama.com/install.sh | sh
 ```
 
-If you installed via Homebrew, start the server manually before using it:
-
-```bash
-ollama serve
-```
+Or download the macOS app manually from [ollama.com/download](https://ollama.com/download/Ollama.dmg). The app runs as a background service and appears in your menu bar.
 
 **Linux**
 
@@ -64,7 +58,13 @@ The installer sets up Ollama as a `systemd` service that starts automatically on
 
 **Windows**
 
-Download the Windows installer from [ollama.com/download](https://ollama.com/download). Ollama runs as a background service after installation.
+Run this in PowerShell:
+
+```powershell
+irm https://ollama.com/install.ps1 | iex
+```
+
+Or download the installer manually from [ollama.com/download](https://ollama.com/download). Ollama runs as a background service after installation.
 
 ## 2. Run your first model
 
@@ -88,7 +88,7 @@ To try a larger model with stronger reasoning:
 ollama run llama3.1:8b
 ```
 
-Use `ollama list` to see all models you've downloaded, and `ollama ps` to see which models are currently loaded in memory.
+Use `ollama ls` to see all models you've downloaded, and `ollama ps` to see which models are currently loaded in memory.
 
 ## 3. Understand model types
 
@@ -106,27 +106,30 @@ Quantized models (e.g., `q4_0`, `q8_0` variants) use significantly less memory t
 
 ## 4. Compare model performance
 
-To benchmark models side by side, Warp makes it easy to run prompts in parallel tabs and compare results. Use `ollama run` with a specific prompt to get inline timing stats:
+To benchmark models side by side, Warp makes it easy to run prompts in parallel tabs and compare results. Pass a prompt directly to `ollama run` for a quick, non-interactive response:
 
 ```bash
 ollama run llama3.2 "Summarize the Rust ownership model in one paragraph"
 ```
 
-Ollama prints timing information at the end of each non-interactive request, including tokens generated and throughput (`eval rate: X tokens/s`). Run the same prompt on two different models to compare speed and output quality before committing to one.
-
-To monitor memory usage while a model runs:
+Run the same prompt on two different models to compare output quality before committing to one. For detailed timing stats (tokens generated, throughput), add the `--verbose` flag:
 
 ```bash
-# See which models are loaded and how much memory they're using
+ollama run --verbose llama3.2 "Summarize the Rust ownership model in one paragraph"
+```
+
+To see which models are currently loaded and their memory usage:
+
+```bash
 ollama ps
 ```
 
 ## 5. Integrate Ollama into your app
 
-Ollama exposes an OpenAI-compatible REST API at `http://localhost:11434/v1`. You can drop it in wherever you're currently using the OpenAI API — just update three values:
+Ollama exposes an OpenAI-compatible REST API at `http://localhost:11434/v1/`. You can drop it in wherever you're currently using the OpenAI API — just update three values:
 
-1. **Base URL** → `http://localhost:11434/v1`
-2. **API key** → any non-empty string (e.g., `"ollama"`)
+1. **Base URL** → `http://localhost:11434/v1/`
+2. **API key** → any non-empty string (e.g., `"ollama"` — required by the SDK but ignored by Ollama)
 3. **Model name** → the name of your local model (e.g., `"llama3.2"`)
 
 **Python (OpenAI SDK)**
@@ -135,8 +138,8 @@ Ollama exposes an OpenAI-compatible REST API at `http://localhost:11434/v1`. You
 from openai import OpenAI
 
 client = OpenAI(
-    base_url="http://localhost:11434/v1",
-    api_key="ollama",  # required by the SDK but not validated by Ollama
+    base_url="http://localhost:11434/v1/",
+    api_key="ollama",  # required by the SDK but ignored by Ollama
 )
 
 response = client.chat.completions.create(
@@ -155,8 +158,8 @@ print(response.choices[0].message.content)
 import OpenAI from "openai";
 
 const client = new OpenAI({
-  baseURL: "http://localhost:11434/v1",
-  apiKey: "ollama", // required by the SDK but not validated by Ollama
+  baseURL: "http://localhost:11434/v1/",
+  apiKey: "ollama", // required by the SDK but ignored by Ollama
 });
 
 const response = await client.chat.completions.create({
@@ -166,6 +169,8 @@ const response = await client.chat.completions.create({
 
 console.log(response.choices[0].message.content);
 ```
+
+Ollama also provides native Python and JavaScript libraries (`ollama-python`, `ollama-js`) if you prefer an SDK built specifically for Ollama rather than the OpenAI compatibility layer. See the [Ollama README](https://github.com/ollama/ollama) for details.
 
 Open your app's code in Warp and use the agent to locate the OpenAI client initialization, swap in the new values, and test the connection — all from the same terminal session.
 
@@ -199,10 +204,9 @@ Your custom model is saved locally and available any time you run `ollama run co
 
 ## Productivity tips
 
-- **Preload a model** — Run `ollama run <model> ""` to load a model into memory before your first real prompt, so the initial response isn't delayed by model loading time.
 - **Unload to free memory** — Use `ollama stop <model>` to unload a model from memory before loading a larger one.
-- **Script with the REST API** — For quick testing without the SDK: `curl http://localhost:11434/api/generate -d '{"model": "llama3.2", "prompt": "Hello", "stream": false}'`
-- **Keep a model inventory** — `ollama list` shows all locally cached models with their sizes and last-used dates. Use `ollama rm <model>` to delete models you no longer need.
+- **Script with the REST API** — For quick testing without the SDK: `curl http://localhost:11434/api/chat -d '{"model": "llama3.2", "messages": [{"role": "user", "content": "Hello"}], "stream": false}'`
+- **Keep a model inventory** — `ollama ls` shows all locally cached models with their sizes and last-used dates. Use `ollama rm <model>` to delete models you no longer need.
 - **Compare models in parallel** — Open side-by-side Warp tabs and run the same prompt against two different models to compare quality and speed before deciding which to use in your app.
 
 ## Next steps
