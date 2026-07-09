@@ -7,6 +7,7 @@ description: >-
   Prometheus, OTLP, or console to track worker health, task throughput,
   and saturation.
 ---
+import { Steps } from '@astrojs/starlight/components';
 
 The `oz-agent-worker` daemon exports infrastructure-level metrics over [OpenTelemetry](https://opentelemetry.io/), giving your team real-time visibility into worker health, task throughput, and capacity. Combine these metrics with the [Oz dashboard](https://oz.warp.dev) for full observability across both the orchestration plane and your self-hosted compute.
 
@@ -145,6 +146,66 @@ All metrics use the `oz_worker_` prefix. Each worker process emits a distinct se
 * **`oz_worker_task_duration_seconds{result}`** (histogram) — Wall-clock task duration on the worker, labeled by result.
 * **`oz_worker_websocket_reconnects_total{reason}`** (counter) — WebSocket reconnect attempts (e.g., `reason="dial_failed"`, `reason="remote_close"`). Spikes indicate flapping workers.
 * **`oz_worker_info{version,backend,worker_id}`** (gauge, constant `1`) — Build and runtime metadata. Useful for joining other series by labels.
+
+---
+
+## Grafana dashboard
+
+A ready-to-import Grafana dashboard is published in the [`grafana/` directory of the oz-agent-worker repository](https://github.com/warpdotdev/oz-agent-worker/tree/main/grafana). It covers all five areas of worker observability — health, throughput, latency, failures, and connectivity — and works with any Prometheus datasource.
+
+### Dashboard sections
+
+* **Worker Health** — Connected workers, active workers, tasks active, and fleet saturation gauge.
+* **Task Throughput** — Task completion rate by result (succeeded/failed/cancelled), 5-minute success rate, and rejection rate.
+* **Task Duration** — p50 / p95 / p99 latency over a sliding 5-minute window.
+* **Failure Analysis** — Failure rate by reason (e.g., `image_pull`, `container_oom`, `unschedulable`) and by phase (assignment, backend, cleanup).
+* **Connection Health** — WebSocket reconnect rate by reason, and a worker fleet info table showing each connected worker's ID, version, and backend.
+
+The dashboard also includes an **Instance** variable so you can filter to a specific worker pod or see fleet-wide aggregations.
+
+### Importing the dashboard
+
+<Steps>
+
+1. Enable Prometheus metrics on your workers. See [Enable Prometheus scrape](#enable-prometheus-scrape) above, or set `metrics.enabled=true` in the Helm chart.
+
+2. In Grafana, go to **Dashboards** → **Import**.
+
+3. Click **Upload JSON file** and select `oz-agent-worker-overview.json` from the [`grafana/` directory](https://github.com/warpdotdev/oz-agent-worker/tree/main/grafana), or paste the raw file URL:
+
+   ```
+   https://raw.githubusercontent.com/warpdotdev/oz-agent-worker/main/grafana/oz-agent-worker-overview.json
+   ```
+
+4. When prompted, choose your Prometheus datasource and click **Import**.
+
+</Steps>
+
+You can also import via the Grafana API:
+
+```bash
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $GRAFANA_API_KEY" \
+  --data-binary @oz-agent-worker-overview.json \
+  http://your-grafana/api/dashboards/import
+```
+
+### Prometheus alerting rules
+
+The same `grafana/` directory includes [`alerts.yaml`](https://github.com/warpdotdev/oz-agent-worker/blob/main/grafana/alerts.yaml) — a set of Prometheus alerting rules covering the most common operational issues:
+
+* **OzWorkerFleetEmpty** (critical) — No workers connected for 5 minutes.
+* **OzWorkerDisconnected** (warning) — A specific worker has been disconnected for 2 minutes.
+* **OzWorkerReconnectStorm** (warning) — A worker is reconnecting at more than 0.1/s.
+* **OzWorkerFleetSaturated** (warning) — Fleet concurrency utilization is above 90%.
+* **OzWorkerTasksRejected** (warning) — Workers are actively rejecting tasks.
+* **OzWorkerHighFailureRate** (warning) — More than 10% of completed tasks failed.
+* **OzWorkerImagePullFailures** (warning) — Container image pulls are failing.
+* **OzWorkerContainerOOM** (warning) — Task containers are being OOM-killed.
+* **OzWorkerUnschedulablePods** (warning) — Kubernetes task pods cannot be scheduled.
+
+All thresholds are conservative starting points — tune them for your fleet size and SLOs. See [`grafana/README.md`](https://github.com/warpdotdev/oz-agent-worker/blob/main/grafana/README.md) for instructions on loading the rules into vanilla Prometheus or the Prometheus Operator.
 
 ---
 
