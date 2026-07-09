@@ -60,7 +60,9 @@ The cloud agents platform supports self-hosting the **agent sandbox** (the execu
 Self-hosted execution is available on **Enterprise** plans. See [Self-hosting](/platform/self-hosting/) and [Deployment patterns](/platform/deployment-patterns/) for details.
 
 :::note
-[Bring Your Own API Key (BYOK)](/agent-platform/inference/bring-your-own-api-key/) does not apply to cloud agents. BYOK keys are stored locally on your device and cannot be passed to cloud-hosted or self-hosted agent runs. All cloud agent runs consume [Warp credits](/support-and-community/plans-and-billing/credits/).
+Self-serve [Bring Your Own API Key (BYOK)](/agent-platform/inference/bring-your-own-api-key/) does not apply to cloud agents. Keys you add yourself are stored locally on your device and can't be passed to cloud-hosted or self-hosted agent runs, so those runs consume [Warp credits](/support-and-community/plans-and-billing/credits/).
+
+Enterprise teams are the exception: an admin can configure [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) that are stored server-side by Warp and used by cloud agents. Those runs still consume [platform credits](/support-and-community/plans-and-billing/platform-credits/) for orchestration.
 :::
 
 ## Models
