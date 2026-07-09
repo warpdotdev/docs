@@ -11,76 +11,207 @@ tags:
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
 
-Running AI models locally just got easier — and faster — with Ollama.\
-\
-In this guide, we’ll walk through how to use Warp to install, profile, and integrate Ollama into your local setup.
+Run AI models locally — with no API costs, no data leaving your machine, and your choice of model. This guide walks through installing Ollama, running your first model, integrating it into an existing app, and customizing model behavior using Warp.
 
 <VideoEmbed url="https://youtu.be/Aq8vDxUg4VE?si=wLyHG7S0NTpC6o7B" title="Setting up Ollama in Warp video" />
 
----
+## Prerequisites
 
-### 1. Check your system specs
+**Hardware requirements**
 
-Before running large language models (LLMs) locally, confirm your hardware can handle them.
+You'll need enough memory to load the model weights. The rule of thumb: roughly 1GB of memory per billion parameters.
 
-Example setups:
+| Model size | Example models | Minimum RAM/VRAM |
+|---|---|---|
+| 3B | Llama 3.2 3B, Phi-3 Mini | 4GB |
+| 7–8B | Mistral 7B, Llama 3.1 8B | 8GB |
+| 13B | Llama 2 13B | 16GB |
+| 30–34B | Mixtral, Codestral | 24GB |
+| 70B | Llama 3.1 70B | 48GB |
 
-* Mac: 64GB unified memory — good for larger models but with lower throughput.
-* Windows (NVIDIA RTX 5090): 32GB VRAM — excellent performance, but limited by VRAM capacity.
+On Apple Silicon Macs, unified memory is shared between CPU and GPU — an M2 Mac with 16GB unified memory can run 7–8B models comfortably.
 
-> 🧠 Rule of thumb: You’ll need roughly 1GB of VRAM per billion parameters.
+**Software requirements**
 
----
+- macOS 12+, Windows 10+, or Ubuntu 20.04+
+- No account required — Ollama is free and open source
 
-### 2. Run your first model
+## 1. Install Ollama
 
-Run a model locally:
+**macOS**
 
-> ollama run gpt-oss
+Download the macOS app from [ollama.com/download](https://ollama.com/download). Once installed, Ollama runs as a background service and appears in your menu bar.
 
-For example:
+Alternatively, install via Homebrew:
 
-* Try GPT-OSS 20B (requires ≥16GB VRAM, supports tool calling).
-* Then try Mistral 8B for a faster, smaller alternative.
+```bash
+brew install ollama
+```
 
-Compare their performance and quality side-by-side.\
-Use Warp to easily monitor GPU usage and model response time.
+If you installed via Homebrew, start the server manually before using it:
 
----
+```bash
+ollama serve
+```
 
-### 3. Understanding model terms
+**Linux**
 
-Here’s a quick glossary for choosing the right local model:
+```bash
+curl -fsSL https://ollama.com/install.sh | sh
+```
 
-| Term             | Meaning                                                            |
-| ---------------- | ------------------------------------------------------------------ |
-| **Thinking**     | The model “thinks” before answering; better for complex reasoning. |
-| **Tools**        | Models can use external utilities (e.g., web search).              |
-| **Vision**       | Can process and respond to images.                                 |
-| **Embedding**    | Converts text to numeric form for search or RAG pipelines.         |
-| **Quantization** | Reduces memory use by lowering precision (e.g., 4-bit).            |
+The installer sets up Ollama as a `systemd` service that starts automatically on boot.
 
----
+**Windows**
 
-### 4. Integrate Ollama into your app
+Download the Windows installer from [ollama.com/download](https://ollama.com/download). Ollama runs as a background service after installation.
 
-Most apps use OpenAI-compatible APIs, so integration is simple.
+## 2. Run your first model
 
-1. Open your app’s code in Warp.
-2. Locate the OpenAI client initialization.
-3. Replace the base URL with Ollama's
-4. Update your API key and model name.
+Pull a model to download it locally. This example uses Llama 3.2 (3B), a lightweight model that runs on most hardware:
 
-Warp helps you quickly locate, edit, and test the integration directly from the terminal.
+```bash
+ollama pull llama3.2
+```
 
----
+Then start an interactive chat session:
 
-### 6. Customize model behavior
+```bash
+ollama run llama3.2
+```
 
-Pull and modify a model.
+Type your prompt and press Enter. Type `/bye` to exit the session.
 
-Then save it as a custom model with new settings like temperature or system prompt.
+To try a larger model with stronger reasoning:
 
-Use Warp to generate a model file automatically.&#x20;
+```bash
+ollama run llama3.1:8b
+```
 
-This adds a structured system prompt for that task — ready to use instantly.
+Use `ollama list` to see all models you've downloaded, and `ollama ps` to see which models are currently loaded in memory.
+
+## 3. Understand model types
+
+When browsing [ollama.com/library](https://ollama.com/library), you'll see labels on models that indicate their capabilities:
+
+| Term | Meaning |
+|---|---|
+| **Thinking** | The model "thinks" before answering; better for complex reasoning. |
+| **Tools** | Models can call external functions or utilities (e.g., web search). |
+| **Vision** | Can process and respond to images. |
+| **Embedding** | Converts text to numeric vectors for search or RAG pipelines. |
+| **Quantization** | Reduces memory use by lowering weight precision (e.g., 4-bit, 8-bit). |
+
+Quantized models (e.g., `q4_0`, `q8_0` variants) use significantly less memory than full-precision originals. Start with a quantized version if you're memory-constrained.
+
+## 4. Compare model performance
+
+To benchmark models side by side, Warp makes it easy to run prompts in parallel tabs and compare results. Use `ollama run` with a specific prompt to get inline timing stats:
+
+```bash
+ollama run llama3.2 "Summarize the Rust ownership model in one paragraph"
+```
+
+Ollama prints timing information at the end of each non-interactive request, including tokens generated and throughput (`eval rate: X tokens/s`). Run the same prompt on two different models to compare speed and output quality before committing to one.
+
+To monitor memory usage while a model runs:
+
+```bash
+# See which models are loaded and how much memory they're using
+ollama ps
+```
+
+## 5. Integrate Ollama into your app
+
+Ollama exposes an OpenAI-compatible REST API at `http://localhost:11434/v1`. You can drop it in wherever you're currently using the OpenAI API — just update three values:
+
+1. **Base URL** → `http://localhost:11434/v1`
+2. **API key** → any non-empty string (e.g., `"ollama"`)
+3. **Model name** → the name of your local model (e.g., `"llama3.2"`)
+
+**Python (OpenAI SDK)**
+
+```python
+from openai import OpenAI
+
+client = OpenAI(
+    base_url="http://localhost:11434/v1",
+    api_key="ollama",  # required by the SDK but not validated by Ollama
+)
+
+response = client.chat.completions.create(
+    model="llama3.2",
+    messages=[
+        {"role": "user", "content": "Explain async/await in Python"}
+    ]
+)
+
+print(response.choices[0].message.content)
+```
+
+**Node.js (OpenAI SDK)**
+
+```javascript
+import OpenAI from "openai";
+
+const client = new OpenAI({
+  baseURL: "http://localhost:11434/v1",
+  apiKey: "ollama", // required by the SDK but not validated by Ollama
+});
+
+const response = await client.chat.completions.create({
+  model: "llama3.2",
+  messages: [{ role: "user", content: "Explain async/await in Python" }],
+});
+
+console.log(response.choices[0].message.content);
+```
+
+Open your app's code in Warp and use the agent to locate the OpenAI client initialization, swap in the new values, and test the connection — all from the same terminal session.
+
+## 6. Customize model behavior
+
+You can create a custom model variant by writing a `Modelfile` — a configuration file that sets a system prompt, adjusts generation parameters, or builds on any existing Ollama model.
+
+Create a file called `Modelfile`:
+
+```
+FROM llama3.2
+
+SYSTEM """
+You are a focused code review assistant.
+Always identify security issues first, then logic errors, then style.
+Keep feedback concise and actionable.
+"""
+
+PARAMETER temperature 0.3
+PARAMETER num_ctx 8192
+```
+
+Then build and run your custom model:
+
+```bash
+ollama create code-reviewer -f ./Modelfile
+ollama run code-reviewer
+```
+
+Your custom model is saved locally and available any time you run `ollama run code-reviewer`. Ask Warp's agent to generate a Modelfile for a specific use case — describe what you want the model to do, and let the agent write the configuration.
+
+## Productivity tips
+
+- **Preload a model** — Run `ollama run <model> ""` to load a model into memory before your first real prompt, so the initial response isn't delayed by model loading time.
+- **Unload to free memory** — Use `ollama stop <model>` to unload a model from memory before loading a larger one.
+- **Script with the REST API** — For quick testing without the SDK: `curl http://localhost:11434/api/generate -d '{"model": "llama3.2", "prompt": "Hello", "stream": false}'`
+- **Keep a model inventory** — `ollama list` shows all locally cached models with their sizes and last-used dates. Use `ollama rm <model>` to delete models you no longer need.
+- **Compare models in parallel** — Open side-by-side Warp tabs and run the same prompt against two different models to compare quality and speed before deciding which to use in your app.
+
+## Next steps
+
+You have Ollama installed, a model running locally, and a path to integrate it into any app using the OpenAI-compatible API.
+
+Explore related guides and features:
+
+- [Set up Claude Code](/guides/external-tools/how-to-set-up-claude-code/) or [Set up Codex CLI](/guides/external-tools/how-to-set-up-codex-cli/) — use cloud-based agents alongside your local Ollama setup
+- [Run multiple agents at once](/guides/agent-workflows/how-to-run-multiple-ai-coding-agents/) — run Ollama and a cloud agent in parallel to compare outputs on the same task
+- [Ollama model library](https://ollama.com/library) — browse all available models with size and capability details
+- [Ollama documentation](https://github.com/ollama/ollama/blob/main/README.md) — advanced configuration, GPU setup, and environment variables

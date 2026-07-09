@@ -11,92 +11,165 @@ tags:
 
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
-import { Steps } from '@astrojs/starlight/components';
 
-Learn how to prompt Warp’s AI to review pull requests like an experienced engineer — focusing on structure, red flags, and clarity.
+AI can summarize a pull request in seconds — but a summary isn't a review. This guide shows you how to prompt Warp's agent to produce structured, prioritized feedback that mirrors how a senior engineer would approach a large PR: start with risk, surface blockers, and give a clear merge recommendation. Plan on about 10 minutes to complete.
 
 <VideoEmbed url="https://youtu.be/NVwqQyphlAw?si=zcMR1ZHt-xnIS_ME" title="Reviewing pull requests with Warp Agent video" />
 
+## Prerequisites
+
+- A **Git-tracked project** with a branch or open PR to review
+- The [GitHub CLI](https://cli.github.com) (`gh`) if you want to pull diffs directly from GitHub
+
+## Why structured review matters
+
+Generic AI summaries describe what changed. Structured reviews tell you what to care about:
+
+- **Risk Assessment** flags blast radius before you've read a single line of code
+- **Critical Issues** surface blockers first, so you don't spend time on style when there's a security hole
+- **Merge confidence scoring** gives reviewers a shared signal for go/no-go decisions
+
+The prompt in this guide forces the agent to follow this structure, which produces output that's much faster to act on than a prose summary. The same workflow applies to large PRs, design docs, or any feature diff you need to triage quickly.
+
+## 1. Get the PR diff
+
+Before the agent can review the PR, it needs to see the changes. There are a few ways to get the diff into your Warp session:
+
+**Option A: GitHub CLI**
+
+If the PR is on GitHub, pull the diff directly:
+
+```bash
+# View the diff as text
+gh pr diff <PR-number>
+
+# Or open the PR in your browser to copy the diff URL
+gh pr view <PR-number> --web
+```
+
+**Option B: Git diff**
+
+If you have the branch checked out locally:
+
+```bash
+git diff main...<your-branch>
+```
+
+**Option C: Warp Code Review panel**
+
+If you have the branch checked out, open Warp's Code Review panel with `⌘+Shift++` (macOS) or `Ctrl+Shift++` (Windows/Linux) to see a visual diff of all changes. You can select diff hunks and attach them as context to your agent prompt.
+
+## 2. Start an agent session and provide context
+
+Open a new agent session in Warp and navigate to your project directory:
+
+```bash
+cd ~/your-project
+```
+
+Attach the diff as context so the agent can reason about the actual code. You have a few options:
+
+- **Select terminal output** — Run `gh pr diff <PR-number>` or `git diff`, then select the output block and attach it using the block action menu.
+- **Reference specific files** — Use `@path/to/file` in your prompt to point the agent at changed files.
+- **Paste inline** — For smaller diffs, paste the diff directly into the agent input.
+
+## 3. Use the structured review prompt
+
+Once the diff is attached as context, paste this prompt into Warp's agent input. The structure forces the agent to lead with risk, surface blockers with file-level precision, and end with a merge recommendation:
+
+```
+## Prompt: Structured PR Review Format
+
+Review this pull request and format your response for rapid scanning by a busy maintainer. Follow the structure below.
+
 ---
 
-<Steps>
+### 1. 🚨 Risk Assessment
 
-1. #### Intro
+**Overall Risk:** 🔴 HIGH | 🟠 MEDIUM | 🟢 LOW
+**Complexity:** [Simple | Moderate | Complex | Very Complex]
+**Blast Radius:** [Isolated | Module-wide | System-wide | External APIs affected]
+**Requires Immediate Review:** [YES / NO – why]
 
-   This tutorial teaches you how to use Warp to make **pull-request reviews faster and smarter**.\
-   Instead of relying on AI summaries, you’ll prompt Warp to generate an **index and priority list**, guiding your review order while flagging risky sections.
+---
 
-   Although this example focuses on large PRs, the same workflow applies to **code reviews**, **design docs**, or **feature diffs**.
+### 2. 🔍 Critical Issues
+_If none, write "None found" and skip to the next section._
 
-2. #### The problem
+#### 1. [CRITICAL ISSUE TITLE]
+**File:** `path/to/file.js:L125`
+**Impact:** Data loss / Security hole / System crash
+**Fix:**
+// Quick code fix example here
 
-   Large PRs are difficult to parse.\
-   AI summaries gloss over nuance and may miss subtle issues — you need structured, prioritized insight instead.
+---
 
-3. #### The prompt
+### 3. ⚠️ Concerns
+_Should discuss or fix before merge. If none, write "None found."_
 
-   Use this in Warp’s AI input:
+Examples:
+- [PERFORMANCE] Unindexed query on large table
+- [SECURITY] Missing input sanitization in login form
 
-   ```
-   ## Prompt: Structured PR Review Format
+---
 
-   > Review this pull request and format your response for rapid scanning by a busy maintainer. Follow the structure below.
+### 4. 🎯 Maintainer Decision Guide
 
-   ---
+**Merge confidence:** [0–100]%
+- □ Safe to merge after fixing blockers
+- □ Needs architecture discussion first
+- □ Requires performance testing
+- □ Get security team review
+- □ Author should split into smaller PRs
 
-   ### 1. 🚨 Risk Assessment
+**Time to properly review:** ~[X] minutes
+**Recommended reviewer expertise:** [Backend | Security | Database | Frontend]
 
-   **Overall Risk:** 🔴 HIGH | 🟠 MEDIUM | 🟢 LOW  
-   **Complexity:** [Simple | Moderate | Complex | Very Complex]  
-   **Blast Radius:** [Isolated | Module-wide | System-wide | External APIs affected]  
-   **Requires Immediate Review:** [YES / NO – why]
+---
 
-   ---
+### 5. 🧭 Formatting rules
 
-   ### 2. 🔍 Critical Issues  
-   _If none, write “None found” and skip to the next section._
+- Use emoji headers for instant visual recognition
+- Keep sections short; if empty, say "None found"
+- Blockers get full detail, everything else stays concise
+- Include code examples only for blockers
+- Bold key impact/risk words
+- Use consistent prefixes like [SECURITY], [PERFORMANCE], [LOGIC] for easy scanning
+- If PR is genuinely fine, end with: ✅ "This PR is safe to merge as-is."
+```
 
-   #### 1. [CRITICAL ISSUE TITLE]  
-   **File:** `path/to/file.js:L125`  
-   **Impact:** Data loss / Security hole / System crash  
-   **Fix:**  
-   // Quick code fix example here
+## 4. Understand the output
 
-   ---
+Here's what each section means and what to do with it:
 
-   ### 3. ⚠️ Concerns  
-   _Should discuss or fix before merge. If none, write “None found.”_  
+- **Risk Assessment** — Read this first. It tells you the PR's overall risk level, how complex the changes are, how many parts of the system they affect (blast radius), and whether it needs urgent review. If the blast radius is "System-wide" and you weren't expecting that, stop and discuss before going further.
 
-   **Examples:**  
-   - [PERFORMANCE] Unindexed query on large table  
-   - [SECURITY] Missing input sanitization in login form  
+- **Critical Issues** — These are blockers. Each issue includes the specific file and line number, the type of impact (data loss, security hole, crash), and a suggested fix. Address all of these before merge. If the section says "None found," the PR cleared the most important bar.
 
-   ---
+- **Concerns** — These are "should fix" items: performance risks, missing tests, design trade-offs. They don't block merge by default, but they should be tracked and discussed.
 
-   ### 4. 🎯 Maintainer Decision Guide  
+- **Maintainer Decision Guide** — The merge confidence score (0–100%) gives you and your team a shared signal. The checklist tells you what still needs to happen: architecture discussion, security review, performance testing, or splitting the PR.
 
-   **Merge confidence:** [0–100]%  
-   - □ Safe to merge after fixing blockers  
-   - □ Needs architecture discussion first  
-   - □ Requires performance testing  
-   - □ Get security team review  
-   - □ Author should split into smaller PRs  
+- **Formatting Rules** — This section is instructions to the agent, not output for you. Ignore it in the response.
 
-   **Time to properly review:** ~[X] minutes  
-   **Recommended reviewer expertise:** [Backend | Security | Database | Frontend]  
+## Tips for iterating
 
-   ---
+The initial output is a starting point. Use follow-up prompts to go deeper on anything that stands out:
 
-   ### 5. 🧭 Formatting Rules  
+- **Focus on a specific file**: "Look more closely at `auth/middleware.js` — are there edge cases in the token expiration logic?"
+- **Dig into a concern**: "Explain the performance risk you flagged. How significant is it at 10k requests per minute?"
+- **Get a fix drafted**: "Write the fix for the input sanitization issue in the login form."
+- **Check scope creep**: "Does this PR include changes unrelated to the stated goal? List anything that seems out of scope."
+- **Split a large PR**: "Suggest how to split this PR into smaller, independently reviewable pieces."
 
-   - Use emoji headers for instant visual recognition  
-   - Keep sections short; if empty, say “None found”  
-   - Blockers get full detail, everything else stays concise  
-   - Include code examples only for blockers  
-   - Bold key impact/risk words  
-   - Use consistent prefixes like [SECURITY], [PERFORMANCE], [LOGIC] for easy scanning  
-   - If PR is genuinely fine, end with: ✅ “This PR is safe to merge as-is.”
+If the PR is large, break it into logical groups of files and run the prompt once per group. The output is easier to act on when you're reviewing one area of the codebase at a time.
 
-   ```
+## Next steps
 
-</Steps>
+You now have a structured, repeatable workflow for PR reviews that surfaces risk, blockers, and merge confidence fast.
+
+Explore related guides and features:
+
+- [Review AI-generated code](/guides/agent-workflows/how-to-review-ai-generated-code/) — review and comment on code diffs directly in Warp's Code Review panel
+- [Attach agent session context to GitHub PRs](/guides/agent-workflows/how-to-attach-agent-session-context-to-github-prs/) — embed the prompt, plan, and agent decisions into the PR for your reviewers
+- [Code Review panel](/code/code-review/) — full reference for visual diffs and inline comments in Warp
