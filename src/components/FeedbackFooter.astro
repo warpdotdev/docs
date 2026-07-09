@@ -3,8 +3,15 @@
 // footer and keeps Pagination + the Starlight credits link.
 import Pagination from 'virtual:starlight/components/Pagination';
 import config from 'virtual:starlight/user-config';
+import DocsFeedback from './DocsFeedback.tsx';
+
+// starlightRoute.id is the content collection entry ID (URL-style slug).
+// Strip any file extension (.mdx, .md, .astro) to get a clean path segment.
+const pageSlug = Astro.locals.starlightRoute.id.replace(/\.(mdx?|astro)$/, '');
+const pageTitle = Astro.locals.starlightRoute.entry.data.title;
 ---
 
+<DocsFeedback client:idle pageSlug={pageSlug} pageTitle={pageTitle} />
 <footer class="sl-flex">
   <Pagination />
 
