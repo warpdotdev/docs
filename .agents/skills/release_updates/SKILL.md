@@ -35,11 +35,9 @@ They support the following:
 - **Auth**: `gh auth status` must be healthy in the run environment.
 - **GitHub repo write access** for branch push + PR create/update.
 
-### Required for on-call reviewer assignment
+### Required for Slack PR notification
 
-- Resolver script path (default):
-  `.agents/skills/release_updates/scripts/resolve_oncall_reviewers.py`
-- `DOCS_AGENT_GRAFANA_TOKEN` environment variable.
+- `DOCS_SLACK_BOT_TOKEN` environment variable (Oz team secret — add to the docs agent environment).
 
 ### Recommended
 
@@ -171,37 +169,48 @@ python3 .agents/skills/release_updates/scripts/run_release_updates.py \
   --pr-body-file /tmp/release-pr-body.md
 ```
 
-### Assign primary and secondary client on-call as reviewers (Grafana schedules)
+### Post Slack notification after creating a PR
 
-To resolve and assign both reviewers automatically, pass both schedules:
+After the PR is created, post a notification to the `#oncall-client` Slack channel (`C06MT1NRBFV`):
 
-```bash
-python3 .agents/skills/release_updates/scripts/run_release_updates.py \
-  --create-pr \
-  --assign-oncall-reviewer \
-  --oncall-schedule-id CLIENT_PRIMARY_SCHEDULE_ID \
-  --oncall-schedule-id CLIENT_SECONDARY_SCHEDULE_ID
+```python
+import json, os, sys, urllib.request
+
+# pr_url: obtain from the PR created in the previous step, e.g.:
+# pr_url = subprocess.check_output(['gh', 'pr', 'view', '--json', 'url', '--jq', '.url'], text=True).strip()
+token = os.environ.get('DOCS_SLACK_BOT_TOKEN')
+channel = 'C06MT1NRBFV'  # #oncall-client
+if not token:
+    print('DOCS_SLACK_BOT_TOKEN not set — skipping Slack notification')
+else:
+    # Resolve the oncall-client-primary and oncall-client-secondary user group IDs
+    req = urllib.request.Request(
+        'https://slack.com/api/usergroups.list',
+        headers={'Authorization': f'Bearer {token}'}
+    )
+    with urllib.request.urlopen(req) as resp:
+        groups = json.loads(resp.read()).get('usergroups', [])
+    primary_id = next((g['id'] for g in groups if g.get('handle') == 'oncall-client-primary'), None)
+    secondary_id = next((g['id'] for g in groups if g.get('handle') == 'oncall-client-secondary'), None)
+    primary = f'<!subteam^{primary_id}|oncall-client-primary>' if primary_id else '@oncall-client-primary'
+    secondary = f'<!subteam^{secondary_id}|oncall-client-secondary>' if secondary_id else '@oncall-client-secondary'
+
+    message = f':books: New release docs PR ready for review\n{pr_url}\n{primary} {secondary} please take a look when you get a chance.'
+    body = json.dumps({'channel': channel, 'text': message, 'mrkdwn': True}).encode()
+    req = urllib.request.Request(
+        'https://slack.com/api/chat.postMessage',
+        data=body,
+        headers={'Authorization': f'Bearer {token}', 'Content-Type': 'application/json'}
+    )
+    with urllib.request.urlopen(req) as resp:
+        result = json.loads(resp.read())
+    if not result.get('ok'):
+        print(f'Slack error: {result.get("error")}', file=sys.stderr)
+    else:
+        print(f'Slack notification sent to {channel}')
 ```
 
-Notes:
-
-- Requires `DOCS_AGENT_GRAFANA_TOKEN` in the environment.
-- Uses resolver script (by default):
-  `.agents/skills/release_updates/scripts/resolve_oncall_reviewers.py`
-- Repeat `--oncall-schedule-id` to resolve one reviewer per schedule, in order.
-- Override with `--oncall-resolver-script` if needed.
-
-To verify reviewer resolution without mutating PR assignments:
-
-```bash
-python3 .agents/skills/release_updates/scripts/run_release_updates.py \
-  --tasks changelog \
-  --create-pr \
-  --assign-oncall-reviewer \
-  --oncall-schedule-id CLIENT_PRIMARY_SCHEDULE_ID \
-  --oncall-schedule-id CLIENT_SECONDARY_SCHEDULE_ID \
-  --dry-run
-```
+The GitHub Actions workflow handles assigning the last human reviewer from recent docs PRs — the agent does not need to assign reviewers.
 
 ### Explicit repo paths
 
