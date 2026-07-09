@@ -20,7 +20,7 @@ Each brief must be clearly distinct from cross-link work. If the main gap is a m
 Do not:
 - Draft content.
 - Create or edit docs pages.
-- Open a PR.
+- Open docs-content PRs for recommended topics; only the scheduled run-log PR in step 7 is allowed.
 - Make broad marketing or product recommendations outside the docs surface.
 - Reproduce full Peec reports. Keep signal summaries compact.
 
@@ -40,7 +40,7 @@ Use the smallest reliable set of source data needed to justify recommendations:
 - **Peec snapshot** - Check freshness before using any data:
   1. Read `generated_at` from `/workspace/buzz/aeo-snapshots/docs/agents-orchestration/latest.json`.
   2. If the file is missing, `generated_at` is absent, or the snapshot is **14 days old or older**: write the stale-snapshot report (see "Stale snapshot report" below), write a run log entry (step 7) with the appropriate `No-run reason` (see "Stale snapshot report" for exact wording), post the stale Slack alert (step 8), and exit. Do not continue or open a PR.
-  3. If the snapshot is fewer than 14 days old, read both `latest.json` and `latest.md` as source signals. These contain pre-exported Peec data (prompts, recommendations, source URLs, query vocabulary, and visibility scores) for agents, cloud agents, and orchestration. Use the snapshot as the primary Peec source — do not attempt to call Peec MCP directly (cloud agents cannot authenticate).
+  3. If the snapshot is fewer than 14 days old, read both `latest.json` and `latest.md` as source signals. These contain pre-exported Peec data (prompts, recommendations, source URLs, query vocabulary, and visibility scores) for agents, cloud agents, and orchestration. Because Oz is the agent platform underlying cloud agents and orchestration, substantial Oz-relevant signal is present in this snapshot — look for Oz-related prompts and queries within the agents/orchestration data. However, dedicated Oz-surface signals (Oz web app, Oz CLI, Oz scheduling) may be limited; when Oz-specific coverage is thin, flag the brief as lower-confidence and note what additional signal would strengthen the recommendation. Use the snapshot as the primary Peec source — do not attempt to call Peec MCP directly (cloud agents cannot authenticate).
 - **Docs repo** - Search existing pages under `src/content/docs/` for relevant coverage of each candidate topic. Read `AGENTS.md` and `.agents/references/terminology.md` for product naming guidance.
 - **Prior run log** - Read `.agents/logs/aeo_new_guide_recommendation_runs.md` to identify topics that were recommended in previous runs. If a candidate topic from this run matches a topic from a prior run, note it explicitly in the brief (see "Repeat topic flag" below).
 
