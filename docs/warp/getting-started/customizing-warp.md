@@ -8,7 +8,7 @@ description: >-
 
 Warp is deeply customizable. Whether you use Warp primarily as a modern terminal or as an AI-powered development environment, you can tailor the experience to fit how you work. Configure the terminal side (themes, keybindings, vertical tabs, tab configs) and the AI side (model choice, agent autonomy, default mode) independently.
 
-Use the quick-reference table to find what you need, or browse the sections below for more details. If you want to go further than configuration, Warp's client is open source under [AGPL v3](https://github.com/warpdotdev/warp/blob/master/LICENSE) — see [Contributing to Warp](https://docs.warp.dev/support-and-community/community/contributing) to build a custom variant or contribute changes upstream.
+Use the quick-reference table to find what you need, or browse the sections below for more details. If you want to go further than configuration, Warp's client is open source under [AGPL v3](https://github.com/warpdotdev/warp/blob/master/LICENSE-AGPL) — see [Contributing to Warp](https://docs.warp.dev/support-and-community/community/contributing) to build a custom variant or contribute changes upstream.
 
 ## Quick reference
 

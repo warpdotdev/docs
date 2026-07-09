@@ -16,7 +16,7 @@ Warp's AI features can be globally disabled in **Settings** > **Agents** > **War
 These features send input data to various LLM providers through their API. Warp is **SOC 2 compliant** and has **Zero Data Retention** policies with all contracted LLM providers — no customer AI data is retained, stored, or used for training. Read more about data privacy for Warp features [on our privacy page](https://www.warp.dev/privacy).
 {% endhint %}
 
-Warp's client is open source under [AGPL v3](https://github.com/warpdotdev/warp/blob/master/LICENSE) at [`warpdotdev/warp`](https://github.com/warpdotdev/warp). The agent surface you're reading about is built in the open — see [Contributing to Warp](https://docs.warp.dev/support-and-community/community/contributing) to read the code, file issues, or shape the roadmap.
+Warp's client is open source under [AGPL v3](https://github.com/warpdotdev/warp/blob/master/LICENSE-AGPL) at [`warpdotdev/warp`](https://github.com/warpdotdev/warp). The agent surface you're reading about is built in the open — see [Contributing to Warp](https://docs.warp.dev/support-and-community/community/contributing) to read the code, file issues, or shape the roadmap.
 
 ## What you can do with agents
 
