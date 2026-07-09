@@ -109,7 +109,7 @@ Quantized models (e.g., `q4_0`, `q8_0` variants) use significantly less memory t
 To benchmark models side by side, Warp makes it easy to run prompts in parallel tabs and compare results. Pass a prompt directly to `ollama run` for a quick, non-interactive response:
 
 ```bash
-ollama run llama3.2 "Summarize the Rust ownership model in one paragraph"
+ollama run llama3.2 --verbose "Summarize the Rust ownership model in one paragraph"
 ```
 
 Run the same prompt on two different models to compare output quality before committing to one. For detailed timing stats (tokens generated, throughput), add the `--verbose` flag:
