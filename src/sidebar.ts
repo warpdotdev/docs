@@ -684,7 +684,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'guides/agent-workflows/how-to-review-prs-like-a-senior-dev', label: 'Review PRs like a senior dev' },
 						{ slug: 'guides/agent-workflows/using-images-as-context-with-warp', label: 'Use images as context for agents' },
 						{ slug: 'guides/agent-workflows/understanding-your-codebase', label: 'Understand a large codebase with agents' },
-						{ slug: 'guides/agent-workflows/running-multiple-agents-at-once-with-warp', label: 'Coordinate agents on separate tasks' },
 					],
 				},
 				{
