@@ -87,3 +87,55 @@ Please see our [Appearance > Tabs Behavior](/terminal/appearance/tabs-behavior/)
 ### How Tabs work
 
 <VideoEmbed url="https://www.loom.com/share/84d15cc7eb5a4a668bb86be9e827f261?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" title="Tabs Demo" />
+
+## Tab groups
+
+Organize related tabs into named, collapsible groups. A tab group keeps its member tabs together in the tab bar, can be given a name and a color, and can be collapsed to hide its members until you need them. Tab groups work in both the horizontal tab bar and the [vertical tabs](/terminal/windows/vertical-tabs/) panel.
+
+### Create a group
+
+* Right-click a tab and choose **New group with tab** to start a group from that tab.
+* Select multiple tabs first (see [Select multiple tabs](#select-multiple-tabs)), then right-click the selection to group them together.
+* Click the **+** new-tab button and choose **New tab group** to create a new group with a new tab.
+
+### Select multiple tabs
+
+* `Cmd`-click (macOS) or `Ctrl`-click (Windows/Linux) a tab to add it to or remove it from the selection.
+* `Shift`-click a tab to select every tab between it and the active tab.
+
+With multiple tabs selected, right-click to group them, move them into an existing group, or remove them from their group in one step.
+:::note
+The active tab is always included in a selection.
+:::
+### Manage a group
+
+Right-click a group's header to:
+
+* **Rename** the group.
+* Set a **color** for the group.
+* Add a **New tab in group**.
+* **Ungroup tabs** to dissolve the group while keeping its tabs.
+* Close the tabs in the group.
+
+Right-click an individual tab for **New group with tab**, **Move to group** (to move it into another group), and **Remove from group**.
+
+### Collapse a group
+
+Click a group's header to collapse or expand it. Collapsed groups hide their member tabs to save space in the tab bar; click the header again to expand.
+
+:::note
+You can assign keyboard shortcuts for creating a group from the active or selected tabs and for removing tabs from a group in **Settings** > **Keyboard shortcuts**.
+:::
+
+## Move a tab to another window
+
+You can pull a tab out of the tab bar to reorganize your windows, similar to a web browser:
+
+* **Detach a tab into its own window** — drag a tab out of the tab bar and drop it in empty space to open it in a new window.
+* **Move a tab between windows** — drag a tab onto another window's tab bar to move it there.
+
+The tab keeps its running session, panes, and state as it moves. This works from both the horizontal tab bar and the [vertical tabs](/terminal/windows/vertical-tabs/) panel.
+
+:::note
+Dragging tabs between windows is available on macOS and Windows.
+:::

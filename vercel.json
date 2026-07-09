@@ -2406,6 +2406,11 @@
       "statusCode": 308
     },
     {
+      "source": "/guides/agent-workflows/running-multiple-agents-at-once-with-warp",
+      "destination": "/guides/agent-workflows/how-to-run-multiple-ai-coding-agents/",
+      "statusCode": 308
+    },
+    {
       "source": "/how-does-warp-compare/performance",
       "destination": "/terminal/comparisons/performance/",
       "statusCode": 308

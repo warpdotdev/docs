@@ -72,6 +72,7 @@ Team admins can enforce telemetry settings organization-wide through the Admin P
 * **Codebase Context** - During indexing, code is sent to Warp's servers to generate embeddings; the raw code is not stored, only the resulting embeddings are retained
 * **Agent requests** - Warp sends requests to contracted LLM providers (Anthropic, OpenAI, Google) with Zero Data Retention agreements for Enterprise teams
 * **BYOLLM** - Requests are proxied through Warp's servers to your cloud infrastructure, where inference runs. Warp does not store the content of these requests.
+* **Team-managed API keys and endpoints** - When an admin configures [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/), the keys are encrypted and stored server-side, never synced to member devices, and never delivered to cloud agent environments. They're decrypted only in memory when serving a request.
 * **Self-hosted cloud agent execution** - Repository clones, build artifacts, runtime secrets, and execution workspaces stay on your infrastructure. Orchestration metadata, session transcripts, and LLM inference requests and responses route through Warp under ZDR, and can include code context from agent interactions.
 
 ### Encryption

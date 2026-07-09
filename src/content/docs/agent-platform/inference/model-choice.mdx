@@ -32,6 +32,18 @@ All Auto models perform well across all agent workflows and are ideal if you pre
 
 | Model | `model_id` | Reasoning Level |
 | --- | --- | --- |
+| GPT-5.6 Sol | `gpt-5-6-sol-low` | Low |
+| GPT-5.6 Sol | `gpt-5-6-sol-medium` | Medium |
+| GPT-5.6 Sol | `gpt-5-6-sol-high` | High |
+| GPT-5.6 Sol | `gpt-5-6-sol-xhigh` | Extra High |
+| GPT-5.6 Terra | `gpt-5-6-terra-low` | Low |
+| GPT-5.6 Terra | `gpt-5-6-terra-medium` | Medium |
+| GPT-5.6 Terra | `gpt-5-6-terra-high` | High |
+| GPT-5.6 Terra | `gpt-5-6-terra-xhigh` | Extra High |
+| GPT-5.6 Luna | `gpt-5-6-luna-low` | Low |
+| GPT-5.6 Luna | `gpt-5-6-luna-medium` | Medium |
+| GPT-5.6 Luna | `gpt-5-6-luna-high` | High |
+| GPT-5.6 Luna | `gpt-5-6-luna-xhigh` | Extra High |
 | GPT-5.5 | `gpt-5-5-low` | Low |
 | GPT-5.5 | `gpt-5-5-medium` | Medium |
 | GPT-5.5 | `gpt-5-5-high` | High |
@@ -96,6 +108,9 @@ Anthropic requires data retention for Claude Fable 5 for safety, abuse monitorin
 
 | Model | `model_id` | Reasoning Level |
 | --- | --- | --- |
+| Grok 4.5 | `grok-4-5-low` | Low |
+| Grok 4.5 | `grok-4-5-medium` | Medium |
+| Grok 4.5 | `grok-4-5-high` | High |
 | Grok 4.3 | `grok-4-3-low` | Low |
 | Grok 4.3 | `grok-4-3-medium` | Medium |
 | Grok 4.3 | `grok-4-3-high` | High |
@@ -131,9 +146,9 @@ To change models, click the displayed model name (for example, _Claude Sonnet 5_
 
 ### Custom routers
 
-Beyond the built-in Auto models, you can define your own custom routers that automatically pick a concrete model for each task, based on task complexity or rules you write. Custom routers appear in the model picker alongside Auto and individual models.
+Beyond the built-in Auto models, you can define your own custom routers that automatically route each task to a concrete model based on task complexity or rules you write. Custom routers appear in the model picker alongside Auto and individual models.
 
-See [Custom routers](/agent-platform/inference/custom-routers/) to create one.
+Add and manage custom routers in **Settings** > **AI** > **Custom Routers**. See [Custom routers](/agent-platform/inference/custom-routers/) for details on creating one.
 
 ### Model fallback
 
@@ -150,12 +165,6 @@ Warp uses a model fallback system to ensure uninterrupted service if your select
 You can configure the base model for each [Agent Profile](/agent-platform/capabilities/agent-profiles-permissions/), alongside the Agent's autonomy, tool access, and other permissions. The base model is also used for [Planning](/agent-platform/capabilities/planning/).
 
 Edit your default profile or any other profile directly in **Settings** > **Agents** > **Profiles**.
-
-### Custom routers
-
-Custom model routers automatically route each task to a specific model based on task complexity or rules you define, instead of using a single fixed model for every prompt. Your custom routers appear in the [model selector](#how-to-change-models) alongside Warp's built-in models.
-
-Add and manage custom routers in **Settings** > **AI** > **Custom Routers**.
 
 ### Zero data retention policies
 

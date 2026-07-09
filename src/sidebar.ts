@@ -636,6 +636,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					items: [
 						{ slug: 'enterprise/enterprise-features/architecture-and-deployment', label: 'Architecture and deployment' },
 						{ slug: 'enterprise/enterprise-features/bring-your-own-llm', label: 'Bring your own LLM' },
+						{ slug: 'enterprise/enterprise-features/team-managed-keys-and-endpoints', label: 'Team-managed LLM keys and endpoints' },
 						{ slug: 'enterprise/enterprise-features/analytics-api', label: 'Analytics API' },
 					],
 				},
@@ -683,7 +684,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'guides/agent-workflows/how-to-review-prs-like-a-senior-dev', label: 'Review PRs like a senior dev' },
 						{ slug: 'guides/agent-workflows/using-images-as-context-with-warp', label: 'Use images as context for agents' },
 						{ slug: 'guides/agent-workflows/understanding-your-codebase', label: 'Understand a large codebase with agents' },
-						{ slug: 'guides/agent-workflows/running-multiple-agents-at-once-with-warp', label: 'Coordinate agents on separate tasks' },
 					],
 				},
 				{
