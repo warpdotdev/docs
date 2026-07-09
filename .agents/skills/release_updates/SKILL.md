@@ -174,8 +174,10 @@ python3 .agents/skills/release_updates/scripts/run_release_updates.py \
 After the PR is created, post a notification to the `#oncall-client` Slack channel (`C06MT1NRBFV`):
 
 ```python
-import json, os, urllib.request
+import json, os, sys, urllib.request
 
+# pr_url: obtain from the PR created in the previous step, e.g.:
+# pr_url = subprocess.check_output(['gh', 'pr', 'view', '--json', 'url', '--jq', '.url'], text=True).strip()
 token = os.environ.get('DOCS_SLACK_BOT_TOKEN')
 channel = 'C06MT1NRBFV'  # #oncall-client
 if not token:

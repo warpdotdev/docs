@@ -221,19 +221,23 @@ jobs:
           fi
           echo "Found PR #$PR_NUMBER"
 
-          # Find last human reviewer from recent merged docs PRs
-          LAST_MERGED_PR=$(gh api /repos/warpdotdev/docs/pulls \
-            -F state=closed -F sort=updated -F direction=desc -F per_page=20 \
-            --jq "[.[] | select(.merged_at != null and (.number | tostring) != \"$PR_NUMBER\")] | .[0] | .number" \
-            2>/dev/null || echo "")
+          # Find last human reviewer by iterating recent merged docs PRs
+          RECENT_PRS=$(gh api "/repos/warpdotdev/docs/pulls?state=closed&sort=updated&direction=desc&per_page=20" \
+            --jq "[.[] | select(.merged_at != null and (.number | tostring) != \"$PR_NUMBER\") | .number]" \
+            2>/dev/null || echo "[]")
 
           LAST_REVIEWER=""
-          if [[ -n "$LAST_MERGED_PR" && "$LAST_MERGED_PR" != "null" ]]; then
-            LAST_REVIEWER=$(gh api "/repos/warpdotdev/docs/pulls/${LAST_MERGED_PR}/reviews" \
+          for CANDIDATE_PR in $(echo "$RECENT_PRS" | python3 -c "import json,sys; [print(n) for n in json.load(sys.stdin)]"); do
+            REVIEWER=$(gh api "/repos/warpdotdev/docs/pulls/${CANDIDATE_PR}/reviews" \
               --jq '[.[] | select(.user.type == "User" and (.user.login | test("\\[bot\\]"; "i") | not)) | .user.login] | last' \
               2>/dev/null || echo "")
-            [[ "$LAST_REVIEWER" == "null" ]] && LAST_REVIEWER=""
-          fi
+            [[ "$REVIEWER" == "null" ]] && REVIEWER=""
+            if [[ -n "$REVIEWER" ]]; then
+              LAST_REVIEWER="$REVIEWER"
+              echo "Found reviewer $LAST_REVIEWER from PR #$CANDIDATE_PR"
+              break
+            fi
+          done
 
           if [[ -z "$LAST_REVIEWER" ]]; then
             echo "::warning::No recent reviewer found — using default reviewer dannyneira"
