@@ -120,7 +120,20 @@ If any pages were created:
 
 1. Create a branch in the docs repo (e.g., `sync-error-docs/{date}`)
 2. Commit all changes with a descriptive message
-3. Push and open a PR targeting `main`
+3. Push and open a PR targeting `main`. Write the body to a file:
+   ```bash
+   cat > /tmp/sync-error-docs-pr-body.md << 'EOF'
+   ## New error code pages
+   [list each new error code and the doc page created]
+
+   Co-Authored-By: Oz <oz-agent@warp.dev>
+   EOF
+
+   python3 .agents/skills/create_pr/check_pr_body.py /tmp/sync-error-docs-pr-body.md
+   gh pr create \
+     --title "docs: add error code pages for new platform errors" \
+     --body-file /tmp/sync-error-docs-pr-body.md
+   ```
 4. Use `report_pr` to surface the PR link
 
 ### Step 9: Report
