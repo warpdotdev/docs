@@ -271,6 +271,9 @@ oz agent run-cloud \
 * `--attach <PATH>` — attach an image file to the agent query. Can be repeated (maximum 5).
 * `--computer-use` / `--no-computer-use` — enable or disable [Computer Use](/agent-platform/capabilities/computer-use/) for this run.
 * `--file <PATH>` (`-f`) — load run configuration from a YAML or JSON file.
+* `--harness <HARNESS>` — choose the [execution harness](/platform/harnesses/) for the run: `oz` (default, Warp's built-in agent infrastructure), `claude` (Claude Code), or `codex`.
+* `--claude-auth-secret <NAME>` — name of the [Warp-managed secret](/platform/harnesses/authentication/) that authenticates the Claude Code harness. Only valid with `--harness claude`.
+* `--codex-auth-secret <NAME>` — name of the [Warp-managed secret](/platform/harnesses/authentication/) that authenticates the Codex harness. Only valid with `--harness codex`.
 
 **Key differences from `run`**
 
@@ -316,6 +319,20 @@ oz agent run-cloud \
 #### Reusing saved prompts and Warp Drive objects
 
 You can reuse saved prompts with `--saved-prompt`, and reference notebooks, workflows, and rules inline in any `--prompt` string. See [Referencing Warp Drive objects](/reference/cli/warp-drive/) for details.
+
+#### Choosing an execution harness
+
+By default, cloud runs use Warp's built-in `oz` harness. To delegate the run to a third-party coding agent, pass `--harness` with `claude` (Claude Code) or `codex`, along with the matching auth secret:
+
+```sh
+oz agent run-cloud \
+  --environment <ENVIRONMENT_ID> \
+  --harness claude \
+  --claude-auth-secret <SECRET_NAME> \
+  --prompt "review the latest PR"
+```
+
+Create the auth secret first with `oz secret create claude api-key <SECRET_NAME>` (or `oz secret create codex api-key <SECRET_NAME>` for Codex). See [Third-party cloud agent authentication](/platform/harnesses/authentication/) for the full setup.
 
 ## Using agent profiles
 
