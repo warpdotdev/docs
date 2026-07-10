@@ -363,7 +363,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'platform/integrations/quickstart', label: 'Quickstart' },
 						'platform/integrations/slack',
 						'platform/integrations/linear',
-						'platform/integrations/jira',
 						{
 							label: 'GitHub Actions',
 							collapsed: true,
