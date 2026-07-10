@@ -194,7 +194,7 @@ Use `--body-file` rather than `--body` for all PR descriptions. Long description
 `style_lint.py --changed` only scans `src/content/docs/` — it does not validate `.agents/skills/` or `.agents/templates/`. After editing any skill file, validate the frontmatter manually:
 
 ```bash
-python3 -c "import sys; content = open(sys.argv[1]).read(); parts = content.split('---', 2); assert len(parts) >= 3" .agents/skills/<skill-name>/SKILL.md
+python3 -c "import sys; content = open(sys.argv[1]).read(); assert content.startswith('---\n'); _, frontmatter, _ = content.split('---', 2); assert 'name:' in frontmatter and 'description:' in frontmatter" .agents/skills/<skill-name>/SKILL.md
 ```
 
 ### Skill description accuracy
