@@ -43,7 +43,7 @@ If the PR is on GitHub, pull the diff directly:
 # View the diff as text
 gh pr diff PR_NUMBER
 
-# Or open the PR in your browser to copy the diff URL
+# Or open the PR in your browser for full context
 gh pr view PR_NUMBER --web
 ```
 
@@ -69,7 +69,7 @@ cd ~/your-project
 
 Attach the diff as context so the agent can reason about the actual code. You have a few options:
 
-- **Select terminal output** — Run `gh pr diff <PR-number>` or `git diff`, then select the output block and attach it using the block action menu.
+- **Select terminal output** — Run `gh pr diff PR_NUMBER` or `git diff`, then select the output block and attach it using the block action menu.
 - **Reference specific files** — Use `@path/to/file` in your prompt to point the agent at changed files.
 - **Paste inline** — For smaller diffs, paste the diff directly into the agent input.
 

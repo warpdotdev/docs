@@ -19,7 +19,7 @@ Run AI models locally — with no API costs, no data leaving your machine, and y
 
 **Hardware requirements**
 
-You'll need enough memory to load the model weights. The rule of thumb: roughly 1GB of memory per billion parameters.
+You'll need enough memory to load the model weights. As a general estimate, plan on roughly 1GB of memory per billion parameters.
 
 | Model size | Example models | Minimum RAM/VRAM |
 |---|---|---|
@@ -106,17 +106,13 @@ Quantized models (e.g., `q4_0`, `q8_0` variants) use significantly less memory t
 
 ## 4. Compare model performance
 
-To benchmark models side by side, Warp makes it easy to run prompts in parallel tabs and compare results. Pass a prompt directly to `ollama run` for a quick, non-interactive response:
-
-```bash
-ollama run llama3.2 --verbose "Summarize the Rust ownership model in one paragraph"
-```
-
-Run the same prompt on two different models to compare output quality before committing to one. For detailed timing stats (tokens generated, throughput), add the `--verbose` flag:
+To benchmark models side by side, Warp makes it easy to run prompts in parallel tabs and compare results. Pass a prompt and the `--verbose` flag to get timing stats alongside the response:
 
 ```bash
 ollama run --verbose llama3.2 "Summarize the Rust ownership model in one paragraph"
 ```
+
+Run the same prompt on two different models to compare output quality and throughput before committing to one.
 
 To see which models are currently loaded and their memory usage:
 
