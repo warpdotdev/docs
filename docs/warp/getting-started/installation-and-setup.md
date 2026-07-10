@@ -181,7 +181,7 @@ Want to try our newest features? [Warp Preview](https://docs.warp.dev/support-an
 
 ## Build from source
 
-Warp's client is open source under [AGPL v3](https://github.com/warpdotdev/warp/blob/main/LICENSE), so you can build it yourself from [`warpdotdev/warp`](https://github.com/warpdotdev/warp).
+Warp's client is open source under [AGPL v3](https://github.com/warpdotdev/warp/blob/master/LICENSE-AGPL), so you can build it yourself from [`warpdotdev/warp`](https://github.com/warpdotdev/warp).
 
 Clone the repo, bootstrap toolchain dependencies, and start a development build:
 

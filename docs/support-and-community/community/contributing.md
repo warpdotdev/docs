@@ -7,7 +7,7 @@ description: >-
 
 # Contributing to Warp
 
-Warp's client is open source under [AGPL v3](https://github.com/warpdotdev/warp/blob/main/LICENSE) at [`warpdotdev/warp`](https://github.com/warpdotdev/warp), and there's room for every kind of contribution — from a one-line bug report to a full feature PR, a new theme, or a workflow that ships to every Warp user. For the full code contribution flow, see [`CONTRIBUTING.md`](https://github.com/warpdotdev/warp/blob/master/CONTRIBUTING.md).
+Warp's client is open source under [AGPL v3](https://github.com/warpdotdev/warp/blob/master/LICENSE-AGPL) at [`warpdotdev/warp`](https://github.com/warpdotdev/warp), and there's room for every kind of contribution — from a one-line bug report to a full feature PR, a new theme, or a workflow that ships to every Warp user. For the full code contribution flow, see [`CONTRIBUTING.md`](https://github.com/warpdotdev/warp/blob/master/CONTRIBUTING.md).
 
 ## Ways you can contribute
 

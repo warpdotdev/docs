@@ -8,7 +8,7 @@ description: >
 
 Warp includes **Oz**, the orchestration platform for cloud agents. While Warp provides the terminal and coding surface you work in day-to-day, Oz is the underlying orchestration layer that makes running agents at scale possible.
 
-Warp's client is open source under [AGPL v3](https://github.com/warpdotdev/warp/blob/main/LICENSE), so the editor and terminal that host your agents are fully auditable. See [Contributing to Warp](https://docs.warp.dev/support-and-community/community/contributing) for the source and contribution flow.
+Warp's client is open source under [AGPL v3](https://github.com/warpdotdev/warp/blob/master/LICENSE-AGPL), so the editor and terminal that host your agents are fully auditable. See [Contributing to Warp](https://docs.warp.dev/support-and-community/community/contributing) for the source and contribution flow.
 
 With Oz, you can:
 
