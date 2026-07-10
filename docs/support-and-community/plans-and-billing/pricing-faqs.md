@@ -164,7 +164,7 @@ Warp doesn’t currently offer discounts for students or non-profits. We recomme
 For open source teams, two paths are available:
 
 * The [Oz Open Source Partnership](https://docs.warp.dev/support-and-community/community/open-source-partnership) program offers free Oz agent credits to high-impact open source projects.
-* Warp's client itself is open source under [AGPL v3](https://github.com/warpdotdev/warp/blob/master/LICENSE), so you can build, run, and contribute to it directly. See [Contributing to Warp](https://docs.warp.dev/support-and-community/community/contributing) for the flow.
+* Warp's client itself is open source under [AGPL v3](https://github.com/warpdotdev/warp/blob/main/LICENSE), so you can build, run, and contribute to it directly. See [Contributing to Warp](https://docs.warp.dev/support-and-community/community/contributing) for the flow.
 
 ### Where is Warp Drive data for my team stored?
 

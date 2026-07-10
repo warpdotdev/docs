@@ -140,6 +140,6 @@ Here's an example from [Warp Guides](https://docs.warp.dev/guides), where Zach d
 
 With your codebase indexed, you can browse your project directly in Warp and start letting agents take action on your code.
 
-* **[File Tree](https://docs.warp.dev/warp/code/code-editor/file-tree)** - Browse your project structure in Warp's sidebar and open files directly.
-* **[Code editor](https://docs.warp.dev/warp/code/code-editor)** - Edit files with syntax highlighting, LSP support, and find-and-replace without leaving Warp.
+* **[File Tree](https://docs.warp.dev/code/code-editor/file-tree)** - Browse your project structure in Warp's sidebar and open files directly.
+* **[Code editor](https://docs.warp.dev/code/code-editor)** - Edit files with syntax highlighting, LSP support, and find-and-replace without leaving Warp.
 * **[Agent profiles and permissions](agent-profiles-permissions.md)** - Configure how much autonomy the agent has when working with your code.

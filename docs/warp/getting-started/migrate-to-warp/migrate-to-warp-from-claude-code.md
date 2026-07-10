@@ -14,7 +14,7 @@ Claude Code is different from the other sources in this section: it's not a term
 
 ## Using Claude Code inside Warp
 
-Warp provides first-class support for Claude Code through its [third-party CLI agents](https://docs.warp.dev/agent-platform/cli-agents) integration. Open a new tab and run:
+Warp provides first-class support for Claude Code through its [third-party CLI agents](https://docs.warp.dev/agent-platform/cli-agents/overview) integration. Open a new tab and run:
 
 ```bash
 claude
