@@ -707,7 +707,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'guides/configuration/how-to-set-coding-preferences-with-rules', label: 'Set coding preferences with Rules' },
 						{ slug: 'guides/configuration/how-to-configure-yolo-and-strategic-agent-profiles', label: 'Configure Agent Profiles (YOLO & strategic)' },
 						{ slug: 'guides/configuration/how-to-use-agent-profiles-efficiently', label: 'Use Agent Profiles efficiently' },
-						{ slug: 'guides/configuration/how-to-reduce-token-usage-with-ai-coding-agents', label: 'Reduce token usage' },
+						{ slug: 'guides/configuration/how-to-use-tokens-efficiently-with-ai-coding-agents', label: 'Use tokens efficiently' },
 						{ slug: 'guides/configuration/creating-rules-for-agents', label: 'Create reusable Rules for your team' },
 						{ slug: 'guides/configuration/trigger-reusable-actions-with-saved-prompts', label: 'Trigger reusable actions with saved prompts' },
 						{ slug: 'guides/configuration/how-to-set-up-self-serve-data-analytics-with-skills', label: 'Set up self-serve data analytics with Skills' },
