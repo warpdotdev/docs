@@ -1,11 +1,11 @@
 ---
 name: aeo_new_guide_recommendations
-description: Run a recurring AEO new-guide recommendations brief for Warp docs using Peec data and existing docs. Use for bi-weekly scheduled agents that identify missing or underserved topics in agents, cloud agents, orchestration, and Oz — and recommend whether to create a new page, update an existing page, or avoid a topic. Does not draft content.
+description: Run a recurring AEO new-guide recommendations brief for Warp docs using Peec data and existing docs. Use for scheduled agents that run every two weeks and identify missing or underserved topics in agents, cloud agents, orchestration, and Oz — and recommend whether to create a new page, update an existing page, or avoid a topic. Does not draft content.
 ---
 
 # AEO new-guide recommendations
 
-Produce 3–5 source-grounded AEO briefs that recommend whether to create a new guide, update an existing page, or avoid a topic — without drafting content. This skill is designed for a recurring bi-weekly Oz scheduled agent that gives the Docs team a repeatable upstream input to content planning.
+Produce 3–5 source-grounded AEO briefs that recommend whether to create a new guide, update an existing page, or avoid a topic — without drafting content. This skill is designed for an Oz scheduled agent that runs every two weeks (not twice a week — "bi-weekly" is intentionally avoided here because it is ambiguous). The goal is to give the Docs team a repeatable upstream input to content planning without generating more noise than the team can act on.
 
 ## Scope
 
@@ -35,7 +35,9 @@ Do NOT print, log, commit, or include secret values in reports or Slack messages
 
 ## Source data
 
-Use the smallest reliable set of source data needed to justify recommendations:
+Use the smallest reliable set of source data needed to justify recommendations.
+
+**Why a snapshot, not live Peec MCP calls:** This skill runs as an Oz cloud agent, which cannot authenticate with Peec MCP directly. All Peec data must come from a pre-exported snapshot committed to the `buzz` repo. The snapshot is generated locally (where Peec OAuth works) using the `refresh-peec-aeo-snapshot` skill, then committed so cloud runs can read it. If the snapshot is stale, this run exits rather than proceeding without data.
 
 - **Peec snapshot** - Check freshness before using any data:
   1. Read `generated_at` from `/workspace/buzz/aeo-snapshots/docs/agents-orchestration/latest.json`.
@@ -83,16 +85,17 @@ Do not invent Peec signals. If the snapshot has no usable data for a candidate t
 7. **Write run log entry.** `main` is a protected branch — do not commit the log directly to it. Record the entry through a single, long-lived log PR:
    1. Fetch and check out the remote branch `chore/aeo-new-guide-rec-log`. If it does not exist, create it from the latest `origin/main`.
    2. Prepend the new entry to `.agents/logs/aeo_new_guide_recommendation_runs.md` using the "Run log format" section below.
-   3. Stage only that file and commit with this message:
+   3. Verify the entry was written: `head -10 .agents/logs/aeo_new_guide_recommendation_runs.md` and confirm the new heading appears at the top. If the file is unchanged, the prepend failed — write the entry to run output and skip to step 8.
+   4. Stage only that file and commit with this message:
 
       ```text
       chore: log aeo new-guide rec run YYYY-MM-DD
       ```
 
-   4. Push the branch.
-   5. Ensure exactly one open PR exists from `chore/aeo-new-guide-rec-log` into `main`, titled `chore: aeo new-guide recommendation run log`. Create it if missing; otherwise the push updates the existing PR. Keep this log PR separate from any other PR.
+   5. Push the branch. Verify the push succeeded by checking the exit code or running `git log --oneline -1 origin/chore/aeo-new-guide-rec-log` after the push.
+   6. Ensure exactly one open PR exists from `chore/aeo-new-guide-rec-log` into `main`, titled `chore: aeo new-guide recommendation run log`. Create it if missing; otherwise the push updates the existing PR. Keep this log PR separate from any other PR.
 
-   This produces one perpetual, low-noise PR that accumulates every run's entry regardless of outcome. Reviewers merge it periodically. If any git step fails, write the log entry to the run output instead and continue to step 8.
+   This produces one perpetual, low-noise PR that accumulates every run's entry regardless of outcome. Reviewers merge it periodically so the log data reaches `main` and can inform the skill-improvement loop. If any git step fails, write the log entry to the run output instead and continue to step 8 — do not silently skip the log.
 
 8. **Post Slack notification.** After writing the log entry, post the formatted message to `#growth-docs` using the Python snippet below. Python is preferred over curl because it reads `SLACK_BOT_TOKEN` from the environment (keeping the token out of process argv) and JSON-encodes the payload correctly regardless of newlines or special characters. If either secret is unavailable, write the notification body to the run output instead.
 
@@ -316,7 +319,9 @@ The Docs team reviewer should be able to read the full brief set in 15–30 minu
 Do not implement future expansion ideas in this pilot skill. If the audit finds opportunities outside the four topic areas, mention them only as follow-up notes in the run output.
 
 Possible future phases include:
-- Expanding topic areas beyond agents, cloud agents, orchestration, and Oz.
-- Adding a comparison against open Notion content-planning items to detect duplication.
-- Lightweight trend reporting across scheduled runs (e.g., topics that recur three or more times become high-priority backlog items).
-- Integration with the `missing_docs` skill's output as an additional signal source.
+- **Outer self-improvement loop** — After the run log has accumulated several entries (roughly 3–4 runs, equivalent to 6–8 weeks of data), an `improve-aeo-new-guide-rec-skill` skill should read the log and the run outputs to identify systematic weaknesses: topics that keep repeating without being addressed, briefs that reviewers consistently ignore, vocabulary the agent gets wrong, or signal gaps that suggest the Peec snapshot scope needs expanding. This mirrors the `improve-aeo-crosslink-skill` pattern used for the crosslink audit. The improvement skill should run manually (not on a schedule) and propose diffs to this SKILL.md for human review before being applied.
+- **Expanding topic areas** beyond agents, cloud agents, orchestration, and Oz once the pilot cadence is stable.
+- **Comparison against open Notion content-planning items** to detect when a recommended topic is already tracked or in progress.
+- **Lightweight trend reporting** across scheduled runs (e.g., topics that recur three or more times without a logged action become high-priority backlog items).
+- **Integration with the `missing_docs` skill's output** as an additional signal source.
+- **Oz-specific Peec snapshot expansion** — Update the `refresh-peec-aeo-snapshot` skill to collect dedicated Oz-surface signals (Oz web app, Oz CLI, Oz scheduling) so the snapshot covers the full pilot scope with equal confidence.
