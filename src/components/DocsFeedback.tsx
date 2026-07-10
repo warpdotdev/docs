@@ -45,7 +45,7 @@ export default function DocsFeedback({ pageSlug, pageTitle }: Props) {
 
 	const handleSend = () => {
 		const payload: Record<string, string> = {
-			page_url: window.location.href,
+			page_url: window.location.origin + window.location.pathname,
 			page_slug: pageSlug,
 			page_title: pageTitle.replace(/ \| Warp$/, ''),
 			rating: rating === 'positive' ? 'positive' : 'negative',
