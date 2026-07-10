@@ -75,7 +75,7 @@ Checklist when expanding scope:
 
 ### Scope contradictions in "Do not" lists
 
-Inner loop skills often have a "Do not" list. Be precise: blanket rules like "do not open a PR" break when the skill itself must open a log maintenance PR (step 7 in most skills here). Write:
+Inner loop skills often have a "Do not" list. Be precise: blanket rules like "do not open a PR" break when the skill itself must open a log maintenance PR (step 6 in the required pattern above). Write:
 
 ```
 - Open docs-content PRs for recommended topics; only the scheduled run-log PR in step 7 is allowed.
