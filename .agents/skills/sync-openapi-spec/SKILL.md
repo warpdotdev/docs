@@ -103,10 +103,21 @@ Co-Authored-By: Oz <oz-agent@warp.dev>"
 git push origin sync-openapi-spec/YYYY-MM-DD
 ```
 
-Open a draft PR with:
-- **Title:** `docs: sync agent-api-openapi.yaml from warp-server`
-- **Body:** include the full output from Step 2 (paths/schemas added/removed/modified) so reviewers can see exactly what changed and why.
-- **Labels:** `documentation`
+Open a draft PR. Write the body to a file before creating the PR — the diff output from Step 2 can be long and is prone to repetition-loop degeneration when passed inline:
+
+```bash
+cat > /tmp/sync-openapi-pr-body.md << 'EOF'
+[Paste the full output from Step 2 here: paths/schemas added/removed/modified]
+
+Co-Authored-By: Oz <oz-agent@warp.dev>
+EOF
+
+python3 .agents/skills/create_pr/check_pr_body.py /tmp/sync-openapi-pr-body.md
+gh pr create --draft \
+  --title "docs: sync agent-api-openapi.yaml from warp-server" \
+  --label documentation \
+  --body-file /tmp/sync-openapi-pr-body.md
+```
 
 Use `report_pr` to surface the PR link.
 
