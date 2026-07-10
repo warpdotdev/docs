@@ -355,6 +355,8 @@ general.autoupdate_enabled -> internal
 # Per the page's frontmatter comment: not in the Guides sidebar yet, pending
 # team feedback.
 guides/agent-workflows/warp-vs-claude-code
+# Astro's built-in 404 page; intentionally not part of the sidebar navigation.
+404
 
 ## Flags to ignore (internal-only, not user-facing)
 
