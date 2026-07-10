@@ -176,10 +176,16 @@ After the PR is created, post a notification to the `#oncall-client` Slack chann
 ```python
 import json, os, subprocess, sys, urllib.request
 
-# Capture the URL of the PR you just created
-pr_url = subprocess.check_output(
-    ['gh', 'pr', 'view', '--json', 'url', '--jq', '.url'], text=True
-).strip()
+# Capture the URL of the PR you just created.
+# If no PR exists (no-op run with no docs changes), skip silently.
+try:
+    pr_url = subprocess.check_output(
+        ['gh', 'pr', 'view', '--json', 'url', '--jq', '.url'],
+        text=True, stderr=subprocess.DEVNULL
+    ).strip()
+except subprocess.CalledProcessError:
+    print('No PR found — skipping Slack notification (no-op run)')
+    sys.exit(0)
 
 token = os.environ.get('DOCS_SLACK_BOT_TOKEN')
 channel = 'C06MT1NRBFV'  # #oncall-client
