@@ -23,10 +23,10 @@ You'll need enough memory to load the model weights. As a general estimate, plan
 
 | Model size | Example models | Minimum RAM/VRAM |
 |---|---|---|
-| 3B | Llama 3.2 3B, Phi-3 Mini | 4GB |
+| 3B | Llama 3.2 3B, Phi-3 Mini (3.8B) | 4GB |
 | 7–8B | Mistral 7B, Llama 3.1 8B | 8GB |
 | 13B | Llama 2 13B | 16GB |
-| 30–34B | Mixtral, Codestral | 24GB |
+| 22–34B | Codestral (22B), Mixtral (46.7B total) | 24GB |
 | 70B | Llama 3.1 70B | 48GB |
 
 On Apple Silicon Macs, unified memory is shared between CPU and GPU. An M2 Mac with 16GB unified memory can run 7–8B models comfortably.
@@ -54,7 +54,12 @@ Or download the macOS app manually from [ollama.com/download](https://ollama.com
 curl -fsSL https://ollama.com/install.sh | sh
 ```
 
-The installer sets up Ollama as a `systemd` service that starts automatically on boot.
+On systemd-based Linux distributions, the installer typically registers Ollama as a service. To start it and enable it on boot, run:
+
+```bash
+sudo systemctl enable ollama
+sudo systemctl start ollama
+```
 
 **Windows**
 
@@ -94,13 +99,12 @@ Use `ollama ls` to see all models you've downloaded, and `ollama ps` to see whic
 
 When browsing [ollama.com/library](https://ollama.com/library), you'll see labels on models that indicate their capabilities:
 
-| Term | Meaning |
+| Label | Meaning |
 |---|---|
-| **Thinking** | The model "thinks" before answering; better for complex reasoning. |
-| **Tools** | Models can call external functions or utilities (e.g., web search). |
-| **Vision** | Can process and respond to images. |
-| **Embedding** | Converts text to numeric vectors for search or RAG pipelines. |
-| **Quantization** | Reduces memory use by lowering weight precision (e.g., 4-bit, 8-bit). |
+| **thinking** | The model reasons step-by-step before answering; better for complex problems. |
+| **tools** | The model can call external functions or utilities (e.g., web search). |
+| **vision** | The model can process and respond to images. |
+| **embedding** | Converts text to numeric vectors for search or RAG pipelines. |
 
 Quantized models (e.g., `q4_0`, `q8_0` variants) use significantly less memory than full-precision originals. Start with a quantized version if you're memory-constrained.
 
@@ -166,7 +170,7 @@ const response = await client.chat.completions.create({
 console.log(response.choices[0].message.content);
 ```
 
-Ollama also provides native Python and JavaScript libraries (`ollama-python`, `ollama-js`) if you prefer an SDK built specifically for Ollama rather than the OpenAI compatibility layer. See the [Ollama README](https://github.com/ollama/ollama) for details.
+Ollama also provides official native libraries if you prefer an SDK built specifically for Ollama rather than the OpenAI compatibility layer: `pip install ollama` for Python and `npm i ollama` for JavaScript. See the [Ollama README](https://github.com/ollama/ollama) for details.
 
 Open your app's code in Warp and use the agent to locate the OpenAI client initialization, swap in the new values, and test the connection — all from the same terminal session.
 
@@ -202,7 +206,7 @@ Your custom model is saved locally and available any time you run `ollama run co
 
 - **Unload to free memory** — Use `ollama stop <model>` to unload a model from memory before loading a larger one.
 - **Script with the REST API** — For quick testing without the SDK: `curl http://localhost:11434/api/chat -d '{"model": "llama3.2", "messages": [{"role": "user", "content": "Hello"}], "stream": false}'`
-- **Keep a model inventory** — `ollama ls` shows all locally cached models with their sizes and last-used dates. Use `ollama rm <model>` to delete models you no longer need.
+- **Keep a model inventory** — `ollama ls` shows all locally cached models with their sizes and download dates. Use `ollama rm <model>` to delete models you no longer need.
 - **Compare models in parallel** — Open side-by-side Warp tabs and run the same prompt against two different models to compare quality and speed before deciding which to use in your app.
 
 ## Next steps
