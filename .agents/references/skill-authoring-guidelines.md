@@ -14,7 +14,7 @@ Inner loop skills are recurring scheduled agents that do specific, bounded work 
 
 **The biggest failure mode: silent log loss on protected branches.**
 
-`main` is a protected branch. Any `git commit` or `git push` targeting main directly fails silently — the agent does not error, the command exits zero, but nothing is written. This is how the `aeo_crosslink_audit` log stayed empty for multiple runs: the skill committed to main, which silently dropped the write.
+`main` is a protected branch, so scheduled log-writing skills should not treat direct writes to `main` as durable. The historical `aeo_crosslink_audit` failure was that the run appeared to proceed without a persisted log entry; avoid that class of failure by writing logs on a dedicated branch and verifying both the file update and pushed commit.
 
 **Required pattern for all log-writing skills:**
 
