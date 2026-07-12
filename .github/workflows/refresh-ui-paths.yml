@@ -30,7 +30,9 @@ jobs:
         with:
           repository: warpdotdev/warp-internal
           token: ${{ secrets.WARP_INTERNAL_READ_PAT }}
-          path: warp-internal
+          # Check out outside the docs working directory so 'git add -A' below
+          # does not accidentally stage it as a nested repository/submodule.
+          path: ${{ runner.temp }}/warp-internal
 
       - name: Set up Python 3.12
         uses: actions/setup-python@v5
@@ -40,22 +42,41 @@ jobs:
       - name: Install Python dependencies
         run: pip install requests
 
+      - name: Snapshot valid_paths.json before refresh
+        run: |
+          # Strip generated_at before saving so the change-detection step below
+          # only fires when Settings structure actually changed, not just the timestamp.
+          python3 -c "
+          import json, pathlib
+          d = json.loads(pathlib.Path('.agents/skills/validate_ui_refs/valid_paths.json').read_text())
+          d.pop('generated_at', None)
+          pathlib.Path('/tmp/valid_paths_before.json').write_text(json.dumps(d, sort_keys=True))
+          "
+
       - name: Refresh valid_paths.json
         run: |
           python3 .agents/skills/validate_ui_refs/validate_ui_refs.py \
             --refresh-valid-paths \
-            --warp-internal-path ./warp-internal
+            --warp-internal-path ${{ runner.temp }}/warp-internal
 
       - name: Check if snapshot changed
         id: snapshot
         run: |
-          if git diff --quiet .agents/skills/validate_ui_refs/valid_paths.json; then
+          # Compare normalized JSON (without generated_at) to avoid false positives
+          # from the timestamp being rewritten on every run.
+          python3 -c "
+          import json, pathlib
+          d = json.loads(pathlib.Path('.agents/skills/validate_ui_refs/valid_paths.json').read_text())
+          d.pop('generated_at', None)
+          pathlib.Path('/tmp/valid_paths_after.json').write_text(json.dumps(d, sort_keys=True))
+          "
+          if diff -q /tmp/valid_paths_before.json /tmp/valid_paths_after.json > /dev/null 2>&1; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
-            echo "Snapshot unchanged — Settings structure matches the existing snapshot. Nothing to do."
+            echo "Snapshot unchanged (Settings structure identical) — nothing to do."
           else
             echo "changed=true" >> "$GITHUB_OUTPUT"
             echo "Snapshot changed — running validation and auto-fix."
-            git diff --stat .agents/skills/validate_ui_refs/valid_paths.json
+            diff /tmp/valid_paths_before.json /tmp/valid_paths_after.json | head -40 || true
           fi
 
       - name: Run validation and auto-fix
@@ -65,9 +86,14 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
         run: |
+          # Capture exit code explicitly: the script returns 1 when unfixed issues
+          # remain, which would abort the step before we write the summary output
+          # or reach the PR creation step — exactly the case we most need a PR for.
           python3 .agents/skills/validate_ui_refs/validate_ui_refs.py \
-            --all --fix --slack-notify \
-            --output /tmp/ui-ref-report.json
+            --all --fix \
+            --slack-channel C09BVK0PL3Y \
+            --slack-notify \
+            --output /tmp/ui-ref-report.json || true
 
           # Surface fix counts for the commit message
           python3 - <<'PY'
