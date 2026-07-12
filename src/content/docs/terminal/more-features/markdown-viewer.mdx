@@ -102,18 +102,11 @@ graph LR
 ```
 ````
 
-[TODO: docs reviewer — screenshot of a rendered Mermaid diagram in the markdown viewer]
+<figure>
+![A Mermaid flowchart rendered as an SVG diagram in Warp's Markdown Viewer](../../../assets/terminal/markdown-viewer-mermaid-diagram.png)
+<figcaption>A Mermaid diagram rendered in the Markdown Viewer.</figcaption>
+</figure>
 
 ### Switching between raw and rendered
 
 Each Mermaid block includes a **Raw** and **Rendered** toggle. Use it to switch between the rendered diagram and the original Mermaid source without leaving the viewer.
-
-### Render failures and timeouts
-
-If a Mermaid diagram cannot be rendered — for example, due to invalid syntax — Warp replaces the loading placeholder with a **Failed to render Mermaid diagram** notice. The same notice appears if rendering takes longer than 10 seconds.
-
-The notice is localized to the affected block; the rest of the document continues to render normally. Multiple Mermaid diagrams in the same file are independent — a failure in one does not affect others.
-
-Your original Mermaid source is always preserved. Copying, exporting, and undo/redo all operate on the authored code, not the failure notice.
-
-If rendering eventually succeeds after a timeout, Warp replaces the notice with the rendered diagram automatically.
