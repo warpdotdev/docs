@@ -1,0 +1,33 @@
+---
+/**
+ * Fires a Rudderstack `docs_404` track event with the originally-requested URL.
+ *
+ * This lives in a dedicated `.astro` component rather than inline in the
+ * `src/content/docs/404.mdx` body because MDX parses `{`/`}` as JavaScript
+ * expressions, which would break the tracking IIFE. Keeping the script in an
+ * `.astro` file lets it pass through untouched.
+ *
+ * The `docs_404` event (and its `broken_url` property) is consumed by the
+ * `weekly-404-monitor` agent to surface broken docs URLs. Do not rename the
+ * event or drop `broken_url` without updating that skill.
+ */
+---
+
+<script is:inline>
+	(function () {
+		var brokenUrl = window.location.origin + window.location.pathname;
+		var referrer = document.referrer ? new URL(document.referrer).origin : '';
+
+		// RudderStackAnalytics.astro (loaded via CustomHead.astro in <head>) stubs
+		// window.rudderanalytics as a queue array before this script runs, so
+		// calling .track() queues the event; the real SDK replays the queue once
+		// it loads. If the Rudderstack env vars are unset, the stub is absent and
+		// the guard below prevents a runtime error.
+		if (window.rudderanalytics) {
+			window.rudderanalytics.track('docs_404', {
+				broken_url: brokenUrl,
+				referrer: referrer,
+			});
+		}
+	})();
+</script>
