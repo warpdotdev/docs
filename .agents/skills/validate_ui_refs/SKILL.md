@@ -12,7 +12,7 @@ This skill scans Warp's Astro Starlight documentation for references to UI paths
 From the docs repo root:
 
 ```bash
-python3 .warp/skills/validate_ui_refs/validate_ui_refs.py --all
+python3 .agents/skills/validate_ui_refs/validate_ui_refs.py --all
 ```
 
 ### Options
@@ -23,8 +23,9 @@ python3 .warp/skills/validate_ui_refs/validate_ui_refs.py --all
 - `--all`: Run all checks (default)
 - `--fix`: Auto-fix high-confidence issues (e.g. case mismatches)
 - `--create-pr`: Create a branch and PR with auto-fixes (requires `gh` CLI)
-- `--slack-notify`: Post results to Slack (only sends when issues are found; requires `SLACK_BOT_TOKEN` and `GROWTH_DOCS_SLACK_CHANNEL_ID` env vars)
-- `--slack-channel ID`: Override default Slack channel
+- `--slack-notify`: Post results to `#growth-docs` Slack channel when unfixed issues remain (requires `SLACK_BOT_TOKEN` env var; channel is hardcoded in the script)
+- `--slack-channel ID`: Override the default Slack channel (`C09BVK0PL3Y`)
+- `--self-test`: Run internal sanity checks against the current snapshot and exit (no `warp-internal` needed)
 - `--include-changelog`: Include `changelog/` in the scan (excluded by default since it's a historical record)
 - `--refresh-valid-paths`: Re-extract valid paths from `warp-internal` and update `valid_paths.json`
 - `--warp-internal-path PATH`: Path to the `warp-internal` repo (default: `../warp-internal` relative to docs root, or `WARP_INTERNAL_PATH` env var)
@@ -33,13 +34,13 @@ python3 .warp/skills/validate_ui_refs/validate_ui_refs.py --all
 ### Quick path-only check:
 
 ```bash
-python3 .warp/skills/validate_ui_refs/validate_ui_refs.py --check-paths
+python3 .agents/skills/validate_ui_refs/validate_ui_refs.py --check-paths
 ```
 
 ### Full check with auto-fix and PR:
 
 ```bash
-python3 .warp/skills/validate_ui_refs/validate_ui_refs.py --all --fix --create-pr
+python3 .agents/skills/validate_ui_refs/validate_ui_refs.py --all --fix --create-pr
 ```
 
 ## Output Format
@@ -74,7 +75,7 @@ Files scanned: 174
 The `valid_paths.json` file is a static snapshot of valid UI paths. To update it from the latest `warp-internal` source:
 
 ```bash
-python3 .warp/skills/validate_ui_refs/validate_ui_refs.py --refresh-valid-paths --warp-internal-path /path/to/warp-internal
+python3 .agents/skills/validate_ui_refs/validate_ui_refs.py --refresh-valid-paths --warp-internal-path /path/to/warp-internal
 ```
 
 This parses:
@@ -157,7 +158,7 @@ python3 .agents/skills/validate_ui_refs/validate_ui_refs.py --all --slack-notify
 
 | Secret | Repo | Purpose |
 |---|---|---|
-| `DOCS_DISPATCH_PAT` | `warp-internal` | Fine-grained PAT — Actions write + Contents read on `warpdotdev/docs` |
+| `DOCS_DISPATCH_PAT` | `warp-internal` | Fine-grained PAT — **Actions: write** on `warpdotdev/docs` (to trigger `repository_dispatch`; no Contents access needed) |
 | `WARP_INTERNAL_READ_PAT` | `docs` | Fine-grained PAT — Contents read on `warpdotdev/warp-internal` |
 | `SLACK_BOT_TOKEN` | `docs` | Slack bot token with `chat:write` scope |
 
