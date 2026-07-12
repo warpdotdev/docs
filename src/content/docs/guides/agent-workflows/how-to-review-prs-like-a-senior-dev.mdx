@@ -1,8 +1,8 @@
 ---
 title: "Review PRs like a senior dev"
 description: >-
-  Prompt Warp's coding agent to generate structured PR reviews with risk
-  assessment, critical issues, and merge confidence scoring.
+  Use Warp's agent to understand large pull requests, identify risky changes,
+  and investigate potential issues before leaving review comments.
 sidebar:
   label: "Review PRs like a senior dev"
 tags:
@@ -12,161 +12,131 @@ tags:
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
 
-AI can summarize a pull request in seconds — but a summary isn't a review. This guide shows you how to prompt Warp's agent to produce structured, prioritized feedback that mirrors how a senior engineer would approach a large PR: start with risk, surface blockers, and give a clear merge recommendation. Plan on about 10 minutes to complete.
+Warp's agent can help you understand a large pull request, identify risky changes, and investigate potential issues before you leave review comments. This guide walks through how to give the agent enough context, ask for focused feedback, and verify its findings.
 
 <VideoEmbed url="https://youtu.be/NVwqQyphlAw?si=zcMR1ZHt-xnIS_ME" title="Reviewing pull requests with Warp Agent video" />
 
 ## Prerequisites
 
 - A **Git-tracked project** with a branch or open PR to review
-- The [GitHub CLI](https://cli.github.com) (`gh`) if you want to pull diffs directly from GitHub
+- The [GitHub CLI](https://cli.github.com) (`gh`) if you want to pull diffs or view PR metadata
 
-## Why structured review matters
+## 1. Give the agent context
 
-Generic AI summaries describe what changed. Structured reviews tell you what to care about:
+The quality of the review depends on the quality of context you provide. Before prompting, gather the pieces the agent needs:
 
-- **Risk Assessment** flags blast radius before you've read a single line of code
-- **Critical Issues** surface blockers first, so you don't spend time on style when there's a security hole
-- **Merge confidence scoring** gives reviewers a shared signal for go/no-go decisions
-
-The prompt in this guide forces the agent to follow this structure, which produces output that's much faster to act on than a prose summary. The same workflow applies to large PRs, design docs, or any feature diff you need to triage quickly.
-
-## 1. Get the PR diff
-
-Before the agent can review the PR, it needs to see the changes. There are a few ways to get the diff into your Warp session:
-
-**Option A: GitHub CLI**
-
-If the PR is on GitHub, pull the diff directly:
+**Pull the PR goal.** The diff alone doesn't tell the agent why changes were made. Start with the PR description:
 
 ```bash
-# View the diff as text
-gh pr diff PR_NUMBER
-
-# Or open the PR in your browser for full context
-gh pr view PR_NUMBER --web
+gh pr view PR_NUMBER
 ```
 
-**Option B: Git diff**
-
-If you have the branch checked out locally:
+**Get the diff.** The most focused way is:
 
 ```bash
+# Patch-level diff via GitHub CLI
+gh pr diff PR_NUMBER
+
+# Or, if the branch is checked out locally
 git diff main...<your-branch>
 ```
 
-**Option C: Warp Code Review panel**
+**Point the agent at key files.** If you know which areas the PR touches, use `@path/to/file` in your prompt to give the agent direct access to those files. This lets it read the surrounding code — not just the changed lines — which is important for catching regressions and missing test coverage.
 
-If you have the branch checked out, open Warp's Code Review panel with `⌘+Shift++` (macOS) or `Ctrl+Shift++` (Windows/Linux) to see a visual diff of all changes. You can select diff hunks and attach them as context to your agent prompt.
+**Run the test suite first.** If you have the branch checked out locally, run your tests before asking for a review. A failing test is faster to identify than a regression buried in prose.
 
-## 2. Start an agent session and provide context
+Open a new agent session in Warp, navigate to the project directory, then attach context by selecting terminal output blocks or using `@file` references in your prompt.
 
-Open a new agent session in Warp and navigate to your project directory:
+## 2. Ask for focused feedback
 
-```bash
-cd ~/your-project
-```
-
-Attach the diff as context so the agent can reason about the actual code. You have a few options:
-
-- **Select terminal output** — Run `gh pr diff PR_NUMBER` or `git diff`, then select the output block and attach it using the block action menu.
-- **Reference specific files** — Use `@path/to/file` in your prompt to point the agent at changed files.
-- **Paste inline** — For smaller diffs, paste the diff directly into the agent input.
-
-## 3. Use the structured review prompt
-
-Once the diff is attached as context, paste this prompt into Warp's agent input. The structure forces the agent to lead with risk, surface blockers with file-level precision, and end with a merge recommendation:
+With context attached, give the agent a clear, goal-oriented prompt. Keep it direct — focused prompts produce more actionable output than heavy templates:
 
 ```
-## Prompt: Structured PR Review Format
+I'm reviewing PR #PR_NUMBER. The goal is: [paste or summarize the PR description].
 
-Review this pull request and format your response for rapid scanning by a busy maintainer. Follow the structure below.
+I've attached the diff. Please:
+1. Check correctness — look for logic errors, off-by-one issues, or incorrect assumptions.
+2. Check for regressions — does anything touch code paths that existing tests don't cover?
+3. Flag security concerns — missing input validation, improper auth checks, hardcoded secrets.
+4. Note missing or inadequate tests.
+5. For each changed file, look at the surrounding code too, not just the changed lines. Call out anything that looks off in context.
+```
 
----
+Adjust the emphasis based on what the PR does — a database migration warrants different scrutiny than a UI refactor.
 
-### 1. 🚨 Risk Assessment
+## 3. Verify the agent's findings
 
-**Overall Risk:** 🔴 HIGH | 🟠 MEDIUM | 🟢 LOW
+Don't treat the agent's output as final. Before leaving review comments:
+
+- **Run the tests.** If the agent flags a potential regression, check whether the test suite catches it.
+- **Read the flagged code yourself.** The agent can miss context or misread intent. Treat its output as a starting checklist, not a verdict.
+- **Test behavior changes manually.** For UI or interaction changes, check out the branch and verify in a browser. For cloud agent runs, you can use [Computer use](/agent-platform/capabilities/computer-use/) to let the agent verify behavior in a sandboxed environment.
+
+## 4. Use follow-up prompts to dig deeper
+
+The first response is a starting point. Use follow-up prompts to investigate specific findings:
+
+- **Inspect a specific area**: "Look more closely at `auth/middleware.js` — are there edge cases in the token expiration logic?"
+- **Understand a concern**: "Explain the performance risk you flagged. How significant is it at 10k requests per minute?"
+- **Draft a fix**: "Write the fix for the input sanitization issue in the login form."
+- **Check scope**: "Does this PR include changes unrelated to the stated goal? List anything that seems out of scope."
+- **Split a large PR**: "Suggest how to split this PR into smaller, independently reviewable pieces."
+
+For large PRs, break the diff into logical groups of files and run the prompt once per group.
+
+## Reference: structured output format (optional)
+
+If you want the agent's findings pre-formatted for rapid scanning — useful for async reviews or sharing with a team — add this format to your prompt. Use it as a structured report, but verify the findings before acting on them.
+
+```
+Review this pull request and format your response for rapid scanning. Follow the structure below.
+
+### 1. Risk Assessment
+
+**Overall Risk:** HIGH | MEDIUM | LOW
 **Complexity:** [Simple | Moderate | Complex | Very Complex]
 **Blast Radius:** [Isolated | Module-wide | System-wide | External APIs affected]
 **Requires Immediate Review:** [YES / NO – why]
 
 ---
 
-### 2. 🔍 Critical Issues
-_If none, write "None found" and skip to the next section._
+### 2. Critical Issues
+_If none, write "None found."_
 
-#### 1. [CRITICAL ISSUE TITLE]
+#### 1. [ISSUE TITLE]
 **File:** `path/to/file.js:L125`
 **Impact:** Data loss / Security hole / System crash
 **Fix:**
-// Quick code fix example here
+// Suggested code fix
 
 ---
 
-### 3. ⚠️ Concerns
+### 3. Concerns
 _Should discuss or fix before merge. If none, write "None found."_
 
-Examples:
 - [PERFORMANCE] Unindexed query on large table
 - [SECURITY] Missing input sanitization in login form
 
 ---
 
-### 4. 🎯 Maintainer Decision Guide
+### 4. Merge decision
 
 **Merge confidence:** [0–100]%
-- □ Safe to merge after fixing blockers
-- □ Needs architecture discussion first
-- □ Requires performance testing
-- □ Get security team review
-- □ Author should split into smaller PRs
+- [ ] Safe to merge after fixing blockers
+- [ ] Needs architecture discussion first
+- [ ] Requires performance testing
+- [ ] Get security team review
+- [ ] Author should split into smaller PRs
 
 **Time to properly review:** ~[X] minutes
 **Recommended reviewer expertise:** [Backend | Security | Database | Frontend]
 
 ---
 
-### 5. 🧭 Formatting rules
-
-- Use emoji headers for instant visual recognition
-- Keep sections short; if empty, say "None found"
-- Blockers get full detail, everything else stays concise
-- Include code examples only for blockers
-- Bold key impact/risk words
-- Use consistent prefixes like [SECURITY], [PERFORMANCE], [LOGIC] for easy scanning
-- If PR is genuinely fine, end with: ✅ "This PR is safe to merge as-is."
+Keep sections short. If a section is empty, write "None found." Include code examples only for blockers. Use prefixes like [SECURITY], [PERFORMANCE], [LOGIC] for easy scanning.
 ```
 
-## 4. Understand the output
-
-Here's what each section means and what to do with it:
-
-- **Risk Assessment** — Read this first. It tells you the PR's overall risk level, how complex the changes are, how many parts of the system they affect (blast radius), and whether it needs urgent review. If the blast radius is "System-wide" and you weren't expecting that, stop and discuss before going further.
-
-- **Critical Issues** — These are blockers. Each issue includes the specific file and line number, the type of impact (data loss, security hole, crash), and a suggested fix. Address all of these before merge. If the section says "None found," the PR cleared the most important bar.
-
-- **Concerns** — These are "should fix" items: performance risks, missing tests, design trade-offs. They don't block merge by default, but they should be tracked and discussed.
-
-- **Maintainer Decision Guide** — The merge confidence score (0–100%) gives you and your team a shared signal. The checklist tells you what still needs to happen: architecture discussion, security review, performance testing, or splitting the PR.
-
-- **Formatting Rules** — This section is instructions to the agent, not output for you. Ignore it in the response.
-
-## Tips for iterating
-
-The initial output is a starting point. Use follow-up prompts to go deeper on anything that stands out:
-
-- **Focus on a specific file**: "Look more closely at `auth/middleware.js` — are there edge cases in the token expiration logic?"
-- **Dig into a concern**: "Explain the performance risk you flagged. How significant is it at 10k requests per minute?"
-- **Get a fix drafted**: "Write the fix for the input sanitization issue in the login form."
-- **Check scope creep**: "Does this PR include changes unrelated to the stated goal? List anything that seems out of scope."
-- **Split a large PR**: "Suggest how to split this PR into smaller, independently reviewable pieces."
-
-If the PR is large, break it into logical groups of files and run the prompt once per group. The output is easier to act on when you're reviewing one area of the codebase at a time.
-
 ## Next steps
-
-You now have a structured, repeatable workflow for PR reviews that surfaces risk, blockers, and merge confidence fast.
 
 Explore related guides and features:
 
