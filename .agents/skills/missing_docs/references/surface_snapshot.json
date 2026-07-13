@@ -183,6 +183,7 @@
     "NamedAgents": "ga",
     "NativeShellCompletions": "other",
     "NewTabStyling": "ga",
+    "NldPromptHistoryMatch": "dogfood",
     "OpenCodeNotifications": "ga",
     "OpenWarpLaunchModal": "ga",
     "OpenWarpNewSettingsModes": "ga",
@@ -634,11 +635,14 @@
       "--agent",
       "--attach",
       "--base-model",
+      "--claude-auth-secret",
+      "--codex-auth-secret",
       "--computer-use",
       "--conversation",
       "--cwd",
       "--description",
       "--environment",
+      "--harness",
       "--host",
       "--mcp",
       "--mcp-startup-timeout",
@@ -825,6 +829,7 @@
     "POST /api/v1/agent/schedules/{id}/resume",
     "POST /api/v1/agent/tasks/{id}/cancel",
     "POST /api/v1/factory",
+    "POST /api/v1/factory/avatar",
     "POST /api/v1/harness-support/block-snapshot",
     "POST /api/v1/harness-support/external-conversation",
     "POST /api/v1/harness-support/finish-task",
@@ -913,6 +918,7 @@
     "agents.third_party.cli_agent_toolbar_enabled_commands": "always_on",
     "agents.third_party.should_render_cli_agent_toolbar": "always_on",
     "agents.third_party.submit_on_ctrl_enter": "always_on",
+    "agents.usage_display_mode": "always_on",
     "agents.voice.voice_input_enabled": "always_on",
     "agents.voice.voice_input_toggle_key": "always_on",
     "agents.warp_agent.active_ai.agent_mode_query_suggestions_enabled": "always_on",
@@ -1217,5 +1223,5 @@
     "verify-ui-change-in-cloud": "dogfood",
     "warpctrl": "bundled"
   },
-  "changelog_last_version": "2026.07.03"
+  "changelog_last_version": "2026.07.09"
 }
