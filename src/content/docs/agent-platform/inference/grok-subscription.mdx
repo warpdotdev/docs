@@ -2,10 +2,11 @@
 title: SuperGrok subscription
 description: >-
   Connect your SuperGrok subscription to Warp and use Grok models through
-  your xAI account instead of Warp credits.
+  your xAI account instead of Warp credits. Usage draws from the same shared
+  weekly pool as xAI's other Grok products, including Grok Build.
 ---
 
-Warp lets you connect your **SuperGrok subscription** to use Grok models in Warp's agents through your xAI account. If you already subscribe to Grok, you can run Grok models in Warp without consuming your Warp [credits](/support-and-community/plans-and-billing/credits/).
+Warp lets you connect your **SuperGrok subscription** to use Grok models in Warp's agents through your xAI account. If you already subscribe to Grok, you can run Grok models in Warp without consuming your Warp [credits](/support-and-community/plans-and-billing/credits/). X Premium subscriptions that include Grok access work the same way: the connection signs in to your xAI account, and xAI determines which subscription tiers are eligible and how much usage they include.
 
 Connecting a subscription works like [Bring Your Own API Key (BYOK)](/agent-platform/inference/bring-your-own-api-key/), except you sign in to your xAI account instead of pasting an API key. There is no xAI API key field in Warp today — the subscription is the way to bring your own Grok access.
 
@@ -25,7 +26,7 @@ When you send a prompt with a Grok model selected and a subscription connected:
 
 Your token passes through Warp's servers on each request but is used only in-flight to call xAI, then discarded — the same model as [BYOK](/agent-platform/inference/bring-your-own-api-key/#how-byok-works).
 
-Once connected, supported Grok models show a **key icon** in the model picker, indicating requests will route through your xAI account. Usage and rate limits for these requests are governed by your SuperGrok subscription with xAI.
+Once connected, supported Grok models show a **key icon** in the model picker, indicating requests will route through your xAI account. Usage and rate limits for these requests are governed by your xAI subscription — see [How usage counts against your xAI subscription](#how-usage-counts-against-your-xai-subscription).
 
 ## Connecting your SuperGrok subscription
 
@@ -41,6 +42,14 @@ When a Grok model with the key icon is selected:
 * Warp **does not consume** any of your [credits](/support-and-community/plans-and-billing/credits/) for the request.
 * Inference runs through your xAI account, within your SuperGrok subscription's usage limits.
 * If a request fails because your subscription hits a limit, Warp does not retry with Warp credits unless you enable **Warp credit fallback** in the same settings section. See [failover and fallback behavior](/agent-platform/inference/bring-your-own-api-key/#failover-and-fallback-behavior).
+
+### How usage counts against your xAI subscription
+
+xAI gives every paid Grok subscription one weekly usage pool that is shared across all Grok products — Grok chat, [Grok Build](https://docs.x.ai/build/overview) (xAI's own coding agent), and API access all draw down the same pool. Requests you send from Warp draw from that same shared pool.
+
+In xAI's usage dashboard (**Settings** > **Usage** on grok.com), requests from Warp appear under the **API** product label because Warp calls xAI's API on your behalf. The label only describes how the usage reached xAI, not a separate quota: API and Grok Build usage share the same pool, so you get the same amount of usage running Grok models in Warp as you would using Grok Build directly.
+
+When you use up your weekly pool, xAI pauses paid usage until the reset time shown in its Usage tab. Extra usage credits and plan upgrades for the pool are managed through your xAI account, not Warp.
 
 ### Auto models
 
