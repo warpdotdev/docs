@@ -355,6 +355,13 @@ general.autoupdate_enabled -> internal
 # Per the page's frontmatter comment: not in the Guides sidebar yet, pending
 # team feedback.
 guides/agent-workflows/warp-vs-claude-code
+# Custom Starlight 404 page (template: splash). Starlight renders it through its
+# own prerendered /404 route, so it is intentionally not in the sidebar.
+404
+# Jira integration page is draft: true (private beta — the Oz Jira app is not yet
+# published to the Atlassian marketplace). Kept out of the sidebar until the
+# integration goes GA; the snapshot diff will flag it for docs on promotion.
+platform/integrations/jira
 
 ## Flags to ignore (internal-only, not user-facing)
 
