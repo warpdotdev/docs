@@ -31,7 +31,7 @@ git clone https://github.com/vercel/next.js.git && cd next.js
 
 ## Indexing your codebase
 
-When you open a directory in Warp, we check if it is part of a Git repository. If it is, Warp begins indexing the source code to provide rich context for Agents. Warp also detects [Git worktree](https://docs.warp.dev/warp/code/git-worktrees) checkouts — each worktree is indexed as its own repository, so Agents always have accurate context for the branch you're working on.&#x20;
+When you open a directory in Warp, we check if it is part of a Git repository. If it is, Warp begins indexing the source code to provide rich context for Agents. Warp also detects [Git worktree](https://docs.warp.dev/code/git-worktrees) checkouts — each worktree is indexed as its own repository, so Agents always have accurate context for the branch you're working on.&#x20;
 
 {% hint style="info" %}
 Code indexed with Codebase Context is never stored on our servers. Codebase Context works with both local agent sessions and [cloud agent runs](../cloud-agents/overview.md). Without Codebase Context enabled, agents will still be able use terminal commands (i.e. `grep`, `sed`) to navigate your code.
