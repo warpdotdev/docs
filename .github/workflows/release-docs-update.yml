@@ -106,9 +106,9 @@ jobs:
           PY
 
       # Installs the stable oz CLI and runs the release_updates skill in the
-      # release-docs Oz environment (K5KStCm5aYvhfBJb8cHol6), which has
-      # DOCS_AGENT_GRAFANA_TOKEN configured for on-call reviewer assignment.
+      # release-docs Oz environment (K5KStCm5aYvhfBJb8cHol6).
       # WARP_API_KEY is the Docs Agent's API key.
+      # DOCS_SLACK_BOT_TOKEN must be added to the environment for Slack notifications.
       - name: Install Oz CLI
         run: |
           curl -sL "https://app.warp.dev/download/cli?os=linux&package=deb&arch=x86_64" -o /tmp/oz.deb

@@ -102,13 +102,31 @@ Co-Authored-By: Oz <oz-agent@warp.dev>"
 git push origin sync-terminology/YYYY-MM-DD
 ```
 
-Open a PR:
-- **Title:** `docs: sync terminology from Notion Dictionary`
-- **Body:** Include:
-  - List of terms added (with definitions)
-  - List of terms changed (with before/after)
-  - List of orphaned terms in the repo that are missing from Notion (see Step 7)
-- **Labels:** `documentation`
+Open a PR. Write the body to a file before creating the PR — lists of changed terms can be long and are prone to repetition-loop degeneration when passed inline:
+
+```bash
+# Write body to a temp file first
+cat > /tmp/sync-terminology-pr-body.md << 'EOF'
+## Terms added
+[list each term with definition]
+
+## Terms changed
+[list each term with before/after]
+
+## Terms in repo but missing from Notion
+[see Step 7 — list here if applicable]
+
+Co-Authored-By: Oz <oz-agent@warp.dev>
+EOF
+
+# Verify the body before creating the PR
+python3 .agents/skills/create_pr/check_pr_body.py /tmp/sync-terminology-pr-body.md
+
+gh pr create \
+  --title "docs: sync terminology from Notion Dictionary" \
+  --label documentation \
+  --body-file /tmp/sync-terminology-pr-body.md
+```
 
 Use `report_pr` to surface the PR link.
 

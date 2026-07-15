@@ -226,11 +226,19 @@ Co-Authored-By: Oz <oz-agent@warp.dev>"
 
 # Push and create PR
 git push origin changelog/{base_version}
+
+# Write the PR body to a file — avoids shell-escaping corruption and
+# degeneration of long generated text (see create_pr/SKILL.md).
+cat > /tmp/changelog-pr-body.md << 'EOF'
+Adds changelog entry for the {base_version} stable release.
+
+Co-Authored-By: Oz <oz-agent@warp.dev>
+EOF
+
+python3 .agents/skills/create_pr/check_pr_body.py /tmp/changelog-pr-body.md
 gh pr create \
   --title "docs: changelog {base_version}" \
-  --body "Adds changelog entry for the {base_version} stable release.
-
-Co-Authored-By: Oz <oz-agent@warp.dev>"
+  --body-file /tmp/changelog-pr-body.md
 ```
 
 ## Manual / Backfill Mode
