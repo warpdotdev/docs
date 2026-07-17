@@ -104,7 +104,9 @@ AgentViewBlockContext -> src/content/docs/agent-platform/local-agents/agent-cont
 CloudConversations -> src/content/docs/agent-platform/local-agents/cloud-conversations.mdx
 CloudModeFromLocalSession -> src/content/docs/platform/index.mdx
 TeamApiKeys -> src/content/docs/reference/cli/api-keys.md
-PRCommentsSlashCommand -> src/content/docs/agent-platform/capabilities/slash-commands.mdx
+# The PRCommentsSlashCommand flag was removed: the /pr-comments slash command was
+# replaced by the bundled PR Comments skill (invoked via /skills), so the slash
+# command was dropped from the docs.
 PRCommentsV2 -> src/content/docs/agent-platform/local-agents/interacting-with-agents/index.mdx
 CLIAgentRichInput -> src/content/docs/agent-platform/cli-agents/rich-input.md
 HOANotifications -> src/content/docs/agent-platform/capabilities/agent-notifications.mdx
@@ -135,9 +137,10 @@ WorkflowAliases -> src/content/docs/terminal/entry/yaml-workflows.mdx
 KittyImages -> src/content/docs/terminal/more-features/full-screen-apps.mdx
 UndoClosedPanes -> src/content/docs/terminal/windows/tabs.mdx
 # Tab groups (organize tabs into named, collapsible groups) — GA (in the default
-# feature set). Pinning tab groups is still Preview (PinnedTabs), so it stays out
-# of the docs for now.
+# feature set).
 GroupedTabs -> src/content/docs/terminal/windows/tabs.mdx
+# Pin individual tabs and whole tab groups to the front of the tab bar — GA.
+PinnedTabs -> src/content/docs/terminal/windows/tabs.mdx
 # Drag a tab out to its own window or between windows. GA on macOS and Windows
 # (RELEASE_FLAGS, cfg-gated), documented with that platform caveat.
 DragTabsToWindows -> src/content/docs/terminal/windows/tabs.mdx
@@ -175,8 +178,9 @@ OzHandoff -> src/content/docs/platform/handoff/index.mdx
 HandoffLocalCloud -> src/content/docs/platform/handoff/local-to-cloud.mdx
 HandoffCloudCloud -> src/content/docs/platform/handoff/cloud-to-cloud.mdx
 
-# Orchestration / multi-agent runs
-RunAgentsTool -> src/content/docs/platform/orchestration/multi-agent-runs.mdx
+# Orchestration / multi-agent runs is documented at
+# platform/orchestration/multi-agent-runs.mdx. The RunAgentsTool flag was removed
+# after the feature stabilized (GA), so it no longer needs a map entry.
 
 # Prompt queueing
 QueueSlashCommand -> src/content/docs/agent-platform/local-agents/interacting-with-agents/prompt-queueing.mdx
@@ -252,6 +256,16 @@ oz memory-store update -> gated:AIMemories
 oz provider -> gated:ProviderCommand
 oz provider setup -> gated:ProviderCommand
 oz provider list -> gated:ProviderCommand
+
+# `oz runner` (manage cloud agent runners) is gated by CloudAgentRunnerCLICommands,
+# which is non-GA (dogfood), so the command group is deferred via `gated:` — it
+# auto-surfaces for docs when the flag goes GA. See "Public vs. private surfaces"
+# in SKILL.md.
+oz runner -> gated:CloudAgentRunnerCLICommands
+oz runner list -> gated:CloudAgentRunnerCLICommands
+oz runner create -> gated:CloudAgentRunnerCLICommands
+oz runner update -> gated:CloudAgentRunnerCLICommands
+oz runner delete -> gated:CloudAgentRunnerCLICommands
 
 # Internal/hidden command — not a user-facing surface, so no public docs.
 oz harness-support -> internal
@@ -461,18 +475,14 @@ CloudModeSetupV2
 CloudModeInputV2
 # Internal GitHub credential refresh during task runs (changelog-only behavior fix).
 GitCredentialRefresh
-# Internal SSE streaming infrastructure for orchestration viewers/owners.
-OrchestrationViewerStreamer
-OwnerOrchestrationAncestorStreamer
+# State-mutating recovery for abnormal terminal lifecycle sequences — an internal
+# reliability mechanism with no user-facing configuration or UI, so it needs no docs.
+TerminalLifecycleRecovery
 
 # Sub-feature toggles and pre-launch flags. Section placement does NOT assert
 # rollout status (the audit computes that from code); entries here are ignored
 # because the toggle itself isn't a documentable surface, or because the
 # feature isn't user-facing yet — the snapshot diff flags promotions.
-# Pinned Tabs is a Preview feature (pin individual tabs and whole tab groups to
-# the front of the tab list); public docs are pending GA promotion, which the
-# snapshot diff will flag.
-PinnedTabs
 LSPAsATool
 EmbeddedCodeReviewComments
 InteractiveConversationManagementView
