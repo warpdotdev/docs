@@ -1,0 +1,158 @@
+name: Refresh UI paths snapshot
+
+# Triggered automatically when warp-internal's Settings UI files change
+# (via repository_dispatch from warpdotdev/warp-internal) or manually
+# via workflow_dispatch as a fallback.
+on:
+  repository_dispatch:
+    types:
+      - settings-ui-changed
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: refresh-ui-paths
+  # Do not cancel in-progress runs: a run may be mid-commit when the next
+  # dispatch arrives, leaving a branch with no PR. Each run is fast and
+  # idempotent — if two overlap, the second will simply find no diff.
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    name: Refresh snapshot and validate docs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout docs
+        uses: actions/checkout@v4
+
+      - name: Checkout warp-internal
+        uses: actions/checkout@v4
+        with:
+          repository: warpdotdev/warp-internal
+          token: ${{ secrets.WARP_INTERNAL_READ_PAT }}
+          # Check out outside the docs working directory so 'git add -A' below
+          # does not accidentally stage it as a nested repository/submodule.
+          path: ${{ runner.temp }}/warp-internal
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Python dependencies
+        run: pip install requests
+
+      - name: Snapshot valid_paths.json before refresh
+        run: |
+          # Strip generated_at before saving so the change-detection step below
+          # only fires when Settings structure actually changed, not just the timestamp.
+          python3 -c "
+          import json, pathlib
+          d = json.loads(pathlib.Path('.agents/skills/validate_ui_refs/valid_paths.json').read_text())
+          d.pop('generated_at', None)
+          pathlib.Path('/tmp/valid_paths_before.json').write_text(json.dumps(d, sort_keys=True))
+          "
+
+      - name: Refresh valid_paths.json
+        run: |
+          python3 .agents/skills/validate_ui_refs/validate_ui_refs.py \
+            --refresh-valid-paths \
+            --warp-internal-path ${{ runner.temp }}/warp-internal
+
+      - name: Check if snapshot changed
+        id: snapshot
+        run: |
+          # Compare normalized JSON (without generated_at) to avoid false positives
+          # from the timestamp being rewritten on every run.
+          python3 -c "
+          import json, pathlib
+          d = json.loads(pathlib.Path('.agents/skills/validate_ui_refs/valid_paths.json').read_text())
+          d.pop('generated_at', None)
+          pathlib.Path('/tmp/valid_paths_after.json').write_text(json.dumps(d, sort_keys=True))
+          "
+          if diff -q /tmp/valid_paths_before.json /tmp/valid_paths_after.json > /dev/null 2>&1; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "Snapshot unchanged (Settings structure identical) — nothing to do."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "Snapshot changed — running validation and auto-fix."
+            diff /tmp/valid_paths_before.json /tmp/valid_paths_after.json | head -40 || true
+          fi
+
+      - name: Run validation and auto-fix
+        if: steps.snapshot.outputs.changed == 'true'
+        id: validate
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+        run: |
+          # Capture exit code explicitly: the script returns 1 when unfixed issues
+          # remain, which would abort the step before we write the summary output
+          # or reach the PR creation step — exactly the case we most need a PR for.
+          python3 .agents/skills/validate_ui_refs/validate_ui_refs.py \
+            --all --fix \
+            --slack-channel C09BVK0PL3Y \
+            --slack-notify \
+            --output /tmp/ui-ref-report.json || true
+
+          # Surface fix counts for the commit message
+          python3 - <<'PY'
+          import json, os
+          try:
+              d = json.load(open('/tmp/ui-ref-report.json'))
+              fixes   = len(d.get('fixes_applied', []))
+              paths   = len(d.get('path_issues', []))
+              cmds    = len(d.get('command_issues', []))
+              summary = f"{fixes} fix(es) applied; {paths} path issue(s) and {cmds} command issue(s) remaining"
+          except Exception:
+              summary = "snapshot refreshed"
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+              f.write(f"summary={summary}\n")
+          PY
+
+      - name: Create PR
+        if: steps.snapshot.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          BRANCH="fix/ui-ref-refresh-$(date -u +%Y%m%d-%H%M%S)"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git checkout -b "$BRANCH"
+          git add -A
+
+          # Only create a PR if there are actual changes to commit
+          if git diff --cached --quiet; then
+            echo "No changes to commit after validation — exiting."
+            exit 0
+          fi
+
+          SUMMARY="${{ steps.validate.outputs.summary }}"
+          git commit -m "docs: refresh UI paths snapshot and fix reference issues
+
+          Automatically triggered by a Settings UI change in warp-internal.
+          ${SUMMARY}
+
+          Co-Authored-By: Oz <oz-agent@warp.dev>"
+
+          git push -u origin "$BRANCH"
+
+          gh pr create \
+            --base main \
+            --title "docs: refresh UI paths snapshot" \
+            --body "Automatically generated by the \`refresh-ui-paths\` workflow after a change to \`app/src/settings_view/\` in \`warp-internal\`.
+
+          ## What changed
+          \`valid_paths.json\` was refreshed to reflect the latest Settings structure from \`warp-internal\` source. Any auto-fixable doc issues (case mismatches, deprecated section paths, non-canonical formatting) were also corrected.
+
+          ## ${SUMMARY}
+
+          If unfixed issues remain, a notification was posted to \`#growth-docs\` with details.
+
+          ---
+          *To run this workflow manually: **Actions** > **Refresh UI paths snapshot** > **Run workflow**.*
+
+          Co-Authored-By: Oz <oz-agent@warp.dev>"
