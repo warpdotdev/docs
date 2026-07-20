@@ -1,8 +1,13 @@
 ---
 description: >-
   [1-2 sentences: what the feature does + primary user benefit.
-  Lead with the benefit, include key terms for SEO.]
+  Lead with the benefit, include key terms for SEO.
+  Use {{TOKEN}} syntax here for any product names that have a var in src/data/vars.ts.
+  Example: "Use the {{WARP_AGENT_CLI}} to run agents."]
 ---
+[VARS: Add this line immediately after the closing --- above if this page references any product names from src/data/vars.ts. Then use {VARS.KEY} for those names in the prose below.
+`import { VARS } from '@data/vars';`
+See AGENTS.md → Content variables for the full variable list and usage rules.]
 
 # [Feature name — sentence case, capitalize only the first word and proper feature names]
 
