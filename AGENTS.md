@@ -678,12 +678,17 @@ Product feature names retain their standard capitalization. Match the exact casi
 ## Content variables
 Product names and key strings are defined in `src/data/vars.ts` as the `VARS` object. Updating a value there propagates it to every page that uses the variable — both frontmatter and body prose — on the next build. This makes future renames a one-line change.
 ### Option A — body prose (MDX imports)
-After the frontmatter block, import `VARS` and use it inline in MDX. TypeScript catches typos at compile time.
+After the closing `---` of the frontmatter block (not inside it), add the import as the first line of the file body. Then use `{VARS.KEY}` inline in prose. TypeScript catches typos at compile time.
 ```mdx
+---
+title: "{{WARP_AGENT_CLI}} reference"
+description: "Use the {{WARP_AGENT_CLI}} to run and manage agents."
+---
 import { VARS } from '@data/vars';
 
 Use the {VARS.WARP_AGENT_CLI} to run agents from the command line.
 ```
+Note: this example also shows Option B in the frontmatter (`{{WARP_AGENT_CLI}}`). Both can appear in the same file — Option B covers the frontmatter YAML, Option A covers the body prose.
 ### Option B — frontmatter (Vite transform)
 Use `{{TOKEN}}` placeholders directly in frontmatter YAML values (`title`, `description`, `sidebar.label`, etc.). The `warp-vars-transform` Vite plugin substitutes them before any parser runs.
 ```yaml
