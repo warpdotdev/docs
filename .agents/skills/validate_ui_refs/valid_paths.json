@@ -1,4 +1,76 @@
 {
+  "umbrellas": {
+    "Agents": {
+      "subpages": [
+        "Oz",
+        "Profiles",
+        "MCP servers",
+        "Knowledge",
+        "Third party CLI agents"
+      ],
+      "source_file": "app/src/settings_view/mod.rs"
+    },
+    "Code": {
+      "subpages": [
+        "Indexing and projects",
+        "Editor and Code Review"
+      ],
+      "source_file": "app/src/settings_view/mod.rs"
+    },
+    "Cloud platform": {
+      "subpages": [
+        "Environments",
+        "Oz Cloud API Keys"
+      ],
+      "source_file": "app/src/settings_view/mod.rs"
+    }
+  },
+  "deprecated_sections": {
+    "AI": {
+      "umbrella": "Agents",
+      "default_subpage": "Oz",
+      "subsection_to_subpage": {
+        "Active AI": "Oz",
+        "Input": "Oz",
+        "Voice": "Oz",
+        "Other": "Oz",
+        "Experimental": "Oz",
+        "Usage": "Profiles",
+        "Agents": "Profiles",
+        "Profiles": "Profiles",
+        "Permissions": "Profiles",
+        "Command allowlist": "Profiles",
+        "Command denylist": "Profiles",
+        "MCP Servers": "MCP servers",
+        "MCP servers": "MCP servers",
+        "Knowledge": "Knowledge",
+        "CLI Agents": "Third party CLI agents",
+        "Coding Agents": "Third party CLI agents",
+        "Third party CLI agents": "Third party CLI agents"
+      },
+      "subsection_aliases": [
+        "Agents",
+        "Profiles",
+        "MCP Servers",
+        "MCP servers",
+        "Knowledge",
+        "CLI Agents",
+        "Third party CLI agents"
+      ]
+    },
+    "MCP Servers": {
+      "umbrella": "Agents",
+      "default_subpage": "MCP servers"
+    },
+    "Environments": {
+      "umbrella": "Cloud platform",
+      "default_subpage": "Environments"
+    },
+    "Platform": {
+      "umbrella": "Cloud platform",
+      "default_subpage": "Oz Cloud API Keys"
+    }
+  },
   "settings_sections": {
     "About": {
       "display_name": "About",
@@ -10,37 +82,84 @@
       "sub_sections": [],
       "source_file": "app/src/settings_view/mod.rs"
     },
-    "AI": {
-      "display_name": "AI",
+    "Oz": {
+      "display_name": "Oz",
+      "umbrella": "Agents",
       "sub_sections": [
-        "Usage",
         "Active AI",
-        "Agents",
         "Input",
-        "MCP Servers",
-        "Knowledge",
         "Voice",
-        "CLI Agents",
-        "Experimental",
-        "API Keys",
-        "AWS Bedrock"
+        "Other",
+        "Experimental"
       ],
       "source_file": "app/src/settings_view/ai_page.rs"
     },
-    "Environments": {
-      "display_name": "Environments",
-      "sub_sections": [],
-      "source_file": "app/src/settings_view/mod.rs"
+    "Profiles": {
+      "display_name": "Profiles",
+      "umbrella": "Agents",
+      "sub_sections": [
+        "Usage",
+        "Profiles",
+        "Agents",
+        "Permissions",
+        "Command allowlist",
+        "Command denylist",
+        "MCP permissions"
+      ],
+      "source_file": "app/src/settings_view/ai_page.rs"
     },
-    "MCP Servers": {
-      "display_name": "MCP Servers",
+    "MCP servers": {
+      "display_name": "MCP servers",
+      "umbrella": "Agents",
       "sub_sections": [],
-      "source_file": "app/src/settings_view/mod.rs"
+      "source_file": "app/src/settings_view/mcp_servers_page.rs"
+    },
+    "Knowledge": {
+      "display_name": "Knowledge",
+      "umbrella": "Agents",
+      "sub_sections": [],
+      "source_file": "app/src/settings_view/ai_page.rs"
+    },
+    "Third party CLI agents": {
+      "display_name": "Third party CLI agents",
+      "umbrella": "Agents",
+      "sub_sections": [],
+      "source_file": "app/src/settings_view/ai_page.rs"
     },
     "Billing and usage": {
       "display_name": "Billing and usage",
       "sub_sections": [],
       "source_file": "app/src/settings_view/billing_and_usage_page.rs"
+    },
+    "Indexing and projects": {
+      "display_name": "Indexing and projects",
+      "umbrella": "Code",
+      "sub_sections": [
+        "Codebase Indexing"
+      ],
+      "source_file": "app/src/settings_view/code_page.rs"
+    },
+    "Editor and Code Review": {
+      "display_name": "Editor and Code Review",
+      "umbrella": "Code",
+      "sub_sections": [
+        "Code Editor and Review"
+      ],
+      "source_file": "app/src/settings_view/code_page.rs"
+    },
+    "Environments": {
+      "display_name": "Environments",
+      "umbrella": "Cloud platform",
+      "sub_sections": [],
+      "source_file": "app/src/settings_view/environments_page.rs"
+    },
+    "Oz Cloud API Keys": {
+      "display_name": "Oz Cloud API Keys",
+      "umbrella": "Cloud platform",
+      "sub_sections": [
+        "API Keys"
+      ],
+      "source_file": "app/src/settings_view/platform_page.rs"
     },
     "Appearance": {
       "display_name": "Appearance",
@@ -57,11 +176,6 @@
         "Full-screen Apps"
       ],
       "source_file": "app/src/settings_view/appearance_page.rs"
-    },
-    "Code": {
-      "display_name": "Code",
-      "sub_sections": [],
-      "source_file": "app/src/settings_view/code_page.rs"
     },
     "Features": {
       "display_name": "Features",
@@ -83,11 +197,6 @@
       "sub_sections": [],
       "source_file": "app/src/settings_view/mod.rs"
     },
-    "Platform": {
-      "display_name": "Platform",
-      "sub_sections": [],
-      "source_file": "app/src/settings_view/platform_page.rs"
-    },
     "Privacy": {
       "display_name": "Privacy",
       "sub_sections": [],
@@ -108,6 +217,11 @@
       "sub_sections": [],
       "source_file": "app/src/settings_view/teams_page.rs"
     },
+    "Warp Drive": {
+      "display_name": "Warp Drive",
+      "sub_sections": [],
+      "source_file": "app/src/settings_view/warp_drive_page.rs"
+    },
     "Warpify": {
       "display_name": "Warpify",
       "sub_sections": [
@@ -117,6 +231,23 @@
       "source_file": "app/src/settings_view/warpify_page.rs"
     }
   },
+  "top_level_sidebar": [
+    "Account",
+    "Agents",
+    "Billing and usage",
+    "Code",
+    "Cloud platform",
+    "Teams",
+    "Appearance",
+    "Features",
+    "Keyboard shortcuts",
+    "Warpify",
+    "Referrals",
+    "Shared blocks",
+    "Warp Drive",
+    "Privacy",
+    "About"
+  ],
   "macos_menu_bar": {
     "File": [
       "New Tab",
@@ -313,5 +444,5 @@
     {"name": "input:toggle_vim_keybindings", "description": "Enable Editing Commands With Vim Keybindings"},
     {"name": "workspace:share_pane", "description": "Share Pane"}
   ],
-  "generated_at": "2026-02-19T20:37:00Z"
+  "generated_at": "2026-04-23T23:55:00Z"
 }

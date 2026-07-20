@@ -95,6 +95,8 @@ Warp's **Auto** models dynamically route across providers using Warp's infrastru
 
 To use your endpoint, select the specific endpoint-routed model from the model picker rather than an Auto option.
 
+[Custom routers](/agent-platform/inference/custom-routers/) can't use your endpoint either: routing targets must be Warp-supported models, so a router never resolves to an endpoint-routed model. Custom routers do apply [BYOK](/agent-platform/inference/bring-your-own-api-key/) provider keys after resolving a model.
+
 ### Other AI features in Warp
 
 Some AI-powered features (Codebase Context, Active AI recommendations, cloud agent runs) rely on Warp's infrastructure and are unaffected by a custom inference endpoint. See the [feature breakdown on the BYOK page](/agent-platform/inference/bring-your-own-api-key/#byok-usage-and-billing-behavior) for which features still consume Warp credits.
