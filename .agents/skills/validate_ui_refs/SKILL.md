@@ -158,7 +158,7 @@ python3 .agents/skills/validate_ui_refs/validate_ui_refs.py --all --slack-notify
 
 | Secret | Repo | Purpose |
 |---|---|---|
-| `DOCS_DISPATCH_PAT` | `warp-internal` | Fine-grained PAT — **Actions: write** on `warpdotdev/docs` (to trigger `repository_dispatch`; no Contents access needed) |
+| `DOCS_DISPATCH_PAT` | `warpdotdev/warp` | Fine-grained PAT — **Contents: Read and write** on `warpdotdev/docs` (required by the `repository_dispatch` API endpoint) |
 | `WARP_INTERNAL_READ_PAT` | `docs` | Fine-grained PAT — Contents read on `warpdotdev/warp-internal` |
 | `SLACK_BOT_TOKEN` | `docs` | Slack bot token with `chat:write` scope |
 
