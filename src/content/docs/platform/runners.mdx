@@ -1,0 +1,139 @@
+---
+title: Cloud agent runners
+sidebar:
+  label: "Runners"
+description: >-
+  Runners are reusable compute configurations for cloud agents. Learn how to
+  create runners and select the operating system, architecture, Docker image,
+  and instance size your agents run on.
+---
+
+Runners let you define the compute a [cloud agent](/platform/) runs on — the operating system, CPU architecture, Docker image, instance size, and setup commands — once, then reuse it across runs.
+
+A runner captures the *machine shape* for a run, separate from the [environment](/platform/environments/), which defines *what* the agent works on (repositories, image, and setup steps). Select a runner per run with `oz agent run-cloud --runner`, or choose one when launching remote child agents during [orchestration](/platform/orchestration/).
+
+:::note
+Runners are optional. Cloud agents run on Warp's default compute unless you specify a runner, and interactive local runs (`oz agent run`) never use one.
+:::
+
+## Key features
+
+What runners give you:
+
+* **Reusable compute presets** - Define the OS, architecture, instance size, and setup commands once, then apply the same runner across many runs.
+* **Per-run compute overrides** - Point a single run at a specific runner with `--runner` without changing the agent's environment.
+* **Linux and macOS targets** - Run agents on Linux (with a custom Docker image) or on macOS (with a specific macOS version).
+* **Configurable instance size** - Set the number of vCPUs and amount of memory for workloads that need more compute.
+
+## How runners work
+
+A runner is a named compute configuration stored in your account. Each runner defines:
+
+* **Operating system** - `linux` (default) or `macos`.
+* **Architecture** - `auto` (the OS default: x86-64 on Linux, aarch64 on macOS), `x86-64`, or `aarch64`.
+* **Docker image** - The sandbox image for Linux runners. Not used for macOS runners.
+* **macOS version** - The macOS version for macOS runners (`14`, `15`, `26`, or `27`). Not used for Linux runners.
+* **Instance size** - The number of vCPUs and amount of memory (in GB) allocated to the sandbox.
+* **Setup commands** - Commands that run when the sandbox is initialized, in the order you provide them.
+
+When you start a cloud agent with `--runner`, Warp applies that runner's compute configuration to the run, overriding the environment's default runner. This lets one environment run on different machine shapes depending on the run.
+
+## Managing runners with the CLI
+
+Use the [Oz CLI](/reference/cli/) to create and manage runners. Every `oz runner` command supports the global `--output json` flag for scripting.
+
+### Create a runner
+
+Create a Linux runner with a custom Docker image:
+
+```bash
+oz runner create \
+  --name "linux-x86" \
+  --description "Standard Linux build box" \
+  --os linux \
+  --docker-image node:22 \
+  --setup-command "npm ci"
+```
+
+Create a macOS runner on a larger instance:
+
+```bash
+oz runner create \
+  --name "macos-large" \
+  --os macos \
+  --macos-version 15 \
+  --vcpus 8 \
+  --memory-gb 16
+```
+
+Key flags:
+
+* `--name` (`-n`) - Name of the runner. Required.
+* `--description` (`-d`) - Optional description (max 240 characters).
+* `--setup-command` (`-c`) - Command to run when initializing the sandbox. Repeatable.
+* `--os` - Target operating system: `linux` (default) or `macos`.
+* `--arch` - Target CPU architecture: `auto` (default), `x86-64`, or `aarch64`.
+* `--docker-image` - Docker image reference for the sandbox. Linux only.
+* `--macos-version` - macOS version for the sandbox: `14`, `15`, `26`, or `27`. macOS only.
+* `--vcpus` - Number of vCPUs for the instance shape. Requires `--memory-gb`.
+* `--memory-gb` - Memory in GB for the instance shape. Requires `--vcpus`.
+
+:::caution
+`--docker-image` is only valid with `--os linux`, and `--macos-version` is only valid with `--os macos`. On create, `--vcpus` and `--memory-gb` must be set together.
+:::
+
+### List runners
+
+```bash
+oz runner list
+```
+
+Sort the results by name or by when they were last updated:
+
+```bash
+oz runner list --sort-by last-updated
+```
+
+The `--sort-by` flag accepts `name` or `last-updated`.
+
+### Update a runner
+
+Identify the runner to update by its UID or by its `--name`. When you pass a UID, `--name` renames the runner:
+
+```bash
+# Update by UID, and rename it
+oz runner update <UID> --name "linux-x86-v2" --docker-image node:24
+
+# Update by name
+oz runner update --name "linux-x86" --setup-command "npm ci --production"
+```
+
+When updating, `--vcpus` and `--memory-gb` can be set independently — the value you don't pass is preserved.
+
+### Delete a runner
+
+```bash
+oz runner delete <UID>
+```
+
+Add `--force` to skip the confirmation prompt.
+
+## Selecting a runner for a run
+
+Pass a runner ID to `oz agent run-cloud` to run a single cloud agent on that runner's compute:
+
+```bash
+oz agent run-cloud \
+  --prompt "Run the full test suite" \
+  --runner <RUNNER_ID>
+```
+
+The `--runner` flag overrides the environment's default runner for that run only.
+
+When you start remote child agents through [multi-agent orchestration](/platform/orchestration/multi-agent-runs/), you can also choose a runner in the run confirmation card so the child agents run on the compute you select.
+
+## Related pages
+
+* [Environments](/platform/environments/) - Define the repositories, image, and setup steps an agent works with.
+* [Oz CLI reference](/reference/cli/) - Full command reference for the Oz CLI.
+* [Multi-agent orchestration](/platform/orchestration/) - Run multiple agents in parallel.
