@@ -12,7 +12,7 @@ This skill scans Warp's Astro Starlight documentation for references to UI paths
 From the docs repo root:
 
 ```bash
-python3 .warp/skills/validate_ui_refs/validate_ui_refs.py --all
+python3 .agents/skills/validate_ui_refs/validate_ui_refs.py --all
 ```
 
 ### Options
@@ -23,8 +23,9 @@ python3 .warp/skills/validate_ui_refs/validate_ui_refs.py --all
 - `--all`: Run all checks (default)
 - `--fix`: Auto-fix high-confidence issues (e.g. case mismatches)
 - `--create-pr`: Create a branch and PR with auto-fixes (requires `gh` CLI)
-- `--slack-notify`: Post results to Slack (only sends when issues are found; requires `SLACK_BOT_TOKEN` and `GROWTH_DOCS_SLACK_CHANNEL_ID` env vars)
-- `--slack-channel ID`: Override default Slack channel
+- `--slack-notify`: Post results to `#growth-docs` Slack channel when unfixed issues remain (requires `SLACK_BOT_TOKEN` env var; channel is hardcoded in the script)
+- `--slack-channel ID`: Override the default Slack channel (`C09BVK0PL3Y`)
+- `--self-test`: Run internal sanity checks against the current snapshot and exit (no `warp-internal` needed)
 - `--include-changelog`: Include `changelog/` in the scan (excluded by default since it's a historical record)
 - `--refresh-valid-paths`: Re-extract valid paths from `warp-internal` and update `valid_paths.json`
 - `--warp-internal-path PATH`: Path to the `warp-internal` repo (default: `../warp-internal` relative to docs root, or `WARP_INTERNAL_PATH` env var)
@@ -33,13 +34,13 @@ python3 .warp/skills/validate_ui_refs/validate_ui_refs.py --all
 ### Quick path-only check:
 
 ```bash
-python3 .warp/skills/validate_ui_refs/validate_ui_refs.py --check-paths
+python3 .agents/skills/validate_ui_refs/validate_ui_refs.py --check-paths
 ```
 
 ### Full check with auto-fix and PR:
 
 ```bash
-python3 .warp/skills/validate_ui_refs/validate_ui_refs.py --all --fix --create-pr
+python3 .agents/skills/validate_ui_refs/validate_ui_refs.py --all --fix --create-pr
 ```
 
 ## Output Format
@@ -74,7 +75,7 @@ Files scanned: 174
 The `valid_paths.json` file is a static snapshot of valid UI paths. To update it from the latest `warp-internal` source:
 
 ```bash
-python3 .warp/skills/validate_ui_refs/validate_ui_refs.py --refresh-valid-paths --warp-internal-path /path/to/warp-internal
+python3 .agents/skills/validate_ui_refs/validate_ui_refs.py --refresh-valid-paths --warp-internal-path /path/to/warp-internal
 ```
 
 This parses:
@@ -127,51 +128,52 @@ Fixes that require manual review (e.g. renamed sections, removed features) are r
 
 ## Slack Notifications
 
-Slack notifications are designed for scheduled/automated runs, not ad-hoc usage. When running the skill manually (e.g., during a PR review or docs update), you can review results directly in the terminal output.
+Slack notifications are designed for automated runs, not ad-hoc usage. When running the skill manually, review results directly in the terminal output.
 
-### Current behavior
-
-The `--slack-notify` flag posts a summary to the configured Slack channel when unfixed issues remain after a run. If the scan is clean (0 issues), no notification is sent.
-
-### Intended behavior for scheduled runs
-
-When this skill is configured as a scheduled cloud agent, Slack notifications should alert the team in two cases:
-
-1. **Auto-fixes applied** — the script found and corrected issues, and created a PR. The notification should include the PR link so the team can review and merge.
-2. **Unfixed issues remain** — some issues could not be auto-corrected (e.g., a renamed or removed section) and require manual attention. The notification should list these for triage.
-
-If a scheduled run finds no issues at all, the notification should be skipped (no noise).
-
-> **Note:** This two-condition notification logic is not yet implemented. The current `--slack-notify` flag only covers condition 2 (unfixed issues). When we set up scheduled runs, the script should be updated to also notify on condition 1 (auto-fixes with PR link).
+The `--slack-notify` flag posts a summary to `#growth-docs` when unfixed issues remain after a run. If the scan is clean (0 issues), no notification is sent.
 
 ### Setup (one-time)
 
-Create a Warp team secret for the Slack bot token:
-
-```bash
-oz secret create SLACK_BOT_TOKEN --team --description "Slack bot token for UI ref validation reports"
-```
-
-The token needs `chat:write` scope.
+Add `SLACK_BOT_TOKEN` as a repository secret in `warpdotdev/docs` (**Settings** > **Secrets and variables** > **Actions**). The token needs `chat:write` scope.
 
 ### Usage
 
 ```bash
-python3 .warp/skills/validate_ui_refs/validate_ui_refs.py --all --slack-notify
+python3 .agents/skills/validate_ui_refs/validate_ui_refs.py --all --slack-notify
 ```
 
-## Cloud Agent / Scheduling
+## Automated refresh
 
-For scheduled cloud agent runs:
+`valid_paths.json` is refreshed automatically via the `refresh-ui-paths` GitHub Actions workflow (`.github/workflows/refresh-ui-paths.yml`).
 
-1. Configure the environment with the docs repo
-2. Keep `valid_paths.json` up-to-date by running `--refresh-valid-paths` as a pre-step (requires `warp-internal` in the environment)
-3. Set the `SLACK_BOT_TOKEN` secret in the environment
-4. Run: `python3 .warp/skills/validate_ui_refs/validate_ui_refs.py --all --fix --create-pr --slack-notify`
+### How it works
 
-A typical scheduled agent would:
-1. Run `--refresh-valid-paths` to update the snapshot
-2. Run `--all --fix --create-pr --slack-notify` to check, fix, and report
+1. A push to `master` in `warpdotdev/warp-internal` that touches `app/src/settings_view/**` sends a `repository_dispatch` event (`settings-ui-changed`) to `warpdotdev/docs`.
+2. The `refresh-ui-paths` workflow fires, checks out both repos, and runs `--refresh-valid-paths`.
+3. If the snapshot changed, it runs `--all --fix --slack-notify`, commits all changes (updated snapshot + any doc fixes), and opens a PR.
+4. If unfixed issues remain, a notification is posted to `#growth-docs`.
+5. If the snapshot is unchanged, the workflow exits with no-op.
+
+### Secrets required
+
+| Secret | Repo | Purpose |
+|---|---|---|
+| `DOCS_DISPATCH_PAT` | `warp-internal` | Fine-grained PAT — **Actions: write** on `warpdotdev/docs` (to trigger `repository_dispatch`; no Contents access needed) |
+| `WARP_INTERNAL_READ_PAT` | `docs` | Fine-grained PAT — Contents read on `warpdotdev/warp-internal` |
+| `SLACK_BOT_TOKEN` | `docs` | Slack bot token with `chat:write` scope |
+
+### Manual trigger
+
+To trigger the workflow manually (e.g., if the PAT expired or a migration was missed):
+
+1. In the `warpdotdev/docs` repo, go to **Actions** > **Refresh UI paths snapshot** > **Run workflow**.
+2. Or run locally:
+
+```bash
+python3 .agents/skills/validate_ui_refs/validate_ui_refs.py \
+  --refresh-valid-paths \
+  --warp-internal-path /path/to/warp-internal
+```
 
 ## Dependencies
 
