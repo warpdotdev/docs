@@ -4,6 +4,8 @@ Use this glossary everywhere you write about Warp. Keep definitions short, concr
 
 For the summary of the most critical terms (core features, Oz terms, terms to avoid), see the [Terminology standards](../../AGENTS.md#terminology-standards) section of AGENTS.md. This file is the full canonical reference.
 
+> **Product name variables**: Product names are defined in `src/data/vars.ts`. When writing new content, use `{VARS.WARP_AGENT_CLI}` (body prose) or `{{WARP_AGENT_CLI}}` (frontmatter) rather than hardcoding product names. See the ["Content variables" section of AGENTS.md](../../AGENTS.md#content-variables) for full usage instructions.
+
 ## Core product terms
 
 - **Agent** / **Agents** — Warp's AI feature for turning natural language into actions (answers, commands, code changes, and workflows).
