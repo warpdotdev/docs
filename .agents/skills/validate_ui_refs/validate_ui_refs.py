@@ -602,6 +602,25 @@ def validate_ui_path(path: str, valid_paths: Dict[str, Any]) -> Dict[str, Any]:
                 "fix_type": None,
             }
 
+        # Guard: if this section is an umbrella subpage (it has an 'umbrella' field in
+        # settings_sections), the caller is using the subpage as a bare top-level section
+        # (e.g. "Settings > Oz" instead of "Settings > Agents > Oz"). Flag and suggest
+        # the correct full umbrella path.
+        section_entry = settings.get(section, {})
+        if section_entry.get("umbrella"):
+            umbrella_name = section_entry["umbrella"]
+            correct_path = " > ".join(["Settings", umbrella_name, section] + segments[2:])
+            return {
+                "valid": False,
+                "issue": (
+                    f"\"{section}\" is a subpage under the \"{umbrella_name}\" umbrella; "
+                    f"use the full path"
+                ),
+                "suggestion": correct_path,
+                "confidence": 0.95,
+                "fix_type": "deprecated_section",
+            }
+
         # Check section (case-insensitive)
         exact = section in section_names
         if not exact:
@@ -1109,10 +1128,14 @@ def notify_slack(
     channel: str,
     pr_url: Optional[str] = None,
 ) -> bool:
-    """Post a summary to Slack. Requires SLACK_BOT_TOKEN env var."""
-    token = os.environ.get("SLACK_BOT_TOKEN")
+    """Post a summary to Slack. Requires SLACK_BOT_TOKEN, BUZZ_SLACK_TOKEN, or DOCS_SLACK_BOT_TOKEN env var."""
+    token = (
+        os.environ.get("SLACK_BOT_TOKEN")
+        or os.environ.get("BUZZ_SLACK_TOKEN")
+        or os.environ.get("DOCS_SLACK_BOT_TOKEN")
+    )
     if not token:
-        print("Warning: SLACK_BOT_TOKEN not set, skipping Slack notification.", file=sys.stderr)
+        print("Warning: no Slack token found (checked SLACK_BOT_TOKEN, BUZZ_SLACK_TOKEN, DOCS_SLACK_BOT_TOKEN), skipping notification.", file=sys.stderr)
         return False
 
     try:
