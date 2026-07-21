@@ -101,11 +101,6 @@
       "statusCode": 308
     },
     {
-      "source": "/):",
-      "destination": "/",
-      "statusCode": 308
-    },
-    {
       "source": "/~/revisions/pyklxx5pdxve9wvizjl3/features/entry",
       "destination": "/terminal/entry/",
       "statusCode": 308
