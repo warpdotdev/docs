@@ -82,84 +82,15 @@
       "sub_sections": [],
       "source_file": "app/src/settings_view/mod.rs"
     },
-    "Oz": {
-      "display_name": "Oz",
-      "umbrella": "Agents",
-      "sub_sections": [
-        "Active AI",
-        "Input",
-        "Voice",
-        "Other",
-        "Experimental"
-      ],
-      "source_file": "app/src/settings_view/ai_page.rs"
-    },
-    "Profiles": {
-      "display_name": "Profiles",
-      "umbrella": "Agents",
-      "sub_sections": [
-        "Usage",
-        "Profiles",
-        "Agents",
-        "Permissions",
-        "Command allowlist",
-        "Command denylist",
-        "MCP permissions"
-      ],
-      "source_file": "app/src/settings_view/ai_page.rs"
-    },
-    "MCP servers": {
-      "display_name": "MCP servers",
-      "umbrella": "Agents",
+    "MCP Servers": {
+      "display_name": "MCP Servers",
       "sub_sections": [],
       "source_file": "app/src/settings_view/mcp_servers_page.rs"
-    },
-    "Knowledge": {
-      "display_name": "Knowledge",
-      "umbrella": "Agents",
-      "sub_sections": [],
-      "source_file": "app/src/settings_view/ai_page.rs"
-    },
-    "Third party CLI agents": {
-      "display_name": "Third party CLI agents",
-      "umbrella": "Agents",
-      "sub_sections": [],
-      "source_file": "app/src/settings_view/ai_page.rs"
     },
     "Billing and usage": {
       "display_name": "Billing and usage",
       "sub_sections": [],
-      "source_file": "app/src/settings_view/billing_and_usage_page.rs"
-    },
-    "Indexing and projects": {
-      "display_name": "Indexing and projects",
-      "umbrella": "Code",
-      "sub_sections": [
-        "Codebase Indexing"
-      ],
-      "source_file": "app/src/settings_view/code_page.rs"
-    },
-    "Editor and Code Review": {
-      "display_name": "Editor and Code Review",
-      "umbrella": "Code",
-      "sub_sections": [
-        "Code Editor and Review"
-      ],
-      "source_file": "app/src/settings_view/code_page.rs"
-    },
-    "Environments": {
-      "display_name": "Environments",
-      "umbrella": "Cloud platform",
-      "sub_sections": [],
-      "source_file": "app/src/settings_view/environments_page.rs"
-    },
-    "Oz Cloud API Keys": {
-      "display_name": "Oz Cloud API Keys",
-      "umbrella": "Cloud platform",
-      "sub_sections": [
-        "API Keys"
-      ],
-      "source_file": "app/src/settings_view/platform_page.rs"
+      "source_file": "app/src/settings_view/mod.rs"
     },
     "Appearance": {
       "display_name": "Appearance",
@@ -167,6 +98,7 @@
         "Themes",
         "Icon",
         "Window",
+        "Tools panel",
         "Input",
         "Panes",
         "Blocks",
@@ -205,7 +137,12 @@
     "Referrals": {
       "display_name": "Referrals",
       "sub_sections": [],
-      "source_file": "app/src/settings_view/referrals_page.rs"
+      "source_file": "app/src/settings_view/mod.rs"
+    },
+    "Scripting": {
+      "display_name": "Scripting",
+      "sub_sections": [],
+      "source_file": "app/src/settings_view/mod.rs"
     },
     "Shared blocks": {
       "display_name": "Shared blocks",
@@ -215,12 +152,12 @@
     "Teams": {
       "display_name": "Teams",
       "sub_sections": [],
-      "source_file": "app/src/settings_view/teams_page.rs"
+      "source_file": "app/src/settings_view/mod.rs"
     },
     "Warp Drive": {
       "display_name": "Warp Drive",
       "sub_sections": [],
-      "source_file": "app/src/settings_view/warp_drive_page.rs"
+      "source_file": "app/src/settings_view/mod.rs"
     },
     "Warpify": {
       "display_name": "Warpify",
@@ -229,6 +166,340 @@
         "SSH"
       ],
       "source_file": "app/src/settings_view/warpify_page.rs"
+    },
+    "Internal": {
+      "display_name": "Internal",
+      "sub_sections": [],
+      "source_file": "app/src/settings_view/mod.rs"
+    },
+    "backing": {
+      "display_name": "backing",
+      "sub_sections": [],
+      "source_file": "app/src/settings_view/mod.rs"
+    },
+    "page": {
+      "display_name": "page",
+      "sub_sections": [],
+      "source_file": "app/src/settings_view/mod.rs"
+    },
+    "identifier": {
+      "display_name": "identifier",
+      "sub_sections": [],
+      "source_file": "app/src/settings_view/mod.rs"
+    },
+    "for": {
+      "display_name": "for",
+      "sub_sections": [],
+      "source_file": "app/src/settings_view/mod.rs"
+    },
+    "AISettingsPageView": {
+      "display_name": "AISettingsPageView",
+      "sub_sections": [],
+      "source_file": "app/src/settings_view/mod.rs"
+    },
+    "Multiple": {
+      "display_name": "Multiple",
+      "sub_sections": [],
+      "source_file": "app/src/settings_view/mod.rs"
+    },
+    "subpages": {
+      "display_name": "subpages",
+      "sub_sections": [],
+      "source_file": "app/src/settings_view/mod.rs"
+    },
+    "Warp Agent": {
+      "display_name": "Warp Agent",
+      "sub_sections": [],
+      "source_file": "app/src/settings_view/mod.rs"
+    },
+    "Profiles": {
+      "display_name": "Profiles",
+      "sub_sections": [
+        "Usage",
+        "Active AI",
+        "Agents",
+        "Profiles",
+        "Input",
+        "MCP Servers",
+        "Knowledge",
+        "Voice",
+        "Other",
+        "Third party CLI agents",
+        "Agent Attribution",
+        "Experimental",
+        "Cloud Handoff",
+        "Custom Inference",
+        "API Keys",
+        "AWS Bedrock",
+        "Gemini Enterprise",
+        "Custom Routers"
+      ],
+      "source_file": "app/src/settings_view/ai_page.rs",
+      "umbrella": "Agents"
+    },
+    "Knowledge": {
+      "display_name": "Knowledge",
+      "sub_sections": [
+        "Usage",
+        "Active AI",
+        "Agents",
+        "Profiles",
+        "Input",
+        "MCP Servers",
+        "Knowledge",
+        "Voice",
+        "Other",
+        "Third party CLI agents",
+        "Agent Attribution",
+        "Experimental",
+        "Cloud Handoff",
+        "Custom Inference",
+        "API Keys",
+        "AWS Bedrock",
+        "Gemini Enterprise",
+        "Custom Routers"
+      ],
+      "source_file": "app/src/settings_view/ai_page.rs",
+      "umbrella": "Agents"
+    },
+    "Third party CLI agents": {
+      "display_name": "Third party CLI agents",
+      "sub_sections": [
+        "Usage",
+        "Active AI",
+        "Agents",
+        "Profiles",
+        "Input",
+        "MCP Servers",
+        "Knowledge",
+        "Voice",
+        "Other",
+        "Third party CLI agents",
+        "Agent Attribution",
+        "Experimental",
+        "Cloud Handoff",
+        "Custom Inference",
+        "API Keys",
+        "AWS Bedrock",
+        "Gemini Enterprise",
+        "Custom Routers"
+      ],
+      "source_file": "app/src/settings_view/ai_page.rs",
+      "umbrella": "Agents"
+    },
+    "share": {
+      "display_name": "share",
+      "sub_sections": [],
+      "source_file": "app/src/settings_view/mod.rs"
+    },
+    "this": {
+      "display_name": "this",
+      "sub_sections": [],
+      "source_file": "app/src/settings_view/mod.rs"
+    },
+    "single": {
+      "display_name": "single",
+      "sub_sections": [],
+      "source_file": "app/src/settings_view/mod.rs"
+    },
+    "so": {
+      "display_name": "so",
+      "sub_sections": [],
+      "source_file": "app/src/settings_view/mod.rs"
+    },
+    "variant": {
+      "display_name": "variant",
+      "sub_sections": [],
+      "source_file": "app/src/settings_view/mod.rs"
+    },
+    "is": {
+      "display_name": "is",
+      "sub_sections": [],
+      "source_file": "app/src/settings_view/mod.rs"
+    },
+    "needed": {
+      "display_name": "needed",
+      "sub_sections": [],
+      "source_file": "app/src/settings_view/mod.rs"
+    },
+    "as": {
+      "display_name": "as",
+      "sub_sections": [],
+      "source_file": "app/src/settings_view/mod.rs"
+    },
+    "the": {
+      "display_name": "the",
+      "sub_sections": [],
+      "source_file": "app/src/settings_view/mod.rs"
+    },
+    "key": {
+      "display_name": "key",
+      "sub_sections": [],
+      "source_file": "app/src/settings_view/mod.rs"
+    },
+    "in": {
+      "display_name": "in",
+      "sub_sections": [],
+      "source_file": "app/src/settings_view/mod.rs"
+    },
+    "settings_pages": {
+      "display_name": "settings_pages",
+      "sub_sections": [],
+      "source_file": "app/src/settings_view/mod.rs"
+    },
+    "External": {
+      "display_name": "External",
+      "sub_sections": [],
+      "source_file": "app/src/settings_view/mod.rs"
+    },
+    "callers": {
+      "display_name": "callers",
+      "sub_sections": [],
+      "source_file": "app/src/settings_view/mod.rs"
+    },
+    "should": {
+      "display_name": "should",
+      "sub_sections": [],
+      "source_file": "app/src/settings_view/mod.rs"
+    },
+    "navigate": {
+      "display_name": "navigate",
+      "sub_sections": [],
+      "source_file": "app/src/settings_view/mod.rs"
+    },
+    "to": {
+      "display_name": "to",
+      "sub_sections": [],
+      "source_file": "app/src/settings_view/mod.rs"
+    },
+    "a": {
+      "display_name": "a",
+      "sub_sections": [],
+      "source_file": "app/src/settings_view/mod.rs"
+    },
+    "specific": {
+      "display_name": "specific",
+      "sub_sections": [],
+      "source_file": "app/src/settings_view/mod.rs"
+    },
+    "subpage": {
+      "display_name": "subpage",
+      "sub_sections": [],
+      "source_file": "app/src/settings_view/mod.rs"
+    },
+    "e": {
+      "display_name": "e",
+      "sub_sections": [],
+      "source_file": "app/src/settings_view/mod.rs"
+    },
+    "g": {
+      "display_name": "g",
+      "sub_sections": [],
+      "source_file": "app/src/settings_view/mod.rs"
+    },
+    "instead": {
+      "display_name": "instead",
+      "sub_sections": [],
+      "source_file": "app/src/settings_view/mod.rs"
+    },
+    "AI": {
+      "display_name": "AI",
+      "sub_sections": [
+        "Usage",
+        "Active AI",
+        "Agents",
+        "Profiles",
+        "Input",
+        "MCP Servers",
+        "Knowledge",
+        "Voice",
+        "Other",
+        "Third party CLI agents",
+        "Agent Attribution",
+        "Experimental",
+        "Cloud Handoff",
+        "Custom Inference",
+        "API Keys",
+        "AWS Bedrock",
+        "Gemini Enterprise",
+        "Custom Routers"
+      ],
+      "source_file": "app/src/settings_view/ai_page.rs"
+    },
+    "Agents": {
+      "display_name": "Agents",
+      "sub_sections": [],
+      "source_file": "app/src/settings_view/mod.rs"
+    },
+    "umbrella": {
+      "display_name": "umbrella",
+      "sub_sections": [],
+      "source_file": "app/src/settings_view/mod.rs"
+    },
+    "MCP servers": {
+      "display_name": "MCP servers",
+      "sub_sections": [],
+      "source_file": "app/src/settings_view/mcp_servers_page.rs",
+      "umbrella": "Agents"
+    },
+    "CodeSettingsPageView": {
+      "display_name": "CodeSettingsPageView",
+      "sub_sections": [],
+      "source_file": "app/src/settings_view/mod.rs"
+    },
+    "Indexing and projects": {
+      "display_name": "Indexing and projects",
+      "sub_sections": [
+        "Codebase Indexing",
+        "Code Editor and Review",
+        "Codebase Indexing",
+        "Code Editor and Review"
+      ],
+      "source_file": "app/src/settings_view/code_page.rs",
+      "umbrella": "Code"
+    },
+    "Editor and Code Review": {
+      "display_name": "Editor and Code Review",
+      "sub_sections": [
+        "Codebase Indexing",
+        "Code Editor and Review",
+        "Codebase Indexing",
+        "Code Editor and Review"
+      ],
+      "source_file": "app/src/settings_view/code_page.rs",
+      "umbrella": "Code"
+    },
+    "Code": {
+      "display_name": "Code",
+      "sub_sections": [
+        "Codebase Indexing",
+        "Code Editor and Review",
+        "Codebase Indexing",
+        "Code Editor and Review"
+      ],
+      "source_file": "app/src/settings_view/code_page.rs"
+    },
+    "Cloud": {
+      "display_name": "Cloud",
+      "sub_sections": [],
+      "source_file": "app/src/settings_view/mod.rs"
+    },
+    "platform": {
+      "display_name": "platform",
+      "sub_sections": [],
+      "source_file": "app/src/settings_view/mod.rs"
+    },
+    "Environments": {
+      "display_name": "Environments",
+      "sub_sections": [],
+      "source_file": "app/src/settings_view/environments_page.rs",
+      "umbrella": "Cloud platform"
+    },
+    "Oz Cloud API Keys": {
+      "display_name": "Oz Cloud API Keys",
+      "sub_sections": [],
+      "source_file": "app/src/settings_view/platform_page.rs",
+      "umbrella": "Cloud platform"
     }
   },
   "top_level_sidebar": [
@@ -290,159 +561,662 @@
     ]
   },
   "command_palette_commands": [
-    {"name": "terminal:warpify_subshell", "description": "Warpify subshell"},
-    {"name": "terminal:warpify_ssh_session", "description": "Warpify ssh session"},
-    {"name": "terminal:accept_prompt_suggestion", "description": "Accept Prompt Suggestion"},
-    {"name": "terminal:cancel_command", "description": "Cancel active process"},
-    {"name": "terminal:focus_input", "description": "Focus terminal input"},
-    {"name": "terminal:paste", "description": "Paste"},
-    {"name": "terminal:copy", "description": "Copy"},
-    {"name": "terminal:reinput_commands", "description": "Reinput selected commands"},
-    {"name": "terminal:reinput_commands_with_sudo", "description": "Reinput selected commands as root"},
-    {"name": "terminal:find", "description": "Find in Terminal"},
-    {"name": "terminal:select_bookmark_up", "description": "Select the closest bookmark up"},
-    {"name": "terminal:select_bookmark_down", "description": "Select the closest bookmark down"},
-    {"name": "terminal:open_block_list_context_menu_via_keybinding", "description": "Open block context menu"},
-    {"name": "terminal:toggle_teams_modal", "description": "Toggle team workflows modal"},
-    {"name": "terminal:copy_git_branch", "description": "Copy git branch"},
-    {"name": "terminal:clear_blocks", "description": "Clear Blocks"},
-    {"name": "terminal:executing_command_move_cursor_word_left", "description": "Move cursor one word to the left within an executing command"},
-    {"name": "terminal:executing_command_move_cursor_word_right", "description": "Move cursor one word to the right within an executing command"},
-    {"name": "terminal:executing_command_move_cursor_home", "description": "Move cursor home within an executing command"},
-    {"name": "terminal:executing_command_move_cursor_end", "description": "Move cursor end within an executing command"},
-    {"name": "terminal:executing_command_delete_word_left", "description": "Delete word left within an executing command"},
-    {"name": "terminal:executing_command_delete_line_start", "description": "Delete to line start within an executing command"},
-    {"name": "terminal:executing_command_delete_line_end", "description": "Delete to line end within an executing command"},
-    {"name": "terminal:backward_tabulation", "description": "Backward tabulation within an executing command"},
-    {"name": "terminal:select_previous_block", "description": "Select previous block"},
-    {"name": "terminal:select_next_block", "description": "Select next block"},
-    {"name": "terminal:open_share_block_modal", "description": "Share selected block"},
-    {"name": "terminal:bookmark_selected_block", "description": "Bookmark selected block"},
-    {"name": "terminal:find_within_block", "description": "Find within selected block"},
-    {"name": "terminal:copy_block", "description": "Copy Command and Output"},
-    {"name": "terminal:copy_outputs", "description": "Copy command output"},
-    {"name": "terminal:copy_commands", "description": "Copy command"},
-    {"name": "terminal:scroll_up_one_line", "description": "Scroll terminal output up one line"},
-    {"name": "terminal:scroll_down_one_line", "description": "Scroll terminal output down one line"},
-    {"name": "terminal:scroll_to_top_of_selected_block", "description": "Scroll to top of selected block"},
-    {"name": "terminal:scroll_to_bottom_of_selected_block", "description": "Scroll to bottom of selected block"},
-    {"name": "terminal:select_all_blocks", "description": "Select all blocks"},
-    {"name": "terminal:expand_block_selection_above", "description": "Expand selected blocks above"},
-    {"name": "terminal:expand_block_selection_below", "description": "Expand selected blocks below"},
-    {"name": "terminal:ask_ai_assistant", "description": "Attach Selected Block as Agent Context"},
-    {"name": "terminal:ask_ai_assistant_text", "description": "Attach Selected Text as Agent Context"},
-    {"name": "terminal:ask_ai_about_selection", "description": "Ask Warp AI about Selection"},
-    {"name": "terminal:ask_ai_assistant_last_block", "description": "Ask Warp AI about last block"},
-    {"name": "terminal:ask_ai", "description": "Ask Warp AI"},
-    {"name": "input:insert_command_correction", "description": "Insert Command Correction"},
-    {"name": "terminal:onboarding_flow", "description": "Setup Guide"},
-    {"name": "workspace:open_settings_import_page", "description": "Import External Settings"},
-    {"name": "terminal:share_current_session", "description": "Share current session"},
-    {"name": "terminal:stop_sharing_current_session", "description": "Stop sharing current session"},
-    {"name": "terminal:toggle_block_filter", "description": "Toggle block filter on selected or last block"},
-    {"name": "terminal:toggle_snackbar_in_active_pane", "description": "Toggle Sticky Command Header in Active Pane"},
-    {"name": "terminal:toggle_autoexecute_mode", "description": "Toggle Auto-execute Mode"},
-    {"name": "workspace:init_project_rules", "description": "Initiate project for warp"},
-    {"name": "terminal:toggle_code_review_pane", "description": "Toggle code review pane"},
-    {"name": "workspace:add_current_dir_as_project", "description": "Add current folder as project"},
-    {"name": "project_buttons:open_repository", "description": "Open repository"},
-    {"name": "project_buttons:create_new_project", "description": "Create new project"},
-    {"name": "terminal:set_input_mode_agent", "description": "Set Input Mode to Agent Mode"},
-    {"name": "terminal:set_input_mode_terminal", "description": "Set Input Mode to Terminal Mode"},
-    {"name": "terminal:toggle_hide_cli_responses", "description": "Toggle Hide CLI Responses"},
-    {"name": "workspace:show_theme_chooser", "description": "Open theme picker"},
-    {"name": "workspace:activate_first_tab", "description": "Switch to 1st tab"},
-    {"name": "workspace:activate_second_tab", "description": "Switch to 2nd tab"},
-    {"name": "workspace:activate_third_tab", "description": "Switch to 3rd tab"},
-    {"name": "workspace:activate_fourth_tab", "description": "Switch to 4th tab"},
-    {"name": "workspace:activate_fifth_tab", "description": "Switch to 5th tab"},
-    {"name": "workspace:activate_sixth_tab", "description": "Switch to 6th tab"},
-    {"name": "workspace:activate_seventh_tab", "description": "Switch to 7th tab"},
-    {"name": "workspace:activate_eighth_tab", "description": "Switch to 8th tab"},
-    {"name": "workspace:activate_last_tab", "description": "Switch to last tab"},
-    {"name": "workspace:activate_prev_tab", "description": "Activate previous tab"},
-    {"name": "workspace:activate_next_tab", "description": "Activate next tab"},
-    {"name": "pane_group:navigate_prev", "description": "Activate previous pane"},
-    {"name": "pane_group:navigate_next", "description": "Activate next pane"},
-    {"name": "workspace:toggle_mouse_reporting", "description": "Toggle Mouse Reporting"},
-    {"name": "workspace:create_team_notebook", "description": "Create a new team notebook"},
-    {"name": "workspace:create_personal_notebook", "description": "Create a new personal notebook"},
-    {"name": "workspace:create_team_workflow", "description": "Create a new team workflow"},
-    {"name": "workspace:create_personal_workflow", "description": "Create a new personal workflow"},
-    {"name": "workspace:create_team_folder", "description": "Create a new team folder"},
-    {"name": "workspace:create_personal_folder", "description": "Create a new personal folder"},
-    {"name": "workspace:new_tab", "description": "Create new tab"},
-    {"name": "workspace:new_terminal_tab", "description": "Create new terminal tab"},
-    {"name": "workspace:toggle_left_panel", "description": "Open Left Panel"},
-    {"name": "workspace:toggle_right_panel", "description": "Toggle code review"},
-    {"name": "workspace:left_panel_agent_conversations", "description": "Left Panel: Agent conversations"},
-    {"name": "workspace:left_panel_project_explorer", "description": "Left Panel: Project explorer"},
-    {"name": "workspace:left_panel_global_search", "description": "Left Panel: Global search"},
-    {"name": "workspace:left_panel_warp_drive", "description": "Left Panel: Warp Drive"},
-    {"name": "workspace:toggle_project_explorer", "description": "Toggle project explorer"},
-    {"name": "workspace:toggle_global_search", "description": "Toggle global search"},
-    {"name": "workspace:toggle_warp_drive", "description": "Toggle Warp Drive"},
-    {"name": "workspace:toggle_conversation_list_view", "description": "Toggle Agent conversation list view"},
-    {"name": "workspace:close_panel", "description": "Close focused panel"},
-    {"name": "workspace:toggle_command_palette", "description": "Toggle command palette"},
-    {"name": "workspace:move_tab_left", "description": "Move tab left"},
-    {"name": "workspace:rename_tab", "description": "Rename tab"},
-    {"name": "workspace:terminate_app", "description": "Quit Warp"},
-    {"name": "workspace:close_window", "description": "Close Window"},
-    {"name": "workspace:close_active_tab", "description": "Close the current tab"},
-    {"name": "workspace:close_other_tabs", "description": "Close other tabs"},
-    {"name": "workspace:close_tabs_right_active_tab", "description": "Close tabs to the right"},
-    {"name": "workspace:toggle_notifications_on", "description": "Turn notifications on"},
-    {"name": "workspace:toggle_notifications_off", "description": "Turn notifications off"},
-    {"name": "workspace:toggle_navigation_palette", "description": "Toggle navigation palette"},
-    {"name": "workspace:toggle_launch_config_palette", "description": "Launch configuration palette"},
-    {"name": "workspace:toggle_files_palette", "description": "Toggle Files Palette"},
-    {"name": "workspace:open_launch_config_save_modal", "description": "Save new launch configuration"},
-    {"name": "workspace:search_drive", "description": "Search Warp Drive"},
-    {"name": "workspace:update_and_relaunch", "description": "Install update and relaunch"},
-    {"name": "workspace:check_for_updates", "description": "Check for updates"},
-    {"name": "workspace:log_out", "description": "Log out"},
-    {"name": "workspace:toggle_resource_center", "description": "Toggle resource center"},
-    {"name": "workspace:export_all_warp_drive_objects", "description": "Export all Warp Drive objects"},
-    {"name": "workspace:install_cli", "description": "Install Oz CLI command"},
-    {"name": "workspace:uninstall_cli", "description": "Uninstall Oz CLI command"},
-    {"name": "workspace:view_changelog", "description": "View latest changelog"},
-    {"name": "workspace:toggle_ai_assistant", "description": "New agent pane"},
-    {"name": "workspace:toggle_warp_ai", "description": "Toggle Warp AI"},
-    {"name": "workspace:create_team_env_vars", "description": "Create new team environment variables"},
-    {"name": "workspace:create_personal_env_vars", "description": "Create new personal environment variables"},
-    {"name": "workspace:create_personal_ai_prompt", "description": "Create a new personal prompt"},
-    {"name": "workspace:create_team_ai_prompt", "description": "Create a new team prompt"},
-    {"name": "workspace:shift_focus_left", "description": "Switch Focus to Left Panel"},
-    {"name": "workspace:shift_focus_right", "description": "Switch Focus to Right Panel"},
-    {"name": "workspace:import_to_personal_drive", "description": "Import To Personal Drive"},
-    {"name": "workspace:import_to_team_drive", "description": "Import To Team Drive"},
-    {"name": "workspace:open_repository", "description": "Open repository"},
-    {"name": "workspace:open_ai_fact_collection", "description": "Open AI Rules"},
-    {"name": "workspace:open_mcp_servers", "description": "Open MCP Servers"},
-    {"name": "workspace:jump_to_latest_toast", "description": "Jump to latest agent task"},
-    {"name": "workspace:open_conversation_history", "description": "Open conversation history"},
-    {"name": "workspace:show_settings", "description": "Open Settings"},
-    {"name": "workspace:show_settings_account_page", "description": "Open Settings: Account"},
-    {"name": "workspace:show_settings_appearance_page", "description": "Open Settings: Appearance"},
-    {"name": "workspace:show_settings_features_page", "description": "Open Settings: Features"},
-    {"name": "workspace:show_settings_shared_blocks_page", "description": "Open Settings: Shared Blocks"},
-    {"name": "workspace:show_settings_keyboard_shortcuts_page", "description": "Open Settings: Keyboard Shortcuts"},
-    {"name": "workspace:show_settings_about_page", "description": "Open Settings: About"},
-    {"name": "workspace:show_settings_teams_page", "description": "Open Settings: Teams"},
-    {"name": "workspace:show_settings_privacy_page", "description": "Open Settings: Privacy"},
-    {"name": "workspace:show_settings_warpify_page", "description": "Open Settings: Warpify"},
-    {"name": "workspace:show_ai_settings_page", "description": "Open Settings: AI"},
-    {"name": "workspace:show_settings_billing_and_usage_page", "description": "Open Settings: Billing and usage"},
-    {"name": "workspace:show_settings_code_page", "description": "Open Settings: Code"},
-    {"name": "workspace:show_settings_referrals_page", "description": "Open Settings: Referrals"},
-    {"name": "workspace:show_settings_environments_page", "description": "Open Settings: Environments"},
-    {"name": "workspace:show_mcp_servers_settings_page", "description": "Open Settings: MCP Servers"},
-    {"name": "workspace:toggle_agent_management_view", "description": "Toggle the agent management view"},
-    {"name": "workspace:show_warp_network_log", "description": "Show Warp Network Log"},
-    {"name": "input:exit_vim_insert_mode", "description": "Exit Vim Insert Mode"},
-    {"name": "input:toggle_vim_keybindings", "description": "Enable Editing Commands With Vim Keybindings"},
-    {"name": "workspace:share_pane", "description": "Share Pane"}
+    {
+      "name": "terminal:alternate_terminal_paste",
+      "description": "Alternate terminal paste"
+    },
+    {
+      "name": "terminal:warpify_subshell",
+      "description": "Warpify subshell"
+    },
+    {
+      "name": "terminal:focus_input",
+      "description": "Focus terminal input"
+    },
+    {
+      "name": "terminal:paste",
+      "description": "Paste"
+    },
+    {
+      "name": "terminal:copy",
+      "description": "Copy"
+    },
+    {
+      "name": "terminal:reinput_commands",
+      "description": "Reinput selected commands"
+    },
+    {
+      "name": "terminal:reinput_commands_with_sudo",
+      "description": "Reinput selected commands as root"
+    },
+    {
+      "name": "terminal:find",
+      "description": "Find in Terminal"
+    },
+    {
+      "name": "terminal:select_bookmark_up",
+      "description": "Select the closest bookmark up"
+    },
+    {
+      "name": "terminal:select_bookmark_down",
+      "description": "Select the closest bookmark down"
+    },
+    {
+      "name": "terminal:jump_to_latest_agent_message",
+      "description": "Jump to latest agent message"
+    },
+    {
+      "name": "terminal:open_block_list_context_menu_via_keybinding",
+      "description": "Open block context menu"
+    },
+    {
+      "name": "terminal:toggle_teams_modal",
+      "description": "Toggle team workflows modal"
+    },
+    {
+      "name": "terminal:copy_git_branch",
+      "description": "Copy git branch"
+    },
+    {
+      "name": "terminal:clear_blocks",
+      "description": "Clear Blocks"
+    },
+    {
+      "name": "terminal:executing_command_move_cursor_word_left",
+      "description": "Move cursor one word to the left within an executing command"
+    },
+    {
+      "name": "terminal:executing_command_move_cursor_word_right",
+      "description": "Move cursor one word to the right within an executing command"
+    },
+    {
+      "name": "terminal:executing_command_move_cursor_home",
+      "description": "Move cursor home within an executing command"
+    },
+    {
+      "name": "terminal:executing_command_move_cursor_end",
+      "description": "Move cursor end within an executing command"
+    },
+    {
+      "name": "terminal:executing_command_delete_word_left",
+      "description": "Delete word left within an executing command"
+    },
+    {
+      "name": "terminal:executing_command_delete_line_start",
+      "description": "Delete to line start within an executing command"
+    },
+    {
+      "name": "terminal:executing_command_delete_line_end",
+      "description": "Delete to line end within an executing command"
+    },
+    {
+      "name": "terminal:backward_tabulation",
+      "description": "Backward tabulation within an executing command"
+    },
+    {
+      "name": "terminal:open_share_block_modal",
+      "description": "Share selected block"
+    },
+    {
+      "name": "terminal:bookmark_selected_block",
+      "description": "Bookmark selected block"
+    },
+    {
+      "name": "terminal:find",
+      "description": "Find within selected block"
+    },
+    {
+      "name": "terminal:copy",
+      "description": "Copy command and output"
+    },
+    {
+      "name": "terminal:copy_outputs",
+      "description": "Copy command output"
+    },
+    {
+      "name": "terminal:copy_commands",
+      "description": "Copy command"
+    },
+    {
+      "name": "terminal:scroll_up_one_line",
+      "description": "Scroll terminal output up one line"
+    },
+    {
+      "name": "terminal:scroll_down_one_line",
+      "description": "Scroll terminal output down one line"
+    },
+    {
+      "name": "terminal:scroll_up_one_page",
+      "description": "Scroll terminal output up one page"
+    },
+    {
+      "name": "terminal:scroll_down_one_page",
+      "description": "Scroll terminal output down one page"
+    },
+    {
+      "name": "terminal:scroll_to_top_of_selected_block",
+      "description": "Scroll to top of selected block"
+    },
+    {
+      "name": "terminal:scroll_to_bottom_of_selected_block",
+      "description": "Scroll to bottom of selected block"
+    },
+    {
+      "name": "terminal:select_all_blocks",
+      "description": "Select all blocks"
+    },
+    {
+      "name": "terminal:expand_block_selection_above",
+      "description": "Expand selected blocks above"
+    },
+    {
+      "name": "terminal:expand_block_selection_below",
+      "description": "Expand selected blocks below"
+    },
+    {
+      "name": "terminal:ask_ai_assistant",
+      "description": "Ask Warp AI about Selection"
+    },
+    {
+      "name": "terminal:ask_ai_assistant_last_block",
+      "description": "Ask Warp AI about last block"
+    },
+    {
+      "name": "terminal:ask_ai_assistant",
+      "description": "Ask Warp AI"
+    },
+    {
+      "name": "input:insert_command_correction",
+      "description": "Insert Command Correction"
+    },
+    {
+      "name": "workspace:open_settings_import_page",
+      "description": "Import External Settings"
+    },
+    {
+      "name": "terminal:share_current_session",
+      "description": "Share current session"
+    },
+    {
+      "name": "terminal:stop_sharing_current_session",
+      "description": "Stop sharing current session"
+    },
+    {
+      "name": "terminal:toggle_snackbar_in_active_pane",
+      "description": "Toggle Sticky Command Header in Active Pane"
+    },
+    {
+      "name": "terminal:load_agent_mode_conversation",
+      "description": "Load agent mode conversation (from debug link in clipboard)"
+    },
+    {
+      "name": "terminal:toggle_session_recording",
+      "description": "Toggle PTY Recording for Session"
+    },
+    {
+      "name": "terminal:toggle_conversation_details_panel",
+      "description": "Toggle Conversation Details Panel"
+    },
+    {
+      "name": "terminal:ask_ai_assistant",
+      "description": "Attach Selected Block as Agent Context"
+    },
+    {
+      "name": "terminal:ask_ai_assistant",
+      "description": "Attach Selected Text as Agent Context"
+    },
+    {
+      "name": "workspace:write_codebase_index",
+      "description": "Write current codebase index snapshot"
+    },
+    {
+      "name": "workspace:init_project_rules",
+      "description": "Initiate project for warp"
+    },
+    {
+      "name": "workspace:add_current_dir_as_project",
+      "description": "Add current folder as project"
+    },
+    {
+      "name": "workspace:panic",
+      "description": "Trigger a panic (for testing sentry-rust)"
+    },
+    {
+      "name": "workspace:open_view_tree_debug_view",
+      "description": "Open view tree debugger"
+    },
+    {
+      "name": "workspace:sample_process",
+      "description": "Sample Process"
+    },
+    {
+      "name": "workspace:dump_heap_profile",
+      "description": "Write heap profile to disk"
+    },
+    {
+      "name": "workspace:increase_zoom",
+      "description": "Increase zoom level"
+    },
+    {
+      "name": "workspace:decrease_zoom",
+      "description": "Decrease zoom level"
+    },
+    {
+      "name": "workspace:reset_zoom",
+      "description": "Reset zoom level to default"
+    },
+    {
+      "name": "workspace:increase_font_size",
+      "description": "Increase font size"
+    },
+    {
+      "name": "workspace:decrease_font_size",
+      "description": "Decrease font size"
+    },
+    {
+      "name": "workspace:reset_font_size",
+      "description": "Reset font size to default"
+    },
+    {
+      "name": "workspace:show_theme_chooser",
+      "description": "Open theme picker"
+    },
+    {
+      "name": "workspace:activate_first_tab",
+      "description": "Switch to 1st tab"
+    },
+    {
+      "name": "workspace:activate_second_tab",
+      "description": "Switch to 2nd tab"
+    },
+    {
+      "name": "workspace:activate_third_tab",
+      "description": "Switch to 3rd tab"
+    },
+    {
+      "name": "workspace:activate_fourth_tab",
+      "description": "Switch to 4th tab"
+    },
+    {
+      "name": "workspace:activate_fifth_tab",
+      "description": "Switch to 5th tab"
+    },
+    {
+      "name": "workspace:activate_sixth_tab",
+      "description": "Switch to 6th tab"
+    },
+    {
+      "name": "workspace:activate_seventh_tab",
+      "description": "Switch to 7th tab"
+    },
+    {
+      "name": "workspace:activate_eighth_tab",
+      "description": "Switch to 8th tab"
+    },
+    {
+      "name": "workspace:activate_last_tab",
+      "description": "Switch to last tab"
+    },
+    {
+      "name": "workspace:activate_prev_tab",
+      "description": "Activate previous tab"
+    },
+    {
+      "name": "workspace:activate_next_tab",
+      "description": "Activate next tab"
+    },
+    {
+      "name": "pane_group:navigate_prev",
+      "description": "Activate previous pane"
+    },
+    {
+      "name": "pane_group:navigate_next",
+      "description": "Activate next pane"
+    },
+    {
+      "name": "workspace:toggle_keybindings_page",
+      "description": "Toggle keyboard shortcuts"
+    },
+    {
+      "name": "workspace:show_keybinding_settings",
+      "description": "Open keybindings editor"
+    },
+    {
+      "name": "workspace:toggle_block_snackbar",
+      "description": "Toggle sticky command header"
+    },
+    {
+      "name": "workspace:set_a11y_concise_verbosity_level",
+      "description": "[a11y] Set concise accessibility announcements"
+    },
+    {
+      "name": "workspace:set_a11y_verbose_verbosity_level",
+      "description": "[a11y] Set verbose accessibility announcements"
+    },
+    {
+      "name": "workspace:rename_active_tab",
+      "description": "Rename the current tab"
+    },
+    {
+      "name": "workspace:rename_active_pane",
+      "description": "Rename the current pane"
+    },
+    {
+      "name": "workspace:new_tab_group",
+      "description": "Create new tab group"
+    },
+    {
+      "name": "workspace:new_tab_group_from_active_or_selected_tabs",
+      "description": "Create tab group from active or selected tab(s)"
+    },
+    {
+      "name": "workspace:remove_active_or_selected_tabs_from_group",
+      "description": "Remove active or selected tab(s) from group"
+    },
+    {
+      "name": "workspace:pin_active_tab",
+      "description": "Pin current tab"
+    },
+    {
+      "name": "workspace:unpin_active_tab",
+      "description": "Unpin current tab"
+    },
+    {
+      "name": "workspace:pin_active_tab_group",
+      "description": "Pin current tab group"
+    },
+    {
+      "name": "workspace:unpin_active_tab_group",
+      "description": "Unpin current tab group"
+    },
+    {
+      "name": "workspace:terminate_app",
+      "description": "Quit Warp"
+    },
+    {
+      "name": "workspace:close_active_tab",
+      "description": "Close the current tab"
+    },
+    {
+      "name": "workspace:close_other_tabs",
+      "description": "Close other tabs"
+    },
+    {
+      "name": "workspace:toggle_notifications_on",
+      "description": "Turn notifications on"
+    },
+    {
+      "name": "workspace:toggle_notifications_off",
+      "description": "Turn notifications off"
+    },
+    {
+      "name": "workspace:toggle_launch_config_palette",
+      "description": "Launch configuration palette"
+    },
+    {
+      "name": "workspace:toggle_files_palette",
+      "description": "Toggle Files Palette"
+    },
+    {
+      "name": "workspace:open_launch_config_save_modal",
+      "description": "Save new launch configuration"
+    },
+    {
+      "name": "workspace:update_and_relaunch",
+      "description": "Install update and relaunch"
+    },
+    {
+      "name": "workspace:check_for_updates",
+      "description": "Check for updates"
+    },
+    {
+      "name": "workspace:log_out",
+      "description": "Log out"
+    },
+    {
+      "name": "workspace:toggle_resource_center",
+      "description": "Toggle resource center"
+    },
+    {
+      "name": "workspace:export_all_warp_drive_objects",
+      "description": "Export all Warp Drive objects"
+    },
+    {
+      "name": "workspace:install_cli",
+      "description": "Install Oz CLI globally for use outside of Warp"
+    },
+    {
+      "name": "workspace:uninstall_cli",
+      "description": "Undo global Oz CLI installation (oz will still work within Warp)"
+    },
+    {
+      "name": "workspace:install_warpctrl",
+      "description": "Install Warp Control CLI globally for use outside of Warp"
+    },
+    {
+      "name": "workspace:uninstall_warpctrl",
+      "description": "Undo global Warp Control CLI installation (warpctrl will still work within Warp)"
+    },
+    {
+      "name": "workspace:view_changelog",
+      "description": "View latest changelog"
+    },
+    {
+      "name": "workspace:toggle_ai_assistant",
+      "description": "Toggle Warp AI"
+    },
+    {
+      "name": "workspace:shift_focus_left",
+      "description": "Switch Focus to Left Panel"
+    },
+    {
+      "name": "workspace:shift_focus_right",
+      "description": "Switch Focus to Right Panel"
+    },
+    {
+      "name": "workspace:import_to_personal_drive",
+      "description": "Import To Personal Drive"
+    },
+    {
+      "name": "workspace:import_to_team_drive",
+      "description": "Import To Team Drive"
+    },
+    {
+      "name": "workspace:copy_access_token_to_clipboard",
+      "description": "Copy access token to clipboard"
+    },
+    {
+      "name": "workspace:jump_to_latest_toast",
+      "description": "Jump to latest agent task"
+    },
+    {
+      "name": "workspace:toggle_agent_management_view",
+      "description": "Toggle the agent management view"
+    },
+    {
+      "name": "workspace:show_settings_account_page",
+      "description": "Open Settings: Account"
+    },
+    {
+      "name": "workspace:show_settings_features_page",
+      "description": "Open Settings: Features"
+    },
+    {
+      "name": "workspace:open_settings_file",
+      "description": "Open settings file"
+    },
+    {
+      "name": "workspace:show_invite_modal",
+      "description": "Invite People..."
+    },
+    {
+      "name": "workspace:link_to_slack",
+      "description": "Join our Slack community (opens external link)"
+    },
+    {
+      "name": "workspace:link_to_user_docs",
+      "description": "View user docs (opens external link)"
+    },
+    {
+      "name": "workspace:view_logs",
+      "description": "View Warp logs"
+    },
+    {
+      "name": "workspace:link_to_privacy_policy",
+      "description": "View privacy policy (opens external link)"
+    },
+    {
+      "name": "workspace:create_team_notebook",
+      "description": "Create a new team notebook"
+    },
+    {
+      "name": "workspace:create_personal_notebook",
+      "description": "Create a new personal notebook"
+    },
+    {
+      "name": "workspace:create_team_workflow",
+      "description": "Create a new team workflow"
+    },
+    {
+      "name": "workspace:create_personal_workflow",
+      "description": "Create a new personal workflow"
+    },
+    {
+      "name": "workspace:create_team_folder",
+      "description": "Create a new team folder"
+    },
+    {
+      "name": "workspace:create_personal_folder",
+      "description": "Create a new personal folder"
+    },
+    {
+      "name": "workspace:toggle_left_panel",
+      "description": "Open Left Panel"
+    },
+    {
+      "name": "file_tree:toggle_hidden_files",
+      "description": "Toggle hidden files in Project Explorer"
+    },
+    {
+      "name": "workspace:close_panel",
+      "description": "Close focused panel"
+    },
+    {
+      "name": "workspace:toggle_command_palette",
+      "description": "Toggle command palette"
+    },
+    {
+      "name": "workspace:move_tab_left",
+      "description": "Move tab left"
+    },
+    {
+      "name": "workspace:move_tab_right",
+      "description": "Move tab right"
+    },
+    {
+      "name": "workspace:close_window",
+      "description": "Close Window"
+    },
+    {
+      "name": "workspace:close_tabs_right_active_tab",
+      "description": "Close tabs to the right"
+    },
+    {
+      "name": "workspace:toggle_navigation_palette",
+      "description": "Toggle navigation palette"
+    },
+    {
+      "name": "workspace:create_team_env_vars",
+      "description": "Create new team environment variables"
+    },
+    {
+      "name": "workspace:create_personal_env_vars",
+      "description": "Create new personal environment variables"
+    },
+    {
+      "name": "workspace:create_personal_ai_prompt",
+      "description": "Create a new personal prompt"
+    },
+    {
+      "name": "workspace:create_team_ai_prompt",
+      "description": "Create a new team prompt"
+    },
+    {
+      "name": "workspace:copy_current_path",
+      "description": "Copy current path"
+    },
+    {
+      "name": "workspace:open_repository",
+      "description": "Open repository"
+    },
+    {
+      "name": "workspace:open_ai_fact_collection",
+      "description": "Open AI Rules"
+    },
+    {
+      "name": "workspace:open_mcp_servers",
+      "description": "Open MCP Servers"
+    },
+    {
+      "name": "workspace:show_settings",
+      "description": "Open Settings"
+    },
+    {
+      "name": "workspace:show_settings_appearance_page",
+      "description": "Open Settings: Appearance"
+    },
+    {
+      "name": "workspace:show_settings_shared_blocks_page",
+      "description": "Open Settings: Shared Blocks"
+    },
+    {
+      "name": "workspace:show_settings_keyboard_shortcuts_page",
+      "description": "Open Settings: Keyboard Shortcuts"
+    },
+    {
+      "name": "workspace:show_settings_about_page",
+      "description": "Open Settings: About"
+    },
+    {
+      "name": "workspace:show_settings_teams_page",
+      "description": "Open Settings: Teams"
+    },
+    {
+      "name": "workspace:show_settings_privacy_page",
+      "description": "Open Settings: Privacy"
+    },
+    {
+      "name": "workspace:show_settings_warpify_page",
+      "description": "Open Settings: Warpify"
+    },
+    {
+      "name": "workspace:show_ai_settings_page",
+      "description": "Open Settings: AI"
+    },
+    {
+      "name": "workspace:show_settings_billing_and_usage_page",
+      "description": "Open Settings: Billing and usage"
+    },
+    {
+      "name": "workspace:show_settings_code_page",
+      "description": "Open Settings: Code"
+    },
+    {
+      "name": "workspace:show_settings_referrals_page",
+      "description": "Open Settings: Referrals"
+    },
+    {
+      "name": "workspace:show_settings_environments_page",
+      "description": "Open Settings: Environments"
+    },
+    {
+      "name": "workspace:show_mcp_servers_settings_page",
+      "description": "Open Settings: MCP Servers"
+    },
+    {
+      "name": "workspace:send_feedback",
+      "description": "Send feedback (opens external link)"
+    }
   ],
-  "generated_at": "2026-04-23T23:55:00Z"
+  "generated_at": "2026-07-21T21:04:15.535923+00:00"
 }
