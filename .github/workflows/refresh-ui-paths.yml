@@ -53,8 +53,8 @@ jobs:
                  --all --fix --create-pr --slack-notify \\
                  --slack-channel C09BVK0PL3Y
              The script auto-fixes high-confidence issues, opens a PR, and posts to
-             #growth-docs if issues remain. DOCS_SLACK_BOT_TOKEN is available as a
-             fallback for SLACK_BOT_TOKEN.
+             #growth-docs if issues remain. BUZZ_SLACK_TOKEN is available in this
+             environment and is used as a fallback for SLACK_BOT_TOKEN.
           4. Report the outcome (PR URL if created, or "no changes" if already up to date).
 
           Full instructions: .agents/skills/validate_ui_refs/SKILL.md
