@@ -148,19 +148,21 @@ python3 .agents/skills/validate_ui_refs/validate_ui_refs.py --all --slack-notify
 
 ### How it works
 
-1. A push to `master` in `warpdotdev/warp-internal` that touches `app/src/settings_view/**` sends a `repository_dispatch` event (`settings-ui-changed`) to `warpdotdev/docs`.
-2. The `refresh-ui-paths` workflow fires, checks out both repos, and runs `--refresh-valid-paths`.
-3. If the snapshot changed, it runs `--all --fix --slack-notify`, commits all changes (updated snapshot + any doc fixes), and opens a PR.
-4. If unfixed issues remain, a notification is posted to `#growth-docs`.
-5. If the snapshot is unchanged, the workflow exits with no-op.
+1. A push to `master` in `warpdotdev/warp` that touches `app/src/settings_view/**` sends a `repository_dispatch` event (`settings-ui-changed`) to `warpdotdev/docs`.
+2. The `refresh-ui-paths` GHA workflow fires and dispatches an Oz cloud agent to the Docs Agent environment (`K5KStCm5aYvhfBJb8cHol6`).
+3. The cloud agent runs `--refresh-valid-paths` using the `warp-internal` checkout available in that environment.
+4. If the snapshot changed, the agent runs `--all --fix --create-pr --slack-notify` to validate, auto-fix, open a PR, and post to `#growth-docs` if issues remain.
+5. If the snapshot is unchanged, the agent exits with no-op.
 
 ### Secrets required
 
-| Secret | Repo | Purpose |
-|---|---|---|
-| `DOCS_DISPATCH_PAT` | `warp-internal` | Fine-grained PAT — **Actions: write** on `warpdotdev/docs` (to trigger `repository_dispatch`; no Contents access needed) |
-| `WARP_INTERNAL_READ_PAT` | `docs` | Fine-grained PAT — Contents read on `warpdotdev/warp-internal` |
-| `SLACK_BOT_TOKEN` | `docs` | Slack bot token with `chat:write` scope |
+| Secret | Where | Status | Notes |
+|---|---|---|---|
+| `DOCS_REPOSITORY_DISPATCH_TOKEN` | `warpdotdev/warp` GHA secrets | ✅ Already provisioned | Sends the `settings-ui-changed` event to docs via `peter-evans/repository-dispatch` |
+| `WARP_API_KEY` | `warpdotdev/docs` GHA secrets | ✅ Already provisioned | Used by the GHA workflow to dispatch the Oz cloud agent |
+| `DOCS_SLACK_BOT_TOKEN` | Docs Agent Oz environment | ✅ Already provisioned | Used by the cloud agent for `#growth-docs` Slack notifications |
+
+`warp-internal` access is provided by the Docs Agent Oz environment (environment ID `K5KStCm5aYvhfBJb8cHol6`), which has `warpdotdev/warp-internal` in its configured repos. No `WARP_INTERNAL_READ_PAT` GHA secret is needed.
 
 ### Manual trigger
 
