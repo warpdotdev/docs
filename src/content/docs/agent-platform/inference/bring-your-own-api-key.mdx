@@ -91,6 +91,8 @@ Warp's **Auto** models dynamically route requests across different models based 
 
 To use your own key, select a specific provider model (for example, Claude Opus 4.7, Claude Sonnet 4.6, GPT-5.5, or Gemini 3.1 Pro) directly from the model picker with a key icon.
 
+[Custom routers](/agent-platform/inference/custom-routers/) behave differently: a router resolves each task to a concrete model you chose, and Warp then applies your API keys to that model. Requests that resolve to a model covered by one of your keys are billed through your provider account instead of consuming Warp credits. See [Credits and model availability](/agent-platform/inference/custom-routers/#credits-and-model-availability) for details.
+
 ### Credit usage
 
 When you select a model with the key icon in your model picker, Warp routes the request through your API key. In that case:
