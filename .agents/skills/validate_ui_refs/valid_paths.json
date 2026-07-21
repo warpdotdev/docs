@@ -3,6 +3,7 @@
     "Agents": {
       "subpages": [
         "Oz",
+        "Warp Agent",
         "Profiles",
         "MCP servers",
         "Knowledge",
@@ -339,6 +340,31 @@
       "sub_sections": [],
       "source_file": "app/src/settings_view/platform_page.rs",
       "umbrella": "Cloud platform"
+    },
+    "Oz": {
+      "display_name": "Oz",
+      "umbrella": "Agents",
+      "sub_sections": [
+        "Usage",
+        "Active AI",
+        "Agents",
+        "Profiles",
+        "Input",
+        "MCP Servers",
+        "Knowledge",
+        "Voice",
+        "Other",
+        "Third party CLI agents",
+        "Agent Attribution",
+        "Experimental",
+        "Cloud Handoff",
+        "Custom Inference",
+        "API Keys",
+        "AWS Bedrock",
+        "Gemini Enterprise",
+        "Custom Routers"
+      ],
+      "source_file": "app/src/settings_view/ai_page.rs"
     }
   },
   "top_level_sidebar": [
