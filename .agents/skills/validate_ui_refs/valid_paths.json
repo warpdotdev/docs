@@ -167,50 +167,53 @@
       ],
       "source_file": "app/src/settings_view/warpify_page.rs"
     },
-    "Internal": {
-      "display_name": "Internal",
-      "sub_sections": [],
-      "source_file": "app/src/settings_view/mod.rs"
-    },
-    "backing": {
-      "display_name": "backing",
-      "sub_sections": [],
-      "source_file": "app/src/settings_view/mod.rs"
-    },
-    "page": {
-      "display_name": "page",
-      "sub_sections": [],
-      "source_file": "app/src/settings_view/mod.rs"
-    },
-    "identifier": {
-      "display_name": "identifier",
-      "sub_sections": [],
-      "source_file": "app/src/settings_view/mod.rs"
-    },
-    "for": {
-      "display_name": "for",
-      "sub_sections": [],
-      "source_file": "app/src/settings_view/mod.rs"
-    },
-    "AISettingsPageView": {
-      "display_name": "AISettingsPageView",
-      "sub_sections": [],
-      "source_file": "app/src/settings_view/mod.rs"
-    },
-    "Multiple": {
-      "display_name": "Multiple",
-      "sub_sections": [],
-      "source_file": "app/src/settings_view/mod.rs"
-    },
-    "subpages": {
-      "display_name": "subpages",
-      "sub_sections": [],
-      "source_file": "app/src/settings_view/mod.rs"
+    "AI": {
+      "display_name": "AI",
+      "sub_sections": [
+        "Usage",
+        "Active AI",
+        "Agents",
+        "Profiles",
+        "Input",
+        "MCP Servers",
+        "Knowledge",
+        "Voice",
+        "Other",
+        "Third party CLI agents",
+        "Agent Attribution",
+        "Experimental",
+        "Cloud Handoff",
+        "Custom Inference",
+        "API Keys",
+        "AWS Bedrock",
+        "Gemini Enterprise",
+        "Custom Routers"
+      ],
+      "source_file": "app/src/settings_view/ai_page.rs"
     },
     "Warp Agent": {
       "display_name": "Warp Agent",
-      "sub_sections": [],
-      "source_file": "app/src/settings_view/mod.rs"
+      "sub_sections": [
+        "Usage",
+        "Active AI",
+        "Agents",
+        "Profiles",
+        "Input",
+        "MCP Servers",
+        "Knowledge",
+        "Voice",
+        "Other",
+        "Third party CLI agents",
+        "Agent Attribution",
+        "Experimental",
+        "Cloud Handoff",
+        "Custom Inference",
+        "API Keys",
+        "AWS Bedrock",
+        "Gemini Enterprise",
+        "Custom Routers"
+      ],
+      "source_file": "app/src/settings_view/ai_page.rs"
     },
     "Profiles": {
       "display_name": "Profiles",
@@ -235,6 +238,12 @@
         "Custom Routers"
       ],
       "source_file": "app/src/settings_view/ai_page.rs",
+      "umbrella": "Agents"
+    },
+    "MCP servers": {
+      "display_name": "MCP servers",
+      "sub_sections": [],
+      "source_file": "app/src/settings_view/mcp_servers_page.rs",
       "umbrella": "Agents"
     },
     "Knowledge": {
@@ -287,165 +296,15 @@
       "source_file": "app/src/settings_view/ai_page.rs",
       "umbrella": "Agents"
     },
-    "share": {
-      "display_name": "share",
-      "sub_sections": [],
-      "source_file": "app/src/settings_view/mod.rs"
-    },
-    "this": {
-      "display_name": "this",
-      "sub_sections": [],
-      "source_file": "app/src/settings_view/mod.rs"
-    },
-    "single": {
-      "display_name": "single",
-      "sub_sections": [],
-      "source_file": "app/src/settings_view/mod.rs"
-    },
-    "so": {
-      "display_name": "so",
-      "sub_sections": [],
-      "source_file": "app/src/settings_view/mod.rs"
-    },
-    "variant": {
-      "display_name": "variant",
-      "sub_sections": [],
-      "source_file": "app/src/settings_view/mod.rs"
-    },
-    "is": {
-      "display_name": "is",
-      "sub_sections": [],
-      "source_file": "app/src/settings_view/mod.rs"
-    },
-    "needed": {
-      "display_name": "needed",
-      "sub_sections": [],
-      "source_file": "app/src/settings_view/mod.rs"
-    },
-    "as": {
-      "display_name": "as",
-      "sub_sections": [],
-      "source_file": "app/src/settings_view/mod.rs"
-    },
-    "the": {
-      "display_name": "the",
-      "sub_sections": [],
-      "source_file": "app/src/settings_view/mod.rs"
-    },
-    "key": {
-      "display_name": "key",
-      "sub_sections": [],
-      "source_file": "app/src/settings_view/mod.rs"
-    },
-    "in": {
-      "display_name": "in",
-      "sub_sections": [],
-      "source_file": "app/src/settings_view/mod.rs"
-    },
-    "settings_pages": {
-      "display_name": "settings_pages",
-      "sub_sections": [],
-      "source_file": "app/src/settings_view/mod.rs"
-    },
-    "External": {
-      "display_name": "External",
-      "sub_sections": [],
-      "source_file": "app/src/settings_view/mod.rs"
-    },
-    "callers": {
-      "display_name": "callers",
-      "sub_sections": [],
-      "source_file": "app/src/settings_view/mod.rs"
-    },
-    "should": {
-      "display_name": "should",
-      "sub_sections": [],
-      "source_file": "app/src/settings_view/mod.rs"
-    },
-    "navigate": {
-      "display_name": "navigate",
-      "sub_sections": [],
-      "source_file": "app/src/settings_view/mod.rs"
-    },
-    "to": {
-      "display_name": "to",
-      "sub_sections": [],
-      "source_file": "app/src/settings_view/mod.rs"
-    },
-    "a": {
-      "display_name": "a",
-      "sub_sections": [],
-      "source_file": "app/src/settings_view/mod.rs"
-    },
-    "specific": {
-      "display_name": "specific",
-      "sub_sections": [],
-      "source_file": "app/src/settings_view/mod.rs"
-    },
-    "subpage": {
-      "display_name": "subpage",
-      "sub_sections": [],
-      "source_file": "app/src/settings_view/mod.rs"
-    },
-    "e": {
-      "display_name": "e",
-      "sub_sections": [],
-      "source_file": "app/src/settings_view/mod.rs"
-    },
-    "g": {
-      "display_name": "g",
-      "sub_sections": [],
-      "source_file": "app/src/settings_view/mod.rs"
-    },
-    "instead": {
-      "display_name": "instead",
-      "sub_sections": [],
-      "source_file": "app/src/settings_view/mod.rs"
-    },
-    "AI": {
-      "display_name": "AI",
+    "Code": {
+      "display_name": "Code",
       "sub_sections": [
-        "Usage",
-        "Active AI",
-        "Agents",
-        "Profiles",
-        "Input",
-        "MCP Servers",
-        "Knowledge",
-        "Voice",
-        "Other",
-        "Third party CLI agents",
-        "Agent Attribution",
-        "Experimental",
-        "Cloud Handoff",
-        "Custom Inference",
-        "API Keys",
-        "AWS Bedrock",
-        "Gemini Enterprise",
-        "Custom Routers"
+        "Codebase Indexing",
+        "Code Editor and Review",
+        "Codebase Indexing",
+        "Code Editor and Review"
       ],
-      "source_file": "app/src/settings_view/ai_page.rs"
-    },
-    "Agents": {
-      "display_name": "Agents",
-      "sub_sections": [],
-      "source_file": "app/src/settings_view/mod.rs"
-    },
-    "umbrella": {
-      "display_name": "umbrella",
-      "sub_sections": [],
-      "source_file": "app/src/settings_view/mod.rs"
-    },
-    "MCP servers": {
-      "display_name": "MCP servers",
-      "sub_sections": [],
-      "source_file": "app/src/settings_view/mcp_servers_page.rs",
-      "umbrella": "Agents"
-    },
-    "CodeSettingsPageView": {
-      "display_name": "CodeSettingsPageView",
-      "sub_sections": [],
-      "source_file": "app/src/settings_view/mod.rs"
+      "source_file": "app/src/settings_view/code_page.rs"
     },
     "Indexing and projects": {
       "display_name": "Indexing and projects",
@@ -468,26 +327,6 @@
       ],
       "source_file": "app/src/settings_view/code_page.rs",
       "umbrella": "Code"
-    },
-    "Code": {
-      "display_name": "Code",
-      "sub_sections": [
-        "Codebase Indexing",
-        "Code Editor and Review",
-        "Codebase Indexing",
-        "Code Editor and Review"
-      ],
-      "source_file": "app/src/settings_view/code_page.rs"
-    },
-    "Cloud": {
-      "display_name": "Cloud",
-      "sub_sections": [],
-      "source_file": "app/src/settings_view/mod.rs"
-    },
-    "platform": {
-      "display_name": "platform",
-      "sub_sections": [],
-      "source_file": "app/src/settings_view/mod.rs"
     },
     "Environments": {
       "display_name": "Environments",
@@ -1218,5 +1057,5 @@
       "description": "Send feedback (opens external link)"
     }
   ],
-  "generated_at": "2026-07-21T21:04:15.535923+00:00"
+  "generated_at": "2026-07-21T21:45:59.337152+00:00"
 }

@@ -1360,10 +1360,14 @@ def _extract_settings_sections(warp_internal: Path) -> Dict[str, Any]:
         re.DOTALL,
     )
     if enum_match:
-        for variant in re.findall(r"(\w+)", enum_match.group(1)):
-            if variant in ("Copy", "Clone", "Debug", "Default", "PartialEq", "default"):
-                continue
-            display_map[variant] = variant  # default: use variant name
+        # Strip Rust line/doc comments before extracting variants. Without this,
+        # words from doc comments (e.g. "backing" from "/// Internal backing-page
+        # identifier") are incorrectly captured as settings section names.
+        enum_body = re.sub(r"//[^\n]*", "", enum_match.group(1))
+        # Only match CamelCase words (enum variants), not lowercase identifiers
+        # that appear in code or attribute tokens.
+        for variant in re.findall(r"^\s*([A-Z]\w+)\s*(?:,|$)", enum_body, re.MULTILINE):
+            display_map[variant] = variant  # default: use variant name as display name
 
     # Parse Display impl for overrides
     display_impl = re.search(
@@ -1391,6 +1395,8 @@ def _extract_settings_sections(warp_internal: Path) -> Dict[str, Any]:
         "Platform": "platform_page.rs",
         "Code": "code_page.rs",
         # Agents umbrella subpages (all render widgets defined in ai_page.rs).
+        # WarpAgent is the current name; Oz is the legacy name kept for compat.
+        "WarpAgent": "ai_page.rs",
         "Oz": "ai_page.rs",
         "AgentProfiles": "ai_page.rs",
         "Knowledge": "ai_page.rs",
