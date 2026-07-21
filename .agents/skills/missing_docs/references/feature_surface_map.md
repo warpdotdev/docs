@@ -201,6 +201,13 @@ CustomModelRouters -> src/content/docs/agent-platform/inference/model-choice.mdx
 # Billing & Usage settings page (redesigned)
 BillingAndUsagePageV2 -> src/content/docs/support-and-community/plans-and-billing/index.mdx
 
+# Cloud agent runners (reusable compute configs). CloudRunners gates the
+# `--runner` flag on `run-cloud`; CloudAgentRunners gates the `oz runner` CRUD
+# commands and the runner dropdown in the orchestration card. Both are GA
+# (default cargo features).
+CloudRunners -> src/content/docs/platform/runners.mdx
+CloudAgentRunners -> src/content/docs/platform/runners.mdx
+
 ## CLI commands -> doc pages
 
 # Top-level Oz CLI commands
@@ -257,15 +264,14 @@ oz provider -> gated:ProviderCommand
 oz provider setup -> gated:ProviderCommand
 oz provider list -> gated:ProviderCommand
 
-# `oz runner` (manage cloud agent runners) is gated by CloudAgentRunnerCLICommands,
-# which is non-GA (dogfood), so the command group is deferred via `gated:` — it
-# auto-surfaces for docs when the flag goes GA. See "Public vs. private surfaces"
-# in SKILL.md.
-oz runner -> gated:CloudAgentRunnerCLICommands
-oz runner list -> gated:CloudAgentRunnerCLICommands
-oz runner create -> gated:CloudAgentRunnerCLICommands
-oz runner update -> gated:CloudAgentRunnerCLICommands
-oz runner delete -> gated:CloudAgentRunnerCLICommands
+# `oz runner` (manage cloud agent runners) is GA (gated by CloudAgentRunners, a
+# default cargo feature) and documented on the runners page. The old gating flag
+# CloudAgentRunnerCLICommands was removed after the feature stabilized.
+oz runner -> src/content/docs/platform/runners.mdx
+oz runner list -> src/content/docs/platform/runners.mdx
+oz runner create -> src/content/docs/platform/runners.mdx
+oz runner update -> src/content/docs/platform/runners.mdx
+oz runner delete -> src/content/docs/platform/runners.mdx
 
 # Internal/hidden command — not a user-facing surface, so no public docs.
 oz harness-support -> internal
@@ -345,6 +351,12 @@ GET /memory_stores/{uid}/memories/{memoryUid}/versions -> gated:AIMemories
 # slash-commands page content; add entries here only for exceptions.
 # Gated by the dogfood-only LocalDockerSandbox flag — not user-facing yet.
 /docker-sandbox -> internal
+# TUI-only (warp-tui) slash commands — added only when the settings mode is TUI
+# (see static_commands/commands.rs). They aren't present in the GUI desktop app,
+# so they aren't documented on the public slash-commands page. Consistent with
+# the general.autoupdate_enabled TUI-only setting mapped to `internal` above.
+/exit -> internal
+/view-logs -> internal
 
 ## Settings -> doc pages
 
