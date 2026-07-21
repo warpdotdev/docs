@@ -132,13 +132,14 @@ Slack notifications are designed for automated runs, not ad-hoc usage. When runn
 
 The `--slack-notify` flag posts a summary to `#growth-docs` when unfixed issues remain after a run. If the scan is clean (0 issues), no notification is sent.
 
-### Setup (one-time)
+### Setup
 
-Add `SLACK_BOT_TOKEN` as a repository secret in `warpdotdev/docs` (**Settings** > **Secrets and variables** > **Actions**). The token needs `chat:write` scope.
+For **automated runs**, the Slack token is provided by the Docs Agent Oz environment via `BUZZ_SLACK_TOKEN` — no GHA secret needed.
 
-### Usage
+For **manual runs** from the command line, export a Slack bot token with `chat:write` scope before running:
 
 ```bash
+export SLACK_BOT_TOKEN=xoxb-...
 python3 .agents/skills/validate_ui_refs/validate_ui_refs.py --all --slack-notify
 ```
 
@@ -148,19 +149,21 @@ python3 .agents/skills/validate_ui_refs/validate_ui_refs.py --all --slack-notify
 
 ### How it works
 
-1. A push to `master` in `warpdotdev/warp-internal` that touches `app/src/settings_view/**` sends a `repository_dispatch` event (`settings-ui-changed`) to `warpdotdev/docs`.
-2. The `refresh-ui-paths` workflow fires, checks out both repos, and runs `--refresh-valid-paths`.
-3. If the snapshot changed, it runs `--all --fix --slack-notify`, commits all changes (updated snapshot + any doc fixes), and opens a PR.
-4. If unfixed issues remain, a notification is posted to `#growth-docs`.
-5. If the snapshot is unchanged, the workflow exits with no-op.
+1. A push to `master` in `warpdotdev/warp` that touches `app/src/settings_view/**` sends a `repository_dispatch` event (`settings-ui-changed`) to `warpdotdev/docs`.
+2. The `refresh-ui-paths` GHA workflow fires and dispatches an Oz cloud agent to the Docs Agent environment (`K5KStCm5aYvhfBJb8cHol6`).
+3. The cloud agent runs `--refresh-valid-paths` using the `warp-internal` checkout available in that environment.
+4. If the snapshot changed, the agent runs `--all --fix --create-pr --slack-notify` to validate, auto-fix, open a PR, and post to `#growth-docs` if issues remain.
+5. If the snapshot is unchanged, the agent exits with no-op.
 
 ### Secrets required
 
-| Secret | Repo | Purpose |
-|---|---|---|
-| `DOCS_DISPATCH_PAT` | `warp-internal` | Fine-grained PAT — **Actions: write** on `warpdotdev/docs` (to trigger `repository_dispatch`; no Contents access needed) |
-| `WARP_INTERNAL_READ_PAT` | `docs` | Fine-grained PAT — Contents read on `warpdotdev/warp-internal` |
-| `SLACK_BOT_TOKEN` | `docs` | Slack bot token with `chat:write` scope |
+| Secret | Where | Status | Notes |
+|---|---|---|---|
+| `DOCS_REPOSITORY_DISPATCH_TOKEN` | `warpdotdev/warp` GHA secrets | ✅ Already provisioned | Sends the `settings-ui-changed` event to docs via `peter-evans/repository-dispatch` |
+| `WARP_API_KEY` | `warpdotdev/docs` GHA secrets | ✅ Already provisioned | Used by the GHA workflow to dispatch the Oz cloud agent |
+| `BUZZ_SLACK_TOKEN` | Docs Agent Oz environment | ✅ Already provisioned | Used by the cloud agent for `#growth-docs` Slack notifications (same bot that posts 404 reports, etc.) |
+
+`warpdotdev/warp` (the OSS repo) is used for snapshot extraction since that's also where the trigger fires from. The Docs Agent Oz environment has `warpdotdev/warp` in its configured repos, or the agent will clone it if not present. No private repo access needed.
 
 ### Manual trigger
 

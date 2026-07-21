@@ -115,7 +115,7 @@ After the Slack summary is posted and the CSV artifact is written, continue with
 
 ### Threshold and confidence scoring
 
-Only process gaps where `hits_this_week >= 10`. This is the **automation** threshold for opening redirect PRs — deliberately higher than the **reporting** threshold (`REPORT_MIN_HITS`, default 5) used for the Phase 1 Slack summary. This threshold reduces noise; review and adjust after the first four weeks of data.
+Only process gaps where `hits_this_week >= 5`. This is the **automation** threshold for opening redirect PRs — aligned with the **reporting** threshold (`REPORT_MIN_HITS`, default 5) used for the Phase 1 Slack summary. Review and adjust based on run log data (see `## Run log`).
 
 For each qualifying uncovered URL, attempt to find a redirect target using these heuristics in order:
 
@@ -141,7 +141,7 @@ docs: add redirects for top uncovered 404 paths — YYYY-MM-DD
 
 For each proposed redirect, add an entry to the `redirects` array in `vercel.json`:
 ```json
-{"source": "/old/path", "destination": "/new/path", "permanent": true}
+{"source": "/old/path", "destination": "/new/path", "statusCode": 308}
 ```
 
 PR body must include:
@@ -170,6 +170,38 @@ If no gaps meet the threshold or no HIGH-confidence matches are found, post:
 ### Threshold calibration note
 
 After the first 4 weeks, review: if HIGH-confidence PRs contain redirects that are merged without changes, the threshold or confidence scoring is working. If PRs are frequently corrected or closed, raise the `hits_this_week` threshold or tighten the match heuristics.
+
+## Run log
+
+After every run — whether or not a PR is opened — prepend a structured entry to `.agents/logs/weekly_404_monitor_runs.md`. This log is the signal source for the `improve-404-monitor-skill` outer loop.
+
+**Never commit the run log directly to `main`.** Use the standing log branch pattern:
+
+1. Fetch and check out `chore/404-monitor-log`. If it does not exist, create it from the latest `origin/main`.
+2. Prepend the log entry to `.agents/logs/weekly_404_monitor_runs.md`.
+3. Commit with the message:
+   ```text
+   chore: update 404 monitor run log YYYY-MM-DD
+   ```
+4. Push the branch.
+5. Ensure exactly one open PR exists from `chore/404-monitor-log` into `main`, titled `chore: 404 monitor run log`. Create it if missing; otherwise the push updates the existing PR.
+
+If any git step fails, continue with the rest of the run and note the failure in the Slack summary.
+
+### Run log format
+
+```markdown
+## YYYY-MM-DD — [PR opened | No PR | No data]
+- **Total 404s this week**: N
+- **Total 404s last week**: N
+- **Trend**: ▼▲→ N%
+- **Significant gaps (≥{report_min_hits} hits)**: N ({new_gaps_count} new)
+- **Redirect candidates processed**: N  (hits ≥ {automation_threshold})
+- **HIGH-confidence redirects**: N
+- **PR**: [URL] | none
+- **Oz run**: [URL]
+- **Notes**: [any anomalies, threshold exceptions, Metabase errors, skipped URLs, etc.]
+```
 
 ## Self-review before posting
 
