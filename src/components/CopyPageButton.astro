@@ -2,16 +2,20 @@
 /**
  * CopyPageButton — Scalar-style dropdown with:
  * - Copy page (copies raw MDX body as markdown)
+ * - Copy agent prompt (copies a guided walkthrough prompt)
  * - View as Markdown (opens .md URL in new tab)
  * - Export as PDF (window.print)
  */
 interface Props {
   body: string;
   title: string;
+  /** Optional custom agent prompt. Defaults to a generic guided walkthrough prompt with the page URL. */
+  agentPrompt?: string;
 }
-const { body, title } = Astro.props;
+const { body, title, agentPrompt } = Astro.props;
 const markdownContent = `# ${title}\n\n${body}`;
 const pageUrl = Astro.url.href;
+const agentPromptText = agentPrompt ?? `Walk me through setting this up: ${pageUrl}`;
 const prompt = encodeURIComponent(`Read ${pageUrl}. I want to ask questions about it.`);
 const chatgptUrl = `https://chatgpt.com/?q=${prompt}`;
 const claudeUrl = `https://claude.ai/new?q=${prompt}`;
@@ -38,6 +42,18 @@ const claudeUrl = `https://claude.ai/new?q=${prompt}`;
       <div>
         <div class="item-label">Copy page</div>
         <div class="item-desc">Copy page as Markdown for LLMs</div>
+      </div>
+    </button>
+
+    <button class="copy-dropdown-item" id="copy-agent-prompt">
+      {/* Terminal prompt icon — evokes "agent/command" without using a branded logo */}
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="4 17 10 11 4 5"/>
+        <line x1="12" y1="19" x2="20" y2="19"/>
+      </svg>
+      <div>
+        <div class="item-label">Copy agent prompt</div>
+        <div class="item-desc">Copy a prompt to guide you through this page</div>
       </div>
     </button>
 
@@ -101,6 +117,8 @@ const claudeUrl = `https://claude.ai/new?q=${prompt}`;
 
 <!-- Store the markdown content in a hidden element so client JS can read it -->
 <template id="page-markdown-content">{markdownContent}</template>
+<!-- Store the agent prompt in a hidden element so client JS can read it -->
+<template id="agent-prompt-content">{agentPromptText}</template>
 
 <script>
   // `DOMContentLoaded` is used instead of `astro:page-load` because
@@ -112,9 +130,11 @@ const claudeUrl = `https://claude.ai/new?q=${prompt}`;
     const panel = document.getElementById('copy-dropdown-panel');
     const toast = document.getElementById('copy-toast');
     const copyBtn = document.getElementById('copy-as-markdown');
+    const copyPromptBtn = document.getElementById('copy-agent-prompt');
     const viewMdBtn = document.getElementById('view-as-markdown');
     const exportBtn = document.getElementById('export-as-pdf');
     const mdTemplate = document.getElementById('page-markdown-content') as HTMLTemplateElement | null;
+    const promptTemplate = document.getElementById('agent-prompt-content') as HTMLTemplateElement | null;
 
     if (!wrapper || !trigger || !panel) return;
 
@@ -155,6 +175,21 @@ const claudeUrl = `https://claude.ai/new?q=${prompt}`;
         } catch {
           // Permission denied / insecure context — fail silently rather than
           // copy nothing and pretend it worked.
+        }
+      }
+      panel?.classList.remove('open');
+      trigger?.classList.remove('active');
+    });
+
+    // Copy agent prompt
+    copyPromptBtn?.addEventListener('click', async () => {
+      const agentPrompt = promptTemplate?.content.textContent || '';
+      if (agentPrompt) {
+        try {
+          await navigator.clipboard.writeText(agentPrompt);
+          showToast();
+        } catch {
+          // Permission denied / insecure context — fail silently.
         }
       }
       panel?.classList.remove('open');
