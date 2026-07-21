@@ -163,7 +163,7 @@ python3 .agents/skills/validate_ui_refs/validate_ui_refs.py --all --slack-notify
 | `WARP_API_KEY` | `warpdotdev/docs` GHA secrets | ✅ Already provisioned | Used by the GHA workflow to dispatch the Oz cloud agent |
 | `BUZZ_SLACK_TOKEN` | Docs Agent Oz environment | ✅ Already provisioned | Used by the cloud agent for `#growth-docs` Slack notifications (same bot that posts 404 reports, etc.) |
 
-`warp-internal` access is provided by the Docs Agent Oz environment (environment ID `K5KStCm5aYvhfBJb8cHol6`), which has `warpdotdev/warp-internal` in its configured repos. No `WARP_INTERNAL_READ_PAT` GHA secret is needed.
+`warpdotdev/warp` (the OSS repo) is used for snapshot extraction since that's also where the trigger fires from. The Docs Agent Oz environment has `warpdotdev/warp` in its configured repos, or the agent will clone it if not present. No private repo access needed.
 
 ### Manual trigger
 
