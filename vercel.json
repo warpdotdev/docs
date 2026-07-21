@@ -96,6 +96,41 @@
   ],
   "redirects": [
     {
+      "source": "/terminal",
+      "destination": "/terminal/blocks/",
+      "statusCode": 308
+    },
+    {
+      "source": "/):",
+      "destination": "/",
+      "statusCode": 308
+    },
+    {
+      "source": "/~/revisions/pyklxx5pdxve9wvizjl3/features/entry",
+      "destination": "/terminal/entry/",
+      "statusCode": 308
+    },
+    {
+      "source": "/platform/api-sdk",
+      "destination": "/reference/api-and-sdk/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agents/warp-ai/agent-mode",
+      "destination": "/agent-platform/local-agents/interacting-with-agents/",
+      "statusCode": 308
+    },
+    {
+      "source": "/features/ai/warp-ai/external-ai-providers",
+      "destination": "/agent-platform/inference/bring-your-own-api-key/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/devops-and-infrastructure",
+      "destination": "/guides/",
+      "statusCode": 308
+    },
+    {
       "source": "/advanced/command-line-flags",
       "destination": "/terminal/sessions/launch-configurations/",
       "statusCode": 308
