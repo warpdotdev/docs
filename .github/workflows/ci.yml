@@ -47,6 +47,11 @@ jobs:
           python3 .agents/skills/missing_docs/scripts/test_suggest_reviewers.py
           python3 .agents/skills/missing_docs/scripts/test_audit_docs.py
 
+      # Validate the validate_ui_refs snapshot and script invariants. Uses
+      # a synthetic warp-internal fixture internally — no checkout required.
+      - name: Self-test validate_ui_refs skill
+        run: python3 .agents/skills/validate_ui_refs/validate_ui_refs.py --self-test
+
       # Production-only audit; gate on high+ so dev-only deprecation chatter
       # doesn't break PRs. The `|| true` keeps it informational; tighten this
       # to a hard fail once we're confident the noise is gone.
