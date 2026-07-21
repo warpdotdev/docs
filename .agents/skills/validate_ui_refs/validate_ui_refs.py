@@ -1128,11 +1128,11 @@ def notify_slack(
     channel: str,
     pr_url: Optional[str] = None,
 ) -> bool:
-    """Post a summary to Slack. Requires SLACK_BOT_TOKEN or DOCS_SLACK_BOT_TOKEN env var."""
+    """Post a summary to Slack. Requires SLACK_BOT_TOKEN, BUZZ_SLACK_TOKEN, or DOCS_SLACK_BOT_TOKEN env var."""
     token = (
         os.environ.get("SLACK_BOT_TOKEN")
-        or os.environ.get("DOCS_SLACK_BOT_TOKEN")
         or os.environ.get("BUZZ_SLACK_TOKEN")
+        or os.environ.get("DOCS_SLACK_BOT_TOKEN")
     )
     if not token:
         print("Warning: no Slack token found (checked SLACK_BOT_TOKEN, DOCS_SLACK_BOT_TOKEN, BUZZ_SLACK_TOKEN), skipping notification.", file=sys.stderr)
