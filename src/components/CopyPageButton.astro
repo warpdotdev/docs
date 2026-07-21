@@ -2,20 +2,32 @@
 /**
  * CopyPageButton — Scalar-style dropdown with:
  * - Copy page (copies raw MDX body as markdown)
- * - Copy agent prompt (copies a guided walkthrough prompt)
+ * - Copy agent prompt (copies a guided walkthrough prompt; suppressed on
+ *   changelog and reference pages, and uses a troubleshooting variant on
+ *   troubleshooting pages)
  * - View as Markdown (opens .md URL in new tab)
  * - Export as PDF (window.print)
  */
 interface Props {
   body: string;
   title: string;
-  /** Optional custom agent prompt. Defaults to a generic guided walkthrough prompt with the page URL. */
+  /** Optional custom agent prompt. Overrides all automatic prompt selection when set. */
   agentPrompt?: string;
 }
 const { body, title, agentPrompt } = Astro.props;
 const markdownContent = `# ${title}\n\n${body}`;
 const pageUrl = Astro.url.href;
-const agentPromptText = agentPrompt ?? `Walk me through setting this up: ${pageUrl}`;
+const pathname = Astro.url.pathname;
+
+// Sections where an agent walkthrough prompt doesn't make sense.
+const SUPPRESSED_PREFIXES = ['/changelog', '/reference'];
+const showAgentPrompt = !SUPPRESSED_PREFIXES.some(prefix => pathname.startsWith(prefix));
+
+// Choose prompt text. Custom prop > troubleshooting variant > default.
+const agentPromptText = agentPrompt
+  ?? (pathname.includes('troubleshooting')
+    ? `Help me troubleshoot this: ${pageUrl}`
+    : `Walk me through setting this up: ${pageUrl}`);
 const prompt = encodeURIComponent(`Read ${pageUrl}. I want to ask questions about it.`);
 const chatgptUrl = `https://chatgpt.com/?q=${prompt}`;
 const claudeUrl = `https://claude.ai/new?q=${prompt}`;
@@ -45,17 +57,19 @@ const claudeUrl = `https://claude.ai/new?q=${prompt}`;
       </div>
     </button>
 
-    <button class="copy-dropdown-item" id="copy-agent-prompt">
-      {/* Terminal prompt icon — evokes "agent/command" without using a branded logo */}
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="4 17 10 11 4 5"/>
-        <line x1="12" y1="19" x2="20" y2="19"/>
-      </svg>
-      <div>
-        <div class="item-label">Copy agent prompt</div>
-        <div class="item-desc">Copy a prompt to guide you through this page</div>
-      </div>
-    </button>
+    {showAgentPrompt && (
+      <button class="copy-dropdown-item" id="copy-agent-prompt">
+        {/* Terminal prompt icon — evokes "agent/command" without using a branded logo */}
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="4 17 10 11 4 5"/>
+          <line x1="12" y1="19" x2="20" y2="19"/>
+        </svg>
+        <div>
+          <div class="item-label">Copy agent prompt</div>
+          <div class="item-desc">Copy a prompt to guide you through this page</div>
+        </div>
+      </button>
+    )}
 
     <button class="copy-dropdown-item" id="view-as-markdown">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
