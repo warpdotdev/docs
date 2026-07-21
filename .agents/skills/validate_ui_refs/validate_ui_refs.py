@@ -1135,7 +1135,7 @@ def notify_slack(
         or os.environ.get("DOCS_SLACK_BOT_TOKEN")
     )
     if not token:
-        print("Warning: no Slack token found (checked SLACK_BOT_TOKEN, DOCS_SLACK_BOT_TOKEN, BUZZ_SLACK_TOKEN), skipping notification.", file=sys.stderr)
+        print("Warning: no Slack token found (checked SLACK_BOT_TOKEN, BUZZ_SLACK_TOKEN, DOCS_SLACK_BOT_TOKEN), skipping notification.", file=sys.stderr)
         return False
 
     try:

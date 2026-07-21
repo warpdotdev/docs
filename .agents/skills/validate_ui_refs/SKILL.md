@@ -132,13 +132,14 @@ Slack notifications are designed for automated runs, not ad-hoc usage. When runn
 
 The `--slack-notify` flag posts a summary to `#growth-docs` when unfixed issues remain after a run. If the scan is clean (0 issues), no notification is sent.
 
-### Setup (one-time)
+### Setup
 
-Add `SLACK_BOT_TOKEN` as a repository secret in `warpdotdev/docs` (**Settings** > **Secrets and variables** > **Actions**). The token needs `chat:write` scope.
+For **automated runs**, the Slack token is provided by the Docs Agent Oz environment via `BUZZ_SLACK_TOKEN` — no GHA secret needed.
 
-### Usage
+For **manual runs** from the command line, export a Slack bot token with `chat:write` scope before running:
 
 ```bash
+export SLACK_BOT_TOKEN=xoxb-...
 python3 .agents/skills/validate_ui_refs/validate_ui_refs.py --all --slack-notify
 ```
 
