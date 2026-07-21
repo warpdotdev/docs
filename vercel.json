@@ -97,7 +97,7 @@
   "redirects": [
     {
       "source": "/terminal",
-      "destination": "/terminal/blocks/",
+      "destination": "/terminal/input/classic-input/",
       "statusCode": 308
     },
     {
@@ -122,12 +122,17 @@
     },
     {
       "source": "/features/ai/warp-ai/external-ai-providers",
-      "destination": "/agent-platform/inference/bring-your-own-api-key/",
+      "destination": "/agent-platform/cli-agents/overview/",
       "statusCode": 308
     },
     {
       "source": "/guides/devops-and-infrastructure",
-      "destination": "/guides/",
+      "destination": "/guides/devops/how-to-analyze-cloud-run-logs-gcloud/",
+      "statusCode": 308
+    },
+    {
+      "source": "/knowledge-and-collaboration/session-sharingentials1",
+      "destination": "/knowledge-and-collaboration/session-sharing/",
       "statusCode": 308
     },
     {
