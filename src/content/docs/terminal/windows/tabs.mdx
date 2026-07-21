@@ -1,8 +1,8 @@
 ---
 title: Tabs
 description: >-
-  Organize your window into multiple terminal sessions with customizable tabs,
-  complete with titles and ANSI colors.
+  Organize terminal sessions with customizable tabs and groups, then pin
+  important tabs and groups at the front of the tab list.
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 import VideoEmbed from '@components/VideoEmbed.astro';
@@ -125,6 +125,41 @@ Click a group's header to collapse or expand it. Collapsed groups hide their mem
 
 :::note
 You can assign keyboard shortcuts for creating a group from the active or selected tabs and for removing tabs from a group in **Settings** > **Keyboard shortcuts**.
+:::
+
+## Pin tabs and groups
+
+Pin frequently used tabs or tab groups to keep them at the front of the tab list. Pinned items form a leading section before unpinned tabs and groups, and you can reorder items within the pinned section. Pinning works in both the horizontal tab bar and the [vertical tabs](/terminal/windows/vertical-tabs/) panel. Warp restores the pinned state when you reopen the window.
+
+### Pin a tab
+
+1. Right-click the tab you want to keep at the front.
+2. Click **Pin tab**.
+
+Warp moves the tab to the end of the pinned section.
+
+:::note
+If the tab belongs to a group, **Pin tab** removes the tab from its group and pins it independently. To keep the group together, pin the group instead.
+:::
+
+### Pin a group
+
+1. Right-click the group's header.
+2. Click **Pin group**.
+
+Warp moves the entire group to the end of the pinned section as one block.
+
+### Unpin a tab or group
+
+To return an item to the unpinned section:
+
+* **Tab** - Right-click the pinned tab, then click **Unpin tab**.
+* **Group** - Right-click the pinned group's header, then click **Unpin group**.
+
+Warp moves the item to the beginning of the unpinned section.
+
+:::note
+You can assign keyboard shortcuts for pinning or unpinning the active tab or group in **Settings** > **Keyboard shortcuts**.
 :::
 
 ## Move a tab to another window

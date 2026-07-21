@@ -715,7 +715,6 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `AIAutonomy.ChangedAgentModeAskUserQuestionPermission` | Changed Agent Mode permission for asking user questions |
 | `AIAutonomy.ChangedAgentModeCodingPermissions` | Changed Agent Mode permissions for coding tasks |
 | `AIAutonomy.ToggledAutoexecuteReadonlyCommandsSetting` | Toggled setting to autoexecute readonly Agent Mode requested commands |
-| `Active Indexed Repos Changed` | Active indexed repositories changed, affecting codebase context. |
 | `Add Added Subshell Command` | Added a command to be automatically Warpified via Warp's subshell wrapper |
 | `Add Denylisted Subshell Command` | Explicitly prevent a command from being Warpified via Warp's subshell wrapper |
 | `Add Tab With Shell` | Added a tab with specific shell |
@@ -784,7 +783,6 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `AgentMode.MerkleTreeSnapshot.Diff.Success` | Successfully diffed merkle tree snapshot |
 | `AgentMode.MerkleTreeSnapshot.Rebuild.Failed` | Failed to rebuild merkle tree from snapshot |
 | `AgentMode.MerkleTreeSnapshot.Rebuild.Success` | Successfully rebuilt merkle tree from snapshot |
-| `AgentMode.NaturalLanguageDetection.InputBufferSubmitted` | Input buffer submitted |
 | `AgentMode.OpenedCitation` | Opened a citation that was surfaced in agent mode |
 | `AgentMode.Orchestration.AgentProposedConfig` | An agent-authored orchestration config snapshot first became visible to the user on a plan card |
 | `AgentMode.Orchestration.Entered` | Orchestration was activated in a conversation via /orchestrate or a run_agents confirmation card surfacing. Plan-card entries are tracked separately via AgentProposedConfig + PlanConfigApprovalToggled. |
@@ -810,7 +808,6 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `AgentView.InlineConversationMenuItemSelected` | User selected an item from the inline conversation menu |
 | `AgentView.InlineConversationMenuOpened` | User opened the inline conversation menu in Agent View |
 | `AgentView.ShortcutsViewToggled` | User toggled the shortcuts view in Agent View |
-| `AgenticOnboarding.BlockSelected` | Selected an agentic onboarding block to execute |
 | `AmbientAgent.CloudMode.Entered` | User entered cloud agent view |
 | `AmbientAgent.CloudMode.EnvironmentSelector.Opened` | User opened the environment selector menu |
 | `AmbientAgent.CloudMode.EnvironmentSelector.Selected` | User selected an environment from the selector |
@@ -893,6 +890,15 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `CLI.Execute.Login` | Logged in via the Warp CLI |
 | `CLI.Execute.Logout` | Logged out via the Warp CLI |
 | `CLI.Execute.MCP.List` | Listed MCP servers from the Warp CLI |
+| `CLI.Execute.MemoryStore.CreateMemory` | Created a manual memory in a memory store from the Warp CLI |
+| `CLI.Execute.MemoryStore.DeleteMemory` | Deleted a memory from a memory store from the Warp CLI |
+| `CLI.Execute.MemoryStore.GetStore` | Got a memory store from the Warp CLI |
+| `CLI.Execute.MemoryStore.List` | Listed memory stores from the Warp CLI |
+| `CLI.Execute.MemoryStore.ListMemories` | Listed memories in a memory store from the Warp CLI |
+| `CLI.Execute.MemoryStore.ListStoreAgents` | Listed agents attached to a memory store from the Warp CLI |
+| `CLI.Execute.MemoryStore.ListVersions` | Listed version history of a memory from the Warp CLI |
+| `CLI.Execute.MemoryStore.UpdateMemory` | Updated a memory in a memory store from the Warp CLI |
+| `CLI.Execute.MemoryStore.UpdateStore` | Updated a memory store from the Warp CLI |
 | `CLI.Execute.Model.List` | Listed models from the Warp CLI |
 | `CLI.Execute.Provider.List` | Listed providers from the Warp CLI |
 | `CLI.Execute.Provider.Setup` | Set up a provider via the Warp CLI |
@@ -966,7 +972,6 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `Command File Run` | Opened a .cmd or unix executable file and ran it directly in Warp |
 | `Command Palette Search Accepted` | Accepted a command palette search result |
 | `Command Palette Search Exited` | Exited command palette search without accepting a result |
-| `Command Search Async Query Completed` | Finished searching for a command in the background |
 | `Command Search Exited` | Exited command search (universal search panel to search) without accepting a result |
 | `Command Search Filter Changed` | Changed command search filter |
 | `Command Search Opened` | Opened command search (universal search panel to search) |
@@ -1026,9 +1031,6 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `FreeAiRemovalModal.CtaClicked` | The user clicked a CTA in the free AI removal notice modal |
 | `FreeAiRemovalModal.Dismissed` | The user dismissed the free AI removal notice modal |
 | `FreeAiRemovalModal.Shown` | The free AI removal notice modal was shown to the user |
-| `FreeTierLimitHitInterstitial.Closed` | User closed the free tier limit hit interstitial |
-| `FreeTierLimitHitInterstitial.Displayed` | The free tier limit hit interstitial was displayed |
-| `FreeTierLimitHitInterstitial.UpgradeButtonClicked` | User clicked the 'Upgrade' button in the free tier limit hit interstitial |
 | `Generate Block Sharing Link` | Generated Block sharing link |
 | `Generate Metadata For Workflow Error` | Failed to generate metadata for a workflow using Warp AI |
 | `Generate Metadata For Workflow Success` | Successfully generated metadata for a workflow using Warp AI |
@@ -1038,7 +1040,6 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `Global Search Query Started` | Started a global search (warp_ripgrep) search |
 | `ITerm Profile has Multiple Hotkeys` | Attempted to import an iTerm profile that contained multiple hotkey window bindings |
 | `Identified Antivirus Software` | Identified running antivirus software on the user's machine |
-| `Image Received` | Received an image through an image protocol over the pty |
 | `InitialWorkingDirectoryConfigurationChanged` | Replaced the default working directory with a different path |
 | `Initiate Reauth` | Started the flow to re-authenticate the client |
 | `Input Mode Changed` | Changed the Input Editor Mode (Pinned to Bottom, Pinned to Top, Classic / Waterfall Mode) |
@@ -1214,7 +1215,6 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `Tab Creation` | Created a tab |
 | `Tab Operations` | Took operation on a tab: change color, close tab, close adjacent tabs, etc. |
 | `Tab Renamed` | Changed tab title |
-| `Tab Single Result Autocompletion` | Accepted tab completion and inserted into Input Editor |
 | `TabConfigs.ExistingConfigOpened` | User opened an existing saved tab config |
 | `TabConfigs.GuidedModalOpened` | User opened the guided Create a tab config modal |
 | `TabConfigs.GuidedModalSubmitted` | User submitted the guided Create a tab config modal |
@@ -1224,6 +1224,7 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `Team Joined` | Joined a Warp Drive team |
 | `Team Left` | Left a Warp Drive team |
 | `Team Link Copied` | Copied a Warp Drive team link |
+| `Terminal Lifecycle Recovery` | A terminal lifecycle transition required conservative handling or recovery |
 | `Thin Strokes Setting Changed` | Changed thin strokes setting in settings -> Appearance |
 | `Tier Limit Hit` | User hit the tier limit for a feature |
 | `Toggle Active AI Enablement` | Toggled active AI enablement. |
@@ -1264,7 +1265,6 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `Toggled Tab Bar Visibility` | Toggled when to display the tab bar |
 | `Tried to Execute Before Precmd` | Attempted to execute command before precmd, a shell stage that has metadata on a command such as ssh, prompt info, etc. |
 | `Trigger Subshell Bootstrap` | Attempted to Warpify the current session via Warp's subshell wrapper |
-| `Triggered Command XRay` | Triggered Command X-Ray (hovering over a command for explanation) |
 | `Unable to Update To New Version` | Update available but not authorized to install |
 | `Undo Close` | Re-opened a closed tab or window (undo closing a tab or window) |
 | `Unhandled Editor Modifier Key` | Used modifier keybinding keystroke which is not currently supported |

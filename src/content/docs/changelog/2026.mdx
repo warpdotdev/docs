@@ -6,6 +6,92 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2026.07.16 (v0.2026.07.15.08.55)
+
+**New features**
+
+* Added a connection indicator for cloud agent sessions. ([#13340](https://github.com/warpdotdev/warp/pull/13340))
+
+**Improvements**
+
+* MCP tool-call request/response previews in Agent Mode now render in monospace font. ([#13490](https://github.com/warpdotdev/warp/pull/13490))
+* Added toggles in Settings → Appearance to control which tabs appear in the tools panel. ([#13506](https://github.com/warpdotdev/warp/pull/13506))
+* Added a Subscribe button to the out-of-credits AI error for quick upgrade access. ([#13544](https://github.com/warpdotdev/warp/pull/13544))
+* The run details Status chip now links directly to the run in Oz web. ([#13455](https://github.com/warpdotdev/warp/pull/13455))
+* Double-click a collapsed hidden section in the diff editor to fully expand it. ([#11621](https://github.com/warpdotdev/warp/pull/11621)) — [@bradleyjames](https://github.com/bradleyjames) ✨
+* Agent conversations now respect your theme's background color instead of a lightened overlay. ([#13495](https://github.com/warpdotdev/warp/pull/13495))
+* Faster app startup: persisted agent conversations are now loaded lazily instead of fully decoded at launch. ([#13449](https://github.com/warpdotdev/warp/pull/13449))
+* Highlighted the currently selected period in the Billing & Usage dropdown. ([#13551](https://github.com/warpdotdev/warp/pull/13551))
+* Added a Copy action to the locked initial queued prompt in cloud mode. ([#13595](https://github.com/warpdotdev/warp/pull/13595))
+* Suppressed passive suggestions for cloud-agent session viewers. ([#13565](https://github.com/warpdotdev/warp/pull/13565))
+* Added a 'Copy current path' command palette action. ([#13148](https://github.com/warpdotdev/warp/pull/13148)) — [@elviskahoro](https://github.com/elviskahoro) ✨
+* Added Resend and Sentry product icons to the MCP gallery. ([#13450](https://github.com/warpdotdev/warp/pull/13450))
+* Matched MCP Servers search field sizing to standard search fields. ([#13536](https://github.com/warpdotdev/warp/pull/13536))
+* Replaced the `/pr-comments` slash command with the bundled PR Comments skill. ([#13621](https://github.com/warpdotdev/warp/pull/13621))
+
+**Bug fixes**
+
+* Fixed an issue where you could not continue a conversation after the sandbox shut down. ([#13340](https://github.com/warpdotdev/warp/pull/13340))
+* Fixed link detection incorrectly including fullwidth/CJK punctuation after URLs and file paths. ([#13085](https://github.com/warpdotdev/warp/pull/13085)) — [@rhinoc](https://github.com/rhinoc) ✨
+* Fixed git status completion parsing for paths with spaces and renames, and completion of nested untracked files for git add. ([#13673](https://github.com/warpdotdev/warp/pull/13673))
+* Fixed forking an agent conversation resetting the working directory instead of keeping the current one. ([#13482](https://github.com/warpdotdev/warp/pull/13482))
+* Fixed unmodified-lines hover styles flickering while scrolling over the code review gutter. ([#13556](https://github.com/warpdotdev/warp/pull/13556))
+* Fixed launch configuration tab-level commands not running when opened via `warp://launch/<name>`. ([#13103](https://github.com/warpdotdev/warp/pull/13103)) — [@AndreKalberer](https://github.com/AndreKalberer) ✨
+* Fixed Markdown files opening in Warp's Markdown Viewer from macOS file URLs even when the Markdown Viewer preference is disabled. ([#12866](https://github.com/warpdotdev/warp/pull/12866)) — [@fadexadex](https://github.com/fadexadex) ✨
+* Fixed bold/italic Markdown links breaking before trailing punctuation. ([#13747](https://github.com/warpdotdev/warp/pull/13747))
+* Fixed extra border gap on agent tool-call banners. ([#13154](https://github.com/warpdotdev/warp/pull/13154))
+* Fixed text selection not starting correctly over Markdown tables. ([#12841](https://github.com/warpdotdev/warp/pull/12841))
+* Fixed custom endpoint model selections not persisting across device sync. ([#13574](https://github.com/warpdotdev/warp/pull/13574))
+* Fixed code review pinned file header showing diff content behind its rounded corners. ([#13616](https://github.com/warpdotdev/warp/pull/13616))
+* Fixed missing macOS permission descriptions for Reminders and Calendar access (resolves icalBuddy failures). ([#13608](https://github.com/warpdotdev/warp/pull/13608))
+* Fixed imported PR comments on context lines being wrongly marked as outdated. ([#13585](https://github.com/warpdotdev/warp/pull/13585))
+* Fixed repo-gated slash commands lingering after leaving a repository. ([#13614](https://github.com/warpdotdev/warp/pull/13614))
+* Fixed crash when deserializing cloud environments without a Docker image. ([#13553](https://github.com/warpdotdev/warp/pull/13553))
+* Fixed group header not rendering for every multi-pane vertical tab. ([#10738](https://github.com/warpdotdev/warp/pull/10738)) — [@lonexreb](https://github.com/lonexreb) ✨
+* Fixed the queued prompts panel not reappearing when an inline menu closes. ([#13527](https://github.com/warpdotdev/warp/pull/13527))
+* Fixed an orchestration pill bar panic when dragging panes. ([#13528](https://github.com/warpdotdev/warp/pull/13528))
+* Fixed a crash when opening Custom Routers settings with an invalid router file. ([#13499](https://github.com/warpdotdev/warp/pull/13499))
+* Fixed agent requests failing during Grok OAuth token refresh. ([#13460](https://github.com/warpdotdev/warp/pull/13460))
+* Fixed local-to-cloud handoff failing to start with an invalid model ID. ([#13458](https://github.com/warpdotdev/warp/pull/13458))
+* Fixed a macOS computer-use crash when building the keycode cache off the main thread. ([#13547](https://github.com/warpdotdev/warp/pull/13547))
+* Fixed directory account resolution for Linux builds using musl libc. ([#13384](https://github.com/warpdotdev/warp/pull/13384))
+
+### 2026.07.09 (v0.2026.07.08.17.54)
+
+**Improvements**
+
+* Markdown files now have syntax highlighting in the editor. ([#13034](https://github.com/warpdotdev/warp/pull/13034)) — [@bradleyjames](https://github.com/bradleyjames) ✨
+* Cross-window tab dragging has been re-enabled on macOS and Windows. ([#13411](https://github.com/warpdotdev/warp/pull/13411))
+* "Copy file path" is now available from the file viewer pane right-click menu. ([#13145](https://github.com/warpdotdev/warp/pull/13145)) — [@elviskahoro](https://github.com/elviskahoro) ✨
+* Made custom inference model lists scrollable. ([#12647](https://github.com/warpdotdev/warp/pull/12647))
+* Added a command palette action to write a heap profile to disk. ([#13107](https://github.com/warpdotdev/warp/pull/13107)) — [@AndreKalberer](https://github.com/AndreKalberer) ✨
+
+**Bug fixes**
+
+* Fixed a crash when changing the Agent Mode model if cached model preferences were stale. ([#13443](https://github.com/warpdotdev/warp/pull/13443))
+* Fixed some glyphs misrendering on macOS when a user-installed font was set as the default. ([#13317](https://github.com/warpdotdev/warp/pull/13317))
+* Fixed the conversation details credits breakdown not showing which models were used. ([#13438](https://github.com/warpdotdev/warp/pull/13438))
+* Fixed a case where taking over an agent-monitored long-running command with Ctrl-C could cause it to hang. ([#12738](https://github.com/warpdotdev/warp/pull/12738))
+* Web search and web page fetch now show a clear failed state instead of appearing to complete successfully. ([#13185](https://github.com/warpdotdev/warp/pull/13185))
+* Fixed cmd+←/→ (and Home/End) jumping to the start/end of the current visual (soft-wrapped) line in the input editor. ([#13195](https://github.com/warpdotdev/warp/pull/13195))
+* Fixed faint, hard-to-read item labels in the Settings “Header toolbar layout” editor in light themes. ([#13209](https://github.com/warpdotdev/warp/pull/13209))
+* [Windows] Fixed new terminal sessions and background work being starved due to a priority inversion in the Windows PTY. ([#13151](https://github.com/warpdotdev/warp/pull/13151))
+* Fixed `/pr-comments` returning a 404 for pull requests opened from a fork. ([#13284](https://github.com/warpdotdev/warp/pull/13284))
+* Fixed a terminal crash when a clear-driven resize truncated the spacer row. ([#12726](https://github.com/warpdotdev/warp/pull/12726)) — [@ChanlerDev](https://github.com/ChanlerDev) ✨
+* Custom PS1 prompt text is now included when copying terminal blocks. ([#13076](https://github.com/warpdotdev/warp/pull/13076)) — [@SkyNotSilent](https://github.com/SkyNotSilent) ✨
+* Added a “Don’t show me again” option to the SSH “completions are not working” banner. ([#12969](https://github.com/warpdotdev/warp/pull/12969)) — [@s1ckoleg](https://github.com/s1ckoleg) ✨
+* Fixed duplicated leading characters in rendered multi-line command blocks. ([#12619](https://github.com/warpdotdev/warp/pull/12619)) — [@MX48Live](https://github.com/MX48Live) ✨
+* Fixed the inline `/repos` menu briefly flashing “No results” before the list populated. ([#13454](https://github.com/warpdotdev/warp/pull/13454))
+* Fixed a crash during cross-window tab drag when entering macOS full-screen mode. ([#13409](https://github.com/warpdotdev/warp/pull/13409))
+* Fixed a panic in the SSH remote server daemon on hosts where the current user has no passwd entry. ([#13382](https://github.com/warpdotdev/warp/pull/13382))
+* Warp SSH now falls back to plain SSH when `~/.ssh/config` sets `RemoteCommand`, preventing session startup failures. ([#13315](https://github.com/warpdotdev/warp/pull/13315))
+* Fixed clicking a link or file path in Agent Mode output not showing the “Open link” tooltip on a plain click. ([#13280](https://github.com/warpdotdev/warp/pull/13280))
+* Fixed conversation rewind re-sending rewound-away prompts and triggering stale sub-agent tasks. ([#13072](https://github.com/warpdotdev/warp/pull/13072))
+* Fixed a tab-rename action being incorrectly offered for tabs inside tab groups in pane view. ([#13289](https://github.com/warpdotdev/warp/pull/13289))
+* Fixed a crash when `/compact-and` ran while a queued prompt was active. ([#13236](https://github.com/warpdotdev/warp/pull/13236))
+* Fixed the model fallback logic incorrectly selecting admin-disabled models. ([#13331](https://github.com/warpdotdev/warp/pull/13331))
+* [Windows] Fixed secure storage reporting missing keys as a generic error instead of NotFound. ([#13278](https://github.com/warpdotdev/warp/pull/13278))
+
 ### 2026.07.03 (v0.2026.07.01.09.21)
 
 **New features**

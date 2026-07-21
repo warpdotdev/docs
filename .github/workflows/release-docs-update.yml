@@ -20,11 +20,6 @@ on:
         required: true
         type: boolean
         default: true
-      assign_oncall_reviewers:
-        description: Assign primary and secondary client on-call reviewers.
-        required: true
-        type: boolean
-        default: false
   repository_dispatch:
     types:
       - release-docs-update
@@ -52,11 +47,9 @@ jobs:
           WORKFLOW_CHANNEL_VERSIONS_REF: ${{ inputs.channel_versions_ref }}
           WORKFLOW_TASK_SET: ${{ inputs.task_set }}
           WORKFLOW_CREATE_DRAFT_PR: ${{ inputs.create_draft_pr }}
-          WORKFLOW_ASSIGN_ONCALL_REVIEWERS: ${{ inputs.assign_oncall_reviewers }}
           DISPATCH_CHANNEL_VERSIONS_REF: ${{ github.event.client_payload.channel_versions_ref }}
           DISPATCH_TASK_SET: ${{ github.event.client_payload.task_set }}
           DISPATCH_CREATE_DRAFT_PR: ${{ github.event.client_payload.create_draft_pr }}
-          DISPATCH_ASSIGN_ONCALL_REVIEWERS: ${{ github.event.client_payload.assign_oncall_reviewers }}
         run: |
           python3 <<'PY'
           import json
@@ -70,14 +63,12 @@ jobs:
                   "channel_versions_ref": os.environ.get("DISPATCH_CHANNEL_VERSIONS_REF") or "main",
                   "task_set": "all",  # always run all tasks for automated dispatch
                   "create_draft_pr": os.environ.get("DISPATCH_CREATE_DRAFT_PR") or "false",
-                  "assign_oncall_reviewers": os.environ.get("DISPATCH_ASSIGN_ONCALL_REVIEWERS") or "false",
               }
           else:
               raw = {
                   "channel_versions_ref": os.environ.get("WORKFLOW_CHANNEL_VERSIONS_REF") or "main",
                   "task_set": os.environ.get("WORKFLOW_TASK_SET") or "changelog",
                   "create_draft_pr": os.environ.get("WORKFLOW_CREATE_DRAFT_PR") or "true",
-                  "assign_oncall_reviewers": os.environ.get("WORKFLOW_ASSIGN_ONCALL_REVIEWERS") or "false",
               }
 
           channel_ref = raw["channel_versions_ref"].strip()
@@ -104,7 +95,6 @@ jobs:
               "channel_versions_ref": channel_ref,
               "task_set": task_set,
               "create_draft_pr": normalize_bool("create_draft_pr"),
-              "assign_oncall_reviewers": normalize_bool("assign_oncall_reviewers"),
           }
 
           with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
@@ -116,9 +106,9 @@ jobs:
           PY
 
       # Installs the stable oz CLI and runs the release_updates skill in the
-      # release-docs Oz environment (K5KStCm5aYvhfBJb8cHol6), which has
-      # DOCS_AGENT_GRAFANA_TOKEN configured for on-call reviewer assignment.
+      # release-docs Oz environment (K5KStCm5aYvhfBJb8cHol6).
       # WARP_API_KEY is the Docs Agent's API key.
+      # DOCS_SLACK_BOT_TOKEN must be added to the environment for Slack notifications.
       - name: Install Oz CLI
         run: |
           curl -sL "https://app.warp.dev/download/cli?os=linux&package=deb&arch=x86_64" -o /tmp/oz.deb
@@ -128,7 +118,6 @@ jobs:
         env:
           TASK_SET: ${{ steps.trigger-inputs.outputs.task_set }}
           CREATE_DRAFT_PR: ${{ steps.trigger-inputs.outputs.create_draft_pr }}
-          ASSIGN_ONCALL_REVIEWERS: ${{ steps.trigger-inputs.outputs.assign_oncall_reviewers }}
           CHANNEL_VERSIONS_REF: ${{ steps.trigger-inputs.outputs.channel_versions_ref }}
           TRIGGER_JSON: ${{ steps.trigger-inputs.outputs.json }}
         run: |
@@ -136,34 +125,12 @@ jobs:
           import json, os
           task_set = os.environ['TASK_SET']
           create_draft_pr = os.environ['CREATE_DRAFT_PR']
-          assign_oncall_reviewers = os.environ['ASSIGN_ONCALL_REVIEWERS']
           channel_versions_ref = os.environ['CHANNEL_VERSIONS_REF']
           trigger_json = json.dumps(json.loads(os.environ['TRIGGER_JSON']), indent=2, sort_keys=True)
 
           pr_flag = '--pr-draft' if create_draft_pr == 'true' else '--pr-auto-merge'
           task_flag = '--tasks changelog' if task_set == 'changelog' else ''
           auto_install = '--auto-install-missing-dependency' if not task_flag else ''
-
-          # Reviewer assignment is handled by the GitHub Actions workflow after the
-          # oz run completes. The agent resolves on-call handles via DOCS_AGENT_GRAFANA_TOKEN
-          # and embeds them in the PR body as <!-- oz-reviewers: handle1,handle2 -->.
-          # Actions reads that marker and assigns using its own GITHUB_TOKEN.
-          reviewer_instructions = ''
-          if assign_oncall_reviewers == 'true':
-              reviewer_instructions = '''
-          On-call reviewer instructions (assign_oncall_reviewers is true):
-          - After the PR is created, run the resolver:
-            python3 .agents/skills/release_updates/scripts/resolve_oncall_reviewers.py S1BRQ4BYUP5WN --max-reviewers 2
-          - If exit code 0 (success): parse the JSON, extract the "reviewers" list (GitHub handles),
-            and append this HTML comment to the PR body on its own line:
-              <!-- oz-reviewers: handle1,handle2 -->
-            The GitHub Actions workflow will assign them via its own GITHUB_TOKEN.
-          - If exit code 1 or 2 (resolution failed): fall back to default reviewers.
-            Append this HTML comment to the PR body:
-              <!-- oz-reviewers: dannyneira,hongyi-chen -->
-            Then log the resolution failure to stderr.
-          - Do NOT attempt gh pr edit --add-reviewer in either case.
-          '''
 
           prompt = f"""Run the release docs update workflow from the `release_updates` skill.
 
@@ -180,7 +147,10 @@ jobs:
           5. Use a draft PR when create_draft_pr is true. Note: --pr-draft and --pr-auto-merge are mutually exclusive; never pass both.
           6. Run `npm run build` before considering the PR ready for review.
           7. If no docs changes are needed, report a no-op result and do not open a PR.
-          {reviewer_instructions}
+          8. After creating the PR: post a Slack notification to the #oncall-client Slack channel (ID: C06MT1NRBFV).
+             - Resolve the oncall-client-primary and oncall-client-secondary Slack user groups via the Slack usergroups.list API (DOCS_SLACK_BOT_TOKEN).
+             - Message format: ":books: New release docs PR ready for review\n<PR_URL>\n<!subteam^PRIMARY_ID|oncall-client-primary> <!subteam^SECONDARY_ID|oncall-client-secondary> please take a look when you get a chance."
+             - If DOCS_SLACK_BOT_TOKEN is unset, skip silently and log a warning.
           Expected command (adjust flags per trigger values above):
           python3 .agents/skills/release_updates/scripts/run_release_updates.py {task_flag} --create-pr --pr-base main {pr_flag} {auto_install}
           """
@@ -236,32 +206,44 @@ jobs:
             exit 1
           fi
 
-      - name: Assign on-call reviewers from PR body
-        if: >
-          steps.oz-wait.outputs.oz_run_status == 'succeeded' &&
-          steps.trigger-inputs.outputs.assign_oncall_reviewers == 'true'
+      - name: Assign last docs PR reviewer
+        if: steps.oz-wait.outputs.oz_run_status == 'succeeded'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WARP_API_KEY: ${{ secrets.WARP_API_KEY }}
         run: |
-          # Get the PR number from the oz run artifacts (more reliable than branch search)
+          # Get the PR number from the oz run
           RUN_OUTPUT=$(oz run get "${{ steps.oz-dispatch.outputs.run_id }}" 2>/dev/null || echo "")
           PR_NUMBER=$(echo "$RUN_OUTPUT" | grep -oP 'PR: docs #\K[0-9]+')
           if [[ -z "$PR_NUMBER" ]]; then
-            echo "::warning::Could not find PR number in oz run artifacts — skipping reviewer assignment."
+            echo "::warning::Could not find PR number in oz run — skipping reviewer assignment."
             exit 0
           fi
-          echo "Found PR #$PR_NUMBER from oz run artifacts"
-          PR_BODY=$(gh pr view "$PR_NUMBER" --repo warpdotdev/docs --json body --jq '.body' 2>/dev/null || echo "")
-          REVIEWERS=$(echo "$PR_BODY" | grep -oP '(?<=<!-- oz-reviewers: ).*?(?= -->)' || echo "")
-          if [[ -z "$REVIEWERS" ]]; then
-            echo "::warning::Auto-assignment skipped for PR #$PR_NUMBER — oz-reviewers marker not found in PR body. On-call reviewer(s) could not be resolved to GitHub handles. Check the Oz run for details: https://oz.warp.dev/runs/${{ steps.oz-dispatch.outputs.run_id }}"
-            exit 0
-          fi
-          echo "Assigning reviewers from PR body: $REVIEWERS"
-          IFS=',' read -ra HANDLES <<< "$REVIEWERS"
-          for handle in "${HANDLES[@]}"; do
-            handle=$(echo "$handle" | xargs)
-            echo "Adding reviewer: $handle"
-            gh pr edit "$PR_NUMBER" --add-reviewer "$handle" --repo warpdotdev/docs
+          echo "Found PR #$PR_NUMBER"
+
+          # Find last human reviewer by iterating recent merged docs PRs
+          RECENT_PRS=$(gh api "/repos/warpdotdev/docs/pulls?state=closed&sort=updated&direction=desc&per_page=20" \
+            --jq "[.[] | select(.merged_at != null and (.number | tostring) != \"$PR_NUMBER\") | .number]" \
+            2>/dev/null || echo "[]")
+
+          LAST_REVIEWER=""
+          for CANDIDATE_PR in $(echo "$RECENT_PRS" | python3 -c "import json,sys; [print(n) for n in json.load(sys.stdin)]"); do
+            REVIEWER=$(gh api "/repos/warpdotdev/docs/pulls/${CANDIDATE_PR}/reviews" \
+              --jq '[.[] | select(.user.type == "User" and (.user.login | test("\\[bot\\]"; "i") | not)) | .user.login] | last' \
+              2>/dev/null || echo "")
+            [[ "$REVIEWER" == "null" ]] && REVIEWER=""
+            if [[ -n "$REVIEWER" ]]; then
+              LAST_REVIEWER="$REVIEWER"
+              echo "Found reviewer $LAST_REVIEWER from PR #$CANDIDATE_PR"
+              break
+            fi
           done
+
+          if [[ -z "$LAST_REVIEWER" ]]; then
+            echo "::warning::No recent reviewer found — using default reviewer dannyneira"
+            LAST_REVIEWER="dannyneira"
+          fi
+
+          echo "Assigning reviewer: $LAST_REVIEWER"
+          gh pr edit "$PR_NUMBER" --add-reviewer "$LAST_REVIEWER" --repo warpdotdev/docs 2>&1 || \
+            echo "::warning::Could not assign $LAST_REVIEWER as reviewer"

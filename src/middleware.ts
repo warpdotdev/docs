@@ -17,6 +17,14 @@ import {
  * negotiation and user-agent fallback detection (see `src/lib/docs-markdown.js`).
  */
 export const onRequest = defineMiddleware(async (context, next) => {
+	// Content negotiation only applies to on-demand (SSR) requests. During the
+	// static prerender pass there is no real request, and reading
+	// `request.headers` warns ("not available on prerendered pages") once per
+	// route, which floods the build log. Skip it when the route is prerendered.
+	if (context.isPrerendered) {
+		return next();
+	}
+
 	const { request, url } = context;
 
 	if (!isEligibleDocHtmlPath(url.pathname)) {

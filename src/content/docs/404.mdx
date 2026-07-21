@@ -1,0 +1,21 @@
+---
+title: Page not found
+description: The page you are looking for does not exist or has moved.
+template: splash
+---
+{/*
+	Custom 404 page. Starlight renders the `404` docs entry through its own
+	prerendered /404 route (see get404Route in @astrojs/starlight), so this
+	replaces the previous `src/pages/404.astro` — which defined a second /404
+	route and collided with Starlight's built-in one.
+
+	The <Docs404Tracking /> component fires the `docs_404` Rudderstack event
+	consumed by the weekly-404-monitor agent; keep it on this page.
+*/}
+import Docs404Tracking from '@components/Docs404Tracking.astro';
+
+The page you are looking for does not exist or has been moved. Use the search or navigation to find what you need.
+
+[Go to the docs home](/)
+
+<Docs404Tracking />
