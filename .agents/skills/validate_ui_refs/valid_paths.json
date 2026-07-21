@@ -226,8 +226,6 @@
       "display_name": "Code",
       "sub_sections": [
         "Codebase Indexing",
-        "Code Editor and Review",
-        "Codebase Indexing",
         "Code Editor and Review"
       ],
       "source_file": "app/src/settings_view/code_page.rs"
@@ -235,10 +233,7 @@
     "Indexing and projects": {
       "display_name": "Indexing and projects",
       "sub_sections": [
-        "Codebase Indexing",
-        "Code Editor and Review",
-        "Codebase Indexing",
-        "Code Editor and Review"
+        "Codebase Indexing"
       ],
       "source_file": "app/src/settings_view/code_page.rs",
       "umbrella": "Code"
@@ -246,9 +241,6 @@
     "Editor and Code Review": {
       "display_name": "Editor and Code Review",
       "sub_sections": [
-        "Codebase Indexing",
-        "Code Editor and Review",
-        "Codebase Indexing",
         "Code Editor and Review"
       ],
       "source_file": "app/src/settings_view/code_page.rs",
