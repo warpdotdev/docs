@@ -156,11 +156,11 @@ python3 .agents/skills/validate_ui_refs/validate_ui_refs.py --all --slack-notify
 
 ### Secrets required
 
-| Secret | Repo | Purpose |
-|---|---|---|
-| `DOCS_DISPATCH_PAT` | `warpdotdev/warp` | Fine-grained PAT — **Contents: Read and write** on `warpdotdev/docs` (required by the `repository_dispatch` API endpoint). Create from the `warpmachineuser` account. |
-| `WARP_INTERNAL_READ_PAT` | `docs` | Fine-grained PAT — Contents read on `warpdotdev/warp-internal` |
-| `SLACK_BOT_TOKEN` | `docs` | Slack bot token with `chat:write` scope |
+| Secret | Repo | Status | Purpose |
+|---|---|---|---|
+| `DOCS_REPOSITORY_DISPATCH_TOKEN` | `warpdotdev/warp` | ✅ Already provisioned | Token used by `peter-evans/repository-dispatch` to send the `settings-ui-changed` event to docs |
+| `WARP_INTERNAL_READ_PAT` | `warpdotdev/docs` | Needs provisioning | Fine-grained PAT — Contents read on `warpdotdev/warp-internal` (create from `warpmachineuser`) |
+| `SLACK_BOT_TOKEN` | `warpdotdev/docs` | Needs provisioning | Slack bot token with `chat:write` scope |
 
 ### Manual trigger
 
