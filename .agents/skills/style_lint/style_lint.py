@@ -71,6 +71,20 @@ DEPRECATED_TERMS = [
     (r"\bblocklist\b", "Use 'denylist'"),
 ]
 
+# Rename-sensitive product name strings that should use src/data/vars.ts variables
+# instead of being hardcoded. Keep this list in sync with vars.ts: only include
+# entries whose values are expected to change at a product rename. Stable feature
+# names (AGENT_MODE, WARP_DRIVE, etc.) are intentionally excluded.
+#
+# Each entry: (literal_string, var_key, suggestion)
+RENAME_SENSITIVE_VAR_STRINGS: List[Tuple[str, str, str]] = [
+    ("Oz CLI",       "WARP_AGENT_CLI",           "{VARS.WARP_AGENT_CLI} in prose or {{WARP_AGENT_CLI}} in frontmatter"),
+    ("Oz web app",   "WEB_APP",                  "{VARS.WEB_APP} in prose or {{WEB_APP}} in frontmatter"),
+    ("oz.warp.dev",  "WEB_APP_URL",              "{VARS.WEB_APP_URL} in prose or {{WEB_APP_URL}} in frontmatter"),
+    ("Oz dashboard", "DASHBOARD",                "{VARS.DASHBOARD} in prose or {{DASHBOARD}} in frontmatter"),
+    ("Oz run",       "PLATFORM_RUN",             "{VARS.PLATFORM_RUN} in prose or {{PLATFORM_RUN}} in frontmatter"),
+]
+
 # Oz terms to avoid (case-insensitive patterns)
 OZ_TERMS_TO_AVOID = [
     (r"\bagent identities\b", "Use 'agents' or 'cloud agents' unless referring to legacy API names in code"),
@@ -92,7 +106,7 @@ UI_ACTION_VERBS = r"(?:click|select|toggle|enable|disable|choose|check|uncheck|e
 
 DEFAULT_SLACK_CHANNEL = os.environ.get("GROWTH_DOCS_SLACK_CHANNEL_ID", "")
 
-TERMINOLOGY_FILE = Path(".warp/references/terminology.md")
+TERMINOLOGY_FILE = Path(".agents/references/terminology.md")
 
 STANDARD_SCREENSHOT_WIDTHS = {"300px", "350px", "375px", "563px"}
 
@@ -852,6 +866,36 @@ def check_unrecognized_terms(lines: List[str], filepath: str, glossary: set) -> 
     return issues
 
 
+def check_hardcoded_vars(lines: List[str], filepath: str) -> List[Issue]:
+    """Flag hardcoded product name strings that should use the vars system.
+
+    Strings listed in RENAME_SENSITIVE_VAR_STRINGS are expected to change at
+    product rename time. Using them as literals (instead of {VARS.KEY} in prose
+    or {{TOKEN}} in frontmatter) means they won't update when vars.ts changes.
+
+    Skips fenced code blocks and inline code spans so that CLI examples like
+    `oz.warp.dev` in a code fence are not flagged.
+    """
+    issues = []
+    in_code_block = False
+    for i, line in enumerate(lines, 1):
+        if line.strip().startswith("```"):
+            in_code_block = not in_code_block
+            continue
+        if in_code_block:
+            continue
+        # Strip inline code spans so backtick-wrapped references are not flagged
+        prose_line = re.sub(r"`[^`]+`", "", line)
+        for literal, var_key, suggestion in RENAME_SENSITIVE_VAR_STRINGS:
+            if literal in prose_line:
+                issues.append(Issue(
+                    filepath, i, "hardcoded-var",
+                    f'Hardcoded "{literal}" should use {suggestion} (see src/data/vars.ts)',
+                    "warning",
+                ))
+    return issues
+
+
 # Cache glossary terms once at module level
 _glossary_cache: Optional[set] = None
 
@@ -880,6 +924,7 @@ def run_all_checks(filepath: Path) -> List[Issue]:
     issues.extend(check_product_casing(lines, str(filepath)))
     issues.extend(check_oz_terms(lines, str(filepath)))
     issues.extend(check_deprecated_terms(lines, str(filepath)))
+    issues.extend(check_hardcoded_vars(lines, str(filepath)))
     issues.extend(check_unrecognized_terms(lines, str(filepath), _get_glossary()))
     return issues
 

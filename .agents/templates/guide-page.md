@@ -10,6 +10,8 @@ description: >-
 [AEO GUIDANCE: If this guide is based on Peec, answer-engine prompts, search-query data, or AEO goals, create an AEO brief first using `.agents/skills/aeo_brief/SKILL.md`. Use the brief to preserve high-intent vocabulary naturally, translate awkward source-data phrasing into developer-friendly docs language, and decide whether this should be a new guide or an update to an existing page.]
 
 import VideoEmbed from '@components/VideoEmbed.astro';
+{/* VARS: Also add the line below if this guide references product names from src/data/vars.ts. Then use {VARS.KEY} in prose. Use {{TOKEN}} in frontmatter YAML values above. See AGENTS.md → Content variables. */}
+{/* import { VARS } from '@data/vars'; */}
 
 <VideoEmbed url="[YouTube or Loom URL — remove this block if no video]" />
 

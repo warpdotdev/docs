@@ -85,6 +85,8 @@ Use source code to verify technical behavior, understand feature implementation,
 
 These rules are frequently violated by agents. Apply them carefully during drafting:
 
+- **Product name variables** — For any product name in `src/data/vars.ts`, use the variable instead of the hardcoded string. Add `import { VARS } from '@data/vars';` immediately after the frontmatter closing `---`. Use `{VARS.KEY}` in MDX prose (e.g. `{VARS.WARP_AGENT_CLI}` not "Oz CLI"). Use `{{TOKEN}}` directly in frontmatter YAML values (e.g. `title: "{{WARP_AGENT_CLI}} reference"`). Key vars: `WARP_AGENT_CLI`, `WARP_AUTOMATION_PLATFORM`, `WEB_APP`, `WEB_APP_URL`, `DASHBOARD`, `AGENT_MODE`, `WARP_DRIVE`. See `src/data/vars.ts` for the full list.
+
 - **Sentence case for all headings (H1–H4)** — Capitalize only the first word and proper feature names. ✅ `## How it works` ❌ `## How It Works`
 - **Descriptive, specific headings** — Beyond correct case, a heading should name the specific topic so readers and agents can scan the page and extract a self-contained answer. ✅ `## How key type affects billing and GitHub access` ❌ `## More details`
 - **Bold + dash format for list items** — `* **Term** - Description`, not `* Term: Description`
@@ -122,6 +124,7 @@ Before presenting the draft, verify against the quality checklist in `AGENTS.md`
 - [ ] Instructions include expected outcomes
 - [ ] Procedures are scannable: dense sections are split into numbered steps, short bullets, or concise subsections
 - [ ] UI surfaces and product terms use canonical names from `.agents/references/terminology.md`
+- [ ] Product names with a corresponding entry in `src/data/vars.ts` use the variable syntax (`{VARS.KEY}` in prose, `{{TOKEN}}` in frontmatter) — not hardcoded strings
 - [ ] If AEO-driven, the draft follows the AEO brief, uses source vocabulary naturally, and avoids duplicative or junk-drawer coverage
 - [ ] Images have descriptive alt text
 

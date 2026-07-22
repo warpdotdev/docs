@@ -26,7 +26,8 @@ Focus on:
 3. **Content quality**: Check for clarity, accuracy, proper frontmatter, and appropriate use of headers/lists.
 4. **Code snippets**: Verify that any code examples, commands, or configuration snippets are correct and will work as documented. If you're unsure about technical details, use the `answer_question` skill to verify against the docs or search the source code.
 5. **Astro Starlight structure**: Verify `src/sidebar.ts` updates if files were added, moved, or renamed, and that redirects are added to vercel.json (redirects) when needed.
-6. **AEO/source-data fit**: For docs changes that target AEO, SEO, Peec recommendations, AI search prompts, or content gaps, check whether the PR has a clear source-data rationale, uses query vocabulary naturally, avoids junk-drawer coverage, and updates or links existing docs instead of creating duplicative content.
+6. **Product name variables**: Check whether any product names with a corresponding entry in `src/data/vars.ts` are hardcoded as literal strings instead of using `{VARS.KEY}` (prose) or `{{TOKEN}}` (frontmatter). Key strings to watch for: "Oz CLI", "Oz web app", "oz.warp.dev", "Oz dashboard", "Oz run". Flag as `⚠️ [IMPORTANT]` if a new file adds these without using the variable system. For existing files, flag as `💡 [SUGGESTION]`.
+7. **AEO/source-data fit**:
 
 Provide actionable, constructive feedback. Focus on documentation quality issues, not code bugs.
 

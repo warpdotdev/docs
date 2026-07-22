@@ -60,6 +60,7 @@ python3 .agents/skills/style_lint/style_lint.py --all --fix --create-pr
 - **Deprecated terminology**: "whitelist" (→ "allowlist"), "blacklist"/"blocklist" (→ "denylist")
 - **External product names**: "Github" (→ "GitHub"), "github actions" (→ "GitHub Actions"), "MacOS" (→ "macOS"), "A.I." (→ "AI")
 - **Unrecognized terms** (warning): Bolded terms that look like product names but aren't in `terminology.md`. Flags candidates for glossary addition — not errors, just suggestions.
+- **Hardcoded product name strings**: Product name strings that have a corresponding key in `src/data/vars.ts` but appear as literal text rather than variable syntax. Reports instances of known strings like "Oz CLI", "Oz web app", "oz.warp.dev", "Oz dashboard", "Oz run" (any value currently in `src/data/vars.ts`) in body prose and frontmatter. These are flagged as `⚠️ [IMPORTANT]` in PR context and reported (not auto-fixed) — they should use `{VARS.KEY}` in prose and `{{TOKEN}}` in frontmatter.
 
 ## Auto-fix behavior
 

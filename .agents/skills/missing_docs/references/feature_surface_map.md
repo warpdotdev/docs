@@ -351,12 +351,17 @@ GET /memory_stores/{uid}/memories/{memoryUid}/versions -> gated:AIMemories
 # slash-commands page content; add entries here only for exceptions.
 # Gated by the dogfood-only LocalDockerSandbox flag — not user-facing yet.
 /docker-sandbox -> internal
-# TUI-only (warp-tui) slash commands — added only when the settings mode is TUI
-# (see static_commands/commands.rs). They aren't present in the GUI desktop app,
-# so they aren't documented on the public slash-commands page. Consistent with
-# the general.autoupdate_enabled TUI-only setting mapped to `internal` above.
+# Warp Agent CLI-only (crates/warp_tui) slash commands — added only when the
+# settings mode is the Warp Agent CLI (see static_commands/commands.rs). They
+# aren't present in the GUI desktop app, so they aren't documented on the public
+# slash-commands page. Consistent with the general.autoupdate_enabled Warp Agent
+# CLI-only setting mapped to `internal` above.
 /exit -> internal
 /view-logs -> internal
+/auto-approve -> internal
+/logout -> internal
+/enable-natural-language-detection -> internal
+/disable-natural-language-detection -> internal
 
 ## Settings -> doc pages
 
@@ -369,9 +374,9 @@ GET /memory_stores/{uid}/memories/{memoryUid}/versions -> gated:AIMemories
 # not a user-configurable setting.
 warpify.ssh.ssh_tmux_deprecation_notice_pending -> internal
 
-# TUI-only (warp-tui) background auto-updater toggle (surface: TUI). It isn't
-# present in the GUI settings UI, so it isn't documented in the all-settings
-# reference.
+# Warp Agent CLI-only (crates/warp_tui) background auto-updater toggle (surface:
+# Warp Agent CLI). It isn't present in the GUI settings UI, so it isn't
+# documented in the all-settings reference.
 general.autoupdate_enabled -> internal
 
 ## Unlisted docs pages to ignore
@@ -530,3 +535,6 @@ SuggestedAgentModeWorkflows
 # the user-facing /pr-comments command is mapped via PRCommentsSlashCommand.
 PRCommentsSkill
 FigmaDetection
+# OSC 8 hyperlink support (Cmd+click-able linked text). Currently Preview, not GA,
+# so it isn't documented yet; the snapshot diff re-flags it when it promotes to GA.
+OscHyperlinks

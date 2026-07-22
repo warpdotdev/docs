@@ -9,7 +9,7 @@ Draft a feature documentation page that combines conceptual and procedural conte
 
 ## Workflow
 
-Follow the workflow in `.warp/skills/draft_docs/SKILL.md`, using the **feature-doc template** at `.warp/templates/feature-doc.md`.
+Follow the workflow in `.agents/skills/draft_docs/SKILL.md`, using the **feature-doc template** at `.agents/templates/feature-doc.md`.
 
 ## Content type rules
 
@@ -30,6 +30,12 @@ All headings (H1–H4) must use **sentence case**: capitalize only the first wor
 - ❌ `## How It Works`
 - ❌ `## Configuring Your Environment`
 - ❌ `## Agent Mode Settings`
+
+## Product name variables
+
+For any product name in `src/data/vars.ts`, use the variable — never hardcode the string. The template already includes the `[VARS]` instruction block that shows exactly where to add the import. Key reminder:
+- Prose: `{VARS.WARP_AGENT_CLI}` (not "Oz CLI")
+- Frontmatter title/description: `{{WARP_AGENT_CLI}}`
 
 ## Existing examples
 
