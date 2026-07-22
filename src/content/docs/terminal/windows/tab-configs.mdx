@@ -117,6 +117,10 @@ All panes are defined in a flat `[[panes]]` array. The first entry is the root o
 * **`shell`** (optional, string) — shell executable to use for this pane (e.g. `"pwsh"`, `"zsh"`, `"bash"`, `"fish"`). Only applies to `terminal` and `agent` pane types. If omitted or the specified shell is not installed, the user's default shell is used.
 * **`is_focused`** (optional, bool) — set to `true` on at most one pane to give it initial focus.
 
+:::caution
+Commands in the `commands` array run in sequence, with each command waiting for the previous one to finish. A long-running or interactive command like `ssh` never returns control to the shell, so any commands listed after it don't run in the session. To run commands on a remote host, include them in the `ssh` command itself (e.g., `ssh -t user@host 'cd ~/project && exec $SHELL -l'`).
+:::
+
 #### Split node fields
 
 * **`id`** (required, string) — unique identifier for this split.
