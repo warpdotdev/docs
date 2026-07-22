@@ -1,8 +1,12 @@
 ---
 description: >-
   [1-2 sentences describing common issues covered on this page.
-  Example: "Solutions for common issues with cloud agents, environments, and integrations."]
+  Example: "Solutions for common issues with cloud agents, environments, and integrations."
+  Use {{TOKEN}} syntax for any product names in src/data/vars.ts.]
 ---
+[VARS: Add this line immediately after the closing --- above if this page references any product names from src/data/vars.ts. Then use {VARS.KEY} for those names in the prose below.
+`import { VARS } from '@data/vars';`
+See AGENTS.md → Content variables for the full variable list and usage rules.]
 
 # [Title — sentence case. Title convention: "Troubleshooting [feature]" or "Known issues with [feature]"]
 

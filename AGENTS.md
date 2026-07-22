@@ -15,7 +15,7 @@ This guide establishes standards for writing Warp documentation. It covers voice
 - **Confident without jargon**: Explain technical concepts clearly without oversimplifying
 
 ### Language guidelines
-- Use consistent terminology throughout (see [Terminology standards](#terminology-standards) and the full glossary in `.warp/references/terminology.md`)
+- Use consistent terminology throughout (see [Terminology standards](#terminology-standards) and the full glossary in `.agents/references/terminology.md`)
 - Em dashes are acceptable for occasional variation in narrative/conceptual text, but use sparingly
 - Never use em dashes in procedural or instructional text
 
@@ -590,7 +590,7 @@ Each template includes inline HTML comments explaining what to put in each secti
 
 ## Terminology standards
 
-Use these terms consistently throughout all documentation. For the full canonical glossary with usage notes, see `.warp/references/terminology.md`.
+Use these terms consistently throughout all documentation. For the full canonical glossary with usage notes, see `.agents/references/terminology.md`.
 
 ### Core features
 
@@ -675,6 +675,41 @@ Product feature names retain their standard capitalization. Match the exact casi
 - **Settings** (capitalized when referring to the Settings panel)
 - **Command Palette** (capitalized)
 
+## Content variables
+Product names and key strings are defined in `src/data/vars.ts` as the `VARS` object. Updating a value there propagates it to every page that uses the variable — both frontmatter and body prose — on the next build. This makes future renames a one-line change.
+### Option A — body prose (MDX imports)
+After the closing `---` of the frontmatter block (not inside it), add the import as the first line of the file body. Then use `{VARS.KEY}` inline in prose. TypeScript catches typos at compile time.
+```mdx
+---
+title: "{{WARP_AGENT_CLI}} reference"
+description: "Use the {{WARP_AGENT_CLI}} to run and manage agents."
+---
+import { VARS } from '@data/vars';
+
+Use the {VARS.WARP_AGENT_CLI} to run agents from the command line.
+```
+Note: this example also shows Option B in the frontmatter (`{{WARP_AGENT_CLI}}`). Both can appear in the same file — Option B covers the frontmatter YAML, Option A covers the body prose.
+### Option B — frontmatter (Vite transform)
+Use `{{TOKEN}}` placeholders directly in frontmatter YAML values (`title`, `description`, `sidebar.label`, etc.). The `warp-vars-transform` Vite plugin substitutes them before any parser runs.
+```yaml
+---
+title: Getting started with {{WARP_AGENT_CLI}}
+description: Learn how to use the {{WARP_AGENT_CLI}} to run and manage agents.
+---
+```
+The build fails with a clear error if a token is unrecognized — for example, `{{WARP_AGNT_CLI}}` in frontmatter would surface as an unresolved token error. Validation applies to frontmatter only; body prose may legitimately contain `{{...}}` patterns as code examples.
+### When to use vars
+Use a variable for:
+- Product and platform names that have changed before or are likely to change (e.g., `WARP_AGENT_CLI`, `WEB_APP`, `DASHBOARD`)
+- Feature names used in many pages (e.g., `AGENT_MODE`, `WARP_DRIVE`)
+- URLs that may change with a rebrand (e.g., `WEB_APP_URL`, `CONTACT_SALES_URL`)
+Do **not** create variables for generic stable terms like "terminal," "command," or "repository."
+### Adding a new variable
+Add the key-value pair to `src/data/vars.ts` only. Both Option A (TypeScript import) and Option B (Vite transform) pick it up automatically.
+### Important constraints
+- **Do NOT** use `{{TOKEN}}` syntax in MDX body prose — it's only for frontmatter YAML. The Vite plugin runs before MDX parsing; curly-brace expressions in body prose are MDX syntax, not plugin tokens.
+- **Do NOT** use `{VARS.x}` expressions in frontmatter — MDX expressions don't evaluate in YAML frontmatter.
+- **Key naming rule**: Keys are stable identifiers. Use the future or conceptual name as the key (e.g., `WARP_AGENT_CLI`), not the current brand name that may be retired. The value holds the current string.
 ## SEO and AEO (AI Engine Optimization)
 
 All documentation should be written with search discoverability in mind — both for traditional search engines (Google) and AI engines (ChatGPT, Gemini, Perplexity, Copilot).
@@ -705,7 +740,7 @@ Before publishing any documentation, verify:
 - [ ] Link sentences provide enough context for readers, search engines, and agents to understand the destination
 - [ ] `VideoEmbed` components include specific `title` props that describe the video content
 - [ ] Code examples are tested and accurate
-- [ ] Terminology and product names match the glossary (`.warp/references/terminology.md`)
+- [ ] Terminology and product names match the glossary (`.agents/references/terminology.md`)
 - [ ] Cross-references to related features are included
 - [ ] Instructions include expected outcomes after key steps
 - [ ] First references to prerequisites, tools, or surfaces include inline context

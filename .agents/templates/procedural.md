@@ -1,8 +1,12 @@
 ---
 description: >-
   [1-2 sentences: what the reader will accomplish.
-  Task-oriented: "Create and manage X" or "Configure Y for Z."]
+  Task-oriented: "Create and manage X" or "Configure Y for Z."
+  Use {{TOKEN}} syntax here for any product names that have a var in src/data/vars.ts.]
 ---
+[VARS: Add this line immediately after the closing --- above if this page references any product names from src/data/vars.ts. Then use {VARS.KEY} for those names in the prose below.
+`import { VARS } from '@data/vars';`
+See AGENTS.md → Content variables for the full variable list and usage rules.]
 
 # [Task-oriented title — sentence case. Title convention: gerund, e.g., "Configuring X" or "Managing X"]
 
