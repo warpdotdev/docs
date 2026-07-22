@@ -1,0 +1,128 @@
+---
+title: Cloud agent runners
+sidebar:
+  label: "Runners"
+description: >-
+  Runners are reusable compute configurations that define the sandbox your cloud
+  agents run on. Learn how to create runners and select them for a run.
+---
+Runners are reusable compute configurations that define the sandbox your [cloud agents](/platform/) run on, including the operating system, CPU architecture, instance size, base image, and setup commands.
+
+A runner controls the *compute* an agent runs on, while an [environment](/platform/environments/) controls the *workspace* — the repositories to clone and the runtime configuration to prepare. Selecting a runner for a run overrides the environment's default compute, so you can reuse one environment across different machine shapes.
+
+:::note
+Runners apply to cloud agent runs. Interactive local runs (`oz agent run`) use your current machine, so they don't use runners.
+:::
+
+## Key features
+
+* **Reusable compute profiles** - Define an operating system, architecture, instance shape, base image, and setup commands once, then reuse the runner across many runs.
+* **Per-run overrides** - Select a runner for a specific run to override the environment's default compute without editing the environment.
+* **Linux and macOS sandboxes** - Run agents on a Linux container image or a managed macOS version, with a configurable CPU architecture and instance size.
+* **Consistent setup** - Attach setup commands that run when the sandbox initializes, so every run on the runner starts from the same baseline.
+
+## How runners work
+
+A runner captures the compute half of a cloud agent run:
+
+* **Operating system** - `linux` (default) or `macos`.
+* **CPU architecture** - `auto` (x86-64 on Linux, aarch64 on macOS), `x86-64`, or `aarch64`.
+* **Base image** - A Docker image reference for the sandbox. Linux only.
+* **macOS version** - The macOS version for the sandbox (`14`, `15`, `26`, or `27`). macOS only.
+* **Instance shape** - The number of vCPUs and amount of memory allocated to the sandbox.
+* **Setup commands** - Commands that run when the sandbox initializes.
+
+When you start a cloud agent, Warp resolves the compute in this order: a runner passed for the run overrides the environment's default runner, which in turn overrides Warp's defaults. This lets one environment (repositories plus setup) run on several different runners.
+
+## Managing runners with the CLI
+
+Use the [Oz CLI](/reference/cli/) to create and manage runners. Every command works with an [API key](/reference/cli/api-keys/) or an interactive [`oz login`](/reference/cli/#logging-in) session.
+
+### List runners
+
+List the runners on your team, optionally sorting the results:
+
+```sh
+oz runner list
+oz runner list --sort-by last-updated
+```
+
+* `--sort-by <FIELD>` — sort by `name` or `last-updated`.
+
+### Create a runner
+
+Create a runner with a name and the compute options you want. Only `--name` is required:
+
+```sh
+oz runner create \
+  --name "linux-large" \
+  --description "x86-64 Ubuntu sandbox for heavy builds" \
+  --os linux \
+  --docker-image ubuntu:24.04 \
+  --vcpus 8 \
+  --memory-gb 16 \
+  --setup-command "apt-get update && apt-get install -y build-essential"
+```
+
+Key flags:
+
+* `--name <NAME>` (`-n`) — human-readable label for the runner. Required.
+* `--description <TEXT>` (`-d`) — optional description (max 240 characters).
+* `--setup-command <COMMAND>` (`-c`) — command to run when the sandbox initializes (repeatable).
+* `--os <OS>` — target operating system: `linux` (default) or `macos`.
+* `--arch <ARCH>` — target CPU architecture: `auto` (default), `x86-64`, or `aarch64`. `auto` resolves to x86-64 on Linux and aarch64 on macOS.
+* `--docker-image <IMAGE>` — Docker image reference for the sandbox. Linux only.
+* `--macos-version <VERSION>` — macOS version for the sandbox: `14`, `15`, `26`, or `27`. macOS only.
+* `--vcpus <N>` — number of vCPUs for the instance shape. Requires `--memory-gb`.
+* `--memory-gb <N>` — memory in GB for the instance shape. Requires `--vcpus`.
+
+:::caution
+Operating-system options must match the selected `--os`. Use `--docker-image` only with `--os linux`, and `--macos-version` only with `--os macos`.
+:::
+
+### Update a runner
+
+Update an existing runner by its UID, or by `--name` when you don't have the UID. When you pass a UID, `--name` renames the runner:
+
+```sh
+# Update by UID, and bump the instance size
+oz runner update <UID> --vcpus 16 --memory-gb 32
+
+# Rename a runner (UID provided, --name sets the new name)
+oz runner update <UID> --name "linux-xlarge"
+
+# Locate a runner by name when you don't have the UID
+oz runner update --name "linux-large" --docker-image ubuntu:24.04
+```
+
+Update flags mirror `create`: `--description` (`-d`), `--setup-command` (`-c`, replaces existing), `--os`, `--arch`, `--docker-image`, `--macos-version`, `--vcpus`, and `--memory-gb`. On update, `--vcpus` and `--memory-gb` can be set independently — the other value is preserved.
+
+### Delete a runner
+
+Delete a runner by its UID:
+
+```sh
+oz runner delete <UID>
+```
+
+Add `--force` to delete without a confirmation prompt.
+
+## Selecting a runner for a run
+
+Pass `--runner` to [`oz agent run-cloud`](/reference/cli/#running-agents-remotely-oz-agent-run-cloud) to run on a specific runner. The runner's compute (base image, instance shape, and setup commands) overrides the environment's default runner:
+
+```sh
+oz agent run-cloud \
+  --environment <ENVIRONMENT_ID> \
+  --runner <RUNNER_ID> \
+  --prompt "Run the full test suite and summarize failures"
+```
+
+When you start remote [child agents](/platform/orchestration/multi-agent-runs/) through orchestration, you can also choose a runner from the **Runner** dropdown in the `run_agents` confirmation card and the plan-card configuration block.
+
+## Related pages
+
+* [Cloud agent environments](/platform/environments/) — define the repositories and setup for a run.
+* [Oz CLI reference](/reference/cli/) — full command-line reference for running and managing agents.
+* [Deployment patterns](/platform/deployment-patterns/) — choose where and how cloud agents run.
+* [Multi-agent orchestration](/platform/orchestration/) — run agents in parallel and select their compute.
