@@ -85,6 +85,12 @@ This parses:
 
 The macOS menu bar and Warp Drive sections are maintained as manual lists in `valid_paths.json` since they change infrequently.
 
+### Sub-section accuracy for shared-source-file pages
+
+The extractor assigns sub-sections by reading `Category::new(...)` calls from each page's source file. When multiple Settings subpages share the same source file (e.g. `ai_page.rs` is used by Warp Agent, Profiles, Knowledge, and Third party CLI agents), all category calls in that file are assigned to all of those subpages — producing incorrect sub-section lists.
+
+After running `--refresh-valid-paths`, manually verify the sub-sections for these pages against the live Warp Settings UI, or invoke the `verify-settings-subsections` skill (requires computer use) which automates this check. See `.agents/skills/verify-settings-subsections/SKILL.md`.
+
 ## What Gets Validated
 
 ### UI Paths
