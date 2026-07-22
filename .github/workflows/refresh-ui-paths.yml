@@ -1,17 +1,18 @@
 name: Refresh UI paths snapshot
 
 # Triggered automatically when warp-internal's Settings UI files change
-# (via repository_dispatch from warpdotdev/warp-internal) or manually
-# via workflow_dispatch as a fallback.
+# (via repository_dispatch from warpdotdev/warp) or manually via
+# workflow_dispatch as a fallback.
 on:
   repository_dispatch:
     types:
       - settings-ui-changed
   workflow_dispatch:
 
+# Only WARP_API_KEY is needed here — warp-internal access and Slack
+# notifications are handled by the Oz cloud agent environment.
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
 
 concurrency:
   group: refresh-ui-paths
@@ -22,137 +23,95 @@ concurrency:
 
 jobs:
   refresh:
-    name: Refresh snapshot and validate docs
+    name: Dispatch Oz cloud agent to refresh UI path snapshot
     runs-on: ubuntu-latest
     steps:
       - name: Checkout docs
         uses: actions/checkout@v4
 
-      - name: Checkout warp-internal
-        uses: actions/checkout@v4
-        with:
-          repository: warpdotdev/warp-internal
-          token: ${{ secrets.WARP_INTERNAL_READ_PAT }}
-          # Check out outside the docs working directory so 'git add -A' below
-          # does not accidentally stage it as a nested repository/submodule.
-          path: ${{ runner.temp }}/warp-internal
-
-      - name: Set up Python 3.12
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-
-      - name: Install Python dependencies
-        run: pip install requests
-
-      - name: Snapshot valid_paths.json before refresh
+      - name: Install Oz CLI
         run: |
-          # Strip generated_at before saving so the change-detection step below
-          # only fires when Settings structure actually changed, not just the timestamp.
-          python3 -c "
-          import json, pathlib
-          d = json.loads(pathlib.Path('.agents/skills/validate_ui_refs/valid_paths.json').read_text())
-          d.pop('generated_at', None)
-          pathlib.Path('/tmp/valid_paths_before.json').write_text(json.dumps(d, sort_keys=True))
-          "
+          curl -sL "https://app.warp.dev/download/cli?os=linux&package=deb&arch=x86_64" -o /tmp/oz.deb
+          sudo dpkg -i /tmp/oz.deb
 
-      - name: Refresh valid_paths.json
+      - name: Write Oz prompt
         run: |
-          python3 .agents/skills/validate_ui_refs/validate_ui_refs.py \
-            --refresh-valid-paths \
-            --warp-internal-path ${{ runner.temp }}/warp-internal
+          cat > /tmp/oz_prompt.txt << 'PROMPT'
+          Run the validate_ui_refs skill to refresh the UI path snapshot and fix stale doc references.
 
-      - name: Check if snapshot changed
-        id: snapshot
-        run: |
-          # Compare normalized JSON (without generated_at) to avoid false positives
-          # from the timestamp being rewritten on every run.
-          python3 -c "
-          import json, pathlib
-          d = json.loads(pathlib.Path('.agents/skills/validate_ui_refs/valid_paths.json').read_text())
-          d.pop('generated_at', None)
-          pathlib.Path('/tmp/valid_paths_after.json').write_text(json.dumps(d, sort_keys=True))
-          "
-          if diff -q /tmp/valid_paths_before.json /tmp/valid_paths_after.json > /dev/null 2>&1; then
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-            echo "Snapshot unchanged (Settings structure identical) — nothing to do."
-          else
-            echo "changed=true" >> "$GITHUB_OUTPUT"
-            echo "Snapshot changed — running validation and auto-fix."
-            diff /tmp/valid_paths_before.json /tmp/valid_paths_after.json | head -40 || true
-          fi
+          This was triggered by a change to app/src/settings_view/ in warpdotdev/warp.
 
-      - name: Run validation and auto-fix
-        if: steps.snapshot.outputs.changed == 'true'
-        id: validate
+          Steps:
+          1. Locate warpdotdev/warp. It should be checked out at
+             /workspace/warp in this environment. If that path does
+             not exist, clone it:
+               git clone git@github.com:warpdotdev/warp.git /workspace/warp
+             Then run:
+               python3 .agents/skills/validate_ui_refs/validate_ui_refs.py \\
+                 --refresh-valid-paths \\
+                 --warp-internal-path /workspace/warp
+          2. Compare valid_paths.json before and after (strip generated_at from both,
+             then diff). If unchanged, exit — no PR needed.
+          3. If the snapshot changed, run:
+               python3 .agents/skills/validate_ui_refs/validate_ui_refs.py \\
+                 --all --fix --create-pr --slack-notify \\
+                 --slack-channel C09BVK0PL3Y
+             The script auto-fixes high-confidence issues, opens a PR, and posts to
+             #growth-docs if issues remain. BUZZ_SLACK_TOKEN is available in this
+             environment and is used as a fallback for SLACK_BOT_TOKEN.
+          4. After running --refresh-valid-paths, check whether any shared-source-file
+             subpages (Warp Agent, Oz, Profiles, Knowledge, Third party CLI agents,
+             Indexing and projects, Editor and Code Review) now have sub_sections that
+             differ significantly from the last verified values in valid_paths.json.
+             If they do, use computer use (if available) to verify against the live
+             Warp Settings UI following the instructions in:
+             .agents/skills/verify-settings-subsections/SKILL.md
+          5. Report the outcome (PR URL if created, or "no changes" if already up to date).
+
+          Full instructions: .agents/skills/validate_ui_refs/SKILL.md
+          PROMPT
+
+      - name: Dispatch Oz cloud agent
+        id: oz-dispatch
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          WARP_API_KEY: ${{ secrets.WARP_API_KEY }}
         run: |
-          # Capture exit code explicitly: the script returns 1 when unfixed issues
-          # remain, which would abort the step before we write the summary output
-          # or reach the PR creation step — exactly the case we most need a PR for.
-          python3 .agents/skills/validate_ui_refs/validate_ui_refs.py \
-            --all --fix \
-            --slack-channel C09BVK0PL3Y \
-            --slack-notify \
-            --output /tmp/ui-ref-report.json || true
+          OUTPUT=$(oz agent run-cloud \
+            --environment K5KStCm5aYvhfBJb8cHol6 \
+            --skill warpdotdev/docs:validate_ui_refs \
+            --prompt "$(cat /tmp/oz_prompt.txt)")
+          echo "$OUTPUT"
+          RUN_ID=$(echo "$OUTPUT" | grep -oP 'run ID: \K[0-9a-f-]{36}')
+          echo "run_id=$RUN_ID" >> "$GITHUB_OUTPUT"
+          echo "Dispatched cloud agent run: $RUN_ID"
 
-          # Surface fix counts for the commit message
-          python3 - <<'PY'
-          import json, os
-          try:
-              d = json.load(open('/tmp/ui-ref-report.json'))
-              fixes   = len(d.get('fixes_applied', []))
-              paths   = len(d.get('path_issues', []))
-              cmds    = len(d.get('command_issues', []))
-              summary = f"{fixes} fix(es) applied; {paths} path issue(s) and {cmds} command issue(s) remaining"
-          except Exception:
-              summary = "snapshot refreshed"
-          with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
-              f.write(f"summary={summary}\n")
-          PY
-
-      - name: Create PR
-        if: steps.snapshot.outputs.changed == 'true'
+      - name: Wait for Oz run to complete
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WARP_API_KEY: ${{ secrets.WARP_API_KEY }}
         run: |
-          BRANCH="fix/ui-ref-refresh-$(date -u +%Y%m%d-%H%M%S)"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git config user.name "github-actions[bot]"
-          git checkout -b "$BRANCH"
-          git add -A
-
-          # Only create a PR if there are actual changes to commit
-          if git diff --cached --quiet; then
-            echo "No changes to commit after validation — exiting."
-            exit 0
+          RUN_ID="${{ steps.oz-dispatch.outputs.run_id }}"
+          if [[ -z "$RUN_ID" ]]; then
+            echo "No run ID captured — cannot poll."
+            exit 1
           fi
-
-          SUMMARY="${{ steps.validate.outputs.summary }}"
-          git commit -m "docs: refresh UI paths snapshot and fix reference issues
-
-          Automatically triggered by a Settings UI change in warp-internal.
-          ${SUMMARY}
-
-          Co-Authored-By: Oz <oz-agent@warp.dev>"
-
-          git push -u origin "$BRANCH"
-
-          gh pr create \
-            --base main \
-            --title "docs: refresh UI paths snapshot" \
-            --body "Automatically generated by the \`refresh-ui-paths\` workflow after a change to \`app/src/settings_view/\` in \`warp-internal\`.
-
-          ## What changed
-          \`valid_paths.json\` was refreshed to reflect the latest Settings structure from \`warp-internal\` source. Any auto-fixable doc issues (case mismatches, deprecated section paths, non-canonical formatting) were also corrected.
-
-          ## ${SUMMARY}
-
-          If unfixed issues remain, a notification was posted to \`#growth-docs\` with details.
-
-          ---
-          *To run this workflow manually: **Actions** > **Refresh UI paths snapshot** > **Run workflow**.*
-
-          Co-Authored-By: Oz <oz-agent@warp.dev>"
+          echo "Polling run $RUN_ID (max 60 min, 30s intervals)..."
+          FINAL_STATUS="timeout"
+          for i in $(seq 1 120); do
+            OUTPUT=$(oz run get "$RUN_ID" 2>/dev/null || echo "")
+            STATUS=$(echo "$OUTPUT" | grep -oP '(?<=\()\w+(?=\))' | head -1 | tr '[:upper:]' '[:lower:]')
+            ELAPSED="$((i * 30 / 60))m$((i * 30 % 60))s"
+            echo "[$ELAPSED] $STATUS"
+            if [[ "$STATUS" == "succeeded" ]]; then
+              FINAL_STATUS="succeeded"
+              break
+            elif [[ "$STATUS" == "failed" || "$STATUS" == "errored" || "$STATUS" == "cancelled" ]]; then
+              FINAL_STATUS="$STATUS"
+              break
+            fi
+            sleep 30
+          done
+          if [[ "$FINAL_STATUS" != "succeeded" ]]; then
+            echo "Oz run did not succeed (status: $FINAL_STATUS)"
+            exit 1
+          fi
+          echo "Oz run completed successfully."

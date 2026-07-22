@@ -602,6 +602,25 @@ def validate_ui_path(path: str, valid_paths: Dict[str, Any]) -> Dict[str, Any]:
                 "fix_type": None,
             }
 
+        # Guard: if this section is an umbrella subpage (it has an 'umbrella' field in
+        # settings_sections), the caller is using the subpage as a bare top-level section
+        # (e.g. "Settings > Oz" instead of "Settings > Agents > Oz"). Flag and suggest
+        # the correct full umbrella path.
+        section_entry = settings.get(section, {})
+        if section_entry.get("umbrella"):
+            umbrella_name = section_entry["umbrella"]
+            correct_path = " > ".join(["Settings", umbrella_name, section] + segments[2:])
+            return {
+                "valid": False,
+                "issue": (
+                    f"\"{section}\" is a subpage under the \"{umbrella_name}\" umbrella; "
+                    f"use the full path"
+                ),
+                "suggestion": correct_path,
+                "confidence": 0.95,
+                "fix_type": "deprecated_section",
+            }
+
         # Check section (case-insensitive)
         exact = section in section_names
         if not exact:
@@ -1109,10 +1128,14 @@ def notify_slack(
     channel: str,
     pr_url: Optional[str] = None,
 ) -> bool:
-    """Post a summary to Slack. Requires SLACK_BOT_TOKEN env var."""
-    token = os.environ.get("SLACK_BOT_TOKEN")
+    """Post a summary to Slack. Requires SLACK_BOT_TOKEN, BUZZ_SLACK_TOKEN, or DOCS_SLACK_BOT_TOKEN env var."""
+    token = (
+        os.environ.get("SLACK_BOT_TOKEN")
+        or os.environ.get("BUZZ_SLACK_TOKEN")
+        or os.environ.get("DOCS_SLACK_BOT_TOKEN")
+    )
     if not token:
-        print("Warning: SLACK_BOT_TOKEN not set, skipping Slack notification.", file=sys.stderr)
+        print("Warning: no Slack token found (checked SLACK_BOT_TOKEN, BUZZ_SLACK_TOKEN, DOCS_SLACK_BOT_TOKEN), skipping notification.", file=sys.stderr)
         return False
 
     try:
@@ -1337,10 +1360,14 @@ def _extract_settings_sections(warp_internal: Path) -> Dict[str, Any]:
         re.DOTALL,
     )
     if enum_match:
-        for variant in re.findall(r"(\w+)", enum_match.group(1)):
-            if variant in ("Copy", "Clone", "Debug", "Default", "PartialEq", "default"):
-                continue
-            display_map[variant] = variant  # default: use variant name
+        # Strip Rust line/doc comments before extracting variants. Without this,
+        # words from doc comments (e.g. "backing" from "/// Internal backing-page
+        # identifier") are incorrectly captured as settings section names.
+        enum_body = re.sub(r"//[^\n]*", "", enum_match.group(1))
+        # Only match CamelCase words (enum variants), not lowercase identifiers
+        # that appear in code or attribute tokens.
+        for variant in re.findall(r"^\s*([A-Z]\w+)\s*(?:,|$)", enum_body, re.MULTILINE):
+            display_map[variant] = variant  # default: use variant name as display name
 
     # Parse Display impl for overrides
     display_impl = re.search(
@@ -1368,6 +1395,8 @@ def _extract_settings_sections(warp_internal: Path) -> Dict[str, Any]:
         "Platform": "platform_page.rs",
         "Code": "code_page.rs",
         # Agents umbrella subpages (all render widgets defined in ai_page.rs).
+        # WarpAgent is the current name; Oz is the legacy name kept for compat.
+        "WarpAgent": "ai_page.rs",
         "Oz": "ai_page.rs",
         "AgentProfiles": "ai_page.rs",
         "Knowledge": "ai_page.rs",
