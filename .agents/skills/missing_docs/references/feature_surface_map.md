@@ -357,6 +357,10 @@ GET /memory_stores/{uid}/memories/{memoryUid}/versions -> gated:AIMemories
 # the general.autoupdate_enabled TUI-only setting mapped to `internal` above.
 /exit -> internal
 /view-logs -> internal
+/auto-approve -> internal
+/logout -> internal
+/enable-natural-language-detection -> internal
+/disable-natural-language-detection -> internal
 
 ## Settings -> doc pages
 
@@ -530,3 +534,6 @@ SuggestedAgentModeWorkflows
 # the user-facing /pr-comments command is mapped via PRCommentsSlashCommand.
 PRCommentsSkill
 FigmaDetection
+# OSC 8 hyperlink support (Cmd+click-able linked text). Currently Preview, not GA,
+# so it isn't documented yet; the snapshot diff re-flags it when it promotes to GA.
+OscHyperlinks
