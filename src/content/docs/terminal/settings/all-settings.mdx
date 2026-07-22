@@ -261,7 +261,6 @@ Settings for Warp's agents, including model behavior, permissions, knowledge, MC
 **Section**: `[agents]`
 
 * `cloud_conversation_storage_enabled` — Whether conversations are stored in the cloud. Type: boolean. Default: `true`.
-* `model` — The default model for the Warp Agent in the terminal. The desktop app's Agent Mode selects its model through [agent profiles](/agent-platform/capabilities/agent-profiles-permissions/) instead, so this key applies only to the terminal agent's settings file. Type: string. Default: `"auto"` (defers to Warp's automatic model selection).
 * `usage_display_mode` — Which unit the terminal agent's usage entry displays. Applies only to the terminal agent's settings file; click the usage entry to flip between units. Type: string. Default: `"credits"`. Options: `"credits"` (the same number the desktop app's usage footer shows), `"cost"` (provider dollar cost).
 
 ### Knowledge
@@ -286,6 +285,12 @@ Settings for Warp's agents, including model behavior, permissions, knowledge, MC
 * `agent_mode_execute_readonly_commands` — Whether the agent can auto-execute read-only commands without asking. Type: boolean. Default: `false`.
 * `agent_mode_command_execution_allowlist` — Commands the agent can execute without explicit permission (regex patterns). Type: array of strings. Default: `["cat(\\s.*)?", "echo(\\s.*)?", "find .*", "grep(\\s.*)?", "ls(\\s.*)?", "which .*"]`.
 * `agent_mode_command_execution_denylist` — Commands the agent must always ask before executing (regex patterns). Type: array of strings. Default: `["bash(\\s.*)?", "fish(\\s.*)?", "pwsh(\\s.*)?", "sh(\\s.*)?", "zsh(\\s.*)?", "curl(\\s.*)?", "eval(\\s.*)?", "exec(\\s.*)?", "source(\\s.*)?", "wget(\\s.*)?", "dig(\\s.*)?", "nslookup(\\s.*)?", "host(\\s.*)?", "ssh(\\s.*)?", "scp(\\s.*)?", "rsync(\\s.*)?", "telnet(\\s.*)?", "rm(\\s.*)?"]`.
+
+### Execution profiles
+
+**Section**: `[agents.execution_profiles]`
+
+* `execution_profiles` — The collection of [agent profiles](/agent-platform/capabilities/agent-profiles-permissions/) and their permissions, shared by Agent Mode and the terminal agent. This is a structured object that Warp manages when you create and edit profiles in **Settings** > **AI** > **Profiles**; edit it through the UI rather than by hand. Type: object. Default: `{}` (Warp's built-in profiles).
 
 ### Warp Agent (AI features)
 
@@ -354,6 +359,7 @@ Settings for Warp's agents, including model behavior, permissions, knowledge, MC
 
 * `voice_input_enabled` — Controls whether voice input is enabled for AI interactions. Type: boolean. Default: `true`.
 * `voice_input_toggle_key` — The key used to toggle voice input. Type: string. Default: `"none"`. Options: `"none"`, `"fn"`, `"alt_left"`, `"alt_right"`, `"control_left"`, `"control_right"`, `"super_left"`, `"super_right"`, `"shift_left"`, `"shift_right"`.
+* `voice_input_language` — Preferred spoken language for voice input transcription, as a two-letter ISO 639-1 code (for example, `"es"`). Type: string. Default: `""` (auto-detect).
 
 ## Code
 
