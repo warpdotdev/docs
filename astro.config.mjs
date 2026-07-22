@@ -7,6 +7,7 @@ import starlight from '@astrojs/starlight';
 import starlightLlmsTxt from 'starlight-llms-txt';
 import starlightSidebarTopics from 'starlight-sidebar-topics';
 import pageTitleOverride from './src/plugins/page-title-override.ts';
+import { varsTransformPlugin } from './src/plugins/vars-transform.ts';
 import vercel from '@astrojs/vercel';
 import { sidebarTopics } from './src/sidebar.ts';
 import docsMarkdownIntegration from './src/integrations/docs-markdown-integration.js';
@@ -185,4 +186,7 @@ export default defineConfig({
 		docsMarkdownIntegration(),
 	],
 	adapter: vercel(),
+	vite: {
+		plugins: [varsTransformPlugin()],
+	},
 });
