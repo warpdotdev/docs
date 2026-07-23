@@ -1059,46 +1059,178 @@ def apply_fixes(issues: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
 # PR creation
 # ---------------------------------------------------------------------------
 
-def create_pr(fixes: List[Dict[str, Any]], repo_root: Path) -> Optional[str]:
-    """Create a branch and PR with the applied fixes using gh CLI."""
-    if not fixes:
-        print("No fixes to commit.")
+def find_existing_fix_pr(repo_root: Path) -> Optional[Dict[str, Any]]:
+    """Return the most recently created open PR whose branch matches fix/ui-refs-*.
+
+    Used to detect duplicate runs so a second dispatch can update the
+    existing PR instead of opening a new one.
+    """
+    result = subprocess.run(
+        [
+            "gh", "pr", "list",
+            "--state", "open",
+            "--json", "number,headRefName,body,url",
+            "--limit", "20",
+        ],
+        cwd=repo_root,
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode != 0:
+        return None
+    try:
+        prs = json.loads(result.stdout)
+    except json.JSONDecodeError:
+        return None
+    for pr in prs:
+        if re.match(r"fix/ui-refs-\d{8}-\d{6}", pr.get("headRefName", "")):
+            return pr
+    return None
+
+
+def _fixes_already_in_pr(
+    fixes: List[Dict[str, Any]], pr_body: str, repo_root: Path
+) -> List[Dict[str, Any]]:
+    """Return only the fixes NOT already mentioned in an existing PR body."""
+    new_fixes = []
+    for fix in fixes:
+        rel = str(Path(fix["file"]).relative_to(repo_root))
+        if f"`{rel}` line {fix['line']}" not in pr_body:
+            new_fixes.append(fix)
+    return new_fixes
+
+
+def _pr_body(fixes: List[Dict[str, Any]], repo_root: Path) -> str:
+    return (
+        "## Summary\n"
+        f"Auto-fixed {len(fixes)} UI reference issue(s) found by the `validate_ui_refs` skill.\n\n"
+        "## Changes\n"
+        + "\n".join(
+            f"- `{Path(f['file']).relative_to(repo_root)}` line {f['line']}: "
+            f"`{f['old']}` → `{f['new']}`"
+            for f in fixes
+        )
+        + "\n\nCo-Authored-By: Warp <agent@warp.dev>"
+    )
+
+
+def _commit_message(fixes: List[Dict[str, Any]], repo_root: Path) -> str:
+    files_changed = {f["file"] for f in fixes}
+    return (
+        f"docs: fix {len(fixes)} UI reference issue(s)\n\n"
+        f"Auto-fixed by validate_ui_refs skill.\n"
+        f"Files changed: {', '.join(sorted(str(Path(f).relative_to(repo_root)) for f in files_changed))}\n\n"
+        f"Co-Authored-By: Warp <agent@warp.dev>"
+    )
+
+
+def _update_existing_pr(
+    existing_pr: Dict[str, Any],
+    all_fixes: List[Dict[str, Any]],
+    repo_root: Path,
+) -> Optional[str]:
+    """Stash, checkout the existing PR branch, re-apply fixes, commit, push, update body."""
+    branch = existing_pr["headRefName"]
+    pr_number = existing_pr["number"]
+    try:
+        subprocess.run(["git", "stash"], cwd=repo_root, check=True)
+        subprocess.run(["git", "fetch", "origin", branch], cwd=repo_root, check=True)
+        subprocess.run(["git", "checkout", branch], cwd=repo_root, check=True)
+        pop = subprocess.run(
+            ["git", "stash", "pop"], cwd=repo_root, capture_output=True, text=True
+        )
+        if pop.returncode != 0:
+            subprocess.run(["git", "stash", "drop"], cwd=repo_root)
+            subprocess.run(["git", "checkout", "-"], cwd=repo_root)
+            print(
+                f"Warning: stash pop conflict when updating PR #{pr_number} — "
+                "falling back to creating a new PR.",
+                file=sys.stderr,
+            )
+            return None
+        subprocess.run(["git", "add", "-A"], cwd=repo_root, check=True)
+        subprocess.run(
+            ["git", "commit", "-m", _commit_message(all_fixes, repo_root)],
+            cwd=repo_root,
+            check=True,
+        )
+        subprocess.run(["git", "push", "origin", branch], cwd=repo_root, check=True)
+
+        # Rewrite the PR body to list every fix (old + new)
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".md", delete=False) as tmp:
+            tmp.write(_pr_body(all_fixes, repo_root))
+            body_file = tmp.name
+        try:
+            subprocess.run(
+                ["gh", "pr", "edit", str(pr_number), "--body-file", body_file],
+                cwd=repo_root,
+                check=True,
+            )
+        finally:
+            os.unlink(body_file)
+
+        print(f"Updated existing PR #{pr_number}: {existing_pr['url']}")
+        return existing_pr["url"]
+    except subprocess.CalledProcessError as e:
+        print(f"Git error updating PR #{pr_number}: {e}", file=sys.stderr)
         return None
 
+
+def create_pr(fixes: List[Dict[str, Any]], repo_root: Path) -> Tuple[Optional[str], str]:
+    """Create a draft PR, or update an existing open fix/ui-refs-* PR.
+
+    Checks for an existing open PR whose branch matches fix/ui-refs-* before
+    creating a new one.  When one is found:
+    - If all current fixes are already in the PR, returns without changes.
+    - If there are new fixes, updates the existing PR branch and description.
+
+    Returns (pr_url, action) where action is one of:
+      "created"         – new draft PR opened
+      "updated"         – existing open PR updated with new fixes
+      "already_covered" – all fixes already present in an existing open PR
+      "error"           – PR could not be created or updated
+    """
+    if not fixes:
+        print("No fixes to commit.")
+        return None, "error"
+
+    existing_pr = find_existing_fix_pr(repo_root)
+
+    if existing_pr:
+        new_fixes = _fixes_already_in_pr(fixes, existing_pr.get("body", ""), repo_root)
+        if not new_fixes:
+            print(
+                f"All fixes already covered by open PR #{existing_pr['number']}: "
+                f"{existing_pr['url']}"
+            )
+            return existing_pr["url"], "already_covered"
+        pr_url = _update_existing_pr(existing_pr, fixes, repo_root)
+        if pr_url:
+            return pr_url, "updated"
+        # _update_existing_pr already printed a warning; fall through to create a new PR
+
+    # Create a new draft PR
     branch = f"fix/ui-refs-{datetime.now(timezone.utc).strftime('%Y%m%d-%H%M%S')}"
     try:
         subprocess.run(["git", "checkout", "-b", branch], cwd=repo_root, check=True)
         subprocess.run(["git", "add", "-A"], cwd=repo_root, check=True)
-
-        files_changed = {f["file"] for f in fixes}
-        commit_msg = (
-            f"docs: fix {len(fixes)} UI reference issue(s)\n\n"
-            f"Auto-fixed by validate_ui_refs skill.\n"
-            f"Files changed: {', '.join(sorted(str(Path(f).relative_to(repo_root)) for f in files_changed))}\n\n"
-            f"Co-Authored-By: Warp <agent@warp.dev>"
+        subprocess.run(
+            ["git", "commit", "-m", _commit_message(fixes, repo_root)],
+            cwd=repo_root,
+            check=True,
         )
-        subprocess.run(["git", "commit", "-m", commit_msg], cwd=repo_root, check=True)
         subprocess.run(["git", "push", "-u", "origin", branch], cwd=repo_root, check=True)
 
-        # Write PR body to a temp file to avoid shell argument length limits
-        pr_body = (
-            f"## Summary\n"
-            f"Auto-fixed {len(fixes)} UI reference issue(s) found by the `validate_ui_refs` skill.\n\n"
-            f"## Changes\n"
-            + "\n".join(f"- `{Path(f['file']).relative_to(repo_root)}` line {f['line']}: "
-                        f"`{f['old']}` → `{f['new']}`" for f in fixes)
-            + f"\n\nCo-Authored-By: Warp <agent@warp.dev>"
-        )
         with tempfile.NamedTemporaryFile(mode="w", suffix=".md", delete=False) as tmp:
-            tmp.write(pr_body)
+            tmp.write(_pr_body(fixes, repo_root))
             body_file = tmp.name
-
         try:
             result = subprocess.run(
                 [
                     "gh", "pr", "create",
                     "--title", f"docs: fix {len(fixes)} UI reference issue(s)",
                     "--body-file", body_file,
+                    "--draft",
                 ],
                 cwd=repo_root,
                 capture_output=True,
@@ -1106,17 +1238,18 @@ def create_pr(fixes: List[Dict[str, Any]], repo_root: Path) -> Optional[str]:
             )
         finally:
             os.unlink(body_file)
+
         if result.returncode == 0:
             pr_url = result.stdout.strip()
             print(f"PR created: {pr_url}")
-            return pr_url
+            return pr_url, "created"
         else:
             print(f"Failed to create PR: {result.stderr}", file=sys.stderr)
-            return None
+            return None, "error"
 
     except subprocess.CalledProcessError as e:
         print(f"Git error: {e}", file=sys.stderr)
-        return None
+        return None, "error"
 
 
 # ---------------------------------------------------------------------------
@@ -1127,6 +1260,7 @@ def notify_slack(
     report: Dict[str, Any],
     channel: str,
     pr_url: Optional[str] = None,
+    pr_action: str = "created",
 ) -> bool:
     """Post a summary to Slack. Requires SLACK_BOT_TOKEN, BUZZ_SLACK_TOKEN, or DOCS_SLACK_BOT_TOKEN env var."""
     token = (
@@ -1168,9 +1302,15 @@ def notify_slack(
     ]
 
     if pr_url:
+        if pr_action == "updated":
+            pr_label = "View Updated PR"
+        elif pr_action == "already_covered":
+            pr_label = "Already covered (existing PR)"
+        else:
+            pr_label = "View PR"
         blocks.append({
             "type": "section",
-            "text": {"type": "mrkdwn", "text": f"*PR:* <{pr_url}|View PR>"},
+            "text": {"type": "mrkdwn", "text": f"*PR:* <{pr_url}|{pr_label}>"},
         })
 
     if path_issues:
@@ -1871,9 +2011,10 @@ def main() -> int:
 
     # Create PR
     pr_url = None
+    pr_action = "none"
     if args.create_pr and fixes:
         repo_root = SCRIPT_DIR.parents[2]
-        pr_url = create_pr(fixes, repo_root)
+        pr_url, pr_action = create_pr(fixes, repo_root)
 
     # Save JSON output
     report_data = {
@@ -1892,9 +2033,9 @@ def main() -> int:
     # Count remaining (unfixed) issues — used for Slack notification and exit code
     total_issues = len(path_issues) + len(command_issues) + len(format_issues)
 
-    # Slack notification (only when issues found)
-    if args.slack_notify and total_issues > 0:
-        notify_slack(report_data, args.slack_channel, pr_url)
+    # Slack notification: send when issues remain OR when a PR was created/updated
+    if args.slack_notify and (total_issues > 0 or pr_action in ("created", "updated")):
+        notify_slack(report_data, args.slack_channel, pr_url, pr_action)
     elif args.slack_notify:
         print("No issues found — skipping Slack notification.")
     return 1 if total_issues > 0 else 0
