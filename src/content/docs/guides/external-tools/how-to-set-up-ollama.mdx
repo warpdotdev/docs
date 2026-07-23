@@ -85,7 +85,7 @@ Then start an interactive chat session:
 ollama run llama3.2
 ```
 
-Type your prompt and press Enter. Type `/bye` to exit the session.
+Type your prompt and press `Enter`. Type `/bye` to exit the session.
 
 To try a larger model with stronger reasoning:
 
@@ -110,7 +110,7 @@ Quantized models (e.g., `q4_0`, `q8_0` variants) use significantly less memory t
 
 ## 4. Compare model performance
 
-To benchmark models side by side, Warp makes it easy to run prompts in parallel tabs and compare results. Pass a prompt and the `--verbose` flag to get timing stats alongside the response:
+To benchmark models side-by-side, Warp makes it easy to run prompts in parallel tabs and compare results. Pass a prompt and the `--verbose` flag to get timing stats alongside the response:
 
 ```bash
 ollama run --verbose llama3.2 "Summarize the Rust ownership model in one paragraph"
@@ -126,11 +126,13 @@ ollama ps
 
 ## 5. Integrate Ollama into your app
 
-Ollama exposes an OpenAI-compatible REST API at `http://localhost:11434/v1/`. You can drop it in wherever you're currently using the OpenAI API — just update three values:
+Ollama exposes an OpenAI-compatible REST API at `http://localhost:11434/v1/`. You can drop it in wherever you're currently using the OpenAI API by updating these three values:
 
 1. **Base URL** → `http://localhost:11434/v1/`
-2. **API key** → any non-empty string (e.g., `"ollama"` — required by the SDK but ignored by Ollama)
+2. **API key** → any non-empty string such as `"ollama"` (required by the SDK but ignored by Ollama)
 3. **Model name** → the name of your local model (e.g., `"llama3.2"`)
+
+Here are working examples using the OpenAI SDK for Python and Node.js:
 
 **Python (OpenAI SDK)**
 
@@ -172,11 +174,15 @@ console.log(response.choices[0].message.content);
 
 Ollama also provides official native libraries if you prefer an SDK built specifically for Ollama rather than the OpenAI compatibility layer: `pip install ollama` for Python and `npm i ollama` for JavaScript. See the [Ollama README](https://github.com/ollama/ollama) for details.
 
-Open your app's code in Warp and use the agent to locate the OpenAI client initialization, swap in the new values, and test the connection — all from the same terminal session.
+Open your app's code in Warp. Ask Warp's agent to locate the OpenAI client initialization, swap in the new values, and test the connection from the same terminal session.
+
+:::note
+The `http://localhost:11434/v1/` base URL works for code running on the same machine as Ollama. To use Ollama as the inference backend for Warp's own agent, the endpoint must be reachable at a public URL. Run `ngrok http 11434` and use the resulting HTTPS URL in Warp's [Custom inference endpoint](/agent-platform/inference/custom-inference-endpoint/) settings.
+:::
 
 ## 6. Customize model behavior
 
-You can create a custom model variant by writing a `Modelfile` — a configuration file that sets a system prompt, adjusts generation parameters, or builds on any existing Ollama model.
+You can create a custom model variant by writing a `Modelfile`, a configuration file that sets a system prompt, adjusts generation parameters, or builds on any existing Ollama model.
 
 Create a file called `Modelfile`:
 
@@ -211,11 +217,9 @@ Your custom model is saved locally and available any time you run `ollama run co
 
 ## Next steps
 
-You have Ollama installed, a model running locally, and a path to integrate it into any app using the OpenAI-compatible API.
+Next, explore related guides and features:
 
-Explore related guides and features:
-
-- [Set up Claude Code](/guides/external-tools/how-to-set-up-claude-code/) or [Set up Codex CLI](/guides/external-tools/how-to-set-up-codex-cli/) — use cloud-based agents alongside your local Ollama setup
+- [Custom inference endpoint](/agent-platform/inference/custom-inference-endpoint/) — connect Warp's agent to your local Ollama instance for a fully local, no-API-cost agent workflow
 - [Run multiple agents at once](/guides/agent-workflows/how-to-run-multiple-ai-coding-agents/) — run Ollama and a cloud agent in parallel to compare outputs on the same task
 - [Ollama model library](https://ollama.com/library) — browse all available models with size and capability details
 - [Ollama documentation](https://github.com/ollama/ollama/blob/main/README.md) — advanced configuration, GPU setup, and environment variables
