@@ -22,6 +22,8 @@ const pathname = Astro.url.pathname;
 function selectAgentPrompt(url: string, path: string): string {
   if (path.startsWith('/changelog'))
     return `Summarize what's new and whether I need to take any action: ${url}`;
+  if (path.startsWith('/guides'))
+    return `Walk me through this guide: ${url}`;
   if (path.startsWith('/reference'))
     return `Help me use this reference: ${url}`;
   if (path.includes('troubleshooting'))
