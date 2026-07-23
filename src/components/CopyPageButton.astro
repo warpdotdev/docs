@@ -21,11 +21,11 @@ const pathname = Astro.url.pathname;
 // Priority: custom prop > section-specific variant > default.
 function selectAgentPrompt(url: string, path: string): string {
   if (path.startsWith('/changelog'))
-    return `Explain this update and whether I need to take any action or any new features I should know about: ${url}`;
+    return `Summarize what's new and whether I need to take any action: ${url}`;
   if (path.startsWith('/reference'))
     return `Help me use this reference: ${url}`;
   if (path.includes('troubleshooting'))
-    return `Help me troubleshoot this: ${url}`;
+    return `Walk me through resolving this issue: ${url}`;
   return `Tell me about this feature: ${url}`;
 }
 const agentPromptText = agentPrompt ?? selectAgentPrompt(pageUrl, pathname);
