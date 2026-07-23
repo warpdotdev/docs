@@ -1150,7 +1150,12 @@ def _update_existing_pr(
             ["git", "stash", "pop"], cwd=repo_root, capture_output=True, text=True
         )
         if pop.returncode != 0:
+            # stash pop leaves the index/worktree in an unmerged state when it
+            # conflicts; git checkout - will refuse to switch until the conflict
+            # is resolved. Drop the failed stash entry then hard-reset to abort
+            # the unmerged state before switching back to the original branch.
             subprocess.run(["git", "stash", "drop"], cwd=repo_root)
+            subprocess.run(["git", "reset", "--hard", "HEAD"], cwd=repo_root)
             subprocess.run(["git", "checkout", "-"], cwd=repo_root)
             print(
                 f"Warning: stash pop conflict when updating PR #{pr_number} — "
