@@ -216,7 +216,12 @@ def extract_ui_paths(file_path: Path) -> List[Dict[str, Any]]:
                     "raw": raw,
                     "normalized": normalized,
                     "format": fmt,
-                    "match_text": match.group(0),
+                    # For bare paths, group(0) includes the leading space/bracket
+                    # from `(?:^|[(\s])`, which would be consumed by string
+                    # replacement and produce `under**Settings**` instead of
+                    # `under **Settings**`. Use the stripped group(1) (= raw)
+                    # so replacements only cover the path text itself.
+                    "match_text": raw if fmt == "bare" else match.group(0),
                     "line_text": line,
                     "_span": match_span,
                 })
@@ -839,6 +844,11 @@ _KEYBOARD_KEYS = {
 def _is_code_like(text: str) -> bool:
     """Return True if backtick content looks like code rather than a UI element."""
     t = text.strip()
+    # Single all-lowercase word (no spaces, no capitals) is almost certainly a
+    # code identifier or API field name (e.g. `detail`, `status`, `type`, `error`)
+    # rather than a UI label, which typically starts with a capital letter.
+    if re.match(r'^[a-z][a-z0-9]*$', t):
+        return True
     # Known keyboard key names
     if t.lower() in _KEYBOARD_KEYS:
         return True
@@ -1355,6 +1365,13 @@ def refresh_valid_paths(warp_internal_path: Path, output_path: Path) -> None:
     are merged in; if a new umbrella is detected that's not in the existing
     snapshot, it's added. Existing umbrella entries take precedence on
     conflict so the hand-authored `subpages` lists aren't lost.
+
+    sub_sections values are also preserved from the existing snapshot.
+    The extractor derives sub_sections from source-file structure, but
+    settings pages that share a backing file (e.g. Profiles, Knowledge, and
+    Third party CLI agents all live in ai_page.rs) incorrectly inherit each
+    other's sub_sections. Any sub_sections value curated in the existing
+    snapshot is treated as authoritative and is not overwritten.
     """
     print(f"Refreshing valid_paths.json from {warp_internal_path}...")
 
@@ -1390,6 +1407,16 @@ def refresh_valid_paths(warp_internal_path: Path, output_path: Path) -> None:
     for display_name, entry in settings_sections.items():
         if display_name in subpage_to_umbrella:
             entry["umbrella"] = subpage_to_umbrella[display_name]
+
+    # Preserve manually curated sub_sections from the existing snapshot.
+    # The extractor assigns sub_sections from the backing .rs source file,
+    # so pages that share a file (e.g. Profiles / Knowledge / Third party CLI
+    # agents in ai_page.rs) incorrectly inherit sibling sub_sections. Any
+    # sub_sections value present in the existing snapshot is authoritative.
+    existing_sections: Dict[str, Any] = existing.get("settings_sections", {})
+    for name, entry in settings_sections.items():
+        if name in existing_sections and "sub_sections" in existing_sections[name]:
+            entry["sub_sections"] = existing_sections[name]["sub_sections"]
 
     data = {
         "umbrellas": umbrellas,
