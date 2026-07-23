@@ -340,7 +340,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				{ slug: 'platform', label: 'Cloud agents overview' },
 				{
 					label: 'Getting started',
-					collapsed: true,
 					items: [
 						{ slug: 'platform/quickstart', label: 'Quickstart' },
 						{ slug: 'platform/overview', label: 'Oz platform' },
@@ -348,7 +347,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				},
 				{
 					label: 'Triggers',
-					collapsed: true,
 					items: [
 						{ slug: 'platform/triggers', label: 'Overview' },
 						{ slug: 'platform/triggers/scheduled-agents-quickstart', label: 'Quickstart' },
@@ -357,7 +355,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				},
 				{
 					label: 'Integrations',
-					collapsed: true,
 					items: [
 						{ slug: 'platform/integrations', label: 'Overview' },
 						{ slug: 'platform/integrations/quickstart', label: 'Quickstart' },
@@ -380,7 +377,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				},
 				{
 					label: 'Managing agents',
-					collapsed: true,
 					items: [
 						'platform/environments',
 						{ slug: 'platform/managing-cloud-agents', label: 'Managing cloud agents' },
@@ -391,7 +387,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				},
 				{
 					label: 'Orchestration',
-					collapsed: true,
 					items: [
 						{ slug: 'platform/orchestration', label: 'Multi-agent orchestration' },
 						{ slug: 'platform/orchestration/multi-agent-runs', label: 'Running orchestrated agents' },
@@ -400,7 +395,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				},
 				{
 					label: 'Handoff',
-					collapsed: true,
 					items: [
 						{ slug: 'platform/handoff', label: 'Overview' },
 						{ slug: 'platform/handoff/local-to-cloud', label: 'Local to cloud' },
@@ -410,7 +404,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				},
 				{
 					label: 'Harnesses',
-					collapsed: true,
 					items: [
 						{ slug: 'platform/harnesses', label: 'Overview' },
 						{ slug: 'platform/harnesses/warp-agent', label: 'Warp Agent' },
@@ -421,7 +414,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				},
 				{
 					label: 'Extending agents',
-					collapsed: true,
 					items: [
 						{ slug: 'platform/skills-as-agents', label: 'Skills as agents' },
 						{ slug: 'platform/mcp', label: 'MCP servers' },
@@ -430,7 +422,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				},
 				{
 					label: 'Deployment & hosting',
-					collapsed: true,
 					items: [
 						{ slug: 'platform/deployment-patterns', label: 'Deployment patterns' },
 						{ slug: 'platform/warp-hosting', label: 'Warp-hosted agents' },
@@ -454,7 +445,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				},
 				{
 					label: 'Access & support',
-					collapsed: true,
 					items: [
 						{ slug: 'platform/team-access-billing-and-identity', label: 'Access, billing, and identity' },
 						{ slug: 'platform/faqs', label: 'Cloud agent FAQs' },
