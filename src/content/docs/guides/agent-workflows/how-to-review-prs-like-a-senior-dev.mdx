@@ -49,7 +49,7 @@ Open a new agent session in Warp, navigate to the project directory, then attach
 
 ## 2. Ask for focused feedback
 
-With context attached, give the agent a clear, goal-oriented prompt. Keep it direct — focused prompts produce more actionable output than heavy templates:
+With context attached, give the agent a clear, goal-oriented prompt. Keep it direct. Focused prompts produce more actionable output than heavy templates. For example:
 
 ```
 I'm reviewing PR #PR_NUMBER. The goal is: [paste or summarize the PR description].
@@ -62,7 +62,7 @@ I've attached the diff. Please:
 5. For each changed file, look at the surrounding code too, not just the changed lines. Call out anything that looks off in context.
 ```
 
-Adjust the emphasis based on what the PR does — a database migration warrants different scrutiny than a UI refactor.
+Adjust the emphasis based on what the PR does. A database migration warrants different scrutiny than a UI refactor.
 
 ## 3. Verify the agent's findings
 
@@ -86,7 +86,7 @@ For large PRs, break the diff into logical groups of files and run the prompt on
 
 ## Reference: structured output format (optional)
 
-If you want the agent's findings pre-formatted for rapid scanning — useful for async reviews or sharing with a team — add this format to your prompt. Use it as a structured report, but verify the findings before acting on them.
+If you want the agent's findings pre-formatted for rapid scanning, useful for async reviews or sharing with a team, add this format to your prompt. Use it as a structured report, but verify the findings before acting on them.
 
 ```
 Review this pull request and format your response for rapid scanning. Follow the structure below.
