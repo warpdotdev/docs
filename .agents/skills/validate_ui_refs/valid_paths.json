@@ -171,32 +171,51 @@
     "AI": {
       "display_name": "AI",
       "sub_sections": [
+        "Usage",
         "Active AI",
+        "Agents",
+        "Profiles",
         "Input",
+        "MCP Servers",
+        "Knowledge",
         "Voice",
+        "Other",
+        "Third party CLI agents",
+        "Agent Attribution",
+        "Experimental",
         "Cloud Handoff",
         "Custom Inference",
-        "Custom Routers",
-        "Agent Attribution",
-        "Other",
-        "Experimental"
+        "API Keys",
+        "AWS Bedrock",
+        "Gemini Enterprise",
+        "Custom Routers"
       ],
       "source_file": "app/src/settings_view/ai_page.rs"
     },
     "Warp Agent": {
       "display_name": "Warp Agent",
       "sub_sections": [
+        "Usage",
         "Active AI",
+        "Agents",
+        "Profiles",
         "Input",
+        "MCP Servers",
+        "Knowledge",
         "Voice",
+        "Other",
+        "Third party CLI agents",
+        "Agent Attribution",
+        "Experimental",
         "Cloud Handoff",
         "Custom Inference",
-        "Custom Routers",
-        "Agent Attribution",
-        "Other",
-        "Experimental"
+        "API Keys",
+        "AWS Bedrock",
+        "Gemini Enterprise",
+        "Custom Routers"
       ],
-      "source_file": "app/src/settings_view/ai_page.rs"
+      "source_file": "app/src/settings_view/ai_page.rs",
+      "umbrella": "Agents"
     },
     "Profiles": {
       "display_name": "Profiles",
@@ -257,22 +276,6 @@
       "sub_sections": [],
       "source_file": "app/src/settings_view/platform_page.rs",
       "umbrella": "Cloud platform"
-    },
-    "Oz": {
-      "display_name": "Oz",
-      "umbrella": "Agents",
-      "sub_sections": [
-        "Active AI",
-        "Input",
-        "Voice",
-        "Cloud Handoff",
-        "Custom Inference",
-        "Custom Routers",
-        "Agent Attribution",
-        "Other",
-        "Experimental"
-      ],
-      "source_file": "app/src/settings_view/ai_page.rs"
     }
   },
   "top_level_sidebar": [
@@ -991,5 +994,5 @@
       "description": "Send feedback (opens external link)"
     }
   ],
-  "generated_at": "2026-07-21T21:45:59.337152+00:00"
+  "generated_at": "2026-07-23T18:48:57.057380+00:00"
 }
