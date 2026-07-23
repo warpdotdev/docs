@@ -148,7 +148,7 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 		setHandoffStatus('idle');
 		setHandoffStatusMessage('');
 		try {
-			const response = await fetch('/api/kapa-handoff', {
+			const response = await fetch('/kapa-handoff', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({
