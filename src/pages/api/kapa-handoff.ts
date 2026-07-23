@@ -1,5 +1,7 @@
 import type { APIRoute } from 'astro';
 
+export const prerender = false;
+
 type HandoffPayload = {
 	replyToEmail: string;
 	note?: string;
