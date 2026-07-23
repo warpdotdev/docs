@@ -11,6 +11,7 @@ import {
 	LuMessageSquare,
 	LuSend,
 	LuSquarePen,
+	LuTicket,
 	LuThumbsDown,
 	LuThumbsUp,
 	LuX,
@@ -32,6 +33,12 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 	const [isOpen, setIsOpen] = useState(autoOpen);
 	const [query, setQuery] = useState('');
 	const [hasStartedConversation, setHasStartedConversation] = useState(false);
+	const [showHandoffForm, setShowHandoffForm] = useState(false);
+	const [handoffEmail, setHandoffEmail] = useState('');
+	const [handoffNote, setHandoffNote] = useState('');
+	const [isSubmittingHandoff, setIsSubmittingHandoff] = useState(false);
+	const [handoffStatus, setHandoffStatus] = useState<'idle' | 'success' | 'error'>('idle');
+	const [handoffStatusMessage, setHandoffStatusMessage] = useState('');
 	const [isAppleDevice, setIsAppleDevice] = useState(false);
 	const messagesRef = useRef<HTMLDivElement | null>(null);
 	const dialogRef = useRef<HTMLDialogElement | null>(null);
@@ -45,6 +52,7 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 		isGeneratingAnswer,
 		isPreparingAnswer,
 		submitQuery,
+		threadId,
 	} = useChat();
 	useEffect(() => {
 		setIsAppleDevice(isMac());
@@ -119,6 +127,60 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 
 	const feedback = (questionAnswerId: string, reaction: FeedbackReaction) => {
 		addFeedback(questionAnswerId, reaction);
+	};
+
+	const buildConversationTranscript = () => {
+		if (!conversation.length) return 'No conversation history yet.';
+		return conversation
+			.map((qa, index) => {
+				const sources = qa.sources?.length
+					? `\nSources:\n${qa.sources.map((source) => `- ${source.title}: ${source.source_url}`).join('\n')}`
+					: '';
+				return `Q${index + 1}: ${qa.question}\nA${index + 1}: ${qa.answer || '(no answer generated yet)'}${sources}`;
+			})
+			.join('\n\n');
+	};
+
+	const submitHandoff = async (event: FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+		if (isSubmittingHandoff) return;
+		setIsSubmittingHandoff(true);
+		setHandoffStatus('idle');
+		setHandoffStatusMessage('');
+		try {
+			const response = await fetch('/api/kapa-handoff', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					replyToEmail: handoffEmail.trim(),
+					note: handoffNote.trim(),
+					pageUrl: window.location.href,
+					threadId,
+					conversationCount: conversation.length,
+					conversationTranscript: buildConversationTranscript(),
+					askedAt: new Date().toISOString(),
+				}),
+			});
+			const data = await response.json();
+			if (!response.ok) {
+				throw new Error(data?.error || 'Unable to submit handoff request.');
+			}
+			setHandoffStatus('success');
+			setHandoffStatusMessage(
+				data?.mode === 'preview'
+					? 'Ticket preview captured. Configure webhook env vars to send live emails.'
+					: 'Ticket submitted. A team member can follow up via your email.'
+			);
+			setHandoffNote('');
+			setShowHandoffForm(false);
+		} catch (submitError) {
+			setHandoffStatus('error');
+			setHandoffStatusMessage(
+				submitError instanceof Error ? submitError.message : 'Unable to submit handoff request.'
+			);
+		} finally {
+			setIsSubmittingHandoff(false);
+		}
 	};
 
 	const openPanel = () => {
@@ -304,6 +366,56 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 								<LuSend aria-hidden="true" />
 							</button>
 						</form>
+						<div className="sl-kapa-handoff">
+							<button
+								type="button"
+								className="sl-kapa-handoff__toggle"
+								onClick={() => {
+									setShowHandoffForm((current) => !current);
+									setHandoffStatus('idle');
+									setHandoffStatusMessage('');
+								}}
+								aria-expanded={showHandoffForm}
+							>
+								<LuTicket aria-hidden="true" />
+								<span>Create ticket</span>
+							</button>
+							{showHandoffForm ? (
+								<form className="sl-kapa-handoff__form" onSubmit={submitHandoff}>
+									<label>
+										<span>Your email</span>
+										<input
+											type="email"
+											value={handoffEmail}
+											onChange={(event) => setHandoffEmail(event.target.value)}
+											placeholder="you@company.com"
+											required
+										/>
+									</label>
+									<label>
+										<span>Optional note</span>
+										<textarea
+											value={handoffNote}
+											onChange={(event) => setHandoffNote(event.target.value)}
+											placeholder="Share any extra context for the team."
+											rows={3}
+										/>
+									</label>
+									<button
+										type="submit"
+										className="sl-kapa-handoff__submit"
+										disabled={isSubmittingHandoff || !handoffEmail.trim()}
+									>
+										{isSubmittingHandoff ? 'Submitting…' : 'Send transcript'}
+									</button>
+								</form>
+							) : null}
+							{handoffStatus !== 'idle' ? (
+								<p className={`sl-kapa-handoff__status sl-kapa-handoff__status--${handoffStatus}`}>
+									{handoffStatusMessage}
+								</p>
+							) : null}
+						</div>
 						<div className="sl-kapa-meta">
 							<p className="sl-kapa-attribution">
 								Powered by{' '}

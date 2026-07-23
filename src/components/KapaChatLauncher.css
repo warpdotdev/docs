@@ -338,6 +338,146 @@
 	cursor: not-allowed;
 }
 
+.sl-kapa-handoff {
+	margin-top: 0.75rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.625rem;
+}
+
+.sl-kapa-handoff__toggle {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	width: 100%;
+	height: 2.5rem;
+	padding: 0 0.875rem;
+	border: 1px solid var(--sl-color-gray-5);
+	border-radius: var(--sl-radius-sm);
+	background: var(--sl-color-black);
+	color: var(--sl-color-gray-1);
+	font: inherit;
+	font-size: var(--sl-text-sm);
+	font-weight: 500;
+	cursor: pointer;
+	transition:
+		border-color 0.15s ease,
+		background-color 0.15s ease,
+		color 0.15s ease;
+}
+
+.sl-kapa-handoff__toggle svg {
+	width: 0.95rem;
+	height: 0.95rem;
+	flex: none;
+}
+
+.sl-kapa-handoff__toggle:hover {
+	border-color: var(--warp-control-border-hover);
+	background: var(--warp-control-bg-hover);
+	color: var(--sl-color-white);
+}
+
+.sl-kapa-handoff__toggle:focus-visible {
+	outline: 2px solid var(--sl-color-accent-high);
+	outline-offset: 2px;
+}
+
+.sl-kapa-handoff__form {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	padding: 0.75rem;
+	border: 1px solid var(--sl-color-gray-5);
+	border-radius: var(--sl-radius-lg);
+	background: color-mix(in srgb, var(--sl-color-black), var(--sl-color-gray-6) 28%);
+}
+
+.sl-kapa-handoff__form label {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+}
+
+.sl-kapa-handoff__form label span {
+	font-size: var(--sl-text-2xs);
+	color: var(--sl-color-gray-3);
+}
+
+.sl-kapa-handoff__form input,
+.sl-kapa-handoff__form textarea {
+	width: 100%;
+	border: 1px solid var(--sl-color-gray-5);
+	border-radius: var(--sl-radius-sm);
+	background: var(--sl-color-black);
+	color: var(--sl-color-white);
+	padding: 0.5rem 0.625rem;
+	font: inherit;
+	font-size: var(--sl-text-sm);
+}
+
+.sl-kapa-handoff__form textarea {
+	resize: vertical;
+	min-height: 4rem;
+}
+
+.sl-kapa-handoff__form input::placeholder,
+.sl-kapa-handoff__form textarea::placeholder {
+	color: var(--sl-color-gray-3);
+}
+
+.sl-kapa-handoff__form input:focus-visible,
+.sl-kapa-handoff__form textarea:focus-visible {
+	outline: 2px solid var(--sl-color-accent-high);
+	outline-offset: 2px;
+}
+
+.sl-kapa-handoff__submit {
+	margin-top: 0.25rem;
+	height: 2.5rem;
+	border: 1px solid var(--sl-color-text-accent);
+	border-radius: var(--sl-radius-sm);
+	background: var(--sl-color-text-accent);
+	color: var(--sl-color-black);
+	font: inherit;
+	font-size: var(--sl-text-sm);
+	font-weight: 600;
+	cursor: pointer;
+	transition:
+		border-color 0.15s ease,
+		background-color 0.15s ease;
+}
+
+.sl-kapa-handoff__submit:hover:not(:disabled) {
+	border-color: color-mix(in srgb, var(--sl-color-text-accent), var(--sl-color-white) 18%);
+	background: color-mix(in srgb, var(--sl-color-text-accent), var(--sl-color-white) 8%);
+}
+
+.sl-kapa-handoff__submit:focus-visible {
+	outline: 2px solid var(--sl-color-accent-high);
+	outline-offset: 2px;
+}
+
+.sl-kapa-handoff__submit:disabled {
+	opacity: 0.55;
+	cursor: not-allowed;
+}
+
+.sl-kapa-handoff__status {
+	margin: 0;
+	font-size: var(--sl-text-xs);
+	line-height: 1.4;
+}
+
+.sl-kapa-handoff__status--success {
+	color: #86efac;
+}
+
+.sl-kapa-handoff__status--error {
+	color: #fecaca;
+}
+
 /* Hide the reCAPTCHA badge */
 .grecaptcha-badge {
 	visibility: hidden;
