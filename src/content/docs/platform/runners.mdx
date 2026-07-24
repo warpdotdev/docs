@@ -22,7 +22,7 @@ What runners give you:
 
 * **Reusable compute configs** – Define an OS, architecture, instance size, and sandbox image once, then reuse the runner across cloud agent runs and orchestration without repeating the configuration.
 * **Right-sized hardware** – Choose the number of vCPUs and amount of memory a run needs, so lightweight tasks stay cheap and heavy builds get enough resources.
-* **Linux and macOS targets** – Run agents on Linux (with a custom Docker image) or macOS (with a specific macOS version), depending on what your build and tests require.
+* **Flexible OS targets** – Run agents on Linux with a custom Docker image. macOS runners are in limited preview.
 * **Independent of environments** – Override an environment's default runner per run without changing the environment itself.
 
 ## How runners fit into the Oz Platform
@@ -68,7 +68,7 @@ Key flags:
 * `--team` / `--personal` — create the runner at the team level or private to your account.
 
 :::caution
-OS-specific options must match `--os`. Use `--docker-image` only with `--os linux`, and `--macos-version` only with `--os macos`.
+OS-specific options must match `--os`. Use `--docker-image` only with `--os linux`, and `--macos-version` only with `--os macos`. macOS runners are in limited preview.
 :::
 
 ### List runners
