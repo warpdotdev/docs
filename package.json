@@ -49,7 +49,7 @@
     "js-yaml": "^4.3.0",
     "path-to-regexp": "^6.3.0",
     "esbuild": "^0.28.1",
-    "vite": "7.3.5",
+    "vite": "^8.0.13",
     "@babel/core": ">=7.29.6",
     "@astrojs/markdown-remark": "^7.2.0",
     "tar": "^7.5.16"
