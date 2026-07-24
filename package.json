@@ -46,6 +46,7 @@
     "yaml": "^2.8.3"
   },
   "overrides": {
+    "js-yaml": "^4.3.0",
     "path-to-regexp": "^6.3.0",
     "esbuild": "^0.28.1",
     "vite": "7.3.5",
