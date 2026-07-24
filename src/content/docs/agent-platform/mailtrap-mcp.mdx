@@ -1,0 +1,74 @@
+---
+title: Mailtrap MCP Server
+description: Configure the Mailtrap MCP server in Warp to send transactional emails, test in sandbox, and manage email infrastructure from your terminal.
+---
+
+import { Steps } from '@astrojs/starlight/components';
+
+# Mailtrap MCP Server
+
+The [Mailtrap MCP server](https://github.com/mailtrap/mailtrap-mcp) lets you send transactional emails, test in sandbox, manage templates, check delivery logs, and manage sending domains — all from within Warp using natural language.
+
+## Prerequisites
+
+- A [Mailtrap account](https://mailtrap.io/signup)
+- A verified [sending domain](https://mailtrap.io/sending/domains) (for production sending)
+- A Mailtrap API token from [API settings](https://mailtrap.io/api-tokens)
+- Your Account ID from [account management](https://mailtrap.io/account-management)
+
+## Setup
+
+<Steps>
+
+1. Add the Mailtrap MCP server to your Warp configuration. Open your Warp MCP config file and add:
+
+```json
+   {
+     "mcpServers": {
+       "mailtrap": {
+         "command": "npx",
+         "args": ["-y", "mcp-mailtrap"],
+         "env": {
+           "MAILTRAP_API_TOKEN": "your_mailtrap_api_token",
+           "DEFAULT_FROM_EMAIL": "your_sender@example.com",
+           "MAILTRAP_ACCOUNT_ID": "your_account_id",
+           "MAILTRAP_TEST_INBOX_ID": "your_test_inbox_id"
+         }
+       }
+     }
+   }
+```
+
+2. Replace the placeholder values with your actual Mailtrap credentials.
+
+3. Restart Warp to apply the configuration.
+
+</Steps>
+
+## What you can do
+
+Once configured, you can ask Warp's agent to:
+
+**Send emails:**
+- "Send an email to john@example.com with subject 'Meeting Tomorrow'"
+- "Email the team at team@example.com about the project update"
+- "Send the welcome template to new@example.com"
+
+**Test in sandbox:**
+- "Send a sandbox email to test@example.com to preview our welcome email"
+- "Show me the messages in my sandbox inbox"
+
+**Manage delivery:**
+- "List my recent email logs"
+- "Get sending stats for the last 30 days"
+- "List my sending domains and their verification status"
+
+**Manage templates:**
+- "List all email templates in my Mailtrap account"
+- "Create a new template called Welcome Email"
+
+## Further reading
+
+- [Mailtrap MCP server on GitHub](https://github.com/mailtrap/mailtrap-mcp)
+- [Mailtrap Email API documentation](https://mailtrap.io/docs)
+- [Warp Agent Platform](/agent-platform/)
