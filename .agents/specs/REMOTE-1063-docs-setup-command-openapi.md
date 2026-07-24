@@ -34,14 +34,19 @@ source of truth.
    setup-command operation(s) for cloud environments alongside the existing
    `GET /agent/environments` operation, with HTTP method, path, parameters,
    request body, and response codes rendered.
-2. The documented request body lets a caller express insert-at-index,
-   edit-by-index, remove-by-index, clear, and clear-and-rebuild (replace) of an
-   environment's `setup_commands` list without resending the unchanged full
-   list for the index-based ops.
-3. Index parameters are documented as **zero-based**; an insert at
-   `index == length` is documented as append (preserves order); any index
-   outside `[0, length]` (insert) or `[0, length)` (edit/remove) is documented
-   as a `400` error.
+2. The documented surface exposes the setup-commands sub-resource as
+multiple verbs under `/agent/environments/{uid}/setup-commands`: `GET` (list),
+`PUT` (replace / clear-and-rebuild the whole list), `POST` (add — append when
+index omitted, insert at `0..=len`), `PATCH /{index}` (edit one command by
+index without resending the rest), `DELETE /{index}` (remove one by index),
+and `DELETE` (clear all). The index-based ops (`POST` insert,
+`PATCH /{index}`, `DELETE /{index}`) address a single command by index
+without the caller resending the unchanged full list.
+3. Index parameters are documented as **zero-based**; a `POST` insert at
+`index == length` appends (preserves order); an edit (`PATCH /{index}`) or
+remove (`DELETE /{index}`) whose index is out of range (`[0, length)`) is
+documented as a `404`; a malformed/bad index (e.g. non-integer, negative) is
+documented as a `400`.
 4. Duplicate setup commands (same text, different positions) are addressable by
    index in the documented operations; the docs do not require command text to
    be unique.
@@ -99,18 +104,21 @@ approach):
   contract but moves index semantics out of the shared contract, so the three
   specs cannot "agree on the same index semantics" — rejected for this
   multi-repo task. → contract carries index semantics.
-- **Endpoint shape** (the warp-server spec is the final source of truth; this
-  is the proposed shape the docs file will mirror):
-  (a) *Sub-resource* (proposed): `PATCH /agent/environments/{environmentId}/setup-commands`
-  with an ordered `operations` array body (insert/edit/remove/append/clear/
-  replace). Focused, RESTful, and additive to the existing plural path.
-  (b) *Whole-config PATCH*: `PATCH /agent/environments/{environmentId}` with a
-  setup-commands patch nested under config. Broader blast radius (implies a
-  general environment update contract). (c) *Separate verbs per op*
-  (POST .../insert, POST .../edit): more endpoints, more schemas, harder to
-  keep ordered. → sub-resource with an operations array (proposed); the docs
-  criteria below are written against *whatever exact path/shape the warp-server
-  spec commits*, so the docs spec is not brittle to that choice.
+- **Endpoint shape** — **binding per warp-server's committed REST contract**
+  (the docs file mirrors it verbatim via the sync): a multi-verb sub-resource
+  under `/agent/environments/{uid}/setup-commands` (mounted at
+  `/api/v1/agent/environments/{uid}/setup-commands`): `GET` (list), `PUT`
+  (replace / clear-and-rebuild), `POST` (add — append when index omitted,
+  insert at `0..=len`), `PATCH /{index}` (edit by index), `DELETE /{index}`
+  (remove by index), `DELETE` (clear all). Alternatives weighed before
+  warp-server committed: (a) a single `PATCH` with an ordered `operations`
+  array body (insert/edit/remove/append/clear/replace) — fewer endpoints but a
+  less standard REST shape and a compound request body; (b) a whole-config
+  `PATCH /agent/environments/{uid}` with a setup-commands patch nested under
+  config — broader blast radius implying a general environment update
+  contract. warp-server chose the multi-verb sub-resource; the docs file
+  mirrors that exact surface, so the validation criteria below check for those
+  verbs and the `{uid}` path parameter.
 - **New tag or reuse `agent`** — options:
   (a) *Reuse the `agent` tag* (proposed): the new operations flow through the
   sync automatically (`agent` ∈ `KNOWN_TAGS`, path not in `EXCLUDED_PATHS`) —
@@ -124,11 +132,13 @@ approach):
 1. **Regenerate** `developers/agent-api-openapi.yaml` by running
    `scripts/sync_openapi.py --mode apply --source <updated warp-server
    public_api/openapi.yaml> --target developers/agent-api-openapi.yaml` once
-   the warp-server canonical lands the new setup-command operations. The
-   regenerated file adds the new path(s), operation(s), request/response
-   schemas (e.g. `UpdateSetupCommandsRequest` and any per-operation schemas),
-   and the `Error`-referenced error responses — mirroring the canonical
-   verbatim for the included surface.
+   the warp-server canonical lands the setup-commands sub-resource. The
+   regenerated file adds the new paths — `/agent/environments/{uid}/setup-commands`
+   and `/agent/environments/{uid}/setup-commands/{index}` — the per-verb
+   operations (`GET`/`PUT`/`POST`/`PATCH`/`DELETE`), their request/response
+   schemas (e.g. add/replace/edit request bodies and the list response), and
+   the `Error`-referenced error responses — mirroring the canonical verbatim
+   for the included surface.
 2. **Sync policy** (only if needed): if the warp-server spec introduces a new
    tag (not `agent`/`schedules`) or a path that should stay hidden, update
    `EXCLUDED_TAGS`/`EXCLUDED_PATHS` in `scripts/sync_openapi.py` and record the
@@ -156,25 +166,27 @@ approval request for ben to confirm):
   all three specs agree on zero-based. *Assumption to confirm:* ben may prefer
   one-based for CLI ergonomics — if so, the CLI maps one-based→zero-based at the
   edge and the contract stays zero-based.
-- **Insert permits append-at-length: yes.** `insert` at `index == length`
-  appends and preserves order; `index > length` or `< 0` is a `400`. Settled as
-  standard list-insert semantics; supports `--insert-setup-command <len> <cmd>`
-  as an append.
+- **Insert permits append-at-length: yes.** `POST` insert at `index == length`
+  appends and preserves order; an insert `index > length` is out of range.
+  Per warp-server's binding contract: edit/remove out of range → `404`; a bad
+  (malformed/negative) index → `400`. Settled as standard list-insert
+  semantics; supports `--insert-setup-command <len> <cmd>` as an append.
 - **Duplicate-command addressing: by index.** Setup commands may legitimately
   repeat, so the precise ops address by index, not by text. The existing
   text-based `--remove-setup-command` CLI flag is preserved for compatibility
   and is translated client-side (find first text match → its index →
-  `remove` op); the public contract is index-based only. Settled from the
+  `DELETE /{index}`); the public contract is index-based only. Settled from the
   ticket's "edit one setup command by index without resending" requirement.
 - **Public contract: REST.** Settled from the existing REST public surface and
   the Scalar/OpenAPI docs pipeline; GraphQL stays internal. See Design
   alternatives.
-- **Exact endpoint path/shape:** proposed `PATCH
-  /agent/environments/{environmentId}/setup-commands` with an ordered
-  operations array (insert/edit/remove/append/clear/replace). The docs file
-  mirrors whatever the warp-server spec ultimately commits; the validation
-  criteria are written against the canonical, not a hardcoded path, so this
-  assumption does not block the docs spec.
+- **Exact endpoint path/shape: binding per warp-server.** Multi-verb
+  sub-resource under `/agent/environments/{uid}/setup-commands` (mounted at
+  `/api/v1/...`): `GET` list, `PUT` replace/clear-and-rebuild, `POST` add
+  (append when index omitted, insert at `0..=len`), `PATCH /{index}` edit,
+  `DELETE /{index}` remove, `DELETE` clear. The docs file mirrors this exact
+  surface verbatim via the sync; the validation criteria check for these verbs
+  and the `{uid}` path parameter.
 
 *Risks / blast radius:*
 - The docs file is generated; a hand-edit would be overwritten on the next
@@ -195,11 +207,11 @@ PR; criteria 1–4 run against a `warp-server/public_api/openapi.yaml` that
 already contains the new setup-command operations):
 1. `python3 .agents/skills/sync-openapi-spec/scripts/sync_openapi.py --mode apply --source ../warp-server/public_api/openapi.yaml --target developers/agent-api-openapi.yaml` regenerates the docs file containing the new setup-command operation(s) and exits 0 with "All $refs resolve in the regenerated spec." (every `$ref` resolves). - verifies behavior #1, #2.
 2. `python3 .agents/skills/sync-openapi-spec/scripts/sync_openapi.py --mode diff --source ../warp-server/public_api/openapi.yaml --target developers/agent-api-openapi.yaml` reports **no `!` unclassified items**: the new operations either reuse the `agent` tag (no policy change) OR `EXCLUDED_TAGS`/`KNOWN_TAGS` in `scripts/sync_openapi.py` and `references/sync-policy.md` have been updated with a rationale for any new tag/path. - verifies the sync policy stays consistent.
-3. The regenerated `developers/agent-api-openapi.yaml` contains the new precise setup-command operation(s) the warp-server canonical commits, with: a path parameter identifying the environment, `bearerAuth` security, a request body schema expressing insert-at-index / edit-by-index / remove-by-index / clear / clear-and-rebuild (replace) operations, and `200`/`400`/`401`/`403`/`404`/`500` responses (error responses `$ref` `#/components/schemas/Error`). - verifies behavior #1, #2; checked by grepping the regenerated YAML for the new operationId/path and schema names committed by the warp-server spec.
-4. The regenerated docs file documents the **zero-based** index semantics (insert-at-length appends; out-of-range is `400`) in the operation/schema `description` fields, matching the warp-server canonical verbatim. - verifies behavior #3; checked by reading the regenerated schema descriptions and confirming they equal the canonical's.
+3. The regenerated `developers/agent-api-openapi.yaml` contains the setup-commands sub-resource the warp-server canonical commits: paths `/agent/environments/{uid}/setup-commands` and `/agent/environments/{uid}/setup-commands/{index}`, with `GET` (list), `PUT` (replace/clear-and-rebuild), `POST` (add; append when index omitted, insert at `0..=len`), `PATCH /{index}` (edit by index), `DELETE /{index}` (remove by index), and `DELETE` (clear all) operations — each with `bearerAuth` security, the appropriate request body schema, and `200`/`201`/`204`/`400`/`401`/`403`/`404`/`500` responses (error responses `$ref` `#/components/schemas/Error`). - verifies behavior #1, #2; checked by grepping the regenerated YAML for the committed operationIds/paths and schema names.
+4. The regenerated docs file documents the **zero-based** index semantics in the operation/schema `description` fields, matching the warp-server canonical verbatim: `POST` insert at `index == length` appends; edit (`PATCH /{index}`) / remove (`DELETE /{index}`) out of range → `404`; a bad (malformed/negative) index → `400`; duplicate command text allowed and addressed by index. - verifies behavior #3, #4; checked by reading the regenerated schema descriptions and confirming they equal the canonical's.
 5. `npm run build` succeeds (Astro picks up the regenerated YAML and Scalar parses it at build time). - verifies behavior #1, #6; the docs repo's documented build check.
 6. (Recommended when schemas changed) `npx @redocly/cli lint developers/agent-api-openapi.yaml` passes with no errors. - belt-and-braces OpenAPI lint.
 7. No regressions to the existing public surface: the regenerated docs file still contains `GET /agent/environments` (`operationId: listEnvironments`) and the `CloudEnvironmentConfig` schema with its `setup_commands` array field, unchanged; `--mode diff` shows the new operations as **additions** only (no removals of existing public paths/schemas). - verifies behavior #5.
 8. The docs PR records the warp-server source commit SHA used for the sync and the count of paths/schemas added/modified (per the sync-openapi-spec skill's reporting step). - traceability of the generated artifact to its source.
-9. Cross-repo alignment: the docs operation path, path parameter name, request/response schema `$ref` names, HTTP status codes, and index semantics exactly match `warp-server/public_api/openapi.yaml` (same names, zero-based, append-at-length rule, same error codes). - verifies the three specs agree on one contract; checked by `--mode diff` reporting the docs file equals the curated subset of the canonical (no docs-only divergence).
+9. Cross-repo alignment: the docs sub-resource paths (`/agent/environments/{uid}/setup-commands` and `.../{index}`), the `{uid}` path parameter name, the per-verb operationIds, request/response schema `$ref` names, HTTP status codes (`404` out-of-range edit/remove, `400` bad index), and zero-based index semantics exactly match `warp-server/public_api/openapi.yaml`. - verifies the three specs agree on one contract; checked by `--mode diff` reporting the docs file equals the curated subset of the canonical (no docs-only divergence).
 10. After deploy, `docs.warp.dev/api` (Scalar) and `docs.warp.dev/openapi.json` expose the new operations. For the PR itself, verify via the `npm run build` output that the new path is present in the built spec; live deploy verification is post-merge. - verifies behavior #1, #6.
