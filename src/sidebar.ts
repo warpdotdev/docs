@@ -379,6 +379,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					label: 'Managing agents',
 					items: [
 						'platform/environments',
+						{ slug: 'platform/runners', label: 'Runners' },
 						{ slug: 'platform/managing-cloud-agents', label: 'Managing cloud agents' },
 						{ slug: 'platform/agents', label: 'Agents' },
 						{ slug: 'platform/viewing-cloud-agent-runs', label: 'Viewing cloud agent runs' },
