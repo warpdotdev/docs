@@ -11,6 +11,7 @@
     "AIRules": "ga",
     "APIKeyAuthentication": "ga",
     "APIKeyManagement": "ga",
+    "AccountFirstOnboarding": "ga",
     "ActiveConversationRequiresInteraction": "ga",
     "AgentDecidesCommandExecution": "ga",
     "AgentHarness": "ga",
@@ -45,7 +46,7 @@
     "Autoupdate": "ga",
     "AutoupdateUIRevamp": "ga",
     "AvatarInTabBar": "ga",
-    "BackgroundComputerUse": "dogfood",
+    "BackgroundComputerUse": "ga",
     "BillingAndUsagePageV2": "ga",
     "BlocklistMarkdownImages": "ga",
     "BlocklistMarkdownTableRendering": "ga",
@@ -271,7 +272,7 @@
     "ValidateAutosuggestions": "ga",
     "VerticalTabs": "ga",
     "VerticalTabsSummaryMode": "ga",
-    "VideoRecording": "dogfood",
+    "VideoRecording": "ga",
     "ViewingSharedSessions": "ga",
     "VimCodeEditor": "ga",
     "WaitForEventsParentRegistration": "dogfood",
@@ -425,6 +426,10 @@
     },
     {
       "command": "oz harness-support report-artifact",
+      "hidden": true
+    },
+    {
+      "command": "oz harness-support report-external-reference",
       "hidden": true
     },
     {
@@ -808,6 +813,7 @@
     "DELETE /api/v1/factory/automations/{id}/subscriptions/{subscription_id}",
     "DELETE /api/v1/factory/{uid}",
     "DELETE /api/v1/factory/{uid}/source",
+    "DELETE /api/v1/factory/{uid}/tasks/{task_uid}",
     "DELETE /api/v1/memory_stores/{uid}",
     "DELETE /api/v1/memory_stores/{uid}/memories/{memoryUid}",
     "GET /.well-known/openid-configuration",
@@ -842,6 +848,9 @@
     "GET /api/v1/factory/{uid}",
     "GET /api/v1/factory/{uid}/source",
     "GET /api/v1/factory/{uid}/syncs",
+    "GET /api/v1/factory/{uid}/task-by-conversation",
+    "GET /api/v1/factory/{uid}/tasks",
+    "GET /api/v1/factory/{uid}/tasks/{task_uid}",
     "GET /api/v1/harness-support/transcript",
     "GET /api/v1/memory_stores",
     "GET /api/v1/memory_stores/{uid}",
@@ -853,6 +862,7 @@
     "GET /api/v1/oauth/jwks.json",
     "PATCH /api/v1/agent/runs/{runId}/event-sequence",
     "PATCH /api/v1/factory/{uid}",
+    "PATCH /api/v1/factory/{uid}/tasks/{task_uid}",
     "POST /api/v1/agent/events/{run_id}",
     "POST /api/v1/agent/handoff/upload-snapshot",
     "POST /api/v1/agent/identities",
@@ -875,6 +885,7 @@
     "POST /api/v1/factory/avatar",
     "POST /api/v1/factory/{uid}/apply",
     "POST /api/v1/factory/{uid}/plan",
+    "POST /api/v1/factory/{uid}/tasks",
     "POST /api/v1/harness-support/block-snapshot",
     "POST /api/v1/harness-support/external-conversation",
     "POST /api/v1/harness-support/finish-task",
@@ -891,6 +902,7 @@
     "POST /api/v1/oauth/token",
     "PUT /api/v1/agent/identities/{uid}",
     "PUT /api/v1/agent/schedules/{id}",
+    "PUT /api/v1/factory/automations/{id}",
     "PUT /api/v1/factory/automations/{id}/subscriptions",
     "PUT /api/v1/factory/{uid}/source",
     "PUT /api/v1/memory_stores/{uid}",
@@ -911,9 +923,7 @@
     "/cost",
     "/create-environment",
     "/create-new-project",
-    "/disable-natural-language-detection",
     "/docker-sandbox",
-    "/enable-natural-language-detection",
     "/environment",
     "/exit",
     "/export-to-clipboard",
@@ -930,6 +940,7 @@
     "/logout",
     "/mcp",
     "/model",
+    "/natural-language-detection",
     "/new",
     "/open-code-review",
     "/open-file",
@@ -949,7 +960,9 @@
     "/set-tab-color",
     "/skills",
     "/usage",
-    "/view-logs"
+    "/version",
+    "/view-logs",
+    "/voice"
   ],
   "settings": {
     "accessibility.accessibility_verbosity": "always_on",
@@ -1059,6 +1072,9 @@
     "appearance.window.override_blur_texture": "always_on",
     "appearance.window.override_opacity": "always_on",
     "appearance.window.zoom_level": "always_on",
+    "appearance.zero_state.extrusion_depth": "always_on",
+    "appearance.zero_state.object": "always_on",
+    "appearance.zero_state.rotation_period_seconds": "always_on",
     "cloud_platform.third_party_api_keys.aws_bedrock_auth_refresh_command": "always_on",
     "cloud_platform.third_party_api_keys.aws_bedrock_auto_login": "always_on",
     "cloud_platform.third_party_api_keys.aws_bedrock_credentials_enabled": "always_on",
@@ -1233,6 +1249,8 @@
     "read_skill",
     "read_todos",
     "remove_todos",
+    "report_intent",
+    "report_outcome",
     "report_pr",
     "report_screenshot",
     "request_computer_use",
@@ -1247,7 +1265,6 @@
     "send_message_to_agent",
     "set_computer_use_target",
     "skip",
-    "start_agent",
     "start_recording",
     "stop_recording",
     "suggest_prompt",
@@ -1277,5 +1294,5 @@
     "verify-ui-change-in-cloud": "dogfood",
     "warpctrl": "bundled"
   },
-  "changelog_last_version": "2026.07.16"
+  "changelog_last_version": "2026.07.23"
 }
