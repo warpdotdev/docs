@@ -80,6 +80,17 @@ Computer Use supports multiple Anthropic Claude models, including Claude 4.5 Son
 
 ---
 
+## Recording sessions
+
+During a Computer Use session, the agent can capture what happens on screen as visual evidence of its work:
+
+* **Screenshots** - The agent captures still images of the display to inspect state and confirm results.
+* **Video recording** - The agent can record a screen recording of the session, so a multi-step flow can be reviewed as a single clip instead of a series of screenshots.
+
+These recordings are produced by the agent as part of a run and can be surfaced in the run's outputs—for example, attached to a pull request body alongside the agent's summary. Recording happens inside the same isolated sandbox as the rest of the session and captures only the sandbox display, never your local machine.
+
+---
+
 ## Security considerations
 
 Computer Use is an experimental feature with unique security considerations. These risks are heightened when interacting with the internet.
