@@ -1203,7 +1203,9 @@ paths:
       description: |
         Return the environment's current ordered `setup_commands` as a JSON array,
         0-indexed in array order. An environment with no setup commands returns
-        an empty array. Requires update permission on the environment.
+        an empty array. Duplicate command text is permitted: each entry is a
+        distinct element addressed by its zero-based index. Requires update
+        permission on the environment.
       operationId: listEnvironmentSetupCommands
       tags:
         - agent
@@ -1248,7 +1250,9 @@ paths:
         Replace the environment's entire `setup_commands` list with the provided
         array (the "clear and rebuild" operation). An empty array or an omitted
         field clears the list. The resulting list equals the request array in
-        order. Requires update permission on the environment.
+        order. Duplicate command text is permitted and preserved in order;
+        entries are addressed by their zero-based index. Requires update
+        permission on the environment.
       operationId: replaceEnvironmentSetupCommands
       tags:
         - agent
@@ -1306,7 +1310,10 @@ paths:
         When `index` is provided and `0 <= index <= len`, insert the command at
         that position, shifting the element previously at `index` and all later
         elements right by one; `index == len` appends. `index < 0` or
-        `index > len` is a 400. Requires update permission on the environment.
+        `index > len` is a 400. Duplicate command text is allowed: the new
+        command may equal an existing entry, since list entries are addressed by
+        their zero-based index, not by text. Requires update permission on the
+        environment.
       operationId: addEnvironmentSetupCommand
       tags:
         - agent
@@ -1404,6 +1411,8 @@ paths:
         all other entries and the list length unchanged. `index` is 0-based and
         must reference an existing entry (`0 <= index < len`); an out-of-range
         index returns 404 and a non-integer/negative index returns 400.
+        Duplicate command text is allowed: editing index `i` changes only that
+        slot, so any other entry with the same text is left untouched.
         Requires update permission on the environment.
       operationId: updateEnvironmentSetupCommand
       tags:
@@ -1462,8 +1471,10 @@ paths:
         Remove the command at `index`, shifting later elements left by one; the
         list length decreases by one. `index` is 0-based and must reference an
         existing entry (`0 <= index < len`); an out-of-range index returns 404
-        and a non-integer/negative index returns 400. Requires update
-        permission on the environment.
+        and a non-integer/negative index returns 400. Duplicate command text is
+        allowed: removing index `i` affects only that slot, so any other entry
+        with the same text is left untouched. Requires update permission on the
+        environment.
       operationId: removeEnvironmentSetupCommand
       tags:
         - agent
@@ -3264,14 +3275,19 @@ components:
       description: |
         The environment's ordered setup commands. `setup_commands` is the
         current list in array order (0-indexed); an environment with no setup
-        commands returns an empty array.
+        commands returns an empty array. Duplicate command text is permitted:
+        each list entry is a distinct element addressed by its zero-based
+        index, so editing or removing index `i` changes only that slot.
       required:
         - setup_commands
       properties:
         setup_commands:
           type: array
+          maxItems: 100
           items:
             type: string
+            minLength: 1
+            maxLength: 4096
           description: The environment's ordered setup commands
     ReplaceSetupCommandsRequest:
       type: object
@@ -3279,12 +3295,16 @@ components:
         Request body for replacing an environment's entire setup_commands list
         (the "clear and rebuild" operation). An empty array or an omitted
         field clears the list. The resulting list equals the request array in
-        order.
+        order. Duplicate command text is permitted and preserved in order;
+        entries are addressed by their zero-based index.
       properties:
         setup_commands:
           type: array
+          maxItems: 100
           items:
             type: string
+            minLength: 1
+            maxLength: 4096
           description: The full replacement list of setup commands
     AddSetupCommandRequest:
       type: object
@@ -3293,11 +3313,15 @@ components:
         `index` is omitted the command is appended; when `index` is provided
         and `0 <= index <= len` the command is inserted at that position
         (`index == len` appends). `index < 0` or `index > len` is a 400.
+        Duplicate command text is permitted: the new command may equal an
+        existing entry, since each entry is addressed by its zero-based index.
       required:
         - command
       properties:
         command:
           type: string
+          minLength: 1
+          maxLength: 4096
           x-oapi-codegen-extra-tags:
             binding: required
           description: The setup command to add or insert.
@@ -3312,12 +3336,16 @@ components:
       type: object
       description: |
         Request body for editing a single setup command by index. Replaces only
-        the command at the path `index` with the provided `command`.
+        the command at the path `index` with the provided `command`. Duplicate
+        command text is permitted: editing index `i` changes only that slot and
+        leaves any other entry with the same text untouched.
       required:
         - command
       properties:
         command:
           type: string
+          minLength: 1
+          maxLength: 4096
           x-oapi-codegen-extra-tags:
             binding: required
           description: The replacement setup command.
