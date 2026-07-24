@@ -1197,6 +1197,314 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  '/agent/environments/{uid}/setup-commands':
+    get:
+      summary: List environment setup commands
+      description: |
+        Return the environment's current ordered `setup_commands` as a JSON array,
+        0-indexed in array order. An environment with no setup commands returns
+        an empty array. Requires update permission on the environment.
+      operationId: listEnvironmentSetupCommands
+      tags:
+        - agent
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/EnvironmentUID'
+      responses:
+        '200':
+          description: The environment's ordered setup commands
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SetupCommandsResponse'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: No permission to update the environment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Environment not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: Replace environment setup commands
+      description: |
+        Replace the environment's entire `setup_commands` list with the provided
+        array (the "clear and rebuild" operation). An empty array or an omitted
+        field clears the list. The resulting list equals the request array in
+        order. Requires update permission on the environment.
+      operationId: replaceEnvironmentSetupCommands
+      tags:
+        - agent
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/EnvironmentUID'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReplaceSetupCommandsRequest'
+      responses:
+        '200':
+          description: The replaced setup commands
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SetupCommandsResponse'
+        '400':
+          description: Invalid setup command(s) or list size
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: No permission to update the environment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Environment not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Add or insert an environment setup command
+      description: |
+        Append a command to the end of `setup_commands` when `index` is omitted.
+        When `index` is provided and `0 <= index <= len`, insert the command at
+        that position, shifting the element previously at `index` and all later
+        elements right by one; `index == len` appends. `index < 0` or
+        `index > len` is a 400. Requires update permission on the environment.
+      operationId: addEnvironmentSetupCommand
+      tags:
+        - agent
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/EnvironmentUID'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddSetupCommandRequest'
+      responses:
+        '200':
+          description: The updated setup commands
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SetupCommandsResponse'
+        '400':
+          description: Invalid index or setup command
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: No permission to update the environment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Environment not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: Clear all environment setup commands
+      description: |
+        Remove every setup command from the environment; the resulting list is
+        empty. Requires update permission on the environment.
+      operationId: clearEnvironmentSetupCommands
+      tags:
+        - agent
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/EnvironmentUID'
+      responses:
+        '204':
+          description: Setup commands cleared
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: No permission to update the environment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Environment not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  '/agent/environments/{uid}/setup-commands/{index}':
+    patch:
+      summary: Edit an environment setup command by index
+      description: |
+        Replace only the command at `index` with the provided `command`, leaving
+        all other entries and the list length unchanged. `index` is 0-based and
+        must reference an existing entry (`0 <= index < len`); an out-of-range
+        index returns 404 and a non-integer/negative index returns 400.
+        Requires update permission on the environment.
+      operationId: updateEnvironmentSetupCommand
+      tags:
+        - agent
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/EnvironmentUID'
+        - $ref: '#/components/parameters/SetupCommandIndex'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateSetupCommandRequest'
+      responses:
+        '200':
+          description: The updated setup commands
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SetupCommandsResponse'
+        '400':
+          description: Invalid index or setup command
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: No permission to update the environment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Environment or setup command index not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: Remove an environment setup command by index
+      description: |
+        Remove the command at `index`, shifting later elements left by one; the
+        list length decreases by one. `index` is 0-based and must reference an
+        existing entry (`0 <= index < len`); an out-of-range index returns 404
+        and a non-integer/negative index returns 400. Requires update
+        permission on the environment.
+      operationId: removeEnvironmentSetupCommand
+      tags:
+        - agent
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/EnvironmentUID'
+        - $ref: '#/components/parameters/SetupCommandIndex'
+      responses:
+        '204':
+          description: Setup command removed
+        '400':
+          description: Invalid index
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: No permission to update the environment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Environment or setup command index not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /agent/models:
     get:
       summary: List available models
@@ -1577,6 +1885,26 @@ components:
       scheme: bearer
       description: |
         Authentication via a Warp API key.
+  parameters:
+    EnvironmentUID:
+      name: uid
+      in: path
+      description: The unique identifier of the cloud environment.
+      required: true
+      schema:
+        type: string
+    SetupCommandIndex:
+      name: index
+      in: path
+      description: |
+        Zero-based index of a setup command within the environment's
+        `setup_commands` array. Must be a non-negative integer; an
+        out-of-range integer returns 404 and a non-integer or negative
+        value returns 400.
+      required: true
+      schema:
+        type: integer
+        minimum: 0
   schemas:
     RunAgentRequest:
       type: object
@@ -2931,6 +3259,68 @@ components:
           description: Shell commands to run during environment setup
         providers:
           $ref: '#/components/schemas/ProvidersConfig'
+    SetupCommandsResponse:
+      type: object
+      description: |
+        The environment's ordered setup commands. `setup_commands` is the
+        current list in array order (0-indexed); an environment with no setup
+        commands returns an empty array.
+      required:
+        - setup_commands
+      properties:
+        setup_commands:
+          type: array
+          items:
+            type: string
+          description: The environment's ordered setup commands
+    ReplaceSetupCommandsRequest:
+      type: object
+      description: |
+        Request body for replacing an environment's entire setup_commands list
+        (the "clear and rebuild" operation). An empty array or an omitted
+        field clears the list. The resulting list equals the request array in
+        order.
+      properties:
+        setup_commands:
+          type: array
+          items:
+            type: string
+          description: The full replacement list of setup commands
+    AddSetupCommandRequest:
+      type: object
+      description: |
+        Request body for adding or inserting a single setup command. When
+        `index` is omitted the command is appended; when `index` is provided
+        and `0 <= index <= len` the command is inserted at that position
+        (`index == len` appends). `index < 0` or `index > len` is a 400.
+      required:
+        - command
+      properties:
+        command:
+          type: string
+          x-oapi-codegen-extra-tags:
+            binding: required
+          description: The setup command to add or insert.
+        index:
+          type: integer
+          minimum: 0
+          x-go-type-skip-optional-pointer: false
+          description: |
+            Optional 0-based position to insert at. Omit to append. Must
+            satisfy `0 <= index <= len`; `index == len` appends.
+    UpdateSetupCommandRequest:
+      type: object
+      description: |
+        Request body for editing a single setup command by index. Replaces only
+        the command at the path `index` with the provided `command`.
+      required:
+        - command
+      properties:
+        command:
+          type: string
+          x-oapi-codegen-extra-tags:
+            binding: required
+          description: The replacement setup command.
     ProvidersConfig:
       type: object
       description: Optional cloud provider configurations for automatic auth
