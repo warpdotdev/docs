@@ -147,6 +147,12 @@ DragTabsToWindows -> src/content/docs/terminal/windows/tabs.mdx
 RevertDiffHunk -> src/content/docs/code/code-review.mdx
 SshRemoteServer -> src/content/docs/terminal/warpify/ssh.mdx
 
+# Computer use: session recording (VideoRecording gates the start/stop recording
+# tools) and window-targeted background capture (BackgroundComputerUse). Both are
+# GA and documented on the computer use capability page.
+VideoRecording -> src/content/docs/agent-platform/capabilities/computer-use.mdx
+BackgroundComputerUse -> src/content/docs/agent-platform/capabilities/computer-use.mdx
+
 # Feature flags whose only user-facing surface is a documented setting in the
 # all-settings reference (terminal/settings/all-settings.mdx).
 # - FullScreenZenMode: the "zen mode" tab-bar visibility knob appearance.tabs.workspace_decoration_visibility
@@ -360,8 +366,13 @@ GET /memory_stores/{uid}/memories/{memoryUid}/versions -> gated:AIMemories
 /view-logs -> internal
 /auto-approve -> internal
 /logout -> internal
-/enable-natural-language-detection -> internal
-/disable-natural-language-detection -> internal
+# The paired /enable- and /disable-natural-language-detection commands were
+# replaced by a single toggle, /natural-language-detection. Like the other Warp
+# Agent CLI-only commands above, it isn't in the GUI, so it stays internal.
+/natural-language-detection -> internal
+# TUI-only voice input and version commands (Warp Agent CLI surface).
+/voice -> internal
+/version -> internal
 
 ## Settings -> doc pages
 
@@ -378,6 +389,14 @@ warpify.ssh.ssh_tmux_deprecation_notice_pending -> internal
 # Warp Agent CLI). It isn't present in the GUI settings UI, so it isn't
 # documented in the all-settings reference.
 general.autoupdate_enabled -> internal
+
+# Warp Agent CLI-only (crates/warp_tui) zero-state animation knobs (surface: Warp
+# Agent CLI, SettingSurfaces::TUI). They tune the rotating object shown in the
+# empty Warp Agent CLI state and aren't present in the GUI settings UI, so they
+# aren't documented in the all-settings reference.
+appearance.zero_state.object -> internal
+appearance.zero_state.rotation_period_seconds -> internal
+appearance.zero_state.extrusion_depth -> internal
 
 ## Unlisted docs pages to ignore
 
@@ -453,6 +472,9 @@ OpenWarpLaunchModal
 OrchestrationLaunchModal
 GetStartedTab
 CreateProjectFlow
+# Account-first onboarding is an internal login/onboarding flow variant with no
+# distinct user-facing surface to document (like HOAOnboardingFlow below).
+AccountFirstOnboarding
 CodeLaunchModal
 ValidateAutosuggestions
 ClearAutosuggestionOnEscape
