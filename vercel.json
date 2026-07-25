@@ -96,6 +96,11 @@
   ],
   "redirects": [
     {
+      "source": "/",
+      "destination": "/platform/",
+      "statusCode": 302
+    },
+    {
       "source": "/terminal",
       "destination": "/terminal/input/classic-input/",
       "statusCode": 308
