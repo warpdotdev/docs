@@ -148,13 +148,13 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 		},
 		{
 			label: 'Terminal',
-			link: '/',
+			link: '/terminal/',
 			icon: 'laptop',
 			items: [
 				{
 					label: 'Getting started',
 					items: [
-						{ label: 'Getting started with Warp', link: '/' },
+						{ slug: 'terminal', label: 'Getting started with Warp' },
 						{ slug: 'quickstart', label: 'Warp quickstart' },
 						'getting-started/quickstart/installation-and-setup',
 						'getting-started/quickstart/coding-in-warp',
