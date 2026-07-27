@@ -135,7 +135,7 @@ You can create environments in three ways: from the Oz web app, using the guided
 Make sure you have:
 
 * One or more GitHub repositories that the agent should clone and work in.
-* **GitHub authorization configured** so the agent can access your repos. For user-triggered runs, each user authorizes GitHub individually. For automated workflows using an agent API key, configure [team GitHub authorization](/platform/team-access-billing-and-identity/#team-github-authorization) in the Admin Panel.
+* **GitHub authorization configured** so the agent can access your repos. For user-triggered runs, each user authorizes GitHub individually. For automated workflows using an agent API key, configure [team GitHub authorization](/platform/team-access-billing-and-identity/#team-github-authorization) in the Admin Panel. If you need a **flexible base environment** where the agent clones repos dynamically at run time, see [Grant GitHub repo access to cloud agents](/guides/agent-workflows/github-repo-access-for-cloud-agents/) for the recommended approach.
 * A publicly-accessible Docker image that can build and run your code. Official images like [node](https://hub.docker.com/_/node), [python](https://hub.docker.com/_/python), or [rust](https://hub.docker.com/_/rust) work for many projects. You can also use one of [Warp's prebuilt dev images](https://github.com/warpdotdev/oz-dev-environments).
 
 :::caution
@@ -306,7 +306,7 @@ If your setup commands depend on secrets or credentials, configure them through 
 * **Missing credentials or secrets** – Builds fail when private repos, package registries, or external services require authorization.
   * Solution: Configure credentials with [Agent Secrets](/platform/secrets/).
 * **Repo access and GitHub authorization issues** – Runs fail when GitHub doesn't have repo access or the triggering user lacks permissions. Missing external authorization can surface as [`external_authentication_required`](/reference/api-and-sdk/troubleshooting/errors/external-authentication-required/).
-  * Solution: See [Integration setup](/reference/cli/integration-setup/#how-github-authorization-works) for GitHub authorization setup.
+  * Solution: See [Integration setup](/reference/cli/integration-setup/#how-github-authorization-works) for GitHub authorization setup. For a comparison of both GitHub access patterns — including how to set up a flexible base environment where the agent handles cloning — see [Grant GitHub repo access to cloud agents](/guides/agent-workflows/github-repo-access-for-cloud-agents/).
 * **Docker image incompatibility** – You see the error: "VM failed before the agent could run. This is likely an issue with your Docker image."
   * Possible cause: Alpine Linux and other musl-based images are not compatible with the agent runtime, which requires glibc. This can surface as [`environment_setup_failed`](/reference/api-and-sdk/troubleshooting/errors/environment-setup-failed/).
   * Solution: Switch to a glibc-based image such as Debian, Ubuntu, or the default (non-Alpine) variants of official Docker Hub images (e.g. `node`, `python`, `rust`).

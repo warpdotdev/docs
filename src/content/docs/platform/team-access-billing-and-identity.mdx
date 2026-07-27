@@ -151,6 +151,10 @@ The environment configuration and the **Enabled GitHub Orgs** setting in the Adm
 * **Environment repo list** - "This agent needs repos A, B, and C."
 * **Enabled GitHub Orgs** - "This team can use the Oz by Warp GitHub App to access repos in this GitHub organization."
 
+:::note
+**Flexible base environments**: The GitHub App installation token is only minted for agent API key runs when the environment has at least one repo configured. If you are using a **flexible base environment** with no repos pre-configured — where the agent handles all cloning dynamically at run time — the GitHub App token is not available for those runs. In that case, store a GitHub Personal Access Token (PAT) as a [Warp-managed team secret](/platform/secrets/) instead. The injected token is then available to the agent for cloning any repo the PAT can access. See [Grant GitHub repo access to cloud agents](/guides/agent-workflows/github-repo-access-for-cloud-agents/) for a full comparison and setup steps.
+:::
+
 ### Personal tokens vs. GitHub App tokens
 
 Team GitHub authorization is complementary to the existing personal token flow:

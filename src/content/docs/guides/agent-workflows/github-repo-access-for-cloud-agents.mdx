@@ -1,0 +1,220 @@
+---
+title: How to grant GitHub repo access to cloud agents
+description: >-
+  Choose the right GitHub repo access pattern for your cloud agents — Oz GitHub
+  App for automated SA-scoped runs or a GitHub token secret for flexible
+  environments where the agent handles its own cloning and setup.
+sidebar:
+  label: "Grant GitHub repo access to cloud agents"
+tags:
+  - "cloud-agents"
+  - "environments"
+  - "github"
+---
+
+Cloud agents need GitHub access to clone repositories, push branches, and open pull requests. Warp supports two patterns for granting this access, and choosing the right one depends on how your environment is configured and how your runs are triggered.
+
+This guide explains both patterns, when to use each, and how to set them up — including the **flexible base environment** pattern, where the agent handles all cloning and setup dynamically rather than using pre-configured repos.
+
+## The two patterns at a glance
+
+**Pattern 1 — Oz GitHub App (recommended for automated runs)**
+
+Install the Oz by Warp GitHub App and configure team GitHub authorization in the Admin Panel. Warp automatically mints a GitHub App installation token for agent API key runs and uses it to authenticate with GitHub. No token management required; Warp handles rotation.
+
+Best for: fully automated workflows triggered by an agent API key, scheduled agents, CI/CD pipelines.
+
+**Pattern 2 — GitHub personal access token (PAT) as a Warp-managed secret**
+
+Create a GitHub PAT, store it as a Warp-managed team secret, and the token is injected as an environment variable into every cloud agent run. The agent can use it to clone any repo the PAT can access.
+
+Best for: flexible environments where repos are not pre-configured, user-triggered runs, cross-organization repo access, or when you need fine-grained token control.
+
+---
+
+## Choosing a pattern
+
+Use this table to decide which pattern fits your setup.
+
+| Factor | Pattern 1: GitHub App | Pattern 2: PAT secret |
+|--|--|--|
+| Recommended trigger type | Agent API key (SA-scoped) | All types: user, agent API key, scheduled |
+| Repos must be pre-configured in the environment | Yes | No |
+| Token rotation | Automatic | Manual |
+| GitHub attribution on PRs/commits | Oz by Warp GitHub App | Whoever owns the PAT |
+| Cross-org repo access | One org per installation | Any repos the PAT can access |
+| Flexible base environment (agent clones on the fly) | Only if repos are configured | Yes |
+
+:::note
+If you are running a **flexible base environment** — one Docker image with no repos pre-configured, where the agent handles all cloning and setup — use **Pattern 2**. The GitHub App token is only generated when repos are declared in the environment configuration, so it is not available for environment-less or repo-less setups.
+:::
+
+---
+
+## Pattern 1: Oz GitHub App + agent API key
+
+This is the recommended approach for fully automated workflows that use an agent API key. Warp automatically mints a short-lived GitHub App installation token and configures git credentials in the agent's sandbox. You don't manage the token.
+
+### How it works
+
+When a run starts with an agent API key, Warp looks up the team's Oz by Warp GitHub App installation and generates a token scoped to the repos declared in the environment. The token is used to clone repos during environment setup and is available to the agent for any additional GitHub operations during the run.
+
+Commits and pull requests are attributed to the Oz by Warp GitHub App rather than any individual user.
+
+### Prerequisites
+
+- Admin access to your GitHub organization
+- A Warp team admin to configure the Admin Panel
+- An [agent API key](/reference/cli/api-keys/) for automated runs
+
+### Setup steps
+
+1. **Install the Oz by Warp GitHub App.**
+
+   A GitHub organization admin installs the [Oz by Warp](https://github.com/apps/oz-by-warp) GitHub App.
+
+   During installation, choose the repositories the app can access:
+   - **All repositories** — grants the app access to every current and future repo in the org. Use this when you want agents to work across many repos without updating the installation.
+   - **Selected repositories** — restricts access to specific repos. Use this for tighter scoping.
+
+   :::tip
+   If you want agents to be able to clone different repos across runs without updating the GitHub App installation each time, choose **All repositories**.
+   :::
+
+2. **Enable the GitHub organization in the Admin Panel.**
+
+   A Warp team admin opens **Settings** > **Admin Panel** > **Platform** in the Warp app and adds the GitHub organization under **Enabled GitHub Orgs**. This associates the app installation with your Warp team.
+
+3. **Configure repos in your environment.**
+
+   Open the [Environments page in the Oz web app](https://oz.warp.dev/environments) and add the GitHub repos your agent needs. The GitHub App token is scoped to these repos and is only generated when at least one repo is configured.
+
+   ```sh
+   oz environment update <ENV_ID> --repo owner/repo
+   ```
+
+4. **Use an agent API key for runs.**
+
+   Create and use an [agent API key](/reference/cli/api-keys/) when triggering runs. Tasks initiated with an agent API key use the GitHub App token automatically.
+
+For full setup instructions, see [Team GitHub authorization](/platform/team-access-billing-and-identity/#team-github-authorization).
+
+---
+
+## Pattern 2: GitHub PAT as a Warp-managed secret
+
+Store a GitHub Personal Access Token (PAT) as a Warp-managed team secret. The token is injected as an environment variable in every cloud agent run, and the agent can use it to clone any repo the PAT can access.
+
+This pattern works for all run types and does not require repos to be pre-configured in the environment, making it ideal for flexible base environments.
+
+### How it works
+
+Warp-managed secrets are injected as environment variables at run start. When you store a GitHub PAT as a team secret, the agent process has access to it as `$YOUR_SECRET_NAME` and can use it to authenticate git operations.
+
+### Prerequisites
+
+- A GitHub account with access to the repositories your agents need to clone
+
+### Setup steps
+
+1. **Create a GitHub Personal Access Token.**
+
+   In your GitHub account settings, create a Personal Access Token:
+
+   - **Classic PAT**: Go to **Settings** > **Developer settings** > **Personal access tokens** > **Tokens (classic)**. Grant the `repo` scope (or `public_repo` for public repos only).
+   - **Fine-grained PAT** (recommended for tighter scoping): Go to **Settings** > **Developer settings** > **Personal access tokens** > **Fine-grained tokens**. Choose the resource owner, select the repos it can access, and grant **Contents** read permission (and **Pull requests** write permission if the agent will open PRs).
+
+   :::caution
+   Classic PATs are scoped to a single GitHub account, not an organization. If you want the agent to work across all repos in your org, you may also need to authorize the PAT for your organization's SSO (if enabled).
+   :::
+
+2. **Store the token as a Warp-managed team secret.**
+
+   Use the Oz CLI to create a team secret. The secret name becomes the environment variable name the agent receives.
+
+   ```bash
+   oz secret create --team GH_TOKEN
+   ```
+
+   You will be prompted to enter the token value securely. Alternatively, create the secret in the [Oz web app](https://oz.warp.dev/secrets): open the **Secrets** page, click **Add secret**, enter `GH_TOKEN` as the name, paste the token value, choose **Team** scope, and click **Create secret**.
+
+   :::note
+   Use a service account or a dedicated bot GitHub account rather than a personal account, so access isn't disrupted if a team member leaves.
+   :::
+
+3. **Use the token in your environment or agent workflow.**
+
+   The token is automatically injected as the `GH_TOKEN` environment variable in every cloud agent run. You can reference it in setup commands or in the agent's workflow:
+
+   ```sh
+   # Clone a repo using the injected token
+   git clone https://x-access-token:$GH_TOKEN@github.com/your-org/your-repo.git
+
+   # Or configure git to use the token globally for all HTTPS operations
+   git config --global url."https://x-access-token:$GH_TOKEN@github.com/".insteadOf "https://github.com/"
+   ```
+
+   Adding the global git config to your environment's setup commands lets the agent clone any repo by URL without explicitly referencing the token each time.
+
+4. **Add git credential configuration to your setup commands (optional).**
+
+   For flexible environments where the agent will clone repos dynamically, add git credential configuration as a setup command so it's ready before the agent starts:
+
+   ```sh
+   # In your environment's setup commands:
+   git config --global url."https://x-access-token:$GH_TOKEN@github.com/".insteadOf "https://github.com/"
+   ```
+
+   To add this to an existing environment:
+
+   ```sh
+   oz environment update <ENV_ID> \
+     --setup-command 'git config --global url."https://x-access-token:$GH_TOKEN@github.com/".insteadOf "https://github.com/"'
+   ```
+
+---
+
+## Flexible base environment pattern
+
+A **flexible base environment** uses a single Docker image and no pre-configured repos. The agent handles all repository cloning and setup dynamically at run time — useful when you want one environment that can work across any repository without reconfiguring the environment for each project.
+
+To use this pattern:
+
+1. Create an environment with your base Docker image but **no repos configured**.
+
+   ```sh
+   oz environment create \
+     --name "flexible-base" \
+     --docker-image your-org/dev-image:latest
+   ```
+
+2. Store a GitHub PAT as a Warp-managed team secret (Pattern 2 above).
+
+3. Add git credential configuration as a setup command:
+
+   ```sh
+   oz environment update <ENV_ID> \
+     --setup-command 'git config --global url."https://x-access-token:$GH_TOKEN@github.com/".insteadOf "https://github.com/"'
+   ```
+
+4. When triggering a run, include repository and setup instructions in the prompt:
+
+   ```text
+   Clone https://github.com/your-org/your-repo.git, install dependencies, and fix the failing test in src/auth.
+   ```
+
+The agent will use the injected `GH_TOKEN` to clone the repo and proceed with the task.
+
+:::note
+Pattern 1 (GitHub App) is not suitable for environment-less or no-repo setups because the GitHub App token is only minted when at least one repo is declared in the environment configuration.
+:::
+
+---
+
+## Related resources
+
+- [Team GitHub authorization](/platform/team-access-billing-and-identity/#team-github-authorization) — full setup guide for the Oz GitHub App
+- [Cloud agent environments](/platform/environments/) — how to create and configure environments
+- [Agent secrets](/platform/secrets/) — how to create, scope, and manage Warp-managed secrets
+- [API keys](/reference/cli/api-keys/) — creating agent API keys for automated workflows
+- [Integration setup](/reference/cli/integration-setup/#authorizing-github) — GitHub authorization for Slack and Linear integrations
