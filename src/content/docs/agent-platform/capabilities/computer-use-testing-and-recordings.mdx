@@ -25,10 +25,10 @@ Computer Use with recordings is useful in three situations:
 ## How it works
 
 1. **Enable Computer Use.** The agent needs Computer Use enabled for its run. See the [Computer Use](/agent-platform/capabilities/computer-use/#enabling-computer-use) page for how to enable it via the Warp app, the CLI, or the API.
-2. **Agent starts recording.** Once Computer Use is active, the agent calls `start_recording` to begin a screen capture inside the sandbox. The recording is gated by your session's Computer Use approval — if you've already approved Computer Use for the run, recording starts automatically without a separate prompt.
-3. **Agent exercises the UI.** The agent takes screenshots, clicks, types, scrolls, and drives the interface. Every `use_computer` call during this window is tracked: when it started, when it finished, what actions it contained, and where the cursor moved.
+2. **Agent starts recording.** Once Computer Use is active, the agent calls `start_recording` to begin a screen capture inside the sandbox. The recording is gated by your session's Computer Use approval. If you've already approved Computer Use for the run, recording starts automatically without a separate prompt.
+3. **Agent exercises the UI.** The agent takes screenshots, clicks, types, scrolls, and drives the interface. Each successful `use_computer` call that performs a real interaction is tracked: when it started, when it finished, what actions it contained, and where the cursor moved.
 4. **Agent stops and processes.** When the task is complete (or when the recording's configured time or size limit is reached), the agent stops capture. Before upload, the recording is post-processed: idle and thinking gaps are cut, leaving only the windows where real interaction happened, and action overlays are burned in so the video is annotated without requiring a viewer to watch raw screen capture.
-5. **Artifact is published.** The processed video is uploaded as a run artifact and made available in the conversation, on the run page, and — when the agent uses the PR-artifacts path — in the pull request description.
+5. **Artifact is published.** The processed video is uploaded as a run artifact and made available in the conversation, on the run page, and, when the agent uses the PR-artifacts path, in the pull request description.
 
 ## Where to find recordings
 
@@ -51,10 +51,11 @@ The finished video is not raw screen capture. After the agent stops recording, t
 - **Smart cut of idle and thinking time.** Gaps where the agent is planning, waiting on a network call, or idle between actions are removed. What remains are only the windows where real interaction happened, played back at normal speed. This makes recordings significantly shorter than the raw capture duration.
 - **Action overlays.** Each `use_computer` call's actions are burned into the video as overlay pills. Keyboard shortcuts (such as `Ctrl+C`, `Return`, or `Escape`) appear as labels on the frame where they were pressed — so non-visible keys like modifier chords show up clearly. Text typing is labeled "typing…" to avoid leaking sensitive input. Scroll events show a directional label.
 - **Click ripples and drag trails.** Pointer events (mouse clicks, drags, and moves) are captured with their coordinates and burned into the video as click ripples and movement trails, so cursor activity is visible even when the cursor itself is small on screen.
+- **Platform support.** The smart cut, action overlays, and pointer annotations are produced by the Linux post-processing pass, which is what cloud agent sandboxes run. On macOS the recording is captured with a uniform playback speedup (4x by default) and includes no overlays or pointer annotations.
 - **Sandbox-only capture.** The recording is taken from inside the isolated sandbox environment. It never captures your local desktop, terminal, credentials, or anything outside the sandbox.
 
 :::note
-Post-processing is best-effort: if the cut or overlay burn-in step fails for any reason, the original 1× capture is uploaded without annotations. You still get a video — just without the smart cut or overlay pills.
+Post-processing is best-effort: if the cut or overlay burn-in step fails for any reason, the original 1x capture is uploaded without annotations. You still get a video — just without the smart cut or overlay pills.
 :::
 
 ## Example recordings
@@ -68,11 +69,7 @@ Example prompt:
 Build a React button component that matches this Figma design, open it in the dev server in a browser, interact with it (hover, click, active state), then stop the recording and attach it to the PR.
 ```
 
-Example run: [staging run — UI change evidence example](https://staging.warp.dev/conversation/ec11ab36-da70-4c7b-b14a-fd5f40b126cc)
-
-:::note
-The example link above points to a staging run and may require Warp access to view. A public-facing example video for this use case is a pending asset — see the [PR description](https://github.com/warpdotdev/docs/pull/374) for status.
-:::
+A public-facing example video for this use case is pending.
 
 ### End-to-end QA of an existing flow
 
@@ -85,9 +82,7 @@ Start a fresh Warp installation in the sandbox. Walk through the onboarding flow
 
 This gives you a reproducible, time-stamped clip of the flow that can be archived, diffed across releases, or shared with the team as a baseline.
 
-:::note
-A real public-safe recording of the Warp onboarding flow is a pending asset for this example — see the [PR description](https://github.com/warpdotdev/docs/pull/374) for status.
-:::
+A public-facing example video for this use case is pending.
 
 ### Reproducing a bug
 
@@ -98,7 +93,7 @@ Example prompt:
 Reproduce GitHub issue #13480: [describe the steps from the report]. Record the session so the recording can be attached to the issue as reproduction proof.
 ```
 
-The requester for this page previously reproduced [warpdotdev/warp#13480](https://github.com/warpdotdev/warp/issues/13480) using Computer Use. Bug reproductions are one of the strongest use cases because the video is unambiguous — the recording either shows the bug or it doesn't.
+For example, [warpdotdev/warp#13480](https://github.com/warpdotdev/warp/issues/13480) was reproduced with Computer Use. Bug reproductions are one of the strongest use cases because the video is unambiguous — the recording either shows the bug or it doesn't.
 
 ## Troubleshooting
 
@@ -106,8 +101,10 @@ The requester for this page previously reproduced [warpdotdev/warp#13480](https:
 
 If the agent reports an error when calling `start_recording`, the cause is usually one of the following:
 
+- **Recording not enabled.** Recording support is gated by a feature flag. If recording is not yet enabled for your account or environment, `start_recording` calls will not execute. Contact Warp support if you expect recording to be available.
+- **Platform not supported.** Video recording is only available on Linux (X11) and macOS environments. On other platforms, the recorder is a no-op and recording calls will not produce output.
 - **Environment not ready for recording.** The sandbox may not have a display server running, the display dimensions may be unusable, or the underlying capture tool (`ffmpeg`) may not be installed or launchable. This produces a "Recording environment error: …" message. Ensure your environment is configured with a valid display and that `ffmpeg` is available.
-- **Capture never went live.** The capture tool launched but failed to produce a live feed. This produces a "Recording failed to start: …" message. Retry the run — transient display initialization failures often succeed on a fresh attempt.
+- **Capture never went live.** The capture tool launched but failed to produce a live feed. This produces a "Recording failed to start: …" message. Retry the run; transient display initialization failures often succeed on a fresh attempt.
 - **Another recording is already in progress.** Only one recording can be active per runtime. If the agent is already recording (or a previous recording is still being finalized), a new `start_recording` call returns "A recording is already in progress in this runtime." The agent should stop the current recording before starting a new one.
 
 ### Recording produced no artifact
@@ -133,7 +130,7 @@ If the video ends sooner than expected:
 
 Most recording failures are transient. If a recording fails:
 1. Check the agent's output for the specific error message.
-2. Retry the run in a fresh environment — display initialization and upload failures often clear on the next attempt.
+2. Retry the run in a fresh environment; display initialization and upload failures often clear on the next attempt.
 3. If the failure repeats consistently, check that your environment has `ffmpeg` installed and a working display, and that the run has network access to Warp's artifact storage.
 
 ## Related
