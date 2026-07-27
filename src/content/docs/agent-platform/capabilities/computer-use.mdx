@@ -82,12 +82,11 @@ Computer Use supports multiple Anthropic Claude models, including Claude 4.5 Son
 
 ## Recording sessions
 
-During a Computer Use session, the agent can capture what happens on screen as visual evidence of its work:
+Agents can record their Computer Use sessions as annotated video artifacts — capturing clicks, key presses, and cursor movement alongside the interaction, with idle time trimmed out.
 
-* **Screenshots** - The agent captures still images of the display to inspect state and confirm results.
-* **Video recording** - The agent can record a screen recording of the session, so a multi-step flow can be reviewed as a single clip instead of a series of screenshots.
+Recordings appear in the conversation, on the Oz web run page, and can be attached to a pull request description when the agent uses the PR-artifacts path. They are captured entirely inside the sandbox and never include your local desktop or credentials.
 
-These recordings are produced by the agent as part of a run and can be surfaced in the run's outputs—for example, attached to a pull request body alongside the agent's summary. Recording happens inside the same isolated sandbox as the rest of the session and captures only the sandbox display, never your local machine.
+For a full explanation of the recording pipeline, what the finished video contains, where to find recordings, and how to handle recording failures, see [Testing with Computer Use and video recordings](/agent-platform/capabilities/computer-use-testing-and-recordings/).
 
 ---
 
