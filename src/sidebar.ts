@@ -392,6 +392,8 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'platform/orchestration', label: 'Multi-agent orchestration' },
 						{ slug: 'platform/orchestration/multi-agent-runs', label: 'Running orchestrated agents' },
 						{ slug: 'platform/software-factory', label: 'Software factory' },
+						// TODO: docs reviewer — confirm placement
+						{ slug: 'platform/factory-file-format', label: 'Factory file format' },
 					],
 				},
 				{

@@ -1,0 +1,89 @@
+---
+title: Factory file format
+description: >-
+  Define a factory and its agents directly from files in a Git repository. The
+  v1alpha1 factory file format infers identity from file paths, so your factory
+  configuration stays deterministic, strict, and reviewable as code.
+sidebar:
+  label: "Factory file format"
+---
+
+The factory file format lets you define a factory and its agents directly from files checked into a Git repository. A factory repository declares the factory in a `factory.yaml` file and each agent in an `agents/<name>/agent.md` file. Warp infers identity from those file paths, so your configuration is deterministic, strict, and reviewed as part of your normal code review.
+
+:::caution
+This page documents the `v1alpha1` factory file format, an early delivery with a reduced scope. Fields and behavior may change. [TODO: docs reviewer — confirm availability and the correct product name for "factory" resources before publishing.]
+:::
+
+## Key concepts
+
+* **Path-inferred identity** - The factory name comes from `factory.yaml` and each agent name comes from its `agents/<name>/` directory, rather than being duplicated inside file contents.
+* **One main agent** - Every factory names a `mainAgent`, which Warp projects as the factory's foreman. Every other agent is projected as a custom agent.
+* **Deterministic sync** - Parsing, rendering, canonical JSON, and semantic hashing are deterministic, so equivalent inputs always produce equivalent state.
+* **Strict validation** - Unknown fields, duplicate keys, and malformed files are rejected rather than silently ignored.
+
+## Source contract
+
+A factory repository has two recognized resource types: the factory manifest and one file per agent.
+
+### `factory.yaml`
+
+`factory.yaml` contains direct top-level fields:
+
+* **`schemaVersion`** - Required, and must be exactly `v1alpha1`.
+* **`name`** - Required. The factory name.
+* **`description`** - Optional.
+* **`repositories`** - Required and non-empty. The repositories the factory operates on.
+* **`mainAgent`** - Required, and must name a declared agent.
+* **`agentDefaults`** - Optional. `model`, `harness`, `runner`, and `environmentId` are each independently optional.
+
+### `agents/<name>/agent.md`
+
+The directory name is the agent name. The file has YAML frontmatter followed by a Markdown body:
+
+* **Frontmatter** - Accepts optional `description`, `model`, `harness`, `runner`, `environmentId`, `secrets`, and `mcpServers`.
+* **Body** - The normalized Markdown body is the agent's prompt.
+
+Repository content outside these two recognized resource paths doesn't affect factory sync. In particular, adding, editing, or deleting files under `automations/`, `skills/`, or `agents/<name>/skills/` produces a complete semantic no-op — it doesn't change canonical state, hashes, plans, or projections.
+
+## Resolution and defaults
+
+When Warp resolves a factory, it combines factory defaults with each agent's own settings:
+
+* **Agent overrides win** - An agent's fields override the factory's `agentDefaults`.
+* **Harness default** - When neither the agent nor the factory supplies a harness, it defaults to Warp Agent.
+* **Execution target** - Every effective agent must resolve a model and at least one execution target — either a runner or an environment.
+* **Runner resolution** - A runner name resolves case-sensitively to exactly one active, team-owned runner. A missing or ambiguous name fails the whole sync.
+* **Runner and environment together** - When both are present, the runner is the execution target and the environment remains fallback metadata.
+* **Source repository** - When the source repository isn't listed in `repositories`, Warp adds it to the canonical repository set. Deduplication is case-insensitive and ordering is deterministic.
+
+### Agent roles
+
+Warp projects agents into two roles based on `mainAgent`:
+
+* **Foreman** - The agent named by `mainAgent` is projected as the factory's foreman.
+* **Custom** - Every other declared agent is projected as a custom agent.
+
+## Validation and normalization
+
+The `v1alpha1` format is strict. Warp rejects:
+
+* The older KRM-style envelope and any unsupported schema version.
+* Unknown fields, duplicate keys, and duplicate paths.
+* YAML aliases, anchors, and explicit tags.
+* Malformed frontmatter, invalid managed MCP entries, and malformed recognized resource paths.
+
+Warp normalizes line endings (CRLF and lone CR to LF), trims one trailing body newline, and sorts canonical resources and repository references deterministically. Rendering a canonical factory and then parsing it again preserves the same canonical semantics.
+
+## Reconciliation and lifecycle
+
+* Factory and agent hashes include every resolved value that affects serving behavior.
+* A no-op sync preserves existing factory and agent identities.
+* Creates, updates, type changes, and deletions apply atomically.
+* Unlinking a factory preserves its projected serving state and restores live management.
+
+## Related pages
+
+* [Software factory](/platform/software-factory/) — How specialized agents take work from issue to pull request.
+* [Agents](/platform/agents/) — Configuring agents on Oz.
+* [Runners](/platform/runners/) — The compute targets that execute agent runs.
+* [Environments](/platform/environments/) — The runtime context for cloud agent tasks.
