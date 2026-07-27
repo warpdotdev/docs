@@ -667,6 +667,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'guides/agent-workflows/how-to-review-ai-generated-code', label: 'Review AI-generated code' },
 						{ slug: 'guides/agent-workflows/how-to-attach-agent-session-context-to-github-prs', label: 'Attach agent context to PRs' },
 						{ slug: 'guides/agent-workflows/how-to-run-unattended-agents', label: 'Run agents unattended' },
+						{ slug: 'guides/agent-workflows/github-repo-access-for-cloud-agents', label: 'Grant GitHub repo access to cloud agents' },
 						{ slug: 'guides/agent-workflows/how-to-run-multiple-ai-coding-agents', label: 'Run multiple AI coding agents' },
 						{ slug: 'guides/agent-workflows/how-to-use-voice-and-images-to-prompt-coding-agents', label: 'Use voice and images to prompt agents' },
 						{ slug: 'guides/agent-workflows/how-to-explain-your-codebase-using-warp-rust-codebase', label: 'Explain your codebase with agents' },
