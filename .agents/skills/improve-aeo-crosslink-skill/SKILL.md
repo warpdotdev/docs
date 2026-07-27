@@ -17,8 +17,7 @@ Suggested cron: `0 17 1-7 * 1` (UTC) = first Monday of each month at 9am PT.
 
 ## Prerequisites
 
-- Docs repo checked out at `main`, with at least 8 entries in `.agents/logs/aeo_crosslink_audit_runs.md`
-- The standing log PR (`chore: aeo crosslink audit run log`) merged into `main` so the entries are present there. If it is unmerged, merge it first (or read the log from the `chore/aeo-crosslink-audit-log` branch) before analyzing.
+- Docs repo checked out at `main`
 - `gh` CLI authenticated with write access to `warpdotdev/docs`
 - `SLACK_BOT_TOKEN` — for posting summary to `#growth-docs`
 - `GROWTH_DOCS_SLACK_CHANNEL_ID` — channel ID for `#growth-docs`
@@ -30,6 +29,36 @@ Read `.agents/logs/aeo_crosslink_audit_runs.md`. The run log captures per-run: d
 Do not act if fewer than 8 entries exist. Write a "too early to analyze" notice to run output and skip the PR.
 
 ## Workflow
+
+### 0. Merge the standing log PR
+
+Before reading the run log, ensure all accumulated entries are on `main` by merging the standing log PR. This is the PR from `chore/aeo-crosslink-audit-log` that the `aeo_crosslink_audit` agent continuously appends to.
+
+```bash
+# Find the open log PR (there should be at most one)
+OPEN_LOG_PR=$(gh pr list --repo warpdotdev/docs \
+  --head chore/aeo-crosslink-audit-log \
+  --state open \
+  --json number \
+  --jq '.[0].number' 2>/dev/null)
+
+if [[ -n "$OPEN_LOG_PR" ]]; then
+  # Merge it. Keep the branch so future audit runs can keep appending.
+  gh pr merge "$OPEN_LOG_PR" --repo warpdotdev/docs --merge
+  # Pull the merged entries into the checked-out workspace
+  git fetch origin main
+  git reset --hard origin/main
+fi
+```
+
+If the merge fails (conflict, permissions, or the branch is ahead of main in an unexpected way), log the failure to run output and read the log from the `chore/aeo-crosslink-audit-log` branch instead:
+
+```bash
+git fetch origin chore/aeo-crosslink-audit-log
+git checkout origin/chore/aeo-crosslink-audit-log -- .agents/logs/aeo_crosslink_audit_runs.md
+```
+
+Do not abort the skill run because the log PR could not be merged. Proceed with whatever log entries are available.
 
 ### 1. Parse the run log
 
