@@ -51,9 +51,9 @@ Possible causes:
 - Scope (agents, cloud agents, orchestration) is too narrow and has been saturated
 - Peec or GSC data is consistently unavailable, reducing signal
 
-**Peec snapshot consistently unavailable (5+ entries show "Peec: unavailable")**
-Cause: snapshot files in `/workspace/buzz/aeo-snapshots/` are stale or the refresh cadence is too infrequent.
-Fix: update the snapshot refresh instructions or cadence in `aeo_crosslink_audit/SKILL.md`.
+**Peec consistently unavailable (5+ entries show "Peec: unavailable")**
+Cause: the `PEEC_PAT` secret in the Oz environment is expired, revoked, or missing; or the Peec MCP config is incorrect.
+Fix: verify the `PEEC_PAT` secret is valid at app.peec.ai → Company → API Keys → Personal Access Tokens. Renew or recreate it and update the Oz environment secret. Also confirm the scheduled agent config includes the Peec MCP server entry.
 
 **Links proposed but not added pattern (proposed > 0, added = 0 consistently)**
 Cause: the self-review step is rejecting candidates that have already passed the initial selection. Confidence rules may be miscalibrated.
