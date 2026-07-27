@@ -418,6 +418,8 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					items: [
 						{ slug: 'platform/skills-as-agents', label: 'Skills as agents' },
 						{ slug: 'platform/mcp', label: 'MCP servers' },
+						// TODO: docs reviewer — confirm placement
+						{ slug: 'platform/factory-slack-mcp', label: 'Slack MCP for factories' },
 						'platform/secrets',
 					],
 				},

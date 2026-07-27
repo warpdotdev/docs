@@ -1,0 +1,96 @@
+---
+title: Slack MCP for factory agents
+description: >-
+  Give factory cloud agents built-in Slack tools through a Warp-hosted Slack MCP
+  server. Agents send messages, read channels and threads, and add reactions as
+  the factory's own Slack bot, with no user OAuth or client setup.
+sidebar:
+  label: "Slack MCP for factories"
+---
+
+Warp hosts a Slack MCP server that factory cloud agents consume automatically. When a factory has a connected Slack app, its agent runs get four Slack tools — send a message, read a channel, read a thread, and add a reaction — that act as the factory's own Slack bot. Agents don't opt in, and there's no user OAuth or client configuration to manage.
+
+:::caution
+This feature is an early V0 behind the `self_hosted_slack_mcp` feature flag. Availability, tool shapes, and setup steps may change. [TODO: docs reviewer — confirm rollout status and remove this note once the feature ships broadly.]
+:::
+
+## Key features
+
+* **Automatic tool injection** - Factory runs with a resolvable Slack connection get the Slack tools with no agent-side opt-in.
+* **Factory bot identity** - Every message and reaction appears in your workspace under the factory's own Slack app, using per-factory credentials.
+* **Four core tools** - Send a message, read channel history, read a thread, and add an emoji reaction.
+* **Scope-aware tool list** - The tools an agent sees reflect the Slack scopes the factory's app was granted.
+* **No client changes** - The Warp client resolves the Slack server the same way it resolves any other well-known integration.
+
+## How it works
+
+When the feature flag is on and a factory run has a resolvable per-factory Slack connection, Warp automatically adds a `slack` entry to the run's MCP configuration. The agent takes no action to enable it.
+
+The injected entry is a credential-free sentinel (`{"warp_id": "slack"}`). It contains no token, URL, or secret, so it's safe to persist alongside the run. Non-factory runs and factories without a resolvable Slack connection never receive the entry. When the flag is off, no entry is injected, resolution of `"slack"` is rejected, and the MCP endpoint behaves as if it doesn't exist — each layer fails closed independently.
+
+The client resolves the `"slack"` sentinel server-side, exactly as it resolves any other well-known integration id. A successful resolution returns a client config pointing at the Warp-hosted Slack MCP endpoint with a short-lived (3-hour) bearer token bound to that run. The resolved config never contains a Slack credential, and neither the config nor the token is persisted to the run record. When the token expires, the endpoint returns a `token_expired` error and the client transparently re-resolves, so a run in progress doesn't fail because of token expiry.
+
+### Identity and per-factory auth
+
+A per-factory Slack app connection is required. Every tool call acts as that specific factory's Slack bot, and credentials are resolved server-side per call from the factory's recorded connection — client-supplied credentials are never accepted.
+
+* A factory with only a team-wide managed Slack connection gets no injection and no tools. There's no silent fallback to a team-wide bot.
+* Disconnecting or rotating a factory's Slack app takes effect on the next tool call of any in-flight run, and other factories are unaffected.
+* A recorded connection that fails ownership or provider verification is rejected rather than substituted, so there's no cross-factory or cross-tenant access.
+
+### Run lifecycle
+
+Tool calls are honored only while the run's task is active. Calls made after the run reaches a terminal state (succeeded, failed, error, blocked, or cancelled) fail with a `run_not_active` error. A send that races the end of a run yields a deterministic error and is never silently retried, so agents don't post duplicate messages. When a finished run resumes as a follow-up, it regains Slack access through normal re-resolution.
+
+## Slack tools
+
+V0 provides exactly four tools. Their names and input shapes match the official Slack MCP (`mcp.slack.com`) so that a future switch to the official server is a drop-in.
+
+* **`slack_send_message(channel_id, message, thread_ts?, reply_broadcast?)`** - Posts a message as the factory's bot, optionally as a thread reply and optionally broadcast to the channel.
+* **`slack_read_channel(channel_id, limit?, cursor?, oldest?, latest?)`** - Reads channel history with pagination cursors.
+* **`slack_read_thread(channel_id, message_ts, limit?, cursor?)`** - Reads a thread's replies with pagination cursors.
+* **`slack_add_reaction(channel_id, message_ts, emoji_name)`** - Adds an emoji reaction to a message.
+
+### Scopes and tool availability
+
+The `tools/list` response reflects the factory's granted Slack scopes:
+
+* **`slack_send_message`** - Requires `chat:write`.
+* **`slack_add_reaction`** - Requires `reactions:write`.
+* **`slack_read_channel` and `slack_read_thread`** - Listed when the factory has at least one of `channels:history`, `groups:history`, `im:history`, or `mpim:history`. A factory with only `channels:history` can still read public channels.
+
+Calling a tool whose required scopes are missing fails up front with an error that names the missing scope. Two runs of factories with different scope sets see different tool lists concurrently without interfering with each other.
+
+## Errors
+
+Slack API failures surface as MCP tool error results the agent can react to, not as transport or protocol errors. This includes `channel_not_found`, `not_in_channel`, `missing_scope` (naming the required scope), and rate limits with a retry-after value.
+
+Failure classes are distinguishable by the consumer:
+
+* **Flag off** - The endpoint is absent (404).
+* **Invalid or expired token** - A 401 with a `token_expired` code.
+* **Wrong integration, team, or principal** - An auth rejection.
+* **No Slack connection** - A setup-step error naming the action to take (connect a Slack app for the factory).
+* **Terminal run** - A `run_not_active` error.
+* **Slack-side error** - A tool error carrying Slack's own error.
+
+## Security and auditing
+
+* The Slack bot token never appears in tool results, tool errors, client configs, logs, or the persisted run snapshot.
+* The MCP bearer token never appears in the persisted run snapshot or in tool descriptions.
+* Each tool call produces an audit record (team, factory, run, tool, and target) with no message bodies.
+
+## Limitations
+
+This V0 intentionally leaves out several capabilities:
+
+* **Additional Slack tools** - Searches, files, members, profiles, conversation creation, emoji, and canvases are not included.
+* **User-level OAuth** - All actions are bot-identity only; there's no human or user-level Slack OAuth.
+* **Team-wide fallback** - A factory must have its own connected Slack app; the team-wide managed connection isn't used.
+
+## Related pages
+
+* [MCP servers for cloud agents](/platform/mcp/) — How cloud agents connect to MCP servers.
+* [Slack integration](/platform/integrations/slack/) — Connecting Slack to Oz.
+* [Software factory](/platform/software-factory/) — How specialized agents take work from issue to pull request.
+* [Secrets](/platform/secrets/) — Storing and injecting credentials into agent runs.
