@@ -9176,6 +9176,16 @@
       "statusCode": 308
     },
     {
+      "source": "/agents/using-agents/agent-permissions",
+      "destination": "/agent-platform/capabilities/agent-profiles-permissions/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agents/using-agents/agent-permissions/",
+      "destination": "/agent-platform/capabilities/agent-profiles-permissions/",
+      "statusCode": 308
+    },
+    {
       "source": "/agents/using-agents/model-choice#auto-models",
       "destination": "/agent-platform/inference/model-choice/",
       "statusCode": 308
