@@ -9,6 +9,16 @@ This log tracks every run of the `aeo_crosslink_audit` skill — both runs that 
 ---
 ## 2026-07-28 — No change
 
+- **Run**: https://app.warp.dev/conversation/356a1693-1140-4ac8-9de2-ef0995c04c60
+- **Source signals**: Peec available, GSC available
+- **PR**: N/A
+- **Links proposed / added**: 2 proposed, 0 added
+- **Pages touched**: N/A
+- **Themes**: heavy demand to run and manage multiple agents in parallel and to run Claude Code + Codex together; the CLI-agents overview and Harnesses in Oz pages omit links to the multi-agent guide and orchestration model
+- **No-change reason**: existing open AEO cross-link PR #396 — skipped per dedupe rule
+
+## 2026-07-28 — No change
+
 - **Run**: https://oz.warp.dev/runs/019fa9e8-cff8-710d-b615-18d88edad918
 - **Source signals**: Peec unavailable, GSC unavailable
 - **PR**: N/A
