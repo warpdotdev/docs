@@ -82,7 +82,7 @@ Oz is multi-model by design. You can [choose your preferred LLM](https://docs.wa
 
 ## Open source
 
-Warp's client is open source under [AGPL v3](https://github.com/warpdotdev/warp/blob/master/LICENSE). The source lives at [`warpdotdev/warp`](https://github.com/warpdotdev/warp), where you can read the code, file issues, and contribute alongside the Warp team. Development happens in the open with an agent-first workflow managed by Oz.
+Warp's client is open source under [AGPL v3](https://github.com/warpdotdev/warp/blob/main/LICENSE). The source lives at [`warpdotdev/warp`](https://github.com/warpdotdev/warp), where you can read the code, file issues, and contribute alongside the Warp team. Development happens in the open with an agent-first workflow managed by Oz.
 
 → [Contributing to Warp](https://docs.warp.dev/support-and-community/community/contributing) explains how to file issues, claim work, and ship code or themes.
 

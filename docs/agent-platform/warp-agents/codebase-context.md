@@ -31,7 +31,7 @@ git clone https://github.com/vercel/next.js.git && cd next.js
 
 ## Indexing your codebase
 
-When you open a directory in Warp, we check if it is part of a Git repository. If it is, Warp begins indexing the source code to provide rich context for Agents. Warp also detects [Git worktree](https://docs.warp.dev/warp/code/git-worktrees) checkouts — each worktree is indexed as its own repository, so Agents always have accurate context for the branch you're working on.&#x20;
+When you open a directory in Warp, we check if it is part of a Git repository. If it is, Warp begins indexing the source code to provide rich context for Agents. Warp also detects [Git worktree](https://docs.warp.dev/code/git-worktrees) checkouts — each worktree is indexed as its own repository, so Agents always have accurate context for the branch you're working on.&#x20;
 
 {% hint style="info" %}
 Code indexed with Codebase Context is never stored on our servers. Codebase Context works with both local agent sessions and [cloud agent runs](../cloud-agents/overview.md). Without Codebase Context enabled, agents will still be able use terminal commands (i.e. `grep`, `sed`) to navigate your code.
@@ -140,6 +140,6 @@ Here's an example from [Warp Guides](https://docs.warp.dev/guides), where Zach d
 
 With your codebase indexed, you can browse your project directly in Warp and start letting agents take action on your code.
 
-* **[File Tree](https://docs.warp.dev/warp/code/code-editor/file-tree)** - Browse your project structure in Warp's sidebar and open files directly.
-* **[Code editor](https://docs.warp.dev/warp/code/code-editor)** - Edit files with syntax highlighting, LSP support, and find-and-replace without leaving Warp.
+* **[File Tree](https://docs.warp.dev/code/code-editor/file-tree)** - Browse your project structure in Warp's sidebar and open files directly.
+* **[Code editor](https://docs.warp.dev/code/code-editor)** - Edit files with syntax highlighting, LSP support, and find-and-replace without leaving Warp.
 * **[Agent profiles and permissions](agent-profiles-permissions.md)** - Configure how much autonomy the agent has when working with your code.

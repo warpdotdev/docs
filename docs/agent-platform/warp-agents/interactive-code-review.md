@@ -14,10 +14,10 @@ You can inspect diffs, leave inline comments, batch feedback, and send all reque
 
 {% embed url="https://youtu.be/jit_6eevt8w?si=EFKYUSsofvBYUPI-" %}
 
-**Interactive Code Review builds on Warp's existing** [Code Review](https://docs.warp.dev/warp/code/code-review) **panel.** For details on diff views, reverting hunks, opening files, and all available entry points, see the Code Review documentation.
+**Interactive Code Review builds on Warp's existing** [Code Review](https://docs.warp.dev/code/code-review) **panel.** For details on diff views, reverting hunks, opening files, and all available entry points, see the Code Review documentation.
 
 {% hint style="info" %}
-Note that both the [Code Review](https://docs.warp.dev/warp/code/code-review) panel and Interactive Code Review require working in a Git-indexed directory.
+Note that both the [Code Review](https://docs.warp.dev/code/code-review) panel and Interactive Code Review require working in a Git-indexed directory.
 {% endhint %}
 
 ### Supported agents
