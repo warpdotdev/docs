@@ -148,8 +148,12 @@ const claudeUrl = `https://claude.ai/new?q=${prompt}`;
     const copyPromptBtn = document.getElementById('copy-agent-prompt');
     const viewMdBtn = document.getElementById('view-as-markdown');
     const exportBtn = document.getElementById('export-as-pdf');
-    const mdTemplate = document.getElementById('page-markdown-content') as HTMLTemplateElement | null;
-    const promptTemplate = document.getElementById('agent-prompt-content') as HTMLTemplateElement | null;
+    const mdTemplate = /** @type {HTMLTemplateElement | null} */ (
+      document.getElementById('page-markdown-content')
+    );
+    const promptTemplate = /** @type {HTMLTemplateElement | null} */ (
+      document.getElementById('agent-prompt-content')
+    );
 
     if (!wrapper || !trigger || !panel) return;
 
@@ -163,8 +167,9 @@ const claudeUrl = `https://claude.ai/new?q=${prompt}`;
       }
     });
 
-    function closeOnOutsideClick(e: MouseEvent) {
-      if (!wrapper?.contains(e.target as Node)) {
+    /** @param {MouseEvent} e */
+    function closeOnOutsideClick(e) {
+      if (!wrapper?.contains(/** @type {Node} */ (e.target))) {
         panel?.classList.remove('open');
         trigger?.classList.remove('active');
         document.removeEventListener('click', closeOnOutsideClick);
