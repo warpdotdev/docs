@@ -1,47 +1,109 @@
 ---
 title: "Input and editing in the {{WARP_CLI}}"
 description: >-
-  The {{WARP_CLI}} input editor: slash commands, history, completions, mouse
-  support, images, voice input, and Vim mode.
+  Compose prompts and commands in the {{WARP_CLI}} input editor with slash
+  commands, history, completions, mouse support, images, and voice input.
 ---
 import { VARS } from '@data/vars';
 
-{/* TODO(cli-input): draft per drafts/warp-cli-launch-plan.md — "cli/input-and-editing.mdx" section. Feature-doc content type. */}
+The {VARS.WARP_CLI} input is a multiline editor for prompts and shell commands. It combines readline-style editing with inline menus for slash commands, history, and completions, plus mouse support, image attachments, and voice input. This page covers how to compose and edit input. For the complete list of flags, slash commands, and keyboard shortcuts, see the [{VARS.WARP_CLI} reference](/cli/reference/).
 
-The {VARS.WARP_CLI} documentation for this page is in progress.
+## Editing basics
+
+The input accepts multiple lines and soft-wraps long lines to your terminal width. It grows up to six rows tall, then scrolls.
+
+* **Submit** - Press `Enter` to send a prompt to the agent or run a shell command.
+* **Insert a newline** - Press `Ctrl+J`, or `Shift+Enter` in terminals that support distinguishing it. `Alt+Enter` also works.
+* **Edit with readline-style keys** - The editor supports familiar bindings such as `Ctrl+A` and `Ctrl+E` (start and end of line), `Ctrl+W` (delete the previous word), `Ctrl+K` and `Ctrl+U` (delete to the end or start of the line), `Ctrl+Y` (reinsert the last deleted text), and `Ctrl+Z` (undo).
+
+The full editing and selection table is in the [keyboard shortcuts reference](/cli/reference/#keyboard-shortcuts).
 
 ## Slash commands
 
-{/* TODO(cli-input): slash command menu, filtering, argument hints; link to reference page for the full table. */}
+Type `/` at the start of an empty input to open the slash command menu. The menu filters as you type, and entries for toggles and pickers show their current state, for example `/theme (currently auto: Dark)` or `/auto-approve (currently off)`.
+
+1. Type `/` followed by part of a command name.
+2. Press `↑` or `↓` to change the selection.
+3. Press `Enter` to run the selected command, or `Esc` to close the menu.
+
+When a command takes an argument, the input shows a ghost-text argument hint after the full command name, for example `/theme <auto|light|dark>`. Type the argument after the command name, then press `Enter`.
+
+Your [skills](/cli/context/) also appear in the slash command menu, so you can invoke a skill by typing `/` followed by its name.
+
+The full command table is in the [slash commands reference](/cli/reference/#slash-commands).
 
 ## Prompt history
 
-{/* TODO(cli-input): up-arrow history for prompts and shell commands. */}
+Press `↑` with the cursor on the first row of the input to open your input history.
+
+* **What's listed** - In agent mode, the menu lists your previous prompts and shell commands together. Shell command entries carry a `!` prefix. In [shell mode](/cli/shell-commands/), the menu lists commands only.
+* **Filter** - Keep typing to filter the list.
+* **Preview and accept** - The highlighted entry previews directly in the input. Press `Enter` to keep it, then edit or submit it as usual.
+* **Dismiss** - Press `Esc` to close the menu and restore what you were typing. Pressing `↓` past the newest entry does the same.
 
 ## Tab completions
 
-{/* TODO(cli-input): completions for shell commands — confirm shipped before merge. */}
+In [shell mode](/cli/shell-commands/), press `Tab` to complete the command you're typing, including file and directory paths.
+
+* If exactly one completion matches, the {VARS.WARP_CLI} applies it immediately.
+* If several completions match, the {VARS.WARP_CLI} inserts the longest shared prefix and opens a completion menu. Press `Tab` or `↓` to move through the suggestions, `Enter` to accept the selected one, or `Esc` to dismiss the menu.
 
 ## Mouse support
 
-{/* TODO(cli-input): text selection in the input, clicking inline menu rows, selection persistence. */}
+The {VARS.WARP_CLI} runs in your terminal, but the input is fully mouse-aware:
+
+* **Position the cursor** - Click anywhere in the input to move the cursor there.
+* **Select text** - Drag to select. Double-click selects a word, and triple-click selects a line.
+* **Scroll** - Use the scroll wheel to scroll the input viewport or the conversation transcript.
+* **Click controls** - Interactive elements such as the **Voice** footer entry and the attachment bar controls respond to clicks.
 
 ## Selection and clipboard
 
-{/* TODO(cli-input): copying, opt-in auto-copy of highlighted input text. */}
+* **Highlight to copy** - Finishing a mouse selection in the input or the [conversation transcript](/cli/agent-conversations/) automatically copies it, and the footer briefly shows "copied to clipboard".
+* **Keyboard selection** - Extend the selection with `Shift` plus the arrow keys, or select everything with `Ctrl+Shift+A`. Copy with `Ctrl+Shift+C` and cut with `Ctrl+X`.
+* **Paste** - Press `Ctrl+V` or `Ctrl+Shift+V` (also `Alt+V` on Windows). Your terminal's own paste shortcut works as well.
+
+:::note
+Copying works over SSH: on remote sessions the {VARS.WARP_CLI} writes the clipboard through the OSC 52 escape sequence (including tmux passthrough), so your local clipboard receives the text when your terminal supports OSC 52.
+:::
 
 ## Attach images
 
-{/* TODO(cli-input): attaching images as context. */}
+Attach images to a prompt so the agent can analyze them:
+
+* **Paste an image** - Copy an image to your clipboard and press `Ctrl+V`.
+* **Paste or drop a file path** - Paste the path to an image file, or drag the file onto your terminal window so its path lands in the input. Absolute paths, paths relative to the working directory, and `~` paths all resolve.
+
+Supported formats are PNG, JPEG, GIF, and WebP. Attaching an image locks the input to agent mode, since images are sent to the agent rather than the shell.
+
+Attached images appear in an attachment bar above the input:
+
+1. Press `Tab` to focus the attachment bar.
+2. Press `←` and `→` (or `Tab` and `Shift+Tab`) to move between attachments.
+3. Press `Backspace` to remove the selected attachment.
+4. Press `Esc` or `Enter` to return focus to the input.
 
 ## Voice input
 
-{/* TODO(cli-input): /voice, `Ctrl+S`, configurable keybinding; cross-link voice docs. */}
+Dictate prompts instead of typing them:
 
-## Vim mode
+1. Start listening with `Ctrl+S`, the `/voice` slash command, or by clicking **Voice** in the footer. The footer shows **Listening** while recording.
+2. Speak your prompt.
+3. Press `Enter`, or click the footer entry again, to stop recording. The footer shows **Transcribing**, and the transcribed text lands in the input so you can review and edit it before submitting.
 
-{/* TODO(cli-input): vim input mode — confirm shipped before merge. */}
+Press `Esc` while transcription is in progress to cancel it. `/voice` clears the input before recording; `Ctrl+S` keeps what you've already typed.
+
+Voice input in the {VARS.WARP_CLI} uses the same transcription service as the Warp app. See [voice input for agents](/agent-platform/local-agents/interacting-with-agents/voice/) for microphone setup, privacy, and usage limits.
 
 ## Keyboard hints and the shortcuts menu
 
-{/* TODO(cli-input): ghost-text hints in the input, shortcuts menu. */}
+The {VARS.WARP_CLI} surfaces its shortcuts contextually, so you rarely need to memorize them:
+
+* **Placeholder hints** - An empty input shows ghost-text hints for the current state, for example "Ask the agent anything • ? for shortcuts • ! for shell mode • / for commands" in agent mode, or "Run a shell command • ? for shortcuts • esc for agent mode" in shell mode. While a long-running command owns the input, the hint row shows "ctrl-c to interrupt".
+* **Shortcuts menu** - Type `?` in an empty input to open a shortcuts overview. Its contents adapt to what you're doing: agent mode lists the menu triggers and input history, shell mode shows how to return to agent mode, and extra sections appear during multi-agent sessions or agent-controlled terminal use. Press `Esc`, or just start typing, to close it.
+
+## Related pages
+
+* [{VARS.WARP_CLI} reference](/cli/reference/) - Flags, environment variables, slash commands, and keyboard shortcuts.
+* [Shell commands in the {VARS.WARP_CLI}](/cli/shell-commands/) - Shell mode, natural language detection, and long-running commands.
+* [Agent conversations in the {VARS.WARP_CLI}](/cli/agent-conversations/) - The transcript, tool calls, and diffs.
