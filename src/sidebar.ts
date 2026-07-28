@@ -40,15 +40,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					],
 				},
 				{
-					label: 'Triggers',
-					items: [
-						{ slug: 'platform/triggers', label: 'Overview' },
-						{ slug: 'platform/triggers/scheduled-agents-quickstart', label: 'Quickstart' },
-						{ slug: 'platform/triggers/scheduled-agents', label: 'Scheduled agents' },
-					],
-				},
-				{
-					label: 'Integrations',
+					label: 'Integrations & Triggers',
 					items: [
 						{ slug: 'platform/integrations', label: 'Overview' },
 						{ slug: 'platform/integrations/quickstart', label: 'Quickstart' },
@@ -67,6 +59,9 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						'platform/integrations/bitbucket',
 						'platform/integrations/gitlab',
 						{ slug: 'platform/integrations/cloud-providers', label: 'AWS, GCP, and other cloud providers' },
+						{ slug: 'platform/triggers', label: 'Scheduled triggers' },
+						{ slug: 'platform/triggers/scheduled-agents-quickstart', label: 'Scheduled trigger quickstart' },
+						{ slug: 'platform/triggers/scheduled-agents', label: 'Scheduled agents' },
 					],
 				},
 				{
