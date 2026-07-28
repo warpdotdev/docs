@@ -10,8 +10,13 @@ This script generates the docs subset deterministically:
   * paths listed in EXCLUDED_PATHS are removed
   * individual operations marked ``x-internal: true`` are stripped;
     a path whose every operation is internal is removed entirely
+  * parameters marked ``x-internal: true`` are stripped from path-level
+    and operation-level parameter lists
+  * schema properties marked ``x-internal: true`` are stripped from every
+    surviving schema's ``properties`` map (and removed from ``required``)
   * components/schemas is pruned to only schemas reachable from the
-    surviving paths via $ref walking
+    surviving paths via $ref walking (using the stripped schemas, so
+    schemas only referenced via stripped properties are also pruned)
   * the regenerated spec is validated for unresolved $refs before
     being written; apply will refuse to write a broken spec
 
@@ -146,10 +151,47 @@ def _should_keep_path(path: str, path_item: dict[str, Any]) -> bool:
     return True
 
 
+def _strip_internal_parameters(parameters: Any) -> list[Any]:
+    """Return a copy of *parameters* with any ``x-internal: true`` entries removed.
+
+    ``parameters`` is expected to be an OpenAPI ``parameters`` list (each
+    entry is either a parameter object or a ``$ref``). Non-list inputs are
+    returned as-is so callers can unconditionally reassign the key.
+    """
+    if not isinstance(parameters, list):
+        return parameters
+    return [p for p in parameters if not (isinstance(p, dict) and p.get("x-internal"))]
+
+
+def _strip_internal_properties(schema: dict[str, Any]) -> dict[str, Any]:
+    """Return a copy of *schema* with any ``x-internal: true`` properties removed.
+
+    Also removes the corresponding entries from the ``required`` list so the
+    schema remains internally consistent. When no properties are stripped the
+    original dict is returned unchanged (no copy).
+    """
+    props = schema.get("properties")
+    if not isinstance(props, dict):
+        return schema
+    stripped_keys = {
+        k for k, v in props.items() if isinstance(v, dict) and v.get("x-internal")
+    }
+    if not stripped_keys:
+        return schema
+    out = dict(schema)
+    out["properties"] = {k: v for k, v in props.items() if k not in stripped_keys}
+    if "required" in schema and isinstance(schema["required"], list):
+        new_required = [r for r in schema["required"] if r not in stripped_keys]
+        out["required"] = new_required  # may be empty — valid OpenAPI
+    return out
+
+
 def _filter_internal_operations(path_item: dict[str, Any]) -> dict[str, Any]:
     """Return a copy of *path_item* with any ``x-internal: true`` operations removed.
 
-    Non-operation keys (``parameters``, ``summary``, ``description``, etc.)
+    Also strips ``x-internal: true`` entries from the path-level
+    ``parameters`` list and from each operation's own ``parameters`` list.
+    Non-operation, non-parameters keys (``summary``, ``description``, etc.)
     are preserved verbatim. Returns a dict that may have zero operations if
     every HTTP method was marked internal; callers should check
     ``_has_operations`` before including the result.
@@ -160,7 +202,23 @@ def _filter_internal_operations(path_item: dict[str, Any]) -> dict[str, Any]:
             # Drop this operation if it carries x-internal: true.
             if isinstance(value, dict) and value.get("x-internal"):
                 continue
-        out[key] = value
+            # Strip x-internal parameters from operation-level parameters list.
+            if isinstance(value, dict) and "parameters" in value:
+                stripped = _strip_internal_parameters(value["parameters"])
+                if stripped != value["parameters"]:
+                    value = dict(value)
+                    if stripped:
+                        value["parameters"] = stripped
+                    else:
+                        del value["parameters"]
+            out[key] = value
+        elif key == "parameters":
+            # Strip x-internal parameters from the path-level parameters list.
+            stripped = _strip_internal_parameters(value)
+            if stripped:  # omit the key entirely when all parameters are stripped
+                out[key] = stripped
+        else:
+            out[key] = value
     return out
 
 
@@ -289,14 +347,24 @@ def transform(source: dict[str, Any]) -> dict[str, Any]:
 
     src_components = source.get("components") or {}
     src_schemas = src_components.get("schemas") or {}
-    reachable = _transitive_schemas(seed_refs, src_schemas)
+
+    # Preprocess schemas to strip x-internal properties before $ref-walking.
+    # This ensures schemas that are only referenced from stripped properties
+    # (e.g. an enum type exclusively used by an internal field) are not pulled
+    # into the output by the transitive reachability pass.
+    processed_schemas: dict[str, Any] = {
+        name: _strip_internal_properties(schema)
+        for name, schema in src_schemas.items()
+    }
+
+    reachable = _transitive_schemas(seed_refs, processed_schemas)
 
     out_components: dict[str, Any] = {}
     for ck, cv in src_components.items():
         if ck == "schemas":
             out_components["schemas"] = {
-                name: src_schemas[name]
-                for name in src_schemas
+                name: processed_schemas[name]
+                for name in processed_schemas
                 if name in reachable
             }
         else:
@@ -417,9 +485,18 @@ def _self_test() -> int:
         ],
         "paths": {
             "/agent/run": {
+                # Path-level x-internal parameter (should be stripped).
+                "parameters": [
+                    {"name": "factory_uid", "in": "query", "x-internal": True},
+                    {"name": "trace", "in": "query"},
+                ],
                 "post": {
                     "tags": ["agent"],
                     "operationId": "runAgent",
+                    # Operation-level x-internal parameter (should be stripped).
+                    "parameters": [
+                        {"name": "_internal", "in": "header", "x-internal": True},
+                    ],
                     "requestBody": {
                         "content": {
                             "application/json": {
@@ -468,7 +545,13 @@ def _self_test() -> int:
                 "RunReq": {
                     "type": "object",
                     "properties": {
-                        "config": {"$ref": "#/components/schemas/Config"}
+                        "config": {"$ref": "#/components/schemas/Config"},
+                        # x-internal property referencing InternalOnly schema;
+                        # both the property and InternalOnly should be pruned.
+                        "_internal_ref": {
+                            "x-internal": True,
+                            "$ref": "#/components/schemas/InternalOnly",
+                        },
                     },
                 },
                 "Config": {
@@ -490,6 +573,8 @@ def _self_test() -> int:
                 "RunResp": {"type": "object"},
                 "MSItem": {"type": "object"},  # only referenced by dropped path
                 "Followup": {"type": "object"},
+                # Only reachable via the stripped _internal_ref property.
+                "InternalOnly": {"type": "object"},
             },
         },
     }
@@ -502,13 +587,29 @@ def _self_test() -> int:
     }, f"unexpected paths: {paths}"
 
     schemas = set(out["components"]["schemas"].keys())
-    # Config and Mode are reachable transitively (allOf, items)
+    # Config and Mode are reachable transitively (allOf, items).
+    # InternalOnly is only referenced from the stripped x-internal property and must be absent.
     assert schemas == {"RunReq", "Config", "Mode", "RunResp"}, f"unexpected schemas: {schemas}"
+
+    # RunReq should not contain the stripped x-internal property.
+    run_req_props = set(out["components"]["schemas"]["RunReq"]["properties"].keys())
+    assert "_internal_ref" not in run_req_props, f"x-internal property survived: {run_req_props}"
 
     tag_names = [t["name"] for t in out.get("tags") or []]
     assert tag_names == ["agent"], f"unexpected tags: {tag_names}"
 
     assert out["components"].get("securitySchemes"), "securitySchemes should be preserved"
+
+    # Path-level x-internal parameter must be stripped; public one must survive.
+    run_path_params = out["paths"]["/agent/run"].get("parameters", [])
+    param_names = [p.get("name") for p in run_path_params if isinstance(p, dict)]
+    assert "factory_uid" not in param_names, f"x-internal path param survived: {param_names}"
+    assert "trace" in param_names, f"public path param was stripped: {param_names}"
+
+    # Operation-level x-internal parameter must be stripped; the parameters key
+    # should be absent because all its entries were internal.
+    run_op_params = out["paths"]["/agent/run"]["post"].get("parameters")
+    assert run_op_params is None, f"stripped-only op parameters key should be absent: {run_op_params}"
 
     ref_errors = _validate_output(out)
     assert not ref_errors, f"unexpected unresolved refs: {ref_errors}"

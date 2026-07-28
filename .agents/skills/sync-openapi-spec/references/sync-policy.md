@@ -45,6 +45,10 @@ If any of these become stable public surfaces, remove them from `EXCLUDED_PATHS`
 
 The script now strips individual operations marked `x-internal: true`, even when the operation lives under an otherwise-public path. This prevents internal inter-agent plumbing (the `/agent/messages/*` and `/agent/events/*` inter-agent messaging and event-polling operations, `/agent/conversations/{conversation_id}/rename`, etc.) from appearing in the public docs reference and `public/openapi.json`. These operations exist server-side but are not part of the stable customer-facing API contract. If an operation is promoted to public, remove its `x-internal: true` marker in `warp-server/public_api/openapi.yaml` and the next sync will include it automatically.
 
+The script also strips parameters and schema properties individually marked `x-internal: true`. This removes internal fields (such as `factory_uid` on `GET /agent/identities` and factory-specific fields on agent request/response schemas) without hiding the entire endpoint or schema. Schemas that were only reachable via stripped properties are also pruned by the existing `$ref` reachability pass.
+
+> **Merge-ordering note (delete once warp-server#13429 lands):** Running `--mode diff` or `--mode apply` against `warp-server develop` will report drift on the `computer_use_enabled` description until warp-server#13429 merges. Always source from that branch (or from `develop` after it merges) to keep the published description in sync.
+
 ## Adding a new exclusion
 
 Use the script's `_unknown_classifications` warnings as the trigger. When the diff flags a new tag or path with `!`:
