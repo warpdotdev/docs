@@ -6,22 +6,184 @@ description: >-
 ---
 import { VARS } from '@data/vars';
 
-{/* TODO(cli-reference): draft per drafts/warp-cli-launch-plan.md — "cli/reference.mdx" section. Reference content type (exhaustive, lookup-oriented). */}
-
-The {VARS.WARP_CLI} documentation for this page is in progress.
+This page is a lookup reference for the {VARS.WARP_CLI}: the flags and environment variables the `warp` command accepts, every slash command available in a session, and the default keyboard shortcuts.
 
 ## Command-line flags
 
-{/* TODO(cli-reference): warp [flags] — --resume, --api-key, --set-provider-api-key, --clear-provider-api-key, --version, --help; one example per flag. */}
+Running `warp` with no flags starts an interactive session in the current directory. The following flags change how the CLI starts or run a one-off action and exit.
+
+### `--resume`
+
+Resumes a previous conversation by its conversation token.
+
+```bash
+warp --resume CONVERSATION_TOKEN
+```
+
+`CONVERSATION_TOKEN` is the token the CLI prints when you exit a session ("To continue this conversation, run: `warp --resume ...`"). You can also reopen past conversations from inside a session with `/conversations`. See [conversations in the {VARS.WARP_CLI}](/cli/conversations/) for how persistence and resuming work.
+
+### `--api-key`
+
+Authenticates with a Warp API key instead of the interactive browser login. Useful on hosts where a browser sign-in is inconvenient.
+
+```bash
+warp --api-key YOUR_API_KEY
+```
+
+The key can also be supplied through the `WARP_API_KEY` environment variable. Create a key in the Warp app under **Settings** > **Platform**; see the [API keys reference](/reference/cli/api-keys/) for details.
+
+### `--set-provider-api-key`
+
+Securely stores a model-provider API key for [Bring Your Own API Key (BYOK)](/agent-platform/inference/bring-your-own-api-key/), then exits. The provider is one of `openai`, `anthropic`, or `google`.
+
+```bash
+warp --set-provider-api-key anthropic
+```
+
+The CLI prompts for the key with masked input, so the key never appears in your shell history. When stdin is piped, the key is read from stdin instead:
+
+```bash
+warp --set-provider-api-key anthropic < key.txt
+```
+
+See [models and usage](/cli/models-and-usage/) for how stored keys affect billing.
+
+### `--clear-provider-api-key`
+
+Removes a stored model-provider API key, then exits. The provider is one of `openai`, `anthropic`, or `google`.
+
+```bash
+warp --clear-provider-api-key anthropic
+```
+
+### `--version`
+
+Prints the installed version and exits.
+
+```bash
+warp --version
+```
+
+### `--help`
+
+Prints usage information for all flags and exits.
+
+```bash
+warp --help
+```
 
 ## Environment variables
 
-{/* TODO(cli-reference): WARP_API_KEY and any other public env vars. */}
+* `WARP_API_KEY` - Warp API key for non-interactive authentication. Equivalent to passing `--api-key`.
+* `WARP_TUI_DISABLE_AUTOUPDATE` - Set to any value to disable background auto-updates for that launch. See [updating the {VARS.WARP_CLI}](/cli/troubleshooting/#updating) for how updates work.
 
 ## Slash commands
 
-{/* TODO(cli-reference): full table of slash commands available in the CLI with descriptions and arguments. */}
+Type `/` at the start of the input to open the slash command menu, then keep typing to filter it. Commands that take an argument show a hint after the command name. Angle brackets mark required arguments; square brackets mark optional ones.
+
+| Command | Argument | Description |
+| --- | --- | --- |
+| `/add-api-key` | `<openai\|anthropic\|google>` | Securely store a model-provider API key |
+| `/agent` | `[prompt]` | Start a new conversation |
+| `/auto-approve` | | Toggle auto-approve for agent actions |
+| `/clear` | `[prompt]` | Clear the transcript and start a new conversation |
+| `/clear-provider-api-key` | `<openai\|anthropic\|google>` | Remove a stored model-provider API key |
+| `/compact` | `[instructions]` | Free up context by summarizing the conversation history |
+| `/conversations` | | Open conversation history |
+| `/cost` | | Toggle per-response credit usage details |
+| `/create-new-project` | `<description>` | Have the agent walk you through creating a new coding project |
+| `/exit` | | Exit the CLI |
+| `/export-to-clipboard` | | Export the current conversation to the clipboard as Markdown |
+| `/export-to-file` | `[filename]` | Export the current conversation to a Markdown file |
+| `/handoff` | `[prompt]` | Hand off this conversation to a cloud agent |
+| `/logout` | | Log out of Warp |
+| `/mcp` | | View and manage MCP servers |
+| `/model` | | Switch the base agent model |
+| `/natural-language-detection` | | Toggle natural language detection for shell input |
+| `/new` | `[prompt]` | Start a new conversation (alias for `/agent`) |
+| `/plan` | `[task]` | Ask the agent to research and create a plan for a task |
+| `/skills` | | Invoke a skill |
+| `/statusline` | | Configure the statusline |
+| `/theme` | `<auto\|light\|dark>` | Set the color theme |
+| `/version` | | Show the installed version |
+| `/view-logs` | | Bundle your logs into a zip archive |
+| `/voice` | | Start voice input (`Ctrl+S`) |
+
+Skills also appear in the same menu under their own names, so you can invoke a skill directly as `/skill-name`. See [context in the {VARS.WARP_CLI}](/cli/context/) for how skills are discovered.
 
 ## Keyboard shortcuts
 
-{/* TODO(cli-reference): default shortcuts (source: the in-app shortcuts menu). */}
+Press `?` on an empty input to open the contextual shortcuts panel inside the CLI. The tables below list the default bindings.
+
+### Session
+
+| Shortcut | Action |
+| --- | --- |
+| `Ctrl+C` | Stop the current response, or clear the input; press again within a second to exit |
+| `Ctrl+D` | Exit when the input is empty (deletes the next character otherwise) |
+| `?` | Show the shortcuts panel (on an empty input) |
+| `/` | Open the slash command menu |
+| `!` | Enter shell mode (`Esc` returns to agent input) |
+| `←` | Open the conversation list (on an empty input) |
+| `↑` | Browse prompt and command history |
+| `Esc` | Dismiss the open menu, or leave shell mode |
+| `Ctrl+Shift+I` | Toggle auto-approve |
+| `Ctrl+Shift+P` | Expand or collapse the latest plan |
+| `Ctrl+S` | Start voice input |
+| `Ctrl+V` / `Ctrl+Shift+V` | Paste from the clipboard, including images |
+| `Tab` | Focus attached images when present; complete shell commands in shell mode |
+
+### Approvals
+
+These bindings apply while the agent is waiting for you to approve an action. See [permissions and profiles](/cli/permissions-and-profiles/) for how approvals work.
+
+| Shortcut | Action |
+| --- | --- |
+| `Enter` | Confirm the selected response |
+| `Esc` | Reject or cancel the request |
+| `e` | Edit the proposed action, or expand and collapse all diffs in a file-edit approval |
+| `Ctrl+Enter` | Approve a blocked terminal-use action |
+
+### Terminal control
+
+While the agent is running an interactive terminal command, or you have taken control of one:
+
+| Shortcut | Action |
+| --- | --- |
+| `Ctrl+C` | Interrupt the running command, or take control from the agent |
+| `Ctrl+G` | Hand control back to the agent |
+
+### Multi-agent tabs
+
+When you run multiple agents, a tab bar appears above the session. See [cloud and orchestration](/cli/cloud-and-orchestration/) for details.
+
+| Shortcut | Action |
+| --- | --- |
+| `Shift+↑` | Focus the agent tab bar |
+| `←` / `→` or `Tab` / `Shift+Tab` | Switch between agents |
+| `↓` | Return focus to the input |
+| `Esc` | Return to the main agent |
+
+### Text editing
+
+The input supports familiar readline-style editing:
+
+| Shortcut | Action |
+| --- | --- |
+| `Shift+Enter`, `Ctrl+J`, or `Alt+Enter` | Insert a newline |
+| `Ctrl+A` / `Home` | Move to the start of the line |
+| `Ctrl+E` / `End` | Move to the end of the line |
+| `Ctrl+B` / `Ctrl+F` | Move left / right |
+| `Alt+B` / `Alt+F` (or `Alt+←` / `Alt+→`) | Move one word left / right |
+| `Ctrl+W` or `Alt+Backspace` | Delete the previous word |
+| `Alt+D` or `Alt+Delete` | Delete the next word |
+| `Ctrl+K` | Delete to the end of the line |
+| `Ctrl+U` | Delete to the start of the line |
+| `Ctrl+Y` | Paste the last deleted text |
+| `Ctrl+Z` / `Ctrl+Shift+Z` | Undo / redo |
+| `Shift+←` / `Shift+→` / `Shift+↑` / `Shift+↓` | Extend the selection |
+| `Ctrl+Shift+A` | Select all |
+| `Ctrl+Shift+C` | Copy the selection |
+| `Ctrl+X` | Cut the selection |
+
+For mouse support, completions, and other input behavior, see [input and editing](/cli/input-and-editing/).
