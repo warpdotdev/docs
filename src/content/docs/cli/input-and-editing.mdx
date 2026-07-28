@@ -1,12 +1,13 @@
 ---
-title: "Input and editing in the Warp CLI"
+title: "Input and shell commands in the Warp CLI"
 description: >-
-  Compose prompts and commands in the Warp CLI input editor with slash
-  commands, history, completions, mouse support, images, and voice input.
+  Compose prompts, edit input, and run shell commands in the Warp CLI,
+  including menus, history, completions, images, voice, and interactive
+  commands.
 ---
 import { VARS } from '@data/vars';
 
-The {VARS.WARP_CLI} input is a multiline editor for prompts and shell commands. It combines readline-style editing with inline menus for slash commands, history, and completions, plus mouse support, image attachments, and voice input. This page covers how to compose and edit input. For the complete list of flags, slash commands, and keyboard shortcuts, see the [{VARS.WARP_CLI} reference](/cli/reference/).
+The {VARS.WARP_CLI} is a full terminal as well as an agent: every session runs a real shell, so you can run commands in the same place you prompt the agent. The input is a multiline editor that combines readline-style editing with inline menus for slash commands, history, and completions, plus mouse support, image attachments, and voice input. This page covers composing and editing input and running shell commands. For the complete list of flags, slash commands, and keyboard shortcuts, see the [{VARS.WARP_CLI} reference](/cli/reference/).
 
 ## Editing basics
 
@@ -32,18 +33,21 @@ Your [skills](/cli/context/) also appear in the slash command menu, so you can i
 
 The full command table is in the [slash commands reference](/cli/reference/#slash-commands).
 
-## Prompt history
+## Input history
 
-Press `↑` with the cursor on the first row of the input to open your input history.
+Press `↑` with the cursor on the first row of the input to open the history menu.
 
-* **What's listed** - In agent mode, the menu lists your previous prompts and shell commands together. Shell command entries carry a `!` prefix. In [shell mode](/cli/shell-commands/), the menu lists commands only.
+* **What's listed** - In agent mode, the menu combines your previous prompts and shell commands in one list, with commands marked by a `!` prefix. In [shell mode](#shell-mode), the menu lists commands only.
 * **Filter** - Keep typing to filter the list.
-* **Preview and accept** - The highlighted entry previews directly in the input. Press `Enter` to keep it, then edit or submit it as usual.
-* **Dismiss** - Press `Esc` to close the menu and restore what you were typing. Pressing `↓` past the newest entry does the same.
+* **Preview** - Moving the selection previews each entry in the input and switches the input to the matching mode: recalled commands run as shell commands, and recalled prompts go to the agent.
+* **Submit** - Press `Enter` to run the selected command or send the selected prompt.
+* **Dismiss** - Press `Esc` to close the menu and restore what you had typed. Pressing `↓` past the newest entry does the same.
+
+Commands you run in the {VARS.WARP_CLI} are added to your command history.
 
 ## Tab completions
 
-In [shell mode](/cli/shell-commands/), press `Tab` to complete the command you're typing, including file and directory paths.
+In [shell mode](#shell-mode), press `Tab` to complete the command you're typing, including file and directory paths.
 
 * If exactly one completion matches, the {VARS.WARP_CLI} applies it immediately.
 * If several completions match, the {VARS.WARP_CLI} inserts the longest shared prefix and opens a completion menu. Press `Tab` or `↓` to move through the suggestions, `Enter` to accept the selected one, or `Esc` to dismiss the menu.
@@ -102,8 +106,69 @@ The {VARS.WARP_CLI} surfaces its shortcuts contextually, so you rarely need to m
 * **Placeholder hints** - An empty input shows ghost-text hints for the current state, for example "Ask the agent anything • ? for shortcuts • ! for shell mode • / for commands" in agent mode, or "Run a shell command • ? for shortcuts • esc for agent mode" in shell mode. While a long-running command owns the input, the hint row shows "ctrl-c to interrupt".
 * **Shortcuts menu** - Type `?` in an empty input to open a shortcuts overview. Its contents adapt to what you're doing: agent mode lists the menu triggers and input history, shell mode shows how to return to agent mode, and extra sections appear during multi-agent sessions or agent-controlled terminal use. Press `Esc`, or just start typing, to close it.
 
+## Shell mode
+
+The input is agent-first: by default, pressing `Enter` sends your text to the agent as a prompt. Use shell mode to run a command instead:
+
+1. Press `!` at the start of the input. The prompt marker changes from `>` to `!`, and the statusline below the input shows **Shell mode**.
+2. Type a command and press `Enter`. The command runs in the session's shell, and the input returns to agent mode.
+
+To leave shell mode without running a command, press `Esc`, or press `Backspace` at the start of the input. Any text you typed stays in the input.
+
+In the transcript, each command you run is marked with a `!` prefix and a highlighted row background, so shell commands stay visually distinct from prompts and agent responses. Output streams in below the command as it's produced.
+
+In shell mode, press `Tab` to complete commands and paths; see [Tab completions](#tab-completions).
+
+:::note
+Running a shell command cancels the agent's in-progress response, if there is one.
+:::
+
+## Natural language detection
+
+Out of the box, the {VARS.WARP_CLI} never guesses what your input is: everything goes to the agent unless you enter shell mode. To type commands directly without the `!` prefix, turn on natural language detection:
+
+- **Toggle detection** - Run `/natural-language-detection` to turn detection on or off. The statusline confirms the change, and the setting persists across sessions.
+- **Automatic classification** - With detection on, the {VARS.WARP_CLI} classifies your input as you type. When the input looks like a shell command (for example, `git status`), the input switches to shell mode, and `Enter` runs it as a command. Everything else is sent to the agent.
+- **Biased toward the agent** - Short or ambiguous input stays in agent mode, and a single word switches to shell mode only when it matches a command available in your shell.
+
+The prompt marker and statusline always show the current mode before you press `Enter`. If detection classifies input differently than you intended, press `Esc` to switch back to agent mode, or press `!` at the start of the input to force shell mode.
+
+## Long-running and interactive commands
+
+When a command keeps running, such as a dev server, a package install, or an interactive prompt, the {VARS.WARP_CLI} hands input over to it:
+
+- **Input passthrough** - Keystrokes and pasted text are forwarded to the running process, so password requests, confirmation prompts, and other interactive programs work as they do in a plain terminal.
+- **Interrupt hint** - While the command owns input, a dimmed `ctrl-c to interrupt` hint replaces the input. Press `Ctrl+C` to stop the command.
+- **Type ahead** - If you start typing your next command before the current one finishes, the typed characters are carried into the input when the command completes, with the cursor at the end. This matches type-ahead behavior in shells like zsh and bash.
+
+One command runs in the session at a time. If the terminal is already busy, for example while the agent is running a command of its own, submitting a shell command shows a notice in the statusline and keeps your text in the input.
+
+## Full-screen terminal apps
+
+Commands that switch the terminal to the alternate screen, such as `vim`, `htop`, or `less`, take over the whole {VARS.WARP_CLI} view:
+
+- The app renders full-screen and receives keyboard, paste, scroll, and mouse input, so editors and other terminal UIs are fully usable inside the {VARS.WARP_CLI}.
+- When the app exits, the transcript returns with your conversation intact.
+
+## Stopping commands and exiting
+
+`Ctrl+C` performs one contextual action per press:
+
+- **While a command is running** - `Ctrl+C` interrupts the running command, as in a plain terminal. It doesn't exit the {VARS.WARP_CLI}.
+- **While the agent is responding** - `Ctrl+C` cancels the in-progress response. Text in the input is preserved.
+- **At an idle prompt** - `Ctrl+C` clears the input if it has text.
+
+After a press at the prompt, the statusline shows `ctrl-c again to exit` for about one second. Press `Ctrl+C` a second time within that window to exit the {VARS.WARP_CLI}. This works even while the agent is responding; while a shell command is running, `Ctrl+C` keeps interrupting the command instead.
+
+There are two other ways to exit:
+
+- **`Ctrl+D`** - Exits immediately when the input is empty.
+- **`/exit`** - Exits from the slash command menu.
+
+When you exit, the {VARS.WARP_CLI} prints a command you can use to pick the conversation back up later. See [Managing conversations](/cli/conversations/) for resuming and switching conversations.
+
 ## Related pages
 
 * [{VARS.WARP_CLI} reference](/cli/reference/) - Flags, environment variables, slash commands, and keyboard shortcuts.
-* [Shell commands in the {VARS.WARP_CLI}](/cli/shell-commands/) - Shell mode, natural language detection, and long-running commands.
 * [Agent conversations in the {VARS.WARP_CLI}](/cli/agent-conversations/) - The transcript, tool calls, and diffs.
+* [Managing conversations in the {VARS.WARP_CLI}](/cli/conversations/) - Persistence, resuming, and switching conversations.
