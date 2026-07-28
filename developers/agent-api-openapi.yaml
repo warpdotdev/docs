@@ -2550,7 +2550,10 @@ components:
           type: boolean
           description: |
             Controls whether computer use is enabled for this agent.
-            If not set, defaults to false.
+            Defaults to true for Warp-hosted runs (when `worker_host` is unset or
+            set to "warp"). When `worker_host` is set (self-hosted), defaults to
+            false and requires an explicit true to enable computer use and its
+            associated Xvfb sidecar overhead.
           x-go-type-skip-optional-pointer: false
         idle_timeout_minutes:
           type: integer
