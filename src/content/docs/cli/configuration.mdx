@@ -1,31 +1,88 @@
 ---
 title: "Configuring the {{WARP_CLI}}"
 description: >-
-  Configure the {{WARP_CLI}} with its TOML settings file, themes, statusline,
-  and keybindings.
+  Configure the {{WARP_CLI}} with its local TOML settings file, themes, and
+  statusline. CLI settings stay on your machine and are never cloud-synced.
 ---
 import { VARS } from '@data/vars';
 
-{/* TODO(cli-configuration): draft per drafts/warp-cli-launch-plan.md — "cli/configuration.mdx" section. Feature-doc content type. */}
-
-The {VARS.WARP_CLI} documentation for this page is in progress.
+The {VARS.WARP_CLI} keeps its configuration in a plain TOML settings file on your machine. You can change settings by editing the file directly, by running slash commands like `/theme` and `/statusline`, or by asking the agent to update a setting for you.
 
 ## The settings file
 
-{/* TODO(cli-configuration): TOML settings file location and behavior; settings are local to the CLI and not synced. */}
+The CLI reads its settings from a `settings.toml` file:
+
+* **macOS** - `~/.warp_cli/settings.toml`
+* **Linux** - `~/.config/warp-terminal/cli/settings.toml` (respects `$XDG_CONFIG_HOME`)
+* **Windows** - `%LOCALAPPDATA%\warp\Warp\config\cli\settings.toml`
+
+The file is created the first time you change a setting, and you can also create it yourself. Settings use dotted TOML sections. For example:
+
+```toml title="settings.toml"
+[appearance]
+theme = "dark"
+```
+
+The CLI watches the settings file while it's running, so edits take effect immediately without a restart. If a value is invalid, the CLI logs the problem and uses the default for that setting instead. If the file can't be parsed at all, the CLI starts with default settings.
+
+:::note
+CLI settings are local to your machine and are never synced to the cloud. They are also independent from the Warp app's settings: the app and the CLI keep separate settings files, so changing one never affects the other.
+:::
 
 ## Edit settings with the agent
 
-{/* TODO(cli-configuration): asking the agent to update settings via the bundled skill. */}
+The fastest way to change a setting is to ask the agent in plain language. The CLI ships with a bundled skill and a schema of every available setting, which the agent uses to find the right key, validate the value, and update the settings file for you. Try prompts like:
+
+* "Switch my theme to light."
+* "Add the time to my statusline."
+* "What CLI settings can I change?"
+
+Because the CLI hot-reloads the settings file, changes the agent makes apply immediately. To learn about the other built-in skills, see [bundled skills in the {VARS.WARP_CLI}](/cli/context/).
 
 ## Themes
 
-{/* TODO(cli-configuration): /theme auto|light|dark, terminal background detection. */}
+The {VARS.WARP_CLI} renders with a light or dark color theme. Set it with the `/theme` slash command:
+
+* **`/theme auto`** - Matches the host terminal's background. This is the default.
+* **`/theme light`** - Always uses the light theme.
+* **`/theme dark`** - Always uses the dark theme.
+
+Theme changes apply immediately and persist across sessions as the `theme` key under `[appearance]` in the settings file.
+
+In auto mode, the CLI probes the host terminal's default colors when it starts and picks the theme that matches the background: light backgrounds get the light theme, and dark or undetectable backgrounds get the dark theme. Detection runs at startup, so if you switch your terminal's colors while the CLI is running, restart it or set a theme explicitly.
 
 ## Statusline
 
-{/* TODO(cli-configuration): statusline contents and /statusline customization — confirm shipped before merge. */}
+The statusline is the row below the CLI's input box that shows session information at a glance. By default it shows the active model, the working directory, and, inside a Git repository, the Git branch and diff status. You can enable any of these items:
 
-## Keybindings
+* **Model** - The active model. Click it to open the model picker.
+* **Working directory** - The current working directory.
+* **Git branch** - The current branch, when the directory is a Git repository.
+* **Git branch status** - How far the branch is ahead of or behind its upstream.
+* **Git diff status** - Uncommitted line additions and deletions.
+* **Credit usage** - Credits used by the current conversation. Click it to switch between credits and provider cost.
+* **Context window usage** - How much of the model's context window the conversation has used.
+* **Agent to-do list** - The agent's progress through its current task list.
+* **Auto-approve indicator** - Appears when auto-approve is on.
+* **Auto-queue next prompt indicator** - Appears when auto-queue is on.
+* **Date** - The current date.
+* **Time (12 hour format)** and **Time (24 hour format)** - The current time.
+* **Voice input** - A control for starting voice input.
 
-{/* TODO(cli-configuration): customizing keybindings. */}
+Items only appear when they have something to show. For example, the Git items appear only inside a repository. In shell mode, the statusline always leads with a shell mode label.
+
+### Customizing the statusline
+
+Choose which items appear and in what order:
+
+1. Run `/statusline`. The **Configure statusline** panel opens with every available item.
+2. Select an item and press `Enter` to toggle its visibility.
+3. Press `←` and `→` to move the highlighted item earlier or later in the row.
+4. Press `Esc` to save and close. Press `Ctrl+C` to cancel without saving.
+
+Your choices are saved to the settings file, so the layout persists across sessions.
+
+## Related pages
+
+* [{VARS.WARP_CLI} reference](/cli/reference/) for every command-line flag, slash command, and keyboard shortcut.
+* [Agent context in the {VARS.WARP_CLI}](/cli/context/) for rules, skills, and MCP configuration.
