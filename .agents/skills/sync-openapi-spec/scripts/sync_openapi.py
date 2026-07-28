@@ -41,7 +41,9 @@ import yaml
 # Tags whose paths and tag entry should be removed entirely.
 # `memory_stores` is gated as `x-internal` server-side.
 # `harness-support` is the worker-to-server contract — not a public API.
-EXCLUDED_TAGS: frozenset[str] = frozenset({"memory_stores", "harness-support"})
+# `factory` is the internal agent-orchestration API — not a public API.
+# `memory` is the memory-stores tag (renamed from `memory_stores`) — not public yet.
+EXCLUDED_TAGS: frozenset[str] = frozenset({"memory_stores", "harness-support", "factory", "memory"})
 
 # Specific paths under otherwise-public tags that should be hidden from
 # the public API reference. Keep in sync with references/sync-policy.md.
@@ -51,6 +53,12 @@ EXCLUDED_PATHS: frozenset[str] = frozenset(
         "/agent/handoff/upload-snapshot",
         "/agent/conversations/{conversation_id}/fork",
         "/agent/conversations/{conversationId}/redirect",
+        # factory-scorer paths are factory-internal but carry the `agent` tag
+        "/factory/scorers",
+        "/factory/scorers/{scorer_id}/results",
+        # internal agent plumbing not part of the stable public API contract
+        "/agent/sessions/{sessionUuid}/redirect",
+        "/agent/runs/{runId}/client-events",
     }
 )
 

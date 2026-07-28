@@ -20,14 +20,24 @@ Memory stores are gated as `x-internal: true` server-side. They are not part of 
 ### `harness-support`
 The `/harness-support/*` endpoints form the worker-to-server contract used by Oz workers (transcripts, snapshots, finish-task signaling, etc.). They are not part of the public API contract — customers should not call them directly. Excluded permanently.
 
+### `factory`
+The `/factory/*` endpoints are the internal agent-orchestration API used by the factory pipeline (task management, Linear integrations, syncs, etc.). Not a public API surface; excluded until further notice.
+
+### `memory`
+The `/memory_stores` path is tagged `memory` in the server spec (renamed from the former `memory_stores` tag). Same rationale as `memory_stores` above: memory stores are gated and not a stable public API yet.
+
 ## Excluded paths (within otherwise-public tags)
 
-These four `agent`-tag paths are excluded individually because the `agent` tag itself remains public:
+These paths under otherwise-public tags are excluded individually:
 
 - `/agent/runs/{runId}/handoff/attachments` — handoff plumbing tied to local-to-cloud session handoff.
 - `/agent/handoff/upload-snapshot` — handoff plumbing (snapshot upload from a local worker).
 - `/agent/conversations/{conversation_id}/fork` — conversation-forking primitive used by the harness, not stable public API.
 - `/agent/conversations/{conversationId}/redirect` — internal redirect endpoint.
+- `/factory/scorers` — factory-internal scorer creation endpoint; carries the `agent` tag but is not a public API surface.
+- `/factory/scorers/{scorer_id}/results` — factory-internal scorer results endpoint; carries the `agent` tag but is not a public API surface.
+- `/agent/sessions/{sessionUuid}/redirect` — session redirect plumbing (mirrors the excluded `/agent/conversations/{conversationId}/redirect`).
+- `/agent/runs/{runId}/client-events` — internal telemetry endpoint for recording run client events; not a stable public API contract.
 
 If any of these become stable public surfaces, remove them from `EXCLUDED_PATHS` and update this list.
 

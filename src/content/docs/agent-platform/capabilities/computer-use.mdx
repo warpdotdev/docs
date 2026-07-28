@@ -7,6 +7,8 @@ description: >-
   automated UI testing and validation.
 ---
 
+import { VARS } from '@data/vars';
+
 Computer Use enables Warp's cloud agents to interact with desktop environments in a secure, isolated sandbox. The agent can see what's displayed on screen, click and drag, type text, use keyboard shortcuts, and perform other GUI interactions.
 
 A key use case is **testing UI changes** with a self-contained feedback loop, where the agent can verify that your code changes produce the expected visual and behavioral results without requiring manual testing.
@@ -27,19 +29,19 @@ Computer Use is only available in Warp's sandboxed cloud environments, not in lo
 
 ## Configuring Computer Use
 
-Computer use is **enabled by default** for Oz cloud runs. When starting a run from the Oz web app, the computer use checkbox is pre-selected. When calling the API without specifying `computer_use_enabled`, computer use is on. You can disable or explicitly control it through the following entry points:
+Computer Use is **enabled by default** for Oz cloud runs. When starting a run from the {VARS.WEB_APP}, the Computer Use checkbox is pre-selected. When calling the API without specifying `computer_use_enabled`, Computer Use is on. You can disable or explicitly control it through the following entry points:
 
-### Oz web app
+### {VARS.WEB_APP}
 
-In the [Oz web app](https://oz.warp.dev), computer use is enabled by default when starting a run. To disable it for a specific run or agent:
+In the [{VARS.WEB_APP}]({VARS.WEB_APP_URL}), Computer Use is enabled by default when starting a run. To change it for a specific run or agent:
 
-* **New agent runs** - Deselect **Computer use** when starting a new agent run
-* **Scheduled agent runs** - Configure computer use in the scheduled agent settings
-* **Integrations** - Configure computer use for Slack, Linear, and other integration-triggered agents
+* **New agent runs** - Deselect **Enable computer use** when starting a new agent run
+* **Scheduled agent runs** - Configure **Enable computer use** in the scheduled agent settings
+* **Integrations** - Configure **Enable computer use** for Slack, Linear, and other integration-triggered agents
 
 ### CLI
 
-When running agents in the cloud via the [Oz CLI](/reference/cli/), use flags to override the default per run:
+When running agents in the cloud via the [{VARS.WARP_AGENT_CLI}](/reference/cli/), use flags to override the default per run:
 
 ```bash
 oz agent run-cloud --computer-use --prompt "<task>"
@@ -71,10 +73,10 @@ For full API documentation, see the [Oz API & SDK](/reference/api-and-sdk/) refe
 
 ### Warp desktop app
 
-For cloud agent conversations started from the Warp desktop app, computer use can be toggled independently of the web UI and API defaults. In the Warp app, navigate to **Settings** > **Agents** > **Warp Agent** > **Experimental** > **Computer use in Cloud Agents** to enable or disable computer use for cloud agents initiated from the desktop.
+For cloud agent conversations started from the Warp desktop app, Computer Use can be toggled independently of the web UI and API defaults. The toggle is off by default in released builds and must be enabled manually. In the Warp app, navigate to **Settings** > **Agents** > **Warp Agent** > **Experimental** > **Computer use in Cloud Agents** to enable or disable Computer Use for cloud agents initiated from the desktop.
 
 :::note
-This toggle applies only to cloud runs started from the Warp desktop app. Cloud runs started via the Oz web app or API have computer use enabled by default regardless of this setting.
+This toggle applies only to cloud runs started from the Warp desktop app. Cloud runs started via the {VARS.WEB_APP} or API have Computer Use enabled by default regardless of this setting.
 :::
 
 ---
