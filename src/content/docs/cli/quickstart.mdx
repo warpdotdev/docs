@@ -6,34 +6,73 @@ description: >-
 ---
 import { VARS } from '@data/vars';
 
-{/* TODO(cli-overview): draft per drafts/warp-cli-launch-plan.md — "cli/quickstart.mdx" section. Quickstart content type (~10 min to working result). */}
-
-The {VARS.WARP_CLI} documentation for this page is in progress.
+This guide takes you from installing the {VARS.WARP_CLI} to your first agent conversation in about five minutes. You'll install the CLI, log in, prompt the agent, run a shell command, and learn how to exit and resume.
 
 ## Prerequisites
 
-{/* TODO(cli-overview): minimal prerequisites (Warp account). */}
+* **A Warp account** - The login step opens your browser, where you can sign in or create an account. The {VARS.WARP_CLI} uses the same account as the Warp app.
+* **A supported platform** - macOS or Linux. See [supported platforms](/cli/#supported-platforms).
 
 ## Install the {VARS.WARP_CLI}
 
-{/* TODO(cli-overview): install command(s) — confirm distribution channels with eng before merge. */}
+{/* PENDING: install instructions from eng */}
+
+After installing, verify that the `warp` command is available:
+
+```bash
+warp --version
+```
+
+The command prints the installed version. The CLI keeps itself up to date automatically after this; see [automatic updates](/cli/#automatic-updates).
 
 ## Log in
 
-{/* TODO(cli-overview): device-auth login flow; `--api-key` / `WARP_API_KEY` alternative for non-interactive auth. */}
+Log in once so the CLI can access your Warp account, models, and saved context.
+
+1. Run `warp`.
+2. The CLI shows a verification link and a device code, and opens the link in your browser. If the browser doesn't open, visit the link shown in the CLI and enter the code.
+3. Approve the login in your browser. The CLI unlocks automatically, so you don't need to restart it.
+
+When login completes, the CLI shows its start screen: the version, a short "What's new" list, and the rules, skills, and MCP servers it discovered for your current directory.
+
+:::note
+On machines without a browser, such as CI or remote servers, authenticate with a Warp API key instead: run `warp --api-key YOUR_API_KEY` or set the `WARP_API_KEY` environment variable. See [API keys](/reference/cli/api-keys/) for how to create one.
+:::
 
 ## Run your first prompt
 
-{/* TODO(cli-overview): first agent prompt; what the zero state shows. */}
+1. Type a prompt in plain language, for example: `What does this project do?`
+2. Press `Enter`. The response streams into the transcript above the input.
+3. If the agent wants to run a command or edit a file, it shows a permission request. Choose an option to approve or reject the action.
+
+Learn more about the transcript, diffs, and approvals in [Agent conversations](/cli/agent-conversations/) and [Permissions and profiles](/cli/permissions-and-profiles/).
 
 ## Run a shell command
 
-{/* TODO(cli-overview): shell input alongside agent prompts. */}
+You can run shell commands directly without leaving the {VARS.WARP_CLI}.
+
+1. Type `!` at the start of an empty input to switch to shell mode. The footer shows **Shell mode**.
+2. Type a command, such as `git status`, and press `Enter`. The command runs in your working directory and its output appears in the transcript.
+3. Press `Backspace` on the empty input to switch back to prompting the agent.
+
+See [Shell commands](/cli/shell-commands/) for long-running commands, interactive programs, and natural language detection.
 
 ## Exit and resume
 
-{/* TODO(cli-overview): double Ctrl+C to exit; resume command printed on exit. */}
+1. Press `Ctrl+C` twice in a row to exit, or run `/exit`. A single `Ctrl+C` press stops the agent's current response, or clears the input when nothing is running.
+2. On exit, the CLI prints a resume command for the conversation:
+
+   ```bash
+   warp --resume CONVERSATION_TOKEN
+   ```
+
+3. Run the printed command to pick up the conversation where you left off. `CONVERSATION_TOKEN` is the conversation identifier the CLI prints for you.
+
+You can also browse and reopen past conversations from inside the CLI. See [Conversations](/cli/conversations/).
 
 ## Next steps
 
-{/* TODO(cli-overview): links to agent conversations, configuration, reference. */}
+* [Agent conversations](/cli/agent-conversations/) - Work with the transcript, code diffs, plans, and tasks.
+* [Context](/cli/context/) - Give the agent rules, skills, and MCP servers.
+* [Configuration](/cli/configuration/) - Set your theme, statusline, and keybindings.
+* [Reference](/cli/reference/) - All flags, slash commands, and keyboard shortcuts.
