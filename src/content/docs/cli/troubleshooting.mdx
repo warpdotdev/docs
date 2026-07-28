@@ -1,77 +1,27 @@
 ---
-title: "Troubleshooting the Warp CLI"
+title: "Troubleshooting the {{WARP_CLI}}"
 description: >-
-  Fix common Warp CLI issues: gather logs, resolve login problems, and
+  Fix common {{WARP_CLI}} issues: gather logs, resolve login problems, and
   update to the latest version.
 ---
 import { VARS } from '@data/vars';
 
-This page covers common {VARS.WARP_CLI} issues: gathering logs for a bug report, fixing sign-in problems, resuming conversations, and keeping the CLI up to date.
+{/* TODO(cli-reference): draft per drafts/warp-cli-launch-plan.md — "cli/troubleshooting.mdx" section. Troubleshooting content type (problem → cause → solution). */}
 
-:::note
-For known issues and feature requests across Warp, visit the [GitHub issues page](https://github.com/warpdotdev/Warp/issues).
-:::
+The {VARS.WARP_CLI} documentation for this page is in progress.
 
 ## Viewing and sharing logs
 
-When something goes wrong, logs are the fastest way to help the Warp team diagnose the problem.
-
-Run `/view-logs` in a session to bundle the current session's log and recent previous sessions into a timestamped zip archive. The CLI reveals the archive in your file manager and shows the saved path in the footer, so you can attach it to a bug report or share it with support.
-
-On macOS, {VARS.WARP_CLI} logs are stored in `~/Library/Logs/warp-cli/`. Logs rotate per session, and only a limited number of recent sessions are kept. The `/view-logs` archive is written to the same directory.
+{/* TODO(cli-reference): /view-logs bundle, log file locations, sharing a debugging link if shipped. */}
 
 ## Login issues
 
-The {VARS.WARP_CLI} signs you in with a browser-based flow: it opens a verification page (or shows you the URL and a code to enter) and continues once you approve the sign-in. See the [quickstart](/cli/quickstart/) for the full flow.
-
-### The browser doesn't open
-
-On a remote or browser-less machine, the CLI can't launch a browser. The sign-in screen still shows the verification URL and code.
-
-1. Open the displayed URL in a browser on any device, including another machine.
-2. Enter the code shown in the CLI.
-3. Return to the CLI; it proceeds automatically once the sign-in is approved.
-
-For machines where the browser flow isn't practical, authenticate non-interactively with an API key instead, using `warp --api-key` or the `WARP_API_KEY` environment variable. See the [{VARS.WARP_CLI} reference](/cli/reference/#command-line-flags).
-
-### "Login failed"
-
-The sign-in attempt was rejected or timed out; the message shows the underlying cause.
-
-1. Press `Ctrl+C` to exit.
-2. Run `warp` again to restart the sign-in flow.
-3. If the failure persists, check your network connection and any proxy or firewall that could block access to Warp's servers.
-
-### Signed in to the wrong account
-
-1. Run `/logout` in a session. The CLI signs you out, opens your browser to complete the sign-out on Warp's website, and returns to the sign-in screen.
-2. Sign in with the account you want.
-
-### "Could not restore conversation" when resuming
-
-`warp --resume` failed to load the conversation for the given token, for example because the token is malformed or the conversation is no longer available.
-
-1. Press `Ctrl+C` to exit, then run `warp` to start normally.
-2. Check the token against the resume command printed when you exited the original session.
-3. If the conversation exists locally, open it with `/conversations` instead. See [conversations in the {VARS.WARP_CLI}](/cli/conversations/).
+{/* TODO(cli-reference): device-auth problems and solutions; /logout and re-login. */}
 
 ## Updating
 
-The {VARS.WARP_CLI} keeps itself up to date. Installed builds check for updates in the background, download new versions, and apply them the next time you launch `warp`; a running session is never interrupted.
-
-To check which version you're running, use `/version` in a session, or run:
-
-```bash
-warp --version
-```
-
-To disable background updates for a single launch, set the `WARP_TUI_DISABLE_AUTOUPDATE` environment variable to any value. To disable them persistently, turn off the autoupdate setting in the settings file; see [configuration](/cli/configuration/).
-
-If an install becomes corrupted, re-running the install command from the [quickstart](/cli/quickstart/) replaces it with the latest version.
+{/* TODO(cli-reference): how autoupdate works, checking the version with /version and --version. */}
 
 ## Getting help
 
-* [Sending us feedback](/support-and-community/troubleshooting-and-support/sending-us-feedback/) - How to reach Warp support and share feedback.
-* [Known issues](/support-and-community/troubleshooting-and-support/known-issues/) - Current known issues across Warp.
-* [GitHub issues](https://github.com/warpdotdev/Warp/issues) - Search existing reports or file a new one; attach the `/view-logs` archive to bug reports.
-* [{VARS.WARP_CLI} reference](/cli/reference/) - Flags, environment variables, slash commands, and keyboard shortcuts.
+{/* TODO(cli-reference): feedback and support channels; link to support-and-community pages. */}
