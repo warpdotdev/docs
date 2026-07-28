@@ -9954,6 +9954,21 @@
       "source": "/agent-platform/cloud-agents/:path*",
       "destination": "/platform/:path*/",
       "statusCode": 308
+    },
+    {
+      "source": "/team/index.md",
+      "destination": "/knowledge-and-collaboration/teams/",
+      "statusCode": 308
+    },
+    {
+      "source": "/team",
+      "destination": "/knowledge-and-collaboration/teams/",
+      "statusCode": 308
+    },
+    {
+      "source": "/team/",
+      "destination": "/knowledge-and-collaboration/teams/",
+      "statusCode": 308
     }
   ]
 }
