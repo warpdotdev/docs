@@ -29,11 +29,11 @@ Computer Use is only available in Warp's sandboxed cloud environments, not in lo
 
 ## Configuring Computer Use
 
-Computer Use is **enabled by default** for Oz cloud runs. When starting a run from the {VARS.WEB_APP}, the Computer Use checkbox is pre-selected. When calling the API without specifying `computer_use_enabled`, Computer Use is on. You can disable or explicitly control it through the following entry points:
+Computer Use is **enabled by default** for Warp-hosted Oz cloud runs. When starting a run from the {VARS.WEB_APP}, the Computer Use checkbox is pre-selected. When calling the API without specifying `computer_use_enabled`, Computer Use is on for Warp-hosted runs; runs dispatched to [self-hosted runners](/platform/runners/) still require an explicit `computer_use_enabled: true`. You can disable or explicitly control it through the following entry points:
 
 ### {VARS.WEB_APP}
 
-In the [{VARS.WEB_APP}]({VARS.WEB_APP_URL}), Computer Use is enabled by default when starting a run. To change it for a specific run or agent:
+In the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a>, Computer Use is enabled by default when starting a run. To change it for a specific run or agent:
 
 * **New agent runs** - Deselect **Enable computer use** when starting a new agent run
 * **Scheduled agent runs** - Configure **Enable computer use** in the scheduled agent settings
@@ -50,7 +50,7 @@ oz agent run-cloud --no-computer-use --prompt "<task>"
 
 ### API
 
-When calling the Warp API to create agent runs, computer use is **enabled by default** when `computer_use_enabled` is omitted. To disable it explicitly, set `computer_use_enabled` to `false`:
+When calling the Warp API to create agent runs, computer use is **enabled by default for Warp-hosted runs** when `computer_use_enabled` is omitted. For runs dispatched to [self-hosted runners](/platform/runners/), omitting the field keeps computer use disabled — pass `computer_use_enabled: true` to enable it. To disable it explicitly for Warp-hosted runs, set `computer_use_enabled` to `false`:
 
 ```json
 {

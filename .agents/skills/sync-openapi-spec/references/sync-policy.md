@@ -8,7 +8,7 @@ This document records what `developers/agent-api-openapi.yaml` keeps from `warp-
 
 1. Drop every tag listed in `EXCLUDED_TAGS`.
 2. Drop every path whose tags are a subset of `EXCLUDED_TAGS`, plus every path listed explicitly in `EXCLUDED_PATHS`.
-3. Keep every surviving path verbatim, including any `x-internal: true` markers on its operations.
+3. Strip any individual operation marked `x-internal: true` from surviving paths. A path whose every HTTP operation is marked internal is dropped entirely.
 4. Keep top-level `openapi`, `info`, `servers`, and `components.securitySchemes` verbatim.
 5. Keep only the `components.schemas` entries that are reachable from the surviving paths via `$ref` walking (recursive over `allOf`/`oneOf`/`anyOf`/`items`/`additionalProperties`/etc.).
 
@@ -41,9 +41,9 @@ These paths under otherwise-public tags are excluded individually:
 
 If any of these become stable public surfaces, remove them from `EXCLUDED_PATHS` and update this list.
 
-## What we deliberately KEEP that you might expect to be hidden
+## What the script filters that you might expect to be public
 
-The script keeps `x-internal: true` operations under public paths. Today this means the `/agent/messages/*` and `/agent/events/*` operations are present in the docs file even though they're flagged `x-internal` in the source. This matches the pre-existing state of `developers/agent-api-openapi.yaml` and the way Scalar already renders the reference. If we want to start stripping `x-internal` operations from the docs spec, change the policy here and update `_should_keep_path`/the operation-level filter in `scripts/sync_openapi.py`.
+The script now strips individual operations marked `x-internal: true`, even when the operation lives under an otherwise-public path. This prevents internal inter-agent plumbing (the `/agent/messages/*` and `/agent/events/*` inter-agent messaging and event-polling operations, `/agent/conversations/{conversation_id}/rename`, etc.) from appearing in the public docs reference and `public/openapi.json`. These operations exist server-side but are not part of the stable customer-facing API contract. If an operation is promoted to public, remove its `x-internal: true` marker in `warp-server/public_api/openapi.yaml` and the next sync will include it automatically.
 
 ## Adding a new exclusion
 

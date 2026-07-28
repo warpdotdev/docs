@@ -8,8 +8,8 @@ The Scalar API reference at `docs.warp.dev/api` renders from
 This script generates the docs subset deterministically:
   * tags listed in EXCLUDED_TAGS are removed (and their paths/schemas)
   * paths listed in EXCLUDED_PATHS are removed
-  * surviving paths and operations are kept verbatim, including any
-    ``x-internal: true`` markers
+  * individual operations marked ``x-internal: true`` are stripped;
+    a path whose every operation is internal is removed entirely
   * components/schemas is pruned to only schemas reachable from the
     surviving paths via $ref walking
   * the regenerated spec is validated for unresolved $refs before
@@ -37,6 +37,11 @@ from pathlib import Path
 from typing import Any
 
 import yaml
+
+# HTTP methods that identify operations within an OpenAPI path item.
+_HTTP_METHODS: frozenset[str] = frozenset(
+    {"get", "put", "post", "delete", "options", "head", "patch", "trace"}
+)
 
 # Tags whose paths and tag entry should be removed entirely.
 # `memory_stores` is gated as `x-internal` server-side.
@@ -139,6 +144,29 @@ def _should_keep_path(path: str, path_item: dict[str, Any]) -> bool:
     if tags and tags.issubset(EXCLUDED_TAGS):
         return False
     return True
+
+
+def _filter_internal_operations(path_item: dict[str, Any]) -> dict[str, Any]:
+    """Return a copy of *path_item* with any ``x-internal: true`` operations removed.
+
+    Non-operation keys (``parameters``, ``summary``, ``description``, etc.)
+    are preserved verbatim. Returns a dict that may have zero operations if
+    every HTTP method was marked internal; callers should check
+    ``_has_operations`` before including the result.
+    """
+    out: dict[str, Any] = {}
+    for key, value in path_item.items():
+        if key in _HTTP_METHODS:
+            # Drop this operation if it carries x-internal: true.
+            if isinstance(value, dict) and value.get("x-internal"):
+                continue
+        out[key] = value
+    return out
+
+
+def _has_operations(path_item: dict[str, Any]) -> bool:
+    """Return True if *path_item* contains at least one HTTP operation."""
+    return any(key in _HTTP_METHODS for key in path_item)
 
 
 def _collect_refs(node: Any, refs: set[str]) -> None:
@@ -247,11 +275,13 @@ def transform(source: dict[str, Any]) -> dict[str, Any]:
         out["tags"] = out_tags
 
     src_paths = source.get("paths") or {}
-    kept_paths = {
-        path: item
-        for path, item in src_paths.items()
-        if isinstance(item, dict) and _should_keep_path(path, item)
-    }
+    kept_paths: dict[str, Any] = {}
+    for path, item in src_paths.items():
+        if not isinstance(item, dict) or not _should_keep_path(path, item):
+            continue
+        filtered = _filter_internal_operations(item)
+        if _has_operations(filtered):
+            kept_paths[path] = filtered
     out["paths"] = kept_paths
 
     seed_refs: set[str] = set()
