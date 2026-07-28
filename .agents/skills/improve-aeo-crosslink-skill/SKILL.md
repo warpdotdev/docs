@@ -80,7 +80,7 @@ Possible causes:
 - Scope (agents, cloud agents, orchestration) is too narrow and has been saturated
 - Peec or GSC data is consistently unavailable, reducing signal
 
-**Peec consistently unavailable (5+ entries show "Peec: unavailable")**
+**Peec consistently unavailable (5+ entries where `Source signals` shows `Peec unavailable`)**
 Cause: the `PEEC_PAT` secret in the Oz environment is expired, revoked, or missing; or the Peec MCP config is incorrect.
 Fix: verify the `PEEC_PAT` secret is valid at app.peec.ai → Company → API Keys → Personal Access Tokens. Renew or recreate it and update the Oz environment secret. Also confirm the scheduled agent config includes the Peec MCP server entry.
 
