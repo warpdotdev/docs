@@ -43,11 +43,23 @@ OPEN_LOG_PR=$(gh pr list --repo warpdotdev/docs \
   --jq '.[0].number' 2>/dev/null)
 
 if [[ -n "$OPEN_LOG_PR" ]]; then
-  # Merge it. Keep the branch so future audit runs can keep appending.
-  gh pr merge "$OPEN_LOG_PR" --repo warpdotdev/docs --merge
-  # Pull the merged entries into the checked-out workspace
-  git fetch origin main
-  git reset --hard origin/main
+  # Safety check: only merge if the PR touches exactly the expected log file.
+  CHANGED_FILES=$(gh pr view "$OPEN_LOG_PR" --repo warpdotdev/docs --json files --jq '[.files[].path]')
+  ONLY_LOG=$(echo "$CHANGED_FILES" | python3 -c "
+import json, sys
+files = json.load(sys.stdin)
+print('yes' if all(f == '.agents/logs/aeo_crosslink_audit_runs.md' for f in files) else 'no')
+")
+  if [[ "$ONLY_LOG" == 'yes' ]]; then
+    gh pr merge "$OPEN_LOG_PR" --repo warpdotdev/docs --merge
+    # Non-destructive fast-forward: fails loudly if worktree is dirty or not fast-forwardable.
+    git fetch origin main
+    git merge --ff-only origin/main
+  else
+    echo "Log PR contains unexpected files — skipping merge, reading log from branch instead."
+    git fetch origin chore/aeo-crosslink-audit-log
+    git checkout origin/chore/aeo-crosslink-audit-log -- .agents/logs/aeo_crosslink_audit_runs.md
+  fi
 fi
 ```
 
