@@ -7,6 +7,16 @@ This log tracks every run of the `aeo_crosslink_audit` skill — both runs that 
 **Format**: see the `## Run log format` section in `.agents/skills/aeo_crosslink_audit/SKILL.md`.
 
 ---
+## 2026-07-28 — PR opened
+
+- **Run**: https://oz.warp.dev/runs/019fa9e8-cff8-710d-b615-18d88edad918
+- **Source signals**: Peec unavailable, GSC unavailable
+- **PR**: https://github.com/warpdotdev/docs/pull/396
+- **Links proposed / added**: 3 proposed, 3 added
+- **Pages touched**: src/content/docs/agent-platform/capabilities/slash-commands.mdx, src/content/docs/platform/faqs.mdx, src/content/docs/platform/software-factory.mdx
+- **Themes**: agent/cloud-agent pages describe multi-agent coordination but omit links to the orchestration docs
+- **No-change reason**: N/A
+
 ## 2026-07-28 — Snapshot stale
 
 - **Run**: https://app.warp.dev/conversation/d77679e0-e39a-4e60-9e71-f08a6e3acfed
