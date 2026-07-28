@@ -373,6 +373,11 @@ GET /memory_stores/{uid}/memories/{memoryUid}/versions -> gated:AIMemories
 # TUI-only voice input and version commands (Warp Agent CLI surface).
 /voice -> internal
 /version -> internal
+# TUI-only color-theme picker (Warp Agent CLI surface, SlashCommandSurfaces::TuiOnly
+# in static_commands/commands.rs). It sets the Warp Agent CLI theme
+# (appearance.theme, mapped internal below) and isn't present in the GUI, so it
+# stays internal like the other Warp Agent CLI-only commands.
+/theme -> internal
 
 ## Settings -> doc pages
 
@@ -389,6 +394,14 @@ warpify.ssh.ssh_tmux_deprecation_notice_pending -> internal
 # Warp Agent CLI). It isn't present in the GUI settings UI, so it isn't
 # documented in the all-settings reference.
 general.autoupdate_enabled -> internal
+
+# Warp Agent CLI-only (crates/warp_tui) color theme (surface: Warp Agent CLI,
+# SettingSurfaces::TUI in tui_theme.rs; "auto|light|dark" matching the host
+# terminal background). It isn't present in the GUI settings UI, so it isn't
+# documented in the all-settings reference. The GUI theme setting is the separate
+# appearance.themes.theme, which is documented. Paired with the /theme Warp Agent
+# CLI slash command mapped internal above.
+appearance.theme -> internal
 
 # Warp Agent CLI-only (crates/warp_tui) zero-state animation knobs (surface: Warp
 # Agent CLI, SettingSurfaces::TUI). They tune the rotating object shown in the
