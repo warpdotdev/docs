@@ -8,9 +8,9 @@ This file is internal planning material: do not publish it or link it from publi
 
 ## Naming
 
-- Product name in docs: **Warp CLI** (mention "Warp Agent CLI" once as an alternate in the overview intro).
-- Always write the name via the content variable `WARP_CLI` in `src/data/vars.ts`: `{{WARP_CLI}}` in frontmatter, `{VARS.WARP_CLI}` in body prose. This makes a launch-time rename a one-line change.
-- Do NOT use the pre-existing `WARP_AGENT_CLI` var — that key is reserved for the Oz CLI's future rename ("Oz CLI" → "Warp Agent CLI"). Naming overlap needs a decision from Kevin/marketing before launch.
+- Product name in docs: **Warp Agent CLI** (confirmed via the launch blog draft, 2026-07-28).
+- Body prose uses `{VARS.WARP_CLI}` (key stays `WARP_CLI`; value is "Warp Agent CLI"). Frontmatter uses the literal string — `{{TOKEN}}` substitution does not work in content-layer frontmatter (Astro parses it outside Vite), so titles/descriptions are literals.
+- UNRESOLVED: the pre-existing `WARP_AGENT_CLI` var ("Oz CLI") was reserved for renaming the Oz CLI to "Warp Agent CLI" — the TUI product now takes that name, so the Oz CLI rename plan conflicts. Needs Kevin/marketing decision before launch.
 - The command is `warp` (binary renamed from `warp-tui`, CODE-1875). It runs the Warp Agent harness (`platform/harnesses/warp-agent`).
 
 ## Scope rules
