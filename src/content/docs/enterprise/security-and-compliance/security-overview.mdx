@@ -161,7 +161,7 @@ Security-relevant controls include:
 * **Privacy** - Configure user-generated content (UGC) data collection, cloud conversation storage, and enterprise secret redaction
 * **Sharing** - Restrict or permit direct link sharing and "anyone with link" sharing permissions
 * **AI** - Configure AI autonomy settings and general agent behavior for the team
-* **Models** - Control which LLM models are available to team members, including AWS Bedrock
+* **Models** - Control which LLM models are available to team members, including BYOLLM routing through AWS Bedrock and Gemini Enterprise (Vertex AI)
 * **Platform** - Configure cloud agent access and settings
 
 ## Security features for developers
@@ -170,7 +170,7 @@ Security-relevant controls include:
 
 Route agent inference through your own cloud infrastructure for complete control:
 
-* **Data locality** - Interactive agent inference runs in your AWS account
+* **Data locality** - Interactive agent inference runs in your AWS account or Google Cloud project
 * **Cloud-native IAM** - Authenticate using your user's existing identity and access management process
 * **No key storage** - Warp never stores your cloud credentials or API keys
 * **Billing control** - Inference costs billed directly to your cloud account

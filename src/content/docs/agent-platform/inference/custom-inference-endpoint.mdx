@@ -119,7 +119,7 @@ Warp itself never stores your endpoint API key. Review your endpoint provider's 
 
 The custom inference endpoints described on this page are configured at the **user level** on every plan. Each user adds their own endpoint locally, and it works only for interactive requests, not [cloud agents](/platform/).
 
-Enterprise teams can also configure **team-managed custom endpoints** centrally: an admin sets shared endpoints in the [Admin Panel](/enterprise/team-management/admin-panel/), and they work for both interactive requests and cloud agents. See [Team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/), or [Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/) for AWS Bedrock routing.
+Enterprise teams can also configure **team-managed custom endpoints** centrally: an admin sets shared endpoints in the [Admin Panel](/enterprise/team-management/admin-panel/), and they work for both interactive requests and cloud agents. See [Team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/), or [Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/) for AWS Bedrock or Gemini Enterprise (Vertex AI) routing.
 
 ## How custom inference endpoints differ from BYOK and BYOLLM
 
@@ -129,7 +129,7 @@ Warp offers three ways to bring your own AI infrastructure. Use this table to pi
 | --- | --- | --- |
 | **[Bring Your Own API Key](/agent-platform/inference/bring-your-own-api-key/)** (BYOK) | Use your own API key for OpenAI, Anthropic, or Google models. Keys are stored locally on your device. | Free and all eligible paid plans |
 | **Custom inference endpoint** | Connect Warp to an OpenAI-compatible endpoint such as OpenRouter, LiteLLM, z.ai, or an internal gateway. | Free and all eligible paid plans |
-| **[Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/)** (BYOLLM) | Enterprise-managed inference through your cloud provider (AWS Bedrock today; Azure Foundry and Google Vertex coming soon), with Warp handling routing, orchestration, governance, and observability. | Enterprise only |
+| **[Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/)** (BYOLLM) | Enterprise-managed inference through your cloud provider (AWS Bedrock and Gemini Enterprise on Vertex AI today; Azure Foundry coming soon), with Warp handling routing, orchestration, governance, and observability. | Enterprise only |
 
 Platform credits may apply for local agent runs on Business and Enterprise when using BYOK, a custom inference endpoint, or BYOLLM. See [platform credits](/support-and-community/plans-and-billing/platform-credits/).
 
