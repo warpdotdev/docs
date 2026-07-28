@@ -7,6 +7,16 @@ This log tracks every run of the `aeo_crosslink_audit` skill — both runs that 
 **Format**: see the `## Run log format` section in `.agents/skills/aeo_crosslink_audit/SKILL.md`.
 
 ---
+## 2026-07-28 — Snapshot stale
+
+- **Run**: https://app.warp.dev/conversation/d77679e0-e39a-4e60-9e71-f08a6e3acfed
+- **Source signals**: Peec unavailable, GSC unavailable
+- **PR**: N/A
+- **Links proposed / added**: N/A
+- **Pages touched**: N/A
+- **Themes**: none observed
+- **No-change reason**: snapshot stale — 34 days old
+
 ## 2026-07-27 — Snapshot stale
 
 - **Run**: https://app.warp.dev/conversation/b61aca9e-3f9b-40f4-ae5d-e1448b99160e
