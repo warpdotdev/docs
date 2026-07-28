@@ -334,6 +334,41 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 			],
 		},
 		{
+			label: 'Warp CLI',
+			link: '/cli/',
+			icon: 'seti:shell',
+			items: [
+				{ slug: 'cli', label: 'Overview' },
+				{ slug: 'cli/quickstart', label: 'Quickstart' },
+				{
+					label: 'Using the agent',
+					items: [
+						{ slug: 'cli/agent-conversations', label: 'Agent conversations' },
+						{ slug: 'cli/shell-commands', label: 'Shell commands' },
+						{ slug: 'cli/input-and-editing', label: 'Input & editing' },
+						{ slug: 'cli/permissions-and-profiles', label: 'Permissions & profiles' },
+						{ slug: 'cli/conversations', label: 'Managing conversations' },
+						{ slug: 'cli/cloud-and-orchestration', label: 'Cloud & orchestration' },
+					],
+				},
+				{
+					label: 'Context & customization',
+					items: [
+						{ slug: 'cli/context', label: 'Rules, skills, & MCP' },
+						{ slug: 'cli/configuration', label: 'Configuration' },
+						{ slug: 'cli/models-and-usage', label: 'Models & usage' },
+					],
+				},
+				{
+					label: 'Reference',
+					items: [
+						{ slug: 'cli/reference', label: 'CLI reference' },
+						{ slug: 'cli/troubleshooting', label: 'Troubleshooting' },
+					],
+				},
+			],
+		},
+		{
 			label: 'Oz',
 			link: '/platform/',
 			icon: 'cloud-download',

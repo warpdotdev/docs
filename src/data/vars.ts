@@ -15,6 +15,11 @@ export const VARS = {
   DASHBOARD:                "Oz dashboard",   // future name TBD
   PLATFORM_RUN:             "Oz run",         // future name TBD
 
+  // Warp CLI — the standalone terminal front-end (the `warp` binary).
+  // Distinct from WARP_AGENT_CLI above, which is reserved for the Oz CLI's
+  // future rename. Final launch name pending confirmation.
+  WARP_CLI:                 "Warp CLI",
+
   // Feature names (stable — keys and values expected to remain unchanged)
   AGENT_MODE:               "Agent Mode",
   WARP_DRIVE:               "Warp Drive",
